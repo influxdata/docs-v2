@@ -14,3 +14,29 @@ list_code_example: |
   |  `\|\|`  | Concatenate strings  | `'Hello' \|\| ' world'` | `Hello world` |
 ---
 
+SQL supports miscellaneous operators that perform various operations.
+
+| Operator | Meaning             |                                             |
+| :------: | :------------------ | :------------------------------------------ |
+|  `\|\|`  | Concatenate strings | [{{< icon "link" >}}](#concatenate-strings) |
+
+## || {#concatenate-strings}
+
+The `||` operator concatenates two strings operands into a single string.
+
+{{< flex >}}
+{{% flex-content "two-thirds operator-example" %}}
+
+```sql
+SELECT 'Hello' || ' world' AS "Concatenated"
+```
+
+{{% /flex-content %}}
+{{% flex-content "third operator-example" %}}
+
+| Concatenated |
+| :----------- |
+| Hello world  |
+
+{{% /flex-content %}}
+{{< /flex >}}

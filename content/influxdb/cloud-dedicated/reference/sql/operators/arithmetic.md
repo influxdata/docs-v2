@@ -22,6 +22,14 @@ list_code_example: |
 Arithmetic operators take two numeric values (either literals or variables)
 and perform a calculation that returns a single numeric value.
 
+| Operator | Description    |                                        |
+| :------: | :------------- | :------------------------------------- |
+|   `+`    | Addition       | [{{< icon "link" >}}](#addition)       |
+|   `-`    | Subtraction    | [{{< icon "link" >}}](#subtraction)    |
+|   `*`    | Multiplication | [{{< icon "link" >}}](#multiplication) |
+|   `/`    | Division       | [{{< icon "link" >}}](#division)       |
+|   `%`    | Modulo         | [{{< icon "link" >}}](#modulo)         |
+
 ## + {#addition .monospace}
 
 The `+` operator adds two operands together and returns the sum.

@@ -20,6 +20,14 @@ list_code_example: |
 
 Bitwise operators perform bitwise operations on bit patterns or binary numerals.
 
+| Operator | Meaning             |                                             |
+| :------: | :------------------ | :------------------------------------------ |
+|   `&`    | Bitwise and         | [{{< icon "link" >}}](#bitwise-and)         |
+|   `\|`   | Bitwise or          | [{{< icon "link" >}}](#bitwise-or)          |
+|   `^`    | Bitwise xor         | [{{< icon "link" >}}](#bitwise-xor)         |
+|   `>>`   | Bitwise shift right | [{{< icon "link" >}}](#bitwise-shift-right) |
+|   `<<`   | Bitwise shift left  | [{{< icon "link" >}}](#bitwise-shift-left)  |
+
 ## & {#bitwise-and .monospace}
 
 The `&` (bitwise AND) operator compares each bit of the left operand to the

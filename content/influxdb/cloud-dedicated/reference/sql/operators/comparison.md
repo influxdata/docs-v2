@@ -28,6 +28,21 @@ list_code_example: |
 Comparison operators evaluate the relationship between the left and right
 operands and returns `true` or `false`.
 
+
+| Operator | Meaning                                                  |                                                         |
+| :------: | :------------------------------------------------------- | :------------------------------------------------------ |
+|   `=`    | Equal to                                                 | [{{< icon "link" >}}](#equal-to)                        |
+|   `<>`   | Not equal to                                             | [{{< icon "link" >}}](#not-equal-to)                    |
+|   `!=`   | Not equal to                                             | [{{< icon "link" >}}](#not-equal-to)                    |
+|   `>`    | Greater than                                             | [{{< icon "link" >}}](#greater-than)                    |
+|   `>=`   | Greater than or equal to                                 | [{{< icon "link" >}}](#greater-than-or-equal)           |
+|   `<`    | Less than                                                | [{{< icon "link" >}}](#less-than)                       |
+|   `<=`   | Less than or equal to                                    | [{{< icon "link" >}}](#less-than-or-equal)              |
+|   `~`    | Matches a regular expression                             | [{{< icon "link" >}}](#regexp-match)                    |
+|   `~*`   | Matches a regular expression _(case-insensitive)_        | [{{< icon "link" >}}](#regexp-match-case-insensitive)   |
+|   `!~`   | Does not match a regular expression                      | [{{< icon "link" >}}](#regexp-nomatch)                  |
+|  `!~*`   | Does not match a regular expression _(case-insensitive)_ | [{{< icon "link" >}}](#regexp-nomatch-case-insensitive) |
+
 ## = {#equal-to .monospace}
 
 The `=` operator compares the left and right operands and, if equal, returns `true`.
