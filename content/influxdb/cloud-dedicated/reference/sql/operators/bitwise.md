@@ -55,7 +55,7 @@ SELECT 5 & 3
 ## \| {#bitwise-or .monospace}
 
 The `|` (bitwise OR or inclusive OR) operator compares each bit of the left
-operand to the corresponding bit of the second operand.
+operand to the corresponding bit of the right operand.
 If either bit is 1, the corresponding result bit is set to 1.
 Otherwise, the corresponding result bit is set to 0.
 

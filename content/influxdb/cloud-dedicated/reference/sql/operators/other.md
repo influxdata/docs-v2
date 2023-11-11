@@ -22,7 +22,7 @@ SQL supports miscellaneous operators that perform various operations.
 
 ## || {#concatenate-strings}
 
-The `||` operator concatenates two strings operands into a single string.
+The `||` operator concatenates two string operands into a single string.
 
 {{< flex >}}
 {{% flex-content "two-thirds operator-example" %}}
