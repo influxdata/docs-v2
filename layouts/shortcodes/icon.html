@@ -255,5 +255,7 @@
   <span class="inline {{ $version }} cf-icon Bill"></span>
   {{- else if or (eq $icon "flask") (eq $icon "beaker") (eq $icon "experimental") -}}
   <span class="inline {{ $version }} cf-icon Flask middle"></span>
+  {{- else if or (eq $icon "link") (eq $icon "chain") -}}
+  <span class="inline {{ $version }} cf-icon Link"></span>
   {{- end -}}
 {{- end -}}

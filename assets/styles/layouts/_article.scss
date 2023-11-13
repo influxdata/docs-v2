@@ -23,6 +23,7 @@
     & + .highlight pre { margin-top: .5rem }
     & + pre { margin-top: .5rem }
     & + .code-tabs-wrapper { margin-top: 0; }
+    &.monospace { font-family: $code; }
     &.green { color: $gr-rainforest; }
     &.orange { color: $r-dreamsicle; }
     &[metadata]::after {
