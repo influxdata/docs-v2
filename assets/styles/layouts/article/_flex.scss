@@ -21,6 +21,21 @@
   img { margin-bottom: 0;}
   table { display: table; }
   p:last-child {margin-bottom: 0.5rem;}
+
+  // Addition flex content container classes
+  &.operator-example {
+    .highlight:first-child .codeblock pre {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+    }
+    table:first-child {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      
+      th {font-size: 1.05rem;}
+      th,td {padding: .65rem 1.15rem;}
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
