@@ -61,6 +61,18 @@ echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https
     && \
 apt-get update && apt-get install telegraf
 
+# Install influx v2 Cloud CLI for use in tests.
+# Follow the install instructions(https://portal.influxdata.com/downloads/), except for sudo (which isn't available in Docker).
+# influxdata-archive_compat.key GPG fingerprint:
+#     9D53 9D90 D332 8DC7 D6C8 D3B9 D8FF 8E1F 7DF8 B07E
+RUN wget -q https://repos.influxdata.com/influxdata-archive_compat.key \
+    && \
+echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null \
+    && \
+echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | tee /etc/apt/sources.list.d/influxdata.list \
+    && \
+apt-get update && apt-get install influxdb2-cli
+
 ENV TEMP_DIR=/usr/src/app/test/tmp
 ENTRYPOINT [ "run-tests.sh" ]
 CMD [""]
