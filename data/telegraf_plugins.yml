@@ -2328,7 +2328,7 @@ output:
   - name: Clarify
     id: clarify
     description: |
-      Write data to Clairfy
+      Write data to Clarify
     introduced: 1.27.0
     tags: [linux, macos, windows, cloud, data-stores]
 
