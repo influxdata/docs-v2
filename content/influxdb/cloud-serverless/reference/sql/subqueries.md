@@ -51,7 +51,7 @@ Query examples on this page use the following sample data sets:
 ### [ NOT ] EXISTS
 
 The `EXISTS` operator returns all rows where a
-_[correlated subquery](#correlated-subquery)_ produces one or more matches for
+_[correlated subquery](#correlated-subqueries)_ produces one or more matches for
 that row. `NOT EXISTS` returns all rows where a _correlated subquery_ produces
 zero matches for that row. Only _correlated subqueries_ are supported.
 

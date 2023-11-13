@@ -178,7 +178,7 @@ Comparison operators evaluate the relationship between the left and right operan
 | `EXISTS`  | Returns true if the operand is not null.                                   |
 |   `IN`    | Returns true if the left operand is in the right operand list.             |
 |  `LIKE`   | Returns true if the left operand matches the right operand pattern string. |
-|   `NOT`   | Negates the subsequent expression.                                          |
+|   `NOT`   | Negates the subsequent expression.                                         |
 |   `OR`    | Returns true if any operand is true. Otherwise, returns false.             |
 
 ### Bitwise operators
