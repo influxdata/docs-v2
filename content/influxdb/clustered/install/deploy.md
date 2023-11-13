@@ -18,7 +18,7 @@ following tools:
   templates based on the [kubecfg](https://github.com/kubecfg/kubecfg) jsonnet
   tooling and framework
 
-InfluxDB Clustered uses an `AppInstance` Kubernetes custom resource (CRD) to
+InfluxDB Clustered uses an `AppInstance` Kubernetes custom resource (CR) to
 configure and deploy your InfluxDB Cluster.
 Installing a CRD requires cluster-wide permissions and may cause `kubectl` to
 fail if you do not have those permissions in your cluster.
