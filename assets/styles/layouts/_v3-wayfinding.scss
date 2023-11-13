@@ -1,4 +1,4 @@
-#iox-wayfinding-modal {
+#v3-wayfinding-modal {
   display: flex;
   width: 100%;
   justify-content: center;
@@ -72,16 +72,18 @@
     }
 
     #find-out-instructions {
-      text-align: center;      
+      text-align: center;
+      line-height: 1rem;
       transition: height .2s ease-out, opacity .2s;
       opacity: 0;
       height: 0;
       overflow: hidden;
      
       p {
-        margin-top: -.5rem;
+        margin-top: 0;
         font-size: .95rem;
         font-style: italic;
+        line-height: 1.3rem;
       }
 
       a {
@@ -115,6 +117,19 @@
       font-size: .95rem;
       font-weight: bold;
       text-align: center;
+
+      span.storage-description {
+        display: block;
+        color: $grey55;
+        font-weight: normal;
+        line-height: 1.1rem; 
+
+        &.git-head::after {
+          content: "(xxxxxx)";
+          font-family: $code;
+          margin-left: .2rem;
+        }
+      }
     }
   }
 
@@ -127,7 +142,7 @@
     align-content: center;
   }
 
-  .iox-wayfinding-btn {
+  .v3-wayfinding-btn {
     display: block;
     padding: 1rem;
     margin-bottom: .5rem;
@@ -148,7 +163,7 @@
     
   }
 
-  #iox-wayfinding-close {
+  #v3-wayfinding-close {
     position: absolute;
     top: .75rem;
     right: .75rem;
@@ -225,7 +240,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 @include media(small) {
-  #iox-wayfinding-modal {
+  #v3-wayfinding-modal {
     .wayfinding-content-info {
       flex-direction: column;
     }

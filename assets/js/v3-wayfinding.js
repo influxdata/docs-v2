@@ -1,13 +1,13 @@
 // Store the host value for the current page
 currentPageHost = window.location.href.match(/^(?:[^\/]*\/){2}[^\/]+/g)[0]
 
-// Define iox-wayfinding elements
-var wayfindingModal = document.getElementById('iox-wayfinding-modal');
-var wayfindingClose = document.getElementById('iox-wayfinding-close');
-var wayfindingStay = document.getElementById('iox-wayfinding-stay');
-var wayfindingSwitch = document.getElementById('iox-wayfinding-switch');
-var wayfindingOptOut = document.getElementById('iox-wayfinding-opt-out');
-var wayfindingOptOutInput = document.getElementById('iox-wayfinding-opt-out-input');
+// Define v3-wayfinding elements
+var wayfindingModal = document.getElementById('v3-wayfinding-modal');
+var wayfindingClose = document.getElementById('v3-wayfinding-close');
+var wayfindingStay = document.getElementById('v3-wayfinding-stay');
+var wayfindingSwitch = document.getElementById('v3-wayfinding-switch');
+var wayfindingOptOut = document.getElementById('v3-wayfinding-opt-out');
+var wayfindingOptOutInput = document.getElementById('v3-wayfinding-opt-out-input');
 var wayfindingFindOutToggle = document.getElementById('find-out-toggle');
 var wayfindingFindOutInstructions = document.getElementById('find-out-instructions');
 
@@ -17,10 +17,10 @@ var wayfindingFindOutInstructions = document.getElementById('find-out-instructio
 */
 var referrerWhitelist = cloudUrls.concat(currentPageHost);
 
-// iox-wayfinding preference cookie name
+// v3-wayfinding preference cookie name
 var wayfindingPrefCookie = 'influx-iox-show-wayfinding'
 
-// Toggle the iox-wayfinding modal
+// Toggle the v3-wayfinding modal
 function toggleWayfinding() {
   wayfindingModal.classList.toggle("open");
 }
@@ -46,7 +46,7 @@ function slideUp(elem) {
 }
 
 /**
- * Check to see if the iox-wayfinding modal should be opened:
+ * Check to see if the v3-wayfinding modal should be opened:
  *  - Is the user coming from a non-whitelisted external referrer?
  *  - Has the user opted out of the wayfinding modal?
 */ 
@@ -134,7 +134,7 @@ wayfindingFindOutToggle.onclick = function(event) {
 
 /** 
  * Check to see if the referrer is in the referrer whitelist, otherwise trigger
- * the iox-wayfinding modal.
+ * the v3-wayfinding modal.
  * This reuses the referrerHost variable defined in assets/js/influxdb-url.js
 */
 if (shouldOpenWayfinding()) {
