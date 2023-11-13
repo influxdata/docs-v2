@@ -15,13 +15,13 @@
 {{ $pageFeedback := resources.Get "js/page-feedback.js" }}
 {{ $homepageInteractions := resources.Get "js/home-interactions.js" }}
 {{ $fluxInfluxDBVersions := resources.Get "/js/flux-influxdb-versions.js" }}
-{{ $ioxWayfinding := resources.Get "/js/iox-wayfinding.js"}}
+{{ $v3Wayfinding := resources.Get "/js/v3-wayfinding.js"}}
 {{ $codePlaceholders := resources.Get "/js/code-placeholders.js" }}
 {{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $modals $influxdbURLs $featureCallouts $tabbedContent $notifications $keybindings $codeControls $pageFeedback $homepageInteractions $fluxInfluxDBVersions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 {{ $fluxGroupKeyjs := $fluxGroupKeys | resources.Fingerprint }}
 {{ $dateTimejs := $dateTime | resources.Fingerprint }}
 {{ $influxdbGSTimestampsjs := $influxdbGSTimestamps | resources.Fingerprint }}
-{{ $ioxWayfindingjs := $ioxWayfinding | resources.Fingerprint }}
+{{ $v3Wayfindingjs := $v3Wayfinding | resources.Fingerprint }}
 {{ $codePlaceholdersjs := $codePlaceholders | resources.Fingerprint }}
 
 <!-- Load cloudUrls array -->
@@ -69,7 +69,7 @@
 
 <!-- Load IOx wayfinding JS if page is in cloud or cloud-serverless -->
 {{ if in (slice "cloud" "cloud-serverless") (index (findRE "[^/]+.*?" .Page.RelPermalink) 1) }}
-<script type="text/javascript" src="{{ $ioxWayfinding.RelPermalink }}"></script>
+<script type="text/javascript" src="{{ $v3Wayfinding.RelPermalink }}"></script>
 {{ end }}
 
 <!-- Load code placeholders js when code-placeholders shortcode is present -->
