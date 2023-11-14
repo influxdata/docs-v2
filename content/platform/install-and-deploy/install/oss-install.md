@@ -12,7 +12,7 @@ menu:
 
 ## Download the TICK stack components
 
-To download each of the TICK stack components, see [InfluxData downloads page](https://portal.influxdata.com/downloads).
+To download each of the TICK stack components, see [InfluxData downloads page](https://www.influxdata.com/downloads/).
 Telegraf, InfluxDB, Chronograf, and Kapacitor are each separate binaries that need
 to be installed, configured, and started separately.
 

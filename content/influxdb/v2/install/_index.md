@@ -288,7 +288,7 @@ For information about installing the `influx` CLI, see
 ### Install InfluxDB as a service with systemd
 
 1.  Download and install the appropriate `.deb` or `.rpm` file using a URL from the
-    [InfluxData downloads page](https://portal.influxdata.com/downloads/)
+    [InfluxData downloads page](https://www.influxdata.com/downloads//)
     with the following commands:
 
     ```sh

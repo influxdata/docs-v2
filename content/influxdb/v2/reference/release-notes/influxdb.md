@@ -8,6 +8,10 @@ menu:
 weight: 101
 ---
 
+## v2.7.4 {date="2023-11-14"}
+
+_Internal changes only._
+
 ## v2.7.3 {date="2023-10-17"}
 
 ### Maintenance
@@ -604,7 +608,7 @@ This release includes the following bug fixes and updates:
 
 Beginning in InfluxDB 2.1, the `influx` CLI will no longer be packaged with the release. Future versions of `influx` CLI will be released from the [influx-cli](https://github.com/influxdata/influx-cli) repository.
 
-To adopt the new, separate `influx` CLI early, download the latest release from [GitHub](https://github.com/influxdata/influx-cli/releases/tag/v2.3.0) or from the [InfluxData Downloads portal](https://portal.influxdata.com/downloads/).
+To adopt the new, separate `influx` CLI early, download the latest release from [GitHub](https://github.com/influxdata/influx-cli/releases/tag/v2.3.0) or from the [InfluxData Downloads portal](https://www.influxdata.com/downloads//).
 {{% /warn %}}
 
 ### Go version

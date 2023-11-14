@@ -174,7 +174,7 @@ following guidelines:
 ### Features
 
 - Add support for both InfluxDB Cloud Dedicated and InfluxDB Clustered.
-- Provide public distributions through <https://portal.influxdata.com/downloads/>
+- Provide public distributions through <https://www.influxdata.com/downloads//>
   and the <https://repos.influxdata.com/> repository.
 - The `influxctl` configuration file is now a single file that you can
   optionally pass in via the CLI.
