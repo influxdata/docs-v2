@@ -299,12 +299,12 @@ If stored at a non-default location, include the `--config` flag with each
     ## Choose from "clustered" or "dedicated"
     product = "dedicated"
 
-    ### Clustered Specific Options ###
+    ### Dedicated Specific Options ###
     ## Account ID and cluster ID
     account_id = "ACCOUNT_ID"
     cluster_id = "CLUSTER_ID"
 
-    ### Dedicated Specific Options ###
+    ### Clustered Specific Options ###
     ## Host and port
     ## The hostname/IP address and port to connect to the dedicated instance
     # host = ""
