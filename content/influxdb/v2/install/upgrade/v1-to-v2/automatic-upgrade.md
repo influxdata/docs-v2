@@ -196,7 +196,7 @@ To build an interactive shell to execute **Flux** queries,
 If you've considered the [guidance above](#important-considerations-before-you-begin)
 and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to InfluxDB {{< current-version >}}.
 
-1. [Download InfluxDB OSS {{< current-version >}}](https://www.influxdata.com/downloads//).
+1. [Download InfluxDB OSS {{< current-version >}}](https://www.influxdata.com/downloads/).
    Unpackage the InfluxDB binaries and place them in your `$PATH`.
 2. Stop your running InfluxDB 1.x instance.
    Make a backup copy of all 1.x data before upgrading:

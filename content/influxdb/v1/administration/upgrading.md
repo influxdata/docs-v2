@@ -25,7 +25,7 @@ and see [Migrate to InfluxDB Enterprise](/enterprise_influxdb/v1/guides/migratio
 
 ## Upgrade to InfluxDB 1.8.x
 
-1. [Download](https://www.influxdata.com/downloads/) InfluxDB version 1.8.x and [install the upgrade](/influxdb/v1/introduction/installation).
+1. [Download](https://www.influxdata.com/downloads/) InfluxDB version 1.8.x and [install the upgrade](/influxdb/v1/introduction/installation/).
 
 2. Migrate configuration file customizations from your existing configuration file to the InfluxDB 1.8.x [configuration file](/influxdb/v1/administration/config/). Add or modify your environment variables as needed.
 
