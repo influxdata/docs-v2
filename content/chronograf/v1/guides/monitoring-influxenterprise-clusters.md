@@ -26,7 +26,7 @@ InfluxData recommends using a separate server to store your monitoring data.
 It is possible to store the monitoring data in your cluster and [connect the cluster to Chronograf](/chronograf/v1/troubleshooting/frequently-asked-questions/#how-do-i-connect-chronograf-to-an-influxenterprise-cluster), but, in general, your monitoring data should live on a separate server.
 
 You're working on an Ubuntu installation.
-Chronograf and the other components of the TICK stack are supported on several operating systems and hardware architectures. Check out the [downloads page](https://portal.influxdata.com/downloads) for links to the binaries of your choice.
+Chronograf and the other components of the TICK stack are supported on several operating systems and hardware architectures. Check out the [downloads page](https://www.influxdata.com/downloads/) for links to the binaries of your choice.
 
 ## Architecture overview
 
@@ -50,7 +50,7 @@ Chronograf uses the hostnames in the Telegraf data to populate the Host List pag
 
 #### Step 1: Download and install InfluxDB
 
-InfluxDB can be downloaded from the [InfluxData downloads page](https://portal.influxdata.com/downloads).
+InfluxDB can be downloaded from the [InfluxData downloads page](https://www.influxdata.com/downloads/).
 
 #### Step 2: Enable authentication
 
@@ -102,7 +102,7 @@ You'll return to your InfluxDB instance at the end of this section.
 
 #### Step 1: Download and install Telegraf
 
-Telegraf can be downloaded from the [InfluxData downloads page](https://portal.influxdata.com/downloads).
+Telegraf can be downloaded from the [InfluxData downloads page](https://www.influxdata.com/downloads/).
 
 #### Step 2: Configure Telegraf
 
@@ -248,7 +248,7 @@ Those values match the hostnames of the three data nodes in the cluster; this me
 Download and install Chronograf on the same server as the InfluxDB instance.
 This is not a requirement; you may host Chronograf on a separate server.
 
-Chronograf can be downloaded from the [InfluxData downloads page](https://portal.influxdata.com/downloads).
+Chronograf can be downloaded from the [InfluxData downloads page](https://www.influxdata.com/downloads/).
 
 #### Step 2: Start Chronograf
 

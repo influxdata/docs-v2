@@ -20,7 +20,7 @@ To install Telegraf, do the following:
 
 ## Download
 
-Download the latest Telegraf release at the [InfluxData download page](https://portal.influxdata.com/downloads).
+Download the latest Telegraf release at the [InfluxData download page](https://www.influxdata.com/downloads/).
 
 ## Requirements
 
@@ -102,7 +102,7 @@ To manually install the Debian package from a `.deb` file:
 {{% /tab-content %}}
 <!---------- BEGIN RedHat & CentOS ---------->
 {{% tab-content %}}
-To learn how to manually install the RPM package from a file, see the [downloads page](https://portal.influxdata.com/downloads/).
+To learn how to manually install the RPM package from a file, see the [downloads page](https://www.influxdata.com/downloads/).
 
 To use the `yum` package manager to install the latest stable version of Telegraf, follow these steps:
 
@@ -167,7 +167,7 @@ Examples are installed at `/usr/local/etc/telegraf.conf.sample`.
 {{% tab-content %}}
 Choose from the following options to install Telegraf for macOS:
 
-- To manually install Telegraf from a file, see the [downloads page](https://portal.influxdata.com/downloads/).
+- To manually install Telegraf from a file, see the [downloads page](https://www.influxdata.com/downloads/).
 - [Install using Homebrew](#install-using-homebrew)
 
 ### Install using Homebrew
@@ -176,11 +176,11 @@ Users of macOS 10.8 and higher can install Telegraf using the [Homebrew](http://
 
 {{% note %}}
 
-The `telegraf` binary installed by Homebrew differs from the macOS `.dmg` builds available from the [downloads page](https://portal.influxdata.com/downloads/).
+The `telegraf` binary installed by Homebrew differs from the macOS `.dmg` builds available from the [downloads page](https://www.influxdata.com/downloads/).
 
 - `telegraf` (Homebrew) isn't a static binary.
 - `telegraf` (Homebrew) works with the Telegraf CPU plugin (due to Homebrew support for [Cgo](https://pkg.go.dev/cmd/cgo)).
-    The `.dmg` builds available on [downloads](https://portal.influxdata.com/downloads/) don't support the CPU plugin.
+    The `.dmg` builds available on [downloads](https://www.influxdata.com/downloads/) don't support the CPU plugin.
 
 {{% /note %}}
 

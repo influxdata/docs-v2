@@ -37,7 +37,7 @@ Kapacitor has two binaries:
 * kapacitord: the Kapacitor server daemon.
 
 You can download the binaries directly from the
-[downloads](https://portal.influxdata.com/downloads) page.
+[downloads](https://www.influxdata.com/downloads/) page.
 
 > **Note:** Windows support is experimental.
 

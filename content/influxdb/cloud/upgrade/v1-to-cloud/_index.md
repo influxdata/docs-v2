@@ -43,7 +43,7 @@ for the upgrade process.
 _For more information about managing tokens and token types, see [Manage tokens](/influxdb/cloud/admin/tokens/)._
 
 ## Download and install the influx CLI
-1.  Visit the [InfluxDB downloads page](https://portal.influxdata.com/downloads/)
+1.  Visit the [InfluxDB downloads page](https://www.influxdata.com/downloads/)
     and download the **InfluxDB Cloud CLI** (`influx`).
 2.  Place the `influx` binary in your system `PATH` or execute the CLI commands from
     the directory where the `influx` CLI exists.

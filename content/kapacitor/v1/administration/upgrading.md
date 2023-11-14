@@ -36,7 +36,7 @@ For information about what is new in the latest Kapacitor release, view the [Cha
 
 In general the steps for upgrading Kapacitor are as follows:
 
-   1. Download a copy of the latest Kapacitor install package or binary distribution from the [Influxdata download site](https://portal.influxdata.com/downloads).
+   1. Download a copy of the latest Kapacitor install package or binary distribution from the [Influxdata download site](https://www.influxdata.com/downloads/).
 
       **Important note** - When upgrading Kapacitor, simply download the package using `wget`. Do not proceed directly with the installation/upgrade until the following instructions and recommendations have been understood and put to use.
 
