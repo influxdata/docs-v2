@@ -58,3 +58,9 @@ docker compose up test
 
 # docker compose run --rm test -v
 # docker compose run --rm test --entrypoint /bin/bash
+
+# Or, pass the flags in the compose file--for example:
+# services:
+#   test:
+#     build:...
+#     command: ["-vv"]

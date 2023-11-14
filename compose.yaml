@@ -4,9 +4,6 @@ services:
   test:
     image: docs-v2-tests
     container_name: docs-v2-tests
-    env_file:
-      - ./test/.env.influxdbv2
-      - ./test/.env.influxdbv3
     profiles:
       - test
     volumes:
