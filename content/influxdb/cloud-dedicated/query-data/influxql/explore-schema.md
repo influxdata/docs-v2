@@ -231,9 +231,9 @@ to return all values for specific tags in a measurement.
 - Use the `WHERE` clause to restrict the search to a specific time range (default time range is the current time minus 1 day).
 
 {{% note %}}
-By default, a `SHOW TAG VALUES` query is limited to the current time minus 1 day.
-`SHOW TAG VALUES` is an expensive operation in terms of performance, but if you need information
-beyond 1 day, you can add a `WHERE` clause.
+ [Tag and field values aren't indexed in {{% product-name %}}](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/#tags-versus-fields) - `SHOW TAG VALUES` scans all tag values within the given time range.
+Because `SHOW TAG VALUES` can be an intensive operation, it has a default time range equal to the current time minus 1 day.
+To query more or less data, specify a time range in the `WHERE` clause.
 {{% /note %}}
 
 ```sql
