@@ -228,7 +228,7 @@ to return all values for specific tags in a measurement.
   If no measurement is specified, the query returns all tag values from the
   specified tag keys in the database.
 - Use the `WITH` clause to compare `KEY` to tag keys to list the values of.
-- Use the `WHERE` clause to restrict the search to a specific time range.
+- Use the `WHERE` clause to restrict the search to a specific time range (default time range is the current time minus 1 day).
 
 {{% note %}}
 By default, a `SHOW TAG VALUES` query is limited to the current time minus 1 day.
