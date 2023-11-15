@@ -120,6 +120,7 @@ The following guidelines help to optimize query performance:
 - [Avoid wide schemas](#avoid-wide-schemas)
 - [Avoid sparse schemas](#avoid-sparse-schemas)
 - [Measurement schemas should be homogenous](#measurement-schemas-should-be-homogenous)
+- [Use the best data type for your data](#use-the-best-data-type-for-your-data)
 
 
 ### Avoid wide schemas
@@ -208,7 +209,7 @@ different sources and each source returns data with different tag and field sets
 {{% /flex-content %}}
 {{< /flex >}}
 
-These sets of data written to the same measurement will result in a measurement 
+These sets of data written to the same measurement result in a measurement
 full of null values (also known as a _sparse schema_):
 
 | time                 | source | src | code | currency | crypto  |       price |       cost |      volume |
@@ -224,6 +225,12 @@ full of null values (also known as a _sparse schema_):
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+### Use the best data type for your data
+
+When writing data to a field, use the most appropriate [data type]() for your data--write integers as integers, decimals as floats, and booleans as booleans.
+A query against a field that stores integers outperforms a query against string data;
+querying over many long string values can negatively affect performance.
 
 ## Design for query simplicity
 

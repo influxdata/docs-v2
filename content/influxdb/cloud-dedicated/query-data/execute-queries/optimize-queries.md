@@ -32,16 +32,30 @@ Use tools to help you identify performance bottlenecks and troubleshoot problems
 - [Retrieve query information](#retrieve-query-information)
 
 
-## Strategies for improving query performance
+## Why is my query slow?
 
-A query may be slow due to the following reasons:
+Query performance depends on time range and complexity.
+If a query is slower than you expect, it might be due to the following reasons:
 
 - It queries a large time-range of data.
 - It includes intensive operations, such as `ORDER BY` on large amounts of data.
 - The query plan isn't optimal--for example, applying the same sort (`ORDER BY`) to already sorted data.
 - It needs to retrieve many parquet files from object storage. The same query performs better if it retrieves fewer - though, larger - files.
 - It queries many overlapped parquet files.
-- It queries many string values. A query against a field that stores integers outperforms a query against string data.
+
+ and get help resolving query plan issues.
+
+
+## Why doesn't my query return results?
+
+If a query doesn't return results, it might be due to the following:
+
+- Your data falls outside the time range (or other conditions) in the query.
+  Some commands, such as the InfluxQL `SHOW TAG VALUES` command, include a default time range of 1 day.
+- The query (InfluxDB server) timed out.
+- The query client timed out.
+
+## Strategies for improving query performance
 
 Follow these strategies to help improve query performance:
 
