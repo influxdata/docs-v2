@@ -452,7 +452,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified database.
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket.
   _For InfluxDB to [auto-generate the DBRP mapping](/influxdb/cloud-serverless/guides/api-compatibility/v1/#retention-policy-and-dbrp-mapping), you must use an [All-Access API token](/influxdb/cloud-serverless/admin/tokens/#all-access-api-token) in the write request_.
 
 If successful, the output is the following HTTP status code:
@@ -460,7 +460,7 @@ If successful, the output is the following HTTP status code:
 <!--pytest-codeblocks:expected-output-->
 
 ```
-204
+204: 
 ```
 
 {{% /influxdb/custom-timestamps %}}
@@ -532,14 +532,14 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified database
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
 
 If successful, the output is the following HTTP status code:
 
 <!--pytest-codeblocks:expected-output-->
 
 ```
-204
+204: 
 ```
 
 {{% /influxdb/custom-timestamps %}}
