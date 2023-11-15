@@ -21,8 +21,8 @@ canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 - Update header comments in the example `config.toml`.
 
 ### Dependency updates
-- Update `github.com/golang-jwt/jwt/v5`` from 5.0.0 to 5.1.0.
-- Update `golang.org/x/oauth2`` from 0.13.0 to 0.14.0.
+- Update `github.com/golang-jwt/jwt/v5` from 5.0.0 to 5.1.0.
+- Update `golang.org/x/oauth2` from 0.13.0 to 0.14.0.
 
 ---
 
