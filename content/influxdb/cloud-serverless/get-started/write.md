@@ -413,7 +413,7 @@ Given that `API_TOKEN` is an [All-Access API token](/influxdb/cloud-serverless/a
 {{% code-placeholders "API_TOKEN " %}}
 
 ```sh
-curl --silent -w "%{http_code}\n" \
+curl --silent -w "%{response_code}: %{errormsg}\n" \
   "https://{{< influxdb/host >}}/write?db=get-started&precision=s" \
   --header "Authorization: Token API_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
@@ -463,6 +463,8 @@ If successful, the output is the following HTTP status code:
 204: 
 ```
 
+Otherwise, the error status and message.
+
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END v1 API CONTENT ------------------------------>
 {{% /tab-content %}}
@@ -493,7 +495,7 @@ to InfluxDB:
 {{% code-placeholders "API_TOKEN" %}}
 
 ```sh
-curl --silent -w "%{http_code}\n" \
+curl --silent -w "%{response_code}: %{errormsg}\n" \
 "https://{{< influxdb/host >}}/api/v2/write?bucket=get-started&precision=s" \
   --header "Authorization: Token API_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
