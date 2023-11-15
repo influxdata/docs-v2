@@ -38,17 +38,11 @@ Query performance depends on time range and complexity.
 If a query is slower than you expect, it might be due to the following reasons:
 
 - It queries a large time-range of data.
-- It includes intensive operations, such as `ORDER BY` on large amounts of data.
-- The query plan isn't optimal--for example, applying the same sort (`ORDER BY`) to already sorted data.
-- It needs to retrieve many parquet files from object storage. The same query performs better if it retrieves fewer - though, larger - files.
-- It queries many overlapped parquet files.
+- It includes intensive operations, such as `ORDER BY` on large amounts of data or querying many string values.
 
- and get help resolving query plan issues.
+### Why isn't my query returning data?
 
-
-## Why doesn't my query return results?
-
-If a query doesn't return results, it might be due to the following:
+If a query doesn't return any data, it might be due to the following:
 
 - Your data falls outside the time range (or other conditions) in the query.
   Some commands, such as the InfluxQL `SHOW TAG VALUES` command, include a default time range of 1 day.
@@ -57,18 +51,24 @@ If a query doesn't return results, it might be due to the following:
 
 ## Strategies for improving query performance
 
-Follow these strategies to help improve query performance:
+Follow these strategies to help improve query performance and resource use:
 
-- Follow [schema design best practices](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/) to make your data easier to query.
-- [Downsample data](/influxdb/cloud-dedicated/process-data/downsample/).
-- Use custom-partitioning for your data. (How?)
+- Follow [schema design best practices](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/) to make querying easier and more performant.
+- Query only the data you need--for example, include a [`WHERE` clause]() that contains a time range.
+  InfluxDB v3 stores data in a parquet file for each measurement and day, and retrieves files from the object store to answer a query.
+  The smaller the time range in your query, the fewer files InfluxDB needs to retrieve from the object store.
+- [Downsample data](/influxdb/cloud-dedicated/process-data/downsample/) to reduce the amount of data you need to query.
 
-- If resource usage and costs allow, “prewarm” query caches by running the query a few times.
+See how to analyze and troubleshoot queries.
 
 ## EXPLAIN and ANALYZE
 
 To view the query engine's execution plan and metrics for an SQL or InfluxQL query, prepend [`EXPLAIN`](/influxdb/cloud-dedicated/reference/sql/explain/) or [`EXPLAIN ANALYZE`](/influxdb/cloud-dedicated/reference/sql/explain/#explain-analyze) to the query.
-The report can reveal query bottlenecks such as a large number of table scans or parquet files, and can help triage the question, "Is the query slow due to the amount of work required or due to a problem with the schema, compactor, etc.?"
+
+- [Execute an `EXPLAIN` query](#execute-an-explain-query)
+- [Analyze an EXPLAIN report and troubleshoot the query plan](#analyze-an-explain-report-and-troubleshoot-the-query-plan)
+
+### Execute an EXPLAIN query
 
 The following example shows how to use the InfluxDB v3 Python client library and pandas to view `EXPLAIN` and `EXPLAIN ANALYZE` results for a query:
 
@@ -155,6 +155,33 @@ Replace the following:
 |                   |     EmptyExec: produce_one_row=false, metrics=[]
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+### Analyze an EXPLAIN report and troubleshoot the query plan
+
+The `EXPLAIN` and `EXPLAIN ANALYZE` reports can reveal bottlenecks that affect the performance of your query--for example:
+
+ - an [intensive process or large time range](#strategies-for-improving-query-performance)
+ - a suboptimal query plan:
+  - Applying the same sort (`ORDER BY`) to already sorted data.
+  - Retrieving many parquet files from object storage.
+  - Querying many overlapped parquet files.
+  - Performing a large number of table scans.
+
+#### Query includes an intensive process or large time range
+
+ See (#strategies-for-improving-query-performance)
+
+#### Query plan applies the same sort (`ORDER BY`) to already sorted data
+
+#### Query retrieves many parquet files from object storage
+
+ The same query performs better if it retrieves fewer - though, larger - files.
+
+ See (#strategies-for-improving-query-performance)
+
+#### Querying many overlapped parquet files
+
+#### Performing a large number of table scans
 
 ## Enable trace logging
 
