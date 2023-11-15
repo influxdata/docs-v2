@@ -14,7 +14,7 @@ aliases:
 ---
 
 To migrate data from an InfluxDB 1.x OSS or Enterprise instance to InfluxDB Cloud
-Serverless powered by InfluxDB IOx, export the data as line protocol and write
+Serverless powered by the v3 storage engine, export the data as line protocol and write
 the exported data to a bucket in your InfluxDB Cloud Serverless organization.
 Because full data migrations will likely exceed your organizations' limits and
 adjustable quotas, migrate your data in batches.

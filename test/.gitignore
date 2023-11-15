@@ -6,4 +6,3 @@ tmp
 .env*
 .pytest_cache
 .test-run.txt
-parse_yaml.sh

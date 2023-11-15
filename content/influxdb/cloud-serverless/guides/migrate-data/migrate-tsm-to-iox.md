@@ -2,7 +2,7 @@
 title: Migrate data from TSM to IOx in InfluxDB Cloud
 description: >
   To migrate data from a TSM-powered InfluxDB Cloud organization to an InfluxDB
-  Cloud Serverless organization powered by InfluxDB IOx, query the data in
+  Cloud Serverless organization powered by the v3 storage engine, query the data in
   time-based batches and write the queried data to an IOx bucket in your
   InfluxDB Cloud Serverless organization.
 menu:
@@ -16,8 +16,8 @@ alt_links:
   cloud: /influxdb/cloud/write-data/migrate-data/migrate-cloud-to-cloud/
 ---
 
-To migrate data from an InfluxDB Cloud (TSM) organization to an 
-InfluxDB Cloud Serverless organization powered by InfluxDB IOx, query the data 
+To migrate data from an InfluxDB Cloud (TSM) organization to an
+InfluxDB Cloud Serverless organization powered by the v3 storage engine, query the data
 from your TSM-powered buckets in time-based batches and write the queried data to
 a bucket in your InfluxDB Cloud Serverless organization.
 Because full data migrations will likely exceed your organizations' limits and
