@@ -455,15 +455,13 @@ Replace the following:
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket.
   _For InfluxDB to [auto-generate the DBRP mapping](/influxdb/cloud-serverless/guides/api-compatibility/v1/#retention-policy-and-dbrp-mapping), you must use an [All-Access API token](/influxdb/cloud-serverless/admin/tokens/#all-access-api-token) in the write request_.
 
-If successful, the output is the following HTTP status code:
+If successful, the output is an HTTP `204 No Content` status code.
 
 <!--pytest-codeblocks:expected-output-->
 
 ```
 204: 
 ```
-
-Otherwise, the error status and message.
 
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END v1 API CONTENT ------------------------------>
@@ -536,7 +534,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
 
-If successful, the output is the following HTTP status code:
+If successful, the output is an HTTP `204 No Content` status code.
 
 <!--pytest-codeblocks:expected-output-->
 

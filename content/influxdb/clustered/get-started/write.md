@@ -377,15 +377,13 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/clustered/admin/tokens/) with sufficient permissions to the specified database
 
-If successful, the output is the following HTTP status code:
+If successful, the output is an HTTP `204 No Content` status code.
 
 <!--pytest-codeblocks:expected-output-->
 
 ```
 204: 
 ```
-
-Otherwise, the error status and message.
 
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END v1 API CONTENT ------------------------------>
@@ -461,15 +459,13 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/clustered/admin/tokens/) with sufficient permissions to the specified database
 
-If successful, the output is the following HTTP status code:
+If successful, the output is an HTTP `204 No Content` status code.
 
 <!--pytest-codeblocks:expected-output-->
 
 ```
 204: 
 ```
-
-Otherwise, the error status and message.
 
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END v2 API CONTENT ------------------------------>
