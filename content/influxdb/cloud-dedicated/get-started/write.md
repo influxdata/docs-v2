@@ -336,7 +336,7 @@ to InfluxDB:
 {{% code-placeholders "DATABASE_TOKEN" %}}
 
 ```sh
-curl --silent -w "%{http_code}\n" \
+curl --silent -w "%{response_code}: %{errormsg}\n" \
   "https://{{< influxdb/host >}}/write?db=get-started&precision=s" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
