@@ -46,11 +46,12 @@ Write requests return the following status codes:
 | `204 "Success"`                 |                                                                         | If InfluxDB ingested the data |
 | `400 "Bad request"`             | `message` contains the first malformed line                             | If request data is malformed |
 | `401 "Unauthorized"`            |                                                                         | If the `Authorization` header is missing or malformed or if the [token](/influxdb/cloud-serverless/admin/tokens/) doesn't have [permission](/influxdb/cloud-serverless/admin/tokens/create-token/) to write to the database. See [examples using credentials](/influxdb/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb) in write requests. |
+| `403 "Forbidden"`               | `message` contains details about the error                              | If the data isn't allowed (for example, falls outside of the bucket's retention period).
 | `404 "Not found"`               | requested **resource type** (for example, "organization" or "database"), and **resource name**     | If a requested resource (for example, organization or database) wasn't found |
 | `413 “Request too large”`       | cannot read data: points in batch is too large                          | If a request exceeds the maximum [global limit](/influxdb/cloud-serverless/admin/billing/limits/) |
 | `429 “Too many requests”`       | `Retry-After` header: xxx (seconds to wait before retrying the request) | If a request exceeds your plan's [adjustable service quotas](/influxdb/cloud-serverless/admin/billing/limits/#adjustable-service-quotas) |
 | `500 "Internal server error"`   |                                                                         | Default status for an error |
-| `503` "Service unavailable"     |                                                                         | If the server is temporarily unavailable to accept writes. The `Retry-After` header describes when to try the write again.
+| `503` `"Service unavailable"`   |                                                                         | If the server is temporarily unavailable to accept writes. The `Retry-After` header describes when to try the write again.
 
 The `message` property of the response body may contain additional details about the error.
 If your data did not write to the database, see how to [troubleshoot rejected points](#troubleshoot-rejected-points).

@@ -99,11 +99,20 @@ Encode the `[USERNAME]:DATABASE_TOKEN` credential using base64 encoding, and the
 
 ##### Example
 
-The following example shows how to use cURL with the `Basic` authentication scheme and an [API token](/influxdb/cloud-serverless/admin/tokens/):
+The following example shows how to use cURL with the `Basic` authentication scheme and a [token](/influxdb/cloud-serverless/admin/tokens/):
 
 {{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
 ```sh
-{{% get-shared-text "api/cloud-serverless/basic-auth.sh" %}}
+#######################################
+# Use Basic authentication with a database token
+# to query the InfluxDB v1 API
+#######################################
+
+curl --get "https://{{< influxdb/host >}}/query" \
+  --user "":"API_TOKEN" \
+  --data-urlencode "db=BUCKET_NAME" \
+  --data-urlencode "rp=RETENTION_POLICY" \
+  --data-urlencode "q=SELECT * FROM MEASUREMENT"
 ```
 {{% /code-placeholders %}}
 
@@ -111,7 +120,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
 - {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% product-name %}} retention policy
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
 
 #### Query string authentication
 
@@ -127,11 +136,20 @@ https://{{< influxdb/host >}}/write/?[u=any]&p=API_TOKEN
 
 ##### Example
 
-The following example shows how to use cURL with query string authentication and [API token](/influxdb/cloud-serverless/admin/tokens/).
+The following example shows how to use cURL with query string authentication and a [token](/influxdb/cloud-serverless/admin/tokens/).
 
 {{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
 ```sh
-{{% get-shared-text "api/cloud-serverless/querystring-auth.sh" %}}
+#######################################
+# Use an InfluxDB 1.x compatible username and password
+# to query the InfluxDB v1 API
+#######################################
+
+curl --get "https://{{< influxdb/host >}}/query" \
+  --data-urlencode "p=API_TOKEN" \
+  --data-urlencode "db=BUCKET_NAME" \
+  --data-urlencode "rp=RETENTION_POLICY" \
+  --data-urlencode "q=SELECT * FROM MEASUREMENT"
 ```
 {{% /code-placeholders %}}
 
@@ -139,11 +157,11 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
 - {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% product-name %}} retention policy
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
 
 ### Authenticate with a token scheme
 
-Use the `Authorization: Token` scheme to pass an [API token](/influxdb/cloud-serverless/admin/tokens/) for authenticating
+Use the `Authorization: Token` scheme to pass a [token](/influxdb/cloud-serverless/admin/tokens/) for authenticating
 v1 API `/write` and `/query` requests.
 
 #### Syntax
@@ -158,7 +176,15 @@ Use `Token` to authenticate a write request:
 
 {{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
 ```sh
-{{% get-shared-text "api/cloud-serverless/token-auth-v1-write.sh" %}}
+########################################################
+# Use the Token authorization scheme with v1 /write
+# to write data.
+########################################################
+
+curl -i "https://{{< influxdb/host >}}/write?db=BUCKET_NAME&rp=RETENTION_POLICY&precision=ms" \
+    --header "Authorization: Token API_TOKEN" \
+    --header "Content-type: text/plain; charset=utf-8" \
+    --data-binary 'home,room=kitchen temp=72 1682358973500'
 ```
 {{% /code-placeholders %}}
 
@@ -166,7 +192,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
 - {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% product-name %}} retention policy
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
 
 ## Responses
 
@@ -226,9 +252,9 @@ Parameter              | Allowed in   | Ignored                  | Value
 `consistency`          | Query string | Ignored                  | N/A
 `db` {{% req " \*" %}} | Query string | Honored                  | Bucket name
 `precision`            | Query string | Honored                  | [Timestamp precision](#timestamp-precision)
-`rp` {{% req " \*" %}} | Query string | Honored | Retention policy
+`rp`                   | Query string | Honored                  | [Retention policy](#retention-policy-and-dbrp-mapping)
 `u`                    | Query string | Ignored                  | For [query string authentication](#query-string-authentication), any arbitrary string
-`p`                    | Query string | Honored                  | For [query string authentication](#query-string-authentication), an [API token](/influxdb/cloud-serverless/admin/tokens/) with permission to write to the bucket
+`p`                    | Query string | Honored                  | For [query string authentication](#query-string-authentication), a [token](/influxdb/cloud-serverless/admin/tokens/) with permission to write to the bucket
 `Content-Encoding`     | Header       | Honored                  | `gzip` (compressed data) or `identity` (uncompressed)
 `Authorization`        | Header       | Honored                  | `Token API_TOKEN`, or `Basic <base64 [USERNAME]:API_TOKEN>`
 
@@ -244,6 +270,15 @@ Use one of the following `precision` values in v1 API `/write` requests:
 - `s`: seconds
 - `m`: minutes
 - `h`: hours
+
+#### Retention policy and DBRP mapping
+
+In {{< product-name >}}, databases and retention policies are
+combined and replaced by InfluxDB [buckets](/influxdb/cloud-serverless/reference/glossary/#bucket).
+Writing data with the InfluxDB v1 `/write` endpoint or querying data using InfluxQL requires first mapping a database retention policy (DBRP) combination to a bucket.
+If you specify an existing DBRP in the `rp=` parameter or if a default DBRP exists for the bucket, InfluxDB writes to the specified bucket.
+
+Otherwise, if no DBRP exists for the bucket specified in `db=BUCKET_NAME`, and you use an [All-Access API token](/influxdb/cloud-serverless/admin/tokens/#all-access-api-token) to authorize the write request, InfluxDB auto-generates a new bucket named `BUCKET_NAME/autogen` and a DBRP mapping named `autogen`, and then writes the data to the new bucket.
 
 ### Tools for writing to the v1 API
 
@@ -292,7 +327,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
 - {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% product-name %}} retention policy
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
 
 ##### Other Telegraf configuration options
 
@@ -308,16 +343,16 @@ Include the following in your request:
 
 - A `db` query string parameter with the name of the bucket to write to.
 - A request body that contains a string of data in [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) syntax.
-- an [API token](/influxdb/cloud-serverless/admin/tokens/) in one of the following authentication schemes: [Basic authentication](#basic-authentication), [query string authentication](#query-string-authentication), or [token authentication](#authenticate-with-a-token).
+- a [token](/influxdb/cloud-serverless/admin/tokens/) in one of the following authentication schemes: [Basic authentication](#basic-authentication), [query string authentication](#query-string-authentication), or [token authentication](#authenticate-with-a-token).
 - Optional [parameters](#v1-api-write-parameters).
 
 The following example shows how to use the **cURL** command line tool and the {{% product-name %}} v1 API to write line protocol data to a bucket:
 
 {{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
 ```sh
-curl -i 'https://{{< influxdb/host >}}/write?db=BUCKET_NAME&rp=RETENTION_POLICY&precision=s' \
-    --header 'Authorization: Token API_TOKEN' \
-    --header "Content-type: text/plain; charset=utf-8"
+curl -i "https://{{< influxdb/host >}}/write?db=BUCKET_NAME&rp=RETENTION_POLICY&precision=s" \
+    --header "Authorization: Token API_TOKEN" \
+    --header "Content-type: text/plain; charset=utf-8" \
     --data-binary 'home,room=kitchen temp=72 1463683075'
 ```
 {{% /code-placeholders %}}
@@ -326,7 +361,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
 - {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% product-name %}} retention policy
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
 
 ##### v1 CLI (not supported)
 
@@ -401,7 +436,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
 - {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% product-name %}} retention policy
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
 
 ## Query data
 
@@ -436,7 +471,7 @@ Parameter   | Allowed in   | Ignored | Value
 `epoch`     | Query string | Honored | [Timestamp precision](#timestamp-precision)
 `pretty`    | Query string | Ignored | N/A
 `u`         | Query string | Ignored | For [query string authentication](#query-string-authentication), any arbitrary string
-`p`         | Query string | Honored | For [query string authentication](#query-string-authentication), an [API token](/influxdb/cloud-serverless/admin/tokens) with permission to write to the bucket
+`p`         | Query string | Honored | For [query string authentication](#query-string-authentication), a [token](/influxdb/cloud-serverless/admin/tokens) with permission to write to the bucket
 `rp`        | Query string | Honored | Retention policy
 
 {{% note %}}
