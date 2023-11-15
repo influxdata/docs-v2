@@ -385,6 +385,8 @@ If successful, the output is the following HTTP status code:
 204: 
 ```
 
+Otherwise, the error status and message.
+
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END v1 API CONTENT ------------------------------>
 {{% /tab-content %}}
@@ -466,6 +468,8 @@ If successful, the output is the following HTTP status code:
 ```
 204: 
 ```
+
+Otherwise, the error status and message.
 
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END v2 API CONTENT ------------------------------>

@@ -382,7 +382,7 @@ If successful, the output is the following HTTP status code:
 <!--pytest-codeblocks:expected-output-->
 
 ```
-204
+204: 
 ```
 
 {{% /influxdb/custom-timestamps %}}
@@ -466,6 +466,8 @@ If successful, the output is the following HTTP status code:
 ```
 204: 
 ```
+
+Otherwise, the error status and message.
 
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END v2 API CONTENT ------------------------------>
