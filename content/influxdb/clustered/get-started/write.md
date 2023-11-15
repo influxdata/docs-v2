@@ -336,7 +336,7 @@ to InfluxDB:
 {{% code-placeholders "DATABASE_TOKEN" %}}
 
 ```sh
-curl --silent -w "%{http_code}\n" \
+curl --silent -w "%{response_code}: ${errormsg}\n" \
   "https://{{< influxdb/host >}}/write?db=get-started&precision=s" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
@@ -382,7 +382,7 @@ If successful, the output is the following HTTP status code:
 <!--pytest-codeblocks:expected-output-->
 
 ```
-204
+204: 
 ```
 
 {{% /influxdb/custom-timestamps %}}
@@ -409,7 +409,7 @@ Include the following with your request:
 - **Request body**: Line protocol as plain text
 
 {{% note %}}
-With the {{% product-name %}} v2 API `/api/v2/write` endpoint, `Authorization: Bearer` and `Authorization: Token` are equivalent and you can use either scheme to pass a database token in your request.
+The {{% product-name %}} v2 API `/api/v2/write` endpoint supports `Bearer` and `Token` authorization schemes and you can use either scheme to pass a database token in your request.
 For more information about HTTP API token schemes, see how to [authenticate API requests](/influxdb/clustered/guides/api-compatibility/v2/).
 {{% /note %}}
 
@@ -418,7 +418,7 @@ to InfluxDB:
 
 {{% code-placeholders "DATABASE_TOKEN"%}}
 ```sh
-curl --silent -w "%{http_code}\n" \
+curl --silent -w "%{response_code}: %{errormsg}\n" \
   "https://{{< influxdb/host >}}/api/v2/write?bucket=get-started&precision=s" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
@@ -464,7 +464,7 @@ If successful, the output is the following HTTP status code:
 <!--pytest-codeblocks:expected-output-->
 
 ```
-204
+204: 
 ```
 
 {{% /influxdb/custom-timestamps %}}
