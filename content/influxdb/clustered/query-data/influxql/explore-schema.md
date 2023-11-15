@@ -29,7 +29,7 @@ list_code_example: |
 
   ##### List tag values for a specific tag key
   ```sql
-  SHOW TAG VALUES FROM "measurement" WITH KEY = "tag-key"
+  SHOW TAG VALUES FROM "measurement" WITH KEY = "tag-key" WHERE time > now() - 1d
   ```
 ---
 
@@ -54,7 +54,6 @@ bucket.
   - [List tag values for multiple tags](#list-tag-values-for-multiple-tags)
   - [List tag values for tags that match a regular expression](#list-tag-values-for-tags-that-match-a-regular-expression)
   - [List tag values associated with a specific tag key-value pair](#list-tag-values-associated-with-a-specific-tag-key-value-pair)
-
 
 ## List measurements in a bucket
 
@@ -228,6 +227,13 @@ to return all values for specific tags in a measurement.
   If no measurement is specified, the query returns all tag values from the
   specified tag keys in the bucket.
 - Use the `WITH` clause to compare `KEY` to tag keys to list the values of.
+- Use the `WHERE` clause to restrict the search to a specific time range (default time range is the current time minus 1 day).
+
+{{% note %}}
+ [Tag and field values aren't indexed in {{% product-name %}}](/influxdb/clustered/write-data/best-practices/schema-design/#tags-versus-fields) - `SHOW TAG VALUES` scans all tag values within the given time range.
+Because `SHOW TAG VALUES` can be an intensive operation, it has a default time range equal to the current time minus 1 day.
+To query more or less data, specify a time range in the `WHERE` clause.
+{{% /note %}}
 
 ```sql
 SHOW TAG VALUES FROM weather WITH KEY = location
