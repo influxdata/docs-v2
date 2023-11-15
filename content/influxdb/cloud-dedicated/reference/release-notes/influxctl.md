@@ -11,6 +11,20 @@ menu:
 weight: 202
 ---
 
+## v2.3.1 {date="2023-11-15"}
+
+### Bug fixes
+
+- Include error message description in device authorization polling errors.
+- Do not save tokens when loading from file.
+- Update header comments in the example `config.toml`.
+
+### Dependency updates
+- Update `github.com/golang-jwt/jwt/v5`` from 5.0.0 to 5.1.0.
+- Update `golang.org/x/oauth2`` from 0.13.0 to 0.14.0.
+
+---
+
 ## v2.3.0 {date="2023-11-06"}
 
 _Features updated in this release are meant for internal InfluxData use and do
