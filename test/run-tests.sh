@@ -23,19 +23,12 @@ if [ -z "$TEMP_DIR" ]; then
   TEMP_DIR=./tmp
 fi
 
-# Parse YAML config files into dotenv files
-curl -sO https://raw.githubusercontent.com/mrbaseman/parse_yaml/master/src/parse_yaml.sh
-source ./parse_yaml.sh && parse_yaml ./data/products.yml > .env.products
-
-# Load shell environment variables from .env files generated in the build (not provided at build-time.
-# To provide .env files available at build-time, set them in the docker compose file).
-set -a && source .env.products && set +a
-
+BASE_DIR=$(pwd)
 cd $TEMP_DIR
 
 for file in `find . -type f` ; do
   if [ -f "$file" ]; then
-    echo "PROCESSING $file"
+    echo "PRETEST: substituting values in $file"
 
     # Replaces placeholder values with environment variable references.
 
@@ -52,6 +45,7 @@ for file in `find . -type f` ; do
     s/f"BUCKET_NAME"/os.getenv("INFLUX_DATABASE")/g;
     s/f"DATABASE_NAME"/os.getenv("INFLUX_DATABASE")/g;
     s|f"{{< influxdb/host >}}"|os.getenv("INFLUX_HOSTNAME")|g;
+    s|f"RETENTION_POLICY"|"autogen"|g;
     ' $file
 
     # Shell-specific replacements.
@@ -62,6 +56,7 @@ for file in `find . -type f` ; do
     s/BUCKET_NAME/$INFLUX_DATABASE/g;
     s/DATABASE_NAME/$INFLUX_DATABASE/g;
     s/get-started/$INFLUX_DATABASE/g;
+    s/RETENTION_POLICY/autogen/g;
     s/CONFIG_NAME/CONFIG_$(shuf -i 0-100 -n1)/g;' \
     $file
 
@@ -93,4 +88,9 @@ mkdir -p ~/Downloads && rm -rf ~/Downloads/*
 gpg -q --batch --yes --delete-key D8FF8E1F7DF8B07E > /dev/null 2>&1
 
 # Run test commands with options provided in the CMD of the Dockerfile.
-pytest --codeblocks . "$@"
+# pytest rootdir is the directory where pytest.ini is located (/test).
+echo "Running cloud-dedicated tests..."
+pytest --codeblocks --envfile $BASE_DIR/.env.dedicated ./content/influxdb/cloud-dedicated/ $@
+
+echo "Running cloud-serverless tests..."
+pytest --codeblocks --envfile $BASE_DIR/.env.serverless ./content/influxdb/cloud-serverless/ $@
