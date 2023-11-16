@@ -41,19 +41,72 @@ never be removed by the retention enforcement service.
 ## Table and column limits
 
 In {{< product-name >}}, table (measurement) and column limits can be
-custom configured when [creating](#create-a-database) or
+customized when [creating](#create-a-database) or
 [updating a database](#update-a-database).
-Each measurement is represented by a table.
-Time, fields, and tags are each represented by a column.
 
-**Default maximum number of tables**: 500  
+### Table limit
+
+**Default maximum number of tables**: 500
+
+Each measurement is represented by a table in a database.
+Your database's table limit can be raised beyond the default limit of 500.
+InfluxData has production examples of clusters with 20,000+ active tables across
+multiple databases.
+
+Increasing your table limit affects your {{% product-name omit=" Clustered" %}}
+cluster in the following ways:
+
+{{< expand-wrapper >}}
+{{% expand "**May improve query performance** <em style='opacity:.5;font-weight:normal;'>View more info</em>" %}}
+
+Schemas with many measurements that contain
+focused sets of tags and fields can make it easier for the query engine to
+identify what partitions contain the queried data, resulting in better
+query performance.
+
+{{% /expand %}}
+{{% expand "**More PUTs into object storage** <em style='opacity:.5;font-weight:normal;'>View more info</em>" %}}
+
+By default, {{< product-name >}} partitions
+data by measurement and time range and stores each partition as a Parquet
+file in your cluster's object store. By increasing the number of measurements
+(tables) you can store in your database, you also increase the potential for
+more `PUT` requests into your object store as InfluxDB creates more partitions.
+Each `PUT` request incurs a monetary cost and will increase the operating cost of
+your cluster.
+
+{{% /expand %}}
+{{% expand "**More work for the compactor** <em style='opacity:.5;font-weight:normal;'>View more info</em>" %}}
+
+To optimize storage over time, your {{< product-name omit=" Clustered" >}}
+cluster contains a compactor that routinely compacts Parquet files in object storage.
+With more tables and partitions to compact, the compactor may need to be scaled
+(either vertically or horizontally) to keep up with demand, adding to the
+operating cost of your cluster.
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### Column limit
+
 **Default maximum number of columns**: 250
 
-{{% warn %}}
-Setting table and column limits above the default limits may adversely affect
-database performance.
-{{% /warn %}}
+Time, fields, and tags are each represented by a column in a table.
+Increasing your column limit affects your {{% product-name omit=" Clustered" %}}
+cluster in the following ways:
 
----
+{{< expand-wrapper >}}
+{{% expand "May adversely affect query performance" %}}
+
+At query time, the InfluxDB query engine identifies what table contains the queried
+data and then evaluates each row in the table to match the conditions of the query.
+The more columns that are in each row, the longer it takes to evaluate each row.
+
+Through performance testing, InfluxData has identified 250 columns as the
+threshold where query performance may be affected
+(depending on the shape of and data types in your schema).
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 {{< children hlevel="h2" readmore=true hr=true >}}
