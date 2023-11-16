@@ -20,7 +20,7 @@ following tools:
 
 InfluxDB Clustered uses an `AppInstance` Kubernetes custom resource (CR) to
 configure and deploy your InfluxDB Cluster.
-Installing a CR requires cluster-wide permissions and may cause `kubectl` to
+Installing a `CustomResourceDefinition` (CRD) requires cluster-wide permissions and may cause `kubectl` to
 fail if you do not have those permissions in your cluster.
 
 `kubit` uses your local `kubectl` credentials to install CRs.
@@ -30,15 +30,14 @@ in the cluster.
 
 {{% note %}}
 **If you meet any of the following criteria, [install and use the `kubit` CLI](https://github.com/kubecfg/kubit#cli-tool)
-on your local machine to use it as an operator from your local terminal and
-deploy your cluster:**
+on your local machine. This allows you to act as the operator would and deploy your cluster, but from your terminal**
 
-- You do not have permissions to install a CR.
+- You do not have permissions to install a CRD.
 - You do not have permissions to install the operator in the `kubit` namespace.
 - You do not have permissions to create cluster-wide role-based access
   control (RBAC).
 - You want to preview the generated YAML.
-- You do not want to run the operator in your InfluxDB cluster.
+- You do not want to run the operator in your Kubernetes cluster.
 {{% /note %}}
 
 {{< tabs-wrapper >}}
