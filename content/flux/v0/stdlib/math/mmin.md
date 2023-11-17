@@ -1,7 +1,7 @@
 ---
 title: math.mMin() function
 description: >
-  `math.mMin()` is a function taht returns the lessser of `x` or `y`.
+  `math.mMin()` is a function that returns the lesser of `x` or `y`.
 menu:
   flux_v0_ref:
     name: math.mMin
@@ -26,7 +26,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`math.mMin()` is a function taht returns the lessser of `x` or `y`.
+`math.mMin()` is a function that returns the lesser of `x` or `y`.
 
 
 

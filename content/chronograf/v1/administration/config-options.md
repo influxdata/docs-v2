@@ -236,7 +236,7 @@ List of etcd endpoints.
 ## Single parameter
 --etcd-endpoints=localhost:2379
 
-## Mutiple parameters
+## Multiple parameters
 --etcd-endpoints=localhost:2379 \
 --etcd-endpoints=192.168.1.61:2379 \
 --etcd-endpoints=192.192.168.1.100:2379
@@ -250,7 +250,7 @@ Environment variable: `$ETCD_ENDPOINTS`
 ## Single parameter
 ETCD_ENDPOINTS=localhost:2379
 
-## Mutiple parameters
+## Multiple parameters
 ETCD_ENDPOINTS=localhost:2379,192.168.1.61:2379,192.192.168.1.100:2379
 ```
 
@@ -419,7 +419,7 @@ Environment variable: `$GH_CLIENT_SECRET`
 ## Single parameter
 --github-organization=org1
 
-## Mutiple parameters
+## Multiple parameters
 --github-organization=org1 \
 --github-organization=org2 \
 --github-organization=org3
@@ -433,7 +433,7 @@ Environment variable: `$GH_ORGS`
 ## Single parameter
 GH_ORGS=org1
 
-## Mutiple parameters
+## Multiple parameters
 GH_ORGS=org1,org2,org3
 ```
 
@@ -463,7 +463,7 @@ Environment variable: `$GOOGLE_CLIENT_SECRET`
 ## Single parameter
 --google-domains=delorean.com
 
-## Mutiple parameters
+## Multiple parameters
 --google-domains=delorean.com \
 --google-domains=savetheclocktower.com
 ```
@@ -476,7 +476,7 @@ Environment variable: `$GOOGLE_DOMAINS`
 ## Single parameter
 GOOGLE_DOMAINS=delorean.com
 
-## Mutiple parameters
+## Multiple parameters
 GOOGLE_DOMAINS=delorean.com,savetheclocktower.com
 ```
 
@@ -516,7 +516,7 @@ Lists are comma-separated and are only available when using environment variable
 ## Single parameter
 --auth0-organizations=org1
 
-## Mutiple parameters
+## Multiple parameters
 --auth0-organizations=org1 \
 --auth0-organizations=org2 \
 --auth0-organizations=org3
@@ -530,7 +530,7 @@ Environment variable: `$AUTH0_ORGS`
 ## Single parameter
 AUTH0_ORGS=org1
 
-## Mutiple parameters
+## Multiple parameters
 AUTH0_ORGS=org1,org2,org3
 ```
 
@@ -557,7 +557,7 @@ The Heroku organization memberships required for access to Chronograf.
 ## Single parameter
 --heroku-organization=org1
 
-## Mutiple parameters
+## Multiple parameters
 --heroku-organization=org1 \
 --heroku-organization=org2 \
 --heroku-organization=org3
@@ -571,7 +571,7 @@ The Heroku organization memberships required for access to Chronograf.
 ## Single parameter
 HEROKU_ORGS=org1
 
-## Mutiple parameters
+## Multiple parameters
 HEROKU_ORGS=org1,org2,org3
 ```
 
@@ -610,7 +610,7 @@ Default value: `user:email`
 ## Single parameter
 --generic-scopes=api
 
-## Mutiple parameters
+## Multiple parameters
 --generic-scopes=api \
 --generic-scopes=openid \
 --generic-scopes=read_user
@@ -624,7 +624,7 @@ Environment variable: `$GENERIC_SCOPES`
 ## Single parameter
 GENERIC_SCOPES=api
 
-## Mutiple parameters
+## Multiple parameters
 GENERIC_SCOPES=api,openid,read_user
 ```
 
@@ -640,7 +640,7 @@ Example: `--generic-domains=example.com`
 ## Single parameter
 --generic-domains=delorean.com
 
-## Mutiple parameters
+## Multiple parameters
 --generic-domains=delorean.com \
 --generic-domains=savetheclocktower.com
 ```
@@ -653,7 +653,7 @@ Environment variable: `$GENERIC_DOMAINS`
 ## Single parameter
 GENERIC_DOMAINS=delorean.com
 
-## Mutiple parameters
+## Multiple parameters
 GENERIC_DOMAINS=delorean.com,savetheclocktower.com
 ```
 

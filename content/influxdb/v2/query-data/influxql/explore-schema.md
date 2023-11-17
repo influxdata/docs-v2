@@ -123,7 +123,7 @@ SHOW MEASUREMENTS [ON <database_name>] [WITH MEASUREMENT <operator> ['<measureme
   [InfluxDB API](/influxdb/v2/reference/api/influxdb-1x/) request.
 
 - The `WITH`, `WHERE`, `LIMIT` and `OFFSET` clauses are optional.
-- The `WHERE` in `SHOW MEASURMENTS` supports tag comparisons, but not field comparisons.
+- The `WHERE` in `SHOW MEASUREMENTS` supports tag comparisons, but not field comparisons.
 
   **Supported operators in the `WHERE` clause:**
 

@@ -66,7 +66,7 @@ Input data. Default is piped-forward data (`<-`).
 
 ## Examples
 
-### Caclulate Kaufman's Adaptive Moving Average for input data
+### Calculate Kaufman's Adaptive Moving Average for input data
 
 ```js
 import "sampledata"

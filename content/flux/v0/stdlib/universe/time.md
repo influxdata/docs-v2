@@ -78,7 +78,7 @@ time(v: 1640995200000000000)// Returns 2022-01-01T00:00:00Z
 
 If converting the `_value` column to time types, use `toTime()`.
 If converting columns other than `_value`, use `map()` to iterate over each
-row and `time()` to covert a column value to a time type.
+row and `time()` to convert a column value to a time type.
 
 ```js
 data

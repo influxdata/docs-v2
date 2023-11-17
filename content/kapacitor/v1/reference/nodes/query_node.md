@@ -228,7 +228,7 @@ Group the data by a set of dimensions.
 Can specify one time dimension.
 
 This property adds a `GROUP BY` clause to the query
-so all the normal behaviors when quering InfluxDB with a `GROUP BY` apply.
+so all the normal behaviors when querying InfluxDB with a `GROUP BY` apply.
 
 Use group by time when your period is longer than your group by time interval.
 

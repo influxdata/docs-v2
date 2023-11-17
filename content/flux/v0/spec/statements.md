@@ -52,7 +52,7 @@ a
 A _testcase_ statement defines a test case.
 
 {{% note %}}
-Testcase statements only work within the context of a Flux developement environment.
+Testcase statements only work within the context of a Flux development environment.
 {{% /note %}}
 
 ```js
@@ -81,7 +81,7 @@ testcase addition {
 }
 ```
 
-##### Example testcase extension to prevent feature regession
+##### Example testcase extension to prevent feature regression
 
 ```js
 @feature({vectorization: true})

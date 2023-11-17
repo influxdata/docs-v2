@@ -19,7 +19,7 @@ The `influx remote create` command creates a new remote InfluxDB connection for 
 
 ## Usage
 ```
-influx remote create [commond options] [arguments...]
+influx remote create [command options] [arguments...]
 ```
 
 ## Flags

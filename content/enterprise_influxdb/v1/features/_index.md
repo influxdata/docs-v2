@@ -21,12 +21,12 @@ InfluxDB Enterprise runs on a network of independent servers, a *cluster*,
 to provide fault tolerance, availability, and horizontal scalability of the database.
 
 While many InfluxDB Enterprise features are available
-when run with a single meta node and a single data node, this configuration does not take advantage of the clustering capablity
-or ensure high availablity.
+when run with a single meta node and a single data node, this configuration does not take advantage of the clustering capability
+or ensure high availability.
 
 Nodes can be added to an existing cluster to improve database performance for querying and writing data.
 Certain configurations (e.g., 3 meta and 2 data node) provide high-availability assurances
-while making certain tradeoffs in query peformance when compared to a single node.
+while making certain tradeoffs in query performance when compared to a single node.
 
 Further increasing the number of nodes can improve performance in both respects.
 For example, a cluster with 4 data nodes and a [replication factor](https://docs.influxdata.com/enterprise_influxdb/v1/concepts/glossary/#replication-factor)
@@ -52,7 +52,7 @@ for particular data is also available.
 
 InfluxDB Enterprise can also use [LDAP for managing authentication](/enterprise_influxdb/v1/administration/manage/security/ldap/).
 
-For FIPS compliance, InfluxDB Enterprise password hashing alogrithms are configurable.
+For FIPS compliance, InfluxDB Enterprise password hashing algorithms are configurable.
 
 {{% note %}}
 Kapacitor OSS can also delegate its LDAP and security setup to InfluxDB Enterprise.

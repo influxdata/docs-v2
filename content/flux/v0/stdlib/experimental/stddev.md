@@ -33,7 +33,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 column for each input table.
 
 ## Standard deviation modes
-The following modes are avaialable when calculating the standard deviation of data.
+The following modes are available when calculating the standard deviation of data.
 
 ##### sample
 Calculate the sample standard deviation where the data is considered to be

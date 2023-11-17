@@ -84,7 +84,7 @@ to manage the HEC authorization, here's a sample config for an HTTP output:
 ## Overrides
 You can override the default values for the HEC token you are using by adding additional tags to the config file.
 
-The following aspects of the token can be overriden with tags:
+The following aspects of the token can be overridden with tags:
 * index
 * source
 

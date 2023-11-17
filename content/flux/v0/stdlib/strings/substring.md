@@ -30,7 +30,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 
 
-When start or end are past the bounds of the string, respecitvely the start or end of the string
+When start or end are past the bounds of the string, respectively the start or end of the string
 is assumed. When end is less than or equal to start an empty string is returned.
 
 ##### Function type signature

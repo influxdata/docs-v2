@@ -272,7 +272,7 @@ In Example 8 three values are added to two string templates.  In the call to the
 
 String templates are currently applicable with the [Alert](/kapacitor/v1/reference/nodes/alert_node/) node and are discussed further in the section [Accessing values in string templates](#accessing-values-in-string-templates) below.
 
-String templates can also include flow statements such as `if...else` as well as calls to internal formating methods.
+String templates can also include flow statements such as `if...else` as well as calls to internal formatting methods.
 
 ```
 .message('{{ .ID }} is {{ if eq .Level "OK" }}alive{{ else }}dead{{ end }}: {{ index .Fields "emitted" | printf "%0.3f" }} points/10s.')

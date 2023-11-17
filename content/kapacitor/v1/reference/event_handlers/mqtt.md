@@ -51,12 +51,12 @@ the default.
 URL of the MQTT broker.
 Possible protocols include:
 
-**tcp** - Raw TCP network connection   
+**tcp** - Raw TCP network connection  
 **ssl** - TLS protected TCP network connection  
 **ws** - Websocket network connection  
 
 #### `ssl-ca`
-Absolute path to certificate autority (CA) file.
+Absolute path to certificate authority (CA) file.
 _A CA can be provided without a key/certificate pair._
 
 #### `ssl-cert`

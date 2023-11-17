@@ -63,7 +63,7 @@ Column to use to compute the median. Default is `_value`.
 
 Computation method. Default is `estimate_tdigest`.
 
-**Avaialable methods**:
+**Available methods**:
 - **estimate_tdigest**: Aggregate method that uses a
 [t-digest data structure](https://github.com/tdunning/t-digest) to
 compute an accurate median estimate on large data sources.

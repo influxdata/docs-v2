@@ -477,7 +477,7 @@ func (et *ExecutingTask) createNode(p pipeline.Node, d NodeDiagnostic) (n Node, 
 
 ### Documenting your new node
 
-Since TICKscript is its own language we have built a small utility similiar to [godoc](https://godoc.org/golang.org/x/tools/cmd/godoc) named [tickdoc](https://github.com/influxdb/kapacitor/tree/master/tick/cmd/tickdoc).
+Since TICKscript is its own language we have built a small utility similar to [godoc](https://godoc.org/golang.org/x/tools/cmd/godoc) named [tickdoc](https://github.com/influxdb/kapacitor/tree/master/tick/cmd/tickdoc).
 `tickdoc` generates documentation from comments in the code.
 The `tickdoc` utility understands two special comments to help it generate clean documentation.
 
@@ -485,7 +485,7 @@ The `tickdoc` utility understands two special comments to help it generate clean
     generate any documentation for it. This is most useful to ignore fields that are set via property methods.
 2. `tick:property`: only added to methods. Informs `tickdoc` that the method is a `property method` not a `chaining method`.
 
-Place one of these comments on a line all by itself and `tickdoc` will find it and behave accordingly. Otherwise document your code normaly and `tickdoc` will do the rest.
+Place one of these comments on a line all by itself and `tickdoc` will find it and behave accordingly. Otherwise document your code normally and `tickdoc` will do the rest.
 
 ### Contributing non output node.
 
