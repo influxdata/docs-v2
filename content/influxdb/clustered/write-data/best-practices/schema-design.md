@@ -20,7 +20,7 @@ for simpler and more performant queries.
   - [Tags versus fields](#tags-versus-fields)
 - [Schema restrictions](#schema-restrictions)
   - [Do not use duplicate names for tags and fields](#do-not-use-duplicate-names-for-tags-and-fields)
-  - [Measurements can contain up to 200 columns](#measurements-can-contain-up-to-200-columns)
+  - [Measurements can contain up to 205 columns](#measurements-can-contain-up-to-205-columns)
 - [Design for performance](#design-for-performance)
   - [Avoid wide schemas](#avoid-wide-schemas)
     - [Avoid too many tags](#avoid-too-many-tags)
@@ -101,12 +101,12 @@ measurement on disk.
 If you attempt to write a measurement that contains tags or fields with the same name,
 the write fails due to a column conflict.
 
-### Measurements can contain up to 200 columns
+### Measurements can contain up to 250 columns
 
-A measurement can contain **up to 200 columns**. Each row requires a time column,
+A measurement can contain **up to 250 columns**. Each row requires a time column,
 but the rest represent tags and fields stored in the measurement.
 Therefore, a measurement can contain one time column and 199 total field and tag columns.
-If you attempt to write to a measurement and exceed the 200 column limit, the
+If you attempt to write to a measurement and exceed the 250 column limit, the
 write request fails and InfluxDB returns an error.
 
 ---
@@ -134,7 +134,7 @@ Although a wide schema won't affect query performance, it can lead to the follow
 - Decreased sorting performance due to complex primary keys with [too many tags](#avoid-too-many-tags).
 
 The InfluxDB IOx storage engine has a
-[limit of 200 columns per measurement](#measurements-can-contain-up-to-200-columns).
+[limit of 250 columns per measurement](#measurements-can-contain-up-to-250-columns).
 
 To avoid a wide schema, limit the number of tags and fields stored in a measurement.
 If you need to store more than 199 total tags and fields, consider segmenting
