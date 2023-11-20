@@ -141,7 +141,7 @@ cluster in the following ways:
 {{% expand "**May improve query performance** <em style='opacity:.5;font-weight:normal;'>View more info</em>" %}}
 
 Schemas with many measurements that contain
-focused sets of tags and fields can make it easier for the query engine to
+[focused sets of tags and fields](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/#design-for-performance) can make it easier for the query engine to
 identify what partitions contain the queried data, resulting in better
 query performance.
 
