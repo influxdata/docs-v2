@@ -70,13 +70,27 @@ function addVersion(versionObj, influxdbVer, fluxVer) {
   versionObj[influxdbVer] = fluxVer
 }
 
+// Compare semantic minor versions
+function isSemanticNewer(semverX, semverY) {
+  xMajor = parseInt(semverX.split(".")[0])
+  xMinor = parseInt(semverX.split(".")[1])
+  yMajor = parseInt(semverY.split(".")[0])
+  yMinor = parseInt(semverY.split(".")[1])
+
+  if (xMajor > yMajor) {return true}
+  else if (xMajor == yMajor) {
+    if (xMinor >= yMinor) {return true}
+    else {return false}
+  } else {return false}
+}
+
 // Load product data from the product data file
 const productData = yaml.load(fs.readFileSync(path.resolve(__dirname,'../data/products.yml'), 'utf8'))
 
-// Update InfluxDB version arrays by removing 'v' from each version and filtering
-// out InfluxDB versions that don't have a Flux dependency in their go.mod
-const ossVersionArr = productData.influxdb.minor_versions.map((element, index) => {return element.replace('v', '')}).filter(element => parseFloat(element) >= 1.7).reverse();
-const enterpriseVersionArr = productData.enterprise_influxdb.minor_versions.map((element, index) => {return element.replace('v', '')}).filter(element => parseFloat(element) >= 1.9).reverse();
+// Update InfluxDB version arrays by removing 'v' from each version
+// Filter out InfluxDB versions that don't have a Flux dependency in their go.mod
+const ossVersionArr = productData.influxdb.minor_versions.map((element) => {return element.replace('v', '')}).filter(version => isSemanticNewer(version, '1.7'));
+const enterpriseVersionArr = productData.enterprise_influxdb.minor_versions.map((element) => {return element.replace('v', '')}).filter(version => isSemanticNewer(version, '1.9'));
 
 // Instantiate base Flux version variables
 var ossVersions = {};
@@ -89,7 +103,7 @@ var fluxVersions = {};
   await getAllFluxVersions(enterpriseVersionArr, 'enterprise', enterpriseVersions);
 
   // Manually add versions that aren't included in the original versions arrays
-  await addVersion(ossVersions, 'nightly', await getFluxVersion('master'));
+  await addVersion(ossVersions, 'nightly', await getFluxVersion('2.7'));
   await addVersion(enterpriseVersions, '1.8', await getFluxVersion('1.8'));
   await addVersion(enterpriseVersions, '1.7', await getFluxVersion('1.7'));
 
