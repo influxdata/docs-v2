@@ -25,7 +25,7 @@ InfluxDB Enterprise builds are available. For more information, see
 #### Series file compaction on start-up
 
 With InfluxDB Enterprise v1.11.3+, on start-up, InfluxDB run the
-`influxd_inspect -compact-series-file` command to [compacts series files](/enterprise_influxdb/v1/tools/influx_inspect/#--compact-series-file-) before data nodes are started.
+`influxd_inspect -compact-series-file` command to [compact series files](/enterprise_influxdb/v1/tools/influx_inspect/#--compact-series-file-) before data nodes are started.
 Series files are stored in `_series` directories in the
 [`/data` directory](/enterprise_influxdb/v1/concepts/file-system-layout/#data-node-file-system-layout)
 (default is `/var/lib/data/<db-name>/_series`).
