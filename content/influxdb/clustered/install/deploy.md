@@ -23,14 +23,15 @@ configure and deploy your InfluxDB Cluster.
 Installing a `CustomResourceDefinition` (CRD) requires cluster-wide permissions and may cause `kubectl` to
 fail if you do not have those permissions in your cluster.
 
-`kubit` uses your local `kubectl` credentials to install CRs.
-This still requires you to have permissions to install cluster-wide resources
-(CRs), but doesn’t require `kubit` to be installed with those permissions
-in the cluster. 
+`kubectl` uses your local credentials to install the `AppInstance` CRD.
+If you do not have the necessary permissions, you can
+[use the `kubit` CLI to manually install the package in your cluster](?t=kubit#kubctl-or-kubit).
 
 {{% note %}}
-**If you meet any of the following criteria, [install and use the `kubit` CLI](https://github.com/kubecfg/kubit#cli-tool)
-on your local machine. This allows you to act as the operator would and deploy your cluster, but from your terminal**
+**If you meet any of the following criteria, 
+[install and use the `kubit` CLI](?t=kubit#kubctl-or-kubit)
+on your local machine. This allows you to act as the operator would and deploy
+your cluster, but from your terminal.**
 
 - You do not have permissions to install a CRD.
 - You do not have permissions to install the operator in the `kubit` namespace.
@@ -39,6 +40,9 @@ on your local machine. This allows you to act as the operator would and deploy y
 - You want to preview the generated YAML.
 - You do not want to run the operator in your Kubernetes cluster.
 {{% /note %}}
+
+<!-- Hidden anchor for links to the kubctl/kubit tabs -->
+<span id="kubctl-or-kubit"></span>
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
