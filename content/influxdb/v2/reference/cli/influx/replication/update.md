@@ -2,7 +2,7 @@
 title: influx replication update
 description: Update InfluxDB replication streams.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx replication update
     parent: influx replication
 weight: 102

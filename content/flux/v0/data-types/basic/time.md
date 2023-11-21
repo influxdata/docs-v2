@@ -9,7 +9,7 @@ menu:
     name: Time
     parent: Basic types
 weight: 201
-flux/v0.x/tags: [basic types, data types, date/time]
+flux/v0/tags: [basic types, data types, date/time]
 related:
   - /flux/v0/stdlib/universe/time/
   - /flux/v0/stdlib/universe/totime/

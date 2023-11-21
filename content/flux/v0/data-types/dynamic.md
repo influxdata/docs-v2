@@ -11,7 +11,7 @@ menu:
     name: Dynamic types
     parent: Work with Flux types
 weight: 101
-flux/v0.x/tags: [dynamic types, data types]
+flux/v0/tags: [dynamic types, data types]
 ---
 
 A **dynamic** type is a wrapper for data whose type is not known until runtime.

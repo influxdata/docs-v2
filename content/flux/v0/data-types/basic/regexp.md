@@ -10,7 +10,7 @@ menu:
     name: Regular expression
     parent: Basic types
 weight: 201
-flux/v0.x/tags: ["regexp types", "data types"]
+flux/v0/tags: ["regexp types", "data types"]
 aliases:
   - /flux/v0/data-types/regexp/
 related:

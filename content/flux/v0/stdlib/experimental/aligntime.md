@@ -8,7 +8,7 @@ menu:
     parent: experimental
     identifier: experimental/alignTime
 weight: 101
-flux/v0.x/tags: [transformations, date/time]
+flux/v0/tags: [transformations, date/time]
 introduced: 0.66.0
 ---
 

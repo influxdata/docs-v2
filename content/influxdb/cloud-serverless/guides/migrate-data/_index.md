@@ -9,14 +9,14 @@ menu:
     parent: Guides
 weight: 104
 alt_links:
-  cloud: /influxdb/cloud/migrate-data/
+  cloud: /influxdb/cloud/write-data/migrate-data/
 aliases:
   - /influxdb/cloud-serverless/write-data/migrate-data/
   - /influxdb/cloud-serverless/reference/flux/
   - /influxdb/cloud-serverless/query-data/sql/execute-queries/flux-sql/
 ---
 
-Migrate data to InfluxDB Cloud Serverless powered by InfluxDB IOx from other 
+Migrate data to InfluxDB Cloud Serverless powered by the v3 storage engine from other
 InfluxDB instances powered by TSM including InfluxDB OSS 1.x, 2.x,
 InfluxDB Enterprise, and InfluxDB Cloud (TSM).
 
@@ -54,7 +54,7 @@ series data with SQL. For more information about querying your data with SQL, se
 **Yes, you should migrate**. One of the primary goals when designing the InfluxDB
 IOx storage engine was to enable performant implementations of both SQL and InfluxQL.
 When compared to querying InfluxDB powered by TSM (InfluxDB OSS 1.x, 2.x, and Enterprise),
-InfluxQL queries are more performant when querying InfluxDB powered by InfluxDB IOx. -->
+InfluxQL queries are more performant when querying InfluxDB powered by the v3 storage engine. -->
 
 #### Do you depend on a specific cloud provider or region?
 

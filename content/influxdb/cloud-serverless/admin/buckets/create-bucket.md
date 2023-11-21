@@ -14,7 +14,7 @@ related:
 aliases:
   - /influxdb/cloud-serverless/organizations/buckets/create-bucket/
 alt_links:
-  cloud: /influxdb/cloud/organizations/buckets/create-bucket/
+  cloud: /influxdb/cloud/admin/buckets/create-bucket/
 ---
 
 Use the InfluxDB user interface (UI), `influx` command line interface (CLI), or InfluxDB HTTP API
@@ -86,7 +86,7 @@ To create a bucket with the InfluxDB HTTP API, send a request to the following e
 Include the following in your request:
 
 - **Headers:**
-  - **Authorization:** `Token` scheme with your InfluxDB [API token](/influxdb/cloud/security/tokens/)
+  - **Authorization:** `Token` scheme with your InfluxDB [API token](/influxdb/cloud-serverless/admin/tokens/)
   - **Content-type:** `application/json`
 - **Request body:** JSON object with the following fields:  
   {{< req type="key" >}}

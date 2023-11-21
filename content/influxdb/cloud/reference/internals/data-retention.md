@@ -5,7 +5,7 @@ description: >
   beyond the defined retention period of the bucket the data is stored in.
 weight: 103
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: Data retention
     parent: InfluxDB Cloud internals
 influxdb/cloud/tags: [internals]

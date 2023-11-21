@@ -6,7 +6,7 @@ menu:
     name: Manage security
     weight: 70
     parent: Administration
-v2: /influxdb/v2/security/
+v2: /influxdb/v2/admin/security/
 ---
 
 Some customers may choose to install InfluxDB with public internet access, however

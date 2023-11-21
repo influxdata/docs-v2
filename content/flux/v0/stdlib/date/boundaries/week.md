@@ -9,7 +9,7 @@ menu:
     parent: date/boundaries
     identifier: date/boundaries/week
 weight: 201
-flux/v0.x/tags: [date/time]
+flux/v0/tags: [date/time]
 deprecated: 0.177.1
 ---
 

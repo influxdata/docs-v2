@@ -16,7 +16,7 @@ The Windows System Monitoring template includes the following:
 - one [dashboard](/influxdb/v2/reference/glossary/#dashboard): **Windows System**
 - one [bucket](/influxdb/v2/reference/glossary/#bucket): `telegraf`, 7d retention
 - label: `Windows System Template`, Telegraf plugin labels: `outputs.influxdb_v2`
-- one [Telegraf configuration](/influxdb/v2/telegraf-configs/): InfluxDB v2 output plugin, Windows Performance Counters input plugin
+- one [Telegraf configuration](/influxdb/v2/tools/telegraf-configs/): InfluxDB v2 output plugin, Windows Performance Counters input plugin
 - two variables: `bucket`, `windows_host`
 
 ## Apply the template
@@ -33,10 +33,10 @@ Ensure your `influx` CLI is configured with your account credentials and that co
     {{% /note %}}
 
 2. [Install Telegraf](/telegraf/v1/introduction/installation/) on a server with network access to both the Windows system and [InfluxDB v2 API](/influxdb/v2/reference/api/).
-3. In your [Telegraf configuration file (`telegraf.conf`)](/influxdb/v2/telegraf-configs/), do the following:
+3. In your [Telegraf configuration file (`telegraf.conf`)](/influxdb/v2/tools/telegraf-configs/), do the following:
     - Set the following environment variables:
-      - INFLUX_TOKEN: Token must have permissions to read Telegraf configurations and write data to the `telegraf` bucket. See how to [view tokens](/influxdb/v2/security/tokens/view-tokens/).
-      - INFLUX_ORG: Name of your organization. See how to [view your organization](/influxdb/v2/organizations/view-orgs/).
+      - INFLUX_TOKEN: Token must have permissions to read Telegraf configurations and write data to the `telegraf` bucket. See how to [view tokens](/influxdb/v2/admin/tokens/view-tokens/).
+      - INFLUX_ORG: Name of your organization. See how to [view your organization](/influxdb/v2/admin/organizations/view-orgs/).
       - INFLUX_URL: Your InfluxDB host URL, for example, localhost, a remote instance, or InfluxDB Cloud.
 
 4. [Start Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/auto-config/#start-telegraf).

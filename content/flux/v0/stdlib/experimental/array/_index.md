@@ -9,7 +9,7 @@ menu:
     identifier: experimental/array
 weight: 21
 cascade:
-  flux/v0.x/tags: [array, tables]
+  flux/v0/tags: [array, tables]
   introduced: 0.79.0
 ---
 

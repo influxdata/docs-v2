@@ -9,6 +9,6 @@ menu:
     name: Union types
     parent: Work with Flux types
 weight: 101
-flux/v0.x/tags: ["regexp types", "data types"]
+flux/v0/tags: ["regexp types", "data types"]
 draft: true
 ---

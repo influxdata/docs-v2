@@ -2,7 +2,7 @@
 title: influx stacks remove
 description: The `influx stacks remove` command removes an InfluxDB stack and all associated resources.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: influx stacks remove
     parent: influx stacks
 weight: 201

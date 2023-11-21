@@ -8,7 +8,7 @@ menu:
     parent: generate
     identifier: generate/from
 weight: 101
-flux/v0.x/tags: [inputs]
+flux/v0/tags: [inputs]
 ---
 
 <!------------------------------------------------------------------------------

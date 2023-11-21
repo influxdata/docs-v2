@@ -9,7 +9,7 @@ menu:
     parent: About the project
 ---
 
-## v1.11.3 [2023/10/12]
+## v1.11.3 {date="2023-10-12"}
 
 {{% note %}}
 #### InfluxDB Enterprise and FIPS-compliance
@@ -20,6 +20,26 @@ and adhere to a strict set of security standards. Both standard and FIPS-complia
 InfluxDB Enterprise builds are available. For more information, see
 [FIPS-compliant InfluxDB Enterprise builds](/enterprise_influxdb/v1/introduction/installation/fips-compliant/).
 {{% /note %}}
+
+{{% warn %}}
+#### Series file compaction on start-up
+
+With InfluxDB Enterprise v1.11.3+, on start-up, InfluxDB run the
+`influxd_inspect -compact-series-file` command to [compact series files](/enterprise_influxdb/v1/tools/influx_inspect/#--compact-series-file-) before data nodes are started.
+Series files are stored in `_series` directories in the
+[`/data` directory](/enterprise_influxdb/v1/concepts/file-system-layout/#data-node-file-system-layout)
+(default is `/var/lib/data/<db-name>/_series`).
+
+- If any series files are corrupt, the `influx_inspect` or `influxd` processes on
+  the data node may fail to start. In both cases, delete the series file
+  directories before restarting the database. InfluxDB will automatically
+  regenerate the deleted series files when the database is restarted.
+- To check if series files are corrupt before starting the database, run the
+  [`influx_inspect verify-seriesfile` command](/enterprise_influxdb/v1/tools/influx_inspect/#verify-seriesfile)
+  while the database is off-line.
+- If series files are large (20+ gigabytes), it may also be faster to delete the
+  series file directories before starting the database.
+{{% /warn %}}
 
 ### Bug Fixes
 
@@ -34,7 +54,7 @@ InfluxDB Enterprise builds are available. For more information, see
 
 ---
 
-## v1.11.2 [2023/09/28]
+## v1.11.2 {date="2023-09-28"}
 
 ### Features
 
@@ -102,7 +122,7 @@ InfluxDB Enterprise builds are available. For more information, see
 
 ---
 
-## v1.11.1 [2023/04/13]
+## v1.11.1 {date="2023-04-13"}
 
 ### Features
 
@@ -144,7 +164,7 @@ InfluxDB Enterprise builds are available. For more information, see
 
 ---
 
-## v1.10.4 [2023/06/22]
+## v1.10.4 {date="2023-06-22"}
 
 ### Other
 
@@ -153,7 +173,7 @@ InfluxDB Enterprise builds are available. For more information, see
 
 ---
 
-## v1.10.3 [2023/04/13]
+## v1.10.3 {date="2023-04-13"}
 
 ### Features
 
@@ -172,7 +192,7 @@ InfluxDB Enterprise builds are available. For more information, see
 
 ---
 
-## v1.10.2 [2023/03/13]
+## v1.10.2 {date="2023-03-13"}
 
 ### Features
 
@@ -180,7 +200,7 @@ InfluxDB Enterprise builds are available. For more information, see
 
 ---
 
-## v1.10.1 [2023/02/10]
+## v1.10.1 {date="2023-02-10"}
 
 ### Bug Fixes
 
@@ -196,7 +216,7 @@ InfluxDB Enterprise builds are available. For more information, see
 
 ---
 
-## v1.10.0 [2022-09-07]
+## v1.10.0 {date="2022-09-07"}
 
 ### Features
 - Add [/api/v2/buckets](/enterprise_influxdb/v1/tools/api/#apiv2buckets-http-endpoint) support for create, delete, list, retrieve, and update operations.
@@ -237,13 +257,13 @@ and moved both of these functions from the experimental package to the date pack
 - Fix shard confusion when multiple sub-queries reference different retention policies.
 
 ### Maintenance updates
-- Upgrade to [Flux 0.170.0](/flux/v0/release-notes/#v01700-2022-06-02).
+- Upgrade to [Flux 0.170.0](/flux/v0/release-notes/#v01700).
 - Upgrade to Go 1.18.3.  
 - Fixes issue with OSXCross and Darwin builds. This results in the new minimum OSX version being MacOSX10.14/darwin18.
 
 ---
 
-## v1.9.8 [2022-07-11]
+## v1.9.8 {date="2022-07-11"}
 
 ### Features
 - Expose passive node feature to influxd-ctl and the API.
@@ -272,11 +292,11 @@ and moved both of these functions from the experimental package to the date pack
 
 ### Maintenance updates
 - Upgrade to Go 1.17.11
-- Update to [Flux v0.161.0](/flux/v0/release-notes/#v01610-2022-03-24).
+- Update to [Flux v0.161.0](/flux/v0/release-notes/#v01610).
 
 ---
 
-## v1.9.7 [2022-05-26]
+## v1.9.7 {date="2022-05-26"}
 
 {{% warn %}}
 An edge case regression was introduced into this version that may cause a constant build-up of hinted handoff if writes are rejected due to malformed requests. If you experience write errors and hinted hand-off growth, we recommend upgrading to 1.9.8 or the latest release.
@@ -304,11 +324,11 @@ An edge case regression was introduced into this version that may cause a consta
 
 ### Maintenance updates
 - Upgrade to Go 1.17.9
-- Update to [Flux v0.161.0](/flux/v0/release-notes/#v01610-2022-03-24).
+- Update to [Flux v0.161.0](/flux/v0/release-notes/#v01610).
 
 ---
 
-## v1.9.6 [2022-02-16]
+## v1.9.6 {date="2022-02-16"}
 
 {{% note %}} InfluxDB Enterprise offerings are no longer available on AWS, Azure, and GCP marketplaces. Please [contact Sales](https://www.influxdata.com/contact-sales/) to request an license key to [install InfluxDB Enterprise in your own environment](/enterprise_influxdb/v1/introduction/installation/).
 {{% /note %}}
@@ -329,7 +349,7 @@ An edge case regression was introduced into this version that may cause a consta
 
 ### Maintenance updates
 
-- Update to [Flux v0.140](/flux/v0/release-notes/#v01400-2021-11-22).
+- Update to [Flux v0.140](/flux/v0/release-notes/#v01400).
 - Upgrade to Go 1.17.
 - Upgrade `protobuf` library.
 
@@ -355,7 +375,7 @@ An edge case regression was introduced into this version that may cause a consta
 
 ---
 
-## v1.9.5 [2021-10-11]
+## v1.9.5 {date="2021-10-11"}
 
 {{% note %}}
 InfluxDB Enterprise 1.9.4 was not released.
@@ -377,7 +397,7 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 - Improve memory performance by making `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
 #### Maintenance updates 
 - Update Protocol Buffers library versions.
-- Update to Flux [0.131.0](/flux/v0/release-notes/#v01310-2021-09-20).
+- Update to Flux [0.131.0](/flux/v0/release-notes/#v01310).
 
 ### Bug fixes
 
@@ -410,7 +430,7 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 
 ---
 
-## v1.9.3 [2021-07-19]
+## v1.9.3 {date="2021-07-19"}
 
 ### Features
 - Add [configurable password hashing](/enterprise_influxdb/v1/administration/configure-password-hashing/) with `bcrypt` and `pbkdf2` support.
@@ -418,7 +438,7 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 - Add logging to compaction.
 - Add [`total-buffer-bytes`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#total-buffer-bytes) configuration parameter to subscriptions.
   This option is intended to help alleviate out-of-memory errors.
-- Update to [Flux v0.120.1.](/influxdb/v2/reference/release-notes/flux/#v01201-2021-07-06)
+- Update to [Flux v0.120.1.](/influxdb/v2/reference/release-notes/flux/#v01201)
 
 ### Bug fixes
 - Improve heap memory usage when HH queue grows.
@@ -435,7 +455,7 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 
 ---
 
-## v1.9.2 [2021-06-17]
+## v1.9.2 {date="2021-06-17"}
 
 The release of InfluxDB Enterprise 1.9 is different from previous InfluxDB Enterprise releases
 in that there is no corresponding InfluxDB OSS release.
@@ -459,7 +479,7 @@ in that there is no corresponding InfluxDB OSS release.
   and track what user credentials are being used to write data.
 - Support authentication for Kapacitor via LDAP.
 - Support for [configuring Flux query resource usage](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#flux-controller) (concurrency, memory, etc.).
-- Upgrade to [Flux v0.113.0](/influxdb/v2/reference/release-notes/flux/#v01130-2021-04-21).
+- Upgrade to [Flux v0.113.0](/influxdb/v2/reference/release-notes/flux/#v01130).
 - Update Prometheus remote protocol to allow streamed reading.
 - Improve performance of sorted merge iterator.
 - Add arguments to Flux `to` function.
@@ -515,7 +535,7 @@ Bug fixes intended for 1.9.0 and 1.9.1 were rolled into InfluxDB Enterprise 1.9.
 
 ---
 
-## v1.8.6 [2021-05-21]
+## v1.8.6 {date="2021-05-21"}
 
 {{% warn %}}
 **Fine-grained authorization security update.**
@@ -544,11 +564,11 @@ Versions prior to InfluxDB Enterprise 1.8.5 are not affected.
 
 ---
 
-## v1.8.5 [2020-04-20]
+## v1.8.5 {date="2020-04-20"}
 
 The InfluxDB Enterprise v1.8.5 release builds on the InfluxDB OSS v1.8.5 release.
 For details on changes incorporated from the InfluxDB OSS release, see
-[InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/#v185-2021-04-20).
+[InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/#v185).
 
 ### Bug fixes
 
@@ -560,11 +580,11 @@ For details on changes incorporated from the InfluxDB OSS release, see
 
 ---
 
-## v1.8.4 [2020-02-08]
+## v1.8.4 {date="2020-02-08"}
 
 The InfluxDB Enterprise 1.8.4 release builds on the InfluxDB OSS 1.8.4 release.
 For details on changes incorporated from the InfluxDB OSS release, see
-[InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/#v1-8-4-unreleased).
+[InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/#v184).
 
    > **Note:** InfluxDB Enterprise 1.8.3 was not released. Bug fixes intended for 1.8.3 were rolled into InfluxDB Enterprise 1.8.4.
 
@@ -581,7 +601,7 @@ Add the ability to [renew or update your license key or file](/enterprise_influx
 
 ---
 
-## v1.8.2 [2020-08-24]
+## v1.8.2 {date="2020-08-24"}
 
 The InfluxDB Enterprise 1.8.2 release builds on the InfluxDB OSS 1.8.2 and 1.8.1 releases.
 Due to a defect in InfluxDB OSS 1.8.1, InfluxDB Enterprise 1.8.1 was not released.
@@ -610,7 +630,7 @@ For details on changes incorporated from the InfluxDB OSS release, see
 
 ---
 
-## v1.8.0 [2020-04-27]
+## v1.8.0 {date="2020-04-27"}
 
 The InfluxDB Enterprise 1.8 release builds on the InfluxDB OSS 1.8 release.
 For details on changes incorporated from the InfluxDB OSS release, see
@@ -640,7 +660,7 @@ For more information, see the [`influxd-ctl backup` syntax](/enterprise_influxdb
 
 ---
 
-## v1.7.10 [2020-02-07]
+## v1.7.10 {date="2020-02-07"}
 
 The InfluxDB Enterprise 1.7.10 release builds on the InfluxDB OSS 1.7.10 release.
 For details on changes incorporated from the InfluxDB OSS release, see
@@ -655,7 +675,7 @@ For details on changes incorporated from the InfluxDB OSS release, see
 
 ---
 
-## v1.7.9 [2019-10-27]
+## v1.7.9 {date="2019-10-27"}
 
 The InfluxDB Enterprise 1.7.9 release builds on the InfluxDB OSS 1.7.9 release.
 For details on changes incorporated from the InfluxDB OSS release, see
@@ -673,7 +693,7 @@ For details on changes incorporated from the InfluxDB OSS release, see
 
 ---
 
-## v1.7.8 [2019-09-03]
+## v1.7.8 {date="2019-09-03"}
 
 {{% warn %}}
 InfluxDB now rejects all non-UTF-8 characters.
@@ -696,7 +716,7 @@ For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB
 
 ---
 
-## v1.7.7 [2019-07-12]
+## v1.7.7 {date="2019-07-12"}
 
 The InfluxDB Enterprise 1.7.7 release builds on the InfluxDB OSS 1.7.7 release. For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
@@ -717,7 +737,7 @@ The InfluxDB Enterprise 1.7.7 release builds on the InfluxDB OSS 1.7.7 release. 
 
 ---
 
-## v1.7.6 [2019-05-07]
+## v1.7.6 {date="2019-05-07"}
 
 This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.6 release. For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
@@ -727,7 +747,7 @@ This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.6 release. For d
 
 ---
 
-## v1.7.5 [2019-03-26]
+## v1.7.5 {date="2019-03-26"}
 
 {{% warn %}}
 
@@ -757,7 +777,7 @@ This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.5 release. For d
 
 ---
 
-## v1.7.4 [2019-02-13]
+## v1.7.4 {date="2019-02-13"}
 
 This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.4 release. For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
@@ -767,11 +787,11 @@ This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.4 release. For d
 
 ---
 
-## v1.7.3 [2019-01-11]
+## v1.7.3 {date="2019-01-11"}
 
 This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.3 release. For details on changes incorporated from the InfluxDB OSS release, see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
-### Important update [2019-02-13]
+### Important update {date="2019-02-13"}
 
 If you have not installed this release, then install the 1.7.4 release.
 
@@ -808,19 +828,19 @@ Prior to v.1.7.3, the anti-entropy (AE) service was enabled by default. When sha
 
 ---
 
-## v1.6.6 [2019-02-28]
+## v1.6.6 {date="2019-02-28"}
 
 This release only includes the InfluxDB OSS 1.6.6 changes (no Enterprise-specific changes).
 
 ---
 
-## v1.6.5 [2019-01-10]
+## v1.6.5 {date="2019-01-10"}
 
 This release builds off of the InfluxDB OSS 1.6.0 through 1.6.5 releases. For details about changes incorporated from InfluxDB OSS releases, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
 ---
 
-## v1.6.4 [2018-10-23]
+## v1.6.4 {date="2018-10-23"}
 
 This release builds off of the InfluxDB OSS 1.6.0 through 1.6.4 releases. For details about changes incorporated from InfluxDB OSS releases, see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
@@ -880,7 +900,7 @@ The following summarizes the expected settings for proper configuration of JWT a
 
 ---
 
-## v1.6.2 [08-27-2018]
+## v1.6.2 {date="2018-08-27"}
 
 This release builds off of the InfluxDB OSS 1.6.0 through 1.6.2 releases. For details about changes incorporated from InfluxDB OSS releases, see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
@@ -902,13 +922,13 @@ This release builds off of the InfluxDB OSS 1.6.0 through 1.6.2 releases. For de
 
 ---
 
-## v1.5.4 [2018-06-21]
+## v1.5.4 {date="2018-06-21"}
 
 This release builds off of the InfluxDB OSS 1.5.4 release. Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/) for more information about the InfluxDB OSS release.
 
 ---
 
-## v1.5.3 [2018-05-25]
+## v1.5.3 {date="2018-05-25"}
 
 This release builds off of the InfluxDB OSS 1.5.3 release. Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/) for more information about the InfluxDB OSS release.
 
@@ -924,7 +944,7 @@ This release builds off of the InfluxDB OSS 1.5.3 release. Please see the [Influ
 
 ---
 
-## v1.5.2 [2018-04-12]
+## v1.5.2 {date="2018-04-12"}
 
 This release builds off of the InfluxDB OSS 1.5.2 release. Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/) for more information about the InfluxDB OSS release.
 
@@ -935,14 +955,14 @@ This release builds off of the InfluxDB OSS 1.5.2 release. Please see the [Influ
 
 ---
 
-## v1.5.1 [2018-03-20]
+## v1.5.1 {date="2018-03-20"}
 
 This release builds off of the InfluxDB OSS 1.5.1 release. There are no Enterprise-specific changes.
 Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/) for more information about the InfluxDB OSS release.
 
 ---
 
-## v1.5.0 [2018-03-06]
+## v1.5.0 {date="2018-03-06"}
 
 > ***Note:*** This release builds off of the 1.5 release of InfluxDB OSS. Please see the [InfluxDB OSS release
 > notes](/influxdb/v1/about_the_project/release-notes/) for more information about the InfluxDB OSS release.
@@ -1003,7 +1023,7 @@ The default logging format has been changed. See [Logging and tracing in InfluxD
 
 ---
 
-## v1.3.9 [2018-01-19]
+## v1.3.9 {date="2018-01-19"}
 
 ### Upgrading -- for users of the TSI preview
 
@@ -1019,7 +1039,7 @@ so it will require downtime.
 
 ---
 
-## v1.3.8 [2017-12-04]
+## v1.3.8 {date="2017-12-04"}
 
 ### Upgrading -- for users of the TSI preview
 
@@ -1034,7 +1054,7 @@ If you have been using the TSI preview with 1.3.6 or earlier 1.3.x releases, you
 
 ---
 
-## v1.3.7 [2017-10-26]
+## v1.3.7 {date="2017-10-26"}
 
 ### Upgrading -- for users of the TSI preview
 
@@ -1054,7 +1074,7 @@ We will update this release note with operational steps once the utility is avai
 
 ---
 
-## v1.3.6 [2017-09-28]
+## v1.3.6 {date="2017-09-28"}
 
 ### Bugfixes
 
@@ -1067,14 +1087,15 @@ We will update this release note with operational steps once the utility is avai
 
 ---
 
-## v1.3.5 [2017-08-29]
+## v1.3.5 {date="2017-08-29"}
 
 This release builds off of the 1.3.5 release of OSS InfluxDB.
-Please see the OSS [release notes](/influxdb/v1/about_the_project/release-notes/#v1-3-5-2017-08-29) for more information about the OSS releases.
+Please see the OSS [release notes](/influxdb/v1/about_the_project/release-notes/#v135)
+for more information about the OSS releases.
 
 ---
 
-## v1.3.4 [2017-08-23]
+## v1.3.4 {date="2017-08-23"}
 
 This release builds off of the 1.3.4 release of OSS InfluxDB. Please see the [OSS release notes](/influxdb/v1/about_the_project/release-notes/) for more information about the OSS releases.
 
@@ -1084,7 +1105,7 @@ This release builds off of the 1.3.4 release of OSS InfluxDB. Please see the [OS
 
 ---
 
-## v1.3.3 [2017-08-10]
+## v1.3.3 {date="2017-08-10"}
 
 This release builds off of the 1.3.3 release of OSS InfluxDB. Please see the [OSS release notes](/influxdb/v1/about_the_project/release-notes/) for more information about the OSS releases.
 
@@ -1094,7 +1115,7 @@ This release builds off of the 1.3.3 release of OSS InfluxDB. Please see the [OS
 
 ---
 
-## v1.3.2 [2017-08-04]
+## v1.3.2 {date="2017-08-04"}
 
 ### Bug fixes
 
@@ -1106,7 +1127,7 @@ This release builds off of the 1.3.3 release of OSS InfluxDB. Please see the [OS
 
 ---
 
-## v1.3.1 [2017-07-20]
+## v1.3.1 {date="2017-07-20"}
 
 #### Bug fixes
 
@@ -1116,7 +1137,7 @@ This release builds off of the 1.3.3 release of OSS InfluxDB. Please see the [OS
 
 ---
 
-## v1.3.0 [2017-06-21]
+## v1.3.0 {date="2017-06-21"}
 
 ### Configuration Changes
 
@@ -1153,10 +1174,11 @@ The admin UI is removed and unusable in this release. The `[admin]` configuratio
 
 ---
 
-## v1.2.5 [2017-05-16]
+## v1.2.5 {date="2017-05-16"}
 
 This release builds off of the 1.2.4 release of OSS InfluxDB.
-Please see the OSS [release notes](/influxdb/v1/about_the_project/release-notes/#v1-2-4-2017-05-08) for more information about the OSS releases.
+Please see the OSS [release notes](/influxdb/v1/about_the_project/release-notes/#v124)
+for more information about the OSS releases.
 
 #### Bug fixes
 
@@ -1170,7 +1192,7 @@ Please see the OSS [release notes](/influxdb/v1/about_the_project/release-notes/
 
 ---
 
-## v1.2.2 [2017-03-15]
+## v1.2.2 {date="2017-03-15"}
 
 This release builds off of the 1.2.1 release of OSS InfluxDB.
 Please see the OSS [release notes](https://github.com/influxdata/influxdb/blob/1.2/CHANGELOG.md#v121-2017-03-08) for more information about the OSS release.
@@ -1228,7 +1250,7 @@ This change only affects users who have disabled the `retention-autocreate` opti
 
 ---
 
-## v1.2.1 [2017-01-25]
+## v1.2.1 {date="2017-01-25"}
 
 #### Cluster-specific Bugfixes
 
@@ -1238,7 +1260,7 @@ This change only affects users who have disabled the `retention-autocreate` opti
 
 ---
 
-## v1.2.0 [2017-01-24]
+## v1.2.0 {date="2017-01-24"}
 
 This release builds off of the 1.2.0 release of OSS InfluxDB.
 Please see the OSS [release notes](https://github.com/influxdata/influxdb/blob/1.2/CHANGELOG.md#v120-2017-01-24) for more information about the OSS release.
@@ -1278,7 +1300,7 @@ To disable the auto-creation of retention policies, set `retention-autocreate` t
 
 ---
 
-## v1.1.5 [2017-04-28]
+## v1.1.5 {date="2017-04-28"}
 
 ### Bug fixes
 
@@ -1287,7 +1309,7 @@ To disable the auto-creation of retention policies, set `retention-autocreate` t
 
 ---
 
-## v1.1.3 [2017-02-27]
+## v1.1.3 {date="2017-02-27"}
 
 This release incorporates the changes in the 1.1.4 release of OSS InfluxDB.
 Please see the OSS [changelog](https://github.com/influxdata/influxdb/blob/v1.1.4/CHANGELOG.md) for more information about the OSS release.
@@ -1301,7 +1323,7 @@ Please see the OSS [changelog](https://github.com/influxdata/influxdb/blob/v1.1.
 
 ---
 
-## v1.1.2 [internal]
+## v1.1.2 {date="internal"}
 
 This release was an internal release only.
 It incorporates the changes in the 1.1.3 release of OSS InfluxDB.
@@ -1309,7 +1331,7 @@ Please see the OSS [changelog](https://github.com/influxdata/influxdb/blob/v1.1.
 
 ---
 
-## v1.1.1 [2016-12-06]
+## v1.1.1 {date="2016-12-06"}
 
 This release builds off of the 1.1.1 release of OSS InfluxDB.
 Please see the OSS [release notes](https://github.com/influxdata/influxdb/blob/1.1/CHANGELOG.md#v111-2016-12-06) for more information about the OSS release.
@@ -1325,7 +1347,7 @@ users currently running on the macOS platform, powered by the Darwin operating s
 
 ---
 
-## v1.1.0 [2016-11-14]
+## v1.1.0 {date="2016-11-14"}
 
 This release builds off of the 1.1.0 release of InfluxDB OSS.
 Please see the OSS [release notes](https://github.com/influxdata/influxdb/blob/1.1/CHANGELOG.md#v110-2016-11-14) for more information about the OSS release.
@@ -1371,7 +1393,7 @@ Switches to journald logging for on systemd systems. Logs are no longer sent to 
 
 ---
 
-## v1.0.4 [2016-10-19]
+## v1.0.4 {date="2016-10-19"}
 
 #### Cluster-specific bug fixes
 
@@ -1380,7 +1402,7 @@ Switches to journald logging for on systemd systems. Logs are no longer sent to 
 
 ---
 
-## v1.0.3 [2016-10-07]
+## v1.0.3 {date="2016-10-07"}
 
 #### Cluster-specific bug fixes
 
@@ -1388,7 +1410,7 @@ Switches to journald logging for on systemd systems. Logs are no longer sent to 
 
 ---
 
-## v1.0.2 [2016-10-06]
+## v1.0.2 {date="2016-10-06"}
 
 This release builds off of the 1.0.2 release of OSS InfluxDB.  Please see the OSS [release notes](https://github.com/influxdata/influxdb/blob/1.0/CHANGELOG.md#v102-2016-10-05) for more information about the OSS release.
 
@@ -1400,7 +1422,7 @@ This release builds off of the 1.0.2 release of OSS InfluxDB.  Please see the OS
 
 ---
 
-## v1.0.1 [2016-09-28]
+## v1.0.1 {date="2016-09-28"}
 
 This release builds off of the 1.0.1 release of OSS InfluxDB.
 Please see the OSS [release notes](https://github.com/influxdata/influxdb/blob/1.0/CHANGELOG.md#v101-2016-09-26)
@@ -1416,7 +1438,7 @@ for more information about the OSS release.
 
 ---
 
-## v1.0.0 [2016-09-07]
+## v1.0.0 {date="2016-09-07"}
 
 This release builds off of the 1.0.0 release of OSS InfluxDB.
 Please see the OSS [release notes](https://github.com/influxdata/influxdb/blob/1.0/CHANGELOG.md#v100-2016-09-07) for more information about the OSS release.

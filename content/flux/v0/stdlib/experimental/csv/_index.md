@@ -9,7 +9,7 @@ menu:
     identifier: experimental/csv
 weight: 21
 cascade:
-  flux/v0.x/tags: [csv]
+  flux/v0/tags: [csv]
   introduced: 0.64.0
   deprecated: 0.173.0
 ---

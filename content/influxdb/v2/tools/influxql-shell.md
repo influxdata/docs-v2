@@ -4,9 +4,9 @@ description: >
   Use the InfluxQL interactive shell to execute InfluxQL queries and interact with InfluxDB.
 menu:
   influxdb_v2:
-    name: Use the InfluxQL shell
+    name: InfluxQL shell
     parent: Tools & integrations
-weight: 104
+weight: 112
 influxdb/v2/tags: [InfluxQL]
 related:
   - /influxdb/v2/reference/cli/influx/v1/shell/
@@ -52,8 +52,8 @@ The `influx v1 shell` command requires the following to connect to InfluxDB:
 
 - {{% oss-only %}}[InfluxDB host](/influxdb/v2/reference/urls/){{% /oss-only %}}
   {{% cloud-only %}}[InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /cloud-only %}}
-- [Organization name or ID](/influxdb/v2/organizations/view-orgs/)
-- [API token](/influxdb/v2/security/tokens/)
+- [Organization name or ID](/influxdb/v2/admin/organizations/view-orgs/)
+- [API token](/influxdb/v2/admin/tokens/)
 
 Use one of the following methods to provide these credentials to the `influx v1 shell` command:
 

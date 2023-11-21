@@ -8,7 +8,7 @@ menu:
     parent: contrib/rhajek/bigpanda
     identifier: contrib/rhajek/bigpanda/endpoint
 weight: 301
-flux/v0.x/tags: [notification endpoints, transformations]
+flux/v0/tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------

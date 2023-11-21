@@ -4,7 +4,7 @@ list_title: Delete predicate
 description: >
   InfluxDB uses an InfluxQL-like predicate syntax to determine what data points to delete.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     parent: Syntax
     name: Delete predicate
 weight: 104

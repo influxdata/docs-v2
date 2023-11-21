@@ -63,7 +63,7 @@ Write requests return the following status codes:
 | :-------------------------------| :---------------------------------------------------------------        | :------------- |
 | `204 "Success"`                 |                                                                         | If InfluxDB validated the request data format and queued the data for writing to the bucket |
 | `400 "Bad request"`             | `message` contains the first malformed line                             | If data is malformed    |
-| `401 "Unauthorized"`            |                                                                         | If the [`Authorization: Token` header](/influxdb/cloud/api-guide/api_intro/#authentication) is missing or malformed or if the [API token](/influxdb/cloud/api-guide/api_intro/#authentication) doesn't have [permission](/influxdb/cloud/security/tokens/) to write to the bucket |
+| `401 "Unauthorized"`            |                                                                         | If the [`Authorization: Token` header](/influxdb/cloud/api-guide/api_intro/#authentication) is missing or malformed or if the [API token](/influxdb/cloud/api-guide/api_intro/#authentication) doesn't have [permission](/influxdb/cloud/admin/tokens/) to write to the bucket |
 | `404 "Not found"`               | requested **resource type**, e.g. "organization", and **resource name**     | If a requested resource (e.g. organization or bucket) wasn't found |
 | `413 “Request too large”`       | cannot read data: points in batch is too large                          | If a **write** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |
 | `429 “Too many requests”`       | `Retry-After` header: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |
@@ -80,7 +80,7 @@ Write requests return the following status codes:
 - `401` **Unauthorized**: May indicate one of the following:
   - [`Authorization: Token` header](/influxdb/v2/api-guide/api_intro/#authentication) is missing or malformed.
   - [API token](/influxdb/v2/api-guide/api_intro/#authentication) value is missing from the header.
-  - API token does not have sufficient permissions to write to the organization and the bucket. For more information about token types and permissions, see [Manage API tokens](/influxdb/v2/security/tokens/).
+  - API token does not have sufficient permissions to write to the organization and the bucket. For more information about token types and permissions, see [Manage API tokens](/influxdb/v2/admin/tokens/).
 - `404` **Not found**: A requested resource (e.g. an organization or bucket) was not found. The response body contains the requested resource type, e.g. "organization", and resource name.
 - `413` **Request entity too large**: All request data was rejected and not written. InfluxDB OSS only returns this error if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
 - `500` **Internal server error**: Default HTTP status for an error.
@@ -122,7 +122,7 @@ If you notice data is missing in your bucket, do the following:
 - Check the `message` property in the response body for details about the error--for example, `partial write error` indicates [rejected points](#troubleshoot-rejected-points).
 - Check for [rejected points](#troubleshoot-rejected-points) in your organization's `_monitoring` bucket.
 - Verify all lines contain valid syntax ([line protocol](/influxdb/cloud/reference/syntax/line-protocol/) or [CSV](/influxdb/cloud/reference/syntax/annotated-csv/)). See how to [find parsing errors](#find-parsing-errors).
-- Verify the data types match the [series](/influxdb/cloud/reference/key-concepts/data-elements/#series) or [bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/). See how to resolve [explicit schema rejections](#resolve-explicit-schema-rejections).
+- Verify the data types match the [series](/influxdb/cloud/reference/key-concepts/data-elements/#series) or [bucket schema](/influxdb/cloud/admin/buckets/bucket-schema/). See how to resolve [explicit schema rejections](#resolve-explicit-schema-rejections).
 - Verify the timestamps match the [precision parameter](/influxdb/cloud/write-data/#timestamp-precision).
 - Minimize payload size and network errors by [optimizing writes](/influxdb/cloud/write-data/best-practices/optimize-writes/).
 {{% /cloud-only %}}
@@ -214,7 +214,7 @@ The `rejected_points` entry contains one of the following reasons:
 ### Resolve explicit schema rejections
 
 If you write to a bucket with an
-[explicit schema](/influxdb/cloud/organizations/buckets/bucket-schema/),
+[explicit schema](/influxdb/cloud/admin/buckets/bucket-schema/),
 the data must conform to the schema. Otherwise, InfluxDB rejects the data.
 
 Do the following to interpret explicit schema rejections:
@@ -224,7 +224,7 @@ Do the following to interpret explicit schema rejections:
 
 #### Detect a measurement mismatch
 
-InfluxDB rejects a point if the [measurement](/influxdb/cloud/reference/key-concepts/data-elements/#measurement) doesn't match the **name** of a [bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/).
+InfluxDB rejects a point if the [measurement](/influxdb/cloud/reference/key-concepts/data-elements/#measurement) doesn't match the **name** of a [bucket schema](/influxdb/cloud/admin/buckets/bucket-schema/).
 The `rejected_points` entry contains the following `reason` tag value:
 
 | Reason                              | Meaning                                                                                                                |
@@ -238,7 +238,7 @@ airSensors,sensorId=TLM0201 temperature=73.97,humidity=35.23,co=0.48 1637014074
 ```
 
 The line has an `airSensors` measurement and three fields (`temperature`, `humidity`, and `co`).
-If you try to write this data to a bucket that has the [`explicit` schema type](/influxdb/cloud/organizations/buckets/bucket-schema/) and doesn't have an `airSensors` schema, the `/api/v2/write` InfluxDB API returns an error and the following data:
+If you try to write this data to a bucket that has the [`explicit` schema type](/influxdb/cloud/admin/buckets/bucket-schema/) and doesn't have an `airSensors` schema, the `/api/v2/write` InfluxDB API returns an error and the following data:
 
 ```json
 {
@@ -264,7 +264,7 @@ The `rejected_points` entry contains the following reason:
 |:------------------------------------|:-----------------------------------------------------------------------------------------------------|
 | `field type mismatch with schema`   | The point has the same measurement as a configured schema and they have different field value types. |
 
-Consider a bucket that has the following `airSensors` [`explicit bucket schema`](/influxdb/cloud/organizations/buckets/bucket-schema/):
+Consider a bucket that has the following `airSensors` [`explicit bucket schema`](/influxdb/cloud/admin/buckets/bucket-schema/):
 
 ```json
 {

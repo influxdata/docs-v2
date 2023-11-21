@@ -13,7 +13,7 @@ related:
 aliases:
   - /influxdb/cloud-serverless/organizations/
 alt_links:
-  cloud: /influxdb/cloud/organizations/
+  cloud: /influxdb/cloud/admin/organizations/
 ---
 
 An **organization** is a workspace for a group of users.

@@ -20,7 +20,7 @@ another OSS or Enterprise TICK stack. They cover different potential monitoring 
 and visualizing the monitoring data in a way that makes it easy to recognize, alert on,
 and address anomalies as they happen.
 
-Leverage [InfluxDB Cloud](/influxdb/cloud/) and pre-built [InfluxDB templates](/influxdb/cloud/influxdb-templates/)
+Leverage [InfluxDB Cloud](/influxdb/cloud/) and pre-built [InfluxDB templates](/influxdb/cloud/tools/influxdb-templates/)
 to monitoring your InfluxDB setup.
 Start using InfluxDB Cloud at no cost with the Free Plan.
 Use it as much and as long as you like within the plan’s rate-limits.

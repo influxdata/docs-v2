@@ -3,12 +3,12 @@ title: influx CLI release notes
 description: Important changes and and what's new in each version of the influx command line interface (CLI).
 weight: 103
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     parent: Release notes
     name: influx CLI 
 ---
 
-## v2.7.3 [2023-04-28]
+## v2.7.3 {date="2023-04-28"}
 
 ### Bug Fixes
 
@@ -18,7 +18,7 @@ menu:
 ### Maintenance
 - Upgrade `go` to 1.20.3.
 
-## v2.7.1 [2023-04-05]
+## v2.7.1 {date="2023-04-05"}
 
 ### Features
 
@@ -39,13 +39,13 @@ menu:
 
 ---
 
-## v2.6.1 [2022-12-29]
+## v2.6.1 {date="2022-12-29"}
 
 - Internal code cleanup.
 
 ---
 
-## v2.6.0 [2022-12-15]
+## v2.6.0 {date="2022-12-15"}
 
 ### Bug Fixes
 
@@ -61,7 +61,7 @@ menu:
 
 ---
 
-## v2.5.0 [2022-11-01]
+## v2.5.0 {date="2022-11-01"}
 
 ### Features
 
@@ -82,7 +82,7 @@ menu:
 
 ---
 
-## v2.4.0 [2022-08-18]
+## v2.4.0 {date="2022-08-18"}
 
 ### Features
 
@@ -105,7 +105,7 @@ menu:
 
 ---
 
-## v2.3.0 [2022-04-08]
+## v2.3.0 {date="2022-04-08"}
 
 ### Features
 
@@ -124,7 +124,7 @@ menu:
 
 ---
 
-## v2.2.1 [2021-11-09]
+## v2.2.1 {date="2021-11-09"}
 
 This release includes two new bug fixes.
 
@@ -137,7 +137,7 @@ run `./influx --help` to see a list of valid commands. Thanks @slai!
 
 ---
 
-## v2.2.0 [2021-10-21]
+## v2.2.0 {date="2021-10-21"}
 
 This release includes three new features and bug fixes.
 
@@ -149,13 +149,13 @@ This release makes it easier to create API tokens with the `influx` CLI, adds su
 
 #### Create an Operator token in the influx CLI
 
-Add the ability to use the `influx` CLI to [create an Operator token](/influxdb/v2/security/tokens/#operator-token) with read and write permissions to all resources in all organizations available in InfluxDB. (Note, this is the same permissions generated for the initial token created by `influx setup` or `influxd upgrade`.)
+Add the ability to use the `influx` CLI to [create an Operator token](/influxdb/v2/admin/tokens/#operator-token) with read and write permissions to all resources in all organizations available in InfluxDB. (Note, this is the same permissions generated for the initial token created by `influx setup` or `influxd upgrade`.)
 
 {{% /oss-only %}}
 
 #### Create an All-Access token in the influx CLI
 
-Add the ability to use the `influx` CLI to [create an All-Access API token](/influxdb/cloud/security/tokens/create-token/#create-a-token-using-the-influx-cli) with read and write permissions to all resources in an organization.
+Add the ability to use the `influx` CLI to [create an All-Access API token](/influxdb/cloud/admin/tokens/create-token/#create-a-token-using-the-influx-cli) with read and write permissions to all resources in an organization.
 
 #### View more buckets in the influx CLI
 
@@ -173,7 +173,7 @@ Add the shorthand flag `-b` for `--bucket` to [`influx delete`](/influxdb/cloud/
 
 ---
 
-## v2.1.1 [2021-09-24]
+## v2.1.1 {date="2021-09-24"}
 
 ### Go version 
 
@@ -189,7 +189,7 @@ Upgrade to Go 1.17.
 
 ---
 
-## v2.1.0 [2021-07-29]
+## v2.1.0 {date="2021-07-29"}
 
 ### New repository
 

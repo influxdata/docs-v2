@@ -37,7 +37,7 @@ Kapacitor has two binaries:
 * kapacitord: the Kapacitor server daemon.
 
 You can download the binaries directly from the
-[downloads](https://portal.influxdata.com/downloads) page.
+[downloads](https://www.influxdata.com/downloads/) page.
 
 > **Note:** Windows support is experimental.
 
@@ -105,7 +105,7 @@ kapacitord config > kapacitor.generated.conf
 
 ### Shared secret
 
-If using [Kapacitor v1.5.3](/kapacitor/v1/reference/about_the_project/release-notes/#v1-5-3-2019-06-18)
+If using [Kapacitor v1.5.3](/kapacitor/v1/reference/about_the_project/release-notes/#v153)
 or newer and InfluxDB with [authentication enabled](/influxdb/v1/administration/authentication_and_authorization/),
 set the `[http].shared-secret` option in your Kapacitor configuration file to the
 shared secret of your InfluxDB instances.

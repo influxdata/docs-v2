@@ -2,7 +2,7 @@
 title: influx auth create
 description: The `influx auth create` command creates an API token in InfluxDB.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx auth create
     parent: influx auth
 weight: 201
@@ -78,7 +78,7 @@ influx auth create [flags]
 
 ### Create an All-Access API token
 
-Create an [All-Access token](/influxdb/cloud/security/tokens/#all-access-token) to grant permissions to all resources in an organization.
+Create an [All-Access token](/influxdb/cloud/admin/tokens/#all-access-token) to grant permissions to all resources in an organization.
 
 ```sh
 influx auth create \
@@ -89,7 +89,7 @@ influx auth create \
 
 ### Create an Operator API token
 
-Create an [Operator token](/influxdb/v2/security/tokens/#operator-token) to grant permissions to all resources in all organizations.
+Create an [Operator token](/influxdb/v2/admin/tokens/#operator-token) to grant permissions to all resources in all organizations.
 
 ```sh
 influx auth create \

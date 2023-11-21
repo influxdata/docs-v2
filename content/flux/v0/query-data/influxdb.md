@@ -44,7 +44,7 @@ in addition to **bucket** or **bucketID**.
 - **host**: [InfluxDB Cloud region URL](/influxdb/cloud/reference/urls/) or
   [InfluxDB URL](/influxdb/v2/reference/urls/)
 - **org** or **orgID**: InfluxDB organization name or ID
-- **token**: InfluxDB [API token](/influxdb/cloud/security/tokens/)
+- **token**: InfluxDB [API token](/influxdb/cloud/admin/tokens/)
 
 ```js
 from(

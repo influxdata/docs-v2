@@ -10,7 +10,7 @@ weight: 110
 aliases:
   - /influxdb/v2/reference/flux/language/operators/
   - /influxdb/cloud/reference/flux/language/operators/
-flux/v0.x/tags: [operators]
+flux/v0/tags: [operators]
 ---
 
 Flux includes the following types of operators:

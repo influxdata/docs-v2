@@ -8,7 +8,7 @@ menu:
     parent: contrib/sranka/telegram
     identifier: contrib/sranka/telegram/endpoint
 weight: 301
-flux/v0.x/tags: [notification endpoints, transformations]
+flux/v0/tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------

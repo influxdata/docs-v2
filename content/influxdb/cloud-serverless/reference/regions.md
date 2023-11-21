@@ -15,8 +15,10 @@ menu:
 InfluxDB Cloud Serverless is available on on the following cloud providers and regions.
 Each region has a unique URL and API endpoint.
 Use the URLs below to interact with your InfluxDB Cloud Serverless instances with the
-[InfluxDB API](/influxdb/cloud-serverless/reference/api/), [InfluxDB client libraries](/influxdb/cloud/api-guide/client-libraries/),
-[`influx` CLI](/influxdb/cloud-serverless/reference/cli/influx/), or [Telegraf](/influxdb/cloud-serverless/write-data/use-telegraf/).
+[InfluxDB API](/influxdb/cloud-serverless/reference/api/),
+[InfluxDB client libraries](/influxdb/cloud-serverless/reference/client-libraries/),
+[`influx` CLI](/influxdb/cloud-serverless/reference/cli/influx/), or
+[Telegraf](/influxdb/cloud-serverless/write-data/use-telegraf/).
 
 {{% note %}}
 #### InfluxDB IOx-enabled cloud regions

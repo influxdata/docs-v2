@@ -10,7 +10,7 @@ menu:
     parent: influxdata/influxdb/monitor
     identifier: influxdata/influxdb/monitor/stateChangesOnly
 weight: 301
-flux/v0.x/tags: [transformations]
+flux/v0/tags: [transformations]
 introduced: 0.65.0
 ---
 

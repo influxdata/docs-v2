@@ -4,8 +4,9 @@ description: >
   Concepts related to InfluxDB.
 weight: 2
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: Key concepts
+    parent: Reference
 influxdb/cloud/tags: [key concepts]
 ---
 

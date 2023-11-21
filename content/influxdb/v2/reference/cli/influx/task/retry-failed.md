@@ -2,7 +2,7 @@
 title: influx task retry-failed
 description: The `influx task retry-failed` command retries failed InfluxDB task runs.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx task retry-failed
     parent: influx task
 weight: 201
@@ -42,7 +42,7 @@ influx task retry-failed [flags]
 
 {{% note %}}
 #### Required permissions
-Use an [{{% oss-only %}}**Operator** or{{% /oss-only %}} **All-Access** token](/influxdb/v2/security/tokens/) to retry failed tasks.
+Use an [{{% oss-only %}}**Operator** or{{% /oss-only %}} **All-Access** token](/influxdb/v2/admin/tokens/) to retry failed tasks.
 {{% /note %}}
 
 - [Retry failed task runs for a specific task ID](#retry-failed-task-runs-for-a-specific-task-id)

@@ -9,7 +9,7 @@ menu:
     identifier: influxdata/influxdb/secrets
 weight: 31
 cascade:
-  flux/v0.x/tags: [secrets, security]
+  flux/v0/tags: [secrets, security]
   introduced: 0.41.0
 ---
 

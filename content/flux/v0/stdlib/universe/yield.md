@@ -8,7 +8,7 @@ menu:
     parent: universe
     identifier: universe/yield
 weight: 101
-flux/v0.x/tags: [outputs]
+flux/v0/tags: [outputs]
 introduced: 0.7.0
 ---
 

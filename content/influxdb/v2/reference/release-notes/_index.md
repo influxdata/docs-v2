@@ -2,8 +2,9 @@
 title: Release notes
 description: Find important information about what's included in new versions of InfluxData products.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: Release notes
+    parent: Reference
 weight: 1
 ---
 

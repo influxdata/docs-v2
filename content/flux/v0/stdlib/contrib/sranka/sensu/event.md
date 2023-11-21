@@ -8,7 +8,7 @@ menu:
     parent: contrib/sranka/sensu
     identifier: contrib/sranka/sensu/event
 weight: 301
-flux/v0.x/tags: [single notification]
+flux/v0/tags: [single notification]
 ---
 
 <!------------------------------------------------------------------------------

@@ -3,15 +3,19 @@
 services:
   test:
     image: docs-v2-tests
-    env_file:
-      - ./test/.env.influxdbv3
+    container_name: docs-v2-tests
+    profiles:
+      - test
     volumes:
       - type: bind
-        source: ./test/tmp
-        target: /app/test/tmp
+        source: ./test
+        target: /usr/src/app/test
+      - type: bind
+        source: ./data
+        target: /usr/src/app/test/data
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: test.Dockerfile
       args:
         - SOURCE_DIR=test
-        - TESTS_DIR=tmp
+        - DOCKER_IMAGE=docs-v2-tests

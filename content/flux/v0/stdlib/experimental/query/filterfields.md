@@ -8,7 +8,7 @@ menu:
     parent: experimental/query
     identifier: experimental/query/filterFields
 weight: 201
-flux/v0.x/tags: [transformations, filters]
+flux/v0/tags: [transformations, filters]
 ---
 
 <!------------------------------------------------------------------------------

@@ -5,7 +5,7 @@ description: >
   SQL format for inspection and debugging.
 influxdb/v2/tags: [inspect]
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     parent: influxd inspect
 weight: 301
 ---

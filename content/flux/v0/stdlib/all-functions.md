@@ -18,4 +18,8 @@ see [Flux function types and categories](/flux/v0/function-types/).
 
 {{< list-filters "flux" >}}
 
-{{< list-all-functions >}}
+{{% note %}}
+The {{% icon "experimental" %}} icon indicates the function is experimental.
+{{% /note %}}
+
+{{< flux/list-all-functions >}}

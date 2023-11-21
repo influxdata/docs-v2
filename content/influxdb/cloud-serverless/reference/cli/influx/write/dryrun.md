@@ -10,11 +10,8 @@ menu:
 weight: 101
 influxdb/cloud-serverless/tags: [write]
 related:
-  - /influxdb/cloud/write-data/
-  - /influxdb/cloud/write-data/developer-tools/csv/
-  - /influxdb/cloud/reference/syntax/line-protocol/
-  - /influxdb/cloud/reference/syntax/annotated-csv/
-  - /influxdb/cloud/reference/syntax/annotated-csv/extended/
+  - /influxdb/cloud-serverless/write-data/
+  - /influxdb/cloud-serverless/reference/syntax/line-protocol/
 ---
 
 {{< duplicate-oss >}}

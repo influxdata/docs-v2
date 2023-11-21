@@ -5,7 +5,7 @@ description: >
   InfluxDB Cloud and when that data becomes queryable.
   TTBR is variable and is affected by many factors.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name:  Time To Become Readable
     parent: InfluxDB Cloud internals
 weight: 102

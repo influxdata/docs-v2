@@ -7,8 +7,9 @@ aliases:
   - /influxdb/cloud/reference/urls/
 weight: 6
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: InfluxDB Cloud regions
+    parent: Reference
 ---
 
 InfluxDB Cloud is available on multiple cloud providers and in multiple regions.
@@ -19,26 +20,9 @@ Use the URLs below to interact with your InfluxDB Cloud instances with the
 
 <a href="https://www.influxdata.com/influxdb-cloud-2-0-provider-region/" target="_blank" class="btn">Request a cloud region</a>
 
-{{% warn %}}
-#### Discontinued InfluxDB Cloud regions
-
-The InfluxDB Cloud service will be discontinued in the following regions as of
-**June 30, 2023**:
-
-##### Amazon Web Services (AWS):
-- **Asia Pacific - Sydney** (ap-southeast-2)
-
-##### Google Cloud Platform (GCP):
-- **Europe West - Belgium** (europe-west1)
-
-To continue service after **June 30, 2023**, InfluxDB Cloud accounts in these
-regions must be migrated to different regions.
-For information about migrating to a different region, see
-[Migrate to an account in a new region](/influxdb/cloud/migrate-regions/).
-{{% /warn %}}
-
 {{% note %}}
 #### Regions with multiple clusters
+
 Some InfluxDB Cloud regions have multiple Cloud clusters, each with a unique URL.
 To find your cluster URL, [log in to your InfluxDB Cloud organization](https://cloud2.influxdata.com)
 and review your organization URL. The first subdomain identifies your 

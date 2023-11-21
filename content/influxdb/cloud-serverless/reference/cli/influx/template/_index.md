@@ -9,7 +9,6 @@ weight: 101
 influxdb/cloud-serverless/tags: [templates]
 cascade:
   related:
-    - /influxdb/cloud/influxdb-templates/
     - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
     - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   metadata: [influx CLI 2.0.1+]

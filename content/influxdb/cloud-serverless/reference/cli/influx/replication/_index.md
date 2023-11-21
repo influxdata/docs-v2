@@ -9,8 +9,7 @@ weight: 101
 influxdb/cloud-serverless/tags: [write, replication]
 cascade:
   related:
-    - /influxdb/cloud/reference/cli/influx/remote
-    - /influxdb/cloud/write-data/replication/replicate-data/
+    - /influxdb/cloud-serverless/reference/cli/influx/remote
 ---
 
 {{< duplicate-oss >}}

@@ -2,7 +2,7 @@
 title: Install InfluxDB Enterprise meta nodes
 aliases:
     - /enterprise_influxdb/v1/installation/meta_node_installation/
-    - /enterprise_influxdb/v1/introduction/installation/installation/meta_node_installation/
+    - /enterprise_influxdb/v1/introduction/install-and-deploy/installation/meta_node_installation/
 menu:
   enterprise_influxdb_v1:
     name: Install meta nodes
@@ -144,14 +144,14 @@ Instructions for both are provided below.
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
-sudo dpkg -i influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
+sudo dpkg -i influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```sh
-wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
-sudo dpkg -i influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
+sudo dpkg -i influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -165,14 +165,14 @@ sudo dpkg -i influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
-sudo yum localinstall influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
+sudo yum localinstall influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```sh
-wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
-sudo yum localinstall influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
+sudo yum localinstall influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -198,12 +198,12 @@ For added security, follow these steps to verify the signature of your InfluxDB 
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm.asc
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```sh
-wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc
+wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm.asc
 ```
 {{% /code-tab-content %}}
   {{< /code-tabs-wrapper >}}
@@ -211,7 +211,7 @@ wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-meta-{{< latest
 3.  Verify the signature with `gpg --verify`:
 
     ```sh
-    gpg --verify influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+    gpg --verify influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm.asc influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
     ```
 
     The output from this command should include the following:

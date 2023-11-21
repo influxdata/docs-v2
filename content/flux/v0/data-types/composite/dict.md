@@ -11,7 +11,7 @@ menu:
     name: Dictionary
     parent: Composite types
 weight: 203
-flux/v0.x/tags: ["composite types", "data types"]
+flux/v0/tags: ["composite types", "data types"]
 related:
   - /flux/v0/stdlib/dict/
 list_code_example: |

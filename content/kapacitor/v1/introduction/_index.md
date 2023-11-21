@@ -11,6 +11,6 @@ menu:
 To get up and running with Kapacitor, complete the following tasks:
 
 ## Download Kapacitor
-For information about downloading Kapacitor, visit the [InfluxData downloads page](https://portal.influxdata.com/downloads).
+For information about downloading Kapacitor, visit the [InfluxData downloads page](https://www.influxdata.com/downloads/).
 
 {{< children hlevel="h2">}}

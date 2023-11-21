@@ -8,7 +8,7 @@ menu:
     parent: internal/testing
     identifier: internal/testing/shouldErrorWithCode
 weight: 201
-flux/v0.x/tags: [tests]
+flux/v0/tags: [tests]
 introduced: 0.182.0
 ---
 

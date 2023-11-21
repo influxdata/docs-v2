@@ -108,7 +108,7 @@ be used to perform all the actions outlined in this tutorial.
 
 ## Authorization
 
-**InfluxDB {{< current-version >}} requires authentication** using [API tokens](/influxdb/cloud/security/tokens/).
+**InfluxDB {{< current-version >}} requires authentication** using [API tokens](/influxdb/cloud/admin/tokens/).
 Each API token is associated with a user and a specific set of permissions for InfluxDB resources.
 
 {{< page-nav next="/influxdb/cloud/get-started/setup/" >}}

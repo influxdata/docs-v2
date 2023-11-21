@@ -8,7 +8,7 @@ menu:
 weight: 101
 influxdb/cloud-serverless/tags: [write, replication]
 related:
-  - /influxdb/cloud/reference/cli/influx/replication
+  - /influxdb/cloud-serverless/reference/cli/influx/replication
 ---
 
 {{< duplicate-oss >}}

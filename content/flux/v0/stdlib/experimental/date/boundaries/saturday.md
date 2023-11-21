@@ -8,7 +8,7 @@ menu:
     parent: experimental/date/boundaries
     identifier: experimental/date/boundaries/saturday
 weight: 301
-flux/v0.x/tags: [date/time]
+flux/v0/tags: [date/time]
 introduced: 0.177.1
 ---
 

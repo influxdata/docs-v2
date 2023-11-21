@@ -4,7 +4,7 @@ description: >
   The `influx setup` command walks through the initial InfluxDB OSS setup process,
   creating a default user, organization, and bucket.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx setup
     parent: influx
 weight: 101

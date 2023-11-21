@@ -8,7 +8,7 @@ menu:
     parent: contrib/bonitoo-io/alerta
     identifier: contrib/bonitoo-io/alerta/alert
 weight: 301
-flux/v0.x/tags: [single notification]
+flux/v0/tags: [single notification]
 ---
 
 <!------------------------------------------------------------------------------

@@ -11,7 +11,7 @@ menu:
     parent: Use client libraries
     name: Use Python
     identifier: query-with-python-sql
-influxdb/clustered/tags: [query, flight, python, sql, influxql]
+influxdb/clustered/tags: [Flight client, query, flight, python, sql, influxql]
 related:
     - /influxdb/clustered/reference/client-libraries/v3/python/
     - /influxdb/clustered/process-data/tools/pandas/

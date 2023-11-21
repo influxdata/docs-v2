@@ -2,7 +2,7 @@
 title: Install InfluxDB Enterprise data nodes
 aliases:
     - /enterprise_influxdb/v1/installation/data_node_installation/
-    - /enterprise_influxdb/v1/introduction/installation/installation/data_node_installation/
+    - /enterprise_influxdb/v1/introduction/install-and-deploy/installation/data_node_installation/
 menu:
   enterprise_influxdb_v1:
     name: Install data nodes
@@ -17,7 +17,7 @@ your InfluxDB Enterprise cluster: the data nodes.
 
 {{% warn %}}
 If you have not set up your meta nodes, please visit
-[Installing meta nodes](/enterprise_influxdb/v1/introduction/installation/installation/meta_node_installation/).
+[Installing meta nodes](/enterprise_influxdb/v1/introduction/installation/meta_node_installation/).
 Bad things can happen if you complete the following steps without meta nodes.
 {{% /warn %}}
 
@@ -152,14 +152,14 @@ Instructions for both are provided below.
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
-sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
+sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```sh
-wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
-sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
+sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -173,14 +173,14 @@ sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
-sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
+sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```sh
-wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
-sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
+sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -205,12 +205,12 @@ For added security, follow these steps to verify the signature of your InfluxDB 
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm.asc
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```sh
-wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc
+wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm.asc
 ```
 {{% /code-tab-content %}}
   {{< /code-tabs-wrapper >}}
@@ -218,7 +218,7 @@ wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-data-{{< latest
 3.  Verify the signature with `gpg --verify`:
    
     ```sh
-    gpg --verify influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm.asc influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+    gpg --verify influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm.asc influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
     ```
     
     The output from this command should include the following:
@@ -404,7 +404,7 @@ Once your data nodes are part of your cluster, do the following:
   if you want to add more users in addition to admin user,
   see [Manage users and permissions](/enterprise_influxdb/v1/administration/manage/users-and-permissions/).
 - [Enable TLS](/enterprise_influxdb/v1/guides/enable-tls/).
-- [Set up Chronograf](/enterprise_influxdb/v1/introduction/installation/installation/chrono_install)
+- [Set up Chronograf](/enterprise_influxdb/v1/introduction/installation/chrono_install)
   for UI visualization, dashboards, and management.
 
 {{< page-nav prev="/enterprise_influxdb/v1/introduction/installation/meta_node_installation/" prevText="Install meta nodes" next="/enterprise_influxdb/v1/introduction/installation/chrono_install" >}}

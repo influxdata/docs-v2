@@ -23,7 +23,7 @@ Chronograf is the user interface for InfluxData's [TICK stack](https://www.influ
 
 ## Download and install
 
-The latest Chronograf builds are available on InfluxData's [Downloads page](https://portal.influxdata.com/downloads).
+The latest Chronograf builds are available on InfluxData's [Downloads page](https://www.influxdata.com/downloads/).
 
 1. On the Downloads page, scroll to the bottom and click **Are you interested in InfluxDB 1.x Open Source?** to expand the 1.x options. Scroll to the **Chronograf** section and select your desired Chronograf version and operating system. Execute the provided download commands.
 

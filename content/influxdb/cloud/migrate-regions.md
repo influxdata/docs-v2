@@ -27,7 +27,7 @@ or [our new database engine, InfluxDB IOx](/blog/announcing-general-availability
 To benefit from IOx's unlimited cardinality and support for SQL, migrate your data to IOx.
 
 - [Migrate data TSM to IOx](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox/)
-- [Migrate data from TSM to TSM](/influxdb/cloud/migrate-data/migrate-cloud-to-cloud/). 
+- [Migrate data from TSM to TSM](/influxdb/cloud/write-data/migrate-data/migrate-cloud-to-cloud/). 
 
 To see which storage engine your organization is using,
 find the **InfluxDB Cloud powered by** link in your
@@ -67,8 +67,8 @@ the following:
 
     - Connection configuration name
     - [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/)
-    - [InfluxDB organization name](/influxdb/cloud/organizations/)
-    - [InfluxDB API token](/influxdb/cloud/security/tokens/)
+    - [InfluxDB organization name](/influxdb/cloud/admin/organizations/)
+    - [InfluxDB API token](/influxdb/cloud/admin/tokens/)
 
     ```sh
     # Create your source connection configuration and set it to active
@@ -89,7 +89,7 @@ the following:
 
 3.  Use the [`influx export all` command](/influxdb/cloud/reference/cli/influx/export/all/#export-all-resources-in-an-organization-as-a-template)
     to export all resources from your **source account** to an
-    [InfluxDB template](/influxdb/cloud/influxdb-templates/use/).
+    [InfluxDB template](/influxdb/cloud/tools/influxdb-templates/use/).
 
     ```sh
     influx export all

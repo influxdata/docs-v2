@@ -4,7 +4,7 @@ description: >
   The `influx task run` command and its subcommand, `list` output information
   related to runs of a task.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx task run
     parent: influx task
 weight: 201

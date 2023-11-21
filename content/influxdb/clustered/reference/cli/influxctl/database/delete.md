@@ -40,6 +40,10 @@ when creating a new database.
 |      | `--force` | Do not prompt for confirmation to delete (default is false) |
 | `-h` | `--help`  | Output command help                                         |
 
+{{% caption %}}
+_Also see [`influxctl` global flags](/influxdb/clustered/reference/cli/influxctl/#global-flags)._
+{{% /caption %}}
+
 ## Examples
 
 ##### Delete a database named "mydb"

@@ -21,7 +21,7 @@ influxdb:
     - v1.7
   latest: v2.7
   latest_patches:
-    v2: 2.7.3
+    v2: 2.7.4
     v1: 1.8.10
   latest_cli:
     v2: 2.7.3
@@ -55,7 +55,7 @@ influxdb_cloud_dedicated:
   list_order: 3
   latest: cloud-dedicated
   link: "https://www.influxdata.com/contact-sales-form/"
-  latest_cli: 2.0.4
+  latest_cli: 2.3.1
   placeholder_host: cluster-id.influxdb.io
 
 influxdb_clustered:

@@ -8,7 +8,7 @@ menu:
     parent: experimental/iox
     identifier: experimental/iox/sqlInterval
 weight: 201
-flux/v0.x/tags: [sql, type-conversions]
+flux/v0/tags: [sql, type-conversions]
 introduced: 0.192.0
 ---
 

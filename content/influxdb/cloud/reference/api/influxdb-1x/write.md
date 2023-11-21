@@ -5,9 +5,9 @@ description: >
   The `/write` 1.x compatibilty endpoint writes data to InfluxDB Cloud using patterns from the
   InfluxDB 1.x `/write` API endpoint.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: /write
-    parent: 1.x compatibility
+    parent: v1 compatibility
 weight: 301
 influxdb/cloud/tags: [write]
 list_code_example: |

@@ -7,7 +7,7 @@ menu:
     parent: influx bucket
 weight: 201
 related:
-  - /influxdb/cloud/organizations/buckets/delete-bucket/
+  - /influxdb/cloud-serverless/admin/buckets/delete-bucket/
   - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
 ---

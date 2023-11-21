@@ -8,7 +8,7 @@ menu:
     parent: kafka
     identifier: kafka/to
 weight: 101
-flux/v0.x/tags: [outputs]
+flux/v0/tags: [outputs]
 ---
 
 <!------------------------------------------------------------------------------

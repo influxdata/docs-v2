@@ -4,7 +4,7 @@ description: >
   The `influx write dryrun` command prints write output to stdout instead of writing
   to InfluxDB. Use this command to test writing data.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx write dryrun
     parent: influx write
 weight: 101

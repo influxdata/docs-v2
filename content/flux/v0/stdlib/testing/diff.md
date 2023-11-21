@@ -8,7 +8,7 @@ menu:
     parent: testing
     identifier: testing/diff
 weight: 101
-flux/v0.x/tags: [tests]
+flux/v0/tags: [tests]
 introduced: 0.18.0
 ---
 

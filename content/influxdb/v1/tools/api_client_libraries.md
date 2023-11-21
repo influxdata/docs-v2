@@ -15,7 +15,14 @@ v2: /influxdb/v2/api-guide/client-libraries/
 
 InfluxDB client libraries are language-specific packages that integrate with the InfluxDB 2.0 API and support both **InfluxDB 1.8+** and **InfluxDB 2.0**.
 
->**Note:** We recommend using the new client libraries on this page to leverage the new read (via Flux) and write APIs and prepare for conversion to InfluxDB 2.0 and InfluxDB Cloud. For more information, see [InfluxDB 2.0 API compatibility endpoints](/influxdb/v1/tools/api/#influxdb-2-0-api-compatibility-endpoints). Client libraries for [InfluxDB 1.7 and earlier](/influxdb/v1/tools/api_client_libraries/) may continue to work, but are not maintained by InfluxData.
+{{% note %}}
+We recommend using the new client libraries on this page to leverage the new
+read (via Flux) and write APIs and prepare for conversion to InfluxDB v2 and
+InfluxDB Cloud.
+For more information, see [InfluxDB 2.0 API compatibility endpoints](/influxdb/v1/tools/api/#influxdb-2-0-api-compatibility-endpoints).
+Client libraries for [InfluxDB 1.7 and earlier](/influxdb/v1/tools/api_client_libraries/)
+may continue to work, but are not maintained by InfluxData.
+{{% /note %}}
 
 ## Client libraries
 
@@ -93,7 +100,10 @@ To install and use the Python client library, follow the [instructions below](#i
     token=token,
     ```
 
-    > **Note:** The database (and retention policy, if applicable) are converted to a [bucket](https://v2. docs.influxdata.com/v2.0/reference/glossary/#bucket) data store compatible with InfluxDB 2.0.
+    {{% note %}}
+The database (and retention policy, if applicable) are converted to a
+[bucket](/influxdb/v2/reference/glossary/#bucket) data store compatible with InfluxDB v2.
+    {{% /note %}}
 
 5. Instantiate a writer object using the client object and the write_api method. Use the `write_api` method to configure the writer object.
 

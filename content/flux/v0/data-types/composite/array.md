@@ -10,7 +10,7 @@ menu:
     name: Array
     parent: Composite types
 weight: 202
-flux/v0.x/tags: ["composite types", "data types"]
+flux/v0/tags: ["composite types", "data types"]
 related:
   - /flux/v0/stdlib/universe/length/
   - /flux/v0/stdlib/array/

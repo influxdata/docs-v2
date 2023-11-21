@@ -9,7 +9,7 @@ menu:
     identifier: join
 weight: 11
 cascade:
-  flux/v0.x/tags: [transformations]
+  flux/v0/tags: [transformations]
   introduced: 0.172.0
 ---
 

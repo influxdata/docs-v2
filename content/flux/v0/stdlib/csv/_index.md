@@ -9,7 +9,7 @@ menu:
     identifier: csv
 weight: 11
 cascade:
-  flux/v0.x/tags: [csv]
+  flux/v0/tags: [csv]
   introduced: 0.14.0
 ---
 

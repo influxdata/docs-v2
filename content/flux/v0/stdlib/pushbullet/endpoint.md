@@ -8,7 +8,7 @@ menu:
     parent: pushbullet
     identifier: pushbullet/endpoint
 weight: 101
-flux/v0.x/tags: [notification endpoints, transformations]
+flux/v0/tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------

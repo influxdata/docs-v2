@@ -18,7 +18,7 @@ updated_in: CLI v2.0.7
 
 The `influx restore` command works with **InfluxDB OSS 2.x**, but does not work with **InfluxDB Cloud**.
 For information about restoring data in InfluxDB Cloud, see
-[InfluxDB Cloud durability](/influxdb/cloud/reference/internals/durability/).
+[InfluxDB Cloud durability](/influxdb/cloud-serverless/reference/internals/durability/).
 {{% /note %}}
 
 {{< duplicate-oss >}}

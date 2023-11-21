@@ -8,7 +8,7 @@ menu:
     parent: experimental/geo
     identifier: experimental/geo/asTracks
 weight: 201
-flux/v0.x/tags: [transformations, geotemporal]
+flux/v0/tags: [transformations, geotemporal]
 ---
 
 <!------------------------------------------------------------------------------

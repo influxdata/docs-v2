@@ -8,7 +8,7 @@ menu:
     parent: experimental/http/requests
     identifier: experimental/http/requests/do
 weight: 301
-flux/v0.x/tags: [http, inputs]
+flux/v0/tags: [http, inputs]
 ---
 
 <!------------------------------------------------------------------------------

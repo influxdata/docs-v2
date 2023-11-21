@@ -35,10 +35,9 @@ influxctl [flags] [command]
 | [cluster](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/)   | List InfluxDB v3 cluster information   |
 | [database](/influxdb/cloud-dedicated/reference/cli/influxctl/database/) | Manage InfluxDB v3 databases           |
 | [token](/influxdb/cloud-dedicated/reference/cli/influxctl/token/)       | Manage InfluxDB v3 database tokens     |
+| [user](/influxdb/cloud-dedicated/reference/cli/influxctl/user/)         | Manage InfluxDB v3 cluster users       |
 | [version](/influxdb/cloud-dedicated/reference/cli/influxctl/version/)   | Output the current `influxctl` version |
 | [help](/influxdb/cloud-dedicated/reference/cli/influxctl/help/)         | Output `influxctl` help information    |
-
-<!-- | [user](/influxdb/cloud-dedicated/reference/cli/influxctl/user/)         | Manage InfluxDB v3 cluster users       | -->
 
 ## Global flags
 
@@ -300,12 +299,12 @@ If stored at a non-default location, include the `--config` flag with each
     ## Choose from "clustered" or "dedicated"
     product = "dedicated"
 
-    ### Clustered Specific Options ###
+    ### Dedicated Specific Options ###
     ## Account ID and cluster ID
     account_id = "ACCOUNT_ID"
     cluster_id = "CLUSTER_ID"
 
-    ### Dedicated Specific Options ###
+    ### Clustered Specific Options ###
     ## Host and port
     ## The hostname/IP address and port to connect to the dedicated instance
     # host = ""

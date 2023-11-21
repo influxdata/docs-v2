@@ -9,7 +9,7 @@ menu:
     parent: experimental/geo
     identifier: experimental/geo/ST_DWithin
 weight: 201
-flux/v0.x/tags: [geotemporal]
+flux/v0/tags: [geotemporal]
 introduced: 0.78.0
 ---
 

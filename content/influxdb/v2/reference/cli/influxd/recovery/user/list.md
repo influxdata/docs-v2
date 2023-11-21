@@ -4,7 +4,7 @@ description: >
   The `influxd recovery user list` command lists users stored on disk and 
   outputs data associated with each user.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     parent: influxd recovery user
 weight: 401
 ---

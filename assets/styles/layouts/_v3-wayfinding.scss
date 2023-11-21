@@ -1,0 +1,254 @@
+#v3-wayfinding-modal {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: -100vh;
+  padding: 2rem;
+  z-index: 200;
+  backdrop-filter: blur(15px);
+  transition: top .75s ease-in-out;
+
+  &.open {
+    top: 0;
+  }
+
+  .wayfinding-wrapper {
+    @include gradient($grad-burningDusk);
+    position: relative;
+    max-width: 800px;
+    pointer-events: all;
+    border-radius: $radius * 2;
+  }
+
+  .wayfinding-content {
+    padding: 1.5rem;
+    color: $g20-white;
+
+    h4 {
+      font-size: 1.25rem;
+      margin: 0;
+    }
+  }
+
+  .wayfinding-content-info {
+    display: flex;
+    flex-direction: row;
+
+    p {
+      color: rgba($g20-white, .85);
+      line-height: 1.65rem;
+
+      strong {color: $g20-white;}
+    }
+
+    a#find-out-toggle {
+      position: relative;
+      color: inherit;
+      font-size: .95rem;
+      text-decoration: none;
+      white-space: nowrap;
+      
+      &:after {
+        position: absolute;
+        display: block;
+        content: "";
+        border-top: 1px solid $g20-white;
+        bottom: -.1rem;
+        left: 0;
+        height: 1px;
+        width: 0%;
+        transition: width .2s;
+      }
+      
+      &:hover {
+        color: $g20-white;
+
+        &:after {
+          width: 100%;
+        }
+      }
+    }
+
+    #find-out-instructions {
+      text-align: center;
+      line-height: 1rem;
+      transition: height .2s ease-out, opacity .2s;
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+     
+      p {
+        margin-top: 0;
+        font-size: .95rem;
+        font-style: italic;
+        line-height: 1.3rem;
+      }
+
+      a {
+        position: relative;
+        color: $g20-white;
+        text-decoration: none;
+        font-weight: bold;
+        
+        &:after {
+          position: absolute;
+          display: block;
+          content: "";
+          border-top: 1px solid $g20-white;
+          bottom: -.2rem;
+          left: 0;
+          height: 1px;
+          width: 0%;
+          transition: width .2s;
+        }
+        
+      &:hover:after {width: 100%;}
+      }
+    }
+
+    .powered-by-example {
+      padding: 1rem 1.25rem;
+      display: inline-block;
+      border-radius: $radius;
+      background: $g0-obsidian;
+      color: $b-dodger;
+      font-size: .95rem;
+      font-weight: bold;
+      text-align: center;
+
+      span.storage-description {
+        display: block;
+        color: $grey55;
+        font-weight: normal;
+        line-height: 1.1rem; 
+
+        &.git-head::after {
+          content: "(xxxxxx)";
+          font-family: $code;
+          margin-left: .2rem;
+        }
+      }
+    }
+  }
+
+  .wayfinding-actions {
+    min-width: 33%;
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .v3-wayfinding-btn {
+    display: block;
+    padding: 1rem;
+    margin-bottom: .5rem;
+    border-radius: $radius;
+    background-color: $g20-white;
+    text-align: center;
+    text-decoration: none;
+    color: $br-new-purple;
+    box-shadow: 0px 0px 10px rgba($g20-white, 0);
+    transition: color .2s, box-shadow .2s;
+
+    &:hover {
+      color: $p-void;
+      box-shadow: 0 0 10px rgba($g20-white, .9);
+    }
+
+    .small {font-size: 1rem;}
+    
+  }
+
+  #v3-wayfinding-close {
+    position: absolute;
+    top: .75rem;
+    right: .75rem;
+    color: $g20-white;
+    font-size: 2rem;
+    opacity: .65;
+    transition: opacity .2s;
+
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+
+  // Checkbox styles
+  label {
+    margin-top: .5rem;
+    display: block;
+    text-align: center;
+    font-size: .95rem;
+    font-style: italic;
+
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    
+    .checkbox {
+      display: inline-block;      
+      width: 15px;
+      height: 15px;
+      border: 1.5px solid rgba($g20-white, .85);
+      vertical-align: middle;
+      border-radius: $radius;
+      position: relative;
+      
+      &:before {
+        content: '';
+        display: inline-block;        
+        width: 3px;
+        height: 7px;        
+        border-right: 2px solid rgba($g20-white, .85);
+        border-bottom: 2px solid rgba($g20-white, .85);
+        position: absolute;
+        left: 50%;
+        top: 50%;        
+        transform: translate(-50%, -50%) rotate(45deg) scale(0);
+        transition: all 0.2s;
+      }
+    }
+    
+    input {
+      position: absolute;
+      opacity: 0;
+      visibility: hidden;
+      &:checked + .checkbox {
+        border-color: rgba($g20-white, .85);
+        &:before {
+          transform: translate(-50%, -60%) rotate(45deg) scale(1);
+        }
+      }
+    }
+    
+    .checkbox-text {
+      margin-left: 4px;
+      display: inline-block;
+      vertical-align: middle;
+    }    
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include media(small) {
+  #v3-wayfinding-modal {
+    .wayfinding-content-info {
+      flex-direction: column;
+    }
+    #find-out-instructions {
+      padding-bottom: 1.5rem;
+    }
+    .wayfinding-actions {
+      margin-left: 0;
+    }
+  }
+}

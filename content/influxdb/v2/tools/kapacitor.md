@@ -6,9 +6,9 @@ description: >
   Use Kapacitor with **InfluxDB OSS 2.x**.
 menu:
   influxdb_v2:
-    name: Use Kapacitor
+    name: Kapacitor
     parent: Tools & integrations
-weight: 102
+weight: 121
 related:
   - /kapacitor/v1/
 ---
@@ -59,7 +59,7 @@ Provide the following credentials in your `[[influxdb]].username` and `[[influxd
 configuration options:
 
 - **username:** InfluxDB username
-- **password:** InfluxDB [API token](/influxdb/v2/security/tokens/)
+- **password:** InfluxDB [API token](/influxdb/v2/admin/tokens/)
 
 ```toml
 [[influxdb]]
@@ -72,7 +72,7 @@ configuration options:
 Kapacitor is subject to InfluxDB token permission restrictions.
 To query or write to an InfluxDB bucket, the InfluxDB token must have read and/or
 write permissions for the target bucket.
-For information about token permissions, see [Create a token](/influxdb/v2/security/tokens/create-token/).
+For information about token permissions, see [Create a token](/influxdb/v2/admin/tokens/create-token/).
 {{% /warn %}}
 
 ### Disable InfluxDB subscriptions

@@ -2,7 +2,7 @@
 title: Install Chronograf
 aliases:
     - /enterprise_influxdb/v1/installation/chrono_install/
-    - /enterprise_influxdb/v1/introduction/installation/installation/chrono_install/
+    - /enterprise_influxdb/v1/introduction/install-and-deploy/installation/chrono_install/
 menu:
   enterprise_influxdb_v1:
     name: Install Chronograf

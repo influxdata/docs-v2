@@ -8,7 +8,7 @@ menu:
     parent: experimental
     identifier: experimental/join
 weight: 101
-flux/v0.x/tags: [transformations]
+flux/v0/tags: [transformations]
 introduced: 0.65.0
 deprecated: 0.172.0
 ---

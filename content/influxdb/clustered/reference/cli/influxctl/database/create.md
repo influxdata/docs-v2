@@ -1,8 +1,7 @@
 ---
 title: influxctl database create
 description: >
-  The `influxctl database create` command creates a new database in an InfluxDB
-  cluster.
+  The `influxctl database create` command creates a new database in an InfluxDB cluster.
 menu:
   influxdb_clustered:
     parent: influxctl database
@@ -67,6 +66,10 @@ influxctl database create [--retention-period 0s] <DATABASE_NAME>
 |      | `--max-tables`       | Maximum tables per database (default is 500, 0 uses default) |
 |      | `--max-columns`      | Maximum columns per table (default is 250, 0 uses default)   |
 | `-h` | `--help`             | Output command help                                          |
+
+{{% caption %}}
+_Also see [`influxctl` global flags](/influxdb/clustered/reference/cli/influxctl/#global-flags)._
+{{% /caption %}}
 
 ## Examples
 

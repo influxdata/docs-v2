@@ -6,7 +6,7 @@ menu:
   influxdb_v2:
     name: Manage logs
     parent: Administer InfluxDB
-weight: 10
+weight: 20
 ---
 
 Learn how to configure, manage, and process your InfluxDB logs:

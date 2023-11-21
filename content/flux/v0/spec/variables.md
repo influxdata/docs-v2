@@ -9,6 +9,8 @@ weight: 104
 aliases:
   - /influxdb/v2/reference/flux/language/variables/
   - /influxdb/cloud/reference/flux/language/variables/
+related:
+  - /flux/v0/get-started/syntax-basics/#variables, Flux syntax basics - assign variables
 ---
 
 A **variable** represents a storage location for a single value.

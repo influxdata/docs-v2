@@ -2,7 +2,7 @@
 title: influx scripts retrieve
 description: The `influx scripts retrieve` command retrieves invokable script information from InfluxDB.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx scripts retrieve
     parent: influx scripts
 weight: 201

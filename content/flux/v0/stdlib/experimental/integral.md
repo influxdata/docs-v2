@@ -8,7 +8,7 @@ menu:
     parent: experimental
     identifier: experimental/integral
 weight: 101
-flux/v0.x/tags: [transformations, aggregates]
+flux/v0/tags: [transformations, aggregates]
 introduced: 0.106.0
 ---
 

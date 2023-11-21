@@ -68,6 +68,10 @@ influxctl database create [--retention-period 0s] <DATABASE_NAME>
 |      | `--max-columns`      | Maximum columns per table (default is 250, 0 uses default)   |
 | `-h` | `--help`             | Output command help                                          |
 
+{{% caption %}}
+_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+{{% /caption %}}
+
 ## Examples
 
 - [Create a database with an infinite retention period](#create-a-database-with-an-infinite-retention-period)

@@ -5,7 +5,7 @@ description: >
   from an HTTP-accessible endpoint.
 menu: flux_0_x
 weight: 8
-flux/v0.x/tags: [prometheus]
+flux/v0/tags: [prometheus]
 ---
 
 [Prometheus](https://prometheus.io/) is an open-source toolkit designed

@@ -9,7 +9,7 @@ menu:
     identifier: experimental/mqtt
 weight: 21
 cascade:
-  flux/v0.x/tags: [mqtt]
+  flux/v0/tags: [mqtt]
   introduced: 0.40.0
 ---
 

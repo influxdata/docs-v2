@@ -11,7 +11,7 @@ aliases:
   - /influxdb/v2/reference/flux/language/
   - /influxdb/cloud/reference/flux/language/
   - /flux/v0/language/
-flux/v0.x/tags: [flux]
+flux/v0/tags: [flux]
 ---
 
 The following documents specify the Flux language and query execution.

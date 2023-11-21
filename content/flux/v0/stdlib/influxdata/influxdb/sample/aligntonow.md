@@ -8,7 +8,7 @@ menu:
     parent: influxdata/influxdb/sample
     identifier: influxdata/influxdb/sample/alignToNow
 weight: 301
-flux/v0.x/tags: [transformations]
+flux/v0/tags: [transformations]
 ---
 
 <!------------------------------------------------------------------------------

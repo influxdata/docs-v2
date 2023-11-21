@@ -8,7 +8,7 @@ menu:
     parent: date/boundaries
     identifier: date/boundaries/yesterday
 weight: 201
-flux/v0.x/tags: [date/time]
+flux/v0/tags: [date/time]
 introduced: 0.172.0
 deprecated: 0.177.1
 ---

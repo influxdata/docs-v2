@@ -11,7 +11,7 @@ menu:
     name: Histogram
     parent: Prometheus metric types
 weight: 101
-flux/v0.x/tags: [prometheus]
+flux/v0/tags: [prometheus]
 related:
   - https://prometheus.io/docs/concepts/metric_types/, Prometheus metric types
   - /influxdb/v2/reference/prometheus-metrics/

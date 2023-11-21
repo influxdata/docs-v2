@@ -9,7 +9,7 @@ menu:
     parent: universe
     identifier: universe/mean
 weight: 101
-flux/v0.x/tags: [transformations, aggregates]
+flux/v0/tags: [transformations, aggregates]
 introduced: 0.7.0
 ---
 

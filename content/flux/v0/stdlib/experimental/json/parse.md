@@ -8,7 +8,7 @@ menu:
     parent: experimental/json
     identifier: experimental/json/parse
 weight: 201
-flux/v0.x/tags: [type-conversions]
+flux/v0/tags: [type-conversions]
 ---
 
 <!------------------------------------------------------------------------------

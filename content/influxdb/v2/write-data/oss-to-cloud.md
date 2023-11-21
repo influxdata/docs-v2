@@ -51,7 +51,7 @@ Write requests to InfluxDB Cloud are subject to the rate limits associated with 
     - **token**: InfluxDB Cloud API Token
       
 5.  ({{< req "Recommended" >}}) To keep your raw API token out of queries, store
-    your InfluxDB Cloud API token as an [InfluxDB secret](/influxdb/v2/security/secrets/)
+    your InfluxDB Cloud API token as an [InfluxDB secret](/influxdb/v2/admin/secrets/)
     in your InfluxDB OSS instance and use [`secrets.get()`](/flux/v0/stdlib/influxdata/influxdb/secrets/get/)
     to retrieve the secret value as shown in the following example
     (select the function you're using to see the correct format):

@@ -3,7 +3,7 @@ title: InfluxDB Cloud updates
 description: Important changes and what's new in each InfluxDB Cloud update.
 weight: 101
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     parent: Release notes
     name: InfluxDB Cloud updates
 aliases:
@@ -101,7 +101,7 @@ Quickly start writing and querying your data with **JavaScript/Node.js**. Now, w
 ## May 2022
 
 ### Bulk delete API tokens
-Efficiently delete multiple tokens at once. For details, see [Delete a token using the InfluxDB API](/influxdb/v2/security/tokens/delete-token/#delete-a-token-using-the-influxdb-api).
+Efficiently delete multiple tokens at once. For details, see [Delete a token using the InfluxDB API](/influxdb/v2/admin/tokens/delete-token/#delete-a-token-using-the-influxdb-api).
 
 ### Help bar
 Find relevant content easily from the Cloud UI using the help tab in left side panel.
@@ -128,11 +128,11 @@ Navigate to UI pages without having to enter your organization ID in the URL usi
 
 ### Remove yourself from an organization
 
-You can now remove yourself as a member of an organization in the Cloud UI. For details, see [Remove a user from your organization](/influxdb/cloud/organizations/users/#remove-a-user-from-your-organization/).
+You can now remove yourself as a member of an organization in the Cloud UI. For details, see [Remove a user from your organization](/influxdb/cloud/admin/organizations/users/#remove-a-user-from-your-organization/).
 
 ### Add auto-refresh functionality to Notebooks
 
-Automatically refresh Notebooks data. For details, see [Create a notebook](/influxdb/cloud/notebooks/create-notebook/).
+Automatically refresh Notebooks data. For details, see [Create a notebook](/influxdb/cloud/tools/notebooks/create-notebook/).
 
 ## Performance improvements to dashboards and queries
 
@@ -142,7 +142,7 @@ Previously, InfluxDB loaded all variables on the client side, even those not inc
 
 ### Update Tokens UI
 
-To enhance security, the Tokens UI will only display an InfluxDB Cloud token when it's [first created](/influxdb/cloud/security/tokens/create-token/). If you return to the Token page later, you won't be able to view or copy the token. To learn more about token access restrictions, see [Create an API token](/influxdb/cloud/security/tokens/create-token/).
+To enhance security, the Tokens UI will only display an InfluxDB Cloud token when it's [first created](/influxdb/cloud/admin/tokens/create-token/). If you return to the Token page later, you won't be able to view or copy the token. To learn more about token access restrictions, see [Create an API token](/influxdb/cloud/admin/tokens/create-token/).
 
 ### Multi-account support
 
@@ -180,7 +180,7 @@ Now, you can add the following buckets with sample data to your notebooks:
 
 ### Add ability to share notebooks
 
-Add ability to [share a notebook](/influxdb/cloud/notebooks/manage-notebooks/#share-a-notebook) in the the InfluxDB Cloud notebook UI.
+Add ability to [share a notebook](/influxdb/cloud/tools/notebooks/manage-notebooks/#share-a-notebook) in the the InfluxDB Cloud notebook UI.
 
 ## October 2021
 
@@ -205,7 +205,7 @@ Upgrade to [Flux v0.139](/flux/v0.x/release-notes/).
 
 ### Telegraf configuration UI
 
-Update Telegraf configuration in the UI to make it easier to set up and configure Telegraf plugins. See how to [use the InfluxDB UI to generate and store new Telegraf plugins](/influxdb/cloud/telegraf-configs/create/#use-the-influxdb-ui).
+Update Telegraf configuration in the UI to make it easier to set up and configure Telegraf plugins. See how to [use the InfluxDB UI to generate and store new Telegraf plugins](/influxdb/cloud/tools/telegraf-configs/create/#use-the-influxdb-ui).
 
 ## September 2021
 
@@ -215,8 +215,8 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 
 ## August 2021
 
-- Add support for [explicit bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/), which lets you enforce explicit schemas for each InfluxDB measurement, including column names, tags, fields, and data types.
-- Add ability to convert [notebook cells into raw Flux script](/influxdb/cloud/notebooks/create-notebook/#view-and-edit-flux-script-in-a-cell). Now you can view and edit the code.
+- Add support for [explicit bucket schemas](/influxdb/cloud/admin/buckets/bucket-schema/), which lets you enforce explicit schemas for each InfluxDB measurement, including column names, tags, fields, and data types.
+- Add ability to convert [notebook cells into raw Flux script](/influxdb/cloud/tools/notebooks/create-notebook/#view-and-edit-flux-script-in-a-cell). Now you can view and edit the code.
 - Add [delete request rate limits](/influxdb/cloud/account-management/data-usage/#exceeded-rate-limits) per organization.
 
 ## July 2021
@@ -230,7 +230,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 
 ## May 2021
 
-- Add new [Cloud 2 Usage Dashboard template](https://github.com/influxdata/community-templates/tree/master/usage_dashboard) to monitor your Cloud usage data, including rate limiting events. For more detail on Cloud data usage and rate limiting events, see how to [view InfluxDB Cloud data usage](/influxdb/cloud/account-management/data-usage/). For more detail on how to install and customize this template, see [InfluxDB templates in InfluxDB Cloud](/influxdb/cloud/influxdb-templates/cloud/).
+- Add new [Cloud 2 Usage Dashboard template](https://github.com/influxdata/community-templates/tree/master/usage_dashboard) to monitor your Cloud usage data, including rate limiting events. For more detail on Cloud data usage and rate limiting events, see how to [view InfluxDB Cloud data usage](/influxdb/cloud/account-management/data-usage/). For more detail on how to install and customize this template, see [InfluxDB templates in InfluxDB Cloud](/influxdb/cloud/tools/influxdb-templates/cloud/).
 
 - Add support for [using annotations](/influxdb/cloud/visualize-data/annotations/) in your dashboards.
 - Add new [map visualization](/influxdb/cloud/visualize-data/visualization-types/map/) to display geo-temporal data.
@@ -239,7 +239,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 
 - Add new [GCP Europe West (Belgium) region](/influxdb/cloud/reference/regions/#google-cloud-platform-gcp).
 - Add [mosaic visualization](/influxdb/cloud/visualize-data/visualization-types/mosaic/). Use this visualization to display state changes in your time series data.
-- Add [notebooks](/influxdb/cloud/notebooks/). Use notebooks to build and share ways to explore, visualize, and process your time series data. Learn how notebooks can help you [downsample](/influxdb/cloud/notebooks/downsample/) and [normalize](/influxdb/cloud/notebooks/clean-data/) your time series data.
+- Add [notebooks](/influxdb/cloud/tools/notebooks/). Use notebooks to build and share ways to explore, visualize, and process your time series data. Learn how notebooks can help you [downsample](/influxdb/cloud/tools/notebooks/downsample/) and [normalize](/influxdb/cloud/tools/notebooks/clean-data/) your time series data.
 
 ## January 2021
 
@@ -268,7 +268,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 - Add [Microsoft (Windows Live) social sign-on](https://cloud2.influxdata.com/signup). Use your Windows Live credentials to easily sign in to your InfluxDB Cloud account.
 ### InfluxDB community templates
 
-- Access any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface (UI). For more details, see how to [install and customize a template in the UI](/influxdb/cloud/influxdb-templates/cloud/).
+- Access any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface (UI). For more details, see how to [install and customize a template in the UI](/influxdb/cloud/tools/influxdb-templates/cloud/).
 
 - Use the new [InfluxDB 2 Operational Monitoring community template](https://github.com/influxdata/community-templates/tree/master/influxdb2_operational_monitoring) to monitor InfluxDB OSS 2.0.
 
@@ -321,7 +321,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 
 ### Install and customize InfluxDB community templates in the Cloud UI
 
-Install and customize any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface (UI). For more details, see how to [install and customize a template in the UI](/influxdb/cloud/influxdb-templates/cloud/).
+Install and customize any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface (UI). For more details, see how to [install and customize a template in the UI](/influxdb/cloud/tools/influxdb-templates/cloud/).
 
 ## 2020-09-02
 
@@ -339,7 +339,7 @@ Install and customize any [InfluxDB community template](https://github.com/influ
 
 ## Features
 - **InfluxDB OSS 2.0 alpha-17** –
-  _See the [alpha-17 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha17-2019-08-14) for details._
+  _See the [alpha-17 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha17) for details._
 - Alerts and Notifications to Slack (Free Plan), PagerDuty and HTTP (Usage-based Plan).
 - Rate limiting on cardinality for Free Plan.
 - Billing notifications.
@@ -351,7 +351,7 @@ Install and customize any [InfluxDB community template](https://github.com/influ
 ### Features
 
 - **InfluxDB OSS 2.0 alpha-15** –
-  _See the [alpha-9 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha15-2019-07-11) for details._
+  _See the [alpha-9 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha15) for details._
 - Usage-based Plan.
 - Adjusted Free Plan rate limits.
 - Timezone selection in the user interface.
@@ -378,7 +378,7 @@ Install and customize any [InfluxDB community template](https://github.com/influ
 ### Features
 
 - **InfluxDB OSS 2.0 alpha-9** –
-  _See the [alpha-9 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha9-2019-05-01) for details._
+  _See the [alpha-9 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha9) for details._
 
 ### Bug fixes
 
@@ -395,7 +395,7 @@ Install and customize any [InfluxDB community template](https://github.com/influ
 ### Features
 
 - **InfluxDB OSS 2.0 alpha-7** –
-  _See the [alpha-7 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha7-2019-03-28) for details._
+  _See the [alpha-7 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha7) for details._
 
 ### Bug fixes
 

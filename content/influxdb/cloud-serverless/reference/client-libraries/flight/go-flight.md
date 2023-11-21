@@ -6,7 +6,7 @@ menu:
     name: Go
     parent: Arrow Flight clients
     identifier: go-flight-client
-influxdb/cloud-serverless/tags: [Golang, gRPC, SQL, Flight SQL, client libraries]
+influxdb/cloud-serverless/tags: [Flight client, Golang, gRPC, SQL, Flight SQL, client libraries]
 related:
   - /influxdb/cloud-serverless/reference/client-libraries/v3/go/
 aliases:

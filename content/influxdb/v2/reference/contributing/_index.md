@@ -2,8 +2,9 @@
 title: Contribute to InfluxDB OSS
 description: Find important information about what's included in new versions of InfluxData products.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: Contribute to InfluxDB
+    parent: Reference
     weight: 11
 ---
 

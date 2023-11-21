@@ -8,7 +8,7 @@ menu:
     parent: contrib/sranka/webexteams
     identifier: contrib/sranka/webexteams/endpoint
 weight: 301
-flux/v0.x/tags: [notification endpoints, transformations]
+flux/v0/tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------

@@ -8,7 +8,7 @@ menu:
     parent: pagerduty
     identifier: pagerduty/sendEvent
 weight: 101
-flux/v0.x/tags: [single notification]
+flux/v0/tags: [single notification]
 ---
 
 <!------------------------------------------------------------------------------

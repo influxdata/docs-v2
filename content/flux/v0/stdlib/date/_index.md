@@ -9,7 +9,7 @@ menu:
     identifier: date
 weight: 11
 cascade:
-  flux/v0.x/tags: [date/time]
+  flux/v0/tags: [date/time]
   introduced: 0.37.0
 ---
 

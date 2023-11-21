@@ -6,6 +6,7 @@ menu:
   influxdb_cloud_dedicated:
     parent: influxctl user
 weight: 301
+draft: true
 ---
 
 The `influxctl user delete` command deletes a user from your {{< product-name >}}
@@ -35,6 +36,10 @@ and cannot be undone.
 | Flag |          | Description         |
 | :--- | :------- | :------------------ |
 | `-h` | `--help` | Output command help |
+
+{{% caption %}}
+_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+{{% /caption %}}
 
 ## Examples
 

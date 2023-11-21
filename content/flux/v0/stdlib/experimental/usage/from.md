@@ -8,7 +8,7 @@ menu:
     parent: experimental/usage
     identifier: experimental/usage/from
 weight: 201
-flux/v0.x/tags: [inputs]
+flux/v0/tags: [inputs]
 ---
 
 <!------------------------------------------------------------------------------
@@ -90,7 +90,7 @@ _(Required if executed outside of your InfluxDB Cloud organization or region)_.
 
 ### token
 
-InfluxDB Cloud [API token](/influxdb/cloud/security/tokens/).
+InfluxDB Cloud [API token](/influxdb/cloud/admin/tokens/).
 Default is `""`.
 
 _(Required if executed outside of your InfluxDB Cloud organization or region)_.

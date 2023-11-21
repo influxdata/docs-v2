@@ -9,7 +9,7 @@ menu:
     parent: influxdata/influxdb
     identifier: influxdata/influxdb/wideTo
 weight: 201
-flux/v0.x/tags: [outputs]
+flux/v0/tags: [outputs]
 introduced: 0.174.0
 ---
 

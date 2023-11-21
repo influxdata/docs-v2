@@ -61,7 +61,7 @@ chronograf [flags]
 | `--influxdb-username` | InfluxDB username                                                                       | `INFLUXDB_USERNAME` |
 | `--influxdb-password` | InfluxDB password                                                                       | `INFLUXDB_PASSWORD` |
 | `--influxdb-org`      | InfluxDB 2.x or InfluxDB Cloud organization name                                        | `INFLUXDB_ORG`      |
-| `--influxdb-token`    | InfluxDB 2.x or InfluxDB Cloud [authentication token](/influxdb/cloud/security/tokens/) | `INFLUXDB_TOKEN`    |
+| `--influxdb-token`    | InfluxDB 2.x or InfluxDB Cloud [authentication token](/influxdb/cloud/admin/tokens/) | `INFLUXDB_TOKEN`    |
 
 ### Kapacitor connection flags
 

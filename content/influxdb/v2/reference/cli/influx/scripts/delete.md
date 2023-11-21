@@ -2,7 +2,7 @@
 title: influx scripts delete
 description: The `influx scripts delete` command deletes an invokable script in InfluxDB.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx scripts delete
     parent: influx scripts
 weight: 201

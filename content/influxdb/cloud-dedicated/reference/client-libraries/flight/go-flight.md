@@ -6,7 +6,7 @@ menu:
     name: Go
     parent: Arrow Flight clients
     identifier: go-flight-client
-influxdb/cloud-dedicated/tags: [Go, gRPC, SQL, Flight SQL, client libraries]
+influxdb/cloud-dedicated/tags: [Flight client, Go, gRPC, SQL, Flight SQL, client libraries]
 related:
   - /influxdb/cloud-dedicated/reference/client-libraries/v3/go/
 aliases:

@@ -4,9 +4,9 @@ description: >
   Use [Grafana](https://grafana.com/) to visualize data from your **InfluxDB Cloud** instance.
 menu:
   influxdb_cloud:
-    name: Use Grafana
+    name: Grafana
     parent: Tools & integrations
-weight: 104
+weight: 120
 influxdb/cloud/tags: [grafana]
 related:
   - https://grafana.com/docs/, Grafana documentation

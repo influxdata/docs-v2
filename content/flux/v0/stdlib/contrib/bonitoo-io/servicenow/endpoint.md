@@ -8,7 +8,7 @@ menu:
     parent: contrib/bonitoo-io/servicenow
     identifier: contrib/bonitoo-io/servicenow/endpoint
 weight: 301
-flux/v0.x/tags: [notification endpoints]
+flux/v0/tags: [notification endpoints]
 ---
 
 <!------------------------------------------------------------------------------

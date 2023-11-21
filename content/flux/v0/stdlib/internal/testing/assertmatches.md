@@ -8,7 +8,7 @@ menu:
     parent: internal/testing
     identifier: internal/testing/assertMatches
 weight: 201
-flux/v0.x/tags: [tests]
+flux/v0/tags: [tests]
 introduced: LATEST
 ---
 

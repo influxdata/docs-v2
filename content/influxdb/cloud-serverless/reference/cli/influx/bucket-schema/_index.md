@@ -9,8 +9,7 @@ weight: 101
 influxdb/cloud-serverless/tags: [buckets, bucket-schema]
 cascade:
   related:
-    - /influxdb/cloud/organizations/buckets/bucket-schema
-    - /influxdb/cloud/organizations/buckets/
+    - /influxdb/cloud-serverless/admin/buckets/
     - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
     - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   metadata: [influx CLI 2.1.0+]

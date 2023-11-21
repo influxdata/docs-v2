@@ -10,7 +10,7 @@ menu:
     identifier: experimental/prometheus
 weight: 21
 cascade:
-  flux/v0.x/tags: [prometheus]
+  flux/v0/tags: [prometheus]
   introduced: 0.50.0
 ---
 

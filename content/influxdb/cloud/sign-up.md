@@ -8,6 +8,8 @@ menu:
     name: Sign up
 weight: 1
 influxdb/cloud/tags: [get-started, install, cli]
+aliases:
+  - /v2/cloud/get-started/
 ---
 
 InfluxDB Cloud is a fully managed and hosted version of InfluxDB 2.0, the time series
@@ -90,8 +92,8 @@ Currently, we do **not support** using an existing InfluxDB Cloud account to sig
 
 7. Click **Continue**, and then choose your plan:
    - To upgrade to a Usage-Based plan, click **Upgrade Now**, set your limits (you may opt to receive an email when your usage exceeds the amount you enter in the **Limit ($1 minimum)** field). Next, enter your payment information and billing address, and then click **Upgrade**. A Ready To Rock confirmation appears; click **Start building your team**. Your plan will be upgraded and {{< product-name >}} opens with a default organization and bucket (both created from your email address). To review your usage and billing details at any time, see how to [access billing details](/influxdb/cloud/account-management/billing/#access-billing-details).  
-   - To keep the free plan, click **Keep**. {{< product-name >}} opens with a default organization and bucket (both created from your email address). _To update organization and bucket names, see [Update an organization](/influxdb/cloud/organizations/update-org/)
-    and [Update a bucket](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-name-in-the-influxdb-ui)._
+   - To keep the free plan, click **Keep**. {{< product-name >}} opens with a default organization and bucket (both created from your email address). _To update organization and bucket names, see [Update an organization](/influxdb/cloud/admin/organizations/update-org/)
+    and [Update a bucket](/influxdb/cloud/admin/buckets/update-bucket/#update-a-buckets-name-in-the-influxdb-ui)._
    - To upgrade to an Annual plan, click **Contact Sales**, enter your information, and then click **Send**. Our team will contact you as soon as possible.
 
 ## (Optional) Download, install, and use the influx CLI
@@ -150,7 +152,7 @@ If running `influx` on macOS Catalina, you must manually authorize the
 
 #### Step 5: Set up a configuration profile
 
-To avoid having to pass your InfluxDB [API token](/influxdb/cloud/security/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
+To avoid having to pass your InfluxDB [API token](/influxdb/cloud/admin/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
 
 In a terminal, run the following command:
 
@@ -210,7 +212,7 @@ If you rename the binary, all references to `influx` in this documentation refer
 
 #### Step 4: Set up a configuration profile
 
-To avoid having to pass your InfluxDB [API token](/influxdb/cloud/security/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
+To avoid having to pass your InfluxDB [API token](/influxdb/cloud/admin/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
 
 In a terminal, run the following command:
 

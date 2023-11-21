@@ -10,20 +10,16 @@ weight: 202
 aliases:
     - /influxdb/cloud-serverless/organizations/buckets/update-bucket/
 alt_links:
-  cloud: /influxdb/cloud/organizations/buckets/update-bucket/
+  cloud: /influxdb/cloud/admin/buckets/update-bucket/
 ---
 
-Use the InfluxDB user interface (UI), the `influx` command line interface (CLI), or the InfluxDB HTTP API to update a bucket.
+Use the InfluxDB user interface (UI), the `influx` command line interface (CLI),
+or the InfluxDB HTTP API to update a bucket.
 
-Note that updating a bucket's name will affect any resources that reference the bucket by name, including the following:
-
-  - Queries
-  - Dashboards
-  - Tasks
-  - Telegraf configurations
-  - Templates
-
-If you change a bucket name, be sure to update the bucket name in the above places and any resources that reference it.
+{{% note %}}
+If you change a bucket name, be sure to update the bucket connection credential
+in clients that connect to your bucket.
+{{% /note %}}
 
 ## Update a bucket's name in the InfluxDB UI
 

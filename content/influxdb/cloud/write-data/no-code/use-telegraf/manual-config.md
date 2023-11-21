@@ -15,8 +15,8 @@ weight: 202
 influxdb/cloud/tags: [manually, plugin, mqtt]
 related:
   - /telegraf/v1/plugins/
-  - /influxdb/cloud/telegraf-configs/create/
-  - /influxdb/cloud/telegraf-configs/update/
+  - /influxdb/cloud/tools/telegraf-configs/create/
+  - /influxdb/cloud/tools/telegraf-configs/update/
 alt_links:
   cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/configure/
   cloud-dedicated: /influxdb/cloud-dedicated/write-data/use-telegraf/configure/
@@ -74,7 +74,7 @@ See [InfluxDB URLs](/influxdb/cloud/reference/urls/) for information about which
 
 ##### token
 Your InfluxDB v2.0 authorization token.
-For information about viewing tokens, see [View tokens](/influxdb/cloud/security/tokens/view-tokens/).
+For information about viewing tokens, see [View tokens](/influxdb/cloud/admin/tokens/view-tokens/).
 
 {{% note %}}
 ###### Avoid storing tokens in `telegraf.conf`
@@ -153,8 +153,8 @@ of Telegraf configurations in InfluxDB, use the [`influx telegrafs create`](/inf
 or [`influx telegrafs update`](/influxdb/cloud/reference/cli/influx/telegrafs/update/) commands.
 For more information, see:
 
-- [Create a Telegraf configuration](/influxdb/cloud/telegraf-configs/create/#use-the-influx-cli)
-- [Update a Telegraf configuration](/influxdb/cloud/telegraf-configs/update/#use-the-influx-cli)
+- [Create a Telegraf configuration](/influxdb/cloud/tools/telegraf-configs/create/#use-the-influx-cli)
+- [Update a Telegraf configuration](/influxdb/cloud/tools/telegraf-configs/update/#use-the-influx-cli)
 
 ## Start Telegraf
 

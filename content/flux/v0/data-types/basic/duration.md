@@ -9,7 +9,7 @@ menu:
     name: Duration
     parent: Basic types
 weight: 201
-flux/v0.x/tags: ["basic types", "data types"]
+flux/v0/tags: ["basic types", "data types"]
 related:
   - /flux/v0/stdlib/universe/duration/
 list_code_example: |

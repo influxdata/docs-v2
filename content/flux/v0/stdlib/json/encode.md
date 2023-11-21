@@ -8,7 +8,7 @@ menu:
     parent: json
     identifier: json/encode
 weight: 101
-flux/v0.x/tags: [type-conversions]
+flux/v0/tags: [type-conversions]
 ---
 
 <!------------------------------------------------------------------------------

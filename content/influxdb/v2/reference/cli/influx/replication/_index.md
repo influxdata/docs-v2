@@ -2,7 +2,7 @@
 title: influx replication
 description: Use the `influx` CLI to manage InfluxDB replication streams.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx replication
     parent: influx
 weight: 101

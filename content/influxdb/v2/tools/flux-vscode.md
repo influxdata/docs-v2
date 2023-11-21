@@ -5,10 +5,10 @@ description: >
   The [Flux Visual Studio Code (VS Code) extension](https://marketplace.visualstudio.com/items?itemName=influxdata.flux)
   provides Flux syntax highlighting, autocompletion, and a direct InfluxDB OSS server
   integration that lets you run Flux scripts natively and show results in VS Code.
-weight: 103
+weight: 118
 menu:
   influxdb_v2:
-    name: Use the Flux VS Code extension
+    name: Flux VS Code extension
     parent: Tools & integrations
 ---
 
@@ -48,7 +48,7 @@ To create an InfluxDB connection in VS Code:
     - **Name:** unique identifier for your InfluxDB connection.
     - **Hostname and Port:** InfluxDB host and port
       (see [InfluxDB OSS URLs](/influxdb/v2/reference/urls/) or [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)).
-    - **Token:** InfluxDB [API token](/influxdb/v2/security/tokens/).
+    - **Token:** InfluxDB [API token](/influxdb/v2/admin/tokens/).
     - **Organization:** InfluxDB organization name.
 3. Click **Test** to test the connection.
 4. Once tested successfully, click **Save**.

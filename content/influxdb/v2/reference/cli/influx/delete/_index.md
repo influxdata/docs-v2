@@ -2,7 +2,7 @@
 title: influx delete
 description: The `influx delete` command deletes points from an InfluxDB bucket.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx delete
     parent: influx
 weight: 101
@@ -67,7 +67,7 @@ InfluxDB {{< current-version >}} does not support deleting data **by field**.
 influx delete \
   --bucket example-bucket \
   --start 1970-01-01T00:00:00Z \
-  --stop $(date +"%Y-%m-%dT%H:%M:%SZ") \
+  --stop $(date --utc +"%Y-%m-%dT%H:%M:%SZ") \
   --predicate '_measurement="example-measurement"'
 ```
 
@@ -76,7 +76,7 @@ influx delete \
 influx delete \
   --bucket example-bucket \
   --start 1970-01-01T00:00:00Z \
-  --stop $(date +"%Y-%m-%dT%H:%M:%SZ") \
+  --stop $(date --utc +"%Y-%m-%dT%H:%M:%SZ") \
   --predicate '_measurement="example-measurement" AND host="old-host"'
 ```
 

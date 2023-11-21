@@ -9,7 +9,7 @@ menu:
     name: Java
     parent: v3 client libraries
     identifier: influxdb3-java
-influxdb/clustered/tags: [Java, gRPC, SQL, Flight SQL, client libraries]
+influxdb/clustered/tags: [Flight client, Java, gRPC, SQL, Flight SQL, client libraries]
 weight: 201
 ---
 

@@ -2,7 +2,7 @@
 title: influx org list
 description: The `influx org list` lists and searches for organizations in InfluxDB.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx org list
     parent: influx org
 weight: 201

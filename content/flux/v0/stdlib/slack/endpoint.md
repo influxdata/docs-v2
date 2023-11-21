@@ -8,7 +8,7 @@ menu:
     parent: slack
     identifier: slack/endpoint
 weight: 101
-flux/v0.x/tags: [notification endpoints, transformations]
+flux/v0/tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------

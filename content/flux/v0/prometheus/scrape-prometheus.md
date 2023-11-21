@@ -7,7 +7,7 @@ menu:
   flux_v0:
     parent: Work with Prometheus
 weight: 101
-flux/v0.x/tags: [prometheus]
+flux/v0/tags: [prometheus]
 related:
   - https://prometheus.io/docs/concepts/data_model/, Prometheus data model
   - /flux/v0/stdlib/experimental/prometheus/scrape/

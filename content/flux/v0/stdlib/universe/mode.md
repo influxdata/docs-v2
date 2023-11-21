@@ -9,7 +9,7 @@ menu:
     parent: universe
     identifier: universe/mode
 weight: 101
-flux/v0.x/tags: [transformtions, aggregates]
+flux/v0/tags: [transformtions, aggregates]
 introduced: 0.36.0
 ---
 

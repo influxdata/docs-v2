@@ -8,7 +8,7 @@ menu:
     parent: experimental/iox
     identifier: experimental/iox/from
 weight: 201
-flux/v0.x/tags: [inputs]
+flux/v0/tags: [inputs]
 ---
 
 <!------------------------------------------------------------------------------

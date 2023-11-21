@@ -6,7 +6,7 @@ description: >
 aliases:
   - /influxdb/cloud/reference/flux/flux-vs-influxql/
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: Flux vs InfluxQL
     parent: flux-syntax
     weight: 105

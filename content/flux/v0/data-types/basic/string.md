@@ -9,7 +9,7 @@ menu:
     name: String
     parent: Basic types
 weight: 201
-flux/v0.x/tags: ["basic types", "data types"]
+flux/v0/tags: ["basic types", "data types"]
 aliases:
   - /influxdb/v2/reference/flux/language/string-interpolation/
   - /influxdb/cloud/reference/flux/language/string-interpolation/

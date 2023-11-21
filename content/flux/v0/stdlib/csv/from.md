@@ -9,7 +9,7 @@ menu:
     parent: csv
     identifier: csv/from
 weight: 101
-flux/v0.x/tags: [csv, inputs]
+flux/v0/tags: [csv, inputs]
 ---
 
 <!------------------------------------------------------------------------------

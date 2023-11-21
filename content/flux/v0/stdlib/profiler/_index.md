@@ -9,7 +9,7 @@ menu:
     identifier: profiler
 weight: 11
 cascade:
-  flux/v0.x/tags: [optimize]
+  flux/v0/tags: [optimize]
   introduced: 0.82.0
 ---
 

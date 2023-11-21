@@ -2,7 +2,7 @@
 title: influx config rm
 description: The `influx config rm` command removes an InfluxDB connection configuration.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx config rm
     parent: influx config
 weight: 201

@@ -8,7 +8,7 @@ menu:
     parent: experimental/geo
     identifier: experimental/geo/strictFilter
 weight: 201
-flux/v0.x/tags: [transformations, filters, geotemporal]
+flux/v0/tags: [transformations, filters, geotemporal]
 ---
 
 <!------------------------------------------------------------------------------

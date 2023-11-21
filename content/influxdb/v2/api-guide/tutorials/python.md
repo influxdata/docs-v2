@@ -44,7 +44,7 @@ If you haven't already, [create an InfluxDB Cloud account](https://www.influxdat
 ### Authenticate with an InfluxDB API token
 
 For convenience in development,
-[create an _All-Access_ token](/influxdb/v2/security/tokens/create-token/)
+[create an _All-Access_ token](/influxdb/v2/admin/tokens/create-token/)
 for your application. This grants your application full read and write
 permissions on all resources within your InfluxDB organization.
 
@@ -201,7 +201,7 @@ In this application, a _registered device_ is a point that contains your device 
 The API token and authorization permissions allow the device to query and write to `INFLUX_BUCKET`.
 In this section, you add the API endpoint that handles requests from the UI, creates an authorization in InfluxDB,
 and writes the registered device to the `INFLUX_BUCKET_AUTH` bucket.
-To learn more about API tokens and authorizations, see [Manage API tokens](/influxdb/v2/security/tokens/)
+To learn more about API tokens and authorizations, see [Manage API tokens](/influxdb/v2/admin/tokens/)
 
 The application API uses the following `/api/v2` InfluxDB API endpoints:
 
@@ -278,7 +278,7 @@ the `/api/v2/buckets` InfluxDB API endpoint.
 - Description: `IoTCenterDevice: DEVICE_ID`.
 - List of permissions to the bucket.
 
-To learn more about API tokens and authorizations, see [Manage API tokens](/influxdb/v2/security/tokens/).
+To learn more about API tokens and authorizations, see [Manage API tokens](/influxdb/v2/admin/tokens/).
 
 Next, [write the device authorization to a bucket](#write-the-device-authorization-to-a-bucket).
 

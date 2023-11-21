@@ -2,7 +2,7 @@
 title: influx stacks init
 description: The `influx stacks init` command initializes an InfluxDB stack.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: influx stacks init
     parent: influx stacks
 weight: 201

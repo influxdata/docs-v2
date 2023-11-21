@@ -8,7 +8,7 @@ menu:
     parent: universe
     identifier: universe/hourSelection
 weight: 101
-flux/v0.x/tags: [transformations, date/time, filters]
+flux/v0/tags: [transformations, date/time, filters]
 introduced: 0.39.0
 ---
 

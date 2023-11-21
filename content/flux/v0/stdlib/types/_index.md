@@ -9,7 +9,7 @@ menu:
     identifier: types
 weight: 11
 cascade:
-  flux/v0.x/tags: [types]
+  flux/v0/tags: [types]
   introduced: 0.141.0
 ---
 

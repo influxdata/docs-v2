@@ -10,27 +10,20 @@ influxdb/cloud-serverless/tags: [client libraries, JavaScript]
 weight: 100
 aliases:
   - /influxdb/cloud-serverless/reference/api/client-libraries/nodejs/install
+prepend:
+  block: warn
+  content: |
+    ### Use InfluxDB v3 clients
+
+    The `/api/v2/query` API endpoint and associated tooling, such as InfluxDB v2 client libraries and the `influx` CLI, **can't** query an {{% product-name omit=" Clustered" %}} cluster.
+
+    [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/) and [Flight SQL clients](/influxdb/cloud-serverless/reference/client-libraries/) are available that integrate with your code to write and query data stored in {{% product-name %}}.
+
+    InfluxDB v3 supports many different tools for [**writing**](/influxdb/cloud-serverless/write-data/) and [**querying**](/influxdb/cloud-serverless/query-data/) data.
+    [**Compare tools you can use**](/influxdb/cloud-serverless/get-started/#tools-to-use) to interact with {{% product-name %}}.
 ---
 
-{{% note %}}
-
 Install the Node.js JavaScript client library to write data to InfluxDB {{% product-name %}}.
-
-### Tools to execute queries
-
-InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
-
-{{% product-name %}} supports many different tools for querying data, including:
-
-- [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
-- [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
-- [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
-- [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
-- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/primers/api/v1/#query-using-the-v1-api)
-- [Chronograf](/chronograf/v1/)
-
-{{% /note %}}
 
 ## Install Node.js
 

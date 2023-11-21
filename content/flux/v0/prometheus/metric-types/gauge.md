@@ -13,7 +13,7 @@ weight: 101
 related:
   - https://prometheus.io/docs/concepts/metric_types/, Prometheus metric types
   - /influxdb/v2/reference/prometheus-metrics/
-flux/v0.x/tags: [prometheus]
+flux/v0/tags: [prometheus]
 ---
 
 Use Flux to query and transform Prometheus **gauge** metrics stored in InfluxDB.

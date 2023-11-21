@@ -2,7 +2,7 @@
 title: Extended annotated CSV
 description: >
   Extended annotated CSV provides additional annotations and options that specify
-  how CSV data should be converted to [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)
+  how CSV data should be converted to [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/)
   and written to InfluxDB.
 menu:
   influxdb_cloud_serverless:

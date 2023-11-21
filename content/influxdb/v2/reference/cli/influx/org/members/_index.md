@@ -2,7 +2,7 @@
 title: influx org members
 description: The `influx org members` command and its subcommands manage organization members in InfluxDB.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx org members
     parent: influx org
 weight: 201

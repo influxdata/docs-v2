@@ -3,13 +3,13 @@ title: influx export all
 description: >
   The `influx export all` command exports all resources in an organization as an InfluxDB template.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     parent: influx export
 weight: 201
 aliases:
   - /influxdb/v2/reference/cli/influx/pkg/export/all/
 related:
-  - /influxdb/v2/influxdb-templates/create/
+  - /influxdb/v2/tools/influxdb-templates/create/
   - /influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/v2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
@@ -17,12 +17,12 @@ related:
 The `influx export all` command exports all resources in an
 organization as an InfluxDB template.
 _For detailed examples of exporting InfluxDB templates, see
-[Create an InfluxDB template](/influxdb/v2/influxdb-templates/create/)._
+[Create an InfluxDB template](/influxdb/v2/tools/influxdb-templates/create/)._
 
 {{% note %}}
 To export resources as a template, you must use the **Operator token** created for
 the initial InfluxDB user or an **All-Access token**.
-For information about creating an All-Access API token, see [Create an API token](/influxdb/v2/security/tokens/create-token/).
+For information about creating an All-Access API token, see [Create an API token](/influxdb/v2/admin/tokens/create-token/).
 {{% /note %}}
 
 ## Usage
@@ -64,7 +64,7 @@ The following resources can be exported:
 - Variable
 
 For additional information on each resource, please see 
-[template resources](/influxdb/v2/influxdb-templates/#template-resources).
+[template resources](/influxdb/v2/tools/influxdb-templates/#template-resources).
 
 ## Examples
 

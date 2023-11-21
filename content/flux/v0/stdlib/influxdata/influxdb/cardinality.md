@@ -8,7 +8,7 @@ menu:
     parent: influxdata/influxdb
     identifier: influxdata/influxdb/cardinality
 weight: 201
-flux/v0.x/tags: [metadata]
+flux/v0/tags: [metadata]
 introduced: 0.92.0
 ---
 

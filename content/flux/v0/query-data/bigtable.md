@@ -52,7 +52,7 @@ For more information about table grouping, see
 
 ## Store sensitive credentials as secrets
 If using **InfluxDB Cloud** or **InfluxDB OSS 2.x**, we recommend storing Bigtable
-connection credentials as [InfluxDB secrets](/influxdb/cloud/security/secrets/).
+connection credentials as [InfluxDB secrets](/influxdb/cloud/admin/secrets/).
 Use [`secrets.get()`](/flux/v0/stdlib/influxdata/influxdb/secrets/get/) to
 retrieve a secret from the InfluxDB secrets API.
 

@@ -9,7 +9,7 @@ menu:
     identifier: experimental/http/requests
 weight: 31
 cascade:
-  flux/v0.x/tags: [http]
+  flux/v0/tags: [http]
   introduced: 0.152.0
   deprecated: 0.173.0
 ---

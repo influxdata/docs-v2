@@ -13,7 +13,7 @@ influxdb/cloud-serverless/tags: [buckets]
 aliases:
   - /influxdb/cloud-serverless/organizations/buckets/
 alt_links:
-  cloud: /influxdb/cloud/organizations/buckets/
+  cloud: /influxdb/cloud/admin/buckets/
 ---
 
 A **bucket** is a named location where time series data is stored.

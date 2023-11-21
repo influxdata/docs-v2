@@ -9,7 +9,7 @@ menu:
     parent: regexp
     identifier: regexp/compile
 weight: 101
-flux/v0.x/tags: [type-conversions]
+flux/v0/tags: [type-conversions]
 ---
 
 <!------------------------------------------------------------------------------

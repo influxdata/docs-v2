@@ -13,7 +13,7 @@ influxdb/v2/tags: [delete]
 related:
   - /influxdb/v2/reference/syntax/delete-predicate/
   - /influxdb/v2/reference/cli/influx/delete/
-  - /influxdb/v2/organizations/buckets/delete-bucket/
+  - /influxdb/v2/admin/buckets/delete-bucket/
 ---
 
 Use the [`influx` CLI](/influxdb/v2/reference/cli/influx/) or the InfluxDB API
@@ -86,7 +86,7 @@ deletes all data in the specified bucket with timestamps between the specified `
 ```sh
 influx delete --bucket example-bucket \
   --start '1970-01-01T00:00:00Z' \
-  --stop $(date +"%Y-%m-%dT%H:%M:%SZ") \
+  --stop $(date --utc +"%Y-%m-%dT%H:%M:%SZ") \
   --predicate '_measurement="example-measurement" AND exampleTag="exampleTagValue"'
 ```
 
@@ -122,8 +122,8 @@ Include the following:
   - **Authorization:** `Token` schema with your InfluxDB API token
   - **Content-type:** `application/json`
 - **Query parameters:**
-  - **org** or **orgID:** organization name or [organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
-  - **bucket** or **bucketID:** bucket name or [bucket ID](/influxdb/v2/organizations/buckets/view-buckets/)
+  - **org** or **orgID:** organization name or [organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
+  - **bucket** or **bucketID:** bucket name or [bucket ID](/influxdb/v2/admin/buckets/view-buckets/)
 - **Request body:** JSON object with the following fields:  
   {{< req type="key" >}}
   - {{< req "\*" >}} **start:** earliest time to delete data from ([RFC3339](/influxdb/v2/reference/glossary/#rfc3339-timestamp))
@@ -182,4 +182,4 @@ curl --request POST http://localhost:8086/api/v2/delete?org=example-org&bucket=e
 
 _For more information, see the [`/api/v2/delete` endpoint documentation](/influxdb/v2/api/#operation/PostDelete)._
 
-To delete a bucket see [Delete a bucket](/influxdb/v2/organizations/buckets/delete-bucket/).
+To delete a bucket see [Delete a bucket](/influxdb/v2/admin/buckets/delete-bucket/).
