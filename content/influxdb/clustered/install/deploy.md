@@ -41,7 +41,7 @@ your cluster, but from your terminal.**
 - You do not want to run the operator in your Kubernetes cluster.
 {{% /note %}}
 
-<!-- Hidden anchor for links to the kubctl/kubit tabs -->
+<!-- Hidden anchor for links to the kubectl/kubit tabs -->
 <span id="kubctl-or-kubit"></span>
 
 {{< tabs-wrapper >}}
