@@ -1345,7 +1345,7 @@ To check the current number of maps the `influxd` process is using:
 
 ```sh
 # Get the influxd process ID (PID)
-PID=$(ps aux | awk '/influxd/ ${print 2}' 
+PID=$(ps aux | awk '/influxd/ ${print 2}')
 
 # Count the number of maps associated with the influxd process
 wc -l /proc/$PID/maps
