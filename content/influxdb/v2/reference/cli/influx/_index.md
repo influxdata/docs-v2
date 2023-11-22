@@ -36,6 +36,7 @@ InfluxDB and `influx` CLI versions may differ, but compatibility is noted for ea
     - [Download from your browser](#download-from-your-browser)
     - [Download from the command line](#download-from-the-command-line)
 - [Provide required authentication credentials](#provide-required-authentication-credentials)
+  - [Credential precedence](#credential-precedence)
 - [Usage](#usage)
 - [Commands](#commands)
 - [Flags](#flags)
@@ -218,6 +219,7 @@ Command Prompt is not fully compatible.
 {{< /tabs-wrapper >}}
 
 ## Provide required authentication credentials
+
 To avoid having to pass your InfluxDB **host**, **API token**, and **organization**
 with each command, store them in an `influx` CLI configuration (config).
 `influx` commands that require these credentials automatically retrieve these
@@ -236,6 +238,15 @@ influx config create --config-name <config-name> \
 
 For more information about managing CLI configurations, see the
 [`influx config` documentation](/influxdb/v2/reference/cli/influx/config/).
+
+### Credential precedence
+
+There are three ways to provide the necessary credentials to the `influx` CLI,
+which uses the following precedence when retrieving credentials:
+
+1. Command line flags (`--host`, `--org -o`, `--token -t`)
+2. Environment variables (`INFLUX_HOST`, `INFLUX_ORG`, `INFLUX_TOKEN`)
+3. CLI configuration file
 
 ## Usage
 
