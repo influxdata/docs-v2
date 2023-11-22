@@ -394,7 +394,7 @@ task will fail.
 
 ### Batch size is too large
 
-If your batch size is too large, the task will return an error similar to:
+If your batch size is too large, the task returns an error similar to the following:
 
 ```
 internal error: error calling function "metadata" @97:1-97:11: error calling function "findRecord" @67:32-67:69: wrong number of fields
@@ -402,7 +402,7 @@ internal error: error calling function "metadata" @97:1-97:11: error calling fun
 
 **Possible solutions**:
 - Update the `migration.batchInterval` setting in your migration task to use
-  a smaller interval. Each batch will then query less data.
+  a smaller interval and retrieve less data per batch.
 
 ### Migrate to InfluxDB Cloud Serverless
 
