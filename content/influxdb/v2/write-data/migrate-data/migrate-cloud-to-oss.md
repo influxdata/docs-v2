@@ -35,6 +35,7 @@ All queries against data in InfluxDB Cloud are subject to your organization's
 - [Troubleshoot migration task failures](#troubleshoot-migration-task-failures)
 
 ## Set up the migration
+
 1.  [Install and set up InfluxDB OSS](/influxdb/{{< current-version-link >}}/install/).
 
 2.  **In InfluxDB Cloud**, [create an API token](/influxdb/cloud/admin/tokens/create-token/)
@@ -69,6 +70,7 @@ Batch range is beyond the migration range. Migration is complete.
 ## Migration task
 
 ### Configure the migration
+
 1.  Specify how often you want the task to run using the `task.every` option.
     _See [Determine your task interval](#determine-your-task-interval)._
 
@@ -313,6 +315,7 @@ to allow for variation between batches.
 So in this example, **it would be best to set your `batchInterval` to `35d`**.
 
 ##### Important things to note
+
 - This assumes no other queries are running in your InfluxDB Cloud organization.
 - You should also consider your network speeds and whether a batch can be fully
   downloaded within the [task interval](#determine-your-task-interval).
@@ -322,6 +325,7 @@ So in this example, **it would be best to set your `batchInterval` to `35d`**.
 {{< /expand-wrapper >}}
 
 ## Monitor the migration progress
+
 The [InfluxDB Cloud Migration Community template](https://github.com/influxdata/community-templates/tree/master/influxdb-cloud-oss-migration/)
 installs the migration task outlined in this guide as well as a dashboard
 for monitoring running data migrations.
@@ -331,14 +335,17 @@ for monitoring running data migrations.
 <a class="btn" href="https://github.com/influxdata/community-templates/tree/master/influxdb-cloud-oss-migration/#quick-install">Install the InfluxDB Cloud Migration template</a>
 
 ## Troubleshoot migration task failures
+
 If the migration task fails, [view your task logs](/influxdb/v2/process-data/manage-tasks/task-run-history/)
 to identify the specific error. Below are common causes of migration task failures.
 
 - [Exceeded rate limits](#exceeded-rate-limits)
 - [Invalid API token](#invalid-api-token)
 - [Query timeout](#query-timeout)
+- [Batch size is too large](#batch-size-is-too-large)
 
 ### Exceeded rate limits
+
 If your data migration causes you to exceed your InfluxDB Cloud organization's
 limits and quotas, the task will return an error similar to:
 
@@ -351,6 +358,7 @@ too many requests
   a smaller interval. Each batch will then query less data.
 
 ### Invalid API token
+
 If the API token you add as the `INFLUXDB_CLOUD_SECRET` doesn't have read access to
 your InfluxDB Cloud bucket, the task will return an error similar to:
 
@@ -365,6 +373,7 @@ unauthorized access
   InfluxDB OSS instance with the new token.
 
 ### Query timeout
+
 The InfluxDB Cloud query timeout is 90 seconds. If it takes longer than this to
 return the data from the batch interval, the query will time out and the
 task will fail.
@@ -373,3 +382,15 @@ task will fail.
 - Update the `migration.batchInterval` setting in your migration task to use
   a smaller interval. Each batch will then query less data and take less time
   to return results.
+
+### Batch size is too large
+
+If your batch size is too large, the task will return an error similar to:
+
+```
+internal error: error calling function "metadata" @97:1-97:11: error calling function "findRecord" @67:32-67:69: wrong number of fields
+```
+
+**Possible solutions**:
+- Update the `migration.batchInterval` setting in your migration task to use
+  a smaller interval. Each batch will then query less data.

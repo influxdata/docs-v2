@@ -385,7 +385,7 @@ Write data with your existing workloads that already use the InfluxDB v1 `/write
 
 {{% note %}}
 
-If migrating data from InfluxDB 1.x, see the [Migrate data from InfluxDB 1.x to InfluxDB {{% product-name %}}](/influxdb/cloud-serverless/guides/migrate-data/migrate-1x-to-iox/) guide.
+If migrating data from InfluxDB 1.x, see the [Migrate data from InfluxDB 1.x to InfluxDB {{% product-name %}}](/influxdb/cloud-serverless/guides/migrate-data/migrate-1x-to-serverless/) guide.
 
 {{% /note %}}
 

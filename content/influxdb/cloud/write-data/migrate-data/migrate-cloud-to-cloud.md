@@ -12,7 +12,7 @@ aliases:
   - /influxdb/cloud/migrate-data/migrate-cloud-to-cloud/
 weight: 102
 alt_links:
-  cloud-serverless: /influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox/
+  cloud-serverless: /influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-serverless/
 ---
 
 To migrate data from one InfluxDB Cloud organization to another, query the
@@ -37,7 +37,7 @@ All query and write requests are subject to your InfluxDB Cloud organization's
   - [Configuration help](#configuration-help)
 - [Monitor the migration progress](#monitor-the-migration-progress)
 - [Troubleshoot migration task failures](#troubleshoot-migration-task-failures)
-- [Migrate to InfluxDB Cloud Serverless powered by IOx](#migrate-to-influxdb-cloud-serverless-powered-by-iox)
+- [Migrate to InfluxDB Cloud Serverless](#migrate-to-influxdb-cloud-serverless)
 
 ## Set up the migration
 
@@ -326,6 +326,7 @@ to allow for variation between batches.
 So in this example, **it would be best to set your `batchInterval` to `4d`**.
 
 ##### Important things to note
+
 - This assumes no other queries are running in your source InfluxDB Cloud organization.
 - This assumes no other writes are happening in your destination InfluxDB Cloud organization.
 {{% /expand %}}
@@ -333,6 +334,7 @@ So in this example, **it would be best to set your `batchInterval` to `4d`**.
 {{< /expand-wrapper >}}
 
 ## Monitor the migration progress
+
 The [InfluxDB Cloud Migration Community template](https://github.com/influxdata/community-templates/tree/master/influxdb-cloud-oss-migration/)
 installs the migration task outlined in this guide as well as a dashboard
 for monitoring running data migrations.
@@ -342,14 +344,17 @@ for monitoring running data migrations.
 <a class="btn" href="https://github.com/influxdata/community-templates/tree/master/influxdb-cloud-oss-migration/#quick-install">Install the InfluxDB Cloud Migration template</a>
 
 ## Troubleshoot migration task failures
+
 If the migration task fails, [view your task logs](/influxdb/cloud/process-data/manage-tasks/task-run-history/)
 to identify the specific error. Below are common causes of migration task failures.
 
 - [Exceeded rate limits](#exceeded-rate-limits)
 - [Invalid API token](#invalid-api-token)
 - [Query timeout](#query-timeout)
+- [Batch size is too large](#batch-size-is-too-large)
 
 ### Exceeded rate limits
+
 If your data migration causes you to exceed your InfluxDB Cloud organization's
 limits and quotas, the task will return an error similar to:
 
@@ -362,6 +367,7 @@ too many requests
   a smaller interval. Each batch will then query less data.
 
 ### Invalid API token
+
 If the API token you add as the `INFLUXDB_CLOUD_SECRET` doesn't have read access to
 your InfluxDB Cloud bucket, the task will return an error similar to:
 
@@ -376,6 +382,7 @@ unauthorized access
   InfluxDB OSS instance with the new token.
 
 ### Query timeout
+
 The InfluxDB Cloud query timeout is 90 seconds. If it takes longer than this to
 return the data from the batch interval, the query will time out and the
 task will fail.
@@ -385,17 +392,30 @@ task will fail.
   a smaller interval. Each batch will then query less data and take less time
   to return results.
 
-### Migrate to InfluxDB Cloud Serverless powered by IOx
+### Batch size is too large
 
-To unlock the benefits of the IOx storage engine, including unlimited cardinality and SQL, [migrate your data to an InfluxDB Cloud Serverless organization](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox/).
+If your batch size is too large, the task will return an error similar to:
 
-All InfluxDB Cloud [accounts](/influxdb/cloud-serverless/admin/accounts/) and [organizations](/influxdb/cloud-serverless/admin/organizations/) created through
+```
+internal error: error calling function "metadata" @97:1-97:11: error calling function "findRecord" @67:32-67:69: wrong number of fields
+```
+
+**Possible solutions**:
+- Update the `migration.batchInterval` setting in your migration task to use
+  a smaller interval. Each batch will then query less data.
+
+### Migrate to InfluxDB Cloud Serverless
+
+To unlock the benefits of the InfluxDB v3 storage engine, including unlimited
+cardinality and SQL, [migrate your data to an InfluxDB Cloud Serverless organization](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-serverless/).
+
+All InfluxDB Cloud [accounts](/influxdb/cloud-serverless/admin/accounts/) and
+[organizations](/influxdb/cloud-serverless/admin/organizations/) created through
 [cloud2.influxdata.com](https://cloud2.influxdata.com) on or after **January 31, 2023**
-are powered by the InfluxDB IOx storage engine.
+are on InfluxDB Cloud Serverless and are powered by the InfluxDB v3 storage engine.
 
-To see which storage engine your organization uses,
-find the **InfluxDB Cloud powered by** link in your
-[InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
-If your organization is using TSM, you'll see **TSM** followed by the version number.
-If IOx, you'll see
-**InfluxDB Cloud Serverless** followed by the version number.
+To see which storage engine your organization uses, find the **InfluxDB Cloud powered by**
+link in your [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com)
+version information. If your organization is using TSM, you'll see **TSM**
+followed by the version number. If Serverless, you'll see **InfluxDB Cloud Serverless**
+followed by the version number.

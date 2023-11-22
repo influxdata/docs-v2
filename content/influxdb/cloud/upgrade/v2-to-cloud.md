@@ -11,20 +11,21 @@ weight: 11
 ---
 
 {{% note %}}
-#### Migrate to IOx
+#### Migrate to InfluxDB Cloud Serverless
 
-To benefit from IOx's unlimited cardinality and support for SQL, [migrate your data to an InfluxDB Cloud Serverless organization](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox/).
+To unlock the benefits of the InfluxDB v3 storage engine, including unlimited
+cardinality and SQL, [migrate your data to an InfluxDB Cloud Serverless organization](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-serverless/).
 
-All InfluxDB Cloud [accounts](/influxdb/cloud-serverless/admin/accounts/) and [organizations](/influxdb/cloud-serverless/admin/organizations/) created through
+All InfluxDB Cloud [accounts](/influxdb/cloud-serverless/admin/accounts/) and
+[organizations](/influxdb/cloud-serverless/admin/organizations/) created through
 [cloud2.influxdata.com](https://cloud2.influxdata.com) on or after **January 31, 2023**
-are powered by the InfluxDB IOx storage engine.
+are on InfluxDB Cloud Serverless and are powered by the InfluxDB v3 storage engine.
 
-To see which storage engine your organization uses,
-find the **InfluxDB Cloud powered by** link in your
-[InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
-If your organization is using TSM, you'll see **TSM** followed by the version number.
-If IOx, you'll see
-**InfluxDB Cloud Serverless** followed by the version number.
+To see which storage engine your organization uses, find the **InfluxDB Cloud powered by**
+link in your [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com)
+version information. If your organization is using TSM, you'll see **TSM**
+followed by the version number. If Serverless, you'll see **InfluxDB Cloud Serverless**
+followed by the version number.
 {{% /note %}}
 
 To upgrade from **InfluxDB OSS 2.x** to **InfluxDB Cloud**:
@@ -40,6 +41,7 @@ To upgrade from **InfluxDB OSS 2.x** to **InfluxDB Cloud**:
 
 {{% note %}}
 #### Consider when upgrading
+
 - InfluxDB Cloud requires token authentication, and you must create all new API tokens.
 - InfluxDB Cloud does not support:
   - Multiple [organizations](/influxdb/cloud/reference/glossary/#organization) per account.
@@ -51,12 +53,14 @@ To upgrade from **InfluxDB OSS 2.x** to **InfluxDB Cloud**:
 {{% /note %}}
 
 ## Create an InfluxDB Cloud account
+
 Do one of the following to create an InfluxDB Cloud account:
 
 - [Subscribe through InfluxData](/influxdb/cloud/sign-up/#subscribe-through-influxdata) and start for free.
 - [Subscribe through your cloud provider](/influxdb/cloud/sign-up/#subscribe-through-a-cloud-provider).
 
 ## Create an All-Access API token
+
 InfluxDB API tokens are unique to each organization.
 Create an **All-Access** token in your InfluxDB Cloud user interface (UI) to use
 for the upgrade process.
@@ -76,6 +80,7 @@ You cannot migrate tokens from InfluxDB 2.x to InfluxDB Cloud.
 _For more information about managing tokens and token types, see [Manage tokens](/influxdb/cloud/admin/tokens/)._
 
 ## Set up influx CLI connection configurations
+
 The `influx` command line interface (CLI) lets you create connection configurations
 that automatically provides **host**, **organization**, and **API token**
 credentials to CLI commands.
@@ -100,6 +105,7 @@ Include the following flags for each configuration:
     - **InfluxDB OSS 2.x**: Provide an [Operator token](/influxdb/v2/admin/tokens/#operator-token). 
 
 ##### Create an InfluxDB Cloud connection configuration
+
 ```sh
 # Example cloud connection configuration
 influx config create \
@@ -110,6 +116,7 @@ influx config create \
 ```
 
 ##### Create an InfluxDB 2.x connection configuration
+
 {{< keep-url >}}
 ```sh
 # Example 2.x connection configuration
@@ -121,6 +128,7 @@ influx config create \
 ```
 
 ## Use templates to migrate InfluxDB resources
+
 [InfluxDB templates](/influxdb/cloud/tools/influxdb-templates/) let you export InfluxDB
 [resources](/influxdb/cloud/tools/influxdb-templates/#template-resources) such as buckets,
 dashboards, labels, tasks, and more and import them into another InfluxDB instance.
@@ -128,7 +136,9 @@ Export resources from your **InfluxDB 2.x** instance and migrate them to
 your **InfluxDB Cloud** instance.
 
 {{% note %}}
+
 #### InfluxDB Cloud Free Plan resource limits
+
 If upgrading to an InfluxDB Cloud Free Plan, you are only able to create a [limited number of resources](/influxdb/cloud/account-management/limits/#free-plan-limits).
 If your exported template exceeds these limits, the resource migration will fail.
 {{% /note %}}
@@ -179,7 +189,9 @@ influx apply --active-config cloud
     and [`influx export all`](/influxdb/cloud/reference/cli/influx/export/all#examples) documentation.
 
     {{% note %}}
+
 #### Update hardcoded InfluxDB URLs
+
 If any of your migrated resources contain hardcoded InfluxDB URLs (`http://localhost:8086`), do one of the following to update these URLs to your [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/):
 
 - Migrate your resources to InfluxDB Cloud, and then update URLs in the InfluxDB Cloud UI.
@@ -187,6 +199,7 @@ If any of your migrated resources contain hardcoded InfluxDB URLs (`http://local
     {{% /note %}}
 
 ## Migrate DBRP mappings
+
 InfluxDB database and retention policy (DBRP) mappings let you query InfluxDB Cloud
 buckets with InfluxQL and the InfluxDB 1.x DBRP convention.
 **If you have DBRP mappings in your InfluxDB 2.x instance**, migrate them
@@ -223,11 +236,13 @@ to your InfluxDB Cloud instance.
 {{< /expand-wrapper >}}
 
 ## Dual write to InfluxDB 2.x and InfluxDB Cloud
+
 Update external clients to write to your InfluxDB Cloud instance.
 **We recommend writing data to both InfluxDB 2.x and InfluxDB Cloud until you
 finish [migrating your existing time series data](#migrate-time-series-data)**. For step-by-step instructions, see [Dual write](/influxdb/cloud/write-data/no-code/use-telegraf/dual-write/).
 
 ## Migrate time series data
+
 To migrate your time series data from your InfluxDB 2.x instance to your
 InfluxDB Cloud instance, do the following:
 
@@ -278,7 +293,9 @@ InfluxDB Cloud instance, do the following:
 4. Repeat steps 2-3 for each bucket.
 
 {{% note %}}
+
 #### InfluxDB Cloud write rate limits
+
 Write requests are subject to rate limits associated with your
 [InfluxDB Cloud pricing plan](/influxdb/cloud/account-management/pricing-plans/).
 If your exported line protocol size potentially exceeds your rate limits,
@@ -313,6 +330,7 @@ rate limits track the payload size of the **uncompressed** line protocol.
 {{% /note %}}
 
 #### Migrate system buckets
+
 InfluxDB [system buckets](/influxdb/cloud/reference/internals/system-buckets/)
 contain data related to the InfluxDB monitoring and alerting system.
 Although the retention period for system buckets in both InfluxDB Cloud and
@@ -320,6 +338,7 @@ InfluxDB 2.x is only seven days, if you want to migrate this data,
 use the same method described above [to migrate time series data](#migrate-time-series-data).
 
 #### Export and write data in a single command
+
 If your data and rate limits allow, you can export and write data in a single
 command without writing a line protocol export file to disk.
 The `influxd inspect export-lp` command can output to **stdout** and the `influx write`
@@ -343,5 +362,6 @@ influx write \
 {{< /expand-wrapper >}}
 
 ## Collaborate with other users
+
 To collaborate with other users in your InfluxDB Cloud organization,
 [invite users to join your organization](/influxdb/cloud/admin/organizations/users/#invite-a-user-to-your-organization/).
