@@ -25,11 +25,11 @@ fail if you do not have those permissions in your cluster.
 
 `kubectl` uses your local credentials to install the `AppInstance` CRD.
 If you do not have the necessary permissions, you can
-[use the `kubit` CLI to manually install the package in your cluster](?t=kubit#kubctl-or-kubit).
+[use the `kubit` CLI to manually install the package in your cluster](?t=kubit#kubectl-or-kubit).
 
 {{% note %}}
-**If you meet any of the following criteria, 
-[install and use the `kubit` CLI](?t=kubit#kubctl-or-kubit)
+**If you meet any of the following criteria,
+[install and use the `kubit` CLI](?t=kubit#kubectl-or-kubit)
 on your local machine. This allows you to act as the operator would and deploy
 your cluster, but from your terminal.**
 
@@ -42,7 +42,7 @@ your cluster, but from your terminal.**
 {{% /note %}}
 
 <!-- Hidden anchor for links to the kubectl/kubit tabs -->
-<span id="kubctl-or-kubit"></span>
+<span id="kubectl-or-kubit"></span>
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -75,6 +75,10 @@ kubectl apply \
     ```sh
     kubit local apply myinfuxdb.yml
     ```
+
+**NOTE:** By default, `kubit` will use tools that are installed on your local system.
+You can specify the `--docker` flag to opt-in to using containers instead. This will pull images
+for tool dependencies, meaning the required versions are tracked by `kubit`.
 
 <!--------------------------------- END kubit --------------------------------->
 {{% /tab-content %}}
