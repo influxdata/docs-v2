@@ -28,7 +28,7 @@ If you do not have the necessary permissions, you can
 [use the `kubit` CLI to manually install the package in your cluster](?t=kubit#kubectl-or-kubit).
 
 {{% note %}}
-**If you meet any of the following criteria, 
+**If you meet any of the following criteria,
 [install and use the `kubit` CLI](?t=kubit#kubectl-or-kubit)
 on your local machine. This allows you to act as the operator would and deploy
 your cluster, but from your terminal.**
@@ -75,6 +75,10 @@ kubectl apply \
     ```sh
     kubit local apply myinfuxdb.yml
     ```
+
+**NOTE:** By default, `kubit` will use tools that are installed on your local system.
+You specify the `--docker` flag to opt-in to using containers instead, which  will pull images
+for tool dependencies, meaning the required versions are tracked by `kubit` instead.
 
 <!--------------------------------- END kubit --------------------------------->
 {{% /tab-content %}}
