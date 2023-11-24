@@ -77,8 +77,8 @@ kubectl apply \
     ```
 
 **NOTE:** By default, `kubit` will use tools that are installed on your local system.
-You specify the `--docker` flag to opt-in to using containers instead, which  will pull images
-for tool dependencies, meaning the required versions are tracked by `kubit` instead.
+You can specify the `--docker` flag to opt-in to using containers instead. This will pull images
+for tool dependencies, meaning the required versions are tracked by `kubit`.
 
 <!--------------------------------- END kubit --------------------------------->
 {{% /tab-content %}}
