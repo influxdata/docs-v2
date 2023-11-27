@@ -2,12 +2,11 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cimg/node:14.16
+      - image: cimg/node:20.10.0
         environment:
-          HUGO_VERSION: "0.81.0"
-          S3DEPLOY_VERSION: "2.3.5"
+          S3DEPLOY_VERSION: "2.11.0"
           # From https://github.com/bep/s3deploy/releases
-          S3DEPLOY_VERSION_HASH: "95de91ed207ba32abd0df71f9681c1ede952f8358f3510b980b02550254c941a"
+          S3DEPLOY_VERSION_HASH: "d3566a6a56735ea5710cf22c35f8f411164e6efc22ded98743a1d7a5a21c740e"
 
     steps:
       - checkout
@@ -50,7 +49,7 @@ jobs:
 
   deploy:
     docker:
-      - image: cimg/go:1.19
+      - image: cimg/go:1.21.4
     steps:
       - checkout
       - restore_cache:
