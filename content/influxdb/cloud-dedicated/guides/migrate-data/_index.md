@@ -36,7 +36,7 @@ The following questions will help guide your decision to migrate.
 **Yes, you should migrate**. Series cardinality is a major limiting factor with
 the InfluxDB TSM storage engine. The more unique series in your data, the less
 performant your database.
-The IOx storage engine supports near limitless series cardinality and is, without
+The InfluxDB v3 storage engine supports limitless series cardinality and is, without
 question, the better solution for high series cardinality workloads.
 
 #### Do you want to use SQL to query your data?
@@ -62,8 +62,8 @@ from the following providers:
 {{< cloud_regions type=iox-list >}}
 
 If your deployment requires other cloud providers or regions, you may need to
-wait until the IOx storage engine is available in a region that meets your requirements.
-We are currently working to make InfluxDB IOx available on more providers and
+wait until the v3 storage engine is available in a region that meets your requirements.
+We are currently working to make InfluxDB v3 available on more providers and
 in more regions around the world.
 
 #### Are you reliant on Flux queries and Flux tasks?

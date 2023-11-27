@@ -1344,11 +1344,7 @@ If the number of maps exceeds the configured maximum limit, the node reports tha
 To check the current number of maps the `influxd` process is using:
 
 ```sh
-# Get the influxd process ID (PID)
-PID=$(ps aux | awk '/influxd/ ${print 2}' 
-
-# Count the number of maps associated with the influxd process
-wc -l /proc/$PID/maps
+wc -l /proc/$(pidof influxd)/maps
 ```
 
 The `max_map_count` file contains the maximum number of memory map areas a process may have.
