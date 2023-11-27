@@ -22,20 +22,21 @@ walks through the migration.
 The specific process varies depending on whether your destination account is
 powered by our current database engine,
 [Time-Structured Merge Tree (TSM)](/influxdb/v2/reference/internals/storage-engine/#time-structured-merge-tree-tsm)
-or [our new database engine, InfluxDB IOx](/blog/announcing-general-availability-new-database-engine/).
+or [our new database engine, InfluxDB v3](/blog/announcing-general-availability-new-database-engine/).
 
-To benefit from IOx's unlimited cardinality and support for SQL, migrate your data to IOx.
+To benefit from the InfluxDB v3 storage engine's unlimited cardinality and
+support for SQL, migrate your data to InfluxDB Cloud Serverless.
 
-- [Migrate data TSM to IOx](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox/)
+- [Migrate data TSM to Serverless](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-serverless/)
 - [Migrate data from TSM to TSM](/influxdb/cloud/write-data/migrate-data/migrate-cloud-to-cloud/). 
 
-To see which storage engine your organization is using,
-find the **InfluxDB Cloud powered by** link in your
-[InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
-If your organization is using TSM, you'll see **TSM** followed by the version number.
-If IOx, you'll see
-**InfluxDB Cloud Serverless** followed by the version number.
+To see which storage engine your organization uses, find the **InfluxDB Cloud powered by**
+link in your [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com)
+version information. If your organization is using TSM, you'll see **TSM**
+followed by the version number. If Serverless, you'll see **InfluxDB Cloud Serverless**
+followed by the version number.
 {{% note %}}
+
 #### Dual write into both organizations
 
 Depending on the duration of your retention policy for storing data it may be

@@ -60,20 +60,41 @@
 
       <h4>InfluxDB Enterprise</h4>
       <div class="version-list">
+      <!-- Loop that only lists versions with 1-digit minor version -->
       {{ range $key, $value := $enterprise }}
-      {{ $versionSemVer := split $value "." }}
-      {{ $supported := cond (ge (index $versionSemVer 0) (index $introducedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $introducedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $introducedSemVer 2)) true false) false) false }}
-      {{ $deprecated := and (isset $.Page.Params "deprecated") (cond (ge (index $versionSemVer 0) (index $deprecatedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $deprecatedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $deprecatedSemVer 2)) true false) false) false) }}
-      {{ $excluded := gt (len (findRE (string $excludePatternEnterprise) $key)) 0 }}
-      <div class="version-row">
-        <div class="version-col"><p>InfluxDB Enterprise {{ $key }}</p></div>
-        <div class="version-col"><p>
-          {{ if $excluded }}
-          {{ else if $deprecated }}<span class="deprecated"></span>
-          {{ else if $supported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
-          {{ end }}
-        </div>
-      </div>
+        {{ $versionSemVer := split $value "." }}
+        {{ $supported := cond (ge (index $versionSemVer 0) (index $introducedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $introducedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $introducedSemVer 2)) true false) false) false }}
+        {{ $deprecated := and (isset $.Page.Params "deprecated") (cond (ge (index $versionSemVer 0) (index $deprecatedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $deprecatedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $deprecatedSemVer 2)) true false) false) false) }}
+        {{ $excluded := gt (len (findRE (string $excludePatternEnterprise) $key)) 0 }}
+        {{ if le (len $key) 3 }}
+          <div class="version-row">
+            <div class="version-col"><p>InfluxDB Enterprise {{ $key }}</p></div>
+            <div class="version-col"><p>
+              {{ if $excluded }}
+              {{ else if $deprecated }}<span class="deprecated"></span>
+              {{ else if $supported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
+              {{ end }}
+            </div>
+          </div>
+        {{ end }}
+      {{ end }}
+      <!-- Loop that only lists versions with 2+-digit minor version -->
+      {{ range $key, $value := $enterprise }}
+        {{ $versionSemVer := split $value "." }}
+        {{ $supported := cond (ge (index $versionSemVer 0) (index $introducedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $introducedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $introducedSemVer 2)) true false) false) false }}
+        {{ $deprecated := and (isset $.Page.Params "deprecated") (cond (ge (index $versionSemVer 0) (index $deprecatedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $deprecatedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $deprecatedSemVer 2)) true false) false) false) }}
+        {{ $excluded := gt (len (findRE (string $excludePatternEnterprise) $key)) 0 }}
+        {{ if gt (len $key) 3 }}
+          <div class="version-row">
+            <div class="version-col"><p>InfluxDB Enterprise {{ $key }}</p></div>
+            <div class="version-col"><p>
+              {{ if $excluded }}
+              {{ else if $deprecated }}<span class="deprecated"></span>
+              {{ else if $supported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
+              {{ end }}
+            </div>
+          </div>
+        {{ end }}
       {{ end }}
       </div>
 

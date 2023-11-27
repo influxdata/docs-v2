@@ -47,12 +47,25 @@
     </tr>
   </thead>
   <tbody>
+  <!-- Fix out-of-order .10+ minor versions -->
   {{ range $key, $value := $enterprise }}
-    <tr>
-      <td>InfluxDB Enterprise {{ $key }}</td>
-      <td style="text-align: right;">{{ $value }}</td>
-      </div>
-    </tr>
+    {{ if le (len $key) 3}}
+      <tr>
+        <td>InfluxDB Enterprise {{ $key }}</td>
+        <td style="text-align: right;">{{ $value }}</td>
+        </div>
+      </tr>
+    {{ end }}
+  {{ end }}
+  <!-- list minor versions less without two digits -->
+  {{ range $key, $value := $enterprise }}
+    {{ if gt (len $key) 3}}
+      <tr>
+        <td>InfluxDB Enterprise {{ $key }}</td>
+        <td style="text-align: right;">{{ $value }}</td>
+        </div>
+      </tr>
+    {{ end }}
   {{ end }}
   </tbody>
 </table>
