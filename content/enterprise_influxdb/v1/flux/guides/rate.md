@@ -38,7 +38,7 @@ data
 ```
 
 By default, `derivative()` returns only positive derivative values and replaces negative values with _null_.
-Calcuated values are returned as [floats](/flux/v0/language/types/#numeric-types).
+Calculated values are returned as [floats](/flux/v0/language/types/#numeric-types).
 
 
 {{< flex >}}
