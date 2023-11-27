@@ -21,7 +21,7 @@ Remote connections are used to replicate data on write at the bucket level.
 
 ## Usage
 ```
-influx remote [commond options] [arguments...]
+influx remote [command options] [arguments...]
 ```
 
 ## Subcommands

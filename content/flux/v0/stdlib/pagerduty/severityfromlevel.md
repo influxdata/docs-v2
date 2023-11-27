@@ -54,7 +54,7 @@ InfluxDB status level to convert to a PagerDuty severity.
 
 ## Examples
 
-### Convert a status level to a PagerDuty serverity
+### Convert a status level to a PagerDuty severity
 
 ```js
 import "pagerduty"

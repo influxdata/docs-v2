@@ -30,7 +30,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `group()` regroups input data by modifying group key of input tables.
 
-**Note**: Group does not gaurantee sort order.
+**Note**: Group does not guarantee sort order.
 To ensure data is sorted correctly, use `sort()` after `group()`.
 
 ##### Function type signature
@@ -54,7 +54,7 @@ all data merges it into a single output table.
 
 Grouping mode. Default is `by`.
 
-**Avaliable modes**:
+**Available modes**:
 - **by**: Group by columns defined in the `columns` parameter.
 - **except**: Group by all columns _except_ those in defined in the
 `columns` parameter.

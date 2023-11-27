@@ -2,7 +2,7 @@
 title: kapacitor level
 description: >
   The `kapacitor level` command sets the log level on the Kapacitor server
-  ([`kapacitord`](/kapacitor/v1/referene/cli/kapacitord/)).
+  ([`kapacitord`](/kapacitor/v1/reference/cli/kapacitord/)).
 menu:
   kapacitor_v1:
     name: kapacitor level
@@ -11,7 +11,7 @@ weight: 301
 ---
 
 The `kapacitor level` command sets the log level on the Kapacitor server
-([`kapacitord`](/kapacitor/v1/referene/cli/kapacitord/)).
+([`kapacitord`](/kapacitor/v1/reference/cli/kapacitord/)).
 
 ## Usage
 

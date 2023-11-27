@@ -822,7 +822,7 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 
 - Standardize binary naming conventions.
 - Fix configuration loading issue.
-- Add Flux dictionary expressions to Swagger documetnation.
+- Add Flux dictionary expressions to Swagger documentation.
 - Ensure `influxdb` service sees default environment variables when running under `init.d`.
 - Remove upgrade notice from new installs.
 - Ensure `config.toml` is initialized on new installs.
@@ -1357,7 +1357,7 @@ The beta 11 version was **not released**. Changes below are included in the beta
 - Clicking on bucket name takes user to Data Explorer with bucket selected.
 - Extend pkger (InfluxDB Templates) dashboards with table view support.
 - Allow for retention to be provided to `influx setup` command as a duration.
-- Extend `influx pkg export all` capabilities to support filtering by lable name and resource type.
+- Extend `influx pkg export all` capabilities to support filtering by label name and resource type.
 - Added new login and sign-up screen for InfluxDB Cloud users that allows direct login from their region.
 - Added new `influx config` CLI for managing multiple configurations.
 

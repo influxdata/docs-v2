@@ -55,10 +55,10 @@ y-value to use in the operation.
 
 ## Examples
 
-- [Return the maximum difference betwee two values](#return-the-maximum-difference-betwee-two-values)
+- [Return the maximum difference between two values](#return-the-maximum-difference-betwee-two-values)
 - [Use math.dim in map](#use-mathdim-in-map)
 
-### Return the maximum difference betwee two values
+### Return the maximum difference between two values
 
 ```js
 import "math"

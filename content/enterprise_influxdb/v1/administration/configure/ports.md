@@ -43,7 +43,7 @@ _See also: [Back up and restore](/enterprise_influxdb/v1/administration/backup-a
 
 ### 8089
 
-Used for communcation between meta nodes.
+Used for communication between meta nodes.
 It is used by the Raft consensus protocol.
 The only clients using `8089` should be the other meta nodes in the cluster.
 

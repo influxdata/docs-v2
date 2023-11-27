@@ -88,7 +88,7 @@ uint(v: -100)// Returns 18446744073709551516
 
 If converting the `_value` column to uint types, use `toUInt()`.
 If converting columns other than `_value`, use `map()` to iterate over each
-row and `uint()` to covert a column value to a uint type.
+row and `uint()` to convert a column value to a uint type.
 
 ```js
 data

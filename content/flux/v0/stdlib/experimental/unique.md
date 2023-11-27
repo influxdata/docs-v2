@@ -36,7 +36,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 - Outputs a single table for each input table.
 - Outputs a single record for each unique value in an input table.
 - Leaves group keys, columns, and values unmodified.
-- Drops emtpy tables.
+- Drops empty tables.
 
 ##### Function type signature
 

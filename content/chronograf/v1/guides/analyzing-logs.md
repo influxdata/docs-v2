@@ -80,9 +80,9 @@ Below are the options and how they appear in the log table:
 
 | Severity Format | Display                                                                                                                                           |
 | --------------- |:-------                                                                                                                                           |
-| Dot             | <img src="/img/chronograf/1-6-logs-serverity-fmt-dot.png" alt="Log serverity format 'Dot'" style="display:inline;max-height:24px;"/>             |
-| Dot + Text      | <img src="/img/chronograf/1-6-logs-serverity-fmt-dot-text.png" alt="Log serverity format 'Dot + Text'" style="display:inline;max-height:24px;"/> |
-| Text            | <img src="/img/chronograf/1-6-logs-serverity-fmt-text.png" alt="Log serverity format 'Text'" style="display:inline;max-height:24px;"/>           |
+| Dot             | <img src="/img/chronograf/1-6-logs-serverity-fmt-dot.png" alt="Log severity format 'Dot'" style="display:inline;max-height:24px;"/>             |
+| Dot + Text      | <img src="/img/chronograf/1-6-logs-serverity-fmt-dot-text.png" alt="Log severity format 'Dot + Text'" style="display:inline;max-height:24px;"/> |
+| Text            | <img src="/img/chronograf/1-6-logs-serverity-fmt-text.png" alt="Log severity format 'Text'" style="display:inline;max-height:24px;"/>           |
 
 ### Truncate or wrap log messages
 By default, text in Log Viewer columns is truncated if it exceeds the column width. You can choose to wrap the text instead to display the full content of each cell.

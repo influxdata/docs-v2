@@ -3557,7 +3557,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 - Suppress group push down for \_time and \_value.
 - Terminal output functions must produce results.
 - Fix race in interpreter.doCall.
-- Fix ast.Walk for Assignemnt rename.
+- Fix ast.Walk for Assignment rename.
 - Improve error message for missing object properties.
 - Add unary logical expression to the parser.
 - Variable declarator node needs to duplicate the location information.

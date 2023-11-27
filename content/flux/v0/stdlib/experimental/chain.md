@@ -39,7 +39,7 @@ has on the results of the first query are met.
 ##### Applicable use cases
 - Write to an InfluxDB bucket and query the written data in a single Flux script.
 
-  _**Note:** `experimental.chain()` does not gaurantee that data written to
+  _**Note:** `experimental.chain()` does not guarantee that data written to
   InfluxDB is immediately queryable. A delay between when data is written and
   when it is queryable may cause a query using `experimental.chain()` to fail.
 

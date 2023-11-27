@@ -51,7 +51,7 @@ Default time value returned if the task has never successfully run.
 
 ## Examples
 
-### Return the time an InfluxDB task last succesfully ran
+### Return the time an InfluxDB task last successfully ran
 
 ```js
 import "influxdata/influxdb/tasks"

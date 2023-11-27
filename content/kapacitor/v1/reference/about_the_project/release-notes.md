@@ -653,7 +653,7 @@ For more details on the alerting system, see the full documentation [here](/kapa
     Also empty string on a tag value is now a sufficient condition for the default conditions to be applied.
     See [#1233](https://github.com/influxdata/kapacitor/pull/1233) for more information.
 - Fixed dot view syntax to use xlabels and not create invalid quotes.
-- Fixed curruption of recordings list after deleting all recordings.
+- Fixed corruption of recordings list after deleting all recordings.
 - Fixed missing "vars" key when listing tasks.
 - Fixed bug where aggregates would not be able to change type.
 - Fixed panic when the process cannot stat the data dir.

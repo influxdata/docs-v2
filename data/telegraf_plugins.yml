@@ -1549,7 +1549,7 @@ input:
     id: pf
     description: |
       The PF input plugin gathers information from the FreeBSD/OpenBSD pf firewall.
-      Currently it can retrive information about the state table: the number of current
+      Currently it can retrieve information about the state table: the number of current
       entries in the table, and counters for the number of searches, inserts, and removals
       to the table. The pf plugin retrieves this information by invoking the `pfstat` command.
     introduced: 1.5.0

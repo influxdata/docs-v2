@@ -224,7 +224,7 @@ menu:
 - AWS EC2 (`processors.aws_ec2`): Add caching of imds and ec2 tags
 - Parser (`processors.parser`): Add merge with timestamp option
 - Scale (`processors.scale`): Add scaling by factor and offset
-- Tempalte (`processors.template`): Allow tag to be a template
+- Template (`processors.template`): Allow tag to be a template
 - Prometheus Remote (`serializer.prometheusremote`): Improve performance
 - Test (`test`): Allow to capture all messages during test
 
@@ -1585,7 +1585,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - Shutdown Telegraf gracefully on Windows Service.
 - Skip `knxlistener` when writing the sample configuration file.
 - Update `nats-sever` to support `openbsd`.
-- Revert unintented corruption of the Makefile.
+- Revert unintended corruption of the Makefile.
 - Filter client certificates by DNS names.
 - Update `etc/telegraf.conf` and `etc/telegraf_windows.conf`.
 - Add full metadata to configuration for `common.kafka`.
@@ -2062,7 +2062,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 ### Processor plugin updates
 
 - [Converter Processor](https://github.com/influxdata/telegraf/blob/release-1.18/plugins/processors/converter/README.md) (`converter`):
-   Add support for `float64` to support converting longer hexadecimal string values to a numeric type without losing in precision. Note, if a string number exceeds the size limit for `float64`, precison may be lost.
+   Add support for `float64` to support converting longer hexadecimal string values to a numeric type without losing in precision. Note, if a string number exceeds the size limit for `float64`, precision may be lost.
 
 ## v1.18.1 {date="2021-04-07"}
 
@@ -3721,7 +3721,7 @@ for details about the mapping.
 
 - Fix `hardware_type` may be truncated in Microsoft SQL Server (`sqlserver`) input plugin.
 - Improve performance in Basicstats (`basicstats`) aggregator plugin.
-- Add `hostname` to TLS config for SNI support in X.509 Certicate (`x509_cert`) input plugin.
+- Add `hostname` to TLS config for SNI support in X.509 Certificate (`x509_cert`) input plugin.
 - Don't add tags with empty values to OpenTSDB (`opentsdb`) output plugin.
 - Fix panic during network error in VMware vSphere (`vsphere`) input plugin.
 - Unify error response in HTTP Listener (`http_listener`) input plugin with InfluxDB (`influxdb`) output plugin.
@@ -4740,7 +4740,7 @@ continue sending logs to /var/log/telegraf/telegraf.log.
 - Add support to SNMP for IP & MAC address conversion.
 - Add support to SNMP for OID index suffixes.
 - Change default arguments for SNMP plugin.
-- Apach Mesos input plugin: very high-cardinality mesos-task metrics removed.
+- Apache Mesos input plugin: very high-cardinality mesos-task metrics removed.
 - Logging overhaul to centralize the logger & log levels, & provide a logfile config option.
 - HAProxy plugin socket glob matching.
 - Add Kubernetes plugin for retrieving pod metrics.
@@ -4838,7 +4838,7 @@ which can be installed via
 evaluated at every flush interval, rather than once at startup. This makes it
 consistent with the behavior of `collection_jitter`.
 
-- PostgresSQL plugins now handle oid and name typed columns seamlessly, previously they were ignored/skipped.
+- PostgreSQL plugins now handle oid and name typed columns seamlessly, previously they were ignored/skipped.
 
 ### Features
 

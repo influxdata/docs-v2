@@ -793,7 +793,7 @@ InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) a
 
 {{% /tab-content %}}
 <!--------------------------------- END kubernetes ---------------------------->
-<!--------------------------------- BEGIN Rasberry Pi ------------------------->
+<!--------------------------------- BEGIN Raspberry Pi ------------------------->
 {{% tab-content %}}
 
 ## Install InfluxDB v2 on Raspberry Pi
@@ -827,7 +827,7 @@ to collect and send data to:
 - InfluxDB Cloud with a paid [**Usage-Based**](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) account with relaxed resource restrictions.
 
 {{% /tab-content %}}
-<!--------------------------------- END Rasberry Pi --------------------------->
+<!--------------------------------- END Raspberry Pi --------------------------->
 
 {{< /tabs-wrapper >}}
 

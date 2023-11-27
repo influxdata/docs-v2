@@ -668,9 +668,8 @@ Return the mode of the values associated with the `water_level` field key in the
 between `2019-08-18T00:00:00Z` and `2019-08-18T00:30:00Z` and
 [group](/influxdb/v2/query-data/influxql/explore-data/group-by/)
 results into 12-minute time intervals and per tag.
-Then [limis](/influxdb/influxdb/v2/query-data/influxql/explore-data/limit-and-slimit/)
-the number of points and series retu
-ned tothree and one, and it [offsets](/influxdb/v2/query-data/influxql/explore-data
+Then [limits](/influxdb/influxdb/v2/query-data/influxql/explore-data/limit-and-slimit/)
+the number of points and series returned to three and one, and it [offsets](/influxdb/v2/query-data/influxql/explore-data
 #the-offset-and-soffset-clauses) the series returned by one.
 
 ```sql

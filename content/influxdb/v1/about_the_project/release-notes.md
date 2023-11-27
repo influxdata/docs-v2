@@ -738,7 +738,7 @@ will find the shards refuse to open and will most likely see the following error
 - Add `EXPLAIN ANALYZE` command, which produces a detailed execution plan of a `SELECT` statement.
 - Improved compaction scheduling.
 - Support Ctrl+C to cancel a running query in the Influx CLI.
-- Allow human-readable byte sizes in configuation file.
+- Allow human-readable byte sizes in configuration file.
 - Respect X-Request-Id/Request-Id headers.
 - Add 'X-Influxdb-Build' to http response headers so users can identify if a response is from an OSS or Enterprise service.
 - All errors from queries or writes are available via X-InfluxDB-Error header, and 5xx error messages will be written
@@ -1332,7 +1332,7 @@ All Changes:
 ## v1.0.0 {date="2016-09-08"}
 
 ### Release Notes
-Inital release of InfluxDB.
+Initial release of InfluxDB.
 
 ### Breaking changes
 

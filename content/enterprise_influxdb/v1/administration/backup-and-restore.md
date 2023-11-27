@@ -160,7 +160,7 @@ Perform a full backup into a specific directory with the command below.
 The directory must already exist.
 
 ```bash
-# Sytnax
+# Syntax
 influxd-ctl backup -full <path-to-backup-directory>
 
 # Example

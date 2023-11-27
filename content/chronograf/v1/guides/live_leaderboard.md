@@ -32,7 +32,7 @@ First, we need to configure Kapacitor to receive the stream of scores.
 In this example, the scores update too frequently to store all of the score data in a InfluxDB database, so the score data will be semt directly to Kapacitor.
 Like InfluxDB, you can configure a UDP listener.
 
-Add the following settings the `[[udp]]` secton in  your Kapacitor configuration file (`kapacitor.conf`).
+Add the following settings the `[[udp]]` section in  your Kapacitor configuration file (`kapacitor.conf`).
 
 ```
 [[udp]]
@@ -52,7 +52,7 @@ messing with the real game servers.
 ```bash
 #!/bin/bash
 
-# default options: can be overriden with corresponding arguments.
+# default options: can be overridden with corresponding arguments.
 host=${1-localhost}
 port=${2-9100}
 games=${3-10}

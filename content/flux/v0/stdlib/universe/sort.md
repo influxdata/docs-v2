@@ -28,7 +28,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`sort()` orders rows in each intput table based on values in specified columns.
+`sort()` orders rows in each input table based on values in specified columns.
 
 #### Output data
 One output table is produced for each input table.

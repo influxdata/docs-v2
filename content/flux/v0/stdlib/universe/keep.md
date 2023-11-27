@@ -30,7 +30,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `keep()` returns a stream of tables containing only the specified columns.
 
-Columns in the group key that are not specifed in the `columns` parameter or
+Columns in the group key that are not specified in the `columns` parameter or
 identified by the `fn` parameter are removed from the group key and dropped
 from output tables. `keep()` is the inverse of `drop()`.
 

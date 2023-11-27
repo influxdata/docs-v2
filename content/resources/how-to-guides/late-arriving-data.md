@@ -35,7 +35,7 @@ In order to follow this guide you’ll need to create the following resources:
 - An API-invokable script:
     - `water_level_process.flux`: This script computes the minute water level averages and counts the number of points that were used in water level average calculation. The average and count is written to the **water_level_mean** and **water_level_checksum** buckets respectively. 
 - A Task:
-    - `water_level_checksum.flux`:  This task triggers the `water_level_process.flux` script. This task also recomputes a count of the number of points used to calculagte the most recent water level average value. It compares the most recent count from **water_level_checksum** bucket against this new count and triggers a recaclulation of the water level average to accomodate an increase in the count from late arriving data.   
+    - `water_level_checksum.flux`:  This task triggers the `water_level_process.flux` script. This task also recomputes a count of the number of points used to calculate the most recent water level average value. It compares the most recent count from **water_level_checksum** bucket against this new count and triggers a recalculation of the water level average to accommodate an increase in the count from late arriving data.   
     
 In this process, you compute the average water level at each location over one minute windows.
 It's designed to handle data arriving up to one hour late.

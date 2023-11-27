@@ -145,5 +145,5 @@ DROP MEASUREMENT "h2o_feet"
 A successful `DROP MEASUREMENT` query returns an empty result.
 
 {{% warn %}}
-The DROP MEASURMENT command is very resource intensive. We do not recommend this command for bulk data deletion.  Use the DELETE FROM command instead, which is less resource intensive. 
+The DROP MEASUREMENT command is very resource intensive. We do not recommend this command for bulk data deletion.  Use the DELETE FROM command instead, which is less resource intensive. 
 {{% /warn %}}

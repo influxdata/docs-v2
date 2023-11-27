@@ -2,7 +2,7 @@
 title: /write 1.x compatibility API
 list_title: /write
 description: >
-  The `/write` 1.x compatibilty endpoint writes data to InfluxDB Cloud using patterns from the
+  The `/write` 1.x compatibility endpoint writes data to InfluxDB Cloud using patterns from the
   InfluxDB 1.x `/write` API endpoint.
 menu:
   influxdb_cloud:

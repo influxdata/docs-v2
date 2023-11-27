@@ -95,7 +95,7 @@ bool(v: uint(v: 0))// Returns false
 
 If converting the `_value` column to boolean types, use `toBool()`.
 If converting columns other than `_value`, use `map()` to iterate over each
-row and `bool()` to covert a column value to a boolean type.
+row and `bool()` to convert a column value to a boolean type.
 
 ```js
 data

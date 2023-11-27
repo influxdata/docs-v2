@@ -287,7 +287,7 @@ stream
 
 Error rates are also being stored in the same InfluxDB instance and we want to
 send daily reports of `500` errors to the `error-reports` Slack workspace.
-The following TICKscript collects `500` error occurances and publishes them to
+The following TICKscript collects `500` error occurrences and publishes them to
 the `500-errors` topic.
 
 ###### 500_errors.tick
