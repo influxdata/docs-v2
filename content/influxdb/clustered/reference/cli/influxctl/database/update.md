@@ -15,7 +15,7 @@ table (measurement), or column limits in InfluxDB.
 ## Usage
 
 ```sh
-influxctl database update <DATABASE_NAME> [flags]
+influxctl database update [flags] <DATABASE_NAME>
 ```
 
 ## Arguments
@@ -80,11 +80,11 @@ influxctl database update mydb --retention-period 1mo
 ### Update a database's table limit
 
 ```sh
-influxctl database update mydb --max-tables 300
+influxctl database update --max-tables 300 mydb
 ```
 
 ### Update a database's column limit
 
 ```sh
-influxctl database update mydb --max-columns 200
+influxctl database update --max-columns 200 mydb
 ```
