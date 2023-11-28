@@ -9,6 +9,7 @@ menu:
 weight: 202
 aliases:
     - /influxdb/cloud-serverless/organizations/buckets/update-bucket/
+    - /influxdb/cloud-serverless/admin/buckets/update/
 alt_links:
   cloud: /influxdb/cloud/admin/buckets/update-bucket/
 ---
