@@ -51,7 +51,7 @@ If the output record drops a group key column, that column is removed from
 the group key.
 
 #### Preserve columns
-`map()` drops any columns that are not mapped explictly by column label or
+`map()` drops any columns that are not mapped explicitly by column label or
 implicitly using the `with` operator in the `fn` function.
 The `with` operator updates a record property if it already exists, creates
 a new record property if it doesn’t exist, and includes all existing

@@ -75,7 +75,7 @@ string(v: 10.12)
 
 If converting the `_value` column to string types, use `toString()`.
 If converting columns other than `_value`, use `map()` to iterate over each
-row and `string()` to covert a column value to a string type.
+row and `string()` to convert a column value to a string type.
 
 ```js
 data

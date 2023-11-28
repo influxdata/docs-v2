@@ -5043,7 +5043,7 @@ components:
               readOnly: true
             links:
               example:
-                lables: /api/v2/telegrafs/1/labels
+                labels: /api/v2/telegrafs/1/labels
                 members: /api/v2/telegrafs/1/members
                 owners: /api/v2/telegrafs/1/owners
                 self: /api/v2/telegrafs/1

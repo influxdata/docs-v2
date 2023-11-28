@@ -1079,7 +1079,7 @@ The `delete templates` command removes one or more templates.
 
 ```bash
 # Syntax
-kapacitor delete templates <Tempalte-IDs | Pattern>
+kapacitor delete templates <Template-IDs | Pattern>
 
 # Example
 kapacitor delete templates generic_mean_alert

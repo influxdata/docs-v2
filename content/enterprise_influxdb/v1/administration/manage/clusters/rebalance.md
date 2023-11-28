@@ -78,7 +78,7 @@ All previous writes are now stored in cold shards.
 influxd-ctl truncate-shards
 ```
 
-The expected ouput of this command is:
+The expected output of this command is:
 
 ```
 Truncated shards.
@@ -306,7 +306,7 @@ All previous writes are now stored in cold shards.
 influxd-ctl truncate-shards
 ```
 
-The expected ouput of this command is:
+The expected output of this command is:
 
 ```
 Truncated shards.

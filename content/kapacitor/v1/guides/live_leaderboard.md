@@ -53,7 +53,7 @@ messing with the real game servers.
 ```bash
 #!/bin/bash
 
-# default options: can be overriden with corresponding arguments.
+# default options: can be overridden with corresponding arguments.
 host=${1-localhost}
 port=${2-9100}
 games=${3-10}

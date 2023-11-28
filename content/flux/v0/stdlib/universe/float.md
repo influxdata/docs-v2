@@ -87,7 +87,7 @@ float(v: "10")// Returns 10.0
 
 If converting the `_value` column to float types, use `toFloat()`.
 If converting columns other than `_value`, use `map()` to iterate over each
-row and `float()` to covert a column value to a float type.
+row and `float()` to convert a column value to a float type.
 
 ```js
 data

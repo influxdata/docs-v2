@@ -55,7 +55,7 @@ A stream is grouped into individual tables using their respective group keys.
 Tables within a stream each have a unique group key value.
 
 A stream is represented using the stream type `stream[A] where A: Record`.
-The group key is not explicity modeled in the Flux type system.
+The group key is not explicitly modeled in the Flux type system.
 
 ## Missing values (null)
 

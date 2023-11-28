@@ -268,7 +268,7 @@ Provide the following:
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Single bucket](#)
-[Mutiple buckets](#)
+[Multiple buckets](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh

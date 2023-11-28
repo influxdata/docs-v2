@@ -81,7 +81,7 @@ Input data. Default is piped-forward data (`<-`).
 
 ## Examples
 
-### Create a histgram from input data
+### Create a histogram from input data
 
 ```js
 import "experimental"

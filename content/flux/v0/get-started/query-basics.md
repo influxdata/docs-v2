@@ -84,7 +84,7 @@ Processing data can take on many forms, and includes the following types of oper
   For example, return the first or last row, the row with the highest or lowest value, and more.
   For information, see [Function types and categories - Selectors](/flux/v0/function-types/#selectors).
 - **Rewrite rows**: use [`map()`](/flux/v0/stdlib/universe/map/) to rewrite each input row.
-  Tranform values with mathematic operations, process strings, dynamically add new columns, and more.
+  Transform values with mathematic operations, process strings, dynamically add new columns, and more.
 - **Send notifications**: evaluate data and use Flux notification endpoint functions
   to send notifications to external services. 
   For information, see [Function types and categories- Notification endpoints](/flux/v0/function-types/#notification-endpoints).

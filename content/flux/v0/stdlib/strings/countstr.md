@@ -48,7 +48,7 @@ String value to search.
 
 ### substr
 ({{< req >}})
-Substring to count occurences of.
+Substring to count occurrences of.
 
 The function counts only non-overlapping instances of `substr`.
 

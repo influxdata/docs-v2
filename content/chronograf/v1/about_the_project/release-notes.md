@@ -495,7 +495,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 - Fix alert rule message text template parsing.
 - Fix erroneous query manipulation.
 - Fix group by database for numSeries and numMeasurement queries in canned dashboards.
-- Update `axios` and `lodash` dependenies with known vulnerabilities.
+- Update `axios` and `lodash` dependencies with known vulnerabilities.
 - Fix dashboard typos in protoboard queries.
 - Fix repeating last command in Data Explore window when multiple tabs are open.
 

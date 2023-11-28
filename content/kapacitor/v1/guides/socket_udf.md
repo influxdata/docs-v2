@@ -206,7 +206,7 @@ func (*mirrorHandler) Info() (*agent.InfoResponse, error) {
     return info, nil
 }
 
-// Initialze the handler based of the provided options.
+// Initialize the handler based of the provided options.
 func (*mirrorHandler) Init(r *agent.InitRequest) (*agent.InitResponse, error) {
     // Since we expected no options this method is trivial
     // and we return success.
@@ -393,7 +393,7 @@ func (*mirrorHandler) Info() (*agent.InfoResponse, error) {
     return info, nil
 }
 
-// Initialze the handler based of the provided options.
+// Initialize the handler based of the provided options.
 func (*mirrorHandler) Init(r *agent.InitRequest) (*agent.InitResponse, error) {
     init := &agent.InitResponse{
         Success: true,
@@ -580,7 +580,7 @@ func (*mirrorHandler) Info() (*agent.InfoResponse, error) {
     return info, nil
 }
 
-// Initialze the handler based of the provided options.
+// Initialize the handler based of the provided options.
 func (h *mirrorHandler) Init(r *agent.InitRequest) (*agent.InitResponse, error) {
     init := &agent.InitResponse{
         Success: true,

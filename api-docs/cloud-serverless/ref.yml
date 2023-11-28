@@ -5013,7 +5013,7 @@ components:
               readOnly: true
             links:
               example:
-                lables: /api/v2/telegrafs/1/labels
+                labels: /api/v2/telegrafs/1/labels
                 members: /api/v2/telegrafs/1/members
                 owners: /api/v2/telegrafs/1/owners
                 self: /api/v2/telegrafs/1
@@ -8366,7 +8366,7 @@ paths:
         - Bucket Schemas
     post:
       description: |
-        Creates an _explict_ measurement [schema](/influxdb/cloud-serverless/reference/glossary/#schema)
+        Creates an _explicit_ measurement [schema](/influxdb/cloud-serverless/reference/glossary/#schema)
         for a bucket.
 
         _Explicit_ schemas are used to enforce column names, tags, fields, and data
@@ -8379,7 +8379,7 @@ paths:
 
         #### Limitations
 
-        - Buckets must be created with the "explict" `schemaType` in order to use
+        - Buckets must be created with the "explicit" `schemaType` in order to use
         schemas.
 
         <!-- TSM-ONLY -->

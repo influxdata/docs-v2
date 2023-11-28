@@ -53,7 +53,7 @@ Column to operate on. Default is `_value`.
 Standard deviation mode or type of standard deviation to calculate.
 Default is `sample`.
 
-**Availble modes:**
+**Available modes:**
 - **sample**: Calculate the sample standard deviation where the data is
 considered part of a larger population.
 - **population**: Calculate the population standard deviation where the

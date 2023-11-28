@@ -63,4 +63,4 @@ from(bucket: "example-bucket")
 ```
 
 ###### Visualization options for pressure gauge
-{{< img-hd src="/img/influxdb/2-0-visualizations-gauge-pressure-8.png" alt="Pressure guage example" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-gauge-pressure-8.png" alt="Pressure gauge example" />}}

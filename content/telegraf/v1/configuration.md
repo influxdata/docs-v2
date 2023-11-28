@@ -155,7 +155,7 @@ global interval, but if one particular input should be run less or more often,
 you can configure that here. `interval` can be increased to reduce data-in rate limits.
 * **precision**: Overrides the `precision` setting of the agent. Collected
 metrics are rounded to the precision specified as an `interval`. When this value is
-set on a service input (ex: `statsd`), multiple events occuring at the same
+set on a service input (ex: `statsd`), multiple events occurring at the same
 timestamp may be merged by the output database.
 * **collection_jitter**: Overrides the `collection_jitter` setting of the agent.  
 Collection jitter is used to jitter the collection by a random `interval`
