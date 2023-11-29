@@ -81,7 +81,7 @@ influxd inspect export-lp \
 influxd inspect export-lp \
   --bucket-id 12ab34cd56ef \
   --engine-path ~/.influxdbv2/engine \
-  --measurement example-measurement-1 example-measurement-2 \
+  --measurement example-measurement-1,example-measurement-2 \
   --output-path path/to/export.lp
 ```
 {{% /code-tab-content %}}
@@ -98,7 +98,7 @@ influxd inspect export-lp \
 influxd inspect export-lp \
   --bucket-id 12ab34cd56ef \
   --engine-path ~/.influxdbv2/engine \
-  --measurement example-measurement-1 example-measurement-2 \
+  --measurement example-measurement-1,example-measurement-2 \
   --output-path -
 ```
 {{% /code-tab-content %}}
