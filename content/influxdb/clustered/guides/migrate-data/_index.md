@@ -12,7 +12,7 @@ alt_links:
   cloud: /influxdb/cloud/write-data/migrate-data/
 ---
 
-Migrate data to InfluxDB Clustered powered by InfluxDB IOx from other 
+Migrate data to InfluxDB Clustered powered by InfluxDB v3 from other 
 InfluxDB instances powered by TSM including InfluxDB OSS 1.x, 2.x,
 InfluxDB Enterprise, and InfluxDB Cloud (TSM).
 
@@ -34,8 +34,8 @@ The following questions will help guide your decision to migrate.
 **Yes, you should migrate**. Series cardinality is a major limiting factor with
 the InfluxDB TSM storage engine. The more unique series in your data, the less
 performant your database.
-The IOx storage engine supports near limitless series cardinality and is, without
-question, the better solution for high series cardinality workloads.
+The InfluxDB v3 storage engine supports near limitless series cardinality and is,
+without question, the better solution for high series cardinality workloads.
 
 #### Do you want to use SQL to query your data?
 
@@ -48,9 +48,9 @@ series data with SQL. For more information about querying your data with SQL, se
 #### Do you want better InfluxQL performance?
 
 **Yes, you should migrate**. One of the primary goals when designing the InfluxDB
-IOx storage engine was to enable performant implementations of both SQL and InfluxQL.
+v3 storage engine was to enable performant implementations of both SQL and InfluxQL.
 When compared to querying InfluxDB powered by TSM (InfluxDB OSS 1.x, 2.x, and Enterprise),
-InfluxQL queries are more performant when querying InfluxDB powered by InfluxDB IOx.
+InfluxQL queries are more performant when querying InfluxDB powered by InfluxDB v3.
 
 #### Are you reliant on Flux queries and Flux tasks?
 

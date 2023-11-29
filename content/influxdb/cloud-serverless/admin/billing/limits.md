@@ -55,7 +55,8 @@ InfluxDB Cloud Serverless has adjustable service quotas applied per account.
 
 ### Storage-level
 
-The InfluxDB IOx storage engine enforces limits on the storage level that apply to all accounts (Free Plan and Usage-Based Plan).
+The InfluxDB v3 storage engine enforces limits on the storage level that apply
+to all accounts (Free Plan and Usage-Based Plan).
 
 - [Terminology](#terminology)
 - [Service-level limits](#limits)
@@ -68,7 +69,7 @@ The InfluxDB IOx storage engine enforces limits on the storage level that apply 
 
 #### Storage-level limits
 
-The IOx storage engine enforces the following storage-level limits:
+The v3 storage engine enforces the following storage-level limits:
 
 - **Maximum number of tables per namespace**: 500
 - **Maximum number of columns per table**: 200

@@ -17,7 +17,7 @@ cascade:
 
       While this command is included in the `influx` CLI , this
       functionality is not available in InfluxDB Cloud Serverless organizations
-      powered by the InfluxDB IOx storage engine.
+      powered by the InfluxDB v3 storage engine.
 ---
 
 {{< duplicate-oss >}}

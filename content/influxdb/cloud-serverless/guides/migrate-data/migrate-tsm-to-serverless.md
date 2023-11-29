@@ -3,7 +3,7 @@ title: Migrate data from TSM to InfluxDB Cloud Serverless
 description: >
   To migrate data from a TSM-powered InfluxDB Cloud organization to an InfluxDB
   Cloud Serverless organization powered by the v3 storage engine, query the data in
-  time-based batches and write the queried data to an IOx bucket in your
+  time-based batches and write the queried data to an InfluxDB v3 bucket in your
   InfluxDB Cloud Serverless organization.
 menu:
   influxdb_cloud_serverless:
@@ -26,8 +26,8 @@ adjustable quotas, migrate your data in batches.
 
 The following guide provides instructions for setting up an InfluxDB task
 that queries data from an InfluxDB Cloud TSM-powered bucket in time-based batches
-and writes each batch to an InfluxDB Cloud Serverless IOx-powered bucket in another
-organization.
+and writes each batch to an InfluxDB Cloud Serverless (InfluxDB v3) bucket in
+another organization.
 
 {{% cloud %}}
 All query and write requests are subject to your InfluxDB Cloud organization's
@@ -119,7 +119,7 @@ import "date"
 import "influxdata/influxdb/secrets"
 
 // Configure the task
-option task = {every: 5m, name: "Migrate data from TSM to IOx"}
+option task = {every: 5m, name: "Migrate data from TSM to v3"}
 
 // Configure the migration
 migration = {

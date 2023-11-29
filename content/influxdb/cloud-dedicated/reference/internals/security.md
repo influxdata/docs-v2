@@ -82,7 +82,7 @@ and protected in its own virtual private cloud (VPC).
 
 Users interact with InfluxDB Cloud Dedicated only through Cloud Dedicated established APIs.
 For cluster management activities, authorized users interact with the Granite service.
-For workload clusters, authorized users interact with APIs for IOx Ingesters (writes) and IOx Queriers (reads).
+For workload clusters, authorized users interact with APIs for InfluxDB v3 Ingesters (writes) and Queriers (reads).
 These services don't expose AWS S3 or other cloud provider or internal services.
 InfluxDB Cloud Dedicated uses separate S3 buckets for each customer's cluster to persist writes.
 The S3 buckets are only accessible by the customer's cluster services.
