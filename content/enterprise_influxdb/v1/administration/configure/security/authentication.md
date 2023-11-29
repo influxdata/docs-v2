@@ -22,21 +22,29 @@ enable authentication to control access to your cluster.
 
 To enable authentication in a cluster, do the following:
 
-1. Set `auth-enabled` to `true` in the `[http]` section of the configuration files 
+1. Create an admin user (if you haven't already).
+   Using the [`influx` CLI](/enterprise_influxdb/v1/tools/influx-cli/),
+   run the following command:
+
+   ```sql
+   CREATE USER <admin_user> WITH PASSWORD '<admin_password>' WITH ALL PRIVILEGES
+   ```
+
+   **Replace the following:**
+   
+   - `<admin_user>`: Admin username
+   - `<admin_password>`: Admin password
+
+2. Next, set `auth-enabled` to `true` in the `[http]` section of the configuration files 
    for all meta **and** data nodes:
+
    ```toml
    [http]
      # ...
      auth-enabled = true
    ```
-1. Next, create an admin user (if you haven't already).
-   Using the [`influx` CLI](/enterprise_influxdb/v1/tools/influx-cli/),
-   run the following command:
 
-   ```sql
-   CREATE USER admin WITH PASSWORD 'mypassword' WITH ALL PRIVILEGES
-   ```
-1. Restart InfluxDB Enterprise.
+3. Restart all InfluxDB Enterprise meta and data nodes to apply the updated configuration.
    Once restarted, InfluxDB Enterprise checks user credentials on every request
    and only processes requests with valid credentials.
 
