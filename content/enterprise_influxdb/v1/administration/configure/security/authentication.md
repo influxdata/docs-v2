@@ -35,7 +35,7 @@ To enable authentication in a cluster, do the following:
    - `<admin_user>`: Admin username
    - `<admin_password>`: Admin password
 
-2. Next, set `auth-enabled` to `true` in the `[http]` section of the configuration files 
+2. Set `auth-enabled` to `true` in the `[http]` section of the configuration files 
    for all meta **and** data nodes:
 
    ```toml
