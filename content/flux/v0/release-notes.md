@@ -10,6 +10,14 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.194.5 {date="2023-11-22"}
+
+### Bug fixes
+
+- Resolve build error on Rust 1.72.0+.
+
+---
+
 ## v0.194.4 {date="2023-10-25"}
 
 - _Internal code cleanup._
