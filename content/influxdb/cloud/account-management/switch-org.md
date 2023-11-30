@@ -26,7 +26,7 @@ To switch {{< product-name "short" >}} organizations:
 #### Migrate to InfluxDB Cloud Serverless
 
 To unlock the benefits of the InfluxDB v3 storage engine, including unlimited
-cardinality and SQL, [migrate your data to an InfluxDB Cloud Serverless organization](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox/).
+cardinality and SQL, [migrate your data to an InfluxDB Cloud Serverless organization](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-serverless/).
 
 All InfluxDB Cloud [accounts](/influxdb/cloud-serverless/admin/accounts/) and
 [organizations](/influxdb/cloud-serverless/admin/organizations/) created through

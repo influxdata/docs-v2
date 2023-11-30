@@ -43,7 +43,7 @@ For more information, see
 {{% warn %}}
 #### InfluxQL feature support
 
-InfluxQL is being rearchitected to work with the InfluxDB IOx storage engine.
+InfluxQL is being rearchitected to work with the InfluxDB v3 storage engine.
 This process is ongoing and some InfluxQL features are still being implemented.
 For information about the current implementation status of InfluxQL features,
 see [InfluxQL feature support](/influxdb/cloud-serverless/reference/influxql/feature-support/).

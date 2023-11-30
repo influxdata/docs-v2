@@ -16,7 +16,7 @@ var elementSelector = ".article--content pre:not(.preserve)"
 
 // Return the page context (cloud, oss/enterprise, dedicated, clustered, other)
 function context() {
-  if (/\/influxdb\/cloud(?:-iox)/.test(window.location.pathname)) {
+  if (/\/influxdb\/cloud(?:-serverless)/.test(window.location.pathname)) {
     return "cloud"
   } else if (/\/influxdb\/cloud-dedicated/.test(window.location.pathname)) {
     return "dedicated"

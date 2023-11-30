@@ -50,7 +50,7 @@ series data with SQL. For more information about querying your data with SQL, se
 #### Do you want better InfluxQL performance?
 
 **Yes, you should migrate**. One of the primary goals when designing the InfluxDB
-IOx storage engine was to enable performant implementations of both SQL and InfluxQL.
+v3 storage engine was to enable performant implementations of both SQL and InfluxQL.
 When compared to querying InfluxDB powered by TSM (InfluxDB OSS 1.x, 2.x, and Enterprise),
 InfluxQL queries are more performant when querying InfluxDB powered by the v3 storage engine.
 

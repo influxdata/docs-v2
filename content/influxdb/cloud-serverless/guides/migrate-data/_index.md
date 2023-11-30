@@ -38,8 +38,8 @@ The following questions will help guide your decision to migrate.
 **Yes, you should migrate**. Series cardinality is a major limiting factor with
 the InfluxDB TSM storage engine. The more unique series in your data, the less
 performant your database.
-The IOx storage engine supports near limitless series cardinality and is without
-question, the better solution for high series cardinality workloads.
+The InfluxDB v3 storage engine supports near limitless series cardinality and is,
+without question, the better solution for high series cardinality workloads.
 
 #### Do you want to use SQL to query your data?
 
@@ -52,7 +52,7 @@ series data with SQL. For more information about querying your data with SQL, se
 <!-- #### Do you want better InfluxQL performance?
 
 **Yes, you should migrate**. One of the primary goals when designing the InfluxDB
-IOx storage engine was to enable performant implementations of both SQL and InfluxQL.
+v3 storage engine was to enable performant implementations of both SQL and InfluxQL.
 When compared to querying InfluxDB powered by TSM (InfluxDB OSS 1.x, 2.x, and Enterprise),
 InfluxQL queries are more performant when querying InfluxDB powered by the v3 storage engine. -->
 
@@ -63,16 +63,16 @@ from the following providers:
 
 {{< cloud_regions type=iox-list >}}
 
-If your deployment requires other cloud providers or regions, you may need to
-wait until the IOx storage engine is available in a region that meets your requirements.
-We are currently working to make InfluxDB IOx available on more providers and
+If your deployment requires other cloud providers or regions, you may need to wait
+until the InfluxDB v3 storage engine is available in a region that meets your requirements.
+We are currently working to make InfluxDB v3 available on more providers and
 in more regions around the world.
 
 #### Are you reliant on Flux queries and Flux tasks?
 
-**You should maybe migrate**. Flux queries are less performant against the IOx
-storage engine. Flux is optimized to work with the TSM storage engine, but these
-optimizations do not apply to the on-disk structure of InfluxDB IOx.
+**You should maybe migrate**. Flux queries are less performant against the
+InfluxDB v3 storage engine. Flux is optimized to work with the TSM storage engine,
+but these optimizations do not apply to the on-disk structure of InfluxDB v3.
 
 ---
 

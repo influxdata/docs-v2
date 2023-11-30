@@ -21,15 +21,15 @@ Use the URLs below to interact with your InfluxDB Cloud Serverless instances wit
 [Telegraf](/influxdb/cloud-serverless/write-data/use-telegraf/).
 
 {{% note %}}
-#### InfluxDB IOx-enabled cloud regions
+#### InfluxDB v3 cloud regions
 
-We are in the process of deploying and enabling the InfluxDB IOx storage engine
+We are in the process of deploying and enabling the InfluxDB v3 storage engine
 on other cloud providers and regions.
 {{% /note %}}
 
 <a href="https://www.influxdata.com/influxdb-cloud-2-0-provider-region/" target="_blank" class="btn">Request a cloud region</a>
 
-<!-- ** Uncomment this when we add an IOx region with multiple clusters **
+<!-- ** Uncomment this when we add a v3 region with multiple clusters **
 
 {{% note %}}
 #### Regions with multiple clusters

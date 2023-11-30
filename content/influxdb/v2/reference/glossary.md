@@ -763,7 +763,7 @@ Related entries: [measurement](#measurement), [tag set](#tag-set), [field set](#
 
 ### primary key
 
-With the InfluxDB IOx storage engine, the primary key is the list of columns
+With the InfluxDB v3 storage engine, the primary key is the list of columns
 used to uniquely identify each row in a table.
 Rows are uniquely identified by their timestamp and tag set.
 
