@@ -38,7 +38,7 @@ The following questions will help guide your decision to migrate.
 **Yes, you should migrate**. Series cardinality is a major limiting factor with
 the InfluxDB TSM storage engine. The more unique series in your data, the less
 performant your database.
-The InfluxDB v3 storage engine supports near limitless series cardinality and is
+The InfluxDB v3 storage engine supports near limitless series cardinality and is,
 without question, the better solution for high series cardinality workloads.
 
 #### Do you want to use SQL to query your data?

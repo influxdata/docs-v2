@@ -470,7 +470,7 @@ Related entries:
 
 ### IOx
 
-The IOx (InfluxDB v3) storage engine is real-time, columnar database optimized for time series
+The IOx (InfluxDB v3) storage engine is a real-time, columnar database optimized for time series
 data built in Rust on top of [Apache Arrow](https://arrow.apache.org/) and
 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html).
 IOx replaces the [TSM](#tsm) storage engine.
