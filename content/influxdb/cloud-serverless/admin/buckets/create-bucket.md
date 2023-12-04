@@ -23,20 +23,13 @@ alt_links:
 
 Use the InfluxDB user interface (UI), `influx` command line interface (CLI), or InfluxDB HTTP API to create a bucket.
 
-<!-- TOC -->
-
 - [Bucket naming restrictions](#bucket-naming-restrictions)
 - [Table and column limits](#table-and-column-limits)
   - [Auto-generate buckets on write](#auto-generate-buckets-on-write)
   - [Create a bucket](#create-a-bucket)
-  - [Create a bucket from the Load Data menu](#create-a-bucket-from-the-load-data-menu)
 - [Retention period syntax](#retention-period-syntax)
-      - [Valid durations units include](#valid-durations-units-include)
-      - [Example retention period values](#example-retention-period-values)
 - [/api/v2 retentionRules syntax](#apiv2-retentionrules-syntax)
   - [retentionRules example](#retentionrules-example)
-
-<!-- /TOC -->
 
 ## Bucket naming restrictions
 
@@ -83,9 +76,8 @@ Create a bucket using the InfluxDB UI, `influx` CLI, or InfluxDB HTTP API.
 [influx CLI](#)
 [InfluxDB API](#)
 {{% /tabs %}}
-
-<!------------------------------ BEGIN UI CONTENT ----------------------------->
 {{% tab-content %}}
+<!------------------------------ BEGIN UI CONTENT ----------------------------->
 
 There are two places you can create a bucket in the UI.
 
@@ -119,13 +111,10 @@ There are two places you can create a bucket in the UI.
     - **Never** to retain data forever.
     - **Older than** to choose a specific retention period.
 6.  Click **Create** to create the bucket.
-
-{{% /tab-content %}}
 <!------------------------------- END UI CONTENT ------------------------------>
-
-<!----------------------------- BEGIN CLI CONTENT ----------------------------->
+{{% /tab-content %}}
 {{% tab-content %}}
-
+<!----------------------------- BEGIN CLI CONTENT ----------------------------->
 To create a bucket with the `influx` CLI, use the [`influx bucket create` command](/influxdb/cloud-serverless/reference/cli/influx/bucket/create)
 and specify values for the following flags:
 
@@ -193,12 +182,10 @@ The retention period value cannot be negative or contain whitespace.
 
 {{% /flex-content %}}
 {{< /flex >}}
-
-{{% /tab-content %}}
 <!------------------------------ END CLI CONTENT ------------------------------>
-
-<!----------------------------- BEGIN API CONTENT ----------------------------->
+{{% /tab-content %}}
 {{% tab-content %}}
+<!----------------------------- BEGIN API CONTENT ----------------------------->
 
 To create a bucket with the InfluxDB HTTP API, send a request to the following endpoint:
 
@@ -285,7 +272,6 @@ The retention period value can't be negative or contain whitespace.
 
 _For information about **InfluxDB API options and response codes**, see
 [InfluxDB API Buckets reference documentation](/influxdb/cloud-serverless/api/#operation/PostBuckets)._
-
-{{% /tab-content %}}
 <!------------------------------ END API CONTENT ------------------------------>
+{{% /tab-content %}}
 {{< /tabs-wrapper >}}
