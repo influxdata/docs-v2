@@ -6,7 +6,7 @@ weight: 401
 menu:
   influxdb_cloud_serverless:
     name: Optimize queries
-    parent: Execute queries
+    parent: Query data
 influxdb/cloud-serverless/tags: [query, sql, influxql]
 related:
   - /influxdb/cloud-serverless/query-data/sql/
