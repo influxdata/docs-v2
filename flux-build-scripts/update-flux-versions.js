@@ -103,7 +103,7 @@ var fluxVersions = {};
   await getAllFluxVersions(enterpriseVersionArr, 'enterprise', enterpriseVersions);
 
   // Manually add versions that aren't included in the original versions arrays
-  await addVersion(ossVersions, 'nightly', await getFluxVersion('2.7'));
+  await addVersion(ossVersions, 'nightly', await getFluxVersion('main-2.x'));
   await addVersion(enterpriseVersions, '1.8', await getFluxVersion('1.8'));
   await addVersion(enterpriseVersions, '1.7', await getFluxVersion('1.7'));
 
