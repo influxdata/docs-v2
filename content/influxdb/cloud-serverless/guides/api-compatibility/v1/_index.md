@@ -1,5 +1,5 @@
 ---
-title: Use the InfluxDB v1 API
+title: Use the InfluxDB v1 HTTP API
 description: >
   Use InfluxDB v1 API authentication, endpoints, and tools when bringing existing 1.x workloads to InfluxDB Cloud Serverless.
 weight: 3
@@ -7,57 +7,44 @@ menu:
   influxdb_cloud_serverless:
     parent: API compatibility
     name: v1 API
+influxdb/cloud-serverless/tags: [write, line protocol]
 aliases:
   - /influxdb/cloud-serverless/primers/api/v1/
   - /influxdb/cloud-serverless/api-compatibility/v1/
-influxdb/cloud-serverless/tags: [write, line protocol]
+  - /influxdb/cloud-serverless/query-data/influxql/dbrp/
 related:
-  - /influxdb/cloud-serverless/query-data/sql/
-  - /influxdb/cloud-serverless/query-data/influxql/
-  - /influxdb/cloud-serverless/write-data/
-  - /influxdb/cloud-serverless/write-data/use-telegraf/configure/
+  - /influxdb/cloud-serverless/query-data/execute-queries/v1-http/
+  - /influxdb/cloud-serverless/write-data/api/v1-http/
   - /influxdb/cloud-serverless/reference/api/
-  - /influxdb/cloud-serverless/reference/client-libraries/
+list_code_example: |
+  ```sh
+  curl "https://{{< influxdb/host >}}/query" \
+  --user "":"API_TOKEN" \
+  --data-urlencode "db=DATABASE_NAME" \
+  --data-urlencode "rp=RETENTION_POLICY" \
+  --data-urlencode "q=SELECT * FROM MEASUREMENT"
+  ```
 ---
 
 Use the InfluxDB v1 API `/write` and `/query` endpoints with v1 workloads that you bring to {{% product-name %}}.
 The v1 endpoints work with username/password authentication and existing InfluxDB 1.x tools and code.
-The InfluxDB v1 API `/write` endpoint works with InfluxDB 1.x client libraries and the [Telegraf v1 Output Plugin](/telegraf/v1/plugins/#output-influxdb).
-The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrations like [Grafana](https://grafana.com).
 
-Learn how to authenticate requests, adjust request parameters for existing v1 workloads, and find compatible tools for writing and querying data stored in an {{% product-name %}} database.
-
-<!-- TOC -->
+Learn how to authenticate requests, map databases and retention policies to buckets, adjust request parameters for existing v1 workloads, and find compatible tools for writing and querying data stored in an {{% product-name %}} database.
 
 - [Authenticate API requests](#authenticate-api-requests)
   - [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
-    - [Basic authentication](#basic-authentication)
-      - [Syntax](#syntax)
-      - [Example](#example)
-    - [Query string authentication](#query-string-authentication)
-      - [Syntax](#syntax)
-      - [Example](#example)
   - [Authenticate with a token scheme](#authenticate-with-a-token-scheme)
-    - [Syntax](#syntax)
-    - [Examples](#examples)
 - [Responses](#responses)
   - [Error examples](#error-examples)
+- [Map v1 databases and retention policies to buckets](#map-v1-databases-and-retention-policies-to-buckets)
+  - [Authorizations required](#authorizations-required)
+  - [Default DBRP](#default-dbrp)
+  - [Automatic DBRP mapping](#automatic-dbrp-mapping)
+  - [Manage DBRPs](#manage-dbrps)
 - [Write data](#write-data)
-    - [v1 API /write parameters](#v1-api-write-parameters)
-    - [Timestamp precision](#timestamp-precision)
-  - [Tools for writing to the v1 API](#tools-for-writing-to-the-v1-api)
-    - [Telegraf](#telegraf)
-      - [Other Telegraf configuration options](#other-telegraf-configuration-options)
-    - [Interactive clients](#interactive-clients)
-      - [v1 CLI not supported](#v1-cli-not-supported)
-    - [Client libraries](#client-libraries)
 - [Query data](#query-data)
-    - [Tools to execute queries](#tools-to-execute-queries)
-  - [v1 API /query parameters](#v1-api-query-parameters)
-    - [Timestamp precision](#timestamp-precision)
-  - [Bucket management with InfluxQL not supported](#bucket-management-with-influxql-not-supported)
+- [Bucket management with InfluxQL (not supported)](#bucket-management-with-influxql-not-supported)
 
-<!-- /TOC -->
 
 ## Authenticate API requests
 
@@ -108,9 +95,9 @@ The following example shows how to use cURL with the `Basic` authentication sche
 # to query the InfluxDB v1 API
 #######################################
 
-curl --get "https://{{< influxdb/host >}}/query" \
+curl "https://{{< influxdb/host >}}/query" \
   --user "":"API_TOKEN" \
-  --data-urlencode "db=BUCKET_NAME" \
+  --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "rp=RETENTION_POLICY" \
   --data-urlencode "q=SELECT * FROM MEASUREMENT"
 ```
@@ -118,9 +105,9 @@ curl --get "https://{{< influxdb/host >}}/query" \
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
 - {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% product-name %}} retention policy
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the mapped bucket
 
 #### Query string authentication
 
@@ -147,7 +134,7 @@ The following example shows how to use cURL with query string authentication and
 
 curl --get "https://{{< influxdb/host >}}/query" \
   --data-urlencode "p=API_TOKEN" \
-  --data-urlencode "db=BUCKET_NAME" \
+  --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "rp=RETENTION_POLICY" \
   --data-urlencode "q=SELECT * FROM MEASUREMENT"
 ```
@@ -155,9 +142,9 @@ curl --get "https://{{< influxdb/host >}}/query" \
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
-- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% product-name %}} retention policy
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the [database](#map-databases-and-retention-policies-to-buckets)
+- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: the [retention policy](#map-databases-and-retention-policies-to-buckets)
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the mapped bucket
 
 ### Authenticate with a token scheme
 
@@ -181,18 +168,24 @@ Use `Token` to authenticate a write request:
 # to write data.
 ########################################################
 
-curl -i "https://{{< influxdb/host >}}/write?db=BUCKET_NAME&rp=RETENTION_POLICY&precision=ms" \
+curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&rp=RETENTION_POLICY&precision=ms" \
     --header "Authorization: Token API_TOKEN" \
     --header "Content-type: text/plain; charset=utf-8" \
     --data-binary 'home,room=kitchen temp=72 1682358973500'
 ```
+
+<!-- after-test
+```sh
+influx bucket delete -n DATABASE_NAME/RETENTION_POLICY_NAME
+```
+-->
 {{% /code-placeholders %}}
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
-- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% product-name %}} retention policy
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the [database](#map-databases-and-retention-policies-to-buckets)
+- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: the [retention policy](#map-databases-and-retention-policies-to-buckets)
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the mapped bucket
 
 ## Responses
 
@@ -208,288 +201,522 @@ Response body messages may differ across {{% product-name %}} v1 API, v2 API, In
   ```http
   400 Bad Request
   ```
-  
+
   ```json
   { "code":"invalid",
     "message":"namespace name length must be between 1 and 64 characters"
   }
   ```
-  
+
   The `?db=` parameter value is missing in the request.
-  Provide the [bucket](/influxdb/cloud-serverless/admin/buckets/) name.
- 
+  Provide the [DBRP database name](#map-v1-databases-and-retention-policies-to-buckets).
+
 
 - **Failed to deserialize db/rp/precision**
 
     ```http
   400 Bad Request
   ```
-  
+
   ```json
   { "code": "invalid",
     "message": "failed to deserialize db/rp/precision in request: unknown variant `u`, expected one of `s`, `ms`, `us`, `ns`"
   }
   ```
-  
+
   The `?precision=` parameter contains an unknown value.
   Provide a [timestamp precision](#timestamp-precision).
 
-## Write data
+## Map v1 databases and retention policies to buckets
 
-Write data with your existing workloads that already use the InfluxDB v1 or v1.x-compatibility `/write` API endpoint.
-
-{{% api-endpoint endpoint="https://{{< influxdb/host >}}/write" method="post" %}}
-
-- [`/api/v2/write` parameters](#v1-api-write-parameters)
-- [Tools for writing to the v1 API](#tools-for-writing-to-the-v1-api)
-
-#### v1 API /write parameters
-
-For {{% product-name %}} v1 API `/write` requests, set parameters as listed in the following table:
-
-Parameter              | Allowed in   | Ignored                  | Value
------------------------|--------------|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-`consistency`          | Query string | Ignored                  | N/A
-`db` {{% req " \*" %}} | Query string | Honored                  | Bucket name
-`precision`            | Query string | Honored                  | [Timestamp precision](#timestamp-precision)
-`rp`                   | Query string | Honored                  | [Retention policy](#retention-policy-and-dbrp-mapping)
-`u`                    | Query string | Ignored                  | For [query string authentication](#query-string-authentication), any arbitrary string
-`p`                    | Query string | Honored                  | For [query string authentication](#query-string-authentication), a [token](/influxdb/cloud-serverless/admin/tokens/) with permission to write to the bucket
-`Content-Encoding`     | Header       | Honored                  | `gzip` (compressed data) or `identity` (uncompressed)
-`Authorization`        | Header       | Honored                  | `Token API_TOKEN`, or `Basic <base64 [USERNAME]:API_TOKEN>`
-
-{{% caption %}}{{% req " \*" %}} = {{% req "Required" %}}{{% /caption %}}
-
-#### Timestamp precision
-
-Use one of the following `precision` values in v1 API `/write` requests:
-
-- `ns`: nanoseconds
-- `us`: microseconds
-- `ms`: milliseconds
-- `s`: seconds
-- `m`: minutes
-- `h`: hours
-
-#### Retention policy and DBRP mapping
-
-In {{< product-name >}}, databases and retention policies are
-combined and replaced by InfluxDB [buckets](/influxdb/cloud-serverless/reference/glossary/#bucket).
-Writing data with the InfluxDB v1 `/write` endpoint or querying data using InfluxQL requires first mapping a database retention policy (DBRP) combination to a bucket.
-If you specify an existing DBRP in the `rp=` parameter or if a default DBRP exists for the bucket, InfluxDB writes to the specified bucket.
-
-Otherwise, if no DBRP exists for the bucket specified in `db=BUCKET_NAME`, and you use an [All-Access API token](/influxdb/cloud-serverless/admin/tokens/#all-access-api-token) to authorize the write request, InfluxDB auto-generates a new bucket named `BUCKET_NAME/autogen` and a DBRP mapping named `autogen`, and then writes the data to the new bucket.
-
-### Tools for writing to the v1 API
-
-The following tools work with the {{% product-name %}} `/write` endpoint:
-
-- [Telegraf](#telegraf)
-- [Interactive clients](#interactive-clients)
-- [Client libraries](#client-libraries)
-
-#### Telegraf
-
-If you have existing v1 workloads that use Telegraf,
-you can use the [InfluxDB v1.x `influxdb` Telegraf output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) to write data.
+Before you can write data using the InfluxDB v1 `/write` endpoint or query data using the v1 `/query` endpoint, the bucket must be mapped to a [database retention policy (DBRP)](/influxdb/cloud-serverless/admin/dbrps/) combination.
 
 {{% note %}}
-See how to [use Telegraf and the v2 API](/influxdb/cloud-serverless/write-data/use-telegraf/) for new workloads that don't already use the v1 API.
+
+To query using Flight with InfluxQL or SQL, you don't need to map DBRPs to buckets.
+
 {{% /note %}}
 
-The following table shows `outputs.influxdb` plugin parameters and values for writing to the {{% product-name %}} v1 API: 
+In InfluxDB 1.x, data is stored in [databases](/influxdb/cloud-serverless/reference/glossary/#database)
+and [retention policies](/influxdb/cloud-serverless/reference/glossary/#retention-period).
+In {{% product-name %}}, the concepts of database and retention policy have been merged into
+_buckets_, where buckets have a [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period), but retention policies are no longer part of the data model.
 
-Parameter                | Ignored                  | Value
--------------------------|--------------------------|---------------------------------------------------------------------------------------------------
-`database`               | Honored                  | Bucket name
-`retention_policy`       | Honored | [Duration](/influxdb/cloud-serverless/reference/glossary/#duration)
-`username`               | Ignored                  | String or empty
-`password`               | Honored                  | [API token](/influxdb/cloud-serverless/admin/tokens/) with permission to write to the bucket
-`content_encoding`       | Honored                  | `gzip` (compressed data) or `identity` (uncompressed)
-`skip_database_creation` | Ignored                  | N/A (see how to [create a bucket](/influxdb/cloud-serverless/admin/buckets/create-bucket/))
+InfluxDB can [automatically map buckets to DBRPs](#automatic-dbrp-mapping) for you or you can [manage DBRP mappings](#manage-dbrps) yourself using the `influx v1 dbrp` CLI commands or the InfluxDB v2 API `/api/v2/dbrps` endpoints.
 
-To configure the v1.x output plugin for writing to {{% product-name %}}, add the following `outputs.influxdb` configuration in your `telegraf.conf` file:
+- [Authenticate API requests](#authenticate-api-requests)
+  - [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
+  - [Authenticate with a token scheme](#authenticate-with-a-token-scheme)
+- [Responses](#responses)
+  - [Error examples](#error-examples)
+- [Map v1 databases and retention policies to buckets](#map-v1-databases-and-retention-policies-to-buckets)
+  - [Authorizations required](#authorizations-required)
+  - [Default DBRP](#default-dbrp)
+  - [Automatic DBRP mapping](#automatic-dbrp-mapping)
+  - [Manage DBRPs](#manage-dbrps)
+- [Write data](#write-data)
+- [Query data](#query-data)
+- [Bucket management with InfluxQL (not supported)](#bucket-management-with-influxql-not-supported)
 
-{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
-```toml
-[[outputs.influxdb]]
-  urls = ["https://{{< influxdb/host >}}"]
-  database = "BUCKET_NAME"
-  skip_database_creation = true
-  retention_policy = "RETENTION_POLICY"
-  username = "ignored"
-  password = "API_TOKEN"
-  content_encoding = "gzip”
+### Authorizations required
+
+Managing DBRP mappings requires a [token](/influxdb/cloud-serverless/admin/tokens/) with the following permissions:
+
+ - **write dbrp**: to create (automatically or manually), update, or delete DBRP mappings.
+ - **read dbrp**: to list DBRP mappings
+
+### Default DBRP
+
+Each unique database name in DBRP mappings has a **default** mapping (the `default` property is equal to `true`).
+If you send a request to the v1 `/write` or v1 `/query` endpoint and don't specify a retention policy name (`rp=`),
+then InfluxDB uses the database's default DBRP mapping to determine the bucket.
+
+### Automatic DBRP mapping
+
+{{< product-name >}} automatically creates DBRP mappings for you during the
+following operations:
+
+- [Writing to the v1 `/write` endpoint](/influxdb/cloud-serverless/write-data/api/v1-http/)
+- [Migrating from InfluxDB 1.x to {{% product-name %}}](/influxdb/cloud-serverless/guides/migrate-data/migrate-1x-to-v3/)
+
+For InfluxDB to automatically create DBRP mappings and buckets, you must use a [token](/influxdb/cloud-serverless/admin/tokens/) that has write permissions for DBRPs and buckets.
+
+Auto-generated buckets use the [name syntax for mapped buckets](/influxdb/cloud-serverless/guides/api-compatibility/v1/#name-syntax-for-mapped-buckets) and a default retention period equal to the bucket's created date minus 3 days.
+To set a bucket's retention period, see how to [update a bucket](/influxdb/cloud-serverless/admin/buckets/update-bucket/).
+
+#### Name syntax for mapped buckets
+
+InfluxDB uses the following naming convention to map database and retention policy names to bucket names:
+
+```text
+DATABASE_NAME/RETENTION_POLICY_NAME
 ```
-{{% /code-placeholders %}}
 
-Replace the following:
+#### Bucket naming examples
 
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
-- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% product-name %}} retention policy
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
+| v1 Database name | v1 Retention Policy name | Bucket name         |
+| :--------------- | :----------------------- | :------------------------ |
+| db               | rp                       | db/rp                     |
+| telegraf         | autogen                  | telegraf/autogen          |
+| webmetrics       | 1w-downsampled           | webmetrics/1w-downsampled |
 
-##### Other Telegraf configuration options
+{{% note %}}
+  To avoid having to add configuration parameters to each CLI command, [set up an active InfluxDB configuration](/influxdb/cloud-serverless/reference/cli/influx/config/set/).
+{{% /note %}}
 
-`influx_uint_support`: supported in InfluxDB v3.
+### Manage DBRPs
 
-For more plugin options, see [`influxdb`](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) on GitHub.
+#### Create DBRP mappings
 
-#### Interactive clients
+To create DBRP mappings, use the `influx` CLI or the
+InfluxDB HTTP API.
 
-To test InfluxDB v1 API writes interactively from the command line, use common HTTP clients such as cURL and Postman.
+{{% note %}}
+#### A DBRP combination can only be mapped to a single bucket
 
-Include the following in your request:
-
-- A `db` query string parameter with the name of the bucket to write to.
-- A request body that contains a string of data in [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) syntax.
-- a [token](/influxdb/cloud-serverless/admin/tokens/) in one of the following authentication schemes: [Basic authentication](#basic-authentication), [query string authentication](#query-string-authentication), or [token authentication](#authenticate-with-a-token).
-- Optional [parameters](#v1-api-write-parameters).
-
-The following example shows how to use the **cURL** command line tool and the {{% product-name %}} v1 API to write line protocol data to a bucket:
-
-{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
-```sh
-curl -i "https://{{< influxdb/host >}}/write?db=BUCKET_NAME&rp=RETENTION_POLICY&precision=s" \
-    --header "Authorization: Token API_TOKEN" \
-    --header "Content-type: text/plain; charset=utf-8" \
-    --data-binary 'home,room=kitchen temp=72 1463683075'
-```
-{{% /code-placeholders %}}
-
-Replace the following:
-
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
-- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% product-name %}} retention policy
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
-
-##### v1 CLI (not supported)
-
-Don't use the v1 CLI with {{% product-name %}}.
-While it may coincidentally work, it isn't officially supported.
-
-#### Client libraries
-
-Use language-specific [v1 client libraries](/influxdb/v1/tools/api_client_libraries/) and your custom code to write data to InfluxDB.
-v1 client libraries send data in [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) syntax to the v1 API `/write` endpoint.
-
-The following samples show how to configure **v1** client libraries for writing to {{% product-name %}}:
+Each unique DBRP combination can only be mapped to a single bucket.
+If you map a DBRP combination that is already mapped to another bucket,
+it overwrites the existing DBRP mapping.
+{{% /note %}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[Node.js](#nodejs)
-[Python](#python)
+[influx CLI](#)
+[InfluxDB API](#)
 {{% /tabs %}}
 {{% tab-content %}}
-<!-- Start NodeJS -->
 
-Create a v1 API client using the [node-influx](/influxdb/v1/tools/api_client_libraries/#javascriptnodejs) JavaScript client library:
+Use the [`influx v1 dbrp create` command](/influxdb/cloud-serverless/reference/cli/influx/v1/dbrp/create/)
+to map a database and retention policy to a bucket.
+Include the following:
 
-{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
-```js
-const Influx = require('influx')
+{{< req type="key" >}}
 
-// Instantiate a client for writing to {{% product-name %}} v1 API
-const client = new Influx.InfluxDB({
-  host: '{{< influxdb/host >}}',
-  port: 443,
-  protocol: 'https'
-  database: 'BUCKET_NAME',
-  username: 'ignored',
-  password: 'API_TOKEN'
-})
+- {{< req "\*" >}} a [token](/influxdb/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization).
+- {{< req "\*" >}} the **database name** to map
+- {{< req "\*" >}} the **retention policy** name to map
+- {{< req "\*" >}} the [bucket ID](/influxdb/cloud-serverless/admin/buckets/view-buckets/#view-buckets-in-the-influxdb-ui) to map to
+- **Default flag** to set the provided retention policy as the [default DBRP mapping](#default-dbrp) for the database.
 
-// When calling write or query functions, specify the retention policy name in options.
+<!-- before-test
+```sh
+influx bucket create -n DATABASE_NAME -r 24h
+INFLUX_BUCKET_ID=$(influx bucket list -n DATABASE_NAME | grep 24h0m0s | cut -b 1-16)
 ```
-{{% /code-placeholders %}}
+-->
 
-<!-- End NodeJS -->
-{{% /tab-content %}}
-{{% tab-content %}}
-<!-- Start Python -->
+<!--pytest-codeblocks:cont-->
 
-Create a v1 API client using the [influxdb-python](/influxdb/v1/tools/api_client_libraries/#python) Python client library:
-
-{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
-```py
-from influxdb import InfluxDBClient
-
-# Instantiate a client for writing to {{% product-name %}} v1 API
-client = InfluxDBClient(
-  host='{{< influxdb/host >}}',
-  ssl=True,
-  database='BUCKET_NAME',
-  username='',
-  password='API_TOKEN'
-  headers={'Content-Type': 'text/plain; charset=utf-8'}
-  )
-
-# When calling write or query functions, specify the retention policy name in options.
+{{% code-placeholders "(DATABASE|RETENTION_POLICY|BUCKET|API)_(NAME|TOKEN|ID)" %}}
+```sh
+influx v1 dbrp create \
+  --token API_TOKEN \
+  --org ORG_ID \
+  --db DATABASE_NAME \
+  --rp RETENTION_POLICY_NAME \
+  --bucket-id BUCKET_ID \
+  --default
 ```
-{{% /code-placeholders %}}
 
-<!-- End Python -->
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
+<!--pytest-codeblocks:cont-->
+
+<!-- after-test
+```sh
+test_dbrp=$(influx v1 dbrp list --db DATABASE_NAME --rp RETENTION_POLICY_NAME | grep DATABASE_NAME | cut -b 1-16)
+influx v1 dbrp delete --id $test_dbrp
+```
+-->
+
+
+{{% /code-placeholders %}}
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
-- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% product-name %}} retention policy
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the database name to map to the bucket
+- {{% code-placeholder-key %}}`RETENTION_POLICY_NAME`{{% /code-placeholder-key %}}: the retention policy name to map to the bucket
+- {{% code-placeholder-key %}}`BUCKET_ID`{{% /code-placeholder-key %}}: the [bucket ID](/influxdb/cloud-serverless/admin/buckets/view-buckets/) to map to
+
+The output is the DBRP.
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+Use the [`/api/v2/dbrps` API endpoint](/influxdb/cloud-serverless/api/#operation/PostDBRP)
+to create a new DBRP mapping.
+
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps" method="POST" api-ref="/influxdb/cloud-serverless/api/#operation/PostDBRP" >}}
+
+Include the following:
+
+- **Request method:** `POST`
+- **Headers:**
+  - **Authorization:** `Token` scheme with a [token](/influxdb/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+  - **Content-type:** `application/json`
+- **Request body:** JSON object with the following fields:
+
+  - **bucketID:** the [bucket ID](/influxdb/cloud-serverless/admin/buckets/view-buckets/) to map to
+  - **database:** the database name to map to the bucket
+  - **org** or **orgID:** your organization name or [organization ID](/influxdb/cloud-serverless/admin/organizations/view-orgs/#view-your-organization-id)
+  - **retention_policy:** the retention policy name to map to the bucket
+  - Optional: **default:** `true` sets the database name's [default DBRP mapping](#default-dbrp).
+
+{{% code-placeholders "(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" %}}
+```sh
+curl --request POST https://{{< influxdb/host >}}/api/v2/dbrps \
+  --header "Authorization: Token API_TOKEN" \
+  --header 'Content-type: application/json' \
+  --data '{
+        "bucketID": "BUCKET_ID",
+        "database": "DATABASE_NAME",
+        "default": true,
+        "orgID": "ORG_ID",
+        "retention_policy": "RETENTION_POLICY_NAME"
+      }'
+```
+{{% /code-placeholders %}}
+
+If successful, the response status code is `201: Created` and the response body contains the DBRP.
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+#### List DBRP mappings
+
+Use the [`influx` CLI](/influxdb/cloud-serverless/reference/cli/influx/) or the
+[InfluxDB HTTP API](/influxdb/cloud-serverless/reference/api/) to list all DBRP
+mappings and verify that the buckets you want to query are mapped to a database and
+retention policy.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[influx CLI](#)
+[InfluxDB HTTP API](#)
+{{% /tabs %}}
+{{% tab-content %}}
+
+Use the [`influx v1 dbrp list` command](/influxdb/cloud-serverless/reference/cli/influx/v1/dbrp/list/)
+to list DBRP mappings.
+
+##### View all DBRP mappings
+{{% code-placeholders "(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" %}}
+```sh
+influx v1 dbrp list --token API_TOKEN --org ORG_ID \
+```
+
+##### Filter DBRP mappings by database
+```sh
+influx v1 dbrp list \
+  --token API_TOKEN \
+  --org ORG_ID \
+  --db DATABASE_NAME
+```
+
+##### Filter DBRP mappings by bucket ID
+
+<!-- before-test
+```sh
+INFLUX_BUCKET_ID=$(influx bucket list -n DATABASE_NAME | grep 24h | cut -b 1-16)
+```
+-->
+
+<!--pytest-codeblocks:cont-->
+
+```sh
+influx v1 dbrp list \
+  --token API_TOKEN \
+  --org ORG_ID \
+  --bucket-id BUCKET_ID
+```
+{{% /code-placeholders %}}
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+Use the [`/api/v2/dbrps` API endpoint](/influxdb/cloud-serverless/api/#operation/GetDBRPs) to list DBRP mappings.
+
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps" method="GET" api-ref="/influxdb/cloud-serverless/api/#operation/GetDBRPs" >}}
+
+Include the following:
+
+- **Request method:** `GET`
+- **Headers:**
+  - **Authorization:** `Token` scheme with your [token](/influxdb/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- **Query parameters:**
+  {{< req type="key" >}}
+  - {{< req "\*" >}} **orgID:** your [organization ID](/influxdb/cloud-serverless/admin/organizations/view-orgs/#view-your-organization-id)
+  - **bucketID:** a [bucket ID](/influxdb/cloud-serverless/admin/buckets/view-buckets/) _(to list DBRP mappings for a specific bucket)_
+  - **database:** a database name _(to list DBRP mappings with a specific database name)_
+  - **rp:** a retention policy name _(to list DBRP mappings with a specific retention policy name)_
+  - **id:** a DBRP mapping ID _(to list a specific DBRP mapping)_
+
+{{% code-placeholders "(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" %}}
+
+##### View all DBRP mappings
+
+```sh
+curl --request GET \
+  https://{{< influxdb/host >}}/api/v2/dbrps \
+  --header "Authorization: Token API_TOKEN" \
+  --data-urlencode "orgID=ORG_ID"
+```
+
+##### Filter DBRP mappings by database
+
+```sh
+curl --request GET \
+  https://{{< influxdb/host >}}/api/v2/dbrps \
+  --header "Authorization: Token API_TOKEN" \
+  --data-urlencode "orgID=ORG_ID" \
+  --data-urlencode  "db=DATABASE_NAME"
+```
+
+##### Filter DBRP mappings by bucket ID
+
+```sh
+curl --request GET \
+  https://{{< influxdb/host >}}/api/v2/dbrps \
+  --header "Authorization: Token API_TOKEN" \
+  --data-urlencode "orgID=ORG_ID" \
+  --data-urlencode  "bucketID=BUCKET_ID"
+```
+{{% /code-placeholders %}}
+
+{{% /tab-content %}}
+{{% /tabs-wrapper %}}
+
+#### Update a DBRP mapping
+
+Use the [`influx` CLI](/influxdb/cloud-serverless/reference/cli/influx/) or the
+[InfluxDB HTTP API](/influxdb/cloud-serverless/reference/api/) to update a DBRP mapping--for example, to change the retention policy name or set the mapping as the [default](#default-dbrp) for the database name.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[influx CLI](#)
+[InfluxDB HTTP API](#)
+{{% /tabs %}}
+{{% tab-content %}}
+
+Use the [`influx v1 dbrp update` command](/influxdb/cloud-serverless/reference/cli/influx/v1/dbrp/update/)
+to update a DBRP mapping.
+Include the following:
+
+- a [token](/influxdb/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- **DBRP mapping ID** to update
+- Optional: **Retention policy** name to update to
+- Optional: **Default flag** to set the retention policy as the [default DBRP mapping](#default-dbrp) for the database name.
+
+<!-- before-test
+```sh
+INFLUX_BUCKET_ID=$(influx bucket list -n DATABASE_NAME | grep 24h | cut -b 1-16)
+influx v1 dbrp create --bucket-id $INFLUX_BUCKET_ID --db DATABASE_NAME --rp RETENTION_POLICY
+dbrp_id=$(influx v1 dbrp list --bucket-id $INFLUX_BUCKET_ID --db DATABASE_NAME --rp RETENTION_POLICY \
+ | grep RETENTION_POLICY | cut -b 1-16)
+INFLUX_DBRP_ID="$dbrp_id"
+```
+-->
+
+<!--pytest-codeblocks:cont-->
+
+##### Update the default retention policy
+
+{{% code-placeholders "(DBRP|RETENTION_POLICY|API|ORG)_(NAME|TOKEN|ID)" %}}
+```sh
+influx v1 dbrp update \
+  --token API_TOKEN \
+  --org ORG_ID \
+  --id DBRP_ID \
+  --rp RETENTION_POLICY_NAME \
+  --default
+```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- {{% code-placeholder-key %}}`DBRP_ID`{{% /code-placeholder-key %}}: the DBRP ID to update
+- {{% code-placeholder-key %}}`RETENTION_POLICY_NAME`{{% /code-placeholder-key %}}: a retention policy name to map to the bucket
+
+The output is the DBRP.
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+Use the [`/api/v2/dbrps/{dbrpID}` API endpoint](/influxdb/cloud-serverless/api/#operation/GetDBRPs) to update DBRP mappings.
+
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps/{dbrpID}" method="PATCH" api-ref="/influxdb/cloud-serverless/api/#operation/PatchDBRPID" >}}
+
+Include the following:
+
+{{< req type="key" >}}
+
+- **Request method:** `PATCH`
+- **Headers:**
+  - {{< req "\*" >}} the **Authorization:** `Token` scheme with a [token](/influxdb/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- **Path parameters:**
+  - {{< req "\*" >}} **id:** the DBRP mapping ID to update
+- **Query parameters:**
+  - {{< req "\*" >}} **orgID:** your [organization ID](/influxdb/cloud-serverless/admin/organizations/view-orgs/#view-your-organization-id)
+- **Request body (JSON):**
+  - **rp:** retention policy name to update to
+  - **default:** set the retention policy as the [default DBRP mapping](#default-dbrp) for the database name
+
+##### Update the default retention policy
+
+{{% code-placeholders "(DBRP|RETENTION_POLICY|API|ORG)_(NAME|TOKEN|ID)" %}}
+```sh
+curl --request PATCH \
+  https://{{< influxdb/host >}}/api/v2/dbrps/DBRP_ID \
+  --header "Authorization: Token API_TOKEN" \
+  --data-urlencode "orgID=ORG_ID" \
+  --data '{
+      "rp": "RETENTION_POLICY_NAME",
+      "default": true
+    }'
+```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- {{% code-placeholder-key %}}`DBRP_ID`{{% /code-placeholder-key %}}: the DBRP ID to update
+- {{% code-placeholder-key %}}`RETENTION_POLICY_NAME`{{% /code-placeholder-key %}}: a retention policy name to map to the bucket
+
+The output is the DBRP.
+{{% /tab-content %}}
+{{% /tabs-wrapper %}}
+
+#### Delete a DBRP mapping
+
+Use the [`influx` CLI](/influxdb/cloud-serverless/reference/cli/influx/) or the
+[InfluxDB API](/influxdb/cloud-serverless/reference/api/) to delete a DBRP mapping.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[influx CLI](#)
+[InfluxDB API](#)
+{{% /tabs %}}
+{{% tab-content %}}
+
+Use the [`influx v1 dbrp delete` command](/influxdb/cloud-serverless/reference/cli/influx/v1/dbrp/delete/)
+to delete a DBRP mapping.
+Include the following:
+
+{{< req type="key" >}}
+
+- {{< req "\*" >}} a [token](/influxdb/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- {{< req "\*" >}} **DBRP mapping ID** to delete
+
+
+<!-- before-test
+```sh
+INFLUX_BUCKET_ID=$(influx bucket list -n DATABASE_NAME | grep 24h | cut -b 1-16)
+influx v1 dbrp create --bucket-id $INFLUX_BUCKET_ID --db DATABASE_NAME --rp RETENTION_POLICY
+dbrp_id=$(influx v1 dbrp list --bucket-id $INFLUX_BUCKET_ID --db DATABASE_NAME --rp RETENTION_POLICY \
+ | grep RETENTION_POLICY | cut -b 1-16)
+INFLUX_DBRP_ID="$dbrp_id"
+```
+-->
+
+<!--pytest-codeblocks:cont-->
+
+{{% code-placeholders "(DBRP|API)_(TOKEN|ID)" %}}
+```sh
+influx v1 dbrp delete \
+  --token API_TOKEN \
+  --org ORG_ID \
+  --id DBRP_ID
+```
+{{% /code-placeholders %}}
+
+The output is the DBRP.
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+Use the [`/api/v2/dbrps/{dbrpID}` API endpoint](/influxdb/cloud-serverless/api/#operation/DeleteDBRPID)
+to delete a DBRP mapping.
+
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps/{dbrpID}" method="DELETE" api-ref="/influxdb/cloud-serverless/api/#operation/DeleteDBRPID" >}}
+
+Include the following:
+
+{{< req type="key" >}}
+
+- **Request method:** `DELETE`
+- **Headers:**
+  - {{< req "\*" >}} the **Authorization:** `Token` scheme with a [token](/influxdb/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- **Path parameters:**
+  - {{< req "\*" >}} **id:** DBRP mapping ID to update
+- **Query parameters:**
+  - {{< req "\*" >}} **orgID:** [organization ID](/influxdb/cloud-serverless/admin/organizations/view-orgs/#view-your-organization-id)
+
+{{% code-placeholders "(DBRP|API|ORG)_(TOKEN|ID)" %}}
+```sh
+curl --request DELETE \
+  https://{{< influxdb/host >}}/api/v2/dbrps/DBRP_ID \
+  --header "Authorization: Token API_TOKEN" \
+  --data-urlencode "orgID=ORG_ID"
+```
+{{% /code-placeholders %}}
+{{% /tab-content %}}
+{{% /tabs-wrapper %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- {{% code-placeholder-key %}}`DBRP_ID`{{% /code-placeholder-key %}}: the DBRP ID to update
+- {{% code-placeholder-key %}}`ORG_ID`{{% /code-placeholder-key %}}: the [organization ID](/influxdb/cloud-serverless/admin/organizations/view-orgs/#view-your-organization-id)
+
+## Write data
+
+See how to [use the {{% product-name %}} HTTP write API](/influxdb/cloud-serverless/write-data/api/v1-http/) for InfluxDB v1 or v1.x-compatibility workloads.
 
 ## Query data
 
-{{% product-name %}} provides the following protocols for executing a query:
+See how to [use the {{% product-name %}} HTTP query API](/influxdb/cloud-serverless/query-data/execute-queries/v1-http/) for InfluxDB v1 or v1.x-compatibility workloads.
 
-- [Flight+gRPC](https://arrow.apache.org/docs/format/Flight.html) request that contains an SQL or InfluxQL query.
-  To learn how to query {{% product-name %}} using Flight and SQL, see the [Get started](/influxdb/cloud-serverless/get-started/) tutorial.
-- InfluxDB v1 API `/query` request that contains an InfluxQL query. Use this endpoint with {{% product-name %}} when you bring InfluxDB 1.x workloads that already use [InfluxQL](/influxdb/cloud-serverless/reference/glossary/#influxql) and the v1 API `/query` endpoint.
-
-{{% note %}}
-#### Tools to execute queries
-
-{{% product-name %}} supports many different tools for querying data, including:
-
-- [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
-- [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
-- [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
-- [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
-- [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
-- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/query-data/execute-queries/influxdb-v1-api/)
-- [Chronograf](/chronograf/v1/)
-{{% /note %}}
-
-### v1 API /query parameters
-
-For {{% product-name %}} v1 API `/query` requests, set parameters as listed in the following table:
-
-Parameter   | Allowed in   | Ignored | Value
-------------|--------------|---------|-------------------------------------------------------------------------
-`chunked`   |              | Ignored | N/A _(Note that an unbounded query might return a large amount of data)_
-`db`        | Query string | Honored | Bucket name
-`epoch`     | Query string | Honored | [Timestamp precision](#timestamp-precision)
-`pretty`    | Query string | Ignored | N/A
-`u`         | Query string | Ignored | For [query string authentication](#query-string-authentication), any arbitrary string
-`p`         | Query string | Honored | For [query string authentication](#query-string-authentication), a [token](/influxdb/cloud-serverless/admin/tokens) with permission to write to the bucket
-`rp`        | Query string | Honored | Retention policy
-
-{{% note %}}
-When bringing v1 API workloads to {{% product-name %}}, you'll need to adjust request parameters in your client configuration or code.
-{{% /note %}}
-
-#### Timestamp precision
-
-Use one of the following values for timestamp precision:
-
-- `ns`: nanoseconds
-- `us`: microseconds
-- `ms`: milliseconds
-- `s`: seconds
-- `m`: minutes
-- `h`: hours
-
-### Bucket management with InfluxQL (not supported)
+## Bucket management with InfluxQL (not supported)
 
 {{% product-name %}} doesn't allow InfluxQL commands for managing or modifying buckets.
 You can't use the following InfluxQL commands:
@@ -506,3 +733,10 @@ ALTER
 SET
 KILL
 ```
+
+<!-- after-test
+```sh
+influx bucket delete -n DATABASE_NAME
+influx bucket delete -n DATABASE_NAME/RETENTION_POLICY_NAME; exit 0
+```
+-->

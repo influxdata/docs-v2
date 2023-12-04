@@ -38,11 +38,11 @@
       {{ $link := replaceRE `\,\s(.*)$` "" $relatedItem }}
       {{ $title := $scratch.Get "title" }}
 
-      <!-- If an external link or API link -->
-      {{ if or (in $relatedItem "http") (in $relatedItem "/v2.0/api") (in $relatedItem ",")}}
+      {{ $isExternal := gt (len (findRE `^http` $relatedItem)) 0 }}
+      {{ if or ($isExternal) (in $relatedItem "/v2/api") (in $relatedItem ",")}}
         {{ $link := replaceRE `\,\s(.*)$` "" $relatedItem }}
         {{ $title := replaceRE `^(\S*\,\s)` "" $relatedItem }}
-        {{ $target := cond (in . "http") "_blank" "" }}
+        {{ $target := cond ($isExternal) "_blank" "" }}
         <li><a href="{{ $link }}" target="{{ $target }}">{{ $title }}</a></li>
 
       <!-- Automatically get page title and link from path -->
