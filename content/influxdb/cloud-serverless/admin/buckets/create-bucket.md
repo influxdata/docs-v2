@@ -236,6 +236,7 @@ curl --silent -w "%{response_code}: %{errormsg}\n" \
   }
 EOF
 ```
+{{% /code-placeholders %}}
 
 Replace the following:
 
