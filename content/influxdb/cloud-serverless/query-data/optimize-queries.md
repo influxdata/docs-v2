@@ -38,6 +38,7 @@ import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
+
 {{% code-placeholders "BUCKET_NAME|API_TOKEN|APP_REQUEST_ID" %}}
 ```python
 from influxdb_client_3 import InfluxDBClient3
