@@ -12,22 +12,38 @@ weight: 230
 This page documents errors, their descriptions, and, where applicable,
 common resolutions.
 
-{{% warn %}}
-**Disclaimer:** This document does not contain an exhaustive list of all possible InfluxDB errors.
-{{% /warn %}}
+{{% note %}}
+**Disclaimer:** This document does not contain an exhaustive list of all
+possible InfluxQL errors.
+{{% /note %}}
 
 ## error: database name required
 
-The `database name required` error occurs when certain `SHOW` queries do
-not specify a [database](/influxdb/cloud-dedicated/reference/glossary/#database).
+The `database name required` error occurs when certain [`SHOW` queries](/influxdb/cloud-dedicated/reference/influxql/show/)
+do not specify a [database](/influxdb/cloud-dedicated/reference/glossary/#database).
 To resolve this error, specify a database with your query request by doing one
 of the following:
 
-- Include an `ON` clause with the `SHOW` query
-- If using the [InfluxDB /query API](/enterprise_influxdb/v1/tools/api/#query-string-parameters),
-  Include the `db` query parameter in your  request
-- with `USE <database_name>` in the
-[CLI](/enterprise_influxdb/v1/tools/influx-cli/use-influx/), or with the .
+{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+
+- Include an `ON` clause with the `SHOW` statement that specifies the database
+  to query:
+
+  ```sql
+  SHOW MEASUREMENTS ON DATABASE_NAME
+  ```
+
+- If using the [InfluxDB v1 query API](/enterprise_influxdb/v1/tools/api/#query-string-parameters),
+  Include the `db` query parameter in your request:
+
+  ```sh
+  curl --get https://{{< influxdb/host >}}/query \
+    --header "Authorization: Bearer DATABASE_TOKEN" \
+    --data-urlencode "db=DATABASE_NAME" \
+    --data-urlencode "q=SHOW MEASUREMENTS"
+  ```
+
+{{% /code-placeholders %}}
 
 The relevant `SHOW` queries include:
 
@@ -36,25 +52,9 @@ The relevant `SHOW` queries include:
 - [`SHOW TAG VALUES`](/influxdb/cloud-dedicated/reference/influxql/show/#show-tag-values)
 - [`SHOW FIELD KEYS`](/influxdb/cloud-dedicated/reference/influxql/show/#show-field-keys)
 
-**Resources:**
-[Schema exploration](/enterprise_influxdb/v1/query_language/explore-schema/),
-[InfluxQL reference](/enterprise_influxdb/v1/query_language/spec/)
-
-## error: max series per database exceeded: < >
-
-The `max series per database exceeded` error occurs when a write causes the
-number of [series](/enterprise_influxdb/v1/concepts/glossary/#series) in a database to
-exceed the maximum allowable series per database.
-The maximum allowable series per database is controlled by the
-[`max-series-per-database`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#max-series-per-database--1000000)
-setting in the `[data]` section of the configuration
-file.
-
-The information in the `< >` shows the measurement and the tag set of the series
-that exceeded `max-series-per-database`.
-
-By default `max-series-per-database` is set to one million.
-Changing the setting to `0` allows an unlimited number of series per database.
+**Related:**
+[Explore your schema](/influxdb/cloud-dedicated/query-data/influxql/explore-schema/),
+[InfluxQL reference](/influxdb/cloud-dedicated/reference/influxql/)
 
 ## error parsing query: found < >, expected identifier at line < >, char < >
 
@@ -62,9 +62,8 @@ Changing the setting to `0` allows an unlimited number of series per database.
 
 The `expected identifier` error occurs when InfluxDB anticipates an identifier
 in a query but doesn't find it.
-Identifiers are tokens that refer to continuous query names, database names,
-field keys, measurement names, retention policy names, subscription names,
-tag keys, and user names.
+Identifiers are tokens that refer to database names, retention policy names,
+measurement names, field keys, and tag keys.
 The error is often a gentle reminder to double-check your query's syntax.
 
 **Examples**
