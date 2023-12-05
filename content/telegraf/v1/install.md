@@ -32,12 +32,12 @@ Before running the [install](#install) sample code, substitute the key-pair comp
 For newer OS releases (for example, Ubuntu 20.04 LTS and newer) that support subkey verification:
 
 -  Private key file: `influxdata-archive.key`
--  Public key: 943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515
+-  Public key: `943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515`
 
 For all Ubuntu and Debian versions, including older versions (for example, CentOS/RHEL 7, Ubuntu 18.04 LTS, or Debian Buster) that don't support subkeys for verification:
 
 -  Private key file: `influxdata-archive_compat.key`
--  Public key: 393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c
+-  Public key: `393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c`
 
 ## Requirements
 
