@@ -250,7 +250,7 @@ InfluxDB can [automatically map buckets to DBRPs](#automatic-dbrp-mapping) for y
 - [Responses](#responses)
   - [Error examples](#error-examples)
 - [Map v1 databases and retention policies to buckets](#map-v1-databases-and-retention-policies-to-buckets)
-  - [Authorizations required](#authorizations-required)
+  - [Required permissions](#required-permissions)
   - [Default DBRP](#default-dbrp)
   - [Automatic DBRP mapping](#automatic-dbrp-mapping)
   - [Manage DBRPs](#manage-dbrps)
@@ -258,7 +258,7 @@ InfluxDB can [automatically map buckets to DBRPs](#automatic-dbrp-mapping) for y
 - [Query data](#query-data)
 - [Bucket management with InfluxQL (not supported)](#bucket-management-with-influxql-not-supported)
 
-### Authorizations required
+### Required permissions
 
 Managing DBRP mappings requires a [token](/influxdb/cloud-serverless/admin/tokens/) with the following permissions:
 
