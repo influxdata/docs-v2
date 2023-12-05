@@ -6,26 +6,24 @@ weight: 401
 menu:
   influxdb_cloud_serverless:
     name: Optimize queries
-    parent: Execute queries
+    parent: Query data
 influxdb/cloud-serverless/tags: [query, sql, influxql]
 related:
   - /influxdb/cloud-serverless/query-data/sql/
   - /influxdb/cloud-serverless/query-data/influxql/
   - /influxdb/cloud-serverless/query-data/execute-queries/troubleshoot/
   - /influxdb/cloud-serverless/reference/client-libraries/v3/
+aliases:
+  - /influxdb/cloud-serverless/query-data/execute-queries/optimize-queries/
 ---
 
 ## Troubleshoot query performance
 
 Use the following tools to help you identify performance bottlenecks and troubleshoot problems in queries:
 
-<!-- TOC -->
-
 - [Troubleshoot query performance](#troubleshoot-query-performance)
   - [EXPLAIN and ANALYZE](#explain-and-analyze)
   - [Enable trace logging](#enable-trace-logging)
-
-<!-- /TOC -->
 
 ### EXPLAIN and ANALYZE
 
@@ -40,6 +38,7 @@ import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
+
 {{% code-placeholders "BUCKET_NAME|API_TOKEN|APP_REQUEST_ID" %}}
 ```python
 from influxdb_client_3 import InfluxDBClient3

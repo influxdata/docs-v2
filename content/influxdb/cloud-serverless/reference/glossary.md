@@ -238,9 +238,9 @@ For more information about different data types, see:
 - [InfluxQL](/influxdb/v1/query_language/spec/#literals)
 - [InfluxDB](/influxdb/v2/reference/syntax/line-protocol/#data-types-and-format)
 
-#### database
+### database
 
-In InfluxDB Cloud Dedicated, a named location where time series data is stored.
+In _InfluxDB Cloud Dedicated_, a named location where time series data is stored.
 This is equivalent to a _bucket_ in _InfluxDB Cloud Serverless_.
 
 In InfluxDB 1.x, a database represented a logical container for users, retention
@@ -249,6 +249,7 @@ In InfluxDB 2.x, the equivalent of this concept is an InfluxDB [bucket](#bucket)
 
 Related entries:
 [bucket](#bucket),
+[retention period](#retention-period),
 [retention policy](#retention-policy-rp)
 
 ### date-time
@@ -258,6 +259,10 @@ nanosecond-precision Unix time.
 Specifying a timestamp is optional.
 If a timestamp isn't specified for a data point, InfluxDB uses the server’s
 local nanosecond timestamp in UTC.
+
+### DBRP mapping
+
+For {{% product-name %}} compatibility with InfluxDB v1 `/write` and `query` endpoints, maps an InfluxDB v1 database and retention policy combination to a bucket.
 
 ### downsample
 

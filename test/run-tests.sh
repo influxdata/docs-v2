@@ -45,18 +45,24 @@ for file in `find . -type f` ; do
     s/f"BUCKET_NAME"/os.getenv("INFLUX_DATABASE")/g;
     s/f"DATABASE_NAME"/os.getenv("INFLUX_DATABASE")/g;
     s|f"{{< influxdb/host >}}"|os.getenv("INFLUX_HOSTNAME")|g;
-    s|f"RETENTION_POLICY"|"autogen"|g;
+    s|f"RETENTION_POLICY_NAME\|RETENTION_POLICY"|"autogen"|g;
     ' $file
 
     # Shell-specific replacements.
+    ## In JSON Heredoc
+    sed -i 's|"orgID": "ORG_ID"|"orgID": "$INFLUX_ORG"|g;
+    s|"name": "BUCKET_NAME"|"name": "$INFLUX_DATABASE"|g;' \
+    $file
+
     sed -i 's/API_TOKEN/$INFLUX_TOKEN/g;
     s/ORG_ID/$INFLUX_ORG/g;
-    s/ORG/$INFLUX_ORG/g;
     s/DATABASE_TOKEN/$INFLUX_TOKEN/g;
+    s/--bucket-id BUCKET_ID/--bucket-id $INFLUX_BUCKET_ID/g;
     s/BUCKET_NAME/$INFLUX_DATABASE/g;
     s/DATABASE_NAME/$INFLUX_DATABASE/g;
+    s/--id DBRP_ID/--id $INFLUX_DBRP_ID/g;
     s/get-started/$INFLUX_DATABASE/g;
-    s/RETENTION_POLICY/autogen/g;
+    s/RETENTION_POLICY_NAME\|RETENTION_POLICY/$INFLUX_RETENTION_POLICY/g;
     s/CONFIG_NAME/CONFIG_$(shuf -i 0-100 -n1)/g;' \
     $file
 
@@ -89,8 +95,12 @@ gpg -q --batch --yes --delete-key D8FF8E1F7DF8B07E > /dev/null 2>&1
 
 # Run test commands with options provided in the CMD of the Dockerfile.
 # pytest rootdir is the directory where pytest.ini is located (/test).
+if [ -d ./content/influxdb/cloud-dedicated/ ]; then
 echo "Running cloud-dedicated tests..."
 pytest --codeblocks --envfile $BASE_DIR/.env.dedicated ./content/influxdb/cloud-dedicated/ $@
+fi
 
+if [ -d ./content/influxdb/cloud-serverless/ ]; then
 echo "Running cloud-serverless tests..."
 pytest --codeblocks --envfile $BASE_DIR/.env.serverless ./content/influxdb/cloud-serverless/ $@
+fi
