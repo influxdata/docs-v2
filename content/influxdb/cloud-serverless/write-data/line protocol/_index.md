@@ -124,7 +124,7 @@ After setting up InfluxDB and your project, you should have the following:
 - Client libraries installed for writing data to InfluxDB.
 
 The following example shows how to construct `Point` objects that follow the [example `home` schema](#example-home-schema), and then write the points as line protocol to an
-InfluxDB Cloud Serverless bucket.
+{{% product-name %}} bucket.
 
 ### Construct points and write line protocol
 
@@ -329,7 +329,7 @@ The sample code does the following:
 
 ### Run the example
 
-To run the sample and write the data to your InfluxDB Cloud Serverless bucket, enter the following command in your terminal:
+To run the sample and write the data to your {{% product-name %}} bucket, enter the following command in your terminal:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}

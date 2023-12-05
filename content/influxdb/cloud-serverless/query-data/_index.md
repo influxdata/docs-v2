@@ -19,7 +19,7 @@ Learn to query data stored in InfluxDB.
 #### Choose the query method for your workload
 
 - For new query workloads, use one of the many available [Flight clients](/influxdb/cloud-serverless/tags/flight-client/) and SQL or InfluxQL.
-- [Use the HTTP API `/query` endpoint and InfluxQL](/influxdb/cloud-serverless/query-data/execute-queries/influxdb-v1-api/) when you bring existing v1 query workloads to {{% product-name %}}.
+- [Use the HTTP API `/query` endpoint and InfluxQL](/influxdb/cloud-serverless/query-data/execute-queries/v1-http/) when you bring existing v1 query workloads to {{% product-name %}}.
 
 {{% /note %}}
 

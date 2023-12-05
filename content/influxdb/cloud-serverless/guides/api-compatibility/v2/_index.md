@@ -20,6 +20,13 @@ related:
   - /influxdb/cloud-serverless/write-data/use-telegraf/configure/
   - /influxdb/cloud-serverless/reference/api/
   - /influxdb/cloud-serverless/reference/client-libraries/
+list_code_example: |
+  ```sh
+  curl \
+  --post "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision=s" \
+  --header "Authorization: Token API_TOKEN" \
+  --data-binary 'home,room=kitchen temp=72 1463683075'
+  ```
 ---
 
 {{% product-name %}} is compatible with the InfluxDB v2 API `/api/v2/write` endpoint and existing InfluxDB 2.x tools and code.
@@ -28,26 +35,15 @@ Use the InfluxDB v2 API for new write workloads and existing v2 write workloads 
 InfluxDB v2 API endpoints won't work for managing resources or querying data in {{% product-name %}}.
 To query data, use the _Flight+gRPC_ protocol  or the InfluxDB v1 `/query` HTTP API endpoint and [associated tools](#tools-to-execute-queries).
 
-<!-- TOC -->
-
 - [Authenticate API requests](#authenticate-api-requests)
   - [Authenticate with a token](#authenticate-with-a-token)
-    - [Syntax](#syntax)
-    - [Examples](#examples)
 - [Responses](#responses)
   - [Error examples](#error-examples)
 - [Write data](#write-data)
   - [/api/v2/write parameters](#apiv2write-parameters)
-    - [Timestamp precision](#timestamp-precision)
   - [Tools for writing to the v2 API](#tools-for-writing-to-the-v2-api)
-    - [Telegraf](#telegraf)
-    - [Interactive clients](#interactive-clients)
-    - [Client libraries](#client-libraries)
 - [Query data](#query-data)
-    - [Tools to execute queries](#tools-to-execute-queries)
-    - [Avoid using /api/v2/query](#avoid-using-apiv2query)
 
-<!-- /TOC -->
 
 ## Authenticate API requests
 

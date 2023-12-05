@@ -9,3 +9,4 @@ swap:
   "FlightSQL": Flight SQL
   "java[ -]?scripts?": JavaScript
   "SQL Alchemy": SQLAlchemy
+  "a {{% product-name %}}": an {{% product-name %}}
