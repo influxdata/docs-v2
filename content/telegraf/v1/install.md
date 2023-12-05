@@ -22,6 +22,23 @@ To install Telegraf, do the following:
 
 Download the latest Telegraf release at the [InfluxData download page](https://www.influxdata.com/downloads/).
 
+### Verify Linux releases using GPG
+
+InfluxData uses [GPG (GnuPG)](https://www.gnupg.org/software/) to sign released software and provides
+public key and encrypted private key (`.key` file) pairs that you can use to verify the integrity of downloads from the InfluxData repository.
+
+Before running the [install](#install) sample code, substitute the key-pair compatible with your OS version:
+
+For newer OS releases (for example, Ubuntu 20.04 LTS and newer) that support subkey verification:
+
+-  Private key file: `influxdata-archive.key`
+-  Public key: `943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515`
+
+For all Ubuntu and Debian versions, including older versions (for example, CentOS/RHEL 7, Ubuntu 18.04 LTS, or Debian Buster) that don't support subkeys for verification:
+
+-  Private key file: `influxdata-archive_compat.key`
+-  Public key: `393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c`
+
 ## Requirements
 
 Installation of the Telegraf package may require `root` or administrator privileges to complete successfully. <!--check instruction for each one to clarify-->
@@ -58,23 +75,18 @@ aren't synchronized with NTP, the timestamps on the data might be inaccurate.
 {{% tab-content %}}
 Debian and Ubuntu users can install the latest stable version of Telegraf using the `apt-get` package manager.
 
-Run the following commands to install Telegraf from the InfluxData repository:
+- [Install from the InfluxData repository](#install-from-the-influxdata-repository)
+- [Install from a `.deb` file](#install-from-a-deb-file)
+
+#### Install from the InfluxData repository
+
+Run the following commands using `apt-get` to install Telegraf from the InfluxData repository:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[wget](#)
-[curl](#)
+[All versions](#)
+[Ubuntu 20.04 LTS and newer](#)
 {{% /code-tabs %}}
-
-{{% code-tab-content %}}
-```bash
-# influxdata-archive_compat.key GPG Fingerprint: 9D539D90D3328DC7D6C8D3B9D8FF8E1F7DF8B07E
-wget -q https://repos.influxdata.com/influxdata-archive_compat.key
-echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
-echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
-sudo apt-get update && sudo apt-get install telegraf
-```
-{{% /code-tab-content %}}
 
 {{% code-tab-content %}}
 ```bash
@@ -85,9 +97,18 @@ echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https
 sudo apt-get update && sudo apt-get install telegraf
 ```
 {{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```bash
+curl -s https://repos.influxdata.com/influxdata-archive.key > influxdata-archive.key
+echo '943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515 influxdata-archive.key' | sha256sum -c && cat influxdata-archive.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive.gpg > /dev/null
+echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
+sudo apt-get update && sudo apt-get install telegraf
+```
+{{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-**Install from a `.deb` file**:
+#### Install from a `.deb` file
 
 To manually install the Debian package from a `.deb` file:
 
