@@ -37,7 +37,7 @@ Learn how to authenticate requests, map databases and retention policies to buck
 - [Responses](#responses)
   - [Error examples](#error-examples)
 - [Map v1 databases and retention policies to buckets](#map-v1-databases-and-retention-policies-to-buckets)
-  - [Authorizations required](#authorizations-required)
+  - [Required permissions](#required-permissions)
   - [Default DBRP](#default-dbrp)
   - [Automatic DBRP mapping](#automatic-dbrp-mapping)
   - [Manage DBRPs](#manage-dbrps)
@@ -260,10 +260,17 @@ InfluxDB can [automatically map buckets to DBRPs](#automatic-dbrp-mapping) for y
 
 ### Required permissions
 
-Managing DBRP mappings requires a [token](/influxdb/cloud-serverless/admin/tokens/) with the following permissions:
+Managing DBRP mappings requires a [token](/influxdb/cloud-serverless/admin/tokens/) with the necessary permissions.
 
- - **write dbrp**: to create (automatically or manually), update, or delete DBRP mappings.
- - **read dbrp**: to list DBRP mappings
+- **write dbrp**: to create (automatically or manually), update, or delete DBRP mappings.
+- **read dbrp**: to list DBRP mappings
+- **write bucket**: to automatically create a bucket for a DBRP mapping when using the v1 write API
+
+{{% note %}}
+#### Permission required to create mapped buckets
+If you use the v1 write API to write to a database (`db`) and retention policy (`rp`) combination that doesn't exist, InfluxDB tries to create a new bucket using the specified parameter values.
+If the token doesn't have permission to create a bucket, then the write request fails with an authorization error.
+{{% /note %}}
 
 ### Default DBRP
 
