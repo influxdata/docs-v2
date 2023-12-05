@@ -44,18 +44,12 @@ When you send a request such as writing or querying, {{% product-name %}} uses t
 
 ## Table and column limits
 
-In {{< product-name >}}, table (measurement) and column limits can be
-configured using the `--max-tables` and `--max-columns` flags.
+In {{< product-name >}}, table (measurement) and column are limited per bucket.
 Each measurement is represented by a table.
 Time, fields, and tags are each represented by a column.
 
-**Default maximum number of tables**: 500
-**Default maximum number of columns**: 250
-
-{{% warn %}}
-Setting table and column limits higher than the default limits may adversely affect
-database performance.
-{{% /warn %}}
+**Maximum number of tables**: 500
+**Maximum number of columns**: 200
 
 ### Auto-generate buckets on write
 

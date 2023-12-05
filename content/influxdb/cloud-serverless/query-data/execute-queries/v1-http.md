@@ -76,7 +76,7 @@ When bringing v1 API workloads to {{% product-name %}}, you'll need to adjust re
 
 #### Timestamp precision
 
-Use one of the following values for timestamp precision:
+Use one of the following values for timestamp precision (`epoch`):
 
 - `ns`: nanoseconds
 - `us`: microseconds

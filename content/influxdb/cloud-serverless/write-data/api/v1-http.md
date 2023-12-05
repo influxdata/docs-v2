@@ -161,7 +161,7 @@ Replace the following:
 
 ##### Other Telegraf configuration options
 
-`influx_uint_support`: supported in InfluxDB IOx.
+`influx_uint_support`: supported in InfluxDB v3.
 
 For more plugin options, see [`influxdb`](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) on GitHub.
 
@@ -218,9 +218,9 @@ Replace the following:
 - {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: the [retention policy](#map-databases-and-retention-policies-to-buckets)
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the mapped bucket
 
-#### v1 CLI (not supported)
+#### v1 influx CLI (not supported)
 
-Don't use the v1 CLI with {{% product-name %}}.
+Don't use the v1 `influx` CLI with {{% product-name %}}.
 While it may coincidentally work, it isn't officially supported.
 
 #### Client libraries

@@ -86,8 +86,7 @@ InfluxQL queries written for the InfluxDB 1.x `/query` endpoint.
 In InfluxDB Cloud Dedicated, DBRP mapping is handled through naming conventions and
 doesn’t require customers to configure a mapping for InfluxQL queries.
 
-InfluxDB
-Cloud Serverless requires that a DBRP mapping be created
+InfluxDB Cloud Serverless requires that a DBRP mapping be created
 for a bucket before customers can use the v1 `/query` endpoint to query data from the bucket. InfluxDB Cloud Serverless can automatically create a bucket and an associated DBRP mapping, or customers can create them using the CLI or API.
 
 ### Query Language Differences
@@ -99,14 +98,14 @@ InfluxDB Cloud Serverless and Cloud Dedicated support SQL and InfluxQL.
 | SQL      | Natively supported        | Natively supported       |
 | InfluxQL | Natively supported        | Natively supported       |
 
-The v2 Query API (which uses the Flux language for querying) is reachable in InfluxDB
+The v2 query API (which uses the Flux language for querying) is reachable in InfluxDB
 Cloud Serverless, but isn't supported. If you plan to use InfluxDB Cloud
 Serverless as an evaluation or staging platform for InfluxDB Cloud Dedicated,
 use SQL or InfluxQL.
 
 ### API and client library differences
 
-Because the v2 Query API uses Flux, customers should avoid using the v2 Query API and its associated tooling when querying InfluxDB Cloud Serverless as an evaluation, staging, or prototyping
+Because the v2 query API uses Flux, customers should avoid using the v2 query API and its associated tooling when querying InfluxDB Cloud Serverless as an evaluation, staging, or prototyping
 platform for InfluxDB Cloud Dedicated.
 
 For writing data, InfluxDB Cloud Dedicated and InfluxDB Cloud Serverless both

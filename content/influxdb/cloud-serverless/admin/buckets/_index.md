@@ -48,14 +48,12 @@ You can [update a bucket](#update-a-bucket) to change the retention period.
 
 ## Table and column limits
 
-In {{< product-name >}}, table (measurement) and column limits can be
-custom configured when [creating](#create-a-bucket) or
-[updating a bucket](#update-a-bucket).
+In {{< product-name >}}, table (measurement) and column are limited per bucket.
 Each measurement is represented by a table.
 Time, fields, and tags are each represented by a column.
 
-**Default maximum number of tables**: 500
-**Default maximum number of columns**: 250
+**Maximum number of tables**: 500
+**Maximum number of columns**: 200
 
 The following articles provide information about managing buckets:
 
