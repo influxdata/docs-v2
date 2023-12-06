@@ -8,10 +8,11 @@ menu:
     weight: 201
     parent: write-best-practices
 related:
+  - /influxdb/v2/reference/key-concepts/data-elements/
   - /resources/videos/data-model-building-blocks/
 ---
 
-Design your [schema](/influxdb/v2/reference/glossary/#schema) for simpler and more performant queries.
+Design your [schema](/influxdb/v2/reference/key-concepts/data-elements/) for simpler and more performant queries.
 Follow design guidelines to make your schema easy to query.
 Learn how these guidelines lead to more performant queries.
 
