@@ -115,7 +115,7 @@ update an InfluxDB cluster.
 Use `kubectl` to install the [kubecfg kubit](https://github.com/kubecfg/kubit) operator.
 
 ```sh
-kubectl apply -k 'https://github.com/kubecfg/kubit//kustomize/global?ref=v0.0.12'
+kubectl apply -k 'https://github.com/kubecfg/kubit//kustomize/global?ref=v0.0.13'
 ```
 
 ### Configure access to the InfluxDB container registry
