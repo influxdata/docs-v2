@@ -1,7 +1,7 @@
 ---
 title: Troubleshoot InfluxQL errors
 description: >
-  ...
+  Learn how to troubleshoot and fix common InfluxQL errors.
 menu:
   influxdb_cloud_dedicated:
     name: Troubleshoot errors
@@ -9,18 +9,17 @@ menu:
 weight: 230
 ---
 
-This page documents errors, their descriptions, and, where applicable,
-common resolutions.
+Learn how to troubleshoot and fix common InfluxQL errors.
 
 {{% note %}}
 **Disclaimer:** This document does not contain an exhaustive list of all
 possible InfluxQL errors.
 {{% /note %}}
 
-- [database name required](#database-name-required)
-- [found ..., expected identifier at ...](#found--expected-identifier-at-)
-- [mixing aggregate and non-aggregate queries is not supported](#-mixing-aggregate-and-non-aggregate-queries-is-not-supported)
-- [time and \*influxql.VarRef are not compatible](#time-and-influxqlvarref-are-not-compatible)
+- [error: database name required](#error-database-name-required)
+- [error parsing query: found ..., expected identifier at ...](#error-parsing-query-found--expected-identifier-at-)
+- [error parsing query: mixing aggregate and non-aggregate queries is not supported](#error-parsing-query-mixing-aggregate-and-non-aggregate-queries-is-not-supported)
+- [invalid operation: time and \*influxql.VarRef are not compatible](#invalid-operation-time-and-influxqlvarref-are-not-compatible)
 
 ## error: database name required
 
@@ -28,8 +27,22 @@ possible InfluxQL errors.
 error: database name required
 ```
 
-The `database name required` error occurs when certain [`SHOW` queries](/influxdb/cloud-dedicated/reference/influxql/show/)
-do not specify a [database](/influxdb/cloud-dedicated/reference/glossary/#database).
+### Cause
+
+The `database name required` error occurs when certain
+[`SHOW` queries](/influxdb/cloud-dedicated/reference/influxql/show/)
+do not specify a [database](/influxdb/cloud-dedicated/reference/glossary/#database)
+in the query or with the query request.
+
+For example, the following `SHOW` query doesn't specify the database and assumes
+the `db` is not specified in the `/query` API request:
+
+```sql
+SHOW MEASUREMENTS
+```
+
+### Solution
+
 To resolve this error, specify a database with your query request by doing one
 of the following:
 
@@ -54,16 +67,9 @@ of the following:
 
 {{% /code-placeholders %}}
 
-The relevant `SHOW` queries include:
-
-- [`SHOW MEASUREMENTS`](/influxdb/cloud-dedicated/reference/influxql/show/#show-measurements)
-- [`SHOW TAG KEYS`](/influxdb/cloud-dedicated/reference/influxql/show/#show-tag-keys)
-- [`SHOW TAG VALUES`](/influxdb/cloud-dedicated/reference/influxql/show/#show-tag-values)
-- [`SHOW FIELD KEYS`](/influxdb/cloud-dedicated/reference/influxql/show/#show-field-keys)
-
 **Related:**
-[Explore your schema](/influxdb/cloud-dedicated/query-data/influxql/explore-schema/),
-[InfluxQL reference](/influxdb/cloud-dedicated/reference/influxql/)
+[InfluxQL `SHOW` statements](/influxdb/cloud-dedicated/reference/influxql/show/),
+[Explore your schema with InfluxQL](/influxdb/cloud-dedicated/query-data/influxql/explore-schema/)
 
 ---
 
@@ -72,6 +78,8 @@ The relevant `SHOW` queries include:
 ```
 error parsing query: found EXAMPLE, expected identifier at line 1, char 14
 ```
+
+### Causes
 
 This error occurs when InfluxDB anticipates an identifier in a query but doesn't find it.
 Identifiers are tokens that refer to database names, retention policy names,
@@ -95,6 +103,8 @@ For example, the following query omits the measurement name from the
 ```sql
 SELECT * FROM WHERE color = 'blue'
 ```
+
+##### Solution
 
 Update the query to include the expected identifier in the `FROM` clause that
 identifies the measurement to query:
@@ -122,6 +132,15 @@ Results in the following error:
 error parsing query: found measurement-name, expected identifier at line 1, char 14
 ```
 
+##### Solution
+
+Update single-quoted identifiers to use double quotes so they are parsed as
+identifiers and not as string literals.
+
+```sql
+SELECT * FROM "measurement-name" WHERE color = 'blue'
+```
+
 #### An InfluxQL keyword is used as an unquoted identifier
 
 [InfluxQL keyword](/influxdb/cloud-dedicated/reference/influxql/#keywords)
@@ -146,7 +165,10 @@ Returns the following error:
 error parsing query: found DURATION, expected identifier, string, number, bool at line 1, char 8
 ```
 
-Double quote `duration` or other InfluxQL keywords to avoid the error:
+##### Solution
+
+Double quote [InfluxQL keywords](/influxdb/cloud-dedicated/reference/influxql/#keywords)
+when used as identifiers:
 
 ```sql
 SELECT "duration" FROM runs
@@ -164,6 +186,8 @@ SELECT "duration" FROM runs
 error parsing query: mixing aggregate and non-aggregate queries is not supported
 ```
 
+### Cause
+
 The `mixing aggregate and non-aggregate` error occurs when a `SELECT` statement
 includes both an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates/)
 and a standalone [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key) or
@@ -180,11 +204,7 @@ measurement--`temp` and `hum`. However, it only applies the aggregate function,
 SELECT MEAN(temp), hum FROM home
 ```
 
-Returns the following error:
-
-```
-error parsing query: mixing aggregate and non-aggregate queries is not supported
-```
+### Solution
 
 To fix this error, apply an aggregate or selector function to each of the queried
 fields:
@@ -194,7 +214,8 @@ SELECT MEAN(temp), MAX(hum) FROM home
 ```
 
 **Related:**
-[InfluxQL functions](/influxdb/cloud-dedicated/reference/influxql/functions/)
+[InfluxQL functions](/influxdb/cloud-dedicated/reference/influxql/functions/),
+[Aggregate data with InfluxQL](/influxdb/cloud-dedicated/query-data/influxql/aggregate-select/)
 
 ---
 
@@ -204,9 +225,11 @@ SELECT MEAN(temp), MAX(hum) FROM home
 invalid operation: time and *influxql.VarRef are not compatible
 ```
 
+### Cause
+
 The `time and \*influxql.VarRef are not compatible` error occurs when
 date-time strings are double-quoted in a query.
-Date-time strings should be formatted as string literals and wrapped in single quotes.
+Date-time strings should be formatted as string literals and wrapped in single quotes (`''`).
 
 For example:
 
@@ -225,6 +248,8 @@ Returns the following error:
 ```
 invalid operation: time and *influxql.VarRef are not compatible
 ```
+
+### Solution
 
 To fix the error, wrap RFC3339 timestamps in single quotes rather than double quotes.
 
