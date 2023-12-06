@@ -94,7 +94,7 @@ This error is generally caused by one of the following:
 #### A required identifier is missing
 
 Some InfluxQL statements and clauses require identifiers to identify databases,
-measurements, tags or fields. If the statement is missing a required identifier,
+measurements, tags, or fields. If the statement is missing a required identifier,
 the query returns the `expected identifier` error.
 
 For example, the following query omits the measurement name from the
