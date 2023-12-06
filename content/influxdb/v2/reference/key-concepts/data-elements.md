@@ -10,25 +10,29 @@ menu:
 influxdb/v2/tags: [key concepts, schema]
 related: 
   - /resources/videos/data-model-building-blocks/
+  - /influxdb/v2/write-data/best-practices/resolve-high-cardinality/
+  - /influxdb/v2/write-data/best-practices/schema-design/
 ---
 
 InfluxDB {{< current-version >}} includes the following data elements:
 
-- [timestamp](#timestamp)
-- [field key](#field-key)
-- [field value](#field-value)
-- [field set](#field-set)
-- [tag key](#tag-key)
-- [tag value](#tag-value)
-- [tag set](#tag-set)
-- [measurement](#measurement)
-- [series](#series)
-- [point](#point)
-- [bucket](#bucket)
-- [bucket schema](#bucket-schema)
-- [organization](#organization)
+- [Timestamp](#timestamp)
+- [Measurement](#measurement)
+- [Fields](#fields)
+  - [Field key](#field-key)
+  - [Field value](#field-value)
+  - [Field set](#field-set)
+- [Tags](#tags)
+  - [Tag key](#tag-key)
+  - [Tag value](#tag-value)
+  - [Tag set](#tag-set)
+- [Series](#series)
+- [Point](#point)
+- [Bucket](#bucket)
+- [Organization](#organization)
 
-The sample data below is used to illustrate data elements concepts.
+
+The following sample data represents time series records stored in InfluxDB and is used to illustrate data elements concepts.
 _Hover over highlighted terms to get acquainted with InfluxDB terminology and layout._
 <a id="sample-data"></a>
 
@@ -55,7 +59,7 @@ A field includes a field key stored in the `_field` column and a field value sto
 
 ### Field key
 
-A field key is a string that represents the name of the field. In the sample data above, `bees` and `ants` are field keys.
+A field key is a string that represents the name of the field. In the preceding [sample data](#sample-data), `bees` and `ants` are field keys.
 
 ### Field value
 
@@ -63,19 +67,25 @@ A field value represents the value of an associated field. Field values can be s
 
 ### Field set
 
-A field set is a collection of field key-value pairs associated with a timestamp. The sample data includes the following field sets:
+A field set is a collection of field key-value pairs associated with a timestamp. The [sample data](#sample-data) includes the following field sets:
 
-```bash
-
+```text
 census bees=23i,ants=30i 1566086400000000000
 census bees=28i,ants=32i 1566086760000000000
        -----------------
            Field set
-
 ```
 
 {{% note %}}
-**Fields aren't indexed:** Fields are required in InfluxDB data and are not indexed. Queries that filter field values must scan all field values to match query conditions. As a result, queries on tags > are more performant than queries on fields. **Store commonly queried metadata in tags.**
+
+#### Fields aren't indexed
+
+Fields are required in InfluxDB data and are not indexed.
+Queries that filter field values must scan all field values to match query conditions.
+As a result, queries on tags are more performant than queries on fields.
+
+See how to [use tags and fields](/influxdb/v2/write-data/best-practices/schema-design/#use-tags-and-fields) to make your schema easier to query.
+
 {{% /note %}}
 
 ## Tags
@@ -106,72 +116,62 @@ location = portland, scientist = mullen
 ```
 
 {{% note %}}
-**Tags are indexed:** Tags are optional. You don't need tags in your data structure, but it's typically a good idea to include tags.
-Because tags are indexed, queries on tags are faster than queries on fields. This makes tags ideal for storing commonly queried metadata.
+
+#### Tags are indexed
+
+Tags are optional.
+You don't need tags in your data structure, but it's typically a good idea to include them.
+Because InfluxDB indexes tags, the query engine doesn’t need to scan every record in a bucket to locate a tag value.
+See how to [use tags to improve query performance](/influxdb/v2/write-data/best-practices/schema-design/#use-tags-to-improve-query-performance).
+
 {{% /note %}}
 
-{{% note %}}
-Tags containing highly variable information like UUIDs, hashes, and random strings will lead to a large number of unique series in the database, known as **high series cardinality**. High series cardinality is a primary driver of high memory usage for many database workloads. See [series cardinality](/influxdb/v2/reference/glossary/#series-cardinality) for more information.   
-{{% /note %}}
+### Why your schema matters
 
+How you structure measurements, fields, and tags in your data can make queries easier to write and more performant.
+Good [schema design](/influxdb/v2/write-data/best-practices/schema-design) can prevent [high series cardinality](/influxdb/v2/write-data/best-practices/resolve-high-cardinality/), resulting in better performing queries.
 
-#### Why your schema matters
-
-If most of your queries focus on values in the fields, for example, a query to find when 23 bees were counted:
-
-```js
-from(bucket: "bucket-name")
-    |> range(start: 2019-08-17T00:00:00Z, stop: 2019-08-19T00:00:00Z)
-    |> filter(fn: (r) => r._field == "bees" and r._value == 23)
-```
-
-InfluxDB scans every field value in the dataset for `bees` before the query returns a response. If our sample `census` data grew to millions of rows, to optimize your query, you could rearrange your [schema](/influxdb/v2/reference/glossary/#schema) so the fields (`bees` and `ants`) becomes tags and the tags (`location` and `scientist`) become fields:
-
-| _time                | _measurement | {{< tooltip "Tag key" "bees" >}} | _field                                 | _value                                   |
-|:-------------------  |:------------ |:-------                          |:--                                     |:------                                   |
-| 2019-08-18T00:00:00Z | census       | 23                               | location                               | klamath                                  |
-| 2019-08-18T00:00:00Z | census       | 23                               | scientist                              | anderson                                 |
-| 2019-08-18T00:06:00Z | census       | {{< tooltip "Tag value" "28" >}} | {{< tooltip "Field key" "location" >}} | {{< tooltip "Field value" "klamath" >}}  |
-| 2019-08-18T00:06:00Z | census       | 28                               | scientist                              | anderson                                 |
-
-| _time                | _measurement | {{< tooltip "Tag key" "ants" >}} | _field                                 | _value                                   |
-|:-------------------  |:------------ |:-------                          |:--                                     |:------                                   |
-| 2019-08-18T00:00:00Z | census       | 30                               | location                               | portland                                 |
-| 2019-08-18T00:00:00Z | census       | 30                               | scientist                              | mullen                                   |
-| 2019-08-18T00:06:00Z | census       | {{< tooltip "Tag value" "32" >}} | {{< tooltip "Field key" "location" >}} | {{< tooltip "Field value" "portland" >}} |
-| 2019-08-18T00:06:00Z | census       | 32                               | scientist                              | mullen                                   |
-
-Now that `bees` and `ants` are tags, InfluxDB doesn't have to scan all `_field` and `_value` columns. This makes your queries faster.
-
-## Bucket schema
-
-In InfluxDB Cloud, a bucket with the `explicit` schema-type requires an explicit
-schema for each measurement.
-Measurements contain tags, fields, and timestamps.
-An explicit schema constrains the shape of data that can be written to that measurement.
-
-The following schema constrains `census` data:
-
-name      | type           | data_type
-|:------- |:---------------|:--------------------
-time      | timestamp      |
-location  | tag            | string
-scientist | tag            | string
-ants      | field          | integer
-bees      | field          | integer
 
 ## Series
 
-Now that you're familiar with measurements, field sets, and tag sets, it's time to discuss series keys and series. A **series key** is a collection of points that share a measurement, tag set, and field key. For example, the [sample data](#sample-data) includes two unique series keys:
+Now that you're familiar with measurements, field sets, and tag sets, it's time to discuss series keys and series.
+
+{{% oss-only %}}
+In {{% product-name %}}, a **series key** is a unique combination of measurement and tag set.
+
+For example, the [sample data](#sample-data) includes two unique series keys:
+
+| _measurement  | tag set                                                         |
+|:------------- |:-------------------------------                                 |
+| census        | {{< tooltip "Tag set" "location=klamath,scientist=anderson" >}} |
+| census        | location=portland,scientist=mullen                              |
+
+A **series** includes timestamps and field values for a given series key.
+From the sample data, here's a **series key** and the corresponding **series**:
+
+```text
+# series key
+census,location=klamath,scientist=anderson
+
+# series
+2019-08-18T00:00:00Z 23
+2019-08-18T00:06:00Z 28
+```
+
+{{% /oss-only %}}
+{{% cloud-only %}}
+In {{% product-name %}}, a **series key** is a unique combination of measurement, tag set, and field key.
+
+For example, the [sample data](#sample-data) includes two unique series keys:
 
 | _measurement  | tag set                                                         | _field                             |
 |:------------- |:-------------------------------                                 |:------                             |
 | census        | {{< tooltip "Tag set" "location=klamath,scientist=anderson" >}} | {{< tooltip "Field key" "bees" >}} |
 | census        | location=portland,scientist=mullen                              | ants                               |
 
-A **series** includes timestamps and field values for a given series key. From the sample data, here's a **series key** and the corresponding **series**:
+A **series** includes timestamps and field values for a given series key--for example, the following is a **series key** and the corresponding **series** from the sample data:
 
-```bash
+```text
 # series key
 census,location=klamath,scientist=anderson bees
 
@@ -180,11 +180,13 @@ census,location=klamath,scientist=anderson bees
 2019-08-18T00:06:00Z 28        
 ```
 
-Understanding the concept of a series is essential when designing your [schema](/influxdb/v2/reference/glossary/#schema) and working with your data in InfluxDB.
+{{% /cloud-only %}}
+
+Understanding the concept of a series is essential when [designing your schema](/influxdb/v2/write-data/best-practices/schema-design/) and working with your data in InfluxDB.
 
 ## Point
 
-A **point** includes the series key, a field value, and a timestamp. For example, a single point from the [sample data](#sample-data) looks like this:
+A **point** includes the series key, a field value, and a timestamp--for example, a single point from the [sample data](#sample-data):
 
 `2019-08-18T00:00:00Z census ants 30 portland mullen`
 
@@ -196,11 +198,7 @@ All InfluxDB data is stored in a bucket. A **bucket** combines the concept of a 
 
 An InfluxDB **organization** is a workspace for a group of [users](/influxdb/v2/admin/users/). All [dashboards](/influxdb/v2/visualize-data/dashboards/), [tasks](/influxdb/v2/process-data/), buckets, and users belong to an organization. For more information about organizations, see [Manage organizations](/influxdb/v2/admin/organizations/).
 
-If you're just starting out, we recommend taking a look at the following guides:
-
-- [Get started](/influxdb/v2/get-started)
-- [Write data](/influxdb/v2/write-data)
-- [Query data](/influxdb/v2/query-data)
+If you're new to using InfluxDB, see how to [get started](/influxdb/v2/get-started) writing and querying data.
 
 For an overview of how these elements interconnect within InfluxDB's data model, watch the following video:
 

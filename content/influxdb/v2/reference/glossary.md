@@ -902,6 +902,7 @@ InfluxDB scrapes data from specified targets at regular intervals and writes the
 Data can be scraped from any accessible endpoint that provides data in the [Prometheus exposition format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
 ### secret
+
 Secrets are key-value pairs that contain information you want to control access to, such as API keys, passwords, or certificates.
 
 ### selector
@@ -913,11 +914,10 @@ Related entries: [aggregate](#aggregate), [function](#function), [transformation
 
 ### series
 
-A collection of data in the InfluxDB data structure that share a common
-{{% cloud-only %}}**measurement**, **tag set**, and **field key**.{{% /cloud-only %}}
-{{% oss-only %}}**measurement** and **tag set**.{{% /oss-only %}}
+A  collection of timestamps and field values that share a common series key
+({{% cloud-only %}}measurement, tag set, and field key{{% /cloud-only %}}{{% oss-only %}}measurement and tag set{{% /oss-only %}}).
 
-Related entries: [field set](#field-set), [measurement](#measurement),<!-- [retention policy](/#retention-policy-rp), --> [tag set](#tag-set)
+Related entries: [field set](#field-set), [measurement](#measurement), [series key](#series-key), <!-- [retention policy](/#retention-policy-rp), --> [tag set](#tag-set)
 
 ### series cardinality
 
@@ -925,8 +925,8 @@ The number of unique measurement, tag set, and field key combinations in an Infl
 
 For example, assume that an InfluxDB bucket has one measurement.
 The single measurement has two tag keys: `email` and `status`.
-If there are three different `email`s, and each email address is associated with two
-different `status`es, the series cardinality for the measurement is 6
+If the data contains three different `email` values, and each email address is associated with two
+different `status` values, the series cardinality for the measurement is `6`
 (3 × 2 = 6):
 
 | email                 | status |
@@ -938,12 +938,11 @@ different `status`es, the series cardinality for the measurement is 6
 | cliff@influxdata.com  | start  |
 | cliff@influxdata.com  | finish |
 
-In some cases, performing this multiplication may overestimate series cardinality
-because of the presence of dependent tags.
-Dependent tags are scoped by another tag and do not increase series cardinality.
-If we add the tag `firstname` to the example above, the series cardinality
-would not be 18 (3 × 2 × 3 = 18).
-The series cardinality would remain unchanged at 6, as `firstname` is already scoped by the `email` tag:
+In some cases, this calculation may overestimate series cardinality
+because of the presence of _dependent tags_--tags scoped by another tag.
+Dependent tags do not increase series cardinality.
+Adding the tag `firstname` to the preceding example would not increase the series cardinality to `18` (3 × 2 × 3 = 18).
+The series cardinality would remain unchanged at `6`, as `firstname` is already scoped by the `email` tag:
 
 | email                | status | firstname |
 | :------------------- | :----- | :-------- |
