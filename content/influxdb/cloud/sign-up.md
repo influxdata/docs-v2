@@ -9,7 +9,7 @@ menu:
 weight: 1
 influxdb/cloud/tags: [get-started, install, cli]
 aliases:
-  - /v2/cloud/get-started/
+  - /influxdb/v2/cloud/get-started/
 ---
 
 InfluxDB Cloud is a fully managed and hosted version of InfluxDB 2.0, the time series

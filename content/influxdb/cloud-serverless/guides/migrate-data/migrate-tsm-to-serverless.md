@@ -1,9 +1,9 @@
 ---
-title: Migrate data from TSM to IOx in InfluxDB Cloud
+title: Migrate data from TSM to InfluxDB Cloud Serverless
 description: >
   To migrate data from a TSM-powered InfluxDB Cloud organization to an InfluxDB
   Cloud Serverless organization powered by the v3 storage engine, query the data in
-  time-based batches and write the queried data to an IOx bucket in your
+  time-based batches and write the queried data to an InfluxDB v3 bucket in your
   InfluxDB Cloud Serverless organization.
 menu:
   influxdb_cloud_serverless:
@@ -12,6 +12,7 @@ menu:
 weight: 102
 aliases:
   - /influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox
+  - /influxdb/cloud-serverless/guides/migrate-data/migrate-tsm-to-iox
 alt_links:
   cloud: /influxdb/cloud/write-data/migrate-data/migrate-cloud-to-cloud/
 ---
@@ -25,8 +26,8 @@ adjustable quotas, migrate your data in batches.
 
 The following guide provides instructions for setting up an InfluxDB task
 that queries data from an InfluxDB Cloud TSM-powered bucket in time-based batches
-and writes each batch to an InfluxDB Cloud Serverless IOx-powered bucket in another
-organization.
+and writes each batch to an InfluxDB Cloud Serverless (InfluxDB v3) bucket in
+another organization.
 
 {{% cloud %}}
 All query and write requests are subject to your InfluxDB Cloud organization's
@@ -118,7 +119,7 @@ import "date"
 import "influxdata/influxdb/secrets"
 
 // Configure the task
-option task = {every: 5m, name: "Migrate data from TSM to IOx"}
+option task = {every: 5m, name: "Migrate data from TSM to v3"}
 
 // Configure the migration
 migration = {
@@ -339,6 +340,7 @@ to allow for variation between batches.
 So in this example, **it would be best to set your `batchInterval` to `4d`**.
 
 ##### Important things to note
+
 - This assumes no other queries are running in your source InfluxDB Cloud organization.
 - This assumes no other writes are happening in your destination InfluxDB Cloud Serverless organization.
 {{% /expand %}}
@@ -346,7 +348,8 @@ So in this example, **it would be best to set your `batchInterval` to `4d`**.
 {{< /expand-wrapper >}}
 
 ## Monitor the migration progress
-The [InfluxDB TSM to IOx Migration Community template](https://github.com/influxdata/community-templates/tree/master/influxdb-tsm-iox-migration/)
+
+The [InfluxDB TSM to Serverless Migration Community template](https://github.com/influxdata/community-templates/tree/master/influxdb-tsm-iox-migration/)
 installs the migration task outlined in this guide as well as a dashboard
 for monitoring running data migrations.
 
@@ -355,14 +358,17 @@ for monitoring running data migrations.
 <a class="btn" href="https://github.com/influxdata/community-templates/tree/master/influxdb-tsm-iox-migration/#quick-install">Install the InfluxDB Cloud Migration template</a>
 
 ## Troubleshoot migration task failures
+
 If the migration task fails, [view your task logs](/influxdb/cloud/process-data/manage-tasks/task-run-history/)
 to identify the specific error. Below are common causes of migration task failures.
 
 - [Exceeded rate limits](#exceeded-rate-limits)
 - [Invalid API token](#invalid-api-token)
 - [Query timeout](#query-timeout)
+- [Batch size is too large](#batch-size-is-too-large)
 
 ### Exceeded rate limits
+
 If your data migration causes you to exceed your InfluxDB Cloud organization's
 limits and quotas, the task will return an error similar to:
 
@@ -375,20 +381,22 @@ too many requests
   a smaller interval. Each batch will then query less data.
 
 ### Invalid API token
-If the API token you add as the `INFLUXDB_SERVERLESS_SECRET` doesn't have write access
-to your InfluxDB Cloud Serverless bucket, the task will return an error similar to:
+
+If the API token you add as the `INFLUXDB_CLOUD_SECRET` doesn't have read access to
+your InfluxDB Cloud bucket, the task will return an error similar to:
 
 ```
 unauthorized access
 ```
 
 **Possible solutions**:
-- Ensure the API token has write access to your InfluxDB Cloud Serverless bucket.
-- Generate a new API token with write access to the bucket you want to migrate to.
-  Then, update the `INFLUXDB_SERVERLESS_TOKEN` secret in your InfluxDB Cloud (TSM)
-  instance with the new token.
+- Ensure the API token has read access to your InfluxDB Cloud bucket.
+- Generate a new InfluxDB Cloud API token with read access to the bucket you
+  want to migrate. Then, update the `INFLUXDB_CLOUD_TOKEN` secret in your
+  InfluxDB OSS instance with the new token.
 
 ### Query timeout
+
 The InfluxDB Cloud query timeout is 90 seconds. If it takes longer than this to
 return the data from the batch interval, the query will time out and the
 task will fail.
@@ -397,3 +405,15 @@ task will fail.
 - Update the `migration.batchInterval` setting in your migration task to use
   a smaller interval. Each batch will then query less data and take less time
   to return results.
+
+### Batch size is too large
+
+If your batch size is too large, the task returns an error similar to the following:
+
+```
+internal error: error calling function "metadata" @97:1-97:11: error calling function "findRecord" @67:32-67:69: wrong number of fields
+```
+
+**Possible solutions**:
+- Update the `migration.batchInterval` setting in your migration task to use
+  a smaller interval and retrieve less data per batch.

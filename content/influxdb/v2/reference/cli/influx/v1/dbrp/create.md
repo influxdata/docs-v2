@@ -41,6 +41,7 @@ influx v1 dbrp create [flags]
 {{< cli/influx-creds-note >}}
 
 ##### Create a DBRP mapping
+
 ```sh
 influx v1 dbrp create \
   --bucket-id 12ab34cd56ef \
@@ -48,3 +49,5 @@ influx v1 dbrp create \
   --rp example-rp \
   --default
 ```
+
+If a DBRP mapping already exists for the database name, the `--default` flag sets the new mapping as the default.

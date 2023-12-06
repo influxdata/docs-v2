@@ -57,7 +57,7 @@ For more information, see the [`journald.conf` manual page](https://www.freedesk
 {{% tab-content %}}
 #### sysvinit
 
-On Linux sytems not using systemd, InfluxDB writes all log data and `stderr` to `/var/log/influxdb/influxd.log`.
+On Linux systems not using systemd, InfluxDB writes all log data and `stderr` to `/var/log/influxdb/influxd.log`.
 You can override this location by setting the environment variable `STDERR` in a start-up script at `/etc/default/influxdb`.
 (If this file doesn't exist, you need to create it.)
 
@@ -127,7 +127,7 @@ Note: One or more password `p` values are replaced by a single `[REDACTED]`.
 |User agent                    |`Baz Service`                                                                                                                 |
 |Request ID                    |`d4ca9a10-ab63-11e9-8942-000000000000`                                                                                        |
 |Response time in microseconds |`9357049`                                                                                                                     |
-&ast; This field shows the database being acessed and the query being run. For more details, see [InfluxDB API reference](/influxdb/v1/tools/api/). Note that this field is URL-encoded.  
+&ast; This field shows the database being accessed and the query being run. For more details, see [InfluxDB API reference](/influxdb/v1/tools/api/). Note that this field is URL-encoded.  
 
 ### Redirecting HTTP access logging
 

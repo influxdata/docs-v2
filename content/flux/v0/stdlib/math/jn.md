@@ -1,7 +1,7 @@
 ---
 title: math.jn() function
 description: >
-  `math.jn()` returns the order-n Bessel funciton of the first kind.
+  `math.jn()` returns the order-n Bessel function of the first kind.
 menu:
   flux_v0_ref:
     name: math.jn
@@ -26,7 +26,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`math.jn()` returns the order-n Bessel funciton of the first kind.
+`math.jn()` returns the order-n Bessel function of the first kind.
 
 
 

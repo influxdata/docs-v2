@@ -22,7 +22,7 @@ It uses as its example a hypothetical high-volume website for which two measurem
 are taken:
 
 * `errors` -- the number of page views that had an error.
-* `views` -- the number of page views that had no errror.
+* `views` -- the number of page views that had no error.
 
 ### The Data generator
 

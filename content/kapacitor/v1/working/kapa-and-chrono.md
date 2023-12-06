@@ -57,7 +57,7 @@ To add a Kapacitor instance to Chronograf:
     <img src="/img/kapacitor/1-4-chrono-configuration01.png" alt="Configuration open" style="max-width: 225px;" />
 
 2.  Locate the InfluxDB source in the list and in the right most column under the
-    "Acitve Kapacitor" heading, click **Add Config**.
+    "Active Kapacitor" heading, click **Add Config**.
     The Configure Kapacitor page loads with default settings.
 
     <img src="/img/kapacitor/1-4-chrono-configuration02.png" alt="conifguration-new" style="max-width: 100%;"/>
@@ -87,7 +87,7 @@ To add a Kapacitor instance to Chronograf:
 One of key set of Kapacitor features that can be modified through Chronograf are
 third party alert handlers.
 
-##### To modify a thrid party alert handler:
+##### To modify a third party alert handler:
 
 1.  In the Configuration table locate the Influxdata instance and its associated
     Kapacitor instance, click the Kapacitor drop down menu and then the **edit icon**.

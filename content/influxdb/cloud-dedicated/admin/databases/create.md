@@ -53,8 +53,9 @@ Use the `--retention-period` flag to define a specific
 [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
 for the database.
 The retention period value is a time duration value made up of a numeric value
-plus a duration unit. For example, `30d` means 30 days.
-A zero duration retention period is infinite and data will not expire.
+plus a duration unit.
+For example, `30d` means 30 days.
+A zero duration (`0d`) retention period is infinite and data won't expire.
 The retention period value cannot be negative or contain whitespace.
 
 {{< flex >}}
@@ -99,14 +100,14 @@ Database names must adhere to the following naming restrictions:
 
 In InfluxDB 1.x, data is stored in [databases](/influxdb/v1/concepts/glossary/#database)
 and [retention policies](/influxdb/v1/concepts/glossary/#retention-policy-rp).
-In InfluxDB Cloud Dedicated, databases and retention policies have been merged into
+In {{% product-name %}}, databases and retention policies have been merged into
 _databases_, where databases have a retention period, but retention policies
 are no longer part of the data model.
 Because InfluxQL uses the 1.x data model, a database must be mapped to a v1
 database and retention policy (DBRP) to be queryable with InfluxQL.
 
 **When naming a database that you want to query with InfluxQL**, use the following
-naming convention to automatically map v1 DBRP combinations to a database:
+naming convention to automatically map v1 DBRP combinations to an {{% product-name %}} database:
 
 ```sh
 database_name/retention_policy_name

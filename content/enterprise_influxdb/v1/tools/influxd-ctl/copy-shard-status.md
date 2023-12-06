@@ -34,7 +34,7 @@ Output includes the following:
 - Operation start time
 
 {{< expand-wrapper >}}
-{{% expand "View example ouput" %}}
+{{% expand "View example output" %}}
 ```sh
 Source                     Dest                       Database  Policy   ShardID  TotalSize  CurrentSize  StartedAt
 cluster-data-node-02:8088  cluster-data-node-03:8088  telegraf  autogen  34       119624324  119624324    2023-06-22 23:45:09.470696179 +0000 UTC

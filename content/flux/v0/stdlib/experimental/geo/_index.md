@@ -214,7 +214,7 @@ option geo.units = {distance: "km"}
  
 ### units
 
-`units` defines the unit of measurment used in geotemporal operations.
+`units` defines the unit of measurement used in geotemporal operations.
 
 
 

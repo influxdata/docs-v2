@@ -57,7 +57,7 @@ _For information about properties, see `http.post`._
 
 ### url
 ({{< req >}})
-URL to send the POST reqeust to.
+URL to send the POST request to.
 
 
 

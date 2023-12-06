@@ -301,7 +301,7 @@ Since InfluxQL does not support joins, the cost of a InfluxQL query is typically
 The elements of `EXPLAIN` query plan include:
 
 - expression
-- auxillary fields
+- auxiliary fields
 - number of shards
 - number of series
 - cached values

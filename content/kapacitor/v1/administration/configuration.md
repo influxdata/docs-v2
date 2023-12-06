@@ -312,7 +312,7 @@ override certain values through the HTTP API. It is enabled by default.
 # ...
 
 [config-override]
-  # Enable/Disable the service for overridding configuration via the HTTP API.
+  # Enable/Disable the service for overriding configuration via the HTTP API.
   enabled = true
 
 #...
@@ -365,7 +365,7 @@ Use the `[replay]` group specify the path to the directory where the replay file
 # ...
 
 [replay]
-  # Where to store replay filess.
+  # Where to store replay files.
   dir = "/var/lib/kapacitor/replay"
 
 # ...
@@ -512,7 +512,7 @@ the InfluxDB user must have [admin privileges](/influxdb/v1/administration/authe
   # then the UDP port will be bound to `hostname_or_ip:1234`
   # The default empty value will bind to all addresses.
   udp-bind = ""
-  # Subscriptions use the UDP network protocl.
+  # Subscriptions use the UDP network protocol.
   # The following options of for the created UDP listeners for each subscription.
   # Number of packets to buffer when reading packets off the socket.
   udp-buffer = 1000

@@ -31,7 +31,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `types.isNumeric()` tests if a value is a numeric type (int, uint, or float).
 
 This is a helper function to test or filter for values that can be used in
-arithmatic operations or aggregations.
+arithmetic operations or aggregations.
 
 ##### Function type signature
 

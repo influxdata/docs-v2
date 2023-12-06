@@ -11,13 +11,15 @@ This project contains the following:
 
 ## Set configuration values
 
-To set your InfluxDB credentials for testing, create the file `.env.influxdbv3` and add key=value properties for the following:
+To set your InfluxDB credentials for testing, create a `.env.<product-name>` file and add key=value properties--for example, in `.env.serverless`
 
 ```text
 INFLUX_HOST=https://us-east-1-1.aws.cloud2.influxdata.com
-INFLUX_TOKEN=3S3SFrpFbnNR_pZ3Cr6LMN...==
-INFLUX_ORG=28d1f2f.........
-INFLUX_DATABASE=get-started
+INFLUX_HOSTNAME=us-east-1-1.aws.cloud2.influxdata.com
+INFLUX_TOKEN=5Vz...
+INFLUX_ORG=28d...
+INFLUX_DATABASE=jason-test-create-bucket
+INFLUX_RETENTION_POLICY=test-autogen
 ```
 
 Storing configuration properties in a  `.env` (dotenv) file is generally preferable to using environment variables.

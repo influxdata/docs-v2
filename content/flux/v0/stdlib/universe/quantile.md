@@ -79,7 +79,7 @@ Quantile to compute. Must be between `0.0` and `1.0`.
 
 Computation method. Default is `estimate_tdigest`.
 
-**Avaialable methods**:
+**Available methods**:
 - **estimate_tdigest**: Aggregate method that uses a
 [t-digest data structure](https://github.com/tdunning/t-digest) to
 compute an accurate quantile estimate on large data sources.

@@ -11,6 +11,7 @@ menu:
 weight: 202
 aliases:
   - /influxdb/cloud-serverless/organizations/buckets/view-buckets/
+  - /influxdb/cloud-serverless/admin/buckets/view/
 alt_links:
   cloud: /influxdb/cloud/admin/buckets/view-buckets/
 ---

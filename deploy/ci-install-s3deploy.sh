@@ -1,7 +1,7 @@
 set -x
 set -e
 
-S3DEPLOY_DOWNLOAD=s3deploy_${S3DEPLOY_VERSION}_Linux-64bit.tar.gz
+S3DEPLOY_DOWNLOAD=s3deploy_${S3DEPLOY_VERSION}_linux-amd64.tar.gz
 
 # Install s3deploy if not already cached or upgrade an old version.
 if [ ! -e $HOME/bin/s3deploy ] || ! [[ `$HOME/bin/s3deploy -V` =~ ${S3DEPLOY_VERSION} ]]; then

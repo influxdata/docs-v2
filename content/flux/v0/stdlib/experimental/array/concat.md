@@ -33,7 +33,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 {{% warn %}}
 #### Deprecated
-Experimetnal `array.concat()` is deprecated in favor of
+Experimental `array.concat()` is deprecated in favor of
 [`array.concat()`](/flux/v0/stdlib/array/concat).
 {{% /warn %}}
 

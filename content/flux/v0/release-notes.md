@@ -10,6 +10,14 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.194.5 {date="2023-11-22"}
+
+### Bug fixes
+
+- Resolve build error on Rust 1.72.0+.
+
+---
+
 ## v0.194.4 {date="2023-10-25"}
 
 - _Internal code cleanup._
@@ -3557,7 +3565,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 - Suppress group push down for \_time and \_value.
 - Terminal output functions must produce results.
 - Fix race in interpreter.doCall.
-- Fix ast.Walk for Assignemnt rename.
+- Fix ast.Walk for Assignment rename.
 - Improve error message for missing object properties.
 - Add unary logical expression to the parser.
 - Variable declarator node needs to duplicate the location information.

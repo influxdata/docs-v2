@@ -689,7 +689,7 @@ A template has these read only properties in addition to the properties listed [
 | Property | Description                                                                                                                                                                                                         |
 | -------- | -----------                                                                                                                                                                                                         |
 | vars     | Set of named vars from the TICKscript with their type, default values and description.                                                                                                                                           |
-| dot      | [GraphViz DOT](https://en.wikipedia.org/wiki/DOT_(graph_description_language)) syntax formatted representation of the template DAG. NOTE: lables vs attributes does not matter since a template is never executing. |
+| dot      | [GraphViz DOT](https://en.wikipedia.org/wiki/DOT_(graph_description_language)) syntax formatted representation of the template DAG. NOTE: labels vs attributes does not matter since a template is never executing. |
 | error    | Any error encountered when reading the template.                                                                                                                                                                    |
 | created  | Date the template was first created                                                                                                                                                                                 |
 | modified | Date the template was last modified                                                                                                                                                                                 |
@@ -1307,7 +1307,7 @@ A replay has these read only properties in addition to the properties listed [ab
 | -------- | -----------                                                               |
 | status   | One of `replaying` or `finished`.                                           |
 | progress | Number between 0 and 1 indicating the approximate progress of the replay. |
-| error    | Any error that occured while perfoming the replay                         |
+| error    | Any error that occurred while performing the replay                         |
 
 
 #### Example

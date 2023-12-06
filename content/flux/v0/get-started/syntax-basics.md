@@ -67,7 +67,7 @@ _For information about operator precedence, see
 [Flux Operators – Operator precedence](/flux/v0/spec/operators/#operator-precedence)._
 
 ## Predicate expressions
-A predicate expression compares values using [comparison operators](/flux/v0/spec/operators/#comparison-operators), [logical operators](/flux/v0/spec/operators/#logical-operators), or both, and evalutes as `true` or `false`. 
+A predicate expression compares values using [comparison operators](/flux/v0/spec/operators/#comparison-operators), [logical operators](/flux/v0/spec/operators/#logical-operators), or both, and evaluates as `true` or `false`. 
 For example:
 
 ```js

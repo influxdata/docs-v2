@@ -17,7 +17,7 @@ The `influx replication` command and its subcommands manage InfluxDB Edge Data R
 
 ## Usage
 ```
-influx replication [commond options] [arguments...]
+influx replication [command options] [arguments...]
 ```
 
 ## Subcommands

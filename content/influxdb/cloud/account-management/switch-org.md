@@ -23,18 +23,19 @@ To switch {{< product-name "short" >}} organizations:
 3. Select the organization you want to switch to from the drop-down list.
 
 {{% note %}}
-#### Migrate to IOx
+#### Migrate to InfluxDB Cloud Serverless
 
-To benefit from IOx's unlimited cardinality and support for SQL, [migrate your data to an InfluxDB Cloud Serverless organization](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox/).
+To unlock the benefits of the InfluxDB v3 storage engine, including unlimited
+cardinality and SQL, [migrate your data to an InfluxDB Cloud Serverless organization](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-serverless/).
 
-All InfluxDB Cloud [accounts](/influxdb/cloud-serverless/admin/accounts/) and [organizations](/influxdb/cloud-serverless/admin/organizations/) created through
+All InfluxDB Cloud [accounts](/influxdb/cloud-serverless/admin/accounts/) and
+[organizations](/influxdb/cloud-serverless/admin/organizations/) created through
 [cloud2.influxdata.com](https://cloud2.influxdata.com) on or after **January 31, 2023**
-are powered by the InfluxDB IOx storage engine.
+are on InfluxDB Cloud Serverless and are powered by the InfluxDB v3 storage engine.
 
-To see which storage engine your organization uses,
-find the **InfluxDB Cloud powered by** link in your
-[InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
-If your organization is using TSM, you'll see **TSM** followed by the version number.
-If IOx, you'll see
-**InfluxDB Cloud Serverless** followed by the version number.
+To see which storage engine your organization uses, find the **InfluxDB Cloud powered by**
+link in your [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com)
+version information. If your organization is using TSM, you'll see **TSM**
+followed by the version number. If Serverless, you'll see **InfluxDB Cloud Serverless**
+followed by the version number.
 {{% /note %}}

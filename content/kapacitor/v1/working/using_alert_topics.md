@@ -217,7 +217,7 @@ Match conditions can be applied to handlers.
 Only alerts matching the conditions will be handled by that handler.
 
 For example it is typical to only send Slack messages when alerts change state instead of every time an alert is evaluated.
-Modifing the slack handler definition from the first example results in the following:
+Modifying the slack handler definition from the first example results in the following:
 
 ```yaml
 topic: cpu

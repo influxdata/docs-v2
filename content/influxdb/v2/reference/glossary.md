@@ -473,7 +473,7 @@ In Flux, an implicit block is a possibly empty sequence of statements within mat
   - File: Each file has a file block containing Flux source text in the file.
   - Function: Each function literal has a function block with Flux source text (even if not explicitly declared).
 
-Related entries: [explict block](#explicit-block), [block](#block)
+Related entries: [explicit block](#explicit-block), [block](#block)
 
 ### influx
 
@@ -763,7 +763,7 @@ Related entries: [measurement](#measurement), [tag set](#tag-set), [field set](#
 
 ### primary key
 
-With the InfluxDB IOx storage engine, the primary key is the list of columns
+With the InfluxDB v3 storage engine, the primary key is the list of columns
 used to uniquely identify each row in a table.
 Rows are uniquely identified by their timestamp and tag set.
 

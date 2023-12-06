@@ -13,7 +13,7 @@ cascade:
     - /influxdb/cloud-serverless/reference/influxql
 ---
 
-Learn to use InfluxQL to query data stored in InfluxDB Cloud Serverless.
+Learn to use InfluxQL to query data stored in {{% product-name %}}.
 
 {{< children type="anchored-list" >}}
 

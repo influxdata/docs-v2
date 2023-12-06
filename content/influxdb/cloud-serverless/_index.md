@@ -1,8 +1,8 @@
 ---
 title: InfluxDB Cloud Serverless documentation
 description: >
-  InfluxDB Cloud Serverless is a hosted and managed version of InfluxDB backed
-  by InfluxDB IOx, the time series platform designed to handle high write and query loads.
+  InfluxDB Cloud Serverless is a hosted and managed version of InfluxDB v3, the
+  time series platform designed to handle high write and query loads.
   Learn how to use and leverage InfluxDB Cloud Serverless in use cases such as
   monitoring metrics, IoT data, and events.
 menu:
@@ -14,7 +14,7 @@ weight: 1
 {{% note %}}
 This InfluxDB Cloud documentation applies to all [organizations](/influxdb/cloud-serverless/admin/organizations/) created through
 **cloud2.influxdata.com** on or after **January 31, 2023** that are powered by
-the InfluxDB IOx storage engine. If your organization was created before this
+the InfluxDB v3 storage engine. If your organization was created before this
 date or through the Google Cloud Platform (GCP) or Azure marketplaces, see the
 [InfluxDB Cloud (TSM) documentation](/influxdb/cloud/).
 

@@ -145,7 +145,7 @@ Best practices when using an active-passive node setup:
   - Keep the ratio of active to passive nodes between 1:1 and 2:1.
   - Passive nodes should receive all writes.  
 
-For more inforrmation, see how to [add a passive node to a cluster](/enterprise_influxdb/v1/tools/influxd-ctl/add-data/#add-a-passive-data-node-to-a-cluster).
+For more information, see how to [add a passive node to a cluster](/enterprise_influxdb/v1/tools/influxd-ctl/add-data/#add-a-passive-data-node-to-a-cluster).
 
 {{% note %}}
 **Note:**  This feature is experimental and available only in InfluxDB Enterprise.

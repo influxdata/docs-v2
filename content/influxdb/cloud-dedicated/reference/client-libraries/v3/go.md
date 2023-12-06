@@ -108,7 +108,7 @@ Replace the following configuration values:
 
 ### Function `Client.Query()`
 
-Query data from InfluxDB IOx using SQL.
+Query data from InfluxDB v3 using SQL.
 
 #### Syntax
 
@@ -143,7 +143,7 @@ iterator, err := client.Query(context.Background(), query)
 
 ### Function `Client.QueryWithOptions()`
 
-Query data from InfluxDB IOx with query options such as **query type** for querying with InfluxQL.
+Query data from InfluxDB v3 with query options such as **query type** for querying with InfluxQL.
 
 #### Syntax
 
