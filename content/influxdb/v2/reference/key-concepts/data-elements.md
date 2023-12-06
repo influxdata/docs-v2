@@ -131,7 +131,6 @@ See how to [use tags to improve query performance](/influxdb/v2/write-data/best-
 How you structure measurements, fields, and tags in your data can make queries easier to write and more performant.
 Good [schema design](/influxdb/v2/write-data/best-practices/schema-design) can prevent [high series cardinality](/influxdb/v2/write-data/best-practices/resolve-high-cardinality/), resulting in better performing queries.
 
-
 ## Series
 
 Now that you're familiar with measurements, field sets, and tag sets, it's time to discuss series keys and series.
