@@ -17,7 +17,16 @@ common resolutions.
 possible InfluxQL errors.
 {{% /note %}}
 
+- [database name required](#database-name-required)
+- [found ..., expected identifier at ...](#found--expected-identifier-at-)
+- [mixing aggregate and non-aggregate queries is not supported](#-mixing-aggregate-and-non-aggregate-queries-is-not-supported)
+- [time and \*influxql.VarRef are not compatible](#time-and-influxqlvarref-are-not-compatible)
+
 ## error: database name required
+
+```
+error: database name required
+```
 
 The `database name required` error occurs when certain [`SHOW` queries](/influxdb/cloud-dedicated/reference/influxql/show/)
 do not specify a [database](/influxdb/cloud-dedicated/reference/glossary/#database).
@@ -56,356 +65,180 @@ The relevant `SHOW` queries include:
 [Explore your schema](/influxdb/cloud-dedicated/query-data/influxql/explore-schema/),
 [InfluxQL reference](/influxdb/cloud-dedicated/reference/influxql/)
 
-## error parsing query: found < >, expected identifier at line < >, char < >
+---
 
-### InfluxQL syntax
+## error parsing query: found ..., expected identifier at ...
 
-The `expected identifier` error occurs when InfluxDB anticipates an identifier
-in a query but doesn't find it.
+```
+error parsing query: found EXAMPLE, expected identifier at line 1, char 14
+```
+
+This error occurs when InfluxDB anticipates an identifier in a query but doesn't find it.
 Identifiers are tokens that refer to database names, retention policy names,
 measurement names, field keys, and tag keys.
-The error is often a gentle reminder to double-check your query's syntax.
 
-**Examples**
+This error is generally caused by one of the following:
 
-*Query 1:*
+- [A required identifier is missing](#a-required-identifier-is-missing)
+- [A string literal is used instead of an identifier](#a-string-literal-is-used-instead-of-an-identifier)
+- [An InfluxQL keyword is used as an unquoted identifier](#an-influxql-keyword-is-used-as-an-unquoted-identifier)
 
-```sql
-> CREATE CONTINUOUS QUERY ON "telegraf" BEGIN SELECT mean("usage_idle") INTO "average_cpu" FROM "cpu" GROUP BY time(1h),"cpu" END
-ERR: error parsing query: found ON, expected identifier at line 1, char 25
-```
+#### A required identifier is missing
 
-Query 1 is missing a continuous query name between `CREATE CONTINUOUS QUERY` and
-`ON`.
+Some InfluxQL statements and clauses require identifiers to identify databases,
+measurements, tags or fields. If the statement is missing a required identifier,
+the query returns the `expected identifier` error.
 
-*Query 2:*
-
-```sql
-> SELECT * FROM WHERE "blue" = true
-ERR: error parsing query: found WHERE, expected identifier at line 1, char 15
-```
-
-Query 2 is missing a measurement name between `FROM` and `WHERE`.
-
-### InfluxQL keywords
-
-In some cases the `expected identifier` error occurs when one of the
-[identifiers](/enterprise_influxdb/v1/concepts/glossary/#identifier) in the query is an
-[InfluxQL Keyword](/enterprise_influxdb/v1/query_language/spec/#keywords).
-To successfully query an identifier that's also a keyword, enclose that
-identifier in double quotes.
-
-**Examples**
-
-*Query 1:*
+For example, the following query omits the measurement name from the
+[`FROM` clause](/influxdb/cloud-dedicated/reference/influxql/select/#from-clause):
 
 ```sql
-> SELECT duration FROM runs
-ERR: error parsing query: found DURATION, expected identifier, string, number, bool at line 1, char 8
+SELECT * FROM WHERE color = 'blue'
 ```
 
-In Query 1, the field key `duration` is an InfluxQL Keyword.
-Double quote `duration` to avoid the error:
+Update the query to include the expected identifier in the `FROM` clause that
+identifies the measurement to query:
 
 ```sql
-> SELECT "duration" FROM runs
+SELECT * FROM measurement_name WHERE color = 'blue'
 ```
 
-*Query 2:*
+#### A string literal is used instead of an identifier
+
+In InfluxQL, string literals are wrapped in single quotes (`''`) while character
+sequences wrapped in double quotes (`""`) are parsed as identifiers. If you use
+single quotes to wrap an identifier, the identifier is parsed as a string
+literal and returns the `expected identifier` error.
+
+For example, the following query wraps the measurement name in single quotes:
 
 ```sql
-> CREATE RETENTION POLICY limit ON telegraf DURATION 1d REPLICATION 1
-ERR: error parsing query: found LIMIT, expected identifier at line 1, char 25
+SELECT * FROM 'measurement-name' WHERE color = 'blue'
 ```
 
-In Query 2, the retention policy name `limit` is an InfluxQL Keyword.
-Double quote `limit` to avoid the error:
+Results in the following error:
+
+```
+error parsing query: found measurement-name, expected identifier at line 1, char 14
+```
+
+#### An InfluxQL keyword is used as an unquoted identifier
+
+[InfluxQL keyword](/influxdb/cloud-dedicated/reference/influxql/#keywords)
+are character sequences reserved for specific functionality in the InfluxQL syntax.
+It is possible to use a keyword as an identifier, but the identifier must be
+wrapped in double quotes (`""`).
+
+{{% note %}}
+While wrapping identifiers that are InfluxQL keywords in double quotes is an
+acceptable workaround, for simplicity, you should avoid using
+[InfluxQL keywords](/influxdb/cloud-dedicated/reference/influxql/#keywords)
+as identifiers.
+{{% /note %}}
 
 ```sql
-> CREATE RETENTION POLICY "limit" ON telegraf DURATION 1d REPLICATION 1
+SELECT duration FROM runs
 ```
 
-While using double quotes is an acceptable workaround, we recommend that you avoid using InfluxQL keywords as identifiers for simplicity's sake.
+Returns the following error:
 
-**Resources:**
-[InfluxQL Keywords](/enterprise_influxdb/v1/query_language/spec/#keywords),
+```
+error parsing query: found DURATION, expected identifier, string, number, bool at line 1, char 8
+```
+
+Double quote `duration` or other InfluxQL keywords to avoid the error:
+
+```sql
+SELECT "duration" FROM runs
+```
+
+**Related:**
+[InfluxQL keywords](/influxdb/cloud-dedicated/reference/influxql/#keywords),
 [Query Language Documentation](/enterprise_influxdb/v1/query_language/)
 
-## error parsing query: found < >, expected string at line < >, char < >
-
-The `expected string` error occurs when InfluxDB anticipates a string
-but doesn't find it.
-In most cases, the error is a result of forgetting to quote the password
-string in the `CREATE USER` statement.
-
-**Example**
-
-```sql
-> CREATE USER penelope WITH PASSWORD timeseries4dayz
-ERR: error parsing query: found timeseries4dayz, expected string at line 1, char 36
-```
-
-The `CREATE USER` statement requires single quotation marks around the password
-string:
-
-```sql
-> CREATE USER penelope WITH PASSWORD 'timeseries4dayz'
-```
-
-Note that you should not include the single quotes when authenticating requests.
-
-**Resources:**
-[Authentication and Authorization](/enterprise_influxdb/v1/administration/authentication_and_authorization/)
+---
 
 ## error parsing query: mixing aggregate and non-aggregate queries is not supported
 
+```
+error parsing query: mixing aggregate and non-aggregate queries is not supported
+```
+
 The `mixing aggregate and non-aggregate` error occurs when a `SELECT` statement
-includes both an [aggregate function](/enterprise_influxdb/v1/query_language/functions/)
-and a standalone [field key](/enterprise_influxdb/v1/concepts/glossary/#field-key) or
-[tag key](/enterprise_influxdb/v1/concepts/glossary/#tag-key).
+includes both an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates/)
+and a standalone [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key) or
+[tag key](/influxdb/cloud-dedicated/reference/glossary/#tag-key).
 
-Aggregate functions return a single calculated value and there is no obvious
-single value to return for any unaggregated fields or tags.
+Aggregate functions return a single calculated value per group and column and
+there is no obvious single value to return for any un-aggregated fields or tags.
 
-**Example**
-
-*Raw data:*
-
-The `peg` measurement has two fields (`square` and `round`) and one tag
-(`force`):
+For example, the following example queries two fields from the `home`
+measurement--`temp` and `hum`. However, it only applies the aggregate function,
+`MEAN` to the `temp` field.
 
 ```sql
-name: peg
----------
-time                   square   round   force
-2016-10-07T18:50:00Z   2        8       1
-2016-10-07T18:50:10Z   4        12      2
-2016-10-07T18:50:20Z   6        14      4
-2016-10-07T18:50:30Z   7        15      3
+SELECT MEAN(temp), hum FROM home
 ```
 
-*Query 1:*
+Returns the following error:
+
+```
+error parsing query: mixing aggregate and non-aggregate queries is not supported
+```
+
+To fix this error, apply an aggregate or selector function to each of the queried
+fields:
 
 ```sql
-> SELECT mean("square"),"round" FROM "peg"
-ERR: error parsing query: mixing aggregate and non-aggregate queries is not supported
+SELECT MEAN(temp), MAX(hum) FROM home
 ```
 
-Query 1 includes an aggregate function and a standalone field.
+**Related:**
+[InfluxQL functions](/influxdb/cloud-dedicated/reference/influxql/functions/)
 
-`mean("square")` returns a single aggregated value calculated from the four values
-of `square` in the `peg` measurement, and there is no obvious single field value
-to return from the four unaggregated values of the `round` field.
-
-*Query 2:*
-
-```sql
-> SELECT mean("square"),"force" FROM "peg"
-ERR: error parsing query: mixing aggregate and non-aggregate queries is not supported
-```
-
-Query 2 includes an aggregate function and a standalone tag.
-
-`mean("square")` returns a single aggregated value calculated from the four values
-of `square` in the `peg` measurement, and there is no obvious single tag value
-to return from the four unaggregated values of the `force` tag.
-
-**Resources:**
-[Functions](/enterprise_influxdb/v1/query_language/functions/)
+---
 
 ## invalid operation: time and \*influxql.VarRef are not compatible
 
+```
+invalid operation: time and *influxql.VarRef are not compatible
+```
+
 The `time and \*influxql.VarRef are not compatible` error occurs when
-date-time strings are double quoted in queries.
-Date-time strings require single quotes.
+date-time strings are double-quoted in a query.
+Date-time strings should be formatted as string literals and wrapped in single quotes.
 
-### Examples
+For example:
 
-Double quoted date-time strings:
-
+{{% influxdb/custom-timestamps %}}
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= "2015-08-18T00:00:00Z" AND time <= "2015-08-18T00:12:00Z"
-ERR: invalid operation: time and *influxql.VarRef are not compatible
+SELECT temp
+FROM home
+WHERE
+  time >= "2022-01-01T08:00:00Z"
+  AND time <= "2022-01-01T00:20:00Z"
+```
+{{% /influxdb/custom-timestamps %}}
+
+Returns the following error:
+
+```
+invalid operation: time and *influxql.VarRef are not compatible
 ```
 
-Single quoted date-time strings:
+To fix the error, wrap RFC3339 timestamps in single quotes rather than double quotes.
 
+{{% influxdb/custom-timestamps %}}
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:12:00Z'
-
-name: h2o_feet
-time                   water_level
-----                   -----------
-2015-08-18T00:00:00Z   2.064
-2015-08-18T00:06:00Z   2.116
-2015-08-18T00:12:00Z   2.028
+SELECT temp
+FROM home
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T00:20:00Z'
 ```
+{{% /influxdb/custom-timestamps %}}
 
-**Resources:**
-[Data Exploration](/enterprise_influxdb/v1/query_language/explore-data/#time-syntax)
-
-## unable to parse < >: bad timestamp
-
-### Timestamp syntax
-
-The `bad timestamp` error occurs when the
-[line protocol](/enterprise_influxdb/v1/concepts/glossary/#influxdb-line-protocol) includes a
-timestamp in a format other than a UNIX timestamp.
-
-**Example**
-
-```sql
-> INSERT pineapple value=1 '2015-08-18T23:00:00Z'
-ERR: {"error":"unable to parse 'pineapple value=1 '2015-08-18T23:00:00Z'': bad timestamp"}
-```
-
-The line protocol above uses an [RFC3339](https://www.ietf.org/rfc/rfc3339.txt)
-timestamp.
-Replace the timestamp with a UNIX timestamp to avoid the error and successfully
-write the point to InfluxDB:
-
-```sql
-> INSERT pineapple,fresh=true value=1 1439938800000000000
-```
-
-### InfluxDB line protocol syntax
-
-In some cases, the `bad timestamp` error occurs with more general syntax errors
-in the InfluxDB line protocol.
-Line protocol is whitespace sensitive; misplaced spaces can cause InfluxDB
-to assume that a field or tag is an invalid timestamp.
-
-**Example**
-
-*Write 1*
-
-```sql
-> INSERT hens location=2 value=9
-ERR: {"error":"unable to parse 'hens location=2 value=9': bad timestamp"}
-```
-
-The line protocol in Write 1 separates the `hen` measurement from the `location=2`
-tag with a space instead of a comma.
-InfluxDB assumes that the `value=9` field is the timestamp and returns an error.
-
-Use a comma instead of a space between the measurement and tag to avoid the error:
-
-```sql
-> INSERT hens,location=2 value=9
-```
-
-*Write 2*
-
-```sql
-> INSERT cows,name=daisy milk_prod=3 happy=3
-ERR: {"error":"unable to parse 'cows,name=daisy milk_prod=3 happy=3': bad timestamp"}
-```
-
-The line protocol in Write 2 separates the `milk_prod=3` field and the
-`happy=3` field with a space instead of a comma.
-InfluxDB assumes that the `happy=3` field is the timestamp and returns an error.
-
-Use a comma instead of a space between the two fields to avoid the error:
-
-```sql
-> INSERT cows,name=daisy milk_prod=3,happy=3
-```
-
-**Resources:**
-[InfluxDB line protocol tutorial](/enterprise_influxdb/v1/write_protocols/line_protocol_tutorial/),
-[InfluxDB line protocol reference](/enterprise_influxdb/v1/write_protocols/line_protocol_reference/)
-
-## unable to parse < >: time outside range
-
-The `time outside range` error occurs when the timestamp in the
-[InfluxDB line protocol](/enterprise_influxdb/v1/concepts/glossary/#influxdb-line-protocol)
-falls outside the valid time range for InfluxDB.
-
-The minimum valid timestamp is `-9223372036854775806` or `1677-09-21T00:12:43.145224194Z`.
-The maximum valid timestamp is `9223372036854775806` or `2262-04-11T23:47:16.854775806Z`.
-
-**Resources:**
-[InfluxDB line protocol tutorial](/enterprise_influxdb/v1/write_protocols/line_protocol_tutorial/#data-types),
-[InfluxDB line protocol reference](/enterprise_influxdb/v1/write_protocols/line_protocol_reference/#data-types)
-
-## write failed for shard < >: engine: cache maximum memory size exceeded
-
-The `cache maximum memory size exceeded` error occurs when the cached
-memory size increases beyond the
-[`cache-max-memory-size` setting](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cache-max-memory-size--1g)
-in the configuration file.
-
-By default, `cache-max-memory-size` is set to 512mb.
-This value is fine for most workloads, but is too small for larger write volumes
-or for datasets with higher [series cardinality](/enterprise_influxdb/v1/concepts/glossary/#series-cardinality).
-If you have lots of RAM you could set it to `0` to disable the cached memory
-limit and never get this error.
-You can also examine the `memBytes` field in the`cache` measurement in the
-[`_internal` database](/platform/monitoring/influxdata-platform/tools/measurements-internal/)
-to get a sense of how big the caches are in memory.
-
-## already killed
-
-The `already killed` error occurs when a query has already been killed, but
-there are subsequent kill attempts before the query has exited.
-When a query is killed, it may not exit immediately.
-It will be in the `killed` state, which means the signal has been sent, but the
-query itself has not hit an interrupt point.
-
-**Resources:**
-[Query management](/enterprise_influxdb/v1/troubleshooting/query_management/)
-
-## Common `-import` errors
-
-Find common errors that occur when importing data in the command line interface (CLI).
-
-1. (Optional) Customize how to view `-import` errors and output by running any of the following commands:
-
-  - Send errors and output to a new file: `influx -import -path={import-file}.gz -compressed {new-file} 2>&1`
-  - Send errors and output to separate files: `influx -import -path={import-file}.gz -compressed > {output-file} 2> {error-file}`
-  - Send errors to a new file: `influx -import -path={import-file}.gz -compressed 2> {new-file}`
-  - Send output to a new file: `influx -import -path={import-file}.gz -compressed {new-file}`
-
-2. Review import errors for possible causes to resolve:
-
-  - [Inconsistent data types](#inconsistent-data-types)
-  - [Data points older than retention policy](#data-points-older-than-retention-policy)
-  - [Unnamed import file](#unnamed-import-file)
-  - [Docker container cannot read host files](#docker-container-cannot-read-host-files)
-
-  >**Note:** To learn how to use the `-import` command, see [Import data from a file with `-import`](/enterprise_influxdb/v1/tools/influx-cli/use-influx/#import-data-from-a-file-with-import).
-
-### Inconsistent data types
-
-**Error:** `partial write: field type conflict:`
-
-This error occurs when fields in an imported measurement have inconsistent data types. Make sure all fields in a measurement have the same data type, such as float64, int64, and so on.
-
-### Data points older than retention policy
-
-**Error:** `partial write: points beyond retention policy dropped={number-of-points-dropped}`
-
-This error occurs when an imported data point is older than the specified retention policy and dropped. Verify the correct retention policy is specified in the import file.
-
-### Unnamed import file
-
-**Error:** `reading standard input: /path/to/directory: is a directory`
-
-  This error occurs when the `-import` command doesn't include the name of an import file. Specify the file to import, for example: `$ influx -import -path={filename}.txt -precision=s`
-
-### Docker container cannot read host files
-
-**Error:** `open /path/to/file: no such file or directory`
-
-This error occurs when the Docker container cannot read files on the host machine. To make host machine files readable, complete the following procedure.
-
-#### Make host machine files readable to Docker
-
-  1. Create a directory, and then copy files to import into InfluxDB to this directory.
-  2. When you launch the Docker container, mount the new directory on the InfluxDB container by running the following command:
-
-        docker run -v /dir/path/on/host:/dir/path/in/container
-
-  3. Verify the Docker container can read host machine files by running the following command:
-
-        influx -import -path=/path/in/container
+**Related:**
+[Query data within time boundaries](/influxdb/cloud-dedicated/query-data/influxql/basic-query/#query-data-within-time-boundaries),
+[`WHERE` clause--Time ranges](/influxdb/cloud-dedicated/reference/influxql/where/#time-ranges),
+[InfluxQL time syntax](/influxdb/cloud-dedicated/reference/influxql/time-and-timezone/#time-syntax)
