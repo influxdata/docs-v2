@@ -9,10 +9,12 @@
 {{ $v2EquivalentURL := replaceRE `v[1-2]` $latestV2 .Page.Params.v2 }}
 {{ $v2EquivalentPage := .GetPage (replaceRE `\/$` "" $v2EquivalentURL) }}
 {{ $v2PageExists := gt (len $v2EquivalentPage.Title) 0 }}
+{{ $isResources := in .Page.RelPermalink "/resources/" }}
+{{ $isPlatform := in .Page.RelPermalink "/platform/" }}
 {{ $isCloud := in .Page.RelPermalink "/influxdb/cloud" }}
 {{ $isClustered := in .Page.RelPermalink "/influxdb/clustered" }}
 
-{{ if and (ne $currentVersion $stableVersion) (not (or $isCloud $isClustered)) }}
+{{ if and (ne $currentVersion $stableVersion) (not (or $isCloud $isClustered $isResources $isPlatform)) }}
   <div class="warn block old-version">
     <p>
       This page documents an earlier version of {{ $productName }}.
