@@ -122,3 +122,23 @@ If a host's clocks isn't synchronized with NTP, timestamps may be inaccurate.
 ## Write multiple data points in one request
 
 To write multiple lines in one request, each line of line protocol must be delimited by a new line (`\n`).
+
+## Preprocess data before writing
+
+Depending on your write workload, you might want to preprocess data to fit your [schema]() or stay within usage [limits]().
+
+### Filter data in a batch
+
+Use Telegraf to filter data before writing
+
+Grok plugin
+
+### Run custom preprocessing code
+
+Use Telegraf to execute your custom scripts to manipulate data
+
+Exec plugin
+
+### Coerce data types to avoid rejected point errors
+
+Use Telegraf converter plugin to convert data types to fit your schema
