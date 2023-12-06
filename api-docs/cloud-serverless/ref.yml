@@ -14188,7 +14188,10 @@ paths:
             text/csv:
               schema:
                 $ref: '#/components/schemas/InfluxqlCsvResponse'
-          description: Query results
+          description: |
+            Query results.
+
+            If a DBRP doesn't exist for the `db=DATABASE_NAME` and `rp=RETENTION_POLICY_NAME` combination in the query request, the response body contains an error message, for example `"database not found:..."`.
           headers:
             Content-Encoding:
               description: Lists encodings (usually compression algorithms) that have been applied to the response payload.
