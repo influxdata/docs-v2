@@ -26,6 +26,7 @@ InfluxDB Enterprise, and InfluxDB Cloud (TSM).
   <!-- - [Do you want better InfluxQL performance?](#do-you-want-better-influxql-performance) -->
   - [Do you depend on a specific cloud provider or region?](#do-you-depend-on-a-specific-cloud-provider-or-region)
   - [Are you reliant on Flux queries and Flux tasks?](#are-you-reliant-on-flux-queries-and-flux-tasks)
+- [Before you migrate](#before-you-migrate)
 - [Data migration guides](#data-migration-guides)
 
 ## Should you migrate?
@@ -73,6 +74,23 @@ in more regions around the world.
 **You should maybe migrate**. Flux queries are less performant against the
 InfluxDB v3 storage engine. Flux is optimized to work with the TSM storage engine,
 but these optimizations do not apply to the on-disk structure of InfluxDB v3.
+
+---
+
+## Before you migrate
+
+Before you migrate from InfluxDB 1.x or 2.x to {{< product-name >}}, there
+are schema design practices supported by the TSM storage engine that are not
+supported in the InfluxDB v3 storage engine. Specifically the following:
+
+- Cannot use duplicate names for tags and fields
+- Measurements can contain up to 200 columns where each column represents time,
+  a field, or a tag.
+
+_For more information, see [Schema restrictions](/influxdb/cloud-serverless/write-data/best-practices/schema-design/#schema-restrictions)._
+
+If your schema does not adhere to these restrictions, you must update your schema
+before migrating to {{< product-name >}}.
 
 ---
 

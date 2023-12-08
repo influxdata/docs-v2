@@ -34,6 +34,7 @@ All query and write requests are subject to your InfluxDB Cloud organization's
 [rate limits and adjustable quotas](/influxdb/cloud-serverless/account-management/limits/).
 {{% /cloud %}}
 
+- [Before you migrate](#before-you-migrate)
 - [Set up the migration](#set-up-the-migration)
 - [Migration task](#migration-task)
   - [Configure the migration](#configure-the-migration)
@@ -41,6 +42,112 @@ All query and write requests are subject to your InfluxDB Cloud organization's
   - [Configuration help](#configuration-help)
 - [Monitor the migration progress](#monitor-the-migration-progress)
 - [Troubleshoot migration task failures](#troubleshoot-migration-task-failures)
+
+## Before you migrate
+
+Before you migrate from InfluxDB Cloud (TSM) to {{< product-name >}}, there
+are schema design practices supported by the TSM storage engine that are not
+supported in the InfluxDB v3 storage engine. Specifically the following:
+
+- Cannot use duplicate names for tags and fields
+- Measurements can contain up to 200 columns where each column represents time,
+  a field, or a tag.
+
+_For more information, see [Schema restrictions](/influxdb/cloud-serverless/write-data/best-practices/schema-design/#schema-restrictions)._
+
+If your schema does not adhere to these restrictions, you must update your schema
+before migrating to {{< product-name >}}.
+
+{{< expand-wrapper >}}
+{{% expand "Fix duplicate tag and field names" %}}
+
+If your current schema in InfluxDB Cloud (TSM) includes tags and fields with the
+same name, rename the duplicate _tag_.
+In the [migration Flux script below](#migration-flux-script), update the `data()`
+function definition to include a [`rename()` function](/flux/v0/stdlib/universe/rename/)
+that renames each duplicate tag. For example:
+
+```javascript
+// ...
+
+// Query all data from the specified source bucket within the batch-defined time
+// range. To limit migrated data by measurement, tag, or field, add a `filter()`
+// function after `range()` with the appropriate predicate fn.
+data = () =>
+    from(bucket: migration.sourceBucket)
+        |> range(start: batch.start, stop: batch.stop)
+        |> rename(columns: {temp: "tempScale", state: "stateTag"})
+
+// ...
+```
+
+This will rename tags as they are written to {{< product-name >}}.
+
+{{% /expand %}}
+{{% expand "Fix measurements with more than 200 total columns" %}}
+
+If in your current schema, the number total number of tags, fields, and time
+columns in a single measurement exceeds 200, you need to update your schema
+before migrating to {{< product-name >}}.
+Because tags are metadata use to identify specific series, we recommend
+splitting groups of fields across multiple measurements.
+
+In the [migration Flux script below](#migration-flux-script), add a custom function
+that determines what measurement a field should be written to based on predefined
+groups of fields. Apply the new custom function to the existing the `data()` function.
+For example:
+
+```javascript
+// ...
+
+groupFieldsIntoMeasurements = (tables=<-) => {
+    group1 = 
+        tables
+            |> filter(fn: (r) =>
+                r._field == "example-field-1"
+                or r._field == "example-field-2"
+                or r._field == "example-field-3"
+                or r._field == "example-field-4"
+                or r._field == "example-field-5"
+            )
+            |> set(key: "_measurement", value: "example-measurement-1" )
+    group2 = 
+        tables
+            |> filter(fn: (r) =>
+                r._field == "example-field-6"
+                or r._field == "example-field-7"
+                or r._field == "example-field-8"
+                or r._field == "example-field-9"
+                or r._field == "example-field-10"
+            )
+            |> set(key: "_measurement", value: "example-measurement-2" )
+    group3 = 
+        tables
+            |> filter(fn: (r) =>
+                r._field == "example-field-11"
+                or r._field == "example-field-12"
+                or r._field == "example-field-13"
+                or r._field == "example-field-14"
+                or r._field == "example-field-15"
+            )
+            |> set(key: "_measurement", value: "example-measurement-3" )
+    
+    return union(tables: [group1, group2, group3])
+}
+
+// Query all data from the specified source bucket within the batch-defined time
+// range. To limit migrated data by measurement, tag, or field, add a `filter()`
+// function after `range()` with the appropriate predicate fn.
+data = () =>
+    from(bucket: migration.sourceBucket)
+        |> range(start: batch.start, stop: batch.stop)
+        |> groupFieldsIntoMeasurements()
+
+// ...
+```
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Set up the migration
 
@@ -64,7 +171,7 @@ to complete the migration.
 2.  **In the InfluxDB Cloud (TSM) organization you're migrating data _from_**:
 
     1.  Add the **InfluxDB Cloud API token from the InfluxDB Cloud Serverless organization _(created in step 1b)_**
-        as a secret using the key, `INFLUXDB_IOX_TOKEN`.
+        as a secret using the key, `INFLUXDB_SERVERLESS_TOKEN`.
         _See [Add secrets](/influxdb/cloud/admin/secrets/add/) for more information._
     3.  [Create a bucket](/influxdb/cloud/admin/buckets/create-bucket/)
         **to store temporary migration metadata**.
@@ -89,6 +196,7 @@ Batch range is beyond the migration range. Migration is complete.
 ## Migration task
 
 ### Configure the migration
+
 1.  Specify how often you want the task to run using the `task.every` option.
     _See [Determine your task interval](#determine-your-task-interval)._
 
