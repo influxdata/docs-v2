@@ -1,39 +1,35 @@
 ---
-title: Migrate data from TSM to InfluxDB Cloud Serverless
+title: Migrate data from InfluxDB Cloud to InfluxDB Clustered
 description: >
-  To migrate data from a TSM-powered InfluxDB Cloud organization to an InfluxDB
-  Cloud Serverless organization powered by the v3 storage engine, query the data in
-  time-based batches and write the queried data to an InfluxDB v3 bucket in your
-  InfluxDB Cloud Serverless organization.
+  To migrate data from a TSM-powered InfluxDB Cloud to InfluxDB Clustered 
+  powered by the v3 storage engine, query the data in time-based batches and write
+  the queried data to an InfluxDB v3 database in your InfluxDB cluster.
 menu:
-  influxdb_cloud_serverless:
-    name: Migrate from TSM to Serverless
+  influxdb_clustered:
+    name: Migrate from TSM to Clustered
     parent: Migrate data
 weight: 102
-aliases:
-  - /influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox
-  - /influxdb/cloud-serverless/guides/migrate-data/migrate-tsm-to-iox
 alt_links:
   cloud: /influxdb/cloud/write-data/migrate-data/migrate-cloud-to-cloud/
   cloud-dedicated: /influxdb/cloud-dedicated/guides/migrate-data/migrate-tsm-to-cloud-dedicated/
-  clustered: /influxdb/clustered/guides/migrate-data/migrate-tsm-to-clustered/
+  cloud-serverless: /influxdb/cloud-serverless/guides/migrate-data/migrate-tsm-to-serverless/
 ---
 
-To migrate data from an InfluxDB Cloud (TSM) organization to an
-InfluxDB Cloud Serverless organization powered by the v3 storage engine, query the data
-from your TSM-powered buckets in time-based batches and write the queried data to
-a bucket in your InfluxDB Cloud Serverless organization.
-Because full data migrations will likely exceed your organizations' limits and
-adjustable quotas, migrate your data in batches.
+To migrate data from InfluxDB Cloud (TSM) to an {{< product-name >}} powered by
+the v3 storage engine, query the data from your TSM-powered buckets in time-based
+batches and write the queried data to a database in your
+{{< product-name omit=" Clustered" >}} cluster.
+Because full data migrations will likely exceed your InfluxDB Cloud organizations'
+limits and adjustable quotas, migrate your data in batches.
 
 The following guide provides instructions for setting up an InfluxDB task
 that queries data from an InfluxDB Cloud TSM-powered bucket in time-based batches
-and writes each batch to an InfluxDB Cloud Serverless (InfluxDB v3) bucket in
+and writes each batch to an {{< product-name >}} (InfluxDB v3) database in
 another organization.
 
 {{% cloud %}}
-All query and write requests are subject to your InfluxDB Cloud organization's
-[rate limits and adjustable quotas](/influxdb/cloud-serverless/account-management/limits/).
+All query requests are subject to your InfluxDB Cloud organization's
+[rate limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
 {{% /cloud %}}
 
 - [Before you migrate](#before-you-migrate)
@@ -42,7 +38,6 @@ All query and write requests are subject to your InfluxDB Cloud organization's
   - [Configure the migration](#configure-the-migration)
   - [Migration Flux script](#migration-flux-script)
   - [Configuration help](#configuration-help)
-- [Monitor the migration progress](#monitor-the-migration-progress)
 - [Troubleshoot migration task failures](#troubleshoot-migration-task-failures)
 
 ## Before you migrate
@@ -52,10 +47,10 @@ are schema design practices supported by the TSM storage engine that are not
 supported in the InfluxDB v3 storage engine. Specifically the following:
 
 - Cannot use duplicate names for tags and fields
-- Measurements can contain up to 200 columns where each column represents time,
-  a field, or a tag.
+- By default, measurements can contain up to 250 columns where each column
+  represents time, a field, or a tag.
 
-_For more information, see [Schema restrictions](/influxdb/cloud-serverless/write-data/best-practices/schema-design/#schema-restrictions)._
+_For more information, see [Schema restrictions](/influxdb/clustered/write-data/best-practices/schema-design/#schema-restrictions)._
 
 If your schema does not adhere to these restrictions, you must update your schema
 before migrating to {{< product-name >}}.
@@ -86,11 +81,17 @@ data = () =>
 This will rename tags as they are written to {{< product-name >}}.
 
 {{% /expand %}}
-{{% expand "Fix measurements with more than 200 total columns" %}}
+{{% expand "Fix measurements with more than 250 total columns" %}}
 
 If in your current schema, the number total number of tags, fields, and time
-columns in a single measurement exceeds 200, you need to update your schema
+columns in a single measurement exceeds 250, you need to update your schema
 before migrating to {{< product-name >}}.
+
+Although you can [increase the column limit](/influxdb/clustered/admin/databases/create/#table-and-column-limits)
+per measurement when creating a database, it may adversely affect query performance.
+
+Because tags are metadata use to identify specific series, we recommend
+splitting groups of fields across multiple measurements.
 Because tags are metadata use to identify specific series, we recommend
 splitting groups of fields across multiple measurements.
 
@@ -163,17 +164,17 @@ To migrate more than one bucket, you need to [upgrade to the Usage-based plan](/
 to complete the migration.
 {{% /note %}}
 
-1.  **In the InfluxDB Cloud Serverless organization you're migrating data _to_**:
+1.  **In the {{< product-name omit=" Clustered" >}} cluster you're migrating data _to_**:
 
-    1. [Create a bucket](/influxdb/cloud-serverless/organizations/buckets/create-bucket/)
+    1. [Create a database](/influxdb/clustered/admin/databases/create/)
         **to migrate data to**.
-    2. [Create an API token](/influxdb/cloud-serverless/security/tokens/create-token/)
-        with **write access** to the bucket you want to migrate to.
+    2. [Create a token](/influxdb/clustered/admin/tokens/create/)
+        with **write access** to the database you want to migrate to.
 
 2.  **In the InfluxDB Cloud (TSM) organization you're migrating data _from_**:
 
-    1.  Add the **InfluxDB Cloud API token from the InfluxDB Cloud Serverless organization _(created in step 1b)_**
-        as a secret using the key, `INFLUXDB_SERVERLESS_TOKEN`.
+    1.  Add the **{{< product-name >}} token (created in step 1b)_**
+        as a secret using the key, `INFLUXDB_CLUSTERED_TOKEN`.
         _See [Add secrets](/influxdb/cloud/admin/secrets/add/) for more information._
     3.  [Create a bucket](/influxdb/cloud/admin/buckets/create-bucket/)
         **to store temporary migration metadata**.
@@ -213,12 +214,12 @@ Batch range is beyond the migration range. Migration is complete.
       _See [Determine your batch interval](#determine-your-batch-interval)._
     - **batchBucket**: InfluxDB Cloud (TSM) bucket to store migration batch metadata in.
     - **sourceBucket**: InfluxDB Cloud (TSM) bucket to migrate data from.
-    - **destinationHost**: [InfluxDB Cloud Serverless region URL](/influxdb/cloud-serverless/reference/regions)
-      to migrate data from.
-    - **destinationOrg**: InfluxDB Cloud Serverless organization to migrate data to.
-    - **destinationToken**: InfluxDB Cloud Serverless API token. To keep the API token secure, store
-      it as a secret in InfluxDB Cloud (TSM).
-    - **destinationBucket**: InfluxDB OSS bucket to migrate data to.
+    - **destinationHost**: {{< product-name omit=" Clustered" >}} cluster URL
+      to migrate data to.
+    - **destinationOrg**: _Provide an empty string (ignored by {{< product-name >}})._
+    - **destinationToken**: {{< product-name >}} token. To keep the API token secure,
+      store it as a secret in InfluxDB Cloud (TSM).
+    - **destinationDatabase**: {{< product-name >}} database to migrate data to.
 
 ### Migration Flux script
 
@@ -233,15 +234,15 @@ option task = {every: 5m, name: "Migrate data from TSM to v3"}
 
 // Configure the migration
 migration = {
-    start: 2022-01-01T00:00:00Z,
-    stop: 2022-02-01T00:00:00Z,
+    start: 2023-01-01T00:00:00Z,
+    stop: 2023-02-01T00:00:00Z,
     batchInterval: 1h,
     batchBucket: "migration",
     sourceBucket: "example-cloud-bucket",
     destinationHost: "https://{{< influxdb/host >}}",
-    destinationOrg: "example-destination-org",
-    destinationToken: secrets.get(key: "INFLUXDB_SERVERLESS_TOKEN"),
-    destinationBucket: "example-destination-bucket",
+    destinationOrg: "",
+    destinationToken: secrets.get(key: "INFLUXDB_CLUSTERED_TOKEN"),
+    destinationDatabase: "example-destination-database",
 }
 
 // batchRange dynamically returns a record with start and stop properties for
@@ -255,7 +256,7 @@ batchRange = () => {
             |> range(start: migration.start)
             |> filter(fn: (r) => r._field == "batch_stop")
             |> filter(fn: (r) => r.dstOrg == migration.destinationOrg)
-            |> filter(fn: (r) => r.dstBucket == migration.destinationBucket)
+            |> filter(fn: (r) => r.dstBucket == migration.destinationDatabase)
             |> last()
             |> findRecord(fn: (key) => true, idx: 0))._value
     _batchStart =
@@ -315,7 +316,7 @@ metadata = () => {
                         _measurement: "batches",
                         srcBucket: migration.sourceBucket,
                         dstOrg: migration.destinationOrg,
-                        dstBucket: migration.destinationBucket,
+                        dstBucket: migration.destinationDatabase,
                         batch_start: string(v: batch.start),
                         batch_stop: string(v: batch.stop),
                         rows: r._value,
@@ -334,7 +335,7 @@ data()
         host: migration.destinationHost,
         org: migration.destinationOrg,
         token: migration.destinationToken,
-        bucket: migration.destinationBucket
+        bucket: migration.destinationDatabase
     )
 
 // Generate and store batch metadata in the migration.batchBucket.
@@ -390,7 +391,7 @@ from(bucket: "example-cloud-bucket")
 
 The `migration.batchInterval` setting controls the time range queried by each batch.
 The "density" of the data in your InfluxDB Cloud bucket and your InfluxDB Cloud
-organization's [rate limits and quotas](/influxdb/cloud-serverless/admin/billing/limits/)
+organization's [rate limits and quotas](/influxdb/cloud/admin/billing/limits/)
 determine what your batch interval should be.
 
 For example, if you're migrating data collected from hundreds of sensors with
@@ -452,20 +453,9 @@ So in this example, **it would be best to set your `batchInterval` to `4d`**.
 ##### Important things to note
 
 - This assumes no other queries are running in your source InfluxDB Cloud organization.
-- This assumes no other writes are happening in your destination InfluxDB Cloud Serverless organization.
 {{% /expand %}}
 <!------------------------ END Determine batch interval ----------------------->
 {{< /expand-wrapper >}}
-
-## Monitor the migration progress
-
-The [InfluxDB TSM to Serverless Migration Community template](https://github.com/influxdata/community-templates/tree/master/influxdb-tsm-iox-migration/)
-installs the migration task outlined in this guide as well as a dashboard
-for monitoring running data migrations.
-
-{{< img-hd src="/img/influxdb/cloud-serverless-migration-dashboard.png" alt="InfluxDB Cloud migration dashboard" />}}
-
-<a class="btn" href="https://github.com/influxdata/community-templates/tree/master/influxdb-tsm-iox-migration/#quick-install">Install the InfluxDB Cloud Migration template</a>
 
 ## Troubleshoot migration task failures
 
@@ -492,18 +482,18 @@ too many requests
 
 ### Invalid API token
 
-If the API token you add as the `INFLUXDB_CLOUD_SECRET` doesn't have read access to
-your InfluxDB Cloud bucket, the task will return an error similar to:
+If the API token you add as the `INFLUXDB_CLUSTERED_TOKEN` doesn't have write
+access to your {{< product-name >}} database, the task will return an error similar to:
 
 ```
 unauthorized access
 ```
 
 **Possible solutions**:
-- Ensure the API token has read access to your InfluxDB Cloud bucket.
-- Generate a new InfluxDB Cloud API token with read access to the bucket you
-  want to migrate. Then, update the `INFLUXDB_CLOUD_TOKEN` secret in your
-  InfluxDB OSS instance with the new token.
+- Ensure the API token has write access to your {{< product-name >}} database.
+- Generate a new {{< product-name >}} token with write access to the database you
+  want to migrate to. Then, update the `INFLUXDB_CLUSTERED_TOKEN` secret in your
+  InfluxDB Cloud (TSM) instance with the new token.
 
 ### Query timeout
 
