@@ -107,7 +107,7 @@ menu:
 - Intel PowerStat (`inputs.intel_powerstat`): Fix unit tests to work on every CPU/platform
 - Modbus (`inputs.modbus`): Split large request correctly at field borders
 - Netflow (`inputs.netflow`Handle malformed inputs gracefully
-- s7comm (`inputs.s7comm`Reconnect if query fails
+- s7comm (`inputs.s7comm`): Reconnect if query fails
 - tail (`inputs.tail`): Retry opening file after permission denied
 - BigQuery (`outputs.bigquery`): Correct use of auto-detected project ID
 - OpenSearch (`outputs.opensearch`):
