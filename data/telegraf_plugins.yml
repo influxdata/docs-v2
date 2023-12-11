@@ -1063,6 +1063,13 @@ input:
     introduced: 1.10.0
     tags: [linux, macos, windows, build-deploy, containers]
 
+  - name: ldap
+    id: ldap
+    description: |
+      This plugin gathers metrics from LDAP servers' monitoring (cn=Monitor) backend
+    introduced: 1.29.0
+    tags: [linux, macos, windows, build-deploy, containers]
+
   - name: ldap_org
     id: ldap_org
     description: |
@@ -2556,6 +2563,13 @@ output:
     introduced: 0.2.1
     tags: [linux, macos, windows, messaging]
 
+  - name: OpenSearch
+    id: opensearch
+    description: |
+      The OpenSearch plugin writes metrics via HTTP to OpenSearch instances
+    introduced: 1.29.0
+    tags: [linux, macos, windows, logging, data-stores]
+
   - name: OpenTelemetry
     id: opentelemetry
     description: |
@@ -2892,6 +2906,13 @@ processor:
     description: |
       The `filepath` processor plugin maps certain Go functions from [path/filepath](https://golang.org/pkg/path/filepath/) onto tag and field values.
     introduced: 1.15.0
+    tags: [linux, macos, windows]
+
+  - name: Filter
+    id: filter
+    description: |
+      The `filter` processor allows to specify a set of rules for metrics with the ability to keep or drop those metrics
+    introduced: 1.29.0
     tags: [linux, macos, windows]
 
   - name: GeoIP
