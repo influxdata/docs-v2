@@ -45,7 +45,7 @@ menu:
 - Elasticsearch (`inputs.elasticsearch`): Use HTTPClientConfig struct
 - Elasticsearch Query (`inputs.elasticsearch_query`): Use HTTPClientConfig struct
 - GNMI (`inputs.gnmi`): Rework plugin
-- HTTP Response (`inputs.http_response`): Add body form config option
+- HTTP Response (`inputs.http_response`): Add body form configuration option
 - Intel PowerStat (`inputs.intel_powerstat`): Extract business logic to external library
 - Kafka Consumer (`inputs.kafka_consumer`):
   - Add message headers as metric tags
