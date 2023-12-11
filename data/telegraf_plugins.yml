@@ -2911,7 +2911,7 @@ processor:
   - name: Filter
     id: filter
     description: |
-      The `filter` processor allows to specify a set of rules for metrics with the ability to keep or drop those metrics
+      The `filter` processor allows to specify a set of rules for metrics with the ability to keep or drop those metrics.
     introduced: 1.29.0
     tags: [linux, macos, windows]
 
