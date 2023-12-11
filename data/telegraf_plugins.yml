@@ -2566,7 +2566,7 @@ output:
   - name: OpenSearch
     id: opensearch
     description: |
-      The OpenSearch plugin writes metrics via HTTP to OpenSearch instances
+      The OpenSearch plugin writes metrics via HTTP to OpenSearch instances.
     introduced: 1.29.0
     tags: [linux, macos, windows, logging, data-stores]
 
