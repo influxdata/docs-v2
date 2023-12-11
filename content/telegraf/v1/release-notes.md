@@ -34,7 +34,7 @@ menu:
 ### Features
 
 - Agent (`agent`): Allow separators for namepass and namedrop filters
-- Final (`aggregators.final`): Allow to specify output strategy
+- Final (`aggregators.final`): Specify output strategy
 - HTTP (`common.http`): Add support for connecting over unix-socket
 - OPCUA (`common.opcua`): Add option to include OPC-UA DataType as a field
 - Config (`config`): Deprecate `fieldpass` and `fielddrop` modifiers
