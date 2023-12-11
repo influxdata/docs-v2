@@ -68,7 +68,7 @@ menu:
 - SQL (`inputs.sql`):
   - Add Oracle driver
   - Add IBM Netezza driver
-- Windows Service (`inputs.win_service`): Reduce required rights to GENERIC_READ
+- Windows Service (`inputs.win_service`): Reduce required rights to `GENERIC_READ`
 - Migrations (`migrations`):
   - Add migration for fieldpass and fielddrop
   - Add migration for inputs.jolokia
