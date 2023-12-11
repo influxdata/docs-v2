@@ -38,7 +38,7 @@ menu:
 - HTTP (`common.http`): Add support for connecting over unix-socket
 - OPCUA (`common.opcua`): Add option to include OPC-UA DataType as a field
 - Config (`config`): Deprecate `fieldpass` and `fielddrop` modifiers
-- Intel PMT (`input.intel_pmt`): Add pci_bdf tag to uniquely identify GPUs and other peripherals
+- Intel PMT (`input.intel_pmt`): Add `pci_bdf` tag to uniquely identify GPUs and other peripherals
 - AMQP Consumer (`inputs.amqp_consumer`): Add secretstore support for username and password
 - Docker (`inputs.docker`): Add disk usage
 - DPDK (`inputs.dpdk`): Add options to customize error-behavior and metric layout
