@@ -70,17 +70,17 @@ menu:
   - Add IBM Netezza driver
 - Windows Service (`inputs.win_service`): Reduce required rights to `GENERIC_READ`
 - Migrations (`migrations`):
-  - Add migration for fieldpass and fielddrop
-  - Add migration for inputs.jolokia
-  - Add migration for inputs.kafka_consumer_legacy
-  - Add migration for inputs.snmp_legacy
-  - Add migration for inputs.tcp_listener
-  - Add migration for inputs.udp_listener
-  - Add migration for outputs.riemann_legacy
-  - Add option migration for inputs.disk
-  - Add option migration for inputs.mqtt_consumer
-  - Add option migration for inputs.nats_consumer
-  - Add option migration for outputs.influxdb
+  - Add migration for `fieldpass` and `fielddrop`
+  - Add migration for `inputs.jolokia`
+  - Add migration for `inputs.kafka_consumer_legacy`
+  - Add migration for `inputs.snmp_legacy`
+  - Add migration for `inputs.tcp_listener`
+  - Add migration for `inputs.udp_listener`
+  - Add migration for `outputs.riemann_legacy`
+  - Add option migration for `inputs.disk`
+  - Add option migration for `inputs.mqtt_consumer`
+  - Add option migration for `inputs.nats_consumer`
+  - Add option migration for `outputs.influxdb`
 - Azure Data Explorer (`outputs.azure_data_explorer`): Set user agent string
 - BigQuery (`outputs.bigquery`):
   - Allow to add metrics in one compact table
