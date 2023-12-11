@@ -126,21 +126,21 @@ menu:
 
 ### Dependency Updates
 
-- Update cloud.google.com/go/bigquery from 1.56.0 to 1.57.1
-- Update github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs from 1.26.0 to 1.27.2
-- Update github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor from 0.10.1 to 0.10.2
-- Update github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor from 0.10.2 to 0.11.0
-- Update github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources from 1.1.1 to 1.2.0
-- Update github.com/golang-jwt/jwt/v5 from 5.0.0 to 5.2.0
-- Update github.com/IBM/sarama from 1.41.3 to 1.42.1
-- Update github.com/influxdata/tail from 1.0.1-0.20210707231403-b283181d1fa7 to 1.0.1-0.20221130111531-19b97bffd978
-- Update github.com/jackc/pgconn from 1.14.0 to 1.14.1
-- Update github.com/nats-io/nats-server/v2 from 2.9.23 to 2.10.6
-- Update github.com/prometheus/prometheus from 0.46.0 to 0.48.0
-- Update github.com/vmware/govmomi from 0.32.0 to 0.33.1
-- Update golang.org/x/text from 0.13.0 to 0.14.0
-- Update Bump k8s.io/api from 0.28.3 to 0.28.4
-- Update Point kafka dependency to IBM organization
+- Update `cloud.google.com/go/bigquery` from 1.56.0 to 1.57.1
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs` from 1.26.0 to 1.27.2
+- Update `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor` from 0.10.1 to 0.10.2
+- Update `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor` from 0.10.2 to 0.11.0
+- Update `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources from` 1.1.1 to 1.2.0
+- Update `github.com/golang-jwt/jwt/v5` from 5.0.0 to 5.2.0
+- Update `github.com/IBM/sarama` from 1.41.3 to 1.42.1
+- Update `github.com/influxdata/tail` from 1.0.1-0.20210707231403-b283181d1fa7 to 1.0.1-0.20221130111531-19b97bffd978
+- Update `github.com/jackc/pgconn from` 1.14.0 to 1.14.1
+- Update `github.com/nats-io/nats-server/v2` from 2.9.23 to 2.10.6
+- Update `github.com/prometheus/prometheus` from 0.46.0 to 0.48.0
+- Update `github.com/vmware/govmomi` from 0.32.0 to 0.33.1
+- Update `golang.org/x/text` from 0.13.0 to 0.14.0
+- Update `k8s.io/api` from 0.28.3 to 0.28.4
+- Point kafka dependency to IBM organization
 
 ## v1.28.1 {date="2023-09-12"}
 
