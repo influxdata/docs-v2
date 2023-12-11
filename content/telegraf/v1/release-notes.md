@@ -83,7 +83,7 @@ menu:
   - Add option migration for `outputs.influxdb`
 - Azure Data Explorer (`outputs.azure_data_explorer`): Set user agent string
 - BigQuery (`outputs.bigquery`):
-  - Allow to add metrics in one compact table
+  - Add metrics in one compact table
   - Make project no longer a required field
 - Exec (`outputs.exec`): Add ability to exec command once per metric
 - Prometheus Client (`outputs.prometheus_client`): Support listening on vsock
