@@ -26,7 +26,7 @@ Learn how to avoid unexpected results and recover from errors when writing to {{
 
 <!-- /TOC -->
 
-## Handle `write` responses
+## Handle write responses
 
 In {{% product-name %}}, writes are synchronous.
 After InfluxDB validates the request and ingests the data, it sends a _success_ response (HTTP `204` status code) as an acknowledgement that the data is written and queryable.
@@ -68,9 +68,6 @@ If you notice data is missing in your database, do the following:
 
 ## Troubleshoot rejected points
 
-InfluxDB rejects points for the following reasons:
+InfluxDB rejects points that fall within the same partition (measurement and day) as existing bucket data and have a different data type for an existing field.
 
-- The **batch** contains another point with the same series, but one of the fields has a different value type.
-- The **bucket** contains another point with the same series, but one of the fields has a different value type.
-
-Check for [field data type](/influxdb/cloud-serverless/reference/syntax/line-protocol/#data-types-and-format) differences between the missing data point and other points that have the same [series](/influxdb/cloud-serverless/reference/glossary/#series)--for example, did you attempt to write `string` data to an `int` field?
+Check for [field data type](/influxdb/cloud-serverless/reference/syntax/line-protocol/#data-types-and-format) differences between the rejected data point and points in the bucket that have the same measurement and day--for example, did you attempt to write `string` data to an `int` field?

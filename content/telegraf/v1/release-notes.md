@@ -11,6 +11,137 @@ menu:
     weight: 60
 ---
 
+## v1.29.0 {date="2023-12-11}
+
+### New Plugins
+
+#### Inputs
+
+- [LDAP](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/ldap) (`inputs.inputs.ldap`)
+
+#### Outputs
+
+- [OpenSearch](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/opensearch) (`outputs.opensearch`)
+
+#### Processors
+
+- [Filter](https://github.com/influxdata/telegraf/tree/master/plugins/processors/filter) (`processors.filter`)
+
+#### Secret Stores
+
+- [systemd](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/systemd) (`secretstores.systemd`)
+
+### Features
+
+- Agent (`agent`): Allow separators for namepass and namedrop filters
+- Final (`aggregators.final`): Specify output strategy
+- HTTP (`common.http`): Add support for connecting over unix-socket
+- OPCUA (`common.opcua`): Add option to include OPC-UA DataType as a field
+- Config (`config`): Deprecate `fieldpass` and `fielddrop` modifiers
+- Intel PMT (`input.intel_pmt`): Add `pci_bdf` tag to uniquely identify GPUs and other peripherals
+- AMQP Consumer (`inputs.amqp_consumer`): Add secretstore support for username and password
+- Docker (`inputs.docker`): Add disk usage
+- DPDK (`inputs.dpdk`): Add options to customize error-behavior and metric layout
+- Elasticsearch (`inputs.elasticsearch`): Use HTTPClientConfig struct
+- Elasticsearch Query (`inputs.elasticsearch_query`): Use HTTPClientConfig struct
+- GNMI (`inputs.gnmi`): Rework plugin
+- HTTP Response (`inputs.http_response`): Add body form configuration option
+- Intel PowerStat (`inputs.intel_powerstat`): Extract business logic to external library
+- Kafka Consumer (`inputs.kafka_consumer`):
+  - Add message headers as metric tags
+  - Add option to set metric name from message header
+- Kibana (`inputs.kibana`): Use HTTPClientConfig struct
+- Kube Inventory (`inputs.kube_inventory`)
+  - Support filtering pods and nodes by node name
+  - Support using kubelet to get pods data
+- LDAP (`inputs.ldap`): Collect additional fields
+- Logstash (`inputs.logstash`): Use HTTPClientConfig struct
+- Modbus (`inputs.modbus`): Add support for string fields
+- NATS Consumer (`inputs.nats_consumer`): Add nkey-seed-file authentication
+- OPCUA Listener (`inputs.opcua_listener`): Add monitoring params
+- Open Weather Map(`inputs.openweathermap`): Add per-city query scheme for current weather
+- procstat (`inputs.procstat`): Obtain process information through supervisor
+- RabbitMQ (`inputs.rabbitmq`): Add secretstore support for username and password
+- Redfish (`inputs.redfish`): Allow specifying which metrics to collect
+- SNMP (`inputs.snmp`): Hint to use source tag
+- Socket Listener (`inputs.socket_listener`): Add vsock support to socket listener and writer
+- SQL (`inputs.sql`):
+  - Add Oracle driver
+  - Add IBM Netezza driver
+- Windows Service (`inputs.win_service`): Reduce required rights to `GENERIC_READ`
+- Migrations (`migrations`):
+  - Add migration for `fieldpass` and `fielddrop`
+  - Add migration for `inputs.jolokia`
+  - Add migration for `inputs.kafka_consumer_legacy`
+  - Add migration for `inputs.snmp_legacy`
+  - Add migration for `inputs.tcp_listener`
+  - Add migration for `inputs.udp_listener`
+  - Add migration for `outputs.riemann_legacy`
+  - Add option migration for `inputs.disk`
+  - Add option migration for `inputs.mqtt_consumer`
+  - Add option migration for `inputs.nats_consumer`
+  - Add option migration for `outputs.influxdb`
+- Azure Data Explorer (`outputs.azure_data_explorer`): Set user agent string
+- BigQuery (`outputs.bigquery`):
+  - Add metrics in one compact table
+  - Make `project` no longer a required field
+- Exec (`outputs.exec`): Execute command once per metric
+- Prometheus Client (`outputs.prometheus_client`): Support listening on vsock
+- Socket Writer (`outputs.socket_writer`): Add vsock support to socket listener and writer
+- Stackdriver (`outputs.stackdriver`):
+  - Add metric type config options
+  - Enable histogram support
+- Wavefront (`outputs.wavefront`): Use common/http to configure http client
+- Avro (`parsers.avro`):
+  - Allow connection to https schema registry
+  - Get metric name from the message field
+  - Support multiple modes for union handling
+- Dedup (`processors.dedup`): Add state persistence between runs
+- Regex (`processors.regex`): Allow batch transforms using named groups
+- Secrets (`secrets`): Add unprotected secret implementation
+
+### Bug Fixes
+
+- OAuth (`common.oauth`): Initialize EndpointParams to avoid panic with audience settings
+- HTTP (`inputs.http`): Use correct token variable
+- Intel PowerStat (`inputs.intel_powerstat`): Fix unit tests to work on every CPU/platform
+- Modbus (`inputs.modbus`): Split large request correctly at field borders
+- Netflow (`inputs.netflow`): Handle malformed inputs gracefully
+- s7comm (`inputs.s7comm`): Reconnect if query fails
+- tail (`inputs.tail`): Retry opening file after permission denied
+- BigQuery (`outputs.bigquery`): Correct use of auto-detected project ID
+- OpenSearch (`outputs.opensearch`):
+  - Expose TLS setting correctly
+  - Migrate to new secrets API
+- Prometheus Client (`outputs.prometheus_client`): Ensure v1 collector data expires promptly
+- Avro (`parsers.avro`):
+  - Clean up Warnf error wrapping error
+  - Attempt to read CA cert file only if filename is not empty string
+- JSON v2 (`parsers.json v2`):
+  - Correct wrong name of config option
+  - Reset state before parsing
+- Starlark (`processors.starlark`):
+  - Avoid negative refcounts for tracking metrics
+  - Maintain tracking information post-apply
+
+### Dependency Updates
+
+- Update `cloud.google.com/go/bigquery` from 1.56.0 to 1.57.1
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs` from 1.26.0 to 1.27.2
+- Update `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor` from 0.10.1 to 0.10.2
+- Update `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor` from 0.10.2 to 0.11.0
+- Update `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources from` 1.1.1 to 1.2.0
+- Update `github.com/golang-jwt/jwt/v5` from 5.0.0 to 5.2.0
+- Update `github.com/IBM/sarama` from 1.41.3 to 1.42.1
+- Update `github.com/influxdata/tail` from 1.0.1-0.20210707231403-b283181d1fa7 to 1.0.1-0.20221130111531-19b97bffd978
+- Update `github.com/jackc/pgconn from` 1.14.0 to 1.14.1
+- Update `github.com/nats-io/nats-server/v2` from 2.9.23 to 2.10.6
+- Update `github.com/prometheus/prometheus` from 0.46.0 to 0.48.0
+- Update `github.com/vmware/govmomi` from 0.32.0 to 0.33.1
+- Update `golang.org/x/text` from 0.13.0 to 0.14.0
+- Update `k8s.io/api` from 0.28.3 to 0.28.4
+- Point kafka dependency to IBM organization
+
 ## v1.28.1 {date="2023-09-12"}
 
 ### Bugfixes
