@@ -1066,7 +1066,7 @@ input:
   - name: ldap
     id: ldap
     description: |
-      This plugin gathers metrics from LDAP servers' monitoring (cn=Monitor) backend
+      This plugin gathers metrics from LDAP servers' monitoring (cn=Monitor) backend.
     introduced: 1.29.0
     tags: [linux, macos, windows, build-deploy, containers]
 
