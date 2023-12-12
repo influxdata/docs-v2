@@ -1,7 +1,7 @@
 ---
 title: Migrate data from InfluxDB Cloud to InfluxDB Cloud Dedicated
 description: >
-  To migrate data from a TSM-powered InfluxDB Cloud to InfluxDB Cloud Dedicated 
+  To migrate data from TSM-powered InfluxDB Cloud to InfluxDB Cloud Dedicated 
   powered by the v3 storage engine, query the data in time-based batches and write
   the queried data to an InfluxDB v3 database in your
   InfluxDB Cloud Dedicated cluster.
@@ -45,9 +45,9 @@ All query requests are subject to your InfluxDB Cloud organization's
 
 Before you migrate from InfluxDB Cloud (TSM) to {{< product-name >}}, there
 are schema design practices supported by the TSM storage engine that are not
-supported in the InfluxDB v3 storage engine. Specifically the following:
+supported in the InfluxDB v3 storage engine. Specifically, InfluxDB v3 enforces the following schema restrictions:
 
-- Cannot use duplicate names for tags and fields
+- You can't use duplicate names for tags and fields
 - By default, measurements can contain up to 250 columns where each column
   represents time, a field, or a tag.
 
@@ -84,21 +84,21 @@ This will rename tags as they are written to {{< product-name >}}.
 {{% /expand %}}
 {{% expand "Fix measurements with more than 250 total columns" %}}
 
-If in your current schema, the number total number of tags, fields, and time
+If in your current schema, the total number of tags, fields, and time
 columns in a single measurement exceeds 250, you need to update your schema
 before migrating to {{< product-name >}}.
 
 Although you can [increase the column limit](/influxdb/cloud-dedicated/admin/databases/create/#table-and-column-limits)
 per measurement when creating a database, it may adversely affect query performance.
 
-Because tags are metadata use to identify specific series, we recommend
+Because tags are metadata used to identify specific series, we recommend
 splitting groups of fields across multiple measurements.
 Because tags are metadata use to identify specific series, we recommend
 splitting groups of fields across multiple measurements.
 
-In the [migration Flux script below](#migration-flux-script), add a custom function
+In the following [migration Flux script](#migration-flux-script), add a custom function
 that determines what measurement a field should be written to based on predefined
-groups of fields. Apply the new custom function to the existing the `data()` function.
+groups of fields. Call the new function from within the existing `data()` function.
 For example:
 
 ```javascript

@@ -34,9 +34,9 @@ export the data as line protocol and write the exported data to an InfluxDB data
 
 Before you migrate from InfluxDB 1.x to {{< product-name >}}, there
 are schema design practices supported by the TSM storage engine that are not
-supported in the InfluxDB v3 storage engine. Specifically the following:
+supported in the InfluxDB v3 storage engine. Specifically, InfluxDB v3 enforces the following schema restrictions:
 
-- Cannot use duplicate names for tags and fields
+- You can't use duplicate names for tags and fields.
 - By default, measurements can contain up to 250 columns where each column
   represents time, a field, or a tag.
 
@@ -70,14 +70,14 @@ home,room=Kitchen,tempScale=F co=0i,hum=56.6,temp=71.0 1672531200000000000
 {{% /expand %}}
 {{% expand "Fix measurements with more than 250 total columns" %}}
 
-If in your current schema, the number total number of tags, fields, and time
+If in your current schema, the total number of tags, fields, and time
 columns in a single measurement exceeds 250, we recommend updating your schema
 before migrating to {{< product-name >}}.
 
 Although you can [increase the column limit](/influxdb/clustered/admin/databases/create/#table-and-column-limits)
 per measurement when creating a database, it may adversely affect query performance.
 
-Because tags are metadata use to identify specific series, we recommend
+Because tags are metadata used to identify specific series, we recommend
 splitting groups of fields across multiple measurements.
 
 **In your InfluxDB 1.x instance**:

@@ -49,9 +49,9 @@ All query and write requests are subject to your InfluxDB Cloud organization's
 
 Before you migrate from InfluxDB Cloud (TSM) to {{< product-name >}}, there
 are schema design practices supported by the TSM storage engine that are not
-supported in the InfluxDB v3 storage engine. Specifically the following:
+supported in the InfluxDB v3 storage engine. Specifically, InfluxDB v3 enforces the following schema restrictions:
 
-- Cannot use duplicate names for tags and fields
+- You can't use duplicate names for tags and fields
 - Measurements can contain up to 200 columns where each column represents time,
   a field, or a tag.
 
@@ -83,7 +83,7 @@ data = () =>
 // ...
 ```
 
-This will rename tags as they are written to {{< product-name >}}.
+The function renames tags as they are written to {{< product-name >}}.
 
 {{% /expand %}}
 {{% expand "Fix measurements with more than 200 total columns" %}}
@@ -96,7 +96,7 @@ splitting groups of fields across multiple measurements.
 
 In the [migration Flux script below](#migration-flux-script), add a custom function
 that determines what measurement a field should be written to based on predefined
-groups of fields. Apply the new custom function to the existing the `data()` function.
+groups of fields. Call the new custom function from within the existing the `data()` function.
 For example:
 
 ```javascript
