@@ -14323,7 +14323,7 @@ paths:
           name: precision
           schema:
             type: string
-        - description: When present, its value indicates to the database that compression is applied to the line protocol body.
+        - description: When present, indicates that compression is applied to the line protocol body.
           in: header
           name: Content-Encoding
           schema:
@@ -14559,7 +14559,7 @@ tags:
       |:------------------------ |:--------------------- |:-------------------------------------------|
       | `Accept`                 | string                | The content type that the client can understand. |
       | `Authorization`          | string                | The authorization scheme and credential. |
-      | `Content-Length`         | integer               | The size of the entity-body, in bytes, sent to the database. |
+      | `Content-Length`         | integer               | The size of the entity-body, in bytes. |
       | `Content-Type`           | string                | The format of the data in the request body. |
     name: Headers
     x-traitTag: true
