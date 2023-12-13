@@ -88,7 +88,10 @@ InfluxDB rejects points for the following reasons:
 - an invalid timestamp
 - a schema conflict with existing tags or fields in the database
 
-A schema conflict can occur when points that fall within the same partition (default partitioning is measurement and day) as existing bucket data have a different data type for an existing field.
+Schema conflicts occur when you try to write data that contains the following:
+
+- a wrong data type: the point falls within the same partition (default partitioning is measurement and day) as existing bucket data and contains a different data type for an existing field
+- a tag and a field that use the same key
 
 For example, a _partial write_ may occur when InfluxDB writes all points that conform to a series in your bucket, but rejects points that have a different data type in a field.
 
