@@ -73,12 +73,10 @@ If you notice data is missing in your database, do the following:
 
 When writing points from a batch, InfluxDB rejects points that have syntax errors or schema conflicts.
 
-The following HTTP status codes indicate that your batch contains rejected points:
+If some points in the batch are written and some are rejected, the InfluxDB HTTP API responds with an HTTP `204 No Content` status code;
+if the entire batch is rejected, an HTTP `400 Bad Request` status code.
 
-- `201 "Created"`: Some points in the batch are written and some are rejected.
-- `400 "Bad Request"`: The entire batch is rejected.
-
-If some or all points in the batch are rejected, the API response body contains the following properties:
+If some or all points in the batch are rejected, the HTTP response body contains the following properties:
 
 - `code`: the status code description for rejected writes is `"invalid"`.
 - `line`: the line number of the _first_ rejected point in the batch.
