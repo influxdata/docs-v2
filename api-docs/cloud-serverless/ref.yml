@@ -13988,7 +13988,7 @@ paths:
       responses:
         '201':
           description: |
-            Success. Data in the batch is written and queryable.
+            Created. Data in the batch is written and queryable.
 
             If some points in the batch are rejected, the response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
           content:
@@ -14343,7 +14343,7 @@ paths:
       responses:
         "201":
           description: |
-            Success. Data in the batch is written and queryable.
+            Created. Data in the batch is written and queryable.
 
             If some points in the batch are rejected, the response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
           content:
