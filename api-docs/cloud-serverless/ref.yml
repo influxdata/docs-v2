@@ -13843,13 +13843,12 @@ paths:
 
         1.  Validates the request.
         2.  If successful, attempts to [ingest the data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest); [error](/influxdb/cloud-serverless/write-data/troubleshoot/#review-http-status-codes) otherwise.
-        3. If some or all points in the batch are written, responds with an HTTP `2xx` status code, acknowledging that data is written and queryable; error otherwise.
+        3. If some or all points in the batch are written, responds with an HTTP `204 "No Content"` status code, acknowledging that data is written and queryable; error otherwise.
 
-          - `204 "No Content"`: All data in the batch is written and queryable.
-          - `201 "Created"`: Some points in the batch are written and some are rejected.
+          - `204 "No Content"`: Data in the batch is written and queryable.
           - `400 "Bad Request"`: The entire batch is rejected.
 
-        The response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points).
+        If some points in the batch are rejected, the response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points).
 
         To ensure that InfluxDB handles writes in the order you request them,
         wait for the response before you send the next request.
@@ -13991,9 +13990,10 @@ paths:
           - [Best practices for optimizing writes](/influxdb/cloud-serverless/write-data/best-practices/optimize-writes/)
         required: true
       responses:
-        '201':
+        '204':
           description: |
-            Created. Some data in the batch is written and queryable and some is rejected.
+            Success.
+            Data in the batch is written and queryable.
 
             If some points in the batch are rejected, the response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
           content:
@@ -14011,9 +14011,6 @@ paths:
                       error message for Nth rejected point (up to 100 rejected points)"
               schema:
                 $ref: "#/components/schemas/LineProtocolError"
-        '204':
-          description: |
-            No content. All data in the batch is written and queryable.
         '400':
           description: |
             All data in the batch was rejected and not written.
@@ -14282,13 +14279,12 @@ paths:
 
         1.  Validates the request.
         2.  If successful, attempts to [ingest the data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest); [error](/influxdb/cloud-serverless/write-data/troubleshoot/#review-http-status-codes) otherwise.
-        3. If some or all points in the batch are written, responds with an HTTP `2xx` status code, acknowledging that data is written and queryable; error otherwise.
+        3. If some or all points in the batch are written, responds with an HTTP `204 "No Content"` status code, acknowledging that data is written and queryable; error otherwise.
 
-          - `204 "No Content"`: All data in the batch is written and queryable.
-          - `201 "Created"`: Some points in the batch are written and some are rejected.
+          - `204 "No Content"`: Data in the batch is written and queryable.
           - `400 "Bad Request"`: The entire batch is rejected.
 
-        The response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points).
+        If some points in the batch are rejected, the response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points).
 
         To ensure that InfluxDB handles writes in the order you request them,
         wait for the response before you send the next request.
@@ -14356,10 +14352,10 @@ paths:
         description: Line protocol body
         required: true
       responses:
-        "201":
+        "204":
           description: |
-            Created.
-            Some data in the batch is written and queryable and some is rejected.
+            Success.
+            Data in the batch is written and queryable.
 
             If some points in the batch are rejected, the response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
           content:
@@ -14377,8 +14373,6 @@ paths:
                       error message for Nth rejected point (up to 100 rejected points)"
               schema:
                 $ref: "#/components/schemas/LineProtocolError"
-        "204":
-          description: No content. All data in the batch is written and queryable.
         '400':
           description: |
             All data in the batch is rejected and not written.
@@ -14686,8 +14680,8 @@ tags:
       | &nbsp;Code&nbsp; | Status                   | Description      |
       |:-----------:|:------------------------ |:--------------------- |
       | `200`       | Success                  |                       |
-      | `201`        | Created                           | Successfully created a resource. The response body may contain details. |
-      | `204`       | Success. No content      | InfluxDB doesn't return data for the request. For example, a successful write request returns `204` status code, acknowledging that all data in the batch is written and queryable. |
+      | `201`       | Created                           | Successfully created a resource. The response body may contain details. |
+      | `204`       | No content      | The request succeeded, but InfluxDB doesn't typically return a response body for the operation. |
       | `400`       | Bad request              | InfluxDB can't parse the request due to an incorrect parameter or bad syntax. For _writes_, the error may indicate one of the following problems: <ul><li>Line protocol is malformed. The response body contains the first malformed line in the data and indicates what was expected.</li><li>The batch contains a point with the same series as other points, but one of the field values has a different data type.<li>`Authorization` header is missing or malformed or the API token doesn't have permission for the operation.</li></ul> |
       | `401`       | Unauthorized             | May indicate one of the following: <ul><li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token doesn't have permission. For more information about token types and permissions, see [Manage API tokens](/influxdb/cloud-serverless/security/tokens/)</li></ul> |
       | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |
