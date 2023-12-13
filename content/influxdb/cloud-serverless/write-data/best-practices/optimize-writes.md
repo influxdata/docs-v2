@@ -137,7 +137,7 @@ To write multiple lines in one request, each line of line protocol must be delim
 
 ## Pre-process data before writing
 
-Pre-process steps in your write workload can help you avoid [schema conflicts]() and exceeding [limits and quotas]().
+Pre-processing data in your write workload can help you avoid [schema conflicts]() and exceeding [limits and quotas]().
 For example, if you have many devices that write to the same measurement, and some devices use different data types for the same field, then you might want to generate an alert or convert field data to fit your schema before you send the data to InfluxDB.
 
 With Telegraf, you can listen for input data, process it, and then write it to InfluxDB.
@@ -374,6 +374,84 @@ The following example creates sample data for two series (the combination of mea
 ### Avoid sending duplicate data
 
 Use Telegraf and the [Dedup processor plugin](/telegraf/v1/plugins/#processor-dedup) to filter data whose field values are exact repetitions of previous values.
+Deduplicating your data can reduce your write payload size and resource usage.
+
+The following example creates sample data with duplicate points and shows how to deduplicate data before writing to InfluxDB:
+
+1. In your terminal, enter the following command to create the sample data file:
+
+   ```bash
+   cat <<EOF > ./home.lp
+   home,room=Kitchen co=22i,hum=36.6,temp=23.1
+   home,room=Living\ Room co=17i,hum=36.4,temp=22.7
+   home,room=Kitchen co=22i,hum=36.6,temp=23.1
+   home,room=Living\ Room co=17i,hum=36.4,temp=22.7
+   EOF
+   ```
+
+2. Enter the following command to configure Telegraf to parse the file, merge the points, and write the data to stdout and a bucket. To merge series, you must specify the following in your Telegraf configuration:
+
+   - the timestamp precision for your input data (for example, `influx_timestamp_precision` for line protocol)
+   - Optional: `aggregators.merge.grace` to extend the window and allow more points to be merged. For demonstration purposes, the following example sets `grace` to a large duration to include the sample data timestamps.
+
+   <!--pytest-codeblocks:cont-->
+
+   ```bash
+   cat <<EOF > ./telegraf.conf
+   # Parse metrics from a file
+   [[inputs.file]]
+     ## A list of files to parse during each interval.
+     files = ["home.lp"]
+     ## The precision of timestamps in your data.
+     influx_timestamp_precision = "1s"
+     tagexclude = ["host"]
+   # Filter metrics that repeat previous field values
+   [[processors.dedup]]
+     ## Drops duplicates within the specified duration
+     dedup_interval = "600s"
+   # Writes metrics as line protocol to the InfluxDB v2 API
+   [[outputs.influxdb_v2]]
+     ## InfluxDB credentials and the bucket to write data to.
+     urls = ["https://{{< influxdb/host >}}"]
+     token = "API_TOKEN"
+     organization = ""
+     bucket = "BUCKET_NAME"
+   EOF
+   ```
+
+3. Enter the following command to run Telegraf for one interval and then exit:
+
+   <!--pytest-codeblocks:cont-->
+
+   <!--before-test
+   ```bash
+   influx bucket create --name jason-test-create-bucket 2>/dev/null ||:
+   ```
+   -->
+
+   <!--pytest-codeblocks:cont-->
+
+   ```bash
+   # Run once and exit.
+   telegraf --once --config telegraf.conf
+   ```
+
+   Telegraf writes the following lines:
+
+   <!--pytest-codeblocks:cont-->
+
+   <!--hidden-test
+   ```bash
+   telegraf --test --config telegraf.conf
+   ```
+   -->
+
+   <!--pytest-codeblocks:expected-output-->
+
+   ```
+   > home,room=Kitchen co=22i,hum=36.6,temp=23.1 1641063600000000000
+   > home,room=Living\ Room co=17i,hum=36.4,temp=22.7 1641063600000000000
+   ```
 
 ### Aggregate data and write downsampled metrics
 
