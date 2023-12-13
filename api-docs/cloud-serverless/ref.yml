@@ -13839,24 +13839,33 @@ paths:
 
         Use this endpoint to send data in [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) format to InfluxDB.
 
-        InfluxDB does the following when you send a write request:
+        InfluxDB Cloud Serverless does the following when you send a write request:
 
         1. Validates the request
         2. If successful, attempts to [ingest the data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest); _error_ otherwise.
-        3.  If successful, responds with _success_ (HTTP `204` status code), acknowledging that the data is written and queryable; _error_ otherwise.
+        3.  If successful, responds with an HTTP `201 "Created"` status code, acknowledging that data is written and queryable.
+        If some points in the batch are rejected, the response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points).
 
-        To ensure that InfluxDB Cloud handles writes in the order you request them,
-        wait for a success response (HTTP `2xx` status code) before you send the next request.
+        To ensure that InfluxDB handles writes in the order you request them,
+        wait for the response before you send the next request.
+
+        #### Write endpoints
+
+        The [`/write`](#operation/GetLegacyQuery) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB Cloud Serverless.
+
+        - Use the [`/write` endpoint](#operation/GetLegacyQuery) for InfluxDB v1 parameter compatibility.
+        - Use [`/api/v2/write` endpoint](#operation/PostWrite) for InfluxDB v2 parameter compatibility.
 
         #### Rate limits
 
-        `write` rate limits apply.
+        _Write_ rate limits apply.
         For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/admin/billing/limits/).
 
         #### Related guides
 
+        - [Get started writing data](/influxdb/cloud-serverless/get-started/write/)
         - [Write data with the InfluxDB API](/influxdb/cloud-serverless/get-started/write/)
-        - [Optimize writes to InfluxDB](/influxdb/cloud-serverless/write-data/best-practices/optimize-writes/)
+        - [Best practices for writing data](/influxdb/cloud-serverless/write-data/best-practices/)
         - [Troubleshoot issues writing data](/influxdb/cloud-serverless/write-data/troubleshoot/)
       operationId: PostWrite
       parameters:
@@ -13977,25 +13986,43 @@ paths:
           - [Best practices for optimizing writes](/influxdb/cloud-serverless/write-data/best-practices/optimize-writes/)
         required: true
       responses:
-        '204':
+        '201':
           description: |
-            Success. Data is written and queryable.
-        '400':
+            Success. Data in the batch is written and queryable.
+
+            If some points in the batch are rejected, the response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
           content:
             application/json:
               examples:
-                measurementSchemaFieldTypeConflict:
-                  summary: field type conflict thrown by an explicit bucket schema
+                partialWriteErrorWithRejectedPoints:
+                  summary: Partial write rejects points with syntax errors
                   value:
                     code: invalid
-                    message: 'failed to parse line protocol: error writing line 2: Unable to insert iox::column_type::field::integer type into column temp  with type iox::column_type::field::string'
+                    line: 2
+                    message: "failed to parse line protocol:
+                      errors encountered on line(s):
+                      error message for first rejected point</n>
+                      error message for second rejected point</n>
+                      error message for Nth rejected point (up to 100 rejected points)"
+              schema:
+                $ref: "#/components/schemas/LineProtocolError"
+        '400':
+          description: All data in the batch was rejected and not written.
+          content:
+            application/json:
+              examples:
+                rejectedAllPoints:
+                  summary: Rejected all points
+                  value:
+                    code: invalid
+                    line: 2
+                    message: "failed to parse line protocol:
+                      errors encountered on line(s):
+                      error message for first rejected point</n>
+                      error message for second rejected point</n>
+                      error message for Nth rejected point (up to 100 rejected points)"
               schema:
                 $ref: '#/components/schemas/LineProtocolError'
-          description: |
-            Bad request. The response body contains detail about the error.
-
-            InfluxDB returns this error if the line protocol data in the request is malformed or contains a database schema conflict.
-            The response body contains the first malformed line in the data, and indicates what was expected.
         '401':
           $ref: '#/components/responses/AuthorizationError'
         '404':
@@ -14029,9 +14056,7 @@ paths:
             The request payload is too large.
             InfluxDB rejected the batch and did not write any data.
 
-            #### InfluxDB Cloud:
-
-             - Returns this error if the payload exceeds the 50MB size limit.
+            InfluxDB returns this error if the payload exceeds the 50MB size limit.
         '429':
           description: |
             Too many requests.
@@ -14237,6 +14262,39 @@ paths:
   /write:
     post:
       operationId: PostLegacyWrite
+      description: |
+        Writes data to a bucket.
+
+        Use this endpoint to send data in [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) format to InfluxDB.
+
+        InfluxDB Cloud Serverless does the following when you send a write request:
+
+        1.  Validates the request.
+        2.  If successful, attempts to [ingest the data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest); [error](/influxdb/cloud-serverless/write-data/troubleshoot/#review-http-status-codes) otherwise.
+        3.  Processes data in the request body and then responds with one of the following HTTP status codes:
+          - `201 Created`: Data in the batch is written and queryable. If some points in the batch are rejected, the response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points).
+          - `400 Bad request`: No data in the batch is written. The response body contains details about [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points).
+
+        To ensure that InfluxDB handles writes in the order you request them,
+        wait for the response before you send the next request.
+
+        #### Write endpoints
+
+        The [`/write`](#operation/GetLegacyQuery) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB Cloud Serverless.
+
+        - Use the [`/write` endpoint](#operation/GetLegacyQuery) for InfluxDB v1 parameter compatibility.
+        - Use [`/api/v2/write` endpoint](#operation/PostWrite) for InfluxDB v2 parameter compatibility.
+
+        #### Rate limits
+
+        _Write_ rate limits apply.
+        For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/admin/billing/limits/).
+
+        #### Related guides
+
+        - [Write data with the InfluxDB API](/influxdb/cloud-serverless/get-started/write/)
+        - [Optimize writes to InfluxDB](/influxdb/cloud-serverless/write-data/best-practices/optimize-writes/)
+        - [Troubleshoot issues writing data](/influxdb/cloud-serverless/write-data/troubleshoot/)
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: The InfluxDB 1.x username to authenticate the request.
@@ -14283,14 +14341,43 @@ paths:
         description: Line protocol body
         required: true
       responses:
-        '204':
-          description: Write data is correctly formatted and accepted for writing to the bucket.
-        '400':
+        "201":
+          description: |
+            Success. Data in the batch is written and queryable.
+
+            If some points in the batch are rejected, the response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
           content:
             application/json:
+              examples:
+                partialWriteErrorWithRejectedPoints:
+                  summary: Partial write rejects points with syntax errors
+                  value:
+                    code: invalid
+                    line: 2
+                    message: "failed to parse line protocol:
+                      errors encountered on line(s):
+                      error message for first rejected point</n>
+                      error message for second rejected point</n>
+                      error message for Nth rejected point (up to 100 rejected points)"
+              schema:
+                $ref: "#/components/schemas/LineProtocolError"
+        '400':
+          description: All data in the batch was rejected and not written.
+          content:
+            application/json:
+              examples:
+                rejectsAllPoints:
+                  summary: Rejected all points
+                  value:
+                    code: invalid
+                    line: 2
+                    message: "failed to parse line protocol:
+                      errors encountered on line(s):
+                      error message for first rejected point</n>
+                      error message for second rejected point</n>
+                      error message for Nth rejected point (up to 100 rejected points)"
               schema:
                 $ref: '#/components/schemas/LineProtocolError'
-          description: Line protocol poorly formed and no points were written.  Response can be used to determine the first malformed line in the body line-protocol. All data in body was rejected and not written.
         '401':
           content:
             application/json:
@@ -14331,32 +14418,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Internal server error
-      description: |
-        Writes data to a bucket.
-
-        Use this InfluxDB v1-compatible endpoint to send data in [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) format to InfluxDB using v1 API parameters and authorization.
-
-        InfluxDB does the following when you send a write request:
-
-        1. Validates the request
-        2. If successful, attempts to [ingest the data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest); _error_ otherwise.
-        3.  If successful, responds with _success_ (HTTP `204` status code), acknowledging that the data is written and queryable; _error_ otherwise.
-
-        To ensure that InfluxDB handles writes in the order you request them,
-        wait for a success response (HTTP `2xx` status code) before you send the next request.
-
-        #### Rate limits
-
-        `write` rate limits apply.
-        For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/admin/billing/limits/).
-
-        #### Related guides
-
-        - [Write data with the InfluxDB API](/influxdb/cloud-serverless/get-started/write/)
-        - [Optimize writes to InfluxDB](/influxdb/cloud-serverless/write-data/best-practices/optimize-writes/)
-        - [Troubleshoot issues writing data](/influxdb/cloud-serverless/write-data/troubleshoot/)
       summary: Write data using the InfluxDB v1 API
       tags:
+        - Data I/O endpoints
         - Write
 security:
   - TokenAuthentication: []
@@ -14602,7 +14666,7 @@ tags:
       |:-----------:|:------------------------ |:--------------------- |
       | `200`       | Success                  |                       |
       | `204`       | Success. No content      | InfluxDB doesn't return data for the request. For example, a successful write request returns `204` status code, acknowledging that data is written and queryable. |
-      | `400`       | Bad request              | InfluxDB can't parse the request due to an incorrect parameter or bad syntax. For _writes_, the error may indicate one of the following problems: <ul><li>Line protocol is malformed. The response body contains the first malformed line in the data and indicates what was expected. For partial writes, the number of points written and the number of points rejected are also included.</li><li>`Authorization` header is missing or malformed or the API token doesn't have permission for the operation.</li></ul> |
+      | `400`       | Bad request              | InfluxDB can't parse the request due to an incorrect parameter or bad syntax. For _writes_, the error may indicate one of the following problems: <ul><li>Line protocol is malformed. The response body contains the first malformed line in the data and indicates what was expected.</li><li>The batch contains a point with the same series as other points, but one of the field values has a different data type.<li>`Authorization` header is missing or malformed or the API token doesn't have permission for the operation.</li></ul> |
       | `401`       | Unauthorized             | May indicate one of the following: <ul><li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token doesn't have permission. For more information about token types and permissions, see [Manage API tokens](/influxdb/cloud-serverless/security/tokens/)</li></ul> |
       | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |
       | `405`       | Method not allowed       | The API path doesn't support the HTTP method used in the request--for example, you send a `POST` request to an endpoint that only allows `GET`. |
