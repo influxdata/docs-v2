@@ -86,7 +86,7 @@ InfluxDB rejects points for the following reasons:
 
 - a line protocol parsing error
 - an invalid timestamp
-- a schema conflict with existing tags or fields in the database
+- a schema conflict with existing tags or fields in the measurement
 
 Schema conflicts occur when you try to write data that contains the following:
 
