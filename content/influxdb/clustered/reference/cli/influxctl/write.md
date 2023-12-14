@@ -19,7 +19,7 @@ Provide line protocol in one of the following ways:
 
 - a string on the command line
 - a path to a file that contains line protocol
-- as a single dash (`-`) to read line protocol from stdin
+- a single dash (`-`) to read line protocol from stdin
 
 {{% note %}}
 #### Important to note
@@ -35,9 +35,9 @@ Provide line protocol in one of the following ways:
 Your {{< product-name omit=" Clustered" >}} cluster host and port should be
 configured in your in your `influxctl`
 [connection profile](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles).
-By default TLS and port 443 are used.
-You can also set a default database and token to use for the `query` and `write`
-commands in your connection profile, but these can also be passed with the
+Default uses TLS and port 443.
+You can set a default database and token to use for the `query` and `write`
+commands in your connection profile or pass them with the
 command using the `--database` and `--token` flags.
 Command line flags override settings in the connection profile. 
 

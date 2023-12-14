@@ -20,7 +20,7 @@ Provide the SQL query in one of the following ways:
 
 - a string on the command line
 - a path to a file that contains the query
-- as a single dash (`-`) to read the query from stdin
+- a single dash (`-`) to read the query from stdin
 
 {{% note %}}
 #### Important to note
@@ -36,16 +36,16 @@ Provide the SQL query in one of the following ways:
 Your {{< product-name omit=" Clustered" >}} cluster host and port should be
 configured in your in your `influxctl`
 [connection profile](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles).
-By default TLS and port 443 are used.
-You can also set a default database and token to use for the `query` and `write`
-commands in your connection profile, but these can also be passed with the
+Default is TLS and port 443.
+You can set a default database and token to use for the `query` and `write`
+commands in your connection profile or pass them with the
 command using the `--database` and `--token` flags.
 Command line flags override settings in the connection profile. 
 
 ### Output format
 
 The `--format` option lets you print the output in other formats.
-By default, the 'table' format is used, but the 'json' format is
+Default is 'table' format, but the 'json' format is
 available for programmatic parsing by other tooling.
 
 ## Usage

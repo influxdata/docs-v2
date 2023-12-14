@@ -33,11 +33,11 @@ Provide line protocol in one of the following ways:
 ### InfluxDB connection configuration
 
 Your {{< product-name omit=" Clustered" >}} cluster host and port should be
-configured in your in your `influxctl`
+configured in your `influxctl`
 [connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles).
-By default TLS and port 443 are used.
-You can also set a default database and token to use for the `query` and `write`
-commands in your connection profile, but these can also be passed with the
+Default uses TLS and port 443.
+You can set a default database and token to use for the `query` and `write`
+commands in your connection profile or pass them with the
 command using the `--database` and `--token` flags.
 Command line flags override settings in the connection profile. 
 
