@@ -1,7 +1,7 @@
 ---
 title: influxctl query
 description: >
-  The `influxctl query` command command queries data from InfluxDB Clustered
+  The `influxctl query` command queries data from InfluxDB Clustered
   using SQL and prints results as a table or JSON.
 menu:
   influxdb_clustered:
