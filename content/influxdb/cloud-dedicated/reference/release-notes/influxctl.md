@@ -11,21 +11,31 @@ menu:
 weight: 202
 ---
 
+## v2.4.1 {date="2023-12-14"}
+
+### Bug fixes
+
+- Update `influxctl query` examples with SQL instead of InfluxQL.
+- Update example connection profile configuration with query and write options.
+- Use database and token CLI options if set.
+
+---
+
 ## v2.4.0 {date="2023-12-13"}
 
-This release includes a two notable changes:
+This release includes the following notable changes:
 
-1.  InfluxDB Cloud Dedicated users now have the same `influxctl` login experience
-    as InfluxDB Clustered users. The Auth0 server uses device authorization by
-    displaying a code to validate when logging in. The browser still opens,
-    if possible, and pre-populates the code. The only difference is the need to
-    verify the code on one additional page. This was done to align the user
-    experience between both InfluxDB Cloud Dedicated and InfluxDB Clustered and
-    to allow Cloud Dedicated users without a local UI or browser to continue to
-    use `influxctl`.
-2.  Introduce the `influxctl write` and `influxctl query` commands.
-    `influxctl query` queries an InfluxDB v3 instance using SQL.
-    `influxctl write` writes line protocol to a InfluxDB v3 instance.
+- InfluxDB Cloud Dedicated users now have the same `influxctl` login experience
+  as InfluxDB Clustered users. The Auth0 server uses device authorization by
+  displaying a code to validate when logging in. The browser still opens,
+  if possible, and pre-populates the code. The only difference is the need to
+  verify the code on one additional page. This was done to align the user
+  experience between both InfluxDB Cloud Dedicated and InfluxDB Clustered and
+  to allow Cloud Dedicated users without a local UI or browser to continue to
+  use `influxctl`.
+- Introduce the `influxctl write` and `influxctl query` commands.
+  `influxctl query` queries an InfluxDB v3 instance using SQL.
+  `influxctl write` writes line protocol to a InfluxDB v3 instance.
 
 ### Features
 

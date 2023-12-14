@@ -1,6 +1,5 @@
 ---
 title: Query data in InfluxDB Clustered
-seotitle: Query data stored in InfluxDB Clustered
 description: >
   Learn to query data stored in InfluxDB using SQL and InfluxQL.
 menu:
