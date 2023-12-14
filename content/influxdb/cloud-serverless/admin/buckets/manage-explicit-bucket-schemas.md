@@ -19,7 +19,7 @@ alt_links:
 {{% warn %}}
 #### Don't use explicit schemas with InfluxDB v3
 
-We don't recommend using **explicit bucket schemas** with InfluxDB v3.
+Don't use **explicit bucket schemas** with InfluxDB v3.
 The sections on this page provide help for managing and troubleshooting `explicit` buckets you may already have.
 {{% /warn %}}
 
