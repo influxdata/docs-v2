@@ -44,8 +44,9 @@ The examples in this section of the tutorial query the
 {{% product-name %}} supports many different tools for querying data, including:
 
 {{< req type="key" text="Covered in this tutorial" color="magenta" >}}
-- [`influx3` data CLI](?t=influx3+CLI#execute-an-sql-query){{< req "\*  " >}}
-- [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/){{< req "\*  " >}}
+- [`influxctl` CLI](#execute-an-sql-query){{< req text="\*  " color="magenta" >}}
+- [`influx3` data CLI](?t=influx3+CLI#execute-an-sql-query){{< req text="\*  " color="magenta" >}}
+- [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/){{< req text="\*  " color="magenta" >}}
 - [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight/)
 - [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)
@@ -176,8 +177,11 @@ ORDER BY room, _time
 
 Get started with one of the following tools for querying data stored in an {{% product-name %}} database:
 
+- **`influxctl` CLI**: Query data from your command-line using the
+  [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/).
+- **`influx3` CLI**: Query data from your terminal command-line using the
+  Python-based [`influx3` CLI](https://github.com/InfluxCommunity/influxdb3-python).
 - **InfluxDB v3 client libraries**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
-- **influx3 CLI**: Send queries from your terminal command-line.
 - **Grafana**: Use the [FlightSQL Data Source plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/), to query, connect, and visualize data.
 
 For this example, use the following query to select all the data written to the
@@ -200,19 +204,52 @@ WHERE
 
 {{% note %}}
 Some examples in this getting started tutorial assume your InfluxDB
-credentials (**URL**, **organization**, and **token**) are provided by
+credentials (**URL**, and **token**) are provided by
 [environment variables](/influxdb/cloud-dedicated/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
 {{% /note %}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[influx3 CLI](#influx3-cli)
+[influxctl CLI](#)
+[influx3 CLI](#)
 [Python](#)
 [Go](#)
 [Node.js](#)
 [C#](#)
 [Java](#)
 {{% /tabs %}}
+{{% tab-content %}}
+<!-------------------------- BEGIN influxctl CONTENT -------------------------->
+
+Use the [`influxctl query` command](/influxdb/cloud-dedicated/reference/cli/influxctl/query/)
+to query the [home sensor sample data](#home-sensor-data-line-protocol) in your
+{{< product-name omit=" Clustered" >}} cluster.
+Provide the following:
+
+- Database name to query using the `--database` flag
+- Database token using the `--token` flag (use the `INFLUX_TOKEN` environment variable created in
+  [Get started--Set up {{< product-name >}}](/influxdb/cloud-dedicated/get-started/setup/#configure-authentication-credentials))
+- SQL query
+
+{{% influxdb/custom-timestamps %}}
+{{% code-placeholders "get-started" %}}
+```sh
+influxctl query \
+  --database get-started \
+  --token $INFLUX_TOKEN \
+  "SELECT
+  *
+FROM
+  home
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'"
+```
+{{% /code-placeholders %}}
+{{% /influxdb/custom-timestamps %}}
+
+<!--------------------------- END influxctl CONTENT --------------------------->
+{{% /tab-content %}}
 {{% tab-content %}}
 <!--------------------------- BEGIN influx3 CONTENT --------------------------->
 {{% influxdb/custom-timestamps %}}

@@ -27,6 +27,7 @@ InfluxDB provides many different options for ingesting or writing data, includin
 
 - InfluxDB HTTP API (v1 and v2)
 - Telegraf
+- `influxctl` CLI
 - `influx3` data CLI
 - InfluxDB client libraries
 
@@ -46,7 +47,8 @@ Each line of line protocol contains the following elements:
 
 {{< req type="key" >}}
 
-- {{< req "\*" >}} **measurement**:  String that identifies the [measurement](/influxdb/clustered/reference/glossary/#measurement) to store the data in.
+- {{< req "\*" >}} **measurement**:  String that identifies the
+  [measurement](/influxdb/clustered/reference/glossary/#measurement) to store the data in.
 - **tag set**: Comma-delimited list of key value pairs, each representing a tag.
   Tag keys and values are unquoted strings. _Spaces, commas, and equal characters must be escaped._
 - {{< req "\*" >}} **field set**: Comma-delimited list of key value pairs, each representing a field.
@@ -150,6 +152,7 @@ credentials (**URL**, **organization**, and **token**) are provided by
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
+[influxctl CLI](#)
 [Telegraf](#)
 [v1 API](#)
 [v2 API](#)
@@ -159,6 +162,59 @@ credentials (**URL**, **organization**, and **token**) are provided by
 [C#](#)
 [Java](#)
 {{% /tabs %}}
+{{% tab-content %}}
+<!---------------------------- BEGIN INFLUXCTL CLI CONTENT ---------------------------->
+
+Use the [`influxctl write` command](/influxdb/clustered/reference/cli/influxctl/write/)
+to write the [home sensor sample data](#home-sensor-data-line-protocol) to your
+{{< product-name omit=" Clustered" >}} cluster.
+Provide the following:
+
+- Database name using the `--database` flag
+- Database token using the `--token` flag (use the `INFLUX_TOKEN` environment variable created in
+  [Get started--Set up {{< product-name >}}](/influxdb/clustered/get-started/setup/#configure-authentication-credentials))
+- Timestamp precision as seconds (`s`) using the `--precision` flag
+- [Home sensor data line protocol](#home-sensor-data-line-protocol)
+
+{{% influxdb/custom-timestamps %}}
+{{% code-placeholders "get-started" %}}
+```sh
+influxctl write \
+  --database get-started \
+  --token $INFLUX_TOKEN \
+  --precision s \
+  'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200'
+```
+
+{{% /code-placeholders %}}
+{{% /influxdb/custom-timestamps %}}
+<!----------------------------- END INFLUXCTL CLI CONTENT ----------------------------->
+{{% /tab-content %}}
 {{% tab-content %}}
 <!------------------------------- BEGIN TELEGRAF CONTENT ------------------------------>
 {{% influxdb/custom-timestamps %}}
