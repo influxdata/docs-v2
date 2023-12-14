@@ -2,8 +2,8 @@
 title: influxctl
 list_title: influxctl
 description: >
-  The `influxctl` command line interface (CLI) performs administrative tasks in
-  an InfluxDB Cloud Dedicated cluster.
+  The `influxctl` command line interface (CLI) writes to, queries, and performs
+  administrative tasks in an InfluxDB Cloud Dedicated cluster.
 menu:
   influxdb_cloud_dedicated:
     name: influxctl
@@ -12,8 +12,8 @@ weight: 101
 influxdb/cloud-dedicated/tags: [cli]
 ---
 
-The `influxctl` command line interface (CLI) performs administrative tasks in
-an InfluxDB Cloud Dedicated cluster.
+The `influxctl` command line interface (CLI) writes to, queries, and performs
+administrative tasks in an {{< product-name omit=" Clustered" >}} cluster.
 
 - [Usage](#usage)
 - [Commands](#commands)
@@ -34,10 +34,12 @@ influxctl [flags] [command]
 | :---------------------------------------------------------------------- | :------------------------------------- |
 | [cluster](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/)   | List InfluxDB v3 cluster information   |
 | [database](/influxdb/cloud-dedicated/reference/cli/influxctl/database/) | Manage InfluxDB v3 databases           |
+| [help](/influxdb/cloud-dedicated/reference/cli/influxctl/help/)         | Output `influxctl` help information    |
+| [query](/influxdb/cloud-dedicated/reference/cli/influxctl/query/)       | Query data from InfluxDB v3            |
 | [token](/influxdb/cloud-dedicated/reference/cli/influxctl/token/)       | Manage InfluxDB v3 database tokens     |
 | [user](/influxdb/cloud-dedicated/reference/cli/influxctl/user/)         | Manage InfluxDB v3 cluster users       |
 | [version](/influxdb/cloud-dedicated/reference/cli/influxctl/version/)   | Output the current `influxctl` version |
-| [help](/influxdb/cloud-dedicated/reference/cli/influxctl/help/)         | Output `influxctl` help information    |
+| [write](/influxdb/cloud-dedicated/reference/cli/influxctl/write/)       | Write line protocol to InfluxDB v3     |
 
 ## Global flags
 
@@ -299,16 +301,21 @@ If stored at a non-default location, include the `--config` flag with each
     ## Choose from "clustered" or "dedicated"
     product = "dedicated"
 
+    ## Host and port
+    ## InfluxDB hostname/IP address and port. Used for query and write subcommands.
+    ## Required for InfluxDB Clustered.
+    host = "{{< influxdb/host >}}"
+    # port = "443"
+
+    ## Database and token
+    ## Used for the query and write subcommands
+    # database = ""
+    # token = ""
+
     ### Dedicated Specific Options ###
     ## Account ID and cluster ID
     account_id = "ACCOUNT_ID"
     cluster_id = "CLUSTER_ID"
-
-    ### Clustered Specific Options ###
-    ## Host and port
-    ## The hostname/IP address and port to connect to the dedicated instance
-    # host = ""
-    # port = ""
 
     ## Custom client-side TLS certs
     ## By default, the system certificates are used. If a custom certificate
@@ -334,7 +341,7 @@ Replace the following values in the sample:
 
 - {{% code-placeholder-key %}}`PROFILE_NAME`{{% /code-placeholder-key %}}:
   Use `default` for your default connection profile or a custom name for a
-  non-default profile.
+  non-default profile
 - {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}:
   InfluxDB Cloud Dedicated account ID
 - {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}:

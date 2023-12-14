@@ -2,8 +2,8 @@
 title: influxctl
 list_title: influxctl
 description: >
-  The `influxctl` command line interface (CLI) performs administrative tasks in
-  an InfluxDB cluster.
+  The `influxctl` command line interface (CLI) writes to, queries, and performs
+  administrative tasks in an InfluxDB cluster.
 menu:
   influxdb_clustered:
     name: influxctl
@@ -12,8 +12,8 @@ weight: 101
 influxdb/clustered/tags: [cli]
 ---
 
-The `influxctl` command line interface (CLI) performs administrative tasks in
-an InfluxDB cluster.
+The `influxctl` command line interface (CLI) writes to, queries, and performs
+administrative tasks in an {{< product-name omit=" Clustered" >}} cluster.
 
 - [Usage](#usage)
 - [Commands](#commands)
@@ -34,10 +34,12 @@ influxctl [flags] [command]
 | :---------------------------------------------------------------- | :------------------------------------- |
 | [cluster](/influxdb/clustered/reference/cli/influxctl/cluster/)   | List InfluxDB v3 cluster information   |
 | [database](/influxdb/clustered/reference/cli/influxctl/database/) | Manage InfluxDB v3 databases           |
+| [help](/influxdb/clustered/reference/cli/influxctl/help/)         | Output `influxctl` help information    |
+| [query](/influxdb/clustered/reference/cli/influxctl/query/)       | Query data from InfluxDB v3            |
 | [token](/influxdb/clustered/reference/cli/influxctl/token/)       | Manage InfluxDB v3 database tokens     |
 | [user](/influxdb/clustered/reference/cli/influxctl/user/)         | Manage InfluxDB v3 cluster users       |
 | [version](/influxdb/clustered/reference/cli/influxctl/version/)   | Output the current `influxctl` version |
-| [help](/influxdb/clustered/reference/cli/influxctl/help/)         | Output `influxctl` help information    |
+| [write](/influxdb/clustered/reference/cli/influxctl/write/)       | Write line protocol to InfluxDB v3     |
 
 ## Global flags
 
@@ -285,7 +287,7 @@ If stored at a non-default location, include the `--config` flag with each
 {{< expand-wrapper >}}
 {{% expand "View sample `config.toml`" %}}
 
-{{% code-placeholders "(PROFILE|INFLUXDB|OAUTH)_(NAME|HOST|PORT|CLIENT_ID|TOKEN_URL|DEVICE_URL)" %}}
+{{% code-placeholders "(PROFILE|INFLUXDB|OAUTH)_(NAME|PORT|CLIENT_ID|TOKEN_URL|DEVICE_URL)" %}}
 ```toml
 ## influxctl - example configuration
 
@@ -300,16 +302,21 @@ If stored at a non-default location, include the `--config` flag with each
     ## Choose from "clustered" or "dedicated"
     product = "clustered"
 
+    ## Host and port
+    ## InfluxDB hostname/IP address and port.
+    ## Required for InfluxDB Clustered.
+    host = "{{< influxdb/host >}}"
+    port = "INFLUXDB_PORT"
+
+    ## Database and token
+    ## Used for the query and write subcommands
+    # database = ""
+    # token = ""
+
     ### Dedicated Specific Options ###
     ## Account ID and cluster ID
     # account_id = ""
     # cluster_id = ""
-
-    ### Clustered Specific Options ###
-    ## Host and port
-    ## The hostname/IP address and port to connect to the InfluxDB cluster
-    host = "INFLUXDB_HOST"
-    port = "INFLUXDB_PORT"
 
     ## Custom client-side TLS certs
     ## By default, the system certificates are used. If a custom certificate
@@ -336,8 +343,6 @@ Replace the following values in the sample:
 - {{% code-placeholder-key %}}`PROFILE_NAME`{{% /code-placeholder-key %}}:
   Use `default` for your default connection profile or a custom name for a
   non-default profile.
-- {{% code-placeholder-key %}}`INFLUXDB_HOST`{{% /code-placeholder-key %}}:
-  InfluxDB account host
 - {{% code-placeholder-key %}}`INFLUXDB_PORT`{{% /code-placeholder-key %}}:
   InfluxDB cluster port
 - {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}:

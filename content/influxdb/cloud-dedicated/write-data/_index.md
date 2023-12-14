@@ -1,5 +1,5 @@
 ---
-title: Write data to InfluxDB Cloud Dedicated (Single-tenant)
+title: Write data to InfluxDB Cloud Dedicated
 list_title: Write data
 description: >
   Collect and write time series data to InfluxDB Cloud Dedicated.
