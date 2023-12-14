@@ -374,9 +374,9 @@ The following example creates sample data for two series (the combination of mea
 ### Avoid sending duplicate data
 
 Use Telegraf and the [Dedup processor plugin](/telegraf/v1/plugins/#processor-dedup) to filter data whose field values are exact repetitions of previous values.
-Deduplicating your data can reduce your write payload size and resource usage.
+Removing duplicate lines can reduce your write payload size and resource usage.
 
-The following example creates sample data with duplicate points and shows how to deduplicate data before writing to InfluxDB:
+The following example creates sample data with duplicate points and shows how to deduplicate before writing to InfluxDB:
 
 1. In your terminal, enter the following command to create the sample data file:
 
@@ -442,6 +442,8 @@ The following example creates sample data with duplicate points and shows how to
 
    <!--hidden-test
    ```bash
+   # --test is deterministic when writing field sequence to stdout,
+   # whereas outputs.file reorders fields from one run to the next.
    telegraf --test --config telegraf.conf
    ```
    -->
