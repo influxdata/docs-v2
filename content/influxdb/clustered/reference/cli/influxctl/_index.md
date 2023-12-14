@@ -287,7 +287,7 @@ If stored at a non-default location, include the `--config` flag with each
 {{< expand-wrapper >}}
 {{% expand "View sample `config.toml`" %}}
 
-{{% code-placeholders "(PROFILE|INFLUXDB|OAUTH)_(NAME|HOST|PORT|CLIENT_ID|TOKEN_URL|DEVICE_URL)" %}}
+{{% code-placeholders "(PROFILE|INFLUXDB|OAUTH)_(NAME|PORT|CLIENT_ID|TOKEN_URL|DEVICE_URL)" %}}
 ```toml
 ## influxctl - example configuration
 
@@ -305,7 +305,7 @@ If stored at a non-default location, include the `--config` flag with each
     ## Host and port
     ## InfluxDB hostname/IP address and port.
     ## Required for InfluxDB Clustered.
-    host = "INFLUXDB_HOST"
+    host = "{{< influxdb/host >}}"
     port = "INFLUXDB_PORT"
 
     ## Database and token
@@ -343,8 +343,6 @@ Replace the following values in the sample:
 - {{% code-placeholder-key %}}`PROFILE_NAME`{{% /code-placeholder-key %}}:
   Use `default` for your default connection profile or a custom name for a
   non-default profile.
-- {{% code-placeholder-key %}}`INFLUXDB_HOST`{{% /code-placeholder-key %}}:
-  InfluxDB account host
 - {{% code-placeholder-key %}}`INFLUXDB_PORT`{{% /code-placeholder-key %}}:
   InfluxDB cluster port
 - {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}:

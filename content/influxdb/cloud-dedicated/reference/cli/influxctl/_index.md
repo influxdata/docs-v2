@@ -2,8 +2,8 @@
 title: influxctl
 list_title: influxctl
 description: >
-  The `influxctl` command line interface (CLI) performs administrative tasks in
-  an InfluxDB Cloud Dedicated cluster.
+  The `influxctl` command line interface (CLI) writes to, queries, and performs
+  administrative tasks in an InfluxDB Cloud Dedicated cluster.
 menu:
   influxdb_cloud_dedicated:
     name: influxctl
@@ -12,8 +12,8 @@ weight: 101
 influxdb/cloud-dedicated/tags: [cli]
 ---
 
-The `influxctl` command line interface (CLI) performs administrative tasks in
-an InfluxDB Cloud Dedicated cluster.
+The `influxctl` command line interface (CLI) writes to, queries, and performs
+administrative tasks in an {{< product-name omit=" Clustered" >}} cluster.
 
 - [Usage](#usage)
 - [Commands](#commands)
@@ -286,7 +286,7 @@ If stored at a non-default location, include the `--config` flag with each
 {{< expand-wrapper >}}
 {{% expand "View sample `config.toml`" %}}
 
-{{% code-placeholders "(PROFILE|ACCOUNT|CLUSTER|INFLUXDB)_(NAME|ID|HOST)" %}}
+{{% code-placeholders "(PROFILE|ACCOUNT|CLUSTER)_(NAME|ID)" %}}
 ```toml
 ## influxctl - example configuration
 
@@ -304,7 +304,7 @@ If stored at a non-default location, include the `--config` flag with each
     ## Host and port
     ## InfluxDB hostname/IP address and port. Used for query and write subcommands.
     ## Required for InfluxDB Clustered.
-    host = "INFLUXDB_HOST"
+    host = "{{< influxdb/host >}}"
     # port = "443"
 
     ## Database and token
@@ -342,8 +342,6 @@ Replace the following values in the sample:
 - {{% code-placeholder-key %}}`PROFILE_NAME`{{% /code-placeholder-key %}}:
   Use `default` for your default connection profile or a custom name for a
   non-default profile
-- {{% code-placeholder-key %}}`INFLUXDB_HOST`{{% /code-placeholder-key %}}:
-  InfluxDB Cloud Dedicated cluster hostname
 - {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}:
   InfluxDB Cloud Dedicated account ID
 - {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}:

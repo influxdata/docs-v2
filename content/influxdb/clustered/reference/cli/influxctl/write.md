@@ -32,7 +32,7 @@ Provide line protocol in one of the following ways:
 
 ### InfluxDB connection configuration
 
-Your {{< product-name omit=" Clustered" >}} cluster host and port should be
+Your {{< product-name omit=" Clustered" >}} cluster host and port are
 configured in your in your `influxctl`
 [connection profile](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles).
 Default uses TLS and port 443.
