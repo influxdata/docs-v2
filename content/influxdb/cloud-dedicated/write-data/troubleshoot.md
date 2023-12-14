@@ -26,14 +26,21 @@ Learn how to avoid unexpected results and recover from errors when writing to {{
 
 ## Handle write responses
 
-In {{% product-name %}}, writes are synchronous.
-After InfluxDB validates the request and attempts to write the data, it responds with a _success_ or _error_ message that indicates the final status of the write.
+{{% product-name %}} does the following when you send a write request:
 
-A success response (HTTP `204` status code) acknowledges that all data in the batch is written and queryable.
+1. Validates the request.
+2. If successful, attempts to [ingest data](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest) from the request body;
+   otherwise, responds with an [error status](#review-http-status-codes).
+3. Returns one of the following HTTP status codes:
 
-If InfluxDB responds with an [HTTP error status code](#review-http-status-codes), one or more points weren't written.
-The response body contains information about [rejected points](#troubleshoot-rejected-points).
-Written points are queryable.
+   - `204 No Content`: all data in the batch is ingested
+   - _If **partial writes** are configured for your cluster_, `201 Created`: some points in the batch are ingested, and some points are rejected
+   - `400 Bad Request`: all data in the batch is rejected
+
+   In InfluxDB, writes are synchronous--the response status indicates the final status of the write and all ingested data is queryable.
+
+   If InfluxDB responds with an HTTP `201 Created` status code or an [error status code](#review-http-status-codes), one or more points weren't ingested.
+   The response body contains error details about [rejected points](#troubleshoot-rejected-points), up to 100 points.
 
 To ensure that InfluxDB handles writes in the order you request them, wait for the response before you send the next request.
 
@@ -41,15 +48,16 @@ To ensure that InfluxDB handles writes in the order you request them, wait for t
 
 InfluxDB uses conventional HTTP status codes to indicate the success or failure of a request.
 The `message` property of the response body may contain additional details about the error.
-Write requests return the following status codes:
+{{< product-name >}} returns one the following HTTP status codes for a write request:
 
-| HTTP response code              | Response body                                                                    | Description    |
-| :-------------------------------| :---------------------------------------------------------------        | :------------- |
-| `201 "Created"`                 | error details about rejected points, up to 100 points: `line` contains the first rejected line, `message` describes rejections                                                                       | If InfluxDB ingested some or all of the data |
-| `400 "Bad request"`             | `message` contains the first malformed line                             | If request data is malformed |
-| `401 "Unauthorized"`            |                                                                         | If the `Authorization` header is missing or malformed or if the [token](/influxdb/cloud-dedicated/admin/tokens/) doesn't have [permission](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/#examples) to write to the database. See [examples using credentials](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb) in write requests. |
-| `404 "Not found"`               | requested **resource type** (for example, "organization" or "database"), and **resource name**     | If a requested resource (for example, organization or database) wasn't found |
-| `500 "Internal server error"`   |                                                                         | Default status for an error |
+| HTTP response code            | Response body                                                                                                                       | Description                                                                                                                                                                                                                                                                                                                                                                      |
+|:------------------------------|:------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `201 "Created"`               | error details about rejected points, up to 100 points: `line` contains the first rejected line, `message` describes rejections      | _If **partial writes** are configured for the cluster_, and if some of the data is ingested and some of the data is rejected                                                                                                                                                                                                                                                                                                  |
+| `204 No Content"`             | no response body                                                                                                                    | If InfluxDB ingested all of the data in the batch                                                                                                                                                                                                                                                                                                                                |
+| `400 "Bad request"`           | error details about rejected points, up to 100 points: `line` contains the first rejected line, `message` describes rejections line | If request data is malformed                                                                                                                                                                                                                                                                                                                                                     |
+| `401 "Unauthorized"`          |                                                                                                                                     | If the `Authorization` header is missing or malformed or if the [token](/influxdb/cloud-dedicated/admin/tokens/) doesn't have [permission](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/#examples) to write to the database. See [examples using credentials](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb) in write requests. |
+| `404 "Not found"`             | requested **resource type** (for example, "organization" or "database"), and **resource name**                                      | If a requested resource (for example, organization or database) wasn't found                                                                                                                                                                                                                                                                                                     |
+| `500 "Internal server error"` |                                                                                                                                     | Default status for an error                                                                                                                                                                                                                                                                                                                                                      |
 | `503 "Service unavailable"`     |                                                                         | If the server is temporarily unavailable to accept writes. The `Retry-After` header contains the number of seconds to wait before trying the write again.
 
 The `message` property of the response body may contain additional details about the error.
@@ -59,6 +67,7 @@ If your data did not write to the database, see how to [troubleshoot rejected po
 
 If you notice data is missing in your database, do the following:
 
+- Check the [HTTP status code](#review-http-status-codes) in the response.
 - Check the `message` property in the response body for details about the error.
 - If the `message` describes a field error, [troubleshoot rejected points](#troubleshoot-rejected-points).
 - Verify all lines contain valid syntax ([line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/)).
@@ -68,11 +77,9 @@ If you notice data is missing in your database, do the following:
 ## Troubleshoot rejected points
 
 When writing points from a batch, InfluxDB rejects points that have syntax errors or schema conflicts.
+If InfluxDB processes the data in your batch and then rejects points, the [HTTP response](#handle-write-responses) body contains the following properties that describe rejected points:
 
-If some or all data in a batch is written successfully, InfluxDB responds with an HTTP `201` status code, indicating that the request succeeded.
-If some or all points in the batch are rejected, the API response body contains the following properties:
-
-- `code`: the status code description for rejected writes is `"invalid"`.
+- `code`: `"invalid"`
 - `line`: the line number of the _first_ rejected point in the batch.
 - `message`: a string that contains line-separated error messages, one message for each rejected point in the batch, up to 100 rejected points.
 
@@ -80,11 +87,12 @@ InfluxDB rejects points for the following reasons:
 
 - a line protocol parsing error
 - an invalid timestamp
-- a schema conflict with existing tags or fields in the database
+- a schema conflict
 
-A schema conflict can occur when points that fall within the same partition (default partitioning is measurement and day) as existing bucket data have a different data type for an existing field.
+Schema conflicts occur when you try to write data that contains any of the following:
 
-For example, a _partial write_ may occur when InfluxDB writes all points that conform to a series in your bucket, but rejects points that have a different data type in a field.
+- a wrong data type: the point falls within the same partition (default partitioning is measurement and day) as existing bucket data and contains a different data type for an existing field
+- a tag and a field that use the same key
 
 ### Example
 
