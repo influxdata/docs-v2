@@ -77,6 +77,7 @@ _Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/inf
 
 - [Query InfluxDB v3 and return results in table format](#query-influxdb-v3-and-return-results-in-table-format)
 - [Query InfluxDB v3 and return results in JSON format](#query-influxdb-v3-and-return-results-in-json-format)
+- [Query InfluxDB v3 using credentials from the connection profile](#query-influxdb-v3-using-credentials-from-the-connection-profile)
 
 In the examples below, replace the following:
 
@@ -233,3 +234,14 @@ cat ./query.sql | influxctl query \
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+### Query InfluxDB v3 using credentials from the connection profile
+
+The following example uses the `database` and `token` defined in the `default`
+[connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles).
+
+{{% influxdb/custom-timestamps %}}
+```sh
+influxctl query "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' LIMIT 5"
+```
+{{% /influxdb/custom-timestamps %}}

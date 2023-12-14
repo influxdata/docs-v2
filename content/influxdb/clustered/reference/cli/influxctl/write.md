@@ -72,6 +72,7 @@ _Also see [`influxctl` global flags](/influxdb/clustered/reference/cli/influxctl
 - [Write line protocol to InfluxDB v3](#write-line-protocol-to-influxdb-v3)
 - [Write line protocol to InfluxDB v3 with non-default timestamp precision](#write-line-protocol-to-influxdb-v3-with-non-default-timestamp-precision)
 - [Write line protocol to InfluxDB v3 with a custom batch size](#write-line-protocol-to-influxdb-v3-with-a-custom-batch-size)
+- [Write line protocol to InfluxDB v3 using credentials from the connection profile](#write-line-protocol-to-influxdb-v3-using-credentials-from-the-connection-profile)
 
 In the examples below, replace the following:
 
@@ -217,3 +218,18 @@ cat ./metrics.lp | influxctl write \
 {{< /code-tabs-wrapper >}}
 
 {{% /code-placeholders %}}
+
+### Write line protocol to InfluxDB v3 using credentials from the connection profile
+
+The following example uses the `database` and `token` defined in the `default`
+[connection profile](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles).
+
+{{% influxdb/custom-timestamps %}}
+```sh
+influxctl write "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000000000000
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000000000000
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600000000000
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600000000000
+"
+```
+{{% /influxdb/custom-timestamps %}}
