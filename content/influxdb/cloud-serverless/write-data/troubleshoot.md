@@ -112,4 +112,4 @@ The following example shows a response body for a write request that contains tw
 }
 ```
 
-Check for [field data type](/influxdb/cloud-serverless/reference/syntax/line-protocol/#data-types-and-format) differences between the rejected data point and points within the same database and partition--for example, did you attempt to write `string` data to an `int` field?
+Check for [field data type](/influxdb/cloud-serverless/reference/syntax/line-protocol/#data-types-and-format) differences between the rejected data point and points in the bucket that have the same measurement and day--for example, did you attempt to write `string` data to an `int` field?
