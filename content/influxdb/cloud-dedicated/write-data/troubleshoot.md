@@ -28,21 +28,20 @@ Learn how to avoid unexpected results and recover from errors when writing to {{
 
 {{% product-name %}} does the following when you send a write request:
 
-1. Validates the request.
-2. If successful, attempts to [ingest data](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest) from the request body;
-   otherwise, responds with an [error status](#review-http-status-codes).
-3. Returns one of the following HTTP status codes:
+  1. Validates the request.
+  2. If successful, attempts to [ingest data](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](#review-http-status-codes).
+  3. Ingests or rejects data in the batch and returns one of the following HTTP status codes:
 
-   - `204 No Content`: all data in the batch is ingested
-   - _If **partial writes** are configured for your cluster_, `201 Created`: some points in the batch are ingested, and some points are rejected
-   - `400 Bad Request`: all data in the batch is rejected
+     - `204 No Content`: all data in the batch is ingested
+     - `201 Created` (_If the cluster is configured to allow **partial writes**_): some points in the batch are ingested and queryable, and some points are rejected
+     - `400 Bad Request`: all data is rejected
 
-   In InfluxDB, writes are synchronous--the response status indicates the final status of the write and all ingested data is queryable.
+  The response body contains error details about [rejected points](#troubleshoot-rejected-points), up to 100 points.
 
-   If InfluxDB responds with an HTTP `201 Created` status code or an [error status code](#review-http-status-codes), one or more points weren't ingested.
-   The response body contains error details about [rejected points](#troubleshoot-rejected-points), up to 100 points.
+  Writes are synchronous--the response status indicates the final status of the write and all ingested data is queryable.
 
-To ensure that InfluxDB handles writes in the order you request them, wait for the response before you send the next request.
+   To ensure that InfluxDB handles writes in the order you request them,
+  wait for the response before you send the next request.
 
 ### Review HTTP status codes
 

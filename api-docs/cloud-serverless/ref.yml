@@ -13843,9 +13843,14 @@ paths:
 
         1. Validates the request.
         2. If successful, attempts to [ingest data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](/influxdb/cloud-serverless/write-data/troubleshoot/#review-http-status-codes).
-        3. If successful, all data is ingested and queryable and the response is an HTTP `204 No Content` status code.
+        3. Ingests or rejects the entire batch and returns one of the following HTTP status codes:
 
-           If the entire batch is rejected, the response is a `400 Bad Request` status code and the response body contains error details about [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points).
+           - `204 No Content`: all data is ingested
+           - `400 Bad Request`: all data is rejected
+
+           The response body contains error details about [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
+
+        Writes are synchronous--the response status indicates the final status of the write and all ingested data is queryable.
 
         To ensure that InfluxDB handles writes in the order you request them,
         wait for the response before you send the next request.
@@ -14255,9 +14260,14 @@ paths:
 
         1. Validates the request.
         2. If successful, attempts to [ingest data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](/influxdb/cloud-serverless/write-data/troubleshoot/#review-http-status-codes).
-        3. If successful, all data is ingested and queryable and the response is an HTTP `204 No Content` status code.
+        3. Ingests or rejects the entire batch and returns one of the following HTTP status codes:
 
-           If the entire batch is rejected, the response is a `400 Bad Request` status code and the response body contains error details about [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points).
+           - `204 No Content`: all data is ingested
+           - `400 Bad Request`: all data is rejected
+
+           The response body contains error details about [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
+
+        Writes are synchronous--the response status indicates the final status of the write and all ingested data is queryable.
 
         To ensure that InfluxDB handles writes in the order you request them,
         wait for the response before you send the next request.

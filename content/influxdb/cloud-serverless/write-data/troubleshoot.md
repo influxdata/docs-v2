@@ -30,20 +30,19 @@ Learn how to avoid unexpected results and recover from errors when writing to {{
 
 {{% product-name %}} does the following when you send a write request:
 
-1. Validates the request.
-2. If successful, attempts to [ingest data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest) from the request body;
-   otherwise, responds with an [error status](#review-http-status-codes).
-3. Returns one of the following HTTP status codes:
+  1. Validates the request.
+  2. If successful, attempts to [ingest data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](#review-http-status-codes).
+  3. Ingests or rejects the entire batch and returns one of the following HTTP status codes:
 
-   - `204 No Content`: all data in the batch is ingested
-   - `400 Bad Request`: all data in the batch is rejected
+     - `204 No Content`: all data is ingested
+     - `400 Bad Request`: all data is rejected
 
-   In InfluxDB, writes are synchronous--the response status indicates the final status of the write and all ingested data is queryable.
+     The response body contains error details about [rejected points](#troubleshoot-rejected-points), up to 100 points.
 
-   If InfluxDB responds with an [error status code](#review-http-status-codes), one or more points weren't ingested.
-   The response body contains error details about [rejected points](#troubleshoot-rejected-points), up to 100 points.
+  Writes are synchronous--the response status indicates the final status of the write and all ingested data is queryable.
 
-To ensure that InfluxDB handles writes in the order you request them, wait for the response before you send the next request.
+  To ensure that InfluxDB handles writes in the order you request them,
+  wait for the response before you send the next request.
 
 ### Review HTTP status codes
 
