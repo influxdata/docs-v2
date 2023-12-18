@@ -92,33 +92,37 @@ The following table compares tools that you can use to interact with {{% product
 This tutorial covers many of the recommended tools.
 
 | Tool                                                                                                |      Administration      |          Write           |          Query           |
-|:----------------------------------------------------------------------------------------------------|:------------------------:|:------------------------:|:------------------------:|
+| :-------------------------------------------------------------------------------------------------- | :----------------------: | :----------------------: | :----------------------: |
 | [Chronograf](/chronograf/v1/)                                                                       |            -             |            -             | **{{< icon "check" >}}** |
-| <span style="color:gray">`influx` CLI</span>                                                        |            -             |            -             |            -             |
+| <span style="opacity:.5;">`influx` CLI</span>                                                       |            -             |            -             |            -             |
+| [`influxctl` CLI](#influxctl-cli){{< req text="\* " color="magenta" >}}                             | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [`influx3` data CLI](#influx3-data-cli){{< req text="\* " color="magenta" >}}                       |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
-| [`influxctl` admin CLI](#influxctl-admin-cli)                                                       | **{{< icon "check" >}}** |            -             |            -             |
-| [InfluxDB HTTP API](#influxdb-http-api)                                                             |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
-| <span style="color:gray">InfluxDB user interface</span>                                             |            -             |            -             |            -             |
+| [InfluxDB HTTP API](#influxdb-http-api){{< req text="\* " color="magenta" >}}                       |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| <span style="opacity:.5;">InfluxDB user interface</span>                                            |            -             |            -             |            -             |
 | [InfluxDB v3 client libraries](#influxdb-v3-client-libraries){{< req text="\* " color="magenta" >}} |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
-| [InfluxDB v1 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v1/)            |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [InfluxDB v2 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v2/)            |            -             | **{{< icon "check" >}}** |            -             |
-| Telegraf                                                                                            |            -             | **{{< icon "check" >}}** |            -             |
-| **Third-party tools**                                                   |
-| Flight SQL clients               |       -         |   -     | **{{< icon "check" >}}**  |
-|  [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)  |       -         |   -     | **{{< icon "check" >}}**  |
-| [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/) |       -         |   -     | **{{< icon "check" >}}**  |
-| [Tableau](/influxdb/cloud-dedicated/process-data/visualize/tableau/)           |       -         |   -     | **{{< icon "check" >}}**  |
+| [InfluxDB v1 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v1/)            |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [Telegraf](/telegraf/v1/){{< req text="\* " color="magenta" >}}                                     |            -             | **{{< icon "check" >}}** |            -             |
+| **Third-party tools**                                                                               |                          |                          |                          |
+| Flight SQL clients                                                                                  |            -             |            -             | **{{< icon "check" >}}** |
+| [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)                        |            -             |            -             | **{{< icon "check" >}}** |
+| [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/)                      |            -             |            -             | **{{< icon "check" >}}** |
+| [Tableau](/influxdb/cloud-dedicated/process-data/visualize/tableau/)                                |            -             |            -             | **{{< icon "check" >}}** |
 
+{{< caption >}}
 {{< req type="key" text="Covered in this tutorial" color="magenta" >}}
+{{< /caption >}}
 
 {{% warn %}}
 Avoid using the `influx` CLI with {{% product-name %}}.
 While it may coincidentally work, it isn't supported.
 {{% /warn %}}
 
-### `influxctl` admin CLI
+### `influxctl` CLI
 
-The [`influxctl` command line interface (CLI)](/influxdb/cloud-dedicated/reference/cli/influxctl/) performs administrative tasks, such as managing databases and authorization tokens in a cluster.
+The [`influxctl` command line interface (CLI)](/influxdb/cloud-dedicated/reference/cli/influxctl/)
+writes, queries, and performs administrative tasks, such as managing databases
+and authorization tokens in a cluster.
 
 ### `influx3` data CLI
 
