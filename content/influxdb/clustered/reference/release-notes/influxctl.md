@@ -12,6 +12,14 @@ weight: 202
 canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 ---
 
+## v2.4.2 {date="2023-12-18"}
+
+### Bug fixes
+
+- Correctly set the version and build info for the version command.
+
+---
+
 ## v2.4.1 {date="2023-12-14"}
 
 ### Bug fixes
