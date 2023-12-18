@@ -185,9 +185,8 @@ Replace the following:
 
 ## Responses
 
-InfluxDB API responses use standard HTTP status codes.
-For successful writes, InfluxDB responds with a `204 No Content` status code.
-Error responses contain a JSON object with `code` and `message` properties that describe the error.
+InfluxDB HTTP API responses use standard [HTTP status codes](/influxdb/cloud-dedicated/api/#tag/Response-codes).
+The response body for [partial writes](/influxdb/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points) and errors contains a JSON object with `code` and `message` properties that describe the error.
 Response body messages may differ across {{% product-name %}} v1 API, v2 API, InfluxDB Cloud, and InfluxDB OSS.
 
 ### Error examples
