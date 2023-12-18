@@ -306,7 +306,7 @@ The following example creates sample data for two series (the combination of mea
    grace="${grace_seconds}s"
    ```
 
-2. Enter the following command to configure Telegraf to parse the file, merge the points, and write the data to stdout and a bucket. To merge series, you must specify the following in your Telegraf configuration:
+2. Enter the following command to configure Telegraf to parse the file, merge the points, and write the data to a bucket. To merge series, you must specify the following in your Telegraf configuration:
 
    - the timestamp precision for your input data (for example, `influx_timestamp_precision` for line protocol)
    - Optional: `aggregators.merge.grace` to extend the window and allow more points to be merged. For demonstration purposes, the following example sets `grace` to a large duration to include the sample data timestamps.
@@ -374,34 +374,36 @@ The following example creates sample data for two series (the combination of mea
 ### Avoid sending duplicate data
 
 Use Telegraf and the [Dedup processor plugin](/telegraf/v1/plugins/#processor-dedup) to filter data whose field values are exact repetitions of previous values.
-Removing duplicate lines can reduce your write payload size and resource usage.
+Removing duplicate data can reduce your write payload size and resource usage.
 
-The following example creates sample data with duplicate points and shows how to deduplicate before writing to InfluxDB:
+The following example shows how to remove points that repeat values before writing them to InfluxDB:
 
 1. In your terminal, enter the following command to create the sample data file:
 
    ```bash
    cat <<EOF > ./home.lp
-   home,room=Kitchen co=22i,hum=36.6,temp=23.1
-   home,room=Living\ Room co=17i,hum=36.4,temp=22.7
-   home,room=Kitchen co=22i,hum=36.6,temp=23.1
-   home,room=Living\ Room co=17i,hum=36.4,temp=22.7
+   home,room=Kitchen co=22i,hum=36.6,temp=23.1 1641063600
+   home,room=Kitchen co=22i,hum=36.6,temp=23.1 1641063601
+   home,room=Living\ Room co=17i,hum=36.4,temp=22.7 1641063603
    EOF
+   cp home.lp home_2.lp
    ```
 
-2. Enter the following command to configure Telegraf to parse the file, merge the points, and write the data to stdout and a bucket. To merge series, you must specify the following in your Telegraf configuration:
+2. Enter the following command to configure Telegraf to parse the file, drop points that repeat field values, and then write the data to a bucket. To merge series, you must specify the following in your Telegraf configuration:
 
    - the timestamp precision for your input data (for example, `influx_timestamp_precision` for line protocol)
-   - Optional: `aggregators.merge.grace` to extend the window and allow more points to be merged. For demonstration purposes, the following example sets `grace` to a large duration to include the sample data timestamps.
+   - Optional: `processors.dedup.dedup_interval` to specify the duration to consider for repeated field values.
 
    <!--pytest-codeblocks:cont-->
 
    ```bash
    cat <<EOF > ./telegraf.conf
+   [agent]
+     debug = true
    # Parse metrics from a file
    [[inputs.file]]
      ## A list of files to parse during each interval.
-     files = ["home.lp"]
+     files = ["home.lp", "home_2.lp"]
      ## The precision of timestamps in your data.
      influx_timestamp_precision = "1s"
      tagexclude = ["host"]
@@ -409,6 +411,8 @@ The following example creates sample data with duplicate points and shows how to
    [[processors.dedup]]
      ## Drops duplicates within the specified duration
      dedup_interval = "600s"
+   [[outputs.file]]
+     files = ["stdout"]
    # Writes metrics as line protocol to the InfluxDB v2 API
    [[outputs.influxdb_v2]]
      ## InfluxDB credentials and the bucket to write data to.
@@ -433,7 +437,7 @@ The following example creates sample data with duplicate points and shows how to
 
    ```bash
    # Run once and exit.
-   telegraf --once --config telegraf.conf
+   # telegraf --once --config telegraf.conf
    ```
 
    Telegraf writes the following lines:
@@ -455,8 +459,6 @@ The following example creates sample data with duplicate points and shows how to
    > home,room=Living\ Room co=17i,hum=36.4,temp=22.7 1641063600000000000
    ```
 
-### Aggregate data and write downsampled metrics
-
 ### Run custom preprocessing code
 
-Use Telegraf and the [Execd processor plugin](/telegraf/v1/plugins/#processor-execd) to execute your own code or an external program as a separate process.
+Use Telegraf and the [Execd processor plugin](/telegraf/v1/plugins/#processor-execd) to execute code external to Telegraf and then write the processed data.
