@@ -19,8 +19,17 @@ Use these tips to optimize performance and system overhead when writing data to 
 - [Sort tags by key](#sort-tags-by-key)
 - [Use the coarsest time precision possible](#use-the-coarsest-time-precision-possible)
 - [Use gzip compression](#use-gzip-compression)
+  - [Enable gzip compression in Telegraf](#enable-gzip-compression-in-telegraf)
+  - [Enable gzip compression in InfluxDB client libraries](#enable-gzip-compression-in-influxdb-client-libraries)
+  - [Use gzip compression with the InfluxDB API](#use-gzip-compression-with-the-influxdb-api)
 - [Synchronize hosts with NTP](#synchronize-hosts-with-ntp)
 - [Write multiple data points in one request](#write-multiple-data-points-in-one-request)
+- [Pre-process data before writing](#pre-process-data-before-writing)
+  - [Prerequisites](#prerequisites)
+  - [Filter data from a batch](#filter-data-from-a-batch)
+  - [Coerce data types to avoid rejected point errors](#coerce-data-types-to-avoid-rejected-point-errors)
+  - [Merge lines to optimize memory and bandwidth](#merge-lines-to-optimize-memory-and-bandwidth)
+  - [Run custom preprocessing code](#run-custom-preprocessing-code)
 
 {{% note %}}
 The following tools write to InfluxDB and employ _most_ write optimizations by default:
@@ -137,11 +146,11 @@ To write multiple lines in one request, each line of line protocol must be delim
 
 ## Pre-process data before writing
 
-Pre-processing data in your write workload can help you avoid [schema conflicts]() and exceeding [limits and quotas]().
+Pre-processing data in your write workload can help you avoid [write failures](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-failures) due to schema conflicts or resource use.
 For example, if you have many devices that write to the same measurement, and some devices use different data types for the same field, then you might want to generate an alert or convert field data to fit your schema before you send the data to InfluxDB.
 
-With Telegraf, you can listen for input data, process it, and then write it to InfluxDB.
-In addition to processing data with Telegraf's included plugins, you can use the Execd plugin to integrate your own code and external applications.
+With Telegraf, you can process data from other services and files and then write it to InfluxDB.
+In addition to processing data with Telegraf's included plugins, you can use the [Execd processor plugin](/telegraf/v1/plugins/#processor-execd) to integrate your own code and external applications.
 
 The following examples show how to [configure](/telegraf/v1/configuration) the Telegraf agent and [plugins](/telegraf/v1/plugins/) to optimize writes.
 The examples use the [File input plugin](/telegraf/v1/plugins/#input-file) to read data from a file
@@ -149,7 +158,7 @@ and use the [InfluxDB v2 output plugin](/telegraf/v1/plugins/#input-influxdb) to
 
 ### Prerequisites
 
-Follow the instructions to [install Telegraf]().
+[Install Telegraf](/telegraf/v1/install/) if you haven't already.
 
 ### Filter data from a batch
 
@@ -232,7 +241,7 @@ curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision
    EOF
    ```
 
-2. Enter the following command to create a Telegraf configuration that parses the sample data, converts the field values to the specified data types, and then writes the data to stdout and a bucket:
+2. Enter the following command to create a Telegraf configuration that parses the sample data, converts the field values to the specified data types, and then writes the data to a bucket:
 
    <!--pytest-codeblocks:cont-->
 
@@ -291,7 +300,7 @@ Use Telegraf and the [Merge aggregator plugin](/telegraf/v1/plugins/#aggregator-
 
 The following example creates sample data for two series (the combination of measurement, tag set, and timestamp), and then merges points in each series:
 
-1. In your terminal, enter the following command to create the sample data file:
+1. In your terminal, enter the following command to create the sample data file. The command sets a `grace` variable that you'll use when configuring Telegraf in the next step.
 
    ```bash
    cat <<EOF > ./home.lp
@@ -371,93 +380,10 @@ The following example creates sample data for two series (the combination of mea
    > home,room=Living\ Room co=17i,hum=36.4,temp=22.7 1641063600000000000
    ```
 
-### Avoid sending duplicate data
-
-Use Telegraf and the [Dedup processor plugin](/telegraf/v1/plugins/#processor-dedup) to filter data whose field values are exact repetitions of previous values.
-Removing duplicate data can reduce your write payload size and resource usage.
-
-The following example shows how to remove points that repeat values before writing them to InfluxDB:
-
-1. In your terminal, enter the following command to create the sample data file:
-
-   ```bash
-   cat <<EOF > ./home.lp
-   home,room=Kitchen co=22i,hum=36.6,temp=23.1 1641063600
-   home,room=Kitchen co=22i,hum=36.6,temp=23.1 1641063601
-   home,room=Living\ Room co=17i,hum=36.4,temp=22.7 1641063603
-   EOF
-   cp home.lp home_2.lp
-   ```
-
-2. Enter the following command to configure Telegraf to parse the file, drop points that repeat field values, and then write the data to a bucket. To merge series, you must specify the following in your Telegraf configuration:
-
-   - the timestamp precision for your input data (for example, `influx_timestamp_precision` for line protocol)
-   - Optional: `processors.dedup.dedup_interval` to specify the duration to consider for repeated field values.
-
-   <!--pytest-codeblocks:cont-->
-
-   ```bash
-   cat <<EOF > ./telegraf.conf
-   [agent]
-     debug = true
-   # Parse metrics from a file
-   [[inputs.file]]
-     ## A list of files to parse during each interval.
-     files = ["home.lp", "home_2.lp"]
-     ## The precision of timestamps in your data.
-     influx_timestamp_precision = "1s"
-     tagexclude = ["host"]
-   # Filter metrics that repeat previous field values
-   [[processors.dedup]]
-     ## Drops duplicates within the specified duration
-     dedup_interval = "600s"
-   [[outputs.file]]
-     files = ["stdout"]
-   # Writes metrics as line protocol to the InfluxDB v2 API
-   [[outputs.influxdb_v2]]
-     ## InfluxDB credentials and the bucket to write data to.
-     urls = ["https://{{< influxdb/host >}}"]
-     token = "API_TOKEN"
-     organization = ""
-     bucket = "BUCKET_NAME"
-   EOF
-   ```
-
-3. Enter the following command to run Telegraf for one interval and then exit:
-
-   <!--pytest-codeblocks:cont-->
-
-   <!--before-test
-   ```bash
-   influx bucket create --name jason-test-create-bucket 2>/dev/null ||:
-   ```
-   -->
-
-   <!--pytest-codeblocks:cont-->
-
-   ```bash
-   # Run once and exit.
-   # telegraf --once --config telegraf.conf
-   ```
-
-   Telegraf writes the following lines:
-
-   <!--pytest-codeblocks:cont-->
-
-   <!--hidden-test
-   ```bash
-   # --test is deterministic when writing field sequence to stdout,
-   # whereas outputs.file reorders fields from one run to the next.
-   telegraf --test --config telegraf.conf
-   ```
-   -->
-
-   <!--pytest-codeblocks:expected-output-->
-
-   ```
-   > home,room=Kitchen co=22i,hum=36.6,temp=23.1 1641063600000000000
-   > home,room=Living\ Room co=17i,hum=36.4,temp=22.7 1641063600000000000
-   ```
+<!-- ### Avoid sending duplicate data
+  -- Can't get processors.dedup to work as expected.
+  -- The content for this section is in branch https://github.com/influxdata/docs-v2/compare/issue5155-preprocess-with-dedup
+-->
 
 ### Run custom preprocessing code
 
