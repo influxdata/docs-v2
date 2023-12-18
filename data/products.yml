@@ -55,7 +55,7 @@ influxdb_cloud_dedicated:
   list_order: 3
   latest: cloud-dedicated
   link: "https://www.influxdata.com/contact-sales-form/"
-  latest_cli: 2.4.1
+  latest_cli: 2.4.2
   placeholder_host: cluster-id.influxdb.io
 
 influxdb_clustered:
