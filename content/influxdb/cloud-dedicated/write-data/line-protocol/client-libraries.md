@@ -1,89 +1,31 @@
 ---
-title: Write line protocol data to InfluxDB Cloud Dedicated
+title: Use InfluxDB client libraries to write line protocol data
 description: >
-  Use Telegraf and API clients to write line protocol data
-  to InfluxDB Cloud Dedicated.
+  Use InfluxDB API clients to write line protocol data to InfluxDB Cloud Dedicated.
 menu:
   influxdb_cloud_dedicated:
-    name: Write line protocol data
-    parent: Write data
+    name: Use client libraries
+    parent: Write line protocol
+    identifier: write-client-libs
 weight: 103
 related:
   - /influxdb/cloud-dedicated/reference/syntax/line-protocol/
   - /influxdb/cloud-dedicated/get-started/write/
 ---
 
-Learn the fundamentals of constructing and writing line protocol data.
-Use tools like Telegraf and InfluxDB client libraries to
-build line protocol, and then write it to an InfluxDB database.
+Use InfluxDB client libraries to build line protocol, and then write it to an
+InfluxDB database.
 
-You can use these tools to build line protocol from scratch or transform
-your data to line protocol.
-However, if you already have CSV data, you might want to use tools that [consume CSV
-and write it to InfluxDB as line protocol](/influxdb/cloud-dedicated/write-data/csv).
-
-<!-- TOC -->
-
-- [Line protocol](#line-protocol)
-  - [Line protocol elements](#line-protocol-elements)
-    - [Line protocol element parsing](#line-protocol-element-parsing)
 - [Construct line protocol](#construct-line-protocol)
-  - [Set up your project](#set-up-your-project)
-  - [Construct points and write line protocol](#construct-points-and-write-line-protocol)
-  - [Run the example](#run-the-example)
-    - [Home sensor data line protocol](#home-sensor-data-line-protocol)
-
-<!-- /TOC -->
-
-## Line protocol
-
-All data written to InfluxDB is written using [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/), a text-based
-format that lets you provide the necessary information to write a data point to InfluxDB.
-
-### Line protocol elements
-
-In InfluxDB, a point contains a measurement name, one or more fields, a timestamp, and optional tags that provide metadata about the observation.
-
-Each line of line protocol contains the following elements:
-
-{{< req type="key" >}}
-
-- {{< req "\*" >}} **measurement**:  String that identifies the [measurement](/influxdb/cloud-dedicated/reference/glossary/#measurement) to store the data in.
-- **tag set**: Comma-delimited list of key value pairs, each representing a tag.
-  Tag keys and values are unquoted strings. _Spaces, commas, and equal characters must be escaped._
-- {{< req "\*" >}} **field set**: Comma-delimited list of key value pairs, each representing a field.
-  Field keys are unquoted strings. _Spaces and commas must be escaped._
-  Field values can be [strings](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#string) (quoted),
-  [floats](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#float),
-  [integers](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#integer),
-  [unsigned integers](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#uinteger),
-  or [booleans](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#boolean).
-- **timestamp**: [Unix timestamp](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#unix-timestamp)
-  associated with the data. InfluxDB supports up to nanosecond precision.
-  _If the precision of the timestamp is not in nanoseconds, you must specify the
-  precision when writing the data to InfluxDB._
-
-#### Line protocol element parsing
-
-- **measurement**: Everything before the _first unescaped comma before the first whitespace_.
-- **tag set**: Key-value pairs between the _first unescaped comma_ and the _first unescaped whitespace_.
-- **field set**: Key-value pairs between the _first and second unescaped whitespaces_.
-- **timestamp**: Integer value after the _second unescaped whitespace_.
-- Lines are separated by the newline character (`\n`).
-  Line protocol is whitespace sensitive.
-
----
-
-{{< influxdb/line-protocol >}}
-
----
-
-_For schema design recommendations, see [InfluxDB schema design](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/)._
+- [Set up your project](#set-up-your-project)
+- [Construct points and write line protocol](#construct-points-and-write-line-protocol)
+- [Run the example](#run-the-example)
+  - [Home sensor data line protocol](#home-sensor-data-line-protocol)
 
 ## Construct line protocol
 
-With a basic understanding of line protocol, you can now construct line protocol
-and write data to InfluxDB.
+With a [basic understanding of line protocol](/influxdb/cloud-dedicated/write-data/line-protocol/),
+you can now construct line protocol and write data to InfluxDB.
 Consider a use case where you collect data from sensors in your home.
 Each sensor collects temperature, humidity, and carbon monoxide readings.
 To collect this data, use the following schema:
@@ -97,14 +39,13 @@ To collect this data, use the following schema:
     - `co`: carbon monoxide in parts per million (integer)
   - **timestamp**: Unix timestamp in _second_ precision
 
-Data is collected hourly beginning at 
-{{% influxdb/custom-timestamps-span %}}**2022-01-01T08:00:00Z (UTC)** until **2022-01-01T20:00:00Z (UTC)**{{% /influxdb/custom-timestamps-span %}}.
-
 The following example shows how to construct and write points that follow this schema.
 
-### Set up your project
+## Set up your project
 
-The examples in this guide assume you followed [Set up InfluxDB](/influxdb/cloud-dedicated/get-started/setup/) and [Write data set up](/influxdb/cloud-dedicated/get-started/write/#set-up-your-project-and-credentials) instructions in [Get started](/influxdb/cloud-dedicated/get-started/).
+The examples in this guide assume you followed [Set up InfluxDB](/influxdb/cloud-dedicated/get-started/setup/)
+and [Write data set up](/influxdb/cloud-dedicated/get-started/write/#set-up-your-project-and-credentials)
+instructions in [Get started](/influxdb/cloud-dedicated/get-started/).
 
 After setting up InfluxDB and your project, you should have the following:
 
@@ -174,7 +115,7 @@ npm install --save @influxdata/influxdb-client
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-### Construct points and write line protocol
+## Construct points and write line protocol
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -386,7 +327,7 @@ The sample code does the following:
 
 7.  Executes callbacks for the response, flushes the write buffer, and releases resources.
 
-### Run the example
+## Run the example
 
 To run the sample and write the data to your InfluxDB Cloud Dedicated database, enter the following command in your terminal:
 
@@ -427,12 +368,8 @@ go run write-point.go
 The example logs the point as line protocol to stdout, and then writes the point to the database.
 The line protocol is similar to the following:
 
-{{% influxdb/custom-timestamps %}}
-
-#### Home sensor data line protocol
+### Home sensor data line protocol
 
 ```sh
 home,room=Kitchen co=9i,hum=20.2,temp=72 1641024000
 ```
-
-{{% /influxdb/custom-timestamps %}}
