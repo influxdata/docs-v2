@@ -1,21 +1,21 @@
 ---
 title: Use the influxctl CLI to write line protocol data
 description: >
-  Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
-  to write line protocol data to InfluxDB Cloud Dedicated.
+  Use the [`influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/)
+  to write line protocol data to InfluxDB Clustered.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb_clustered:
     name: Use the influxctl CLI
     parent: Write line protocol
     identifier: write-influxctl
 weight: 101
 related:
-  - /influxdb/cloud-dedicated/reference/cli/influxctl/write/
-  - /influxdb/cloud-dedicated/reference/syntax/line-protocol/
-  - /influxdb/cloud-dedicated/get-started/write/
+  - /influxdb/clustered/reference/cli/influxctl/write/
+  - /influxdb/clustered/reference/syntax/line-protocol/
+  - /influxdb/clustered/get-started/write/
 ---
 
-Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
+Use the [`influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/)
 to write line protocol data to {{< product-name >}}.
 
 - [Construct line protocol](#construct-line-protocol)
@@ -23,7 +23,7 @@ to write line protocol data to {{< product-name >}}.
 
 ## Construct line protocol
 
-With a [basic understanding of line protocol](/influxdb/cloud-dedicated/write-data/line-protocol/),
+With a [basic understanding of line protocol](/influxdb/clustered/write-data/line-protocol/),
 you can now construct line protocol and write data to InfluxDB.
 Consider a use case where you collect data from sensors in your home.
 Each sensor collects temperature, humidity, and carbon monoxide readings.
@@ -61,13 +61,13 @@ it from a file.
 
 ## Write the line protocol to InfluxDB
 
-Use the [`influxctl write` command](/influxdb/cloud-dedicated/reference/cli/influxctl/write/)
+Use the [`influxctl write` command](/influxdb/clustered/reference/cli/influxctl/write/)
 to write the [home sensor sample data](#home-sensor-data-line-protocol) to your
 {{< product-name omit=" Clustered" >}} cluster.
 Provide the following:
 
 - Database name using the `--database` flag
-- [Database token](/influxdb/cloud-dedicated/admin/tokens/) (with write permissions
+- [Database token](/influxdb/clustered/admin/tokens/) (with write permissions
   on the target database) using the `--token` flag
 - Timestamp precision as seconds (`s`) using the `--precision` flag
 - [Line protocol](#construct-line-protocol).
