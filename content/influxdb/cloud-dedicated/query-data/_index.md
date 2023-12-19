@@ -1,6 +1,5 @@
 ---
-title: Query data in InfluxDB Cloud
-seotitle: Query data stored in InfluxDB Cloud
+title: Query data in InfluxDB Cloud Dedicated
 description: >
   Learn to query data stored in InfluxDB using SQL and InfluxQL.
 menu:

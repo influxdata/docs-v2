@@ -68,11 +68,7 @@ If stored at a non-default location, include the `--config` flag with each
 `influxctl` command and provide the path to your profile configuration file.
     {{% /note %}}
 
-    **Copy and paste the sample configuration profile code** into your `config.toml`
-    and replace the following with your {{< product-name >}} credentials:
-
-    - `ACCOUNT_ID`: Your account ID
-    - `CLUSTER_ID`: Your cluster ID
+    **Copy and paste the sample configuration profile code** into your `config.toml`:
 
 {{% code-placeholders "ACCOUNT_ID|CLUSTER_ID" %}}
 ```toml
@@ -81,8 +77,14 @@ If stored at a non-default location, include the `--config` flag with each
   product = "dedicated"
   account_id = "ACCOUNT_ID"
   cluster_id = "CLUSTER_ID"
+  host = "{{< influxdb/host >}}"
 ```
 {{% /code-placeholders %}}
+
+Replace the following with your {{< product-name >}} credentials:
+
+- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: Your account ID
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: Your cluster ID
 
 _For detailed information about `influxctl` profiles, see
 [Configure connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)_.
@@ -198,6 +200,7 @@ set INFLUX_TOKEN=DATABASE_TOKEN
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-Replace `DATABASE_TOKEN` with your [database token](#create-a-database-token) string.
+Replace {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}
+with your [database token](#create-a-database-token) string.
 
 {{< page-nav prev="/influxdb/cloud-dedicated/get-started/" next="/influxdb/cloud-dedicated/get-started/write/" keepTab=true >}}

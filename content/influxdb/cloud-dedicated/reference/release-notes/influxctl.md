@@ -11,6 +11,61 @@ menu:
 weight: 202
 ---
 
+## v2.4.2 {date="2023-12-18"}
+
+### Bug fixes
+
+- Correctly set the version and build info for the version command.
+
+---
+
+## v2.4.1 {date="2023-12-14"}
+
+### Bug fixes
+
+- Update `influxctl query` examples with SQL instead of InfluxQL.
+- Update example connection profile configuration with query and write options.
+- Use database and token CLI options if set.
+
+---
+
+## v2.4.0 {date="2023-12-13"}
+
+This release includes the following notable changes:
+
+- InfluxDB Cloud Dedicated users now have the same `influxctl` login experience
+  as InfluxDB Clustered users. The Auth0 server uses device authorization by
+  displaying a code to validate when logging in. The browser still opens,
+  if possible, and pre-populates the code. The only difference is the need to
+  verify the code on one additional page. This was done to align the user
+  experience between both InfluxDB Cloud Dedicated and InfluxDB Clustered and
+  to allow Cloud Dedicated users without a local UI or browser to continue to
+  use `influxctl`.
+- Introduce the `influxctl write` and `influxctl query` commands.
+  `influxctl query` queries an InfluxDB v3 instance using SQL.
+  `influxctl write` writes line protocol to a InfluxDB v3 instance.
+
+### Features
+
+- Introduce `influxctl query` command.
+- Introduce `influxctl write` command.
+- Use device auth for InfluxDB Cloud Dedicated.
+
+### Bug fixes
+
+- Avoid nil pointer for database information.
+- Login and early return for TokenFile in InfluxDB Clustered.
+
+### Dependency updates
+
+- Update `github.com/go-git/go-git/v5` from 5.10.0 to 5.10.1.
+- Update `github.com/go-git/go-git/v5` from 5.10.1 to 5.11.0.
+- Update `github.com/golang-jwt/jwt/v5` from 5.1.0 to 5.2.0.
+- Update `github.com/urfave/cli/v2` from 2.25.7 to 2.26.0.
+- Update `golang.org/x/oauth2` from 0.14.0 to 0.15.0.
+
+---
+
 ## v2.3.1 {date="2023-11-15"}
 
 ### Bug fixes

@@ -61,14 +61,7 @@ If stored at a non-default location, include the `--config` flag with each
 `influxctl` command and provide the path to your profile configuration file.
     {{% /note %}}
 
-    **Copy and paste the sample configuration profile code** into your `config.toml`
-    and replace the following with your {{< product-name >}} credentials:
-
-    - {{% code-placeholder-key %}}`PORT`{{% /code-placeholder-key %}}: the port to use to access your InfluxDB cluster
-    - {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}: the client URL of your OAuth2 provider
-      (for example: `https://indentityprovider/oauth2/v2/token`)
-    - {{% code-placeholder-key %}}`OAUTH_DEVICE_ID`{{% /code-placeholder-key %}}: the device URL of your OAuth2 provider
-      (for example: `https://indentityprovider/oauth2/v2/auth/device`)
+    **Copy and paste the sample configuration profile code** into your `config.toml`:
 
 {{% code-placeholders "PORT|OAUTH_TOKEN_URL|OAUTH_DEVICE_URL" %}}
 ```toml
@@ -85,6 +78,14 @@ If stored at a non-default location, include the `--config` flag with each
   device_url = "OAUTH_DEVICE_URL"
 ```
 {{% /code-placeholders %}}
+
+Replace the following with your {{< product-name >}} credentials:
+
+    - {{% code-placeholder-key %}}`PORT`{{% /code-placeholder-key %}}: the port to use to access your InfluxDB cluster
+    - {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}: the client URL of your OAuth2 provider
+      (for example: `https://indentityprovider/oauth2/v2/token`)
+    - {{% code-placeholder-key %}}`OAUTH_DEVICE_ID`{{% /code-placeholder-key %}}: the device URL of your OAuth2 provider
+      (for example: `https://indentityprovider/oauth2/v2/auth/device`)
 
 _For detailed information about `influxctl` profiles, see
 [Configure connection profiles](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles)_.
@@ -200,6 +201,7 @@ set INFLUX_TOKEN=DATABASE_TOKEN
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-Replace `DATABASE_TOKEN` with your [database token](#create-a-database-token) string.
+Replace {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}
+with your [database token](#create-a-database-token) string.
 
 {{< page-nav prev="/influxdb/clustered/get-started/" next="/influxdb/clustered/get-started/write/" keepTab=true >}}
