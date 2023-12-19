@@ -152,7 +152,7 @@ For example, if you have many devices that write to the same measurement, and so
 With [Telegraf](/telegraf/v1/), you can process data from other services and files and then write it to InfluxDB.
 In addition to processing data with Telegraf's included plugins, you can use the [Execd processor plugin](/telegraf/v1/plugins/#processor-execd) to integrate your own code and external applications.
 
-The following examples show how to [configure](/telegraf/v1/configuration) the Telegraf agent and [plugins](/telegraf/v1/plugins/) to optimize writes.
+The following examples show how to [configure the Telegraf agent](/telegraf/v1/configuration) and [plugins](/telegraf/v1/plugins/) to optimize writes.
 The examples use the [File input plugin](/telegraf/v1/plugins/#input-file) to read data from a file
 and use the [InfluxDB v2 output plugin](/telegraf/v1/plugins/#input-influxdb) to write data to a bucket, but you can use any input and output plugin.
 
@@ -174,7 +174,7 @@ cat <<EOF >> ./telegraf.conf
     # Remove the specified tags from points.
     tagexclude = ["host"]
   [[outputs.influxdb_v2]]
-    urls = ["HOST"]
+    urls = ["{{< influxdb/host >}}"]
     token = "API_TOKEN"
     organization = ""
     bucket = "BUCKET_NAME"
@@ -209,7 +209,7 @@ home,room=Living\ Room temp=22i,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ```
 
-InfluxDB expects `co` to contain an integer and rejects the point in which `co` contains a floating-point decimal (`22.1`).
+InfluxDB expects `co` to contain an integer value and rejects points with `co` floating-point decimal (`22.1`) values.
 To avoid the error, configure Telegraf to convert fields to the data types in your schema columns.
 
 The following example converts the `temp`, `hum`, and `co` fields to fit the [sample data](/influxdb/cloud-serverless/reference/sample-data/#get-started-home-sensor-data) schema:
@@ -318,7 +318,7 @@ The following example creates sample data for two series (the combination of mea
 2. Enter the following command to configure Telegraf to parse the file, merge the points, and write the data to a bucket. To merge series, you must specify the following in your Telegraf configuration:
 
    - the timestamp precision for your input data (for example, `influx_timestamp_precision` for line protocol)
-   - Optional: `aggregators.merge.grace` to extend the window and allow more points to be merged. For demonstration purposes, the following example sets `grace` to a large duration to include the sample data timestamps.
+   - Optional: `aggregators.merge.grace` to extend the window and allow more points to be merged. For demonstration purposes, the following example sets `grace` to a large duration that includes the sample data timestamps.
 
    <!--pytest-codeblocks:cont-->
 
