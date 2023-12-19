@@ -149,7 +149,7 @@ To write multiple lines in one request, each line of line protocol must be delim
 Pre-processing data in your write workload can help you avoid [write failures](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-failures) due to schema conflicts or resource use.
 For example, if you have many devices that write to the same measurement, and some devices use different data types for the same field, then you might want to generate an alert or convert field data to fit your schema before you send the data to InfluxDB.
 
-With Telegraf, you can process data from other services and files and then write it to InfluxDB.
+With [Telegraf](/telegraf/v1/), you can process data from other services and files and then write it to InfluxDB.
 In addition to processing data with Telegraf's included plugins, you can use the [Execd processor plugin](/telegraf/v1/plugins/#processor-execd) to integrate your own code and external applications.
 
 The following examples show how to [configure](/telegraf/v1/configuration) the Telegraf agent and [plugins](/telegraf/v1/plugins/) to optimize writes.
