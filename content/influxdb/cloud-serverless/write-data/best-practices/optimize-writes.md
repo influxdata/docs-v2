@@ -1,7 +1,7 @@
 ---
 title: Optimize writes to InfluxDB
 description: >
-  Simple tips to optimize performance and system overhead when writing data to
+  Tips and examples to optimize performance and system overhead when writing data to
   InfluxDB Cloud Serverless.
 weight: 203
 menu:
@@ -29,7 +29,8 @@ Use these tips to optimize performance and system overhead when writing data to 
   - [Filter data from a batch](#filter-data-from-a-batch)
   - [Coerce data types to avoid rejected point errors](#coerce-data-types-to-avoid-rejected-point-errors)
   - [Merge lines to optimize memory and bandwidth](#merge-lines-to-optimize-memory-and-bandwidth)
-  - [Run custom preprocessing code](#run-custom-preprocessing-code)
+  - [Avoid sending duplicate data](#avoid-sending-duplicate-data)
+  - [Run custom processing code](#run-custom-preprocessing-code)
 
 {{% note %}}
 The following tools write to InfluxDB and employ _most_ write optimizations by default:
@@ -53,9 +54,7 @@ whichever threshold is met first.
 Before writing data points to InfluxDB, sort tags by key in lexicographic order.
 _Verify sort results match results from the [Go `bytes.Compare` function](http://golang.org/pkg/bytes/#Compare)._
 
-<!--pytest.mark.skip-->
-
-```sh
+```text
 # Line protocol example with unsorted tags
 measurement,tagC=therefore,tagE=am,tagA=i,tagD=i,tagB=think fieldKey=fieldValue 1562020262
 
@@ -122,7 +121,7 @@ mem,host=host2 used_percent=26.81522361 1641027600
 mem,host=host1 used_percent=22.52984738 1641031200
 mem,host=host2 used_percent=27.18294630 1641034800" | gzip > system.gzip \
 
-curl --request POST "https://cloud2.influxdata.com/api/v2/write?org=ORG_NAME&bucket=BUCKET_NAME&precision=s" \
+curl --request POST "https://{{< influxdb/host >}}/api/v2/write?org=ORG_NAME&bucket=BUCKET_NAME&precision=s" \
   --header "Authorization: Token API_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Content-Encoding: gzip" \
@@ -174,7 +173,7 @@ cat <<EOF >> ./telegraf.conf
     # Remove the specified tags from points.
     tagexclude = ["host"]
   [[outputs.influxdb_v2]]
-    urls = ["{{< influxdb/host >}}"]
+    urls = ["https://{{< influxdb/host >}}"]
     token = "API_TOKEN"
     organization = ""
     bucket = "BUCKET_NAME"
@@ -241,7 +240,7 @@ curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision
    EOF
    ```
 
-2. Enter the following command to create a Telegraf configuration that parses the sample data, converts the field values to the specified data types, and then writes the data to a bucket:
+2. Enter the following command to create a Telegraf configuration that parses the sample data, converts the field values to the specified data types, and then writes the data to InfluxDB:
 
    <!--pytest-codeblocks:cont-->
 
@@ -259,7 +258,7 @@ curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision
        float = ["temp", "hum"]
        integer = ["co"]
    [[outputs.influxdb_v2]]
-     ## InfluxDB v2 API credentials and the bucket to write data to.
+     ## InfluxDB v2 API credentials and the bucket to write to.
      urls = ["https://{{< influxdb/host >}}"]
      token = "API_TOKEN"
      organization = ""
@@ -267,26 +266,17 @@ curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision
    EOF
    ```
 
-3. Enter the following command to run Telegraf for one interval and then exit:
+3.  To test the input and processor, enter the following command:
 
-   <!--pytest-codeblocks:cont-->
+    <!--pytest-codeblocks:cont-->
 
-   ```sh
-   # Run once and exit.
-   telegraf --once --config telegraf.conf
-   ```
+    ```bash
+    telegraf --test --config telegraf.conf
+    ```
 
-   Telegraf writes the following lines:
+    Telegraf outputs the following to stdout, and then exits:
 
-   <!--pytest-codeblocks:cont-->
-
-   <!--hidden-test
-   ```sh
-   telegraf --test --config telegraf.conf
-   ```
-   -->
-
-   <!--pytest-codeblocks:expected-output-->
+    <!--pytest-codeblocks:expected-output-->
 
    ```
    > home,room=Kitchen co=22i,hum=36.6,temp=23.1 1641063600000000000
@@ -294,97 +284,404 @@ curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision
    > home,room=Kitchen co=26i,hum=36.5,temp=22.7 1641067200000000000
    ```
 
+    <!-- hidden-test >
+
+    <!--before-test
+    ```bash
+    influx bucket create --name jason-test-create-bucket 2>/dev/null ||:
+    ```
+
+    ```bash
+    # Run once and exit.
+    telegraf --once --config telegraf.conf
+    ```
+    -->
+
 ### Merge lines to optimize memory and bandwidth
 
 Use Telegraf and the [Merge aggregator plugin](/telegraf/v1/plugins/#aggregator-merge) to merge points that share the same measurement, tag set, and timestamp.
 
 The following example creates sample data for two series (the combination of measurement, tag set, and timestamp), and then merges points in each series:
 
-1. In your terminal, enter the following command to create the sample data file. The command sets a `grace` variable that you'll use when configuring Telegraf in the next step.
+1.  In your terminal, enter the following command to create the sample data file and calculate the number of seconds between the earliest timestamp and _now_.
+    The command assigns the calculated value to a `grace_duration` variable that you'll use in the next step.
 
-   ```bash
-   cat <<EOF > ./home.lp
-   home,room=Kitchen temp=23.1 1641063600
-   home,room=Kitchen hum=36.6 1641063600
-   home,room=Kitchen co=22i 1641063600
-   home,room=Living\ Room temp=22.7 1641063600
-   home,room=Living\ Room hum=36.4 1641063600
-   home,room=Living\ Room co=17i 1641063600
-   EOF
-   grace_seconds=$(($(date +%s)-1641063000))
-   grace="${grace_seconds}s"
-   ```
+    ```bash
+    cat <<EOF > ./home.lp
+    home,room=Kitchen temp=23.1 1641063600
+    home,room=Kitchen hum=36.6 1641063600
+    home,room=Kitchen co=22i 1641063600
+    home,room=Living\ Room temp=22.7 1641063600
+    home,room=Living\ Room hum=36.4 1641063600
+    home,room=Living\ Room co=17i 1641063600
+    EOF
+    grace_duration="$(($(date +%s)-1641063000))s"
+    ```
 
-2. Enter the following command to configure Telegraf to parse the file, merge the points, and write the data to a bucket. To merge series, you must specify the following in your Telegraf configuration:
+2.  Enter the following command to configure Telegraf to parse the file, merge the points, and write the data to InfluxDB--specifically, the configuration sets the following properties:
 
-   - the timestamp precision for your input data (for example, `influx_timestamp_precision` for line protocol)
-   - Optional: `aggregators.merge.grace` to extend the window and allow more points to be merged. For demonstration purposes, the following example sets `grace` to a large duration that includes the sample data timestamps.
+    - `influx_timestamp_precision`: for parsers, specifies the timestamp precision in the input data
+    - Optional: `aggregators.merge.grace` extends the duration for merging points.
+      To ensure the sample data is included, the configuration uses the calculated variable from the preceding step.
 
-   <!--pytest-codeblocks:cont-->
+    <!--pytest-codeblocks:cont-->
 
-   ```bash
-   cat <<EOF > ./telegraf.conf
-   # Parse metrics from a file
-   [[inputs.file]]
-     ## A list of files to parse during each interval.
-     files = ["home.lp"]
-     ## The precision of timestamps in your data.
-     influx_timestamp_precision = "1s"
-     tagexclude = ["host"]
-   # Merge separate metrics that share a series key
-   [[aggregators.merge]]
-     grace = "$grace"
-     ## If true, drops the original metric.
-     drop_original = true
-   # Writes metrics as line protocol to the InfluxDB v2 API
-   [[outputs.influxdb_v2]]
-     ## InfluxDB credentials and the bucket to write data to.
-     urls = ["https://{{< influxdb/host >}}"]
-     token = "API_TOKEN"
-     organization = ""
-     bucket = "BUCKET_NAME"
-   EOF
-   ```
+    ```bash
+    cat <<EOF > ./telegraf.conf
+    # Parse metrics from a file
+    [[inputs.file]]
+      ## A list of files to parse during each interval.
+      files = ["home.lp"]
+      ## The precision of timestamps in your data.
+      influx_timestamp_precision = "1s"
+      tagexclude = ["host"]
+    # Merge separate metrics that share a series key
+    [[aggregators.merge]]
+      grace = "$grace_duration"
+      ## If true, drops the original metric.
+      drop_original = true
+    # Writes metrics as line protocol to the InfluxDB v2 API
+    [[outputs.influxdb_v2]]
+      ## InfluxDB credentials and the bucket to write data to.
+      urls = ["https://{{< influxdb/host >}}"]
+      token = "API_TOKEN"
+      organization = ""
+      bucket = "BUCKET_NAME"
+    EOF
+    ```
 
-3. Enter the following command to run Telegraf for one interval and then exit:
+3.  To test the input and aggregator, enter the following command:
 
-   <!--pytest-codeblocks:cont-->
+    <!--pytest-codeblocks:cont-->
+
+    ```bash
+    telegraf --test --config telegraf.conf
+    ```
+
+    Telegraf outputs the following to stdout, and then exits:
+
+    <!--pytest-codeblocks:expected-output-->
+
+    ```
+    > home,room=Kitchen co=22i,hum=36.6,temp=23.1 1641063600000000000
+    > home,room=Living\ Room co=17i,hum=36.4,temp=22.7 1641063600000000000
+    ```
+
+    <!-- hidden-test >
+
+    <!--before-test
+    ```bash
+    influx bucket create --name jason-test-create-bucket 2>/dev/null ||:
+    ```
+
+    ```bash
+    # Run once and exit.
+    telegraf --once --config telegraf.conf
+    ```
+    -->
+
+
+### Avoid sending duplicate data
+
+Use Telegraf and the [Dedup processor plugin](/telegraf/v1/plugins/#processor-dedup) to filter data whose field values are exact repetitions of previous values.
+Deduplicating your data can reduce your write payload size and resource usage.
+
+The following example shows how to use Telegraf to remove points that repeat field values, and then write the data to InfluxDB:
+
+1.  In your terminal, enter the following command to create the sample data file and calculate the number of seconds between the earliest timestamp and _now_.
+    The command assigns the calculated value to a `dedup_duration` variable that you'll use in the next step.
+
+    ```bash
+    cat <<EOF > ./home.lp
+    home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+    home,room=Living\ Room temp=22.5,hum=36.4,co=17i 1641063600
+    home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641063605
+    home,room=Living\ Room temp=22.5,hum=36.4,co=17i 1641063605
+    home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063610
+    home,room=Living\ Room temp=23.0,hum=36.4,co=17i 1641063610
+    EOF
+    dedup_duration="$(($(date +%s)-1641063000))s"
+    ```
+
+2.  Enter the following command to configure Telegraf to parse the file, drop duplicate points, and write the data to InfluxDB--specifically, the sample configuration sets the following:
+
+    - `influx_timestamp_precision`: for parsers, specifies the timestamp precision in the input data
+    - `processors.dedup`: configures the Dedup processor plugin
+    - Optional: `processors.dedup.dedup_interval`. Points in the range `dedup_interval` _to now_ are considered for removal.
+      To ensure the sample data is included, the configuration uses the calculated variable from the preceding step.
+
+    <!--pytest-codeblocks:cont-->
+
+    ```bash
+    cat <<EOF > ./telegraf.conf
+    # Parse metrics from a file
+    [[inputs.file]]
+      ## A list of files to parse during each interval.
+      files = ["home.lp"]
+      ## The precision of timestamps in your data.
+      influx_timestamp_precision = "1s"
+      tagexclude = ["host"]
+    # Filter metrics that repeat previous field values
+    [[processors.dedup]]
+      ## Drops duplicates within the specified duration
+      dedup_interval = "$dedup_duration"
+    # Writes metrics as line protocol to the InfluxDB v2 API
+    [[outputs.influxdb_v2]]
+      ## InfluxDB credentials and the bucket to write data to.
+      urls = ["https://{{< influxdb/host >}}"]
+      token = "API_TOKEN"
+      organization = ""
+      bucket = "BUCKET_NAME"
+    EOF
+    ```
+
+3.  To test the input and processor, enter the following command:
+
+    <!--pytest-codeblocks:cont-->
+
+    ```bash
+    telegraf --test --config telegraf.conf
+    ```
+
+    Telegraf outputs the following to stdout, and then exits:
+
+    <!--pytest-codeblocks:expected-output-->
+
+    ```
+    > home,room=Kitchen co=22i,hum=36.6,temp=23.1 1641063600000000000
+    > home,room=Living\ Room co=17i,hum=36.4,temp=22.5 1641063600000000000
+    > home,room=Kitchen co=26i,hum=36.5,temp=22.7 1641063605000000000
+    > home,room=Kitchen co=22i,hum=36.6,temp=23.1 1641063610000000000
+    > home,room=Living\ Room co=17i,hum=36.4,temp=23 1641063610000000000
+    ```
+
+    <!-- hidden-test >
+
+    <!--before-test
+    ```bash
+    influx bucket create --name jason-test-create-bucket 2>/dev/null ||:
+    ```
+
+    ```bash
+    # Run once and exit.
+    telegraf --once --config telegraf.conf
+    ```
+    -->
+
+### Run custom preprocessing code
+
+Use Telegraf and the [Execd processor plugin](/telegraf/v1/plugins/#processor-execd) to execute code external to Telegraf and then write the processed data.
+The Execd plugin expects line protocol data in stdin, passes the data to the configured executable, and then outputs line protocol to stdout.
+
+The following example shows how to use Telegraf to execute Go code for processing metrics and then write the output to InfluxDB.
+The Go `multiplier.go` sample code does the following:
+
+   1. Imports `influx` parser and serializer plugins from Telegraf.
+   2. Parses each line of data into a Telegraf metric.
+   3. If the metric contains a `count` field, multiplies the field value by `2`; otherwise, prints a message to stderr and exits.
+
+1.  In your editor, enter the following sample code and save the file as `multiplier.go`:
+
+    ```go
+    package main
+
+    import (
+        "fmt"
+        "os"
+
+        "github.com/influxdata/telegraf/plugins/parsers/influx"
+        influxSerializer "github.com/influxdata/telegraf/plugins/serializers/influx"
+    )
+
+    func main() {
+        parser := influx.NewStreamParser(os.Stdin)
+        serializer := influxSerializer.Serializer{}
+        if err := serializer.Init(); err != nil {
+            fmt.Fprintf(os.Stderr, "serializer init failed: %v\n", err)
+            os.Exit(1)
+        }
+
+        for {
+            metric, err := parser.Next()
+            if err != nil {
+                if err == influx.EOF {
+                    return // stream ended
+                }
+                if parseErr, isParseError := err.(*influx.ParseError); isParseError {
+                    fmt.Fprintf(os.Stderr, "parse ERR %v\n", parseErr)
+                    os.Exit(1)
+                }
+                fmt.Fprintf(os.Stderr, "ERR %v\n", err)
+                os.Exit(1)
+            }
+
+            c, found := metric.GetField("count")
+            if !found {
+                fmt.Fprintf(os.Stderr, "metric has no count field\n")
+                os.Exit(1)
+            }
+            switch t := c.(type) {
+            case float64:
+                t *= 2
+                metric.AddField("count", t)
+            case int64:
+                t *= 2
+                metric.AddField("count", t)
+            default:
+                fmt.Fprintf(os.Stderr, "count is not an unknown type, it's a %T\n", c)
+                os.Exit(1)
+            }
+            b, err := serializer.Serialize(metric)
+            if err != nil {
+                fmt.Fprintf(os.Stderr, "ERR %v\n", err)
+                os.Exit(1)
+            }
+            fmt.Fprint(os.Stdout, string(b))
+        }
+    }
+    ```
+
+    <!-- hidden-test
+    ```bash
+    cat <<EOF > ./multiplier.go
+    package main
+
+    import (
+        "fmt"
+        "os"
+        "github.com/influxdata/telegraf/plugins/parsers/influx"
+        influxSerializer "github.com/influxdata/telegraf/plugins/serializers/influx"
+    )
+
+    func main() {
+        parser := influx.NewStreamParser(os.Stdin)
+        serializer := influxSerializer.Serializer{}
+        if err := serializer.Init(); err != nil {
+            fmt.Fprintf(os.Stderr, "serializer init failed: %v\n", err)
+            os.Exit(1)
+        }
+
+        for {
+            metric, err := parser.Next()
+            if err != nil {
+                if err == influx.EOF {
+                    return // stream ended
+                }
+                if parseErr, isParseError := err.(*influx.ParseError); isParseError {
+                    fmt.Fprintf(os.Stderr, "parse ERR %v\n", parseErr)
+                    os.Exit(1)
+                }
+                fmt.Fprintf(os.Stderr, "ERR %v\n", err)
+                os.Exit(1)
+            }
+
+            c, found := metric.GetField("count")
+            if !found {
+                fmt.Fprintf(os.Stderr, "metric has no count field\n")
+                os.Exit(1)
+            }
+            switch t := c.(type) {
+            case float64:
+                t *= 2
+                metric.AddField("count", t)
+            case int64:
+                t *= 2
+                metric.AddField("count", t)
+            default:
+                fmt.Fprintf(os.Stderr, "count is not an unknown type, it's a %T\n", c)
+                os.Exit(1)
+            }
+            b, err := serializer.Serialize(metric)
+            if err != nil {
+                fmt.Fprintf(os.Stderr, "ERR %v\n", err)
+                os.Exit(1)
+            }
+            fmt.Fprint(os.Stdout, string(b))
+        }
+    }
+    EOF
+    ```
+    -->
+
+2.  Initialize the module and install dependencies:
+
+    <!--pytest-codeblocks:cont-->
+
+    ```bash
+    go mod init processlp
+    go mod tidy
+    ```
+
+3.  In your terminal, enter the following command to create the sample data file:
+
+    <!--pytest-codeblocks:cont-->
+
+    ```bash
+    cat <<EOF > ./home.lp
+    home,room=Kitchen temp=23.1,count=1 1641063600
+    home,room=Living\ Room temp=22.7,count=1 1641063600
+    home,room=Kitchen temp=23.1 1641063601
+    home,room=Living\ Room temp=22.7 1641063601
+    EOF
+    ```
+
+4.  Enter the following command to configure Telegraf to parse the file, execute the Go binary, and write the data--specifically, the sample configuration sets the following:
+
+    - `influx_timestamp_precision`: for parsers, specifies the timestamp precision in the input data
+    - `processors.execd`: configures the Execd plugin
+    - `processors.execd.command`: sets the executable and arguments for Execd to run
+
+    <!--pytest-codeblocks:cont-->
+
+    ```bash
+    cat <<EOF > ./telegraf.conf
+    # Parse metrics from a file
+    [[inputs.file]]
+      ## A list of files to parse during each interval.
+      files = ["home.lp"]
+      ## The precision of timestamps in your data.
+      influx_timestamp_precision = "1s"
+      tagexclude = ["host"]
+    # Filter metrics that repeat previous field values
+    [[processors.execd]]
+      ## A list that contains the executable command and arguments to run as a daemon.
+      command = ["go", "run", "multiplier.go"]
+    # Writes metrics as line protocol to the InfluxDB v2 API
+    [[outputs.influxdb_v2]]
+      ## InfluxDB credentials and the bucket to write data to.
+      urls = ["https://{{< influxdb/host >}}"]
+      token = "API_TOKEN"
+      organization = ""
+      bucket = "BUCKET_NAME"
+    EOF
+    ```
+
+5.  To test the input and processor, enter the following command:
+
+    <!--pytest-codeblocks:cont-->
+
+    ```bash
+    telegraf --test --config telegraf.conf
+    ```
+
+    Telegraf outputs the following to stdout, and then exits:
+
+    <!--pytest-codeblocks:expected-output-->
+
+    ```
+    > home,room=Kitchen count=2,temp=23.1 1641063600000000000
+    > home,room=Living\ Room count=2,temp=22.7 1641063600000000000
+    ```
+
+   <!-- hidden-test >
 
    <!--before-test
    ```bash
    influx bucket create --name jason-test-create-bucket 2>/dev/null ||:
    ```
-   -->
-
-   <!--pytest-codeblocks:cont-->
 
    ```bash
    # Run once and exit.
    telegraf --once --config telegraf.conf
    ```
-
-   Telegraf writes the following lines:
-
-   <!--pytest-codeblocks:cont-->
-
-   <!--hidden-test
-   ```bash
-   telegraf --test --config telegraf.conf
-   ```
    -->
-
-   <!--pytest-codeblocks:expected-output-->
-
-   ```
-   > home,room=Kitchen co=22i,hum=36.6,temp=23.1 1641063600000000000
-   > home,room=Living\ Room co=17i,hum=36.4,temp=22.7 1641063600000000000
-   ```
-
-<!-- ### Avoid sending duplicate data
-  -- Can't get processors.dedup to work as expected.
-  -- The content for this section is in branch https://github.com/influxdata/docs-v2/compare/issue5155-preprocess-with-dedup
--->
-
-### Run custom preprocessing code
-
-Use Telegraf and the [Execd processor plugin](/telegraf/v1/plugins/#processor-execd) to execute code external to Telegraf and then write the processed data.
