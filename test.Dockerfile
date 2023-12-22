@@ -1,18 +1,25 @@
 # If you need more help, visit the Dockerfile reference guide at
 # https://docs.docker.com/engine/reference/builder/
 
-FROM python:3.12.0-slim-bookworm
+# Starting from a Go base image is easier than setting up the Go environment later.
+FROM golang:latest
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   curl \
   git \
-  golang \
   gpg \
   maven \
   nodejs \
   npm \
-  wget \
+  wget
+
+# Install test runner dependencies
+RUN apt-get install -y \
+  python3 \
+  python3-pip \
    && rm -rf /var/lib/apt/lists/*
+
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 WORKDIR /usr/src/app
 
@@ -34,13 +41,14 @@ WORKDIR /usr/src/app/test
 COPY test/run-tests.sh /usr/local/bin/run-tests.sh
 RUN chmod +x /usr/local/bin/run-tests.sh
 
-# Download dependencies as a separate step to take advantage of Docker's caching.
+# Some Python test dependencies (pytest-dotenv and pytest-codeblocks) aren't
+# available as packages in apt-cache, so use pip to download dependencies in a # separate step and use Docker's caching.
 # Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
 # Leverage a bind mount to requirements.txt to avoid having to copy them into
 # this layer.
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=test/requirements.txt,target=./requirements.txt \
-    python -m pip install -r ./requirements.txt
+    python -m pip install --break-system-packages -r ./requirements.txt
 
 # RUN --mount=type=cache,target=/root/.cache/node_modules \
 #     --mount=type=bind,source=package.json,target=package.json \

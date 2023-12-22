@@ -82,8 +82,8 @@ explain_and_analyze()
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified database
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the [bucket](/influxdb/cloud-serverless/admin/buckets/) to query
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified database
 
 The output is similar to the following:
 
