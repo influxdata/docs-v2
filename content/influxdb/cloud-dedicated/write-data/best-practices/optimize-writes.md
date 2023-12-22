@@ -136,7 +136,7 @@ curl --request POST "https://{{< influxdb/host >}}/api/v2/write?org=ignored&buck
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
-- **`token`**: a [token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 {{% /tab-content %}}
