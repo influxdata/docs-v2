@@ -11,6 +11,7 @@ menu:
 influxdb/cloud/tags: [best practices, write]
 related:
   - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
+  - /influxdb/clustered/write-data/use-telegraf/
 ---
 
 Use these tips to optimize performance and system overhead when writing data to InfluxDB.
@@ -113,6 +114,7 @@ When using the InfluxDB API `/api/v2/write` endpoint to write data,
 compress the data with `gzip` and set the `Content-Encoding` header to `gzip`--for example:
 
 {{% influxdb/custom-timestamps %}}
+{{% code-placeholders "(DATABASE)_(TOKEN|NAME)" %}}
 {{% code-callout "Content-Encoding: gzip" "orange" %}}
 ```bash
 echo "mem,host=host1 used_percent=23.43234543 1641024000
@@ -128,7 +130,15 @@ curl --request POST "https://{{< influxdb/host >}}/api/v2/write?org=ignored&buck
 ```
 
 {{% /code-callout %}}
+{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/clustered/admin/databases/) to write data to
+- **`token`**: a [token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
+  _Store this in a secret store or environment variable to avoid exposing the raw token string._
+
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
@@ -165,6 +175,12 @@ Use Telegraf and metric filtering to filter data before writing it to InfluxDB.
 
 Configure [metric filters](/telegraf/v1/configuration/#filters) to retain or remove data elements (before processor and aggregator plugins run).
 
+1.  Enter the following command to create a Telegraf configuration that parses system usage data, removes the specified fields and tags, and then writes the data to InfluxDB:
+
+    <!--pytest-codeblocks:cont-->
+
+    {{< code-placeholders "DATABASE_NAME|DATABASE_TOKEN" >}}
+
 ```sh
 cat <<EOF >> ./telegraf.conf
   [[inputs.cpu]]
@@ -180,7 +196,17 @@ cat <<EOF >> ./telegraf.conf
 EOF
 ```
 
-Replace the following:
+   {{< /code-placeholders >}}
+
+    Replace the following:
+
+    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/clustered/admin/databases/) to write data to
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
+      _Store this in a secret store or environment variable to avoid exposing the raw token string._
+
+2.  To test the input and processor, enter the following command:
+
+    <!--pytest-codeblocks:cont-->
 
 ```sh
 telegraf --test --config telegraf.conf
@@ -240,7 +266,9 @@ curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precisi
 
 2. Enter the following command to create a Telegraf configuration that parses the sample data, converts the field values to the specified data types, and then writes the data to InfluxDB:
 
-   <!--pytest-codeblocks:cont-->
+    <!--pytest-codeblocks:cont-->
+
+    {{< code-placeholders "DATABASE_NAME|DATABASE_TOKEN" >}}
 
    ```sh
    cat <<EOF > ./telegraf.conf
@@ -263,6 +291,14 @@ curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precisi
      bucket = "DATABASE_NAME"
    EOF
    ```
+
+    {{< /code-placeholders >}}
+
+    Replace the following:
+
+    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/clustered/admin/databases/) to write data to
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
+      _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 3.  To test the input and processor, enter the following command:
 
@@ -318,30 +354,39 @@ The following example creates sample data for two series (the combination of mea
       To ensure the sample data is included, the configuration uses the calculated variable from the preceding step.
 
     <!--pytest-codeblocks:cont-->
+    {{< code-placeholders "DATABASE_NAME|DATABASE_TOKEN" >}}
 
-    ```bash
-    cat <<EOF > ./telegraf.conf
-    # Parse metrics from a file
-    [[inputs.file]]
-      ## A list of files to parse during each interval.
-      files = ["home.lp"]
-      ## The precision of timestamps in your data.
-      influx_timestamp_precision = "1s"
-      tagexclude = ["host"]
-    # Merge separate metrics that share a series key
-    [[aggregators.merge]]
-      grace = "$grace_duration"
-      ## If true, drops the original metric.
-      drop_original = true
-    # Writes metrics as line protocol to the InfluxDB v2 API
-    [[outputs.influxdb_v2]]
-      ## InfluxDB v2 API credentials and the database to write data to.
-      urls = ["https://{{< influxdb/host >}}"]
-      token = "DATABASE_TOKEN"
-      organization = ""
-      bucket = "DATABASE_NAME"
-    EOF
-    ```
+  ```bash
+  cat <<EOF > ./telegraf.conf
+  # Parse metrics from a file
+  [[inputs.file]]
+    ## A list of files to parse during each interval.
+    files = ["home.lp"]
+    ## The precision of timestamps in your data.
+    influx_timestamp_precision = "1s"
+    tagexclude = ["host"]
+  # Merge separate metrics that share a series key
+  [[aggregators.merge]]
+    grace = "$grace_duration"
+    ## If true, drops the original metric.
+    drop_original = true
+  # Writes metrics as line protocol to the InfluxDB v2 API
+  [[outputs.influxdb_v2]]
+    ## InfluxDB v2 API credentials and the database to write data to.
+    urls = ["https://{{< influxdb/host >}}"]
+    token = "DATABASE_TOKEN"
+    organization = ""
+    bucket = "DATABASE_NAME"
+  EOF
+  ```
+
+    {{< /code-placeholders >}}
+
+    Replace the following:
+
+    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/clustered/admin/databases/) to write data to
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
+      _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 3.  To test the input and aggregator, enter the following command:
 
@@ -400,28 +445,37 @@ The following example shows how to use Telegraf to remove points that repeat fie
 
     <!--pytest-codeblocks:cont-->
 
-    ```bash
-    cat <<EOF > ./telegraf.conf
-    # Parse metrics from a file
-    [[inputs.file]]
-      ## A list of files to parse during each interval.
-      files = ["home.lp"]
-      ## The precision of timestamps in your data.
-      influx_timestamp_precision = "1s"
-      tagexclude = ["host"]
-    # Filter metrics that repeat previous field values
-    [[processors.dedup]]
-      ## Drops duplicates within the specified duration
-      dedup_interval = "$dedup_duration"
-    # Writes metrics as line protocol to the InfluxDB v2 API
-    [[outputs.influxdb_v2]]
-      ## InfluxDB v2 API credentials and the database to write data to.
-      urls = ["https://{{< influxdb/host >}}"]
-      token = "DATABASE_TOKEN"
-      organization = ""
-      bucket = "DATABASE_NAME"
-    EOF
-    ```
+    {{< code-placeholders "DATABASE_NAME|DATABASE_TOKEN" >}}
+  ```bash
+  cat <<EOF > ./telegraf.conf
+  # Parse metrics from a file
+  [[inputs.file]]
+    ## A list of files to parse during each interval.
+    files = ["home.lp"]
+    ## The precision of timestamps in your data.
+    influx_timestamp_precision = "1s"
+    tagexclude = ["host"]
+  # Filter metrics that repeat previous field values
+  [[processors.dedup]]
+    ## Drops duplicates within the specified duration
+    dedup_interval = "$dedup_duration"
+  # Writes metrics as line protocol to the InfluxDB v2 API
+  [[outputs.influxdb_v2]]
+    ## InfluxDB v2 API credentials and the database to write data to.
+    urls = ["https://{{< influxdb/host >}}"]
+    token = "DATABASE_TOKEN"
+    organization = ""
+    bucket = "DATABASE_NAME"
+  EOF
+  ```
+
+    {{< /code-placeholders >}}
+
+    Replace the following:
+
+    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/clustered/admin/databases/) to write data to
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
+      _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 3.  To test the input and processor, enter the following command:
 
@@ -616,28 +670,37 @@ The Go `multiplier.go` sample code does the following:
 
     <!--pytest-codeblocks:cont-->
 
-    ```bash
-    cat <<EOF > ./telegraf.conf
-    # Parse metrics from a file
-    [[inputs.file]]
-      ## A list of files to parse during each interval.
-      files = ["home.lp"]
-      ## The precision of timestamps in your data.
-      influx_timestamp_precision = "1s"
-      tagexclude = ["host"]
-    # Filter metrics that repeat previous field values
-    [[processors.execd]]
-      ## A list that contains the executable command and arguments to run as a daemon.
-      command = ["go", "run", "multiplier.go"]
-    # Writes metrics as line protocol to the InfluxDB v2 API
-    [[outputs.influxdb_v2]]
-      ## InfluxDB v2 API credentials and the database to write data to.
-      urls = ["https://{{< influxdb/host >}}"]
-      token = "DATABASE_TOKEN"
-      organization = ""
-      bucket = "DATABASE_NAME"
-    EOF
-    ```
+    {{< code-placeholders "DATABASE_NAME|DATABASE_TOKEN" >}}
+  ```bash
+  cat <<EOF > ./telegraf.conf
+  # Parse metrics from a file
+  [[inputs.file]]
+    ## A list of files to parse during each interval.
+    files = ["home.lp"]
+    ## The precision of timestamps in your data.
+    influx_timestamp_precision = "1s"
+    tagexclude = ["host"]
+  # Filter metrics that repeat previous field values
+  [[processors.execd]]
+    ## A list that contains the executable command and arguments to run as a daemon.
+    command = ["go", "run", "multiplier.go"]
+  # Writes metrics as line protocol to the InfluxDB v2 API
+  [[outputs.influxdb_v2]]
+    ## InfluxDB v2 API credentials and the database to write data to.
+    urls = ["https://{{< influxdb/host >}}"]
+    token = "DATABASE_TOKEN"
+    organization = ""
+    bucket = "DATABASE_NAME"
+  EOF
+  ```
+
+    {{< /code-placeholders >}}
+
+    Replace the following:
+
+    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/clustered/admin/databases/) to write data to
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
+      _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 5.  To test the input and processor, enter the following command:
 

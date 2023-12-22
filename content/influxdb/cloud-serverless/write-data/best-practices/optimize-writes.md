@@ -11,6 +11,7 @@ menu:
 influxdb/cloud/tags: [best practices, write]
 related:
   - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
+  - /influxdb/cloud-serverless/write-data/use-telegraf/
 ---
 
 Use these tips to optimize performance and system overhead when writing data to InfluxDB.
@@ -113,9 +114,11 @@ For specific instructions, see the
 When using the InfluxDB API `/api/v2/write` endpoint to write data,
 compress the data with `gzip` and set the `Content-Encoding` header to `gzip`.
 
+{{% influxdb/custom-timestamps %}}
+{{% code-placeholders "BUCKET_NAME|API_TOKEN|ORG_NAME" %}}
 {{% code-callout "Content-Encoding: gzip" "orange" %}}
 
-```sh
+```bash
 echo "mem,host=host1 used_percent=23.43234543 1641024000
 mem,host=host2 used_percent=26.81522361 1641027600
 mem,host=host1 used_percent=22.52984738 1641031200
@@ -129,6 +132,16 @@ curl --request POST "https://{{< influxdb/host >}}/api/v2/write?org=ORG_NAME&buc
 ```
 
 {{% /code-callout %}}
+{{% /code-placeholders %}}
+{{% /influxdb/custom-timestamps %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`ORG_NAME`{{% /code-placeholder-key %}}: the name of your [organization](/influxdb/cloud-serverless/admin/organizations/)
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of the [bucket](/influxdb/cloud-serverless/admin/buckets/) to write data to
+- **`token`**: a [token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+  _Store this in a secret store or environment variable to avoid exposing the raw token string._
+
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
@@ -162,8 +175,13 @@ and use the [InfluxDB v2 output plugin](/telegraf/v1/plugins/#input-influxdb) to
 ### Filter data from a batch
 
 Use Telegraf and metric filtering to filter data before writing it to InfluxDB.
-
 Configure [metric filters](/telegraf/v1/configuration/#filters) to retain or remove data elements (before processor and aggregator plugins run).
+
+1.  Enter the following command to create a Telegraf configuration that parses system usage data, removes the specified fields and tags, and then writes the data to InfluxDB:
+
+    <!--pytest-codeblocks:cont-->
+
+    {{< code-placeholders "BUCKET_NAME|API_TOKEN" >}}
 
 ```sh
 cat <<EOF >> ./telegraf.conf
@@ -180,20 +198,31 @@ cat <<EOF >> ./telegraf.conf
 EOF
 ```
 
-Replace the following:
+   {{< /code-placeholders >}}
 
-```sh
-telegraf --test --config telegraf.conf
-```
+    Replace the following:
 
-The output is similar to the following.
-For each row of input data, the filters pass the metric name, tags, specified fields, and timestamp.
+    - {{% code-placeholder-key %}}`ORG_NAME`{{% /code-placeholder-key %}}: the name of your [organization](/influxdb/cloud-serverless/admin/organizations/)
+    - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of the [bucket](/influxdb/cloud-serverless/admin/buckets/) to write data to
+    - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+      _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
-```text
-> cpu,cpu=cpu0 usage_idle=100,usage_system=0 1702067201000000000
-...
-> cpu,cpu=cpu-total usage_idle=99.80198019802448,usage_system=0.1980198019802045 1702067201000000000
-```
+2.  To test the input and processor, enter the following command:
+
+    <!--pytest-codeblocks:cont-->
+
+    ```sh
+    telegraf --test --config telegraf.conf
+    ```
+
+    The output is similar to the following.
+    For each row of input data, the filters pass the metric name, tags, specified fields, and timestamp.
+
+    ```text
+    > cpu,cpu=cpu0 usage_idle=100,usage_system=0 1702067201000000000
+    ...
+    > cpu,cpu=cpu-total usage_idle=99.80198019802448,usage_system=0.1980198019802045 1702067201000000000
+    ```
 
 ### Coerce data types to avoid rejected point errors
 
@@ -228,43 +257,53 @@ curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision
 ```
 -->
 
-1. In your terminal, enter the following command to create the sample data file:
+1.  In your terminal, enter the following command to create the sample data file:
 
-   <!--pytest-codeblocks:cont-->
+    <!--pytest-codeblocks:cont-->
 
-   ```sh
-   cat <<EOF > ./home.lp
-   home,room=Kitchen temp=23.1,hum=36.6,co=22.1 1641063600
-   home,room=Living\ Room temp=22i,hum=36.4,co=17i 1641067200
-   home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
-   EOF
-   ```
+    ```sh
+    cat <<EOF > ./home.lp
+    home,room=Kitchen temp=23.1,hum=36.6,co=22.1 1641063600
+    home,room=Living\ Room temp=22i,hum=36.4,co=17i 1641067200
+    home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
+    EOF
+    ```
 
-2. Enter the following command to create a Telegraf configuration that parses the sample data, converts the field values to the specified data types, and then writes the data to InfluxDB:
+2.  Enter the following command to create a Telegraf configuration that parses the sample data, converts the field values to the specified data types, and then writes the data to InfluxDB:
 
-   <!--pytest-codeblocks:cont-->
+    <!--pytest-codeblocks:cont-->
 
-   ```sh
-   cat <<EOF > ./telegraf.conf
-   [[inputs.file]]
-     ## For each interval, parse data from files in the list.
-     files = ["home.lp"]
-     influx_timestamp_precision = "1s"
-     precision = "1s"
-     tagexclude = ["host"]
-   [[processors.converter]]
-     [processors.converter.fields]
-       ## A data type and a list of fields to convert to the data type.
-       float = ["temp", "hum"]
-       integer = ["co"]
-   [[outputs.influxdb_v2]]
-     ## InfluxDB v2 API credentials and the bucket to write to.
-     urls = ["https://{{< influxdb/host >}}"]
-     token = "API_TOKEN"
-     organization = ""
-     bucket = "BUCKET_NAME"
-   EOF
-   ```
+    {{< code-placeholders "BUCKET_NAME|API_TOKEN" >}}
+
+```sh
+cat <<EOF > ./telegraf.conf
+[[inputs.file]]
+  ## For each interval, parse data from files in the list.
+  files = ["home.lp"]
+  influx_timestamp_precision = "1s"
+  precision = "1s"
+  tagexclude = ["host"]
+[[processors.converter]]
+  [processors.converter.fields]
+    ## A data type and a list of fields to convert to the data type.
+    float = ["temp", "hum"]
+    integer = ["co"]
+[[outputs.influxdb_v2]]
+  ## InfluxDB v2 API credentials and the bucket to write to.
+  urls = ["https://{{< influxdb/host >}}"]
+  token = "API_TOKEN"
+  organization = ""
+  bucket = "BUCKET_NAME"
+EOF
+```
+
+    {{< /code-placeholders >}}
+
+    Replace the following:
+
+    - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of the [bucket](/influxdb/cloud-serverless/admin/buckets/) to write data to
+    - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+      _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 3.  To test the input and processor, enter the following command:
 
@@ -278,11 +317,11 @@ curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision
 
     <!--pytest-codeblocks:expected-output-->
 
-   ```
-   > home,room=Kitchen co=22i,hum=36.6,temp=23.1 1641063600000000000
-   > home,room=Living\ Room co=17i,hum=36.4,temp=22 1641067200000000000
-   > home,room=Kitchen co=26i,hum=36.5,temp=22.7 1641067200000000000
-   ```
+    ```
+    > home,room=Kitchen co=22i,hum=36.6,temp=23.1 1641063600000000000
+    > home,room=Living\ Room co=17i,hum=36.4,temp=22 1641067200000000000
+    > home,room=Kitchen co=26i,hum=36.5,temp=22.7 1641067200000000000
+    ```
 
     <!-- hidden-test >
 
@@ -326,29 +365,39 @@ The following example creates sample data for two series (the combination of mea
 
     <!--pytest-codeblocks:cont-->
 
-    ```bash
-    cat <<EOF > ./telegraf.conf
-    # Parse metrics from a file
-    [[inputs.file]]
-      ## A list of files to parse during each interval.
-      files = ["home.lp"]
-      ## The precision of timestamps in your data.
-      influx_timestamp_precision = "1s"
-      tagexclude = ["host"]
-    # Merge separate metrics that share a series key
-    [[aggregators.merge]]
-      grace = "$grace_duration"
-      ## If true, drops the original metric.
-      drop_original = true
-    # Writes metrics as line protocol to the InfluxDB v2 API
-    [[outputs.influxdb_v2]]
-      ## InfluxDB credentials and the bucket to write data to.
-      urls = ["https://{{< influxdb/host >}}"]
-      token = "API_TOKEN"
-      organization = ""
-      bucket = "BUCKET_NAME"
-    EOF
-    ```
+    {{< code-placeholders "BUCKET_NAME|API_TOKEN" >}}
+
+  ```bash
+  cat <<EOF > ./telegraf.conf
+  # Parse metrics from a file
+  [[inputs.file]]
+    ## A list of files to parse during each interval.
+    files = ["home.lp"]
+    ## The precision of timestamps in your data.
+    influx_timestamp_precision = "1s"
+    tagexclude = ["host"]
+  # Merge separate metrics that share a series key
+  [[aggregators.merge]]
+    grace = "$grace_duration"
+    ## If true, drops the original metric.
+    drop_original = true
+  # Writes metrics as line protocol to the InfluxDB v2 API
+  [[outputs.influxdb_v2]]
+    ## InfluxDB credentials and the bucket to write data to.
+    urls = ["https://{{< influxdb/host >}}"]
+    token = "API_TOKEN"
+    organization = ""
+    bucket = "BUCKET_NAME"
+  EOF
+  ```
+
+    {{< /code-placeholders >}}
+
+    Replace the following:
+
+    - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of the [bucket](/influxdb/cloud-serverless/admin/buckets/) to write data to
+    - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+      _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 3.  To test the input and aggregator, enter the following command:
 
@@ -412,28 +461,38 @@ The following example shows how to use Telegraf to remove points that repeat fie
 
     <!--pytest-codeblocks:cont-->
 
-    ```bash
-    cat <<EOF > ./telegraf.conf
-    # Parse metrics from a file
-    [[inputs.file]]
-      ## A list of files to parse during each interval.
-      files = ["home.lp"]
-      ## The precision of timestamps in your data.
-      influx_timestamp_precision = "1s"
-      tagexclude = ["host"]
-    # Filter metrics that repeat previous field values
-    [[processors.dedup]]
-      ## Drops duplicates within the specified duration
-      dedup_interval = "$dedup_duration"
-    # Writes metrics as line protocol to the InfluxDB v2 API
-    [[outputs.influxdb_v2]]
-      ## InfluxDB credentials and the bucket to write data to.
-      urls = ["https://{{< influxdb/host >}}"]
-      token = "API_TOKEN"
-      organization = ""
-      bucket = "BUCKET_NAME"
-    EOF
-    ```
+    {{< code-placeholders "BUCKET_NAME|API_TOKEN" >}}
+
+  ```bash
+  cat <<EOF > ./telegraf.conf
+  # Parse metrics from a file
+  [[inputs.file]]
+    ## A list of files to parse during each interval.
+    files = ["home.lp"]
+    ## The precision of timestamps in your data.
+    influx_timestamp_precision = "1s"
+    tagexclude = ["host"]
+  # Filter metrics that repeat previous field values
+  [[processors.dedup]]
+    ## Drops duplicates within the specified duration
+    dedup_interval = "$dedup_duration"
+  # Writes metrics as line protocol to the InfluxDB v2 API
+  [[outputs.influxdb_v2]]
+    ## InfluxDB credentials and the bucket to write data to.
+    urls = ["https://{{< influxdb/host >}}"]
+    token = "API_TOKEN"
+    organization = ""
+    bucket = "BUCKET_NAME"
+  EOF
+  ```
+
+    {{< /code-placeholders >}}
+
+    Replace the following:
+
+    - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of the [bucket](/influxdb/cloud-serverless/admin/buckets/) to write data to
+    - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+      _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 3.  To test the input and processor, enter the following command:
 
@@ -633,28 +692,38 @@ The Go `multiplier.go` sample code does the following:
 
     <!--pytest-codeblocks:cont-->
 
-    ```bash
-    cat <<EOF > ./telegraf.conf
-    # Parse metrics from a file
-    [[inputs.file]]
-      ## A list of files to parse during each interval.
-      files = ["home.lp"]
-      ## The precision of timestamps in your data.
-      influx_timestamp_precision = "1s"
-      tagexclude = ["host"]
+    {{< code-placeholders "BUCKET_NAME|API_TOKEN" >}}
+
+  ```bash
+  cat <<EOF > ./telegraf.conf
+  # Parse metrics from a file
+  [[inputs.file]]
+    ## A list of files to parse during each interval.
+    files = ["home.lp"]
+    ## The precision of timestamps in your data.
+    influx_timestamp_precision = "1s"
+    tagexclude = ["host"]
     # Filter metrics that repeat previous field values
-    [[processors.execd]]
-      ## A list that contains the executable command and arguments to run as a daemon.
-      command = ["go", "run", "multiplier.go"]
+  [[processors.execd]]
+    ## A list that contains the executable command and arguments to run as a daemon.
+    command = ["go", "run", "multiplier.go"]
     # Writes metrics as line protocol to the InfluxDB v2 API
-    [[outputs.influxdb_v2]]
-      ## InfluxDB credentials and the bucket to write data to.
-      urls = ["https://{{< influxdb/host >}}"]
-      token = "API_TOKEN"
-      organization = ""
-      bucket = "BUCKET_NAME"
-    EOF
-    ```
+  [[outputs.influxdb_v2]]
+    ## InfluxDB credentials and the bucket to write data to.
+    urls = ["https://{{< influxdb/host >}}"]
+    token = "API_TOKEN"
+    organization = ""
+    bucket = "BUCKET_NAME"
+  EOF
+  ```
+
+    {{< /code-placeholders >}}
+
+    Replace the following:
+
+    - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of the [bucket](/influxdb/cloud-serverless/admin/buckets/) to write data to
+    - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+      _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 5.  To test the input and processor, enter the following command:
 
