@@ -139,7 +139,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`ORG_NAME`{{% /code-placeholder-key %}}: the name of your [organization](/influxdb/cloud-serverless/admin/organizations/)
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of the [bucket](/influxdb/cloud-serverless/admin/buckets/) to write data to
-- **`token`**: a [token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 {{% /tab-content %}}
