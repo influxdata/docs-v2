@@ -89,8 +89,6 @@ On the system used to configure the cluster (not the cluster itself), install
 the following:
 
 - [kubectl _(v1.27)_](https://kubernetes.io/docs/reference/kubectl/kubectl/) 
-- [yq](https://github.com/mikefarah/yq)
-- [jq](https://jqlang.github.io/jq/)
 - [crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/README.md)
 
 ## Configure object storage permissions
