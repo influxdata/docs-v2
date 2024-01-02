@@ -132,7 +132,7 @@ There are two main scenarios:
   can only access a private container registry.
 
 In both cases you need a valid container registry secret file.
-Use [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane) 
+Use [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane). 
 
 1.  [Install crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
 2.  Use the following command to create a container registry secret file and
