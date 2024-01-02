@@ -20,13 +20,9 @@ aliases:
 Optimize your queries to reduce their memory and compute (CPU) requirements.
 Use tools to help you identify performance bottlenecks and troubleshoot problems in queries.
 
-<!-- TOC -->
-
 - [Strategies for improving query performance](#strategies-for-improving-query-performance)
-- [Troubleshoot query performance](#troubleshoot-query-performance)
   - [EXPLAIN and ANALYZE](#explain-and-analyze)
   - [Enable trace logging](#enable-trace-logging)
-
 
 ## Strategies for improving query performance
 

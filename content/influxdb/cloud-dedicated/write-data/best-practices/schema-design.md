@@ -13,7 +13,6 @@ menu:
 Use the following guidelines to design your [schema](/influxdb/cloud-dedicated/reference/glossary/#schema)
 for simpler and more performant queries.
 
-<!-- TOC -->
 
 - [InfluxDB data structure](#influxdb-data-structure)
   - [Primary keys](#primary-keys)
@@ -23,15 +22,12 @@ for simpler and more performant queries.
   - [Measurements can contain up to 250 columns](#measurements-can-contain-up-to-250-columns)
 - [Design for performance](#design-for-performance)
   - [Avoid wide schemas](#avoid-wide-schemas)
-    - [Avoid too many tags](#avoid-too-many-tags)
   - [Avoid sparse schemas](#avoid-sparse-schemas)
-    - [Writing individual fields with different timestamps](#writing-individual-fields-with-different-timestamps)
   - [Measurement schemas should be homogenous](#measurement-schemas-should-be-homogenous)
+  - [Use the best data type for your data](#use-the-best-data-type-for-your-data)
 - [Design for query simplicity](#design-for-query-simplicity)
   - [Keep measurement names, tags, and fields simple](#keep-measurement-names-tags-and-fields-simple)
   - [Avoid keywords and special characters](#avoid-keywords-and-special-characters)
-
-<!-- TOC -->
 
 ## InfluxDB data structure
 
@@ -228,7 +224,7 @@ full of null values (also known as a _sparse schema_):
 
 ### Use the best data type for your data
 
-When writing data to a field, use the most appropriate [data type]() for your data--write integers as integers, decimals as floats, and booleans as booleans.
+When writing data to a field, use the most appropriate [data type](/influxdb/cloud-dedicated/reference/glossary/#data-type) for your data--write integers as integers, decimals as floats, and booleans as booleans.
 A query against a field that stores integers outperforms a query against string data;
 querying over many long string values can negatively affect performance.
 

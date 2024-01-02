@@ -2,6 +2,7 @@
 title: Optimize queries
 description: >
   Optimize your SQL and InfluxQL queries to improve performance and reduce their memory and compute (CPU) requirements.
+  Learn how to read and analyze a query plan.
 weight: 401
 menu:
   influxdb_cloud_dedicated:
@@ -18,16 +19,20 @@ related:
 Optimize your queries to reduce their memory and compute (CPU) requirements.
 Use tools to help you identify performance bottlenecks and troubleshoot problems in queries.
 
-<!-- TOC -->
-
+- [Why is my query slow?](#why-is-my-query-slow)
+  - [Why isn't my query returning data?](#why-isnt-my-query-returning-data)
 - [Strategies for improving query performance](#strategies-for-improving-query-performance)
-- [EXPLAIN and ANALYZE](#explain-and-analyze)
+- [Use `EXPLAIN` keywords to troubleshoot the query plan](#use-explain-keywords-to-troubleshoot-the-query-plan)
+  - [View the query plan](#view-the-query-plan)
+  - [View the query plan with runtime metrics](#view-the-query-plan-with-runtime-metrics)
+  - [View the detailed query plan for debugging](#view-the-detailed-query-plan-for-debugging)
+  - [Execute EXPLAIN for a query](#execute-explain-for-a-query)
+  - [Analyze an EXPLAIN report and troubleshoot the query plan](#analyze-an-explain-report-and-troubleshoot-the-query-plan)
+- [Get help resolving issues](#get-help-resolving-issues)
 - [Enable trace logging](#enable-trace-logging)
-    - [Avoid unnecessary tracing](#avoid-unnecessary-tracing)
   - [Syntax](#syntax)
-  - [Example](#example)
+  - [Example](#example-2)
   - [Tracing response header](#tracing-response-header)
-    - [Trace response header syntax](#trace-response-header-syntax)
   - [Inspect Flight response headers](#inspect-flight-response-headers)
 - [Retrieve query information](#retrieve-query-information)
 
@@ -65,21 +70,68 @@ Some bottlenecks may be out of your control and are the result of a suboptimal e
 - Querying many overlapped parquet files.
 - Performing a large number of table scans.
 
-The `EXPLAIN` and `EXPLAIN ANALYZE` commands can help you identify why the query doesn't perform as you expect.
-Learn how to [use `EXPLAIN` and `EXPLAIN ANALYZE` to troubleshoot the query plan](#analyze-an-explain-report-and-troubleshoot-the-query-plan).
+The `EXPLAIN` command can help you identify why the query doesn't perform as you expect.
+Learn how to [use `EXPLAIN` keywords  to troubleshoot the query plan](#analyze-an-explain-report-and-troubleshoot-the-query-plan).
 
-## Use `EXPLAIN` and `EXPLAIN ANALYZE` to troubleshoot the query plan
+## Use `EXPLAIN` keywords to troubleshoot the query plan
 
-To view the query engine's execution plan and metrics for an SQL or InfluxQL query, prepend [`EXPLAIN`](/influxdb/cloud-dedicated/reference/sql/explain/) or [`EXPLAIN ANALYZE`](/influxdb/cloud-dedicated/reference/sql/explain/#explain-analyze) to the query.
-The `EXPLAIN` and `EXPLAIN ANALYZE` reports can reveal bottlenecks that affect the performance of your query.
-By learning how to generate and interpret the `EXPLAIN` report, you can better understand how the query is executed and why it doesn't perform as you expect.
+When you query InfluxDB v3, the query engine devises a _query plan_ for executing the query.
+The engine tries to determine the optimal plan for the query structure and data.
+By learning how to generate and interpret reports for the query plan, you can better understand how the query is executed and identify bottlenecks that affect the performance of your query.
 
-- [Execute an `EXPLAIN` query](#execute-an-explain-query)
-- [Analyze an EXPLAIN report and troubleshoot the query plan](#analyze-an-explain-report-and-troubleshoot-the-query-plan)
+For example, if the query plan reveals that your query reads a large number of parquet files, you might take the following steps to improve performance:
 
-### Execute an EXPLAIN query
+- Add filters in the query to read less data.
+- Modify your cluster configuration or design to store fewer and larger files.
 
-The following example shows how to use the InfluxDB v3 Python client library and pandas to view `EXPLAIN` and `EXPLAIN ANALYZE` results for a query:
+Use the `EXPLAIN` keyword (and the optional `ANALYZE` and `VERBOSE` keywords) to generate a report and [view the query plan](#view-the-query-plan).
+
+### View the query plan
+
+To generate a report and view the query plan without running the query, prepend the [`EXPLAIN`](/influxdb/cloud-dedicated/reference/sql/explain/)
+keyword to your SQL or InfluxQL query--for example:
+
+```SQL
+EXPLAIN SELECT temp FROM home
+WHERE time >= now() - INTERVAL '90 days' AND room = 'Kitchen'
+ORDER BY time
+```
+
+The report includes the [logical plan]() and the [physical plan]() for the query.
+
+### View the query plan with runtime metrics
+
+To run the query and generate a report that includes runtime metrics for each process in the query plan, prepend [`EXPLAIN ANALYZE`](/influxdb/cloud-dedicated/reference/sql/explain/#explain-analyze) to the query--for example:
+
+```SQL
+EXPLAIN ANALYZE SELECT temp FROM home
+WHERE time >= now() - INTERVAL '90 days' AND room = 'Kitchen'
+ORDER BY time
+```
+
+The report includes the [logical plan]() and the [physical plan]() with operator metrics sampled during the query execution.
+
+### View the detailed query plan for debugging
+
+If a query plan requires the query engine to read lots of data files, `EXPLAIN` shows a truncated list of files.
+To include all of the data file names and additional plan details, prepend [`EXPLAIN VERBOSE`](/influxdb/cloud-dedicated/reference/sql/explain/#explain-analyze) to the query--for example:
+
+```SQL
+EXPLAIN VERBOSE SELECT temp FROM home
+WHERE time >= now() - INTERVAL '90 days' AND room = 'Kitchen'
+ORDER BY time
+```
+
+The report includes the following:
+
+- All truncated information in the `EXPLAIN` report, such as parquet files retrieved for the query
+- All intermediate physical plans that the IOx querier and DataFusion generate before the query engine generates the final physical plan--helpful in debugging to see when an _operator_ is added to or removed from a plan
+
+Like `EXPLAIN`, `EXPLAIN VERBOSE` doesn't run the query and doesn't include runtime metrics.
+
+### Execute EXPLAIN for a query
+
+The following example shows how to use the InfluxDB v3 Python client library and pandas to view the `EXPLAIN` report for a query:
 
 <!-- Import for tests and hide from users.
 ```python
@@ -87,8 +139,9 @@ import os
 ```
 -->
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 <!--pytest-codeblocks:cont-->
+
+{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 
 ```python
 from influxdb_client_3 import InfluxDBClient3
@@ -116,6 +169,13 @@ assert 'physical_plan' in df.plan_type.values, "Expect physical_plan"
 assert 'logical_plan' in df.plan_type.values, "Expect logical_plan"
 ```
 
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the specified database
+
 {{< expand-wrapper >}}
 {{% expand "View EXPLAIN example results" %}}
 | plan_type     | plan                                                                                                                                                                           |
@@ -130,50 +190,127 @@ assert 'logical_plan' in df.plan_type.values, "Expect logical_plan"
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Execute an EXPLAIN ANALYZE query
-
-<!--pytest-codeblocks:cont-->
-
-```python
-sql_explain_analyze = '''EXPLAIN ANALYZE
-                      SELECT *
-                      FROM home
-                      WHERE time >= now() - INTERVAL '90 days'
-                      ORDER BY time'''
-
-table = client.query(sql_explain_analyze)
-df = table.to_pandas()
-print(df.to_markdown(index=False))
-
-assert df.shape == (1,2)
-assert 'Plan with Metrics' in df.plan_type.values, "Expect plan metrics"
-
-client.close()
-```
-{{% /code-placeholders %}}
-
-Replace the following:
-
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the specified database
-
-{{< expand-wrapper >}}
-{{% expand "View EXPLAIN ANALYZE example results" %}}
-```SQL
-| plan_type         | plan                                                                                                                   |
-|:------------------|:-----------------------------------------------------------------------------------------------------------------------|
-| Plan with Metrics | ProjectionExec: expr=[temp@0 as temp], metrics=[output_rows=0, elapsed_compute=1ns]                                    |
-|             |   SortExec: expr=[time@1 ASC NULLS LAST], metrics=[output_rows=0, elapsed_compute=1ns, spill_count=0, spilled_bytes=0] |
-|             |     EmptyExec: produce_one_row=false, metrics=[]
-```
-{{% /expand %}}
-{{< /expand-wrapper >}}
-
 ### Analyze an EXPLAIN report and troubleshoot the query plan
 
-Learn how to analyze an `EXPLAIN` report, find bottlenecks, and identify potential problems in the query plan.
+When you [execute `EXPLAIN` for a query](#execute-explain-for-a-query), the report includes a [logical plan]() and a [physical plan]().
 
-An `EXPLAIN` report shows the sequence of processes run during query execution.
+#### Logical plan
+
+A logical plan is generated for a specific SQL or InfluxQL query without knowledge of the underlying data organization or cluster configuration.
+Because InfluxDB v3 is built on the [DataFusion](https://github.com/apache/arrow-datafusion) engine, the logical plan is the same as if you use DataFusion with any data format or storage.
+
+#### Physical plan
+
+A physical plan is generated from its corresponding [logical plan](#logical-plan) plus the consideration of the cluster configuration (for example, the number of CPUs) and the underlying data organization (for example, the number of files, and whether files overlap).
+The physical plan is specific to your InfluxDB cluster configuration and your data.
+If you run the same query with the same data on different clusters with different configurations, each cluster may generate a different physical plan for the query.
+Likewise, if you run the same query on the same cluster, but at different times, the cluster can generate different physical plans depending on the data at that time.
+
+#### Read a query plan
+
+A query plan contains the sequence of steps run during query execution.
+Each plan in an `EXPLAIN` report is formatted as an upside-down tree where each step is a _node_ that contains the _operator_ name and a description of the data that the operator is processing.
+
+Follow these steps when reading and analyzing a query plan, regardless of how large or complex the plan might seem:
+
+1.  Always read the plan from the bottom up.
+2.  Read one operator at a time and understand its job.
+    Most operators are described in the [DataFusion Physical Plan documentation](https://docs.rs/datafusion/latest/datafusion/physical_plan/index.html).
+    Operators not included in DataFusion may be specific to InfluxDB. TODO: need a list [IOx repo](https://github.com/influxdata/influxdb_iox).
+3.  For each operator, answer the following questions:
+    - What is the shape and size of data input to the operator?
+    - What is the shape and size of data output from the operator?
+
+If you can answer those questions, you will be able to estimate how much work that plan has to do. However, the `explain` just shows you the plan without executing it. If you want to know exactly how long a plan and each of its operators take, you need other tools.
+
+
+
+
+##### Query plan example
+
+For example, if you run `EXPLAIN` for the following data and query:
+
+```sql
+EXPLAIN SELECT city, min_temp, time FROM h2o ORDER BY city ASC, time DESC;
+```
+
+The output is similar to the following:
+
+###### Figure 1. EXPLAIN report
+
+```sql
+| plan_type     | plan                                                                     |
++---------------+--------------------------------------------------------------------------+
+| logical_plan  | Sort: h2o.city ASC NULLS LAST, h2o.time DESC NULLS FIRST                 |
+|               |   TableScan: h2o projection=[city, min_temp, time]                       |
+| physical_plan | SortPreservingMergeExec: [city@0 ASC NULLS LAST,time@2 DESC]             |
+|               |   UnionExec                                                              |
+|               |     SortExec: expr=[city@0 ASC NULLS LAST,time@2 DESC]                   |
+|               |       ParquetExec: file_groups={...}, projection=[city, min_temp, time]  |
+|               |     SortExec: expr=[city@0 ASC NULLS LAST,time@2 DESC]                   |
+|               |       ParquetExec: file_groups={...}, projection=[city, min_temp, time]  |
+|               |                                                                          |
+```
+
+{{% caption %}}
+Output from `EXPLAIN SELECT city, min_temp, time FROM h2o ORDER BY city ASC, time DESC;`
+{{% /caption %}}
+
+The output contains two columns (`plan_type` and `plan`), a row for the [`logical_plan`](#logical-plan), and a row for the [`physical_plan`](#physical-plan).
+In the report, each `plan` value contains the sequence of steps that the query engine follows when running the query.
+A plan is formatted as an upside-down tree and you read it from the bottom up.
+Each step, or node, in the plan begins with the name of the _operator_ for that node--for example, the first node (read from the bottom up) in the [Figure 1](#figure-1-explain-report) physical plan is an `ParquetExec` operator:
+
+```text
+ParquetExec: file_groups={...}, projection=[city, min_temp, time]
+```
+
+Operators process and transform data before sending it to the next node in the plan.
+Operator names contain the _Exec_ suffix.
+
+#####
+
+The following flow diagram shows the sequence of operators in the [Figure 1](#query-plan-figure-1) physical plan:
+
+###### Figure 2. Physical plan in tree format
+
+```text
+                   ┌─────────────────────────┐
+                   │ SortPreservingMergeExec │
+                   └─────────────────────────┘
+                                ▲
+                                │
+                   ┌─────────────────────────┐
+                   │        UnionExec        │
+                   └─────────────────────────┘
+                                ▲
+             ┌──────────────────┴─────────────────┐
+             │                                    │
+┌─────────────────────────┐          ┌─────────────────────────┐
+│        SortExec         │          │        SortExec         │
+└─────────────────────────┘          └─────────────────────────┘
+             ▲                                    ▲
+             │                                    │
+             │                                    │
+┌─────────────────────────┐          ┌─────────────────────────┐
+│       ParquetExec       │          │       ParquetExec       │
+└─────────────────────────┘          └─────────────────────────┘
+```
+
+{{% caption %}}
+The [Figure 1](#figure-1-explain-report) physical plan in tree format
+{{% /caption %}}
+
+The [Figure 1](#figure-1-explain-report) physical plan has the following steps:
+
+1.  Two `ParquetExec` operators in parallel read data from parquet files and each operator outputs a stream of data to its corresponding `SortExec` operator.
+2.  The `SortExec` operator sorts the data by `city` (ascending) and `time` (descending).
+3.  The `UnionExec` operator unions the data output from the parallel `SortExec` operators.
+4.  The `SortPreservingMergeExec` operator sorts and merges the `UnionExec` output.
+
+### Analyze a large query plan
+
+
 
 - `ProjectionExec`: reports the columns in the query `SELECT` statement and marks the start of executing the query over a batch of parquet files.
 - `UnionExec`: the query is processing file batches in parallel and then combining ("unioning") the results; parallel execution is generally more performant than sequential.
