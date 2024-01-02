@@ -136,48 +136,49 @@ Good [schema design](/influxdb/v2/write-data/best-practices/schema-design) can p
 Now that you're familiar with measurements, field sets, and tag sets, it's time to discuss series keys and series.
 
 {{% oss-only %}}
-In {{% product-name %}}, a **series key** is a unique combination of measurement and tag set.
+
+In {{% product-name %}} OSS (TSM), a [series key](/influxdb/v2/reference/glossary/#series-key) is a unique combination of measurement and tag set.
 
 For example, the [sample data](#sample-data) includes two unique series keys:
 
-| _measurement  | tag set                                                         |
-|:------------- |:-------------------------------                                 |
-| census        | {{< tooltip "Tag set" "location=klamath,scientist=anderson" >}} |
+| measurement   | tag set                                                         |
+|:------------- |:----------------------------------------------------------------|
+| census        | location=klamath,scientist=anderson                             |
 | census        | location=portland,scientist=mullen                              |
 
-A **series** includes timestamps and field values for a given series key.
-From the sample data, here's a **series key** and the corresponding **series**:
+A _series_ includes timestamps and field values for a given series key--for example,
+the sample data contains the following series key and corresponding series:
 
-```text
-# series key
-census,location=klamath,scientist=anderson
+### Sample data series
 
-# series
-2019-08-18T00:00:00Z 23
-2019-08-18T00:06:00Z 28
-```
+{{% filesystem-diagram %}}
+- census,location=klamath,scientist=anderson
+    - 2019-08-18T00:00:00Z 23
+    - 2019-08-18T00:06:00Z 28
+{{% /filesystem-diagram %}}
 
 {{% /oss-only %}}
 {{% cloud-only %}}
-In {{% product-name %}}, a **series key** is a unique combination of measurement, tag set, and field key.
+
+In {{% product-name %}} Cloud (TSM), a [series key](/influxdb/cloud/reference/glossary/#series-key) is a unique combination of measurement, tag set, and field key.
 
 For example, the [sample data](#sample-data) includes two unique series keys:
 
-| _measurement  | tag set                                                         | _field                             |
-|:------------- |:-------------------------------                                 |:------                             |
-| census        | {{< tooltip "Tag set" "location=klamath,scientist=anderson" >}} | {{< tooltip "Field key" "bees" >}} |
-| census        | location=portland,scientist=mullen                              | ants                               |
+| measurement   | tag set                             | field key |
+|:------------- |:----------------------------------- |:------ |
+| census        | location=klamath,scientist=anderson | bees   |
+| census        | location=portland,scientist=mullen  | ants   |
 
-A **series** includes timestamps and field values for a given series key--for example, the following is a **series key** and the corresponding **series** from the sample data:
+A _series_ includes timestamps and field values for a given series key--for example,
+the sample data contains the following series key and corresponding series:
 
-```text
-# series key
-census,location=klamath,scientist=anderson bees
+### Sample data series
 
-# series
-2019-08-18T00:00:00Z 23
-2019-08-18T00:06:00Z 28        
-```
+{{% filesystem-diagram %}}
+- census,location=klamath,scientist=anderson bees
+    - 2019-08-18T00:00:00Z 23
+    - 2019-08-18T00:06:00Z 28
+{{% /filesystem-diagram %}}
 
 {{% /cloud-only %}}
 

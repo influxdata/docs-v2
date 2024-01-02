@@ -68,7 +68,7 @@ input:
       The Amazon Kinesis Consumer input plugin reads from a Kinesis data stream and creates
       metrics using one of the supported [input data formats](/telegraf/v1/data_formats/input).
     introduced: 1.10.0
-    tags: [linux, macos, windows, cloud, messaging]
+    tags: [linux, macos, windows, cloud, messaging, external]
     external: true
 
   - name: Apache Aurora
@@ -163,7 +163,7 @@ input:
       The APT input plugin checks Debian for package updates.
     link: https://github.com/x70b1/telegraf-apt/blob/master/README.md
     introduced: 1.21.4
-    tags: [debian, ubuntu]
+    tags: [debian, ubuntu, external]
     external: true
 
   - name: Arista LANZ Consumer
@@ -756,7 +756,7 @@ input:
     introduced: 1.20.3
     link: https://github.com/bonitoo-io/telegraf-input-db2/blob/main/README.md
     external: true
-    tags: [linux, macos, windows, IBM, datastores]
+    tags: [linux, macos, windows, IBM, datastores, external]
 
   - name: Icinga 2
     id: icinga2
@@ -1022,7 +1022,7 @@ input:
       The Knot input plugin collect stats from [Knot DNS](https://knot.readthedocs.io/en/master/operation.html#statistics).
     link: https://github.com/x70b1/telegraf-knot/blob/master/README.md
     introduced: 1.21.4
-    tags: [server]
+    tags: [server, external]
     external: true
 
   - name: KNX
@@ -1443,7 +1443,8 @@ input:
     description: |
       The NSDP input plugin gathers switch network statistics.
     introduced: 1.24.0
-    tags: [linux, macos, windows, networking, systems]
+    link: https://github.com/hdecarne-github/nsdp-telegraf-plugin/blob/master/README.md
+    tags: [linux, macos, windows, networking, systems, external]
     external: true
 
   - name: NTPq
@@ -1543,7 +1544,7 @@ input:
     introduced: 1.20.3
     link: https://github.com/bonitoo-io/telegraf-input-oracle/blob/main/README.md
     external: true
-    tags: [linux, macos, windows, oracle, datastores]
+    tags: [linux, macos, windows, oracle, datastores, external]
 
   - name: P4 Runtime
     id: p4runtime
@@ -1694,7 +1695,8 @@ input:
     description: |
       The PSI input plugins push pressure stall information (PSI) from the Linux Kernel to InfluxDB.
     introduced: 1.22.1
-    tags: [linux]
+    link: https://github.com/gridscale/linux-psi-telegraf-plugin/blob/main/README.md
+    tags: [linux, external]
     external: true
 
   - name: Puppet Agent
@@ -2921,7 +2923,7 @@ processor:
       The GeoIP processor plugin looks up IP addresses in the [MaxMind GeoLite2 database](https://dev.maxmind.com/geoip/geoip2/geolite2/) and adds the respective ISO country code, city name, latitude and longitude.
     introduced: 1.18.0
     link: https://github.com/a-bali/telegraf-geoip/blob/master/README.md
-    tags: [linux, macos, windows]
+    tags: [linux, macos, windows, external]
     external: true
 
   - name: Lookup

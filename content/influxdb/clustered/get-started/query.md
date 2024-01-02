@@ -533,7 +533,7 @@ _If your project's virtual environment is already running, skip to step 3._
       "time"
       "text/tabwriter"
 
-      "github.com/apache/arrow/go/v12/arrow"
+      "github.com/apache/arrow/go/v13/arrow"
       "github.com/InfluxCommunity/influxdb3-go/influxdb3"
     )
 
@@ -601,7 +601,7 @@ _If your project's virtual environment is already running, skip to step 3._
         - `io`
         - `os`
         - `text/tabwriter`
-        - `github.com/apache/arrow/go/v12/arrow`
+        - `github.com/apache/arrow/go/v13/arrow`
         - `github.com/InfluxCommunity/influxdb3-go/influxdb3`
 
     2.  Defines a `Query()` function that does the following:

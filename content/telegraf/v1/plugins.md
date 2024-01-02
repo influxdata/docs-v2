@@ -67,7 +67,9 @@ aliases:
 ---
 
 Telegraf is a plugin-driven agent that collects, processes, aggregates, and writes metrics.
-It supports four categories of plugins including input, output, aggregator, processor, and external.
+It supports four categories of plugins: input, output, aggregator, and processor.
+In addition to the included plugins, you can run _external plugins_
+that integrate with the Telegraf Execd processor plugin.
 
 {{< list-filters >}}
 
