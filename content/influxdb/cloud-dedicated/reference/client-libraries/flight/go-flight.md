@@ -44,7 +44,7 @@ The following example shows how to use the Arrow Flight SQL client for Go to que
       "fmt"
       "os"
 
-      "github.com/apache/arrow/go/v12/arrow/flight/flightsql"
+      "github.com/apache/arrow/go/v14/arrow/flight/flightsql"
       "google.golang.org/grpc"
       "google.golang.org/grpc/credentials"
       "google.golang.org/grpc/metadata"
@@ -129,7 +129,7 @@ The following example shows how to use the Arrow Flight SQL client for Go to que
         - `encoding/json`
         - `fmt`
         - `os`
-        - `github.com/apache/arrow/go/v12/arrow/flight/flightsql`
+        - `github.com/apache/arrow/go/v14/arrow/flight/flightsql`
         - `google.golang.org/grpc`
         - `google.golang.org/grpc/credentials`
         - `google.golang.org/grpc/metadata`
@@ -216,4 +216,4 @@ RECORD BATCH
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-For more information, see the [Go Arrow Flight Client documentation](https://pkg.go.dev/github.com/apache/arrow/go/v12/arrow/flight#Client).
+For more information, see the [Go Arrow Flight Client documentation](https://pkg.go.dev/github.com/apache/arrow/go/v14/arrow/flight#Client).

@@ -138,7 +138,7 @@ import (
     "time"
 
     "github.com/InfluxCommunity/influxdb3-go/influxdb3"
-    "github.com/apache/arrow/go/v12/arrow"
+    "github.com/apache/arrow/go/v13/arrow"
 )
 
 func Query() error {
@@ -235,7 +235,7 @@ import (
     "time"
 
     "github.com/InfluxCommunity/influxdb3-go/influxdb3"
-    "github.com/apache/arrow/go/v12/arrow"
+    "github.com/apache/arrow/go/v13/arrow"
 )
 
 func InfluxQL() error {
