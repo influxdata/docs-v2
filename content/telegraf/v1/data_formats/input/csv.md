@@ -235,4 +235,4 @@ cpu,cpu=cpu0,File\ Created=2021-11-17T07:02:45+10:00,Version=1.2 time_user=42,ti
 ```
 
 [time parse]: https://pkg.go.dev/time#Parse
-[metric filtering]: /docs/CONFIGURATION.md#metric-filtering
+[metric filtering]: /telegraf/v1/configuration/#metric-filtering
