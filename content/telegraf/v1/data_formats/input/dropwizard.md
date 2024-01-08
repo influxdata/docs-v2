@@ -17,8 +17,8 @@ parsed from metric names as if they were actual InfluxDB line protocol keys
 pattern][templates]. All field value types are supported, `string`, `number` and
 `boolean`.
 
-[templates]: /docs/TEMPLATE_PATTERN.md
-[dropwizard]: http://metrics.dropwizard.io/3.1.0/manual/json/
+[templates]: https://github.com/influxdata/telegraf/blob/master/docs/TEMPLATE_PATTERN.md
+[dropwizard]: https://metrics.dropwizard.io/3.1.0/manual/json/
 
 ## Configuration
 
