@@ -148,9 +148,8 @@ Replace the following:
 
 {{% expand "View the requirements for Google Cloud Storage" %}}
 
-When opting for Google Cloud Storage (GCS) as the backing object store, the principal you are using should be granted the `roles/storage.objectUser` role.
-
-For example, when leveraging Google Service Accounts:
+To use Google Cloud Storage (GCS) as your object store, your [IAM principal](https://cloud.google.com/iam/docs/overview) should be granted the `roles/storage.objectUser` role.
+For example, if using [Google Service Accounts](https://cloud.google.com/iam/docs/service-account-overview):
 
 {{% code-placeholders "GCP_SERVICE_ACCOUNT|GCP_BUCKET" %}}
 ```bash
