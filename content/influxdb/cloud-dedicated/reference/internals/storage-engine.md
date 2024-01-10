@@ -8,6 +8,8 @@ menu:
     name: Storage engine architecture
     parent: InfluxDB internals
 influxdb/cloud-dedicated/tags: [storage, internals]
+related:
+  - /influxdb/cloud-dedicated/admin/custom-partitions/
 ---
 
 The InfluxDB v3 storage engine is a real-time, columnar database optimized for
@@ -19,6 +21,7 @@ queries, and is optimized to reduce storage cost.
 
 - [Storage engine diagram](#storage-engine-diagram)
 - [Storage engine components](#storage-engine-components)
+- [Scaling strategies](#scaling-strategies)
 
 ## Storage engine diagram
 
@@ -34,14 +37,26 @@ queries, and is optimized to reduce storage cost.
 
 ### Ingester
 
-- Handle all write requests
-- Queries the [Catalog](#catalog) to identify where data should be persisted and to ensure
-  the schema of the written data matches the schema of persisted data.
-- Process line protocol and persists time series data into partitions in the object store
-- Makes yet-to-be-persisted data available to queriers to ensure leading edge
-  data is included in query results
+The Ingester processes line protocol submitted with write requests and persists
+time series data to the [Object store](#object-store). Throughout this process,
+the Ingester does the following:
+
+- Queries the [Catalog](#catalog) to identify where data should be persisted and
+  to ensure the schema of the line protocol is compatible with the schema of
+  persisted data.
+- Identifies any write errors and generates a response for the client that made
+  the write request.
+- Processes line protocol and persists time series data to the
+  [Object store](#object-store) in Apache Parquet format. Each Parquet file
+  represents a _partition_--a logical grouping of data on disk.
+- Makes yet-to-be-persisted data available to [Queriers](#querier) to ensure
+  leading edge data is included in query results.
 - Maintains a short-term write-ahead log (WAL) to prevent data loss in case of a
   service interruption.
+
+Ingesters can be scaled both vertically and horizontally.
+Horizontal scaling is increases write throughput and is typically the most
+effective scaling strategy for the Ingester.
 
 ### Querier
 
@@ -72,3 +87,21 @@ location of partitions and the schema of persisted time series data.
 - Compactors process and compress partitions in the object store to continually optimize
 storage.
 - Update the catalog with locations of compacted data.
+
+## Scaling strategies
+
+### Vertical scaling
+
+Vertical scaling (also know as "scaling up") involves increasing the resources
+(such as RAM or CPU) available to a process or system.
+Vertical scaling is typically used to handle resource-intensive tasks that
+require more processing power.
+
+{{< html-diagram/scaling-strategy "vertical" >}}
+
+### Horizontal scaling
+
+Horizontal scaling (also know as "scaling out") involves increasing the 
+Horizontal scaling is typically used to handle increasing amounts of traffic or workload
+
+{{< html-diagram/scaling-strategy "horizontal" >}}
