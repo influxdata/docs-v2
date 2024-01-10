@@ -189,7 +189,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`AZURE_SUBSCRIPTION`{{% /code-placeholder-key %}}: Your Azure subscription.
 - {{% code-placeholder-key %}}`AZURE_RESOURCE_GROUP`{{% /code-placeholder-key %}}: The resource group where your Azure Blob storage account resides.
 - {{% code-placeholder-key %}}`AZURE_STORAGE_ACCOUNT`{{% /code-placeholder-key %}}: The name of your Azure Blob storage account.
-- {{% code-placeholder-key %}}`AZURE_STORAGE_CONTAINER`{{% /code-placeholder-key %}}: The name of the container within Azure Blob storage.
+- {{% code-placeholder-key %}}`AZURE_STORAGE_CONTAINER`{{% /code-placeholder-key %}}: The name of the container within your Azure Blob storage account.
 
 {{% /expand %}}
 
