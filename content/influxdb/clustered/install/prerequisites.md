@@ -163,8 +163,8 @@ gcloud storage buckets add-iam-policy-binding \
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`GCP_SERVICE_ACCOUNT`{{% /code-placeholder-key %}}: The name of the Google Service Account.
-- {{% code-placeholder-key %}}`GCP_BUCKET`{{% /code-placeholder-key %}}: The name of your GCS bucket.
+- {{% code-placeholder-key %}}`GCP_SERVICE_ACCOUNT`{{% /code-placeholder-key %}}: Google Service Account name
+- {{% code-placeholder-key %}}`GCP_BUCKET`{{% /code-placeholder-key %}}: GCS bucket name
 
 {{% /expand %}}
 
