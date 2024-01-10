@@ -170,9 +170,10 @@ Replace the following:
 
 {{% expand "View the requirements for Azure Blob Storage" %}}
 
-When opting for Azure Blob Storage as the backing object store, the principal you are using should be granted the `Storage Blob Data Contributor` role.
-
-This is a built-in role for Azure which encompasses common permissions, you can assign it by issuing the following command:
+To use Azure Blob Storage as your object store, your [service principal](https://learn.microsoft.com/en-us/entra/architecture/service-accounts-principal)
+should be granted the `Storage Blob Data Contributor` role.
+This is a built-in role for Azure which encompasses common permissions.
+You can assign it using the following command:
 
 {{% code-placeholders "PRINCIPAL|AZURE_SUBSCRIPTION|AZURE_RESOURCE_GROUP|AZURE_STORAGE_ACCOUNT|AZURE_STORAGE_CONTAINER" %}}
 ```bash
