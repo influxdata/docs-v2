@@ -146,11 +146,11 @@ Replace the following:
 
 {{% /expand %}}
 
-{{% expand "View requirements for Google Cloud Storage" %}}
+{{% expand "View the requirements for Google Cloud Storage" %}}
 
-When opting for Google Cloud Storage as the backing object store, the principal you are using should be granted the `roles/storage.objectUser` role.
+When opting for Google Cloud Storage (GCS) as the backing object store, the principal you are using should be granted the `roles/storage.objectUser` role.
 
-For example, leveraging Google Service Accounts:
+For example, when leveraging Google Service Accounts:
 
 {{% code-placeholders "GCP_SERVICE_ACCOUNT|GCP_BUCKET" %}}
 ```bash
@@ -160,8 +160,8 @@ gcloud storage buckets add-iam-policy-binding gs://GCP_BUCKET --member="serviceA
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`GCP_SERVICE_ACCOUNT`{{% /code-placeholder-key %}}: The name of the Service Account.
-- {{% code-placeholder-key %}}`GCP_BUCKET`{{% /code-placeholder-key %}}: The name of your Google Cloud Storage bucket.
+- {{% code-placeholder-key %}}`GCP_SERVICE_ACCOUNT`{{% /code-placeholder-key %}}: The name of the Google Service Account.
+- {{% code-placeholder-key %}}`GCP_BUCKET`{{% /code-placeholder-key %}}: The name of your GCS bucket.
 
 {{% /expand %}}
 
