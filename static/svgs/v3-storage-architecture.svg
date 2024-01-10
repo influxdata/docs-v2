@@ -1,0 +1,127 @@
+<svg version="1.1" id="influxdb-v3-storage-architecture" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 750 600" style="enable-background:new 0 0 750 600;" xml:space="preserve">
+<path class="shape op25" d="M172.6,427.2h6.1c2.8,0,5-2.2,5-5V102.8c0-2.8-2.2-5-5-5H45.9c-2.8,0-5,2.2-5,5v6.1"/>
+<path class="shape op50" d="M161.5,438.3h6.1c2.8,0,5-2.2,5-5V113.9c0-2.8-2.2-5-5-5H34.8c-2.8,0-5,2.2-5,5v6.1"/>
+<path class="shape op70" d="M150.4,449.3h6.1c2.8,0,5-2.2,5-5V124.9c0-2.8-2.2-5-5-5H23.8c-2.8,0-5,2.2-5,5v6.1"/>
+<path class="shape" d="M145.4,460.4H12.7c-2.8,0-5-2.2-5-5V136c0-2.8,2.2-5,5-5h132.7c2.8,0,5,2.2,5,5v319.4
+	C150.4,458.2,148.2,460.4,145.4,460.4z"/>
+<path class="shape op25" d="M510.4,481.2v-6.1c0-2.8-2.2-5-5-5H255.9c-2.8,0-5,2.2-5,5v6.1"/>
+<path class="shape op50" d="M521.5,492.3v-6.1c0-2.8-2.2-5-5-5H243.7c-2.8,0-5,2.2-5,5v6.1"/>
+<path class="shape op70" d="M532.6,503.3v-6.1c0-2.8-2.2-5-5-5H231.5c-2.8,0-5,2.2-5,5v6.1"/>
+<path class="shape" d="M543.6,508.3v80.3c0,2.8-2.2,5-5,5H219.3c-2.8,0-5-2.2-5-5v-80.3c0-2.8,2.2-5,5-5h319.4
+	C541.4,503.3,543.6,505.6,543.6,508.3z"/>
+<text transform="matrix(1 0 0 1 42.4851 290.2629)" class="title">Ingester</text>
+<path class="shape op25" d="M709.1,108.9v-6.1c0-2.8-2.2-5-5-5H571.4c-2.8,0-5,2.2-5,5v319.4c0,2.8,2.2,5,5,5h6.1"/>
+<path class="shape op50" d="M720.2,119.9v-6.1c0-2.8-2.2-5-5-5H582.4c-2.8,0-5,2.2-5,5v319.4c0,2.8,2.2,5,5,5h6.1"/>
+<path class="shape op70" d="M731.2,131v-6.1c0-2.8-2.2-5-5-5H593.5c-2.8,0-5,2.2-5,5v319.4c0,2.8,2.2,5,5,5h6.1"/>
+<path class="shape" d="M604.6,460.4h132.7c2.8,0,5-2.2,5-5V136c0-2.8-2.2-5-5-5H604.6c-2.8,0-5,2.2-5,5v319.4
+	C599.6,458.2,601.8,460.4,604.6,460.4z"/>
+<text transform="matrix(1 0 0 1 637.1243 290.2629)" class="title">Querier</text>
+<text transform="matrix(1 0 0 1 307.7708 311.2647)"><tspan x="0" y="0" class="title">Object Storage</tspan><tspan x="-23.2" y="27.9" class="text small">Time series data stored in</tspan><tspan x="-13.8" y="47.1" class="text small">Apache Parquet format</tspan></text>
+<path class="shape" d="M485.6,406.7H264.4c-2.8,0-5-2.2-5-5V256.1c0-2.8,2.2-5,5-5h221.2c2.8,0,5,2.2,5,5v145.6
+	C490.6,404.5,488.3,406.7,485.6,406.7z"/>
+<text transform="matrix(1 0 0 1 340.3294 159.3409)"><tspan x="0" y="0" class="title">Catalog</tspan><tspan x="-34.8" y="27.9" class="text small">Relational metadata</tspan><tspan x="9.6" y="47.1" class="text small">service</tspan></text>
+<path class="shape" d="M485.6,233.6H264.4c-2.8,0-5-2.2-5-5V125.4c0-2.8,2.2-5,5-5h221.2c2.8,0,5,2.2,5,5v103.3
+	C490.6,231.4,488.3,233.6,485.6,233.6z"/>
+<g>
+	<text transform="matrix(1 0 0 1 329.5481 554.0139)" class="title">Compactor</text>
+</g>
+<g>
+	<g>
+		<path class="diagram-line" d="M196.7,153h9.9c2.8,0,5-2.2,5-5l0-69.6c0-3.9,3.1-7,7-7h314.9c2.8,0,5,2.2,5,5V148c0,2.8,2.2,5,5,5h9.9"/>
+		<g>
+			<polygon class="arrow" points="197.5,156 192.4,153 197.5,150 			"/>
+		</g>
+		<g>
+			<polygon class="arrow" points="552.5,156 557.6,153 552.5,150 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line class="diagram-line" x1="503.6" y1="177" x2="557.6" y2="177"/>
+		<g>
+			<polygon class="arrow" points="504.5,180 499.3,177 504.5,174 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line class="diagram-line" x1="196.7" y1="177" x2="246.4" y2="177"/>
+		<g>
+			<polygon class="arrow" points="197.5,180 192.4,177 197.5,174 			"/>
+		</g>
+		<g>
+			<polygon class="arrow" points="245.5,180 250.7,177 245.5,174 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line class="diagram-line" x1="503.6" y1="328.9" x2="557.6" y2="328.9"/>
+		<g>
+			<polygon class="arrow" points="504.5,331.9 499.3,328.9 504.5,325.9 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line class="diagram-line" x1="192.4" y1="328.9" x2="246.4" y2="328.9"/>
+		<g>
+			<polygon class="arrow" points="245.5,331.9 250.7,328.9 245.5,325.9 			"/>
+		</g>
+	</g>
+</g>
+<path class="shape dashed op50" d="M240.5,96.4h269c2.8,0,5,2.2,5,5v324.3c0,2.8-2.2,5-5,5h-269c-2.8,0-5-2.2-5-5V101.4
+	C235.5,98.7,237.7,96.4,240.5,96.4z"/>
+<g>
+	<g>
+		<line class="diagram-line" x1="368.1" y1="443.7" x2="368.1" y2="457.3"/>
+		<g>
+			<polygon class="arrow" points="365.1,444.6 368.1,439.4 371,444.6 			"/>
+		</g>
+		<g>
+			<polygon class="arrow" points="365.1,456.5 368.1,461.6 371,456.5 			"/>
+		</g>
+	</g>
+</g>
+<text transform="matrix(1 0 0 1 267.4578 56.5149)" class="text small italic">Query yet-to-be-persisted data</text>
+<g>
+	<path class="shape dashed" d="M129.9,344.9H28.2c-1.7,0-3,1.3-3,3v92.1c0,1.7,1.3,3,3,3h101.8c1.7,0,3-1.3,3-3v-92.1
+		C132.9,346.2,131.6,344.9,129.9,344.9z"/>
+</g>
+<text transform="matrix(1 0 0 1 60.0955 373.1731)"><tspan x="0" y="0" class="text bold">WAL</tspan><tspan x="-18.1" y="27.9" class="text small">Short-term</tspan><tspan x="-21.7" y="47.1" class="text small">persistence</tspan></text>
+<g>
+	<text transform="matrix(1 0 0 1 38.1123 21.3733)" class="text">Write requests</text>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 593.4761 21.3733)" class="text">Query requests</text>
+</g>
+<g>
+	<g>
+		<line class="diagram-line" x1="95.7" y1="73.6" x2="95.7" y2="84.8"/>
+		<g>
+			<polygon class="arrow" points="92.7,83.9 95.7,89.1 98.7,83.9 			"/>
+		</g>
+	</g>
+</g>
+<line class="diagram-line" x1="95.7" y1="32.1" x2="95.7" y2="47.7"/>
+<line class="diagram-line dashed" x1="95.7" y1="47.7" x2="95.7" y2="73.6"/>
+<g>
+	<g>
+		<line class="diagram-line" x1="654.3" y1="73.6" x2="654.3" y2="84.8"/>
+		<g>
+			<polygon class="arrow" points="651.3,83.9 654.3,89.1 657.3,83.9 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line class="diagram-line" x1="654.3" y1="36.4" x2="654.3" y2="47.7"/>
+		<g>
+			<polygon class="arrow" points="651.3,37.3 654.3,32.1 657.3,37.3 			"/>
+		</g>
+	</g>
+</g>
+<line class="diagram-line dashed" x1="654.3" y1="47.7" x2="654.3" y2="73.6"/>
+</svg>
