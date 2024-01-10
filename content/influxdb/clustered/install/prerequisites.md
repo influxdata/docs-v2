@@ -154,7 +154,10 @@ For example, when leveraging Google Service Accounts:
 
 {{% code-placeholders "GCP_SERVICE_ACCOUNT|GCP_BUCKET" %}}
 ```bash
-gcloud storage buckets add-iam-policy-binding gs://GCP_BUCKET --member="serviceAccount:GCP_SERVICE_ACCOUNT" --role="roles/storage.objectUser"
+gcloud storage buckets add-iam-policy-binding \
+    gs://GCP_BUCKET \
+    --member="serviceAccount:GCP_SERVICE_ACCOUNT" \
+    --role="roles/storage.objectUser"
 ```
 {{% /code-placeholders %}}
 
@@ -162,6 +165,31 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`GCP_SERVICE_ACCOUNT`{{% /code-placeholder-key %}}: The name of the Google Service Account.
 - {{% code-placeholder-key %}}`GCP_BUCKET`{{% /code-placeholder-key %}}: The name of your GCS bucket.
+
+{{% /expand %}}
+
+{{% expand "View the requirements for Azure Blob Storage" %}}
+
+When opting for Azure Blob Storage as the backing object store, the principal you are using should be granted the `Storage Blob Data Contributor` role.
+
+This is a built-in role for Azure which encompasses common permissions, you can assign it by issuing the following command:
+
+{{% code-placeholders "PRINCIPAL|AZURE_SUBSCRIPTION|AZURE_RESOURCE_GROUP|AZURE_STORAGE_ACCOUNT|AZURE_STORAGE_CONTAINER" %}}
+```bash
+az role assignment create \
+    --role "Storage Blob Data Contributor" \
+    --assignee PRINCIPAL \
+    --scope "/subscriptions/AZURE_SUBSCRIPTION/resourceGroups/AZURE_RESOURCE_GROUP/providers/Microsoft.Storage/storageAccounts/AZURE_STORAGE_ACCOUNT/blobServices/default/containers/AZURE_STORAGE_CONTAINER"
+```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`PRINCIPAL`{{% /code-placeholder-key %}}: A user, group, or service principal that the role should be assigned to.
+- {{% code-placeholder-key %}}`AZURE_SUBSCRIPTION`{{% /code-placeholder-key %}}: Your Azure subscription.
+- {{% code-placeholder-key %}}`AZURE_RESOURCE_GROUP`{{% /code-placeholder-key %}}: The resource group where your Azure Blob storage account resides.
+- {{% code-placeholder-key %}}`AZURE_STORAGE_ACCOUNT`{{% /code-placeholder-key %}}: The name of your Azure Blob storage account.
+- {{% code-placeholder-key %}}`AZURE_STORAGE_CONTAINER`{{% /code-placeholder-key %}}: The name of the container within Azure Blob storage.
 
 {{% /expand %}}
 
