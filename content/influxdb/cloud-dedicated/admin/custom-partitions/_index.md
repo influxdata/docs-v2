@@ -8,6 +8,8 @@ menu:
     parent: Administer InfluxDB Cloud
 weight: 103
 influxdb/cloud-dedicated/tags: [storage]
+related:
+  - /influxdb/cloud-dedicated/reference/internals/storage-engine/
 ---
 
 When writing data to {{< product-name >}}, the InfluxDB v3 storage engine

@@ -450,6 +450,11 @@ table tr.point{
   .inner {
     margin: 2rem 1.25rem -2px;
   }
+
+  &.horizontal {
+    display: flex;
+    .node:not(:first-child) {margin-left: 1.25rem;}
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

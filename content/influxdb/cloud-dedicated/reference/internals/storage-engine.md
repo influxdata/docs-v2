@@ -1,7 +1,9 @@
 ---
-title: InfluxDB v3 Storage engine architecture
+title: InfluxDB v3 storage engine architecture
 description: >
-  ...
+  The InfluxDB v3 storage engine is a real-time, columnar database optimized for
+  time series data that supports infinite tag cardinality, real-time queries,
+  and is optimized to reduce storage cost.
 weight: 103
 menu:
   influxdb_cloud_dedicated:
@@ -21,7 +23,14 @@ queries, and is optimized to reduce storage cost.
 
 - [Storage engine diagram](#storage-engine-diagram)
 - [Storage engine components](#storage-engine-components)
+  - [Ingester](#ingester)
+  - [Querier](#querier)
+  - [Catalog](#catalog)
+  - [Object store](#object-store)
+  - [Compactor](#compactor)
 - [Scaling strategies](#scaling-strategies)
+  - [Vertical scaling](#vertical-scaling)
+  - [Horizontal scaling](#horizontal-scaling)
 
 ## Storage engine diagram
 
@@ -38,8 +47,8 @@ queries, and is optimized to reduce storage cost.
 ### Ingester
 
 The Ingester processes line protocol submitted with write requests and persists
-time series data to the [Object store](#object-store). Throughout this process,
-the Ingester does the following:
+time series data to the [Object store](#object-store). In this process, the
+Ingester does the following:
 
 - Queries the [Catalog](#catalog) to identify where data should be persisted and
   to ensure the schema of the line protocol is compatible with the schema of
@@ -48,51 +57,113 @@ the Ingester does the following:
   the write request.
 - Processes line protocol and persists time series data to the
   [Object store](#object-store) in Apache Parquet format. Each Parquet file
-  represents a _partition_--a logical grouping of data on disk.
+  represents a _partition_--a logical grouping of data.
 - Makes yet-to-be-persisted data available to [Queriers](#querier) to ensure
   leading edge data is included in query results.
 - Maintains a short-term write-ahead log (WAL) to prevent data loss in case of a
   service interruption.
 
-Ingesters can be scaled both vertically and horizontally.
-Horizontal scaling is increases write throughput and is typically the most
+##### Ingester scaling strategies
+
+The Ingester can be scaled both [vertically](#vertical-scaling) and
+[horizontally](#horizontal-scaling).
+Horizontal scaling increases write throughput and is typically the most
 effective scaling strategy for the Ingester.
 
 ### Querier
 
-- Handle on query requests.
-- Support both SQL and InfluxQL through DataFusion.
-- Retrieve the following:
-  - Yet-to-be-persisted time series data from the [Ingesters](#ingester).
-  - Physical locations of partitions containing queried data from the [Catalog](#catalog).
-  - Time series data from parquet files in the [Object store](#object-store).
+The querier handles query requests and returns query results to the client that
+mad the query request.
+It supports both SQL and InfluxQL through
+[Apache Arrow DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html).
+
+#### Query life-cycle
+
+At query time, the querier:
+
+1.  Receives the query request and builds a query plan.
+2.  Queries the [Ingester](#ingester) to:
+
+    - ensure the schema assumed by the query plan matches the schema of written data.
+    - include recently written, yet-to-be-persisted data in query results.
+
+3.  Queries the [Catalog](#catalog) to identify the physical location of partitions
+    that contain the queried data.
+4.  Reads partition Parquet files from the [Object store](#object-store)
+    containing the queried data and scans each row to find those that match the
+    logic defined in the query plan.
+5.  Returns the data specified in the query and performs any additional
+    operations specified in the query plan.
+6.  Returns the query result to the client.
+
+##### Querier scaling strategies
+
+The Querier can be scaled both [vertically](#vertical-scaling) and
+[horizontally](#horizontal-scaling).
+Horizontal scaling increases query throughput to handle more concurrent queries.
+Vertical scaling improves the queriers ability to process computation-heavy queries.
 
 ### Catalog
 
-A relational database that stores and provides information about the physical
-location of partitions and the schema of persisted time series data.
+The Catalog is a PostgreSQL-compatible relational database that stores metadata
+related to your time series data including schema information and physical
+locations of partitions in the [Object store](#object-store).
+It fulfills the following roles:
 
-- Tells the ingesters what partitions to persist data to
-- Tells the queriers what partitions contain the queried data.
+- Provides information about the schema of written data.
+- Tells the [Ingester](#ingester) what partitions to persist data to.
+- Tells the [Querier](#querier) what partitions contain the queried data.
+
+##### Catalog scaling strategies
+
+Scaling strategies available for the Catalog depend on the PostgreSQL-compatible
+database used to run the catalog. All support [vertical scaling](#vertical-scaling).
+Most support [horizontal scaling](#horizontal-scaling) for redundancy and failover. 
 
 ### Object store
 
-- Stores persisted time series data in [Apache Parquet](https://parquet.apache.org/) format.
-- Each parquet file is a separate _partition_.
-- By default, InfluxDB partitions data by measurement and day, but you can
-  [customize the partitioning strategy](/influxdb/cloud-dedicated/admin/custom-partitions/).
+The Object store contains time series data in [Apache Parquet](https://parquet.apache.org/) format.
+Each parquet file represents a partition.
+By default, InfluxDB partitions data by measurement and day, but you can
+[customize the partitioning strategy](/influxdb/cloud-dedicated/admin/custom-partitions/).
+
+##### Object store scaling strategies
+
+Scaling strategies available for the Object store depend on the underlying
+object storage services used to run the object store.
+Most support [horizontal scaling](#horizontal-scaling) for redundancy, failover,
+and increased capacity.
 
 ### Compactor
 
-- Compactors process and compress partitions in the object store to continually optimize
-storage.
-- Update the catalog with locations of compacted data.
+The Compactor processes and compresses partitions in the [Object store](#object-store)
+to continually optimize storage.
+It then updates the [Catalog](#catalog) with locations of compacted data.
+
+##### Compactor scaling strategies
+
+The Compactor can be scaled both [vertically](#vertical-scaling) and
+[horizontally](#horizontal-scaling).
+Because compaction is a compute-heavy process, vertical scaling (especially
+increasing the available CPU) is the most effective scaling strategy for the Compactor.
+Horizontal scaling increases compaction throughput, but not as well as vertical scaling.
+
+---
 
 ## Scaling strategies
 
+The following scaling strategies can be applied to components of the InfluxDB v3
+storage architecture.
+
+{{% note %}}
+<!-- Cloud Dedicated-specific -->
+For information about scaling your {{< product-name >}} infrastructure,
+[contact InfluxData support](https://support.influxdata.com).
+{{% /note %}}
+
 ### Vertical scaling
 
-Vertical scaling (also know as "scaling up") involves increasing the resources
+Vertical scaling (also known as "scaling up") involves increasing the resources
 (such as RAM or CPU) available to a process or system.
 Vertical scaling is typically used to handle resource-intensive tasks that
 require more processing power.
@@ -101,7 +172,9 @@ require more processing power.
 
 ### Horizontal scaling
 
-Horizontal scaling (also know as "scaling out") involves increasing the 
-Horizontal scaling is typically used to handle increasing amounts of traffic or workload
+Horizontal scaling (also known as "scaling out") involves increasing the number of
+nodes or processes available to perform a given task. 
+Horizontal scaling is typically used to increase the amount of workload or
+throughput a system can manage, but also provides additional redundancy and failover.
 
 {{< html-diagram/scaling-strategy "horizontal" >}}
