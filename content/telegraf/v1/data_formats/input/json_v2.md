@@ -48,10 +48,13 @@ In the sections that follow these configuration keys are defined in more detail.
             path = "" # A string with valid GJSON path syntax
             rename = "new name" # A string with a new name for the tag key
             type = "int" # A string specifying the type (int,uint,float,string,bool)
+            optional = false # true: suppress errors if configured path does not exist
 
         [[inputs.file.json_v2.tag]]
             path = "" # A string with valid GJSON path syntax
             rename = "new name" # A string with a new name for the tag key
+            type = "float" # A string specifying the type (int,uint,float,string,bool)
+            optional = false # true: suppress errors if configured path does not exist
 
         [[inputs.file.json_v2.object]]
             path = "" # A string with valid GJSON path syntax
@@ -62,6 +65,7 @@ In the sections that follow these configuration keys are defined in more detail.
             included_keys = [] # List of JSON keys (for a nested key, prepend the parent keys with underscores) that should be only included in result
             excluded_keys = [] # List of JSON keys (for a nested key, prepend the parent keys with underscores) that shouldn't be included in result
             tags = [] # List of JSON keys (for a nested key, prepend the parent keys with underscores) to be a tag instead of a field
+            optional = false # true: suppress errors if configured path does not exist
             [inputs.file.json_v2.object.renames] # A map of JSON keys (for a nested key, prepend the parent keys with underscores) with a new name for the tag key
                 key = "new name"
             [inputs.file.json_v2.object.fields] # A map of JSON keys (for a nested key, prepend the parent keys with underscores) with a type (int,uint,float,string,bool)
