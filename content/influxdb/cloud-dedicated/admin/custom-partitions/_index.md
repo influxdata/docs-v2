@@ -2,7 +2,8 @@
 title: Manage data partitioning
 seotitle: Manage data partitioning on disk
 description: >
-  ...
+  Customize your partitioning strategy to optimize query performance for your
+  specific schema and workload.
 menu:
   influxdb_cloud_dedicated:
     parent: Administer InfluxDB Cloud
@@ -12,34 +13,83 @@ related:
   - /influxdb/cloud-dedicated/reference/internals/storage-engine/
 ---
 
-When writing data to {{< product-name >}}, the InfluxDB v3 storage engine
-stores data on disk as Parquet files, each representing a _partition_.
-An InfluxDB partition contains time series data related by measurement, time,
-and optionally tag values.
-Partitions help the query engine to identify what files on disk actually contain
-queried data and only read those files in the process of returning results.
-
+When writing data to {{< product-name >}}, the InfluxDB v3 storage engine stores
+data in the [Object storage](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-storage)
+in [Apache Parquet](https://parquet.apache.org/) format.
+Each Parquet file represents a _partition_--a logical grouping of data.
 By default, InfluxDB partitions data by measurement and day.
 {{< product-name >}} lets you customize the partitioning strategy to partition
-both by tag values and different time intervals.
-Partitioning by tags or smaller time intervals will improve query performance,
+by tag values and different time intervals.
+Customize your partitioning strategy to optimize query performance for your
+specific schema and workload.
+
+<!-- Partitioning by tags or different time intervals will improve query performance,
 but there are some side effects to consider.
 
-## The query life-cycle
+Partitions help the query engine to identify what files on disk actually contain
+queried data and only read those files in the process of returning results. -->
 
-1.  A client sends a query request to InfluxDB.
-2.  The query engine receives the query request and builds a query plan.
-3.  The query engine queries the Ingesters (write path) to:
+## Partition keys
 
-    - ensure the schema assumed by the query plan matches the schema of written data.
-    - include the most recently written (leading edge) data in query results.
+- The partition key unique identifies a partition.
+- Data is partitioned by measurement/table, but the measurement is not part of the partition key
 
-4.  The query engine queries the Catalog to identify the physical location of the queried data.
-5.  The query engine reads the files containing the queried data and scans each
-    row to find those that match the logic defined in the query plan.
-6.  The query engine returns the data specified in the query and performs any
-    additional operations specified in the query plan.
-7.  The query engine returns the query result to the client.
+## Partitions in the query life cycle
+
+When querying data:
+
+1.  The [Catalog](/influxdb/cloud-dedicated/reference/internals/storage-engine/#catalog)
+    provides the v3 query engine ([Querier](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier))
+    with the locations of partitions that contain the queried time series data.
+2.  The query engine reads all rows in the returned partitions to identify what
+    rows match the logic in the query and should be included in the query result.
+  
+The faster the query engine can identify what partitions to read and then read
+the data in those partitions, the more performant your queries are.
+
+_For more information about the query lifecycle, see
+[InfluxDB v3 query life cycle](/influxdb/cloud-dedicated/reference/internals/storage-engine/#query-life-cycle)._
+
+##### Query example
+
+Consider the following query that selects everything in the `home` measurement
+with the `Kitchen` value for the `room` tag:
+
+```sql
+SELECT *
+FROM home
+WHERE
+  time >= now() - INTERVAL '1 week'
+  AND room = 'Kitchen'
+```
+
+Using the default partitioning strategy (measurement and day), the query engine
+reads 8 separate partitions (one partition for today and one for each of the
+last seven days) and scans all rows in those partitions to identify what rows
+contain the `Kitchen` value for the `room` tag.
+
+- {{< datetime/current-date trimTime=true >}}
+- {{< datetime/current-date offset=-1 trimTime=true >}}
+- {{< datetime/current-date offset=-2 trimTime=true >}}
+- {{< datetime/current-date offset=-3 trimTime=true >}}
+- {{< datetime/current-date offset=-4 trimTime=true >}}
+- {{< datetime/current-date offset=-5 trimTime=true >}}
+- {{< datetime/current-date offset=-6 trimTime=true >}}
+- {{< datetime/current-date offset=-7 trimTime=true >}}
+
+But if the database is partitioned by measurement, room, and week, the query
+engine only needs to read two partitions (one for this week and one for last week)
+since everything in those partitions
+
+- Kitchen | {{< datetime/current-date trimTime=true >}}
+- Kitchen | {{< datetime/current-date offset=-1 trimTime=true >}}
+- Kitchen | {{< datetime/current-date offset=-2 trimTime=true >}}
+- Kitchen | {{< datetime/current-date offset=-3 trimTime=true >}}
+- Kitchen | {{< datetime/current-date offset=-4 trimTime=true >}}
+- Kitchen | {{< datetime/current-date offset=-5 trimTime=true >}}
+- Kitchen | {{< datetime/current-date offset=-6 trimTime=true >}}
+- Kitchen | {{< datetime/current-date offset=-7 trimTime=true >}}
+
 
 <!-- Notes from cut, but should be included -->
 It does this by structuring data on disk in a way that allows the InfluxDB query
@@ -64,7 +114,8 @@ physical location of data requested
 
 ### Limitations
 
-You have to define custom partitions before you ingest data.
+- You have to define custom partitions before you ingest data.
+- Can partition by up to eight dimensions, including time.
 
 ## Partition templates
 

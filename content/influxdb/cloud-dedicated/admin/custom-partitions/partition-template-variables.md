@@ -11,7 +11,8 @@ weight: 202
 Use partition template variables to determine the time intervals used to partition
 data stored in a given database.
 
-<!-- NOTES FROM SOURCE CODE -->
+<!--------------------------- NOTES FROM SOURCE CODE --------------------------->
+
 - The number of parts in a partition template is limited to 8 and is validated at creation time.
 - `time` is a reserved keyword and cannot be used in partition templates
 - Each template part is limited to 200 bytes in length. Anything longer will be
@@ -27,7 +28,8 @@ characters), and their meaning:
 - `^` - empty string partition key part
 - `#` - key part truncation marker
 - `%` - required for unambiguous reversal of percent encoding
-<!-- END NOTES -->
+
+<!--------------------------------- END NOTES --------------------------------->
 
 ## Time part templates
 

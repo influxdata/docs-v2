@@ -77,7 +77,7 @@ mad the query request.
 It supports both SQL and InfluxQL through
 [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html).
 
-#### Query life-cycle
+#### Query life cycle
 
 At query time, the querier:
 
