@@ -25,12 +25,12 @@ influxd-ctl ldap [flags] [arguments]
 
 | Subcommand                                                                             | Description                                                                |
 | :------------------------------------------------------------------------------------- | :------------------------------------------------------------------------- |
-| [get-config](/enterprise_influxdb/v1/reference/cli/influxd-ctl/ldap/get-config/)       | Get the LDAP configuration for the entire cluster                          |
-| [set-config](/enterprise_influxdb/v1/reference/cli/influxd-ctl/ldap/set-config/)       | Set the LDAP configuration for the entire cluster                          |
-| [sample-config](/enterprise_influxdb/v1/reference/cli/influxd-ctl/ldap/sample-config/) | Print out a sample LDAP configuration                                      |
-| [verify](/enterprise_influxdb/v1/reference/cli/influxd-ctl/ldap/verify/)               | Attempt to authenticate using LDAP                                         |
-| [purge-cache](/enterprise_influxdb/v1/reference/cli/influxd-ctl/ldap/purge-cache/)     | Clear the LDAP cache on all data nodes                                     |
-| [warm-cache](/enterprise_influxdb/v1/reference/cli/influxd-ctl/ldap/warm-cache/)       | Download group membership from LDAP server and preload cache on data nodes |
+| [get-config](/enterprise_influxdb/v1/tools/influxd-ctl/ldap/get-config/)       | Get the LDAP configuration for the entire cluster                          |
+| [set-config](/enterprise_influxdb/v1/tools/influxd-ctl/ldap/set-config/)       | Set the LDAP configuration for the entire cluster                          |
+| [sample-config](/enterprise_influxdb/v1/tools/influxd-ctl/ldap/sample-config/) | Print out a sample LDAP configuration                                      |
+| [verify](/enterprise_influxdb/v1/tools/influxd-ctl/ldap/verify/)               | Attempt to authenticate using LDAP                                         |
+| [purge-cache](/enterprise_influxdb/v1/tools/influxd-ctl/ldap/purge-cache/)     | Clear the LDAP cache on all data nodes                                     |
+| [warm-cache](/enterprise_influxdb/v1/tools/influxd-ctl/ldap/warm-cache/)       | Download group membership from LDAP server and preload cache on data nodes |
 
 ## Flags
 

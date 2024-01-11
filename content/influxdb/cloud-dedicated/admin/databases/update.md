@@ -12,7 +12,7 @@ list_code_example: |
   influxctl database update DATABASE_NAME \
     --retention-period 30d \
     --max-tables 500 \
-    --max-tables 250
+    --max-columns 250
   ```
 related:
   - /influxdb/cloud-dedicated/reference/cli/influxctl/database/update/
@@ -35,7 +35,7 @@ to update a database in your {{< product-name omit=" Clustered" >}} cluster.
 influxctl database update DATABASE_NAME \
   --retention-period 30d \
   --max-tables 500 \
-  --max-tables 250
+  --max-columns 250
 ```
 {{% /code-placeholders %}}
 
