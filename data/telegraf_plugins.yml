@@ -808,7 +808,7 @@ input:
     id: influxdb_listener
     description: |
       The InfluxDB Listener input plugin listens for requests sent
-      according to the [InfluxDB HTTP API](/influxdb/v1.8/guides/write_data/).
+      according to the [InfluxDB HTTP API](/influxdb/v1/guides/write_data/).
       The intent of the plugin is to allow Telegraf to serve as a proxy, or router,
       for the HTTP `/write` endpoint of the InfluxDB HTTP API.
 

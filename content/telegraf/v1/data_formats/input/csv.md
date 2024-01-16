@@ -594,4 +594,4 @@ cpu Version_system=1.2,cpu="cpu0",time_idle=42i,time_system=42i,time_user=42i 15
 ```
 
 [time parse]: https://pkg.go.dev/time#Parse
-[metric filtering]: /docs/CONFIGURATION.md#metric-filtering
+[metric filtering]: /telegraf/v1/configuration/#metric-filtering
