@@ -20,7 +20,7 @@ For the metrics to completely align with the 1.x endpoint, add a Starlark proces
 {{% /note %}}
 
 Converts prometheus remote write samples directly into Telegraf metrics. It can
-be used with [http_listener_v2](/plugins/inputs/http_listener_v2). There are no
+be used with [http_listener_v2](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/http_listener_v2). There are no
 additional configuration options for Prometheus Remote Write Samples.
 
 ## Configuration
