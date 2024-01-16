@@ -187,7 +187,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`PRINCIPAL`{{% /code-placeholder-key %}}: A user, group, or service principal that the role should be assigned to
 - {{% code-placeholder-key %}}`AZURE_SUBSCRIPTION`{{% /code-placeholder-key %}}: Your Azure subscription
-- {{% code-placeholder-key %}}`AZURE_RESOURCE_GROUP`{{% /code-placeholder-key %}}: The resource group that your Azure Blob storage account belongs to.
+- {{% code-placeholder-key %}}`AZURE_RESOURCE_GROUP`{{% /code-placeholder-key %}}: The resource group that your Azure Blob storage account belongs to
 - {{% code-placeholder-key %}}`AZURE_STORAGE_ACCOUNT`{{% /code-placeholder-key %}}: Azure Blob storage account name
 - {{% code-placeholder-key %}}`AZURE_STORAGE_CONTAINER`{{% /code-placeholder-key %}}: Container name in your Azure Blob storage account
 
