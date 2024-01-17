@@ -11,6 +11,26 @@ menu:
 weight: 202
 ---
 
+## v2.4.3 {date="2024-01-17"}
+
+### Bug fixes
+
+- Show empty value for database limits when not set, rather than zero.
+- Use user configured port for write.
+- Correct typos in query and write error messages.
+
+### Dependency updates
+
+- Update to go1.21.6
+- Update `github.com/apache/arrow/go/v14` from 14.0.1 to 14.0.2.
+- Update `github.com/cloudflare/circl` from 1.3.6 to 1.3.7.
+- Update `github.com/jedib0t/go-pretty/v6` from 6.4.9 to 6.5.3.
+- Update `github.com/urfave/cli/v2` from 2.26.0 to 2.27.1.
+- Update `golang.org/x/crypto` from 0.16.0 to 0.17.0.
+- Update `golang.org/x/oauth2` from 0.15.0 to 0.16.0.
+- Update `google.golang.org/grpc` from 1.60.0 to 1.60.1.
+- Update `google.golang.org/protobuf` from 1.31.0 to 1.32.0.
+
 ## v2.4.2 {date="2023-12-18"}
 
 ### Bug fixes
