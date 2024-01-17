@@ -56,7 +56,8 @@ Use the `csv` input data format to parse comma-separated values into Telegraf me
   ## Specifies the number of rows to parse as metadata (before looking for header information).
   ## Type: integer
   ## Default: 0; no metadata rows to parse.
-  ## If set, parses the rows using the characters specified in `csv_metadata_separators, and then adds the parsed key-value pairs as tags in the data.
+  ## If set, parses the rows using the characters specified in `csv_metadata_separators`, and then adds the
+  ## parsed key-value pairs as tags in the data.
   ## To convert the tags to fields, use the converter processor.
   csv_metadata_rows = 0
 
