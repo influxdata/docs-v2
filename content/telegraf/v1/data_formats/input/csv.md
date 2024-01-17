@@ -173,7 +173,7 @@ Use the `csv` input data format to parse comma-separated values into Telegraf me
 
 With the default configuration, the CSV data format parser creates one metric
 for each CSV row, and adds CSV columns as fields in the metric.
-A field's data type is automatically determined from its value.
+A field's data type is automatically determined from its value (unless explicitly defined with `csv_column_types`).
 
 Data format configuration options let you customize how the parser handles
 specific CSV rows, columns, and data types.
