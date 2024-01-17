@@ -96,11 +96,16 @@ gpg -q --batch --yes --delete-key D8FF8E1F7DF8B07E > /dev/null 2>&1
 # Run test commands with options provided in the CMD of the Dockerfile.
 # pytest rootdir is the directory where pytest.ini is located (/test).
 if [ -d ./content/influxdb/cloud-dedicated/ ]; then
-echo "Running cloud-dedicated tests..."
+echo "Running content/influxdb/cloud-dedicated tests..."
 pytest --codeblocks --envfile $BASE_DIR/.env.dedicated ./content/influxdb/cloud-dedicated/ $@
 fi
 
 if [ -d ./content/influxdb/cloud-serverless/ ]; then
-echo "Running cloud-serverless tests..."
+echo "Running content/influxdb/cloud-serverless tests..."
 pytest --codeblocks --envfile $BASE_DIR/.env.serverless ./content/influxdb/cloud-serverless/ $@
+fi
+
+if [ -d ./content/telegraf/ ]; then
+echo "Running content/telegraf tests..."
+pytest --codeblocks --envfile $BASE_DIR/.env.telegraf ./content/telegraf/ $@
 fi
