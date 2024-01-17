@@ -201,7 +201,8 @@ A unix time value may be one of the following data types:
 - float64
 - string
 
-If you specify a Go format for `csv_timestamp_format`, values in your timestamp column must be strings.
+If you specify a [Go format](https://go.dev/src/time/format.go) for `csv_timestamp_format`,
+values in your timestamp column must be strings.
 
 When using the [`"unix"` format](#csv_timestamp_format), an optional fractional component is allowed.
 Other unix time formats, such as `"unix_ms"`, cannot have a fractional component.
