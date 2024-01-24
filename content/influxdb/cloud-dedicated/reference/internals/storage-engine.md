@@ -124,7 +124,7 @@ Most support [horizontal scaling](#horizontal-scaling) for redundancy and failov
 
 The Object store contains time series data in [Apache Parquet](https://parquet.apache.org/) format.
 Each parquet file represents a partition.
-By default, InfluxDB partitions data by measurement and day, but you can
+By default, InfluxDB partitions measurements (tables) by day, but you can
 [customize the partitioning strategy](/influxdb/cloud-dedicated/admin/custom-partitions/).
 
 ##### Object store scaling strategies

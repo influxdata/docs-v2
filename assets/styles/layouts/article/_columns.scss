@@ -1,0 +1,39 @@
+div {
+  &.columns-wrapper {
+    container-type: inline-size;
+    container-name: columns;
+  }
+  &.columns-2 {columns: 2;}
+  &.columns-3 {columns: 3;}
+  &.columns-4 {columns: 4;}
+
+  &.columns-2,
+  &.columns-3,
+  &.columns-4 {
+    margin: 1.5rem 0 2.5rem;
+
+    > *:first-child {margin-top: 0}
+  }
+}
+
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+
+@container columns (max-width: 780px) {
+  div {
+    &.columns-4 {columns: 3;}
+  }
+}
+@container columns (max-width: 550px) {
+  div {
+    &.columns-3,
+    &.columns-4 {columns: 2;}
+  }
+}
+@container columns (max-width: 350px) {
+  div {
+    &.columns-2,
+    &.columns-3,
+    &.columns-4 {columns: 1;}
+  }
+}
+
