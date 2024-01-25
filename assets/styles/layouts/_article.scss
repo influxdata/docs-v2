@@ -187,6 +187,8 @@
       font-size: .9rem;
       font-weight: $medium;
     }
+
+    &.normal {font-style: normal;}
     
     &.blue {color: $b-dodger;}
     &.green {color: $gr-viridian;}

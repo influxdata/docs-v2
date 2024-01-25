@@ -30,8 +30,7 @@ specific schema and workload.
   - [Partition templates](#partition-templates)
   - [Partition keys](#partition-keys)
 - [Partitions in the query life cycle](#partitions-in-the-query-life-cycle)
-- [Partitioning best practices](#partitioning-best-practices)
-
+- [Partition guides](#partition-guides)
 {{< children type="anchored-list" >}}
 
 ## Advantages
@@ -289,50 +288,42 @@ there are more partition files, the query engine can quickly identify and read
 only those with data relevant to the query:
 
 {{% columns 4 %}}
-- <strong class="req green">A | 1 | {{< datetime/current-date trimTime=true >}}</strong>
+- <strong class="req normal green">A | 1 | {{< datetime/current-date trimTime=true >}}</strong>
 - A | 2 | {{< datetime/current-date trimTime=true >}}
 - B | 1 | {{< datetime/current-date trimTime=true >}}
 - B | 2 | {{< datetime/current-date trimTime=true >}}
-- <strong class="req green">A | 1 | {{< datetime/current-date offset=-1 trimTime=true >}}</strong>
+- <strong class="req normal green">A | 1 | {{< datetime/current-date offset=-1 trimTime=true >}}</strong>
 - A | 2 | {{< datetime/current-date offset=-1 trimTime=true >}}
 - B | 1 | {{< datetime/current-date offset=-1 trimTime=true >}}
 - B | 2 | {{< datetime/current-date offset=-1 trimTime=true >}}
-- <strong class="req green">A | 1 | {{< datetime/current-date offset=-2 trimTime=true >}}</strong>
+- <strong class="req normal green">A | 1 | {{< datetime/current-date offset=-2 trimTime=true >}}</strong>
 - A | 2 | {{< datetime/current-date offset=-2 trimTime=true >}}
 - B | 1 | {{< datetime/current-date offset=-2 trimTime=true >}}
 - B | 2 | {{< datetime/current-date offset=-2 trimTime=true >}}
-- <strong class="req green">A | 1 | {{< datetime/current-date offset=-3 trimTime=true >}}</strong>
+- <strong class="req normal green">A | 1 | {{< datetime/current-date offset=-3 trimTime=true >}}</strong>
 - A | 2 | {{< datetime/current-date offset=-3 trimTime=true >}}
 - B | 1 | {{< datetime/current-date offset=-3 trimTime=true >}}
 - B | 2 | {{< datetime/current-date offset=-3 trimTime=true >}}
-- <strong class="req green">A | 1 | {{< datetime/current-date offset=-4 trimTime=true >}}</strong>
+- <strong class="req normal green">A | 1 | {{< datetime/current-date offset=-4 trimTime=true >}}</strong>
 - A | 2 | {{< datetime/current-date offset=-4 trimTime=true >}}
 - B | 1 | {{< datetime/current-date offset=-4 trimTime=true >}}
 - B | 2 | {{< datetime/current-date offset=-4 trimTime=true >}}
-- <strong class="req green">A | 1 | {{< datetime/current-date offset=-5 trimTime=true >}}</strong>
+- <strong class="req normal green">A | 1 | {{< datetime/current-date offset=-5 trimTime=true >}}</strong>
 - A | 2 | {{< datetime/current-date offset=-5 trimTime=true >}}
 - B | 1 | {{< datetime/current-date offset=-5 trimTime=true >}}
 - B | 2 | {{< datetime/current-date offset=-5 trimTime=true >}}
-- <strong class="req green">A | 1 | {{< datetime/current-date offset=-6 trimTime=true >}}</strong>
+- <strong class="req normal green">A | 1 | {{< datetime/current-date offset=-6 trimTime=true >}}</strong>
 - A | 2 | {{< datetime/current-date offset=-6 trimTime=true >}}
 - B | 1 | {{< datetime/current-date offset=-6 trimTime=true >}}
 - B | 2 | {{< datetime/current-date offset=-6 trimTime=true >}}
-- <strong class="req green">A | 1 | {{< datetime/current-date offset=-7 trimTime=true >}}</strong>
+- <strong class="req normal green">A | 1 | {{< datetime/current-date offset=-7 trimTime=true >}}</strong>
 - A | 2 | {{< datetime/current-date offset=-7 trimTime=true >}}
 - B | 1 | {{< datetime/current-date offset=-7 trimTime=true >}}
 - B | 2 | {{< datetime/current-date offset=-7 trimTime=true >}}
 {{% /columns %}}
 
-## Partitioning best practices
-
-- Partition by tags that you commonly query for a specific value.
-- Partition using time intervals similar to your most commonly queried time ranges.
-  For example, if you often query data from the last hour, partitioning by
-  hour may help to improve query performance.
-- Tags used in custom partitioning templates must _always_ have values.
-  Otherwise, InfluxDB will not be able to store those points in the correct partitions
-  and, at query time, will end up reading all partitions.
-
 ---
 
-{{< children hlevel="h2" >}}
+## Partition guides
+
+{{< children >}}

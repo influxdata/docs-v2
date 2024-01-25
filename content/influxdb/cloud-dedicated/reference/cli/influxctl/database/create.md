@@ -7,6 +7,8 @@ menu:
   influxdb_cloud_dedicated:
     parent: influxctl database
 weight: 301
+related:
+  - /influxdb/cloud-dedicated/admin/custom-partitions/define-custom-partitions/
 ---
 
 The `influxctl database create` command creates a new database with a specified

@@ -1,43 +1,82 @@
 ---
 title: Partition templates
+list_title: Use partition templates
 description: >
-  ...
+  Learn how to define custom partitioning strategies using partition templates.
+  Data can be partitioned by tag and time.
 menu:
   influxdb_cloud_dedicated:
     parent: Manage data partitioning
 weight: 202
 ---
 
-Use partition template variables to determine the time intervals used to partition
-data stored in a given database.
+Use partition templates to define the patterned used to generate partition keys.
+A partition key uniquely identifies a partition and is used to name the partition
+Parquet file in [Object storage](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-storage).
 
-<!--------------------------- NOTES FROM SOURCE CODE --------------------------->
+A partition template consists of 1-8 _template parts_---dimensions to partition data by.
+There are two types of parts:
 
-- The number of parts in a partition template is limited to 8 and is validated at creation time.
-- `time` is a reserved keyword and cannot be used in partition templates
-- Each template part is limited to 200 bytes in length. Anything longer will be
-  truncated at 200 bytes and appeneded with `#`.
+- **tag**: [InfluxDB tag](/influxdb/cloud-dedicated/reference/glossary/#tag) to
+  partition by.
+  _A partition template can include up to 7 tag parts._
+- **time**: A Rust strftime date and time string that specifies the time interval
+  to partition data by. The smallest unit of time included in the time part
+  template is the interval used to partition data.
+  _A partition template includes only 1 time part._
+
+<!-- TOC -->
+- [Restrictions](#restrictions)
+  - [Template part size limit](#template-part-size-limit)
+  - [Reserved keywords](#reserved-keywords)
+  - [Reserved Characters](#reserved-characters)
+- [Tag part templates](#tag-part-templates)
+- [Time part templates](#time-part-templates)
+  - [Date specifiers](#date-specifiers)
+  - [Time specifiers](#time-specifiers)
+  - [Time zone specifiers](#time-zone-specifiers)
+  - [Date and time specifiers](#date-and-time-specifiers)
+  - [Special specifiers](#special-specifiers)
+<!-- /TOC -->
+
+## Restrictions
+
+### Template part size limit
+
+Each template part is limited to 200 bytes in length.
+Anything longer will be truncated at 200 bytes and appended with `#`.
+
+### Reserved keywords
+
+The following reserved keywords cannot be used in partition templates:
+
+- `time`
 
 ### Reserved Characters
 
-Reserved characters that are percent encoded (in addition to non-ASCII
-characters), and their meaning:
+If used in template parts, non-ASCII characters and the following reserved
+characters must be percent encoded:
 
-- `|` - partition key part delimiter
-- `!` - NULL/missing partition key part
-- `^` - empty string partition key part
-- `#` - key part truncation marker
-- `%` - required for unambiguous reversal of percent encoding
+- `|`: Partition key part delimiter
+- `!`: Null or missing partition key part
+- `^`: Empty string partition key part
+- `#`: Key part truncation marker
+- `%`: Required for unambiguous reversal of percent encoding
 
-<!--------------------------------- END NOTES --------------------------------->
+## Tag part templates
+
+Tag part templates consist of a _tag key_ to partition by.
+Generated partition keys include the unique _tag value_ specific to each partition.
 
 ## Time part templates
 
-The InfluxDB time variables are based on
-[Rust strftime date and time formatting syntax.](https://docs.rs/chrono/latest/chrono/format/strftime/index.html).
+Time part templates use [Rust strftime date and time formatting syntax](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
+to specify time format in partition keys.
+The smallest unit of time included in the time part template is the interval
+used to partition data.
 
 {{% note %}}
-The content in this document is adapted from the
+The following is adapted from the
 [Rust strftime source code](https://docs.rs/chrono/latest/src/chrono/format/strftime.rs.html).
 {{% /note %}}
 
@@ -47,7 +86,7 @@ The content in this document is adapted from the
 - [Date and time specifiers](#date-and-time-specifiers)
 - [Special specifiers](#special-specifiers)
 
-## Date specifiers
+### Date specifiers
 
 | Variable | Example                            | Description                                                                                                                                                                         |
 | :------: | :--------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -75,7 +114,7 @@ The content in this document is adapted from the
 |   `%F`   | `2001-07-08`                       | Year-month-day format (ISO 8601). Same as `%Y-%m-%d`.                                                                                                                               |
 |   `%v`   | ` 8-Jul-2001`                      | Day-month-year format. Same as `%e-%b-%Y`.                                                                                                                                          |
 
-## Time specifiers
+### Time specifiers
 
 | Variable | Example                            | Description                                                                                                              |
 | :------: | :--------------------------------- | :----------------------------------------------------------------------------------------------------------------------- |
@@ -100,7 +139,7 @@ The content in this document is adapted from the
 |   `%X`   | `00:34:60`                         | Locale's time representation (e.g., 23:13:48).                                                                           |
 |   `%r`   | `12:34:60 AM`                      | Locale's 12 hour clock time. (e.g., 11:11:04 PM). Falls back to `%X` if the locale does not have a 12 hour clock format. |
 
-## Time zone specifiers
+### Time zone specifiers
 
 | Variable | Example                            | Description                                                                                                        |
 | :------: | :--------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
@@ -111,7 +150,7 @@ The content in this document is adapted from the
 | `%:::z`  | `+09`                              | Offset from the local time to UTC without minutes.                                                                 |
 |  `%#z`   | `+09`                              | *Parsing only:* Same as `%z` but allows minutes to be missing or present.                                          |
 
-## Date and time specifiers
+### Date and time specifiers
 
 | Variable | Example                            | Description                                                            |
 | :------: | :--------------------------------- | :--------------------------------------------------------------------- |
@@ -119,7 +158,7 @@ The content in this document is adapted from the
 |   `%+`   | `2001-07-08T00:34:60.026490+09:30` | ISO 8601 / RFC 3339 date & time format. [^5]                           |
 |   `%s`   | `994518299`                        | UNIX timestamp, the number of seconds since 1970-01-01 00:00 UTC. [^6] |
 
-## Special specifiers
+### Special specifiers
 
 | Variable | Example | Description             |
 | :------: | :------ | :---------------------- |
