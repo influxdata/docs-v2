@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    {{ if not .Site.IsServer }}{{ partial "header/google-analytics-head.html" }}{{ end }}
+    {{ if not hugo.IsServer }}{{ partial "header/google-analytics-head.html" }}{{ end }}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
@@ -21,9 +21,9 @@
     {{ partial "header/javascript.html" }}
     {{ partial "header/search-attributes.html" . }}
     {{ partial "header/coveo-meta-data.html" . }}
-    {{ if not .Site.IsServer }}{{ partial "header/marketing.html" }}{{ end }}
+    {{ if not hugo.IsServer }}{{ partial "header/marketing.html" }}{{ end }}
 
     <meta name="Copyright" content="InfluxData Inc." />
   </head>
   <body class='{{if ne $product nil}}{{ $product }}{{ else }}home{{ end }}{{ if in $currentVersion "v1" }} v1{{ end }}'>
-    {{ if not .Site.IsServer }}{{ partial "header/google-analytics-body.html" }}{{ end }}
+    {{ if not hugo.IsServer }}{{ partial "header/google-analytics-body.html" }}{{ end }}

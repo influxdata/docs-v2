@@ -3,7 +3,9 @@ title: Troubleshoot issues writing data
 seotitle: Troubleshoot issues writing data to InfluxDB
 weight: 106
 description: >
-  Troubleshoot issues writing data. Find response codes for failed writes. Discover how writes fail, from exceeding rate or payload limits, to syntax errors and schema conflicts.
+  Troubleshoot issues writing data.
+  Find response codes for failed writes.
+  Discover how writes fail, from exceeding rate or payload limits, to syntax errors and schema conflicts.
 menu:
   influxdb_cloud_serverless:
     name: Troubleshoot issues
@@ -17,14 +19,11 @@ related:
 
 Learn how to avoid unexpected results and recover from errors when writing to {{% product-name %}}.
 
-<!-- TOC -->
 
 - [Handle write responses](#handle-write-responses)
   - [Review HTTP status codes](#review-http-status-codes)
 - [Troubleshoot failures](#troubleshoot-failures)
 - [Troubleshoot rejected points](#troubleshoot-rejected-points)
-
-<!-- /TOC -->
 
 ## Handle write responses
 
@@ -34,10 +33,10 @@ Learn how to avoid unexpected results and recover from errors when writing to {{
   2. If successful, attempts to [ingest data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](#review-http-status-codes).
   3. Ingests or rejects the entire batch and returns one of the following HTTP status codes:
 
-     - `204 No Content`: all data is ingested
+     - `204 No Content`: data is ingested and queryable
      - `400 Bad Request`: all data is rejected
 
-     The response body contains error details about [rejected points](#troubleshoot-rejected-points), up to 100 points.
+     If points are rejected, the `204` or `400` response body contains error details about [rejected points](#troubleshoot-rejected-points), up to 100 points.
 
   Writes are synchronous--the response status indicates the final status of the write and all ingested data is queryable.
 
@@ -50,17 +49,17 @@ InfluxDB uses conventional HTTP status codes to indicate the success or failure 
 The `message` property of the response body may contain additional details about the error.
 {{< product-name >}} returns one the following HTTP status codes for a write request:
 
-| HTTP response code              | Message                                                                 | Description    |
-| :-------------------------------| :-----------------------------------------------------------------------| :------------- |
-| `204 "Success"`                 |                                                                         | If InfluxDB ingested the data |
-| `400 "Bad request"`             | `message` contains the first malformed line                             | If request data is malformed |
+| HTTP response code              | Response body                                                                    | Description    |
+| :-------------------------------| :---------------------------------------------------------------        | :------------- |
+| `204 "No Content"`                 | error details about rejected points, up to 100 points: `line` contains the first rejected line, `message` describes rejected points                                                                     | If InfluxDB ingested some or all of the data |
+| `400 "Bad request"`             | `line` contains the first malformed line, `message` describes rejected points                             | If request data is malformed |
 | `401 "Unauthorized"`            |                                                                         | If the `Authorization` header is missing or malformed or if the [token](/influxdb/cloud-serverless/admin/tokens/) doesn't have [permission](/influxdb/cloud-serverless/admin/tokens/create-token/) to write to the bucket. See [examples using credentials](/influxdb/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb) in write requests. |
 | `403 "Forbidden"`               | `message` contains details about the error                              | If the data isn't allowed (for example, falls outside of the bucket's retention period).
 | `404 "Not found"`               | requested **resource type** (for example, "organization" or "bucket"), and **resource name**     | If a requested resource (for example, organization or bucket) wasn't found |
 | `413 “Request too large”`       | cannot read data: points in batch is too large                          | If a request exceeds the maximum [global limit](/influxdb/cloud-serverless/admin/billing/limits/) |
-| `429 “Too many requests”`       | `Retry-After` header: xxx (seconds to wait before retrying the request) | If a request exceeds your plan's [adjustable service quotas](/influxdb/cloud-serverless/admin/billing/limits/#adjustable-service-quotas) |
+| `429 “Too many requests”`       |                                                                         | If the number of requests exceeds the [adjustable service quota](/influxdb/cloud-serverless/admin/billing/limits/#adjustable-service-quotas). The `Retry-After` header contains the number of seconds to wait before trying the write again. | If a request exceeds your plan's [adjustable service quotas](/influxdb/cloud-serverless/admin/billing/limits/#adjustable-service-quotas)
 | `500 "Internal server error"`   |                                                                         | Default status for an error |
-| `503` `"Service unavailable"`   |                                                                         | If the server is temporarily unavailable to accept writes. The `Retry-After` header describes when to try the write again.
+| `503 "Service unavailable"`     |                                                                         | If the server is temporarily unavailable to accept writes. The `Retry-After` header contains the number of seconds to wait before trying the write again.
 
 The `message` property of the response body may contain additional details about the error.
 If your data did not write to the bucket, see how to [troubleshoot rejected points](#troubleshoot-rejected-points).
@@ -111,4 +110,4 @@ The following example shows a response body for a write request that contains tw
 }
 ```
 
-Check for [field data type](/influxdb/cloud-serverless/reference/syntax/line-protocol/#data-types-and-format) differences between the rejected data point and points in the bucket that have the same measurement and day--for example, did you attempt to write `string` data to an `int` field?
+Check for [field data type](/influxdb/cloud-serverless/reference/syntax/line-protocol/#data-types-and-format) differences between the rejected data point and points within the same database and partition--for example, did you attempt to write `string` data to an `int` field?
