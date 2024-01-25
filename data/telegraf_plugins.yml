@@ -962,8 +962,8 @@ input:
     description: |
       The Jolokia2 Agent input plugin reads JMX metrics from one or more
       [Jolokia](https://jolokia.org/) agent REST endpoints using the
-      [JSON-over-HTTP protocol](https://jolokia.org/reference/html/protocol.html).
-    link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/jolokia2/README.md
+      [JSON-over-HTTP protocol](https://jolokia.org/reference/html/manual/jolokia_protocol.html).
+    link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/jolokia2_agent/README.md
     introduced: 1.5.0
     tags: [linux, macos, windows, networking]
 
