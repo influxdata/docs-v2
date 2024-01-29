@@ -63,12 +63,12 @@ If stored at a non-default location, include the `--config` flag with each
 
     **Copy and paste the sample configuration profile code** into your `config.toml`:
 
-{{% code-placeholders "PORT|HOST|OAUTH_TOKEN_URL|OAUTH_DEVICE_URL|OAUTH_CLIENT_ID" %}}
+{{% code-placeholders "PORT|OAUTH_TOKEN_URL|OAUTH_DEVICE_URL|OAUTH_CLIENT_ID" %}}
 ```toml
 [[profile]]
   name = "default"
   product = "clustered"
-  host = "HOST"
+  host = "{{< influxdb/host >}}"
   port = "PORT"
 
 [profile.auth.oauth2]
