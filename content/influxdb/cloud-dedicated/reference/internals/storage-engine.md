@@ -46,21 +46,20 @@ queries, and is optimized to reduce storage cost.
 
 ### Ingester
 
-The Ingester processes line protocol submitted with write requests and persists
-time series data to the [Object store](#object-store). In this process, the
-Ingester does the following:
+The Ingester processes line protocol submitted in write requests and persists
+time series data to the [Object store](#object-store).
+In this process, the Ingester does the following:
 
 - Queries the [Catalog](#catalog) to identify where data should be persisted and
-  to ensure the schema of the line protocol is compatible with the schema of
+  to ensure the schema of the line protocol is compatible with the [schema](/influxdb/cloud-dedicated/reference/glossary/#schema) of
   persisted data.
-- Identifies any write errors and generates a response for the client that made
-  the write request.
+- Accepts or [rejects](/influxdb/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points) points in the write request and generates a [response](/influxdb/cloud-dedicated/write-data/troubleshoot/).
 - Processes line protocol and persists time series data to the
   [Object store](#object-store) in Apache Parquet format. Each Parquet file
   represents a _partition_--a logical grouping of data.
-- Makes yet-to-be-persisted data available to [Queriers](#querier) to ensure
+- Makes [yet-to-be-persisted](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest) data available to [Queriers](#querier) to ensure
   leading edge data is included in query results.
-- Maintains a short-term write-ahead log (WAL) to prevent data loss in case of a
+- Maintains a short-term [write-ahead log (WAL)](/influxdb/cloud-dedicated/reference/internals/durability/) to prevent data loss in case of a
   service interruption.
 
 ##### Ingester scaling strategies
@@ -72,8 +71,7 @@ effective scaling strategy for the Ingester.
 
 ### Querier
 
-The querier handles query requests and returns query results to the client that
-mad the query request.
+The Querier handles query requests and returns query results for requests.
 It supports both SQL and InfluxQL through
 [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html).
 
@@ -84,16 +82,16 @@ At query time, the querier:
 1.  Receives the query request and builds a query plan.
 2.  Queries the [Ingester](#ingester) to:
 
-    - ensure the schema assumed by the query plan matches the schema of written data.
-    - include recently written, yet-to-be-persisted data in query results.
+    - ensure the schema assumed by the query plan matches the schema of written data
+    - include recently written, [yet-to-be-persisted](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest) in query results
 
-3.  Queries the [Catalog](#catalog) to identify the physical location of partitions
+3.  Queries the [Catalog](#catalog) to find partitions in the [Object store](#object-store)
     that contain the queried data.
-4.  Reads partition Parquet files from the [Object store](#object-store)
-    containing the queried data and scans each row to find those that match the
-    logic defined in the query plan.
-5.  Returns the data specified in the query and performs any additional
-    operations specified in the query plan.
+4.  Reads partition Parquet files that
+    contain the queried data and scans each row to filter data that matches predicates
+    in the query plan.
+5.  Performs any additional
+    operations (for example: deduplicating, merging, and sorting) specified in the query plan.
 6.  Returns the query result to the client.
 
 ##### Querier scaling strategies
@@ -101,7 +99,7 @@ At query time, the querier:
 The Querier can be scaled both [vertically](#vertical-scaling) and
 [horizontally](#horizontal-scaling).
 Horizontal scaling increases query throughput to handle more concurrent queries.
-Vertical scaling improves the queriers ability to process computation-heavy queries.
+Vertical scaling improves the Querier's ability to process computationally intensive queries.
 
 ### Catalog
 
@@ -123,7 +121,7 @@ Most support [horizontal scaling](#horizontal-scaling) for redundancy and failov
 ### Object store
 
 The Object store contains time series data in [Apache Parquet](https://parquet.apache.org/) format.
-Each parquet file represents a partition.
+Each Parquet file represents a partition.
 By default, InfluxDB partitions measurements (tables) by day, but you can
 [customize the partitioning strategy](/influxdb/cloud-dedicated/admin/custom-partitions/).
 

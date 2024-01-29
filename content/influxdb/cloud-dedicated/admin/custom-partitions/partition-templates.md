@@ -10,16 +10,16 @@ menu:
 weight: 202
 ---
 
-Use partition templates to define the patterned used to generate partition keys.
+Use partition templates to define the patterns used to generate partition keys.
 A partition key uniquely identifies a partition and is used to name the partition
-Parquet file in [Object storage](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-storage).
+Parquet file in the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
 
 A partition template consists of 1-8 _template parts_---dimensions to partition data by.
 There are two types of parts:
 
 - **tag**: [InfluxDB tag](/influxdb/cloud-dedicated/reference/glossary/#tag) to
   partition by.
-  _A partition template can include up to 7 tag parts._
+  _A partition template can include up to seven tag parts._
 - **time**: A Rust strftime date and time string that specifies the time interval
   to partition data by. The smallest unit of time included in the time part
   template is the interval used to partition data.
@@ -55,7 +55,7 @@ The following reserved keywords cannot be used in partition templates:
 ### Reserved Characters
 
 If used in template parts, non-ASCII characters and the following reserved
-characters must be percent encoded:
+characters must be [percent encoded](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding):
 
 - `|`: Partition key part delimiter
 - `!`: Null or missing partition key part
@@ -167,7 +167,7 @@ The following is adapted from the
 |   `%%`   |         | Literal percent sign.   |
 
 It is possible to override the default padding behavior of numeric specifiers `%?`.
-This is not allowed for other specifiers and will result in the `BAD_FORMAT` error.
+This is not allowed for other specifiers and results in the `BAD_FORMAT` error.
 
 Modifier | Description
 -------- | -----------

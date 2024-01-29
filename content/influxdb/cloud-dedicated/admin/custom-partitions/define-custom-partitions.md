@@ -15,8 +15,8 @@ Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
 to define custom partition strategies when creating a database or measurement.
 By default, {{< product-name >}} partitions data by day.
 
-The partition strategy of a database or measurement is determined by a
-_partition template_ which defines the naming pattern for _partition keys_.
+The partitioning strategy of a database or measurement is determined by a
+[partition template](/influxdb/cloud-dedicated/admin/custom-partitions/#partition-templates) which defines the naming pattern for [partition keys](/influxdb/cloud-dedicated/admin/custom-partitions/#partition-keys).
 Partition keys uniquely identify each partition.
 When a partition template is applied to a database, it becomes the default template
 for all measurements in that database, but can be overridden when creating a
@@ -78,7 +78,7 @@ influxctl measurement create \
 Given the following [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/)
 with a `2024-01-01T00:00:00Z` timestamp:
 
-```sh
+```text
 prod,line=A,station=weld1 temp=81.9,qty=36i 1704067200000000000
 ```
 

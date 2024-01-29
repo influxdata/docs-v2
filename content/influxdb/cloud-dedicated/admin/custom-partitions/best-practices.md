@@ -5,7 +5,7 @@ description: >
   stored in InfluxDB.
 menu:
   influxdb_cloud_dedicated:
-    # name: Best practices
+    name: Best practices
     parent: Manage data partitioning
 weight: 202
 ---
@@ -27,27 +27,26 @@ query engine to more quickly identify what partitions contain the relevant data.
 {{% note %}}
 #### Be careful partitioning on high-cardinality tags
 
-Partitioning using tags with many (500K+) of unique values can actually hurt
+Partitioning using tags with many (500K+) unique values can actually hurt
 query performance as partitions are created for each unique tag value.
 {{% /note %}}
 
 ## Only partition by tags that _always_ have a value
 
 You should only partition by tags that _always_ have a value.
-Otherwise, InfluxDB will not be able to store points without that tag in the
-correct partitions and, at query time, will end up reading all partitions.
+If points don't have a value for the tag, InfluxDB can't store them in the correct partitions and, at query time, must read all the partitions.
 
 ## Avoid over-partitioning
 
 As you plan your partitioning strategy, keep in mind that data can be
 "over-partitioned"--meaning partitions are so granular that queries end up
-having to open and read many more partitions than they really need to, which
-actually hurts query performance.
+having to retrieve and read many partitions from the object store, which
+hurts query performance.
 
 - Avoid partition time intervals that are too small. A good rule of thumb is to
   partition data using time intervals similar to your most commonly queried
   time range. For example, if you often query data from the last hour, partitioning by
-  hour may help to improve query performance.
+  hour may improve query performance.
   
   However, this should be balanced with the actual amount of data written during
   the specified time interval. If a single interval doesn't contain a lot of data,

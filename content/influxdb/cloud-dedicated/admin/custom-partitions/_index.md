@@ -14,7 +14,7 @@ related:
 ---
 
 When writing data to {{< product-name >}}, the InfluxDB v3 storage engine stores
-data in the [Object storage](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-storage)
+data in the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store)
 in [Apache Parquet](https://parquet.apache.org/) format.
 Each Parquet file represents a _partition_--a logical grouping of data.
 By default, InfluxDB partitions each measurement (table) by day.
@@ -74,14 +74,14 @@ Custom partitioning has the following limitations:
 - Database and measurement partitions can only be defined on create.
   You cannot update the partition strategy of a database or measurement after it
   has been created.
-- You can partition by up to 8 dimensions (7 tags and a time interval).
+- You can partition by up to eight dimensions (seven tags and a time interval).
 
 ## How partitioning works
 
 ### Partition templates
 
 A partition template defines the pattern used for _[partition keys](#partition-keys)_
-and determine the time interval data is partitioned by.
+and determines the time interval that data is partitioned by.
 Partition templates use tag values and
 [Rust strftime date and time formatting syntax](https://docs.rs/chrono/latest/chrono/format/strftime/index.html).
 
@@ -91,7 +91,7 @@ _For more detailed information, see [Partition templates](/influxdb/cloud-dedica
 
 A partition key uniquely identifies a partition. The structure of partition keys
 is defined by a _[partition template](#partition-templates)_. Partition keys are
-composed of up to 8 parts or dimensions (tags and time).
+composed of up to eight parts or dimensions (tags and time).
 Each part is delimited by the partition key separator (`|`).
 
 {{< expand-wrapper >}}
@@ -103,7 +103,7 @@ Given the following line protocol with the following timestamps:
 - 2024-01-01T00:00:00Z
 - 2024-01-01T01:00:00Z
 
-```sh
+```text
 production,line=A,station=1 temp=81.2,qty=35i 1704063600000000000
 production,line=A,station=2 temp=92.8,qty=35i 1704063600000000000
 production,line=B,station=1 temp=101.1,qty=43i 1704063600000000000
@@ -251,7 +251,7 @@ _For more information about the query lifecycle, see
 ##### Query example
 
 Consider the following query that selects everything in the `production` measurement
-with where the `line` tag is `A` and the `station` tag is `1`:
+where the `line` tag is `A` and the `station` tag is `1`:
 
 ```sql
 SELECT *
@@ -263,7 +263,7 @@ WHERE
 ```
 
 Using the default partitioning strategy (by day), the query engine
-reads 8 separate partitions (one partition for today and one for each of the
+reads eight separate partitions (one partition for today and one for each of the
 last seven days):
 
 - {{< datetime/current-date trimTime=true >}}
@@ -280,7 +280,7 @@ where `line` is `A` and `station` is `1`. This process takes valuable time
 and results in less performant queries.
 
 However, if you partition by other tags, InfluxDB can identify partitions that
-contain only the tag values your query needs and is able to spend less time
+contain only the tag values your query needs and spend less time
 scanning rows to see if they contain the tag values.
 
 For example, if data is partitioned by `line`, `station`, and day, although
