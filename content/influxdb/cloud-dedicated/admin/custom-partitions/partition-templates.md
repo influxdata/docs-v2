@@ -75,16 +75,24 @@ to specify time format in partition keys.
 The smallest unit of time included in the time part template is the interval
 used to partition data.
 
-{{% note %}}
-The following is adapted from the
-[Rust strftime source code](https://docs.rs/chrono/latest/src/chrono/format/strftime.rs.html).
-{{% /note %}}
+{{% warn %}}
+#### Avoid partitioning by less than one day
+
+We do not recommend using time intervals less than one day to partition data.
+This can result in [over-partitioned data](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/#avoid-over-partitioning)
+and may hurt query performance.
+{{% /warn %}}
 
 - [Date specifiers](#date-specifiers)
 - [Time specifiers](#time-specifiers)
 - [Time zone specifiers](#time-zone-specifiers)
 - [Date and time specifiers](#date-and-time-specifiers)
 - [Special specifiers](#special-specifiers)
+
+{{% note %}}
+The following is adapted from the
+[Rust strftime source code](https://docs.rs/chrono/latest/src/chrono/format/strftime.rs.html).
+{{% /note %}}
 
 ### Date specifiers
 

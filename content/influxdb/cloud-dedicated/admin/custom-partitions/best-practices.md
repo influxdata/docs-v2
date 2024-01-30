@@ -27,7 +27,7 @@ query engine to more quickly identify what partitions contain the relevant data.
 {{% note %}}
 #### Be careful partitioning on high-cardinality tags
 
-Partitioning using tags with many (500K+) unique values can actually hurt
+Partitioning using tags with many (10K+) unique values can actually hurt
 query performance as partitions are created for each unique tag value.
 {{% /note %}}
 
@@ -43,13 +43,10 @@ As you plan your partitioning strategy, keep in mind that data can be
 having to retrieve and read many partitions from the object store, which
 hurts query performance.
 
-- Avoid partition time intervals that are too small. A good rule of thumb is to
-  partition data using time intervals similar to your most commonly queried
-  time range. For example, if you often query data from the last hour, partitioning by
-  hour may improve query performance.
-  
-  However, this should be balanced with the actual amount of data written during
-  the specified time interval. If a single interval doesn't contain a lot of data,
+- Avoid using partition time intervals that are **less than one day**.
+
+  The partition time interval should be balanced with the actual amount of data
+  written during each interval. If a single interval doesn't contain a lot of data,
   it is better to partition by larger time intervals.
 
 - Don't partition by tags that you typically don't use in your query workload.

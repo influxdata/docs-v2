@@ -80,7 +80,7 @@ It supports both SQL and InfluxQL through
 At query time, the querier:
 
 1.  Receives the query request and builds a query plan.
-2.  Queries the [Ingester](#ingester) to:
+2.  Queries the [Ingesters](#ingester) to:
 
     - ensure the schema assumed by the query plan matches the schema of written data
     - include recently written, [yet-to-be-persisted](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest) in query results
