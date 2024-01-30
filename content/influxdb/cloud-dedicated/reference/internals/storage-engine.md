@@ -51,16 +51,18 @@ time series data to the [Object store](#object-store).
 In this process, the Ingester does the following:
 
 - Queries the [Catalog](#catalog) to identify where data should be persisted and
-  to ensure the schema of the line protocol is compatible with the [schema](/influxdb/cloud-dedicated/reference/glossary/#schema) of
-  persisted data.
-- Accepts or [rejects](/influxdb/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points) points in the write request and generates a [response](/influxdb/cloud-dedicated/write-data/troubleshoot/).
+  to ensure the schema of the line protocol is compatible with the
+  [schema](/influxdb/cloud-dedicated/reference/glossary/#schema) of persisted data.
+- Accepts or [rejects](/influxdb/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points)
+  points in the write request and generates a [response](/influxdb/cloud-dedicated/write-data/troubleshoot/).
 - Processes line protocol and persists time series data to the
   [Object store](#object-store) in Apache Parquet format. Each Parquet file
   represents a _partition_--a logical grouping of data.
-- Makes [yet-to-be-persisted](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest) data available to [Queriers](#querier) to ensure
-  leading edge data is included in query results.
-- Maintains a short-term [write-ahead log (WAL)](/influxdb/cloud-dedicated/reference/internals/durability/) to prevent data loss in case of a
-  service interruption.
+- Makes [yet-to-be-persisted](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest)
+  data available to [Queriers](#querier) to ensure leading edge data is included
+  in query results.
+- Maintains a short-term [write-ahead log (WAL)](/influxdb/cloud-dedicated/reference/internals/durability/)
+  to prevent data loss in case of a service interruption.
 
 ##### Ingester scaling strategies
 
@@ -83,15 +85,15 @@ At query time, the querier:
 2.  Queries the [Ingesters](#ingester) to:
 
     - ensure the schema assumed by the query plan matches the schema of written data
-    - include recently written, [yet-to-be-persisted](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest) in query results
+    - include recently written, [yet-to-be-persisted](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest)
+      data in query results
 
 3.  Queries the [Catalog](#catalog) to find partitions in the [Object store](#object-store)
     that contain the queried data.
-4.  Reads partition Parquet files that
-    contain the queried data and scans each row to filter data that matches predicates
-    in the query plan.
-5.  Performs any additional
-    operations (for example: deduplicating, merging, and sorting) specified in the query plan.
+4.  Reads partition Parquet files that contain the queried data and scans each
+    row to filter data that matches predicates in the query plan.
+5.  Performs any additional operations (for example: deduplicating, merging, and sorting)
+    specified in the query plan.
 6.  Returns the query result to the client.
 
 ##### Querier scaling strategies
@@ -144,7 +146,8 @@ The Compactor can be scaled both [vertically](#vertical-scaling) and
 [horizontally](#horizontal-scaling).
 Because compaction is a compute-heavy process, vertical scaling (especially
 increasing the available CPU) is the most effective scaling strategy for the Compactor.
-Horizontal scaling increases compaction throughput, but not as well as vertical scaling.
+Horizontal scaling increases compaction throughput, but not as efficiently as
+vertical scaling.
 
 ---
 
