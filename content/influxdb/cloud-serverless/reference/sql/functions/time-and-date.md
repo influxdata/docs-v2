@@ -218,9 +218,12 @@ The following intervals are supported:
 - hours
 - days
 - weeks
+
+The following intervals are not currently supported:
 - months
 - years
 - century
+
 
 ##### Related functions
 
