@@ -100,7 +100,7 @@ When creating an InfluxDB data source that uses SQL to query data:
 
 2.  Under **InfluxDB Details**:
 
-    - **Database**: Provide a database name to query. Use the database name that is mapped to your InfluxBD Cloud bucket.
+    - **Database**: Provide a database name to query. Use the database name that is mapped to your InfluxDB Cloud bucket.
     - **Token**: Provide an [API token](/influxdb/cloud-serverless/admin/tokens/)
       with read access to the buckets you want to query.
 
@@ -139,8 +139,7 @@ To query {{% product-name %}} with InfluxQL, first map database and retention po
       _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
     - **Password**: Provide an [API token](/influxdb/cloud-serverless/admin/tokens/)
       with read access to the buckets you want to query.
-    - **HTTP Method**: Choose one of the available HTTP request method to use\
-      when querying data:
+    - **HTTP Method**: Choose one of the available HTTP request methods to use when querying data:
 
         - **POST** ({{< req text="Recommended" >}})
         - **GET**
