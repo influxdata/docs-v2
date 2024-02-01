@@ -33,16 +33,10 @@ to query InfluxDB with the Flight SQL protocol.
 <!-- TOC -->
 
 - [Install Grafana or login to Grafana Cloud](#install-grafana-or-login-to-grafana-cloud)
-- [InfluxDB Data Source](#influxdb-data-source)
-- [Create a datasource](#create-a-datasource)
-    - [Map databases and retention policies to buckets](#map-databases-and-retention-policies-to-buckets)
+- [InfluxDB data source](#influxdb-data-source)
+- [Create a data source](#create-a-data-source)
 - [Query InfluxDB with Grafana](#query-influxdb-with-grafana)
 - [Build visualizations with Grafana](#build-visualizations-with-grafana)
-- [FlightSQL plugin (Community)](#flightsql-plugin-community)
-  - [Install](#install)
-    - [Only required if using SQL](#only-required-if-using-sql)
-  - [Use grafana-cli](#use-grafana-cli)
-  - [Use the Grafana UI](#use-the-grafana-ui)
 
 <!-- /TOC -->
 
@@ -100,7 +94,8 @@ When creating an InfluxDB data source that uses SQL to query data:
 
 2.  Under **InfluxDB Details**:
 
-    - **Database**: Provide a database name to query. Use the database name that is mapped to your InfluxDB Cloud bucket.
+    - **Database**: Provide a default bucket name to query.
+      In {{< product-name >}}, a bucket functions as a database.
     - **Token**: Provide an [API token](/influxdb/cloud-serverless/admin/tokens/)
       with read access to the buckets you want to query.
 
@@ -134,7 +129,8 @@ To query {{% product-name %}} with InfluxQL, first map database and retention po
 
 2.  Under **InfluxDB Details**:
 
-    - **Database**: Provide a database name to query. Use the database name that is mapped to your InfluxBD Cloud bucket.
+    - **Database**: Provide a database name to query.
+      Use the database name that is mapped to your InfluxBD bucket.
     - **User**: Provide an arbitrary string.
       _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
     - **Password**: Provide an [API token](/influxdb/cloud-serverless/admin/tokens/)
