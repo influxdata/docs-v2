@@ -719,6 +719,14 @@ An InfluxDB query returns time series data.
 
 See [Query data in InfluxDB](/influxdb/cloud-dedicated/query-data/).
 
+## query plan
+
+A sequence of steps that the InfluxDB querier devises and executes to calculate the result of the query.
+A _logical plan_ is a high level representation of a query.
+A _physical plan_ represents query execution flow and consists of _operators_  that read (_scan_), deduplicate, merge, filter, and sort data.
+
+See [Query plan](/influxdb/cloud-dedicated/reference/internals/query-plan/).
+
 ## R
 
 ### REPL

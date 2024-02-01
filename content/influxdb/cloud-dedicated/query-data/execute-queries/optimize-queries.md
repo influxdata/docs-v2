@@ -70,22 +70,26 @@ Some bottlenecks may be out of your control and are the result of a suboptimal e
 - Querying many overlapped parquet files.
 - Performing a large number of table scans.
 
-The `EXPLAIN` command can help you identify why the query doesn't perform as you expect.
-Learn how to [use `EXPLAIN` keywords  to troubleshoot the query plan](#analyze-an-explain-report-and-troubleshoot-the-query-plan).
+The `EXPLAIN` command generates a report of the query plan that can help you understand why a query might not perform as you expect.
+Learn how to [analyze a query plan](#analyze-an-explain-report-and-troubleshoot-the-query-plan).
+
+### Potential query bottlenecks
 
 #### Query includes an intensive process or large time range
 
- See (#strategies-for-improving-query-performance)
+ See (#strategies-for-improving-query-performance).
 
-#### Query plan applies the same sort (`ORDER BY`) to already sorted data
+#### Query plan reapplies sorting (`ORDER BY`) to already sorted data
 
 #### Query retrieves many parquet files from object storage
 
  The same query performs better if it retrieves fewer - though, larger - files.
 
- See (#strategies-for-improving-query-performance)
+ See (#strategies-for-improving-query-performance).
 
-#### Querying many overlapped parquet files
+#### Querying many overlapped Parquet files
+
+See (/influxdb/cloud-dedicated/)
 
 #### Performing a large number of table scans
 

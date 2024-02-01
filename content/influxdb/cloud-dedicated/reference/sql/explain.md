@@ -1,8 +1,7 @@
 ---
 title: EXPLAIN command
 description: > 
-  The `EXPLAIN` command shows the logical and physical execution plan for the
-  specified SQL statement.
+  The `EXPLAIN` command returns the [ogical plan and [physical execution plan) for the specified SQL statement.
 menu:
   influxdb_cloud_dedicated:
     name: EXPLAIN command
@@ -10,7 +9,7 @@ menu:
 weight: 207
 ---
 
-The `EXPLAIN` command returns the logical and physical execution plan for the
+The `EXPLAIN` command returns the [logical plan]() and the [physical execution plan]() for the
 specified SQL statement.
 
 ```sql
@@ -25,7 +24,10 @@ EXPLAIN [ANALYZE] [VERBOSE] statement
 Returns the execution plan of a statement.
 To output more details, use `EXPLAIN VERBOSE`.
 
-##### Example EXPLAIN ANALYZE
+`EXPLAIN` doesn't execute the statement.
+To execute the statement and view runtime metrics, use [`EXPLAIN ANALYZE`](#explain-analyze).
+
+### Example EXPLAIN
 
 ```sql
 EXPLAIN
@@ -49,8 +51,11 @@ GROUP BY room
 
 ## EXPLAIN ANALYZE
 
-Returns the execution plan and metrics of a statement.
-To output more information, use `EXPLAIN ANALYZE VERBOSE`.
+Executes a statement and returns the execution plan and runtime metrics of the statement.
+The report includes the [logical plan](#logical-plan) and the [physical plan](#physical-plan) annotated with execution counters, number of rows produced, and runtime metrics sampled during the query execution.
+
+`EXPLAIN` and `EXPLAIN ANALYZE` may show a truncated list of the files scanned for a query if the plan requires reading lots of data files,
+To output more information, including intermediate plans and paths for all scanned parquet files, use [`EXPLAIN ANALYZE VERBOSE`](#explain-analyze-verbose).
 
 ##### Example EXPLAIN ANALYZE
 
@@ -72,3 +77,23 @@ GROUP BY room
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+## EXPLAIN ANALYZE VERBOSE
+
+Executes a statement and returns the execution plan, runtime metrics, and additional details helpful for debugging the statement.
+
+The report includes the following:
+
+- the [logical plan](#logical-plan)
+- the [physical plan](#physical-plan) annotated with execution counters, number of rows produced, and runtime metrics sampled during the query execution
+- Information truncated in the `EXPLAIN` report--for example, the paths for all [files](#file_groups) retrieved for the query.
+- All intermediate physical plans that the IOx querier and DataFusion generate before the query engine generates the final physical plan--helpful in debugging to see when an _operator_ is added or removed in a plan, and how InfluxDB and DataFusion optimize the query.
+The report includes:
+
+### Example EXPLAIN ANALYZE VERBOSE
+
+```SQL
+EXPLAIN VERBOSE SELECT temp FROM home
+WHERE time >= now() - INTERVAL '90 days' AND room = 'Kitchen'
+ORDER BY time
+```
