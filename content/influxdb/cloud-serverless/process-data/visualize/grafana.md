@@ -16,12 +16,13 @@ aliases:
   - /influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/
   - /influxdb/cloud-serverless/process-data/tools/grafana/
   - /influxdb/cloud-serverless/visualize-data/grafana/
+alt_links:
+  oss: /influxdb/v2/tools/grafana/
+  cloud: /influxdb/cloud/tools/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) to query and visualize data stored in
 {{% product-name %}}.
-Install the [grafana-flight-sql-plugin](https://github.com/influxdata/grafana-flightsql-datasource)
-to query InfluxDB with the Flight SQL protocol.
 
 > [Grafana] enables you to query, visualize, alert on, and explore your metrics,
 > logs, and traces wherever they are stored.
@@ -34,7 +35,7 @@ to query InfluxDB with the Flight SQL protocol.
 
 - [Install Grafana or login to Grafana Cloud](#install-grafana-or-login-to-grafana-cloud)
 - [InfluxDB data source](#influxdb-data-source)
-- [Create a data source](#create-a-data-source)
+- [Create an InfluxDB data source](#create-an-influxdb-data-source)
 - [Query InfluxDB with Grafana](#query-influxdb-with-grafana)
 - [Build visualizations with Grafana](#build-visualizations-with-grafana)
 
@@ -62,7 +63,7 @@ The updated plugin includes **SQL support** for InfluxDB v3-based products such
 as {{< product-name >}}.
 {{% /note %}}
 
-## Create a data source
+## Create an InfluxDB data source
 
 Which data source you create depends on which query language you want to use to
 query {{% product-name %}}:
