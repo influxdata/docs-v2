@@ -30,7 +30,7 @@ Each property can have a different value type.
 
 ## Record syntax
 A **record** literal contains a set of key-value pairs (properties) enclosed in curly brackets (`{}`).
-Properties are comma-delimitted.
+Properties are comma-delimited.
 **Property keys must be strings** and can optionally be enclosed in double quotes (`"`).
 If a property key contains whitespace characters or only numeric characters,
 you must enclose the property key in double quotes.

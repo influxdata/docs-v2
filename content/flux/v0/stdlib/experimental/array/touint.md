@@ -60,7 +60,7 @@ Array of values to convert. Default is the piped-forward array (`<-`).
 
 ## Examples
 
-### Convert an array of floats to usigned integers
+### Convert an array of floats to unsigned integers
 
 ```js
 import "experimental/array"

@@ -50,7 +50,7 @@ Use `HOLT_WINTERS()` to:
 - Compare predicted values with actual values to detect anomalies in your data
 
 ```sql
-HOLT_WINTERS[_WITH_FIT](aggregrate_expression, N, S)
+HOLT_WINTERS[_WITH_FIT](aggregate_expression, N, S)
 ```
 
 #### Arguments {#arguments-holt-winters}

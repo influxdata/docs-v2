@@ -236,7 +236,7 @@ Filter data by measurement regular expression.
 
 Filter data by tag key regular expression.
 
-##### [ `-tag-value-filter <regular_expresssion>` ]
+##### [ `-tag-value-filter <regular_expression>` ]
 
 Filter data by tag value regular expression.
 

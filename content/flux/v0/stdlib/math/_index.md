@@ -64,7 +64,7 @@ math.sqrtpi
 - **math.log2e** represents the base 2 logarithm of **e** (`math.e`).
 - **math.maxfloat** represents the maximum float value.
 - **math.maxint** represents the maximum integer value (`2^63 - 1`).
-- **math.maxuint** representes the maximum unsigned integer value  (`2^64 - 1`).
+- **math.maxuint** represents the maximum unsigned integer value  (`2^64 - 1`).
 - **math.minint** represents the minimum integer value (`-2^63`).
 - **math.phi** represents the [Golden Ratio](https://www.britannica.com/science/golden-ratio).
 - **math.pi** represents pi (π).

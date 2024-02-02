@@ -279,7 +279,7 @@ stream
     .measurement('errors')
     .groupBy('500')
   |alert()
-    .info(lamda: 'count' > 0)
+    .info(lambda: 'count' > 0)
     .noRecoveries()
     .topic('500-errors')  
 ```

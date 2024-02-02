@@ -76,7 +76,7 @@ The returned record is included in the final output.
 
 In a left outer join, `l` is guaranteed to not be a default record, but `r` may be a
 default record. Because `r` is more likely to contain null values, the output record
-is built almost entirely from proprties of `l`, with the exception of `v_right`, which
+is built almost entirely from properties of `l`, with the exception of `v_right`, which
 we expect to sometimes be null.
 
 For more information about the behavior of outer joins, see the [Outer joins](/flux/v0/stdlib/join/#outer-joins)

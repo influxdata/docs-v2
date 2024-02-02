@@ -2,7 +2,7 @@
 title: http.endpoint() function
 description: >
   `http.endpoint()` iterates over input data and sends a single POST request per input row to
-  a specficied URL.
+  a specified URL.
 menu:
   flux_v0_ref:
     name: http.endpoint
@@ -29,7 +29,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ------------------------------------------------------------------------------->
 
 `http.endpoint()` iterates over input data and sends a single POST request per input row to
-a specficied URL.
+a specified URL.
 
 This function is designed to be used with `monitor.notify()`.
 
