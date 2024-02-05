@@ -16,12 +16,13 @@ aliases:
   - /influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/
   - /influxdb/cloud-serverless/process-data/tools/grafana/
   - /influxdb/cloud-serverless/visualize-data/grafana/
+alt_links:
+  oss: /influxdb/v2/tools/grafana/
+  cloud: /influxdb/cloud/tools/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) to query and visualize data stored in
 {{% product-name %}}.
-Install the [grafana-flight-sql-plugin](https://github.com/influxdata/grafana-flightsql-datasource)
-to query InfluxDB with the Flight SQL protocol.
 
 > [Grafana] enables you to query, visualize, alert on, and explore your metrics,
 > logs, and traces wherever they are stored.
@@ -33,10 +34,8 @@ to query InfluxDB with the Flight SQL protocol.
 <!-- TOC -->
 
 - [Install Grafana or login to Grafana Cloud](#install-grafana-or-login-to-grafana-cloud)
-- [Install the FlightSQL plugin](#install-the-flightsql-plugin)
-  - [Use grafana-cli](#use-grafana-cli)
-  - [Use the Grafana UI](#use-the-grafana-ui)
-- [Create a datasource](#create-a-datasource)
+- [InfluxDB data source](#influxdb-data-source)
+- [Create an InfluxDB data source](#create-an-influxdb-data-source)
 - [Query InfluxDB with Grafana](#query-influxdb-with-grafana)
 - [Build visualizations with Grafana](#build-visualizations-with-grafana)
 
@@ -49,74 +48,31 @@ If using the open source version of **Grafana**, follow the
 to install Grafana for your operating system.
 If using **Grafana Cloud**, login to your Grafana Cloud instance.
 
-## Install the FlightSQL plugin
+## InfluxDB data source
 
-If you want to query {{% product-name %}} with **SQL**, install the
-[Grafana FlightSQL plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/).
+The InfluxDB data source plugin is included in the Grafana core distribution.
+Use the plugin to query and visualize data stored in {{< product-name >}} with
+both InfluxQL and SQL. 
 
 {{% note %}}
-#### Only required if using SQL
+#### Grafana 10.3+
 
-Installing the Grafana FlightSQL plugin is only required if using **SQL** to query
-data from InfluxDB. If using **InfluxQL**, enable the
-[Grafana InfluxDB core plugin](/influxdb/cloud-serverless/process-data/visualize/grafana/?t=InfluxQL#create-a-datasource).
+The instructions below are for **Grafana 10.3+** which introduced the newest
+version of the InfluxDB core plugin.
+The updated plugin includes **SQL support** for InfluxDB v3-based products such
+as {{< product-name >}}.
 {{% /note %}}
 
-{{< tabs-wrapper >}}
-{{% tabs %}}
-[Local Grafana](#)
-[Grafana Cloud](#)
-{{% /tabs %}}
-{{% tab-content %}}
-<!---------------------------- BEGIN LOCAL GRAFANA ---------------------------->
+## Create an InfluxDB data source
 
-When using the local version of Grafana, you can install the FlightSQL plugin
-with the [`grafana-cli` CLI](https://grafana.com/docs/grafana/latest/cli/) or in
-the Grafana user interface (UI).
-
-- [Use grafana-cli](#use-grafana-cli)
-- [Use the Grafana UI](#use-the-grafana-ui)
-
-### Use grafana-cli
-
-Run the following command to install the FlightSQL plugin:
-
-```sh
-grafana-cli plugins install influxdata-flightsql-datasource
-```
-
-After installing the plugin, you may need to restart your Grafana server.
-
-### Use the Grafana UI
-
-1. In the Grafana UI, navigate to **Configuration** > **Plugins**.
-2. Search for and select the **FlightSQL** plugin.
-3. Click **Install**.
-
-<!----------------------------- END LOCAL GRAFANA ----------------------------->
-{{% /tab-content %}}
-{{% tab-content %}}
-<!---------------------------- BEGIN GRAFANA CLOUD ---------------------------->
-
-1. In your Grafana Cloud instance, navigate to **Administration** > **Plugins**.
-2. Search for and select the **FlightSQL** plugin.
-3. Click **Install via grafana.com** to navigate to the plugin page.
-4. On the plugin page, click **Install plugin**.
-
-After a moment, Grafana Cloud completes the plugin installation in your
-Grafana Cloud instance.
-
-<!----------------------------- END GRAFANA CLOUD ----------------------------->
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
-
-## Create a datasource
-
-Which datasource you create depends on which query language you want to use to
+Which data source you create depends on which query language you want to use to
 query {{% product-name %}}:
 
-- To query with **SQL**, create a **FlightSQL** datasource.
-- To query with **InfluxQL**, create an **InfluxDB** datasource.
+1.  In your Grafana user interface (UI), navigate to **Data Sources**.
+2.  Click **Add new data source**.
+3.  Search for and select the **InfluxDB** plugin.
+4.  Provide a name for your data source.
+5.  Under **Query Language**, select either **SQL** or **InfluxQL**:
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -126,42 +82,34 @@ query {{% product-name %}}:
 {{% tab-content %}}
 <!--------------------------------- BEGIN SQL --------------------------------->
 
-1.  In your Grafana user interface (UI), navigate to **Data Sources**.
-2.  Click **Add new data source**.
-3.  Search for and select the **FlightSQL** plugin.
-4.  Provide a name for your datasource.
-5.  Add your connection credentials:
+When creating an InfluxDB data source that uses SQL to query data:
 
-    - **Host**: Provide the host and port of your Flight SQL client.
-      For {{% product-name %}}, this is your
-      [{{% product-name %}} region domain](/influxdb/cloud-serverless/reference/regions/)
-      and port 443. For example:
+1.  Under **HTTP**:
+
+    - **URL**: Provide your [{{% product-name %}} region URL](/influxdb/cloud-serverless/reference/regions/)
+      using the HTTPS protocol:
 
       ```
-      us-east-1-1.aws.cloud2.influxdata.com:443
+      https://{{< influxdb/host >}}
       ```
 
-    - **AuthType**: Select **token**.
-    - **Token**: Provide an InfluxDB [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token) with read access to the buckets
-      you want to query.
-    - **Require TLS/SSL**: Enable this toggle.
+2.  Under **InfluxDB Details**:
 
-6.  Add connection **MetaData**.
-    {{% product-name %}} requires _one_ of the following key-value pairs:
-    
-    - **Key**: `database`, **Value**: Bucket name
-    - **Key**: `bucket-id`, **Value**: Bucket ID
+    - **Database**: Provide a default bucket name to query.
+      In {{< product-name >}}, a bucket functions as a database.
+    - **Token**: Provide an [API token](/influxdb/cloud-serverless/admin/tokens/)
+      with read access to the buckets you want to query.
 
-7.  Click **Save & test**.
+3.  Click **Save & test**.
 
-    {{< img-hd src="/img/influxdb/cloud-serverless-grafana-flightsql-datasource.png" alt="Grafana Flight SQL datasource" />}}
-
-    If successful, click **Explore** to begin querying InfluxDB with Flight SQL and Grafana.
+    {{< img-hd src="/img/influxdb/cloud-serverless-grafana-influxdb-data-source-sql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Serverless that uses SQL" />}}
 
 <!---------------------------------- END SQL ---------------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
 <!------------------------------- BEGIN INFLUXQL ------------------------------>
+
+When creating an InfluxDB data source that uses InfluxQL to query data:
 
 {{% note %}}
 #### Map databases and retention policies to buckets
@@ -171,12 +119,7 @@ To query {{% product-name %}} with InfluxQL, first map database and retention po
 [Map databases and retention policies to buckets](/influxdb/cloud-serverless/query-data/influxql/dbrp/).
 {{% /note %}}
 
-1.  In your Grafana user interface (UI), navigate to **Data Sources**.
-2.  Click **Add new data source**.
-3.  Search for and select the **InfluxDB** core plugin.
-4.  Provide a name for your datasource.
-5.  Under **Query Language**, select **InfluxQL**.
-6.  Under **HTTP**:
+1.  Under **HTTP**:
 
     - **URL**: Provide your [{{% product-name %}} region URL](/influxdb/cloud-serverless/reference/regions/)
     using the HTTPS protocol:
@@ -185,17 +128,22 @@ To query {{% product-name %}} with InfluxQL, first map database and retention po
       https://{{< influxdb/host >}}
       ```
 
-7.  Under **InfluxDB Details**:
+2.  Under **InfluxDB Details**:
 
-    - **Database**: Provide a database name to query. Use the database name that is mapped to your InfluxBD Cloud bucket.
+    - **Database**: Provide a database name to query.
+      Use the database name that is mapped to your InfluxBD bucket.
     - **User**: Provide an arbitrary string.
       _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
     - **Password**: Provide an [API token](/influxdb/cloud-serverless/admin/tokens/)
       with read access to the buckets you want to query.
+    - **HTTP Method**: Choose one of the available HTTP request methods to use when querying data:
 
-7.  Click **Save & test**.
+        - **POST** ({{< req text="Recommended" >}})
+        - **GET**
 
-    {{< img-hd src="/img/influxdb/cloud-serverless-grafana-influxdb-datasource.png" alt="Grafana InfluxDB datasource for InfluxDB Cloud Serverless" />}}
+3.  Click **Save & test**.
+
+    {{< img-hd src="/img/influxdb/cloud-serverless-grafana-influxdb-data-source-influxql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Serverless using InfluxQL" />}}
 
 <!-------------------------------- END INFLUXQL ------------------------------->
 {{% /tab-content %}}
@@ -220,19 +168,36 @@ To learn more, see [Query Data](/influxdb/cloud-serverless/query-data/sql/).
 {{% /note %}}
 
 1. Click **Explore**.
-2. In the dropdown, select the saved data source that you want to query.
+2. In the dropdown, select the saved InfluxDB data source to query.
 3. Use the SQL query form to build your query:
-    - **FROM**: Select the measurement that you want to query.
-    - **SELECT**: Select one or more fields and tags to return as columns in query results.
-                  In Grafana, you must specify a **time** column in the `SELECT` list.
-    - **WHERE**: To filter the query results, enter a conditional expression.
-    - **GROUP BY**: To `GROUP BY` one or more fields or tags, enter them as a comma-delimited list.
-                    If you include an aggregate function in the **SELECT** list,
-                    then you must include one or more of the queried columns in a `GROUP BY` or `PARTITION BY` clause.
-                    SQL will return the aggregation for each group or partition.
-4. Click **Run query** to execute the query.
+    - **Table**: Select the measurement to query.
+    - **Column**: Select one or more fields and tags to return as columns in query results.
+      
+      With SQL, select the `time` column to include timestamps with the data.
+      Grafana relies on the `time` column to correctly graph time series data.
+    
+    - _**Optional:**_ Toggle **filter** to generate **WHERE** clause statements.
+      - **WHERE**: Configure condition expressions to include in the `WHERE` clause.
 
-{{< img-hd src="/img/influxdb/cloud-serverless-grafana-flightsql-explore-query.png" alt="Grafana Flight SQL datasource query" />}}
+    - _**Optional:**_ Toggle **group** to generate **GROUP BY** clause statements.
+
+      - **GROUP BY**: Select columns to group by.
+        If you include an aggregation function in the **SELECT** list,
+        you must group by one or more of the queried columns.
+        SQL returns the aggregation for each group.
+
+    - {{< req text="Recommended" color="green" >}}:
+      Toggle **order** to generate **ORDER BY** clause statements.
+
+      - **ORDER BY**: Select columns to sort by.
+        You can sort by time and multiple fields or tags.
+        To sort in descending order, select **DESC**.
+
+4. {{< req text="Recommended" color="green" >}}: Change format to **Time series**.
+    - Use the **Format** dropdown to change the format of the query results.
+      For example, to visualize the query results as a time series, select **Time series**.
+
+5. Click **Run query** to execute the query.
 
 <!---------------------------------- END SQL ---------------------------------->
 {{% /tab-content %}}
@@ -256,7 +221,8 @@ To learn more, see [Query Data](/influxdb/cloud-serverless/query-data/sql/).
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-To learn about query management and inspection in Grafana, see the [Grafana Explore documentation](https://grafana.com/docs/grafana/latest/explore/).
+To learn about query management and inspection in Grafana, see the
+[Grafana Explore documentation](https://grafana.com/docs/grafana/latest/explore/).
 
 ## Build visualizations with Grafana
 
