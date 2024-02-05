@@ -218,9 +218,13 @@ The following intervals are supported:
 - hours
 - days
 - weeks
+
+<!-- https://github.com/influxdata/influxdb_iox/issues/9958 tracks adding this --> 
+The following intervals are not currently supported:
 - months
 - years
 - century
+
 
 ##### Related functions
 
