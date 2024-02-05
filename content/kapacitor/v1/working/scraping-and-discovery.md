@@ -30,7 +30,7 @@ The diagram below outlines the infrastructure for discovering and scraping data 
 
 **Image 1 &ndash; Scrapping and Discovery work flow**
 
-<img src="/img/kapacitor/1-4-pull-metrics.png" alt="conifguration-open" style="max-width:100%;" />
+<img src="/img/kapacitor/1-4-pull-metrics.png" alt="configuration-open" style="max-width:100%;" />
 
 1. First, Kapacitor implements the discovery process to identify the available targets in your infrastructure.
 It requests that information at regular intervals and receives that information from an [authority](#available-discoverers).

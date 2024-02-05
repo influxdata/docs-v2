@@ -24,7 +24,7 @@ function datePart(date) {
   return {year: year, month: month, day: day}
 }
 
-////////////////////////// SESSION / COOKIE MANAGMENT //////////////////////////
+////////////////////////// SESSION / COOKIE MANAGEMENT //////////////////////////
 
 cookieID = 'influxdb_get_started_date'
 

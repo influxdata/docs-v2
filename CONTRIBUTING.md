@@ -656,7 +656,7 @@ Truncated markdown content here.
 
 ### Expandable accordion content blocks
 Use the `{{% expand "Item label" %}}` shortcode to create expandable, accordion-style content blocks.
-Each expandable block needs a label that users can click to expand or collpase the content block.
+Each expandable block needs a label that users can click to expand or collapse the content block.
 Pass the label as a string to the shortcode.
 
 ```md

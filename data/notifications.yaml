@@ -1,6 +1,6 @@
 # Notification data structure
 #
-# - id: unqiue ID for notification, cannot start with digit, no spaces, a-z and 0-9
+# - id: unique ID for notification, cannot start with digit, no spaces, a-z and 0-9
 #   level: note or warn
 #   scope:
 #     - list of URL paths to show notification on, no scope shows everywhere

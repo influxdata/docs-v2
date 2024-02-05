@@ -60,17 +60,17 @@ To add a Kapacitor instance to Chronograf:
     "Active Kapacitor" heading, click **Add Config**.
     The Configure Kapacitor page loads with default settings.
 
-    <img src="/img/kapacitor/1-4-chrono-configuration02.png" alt="conifguration-new" style="max-width: 100%;"/>
+    <img src="/img/kapacitor/1-4-chrono-configuration02.png" alt="configuration-new" style="max-width: 100%;"/>
 
 3.  In the grouping "Connection Details" set the values for Kapacitor URL and a
     Name for this Kapacitor, also add username and password credentials if necessary.
 
-    <img src="/img/kapacitor/1-4-chrono-configuration03.png" alt="conifguration-details" style="max-width: 306px;"/>
+    <img src="/img/kapacitor/1-4-chrono-configuration03.png" alt="configuration-details" style="max-width: 306px;"/>
 
 4.  Click the **Connect** button. If the "Connection Details" are correct a success
     message is displayed and a new section will appear "Configure Alert Endpoints".
 
-    <img src="/img/kapacitor/1-4-chrono-configuration04.png" alt="conifguration-success" style="max-width: 100%;" />
+    <img src="/img/kapacitor/1-4-chrono-configuration04.png" alt="configuration-success" style="max-width: 100%;" />
 
 5.  If a third party alert service or SMTP is used, update, the third party
     settings in the "Configure Alert Endpoints" section.
@@ -78,7 +78,7 @@ To add a Kapacitor instance to Chronograf:
 6.  Return to the "Configuration" page by clicking on the **Configuration** icon once more.
     The new Kapacitor instance should be listed under the "Active Kapacitor" heading.
 
-    <img src="/img/kapacitor/1-4-chrono-configuration05.png" alt="conifguration-review" style="max-width: 100%;" />
+    <img src="/img/kapacitor/1-4-chrono-configuration05.png" alt="configuration-review" style="max-width: 100%;" />
 
 ### Managing Kapacitor from Chronograf
 

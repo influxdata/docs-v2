@@ -167,7 +167,7 @@ IFS=$'\n'; for i in $(influx -format csv -username $INFLUXUSER -password $INFLUX
 
 InfluxDB subscription configuration options are available in the `[subscriber]`
 section of the `influxdb.conf`.
-In order to use subcriptions, the `enabled` option in the `[subscriber]` section must be set to `true`.
+In order to use subscriptions, the `enabled` option in the `[subscriber]` section must be set to `true`.
 Below is an example `influxdb.conf` subscriber configuration:
 
 ```toml
