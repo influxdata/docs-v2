@@ -126,6 +126,7 @@ The Object store contains time series data in [Apache Parquet](https://parquet.a
 Each Parquet file represents a partition.
 By default, InfluxDB partitions measurements (tables) by day, but you can
 [customize the partitioning strategy](/influxdb/cloud-dedicated/admin/custom-partitions/).
+Data in each Parquet file is sorted, encoded, and compressed.
 
 ##### Object store scaling strategies
 
