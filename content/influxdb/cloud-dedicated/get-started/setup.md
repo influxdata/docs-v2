@@ -31,17 +31,19 @@ you need is in place.
 
 [Contact the InfluxData Sales team]({{< cta-link >}}) to request an
 InfluxDB Cloud Dedicated cluster.
-When your cluster is deployed, your InfluxData account representative provides
-the following:
+When your cluster is deployed, InfluxData sends you an email inviting you to
+join your cluster. Use the link provided in the email to accept the invitation
+and create your InfluxDB Cloud Dedicated account.
 
-- An **Auth0 login** to authenticate access to your cluster
+After accepting the invitation and creating an account, InfluxData provides the
+following information:
+
 - Your InfluxDB Cloud Dedicated **account ID**
 - Your InfluxDB Cloud Dedicated **cluster ID**
 - Your InfluxDB Cloud Dedicated **cluster URL**
 
-
 ## Download, install, and configure the influxctl CLI
-    
+
 The [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
 provides a simple way to manage your InfluxDB Cloud Dedicated cluster from a
 command line. It lets you perform administrative tasks such as managing
@@ -51,26 +53,28 @@ databases and tokens.
 
 2.  **Create a connection profile and provide your InfluxDB Cloud Dedicated connection credentials**.
 
-    The `influxctl` CLI uses [connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
-    to connect to and authenticate with your InfluxDB Cloud Dedicated cluster.
+        The `influxctl` CLI uses [connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
+        to connect to and authenticate with your InfluxDB Cloud Dedicated cluster.
 
-    Create a file named `config.toml` at the following location depending on
-    your operating system.
+        Create a file named `config.toml` at the following location depending on
+        your operating system.
 
-    | Operating system | Default profile configuration file path               |
-    | :--------------- | :---------------------------------------------------- |
-    | Linux            | `~/.config/influxctl/config.toml`                     |
-    | macOS            | `~/Library/Application Support/influxctl/config.toml` |
-    | Windows          | `%APPDATA%\influxctl\config.toml`                     |
+        | Operating system | Default profile configuration file path               |
+        | :--------------- | :---------------------------------------------------- |
+        | Linux            | `~/.config/influxctl/config.toml`                     |
+        | macOS            | `~/Library/Application Support/influxctl/config.toml` |
+        | Windows          | `%APPDATA%\influxctl\config.toml`                     |
 
-    {{% note %}}
-If stored at a non-default location, include the `--config` flag with each
-`influxctl` command and provide the path to your profile configuration file.
+        {{% note %}}
+
+    If stored at a non-default location, include the `--config` flag with each
+    `influxctl` command and provide the path to your profile configuration file.
     {{% /note %}}
 
-    **Copy and paste the sample configuration profile code** into your `config.toml`:
+        **Copy and paste the sample configuration profile code** into your `config.toml`:
 
 {{% code-placeholders "ACCOUNT_ID|CLUSTER_ID" %}}
+
 ```toml
 [[profile]]
   name = "default"
@@ -79,6 +83,7 @@ If stored at a non-default location, include the `--config` flag with each
   cluster_id = "CLUSTER_ID"
   host = "{{< influxdb/host >}}"
 ```
+
 {{% /code-placeholders %}}
 
 Replace the following with your {{< product-name >}} credentials:
@@ -97,8 +102,9 @@ specifically for this getting started tutorial.
 _Examples in this getting started tutorial assume a database named **"get-started"**._
 
 {{% note %}}
+
 #### Authenticate with your cluster
-  
+
 The first time you run an `influxctl` CLI command, you are directed
 to login to **Auth0**. Once logged in, Auth0 issues a short-lived (1 hour)
 management token for the `influxctl` CLI that grants administrative access
@@ -112,9 +118,11 @@ Provide the following:
   as a duration value. If no retention period is specified, the default is infinite.
 
 {{% code-placeholders "get-started|1y" %}}
+
 ```sh
 influxctl database create --retention-period 1y get-started
 ```
+
 {{% /code-placeholders %}}
 
 ## Create a database token
@@ -130,14 +138,15 @@ Provide the following:
 - Token description
 
 {{% code-placeholders "get-started" %}}
+
 ```sh
 influxctl token create \
   --read-database get-started \
   --write-database get-started \
   "Read/write token for get-started database"
 ```
-{{% /code-placeholders %}}
 
+{{% /code-placeholders %}}
 
 The command returns the token ID and the token string.
 Store the token string in a safe place.
@@ -145,6 +154,7 @@ You'll need it later.
 **This is the only time the token string is available in plain text.**
 
 {{% note %}}
+
 #### Store secure tokens in a secret store
 
 Token strings are returned _only_ on token creation.
@@ -164,39 +174,51 @@ Code samples in later sections assume you assigned the token string to an
 [CMD](#)
 {{% /tabs %}}
 {{% tab-content %}}
+
 <!-- Using tabs-wrapper b/c code-tabs-wrapper breaks here. -->
 <!-- BEGIN MACOS/LINUX -->
 
 {{% code-placeholders "DATABASE_TOKEN" %}}
+
 ```sh
 export INFLUX_TOKEN=DATABASE_TOKEN
 ```
+
 {{% /code-placeholders %}}
 
 <!-- END MACOS/LINUX -->
+
 {{% /tab-content %}}
 {{% tab-content %}}
+
 <!-- BEGIN POWERSHELL -->
 
 {{% code-placeholders "DATABASE_TOKEN" %}}
+
 ```powershell
 $env:INFLUX_TOKEN = "DATABASE_TOKEN"
 ```
+
 {{% /code-placeholders %}}
 
 <!-- END POWERSHELL -->
+
 {{% /tab-content %}}
 {{% tab-content %}}
+
 <!-- BEGIN CMD -->
 
 {{% code-placeholders "DATABASE_TOKEN" %}}
+
 ```sh
-set INFLUX_TOKEN=DATABASE_TOKEN 
+set INFLUX_TOKEN=DATABASE_TOKEN
 # Make sure to include a space character at the end of this command.
 ```
+
 {{% /code-placeholders %}}
 
 <!-- END CMD -->
+
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
