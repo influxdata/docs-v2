@@ -212,7 +212,7 @@ $env:INFLUX_TOKEN = "DATABASE_TOKEN"
 {{% code-placeholders "DATABASE_TOKEN" %}}
 
 ```sh
-set INFLUX_TOKEN=DATABASE_TOKEN
+set INFLUX_TOKEN=DATABASE_TOKEN 
 # Make sure to include a space character at the end of this command.
 ```
 
