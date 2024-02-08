@@ -53,25 +53,26 @@ databases and tokens.
 
 2.  **Create a connection profile and provide your InfluxDB Cloud Dedicated connection credentials**.
 
-        The `influxctl` CLI uses [connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
-        to connect to and authenticate with your InfluxDB Cloud Dedicated cluster.
+    The `influxctl` CLI uses [connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
+    to connect to and authenticate with your InfluxDB Cloud Dedicated cluster.
 
-        Create a file named `config.toml` at the following location depending on
-        your operating system.
+    Create a file named `config.toml` at the following location depending on
+    your operating system.
 
-        | Operating system | Default profile configuration file path               |
-        | :--------------- | :---------------------------------------------------- |
-        | Linux            | `~/.config/influxctl/config.toml`                     |
-        | macOS            | `~/Library/Application Support/influxctl/config.toml` |
-        | Windows          | `%APPDATA%\influxctl\config.toml`                     |
+    | Operating system | Default profile configuration file path               |
+    | :--------------- | :---------------------------------------------------- |
+    | Linux            | `~/.config/influxctl/config.toml`                     |
+    | macOS            | `~/Library/Application Support/influxctl/config.toml` |
+    | Windows          | `%APPDATA%\influxctl\config.toml`                     |
 
-        {{% note %}}
+    {{% note %}}
 
-    If stored at a non-default location, include the `--config` flag with each
-    `influxctl` command and provide the path to your profile configuration file.
+If stored at a non-default location, include the `--config` flag with each
+`influxctl` command and provide the path to your profile configuration file.
+
     {{% /note %}}
 
-        **Copy and paste the sample configuration profile code** into your `config.toml`:
+    **Copy and paste the sample configuration profile code** into your `config.toml`:
 
 {{% code-placeholders "ACCOUNT_ID|CLUSTER_ID" %}}
 
