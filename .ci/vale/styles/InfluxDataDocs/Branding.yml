@@ -10,3 +10,6 @@ swap:
   "java[ -]?scripts?": JavaScript
   "SQL Alchemy": SQLAlchemy
   "a {{% product-name %}}": an {{% product-name %}}
+  "querier": Querier
+  "object store": Object store
+  "ingester": Ingester
