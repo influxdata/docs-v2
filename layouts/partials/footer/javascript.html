@@ -6,6 +6,7 @@
 {{ $influxdbURLs := resources.Get "js/influxdb-url.js" }}
 {{ $featureCallouts := resources.Get "js/feature-callouts.js" }}
 {{ $tabbedContent := resources.Get "js/tabbed-content.js" }}
+{{ $apiLibs := resources.Get "js/api-libs.js" }}
 {{ $notifications := resources.Get "js/notifications.js" }}
 {{ $keybindings := resources.Get "js/keybindings.js" }}
 {{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
@@ -17,7 +18,7 @@
 {{ $fluxInfluxDBVersions := resources.Get "/js/flux-influxdb-versions.js" }}
 {{ $v3Wayfinding := resources.Get "/js/v3-wayfinding.js"}}
 {{ $codePlaceholders := resources.Get "/js/code-placeholders.js" }}
-{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $modals $influxdbURLs $featureCallouts $tabbedContent $notifications $keybindings $codeControls $pageFeedback $homepageInteractions $fluxInfluxDBVersions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $modals $influxdbURLs $featureCallouts $tabbedContent $apiLibs $notifications $keybindings $codeControls $pageFeedback $homepageInteractions $fluxInfluxDBVersions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 {{ $fluxGroupKeyjs := $fluxGroupKeys | resources.Fingerprint }}
 {{ $dateTimejs := $dateTime | resources.Fingerprint }}
 {{ $influxdbGSTimestampsjs := $influxdbGSTimestamps | resources.Fingerprint }}

@@ -33,11 +33,6 @@ function tabbedContent (container, tab, content) {
 tabbedContent('.code-tabs-wrapper', '.code-tabs p a', '.code-tab-content');
 tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
 
-// Retrieve the user's programming language (client library) preference.
-function getApiLibPreference () {
-  return getPreference('api_lib') || '';
-}
-
 function getTabQueryParam () {
   const queryParams = new URLSearchParams(window.location.search);
   return $('<textarea />').html(queryParams.get('t')).text();
@@ -96,14 +91,6 @@ function activateTabs (selector, tab) {
 }
 
 //////////////////// Activate Tab with Cookie or Query Param ///////////////////
-/**
- * Activate code-tabs based on the cookie then override with query param.
- **/
-var tab = getApiLibPreference();
-['.code-tabs'].forEach(
-  selector => activateTabs(selector, tab),
-  updateBtnURLs(tab)
-);
 
 tab = getTabQueryParam();
 ['.tabs', '.code-tabs'].forEach(
