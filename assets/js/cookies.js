@@ -38,20 +38,21 @@ initializeCookie = (cookieName, defaultValue) => {
 
 const prefCookieName = cookiePrefix + 'preferences';
 
+// Default preferences
+var defaultPref = {
+  api_lib: null,
+  influxdb_url: 'cloud',
+  sidebar_state: 'open',
+  theme: 'light',
+  sample_get_started_date: '',
+  v3_wayfinding_show: true,
+};
+
 /*
   Retrieve a preference from the preference cookie.
   If the cookie doesn't exist, initialize it with default values.
 */
 getPreference = prefName => {
-  var defaultPref = {
-    api_lib: null,
-    influxdb_url: 'cloud',
-    sidebar_state: 'open',
-    theme: 'light',
-    sample_get_started_date: '',
-    v3_wayfinding_show: true,
-  };
-
   // Initialize the preference cookie if it doesn't already exist
   if (Cookies.get(prefCookieName) === undefined) {
     initializeCookie('preferences', defaultPref);
@@ -167,12 +168,13 @@ removeInfluxDBUrl = product => {
 
 const notificationCookieName = cookiePrefix + 'notifications';
 
-getNotifications = () => {
-  var defaultNotifications = {
-    messages: [],
-    callouts: [],
-  };
+// Default notifications
+var defaultNotifications = {
+  messages: [],
+  callouts: [],
+};
 
+getNotifications = () => {
   // Initialize the notifications cookie if it doesn't already exist
   if (Cookies.get(notificationCookieName) === undefined) {
     initializeCookie('notifications', defaultNotifications);
