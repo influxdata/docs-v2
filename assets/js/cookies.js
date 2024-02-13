@@ -29,11 +29,6 @@ initializeCookie = (cookieName, defaultValue) => {
 };
 
 // Initialize all InfluxData docs cookies with defaults
-// initializeCookie('urls', {});
-// initializeCookie('notifications', {
-//   messages_seen: [],
-//   callouts_seen: [],
-// });
 
 /*
 ////////////////////////////////////////////////////////////////////////////////
@@ -50,7 +45,7 @@ const prefCookieName = cookiePrefix + 'preferences';
 getPreference = prefName => {
   var defaultPref = {
     api_lib: null,
-    product_url: 'oss',
+    influxdb_url: 'cloud',
     sidebar_state: 'open',
     theme: 'light',
     sample_get_started_date: '',
@@ -80,7 +75,7 @@ setPreference = (prefID, prefValue) => {
   Cookies.set(prefCookieName, prefObj);
 };
 
-// Helper function for debug
+// Return an object containing all preferences
 getPreferences = () => JSON.parse(Cookies.get(prefCookieName));
 
 /*
@@ -90,6 +85,79 @@ getPreferences = () => JSON.parse(Cookies.get(prefCookieName));
 */
 
 const urlCookieName = cookiePrefix + 'urls';
+
+// Default URLs per product
+var defaultUrls = {
+  oss: 'http://localhost:8086',
+  cloud: 'https://us-west-2-1.aws.cloud2.influxdata.com',
+  serverless: 'https://us-east-1-1.aws.cloud2.influxdata.com',
+  dedicated: 'cluster-id.influxdb.io',
+  clustered: 'cluster-host.com',
+};
+
+// Defines the default urls cookie value
+var defaultUrlsCookie = {
+  oss: defaultUrls.oss,
+  cloud: defaultUrls.cloud,
+  serverless: defaultUrls.serverless,
+  dedicated: defaultUrls.dedicated,
+  clustered: defaultUrls.clustered,
+  prev_oss: defaultUrls.oss,
+  prev_cloud: defaultUrls.cloud,
+  prev_serverless: defaultUrls.serverless,
+  prev_dedicated: defaultUrls.dedicated,
+  prev_clustered: defaultUrls.clustered,
+  custom: '',
+};
+
+// Return an object that contains all InfluxDB urls stored in the urls cookie
+getInfluxDBUrls = () => {
+  // Initialize the urls cookie if it doesn't already exist
+  if (Cookies.get(urlCookieName) === undefined) {
+    initializeCookie('urls', defaultUrlsCookie);
+  }
+
+  return JSON.parse(Cookies.get(urlCookieName));
+};
+
+// Get the current or previous URL for a specific product or a custom url
+getInfluxDBUrl = product => {
+  // Initialize the urls cookie if it doesn't already exist
+  if (Cookies.get(urlCookieName) === undefined) {
+    initializeCookie('urls', defaultUrlsCookie);
+  }
+
+  // Retrieve and parse the cookie as JSON
+  urlsString = Cookies.get(urlCookieName);
+  urlsObj = JSON.parse(urlsString);
+
+  // Return the URL of the specified product
+  return urlsObj[product];
+};
+
+/*
+  Set multiple product URLs in the urls cookie.
+  Input should be an object where the key is the product and the value is the
+  URL to set for that product.
+*/
+setInfluxDBUrls = updatedUrlsObj => {
+  var urlsString = Cookies.get(urlCookieName);
+  let urlsObj = JSON.parse(urlsString);
+
+  newUrlsObj = { ...urlsObj, ...updatedUrlsObj };
+
+  Cookies.set(urlCookieName, newUrlsObj);
+};
+
+// Set an InfluxDB URL to an empty string in the urls cookie
+removeInfluxDBUrl = product => {
+  var urlsString = Cookies.get(urlCookieName);
+  let urlsObj = JSON.parse(urlsString);
+
+  urlsObj[product] = '';
+
+  Cookies.set(urlCookieName, urlsObj);
+};
 
 /*
 ////////////////////////////////////////////////////////////////////////////////

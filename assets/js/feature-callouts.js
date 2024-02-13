@@ -31,6 +31,6 @@ $('.feature-callout').each(function () {
 });
 
 // Hide the InfluxDB URL selector callout
-$('button.url-trigger, #influxdb-url-selector .close').click(function () {
-  hideCallout('influxdb-url-selector');
-});
+// $('button.url-trigger, #influxdb-url-selector .close').click(function () {
+//   hideCallout('influxdb-url-selector');
+// });
