@@ -10,7 +10,7 @@ What constitutes a "substantial" change is at the discretion of InfluxData docum
 
 _**Note:** Typo and broken link fixes are greatly appreciated and do not require signing the CLA._
 
-*If you're new to contributing or you're looking for an easy update, check out our [good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue).*
+*If you're new to contributing or you're looking for an easy update, see [`docs-v2` good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue).*
 
 ## Make suggested updates
 
@@ -22,16 +22,39 @@ _**Note:** Typo and broken link fixes are greatly appreciated and do not require
 To run the documentation locally, follow the instructions provided in the README.
 
 ### Install and run Vale
-Use the [Vale](https://vale.sh/) style linter to check spelling and enforce style guidelines.
-To install Vale, follow the instructions to install the [Vale CLI](https://vale.sh/docs/vale-cli/installation/) for your system and the [integration](https://vale.sh/docs/integrations/guide/) for your editor.
 
-The `docs-v2` repository contains `.vale.ini` files that configure InfluxData spelling and style rules used by the [Vale CLI](https://vale.sh/docs/vale-cli/installation/) and editor extensions, such as [Vale VSCode](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode).
-When run (with the CLI or an editor extension) Vale searches for a `.vale.ini` file in the directory of the file being linted.
+Use the [Vale](https://vale.sh/) style linter for spellchecking and enforcing style guidelines.
+The docs-v2 `package.json` includes a Vale dependency that installs the Vale binary when you run `yarn`.
+After you use `yarn` to install Vale, you can run `npx vale` to execute Vale commands.
 
-To lint multiple directories with specified configuration files and generate a report, run the `.ci/vale/vale.sh` script.
+_To install Vale globally or use a different package manager, follow the [Vale CLI installation](https://vale.sh/docs/vale-cli/installation/) for your system._
+
+#### Integrate with your editor
+
+To integrate Vale with VSCode:
+
+1. Install the [Vale VSCode](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) extension.
+2. In the extension settings, set the `Vale:Vale CLI:Path` value to the path of your Vale binary.
+Use the path `${workspaceFolder}/node_modules/.bin/vale` for the Vale binary that you installed with Yarn.
+
+To use with an editor other than VSCode, see the [Vale integration guide](https://vale.sh/docs/integrations/guide/).
+
+#### Lint product directories
+
+The `docs-v2` repository includes a shell script that lints product directories using the `InfluxDataDocs` style rules and product-specific vocabularies, and then generates a report.
+To run the script, enter the following command in your terminal:
+
+```sh
+sh .ci/vale/vale.sh
+```
+
+#### Configure style rules
+
+The `docs-v2` repository contains `.vale.ini` files that configure a custom `InfluxDataDocs` style with spelling and style rules.
+When you run `vale <file path>` (from the CLI or an editor extension), it searches for a `.vale.ini` file in the directory of the file being linted.
 
 `docs-v2` style rules are located at `.ci/vale/styles/`.
-The easiest way to add accepted or rejected spellings is to enter your terms (or regular expression patterns) into the Vocabulary files at `.ci/vale/styles/Vocab`.
+The easiest way to add accepted or rejected spellings is to enter your terms (or regular expression patterns) into the Vocabulary files at `.ci/vale/styles/config/vocabularies`.
 
 To learn more about configuration and rules, see [Vale configuration](https://vale.sh/docs/topics/config).
 
@@ -46,17 +69,17 @@ Push your changes up to your forked repository, then [create a new pull request]
 ### Markdown
 All of our documentation is written in [Markdown](https://en.wikipedia.org/wiki/Markdown).
 
-### Semantic Linefeeds
-Use [semantic linefeeds](http://rhodesmill.org/brandon/2012/one-sentence-per-line/).
+### Semantic line feeds
+Use [semantic line feeds](http://rhodesmill.org/brandon/2012/one-sentence-per-line/).
 Separating each sentence with a new line makes it easy to parse diffs with the human eye.
 
-**Diff without semantic linefeeds:**
+**Diff without semantic line feeds:**
 ``` diff
 -Data is taking off. This data is time series. You need a database that specializes in time series. You should check out InfluxDB.
 +Data is taking off. This data is time series. You need a database that specializes in time series. You need InfluxDB.
 ```
 
-**Diff with semantic linefeeds:**
+**Diff with semantic line feeds:**
 ``` diff
 Data is taking off.
 This data is time series.
@@ -397,8 +420,7 @@ Provide the following arguments:
 ```
 
 ### Tabbed Content
-Shortcodes are available for creating "tabbed" content (content that is changed by a users' selection).
-Ther following three must be used:
+To create "tabbed" content (content that is changed by a users' selection), use the following three shortcodes in combination:
 
 `{{< tabs-wrapper >}}`  
 This shortcode creates a wrapper or container for the tabbed content.
@@ -774,25 +796,25 @@ This is useful for maintaining and referencing sample code variants in their
     /shared/text/example1/example.py
   ```
 
-2. Include the files, e.g. in code tabs
-````md
-  {{% code-tabs-wrapper %}}
-  {{% code-tabs %}}
-  [Javascript](#js)
-  [Python](#py)
-  {{% /code-tabs %}}
-  {{% code-tab-content %}}
-  ```js
-  {{< get-shared-text "example1/example.js" >}}
-  ```
-  {{% /code-tab-content %}}
-  {{% code-tab-content %}}
-  ```py
-  {{< get-shared-text "example1/example.py" >}}
-  ```
-  {{% /code-tab-content %}}
-  {{% /code-tabs-wrapper %}}
-````
+2. Include the files--for example, in code tabs:
+   ````md
+     {{% code-tabs-wrapper %}}
+     {{% code-tabs %}}
+     [Javascript](#js)
+     [Python](#py)
+     {{% /code-tabs %}}
+     {{% code-tab-content %}}
+     ```js
+     {{< get-shared-text "example1/example.js" >}}
+     ```
+     {{% /code-tab-content %}}
+     {{% code-tab-content %}}
+     ```py
+     {{< get-shared-text "example1/example.py" >}}
+     ```
+     {{% /code-tab-content %}}
+     {{% /code-tabs-wrapper %}}
+   ````
 
 #### Include specific files from the same directory
 To include the text from one file in another file in the same
@@ -861,8 +883,8 @@ The following table shows which children types use which frontmatter properties:
 ### Inline icons
 The `icon` shortcode allows you to inject icons in paragraph text.
 It's meant to clarify references to specific elements in the InfluxDB user interface.
-This shortcode supports clockface (the UI) v2 and v3.
-Specify the version to use as the 2nd argument. The default version is `v3`.
+This shortcode supports Clockface (the UI) v2 and v3.
+Specify the version to use as the second argument. The default version is `v3`.
 
 ```
 {{< icon "icon-name" "v2" >}}
@@ -935,8 +957,8 @@ Below is a list of available icons (some are aliases):
 ### InfluxDB UI left navigation icons
 In many cases, documentation references an item in the left nav of the InfluxDB UI.
 Provide a visual example of the navigation item using the `nav-icon` shortcode.
-This shortcode supports clockface (the UI) v2 and v3.
-Specify the version to use as the 2nd argument. The default version is `v3`.
+This shortcode supports Clockface (the UI) v2 and v3.
+Specify the version to use as the second argument. The default version is `v3`.
 
 ```
 {{< nav-icon "tasks" "v2" >}}
@@ -988,15 +1010,15 @@ The following options are available:
 - quarter
 
 ### Tooltips
-Use the `{{< tooltips >}}` shortcode to add tooltips to text.
-The **1st** argument is the text shown in the tooltip.
-The **2nd** argument is the highlighted text that triggers the tooltip.
+Use the `{{< tooltip >}}` shortcode to add tooltips to text.
+The **first** argument is the text shown in the tooltip.
+The **second** argument is the highlighted text that triggers the tooltip.
 
 ```md
 I like {{< tooltip "Butterflies are awesome!" "butterflies" >}}.
 ```
 
-The example above renders as "I like butterflies" with "butterflies" highlighted.
+The rendered output is "I like butterflies" with "butterflies" highlighted.
 When you hover over "butterflies," a tooltip appears with the text: "Butterflies are awesome!"
 
 ### Flux sample data tables

@@ -6,10 +6,40 @@ ignorecase: true
 swap:
   # NOTE: The left-hand (bad) side can match the right-hand (good) side; Vale
   # will ignore any alerts that match the intended form.
-  "FlightSQL": Flight SQL
+  "anaconda": Anaconda
+  "(?i)api": API
+  "arrow": Arrow
+  "authtoken": authToken
+  "Authtoken": AuthToken
+  "chronograf": Chronograf
+  "cli": CLI
+  "(?i)clockface": Clockface
+  "the\b[?compactor": the Compactor
+  "data explorer": Data Explorer
+  "datetime": dateTime
+  "dedupe": deduplicate
+  "(?i)executionplan": ExecutionPlan
+  "fieldkey": fieldKey
+  "fieldtype": fieldType
+  "flight": Flight
+  "(?i)flightquery": FlightQuery
+  "(?i)FlightSQL": Flight SQL
+  "/b(?i)influxdata/b": InfluxData
+  "/w*/b(?i)influxdb": InfluxDB
+  "(?i)influxql": InfluxQL
+  "influxer": Influxer
+  "the\b[?ingester": the Ingester
+  "(?i)iox": v3
   "java[ -]?scripts?": JavaScript
-  "SQL Alchemy": SQLAlchemy
+  "kapa": Kapacitor
+  "logicalplan": LogicalPlan
+  "the\b[?object store": the Object store
   "a {{% product-name %}}": an {{% product-name %}}
-  "querier": Querier
-  "object store": Object store
-  "ingester": Ingester
+  "Pandas": pandas
+  " parquet": Parquet
+  "the\b[?querier": the Querier
+  "SQL Alchemy": SQLAlchemy
+  "superset": Superset
+  "tagkey": tagKey
+  "telegraf": Telegraf
+  "telegraph": Telegraf
