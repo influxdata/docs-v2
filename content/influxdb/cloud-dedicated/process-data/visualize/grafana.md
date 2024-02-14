@@ -108,7 +108,7 @@ When creating an InfluxDB data source that uses InfluxQL to query data:
 
 1.  Under **HTTP**:
 
-    - **URL**: Provide your [{{% product-name %}} region URL](/influxdb/cloud-dedicated/reference/regions/)
+    - **URL**: Provide your [{{% product-name %}} region URL](/influxdb/cloud/reference/regions/)
     using the HTTPS protocol:
 
       ```
