@@ -28,7 +28,7 @@ function showNotifications () {
     var pageInScope = inScope(window.location.pathname, scope);
     var notificationRead = notificationIsRead(notificationID(this), 'message');
 
-    if (pageInScope && notificationRead != true) {
+    if (pageInScope && !notificationRead) {
       $(this).show().animate({ right: 0, opacity: 1 }, 200, 'swing');
     }
   });
