@@ -327,5 +327,7 @@ portOldCookies = () => {
 
 if (Cookies.get('influxdata_docs_ported') === undefined) {
   portOldCookies();
-  Cookies.set('influxdata_docs_ported', true, { expires: 30 });
+  Cookies.set('influxdata_docs_ported', true, {
+    expires: new Date('2024-03-15T00:00:00Z'),
+  });
 }
