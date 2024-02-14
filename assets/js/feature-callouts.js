@@ -13,7 +13,7 @@ function getCalloutID (el) {
 
 // Hide a callout and update the cookie with the viewed callout
 function hideCallout (calloutID) {
-  if (notificationIsRead(calloutID) != true) {
+  if (!notificationIsRead(calloutID)) {
     setNotificationAsRead(calloutID, 'callout');
     $(`#${calloutID}`).fadeOut(200);
   }
@@ -23,7 +23,7 @@ function hideCallout (calloutID) {
 $('.feature-callout').each(function () {
   calloutID = calloutID($(this));
 
-  if (notificationIsRead(calloutID, 'callout') != true) {
+  if (!notificationIsRead(calloutID, 'callout')) {
     $(`#${calloutID}.feature-callout`)
       .fadeIn(300)
       .removeClass('start-position');

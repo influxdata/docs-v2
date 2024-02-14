@@ -39,7 +39,7 @@ function getStartDate () {
 ////////////////////////////////////////////////////////////////////////////////
 
 // If the user has not set the startDate cookie, default the startDate to yesterday
-var startDate = getStartDate() != '' ? getStartDate() : yesterday();
+var startDate = getStartDate() || yesterday();
 
 // Convert a time value to a Unix timestamp (seconds)
 function timeToUnixSeconds (time) {
