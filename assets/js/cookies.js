@@ -44,7 +44,7 @@ var defaultPref = {
   influxdb_url: 'cloud',
   sidebar_state: 'open',
   theme: 'light',
-  sample_get_started_date: '',
+  sample_get_started_date: null,
   v3_wayfinding_show: true,
 };
 
