@@ -9,8 +9,9 @@
   - influxdata_docs_preferences: Docs UI/UX-related preferences (obj)
   - influxdata_docs_urls: User-defined InfluxDB URLs for each product (obj)
   - influxdata_docs_notifications: 
-    - messages_seen: Messages (data/notifications.yaml) that have been seen (array)
-    - callouts_seen: Feature callouts that have been seen (array)
+    - messages: Messages (data/notifications.yaml) that have been seen (array)
+    - callouts: Feature callouts that have been seen (array)
+  - influxdata_docs_ported: Temporary cookie to help port old cookies to new structure
 */
 
 // Prefix for all InfluxData docs cookies
@@ -223,3 +224,108 @@ setNotificationAsRead = (notificationID, notificationType) => {
 
   Cookies.set(notificationCookieName, notificationsObj);
 };
+
+/*
+////////////////////////////////////////////////////////////////////////////////
+//////////////// Port all old docs cookies to the new structure ////////////////
+///////////////// Remove everything below after March 15, 2024 /////////////////
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+portOldCookies = () => {
+  preferenceCookies = [
+    'influx-docs-api-lib',
+    'influx-docs-sidebar-state',
+    'influx-docs-theme',
+    'influxdb_get_started_date',
+    'influxdb_pref',
+    'influx-iox-show-wayfinding',
+  ];
+  notificationCookies = [
+    'influx-future-of-flux-notification-seen',
+    'influx-influxdb-clustered-announcement-notification-seen',
+    'influx-serverless-wip-notification-seen',
+    'influx-influxdb-3-announcement-notification-seen',
+    'influx-signing-key-rotation-notification-seen',
+    'influx-iox-doc-fork-notification-seen',
+    'influx-tsm-doc-fork-notification-seen',
+    'influx-iox-wip-notification-seen',
+    'influx-search-disabled-notification-seen',
+    'influx-v2-cloud-upgrade-notification-seen',
+    'influx-v2-ga-notification-seen',
+    'influx-rc1-upgrade-notification-seen',
+  ];
+  calloutCookies = ['influxdb_url_selector_seen'];
+  urlCookies = [
+    'influxdb_oss_url',
+    'influxdb_cloud_url',
+    'influxdb_dedicated_url',
+    'influxdb_clustered_url',
+    'influxdb_prev_oss_url',
+    'influxdb_prev_cloud_url',
+    'influxdb_prev_dedicated_url',
+    'influxdb_prev_clustered_url',
+    'influxdb_custom_url',
+  ];
+
+  preferenceCookies.forEach(cookie => {
+    if (cookie.includes('influx-docs-')) {
+      newCookieName = cookie.replace(/influx-docs-/, '').replace(/-/, '_');
+      try {
+        setPreference(
+          newCookieName,
+          Cookies.get(cookie).replace(/-theme|sidebar-/, '')
+        );
+        Cookies.remove(cookie);
+      } catch {}
+    } else if (cookie === 'influxdb_get_started_date') {
+      newCookieName = 'sample_get_started_date';
+      try {
+        setPreference(newCookieName, Cookies.get(cookie));
+        Cookies.remove(cookie);
+      } catch {}
+    } else if (cookie === 'influx-iox-show-wayfinding') {
+      newCookieName = 'v3_wayfinding_show';
+      try {
+        setPreference(newCookieName, Cookies.get(cookie));
+        Cookies.remove(cookie);
+      } catch {}
+    } else if (cookie === 'influxdb_pref') {
+      newCookieName = 'influxdb_url';
+      try {
+        setPreference(newCookieName, Cookies.get(cookie));
+        Cookies.remove(cookie);
+      } catch {}
+    }
+  });
+
+  notificationCookies.forEach(cookie => {
+    notificationName = cookie.replace(
+      /(^influx-)(.*)(-notification-seen$)/,
+      '$2'
+    );
+
+    if (Cookies.get(cookie) !== undefined) {
+      setNotificationAsRead(notificationName, 'message');
+      Cookies.remove(cookie);
+    }
+  });
+
+  calloutCookies.forEach(cookie => Cookies.remove(cookie));
+
+  urlCookies.forEach(cookie => {
+    newUrlKey = cookie.replace(/(^influxdb_)(.*)(_url)/, '$2');
+
+    try {
+      urlObj = {};
+      urlObj[newUrlKey] = Cookies.get(cookie);
+      setInfluxDBUrls(urlObj);
+      Cookies.remove(cookie);
+    } catch {}
+  });
+};
+
+if (Cookies.get('influxdata_docs_ported') === undefined) {
+  portOldCookies();
+  Cookies.set('influxdata_docs_ported', true, { expires: 30 });
+}
