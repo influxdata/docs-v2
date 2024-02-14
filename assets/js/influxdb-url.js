@@ -290,7 +290,7 @@ function appendUrlSelector () {
   if (context() === 'cloud' || 'serverless') {
     var selectorText = 'InfluxDB Cloud Region';
   } else if (context() === 'dedicated') {
-    var selectorText = 'Set dedicated cluster URL';
+    var selectorText = 'Set Dedicated cluster URL';
   } else if (context() === 'clustered') {
     var selectorText = 'Set InfluxDB cluster URL';
   } else if (context() === 'oss/enterprise') {
