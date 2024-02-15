@@ -1,111 +1,27 @@
 ---
-title: Optimize queries
+title: Enable trace logging
 description: >
-  Optimize your SQL and InfluxQL queries to improve performance and reduce their memory and compute (CPU) requirements.
-  Learn how to read and analyze a query plan.
+  Enable trace logging for a query in InfluxDB Cloud Dedicated.
 weight: 401
 menu:
   influxdb_cloud_dedicated:
-    name: Optimize queries
-    parent: Execute queries
-influxdb/cloud-dedicated/tags: [query, sql, influxql]
+    name: Enable trace logging
+    parent: Troubleshoot and optimize queries
+influxdb/cloud-dedicated/tags: [query, observability]
 related:
   - /influxdb/cloud-dedicated/query-data/sql/
   - /influxdb/cloud-dedicated/query-data/influxql/
-  - /influxdb/cloud-dedicated/query-data/execute-queries/troubleshoot/
   - /influxdb/cloud-dedicated/reference/client-libraries/v3/
 ---
 
-Optimize your queries to reduce their memory and compute (CPU) requirements.
-Use tools to help you identify performance bottlenecks and troubleshoot problems in queries.
-
-- [Why is my query slow?](#why-is-my-query-slow)
-  - [Why isn't my query returning data?](#why-isnt-my-query-returning-data)
-- [Strategies for improving query performance](#strategies-for-improving-query-performance)
-- [Use `EXPLAIN` keywords to troubleshoot the query plan](#use-explain-keywords-to-troubleshoot-the-query-plan)
-  - [View the query plan](#view-the-query-plan)
-  - [View the query plan with runtime metrics](#view-the-query-plan-with-runtime-metrics)
-  - [View the detailed query plan for debugging](#view-the-detailed-query-plan-for-debugging)
-  - [Execute EXPLAIN for a query](#execute-explain-for-a-query)
-  - [Analyze an EXPLAIN report and troubleshoot the query plan](#analyze-an-explain-report-and-troubleshoot-the-query-plan)
-- [Get help resolving issues](#get-help-resolving-issues)
-- [Enable trace logging](#enable-trace-logging)
-  - [Syntax](#syntax)
-  - [Example](#example-2)
-  - [Tracing response header](#tracing-response-header)
-  - [Inspect Flight response headers](#inspect-flight-response-headers)
-- [Retrieve query information](#retrieve-query-information)
-
-
-## Why is my query slow?
-
-Query performance depends on time range and complexity.
-If a query is slower than you expect, it might be due to the following reasons:
-
-- It queries a large time-range of data.
-- It includes intensive operations, such as `ORDER BY` on large amounts of data or querying many string values.
-
-### Why isn't my query returning data?
-
-If a query doesn't return any data, it might be due to the following:
-
-- Your data falls outside the time range (or other conditions) in the query--for example, the InfluxQL `SHOW TAG VALUES` command uses a default time range of 1 day.
-- The query (InfluxDB server) timed out.
-- The query client timed out.
-
-## Strategies for improving query performance
-
-The following design strategies generally improve query performance and resource use:
-
-- Follow [schema design best practices](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/) to make querying easier and more performant.
-- Query only the data you need--for example, include a [`WHERE` clause]() that contains a time range.
-  InfluxDB v3 stores data in a parquet file for each measurement and day, and retrieves files from the object store to answer a query.
-  The smaller the time range in your query, the fewer files InfluxDB needs to retrieve from the object store.
-- [Downsample data](/influxdb/cloud-dedicated/process-data/downsample/) to reduce the amount of data you need to query.
-
-Some bottlenecks may be out of your control and are the result of a suboptimal execution plan, such as:
-
-- Applying the same sort (`ORDER BY`) to already sorted data.
-- Retrieving many parquet files from object storage.
-- Querying many overlapped parquet files.
-- Performing a large number of table scans.
-
-The `EXPLAIN` command generates a report of the query plan that can help you understand why a query might not perform as you expect.
-Learn how to [analyze a query plan](#analyze-an-explain-report-and-troubleshoot-the-query-plan).
-
-### Potential query bottlenecks
-
-#### Query includes an intensive process or large time range
-
- See (#strategies-for-improving-query-performance).
-
-#### Query plan reapplies sorting (`ORDER BY`) to already sorted data
-
-#### Query retrieves many parquet files from object storage
-
- The same query performs better if it retrieves fewer - though, larger - files.
-
- See (#strategies-for-improving-query-performance).
-
-#### Querying many overlapped Parquet files
-
-See (/influxdb/cloud-dedicated/)
-
-#### Performing a large number of table scans
-
-See how to analyze and troubleshoot queries to find performance bottlenecks.
-
-
-## Get help resolving issues
-
-## Enable trace logging
+Learn how to enable trace logging to help you identify performance bottlenecks and troubleshoot problems in queries.
 
 When you enable trace logging for a query, InfluxDB propagates your _trace ID_ through system processes and collects additional log information.
-
 InfluxDB Support can then use the trace ID that you provide to filter, collate, and analyze log information for the query run.
 The tracing system follows the [OpenTelemetry traces](https://opentelemetry.io/docs/concepts/signals/traces/) model for providing observability into a request.
 
 {{% warn %}}
+
 #### Avoid unnecessary tracing
 
 Only enable tracing for a query when you need to request troubleshooting help from InfluxDB Support.
@@ -115,7 +31,7 @@ Too many traces can cause InfluxDB to evict log information.
 
 To enable tracing for a query, include the `influx-trace-id` header in your query request.
 
-### Syntax
+#### Syntax
 
 Use the following syntax for the `influx-trace-id` header:
 
@@ -129,7 +45,7 @@ In the header value, replace the following:
   The trace ID should uniquely identify the query run.
 - `:1112223334445:0:1`: InfluxDB constant values (required, but ignored)
 
-### Example
+#### Example
 
 The following examples show how to create and pass a trace ID to enable query tracing in InfluxDB:
 
@@ -194,17 +110,17 @@ use_flightcalloptions_trace_header()
 <!---- BEGIN PYTHON WITH MIDDLEWARE ---->
 Use the `InfluxDBClient3` InfluxDB Python client and `flight.ClientMiddleware` to pass and inspect headers.
 
-### Tracing response header
+#### Tracing response header
 
 With tracing enabled and a valid trace ID in the request, InfluxDB's `DoGet` action response contains a header with the trace ID that you sent.
 
-#### Trace response header syntax
+##### Trace response header syntax
 
 ```http
 trace-id: TRACE_ID
 ```
 
-### Inspect Flight response headers
+#### Inspect Flight response headers
 
 To inspect Flight response headers when using a client library, pass a `FlightClientMiddleware` instance.
 that defines a middleware callback function for the `onHeadersReceived` event (the particular function name you use depends on the client library language).
@@ -306,6 +222,7 @@ def use_middleware_trace_header():
 
 use_middleware_trace_header()
 ```
+
 {{% /code-placeholders %}}
 <!---- END PYTHON WITH  MIDDLEWARE ---->
 {{% /tab-content %}}
@@ -325,94 +242,6 @@ After you run your query with tracing enabled, do the following:
 - Remove the tracing header from subsequent runs of the query (to [avoid unnecessary tracing](#avoid-unnecessary-tracing)).
 - Provide the trace ID in a request to InfluxDB Support.
 
-## Retrieve query information
+### Retrieve system information for a query
 
-In addition to the SQL standard `information_schema`, {{% product-name %}} contains _system_ tables that provide access to
-InfluxDB-specific information.
-The information in each system table is scoped to the namespace you're querying;
-you can only retrieve system information for that particular instance.
-
-To get information about queries you've run on the current instance, use SQL to query the [`system.queries` table](/influxdb/cloud-dedicated/reference/internals/system-tables/#systemqueries-measurement), which contains information from the querier instance currently handling queries.
-If you [enabled trace logging for the query](#enable-trace-logging-for-a-query), the `trace-id` appears in the `system.queries.trace_id` column for the query.
-
-The `system.queries` table is an InfluxDB v3 **debug feature**.
-To enable the feature and query `system.queries`, include an `"iox-debug"` header set to `"true"` and use SQL to query the table.
-
-The following sample code shows how to use the Python client library to do the following:
-
-1.  Enable tracing for a query.
-2.  Retrieve the trace ID record from `system.queries`.
-
-<!-- Import for tests and hide from users.
-```python
-import os
-```
--->
-
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|APP_REQUEST_ID" %}}
-
-<!--pytest-codeblocks:cont-->
-
-```python
-from influxdb_client_3 import InfluxDBClient3
-import secrets
-import pandas
-
-def get_query_information():
-  print('# Get query information')
-
-  client = InfluxDBClient3(token = f"DATABASE_TOKEN",
-                    host = f"{{< influxdb/host >}}",
-                    database = f"DATABASE_NAME")
-
-  random_bytes = secrets.token_bytes(16)
-  trace_id = random_bytes.hex()
-  trace_value = (f"{trace_id}:1112223334445:0:1").encode('utf-8')
-  sql = "SELECT * FROM home WHERE time >= now() - INTERVAL '30 days'"
-
-  try:
-    client.query(sql, headers=[(b'influx-trace-id', trace_value)])
-    client.close()
-  except Exception as e:
-    print("Query error: ", e)
-
-  client = InfluxDBClient3(token = f"DATABASE_TOKEN",
-                    host = f"{{< influxdb/host >}}",
-                    database = f"DATABASE_NAME")
-
-  import time
-  df = pandas.DataFrame()
-
-  for i in range(0, 5):
-    time.sleep(1)
-    # Use SQL
-    # To query the system.queries table for your trace ID, pass the following:
-    #   - the iox-debug: true request header
-    #   - an SQL query for the trace_id column
-    reader = client.query(f'''SELECT compute_duration, query_type, query_text,
-                          success, trace_id
-                          FROM system.queries
-                          WHERE issue_time >= now() - INTERVAL '1 day'
-                            AND trace_id = '{trace_id}'
-                          ORDER BY issue_time DESC
-                        ''',
-                        headers=[(b"iox-debug", b"true")],
-                        mode="reader")
-
-    df = reader.read_all().to_pandas()
-    if df.shape[0]:
-      break
-
-  assert df.shape == (1, 5), f"Expect a row for the query trace ID."
-  print(df)
-
-get_query_information()
-```
-{{% /code-placeholders %}}
-
-The output is similar to the following:
-
-```text
-compute_duration query_type                        query_text  success  trace_id
-          0 days        sql  SELECT compute_duration, quer...     True  67338...
-```
+If you enable trace logging for a query, the `trace-id` appears in the [`system.queries` table](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/system-information).

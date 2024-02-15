@@ -1,0 +1,54 @@
+---
+title: Optimize queries
+description: >
+  Optimize queries to improve performance and reduce their memory and compute (CPU) requirements in InfluxDB.
+  Learn how to use observability tools to analyze query execution and view metrics.
+weight: 201
+menu:
+  influxdb_clustered:
+    name: Optimize queries
+    parent: Troubleshoot and optimize queries
+influxdb/clustered/tags: [query, performance, observability, errors, sql, influxql]
+related:
+  - /influxdb/clustered/query-data/sql/
+  - /influxdb/clustered/query-data/influxql/
+aliases:
+  - /influxdb/clustered/query-data/execute-queries/optimize-queries/
+---
+
+Optimize SQL and InfluxQL queries to improve performance and reduce their memory and compute (CPU) requirements.
+Learn how to use observability tools to analyze query execution and view metrics.
+
+- [Why is my query slow?](#why-is-my-query-slow)
+- [Strategies for improving query performance](#strategies-for-improving-query-performance)
+- [Analyze and troubleshoot queries](#analyze-and-troubleshoot-queries)
+
+## Why is my query slow?
+
+Query performance depends on time range and complexity.
+If a query is slower than you expect, it might be due to the following reasons:
+
+- It queries a large time-range of data.
+- It includes intensive operations, such as querying many string values or `ORDER BY` sorting or re-sorting large amounts of data.
+
+## Strategies for improving query performance
+
+The following design strategies generally improve query performance and resource use:
+
+- Follow [schema design best practices](/influxdb/clustered/write-data/best-practices/schema-design/) to make querying easier and more performant.
+- Query only the data you need--for example, include a [`WHERE` clause](/influxdb/clustered/reference/sql/where/) that filters data by a time range.
+  InfluxDB v3 stores data in a Parquet file for each measurement and day, and retrieves files from the Object store to answer a query.
+  The smaller the time range in your query, the fewer files InfluxDB needs to retrieve from the Object store.
+- [Downsample data](/influxdb/clustered/process-data/downsample/) to reduce the amount of data you need to query.
+
+Some bottlenecks may be out of your control and are the result of a suboptimal execution plan, such as:
+
+- Applying the same sort (`ORDER BY`) to already sorted data.
+- Retrieving many Parquet files from the Object store--the same query performs better if it retrieves fewer - though, larger - files.
+- Querying many overlapped Parquet files.
+- Performing a large number of table scans.
+
+## Analyze and troubleshoot queries
+
+Learn how to [analyze a query plan](/influxdb/clustered/query-data/troubleshoot-and-optimize/analyze-query-plan/)
+to troubleshoot queries and find performance bottlenecks.

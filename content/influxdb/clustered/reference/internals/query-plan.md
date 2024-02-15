@@ -5,25 +5,25 @@ description: >
   InfluxDB query plans include DataFusion and InfluxDB logical plan and execution plan nodes for scanning, deduplicating, filtering, merging, and sorting data.
 weight: 201
 menu:
-  influxdb_cloud_dedicated:
+  influxdb_clustered:
     name: Query plans
     parent: InfluxDB internals
-influxdb/cloud-dedicated/tags: [query, sql, influxql]
+influxdb/clustered/tags: [query, sql, influxql]
 related:
-  - /influxdb/cloud-dedicated/query-data/sql/
-  - /influxdb/cloud-dedicated/query-data/influxql/
-  - /influxdb/cloud-dedicated/query-data/execute-queries/analyze-query-plan/
-  - /influxdb/cloud-dedicated/query-data/execute-queries/troubleshoot/
+  - /influxdb/clustered/query-data/sql/
+  - /influxdb/clustered/query-data/influxql/
+  - /influxdb/clustered/query-data/execute-queries/analyze-query-plan/
+  - /influxdb/clustered/query-data/execute-queries/troubleshoot/
 ---
 
-A query plan is a sequence of steps that the InfluxDB v3 [Querier](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier) devises and executes to calculate the result of a query.
+A query plan is a sequence of steps that the InfluxDB v3 [Querier](/influxdb/clustered/reference/internals/storage-engine/#querier) devises and executes to calculate the result of a query.
 The Querier uses DataFusion and Arrow to build and execute query plans
-that call DataFusion and InfluxDB-specific operators that read data from the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store), and the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester), and apply query transformations, such as deduplicating, filtering, aggregating, merging, projecting, and sorting to calculate the final result.
+that call DataFusion and InfluxDB-specific operators that read data from the [Object store](/influxdb/clustered/reference/internals/storage-engine/#object-store), and the [Ingester](/influxdb/clustered/reference/internals/storage-engine/#ingester), and apply query transformations, such as deduplicating, filtering, aggregating, merging, projecting, and sorting to calculate the final result.
 
-Like many other databases, the [Querier](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier) contains a Query Optimizer.
-After it parses an incoming query, the [Querier](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier) builds a _logical plan_--a sequence of high-level steps such as scanning, filtering, and sorting, required for the query.
-Following the logical plan, the [Querier](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier) then builds the optimal _physical plan_ to calculate the correct result in the least amount of time.
-The plan takes advantage of data partitioning by the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester) to parallelize plan operations and prune unnecessary data before executing the plan.
+Like many other databases, the [Querier](/influxdb/clustered/reference/internals/storage-engine/#querier) contains a Query Optimizer.
+After it parses an incoming query, the [Querier](/influxdb/clustered/reference/internals/storage-engine/#querier) builds a _logical plan_--a sequence of high-level steps such as scanning, filtering, and sorting, required for the query.
+Following the logical plan, the [Querier](/influxdb/clustered/reference/internals/storage-engine/#querier) then builds the optimal _physical plan_ to calculate the correct result in the least amount of time.
+The plan takes advantage of data partitioning by the [Ingester](/influxdb/clustered/reference/internals/storage-engine/#ingester) to parallelize plan operations and prune unnecessary data before executing the plan.
 The Querier also applies common techniques of predicate and projection pushdown to further prune data as early as possible.
 
 - [Display syntax](#display-syntax)
@@ -223,7 +223,7 @@ GROUP BY city
 ORDER BY city ASC;
 ```
 
-Therefore, the [Querier](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier) specifies the three columns in the projection and the projection is "pushed down" to leaf nodes; columns not specified are pruned as early as possible during query execution.
+Therefore, the [Querier](/influxdb/clustered/reference/internals/storage-engine/#querier) specifies the three columns in the projection and the projection is "pushed down" to leaf nodes; columns not specified are pruned as early as possible during query execution.
 
 ```text
 projection=[city, state, time]
@@ -232,7 +232,7 @@ projection=[city, state, time]
 ##### output_ordering
 
 `output_ordering` specifies the sort order for the output.
-The Querier passes `output_ordering` if the output should be ordered and if the [Querier](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier) knows the order.
+The Querier passes `output_ordering` if the output should be ordered and if the [Querier](/influxdb/clustered/reference/internals/storage-engine/#querier) knows the order.
 
 When storing data to Parquet files, InfluxDB sorts the data to improve storage compression and query efficiency and the planner tries to preserve that order for as long as possible.
 Generally, the `output_ordering` value that  `ParquetExec` receives is the ordering (or a subset of the ordering) of stored data.
@@ -320,15 +320,15 @@ The output is dependent on the order of the input rows that have the same key.
 
 InfluxDB's `RecordBatchesExec` implementation retrieves and scans recently written, yet-to-be-persisted, data from the Ingester.
 
-When generating the plan, the [Querier](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier) sends the query criteria, such as database, table, and columns, to the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester) to retrieve data not yet persisted to Parquet files.
-If the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester) has data that meets the criteria (the chunk size is non-zero), then the plan includes `RecordBatchesExec`.
+When generating the plan, the [Querier](/influxdb/clustered/reference/internals/storage-engine/#querier) sends the query criteria, such as database, table, and columns, to the [Ingester](/influxdb/clustered/reference/internals/storage-engine/#ingester) to retrieve data not yet persisted to Parquet files.
+If the [Ingester](/influxdb/clustered/reference/internals/storage-engine/#ingester) has data that meets the criteria (the chunk size is non-zero), then the plan includes `RecordBatchesExec`.
 
 ##### RecordBatchesExec traits
 
 ###### chunks
 
 `chunks` is the number of data chunks from the Ingester.
-Data can arrive from the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester) in many chunks, but often only one.
+Data can arrive from the [Ingester](/influxdb/clustered/reference/internals/storage-engine/#ingester) in many chunks, but often only one.
 
 ###### projection
 
@@ -375,17 +375,17 @@ For example, the following chunks represent line protocol written to InfluxDB:
 ]
 ```
 
-- `Chunk 4` spans the time range `400-600` and represents data persisted to a Parquet file in the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
-- `Chunk 5` spans the time range `550-700` and represents yet-to-be persisted data from the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester).
+- `Chunk 4` spans the time range `400-600` and represents data persisted to a Parquet file in the [Object store](/influxdb/clustered/reference/internals/storage-engine/#object-store).
+- `Chunk 5` spans the time range `550-700` and represents yet-to-be persisted data from the [Ingester](/influxdb/clustered/reference/internals/storage-engine/#ingester).
 - The chunks overlap the range `550-600`.
 
-If data overlaps at query time, the [Querier](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier) must include the _deduplication_ process in the query plan, which uses the same multi-column sort-merge operators used by the Ingester.
+If data overlaps at query time, the [Querier](/influxdb/clustered/reference/internals/storage-engine/#querier) must include the _deduplication_ process in the query plan, which uses the same multi-column sort-merge operators used by the Ingester.
 Compared to an ingestion plan that uses sort-merge operators, a query plan is more complex and ensures that data streams through the plan after deduplication.
 
 Because sort-merge operations used in deduplication have a non-trivial execution cost, InfluxDB v3 tries to avoid the need for deduplication.
 Due to how InfluxDB organizes data, a Parquet file never contains duplicates of the data it stores; only overlapped data can contain duplicates.
-During compaction, the [Compactor](/influxdb/cloud-dedicated/reference/internals/storage-engine/#compactor) sorts stored data to reduce overlaps and optimize query performance.
-For data that doesn't have overlaps, the [Querier](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier) doesn't need to include the deduplication process and the query plan can further distribute non-overlapping data for parallel processing.
+During compaction, the [Compactor](/influxdb/clustered/reference/internals/storage-engine/#compactor) sorts stored data to reduce overlaps and optimize query performance.
+For data that doesn't have overlaps, the [Querier](/influxdb/clustered/reference/internals/storage-engine/#querier) doesn't need to include the deduplication process and the query plan can further distribute non-overlapping data for parallel processing.
 
 ## DataFusion query plans
 

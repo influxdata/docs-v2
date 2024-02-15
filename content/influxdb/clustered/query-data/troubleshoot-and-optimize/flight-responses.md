@@ -7,27 +7,22 @@ weight: 401
 menu:
   influxdb_clustered:
     name: Understand Flight responses
-    parent: Execute queries
+    parent: Troubleshoot and optimize queries
 influxdb/clustered/tags: [query, sql, influxql]
+related:
+  - /influxdb/clustered/query-data/sql/
+  - /influxdb/clustered/query-data/influxql/
+  - /influxdb/clustered/reference/client-libraries/v3/
 ---
 
 Learn how to handle responses and troubleshoot errors encountered when querying {{% product-name %}} with Flight+gRPC and Arrow Flight clients.
 
-<!-- TOC -->
-
 - [InfluxDB Flight responses](#influxdb-flight-responses)
   - [Stream](#stream)
   - [Schema](#schema)
-    - [Example](#example)
   - [RecordBatch](#recordbatch)
   - [InfluxDB status and error codes](#influxdb-status-and-error-codes)
   - [Troubleshoot errors](#troubleshoot-errors)
-    - [Internal Error: Received RST_STREAM](#internal-error-received-rst_stream)
-    - [Internal Error: stream terminated by RST_STREAM with NO_ERROR](#internal-error-stream-terminated-by-rst_stream-with-no_error)
-    - [Invalid Argument: Invalid ticket](#invalid-argument-invalid-ticket)
-    - [Unauthenticated: Unauthenticated](#unauthenticated-unauthenticated)
-    - [Unauthorized: Permission denied](#unauthorized-permission-denied)
-    - [FlightUnavailableError: Could not get default pem root certs](#flightunavailableerror-could-not-get-default-pem-root-certs)
 
 ## InfluxDB Flight responses
 
@@ -42,7 +37,7 @@ For example, if you use the [`influxdb3-python` Python client library](/influxdb
 InfluxDB responds with one of the following:
 
 - A [stream](#stream) in Arrow IPC streaming format
-- An [error status code](#influxdb-error-codes) and an optional `details` field that contains the status and a message that describes the error
+- An [error status code](#influxdb-status-and-error-codes) and an optional `details` field that contains the status and a message that describes the error
 
 ### Stream
 
@@ -168,7 +163,6 @@ _For a list of gRPC codes that servers and clients may return, see [Status codes
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
 
 ### Troubleshoot errors
 
