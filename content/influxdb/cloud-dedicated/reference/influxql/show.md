@@ -122,7 +122,7 @@ SHOW TAG VALUES FROM "cpu" WITH KEY = "region"
 -- Show tag values from the cpu measurement for the region tag for a custom time range
 SHOW TAG VALUES FROM "cpu" WITH KEY = "region" WHERE time > -7d
 
--- Show tag values from the multiple measurements for the region tag
+-- Show tag values from multiple measurements for the region tag
 SHOW TAG VALUES FROM "cpu", "memory", "disk" WITH KEY = "region"
 
 -- Show tag values from the cpu measurement for all tag keys that do not include the letter c
