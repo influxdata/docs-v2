@@ -18,7 +18,7 @@
   message: |
     [InfluxDB Clustered](/influxdb/clustered/) is a highly available InfluxDB 3.0
     cluster built for high write and query workloads on your own infrastructure.
-    
+
     InfluxDB Clustered is currently in **limited availability** and is only
     available to a limited group of InfluxData customers. If interested in being
     part of the limited access group, please
@@ -38,7 +38,7 @@
   slug: |
     Flux is going into maintenance mode. You can continue using it as you
     currently are without any changes to your code.
-  message: |      
+  message: |
     Flux is going into maintenance mode and will not be supported in InfluxDB 3.0.
     This was a decision based on the broad demand for SQL and the continued growth
     and adoption of InfluxQL. We are continuing to support Flux for users in 1.x
@@ -47,20 +47,6 @@
     future-proof your code, we suggest using InfluxQL.
 
     For information about the future of Flux, see the following:
-    
+
     - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
     - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
-
-- id: serverless-wip
-  level: warn
-  scope:
-    - /influxdb/cloud-serverless/
-  title: State of the InfluxDB Cloud Serverless documentation
-  slug: InfluxDB Cloud Serverless documentation is a work in progress.
-  message: |
-    The new documentation for **InfluxDB Cloud Serverless** is a work
-    in progress. We are adding new information and content almost daily.
-    Thank you for your patience!
-    
-    If there is specific information you're looking for, please
-    [submit a documentation issue](https://github.com/influxdata/docs-v2/issues/new/choose).
