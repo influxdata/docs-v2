@@ -35,7 +35,6 @@ An InfluxQL query that runs automatically and periodically within a database.
 Continuous queries require a function in the `SELECT` clause and must include a `GROUP BY time()` clause.
 See [Continuous Queries](/influxdb/v1/query_language/continuous_queries/).
 
-
 Related entries: [function](/influxdb/v1/concepts/glossary/#function)
 
 ## database
@@ -151,7 +150,7 @@ Related entries: [field set](/influxdb/v1/concepts/glossary/#field-set), [series
 
 ## points per second
 
-A deprecated measurement of the rate at which data are persisted to InfluxDB.
+A deprecated measurement of the rate at which data is persisted to InfluxDB.
 The schema allows and even encourages the recording of multiple metric values per point, rendering points per second ambiguous.
 
 Write speeds are generally quoted in values per second, a more precise metric.
@@ -184,7 +183,7 @@ Related entries: [duration](/influxdb/v1/concepts/glossary/#duration), [measurem
 
 ## schema
 
-How the data are organized in InfluxDB.
+How data is organized in InfluxDB.
 The fundamentals of the InfluxDB schema are databases, retention policies, series, measurements, tag keys, tag values, and field keys.
 See [Schema Design](/influxdb/v1/concepts/schema_and_data_layout/) for more information.
 
@@ -364,7 +363,7 @@ See [Authentication and Authorization](/influxdb/v1/administration/authenticatio
 
 ## values per second
 
-The preferred measurement of the rate at which data are persisted to InfluxDB. Write speeds are generally quoted in values per second.
+The preferred measurement of the rate at which data is persisted to InfluxDB. Write speeds are generally quoted in values per second.
 
 To calculate the values per second rate, multiply the number of points written per second by the number of values stored per point. For example, if the points have four fields each, and a batch of 5000 points is written 10 times per second, then the values per second rate is `4 field values per point * 5000 points per batch * 10 batches per second = 200,000 values per second`.
 

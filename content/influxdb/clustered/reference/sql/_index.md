@@ -68,7 +68,7 @@ A literal is an explicit value not represented by an identifier.
 
 ### String literals
 
-String literals are surrounded by single quotes. 
+String literals are surrounded by single quotes.
 
 ```sql
 'santa_monica'
@@ -113,7 +113,7 @@ Boolean literals are either `TRUE` or `FALSE`.
 
 ## Duration units
 
-Interval literals specify a length or unit of time. 
+Interval literals specify a length or unit of time.
 
 ```sql
 INTERVAL '4 minutes'
@@ -127,16 +127,16 @@ The following units of time are supported:
 - milliseconds
 - seconds
 - minutes
-- hours 
-- days 
+- hours
+- days
 - weeks
-- months 
+- months
 - years
 - century
 
 ## Operators
 
-Operators are reserved words or characters which perform certain operations, including comparisons and arithmetic. 
+Operators are reserved words or characters which perform certain operations, including comparisons and arithmetic.
 
 ### Arithmetic operators
 
@@ -278,6 +278,7 @@ Use the SQL `SELECT` statement to query data from a specific measurement or meas
 ```sql
 SELECT * FROM "h2o_feet"
 ```
+
 ### WHERE clause
 
 Use the `WHERE` clause to filter results based on `fields`, `tags`, and `timestamps`.
@@ -290,17 +291,18 @@ Rows that evaluate as `FALSE` are omitted from the result set.
 ```sql
 SELECT * FROM "h2o_feet" WHERE "water_level" <= 9
 ```
+
 ```sql
-SELECT 
+SELECT
   * 
-FROM 
+FROM
   "h2o_feet" 
-WHERE 
+WHERE
   "location" = 'santa_monica' 
   AND "level description" = 'below 3 feet'
 ```
 
-### JOIN clause 
+### JOIN clause
 
 Use the `JOIN` clause to join data from multiple measurements (tables).  The following joins are supported:
 
@@ -326,60 +328,60 @@ Use the `JOIN` clause to join data from multiple measurements (tables).  The fol
 The `INNER JOIN` clause gathers data where there is a match between the two measurements being joined.
 
 ```sql
-SELECT 
+SELECT
   * 
-FROM 
-  h2o_feet 
-  INNER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location 
+FROM
+  h2o_feet
+  INNER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location
   AND h2o_feet.time = h2o_temperature.time
 ```
 
-The `LEFT JOIN` and `LEFT OUTER JOIN` clauses gather data from all rows in the left table regardless of whether there is a match in the right table. 
+The `LEFT JOIN` and `LEFT OUTER JOIN` clauses gather data from all rows in the left table regardless of whether there is a match in the right table.
 
 ```sql
-SELECT 
+SELECT
   * 
-FROM 
-  h2o_feet 
-  LEFT OUTER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location 
+FROM
+  h2o_feet
+  LEFT OUTER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location
   AND h2o_feet.time = h2o_temperature.time
 ```
 
 The `RIGHT JOIN` and `RIGHT OUTER JOIN` clauses gather data from all rows in the right table regardless of whether there is a match in the left table
 
 ```sql
-SELECT 
+SELECT
   * 
-FROM 
-  h2o_feet 
-  RIGHT OUTER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location 
+FROM
+  h2o_feet
+  RIGHT OUTER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location
   AND h2o_feet.time = h2o_temperature.time
 ```
 
 The `FULL JOIN` and `FULL OUTER JOIN` clauses return all rows from the left and the right side of the join with `NULL` values where there is no match.
 
 ```sql
-SELECT 
+SELECT
   * 
-FROM 
+FROM
   h2o_feet
-  FULL JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location 
+  FULL JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location
   AND h2o_feet.time = h2o_temperature.time
 ```
 
-### GROUP BY clause 
+### GROUP BY clause
 
 Use the `GROUP BY` clause to group query results based on specified column values. `GROUP BY` **requires** an aggregate or selector function in the `SELECT` statement.
 
 #### Examples
 
 ```sql
-SELECT 
+SELECT
   MEAN("water_level"), 
   "location" 
-FROM 
+FROM
   "h2o_feet" 
-GROUP BY 
+GROUP BY
   "location"
 ```
 
@@ -391,14 +393,14 @@ GROUP BY
 #### Examples
 
 ```sql
-SELECT 
+SELECT
   MEAN("water_level"), 
   "location" 
-FROM 
+FROM
   "h2o_feet" 
-GROUP BY 
+GROUP BY
   "location" 
-HAVING 
+HAVING
   MEAN("water_level") > 4
 ORDER BY
   "location"
@@ -406,23 +408,23 @@ ORDER BY
 
 ### UNION clause
 
-The `UNION` clause combines the results of two or more `SELECT` statements without returning any duplicate rows. `UNION ALL` returns all results, including duplicates. 
+The `UNION` clause combines the results of two or more `SELECT` statements without returning any duplicate rows. `UNION ALL` returns all results, including duplicates.
 
 #### Examples
 
 ```sql
-SELECT 
+SELECT
   'pH' 
-FROM 
+FROM
   "h2o_pH" 
-UNION ALL 
-SELECT 
+UNION ALL
+SELECT
   "location" 
-FROM 
+FROM
   "h2o_quality"
 ```
 
-### ORDER BY clause 
+### ORDER BY clause
 
 The `ORDER BY` clause orders results by specified columns and order.
 Sort data based on fields, tags, and timestamps.
@@ -434,12 +436,12 @@ The following orders are supported:
 #### Examples
 
 ```sql
-SELECT 
+SELECT
   "water_level", 
   "location" 
-FROM 
+FROM
   "h2o_feet" 
-ORDER BY 
+ORDER BY
   "location", 
   "time" DESC
 ```
@@ -452,50 +454,50 @@ The defined limit should be a non-negative integer.
 #### Examples
 
 ```sql
-SELECT 
+SELECT
   "water_level", 
   "location" 
-FROM 
+FROM
   "h2o_feet" 
-LIMIT 
+LIMIT
   10
 ```
 
-### WITH clause 
+### WITH clause
 
 The `WITH` clause provides a way to write auxiliary statements for use in a larger query.
-It can help break down large, complicated queries into simpler forms. 
+It can help break down large, complicated queries into simpler forms.
 
 ```sql
 WITH summary_data as
-(SELECT degrees, location, time 
+(SELECT degrees, location, time
   FROM average_temperature)
 SELECT * FROM summary_data
 ```
 
-### OVER clause 
+### OVER clause
 
 The `OVER` clause is used with SQL window functions.
 A **window function** performs a calculation across a set of table rows that are related in some way to the current row.
  While similar to aggregate functions, window functions output results into rows retaining their separate identities.   
 
 ```sql
-SELECT 
+SELECT
   time, 
-  water_level 
-FROM 
+  water_level
+FROM
   (
-    SELECT 
+    SELECT
       time, 
       "water_level", 
       row_number() OVER (
-        order by 
+        ORDER BY
           water_level desc
-      ) as rn 
-    FROM 
+      ) as rn
+    FROM
       h2o_feet
   ) 
-WHERE 
+WHERE
   rn <= 3;
 ```
 
@@ -526,7 +528,7 @@ SHOW columns FROM <measurement>
 
 ## Functions
 
-Following is a list of supported functions by type. 
+Following is a list of supported functions by type.
 
 ### Aggregate functions
 
@@ -559,7 +561,8 @@ GROUP BY "location"
 
 ### Selector functions
 
-Selector functions are unique to InfluxDB. They behave like aggregate functions in that they take a row of data and compute it down to a single value.  However, selectors are unique in that they return a **time value** in addition to the computed value. In short, selectors return an aggregated value along with a timestamp. 
+Selector functions are unique to InfluxDB. They behave like aggregate functions in that they take a row of data and compute it down to a single value.
+However, selectors are unique in that they return a **time value** in addition to the computed value. In short, selectors return an aggregated value along with a timestamp.
 
 | Function         | Description                                                     |
 | :--------------- | :-------------------------------------------------------------- |
@@ -571,12 +574,12 @@ Selector functions are unique to InfluxDB. They behave like aggregate functions 
 #### Examples
 
 ```sql
-SELECT 
+SELECT
 SELECTOR_MAX("pH", time)['value'],
 SELECTOR_MAX("pH", time)['time']
 FROM "h2o_pH"
 
-SELECT 
+SELECT
 SELECTOR_LAST("water_level", time)['value'],
 SELECTOR_LAST("water_level", time)['time']
 FROM "h2o_feet"
@@ -591,8 +594,8 @@ WHERE time >= timestamp '2019-09-10T00:00:00Z' AND time <= timestamp '2019-09-19
 | DATE_BIN()   | Bins the input timestamp into a specified interval.                                             |
 | DATE_TRUNC() | Truncates a timestamp expression based on the date part specified, such as hour, day, or month. |
 | DATE_PART()  | Returns the specified part of a date.                                                           |
-| NOW()        | Returns the current time (UTC).                                                                  |
-                 
+| NOW()        | Returns the current time (UTC).                                                                 |
+
 #### Examples
 
 ```sql
@@ -617,7 +620,6 @@ GROUP BY time
 | APPROX_DISTINCT                    | Returns the approximate count of the number of distinct values. Implemented only for strings. |
 | APPROX_PERCENTILE_CONT             | Returns the approximate percentile of input values.                                           |
 | APPROX_PERCENTILE_CONT_WITH_WEIGHT | Returns the approximate percentile of input values with weight.                               |
-
 
 ### Math functions
 
@@ -649,7 +651,6 @@ GROUP BY time
 | :------- | :--------------------------------------------------------------------------------------------------------- |
 | COALESCE | Returns the first argument that is not null. If all arguments are null, then `COALESCE` will return nulls. |
 | NULLIF   | Returns a null value if value1 equals value2, otherwise returns value1.                                    |
-
 
 ### Regular expression functions
 

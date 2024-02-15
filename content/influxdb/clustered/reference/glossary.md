@@ -77,7 +77,7 @@ InfluxData typically recommends batch sizes of 5,000-10,000 points.
 In some use cases, performance may improve with significantly smaller or larger batches.
 
 Related entries:
-[line protocol](#line-protocol),
+[line protocol](#line-protocol-lp),
 [point](#point)
 
 ### batch size
@@ -133,9 +133,12 @@ to the workload of a single customer.
 
 ### collect
 
-Collect and write time series data to InfluxDB using line protocol, Telegraf,
-the InfluxDB v1 and v2 HTTP APIs, v1 and v2 `influx` command line interface (CLI),
-and InfluxDB client libraries.
+Collect and write time series data to InfluxDB using line protocol and any of the following tools:
+
+- Telegraf
+- the InfluxDB v1 or v2 HTTP APIs
+- v1 or v2 `influx` command line interface (CLI)
+- InfluxDB client libraries
 
 ### collection interval
 
@@ -149,7 +152,7 @@ Related entries:
 
 Collection jitter prevents every input plugin from collecting metrics simultaneously,
 which can have a measurable effect on the system.
-For each collection interval, every Telegraf input plugin will sleep for a random
+For each collection interval, every Telegraf input plugin sleeps for a random
 time between zero and the collection jitter before collecting the metrics.
 
 Related entries:
@@ -260,7 +263,7 @@ Aggregating high resolution data into lower resolution data to preserve disk spa
 
 ### duration
 
-A data type that represents a duration of time (1s, 1m, 1h, 1d).
+A data type that represents a duration of time--for example, `1s`, `1m`, `1h`, `1d`.
 Retention periods are set using durations.
 
 Related entries:
@@ -291,7 +294,7 @@ WHERE
 
 A key-value pair in InfluxDB's data structure that records a data value.
 Generally, field values change over time.
-Fields are required in InfluxDB's data structure. 
+Fields are required in InfluxDB's data structure.
 
 Related entries:
 [field key](#field-key),
@@ -337,9 +340,6 @@ Related entries:
 
 A file block is a fixed-length chunk of data read into memory when requested by an application.
 
-Related entries:
-[block](#block)
-
 ### float
 
 A real number written with a decimal point dividing the integer and fractional parts (`1.0`, `3.14`, `-20.1`).
@@ -359,7 +359,7 @@ Related entries:
 
 Flush jitter prevents every Telegraf output plugin from sending writes
 simultaneously, which can overwhelm some data sinks.
-Each flush interval, every Telegraf output plugin will sleep for a random time
+Each flush interval, every Telegraf output plugin sleeps for a random time
 between zero and the flush jitter before emitting metrics.
 Flush jitter smooths out write spikes when running a large number of Telegraf instances.
 
@@ -408,7 +408,6 @@ Related entries:
 [measurement](#measurement),
 [tag key](#tag-key),
 
-
 ### influx
 
 `influx` is a command line interface (CLI) that interacts with the InfluxDB v1.x and v2.x server.
@@ -426,7 +425,7 @@ and other required processes.
 
 ### InfluxDB
 
-An open-source time series database (TSDB) developed by InfluxData.
+An open source time series database (TSDB) developed by InfluxData.
 Written in Go and optimized for fast, high-availability storage and retrieval of
 time series data in fields such as operations monitoring, application metrics,
 Internet of Things sensor data, and real-time analytics.
@@ -463,10 +462,10 @@ Related entries:
 
 ### IOx
 
-The IOx (InfluxDB v3) storage engine is real-time, columnar database optimized for time series
+The IOx (InfluxDB v3) storage engine is a real-time, columnar database optimized for time series
 data built in Rust on top of [Apache Arrow](https://arrow.apache.org/) and
 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html).
-IOx replaces the [TSM](#tsm) storage engine.
+IOx replaces the [TSM (Time Structured Merge tree)](#tsm-time-structured-merge-tree) storage engine.
 
 ## J
 
@@ -496,11 +495,13 @@ and array data types.
 ### keyword
 
 A keyword is reserved by a program because it has special meaning.
-Every programming language has a set of keywords (reserved names) that cannot be used as an identifier.
+Every programming language has a set of keywords (reserved names) that cannot be used as identifiers--for example,
+you can't use `SELECT` (an SQL keyword) as a variable name in an SQL query.
 
-See a list of [SQL keywords](/influxdb/clustered/reference/sql/#keywords).
+See keyword lists:
 
-<!-- TODO: Add a link to InfluxQL keywords -->
+- [SQL keywords](/influxdb/clustered/reference/sql/#keywords)
+- [InfluxQL keywords](/influxdb/clustered/reference/influxql/#keywords)
 
 ## L
 
@@ -570,7 +571,6 @@ Related entries:
 [cluster](#cluster),
 [server](#server)
 
-
 ### now
 
 The local server's nanosecond timestamp.
@@ -611,7 +611,7 @@ Owners have read/write permissions.
 Users can have owner roles for databases and other resources.
 
 Role permissions are separate from API token permissions. For additional
-information on API tokens, see [token](#tokens).
+information on API tokens, see [token](#token).
 
 ### output plugin
 
@@ -718,6 +718,15 @@ An InfluxDB query returns time series data.
 
 See [Query data in InfluxDB](/influxdb/clustered/query-data/).
 
+### query plan
+
+A sequence of steps (_nodes_) that the InfluxDB Querier devises and executes to calculate the result of the query in the least amount of time.
+A _logical plan_ is a high level representation of a query and doesn't consider cluster configuration or data organization.
+A _physical plan_ represents the query execution plan and data flow through plan nodes that read (_scan_), deduplicate, merge, filter, and sort data.
+A physical plan is optimized for the cluster configuration and data organization.
+
+See [Query plans](/influxdb/clustered/reference/internals/query-plans/).
+
 ## R
 
 ### REPL
@@ -744,7 +753,6 @@ The minimum retention period is **one hour**.
 
 Related entries:
 [bucket](#bucket),
-[shard group duration](#shard-group-duration)
 
 ### retention policy (RP)
 
@@ -785,6 +793,18 @@ Related entries:
 [timestamp](#timestamp),
 [unix timestamp](#unix-timestamp)
 
+### row
+
+A row in a [table](#table) represents a specific record or instance of data.
+[Column](#column) values in a row represent specific attributes or properties of the instance.
+Each row has a [primary key](/#primary-key) that makes the row unique from other rows in the table.
+
+Related entries:
+[column](#column),
+[primary key](#primary-key),
+[series](#series),
+[table](#table)
+
 ## S
 
 ### schema
@@ -803,8 +823,8 @@ Related entries:
 
 ### secret
 
-Secrets are key-value pairs that contain information you want to control access 
-o, such as API keys, passwords, or certificates.
+Secrets are key-value pairs that contain information you want to control access
+to, such as API keys, passwords, or certificates.
 
 ### selector
 
@@ -831,7 +851,7 @@ Related entries:
 
 The number of unique measurement, tag set, and field key combinations in an InfluxDB database.
 
-For example, assume that an InfluxDB bucket has one measurement.
+For example, assume that an InfluxDB database has one measurement.
 The single measurement has two tag keys: `email` and `status`.
 If there are three different `email`s, and each email address is associated with two
 different `status`es, the series cardinality for the measurement is 6
@@ -874,7 +894,7 @@ A series key identifies a particular series by measurement, tag set, and field k
 
 For example:
 
-```
+```text
 # measurement, tag set, field key
 h2o_level, location=santa_monica, h2o_feet
 ```
@@ -940,7 +960,6 @@ Related entries:
 
 The key of a tag key-value pair.
 Tag keys are strings and store metadata.
-
 
 Related entries:
 [field key](#field-key),
@@ -1017,6 +1036,14 @@ There are different types of API tokens:
 Related entries:
 [Manage token](/influxdb/clustered/admin/tokens/)
 
+### transformation
+
+Data transformation refers to the process of converting or modifying input data from one format, value, or structure to another.
+
+InfluxQL [transformation functions](/influxdb/clustered/reference/influxql/functions/transformations/) modify and return values in each row of queried data, but do not return an aggregated value across those rows.
+
+Related entries: [aggregate](#aggregate), [function](#function), [selector](#selector)
+
 ### TSM (Time Structured Merge tree)
 
 The InfluxDB v1 and v2 data storage format that allows greater compaction and
@@ -1077,7 +1104,7 @@ InfluxDB users are granted permission to access to InfluxDB.
 
 ### values per second
 
-The preferred measurement of the rate at which data are persisted to InfluxDB.
+The preferred measurement of the rate at which data is persisted to InfluxDB.
 Write speeds are generally quoted in values per second.
 
 To calculate the values per second rate, multiply the number of points written

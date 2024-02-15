@@ -14,7 +14,7 @@ menu:
 weight: 201
 ---
 
-Arduino is an open-source hardware and software platform used for building electronics projects.
+Arduino is an open source hardware and software platform used for building electronics projects.
 
 The documentation for this client library is available on GitHub.  
 

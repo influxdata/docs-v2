@@ -42,10 +42,10 @@ Use InfluxQL `SHOW` statements to return information about your data schema.
 The following examples use data provided in [sample data sets](/influxdb/clustered/reference/sample-data/).
 To run the example queries and return identical results, follow the instructions
 provided for each sample data set to write the data to your {{% product-name %}}
-bucket.
+database.
 {{% /note %}}
 
-- [List measurements in a bucket](#list-measurements-in-a-bucket)
+- [List measurements in a database](#list-measurements-in-a-database)
   - [List measurements that contain specific tag key-value pairs](#list-measurements-that-contain-specific-tag-key-value-pairs)
   - [List measurements that match a regular expression](#list-measurements-that-match-a-regular-expression)
 - [List field keys in a measurement](#list-field-keys-in-a-measurement)
@@ -56,10 +56,10 @@ bucket.
   - [List tag values for tags that match a regular expression](#list-tag-values-for-tags-that-match-a-regular-expression)
   - [List tag values associated with a specific tag key-value pair](#list-tag-values-associated-with-a-specific-tag-key-value-pair)
 
-## List measurements in a bucket
+## List measurements in a database
 
 Use [`SHOW MEASUREMENTS`](/influxdb/clustered/reference/influxql/show/#show-measurements)
-to list measurements in your InfluxDB bucket.
+to list measurements in your InfluxDB database.
 
 ```sql
 SHOW MEASUREMENTS
@@ -83,7 +83,7 @@ name: measurements
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### List measurements that contain specific tag key-value pairs
+### List measurements that contain specific tag key-value pairs
 
 To return only measurements with specific tag key-value pairs, include a `WHERE`
 clause with tag key-value pairs to query for.
@@ -107,7 +107,7 @@ name: measurements
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### List measurements that match a regular expression
+### List measurements that match a regular expression
 
 To return only measurements with names that match a
 [regular expression](/influxdb/clustered/reference/influxql/regular-expressions/),
@@ -137,7 +137,7 @@ name: measurements
 Use [`SHOW FIELD KEYS`](/influxdb/clustered/reference/influxql/show/#show-field-keys)
 to return all field keys in a measurement.
 Include a `FROM` clause to specify the measurement.
-If no measurement is specified, the query returns all field keys in the bucket.
+If no measurement is specified, the query returns all field keys in the database.
 
 ```sql
 SHOW FIELD KEYS FROM home
@@ -164,7 +164,7 @@ name: home
 Use [`SHOW TAG KEYS`](/influxdb/clustered/reference/influxql/show/#show-field-keys)
 to return all tag keys in a measurement.
 Include a `FROM` clause to specify the measurement.
-If no measurement is specified, the query returns all tag keys in the bucket.
+If no measurement is specified, the query returns all tag keys in the database.
 
 ```sql
 SHOW TAG KEYS FROM home_actions
@@ -186,7 +186,7 @@ name: home_actions
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### List tag keys in measurements that contain a specific tag key-value pair
+### List tag keys in measurements that contain a specific tag key-value pair
 
 To return all tag keys measurements that contain specific tag key-value pairs,
 include a `WHERE` clause with the tag key-value pairs to query for.
@@ -264,7 +264,7 @@ name: weather
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### List tag values for multiple tags
+### List tag values for multiple tags
 
 To return tag values for multiple specific tag keys, use the `IN` operator in
 the `WITH` clause to compare `KEY` to a list of tag keys.
@@ -290,7 +290,7 @@ name: home_actions
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### List tag values for tags that match a regular expression
+### List tag values for tags that match a regular expression
 
 To return only tag values from tags keys that match a regular expression, use
 regular expression comparison operators in your `WITH` clause to compare `KEY`
@@ -324,7 +324,7 @@ name: home_actions
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### List tag values associated with a specific tag key-value pair
+### List tag values associated with a specific tag key-value pair
 
 To list tag values for tags associated with a specific tag key-value pair:
 

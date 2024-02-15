@@ -30,7 +30,7 @@ by columns in a table.
 
 ## SHOW TABLES
 
-Returns information about tables (measurements) in an InfluxDB bucket.
+Returns information about tables (measurements) in an InfluxDB database.
 
 ```sql
 SHOW TABLES
@@ -57,7 +57,7 @@ _Measurements are those that use the **`iox` table schema**._
 
 ## SHOW COLUMNS
 
-Returns information about the schema of a table (measurement) in an InfluxDB bucket.
+Returns information about the schema of a table (measurement) in an InfluxDB database.
 
 ```sql
 SHOW COLUMNS FROM example_table
