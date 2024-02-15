@@ -183,7 +183,7 @@ This is a list of known headers and the corresponding values for
 In this configuration mode, you explicitly specify the field and tags you want
 to scrape from your data.
 
-A configuration can contain muliple _xpath_ subsections (for example, the file plugin
+A configuration can contain multiple _xpath_ subsections (for example, the file plugin
 to process the xml-string multiple times). Consult the [XPath syntax][xpath] and
 the [underlying library's functions][xpath lib] for details and help regarding
 XPath queries. Consider using an XPath tester such as [xpather.com][xpather] or

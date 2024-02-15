@@ -40,7 +40,7 @@ section(s) of your [Kapacitor configuration file](/kapacitor/v1/administration/c
 
 - [Specify your InfluxDB URL](#specify-your-influxdb-url)
 - [Provide InfluxDB authentication credentials](#provide-influxdb-authentication-credentials)
-- [Disable InfluxDB subcriptions](#disable-influxdb-subscriptions)
+- [Disable InfluxDB subscriptions](#disable-influxdb-subscriptions)
 
 ### Specify your InfluxDB URL
 Provide your InfluxDB URL in the `[[influxdb]].urls` configuration option.

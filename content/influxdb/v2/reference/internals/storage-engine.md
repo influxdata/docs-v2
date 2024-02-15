@@ -27,7 +27,7 @@ The storage engine includes the following components:
 
 * [Write Ahead Log (WAL)](#write-ahead-log-wal)
 * [Cache](#cache)
-* [Time-Structed Merge Tree (TSM)](#time-structured-merge-tree-tsm)
+* [Time-Structured Merge Tree (TSM)](#time-structured-merge-tree-tsm)
 * [Time Series Index (TSI)](#time-series-index-tsi)
 
 ## Writing data from API to disk

@@ -38,7 +38,7 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
           yarn install
           ```
 
-       _**Note:** The most recent version of Hugo tested with this documentation is **0.121.2**._
+       _**Note:** The most recent version of Hugo tested with this documentation is **0.122.0**._
 
 3. To generate the API docs, see [api-docs/README.md](api-docs/README.md).
 

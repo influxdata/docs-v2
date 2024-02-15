@@ -311,7 +311,7 @@ consider doing one of the following:
       --rate-limit "5MB/5min"
     ```
 
-- Include `--start` and `--end` flags with `influxd inpsect export-lp` to limit
+- Include `--start` and `--end` flags with `influxd inspect export-lp` to limit
   exported data by time and then sequentially write the consecutive time ranges.
 
     ```sh

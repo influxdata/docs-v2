@@ -482,7 +482,7 @@ SHOW DATABASES
 
 <!-- ### SHOW FIELD KEY CARDINALITY
 
-Estimates or counts exactly the cardinality of the field key set for the curren
+Estimates or counts exactly the cardinality of the field key set for the current
 database unless a database is specified using the `ON <database>` option.
 
 {{% note %}}

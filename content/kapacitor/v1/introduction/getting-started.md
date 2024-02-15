@@ -326,7 +326,7 @@ If the host machine is busy, it may take awhile to log alerts.
     {{% /note %}}
 
 6. (Optional) Modify the task to be really sensitive to ensure the alerts are working.
-   In the TICKscript, change the lamda function `.crit(lambda: "usage_idle" < 70)` to `.crit(lambda: "usage_idle" < 100)`, and run the `define` command with just the `TASK_NAME` and `-tick` arguments:
+   In the TICKscript, change the lambda function `.crit(lambda: "usage_idle" < 70)` to `.crit(lambda: "usage_idle" < 100)`, and run the `define` command with just the `TASK_NAME` and `-tick` arguments:
 
     ```bash
     kapacitor define cpu_alert -tick cpu_alert.tick

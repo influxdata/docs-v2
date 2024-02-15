@@ -633,9 +633,9 @@ http2-wrapper@^2.1.10:
     resolve-alpn "^1.2.0"
 
 hugo-extended@>=0.101.0:
-  version "0.121.2"
-  resolved "https://registry.yarnpkg.com/hugo-extended/-/hugo-extended-0.121.2.tgz#b8013d3a9b2c676ebc2210429ea0b08f13ee362d"
-  integrity sha512-kb5XX5b9COxI88PDoH8+n4nmt/pe8ylyFLIBSdCaAGfH9/fEvk88Bv2MabyDCwHOGIAa8M6WpwulJG007vXwWg==
+  version "0.122.0"
+  resolved "https://registry.yarnpkg.com/hugo-extended/-/hugo-extended-0.122.0.tgz#80ed2fcb165cf4a809230cb0ab3b2756a45402a6"
+  integrity sha512-f9kPVSKxk5mq62wmw1tbhg5CV7n93Tbt7jZoy+C3yfRlEZhGqBlxaEJ3MeeNoilz3IPy5STHB7R0Bdhuap7mHA==
   dependencies:
     careful-downloader "^3.0.0"
     log-symbols "^5.1.0"
@@ -1163,9 +1163,9 @@ spdx-correct@^3.0.0:
     spdx-license-ids "^3.0.0"
 
 spdx-exceptions@^2.1.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/spdx-exceptions/-/spdx-exceptions-2.3.0.tgz#3f28ce1a77a00372683eade4a433183527a2163d"
-  integrity sha512-/tTrYOC7PPI1nUAgx34hUpqXuyJG+DTHJTnIULG4rDygi4xu/tfgmq1e1cIRwRzwZgo4NLySi+ricLkZkw4i5A==
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/spdx-exceptions/-/spdx-exceptions-2.4.0.tgz#c07a4ede25b16e4f78e6707bbd84b15a45c19c1b"
+  integrity sha512-hcjppoJ68fhxA/cjbN4T8N6uCUejN8yFw69ttpqtBeCbF3u13n7mb31NB9jKwGTTWWnt9IbRA/mf1FprYS8wfw==
 
 spdx-expression-parse@^3.0.0:
   version "3.0.1"

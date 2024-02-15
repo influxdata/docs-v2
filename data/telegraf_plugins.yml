@@ -289,7 +289,7 @@ input:
   - name: Cisco GNMI Telemetry
     id: cisco_telemetry_gnmi
     description: |
-      > The `inputs.cisco_telementry_gnmi` plugin was renamed to `inputs.gmni`
+      > The `inputs.cisco_telemetry_gnmi` plugin was renamed to `inputs.gmni`
       in **Telegraf 1.15.0** to better reflect its general support for gNMI devices.
       See the [gNMI plugin](#input-cisco_telemetry_gnmi).
 
@@ -2150,7 +2150,7 @@ input:
     id: win_perf_counters
     description: |
       The Windows Performance Counters input plugin reads Performance Counters on the
-      Windows operating sytem. **Windows only**.
+      Windows operating system. **Windows only**.
     introduced: 0.10.2
     tags: [windows, systems]
 
@@ -2796,7 +2796,7 @@ aggregator:
     id: minmax
     description: |
       The MinMax aggregator plugin aggregates `min` and `max` values of each field it sees,
-      emitting the aggregrate every period seconds.
+      emitting the aggregate every period seconds.
     introduced: 1.1.0
     tags: [linux, macos, windows]
 

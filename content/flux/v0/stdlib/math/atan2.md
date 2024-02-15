@@ -50,7 +50,7 @@ y-coordinate to use in the operation.
 
 ### x
 ({{< req >}})
-x-corrdinate to use in the operation.
+x-coordinate to use in the operation.
 
 
 

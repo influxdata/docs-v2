@@ -1355,7 +1355,7 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - Remove signed MacOS artifacts.
 - Run `go mod tidy`.
 - Fix `prometheusremotewrite` wrong timestamp unit.
-- Fix sudden close ccaused by OPC UA inpu.
+- Fix sudden close caused by OPC UA input.
 - Update `containerd` to 1.5.9.
 - Update `go-sensu` to v2.12.0.
 - Update `gosmi` from v0.4.3 to v0.4.4.
@@ -1645,7 +1645,7 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - Update `containerd/containerd` module to 1.5.9.
 
 ### Input plugin updates
-- Execd (`execd`): Resolve a Promethues text format parsing error.
+- Execd (`execd`): Resolve a Prometheus text format parsing error.
 - IPset (`ipset`): Prevent panic from occurring after startup.
 - OPC-UA (`opc_ua`): Fix issue where fields were being duplicated.
 - HTTP (`http`): Prevent server side error message.
@@ -4550,7 +4550,7 @@ for details about the mapping.
 - Allow iptable entries with trailing text.
 - Sanitize password from couchbase metric.
 - Converge to typed value in prometheus output.
-- Skip compilcation of logparser and tail on solaris.
+- Skip compilation of logparser and tail on solaris.
 - Discard logging from tail library.
 - Remove log message on ping timeout.
 - Don't retry points beyond retention policy.
@@ -4996,7 +4996,7 @@ consistent with the behavior of `collection_jitter`.
 - Add support for Tengine.
 - Logparser input plugin for parsing grok-style log patterns.
 - ElasticSearch: now supports connecting to ElasticSearch via SSL.
-- Add graylog input pluging.
+- Add graylog input plugin.
 - Consul input plugin.
 - conntrack input plugin.
 - vmstat input plugin.

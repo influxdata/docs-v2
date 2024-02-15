@@ -52,6 +52,8 @@
               {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
               {{ if isset $altLinks $productKey }}
                 {{ $scratch.Set "link" (index $altLinks $productKey) }}
+              {{ else if gt (len $altProductPage.Title) 0 }}
+                {{ $scratch.Set "link" $altProductPage.RelPermalink }}
               {{ end }}
 
             {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
