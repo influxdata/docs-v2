@@ -1,0 +1,53 @@
+---
+title: Partitioning best practices
+description: >
+  Learn best practices for applying custom partition strategies to your data
+  stored in InfluxDB.
+menu:
+  influxdb_cloud_dedicated:
+    name: Best practices
+    parent: Manage data partitioning
+weight: 202
+---
+
+Use the following best practices when defining custom partitioning strategies
+for your data stored in {{< product-name >}}.
+
+- [Partition by tags that you commonly query for a specific value](#partition-by-tags-that-you-commonly-query-for-a-specific-value)
+- [Only partition by tags that _always_ have a value](#only-partition-by-tags-that-always-have-a-value)
+- [Avoid over-partitioning](#avoid-over-partitioning)
+
+## Partition by tags that you commonly query for a specific value
+
+Custom partitioning primarily benefits queries that look for a specific tag
+value in the `WHERE` clause. For example, if you often query data related to a
+specific ID, partitioning by the tag that stores the ID helps the InfluxDB
+query engine to more quickly identify what partitions contain the relevant data.
+
+{{% note %}}
+#### Be careful partitioning on high-cardinality tags
+
+Partitioning using tags with many (10K+) unique values can actually hurt
+query performance as partitions are created for each unique tag value.
+{{% /note %}}
+
+## Only partition by tags that _always_ have a value
+
+You should only partition by tags that _always_ have a value.
+If points don't have a value for the tag, InfluxDB can't store them in the correct partitions and, at query time, must read all the partitions.
+
+## Avoid over-partitioning
+
+As you plan your partitioning strategy, keep in mind that data can be
+"over-partitioned"--meaning partitions are so granular that queries end up
+having to retrieve and read many partitions from the object store, which
+hurts query performance.
+
+- Avoid using partition time intervals that are **less than one day**.
+
+  The partition time interval should be balanced with the actual amount of data
+  written during each interval. If a single interval doesn't contain a lot of data,
+  it is better to partition by larger time intervals.
+
+- Don't partition by tags that you typically don't use in your query workload.
+- [Be careful partitioning on high-cardinality tags](#be-careful-partitioning-on-high-cardinality-tags).

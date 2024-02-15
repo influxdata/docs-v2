@@ -5,16 +5,16 @@ description: >
   Customize your partitioning strategy to optimize query performance for your
   specific schema and workload.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb_clustered:
     parent: Administer InfluxDB Cloud
 weight: 103
-influxdb/cloud-dedicated/tags: [storage]
+influxdb/clustered/tags: [storage]
 related:
-  - /influxdb/cloud-dedicated/reference/internals/storage-engine/
+  - /influxdb/clustered/reference/internals/storage-engine/
 ---
 
 When writing data to {{< product-name >}}, the InfluxDB v3 storage engine stores
-data in the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store)
+data in the [Object store](/influxdb/clustered/reference/internals/storage-engine/#object-store)
 in [Apache Parquet](https://parquet.apache.org/) format.
 Each Parquet file represents a _partition_--a logical grouping of data.
 By default, InfluxDB partitions each table by day.
@@ -48,7 +48,7 @@ storage structure to improve query performance specific to your schema and workl
 ## Disadvantages
 
 Using custom partitioning may increase the load on other parts of the
-[InfluxDB v3 storage engine](/influxdb/cloud-dedicated/reference/internals/storage-engine/),
+[InfluxDB v3 storage engine](/influxdb/clustered/reference/internals/storage-engine/),
 but each can be scaled individually to address the added load.
 
 {{% note %}}
@@ -56,13 +56,13 @@ _The following disadvantages assume that your custom partitioning strategy inclu
 additional tags to partition by or partition intervals smaller than a day._
 {{% /note %}}
 
-- **Increased load on the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester)**
+- **Increased load on the [Ingester](/influxdb/clustered/reference/internals/storage-engine/#ingester)**
   as it groups data into smaller partitions and files.
-- **Increased load on the [Catalog](/influxdb/cloud-dedicated/reference/internals/storage-engine/#catalog)**
+- **Increased load on the [Catalog](/influxdb/clustered/reference/internals/storage-engine/#catalog)**
   as more references to partition Parquet file locations are stored and queried.
-- **Increased load on the [Compactor](/influxdb/cloud-dedicated/reference/internals/storage-engine/#compactor)**
+- **Increased load on the [Compactor](/influxdb/clustered/reference/internals/storage-engine/#compactor)**
   as more partition Parquet files need to be compacted.
-- **Increased costs associated with [Object storage](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-storage)**
+- **Increased costs associated with [Object storage](/influxdb/clustered/reference/internals/storage-engine/#object-storage)**
   as more partition Parquet files are created and stored.
 - **Risk of decreased performance for queries that don't use tags in the WHERE clause**.
   These queries may end up reading many partitions and smaller files, degrading performance.
@@ -85,7 +85,7 @@ and determines the time interval that data is partitioned by.
 Partition templates use tag values and
 [Rust strftime date and time formatting syntax](https://docs.rs/chrono/latest/chrono/format/strftime/index.html).
 
-_For more detailed information, see [Partition templates](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/)._
+_For more detailed information, see [Partition templates](/influxdb/clustered/admin/custom-partitions/partition-templates/)._
 
 ### Partition keys
 
@@ -252,8 +252,8 @@ production,line=B,station=2 temp=106.5,qty=43i 1704070800000000000
 
 When querying data:
 
-1.  The [Catalog](/influxdb/cloud-dedicated/reference/internals/storage-engine/#catalog)
-    provides the v3 query engine ([Querier](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier))
+1.  The [Catalog](/influxdb/clustered/reference/internals/storage-engine/#catalog)
+    provides the v3 query engine ([Querier](/influxdb/clustered/reference/internals/storage-engine/#querier))
     with the locations of partitions that contain the queried time series data.
 2.  The query engine reads all rows in the returned partitions to identify what
     rows match the logic in the query and should be included in the query result.
@@ -262,7 +262,7 @@ The faster the query engine can identify what partitions to read and then read
 the data in those partitions, the more performant queries are.
 
 _For more information about the query lifecycle, see
-[InfluxDB v3 query life cycle](/influxdb/cloud-dedicated/reference/internals/storage-engine/#query-life-cycle)._
+[InfluxDB v3 query life cycle](/influxdb/clustered/reference/internals/storage-engine/#query-life-cycle)._
 
 ##### Query example
 

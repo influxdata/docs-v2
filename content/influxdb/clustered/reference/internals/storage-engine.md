@@ -6,12 +6,12 @@ description: >
   and is optimized to reduce storage cost.
 weight: 103
 menu:
-  influxdb_cloud_dedicated:
+  influxdb_clustered:
     name: Storage engine architecture
     parent: InfluxDB internals
-influxdb/cloud-dedicated/tags: [storage, internals]
+influxdb/clustered/tags: [storage, internals]
 related:
-  - /influxdb/cloud-dedicated/admin/custom-partitions/
+  - /influxdb/clustered/admin/custom-partitions/
 ---
 
 The InfluxDB v3 storage engine is a real-time, columnar database optimized for
@@ -52,16 +52,16 @@ In this process, the Ingester does the following:
 
 - Queries the [Catalog](#catalog) to identify where data should be persisted and
   to ensure the schema of the line protocol is compatible with the
-  [schema](/influxdb/cloud-dedicated/reference/glossary/#schema) of persisted data.
-- Accepts or [rejects](/influxdb/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points)
-  points in the write request and generates a [response](/influxdb/cloud-dedicated/write-data/troubleshoot/).
+  [schema](/influxdb/clustered/reference/glossary/#schema) of persisted data.
+- Accepts or [rejects](/influxdb/clustered/write-data/troubleshoot/#troubleshoot-rejected-points)
+  points in the write request and generates a [response](/influxdb/clustered/write-data/troubleshoot/).
 - Processes line protocol and persists time series data to the
   [Object store](#object-store) in Apache Parquet format. Each Parquet file
   represents a _partition_--a logical grouping of data.
-- Makes [yet-to-be-persisted](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest)
+- Makes [yet-to-be-persisted](/influxdb/clustered/reference/internals/durability/#data-ingest)
   data available to [Queriers](#querier) to ensure leading edge data is included
   in query results.
-- Maintains a short-term [write-ahead log (WAL)](/influxdb/cloud-dedicated/reference/internals/durability/)
+- Maintains a short-term [write-ahead log (WAL)](/influxdb/clustered/reference/internals/durability/)
   to prevent data loss in case of a service interruption.
 
 ##### Ingester scaling strategies
@@ -85,7 +85,7 @@ At query time, the querier:
 2.  Queries the [Ingesters](#ingester) to:
 
     - ensure the schema assumed by the query plan matches the schema of written data
-    - include recently written, [yet-to-be-persisted](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest)
+    - include recently written, [yet-to-be-persisted](/influxdb/clustered/reference/internals/durability/#data-ingest)
       data in query results
 
 3.  Queries the [Catalog](#catalog) to find partitions in the [Object store](#object-store)
@@ -125,7 +125,7 @@ Most support [horizontal scaling](#horizontal-scaling) for redundancy and failov
 The Object store contains time series data in [Apache Parquet](https://parquet.apache.org/) format.
 Each Parquet file represents a partition.
 By default, InfluxDB partitions tables by day, but you can
-[customize the partitioning strategy](/influxdb/cloud-dedicated/admin/custom-partitions/).
+[customize the partitioning strategy](/influxdb/clustered/admin/custom-partitions/).
 Data in each Parquet file is sorted, encoded, and compressed.
 
 ##### Object store scaling strategies
