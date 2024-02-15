@@ -4,7 +4,7 @@
 {{ $EnterpriseLink := print "/enterprise_influxdb/v1/administration/config-data-nodes/#http-endpoint-settings" }}
 {{ $isInfluxDB := cond (gt (len (findRE `^/influxdb/|^/enterprise_influxdb/` .RelPermalink)) 0) true false }}
 {{ $isOSS := cond (in .RelPermalink "/influxdb/v") true false }}
-{{ $isCloud := cond (or (in .RelPermalink "/influxdb/cloud/") (in .RelPermalink "/influxdb/cloud-serverless/")) true false }}
+{{ $isCloud := cond (in .RelPermalink "/influxdb/cloud/") true false }}
 {{ $isServerless := cond (in .RelPermalink "/influxdb/cloud-serverless/") true false }}
 {{ $isDedicated := cond (in .RelPermalink "/influxdb/cloud-dedicated/") true false }}
 {{ $isClustered := cond (in .RelPermalink "/influxdb/clustered/") true false }}
@@ -15,6 +15,8 @@
   {{ .Scratch.Set "modalTitle" "What is your InfluxDB OSS URL?"}}
 {{ else if $isCloud }}
   {{ .Scratch.Set "modalTitle" "Select your InfluxDB Cloud region" }}
+{{ else if $isServerless }}
+  {{ .Scratch.Set "modalTitle" "Select your InfluxDB Cloud Serverless region" }}
 {{ else if $isDedicated }}
   {{ .Scratch.Set "modalTitle" "What is your InfluxDB Cloud Dedicated cluster URL?" }}
 {{ else if $isClustered }}
@@ -28,6 +30,8 @@
   {{ .Scratch.Set "modalMessage" "Customize your **InfluxDB Enterprise URL** and we'll update code examples for you." }}
 {{ else if $isCloud }}
   {{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud region and cluster** and we'll customize code examples for you. _[Identify your InfluxDB Cloud cluster](/influxdb/cloud/reference/regions/#regions-with-multiple-clusters)_." }}
+{{ else if $isServerless }}
+  {{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud Serverless region** and we'll customize code examples for you." }}
 {{ else if $isDedicated }}
   {{ .Scratch.Set "modalMessage" "Enter your **InfluxDB Cloud Dedicated cluster URL** and we'll update code examples for you." }}
 {{ else if $isClustered }}
@@ -143,6 +147,8 @@
       {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "formID" "cloud" "filterServerless" $isServerless }}
     {{ else if or $isOSS $isEnterprise }}
       {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss "formID" "oss" }}
+    {{ else if $isServerless }}
+      {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "formID" "serverless" "filterServerless" true }}
     {{ else if $isDedicated }}
       {{ template "productSpecificForm" dict "product" nil "formID" "dedicated" "placeholder" "cluster-id.influxdb.io" }}
     {{ else if $isClustered }}
