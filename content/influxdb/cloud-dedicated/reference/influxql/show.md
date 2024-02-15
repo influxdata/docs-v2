@@ -95,8 +95,8 @@ SHOW TAG VALUES [from_clause] WITH KEY = <tag-expression> [where_clause] [limit_
 ```
 
 By default, the `SHOW TAG VALUES` statement only returns unique tag values from
-**the last day**. To modify the time range, include a `WHERE` clause with a
-time-based predicate.
+**the last day**. To modify the time range, include a
+[`WHERE` clause with a time-based predicate](/influxdb/cloud-dedicated/reference/influxql/where/#time-ranges).
 
 {{% note %}}
 
