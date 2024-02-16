@@ -12,6 +12,25 @@ weight: 202
 canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 ---
 
+## v2.4.4 {date="2024-02-16"}
+
+### Bug fixes
+
+- Introduced trace HTTP debug CLI option.
+- Added custom gRPC error message handling to gRPC experience.
+
+### Dependency updates
+
+- Update to go1.22.0.
+- Update `github.com/apache/arrow/go/v14` v14.0.2 to v15.0.0.
+- Update `github.com/google/uuid` from 1.5.0 to 1.6.0.
+- Update `github.com/jedib0t/go-pretty/v6` from 6.5.3 to 6.5.4.
+- Update `golang.org/x/mod from` 0.14.0 to 0.15.0.
+- Update `golang.org/x/oauth2` from 0.16.0 to 0.17.0.
+- Update `google.golang.org/grpc` from 1.60.1 to 1.61.0.
+
+---
+
 ## v2.4.3 {date="2024-01-17"}
 
 ### Bug fixes
@@ -22,7 +41,7 @@ canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 
 ### Dependency updates
 
-- Update to go1.21.6
+- Update to go1.21.6.
 - Update `github.com/apache/arrow/go/v14` from 14.0.1 to 14.0.2.
 - Update `github.com/cloudflare/circl` from 1.3.6 to 1.3.7.
 - Update `github.com/jedib0t/go-pretty/v6` from 6.4.9 to 6.5.3.
@@ -31,6 +50,8 @@ canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 - Update `golang.org/x/oauth2` from 0.15.0 to 0.16.0.
 - Update `google.golang.org/grpc` from 1.60.0 to 1.60.1.
 - Update `google.golang.org/protobuf` from 1.31.0 to 1.32.0.
+
+---
 
 ## v2.4.2 {date="2023-12-18"}
 
