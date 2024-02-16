@@ -1,7 +1,7 @@
 ---
 title: Use your new InfluxDB cluster
 description: >
-  ...
+  Now that your InfluxDB cluster is deployed, you can use and test and it.
 menu:
   influxdb_clustered:
     name: Use your cluster
