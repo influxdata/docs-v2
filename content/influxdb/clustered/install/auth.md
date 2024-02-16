@@ -1,7 +1,7 @@
 ---
 title: Set up administrative authentication
 description: >
-  ...
+  Manage administrative access to your InfluxDB cluster through your identity provider.
 menu:
   influxdb_clustered:
     name: Set up authentication
