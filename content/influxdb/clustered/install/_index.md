@@ -1,7 +1,7 @@
 ---
 title: Install InfluxDB Clustered
 description: >
-  ...
+  Use Kubernetes to deploy and manage InfluxDB Clustered.
 menu: influxdb_clustered
 weight: 2
 ---
