@@ -94,17 +94,39 @@ Use the `SHOW TAG VALUES` statement to list values of specified tags in a databa
 SHOW TAG VALUES [from_clause] WITH KEY = <tag-expression> [where_clause] [limit_clause] [offset_clause]
 ```
 
+By default, the `SHOW TAG VALUES` statement only returns unique tag values from
+**the last day**. To modify the time range, include a
+[`WHERE` clause with a time-based predicate](/influxdb/cloud-dedicated/reference/influxql/where/#time-ranges).
+
+{{% note %}}
+
+#### Include a FROM clause
+
+We strongly recommend including a `FROM` clause with the `SHOW TAG VALUES`
+statement that specifies 1-50 tables to query.
+Without a `FROM` clause, the InfluxDB query engine must read data from all
+tables and return unique tag values from each.
+
+Depending on the number of tables in your database and the number of unique tag
+values in each table, excluding a `FROM` clause can result in poor query performance,
+query timeouts, or unnecessary resource allocation that may affect other queries.
+
+{{% /note %}}
+
 #### Examples
 
 ```sql
--- Show all tag values across all measurements for the region tag
-SHOW TAG VALUES WITH KEY = "region"
-
 -- Show tag values from the cpu measurement for the region tag
 SHOW TAG VALUES FROM "cpu" WITH KEY = "region"
 
--- Show tag values across all measurements for all tag keys that do not include the letter c
-SHOW TAG VALUES WITH KEY !~ /.*c.*/
+-- Show tag values from the cpu measurement for the region tag for a custom time range
+SHOW TAG VALUES FROM "cpu" WITH KEY = "region" WHERE time > -7d
+
+-- Show tag values from multiple measurements for the region tag
+SHOW TAG VALUES FROM "cpu", "memory", "disk" WITH KEY = "region"
+
+-- Show tag values from the cpu measurement for all tag keys that do not include the letter c
+SHOW TAG VALUES FROM "cpu" WITH KEY !~ /.*c.*/
 
 -- Show tag values from the cpu measurement for region & host tag keys where service = 'redis'
 SHOW TAG VALUES FROM "cpu" WITH KEY IN ("region", "host") WHERE "service" = 'redis'

@@ -33,7 +33,7 @@ Learn how to avoid unexpected results and recover from errors when writing to {{
   2. If successful, attempts to [ingest data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](#review-http-status-codes).
   3. Ingests or rejects the entire batch and returns one of the following HTTP status codes:
 
-     - `204 No Content`: data is ingested and queryable
+     - `204 No Content`: some or all of the data is ingested and queryable
      - `400 Bad Request`: all data is rejected
 
      If points are rejected, the `204` or `400` response body contains error details about [rejected points](#troubleshoot-rejected-points), up to 100 points.
