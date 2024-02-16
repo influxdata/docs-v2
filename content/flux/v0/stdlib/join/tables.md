@@ -208,7 +208,7 @@ join.tables(
 The next example is nearly identical to the [previous example](#perform-a-left-outer-join),
 but uses the `right` join method. With this method, `r` is guaranteed to not be a default
 record, but `l` may be a default record. Because `l` is more likely to contain null values,
-the output record is built almost entirely from proprties of `r`, with the exception of
+the output record is built almost entirely from properties of `r`, with the exception of
 `v_left`, which we expect to sometimes be null.
 
 ```js

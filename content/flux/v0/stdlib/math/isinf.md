@@ -50,7 +50,7 @@ is the value used in the evaluation.
 
 ### sign
 ({{< req >}})
-is the sign used in the eveluation.
+is the sign used in the evaluation.
 
 
 

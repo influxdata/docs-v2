@@ -5,7 +5,7 @@ description: >
   The aggregate event handler allows you to aggregate alerts messages over a specified interval. This page includes aggregate options and usage examples.
 menu:
   kapacitor_v1:
-    name: Aggregrate
+    name: Aggregate
     weight: 100
     parent: Event handlers
 aliases:

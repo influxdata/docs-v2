@@ -647,7 +647,7 @@ Filter expression for resetting the INFO alert level to lower level.
 alert.infoReset(value ast.LambdaNode)
 
 // Example
-alert.infoReset(lamda: 'usage_idle' > 60)
+alert.infoReset(lambda: 'usage_idle' > 60)
 ```
 
 ### Inhibit

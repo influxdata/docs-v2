@@ -83,7 +83,7 @@ cpu:cpu=cpu3,host=localhost      OK       cpu:cpu=cpu3,host=localhost is OK     
 ```
 
 {{% note %}}
-If the error message `unkown topic: "cpu"` is returned, please be aware,
+If the error message `unknown topic: "cpu"` is returned, please be aware,
 that topics are created only when needed, as such if the task has not triggered an alert yet, the topic will not exist.
 If this error about the topic not existing is returned, then, try and cause an alert to be triggered.
 Either change the thresholds on the task or create some cpu load.

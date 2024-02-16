@@ -535,7 +535,7 @@ In Example 19 above, the `float` conversion function is used to ensure that the 
 
 <!-- issue 1244 -->
 
-When writing floating point values in messages, or to InfluxDB, it might be helpful to specify the decimal precision in order to make the values more readable or better comparable.  For example, in the `messsage()` method of an `alert` node it is possible to "pipe" a value to a `printf` statement.
+When writing floating point values in messages, or to InfluxDB, it might be helpful to specify the decimal precision in order to make the values more readable or better comparable.  For example, in the `message()` method of an `alert` node it is possible to "pipe" a value to a `printf` statement.
 
 ```js
 |alert()

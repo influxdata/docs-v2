@@ -54,7 +54,7 @@ When enabled, results include a table with the following columns:
 - **TotalDuration**: total query duration in nanoseconds.
 - **CompileDuration**: number of nanoseconds spent compiling the query.
 - **QueueDuration**: number of nanoseconds spent queueing.
-- **RequeueDuration**: number fo nanoseconds spent requeueing.
+- **RequeueDuration**: number of nanoseconds spent requeueing.
 - **PlanDuration**: number of nanoseconds spent planning the query.
 - **ExecuteDuration**: number of nanoseconds spent executing the query.
 - **Concurrency**: number of goroutines allocated to process the query.

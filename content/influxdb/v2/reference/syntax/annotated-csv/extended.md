@@ -245,7 +245,7 @@ Append **uinteger separators** to the `long` datatype annotation with a colon (`
 For example:
 
 ```
-#datatype "usignedLong:.,"
+#datatype "unsignedLong:.,"
 ```
 
 {{% note %}}

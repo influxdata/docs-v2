@@ -450,7 +450,7 @@ The `Combine` and `Flatten` nodes previously operated (erroneously) across batch
 - Force tar owner/group to be `root`.
 - Fixed install/remove of Kapacitor on non-systemd Debian/Ubuntu systems.
 - Fixed packaging to not enable services on RHEL systems.
-- Fixed issues with recusive symlinks on systemd systems.
+- Fixed issues with recursive symlinks on systemd systems.
 - Fixed invalid default MQTT config.
 
 ---
