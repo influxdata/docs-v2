@@ -1,12 +1,36 @@
-// Show the url feature callout on page load
-if ( Cookies.get('influxdb_url_selector_seen') != 'true' ) {
-  $('#callout-url-selector').fadeIn(300).removeClass('start-position')
+/*
+  This feature is designed to callout new features added to the documentation
+  CSS is required for the callout bubble to determine look and position, but the
+  element must have the `callout` class and a unique id.
+  Callouts are treated as notifications and use the notification cookie API in
+  assets/js/cookies.js.
+*/
+
+// Get notification ID
+function getCalloutID (el) {
+  return $(el).attr('id');
 }
 
-// Set feature cookie when the button is clicked
-$('button.url-trigger, #callout-url-selector .close').click(function() {
-  if ( Cookies.get('influxdb_url_selector_seen') != 'true') {
-    Cookies.set('influxdb_url_selector_seen', 'true')
-    $('#callout-url-selector').fadeOut(200)
+// Hide a callout and update the cookie with the viewed callout
+function hideCallout (calloutID) {
+  if (!notificationIsRead(calloutID)) {
+    setNotificationAsRead(calloutID, 'callout');
+    $(`#${calloutID}`).fadeOut(200);
   }
-})
+}
+
+// Show the url feature callouts on page load
+$('.feature-callout').each(function () {
+  calloutID = calloutID($(this));
+
+  if (!notificationIsRead(calloutID, 'callout')) {
+    $(`#${calloutID}.feature-callout`)
+      .fadeIn(300)
+      .removeClass('start-position');
+  }
+});
+
+// Hide the InfluxDB URL selector callout
+// $('button.url-trigger, #influxdb-url-selector .close').click(function () {
+//   hideCallout('influxdb-url-selector');
+// });

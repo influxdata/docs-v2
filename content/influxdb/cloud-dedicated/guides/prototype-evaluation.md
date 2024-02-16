@@ -110,7 +110,7 @@ platform for InfluxDB Cloud Dedicated.
 For writing data, InfluxDB Cloud Dedicated and InfluxDB Cloud Serverless both
 support the v1 API and the v2 write API.
 
-In addition, [InfluxDB v3 client libraries](/influxdb/reference/client-libraries/v3/)
+In addition, [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
 are available that work the same for both InfluxDB Cloud Serverless and InfluxDB
 Cloud Dedicated and help avoid any API differences between the two platforms.
 For more detailed information about choosing a client library, see the

@@ -36,6 +36,7 @@ list_code_example: |
 Use InfluxQL `SHOW` statements to return information about your data schema.
 
 {{% note %}}
+
 #### Sample data
 
 The following examples use data provided in [sample data sets](/influxdb/cloud-serverless/reference/sample-data/).
@@ -54,7 +55,6 @@ bucket.
   - [List tag values for multiple tags](#list-tag-values-for-multiple-tags)
   - [List tag values for tags that match a regular expression](#list-tag-values-for-tags-that-match-a-regular-expression)
   - [List tag values associated with a specific tag key-value pair](#list-tag-values-associated-with-a-specific-tag-key-value-pair)
-
 
 ## List measurements in a bucket
 
@@ -224,21 +224,29 @@ name: home_actions
 Use [`SHOW TAG VALUES`](/influxdb/cloud-serverless/reference/influxql/show/#show-field-values)
 to return all values for specific tags in a measurement.
 
-- Include a `FROM` clause to specify the measurement.
-  If no measurement is specified, the query returns all tag values from the
-  specified tag keys in the bucket.
+- Include a `FROM` clause to specify one or more measurements to query.
 - Use the `WITH` clause to compare `KEY` to tag keys to list the values of.
-- Use the `WHERE` clause to restrict the search to a specific time range (default time range is the current time minus 1 day).
-
-{{% note %}}
- [Tag and field values aren't indexed in {{% product-name %}}](/influxdb/cloud-serverless/write-data/best-practices/schema-design/#tags-versus-fields) - `SHOW TAG VALUES` scans all tag values within the given time range.
-Because `SHOW TAG VALUES` can be an intensive operation, it has a default time range equal to the current time minus 1 day.
-To query more or less data, specify a time range in the `WHERE` clause.
-{{% /note %}}
+- Use the `WHERE` clause to restrict the search to a specific time range
+  (default time range is the last day).
 
 ```sql
 SHOW TAG VALUES FROM weather WITH KEY = location
 ```
+
+{{% note %}}
+
+#### Include a FROM clause
+
+We strongly recommend including a `FROM` clause with the `SHOW TAG VALUES`
+statement that specifies 1-50 tables to query.
+Without a `FROM` clause, the InfluxDB query engine must read data from all
+tables and return unique tag values from each.
+
+Depending on the number of tables in your database and the number of unique tag
+values in each table, excluding a `FROM` clause can result in poor query performance,
+query timeouts, or unnecessary resource allocation that may affect other queries.
+
+{{% /note %}}
 
 {{< expand-wrapper >}}
 {{% expand "View example output" "5" %}}
@@ -289,7 +297,7 @@ regular expression comparison operators in your `WITH` clause to compare `KEY`
 to the regular expression.
 
 ```sql
-SHOW TAG VALUES WITH KEY =~ /oo/
+SHOW TAG VALUES FROM home, home_actions WITH KEY =~ /oo/
 ```
 
 {{< expand-wrapper >}}
@@ -327,7 +335,7 @@ The following example returns tag values for the `action` and `level` tags for
 points where the `room` tag value is `Kitchen`.
 
 ```sql
-SHOW TAG VALUES WITH KEY IN ("action", "level") WHERE room = 'Kitchen'
+SHOW TAG VALUES FROM home_actions WITH KEY IN ("action", "level") WHERE room = 'Kitchen'
 ```
 
 {{< expand-wrapper >}}

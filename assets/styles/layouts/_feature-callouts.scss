@@ -1,7 +1,6 @@
 .feature-callout {
   padding: .5rem .5rem .5rem .75rem;
-  @include gradient($grad-DesertFestival)
-  border-radius: $radius;
+  @include gradient($grad-DesertFestival) border-radius: $radius;
   font-size: .95rem;
   font-style: italic;
   font-weight: $medium;
@@ -16,6 +15,7 @@
   p {
     position: relative;
     margin: 0;
+
     &:after {
       content: "";
       position: absolute;
@@ -23,6 +23,7 @@
       height: 0;
       border-style: solid;
     }
+
     &:hover {
       cursor: default;
     }
@@ -47,41 +48,43 @@
       color: rgba($g20-white, .9);
     }
   }
-}
 
-#callout-url-selector {
-  position: absolute;
-  top: 3rem;
-  right: .75rem;
+  & #influxdb-url-selector {
+    position: absolute;
+    top: 3rem;
+    right: .75rem;
 
-  p:after {
-    top: -1rem;
-    right: 1.85rem;
-    border-width: 0 7px 8px 7px;
-    border-color: transparent transparent #CB39C4 transparent;
-  }
+    p:after {
+      top: -1rem;
+      right: 1.85rem;
+      border-width: 0 7px 8px 7px;
+      border-color: transparent transparent #CB39C4 transparent;
+    }
 
-  &.start-position {
-    margin-top: 2.5rem
+    &.start-position {
+      margin-top: 2.5rem
+    }
   }
 }
 
 ///////////////////////////////// Media Queries ////////////////////////////////
 
 @include media(small) {
-  #callout-url-selector {
-    top: .55rem;
-    right: 5.15rem;
+  .feature-callout {
+    &#influxdb-url-selector {
+      top: .55rem;
+      right: 5.15rem;
 
-    p:after {
-      top: .15rem;
-      right: -16px;
-      border-width: 7px 0 7px 8px;
-      border-color: transparent transparent transparent #C231D9;
-    }
+      p:after {
+        top: .15rem;
+        right: -16px;
+        border-width: 7px 0 7px 8px;
+        border-color: transparent transparent transparent #C231D9;
+      }
 
-    &.start-position {
-      margin-top: 2.5rem
+      &.start-position {
+        margin-top: 2.5rem
+      }
     }
   }
 }
