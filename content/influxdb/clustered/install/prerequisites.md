@@ -1,7 +1,9 @@
 ---
 title: Set up prerequisites
 description: >
-  ...
+  InfluxDB Clustered requires prerequisites such as a Kubernetes cluster, object storage,
+  a PostgreSQL-compatitble database and more. Learn how to set up and configure the
+  necessary prerequisites.
 menu:
   influxdb_clustered:
     name: Prerequisites
