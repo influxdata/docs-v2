@@ -50,6 +50,7 @@ influxctl [flags] [command]
 |      | `--cluster` | Override cluster ID value in configuration file            |
 |      | `--config`  | Path to configuration file to use                          |
 |      | `--profile` | Specify a connection profile to use (default is `default`) |
+|      | `--trace`   | Enable more verbose debug logging                          |
 | `-h` | `--help`    | Show help                                                  |
 
 ---
@@ -64,6 +65,7 @@ influxctl [flags] [command]
 {{% /tabs %}}
 
 <!---------------------------- BEGIN MACOS CONTENT ---------------------------->
+
 {{% tab-content %}}
 
 Use one of the following options to download and install `influxctl` on macOS:
@@ -74,8 +76,8 @@ Use one of the following options to download and install `influxctl` on macOS:
 ### Use Homebrew to install influxctl
 
 1.  Use `brew tap` to add the `influxdata/tap` repository to the list of
-    formulae that Homebrew tracks, updates, and installs from: 
-    
+    formulae that Homebrew tracks, updates, and installs from:
+
     ```sh
     brew tap influxdata/tap
     ```
@@ -135,9 +137,11 @@ Use one of the following options to download and install `influxctl` on macOS:
     connection credentials for your cluster.
 
 {{% /tab-content %}}
+
 <!----------------------------- END MACOS CONTENT ----------------------------->
 
 <!---------------------------- BEGIN LINUX CONTENT ---------------------------->
+
 {{% tab-content %}}
 
 To download the Linux `influxctl` package, do one of the following:
@@ -153,6 +157,7 @@ To download the Linux `influxctl` package, do one of the following:
 [Red Hat & CentOS (.rpm)](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
 ```sh
 # influxdata-archive_compat.key GPG fingerprint:
 #     9D53 9D90 D332 8DC7 D6C8 D3B9 D8FF 8E1F 7DF8 B07E
@@ -162,8 +167,10 @@ echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https
 
 sudo apt-get update && sudo apt-get install influxctl
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```sh
 # influxdata-archive_compat.key GPG fingerprint:
 #     9D53 9D90 D332 8DC7 D6C8 D3B9 D8FF 8E1F 7DF8 B07E
@@ -178,6 +185,7 @@ EOF
 
 sudo yum install influxctl
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -225,9 +233,11 @@ sudo yum install influxctl
     connection credentials for your cluster.
 
 {{% /tab-content %}}
+
 <!----------------------------- END LINUX CONTENT ----------------------------->
 
 <!--------------------------- BEGIN WINDOWS CONTENT --------------------------->
+
 {{% tab-content %}}
 
 1.  **Download the `influxctl` CLI package**.
@@ -261,7 +271,9 @@ sudo yum install influxctl
     connection credentials for your cluster.
 
 {{% /tab-content %}}
+
 <!---------------------------- END WINDOWS CONTENT ---------------------------->
+
 {{< /tabs-wrapper >}}
 
 ---
@@ -287,6 +299,7 @@ If stored at a non-default location, include the `--config` flag with each
 {{% expand "View sample `config.toml`" %}}
 
 {{% code-placeholders "(PROFILE|ACCOUNT|CLUSTER)_(NAME|ID)" %}}
+
 ```toml
 ## influxctl - example configuration
 
@@ -335,6 +348,7 @@ If stored at a non-default location, include the `--config` flag with each
         # device_url = "https://indentityprovider/oauth2/v2/auth/device"
 
 ```
+
 {{% /code-placeholders %}}
 
 Replace the following values in the sample:
