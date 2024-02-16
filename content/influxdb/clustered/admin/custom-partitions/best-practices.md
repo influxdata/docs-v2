@@ -30,6 +30,7 @@ query engine to more quickly identify what partitions contain the relevant data.
 
 Partitioning using tags with many (10K+) unique values can actually hurt
 query performance as partitions are created for each unique tag value.
+
 {{% /note %}}
 
 ## Only partition by tags that _always_ have a value

@@ -49,14 +49,14 @@ _View [partition template part restrictions](/influxdb/cloud-dedicated/admin/cus
 ## Create a database with a custom partition template
 
 The following example creates a new `example-db` database and applies a partition
-template that partitions by two tags (`room` and `sensor-type`) and by hour using
-the time format `%Y-%m-%d %H:00`:
+template that partitions by two tags (`room` and `sensor-type`) and by week using
+the time format `%Y wk:%U`:
 
 ```sh
 influxctl database create \
   --template-tag room \
   --template-tag sensor-type \
-  --template-time '%Y-%m-%d %H:00' \
+  --template-time '%Y wk:%U' \
   example-db
 ```
 
@@ -89,7 +89,6 @@ prod,line=A,station=weld1 temp=81.9,qty=36i 1704067200000000000
 | By day (non-default)    |                   | `%d %b %Y` | 01 Jan 2024              |
 | By week                 |                   | `%Y wk:%W` | 2024 wk:01               |
 | By month                |                   | `%Y-%m`    | 2024-01                  |
-| By hour                 |                   | `%F %H:00` | 2024-01-01 00:00         |
 | Single tag, by day      | `line`            | `%F`       | A \| 2024-01-01          |
 | Single tag, by week     | `line`            | `%Y wk:%W` | A \| 2024 wk:01          |
 | Single tag, by month    | `line`            | `%Y-%m`    | A \| 2024-01             |
