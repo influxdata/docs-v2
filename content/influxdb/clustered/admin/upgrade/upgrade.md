@@ -11,8 +11,8 @@ Whilst Clustered is in its Alpha/Beta stage, you have been granted credentials t
 the domain, please reach out to your InfluxData sales representative for Clustered or use the appropriate communication channel with us.
 
 
-As Clustered is managed through Kubernetes using an operator and `CustomResourceDefinition`, an `AppInstance`, this means that upgrades to the product are simple. It also has the
-advantage that configuration is managed through code and files, there are no manual steps.
+As Clustered is managed through Kubernetes using an operator and a `CustomResourceDefinition`, an `AppInstance`, this means that upgrades to the product are simple. It also has the
+advantage that configuration is managed through code and files, so it can be version controlled.
 
 Clustered is versioned using a `YYYYMMDD-BUILD_NUMBER` format, such as `20240214-863513`.
 
