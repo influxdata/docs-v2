@@ -7,9 +7,7 @@ menu:
     parent: Administer InfluxDB Clustered
 ---
 
-Whilst Clustered is in its Alpha/Beta stage, you have been granted credentials to our website which hosts Clustered releases. If you have forgotten your credentials or lost
-the domain, please reach out to your InfluxData sales representative for Clustered or use the appropriate communication channel with us.
-
+Whilst Clustered is in its alpha and beta stage, you have been granted credentials to `oci.influxdata.com` which hosts our Clustered releases. If you have forgotten your credentials, please reach out to your InfluxData sales representative for Clustered or use the appropriate communication channel with us.
 
 As Clustered is managed through Kubernetes using an operator and a `CustomResourceDefinition`, an `AppInstance`, this means that upgrades to the product are simple. It also has the advantage that configuration is managed through code and files, so it can be version controlled.
 

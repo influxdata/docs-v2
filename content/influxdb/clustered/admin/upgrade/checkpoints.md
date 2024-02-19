@@ -8,7 +8,7 @@ menu:
 ---
 
 A "checkpoint release" of Clustered is a specific release where a breaking change has been made to one of the contained components, such as the IOx storage engine.
-These are clearly labelled on our releases page.
+These are clearly labelled on `oci.influxdata.com`.
 
 Care must be taken with checkpoint releases to ensure that you do not upgrade **past** a checkpoint, you must first upgrade **to** the checkpoint.
 
