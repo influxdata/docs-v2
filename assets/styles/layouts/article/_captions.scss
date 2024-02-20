@@ -1,15 +1,17 @@
 .caption {
-  margin: -2rem 0 2rem;
+  margin: -1.8rem 0 2rem;
   padding-left: .25rem;
   font-size: .95rem;
   font-style: italic;
-  opacity: .8;
-  color: $article-text;
 
-  p { line-height: 1.25rem; }
+  p {
+    line-height: 1.25rem;
+    color: rgba($article-text, .8);
+  }
+  code { font-size: .9rem; }
 }
 
-p {
+p, li {
   & + .caption {
     padding: 0;
     margin: -.75rem 0 0;
