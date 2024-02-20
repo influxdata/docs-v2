@@ -81,13 +81,13 @@ To find the user IDs with Keycloak, use the Keycloak Admin Console or the Keyclo
 ##### Keycloak Admin Console
 
 1. In the Keycloak Admin Console, navigate to your realm
-2. Select **Users** in the left naviation.
+2. Select **Users** in the left navigation.
 3. Select the user you want to find the ID for.
 4. Select the **Details** tab. The user ID is listed here.
 
 ##### Keycloak REST API
 
-With the Keycloak REST API, send a GET request to the `/users` endpoint to fetch
+Send a GET request to the Keycloak REST API `/users` endpoint to fetch
 the ID of a specific user. Provide the following:
 
 - **Query parameters**
@@ -102,17 +102,17 @@ curl https://KEYCLOAK_HOST/auth/admin/realms/KEYCLOAK_REALM/users?username=KEYCL
 Replace the following:
 
 - {{% code-placeholder-key %}}`KEYCLOAK_HOST`{{% /code-placeholder-key %}}:
-  Keycloak host and port (`host:port`)
+  the Keycloak host and port (`host:port`)
 - {{% code-placeholder-key %}}`KEYCLOAK_REALM`{{% /code-placeholder-key %}}:
-  Keycloak realm
+  the Keycloak realm
 - {{% code-placeholder-key %}}`KEYCLOAK_USERNAME`{{% /code-placeholder-key %}}:
-  Keycloak username to retrieve
+  the Keycloak username to retrieve
 
 ---
 
 ### Configure InfluxDB Clustered to use Keycloak
 
-Use the following command to return a JSON object with the OpenID configuration
+Run the following command to retrieve a JSON object that contains the OpenID configuration
 of your Keycloak realm:
 
 {{% code-placeholders "KEYCLOAK_(HOST|REALM)" %}}
@@ -220,25 +220,25 @@ in the Microsoft Azure documentation.
 For Microsoft Entra ID, the unique user ID is the Microsoft ObjectId (OID).
 To download a list of user OIDs:
 
-1.  In the **Microsoft Azure Portal**, select **Users** in the left-navigation.
+1.  In the **Microsoft Azure Portal**, select **Users** in the left navigation.
 2.  Select users you want OIDs for.
 3.  Click the **Download Users**
 4.  Open the downloaded CSV file. User OIDs are in the `id` column.
 
 ### Register a new application with device code flow enabled
 
-1.  In the **Microsoft Azure Portal**, select **App Registrations** in the left-navigation.
+1.  In the **Microsoft Azure Portal**, select **App Registrations** in the left navigation.
 2.  Click **New Registration** and enter a name for a new application to handle
     authentication requests.
 3.  Click **Register Application**. _Copy and store your **Application (Client) ID**_.
-4.  In your registered application, click the **Authentication** in the left-navigation.
+4.  In your registered application, click **Authentication** in the left navigation.
 5.  Under **Advanced Settings**, set **Allow public client flows** to **Yes**.
     This enables the use of the [device code flow](https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-device-code)
     for logging in to your InfluxDB cluster.
 
 ### Configure InfluxDB Clustered to use Microsoft Entra ID
 
-Use the following command to return a JSON object with the OpenID configuration
+Use the following command to retrieve a JSON object that contains the OpenID configuration
 of your Microsoft Entra tenant:
 
 {{% code-placeholders "AZURE_TENANT_ID" %}}
@@ -305,7 +305,8 @@ perform administrative actions such as creating databases or database tokens.
 All `influxctl` commands are first authorized using your identity provider.
 Update your [`influxctl` configuration file](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles)
 to connect to your identity provider.
-Below are example configurations:
+
+The following examples show how to configure `influxctl` for various identity providers:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}

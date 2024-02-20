@@ -1,7 +1,7 @@
 ---
 title: Configure your InfluxDB cluster
 description: >
-  InfluxDB Clustered deployments are managed with Kubernetes and configured using
+  InfluxDB Clustered deployments are managed using Kubernetes and configured using
   a YAML configuration file.
 menu:
   influxdb_clustered:
@@ -10,29 +10,28 @@ menu:
 weight: 103
 ---
 
-InfluxDB Clustered deployments are managed with Kubernetes and configured using
+InfluxDB Clustered deployments are managed using Kubernetes and configured using
 a YAML configuration file. InfluxData provides the following items:
 
-- **`influxdb-docker-config.json`**: Authenticated Docker configuration file.
+- **`influxdb-docker-config.json`**: an authenticated Docker configuration file.
   The InfluxDB Clustered software is in a secure container registry.
   This file grants access to the collection of container images required to
   install InfluxDB Clustered.
-- **A tar-ball that contains**:
+- **A tarball that contains the following files**:
   - **`app-instance-schema.json`**: Defines the schema for `example-customer.yml`
     to be used with [Visual Studio Code (VS Code)](https://code.visualstudio.com/).
   - **`example-customer.yml`**: Configuration for your InfluxDB cluster that includes
     information about [prerequisites](/influxdb/clustered/install/prerequisites/).
 
     {{% note %}}
-This documentation refers to a `myinfluxdb.yml` file.
-This is a copy of the `example-customer.yml` edited for your InfluxDB cluster.
+This documentation refers to a `myinfluxdb.yml` file that you copy from `example-customer.yml` and edit for your InfluxDB cluster.
     {{% /note %}}
 
 ## Configuration data
 
 When ready to install InfluxDB, have the following information available:
 
-- **InfluxDB cluster hostname**: hostname Kubernetes uses to expose InfluxDB API endpoints
+- **InfluxDB cluster hostname**: the hostname Kubernetes uses to expose InfluxDB API endpoints
 - **PostgreSQL-style data source name (DSN)**: used to access your
   PostgreSQL-compatible database that stores the InfluxDB Catalog.
 - **Object store credentials** _(AWS S3 or S3-compatible)_
@@ -51,19 +50,19 @@ When ready to install InfluxDB, have the following information available:
 
 InfluxDB is deployed to a Kubernetes namespace which, throughout the following
 installation procedure, is referred to as the _target_ namespace.
-For simplicity, we assume this namespace is named `influxdb`, however
-you're free to use any name you like.
+For simplicity, we assume this namespace is `influxdb`, however
+you may use any name you like.
 
 The InfluxDB installation, update, and upgrade processes are driven by editing
 and applying a [Kubernetes custom resource (CRD)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 called `AppInstance`.
 The `AppInstance` CRD is defined in a YAML file (use `example-customer.yml` as a
-starting point) that contains key information, such as:
+template) that contains key information, such as:
 
 - Name of the target namespace
 - Version of the InfluxDB package
 - Reference to the InfluxDB container registry pull secrets
-- Hostname on which the InfluxDB API is exposed
+- Hostname where the InfluxDB API is exposed
 - Parameters to connect to [external prerequisites](/influxdb/clustered/install/prerequisites/)
 
 ## Configure your cluster
@@ -77,7 +76,7 @@ starting point) that contains key information, such as:
 
 ### Create a cluster configuration file
 
-Use the provided `example-customer.yml` file to create a new configuration file
+Copy the provided `example-customer.yml` file to create a new configuration file
 specific to your InfluxDB cluster. For example, `myinfluxdb.yml`. 
 
 ```sh
@@ -87,11 +86,9 @@ cp example-customer.yml myinfluxdb.yml
 {{% note %}}
 #### Use VS Code to edit your configuration file
 
-We recommend using VS Code to edit your `myinfluxdb.yml` configuration file because
-of its ability to associate a JSON Schema and help with autocompletion and validation.
-This ensures the best experience when editing your InfluxDB configuration.
-InfluxData provides `app-instance-schema.json` to use with VS Code and correctly
-validate configuration settings.
+We recommend using [Visual Studio Code (VS Code)](https://code.visualstudio.com/) to edit your `myinfluxdb.yml` configuration file due
+to its JSON Schema support, autocompletion, and validation features that ensure the best experience when editing your InfluxDB configuration.
+InfluxData provides an `app-instance-schema.json` JSON schema file that VS Code can use to validate your configuration settings.
 {{% /note %}}
 
 ### Create a namespace for InfluxDB
@@ -109,7 +106,7 @@ field in your `myinfluxdb.yml` to use your custom namespace name.
 
 The [`kubecfg kubit` operator](https://github.com/kubecfg/kubit) (maintained by InfluxData)
 simplifies the installation and management of the InfluxDB Clustered package.
-It manages the application of the jsonnet templates uses to install, manage, and
+It manages the application of the jsonnet templates used to install, manage, and
 update an InfluxDB cluster.
 
 Use `kubectl` to install the [kubecfg kubit](https://github.com/kubecfg/kubit) operator.
@@ -131,8 +128,8 @@ There are two main scenarios:
 - You run in an environment with no network interfaces ("air-gapped") and you
   can only access a private container registry.
 
-In both cases you need a valid container registry secret file.
-Use [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane). 
+In both scenarios, you need a valid container registry secret file.
+Use [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane) to create a container registry secret file. 
 
 1.  [Install crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
 2.  Use the following command to create a container registry secret file and
@@ -156,8 +153,8 @@ with your InfluxDB Clustered package version.
 ---
 
 If your Docker configuration is valid and you’re able to connect to the container
-registry, that command will succeed and return the JSON manifest of that Docker
-image, which looks similar to:
+registry, the command succeeds and the output is the JSON manifest for the Docker
+image, similar to the following:
 
 {{< expand-wrapper >}}
 {{% expand "View JSON manifest" %}}
@@ -186,8 +183,7 @@ image, which looks similar to:
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-If there’s a problem with the Docker configuration, you will not be able to
-retrieve the manifest, and the command returns an error. For example:
+If there’s a problem with the Docker configuration, crane won't retrieve the manifest and the output is similar to the following error:
 
 ```sh
 Error: fetching manifest us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:<package-version>: GET https://us-docker.pkg.dev/v2/token?scope=repository%3Ainfluxdb2-artifacts%2Fclustered%2Finfluxdb%3Apull&service=: DENIED: Permission "artifactregistry.repositories.downloadArtifacts" denied on resource "projects/influxdb2-artifacts/locations/us/repositories/clustered" (or it may not exist)
@@ -195,14 +191,14 @@ Error: fetching manifest us-docker.pkg.dev/influxdb2-artifacts/clustered/influxd
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[Public registry (non air-gapped)](#)
+[Public registry (non-air-gapped)](#)
 [Private registry (air-gapped)](#)
 {{% /tabs %}}
 
 {{% tab-content %}}
 <!--------------------------- BEGIN Public Registry --------------------------->
 
-#### Public registry (non air-gapped)
+#### Public registry (non-air-gapped)
 
 To pull from the InfluxData registry, you need to create a Kubernetes secret in the target namespace.
 
@@ -212,7 +208,10 @@ kubectl create secret docker-registry gar-docker-secret \
   --namespace influxdb
 ```
 
-You should see `secret/gar-docker-secret created` in response to this command.
+If successful, the output is the following:
+
+```text
+secret/gar-docker-secret created
 
 By default, this secret is named `gar-docker-secret`.
 If you change the name of this secret, you must also change the value of the
@@ -225,8 +224,8 @@ If you change the name of this secret, you must also change the value of the
 
 #### Private registry (air-gapped)
 
-If your Kubernetes cluster doesn't have the ability to download container images
-from our container registry over the public network, do the following:
+If your Kubernetes cluster can't use a public network to download container images
+from our container registry, do the following:
 
 1.  Copy the images from the InfluxDB registry to your own private registry.
 2.  Configure your `AppInstance` resource with a reference to your private
@@ -246,7 +245,7 @@ crane config \
 ```
 {{% /code-placeholders %}}
 
-This command produces a list of image names, similar to:
+The output is a list of image names, similar to the following:
 
 ```
 us-docker.pkg.dev/influxdb2-artifacts/idpe/idpe-cd-ioxauth@sha256:5f015a7f28a816df706b66d59cb9d6f087d24614f485610619f0e3a808a73864
@@ -265,13 +264,15 @@ Use `crane` to copy the images to your private registry:
 ---
 
 Replace {{% code-placeholder-key %}}`REGISTRY_HOSTNAME`{{% /code-placeholder-key %}}
-with the hostname of your private registry. For example: `myregistry.mydomain.io`.
+with the hostname of your private registry--for example:
+
+```text
+myregistry.mydomain.io
 
 ---
 
-To tell InfluxDB where your private registry is, set the
-`.spec.package.spec.images.registryOverride` field in `myinfluxdb.yml`.
-For example:
+Set the
+`.spec.package.spec.images.registryOverride` field in `myinfluxdb.yml` to the location of your private registry--for example:
 
 {{% code-placeholders "REGISTRY_HOSTNAME" %}}
 ```yml
@@ -292,9 +293,9 @@ spec:
 
 ### Set up cluster ingress
 
-Provide your own [Kubernetes ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
-or install the [Nginx Ingress Controller](https://github.com/kubernetes/ingress-nginx)
-to use the InfluxDB-defined ingress.
+ [Kubernetes ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) routes HTTP/S requests to services within the cluster and requires deploying an [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/).
+
+You can provide your own ingress or you can install [Nginx Ingress Controller](https://github.com/kubernetes/ingress-nginx) to use the InfluxDB-defined ingress.
 
 If using the InfluxDB-defined ingress, add a valid TLS Certificate to the
 cluster as a secret. Provide the paths to the TLS certificate file and key file:
@@ -350,7 +351,7 @@ To configure ingress, provide values for the following fields in your
   distinct paths for your internal and external traffic._
   
   {{% note %}}
-Your are responsible for configuring and managing DNS. Options include:
+You are responsible for configuring and managing DNS. Options include:
 
 - Manually managing DNS records
 - Using [external-dns](https://github.com/kubernetes-sigs/external-dns) to
@@ -361,7 +362,7 @@ Your are responsible for configuring and managing DNS. Options include:
   
   Provide the name of the secret that
   [contains your TLS certificate and key](#set-up-cluster-ingress).
-  The examples above and below use the name, `ingress-tls`.
+  The examples in this guide use the name `ingress-tls`.
 
   _The `tlsSecretName` field is optional. You may want to use it if you already have a TLS certificate for your DNS name._
 
@@ -369,7 +370,7 @@ Your are responsible for configuring and managing DNS. Options include:
 {{% expand "Use cert-manager and Let's Encrypt to manage TLS certificates" %}}
 
 If you instead want to automatically create an [ACME](https://datatracker.ietf.org/doc/html/rfc8555)
-certificate (e.g. with [Let's Encrypt](https://letsencrypt.org/)), refer
+certificate (for example, using [Let's Encrypt](https://letsencrypt.org/)), refer
 to the [cert-manager documentation](https://cert-manager.io/docs/usage/ingress/)
 for more details on how to annotate the `Ingress` resource produced by the
 InfluxDB installer operator. The operator lets you to add annotations
@@ -464,7 +465,7 @@ To connect your InfluxDB cluster to your PostgreSQL-compatible database,
 provide values for the following fields in your `myinfluxdb.yml` configuration file:
 
 {{% note %}}
-We recommend storing sensitive credentials like your PostgreSQL-compatible DSN
+We recommend storing sensitive credentials, such as your PostgreSQL-compatible DSN,
 as secrets in your Kubernetes cluster.
 {{% /note %}}
 
@@ -481,7 +482,7 @@ spec:
   package:
     spec:
       catalog:
-        # A postgresql style DSN that points at a postgresql compatible database.
+        # A postgresql style DSN that points to a postgresql compatible database.
         # postgres://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]
         dsn:
           valueFrom:
@@ -524,7 +525,7 @@ following fields in your `myinfluxdb.yml` configuration file:
 
 - `spec.package.spec.ingesterStorage`
   - `.storageClassName`: [Kubernetes storage class](https://kubernetes.io/docs/concepts/storage/storage-classes/).
-    This will differ based on the Kubernetes environment and desired storage characteristics.
+    This differs based on the Kubernetes environment and desired storage characteristics.
   - `storage`: Storage size. We recommend a minimum of 2 gibibytes (`2Gi`).
 
 {{% code-placeholders "STORAGE_(CLASS|SIZE)" %}}
@@ -681,28 +682,28 @@ Replace the following:
 
 ##### Adding users
 
-Finally, you will need to add all the users you wish to have access to use influxctl.
+Finally, add all the users you wish to have access to use `influxctl`.
 Update the `spec.package.spec.admin.users` field with a list of these users.
-See [Adding or removing users](/repalce/this) for more details.
+See [Adding or removing users](/influxdb/clustered/admin/users/) for more details.
 
 
 #### Configure the size of your cluster
 
-By default, the each InfluxDB cluster is configured with the following:
+By default, an InfluxDB cluster is configured with the following:
 
-- **3 ingesters**  
+- **3 ingesters**:  
   Ensures redundancy on the write path.
-- **1 compactor**  
+- **1 compactor**:  
   While you can have multiple compactors, it is more efficient to scale the
   compactor vertically (assign more CPU and memory) rather than horizontally
   (increase the number of compactors).
-- **1 querier**  
-  The number of queriers depends on the number of concurrent queries you are
+- **1 querier**:  
+  The optimal number of queriers depends on the number of concurrent queries you are
   likely to have and how long they take to execute.
 
-This is a good starting point for testing.
+The default values provide a good starting point for testing.
 Once you have your cluster up and running and are looking for scaling recommendations,
-please [reach out to InfluxData](https://support.influxdata.com).
+please [contact the InfluxData Support team](https://support.influxdata.com).
 We are happy to work with you to identify appropriate scale settings based on
 your anticipated workload.
 

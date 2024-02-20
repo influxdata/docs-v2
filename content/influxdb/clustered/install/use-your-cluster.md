@@ -1,7 +1,7 @@
 ---
 title: Use your new InfluxDB cluster
 description: >
-  Now that your InfluxDB cluster is deployed, you can use and test and it.
+  Use and test your deployed InfluxDB cluster.
 menu:
   influxdb_clustered:
     name: Use your cluster
@@ -9,9 +9,10 @@ menu:
 weight: 105
 ---
 
-Now that your InfluxDB cluster is deployed, you can use and test and it.
-The best way to test your InfluxDB cluster to is walk through the
-[Get started with InfluxDB clustered guide](/influxdb/clustered/get-started/setup/).
+Now that your InfluxDB cluster is deployed, you can use and test it.
+Use the
+[Get started with InfluxDB clustered guide](/influxdb/clustered/get-started/setup/)
+to test your new InfluxDB cluster.
 
 <a class="btn" href="/influxdb/clustered/get-started/setup/">Get started with InfluxDB Clustered</a>
 

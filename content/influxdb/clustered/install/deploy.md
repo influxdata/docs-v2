@@ -86,7 +86,7 @@ for tool dependencies, meaning the required versions are tracked by `kubit`.
 
 ## Check deployment status
 
-Kubernetes deployments do take time to complete. To check on the status of a
+Kubernetes deployments take some time to complete. To check on the status of a
 deployment, use the `kubectl get` command:
 
 {{% note %}}
@@ -104,15 +104,14 @@ kubectl get \
   --output yaml | yq -P .status.conditions
 ```
 
-The `status` field contains two useful fields:
+The `status` field in the output contains two useful fields:
 
 - `conditions`: Summary of the current state of the deployment
 - `lastLogs`: Verbose logs of deployment stages
 
-For example, if you have incorrect container registry credentials:
+For example, if you have incorrect container registry credentials, the output is similar to the following:
 
-```sh
-$ kubectl get --filename myinfluxdb.yml --output yaml | yq -P .status.conditions
+```yaml
 - lastTransitionTime: "2023-08-18T12:53:54Z"
   message: ""
   observedGeneration: null
@@ -137,7 +136,7 @@ the deployed pods:
 kubectl get pods --namespace influxdb
 ```
 
-This command should return a collection of pods similar to:
+This command returns a collection of pods similar to the following:
 
 ```
 NAMESPACE     NAME                                      READY   STATUS      RESTARTS       AGE

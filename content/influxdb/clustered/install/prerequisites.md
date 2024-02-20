@@ -30,18 +30,17 @@ InfluxDB Clustered requires the following prerequisites:
 
 1.  Deploy a Kubernetes cluster. You must Kubernetes v1.25 or higher.
 2.  Create two namespaces--`influxdb` and `kubit`.
-3.  Install an Ingress controller in the cluster and a mechanism to obtain a
+3.  Install an [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) in the cluster and a mechanism to obtain a
     valid TLS certificate (for example: [cert-manager](https://cert-manager.io/)
-    or provide the certificate PEM manually out of band). InfluxDB Clustered
-    currently supports [Ingress NGINX](https://github.com/kubernetes/ingress-nginx),
-    but others may work.
-4.  Ensure your Kubernetes cluster can access to the InfluxDB container registry,
+    or provide the certificate PEM manually out of band).
+    To use the InfluxDB-specific ingress controller, install [Ingress NGINX](https://github.com/kubernetes/ingress-nginx).
+4.  Ensure your Kubernetes cluster can access the InfluxDB container registry,
     or, if running in an air-gapped environment, a local container registry to
-    which you will need to copy the InfluxDB images.
+    which you can copy the InfluxDB images.
 
 {{% note %}}
 It is strongly recommended that you run the PostgreSQL-compatible database
-(that stores the InfluxDB Catalog) and the Object Store (that stores InfluxDB parquet files)
+(that stores the InfluxDB Catalog) and the Object Store (that stores InfluxDB Parquet files)
 in a separate namespace from InfluxDB or external to Kubernetes entirely.
 
 Running the Catalog database and Object Store in a separate namespace or outside
@@ -52,10 +51,10 @@ prevents accidental data loss.
 ### Cluster sizing recommendation
 
 For a [medium-size workload](https://www.influxdata.com/resources/influxdb-3-0-vs-oss/),
-InfluxData has tested the InfluxDB Clustered using the following AWS products
+InfluxData has tested InfluxDB Clustered using the following AWS products
 and sizing:
 
-- S3 for object store (size is determined by how much data you write)
+- S3 for the object store (size is determined by how much data you write)
 - Aurora Postgresql - serverless v2 scaling configuration (2-64 ACUs)
 - EC2 instances - primarily m6i.2xlarge (8 CPU, 32GB RAM)
   - 3 m6i.2xlarge instances for ingesters and routers (with minimum of 2Gi of local storage)
@@ -77,7 +76,7 @@ InfluxDB requires access to an OAuth2 authentication service to authenticate use
 InfluxDB Clustered requires that the OAuth2 service supports
 [Device Authorization Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/device-authorization-flow).
 InfluxData has tested with [Microsoft Entra ID _(formerly Azure Active Directory)_](https://www.microsoft.com/en-us/security/business/microsoft-entra), [Keycloak](https://www.keycloak.org/), and
-[Auth0](https://auth0.com/), but the any OAuth2 provider should work.
+[Auth0](https://auth0.com/), but any OAuth2 provider should work.
 To access the OAuth2 server, InfluxDB requires the following OAuth2 connection credentials:
 
   - Client ID
@@ -95,7 +94,7 @@ the following:
 
 ## Configure object storage permissions
 
-Ensure the identity you're using to connect to your S3-compatible object store has the correct
+Ensure the identity you use to connect to your S3-compatible object store has the correct
 permissions to allow InfluxDB to perform all the actions it needs to.
 
 {{< expand-wrapper >}}
