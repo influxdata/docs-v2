@@ -198,9 +198,9 @@ For Microsoft Entra ID, the unique user ID is the Microsoft ObjectId (OID).
 To download a list of user OIDs:
 
 1.  In the **Microsoft Azure Portal**, select **Users** in the left navigation.
-2.  Select users you want OIDs for.
-3.  Click the **Download Users**
-4.  Open the downloaded CSV file. User OIDs are in the `id` column.
+2.  Select users you want OIDs for and click **Download Users**.
+
+In the downloaded CSV file, user OIDs are provided in the `id` column.
 
 ### Register a new application with device code flow enabled
 
