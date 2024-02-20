@@ -25,17 +25,22 @@ InfluxDB Clustered requires that your OAuth2 identity provider supports
 InfluxData has tested with the following identity providers:
 
 - [Keycloak](https://www.keycloak.org/)
-- [Auth0](https://auth0.com/)
 - [Microsoft Entra ID _(formerly Azure Active Directory)_](https://www.microsoft.com/en-us/security/business/microsoft-entra)
+- [Auth0](https://auth0.com/)
+
+Setup instructions are provided for the following:
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [Keycloak](#)
-[Auth0](#)
 [Microsoft Entra ID](#)
+
+<!-- [Auth0](#) -->
+
 {{% /tabs %}}
 
 {{% tab-content %}}
+
 <!------------------------------- BEGIN Keycloak ------------------------------>
 
 ## Keycloak
@@ -63,10 +68,10 @@ in the Keycloak documentation.
     3.  _Optional:_ Enter a **Name** and **Description** for the client.
     4.  Click **Next**.
 
-4.  In the **Capability** configuration step, enable the
+3.  In the **Capability** configuration step, enable the
     **OAuth 2.0 Device Authorization Grant** authentication flow, and then click
     **Next**.
-5.  In the **Login settings** step, you don’t need to change anything.
+4.  In the **Login settings** step, you don’t need to change anything.
     Click **Save**.
 
 ### Create users
@@ -94,9 +99,11 @@ the ID of a specific user. Provide the following:
   - **username**: Username to retrieve information about
 
 {{% code-placeholders "KEYCLOAK_(HOST|REALM|USERNAME)" %}}
+
 ```sh
 curl https://KEYCLOAK_HOST/auth/admin/realms/KEYCLOAK_REALM/users?username=KEYCLOAK_USERNAME
 ```
+
 {{% /code-placeholders %}}
 
 Replace the following:
@@ -116,43 +123,35 @@ Run the following command to retrieve a JSON object that contains the OpenID con
 of your Keycloak realm:
 
 {{% code-placeholders "KEYCLOAK_(HOST|REALM)" %}}
+
 ```sh
 curl https://KEYCLOAK_HOST/realms/KEYCLOAK_REALM/.well-known/openid-configuration
 ```
+
 {{% /code-placeholders %}}
 
 {{< expand-wrapper >}}
 {{% expand "View example response body" %}}
 
 {{% code-placeholders "KEYCLOAK_(HOST|REALM)" %}}
+
 ```json
 {
-    "issuer": "https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM",
-    "authorization_endpoint": "https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/auth",
-    "token_endpoint": "https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/token",
-    "device_authorization_endpoint": "https://KEYCLOAK_HOST/realms/KEYCLOAK_REALM/protocol/openid-connect/auth/device",
-    "userinfo_endpoint": "https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/userinfo",
-    "end_session_endpoint": "https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/logout",
-    "jwks_uri": "https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/certs",
-    "grant_types_supported": [
-        "authorization_code",
-        "refresh_token",
-        "password"
-    ],
-    "response_types_supported": [
-        "code"
-    ],
-    "subject_types_supported": [
-        "public"
-    ],
-    "id_token_signing_alg_values_supported": [
-        "RS256"
-    ],
-    "response_modes_supported": [
-        "query"
-    ]
+  "issuer": "https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM",
+  "authorization_endpoint": "https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/auth",
+  "token_endpoint": "https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/token",
+  "device_authorization_endpoint": "https://KEYCLOAK_HOST/realms/KEYCLOAK_REALM/protocol/openid-connect/auth/device",
+  "userinfo_endpoint": "https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/userinfo",
+  "end_session_endpoint": "https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/logout",
+  "jwks_uri": "https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/certs",
+  "grant_types_supported": ["authorization_code", "refresh_token", "password"],
+  "response_types_supported": ["code"],
+  "subject_types_supported": ["public"],
+  "id_token_signing_alg_values_supported": ["RS256"],
+  "response_modes_supported": ["query"]
 }
 ```
+
 {{% /code-placeholders %}}
 
 {{% /expand %}}
@@ -161,38 +160,16 @@ curl https://KEYCLOAK_HOST/realms/KEYCLOAK_REALM/.well-known/openid-configuratio
 The following are important fields in the JSON object that are necessary to
 connect your InfluxDB cluster and administrative tools to Keycloak:
 
-- **jwks\_uri**: Used in your InfluxDB cluster configuration file.
+- **jwks_uri**: Used in your InfluxDB cluster configuration file.
   _See [Configure your cluster--Configure your OAuth2 provider](/influxdb/clustered/install/configure-cluster/#configure-your-oauth2-provider)_.
-- **device\_authorization\_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.device_url`)
-- **token\_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.token_url`)
+- **device_authorization_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.device_url`)
+- **token_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.token_url`)
 
 <!-------------------------------- END Keycloak ------------------------------->
+
 {{% /tab-content %}}
 {{% tab-content %}}
-<!-------------------------------- BEGIN Auth0 -------------------------------->
 
-## Auth0
-
-{{% note %}}
-Auth0 instructions are coming soon.
-{{% /note %}}
-
-<!-- To use Auth0 as your identity provider:
-
-1. [Create a Keycloak realm](#create-a-keycloak-realm)
-2. [Create a Keycloak client with device flow enabled](#create-a-keycloak-client-with-device-flow-enabled)
-3. [Create users that need administrative access to your InfluxDB cluster](#create-users)
-
-### Find user IDs with Auth0
-
-For Auth0, you can find the user ID through the web UI.
-Log in to your tenant and navigate to User Management.
-From there, search for the user.
-Once found, the user ID can be found at the top of the page under the user's name. -->
-
-<!--------------------------------- END Auth0 --------------------------------->
-{{% /tab-content %}}
-{{% tab-content %}}
 <!--------------------------- BEGIN Microsoft Entra --------------------------->
 
 ## Microsoft Entra ID
@@ -242,9 +219,11 @@ Use the following command to retrieve a JSON object that contains the OpenID con
 of your Microsoft Entra tenant:
 
 {{% code-placeholders "AZURE_TENANT_ID" %}}
+
 ```sh
 curl https://login.microsoftonline.com/AZURE_TENANT_ID/v2.0/.well-known/openid-configuration
 ```
+
 {{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`AZURE_TENANT_ID`{{% /code-placeholder-key %}}
@@ -254,6 +233,7 @@ with your [Microsoft Entra tenant ID](#create-a-new-tenant-in-microsoft-entra-id
 {{% expand "View example response body" %}}
 
 {{% code-placeholders "AZURE_TENANT_ID" %}}
+
 ```js
 {
     "issuer": "https://login.microsoftonline.com/AZURE_TENANT_ID/oauth2/v2.0/",
@@ -281,6 +261,7 @@ with your [Microsoft Entra tenant ID](#create-a-new-tenant-in-microsoft-entra-id
     ]
 }
 ```
+
 {{% /code-placeholders %}}
 
 {{% /expand %}}
@@ -289,13 +270,21 @@ with your [Microsoft Entra tenant ID](#create-a-new-tenant-in-microsoft-entra-id
 The following are important fields in the JSON object that are necessary to
 connect your InfluxDB cluster and administrative tools to Keycloak:
 
-- **jwks\_uri**: Used in your InfluxDB cluster configuration file.
+- **jwks_uri**: Used in your InfluxDB cluster configuration file.
   _See [Configure your cluster--Configure your OAuth2 provider](/influxdb/clustered/install/configure-cluster/?t=Microsoft+Entra+ID#configure-your-oauth2-provider)_.
-- **device\_authorization\_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.device_url`)
-- **token\_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.token_url`)
+- **device_authorization_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.device_url`)
+- **token_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.token_url`)
 
 <!---------------------------- END Microsoft Entra ---------------------------->
+
 {{% /tab-content %}}
+
+<!-- {{% tab-content %}} -->
+<!-------------------------------- BEGIN Auth0 -------------------------------->
+<!-- ## Auth0 -->
+<!-- TODO: Auth0 set up instructions -->
+<!-- {{% /tab-content %}} -->
+
 {{< /tabs-wrapper >}}
 
 ## Configure influxctl
@@ -315,9 +304,11 @@ The following examples show how to configure `influxctl` for various identity pr
 [Microsoft Entra ID](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
 <!------------------------------- BEGIN Keycloak ------------------------------>
 
 {{% code-placeholders "KEYCLOAK_(CLIENT_ID|PORT|REALM)" %}}
+
 ```toml
 [[profile]]
     name = "default"
@@ -327,17 +318,21 @@ The following examples show how to configure `influxctl` for various identity pr
 
     [profile.auth.oauth2]
         client_id = "KEYCLOAK_CLIENT_ID"
-        device_url = "https://KEYCLOAK_HOST/realms/KEYCLOAK_REALM/protocol/openid-connect/auth/device" 
+        device_url = "https://KEYCLOAK_HOST/realms/KEYCLOAK_REALM/protocol/openid-connect/auth/device"
         token_url = "https://KEYCLOAK_HOST/realms/KEYCLOAK_REALM/protocol/openid-connect/token"
 ```
+
 {{% /code-placeholders %}}
 
 <!-------------------------------- END Keycloak ------------------------------->
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 <!-------------------------------- BEGIN Auth0 -------------------------------->
 
 {{% code-placeholders "AUTH0_(CLIENT_)*(ID|SECRET|HOST)" %}}
+
 ```toml
 [[profile]]
     name = "default"
@@ -348,17 +343,21 @@ The following examples show how to configure `influxctl` for various identity pr
     [profile.auth.oauth2]
         client_id = "AUTH0_CLIENT_ID"
         client_secret = "AUTH0_CLIENT_SECRET"
-        device_url = "https://AUTH0_HOST/oauth/device/code" 
+        device_url = "https://AUTH0_HOST/oauth/device/code"
         token_url = "https://AUTH0_HOST/oauth/token"
 ```
+
 {{% /code-placeholders %}}
 
 <!--------------------------------- END Auth0 --------------------------------->
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 <!--------------------------- BEGIN Microsoft Entra --------------------------->
 
 {{% code-placeholders "AZURE_(CLIENT|TENANT)_ID" %}}
+
 ```toml
 [[profile]]
     name = "default"
@@ -369,14 +368,15 @@ The following examples show how to configure `influxctl` for various identity pr
     [profile.auth.oauth2]
         client_id = "AZURE_CLIENT_ID"
         scopes = ["AZURE_CLIENT_ID/.default"]
-        device_url = "https://login.microsoftonline.com/AZURE_TENANT_ID/oauth2/v2.0/devicecode" 
+        device_url = "https://login.microsoftonline.com/AZURE_TENANT_ID/oauth2/v2.0/devicecode"
         token_url = "https://login.microsoftonline.com/AZURE_TENANT_ID/oauth2/v2.0/token"
 ```
+
 {{% /code-placeholders %}}
 
 <!---------------------------- END Microsoft Entra ---------------------------->
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
 
 {{< page-nav prev="/influxdb/clustered/install/prerequisites/" next="/influxdb/clustered/install/configure-cluster/" nextText="Configure your cluster" >}}
