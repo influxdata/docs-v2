@@ -680,7 +680,7 @@ SortExec: expr=[state@2 ASC,city@1 ASC,time@3 ASC,__chunk_order@0 ASC]
 ```
 
 The node uses the specified expression `state ASC, city ASC, time ASC, __chunk_order ASC` to sort the yet-to-be-persisted data.
-Neither ParquetExec_A nor ParquetExec_B contain a similar node because data in the Object store is already sorted (by the Compactor) in the given order; the query plan only needs to sort data that arrives from the Ingester.
+Neither ParquetExec_A nor ParquetExec_B contains a `SortExec` node because data in the Object store is already sorted in the given order; the query plan only needs to sort data that arrives from the Ingester.
 
 #### Recognize overlapping and duplicate data
 
@@ -696,7 +696,7 @@ DeduplicateExec: [state@2 ASC,city@1 ASC,time@3 ASC]
 
 {{% caption %}}Overlapped data node structure{{% /caption %}}
 
-1. `UnionExec`: unions separate streams without merging them.
+1. `UnionExec`: unions multiple streams of input data by concatenating the partitions. `UnionExec` doesn't do any merging and is fast to execute.
 2. `SortPreservingMergeExec: [state@2 ASC,city@1 ASC,time@3 ASC,__chunk_order@0 ASC]`: merges already sorted data; indicates that preceding data (from nodes below it) is already sorted. The output data is a single sorted stream.
 3. `DeduplicateExec: [state@2 ASC,city@1 ASC,time@3 ASC]`: deduplicates an input stream of sorted data.
   Because `SortPreservingMergeExec` ensures a single sorted stream, it often, but not always, precedes `DeduplicateExec`.
