@@ -221,7 +221,7 @@ The following steps summarize the [physical plan execution and data flow](#physi
     Each `ParquetExec` node reads data sequentially from each file in its file group, and then outputs a stream of data to its corresponding `SortExec` node.
 2. The `SortExec` nodes, in parallel, sort the data by `city` (ascending) and `time` (descending).
 3. The `UnionExec` node unions the output of the parallel `SortExec` nodes.
-4. The `SortPreservingMergeExec` node sorts and merges the `UnionExec` output.
+4. The `SortPreservingMergeExec` node merges the sorted and unioned data from the `UnionExec` output.
 
 ## Analyze a query plan for leading edge data
 
