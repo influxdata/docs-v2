@@ -8,6 +8,8 @@ menu:
     name: Configure your cluster
     parent: Install InfluxDB Clustered
 weight: 103
+related:
+  - /influxdb/clustered/admin/upgrade/
 ---
 
 InfluxDB Clustered deployments are managed using Kubernetes and configured using
@@ -18,13 +20,16 @@ a YAML configuration file. InfluxData provides the following items:
   This file grants access to the collection of container images required to
   install InfluxDB Clustered.
 - **A tarball that contains the following files**:
+
   - **`app-instance-schema.json`**: Defines the schema for `example-customer.yml`
     to be used with [Visual Studio Code (VS Code)](https://code.visualstudio.com/).
   - **`example-customer.yml`**: Configuration for your InfluxDB cluster that includes
     information about [prerequisites](/influxdb/clustered/install/prerequisites/).
 
     {{% note %}}
+
 This documentation refers to a `myinfluxdb.yml` file that you copy from `example-customer.yml` and edit for your InfluxDB cluster.
+
     {{% /note %}}
 
 ## Configuration data
@@ -77,13 +82,14 @@ template) that contains key information, such as:
 ### Create a cluster configuration file
 
 Copy the provided `example-customer.yml` file to create a new configuration file
-specific to your InfluxDB cluster. For example, `myinfluxdb.yml`. 
+specific to your InfluxDB cluster. For example, `myinfluxdb.yml`.
 
 ```sh
 cp example-customer.yml myinfluxdb.yml
 ```
 
 {{% note %}}
+
 #### Use VS Code to edit your configuration file
 
 We recommend using [Visual Studio Code (VS Code)](https://code.visualstudio.com/) to edit your `myinfluxdb.yml` configuration file due
@@ -129,13 +135,14 @@ There are two main scenarios:
   can only access a private container registry.
 
 In both scenarios, you need a valid container registry secret file.
-Use [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane) to create a container registry secret file. 
+Use [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane) to create a container registry secret file.
 
 1.  [Install crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
 2.  Use the following command to create a container registry secret file and
     retrieve the necessary secrets:
 
 {{% code-placeholders "PACKAGE_VERSION" %}}
+
 ```sh
 mkdir /tmp/influxdbsecret
 cp influxdb-docker-config.json /tmp/influxdbsecret/config.json
@@ -143,6 +150,7 @@ DOCKER_CONFIG=/tmp/influxdbsecret \
   crane manifest \
   us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:PACKAGE_VERSION
 ```
+
 {{% /code-placeholders %}}
 
 ---
@@ -158,28 +166,30 @@ image, similar to the following:
 
 {{< expand-wrapper >}}
 {{% expand "View JSON manifest" %}}
+
 ```json
 {
-    "schemaVersion": 2,
-    "config": {
-        "mediaType": "application/vnd.kubecfg.bundle.config.v1+json",
-        "digest": "sha256:6900d2f248e678176c68f3768e7e48958bb96a59232070ff31b3b018cf299aa7",
-        "size": 8598
-    },
-    "layers": [
-        {
-            "mediaType": "application/vnd.kubecfg.bundle.tar+gzip",
-            "digest": "sha256:7c1d62e76287035a9b22b2c155f328fae9beff2c6aa7a09a2dd2697539f41d98",
-            "size": 404059
-        }
-    ],
-    "annotations": {
-        "org.opencontainers.image.created": "1970-01-01T00:00:00Z",
-        "org.opencontainers.image.revision": "unknown",
-        "org.opencontainers.image.source": "kubecfg pack"
+  "schemaVersion": 2,
+  "config": {
+    "mediaType": "application/vnd.kubecfg.bundle.config.v1+json",
+    "digest": "sha256:6900d2f248e678176c68f3768e7e48958bb96a59232070ff31b3b018cf299aa7",
+    "size": 8598
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.kubecfg.bundle.tar+gzip",
+      "digest": "sha256:7c1d62e76287035a9b22b2c155f328fae9beff2c6aa7a09a2dd2697539f41d98",
+      "size": 404059
     }
+  ],
+  "annotations": {
+    "org.opencontainers.image.created": "1970-01-01T00:00:00Z",
+    "org.opencontainers.image.revision": "unknown",
+    "org.opencontainers.image.source": "kubecfg pack"
+  }
 }
 ```
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
@@ -196,6 +206,7 @@ Error: fetching manifest us-docker.pkg.dev/influxdb2-artifacts/clustered/influxd
 {{% /tabs %}}
 
 {{% tab-content %}}
+
 <!--------------------------- BEGIN Public Registry --------------------------->
 
 #### Public registry (non-air-gapped)
@@ -212,14 +223,17 @@ If successful, the output is the following:
 
 ```text
 secret/gar-docker-secret created
+```
 
 By default, this secret is named `gar-docker-secret`.
 If you change the name of this secret, you must also change the value of the
 `imagePullSecret` field in the `AppInstance` custom resource to match.
 
 <!---------------------------- END Public Registry ---------------------------->
+
 {{% /tab-content %}}
 {{% tab-content %}}
+
 <!--------------------------- BEGIN Private Registry -------------------------->
 
 #### Private registry (air-gapped)
@@ -236,6 +250,7 @@ The list of images that you need to copy is included in the package metadata.
 You can obtain it with any standard OCI image inspection tool. For example:
 
 {{% code-placeholders "PACKAGE_VERSION" %}}
+
 ```sh
 DOCKER_CONFIG=/tmp/influxdbsecret \
 crane config \
@@ -243,6 +258,7 @@ crane config \
   | jq -r '.metadata["oci.image.list"].images[]' \
   > /tmp/images.txt
 ```
+
 {{% /code-placeholders %}}
 
 The output is a list of image names, similar to the following:
@@ -256,9 +272,11 @@ us-docker.pkg.dev/influxdb2-artifacts/iox/iox@sha256:b59d80add235f29b806badf7410
 Use `crane` to copy the images to your private registry:
 
 {{% code-placeholders "REGISTRY_HOSTNAME" %}}
+
 ```sh
 </tmp/images.txt xargs -I% crane cp % REGISTRY_HOSTNAME/%
 ```
+
 {{% /code-placeholders %}}
 
 ---
@@ -268,6 +286,7 @@ with the hostname of your private registry--for example:
 
 ```text
 myregistry.mydomain.io
+```
 
 ---
 
@@ -275,25 +294,28 @@ Set the
 `.spec.package.spec.images.registryOverride` field in `myinfluxdb.yml` to the location of your private registry--for example:
 
 {{% code-placeholders "REGISTRY_HOSTNAME" %}}
+
 ```yml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
-...
+---
 spec:
   package:
     spec:
       images:
         registryOverride: REGISTRY_HOSTNAME
 ```
+
 {{% /code-placeholders %}}
 
 <!---------------------------- END Private Registry --------------------------->
+
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 ### Set up cluster ingress
 
- [Kubernetes ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) routes HTTP/S requests to services within the cluster and requires deploying an [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/).
+[Kubernetes ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) routes HTTP/S requests to services within the cluster and requires deploying an [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/).
 
 You can provide your own ingress or you can install [Nginx Ingress Controller](https://github.com/kubernetes/ingress-nginx) to use the InfluxDB-defined ingress.
 
@@ -301,12 +323,14 @@ If using the InfluxDB-defined ingress, add a valid TLS Certificate to the
 cluster as a secret. Provide the paths to the TLS certificate file and key file:
 
 {{% code-placeholders "TLS_(CERT|KEY)_PATH" %}}
+
 ```sh
 kubectl create secret tls ingress-tls \
   --namespace influxdb \
   --cert TLS_CERT_PATH \
   --key TLS_KEY_PATH
 ```
+
 {{% /code-placeholders %}}
 
 ---
@@ -341,7 +365,7 @@ To configure ingress, provide values for the following fields in your
 `myinfluxdb.yml` configuration file:
 
 - **`spec.package.spec.ingress.hosts`: Cluster hostnames**
-  
+
   Provide the hostnames that Kubernetes should
   use to expose the InfluxDB API endpoints.
   For example: `{{< influxdb/host >}}`.
@@ -349,9 +373,9 @@ To configure ingress, provide values for the following fields in your
   _You can provide multiple hostnames. The ingress layer accepts incoming
   requests for all listed hostnames. This can be useful if you want to have
   distinct paths for your internal and external traffic._
-  
+
   {{% note %}}
-You are responsible for configuring and managing DNS. Options include:
+  You are responsible for configuring and managing DNS. Options include:
 
 - Manually managing DNS records
 - Using [external-dns](https://github.com/kubernetes-sigs/external-dns) to
@@ -359,7 +383,7 @@ You are responsible for configuring and managing DNS. Options include:
   {{% /note %}}
 
 - **`spec.package.spec.ingress.tlsSecretName`: TLS certificate secret name**
-  
+
   Provide the name of the secret that
   [contains your TLS certificate and key](#set-up-cluster-ingress).
   The examples in this guide use the name `ingress-tls`.
@@ -367,7 +391,7 @@ You are responsible for configuring and managing DNS. Options include:
   _The `tlsSecretName` field is optional. You may want to use it if you already have a TLS certificate for your DNS name._
 
   {{< expand-wrapper >}}
-{{% expand "Use cert-manager and Let's Encrypt to manage TLS certificates" %}}
+  {{% expand "Use cert-manager and Let's Encrypt to manage TLS certificates" %}}
 
 If you instead want to automatically create an [ACME](https://datatracker.ietf.org/doc/html/rfc8555)
 certificate (for example, using [Let's Encrypt](https://letsencrypt.org/)), refer
@@ -383,21 +407,22 @@ If you choose to use cert-manager, it's your responsibility to install and confi
 {{< /expand-wrapper >}}
 
 {{% code-callout "ingress-tls|cluster-host\.com" "green" %}}
+
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
-...
+---
 spec:
   package:
     spec:
-...
-      ingress:
-        hosts: 
-          - {{< influxdb/host >}}
-        tlsSecretName: ingress-tls
+---
+ingress:
+  hosts:
+    - { { < influxdb/host > } }
+  tlsSecretName: ingress-tls
 ```
-{{% /code-callout %}}
 
+{{% /code-callout %}}
 
 #### Configure the object store
 
@@ -413,10 +438,11 @@ following fields in your `myinfluxdb.yml` configuration file:
   - `.region`: Object storage region
 
 {{% code-placeholders "S3_(URL|ACCESS_KEY|SECRET_KEY|BUCKET_NAME|REGION)" %}}
+
 ```yml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
-...
+---
 spec:
   package:
     spec:
@@ -425,7 +451,7 @@ spec:
         endpoint: S3_URL
 
         # Set to true to allow communication over HTTP (instead of HTTPS)
-        allowHttp: "false"
+        allowHttp: 'false'
 
         # S3 Access Key
         # This can also be provided as a valueFrom: secretKeyRef:
@@ -443,6 +469,7 @@ spec:
         # This value is required for AWS S3, it may or may not be required for other providers.
         region: S3_REGION
 ```
+
 {{% /code-placeholders %}}
 
 ---
@@ -471,13 +498,14 @@ as secrets in your Kubernetes cluster.
 
 - `spec.package.spec.catalog.dsn.valueFrom.secretKeyRef`
   - `.name`: Secret name
-  - `.key`:  Key in the secret that contains the DSN
+  - `.key`: Key in the secret that contains the DSN
 
 {{% code-placeholders "SECRET_(NAME|KEY)" %}}
+
 ```yml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
-...
+---
 spec:
   package:
     spec:
@@ -490,6 +518,7 @@ spec:
               name: SECRET_NAME
               key: SECRET_KEY
 ```
+
 {{% /code-placeholders %}}
 
 ---
@@ -504,15 +533,18 @@ Replace the following:
 ---
 
 {{% note %}}
+
 ##### PostgreSQL instances without TLS or SSL
 
 If your PostgreSQL-compatible instance runs without TLS or SSL, you must include
 the `sslmode=disable` parameter in the DSN. For example:
 
 {{% code-callout "sslmode=disable" %}}
+
 ```
 postgres://username:passw0rd@mydomain:5432/influxdb?sslmode=disable
 ```
+
 {{% /code-callout %}}
 {{% /note %}}
 
@@ -529,17 +561,19 @@ following fields in your `myinfluxdb.yml` configuration file:
   - `storage`: Storage size. We recommend a minimum of 2 gibibytes (`2Gi`).
 
 {{% code-placeholders "STORAGE_(CLASS|SIZE)" %}}
+
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
-...
+---
 spec:
   package:
     spec:
-      ingesterStorage: 
+      ingesterStorage:
         storageClassName: STORAGE_CLASS
         storage: STORAGE_SIZE
 ```
+
 {{% /code-placeholders %}}
 
 ---
@@ -580,10 +614,11 @@ other OAuth2 providers should work as well:
 
 {{% code-callout "keycloak" "green" %}}
 {{% code-placeholders "KEYCLOAK_(HOST|REALM|USER_ID)" %}}
+
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
-...
+---
 spec:
   package:
     spec:
@@ -594,6 +629,7 @@ spec:
         users:
           - KEYCLOAK_USER_ID
 ```
+
 {{% /code-placeholders %}}
 {{% /code-callout %}}
 
@@ -615,10 +651,11 @@ Replace the following:
 
 {{% code-callout "auth0" "green" %}}
 {{% code-placeholders "AUTH0_(HOST|USER_ID)" %}}
+
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
-...
+---
 spec:
   package:
     spec:
@@ -629,6 +666,7 @@ spec:
         users:
           - AUTH0_USER_ID
 ```
+
 {{% /code-placeholders %}}
 {{% /code-callout %}}
 
@@ -648,10 +686,11 @@ Replace the following:
 
 {{% code-callout "azure" "green" %}}
 {{% code-placeholders "AZURE_(USER|TENANT)_ID" %}}
+
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
-...
+---
 spec:
   package:
     spec:
@@ -662,6 +701,7 @@ spec:
         users:
           - AZURE_USER_ID
 ```
+
 {{% /code-placeholders %}}
 {{% /code-callout %}}
 
@@ -685,7 +725,6 @@ Replace the following:
 Finally, add all the users you wish to have access to use `influxctl`.
 Update the `spec.package.spec.admin.users` field with a list of these users.
 See [Adding or removing users](/influxdb/clustered/admin/users/) for more details.
-
 
 #### Configure the size of your cluster
 
@@ -733,12 +772,12 @@ in your `myinfluxdb.yml`. If omitted, your cluster will use the default scale se
 - [CPU resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
 - [Memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory)
 
-
 {{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER)_(CPU|MEMORY|REPLICAS)" %}}
+
 ```yml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
-...
+---
 spec:
   package:
     spec:
@@ -774,6 +813,7 @@ spec:
             memory: ROUTER_MEMORY
             replicas: ROUTER_REPLICAS # Default is 1
 ```
+
 {{% /code-placeholders %}}
 
 {{< page-nav prev="/influxdb/clustered/install/auth/" prevText="Set up authentication" next="/influxdb/clustered/install/deploy/" nextText="Deploy your cluster" >}}
