@@ -4,28 +4,58 @@
   padding: 2rem 4rem 3rem;
 }
 
-.article--content{
+.article--content {
   max-width: 850px;
   font-size: 1.1rem;
 
-  h1,h2,h3,h4,h5,h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: $article-heading;
+
     a {
       color: inherit !important;
       font-weight: inherit !important;
       text-decoration: none;
+
       code:after {
         border: none;
       }
     }
   }
-  h2,h3,h4,h5,h6 {
-    & + .highlight pre { margin-top: .5rem }
-    & + pre { margin-top: .5rem }
-    & + .code-tabs-wrapper { margin-top: 0; }
-    &.monospace { font-family: $code; }
-    &.green { color: $gr-rainforest; }
-    &.orange { color: $r-dreamsicle; }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    &+.highlight pre {
+      margin-top: .5rem
+    }
+
+    &+pre {
+      margin-top: .5rem
+    }
+
+    &+.code-tabs-wrapper {
+      margin-top: 0;
+    }
+
+    &.monospace {
+      font-family: $code;
+    }
+
+    &.green {
+      color: $gr-rainforest;
+    }
+
+    &.orange {
+      color: $r-dreamsicle;
+    }
+
     &[metadata]::after {
       content: attr(metadata);
       margin-left: .65rem;
@@ -39,6 +69,7 @@
       display: inline-block;
       vertical-align: middle;
     }
+
     &[date]::after {
       content: attr(date);
       margin-left: .65rem;
@@ -48,11 +79,13 @@
       font-style: inherit;
     }
   }
+
   h1 {
     font-weight: normal;
     font-size: 2.75rem;
     margin: .4em 0 .2em;
   }
+
   h2 {
     font-size: 2.1rem;
     margin: -.25rem 0 .5rem;
@@ -60,12 +93,14 @@
     font-weight: $medium;
     color: $article-heading-alt;
   }
+
   h3 {
     font-size: 1.75rem;
     font-weight: $medium;
     margin: -1rem 0 .5rem;
     padding-top: 1.75rem;
   }
+
   h4 {
     font-size: 1.35rem;
     font-style: italic;
@@ -74,11 +109,13 @@
     padding-top: 1.75rem;
     color: $article-heading-alt;
   }
+
   h5 {
     font-size: 1.1rem;
     margin: -1.25rem 0 .25rem;
     padding-top: 1.75rem;
   }
+
   h6 {
     font-size: 1.1rem;
     font-style: italic;
@@ -86,7 +123,8 @@
     padding-top: 1.75rem;
   }
 
-  p,li {
+  p,
+  li {
     color: $article-text;
     line-height: 1.8rem;
   }
@@ -99,9 +137,11 @@
     color: $article-link;
     font-weight: $medium;
     text-decoration: none;
+
     &:hover {
       color: $article-link-hover;
     }
+
     &.help-link {
       display: inline-block;
       width: 1rem;
@@ -122,7 +162,7 @@
     box-shadow: 1px 3px 10px $article-shadow;
   }
 
-  ul + p > img {
+  ul+p>img {
     margin-top: 1.5rem;
   }
 
@@ -135,45 +175,46 @@
 
 
   @import "article/blocks",
-          "article/buttons",
-          "article/captions",
-          "article/children",
-          "article/code",
-          "article/cloud",
-          "article/diagrams",
-          "article/enterprise",
-          "article/expand",
-          "article/feedback",
-          "article/flex",
-          "article/flux",
-          "article/html-diagrams",
-          "article/influxdbu",
-          "article/influxql",
-          "article/keybinding",
-          "article/list-filters",
-          "article/lists",
-          "article/note",
-          "article/pagination-btns",
-          "article/product-tags",
-          "article/related",
-          "article/scrollbars",
-          "article/svgs",
-          "article/tabbed-content",
-          "article/tables",
-          "article/tags",
-          "article/telegraf-plugins",
-          "article/title",
-          "article/truncate",
-          "article/video",
-          "article/warn";
+  "article/buttons",
+  "article/captions",
+  "article/children",
+  "article/code",
+  "article/cloud",
+  "article/diagrams",
+  "article/enterprise",
+  "article/expand",
+  "article/feedback",
+  "article/flex",
+  "article/flux",
+  "article/html-diagrams",
+  "article/influxdbu",
+  "article/influxql",
+  "article/keybinding",
+  "article/list-filters",
+  "article/lists",
+  "article/note",
+  "article/pagination-btns",
+  "article/product-tags",
+  "article/related",
+  "article/scrollbars",
+  "article/svgs",
+  "article/tabbed-content",
+  "article/tables",
+  "article/tags",
+  "article/telegraf-plugins",
+  "article/title",
+  "article/truncate",
+  "article/video",
+  "article/warn";
 
 
 
   //////////////////////////////// Miscellaneous ///////////////////////////////
 
-  .required, .req {
-    color:#FF8564;
-    font-weight:$medium;
+  .required,
+  .req {
+    color: #FF8564;
+    font-weight: $medium;
     font-style: italic;
     margin: 0 .15rem 0 .1rem;
 
@@ -185,14 +226,26 @@
       font-size: .9rem;
       font-weight: $medium;
     }
-    
-    &.blue {color: $b-dodger;}
-    &.green {color: $gr-viridian;}
-    &.magenta {color: $p-comet;}
+
+    &.blue {
+      color: $b-dodger;
+    }
+
+    &.green {
+      color: $gr-viridian;
+    }
+
+    &.magenta {
+      color: $p-comet;
+    }
   }
 
-  h2,h3,h4,h5,h6 {
-    & + .keep-url {
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    &+.keep-url {
       margin-top: -1.5rem;
       z-index: -100;
     }
@@ -205,7 +258,10 @@
     color: $g20-white;
     opacity: .5;
     transition: opacity .2s;
-    &:hover {opacity: 1;}
+
+    &:hover {
+      opacity: 1;
+    }
   }
 
   p.read-more {
@@ -213,18 +269,44 @@
     font-style: italic;
   }
 
-  .highlight, pre, code, .flex-wrapper {
-    & + p.read-more {
+  .highlight,
+  pre,
+  code,
+  .flex-wrapper {
+    &+p.read-more {
       margin: -.75rem 0 .5rem;
     }
   }
 
-  .nowrap { white-space: nowrap }
+  .nowrap {
+    white-space: nowrap
+  }
+
   .all-caps {
     text-transform: uppercase;
     font-size: 1.05rem;
     letter-spacing: .1em;
     font-weight: $medium !important;
+  }
+
+  span,
+  strong,
+  em {
+    &.orange {
+      color: #FF8564;
+    }
+
+    &.blue {
+      color: $b-dodger;
+    }
+
+    &.green {
+      color: $gr-viridian;
+    }
+
+    &.magenta {
+      color: $p-comet;
+    }
   }
 
   /////////////////////////// Getting Started Buttons //////////////////////////
@@ -254,9 +336,17 @@
   .article {
     padding: 1.5rem 1.5rem 3rem;
 
-    h2 { font-size: 1.9rem; }
-    h3 { font-size: 1.55rem; }
-    h4 { font-size: 1.3rem; }
+    h2 {
+      font-size: 1.9rem;
+    }
+
+    h3 {
+      font-size: 1.55rem;
+    }
+
+    h4 {
+      font-size: 1.3rem;
+    }
 
   }
 }

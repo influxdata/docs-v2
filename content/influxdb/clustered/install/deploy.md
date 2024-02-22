@@ -7,6 +7,8 @@ menu:
     name: Deploy your cluster
     parent: Install InfluxDB Clustered
 weight: 104
+related:
+  - /influxdb/clustered/admin/upgrade/
 ---
 
 Use Kubernetes and related tools to deploy your InfluxDB cluster.
@@ -39,9 +41,10 @@ your cluster, but from your terminal.**
   control (RBAC).
 - You want to preview the generated YAML.
 - You do not want to run the operator in your Kubernetes cluster.
-{{% /note %}}
+  {{% /note %}}
 
 <!-- Hidden anchor for links to the kubectl/kubit tabs -->
+
 <span id="kubectl-or-kubit"></span>
 
 {{< tabs-wrapper >}}
@@ -50,6 +53,7 @@ your cluster, but from your terminal.**
 [kubit](#)
 {{% /tabs %}}
 {{% tab-content %}}
+
 <!------------------------------- BEGIN kubectl ------------------------------->
 
 Use the `kubectl apply` command to apply your custom-configured `myinfluxdb.yml`
@@ -62,8 +66,10 @@ kubectl apply \
 ```
 
 <!-------------------------------- END kubectl -------------------------------->
+
 {{% /tab-content %}}
 {{% tab-content %}}
+
 <!-------------------------------- BEGIN kubit -------------------------------->
 
 1.  [Install the `kubit` CLI](https://github.com/kubecfg/kubit#cli-tool)
@@ -81,6 +87,7 @@ You can specify the `--docker` flag to opt-in to using containers instead. This 
 for tool dependencies, meaning the required versions are tracked by `kubit`.
 
 <!--------------------------------- END kubit --------------------------------->
+
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
@@ -112,18 +119,18 @@ The `status` field in the output contains two useful fields:
 For example, if you have incorrect container registry credentials, the output is similar to the following:
 
 ```yaml
-- lastTransitionTime: "2023-08-18T12:53:54Z"
-  message: ""
+- lastTransitionTime: '2023-08-18T12:53:54Z'
+  message: ''
   observedGeneration: null
   reason: Failed
-  status: "False"
+  status: 'False'
   type: Reconcilier
-- lastTransitionTime: "2023-08-18T12:53:54Z"
+- lastTransitionTime: '2023-08-18T12:53:54Z'
   message: |
     Cannot launch installation job: OCI error: Authentication failure: {"errors":[{"code":"UNAUTHORIZED","message":"authentication failed"}]}
   observedGeneration: null
   reason: Failed
-  status: "False"
+  status: 'False'
   type: Ready
 ```
 
@@ -163,4 +170,4 @@ influxdb      iox-shared-querier-7f5998b9b-fpt62        4/4     Running     1 (6
 influxdb      kubit-apply-influxdb-g6qpx                0/1     Completed   0              8s
 ```
 
-{{< page-nav prev="/influxdb/clustered/install/configure-install/" prevText="Configure your cluster" next="/influxdb/clustered/install/use-your-cluster/" nextText="Use your cluster" >}}
+{{< page-nav prev="/influxdb/clustered/install/configure-cluster/" prevText="Configure your cluster" next="/influxdb/clustered/install/use-your-cluster/" nextText="Use your cluster" >}}
