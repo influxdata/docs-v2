@@ -298,7 +298,7 @@ Set the
 ```yml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
----
+# ...
 spec:
   package:
     spec:
@@ -411,14 +411,14 @@ If you choose to use cert-manager, it's your responsibility to install and confi
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
----
+# ...
 spec:
   package:
     spec:
----
+# ...
 ingress:
   hosts:
-    - { { < influxdb/host > } }
+    - {{< influxdb/host >}}
   tlsSecretName: ingress-tls
 ```
 
@@ -442,7 +442,7 @@ following fields in your `myinfluxdb.yml` configuration file:
 ```yml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
----
+# ...
 spec:
   package:
     spec:
@@ -505,7 +505,7 @@ as secrets in your Kubernetes cluster.
 ```yml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
----
+# ...
 spec:
   package:
     spec:
@@ -565,7 +565,7 @@ following fields in your `myinfluxdb.yml` configuration file:
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
----
+# ...
 spec:
   package:
     spec:
@@ -618,7 +618,7 @@ other OAuth2 providers should work as well:
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
----
+# ...
 spec:
   package:
     spec:
@@ -655,7 +655,7 @@ Replace the following:
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
----
+# ...
 spec:
   package:
     spec:
@@ -690,7 +690,7 @@ Replace the following:
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
----
+# ...
 spec:
   package:
     spec:
@@ -777,7 +777,7 @@ in your `myinfluxdb.yml`. If omitted, your cluster will use the default scale se
 ```yml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
----
+# ...
 spec:
   package:
     spec:
