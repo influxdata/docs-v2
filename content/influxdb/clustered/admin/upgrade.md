@@ -80,7 +80,7 @@ If you don't have these credentials,
 
 Some InfluxDB Clustered releases are _checkpoint releases_ that introduce a
 breaking change to an InfluxDB component.
-Checkpoint releases are only made when absolutely necessary and is clearly
+Checkpoint releases are only made when absolutely necessary and are clearly
 identified at [oci.influxdata.com](https://oci.influxdata.com).
 
 **When upgrading, always upgrade to each checkpoint release first, before proceeding
