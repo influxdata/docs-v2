@@ -127,7 +127,7 @@ always upgrade to a checkpoint before upgrading beyond it.
 
 ### Update your image to use a new package version
 
-In your `myinfluxdb.conf`, update the package version defined in
+In your `myinfluxdb.yml`, update the package version defined in
 `spec.package.image` to the version you want to upgrade to.
 
 {{% code-placeholders "PACKAGE_VERSION" %}}
