@@ -149,7 +149,7 @@ the version number to upgrade to.
 
 ### Apply the updated image
 
-Use the following command to apply the updated image configuration and update
+Use the following command to apply the updated image configuration and upgrade
 your InfluxDB Cluster:
 
 ```sh
