@@ -612,10 +612,11 @@ WHERE
 
 ## to_timestamp
 
-Converts a value to RFC3339 nanosecond timestamp format (`YYYY-MM-DDT00:00:00.000000000Z`).
+Converts a value to RFC3339 timestamp format (`YYYY-MM-DDT00:00:00Z`).
 Supports timestamp, integer, and unsigned integer types as input.
-Integers and unsigned integers are parsed as [Unix nanosecond timestamps](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
-and return the corresponding RFC3339 nanosecond timestamp.
+Integers and unsigned integers are parsed as
+[Unix nanosecond timestamps](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
+and return the corresponding RFC3339 timestamp.
 
 ```sql
 to_timestamp(expression)
@@ -630,14 +631,12 @@ to_timestamp(expression)
 {{% expand "View `to_timestamp` query example" %}}
 
 ```sql
-SELECT to_timestamp(time) 
-FROM h2o_feet
-LIMIT 1
+SELECT to_timestamp(1704067200000000000)
 ```
 
-| totimestamp(cpu.time)    |
-| :----------------------- |
-| 2019-08-27T00:00:00.000Z |
+| to_timestamp(Int64(1704067200000000000)) |
+| :--------------------------------------- |
+| 2024-01-01T00:00:00Z                     |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -646,7 +645,7 @@ LIMIT 1
 
 Converts a value to RFC3339 millisecond timestamp format (`YYYY-MM-DDT00:00:00.000Z`).
 Supports timestamp, integer, and unsigned integer types as input.
-Integers and unsigned integers are parsed as [Unix nanosecond timestamps](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
+Integers and unsigned integers are parsed as [Unix millisecond timestamps](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
 and return the corresponding RFC3339 timestamp.
 
 ```sql
@@ -662,17 +661,13 @@ to_timestamp_millis(expression)
 {{% expand "View `to_timestamp_millis` query example" %}}
 
 ```sql
-SELECT
-  to_timestamp_millis(time) 
-FROM 
-  h2o_temperature
-LIMIT 1
+SELECT to_timestamp_millis(1704067200001) AS time
 ```
 
 Results
-| totimestampmillis(cpu.time) |
+| to_timestamp_millis(Int64(1704067200001)) |
 | :-------------------------- |
-| 2023-02-08T17:25:18.864Z    |
+| 2024-01-01T00:00:00.001Z    |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -681,7 +676,7 @@ Results
 
 Converts a value to RFC3339 microsecond timestamp format (`YYYY-MM-DDT00:00:00.000000Z`).
 Supports timestamp, integer, and unsigned integer types as input.
-Integers and unsigned integers are parsed as [Unix nanosecond timestamps](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
+Integers and unsigned integers are parsed as [Unix microsecond timestamps](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
 and return the corresponding RFC3339 timestamp.
 
 ```sql
@@ -697,16 +692,41 @@ to_timestamp_micros(expression)
 {{% expand "View `to_timestamp_micros` query example" %}}
 
 ```sql
-SELECT
-  to_timestamp_micros(time)
-FROM 
-  cpu
-LIMIT 1
+SELECT to_timestamp_micros(1704067200000001)
 ```
 
-| totimestampmicros(cpu.time) |
-| :-------------------------- |
-| 2023-02-08T19:21:10.000Z    |
+| to_timestamp_micros(Int64(1704067200000001)) |
+| :------------------------------------------- |
+| 2024-01-01T00:00:00.000001Z                  |
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## to_timestamp_nanos
+
+Converts a value to RFC3339 nanosecond timestamp format (`YYYY-MM-DDT00:00:00.000000000Z`).
+Supports timestamp, integer, and unsigned integer types as input.
+Integers and unsigned integers are parsed as [Unix nanoosecond timestamps](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
+and return the corresponding RFC3339 timestamp.
+
+```sql
+to_timestamp_nanos(expression)
+```
+
+##### Arguments:
+
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `to_timestamp_nanos` query example" %}}
+
+```sql
+SELECT to_timestamp_nanos(1704067200000000001)
+```
+
+| to_timestamp_nanos(Int64(1704067200000000001)) |
+| :--------------------------------------------- |
+| 2024-01-01T00:00:00.000000001Z                 |
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
@@ -714,7 +734,7 @@ LIMIT 1
 
 Converts a value to RFC3339 second timestamp format (`YYYY-MM-DDT00:00:00Z`).
 Supports timestamp, integer, and unsigned integer types as input.
-Integers and unsigned integers are parsed as [Unix nanosecond timestamps](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
+Integers and unsigned integers are parsed as [Unix second timestamps](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
 and return the corresponding RFC3339 timestamp.
 
 ```sql
@@ -730,16 +750,12 @@ to_timestamp_seconds(expression)
 {{% expand "View `to_timestamp_seconds` query example" %}}
 
 ```sql
-SELECT
-  to_timestamp_seconds(time)
-FROM 
-  cpu
-LIMIT 1;
+SELECT to_timestamp_seconds(1704067201)
 ```
 
-| totimestampseconds(cpu.time) |
-| :--------------------------- |
-| 2023-02-08T17:21:10          |
+| to_timestamp_seconds(Int64(1704067201)) |
+| :-------------------------------------- |
+| 2024-01-01T00:00:01Z                    |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
