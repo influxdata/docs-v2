@@ -120,7 +120,7 @@ following:
 3. Upgrade to `20240215-433509`.
 
 You can upgrade to versions between checkpoint releases, but you must always
-always upgrade to a checkpoint before upgrading beyond it.
+upgrade to a checkpoint before upgrading beyond it.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
