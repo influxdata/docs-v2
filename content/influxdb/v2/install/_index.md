@@ -508,8 +508,8 @@ The following guide uses [Docker CLI commands](https://docs.docker.com/reference
    - `-p 8086:8086`: Exposes the container port `8086` for the InfluxDB [UI](/influxdb/v2/get-started/#influxdb-user-interface-ui) and [HTTP API](/influxdb/v2/reference/api/) on the host port `8086`.
    - `--mount type=volume,source=influxdbdata,target=/var/lib/influxdb2`: Creates a volume named `influxdbdata` mapped to the [InfluxDB Dockerhub data directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout).
    - `--mount type=volume,source=influxdbconf,target=/etc/influxdb2`: Creates a volume named `influxdbconf` mapped to the [InfluxDB Dockerhub configuration directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout).
-   - `-e DOCKER_INFLUXDB_INIT_MODE=setup`: Invokes the InfluxDB `setup` API for initializing an organization, user, bucket, and token when creating the container.
-   - `-e DOCKER_INFLUXDB_INIT_<SETUP_OPTION>`: Initial setup options--replace the following with your own values:
+   - `-e DOCKER_INFLUXDB_INIT_MODE=setup`: Environment variable that invokes the InfluxDB `setup` API for initializing an organization, user, bucket, and token when creating the container.
+   - `-e DOCKER_INFLUXDB_INIT_<SETUP_OPTION>`: Environment variables for initial setup options--replace the following with your own values:
      - `<USERNAME>`: The username for the initial [user](/influxdb/v2/admin/users/).
      - `<PASSWORD>`: The password for the initial [user](/influxdb/v2/admin/users/).
      - `<ORG_NAME>`: The name for the initial [organization](/influxdb/v2/admin/organizations/).
