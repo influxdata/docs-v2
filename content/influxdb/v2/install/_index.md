@@ -14,18 +14,21 @@ related:
 The InfluxDB v2 time series platform is purpose-built to collect, store,
 process and visualize metrics and events.
 
-1. [Download and install InfluxDB OSS](#download-and-install-influxdb-oss)
-2. [Set up InfluxDB](#set-up-influxdb)
-3. [Optional: Configure the InfluxDB server](#optional-configure-the-influxdb-server)
+- [Download and install InfluxDB v2](#download-and-install-influxdb-v2)
+- [Configure and start InfluxDB](#configure-and-start-influxdb)
+- [Download and install the influx CLI](#download-and-install-the-influx-cli)
+- [Set up InfluxDB](#set-up-influxdb)
+- [Optional: Configure and use the influx CLI](#optional-configure-and-use-the-influx-cli)
+- [Optional: Create All-Access tokens](#optional-create-all-access-tokens)
 
-## Download and install InfluxDB OSS
+## Download and install InfluxDB v2
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [macOS](#)
 [Linux](#)
 [Windows](#)
-[Docker](#docker)
+[Docker](#)
 [Kubernetes](#)
 [Raspberry Pi](#)
 {{% /tabs %}}
@@ -34,11 +37,24 @@ process and visualize metrics and events.
 {{% tab-content %}}
 
 To install InfluxDB, do one of the following:
+
 - [Install using Homebrew](#install-using-homebrew)
 - [Manually download and install for macOS](#manually-download-and-install-for-macos)
 
 {{% note %}}
 We recommend using [Homebrew](https://brew.sh/) to install InfluxDB v2 on macOS.
+{{% /note %}}
+
+{{% note %}}
+
+#### InfluxDB and the influx CLI are separate packages
+
+The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
+[`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
+versioned separately.
+
+_You'll install the `influx CLI` in a [later step](#download-and-install-the-influx-cli)._
+
 {{% /note %}}
 
 ### Install using Homebrew
@@ -147,7 +163,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    gpg: key D8FF8E1F7DF8B07E: public key "InfluxData Package Signing Key <support@influxdata.com>" imported
    ```
 
-2.  Download the signature file for the release by adding `.asc` to the download URL,
+2. Download the signature file for the release by adding `.asc` to the download URL,
     and then use `gpg` to verify the download signature--for example:
 
     ```sh
@@ -174,83 +190,7 @@ or rename them before putting them in your `$PATH`.
 If you rename the binaries, all references to `influxd` and `influx` in this documentation refer to your renamed binaries.
 {{% /note %}}
 
-### Networking ports
 
-By default, InfluxDB uses TCP port `8086` for client-server communication over
-the [InfluxDB HTTP API](/influxdb/v2/reference/api/).
-
-### Start InfluxDB
-
-To start InfluxDB, run the `influxd` daemon:
-
-<!--pytest.mark.skip-->
-
-```sh
-influxd
-```
-
-#### (macOS Catalina and newer) Authorize the influxd binary
-
-macOS requires downloaded binaries to be signed by registered Apple developers.
-Currently, when you first attempt to run `influxd`, macOS will prevent it from running.
-
-To manually authorize the `influxd` binary, follow the instructions for your macOS version to allow downloaded applications.
-
-##### Run InfluxDB on macOS Ventura
-
-1.  Follow the preceding instructions to attempt to start `influxd`.
-2.  Open **System Settings** and click **Privacy & Security**.
-3.  Under the **Security** heading, there is a message about "influxd" being blocked, click **Allow Anyway**.
-5.  When prompted, enter your password to allow the setting.
-6.  Close **System Settings**.
-7.  Attempt to start `influxd`.
-8.  A prompt appears with the message _"macOS cannot verify the developer of "influxd"...""_.
-    Click **Open**.
-
-##### Run InfluxDB on macOS Catalina
-
-1. Attempt to start `influxd`.
-2. Open **System Preferences** and click **Security & Privacy**.
-3. Under the **General** tab, there is a message about `influxd` being blocked.
-   Click **Open Anyway**.
-
-We are in the process of updating the build process to ensure released binaries are signed by InfluxData.
-
-{{% warn %}}
-#### "too many open files" errors
-
-After running `influxd`, you might see an error in the log output like the
-following:
-
-<!--pytest.mark.skip-->
-
-```sh
-too many open files
-```
-
-To resolve this error, follow the
-[recommended steps](https://unix.stackexchange.com/a/221988/471569) to increase
-file and process limits for your operating system version then restart `influxd`.
-
-{{% /warn %}}
-
-{{% note %}}
-#### InfluxDB "phone home"
-
-By default, InfluxDB sends telemetry data back to InfluxData.
-The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
-information about what data is collected and how it is used.
-
-To opt-out of sending telemetry data back to InfluxData, include the
-`--reporting-disabled` flag when starting `influxd`.
-
-<!--pytest.mark.skip-->
-
-```sh
-influxd --reporting-disabled
-```
-
-{{% /note %}}
 {{% /tab-content %}}
 <!--------------------------------- END macOS --------------------------------->
 <!-------------------------------- BEGIN Linux -------------------------------->
@@ -268,51 +208,51 @@ To install {{% product-name %}} on Linux, do one of the following:
 The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
 versioned separately.
-For information about installing the `influx` CLI, see
-[Install and use the influx CLI](/influxdb/v2/tools/influx-cli/).
+
+_You'll install the `influx CLI` in a [later step](#download-and-install-the-influx-cli)._
 
 {{% /note %}}
 
 ### Install InfluxDB as a service with systemd
 
-1.  Download and install the appropriate `.deb` or `.rpm` file using a URL from the
-    [InfluxData downloads page](https://www.influxdata.com/downloads/)
-    with the following commands:
+1. Download and install the appropriate `.deb` or `.rpm` file using a URL from the
+   [InfluxData downloads page](https://www.influxdata.com/downloads/)
+   with the following commands:
 
-    ```sh
-    # Ubuntu/Debian AMD64
-    curl -O https://dl.influxdata.com/influxdb/releases/influxdb2_{{< latest-patch >}}-1_amd64.deb
-    sudo dpkg -i influxdb2_{{< latest-patch >}}-1_amd64.deb
-    ```
+   ```sh
+   # Ubuntu/Debian AMD64
+   curl -O https://dl.influxdata.com/influxdb/releases/influxdb2_{{< latest-patch >}}-1_amd64.deb
+   sudo dpkg -i influxdb2_{{< latest-patch >}}-1_amd64.deb
+   ```
 
-    ```sh
-    # Ubuntu/Debian ARM64
-    curl -O https://dl.influxdata.com/influxdb/releases/influxdb2_{{< latest-patch >}}-1_arm64.deb
-    sudo dpkg -i influxdb2_{{< latest-patch >}}-1_arm64.deb
-    ```
+   ```sh
+   # Ubuntu/Debian ARM64
+   curl -O https://dl.influxdata.com/influxdb/releases/influxdb2_{{< latest-patch >}}-1_arm64.deb
+   sudo dpkg -i influxdb2_{{< latest-patch >}}-1_arm64.deb
+   ```
 
-    ```sh
-    # Red Hat/CentOS/Fedora x86-64 (x64, AMD64)
-    curl -O https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-1.x86_64.rpm
-    sudo yum localinstall influxdb2-{{< latest-patch >}}-1.x86_64.rpm
-    ```
+   ```sh
+   # Red Hat/CentOS/Fedora x86-64 (x64, AMD64)
+   curl -O https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-1.x86_64.rpm
+   sudo yum localinstall influxdb2-{{< latest-patch >}}-1.x86_64.rpm
+   ```
 
-    ```sh
-    # Red Hat/CentOS/Fedora AArch64 (ARMv8-A)
-    curl -O https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-1.aarch64.rpm
-    sudo yum localinstall influxdb2-{{< latest-patch >}}-1.aarch64.rpm
-    ```
+   ```sh
+   # Red Hat/CentOS/Fedora AArch64 (ARMv8-A)
+   curl -O https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-1.aarch64.rpm
+   sudo yum localinstall influxdb2-{{< latest-patch >}}-1.aarch64.rpm
+   ```
 
-2.  Start the InfluxDB service:
+2. Start the InfluxDB service:
 
-    <!--pytest.mark.skip-->
+   <!--pytest.mark.skip-->
 
-    ```sh
-    sudo service influxdb start
-    ```
+   ```sh
+   sudo service influxdb start
+   ```
 
-    Installing the InfluxDB package creates a service file at `/lib/systemd/system/influxdb.service`
-    to start InfluxDB as a background service on startup.
+   Installing the InfluxDB package creates a service file at `/lib/systemd/system/influxdb.service`
+   to start InfluxDB as a background service on startup.
 
 3. To verify that the service is running correctly, restart your system and then enter the following command in your terminal:
 
@@ -331,13 +271,9 @@ For information about installing the `influx` CLI, see
 For information about where InfluxDB stores data on disk when running as a service,
 see [File system layout](/influxdb/v2/reference/internals/file-system-layout/?t=Linux#installed-as-a-package).
 
-To customize your InfluxDB configuration, use either
-[command line flags (arguments)](#pass-arguments-to-systemd), environment variables, or an InfluxDB configuration file.
-See InfluxDB [configuration options](/influxdb/v2/reference/config-options/) for more information.
+#### Pass configuration options to the service
 
-#### Pass arguments to systemd
-
-Follow these steps to assign `influxd` service variables and pass them as startup arguments to the `influxd` service:
+You can use systemd to customize [InfluxDB configuration options](/influxdb/v2/reference/config-options/#configuration-options) and pass them to the InfluxDB service.
 
 1. Edit the `/etc/default/influxdb2` service config file to assign variable names to `influxd` command line flags--for example, add one or more `<VARIABLE_NAME>=<COMMAND_LINE_FLAG>` lines like the following:
 
@@ -360,18 +296,18 @@ Follow these steps to assign `influxd` service variables and pass them as startu
 
 1. In your browser or your terminal, download the InfluxDB binary for your system architecture (AMD64 or ARM).
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz" download >InfluxDB v2 (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz" download >InfluxDB v2 (arm)</a>
+   <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz" download >InfluxDB v2 (amd64)</a>
+   <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz" download >InfluxDB v2 (arm)</a>
 
-```sh
-# Use curl to download the amd64 binary.
-curl -O https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz
-```
+   ```sh
+   # Use curl to download the amd64 binary.
+   curl -O https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz
+   ```
 
-```sh
-# Use curl to download the arm64 binary.
-curl -O https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz
-```
+   ```sh
+   # Use curl to download the arm64 binary.
+   curl -O https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz
+   ```
 
 2. Extract the downloaded binary.
 
@@ -428,87 +364,53 @@ For added security, use `gpg` to verify the signature of your download.
 To install `gpg`, see the [GnuPG installation instructions](https://gnupg.org/download/)).
 
 1. Download and import InfluxData's public key.
-    `gpg --import` outputs to stderr.
-    The following example shows how to import the key, redirect the output to stdout,
-    and then check for the expected key name:
+   `gpg --import` outputs to stderr.
+   The following example shows how to import the key, redirect the output to stdout,
+   and then check for the expected key name:
 
-    <!-- Setup test, hide from users
-    ```sh
-    gpg -q --batch --yes --delete-key D8FF8E1F7DF8B07E
-    ```
-    -->
+   <!-- Setup test, hide from users
+   ```sh
+   gpg -q --batch --yes --delete-key D8FF8E1F7DF8B07E
+   ```
+   -->
 
-    <!--pytest-codeblocks:cont-->
+   <!--pytest-codeblocks:cont-->
 
-    ```sh
-    curl -s https://repos.influxdata.com/influxdata-archive_compat.key \
-    | gpg --import - 2>&1 \
-    | grep 'InfluxData Package Signing Key <support@influxdata.com>'
-    ```
+   ```sh
+   curl -s https://repos.influxdata.com/influxdata-archive_compat.key \
+   | gpg --import - 2>&1 \
+   | grep 'InfluxData Package Signing Key <support@influxdata.com>'
+   ```
 
-    If successful, the output is similar to the following:
+   If successful, the output is similar to the following:
 
-    <!--pytest-codeblocks:expected-output-->
+   <!--pytest-codeblocks:expected-output-->
 
-    ```
-    gpg: key D8FF8E1F7DF8B07E: public key "InfluxData Package Signing Key <support@influxdata.com>" imported
-    ```
+   ```
+   gpg: key D8FF8E1F7DF8B07E: public key "InfluxData Package Signing Key <support@influxdata.com>" imported
+   ```
 
-2.  Download the signature file for the release by adding `.asc` to the download URL,
-    and then use `gpg` to verify the download signature--for example:
+2. Download the signature file for the release by adding `.asc` to the download URL,
+   and then use `gpg` to verify the download signature--for example:
 
-    ```sh
-    curl -s https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz.asc \
-    | gpg --verify - influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz \
-    2>&1 | grep 'InfluxData Package Signing Key <support@influxdata.com>'
-    ```
+   ```sh
+   curl -s https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz.asc \
+   | gpg --verify - influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz \
+   2>&1 | grep 'InfluxData Package Signing Key <support@influxdata.com>'
+   ```
 
-    If successful, the output is the following:
+   If successful, the output is the following:
 
-    <!--pytest-codeblocks:expected-output-->
+   <!--pytest-codeblocks:expected-output-->
 
-    ```
-    gpg: Good signature from "InfluxData Package Signing Key <support@influxdata.com>" [unknown]
-    ```
+   ```
+   gpg: Good signature from "InfluxData Package Signing Key <support@influxdata.com>" [unknown]
+   ```
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Start InfluxDB
 
-If InfluxDB was installed as a systemd service, systemd manages the `influxd` daemon and no further action is required.
-If the binary was manually downloaded and added to the system `$PATH`, start the `influxd` daemon with the following command:
-
-<!--pytest.mark.skip-->
-
-```sh
-influxd
-```
-
-_See the [`influxd` documentation](/influxdb/v2/reference/cli/influxd) for information about
-available flags and options._
-
-### Networking ports
-
-By default, InfluxDB uses TCP port `8086` for client-server communication over
-the [InfluxDB HTTP API](/influxdb/v2/reference/api/).
-
-{{% note %}}
-#### InfluxDB "phone home"
-
-By default, InfluxDB sends telemetry data back to InfluxData.
-The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
-information about what data is collected and how it is used.
-
-To opt-out of sending telemetry data back to InfluxData, include the
-`--reporting-disabled` flag when starting `influxd`.
-
-<!--pytest.mark.skip-->
-
-```sh
-influxd --reporting-disabled
-```
-
-{{% /note %}}
 
 {{% /tab-content %}}
 <!--------------------------------- END Linux --------------------------------->
@@ -533,16 +435,16 @@ If these binaries are not installed on your `PATH`, replace `influx` and `influx
 in the provided examples with `./influx` and `./influxd` respectively.
 {{% /note %}}
 
-### Download and install InfluxDB v2
-
 {{% note %}}
+
 #### InfluxDB and the influx CLI are separate packages
 
 The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
 versioned separately.
-For information about installing the `influx` CLI, see
-[Install and use the influx CLI](/influxdb/v2/tools/influx-cli/).
+
+_You'll install the `influx CLI` in a [later step](#download-and-install-the-influx-cli)._
+
 {{% /note %}}
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows.zip" download >InfluxDB v2 (Windows)</a>
@@ -569,63 +471,18 @@ $acl | Set-Acl "C:\Users\<username>\.influxdbv2"
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Networking ports
-
-By default, InfluxDB uses TCP port `8086` for client-server communication over
-the [InfluxDB HTTP API](/influxdb/v2/reference/api/).
-
-### Start InfluxDB
-
-In **Powershell**, navigate into `C:\Program Files\InfluxData\influxdb` and start
-InfluxDB by running the `influxd` daemon:
-
-```powershell
-cd -Path 'C:\Program Files\InfluxData\influxdb'
-./influxd
-```
-
-_See the [`influxd` documentation](/influxdb/v2/reference/cli/influxd) for information about
-available flags and options._
-
-{{% note %}}
-#### Grant network access
-
-When starting InfluxDB for the first time, **Windows Defender** will appear with
-the following message:
-
-> Windows Defender Firewall has blocked some features of this app.
-
-1. Select **Private networks, such as my home or work network**.
-2. Click **Allow access**.
-{{% /note %}}
-
-{{% note %}}
-#### InfluxDB "phone home"
-
-By default, InfluxDB sends telemetry data back to InfluxData.
-The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
-information about what data is collected and how it is used.
-
-To opt-out of sending telemetry data back to InfluxData, include the
-`--reporting-disabled` flag when starting `influxd`.
-
-<!--pytest.mark.skip-->
-
-```sh
-./influxd --reporting-disabled
-```
-
-{{% /note %}}
-
 {{% /tab-content %}}
 <!-------------------------------- END Windows -------------------------------->
 
 <!-------------------------------- BEGIN Docker ------------------------------->
 {{% tab-content %}}
+
+### Install and setup InfluxDB in a container
+
 The following guide uses [Docker CLI commands](https://docs.docker.com/reference/cli/docker/) to set Docker and InfluxDB options, but you can also use Dockerfiles and Docker compose.
 
 1. Follow instructions to install Docker for your system.
-2. Create a Docker container from the [`influxdb` Dockerhub image](https://hub.docker.com/_/influxdb)--for example, in your terminal, enter the `docker run influxdb:{{< latest-patch >}}` command with command line flags for setup options and file system mounts.
+2. Create a Docker container from the [`influxdb` Dockerhub image](https://hub.docker.com/_/influxdb)--for example, in your terminal, enter the `docker run influxdb:{{< latest-patch >}}` command with command line flags for initial setup options and file system mounts.
 
    The following example uses the Docker `--mount` option to persist InfluxDB configuration and data to [volumes](https://docs.docker.com/storage/volumes/).
    _Persisting your data to a file system outside the container ensures that your data isn't deleted if you delete the container._
@@ -634,7 +491,8 @@ The following guide uses [Docker CLI commands](https://docs.docker.com/reference
 
    ```sh
    docker run \
-    -p 8087:8086 \
+    --name influxdb2 \
+    -p 8086:8086 \
     --mount type=volume,source=influxdbdata,target=/var/lib/influxdb2 \
     --mount type=volume,source=influxdbconf,target=/etc/influxdb2 \
     -e DOCKER_INFLUXDB_INIT_MODE=setup
@@ -647,12 +505,11 @@ The following guide uses [Docker CLI commands](https://docs.docker.com/reference
 
    The command passes the following arguments:
 
-   - `--name influxdb2`: Sets the container name to `influxdb2`. _If you're creating multiple containers, provide a unique name for each or let Docker assign a random name._
    - `-p 8086:8086`: Exposes the container port `8086` for the InfluxDB [UI](/influxdb/v2/get-started/#influxdb-user-interface-ui) and [HTTP API](/influxdb/v2/reference/api/) on the host port `8086`.
    - `--mount type=volume,source=influxdbdata,target=/var/lib/influxdb2`: Creates a volume named `influxdbdata` mapped to the [InfluxDB Dockerhub data directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout).
    - `--mount type=volume,source=influxdbconf,target=/etc/influxdb2`: Creates a volume named `influxdbconf` mapped to the [InfluxDB Dockerhub configuration directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout).
-   - `-e DOCKER_INFLUXDB_INIT_MODE=setup`: Invokes the first-time `setup` API for initializing InfluxDB when creating the container.
-   - `-e DOCKER_INFLUXDB_INIT_<SETUP_OPTION>`: Initial [setup](#set-up-influxdb) options--replace the following with your own values:
+   - `-e DOCKER_INFLUXDB_INIT_MODE=setup`: Invokes the InfluxDB `setup` API for initializing an organization, user, bucket, and token when creating the container.
+   - `-e DOCKER_INFLUXDB_INIT_<SETUP_OPTION>`: Initial setup options--replace the following with your own values:
      - `<USERNAME>`: The username for the initial [user](/influxdb/v2/admin/users/).
      - `<PASSWORD>`: The password for the initial [user](/influxdb/v2/admin/users/).
      - `<ORG_NAME>`: The name for the initial [organization](/influxdb/v2/admin/organizations/).
@@ -663,6 +520,7 @@ The following guide uses [Docker CLI commands](https://docs.docker.com/reference
 
 If successful, the command starts InfluxDB initialized with the user, organization, bucket,
 and _[operator token](/influxdb/v2/admin/tokens/#operator-token)_, and logs to stdout.
+You can view the operator token in the `/etc/influxdb2/influx-configs` file and use it to authorize [creating an All-Access token](#optional-create-all-access-tokens).
 
 _To run the InfluxDB container in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground), include the `-d` flag in the `docker run` command._
 
@@ -691,34 +549,13 @@ docker exec -it influxdb2 influxd inspect -d
 
 To copy files, such as the InfluxDB server `config.yml` file, between your local file system and a volume, use the [`docker container cp` command](https://docs.docker.com/reference/cli/docker/container/cp/).
 
-To start a new InfluxDB container that uses the server configuration from the existing volume, enter the following command in your terminal:
+To start a new InfluxDB container that uses the [server configuration](#optional-customize-influxdb-server-configuration) file from the existing volume, enter the following command in your terminal:
 
 ```sh
-docker run -p 8086:8086 \
+docker run -p 8087:8086 \
  --mount influxdbconf:/etc/influxdb2/config.yml \
  influxdb2:{{< latest-patch >}}
 ```
-
-See [configuration options](https://docs.influxdata.com/influxdb/v2/reference/config-options/) and the [`influxd` documentation](/influxdb/v2/reference/cli/influxd) to learn more about InfluxDB server configuration.
-
-{{% note %}}
-
-#### InfluxDB "phone home"
-
-By default, InfluxDB sends telemetry data back to InfluxData.
-The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
-information about what data is collected and how it is used.
-
-To opt-out of sending telemetry data back to InfluxData, include the
-`--reporting-disabled` flag when starting the InfluxDB container.
-
-<!--pytest.mark.skip-->
-
-```sh
-docker run -p 8086:8086 influxdb:{{< latest-patch >}} --reporting-disabled
-```
-
-{{% /note %}}
 
 {{% /tab-content %}}
 <!--------------------------------- END Docker -------------------------------->
@@ -805,7 +642,7 @@ To run InfluxDB on Raspberry Pi, you need:
 
 ### Install Linux binaries
 
-Follow the [Linux installation instructions](/influxdb/v2/install/?t=Linux)
+Follow the [Linux installation instructions](/influxdb/v2/install/?t=linux)
 to install InfluxDB on a Raspberry Pi.
 
 ### Monitor your Raspberry Pi
@@ -826,10 +663,198 @@ to collect and send data to:
 <!--------------------------------- END Raspberry Pi --------------------------->
 {{< /tabs-wrapper >}}
 
+## Configure and start InfluxDB
+
+- [Optional: Customize InfluxDB server configuration](#optional-customize-influxdb-server-configuration)
+- [Start InfluxDB](#start-influxdb)
+
+### Optional: Customize InfluxDB server configuration
+
+To customize your InfluxDB server configuration, specify [configuration options](/influxdb/v2/reference/config-options/) in command line arguments, environment variables, or a configuration file.
+
+#### InfluxDB telemetry reporting
+
+By default, InfluxDB sends telemetry data back to InfluxData.
+The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
+information about what data is collected and how it is used.
+
+To opt-out of sending telemetry data back to InfluxData, include the
+`--reporting-disabled` flag when starting `influxd`--for example:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Linux](#)
+[Windows Powershell](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+<!--pytest.mark.skip-->
+
+```sh
+influxd --reporting-disabled
+```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+<!--pytest.mark.skip-->
+
+```powershell
+./influxd --reporting-disabled
+```
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+#### Networking ports
+
+By default, InfluxDB uses TCP port `8086` for  client-server communication through the [UI](/influxdb/v2/get-started/#influxdb-user-interface-ui) and the [HTTP API](/influxdb/v2/reference/api/).
+To specify a different port or address, use the [`http-bind-address` option](/influxdb/v2/reference/config-options/#http-bind-address).
+
+### Start InfluxDB
+
+If it isn't already running, follow the instructions to start InfluxDB on your system:
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[macOS](#)
+[Linux](#)
+[Windows](#)
+[Docker](#)
+[Kubernetes](#)
+{{% /tabs %}}
+
+<!-------------------------------- BEGIN macOS -------------------------------->
+{{% tab-content %}}
+
+To start InfluxDB, run the `influxd` daemon:
+
+<!--pytest.mark.skip-->
+
+```sh
+influxd
+```
+
+#### (macOS Catalina and newer) Authorize the influxd binary
+
+macOS requires downloaded binaries to be signed by registered Apple developers.
+Currently, when you first attempt to run `influxd`, macOS will prevent it from running.
+
+To manually authorize the `influxd` binary, follow the instructions for your macOS version to allow downloaded applications.
+
+##### Run InfluxDB on macOS Ventura
+
+1. Follow the preceding instructions to attempt to start `influxd`.
+2. Open **System Settings** and click **Privacy & Security**.
+3. Under the **Security** heading, there is a message about "influxd" being blocked, click **Allow Anyway**.
+4. When prompted, enter your password to allow the setting.
+5. Close **System Settings**.
+6. Attempt to start `influxd`.
+7. A prompt appears with the message _"macOS cannot verify the developer of "influxd"...""_.
+    Click **Open**.
+
+##### Run InfluxDB on macOS Catalina
+
+1. Attempt to start `influxd`.
+2. Open **System Preferences** and click **Security & Privacy**.
+3. Under the **General** tab, there is a message about `influxd` being blocked.
+   Click **Open Anyway**.
+
+We are in the process of updating the build process to ensure released binaries are signed by InfluxData.
+
+{{% warn %}}
+
+#### "too many open files" errors
+
+After running `influxd`, you might see an error in the log output like the
+following:
+
+<!--pytest.mark.skip-->
+
+```sh
+too many open files
+```
+
+To resolve this error, follow the
+[recommended steps](https://unix.stackexchange.com/a/221988/471569) to increase
+file and process limits for your operating system version then restart `influxd`.
+
+{{% /warn %}}
+
+{{% /tab-content %}}
+<!-------------------------------- BEGIN Linux -------------------------------->
+{{% tab-content %}}
+
+If InfluxDB was installed as a systemd service, systemd manages the `influxd` daemon and no further action is required.
+If the binary was manually downloaded and added to the system `$PATH`, start the `influxd` daemon with the following command:
+
+<!--pytest.mark.skip-->
+
+```sh
+influxd
+```
+
+{{% /tab-content %}}
+<!-------------------------------- BEGIN Windows -------------------------------->
+{{% tab-content %}}
+
+In **Powershell**, navigate into `C:\Program Files\InfluxData\influxdb` and start
+InfluxDB by running the `influxd` daemon:
+
+```powershell
+cd -Path 'C:\Program Files\InfluxData\influxdb'
+./influxd
+```
+
+{{% note %}}
+
+#### Grant network access
+
+When starting InfluxDB for the first time, **Windows Defender** appears with
+the following message:
+
+> Windows Defender Firewall has blocked some features of this app.
+
+1. Select **Private networks, such as my home or work network**.
+2. Click **Allow access**.
+{{% /note %}}
+
+{{% /tab-content %}}
+<!-------------------------------- BEGIN Docker -------------------------------->
+{{% tab-content %}}
+
+To use the Docker CLI to start an existing container, enter the following command:
+
+```sh
+docker start influxdb2
+```
+
+Replace `influxdb2` with the name of your container.
+
+To start a new container, follow instructions to [install and set up InfluxDB in a container](?t=docker#install-and-setup-influxdb-in-a-container).
+
+{{% /tab-content %}}
+<!-------------------------------- BEGIN Kubernetes -------------------------------->
+{{% tab-content %}}
+
+To start InfluxDB using Kubernetes, follow instructions to [install InfluxDB in a Kubernetes cluster](?t=kubernetes#download-and-install-influxdb-v2).
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
 ## Download and install the influx CLI
 
 The [`influx` CLI](/influxdb/v2/reference/cli/influx/) lets you manage InfluxDB
 from your command line.
+
+### InfluxDB and the influx CLI are separate packages
+
+The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
+[`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
+versioned separately.
+Some install methods (for example, the InfluxDB Dockerhub image) include both.
+
+For more information about `influx` CLI for your system, see how to [install and use the influx CLI](/influxdb/v2/tools/influx-cli/).
 
 <a class="btn" href="/influxdb/v2/tools/influx-cli/" target="_blank">Download and install the influx CLI</a>
 
@@ -843,6 +868,12 @@ The initial setup process for an InfluxDB instance creates the following:
   - The username and password that you provide.
   - An API token (_[operator token](/influxdb/v2/admin/tokens/#operator-token)_).
   - Read-write permissions for all resources in the InfluxDB instance.
+
+{{% note %}}
+
+If you installed InfluxDB using [Docker with initial setup options](?t=docker/#install-and-setup-influxdb-in-a-container), then you've already completed the setup process.
+
+{{% /note %}}
 
 To run an interactive setup that prompts you for the required information,
 use the InfluxDB user interface (UI) or the `influx` command line interface (CLI).
@@ -858,7 +889,6 @@ use the `influx` command line interface (CLI) or the InfluxDB `/api/v2` API.
 
 <!------------------------------- BEGIN UI Setup ------------------------------>
 {{% tab-content %}}
-### Set up InfluxDB through the UI
 
 1. With InfluxDB running, visit [http://localhost:8086](http://localhost:8086).
 2. Click **Get Started**
@@ -879,46 +909,11 @@ sensitive tokens.
 
 Your InfluxDB instance is now initialized.
 
-### (Optional) Set up and use the influx CLI
-
-To avoid having to pass your InfluxDB
-API token with each `influx` command, set up a configuration profile to store your credentials--for example,
-enter the following code in your terminal:
-
-<!--pytest.mark.xfail-->
-
-{{% code-placeholders "API_TOKEN|ORG|http://localhost:8086|default|USERNAME|PASSWORD" %}}
-
-```sh
-# Set up a configuration profile
-influx config create \
-  --config-name default \
-  --host-url http://localhost:8086 \
-  --org ORG \
-  --token API_TOKEN \
-  --active
-```
-
-{{% /code-placeholders %}}
-
-Replace the following:
-
-- {{% code-placeholder-key %}}`ORG`{{% /code-placeholder-key %}}: [your organization name](/influxdb/v2/admin/organizations/view-orgs/).
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: [your API token](/influxdb/v2/admin/tokens/view-tokens/).
-
-This configures a new profile named `default` and makes the profile active
-so your `influx` CLI commands run against the specified InfluxDB instance.
-For more detail about configuration profiles, see [`influx config`](/influxdb/v2/reference/cli/influx/config/).
-
-Once you have the `default` configuration profile, you're ready to [create All-Access tokens](#create-all-access-tokens)
-or get started [collecting and writing data](/influxdb/v2/write-data).
-
 {{% /tab-content %}}
 <!-------------------------------- END UI Setup ------------------------------->
 
 <!------------------------------ BEGIN CLI Setup ------------------------------>
 {{% tab-content %}}
-### Set up InfluxDB through the influx CLI
 
 Use the `influx setup` CLI command in interactive or non-interactive (_headless_) mode to initialize
 your InfluxDB instance.
@@ -1010,14 +1005,49 @@ InfluxDB creates a `default` configuration profile for you that provides your
 InfluxDB URL, organization, and API token to `influx` CLI commands.
 For more detail about configuration profiles, see [`influx config`](/influxdb/v2/reference/cli/influx/config/).
 
-Once you have the `default` configuration profile, you're ready to [create All-Access tokens](#create-all-access-tokens)
+Once you have the `default` configuration profile, you're ready to [create All-Access tokens](#optional-create-all-access-tokens)
 or get started [collecting and writing data](/influxdb/v2/write-data).
 
 {{% /tab-content %}}
 <!------------------------------- END CLI Setup -------------------------------->
 {{< /tabs-wrapper >}}
 
-### Create All-Access tokens
+## Optional: Configure and use the influx CLI
+
+If you [set up InfluxDB](set-up-influxdb) using the CLI, it creates a default [configuration profile](/influxdb/v2/reference/cli/influx/config/) for you.
+A configuration profile stores your credentials to avoid having to pass your InfluxDB
+API token with each `influx` command.
+
+To manually create a configuration profile use the [`influx config`](/influxdb/v2/reference/cli/influx/config/) CLI command--for example,
+enter the following code in your terminal:
+
+<!--pytest.mark.xfail-->
+
+{{% code-placeholders "API_TOKEN|ORG|http://localhost:8086|default|USERNAME|PASSWORD" %}}
+
+```sh
+# Set up a configuration profile
+influx config create \
+  --config-name default \
+  --host-url http://localhost:8086 \
+  --org ORG \
+  --token API_TOKEN \
+  --active
+```
+
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`ORG`{{% /code-placeholder-key %}}: [your organization name](/influxdb/v2/admin/organizations/view-orgs/).
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: [your API token](/influxdb/v2/admin/tokens/view-tokens/).
+
+This configures a new profile named `default` and makes the profile _active_--`influx` CLI commands run against the specified InfluxDB instance.
+
+Once you have the `default` configuration profile, you're ready to [create All-Access tokens](optional-create-all-access-tokens)
+or get started [collecting and writing data](/influxdb/v2/write-data).
+
+## Optional: Create All-Access tokens
 
 Because [Operator tokens](/influxdb/v2/admin/tokens/#operator-token)
 have full read and write access to all organizations in the database,
