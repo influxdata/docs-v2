@@ -493,9 +493,9 @@ The following guide uses [Docker CLI commands](https://docs.docker.com/reference
    docker run \
     --name influxdb2 \
     -p 8086:8086 \
-    --mount type=volume,source=influxdbdata,target=/var/lib/influxdb2 \
-    --mount type=volume,source=influxdbconf,target=/etc/influxdb2 \
-    -e DOCKER_INFLUXDB_INIT_MODE=setup
+    --mount type=volume,source=influxdb2-data,target=/var/lib/influxdb2 \
+    --mount type=volume,source=influxdb2-config,target=/etc/influxdb2 \
+    -e DOCKER_INFLUXDB_INIT_MODE=setup \
     -e DOCKER_INFLUXDB_INIT_USERNAME=<USERNAME> \
     -e DOCKER_INFLUXDB_INIT_PASSWORD=<PASSWORD> \
     -e DOCKER_INFLUXDB_INIT_ORG=<ORG_NAME> \
@@ -506,8 +506,8 @@ The following guide uses [Docker CLI commands](https://docs.docker.com/reference
    The command passes the following arguments:
 
    - `-p 8086:8086`: Exposes the container port `8086` for the InfluxDB [UI](/influxdb/v2/get-started/#influxdb-user-interface-ui) and [HTTP API](/influxdb/v2/reference/api/) on the host port `8086`.
-   - `--mount type=volume,source=influxdbdata,target=/var/lib/influxdb2`: Creates a volume named `influxdbdata` mapped to the [InfluxDB Dockerhub data directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout).
-   - `--mount type=volume,source=influxdbconf,target=/etc/influxdb2`: Creates a volume named `influxdbconf` mapped to the [InfluxDB Dockerhub configuration directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout).
+   - `--mount type=volume,source=influxdb2-data,target=/var/lib/influxdb2`: Creates a volume named `influxdb2-data` mapped to the [InfluxDB Dockerhub data directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout) to persist data outside the container.
+   - `--mount type=volume,source=influxdb2-config,target=/etc/influxdb2`: Creates a volume named `influxdb2-config` mapped to the [InfluxDB Dockerhub configuration directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout) to make configurations available outside the container.
    - `-e DOCKER_INFLUXDB_INIT_MODE=setup`: Environment variable that invokes the automated setup for the initial organization, user, bucket, and token when creating the container.
    - `-e DOCKER_INFLUXDB_INIT_<SETUP_OPTION>`: Environment variables for initial setup options--replace the following with your own values:
      - `<USERNAME>`: The username for the initial [user](/influxdb/v2/admin/users/).
