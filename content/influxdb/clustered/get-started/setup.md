@@ -63,7 +63,7 @@ If stored at a non-default location, include the `--config` flag with each
 
     **Copy and paste the sample configuration profile code** into your `config.toml`:
 
-{{% code-placeholders "PORT|OAUTH_TOKEN_URL|OAUTH_DEVICE_URL" %}}
+{{% code-placeholders "PORT|OAUTH_TOKEN_URL|OAUTH_DEVICE_URL|OAUTH_CLIENT_ID" %}}
 ```toml
 [[profile]]
   name = "default"
@@ -80,12 +80,11 @@ If stored at a non-default location, include the `--config` flag with each
 {{% /code-placeholders %}}
 
 Replace the following with your {{< product-name >}} credentials:
-
-    - {{% code-placeholder-key %}}`PORT`{{% /code-placeholder-key %}}: the port to use to access your InfluxDB cluster
-    - {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}: the client URL of your OAuth2 provider
-      (for example: `https://indentityprovider/oauth2/v2/token`)
-    - {{% code-placeholder-key %}}`OAUTH_DEVICE_ID`{{% /code-placeholder-key %}}: the device URL of your OAuth2 provider
-      (for example: `https://indentityprovider/oauth2/v2/auth/device`)
+  - {{% code-placeholder-key %}}`PORT`{{% /code-placeholder-key %}}: the port to use to access your InfluxDB cluster
+  - {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}: the client URL of your OAuth2 provider
+    (for example: `https://identityprovider/oauth2/v2/token`)
+  - {{% code-placeholder-key %}}`OAUTH_DEVICE_ID`{{% /code-placeholder-key %}}: the device URL of your OAuth2 provider
+    (for example: `https://identityprovider/oauth2/v2/auth/device`)
 
 _For detailed information about `influxctl` profiles, see
 [Configure connection profiles](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles)_.
