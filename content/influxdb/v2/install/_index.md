@@ -549,14 +549,6 @@ docker exec -it influxdb2 influxd inspect -d
 
 To copy files, such as the InfluxDB server `config.yml` file, between your local file system and a volume, use the [`docker container cp` command](https://docs.docker.com/reference/cli/docker/container/cp/).
 
-To start a new InfluxDB container that uses the [server configuration](#optional-customize-influxdb-server-configuration) file from the existing volume, enter the following command in your terminal:
-
-```sh
-docker run -p 8087:8086 \
- --mount influxdbconf:/etc/influxdb2/config.yml \
- influxdb2:{{< latest-patch >}}
-```
-
 {{% /tab-content %}}
 <!--------------------------------- END Docker -------------------------------->
 
