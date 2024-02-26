@@ -121,7 +121,7 @@ For information about using the `influx` CLI, see the
 {{% expand "<span class='req'>Recommended</span> – Set appropriate directory permissions" %}}
 
 To prevent unwanted access to data, set the permissions on the influxdb `data-dir` to not be world readable.
-For server installs, set a umask of `0027` to properly permission all newly created files--for example, enter the following command in your terminal:
+If installing on a server, set a umask of `0027` to properly permission all newly created files--for example, enter the following command in your terminal:
 
 <!--pytest.mark.skip-->
 
@@ -347,7 +347,7 @@ You can use systemd to customize [InfluxDB configuration options](/influxdb/v2/r
 {{% expand "<span class='req'>Recommended</span> – Set appropriate directory permissions" %}}
 
 To prevent unwanted access to data, set the permissions on the influxdb `data-dir` to not be world readable.
-For server installs, we recommend setting a umask of `0027` to properly permission all newly created files.
+If installing on a server, we recommend setting a umask of `0027` to properly permission all newly created files.
 To set umask, use a UMask directive in a systemd unit file or run Influxdb as a specific user that has the umask properly set--for example, enter the following command in your terminal:
 
 <!--pytest.mark.skip-->
@@ -479,7 +479,7 @@ $acl | Set-Acl "C:\Users\<username>\.influxdbv2"
 
 ### Install and setup InfluxDB in a container
 
-The following guide uses [Docker CLI commands](https://docs.docker.com/reference/cli/docker/) to set Docker and InfluxDB options, but you can also use Dockerfiles and Docker compose.
+The following guide uses [Docker CLI commands](https://docs.docker.com/reference/cli/docker/) to set Docker and InfluxDB options, but you can also use Dockerfiles and Docker Compose.
 
 1. Follow instructions to install Docker for your system.
 2. Create a Docker container from the [`influxdb` Dockerhub image](https://hub.docker.com/_/influxdb)--for example, in your terminal, enter the `docker run influxdb:{{< latest-patch >}}` command with command line flags for initial setup options and file system mounts.
@@ -492,24 +492,24 @@ The following guide uses [Docker CLI commands](https://docs.docker.com/reference
    ```sh
    docker run \
     --name influxdb2 \
-    -p 8086:8086 \
+    --publish 8086:8086 \
     --mount type=volume,source=influxdb2-data,target=/var/lib/influxdb2 \
     --mount type=volume,source=influxdb2-config,target=/etc/influxdb2 \
-    -e DOCKER_INFLUXDB_INIT_MODE=setup \
-    -e DOCKER_INFLUXDB_INIT_USERNAME=<USERNAME> \
-    -e DOCKER_INFLUXDB_INIT_PASSWORD=<PASSWORD> \
-    -e DOCKER_INFLUXDB_INIT_ORG=<ORG_NAME> \
-    -e DOCKER_INFLUXDB_INIT_BUCKET=<BUCKET_NAME> \
+    --env DOCKER_INFLUXDB_INIT_MODE=setup \
+    --env DOCKER_INFLUXDB_INIT_USERNAME=<USERNAME> \
+    --env DOCKER_INFLUXDB_INIT_PASSWORD=<PASSWORD> \
+    --env DOCKER_INFLUXDB_INIT_ORG=<ORG_NAME> \
+    --env DOCKER_INFLUXDB_INIT_BUCKET=<BUCKET_NAME> \
     influxdb:{{< latest-patch >}}
    ```
 
    The command passes the following arguments:
 
-   - `-p 8086:8086`: Exposes the container port `8086` for the InfluxDB [UI](/influxdb/v2/get-started/#influxdb-user-interface-ui) and [HTTP API](/influxdb/v2/reference/api/) on the host port `8086`.
+   - `--publish 8086:8086`: Exposes the container port `8086` for the InfluxDB [UI](/influxdb/v2/get-started/#influxdb-user-interface-ui) and [HTTP API](/influxdb/v2/reference/api/) on the host port `8086`.
    - `--mount type=volume,source=influxdb2-data,target=/var/lib/influxdb2`: Creates a volume named `influxdb2-data` mapped to the [InfluxDB Dockerhub data directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout) to persist data outside the container.
    - `--mount type=volume,source=influxdb2-config,target=/etc/influxdb2`: Creates a volume named `influxdb2-config` mapped to the [InfluxDB Dockerhub configuration directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout) to make configurations available outside the container.
-   - `-e DOCKER_INFLUXDB_INIT_MODE=setup`: Environment variable that invokes the automated setup for the initial organization, user, bucket, and token when creating the container.
-   - `-e DOCKER_INFLUXDB_INIT_<SETUP_OPTION>`: Environment variables for initial setup options--replace the following with your own values:
+   - `--env DOCKER_INFLUXDB_INIT_MODE=setup`: Environment variable that invokes the automated setup for the initial organization, user, bucket, and token when creating the container.
+   - `--env DOCKER_INFLUXDB_INIT_<SETUP_OPTION>`: Environment variables for initial setup options--replace the following with your own values:
      - `<USERNAME>`: The username for the initial [user](/influxdb/v2/admin/users/).
      - `<PASSWORD>`: The password for the initial [user](/influxdb/v2/admin/users/).
      - `<ORG_NAME>`: The name for the initial [organization](/influxdb/v2/admin/organizations/).
@@ -522,7 +522,8 @@ If successful, the command starts InfluxDB initialized with the user, organizati
 and _[operator token](/influxdb/v2/admin/tokens/#operator-token)_, and logs to stdout.
 You can view the operator token in the `/etc/influxdb2/influx-configs` file and use it to authorize [creating an All-Access token](#optional-create-all-access-tokens).
 
-_To run the InfluxDB container in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground), include the `-d` flag in the `docker run` command._
+_To run the InfluxDB container in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground),
+ include the `--detach` flag in the `docker run` command._
 
 ### Run InfluxDB CLI commands in a container
 
