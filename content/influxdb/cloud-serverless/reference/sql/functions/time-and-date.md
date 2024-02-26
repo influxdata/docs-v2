@@ -740,7 +740,7 @@ SELECT to_timestamp_micros('01:01:59.123456789 01-01-2024', '%c', '%+', '%H:%M:%
 Converts a value to RFC3339 nanosecond timestamp format (`YYYY-MM-DDT00:00:00.000000000Z`).
 Supports timestamp, integer, and unsigned integer types as input.
 Integers and unsigned integers are parsed as
-[Unix nanoosecond timestamps](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
+[Unix nanosecond timestamps](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
 and return the corresponding RFC3339 timestamp.
 
 ```sql

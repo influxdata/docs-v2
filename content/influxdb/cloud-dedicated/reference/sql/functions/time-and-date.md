@@ -121,9 +121,8 @@ Calculates time intervals and returns the start of the interval nearest to the s
 Use `date_bin` to downsample time series data by grouping rows into time-based "bins" or "windows"
 and applying an aggregate or selector function to each window.
 
-For example, if you "bin" or "window" data into 15 minute intervals, an input
-timestamp of `2023-01-01T18:18:18Z` will be updated to the start time of the
-15 minute bin it is in: `2023-01-01T18:15:00Z`.
+For example, given an input
+timestamp of `2023-01-01T18:18:18Z`, if you bin data into 15-minute intervals, the output timestamp is `2023-01-01T18:15:00Z`--the start of the 15-minute bin that includes the input.
 
 ```sql
 date_bin(interval, expression[, origin_timestamp])
@@ -739,7 +738,7 @@ SELECT to_timestamp_micros('01:01:59.123456789 01-01-2024', '%c', '%+', '%H:%M:%
 Converts a value to RFC3339 nanosecond timestamp format (`YYYY-MM-DDT00:00:00.000000000Z`).
 Supports timestamp, integer, and unsigned integer types as input.
 Integers and unsigned integers are parsed as
-[Unix nanoosecond timestamps](/influxdb/cloud-dedicated/reference/glossary/#unix-timestamp)
+[Unix nanosecond timestamps](/influxdb/cloud-dedicated/reference/glossary/#unix-timestamp)
 and return the corresponding RFC3339 timestamp.
 
 ```sql
