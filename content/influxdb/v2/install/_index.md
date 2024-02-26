@@ -275,7 +275,7 @@ see [File system layout](/influxdb/v2/reference/internals/file-system-layout/?t=
 
 You can use systemd to customize [InfluxDB configuration options](/influxdb/v2/reference/config-options/#configuration-options) and pass them to the InfluxDB service.
 
-1. Edit the `/etc/default/influxdb2` service config file to assign variable names to `influxd` command line flags--for example, add one or more `<VARIABLE_NAME>=<COMMAND_LINE_FLAG>` lines like the following:
+1.  Edit the `/etc/default/influxdb2` service configuration file to assign configuration directives to `influxd` command line flags--for example, add one or more `<ENV_VARIABLE_NAME>=<COMMAND_LINE_FLAG>` lines like the following:
 
    <!--pytest.mark.skip-->
 
