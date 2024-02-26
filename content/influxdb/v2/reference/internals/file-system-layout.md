@@ -18,9 +18,13 @@ or containerization platform used to install InfluxDB.
 
 - [InfluxDB file structure](#influxdb-file-structure)
 - [File system layout](#file-system-layout)
+  - [Installed as a standalone binary](#installed-as-a-standalone-binary)
+  - [Installed as a package](#installed-as-a-package)
+  - [Dockerhub](#dockerhub)
+  - [Quay.io](#quayio)
 
 ## InfluxDB file structure
-The InfluxDB file structure includes of the following:
+The InfluxDB file structure includes the following:
 
 #### Engine path
 Directory path to the [storage engine](/influxdb/v2/reference/internals/storage-engine/),
@@ -93,8 +97,12 @@ When installing InfluxDB on Linux, you can download and install the `influxd` bi
 or you can use a package manager.
 Which installation method you use determines the file system layout.
 
-- [Installed as a standalone binary](#installed-as-a-standalone-binary)
-- [Installed as a package](#installed-as-a-package)
+- [InfluxDB file structure](#influxdb-file-structure)
+- [File system layout](#file-system-layout)
+  - [Installed as a standalone binary](#installed-as-a-standalone-binary)
+  - [Installed as a package](#installed-as-a-package)
+  - [Dockerhub](#dockerhub)
+  - [Quay.io](#quayio)
 
 ### Installed as a standalone binary
 
