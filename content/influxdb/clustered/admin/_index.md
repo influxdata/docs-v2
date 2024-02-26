@@ -2,7 +2,7 @@
 title: Administer InfluxDB Clustered
 description: >
   Perform administrative tasks in your InfluxDB cluster such as
-  creating and managing tokens and databases.
+  creating and managing tokens and databases and upgrading your InfluxDB cluster.
 menu:
   influxdb_clustered:
     name: Administer InfluxDB Clustered

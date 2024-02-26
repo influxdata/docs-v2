@@ -332,7 +332,7 @@ Return the area under the curve (in minutes) for the field values associated
 with the `water_level` field key and in the `h2o_feet` measurement in the
 [time range](/influxdb/v2/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between
 `2019-08-18T00:00:00Z` and `2019-08-18T00:30:00Z`, [grouped](/influxdb/v2/query-data/influxql/explore-data/group-by/#group-by-time-intervals) results into 12-minute intervals, and
-[limit](/influxdb/influxdb/v2/query-data/influxql/explore-data/limit-and-slimit/)
+[limit](/influxdb/v2/query-data/influxql/explore-data/limit-and-slimit/)
 the number of results returned to one.
 
 ```sql
@@ -783,7 +783,7 @@ between `2019-08-18T00:00:00Z` and `2019-08-18T00:30:00Z` and
 results into 12-minute time intervals and per tag.
 Then [fill](/influxdb/v2/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill)
 empty time intervals with `18`, [lim
-ts](/ifluxdb/influxdb/v2/query-data/influxql/explore-data/limit-and-slimit/)
+ts](/influxdb/v2/query-data/influxql/explore-data/limit-and-slimit/)
 the number of points and series returned to three and one, and [offsets](/influxdb/v2/query-data/influxql/explore-data/limit-and-slimit/) the series returned by one.
 
 ```sql
