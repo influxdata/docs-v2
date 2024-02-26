@@ -23,7 +23,7 @@ The instructions in this guide require **Grafana Cloud** or **Grafana v8.0+**.
 {{% /note %}}
 
 1. {{% cloud-only %}}[Log into InfluxDB Cloud](https://cloud2.influxdata.com).{{% /cloud-only %}}
-1. {{% oss-only %}}[Start InfluxDB](/influxdb/v2/install/#start-and-configure-influxdb).{{% /oss-only %}}
+1. {{% oss-only %}}[Start InfluxDB](/influxdb/v2/install/#configure-and-start-influxdb).{{% /oss-only %}}
 2. [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
    [download and install Grafana](https://grafana.com/grafana/download).
 3. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,

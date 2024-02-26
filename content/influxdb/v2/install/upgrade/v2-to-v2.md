@@ -20,7 +20,7 @@ Upgrade to InfluxDB {{< current-version >}} from an earlier version of InfluxDB 
 {{% note %}}
 #### InfluxDB 2.0 beta-16 or earlier
 If you're upgrading from InfluxDB 2.0 beta-16 or earlier, you must first
-[upgrade to InfluxDB 2.0](/influxdb/v2/upgrade/v2-beta-to-v2/), 
+[upgrade to InfluxDB 2.0](/influxdb/v2/upgrade/v2-beta-to-v2/),
 and then complete the steps below.
 {{% /note %}}
 
@@ -40,12 +40,14 @@ Do one of the following:
 - [Manually upgrade](#manually-upgrade)
 
 ### Use homebrew to upgrade
-```
+
+```sh
 brew upgrade influxdb
 ```
 
 ### Manually upgrade
-To manually upgrade, [download and install the latest version of InfluxDB {{< current-version >}} for macOS](/influxdb/v2/install/#manually-download-and-install)
+
+To manually upgrade, [download and install the latest version of InfluxDB {{< current-version >}} for macOS](/influxdb/v2/install/?t=macos/#manually-download-and-install-for-macos)
 in place of your current 2.x version.
 {{% /tab-content %}}
 <!----------------------------- END MACOS CONTENT ----------------------------->
@@ -53,8 +55,8 @@ in place of your current 2.x version.
 <!---------------------------- BEGIN LINUX CONTENT ---------------------------->
 {{% tab-content %}}
 
-[Download and install the latest version of InfluxDB {{< current-version >}} for Linux](/influxdb/v2/install/?t=Linux#download-and-install-influxdb-v21)
-in place of current 2.x version.
+[Download and install the latest version of InfluxDB {{< current-version >}} for Linux](/influxdb/v2/install/?t=Linux#download-and-install-influxdb-v2)
+in place of your current 2.x version.
 
 {{% /tab-content %}}
 <!----------------------------- END LINUX CONTENT ----------------------------->
@@ -63,7 +65,7 @@ in place of current 2.x version.
 {{% tab-content %}}
 
 [Download and install the latest version of InfluxDB {{< current-version >}} for Windows](/influxdb/v2/install/?t=Windows)
-in place of current 2.x version.
+in place of your current 2.x version.
 
 {{% /tab-content %}}
 <!---------------------------- END WINDOWS CONTENT ---------------------------->
@@ -77,6 +79,7 @@ image to use the latest InfluxDB image.
 ```sh
 influxdb:{{< latest-patch >}}
 ```
+
 {{% /tab-content %}}
 <!---------------------------- END DOCKER CONTENT ----------------------------->
 
