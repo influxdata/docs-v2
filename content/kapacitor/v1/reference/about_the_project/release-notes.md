@@ -12,8 +12,8 @@ aliases:
 ## v1.7.2 {date="2024-02-26"}
 
 - Upgrade Go to 1.20.13
-- Upgrade google.golang.org/grpc to 1.56.3
-- Upgrade github.com/docker/docker to 24.0.7
+- Upgrade `google.golang.org/grpc` to 1.56.3
+- Upgrade `github.com/docker/docker` to 24.0.7
 
 ---
 
