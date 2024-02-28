@@ -14,7 +14,7 @@ aliases:
 
 ### Features
 
-- Possibility to specify OAuth logout endpoint to logout from OAuth Identity provider.
+- Specify an OAuth logout endpoint to logout from your OAuth identity provider.
 
 ### Maintenance updates
 
