@@ -10,6 +10,16 @@ aliases:
   - /chronograf/v1/about_the_project/release-notes-changelog/
 ---
 
+## v1.10.3 {date="2024-02-28"}
+
+### Features
+
+- Specify an OAuth logout endpoint to logout from your OAuth identity provider.
+
+### Maintenance updates
+
+- Upgrade Go to 1.20.13.
+
 ## v1.10.2 {date="2023-10-20"}
 
 ### Bug Fixes
