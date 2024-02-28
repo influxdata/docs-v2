@@ -155,13 +155,13 @@ If using an admin user for visualization or Chronograf administrative functions,
 
 InfluxDB {{< current-version >}} only grants admin privileges to the primary user
 set up during the InfluxDB {{< current-version >}} upgrade.
-This provides you with the opportunity to reassess who to grant admin permissions
+This provides you the opportunity to reassess who to grant admin permissions to
 when setting up InfluxDB {{< current-version >}}.
 
 ### Dashboards
 
 You can continue to use your existing dashboards and visualization tools with
-InfluxDB {{< current-version >}} via the [1.x read compatibility API](/influxdb/v2/reference/api/influxdb-1x/).
+InfluxDB {{< current-version >}} via the [1.x `/query` compatibility API](/influxdb/v2/reference/api/influxdb-1x/query/).
 The upgrade process creates [DBRP mappings](/influxdb/v2/reference/api/influxdb-1x/dbrp/)
 to ensure existing users can execute InfluxQL queries with the appropriate permissions.
 
@@ -190,7 +190,7 @@ tools can connect to InfluxDB.
 
 If you upgrade with `auth-enabled = false`, the upgrade may appear complete,
 but client requests to InfluxDB {{< current-version >}} may be silently ignored
-(you won't see a notification the request was denied).
+(you won't see a notification that the request was denied).
 
 ### In-memory indexing option
 
@@ -208,7 +208,7 @@ The InfluxDB {{< current-version >}} `influx` CLI includes an interactive
 **InfluxQL shell** for executing InfluxQL queries.
 To start an InfluxQL shell:
 
-1. Download and install in the [`influx` CLI](/influxdb/v2/tools/influx-cli/).
+1. Download and install the [`influx` CLI](/influxdb/v2/tools/influx-cli/).
 2. Set up your [`influx` CLI authentication credentials](/influxdb/v2/tools/influx-cli/#set-up-the-influx-cli).
 3. Run the `influx v1 shell` command.
 
