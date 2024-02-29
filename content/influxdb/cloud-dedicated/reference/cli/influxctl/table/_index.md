@@ -1,7 +1,7 @@
 ---
 title: influxctl table
 description: >
-  The `influx table` command and its subcommands manage tables in an
+  The `influxctl table` command and its subcommands manage tables in an
   InfluxDB Cloud Dedicated cluster.
 menu:
   influxdb_cloud_dedicated:
@@ -11,7 +11,7 @@ cascade:
   metadata: [influxctl 2.5.0+]
 ---
 
-The `influx table` command and its subcommands manage tables in an
+The `influxctl table` command and its subcommands manage tables in an
 InfluxDB Cloud Dedicated cluster.
 
 ## Usage
