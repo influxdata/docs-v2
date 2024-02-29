@@ -142,3 +142,13 @@ $('.article--content table').each(function() {
     }
   })
 })
+
+/////////////////////// Open external links in a new tab ///////////////////////
+
+$('.article--content a').each(function() {
+  var currentHost = location.host;
+
+  if (!($(this)[0].href).includes(currentHost)) {
+    $(this).attr('target', '_blank');
+  };
+})
