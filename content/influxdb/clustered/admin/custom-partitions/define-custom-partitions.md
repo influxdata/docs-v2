@@ -52,13 +52,13 @@ _View [partition template part restrictions](/influxdb/clustered/admin/custom-pa
 
 The following example creates a new `example-db` database and applies a partition
 template that partitions by two tags (`room` and `sensor-type`) and by week using
-the time format `%Y wk:%U`:
+the time format `%Y wk:%W`:
 
 ```sh
 influxctl database create \
   --template-tag room \
   --template-tag sensor-type \
-  --template-time '%Y wk:%U' \
+  --template-time '%Y wk:%W' \
   example-db
 ```
 

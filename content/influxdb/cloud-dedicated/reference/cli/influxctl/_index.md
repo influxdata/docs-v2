@@ -255,7 +255,7 @@ sudo yum install influxctl
     'C:\Program Files\InfluxData\influxctl'
     ```
 
-3.  **Grant network access to the influx CLI**.
+3.  **Grant network access to the influxctl CLI**.
 
     When using the `influxctl` CLI for the first time, Windows Defender displays
     the following message:
