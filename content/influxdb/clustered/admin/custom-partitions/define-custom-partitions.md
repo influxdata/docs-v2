@@ -9,6 +9,7 @@ menu:
 weight: 202
 related:
   - /influxdb/clustered/reference/cli/influxctl/database/create/
+  - /influxdb/clustered/reference/cli/influxctl/table/create/
 ---
 
 Use the [`influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/)
@@ -16,7 +17,8 @@ to define custom partition strategies when creating a database or table.
 By default, {{< product-name >}} partitions data by day.
 
 The partitioning strategy of a database or table is determined by a
-[partition template](/influxdb/clustered/admin/custom-partitions/#partition-templates) which defines the naming pattern for [partition keys](/influxdb/clustered/admin/custom-partitions/#partition-keys).
+[partition template](/influxdb/clustered/admin/custom-partitions/#partition-templates)
+which defines the naming pattern for [partition keys](/influxdb/clustered/admin/custom-partitions/#partition-keys).
 Partition keys uniquely identify each partition.
 When a partition template is applied to a database, it becomes the default template
 for all tables in that database, but can be overridden when creating a
@@ -62,15 +64,16 @@ influxctl database create \
 
 ## Create a table with a custom partition template
 
-The following example creates a new `example-table` table and applies a
-partition template that partitions by two tags (`room` and `sensor-type`) and by
-week using the time format `%Y-%m-%d %H:00`:
+The following example creates a new `example-table` table in the `example-db`
+database and applies a partition template that partitions by two tags
+(`room` and `sensor-type`) and by month using the time format `%Y-%m`:
 
 ```sh
 influxctl table create \
   --template-tag room \
   --template-tag sensor-type \
-  --template-time '%Y-%m-%d %H:00' \
+  --template-time '%Y-%m' \
+  example-db \
   example-table
 ```
 
