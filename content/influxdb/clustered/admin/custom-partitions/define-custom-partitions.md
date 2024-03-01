@@ -9,6 +9,7 @@ menu:
 weight: 202
 related:
   - /influxdb/clustered/reference/cli/influxctl/database/create/
+  - /influxdb/clustered/reference/cli/influxctl/table/create/
 ---
 
 Use the [`influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/)
@@ -16,7 +17,8 @@ to define custom partition strategies when creating a database or table.
 By default, {{< product-name >}} partitions data by day.
 
 The partitioning strategy of a database or table is determined by a
-[partition template](/influxdb/clustered/admin/custom-partitions/#partition-templates) which defines the naming pattern for [partition keys](/influxdb/clustered/admin/custom-partitions/#partition-keys).
+[partition template](/influxdb/clustered/admin/custom-partitions/#partition-templates)
+which defines the naming pattern for [partition keys](/influxdb/clustered/admin/custom-partitions/#partition-keys).
 Partition keys uniquely identify each partition.
 When a partition template is applied to a database, it becomes the default template
 for all tables in that database, but can be overridden when creating a
@@ -49,28 +51,29 @@ _View [partition template part restrictions](/influxdb/clustered/admin/custom-pa
 ## Create a database with a custom partition template
 
 The following example creates a new `example-db` database and applies a partition
-template that partitions by two tags (`room` and `sensor-type`) and by hour using
-the time format `%Y-%m-%d %H:00`:
+template that partitions by two tags (`room` and `sensor-type`) and by week using
+the time format `%Y wk:%W`:
 
 ```sh
 influxctl database create \
   --template-tag room \
   --template-tag sensor-type \
-  --template-time '%Y-%m-%d %H:00' \
+  --template-time '%Y wk:%W' \
   example-db
 ```
 
 ## Create a table with a custom partition template
 
-The following example creates a new `example-table` table and applies a
-partition template that partitions by two tags (`room` and `sensor-type`) and by
-week using the time format `%Y-%m-%d %H:00`:
+The following example creates a new `example-table` table in the `example-db`
+database and applies a partition template that partitions by two tags
+(`room` and `sensor-type`) and by month using the time format `%Y-%m`:
 
 ```sh
 influxctl table create \
   --template-tag room \
   --template-tag sensor-type \
-  --template-time '%Y-%m-%d %H:00' \
+  --template-time '%Y-%m' \
+  example-db \
   example-table
 ```
 
@@ -89,7 +92,6 @@ prod,line=A,station=weld1 temp=81.9,qty=36i 1704067200000000000
 | By day (non-default)    |                   | `%d %b %Y` | 01 Jan 2024              |
 | By week                 |                   | `%Y wk:%W` | 2024 wk:01               |
 | By month                |                   | `%Y-%m`    | 2024-01                  |
-| By hour                 |                   | `%F %H:00` | 2024-01-01 00:00         |
 | Single tag, by day      | `line`            | `%F`       | A \| 2024-01-01          |
 | Single tag, by week     | `line`            | `%Y wk:%W` | A \| 2024 wk:01          |
 | Single tag, by month    | `line`            | `%Y-%m`    | A \| 2024-01             |

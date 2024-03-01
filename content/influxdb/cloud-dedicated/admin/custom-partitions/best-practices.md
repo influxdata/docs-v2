@@ -25,6 +25,7 @@ specific ID, partitioning by the tag that stores the ID helps the InfluxDB
 query engine to more quickly identify what partitions contain the relevant data.
 
 {{% note %}}
+
 #### Be careful partitioning on high-cardinality tags
 
 Partitioning using tags with many (10K+) unique values can actually hurt

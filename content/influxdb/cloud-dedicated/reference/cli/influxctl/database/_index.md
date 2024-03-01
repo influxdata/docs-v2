@@ -1,7 +1,7 @@
 ---
 title: influxctl database
 description: >
-  The `influx database` command and its subcommands manage databases in an
+  The `influxctl database` command and its subcommands manage databases in an
   InfluxDB Cloud Dedicated cluster.
 menu:
   influxdb_cloud_dedicated:
@@ -9,7 +9,7 @@ menu:
 weight: 201
 ---
 
-The `influx database` command and its subcommands manage databases in an
+The `influxctl database` command and its subcommands manage databases in an
 InfluxDB Cloud Dedicated cluster.
 
 ## Usage
