@@ -47,7 +47,7 @@ SHOW MEASUREMENTS
 
 ## List tables with the influxctl CLI
 
-To list tables using the influxctl CLI, use the `influxctl query` command to pass
+To list tables using the `influxctl` CLI, use the `influxctl query` command to pass
 the `SHOW TABLES` SQL statement.
 
 {{% note %}}
