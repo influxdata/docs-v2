@@ -9,6 +9,14 @@ aliases:
   - /kapacitor/v1/about_the_project/releasenotes-changelog/
 ---
 
+## v1.7.2 {date="2024-02-26"}
+
+- Upgrade Go to 1.20.13
+- Upgrade `google.golang.org/grpc` to 1.56.3
+- Upgrade `github.com/docker/docker` to 24.0.7
+
+---
+
 ## v1.7.1 {date="2023-10-20"}
 
 ### Bug Fixes

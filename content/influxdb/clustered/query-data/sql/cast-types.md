@@ -290,7 +290,7 @@ CAST(value AS TIMESTAMP)
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-SQL supports casting the following to a boolean:
+SQL supports casting the following to a timestamp:
 
 - **Strings**: Returns the timestamp equivalent of the string value.
   The following RFC3339 and RFC339-like string patterns are supported:
@@ -303,7 +303,49 @@ SQL supports casting the following to a boolean:
     - `YYYY-MM-DD 00:00:00`
     - `YYYY-MM-DD`
 
-- **Integers**: Parses the integer as a Unix nanosecond timestamp and returns
+- **Integers**: Parses the integer as a Unix _second_ timestamp and returns
   the equivalent timestamp.
 - **Unsigned integers**: Parses the unsigned integer as a Unix nanosecond timestamp
   and returns the equivalent timestamp.
+
+{{% note %}}
+#### Cast Unix nanosecond timestamps to a timestamp type
+
+To cast a Unix nanosecond timestamp to a timestamp type, first cast the numeric
+value to an unsigned integer (`BIGINT UNSIGNED`) and then a timestamp.
+You can also use the [`to_timestamp_nanos`](/influxdb/clustered/reference/sql/functions/time-and-date/#to_timestamp_nanos)
+function.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[:: shorthand](#)
+[CAST()](#)
+[to_timestamp_nanos](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+1704067200000000000::BIGINT UNSIGNED::TIMESTAMP
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+CAST(CAST(1704067200000000000 AS BIGINT UNSIGNED) AS TIMESTAMP)
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+to_timestamp_nanos(1704067200000000000)
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+{{% /note %}}
+
+### Timestamp functions
+
+You can also use the following SQL functions to cast a value to a timestamp type:
+
+- [`to_timestamp`](/influxdb/clustered/reference/sql/functions/time-and-date/#to_timestamp)
+- [`to_timestamp_millis`](/influxdb/clustered/reference/sql/functions/time-and-date/#to_timestamp_millis)
+- [`to_timestamp_micros`](/influxdb/clustered/reference/sql/functions/time-and-date/#to_timestamp_micros)
+- [`to_timestamp_nanos`](/influxdb/clustered/reference/sql/functions/time-and-date/#to_timestamp_nanos)
+- [`to_timestamp_seconds`](/influxdb/clustered/reference/sql/functions/time-and-date/#to_timestamp_seconds)
