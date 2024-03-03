@@ -137,10 +137,10 @@ Note: "sdf" stands for "Streaming Dataframe".
 
 Use the `influxdb_client_3` and `quixstreams` modules to  instantiate two clients that interact with InfluxDB and Apache Kafka:
 
-- One configured to connect to your InfluxDB bucket with _unmodified_ data and pass that data to Kafka.
-- The other configured to read from Kafka and write the  _downsampled_ data to the corresponding InfluxDB bucket.
+- A **producer** client configured to read from your InfluxDB bucket with _unmodified_ data and _produce_ that data to Kafka.
+- A **consumer** client configured to _consume_ data from Kafka and write the _downsampled_ data to the corresponding InfluxDB bucket.
 
-### Create the producer
+### Create the producer client
 
 Provide the following credentials for the producer:
 
@@ -306,11 +306,15 @@ sdf = sdf.update(send_data_to_influx) # Continuously apply the 'send_data' funct
 
 ## Get the full downsampling code files
 
-To get the complete set of files referenced in this tutorial, clone the Quix "downsampling template" repository:
+To get the complete set of files referenced in this tutorial, you can clone the Quix "downsampling template" repository or use an interactive version of this tutorial saved as a Jupyter Notebook.
 
-``git clone https://github.com/quixio/template-influxdbv3-downsampling.git`
+### Clone the downsampling template repository
 
-It contains the following folders which store different parts of the whole pipeline:
+To clone the downsampling template, enter the following command in the command line:
+
+`git clone https://github.com/quixio/template-influxdbv3-downsampling.git`
+
+This repository contains the following folders which store different parts of the whole pipeline:
 
 
 * **Machine Data to InfluxDB**- A script that generates synthetic machine data and writes it to InfluxDB (useful if you dont have your own data yet, or just want to work with test data first).
@@ -319,3 +323,11 @@ It contains the following folders which store different parts of the whole pipel
 * **InfluxDB V3 Data Source** - A service that queries for fresh data from InfluxDB at specific intervals. It's configured to look for the measurement produced by the previously-mentioned synthetic machine data generator. It writes the raw data to a Kafka topic called "raw-data".
 * **Downsampler** - A service that performs a 1-minute tumbling window operation on the data from InfluxDB and emits the mean of the "temperature" reading every minute. It writes the output to a "downsampled-data" Kafka topic.
 * **InfluxDB V3 Data Sink** - A service that reads from the "downsampled-data" topic and writes the downsample records as points back into InfluxDB.
+
+### Use the downsampling Jupyter Notebook
+
+You can use the interactive notebook ["Continuously downsample data using InfluxDB and Quix Streams"](https://github.com/quixio/tutorial-code/edit/main/notebooks/Downsampling_viaKafka_Using_Quix_Influx.ipynb) to try downsampling code yourself. It is configured to install Apache Kafka within the runtime environment (such as Google Colab). 
+
+Each process is also set up to run in the background so that a running cell does not block the rest of the tutorial.
+
+<a target="_blank" href="https://colab.research.google.com/github/quixio/tutorial-code/blob/main/notebooks/Downsampling_viaKafka_Using_Quix_Influx.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
