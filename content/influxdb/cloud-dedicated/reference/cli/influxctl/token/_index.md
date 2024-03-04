@@ -1,7 +1,7 @@
 ---
 title: influxctl token
 description: >
-  The `influx token` command and its subcommands manage database tokens in an
+  The `influxctl token` command and its subcommands manage database tokens in an
   InfluxDB Cloud Dedicated cluster.
 menu:
   influxdb_cloud_dedicated:
@@ -9,7 +9,7 @@ menu:
 weight: 201
 ---
 
-The `influx token` command and its subcommands manage database tokens in an
+The `influxctl token` command and its subcommands manage database tokens in an
 InfluxDB Cloud Dedicated cluster.
 
 ## Usage

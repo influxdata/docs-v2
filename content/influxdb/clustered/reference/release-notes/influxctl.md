@@ -12,6 +12,42 @@ weight: 202
 canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 ---
 
+## v2.5.0 {date="2024-03-04"}
+
+`influxctl` 2.5.0 introduces the ability to set
+[partition templates](/influxdb/clustered/admin/custom-partitions/) during
+database or table creation. It introduces the
+[`table` subcommand](/influxdb/clustered/reference/cli/influxctl/table/)
+that lets users manually create tables. Additionally, `influxctl` now removes a
+previously cached token if the response from InfluxDB is unauthorized. This
+helps InfluxDB Clustered users who deploy new clusters using unexpired tokens
+associated with another InfluxDB cluster.
+
+### New Features
+
+- Add partition templates to database and table creation.
+- Remove token if unauthorized.
+
+### Bug Fixes
+
+- Update arrow to allow non-TLS connections.
+- Do not attempt to load cached tokens when an admin token file is provided.
+- Print retention period up to days rather than very large hours.
+- Fix indentation of help output.
+
+### Dependency Updates
+
+- Update `github.com/golangci/golangcilint` from v1.56.1 to v1.56.2.
+- Update `golang.org/x/mod` from v0.15.0 to v0.16.0.
+- Update `github.com/pkg/browser` from v0.0.0-20210911075715-681adbf594b8 to
+  v0.0.0-20240102092130-5ac0b6a4141c.
+- Update `github.com/stretchr/testify` from 1.8.4 to 1.9.0.
+- Update `go.uber.org/zap` from 1.26.0 to 1.27.0.
+- Update `google.golang.org/grpc` from 1.61.0 to 1.61.1.
+- Update `google.golang.org/grpc` from 1.61.1 to 1.62.0.
+
+---
+
 ## v2.4.4 {date="2024-02-16"}
 
 ### Bug fixes

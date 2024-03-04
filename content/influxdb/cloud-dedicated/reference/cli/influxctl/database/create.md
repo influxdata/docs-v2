@@ -7,10 +7,13 @@ menu:
   influxdb_cloud_dedicated:
     parent: influxctl database
 weight: 301
+related:
+  - /influxdb/cloud-dedicated/admin/custom-partitions/define-custom-partitions/
+  - /influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/
 ---
 
 The `influxctl database create` command creates a new database with a specified
-retention period in an InfluxDB Cloud Dedicated cluster.
+retention period in an {{< product-name omit=" Clustered" >}} cluster.
 
 The retention period defines the maximum age of data retained in the database,
 based on the timestamp of the data.
@@ -20,7 +23,7 @@ A zero duration retention period is infinite and data will not expire.
 The retention period value cannot be negative or contain whitespace.
 
 {{< flex >}}
-{{% flex-content %}}
+{{% flex-content "half" %}}
 
 ##### Valid durations units include
 
@@ -32,7 +35,7 @@ The retention period value cannot be negative or contain whitespace.
 - **y**: year
 
 {{% /flex-content %}}
-{{% flex-content %}}
+{{% flex-content "half" %}}
 
 ##### Example retention period values
 
@@ -46,6 +49,14 @@ The retention period value cannot be negative or contain whitespace.
 
 {{% /flex-content %}}
 {{< /flex >}}
+
+#### Custom partitioning
+
+You can override the default partition template (`%Y-%m-%d`) of the database
+with the `--template-tag` and `--template-time` flags when you create the database.
+Provide a time format using [Rust strftime](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
+and include specific tags to use in the partition template.
+Be sure to follow [partitioning best practices](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/).
 
 ## Usage
 
@@ -61,12 +72,14 @@ influxctl database create [--retention-period 0s] <DATABASE_NAME>
 
 ## Flags
 
-| Flag |                      | Description                                                  |
-| :--- | :------------------- | :----------------------------------------------------------- |
-|      | `--retention-period` | Database retention period (default is 0s or infinite)        |
-|      | `--max-tables`       | Maximum tables per database (default is 500, 0 uses default) |
-|      | `--max-columns`      | Maximum columns per table (default is 250, 0 uses default)   |
-| `-h` | `--help`             | Output command help                                          |
+| Flag |                      | Description                                                          |
+| :--- | :------------------- | :------------------------------------------------------------------- |
+|      | `--retention-period` | Database retention period (default is 0s or infinite)                |
+|      | `--max-tables`       | Maximum tables per database (default is 500, 0 uses default)         |
+|      | `--max-columns`      | Maximum columns per table (default is 250, 0 uses default)           |
+|      | `--template-tag`     | Tag to add to partition template (can include multiple of this flag) |
+|      | `--template-time`    | Timestamp format for partition template (default is `%Y-%m-%d`)      |
+| `-h` | `--help`             | Output command help                                                  |
 
 {{% caption %}}
 _Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
@@ -77,6 +90,7 @@ _Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/inf
 - [Create a database with an infinite retention period](#create-a-database-with-an-infinite-retention-period)
 - [Create a database with a 30-day retention period](#create-a-database-with-a-30-day-retention-period)
 - [Create a database with non-default table and column limits](#create-a-database-with-non-default-table-and-column-limits)
+- [Create a database with with a custom partition template](#create-a-database-with-with-a-custom-partition-template)
 
 ### Create a database with an infinite retention period
 
@@ -100,3 +114,20 @@ influxctl database create \
   --max-columns 150 \
   mydb
 ```
+
+### Create a database with with a custom partition template
+
+The following example creates a new `mydb` database and applies a partition
+template that partitions by two tags (`room` and `sensor-type`) and by week using
+the time format `%Y wk:%W`:
+
+```sh
+influxctl database create \
+  --template-tag room \
+  --template-tag sensor-type \
+  --template-time '%Y wk:%W' \
+  mydb
+```
+
+_For more information about custom partitioning, see
+[Manage data partitioning](/influxdb/cloud-dedicated/admin/custom-partitions/)._

@@ -18,10 +18,11 @@ list_code_example: |
   ```
 related:
   - /influxdb/cloud-dedicated/reference/cli/influxctl/database/create/
+  - /influxdb/cloud-dedicated/admin/custom-partitions/
 ---
 
 Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
-to create a database in your InfluxDB Cloud Dedicated cluster.
+to create a database in your {{< product-name omit=" Clustered" >}} cluster.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 2.  Run the `influxctl database create` command and provide the following:
@@ -30,6 +31,11 @@ to create a database in your InfluxDB Cloud Dedicated cluster.
       _(default is infinite)_
     - _Optional_: Database table (measurement) limit _(default is 500)_
     - _Optional_: Database column limit _(default is 250)_
+    - _Optional_: [InfluxDB tags](/influxdb/cloud-dedicated/reference/glossary/#tag)
+      to use in the partition template _(supports up to 7 different tags)_
+    - _Optional_: A [Rust strftime date and time string](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
+      that specifies the time format in the partition template and determines
+      the time interval to partition by _(default is `%Y-%m-%d`)_
     - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
 
 {{% code-placeholders "DATABASE_NAME|30d|500|200" %}}
@@ -38,6 +44,9 @@ influxctl database create \
   --retention-period 30d \
   --max-tables 500 \
   --max-columns 250 \
+  --template-tag tag1 \
+  --template-tag tag2 \
+  --template-time '%Y-%m-%d' \
   DATABASE_NAME
 ```
 {{% /code-placeholders %}}
@@ -46,6 +55,7 @@ influxctl database create \
 - [Database naming restrictions](#database-naming-restrictions)
 - [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
 - [Table and column limits](#table-and-column-limits)
+- [Custom partitioning](#custom-partitioning)
 
 ## Retention period syntax
 
@@ -59,7 +69,7 @@ A zero duration (`0d`) retention period is infinite and data won't expire.
 The retention period value cannot be negative or contain whitespace.
 
 {{< flex >}}
-{{% flex-content %}}
+{{% flex-content "half" %}}
 
 ##### Valid durations units include
 
@@ -71,7 +81,7 @@ The retention period value cannot be negative or contain whitespace.
 - **y**: year
 
 {{% /flex-content %}}
-{{% flex-content %}}
+{{% flex-content "half" %}}
 
 ##### Example retention period values
 
@@ -190,3 +200,22 @@ threshold beyond which query performance may be affected
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+### Custom partitioning
+
+{{< product-name >}} lets you define a custom partitioning strategy for each database.
+A _partition_ is a logical grouping of data stored in [Apache Parquet](https://parquet.apache.org/)
+format in the InfluxDB v3 storage engine. By default, data is partitioned by day,
+but, depending on your schema and workload, customizing the partitioning
+strategy can improve query performance.
+
+Use the `--template-tag` and `--template-time` flags define partition template
+parts used to generate partition keys for the database.
+For more information, see [Manage data partitioning](/influxdb/cloud-dedicated/admin/custom-partitions/).
+
+{{% note %}}
+#### Partition templates can only be applied on create
+
+You can only apply a partition template when creating a database.
+There is no way to update a partition template on an existing database.
+{{% /note %}}

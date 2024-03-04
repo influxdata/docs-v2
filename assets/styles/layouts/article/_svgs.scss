@@ -37,6 +37,51 @@ svg {
     &.full {path { &#left, &#center, &#right {fill:$fill-color; }}}
   }
 
+  ////////////////// InfluxDB v3 storage architecture diagram //////////////////
+  
+  &#influxdb-v3-storage-architecture {
+    margin: 2rem 0 3rem;
+    max-width: 750px;
+
+    .shape {
+      fill:none;
+      stroke: $article-text;
+      stroke-width: 1.5;
+      stroke-miterlimit :10;
+      
+      &.op70 {opacity: 0.7}
+      &.op50 {opacity: 0.5}
+      &.op25 {opacity: 0.25}
+
+      &.dashed {
+        stroke-width: 1;
+        stroke-dasharray:4,3;
+      }
+    }
+    .title {
+      fill: $product-enterprise;
+      font-weight: $medium;
+      font-size:20px;
+    }
+    .text {
+      fill: $article-text;
+      font-size: 18px;
+      &.small {font-size: 16px;}
+      &.bold {
+        font-weight: $medium;
+        color: $article-bold;
+      }
+      &.italic {font-style: italic;}
+    }
+    .diagram-line {
+      fill: none;
+      stroke: $nav-active;
+      stroke-width: 1.5;
+      stroke-miterlimit: 10;
+      &.dashed {stroke-dasharray:2,4;}
+    }
+    .arrow {fill: $nav-active;}
+  }
 }
 
 @include media(small) {

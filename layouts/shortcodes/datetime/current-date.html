@@ -1,1 +1,6 @@
-<span class="current-date nowrap">2021-01-01T00:00:00Z</span>
+{{- $offset := .Get "offset" | default 0 -}}
+{{- $convertedOffset := math.Mul $offset 24 -}}
+{{- $trimTime := .Get "trimTime" | default false -}}
+{{- $date := time.Now.Add (time.ParseDuration (print $convertedOffset "h")) -}}
+{{- $formattedDate := cond ($trimTime) ($date | time.Format "2006-01-02") (print ($date | time.Format "2006-01-02") "T00:00:00Z") -}}
+<span class="current-date nowrap" offset="{{ $offset }}" trim-time="{{ $trimTime }}">{{ $formattedDate }}</span>

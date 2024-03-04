@@ -1,0 +1,6 @@
+{{- $columns := .Get 0 | default 2 -}}
+<div class="columns-wrapper">
+  <div class="columns-{{ $columns }}">
+    {{ .Inner }}
+  </div>
+</div>

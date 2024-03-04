@@ -1,0 +1,15 @@
+{{ $strategy := .Get 0 | default "vertical" }}
+
+<div class="scaling-strategy {{$strategy}}">
+{{ if eq $strategy "vertical" }}
+  <div class="node outer dashed">
+    <div class="node inner"></div>
+  </div>
+{{ else if eq $strategy "horizontal" }}
+  <div class="node solid"></div>
+  <div class="node dashed"></div>
+  <div class="node dashed"></div>
+{{ else }}
+<p><em>Unknown scaling strategy, "{{$strategy}}"</em>.</p>
+{{ end }}
+</div>
