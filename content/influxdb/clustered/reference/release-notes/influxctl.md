@@ -16,7 +16,7 @@ canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 
 `influxctl` 2.5.0 introduces the ability to set
 [partition templates](/influxdb/clustered/admin/custom-partitions/) during
-database or table creation. I introduces the
+database or table creation. It introduces the
 [`table` subcommand](/influxdb/clustered/reference/cli/influxctl/table/)
 that lets users manually create tables. Additionally, `influxctl` now removes a
 previously cached token if the response from InfluxDB is unauthorized. This
