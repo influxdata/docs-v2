@@ -825,7 +825,7 @@ overlay(str PLACING substr FROM pos [FOR count])
 - **pos**: Start position of the substring replacement (`substr`).
 - **count**: Number of characters in the string (`str`) to replace with the 
   substring (`substr`) beginning from the start position (`pos`).
-  If not specified, the functions uses the length of the substring.
+  If not specified, the function uses the length of the substring.
 
 {{< expand-wrapper >}}
 {{% expand "View `overlay` query example" %}}
@@ -852,7 +852,7 @@ FROM
 
 ## position
 
-Returns the position of substring in a string.
+Returns the position of a substring in a string.
 
 ```sql
 position(substr IN str)
@@ -890,7 +890,7 @@ FROM
 
 ## repeat
 
-Returns a string with an input string repeated a specified number.
+Returns a string with an input string repeated a specified number of times.
 
 ```sql
 repeat(str, n)
@@ -1295,7 +1295,7 @@ substr_index(str, delimiter, count)
   Can be a constant, column, or function, and any combination of string operators.
 - **delimiter**: String expression to use to delimit substrings in the string (`str`).
   Can be a constant, column, or function, and any combination of string operators.
-- **count**: The nth occurrence of the delimiter (`delimiter`) to split on.
+- **count**: The Nth occurrence of the delimiter (`delimiter`) to split on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
   Supports positive and negative numbers.
 

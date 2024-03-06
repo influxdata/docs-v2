@@ -23,8 +23,8 @@ the following regular expression functions:
 
 ## regexp_like
 
-Returns true if a regular expression has at least one match in a string;
-otherwise returns false.
+True if a regular expression has at least one match in a string;
+false otherwise.
 
 ```sql
 regexp_like(str, regexp[, flags])
