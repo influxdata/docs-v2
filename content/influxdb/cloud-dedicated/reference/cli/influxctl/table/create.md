@@ -17,7 +17,7 @@ database in an {{< product-name omit=" Clustered" >}} cluster.
 #### Custom partitioning
 
 You can override the default partition template (the partition template of the target database)
-with the `--template-tag` and `--template-time` flags when you create the table.
+with the `--template-tag` and `--template-timeformat` flags when you create the table.
 Provide a time format using [Rust strftime](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
 and include specific tags to use in the partition template.
 Be sure to follow [partitioning best practices](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/).
@@ -37,11 +37,11 @@ influxctl table create [flags] <DATABASE_NAME> <TABLE_NAME>
 
 ## Flags
 
-| Flag |                      | Description                                                          |
-| :--- | :------------------- | :------------------------------------------------------------------- |
-|      | `--template-tag`     | Tag to add to partition template (can include multiple of this flag) |
-|      | `--template-time`    | Timestamp format for partition template (default is `%Y-%m-%d`)      |
-| `-h` | `--help`             | Output command help                                                  |
+| Flag |                         | Description                                                          |
+| :--- | :---------------------- | :------------------------------------------------------------------- |
+|      | `--template-tag`        | Tag to add to partition template (can include multiple of this flag) |
+|      | `--template-timeformat` | Timestamp format for partition template (default is `%Y-%m-%d`)      |
+| `-h` | `--help`                | Output command help                                                  |
 
 {{% caption %}}
 _Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
@@ -78,7 +78,7 @@ the time format `%Y wk:%W`:
 influxctl table create \
   --template-tag room \
   --template-tag sensor-type \
-  --template-time '%Y wk:%W' \
+  --template-timeformat '%Y wk:%W' \
   DATABASE_NAME \
   TABLE_NAME
 ```
