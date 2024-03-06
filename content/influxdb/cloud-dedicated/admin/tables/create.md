@@ -57,7 +57,7 @@ format in the InfluxDB v3 storage engine. By default, data is partitioned by day
 but, depending on your schema and workload, customizing the partitioning
 strategy can improve query performance.
 
-Use the `--template-tag` and `--template-timeformat` flags define partition
+Use the `--template-tag` and `--template-timeformat` flags to define partition
 template parts used to generate partition keys for the table.
 If no template flags are provided, the table uses the partition template of the
 target database.

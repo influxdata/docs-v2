@@ -41,7 +41,7 @@ Use the following command flags to identify
 
 - `--template-tag`: An [InfluxDB tag](/influxdb/clustered/reference/glossary/#tag)
   to use in the partition template.
-  _Supports up to 7 of these flags._
+  _Supports up to seven of these flags._
 - `--template-timeformat`: A [Rust strftime date and time](/influxdb/clustered/admin/custom-partitions/partition-templates/#time-part-templates)
   string that specifies the time format in the partition template and determines
   the time interval to partition by.
