@@ -19,5 +19,5 @@ to test your new InfluxDB cluster.
 **Other helpful resources**:
 
 - [Administer InfluxDB Clustered](/influxdb/clustered/admin/)
-- [Write data](/influxdb/clustered/write/)
-- [Query data](/influxdb/clustered/query/)
+- [Write data](/influxdb/clustered/write-data/)
+- [Query data](/influxdb/clustered/query-data/)
