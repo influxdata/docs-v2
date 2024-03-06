@@ -42,7 +42,7 @@ Use the following command flags to identify
 - `--template-tag`: An [InfluxDB tag](/influxdb/cloud-dedicated/reference/glossary/#tag)
   to use in the partition template.
   _Supports up to 7 of these flags._
-- `--template-time`: A [Rust strftime date and time](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
+- `--template-timeformat`: A [Rust strftime date and time](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
   string that specifies the time format in the partition template and determines
   the time interval to partition by.
 
@@ -58,7 +58,7 @@ the time format `%Y wk:%W`:
 influxctl database create \
   --template-tag room \
   --template-tag sensor-type \
-  --template-time '%Y wk:%W' \
+  --template-timeformat '%Y wk:%W' \
   example-db
 ```
 
@@ -72,7 +72,7 @@ database and applies a partition template that partitions by two tags
 influxctl table create \
   --template-tag room \
   --template-tag sensor-type \
-  --template-time '%Y-%m' \
+  --template-timeformat '%Y-%m' \
   example-db \
   example-table
 ```

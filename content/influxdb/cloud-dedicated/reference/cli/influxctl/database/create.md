@@ -53,7 +53,7 @@ The retention period value cannot be negative or contain whitespace.
 #### Custom partitioning
 
 You can override the default partition template (`%Y-%m-%d`) of the database
-with the `--template-tag` and `--template-time` flags when you create the database.
+with the `--template-tag` and `--template-timeformat` flags when you create the database.
 Provide a time format using [Rust strftime](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
 and include specific tags to use in the partition template.
 Be sure to follow [partitioning best practices](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/).
@@ -72,14 +72,14 @@ influxctl database create [--retention-period 0s] <DATABASE_NAME>
 
 ## Flags
 
-| Flag |                      | Description                                                          |
-| :--- | :------------------- | :------------------------------------------------------------------- |
-|      | `--retention-period` | Database retention period (default is 0s or infinite)                |
-|      | `--max-tables`       | Maximum tables per database (default is 500, 0 uses default)         |
-|      | `--max-columns`      | Maximum columns per table (default is 250, 0 uses default)           |
-|      | `--template-tag`     | Tag to add to partition template (can include multiple of this flag) |
-|      | `--template-time`    | Timestamp format for partition template (default is `%Y-%m-%d`)      |
-| `-h` | `--help`             | Output command help                                                  |
+| Flag |                         | Description                                                          |
+| :--- | :---------------------- | :------------------------------------------------------------------- |
+|      | `--retention-period`    | Database retention period (default is 0s or infinite)                |
+|      | `--max-tables`          | Maximum tables per database (default is 500, 0 uses default)         |
+|      | `--max-columns`         | Maximum columns per table (default is 250, 0 uses default)           |
+|      | `--template-tag`        | Tag to add to partition template (can include multiple of this flag) |
+|      | `--template-timeformat` | Timestamp format for partition template (default is `%Y-%m-%d`)      |
+| `-h` | `--help`                | Output command help                                                  |
 
 {{% caption %}}
 _Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
@@ -125,7 +125,7 @@ the time format `%Y wk:%W`:
 influxctl database create \
   --template-tag room \
   --template-tag sensor-type \
-  --template-time '%Y wk:%W' \
+  --template-timeformat '%Y wk:%W' \
   mydb
 ```
 

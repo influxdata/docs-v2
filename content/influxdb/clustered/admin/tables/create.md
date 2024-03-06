@@ -43,7 +43,7 @@ to a table, you must manually create the table before you write any data to it.
 influxctl table create \
   --template-tag tag1 \
   --template-tag tag2 \
-  --template-time '%Y-%m-%d' \
+  --template-timeformat '%Y-%m-%d' \
   DATABASE_NAME \
   TABLE_NAME
 ```
@@ -57,8 +57,8 @@ format in the InfluxDB v3 storage engine. By default, data is partitioned by day
 but, depending on your schema and workload, customizing the partitioning
 strategy can improve query performance.
 
-Use the `--template-tag` and `--template-time` flags define partition template
-parts used to generate partition keys for the table.
+Use the `--template-tag` and `--template-timeformat` flags define partition
+template parts used to generate partition keys for the table.
 If no template flags are provided, the table uses the partition template of the
 target database.
 For more information, see [Manage data partitioning](/influxdb/clustered/admin/custom-partitions/).
