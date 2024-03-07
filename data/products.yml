@@ -21,7 +21,7 @@ influxdb:
     - v1.7
   latest: v2.7
   latest_patches:
-    v2: 2.7.4
+    v2: 2.7.5
     v1: 1.8.10
   latest_cli:
     v2: 2.7.3
