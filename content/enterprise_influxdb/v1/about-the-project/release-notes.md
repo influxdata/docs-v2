@@ -9,7 +9,7 @@ menu:
     parent: About the project
 ---
 
-## v1.11.3 {date="2023-10-12"}
+## v1.11.5 {date="2024-02-14"}
 
 {{% note %}}
 #### InfluxDB Enterprise and FIPS-compliance
@@ -21,15 +21,58 @@ InfluxDB Enterprise builds are available. For more information, see
 [FIPS-compliant InfluxDB Enterprise builds](/enterprise_influxdb/v1/introduction/installation/fips-compliant/).
 {{% /note %}}
 
+{{% note %}}
+#### Series file compaction
+
+With InfluxDB Enterprise v1.11.4+, InfluxDB can be configured to optionally
+run the `influxd_inspect -compact-series-file` command to [compact series files](/enterprise_influxdb/v1/tools/influx_inspect/#--compact-series-file-) before data nodes are started.
+Series files are stored in `_series` directories in the
+[`/data` directory](/enterprise_influxdb/v1/concepts/file-system-layout/#data-node-file-system-layout)
+(default is `/var/lib/data/<db-name>/_series`).
+
+- If any series files are corrupt, the `influx_inspect` or `influxd` processes on
+  the data node may fail to start. In both cases, delete the series file
+  directories before restarting the database. InfluxDB will automatically
+  regenerate the deleted series files when the database is restarted.
+- To check if series files are corrupt before starting the database, run the
+  [`influx_inspect verify-seriesfile` command](/enterprise_influxdb/v1/tools/influx_inspect/#verify-seriesfile)
+  while the database is off-line.
+- If series files are large (20+ gigabytes), it may also be faster to delete the
+  series file directories before starting the database.
+{{% /note %}}
+
+### Bug Fixes
+
+- Prevent retention service creating orphaned shard files.
+- Address LDAP authentication and authorization issues.
+
+### Other
+
+- Upgrade Flux to v0.194.5.
+
+## v1.11.4 {date="2023-12-14"}
+
+### Bug Fixes
+
+- Adds `compact-series-file` configuration setting to optionally execute series compaction on startup.
+
+### Other
+
+- Update InfluxDB to latest commit in 1.11
+
+## v1.11.3 {date="2023-10-12"}
+
 {{% warn %}}
 #### Series file compaction on start-up
 
-With InfluxDB Enterprise v1.11.3+, on start-up, InfluxDB run the
+With InfluxDB Enterprise v1.11.3, on start-up, InfluxDB will run the
 `influxd_inspect -compact-series-file` command to [compact series files](/enterprise_influxdb/v1/tools/influx_inspect/#--compact-series-file-) before data nodes are started.
 Series files are stored in `_series` directories in the
 [`/data` directory](/enterprise_influxdb/v1/concepts/file-system-layout/#data-node-file-system-layout)
 (default is `/var/lib/data/<db-name>/_series`).
 
+- InfluxDB Enterprise v1.11.4+ introduces a configuration setting to optionally
+  compact series on startup.
 - If any series files are corrupt, the `influx_inspect` or `influxd` processes on
   the data node may fail to start. In both cases, delete the series file
   directories before restarting the database. InfluxDB will automatically
