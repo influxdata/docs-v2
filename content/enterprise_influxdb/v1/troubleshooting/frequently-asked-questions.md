@@ -701,7 +701,12 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
 
     Therefore, queries that reference `leaves_1` don't return values.
 
-{{% warn %}}**Warning:** If you inadvertently add a duplicate key name, follow the steps below to [remove a duplicate key](#remove-a-duplicate-key). Because of memory requirements, if you have large amounts of data, we recommend chunking your data (while selecting it) by a specified interval (for example, date range) to fit the allotted memory.
+{{% warn %}}
+**Warning:** If you inadvertently add a duplicate key name, follow the steps
+below to [remove a duplicate key](#remove-a-duplicate-key). Because of memory
+requirements, if you have large amounts of data, we recommend chunking your data
+(while selecting it) by a specified interval (for example, date range) to fit
+the allotted memory.
 {{% /warn %}}
 
 #### Remove a duplicate key

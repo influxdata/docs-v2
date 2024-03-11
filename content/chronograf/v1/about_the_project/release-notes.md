@@ -417,7 +417,10 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 
 ## v1.8.1 {date="2020-04-06"}
 
-{{% warn %}} **Warning:** Critical bug that impacted table rendering was introduced in 1.8.1. **Do not install this release**, install [v1.8.2](#v182), which includes the features and bug fixes below.
+{{% warn %}}
+**Warning:** Critical bug that impacted table rendering was introduced in 1.8.1.
+**Do not install this release**, install [v1.8.2](#v182), which includes the
+features and bug fixes below.
 {{% /warn %}}
 
 ### Features
