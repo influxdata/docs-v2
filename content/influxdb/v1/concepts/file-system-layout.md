@@ -161,7 +161,7 @@ The file system layout is the same with each.
 | [WAL directory](#wal-directory)             | `/var/lib/influxdb/wal/`  |
 | [Metastore directory](#metastore-directory) | `/var/lib/influxdb/meta/` |
 
-#### Dockerhub file system overview
+#### Docker Hub file system overview
 {{% filesystem-diagram %}}
 - /var/lib/influxdb/
   - data/
