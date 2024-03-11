@@ -7,7 +7,7 @@ menu:
     parent: Videos
 weight: 143
 youtubeID: 8gt_MdCFw3k
-date: 2022-6-30
+date: 2022-06-30
 series: [Meet the Developers S4]
 metadata: [Meet the Developer Series]
 ---
