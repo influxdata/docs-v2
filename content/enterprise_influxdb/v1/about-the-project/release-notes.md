@@ -25,7 +25,7 @@ InfluxDB Enterprise builds are available. For more information, see
 #### Upgrading from InfluxDB Enterprise v1.11.3
 
 If upgrading from InfluxDB Enterprise v1.11.3 to {{< latest-patch >}}, you can
-now configure whether or not InfluxDB compacts series files startup using the
+now configure whether or not InfluxDB compacts series files on startup using the
 [`compact-series-file` configuration option](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#compact-series-file)
 in your [InfluxDB Enterprise data node configuration file](/enterprise_influxdb/v1/administration/configure/config-data-nodes/).
 {{% /note %}}
