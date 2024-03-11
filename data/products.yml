@@ -4,7 +4,7 @@ influxdb:
   namespace: influxdb
   menu_category: self-managed
   list_order: 4
-  placeholder_host: localhost:1313
+  placeholder_host: localhost:8086
   versions:
     - v2
     - v1
