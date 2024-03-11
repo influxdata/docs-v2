@@ -28,11 +28,11 @@ you need is in place.
     command line. For detailed installation and setup instructions,
     see [Use the influx CLI](/influxdb/cloud/tools/influx-cli/).
 
-2.  **Create an all-access API token.**
+2.  **Create an All-Access API token.**
     <span id="create-an-all-access-api-token"></span>
 
     Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to create an
-    all-access token.
+    All-Access token.
 
     {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -59,7 +59,7 @@ you need is in place.
 
 1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/cloud/tools/influx-cli/).
 2.  Use the [`influx auth create` command](/influxdb/cloud/reference/cli/influx/auth/create/)
-    to create an all-access token.
+    to create an All-Access token.
     
     **Provide the following**:
 
@@ -107,7 +107,7 @@ Include the following with your request:
             _For information about what InfluxDB resource types exist, use the
             [`/api/v2/resources` endpoint](/influxdb/cloud/api/#operation/GetResources)._
 
-The following example uses cURL and the InfluxDB API to generate an all-access token:
+The following example uses cURL and the InfluxDB API to generate an All-Access token:
 
 {{% truncate %}}
 ```sh
@@ -205,7 +205,7 @@ sensitive tokens.
     which client you use to interact with InfluxDB.
 
     {{% note %}}
-When configuring your token, use the [all-access token you created](#create-an-all-access-api-token).
+When configuring your token, use the [All-Access token you created](#create-an-all-access-api-token).
     {{% /note %}}
 
     {{< tabs-wrapper >}}
