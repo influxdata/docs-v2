@@ -82,7 +82,7 @@ How often to update the cluster with this node's internal status.
 
 Environment variable: `INFLUXDB_GOSSIP_FREQUENCY`
 
-#### compact-series-file
+#### compact-series-file {metadata="v1.11.4+"}
 
 Default is `false`.
 
