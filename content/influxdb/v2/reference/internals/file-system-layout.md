@@ -17,16 +17,23 @@ The InfluxDB file system layout depends on the operating system, installation me
 or containerization platform used to install InfluxDB.
 
 - [InfluxDB file structure](#influxdb-file-structure)
+  - [Engine path](#engine-path)
+  - [Bolt path](#bolt-path)
+  - [SQLite path](#sqlite-path)
+  - [Configs path](#configs-path)
+  - [InfluxDB configuration files](#influxdb-configuration-files)
 - [File system layout](#file-system-layout)
   - [Installed as a standalone binary](#installed-as-a-standalone-binary)
   - [Installed as a package](#installed-as-a-package)
-  - [Dockerhub](#dockerhub)
+  - [Docker Hub](#docker-hub)
   - [Quay.io](#quayio)
 
 ## InfluxDB file structure
+
 The InfluxDB file structure includes the following:
 
-#### Engine path
+### Engine path
+
 Directory path to the [storage engine](/influxdb/v2/reference/internals/storage-engine/),
 where InfluxDB stores time series data, includes the following directories:
 
@@ -41,22 +48,32 @@ where InfluxDB stores time series data, includes the following directories:
 To customize this path, use the [engine-path](/influxdb/v2/reference/config-options/#engine-path)
 configuration option.
 
-#### Bolt path
+### Bolt path
+
 File path to the [Boltdb](https://github.com/boltdb/bolt) database, a file-based
-key-value store for non-time series data, such as InfluxDB users, dashboards, tasks, etc.
+key-value store for non-time series data, such as InfluxDB users, dashboards, and tasks.
 To customize this path, use the [bolt-path](/influxdb/v2/reference/config-options/#bolt-path)
 configuration option.
 
-#### Configs path
-File path to [`influx` CLI connection configurations](/influxdb/v2/reference/cli/influx/config/) (configs).
-To customize this path, use the `--configs-path` flag with `influx` CLI commands.
+### SQLite path
 
-#### InfluxDB configuration files
+File path to the [SQLite](https://www.sqlite.org/) database, an SQL database for non-time series data, such as InfluxDB notebooks and annotations.
+To customize this path, use the [sqlite-path](/influxdb/v2/reference/config-options/#sqlite-path) configuration option.
+
+### Configs path
+
+File path to [`influx` CLI connection configurations](/influxdb/v2/reference/cli/influx/config/) (configs).
+
+To use a custom path, pass the `--configs-path` flag with `influx` CLI commands.
+
+### InfluxDB configuration files
+
 Some operating systems and package managers store a default InfluxDB (`influxd`) configuration file on disk.
 For more information about using InfluxDB configuration files, see
 [Configuration options](/influxdb/v2/reference/config-options/).
 
 ## File system layout
+
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [macOS](#)
@@ -69,6 +86,7 @@ For more information about using InfluxDB configuration files, see
 {{% tab-content %}}
 
 #### macOS default paths
+
 | Path                          | Default                        |
 |:------------------------------|:-------------------------------|
 | [Engine path](#engine-path)   | `~/.influxdbv2/engine/`        |
@@ -77,6 +95,7 @@ For more information about using InfluxDB configuration files, see
 | [Configs path](#configs-path) | `~/.influxdbv2/configs`        |
 
 #### macOS file system overview
+
 {{% filesystem-diagram %}}
 - ~/.influxdbv2/
   - engine/
@@ -101,12 +120,13 @@ Which installation method you use determines the file system layout.
 - [File system layout](#file-system-layout)
   - [Installed as a standalone binary](#installed-as-a-standalone-binary)
   - [Installed as a package](#installed-as-a-package)
-  - [Dockerhub](#dockerhub)
+  - [Docker Hub](#docker-hub)
   - [Quay.io](#quayio)
 
 ### Installed as a standalone binary
 
 #### Linux default paths (standalone binary)
+
 | Path                          | Default                      |
 |:----                          |:-------                      |
 | [Engine path](#engine-path)   | `~/.influxdbv2/engine/`      |
@@ -115,6 +135,7 @@ Which installation method you use determines the file system layout.
 | [Configs path](#configs-path) | `~/.influxdbv2/configs`      |
 
 #### Linux file system overview (standalone binary)
+
 {{% filesystem-diagram %}}
 - ~/.influxdbv2/
   - engine/
@@ -128,10 +149,12 @@ Which installation method you use determines the file system layout.
 {{% /filesystem-diagram %}}
 
 ### Installed as a package
+
 InfluxDB {{< current-version >}} supports **.deb-** and **.rpm-based** Linux package managers.
 The file system layout is the same with each.
 
 #### Linux default paths (package)
+
 | Path                                                      | Default                            |
 |:----------------------------------------------------------|:-----------------------------------|
 | [Engine path](#engine-path)                               | `/var/lib/influxdb/engine/`        |
@@ -141,6 +164,7 @@ The file system layout is the same with each.
 | [Default config file path](#influxdb-configuration-files) | `/etc/influxdb/config.toml`        |
 
 #### Linux file system overview (package)
+
 {{% filesystem-diagram %}}
 - /var/lib/influxdb/
   - engine/
@@ -161,6 +185,7 @@ The file system layout is the same with each.
 {{% tab-content %}}
 
 #### Windows default paths
+
 | Path                          | Default                                  |
 |:----                          |:-------                                  |
 | [Engine path](#engine-path)   | `%USERPROFILE%\.influxdbv2\engine\`      |
@@ -169,6 +194,7 @@ The file system layout is the same with each.
 | [Configs path](#configs-path) | `%USERPROFILE%\.influxdbv2\configs`      |
 
 #### Windows file system overview
+
 {{% filesystem-diagram %}}
 - %USERPROFILE%\\.influxdbv2\
   - engine\
@@ -185,30 +211,32 @@ The file system layout is the same with each.
 
 <!---------------------------- BEGIN DOCKER CONTENT --------------------------->
 {{% tab-content %}}
-InfluxDB Docker images are available from both [Dockerhub](https://hub.docker.com/_/influxdb)
+InfluxDB Docker images are available from both [Docker Hub](https://hub.docker.com/_/influxdb)
 and [Quay.io](https://quay.io/repository/influxdb/influxdb?tab=tags).
-Each have a unique InfluxDB file system layout.
+Each has a unique InfluxDB file system layout.
 
-- [Dockerhub](#dockerhub)
+- [Docker Hub](#docker-hub)
 - [Quay.io](#quayio)
 
-### Dockerhub
+### Docker Hub
 
 {{% note %}}
-The InfluxDB Dockerhub image uses `/var/lib/influxdb2` instead of `/var/lib/influxdb`
+For InfluxDB v2, the InfluxDB Docker Hub image uses `/var/lib/influxdb2` instead of `/var/lib/influxdb`
 so you can easily mount separate volumes for InfluxDB 1.x and 2.x data during the
 [upgrade process](/influxdb/v2/upgrade/v1-to-v2/docker/).
 {{% /note %}}
 
-#### Dockerhub default paths
+#### Docker Hub default paths
+
 | Path                          | Default                           |
 |:----                          |:-------                           |
 | [Engine path](#engine-path)   | `/var/lib/influxdb2/engine/`      |
 | [Bolt path](#bolt-path)       | `/var/lib/influxdb2/influxd.bolt` |
 | [SQLite path](#sqlite-path)   | `/var/lib/influxdb2/influxd.sqlite` |
-| [Configs path](#configs-path) | `/etc/influxdb2/configs`          |
+| [Configs path](#configs-path) | `/etc/influxdb2/influx-configs` if InfluxDB is set up using automated `setup` mode or `influx setup` from within the container; `/etc/influxdb2/configs` otherwise.        |
 
-#### Dockerhub file system overview
+#### Docker Hub file system overview
+
 {{% filesystem-diagram %}}
 - /var/lib/influxdb2/
   - engine/
@@ -220,11 +248,13 @@ so you can easily mount separate volumes for InfluxDB 1.x and 2.x data during th
   - influxd.sqlite
 - /etc/influxdb2/
   - configs
+  - influx-configs
 {{% /filesystem-diagram %}}
 
 ### Quay.io
 
 #### Quay default paths
+
 | Path                          | Default                          |
 |:----                          |:-------                          |
 | [Engine path](#engine-path)   | `/root/.influxdbv2/engine/`      |
@@ -233,6 +263,7 @@ so you can easily mount separate volumes for InfluxDB 1.x and 2.x data during th
 | [Configs path](#configs-path) | `/root/.influxdbv2/configs`      |
 
 #### Quay file system overview
+
 {{% filesystem-diagram %}}
 - /root/.influxdbv2/
   - engine/
@@ -250,6 +281,7 @@ so you can easily mount separate volumes for InfluxDB 1.x and 2.x data during th
 <!-------------------------- BEGIN KUBERNETES CONTENT ------------------------->
 {{% tab-content %}}
 #### Kubernetes default paths
+
 | Path                          | Default                             |
 |:------------------------------|:------------------------------------|
 | [Engine path](#engine-path)   | `/var/lib/influxdb2/engine/`        |
@@ -258,6 +290,7 @@ so you can easily mount separate volumes for InfluxDB 1.x and 2.x data during th
 | [Configs path](#configs-path) | `/etc/influxdb2/configs`            |
 
 #### Kubernetes file system overview
+
 {{% filesystem-diagram %}}
 - /var/lib/influxdb2/
   - engine/

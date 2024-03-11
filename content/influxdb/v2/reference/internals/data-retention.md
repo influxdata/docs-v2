@@ -32,8 +32,8 @@ configuration option.
 - [When does data actually get deleted?](#when-does-data-actually-get-deleted)
 
 ## Bucket retention period
-A **bucket retention period** is the duration of time that a bucket retains data.
-Retention periods can be as short as an hour or infinite.
+A **bucket retention period** is the [duration](/influxdb/v2/glossary/#duration) of time that a bucket retains data.
+Retention periods can be infinite or as short as an hour.
 [Points](/influxdb/v2/reference/glossary/#point) in a bucket with timestamps
 beyond the defined retention period (relative to now) are _eligible_ for deletion.
 
