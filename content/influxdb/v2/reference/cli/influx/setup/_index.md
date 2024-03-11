@@ -54,12 +54,14 @@ milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and 
 
 ## Examples
 
-##### Start interactive InfluxDB setup
+##### Set up InfluxDB interactively with prompts for required information
+
 ```sh
 influx setup
 ```
 
 ##### Set up InfluxDB with all required information and skip confirmation
+
 ```sh
 influx setup \
   --org example-org \

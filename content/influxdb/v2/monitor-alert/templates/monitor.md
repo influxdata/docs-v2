@@ -96,7 +96,7 @@ On each InfluxDB OSS instance you want to monitor, do the following:
    Telegraf configuration stored in InfluxDB Cloud.
 
       {{% note %}}
-For your API token, generate a new token or use an existing All Access token. If you run Telegraf as a service, edit your init script to set the environment variable and ensure its available to the service.
+For your API token, generate a new token or use an existing All-Access token. If you run Telegraf as a service, edit your init script to set the environment variable and ensure its available to the service.
       {{% /note %}}
 
 Telegraf runs quietly in the background (no immediate output appears), and begins
