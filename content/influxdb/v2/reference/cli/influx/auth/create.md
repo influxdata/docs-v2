@@ -71,14 +71,14 @@ influx auth create [flags]
 
 {{< cli/influx-creds-note >}}
 
-- [Create an All-Access API token](#create-an-all-access-api-token) {{% oss-only %}} or [Create an Operator API token](#create-an-operator-api-token){{% /oss-only %}}
+- [Create an All Access API token](#create-an-all-access-api-token) {{% oss-only %}} or [Create an Operator API token](#create-an-operator-api-token){{% /oss-only %}}
 - [Create an API token with specified read and write permissions](#create-an-api-token-with-specified-read-and-write-permissions)
 - [Create a token with read and write access to specific buckets](#create-an-api-token-with-read-and-write-access-to-specific-buckets)
 - [Create a read-only API token](#create-a-read-only-api-token)
 
-### Create an All-Access API token
+### Create an All Access API token
 
-Create an [All-Access token](/influxdb/cloud/admin/tokens/#all-access-token) to grant permissions to all resources in an organization.
+Create an [All Access token](/influxdb/cloud/admin/tokens/#all-access-token) to grant permissions to all resources in an organization.
 
 ```sh
 influx auth create \

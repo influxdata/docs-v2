@@ -40,7 +40,7 @@ If you haven't already, [create an InfluxDB Cloud account](https://www.influxdat
 ### Authenticate with an InfluxDB API token
 
 For convenience in development,
-[create an _All-Access_ token](/influxdb/v2/admin/tokens/create-token/)
+[create an _All Access_ token](/influxdb/v2/admin/tokens/create-token/)
 for your application. This grants your application full read and write
 permissions on all resources within your InfluxDB organization.
 
@@ -157,7 +157,7 @@ create a `./.env.local` file and set the variables--for example, set your Influx
 
 # INFLUX_TOKEN
 # InfluxDB API token used by the application server to send requests to InfluxDB.
-# For convenience in development, use an **All-Access** token.
+# For convenience in development, use an **All Access** token.
 
 INFLUX_TOKEN=29Xx1KH9VkASPR2DSfRfFd82OwGD...
 

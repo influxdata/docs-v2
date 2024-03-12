@@ -15,15 +15,13 @@ The InfluxDB v2 time series platform is purpose-built to collect, store,
 process and visualize metrics and events.
 
 - [Download and install InfluxDB v2](#download-and-install-influxdb-v2)
-- [Configure and start InfluxDB](#configure-and-start-influxdb)
-- [Download and install the influx CLI](#download-and-install-the-influx-cli)
-- [Set up InfluxDB](#set-up-influxdb)
-- [Optional: Configure and use the influx CLI](#optional-configure-and-use-the-influx-cli)
-- [Optional: Create All-Access tokens](#optional-create-all-access-tokens)
+- [Start InfluxDB](#start-influxdb)
+- [Download, install, and configure the `influx` CLI](#download-install-and-configure-influx-cli)
 
-## Download and install InfluxDB v2
+1. **Download and install InfluxDB v2**.
+   <span id="download-and-install-influxdb-v2"></span>
 
-{{< tabs-wrapper >}}
+   {{< tabs-wrapper >}}
 {{% tabs %}}
 [macOS](#)
 [Linux](#)
@@ -190,7 +188,6 @@ or rename them before putting them in your `$PATH`.
 If you rename the binaries, all references to `influxd` and `influx` in this documentation refer to your renamed binaries.
 {{% /note %}}
 
-
 {{% /tab-content %}}
 <!--------------------------------- END macOS --------------------------------->
 <!-------------------------------- BEGIN Linux -------------------------------->
@@ -275,7 +272,7 @@ see [File system layout](/influxdb/v2/reference/internals/file-system-layout/?t=
 
 You can use systemd to customize [InfluxDB configuration options](/influxdb/v2/reference/config-options/#configuration-options) and pass them to the InfluxDB service.
 
-1.  Edit the `/etc/default/influxdb2` service configuration file to assign configuration directives to `influxd` command line flags--for example, add one or more `<ENV_VARIABLE_NAME>=<COMMAND_LINE_FLAG>` lines like the following:
+1. Edit the `/etc/default/influxdb2` service configuration file to assign configuration directives to `influxd` command line flags--for example, add one or more `<ENV_VARIABLE_NAME>=<COMMAND_LINE_FLAG>` lines like the following:
 
    <!--pytest.mark.skip-->
 
@@ -409,8 +406,6 @@ To install `gpg`, see the [GnuPG installation instructions](https://gnupg.org/do
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-
-
 {{% /tab-content %}}
 <!--------------------------------- END Linux --------------------------------->
 
@@ -476,12 +471,12 @@ $acl | Set-Acl "C:\Users\<username>\.influxdbv2"
 <!-------------------------------- BEGIN Docker ------------------------------->
 {{% tab-content %}}
 
-### Install and setup InfluxDB in a container
+### Install and set up InfluxDB in a container
 
 The following guide uses [Docker CLI commands](https://docs.docker.com/reference/cli/docker/) to set Docker and InfluxDB options, but you can also use Dockerfiles and Docker Compose.
 
-1. Follow instructions to install Docker for your system.
-2. Create a Docker container from the [`influxdb` Dockerhub image](https://hub.docker.com/_/influxdb)--for example, in your terminal, enter the `docker run influxdb:{{< latest-patch >}}` command with command line flags for initial setup options and file system mounts.
+1. Follow instructions to install [Docker Desktop](https://www.docker.com/get-started/) for your system.
+2. Start a Docker container from the [`influxdb` Docker Hub image](https://hub.docker.com/_/influxdb)--for example, in your terminal, enter the `docker run influxdb:2` command with command line flags for initial setup options and file system mounts.
 
    The following example uses the Docker `--mount` option to persist InfluxDB configuration and data to [volumes](https://docs.docker.com/storage/volumes/).
    _Persisting your data to a file system outside the container ensures that your data isn't deleted if you delete the container._
@@ -499,37 +494,37 @@ The following guide uses [Docker CLI commands](https://docs.docker.com/reference
     --env DOCKER_INFLUXDB_INIT_PASSWORD=<PASSWORD> \
     --env DOCKER_INFLUXDB_INIT_ORG=<ORG_NAME> \
     --env DOCKER_INFLUXDB_INIT_BUCKET=<BUCKET_NAME> \
-    influxdb:{{< latest-patch >}}
+    influxdb:2
    ```
 
    The command passes the following arguments:
 
-   - `--publish 8086:8086`: Exposes the container port `8086` for the InfluxDB [UI](/influxdb/v2/get-started/#influxdb-user-interface-ui) and [HTTP API](/influxdb/v2/reference/api/) on the host port `8086`.
-   - `--mount type=volume,source=influxdb2-data,target=/var/lib/influxdb2`: Creates a volume named `influxdb2-data` mapped to the [InfluxDB Dockerhub data directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout) to persist data outside the container.
-   - `--mount type=volume,source=influxdb2-config,target=/etc/influxdb2`: Creates a volume named `influxdb2-config` mapped to the [InfluxDB Dockerhub configuration directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout) to make configurations available outside the container.
-   - `--env DOCKER_INFLUXDB_INIT_MODE=setup`: Environment variable that invokes the automated setup for the initial organization, user, bucket, and token when creating the container.
-   - `--env DOCKER_INFLUXDB_INIT_<SETUP_OPTION>`: Environment variables for initial setup options--replace the following with your own values:
-     - `<USERNAME>`: The username for the initial [user](/influxdb/v2/admin/users/).
+   - `--publish 8086:8086`: Exposes the InfluxDB [UI](/influxdb/v2/get-started/#influxdb-user-interface-ui) and [HTTP API](/influxdb/v2/reference/api/) on the host's `8086` port.
+   - `--mount type=volume,source=influxdb2-data,target=/var/lib/influxdb2`: Creates a volume named `influxdb2-data` mapped to the [InfluxDB data directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout) to persist data outside the container.
+   - `--mount type=volume,source=influxdb2-config,target=/etc/influxdb2`: Creates a volume named `influxdb2-config` mapped to the [InfluxDB configuration directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout) to make configurations available outside the container.
+   - `-e DOCKER_INFLUXDB_INIT_MODE=setup`: Environment variable that invokes the automated setup of the initial organization, user, bucket, and token when creating the container.
+   - `-e DOCKER_INFLUXDB_INIT_<SETUP_OPTION>`: Environment variables for initial setup options--replace the following with your own values:
+     - `<USERNAME>`: The username for the initial [user](/influxdb/v2/admin/users/)--an admin user with an API [Operator token](/influxdb/v2/admin/tokens/#operator-token).
      - `<PASSWORD>`: The password for the initial [user](/influxdb/v2/admin/users/).
      - `<ORG_NAME>`: The name for the initial [organization](/influxdb/v2/admin/organizations/).
      - `<BUCKET_NAME>`: The name for the initial [bucket](/influxdb/v2/admin/buckets/).
 
-    For more options, see the [`influxdb` Dockerhub image](https://hub.docker.com/_/influxdb) documentation.
-    _If you don't specify InfluxDB initial setup options, you can [setup manually](#set-up-influxdb) later using the UI or CLI in a running container._
+    For more options, see the [`influxdb` Docker Hub image](https://hub.docker.com/_/influxdb) documentation.
+    _If you don't specify InfluxDB initial setup options, you can [set up manually](#set-up-influxdb) later using the UI or CLI in a running container._
 
 If successful, the command starts InfluxDB initialized with the user, organization, bucket,
-and _[operator token](/influxdb/v2/admin/tokens/#operator-token)_, and logs to stdout.
-You can view the operator token in the `/etc/influxdb2/influx-configs` file and use it to authorize [creating an All-Access token](#optional-create-all-access-tokens).
+and _[Operator token](/influxdb/v2/admin/tokens/#operator-token)_, and logs to stdout.
+You can view the Operator token in the `/etc/influxdb2/influx-configs` file and use it to authorize [creating an All Access token](#optional-create-all-access-tokens).
 
 _To run the InfluxDB container in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground),
  include the `--detach` flag in the `docker run` command._
 
 ### Run InfluxDB CLI commands in a container
 
-When you start a container using the `influxdb` Dockerhub image, it also installs the [`influx` CLI](https://docs.influxdata.com/influxdb/v2/tools/influx-cli/) in the container.
+When you start a container using the `influxdb` Docker Hub image, it also installs the [`influx` CLI](/influxdb/v2/tools/influx-cli/) in the container.
 With InfluxDB setup and running in the container, you can use the Docker CLI [`docker exec`](https://docs.docker.com/reference/cli/docker/container/exec/) command to interact with the `influx` and `influxd` CLIs inside the container.
 
-To use the `influx` CLI in the container, run `docker exec -it <CONTAINER_NAME> <INFLUX_CLI_COMMAND>`--for example:
+To use the `influx` CLI in the container, run `docker exec -it <CONTAINER_NAME> influx <COMMAND>`--for example:
 
 <!--pytest.mark.skip-->
 
@@ -655,59 +650,12 @@ to collect and send data to:
 <!--------------------------------- END Raspberry Pi --------------------------->
 {{< /tabs-wrapper >}}
 
-## Configure and start InfluxDB
+2. **Start InfluxDB**.
+<span id="start-influxdb"></span>
 
-- [Optional: Customize InfluxDB server configuration](#optional-customize-influxdb-server-configuration)
-- [Start InfluxDB](#start-influxdb)
+   If it isn't already running, follow the instructions to start InfluxDB on your system:
 
-### Optional: Customize InfluxDB server configuration
-
-To customize your InfluxDB server configuration, specify [configuration options](/influxdb/v2/reference/config-options/) in command line arguments, environment variables, or a configuration file.
-
-#### InfluxDB telemetry reporting
-
-By default, InfluxDB sends telemetry data back to InfluxData.
-The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
-information about what data is collected and how it is used.
-
-To opt-out of sending telemetry data back to InfluxData, include the
-`--reporting-disabled` flag when starting `influxd`--for example:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Linux](#)
-[Windows Powershell](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-<!--pytest.mark.skip-->
-
-```sh
-influxd --reporting-disabled
-```
-
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-
-<!--pytest.mark.skip-->
-
-```powershell
-./influxd --reporting-disabled
-```
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-#### Networking ports
-
-By default, InfluxDB uses TCP port `8086` for  client-server communication through the [UI](/influxdb/v2/get-started/#influxdb-user-interface-ui) and the [HTTP API](/influxdb/v2/reference/api/).
-To specify a different port or address, use the [`http-bind-address` option](/influxdb/v2/reference/config-options/#http-bind-address).
-
-### Start InfluxDB
-
-If it isn't already running, follow the instructions to start InfluxDB on your system:
-
-{{< tabs-wrapper >}}
+   {{< tabs-wrapper >}}
 {{% tabs %}}
 [macOS](#)
 [Linux](#)
@@ -832,217 +780,105 @@ To start a new container, follow instructions to [install and set up InfluxDB in
 To start InfluxDB using Kubernetes, follow instructions to [install InfluxDB in a Kubernetes cluster](?t=kubernetes#download-and-install-influxdb-v2).
 
 {{% /tab-content %}}
-{{< /tabs-wrapper >}}
+   {{< /tabs-wrapper >}}
 
-## Download and install the influx CLI
+   If successful, you can view the InfluxDB UI at <http://localhost:8086>.
 
-The [`influx` CLI](/influxdb/v2/reference/cli/influx/) lets you manage InfluxDB
-from your command line.
+   InfluxDB starts with default settings, including the following:
 
-### InfluxDB and the influx CLI are separate packages
+   - `http-bind-address=:8086`: Uses port `8086` (TCP) for InfluxDB UI and HTTP API client-server communication.
+   - `reporting-disabled=false`: Sends InfluxDB telemetry information back to InfluxData.
+
+   To override default settings, specify [configuration options](/influxdb/v2/reference/config-options) when starting InfluxDB--for example:
+
+   {{< expand-wrapper >}}
+{{% expand "Configure the port or address" %}}
+By default, the InfluxDB UI and HTTP API use port `8086`.
+
+To specify a different port or address, override the [`http-bind-address` option](/influxdb/v2/reference/config-options/#http-bind-address) when starting `influxd`--for example:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Linux](#)
+[Windows Powershell](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+<!--pytest.mark.skip-->
+
+```sh
+influxd --http-bind-address
+```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+<!--pytest.mark.skip-->
+
+```powershell
+./influxd --http-bind-address
+```
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+{{% /expand %}}
+
+{{% expand "Opt-out of telemetry reporting" %}}
+
+By default, InfluxDB sends telemetry data back to InfluxData.
+The [InfluxData telemetry](https://www.influxdata.com/telemetry) page provides
+information about what data is collected and how it is used.
+
+To opt-out of sending telemetry data back to InfluxData, specify the
+[`reporting-disabled` option](/influxdb/v2/reference/config-options/#reporting-disabled) when starting `influxd`--for example:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Linux](#)
+[Windows Powershell](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+<!--pytest.mark.skip-->
+
+```sh
+influxd --reporting-disabled
+```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+<!--pytest.mark.skip-->
+
+```powershell
+./influxd --reporting-disabled
+```
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+{{% /expand %}}
+   {{< /expand-wrapper >}}
+
+   For information about InfluxDB v2 default settings and how to override them,
+   see [InfluxDB configuration options](/influxdb/v2/reference/config-options/).
+
+3. {{< req text="Recommended:" color="magenta" >}} **Download, install, and configure the `influx` CLI**.
+   <span id="download-install-and-configure-influx-cli"></span>
+
+   We recommend installing the `influx` CLI, which provides a simple way to interact with InfluxDB from a
+   command line.
+   For detailed installation and setup instructions,
+   see [Use the influx CLI](/influxdb/v2/tools/influx-cli/).
+
+   {{% note %}}
+
+#### InfluxDB and the influx CLI are separate packages
 
 The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
 versioned separately.
-Some install methods (for example, the InfluxDB Dockerhub image) include both.
+Some install methods (for example, the InfluxDB Docker Hub image) include both.
 
-For more information about `influx` CLI for your system, see how to [install and use the influx CLI](/influxdb/v2/tools/influx-cli/).
+   {{% /note %}}
 
-<a class="btn" href="/influxdb/v2/tools/influx-cli/" target="_blank">Download and install the influx CLI</a>
-
-## Set up InfluxDB
-
-The initial setup process for an InfluxDB instance creates the following:
-
-- An organization with the name you provide.
-- A primary bucket with the name you provide.
-- An admin [authorization](/influxdb/v2/admin/tokens/) with the following properties:
-  - The username and password that you provide.
-  - An API token (_[operator token](/influxdb/v2/admin/tokens/#operator-token)_).
-  - Read-write permissions for all resources in the InfluxDB instance.
-
-{{% note %}}
-
-If you installed InfluxDB using [Docker with initial setup options](?t=docker/#install-and-setup-influxdb-in-a-container), then you've already completed the setup process.
-
-{{% /note %}}
-
-To run an interactive setup that prompts you for the required information,
-use the InfluxDB user interface (UI) or the `influx` command line interface (CLI).
-
-To automate the setup--for example, with a script that you write--
-use the `influx` command line interface (CLI) or the InfluxDB `/api/v2` API.
-
-{{< tabs-wrapper >}}
-{{% tabs %}}
-[Set up with the UI](#)
-[Set up with the CLI](#)
-{{% /tabs %}}
-
-<!------------------------------- BEGIN UI Setup ------------------------------>
-{{% tab-content %}}
-
-1. With InfluxDB running, visit [http://localhost:8086](http://localhost:8086).
-2. Click **Get Started**
-
-#### Set up your initial user
-
-1. Enter a **Username** for your initial user.
-2. Enter a **Password** and **Confirm Password** for your user.
-3. Enter your initial **Organization Name**.
-4. Enter your initial **Bucket Name**.
-5. Click **Continue**.
-6. Copy the provided **operator API token** and store it for safe keeping.
-
-    {{% note %}}
-We recommend using a password manager or a secret store to securely store
-sensitive tokens.
-    {{% /note %}}
-
-Your InfluxDB instance is now initialized.
-
-{{% /tab-content %}}
-<!-------------------------------- END UI Setup ------------------------------->
-
-<!------------------------------ BEGIN CLI Setup ------------------------------>
-{{% tab-content %}}
-
-Use the `influx setup` CLI command in interactive or non-interactive (_headless_) mode to initialize
-your InfluxDB instance.
-
-Do one of the following:
-
-- [Run `influx setup` without user interaction](#run-influx-setup-without-user-interaction)
-- [Run `influx setup` with user prompts](#run-influx-setup-with-user-prompts)
-
-#### Run `influx setup` without user interaction
-
-To run the InfluxDB setup process with your automation scripts, pass [flags](/influxdb/v2/reference/cli/influx/setup/#flags)
-with the required information to the `influx setup` command.
-Pass the `-f, --force` flag to bypass screen prompts.
-
-The following example command shows how to set up InfluxDB in non-interactive
-mode with an initial admin user,
-[operator token](/influxdb/v2/admin/tokens/#operator-token),
-and bucket:
-
-<!--pytest.mark.skip-->
-
-```sh
-influx setup \
-  --username USERNAME \
-  --password PASSWORD \
-  --token TOKEN \
-  --org ORGANIZATION_NAME \
-  --bucket BUCKET_NAME \
-  --force
-```
-
-The command outputs the following:
-
-<!--pytest-codeblocks:expected-output-->
-
-```sh
-User        Organization         Bucket
-USERNAME    ORGANIZATION_NAME    BUCKET_NAME
-```
-
-{{% note %}}
-If you run `influx setup` without the `-t, --token` flag, InfluxDB
-automatically generates an operator API token and stores it in an
-[`influx` CLI connection configuration](/influxdb/v2/tools/influx-cli/#provide-required-authentication-credentials).
-{{% /note %}}
-
-Once setup completes, InfluxDB is initialized with an
-[operator token](/influxdb/v2/admin/tokens/),
-[user](/influxdb/v2/reference/glossary/#user),
-[organization](/influxdb/v2/reference/glossary/#organization),
-and [bucket](/influxdb/v2/reference/glossary/#bucket).
-
-InfluxDB creates a `default` configuration profile for you that provides your
-InfluxDB URL, organization, and API token to `influx` CLI commands.
-For more detail about configuration profiles, see [`influx config`](/influxdb/v2/reference/cli/influx/config/).
-
-Once you have the `default` configuration profile, you're ready to [create All-Access tokens](#create-all-access-tokens)
-or get started [collecting and writing data](/influxdb/v2/write-data).
-
-#### Run `influx setup` with user prompts
-
-To run setup with prompts for the required information, enter the following
-command in your terminal:
-
-<!--pytest.mark.skip-->
-
-```sh
-influx setup
-```
-
-Complete the following steps as prompted by the CLI:
-
-1. Enter a **primary username**.
-2. Enter a **password** for your user.
-3. **Confirm your password** by entering it again.
-4. Enter a name for your **primary organization**.
-5. Enter a name for your **primary bucket**.
-6. Enter a **retention period** for your primary bucket—valid units are
-   nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`),
-   seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`).
-   Enter nothing for an infinite retention period.
-7. Confirm the details for your primary user, organization, and bucket.
-
-Once setup completes, InfluxDB is initialized with the user, organization, bucket,
-and _[operator token](/influxdb/v2/admin/tokens/#operator-token)_.
-
-InfluxDB creates a `default` configuration profile for you that provides your
-InfluxDB URL, organization, and API token to `influx` CLI commands.
-For more detail about configuration profiles, see [`influx config`](/influxdb/v2/reference/cli/influx/config/).
-
-Once you have the `default` configuration profile, you're ready to [create All-Access tokens](#optional-create-all-access-tokens)
-or get started [collecting and writing data](/influxdb/v2/write-data).
-
-{{% /tab-content %}}
-<!------------------------------- END CLI Setup -------------------------------->
-{{< /tabs-wrapper >}}
-
-## Optional: Configure and use the influx CLI
-
-If you [set up InfluxDB](set-up-influxdb) using the CLI, it creates a default [configuration profile](/influxdb/v2/reference/cli/influx/config/) for you.
-A configuration profile stores your credentials to avoid having to pass your InfluxDB
-API token with each `influx` command.
-
-To manually create a configuration profile use the [`influx config`](/influxdb/v2/reference/cli/influx/config/) CLI command--for example,
-enter the following code in your terminal:
-
-<!--pytest.mark.xfail-->
-
-{{% code-placeholders "API_TOKEN|ORG|http://localhost:8086|default|USERNAME|PASSWORD" %}}
-
-```sh
-# Set up a configuration profile
-influx config create \
-  --config-name default \
-  --host-url http://localhost:8086 \
-  --org ORG \
-  --token API_TOKEN \
-  --active
-```
-
-{{% /code-placeholders %}}
-
-Replace the following:
-
-- {{% code-placeholder-key %}}`ORG`{{% /code-placeholder-key %}}: [your organization name](/influxdb/v2/admin/organizations/view-orgs/).
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: [your API token](/influxdb/v2/admin/tokens/view-tokens/).
-
-This configures a new profile named `default` and makes the profile _active_--`influx` CLI commands run against the specified InfluxDB instance.
-
-Once you have the `default` configuration profile, you're ready to [create All-Access tokens](optional-create-all-access-tokens)
-or get started [collecting and writing data](/influxdb/v2/write-data).
-
-## Optional: Create All-Access tokens
-
-Because [Operator tokens](/influxdb/v2/admin/tokens/#operator-token)
-have full read and write access to all organizations in the database,
-we recommend
-[creating an All-Access token](/influxdb/v2/admin/tokens/create-token/)
-for each organization and using those tokens to manage InfluxDB.
+With InfluxDB installed and initialized, [get started](/influxdb/v2/get-started/) writing and querying data.
