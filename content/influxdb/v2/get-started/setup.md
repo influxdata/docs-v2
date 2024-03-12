@@ -34,7 +34,7 @@ you need is in place.
    After you [install and start InfluxDB](/influxdb/v2/install/), run the initial setup process to create the following:
 
    - An [organization](/influxdb/v2/admin/organizations/) with the name you provide.
-   - A primary [bucket](/influxdb/v2/admin/buckets/)with the name you provide.
+   - A [bucket](/influxdb/v2/admin/buckets/) with the name you provide.
    - An admin [authorization](/influxdb/v2/admin/tokens/) with the following properties:
      - The username and password that you provide.
      - An API [Operator token](/influxdb/v2/admin/tokens/#operator-token).
