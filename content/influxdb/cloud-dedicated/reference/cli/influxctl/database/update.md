@@ -50,7 +50,7 @@ influxctl database update --retention-period 1mo mydb
 ```
 
 {{< flex >}}
-{{% flex-content %}}
+{{% flex-content "half" %}}
 
 ##### Valid durations units
 
@@ -62,7 +62,7 @@ influxctl database update --retention-period 1mo mydb
 - `y`: year
 
 {{% /flex-content %}}
-{{% flex-content %}}
+{{% flex-content "half" %}}
 
 ##### Example retention period values
 
