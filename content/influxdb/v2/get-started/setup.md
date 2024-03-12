@@ -65,7 +65,7 @@ you need is in place.
 <!------------------------------- BEGIN UI Setup ------------------------------>
 {{% tab-content %}}
 
-1. With InfluxDB running, visit [http://localhost:8086](http://localhost:8086).
+1. With InfluxDB running, visit <http://localhost:8086>.
 2. Click **Get Started**
 
 #### Set up your initial user
