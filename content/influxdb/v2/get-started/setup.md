@@ -132,7 +132,7 @@ Your InfluxDB instance is now initialized.
       - `BUCKET_NAME`: A name for your initial [bucket](/influxdb/v2/admin/buckets/)
 
     InfluxDB is initialized with an
-    [Operator token](/influxdb/v2/admin/tokens/),
+    [Operator token](/influxdb/v2/admin/tokens/#operator-token),
     [user](/influxdb/v2/reference/glossary/#user),
     [organization](/influxdb/v2/reference/glossary/#organization),
     and [bucket](/influxdb/v2/reference/glossary/#bucket).
