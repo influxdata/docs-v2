@@ -46,7 +46,7 @@ _Also see [`influxctl` global flags](/influxdb/clustered/reference/cli/influxctl
 ### Update a database's retention period
 
 ```sh
-influxctl database update mydb --retention-period 1mo
+influxctl database update --retention-period 1mo mydb
 ```
 
 {{< flex >}}
