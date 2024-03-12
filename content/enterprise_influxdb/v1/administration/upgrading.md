@@ -61,7 +61,7 @@ sudo dpkg -i influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.de
 ##### RedHat and CentOS (64-bit)
 
 ```bash
-sudo yum localinstall influxdb-meta-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm
+sudo yum localinstall influxdb-meta-{{< latest-patch >}}-c{{< latest-patch >}}-1.x86_64.rpm
 ```
 
 ### Update the meta node configuration file
