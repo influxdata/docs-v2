@@ -782,7 +782,7 @@ To start InfluxDB using Kubernetes, follow instructions to [install InfluxDB in 
 {{% /tab-content %}}
    {{< /tabs-wrapper >}}
 
-   If successful, you can view the InfluxDB UI at [http://localhost:8086](http://localhost:8086).
+   If successful, you can view the InfluxDB UI at <http://localhost:8086>.
 
    InfluxDB starts with default settings, including the following:
 
