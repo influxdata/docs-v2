@@ -153,9 +153,9 @@ Add the ability to use the `influx` CLI to [create an Operator token](/influxdb/
 
 {{% /oss-only %}}
 
-#### Create an All-Access token in the influx CLI
+#### Create an All Access token in the influx CLI
 
-Add the ability to use the `influx` CLI to [create an All-Access API token](/influxdb/cloud/admin/tokens/create-token/#create-a-token-using-the-influx-cli) with read and write permissions to all resources in an organization.
+Add the ability to use the `influx` CLI to [create an All Access API token](/influxdb/cloud/admin/tokens/create-token/#create-a-token-using-the-influx-cli) with read and write permissions to all resources in an organization.
 
 #### View more buckets in the influx CLI
 

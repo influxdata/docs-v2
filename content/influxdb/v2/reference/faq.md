@@ -223,7 +223,7 @@ InfluxDB {{< current-version >}} provides different ways to monitor its status:
 InfluxDB {{< current-version >}} supports the following token types:
 
 - {{% oss-only %}}Operator tokens{{% /oss-only %}}
-- All-Access tokens
+- All Access tokens
 - {{% cloud-only %}}Custom tokens{{% /cloud-only %}}
 - {{% oss-only %}}Read/Write tokens{{% /oss-only %}}
 

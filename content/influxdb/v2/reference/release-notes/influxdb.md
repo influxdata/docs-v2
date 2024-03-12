@@ -28,7 +28,7 @@ _Internal changes only._
 
 ### Bug Fixes
 
-- Update user interface to resolve dashboard crashes and all-access token creation.
+- Update user interface to resolve dashboard crashes and All Access token creation.
 - Show replication queue size and replication TCP errors.
 - Correctly handle when the replication queue cannot be found.
 - Rename stored replication fields to be more clear.
@@ -56,7 +56,7 @@ _Internal changes only._
 ### Bug Fixes
 
 - Update user interface (UI) to fix dashboard page crash issue.
-- Fix `All-Access` token creation issue.
+- Fix `All Access` token creation issue.
 
 ## v2.6.0 {date="2022-12-15"}
 
@@ -518,7 +518,7 @@ New features include:
 
 #### API updates
 
-- Add a new route `/api/v2/resources` that returns a list of known resources to the platform, including the following resource types. Makes it easier to update all-access tokens with current resources:
+- Add a new route `/api/v2/resources` that returns a list of known resources to the platform, including the following resource types. Makes it easier to update All Access tokens with current resources:
 
    - `AuthorizationsResourceType`
    - `BucketsResourceType`
@@ -1761,7 +1761,7 @@ Before upgrading, [export all existing tasks](/influxdb/v2/process-data/manage-t
 - Add org profile tab with ability to edit organization name.
 - Add org name to dashboard page title.
 - Add cautioning to bucket renaming.
-- Add option to generate all access token in tokens tab.
+- Add option to generate All Access token in tokens tab.
 - Add option to generate read/write token in tokens tab.
 - Add new Local Metrics Dashboard template that is created during Quick Start.
 
