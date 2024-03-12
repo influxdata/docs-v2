@@ -420,7 +420,7 @@ you store and quickly switch between multiple sets of InfluxDB connection
 credentials. A connection configuration stores your credentials to avoid having to pass your InfluxDB
 API token with each `influx` command.
 
-If you [set up InfluxDB](set-up-influxdb) using the CLI, it creates a default
+If you [set up InfluxDB](#set-up-influxdb) using the CLI, it creates a default
 [connection configuration](/influxdb/v2/reference/cli/influx/config/) for you.
 
 Use the [`influx config create` command](/influxdb/v2/reference/cli/influx/config/create/)
