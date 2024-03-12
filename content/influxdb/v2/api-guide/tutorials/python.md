@@ -44,7 +44,7 @@ If you haven't already, [create an InfluxDB Cloud account](https://www.influxdat
 ### Authenticate with an InfluxDB API token
 
 For convenience in development,
-[create an _All-Access_ token](/influxdb/v2/admin/tokens/create-token/)
+[create an _All Access_ token](/influxdb/v2/admin/tokens/create-token/)
 for your application. This grants your application full read and write
 permissions on all resources within your InfluxDB organization.
 

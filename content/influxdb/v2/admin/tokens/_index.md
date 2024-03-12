@@ -21,7 +21,7 @@ Learn how to create, view, update, or delete an API token.
 ## API token types
 
 - [Operator API token](#operator-token)
-- [All-Access API token](#all-access-token)
+- [All Access API token](#all-access-token)
 - [Read/Write token](#readwrite-token)
 
 #### Operator token
@@ -34,12 +34,12 @@ To create a new Operator token without using an existing one, see how to use the
 
 {{% note %}}
 Because Operator tokens have full read and write access to all organizations in the database,
-we recommend [creating an All-Access token](/influxdb/v2/admin/tokens/create-token/)
+we recommend [creating an All Access token](/influxdb/v2/admin/tokens/create-token/)
 for each organization and using those to manage InfluxDB.
 This helps to prevent accidental interactions across organizations.
 {{% /note %}}
 
-#### All-Access token
+#### All Access token
 Grants full read and write access to all resources in an organization.
 
 #### Read/Write token
