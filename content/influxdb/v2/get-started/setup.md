@@ -24,7 +24,7 @@ As you get started with this tutorial, do the following to make sure everything
 you need is in place.
 
 - [Run the initial setup process](#run-initial-setup-process)
-- [Create an All-Access API token](#create-an-all-access-api-token)
+- [Create an All Access API token](#create-an-all-access-api-token)
 - [Configure authentication credentials](#configure-authentication-credentials)
 - [Create a bucket](#create-a-bucket)
 
@@ -201,16 +201,16 @@ For more options and details, see the [`POST /api/v2/setup` API endpoint documen
 <!----------------------------------END API SETUP------------------------------>
   {{< /tabs-wrapper >}}
 
-1.  {{< req text="Recommended:" color="magenta" >}} **Create an All-Access API token.**
+1.  {{< req text="Recommended:" color="magenta" >}} **Create an All Access API token.**
     <span id="create-an-all-access-api-token"></span>
 
     During the [InfluxDB initial set up process](/influxdb/v2/install/#set-up-influxdb), you created an admin user and [Operator token](/influxdb/v2/admin/tokens/#operator-token)
     that have permissions to manage everything in your InfluxDB instance.
 
     While you can use your Operator token
-    to interact with InfluxDB, we recommend creating an [All-Access token](/influxdb/v2/admin/tokens/#all-access-token) that
+    to interact with InfluxDB, we recommend creating an [All Access token](/influxdb/v2/admin/tokens/#all-access-token) that
     is scoped to an organization, and then using this token to manage InfluxDB.
-    Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to create an All-Access token.
+    Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to create an All Access token.
 
     {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -241,7 +241,7 @@ For more options and details, see the [`POST /api/v2/setup` API endpoint documen
 1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2/tools/influx-cli/).
 
 2.  Use the [`influx auth create` command](/influxdb/v2/reference/cli/influx/auth/create/)
-    to create an All-Access token.
+    to create an All Access token.
 
     Provide the following:
 
@@ -289,7 +289,7 @@ Include the following with your request:
             _For information about what InfluxDB resource types exist, use the
             [`/api/v2/resources` endpoint](/influxdb/v2/api/#operation/GetResources)._
 
-The following example uses cURL and the InfluxDB API to generate an All-Access token:
+The following example uses cURL and the InfluxDB API to generate an All Access token:
 
 {{% truncate %}}
 ```sh
@@ -387,7 +387,7 @@ sensitive tokens.
     How you provide credentials depends on which client you use to interact with InfluxDB.
 
     {{% note %}}
-When configuring your token, if you [created an All-Access token](#create-an-all-access-api-token),
+When configuring your token, if you [created an All Access token](#create-an-all-access-api-token),
 use that token to interact with InfluxDB.
 Otherwise, use the Operator token that you created during the setup process.
     {{% /note %}}
@@ -424,7 +424,7 @@ If you [set up InfluxDB](#set-up-influxdb) using the CLI, it creates a default
 [connection configuration](/influxdb/v2/reference/cli/influx/config/) for you.
 
 Use the [`influx config create` command](/influxdb/v2/reference/cli/influx/config/create/)
-to manually create a new CLI connection configuration for the All-Access token you created in the preceding step. Include the following flags:
+to manually create a new CLI connection configuration for the All Access token you created in the preceding step. Include the following flags:
 
 {{% code-placeholders "API_TOKEN|ORG_NAME|http://localhost:8086|default|USERNAME|PASSWORD" %}}
 
@@ -476,7 +476,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`<ORG_NAME>`{{% /code-placeholder-key %}}: The name of your [organization](/influxdb/v2/admin/organizations/)
 - {{% code-placeholder-key %}}`<ORG_ID>`{{% /code-placeholder-key %}}: Your [organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
-- {{% code-placeholder-key %}}`<API_TOKEN>`{{% /code-placeholder-key %}}: Your [All-Access token](#create-an-all-access-api-token) or operator [token](/influxdb/v2/admin/tokens/)
+- {{% code-placeholder-key %}}`<API_TOKEN>`{{% /code-placeholder-key %}}: Your [All Access token](#create-an-all-access-api-token) or operator [token](/influxdb/v2/admin/tokens/)
 
 {{% /expand %}}
 
@@ -537,7 +537,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`<ORG_NAME>`{{% /code-placeholder-key %}}: The name of your [organization](/influxdb/v2/admin/organizations/)
 - {{% code-placeholder-key %}}`<ORG_ID>`{{% /code-placeholder-key %}}: Your [organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
-- {{% code-placeholder-key %}}`<API_TOKEN>`{{% /code-placeholder-key %}}: Your [All-Access token](#create-an-all-access-api-token) or Operator token
+- {{% code-placeholder-key %}}`<API_TOKEN>`{{% /code-placeholder-key %}}: Your [All Access token](#create-an-all-access-api-token) or Operator token
 <!------------------------------ END API CONTENT ------------------------------>
 {{% /tab-content %}}
     {{< /tabs-wrapper >}}

@@ -514,7 +514,7 @@ The following guide uses [Docker CLI commands](https://docs.docker.com/reference
 
 If successful, the command starts InfluxDB initialized with the user, organization, bucket,
 and _[Operator token](/influxdb/v2/admin/tokens/#operator-token)_, and logs to stdout.
-You can view the Operator token in the `/etc/influxdb2/influx-configs` file and use it to authorize [creating an All-Access token](#optional-create-all-access-tokens).
+You can view the Operator token in the `/etc/influxdb2/influx-configs` file and use it to authorize [creating an All Access token](#optional-create-all-access-tokens).
 
 _To run the InfluxDB container in [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground),
  include the `--detach` flag in the `docker run` command._
