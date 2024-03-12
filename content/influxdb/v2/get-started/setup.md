@@ -147,7 +147,7 @@ Your InfluxDB instance is now initialized.
 
     InfluxDB stores these values in a `default` connection configuration that provides your
     InfluxDB URL, organization, and API token to `influx` CLI commands.
-    For more detail about connection configurations, see [`influx config`](/influxdb/v2/reference/cli/influx/config/).
+    For information about connection configurations, see [`influx config`](/influxdb/v2/reference/cli/influx/config/).
 
 {{% /tab-content %}}
 <!------------------------------- END CLI Setup -------------------------------->
