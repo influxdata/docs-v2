@@ -190,6 +190,11 @@ Replace the following:
 
 The response body contains the created resources, including the [Operator token](/influxdb/v2/admin/tokens/#operator-token) and its list of permissions.
 
+{{% note %}}
+We recommend using a password manager or a secret store to securely store
+sensitive tokens.
+{{% /note %}}
+
 For more options and details, see the [`POST /api/v2/setup` API endpoint documentation](/influxdb/v2/api/#operation/PostSetup).
 
 {{% /tab-content%}}
