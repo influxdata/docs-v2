@@ -464,7 +464,7 @@ Set the following environment variables in your command line session:
 {{% code-placeholders "&lt;(ORG_NAME|ORG_ID|API_TOKEN)&gt;" %}}
 
 ```sh
-export INFLUX_HOST=http://localhost:8086
+export INFLUX_HOST={{< influxdb/host >}}
 export INFLUX_ORG=<ORG_NAME>
 export INFLUX_ORG_ID=<ORG_ID>
 export INFLUX_TOKEN=<API_TOKEN>
