@@ -60,7 +60,7 @@ Be sure to follow [partitioning best practices](/influxdb/clustered/admin/custom
 ## Usage
 
 ```sh
-influxctl database create [--retention-period 0s] <DATABASE_NAME>
+influxctl database create [flags] <DATABASE_NAME>
 ```
 
 ## Arguments
