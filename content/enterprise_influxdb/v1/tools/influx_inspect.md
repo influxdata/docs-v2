@@ -69,7 +69,9 @@ Optional arguments are in brackets.
 
 The size of the batches written to the index. Default value is `10000`.
 
-{{% warn %}}**Warning:** Setting this value can have adverse effects on performance and heap size.{{% /warn %}}
+{{% warn %}}
+**Warning:** Setting this value can have adverse effects on performance and heap size.
+{{% /warn %}}
 
 ##### `[ -compact-series-file ]`
 
@@ -142,7 +144,10 @@ $ influx_inspect buildtsi -database stress -shard 1 -datadir ~/.influxdb/data -w
 Use `deletetsm -measurement` to delete a measurement in a raw TSM file (from specified shards).
 Use `deletetsm -sanitize` to remove all tag and field keys containing non-printable Unicode characters in a raw TSM file (from specified shards).
 
-{{% warn %}} **Warning:** Use the `deletetsm` command only when your InfluxDB instance is offline (`influxd` service is not running).{{% /warn %}}
+{{% warn %}}
+**Warning:** Use the `deletetsm` command only when your InfluxDB instance is
+offline (`influxd` service is not running).
+{{% /warn %}}
 
 #### Syntax
 

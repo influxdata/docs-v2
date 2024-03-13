@@ -424,6 +424,39 @@ table tr.point{
   }
 }
 
+/////////////////////////// Scaling strategy diagrams //////////////////////////
+
+.scaling-strategy {
+  margin: 2rem 0 3rem;
+
+  .node {
+    border: 2px solid $article-text;
+    border-radius: 6px;
+    height: 6rem;
+    width: 4rem;
+  }
+
+  .dashed {
+    border-style: dashed;
+    border-color: rgba($article-text, .5)
+  }
+
+  .outer {
+    height: auto;
+    width: fit-content;
+    position: relative;
+  }
+
+  .inner {
+    margin: 2rem 1.25rem -2px;
+  }
+
+  &.horizontal {
+    display: flex;
+    .node:not(:first-child) {margin-left: 1.25rem;}
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

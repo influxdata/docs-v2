@@ -72,7 +72,7 @@ click **{{< icon "plus" >}} Generate** and select a token type
 
 {{% cloud-only %}}
 
-### Create an all-access token
+### Create an All Access token
 
 1. From the [API Tokens management page](#manage-tokens-in-the-influxdb-ui),
 click the **{{< icon "plus" >}} {{< caps >}}Generate API Token{{< /caps >}}** button.
@@ -115,9 +115,9 @@ influx auth create -o <org-name> [permission-flags]
 ```
 
 ### Examples
-#### Create an all-access token
+#### Create an All Access token
 
-Create an All-Access token to grant permissions to all resources in an organization.
+Create an All Access token to grant permissions to all resources in an organization.
 
 ```sh
 influx auth create \

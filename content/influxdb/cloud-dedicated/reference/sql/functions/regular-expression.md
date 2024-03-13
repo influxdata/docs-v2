@@ -11,11 +11,59 @@ weight: 308
 influxdb/cloud-dedicated/tags: [regular expressions, sql]
 ---
 
-The InfluxDB SQL implementation uses the POSIX regular expression syntax and
-supports the following regular expression functions:
+The InfluxDB SQL implementation uses the
+[PCRE-like](https://en.wikibooks.org/wiki/Regular_Expressions/Perl-Compatible_Regular_Expressions)
+regular expression [syntax](https://docs.rs/regex/latest/regex/#syntax)
+(excluding some features such as look-around and back-references) and supports
+the following regular expression functions:
 
+- [regexp_like](#regexp_like)
 - [regexp_match](#regexp_match)
 - [regexp_replace](#regexp_replace)
+
+## regexp_like
+
+True if a regular expression has at least one match in a string;
+false otherwise.
+
+```sql
+regexp_like(str, regexp[, flags])
+```
+
+##### Arguments
+
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
+- **regexp**: Regular expression to test against the string expression.
+  Can be a constant, column, or function.
+- **flags**: Optional regular expression flags that control the behavior of the
+  regular expression. The following flags are supported:
+  - **i**: (insensitive) Ignore case when matching.
+  - **m**: (multi-line) `^` and `$` match the beginning and end of a line, respectively.
+  - **s**: (single-line) `.` matches newline (`\n`).
+  - **R**: (CRLF) When multi-line mode is enabled, `\r\n` is used to delimit lines.
+  - **U**: (ungreedy) Swap the meaning of `x*` and `x*?`.
+
+{{< expand-wrapper >}}
+{{% expand "View `regexp_replace` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT DISTINCT
+  room,
+  regexp_like(room::STRING, 'R', 'i') AS regexp_like
+FROM home
+```
+
+| room        | regexp_like |
+| :---------- | :---------- |
+| Kitchen     | false       |
+| Living Room | true        |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## regexp_match
 

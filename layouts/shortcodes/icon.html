@@ -257,5 +257,7 @@
   <span class="inline {{ $version }} cf-icon Flask middle"></span>
   {{- else if or (eq $icon "link") (eq $icon "chain") -}}
   <span class="inline {{ $version }} cf-icon Link"></span>
+  {{- else if or (eq $icon "question-mark") (eq $icon "question") (eq $icon "?") -}}
+  <span class="inline {{ $version }} cf-icon QuestionMark_Outline middle"></span>
   {{- end -}}
 {{- end -}}

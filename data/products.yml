@@ -4,7 +4,7 @@ influxdb:
   namespace: influxdb
   menu_category: self-managed
   list_order: 4
-  placeholder_host: localhost:1313
+  placeholder_host: localhost:8086
   versions:
     - v2
     - v1
@@ -21,7 +21,7 @@ influxdb:
     - v1.7
   latest: v2.7
   latest_patches:
-    v2: 2.7.4
+    v2: 2.7.5
     v1: 1.8.10
   latest_cli:
     v2: 2.7.3
@@ -55,7 +55,7 @@ influxdb_cloud_dedicated:
   list_order: 3
   latest: cloud-dedicated
   link: "https://www.influxdata.com/contact-sales-form/"
-  latest_cli: 2.4.4
+  latest_cli: 2.5.0
   placeholder_host: cluster-id.influxdb.io
 
 influxdb_clustered:
@@ -113,7 +113,7 @@ enterprise_influxdb:
     - v1.7
   latest: v1.11
   latest_patches:
-    v1: 1.11.3
+    v1: 1.11.5
 
 flux:
   name: Flux

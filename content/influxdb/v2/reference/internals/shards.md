@@ -25,7 +25,7 @@ Learn the relationships between buckets, shards, and shard groups.
 - [Shard groups](#shard-groups)
   - [Shard group duration](#shard-group-duration)
   - [Shard group diagram](#shard-group-diagram)
-- [Shard life-cycle](#shard-life-cycle)
+- [Shard life cycle](#shard-life-cycle)
   - [Shard precreation](#shard-precreation)
   - [Shard writes](#shard-writes)
   - [Shard compaction](#shard-compaction)
@@ -82,7 +82,7 @@ and a **1d shard group duration**:
 
 ---
 
-## Shard life-cycle
+## Shard life cycle
 
 ### Shard precreation
 The InfluxDB **shard precreation service** pre-creates shards with future start

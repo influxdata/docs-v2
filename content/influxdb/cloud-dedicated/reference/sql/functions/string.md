@@ -21,14 +21,20 @@ operating on string values:
 - [concat](#concat)
 - [concat_ws](#concat_ws)
 - [chr](#chr)
+- [ends_with](#ends_with)
+- [find_in_set](#find_in_set)
 - [initcap](#initcap)
+- [instr](#instr)
 - [left](#left)
 - [length](#length)
+- [levenshtein](#levenshtein)
 - [lower](#lower)
 - [lpad](#lpad)
 - [ltrim](#ltrim)
 - [md5](#md5)
 - [octet_length](#octet_length)
+- [overlay](#overlay)
+- [position](#position)
 - [repeat](#repeat)
 - [replace](#replace)
 - [reverse](#reverse)
@@ -39,6 +45,7 @@ operating on string values:
 - [starts_with](#starts_with)
 - [strpos](#strpos)
 - [substr](#substr)
+- [substr_index](#substr_index)
 - [to_hex](#to_hex)
 - [translate](#translate)
 - [trim](#trim)
@@ -315,6 +322,80 @@ FROM
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## ends_with
+
+Tests if a string ends with a substring.
+
+```sql
+ends_with(str, substr)
+```
+
+##### Arguments
+
+- **str**: String expression to test.
+  Can be a constant, column, or function, and any combination of string operators.
+- **substr**: Substring to test for.
+
+{{< expand-wrapper >}}
+{{% expand "View `ends_with` query example" %}}
+
+```sql
+SELECT
+  string,
+  ends_with(string, 'USA') AS ends_with
+FROM
+  (values ('New York, USA'),
+          ('London, UK'),
+          ('San Francisco, USA')
+  ) data(string)
+```
+
+| string             | ends_with |
+| :----------------- | :-------- |
+| New York, USA      | true      |
+| London, UK         | false     |
+| San Francisco, USA | true      |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## find_in_set
+
+Returns the position of a string in a comma-delimited list of substrings.
+Returns 0 if the string is not in the list of substrings.
+
+```sql
+find_in_set(str, strlist)
+```
+
+##### Arguments
+
+- **str**: String expression to find in `strlist`.
+- **strlist**: A string containing a comma-delimited list of substrings.
+
+{{< expand-wrapper >}}
+{{% expand "View `find_in_set` query example" %}}
+
+```sql
+SELECT
+  string,
+  find_in_set(string, 'Isaac,John,Sara') AS find_in_set
+FROM
+  (values ('John'),
+          ('Sarah'),
+          ('Isaac')
+  ) data(string)
+```
+
+| string | find_in_set |
+| :----- | ----------: |
+| John   | 2           |
+| Sarah  | 0           |
+| Isaac  | 1           |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ## initcap
 
 Capitalizes the first character in each word in the input string.
@@ -353,6 +434,47 @@ FROM
 | hello world | Hello World |
 | hello-world | Hello-World |
 | hello_world | Hello_World |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## instr
+
+Returns the location where a substring first appears in a string (starting at 1).
+If the substring is not in the string, the function returns 0.
+
+```sql
+instr(str, substr)
+```
+
+##### Arguments
+
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
+- **substr**: Substring expression to search for.
+  Can be a constant, column, or function, and any combination of string operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `instr` query example" %}}
+
+```sql
+SELECT
+  string,
+  instr(string, 'neighbor') AS instr
+FROM
+  (values ('good neighbor'),
+          ('bad neighbor'),
+          ('next-door neighbor'),
+          ('friend')
+  ) data(string)
+```
+
+| string             | instr |
+| :----------------- | ----: |
+| good neighbor      | 6     |
+| bad neighbor       | 5     |
+| next-door neighbor | 11    |
+| friend             | 0     |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -441,6 +563,45 @@ FROM home
 | :---------- | -----: |
 | Kitchen     |      7 |
 | Living Room |     11 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## levenshtein
+
+Returns the [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
+between two strings.
+
+```sql
+levenshtein(str1, str2)
+```
+
+##### Arguments
+- **str1**: First string expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
+- **str2**: Second string expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `levenshtein` query example" %}}
+
+```sql
+SELECT
+  string1,
+  string2,
+  levenshtein(string1, string2) AS levenshtein
+FROM
+  (values ('kitten', 'sitting'),
+          ('puppy', 'jumping'),
+          ('cow', 'lowing')
+  ) data(string1, string2)
+```
+
+| string1 | string2 | levenshtein |
+| :------ | :------ | ----------: |
+| kitten  | sitting |           3 |
+| puppy   | jumping |           5 |
+| cow     | lowing  |           4 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -646,9 +807,90 @@ FROM home
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## overlay
+
+Replaces part of a string with another substring using a specified starting
+position and number of characters to replace.
+
+```sql
+overlay(str PLACING substr FROM pos [FOR count])
+```
+
+##### Arguments
+
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
+- **substr**: Substring to use to replace part of the specified string (`str`).
+  Can be a constant, column, or function, and any combination of string operators.
+- **pos**: Start position of the substring replacement (`substr`).
+- **count**: Number of characters in the string (`str`) to replace with the 
+  substring (`substr`) beginning from the start position (`pos`).
+  If not specified, the function uses the length of the substring.
+
+{{< expand-wrapper >}}
+{{% expand "View `overlay` query example" %}}
+
+```sql
+SELECT
+  string,
+  overlay(string PLACING '****' FROM 1 FOR 12) AS overlay
+FROM
+  (values ('2223000048410010'),
+          ('2222420000001113'),
+          ('4917484589897107')
+  ) data(string)
+```
+
+| string           | overlay  |
+| :--------------- | :------- |
+| 2223000048410010 | ****0010 |
+| 2222420000001113 | ****1113 |
+| 4917484589897107 | ****7107 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## position
+
+Returns the position of a substring in a string.
+
+```sql
+position(substr IN str)
+```
+
+##### Arguments
+
+- **substr**: Substring expression to search for.
+  Can be a constant, column, or function, and any combination of string operators.
+- **str**: String expression to search.
+  Can be a constant, column, or function, and any combination of string operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `position` query example" %}}
+
+```sql
+SELECT
+  string,
+  position('oo' IN string) AS position
+FROM
+  (values ('cool'),
+          ('scoop'),
+          ('ice cream')
+  ) data(string)
+```
+
+| string    | position |
+| :-------- | -------: |
+| cool      |        2 |
+| scoop     |        3 |
+| ice cream |        0 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ## repeat
 
-Returns a string with an input string repeated a specified number.
+Returns a string with an input string repeated a specified number of times.
 
 ```sql
 repeat(str, n)
@@ -1030,6 +1272,53 @@ FROM home
 | :---------- | :--------- |
 | Living Room | ving&nbsp; |
 | Kitchen     | tchen      |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## substr_index
+
+Returns the substring that occurs before or after the specified number (`count`)
+of delimiter (`delimiter`) occurrences in a string (`str`).
+If the count is positive, the function returns everything to the left of the
+final delimiter (counting from the left).
+If the count is negative, the function returns everything to the right of the
+final delimiter (counting from the right).
+
+```sql
+substr_index(str, delimiter, count)
+```
+
+##### Arguments
+
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
+- **delimiter**: String expression to use to delimit substrings in the string (`str`).
+  Can be a constant, column, or function, and any combination of string operators.
+- **count**: The Nth occurrence of the delimiter (`delimiter`) to split on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+  Supports positive and negative numbers.
+
+{{< expand-wrapper >}}
+{{% expand "View `substr_index` query example" %}}
+
+```sql
+SELECT
+  url,
+  substr_index(url, '.', 1) AS subdomain,
+  substr_index(url, '.', -1) AS tld
+FROM
+  (values ('docs.influxdata.com'),
+          ('community.influxdata.com'),
+          ('cloud2.influxdata.com')
+  ) data(url)
+```
+
+| url                      | subdomain | tld |
+| :----------------------- | :-------- | :-- |
+| docs.influxdata.com      | docs      | com |
+| community.influxdata.com | community | com |
+| arrow.apache.org         | arrow     | org |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

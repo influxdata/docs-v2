@@ -8,7 +8,7 @@ menu:
     name: Getting Started with the Node.js Client Library in InfluxDB
 weight: 164
 youtubeID: VxQVda-ilIo
-date: 2022-7-12
+date: 2022-07-12
 series: [Meet the Developers S7]
 metadata: [Meet the Developer Series]
 aliases:

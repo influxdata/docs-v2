@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cimg/node:20.10.0
+      - image: cimg/node:20.11.1
         environment:
           S3DEPLOY_VERSION: "2.11.0"
           # From https://github.com/bep/s3deploy/releases
@@ -49,7 +49,7 @@ jobs:
 
   deploy:
     docker:
-      - image: cimg/go:1.21.6
+      - image: cimg/go:1.22.1
     steps:
       - checkout
       - restore_cache:

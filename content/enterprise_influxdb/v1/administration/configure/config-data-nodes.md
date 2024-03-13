@@ -82,6 +82,35 @@ How often to update the cluster with this node's internal status.
 
 Environment variable: `INFLUXDB_GOSSIP_FREQUENCY`
 
+#### compact-series-file {metadata="v1.11.4+"}
+
+Default is `false`.
+
+Determines if series files should be compacted on startup. If `true`, InfluxDB
+runs [`influxd_inspect -compact-series-file`](/enterprise_influxdb/v1/tools/influx_inspect/#--compact-series-file-)
+before starting the `influxd` server.
+
+{{% note %}}
+##### Series file compaction
+
+Series files are stored in `_series` directories inside the
+[InfluxDB data directory](/enterprise_influxdb/v1/concepts/file-system-layout/#data-node-file-system-layout).
+Default: `/var/lib/data/<db-name>/_series`.
+
+When compacting series files on startup:
+
+- If any series files are corrupt, the `influx_inspect` or `influxd` processes on
+  the data node may fail to start. In both cases, delete the series file
+  directories before restarting the database. InfluxDB automatically
+  regenerates the necessary series directories and files when restarting.
+- To check if series files are corrupt before starting the database, run the
+  [`influx_inspect verify-seriesfile` command](/enterprise_influxdb/v1/tools/influx_inspect/#verify-seriesfile)
+  while the database is off-line.
+- If series files are large (20+ gigabytes), it may be faster to delete the
+  series file directories before starting the database.
+{{% /note %}}
+
+
 -----
 
 ## Enterprise license settings

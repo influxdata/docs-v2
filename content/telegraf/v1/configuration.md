@@ -1,6 +1,8 @@
 ---
 title: Configuration options
-description: Overview of the Telegraf configuration file, enabling plugins, and setting environment variables.
+description: >
+  Overview of the Telegraf configuration file, enabling plugins, and setting
+  environment variables.
 aliases:
   - /telegraf/v1/administration/configuration/
 menu:
@@ -9,10 +11,14 @@ menu:
     weight: 40
 ---
 
-The `telegraf.conf` Telegraf configuration file lists all available Telegraf plugins.
-See the [current version](https://github.com/influxdata/telegraf/blob/master/etc/telegraf.conf).
+Telegraf uses a configuration file to define what plugins to enable and what
+settings to use when Telegraf starts.
+Each Telegraf plugin has its own set of configuration options.
+Telegraf also provides global options for configuring specific Telegraf settings.
 
-> See [Get started](/telegraf/v1/get_started/) to quickly get up and running with Telegraf.
+{{% note %}}
+See [Get started](/telegraf/v1/get_started/) to quickly get up and running with Telegraf.
+{{% /note %}}
 
 ## Generate a configuration file
 
@@ -36,8 +42,8 @@ Use the `--config` flag to specify the configuration file location:
 - Filename and path, for example: `--config /etc/default/telegraf`
 - Remote URL endpoint, for example: `--config "http://remote-URL-endpoint"`
 
-Use the `--config-directory` flag to include files ending with `.conf` in the specified directory in the Telegraf
-configuration.
+Use the `--config-directory` flag to include files ending with `.conf` in the
+specified directory in the Telegraf configuration.
 
 On most systems, the default locations are `/etc/telegraf/telegraf.conf` for
 the main configuration file and `/etc/telegraf/telegraf.d` for the directory of
@@ -101,111 +107,114 @@ Telegraf applies the global tags to all metrics gathered on this host.
 
 The `[agent]` section contains the following configuration options:
 
-* **interval**: Default data collection interval for all inputs
-* **round_interval**: Rounds collection interval to `interval`.
-For example, if `interval` is set to `10s`, then the agent collects on :00, :10, :20, etc.
-* **metric_batch_size**: Sends metrics to the output in batches of at
-most `metric_batch_size` metrics.
-* **metric_buffer_limit**: Caches `metric_buffer_limit` metrics
-for each output, and flushes this buffer on a successful write.
-This should be a multiple of `metric_batch_size` and could not be less
-than 2 times `metric_batch_size`.
-* **collection_jitter**: Used to jitter
-the collection by a random amount.
-Each plugin sleeps for a random time within jitter before collecting.
-This can be used to avoid many plugins querying things like **sysfs** at the
-same time, which can have a measurable effect on the system.
-* **flush_interval**: Default data flushing interval for all outputs.
-Don't set this below `interval`.
-Maximum `flush_interval` is `flush_interval` + `flush_jitter`
-* **flush_jitter**: Jitter the flush interval by a random amount.
-This is primarily to avoid
-large write spikes for users running a large number of Telegraf instances.
-For example, a `flush_jitter` of `5s` and `flush_interval` of `10s` means flushes happen every 10-15s.
-* **precision**: Collected metrics are rounded to the precision specified as an
-`interval` (integer + unit, ex: `1ns`, `1us`, `1ms`, and `1s` . Precision isn't
-used for service inputs, such as `logparser` and `statsd`.
-* **debug**: Run Telegraf in debug mode.
-* **quiet**: Run Telegraf in quiet mode (error messages only).
-* **logtarget**: Controls the destination for logs and can be set to `"file"`, `"stderr"`, or, on Windows, `"eventlog"`.
+- **interval**: Default data collection interval for all inputs
+- **round_interval**: Rounds collection interval to `interval`.
+  For example, if `interval` is set to `10s`, then the agent collects on :00, :10, :20, etc.
+- **metric_batch_size**: Sends metrics to the output in batches of at
+  most `metric_batch_size` metrics.
+- **metric_buffer_limit**: Caches `metric_buffer_limit` metrics
+  for each output, and flushes this buffer on a successful write.
+  This should be a multiple of `metric_batch_size` and could not be less
+  than 2 times `metric_batch_size`.
+- **collection_jitter**: Used to jitter the collection by a random amount.
+  Each plugin sleeps for a random time within jitter before collecting.
+  This can be used to avoid many plugins querying things like **sysfs** at the
+  same time, which can have a measurable effect on the system.
+- **flush_interval**: Default data flushing interval for all outputs.
+  Don't set this below `interval`.
+  Maximum `flush_interval` is `flush_interval` + `flush_jitter`
+- **flush_jitter**: Jitter the flush interval by a random amount.
+  This is primarily to avoid
+  large write spikes for users running a large number of Telegraf instances.
+  For example, a `flush_jitter` of `5s` and `flush_interval` of `10s` means
+  flushes happen every 10-15s.
+- **precision**: Collected metrics are rounded to the precision specified as an
+  `interval` (integer + unit, ex: `1ns`, `1us`, `1ms`, and `1s` . Precision isn't
+  used for service inputs, such as `logparser` and `statsd`.
+- **debug**: Run Telegraf in debug mode.
+- **quiet**: Run Telegraf in quiet mode (error messages only).
+- **logtarget**: Controls the destination for logs and can be set to `"file"`,
+  `"stderr"`, or, on Windows, `"eventlog"`.
   When set to `"file"`, the output file is determined by the logfile setting.
-* **logfile**: If logtarget is set to `“file”`, specify the logfile name. If set to an empty string, then logs are written to stderr.
-* **logfile_rotation_interval**: Rotates the logfile after the time interval specified.
+- **logfile**: If logtarget is set to `“file”`, specify the logfile name.
+  If set to an empty string, then logs are written to stderr.
+- **logfile_rotation_interval**: Rotates the logfile after the time interval specified.
   When set to `0`, no time-based rotation is performed.
-* **logfile_rotation_max_size**: Rotates logfile when it becomes larger than the specified
-size.
+- **logfile_rotation_max_size**: Rotates logfile when it becomes larger than the
+  specified size.
   When set to `0`, no size-based rotation is performed.
-* **logfile_rotation_max_archives**: Maximum number of rotated archives to keep, any
-older logs are deleted.
+- **logfile_rotation_max_archives**: Maximum number of rotated archives to keep,
+  any older logs are deleted.
   If set to `-1`, no archives are removed.
-* **log_with_timezone**: Set a timezone to use when logging--for example, `"America/Chicago"`.
+- **log_with_timezone**: Set a timezone to use when logging--for example, `"America/Chicago"`.
   To use local time, set to `"local"`.
   See [timezone options and formats](https://socketloop.com/tutorials/golang-display-list-of-timezones-with-gmt).
-* **hostname**: Override default hostname, if empty use `os.Hostname()`.
-* **omit_hostname**: If true, do no set the `host` tag in the Telegraf agent.
+- **hostname**: Override default hostname, if empty use `os.Hostname()`.
+- **omit_hostname**: If true, do no set the `host` tag in the Telegraf agent.
 
 
 ## Input configuration
 
 The following config parameters are available for all inputs:
 
-* **alias**: Name an instance of a plugin.
-* **interval**: How often to gather this metric. Normal plugins use a single
-global interval, but if one particular input should be run less or more often,
-you can configure that here. `interval` can be increased to reduce data-in rate limits.
-* **precision**: Overrides the `precision` setting of the agent. Collected
-metrics are rounded to the precision specified as an `interval`. When this value is
-set on a service input (ex: `statsd`), multiple events occurring at the same
-timestamp may be merged by the output database.
-* **collection_jitter**: Overrides the `collection_jitter` setting of the agent.  
-Collection jitter is used to jitter the collection by a random `interval`
-* **name_override**: Override the base name of the measurement.
-(Default is the name of the input).
-* **name_prefix**: Specifies a prefix to attach to the measurement name.
-* **name_suffix**: Specifies a suffix to attach to the measurement name.
-* **tags**: A map of tags to apply to a specific input's measurements.
+- **alias**: Name an instance of a plugin.
+- **interval**: How often to gather this metric. Normal plugins use a single
+  global interval, but if one particular input should be run less or more often,
+  you can configure that here. `interval` can be increased to reduce data-in rate limits.
+- **precision**: Overrides the `precision` setting of the agent. Collected
+  metrics are rounded to the precision specified as an `interval`. When this value is
+  set on a service input (ex: `statsd`), multiple events occurring at the same
+  timestamp may be merged by the output database.
+- **collection_jitter**: Overrides the `collection_jitter` setting of the agent.  
+  Collection jitter is used to jitter the collection by a random `interval`
+- **name_override**: Override the base name of the measurement.
+  (Default is the name of the input).
+- **name_prefix**: Specifies a prefix to attach to the measurement name.
+- **name_suffix**: Specifies a suffix to attach to the measurement name.
+- **tags**: A map of tags to apply to a specific input's measurements.
 
 ## Output configuration
 
-* **alias**: Name an instance of a plugin.
-* **flush_interval**: Maximum time between flushes. Use this setting to
+- **alias**: Name an instance of a plugin.
+- **flush_interval**: Maximum time between flushes. Use this setting to
   override the agent `flush_interval` on a per plugin basis.
-* **flush_jitter**: Amount of time to jitter the flush interval. Use this
+- **flush_jitter**: Amount of time to jitter the flush interval. Use this
   setting to override the agent `flush_jitter` on a per plugin basis.
-* **metric_batch_size**: Maximum number of metrics to send at once. Use
+- **metric_batch_size**: Maximum number of metrics to send at once. Use
   this setting to override the agent `metric_batch_size` on a per plugin basis.
-* **metric_buffer_limit**: Maximum number of unsent metrics to buffer.
+- **metric_buffer_limit**: Maximum number of unsent metrics to buffer.
   Use this setting to override the agent `metric_buffer_limit` on a per plugin basis.
-* **name_override**: Override the base name of the measurement.
-(Default is the name of the output).
-* **name_prefix**: Specifies a prefix to attach to the measurement name.
-* **name_suffix**: Specifies a suffix to attach to the measurement name.
+- **name_override**: Override the base name of the measurement.
+  (Default is the name of the output).
+- **name_prefix**: Specifies a prefix to attach to the measurement name.
+- **name_suffix**: Specifies a suffix to attach to the measurement name.
 
 ## Aggregator configuration
 
 The following config parameters are available for all aggregators:
 
-* **alias**: Name an instance of a plugin.
-* **period**: The period on which to flush & clear each aggregator. All metrics
-that are sent with timestamps outside of this period are ignored by the
-aggregator.
-* **delay**: The delay before each aggregator is flushed. This is to control
-how long for aggregators to wait before receiving metrics from input plugins,
-in the case that aggregators are flushing and inputs are gathering on the
-same interval.
-* **grace**: The duration the metrics are aggregated by the plugin
-even though they're outside the aggregation period.
-This setting is needed when the agent is expected to receive late metrics and can
-be rolled into the next aggregation period.
-* **drop_original**: If true, the original metric is dropped by the
-aggregator and not sent to the output plugins.
-* **name_override**: Override the base name of the measurement.
-(Default is the name of the input).
-* **name_prefix**: Specifies a prefix to attach to the measurement name.
-* **name_suffix**: Specifies a suffix to attach to the measurement name.
-* **tags**: A map of tags to apply to a specific input's measurements.
+- **alias**: Name an instance of a plugin.
+- **period**: The period on which to flush & clear each aggregator. All metrics
+  that are sent with timestamps outside of this period are ignored by the
+  aggregator.
+- **delay**: The delay before each aggregator is flushed. This is to control
+  how long for aggregators to wait before receiving metrics from input plugins,
+  in the case that aggregators are flushing and inputs are gathering on the
+  same interval.
+- **grace**: The duration the metrics are aggregated by the plugin
+  even though they're outside the aggregation period.
+  This setting is needed when the agent is expected to receive late metrics and can
+  be rolled into the next aggregation period.
+- **drop_original**: If true, the original metric is dropped by the
+  aggregator and not sent to the output plugins.
+- **name_override**: Override the base name of the measurement.
+  (Default is the name of the input).
+- **name_prefix**: Specifies a prefix to attach to the measurement name.
+- **name_suffix**: Specifies a suffix to attach to the measurement name.
+- **tags**: A map of tags to apply to a specific input's measurements.
 
-For a demonstration of how to configure SNMP, MQTT, and PostGRE SQL plugins to get data into Telegraf, see the following video:
+For a demonstration of how to configure SNMP, MQTT, and PostGRE SQL plugins to
+get data into Telegraf, see the following video:
 
 {{< youtube 6XJdZ_kdx14 >}}
 
@@ -213,8 +222,8 @@ For a demonstration of how to configure SNMP, MQTT, and PostGRE SQL plugins to g
 
 The following config parameters are available for all processors:
 
-* **alias**: Name an instance of a plugin.
-* **order**: This is the order in which processors are executed.
+- **alias**: Name an instance of a plugin.
+- **order**: This is the order in which processors are executed.
   If not specified, then order is random.
 
 The [metric filtering](#metric-filtering) parameters can be used to limit what metrics are
@@ -230,40 +239,40 @@ Filters can be configured per input, output, processor, or aggregator.
 
 ### Filters
 
-* **namepass**:
-An array of glob pattern strings.
-Only emits points whose measurement name matches a pattern in this list.
-* **namedrop**:
-The inverse of `namepass`.
-Discards points whose measurement name matches a pattern in this list.
-This test applies to points _after_ they have passed the `namepass` test.
-* **fieldpass**:
-An array of glob pattern strings.
-Only emits fields whose field key matches a pattern in this list.
-* **fielddrop**:
-The inverse of `fieldpass`.
-Discards fields that have a field key matching one of the patterns.
-* **tagpass**:
-A table that maps tag keys to arrays of glob pattern strings.
-Only emits points that contain a tag key in the table and a tag value that matches one of the associated patterns.
-* **tagdrop**:
-The inverse of `tagpass`.
-Discards points that contain a tag key in the table and a tag value that matches one of the associated patterns.
-This test applies to points _after_ they have passed the `tagpass` test.
-* **taginclude**:
-An array of glob pattern strings.
-Only tags with a tag key matching one of the patterns are emitted.
-In contrast to `tagpass`, which emits an entire
-point if a tag passes, `taginclude` removes all non-matching tags from the
-point. This filter can be used on inputs and outputs, but is more efficient when used on inputs (filtering out tags is more efficient during ingestion).
-* **tagexclude**:
-The inverse of `taginclude`. Tags with a tag key matching one of the patterns
-are discarded from the point.
+- **namepass**: An array of glob pattern strings.
+  Only emits points whose measurement name matches a pattern in this list.
+- **namedrop**: The inverse of `namepass`.
+  Discards points whose measurement name matches a pattern in this list.
+  This test applies to points _after_ they have passed the `namepass` test.
+- **fieldpass**: An array of glob pattern strings.
+  Only emits fields whose field key matches a pattern in this list.
+- **fielddrop**: The inverse of `fieldpass`.
+  Discards fields that have a field key matching one of the patterns.
+- **tagpass**: A table that maps tag keys to arrays of glob pattern strings.
+  Only emits points that contain a tag key in the table and a tag value that
+  matches one of the associated patterns.
+- **tagdrop**: The inverse of `tagpass`.
+  Discards points that contain a tag key in the table and a tag value that
+  matches one of the associated patterns.
+  This test applies to points _after_ they have passed the `tagpass` test.
+- **taginclude**: An array of glob pattern strings.
+  Only tags with a tag key matching one of the patterns are emitted.
+  In contrast to `tagpass`, which emits an entire
+  point if a tag passes, `taginclude` removes all non-matching tags from the
+  point. This filter can be used on inputs and outputs, but is more efficient
+  when used on inputs (filtering out tags is more efficient during ingestion).
+- **tagexclude**:
+  The inverse of `taginclude`. Tags with a tag key matching one of the patterns
+  are discarded from the point.
 
-**NOTE** Due to the way TOML is parsed, `tagpass` and `tagdrop` parameters
+{{% note %}}
+#### Include tagpass and tagdrop at the end of your plugin definition
+
+Due to the way TOML is parsed, `tagpass` and `tagdrop` parameters
 must be defined at the _end_ of the plugin definition, otherwise subsequent
 plugin configuration options are interpreted as part of the tagpass and tagdrop
 tables.
+{{% /note %}}
 
 To learn more about metric filtering, watch the following video:
 
@@ -300,7 +309,8 @@ fields that begin with `time_`, tags measurements with `dc="denver-1"`, and then
 #### Input Config: `tagpass` and `tagdrop`
 
 **NOTE** `tagpass` and `tagdrop` parameters must be defined at the _end_ of
-the plugin definition, otherwise subsequent plugin configuration options are interpreted as part of the tagpass and tagdrop tables.
+the plugin definition, otherwise subsequent plugin configuration options are
+interpreted as part of the tagpass and tagdrop tables.
 
 ```toml
 [[inputs.cpu]]
@@ -402,7 +412,9 @@ plugin definition.
 
 #### Multiple inputs of the same type
 
-Additional inputs (or outputs) of the same type can be specified by defining these instances in the configuration file. To avoid measurement collisions, use the `name_override`, `name_prefix`, or `name_suffix` configuration options:
+Additional inputs (or outputs) of the same type can be specified by defining
+these instances in the configuration file. To avoid measurement collisions, use
+the `name_override`, `name_prefix`, or `name_suffix` configuration options:
 
 ```toml
 [[inputs.cpu]]

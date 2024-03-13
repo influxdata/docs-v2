@@ -14,7 +14,9 @@ The InfluxDB SQL implementation supports the following conditional functions for
 conditionally handling _null_ values:
 
 - [coalesce](#coalesce)
+- [ifnull](#ifnull)
 - [nullif](#nullif)
+- [nvl](#nvl)
 
 ## coalesce
 
@@ -60,6 +62,10 @@ FROM
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## ifnull
+
+_Alias of [nvl](#nvl)._
+
 ## nullif
 
 Returns _null_ if _expression1_ equals _expression2_; otherwise it returns _expression1_.
@@ -95,6 +101,44 @@ FROM
 | foo   | foo    |
 | bar   | bar    |
 | baz   |        |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## nvl
+
+Returns _expression2_ if _expression1_ is _null_; otherwise it returns _expression1_.
+
+```sql
+nvl(expression1, expression2)
+```
+
+##### Arguments
+
+- **expression1**: Return this expression if not _null_.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression2**: Return this expression if _expression1_ is _null_.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `nvl` query example" %}}
+
+```sql
+SELECT
+  value,
+  nvl(value, 'baz') AS nvl
+FROM
+  (values ('foo'),
+          ('bar'),
+          (NULL)
+  ) data(value)
+```
+
+| value | nvl |
+| :---- | :-- |
+| foo   | foo |
+| bar   | bar |
+|       | baz |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

@@ -77,9 +77,11 @@ kubectl apply \
 
 2.  Use the `kubit local apply` command to apply your custom-configured
     `myinfluxdb.yml` and deploy your InfluxDB Cluster.
+    Set the `DOCKER_CONFIG` environment variable to the directory path of
+    your InfluxDB Clustered pull secret credentials provided by InfluxData.
 
     ```sh
-    kubit local apply myinfuxdb.yml
+    DOCKER_CONFIG=/path/to/pullsecrets kubit local apply myinfuxdb.yml
     ```
 
 **NOTE:** By default, `kubit` will use tools that are installed on your local system.
