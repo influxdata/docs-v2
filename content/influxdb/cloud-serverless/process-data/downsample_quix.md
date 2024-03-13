@@ -1,8 +1,9 @@
 ---
 title: Downsample data stored in InfluxDB using Quix Streams
 description: >
-  Query time series data stored in InfluxDB and regular intervals, write it to Kafka and continuously downsample it using Quix Streams, then write the
-  downsampled data back to InfluxDB.
+  Use [Quix Streams](https://github.com/quixio/quix-streams) to query time series
+  data stored in InfluxDB and written to Kafka at regular intervals, continuously
+  downsample it, and then write the downsampled data back to InfluxDB.
 menu:
   influxdb_cloud_serverless:
     name: Downsample data with Quix
@@ -12,18 +13,23 @@ related:
   - /influxdb/cloud-serverless/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
 ---
 
-Query time series data stored in InfluxDB and regular intervals, write it to Kafka and continuously downsample it using Quix Streams, then write the
-  downsampled data back to InfluxDB.
+Use [Quix Streams](https://github.com/quixio/quix-streams) to query time series
+data stored in InfluxDB and written to Kafka at regular intervals, continuously
+downsample it, and then write the downsampled data back to InfluxDB.
+Quix Streams is an open source Python library for building containerized stream
+processing applications with Apache Kafka. It is designed to run as a service
+that continuously processes a stream of data while streaming the results to a
+Kafka topic. You can try it locally, with a local Kafka installation, or run it
+in [Quix Cloud](https://quix.io/) with a free trial.
 
 This guide uses [Python](https://www.python.org/) and the
 [InfluxDB v3 Python client library](https://github.com/InfluxCommunity/influxdb3-python),
 but you can use your runtime of choice and any of the available
 [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/).
+This guide also assumes you have already
+[setup your Python project and virtual environment](/influxdb/cloud-serverless/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
 
-The downsampling process uses [Quix Streams](https://github.com/quixio/quix-streams). Quix Streams is an open source Python library for 
-building containerized stream processing applications with Apache Kafka.
-It is designed to run as a service that continuously processes a stream of data while streaming the results to a Kafka topic. You can try it locally, with a local
-Kafka installation, or  run it in [Quix Cloud](https://quix.io/) for a free trial.
+
 
 ## Pipeline architecture
 
@@ -31,26 +37,32 @@ The following diagram illustrates how data is passed between processes as it is 
 
 ![downsampling pipeline architecture](quix-pipeline-downsample.png)
 
-Note that it is usually more efficient to write your raw data directly to Kafka rather than writing raw data to InfluxDB first (i.e. start the pipeline with the “raw-data” topic). However, this guide assumes that you already have raw data in an InfluxDB instance that you would like to downsample.
+{{% note %}}
+It is usually more efficient to write raw data directly to Kafka rather than
+writing raw data to InfluxDB first (essentially starting the Quix Streams
+pipeline with the "raw-data" topic). However, this guide assumes that you
+already have raw data in InfluxDB that you want to downsample.
+{{% /note %}}
 
-This guide also assumes you have already
-[setup your Python project and virtual environment](/influxdb/cloud-serverless/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
+---
 
-## Major steps
+1.  [Set up prerequisites](#set-up-prerequisites)
+2.  [Install dependencies](#install-dependencies)
+3.  [Prepare InfluxDB buckets](#prepare-influxdb-buckets)
+4.  [Create the downsampling logic](#create-the-downsampling-logic)
+5.  [Create the producer and consumer clients](#create-the-producer-and-consumer-clients)
+    1. [Create the producer](#create-the-producer)
+    2. [Create the consumer](#create-the-consumer)
+6.  [Get the full downsampling code files](#get-the-full-downsampling-code-files)
 
-- [Set up the prerequisites](#Set-up-the-prerequisites)
-- [Install dependencies](#install-dependencies)
-- [Prepare InfluxDB buckets](#prepare-influxdb-buckets)
-- [Create the downsampling logic](#create-the-downsampling-logic)
-- [Create the producer and consumer clients](#create-the-producer-and-consumer-clients)
-  - [Create the producer](#create-the-producer)
-  - [Create the consumer](#create-the-consumer)
-- [Get the full downsampling code files](#get-the-full-downsampling-code-files)
+## Set up prerequisites
 
-## Set up the prerequisites
-* An InfluxDB Cloud Serverless account with data ready for downsampling.
-* A [Quix Cloud](https://portal.platform.quix.io/self-sign-up/) account or a local Apache Kafka or Red Panda installation.
-* Familiarity with basic Python and Docker concepts.
+The process described in this guide requires the following:
+
+- An InfluxDB Cloud Serverless account with data ready for downsampling.
+- A [Quix Cloud](https://portal.platform.quix.io/self-sign-up/) account or a
+  local Apache Kafka or Red Panda installation.
+- Familiarity with basic Python and Docker concepts.
 
 ## Install dependencies
 
@@ -68,7 +80,7 @@ pip install influxdb3-python pandas quixstreams
 
 The downsampling process involves two InfluxDB buckets.
 Each bucket has a [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period)
-that specifies how long data persists in the database before it expires and is deleted.
+that specifies how long data persists before it expires and is deleted.
 By using two buckets, you can store unmodified, high-resolution data in a bucket
 with a shorter retention period and then downsampled, low-resolution data in a
 bucket with a longer retention period.
@@ -81,57 +93,64 @@ Ensure you have a bucket for each of the following:
 For information about creating buckets, see
 [Create a bucket](/influxdb/cloud-serverless/admin/buckets/create-bucket/).
 
-<!--Starting with downsampling becuase data I/O is fairly mundane and not the main focus of the tutorial -->
 ## Create the downsampling logic
 
-This process reads the raw data from the input Kafka topic (which stores data streamed from InfluxDB), downsamples it, the sends it to an output topic (which is used to write back to InfluxDB)
+This process reads the raw data from the input Kafka topic that stores data streamed from InfluxDB,
+downsamples it, and then sends it to an output topic that is used to write back to InfluxDB.
 
-First, use the Quix Streams library's `Application` class to initialize a connection to Apache Kafka.
+1.  Use the Quix Streams library's `Application` class to initialize a connection to Apache Kafka.
 
-```py
-from quixstreams import Application
-from quixstreams.models.serializers.quix import JSONDeserializer, JSONSerializer
+    ```py
+    from quixstreams import Application
+    from quixstreams.models.serializers.quix import JSONDeserializer, JSONSerializer
 
-app = Application.Quix(consumer_group="downsampling-process", auto_offset_reset="earliest")
-input_topic = app.topic('raw-data', value_deserializer=JSONDeserializer())
-output_topic = app.topic('downsampled-data', value_serializer=JSONSerializer())
+    app = Application.Quix(consumer_group="downsampling-process", auto_offset_reset="earliest")
+    input_topic = app.topic('raw-data', value_deserializer=JSONDeserializer())
+    output_topic = app.topic('downsampled-data', value_serializer=JSONSerializer())
 
-## ... remaining code trunctated for brevity ...
-```
+    # ...
+    ```
 
-Then, configure the Quix Streams built-in windowing function to create a tumbling window to continously downsample the data into 1-minute buckets. 
+2.  Configure the Quix Streams built-in windowing function to create a tumbling
+    window that continously downsamples the data into 1-minute buckets. 
 
-```py
-...
-target_field = 'temperature' # The field that you want to downsample.
+    ```py
+    # ...
+    target_field = 'temperature' # The field that you want to downsample.
 
-def custom_ts_extractor(value):
-    # ...truncated for brevity - custom code that defines the 'time_recorded' field as the timestamp to use for windowing...
+    def custom_ts_extractor(value):
+        # ...
+        # truncated for brevity - custom code that defines the 'time_recorded'
+        # field as the timestamp to use for windowing...
 
-topic = app.topic(input_topic, timestamp_extractor=custom_ts_extractor)
+    topic = app.topic(input_topic, timestamp_extractor=custom_ts_extractor)
 
-sdf = (
-    sdf.apply(lambda value: value[target_field])  # Extract temperature values
-    .tumbling_window(timedelta(minutes=1))   # 1-minute tumbling windows
-    .mean()                                  # Calculate average temperature
-    .final()                                 # Emit results at window completion
-)
+    sdf = (
+        sdf.apply(lambda value: value[target_field])  # Extract temperature values
+        .tumbling_window(timedelta(minutes=1))   # 1-minute tumbling windows
+        .mean()                                  # Calculate average temperature
+        .final()                                 # Emit results at window completion
+    )
 
-sdf = sdf.apply(
-    lambda value: {
-        "time": value["end"],                  # End of the window
-        "temperature_avg": value["value"],     # Average temperature
-    }
-)
+    sdf = sdf.apply(
+        lambda value: {
+            "time": value["end"],                  # End of the window
+            "temperature_avg": value["value"],     # Average temperature
+        }
+    )
 
-sdf.to_topic(output_topic) # Output results to the 'downsampled-data' topic
-...
-```
-The results are streamed to the Kafka topic `downsampled-data`.
+    sdf.to_topic(output_topic) # Output results to the 'downsampled-data' topic
+    # ...
+    ```
 
+The results are streamed to the Kafka topic, `downsampled-data`.
+
+{{% note %}}
 Note: "sdf" stands for "Streaming Dataframe".
+{{% /note %}}
 
-* You can find the full code for this process in the [Quix GitHub repository](https://github.com/quixio/template-influxdbv3-downsampling/blob/dev/Downsampler/main.py).
+You can find the full code for this process in the
+[Quix GitHub repository](https://github.com/quixio/template-influxdbv3-downsampling/blob/dev/Downsampler/main.py).
 
 ## Create the producer and consumer clients
 
@@ -232,7 +251,8 @@ def main():
 ```
 {{% /code-placeholders %}}
 
-* You can find the full code for this process in the [Quix GitHub repository](https://github.com/quixio/template-influxdbv3-downsampling/blob/dev/InfluxDB%20V3%20Data%20Source/main.py).
+You can find the full code for this process in the
+[Quix GitHub repository](https://github.com/quixio/template-influxdbv3-downsampling/blob/dev/InfluxDB%20V3%20Data%20Source/main.py).
 
 ### Create the consumer
 
@@ -245,7 +265,7 @@ As before, provide the following credentials for the consumer:
   want to query and write to.
 - **database**: InfluxDB bucket name
 
-This process reads messages from the Kafka topic `downsampled-data` and writes each message as a point dictionary back into InfluxDB.
+This process reads messages from the Kafka topic `downsampled-data` and writes each message as a point dictionary back to InfluxDB.
 
 {{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
 ```py
@@ -302,27 +322,41 @@ sdf = sdf.update(send_data_to_influx) # Continuously apply the 'send_data' funct
 ```
 {{% /code-placeholders %}}
 
-* You can find the full code for this process in the [Quix GitHub repository](https://github.com/quixio/template-influxdbv3-downsampling/blob/dev/InfluxDB%20V3%20Data%20Sink/main.py).
+You can find the full code for this process in the
+[Quix GitHub repository](https://github.com/quixio/template-influxdbv3-downsampling/blob/dev/InfluxDB%20V3%20Data%20Sink/main.py).
 
 ## Get the full downsampling code files
 
-To get the complete set of files referenced in this tutorial, you can clone the Quix "downsampling template" repository or use an interactive version of this tutorial saved as a Jupyter Notebook.
+To get the complete set of files referenced in this tutorial, clone the Quix "downsampling template" repository or use an interactive version of this tutorial saved as a Jupyter Notebook.
 
 ### Clone the downsampling template repository
 
 To clone the downsampling template, enter the following command in the command line:
 
-`git clone https://github.com/quixio/template-influxdbv3-downsampling.git`
+```sh
+git clone https://github.com/quixio/template-influxdbv3-downsampling.git
+```
 
 This repository contains the following folders which store different parts of the whole pipeline:
 
+- **Machine Data to InfluxDB**: A script that generates synthetic machine data
+  and writes it to InfluxDB. This is useful if you dont have your own data yet,
+  or just want to work with test data first.
 
-* **Machine Data to InfluxDB**- A script that generates synthetic machine data and writes it to InfluxDB (useful if you dont have your own data yet, or just want to work with test data first).
-   * It produces a reading every 250 milliseconds. 
-   * This script originally comes from the [InfluxCommunity repository](https://github.com/InfluxCommunity/Arrow-Task-Engine/blob/master/machine_simulator/src/machine_generator.py) but has been adapted to write directly to InfluxDB rather than using an MQTT broker.
-* **InfluxDB V3 Data Source** - A service that queries for fresh data from InfluxDB at specific intervals. It's configured to look for the measurement produced by the previously-mentioned synthetic machine data generator. It writes the raw data to a Kafka topic called "raw-data".
-* **Downsampler** - A service that performs a 1-minute tumbling window operation on the data from InfluxDB and emits the mean of the "temperature" reading every minute. It writes the output to a "downsampled-data" Kafka topic.
-* **InfluxDB V3 Data Sink** - A service that reads from the "downsampled-data" topic and writes the downsample records as points back into InfluxDB.
+  - It produces a reading every 250 milliseconds. 
+  - This script originally comes from the
+    [InfluxCommunity repository](https://github.com/InfluxCommunity/Arrow-Task-Engine/blob/master/machine_simulator/src/machine_generator.py)
+    but has been adapted to write directly to InfluxDB rather than using an MQTT broker.
+    
+- **InfluxDB V3 Data Source**: A service that queries for fresh data from
+  InfluxDB at specific intervals. It's configured to look for the measurement
+  produced by the previously-mentioned synthetic machine data generator.
+  It writes the raw data to a Kafka topic called "raw-data".
+- **Downsampler**: A service that performs a 1-minute tumbling window operation
+  on the data from InfluxDB and emits the mean of the "temperature" reading
+  every minute. It writes the output to a "downsampled-data" Kafka topic.
+- **InfluxDB V3 Data Sink**: A service that reads from the "downsampled-data"
+  topic and writes the downsample records as points back into InfluxDB.
 
 ### Use the downsampling Jupyter Notebook
 
