@@ -31,6 +31,7 @@ configure your cluster to store fewer and larger files.
 - [Read an EXPLAIN report](#read-an-explain-report)
 - [Read a query plan](#read-a-query-plan)
   - [Example physical plan for a SELECT - ORDER BY query](#example-physical-plan-for-a-select---order-by-query)
+  - [Example `EXPLAIN` report for an empty result set](#example-explain-report-for-an-empty-result-set)
 - [Analyze a query plan for leading edge data](#analyze-a-query-plan-for-leading-edge-data)
   - [Sample data](#sample-data)
   - [Sample query](#sample-query)
@@ -72,7 +73,7 @@ client = InfluxDBClient3(token = f"TOKEN",
 sql_explain = '''EXPLAIN
               SELECT temp
               FROM home
-              WHERE time >= now() - INTERVAL '90 days'
+              WHERE time >= now() - INTERVAL '7 days'
               AND room = 'Kitchen'
               ORDER BY time'''
 
@@ -94,20 +95,6 @@ Replace the following:
 
 {{% /expand %}}
 {{% /expand-wrapper %}}
-
-{{< expand-wrapper >}}
-{{% expand "View the EXPLAIN report" %}}
-| plan_type     | plan                                                                                                                                                                           |
-|:--------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| logical_plan  | Projection: home.temp                                                                                                                                                           |
-|         |   Sort: home.time ASC NULLS LAST                                                                                                                                                |
-|         |     Projection: home.temp, home.time                                                                                                                                            |
-|         |       TableScan: home projection=[room, temp, time], full_filters=[home.time >= TimestampNanosecond(1688676582918581320, None), home.room = Dictionary(Int32, Utf8("Kitchen"))] |
-| physical_plan | ProjectionExec: expr=[temp@0 as temp]                                                                                                                                           |
-|         |   SortExec: expr=[time@1 ASC NULLS LAST]                                                                                                                                        |
-|         |     EmptyExec: produce_one_row=false                                                                                                                                            |
-{{% /expand %}}
-{{< /expand-wrapper >}}
 
 ## Read an EXPLAIN report
 
@@ -217,11 +204,28 @@ Execution and data flow in the [`EXPLAIN` report](explain-report) physical plan.
 
 The following steps summarize the [physical plan execution and data flow](#physical-plan-data-flow):
 
-1. Two `ParquetExec` plans, in parallel, read data from Parquet files.
-    Each `ParquetExec` node reads data sequentially from each file in its file group, and then outputs a stream of data to its corresponding `SortExec` node.
-2. The `SortExec` nodes, in parallel, sort the data by `city` (ascending) and `time` (descending).
-3. The `UnionExec` node unions the output of the parallel `SortExec` nodes.
-4. The `SortPreservingMergeExec` node sorts and merges the `UnionExec` output.
+1. Two `ParquetExec` plans, in parallel, read data from Parquet files:
+    - Each `ParquetExec` node processes one or more _file groups_.
+    - Each file group contains one or more Parquet file paths.
+    - `ParquetExec` processes its groups in parallel, reading each group's files sequentially.
+    - The output is a stream of data to the corresponding `SortExec` node.
+2. The `SortExec` nodes, in parallel, sort the data by `city` (ascending) and `time` (descending). Sorting is required by the `SortPreservingMergeExec` plan.
+3. The `UnionExec` node concatenates the streams to union the output of the parallel `SortExec` nodes.
+4. The `SortPreservingMergeExec` node merges the previously sorted and unioned data from `UnionExec`.
+
+### Example `EXPLAIN` report for an empty result set
+
+If your table doesn't contain data for the time range in your query, the physical plan starts with an `EmptyExec` leaf node--for example:
+
+{{% code-callout "EmptyExec"%}}
+
+```sql
+ProjectionExec: expr=[temp@0 as temp]
+    SortExec: expr=[time@1 ASC NULLS LAST]
+        EmptyExec: produce_one_row=false
+```
+
+{{% /code-callout %}}
 
 ## Analyze a query plan for leading edge data
 
@@ -585,7 +589,7 @@ In the example, `RecordBatchesExec` has the following traits and values:
 
 ##### chunks
 
-`chunks` is the number of data chunks received from the Ingester.
+`chunks` is the number of data chunks received from the [Ingester](/influxdb/clustered/reference/internals/storage-engine/#ingester).
 
 ```text
 chunks=1
@@ -680,7 +684,7 @@ SortExec: expr=[state@2 ASC,city@1 ASC,time@3 ASC,__chunk_order@0 ASC]
 ```
 
 The node uses the specified expression `state ASC, city ASC, time ASC, __chunk_order ASC` to sort the yet-to-be-persisted data.
-Neither ParquetExec_A nor ParquetExec_B contain a similar node because data in the Object store is already sorted (by the Compactor) in the given order; the query plan only needs to sort data that arrives from the Ingester.
+Neither ParquetExec_A nor ParquetExec_B contain a similar node because data in the Object store is already sorted (by the [Ingester](/influxdb/clustered/reference/internals/storage-engine/#ingester) or the [Compactor](/influxdb/clustered/reference/internals/storage-engine/#compactor)) in the given order; the query plan only needs to sort data that arrives from the [Ingester](/influxdb/clustered/reference/internals/storage-engine/#ingester).
 
 #### Recognize overlapping and duplicate data
 
@@ -696,7 +700,7 @@ DeduplicateExec: [state@2 ASC,city@1 ASC,time@3 ASC]
 
 {{% caption %}}Overlapped data node structure{{% /caption %}}
 
-1. `UnionExec`: unions separate streams without merging them.
+1. `UnionExec`: unions streams without merging them.
 2. `SortPreservingMergeExec: [state@2 ASC,city@1 ASC,time@3 ASC,__chunk_order@0 ASC]`: merges already sorted data; indicates that preceding data (from nodes below it) is already sorted. The output data is a single sorted stream.
 3. `DeduplicateExec: [state@2 ASC,city@1 ASC,time@3 ASC]`: deduplicates an input stream of sorted data.
   Because `SortPreservingMergeExec` ensures a single sorted stream, it often, but not always, precedes `DeduplicateExec`.
@@ -706,7 +710,7 @@ Due to how InfluxDB organizes data, data is never duplicated _within_ a file.
 
 In the example, the `DeduplicateExec` node encompasses ParquetExec_B and the `RecordBatchesExec` node, which indicates that ParquetExec_B [file group](#file_groups) files overlap the yet-to-be persisted data.
 
-The following [sample data](#sample-data) excerpt shows overlapping data between a file and Ingester data:
+The following [sample data](#sample-data) excerpt shows overlapping data between a file and [Ingester](/influxdb/clustered/reference/internals/storage-engine/#ingester) data:
 
 ```text
 // Chunk 4: stored Parquet file
@@ -733,7 +737,7 @@ If a plan reads many files and performs deduplication on all of them, it might b
 - the Object store has many small overlapped files that the Compactor hasn't compacted yet. After compaction, your query may perform better because it has fewer files to read
 - the Compactor isn't keeping up. If the data isn't duplicated and you still have many small overlapping files after compaction, then you might want to review the Compactor's workload and add more resources as needed
 
-A leaf node that doesn't have a `DeduplicateExec` node in its branch doesn't require deduplication and doesn't overlap other files or Ingester data--for example, ParquetExec_A has no overlaps:
+A leaf node that doesn't have a `DeduplicateExec` node in its branch doesn't require deduplication and doesn't overlap other files or [Ingester](/influxdb/clustered/reference/internals/storage-engine/#ingester) data--for example, ParquetExec_A has no overlaps:
 
 ```sql
 ProjectionExec:...
