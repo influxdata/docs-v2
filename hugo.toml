@@ -42,3 +42,8 @@ smartDashes = false
   [privacy.youtube]
     disable = false
     privacyEnhanced = true
+
+[outputFormats.json]
+  mediaType = "application/json"
+  baseName = "pages"
+  isPlainText = true
