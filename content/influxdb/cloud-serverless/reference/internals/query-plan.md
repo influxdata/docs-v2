@@ -14,6 +14,7 @@ related:
   - /influxdb/cloud-serverless/query-data/influxql/
   - /influxdb/cloud-serverless/query-data/execute-queries/analyze-query-plan/
   - /influxdb/cloud-serverless/query-data/execute-queries/troubleshoot/
+  - /influxdb/cloud-serverless/reference/internals/storage-engine/
 ---
 
 A query plan is a sequence of steps that the InfluxDB v3 [Querier](/influxdb/cloud-serverless/reference/internals/storage-engine/#querier) devises and executes to calculate the result of a query.
@@ -24,20 +25,27 @@ Like many other databases, the [Querier](/influxdb/cloud-serverless/reference/in
 After it parses an incoming query, the [Querier](/influxdb/cloud-serverless/reference/internals/storage-engine/#querier) builds a _logical plan_--a sequence of high-level steps such as scanning, filtering, and sorting, required for the query.
 Following the logical plan, the [Querier](/influxdb/cloud-serverless/reference/internals/storage-engine/#querier) then builds the optimal _physical plan_ to calculate the correct result in the least amount of time.
 The plan takes advantage of data partitioning by the [Ingester](/influxdb/cloud-serverless/reference/internals/storage-engine/#ingester) to parallelize plan operations and prune unnecessary data before executing the plan.
-The Querier also applies common techniques of predicate and projection pushdown to further prune data as early as possible.
+The [Querier](/influxdb/cloud-serverless/reference/internals/storage-engine/#querier) also applies common techniques of predicate and projection pushdown to further prune data as early as possible.
 
 - [Display syntax](#display-syntax)
   - [Example logical and physical plan](#example-logical-and-physical-plan)
 - [Data flow](#data-flow)
 - [Logical plan](#logical-plan)
-- [Logical plan nodes](#logical-plan-nodes)
-  - [TableScan](#tablescan)
-  - [Projection](#projection)
-  - [Filter](#filter)
-  - [Sort](#sort)
+- [`LogicalPlan` nodes](#logicalplan-nodes)
+  - [`TableScan`](#tablescan)
+  - [`Projection`](#projection)
+  - [`Filter`](#filter)
+  - [`Sort`](#sort)
 - [Physical plan](#physical-plan)
-- [Physical plan nodes](#physical-plan-nodes)
-  - [ParquetExec](#parquetexec)
+- [`ExecutionPlan` nodes](#executionplan-nodes)
+  - [`DeduplicateExec`](#deduplicateexec)
+  - [`EmptyExec`](#emptyexec)
+  - [`FilterExec`](#filterexec)
+  - [`ParquetExec`](#parquetexec)
+  - [`ProjectionExec`](#projectionexec)
+  - [`RecordBatchesExec`](#recordbatchesexec)
+  - [`SortExec`](#sortexec)
+  - [`SortPreservingMergeExec`](#sortpreservingmergeexec)
 - [Overlapping data and deduplication](#overlapping-data-and-deduplication)
   - [Example of overlapping data](#example-of-overlapping-data)
 - [DataFusion query plans](#datafusion-query-plans)
@@ -123,28 +131,30 @@ The following diagram shows the data flow and sequence of `ExecutionPlan` nodes 
 
 A logical plan for a query:
 
-- is a high-level plan for calculating the result of a query, independent of the [physical execution](#physical-plan), cluster configuration, data source (Ingester or Object store), or how data is organized or partitioned
-- is represented in tree syntax in which each node represents a call to a [DataFusion `LogicalPlan`](https://docs.rs/datafusion/latest/datafusion/logical_expr/enum.LogicalPlan.html) (such as Projection, Filter, and Sort)
+- is a high-level plan that expresses the "intent" of a query and the steps required for calculating the result.
+- requires information about the data schema
+- is independent of the [physical execution](#physical-plan), cluster configuration, data source (Ingester or Object store), or how data is organized or partitioned
+- is displayed as a tree of [DataFusion `LogicalPlan` nodes](#logical-plan-nodes)
 
-## Logical plan nodes
+## `LogicalPlan` nodes
 
 Each node in an {{% product-name %}} logical plan tree represents a [`LogicalPlan` implementation](https://docs.rs/datafusion/latest/datafusion/logical_expr/enum.LogicalPlan.html#variants) that receives criteria extracted from the query and applies relational operators and optimizations for transforming input data to an output table.
 
 The following are some `LogicalPlan` nodes used in InfluxDB logical plans.
 
-### TableScan
+### `TableScan`
 
 [`Tablescan`](https://docs.rs/datafusion/latest/datafusion/logical_expr/struct.TableScan.html) retrieves rows from a table provider by reference or from the context.
 
-### Projection
+### `Projection`
 
 [`Projection`](https://docs.rs/datafusion/latest/datafusion/logical_expr/struct.Projection.html) evaluates an arbitrary list of expressions on the input; equivalent to an SQL `SELECT` statement with an expression list.
 
-### Filter
+### `Filter`
 
 [`Filter`](https://docs.rs/datafusion/latest/datafusion/logical_expr/struct.Filter.html) filters rows from the input that do not satisfy the specified expression; equivalent to an SQL `WHERE` clause with a predicate expression.
 
-### Sort
+### `Sort`
 
 [`Sort`](https://docs.rs/datafusion/latest/datafusion/logical_expr/struct.Sort.html) sorts the input according to a list of sort expressions; used to implement SQL `ORDER BY`.
 
@@ -154,25 +164,42 @@ For details and a list of `LogicalPlan` implementations, see [`Enum datafusion::
 
 A physical plan, or _execution plan_, for a query:
 
-- is an optimized plan that derives from the [logical plan](#logical-plan) and contains the low-level steps for query execution. It considers the cluster configuration (for example, CPU and memory allocation) and data organization (for example: partitions, the number of files, and whether files overlap)--for example:
+- is an optimized plan that derives from the [logical plan](#logical-plan) and contains the low-level steps for query execution.
+- considers the cluster configuration (for example, CPU and memory allocation) and data organization (for example: partitions, the number of files, and whether files overlap)--for example:
   - If you run the same query with the same data on different clusters with different configurations, each cluster may generate a different physical plan for the query.
   - If you run the same query on the same cluster at different times, the physical plan may differ each time, depending on the data at query time.
-- is represented in tree syntax in which each node represents a call to n specific implementation of the [DataFusion `ExecutionPlan`](https://docs.rs/datafusion/latest/datafusion/physical_plan/trait.ExecutionPlan.html)
 - if generated using `ANALYZE`, includes runtime metrics sampled during query execution
+- is displayed as a tree of [`ExecutionPlan` nodes](#execution-plan-nodes)
 
-## Physical plan nodes
+## `ExecutionPlan` nodes
 
-Each node in an {{% product-name %}} physical plan represents an `ExecutionPlan` implementation that receives input data, query criteria expressions, and an output schema.
+Each node in an {{% product-name %}} physical plan represents a call to a specific implementation of the [DataFusion `ExecutionPlan`](https://docs.rs/datafusion/latest/datafusion/physical_plan/trait.ExecutionPlan.html)
+that receives input data, query criteria expressions, and an output schema.
 
 The following are some `ExecutionPlan` nodes used in InfluxDB physical plans.
 
-### ParquetExec
+### `DeduplicateExec`
+
+InfluxDB `DeduplicateExec` takes an input stream of `RecordBatch` sorted on `sort_key` and applies InfluxDB-specific deduplication logic.
+The output is dependent on the order of the input rows that have the same key.
+
+### `EmptyExec`
+
+DataFusion [`EmptyExec`](https://docs.rs/datafusion/latest/datafusion/physical_plan/empty/struct.EmptyExec.html) is an execution plan for an empty relation and indicates that the table doesn't contain data for the time range of the query.
+
+### `FilterExec`
+
+The execution plan for the [`Filter`](#filter) `LogicalPlan`.
+
+DataFusion [`FilterExec`](https://docs.rs/datafusion/latest/datafusion/physical_plan/filter/struct.FilterExec.html) evaluates a boolean predicate against all input batches to determine which rows to include in the output batches.
+
+### `ParquetExec`
 
 DataFusion [`ParquetExec`](https://docs.rs/datafusion/latest/datafusion/datasource/physical_plan/parquet/struct.ParquetExec.html) scans one or more Parquet partitions.
 
-#### ParquetExec expressions
+#### `ParquetExec` expressions
 
-##### file_groups
+##### `file_groups`
 
 A _file group_ is a list of files to scan.
 Files are referenced by path:
@@ -197,12 +224,12 @@ You can count partition IDs to find how many partitions the query reads.
 
 `ParquetExec` processes groups in parallel and reads the files in each group sequentially.
 
-##### projection
+##### `projection`
 
 `projection` lists the table columns that the query plan needs to read to execute the query.
 The parameter name `projection` refers to _projection pushdown_, the action of filtering columns.
 
-In the following example, the data contains many columns:
+Consider the following sample data that contains many columns:
 
 ```text
 h2o,state=CA,city=SF min_temp=68.4,max_temp=85.7,area=500u 600
@@ -212,7 +239,7 @@ h2o,state=CA,city=SF min_temp=68.4,max_temp=85.7,area=500u 600
 |:-----:|:-----:|:----:|:--------:|:--------:|:----:|:----:|
 | h2o   | CA    | SF   | 68.4     | 85.7     | 500u | 600  |
 
-However, the SQL query includes only three columns (`city`, `state`, and `time`):
+However, the following SQL query specifies only three columns (`city`, `state`, and `time`):
 
 ```sql
 SELECT city, count(1)
@@ -223,16 +250,16 @@ GROUP BY city
 ORDER BY city ASC;
 ```
 
-Therefore, the [Querier](/influxdb/cloud-serverless/reference/internals/storage-engine/#querier) specifies the three columns in the projection and the projection is "pushed down" to leaf nodes; columns not specified are pruned as early as possible during query execution.
+When processing the query, the [Querier](/influxdb/cloud-serverless/reference/internals/storage-engine/#querier) specifies the three required columns in the projection and the projection is "pushed down" to leaf nodes--columns not specified are pruned as early as possible during query execution.
 
 ```text
 projection=[city, state, time]
 ```
 
-##### output_ordering
+##### `output_ordering`
 
 `output_ordering` specifies the sort order for the output.
-The Querier passes `output_ordering` if the output should be ordered and if the [Querier](/influxdb/cloud-serverless/reference/internals/storage-engine/#querier) knows the order.
+The Querier specifies `output_ordering` if the output should be ordered and if the [Querier](/influxdb/cloud-serverless/reference/internals/storage-engine/#querier) knows the order.
 
 When storing data to Parquet files, InfluxDB sorts the data to improve storage compression and query efficiency and the planner tries to preserve that order for as long as possible.
 Generally, the `output_ordering` value that  `ParquetExec` receives is the ordering (or a subset of the ordering) of stored data.
@@ -245,7 +272,7 @@ In the following example, the query planner specifies the output sort order `sta
 output_ordering=[state@2 ASC, city@1 ASC, time@3 ASC, __chunk_order@0 ASC]
 ```
 
-##### predicate
+##### `predicate`
 
 `predicate` is the data filter specified in the query and used for row filtering when scanning Parquet files.
 
@@ -266,7 +293,7 @@ The `predicate` value is the boolean expression in the `WHERE` statement:
 predicate=time@5 >= 200 AND time@5 < 700 AND state@4 = MA
 ```
 
-##### pruning predicate
+##### `pruning predicate`
 
 `pruning_predicate` is created from the [`predicate`](#predicate) value and is used for pruning data and files from the chosen partitions.
 
@@ -286,51 +313,25 @@ The default filters files by `time`.
 
 _Before the physical plan is generated, an additional `partition pruning` step uses predicates on partitioning columns to prune partitions._
 
-#### ProjectionExec
+### `ProjectionExec`
 
 DataFusion [`ProjectionExec`](https://docs.rs/datafusion/latest/datafusion/physical_plan/projection/struct.ProjectionExec.html) evaluates an arbitrary list of expressions on the input; the execution plan for the [`Projection`](#projection) `LogicalPlan`.
 
-#### FilterExec
+### `RecordBatchesExec`
 
-The execution plan for the [`Filter`](#filter) `LogicalPlan`.
+The InfluxDB `RecordBatchesExec` implementation retrieves and scans recently written, yet-to-be-persisted, data from the InfluxDB v3 [Ingester](/influxdb/cloud-serverless/reference/internals/storage-engine/#ingester).
 
-DataFusion [`FilterExec`](https://docs.rs/datafusion/latest/datafusion/physical_plan/filter/struct.FilterExec.html) evaluates a boolean predicate against all input batches to determine which rows to include in the output batches.
-
-#### SortExec
-
-The execution plan for the [`Sort`](#sort) `LogicalPlan`.
-
-DataFusion [`SortExec`](https://docs.rs/datafusion/latest/datafusion/physical_plan/sorts/sort/struct.SortExec.html) supports sorting datasets that are larger than the memory allotted by the memory manager, by spilling to disk.
-
-#### SortPreservingMergeExec
-
-DataFusion [`SortPreservingMergeExec`](https://docs.rs/datafusion/latest/datafusion/physical_plan/sorts/sort_preserving_merge/struct.SortPreservingMergeExec.html) takes an input execution plan and a list of sort expressions and, provided each partition of the input plan is sorted with respect to these sort expressions, yields a single partition sorted with respect to them.
-
-#### UnionExec
-
-DataFusion [`UnionExec`](https://docs.rs/datafusion/latest/datafusion/physical_plan/union/struct.UnionExec.html) is the `UNION ALL` execution plan for combining multiple inputs that have the same schema.
-`UnionExec` concatenates the partitions and does not mix or copy data within or across partitions.
-
-#### DeduplicateExec
-
-InfluxDB `DeduplicateExec` takes an input stream of `RecordBatch` sorted on `sort_key` and applies InfluxDB-specific deduplication logic.
-The output is dependent on the order of the input rows that have the same key.
-
-#### RecordBatchesExec
-
-InfluxDB's `RecordBatchesExec` implementation retrieves and scans recently written, yet-to-be-persisted, data from the Ingester.
-
-When generating the plan, the [Querier](/influxdb/cloud-serverless/reference/internals/storage-engine/#querier) sends the query criteria, such as database, table, and columns, to the [Ingester](/influxdb/cloud-serverless/reference/internals/storage-engine/#ingester) to retrieve data not yet persisted to Parquet files.
+When generating the plan, the [Querier](/influxdb/cloud-serverless/reference/internals/storage-engine/#querier) sends the query criteria, such as database (bucket), table (measurement), and columns, to the [Ingester](/influxdb/cloud-serverless/reference/internals/storage-engine/#ingester) to retrieve data not yet persisted to Parquet files.
 If the [Ingester](/influxdb/cloud-serverless/reference/internals/storage-engine/#ingester) has data that meets the criteria (the chunk size is non-zero), then the plan includes `RecordBatchesExec`.
 
-##### RecordBatchesExec traits
+#### `RecordBatchesExec` attributes
 
-###### chunks
+##### `chunks`
 
-`chunks` is the number of data chunks from the Ingester.
-Data can arrive from the [Ingester](/influxdb/cloud-serverless/reference/internals/storage-engine/#ingester) in many chunks, but often only one.
+`chunks` is the number of data chunks from the [Ingester](/influxdb/cloud-serverless/reference/internals/storage-engine/#ingester).
+Often one (`1`), but it can be many.
 
-###### projection
+##### `projection`
 
 `projection` specifies a list of columns to read and output.
 
@@ -341,6 +342,21 @@ projection=[__chunk_order, city, state, time]
 ```
 
 For details and other DataFusion `ExecutionPlan` implementations, see [`Struct datafusion::datasource::physical_plan` implementors](https://docs.rs/datafusion/latest/datafusion/physical_plan/trait.ExecutionPlan.html) in the DataFusion documentation.
+
+### `SortExec`
+
+The execution plan for the [`Sort`](#sort) `LogicalPlan`.
+
+DataFusion [`SortExec`](https://docs.rs/datafusion/latest/datafusion/physical_plan/sorts/sort/struct.SortExec.html) supports sorting datasets that are larger than the memory allotted by the memory manager, by spilling to disk.
+
+### `SortPreservingMergeExec`
+
+DataFusion [`SortPreservingMergeExec`](https://docs.rs/datafusion/latest/datafusion/physical_plan/sorts/sort_preserving_merge/struct.SortPreservingMergeExec.html) takes an input execution plan and a list of sort expressions and, provided each partition of the input plan is sorted with respect to these sort expressions, yields a single partition sorted with respect to them.
+
+#### `UnionExec`
+
+DataFusion [`UnionExec`](https://docs.rs/datafusion/latest/datafusion/physical_plan/union/struct.UnionExec.html) is the `UNION ALL` execution plan for combining multiple inputs that have the same schema.
+`UnionExec` concatenates the partitions and does not mix or copy data within or across partitions.
 
 ## Overlapping data and deduplication
 
@@ -379,7 +395,7 @@ For example, the following chunks represent line protocol written to InfluxDB:
 - `Chunk 5` spans the time range `550-700` and represents yet-to-be persisted data from the [Ingester](/influxdb/cloud-serverless/reference/internals/storage-engine/#ingester).
 - The chunks overlap the range `550-600`.
 
-If data overlaps at query time, the [Querier](/influxdb/cloud-serverless/reference/internals/storage-engine/#querier) must include the _deduplication_ process in the query plan, which uses the same multi-column sort-merge operators used by the Ingester.
+If data overlaps at query time, the [Querier](/influxdb/cloud-serverless/reference/internals/storage-engine/#querier) must include the _deduplication_ process in the query plan, which uses the same multi-column sort-merge operators used by the [Ingester](/influxdb/cloud-serverless/reference/internals/storage-engine/#ingester).
 Compared to an ingestion plan that uses sort-merge operators, a query plan is more complex and ensures that data streams through the plan after deduplication.
 
 Because sort-merge operations used in deduplication have a non-trivial execution cost, InfluxDB v3 tries to avoid the need for deduplication.

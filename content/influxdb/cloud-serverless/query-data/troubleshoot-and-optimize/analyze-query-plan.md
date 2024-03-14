@@ -30,6 +30,7 @@ you can then take steps to [optimize your query](/influxdb/cloud-serverless/quer
 - [Read an EXPLAIN report](#read-an-explain-report)
 - [Read a query plan](#read-a-query-plan)
   - [Example physical plan for a SELECT - ORDER BY query](#example-physical-plan-for-a-select---order-by-query)
+  - [Example `EXPLAIN` report for an empty result set](#example-explain-report-for-an-empty-result-set)
 - [Analyze a query plan for leading edge data](#analyze-a-query-plan-for-leading-edge-data)
   - [Sample data](#sample-data)
   - [Sample query](#sample-query)
@@ -71,7 +72,7 @@ client = InfluxDBClient3(token = f"TOKEN",
 sql_explain = '''EXPLAIN
               SELECT temp
               FROM home
-              WHERE time >= now() - INTERVAL '90 days'
+              WHERE time >= now() - INTERVAL '7 days'
               AND room = 'Kitchen'
               ORDER BY time'''
 
@@ -94,20 +95,6 @@ Replace the following:
 {{% /expand %}}
 {{% /expand-wrapper %}}
 
-{{< expand-wrapper >}}
-{{% expand "View the EXPLAIN report" %}}
-| plan_type     | plan                                                                                                                                                                           |
-|:--------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| logical_plan  | Projection: home.temp                                                                                                                                                           |
-|         |   Sort: home.time ASC NULLS LAST                                                                                                                                                |
-|         |     Projection: home.temp, home.time                                                                                                                                            |
-|         |       TableScan: home projection=[room, temp, time], full_filters=[home.time >= TimestampNanosecond(1688676582918581320, None), home.room = Dictionary(Int32, Utf8("Kitchen"))] |
-| physical_plan | ProjectionExec: expr=[temp@0 as temp]                                                                                                                                           |
-|         |   SortExec: expr=[time@1 ASC NULLS LAST]                                                                                                                                        |
-|         |     EmptyExec: produce_one_row=false                                                                                                                                            |
-{{% /expand %}}
-{{< /expand-wrapper >}}
-
 ## Read an EXPLAIN report
 
 When you [use `EXPLAIN` keywords to view a query plan](#use-explain-keywords-to-view-a-query-plan), the report contains the following:
@@ -125,14 +112,13 @@ Whether reading a logical or physical plan, keep the following in mind:
 - Start at the the _leaf nodes_ and read upward.
 - At the top of the plan, the _root node_ represents the final, encompassing execution step.
 
-In a physical plan, each step (or _node_) represents an [`ExecutionPlan`](/influxdb/cloud-serverless/reference/internals/query-plans/#physical-plan-executionplans) that
-starts with an [`ExecutionPlan` implementor](/influxdb/cloud-serverless/reference/internals/query-plans/#physical-plan-executionplans) name and contains arguments, or traits, it receives.[`ExecutionPlan`](/influxdb/cloud-serverless/reference/internals/query-plans/#physical-plan-executionplans) names end in the _-Exec_ suffix (for example, `DeduplicateExec`).
+In a [physical plan](/influxdb/cloud-serverless/reference/internals/query-plan/#physical-plan), each step is an [`ExecutionPlan` node](/influxdb/cloud-serverless/reference/internals/query-plan/#executionplan-nodes) that receives expressions for input data and output requirements, and computes a partition of data.
 
 Use the following steps to analyze a query plan and estimate how much work is required to complete the query.
 The same steps apply regardless of how large or complex the plan might seem.
 
 1. Start from the furthest indented steps (the _leaf nodes_), and read upward.
-2. Understand the job of each [`ExecutionPlan`](/influxdb/cloud-serverless/reference/internals/query-plans/#physical-plan-executionplans) node--for example, a `UnionExec` node encompassing the leaf nodes means that the `UnionExec` concatenates the output of all the leaves.
+2. Understand the job of each [`ExecutionPlan` node](/influxdb/cloud-serverless/reference/internals/query-plan/#executionplan-nodes)--for example, a [`UnionExec`](/influxdb/cloud-serverless/reference/internals/query-plan/#unionexec) node encompassing the leaf nodes means that the `UnionExec` concatenates the output of all the leaves.
 3. For each expression, answer the following questions:
     - What is the shape and size of data input to the plan?
     - What is the shape and size of data output from the plan?
@@ -216,11 +202,28 @@ Execution and data flow in the [`EXPLAIN` report](explain-report) physical plan.
 
 The following steps summarize the [physical plan execution and data flow](#physical-plan-data-flow):
 
-1. Two `ParquetExec` plans, in parallel, read data from Parquet files.
-    Each `ParquetExec` node reads data sequentially from each file in its file group, and then outputs a stream of data to its corresponding `SortExec` node.
-2. The `SortExec` nodes, in parallel, sort the data by `city` (ascending) and `time` (descending).
-3. The `UnionExec` node unions the output of the parallel `SortExec` nodes.
-4. The `SortPreservingMergeExec` node sorts and merges the `UnionExec` output.
+1. Two `ParquetExec` plans, in parallel, read data from Parquet files:
+    - Each `ParquetExec` node processes one or more _file groups_.
+    - Each file group contains one or more Parquet file paths.
+    - A `ParquetExec` node processes its groups in parallel, reading each group's files sequentially.
+    - The output is a stream of data to the corresponding `SortExec` node.
+2. The `SortExec` nodes, in parallel, sort the data by `city` (ascending) and `time` (descending). Sorting is required by the `SortPreservingMergeExec` plan.
+3. The `UnionExec` node concatenates the streams to union the output of the parallel `SortExec` nodes.
+4. The `SortPreservingMergeExec` node merges the previously sorted and unioned data from `UnionExec`.
+
+### Example `EXPLAIN` report for an empty result set
+
+If your table doesn't contain data for the time range in your query, the physical plan starts with an `EmptyExec` leaf node--for example:
+
+{{% code-callout "EmptyExec"%}}
+
+```sql
+ProjectionExec: expr=[temp@0 as temp]
+    SortExec: expr=[time@1 ASC NULLS LAST]
+        EmptyExec: produce_one_row=false
+```
+
+{{% /code-callout %}}
 
 ## Analyze a query plan for leading edge data
 
@@ -422,8 +425,8 @@ A physical plan can reveal overlaps and duplicates in your data and how they aff
 - The first `ParquetExec` node reads two files that don't overlap any other files and don't duplicate data; the files don't require deduplication.
 - The second `ParquetExec` node reads two files that overlap each other and overlap the ingested data scanned in the `RecordBatchesExec` node; the query plan must include the deduplication process for these nodes before completing the query.
 
-The remaining sections analyze the `ExecutionPlan` node structure and arguments.
-The query plan includes [DataFusion plans](/influxdb/cloud-serverless/reference/internals/query-plans/#datafusion-executionplans) and [InfluxDB-specific plans](/influxdb/cloud-serverless/reference/internals/query-plans/#influxdb-specific-executionplans).
+The remaining sections analyze `ExecutionPlan` node structure and arguments in the example physical plan.
+The example includes DataFusion and InfluxDB-specific [`ExecutionPlan` nodes](/influxdb/cloud-dedicated/reference/internals/query-plans/#executionplan-nodes).
 
 ### Locate the physical plan
 
@@ -478,7 +481,7 @@ ParquetExec_A, the first ParquetExec node
 
 ParquetExec_A has the following traits:
 
-##### file_groups
+##### `file_groups`
 
 A _file group_ is a list of files for the operator to read.
 Files are referenced by path:
@@ -515,7 +518,7 @@ file_groups={2 groups: [[1/1/b862a7e9b329ee6a4/243db601....parquet], [1/1/b862a7
 - `{2 groups: [[file], [file]}`: ParquetExec_A receives two groups with one file per group.
 Therefore, ParquetExec_A reads two files in parallel.
 
-##### projection
+##### `projection`
 
 `projection` lists the table columns for the `ExecutionPlan` to read and output.
 
@@ -525,7 +528,7 @@ projection=[city, state, time]
 
 - `[city, state, time]`: the [sample data](#sample-data) contains many columns, but the [sample query](#sample-query) requires the Querier to read only three
 
-##### output_ordering
+##### `output_ordering`
 
 `output_ordering` specifies the sort order for the `ExecutionPlan` output.
 The Query planner passes the parameter if the output should be ordered and if the planner knows the order.
@@ -551,7 +554,7 @@ EXPLAIN SELECT * FROM TABLE_NAME WHERE time > now() - interval '1 hour'
 Reduce the time range if the query returns too much data.
 {{% /note %}}
 
-##### predicate
+##### `predicate`
 
 `predicate` is the data filter specified in the query.
 
@@ -559,7 +562,7 @@ Reduce the time range if the query returns too much data.
 predicate=time@5 >= 200 AND time@5 < 700 AND state@4 = MA
 ```
 
-##### pruning predicate
+##### `pruning predicate`
 
 `pruning_predicate` is created from the [`predicate`](#predicate) value and is the predicate actually used for pruning data and files from the chosen partitions.
 The default filters files by `time`.
@@ -570,7 +573,7 @@ pruning_predicate=time_max@0 >= 200 AND time_min@1 < 700 AND state_min@2 <= MA A
 
 _Before the physical plan is generated, an additional `partition pruning` step uses predicates on partitioning columns to prune partitions._
 
-#### RecordBatchesExec
+#### `RecordBatchesExec`
 
 ```sql
 RecordBatchesExec: chunks=1, projection=[__chunk_order, city, state, time]
@@ -580,11 +583,11 @@ RecordBatchesExec: chunks=1, projection=[__chunk_order, city, state, time]
 
 [`RecordBatchesExec`](/influxdb/cloud-serverless/reference/internals/query-plans/#recordbatchesexec) is an InfluxDB-specific `ExecutionPlan` implementation that retrieves recently written, yet-to-be-persisted data from the [Ingester](/influxdb/cloud-serverless/reference/internals/storage-engine/#ingester).
 
-In the example, `RecordBatchesExec` has the following traits and values:
+In the example, `RecordBatchesExec` contains the following expressions:
 
-##### chunks
+##### `chunks`
 
-`chunks` is the number of data chunks received from the Ingester.
+`chunks` is the number of data chunks received from the [Ingester](/influxdb/cloud-serverless/reference/internals/storage-engine/#ingester).
 
 ```text
 chunks=1
@@ -592,7 +595,7 @@ chunks=1
 
 - `chunks=1`: `RecordBatchesExec` receives one data chunk.
 
-##### projection
+##### `projection`
 
 The `projection` list specifies the columns or expressions for the node to read and output.
 
@@ -679,7 +682,7 @@ SortExec: expr=[state@2 ASC,city@1 ASC,time@3 ASC,__chunk_order@0 ASC]
 ```
 
 The node uses the specified expression `state ASC, city ASC, time ASC, __chunk_order ASC` to sort the yet-to-be-persisted data.
-Neither ParquetExec_A nor ParquetExec_B contain a similar node because data in the Object store is already sorted (by the Compactor) in the given order; the query plan only needs to sort data that arrives from the Ingester.
+Neither ParquetExec_A nor ParquetExec_B contain a similar node because data in the Object store is already sorted (by the [Ingester](/influxdb/cloud-serverless/reference/internals/storage-engine/#ingester) or the [Compactor](/influxdb/cloud-serverless/reference/internals/storage-engine/#compactor)) in the given order; the query plan only needs to sort data that arrives from the [Ingester](/influxdb/cloud-serverless/reference/internals/storage-engine/#ingester).
 
 #### Recognize overlapping and duplicate data
 
@@ -695,7 +698,7 @@ DeduplicateExec: [state@2 ASC,city@1 ASC,time@3 ASC]
 
 {{% caption %}}Overlapped data node structure{{% /caption %}}
 
-1. `UnionExec`: unions separate streams without merging them.
+1. `UnionExec`: unions multiple streams of input data by concatenating the partitions. `UnionExec` doesn't do any merging and is fast to execute.
 2. `SortPreservingMergeExec: [state@2 ASC,city@1 ASC,time@3 ASC,__chunk_order@0 ASC]`: merges already sorted data; indicates that preceding data (from nodes below it) is already sorted. The output data is a single sorted stream.
 3. `DeduplicateExec: [state@2 ASC,city@1 ASC,time@3 ASC]`: deduplicates an input stream of sorted data.
   Because `SortPreservingMergeExec` ensures a single sorted stream, it often, but not always, precedes `DeduplicateExec`.
@@ -732,7 +735,7 @@ If a plan reads many files and performs deduplication on all of them, it might b
 - the Object store has many small overlapped files that the Compactor hasn't compacted yet. After compaction, your query may perform better because it has fewer files to read
 - the Compactor isn't keeping up
 
-A leaf node that doesn't have a `DeduplicateExec` node in its branch doesn't require deduplication and doesn't overlap other files or Ingester data--for example, ParquetExec_A has no overlaps:
+A leaf node that doesn't have a `DeduplicateExec` node in its branch doesn't require deduplication and doesn't overlap other files or [Ingester](/influxdb/cloud-serverless/reference/internals/storage-engine/#ingester) data--for example, ParquetExec_A has no overlaps:
 
 ```sql
 ProjectionExec:...
