@@ -17,7 +17,7 @@ related:
 Learn how to enable trace logging to help you identify performance bottlenecks and troubleshoot problems in queries.
 
 When you enable trace logging for a query, InfluxDB propagates your _trace ID_ through system processes and collects additional log information.
-InfluxDB Support can then use the trace ID that you provide to filter, collate, and analyze log information for the query run.
+InfluxData Support can then use the trace ID that you provide to filter, collate, and analyze log information for the query run.
 The tracing system follows the [OpenTelemetry traces](https://opentelemetry.io/docs/concepts/signals/traces/) model for providing observability into a request.
 
 {{% warn %}}
