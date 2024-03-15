@@ -28,7 +28,7 @@ Learn how to use observability tools to analyze query execution and view metrics
 Query performance depends on time range and complexity.
 If a query is slower than you expect, it might be due to the following reasons:
 
-- It queries a large time-range of data.
+- It queries data from a large time range.
 - It includes intensive operations, such as querying many string values or `ORDER BY` sorting or re-sorting large amounts of data.
 
 ## Strategies for improving query performance
@@ -58,5 +58,5 @@ Use the following tools to analyze and troubleshoot queries and find performance
 ### Enable trace logging for a query
 
 Customers with an {{% product-name %}} [annual or support contract](https://www.influxdata.com/influxdb-cloud-pricing/) can [contact InfluxData Support](https://support.influxdata.com/) to enable tracing and request help troubleshooting your query.
-With tracing enabled, InfluxDB Support can trace system processes and analyze log information for a query instance.
+With tracing enabled, InfluxData Support can trace system processes and analyze log information for a query instance.
 The tracing system follows the [OpenTelemetry traces](https://opentelemetry.io/docs/concepts/signals/traces/) model for providing observability into a request.

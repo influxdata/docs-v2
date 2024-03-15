@@ -70,7 +70,7 @@ Executes a statement and returns the execution plan and runtime metrics of the s
 The report includes the [logical plan](/influxdb/clustered/reference/internals/query-plan/#logical-plan) and the [physical plan](/influxdb/clustered/reference/internals/query-plan/#physical-plan) annotated with execution counters, number of rows produced, and runtime metrics sampled during the query execution.
 
 If the plan requires reading lots of data files, `EXPLAIN` and `EXPLAIN ANALYZE` may truncate the list of files in the report.
-To output more information, including intermediate plans and paths for all scanned parquet files, use [`EXPLAIN ANALYZE VERBOSE`](#explain-analyze-verbose).
+To output more information, including intermediate plans and paths for all scanned Parquet files, use [`EXPLAIN ANALYZE VERBOSE`](#explain-analyze-verbose).
 
 ### Example `EXPLAIN ANALYZE`
 
