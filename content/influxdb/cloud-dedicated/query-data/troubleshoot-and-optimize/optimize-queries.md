@@ -28,7 +28,7 @@ Learn how to use observability tools to analyze query execution and view metrics
 Query performance depends on time range and complexity.
 If a query is slower than you expect, it might be due to the following reasons:
 
-- It queries a large time-range of data.
+- It queries data from a  large time range.
 - It includes intensive operations, such as querying many string values or `ORDER BY` sorting or re-sorting large amounts of data.
 
 ## Strategies for improving query performance
