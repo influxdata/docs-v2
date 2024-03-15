@@ -41,4 +41,4 @@ If a query times out or returns an error, it might be due to the following:
 
 If a query is slow or uses too many compute resources, limit the amount of data that it queries.
 
-See how to [optimize queries](/influxdb/cloud-serverless/query-data/troubleshoot-and-optimize/optimize/) and use tools to analyze and debug query problems.
+See how to [optimize queries](/influxdb/cloud-serverless/query-data/troubleshoot-and-optimize/optimize/) and use tools to view runtime metrics, identify bottlenecks, and debug queries.

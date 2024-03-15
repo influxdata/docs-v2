@@ -12,6 +12,7 @@ influxdb/cloud-dedicated/tags: [query, performance, observability, errors, sql, 
 related:
   - /influxdb/cloud-dedicated/query-data/sql/
   - /influxdb/cloud-dedicated/query-data/influxql/
+  - /influxdb/cloud-dedicated/query-data/execute-queries/analyze-query-plan/
 aliases:
   - /influxdb/cloud-dedicated/query-data/execute-queries/optimize-queries/
 ---
@@ -47,6 +48,12 @@ Some bottlenecks may be out of your control and are the result of a suboptimal e
 - Retrieving many Parquet files from the Object store--the same query performs better if it retrieves fewer - though, larger - files.
 - Querying many overlapped Parquet files.
 - Performing a large number of table scans.
+
+{{% note %}}
+#### Analyze query plans to view metrics and recognize bottlenecks
+
+To view runtime metrics for a query, such as the number of files scanned, use the [`EXPLAIN ANALYZE` keywords](/influxdb/cloud-dedicated/reference/sql/explain/#explain-analyze) and learn how to [analyze a query plan](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/analyze-query-plan/).
+{{% /note %}}
 
 ## Analyze and troubleshoot queries
 
