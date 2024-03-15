@@ -102,28 +102,9 @@ A [physical plan](#physical-plan) node represents a specific implementation of `
 
 The following diagram shows the data flow and sequence of `ExecutionPlan` nodes in the [Figure 1](#figure-1-explain-report) physical plan:
 
-```text
-                   ┌─────────────────────────┐
-                   │ SortPreservingMergeExec │
-                   └─────────────────────────┘
-                                ▲
-                                │
-                   ┌─────────────────────────┐
-                   │        UnionExec        │
-                   └─────────────────────────┘
-                                ▲
-             ┌──────────────────┴─────────────────┐
-             │                                    │
-┌─────────────────────────┐          ┌─────────────────────────┐
-│        SortExec         │          │        SortExec         │
-└─────────────────────────┘          └─────────────────────────┘
-             ▲                                    ▲
-             │                                    │
-             │                                    │
-┌─────────────────────────┐          ┌─────────────────────────┐
-│       ParquetExec       │          │       ParquetExec       │
-└─────────────────────────┘          └─────────────────────────┘
-```
+<!-- BEGIN Query plan diagram -->
+{{< html-diagram/query-plan >}}
+<!-- END Query plan diagram -->
 
 {{% product-name %}} includes the following plan expressions:
 

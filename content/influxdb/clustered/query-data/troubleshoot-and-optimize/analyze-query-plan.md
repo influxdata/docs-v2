@@ -174,28 +174,9 @@ Data flows _up_ in a query plan.
 
 The following diagram shows the data flow and sequence of nodes in the [`EXPLAIN` report](#explain-report) physical plan:
 
-```text
-                   ┌─────────────────────────┐
-                   │ SortPreservingMergeExec │
-                   └─────────────────────────┘
-                                ▲
-                                │
-                   ┌─────────────────────────┐
-                   │        UnionExec        │
-                   └─────────────────────────┘
-                                ▲
-             ┌──────────────────┴─────────────────┐
-             │                                    │
-┌─────────────────────────┐          ┌─────────────────────────┐
-│        SortExec         │          │        SortExec         │
-└─────────────────────────┘          └─────────────────────────┘
-             ▲                                    ▲
-             │                                    │
-             │                                    │
-┌─────────────────────────┐          ┌─────────────────────────┐
-│       ParquetExec       │          │       ParquetExec       │
-└─────────────────────────┘          └─────────────────────────┘
-```
+<!-- BEGIN Query plan diagram -->
+{{< html-diagram/query-plan >}}
+<!-- END Query plan diagram -->
 
 {{% caption %}}
 Execution and data flow in the [`EXPLAIN` report](explain-report) physical plan.
