@@ -177,7 +177,7 @@ The following diagram shows the data flow and sequence of nodes in the [`EXPLAIN
 <!-- END Query plan diagram -->
 
 {{% caption %}}
-Execution and data flow in the [`EXPLAIN` report](explain-report) physical plan.
+Execution and data flow in the [`EXPLAIN` report](#explain-report) physical plan.
 `ParquetExec` nodes execute in parallel and `UnionExec` combines their output.
 {{% /caption %}}
 
