@@ -7,7 +7,7 @@ weight: 201
 menu:
   influxdb_cloud_serverless:
     name: Query plans
-    parent: InfluxDB internals
+    parent: InfluxDB Cloud internals
 influxdb/cloud-serverless/tags: [query, sql, influxql]
 related:
   - /influxdb/cloud-serverless/query-data/sql/
