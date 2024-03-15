@@ -106,7 +106,6 @@ A bucket is a named location where time series data is stored.
 All buckets have a [retention period](#retention-period).
 A bucket belongs to an organization.
 
-
 ### bucket schema
 
 In InfluxDB Cloud, an explicit bucket schema lets you strictly enforce the data that can be written into one or more measurements in a bucket by defining the column names, tags, fields, and data types allowed for each measurement. By default, buckets in InfluxDB {{< current-version >}} have an `implicit` schema that lets you write data without restrictions on columns, fields, or data types.
@@ -279,6 +278,7 @@ InfluxDB supports the following data types:
 | time             | dateTime           |
 
 For more information about different data types, see:
+
 - [annotated CSV](/influxdb/v2/reference/syntax/annotated-csv/)
 - [extended annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/extended/#datatype)
 - [line protocol](/influxdb/v2/reference/syntax/line-protocol/#data-types-and-format)
@@ -306,7 +306,7 @@ Aggregating high resolution data into lower resolution data to preserve disk spa
 
 ### duration
 
-A data type that represents a duration of time (1s, 1m, 1h, 1d).
+A data type that represents a duration of time--for example, `1s`, `1m`, `1h`, `1d`.
 Retention policies are set using durations.
 Data older than the duration is automatically dropped from the database.
 
@@ -468,10 +468,10 @@ Related entries:
 
 In Flux, an implicit block is a possibly empty sequence of statements within matching braces ({ }) that includes the following types:
 
-  - Universe: Encompasses all Flux source text.
-  - Package: Each package includes a package block that contains Flux source text for the package.
-  - File: Each file has a file block containing Flux source text in the file.
-  - Function: Each function literal has a function block with Flux source text (even if not explicitly declared).
+- Universe: Encompasses all Flux source text.
+- Package: Each package includes a package block that contains Flux source text for the package.
+- File: Each file has a file block containing Flux source text in the file.
+- Function: Each function literal has a function block with Flux source text (even if not explicitly declared).
 
 Related entries: [explicit block](#explicit-block), [block](#block)
 
@@ -485,7 +485,7 @@ Related entries: [explicit block](#explicit-block), [block](#block)
 
 ### InfluxDB
 
-An open-source time series database (TSDB) developed by InfluxData.
+An open source time series database (TSDB) developed by InfluxData.
 Written in Go and optimized for fast, high-availability storage and retrieval of time series data in fields such as operations monitoring, application metrics, Internet of Things sensor data, and real-time analytics.
 
 ### InfluxDB UI
@@ -712,7 +712,6 @@ Learn about the [option assignment](/flux/v0/spec/assignment-scope/#option-assig
 A workspace for a group of users.
 All dashboards, tasks, buckets, members, and so on, belong to an organization.
 
-
 ### owner
 
 A type of role for a user.
@@ -720,7 +719,7 @@ Owners have read/write permissions.
 Users can have owner roles for bucket and organization resources.
 
 Role permissions are separate from API token permissions. For additional
-information on API tokens, see [token](#tokens).
+information on API tokens, see [token](#token).
 
 ### output plugin
 
@@ -794,6 +793,7 @@ A Flux predicate function is an anonymous function that returns `true` or `false
 based on one or more [predicate expressions](#predicate-expression).
 
 ###### Example predicate function
+
 ```js
 (r) => r.foo == "bar" and r.baz != "quz"
 ```
@@ -954,6 +954,7 @@ The series cardinality would remain unchanged at `6`, as `firstname` is already 
 | cliff@influxdata.com | finish | clifford  |
 
 ##### Query for cardinality:
+
 - **Flux:** [influxdb.cardinality()](/flux/v0/stdlib/influxdb/cardinality/)
 - **InfluxQL:** [SHOW CARDINALITY](/influxdb/v1/query_language/spec/#show-cardinality)
 
@@ -1000,7 +1001,7 @@ A shard belongs to a single [shard group](#shard-group).
 
 For more information, see [Shards and shard groups (OSS)](/influxdb/v2/reference/internals/shards/).
 
-Related entries: [series](#series), [shard duration](#shard-duration),
+Related entries: [series](#series), [shard group duration](#shard-group-duration),
 [shard group](#shard-group), [tsm](#tsm-time-structured-merge-tree)
 
 ### shard group
@@ -1013,7 +1014,7 @@ The interval spanned by each shard group is the [shard group duration](#shard-gr
 For more information, see [Shards and shard groups (OSS)](/influxdb/v2/reference/internals/shards/).
 
 Related entries: [bucket](#bucket), [retention period](#retention-period),
-[series](#series), [shard](#shard), [shard duration](#shard-duration)
+[series](#series), [shard](#shard), [shard group duration](#shard-group-duration)
 
 ### shard group duration
 
@@ -1254,7 +1255,7 @@ Users are added as a member of an organization and are given a unique API token.
 
 ### values per second
 
-The preferred measurement of the rate at which data are persisted to InfluxDB.
+The preferred measurement of the rate at which data is persisted to InfluxDB.
 Write speeds are generally quoted in values per second.
 
 To calculate the values per second rate, multiply the number of points written
@@ -1263,7 +1264,6 @@ For example, if the points have four fields each, and a batch of 5000 points is
 written 10 times per second, the values per second rate is:
 
 **4 field values per point** × **5000 points per batch** × **10 batches per second** = **200,000 values per second**  
-
 
 Related entries: [batch](#batch), [field](#field), [point](#point)
 

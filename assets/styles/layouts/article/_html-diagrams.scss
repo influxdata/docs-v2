@@ -457,6 +457,82 @@ table tr.point{
   }
 }
 
+////////////////////////////// QUERY PLAN DIAGRAM //////////////////////////////
+
+#query-plan-diagram {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  margin: 3rem 0 3.5rem;
+  max-width: 800px;
+  
+  .plan-column {
+    padding: 0 .5rem;
+  }
+  
+  .plan-block {
+    background: $article-code-bg;
+    color: $article-code;
+    text-align: center;
+    padding: 1rem 1.5rem;
+    border-radius: $radius * 2;
+  }
+  .plan-arrow {
+    margin: .5rem auto;
+    height: 1.5rem;
+    width: 1px;
+    border-left: 1px solid $article-code;
+    position: relative;
+    
+    &:before {
+      content: "\25B2";
+      position: absolute;
+      top: .25rem;
+      left: -.32rem;
+      color: $article-code;
+      line-height: 0;
+    }
+    &.split {
+      width: 50%;
+      margin-top: 2rem;
+      height: 1rem;
+      display: flex;
+      justify-content: center;
+      border-width: 1px 1px 0 1px;
+      border-style: solid;
+      border-color: $article-code;
+
+      &:before {
+        position: relative;
+        top: -1.25rem;
+        left: -0.26rem;
+        width: 0;
+        margin-left: .2rem;
+      }
+      &:after {
+        content: "";
+        display: block;
+        height: 1rem;
+        width: 0;
+        border-left: 1px solid $article-code;
+        margin: -1rem 0;
+      }
+    }
+  }
+  .plan-single-column {
+    display: flex;
+    justify-content: center;
+  }
+  .plan-double-column {
+    display: flex;
+    justify-content: space-around;
+
+    .plan-column {
+      // width: 50%;
+    }
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

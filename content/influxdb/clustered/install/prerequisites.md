@@ -14,7 +14,7 @@ weight: 101
 InfluxDB Clustered requires the following prerequisites:
 
 - **Kubernetes cluster**: version 1.25 or higher
-- **Object storage**: AWS S3 or S3-compatible storage used to store the InfluxDB parquet files.
+- **Object storage**: AWS S3 or S3-compatible storage used to store the InfluxDB Parquet files.
 
   {{% note %}}
 We **strongly** recommend that you enable object versioning in your object store.

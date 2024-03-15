@@ -6,28 +6,22 @@ weight: 401
 menu:
   influxdb_cloud_serverless:
     name: Understand Flight responses
-    parent: Execute queries
-influxdb/cloud-serverless/tags: [query, sql, influxql]
+    parent: Troubleshoot and optimize queries
+influxdb/cloud-serverless/tags: [query, errors, flight]
+related:
+  - /influxdb/cloud-serverless/query-data/sql/
+  - /influxdb/cloud-serverless/query-data/influxql/
+  - /influxdb/cloud-serverless/reference/client-libraries/v3/
 ---
 
 Learn how to handle responses and troubleshoot errors encountered when querying {{% product-name %}} with Flight+gRPC and Arrow Flight clients.
 
-<!-- TOC -->
-
 - [InfluxDB Flight responses](#influxdb-flight-responses)
   - [Stream](#stream)
   - [Schema](#schema)
-    - [Example](#example)
   - [RecordBatch](#recordbatch)
   - [InfluxDB status and error codes](#influxdb-status-and-error-codes)
   - [Troubleshoot errors](#troubleshoot-errors)
-    - [Internal Error: Received RST_STREAM](#internal-error-received-rst_stream)
-    - [Internal Error: stream terminated by RST_STREAM with NO_ERROR](#internal-error-stream-terminated-by-rst_stream-with-no_error)
-    - [Invalid Argument Error: bucket <BUCKET_ID> not found](#invalid-argument-error-bucket-bucket_id-not-found)
-    - [Invalid Argument: Invalid ticket](#invalid-argument-invalid-ticket)
-      - [Unauthenticated: Unauthenticated](#unauthenticated-unauthenticated)
-    - [Unauthenticated: read:<BUCKET_ID> is unauthorized](#unauthenticated-readbucket_id-is-unauthorized)
-    - [FlightUnavailableError: Could not get default pem root certs](#flightunavailableerror-could-not-get-default-pem-root-certs)
 
 ## InfluxDB Flight responses
 
@@ -42,7 +36,7 @@ For example, if you use the [`influxdb3-python` Python client library](/influxdb
 InfluxDB responds with one of the following:
 
 - A [stream](#stream) in Arrow IPC streaming format
-- An [error status code](#influxdb-error-codes) and an optional `details` field that contains the status and a message that describes the error
+- An [error status code](#influxdb-status-and-error-codes) and an optional `details` field that contains the status and a message that describes the error
 
 ### Stream
 
@@ -81,7 +75,8 @@ SELECT co, delete, hum, room, temp, time
 
 The Python client library outputs the following schema representation:
 
-```py
+<!--pytest.mark.skip-->
+```python
 Schema:
   co: int64
     -- field metadata --
@@ -128,7 +123,7 @@ In gRPC, every call returns a status object that contains an integer code and a 
 During a request, the gRPC client and server may each return a status--for example:
 
 - The server fails to process the query; responds with status `internal error` and gRPC status `13`.
-- The request is missing an API token; the server responds with status `unauthenticated` and gRPC status `16`.
+- The request is missing a [token](/influxdb/cloud-serverless/admin/tokens/); the server responds with status `unauthenticated` and gRPC status `16`.
 - The server responds with a stream, but the client loses the connection due to a network failure and returns status `unavailable`.
 
 gRPC defines the integer [status codes](https://grpc.github.io/grpc/core/status_8h.html) and definitions for servers and clients and
@@ -169,14 +164,13 @@ _For a list of gRPC codes that servers and clients may return, see [Status codes
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-
 ### Troubleshoot errors
 
 #### Internal Error: Received RST_STREAM
 
 **Example**:
 
-```sh
+```structuredtext
 Flight returned internal error, with message: Received RST_STREAM with error code 2. gRPC client debug context: UNKNOWN:Error received from peer ipv4:34.196.233.7:443 {grpc_message:"Received RST_STREAM with error code 2"}
 ```
 
@@ -187,12 +181,11 @@ Flight returned internal error, with message: Received RST_STREAM with error cod
 - Server might have closed the connection due to an internal error.
 - The client exceeded the server's maximum number of concurrent streams.
 
-<!-- END -->
-
 #### Internal Error: stream terminated by RST_STREAM with NO_ERROR
 
 **Example**:
 
+<!--pytest.mark.skip-->
 ```sh
 pyarrow._flight.FlightInternalError: Flight returned internal error, with message: stream terminated by RST_STREAM with error code: NO_ERROR. gRPC client debug context: UNKNOWN:Error received from peer ipv4:3.123.149.45:443 {created_time:"2023-07-26T14:12:44.992317+02:00", grpc_status:13, grpc_message:"stream terminated by RST_STREAM with error code: NO_ERROR"}. Client context: OK
 ```
@@ -203,12 +196,11 @@ pyarrow._flight.FlightInternalError: Flight returned internal error, with messag
 - Possible network disruption, even if it's temporary.
 - The server might have reached its maximum capacity or other internal limits.
 
-<!-- END -->
-
 #### Invalid Argument Error: bucket <BUCKET_ID> not found
 
 **Example**:
 
+<!--pytest.mark.skip-->
 ```sh
 ArrowInvalid: Flight returned invalid argument error, with message: bucket "otel5" not found. gRPC client debug context: UNKNOWN:Error received from peer ipv4:3.123.149.45:443 {grpc_message:"bucket \"otel5\" not found", grpc_status:3, created_time:"2023-08-09T16:37:30.093946+01:00"}. Client context: IOError: Server never sent a data message. Detail: Internal
 ```
@@ -217,12 +209,11 @@ ArrowInvalid: Flight returned invalid argument error, with message: bucket "otel
 
 - The specified bucket doesn't exist.
 
-<!-- END -->
-
 #### Invalid Argument: Invalid ticket
 
 **Example**:
 
+<!--pytest.mark.skip-->
 ```sh
 pyarrow.lib.ArrowInvalid: Flight returned invalid argument error, with message: Invalid ticket. Error: Invalid ticket. gRPC client debug context: UNKNOWN:Error received from peer ipv4:54.158.68.83:443 {created_time:"2023-08-31T17:56:42.909129-05:00", grpc_status:3, grpc_message:"Invalid ticket. Error: Invalid ticket"}. Client context: IOError: Server never sent a data message. Detail: Internal
 ```
@@ -232,12 +223,11 @@ pyarrow.lib.ArrowInvalid: Flight returned invalid argument error, with message: 
 - The request is missing the bucket name or some other required metadata value.
 - The request contains bad query syntax.
 
-<!-- END -->
-
-##### Unauthenticated: Unauthenticated
+#### Unauthenticated: Unauthenticated
 
 **Example**:
 
+<!--pytest.mark.skip-->
 ```sh
 Flight returned unauthenticated error, with message: unauthenticated. gRPC client debug context: UNKNOWN:Error received from peer ipv4:34.196.233.7:443 {grpc_message:"unauthenticated", grpc_status:16, created_time:"2023-08-28T15:38:33.380633-05:00"}. Client context: IOError: Server never sent a data message. Detail: Internal
 ```
@@ -247,12 +237,11 @@ Flight returned unauthenticated error, with message: unauthenticated. gRPC clien
 - Token is missing from the request.
 - The specified token doesn't exist for the specified organization.
 
-<!-- END -->
-
-#### Unauthenticated: read:<BUCKET_ID> is unauthorized
+#### Unauthorized: Permission denied
 
 **Example**:
 
+<!--pytest.mark.skip-->
 ```sh
 Flight returned unauthenticated error, with message: read:orgs/28d1f2f565460a6c/buckets/756fa4f8c8ba6913 is unauthorized. gRPC client debug context: UNKNOWN:Error received from peer ipv4:54.174.236.48:443 {grpc_message:"read:orgs/28d1f2f565460a6c/buckets/756fa4f8c8ba6913 is unauthorized", grpc_status:16, created_time:"2023-08-28T15:42:04.462655-05:00"}. Client context: IOError: Server never sent a data message. Detail: Internal
 ```
@@ -261,14 +250,13 @@ Flight returned unauthenticated error, with message: read:orgs/28d1f2f565460a6c/
 
 - The specified token doesn't have read permission for the specified bucket.
 
-<!-- END -->
-
 #### FlightUnavailableError: Could not get default pem root certs
 
 **Example**:
 
 If unable to locate a root certificate for _gRPC+TLS_, the Flight client returns errors similar to the following:
 
+<!--pytest.mark.skip-->
 ```sh
 UNKNOWN:Failed to load file... filename:"/usr/share/grpc/roots.pem",
   children:[UNKNOWN:No such file or directory

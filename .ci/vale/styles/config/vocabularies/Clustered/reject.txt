@@ -1,0 +1,6 @@
+API token
+bucket name
+Cloud Dedicated
+cloud-dedicated
+Cloud Serverless
+cloud-serverless

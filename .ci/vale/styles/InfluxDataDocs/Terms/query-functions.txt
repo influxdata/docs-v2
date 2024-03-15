@@ -21,6 +21,7 @@ begin
 between
 bit
 bit_length
+bitwise
 both
 by
 cascade
@@ -314,6 +315,10 @@ to_timestamp_micros
 to_timestamp_millis
 to_timestamp_seconds
 
+# SQL_DATE_TIME_KEYWORDS
+dow
+doy
+
 # SQL_INFO_SYSTEM_FUNCTIONS
 # Source: https://github.com/influxdata/influxdb_iox/blob/4f9c901dcfece5fcc4d17cfecb6ec45a0dccda5a/flightsql/src/sql_info
 array
@@ -328,21 +333,38 @@ cos
 tan
 asin
 acos
+acosh
+asinh
 atan
+atanh
 atan2
+cbrt
 exp
+gcd
+isnan
+iszero
+lcm
 log
 ln
 log2
 log10
+nanvl
 sqrt
 pow
 floor
 ceil
 round
 
+# InfluxQL operators
+bitfield
+
 # is_aggregate_function
 # Source: https://github.com/influxdata/influxdb_iox/blob/4f9c901dcfece5fcc4d17cfecb6ec45a0dccda5a/influxdb_influxql_parser/src/functions.rs
+approx_distinct
+approx_median
+approx_percentile_cont
+approx_percentile_cont_with_weight
+covar
 cumulative_sum
 derivative
 difference

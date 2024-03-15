@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script is used to run tests for the InfluxDB documentation.
+# The script is designed to be run in a Docker container. It is used to substitute placeholder values.
+
 # Function to check if an option is present in the arguments
 has_option() {
     local target="$1"
@@ -26,7 +29,7 @@ fi
 BASE_DIR=$(pwd)
 cd $TEMP_DIR
 
-for file in `find . -type f` ; do
+for file in `find . -type f \( -iname '*.md' \)` ; do
   if [ -f "$file" ]; then
     echo "PRETEST: substituting values in $file"
 
@@ -92,6 +95,9 @@ done
 mkdir -p ~/Downloads && rm -rf ~/Downloads/*
 # Clean up installed files from previous runs.
 gpg -q --batch --yes --delete-key D8FF8E1F7DF8B07E > /dev/null 2>&1
+
+# Activate the Python virtual environment configured in the Dockerfile.
+. /opt/venv/bin/activate
 
 # Run test commands with options provided in the CMD of the Dockerfile.
 # pytest rootdir is the directory where pytest.ini is located (/test).

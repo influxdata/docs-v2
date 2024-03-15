@@ -6,28 +6,22 @@ weight: 401
 menu:
   influxdb_cloud_dedicated:
     name: Understand Flight responses
-    parent: Execute queries
-influxdb/cloud-dedicated/tags: [query, sql, influxql]
+    parent: Troubleshoot and optimize queries
+influxdb/cloud-dedicated/tags: [query, errors, flight]
+related:
+  - /influxdb/cloud-dedicated/query-data/sql/
+  - /influxdb/cloud-dedicated/query-data/influxql/
+  - /influxdb/cloud-dedicated/reference/client-libraries/v3/
 ---
 
 Learn how to handle responses and troubleshoot errors encountered when querying {{% product-name %}} with Flight+gRPC and Arrow Flight clients.
 
-<!-- TOC -->
-
 - [InfluxDB Flight responses](#influxdb-flight-responses)
   - [Stream](#stream)
   - [Schema](#schema)
-    - [Example](#example)
   - [RecordBatch](#recordbatch)
   - [InfluxDB status and error codes](#influxdb-status-and-error-codes)
   - [Troubleshoot errors](#troubleshoot-errors)
-    - [Internal Error: Received RST_STREAM](#internal-error-received-rst_stream)
-    - [Internal Error: stream terminated by RST_STREAM with NO_ERROR](#internal-error-stream-terminated-by-rst_stream-with-no_error)
-    - [Invalid Argument: Invalid ticket](#invalid-argument-invalid-ticket)
-    - [Timeout: Deadline exceeded](#timeout-deadline-exceeded)
-    - [Unauthenticated: Unauthenticated](#unauthenticated-unauthenticated)
-    - [Unauthorized: Permission denied](#unauthorized-permission-denied)
-    - [FlightUnavailableError: Could not get default pem root certs](#flightunavailableerror-could-not-get-default-pem-root-certs)
 
 ## InfluxDB Flight responses
 
@@ -42,7 +36,7 @@ For example, if you use the [`influxdb3-python` Python client library](/influxdb
 InfluxDB responds with one of the following:
 
 - A [stream](#stream) in Arrow IPC streaming format
-- An [error status code](#influxdb-error-codes) and an optional `details` field that contains the status and a message that describes the error
+- An [error status code](#influxdb-status-and-error-codes) and an optional `details` field that contains the status and a message that describes the error
 
 ### Stream
 
@@ -129,7 +123,7 @@ In gRPC, every call returns a status object that contains an integer code and a 
 During a request, the gRPC client and server may each return a status--for example:
 
 - The server fails to process the query; responds with status `internal error` and gRPC status `13`.
-- The request is missing a database token; the server responds with status `unauthenticated` and gRPC status `16`.
+- The request is missing a [token](/influxdb/cloud-dedicated/admin/tokens/); the server responds with status `unauthenticated` and gRPC status `16`.
 - The server responds with a stream, but the client loses the connection due to a network failure and returns status `unavailable`.
 
 gRPC defines the integer [status codes](https://grpc.github.io/grpc/core/status_8h.html) and definitions for servers and clients and
@@ -170,7 +164,6 @@ _For a list of gRPC codes that servers and clients may return, see [Status codes
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-
 ### Troubleshoot errors
 
 #### Internal Error: Received RST_STREAM
@@ -188,8 +181,6 @@ Flight returned internal error, with message: Received RST_STREAM with error cod
 - Server might have closed the connection due to an internal error.
 - The client exceeded the server's maximum number of concurrent streams.
 
-<!-- END -->
-
 #### Internal Error: stream terminated by RST_STREAM with NO_ERROR
 
 **Example**:
@@ -205,8 +196,6 @@ pyarrow._flight.FlightInternalError: Flight returned internal error, with messag
 - Possible network disruption, even if it's temporary.
 - The server might have reached its maximum capacity or other internal limits.
 
-<!-- END -->
-
 #### Invalid Argument: Invalid ticket
 
 **Example**:
@@ -220,8 +209,6 @@ pyarrow.lib.ArrowInvalid: Flight returned invalid argument error, with message: 
 
 - The request is missing the database name or some other required metadata value.
 - The request contains bad query syntax.
-
-<!-- END -->
 
 #### Timeout: Deadline exceeded
 
@@ -249,8 +236,6 @@ Flight returned unauthenticated error, with message: unauthenticated. gRPC clien
 - Token is missing from the request.
 - The specified token doesn't exist for the specified organization.
 
-<!-- END -->
-
 #### Unauthorized: Permission denied
 
 **Example**:
@@ -263,8 +248,6 @@ pyarrow._flight.FlightUnauthorizedError: Flight returned unauthorized error, wit
 **Potential reason**:
 
 - The specified token doesn't have read permission for the specified database.
-
-<!-- END -->
 
 #### FlightUnavailableError: Could not get default pem root certs
 
