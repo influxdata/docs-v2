@@ -10,7 +10,7 @@ weight: 201
 ---
 
 The `influxctl token` command and its subcommands manage database tokens in an
-{{< product-name omit=" Clustered" >}} cluster. cluster.
+{{< product-name omit=" Clustered" >}} cluster.
 
 ## Usage
 

@@ -25,9 +25,9 @@ Revoked tokens still appear when listing management tokens, but they are no
 longer valid for any operations.
 {{% /note %}}
 
-The `--format` flag lets you print the output in other formats.
-By default, the `table` format is used, but the `json` format is
+The `--format` flag lets you print the output in other formats. The `json` format is
 available for programmatic parsing by other tooling.
+Default: `table`
 
 ## Usage
 
