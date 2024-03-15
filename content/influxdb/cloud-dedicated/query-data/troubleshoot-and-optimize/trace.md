@@ -240,7 +240,7 @@ Store or log your query trace ID to ensure you can provide it to InfluxData Supp
 After you run your query with tracing enabled, do the following:
 
 - Remove the tracing header from subsequent runs of the query (to [avoid unnecessary tracing](#avoid-unnecessary-tracing)).
-- Provide the trace ID in a request to InfluxDB Support.
+- Provide the trace ID in a request to InfluxData Support.
 
 ### Retrieve system information for a query
 
