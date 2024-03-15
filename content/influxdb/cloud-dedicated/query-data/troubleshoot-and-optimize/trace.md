@@ -122,7 +122,7 @@ trace-id: TRACE_ID
 
 #### Inspect Flight response headers
 
-To inspect Flight response headers when using a client library, pass a `FlightClientMiddleware` instance.
+To inspect Flight response headers when using a client library, pass a `FlightClientMiddleware` instance
 that defines a middleware callback function for the `onHeadersReceived` event (the particular function name you use depends on the client library language).
 
 The following example uses Python client middleware that adds request headers and extracts the trace ID from the `DoGet` response headers:
