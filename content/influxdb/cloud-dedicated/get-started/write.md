@@ -431,7 +431,9 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the specified database
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-token)
+  with sufficient permissions to the specified database
 
 If successful, the output is an HTTP `204 No Content` status code.
 
@@ -513,7 +515,9 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the specified database
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  with sufficient permissions to the specified database
 
 If successful, the output is an HTTP `204 No Content` status code.
 
@@ -639,7 +643,8 @@ dependencies to your current project.
 
         - **`host`**: {{% product-name omit=" Clustered" %}} cluster hostname (URL without protocol or trailing slash)
         - **`org`**: an empty or arbitrary string (InfluxDB ignores this parameter)
-        - **`token`**: a [token](/influxdb/cloud-dedicated/admin/tokens/) with write access to the specified database.
+        - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+          with write access to the specified database.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
         - **`database`**: the name of the {{% product-name %}} database to write to
     
@@ -795,7 +800,8 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
         1.  To instantiate the client, calls the `influxdb3.New(influxdb3.ClientConfig)` function and passes the following:
             - **`Host`**: the {{% product-name omit=" Clustered" %}} cluster URL
             - **`Database`**: The name of your {{% product-name %}} database
-            - **`Token`**: a [token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
+            - **`Token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+              with _write_ access to the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
             - **`WriteOptions`**: `influxdb3.WriteOptions` options for writing to InfluxDB.
 
@@ -958,7 +964,8 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
         with InfluxDB credentials.
 
         - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
-        - **`token`**: a [token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
+        - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+          with _write_ access to the specified database.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
     3.  Defines a list of line protocol strings where each string represents a data record.
@@ -1123,7 +1130,8 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
 
           - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
           - **`database`**: the name of the {{% product-name %}} database to write to
-          - **`token`**: a [token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
+          - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+            with _write_ access to the specified database.
             _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
           _Instantiating the client with the `using` statement ensures that the client is disposed of when it's no longer needed._
@@ -1321,7 +1329,8 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
 
         - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
         - **`database`**: the name of the {{% product-name %}} database to write to
-        - **`token`**: a [token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
+        - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+          with _write_ access to the specified database.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
     2.  Defines a list of line protocol strings where each string represents a data record.

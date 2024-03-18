@@ -12,15 +12,28 @@ weight: 101
 influxdb/clustered/tags: [tokens]
 ---
 
-InfluxDB uses token authentication to authorize access to data in your InfluxDB
-cluster. Each token grants read and write permissions to one or
-more databases and allows for actions like writing and querying data.
+InfluxDB uses token authentication to authorize access to data in your
+{{< product-name omit=" Clustered" >}} cluster.
+There are two types of tokens:
+
+- [Management tokens](#management-tokens)
+- [Database tokens](#database-tokens)
+
+#### Management tokens
+
+Management tokens grant permission to perform administrative actions such as
+managing users, databases, and database tokens.
+Management tokens allow clients, such as the
+[`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/),
+to perform administrative actions.
+
+#### Database tokens
+
+Database tokens grant read and write permissions to one or more databases
+and allows for actions like writing and querying data.
 
 All read and write actions performed against time series data in your InfluxDB
-cluster must be authorized using a token. Administrative actions
-such as managing tokens and databases are authorized using **management tokens**
-issued by **Auth0**. Management tokens allow clients, such as the `influxctl` CLI,
-to perform administrative actions.
+Cloud Dedicated cluster must be authorized using a token. 
 
 {{% note %}}
 #### Store secure tokens in a secret store

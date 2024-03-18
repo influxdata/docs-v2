@@ -300,8 +300,8 @@ _If your project's virtual environment is already running, skip to step 3._
 
     Replace the following:
 
-    - **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with
-          read access to the **get-started** database
+    - **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+      with read access to the **get-started** database
     - **`ORG_ID`**: any non-empty string (InfluxDB ignores this parameter, but the client requires it)
 
 5.  Enter the `influx3 sql` command and your SQL query statement.
@@ -446,8 +446,8 @@ _If your project's virtual environment is already running, skip to step 3._
   2.  Calls the `InfluxDBClient3()` constructor method with credentials to instantiate an InfluxDB `client` with the following credentials:
 
       - **`host`**: {{% product-name omit=" Clustered" %}} cluster URL (without `https://` protocol or trailing slash)
-      - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with
-        read access to the specified database.
+      - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+        with read access to the specified database.
         _Store this in a secret store or environment variable to avoid exposing the raw token string._
       - **`database`**: the name of the {{% product-name %}} database to query
   
@@ -610,7 +610,8 @@ _If your project's virtual environment is already running, skip to step 3._
           
             - **`Host`**: your {{% product-name omit=" Clustered" %}} cluster URL
             - **`Database`**: The name of your {{% product-name %}} database
-            - **`Token`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission on the specified database.
+            - **`Token`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+              with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
         2.  Defines a deferred function to close the client after execution.
@@ -721,7 +722,8 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
         with InfluxDB credentials.
 
         - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
-        - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission on the database you want to query.
+        - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+          with read permission on the database you want to query.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
       3.  Defines a string variable (`sql`) for the SQL query.
@@ -846,7 +848,8 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
           
             - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL.
             - **`database`**: the name of the {{% product-name %}} database to query
-            - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission on the specified database.
+            - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+              with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
         2.  Defines a string variable for the SQL query.
         3.  Calls the `InfluxDBClient.Query()` method to send the query request with the SQL string.
@@ -974,7 +977,8 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
 
             - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
             - **`database`**: the name of the {{% product-name %}} database to write to
-            - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission on the specified database.
+            - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+              with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
         2.  Defines a string variable (`sql`) for the SQL query.
         3.  Defines a Markdown table format layout for headings and data rows.

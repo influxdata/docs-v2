@@ -51,11 +51,14 @@ For help finding the best workflow for your situation, [contact Support](mailto:
 
 ## Authenticate API requests
 
-InfluxDB API endpoints require each request to be authenticated with a [database token](/influxdb/cloud-dedicated/admin/tokens/).
+InfluxDB API endpoints require each request to be authenticated with a
+[database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens).
 
 ### Authenticate with a token
 
-Use the `Authorization: Bearer` scheme or the `Authorization: Token` scheme to pass a [database token](/influxdb/cloud-dedicated/admin/tokens/) that has the necessary permissions for the operation.
+Use the `Authorization: Bearer` scheme or the `Authorization: Token` scheme to
+pass a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+that has the necessary permissions for the operation.
 
 `Bearer` and `Token` are equivalent in InfluxDB Cloud Dedicated.
 The `Token` scheme is used in the InfluxDB 2.x API.
@@ -93,7 +96,9 @@ Use `Token` to authenticate a write request:
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the specified database
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  with sufficient permissions to the specified database
 
 ## Responses
 

@@ -52,7 +52,7 @@ After setting up InfluxDB and your project, you should have the following:
 - {{< product-name >}} credentials:
 
    - [Database](/influxdb/cloud-dedicated/admin/databases/)
-   - [Token](/influxdb/cloud-dedicated/admin/tokens/)
+   - [Database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
    - Cluster hostname
 
 - A directory for your project.

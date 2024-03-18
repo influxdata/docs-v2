@@ -231,7 +231,9 @@ use_middleware_trace_header()
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the specified database
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  with sufficient permissions to the specified database
 
 {{% note %}}
 Store or log your query trace ID to ensure you can provide it to InfluxData Support for troubleshooting.

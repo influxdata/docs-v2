@@ -136,7 +136,9 @@ curl --request POST "https://{{< influxdb/host >}}/api/v2/write?org=ignored&buck
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/clustered/admin/databases/) to write data to
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+  a [database token](/influxdb/clustered/admin/tokens/#database-tokens) with
+  _write_ access to the specified database.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 {{% /tab-content %}}
@@ -201,7 +203,9 @@ EOF
     Replace the following:
 
     - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/clustered/admin/databases/) to write data to
-    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+      a [database token](/influxdb/clustered/admin/tokens/#database-tokens) with
+      _write_ access to the specified database.
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 2.  To test the input and processor, enter the following command:
@@ -297,7 +301,9 @@ curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precisi
     Replace the following:
 
     - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/clustered/admin/databases/) to write data to
-    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+      a [database token](/influxdb/clustered/admin/tokens/#database-tokens) with
+      _write_ access to the specified database.
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 3.  To test the input and processor, enter the following command:
@@ -385,7 +391,9 @@ The following example creates sample data for two series (the combination of mea
     Replace the following:
 
     - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/clustered/admin/databases/) to write data to
-    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+      a [database token](/influxdb/clustered/admin/tokens/#database-tokens) with
+      _write_ access to the specified database.
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 3.  To test the input and aggregator, enter the following command:
@@ -474,7 +482,9 @@ The following example shows how to use Telegraf to remove points that repeat fie
     Replace the following:
 
     - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/clustered/admin/databases/) to write data to
-    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+      a [database token](/influxdb/clustered/admin/tokens/#database-tokens) with
+      _write_ access to the specified database.
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 3.  To test the input and processor, enter the following command:
@@ -699,7 +709,9 @@ The Go `multiplier.go` sample code does the following:
     Replace the following:
 
     - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/clustered/admin/databases/) to write data to
-    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+      a [database token](/influxdb/clustered/admin/tokens/#database-tokens) with
+      _write_ access to the specified database.
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 5.  To test the input and processor, enter the following command:

@@ -94,7 +94,7 @@ client = FlightSQLClient(host='{{< influxdb/host >}}',
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% product-name %}} [database token](/influxdb/clustered/admin/tokens/) with read permissions on the databases you want to query
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% product-name %}} [database token](/influxdb/clustered/admin/tokens/#database-tokens) with read permissions on the databases you want to query
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/clustered/admin/databases/)
 
 ### Instance methods

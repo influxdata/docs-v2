@@ -1,5 +1,5 @@
 ---
-title: Delete a token
+title: Delete a database token
 description: >
   Use the [`influxctl token delete` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/delete/)
   to delete a token from your InfluxDB Cloud Dedicated cluster and revoke all
@@ -7,12 +7,14 @@ description: >
   Provide the ID of the token you want to delete.
 menu:
   influxdb_cloud_dedicated:
-    parent: Manage tokens
+    parent: Database tokens
 weight: 203
 list_code_example: |
   ```sh
   influxctl token delete <TOKEN_ID>
   ```
+aliases:
+  - /influxdb/cloud-dedicated/admin/tokens/delete/
 ---
 
 Use the [`influxctl token delete` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/delete/)

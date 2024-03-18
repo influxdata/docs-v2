@@ -156,7 +156,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Clustered database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/clustered/admin/tokens/)
+  a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
   with _write_ permission to the database
 
 {{% /expand %}}
@@ -263,7 +263,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Clustered database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/clustered/admin/tokens/)
+  a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
   with _write_ permission to the database
 
 {{% /expand %}}
@@ -342,7 +342,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Clustered database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/clustered/admin/tokens/)
+  a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 {{% /expand %}}
@@ -425,7 +425,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Clustered database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/clustered/admin/tokens/)
+  a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 {{% /expand %}}
@@ -496,7 +496,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Clustered database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/clustered/admin/tokens/)
+  a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 {{% /expand %}}
