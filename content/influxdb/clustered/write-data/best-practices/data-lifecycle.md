@@ -25,8 +25,8 @@ Once data falls outside of the retention period it can now be removed by the gar
 
 There are two variables which tune this process:
 
-- `INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF`: defines when objects are deleted from object storage. The default is `30d`.
-- `INFLUXDB_IOX_GC_PARQUETFILE_CUTOFF`: defines when a row can be deleted from the catalog. The default is `30d`.
+- `INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF`: the age at which a parquet file not referenced in the catalog becomes eligible for deletion from object storage. The default is `30d`.
+- `INFLUXDB_IOX_GC_PARQUETFILE_CUTOFF`: defines how long to retain the row referencing a parquet file in the catalog once marked for deletion. The default is `30d`.
 
 You may set them to a value that is appropriate for your use case, for example a value of `6h` (6 hours) would be appropriate for maintaining a lean catalog that only maintains references to recent data.
 
