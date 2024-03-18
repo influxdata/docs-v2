@@ -30,7 +30,7 @@ There are two variables which tune this process:
 
 You may set them to a value that is appropriate for your use case, for example a value of `6h` (6 hours) would be appropriate for maintaining a lean catalog that only maintains references to recent data.
 
-Our recommendation is to keep these values aligned. 
+Our recommendation is to keep these values aligned.
 
 ### Lifecycle rules
 
@@ -38,7 +38,7 @@ Our recommendation is to keep these values aligned.
 
 You can use lifecycle rules to ensure that old versions of data are not kept around any longer than necessary - this could cause a significant increase in storage costs over a long period.
 
-We recommend that you use lifecycle rules to expire data after a set period of time, which is appropriate to your organisation. 
+We recommend that you use lifecycle rules to expire data after a set period of time, which is appropriate to your organisation.
 
 For example, an [AWS S3 lifecycle rule](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) to expire non-current objects after 90 days will look like the following:
 
