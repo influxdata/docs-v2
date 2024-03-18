@@ -14,15 +14,15 @@ weight: 202
 ## v2.6.0 {date="2024-03-18"}
 
 `influxctl` 2.6.0 introduces the ability to create, list, and revoke
-management tokens. These tokens allow users to authenticate directly without the
-need to for OAuth2.
+management tokens and allow you to authenticate directly with your
+InfluxDB cluster instead of an OAuth2 provider.
 
 ### New Features
 
-- Add management tokens subcommands to create, list, and revoke management
+- Add management token subcommands to create, list, and revoke management
   tokens.
-- Introduce management token config option to authenticate using the management
-  tokens.
+- Introduce management token configuration option to authenticate using
+  management tokens created with `influxctl`.
 
 ### Dependency Updates
 
