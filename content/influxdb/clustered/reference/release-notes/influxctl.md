@@ -12,6 +12,30 @@ weight: 202
 canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 ---
 
+## v2.6.0 {date="2024-03-18"}
+
+`influxctl` 2.6.0 introduces the ability to create, list, and revoke
+management tokens. These tokens allow users to authenticate directly without the
+need to for OAuth2.
+
+### New Features
+
+- Add management tokens subcommands to create, list, and revoke management
+  tokens.
+- Introduce management token config option to authenticate using the management
+  tokens.
+
+### Dependency Updates
+
+- Update Go to v1.22.1
+- Update `github.com/golang-jwt/jwt/v5` from v5.2.0 to v5.2.1.
+- Update `google.golang.org/protobuf` from v1.32.0 to v1.33.0.
+- Update `golang.org/x/oauth2` from v0.17.0 to v0.18.0.
+- Update `google.golang.org/grpc` from v1.62.0 to v1.62.1.
+- Update `github.com/jedib0t/go-pretty/v6` from v6.5.4 to v6.5.5.
+
+---
+
 ## v2.5.0 {date="2024-03-04"}
 
 `influxctl` 2.5.0 introduces the ability to set
