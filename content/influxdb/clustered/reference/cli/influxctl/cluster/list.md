@@ -12,9 +12,9 @@ weight: 301
 The `influxctl cluster list` command returns information about all InfluxDB
 clusters associated with your account ID.
 
-The `--format` option lets you print the output in other formats.
-By default, the 'table' format is used, but the 'json' format is
-available for programmatic parsing by other tooling.
+The `--format` flag lets you print the output in other formats.
+The `json` format is available for programmatic parsing by other tooling.
+Default: `table`.
 
 ## Usage
 

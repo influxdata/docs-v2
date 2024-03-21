@@ -30,16 +30,17 @@ influxctl [flags] [command]
 
 ## Commands
 
-| Command                                                           | Description                            |
-| :---------------------------------------------------------------- | :------------------------------------- |
-| [cluster](/influxdb/clustered/reference/cli/influxctl/cluster/)   | List InfluxDB v3 cluster information   |
-| [database](/influxdb/clustered/reference/cli/influxctl/database/) | Manage InfluxDB v3 databases           |
-| [help](/influxdb/clustered/reference/cli/influxctl/help/)         | Output `influxctl` help information    |
-| [query](/influxdb/clustered/reference/cli/influxctl/query/)       | Query data from InfluxDB v3            |
-| [token](/influxdb/clustered/reference/cli/influxctl/token/)       | Manage InfluxDB v3 database tokens     |
-| [user](/influxdb/clustered/reference/cli/influxctl/user/)         | Manage InfluxDB v3 cluster users       |
-| [version](/influxdb/clustered/reference/cli/influxctl/version/)   | Output the current `influxctl` version |
-| [write](/influxdb/clustered/reference/cli/influxctl/write/)       | Write line protocol to InfluxDB v3     |
+| Command                                                               | Description                            |
+| :-------------------------------------------------------------------- | :------------------------------------- |
+| [cluster](/influxdb/clustered/reference/cli/influxctl/cluster/)       | List InfluxDB v3 cluster information   |
+| [database](/influxdb/clustered/reference/cli/influxctl/database/)     | Manage InfluxDB v3 databases           |
+| [help](/influxdb/clustered/reference/cli/influxctl/help/)             | Output `influxctl` help information    |
+| [management](/influxdb/clustered/reference/cli/influxctl/management/) | Manage InfluxDB v3 management tokens   |
+| [query](/influxdb/clustered/reference/cli/influxctl/query/)           | Query data from InfluxDB v3            |
+| [token](/influxdb/clustered/reference/cli/influxctl/token/)           | Manage InfluxDB v3 database tokens     |
+| [user](/influxdb/clustered/reference/cli/influxctl/user/)             | Manage InfluxDB v3 cluster users       |
+| [version](/influxdb/clustered/reference/cli/influxctl/version/)       | Output the current `influxctl` version |
+| [write](/influxdb/clustered/reference/cli/influxctl/write/)           | Write line protocol to InfluxDB v3     |
 
 ## Global flags
 

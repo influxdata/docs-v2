@@ -44,9 +44,9 @@ Command line flags override settings in the connection profile.
 
 ### Output format
 
-The `--format` option lets you print the output in other formats.
-Default is 'table' format, but the 'json' format is
-available for programmatic parsing by other tooling.
+The `--format` flag lets you print the output in other formats.
+The `json` format is available for programmatic parsing by other tooling.
+Default: `table`.
 
 ## Usage
 
