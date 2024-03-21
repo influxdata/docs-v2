@@ -92,7 +92,7 @@ When creating an InfluxDB data source that uses SQL to query data:
 2.  Under **InfluxDB Details**:
 
     - **Database**: Provide a default database name to query.
-    - **Token**: Provide an [API token](/influxdb/cloud-dedicated/admin/tokens/)
+    - **Token**: Provide a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
       with read access to the databases you want to query.
 
 3.  Click **Save & test**.
@@ -120,7 +120,7 @@ When creating an InfluxDB data source that uses InfluxQL to query data:
     - **Database**: Provide a default database name to query.
     - **User**: Provide an arbitrary string.
       _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
-    - **Password**: Provide an [API token](/influxdb/cloud-dedicated/admin/tokens/)
+    - **Password**: Provide a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
       with read access to the databases you want to query.
     - **HTTP Method**: Choose one of the available HTTP request methods to use when querying data:
 

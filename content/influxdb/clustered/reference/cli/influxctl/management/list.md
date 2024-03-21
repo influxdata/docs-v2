@@ -7,6 +7,8 @@ menu:
   influxdb_clustered:
     parent: influxctl management
 weight: 301
+related:
+  - /influxdb/clustered/admin/tokens/management/list/
 ---
 
 The `influxctl management list` command lists all management tokens used to

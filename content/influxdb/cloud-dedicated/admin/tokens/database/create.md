@@ -1,12 +1,12 @@
 ---
-title: Create a token
+title: Create a database token
 description: >
-  Use the [`influxctl token create` command](/influxdb/clustered/reference/cli/influxctl/token/create/)
-  to create a database token for reading and writing data in your InfluxDB cluster.
+  Use the [`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
+  to create a database token for reading and writing data in your InfluxDB Cloud Dedicated cluster.
   Provide a token description and permissions for databases.
 menu:
-  influxdb_clustered:
-    parent: Manage tokens
+  influxdb_cloud_dedicated:
+    parent: Database tokens
 weight: 201
 list_code_example: |
   ```sh
@@ -16,15 +16,16 @@ list_code_example: |
     --write-database DATABASE2_NAME \
     "Read-only on DATABASE1_NAME, Read/write on DATABASE2_NAME"
   ```
+aliases:
+  - /influxdb/cloud-dedicated/admin/tokens/create/
 alt_links:
-  cloud: /influxdb/cloud/admin/tokens/create-token/
   cloud-serverless: /influxdb/cloud-serverless/admin/tokens/create-token/
 ---
 
-Use the [`influxctl token create` command](/influxdb/clustered/reference/cli/influxctl/token/create/)
-to create a token that grants access to databases in your InfluxDB cluster.
+Use the [`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
+to create a token that grants access to databases in your InfluxDB Cloud Dedicated cluster.
 
-1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/#download-and-install-influxctl).
+1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 2.  Run the `influxctl token create` command and provide the following:
 
     - Token permissions (read and write)
@@ -59,7 +60,7 @@ We recommend storing database tokens in a **secure secret store**.
 For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
 {{% /note %}}
 
-#### Examples
+### Examples
 
 - [Create a token with read and write access to a database](#create-a-token-with-read-and-write-access-to-a-database)
 - [Create a token with read-only access to a database](#create-a-token-with-read-only-access-to-a-database)

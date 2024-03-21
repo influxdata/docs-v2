@@ -1203,7 +1203,7 @@ components:
         ### Basic authentication scheme
 
         Use the `Authorization` header with the `Basic` scheme to authenticate v1 API `/write` and `/query` requests.
-        When authenticating requests, InfluxDB Clustered checks that the `password` part of the decoded credential is an authorized [database token](/influxdb/clustered/admin/tokens/).
+        When authenticating requests, InfluxDB Clustered checks that the `password` part of the decoded credential is an authorized [database token](/influxdb/clustered/admin/tokens/#database-tokens).
         InfluxDB Clustered ignores the `username` part of the decoded credential.
 
         ### Syntax
@@ -1215,12 +1215,12 @@ components:
         Replace the following:
 
         - **`[USERNAME]`**: an optional string value (ignored by InfluxDB Clustered).
-        - **`DATABASE_TOKEN`**: a [database token](/influxdb/clustered/admin/tokens/).
+        - **`DATABASE_TOKEN`**: a [database token](/influxdb/clustered/admin/tokens/#database-tokens).
         - Encode the `[USERNAME]:DATABASE_TOKEN` credential using base64 encoding, and then append the encoded string to the `Authorization: Basic` header.
 
         ### Example
 
-        The following example shows how to use cURL with the `Basic` authentication scheme and a [database token](/influxdb/clustered/admin/tokens/):
+        The following example shows how to use cURL with the `Basic` authentication scheme and a [database token](/influxdb/clustered/admin/tokens/#database-tokens):
 
         ```sh
         #######################################
@@ -1239,7 +1239,7 @@ components:
         Replace the following:
 
         - **`DATABASE_NAME`**: your InfluxDB Clustered database
-        - **`DATABASE_TOKEN`**: a [database token](/influxdb/clustered/admin/tokens/) with sufficient permissions to the database
+        - **`DATABASE_TOKEN`**: a [database token](/influxdb/clustered/admin/tokens/#database-tokens) with sufficient permissions to the database
       scheme: basic
       type: http
     QuerystringAuthentication:
@@ -1264,7 +1264,7 @@ components:
 
         ### Example
 
-        The following example shows how to use cURL with query string authentication and a [database token](/influxdb/clustered/admin/tokens/).
+        The following example shows how to use cURL with query string authentication and a [database token](/influxdb/clustered/admin/tokens/#database-tokens).
 
         ```sh
         #######################################
@@ -1284,7 +1284,7 @@ components:
         Replace the following:
 
         - **`DATABASE_NAME`**: your InfluxDB Clustered database
-        - **`DATABASE_TOKEN`**: a [database token](/influxdb/clustered/admin/tokens/) with sufficient permissions to the database
+        - **`DATABASE_TOKEN`**: a [database token](/influxdb/clustered/admin/tokens/#database-tokens) with sufficient permissions to the database
     BearerAuthentication:
       type: http
       scheme: bearer

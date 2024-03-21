@@ -11,8 +11,8 @@ aliases:
   - /influxdb/cloud/security/tokens/create-token/
 alt_links:
   cloud-serverless: /influxdb/cloud-serverless/admin/tokens/create-token
-  cloud-dedicated: /influxdb/cloud-dedicated/admin/tokens/create
-  clustered: /influxdb/clustered/admin/tokens/create
+  cloud-dedicated: /influxdb/cloud-dedicated/admin/tokens/database/create
+  clustered: /influxdb/clustered/admin/tokens/database/create
 ---
 
 {{< duplicate-oss >}}

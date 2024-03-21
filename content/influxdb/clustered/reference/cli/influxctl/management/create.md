@@ -7,6 +7,8 @@ menu:
   influxdb_clustered:
     parent: influxctl management
 weight: 301
+related:
+  - /influxdb/clustered/admin/tokens/management/create/
 ---
 
 The `influxctl management create` command creates a management token to be used

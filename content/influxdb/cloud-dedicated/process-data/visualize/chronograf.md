@@ -38,7 +38,7 @@ If you haven't already, [download and install Chronograf](/chronograf/v1/introdu
 
     - **Connection Name:** Name to uniquely identify this connection configuration
     - **Username:** Arbitrary string _(ignored, but cannot be empty)_
-    - **Password:** InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/)
+    - **Password:** InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
       with read permissions on the database you want to query
     - **Telegraf Database Name:** InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/)
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
