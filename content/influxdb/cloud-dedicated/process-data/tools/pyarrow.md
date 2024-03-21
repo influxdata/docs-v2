@@ -95,7 +95,9 @@ print(querySQL())
 
 2.  Replace the following configuration values:
 
-    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: An InfluxDB [token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the databases you want to query.
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+      An InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+      with read permissions on the databases you want to query.
     - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to query.
 
 3. In your terminal, use the Python interpreter to run the file:
@@ -153,8 +155,11 @@ print(table.group_by('room').aggregate([('temp', 'mean')]))
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: An InfluxDB [token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the databases you want to query.
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/tokens/) to query.
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+  An InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  with read permissions on the databases you want to query.
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
+  The name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to query.
 
 {{< expand-wrapper >}}
 {{% expand "View example results" %}}

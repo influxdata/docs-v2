@@ -66,10 +66,10 @@ to write the [home sensor sample data](#home-sensor-data-line-protocol) to your
 {{< product-name omit=" Clustered" >}} cluster.
 Provide the following:
 
-- Database name using the `--database` flag
-- [Database token](/influxdb/clustered/admin/tokens/) (with write permissions
+- The [database](/influxdb/clustered/admin/databases/) name using the `--database` flag
+- A [database token](/influxdb/clustered/admin/tokens/#database-tokens) (with write permissions
   on the target database) using the `--token` flag
-- Timestamp precision as seconds (`s`) using the `--precision` flag
+- The timestamp precision as seconds (`s`) using the `--precision` flag
 - [Line protocol](#construct-line-protocol).
   Pass the line protocol in one of the following ways:
 

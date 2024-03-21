@@ -334,8 +334,8 @@ You would create the following InfluxDB {{< current-version >}} databases:
 
 3. **Create a database token for writing to your InfluxDB Clustered database.**
 
-    Use the [`influxctl token create` command](/influxdb/clustered/admin/tokens/create/)
-    to [create a database token](/influxdb/clustered/admin/tokens/create/) with
+    Use the [`influxctl token create` command](/influxdb/clustered/reference/cli/influxctl/token/create/)
+    to [create a database token](/influxdb/clustered/admin/tokens/database/create/) with
     _write_ permission to your database.
 
     Provide the following:

@@ -7,6 +7,8 @@ menu:
   influxdb_clustered:
     parent: influxctl
 weight: 201
+related:
+  - /influxdb/clustered/admin/tokens/management/
 ---
 
 The `influxctl management` command and its subcommands manage management tokens

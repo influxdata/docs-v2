@@ -7,6 +7,8 @@ menu:
   influxdb_cloud_dedicated:
     parent: influxctl management
 weight: 301
+related:
+  - /influxdb/cloud-dedicated/admin/tokens/management/list/
 ---
 
 The `influxctl management list` command lists all management tokens used to

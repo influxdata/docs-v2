@@ -222,7 +222,9 @@ client = InfluxDBClient3(token="DATABASE_TOKEN",
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the specified database
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+  an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  with read permissions on the specified database
 
 ##### Initialize a client for batch writing
 
@@ -270,7 +272,9 @@ invokes the callback function, if specified, for the response status (success, e
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the specified database
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+  an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  with read permissions on the specified database
 
 ### InfluxDBClient3 instance methods
 

@@ -119,7 +119,7 @@
 
 {{ else if (eq $type "anchored-list") }}
 
-	<ul>
+	<ul class="children-list">
 	{{ range $pages.ByWeight }}
 		{{ $title := cond ( isset .Params "list_title" ) .Params.list_title .Title }}
 		<li><a href="#{{ anchorize $title }}">{{ $title }}</a></li>
