@@ -11,8 +11,6 @@ menu:
     name: Management tokens
 weight: 101
 influxdb/clustered/tags: [tokens]
-cascade:
-  draft: true
 ---
 
 Management tokens grant permission to perform administrative actions such as
