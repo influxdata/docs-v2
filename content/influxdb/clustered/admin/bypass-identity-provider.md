@@ -10,8 +10,9 @@ menu:
 weight: 207
 ---
 
-{{< product-name >}} generates a valid management token (known as the _admin token_)
-for managing databases and database tokens and stores it as a secret in your InfluxDB namespace.
+{{< product-name >}} generates a valid [management token](/influxdb/clustered/admin/tokens/#management-tokens)
+(known as the _admin token_) for managing databases and database tokens and
+stores it as a secret in your InfluxDB namespace.
 You can use the admin token with the [`influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/)
 in lieu of configuring and using an OAuth2 identity provider.
 
