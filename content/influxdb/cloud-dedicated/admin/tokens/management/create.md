@@ -19,22 +19,23 @@ list_code_example: |
   ```
 ---
 
-By default, management tokens are short-lived tokens issued by an OAuth
+By default, management tokens are short-lived tokens issued by an OAuth2 identity
 provider that grant a specific user administrative access to your
 {{< product-name omit=" Clustered">}} cluster.
 However, for automation purposes, you can manually create management tokens that
 authenticate directly with your InfluxDB cluster and do not require human
-interaction with your OAuth provider.
+interaction with your identity provider.
 
 {{% warn %}}
 #### For automation use cases only
 
 The tools outlined below are meant for automation use cases and should not be
-used to circumvent your OAuth provider. **Take great care when manually creating
+used to circumvent your identity provider. **Take great care when manually creating
 and using management tokens**.
 
 {{< product-name >}} requires that at least one user associated with your cluster 
-and authorized through OAuth to manually create a management token.
+and authorized through your OAuth2 identity provider to manually create a
+management token.
 {{% /warn %}}
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
