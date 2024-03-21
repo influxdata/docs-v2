@@ -20,6 +20,18 @@ If you choose to deploy your provider with your InfluxDB cluster, the process
 outlined below should be done _after_ your initial InfluxDB cluster deployment.
 {{% /note %}}
 
+{{% note %}}
+#### Bypass your identity provider for development and testing
+
+If running in a development or testing environment and you do not want to
+authorize with an OAuth2 identity provider, {{< product-name >}} provides an
+_admin token_ in your cluster's namespace that can be used to bypass your
+identity provider.
+
+For more information, see
+[Bypass your identity provider](/influxdb/clustered/admin/tokens/bypass-identity-provider/).
+{{% /note %}}
+
 InfluxDB Clustered requires that your OAuth2 identity provider supports
 [Device Authorization Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/device-authorization-flow).
 InfluxData has tested with the following identity providers:
