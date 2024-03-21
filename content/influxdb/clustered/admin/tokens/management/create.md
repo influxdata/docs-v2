@@ -33,7 +33,7 @@ The tools outlined below are meant for automation use cases and should not be
 used to circumvent your OAuth provider. **Take great care when manually creating
 and using management tokens**.
 
-{{< product-name >}} requires that at least one user associated with your cluster 
+{{< product-name >}} requires at least one user associated with your cluster 
 and authorized through OAuth to manually create a management token.
 {{% /warn %}}
 
@@ -43,7 +43,7 @@ and authorized through OAuth to manually create a management token.
 
     - _Optional_: the `--expires-at` flag with an RFC3339 date string that defines the
       token expiration date and time--for example, `{{< datetime/current-date offset=1 >}}`.
-      If not set, the token does not expire until revoked.
+      If expiration isn't set, the token does not expire until revoked.
     - _Optional_: the `--description` flag with a description for the management token.
 
 {{% code-placeholders "RFC3339_EXPIRATION|TOKEN_DESCRIPTION" %}}
@@ -62,7 +62,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`TOKEN_DESCRIPTION`{{% /code-placeholder-key %}}:
   Management token description.
 
-Once created, the command returns the management token string.
+The output contains the management token string.
 
 {{% note %}}
 #### Store secure tokens in a secret store

@@ -609,7 +609,7 @@ _If your project's virtual environment is already running, skip to step 3._
         1.  Instantiates `influx.Client` with InfluxDB credentials.
           
             - **`Host`**: your {{% product-name omit=" Clustered" %}} cluster URL
-            - **`Database`**: The name of your {{% product-name %}} database
+            - **`Database`**: the name of your {{% product-name %}} database
             - **`Token`**:  a [database token](/influxdb/clustered/admin/tokens/#database-tokens) with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
 

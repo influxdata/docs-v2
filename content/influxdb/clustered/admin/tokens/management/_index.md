@@ -20,6 +20,8 @@ managing users, databases, and database tokens in your
 {{% note %}}
 Management tokens do _not_ grant permissions to write or query time series data
 in your {{< product-name omit=" Clustered">}} cluster.
+
+To grant write or query permissions, use management tokens to create [database tokens](/influxdb/clustered/admin/tokens/database/).
 {{% /note %}}
 
 By default, management tokens are short-lived tokens issued by an OAuth
@@ -36,7 +38,7 @@ The tools outlined below are meant for automation use cases and should not be
 used to circumvent your OAuth provider. **Take great care when manually creating
 and using management tokens**.
 
-{{< product-name >}} requires that at least one user associated with your cluster 
+{{< product-name >}} requires at least one user associated with your cluster 
 and authorized through OAuth to manually create a management token.
 {{% /warn %}}
 
@@ -52,10 +54,10 @@ and authorized through OAuth to manually create a management token.
 Use management tokens to automate authorization for the
 [`influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/):
 
-1.  [Create a new management token](#create-a-management-token).
+1.  [Create a management token](#create-a-management-token) and securely store the output token value. You'll use it in the next step.
 2.  On the machine where the `influxctl` CLI is to be automated, update your
     [`influxctl` connection profile](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles)
-    by adding the `mgmt_token` setting with the management token string.
+    by assigning the `mgmt_token` setting to the token string from the preceding step.
 
 {{% code-placeholders "(INFLUXDB|MANAGEMENT)_(PORT|TOKEN)" %}}
 ```toml

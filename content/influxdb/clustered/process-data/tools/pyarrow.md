@@ -96,9 +96,9 @@ print(querySQL())
 2.  Replace the following configuration values:
 
     - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-      An InfluxDB [database token](/influxdb/clustered/admin/tokens/#database-tokens)
-      with read permissions on the databases you want to query.
-    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [database](/influxdb/clustered/admin/databases/) to query.
+      a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
+      with read permissions on the databases you want to query
+    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/clustered/admin/databases/) to query
 
 3. In your terminal, use the Python interpreter to run the file:
 
@@ -156,10 +156,10 @@ print(table.group_by('room').aggregate([('temp', 'mean')]))
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  An InfluxDB [database token](/influxdb/clustered/admin/tokens/#database-tokens)
-  with read permissions on the databases you want to query.
+  a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
+  with read permissions on the databases you want to query
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  The name of the InfluxDB [database](/influxdb/clustered/admin/databases/) to query.
+  the name of the [database](/influxdb/clustered/admin/databases/) to query
 
 {{< expand-wrapper >}}
 {{% expand "View example results" %}}

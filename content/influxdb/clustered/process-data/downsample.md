@@ -70,10 +70,10 @@ instantiate two InfluxDB clients:
 
 Provide the following credentials for each client:
 
-- **host**: {{< product-name omit="Clustered" >}} cluster URL _(without the protocol)_
-- **token**: [InfluxDB database token](/influxdb/clustered/admin/tokens/#database-tokens)
+- **host**: your {{< product-name omit="Clustered" >}} cluster URL _(without the protocol)_
+- **token**: a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
   with read and write permissions on the databases you want to query and write to.
-- **database**: InfluxDB database name
+- **database**: your [database](/influxdb/clustered/admin/databases/) name
 
 {{% code-placeholders "((RAW_|DOWNSAMPLED_)*DATABASE)_(NAME|TOKEN)" %}}
 ```py

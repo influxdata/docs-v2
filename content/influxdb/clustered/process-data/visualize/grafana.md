@@ -91,7 +91,7 @@ When creating an InfluxDB data source that uses SQL to query data:
 
 2.  Under **InfluxDB Details**:
 
-    - **Database**: Provide a default database name to query.
+    - **Database**: Provide a default [database](/influxdb/clustered/admin/databases/) name to query.
     - **Token**: Provide a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
       with read access to the databases you want to query.
 
@@ -117,7 +117,7 @@ When creating an InfluxDB data source that uses InfluxQL to query data:
 
 2.  Under **InfluxDB Details**:
 
-    - **Database**: Provide a default database name to query.
+    - **Database**: Provide a default [database](/influxdb/clustered/admin/databases/) name to query.
     - **User**: Provide an arbitrary string.
       _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
     - **Password**: Provide a [database token](/influxdb/clustered/admin/tokens/#database-tokens)

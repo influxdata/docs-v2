@@ -44,7 +44,7 @@ management token.
 
     - _Optional_: the `--expires-at` flag with an RFC3339 date string that defines the
       token expiration date and time--for example, `{{< datetime/current-date offset=1 >}}`.
-      If not set, the token does not expire until revoked.
+      If an expiration isn't set, the token does not expire until revoked.
     - _Optional_: the `--description` flag with a description for the management token.
 
 {{% code-placeholders "RFC3339_EXPIRATION|TOKEN_DESCRIPTION" %}}

@@ -27,7 +27,7 @@ Database tokens grant read and write permissions to one or more databases
 and allows for actions like writing and querying data.
 
 All read and write actions performed against time series data in your
-{{< product-name omit=" Clustered" >}} cluster must be authorized using a token. 
+{{< product-name omit=" Clustered" >}} cluster must be authorized using a database token. 
 
 #### Management tokens
 

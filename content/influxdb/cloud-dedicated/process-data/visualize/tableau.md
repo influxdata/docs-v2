@@ -85,7 +85,7 @@ Setting `useSystemTrustStore=false` is only necessary on macOS and doesn't actua
     
       _See an [example connection URL](#example-connection-url)._
     
-    - **Dialect**: PostreSQL
+    - **Dialect**: PostgreSQL
     - **Username**: _Leave empty_
     - **Password**: [Database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
       with read access to the specified database

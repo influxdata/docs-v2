@@ -47,8 +47,8 @@ You'll need the following prerequisites:
     ```
     https://{{< influxdb/host >}}
     ```
-3. Name of the [database](/influxdb/clustered/admin/databases/) to write to.
-4. InfluxDB [database token](/influxdb/clustered/admin/tokens/#database-tokens) with permission to write to the database.
+3. The name of the [database](/influxdb/clustered/admin/databases/) to write to.
+4. A [database token](/influxdb/clustered/admin/tokens/#database-tokens) with permission to write to the database.
    _For security reasons, we recommend setting an environment variable to store your token and avoid exposing the raw token value in your script._
 
 ## Write data to InfluxDB with Python
