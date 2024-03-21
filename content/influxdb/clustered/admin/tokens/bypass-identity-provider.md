@@ -37,8 +37,8 @@ in a production InfluxDB cluster.
     ```
 
 3.  Update your `influxctl` connection profile with a new `[profile.auth.token]`
-    section with a `token_file` setting that identifies the location of your
-    saved admin token file:
+    section.
+4.  In the `[profile.auth.token]` section, assign the `token_file` setting to the location of your saved admin token file:
 
     ```toml
     [[profile]]
