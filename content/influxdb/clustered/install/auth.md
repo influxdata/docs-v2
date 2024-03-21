@@ -29,7 +29,7 @@ _admin token_ in your cluster's namespace that can be used to bypass your
 identity provider.
 
 For more information, see
-[Bypass your identity provider](/influxdb/clustered/admin/tokens/bypass-identity-provider/).
+[Bypass your identity provider](/influxdb/clustered/admin/bypass-identity-provider/).
 {{% /note %}}
 
 InfluxDB Clustered requires that your OAuth2 identity provider supports

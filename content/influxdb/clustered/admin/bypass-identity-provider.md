@@ -6,8 +6,8 @@ description: >
   and using an OAuth2 identity provider.
 menu:
   influxdb_clustered:
-    parent: Manage tokens
-weight: 205
+    parent: Administer InfluxDB Clustered
+weight: 207
 ---
 
 {{< product-name >}} generates a valid management token (known as the _admin token_)
