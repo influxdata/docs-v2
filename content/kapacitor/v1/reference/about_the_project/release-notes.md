@@ -9,6 +9,20 @@ aliases:
   - /kapacitor/v1/about_the_project/releasenotes-changelog/
 ---
 
+## v1.7.3 {date="2024-03-22"}
+
+### Bug Fixes
+
+- Do not migrate events with empty ID.
+
+### Others
+
+- Upgrade Go to 1.21.8
+- Upgrade `google.golang.org/protobuf` to 1.33.0
+- Upgrade `github.com/docker/docker` to 24.0.9
+
+---
+
 ## v1.7.2 {date="2024-02-26"}
 
 - Upgrade Go to 1.20.13
