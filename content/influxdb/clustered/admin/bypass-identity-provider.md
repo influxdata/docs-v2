@@ -1,7 +1,7 @@
 ---
 title: Bypass your identity provider
 description: >
-  InfluxDB clustered generates a valid management token (known as the _admin token_)
+  InfluxDB clustered generates a valid access token (known as the _admin token_)
   that can be used in development and testing environments in lieu of configuring
   and using an OAuth2 identity provider.
 menu:
@@ -10,9 +10,9 @@ menu:
 weight: 207
 ---
 
-{{< product-name >}} generates a valid authorization token (known as the
-_admin token_) for managing databases and database tokens and stores it as a
-secret in your InfluxDB namespace.
+{{< product-name >}} generates a valid access token (known as the _admin token_)
+for managing databases and database tokens and stores it as a secret in your
+InfluxDB namespace.
 You can use the admin token with the [`influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/)
 in lieu of configuring and using an OAuth2 identity provider.
 
@@ -61,9 +61,51 @@ In the examples above, replace the following:
 The admin token is a long-lived access token.
 The only way to revoke the token is to do the following:
 
-1. Delete the `rsa-keys` secret from your InfluxDB cluster's context and namespace.
-2. Rerun the `key-gen` job.
-3. Restart the `authz` service.
+{{% code-placeholders "INFLUXDB_NAMESPACE|KEY_GEN_JOB|001" %}}
 
+1.  Delete the `rsa-keys` secret from your InfluxDB cluster's context and namespace:
+
+    ```sh
+    kubectl delete secrets/rsa-keys --namespace INFLUXDB_NAMESPACE
+    ```
+
+2.  Rerun the `key-gen` job:
+
+    1.  List the jobs in your InfluxDB namespace to find the key-gen job pod:
+
+        ```
+        # List jobs to find the key-gen job pod
+        kubectl get jobs --namespace INFLUXDB_NAMESPACE
+        ```
+
+    2.  Run the key-gen job and increment the job number as needed:
+    
+        ```sh
+        kubectl create job \
+          --from=job/KEY_GEN_JOB key-gen-001 \
+          --namespace INFLUXDB_NAMESPACE
+        ```
+
+3.  Restart the `token-management` service:
+
+    ```sh
+    kubectl delete pods \
+      --selector app=token-management \
+      --namespace INFLUXDB_NAMESPACE
+    ```
+
+{{% /code-placeholders %}}
+
+In the examples above, replace the following:
+
+- {{% code-placeholder-key %}}`INFLUXDB_NAMESPACE`{{% /code-placeholder-key %}}:
+  The name of your InfluxDB namespace.
+- {{% code-placeholder-key %}}`KEY_GEN_JOB`{{% /code-placeholder-key %}}:
+  The name of the key-gen job pod.
+- {{% code-placeholder-key %}}`001`{{% /code-placeholder-key %}}:
+  A unique number used to increment the key-gen job.
+
+{{% note %}}
 To create a new admin token after revoking the existing one, rerun the
 `create-admin-token` job.
+{{% /note %}}
