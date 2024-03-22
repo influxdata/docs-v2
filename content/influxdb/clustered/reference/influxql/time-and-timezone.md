@@ -285,8 +285,6 @@ SELECT * FROM home WHERE time >= now() - 2h
 {{% warn %}}
 InfluxQL in {{< product-name >}} does not currently support the time zone clause,
 which applies a time zone offset to UTC timestamps in query results.
-
-**Tracking issue**: [influxdb_iox#6933](https://github.com/influxdata/influxdb_iox/issues/6933)
 {{% /warn %}}
 
 <!-- By default, InfluxDB stores and returns timestamps in UTC.
