@@ -15,15 +15,21 @@ A partition key uniquely identifies a partition and is used to name the partitio
 Parquet file in the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
 
 A partition template consists of 1-8 _template parts_---dimensions to partition data by.
-There are two types of parts:
+There are three types of parts:
 
-- **tag**: [InfluxDB tag](/influxdb/cloud-dedicated/reference/glossary/#tag) to
-  partition by.
-  _A partition template can include up to seven tag parts._
+- **tag**: An [InfluxDB tag](/influxdb/cloud-dedicated/reference/glossary/#tag)
+  to partition by.
+- **tag bucket**: An [InfluxDB tag](/influxdb/cloud-dedicated/reference/glossary/#tag)
+  and number of "buckets" to group tag values into. Data is partitioned by the
+  tag bucket rather than each distinct tag value.
 - **time**: A Rust strftime date and time string that specifies the time interval
   to partition data by. The smallest unit of time included in the time part
   template is the interval used to partition data.
-  _A partition template includes only 1 time part._
+
+{{% note %}}
+A partition template can include up to 7 total tag and tag bucket parts
+and only 1 time part.
+{{% /note %}}
 
 <!-- TOC -->
 - [Restrictions](#restrictions)
@@ -31,6 +37,7 @@ There are two types of parts:
   - [Reserved keywords](#reserved-keywords)
   - [Reserved Characters](#reserved-characters)
 - [Tag part templates](#tag-part-templates)
+- [Tag bucket part templates](#tag-bucket-part-templates)
 - [Time part templates](#time-part-templates)
   - [Date specifiers](#date-specifiers)
   - [Time specifiers](#time-specifiers)
@@ -45,6 +52,11 @@ There are two types of parts:
 
 Each template part is limited to 200 bytes in length.
 Anything longer will be truncated at 200 bytes and appended with `#`.
+
+### Partition key size limit
+
+With the truncation of template parts, the maximum length of a partition key is
+1,607 bytes (1.57 KiB).
 
 ### Reserved keywords
 
@@ -67,6 +79,33 @@ characters must be [percent encoded](https://developer.mozilla.org/en-US/docs/Gl
 
 Tag part templates consist of a _tag key_ to partition by.
 Generated partition keys include the unique _tag value_ specific to each partition.
+
+## Tag bucket part templates
+
+Tag bucket part templates consist of a _tag key_ to partition by and the
+_number of "buckets" to partition tag values into_--for example:
+
+```
+customerID,500
+```
+
+Values of the `customerID` tag are bucketed into 500 distinct "buckets." 
+Each bucket is identified by the remainder of the tag value hashed into a 32bit
+integer divided by the specified number of buckets:
+
+```rust
+hash(tagValue) % N
+```
+
+Generated partition keys include the unique _tag bucket identifier_ specific to
+each partition.
+
+**Supported number of tag buckets**: 1-100,000
+
+{{% note %}}
+Tag buckets should be used to partition by high cardinality tags or tags with an
+unknown number of distinct values.
+{{% /note %}}
 
 ## Time part templates
 
