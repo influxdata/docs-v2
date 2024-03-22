@@ -93,7 +93,7 @@ _Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/inf
 - [Create a database with an infinite retention period](#create-a-database-with-an-infinite-retention-period)
 - [Create a database with a 30-day retention period](#create-a-database-with-a-30-day-retention-period)
 - [Create a database with non-default table and column limits](#create-a-database-with-non-default-table-and-column-limits)
-- [Create a database with with a custom partition template](#create-a-database-with-with-a-custom-partition-template)
+- [Create a database with a custom partition template](#create-a-database-with-a-custom-partition-template)
 
 ### Create a database with an infinite retention period
 
@@ -118,7 +118,7 @@ influxctl database create \
   mydb
 ```
 
-### Create a database with with a custom partition template
+### Create a database with a custom partition template
 
 The following example creates a new `mydb` database and applies a partition
 template that partitions by two tags (`room` and `sensor-type`) and by week using

@@ -53,7 +53,7 @@ _Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/inf
 ## Examples
 
 - [Create a table](#create-a-table)
-- [Create a table with with a custom partition template](#create-a-table-with-with-a-custom-partition-template)
+- [Create a table with a custom partition template](#create-a-table-with-a-custom-partition-template)
 
 In the following examples, replace:
 
@@ -70,7 +70,7 @@ influxctl table create DATABASE_NAME TABLE_NAME
 ```
 {{% /code-placeholders %}}
 
-### Create a table with with a custom partition template
+### Create a table with a custom partition template
 
 The following example creates a new table and applies a partition
 template that partitions by two tags (`room` and `sensor-type`) and by week using

@@ -91,7 +91,7 @@ _For more detailed information, see [Partition templates](/influxdb/clustered/ad
 
 A partition key uniquely identifies a partition. The structure of partition keys
 is defined by a _[partition template](#partition-templates)_. Partition keys are
-composed of up to eight parts or dimensions (tags and time).
+composed of up to eight parts or dimensions (tags, tag buckets, and time).
 Each part is delimited by the partition key separator (`|`).
 
 {{< expand-wrapper >}}
@@ -104,18 +104,18 @@ Given the following line protocol with the following timestamps:
 - 2024-01-01T01:00:00Z
 
 ```text
-production,line=A,station=1 temp=81.2,qty=35i 1704063600000000000
-production,line=A,station=2 temp=92.8,qty=35i 1704063600000000000
-production,line=B,station=1 temp=101.1,qty=43i 1704063600000000000
-production,line=B,station=2 temp=102.4,qty=43i 1704063600000000000
-production,line=A,station=1 temp=81.9,qty=36i 1704067200000000000
-production,line=A,station=2 temp=110.0,qty=22i 1704067200000000000
-production,line=B,station=1 temp=101.8,qty=44i 1704067200000000000
-production,line=B,station=2 temp=105.7,qty=44i 1704067200000000000
-production,line=A,station=1 temp=82.2,qty=35i 1704070800000000000
-production,line=A,station=2 temp=92.1,qty=30i 1704070800000000000
-production,line=B,station=1 temp=102.4,qty=43i 1704070800000000000
-production,line=B,station=2 temp=106.5,qty=43i 1704070800000000000
+production,line=A,station=cnc temp=81.2,qty=35i 1704063600000000000
+production,line=A,station=wld temp=92.8,qty=35i 1704063600000000000
+production,line=B,station=cnc temp=101.1,qty=43i 1704063600000000000
+production,line=B,station=wld temp=102.4,qty=43i 1704063600000000000
+production,line=A,station=cnc temp=81.9,qty=36i 1704067200000000000
+production,line=A,station=wld temp=110.0,qty=22i 1704067200000000000
+production,line=B,station=cnc temp=101.8,qty=44i 1704067200000000000
+production,line=B,station=wld temp=105.7,qty=44i 1704067200000000000
+production,line=A,station=cnc temp=82.2,qty=35i 1704070800000000000
+production,line=A,station=wld temp=92.1,qty=30i 1704070800000000000
+production,line=B,station=cnc temp=102.4,qty=43i 1704070800000000000
+production,line=B,station=wld temp=106.5,qty=43i 1704070800000000000
 ```
 
 ---
@@ -128,7 +128,7 @@ production,line=B,station=2 temp=106.5,qty=43i 1704070800000000000
 
 ##### Partition template parts
 
-- `%Y-%m-%d` <em class="op50">(by day, default format)</em>
+- `%Y-%m-%d` <em class="op50">time (by day, default format)</em>
 
 {{% /flex-content %}}
 {{% flex-content %}}
@@ -154,8 +154,8 @@ production,line=B,station=2 temp=106.5,qty=43i 1704070800000000000
 
 ##### Partition template parts
 
-- `line`
-- `%d %b %Y` <em class="op50">(by day, non-default format)</em>
+- `line` <em class="op50">tag</em>
+- `%d %b %Y` <em class="op50">time (by day, non-default format)</em>
 
 {{% /flex-content %}}
 {{% flex-content %}}
@@ -183,23 +183,23 @@ production,line=B,station=2 temp=106.5,qty=43i 1704070800000000000
 
 ##### Partition template parts
 
-- `line`
-- `station`
-- `%Y-%m-%d` <em class="op50">(by day, default format)</em>
+- `line` <em class="op50">tag</em>
+- `station` <em class="op50">tag</em>
+- `%Y-%m-%d` <em class="op50">time (by day, default format)</em>
 
 {{% /flex-content %}}
 {{% flex-content %}}
 
 ##### Partition keys
 
-- `A | 1 | 2023-12-31`
-- `A | 2 | 2023-12-31`
-- `B | 1 | 2023-12-31`
-- `B | 2 | 2023-12-31`
-- `A | 1 | 2024-01-01`
-- `A | 2 | 2024-01-01`
-- `B | 1 | 2024-01-01`
-- `B | 2 | 2024-01-01`
+- `A | cnc | 2023-12-31`
+- `A | wld | 2023-12-31`
+- `B | cnc | 2023-12-31`
+- `B | wld | 2023-12-31`
+- `A | cnc | 2024-01-01`
+- `A | wld | 2024-01-01`
+- `B | cnc | 2024-01-01`
+- `B | wld | 2024-01-01`
 
 {{% /flex-content %}}
 
@@ -217,31 +217,99 @@ production,line=B,station=2 temp=106.5,qty=43i 1704070800000000000
 
 ##### Partition template parts
 
-- `line`
-- `station`
-- `%Y-%m-%d %H:00` <em class="op50">(by hour)</em>
+- `line` <em class="op50">tag</em>
+- `station,3` <em class="op50">tag bucket</em>
+- `%Y-%m-%d` <em class="op50">time (by day, default format)</em>
 
 {{% /flex-content %}}
 {{% flex-content %}}
 
 ##### Partition keys
 
-- `A | 1 | 2023-12-31 23:00`
-- `A | 2 | 2023-12-31 23:00`
-- `B | 1 | 2023-12-31 23:00`
-- `B | 2 | 2023-12-31 23:00`
-- `A | 1 | 2024-01-01 00:00`
-- `A | 2 | 2024-01-01 00:00`
-- `B | 1 | 2024-01-01 00:00`
-- `B | 2 | 2024-01-01 00:00`
-- `A | 1 | 2024-01-01 01:00`
-- `A | 2 | 2024-01-01 01:00`
-- `B | 1 | 2024-01-01 01:00`
-- `B | 2 | 2024-01-01 01:00`
+- `A | 0 | 2023-12-31`
+- `B | 0 | 2023-12-31`
+- `A | 0 | 2024-01-01`
+- `B | 0 | 2024-01-01`
 
 {{% /flex-content %}}
 
 <!----------------------- END PARTITION EXAMPLES GROUP 4 ---------------------->
+
+{{% /flex %}}
+
+---
+
+{{% flex %}}
+
+<!---------------------- BEGIN PARTITION EXAMPLES GROUP 5 --------------------->
+
+{{% flex-content "half" %}}
+
+##### Partition template parts
+
+- `line` <em class="op50">tag</em>
+- `station` <em class="op50">tag</em>
+- `%Y-%m-%d %H:00` <em class="op50">time (by hour)</em>
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Partition keys
+
+- `A | cnc | 2023-12-31 23:00`
+- `A | wld | 2023-12-31 23:00`
+- `B | cnc | 2023-12-31 23:00`
+- `B | wld | 2023-12-31 23:00`
+- `A | cnc | 2024-01-01 00:00`
+- `A | wld | 2024-01-01 00:00`
+- `B | cnc | 2024-01-01 00:00`
+- `B | wld | 2024-01-01 00:00`
+- `A | cnc | 2024-01-01 01:00`
+- `A | wld | 2024-01-01 01:00`
+- `B | cnc | 2024-01-01 01:00`
+- `B | wld | 2024-01-01 01:00`
+
+{{% /flex-content %}}
+
+<!----------------------- END PARTITION EXAMPLES GROUP 5 ---------------------->
+
+{{% /flex %}}
+
+---
+
+{{% flex %}}
+
+<!---------------------- BEGIN PARTITION EXAMPLES GROUP 6 --------------------->
+
+{{% flex-content "half" %}}
+
+##### Partition template parts
+
+- `line` <em class="op50">tag</em>
+- `station,50` <em class="op50">tag bucket</em>
+- `%Y-%m-%d %H:00` <em class="op50">time (by hour)</em>
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Partition keys
+
+- `A | 47 | 2023-12-31 23:00`
+- `A | 9 | 2023-12-31 23:00`
+- `B | 47 | 2023-12-31 23:00`
+- `B | 9 | 2023-12-31 23:00`
+- `A | 47 | 2024-01-01 00:00`
+- `A | 9 | 2024-01-01 00:00`
+- `B | 47 | 2024-01-01 00:00`
+- `B | 9 | 2024-01-01 00:00`
+- `A | 47 | 2024-01-01 01:00`
+- `A | 9 | 2024-01-01 01:00`
+- `B | 47 | 2024-01-01 01:00`
+- `B | 9 | 2024-01-01 01:00`
+
+{{% /flex-content %}}
+
+<!----------------------- END PARTITION EXAMPLES GROUP 6 ---------------------->
 
 {{% /flex %}}
 
@@ -275,7 +343,7 @@ FROM production
 WHERE
   time >= now() - INTERVAL '1 week'
   AND line = 'A'
-  AND station = '1'
+  AND station = 'cnc'
 ```
 
 Using the default partitioning strategy (by day), the query engine
@@ -292,7 +360,7 @@ last seven days):
 - {{< datetime/current-date offset=-7 trimTime=true >}}
 
 The query engine must scan _all_ rows in the partitions to identify rows
-where `line` is `A` and `station` is `1`. This process takes valuable time
+where `line` is `A` and `station` is `cnc`. This process takes valuable time
 and results in less performant queries.
 
 However, if you partition by other tags, InfluxDB can identify partitions that
@@ -305,39 +373,40 @@ only those with data relevant to the query:
 
 {{% columns 4 %}}
 
-- <strong class="req normal green">A | 1 | {{< datetime/current-date trimTime=true >}}</strong>
-- A | 2 | {{< datetime/current-date trimTime=true >}}
-- B | 1 | {{< datetime/current-date trimTime=true >}}
-- B | 2 | {{< datetime/current-date trimTime=true >}}
-- <strong class="req normal green">A | 1 | {{< datetime/current-date offset=-1 trimTime=true >}}</strong>
-- A | 2 | {{< datetime/current-date offset=-1 trimTime=true >}}
-- B | 1 | {{< datetime/current-date offset=-1 trimTime=true >}}
-- B | 2 | {{< datetime/current-date offset=-1 trimTime=true >}}
-- <strong class="req normal green">A | 1 | {{< datetime/current-date offset=-2 trimTime=true >}}</strong>
-- A | 2 | {{< datetime/current-date offset=-2 trimTime=true >}}
-- B | 1 | {{< datetime/current-date offset=-2 trimTime=true >}}
-- B | 2 | {{< datetime/current-date offset=-2 trimTime=true >}}
-- <strong class="req normal green">A | 1 | {{< datetime/current-date offset=-3 trimTime=true >}}</strong>
-- A | 2 | {{< datetime/current-date offset=-3 trimTime=true >}}
-- B | 1 | {{< datetime/current-date offset=-3 trimTime=true >}}
-- B | 2 | {{< datetime/current-date offset=-3 trimTime=true >}}
-- <strong class="req normal green">A | 1 | {{< datetime/current-date offset=-4 trimTime=true >}}</strong>
-- A | 2 | {{< datetime/current-date offset=-4 trimTime=true >}}
-- B | 1 | {{< datetime/current-date offset=-4 trimTime=true >}}
-- B | 2 | {{< datetime/current-date offset=-4 trimTime=true >}}
-- <strong class="req normal green">A | 1 | {{< datetime/current-date offset=-5 trimTime=true >}}</strong>
-- A | 2 | {{< datetime/current-date offset=-5 trimTime=true >}}
-- B | 1 | {{< datetime/current-date offset=-5 trimTime=true >}}
-- B | 2 | {{< datetime/current-date offset=-5 trimTime=true >}}
-- <strong class="req normal green">A | 1 | {{< datetime/current-date offset=-6 trimTime=true >}}</strong>
-- A | 2 | {{< datetime/current-date offset=-6 trimTime=true >}}
-- B | 1 | {{< datetime/current-date offset=-6 trimTime=true >}}
-- B | 2 | {{< datetime/current-date offset=-6 trimTime=true >}}
-- <strong class="req normal green">A | 1 | {{< datetime/current-date offset=-7 trimTime=true >}}</strong>
-- A | 2 | {{< datetime/current-date offset=-7 trimTime=true >}}
-- B | 1 | {{< datetime/current-date offset=-7 trimTime=true >}}
-- B | 2 | {{< datetime/current-date offset=-7 trimTime=true >}}
-  {{% /columns %}}
+- <strong class="req normal green">A | cnc | {{< datetime/current-date trimTime=true >}}</strong>
+- A | wld | {{< datetime/current-date trimTime=true >}}
+- B | cnc | {{< datetime/current-date trimTime=true >}}
+- B | wld | {{< datetime/current-date trimTime=true >}}
+- <strong class="req normal green">A | cnc | {{< datetime/current-date offset=-1 trimTime=true >}}</strong>
+- A | wld | {{< datetime/current-date offset=-1 trimTime=true >}}
+- B | cnc | {{< datetime/current-date offset=-1 trimTime=true >}}
+- B | wld | {{< datetime/current-date offset=-1 trimTime=true >}}
+- <strong class="req normal green">A | cnc | {{< datetime/current-date offset=-2 trimTime=true >}}</strong>
+- A | wld | {{< datetime/current-date offset=-2 trimTime=true >}}
+- B | cnc | {{< datetime/current-date offset=-2 trimTime=true >}}
+- B | wld | {{< datetime/current-date offset=-2 trimTime=true >}}
+- <strong class="req normal green">A | cnc | {{< datetime/current-date offset=-3 trimTime=true >}}</strong>
+- A | wld | {{< datetime/current-date offset=-3 trimTime=true >}}
+- B | cnc | {{< datetime/current-date offset=-3 trimTime=true >}}
+- B | wld | {{< datetime/current-date offset=-3 trimTime=true >}}
+- <strong class="req normal green">A | cnc | {{< datetime/current-date offset=-4 trimTime=true >}}</strong>
+- A | wld | {{< datetime/current-date offset=-4 trimTime=true >}}
+- B | cnc | {{< datetime/current-date offset=-4 trimTime=true >}}
+- B | wld | {{< datetime/current-date offset=-4 trimTime=true >}}
+- <strong class="req normal green">A | cnc | {{< datetime/current-date offset=-5 trimTime=true >}}</strong>
+- A | wld | {{< datetime/current-date offset=-5 trimTime=true >}}
+- B | cnc | {{< datetime/current-date offset=-5 trimTime=true >}}
+- B | wld | {{< datetime/current-date offset=-5 trimTime=true >}}
+- <strong class="req normal green">A | cnc | {{< datetime/current-date offset=-6 trimTime=true >}}</strong>
+- A | wld | {{< datetime/current-date offset=-6 trimTime=true >}}
+- B | cnc | {{< datetime/current-date offset=-6 trimTime=true >}}
+- B | wld | {{< datetime/current-date offset=-6 trimTime=true >}}
+- <strong class="req normal green">A | cnc | {{< datetime/current-date offset=-7 trimTime=true >}}</strong>
+- A | wld | {{< datetime/current-date offset=-7 trimTime=true >}}
+- B | cnc | {{< datetime/current-date offset=-7 trimTime=true >}}
+- B | wld | {{< datetime/current-date offset=-7 trimTime=true >}}
+
+{{% /columns %}}
 
 ---
 
