@@ -43,7 +43,7 @@ Use the following command flags to identify
   to use in the partition template.
 - `--template-tag-bucket`: An [InfluxDB tag](/influxdb/cloud-dedicated/reference/glossary/#tag)
   and number of "buckets" to group tag values into.
-  Provide they tag key and the number of buckets to bucket tag values into
+  Provide the tag key and the number of buckets to bucket tag values into
   separated by a comma: `tagKey,N`.
 - `--template-timeformat`: A [Rust strftime date and time](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
   string that specifies the time format in the partition template and determines

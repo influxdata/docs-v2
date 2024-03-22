@@ -15,7 +15,7 @@ A partition key uniquely identifies a partition and is used to name the partitio
 Parquet file in the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
 
 A partition template consists of 1-8 _template parts_---dimensions to partition data by.
-There are three types of parts:
+There are three types of template parts:
 
 - **tag**: An [InfluxDB tag](/influxdb/cloud-dedicated/reference/glossary/#tag)
   to partition by.
@@ -100,7 +100,7 @@ hash(tagValue) % N
 Generated partition keys include the unique _tag bucket identifier_ specific to
 each partition.
 
-**Supported number of tag buckets**: 1-100,000
+**Supported number of tag buckets**: 1-1,000
 
 {{% note %}}
 Tag buckets should be used to partition by high cardinality tags or tags with an
