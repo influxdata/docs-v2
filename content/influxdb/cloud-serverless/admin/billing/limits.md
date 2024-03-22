@@ -123,6 +123,9 @@ Limits include:
 - **Write request limits**:
   - 50 MB maximum HTTP request batch size (compressed or uncompressed--defined in the `Content-Encoding` header)
   - 250 MB maximum HTTP request batch size after decompression
+- **Write partition limit**:
+  - Write to 5000 distinct partitions per bucket every 15 minutes
+    (data is partitioned by day)
 - **Query processing time**: 90 seconds
 - **Total query time**: 1500 seconds of _total_ query time every 30 seconds
 - **Task processing time**: 150 seconds
