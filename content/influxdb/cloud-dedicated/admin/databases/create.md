@@ -32,11 +32,17 @@ to create a database in your {{< product-name omit=" Clustered" >}} cluster.
     - _Optional_: Database table (measurement) limit _(default is 500)_
     - _Optional_: Database column limit _(default is 250)_
     - _Optional_: [InfluxDB tags](/influxdb/cloud-dedicated/reference/glossary/#tag)
-      to use in the partition template _(supports up to 7 different tags)_
+      to use in the partition template
+    - _Optional_: [InfluxDB tag buckets](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
+      to use in the partition template
     - _Optional_: A [Rust strftime date and time string](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
       that specifies the time format in the partition template and determines
       the time interval to partition by _(default is `%Y-%m-%d`)_
     - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
+
+    {{% note %}}
+_{{< product-name >}} supports up to 7 total tags or tag buckets in the partition template._
+    {{% /note %}}
 
 {{% code-placeholders "DATABASE_NAME|30d|500|200" %}}
 ```sh
@@ -46,6 +52,8 @@ influxctl database create \
   --max-columns 250 \
   --template-tag tag1 \
   --template-tag tag2 \
+  --template-tag-bucket tag3,100 \
+  --template-tag-bucket tag4,300 \
   --template-timeformat '%Y-%m-%d' \
   DATABASE_NAME
 ```
@@ -209,8 +217,8 @@ format in the InfluxDB v3 storage engine. By default, data is partitioned by day
 but, depending on your schema and workload, customizing the partitioning
 strategy can improve query performance.
 
-Use the `--template-tag` and `--template-timeformat` flags to define partition template
-parts used to generate partition keys for the database.
+Use the `--template-tag`, `--template-tag-bucket, and `--template-timeformat`
+flags to define partition template parts used to generate partition keys for the database.
 For more information, see [Manage data partitioning](/influxdb/cloud-dedicated/admin/custom-partitions/).
 
 {{% note %}}
