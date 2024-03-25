@@ -28,8 +28,7 @@ and provide the following:
 - The [organization name or ID](/influxdb/v2/admin/organizations/view-orgs/) to
   add the new user to.
 - A username for the new user with the `--name, -n` flag.
-- _Optional:_ A password for the new user. If no password is provided, the new
-  user will be prompted to provide one.
+- _Optional_: the `--password, -p` flag and a password for the user. If you don't provide a password, the new user will be prompted to provide one.
 
 {{< cli/influx-creds-note >}}
 

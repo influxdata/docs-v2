@@ -27,7 +27,7 @@ to update a password for a user. Provide the following:
   `INFLUX_TOKEN` environment variable, or the `--token, -t` flag.
 - The username (with the `--name, -n` flag) or the user ID (with the `--id, -i` flag).
   View usernames and IDs in the output of `influx user list`.
-- A new password with the `--password, -p` flag. If no password flag is provided
+- _Optional_: the `--password, -p` flag and the new password. If you don't provide a password flag,
   enter the new password when prompted.
 
 ##### Update a password

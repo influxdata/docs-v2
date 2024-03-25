@@ -47,7 +47,7 @@ to update an organization. Provide the following:
 - _Optional:_ The updated description for the organization with the
   `--description, -d` flag.
 
-##### Update the name of a organization
+##### Update the name of an organization
 
 {{% code-placeholders "ORG_ID|NEW_ORG_(NAME|DESCRIPTION)" %}}
 ```sh
