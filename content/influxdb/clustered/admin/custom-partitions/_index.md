@@ -6,7 +6,7 @@ description: >
   specific schema and workload.
 menu:
   influxdb_clustered:
-    parent: Administer InfluxDB Cloud
+    parent: Administer InfluxDB Clustered
 weight: 103
 influxdb/clustered/tags: [storage]
 related:

@@ -29,14 +29,18 @@ Users cannot be deleted from the InfluxDB UI.
 ## Delete a user using the influx CLI
 
 Use the [`influx user delete` command](/influxdb/v2/reference/cli/influx/user/delete)
-to delete a user. Deleting a user requires the following:
+to delete a user. Provide the following:
 
+- An [operator token](/influxdb/v2/admin/tokens/#operator-token) using your
+  [`influx` CLI connection configuration](/influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials),
+  `INFLUX_TOKEN` environment variable, or the `--token, -t` flag.
 - The user ID _(provided in the output of `influx user list`)_
 
+{{% code-placeholders "USER_ID" %}}
 ```sh
-# Syntax
-influx user delete -i <user-id>
-
-# Example
-influx user delete -i 034ad714fdd6f000
+influx user delete --id USER_ID
 ```
+{{% /code-placeholders %}}
+
+Replace {{% code-placeholder-key %}}`USER_ID`{{% /code-placeholder-key %}} with
+the ID of the user to delete.

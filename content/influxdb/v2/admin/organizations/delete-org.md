@@ -29,14 +29,19 @@ to delete an organization.
 ## Delete an organization using the influx CLI
 
 Use the [`influx org delete` command](/influxdb/v2/reference/cli/influx/org/delete)
-to delete an organization. Deleting an organization requires the following:
+to delete an organization. Provide the following:
 
-- The organization ID _(provided in the output of `influx org list`)_
+- An [operator token](/influxdb/v2/admin/tokens/#operator-token) using your
+  [`influx` CLI connection configuration](/influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials),
+  `INFLUX_TOKEN` environment variable, or the `--token, -t` flag.
+- The [ID of the organization](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
+  to delete
 
+{{% code-placeholders "ORG_ID" %}}
 ```sh
-# Syntax
-influx org delete -i <org-id>
-
-# Example
-influx org delete -i 034ad714fdd6f000
+influx org delete -i ORG_ID
 ```
+{{% /code-placeholders %}}
+
+Replace {{% code-placeholder-key %}}`ORG_ID`{{% /code-placeholder-key %}} with
+the ID of the organization to delete.

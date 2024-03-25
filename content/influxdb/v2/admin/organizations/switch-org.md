@@ -11,7 +11,9 @@ aliases:
   - /influxdb/v2/organizations/switch-org/
 ---
 
-Use the InfluxDB user interface (UI) to switch from one organization to another. The organization you're currently viewing determines what dashboards, tasks, buckets, members, and other assets you can access.
+Use the InfluxDB user interface (UI) to switch from one organization to another.
+The organization you're currently viewing determines what dashboards, tasks,
+buckets, members, and other assets you can access.
 
 ## Switch organizations in the InfluxDB UI
 

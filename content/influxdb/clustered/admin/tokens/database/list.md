@@ -5,7 +5,7 @@ description: >
   to list tokens in your InfluxDB cluster.
 menu:
   influxdb_clustered:
-    parent: Manage database tokens
+    parent: Database tokens
 weight: 202
 list_code_example: |
   ```sh

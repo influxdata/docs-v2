@@ -11,19 +11,16 @@ aliases:
   - /influxdb/v2/users/view-users/
 ---
 
-Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
-to view users.
-
-## View users in the InfluxDB UI
-
-{{% note %}}
-There is no list of users in the InfluxDB UI.
-{{% /note %}}
+Use the `influx` command line interface (CLI) to view users.
 
 ## View users using the influx CLI
 
 Use the [`influx user list` command](/influxdb/v2/reference/cli/influx/user/list)
-to view users.
+to view users. Provide the following:
+
+- An [operator token](/influxdb/v2/admin/tokens/#operator-token) using your
+  [`influx` CLI connection configuration](/influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials),
+  `INFLUX_TOKEN` environment variable, or the `--token, -t` flag.
 
 ```sh
 influx user list

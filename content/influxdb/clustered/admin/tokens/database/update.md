@@ -5,7 +5,7 @@ description: >
   to update a database token's permissions in your InfluxDB cluster.
 menu:
   influxdb_clustered:
-    parent: Manage database tokens
+    parent: Database tokens
 weight: 201
 list_code_example: |
   ```sh

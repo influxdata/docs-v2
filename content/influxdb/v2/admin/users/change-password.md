@@ -20,19 +20,29 @@ User passwords cannot be updated in the InfluxDB UI.
 ## Change your password using the influx CLI
 
 Use the [`influx user password` command](/influxdb/v2/reference/cli/influx/user/password)
-to update a password for a user. To update a password, you need the following:
+to update a password for a user. Provide the following:
 
-- Username or user ID _(provided in the output of `influx user list`)_
-- New password
-- [Operator token](/influxdb/v2/admin/tokens/#operator-token)
+- An [operator token](/influxdb/v2/admin/tokens/#operator-token) using your
+  [`influx` CLI connection configuration](/influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials),
+  `INFLUX_TOKEN` environment variable, or the `--token, -t` flag.
+- The username (with the `--name, -n` flag) or the user ID (with the `--id, -i` flag).
+  View usernames and IDs in the output of `influx user list`.
+- _Optional_: the `--password, -p` flag and the new password. If you don't provide a password flag,
+  enter the new password when prompted.
 
 ##### Update a password
+
+{{% code-placeholders "USERNAME|PASSWORD" %}}
 ```sh
-# Syntax
-influx user password -n <username> -t <token>
-
-# Example
-influx user password -n johndoe -t My5uPErSecR37t0k3n
+influx user password \
+  --name USERNAME \
+  --password PASSWORD
 ```
+{{% /code-placeholders %}}
 
-When prompted, enter and confirm the new password.
+Replace the following:
+
+- {{% code-placeholder-key %}}`USERNAME`{{% /code-placeholder-key %}}:
+  The username to change the password for
+- {{% code-placeholder-key %}}`PASSWORD`{{% /code-placeholder-key %}}:
+  The new password
