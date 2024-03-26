@@ -132,7 +132,7 @@ jobs:
         GITHUB_BRANCH: ${{ github.ref }}  
       run: |
         cd /tmp
-        wget https://dl.influxdata.com/platform/nightlies/influx_nightly_linux_amd64.tar.gz
+        wget https://download.influxdata.com/platform/nightlies/influx_nightly_linux_amd64.tar.gz
         tar xvfz influx_nightly_linux_amd64.tar.gz
         sudo cp influx_nightly_linux_amd64/influx /usr/local/bin/
         cd $GITHUB_WORKSPACE
