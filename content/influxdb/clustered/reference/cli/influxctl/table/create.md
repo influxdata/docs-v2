@@ -90,3 +90,12 @@ influxctl table create \
 
 _For more information about custom partitioning, see
 [Manage data partitioning](/influxdb/clustered/admin/custom-partitions/)._
+
+{{% expand "View command updates" %}}
+
+#### v2.7.0 {date="2024-03-26"}
+
+- Introduce the `--template-tag-bucket` flag to group tag values into buckets
+  and partition by each tag bucket.
+
+{{% /expand %}}
