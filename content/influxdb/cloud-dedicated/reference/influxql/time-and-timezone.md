@@ -81,7 +81,7 @@ InfluxQL requires a whitespace between the `+` operators `-` and the duration li
 
 ## Query time range
 
-To specify the time range of a query, use conditional expressions in the 
+To specify the time range of a query, use conditional expressions in the
 [`WHERE` clause](/inflxudb/cloud-dedicated/reference/influxql/where/) that
 compare the value of the `time` column to an absolute timestamp or a relative
 timestamp.
@@ -132,6 +132,12 @@ Currently, InfluxQL supports the `AND` logical operator to define query time bou
 but does not support using the `OR` logical operator to query multiple time ranges.
 {{% /note %}}
 
+### Parameterized queries
+
+- For InfluxDB v3 Flight clients that support parameterized queries,
+- You can use parameters in InfluxQL queries.
+- InfluxQL supports substituting parameters for date-time strings.
+
 ## Query examples
 
 The following examples use the
@@ -151,7 +157,7 @@ WHERE
   AND time <= '2022-01-01T12:00:00Z'
 ```
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: home
 {{% /influxql/table-meta %}}
 
@@ -178,9 +184,9 @@ WHERE
   AND time <= '2022-01-01 12:00:00'
 ```
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: home
-{{% /influxql/table-meta %}} 
+{{% /influxql/table-meta %}}
 
 | time                 |  co |  hum | room    | temp |
 | :------------------- | --: | ---: | :------ | ---: |
@@ -206,9 +212,9 @@ WHERE
   AND time <= 1641038400000000000
 ```
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: home
-{{% /influxql/table-meta %}} 
+{{% /influxql/table-meta %}}
 
 | time                 |  co |  hum | room    | temp |
 | :------------------- | --: | ---: | :------ | ---: |
@@ -233,9 +239,9 @@ WHERE
   AND time <= 1641038400s
 ```
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: home
-{{% /influxql/table-meta %}} 
+{{% /influxql/table-meta %}}
 
 | time                 |  co |  hum | room    | temp |
 | :------------------- | --: | ---: | :------ | ---: |
@@ -255,9 +261,9 @@ name: home
 SELECT * FROM home WHERE time >= '2022-01-01T20:00:00Z' - 2h
 ```
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: home
-{{% /influxql/table-meta %}} 
+{{% /influxql/table-meta %}}
 
 | time                 |  co |  hum | room        | temp |
 | :------------------- | --: | ---: | :---------- | ---: |
