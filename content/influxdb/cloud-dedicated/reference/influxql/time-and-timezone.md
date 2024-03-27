@@ -132,8 +132,6 @@ Currently, InfluxQL supports the `AND` logical operator to define query time bou
 but does not support using the `OR` logical operator to query multiple time ranges.
 {{% /note %}}
 
-### Parameterized queries
-
 ## Query examples
 
 The following examples use the
