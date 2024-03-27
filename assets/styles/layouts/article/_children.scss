@@ -18,3 +18,7 @@
   }
   & > hr:last-child {display: none}
 }
+
+ul.children-list + ul {
+  margin-top: -1.25rem;
+}

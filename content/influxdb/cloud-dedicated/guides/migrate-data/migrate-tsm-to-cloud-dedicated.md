@@ -169,7 +169,7 @@ to complete the migration.
 
     1. [Create a database](/influxdb/cloud-dedicated/admin/databases/create/)
         **to migrate data to**.
-    2. [Create a token](/influxdb/cloud-dedicated/admin/tokens/create/)
+    2. [Create a database token](/influxdb/cloud-dedicated/admin/tokens/database/create/)
         with **write access** to the database you want to migrate to.
 
 2.  **In the InfluxDB Cloud (TSM) organization you're migrating data _from_**:

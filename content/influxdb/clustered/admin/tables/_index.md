@@ -7,7 +7,7 @@ description: >
   In previous versions of InfluxDB, tables were known as "measurements."
 menu:
   influxdb_clustered:
-    parent: Administer InfluxDB Cloud
+    parent: Administer InfluxDB Clustered
 weight: 101
 influxdb/clustered/tags: [tables]
 ---

@@ -1,16 +1,18 @@
 ---
-title: List tokens
+title: List database tokens
 description: >
   Use the [`influxctl token list` command](/influxdb/clustered/reference/cli/influxctl/token/list/)
   to list tokens in your InfluxDB cluster.
 menu:
   influxdb_clustered:
-    parent: Manage tokens
+    parent: Database tokens
 weight: 202
 list_code_example: |
   ```sh
   influxctl token list
   ```
+aliases:
+  - /influxdb/clustered/admin/tokens/list/
 ---
 
 Use the [`influxctl token list` command](/influxdb/clustered/reference/cli/influxctl/token/list/)

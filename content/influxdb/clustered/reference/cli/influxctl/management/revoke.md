@@ -7,6 +7,8 @@ menu:
   influxdb_clustered:
     parent: influxctl management
 weight: 301
+related:
+  - /influxdb/clustered/admin/tokens/management/revoke/
 ---
 
 The `influxctl management revoke` command revokes management token access

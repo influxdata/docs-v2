@@ -105,7 +105,9 @@ print(dataframe)
 2.  Replace the following configuration values:
 
     - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to query
-    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an InfluxDB [token](/influxdb/cloud-dedicated/admin/tokens/) with _read_ permission on the specified database
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+      an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+      with _read_ permission on the specified database
 
 3.  In your terminal, use the Python interpreter to run the file:
 
@@ -211,7 +213,9 @@ print(dataframe.to_markdown())
 Replace the following configuration values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to query.
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: An InfluxDB [token](/influxdb/cloud-dedicated/admin/tokens/) with read permission on the specified database.
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+  An InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  with read permission on the specified database.
   
 ### Downsample time series
 

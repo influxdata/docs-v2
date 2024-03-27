@@ -92,7 +92,9 @@ assert 'logical_plan' in df.plan_type.values, "Expect logical_plan"
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
-- {{% code-placeholder-key %}}`TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the specified database
+- {{% code-placeholder-key %}}`TOKEN`{{% /code-placeholder-key %}}:
+  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  with sufficient permissions to the specified database
 
 {{% /expand %}}
 {{% /expand-wrapper %}}

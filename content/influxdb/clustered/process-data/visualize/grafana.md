@@ -91,8 +91,8 @@ When creating an InfluxDB data source that uses SQL to query data:
 
 2.  Under **InfluxDB Details**:
 
-    - **Database**: Provide a default database name to query.
-    - **Token**: Provide an [API token](/influxdb/clustered/admin/tokens/)
+    - **Database**: Provide a default [database](/influxdb/clustered/admin/databases/) name to query.
+    - **Token**: Provide a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
       with read access to the databases you want to query.
 
 3.  Click **Save & test**.
@@ -117,10 +117,10 @@ When creating an InfluxDB data source that uses InfluxQL to query data:
 
 2.  Under **InfluxDB Details**:
 
-    - **Database**: Provide a default database name to query.
+    - **Database**: Provide a default [database](/influxdb/clustered/admin/databases/) name to query.
     - **User**: Provide an arbitrary string.
       _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
-    - **Password**: Provide an [API token](/influxdb/clustered/admin/tokens/)
+    - **Password**: Provide a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
       with read access to the databases you want to query.
     - **HTTP Method**: Choose one of the available HTTP request methods to use when querying data:
 
@@ -206,6 +206,8 @@ To learn more, see [Query Data](/influxdb/clustered/query-data/sql/).
 <!-------------------------------- END INFLUXQL ------------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
+
+{{< youtube "rSsouoNsNDs" >}}
 
 To learn about query management and inspection in Grafana, see the
 [Grafana Explore documentation](https://grafana.com/docs/grafana/latest/explore/).

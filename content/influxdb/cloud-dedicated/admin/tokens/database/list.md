@@ -1,16 +1,18 @@
 ---
-title: List tokens
+title: List database tokens
 description: >
   Use the [`influxctl token list` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/list/)
   to list tokens in your InfluxDB Cloud Dedicated cluster.
 menu:
   influxdb_cloud_dedicated:
-    parent: Manage tokens
+    parent: Database tokens
 weight: 202
 list_code_example: |
   ```sh
   influxctl token list
   ```
+aliases:
+  - /influxdb/cloud-dedicated/admin/tokens/list/
 ---
 
 Use the [`influxctl token list` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/list/)
