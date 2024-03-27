@@ -80,19 +80,21 @@ To parameterize time bounds, substitute a parameter for a timestamp literal--for
 ```sql
 SELECT *
 FROM home
-WHERE time >= $min_time
-AND room = $room`
+WHERE time >= $min_time`
 ```
 
-For the parameter value, specify a timestamp literal as a string--for example:
+For the parameter value, specify the timestamp literal as a string--for example:
+
+{{% influxdb/custom-timestamps %}}
 
 ```go
 // Assign a timestamp string literal to the min_time parameter.
 parameters := influxdb3.QueryParameters{
-    "room": "Kitchen",
     "min_time": "2024-03-18 00:00:00.00",
 }
 ```
+
+{{% /influxdb/custom-timestamps %}}
 
 ### Not supported
 
@@ -125,40 +127,39 @@ to your {{% product-name %}} database before running the example queries.
 
 To use a parameterized query, do the following:
 
-1.  In your query text, use the `$parameter` syntax to reference a parameter name--for example,
-the following SQL query contains `$room` and `$min_temp` parameter placeholders:
+1. In your query text, use the `$parameter` syntax to reference a parameter name--for example,
+the following query contains `$room` and `$min_temp` parameter placeholders:
 
-```sql
-SELECT *
-FROM home
-WHERE time > now() - INTERVAL '7 days'
-AND temp >= $min_temp
-AND room = $room
-```
+   ```sql
+   SELECT *
+   FROM home
+   WHERE time > now() - INTERVAL '7 days'
+   AND temp >= $min_temp
+   AND room = $room
+   ```
 
-2.  Provide a value for each parameter name.
-    If you don't assign a value for a parameter, InfluxDB returns an error.
-    The syntax for providing parameter values depends on the client you use--for example:
+2. Provide a value for each parameter name.
+   If you don't assign a value for a parameter, InfluxDB returns an error.
+   The syntax for providing parameter values depends on the client you use--for example:
 
-<!-- Using code-tabs because I expect to add more client examples soon -->
+   <!-- I expect to add more client examples soon -->
 
-    {{% code-tabs-wrapper %}}
-{{% code-tabs %}}
-[Go](#)
-{{% /code-tabs %}}
-
-{{% code-tab-content %}}
-
-```go
-// Define a QueryParameters struct--a map of parameters to input values.
-parameters := influxdb3.QueryParameters{
-    "room": "Kitchen",
-    "min_temp": 20.0,
-}
-```
-
-{{% /code-tab-content %}}
-    {{% /code-tabs-wrapper %}}
+   {{< code-tabs-wrapper >}}
+   {{% code-tabs %}}
+   [Go](#)
+   {{% /code-tabs %}}
+   {{% code-tab-content %}}
+   <!------------------------ BEGIN GO ------------------------------------------->
+   ```go
+   // Define a QueryParameters struct--a map of parameters to input values.
+   parameters := influxdb3.QueryParameters{
+       "room": "Kitchen",
+       "min_temp": 20.0,
+   }
+   ```
+   <!-------------------------- END GO ------------------------------------------->
+   {{% /code-tab-content %}}
+   {{< /code-tabs-wrapper >}}
 
 After InfluxDB receives your request and parses the query, it executes the query as
 
@@ -191,7 +192,7 @@ The following examples show how to use client libraries to execute parameterized
 
 <!-- Using code-tabs because I expect to add more client examples soon -->
 
-{{% code-tabs-wrapper %}}
+{{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Go](#)
 {{% /code-tabs %}}
@@ -273,24 +274,20 @@ func main() {
         AND temp >= $min_temp
         AND room = $room`
 
-    // Define a QueryParameters struct--a map that assigns placeholder names to input values.
+    // Define a QueryParameters struct--a map of placeholder names to input values.
     parameters := influxdb3.QueryParameters{
         "room": "Kitchen",
         "min_temp": 20.0,
     }
-
-    Query(query, parameters, influxdb3.QueryOptions{
-        QueryType: influxdb3.FlightSQL,
-    })
 }
 ```
 
 {{% /code-tab-content %}}
-{{% /code-tabs-wrapper %}}
+{{< /code-tabs-wrapper >}}
 
 ## Client support for parameterized queries
 
-- Not all [InfluxDB v3 Flight clients](/influxdb/cloud-serverless/reference/client-libraries/v3/) support parameterized queries.
+- Not all [InfluxDB v3 Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/v3/) support parameterized queries.
 - InfluxDB doesn't currently support parameterized queries or DataFusion prepared statements for Flight SQL   or Flight SQL clients.
 - InfluxDB v3 SQL and InfluxQL parameterized queries aren’t supported in InfluxDB v1 and v2 clients.
 
