@@ -10,6 +10,8 @@ menu:
     identifier: parameterized-queries-influxql
 influxdb/cloud-serverless/tags: [query, security, influxql]
 list_code_example: |
+  ##### Using Go and the influxdb3-go client
+
   ```go
   // Use the $parameter syntax to reference parameters in a query.
   // The following InfluxQL query contains $room and $min_time parameters.
