@@ -2,12 +2,35 @@
 title: Use parameterized queries with InfluxQL
 description: >
   Use parameterized queries to prevent injection attacks and make queries more reusable.
-weight: 104
+weight: 404
 menu:
   influxdb_cloud_dedicated:
     name: Parameterized queries
-    parent: Query data
+    parent: Query with InfluxQL
+    identifier: parameterized-queries-influxql
 influxdb/cloud-dedicated/tags: [query, security, influxql]
+list_code_example: |
+  ```go
+  // Use the $parameter syntax to reference parameters in a query.
+  // The following InfluxQL query contains $room and $min_time parameters.
+      query := `
+          SELECT * FROM home
+          WHERE time >= $min_time
+            AND temp >= $min_temp
+            AND room = $room`
+
+  // Assign parameter names to input data values.
+  parameters := influxdb3.QueryParameters{
+          "room": "Kitchen",
+          "min_temp": 20.0,
+          "min_time": "2024-03-18 00:00:00.00",
+  }
+
+  // Call the client's function to query InfluxDB with parameters and the
+  // the InfluxQL QueryType.
+  iterator, err := client.QueryWithParameters(context.Background(), query, parameters,
+    influxdb3.WithQueryType(influxdb3.InfluxQL))
+  ```
 ---
 
 Parameterized queries in {{% product-name %}} let you dynamically and safely change values in a query.
@@ -38,7 +61,7 @@ The value that you assign to a parameter must also be one of the [parameter data
 {"temp": 22.0}
 ```
 
-The InfluxDB Querier parses the query with the parameter placeholders, and then generates query plans that replace the placeholders with the values that you provide. This separation of query structure from input data ensures that input is treated as one of the allowed [data types](#parameter-data-types) and not as executable code.
+The InfluxDB Querier parses the query text with the parameter placeholders, and then generates query plans that replace the placeholders with the values that you provide. This separation of query structure from input data ensures that input is treated as one of the allowed [data types](#parameter-data-types) and not as executable code.
 
 ## Parameter data types
 
@@ -72,26 +95,21 @@ parameters := influxdb3.QueryParameters{
 
 ### Not supported
 
-Some data types don't support parameters--for example:
-
-- In InfluxQL queries, InfluxDB doesn't support parameter substitution for durations or inside of duration values--for example, the following won’t work:
+Some data types don't support parameters--for example, in InfluxQL queries, InfluxDB doesn't support parameter substitution for durations or inside of duration values--for example, the following won’t work:
 
   ```go
   query := `
-      SELECT avg(temp) as temp, room,
-        DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) as _time
+      SELECT avg(temp) as temp
       FROM home
       WHERE time >= now() - $days
-      AND room = $room
-      GROUP BY _time, room`
+      GROUP BY time(2h), room`
 
   parameters := influxdb3.QueryParameters{
-      "room": "Kitchen",
       "days": "7d",
   }
   ```
 
-## Parametize an SQL query
+## Parameterize an InfluxQL query
 
 {{% note %}}
 #### Sample data
@@ -125,7 +143,7 @@ AND room = $room
     {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
 [Go](#)
-{{% code-tabs %}}
+{{% /code-tabs %}}
 
 {{% code-tab-content %}}
 
@@ -140,7 +158,7 @@ parameters := influxdb3.QueryParameters{
 {{% /code-tab-content %}}
     {{% /code-tabs-wrapper %}}
 
-After InfluxDB receives your request and parses the SQL, it executes the query as
+After InfluxDB receives your request and parses the query, it executes the query as
 
 ```sql
 SELECT *
@@ -150,7 +168,7 @@ AND temp >= 20.0
 AND room = 'Kitchen'
 ```
 
-## Execute parameterized SQL queries
+## Execute parameterized InfluxQL queries
 
 {{% note %}}
 #### Sample data
@@ -174,7 +192,7 @@ The following examples show how to use client libraries to execute parameterized
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
 [Go](#)
-{{% code-tabs %}}
+{{% /code-tabs %}}
 
 {{% code-tab-content %}}
 
@@ -246,7 +264,7 @@ func Query(query string, parameters influxdb3.QueryParameters,
 func main() {
     // Use the $placeholder syntax in a query to reference parameter placeholders
     // for input data.
-    // The following SQL query contains the placeholders $room and $min_temp.
+    // The following InfluxQL query contains the placeholders $room and $min_temp.
     query := `
         SELECT *
         FROM home
