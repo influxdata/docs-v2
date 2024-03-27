@@ -54,7 +54,7 @@ SELECT * FROM measurement WHERE temp > $temp
 ```
 
 When executing a query, you specify parameter name-value pairs.
-The value that you assign to a parameter must also be one of the [parameter data types](#parameter-data-types).
+The value that you assign to a parameter must be one of the [parameter data types](#parameter-data-types).
 
 ```go
 {"temp": 22.0}
