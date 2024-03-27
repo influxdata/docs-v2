@@ -11,7 +11,7 @@ influxdb/cloud-dedicated/tags: [query, security, influxql]
 ---
 
 Parameterized queries in {{% product-name %}} let you dynamically and safely change values in a query.
-If your application code allows user input, such as conditional expressions, to customize a query, use parameterized queries to make sure untrusted input is processed strictly as data and not executed as code.
+If your application code allows user input to customize values or expressions in a query, use a parameterized query to make sure untrusted input is processed strictly as data and not executed as code.
 
 Parameterized queries:
 
@@ -38,11 +38,11 @@ The value that you assign to a parameter must also be one of the [parameter data
 {"temp": 22.0}
 ```
 
-The InfluxDB Querier parses the query with the parameter placeholders, and then generates query plans that enforce the allowed data types and replace the placeholders with the input values. This separation of query structure from input data ensures that input is treated as data and not as executable code.
+The InfluxDB Querier parses the query with the parameter placeholders, and then generates query plans that replace the placeholders with the values that you provide. This separation of query structure from input data ensures that input is treated as one of the allowed [data types](#parameter-data-types) and not as executable code.
 
 ## Parameter data types
 
-In InfluxQL queries, you can use parameters in **conditional expressions**, in place of the following data types:
+In InfluxQL queries, you can use parameters in `WHERE` clause **predicate expressions**, in place of the following data types:
 
 - Null
 - Boolean
@@ -53,21 +53,19 @@ In InfluxQL queries, you can use parameters in **conditional expressions**, in p
 
 ### Time expressions
 
-To parameterize time bounds, substitute a parameter for a timestamp literal in an InfluxQL query--for example:
+To parameterize time bounds, substitute a parameter for a timestamp literal--for example:
 
 ```sql
 SELECT *
 FROM home
-WHERE time >= $min_time
-AND room = $room`
+WHERE time >= $min_time`
 ```
 
-For the parameter value, specify a timestamp literal as a string--for example:
+For the parameter value, specify the timestamp literal as a string--for example:
 
 ```go
 // Assign a timestamp string literal to the min_time parameter.
 parameters := influxdb3.QueryParameters{
-    "room": "Kitchen",
     "min_time": "2024-03-18 00:00:00.00",
 }
 ```
@@ -108,7 +106,7 @@ to your {{% product-name %}} database before running the example queries.
 To use a parameterized query, do the following:
 
 1.  In your query text, use the `$parameter` syntax to reference a parameter name--for example,
-the following InfluxQL query contains `$room` and `$min_temp` placeholders.
+the following InfluxQL query contains `$room` and `$min_temp` parameter placeholders:
 
 ```sql
 SELECT *
@@ -118,8 +116,9 @@ AND temp >= $min_temp
 AND room = $room
 ```
 
-2.  Assign parameter names to parameter values.
-    The syntax for assigning parameter names to input values depends on the client you use--for example:
+2.  Provide a value for each parameter name.
+    If you don't assign a value for a parameter, InfluxDB returns an error.
+    The syntax for providing parameter values depends on the client you use--for example:
 
 <!-- Using code-tabs because I expect to add more client examples soon -->
 
@@ -191,7 +190,8 @@ import (
     "github.com/InfluxCommunity/influxdb3-go/influxdb3"
 )
 
-func Query(query string, parameters influxdb3.QueryParameters, options influxdb3.QueryOptions) error {
+func Query(query string, parameters influxdb3.QueryParameters,
+ options influxdb3.QueryOptions) error {
     url := os.Getenv("INFLUX_HOST")
     token := os.Getenv("INFLUX_TOKEN")
     database := os.Getenv("INFLUX_DATABASE")
@@ -215,13 +215,10 @@ func Query(query string, parameters influxdb3.QueryParameters, options influxdb3
         }
     }(client)
 
-    // Call the client's QueryWithParameters function to send the query and
-    // parameters, query type (FlightSQL or InfluxQL) and retrieve the result.
-    // Although the client library uses the name "FlightSQL" for the query
-    // type, it uses the InfluxDB native Flight API (not Flight SQL) when
-    // sending the request.
+    // Call the client's QueryWithParameters function.
+    // Provide the query, parameters, and the InfluxQL QueryType option.
     iterator, err := client.QueryWithParameters(context.Background(), query,
-       parameters, influxdb3.WithQueryType(options.QueryType))
+    parameters, influxdb3.WithQueryType(options.QueryType))
 
     // Create a buffer for storing rows as you process them.
     w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0)
@@ -235,7 +232,8 @@ func Query(query string, parameters influxdb3.QueryParameters, options influxdb3
         row := iterator.Value()
         // Use Go arrow and time packages to format unix timestamp
         // as a time with timezone layout (RFC3339 format)
-        time := (row["time"].(arrow.Timestamp)).ToTime(arrow.Nanosecond).Format(time.RFC3339)
+        time := (row["time"].(arrow.Timestamp)).
+                ToTime(arrow.Nanosecond).Format(time.RFC3339)
 
         fmt.Fprintf(w, "%s\t%s\t%d\t%.1f\t%.1f\n",
             time, row["room"], row["co"], row["hum"], row["temp"])
