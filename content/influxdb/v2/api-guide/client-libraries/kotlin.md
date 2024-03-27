@@ -13,7 +13,7 @@ menu:
 weight: 201
 ---
 
-Kotlin is an open-source programming language that runs on the Java Virtual Machine (JVM). 
+Kotlin is an open source programming language that runs on the Java Virtual Machine (JVM).
 
 The documentation for this client library is available on GitHub.  
 

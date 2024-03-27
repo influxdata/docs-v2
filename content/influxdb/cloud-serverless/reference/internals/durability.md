@@ -9,7 +9,7 @@ menu:
   influxdb_cloud_serverless:
     name: Data durability
     parent: InfluxDB Cloud internals
-influxdb/cloud-dedicated/tags: [backups, internals]
+influxdb/cloud-serverless/tags: [backups, internals]
 related:
   - https://docs.aws.amazon.com/AmazonS3/latest/userguide/DataDurability.html, AWS S3 Data Durabililty
 ---
@@ -43,7 +43,7 @@ youngest data in the Parquet file ages out of retention.
 ## Data ingest
 
 When data is written to {{< product-name >}}, the data is first written to a
-Write-Ahead-Log (WAL) on locally-attached storage on the ingester node before
+Write-Ahead-Log (WAL) on locally attached storage on the ingester node before
 the write request is acknowledged. After acknowledging the write request, the
 ingester holds the data in memory temporarily and then writes the contents of
 the WAL to Parquet files in object storage and updates the InfluxDB catalog to
@@ -55,7 +55,7 @@ the WAL to the Parquet files before shutting down.
 
 {{< product-name >}} implements the following data backup strategies:
 
-- **Backup of WAL file**: The WAL file is written on locally-attached storage.
+- **Backup of WAL file**: The WAL file is written on locally attached storage.
   If an ingester process fails, the new ingester simply reads the WAL file on
   startup and continues normal operation. WAL files are maintained until their
   contents have been written to the Parquet files in object storage.

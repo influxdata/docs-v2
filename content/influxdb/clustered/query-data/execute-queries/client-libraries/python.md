@@ -61,7 +61,7 @@ Execute queries and retrieve data over the Flight+gRPC protocol, and then proces
 This guide assumes the following prerequisites:
 
 - an {{% product-name %}} [database](/influxdb/clustered/admin/databases/) with data to query
-- a [database token](/influxdb/clustered/admin/tokens/) with _read_ access to the database
+- a [database token](/influxdb/clustered/admin/tokens/#database-tokens) with _read_ access to the database
 
 To learn how to set up InfluxDB and write data, see the [Setup instructions](/influxdb/clustered/get-started/setup/) in the Get Started tutorial.
 
@@ -284,7 +284,7 @@ For more information, see [`influxdb_client_3` query exceptions](/influxdb/clust
 Replace the following configuration values:
 
 - **`database`**: the name of the [{{% product-name %}} database](/influxdb/clustered/admin/databases/) to query
-- **`token`**:  a [database token](/influxdb/clustered/admin/tokens/) with _read_ access to the specified database.
+- **`token`**:  a [database token](/influxdb/clustered/admin/tokens/#database-tokens) with _read_ access to the specified database.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 ### Execute a query
@@ -402,7 +402,7 @@ print(table.group_by('room').aggregate([('temp', 'mean')]))
 Replace the following configuration values:
 
 - **`database`**: the name of the [{{% product-name %}} database](/influxdb/clustered/admin/databases/) to query
-- **`token`**:  a [database token](/influxdb/clustered/admin/tokens/) with _read_ access to the specified database.
+- **`token`**:  a [database token](/influxdb/clustered/admin/tokens/#database-tokens) with _read_ access to the specified database.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 Next, learn how to use Python tools to work with time series data:

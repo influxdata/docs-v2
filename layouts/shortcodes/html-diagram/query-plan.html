@@ -1,0 +1,34 @@
+<div id="query-plan-diagram">
+  <div class="plan-single-column">
+    <div class="plan-column">
+      <div class="plan-block">
+        <code>SortPreservingMergeExec</code>
+      </div>
+      <div class="plan-arrow"></div>
+      <div class="plan-block">
+        <code>UnionExec</code>
+      </div>
+    </div>
+  </div>
+  <div class="plan-arrow split"></div>
+  <div class="plan-double-column">
+    <div class="plan-column">
+      <div class="plan-block">
+        <code>SortExec</code>
+      </div>
+      <div class="plan-arrow"></div>
+      <div class="plan-block">
+        <code>ParquetExec</code>
+      </div>
+    </div>
+    <div class="plan-column">
+      <div class="plan-block">
+        <code>SortExec</code>
+      </div>
+      <div class="plan-arrow"></div>
+      <div class="plan-block">
+        <code>ParquetExec</code>
+      </div>  
+    </div>
+  </div>
+</div>

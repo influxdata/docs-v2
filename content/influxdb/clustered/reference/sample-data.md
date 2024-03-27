@@ -154,9 +154,9 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  your InfluxDB Clustered database
+  your [database](/influxdb/clustered/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/clustered/admin/tokens/)
+  a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
   with _write_ permission to the database
 
 {{% /expand %}}
@@ -261,9 +261,9 @@ home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monox
 Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  your InfluxDB Clustered database
+  your [database](/influxdb/clustered/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/clustered/admin/tokens/)
+  a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
   with _write_ permission to the database
 
 {{% /expand %}}
@@ -340,9 +340,9 @@ curl --request POST \
 Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  your InfluxDB Clustered database
+  your [database](/influxdb/clustered/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/clustered/admin/tokens/)
+  a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 {{% /expand %}}
@@ -423,9 +423,9 @@ curl --request POST \
 Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  your InfluxDB Clustered database
+  your [database](/influxdb/clustered/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/clustered/admin/tokens/)
+  a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 {{% /expand %}}
@@ -494,9 +494,9 @@ curl --request POST \
 Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  your InfluxDB Clustered database
+  your [database](/influxdb/clustered/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/clustered/admin/tokens/)
+  a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 {{% /expand %}}

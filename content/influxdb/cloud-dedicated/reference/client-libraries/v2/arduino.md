@@ -23,7 +23,7 @@ prepend:
     [**Compare tools you can use**](/influxdb/cloud-dedicated/get-started/#tools-to-use) to interact with {{% product-name %}}.
 ---
 
-Arduino is an open-source hardware and software platform used for building electronics projects.
+Arduino is an open source hardware and software platform used for building electronics projects.
 
 The documentation for this client library is available on GitHub.  
 

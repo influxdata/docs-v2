@@ -77,7 +77,7 @@ The JavaScript client library includes the following convenient features for wri
       .floatField('value', 24.0)
     ```
 
-5. Use the `writePoint()` method to write the point to your InfluxDB bucket.
+5. Use the `writePoint()` method to write the point to your InfluxDB database.
    Finally, use the `close()` method to flush all pending writes.
    The example logs the new data point followed by "WRITE FINISHED" to stdout.
 

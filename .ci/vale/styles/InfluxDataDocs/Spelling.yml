@@ -6,6 +6,31 @@ scope:
   - ~table.cell
 ignore:
   # Located at StylesPath/ignore1.txt
+  - InfluxDataDocs/Terms/influxdb.txt
   - InfluxDataDocs/Terms/configuration-terms.txt
   - InfluxDataDocs/Terms/query-functions.txt
-
+  - InfluxDataDocs/Terms/telegraf.txt
+filters:
+  # Ignore Hugo, layout, and design words.
+  - 'Flexbox'
+  - '(?i)frontmatter'
+  - '(?i)shortcode(s?)'
+  - '(?i)tooltip(s?)'
+  # Ignore all words starting with 'py'.
+  # e.g., 'PyYAML'.
+  - '[pP]y.*\b'
+  # Ignore underscore-delimited words.
+  # e.g., avg_temp
+  - '\b\w+_\w+\b'
+  - '\b_\w+\b'
+  # Ignore SQL variables.
+  - '(?i)AS \w+'
+  # Ignore custom words
+  - '(?i)deduplicat(ion|e|ed|es|ing)'
+  - '(?i)downsampl(e|ing|ed|es)'
+  - 'InfluxDB-specific'
+  - '(?i)repartition(ed|s|ing)'
+  - '(?i)subcommand(s?)'
+  - '(?i)union(ing|ed|s)?'
+  - 'unsignedLong'
+  - 'US (East|West|Central|North|South|Northeast|Northwest|Southeast|Southwest)'

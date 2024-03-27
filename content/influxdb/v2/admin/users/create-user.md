@@ -19,36 +19,33 @@ Additional users cannot be created in the InfluxDB UI.
 
 To create a new user, you must have an [operator token](/influxdb/v2/reference/glossary/#token).
 For more information, see how to [create an operator token](/influxdb/v2/admin/tokens/create-token/#create-an-operator-token).
-Use the [`influx user create` command](/influxdb/v2/reference/cli/influx/user/create) and include the following:
+Use the [`influx user create` command](/influxdb/v2/reference/cli/influx/user/create)
+and provide the following:
 
-- Username
-- Organization name or organization ID to add the user to _(provided in the output of
-  [`influx org list`](/influxdb/v2/reference/cli/influx/org/list/))_
+- An [operator token](/influxdb/v2/admin/tokens/#operator-token) using your
+  [`influx` CLI connection configuration](/influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials),
+  `INFLUX_TOKEN` environment variable, or the `--token, -t` flag.
+- The [organization name or ID](/influxdb/v2/admin/organizations/view-orgs/) to
+  add the new user to.
+- A username for the new user with the `--name, -n` flag.
+- _Optional_: the `--password, -p` flag and a password for the user. If you don't provide a password, the new user will be prompted to provide one.
 
 {{< cli/influx-creds-note >}}
 
+{{% code-placeholders "(USER|ORG)_(NAME|PASSWORD)" %}}
 ```sh
-# Syntax
-influx user create -n <username> -o <org-name>
-
-# Example
-influx user create -n johndoe -o example-org
+influx user create \
+  --org ORG_NAME \
+  --name USER_NAME \
+  --password USER_PASSWORD
 ```
+{{% /code-placeholders %}}
 
-### Create a user with a password and organization
+Replace the following:
 
-To create a new user with a password and add the user as a member of an organization,
-include a password and organization ID with the `influx user create` command.
-
-- Username
-- Organization name or organization ID to add the user to _(provided in the output of
-  [`influx org list`](/influxdb/v2/reference/cli/influx/org/list/))_
-- Password
-
-```sh
-# Syntax
-influx user create -n <username> -p <password> -o <org-name>
-
-# Example
-influx user create -n johndoe -p PaSsWoRd -o example-org
-```
+- {{% code-placeholder-key %}}`ORG_NAME`{{% /code-placeholder-key %}}:
+  The name of the organization to add the new user to
+- {{% code-placeholder-key %}}`USER_NAME`{{% /code-placeholder-key %}}:
+  The username of the new user
+- {{% code-placeholder-key %}}`USER_PASSWORD`{{% /code-placeholder-key %}}:
+  The password for the new user

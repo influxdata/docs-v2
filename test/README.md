@@ -62,6 +62,8 @@ _Note_: `pytest --codeblocks` uses Python's `subprocess.run()` to execute shell 
 
 To assert (and display) the expected output of your code, follow the code block with the `<!--pytest-codeblocks:expected-output-->` comment tag, and then the expected output in a code block--for example:
 
+<!-- Your Markdown content -->
+
 ```python
 print("Hello, world!")
 ```
@@ -73,6 +75,8 @@ If successful, the output is the following:
 ```
 Hello, world!
 ```
+
+<!-- End Markdown content -->
 
 pytest-codeblocks has features for skipping tests and marking blocks as failed.
 To learn more, see the pytest-codeblocks README and tests.

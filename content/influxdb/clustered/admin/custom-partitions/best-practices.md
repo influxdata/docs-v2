@@ -26,11 +26,13 @@ query engine to more quickly identify what partitions contain the relevant data.
 
 {{% note %}}
 
-#### Be careful partitioning on high-cardinality tags
+#### Use tag buckets for high-cardinality tags
 
-Partitioning using tags with many (10K+) unique values can actually hurt
-query performance as partitions are created for each unique tag value.
-
+Partitioning using distinct values of tags with many (10K+) unique values can
+actually hurt query performance as partitions are created for each unique tag value.
+Instead, use [tag buckets](/influxdb/clustered/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
+to partition by high-cardinality tags.
+This method of partitioning groups tag values into "buckets" and partitions by bucket.
 {{% /note %}}
 
 ## Only partition by tags that _always_ have a value
@@ -52,4 +54,6 @@ hurts query performance.
   it is better to partition by larger time intervals.
 
 - Don't partition by tags that you typically don't use in your query workload.
-- [Be careful partitioning on high-cardinality tags](#be-careful-partitioning-on-high-cardinality-tags).
+- Don't partition by distinct values of high-cardinality tags.
+  Instead, [use tag buckets](#use-tag-buckets-for-high-cardinality-tags) to
+  partition by these tags.

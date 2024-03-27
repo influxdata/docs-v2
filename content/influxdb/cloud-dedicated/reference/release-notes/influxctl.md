@@ -11,6 +11,54 @@ menu:
 weight: 202
 ---
 
+## v2.7.0 {date="2024-03-26"}
+
+This minor release adds the `--template-tag-bucket` partition template option to
+the already existing `--template-time-format` and `--template-tag` options used
+to define custom partition templates for databases and tables.
+This also fixes a nil pointer issue when listing management tokens.
+
+### Features
+
+- Introduce the bucket template method for grouping tag values into buckets and
+  partitioning by each tag bucket.
+
+### Bug Fixes
+
+- Ensure strings are not nil pointers.
+
+### Dependency Updates
+
+- Update `github.com/jedib0t/go-pretty/v6` from 6.5.5 to 6.5.6.
+- Update `github.com/pelletier/go-toml/v2` from 2.1.1 to 2.2.0.
+- Update granite proto.
+
+---
+
+## v2.6.0 {date="2024-03-18"}
+
+`influxctl` 2.6.0 introduces the ability to create, list, and revoke
+management tokens and allow you to authenticate directly with your
+InfluxDB cluster instead of an OAuth2 provider.
+
+### New Features
+
+- Add management token subcommands to create, list, and revoke management
+  tokens.
+- Introduce management token configuration option to authenticate using
+  management tokens created with `influxctl`.
+
+### Dependency Updates
+
+- Update Go to v1.22.1
+- Update `github.com/golang-jwt/jwt/v5` from v5.2.0 to v5.2.1.
+- Update `google.golang.org/protobuf` from v1.32.0 to v1.33.0.
+- Update `golang.org/x/oauth2` from v0.17.0 to v0.18.0.
+- Update `google.golang.org/grpc` from v1.62.0 to v1.62.1.
+- Update `github.com/jedib0t/go-pretty/v6` from v6.5.4 to v6.5.5.
+
+---
+
 ## v2.5.0 {date="2024-03-04"}
 
 `influxctl` 2.5.0 introduces the ability to set

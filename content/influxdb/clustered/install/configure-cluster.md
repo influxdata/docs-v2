@@ -463,7 +463,7 @@ spec:
         secretKey:
           value: S3_SECRET_KEY
 
-        # Bucket that the parquet files will be stored in
+        # Bucket that the Parquet files will be stored in
         bucket: S3_BUCKET_NAME
 
         # This value is required for AWS S3, it may or may not be required for other providers.

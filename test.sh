@@ -52,7 +52,7 @@ docker compose up test
 # If you want to examine files or run commands for debugging tests,
 # start the container and use `exec` to open an interactive shell--for example:
 
-# docker compose start test && docker compose exec -it test /bin/bash
+# docker compose run -it --entrypoint=/bin/bash test
 
 # To build and run a new container and debug test failures, use `docker compose run` which runs a one-off command in a new container. Pass additional flags to be used by the container's entrypoint and the test runners it executes--for example:
 

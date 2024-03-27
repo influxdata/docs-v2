@@ -67,8 +67,8 @@ to write the [home sensor sample data](#home-sensor-data-line-protocol) to your
 Provide the following:
 
 - Database name using the `--database` flag
-- [Database token](/influxdb/cloud-dedicated/admin/tokens/) (with write permissions
-  on the target database) using the `--token` flag
+- [Database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  (with write permissions on the target database) using the `--token` flag
 - Timestamp precision as seconds (`s`) using the `--precision` flag
 - [Line protocol](#construct-line-protocol).
   Pass the line protocol in one of the following ways:
