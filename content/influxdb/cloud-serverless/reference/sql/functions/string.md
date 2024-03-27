@@ -240,7 +240,7 @@ LIMIT 3
 Concatenates multiple strings together with a specified separator.
 
 ```sql
-concat(separator, str[, ..., str_n])
+concat_ws(separator, str[, ..., str_n])
 ```
 
 ##### Arguments
@@ -1484,7 +1484,7 @@ uuid()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View `upper` query example" %}}
+{{% expand "View `uuid` query example" %}}
 
 _The following example uses the sample data set provided in the
 [Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
