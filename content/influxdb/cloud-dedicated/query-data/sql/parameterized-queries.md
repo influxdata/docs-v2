@@ -82,7 +82,7 @@ To parameterize time bounds, substitute a parameter for a timestamp literal--for
 ```sql
 SELECT *
 FROM home
-WHERE time >= $min_time`
+WHERE time >= $min_time
 ```
 
 For the parameter value, specify the timestamp literal as a string--for example:
@@ -92,7 +92,7 @@ For the parameter value, specify the timestamp literal as a string--for example:
 ```go
 // Assign a timestamp string literal to the min_time parameter.
 parameters := influxdb3.QueryParameters{
-    "min_time": "2024-03-18 00:00:00.00",
+    "min_time": "2022-01-01 00:00:00.00",
 }
 ```
 
@@ -290,7 +290,7 @@ func main() {
 ## Client support for parameterized queries
 
 - Not all [InfluxDB v3 Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/v3/) support parameterized queries.
-- InfluxDB doesn't currently support parameterized queries or DataFusion prepared statements for Flight SQL   or Flight SQL clients.
+- InfluxDB doesn't currently support parameterized queries or DataFusion prepared statements for Flight SQL or Flight SQL clients.
 - InfluxDB v3 SQL and InfluxQL parameterized queries aren’t supported in InfluxDB v1 and v2 clients.
 
 ## Not supported
