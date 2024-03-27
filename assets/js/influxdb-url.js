@@ -287,16 +287,17 @@ function appendUrlSelector () {
     placeholderUrls.clustered,
   ];
 
-  if (context() === 'cloud' || 'serverless') {
-    var selectorText = 'InfluxDB Cloud Region';
-  } else if (context() === 'dedicated') {
-    var selectorText = 'Set Dedicated cluster URL';
-  } else if (context() === 'clustered') {
-    var selectorText = 'Set InfluxDB cluster URL';
-  } else if (context() === 'oss/enterprise') {
-    var selectorText = 'Change InfluxDB URL';
-  } else {
-    var selectorText = 'InfluxDB Cloud or OSS?';
+  getBtnText = (context) => {
+    contextText = {
+      'oss/enterprise': 'Change InfluxDB URL',
+      'cloud': 'InfluxDB Cloud Region',
+      'serverless': 'InfluxDB Cloud Region',
+      'dedicated': 'Set Dedicated cluster URL',
+      'clustered': 'Set InfluxDB cluster URL',
+      'other': 'InfluxDB Cloud or OSS?'
+    }
+    
+    return contextText[context]
   }
 
   appendToUrls.forEach(function (url) {
@@ -305,7 +306,7 @@ function appendUrlSelector () {
       if (code.includes(url)) {
         $(this).after(
           "<div class='select-url'><a class='url-trigger' href='#'>" +
-            selectorText +
+            getBtnText(context()) +
             '</a></div>'
         );
         $('.select-url').fadeIn(400);
