@@ -40,6 +40,7 @@ function getTabQueryParam () {
 
 // Add query param to .keep-tab paginated navigation buttons to persist tab
 // selection when navigating between the pages.
+
 function updateBtnURLs (tabId, op = 'update') {
   $('a.keep-tab').each(function () {
     var link = $(this)[0].href;
@@ -54,7 +55,7 @@ function updateBtnURLs (tabId, op = 'update') {
 }
 
 function activateTabs (selector, tab) {
-  const anchor = window.location.hash;
+  var anchor = window.location.hash;
   if (tab !== '') {
     let targetTab = $(`${selector} a:contains("${tab}")`);
     if (!targetTab.length) {
@@ -71,24 +72,26 @@ function activateTabs (selector, tab) {
       scrollToAnchor(anchor);
     }
   }
-
-  const queryParams = new URLSearchParams(window.location.search);
-  $(`${selector} p a`).click(function () {
-    if ($(this).is(':not(":first-child")')) {
-      queryParams.set('t', $(this).html());
-      window.history.replaceState(
-        {},
-        '',
-        `${location.pathname}?${queryParams}${anchor}`
-      );
-      updateBtnURLs($(this).html());
-    } else {
-      queryParams.delete('t');
-      window.history.replaceState({}, '', `${location.pathname}${anchor}`);
-      updateBtnURLs($(this).html(), 'delete');
-    }
-  });
 }
+
+$(`.tabs p a, .code-tabs p a`).click(function () {
+  var queryParams = new URLSearchParams(window.location.search);
+  var anchor = window.location.hash;
+
+  if ($(this).is(':not(":first-child")')) {
+    queryParams.set('t', $(this).html());
+    window.history.replaceState(
+      {},
+      '',
+      `${location.pathname}?${queryParams}${anchor}`
+    );
+    updateBtnURLs($(this).html());
+  } else {
+    queryParams.delete('t');
+    window.history.replaceState({}, '', `${location.pathname}${anchor}`);
+    updateBtnURLs($(this).html(), 'delete');
+  }
+});
 
 //////////////////// Activate Tab with Cookie or Query Param ///////////////////
 

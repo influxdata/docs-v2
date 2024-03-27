@@ -16,6 +16,7 @@ to create an organization.
 
 {{% note %}}
 #### Organization and bucket limits
+
 A single InfluxDB {{< current-version >}} OSS instance supports approximately 20 buckets actively being
 written to or queried across all organizations depending on the use case.
 Any more than that can adversely affect performance.
@@ -35,14 +36,26 @@ Because each organization is created with a bucket, we do not recommend more tha
 ## Create an organization using the influx CLI
 
 Use the [`influx org create` command](/influxdb/v2/reference/cli/influx/org/create)
-to create a new organization. A new organization requires the following:
+to create a new organization. Provide the following:
 
-- A name for the organization
+- An [operator token](/influxdb/v2/admin/tokens/#operator-token) using your
+  [`influx` CLI connection configuration](/influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials),
+  `INFLUX_TOKEN` environment variable, or the `--token, -t` flag.
+- A name for the organization with the `--name, -n` flag.
+- _Optional:_ A description of the organization with the `--description, -d` flag.
 
+
+{{% code-placeholders "ORG_(NAME|DESCRIPTION)" %}}
 ```sh
-# Syntax
-influx org create -n <org-name>
-
-# Example
-influx org create -n my-org
+influx org create \
+  --name ORG_NAME \
+  --description "ORG_DESCRIPTION"
 ```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`ORG_NAME`{{% /code-placeholder-key %}}:
+  The name of the organization to create
+- {{% code-placeholder-key %}}`ORG_DESCRIPTION`{{% /code-placeholder-key %}}:
+  A description of the organization

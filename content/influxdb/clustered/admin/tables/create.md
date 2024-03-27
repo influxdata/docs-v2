@@ -31,18 +31,26 @@ to a table, you must manually create the table before you write any data to it.
 2.  Run the `influxctl table create` command and provide the following:
 
     - _Optional_: [InfluxDB tags](/influxdb/clustered/reference/glossary/#tag)
-      to use in the partition template _(supports up to 7 different tags)_
+      to use in the partition template
+    - _Optional_: [InfluxDB tag buckets](/influxdb/clustered/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
+      to use in the partition template
     - _Optional_: A [Rust strftime date and time string](/influxdb/clustered/admin/custom-partitions/partition-templates/#time-part-templates)
       that specifies the time format in the partition template and determines
       the time interval to partition by _(default is `%Y-%m-%d`)_
     - The name of the database to create the table in
     - The name of the table to create
 
+    {{% note %}}
+_{{< product-name >}} supports up to 7 total tags or tag buckets in the partition template._
+    {{% /note %}}
+
 {{% code-placeholders "(DATABASE|TABLE)_NAME" %}}
 ```sh
 influxctl table create \
   --template-tag tag1 \
   --template-tag tag2 \
+  --template-tag-bucket tag3,100 \
+  --template-tag-bucket tag4,300 \
   --template-timeformat '%Y-%m-%d' \
   DATABASE_NAME \
   TABLE_NAME
@@ -57,8 +65,8 @@ format in the InfluxDB v3 storage engine. By default, data is partitioned by day
 but, depending on your schema and workload, customizing the partitioning
 strategy can improve query performance.
 
-Use the `--template-tag` and `--template-timeformat` flags to define partition
-template parts used to generate partition keys for the table.
+Use the `--template-tag`, `--template-tag-bucket`, and `--template-timeformat`
+flags to define partition template parts used to generate partition keys for the table.
 If no template flags are provided, the table uses the partition template of the
 target database.
 For more information, see [Manage data partitioning](/influxdb/clustered/admin/custom-partitions/).

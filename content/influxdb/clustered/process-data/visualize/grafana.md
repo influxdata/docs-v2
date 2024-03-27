@@ -207,6 +207,8 @@ To learn more, see [Query Data](/influxdb/clustered/query-data/sql/).
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
+{{< youtube "rSsouoNsNDs" >}}
+
 To learn about query management and inspection in Grafana, see the
 [Grafana Explore documentation](https://grafana.com/docs/grafana/latest/explore/).
 

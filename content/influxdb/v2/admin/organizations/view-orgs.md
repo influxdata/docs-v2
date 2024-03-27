@@ -25,7 +25,11 @@ to view organizations.
 ## View organizations using the influx CLI
 
 Use the [`influx org list` command](/influxdb/v2/reference/cli/influx/org/list)
-to view organizations.
+to view organizations. Provide the following:
+
+- An [operator token](/influxdb/v2/admin/tokens/#operator-token) using your
+  [`influx` CLI connection configuration](/influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials),
+  `INFLUX_TOKEN` environment variable, or the `--token, -t` flag.
 
 ```sh
 influx org list
@@ -52,11 +56,20 @@ http://localhost:8086/orgs/03a2bbf46249a000/...
 
 ### Organization ID in the CLI
 
-Use [`influx org list`](#view-organizations-using-the-influx-cli) to view your organization ID.
+Use [`influx org list`](#view-organizations-using-the-influx-cli) to view your
+organization ID. Provide the following:
+
+- An [operator token](/influxdb/v2/admin/tokens/#operator-token) using your
+  [`influx` CLI connection configuration](/influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials),
+  `INFLUX_TOKEN` environment variable, or the `--token, -t` flag.
 
 ```sh
-> influx org list
+influx org list
+```
 
+The command returns output similar to:
+
+```
 ID                  Name
 03a2bbf46249a000    org-1
 03ace3a859669000    org-2
