@@ -128,7 +128,7 @@ Parameters won't work as expected when substituted for the following data types:
   }
   ```
 
-- A `label`, such as a column or table name.
+- An `identifier`, such as a column or table name.
 
 ## Parameterize an InfluxQL query
 
