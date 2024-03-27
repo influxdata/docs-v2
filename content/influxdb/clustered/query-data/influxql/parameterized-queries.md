@@ -50,6 +50,15 @@ For more information on security and query parameterization,
 see the [OWASP SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html#defense-option-1-prepared-statements-with-parameterized-queries).
 {{% /note %}}
 
+- [Parameter data types](#parameter-data-types)
+  - [Time expressions](#time-expressions)
+  - [Notable behaviors](#notable-behaviors)
+- [Parameterize an InfluxQL query](#parameterize-an-influxql-query)
+- [Execute parameterized InfluxQL queries](#execute-parameterized-influxql-queries)
+  - [Use InfluxDB Flight RPC clients](#use-influxdb-flight-rpc-clients)
+- [Client support for parameterized queries](#client-support-for-parameterized-queries)
+- [Not supported](#not-supported)
+
 In InfluxDB v3, a parameterized query is an InfluxQL or SQL query that contains one or more named parameter placeholders–variables that represent input data–for example, the following query contains a `$temp` parameter:
 
 ```sql
@@ -99,9 +108,13 @@ parameters := influxdb3.QueryParameters{
 
 {{% /influxdb/custom-timestamps %}}
 
-### Not supported
+### Notable behaviors
 
-Some data types don't support parameters--for example, in InfluxQL queries, InfluxDB doesn't support parameter substitution for durations or inside of duration values--for example, the following won’t work:
+#### Data types not compatible with parameters
+
+Parameters won't work as expected when substituted for the following data types:
+
+- A `duration` or part of a duration value--for example, the following won’t work:
 
   ```go
   query := `
@@ -114,6 +127,8 @@ Some data types don't support parameters--for example, in InfluxQL queries, Infl
       "days": "7d",
   }
   ```
+
+- A `label`, such as a column or table name.
 
 ## Parameterize an InfluxQL query
 
