@@ -11,6 +11,14 @@ menu:
 weight: 202
 ---
 
+## v2.7.1 {date="2024-03-27"}
+
+### Bug Fixes
+
+- Correctly parse template tag bucket strings.
+
+---
+
 ## v2.7.0 {date="2024-03-26"}
 
 This minor release adds the `--template-tag-bucket` partition template option to
