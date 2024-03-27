@@ -12,6 +12,38 @@ weight: 202
 canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 ---
 
+## v2.7.1 {date="2024-03-27"}
+
+### Bug Fixes
+
+- Correctly parse template tag bucket strings.
+
+---
+
+## v2.7.0 {date="2024-03-26"}
+
+This minor release adds the `--template-tag-bucket` partition template option to
+the already existing `--template-time-format` and `--template-tag` options used
+to define custom partition templates for databases and tables.
+This also fixes a nil pointer issue when listing management tokens.
+
+### Features
+
+- Introduce the bucket template method for grouping tag values into buckets and
+  partitioning by each tag bucket.
+
+### Bug Fixes
+
+- Ensure strings are not nil pointers.
+
+### Dependency Updates
+
+- Update `github.com/jedib0t/go-pretty/v6` from 6.5.5 to 6.5.6.
+- Update `github.com/pelletier/go-toml/v2` from 2.1.1 to 2.2.0.
+- Update granite proto.
+
+---
+
 ## v2.6.0 {date="2024-03-18"}
 
 `influxctl` 2.6.0 introduces the ability to create, list, and revoke
