@@ -133,7 +133,6 @@ but does not support using the `OR` logical operator to query multiple time rang
 {{% /note %}}
 
 ### Parameterized queries
-
 - For InfluxDB v3 Flight clients that support parameterized queries,
 - You can use parameters in InfluxQL queries.
 - InfluxQL supports substituting parameters for date-time strings.
