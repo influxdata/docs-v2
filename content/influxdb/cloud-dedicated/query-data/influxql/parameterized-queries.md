@@ -295,7 +295,7 @@ func main() {
 ## Client support for parameterized queries
 
 - Not all [InfluxDB v3 Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/v3/) support parameterized queries.
-- InfluxDB doesn't currently support parameterized queries or DataFusion prepared statements for Flight SQL   or Flight SQL clients.
+- InfluxDB doesn't currently support parameterized queries or DataFusion prepared statements for Flight SQL or Flight SQL clients.
 - InfluxDB v3 SQL and InfluxQL parameterized queries aren’t supported in InfluxDB v1 and v2 clients.
 
 ## Not supported
