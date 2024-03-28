@@ -137,7 +137,7 @@ The InfluxDB v3 storage engine has a
 [limit of 250 columns per measurement](#measurements-can-contain-up-to-250-columns).
 
 To avoid a wide schema, limit the number of tags and fields stored in a measurement.
-If you need to store more than 199 total tags and fields, consider segmenting
+If you need to store more than 249 total tags and fields, consider segmenting
 your fields into a separate measurement.
 
 #### Avoid too many tags
