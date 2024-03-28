@@ -101,8 +101,8 @@ the write fails due to a column conflict.
 
 A measurement can contain **up to 250 columns**. Each row requires a time column,
 but the rest represent tags and fields stored in the measurement.
-Therefore, a measurement can contain one time column and 199 total field and tag columns.
-If you attempt to write to a measurement and exceed the 200 column limit, the
+Therefore, a measurement can contain one time column and 249 total field and tag columns.
+If you attempt to write to a measurement and exceed the 250 column limit, the
 write request fails and InfluxDB returns an error.
 
 ---
@@ -134,7 +134,7 @@ The InfluxDB v3 storage engine has a
 [limit of 250 columns per measurement](#measurements-can-contain-up-to-250-columns).
 
 To avoid a wide schema, limit the number of tags and fields stored in a measurement.
-If you need to store more than 199 total tags and fields, consider segmenting
+If you need to store more than 249 total tags and fields, consider segmenting
 your fields into a separate measurement.
 
 #### Avoid too many tags
