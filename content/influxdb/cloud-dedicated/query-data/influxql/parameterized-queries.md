@@ -114,7 +114,7 @@ parameters := influxdb3.QueryParameters{
 
 #### Data types not compatible with parameters
 
-Parameters won't work as expected when substituted for the following data types:
+You can't use parameters for the following data types:
 
 - A `duration` or part of a duration value--for example, the following won’t work:
 

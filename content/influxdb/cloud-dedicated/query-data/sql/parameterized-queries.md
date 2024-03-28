@@ -98,9 +98,13 @@ parameters := influxdb3.QueryParameters{
 
 {{% /influxdb/custom-timestamps %}}
 
-### Not supported
+### Notable behaviors
 
-Some data types don't support parameters--for example, in SQL queries, InfluxDB doesn't support parameter substitution for intervals or inside of interval values--for example, the following won’t work:
+#### Data types not compatible with parameters
+
+You can't use parameters for the following data types:
+
+- An `INTERVAL` expression--for example, the following won’t work:
 
   ```go
   query := `
@@ -114,6 +118,8 @@ Some data types don't support parameters--for example, in SQL queries, InfluxDB 
       "days": "7 days",
   }
   ```
+
+- An `identifier`, such as a column or table name.
 
 ## Parameterize an SQL query
 
