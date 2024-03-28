@@ -19,3 +19,13 @@ services:
       args:
         - SOURCE_DIR=test
         - DOCKER_IMAGE=docs-v2-tests
+  # documentation for hugomods/hugo can be found at
+  # https://docker.hugomods.com/docs/development/docker-compose/
+  local-dev:
+    image: hugomods/hugo:exts-0.123.8
+    command: hugo server --bind 0.0.0.0
+    ports:
+      - 1313:1313
+    volumes:
+      - $PWD:/src
+      - $HOME/hugo_cache:/tmp/hugo_cache
