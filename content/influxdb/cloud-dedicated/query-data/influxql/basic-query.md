@@ -120,6 +120,7 @@ SELECT * FROM home WHERE time >= now() - 30d
 ```
 
 ##### Query one day of data data from a week ago
+
 ```sql
 SELECT *
 FROM home
@@ -213,5 +214,3 @@ SELECT temp AS temperature, hum AS "humidity (%)" FROM home
 When aliasing columns in **InfluxQL**, use the `AS` clause and an [identifier](/influxdb/cloud-dedicated/reference/influxql/#identifiers).
 When [aliasing columns in **SQL**](/influxdb/cloud-dedicated/query-data/sql/basic-query/#alias-queried-fields-and-tags), you can use the `AS` clause to define the alias, but it isn't necessary.
 {{% /note %}}
-
-

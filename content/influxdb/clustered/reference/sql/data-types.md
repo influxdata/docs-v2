@@ -19,17 +19,18 @@ In InfluxDB's SQL implementation, a **measurement** is structured as a table,
 and  **tags**, **fields** and **timestamps** are exposed as columns.
 
 DataFusion uses the [Arrow](https://arrow.apache.org/) type system for query execution.
-Data types stored in InfluxDB's storage engine are mapped to SQL data types at query time. 
+Data types stored in InfluxDB's storage engine are mapped to SQL data types at query time.
 
 {{% note %}}
-When performing casting operations, cast to the **name** of the data type, not the actual data type. 
+When performing casting operations, cast to the **name** of the data type, not the actual data type.
 Names and identifiers in SQL are _case-insensitive_ by default. For example:
 
 ```sql
 SELECT
-  '99'::BIGINT, 
+  '99'::BIGINT,
   '2019-09-18T00:00:00Z'::timestamp
 ```
+
 {{% /note %}}
 
 - [String types](#string-types)
@@ -39,9 +40,10 @@ SELECT
   - [Floats](#floats)
 - [Date and time data types](#date-and-time-data-types)
   - [Timestamp](#timestamp)
-  - [Interval ](#interval-)
+  - [Interval](#interval)
 - [Boolean types](#boolean-types)
 - [Unsupported SQL types](#unsupported-sql-types)
+- [Data types compatible with parameters](#data-types-compatible-with-parameters)
 
 ## String types
 
@@ -74,7 +76,7 @@ The following numeric types are supported:
 
 InfluxDB SQL supports the 64-bit signed integers:
 
-**Minimum signed integer**: `-9223372036854775808`  
+**Minimum signed integer**: `-9223372036854775808`
 **Maximum signed integer**: `9223372036854775807`
 
 ##### Example integer literals
@@ -89,7 +91,7 @@ InfluxDB SQL supports the 64-bit signed integers:
 
 InfluxDB SQL supports the 64-bit unsigned integers:
 
-**Minimum unsigned integer**: `0`  
+**Minimum unsigned integer**: `0`
 **Maximum unsigned integer**: `18446744073709551615`
 
 ##### Example unsigned integer literals
@@ -127,14 +129,14 @@ InfluxDB SQL supports the following DATE/TIME data types:
 
 ### Timestamp
 
-A time type is a single point in time using nanosecond precision.  
+A time type is a single point in time using nanosecond precision.
 
 The following date and time formats are supported:
 
 ```sql
-YYYY-MM-DDT00:00:00.000Z 
-YYYY-MM-DDT00:00:00.000-00:00 
-YYYY-MM-DD 00:00:00.000-00:00 
+YYYY-MM-DDT00:00:00.000Z
+YYYY-MM-DDT00:00:00.000-00:00
+YYYY-MM-DD 00:00:00.000-00:00
 YYYY-MM-DDT00:00:00Z
 YYYY-MM-DD 00:00:00.000
 YYYY-MM-DD 00:00:00
@@ -151,9 +153,9 @@ YYYY-MM-DD 00:00:00
 '2023-01-02 03:04:06'
 ```
 
-### Interval 
+### Interval
 
-The INTERVAL data type can be used with the following precision: 
+The INTERVAL data type can be used with the following precision:
 
 - nanosecond
 - microsecond
@@ -161,7 +163,7 @@ The INTERVAL data type can be used with the following precision:
 - second
 - minute
 - hour
-- day 
+- day
 - week
 - month
 - year
@@ -176,7 +178,7 @@ INTERVAL '2 days 1 hour 31 minutes'
 
 ## Boolean types
 
-Booleans store TRUE or FALSE values. 
+Booleans store TRUE or FALSE values.
 
 | Name    | Data type | Description          |
 | :------ | :-------- | :------------------- |
@@ -208,3 +210,8 @@ The following SQL types are not currently supported:
 - SET
 - DATETIME
 - BYTEA
+
+## Data types compatible with parameters
+
+For information about data types that can be substituted by parameters,
+see how to [use parameterized queries with SQL](/influxdb/clustered/query-data/sql/parameterized-queries/).
