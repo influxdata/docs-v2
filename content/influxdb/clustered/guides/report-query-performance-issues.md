@@ -192,6 +192,9 @@ tar -czf "${DATETIME}-cluster-info.tar.gz" "${DATETIME}-cluster-info/"
 For any known long-running queries, it may be helpful to execute variations of
 the `EXPLAIN` command on them.
 
+In the example snippets below we use `<YOUR-QUERY>` as placeholder for the
+long-running query you have been working with.
+
 ##### EXPLAIN
 
 **For InfluxQL Queries**
@@ -201,7 +204,7 @@ curl --get "https://${HOST}/query" \
   --header "Authorization: Bearer ${TOKEN}" \
   --header "Accept: application/csv" \
   --data-urlencode "db=${DATABASE}" \
-  --data-urlencode "q=EXPLAIN SELECT mean(value) AS mean FROM table"
+  --data-urlencode "q=EXPLAIN <YOUR-QUERY>"
 ```
 
 **For SQL Queries**
@@ -212,7 +215,7 @@ influxctl \
   --database ${DATABASE} \
   --format table \
   --token ${TOKEN} \
-  "EXPLAIN select * from meow;" > explain.txt
+  "EXPLAIN <YOUR-QUERY>;" > explain.txt
 ```
 
 ##### EXPLAIN VERBOSE
@@ -224,7 +227,7 @@ curl --get "https://${HOST}/query" \
   --header "Authorization: Bearer ${TOKEN}" \
   --header "Accept: application/csv" \
   --data-urlencode "db=${DATABASE}" \
-  --data-urlencode "q=EXPLAIN VERBOSE SELECT mean(value) AS mean FROM table"
+  --data-urlencode "q=EXPLAIN VERBOSE <YOUR-QUERY>"
 ```
 
 **For SQL Queries**
@@ -235,7 +238,7 @@ influxctl \
   --database ${DATABASE} \
   --format table \
   --token ${TOKEN} \
-  "EXPLAIN VERBOSE select * from meow;" > explain-verbose.txt
+  "EXPLAIN VERBOSE <YOUR-QUERY>;" > explain-verbose.txt
 ```
 
 ##### EXPLAIN ANALYZE
@@ -247,7 +250,7 @@ curl --get "https://${HOST}/query" \
   --header "Authorization: Bearer ${TOKEN}" \
   --header "Accept: application/csv" \
   --data-urlencode "db=${DATABASE}" \
-  --data-urlencode "q=EXPLAIN ANALYZE SELECT mean(value) AS mean FROM table"
+  --data-urlencode "q=EXPLAIN ANALYZE <YOUR-QUERY>"
 ```
 
 **For SQL Queries**
@@ -258,5 +261,5 @@ influxctl \
   --database ${DATABASE} \
   --format table \
   --token ${TOKEN} \
-  "EXPLAIN ANALYZE select * from meow;" > explain-analyze.txt
+  "EXPLAIN ANALYZE <YOUR-QUERY>;" > explain-analyze.txt
 ```
