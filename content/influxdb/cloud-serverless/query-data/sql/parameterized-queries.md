@@ -49,7 +49,34 @@ For more information on security and query parameterization,
 see the [OWASP SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html#defense-option-1-prepared-statements-with-parameterized-queries).
 {{% /note %}}
 
-In InfluxDB v3, a parameterized query is an InfluxQL or SQL query that contains one or more named parameter placeholders–variables that represent input data–for example, the following query contains a `$temp` parameter:
+In InfluxDB v3, a parameterized query is an InfluxQL or SQL query that contains one or more named parameter placeholders–variables that represent input data.
+
+- [Use parameters in `WHERE` expressions](#use-parameters-in-where-expressions)
+- [Parameter data types](#parameter-data-types)
+  - [Data type examples](#data-type-examples)
+  - [Time expressions](#time-expressions)
+  - [Not compatible with parameters](#not-compatible-with-parameters)
+- [Parameterize an SQL query](#parameterize-an-sql-query)
+- [Execute parameterized SQL queries](#execute-parameterized-sql-queries)
+  - [Use InfluxDB Flight RPC clients](#use-influxdb-flight-rpc-clients)
+- [Client support for parameterized queries](#client-support-for-parameterized-queries)
+- [Not supported](#not-supported)
+
+{{% note %}}
+
+#### Parameters only supported in `WHERE` expressions
+
+InfluxDB v3 supports parameters in `WHERE` clause **predicate expressions**.
+Parameter values must be one of the [allowed parameter data types](#parameter-data-types).
+
+If you use parameters in other expressions or clauses,
+such as function arguments, `SELECT`, or `GROUP BY`, then your query might not work as you expect.
+
+{{% /note %}}
+
+## Use parameters in `WHERE` expressions
+
+You can use parameters in `WHERE` clause **predicate expressions**-–for example, the following query contains a `$temp` parameter:
 
 ```sql
 SELECT * FROM measurement WHERE temp > $temp
@@ -62,11 +89,12 @@ The value that you assign to a parameter must be one of the [parameter data type
 {"temp": 22.0}
 ```
 
-The InfluxDB Querier parses the query text with the parameter placeholders, and then generates query plans that replace the placeholders with the values that you provide. This separation of query structure from input data ensures that input is treated as one of the allowed [data types](#parameter-data-types) and not as executable code.
+The InfluxDB Querier parses the query text with the parameter placeholders, and then generates query plans that replace the placeholders with the values that you provide.
+This separation of query structure from input data ensures that input is treated as one of the allowed [data types](#parameter-data-types) and not as executable code.
 
 ## Parameter data types
 
-In InfluxQL queries, you can use parameters in `WHERE` clause **predicate expressions**, in place of the following data types:
+A parameter value can be one of the following data types:
 
 - Null
 - Boolean
@@ -74,6 +102,19 @@ In InfluxQL queries, you can use parameters in `WHERE` clause **predicate expres
 - Integer (`int64`)
 - Double (`float64`)
 - String
+
+### Data type examples
+
+```js
+{
+  "string": "Living Room",
+  "double": 3.14,
+  "unsigned_integer": 1234,
+  "integer": -1234,
+  "boolean": false,
+  "null": Null,
+}
+```
 
 ### Time expressions
 
@@ -98,28 +139,26 @@ parameters := influxdb3.QueryParameters{
 
 {{% /influxdb/custom-timestamps %}}
 
-### Notable behaviors
+InfluxDB executes the query as the following:
 
-#### Data types not compatible with parameters
+{{% influxdb/custom-timestamps %}}
 
-You can't use parameters for the following data types:
+```sql
+SELECT *
+FROM home
+WHERE time >= '2022-01-01 00:00:00.00'
+```
 
-- An `INTERVAL` expression--for example, the following won’t work:
+{{% /influxdb/custom-timestamps %}}
 
-  ```go
-  query := `
-      SELECT avg(temp) as temp, room,
-        DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) as _time
-      FROM home
-      WHERE time >= now() - INTERVAL $days
-      GROUP BY _time, room`
+### Not compatible with parameters
 
-  parameters := influxdb3.QueryParameters{
-      "days": "7 days",
-  }
-  ```
+If you use parameters for the following, your query might not work as you expect:
 
-- An `identifier`, such as a column or table name.
+- In clauses other than `WHERE`, such as `SELECT` or `GROUP BY`
+- As function arguments, such as `avg($temp)`
+- In place of identifiers, such as column or table names
+- In place of duration literals, such as `INTERVAL $minutes`
 
 ## Parameterize an SQL query
 
