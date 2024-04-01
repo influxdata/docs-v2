@@ -59,9 +59,7 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
 
 2. Follow the instructions to [install Docker Desktop](https://docs.docker.com/desktop/) and [Docker Compose](https://docs.docker.com/compose/) to your local machine.
 
-3. **Start the Hugo Server**
-
-  In your terminal use `docker compose` to start the Hugo server in dev mode:
+3. Use Docker Compose to start the Hugo server in development mode--for example, enter the following command in your terminal:
 
     ```sh
     docker compose up local-dev
