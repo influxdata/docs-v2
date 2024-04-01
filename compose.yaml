@@ -1,5 +1,5 @@
-# For examples, see the Awesome Compose repository:
-# https://github.com/docker/awesome-compose
+# This is a Docker Compose file for the InfluxData documentation site.
+## Run documentation tests for code samples.
 services:
   test:
     image: docs-v2-tests
@@ -19,13 +19,18 @@ services:
       args:
         - SOURCE_DIR=test
         - DOCKER_IMAGE=docs-v2-tests
-  # documentation for hugomods/hugo can be found at
-  # https://docker.hugomods.com/docs/development/docker-compose/
+  ## Run InfluxData documentation with the hugo development server on port 1313.
+  ## For more information about the hugomods/hugo image, see
+  ## https://docker.hugomods.com/docs/development/docker-compose/
   local-dev:
     image: hugomods/hugo:exts-0.123.8
     command: hugo server --bind 0.0.0.0
     ports:
       - 1313:1313
     volumes:
-      - $PWD:/src
-      - $HOME/hugo_cache:/tmp/hugo_cache
+      - type: bind
+        source: "$PWD"
+        target: /src
+      - type: bind
+        source: $HOME/hugo_cache
+        target: /tmp/hugo_cache
