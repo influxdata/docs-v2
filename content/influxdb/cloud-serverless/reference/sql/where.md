@@ -1,7 +1,7 @@
 ---
 title: WHERE clause
 list_title: WHERE clause
-description: > 
+description: >
   Use the `WHERE` clause to filter results based on fields, tags, or timestamps.
 menu:
   influxdb_cloud_serverless:
@@ -29,13 +29,13 @@ SELECT_clause FROM_clause WHERE <conditional_expression> [(AND|OR) <conditional_
 
 ## Examples
 
-Note that single quotes are required for string literals in the `WHERE` clause. 
+Note that single quotes are required for string literals in the `WHERE` clause.
 
 ### Filter data based on field values
 
 ```sql
-SELECT * 
-FROM "h2o_feet" 
+SELECT *
+FROM "h2o_feet"
 WHERE "water_level" >= 9.78
 ```
 
@@ -57,13 +57,12 @@ that are greater than or equal to 9.78.
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-
 ### Filter data based on specific tag and field values
 
 ```sql
-SELECT * 
-FROM "h2o_feet" 
-WHERE "location" = 'santa_monica' and "level description" = 'below 3 feet' 
+SELECT *
+FROM "h2o_feet"
+WHERE "location" = 'santa_monica' and "level description" = 'below 3 feet'
 ```
 
 {{< expand-wrapper >}}
@@ -83,13 +82,13 @@ and a `level description` field value that equals `below 3 feet`.
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-###  Filter data within a specific time period
+### Filter data within a specific time period
 
 ```sql
 SELECT *
-FROM h2o_feet 
+FROM h2o_feet
 WHERE "location" = 'santa_monica'
-AND "time" >= '2019-08-19T12:00:00Z'::timestamp AND "time" <= '2019-08-19T13:00:00Z'::timestamp 
+AND "time" >= '2019-08-19T12:00:00Z'::timestamp AND "time" <= '2019-08-19T13:00:00Z'::timestamp
 ```
 
 {{< expand-wrapper >}}
