@@ -483,6 +483,8 @@ The following guide uses [Docker CLI commands](https://docs.docker.com/reference
 
    <!--pytest.mark.skip-->
 
+{{% code-placeholders "&lt;(USERNAME|PASSWORD|ORG_NAME|BUCKET_NAME)&gt;" %}}
+
    ```sh
    docker run \
     --name influxdb2 \
@@ -497,6 +499,8 @@ The following guide uses [Docker CLI commands](https://docs.docker.com/reference
     influxdb:2
    ```
 
+{{% /code-placeholders %}}
+
    The command passes the following arguments:
 
    - `--publish 8086:8086`: Exposes the InfluxDB [UI](/influxdb/v2/get-started/#influxdb-user-interface-ui) and [HTTP API](/influxdb/v2/reference/api/) on the host's `8086` port.
@@ -504,10 +508,11 @@ The following guide uses [Docker CLI commands](https://docs.docker.com/reference
    - `--mount type=volume,source=influxdb2-config,target=/etc/influxdb2`: Creates a volume named `influxdb2-config` mapped to the [InfluxDB configuration directory](/influxdb/v2/reference/internals/file-system-layout/?t=docker#file-system-layout) to make configurations available outside the container.
    - `-e DOCKER_INFLUXDB_INIT_MODE=setup`: Environment variable that invokes the automated setup of the initial organization, user, bucket, and token when creating the container.
    - `-e DOCKER_INFLUXDB_INIT_<SETUP_OPTION>`: Environment variables for initial setup options--replace the following with your own values:
-     - `<USERNAME>`: The username for the initial [user](/influxdb/v2/admin/users/)--an admin user with an API [Operator token](/influxdb/v2/admin/tokens/#operator-token).
-     - `<PASSWORD>`: The password for the initial [user](/influxdb/v2/admin/users/).
-     - `<ORG_NAME>`: The name for the initial [organization](/influxdb/v2/admin/organizations/).
-     - `<BUCKET_NAME>`: The name for the initial [bucket](/influxdb/v2/admin/buckets/).
+
+     - {{% code-placeholder-key %}}`<USERNAME>`{{% /code-placeholder-key %}}: The username for the initial [user](/influxdb/v2/admin/users/)--an admin user with an API [Operator token](/influxdb/v2/admin/tokens/#operator-token).
+     - {{% code-placeholder-key %}}`<PASSWORD>`{{% /code-placeholder-key %}}: The password for the initial [user](/influxdb/v2/admin/users/).
+     - {{% code-placeholder-key %}}`<ORG_NAME>`{{% /code-placeholder-key %}}: The name for the initial [organization](/influxdb/v2/admin/organizations/).
+     - {{% code-placeholder-key %}}`<BUCKET_NAME>`{{% /code-placeholder-key %}}: The name for the initial [bucket](/influxdb/v2/admin/buckets/).
 
     For more options, see the [`influxdb` Docker Hub image](https://hub.docker.com/_/influxdb) documentation.
     _If you don't specify InfluxDB initial setup options, you can [set up manually](#set-up-influxdb) later using the UI or CLI in a running container._
