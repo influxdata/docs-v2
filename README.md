@@ -57,7 +57,7 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
 
 1. Clone this repository to your local machine. See how to [clone a repository](https://help.github.com/articles/cloning-a-repository/).
 
-2. **Install Docker & Compose Plugin**
+2. Follow the instructions to [install Docker Desktop](https://docs.docker.com/desktop/) and [Docker Compose](https://docs.docker.com/compose/) to your local machine.
 
 3. **Start the Hugo Server**
 
