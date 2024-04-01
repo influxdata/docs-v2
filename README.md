@@ -55,7 +55,7 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
 
 ### Alternative: Use docker compose
 
-1. [**Clone this repository**](https://help.github.com/articles/cloning-a-repository/) to your local machine.
+1. Clone this repository to your local machine. See how to [clone a repository](https://help.github.com/articles/cloning-a-repository/).
 
 2. **Install Docker & Compose Plugin**
 
