@@ -238,7 +238,7 @@ Environment variable: `INFLUXDB_META_LEADER_LEASE_TIMEOUT`
 
 Default is `"50ms"`.
 
-The commit timeout is the interval the leader waits between sending messages with
+The commit timeout is the interval that the leader waits between sending messages with
 the leader's commit index to followerers.
 The default setting should work for most systems.
 
