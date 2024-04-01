@@ -52,3 +52,16 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
       npx hugo server
       ```
 5. View the docs at [localhost:1313](http://localhost:1313).
+
+### Alternative: Use docker compose
+
+1. Clone this repository to your local machine. See how to [clone a repository](https://help.github.com/articles/cloning-a-repository/).
+
+2. Follow the instructions to [install Docker Desktop](https://docs.docker.com/desktop/) and [Docker Compose](https://docs.docker.com/compose/) to your local machine.
+
+3. Use Docker Compose to start the Hugo server in development mode--for example, enter the following command in your terminal:
+
+    ```sh
+    docker compose up local-dev
+    ```
+4. View the docs at [localhost:1313](http://localhost:1313).
