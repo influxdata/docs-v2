@@ -23,7 +23,7 @@ Replicate data from InfluxDB OSS to InfluxDB Cloud, InfluxDB OSS, or InfluxDB En
 - [Configure a replication stream](#configure-a-replication-stream)
 - [Replicate downsampled or processed data](#replicate-downsampled-or-processed-data)
 {{% oss-only %}}
-- [View replication service metrics](#view-replication-service-metrics)
+- [View replication service metrics](#view-influxdb-oss-replication-service-metrics)
 {{% /oss-only %}}
 
 ## Configure a replication stream
