@@ -20,6 +20,12 @@ InfluxDB OSS, InfluxDB Cloud, or InfluxDB Enterprise instance.
 
 Replicate data from InfluxDB OSS to InfluxDB Cloud, InfluxDB OSS, or InfluxDB Enterprise.
 
+- [Configure a replication stream](#configure-a-replication-stream)
+- [Replicate downsampled or processed data](#replicate-downsampled-or-processed-data)
+{{% oss-only %}}
+- [View replication service metrics](#view-influxdb-oss-replication-service-metrics)
+{{% /oss-only %}}
+
 ## Configure a replication stream
 
 Use the [`influx` CLI](/influxdb/v2/tools/influx-cli/) or the
@@ -275,3 +281,11 @@ In some cases, you may not want to write raw, high-precision data to a remote In
     ```
 
 3. [Create a replication stream](#configure-a-replication-stream) to replicate data from the downsampled bucket to the remote InfluxDB {{% cloud-only %}}Cloud {{% /cloud-only %}}instance.
+
+## View InfluxDB OSS replication service metrics
+
+In addition to replication stream information that you can access using the [CLI](?t=CLI#configure-a-replication-stream) or [API](?t=API#configure-a-replication-stream), you can view replication service-level metrics for your InfluxDB OSS instance, such as `/api/v2/write` error details, the number and duration of calls to the service, and the total number of points queued.
+
+To view replication service-level metrics send a `GET` request to your local InfluxDB  OSS `/metrics` endpoint.
+
+For more information, see [InfluxDB OSS metrics](/influxdb/v2/reference/internals/metrics/).
