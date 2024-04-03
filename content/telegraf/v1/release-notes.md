@@ -11,7 +11,127 @@ menu:
     weight: 60
 ---
 
-## v1.29.0 {date="2023-12-11}
+## v1.30.0 {date="2024-03-11"}
+
+### Deprecation removals
+
+This release removes the following deprecated plugins:
+
+- `inputs.cassandra`
+- `inputs.httpjson`
+- `inputs.io`
+- `inputs.jolokia`
+- `inputs.kafka_consumer_legacy`
+- `inputs.snmp_legacy`
+- `inputs.tcp_listener`
+- `inputs.udp_listener`
+- `outputs.riemann_legacy`
+
+Furthermore, the following deprecated plugin options are removed:
+
+- `mountpoints` of `inputs.disk`
+- `metric_buffer` of `inputs.mqtt_consumer`
+- `metric_buffer` of `inputs.nats_consumer`
+- `url` of `outputs.influxdb`
+
+Replacements do exist, so please migrate your configuration in case you are
+still using one of these plugins. The [`telegraf config migrate` command](/telegraf/v1/commands/config/migrate/)
+can help with migrating to newer plugins.
+
+### Important Changes
+
+- The default read-timeout of `inputs.syslog` of five seconds is not a sensible
+  default as the plugin will close the connection if the time between
+  consecutive messages exceeds the timeout. Telegraf 1.30.0+ sets the timeout
+  to infinite (i.e zero) as this is the expected behavior.
+- Telegraf 1.30.0+ correctly sanitize PostgreSQL addresses, which may change the
+  server tag value for a URI-formatted address that contains spaces, backslashes
+  or single-quotes in non-redacted parameters.
+
+### New Plugins
+
+#### Outputs
+
+- [Zabbix](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/zabbix) (`outputs.zabbix`)
+
+#### Serializers
+
+- [Binary](https://github.com/influxdata/telegraf/tree/master/plugins/serializers/binary) (`serializers.binary`)
+
+#### Processors
+
+- [SNMP lookup](https://github.com/influxdata/telegraf/tree/master/plugins/processors/snmp_lookup) (`processors.snmp_lookup`)
+
+### Features
+
+- Add loongarch64 nightly and release builds.
+- Add `skip_processors_after_aggregators` configuration option to skip
+  re-running processors after aggregators.
+- Allow secrets in headers
+- OPCUA (`common.opcua`): Add debug info for nodes not in server namespace.
+- Aerospike (`inputs.aerospike`): Deprecate plugin.
+- AMD ROCm System Management Interface (`inputs.amd_rocm_smi`):
+  Add `startup_error_behavior` configuration option.
+- Chrony (`inputs.chrony`):
+  - Allow the collection of additional metrics.
+  - Remove `chronyc` dependency.
+- Kafka Consumer (`inputs.kafka_consumer`): Mark messages that failed parsing.
+- Kernel (`inputs.kernel`): Add pressure stall information.
+- Modbus (`inputs.modbus`): Add a workaround for unusual string-byte locations.
+- Net (`inputs.net`): Add speed metric.
+- NVIDIA SMI (`inputs.nvidia_smi`): Add `startup_error_behavior` configuration option.
+- Prometheus (`inputs.prometheus`):
+  - Add internal metrics.
+  - Add option to limit body length.
+- Redfish (`inputs.redfish`): Allow secrets for username/password configuration.
+- S.M.A.R.T. (`inputs.smart`): Add a `device_type` tag to differentiate disks
+  behind a RAID controller.
+- SQL Server (`inputs.sqlserver`): Add stolen target memory ratio.
+- Systemd Units (`inputs.systemd_units`)
+  - Support querying unloaded/disabled units.
+  - Introduce show subcommand for additional data.
+- Windows Services (`inputs.win_services`): Make service selection case-insensitive.
+- Graphite (`outputs.graphite`): Set the local address to bind to.
+- NATS (`outputs.nats`): Introduce NATS Jetstream option.
+- Nebius Cloud Monitoring (`outputs.nebius_cloud_monitoring`): Add service
+  configuration setting.
+- Webscoket (`outputs.websocket`): Support secrets in headers.
+- CSV (`serializers.csv`): Specify a fixed column order.
+
+### Bug fixes
+
+- Catch panics in input plugin goroutines.
+- Reword error message about missing configuration options.
+- Docker Log (`inputs.docker_log`): Use the correct name when matching container.
+- GNMI (`inputs.gnmi`):
+  - Add option to infer the path tag from the subscription.
+  - Handle canonical field-name correctly
+- Netflow (`inputs.netflow`): Fallback to IPFIX mappings for Netflow v9.
+- PHP-FPM (`inputs.phpfpm`): Continue despite erroneous sockets.
+- Prometheus (`inputs.prometheus`): List namespaces only when filtering by namespace.
+- Prometheus (`parsers.prometheus`): Do not touch input data for protocol-buffers.
+- Override (`processors.override`): Correct TOML tag name.
+- Ensure valid statefile in package.
+
+### Dependency updates
+
+- Update all `github.com/aws/aws-sdk-go-v2` dependencies.
+- Update `cloud.google.com/go/bigquery` from 1.58.0 to 1.59.1.
+- Update `github.com/aws/aws-sdk-go-v2/service/dynamodb` from 1.27.0 to 1.30.2.
+- Update `github.com/cloudevents/sdk-go/v2` from 2.15.0 to 2.15.2.
+- Update `github.com/eclipse/paho.golang` from 0.20.0 to 0.21.0.
+- Update `github.com/microsoft/go-mssqldb` from 1.6.0 to 1.7.0.
+- Update `github.com/netsampler/goflow2` from v1.3.6 to v2.1.2.
+- Update `github.com/peterbourgon/unixtransport` from 0.0.3 to 0.0.4.
+- Update `github.com/prometheus/client_model` from 0.5.0 to 0.6.0.
+- Update `github.com/srebhan/cborquery` from v0.0.0-20230626165538-38be85b82316 to v1.0.1.
+- Update `github.com/vapourismo/knx-go` from v0.0.0-20240107135439-816b70397a00 to v0.0.0-20240217175130-922a0d50c241.
+- Update `go.mongodb.org/mongo-driver` from 1.13.1 to 1.14.0.
+- Update `golang.org/x/crypto` from 0.19.0 to 0.20.0.
+- Update `modernc.org/sqlite` from 1.28.0 to 1.29.2.
+- Update `super-linter/super-linter` from 6.1.1 to 6.3.0.
+
+## v1.29.0 {date="2023-12-11"}
 
 ### New Plugins
 
