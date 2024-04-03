@@ -11,6 +11,57 @@ menu:
     weight: 60
 ---
 
+## v1.30.1 {date="2024-04-01"}
+
+### Bug fixes
+
+- Chrony (`inputs.chrony`): Remove chronyc dependency in documentation.
+- DiskIO (`inputs.diskio`): Add missing udev properties.
+- DNS Query (`inputs.dns_query`):
+  - Fill out additional record fields.
+  - Include the canonical CNAME target.
+- KNX (`inputs.knx_listener`):
+  - Ignore GroupValueRead requests.
+  - Reconnect after connection loss.
+- MySQL (`inputs.mysql`):
+  - Parse boolean values in metric v1 correctly.
+  - Use correct column-types for Percona 8 user stats.
+- NVIDIA SMI (`inputs.nvidia_smi`): Add process info metrics.
+- OpenStack(`inputs.openstack`): Resolve regression in block storage and server info.
+- PHP-FPM (`inputs.phpfpm`): Add timeout for fcgi.
+- Ping (`inputs.ping`): Add option to force ipv4.
+- Prometheus (`inputs.prometheus`): Initialize logger of parser.
+- S.M.A.R.T. (`inputs.smart`): Improve regexp to support flags with a plus.
+- Systemd Units (`inputs.systemd_units`): Handle disabled multi-instance units correctly.
+- BigQuery (`outputs.bigquery`): Add scope to bigquery and remove timeout context.
+- Avoid count underflow by only counting initialized secrets.
+- Ensure watch-config is passed to the Windows service.
+
+### Dependency updates
+
+- Update `github.com/IBM/sarama` from v1.42.2 to v1.43.1.
+- Update `github.com/aws/aws-sdk-go-v2` from 1.25.3 to 1.26.0.
+- Update `github.com/aws/aws-sdk-go-v2/config` from 1.27.5 to 1.27.9.
+- Update `github.com/aws/aws-sdk-go-v2/feature/ec2/imds` from 1.15.2 to 1.16.0.
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs` from 1.34.2 to 1.34.3.
+- Update `github.com/aws/aws-sdk-go-v2/service/ec2` from 1.149.3 to 1.151.1.
+- Update `github.com/aws/aws-sdk-go-v2/service/sts` from 1.28.2 to 1.28.4.
+- Update `github.com/docker/docker` from 25.0.0+incompatible to 25.0.5+incompatible.
+- Update `github.com/jackc/pgtype` from 1.14.0 to 1.14.2.
+- Update `github.com/jackc/pgx/v4` from 4.18.1 to 4.18.2.
+- Update `github.com/klauspost/compress` from 1.17.6 to 1.17.7.
+- Update `github.com/pion/dtls/v2` from 2.2.8 to 2.2.10.
+- Update `github.com/prometheus-community/pro-bing` from 0.3.0 to 0.4.0.
+- Update `github.com/prometheus/procfs` from 0.12.0 to 0.13.0.
+- Update `github.com/stretchr/testify` v1.8.4 to v1.9.0.
+- Update `go.step.sm/crypto` from 0.43.0 to 0.44.1.
+- Update `golang.org/x/crypto` from 0.20.0 to 0.21.0.
+- Update `gonum.org/v1/gonum` from 0.14.0 to 0.15.0.
+- Update `google.golang.org/api` from 0.165.0 to 0.171.0.
+- Update `google.golang.org/protobuf` from 1.32.0 to 1.33.0.
+- Update `tj-actions/changed-files` from 42 to 43.
+
+
 ## v1.30.0 {date="2024-03-11"}
 
 ### Deprecation removals
