@@ -1,7 +1,7 @@
 ---
 title: telegraf config migrate
 description: >
-  The `telegraf config migrate` command ...
+  The `telegraf config migrate` migrates deprecated plugins in a Telegraf configuration file to supported plugins.
 menu:
   telegraf_v1_ref:
     parent: telegraf config

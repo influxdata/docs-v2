@@ -1,14 +1,14 @@
 ---
 title: telegraf config
 description: >
-  The `telegraf config` command generates and migrations Telegraf configuration files.
+  The `telegraf config` command generates Telegraf configuration files and migrates deprecated plugins in configuration files.
 menu:
   telegraf_v1_ref:
     parent: Telegraf commands
 weight: 201
 ---
 
-The `telegraf config` command generates and migrations Telegraf configuration files.
+  The `telegraf config` command generates Telegraf configuration files and migrates deprecated plugins in configuration files.
 
 ## Usage
 
