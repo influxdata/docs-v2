@@ -2,20 +2,38 @@
 title: Monitor your cluster
 seotitle: Monitor your InfluxDB Cloud Dedicated cluster
 description: >
-  ...
+  Use the Grafana dashboard provided by InfluxData to monitor your
+  InfluxDB Cloud Dedicated cluster.
 menu:
   influxdb_cloud_dedicated:
     parent: Administer InfluxDB Cloud
-weight: 102
+weight: 104
 ---
 
-Use the Grafana dashboard provided by InfluxData to monitor your InfluxDB Cloud
-Dedicated cluster.
+Use the Grafana dashboard provided by InfluxData to monitor your
+{{< product-name >}} cluster.
 
-To access the dashboard, visit.
+- [Access your monitoring dashboard](#access-your-monitoring-dashboard)
+- [Dashboard sections and cells](#dashboard-sections-and-cells)
+
+{{< img-hd src="/img/influxdb/clustered-admin-monitoring-dashboard.png" alt="InfluxDB Cloud Dedicated monitoring dashboard" />}}
+
+## Access your monitoring dashboard
+
+To access your {{< product-name >}} monitoring dashboard, visit the
+`/observability` endpoint of your {{< product-name >}} cluster in your browser:
+
+<pre>
+<a href="https://{{< influxdb/host >}}/observability">https://{{< influxdb/host >}}/observability</a>
+</pre>
+
+Use the credentials provided by InfluxData to log into your cluster monitoring dashboard.
+If you do not have login credentials, [contact InfluxData support](https://support.influxdata.com).
+
+## Dashboard sections and cells
 
 The dashboard is divided into the following sections that visualize metrics
-related to your cluster's health:
+related to the health of components in your {{< product-name >}} cluster:
 
 - [Query Tier Cpu/Mem](#query-tier-cpumem)
 - [Query Tier](#query-tier)
@@ -28,126 +46,338 @@ related to your cluster's health:
 
 ### Query Tier Cpu/Mem
 
+The **Query Tier Cpu/Mem** section displays the CPU and memory usage of query
+pods as reported by Kubernetes.
+[Queriers](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier)
+handle query requests and returns query results for requests.
+
+- [CPU Utilization (k8s)](#cpu-utilization-k8s)
+- [Memory Usage (k8s)](#memory-usage-k8s)
+
 #### CPU Utilization (k8s)
 
-CPU Utilization of query pods as reported by the Kubernetes container usage.
+The CPU utilization of query pods as reported by the Kubernetes container usage.
+Usage is reported by the number of CPU cores used by pods, including
+fractional cores.
+The CPU limit is represented by the top line in the visualization.
 
 #### Memory Usage (k8s)
 
-Memory usage of the query pod containers as reported by Kubernetes (via cgroup).
+The memory usage of the query pod containers per cgroup as reported by Kubernetes.
+Usage is reported in a magnitude of bytes.
+The memory limit is represented by the top line in the visualization.
 
 ---
 
 ### Query Tier
 
+The **Query Tier** section displays metrics reported from the InfluxDB gRPC
+query API.
+[Queriers](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier)
+handle query requests and returns query results for requests.
+
+- [gRPC Requests (ok)](#grpc-requests-ok)
+- [gRPC Requests (not ok)](#grpc-requests-not-ok)
+- [Request Duration (flight DoGet) (ok + !ok)](#request-duration-flight-doget-ok--ok)
+- [Successful Request Duration (flight DoGet)](#successful-request-duration-flight-doget)
+- [Acquire Duration](#acquire-duration)
+
 #### gRPC Requests (ok)
 
-Rate of gRPC requests for different endpoints that returned that status code "OK", summed across all queriers.
+The rate of gRPC requests for different endpoints that returned the `OK` status code,
+summed across all queriers.
+Request rate is reported in requests per second.
 
 #### gRPC Requests (not ok)
 
-Rate of gRPC requests for all endpoints that returned that status code other than "OK", summed across all queriers.
+The rate of gRPC requests for all endpoints that returned a status code other
+than `OK`, summed across all queriers.
+Request rate is reported in requests per second.
 
 #### Request Duration (flight DoGet) (ok + !ok)
 
-gRPC request duration heatmap for the DoGet endpoint combining both successes and failures. This is NOT filtered/grouped by status.
+A gRPC request duration heatmap for all requests to the `DoGet` endpoint
+regardless of request status.
+
+The heatmap shows how many requests occurred in each duration "bucket" per time
+interval and provides insight into how long a typical query request takes.
+It also shows, at a glance, the predominate latency range as well as the
+minimum and maximum durations of all query requests.
+
+The color scheme is a indicator of the value of each cell relative to the
+_currently displayed data_.
 
 #### Successful Request Duration (flight DoGet)
 
-gRPC request duration heatmap for the DoGet endpoint, showing only successes. This is filtered/grouped by status=ok.
+A gRPC request duration heatmap for successful requests to the `DoGet` endpoint.
+
+The heatmap shows how many requests occurred in each duration "bucket" per time
+interval and provides insight into how long a typical successful query request takes.
+It also shows, at a glance, the predominate latency range as well as the
+minimum and maximum durations of successful query requests.
+
+The color scheme is a indicator of the value of each cell relative to the
+_currently displayed data_.
 
 #### Acquire Duration
 
-Heatmap of "how long does a query wait until it passes the query semaphore". This only contains the time waiting for the semaphore, NOT the time holding it. This can be used to gauge how much query latency is added due to a high cluster load.
+A heatmap of how long a query waits to pass the query _semaphore_--a mechanism
+that limits the number of concurrent query requests that can be processed and
+protects against Out of Memory (OOM) errors that can be caused by unaccounted-for
+data structures that may occur during query planning and execution.
+This cell only provides information about the queries waiting for the semaphore,
+not the time holding it.
 
-{{% note %}}
-Metrics converning the so-called "query semaphore", such as Acquire Duration.
-
-This semaphore limits the number of concurrent queries that can be processed. This is a self-protection mechanism since many data structures during query planning and execution are not accounted for and we want to prevent OOMs.
-
-Queries that are waiting for the semaphore are running gRPC requests. The client does NOT know that/when a query is waiting for the semaphore.
-{{% /note %}}
+This cell can be used to gauge how much query latency is added due to a high
+cluster load.
 
 ---
 
 ### Ingest Tier Cpu/Mem
 
-- CPU Utilization Ingesters (k8s): CPU Utilization of ingester pods as reported by the Kubernetes container usage.
-- Memory Usage Ingesters (k8s): This is the memory usage of the ingester pod containers as reported by Kubernetes (via cgroup).
-- CPU Utilization Routers (k8s): CPU Utilization of router pods as reported by the Kubernetes container usage.
-- Memory Usage Routers (k8s): This is the memory usage of the router pod containers as reported by Kubernetes (via cgroup).
+The **Query Tier Cpu/Mem** section displays the CPU and memory usage of Ingester
+pods as reported by Kubernetes.
+[Ingesters](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester)
+process line protocol submitted in write requests and persist time series data
+to the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
+
+- [CPU Utilization Ingesters (k8s)](#cpu-utilization-ingesters-k8s)
+- [Memory Usage Ingesters (k8s)](#memory-usage-ingesters-k8s)
+- [CPU Utilization Routers (k8s)](#cpu-utilization-routers-k8s)
+- [Memory Usage Routers (k8s)](#memory-usage-routers-k8s)
+
+#### CPU Utilization Ingesters (k8s)
+
+CPU Utilization of Ingester pods as reported by the Kubernetes container usage.
+Usage is reported by the number of CPU cores used by pods, including
+fractional cores.
+The CPU limit is represented by the top line in the visualization.
+
+#### Memory Usage Ingesters (k8s)
+
+Memory usage of the Ingester pod containers per cgroup as reported by Kubernetes.
+Usage is reported in a magnitude of bytes.
+The memory limit is represented by the top line in the visualization.
+
+#### CPU Utilization Routers (k8s)
+
+CPU Utilization of Ingester router pods as reported by the Kubernetes container usage.
+Usage is reported by the number of CPU cores used by pods, including
+fractional cores.
+
+#### Memory Usage Routers (k8s)
+
+Memory usage of the Ingester router pod containers per cgroup as reported by Kubernetes.
+Usage is reported in a magnitude of bytes.
 
 ---
 
 ### Ingest Tier
 
-- Write Requests (at router): Number of write operations completed across all routers.
-- LP Ingest (at router): Per router and total (sum) number of line protocol lines received
-- LP Ingest (at router) _bytes_: Individual router and total (sum) bytes of line protocol received per second
-- HTTP request error rate (server's POV at Router): Reported by the iox http request handler
-- Healthy Upstream Ingesters per Router: Number of upstream ingesters each router believes is healthy.
-  This reflects the router's RPC request balancer / circuit breaker state.
+The **Ingest Tier** section displays metrics reported from the InfluxDB gRPC
+and HTTP write APIs.
+[Ingesters](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester)
+process line protocol submitted in write requests and persist time series data
+to the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
 
-  Healthy upstream ingesters is indicating how many ingesters each router sees.
-  A collapse of the ingest pipeline may be indicated by the routers not connecting
-  to ingesters because of network issues or ingester unavailability.
+- [Write Requests (at router)](#write-requests-at-router)
+- [LP Ingest (at router)](#lp-ingest-at-router-lines)
+  <em class="op50">(lines)</em>
+- [LP Ingest (at router)](#lp-ingest-at-router-bytes)
+  <em class="op50">(bytes)</em>
+- [HTTP request error rate (server's POV at Router)](#http-request-error-rate-server's-pov-at-router)
+- [Healthy Upstream Ingesters per Router](#healthy-upstream-ingesters-per-router)
+- [Persist Queue Depth](#persist-queue-depth)
+- [Persist Task Queue Duration](#persist-task-queue-duration)
+- [Ingester Disk Data Directory Usage](#ingester-disk-data-directory-usage)
+- [Ingest Blocked Time (24h)](#ingest-blocked-time-24h)
+- [Max Persist Queue Depth](#max-persist-queue-depth)
+- [Write Logs (10 examples)](#write-logs-10-examples)
 
-  The Persist Queue is the queue for persisting, or saving to s3, new parquey files.
-  The ingesters manage the persist queue. They create the L0 parquet files from
-  their write buffer (WAL) and save it to S3. If the persist queue is growing it
-  means the ingesters are not keeping up with the incoming write load, likely
-  leading to ingester failure if it doesn't subside. Likewise, a increasing or
-  large persist queue duration means parquet files are taking a long time to get
-  to s3 because of network or internal ingester resource limitations.
+#### Write Requests (at router)
 
-- Persist Queue Depth: The number of persist jobs enqueued and not yet started.
-- Persist Task Queue Duration: Duration of time a persist job spent in the queue before being executed.
-- Ingester Disk Data Directory Usage: This displays the per pod disk usage as a
-  percentage of ingester's data directory. When full, the write-ahead log will be unable to operate
+Number of write operations completed across all Ingester routers.
+Requests are grouped by state (success or error).
+Request rate is reported in requests per second.
 
-  {{% note %}}
-The WAL is stored on a disk attached to the ingesters. This disk could fill up if the WAL grows too large. This would cause the ingester to fail until disk space is made available.
-  {{% /note %}}
+#### LP Ingest (at router) {#lp-ingest-at-router-lines metadata="lines"}
 
-- Ingest Blocked Time (24h): Percentage of time the persist system has been marked as saturated (rejecting writes).
-- Max Persist Queue Depth: Maximum queue depth as a percentage of the configured
-  maximum queue depth - once reached writes are rejected (persist saturation).
-  Shows the ratio of the most saturated ingester.
-- Write Logs (10 examples): These are 10 logs from the time period - they are not "the most recent 10".
+Rate of lines of line protocol being received by each router and across all
+Ingester routers.
+Request rate is reported in lines per second.
+
+#### LP Ingest (at router) {#lp-ingest-at-router-bytes metadata="bytes"}
+
+Rate of bytes of line protocol being received by each router and across all
+Ingester routers.
+Request rate is reported in bytes per second.
+
+#### HTTP request error rate (server's POV at Router)
+
+HTTP request error rate reported by the InfluxDB v3 HTTP request handler.
+Error rate is represented the percentage in total requests that return a non-2xx
+response code.
+
+#### Healthy Upstream Ingesters per Router
+
+The number of healthy upstream Ingesters each router detects.
+This reflects the router's RPC request balancer or circuit breaker state.
+
+This can indicate when routers can't connect to Ingesters becaåuse of because of
+issues in the ingest pipeline such as network issues or Ingester availability.
+
+The Persist Queue is the queue for persisting, or saving to s3, new parquey files.
+
+#### Persist Queue Depth
+
+The number of queued persist jobs that have not started.
+Each persist jobs consists of taking data from the Write Ahead Log (WAL),
+storing it in a Parquet file, and saving the Parquet file to the
+[Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
+
+If the persist queue is growing it means Ingesters are not keeping up with the
+incoming write load and may result in Ingester failure. 
+
+#### Persist Task Queue Duration
+
+A heatmap that shows the time persist jobs spend in the queue before being executed.
+
+Longer queue times indicate slower persist job execution times which may be due
+to network or internal resource constraints, or an increasing
+[queue depth](#persist-queue-depth).
+
+#### Ingester Disk Data Directory Usage
+
+The per-pod disk usage as a percentage of the Ingesters' data directory.
+The WAL is stored on a disk attached to the Ingesters.
+As the WAL grows, more disk space is used.
+If Ingesters run out of disk, the WAL stops functioning.
+
+#### Ingest Blocked Time (24h)
+
+The amount of time the ingest pipeline has been marked as saturated and
+rejected write requests.
+
+#### Max Persist Queue Depth
+
+The queue depth as a percentage of the configured maximum queue depth.
+This shows the saturation level of the most saturated Ingester.
+Once the maximum queue depth is reached, writes are rejected.
+
+#### Write Logs (10 examples)
+
+A sample of 10 write logs from the displayed time period.
+_These do not represent the most recent logs._
 
 ---
 
 ### Compaction Tier Cpu/Mem
 
-- CPU Utilization (k8s): CPU Utilization of compactor pods as reported by the Kubernetes container usage.
-- Memory Usage (k8s): This is the memory usage of the ingester pod containers as reported by Kubernetes (via cgroup).
+The **Compaction Tier Cpu/Mem** section displays the CPU and memory usage of
+Compactor pods as reported by Kubernetes.
+[Compactors](/influxdb/cloud-dedicated/reference/internals/storage-engine/#compactor)
+process and compress parquet files in the
+[Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store)
+to continually optimize storage.
+
+- [CPU Utilization (k8s)](#compaction-cpu-utilization)
+- [Memory Usage (k8s)](#compaction-memory-usage)
+
+#### CPU Utilization (k8s) {#compaction-cpu-utilization}
+
+The CPU utilization of compactor pods as reported by the Kubernetes container usage.
+Usage is reported by the number of CPU cores used by pods, including
+fractional cores.
+The CPU limit is represented by the top line in the visualization.
+
+#### Memory Usage (k8s) {#compaction-memory-usage}
+
+The memory usage of compactor pod containers per cgroup as reported by Kubernetes.
+Usage is reported in a magnitude of bytes.
+The memory limit is represented by the top line in the visualization.
 
 ---
 
 ### Compactor
 
-- Compactor: L0 File Counts (5m bucket width): Quantity of L0 files, at time of compaction.
+The **Compactor** section displays metrics related to the compaction of Parquet
+files in the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
+[Compactors](/influxdb/cloud-dedicated/reference/internals/storage-engine/#compactor)
+process and compress Parquet files to continually optimize storage.
 
-Ingesters create parquet files called L0 (level zero) - they only create L0. Compactors create L1, L2, L3, etc by taking multiples of a lower level. For example, four L0 files could be compacted into one (or more) L1 files.
+- [Compactor: L0 File Counts (5m bucket width)](#compactor-l0-file-counts-5m-bucket-width)
 
-Parquet files are shared (segemented, partitioning) by timerange and partition (plus any custom partitioning). Once four L0 files accumulate for a partion/shard, those files are eligible for compaction by the compactor. Thus, if the compactor is keeping up as best as possible with the incoming write load and the L0 files, all compaction events will have exactly 4 files. This will mean the 0-4 y-axis of this heatmap is where most of the compaction starts occur.
+#### Compactor: L0 File Counts (5m bucket width)
 
-Therefore, we can make some general assessments from this L0 count for compaction starts and infer how well or not the compactor is keeping up.
+A histogram of the quantity of L0-compacted files at time of compaction.
 
-The L0 count is telling us how many partitions started a compaction with that many (y-axis) L0 parquet files during the x-axis interval. In other words, are partitions being compacted as soon as there are a few L0 parquet files? This chart allows us to determine if the compactor is starting compactions as soon as it can.
+Ingesters create Parquet files using L0 (level zero) compaction.
+As Compactors process and compact Parquet files over time, they do so in the
+following levels:
+
+- **L0**: Uncompacted
+- **L1**: 4 L0 files compacted together
+- **L2**: 4 L1 files compacted together
+- **L3**: 4 L2 files compacted together
+
+Parquet files store data partitioned by time and optionally tags
+_(see [Manage data partition](https://docs.influxdata.com/influxdb/cloud-dedicated/admin/custom-partitions/))_.
+Once four L0 files accumulate for a partition, they are are eligible for compaction.
+If the compactor is keeping up with the incoming write load, all compaction
+events will have exactly 4 files. If the number of L0 files compacted begins to
+to increase, it indicates the compactor is not keeping up.
+
+This histogram helps to determine if the Compactor is starting compactions as
+soon as it can.
 
 ---
 
 ### Ingestor Catalog Operations
 
-- Catalog Ops - success: Number of catalog operations requested by ingesters, per second.
-- Catalog Ops - error: Number of catalog operations requested by ingesters, per second.
-- Catalog Op Latency (P90): Per-operation P90 query latancy against the catalog service.
-  When a P90 value is high, the catalog may be overloaded.
+The **Ingestor Catalog Operations** section displays metrics related to 
+Catalog operations requested by Ingesters.
+The [Catalog](/influxdb/cloud-dedicated/reference/internals/storage-engine/#catalog)
+is a relational database that stores metadata related to your time series data
+including schema information and physical locations of partitions in the 
+[Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
+
+- [Catalog Ops - success](#catalog-ops---success)
+- [Catalog Ops - error](#catalog-ops---error)
+- [Catalog Op Latency (P90)](#catalog-op-latency-p90)
+
+#### Catalog Ops - success
+
+The rate of successful Catalog operations per second requested by Ingesters.
+Higher rates of successful Catalog operations requested by Ingesters indicate
+a high write load.
+
+#### Catalog Ops - error
+
+The rate of erred catalog operations per second requested by Ingesters.
+Higher rates of erred Catalog operations requested by Ingesters indicate
+that the Catalog may be overloaded or unresponsive.
+
+#### Catalog Op Latency (P90)
+
+The 90th percentile (P90) of query latency against the catalog service per operation.
+A high P90 value indicates that the Catalog may be overloaded.
 
 ---
 
 ### Catalog Operations Overview
 
-- Requests per Operation - success: Number of successful catalog requests by operation.
-- Requests per Operation - error: Number of erred catalog requests by operation.
+The **Catalog Operations Overview** section displays metrics related to 
+Catalog operations requested by all components of your {{< product-name >}} cluster.
+
+- [Requests per Operation - success](#requests-per-operation---success)
+- [Requests per Operation - error](#requests-per-operation---error)
+
+#### Requests per Operation - success
+
+The rate of successful Catalog requests per second by operation.
+
+#### Requests per Operation - error
+
+The rate of erred Catalog requests per second by operation.
+Higher rates of erred Catalog operations indicate that the Catalog may be
+overloaded or unresponsive.
