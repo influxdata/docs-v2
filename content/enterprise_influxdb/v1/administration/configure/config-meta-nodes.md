@@ -238,8 +238,8 @@ Environment variable: `INFLUXDB_META_LEADER_LEASE_TIMEOUT`
 
 Default is `"50ms"`.
 
-The commit timeout is the amount of time a Raft node will tolerate between
-commands before issuing a heartbeat to tell the leader it is alive.
+The commit timeout is the interval that the leader waits between sending messages with
+the leader's commit index to followerers.
 The default setting should work for most systems.
 
 Environment variable: `INFLUXDB_META_COMMIT_TIMEOUT`
