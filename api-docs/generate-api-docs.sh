@@ -2,53 +2,6 @@
 
 set -e
 
-function buildHugoTemplate {
-  version=$1
-  apiVersion=$2
-  outFilename=$3
-
-  V_LEN_INIT=$(wc -c $version$outFilename.tmp | awk '{print $1}')
-  cat "redoc-static${outFilename}.html" >> $version$outFilename.tmp
-  V_LEN=$(wc -c $version$outFilename.tmp | awk '{print $1}')
-
-  if ! [[ $V_LEN -gt $V_LEN_INIT  ]]
-  then
-    echo "Error: bundle was not appended to $version$outFilename.tmp"
-    exit $?
-  fi
-
-  rm -f "redoc-static${outFilename}.html"
-  mkdir -p ../content/influxdb/$version/api
-  mv $version$outFilename.tmp ../content/influxdb/$version/api/$outFilename.html
-}
-
-function generateHtml {
-  filePath=$1
-  outFilename=$2
-  titleVersion=$3
-  titleSubmodule=$4
- 
-  echo "Bundling $filePath"
-
-  npx --version
-
-  # Use npx to install and run the specified version of redoc-cli.
-  # npm_config_yes=true npx overrides the prompt
-  # and (vs. npx --yes) is compatible with npm@6 and npm@7.
-  npm_config_yes=true npx redoc-cli@0.12.3 bundle $filePath \
-    -t template.hbs \
-    --title="InfluxDB $titleVersion$titleSubmodule API documentation" \
-    --options.sortPropsAlphabetically \
-    --options.menuToggle \
-    --options.hideDownloadButton \
-    --options.hideHostname \
-    --options.noAutoAuth \
-    --templateOptions.version="$version" \
-    --templateOptions.titleVersion="$titleVersion" \
-    --templateOptions.titleSubmodule="$titleSubmodule" \
-    --output="redoc-static$outFilename.html"
-}
-
 function showHelp {
   echo "Usage: generate.sh <options>"
   echo "Commands:"
@@ -82,119 +35,176 @@ while getopts "hc" opt; do
     esac
 done
 
-# Get list of versions from directory names
-versions="$(ls -d -- */ | grep -v 'node_modules' | grep -v 'openapi')"
+function generateHtml {
+  specPath="$1"
+  product="$2"
+  productName="$3"
+  api="$4"
+  configPath="$5"
+  isDefault=$6
 
-for version in $versions
-do
-  # Trim the trailing slash off the directory name
-  version="${version%/}"
+  # Use the product name to define the menu for the Hugo template
+  menu="influxdb_$(echo $product | sed 's/\./_/g;s/-/_/g;')"
+  # Extract the API name--for example, "management" from "management@v2".
+  apiName=$(echo $api | sed 's/@.*//g;')
+  # Convert it to title case--for example, "Management".
+  apiTitle=$(echo $apiName \
+    | awk '{print toupper(substr($1,1,1)) tolower(substr($1,2))}')
+  # Extract the API version--for example, "v0" from "management@v0".
+  version=$(echo $api | sed 's/.*@//g;')
+  # Use the title and summary defined in the product API's info.yml file.
+  title=$(yq '.title' $product/$apiName/content/info.yml)
+  description=$(yq '.summary' $product/$apiName/content/info.yml)
+  # Define the file name for the Redoc HTML output.
+  specbundle=redoc-static_index.html
+  # Define the temporary file for the Hugo template and Redoc HTML.
+  tmpfile="${product}-${api}_index.tmp"
 
-  # Define the menu key
-  if [[ $version == "cloud-serverless" ]] || [[ $version == "cloud-dedicated" ]] || [[ $version == "clustered" ]]; then
-    menu="influxdb_$(echo $version | sed 's/\./_/g;s/-/_/g;')"
-  else 
-    menu="influxdb_$(echo $version | sed 's/\./_/g;')"
-  fi
+  echo "Bundling $specPath"
 
-  # Define the title text based on the version
-  if [[ $version == "cloud" ]]; then
-    titleVersion="Cloud"
-  elif [[ $version == "cloud-serverless" ]]; then
-    titleVersion="Cloud Serverless"
-  elif [[ $version == "cloud-dedicated" ]]; then
-    titleVersion="Cloud Dedicated"
-  elif [[ $version == "clustered" ]]; then
-    titleVersion="Clustered"
-  else
-    titleVersion="$version"
-  fi
+  # Use npx to install and run the specified version of redoc-cli.
+  # npm_config_yes=true npx overrides the prompt
+  # and (vs. npx --yes) is compatible with npm@6 and npm@7.
+  npx --version && \
+  npm_config_yes=true npx redoc-cli@0.12.3 bundle $specPath \
+  --config $configPath \
+  -t template.hbs \
+  --title=$title \
+  --options.sortPropsAlphabetically \
+  --options.menuToggle \
+  --options.hideDownloadButton \
+  --options.hideHostname \
+  --options.noAutoAuth \
+  --output=$specbundle \
+  --templateOptions.description=$description \
+  --templateOptions.product="$product" \
+  --templateOptions.productName="$productName"
 
-  # Define frontmatter version
-  if [[ $version == "cloud-serverless" ]] || [[ $version == "cloud-dedicated" ]] || [[ $version == "clustered" ]]; then
-    frontmatterVersion="v3"
-  else 
-    frontmatterVersion="v2"
-  fi
-
-  # Generate the frontmatter
-  v2frontmatter="---
-title: InfluxDB $titleVersion API documentation
-description: >
-  The InfluxDB API provides a programmatic interface for interactions with InfluxDB $titleVersion.
+  if [[ $version == "v1" ]]; then
+    frontmatter="---
+title: $title
+description: $description
 layout: api
 menu:
   $menu:
-    parent: InfluxDB v2 API
-    name: v2 API docs
-weight: 102
----
-"
-  v1compatfrontmatter="---
-title: InfluxDB $titleVersion v1 compatibility API documentation
-description: >
-  The InfluxDB v1 compatibility API provides a programmatic interface for interactions with InfluxDB $titleVersion using InfluxDB v1 compatibility endpoints.
-layout: api
-menu:
-  $menu:
-    parent: v1 compatibility
-    name: View v1 compatibility API docs
+    parent: $version compatibility
+    name: View $version compatibility API docs
 weight: 304
 ---
 "
-  v3frontmatter="---
-title: InfluxDB $titleVersion API documentation
-description: >
-  The InfluxDB API provides a programmatic interface for interactions with InfluxDB $titleVersion.
+  elif [[ $version == 0 ]]; then
+    frontmatter="---
+title: $title
+description: $description
 layout: api
+weight: 102
+metadata:
+  omit_from_sitemap: true
+---
+"
+  elif [[ $isDefault == true ]]; then
+    frontmatter="---
+title: $title
+description: $description
+layout: api
+menu:
+  $menu:
+    parent: InfluxDB HTTP API
+    name: $apiTitle API docs
+weight: 102
+aliases:
+  - /influxdb/$product/api/
+---
+"
+  else
+    frontmatter="---
+title: $title
+description: $description
+layout: api
+menu:
+  $menu:
+    parent: InfluxDB HTTP API
+    name: $apiTitle API docs
 weight: 102
 ---
 "
-
-  # If the v2 spec file differs from master, regenerate the HTML.
-  filePath="${version}/ref.yml"
-  update=0
-  if [[ $generate_changed == 0 ]]; then
-    fileChanged=$(git diff --name-status master -- ${filePath})
-    if [[ -z "$fileChanged" ]]; then
-    update=1
-    fi
   fi
 
-  if [[ $update -eq 0 ]]; then
-    outFilename="_index"
-    titleSubmodule=""
-    generateHtml $filePath $outFilename $titleVersion $titleSubmodule
+  # Create the Hugo template file with the frontmatter and Redoc HTML
+  echo "$frontmatter" >> $tmpfile
+  V_LEN_INIT=$(wc -c $tmpfile | awk '{print $1}')
+  cat $specbundle >> $tmpfile
+  V_LEN=$(wc -c $tmpfile | awk '{print $1}')
 
-    # Create temp file with frontmatter and Redoc html
-    if [[ $frontmatterVersion == "v3" ]]; then
-      echo "$v3frontmatter" >> $version$outFilename.tmp
-    else
-      echo "$v2frontmatter" >> $version$outFilename.tmp
-    fi
-    buildHugoTemplate $version v2 $outFilename
+  if ! [[ $V_LEN -gt $V_LEN_INIT  ]]
+  then
+    echo "Error: bundle was not appended to $tmpfile"
+    exit $?
   fi
 
-  # If the v1 compatibility spec file differs from master, regenerate the HTML.
-  filePath="${version}/swaggerV1Compat.yml"
-  update=0
+  rm -f $specbundle
+  # Create the directory and move the file.
+  if [ ! -z "$apiName" ]; then
+    mkdir -p ../content/influxdb/$product/api/$apiName
+    mv $tmpfile ../content/influxdb/$product/api/$apiName/_index.html
+  else
+    mkdir -p ../content/influxdb/$product/api
+    mv $tmpfile ../content/influxdb/$product/api/_index.html
+  fi
+}
 
-  if [ -e "$filePath" ]; then
+function build {
+# Get the list of products from directory names
+products="$(ls -d -- */ | grep -v 'node_modules' | grep -v 'openapi')"
+
+for product in $products; do
+  #Trim the trailing slash off the directory name
+  product="${product%/}"
+  # Get the product API configuration file.
+  configPath="$product/.config.yml"
+  if [ ! -f $configPath ]; then
+    configPath=".config.yml"
+  fi
+  echo "Checking product config $configPath"
+  # Get the product name from the configuration.
+  productName=$(yq e '.x-influxdata-product-name' $configPath)
+  if [[ -z "$productName" ]]; then
+    productName=InfluxDB
+  fi
+  # Get an array of product API names (keys) from the configuration file
+  apis=$(yq e '.apis | keys | .[]' $configPath)
+  # Read each element of the apis array
+  while IFS= read -r api; do
+    # Get the spec file path from the configuration.
+    specRootPath=$(yq e ".apis | .$api | .root" $configPath)
+    # Check that the YAML spec file exists.
+    specPath="$product/$specRootPath"
+    echo "Checking for spec $specPath"
+    if [ -d "$specPath" ] || [ ! -f "$specPath" ]; then
+      echo "OpenAPI spec $specPath doesn't exist."
+    fi
+    # Get default status from the configuration.
+    isDefault=false
+    defaultStatus=$(yq e ".apis | .$api | .x-influxdata-default" $configPath)
+    if [[ $defaultStatus == "true" ]]; then
+      isDefault=true
+    fi
+
+    # If the spec file differs from master, regenerate the HTML.
+    update=0
     if [[ $generate_changed == 0 ]]; then
-      fileChanged=$(git diff --name-status master -- ${filePath})
-      if [[ -z "$fileChanged" ]]; then
-      update=1
+      diff=$(git diff --name-status master -- ${specPath})
+      if [[ -z "$diff" ]]; then
+        update=1
       fi
     fi
 
     if [[ $update -eq 0 ]]; then
-      outFilename="v1-compatibility"
-      titleSubmodule="v1 compatibility"
-      generateHtml $filePath $outFilename $titleVersion $titleSubmodule
-
-      # Create temp file with frontmatter and Redoc html
-      echo "$v1compatfrontmatter" >> $version$outFilename.tmp
-      buildHugoTemplate $version v1 $outFilename
+      echo "Regenerating $product $api"
+      generateHtml "$specPath" "$product" "$productName" "$api" "$configPath" $isDefault
     fi
-  fi
+  done <<< "$apis"
 done
+}
+
+build

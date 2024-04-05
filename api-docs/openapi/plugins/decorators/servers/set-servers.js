@@ -8,6 +8,9 @@ module.exports = SetServers;
  * Object key "Server" is an OAS 3.0 node type.
  */
 function SetServers(data) {
+  if (!data) {
+    data = [ { url: '/' } ];
+  }
   return {
     DefinitionRoot: {
       leave(root) {
