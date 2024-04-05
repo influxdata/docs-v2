@@ -13,6 +13,13 @@ weight: 104
 Use the Grafana dashboard provided by InfluxData to monitor your
 {{< product-name >}} cluster.
 
+{{% note %}}
+#### Not available for all clusters
+
+{{< product-name >}} monitoring dashboards are not available for all clusters.
+For questions about availability, [contact InfluxData support](https://support.influxdata.com).
+{{% /note %}}
+
 - [Access your monitoring dashboard](#access-your-monitoring-dashboard)
 - [Dashboard sections and cells](#dashboard-sections-and-cells)
 
