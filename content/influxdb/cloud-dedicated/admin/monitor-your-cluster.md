@@ -161,7 +161,7 @@ The memory limit is represented by the top line in the visualization.
 
 #### CPU Utilization Routers (k8s)
 
-CPU Utilization of Ingester router pods as reported by the Kubernetes container usage.
+CPU utilization of Ingester router pods as reported by the Kubernetes container usage.
 Usage is reported by the number of CPU cores used by pods, including
 fractional cores.
 
@@ -322,9 +322,9 @@ following levels:
 
 Parquet files store data partitioned by time and optionally tags
 _(see [Manage data partition](https://docs.influxdata.com/influxdb/cloud-dedicated/admin/custom-partitions/))_.
-Once four L0 files accumulate for a partition, they are are eligible for compaction.
+After four L0 files accumulate for a partition, they are are eligible for compaction.
 If the compactor is keeping up with the incoming write load, all compaction
-events will have exactly 4 files. If the number of L0 files compacted begins to
+events will have exactly four files. If the number of L0 files compacted begins to
 to increase, it indicates the compactor is not keeping up.
 
 This histogram helps to determine if the Compactor is starting compactions as
