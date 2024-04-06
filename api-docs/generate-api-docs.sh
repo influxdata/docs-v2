@@ -92,7 +92,8 @@ menu:
 weight: 304
 ---
 "
-  elif [[ $version == 0 ]]; then
+  elif [[ $version == "0" ]]; then
+  echo $productName $apiName
     frontmatter="---
 title: $title
 description: $description

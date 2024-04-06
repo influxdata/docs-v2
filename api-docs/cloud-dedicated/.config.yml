@@ -6,9 +6,9 @@ extends:
 x-influxdata-product-name: InfluxDB v3 Cloud Dedicated
 
 apis:
-  management@v0:
+  management@0:
     root: management/openapi.yml
-  v2@v2:
+  v2@2:
     root: v2/ref.yml
     x-influxdata-default: true
   v1-compatibility@2:
