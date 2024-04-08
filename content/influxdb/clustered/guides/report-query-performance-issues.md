@@ -5,10 +5,8 @@ description: >
 menu:
   influxdb_clustered:
     name: Report query performance issues
-    parent: Guides
-weight: 113
-related:
-  - /influxdb/clustered/query-data/troubleshoot-and-optimize
+    parent: Troubleshoot and optimize queries
+weight: 402
 ---
 
 These guidelines are intended to faciliate collaboration between InfluxData
