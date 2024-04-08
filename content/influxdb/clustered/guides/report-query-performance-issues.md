@@ -38,14 +38,15 @@ Please note that this document may change from one support engagement to the
 next as our process and tooling improves.
 {{% /note %}}
 
-### Send Us Output Artifacts
+### Send InfluxData output artifacts
 
-When our guidelines produce an output artifact in the form
+As you follow these guidelines, package all produced output artifacts in the following form:
 
 **Outputs:**
-  * `test-artifact-name.tar.gz`
 
-Please send us these artifacts so that we may analyze them.
+- `test-artifact-name.tar.gz`
+
+Send InfluxData engineers all produced artifacts for analysis.
 
 ### Document Your Test Process
 
