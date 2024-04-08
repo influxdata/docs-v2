@@ -33,8 +33,10 @@ queries](/influxdb/clustered/query-data//troubleshoot-and-optimize).
       2. [EXPLAIN VERBOSE](#explain-verbose)
       3. [EXPLAIN ANALYZE](#explain-analyze)
 
+{{% note %}}
 Please note that this document may change from one support engagement to the
-next as our process and tooling improves. Thanks For your patience!
+next as our process and tooling improves.
+{{% /note %}}
 
 ### Send Us Output Artifacts
 
