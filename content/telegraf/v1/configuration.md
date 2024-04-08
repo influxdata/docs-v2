@@ -150,8 +150,9 @@ The `[agent]` section contains the following configuration options:
   To use local time, set to `"local"`.
   See [timezone options and formats](https://socketloop.com/tutorials/golang-display-list-of-timezones-with-gmt).
 - **hostname**: Override default hostname, if empty use `os.Hostname()`.
-- **omit_hostname**: If true, do no set the `host` tag in the Telegraf agent.
-
+- **omit_hostname**: If true, do not set the `host` tag in the Telegraf agent.
+- **skip_processors_after_aggregators**: If true, processors do not run again
+  after aggregators. Default is false.
 
 ## Input configuration
 
