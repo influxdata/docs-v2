@@ -1,11 +1,10 @@
 ---
-title: Report Query Performance Issues
+title: Report query performance issues
 description: >
-  A comprehensive guide on ensuring a quick turnaround during query performance
-  troubleshooting.
+  A comprehensive guide on ensuring a quick turnaround when troubleshooting query performance.
 menu:
   influxdb_clustered:
-    name: Report Query Performance Issues
+    name: Report query performance issues
     parent: Guides
 weight: 113
 related:
