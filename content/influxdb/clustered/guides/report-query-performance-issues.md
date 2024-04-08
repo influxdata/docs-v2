@@ -48,121 +48,118 @@ As you follow these guidelines, package all produced output artifacts in the fol
 
 Send InfluxData engineers all produced artifacts for analysis.
 
-### Document Your Test Process
+### Document your test process
 
-We don't currently have a baseline performance test suite that we can offer
-you to run in your environment so we rely on you to document your process,
-including:
+There currently is no standardized performance test suite that you can run in
+your environment, so please document your process so it can be replicated.
+Include the following:
 
-* The steps you take when performance testing.
-* Timing of the tests you perform so we have an idea of where to look in the
-  logs bundle you provide us.
+- The steps you take when performance testing.
+- Timestamps of the tests you perform so they can be correlated with associated logs.
 
-### Document Your Environment
+### Document your environment
 
-Please provide as much detail as your organization allows about:
+Provide as much detail about your environment as your organization allows,
+including the following:
 
-* Your kubernetes cluster.
-* The cloud where it runs.
-  * Or indicate that it's on-prem.
-* The hardware it runs on.
-* The types and size of disk in use.
-  * eg hard disk vs SSD vs NVMe
-* CPU/Memory resources set on each type of InfluxDB pod.
-* The number of pods in each InfluxDB StatefulSet and Deployment.
-* The type of object store used and how it is hosted
-* How the Postgres database is hosted.
-* Are either the object store or the database shared by more than one InfluxDB
-  3.0 Clustered product instance?
-  * If so, please describe the network-level topology of your setup.
+- Your kubernetes cluster
+- The cloud provider where it runs or indicate that it's "on-prem"
+- The hardware it runs on
+- The type and size of disk in use--for example: hard disk,  SSD, NVMe, etc.
+- CPU and memory resources set on each type of InfluxDB pod
+- The number of pods in each InfluxDB StatefulSet and Deployment
+- The type of object store used and how it is hosted
+- How the Catalog (PostgreSQL-compatible database) is hosted
+- Indicate if either the Object store or the Catalog is shared by more than one InfluxDB
+  Clustered product
+  - If so, describe the network-level topology of your setup
 
-#### Recommended
+{{% note %}}
+#### If possible, provide a synthetic dataset
 
 If you can reproduce the performance issue with a synthetic dataset and your
-process and environment are well-documented enough we _may_ be able to
-reproduce the issue on our end as a way to shorten the feedback cycle and
-arrive at a fix (on our end if it's a code issue or on your end if it's a
-configuration issue) sooner.
+process and environment are well-documented, InfluxData engineers _may_
+be able to reproduce the issue, shorten the feedback cycle, and resolve the
+issue sooner.
+{{% /note %}}
 
-### Document Your Data Schema
+### Document your data schema
 
-Documenting the data schema helps us to better understand the conditions that
-reproduce your issue.
+Document your the data schema to help InfluxData engineers better understand the
+conditions that reproduce your issue.
 
-### Establish Query Performance Degradation Conditions
+### Establish query performance degradation conditions
 
 The most effective way to investigate query performance is to have a good understanding of
 the conditions in which you don't see the expected performance. Things to think about
 and provide:
 
-- Does this happen always, or only sometimes?
-  - If only sometimes, is it at a consistent time of day/over a consistent period?
-- Will a single query execution reproduce, or do multiple queries need to be running at the same time?
-- How are you submitting the queries? (examples could be:)
-  - influxctl
-  - client libraries
-  - other environments
+- Does this always happen, or only sometimes?
+  - If only sometimes, is it at a consistent time of day or over a consistent period?
+- Will a single query execution reproduce the issue, or does it only appear with multiple queries
+  are running at the same time?
+- How are you executing the queries? For example:
+  - `influxctl`
+  - Client libraries
+  - Other environments or tools
 
-### Reduce Query Noise
+### Reduce query noise
 
-In order to get a sense of the baseline performance of your system without the
-noise of additional queries we ask that your testing occur in an environment
-that doesn't have periodic or intermittent queries running concurrently.
+To get a sense of the baseline performance of your system without the
+noise of additional queries, test in an environment that doesn't have periodic
+or intermittent queries running concurrently.
 
-Additionally, when running multiple tests with different queries we recommend
-letting the system quiesce between tests by waiting at least a minute between a
-given query result and issuing the next query.
+Additionally, when running multiple tests with different queries, let the system
+recover between tests by waiting at least a minute after receiving a query result
+before executing the next query.
 
-### Establish Baseline Single-Query Performance
+### Establish baseline single-query performance
 
-In order to get a sense of the baseline performance of your system without the
-noise of additional queries we prefer at least some of your testing occur as
+To get a sense of the baseline performance of your system without the
+noise of additional queries, perform at least some of your testing with
 single queries in isolation from one another.
 
-This is may be useful for the purposes of analysis by our engineers even if a
+This is may be useful for the purposes of analysis by InfluxData engineers even if a
 single query in isolation isn't enough to reproduce the issue you are having.
 
-### Run Queries at Multiple Load Scales
+### Run queries at multiple load scales
 
-Once you've established baseline performance with a single query
-If your performance issue can't be replicated with a single query, then we
-recommend a systematic approach to identifying the scale at which it does
-become a problem. This involves systematic incremental increases to your query
+Once you've established baseline performance with a single query and your
+performance issue can't be replicated with a single query, use a systematic
+approach to identify the scale at which it does become a problem.
+This involves systematic incremental increases to your query
 concurrency until you identify a threshold at which the issue can be
 reproduced.
 
-This, along with information about your kubernetes environment, can provide us
-the insight necessary to recommend changes to your configuration to improve
+This, along with information about your Kubernetes environment, can provide 
+insight necessary to recommend changes to your configuration to improve
 query performance characteristis as your usage scales.
 
 As an example, consider the following test plan outline:
 
-* Turn off intermittent/periodic InfluxDB queries, allow cluster to quiesce.
-* Run on instance of Query A
-  * allow cluster to quiesce for 1 minute
-* Run 5 concurrent instances of Query A
-  * allow cluster to quiesce for 1 minute
-* Run 10 concurrent instances of Query A
-  * allow cluster to quiesce for 1 minute
-* Run 20 concurrent instances of Query A
-  * allow cluster to quiesce for 1 minute
-* Run 40 concurrent instances of Query A
-  * allow cluster to quiesce for 1 minute
-* Provide us the debug information [described below](#gather-debug-info).
+1. Turn off intermittent or periodic InfluxDB queries and allow the cluster to recover.
+2. Run Query A and allow the cluster to recover for 1 minute.
+3. Run 5 concurrent instances of Query A and allow the cluster to recover for 1 minute.
+4. Run 10 concurrent instances of Query A and allow the cluster to recover for 1 minute.
+5. Run 20 concurrent instances of Query A and allow the cluster to recover for 1 minute.
+6. Run 40 concurrent instances of Query A and allow the cluster to recover for 1 minute.
+7. Provide InfluxData the debug information [described below](#gather-debug-info).
 
-Keep in mind, this is just an example -- you don't have to go beyond the scale
-where queries get slower but you may also need to go further than what's
-outlined here.
+{{% note %}}
+This is just an example. You don't have to go beyond the scale where queries get slower
+but you may also need to go further than what's outlined here.
+{{% /note %}}
 
-### Gather Debug Info
+### Gather debug info
 
-This section highlights debug information that should be collected shortly
-_after_ a problematic query has been tried against your InfluxDB instance.
+The following debug information should be collected shortly _after_ a
+ problematic query has been tried against your InfluxDB cluster.
 
-#### Kubernetes-Specific Info
+#### Kubernetes-specific information
 
 **Outputs:**
-  * `${DATETIME}-cluster-info.tar.gz`
+
+- `${DATETIME}-cluster-info.tar.gz`
 
 ```
 DATETIME="$(date -Iminutes)"
@@ -173,93 +170,145 @@ tar -czf "${DATETIME}-cluster-info.tar.gz" "${DATETIME}-cluster-info/"
 #### Clustered-Specific Info
 
 **Outputs:**
-  * `app-instance.yml`
 
-* Provide a copy of your `AppInstance` manifest.
+- `app-instance.yml`: Provide a copy of your `AppInstance` manifest.
 
-#### Query Analysis
+#### Query analysis
 
 **Outputs (InfluxQl):**
-  * `explain.csv`
-  * `explain-verbose.csv`
-  * `explain-analyze.csv`
+
+- `explain.csv`
+- `explain-verbose.csv`
+- `explain-analyze.csv`
 
 **Outputs (SQL):**
-  * `explain.txt`
-  * `explain-verbose.txt`
-  * `explain-analyze.txt`
+
+- `explain.txt`
+- `explain-verbose.txt`
+- `explain-analyze.txt`
 
 For any known long-running queries, it may be helpful to execute variations of
 the `EXPLAIN` command on them.
 
-In the example snippets below we use `<YOUR-QUERY>` as placeholder for the
-long-running query you have been working with.
+In the examples below, replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
+  The name of the database to query
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+  A database token with read permissions on the queried database
+- {{% code-placeholder-key %}}`YOUR_QUERY`{{% /code-placeholder-key %}}:
+  Your long-running query (formatted as a single line with escaped double quotes (`\"`))
 
 ##### EXPLAIN
 
-**For InfluxQL Queries**
-```
-curl --get "https://${HOST}/query" \
-  --output "./explain.csv" \
-  --header "Authorization: Bearer ${TOKEN}" \
-  --header "Accept: application/csv" \
-  --data-urlencode "db=${DATABASE}" \
-  --data-urlencode "q=EXPLAIN <YOUR-QUERY>"
-```
+{{% code-placeholders "DATABASE_(NAME|TOKEN)|YOUR_QUERY" %}}
 
-**For SQL Queries**
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
 ```
 influxctl \
   --config config.toml \
     query \
-  --database ${DATABASE} \
+  --database DATABASE_NAME \
   --format table \
-  --token ${TOKEN} \
-  "EXPLAIN <YOUR-QUERY>;" > explain.txt
+  --token DATABASE_TOKEN \
+  "EXPLAIN YOUR_QUERY;" > explain.txt
 ```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+```
+curl --get "https://{{< influxdb/host >}}/query" \
+  --output "./explain.csv" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --header "Accept: application/csv" \
+  --data-urlencode "db=DATABASE_NAME" \
+  --data-urlencode "q=EXPLAIN YOUR_QUERY"
+```
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /code-placeholders %}}
 
 ##### EXPLAIN VERBOSE
 
-**For InfluxQL Queries**
-```
-curl --get "https://${HOST}/query" \
-  --output "./explain-verbose.csv" \
-  --header "Authorization: Bearer ${TOKEN}" \
-  --header "Accept: application/csv" \
-  --data-urlencode "db=${DATABASE}" \
-  --data-urlencode "q=EXPLAIN VERBOSE <YOUR-QUERY>"
-```
+{{% code-placeholders "DATABASE_(NAME|TOKEN)|YOUR_QUERY" %}}
 
-**For SQL Queries**
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
 ```
 influxctl \
   --config config.toml \
     query \
-  --database ${DATABASE} \
+  --database DATABASE_NAME \
   --format table \
-  --token ${TOKEN} \
-  "EXPLAIN VERBOSE <YOUR-QUERY>;" > explain-verbose.txt
+  --token DATABASE_TOKEN \
+  "EXPLAIN VERBOSE YOUR_QUERY;" > explain-verbose.txt
 ```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+```
+curl --get "https://{{< influxdb/host >}}/query" \
+  --output "./explain-verbose.csv" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --header "Accept: application/csv" \
+  --data-urlencode "db=DATABASE_NAME" \
+  --data-urlencode "q=EXPLAIN VERBOSE YOUR_QUERY"
+```
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /code-placeholders %}}
 
 ##### EXPLAIN ANALYZE
 
-**For InfluxQL Queries**
-```
-curl --get "https://${HOST}/query" \
-  --output "./explain-analyze.csv" \
-  --header "Authorization: Bearer ${TOKEN}" \
-  --header "Accept: application/csv" \
-  --data-urlencode "db=${DATABASE}" \
-  --data-urlencode "q=EXPLAIN ANALYZE <YOUR-QUERY>"
-```
+{{% code-placeholders "DATABASE_(NAME|TOKEN)|YOUR_QUERY" %}}
 
-**For SQL Queries**
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
 ```
 influxctl \
   --config config.toml \
     query \
-  --database ${DATABASE} \
+  --database DATABASE_NAME \
   --format table \
-  --token ${TOKEN} \
-  "EXPLAIN ANALYZE <YOUR-QUERY>;" > explain-analyze.txt
+  --token DATABASE_TOKEN \
+  "EXPLAIN ANALYZE YOUR_QUERY;" > explain-analyze.txt
 ```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+```
+curl --get "https://{{< influxdb/host >}}/query" \
+  --output "./explain-analyze.csv" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --header "Accept: application/csv" \
+  --data-urlencode "db=DATABASE_NAME" \
+  --data-urlencode "q=EXPLAIN ANALYZE YOUR_QUERY"
+```
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /code-placeholders %}}
