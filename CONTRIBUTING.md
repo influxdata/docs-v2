@@ -1195,7 +1195,7 @@ the content of the banner.
 <!-- Default banner -->
 {{< influxdbu >}}
 
-<!-- Predfined course banner -->
+<!-- Predefined course banner -->
 {{< influxdbu "influxdb-101" >}}
 
 <!-- Custom banner -->

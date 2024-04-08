@@ -203,7 +203,7 @@ EOF
     Replace the following:
 
     - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
-    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [databse token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) with _write_ access to the specified database.
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) with _write_ access to the specified database.
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 2.  To test the input and processor, enter the following command:
