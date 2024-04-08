@@ -11,11 +11,11 @@ related:
   - /influxdb/clustered/query-data/troubleshoot-and-optimize
 ---
 
-These guidelines are intended to faciliate collaboration between InfluxDB
-engineers and you. They allow us to conduct timely analyses of any performance
+These guidelines are intended to faciliate collaboration between InfluxData
+engineers and you. They allow engineers to conduct timely analyses of any performance
 issues that you have not been able to resolve following our [guide on
 troubleshooting and optimizing
-queries guide](/influxdb/clustered/query-data//troubleshoot-and-optimize).
+queries](/influxdb/clustered/query-data//troubleshoot-and-optimize).
 
 # Table of Contents
 1. [Send Us Output Artifacts](#send-us-output-artifacts)
