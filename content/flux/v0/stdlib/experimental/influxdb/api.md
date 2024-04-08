@@ -56,7 +56,9 @@ Authorization permissions and limits apply to each request.
 ) => {statusCode: int, headers: [string:string], body: bytes}
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

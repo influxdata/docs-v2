@@ -38,7 +38,9 @@ Last Sunday is relative to `now()`. If today is Sunday, the function returns bou
 () => {stop: time, start: time}
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 
 ## Examples

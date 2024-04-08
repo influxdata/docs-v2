@@ -68,7 +68,9 @@ data
 (<-tables: stream[A], fn: (r: A) => B, ?mergeKey: bool) => stream[B]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -40,7 +40,9 @@ Time is weighted using the linearly interpolated integral of values in the table
 (<-tables: stream[A], unit: duration) => stream[{B with _value: float, _value: float, _stop: D, _start: C}] where A: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

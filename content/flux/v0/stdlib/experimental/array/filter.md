@@ -45,7 +45,9 @@ Experimental `array.filter()` is deprecated in favor of
 (<-arr: [A], fn: (x: A) => bool) => [A]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

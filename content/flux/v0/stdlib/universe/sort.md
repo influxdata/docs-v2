@@ -44,7 +44,9 @@ When `desc: true`, null values are first in the sort order.
 (<-tables: stream[A], ?columns: [string], ?desc: bool) => stream[A] where A: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -56,7 +56,9 @@ Flux prelude and does not require an import statement or package namespace.
 ) => stream[{A with _value: B, _time: time, _measurement: string, _field: string}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -36,7 +36,9 @@ Strings that do not end with the suffix are returned unchanged.
 (suffix: string, v: string) => string
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

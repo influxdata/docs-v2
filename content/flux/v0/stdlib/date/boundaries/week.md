@@ -40,7 +40,9 @@ By default, weeks start on Monday.
 (?start_sunday: bool, ?week_offset: int) => {stop: time, start: time}
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 
