@@ -50,7 +50,9 @@ All values are returned as string values (using `raw` mode in `csv.from`)
 ) => stream[E] where A: Timeable, B: Stringable, C: Timeable, D: Stringable, E: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

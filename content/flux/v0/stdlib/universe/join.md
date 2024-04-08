@@ -63,7 +63,9 @@ into a single stream of tables and groups rows of data based on existing group k
 (<-tables: A, ?method: string, ?on: [string]) => stream[B] where A: Record, B: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

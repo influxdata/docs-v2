@@ -39,7 +39,9 @@ a statically typed value with `dynamic.asArray()` or casting functions in the `d
 (data: bytes) => dynamic
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

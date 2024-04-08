@@ -40,7 +40,9 @@ assertEquals can be used to perform in-line tests in a query.
 (<-got: stream[A], name: string, want: stream[A]) => stream[A]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -45,7 +45,9 @@ of line segments into visually indistinguishable curves with fewer points.
 ) => stream[B] where A: Record, B: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

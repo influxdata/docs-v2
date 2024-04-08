@@ -40,7 +40,9 @@ If none of the specified characters are present, the function returns `-1`.
 (chars: string, v: string) => int
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

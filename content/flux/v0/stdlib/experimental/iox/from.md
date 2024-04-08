@@ -39,7 +39,9 @@ tag and field per time value.
 (bucket: string, measurement: string) => stream[{A with _time: time}] where A: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -38,7 +38,9 @@ Last Wednesday is relative to `now()`. If today is Wednesday, the function retur
 () => {stop: time, start: time}
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 
 ## Examples

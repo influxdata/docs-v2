@@ -39,7 +39,9 @@ is assumed. When end is less than or equal to start an empty string is returned.
 (end: int, start: int, v: string) => string
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

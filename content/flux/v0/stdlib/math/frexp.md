@@ -37,7 +37,9 @@ with the absolute value of **frac** in the interval [1/2, 1).
 (f: float) => {frac: float, exp: int}
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

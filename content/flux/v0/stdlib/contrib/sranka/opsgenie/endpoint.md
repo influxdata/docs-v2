@@ -75,7 +75,9 @@ For more information, see `opsgenie.sendAlert`.
 ) => (<-tables: stream[A]) => stream[{A with _sent: string}] where D: Stringable
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

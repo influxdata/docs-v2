@@ -79,7 +79,9 @@ This function is comparable to [Kapacitor AlertNode deadman](/kapacitor/latest/n
 }] where E: Record, F: Record, L: Comparable + Equatable, M: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

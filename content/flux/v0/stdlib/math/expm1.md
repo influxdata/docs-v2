@@ -38,7 +38,9 @@ It is more accurate than `math.exp(x:x) - 1` when `x` is near zero.
 (x: float) => float
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

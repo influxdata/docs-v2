@@ -44,7 +44,9 @@ Tables with all rows outside the time bounds are filtered entirely.
 (<-tables: stream[{C with _time: time}], start: A, ?stop: B) => stream[{C with _time: time, _stop: time, _start: time}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

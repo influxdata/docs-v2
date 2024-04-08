@@ -51,7 +51,9 @@ ServiceNow Event API fields are described in
 ) => int where B: Equatable, C: Equatable
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

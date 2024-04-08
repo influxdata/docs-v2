@@ -47,7 +47,9 @@ Use `geo.shapeData()` to ensure geotemporal data meets the requirements of the G
 ) => stream[{D with s2_cell_id: string, lon: float, lat: float}] where A: Equatable, B: Equatable
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

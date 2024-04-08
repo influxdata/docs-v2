@@ -53,7 +53,9 @@ _For more information, see `bigpanda.sendAlert()` parameters._
 ) => (mapFn: (r: B) => {C with status: D}) => (<-tables: stream[B]) => stream[{B with _sent: string}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

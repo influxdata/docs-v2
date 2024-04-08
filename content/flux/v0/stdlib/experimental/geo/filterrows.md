@@ -46,7 +46,9 @@ Input data must include an `s2_cell_id` column that is **part of the group key**
 ) => stream[{B with s2_cell_id: string, lon: D, lat: C}] where A: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

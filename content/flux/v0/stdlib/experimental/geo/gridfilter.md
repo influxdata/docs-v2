@@ -51,7 +51,9 @@ Use `geo.toRows()` and `geo.strictFilter()` after `geo.gridFilter()` to precisel
 ) => stream[{B with s2_cell_id: string}] where A: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 
