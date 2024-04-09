@@ -43,7 +43,9 @@ The state count is added as an additional column to each record.
 (<-tables: stream[A], fn: (r: A) => bool, ?column: string) => stream[B] where A: Record, B: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

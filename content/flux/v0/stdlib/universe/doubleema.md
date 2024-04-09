@@ -48,7 +48,9 @@ recent data.
 (<-tables: stream[{A with _value: B}], n: int) => stream[C] where B: Numeric, C: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -57,7 +57,9 @@ calendar months (`1mo`) and years (`1y`).
 ) => stream[{A with _time: time, _stop: time, _start: time}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

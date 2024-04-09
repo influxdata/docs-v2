@@ -41,7 +41,9 @@ Otherwise, `dead` is set to `true`.
 (<-tables: stream[{B with _time: C}], t: A) => stream[{B with dead: bool, _time: C}] where A: Comparable, C: Comparable
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

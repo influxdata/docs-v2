@@ -39,7 +39,9 @@ returns a stream of tables.
 (?csv: string, ?file: string, ?mode: string) => stream[A] where A: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

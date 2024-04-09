@@ -40,7 +40,9 @@ specified S2 cell level.
 (level: int, ?point: {lon: float, lat: float}, ?token: string) => string
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

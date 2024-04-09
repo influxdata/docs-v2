@@ -42,7 +42,9 @@ Experimental `csv.from()` is deprecated in favor of a combination of [`requests.
 (url: string) => stream[A] where A: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

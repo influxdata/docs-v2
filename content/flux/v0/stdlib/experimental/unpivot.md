@@ -45,7 +45,9 @@ The output stream retains the group key and all group key columns of the input s
 (<-tables: stream[{A with _time: time}], ?otherColumns: [string]) => stream[{B with _value: C, _field: string}] where A: Record, B: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

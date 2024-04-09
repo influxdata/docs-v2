@@ -71,7 +71,9 @@ For each input table, `oee.APQ` outputs a table with a single row that includes 
 }] where C: Equatable, D: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

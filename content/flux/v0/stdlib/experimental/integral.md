@@ -41,7 +41,9 @@ Input tables must have `_start`, _stop`, `_time`, and `_value` columns.
 (<-tables: stream[{A with _value: B, _time: time}], ?interpolate: string, ?unit: duration) => stream[{A with _value: B}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -38,7 +38,9 @@ beginning and ending indexes of the first regular expression match in a string.
 (r: regexp, v: string) => [int]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

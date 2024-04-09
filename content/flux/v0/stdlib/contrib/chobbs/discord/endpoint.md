@@ -58,7 +58,9 @@ For more information, see the `discord.send()` `content` parameter.
 ) => (mapFn: (r: C) => {D with content: E}) => (<-tables: stream[C]) => stream[{C with _sent: string}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -47,7 +47,9 @@ using the [`sendMessage`](https://core.telegram.org/bots/api#sendmessage) method
 ) => int
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

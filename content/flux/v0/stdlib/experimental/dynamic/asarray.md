@@ -37,7 +37,9 @@ The dynamic input value must be an array. If it is not an array, `dynamic.asArra
 (<-v: dynamic) => [dynamic]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

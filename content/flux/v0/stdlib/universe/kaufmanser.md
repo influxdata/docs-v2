@@ -42,7 +42,9 @@ Higher values represent a more efficient or trending market.
 (<-tables: stream[A], n: int) => stream[{B with _value: float, _value: float}] where A: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

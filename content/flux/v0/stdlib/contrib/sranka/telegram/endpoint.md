@@ -60,7 +60,9 @@ See `telegram.message` parameters for more information.
 ) => (<-tables: stream[C]) => stream[{C with _sent: string}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 
