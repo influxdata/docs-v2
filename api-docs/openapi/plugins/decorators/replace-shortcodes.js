@@ -6,12 +6,12 @@ function replaceDocsUrl(field) {
    * [^]* matches line breaks. See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#using_regular_expression_on_multiple_lines
    */
   const shortcode = /\{\{%([^]|\s)*?INFLUXDB_DOCS_URL([^]|\s)*?%\}\}/g
-  let replacement = `/influxdb/${process.env.INFLUXDB_PLATFORM}`;
+  let replacement = `/influxdb/${process.env.INFLUXDB_PRODUCT}`;
 
   field = field.replaceAll(shortcode, replacement)
               .replaceAll('https://docs.influxdata.com/influxdb/', '/influxdb/');
 
-  if(process.env.INFLUXDB_PLATFORM === 'cloud-iox') {
+  if(process.env.INFLUXDB_PRODUCT === 'cloud-iox') {
     field = field.replaceAll('/influxdb/cloud/', `${replacement}/`);
   }
   return field;
