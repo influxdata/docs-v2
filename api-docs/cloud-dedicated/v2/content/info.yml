@@ -1,4 +1,4 @@
-title: InfluxDB v2 HTTP API for Cloud Dedicated
+title: InfluxDB v2 HTTP API for InfluxDB Cloud Dedicated
 summary: The InfluxDB v2 HTTP API for InfluxDB Cloud Dedicated provides a v2-compatible programmatic interface for writing data stored in an InfluxDB Cloud Dedicated database.
 
 description: |
