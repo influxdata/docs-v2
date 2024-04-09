@@ -88,7 +88,7 @@ layout: api
 menu:
   $menu:
     parent: $version compatibility
-    name: View $version compatibility API docs
+    name: View $version compatibility API
 weight: 304
 ---
 "
@@ -99,8 +99,10 @@ title: $title
 description: $description
 layout: api
 weight: 102
-metadata:
-  omit_from_sitemap: true
+menu:
+  $menu:
+    parent: InfluxDB HTTP API
+    name: Management API
 ---
 "
   elif [[ $isDefault == true ]]; then
@@ -111,7 +113,7 @@ layout: api
 menu:
   $menu:
     parent: InfluxDB HTTP API
-    name: $apiTitle API docs
+    name: $apiTitle API
 weight: 102
 aliases:
   - /influxdb/$product/api/
@@ -125,7 +127,7 @@ layout: api
 menu:
   $menu:
     parent: InfluxDB HTTP API
-    name: $apiTitle API docs
+    name: $apiTitle API
 weight: 102
 ---
 "
