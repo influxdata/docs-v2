@@ -2,6 +2,6 @@
 {{ $styleParsed := .Get 0 | default "" }}
 {{ $hasStyle := gt (len $styleParsed) 0 }}
 {{ $style := .Get "style" | default $styleParsed }}
-<div class="tabs{{ if $hasStyle }}{{ $style }}{{ end }}">
+<div class="tabs{{ if $hasStyle }} {{ $style }}{{ end }}">
   {{ .Inner }}
 </div>
