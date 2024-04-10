@@ -9,7 +9,6 @@ menu:
     parent: Execute queries
     name: Use the influxctl CLI
 influxdb/clustered/tags: [query, sql, influxql, influxctl, CLI]
-metadata: [SQL]
 related:
   - /influxdb/clustered/reference/cli/influxctl/query/
   - /influxdb/clustered/get-started/query/#execute-an-sql-query, Get started querying data

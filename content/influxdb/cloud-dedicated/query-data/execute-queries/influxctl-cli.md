@@ -10,7 +10,6 @@ menu:
     parent: Execute queries
     name: Use the influxctl CLI
 influxdb/cloud-dedicated/tags: [query, sql, influxql, influxctl, CLI]
-metadata: [SQL]
 related:
   - /influxdb/cloud-dedicated/reference/cli/influxctl/query/
   - /influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query, Get started querying data
