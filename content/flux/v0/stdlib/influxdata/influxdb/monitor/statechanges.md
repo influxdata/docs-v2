@@ -40,7 +40,9 @@ and outputs records that change from `fromLevel` to `toLevel`.
 (<-tables: stream[{C with _level: D}], ?fromLevel: A, ?toLevel: B) => stream[E] where A: Equatable, B: Equatable, D: Equatable, E: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

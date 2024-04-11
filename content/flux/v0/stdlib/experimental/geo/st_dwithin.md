@@ -40,7 +40,9 @@ the specified GIS geometry and returns `true` or `false`.
 (distance: A, geometry: B, region: C, ?units: {distance: string}) => bool where A: Comparable + Equatable, B: Record, C: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

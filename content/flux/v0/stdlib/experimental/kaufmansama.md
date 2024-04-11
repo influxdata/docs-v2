@@ -41,7 +41,9 @@ account for market noise or volatility.
 (<-tables: stream[{A with _value: B}], n: int) => stream[{A with _value: float}] where B: Numeric
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

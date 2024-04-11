@@ -80,7 +80,9 @@ TICKscript [`alert()`](/kapacitor/v1/reference/nodes/alert_node/).
 }] where E: Record, I: Record, M: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

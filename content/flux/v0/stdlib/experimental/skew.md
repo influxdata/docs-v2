@@ -40,7 +40,9 @@ input table as a float.
 (<-tables: stream[{A with _value: float}]) => stream[{A with _value: float}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -39,7 +39,9 @@ Input rows must have `lat` and `lon` columns.
 (<-tables: stream[{B with lon: D, lat: C}], region: A) => stream[{B with lon: D, lat: C}] where A: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

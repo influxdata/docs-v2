@@ -39,7 +39,9 @@ in the specified column.
 (<-tables: stream[B], ?column: string, ?usePrevious: bool, ?value: A) => stream[C] where B: Record, C: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

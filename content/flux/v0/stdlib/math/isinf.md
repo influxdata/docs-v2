@@ -38,7 +38,9 @@ If `sign  == 0`, math.isInf reports whether `f` is either infinity.
 (f: float, sign: int) => bool
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

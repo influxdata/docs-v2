@@ -52,7 +52,9 @@ following properties (as defined in `pushbullet.pushNote()`):
 ) => (mapFn: (r: B) => {C with title: E, text: D}) => (<-tables: stream[B]) => stream[{B with _sent: string}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

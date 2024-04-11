@@ -45,7 +45,9 @@ The only guarantees are those mentioned above.
 (<-got: stream[A], want: stream[A]) => stream[{A with _diff: string}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

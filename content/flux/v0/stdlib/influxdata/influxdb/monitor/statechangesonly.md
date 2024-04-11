@@ -42,7 +42,9 @@ represents a state change.
 (<-tables: stream[{A with _level: B}]) => stream[C] where B: Equatable, C: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

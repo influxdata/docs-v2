@@ -78,7 +78,9 @@ For more information, see `zenoss.event()` parameters.
 ) => (<-tables: stream[F]) => stream[{F with _sent: string}] where B: Equatable
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

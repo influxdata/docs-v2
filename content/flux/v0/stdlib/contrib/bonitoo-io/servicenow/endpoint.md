@@ -75,7 +75,9 @@ For more information, see `servicenow.event()` parameters.
 ) => (<-tables: stream[B]) => stream[{B with _sent: string}] where J: Equatable
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 
