@@ -71,7 +71,7 @@ influxctl query [flags] <QUERY>
 | `-h` | `--help`                 | Output command help                                          |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb/clustered/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}
 
 ## Examples
@@ -325,7 +325,7 @@ cat ./query.sql | influxctl query \
 ### Query InfluxDB v3 using credentials from the connection profile
 
 The following example uses the `database` and `token` defined in the `default`
-[connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles).
+[connection profile](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles).
 
 {{% influxdb/custom-timestamps %}}
 ```sh
