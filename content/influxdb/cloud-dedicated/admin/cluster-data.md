@@ -1,12 +1,12 @@
 ---
-title: Query cluster system data
+title: Query system data
 description: >
   Query system tables in your InfluxDB Cloud Dedicated cluster to see data related
   to queries, tables, partitions, and compaction in your cluster.
 menu:
   influxdb_cloud_dedicated:
     parent: Administer InfluxDB Cloud
-    name: Query cluster system data
+    name: Query system data
 weight: 105
 ---
 
