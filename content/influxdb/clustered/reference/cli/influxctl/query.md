@@ -61,13 +61,14 @@ influxctl query [flags] <QUERY>
 
 ## Flags
 
-| Flag |              | Description                                                  |
-| :--- | :----------- | :----------------------------------------------------------- |
-|      | `--database` | Database to query                                            |
-|      | `--format`   | Output format (`table` _(default)_ or `json`)                |
-|      | `--language` | Query language (`sql` _(default)_ or `influxql`)             |
-|      | `--token`    | Database token with read permissions on the queried database |
-| `-h` | `--help`     | Output command help                                          |
+| Flag |                          | Description                                                  |
+| :--- | :----------------------- | :----------------------------------------------------------- |
+|      | `--database`             | Database to query                                            |
+|      | `--enable-system-tables` | Enable ability to query system tables                        |
+|      | `--format`               | Output format (`table` _(default)_ or `json`)                |
+|      | `--language`             | Query language (`sql` _(default)_ or `influxql`)             |
+|      | `--token`                | Database token with read permissions on the queried database |
+| `-h` | `--help`                 | Output command help                                          |
 
 {{% caption %}}
 _Also see [`influxctl` global flags](/influxdb/clustered/reference/cli/influxctl/#global-flags)._
@@ -80,6 +81,7 @@ _Also see [`influxctl` global flags](/influxdb/clustered/reference/cli/influxctl
 - [Query InfluxDB v3 and return results in table format](#query-influxdb-v3-and-return-results-in-table-format)
 - [Query InfluxDB v3 and return results in JSON format](#query-influxdb-v3-and-return-results-in-json-format)
 - [Query InfluxDB v3 using credentials from the connection profile](#query-influxdb-v3-using-credentials-from-the-connection-profile)
+- [Query data from InfluxDB v3 system tables](#query-data-from-influxdb-v3-system-tables)
 
 In the examples below, replace the following:
 
@@ -331,11 +333,66 @@ influxctl query "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z'"
 ```
 {{% /influxdb/custom-timestamps %}}
 
+### Query data from InfluxDB v3 system tables
+
+{{% note %}}
+You must use **SQL** to query InfluxDB v3 system tables.
+{{% /note %}}
+
+{{% warn %}}
+Querying system tables can impact the overall performance of your
+{{< product-name omit=" Clustered" >}} cluster. System tables are not part of
+InfluxDB's stable API and are subject to change.
+{{% /warn %}}
+
+{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[string](#)
+[file](#)
+[stdin](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+{{% influxdb/custom-timestamps %}}
+```sh
+influxctl query \
+  --enable-system-tables \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  "SELECT * FROM system.tables"
+```
+{{% /influxdb/custom-timestamps %}}
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+influxctl query \
+  --enable-system-tables \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  /path/to/query.sql
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+cat ./query.sql | influxctl query \
+  --enable-system-tables \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  - 
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /code-placeholders %}}
+
 {{% expand "View command updates" %}}
 
 #### v2.8.0 {date="2024-04-11"}
 
 - Add InfluxQL support and introduce the `--language` flag to specify the query
   language.
+- Add `--enable-system-tables` flag to enable the ability to query InfluxDB v3
+  system tables.
 
 {{% /expand %}}
