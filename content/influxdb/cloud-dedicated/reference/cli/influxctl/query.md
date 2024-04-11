@@ -12,6 +12,7 @@ related:
   - /influxdb/cloud-dedicated/reference/sql/
   - /influxdb/cloud-dedicated/reference/influxql/
   - /influxdb/cloud-dedicated/query-data/
+  - /influxdb/cloud-dedicated/admin/query-system-data/
 ---
 
 The `influxctl query` command queries data from {{< product-name >}} using SQL

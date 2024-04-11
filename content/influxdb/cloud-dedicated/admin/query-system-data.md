@@ -8,6 +8,8 @@ menu:
     parent: Administer InfluxDB Cloud
     name: Query system data
 weight: 105
+related:
+  - /influxdb/cloud-dedicated/reference/cli/influxctl/query/
 ---
 
 {{< product-name >}} stores data related to queries, tables, partitions, and
