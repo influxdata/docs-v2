@@ -113,7 +113,8 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   The name of the database to query information about.
 - {{% code-placeholder-key %}}`SQL_QUERY`{{% /code-placeholder-key %}}:
-  The SQL query to execute. For examples, see [Query examples](#query-examples).
+  The SQL query to execute. For examples, see
+  [System query examples](#system-query-examples).
 
 When prompted, enter `y` to acknowledge the potential impact querying system
 tables may have on your cluster.
