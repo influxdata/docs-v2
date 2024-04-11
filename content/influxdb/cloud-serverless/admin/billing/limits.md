@@ -59,7 +59,7 @@ The InfluxDB v3 storage engine enforces limits on the storage level that apply
 to all accounts (Free Plan and Usage-Based Plan).
 
 - [Terminology](#terminology)
-- [Service-level limits](#limits)
+- [Storage-level limits](#storage-level-limits)
 
 #### Terminology
 
