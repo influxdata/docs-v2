@@ -15,10 +15,10 @@ weight: 202
 
 ### Features
 
-- Introduce the ability to query with InfluxQL
-- Add insecure configuration option to TLS config
-- Allow users to query system tables
-- Utilize to database proxy service
+- Introduce the ability to query with InfluxQL.
+- Add insecure configuration option to TLS configuration.
+- Allow users to query system tables.
+- Utilize the database proxy service.
 
 ### Dependency Updates
 

@@ -14,18 +14,19 @@ canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 
 ## v2.8.0 {date="2024-04-11"}
 
-`influxctl` 2.8.0 requires clustered version 20240326-922145 or newer. A change
-was made to how database commands were handled internally in clustered that
-required this change. A user will observe an unimplemented gRPC error when on
-an older version of clustered. If upgrading is not possible, then users can
-continue to use a version prior to 2.8.0 until they are able to update.
+`influxctl` 2.8.0 requires InfluxDB Clustered version 20240326-922145 or newer.
+A change was made to how database commands were handled internally in InfluxDB
+Clustered that required this change. If using an older version of InfluxDB
+Clustered, you will observe an unimplemented gRPC error when using functionality
+that depends on the updated command handling. If upgrading is not possible, you
+can continue to use a version prior to 2.8.0 until you are able to update.
 
 ### Features
 
-- Introduce the ability to query with InfluxQL
-- Add insecure configuration option to TLS config
-- Allow users to query system tables
-- Utilize to database proxy service
+- Introduce the ability to query with InfluxQL.
+- Add insecure configuration option to TLS configuration.
+- Allow users to query system tables.
+- Utilize the database proxy service.
 
 ### Dependency Updates
 
