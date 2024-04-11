@@ -2,7 +2,7 @@
 title: Execute queries
 description: >
   Use tools and libraries to query data stored in an InfluxDB cluster.
-weight: 201
+weight: 101
 menu:
   influxdb_clustered:
     name: Execute queries

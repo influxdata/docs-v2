@@ -42,7 +42,9 @@ Output data is grouped by `_time` and includes the following columns of interest
 (<-table: stream[B], ?threshold: A) => stream[{C with level: string, _value_diff_med: D, _value_diff: D, _value: D}] where A: Comparable + Equatable, B: Record, D: Comparable + Divisible + Equatable
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

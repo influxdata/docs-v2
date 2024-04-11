@@ -38,7 +38,9 @@ to a string-encoded JSON array that can be embedded in an alert message.
 (v: [string]) => string
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

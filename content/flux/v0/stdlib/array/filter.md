@@ -40,7 +40,9 @@ a new array with only elements that match the predicate.
 (<-arr: [A], fn: (x: A) => bool) => [A]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -42,7 +42,9 @@ Each instance of `system.time()` in a Flux script returns a unique value.
 () => time
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 
 ## Examples

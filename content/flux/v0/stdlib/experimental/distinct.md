@@ -42,7 +42,9 @@ drops empty tables.
 (<-tables: stream[{A with _value: B}]) => stream[{A with _value: B}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -11,6 +11,34 @@ menu:
 weight: 202
 ---
 
+## v2.8.0 {date="2024-04-11"}
+
+### Features
+
+- Introduce the ability to query with InfluxQL.
+- Add insecure configuration option to TLS configuration.
+- Allow users to query system tables.
+- Utilize the database proxy service.
+
+### Dependency Updates
+
+- Update Go to v1.22.2.
+- Update `github.com/go-git/go-git/v5` from 5.11.0 to 5.12.0.
+- Update `github.com/jedib0t/go-pretty/v6` from 6.5.6 to 6.5.8.
+- Update `golang.org/x/mod` from 0.16.0 to 0.17.0.
+- Update `golang.org/x/oauth2` from 0.18.0 to 0.19.0.
+- Update `google.golang.org/grpc` from 1.62.1 to 1.63.2.
+
+---
+
+## v2.7.1 {date="2024-03-27"}
+
+### Bug Fixes
+
+- Correctly parse template tag bucket strings.
+
+---
+
 ## v2.7.0 {date="2024-03-26"}
 
 This minor release adds the `--template-tag-bucket` partition template option to

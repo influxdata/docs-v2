@@ -43,7 +43,9 @@ This function calls `join.tables()` with the `on` parameter set to `(l, r) => l.
 ) => stream[E] where B: Equatable, D: Equatable, E: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

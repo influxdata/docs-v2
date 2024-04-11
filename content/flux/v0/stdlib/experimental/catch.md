@@ -40,7 +40,9 @@ If the function does not error the returned value is made into a string and retu
 (fn: () => A) => {value: A, msg: string, code: uint}
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

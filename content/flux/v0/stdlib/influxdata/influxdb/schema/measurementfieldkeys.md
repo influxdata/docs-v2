@@ -37,7 +37,9 @@ Results include a single table with a single column, `_value`.
 (bucket: string, measurement: A, ?start: B, ?stop: C) => stream[D] where A: Equatable, D: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

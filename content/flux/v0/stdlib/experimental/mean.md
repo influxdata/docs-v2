@@ -40,7 +40,9 @@ Output tables contain a single row the with the calculated mean in the `_value` 
 (<-tables: stream[{A with _value: float}]) => stream[{A with _value: float}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

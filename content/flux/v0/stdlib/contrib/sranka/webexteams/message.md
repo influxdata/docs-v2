@@ -45,7 +45,9 @@ using the [Webex messages API](https://developer.webex.com/docs/api/v1/messages/
 ) => int
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

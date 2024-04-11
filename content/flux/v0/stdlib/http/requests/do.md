@@ -51,7 +51,9 @@ The returned response contains the following properties:
 ) => {statusCode: int, headers: [string:string], duration: duration, body: bytes}
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

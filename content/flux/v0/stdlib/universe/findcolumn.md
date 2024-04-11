@@ -41,7 +41,9 @@ label is not present in the set of columns.
 (<-tables: stream[B], column: string, fn: (key: A) => bool) => [C] where A: Record, B: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -62,7 +62,9 @@ For more information, see `sensu.event()` parameters.
 ) => (<-tables: stream[B]) => stream[{B with _sent: string}] where D: Equatable
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

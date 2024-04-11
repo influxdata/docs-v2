@@ -11,6 +11,11 @@ function SetInfo(data) {
           }
 	        if(data.hasOwnProperty('version')) {
              info.version = data.version;
+          } else {
+            info['version'] = '';
+          }
+          if(data.hasOwnProperty('summary')) {
+            info.summary = data.summary;
           }
           if(data.hasOwnProperty('description')) {
              info.description = data.description;

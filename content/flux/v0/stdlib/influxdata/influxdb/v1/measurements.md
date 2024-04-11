@@ -38,7 +38,9 @@ Results include a single table with a single column, `_value`.
 (bucket: string, ?start: A, ?stop: B) => stream[C] where C: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

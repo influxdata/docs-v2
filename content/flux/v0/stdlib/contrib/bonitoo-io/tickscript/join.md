@@ -39,7 +39,9 @@ This function is comparable to [Kapacitor JoinNode](/kapacitor/latest/nodes/join
 (measurement: A, tables: B, ?on: [string]) => stream[{C with _measurement: A}] where B: Record, C: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

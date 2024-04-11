@@ -39,7 +39,9 @@ InfluxDB scrapers available in InfluxDB OSS.
 (<-tables: stream[{B with le: D, _field: C}], quantile: float, ?metricVersion: A, ?onNonmonotonic: string) => stream[E] where A: Equatable, C: Equatable, E: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

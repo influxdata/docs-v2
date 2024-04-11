@@ -66,7 +66,9 @@ Flux prelude and does not require an import statement or package namespace.
 ) => stream[A] where A: Record, B: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -50,7 +50,9 @@ Bin counts are cumulative.
 (<-tables: stream[{A with _value: float}], bins: [float], ?normalize: bool) => stream[{A with le: float, _value: float}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -39,7 +39,9 @@ The output table schema is the same as the input table schema.
 (<-tables: stream[A], duration: duration, ?columns: [string]) => stream[A]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 
