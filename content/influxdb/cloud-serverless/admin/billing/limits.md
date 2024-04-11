@@ -193,7 +193,7 @@ The Flight request returns the following gRPC error code
 ResourceExhausted
 ```
 
-And the error message contains detail about the exceeded limit--for example:
+And the error message contains detail about the exceeded [Free Plan](#free-plan) or [Usage-Based Plan](#usage-based-plan) query limit--for example:
 
 ```http
  Query would process more than 500 partitions
@@ -202,3 +202,6 @@ And the error message contains detail about the exceeded limit--for example:
  ```http
 Query would process more than 1000 parquet files
 ```
+
+To avoid these errors, split your query into multiple queries that retrieve fewer files or partitions.
+For example, because {{% product-name %}} partitions data by day, you can [use time boundaries](/influxdb/cloud-serverless/query-data/sql/basic-query/#query-data-within-time-boundaries) to limit the number of partitions retrieved.
