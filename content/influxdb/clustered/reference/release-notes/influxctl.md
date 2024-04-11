@@ -12,6 +12,32 @@ weight: 202
 canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 ---
 
+## v2.8.0 {date="2024-04-11"}
+
+`influxctl` 2.8.0 requires clustered version 20240326-922145 or newer. A change
+was made to how database commands were handled internally in clustered that
+required this change. A user will observe an unimplemented gRPC error when on
+an older version of clustered. If upgrading is not possible, then users can
+continue to use a version prior to 2.8.0 until they are able to update.
+
+### Features
+
+- Introduce the ability to query with InfluxQL
+- Add insecure configuration option to TLS config
+- Allow users to query system tables
+- Utilize to database proxy service
+
+### Dependency Updates
+
+- Update Go to v1.22.2.
+- Update `github.com/go-git/go-git/v5` from 5.11.0 to 5.12.0.
+- Update `github.com/jedib0t/go-pretty/v6` from 6.5.6 to 6.5.8.
+- Update `golang.org/x/mod` from 0.16.0 to 0.17.0.
+- Update `golang.org/x/oauth2` from 0.18.0 to 0.19.0.
+- Update `google.golang.org/grpc` from 1.62.1 to 1.63.2.
+
+---
+
 ## v2.7.1 {date="2024-03-27"}
 
 ### Bug Fixes
