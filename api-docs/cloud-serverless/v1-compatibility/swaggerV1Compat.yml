@@ -1,19 +1,42 @@
 openapi: 3.0.0
 info:
-  title: InfluxDB OSS v1 compatibility API documentation
-  version: 2.6.0 v1 compatibility
+  title: InfluxDB v1 HTTP API for InfluxDB Cloud Serverless
+  version: ''
   description: |
-    The InfluxDB 1.x compatibility /write and /query endpoints work with InfluxDB 1.x client libraries and third-party integrations like Grafana and others.
-
-    If you want to use the latest InfluxDB /api/v2 API instead, see the [InfluxDB v2 API documentation](/influxdb/latest/api/).
+    The InfluxDB 1.x `/write` and `/query` endpoints work with InfluxDB 1.x client libraries and third-party integrations like Grafana and others.
 
     This documentation is generated from the
-    [InfluxDB OpenAPI specification](https://github.com/influxdata/openapi/blob/influxdb-oss-v2.7.0/contracts/swaggerV1Compat.yml).
+    [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/swaggerV1Compat.yml).
+
+    #### Related
+
+    [InfluxDB `/api/v2` API for InfluxDB Cloud Serverless](/influxdb/cloud-serverless/api/v2/)
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
+  summary: The InfluxDB v1 HTTP API provides v1 compatibility for writing and querying data in an InfluxDB v3 Cloud Serverless bucket.
 servers:
   - url: /
+security:
+  - TokenAuthentication: []
+  - BasicAuthentication: []
+  - QuerystringAuthentication: []
+tags:
+  - name: Authentication
+    description: |
+      The InfluxDB 1.x API requires authentication for all requests.
+      InfluxDB Cloud uses InfluxDB API tokens to authenticate requests.
+
+
+      For more information, see the following:
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+
+      <!-- ReDoc-Inject: <security-definitions> -->
+    x-traitTag: true
+  - name: Query
+  - name: Write
 paths:
   /write:
     post:
@@ -409,23 +432,3 @@ components:
 
 
         For examples and more information, see how to [authenticate with a username and password](/influxdb/cloud/reference/api/influxdb-1x/).
-security:
-  - TokenAuthentication: []
-  - BasicAuthentication: []
-  - QuerystringAuthentication: []
-tags:
-  - name: Authentication
-    description: |
-      The InfluxDB 1.x API requires authentication for all requests.
-      InfluxDB Cloud uses InfluxDB API tokens to authenticate requests.
-
-
-      For more information, see the following:
-      - [Token authentication](#section/Authentication/TokenAuthentication)
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
-
-      <!-- ReDoc-Inject: <security-definitions> -->
-    x-traitTag: true
-  - name: Query
-  - name: Write

@@ -1,5 +1,5 @@
 ---
-title: InfluxQL reference
+title: InfluxQL reference documentation
 list_title: InfluxQL
 description: InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
 menu:

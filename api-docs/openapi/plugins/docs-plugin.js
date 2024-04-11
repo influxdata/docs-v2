@@ -1,4 +1,4 @@
-const {info, tagGroups} = require('./docs-content');
+const {info, servers, tagGroups} = require('./docs-content');
 const ReportTags = require('./rules/report-tags');
 const ValidateServersUrl = require('./rules/validate-servers-url');
 const RemovePrivatePaths = require('./decorators/paths/remove-private-paths');
@@ -23,7 +23,7 @@ const rules = {
 /** @type {import('@redocly/openapi-cli').CustomRulesConfig} */
 const decorators = {
   oas3: {
-    'set-servers': () => SetServers([ { url: '/' } ]),
+    'set-servers': () => SetServers(servers()),
     'delete-servers': DeleteServers,
     'remove-private-paths': RemovePrivatePaths,
     'strip-version-prefix': StripVersionPrefix,

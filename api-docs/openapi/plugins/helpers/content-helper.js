@@ -51,9 +51,7 @@ function toJSON(yamlPath) {
   try {
     return yaml.load(fs.readFileSync(yamlPath, 'utf8'));
   } catch (e) {
-    /** No file, no harm, no foul. **/
-    // console.log(e);
-  }
+ }
 }
 
 module.exports = {
