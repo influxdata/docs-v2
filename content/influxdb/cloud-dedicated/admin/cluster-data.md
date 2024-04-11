@@ -31,7 +31,7 @@ performance of your {{< product-name omit=" Clustered" >}} cluster.
 System tables are not part of InfluxDB's stable API and may change with new releases.
 The provided schema information and query examples are valid as of **April 11, 2024**.
 If you detect a schema change or a non-functioning query example, please
-[let us know](https://github.com/influxdata/docs-v2/issues/new/choose).
+[submit an issue](https://github.com/influxdata/docs-v2/issues/new/choose).
 
 <!--------------- UPDATE THE DATE ABOVE AS EXAMPLES ARE UPDATED --------------->
 {{% /warn %}}
@@ -43,7 +43,7 @@ _Querying system tables [may impact overall cluster performance](#may-impact-ove
 {{% /warn %}}
 
 {{% note %}}
-Querying system tables requires **`influxctl` v2.8.0 or newer**.
+Querying system tables with `influxctl` requires **`influxctl` v2.8.0 or newer**.
 {{% /note %}}
 
 Use the [`influxctl query` command](/influxdb/cloud-dedicated/reference/cli/influxctl/query/)
@@ -234,7 +234,7 @@ The `system.compactor` table contains the following columns:
   - [View the number of partitions for a specific table](#view-the-number-of-partitions-for-a-specific-table)
 - [Storage usage](#storage-usage)
   - [View the size of tables in megabytes](#view-the-size-of-tables-in-megabytes)
-  - [View the size of a specific tables in megabytes](#view-the-size-of-a-specific-tables-in-megabytes)
+  - [View the size of a specific table in megabytes](#view-the-size-of-a-specific-table-in-megabytes)
   - [View the total size of all compacted partitions per table in bytes](#view-the-total-size-of-all-compacted-partitions-per-table-in-bytes)
   - [View the total size of all compacted partitions in bytes](#view-the-total-size-of-all-compacted-partitions-in-bytes)
 - [Compaction](#compaction)
@@ -326,7 +326,7 @@ GROUP BY
   table_name
 ```
 
-#### View the size of a specific tables in megabytes
+#### View the size of a specific table in megabytes
 
 ```sql
 SELECT
