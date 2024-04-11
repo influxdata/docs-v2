@@ -219,6 +219,53 @@ cat ./metrics.lp | influxctl write \
 
 {{% /code-placeholders %}}
 
+### Write line protocol to InfluxDB v3 with a custom client timeout
+
+{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[string](#)
+[file](#)
+[stdin](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+{{% influxdb/custom-timestamps %}}
+```sh
+influxctl write \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  --timeout 20 \
+  "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+"
+```
+{{% /influxdb/custom-timestamps %}}
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+influxctl write \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  --timeout 20 \
+  /path/to/metrics.lp
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+cat ./metrics.lp | influxctl write \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  --timeout 20 \
+  - 
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /code-placeholders %}}
+
 ### Write line protocol to InfluxDB v3 using credentials from the connection profile
 
 The following example uses the `database` and `token` defined in the `default`
@@ -233,3 +280,11 @@ home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600000000000
 "
 ```
 {{% /influxdb/custom-timestamps %}}
+
+{{% expand "View command updates" %}}
+
+#### v2.8.0 {date="2024-04-11"}
+
+- Add `--timeout` flag to specify a custom client timeout.
+
+{{% /expand %}}
