@@ -335,6 +335,7 @@ If stored at a non-default location, include the `--config` flag with each
     ## By default, the system certificates are used. If a custom certificate
     ## for connecting to InfluxDB is required, define it below.
     # [profile.tls]
+        # insecure = false
         # cert = ""
         # key = ""
         # ca = ""
