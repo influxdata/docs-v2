@@ -65,7 +65,7 @@ Resulting in a lean catalog with minimal operational overhead.
 
 {{% expand "Custom Backup Window - Using S3 Versioning" %}}
 
-In this scenario, we maintain a low cutoff point for the garbage collector service.
+In this scenario, we maintain a low cutoff point for the garbage collector service, and make use of an object versioning policy to ensure expired files are kept for the specified backup window time.
 
 Object versioning is used to maintain the files for a longer duration, whilst allowing the catalog to no longer maintain their references.
 
