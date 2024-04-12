@@ -60,7 +60,7 @@ Our recommendation is to keep these values aligned.
 
 You can use lifecycle rules to ensure that old versions of data are not kept around any longer than necessary - this could cause a significant increase in storage costs over a long period.
 
-We recommend that you use lifecycle rules to expire data after a set period of time, which is appropriate to your organisation.
+We recommend that you use lifecycle rules to expire data after a set period of time, which matches your required backup duration for your organisation.
 
 For example, an [AWS S3 lifecycle rule](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) to expire non-current objects after 90 days will look like the following:
 
