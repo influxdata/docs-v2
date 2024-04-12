@@ -27,7 +27,13 @@ There are two variables which tune this process:
 - `INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF`: the age at which a parquet file not referenced in the catalog becomes eligible for deletion from object storage. The default is `30d`.
 - `INFLUXDB_IOX_GC_PARQUETFILE_CUTOFF`: defines how long to retain the row referencing a parquet file in the catalog once marked for deletion. The default is `30d`.
 
-Our recommendation is to keep these values aligned and you should set these to a value which matches your organisation's backup and recovery strategy.
+{{% warn %}}
+**These must NEVER be set to a value less than `3h` (3 hours).**
+
+IOx requires a grace period before files can be removed.
+{{% /warn %}}
+
+Our recommendation is to keep these values aligned and to a value which matches your organisation's backup and recovery strategy.
 
 For example a value of `6h` (6 hours) would be appropriate for running a lean catalog that only maintains references to recent data.
 The assumption here is no backup requirement.
