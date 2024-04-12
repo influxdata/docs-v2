@@ -113,9 +113,11 @@ spec:
 ```
 {{% /expand %}}
 
-{{% expand "Long retention" %}}
+{{% expand "Custom Backup Window - No S3 Versioning" %}}
 
-If your organisation requires a longer retention period for files, you may wish to increase these values past their defaults.
+If your organisation cannot make use of S3 versioning policies but still requires a backup window, you must configure the garbage collector to retain the files for as long as your backup period requires.
+
+If possible, using S3 versioning is preferred.
 
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
