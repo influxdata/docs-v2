@@ -17,7 +17,6 @@ In order to reduce these factors, it is important to manage the lifecycle of ing
 
 - Use a retention policy which is appropriate for your requirements.
 - Tune the garbage collector cutoff period to ensure that data is removed in a timely manner.
-- Enable versioning in your object store and use lifecycle rules to expire old data.
 
 ### Garbage collector tuning
 
@@ -28,9 +27,16 @@ There are two variables which tune this process:
 - `INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF`: the age at which a parquet file not referenced in the catalog becomes eligible for deletion from object storage. The default is `30d`.
 - `INFLUXDB_IOX_GC_PARQUETFILE_CUTOFF`: defines how long to retain the row referencing a parquet file in the catalog once marked for deletion. The default is `30d`.
 
-You may set them to a value that is appropriate for your use case, for example a value of `6h` (6 hours) would be appropriate for maintaining a lean catalog that only maintains references to recent data.
+Our recommendation is to keep these values aligned and you should set these to a value which matches your organisation's backup and recovery strategy.
 
-This can be set in your `AppInstance` configuration like so:
+For example a value of `6h` (6 hours) would be appropriate for running a lean catalog that only maintains references to recent data.
+The assumption here is no backup requirement.
+
+Use the following scenarios as a guide for different use cases:
+
+{{% expand "Leading edge data, no backups" %}}
+
+When only the most recent data is important and backups are not required, you can utilise a very low cutoff point for the garbage collector.
 
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
@@ -52,15 +58,18 @@ spec:
                  INFLUXDB_IOX_GC_PARQUETFILE_CUTOFF: '6h',
 ```
 
-Our recommendation is to keep these values aligned.
+Using a low value here means that the garbage collector service will promptly delete files from the configured object store and remove rows from the catalog.
+Resulting in a lean catalog with minimal operational overhead.
 
-### Lifecycle rules
+{{% /expand %}}
 
-**We highly recommend that you use object versioning if you are expiring data using lifecycle rules.**
+{{% expand "Leading edge data with longer retention required" %}}
 
-You can use lifecycle rules to ensure that old versions of data are not kept around any longer than necessary - this could cause a significant increase in storage costs over a long period.
+In this scenario, we maintain a low cutoff point for the garbage collector service; however, you should also pair this with the versioning mechanism available in your configured object store.
 
-We recommend that you use lifecycle rules to expire data after a set period of time, which matches your required backup duration for your organisation.
+Object versioning is used to maintain the files for a longer duration, whilst allowing the catalog to no longer maintain their references.
+
+Old versions should then be expired based on the requirements for the organisation.
 
 For example, an [AWS S3 lifecycle rule](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) to expire non-current objects after 90 days will look like the following:
 
@@ -80,3 +89,54 @@ For example, an [AWS S3 lifecycle rule](https://docs.aws.amazon.com/AmazonS3/lat
     ]
 }
 ```
+
+The tuning of the `garbage-collector` is shown below:
+
+```yaml
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+metadata:
+  name: influxdb
+  namespace: influxdb
+spec:
+  package:
+    # Surrounding configuration parameters have been snipped for brevity
+    spec:
+      components:
+       garbage-collector:
+         template:
+           containers:
+             iox:
+               env:
+                 INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF: '6h',
+                 INFLUXDB_IOX_GC_PARQUETFILE_CUTOFF: '6h',
+```
+{{% /expand %}}
+
+{{% expand "Long retention" %}}
+
+If your organisation requires a longer retention period for files, you may wish to increase these values past their defaults.
+
+```yaml
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+metadata:
+  name: influxdb
+  namespace: influxdb
+spec:
+  package:
+    # Surrounding configuration parameters have been snipped for brevity
+    spec:
+      components:
+       garbage-collector:
+         template:
+           containers:
+             iox:
+               env:
+                 INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF: '100d',
+                 INFLUXDB_IOX_GC_PARQUETFILE_CUTOFF: '100d',
+```
+
+Keep in mind that this may incur more cost in both the catalog and object store in use, as they are maintaining references and retaining a much greater number of files respectively.
+
+{{% /expand %}}
