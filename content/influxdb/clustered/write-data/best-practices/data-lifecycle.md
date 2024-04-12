@@ -65,11 +65,11 @@ Resulting in a lean catalog with minimal operational overhead.
 
 {{% expand "Leading edge data with longer retention required" %}}
 
-In this scenario, we maintain a low cutoff point for the garbage collector service; however, you should also pair this with the versioning mechanism available in your configured object store.
+In this scenario, we maintain a low cutoff point for the garbage collector service.
 
 Object versioning is used to maintain the files for a longer duration, whilst allowing the catalog to no longer maintain their references.
 
-Old versions should then be expired based on the requirements for the organisation.
+Noncurrent objects should be expired based on the requirements of your organisation.
 
 For example, an [AWS S3 lifecycle rule](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) to expire non-current objects after 90 days will look like the following:
 
