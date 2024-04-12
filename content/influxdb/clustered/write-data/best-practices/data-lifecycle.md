@@ -59,7 +59,7 @@ spec:
 ```
 
 Using a low value here means that the garbage collector service will promptly delete files from the configured object store and remove rows from the catalog.
-Resulting in a lean catalog with minimal operational overhead.
+Resulting in a lean catalog with minimal operational overhead and a smaller sized object store.
 
 {{% /expand %}}
 
