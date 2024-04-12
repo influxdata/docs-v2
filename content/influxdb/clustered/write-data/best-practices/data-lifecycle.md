@@ -63,7 +63,7 @@ Resulting in a lean catalog with minimal operational overhead.
 
 {{% /expand %}}
 
-{{% expand "Leading edge data with longer retention required" %}}
+{{% expand "Custom Backup Window - Using S3 Versioning" %}}
 
 In this scenario, we maintain a low cutoff point for the garbage collector service.
 
