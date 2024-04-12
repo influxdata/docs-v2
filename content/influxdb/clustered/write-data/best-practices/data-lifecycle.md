@@ -69,7 +69,7 @@ In this scenario, we maintain a low cutoff point for the garbage collector servi
 
 Object versioning is used to maintain the files for a longer duration, whilst allowing the catalog to no longer maintain their references.
 
-Noncurrent objects should be expired based on the requirements of your organisation.
+Noncurrent objects should be configured to be expried as soon as possible, but retained long enough to satisfy your organisation's backup policy.
 
 For example, an [AWS S3 lifecycle rule](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) to expire non-current objects after 90 days will look like the following:
 
