@@ -8,6 +8,45 @@ menu:
 weight: 101
 ---
 
+## v2.7.6 {date="2024-04-12"}
+
+### Bug Fixes
+
+- Fix `panic index out of range` error for invalid series keys.
+- Update broken Flux and performance tests.
+- Do not panic when querying empty tags.
+- Improve shard deletion.
+- Return and respect cursor errors.
+- Update constant time code to make password strength calculations more constant.
+
+### Features
+
+- Add optional [stricter password requirements](/influxdb/v2/reference/config-options/#strong-passwords).
+
+### Maintenance
+
+- Upgrade to Go 1.21.8.
+- Upgrade Go toolchain to 1.21.9.
+
+## v2.7.5 {date="2024-01-05"}
+
+### Bug Fixes
+
+- Only execute `init_config` on install.
+- Enable `Secure` when using TLS and enable `HttpOnly`.
+- Correctly return 4xx errors instead of 5xx errors.
+- Prevent retention service from creating orphaned shard files.
+
+### Features
+
+- Add authenticating ID and user ID to request logging.
+- Write detailed logs from endpoint detection and response (EDR) failures.
+
+### Maintenance
+
+- Emit build commands during tests.
+- Upgrade Flux to 0.194.5.
+
 ## v2.7.4 {date="2023-11-14"}
 
 _Internal changes only._
