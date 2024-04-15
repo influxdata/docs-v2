@@ -19,22 +19,27 @@ Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/produ
 to visualize data from your **InfluxDB {{< current-version >}}** instance.
 
 {{% note %}}
-The instructions in this guide require **Grafana Cloud** or **Grafana v8.0+**.
+The instructions in this guide require **Grafana Cloud** or **Grafana 10.3+**.
 {{% /note %}}
 
-1. {{% cloud-only %}}[Log into InfluxDB Cloud](https://cloud2.influxdata.com).{{% /cloud-only %}}
-1. {{% oss-only %}}[Start InfluxDB](/influxdb/v2/install/#configure-and-start-influxdb).{{% /oss-only %}}
-2. [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
-   [download and install Grafana](https://grafana.com/grafana/download).
-3. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,
-   [start Grafana](https://grafana.com/docs/grafana/latest/installation/) and visit
-   `http://localhost:3000` in your browser.
-4. In the left navigation of the Grafana UI, hover over the gear
-   icon to expand the **Configuration** section. Click **Data Sources**.
-5. Click **Add data source**.
-6. Select **InfluxDB** from the list of available data sources.
-7. On the **Data Source configuration page**, enter a **name** for your InfluxDB data source.
-8. Under **Query Language**, select one of the following:
+1.  {{% cloud-only %}}[Log into InfluxDB Cloud](https://cloud2.influxdata.com).{{% /cloud-only %}}
+1.  {{% oss-only %}}[Start InfluxDB](/influxdb/v2/install/#configure-and-start-influxdb).{{% /oss-only %}}
+2.  [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
+    [download and install Grafana](https://grafana.com/grafana/download).
+3.  Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,
+    [start Grafana](https://grafana.com/docs/grafana/latest/installation/) and visit
+    <http://localhost:3000> in your browser.
+4.  In the left navigation of the Grafana UI, open the **Connections** section
+    and select **Add new connection**.
+5.  Select **InfluxDB** from the list of available data sources and click
+    **Add new data source**.
+6.  On the **Data Source configuration page**, enter a **name** for your InfluxDB data source.
+7.  In the **Query Language** drop-down menu, select one of the query languages
+    supported by InfluxDB {{< current-version >}} (Flux or InfluxQL):
+
+    {{% note %}}
+SQL is only supported in InfluxDB v3.
+    {{% /note %}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -56,14 +61,13 @@ configure your InfluxDB connection:
         ```sh
         http://localhost:8086/
         ```
-    
-    - **Access**: Server (default)
 
 2.  Under **InfluxDB Details**, enter the following:
 
     - **Organization**: Your InfluxDB [organization name **or** ID](/influxdb/v2/admin/organizations/view-orgs/).
     - **Token**: Your InfluxDB [API token](/influxdb/v2/admin/tokens/).
-    - **Default Bucket**: The default [bucket](/influxdb/v2/admin/buckets/) to use in Flux queries.
+    - **Default Bucket**: The default [bucket](/influxdb/v2/admin/buckets/) to
+      use in Flux queries.
     - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
       Default is `10s`
     - **Max series**: The maximum number of series or tables Grafana will process.
@@ -73,11 +77,11 @@ configure your InfluxDB connection:
     datasource and returns the results of the test.
 
 {{% cloud-only %}}
-  {{< img-hd src="/img/influxdb/cloud-tools-grafana.png" alt="Use Grafana with InfluxDB Cloud and Flux" />}}
+  {{< img-hd src="/img/influxdb/cloud-tools-grafana-flux.png" alt="Use Grafana with InfluxDB Cloud and Flux" />}}
 {{% /cloud-only %}}
 
 {{% oss-only %}}
-  {{< img-hd src="/img/influxdb/2-2-tools-grafana.png" alt="Use Grafana with InfluxDB and Flux" />}}
+  {{< img-hd src="/img/influxdb/v2-tools-grafana-flux.png" alt="Use Grafana with InfluxDB and Flux" />}}
 {{% /oss-only %}}
 
 {{% /tab-content %}}
@@ -100,12 +104,14 @@ and then complete the instructions to configure Grafana:
 - [Manually migrated from InfluxDB 1.x to {{< current-version >}}](#manually-migrated-from-influxdb-1x-to-2x)
 
 ### Installed a new InfluxDB instance
+
 To configure Grafana to use InfluxQL with a new install of InfluxDB {{< current-version >}}, do the following:
 
 1. [Authenticate with InfluxDB {{< current-version >}} tokens](/influxdb/v2/admin/tokens/).
 2. [Manually create DBRP mappings](#view-and-create-influxdb-dbrp-mappings).
 
 ### Upgraded from InfluxDB 1.x to 2.x
+
 To configure Grafana to use InfluxQL when you've upgraded from InfluxDB 1.x to
 InfluxDB {{< current-version >}} (following an [official upgrade guide](/influxdb/v2/upgrade/v1-to-v2/)):
 
@@ -114,6 +120,7 @@ InfluxDB {{< current-version >}} (following an [official upgrade guide](/influxd
 2. Use the DBRP mappings InfluxDB automatically created in the upgrade process (no action necessary).
 
 ### Manually migrated from InfluxDB 1.x to 2.x
+
 To configure Grafana to use InfluxQL when you've manually migrated from InfluxDB
 1.x to InfluxDB {{< current-version >}}, do the following:
 
@@ -131,6 +138,7 @@ authenticate with a username and password like InfluxDB 1.x
 _(separate from the credentials used to log into the InfluxDB user interface)_.
 
 #### View existing v1 authorizations
+
 Use the [`influx v1 auth list`](/influxdb/v2/reference/cli/influx/v1/auth/list/)
 to list existing InfluxDB v1 compatible authorizations.
 
@@ -139,6 +147,7 @@ influx v1 auth list
 ```
 
 #### Create a v1 authorization
+
 Use the [`influx v1 auth create` command](/influxdb/v2/reference/cli/influx/v1/auth/create/)
 to grant read/write permissions to specific buckets. Provide the following:
 
@@ -166,6 +175,7 @@ These mappings allow queries following InfluxDB 1.x conventions to successfully
 query InfluxDB {{< current-version >}} buckets.
 
 #### View existing DBRP mappings
+
 Use the [`influx v1 dbrp list`](/influxdb/v2/reference/cli/influx/v1/dbrp/list/)
 to list existing DBRP mappings.
 
@@ -174,6 +184,7 @@ influx v1 dbrp list
 ```
 
 #### Create a DBRP mapping
+
 Use the [`influx v1 dbrp create` command](/influxdb/v2/reference/cli/influx/v1/dbrp/create/)
 command to create a DBRP mapping.
 Provide the following:
@@ -194,13 +205,15 @@ influx v1 dbrp create \
 
 {{% note %}}
 #### Repeat for each DBRP combination
+
 Each unique database and retention policy combination used by Grafana must be
 mapped to an InfluxDB {{< current-version >}} bucket.
 If you have multiple retention policies for a single bucket, set one of the the
 retention polices as the default using the `--default` flag.
 {{% /note %}}
 
-_For more information about DBRP mapping, see [Database and retention policy mapping](/influxdb/v2/reference/api/influxdb-1x/dbrp/)._
+_For more information about DBRP mapping, see
+[Database and retention policy mapping](/influxdb/v2/reference/api/influxdb-1x/dbrp/)._
 
 {{< /expand >}}
 {{< /expand-wrapper >}}
@@ -222,6 +235,7 @@ To query InfluxDB Cloud from Grafana using InfluxQL:
 3. [Configure your InfluxDB connection](#configure-your-influxdb-connection)
 
 ### Download and set up the influx CLI
+
 1. [Download the latest version of the `influx` CLI](/influxdb/cloud/sign-up/#optional-download-install-and-use-the-influx-cli)
    appropriate for your local operating system.
 2. Create a CLI configuration that provides the required InfluxDB Cloud **host**,
@@ -245,6 +259,7 @@ To query InfluxDB Cloud from Grafana using InfluxQL:
     see [`influx config`](/influxdb/cloud/reference/cli/influx/config/).
 
 ### Create an InfluxDB DBRP mapping
+
 When using InfluxQL to query InfluxDB Cloud, the query must specify a database and a retention policy.
 Use the [`influx v1 dbrp create` command](/influxdb/cloud/reference/cli/influx/v1/dbrp/create/)
 command to create a database/retention policy (DBRP) mapping that associates a database
@@ -256,6 +271,7 @@ query InfluxDB Cloud buckets.
 
 {{% note %}}
 ##### Automatically create DBRP mappings on write
+
 When using the InfluxDB 1.x compatibility API to write data to InfluxDB Cloud,
 InfluxDB Cloud automatically creates DBRP mappings for buckets whose names match the
 `db/rp` naming pattern of the database and retention policy specified in the write request.
@@ -280,13 +296,15 @@ influx v1 dbrp create \
 
 {{% note %}}
 #### Repeat for each DBRP combination
+
 Each unique database and retention policy combination used by Grafana must be
 mapped to an InfluxDB {{< current-version >}} bucket.
 If you have multiple retention policies for a single bucket, set one of the the
 retention polices as the default using the `--default` flag.
 {{% /note %}}
 
-_For more information about DBRP mapping, see [Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/)._
+_For more information about DBRP mapping, see
+[Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/)._
 
 {{% /cloud-only %}}
 <!---------------------------------------------------------------------------->
@@ -295,6 +313,7 @@ _For more information about DBRP mapping, see [Database and retention policy map
 
 
 ### Configure your InfluxDB connection
+
 With **InfluxQL** selected as the query language in your InfluxDB data source settings:
 
 1. Under **HTTP**, enter the following:
@@ -304,7 +323,6 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
         ```sh
         http://localhost:8086/
         ```
-    - **Access**: Server (default)
 
 2. Configure InfluxDB authentication:
 
@@ -342,7 +360,7 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
 {{% /cloud-only %}}
 
 {{< oss-only >}}
-  {{< img-hd src="/img/influxdb/2-2-tools-grafana-influxql.png" alt="Use Grafana with InfluxDB and Flux" />}}
+  {{< img-hd src="/img/influxdb/v2-tools-grafana-influxql.png" alt="Use Grafana with InfluxDB and Flux" />}}
 {{< /oss-only >}}
 
 {{% /tab-content %}}

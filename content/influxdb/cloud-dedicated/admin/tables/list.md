@@ -56,7 +56,7 @@ The `influxctl query` command only supports SQL queries; not InfluxQL.
 
 Provide the following with your command:
 
-- **Database token**: [Database token](/influxdb/cloud-dedicated/admin/tokens/)
+- **Database token**: [Database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
   with read permissions on the queried database. Uses the `token` setting from
   the [`influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
   or the `--token` command flag.

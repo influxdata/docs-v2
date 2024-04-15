@@ -68,7 +68,7 @@ Use `Token` to authenticate a write request:
 {{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
 ```sh
 # Use the Token authentication scheme with /api/v2/write
-curl --post "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision=s" \
+curl --request post "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision=s" \
   --header "Authorization: Token API_TOKEN" \
   --data-binary 'home,room=kitchen temp=72 1463683075'
 ```

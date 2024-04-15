@@ -2,7 +2,7 @@
 title: Execute queries
 description: >
   Use tools and libraries to query data stored in InfluxDB Cloud Dedicated.
-weight: 201
+weight: 101
 menu:
   influxdb_cloud_dedicated:
     name: Execute queries

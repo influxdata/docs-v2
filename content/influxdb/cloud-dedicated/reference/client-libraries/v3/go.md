@@ -102,7 +102,9 @@ func main() {
 Replace the following configuration values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to query
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_ permission on the specified database
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+  an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  with _read_ permission on the specified database
 
 ## Class influxdb3.Client
 

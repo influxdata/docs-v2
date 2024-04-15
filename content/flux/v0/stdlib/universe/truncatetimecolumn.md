@@ -43,7 +43,9 @@ so all calculated weeks begin on Thursday.
 (<-tables: stream[{B with _time: C}], unit: duration, ?timeColumn: A) => stream[{B with _time: C, _time: time}] where C: Timeable
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

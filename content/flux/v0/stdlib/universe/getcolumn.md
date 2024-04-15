@@ -38,7 +38,9 @@ If the specified column is not present in the table, the function returns an err
 (<-table: stream[A], column: string) => [B] where A: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

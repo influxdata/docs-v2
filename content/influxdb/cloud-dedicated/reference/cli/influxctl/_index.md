@@ -30,16 +30,17 @@ influxctl [flags] [command]
 
 ## Commands
 
-| Command                                                                 | Description                            |
-| :---------------------------------------------------------------------- | :------------------------------------- |
-| [cluster](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/)   | List InfluxDB v3 cluster information   |
-| [database](/influxdb/cloud-dedicated/reference/cli/influxctl/database/) | Manage InfluxDB v3 databases           |
-| [help](/influxdb/cloud-dedicated/reference/cli/influxctl/help/)         | Output `influxctl` help information    |
-| [query](/influxdb/cloud-dedicated/reference/cli/influxctl/query/)       | Query data from InfluxDB v3            |
-| [token](/influxdb/cloud-dedicated/reference/cli/influxctl/token/)       | Manage InfluxDB v3 database tokens     |
-| [user](/influxdb/cloud-dedicated/reference/cli/influxctl/user/)         | Manage InfluxDB v3 cluster users       |
-| [version](/influxdb/cloud-dedicated/reference/cli/influxctl/version/)   | Output the current `influxctl` version |
-| [write](/influxdb/cloud-dedicated/reference/cli/influxctl/write/)       | Write line protocol to InfluxDB v3     |
+| Command                                                                     | Description                            |
+| :-------------------------------------------------------------------------- | :------------------------------------- |
+| [cluster](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/)       | List InfluxDB v3 cluster information   |
+| [database](/influxdb/cloud-dedicated/reference/cli/influxctl/database/)     | Manage InfluxDB v3 databases           |
+| [help](/influxdb/cloud-dedicated/reference/cli/influxctl/help/)             | Output `influxctl` help information    |
+| [management](/influxdb/cloud-dedicated/reference/cli/influxctl/management/) | Manage InfluxDB v3 management tokens   |
+| [query](/influxdb/cloud-dedicated/reference/cli/influxctl/query/)           | Query data from InfluxDB v3            |
+| [token](/influxdb/cloud-dedicated/reference/cli/influxctl/token/)           | Manage InfluxDB v3 database tokens     |
+| [user](/influxdb/cloud-dedicated/reference/cli/influxctl/user/)             | Manage InfluxDB v3 cluster users       |
+| [version](/influxdb/cloud-dedicated/reference/cli/influxctl/version/)       | Output the current `influxctl` version |
+| [write](/influxdb/cloud-dedicated/reference/cli/influxctl/write/)           | Write line protocol to InfluxDB v3     |
 
 ## Global flags
 
@@ -334,6 +335,7 @@ If stored at a non-default location, include the `--config` flag with each
     ## By default, the system certificates are used. If a custom certificate
     ## for connecting to InfluxDB is required, define it below.
     # [profile.tls]
+        # insecure = false
         # cert = ""
         # key = ""
         # ca = ""

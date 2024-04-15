@@ -27,7 +27,7 @@ If you change an organization name, be sure to update the organization in the ab
 
 1. In the navigation menu on the left, click the user icon > **About**.
 
-    {{< img-hd src="/img/influxdb/user-icon.png" alt="User Icon" />}}
+    {{< nav-icon "account" >}}
 
 2. Click **{{< icon "edit" >}} Rename**. A verification window appears.
 3. Review the information, and then click **I understand, let's rename my organization**.
@@ -36,16 +36,33 @@ If you change an organization name, be sure to update the organization in the ab
 ## Update an organization using the influx CLI
 
 Use the [`influx org update` command](/influxdb/v2/reference/cli/influx/org/update)
-to update an organization. Updating an organization requires the following:
+to update an organization. Provide the following:
 
-- The org ID _(provided in the output of `influx org list`)_
+- An [operator token](/influxdb/v2/admin/tokens/#operator-token) using your
+  [`influx` CLI connection configuration](/influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials),
+  `INFLUX_TOKEN` environment variable, or the `--token, -t` flag.
+- The [ID of the organization](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
+  to update using the `--org-id, -i` flag.
+- _Optional:_ The updated name for the organization with the `--name, -n` flag.
+- _Optional:_ The updated description for the organization with the
+  `--description, -d` flag.
 
-##### Update the name of a organization
+##### Update the name of an organization
 
+{{% code-placeholders "ORG_ID|NEW_ORG_(NAME|DESCRIPTION)" %}}
 ```sh
-# Syntax
-influx org update -i <org-id> -n <new-org-name>
-
-# Example
-influx org update -i 034ad714fdd6f000 -n my-new-org
+influx org update \
+  --org-id ORG_ID \
+  --name NEW_ORG_NAME \
+  --description NEW_ORG_DESCRIPTION \
 ```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`ORG_ID`{{% /code-placeholder-key %}}:
+  The ID of the organization to update.
+- {{% code-placeholder-key %}}`NEW_ORG_NAME`{{% /code-placeholder-key %}}:
+  The new name for the organization.
+- {{% code-placeholder-key %}}`NEW_ORG_DESCRIPTION`{{% /code-placeholder-key %}}:
+  The new description for the organization.

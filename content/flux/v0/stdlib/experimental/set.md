@@ -39,7 +39,9 @@ If a column does not exist, the function adds it with the specified value.
 (<-tables: stream[B], o: A) => stream[C] where A: Record, B: Record, C: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

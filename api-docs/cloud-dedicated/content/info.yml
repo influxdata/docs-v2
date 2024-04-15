@@ -1,7 +1,0 @@
-title: InfluxDB Cloud Dedicated API Service
-description: |
-    The InfluxDB HTTP API provides a programmatic interface for interacting with InfluxDB.
-version: InfluxDB v3.0
-license:
-  name: MIT
-  url: 'https://opensource.org/licenses/MIT'

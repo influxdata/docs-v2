@@ -8,38 +8,40 @@ menu:
   influxdb_clustered:
     parent: Execute queries
     name: Use the influxctl CLI
-influxdb/clustered/tags: [query, sql, influxctl, CLI]
-metadata: [SQL]
+influxdb/clustered/tags: [query, sql, influxql, influxctl, CLI]
 related:
   - /influxdb/clustered/reference/cli/influxctl/query/
   - /influxdb/clustered/get-started/query/#execute-an-sql-query, Get started querying data
   - /influxdb/clustered/reference/sql/
+  - /influxdb/clustered/reference/influxql/
 list_code_example: |
   ```sh
   influxctl query \
     --token DATABASE_TOKEN \
     --database DATABASE_NAME \
-    "q=SELECT * FROM home"
+    "SELECT * FROM home"
   ```
 ---
 
 Use the [`influxctl query` command](/influxdb/clustered/reference/cli/influxctl/query/)
-to query data in {{< product-name >}} with SQL.
-
-{{% note %}}
-The `influxctl query` command only supports SQL queries; not InfluxQL.
-{{% /note %}}
+to query data in {{< product-name >}} with SQL or InfluxQL.
 
 Provide the following with your command:
 
-- **Database token**: [Database token](/influxdb/clustered/admin/tokens/)
-  with read permissions on the queried database. Uses the `token` setting from
-  the [`influxctl` connection profile](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles)
+- **Database token**: A [database token](/influxdb/clustered/admin/tokens/#database-tokens)
+  with read permissions on the queried database. By default, this uses
+  the `database` setting from the [`influxctl` connection profile](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles)
   or the `--token` command flag.
-- **Database name**: Name of the database to query. Uses the `database` setting
-  from the [`influxctl` connection profile](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles)
+- **Database name**: The name of the database to query. By default, this uses
+  the `database` setting from the [`influxctl` connection profile](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles)
   or the `--database` command flag.
-- **SQL query**: SQL query to execute.
+- **Query language** <em class="op65">(Optional)</em>: The query language of the query.
+  Use the `--language` flag to specify one of the following query languages:
+  
+  - `sql` _(default)_
+  - `influxql`
+
+- **Query**: SQL or InfluxQL query to execute.
   Pass the query in one of the following ways:
 
   - a string on the command line
@@ -47,6 +49,14 @@ Provide the following with your command:
   - a single dash (`-`) to read the query from stdin
 
 {{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -79,6 +89,48 @@ cat ./query.sql | influxctl query \
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+{{% /tab-content %}}
+
+{{% tab-content %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[string](#)
+[file](#)
+[stdin](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+influxctl query \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  --language influxql \
+  "SELECT * FROM home"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+influxctl query \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  --language influxql \
+  /path/to/query.influxql
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+cat ./query.influxql | influxctl query \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  --language influxql \
+  - 
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 {{% /code-placeholders %}}
 
@@ -169,4 +221,3 @@ influxctl query \
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-

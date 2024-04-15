@@ -46,7 +46,9 @@ Experimental `requests.get` is deprecated in favor of [`requests.get`](/flux/v0/
 ) => {statusCode: int, headers: [string:string], duration: duration, body: bytes}
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

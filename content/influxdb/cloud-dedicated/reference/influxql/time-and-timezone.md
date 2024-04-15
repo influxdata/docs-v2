@@ -27,6 +27,7 @@ You can review the following ways to work with time and timestamps in your Influ
 - [Notable behaviors](#notable-behaviors)
   - [Cannot query multiple time ranges](#cannot-query-multiple-time-ranges)
   - [Querying future data with a `GROUP BY time()` clause](#querying-future-data-with-a-group-by-time-clause)
+  - [Cannot use parameters for durations](#cannot-use-parameters-for-durations)
 
 ## Time syntax
 
@@ -81,7 +82,7 @@ InfluxQL requires a whitespace between the `+` operators `-` and the duration li
 
 ## Query time range
 
-To specify the time range of a query, use conditional expressions in the 
+To specify the time range of a query, use conditional expressions in the
 [`WHERE` clause](/inflxudb/cloud-dedicated/reference/influxql/where/) that
 compare the value of the `time` column to an absolute timestamp or a relative
 timestamp.
@@ -151,7 +152,7 @@ WHERE
   AND time <= '2022-01-01T12:00:00Z'
 ```
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: home
 {{% /influxql/table-meta %}}
 
@@ -178,9 +179,9 @@ WHERE
   AND time <= '2022-01-01 12:00:00'
 ```
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: home
-{{% /influxql/table-meta %}} 
+{{% /influxql/table-meta %}}
 
 | time                 |  co |  hum | room    | temp |
 | :------------------- | --: | ---: | :------ | ---: |
@@ -206,9 +207,9 @@ WHERE
   AND time <= 1641038400000000000
 ```
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: home
-{{% /influxql/table-meta %}} 
+{{% /influxql/table-meta %}}
 
 | time                 |  co |  hum | room    | temp |
 | :------------------- | --: | ---: | :------ | ---: |
@@ -233,9 +234,9 @@ WHERE
   AND time <= 1641038400s
 ```
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: home
-{{% /influxql/table-meta %}} 
+{{% /influxql/table-meta %}}
 
 | time                 |  co |  hum | room    | temp |
 | :------------------- | --: | ---: | :------ | ---: |
@@ -255,9 +256,9 @@ name: home
 SELECT * FROM home WHERE time >= '2022-01-01T20:00:00Z' - 2h
 ```
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: home
-{{% /influxql/table-meta %}} 
+{{% /influxql/table-meta %}}
 
 | time                 |  co |  hum | room        | temp |
 | :------------------- | --: | ---: | :---------- | ---: |
@@ -285,9 +286,9 @@ SELECT * FROM home WHERE time >= now() - 2h
 {{% warn %}}
 InfluxQL in {{< product-name >}} does not currently support the time zone clause,
 which applies a time zone offset to UTC timestamps in query results.
-
-**Tracking issue**: [influxdb_iox#6933](https://github.com/influxdata/influxdb_iox/issues/6933)
 {{% /warn %}}
+
+<!-- **Tracking issue**: [influxdb_iox#6933](https://github.com/influxdata/influxdb_iox/issues/6933) -->
 
 <!-- By default, InfluxDB stores and returns timestamps in UTC.
 Use the time zone clause and the `tz()` function to apply a time zone offset to
@@ -343,6 +344,7 @@ name: home
 
 - [Cannot query multiple time ranges](#cannot-query-multiple-time-ranges)
 - [Querying future data with a `GROUP BY time()` clause](#querying-future-data-with-a-group-by-time-clause)
+- [Cannot use parameters for durations](#cannot-use-parameters-for-durations)
 
 ### Cannot query multiple time ranges
 
@@ -372,3 +374,8 @@ between `1677-09-21T00:12:43.145224193Z` and
 
 To query data with timestamps that occur in the future (after `now()`),
 provide an explicit upper bound in the `WHERE` clause.
+
+### Cannot use parameters for durations
+
+Currently, InfluxDB doesn't support using parameters for durations in
+[parameterized queries](/influxdb/cloud-dedicated/query-data/parameterized-queries/).

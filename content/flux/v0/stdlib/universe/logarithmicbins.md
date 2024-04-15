@@ -38,7 +38,9 @@ Use `linearBins()` to generate bin bounds for `histogram()`.
 (count: int, factor: float, start: float, ?infinity: bool) => [float]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

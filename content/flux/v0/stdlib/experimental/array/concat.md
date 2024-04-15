@@ -45,7 +45,9 @@ Neither input array is mutated and a new array is returned.
 (<-arr: [A], v: [A]) => [A]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

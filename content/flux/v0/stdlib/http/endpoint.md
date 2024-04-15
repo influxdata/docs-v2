@@ -51,7 +51,9 @@ _For information about properties, see `http.post`._
 ) => (mapFn: (r: A) => {B with headers: C, data: bytes}) => (<-tables: stream[A]) => stream[{A with _sent: string}] where C: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -156,7 +156,7 @@ file,title=The\ Lord\ Of\ The\ Rings author="Tolkien",random=2
 
 ```
 
-You can find more complicated examples under the folder `testdata`.
+You can find more complicated examples under the folder [`testdata`][] in the telegraf repo.
 
 ## Types
 
@@ -165,7 +165,7 @@ The following rules are in place for this configuration:
 
 * If a type is explicitly defined, the parser will enforce this type and convert the data to the defined type if possible.
   If the type can't be converted then the parser will fail.
-* If a type isn't defined, the parser will use the default type defined in the JSON (int, float, string)
+* If a type isn't defined, the parser will use the default type defined in the JSON (int, float, string).
 
 The type values you can set:
 
@@ -175,4 +175,5 @@ The type values you can set:
 * `float`, string values (with valid numbers) or integers can be converted to a float.
 * `bool`, the string values "true" or "false" (regardless of capitalization) or the integer values `0` or `1`  can be turned to a bool.
 
-[json]:         https://www.json.org/
+[json]: https://www.json.org/
+[testdata]: https://github.com/influxdata/telegraf/tree/master/plugins/parsers/json_v2/testdata

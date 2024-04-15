@@ -50,7 +50,9 @@ If there is no mode, it returns _null_.
 (<-tables: stream[{A with _value: B}]) => stream[{A with _value: B}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -38,7 +38,9 @@ Last Tuesday is relative to `now()`. If today is Tuesday, the function returns b
 () => {stop: time, start: time}
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 
 ## Examples

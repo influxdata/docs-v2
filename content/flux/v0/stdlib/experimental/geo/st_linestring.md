@@ -41,7 +41,9 @@ the resulting linestring.
 (<-tables: stream[{A with lon: C, lat: B}]) => stream[D] where D: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

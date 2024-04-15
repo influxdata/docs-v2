@@ -25,9 +25,13 @@ input:
   - name: Aerospike
     id: aerospike
     description: |
+      **Deprecated in favor of the [Prometheus plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/prometheus/README.md)
+      with the Aerospike Prometheus Exporter.**
+
       The Aerospike input plugin queries Aerospike servers and gets node statistics
       and  statistics for all configured namespaces.
     introduced: 0.2.0
+    deprecated: 1.30.0
     tags: [linux, macos, windows, data-stores]
 
   - name: Alibaba CloudMonitor Service (Aliyun)
@@ -251,19 +255,6 @@ input:
       [HTTP Endpoint](https://github.com/linkedin/Burrow/wiki/HTTP-Endpoint).
     introduced: 1.7.0
     tags: [linux, macos, windows, messaging]
-
-  - name: Cassandra
-    id: cassandra
-    description: |
-      *Deprecated in Telegraf 1.7.0 in favor of the [jolokia2](#jolokia2_agent) input plugin.
-      See [example Jolokia2/Cassandra configurations](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/jolokia2/examples/cassandra.conf).*
-
-      The Cassandra input plugin collects Cassandra 3 / JVM metrics exposed as MBean
-      attributes through the jolokia REST endpoint.
-      All metrics are collected for each server configured.
-    introduced: 0.12.1
-    deprecated: 1.6.4
-    tags: [linux, macos, windows, data-stores]
 
   - name: Ceph Storage
     id: ceph
@@ -692,17 +683,6 @@ input:
     introduced: 1.6.0
     tags: [linux, macos, windows, servers, web]
 
-  - name: HTTP JSON
-    id: httpjson
-    description: |
-      *Deprecated in Telegraf 1.6.0. Use the [HTTP input plugin](#http).*
-
-      The HTTP JSON input plugin collects data from HTTP URLs which respond with JSON.
-      It flattens the JSON and finds all numeric values, treating them as floats.
-    introduced: 0.1.6
-    deprecated: 1.5.3
-    tags: [linux, macos, windows, servers, web]
-
   - name: HTTP Listener
     id: http_listener
     description: |
@@ -948,14 +928,6 @@ input:
       API to retrieve all the information needed.
     introduced: 1.9.0
     tags: [linux, macos, windows, build-deploy]
-
-  - name: Jolokia
-    id: jolokia
-    description: |
-      *Deprecated in Telegraf 1.5.0. Use the [Jolokia2 input plugin](#jolokia2_agent).*
-    introduced: 0.2.1
-    deprecated: 1.4.5
-    tags: [linux, macos, windows, networking]
 
   - name: Jolokia2 Agent
     id: jolokia2_agent
@@ -1855,15 +1827,6 @@ input:
     introduced: 0.10.1
     tags: [linux, macos, windows, networking]
 
-  - name: SNMP Legacy
-    id: snmp_legacy
-    description: |
-      The SNMP Legacy input plugin gathers metrics from SNMP agents.
-      *Deprecated in Telegraf 1.0.0. Use the [SNMP input plugin](#snmp).*
-    introduced: 0.10.1
-    deprecated: 0.13.1
-    tags: [linux, macos, windows, networking]
-
   - name: SNMP Trap
     id: snmp_trap
     description: |
@@ -2021,14 +1984,6 @@ input:
     introduced: 1.1.2
     tags: [linux, macos, windows, logging]
 
-  - name: TCP Listener
-    id: tcp_listener
-    description: |
-      *Deprecated in Telegraf 1.3.0. Use the [Socket Listener input plugin](#socket_listener).*
-    introduced: 0.11.0
-    deprecated: 1.2.1
-    tags: [linux, macos, windows, networking, web]
-
   - name: Teamspeak 3
     id: teamspeak
     description: |
@@ -2078,14 +2033,6 @@ input:
     link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/twemproxy
     introduced: 0.3.0
     tags: [linux, macos, windows, servers, web]
-
-  - name: UDP Listener
-    id: udp_listener
-    description: |
-      *Deprecated in Telegraf 1.3.0. use the [Socket Listener input plugin](#socket_listener).*
-    introduced: 0.11.0
-    deprecated: 1.2.1
-    tags: [linux, macos, windows, networking]
 
   - name: Unbound
     id: unbound
@@ -2619,16 +2566,6 @@ output:
       The Riemann output plugin writes to [Riemann](http://riemann.io/) using TCP or UDP.
     introduced: 1.3.0
     tags: [linux, macos, windows, networking, systems]
-
-  - name: Riemann Legacy
-    id: riemann_legacy
-    description: |
-      The Riemann Legacy output plugin will be deprecated in a future release,
-      see [#1878](https://github.com/influxdata/telegraf/issues/1878) for more details & discussion.
-    link: https://github.com/influxdata/telegraf/tree/master/plugins/outputs/riemann_legacy
-    introduced: 0.2.3
-    deprecated: 1.2.1
-    tags: [linux, macos, windows, applications]
 
   - name: Sensu
     id: sensu

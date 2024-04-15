@@ -49,7 +49,9 @@ aggregateWindow(createEmpty: true)
 (<-tables: stream[{A with _value: B}]) => stream[{A with _value: int}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

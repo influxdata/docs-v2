@@ -68,7 +68,9 @@ calculated weeks begin on Thursday.
 ) => stream[E] where B: Record, C: Record, D: Record, E: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

@@ -63,7 +63,9 @@ a negative value indicates decreasing momentum.
 (<-tables: stream[{A with _value: B}], n: int) => stream[{A with _value: float}] where A: Record, B: Numeric
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

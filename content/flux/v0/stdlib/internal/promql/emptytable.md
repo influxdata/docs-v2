@@ -40,5 +40,7 @@ PromQL's [`time()`](https://prometheus.io/docs/prometheus/latest/querying/functi
 () => stream[{_value: float, _time: time, _stop: time, _start: time}]
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 

@@ -7,7 +7,7 @@ menu:
   influxdb_clustered:
     name: Upgrade InfluxDB
     parent: Administer InfluxDB Clustered
-weight: 101
+weight: 206
 influxdb/clustered/tags: [upgrade]
 related:
   - /influxdb/clustered/install/

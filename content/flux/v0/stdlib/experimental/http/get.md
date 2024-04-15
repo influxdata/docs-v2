@@ -49,7 +49,9 @@ Experimental `http.get()` is deprecated in favor of [`requests.get()`](/flux/v0/
 (url: string, ?headers: A, ?timeout: duration) => {statusCode: int, headers: B, body: bytes} where A: Record, B: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

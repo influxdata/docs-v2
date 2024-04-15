@@ -38,7 +38,9 @@ If the specified index is out of bounds, the function returns an error.
 (<-table: stream[A], idx: int) => A where A: Record
 ```
 
-{{% caption %}}For more information, see [Function type signatures](/flux/v0/function-type-signatures/).{{% /caption %}}
+{{% caption %}}
+For more information, see [Function type signatures](/flux/v0/function-type-signatures/).
+{{% /caption %}}
 
 ## Parameters
 

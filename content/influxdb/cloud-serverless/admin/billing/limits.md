@@ -30,24 +30,17 @@ Once a rate is exceeded, an error response is returned until the current five-mi
 
 Review adjustable service quotas and global limits to plan for your bandwidth needs:
 
-<!-- TOC -->
-
 - [Adjustable service quotas](#adjustable-service-quotas)
   - [Storage-level](#storage-level)
-    - [Terminology](#terminology)
-    - [Storage-level limits](#storage-level-limits)
   - [Free Plan](#free-plan)
   - [Usage-Based Plan](#usage-based-plan)
 - [Global limits](#global-limits)
 - [Error messages when exceeding quotas or limits](#error-messages-when-exceeding-quotas-or-limits)
   - [Storage level Errors](#storage-level-errors)
-    - [Maximum number of columns reached](#maximum-number-of-columns-reached)
-      - [Potential solutions](#potential-solutions)
-    - [Maximum number of tables reached](#maximum-number-of-tables-reached)
   - [Error messages in the UI](#error-messages-in-the-ui)
   - [API error response messages](#api-error-response-messages)
+  - [Read (query) limit errors](#read-query-limit-errors)
 
-<!-- /TOC -->
 ## Adjustable service quotas
 
 To reduce the chance of unexpected charges and protect the service for all users,
@@ -59,7 +52,7 @@ The InfluxDB v3 storage engine enforces limits on the storage level that apply
 to all accounts (Free Plan and Usage-Based Plan).
 
 - [Terminology](#terminology)
-- [Service-level limits](#limits)
+- [Storage-level limits](#storage-level-limits)
 
 #### Terminology
 
@@ -83,8 +76,10 @@ If you need higher storage-level limits, [contact InfluxData Sales](https://www.
 
 - **Data-in**: Rate of 5 MB per 5 minutes (average of 17 kb/s)
   - Uncompressed bytes of normalized [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/)
-- **Read**: Rate of 300 MB per 5 minutes (average of 1000 kb/s)
-  - Bytes in HTTP in response payload
+- **Read**:
+  - **HTTP response payload rate**: 300 MB data per 5 minutes (average of 1000 kb/s)
+  - **Partitions per query**: 500
+  - **Parquet files per query**: 1000
 - **Available resources**:
   - 2 buckets (excluding `_monitoring` and `_tasks` buckets)
 - **Storage**:
@@ -99,8 +94,10 @@ To write historical data older than 30 days, retain data for more than 30 days, 
 
 - **Data-in**: Rate of 300 MB per 5 minutes
   - Uncompressed bytes of normalized [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/)
-- **Read**: Rate of 3 GB data per 5 minutes
-  - Bytes in HTTP in response payload
+- **Read**:
+  - **HTTP response payload rate**: Rate of 3 GB data per 5 minutes
+  - **Partitions per query**: 2000
+  - **Parquet files per query**: 10000
 - **Unlimited resources**
   - buckets
   - users
@@ -123,6 +120,9 @@ Limits include:
 - **Write request limits**:
   - 50 MB maximum HTTP request batch size (compressed or uncompressed--defined in the `Content-Encoding` header)
   - 250 MB maximum HTTP request batch size after decompression
+- **Write partition limit**:
+  - Write to 5000 distinct partitions per bucket every 15 minutes
+    (data is partitioned by day)
 - **Query processing time**: 90 seconds
 - **Total query time**: 1500 seconds of _total_ query time every 30 seconds
 - **Task processing time**: 150 seconds
@@ -140,7 +140,7 @@ Combine delete predicate expressions (if possible) into a single request. Influx
 
 #### Maximum number of columns reached
 
-```
+```http
 couldn't create columns in table `table_name`; table contains
 <N> existing columns, applying this write would result
 in <N+> columns, limit is 200
@@ -157,7 +157,7 @@ number of columns allowed in a table.
 
 #### Maximum number of tables reached
 
-```
+```http
 dml handler error: service limit reached: couldn't create new table; namespace contains <N> existing
 tables, applying this write would result in <N+> columns, limit is 500
 ```
@@ -182,3 +182,26 @@ The following API error responses occur when your plan's service quotas are exce
 | :-----------------------------  | :-----------------------------------------  | :----------- |
 | `HTTP 413 "Request Too Large"`  | cannot read data: points in batch is too large | If a **write** request exceeds the maximum [global limit](#global-limits) |  
 | `HTTP 429 "Too Many Requests"`  | Retry-After: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](#global-limits) |
+
+### Read (query) limit errors
+
+#### Query would process too many files or partitions
+
+The Flight request returns the following gRPC error code
+
+```http
+ResourceExhausted
+```
+
+And the error message contains detail about the exceeded [Free Plan](#free-plan) or [Usage-Based Plan](#usage-based-plan) query limit--for example:
+
+```http
+ Query would process more than 500 partitions
+ ```
+
+ ```http
+Query would process more than 1000 parquet files
+```
+
+To avoid these errors, split your query into multiple queries that retrieve fewer files or partitions.
+For example, because {{% product-name %}} partitions data by day, you can [use time boundaries](/influxdb/cloud-serverless/query-data/sql/basic-query/#query-data-within-time-boundaries) to limit the number of partitions retrieved.
