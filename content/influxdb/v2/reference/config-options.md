@@ -172,6 +172,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [storage-wal-max-write-delay](#storage-wal-max-write-delay)
 - [storage-write-timeout](#storage-write-timeout)
 - [store](#store)
+- [strong-passwords](#strong-passwords)
 - [testing-always-allow-setup](#testing-always-allow-setup)
 - [tls-cert](#tls-cert)
 - [tls-key](#tls-key)
@@ -2750,9 +2751,61 @@ store = "bolt"
 
 ---
 
+### strong-passwords
+
+Require passwords to have at least eight characters and include characters from
+at least three of the following four character classes:
+
+- uppercase (`A-Z`)
+- lowercase (`a-z`)
+- numbers (`0-9`)
+- special characters (`!@#$%^&*()_+`)
+
+| influxd flag         | Environment variable       | Configuration key  |
+| :------------------- | :------------------------- | :----------------- |
+| `--strong-passwords` | `INFLUXD_STRONG_PASSWORDS` | `strong-passwords` |
+
+###### influxd flag
+```sh
+influxd --strong-passwords
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STRONG_PASSWORDS=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+strong-passwords: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+strong-passwords = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "strong-passwords": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 ### testing-always-allow-setup
 Ensures the `/api/v2/setup` endpoint always returns `true` to allow onboarding.
-This configuration option is primary used in continuous integration tests.
+This configuration option is primarily used in continuous integration tests.
 
 **Default:** `false`
 

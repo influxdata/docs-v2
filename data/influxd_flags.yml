@@ -170,6 +170,9 @@
 - flag: "--store"
   added: 2.0
 
+- flag: "--strong-passwords"
+  added: 2.7
+
 - flag: "--testing-always-allow-setup"
   added: 2.0
 
