@@ -720,12 +720,47 @@ table tr.point{
     }
   }
 
-  .quix-logo  {
-    background: url('/svgs/quix-logo-white.svg');
-    width: 100px;
-    height: 40px;
-    background-size: contain;
-    background-repeat: no-repeat
+  #quix-brand-icons {
+    height: 50px;
+    display: flex;
+    align-items: flex-start;
+    margin-top: -3rem;
+
+    & > * {
+      height: 45px;
+      display: inline-block;
+      background-color: $g0-obsidian;
+      border-radius: $radius * 3;
+      margin-right: .25rem;
+      box-shadow: 0 1px 10px rgba($g20-white, .1);
+
+      img {
+        margin: 0;
+        box-shadow: none;
+        border-radius: 0;
+        height: 100%;
+      }
+    }
+
+    .quix-logo  {
+      padding: .75rem;
+    }
+
+    .quix-streams-logo {
+      position: relative;
+      padding: .6rem;      
+
+      &::after {
+        content: "Quix\A Streams";
+        display: inline-block;
+        white-space: pre-wrap;
+        font-size: .92rem;
+        font-weight: $medium;
+        color: $g20-white;
+        line-height: .9rem;
+        margin-left: .15rem;
+      }
+    }
   }
 }
 
@@ -763,6 +798,12 @@ table tr.point{
         bottom: -25px;
         left: -150%;
       }
+    }
+
+    #quix-brand-icons {
+      margin-top: 1.5rem;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
