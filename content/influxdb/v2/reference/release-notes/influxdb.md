@@ -25,8 +25,7 @@ weight: 101
 
 ### Maintenance
 
-- Upgrade to Go 1.21.8.
-- Upgrade Go toolchain (for building release artifacts) to 1.21.9.
+- Upgrade to Go to 1.21.9.
 
 ## v2.7.5 {date="2024-01-05"}
 
