@@ -2805,7 +2805,7 @@ strong-passwords = true
 
 ### testing-always-allow-setup
 Ensures the `/api/v2/setup` endpoint always returns `true` to allow onboarding.
-This configuration option is primary used in continuous integration tests.
+This configuration option is primarily used in continuous integration tests.
 
 **Default:** `false`
 

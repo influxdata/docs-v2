@@ -34,7 +34,7 @@ weight: 101
 
 - Only execute `init_config` on install.
 - Enable `Secure` when using TLS and enable `HttpOnly`.
-- Correctly return 4xx errors instead of 5xx errors.
+- Correctly return `4xx` errors instead of `5xx` errors.
 - Prevent retention service from creating orphaned shard files.
 
 ### Features
