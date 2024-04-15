@@ -1,13 +1,14 @@
 ---
-title: Downsample data stored in InfluxDB
+title: Downsample data with client libraries
 description: >
-  Query and downsample time series data stored in InfluxDB and write the
-  downsampled data back to InfluxDB.
+  Use InfluxDB client libraries to query and downsample time series data stored
+  in InfluxDB and write the downsampled data back to InfluxDB.
 menu:
   influxdb_cloud_serverless:
-    name: Downsample data
-    parent: Process & visualize data
-weight: 101
+    name: Use client libraries
+    parent: Downsample data
+    identifier: downsample-client-libs
+weight: 201
 related:
   - /influxdb/cloud-serverless/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
 ---
