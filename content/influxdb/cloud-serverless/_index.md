@@ -54,3 +54,5 @@ find the **InfluxDB Cloud powered by** link in your
 [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
 If your organization is using InfluxDB 3.0, you'll see
 **InfluxDB Cloud Serverless** followed by the version number.
+
+{{< html-diagram/quix-downsample-pipeline >}}

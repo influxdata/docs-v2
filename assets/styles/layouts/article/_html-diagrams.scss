@@ -529,9 +529,243 @@ table tr.point{
   }
 }
 
+/////////////////////////// QUIX DOWNSAMPLING DIAGRAM //////////////////////////
+
+#quix-downsample-pipeline {
+  margin: 0 auto;
+
+  .logo-row {
+    display: flex;
+
+    &.top {
+      justify-content: flex-start;
+      margin-bottom: -2.6rem;
+
+      .quix-connector {margin-top: .5rem;}
+    }
+    &.bottom {
+      justify-content: flex-end;
+      margin-top: -2.6rem;
+    }
+  }
+
+  .influxdb-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 29%;
+  }
+
+  .influxdb-logo {
+    background: $influxdb-logo;
+    width: 175px;
+    height: 55px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    
+    &:after {
+      content: attr(data-precision) " data db";
+      position: absolute;
+      bottom: -2px;
+      left: 45px;
+      width: 100%;
+      color: $article-text;
+      font-style: italic;
+      font-size: 1rem;
+    }
+  }
+
+  .quix-connector {
+    display: block;
+    height: 80px;
+    width: 20px;
+    position: relative;
+
+    &:before {
+      content: "";
+      display: block;
+      height: 100%;
+      width: 100%;
+      background-color: $article-text;
+      mask-image: url('/svgs/quix-connector-plug.svg');
+      mask-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &:after {
+      content: "Connector";
+      display: block;
+      position: absolute;
+      top: 1.5rem;
+      left: 1.75rem;
+      padding: .25rem .5rem;
+      color: $article-text;
+      font-size: 1rem;
+      font-style: italic;
+      background-color: $article-bg;
+      border-radius: $radius * 3;
+      border: 1.5px solid rgba($article-text, .5);
+      box-shadow: 2px 2px 6px $sidebar-search-shadow;
+    }
+  }
+  
+  .quix-stream-container {
+    display: flex;
+    flex-direction: row;
+    border: 2px dashed $article-text;
+    background: rgba($article-text, .1);
+    border-radius: $radius * 4;
+    padding: 2.5rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .quix-stream-component {
+    padding: 1rem;
+    border-radius: $radius * 2;
+    border-style: dashed;
+    border-width: 2px;
+    position: relative;
+
+    p {
+        margin: 0;
+        line-height: 1.2rem;
+        font-size: 1rem;
+        text-align: center;
+        color: $article-bold;
+      }
+    
+    &:before {
+      content: url('/svgs/quix-python-heart.svg');
+      display: block;
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      top: -15px;
+      left: -15px;
+      filter:
+        drop-shadow( 2px  0px 0px $article-bg) 
+        drop-shadow(-2px  0px 0px $article-bg)
+        drop-shadow( 0px  2px 0px $article-bg) 
+        drop-shadow( 0px -2px 0px $article-bg);
+    }
+    
+    &#source-producer {
+      background: rgba($b-dodger, .2);
+      border-color: $b-dodger
+    }
+    &#downsampling-process {
+      background: rgba($br-magenta, .2);
+      border-color: $br-magenta
+    }
+    &#sink-consumer {
+      background: rgba($y-tiger, .2);
+      border-color: $y-tiger
+    }
+  }
+
+  .arrow {
+    margin: .5rem .75rem .5rem .5rem;
+    height: 2px;
+    width: auto;
+    min-width: 25px;
+    background: $article-text;
+    position: relative;
+
+    &:after{
+      content: "▶";
+      position: absolute;
+      right: -4px;
+      top: -.48em;
+      font-size: .75rem;
+      color: $article-text;
+    }
+  }
+
+  .kafka-toggle {
+    display: flex;
+    justify-content: flex-end;
+    width: 60px;
+    min-width: 60px;
+    height: 40px;
+    border-radius: 20px;
+    background: $grey5;
+    position: relative;
+
+    &:after {
+      content: "TOPIC:\A" attr(topic);
+      position: absolute;
+      width: 215%;
+      color: $article-text;
+      text-align: center;
+      font-style: italic;
+      bottom: -42px;
+      font-size: .9rem;
+      left: -60%;
+      white-space: pre-wrap;
+    }
+
+    .toggle-icon {
+      display: block;
+      height: 34px;
+      width: 34px;
+      margin: 3px;
+      border-radius: 50%;
+      background: url('/svgs/apache-kafka-icon.svg');
+      background-color: #fff;
+      background-size: 86%;
+      background-position: 90%;
+      background-repeat: no-repeat;
+    }
+  }
+
+  .quix-logo  {
+    background: url('/svgs/quix-logo-white.svg');
+    width: 100px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
+@include media(large) {
+  #quix-downsample-pipeline {
+    max-width: 325px;
+    
+    .logo-row .influxdb-connector {width: 100%;}
+    .quix-stream-container {flex-direction: column;}
+    .arrow {
+      margin: .5rem .5rem .75rem .5rem ;
+      width: 2px;
+      min-width: 2px;
+      height: auto;
+      min-height: 25px;
+  
+      &:after{
+        content: "▼";
+        right: -4.25px;
+        bottom: -.5em;
+        top: unset;
+        font-size: 1rem;
+      }
+    }
+
+    .kafka-toggle {
+      margin-bottom: 1.5rem;
+      &:after {
+        content: "TOPIC: " attr(topic);
+        width: 400%;
+        bottom: -25px;
+        left: -150%;
+      }
+    }
+  }
+}
 
 @include media(small) {
   #shard-diagram {
