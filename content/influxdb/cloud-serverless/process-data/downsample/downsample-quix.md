@@ -6,9 +6,9 @@ description: >
   downsample it, and then write the downsampled data back to InfluxDB.
 menu:
   influxdb_cloud_serverless:
-    name: Downsample data with Quix
-    parent: Process & visualize data
-weight: 101
+    name: Use Quix
+    parent: Downsample data
+weight: 202
 related:
   - /influxdb/cloud-serverless/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
 ---
