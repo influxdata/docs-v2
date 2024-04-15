@@ -29,13 +29,11 @@ but you can use your runtime of choice and any of the available
 This guide also assumes you have already
 [setup your Python project and virtual environment](/influxdb/cloud-serverless/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
 
-
-
 ## Pipeline architecture
 
 The following diagram illustrates how data is passed between processes as it is downsampled:
 
-![downsampling pipeline architecture](quix-pipeline-downsample.png)
+{{< html-diagram/quix-downsample-pipeline >}}
 
 {{% note %}}
 It is usually more efficient to write raw data directly to Kafka rather than
