@@ -47,13 +47,11 @@ function generateHtml {
   menu="influxdb_$(echo $product | sed 's/\./_/g;s/-/_/g;')"
   # Extract the API name--for example, "management" from "management@v2".
   apiName=$(echo $api | sed 's/@.*//g;')
-  # Convert it to title case--for example, "Management".
-  apiTitle=$(echo $apiName \
-    | awk '{print toupper(substr($1,1,1)) tolower(substr($1,2))}')
   # Extract the API version--for example, "v0" from "management@v0".
   version=$(echo $api | sed 's/.*@//g;')
   # Use the title and summary defined in the product API's info.yml file.
   title=$(yq '.title' $product/$apiName/content/info.yml)
+  menuTitle=$(yq '.x-influxdata-short-title' $product/$apiName/content/info.yml)
   description=$(yq '.summary' $product/$apiName/content/info.yml)
   # Define the file name for the Redoc HTML output.
   specbundle=redoc-static_index.html
@@ -80,16 +78,19 @@ function generateHtml {
   --templateOptions.product="$product" \
   --templateOptions.productName="$productName"
 
-  if [[ $version == "v1" ]]; then
+  if [[ $apiName == "v1-compatibility" ]]; then
     frontmatter="---
 title: $title
 description: $description
 layout: api
 menu:
   $menu:
-    parent: $version compatibility
-    name: View $version compatibility API
+    parent: InfluxDB HTTP API
+    name: $menuTitle
+    identifier: api-reference-$apiName
 weight: 304
+aliases:
+  - /influxdb/$product/api/v1/
 ---
 "
   elif [[ $version == "0" ]]; then
@@ -102,7 +103,8 @@ weight: 102
 menu:
   $menu:
     parent: InfluxDB HTTP API
-    name: Management API
+    name: $menuTitle
+    identifier: api-reference-$apiName
 ---
 "
   elif [[ $isDefault == true ]]; then
@@ -113,7 +115,8 @@ layout: api
 menu:
   $menu:
     parent: InfluxDB HTTP API
-    name: $apiTitle API
+    name: $menuTitle
+    identifier: api-reference-$apiName
 weight: 102
 aliases:
   - /influxdb/$product/api/
@@ -127,7 +130,8 @@ layout: api
 menu:
   $menu:
     parent: InfluxDB HTTP API
-    name: $apiTitle API
+    name: $menuTitle
+    identifier: api-reference-$apiName
 weight: 102
 ---
 "
@@ -156,6 +160,8 @@ weight: 102
   fi
 }
 
+# Use a combination of directory names and configuration files to build the API documentation.
+# Each directory represents a product, and each product directory contains a configuration file that defines APIs and their spec file locations.
 function build {
 # Get the list of products from directory names
 products="$(ls -d -- */ | grep -v 'node_modules' | grep -v 'openapi')"

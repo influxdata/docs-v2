@@ -1,4 +1,5 @@
 title: InfluxDB Cloud Dedicated Management API
+x-influxdata-short-title: Management API
 summary: |
     The Management API for InfluxDB Cloud Dedicated provides a programmatic interface for managing an InfluxDB Cloud Dedicated instance.
 description: |

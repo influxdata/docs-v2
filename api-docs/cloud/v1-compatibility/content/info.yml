@@ -1,4 +1,5 @@
 title: InfluxDB v1 HTTP API for InfluxDB Cloud
+x-influxdata-short-title: v1 Compatibility API
 summary: The InfluxDB v1 compatibility API provides a programmatic interface for interactions with InfluxDB Cloud using InfluxDB v1-compatible endpoints.
 description: |
   The InfluxDB 1.x compatibility /write and /query endpoints work with InfluxDB 1.x client libraries and third-party integrations like Grafana and others.
