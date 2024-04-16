@@ -18,7 +18,12 @@ When configured with a signed certificate, TLS also allows clients to verify the
 To set up TLS over HTTPS, do the following:
 
 - [Obtain requirements](#obtain-requirements)
+  - [Single domain certificates signed by a Certificate Authority (CA)](#single-domain-certificates-signed-by-a-certificate-authority-ca)
+  - [Wildcard certificates signed by a Certificate Authority](#wildcard-certificates-signed-by-a-certificate-authority)
+  - [Self-signed certificates](#self-signed-certificates)
 - [Configure InfluxDB to use TLS](#configure-influxdb-to-use-tls)
+- [Connect Telegraf to a secured InfluxDB instance](#connect-telegraf-to-a-secured-influxdb-instance)
+  - [Example configuration](#example-configuration)
 
 {{% warn %}}
 InfluxData **strongly recommends** enabling HTTPS, especially if you plan on sending requests to InfluxDB over a network.
@@ -29,24 +34,24 @@ InfluxData **strongly recommends** enabling HTTPS, especially if you plan on sen
 To enable HTTPS with InfluxDB, you need a Transport Layer Security (TLS) certificate, also known as a Secured Sockets Layer (SSL) certificate.
 InfluxDB supports three types of TLS certificates:
 
-* **Single domain certificates signed by a [Certificate Authority](https://en.wikipedia.org/wiki/Certificate_authority)**
+### Single domain certificates signed by a Certificate Authority (CA)
 
-    Single domain certificates provide cryptographic security to HTTPS requests and allow clients to verify the identity of the InfluxDB server.
-    These certificates are signed and issued by a trusted, third-party Certificate Authority (CA).
-    With this certificate option, every InfluxDB instance requires a unique single domain certificate.
+Single domain certificates provide cryptographic security to HTTPS requests and allow clients to verify the identity of the InfluxDB server.
+These certificates are signed and issued by a trusted, third-party [Certificate Authority (CA)](https://en.wikipedia.org/wiki/Certificate_authority).
+With this certificate option, every InfluxDB instance requires a unique single domain certificate.
 
-* **Wildcard certificates signed by a Certificate Authority**
+### Wildcard certificates signed by a Certificate Authority
 
-    Wildcard certificates provide cryptographic security to HTTPS requests and allow clients to verify the identity of the InfluxDB server.
-    Wildcard certificates can be used across multiple InfluxDB instances on different servers.
+Wildcard certificates provide cryptographic security to HTTPS requests and allow clients to verify the identity of the InfluxDB server.
+Wildcard certificates can be used across multiple InfluxDB instances on different servers.
 
-* **Self-signed certificates**
+### Self-signed certificates
 
-    Self-signed certificates are _not_ signed by a trusted, third-party CA.
-    Unlike CA-signed certificates, self-signed certificates only provide cryptographic security to HTTPS requests.
-    They do not allow clients to verify the identity of the InfluxDB server.
-    With this certificate option, every InfluxDB instance requires a unique self-signed certificate.
-    You can generate a self-signed certificate on your own machine.
+Self-signed certificates are _not_ signed by a trusted, third-party CA.
+Unlike CA-signed certificates, self-signed certificates only provide cryptographic security to HTTPS requests.
+They do not allow clients to verify the identity of the InfluxDB server.
+With this certificate option, every InfluxDB instance requires a unique self-signed certificate.
+You can generate a self-signed certificate on your own machine.
 
 <!-- InfluxDB supports certificates composed of a private key file (`.key`) and a signed certificate file (`.crt`) file pair, -->
 <!-- as well as certificates that combine the private key file and the signed certificate file into a single bundled file (`.pem`). -->
@@ -55,41 +60,55 @@ InfluxDB supports three types of TLS certificates:
 
 1. **Download or generate certificate files**
 
-    If using a certificate provided by a CA, follow their instructions to download the certificate files.
+    If using a [certificate signed by a CA](#single-domain-certificates-signed-by-a-certificate-authority-ca), follow their instructions to download and install the certificate files.
+    Note the location where certificate files are installed, and then continue to [set certificate file permissions](#set-certificate-file-permissions).
 
-    If using a self-signed certificate, use the `openssl` utility to create a certificate.
+    {{% note %}}
+ #### Where are my certificates?
 
-    The following command generates a private key file (.key) and a self-signed certificate file (.crt) with required permissions
-    and saves them to `/etc/ssl/`.
-    (Other paths will also work.)
+ The location of your certificate files depends on your system, domain, and certificate authority.
+
+ For example, if [Let's Encrypt](https://letsencrypt.org/) is your CA and you use [certbot](https://certbot.eff.org/) to install certificates, the default location is
+ `/etc/letsencrypt/live/$domain`. For more information about Let's Encrypt certificate paths, see [Where are my certificates?](https://eff-certbot.readthedocs.io/en/latest/using.html#where-are-my-certificates)
+    {{% /note %}}
+
+    To generate [self-signed certificates](#self-signed-certificates), use the `openssl` command on your system.
+
+    The following example shows how to generate certificates located in `/etc/ssl`.
     Files remain valid for the specified `NUMBER_OF_DAYS`.
+    The `openssl` command prompts you for optional fields that you can fill out or leave blank; both actions generate valid certificate files.
 
-    ```sh
+    ```bash
     sudo openssl req -x509 -nodes -newkey rsa:2048 \
       -keyout /etc/ssl/influxdb-selfsigned.key \
       -out /etc/ssl/influxdb-selfsigned.crt \
       -days <NUMBER_OF_DAYS>
     ```
 
-    The command will prompt you for more information.
-    You can choose to fill out these fields or leave them blank; both actions generate valid certificate files.
+1. **Set certificate file permissions**
+   <span id="set-certificate-file-permissions"><span>
 
-2. **Set certificate file permissions**
-
-    The user running InfluxDB must have read permissions on the TLS certificate.
+    The user running InfluxDB must have read permissions on the TLS certificate files.
 
     {{% note %}}You may opt to set up multiple users, groups, and permissions.
     Ultimately, make sure all users running InfluxDB have read permissions for the TLS certificate.
     {{% /note %}}
 
-    Run the following command to give InfluxDB read and write permissions on the certificate files.
+    In your terminal, run `chmod` to set permissions on your installed certificate files--for example:
 
     ```bash
-    sudo chmod 644 /etc/ssl/<CA-certificate-file>
-    sudo chmod 600 /etc/ssl/<private-key-file>
+    sudo chmod 644 <path/to/crt>
+    sudo chmod 600 <path/to/key>
     ```
 
-3. **Run `influxd` with TLS flags**
+    The following example shows how to set read permissions on the self-signed certificate files saved in `/etc/ssl`:
+
+    ```bash
+    sudo chmod 644 /etc/ssl/influxdb-selfsigned.crt
+    sudo chmod 600 /etc/ssl/influxdb-selfsigned.key
+    ```
+
+2. **Run `influxd` with TLS flags**
 
     Start InfluxDB with TLS command line flags:
 
@@ -99,24 +118,28 @@ InfluxDB supports three types of TLS certificates:
     --tls-key="<path-to-key>"
     ```
 
-4. **Verify TLS connection**
+3. **Verify TLS connection**
 
+    To test your certificates, access InfluxDB using the `https://` protocol--for example, using cURL:
 
-    Ensure you can connect over HTTPS by running
-
-    ```
-    curl -v https://localhost:8086/api/v2/ping
-    ```
-
-    If using a self-signed certificate, use the `-k` flag to skip certificate verification:
-
-    ```
-    curl -vk https://localhost:8086/api/v2/ping
+    ```bash
+    curl --verbose https://localhost:8086/api/v2/ping
     ```
 
-    With this command, you should see output confirming a succussful TLS handshake.
+    If using a self-signed certificate, skip certificate verification--for example, in a cURL command,
+    pass the `-k, --insecure` flag:
 
-You can further configure TLS settings using 
+    ```bash
+    curl --verbose --insecure https://localhost:8086/api/v2/ping
+    ```
+
+    If successful, the `curl --verbose` output shows a TLS handshake--for example:
+
+    ```bash
+    * [CONN-0-0][CF-SSL] TLSv1.3 (IN), TLS handshake
+    ```
+
+You can further configure TLS settings using
 [`tls-min-version`](/influxdb/v2/reference/config-options/#tls-min-version)
 and
 [`tls-strict-ciphers`](/influxdb/v2/reference/config-options/#tls-strict-ciphers).
