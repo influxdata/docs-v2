@@ -2,21 +2,30 @@
 title: InfluxDB HTTP API
 description: >
   The InfluxDB HTTP API provides a programmatic interface for interactions with InfluxDB.
-  Access the InfluxDB API using the `/api/v2/` endpoint or InfluxDB v1 endpoints.
+  Access the InfluxDB API using the `/api/v2/write` or InfluxDB v1 endpoints.
 menu:
   influxdb_cloud_serverless:
     parent: Reference
     name: InfluxDB HTTP API
 weight: 104
 influxdb/cloud-serverless/tags: [api]
-aliases:
-  - /influxdb/cloud-serverless/api/v1-compatibility/
 ---
 
-The InfluxDB HTTP API provides a programmatic interface for interactions with InfluxDB.
+The InfluxDB HTTP API provides a programmatic interface for interactions with
+{{% product-name %}}, such as writing and querying data.
 
-## InfluxDB HTTP API reference
+Access the InfluxDB HTTP API using the `/api/v2/` or InfluxDB v1 endpoints.
 
-<a class="btn" href="/influxdb/cloud-serverless/api/">InfluxDB Cloud Serverless HTTP API reference</a>
+## InfluxDB v2 Compatibility API reference documentation
 
-The API reference describes requests and responses for `/api/v2/` endpoints and v1 `/query` and `/write` endpoints.
+<a class="btn" href="/influxdb/cloud-serverless/api/v2/">InfluxDB v2 API for {{% product-name %}}</a>
+
+The API reference describes requests and responses for InfluxDB v2-compatible
+endpoints that work with {{% product-name %}} and with InfluxDB 2.x client
+libraries and third-party integrations.
+
+## InfluxDB v1 Compatibility API reference documentation
+
+<a class="btn" href="/influxdb/cloud-serverless/api/v1/">InfluxDB v1 API for {{% product-name %}}</a>
+
+The API reference describes requests and responses for InfluxDB v1-compatible `/write` and `/query` endpoints that work with {{% product-name %}} and with InfluxDB 1.x client libraries and third-party integrations.

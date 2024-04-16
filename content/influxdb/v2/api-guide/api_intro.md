@@ -14,12 +14,12 @@ influxdb/cloud/tags: [api]
 
 InfluxDB offers a rich API and [client libraries](/influxdb/v2/api-guide/client-libraries) ready to integrate with your application. Use popular tools like Curl and [Postman](/influxdb/v2/api-guide/postman) for rapidly testing API requests.
 
-This section will guide you through the most commonly used API methods.
+This section guides you through the most commonly used API methods.
 
-For detailed documentation on the entire API, see [InfluxDBv2 API Reference](/influxdb/v2/reference/api/#influxdb-v2-api-documentation).
+For detailed documentation on the entire API, see the [InfluxDB v2 API Reference](/influxdb/v2/reference/api/#influxdb-v2-api-documentation).
 
 {{% note %}}
-If you need to use InfluxDB {{< current-version >}} with **InfluxDB 1.x** API clients and integrations, see the [1.x compatibility API](/influxdb/v2/reference/api/influxdb-1x/).
+If you need to use InfluxDB {{< current-version >}} with **InfluxDB 1.x** API clients and integrations, see the [1.x compatibility API](/influxdb/v2/reference/api/#influxdb-v1-compatibility-api-reference-documentation).
 {{% /note %}}
 
 ## Bootstrap your application
