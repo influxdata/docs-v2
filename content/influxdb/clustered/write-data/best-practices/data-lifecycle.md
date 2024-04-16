@@ -23,6 +23,7 @@ InfluxDB cluster:
 
 - [Use appropriate retention periods](#use-appropriate-retention-periods)
 - [Tune garbage collection](#tune-garbage-collection)
+  - [Use case examples](#use-case-examples)
 
 ## Use appropriate retention periods
 
@@ -48,7 +49,7 @@ Use the following environment variables to tune the garbage collector:
 {{% warn %}}
 **These must NEVER be set to a value less than `3h` (3 hours).**
 
-IOx requires a grace period before files can be removed.
+InfluxDB v3 requires a grace period before files can be removed.
 {{% /warn %}}
 
 We recommend setting these options to a value aligned to your organization's
@@ -99,7 +100,7 @@ Object store (provided by your object store provider), use a low cutoff point
 for the garbage collector service. Your object versioning policy ensures expired
 files are kept for the specified backup window time.
 
-Object versioning maintains Parquet files in Objects storage after data expires,
+Object versioning maintains Parquet files in Object storage after data expires,
 but allows the Catalog to remove references to the Parquet files.
 Non-current objects should be configured to be expired as soon as possible, but
 retained long enough to satisfy your organization's backup policy.
@@ -146,11 +147,12 @@ spec:
                  INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF: '6h'
                  INFLUXDB_IOX_GC_PARQUETFILE_CUTOFF: '6h'
 ```
+
 {{% /expand %}}
 
 {{% expand "Custom backup window _without_ object storage versioning" %}}
 
-If you cannot make use of object versioning policies but still requires a backup
+If you cannot make use of object versioning policies but still require a backup
 window, configure the garbage collector to retain Parquet files for as long as
 your backup period requires.
 
@@ -183,5 +185,6 @@ spec:
                  INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF: '100d'
                  INFLUXDB_IOX_GC_PARQUETFILE_CUTOFF: '100d'
 ```
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
