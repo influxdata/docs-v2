@@ -8,14 +8,28 @@ menu:
     name: influx CLI 
 ---
 
+## v2.7.5 {date="2024-04-16"}
+
+### Maintenance
+
+- Upgrade to Go 1.21.9.
+
+## v2.7.4 {date="2024-04-05"}
+
+### Bug fixes
+
+- Disable password length checks to allow InfluxDB to validate passwords.
+- Handle line protocol line-wrapping with `--skipRowOnError`.
+
 ## v2.7.3 {date="2023-04-28"}
 
-### Bug Fixes
+### Bug fixes
 
 - Correct packaging for RPM and Windows ZIPs.
 - Properly handle multiple cookies with `--username-password` flag.
 
 ### Maintenance
+
 - Upgrade `go` to 1.20.3.
 
 ## v2.7.1 {date="2023-04-05"}
@@ -24,7 +38,7 @@ menu:
 
 - Add new replication field to better show queue synchronization progress.
 
-### Bug Fixes
+### Bug fixes
 
 - Update the API for deleting secrets so `influx secret delete` command works correctly.
 - Fix typo in alias of `bucket update` command.
@@ -47,7 +61,7 @@ menu:
 
 ## v2.6.0 {date="2022-12-15"}
 
-### Bug Fixes
+### Bug fixes
 
 - When using [`influx task create`](/influxdb/v2/reference/cli/influx/task/create/)
   to create a new task, only override the `every` task option defined in the Flux
