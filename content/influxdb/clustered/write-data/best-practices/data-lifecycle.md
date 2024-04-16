@@ -46,9 +46,9 @@ Use the following environment variables to tune the garbage collector:
   that reference Parquet files marked for deletion. The default is `30d`.
 
 {{% warn %}}
-**These must NEVER be set to a value less than `3h` (3 hours).**
-
-IOx requires a grace period before files can be removed.
+To ensure there is a grace period before files and references are removed, the
+minimum garbage collector (GC) object store and Parquet file cutoff time is
+three hours (`3h`).
 {{% /warn %}}
 
 We recommend setting these options to a value aligned to your organization's
