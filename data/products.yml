@@ -24,7 +24,7 @@ influxdb:
     v2: 2.7.6
     v1: 1.8.10
   latest_cli:
-    v2: 2.7.3
+    v2: 2.7.5
 
 influxdb_cloud:
   name: InfluxDB Cloud (TSM)
