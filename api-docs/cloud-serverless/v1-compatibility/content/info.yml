@@ -1,4 +1,5 @@
 title: InfluxDB v1 HTTP API for InfluxDB Cloud Serverless
+x-influxdata-short-title: v1 Compatibility API
 summary: The InfluxDB v1 HTTP API provides v1 compatibility for writing and querying data in an InfluxDB v3 Cloud Serverless bucket.
 description: |
   The InfluxDB 1.x `/write` and `/query` endpoints work with InfluxDB 1.x client libraries and third-party integrations like Grafana and others.
