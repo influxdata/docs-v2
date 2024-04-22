@@ -40,4 +40,9 @@ Once a database is deleted, data stored in that database cannot be recovered.
 #### Cannot reuse database names
 
 After a database is deleted, you cannot reuse the same name for a new database.
+
+#### Never directly modify the Postgres catalog
+
+Doing so will result in an undefined state for the various components.
+This may lead to data loss and crashes.
 {{% /warn %}}
