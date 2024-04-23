@@ -41,8 +41,8 @@ Once a database is deleted, data stored in that database cannot be recovered.
 
 After a database is deleted, you cannot reuse the same name for a new database.
 
-#### Never directly modify the Postgres catalog
+#### Never directly modify the Catalog
 
-Doing so will result in an undefined state for the various components.
-This may lead to data loss and crashes.
+Never directly modify the [PostgreSQL-compatible Catalog](/influxdb/clustered/reference/internals/storage-engine/#catalog).
+ Doing so will result in an undefined state for various components and may lead to data loss and crashes.
 {{% /warn %}}
