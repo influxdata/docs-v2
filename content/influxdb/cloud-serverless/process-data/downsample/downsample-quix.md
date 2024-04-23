@@ -67,11 +67,11 @@ The process described in this guide requires the following:
 Use `pip` to install the following dependencies:
 
 - `influxdb_client_3`
-- `quixstreams`
+- `quixstreams<2.5`
 - `pandas`
 
 ```sh
-pip install influxdb3-python pandas quixstreams
+pip install influxdb3-python pandas quixstreams<2.5
 ```
 
 ## Prepare InfluxDB buckets
@@ -102,7 +102,7 @@ downsamples it, and then sends it to an output topic that is used to write back 
     from quixstreams import Application
     from quixstreams.models.serializers.quix import JSONDeserializer, JSONSerializer
 
-    app = Application.Quix(consumer_group="downsampling-process", auto_offset_reset="earliest")
+    app = Application(consumer_group='downsampling-process', auto_offset_reset='earliest')
     input_topic = app.topic('raw-data', value_deserializer=JSONDeserializer())
     output_topic = app.topic('downsampled-data', value_serializer=JSONSerializer())
 
@@ -132,8 +132,8 @@ downsamples it, and then sends it to an output topic that is used to write back 
 
     sdf = sdf.apply(
         lambda value: {
-            "time": value["end"],                  # End of the window
-            "temperature_avg": value["value"],     # Average temperature
+            'time': value['end'],                  # End of the window
+            'temperature_avg': value['value'],     # Average temperature
         }
     )
 
@@ -184,7 +184,7 @@ influxdb_raw = InfluxDBClient3(
     database='RAW_BUCKET_NAME'
 )
 
-# os.environ['localdev'] = "true" # Uncomment if you're using local Kafka rather than Quix Cloud
+# os.environ['localdev'] = 'true' # Uncomment if you're using local Kafka rather than Quix Cloud
 
 # Create a Quix Streams producer application that connects to a local Kafka installation
 app = Application(
@@ -195,14 +195,14 @@ app = Application(
 
 # Override the app variable if the local development env var is set to false or is not present.
 # This causes Quix Streams to use an application configured for Quix Cloud
-localdev = os.environ.get('localdev', "false")
+localdev = os.environ.get('localdev', 'false')
 
-if localdev == "false":
+if localdev == 'false':
     # Create a Quix platform-specific application instead (broker address is in-built)
-    app = Application.Quix(consumer_group=consumer_group_name, auto_create_topics=True)
+    app = Application(consumer_group=consumer_group_name, auto_create_topics=True)
 
 serializer = JSONSerializer()
-topic = app.topic(name='raw-data', value_serializer="json")
+topic = app.topic(name='raw-data', value_serializer='json')
 
 ## ... remaining code trunctated for brevity ...
 
@@ -212,12 +212,12 @@ def get_data():
     while run:
         try:
             myquery = f'SELECT * FROM "{measurement_name}" WHERE time >= {interval}'
-            print(f"sending query {myquery}")
+            print(f'sending query {myquery}')
             # Query InfluxDB 3.0 using influxql or sql
             table = influxdb_raw.query(
                                     query=myquery,
-                                    mode="pandas",
-                                    language="influxql")
+                                    mode='pandas',
+                                    language='influxql')
 
 #... remaining code trunctated for brevity ...
 
@@ -232,10 +232,10 @@ def main():
                 print(obj) # Obj contains each row in the table includimng temperature
                 # Generate a unique message_key for each row
                 message_key = obj['machineId']
-                logger.info(f"Produced message with key:{message_key}, value:{obj}")
+                logger.info(f'Produced message with key:{message_key}, value:{obj}')
 
                 serialized = topic.serialize(
-                    key=message_key, value=obj, headers={"uuid": str(uuid.uuid4())}
+                    key=message_key, value=obj, headers={'uuid': str(uuid.uuid4())}
                     )
 
                 # publish each row returned in the query to the topic 'raw-data'
@@ -276,7 +276,7 @@ influxdb_downsampled = InfluxDBClient3(
     org=''
 )
 
-# os.environ['localdev'] = "true" # Uncomment if you're using local Kafka rather than Quix Cloud
+# os.environ['localdev'] = 'true' # Uncomment if you're using local Kafka rather than Quix Cloud
 
 # Create a Quix Streams consumer application that connects to a local Kafka installation
 app = Application(
@@ -287,31 +287,31 @@ app = Application(
 
 # Override the app variable if the local development env var is set to false or is not present.
 # This causes Quix Streams to use an application configured for Quix Cloud
-localdev = os.environ.get('localdev', "false")
+localdev = os.environ.get('localdev', 'false')
 
-if localdev == "false":
+if localdev == 'false':
     # Create a Quix platform-specific application instead (broker address is in-built)
-    app = Application.Quix(consumer_group=consumer_group_name, auto_create_topics=True)
+    app = Application(consumer_group=consumer_group_name, auto_create_topics=True)
 
 input_topic = app.topic('downsampled-data', value_deserializer=JSONDeserializer())
 
 ## ... remaining code trunctated for brevity ...
 
 def send_data_to_influx(message):
-    logger.info(f"Processing message: {message}")
+    logger.info(f'Processing message: {message}')
     try:
 
         ## ... remaining code trunctated for brevity ...
 
         # Construct the points dictionary
         points = {
-            "measurement": measurement_name,
-            "tags": tags,
-            "fields": fields,
-            "time": message['time']
+            'measurement': measurement_name,
+            'tags': tags,
+            'fields': fields,
+            'time': message['time']
         }
 
-        influxdb_downsampled.write(record=points, write_precision="ms")
+        influxdb_downsampled.write(record=points, write_precision='ms')
 
 sdf = app.dataframe(input_topic)
 sdf = sdf.update(send_data_to_influx) # Continuously apply the 'send_data' function to each message in the incoming stream
