@@ -28,9 +28,17 @@ tags:
   - name: Authentication
     x-traitTag: true
     description: |
-      InfluxDB Management API endpoints require the `Authorization` header with a [management token](/influxdb/cloud-dedicated/admin/tokens/management/).
+      The InfluxDB Management API endpoints require the following credentials:
 
-      By default, management tokens in InfluxDB v3 are short-lived tokens issued by an OAuth2 identity provider that grant a specific user administrative access to your InfluxDB cluster. However, for automation purposes, you can manually create management tokens that authenticate directly with your InfluxDB cluster and do not require human interaction with your identity provider.
+      - `ACCOUNT_ID`: The ID of the [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to. To view account ID and cluster ID, [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
+      - `CLUSTER_ID`: The ID of the [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage. To view account ID and cluster ID, [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
+      - `Authorization MANAGEMENT_TOKEN`: the `Authorization` HTTP header with a [management token](/influxdb/cloud-dedicated/admin/tokens/management/).
+
+        See how to [create a management token](/influxdb/cloud-dedicated/admin/tokens/management/).
+
+        By default, management tokens in InfluxDB v3 are short-lived tokens issued by an OAuth2 identity provider that grant a specific user administrative access to your InfluxDB cluster. However, for automation purposes, you can manually create management tokens that authenticate directly with your InfluxDB cluster and do not require human interaction with your identity provider.
+
+
   - name: Database tokens
     description: Manage database read/write tokens for a cluster
   - name: Databases
@@ -47,7 +55,7 @@ tags:
        # Note the leading space in the command below to keep secrets out of the shell history
        #
        # ```
-       #  MANAGEMENT_TOKEN=<management api token> ACCOUNT_ID=<account id> CLUSTER_ID=<cluster id> ./scripts/test_http_api_v0_endpoints.sh
+       #  MANAGEMENT_TOKEN=<MANAGEMENT_TOKEN> ACCOUNT_ID=<ACCOUNT_ID> CLUSTER_ID=<CLUSTER_ID> ./scripts/test_http_api_v0_endpoints.sh
        # ```
 
        # Env var validation
@@ -75,13 +83,13 @@ tags:
            exit 1
        fi
 
-       domain="https://console.influxdata.com"
+      HOST="https://console.influxdata.com"
 
        # Database request functions
        list_databases () {
          local response=$( \
            curl \
-             --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
+             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
              --header "Accept: application/json" \
              --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
          )
@@ -92,7 +100,7 @@ tags:
          local databaseName=$1
          local response=$( \
            curl \
-             --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
+             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
              --header "Accept: application/json" \
              --header 'Content-Type: application/json' \
              --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
@@ -123,7 +131,7 @@ tags:
          local databaseName=$1
          local response=$( \
            curl \
-             --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases/$databaseName" \
+             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases/$databaseName" \
              --request PATCH \
              --header "Accept: application/json" \
              --header 'Content-Type: application/json' \
@@ -141,7 +149,7 @@ tags:
          local databaseName=$1
          local response=$( \
            curl \
-             --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases/$databaseName" \
+             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases/$databaseName" \
              --request DELETE \
              --header "Accept: application/json" \
              --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
@@ -153,7 +161,7 @@ tags:
        list_tokens () {
          local response=$( \
            curl \
-             --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens" \
+             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens" \
              --header "Accept: application/json" \
              --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
          )
@@ -163,7 +171,7 @@ tags:
        create_token () {
          local response=$( \
            curl \
-             --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens" \
+             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens" \
              --header "Accept: application/json" \
              --header 'Content-Type: application/json' \
              --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
@@ -188,7 +196,7 @@ tags:
          local token_id=$1
          local response=$( \
            curl \
-             --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
+             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
              --header "Accept: application/json" \
              --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
          )
@@ -199,7 +207,7 @@ tags:
          local token_id=$1
          local response=$( \
            curl \
-             --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
+             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
              --request PATCH \
              --header "Accept: application/json" \
              --header 'Content-Type: application/json' \
@@ -221,7 +229,7 @@ tags:
          local token_id=$1
          local response=$( \
            curl \
-             --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
+             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
              --request DELETE \
              --header "Accept: application/json" \
              --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
@@ -372,12 +380,12 @@ paths:
         - label: ''
           lang: Shell
           source: |
-            domain="https://console.influxdata.com"
+            HOST="https://console.influxdata.com"
 
             list_databases () {
               local response=$( \
                 curl \
-                  --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
+                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
                   --header "Accept: application/json" \
                   --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
               )
@@ -522,13 +530,13 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            domain="https://console.influxdata.com"
+            HOST="https://console.influxdata.com"
 
             create_database () {
               local databaseName=$1
               local response=$( \
                 curl \
-                  --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
+                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
                   --header "Accept: application/json" \
                   --header 'Content-Type: application/json' \
                   --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
@@ -692,13 +700,13 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            domain="https://console.influxdata.com"
+            HOST="https://console.influxdata.com"
 
             update_database () {
               local databaseName=$1
               local response=$( \
                 curl \
-                  --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases/$databaseName" \
+                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases/$databaseName" \
                   --request PATCH \
                   --header "Accept: application/json" \
                   --header 'Content-Type: application/json' \
@@ -753,13 +761,13 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            domain="https://console.influxdata.com"
+            HOST="https://console.influxdata.com"
 
             delete_database () {
               local databaseName=$1
               local response=$( \
                 curl \
-                  --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases/$databaseName" \
+                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases/$databaseName" \
                   --request DELETE \
                   --header "Accept: application/json" \
                   --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
@@ -979,12 +987,12 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            domain="https://console.influxdata.com"
+            HOST="https://console.influxdata.com"
 
             list_tokens () {
               local response=$( \
                 curl \
-                  --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens" \
+                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens" \
                   --header "Accept: application/json" \
                   --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
               )
@@ -1135,13 +1143,13 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            domain="https://console.influxdata.com"
+            HOST="https://console.influxdata.com"
 
             create_token () {
               local description=$1
               local response=$( \
                 curl \
-                  --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens" \
+                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens" \
                   --header "Accept: application/json" \
                   --header 'Content-Type: application/json' \
                   --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
@@ -1264,13 +1272,13 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            domain="https://console.influxdata.com"
+            HOST="https://console.influxdata.com"
 
             get_token () {
               local tokenId=$1
               local response=$( \
                 curl \
-                  --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
+                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
                   --header "Accept: application/json" \
                   --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
               )
@@ -1441,13 +1449,13 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            domain="https://console.influxdata.com"
+            HOST="https://console.influxdata.com"
 
             update_token () {
               local tokenId=$1
               local response=$( \
                 curl \
-                  --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
+                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
                   --request PATCH \
                   --header "Accept: application/json" \
                   --header 'Content-Type: application/json' \
@@ -1514,13 +1522,13 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            domain="https://console.influxdata.com"
+            HOST="https://console.influxdata.com"
 
             delete_token () {
               local tokenId=$1
               local response=$( \
                 curl \
-                  --location "$domain/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
+                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
                   --request DELETE \
                   --header "Accept: application/json" \
                   --header "Authorization: Bearer $MANAGEMENT_TOKEN" \

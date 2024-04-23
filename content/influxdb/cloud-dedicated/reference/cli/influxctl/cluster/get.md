@@ -12,9 +12,12 @@ weight: 301
 The `influxctl cluster get` command returns information about an InfluxDB
 Cloud Dedicated cluster.
 
-The `--format` flag lets you print the output in other formats.
-The `json` format is available for programmatic parsing by other tooling.
-Default: `table`.
+The `--format` flag lets you print the output in other formats. Default: `table`.
+
+The `json` format:
+
+- outputs additional fields not included in `table`
+- is available for easier programmatic parsing by other tooling
 
 ## Usage
 
