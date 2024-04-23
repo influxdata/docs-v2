@@ -11,12 +11,11 @@ aliases:
 
 ## v1.7.4 {date="2024-04-22"}
 
-### Other
+### Dependency updates
 
-- Add SECURITY.md
-- Upgrade aws-sdk-go to 1.51.12
-- Upgrade Go to 1.21.9
-- Upgrade `golang.org/x/net` from 0.17.0 to 0.23.0
+- Upgrade `aws-sdk-go` to 1.51.12.
+- Upgrade Go to 1.21.9.
+- Upgrade `golang.org/x/net` from 0.17.0 to 0.23.0.
 
 ---
 
