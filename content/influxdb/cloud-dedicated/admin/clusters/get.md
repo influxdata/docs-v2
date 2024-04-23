@@ -22,9 +22,14 @@ to view information about your {{< product-name omit=" Clustered" >}} cluster.
     - Cluster ID
     - _Optional_: [Output format](#output-formats)
 
-    ```sh
-    influxctl cluster get --format table <CLUSTER_ID>
-    ```
+{{% code-placeholders "CLUSTER_ID" %}}
+```sh
+influxctl cluster get --format table CLUSTER_ID
+```
+{{% /code-placeholders %}}
+
+Replace {{% code-placeholder-key %}}`CLUSTER_ID` {{% /code-placeholder-key %}} with the
+ID of the cluster you want to view information about.
 
 ### Output formats
 
