@@ -38,7 +38,7 @@ or the [Management HTTP API](influxdb/cloud-dedicated/api/management/) to create
 
 2.  Run the `influxctl database create` command and provide the following:
 
-    - _Optional:_ Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
+    - _Optional_: Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
     Default is `0` (infinite).
     - _Optional_: Database table (measurement) limit. Default is `500`.
     - _Optional_: Database column limit. Default is `250`.
@@ -74,9 +74,6 @@ influxctl database create \
 
 Replace the following in your command:
 
-- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} account to create the database for
-- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} cluster to create the database for
-- {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
 - {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag]((/influxdb/cloud-dedicated/reference/glossary/#tag)) keys from your data
 
