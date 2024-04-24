@@ -1,7 +1,8 @@
 ---
 title: Create a database
 description: >
-  Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/) or the Management HTTP API
+  Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
+  or the Management HTTP API
   to create a new InfluxDB database in your InfluxDB Cloud Dedicated cluster.
   Provide a database name and an optional retention period.
 menu:
@@ -9,6 +10,7 @@ menu:
     parent: Manage databases
 weight: 201
 list_code_example: |
+  ##### CLI
   ```sh
   influxctl database create \
     --retention-period 30d \
@@ -16,13 +18,57 @@ list_code_example: |
     --max-columns 250 \
     <DATABASE_NAME>
   ```
+
+  ##### API
+  ```sh
+  curl \
+    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" \
+    --request POST
+    --header "Accept: application/json" \
+    --header 'Content-Type: application/json' \
+    --header "Authorization: Bearer MANAGEMENT_TOKEN" \
+    --data '{
+      "name": "'DATABASE_NAME'",
+      "maxTables": 500,
+      "maxColumnsPerTable": 250,
+      "retentionPeriod": 2592000000000,
+      "partitionTemplate": [
+        {
+          "type": "tag",
+          "value": "TAG_KEY_1"
+        },
+        {
+          "type": "tag",
+          "value": "TAG_KEY_2"
+        },
+        {
+          "type": "bucket",
+          "value": {
+            "tagName": "TAG_KEY_3",
+            "numberOfBuckets": 100
+          }
+        },
+        {
+          "type": "bucket",
+          "value": {
+            "tagName": "TAG_KEY_4",
+            "numberOfBuckets": 300
+          }
+        },
+        {
+          "type": "time",
+          "value": "%Y-%m-%d"
+        }
+        ]
+      }'
+  ```
 related:
   - /influxdb/cloud-dedicated/reference/cli/influxctl/database/create/
   - /influxdb/cloud-dedicated/admin/custom-partitions/
-  - /influxdb/cloud-dedicated/api/management/#operation/CreateClusterDatabase
+  - /influxdb/cloud-dedicated/reference/api/
 ---
 
-Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
+Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
 or the [Management HTTP API](influxdb/cloud-dedicated/api/management/) to create a database in your {{< product-name omit=" Clustered" >}} cluster.
 
 {{< tabs-wrapper >}}
@@ -138,6 +184,7 @@ flags to define partition template parts used to generate partition keys for the
 For more information, see [Manage data partitioning](/influxdb/cloud-dedicated/admin/custom-partitions/).
 
 {{% note %}}
+
 #### Partition templates can only be applied on create
 
 You can only apply a partition template when creating a database.
@@ -193,6 +240,7 @@ The following example shows how to use the Management API to create a database w
 ```sh
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" \
+   --request POST
    --header "Accept: application/json" \
    --header 'Content-Type: application/json' \
    --header "Authorization: Bearer MANAGEMENT_TOKEN" \
@@ -280,6 +328,7 @@ Use the [`partitionTemplate`](/influxdb/cloud-dedicated/api/management/#operatio
 For more information, see [Manage data partitioning](/influxdb/cloud-dedicated/admin/custom-partitions/).
 
 {{% note %}}
+
 #### Partition templates can only be applied on create
 
 You can only apply a partition template when creating a database.
