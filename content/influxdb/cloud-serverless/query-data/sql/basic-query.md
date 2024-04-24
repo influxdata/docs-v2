@@ -133,6 +133,33 @@ WHERE
 {{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
+
+{{% expand "Query data using a time zone offset" %}}
+
+To query data using a time zone offset, use the
+[`AT TIME ZONE` operator](/influxdb/cloud-serverless/reference/sql/operators/other/#at-time-zone)
+to apply a time zone offset to timestamps in the `WHERE` clause.
+
+{{% note %}}
+Timestamp types in InfluxDB always represent a UTC time. `AT TIME ZONE` returns
+a UTC timestamp adjusted for the offset of the specified time zone.
+Timestamps in the `time` column are not updated.
+If you need to display the timestamps your current timezone, this should be done
+client-side.
+{{% /note %}}
+
+{{% influxdb/custom-timestamps %}}
+```sql
+SELECT
+  *
+FROM
+  home
+WHERE
+  time >= '2022-01-01 00:00:00'::TIMESTAMP AT TIME ZONE 'America/Los_Angeles'
+  AND time <= '2022-01-01 12:00:00'::TIMESTAMP AT TIME ZONE 'America/Los_Angeles'
+```
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
 {{< /expand-wrapper >}}
 
 ### Query data without time boundaries

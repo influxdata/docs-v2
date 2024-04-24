@@ -195,9 +195,10 @@ Bitwise operators perform bitwise operations on bit patterns or binary numerals.
 
 ### Other operators
 
-| Operator | Meaning              | Example                 | Result        |
-| :------: | :------------------- | :---------------------- | :------------ |
-|  `\|\|`  | Concatenates strings | `'Hello' \|\| ' world'` | `Hello world` |
+|    Operator    | Meaning                  | Example                                                                                 | Result        |
+| :------------: | :----------------------- | :-------------------------------------------------------------------------------------- | :------------ |
+|     `\|\|`     | Concatenates strings     | `'Hello' \|\| ' world'`                                                                 | `Hello world` |
+| `AT TIME ZONE` | Apply a time zone offset | _[View example](/influxdb/cloud-dedicated/reference/sql/operators/other/#at-time-zone)_ |               |
 
 ## Keywords
 
@@ -209,6 +210,7 @@ ALL
 ANALYZE
 AS
 ASC
+AT TIME ZONE
 BETWEEN
 BOTTOM
 CASE
