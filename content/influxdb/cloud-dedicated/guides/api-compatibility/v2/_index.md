@@ -95,7 +95,7 @@ Use `Token` to authenticate a write request:
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
   a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database

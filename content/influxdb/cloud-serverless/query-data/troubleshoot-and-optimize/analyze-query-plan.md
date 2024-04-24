@@ -89,7 +89,7 @@ assert 'logical_plan' in df.plan_type.values, "Expect logical_plan"
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [bucket](/influxdb/cloud-serverless/admin/buckets/)
 - {{% code-placeholder-key %}}`TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
 
 {{% /expand %}}

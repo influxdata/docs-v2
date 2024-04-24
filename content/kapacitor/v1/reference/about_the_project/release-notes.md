@@ -9,6 +9,16 @@ aliases:
   - /kapacitor/v1/about_the_project/releasenotes-changelog/
 ---
 
+## v1.7.4 {date="2024-04-22"}
+
+### Dependency updates
+
+- Upgrade `aws-sdk-go` to 1.51.12.
+- Upgrade Go to 1.21.9.
+- Upgrade `golang.org/x/net` from 0.17.0 to 0.23.0.
+
+---
+
 ## v1.7.3 {date="2024-03-22"}
 
 ### Bug Fixes
