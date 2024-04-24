@@ -8,8 +8,17 @@ menu:
     parent: Manage databases
 weight: 202
 list_code_example: |
+  ##### CLI
   ```sh
   influxctl database list
+  ```
+
+  ##### API
+  ```sh
+  curl \
+    --location "https://console.influxdata.com/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
+    --header "Accept: application/json" \
+    --header "Authorization: Bearer $MANAGEMENT_TOKEN"
   ```
 related:
   - /influxdb/cloud-dedicated/reference/cli/influxctl/database/list/
@@ -33,7 +42,7 @@ to list databases in your InfluxDB Cloud Dedicated cluster.
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
 2.  Run the `influxctl database list` command and provide the following:
 
-    - _Optional_: [Output format](#output-formats)
+    - _Optional_: [Output format](#output-format)
 
 ```sh
 influxctl database list --format table
@@ -48,7 +57,7 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 1. If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
 2. In your terminal, use cURL to send a request to the following {{% product-name %}} console endpoint:
 
-   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="get" api-ref="/influxdb/cloud-dedicated/api/management/#operation/CreateClusterDatabase" %}}
+   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="get" api-ref="/influxdb/cloud-dedicated/api/management/#operation/GetClusterDatabases" %}}
 
    In the URL, provide the following credentials:
 
@@ -58,7 +67,6 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
    Provide the following request headers:
 
    - `Accept: application/json` to ensure the response body is JSON content
-   - `Content-Type: application/json` to indicate the request body is JSON content
    - `Authorization: Bearer` and a [Management API token](/influxdb/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
 
  The following example shows how to use the Management API to list databases in a cluster:
