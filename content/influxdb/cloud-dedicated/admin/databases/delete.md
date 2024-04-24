@@ -2,7 +2,7 @@
 title: Delete a database
 description: >
   Use the [`influxctl database delete` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/delete/)
-  or the Management HTTP API
+  or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/)
   to delete a database from your InfluxDB Cloud Dedicated cluster.
   Provide the name of the database you want to delete.
 menu:
@@ -29,7 +29,7 @@ related:
 ---
 
 Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
-or the Management HTTP API to create a database in your {{< product-name omit=" Clustered" >}} cluster.
+or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/) to create a database in your {{< product-name omit=" Clustered" >}} cluster.
 
 {{% warn %}}
 
@@ -108,10 +108,10 @@ curl \
 
 Replace the following in your request:
 
-- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} account to create the database for
-- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} cluster to create the database for
+- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
 - {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
 <!------------------------------- END cURL ------------------------------------>
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

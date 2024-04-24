@@ -2,7 +2,7 @@
 title: Create a database
 description: >
   Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
-  or the Management HTTP API
+  or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/)
   to create a new InfluxDB database in your InfluxDB Cloud Dedicated cluster.
   Provide a database name and an optional retention period.
 menu:
@@ -79,13 +79,15 @@ or the [Management HTTP API](influxdb/cloud-dedicated/api/management/) to create
 {{% tab-content %}}
 
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->
+Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
+to create a database in your {{< product-name omit=" Clustered" >}} cluster.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
 
 2.  Run the `influxctl database create` command and provide the following:
 
     - _Optional_: Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
-    Default is `0` (infinite).
+    Default is `infinite` (`0`).
     - _Optional_: Database table (measurement) limit. Default is `500`.
     - _Optional_: Database column limit. Default is `250`.
     - _Optional_: [InfluxDB tags](/influxdb/cloud-dedicated/reference/glossary/#tag)
@@ -120,7 +122,7 @@ influxctl database create \
 
 Replace the following in your command:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag]((/influxdb/cloud-dedicated/reference/glossary/#tag)) keys from your data
 
 ## Database attributes
@@ -205,8 +207,9 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 
    In the URL, provide the following credentials:
 
-   - `ACCOUNT_ID`: The ID of the [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to. To view account ID and cluster ID, [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
-   - `CLUSTER_ID`: The ID of the [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage. To view account ID and cluster ID, [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
+   - `ACCOUNT_ID`: The ID of the [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+   - `CLUSTER_ID`: The ID of the [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+
 
    Provide the following request headers:
 
@@ -284,10 +287,10 @@ curl \
 
 Replace the following in your request:
 
-- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} account to create the database for
-- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} cluster to create the database for
+- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
 - {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag]((/influxdb/cloud-dedicated/reference/glossary/#tag)) keys from your data
 
 ## Database attributes
