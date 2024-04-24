@@ -46,31 +46,39 @@ influxctl database list --format table
 _This example uses [cURL](https://curl.se/) to send a Management HTTP API request, but you can use any HTTP client._
 
 1. If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
-2. In your terminal, use cURL to send a request to the following endpoint:
+2. In your terminal, use cURL to send a request to the following {{% product-name %}} console endpoint:
 
-   {{% api-endpoint endpoint="https://{{< influxdb/host >}}/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="get" api-ref="/influxdb/cloud-dedicated/api/management/#operation/CreateClusterDatabase" %}}
+   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="get" api-ref="/influxdb/cloud-dedicated/api/management/#operation/CreateClusterDatabase" %}}
 
    In the URL, provide the following credentials:
 
-   - Your {{% product-name omit="Clustered" %}} cluster URL.
    - `ACCOUNT_ID`: The ID of the [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to. To view account ID and cluster ID, [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
    - `CLUSTER_ID`: The ID of the [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage. To view account ID and cluster ID, [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
 
-   In request headers, provide the following:
+   Provide the following request headers:
 
    - `Accept: application/json` to ensure the response body is JSON content
    - `Content-Type: application/json` to indicate the request body is JSON content
    - `Authorization: Bearer` and a [Management API token](/influxdb/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
 
-   The following example shows how to use the Management API to list databases in a cluster:
+ The following example shows how to use the Management API to list databases in a cluster:
 
-   ```sh
-   curl \
-    --location "https://{{< influxdb/host >}}/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" \
-    --header "Accept: application/json" \
-    --header "Authorization: Bearer MANAGEMENT_TOKEN" \
-    ```
+{{% code-placeholders "ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
 
+```sh
+curl \
+   --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" \
+   --header "Accept: application/json" \
+   --header "Authorization: Bearer MANAGEMENT_TOKEN"
+```
+
+{{% /code-placeholders %}}
+
+Replace the following in your request:
+
+- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} account to create the database for
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} cluster to create the database for
+- {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
 <!------------------------------- END cURL ------------------------------------>
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

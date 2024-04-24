@@ -152,17 +152,16 @@ There is no way to update a partition template on an existing database.
 _This example uses [cURL](https://curl.se/) to send a Management HTTP API request, but you can use any HTTP client._
 
 1. If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
-2. In your terminal, use cURL to send a request to the following endpoint:
+2. In your terminal, use cURL to send a request to the following {{% product-name %}} console endpoint:
 
-   {{% api-endpoint endpoint="https://{{< influxdb/host >}}/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="post" api-ref="/influxdb/cloud-dedicated/api/management/#operation/CreateClusterDatabase" %}}
+   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="post" api-ref="/influxdb/cloud-dedicated/api/management/#operation/CreateClusterDatabase" %}}
 
    In the URL, provide the following credentials:
 
-   - Your {{% product-name omit="Clustered" %}} cluster URL.
    - `ACCOUNT_ID`: The ID of the [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to. To view account ID and cluster ID, [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
    - `CLUSTER_ID`: The ID of the [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage. To view account ID and cluster ID, [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
 
-   In request headers, provide the following:
+   Provide the following request headers:
 
    - `Accept: application/json` to ensure the response body is JSON content
    - `Content-Type: application/json` to indicate the request body is JSON content
@@ -193,7 +192,7 @@ The following example shows how to use the Management API to create a database w
 
 ```sh
 curl \
-   --location "https://{{< influxdb/host >}}/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" \
+   --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" \
    --header "Accept: application/json" \
    --header 'Content-Type: application/json' \
    --header "Authorization: Bearer MANAGEMENT_TOKEN" \
