@@ -2,22 +2,53 @@
 title: Update a database
 description: >
   Use the [`influxctl database update` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/update/)
-  to update a database in your InfluxDB Cloud Dedicated cluster.
+  or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/)
+  to update attributes for a database in your InfluxDB Cloud Dedicated cluster.
+  Provide the database name and the attributes to update.
 menu:
   influxdb_cloud_dedicated:
     parent: Manage databases
 weight: 201
 list_code_example: |
+  ##### CLI
   ```sh
-  influxctl database update DATABASE_NAME \
+  influxctl database update \
     --retention-period 30d \
     --max-tables 500 \
     --max-columns 250
+    <DATABASE_NAME>
+  ```
+
+  ##### API
+  ```sh
+  curl \
+    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/DATABASE_NAME" \
+    --request PATCH \
+    --header "Accept: application/json" \
+    --header 'Content-Type: application/json' \
+    --header "Authorization: Bearer MANAGEMENT_TOKEN" \
+    --data '{
+      "maxTables": 500,
+      "maxColumnsPerTable": 250,
+      "retentionPeriod": 2592000000000000
+    }'
   ```
 related:
   - /influxdb/cloud-dedicated/reference/cli/influxctl/database/update/
+  - /influxdb/cloud-dedicated/reference/api/
 ---
 
+Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
+or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/) to update attributes such as retention period, column limits, and table limits for a database in your {{< product-name omit=" Clustered" >}} cluster.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[influxctl](#)
+[Management API](#)
+{{% /tabs %}}
+{{% tab-content %}}
+
+<!------------------------------- BEGIN INFLUXCTL ----------------------------->
 Use the [`influxctl database update` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/update/)
 to update a database in your {{< product-name omit=" Clustered" >}} cluster.
 
@@ -26,45 +57,47 @@ to update a database in your {{< product-name omit=" Clustered" >}} cluster.
 
     - Database name
     - _Optional_: Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
-      _(default is infinite)_
-    - _Optional_: Database table (measurement) limit _(default is 500)_
-    - _Optional_: Database column limit _(default is 250)_
+    Default is `infinite` (`0`).
+    - _Optional_: Database table (measurement) limit. Default is `500`.
+    - _Optional_: Database column limit. Default is `250`.
 
 {{% code-placeholders "DATABASE_NAME|30d|500|200" %}}
+
 ```sh
 influxctl database update DATABASE_NAME \
   --retention-period 30d \
   --max-tables 500 \
   --max-columns 250
 ```
+
 {{% /code-placeholders %}}
 
-{{% warn %}}
-#### Database names can't be updated
+Replace the following in your command:
 
-The `influxctl database update` command uses the database name to identify which
-database to apply updates to. The database name itself can't be updated.
-{{% /warn %}}
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
 
-- [Retention period syntax](#retention-period-syntax)
+## Database attributes
+
+- [Retention period syntax](#retention-period-syntax-influxctl-cli)
 - [Database naming restrictions](#database-naming-restrictions)
 - [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
 - [Table and column limits](#table-and-column-limits)
 
-## Retention period syntax
+### Retention period syntax (influxctl CLI)
 
-Use the `--retention-period` flag to define a specific
+Use the `--retention-period` flag to define the
 [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
 for the database.
 The retention period value is a time duration value made up of a numeric value
-plus a duration unit. For example, `30d` means 30 days.
-A zero duration retention period is infinite and data will not expire.
+plus a duration unit.
+For example, `30d` means 30 days.
+A zero duration (`0d`) retention period is infinite and data won't expire.
 The retention period value cannot be negative or contain whitespace.
 
 {{< flex >}}
-{{% flex-content %}}
+{{% flex-content "half" %}}
 
-##### Valid durations units include
+#### Valid durations units include
 
 - **m**: minute
 - **h**: hour
@@ -74,9 +107,9 @@ The retention period value cannot be negative or contain whitespace.
 - **y**: year
 
 {{% /flex-content %}}
-{{% flex-content %}}
+{{% flex-content "half" %}}
 
-##### Example retention period values
+#### Example retention period values
 
 - `0d`: infinite/none
 - `3d`: 3 days
@@ -89,7 +122,105 @@ The retention period value cannot be negative or contain whitespace.
 {{% /flex-content %}}
 {{< /flex >}}
 
-## Database naming restrictions
+<!-------------------------------- END INFLUXCTL ------------------------------>
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------- BEGIN cURL ---------------------------------->
+
+1. In your terminal, use cURL to send a request to the following {{% product-name %}} console endpoint:
+
+   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="post" api-ref="/influxdb/cloud-dedicated/api/management/#operation/CreateClusterDatabase" %}}
+
+   In the URL, provide the following credentials:
+
+   - `ACCOUNT_ID`: The ID of the [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+   - `CLUSTER_ID`: The ID of the [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+   - `DATABASE_NAME`: The name of the [database](/influxdb/cloud-dedicated/admin/databases/) that you want to delete _(see how to [list databases](/influxdb/cloud-dedicated/admin/databases/list/))_.
+
+   Provide the following request headers:
+
+   - `Accept: application/json` to ensure the response body is JSON content
+   - `Content-Type: application/json` to indicate the request body is JSON content
+   - `Authorization: Bearer` and a [Management API token](/influxdb/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
+
+   In the request body, provide the parameters to update:
+
+   - _Optional:_ Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods) in nanoseconds.
+    Default is `0` (infinite).
+   - _Optional_: Database table (measurement) limit. Default is `500`.
+   - _Optional_: Database column limit. Default is `250`.
+
+   Specify the `PATCH` request method.
+
+The following example shows how to use the Management API to update a database:
+
+{{% code-placeholders "DATABASE_NAME|2592000000000000|500|250|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
+
+  ```sh
+  curl \
+    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/DATABASE_NAME" \
+    --request PATCH \
+    --header "Accept: application/json" \
+    --header 'Content-Type: application/json' \
+    --header "Authorization: Bearer MANAGEMENT_TOKEN" \
+    --data '{
+      "maxTables": 500,
+      "maxColumnsPerTable": 250,
+      "retentionPeriod": 2592000000000000
+    }'
+  ```
+
+{{% /code-placeholders %}}
+
+Replace the following in your request:
+
+- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
+- {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+
+## Database attributes
+
+- [Retention period syntax](#retention-period-syntax-management-api)
+- [Database naming restrictions](#database-naming-restrictions)
+- [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
+- [Table and column limits](#table-and-column-limits)
+
+### Retention period syntax (Management API)
+
+Use the `retentionPeriod` property to specify the
+[retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
+for the database.
+The retention period value is an integer (`<int32>`) that represents the number of nanoseconds.
+For example, `2592000000000` means 30 days.
+A zero (`0`) retention period is infinite and data won't expire.
+The retention period value cannot be negative or contain whitespace.
+
+#### Example retention period values
+
+- `0`: infinite/none
+- `259200000000000`: 3 days
+- `2592000000000000`: 30 days
+- `31536000000000000`: 1 standard year (365 days)
+
+<!------------------------------- END cURL ------------------------------------>
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+{{% warn %}}
+
+#### Database names can't be updated
+
+The `influxctl database update` command uses the database name to identify which
+database to apply updates to. The database name itself can't be updated.
+
+#### Partition templates can't be updated
+
+You can only apply a partition template when creating a database.
+There is no way to update a partition template on an existing database.
+{{% /warn %}}
+
+### Database naming restrictions
 
 Database names must adhere to the following naming restrictions:
 
@@ -99,7 +230,7 @@ Database names must adhere to the following naming restrictions:
 - Should not start with an underscore (`_`).
 - Maximum length of 64 characters.
 
-## InfluxQL DBRP naming convention
+### InfluxQL DBRP naming convention
 
 In InfluxDB 1.x, data is stored in [databases](/influxdb/v1/concepts/glossary/#database)
 and [retention policies](/influxdb/v1/concepts/glossary/#retention-policy-rp).
@@ -116,7 +247,7 @@ naming convention to automatically map v1 DBRP combinations to a database:
 database_name/retention_policy_name
 ```
 
-##### Database naming examples
+#### Database naming examples
 
 | v1 Database name | v1 Retention Policy name | New database name         |
 | :--------------- | :----------------------- | :------------------------ |
@@ -124,12 +255,17 @@ database_name/retention_policy_name
 | telegraf         | autogen                  | telegraf/autogen          |
 | webmetrics       | 1w-downsampled           | webmetrics/1w-downsampled |
 
-## Table and column limits
+### Table and column limits
 
 In {{< product-name >}}, table (measurement) and column limits can be
-configured using the `--max-tables` and `--max-columns` flags.
+configured using the following options:
 
-### Table limit
+| Description                   | Default | influxctl CLI flag | Management API property |
+| :---------------------------- | :------ | :-------------- | :------------------- |
+| [Table limit](#table-limit)   | 500     | `--max-tables`  | `maxTables`          |
+| [Column limit](#column-limit) | 250     | `--max-columns` | `maxColumnsPerTable` |
+
+#### Table limit
 
 **Default maximum number of tables**: 500
 
@@ -172,7 +308,7 @@ operating cost of your cluster.
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Column limit
+#### Column limit
 
 **Default maximum number of columns**: 250
 
