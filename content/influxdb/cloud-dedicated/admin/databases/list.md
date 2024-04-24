@@ -22,6 +22,7 @@ list_code_example: |
   ```
 related:
   - /influxdb/cloud-dedicated/reference/cli/influxctl/database/list/
+  - /influxdb/cloud-dedicated/reference/api/
 ---
 
 Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
