@@ -29,7 +29,7 @@ influxctl cluster get <CLUSTER_ID>
 
 | Argument       | Description              |
 | :------------- | :----------------------- |
-| **CLUSTER_ID** | ID of the cluster to get |
+| **CLUSTER_ID** | ID of the [cluster](/influxdb/cloud-dedicated/reference/glossary/#cluster) to get |
 
 ## Flags
 
