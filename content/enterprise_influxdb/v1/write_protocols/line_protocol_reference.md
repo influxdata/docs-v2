@@ -23,7 +23,9 @@ InfluxDB line protocol is a text-based format for writing points to InfluxDB.
 
 Line protocol accepts the newline character `\n` and is whitespace-sensitive.
 
->**Note** Line protocol does not support the newline character `\n` in tag values or field values.
+{{% note %}}
+Line protocol does not support the newline character `\n` in tag values or field values.
+{{% /note %}}
 
 ### Syntax description
 
@@ -36,12 +38,14 @@ InfluxDB line protocol informs InfluxDB of the data's measurement, tag set, fiel
 | [Field set](/enterprise_influxdb/v1/concepts/glossary/#field-set) | Required. Points must have at least one field. | All field key-value pairs for the point. | [Field keys](/enterprise_influxdb/v1/concepts/glossary/#field-key) are strings. [Field values](/enterprise_influxdb/v1/concepts/glossary/#field-value) can be floats, integers, strings, or Booleans.
 | [Timestamp](/enterprise_influxdb/v1/concepts/glossary/#timestamp) | Optional. InfluxDB uses the server's local nanosecond timestamp in UTC if the timestamp is not included with the point. | The timestamp for the data point. InfluxDB accepts one timestamp per point. | Unix nanosecond timestamp. Specify alternative precisions with the [InfluxDB API](/enterprise_influxdb/v1/tools/api/#write-http-endpoint).
 
-> #### Performance tips:
->
+{{% note %}}
+#### Performance tips:
+
 - Before sending data to InfluxDB, sort by tag key to match the results from the
 [Go bytes.Compare function](http://golang.org/pkg/bytes/#Compare).
 - To significantly improve compression, use the coarsest [precision](/enterprise_influxdb/v1/tools/api/#write-http-endpoint) possible for timestamps.
 - Use the Network Time Protocol (NTP) to synchronize time between hosts. InfluxDB uses a host's local time in UTC to assign timestamps to data. If a host's clock isn't synchronized with NTP, the data that the host writes to InfluxDB may have inaccurate timestamps.
+{{% /note %}}
 
 ## Data types
 
@@ -138,13 +142,13 @@ If the timestamps on the float and string are not stored in the same shard:
 
 ### Quoting
 
-| Element | Double quotes | Single quotes |
-| :------ | :------------ |:------------- |
-| Timestamp | Never | Never |
-| Measurements, tag keys, tag values, field keys | Never* | Never* |
-| Field values | Double quote string field values. Do not double quote floats, integers, or Booleans. | Never |
+| Element                                        | Double quotes                                                                        | Single quotes          |
+| :--------------------------------------------- | :----------------------------------------------------------------------------------- | :--------------------- |
+| Timestamp                                      | Never                                                                                | Never                  |
+| Measurements, tag keys, tag values, field keys | Never{{% req "\\*" %}}                                                               | Never{{% req "\\*" %}} |
+| Field values                                   | Double quote string field values. Do not double quote floats, integers, or Booleans. | Never                  |
 
-\* InfluxDB line protocol allows users to double and single quote measurement names, tag
+{{% req "\\*" %}} InfluxDB line protocol allows users to double and single quote measurement names, tag
 keys, tag values, and field keys.
 It will, however, assume that the double or single quotes are part of the name,
 key, or value.
@@ -201,29 +205,25 @@ measurement require both double quotes and escaped (`\`) double quotes in the
 
 You must use a backslash character `\` to escape the following special characters:
 
-* In string field values, you must escape:
-  * double quotes  
-  * backslash character
+- In string field values, you must escape:
+  - double quotes: `\"` escapes double quote.
+  - backslash character: If you use multiple backslashes, they must be escaped.
+    InfluxDB interprets backslashes as follows:
+  
+    - `\` or `\\` interpreted as `\`
+    - `\\\` or `\\\\` interpreted as `\\`
+    - `\\\\\` or `\\\\\\` interpreted as `\\\`, and so on
 
-For example, `\"` escapes double quote.
-
->#### Note on backslashes:
->
-* If you use multiple backslashes, they must be escaped. Influx interprets backslashes as follows:
-  *	`\` or `\\` interpreted as `\`
-  *	`\\\` or `\\\\` interpreted as `\\`
-  * `\\\\\` or `\\\\\\` interpreted as `\\\`, and so on
-
-* In tag keys, tag values, and field keys, you must escape:
-  * commas
-  * equal signs
-  * spaces
+- In tag keys, tag values, and field keys, you must escape:
+  - commas
+  - equal signs
+  - spaces
 
 For example, `\,` escapes a comma.
 
-* In measurements, you must escape:
-  * commas  
-  * spaces
+- In measurements, you must escape:
+  - commas  
+  - spaces
 
 You do not need to escape other special characters.
 
