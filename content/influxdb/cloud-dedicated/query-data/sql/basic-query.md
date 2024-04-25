@@ -143,7 +143,7 @@ to apply a time zone offset to timestamps in the `WHERE` clause.
 Timestamp types in InfluxDB always represent a UTC time. `AT TIME ZONE` returns
 a UTC timestamp adjusted for the offset of the specified time zone.
 Timestamps in the `time` column are not updated.
-If you need to display the timestamps your current timezone, this should be done
+If you need to display the timestamps in your current timezone, this should be handled
 client-side.
 {{% /note %}}
 
