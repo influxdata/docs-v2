@@ -18,14 +18,11 @@ write points (unless you're using a [service plugin](/enterprise_influxdb/v1/sup
 Using fictional temperature data, this page introduces InfluxDB line protocol.
 It covers:
 
-<table style="width:100%">
-  <tr>
-    <td><a href="#syntax">Syntax</a></td>
-    <td><a href="#data-types">Data Types</a></td>
-    <td><a href="#quoting">Quoting</a></td>
-    <td><a href="#special-characters-and-keywords">Special Characters and Keywords</a></td>
-  </tr>
-</table>
+- [Syntax](#syntax)
+- [Data types](#data-types)
+- [Quoting](#quoting)
+- [Special characters and keywords](#special-characters-and-keywords)
+- [Writing data to InfluxDB](#writing-data-to-influxdb)
 
 The final section, [Writing data to InfluxDB](#writing-data-to-influxdb),
 describes how to get data into InfluxDB and how InfluxDB handles Line
@@ -36,18 +33,8 @@ Protocol duplicates.
 A single line of text in line protocol format represents one data point in InfluxDB.
 It informs InfluxDB of the point's measurement, tag set, field set, and
 timestamp.
-The following code block shows a sample of line protocol and breaks it into its
-individual components:
 
-```
-weather,location=us-midwest temperature=82 1465839830100400200
-  |    -------------------- --------------  |
-  |             |             |             |
-  |             |             |             |
-+-----------+--------+-+---------+-+---------+
-|measurement|,tag_set| |field_set| |timestamp|
-+-----------+--------+-+---------+-+---------+
-```
+{{< influxdb/line-protocol >}}
 
 Moving across each element in the diagram:
 
@@ -65,7 +52,10 @@ The [tag(s)](/enterprise_influxdb/v1/concepts/glossary/#tag) that you want to in
 with your data point.
 Tags are optional in line protocol.
 
-> **Note:** Avoid using the reserved keys `_field`, `_measurement`, and `time`. If reserved keys are included as a tag or field key, the associated point is discarded.
+{{% note %}}
+Avoid using the reserved keys `_field`, `_measurement`, and `time`.
+If reserved keys are included as a tag or field key, the associated point is discarded.
+{{% /note %}}
 
 Notice that the measurement and tag set are separated by a comma and no spaces.
 
@@ -93,7 +83,7 @@ database.
 The sort should match the results from the
 [Go bytes.Compare function](http://golang.org/pkg/bytes/#Compare).
 
-### Whitespace I
+### First whitespace
 
 Separate the measurement and the field set or, if you're including a tag set
 with your data point, separate the tag set and the field set with a whitespace.
@@ -129,7 +119,7 @@ Adding another field (`humidity=71`) to the example looks like this:
 weather,location=us-midwest temperature=82,humidity=71 1465839830100400200
 ```
 
-### Whitespace II
+### Second whitespace
 
 Separate the field set and the optional timestamp with a whitespace.
 The whitespace is required in line protocol if you're including a timestamp.
@@ -158,12 +148,14 @@ We recommend using the coarsest precision possible as this can result in
 significant improvements in compression.
 See the [API Reference](/enterprise_influxdb/v1/tools/api/#write-http-endpoint) for more information.
 
-> #### Setup Tip:
->
+{{% note %}}
+#### Use NTP to synchronize time between hosts
+
 Use the Network Time Protocol (NTP) to synchronize time between hosts.
 InfluxDB uses a host's local time in UTC to assign timestamps to data; if
 hosts' clocks aren't synchronized with NTP, the timestamps on the data written
 to InfluxDB can be inaccurate.
+{{% /note %}}
 
 ## Data types
 
@@ -178,15 +170,16 @@ This section covers the data types of line protocol's major components:
 
 Measurements, tag keys, tag values, and field keys are always strings.
 
-> **Note:**
+{{% note %}}
 Because InfluxDB stores tag values as strings, InfluxDB cannot perform math on
 tag values.
 In addition, InfluxQL [functions](/enterprise_influxdb/v1/query_language/functions/)
 do not accept a tag value as a primary argument.
 It's a good idea to take into account that information when designing your
 [schema](/enterprise_influxdb/v1/concepts/glossary/#schema).
+{{% /note %}}
 
-Timestamps are UNIX timestamps.
+Timestamps are Unix timestamps.
 The minimum valid timestamp is `-9223372036854775806` or `1677-09-21T00:12:43.145224194Z`.
 The maximum valid timestamp is `9223372036854775806` or `2262-04-11T23:47:16.854775806Z`.
 As mentioned above, by default, InfluxDB assumes that timestamps have
@@ -196,45 +189,46 @@ alternative precisions.
 
 Field values can be floats, integers, strings, or Booleans:
 
-* Floats - by default, InfluxDB assumes all numerical field values are floats.
+- **Floats**: by default, InfluxDB assumes all numeric field values are floats.
 
-    Store the field value `82` as a float:
+  Store the field value `82` as a float:
 
-    ```
-weather,location=us-midwest temperature=82 1465839830100400200
-    ```
+  ```
+  weather,location=us-midwest temperature=82 1465839830100400200
+  ```
 
-* Integers - append an `i` to the field value to tell InfluxDB to store the
-number as an integer.
+- **Integers**: append an `i` to the field value to tell InfluxDB to store the
+  number as an integer.
 
-    Store the field value `82` as an integer:
+  Store the field value `82` as an integer:
 
-    ```
-weather,location=us-midwest temperature=82i 1465839830100400200
-    ```
+  ```
+  weather,location=us-midwest temperature=82i 1465839830100400200
+  ```
 
-* Strings - double quote string field values (more on quoting in line protocol
-[below](#quoting)).
+- **Strings**: double quote string field values (more on quoting in line
+  protocol [below](#quoting)).
 
-    Store the field value `too warm` as a string:
+  Store the field value `too warm` as a string:
 
-    ```
-weather,location=us-midwest temperature="too warm" 1465839830100400200
-    ```
+  ```
+  weather,location=us-midwest temperature="too warm" 1465839830100400200
+  ```
 
-* Booleans - specify TRUE with `t`, `T`, `true`, `True`, or `TRUE`. Specify
+- **Booleans**: specify TRUE with `t`, `T`, `true`, `True`, or `TRUE`. Specify
 FALSE with `f`, `F`, `false`, `False`, or `FALSE`.
 
-    Store the field value `true` as a Boolean:
+  Store the field value `true` as a Boolean:
 
-    ```
-weather,location=us-midwest too_hot=true 1465839830100400200
-    ```
+  ```
+  weather,location=us-midwest too_hot=true 1465839830100400200
+  ```
 
-    > **Note:** Acceptable Boolean syntax differs for data writes and data
-    queries. See
-    [Frequently Asked Questions](/enterprise_influxdb/v1/troubleshooting/frequently-asked-questions/#why-can-t-i-query-boolean-field-values)
-    for more information.
+  {{% note %}}
+  Acceptable Boolean syntax differs for data writes and data
+  queries. See [Frequently Asked Questions](/enterprise_influxdb/v1/troubleshooting/frequently-asked-questions/#why-can-t-i-query-boolean-field-values)
+  for more information.
+  {{% /note %}}
 
 Within a measurement, a field's type cannot differ within a
 [shard](/enterprise_influxdb/v1/concepts/glossary/#shard), but it can differ across
@@ -267,78 +261,68 @@ This section covers when not to and when to double (`"`) or single (`'`)
 quote in line protocol.
 Moving from never quote to please do quote:
 
-* Never double or single quote the timestamp.
-It's not valid line protocol.
+- Never double or single quote the timestamp--for example:
 
-    Example:
+  ```sql
+  > INSERT weather,location=us-midwest temperature=82 "1465839830100400200"
+  ERR: {"error":"unable to parse 'weather,location=us-midwest temperature=82 \"1465839830100400200\"': bad timestamp"}
+  ```
 
-    ```
-> INSERT weather,location=us-midwest temperature=82 "1465839830100400200"
-ERR: {"error":"unable to parse 'weather,location=us-midwest temperature=82 \"1465839830100400200\"': bad timestamp"}
-    ```
+- Never single quote field values, even if they're strings--for example:
 
-* Never single quote field values (even if they're strings!).
-It's also not valid line protocol.
+  ```sql
+  > INSERT weather,location=us-midwest temperature='too warm'
+  ERR: {"error":"unable to parse 'weather,location=us-midwest temperature='too warm'': invalid boolean"}
+  ``` 
 
-    Example:
+- Do not double or single quote measurement names, tag keys, tag values, and field
+  keys unless the quotes are part of the name--for example:
 
-    ```
-> INSERT weather,location=us-midwest temperature='too warm'
-ERR: {"error":"unable to parse 'weather,location=us-midwest temperature='too warm'': invalid boolean"}
-    ```
+  ```sql
+  > INSERT weather,location=us-midwest temperature=82 1465839830100400200
+  > INSERT "weather",location=us-midwest temperature=87 1465839830100400200
+  ```
+  
+  ```
+  > SHOW MEASUREMENTS
+  name: measurements
+  ------------------
+  name
+  "weather"
+  weather
+  ```
 
-* Do not double or single quote measurement names, tag keys, tag values, and field
-keys.
-It is valid line protocol but InfluxDB assumes that the quotes are part of the
-name.
+  To query data in `"weather"` you need to double quote the measurement name and
+  escape the measurement's double quotes:
 
-    Example:
+  ```sql
+  > SELECT * FROM "\"weather\""
+    
+  name: "weather"
+  ---------------
+  time				            location	 temperature
+  2016-06-13T17:43:50.1004002Z	us-midwest	 87
+  ```
 
-    ```
-> INSERT weather,location=us-midwest temperature=82 1465839830100400200
-> INSERT "weather",location=us-midwest temperature=87 1465839830100400200
-> SHOW MEASUREMENTS
-name: measurements
-------------------
-name
-"weather"
-weather
-    ```
+- Do not double quote field values that are floats, integers, or Booleans.
+  InfluxDB parses quoted field values as strings--for example:
 
-    To query data in `"weather"` you need to double quote the measurement name and
-escape the measurement's double quotes:
+  ```sql
+  > INSERT weather,location=us-midwest temperature="82"
+  > SELECT * FROM weather WHERE temperature >= 70
+  >
+  ```
 
-    ```
-> SELECT * FROM "\"weather\""
-name: "weather"
----------------
-time				            location	 temperature
-2016-06-13T17:43:50.1004002Z	us-midwest	 87
-    ```
+- Do double quote field values that are strings--for example:
 
-* Do not double quote field values that are floats, integers, or Booleans.
-InfluxDB will assume that those values are strings.
-
-    Example:
-
-    ```
-> INSERT weather,location=us-midwest temperature="82"
-> SELECT * FROM weather WHERE temperature >= 70
->
-    ```
-
-* Do double quote field values that are strings.
-
-    Example:
-
-    ```
-> INSERT weather,location=us-midwest temperature="too warm"
-> SELECT * FROM weather
-name: weather
--------------
-time				            location	 temperature
-2016-06-13T19:10:09.995766248Z	us-midwest	 too warm
-    ```
+  ```sql
+  > INSERT weather,location=us-midwest temperature="too warm"
+  > SELECT * FROM weather
+  name: weather
+  -------------
+  time				            location	 temperature
+  2016-06-13T19:10:09.995766248Z	us-midwest	 too warm
+  ```
 
 ## Special characters and keywords
 
@@ -347,46 +331,46 @@ time				            location	 temperature
 For tag keys, tag values, and field keys always use a backslash character `\`
 to escape:
 
-* commas `,`
+- commas (`,`)
 
-    ```
-weather,location=us\,midwest temperature=82 1465839830100400200
-    ```
-* equal signs `=`
+  ```
+  weather,location=us\,midwest temperature=82 1465839830100400200
+  ```
+- equal signs (`=`)
 
-    ```
-weather,location=us-midwest temp\=rature=82 1465839830100400200
-    ```
-* spaces
+  ```
+  weather,location=us-midwest temp\=rature=82 1465839830100400200
+  ```
+- spaces
 
-    ```
-weather,location\ place=us-midwest temperature=82 1465839830100400200
-    ```
+  ```
+  weather,location\ place=us-midwest temperature=82 1465839830100400200
+  ```
 
 For measurements always use a backslash character `\` to escape:
 
-* commas `,`
+- commas (`,`)
 
-    ```
-wea\,ther,location=us-midwest temperature=82 1465839830100400200
-    ```
+  ```
+  wea\,ther,location=us-midwest temperature=82 1465839830100400200
+  ```
 
-* spaces
+- spaces
 
-    ```
-wea\ ther,location=us-midwest temperature=82 1465839830100400200
-    ```
+  ```
+  wea\ ther,location=us-midwest temperature=82 1465839830100400200
+  ```
 
 For string field values use a backslash character `\` to escape:
 
-* double quotes `"`
+- double quotes (`"`)
 
-    ```
-weather,location=us-midwest temperature="too\"hot\"" 1465839830100400200
-    ```
+  ```
+  weather,location=us-midwest temperature="too\"hot\"" 1465839830100400200
+  ```
 
-line protocol does not require users to escape the backslash character `\` but
-will not complain if you do. For example, inserting the following:
+Line protocol does not require you to escape the backslash character `\` but
+you can if you want to--for example:
 
 ```
 weather,location=us-midwest temperature_str="too hot/cold" 1465839830100400201
@@ -397,11 +381,9 @@ weather,location=us-midwest temperature_str="too hot\\\\cold" 146583983010040020
 weather,location=us-midwest temperature_str="too hot\\\\\cold" 1465839830100400206
 ```
 
-Will be interpreted as follows (notice that a single and double backslash produce the same record):
+Is interpreted as:
 
 ```sql
-> SELECT * FROM "weather"
-name: weather
 time                location   temperature_str
 ----                --------   ---------------
 1465839830100400201 us-midwest too hot/cold
@@ -411,6 +393,10 @@ time                location   temperature_str
 1465839830100400205 us-midwest too hot\\cold
 1465839830100400206 us-midwest too hot\\\cold
 ```
+
+{{% note %}}
+Notice that a single and double backslash produce the same record.
+{{% /note %}}
 
 All other special characters also do not require escaping.
 For example, line protocol handles emojis with no problem:
