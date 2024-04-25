@@ -45,7 +45,7 @@ SELECT 'Hello' || ' world' AS "Concatenated"
 
 ## AT TIME ZONE
 
-The `AT TIME ZONE` operator applies the offset of the specified timezone to a 
+The `AT TIME ZONE` operator applies the offset of the specified time zone to a 
 timestamp type and returns an updated UTC timestamp. Time zone offsets are
 provided by the the operating system time zone database.
 
