@@ -53,7 +53,7 @@ Use the [`influxctl database update` command](/influxdb/cloud-dedicated/referenc
 to update a database in your {{< product-name omit=" Clustered" >}} cluster.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
-2.  Run the `influxctl database update` command and provide the following:
+2. In your terminal, run the `influxctl database update` command and provide the following:
 
     - Database name
     - _Optional_: Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
@@ -127,7 +127,7 @@ The retention period value cannot be negative or contain whitespace.
 {{% tab-content %}}
 <!------------------------------- BEGIN cURL ---------------------------------->
 
-1. In your terminal, use cURL to send a request to the following {{% product-name %}} console endpoint:
+1. In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
    {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="post" api-ref="/influxdb/cloud-dedicated/api/management/#operation/CreateClusterDatabase" %}}
 

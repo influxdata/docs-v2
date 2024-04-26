@@ -84,7 +84,7 @@ to create a database in your {{< product-name omit=" Clustered" >}} cluster.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
 
-2.  Run the `influxctl database create` command and provide the following:
+2. In your terminal, run the `influxctl database create` command and provide the following:
 
     - _Optional_: Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
     Default is `infinite` (`0`).
@@ -201,7 +201,7 @@ There is no way to update a partition template on an existing database.
 _This example uses [cURL](https://curl.se/) to send a Management HTTP API request, but you can use any HTTP client._
 
 1. If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
-2. In your terminal, use cURL to send a request to the following {{% product-name %}} console endpoint:
+2. In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
    {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="post" api-ref="/influxdb/cloud-dedicated/api/management/#operation/CreateClusterDatabase" %}}
 
@@ -209,7 +209,6 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 
    - `ACCOUNT_ID`: The ID of the [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
    - `CLUSTER_ID`: The ID of the [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
-
 
    Provide the following request headers:
 
