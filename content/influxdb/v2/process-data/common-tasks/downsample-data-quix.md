@@ -14,24 +14,24 @@ influxdb/v2/tags: [tasks]
 A common practice when processing high volume data is to downsample it before comitting 
 it to InfluxDb to reduce the overall disk usage as data collects over time.
 
-This guide walks through the process of creating a series of Python services that ingest from InfluxDB V2, downsample and publish
-data to InfluxDB V3. By aggregating data within windows of time, then storing the aggregate values back to InfluxDB, you can reduce 
+This guide walks through the process of creating a series of Python services that ingest from InfluxDB v2, downsample and publish
+data to InfluxDB v3. By aggregating data within windows of time, then storing the aggregate values back to InfluxDB, you can reduce 
 disk usage and costs over time.
 
-The guide uses Python and InfluxDB V2 and V3 Python client libraries and can be run locally or deployed within Quix Cloud with a free trial. It assumes you have setup a Python project and virtual environment.
+The guide uses Python and InfluxDB v2 and v3 Python client libraries and can be run locally or deployed within Quix Cloud with a free trial. It assumes you have setup a Python project and virtual environment.
 
 ## Pipeline architecture
 The following diagram illustrates how data is passed between processes as it is downsampled:
 
-TODO ARCHI DIAG
+{{< html-diagram/quix-downsample-pipeline >}}
 
 {{% note %}}
 It is usually more efficient to write raw data directly to Kafka rather than
 writing raw data to InfluxDB first (essentially starting the Quix Streams
 pipeline with the "influxv2-data" topic). However, this guide assumes that you
 already have raw data in InfluxDB that you want to downsample. We also write the 
-downsampled data to InfluxDB V3, however you could write it back to a different 
-InfluxDB V2 bucket with some additional coding.
+downsampled data to InfluxDB v3, however you could write it back to a different 
+InfluxDB v2 bucket with some additional coding.
 {{% /note %}}
 
 ---
@@ -51,7 +51,8 @@ InfluxDB V2 bucket with some additional coding.
 
 The process described in this guide requires the following:
 
-- InfluxDB v2 with data ready for downsampling.
+- InfluxDB v2 with data ready for downsampling. [Use the machine data generator code](#run-the-machine-data-generator) below.
+- InfluxDB v3 ready to receive data.
 - A [Quix Cloud](https://portal.platform.quix.io/self-sign-up/) account or a
   local Apache Kafka or Red Panda installation.
 - Familiarity with basic Python and Docker concepts.
@@ -60,10 +61,10 @@ The process described in this guide requires the following:
 
 Use `pip` to install the following dependencies:
 
-- `influxdb-client`
-- `influxdb3-python`
-- `quixstreams<2.5`
-- `pandas`
+- `influxdb-client` (InfluxDB v2 client library)
+- `influxdb3-python` (InfluxDB v3 client library)
+- `quixstreams<2.5` (Quixstreams client library)
+- `pandas` (data analysis and manipulation tool)
 
 
 ```sh
@@ -81,22 +82,22 @@ bucket with a longer retention period.
 
 Ensure you have a bucket for each of the following:
 
-- One to query unmodified data from in your InfluxDB V2 cluster
-- The other to write downsampled data to in your InfluxDB V3 cluster
+- One to query unmodified data from in your InfluxDB v2 cluster
+- The other to write downsampled data to in your InfluxDB v3 cluster
 
 ## Create the downsampling logic
 
-This process reads the raw data from the input Kafka topic that stores data streamed from InfluxDB,
-downsamples it, and then sends it to an output topic which is later written back to InfluxDB.
+This process reads the raw data from the input Kafka topic that stores data streamed from the InfluxDB v2 bucket,
+downsamples it, and then sends it to an output topic which is later written back to an InfluxDB v3 bucket.
 
-1.  Use the Quix Streams library's `Application` class to initialize a connection to Apache Kafka.
+1.  Use the Quix Streams library's `Application` class to initialize a connection to the  Kafka topics.
 
     ```py
     from quixstreams import Application
 
-    app = Application(consumer_group='downsampling-process', auto_offset_reset='earliest')
-    input_topic = app.topic('input')
-    output_topic = app.topic('output')
+    app = Application(consumer_group="downsampling-process", auto_offset_reset="earliest")
+    input_topic = app.topic("input")
+    output_topic = app.topic("output")
     # ...
     ```
 
@@ -105,11 +106,11 @@ downsamples it, and then sends it to an output topic which is later written back
 
     ```py
     # ...
-    target_field = 'temperature' # The field that you want to downsample.
+    target_field = "temperature" # The field that you want to downsample.
 
     def custom_ts_extractor(value):
         # ...
-        # truncated for brevity - custom code that defines the 'time_recorded'
+        # truncated for brevity - custom code that defines the "time_recorded"
         # field as the timestamp to use for windowing...
 
     topic = app.topic(input_topic, timestamp_extractor=custom_ts_extractor)
@@ -123,12 +124,12 @@ downsamples it, and then sends it to an output topic which is later written back
 
     sdf = sdf.apply(
         lambda value: {
-            'time': value['end'],                  # End of the window
-            'temperature_avg': value['value'],     # Average temperature
+            "time": value["end"],                  # End of the window
+            "temperature_avg": value["value"],     # Average temperature
         }
     )
 
-    sdf.to_topic(output_topic) # Output results to the 'downsampled' topic
+    sdf.to_topic(output_topic) # Output results to the "downsampled" topic
     # ...
     ```
 
@@ -143,7 +144,7 @@ You can find the full code for this process in the
 
 ## Create the producer and consumer clients
 
-Use the `influxdb_client`, `influxdb3-python` and `quixstreams` modules to instantiate two clients that interact with InfluxDB (V2 and V3) and Kafka:
+Use the `influxdb_client`, `influxdb3-python` and `quixstreams` modules to instantiate two clients that interact with InfluxDB (v2 and v3) and Kafka:
 
 - A **producer** client configured to read from your InfluxDB bucket with _unmodified_ data and _produce_ that data to Kafka.
 - A **consumer** client configured to _consume_ data from Kafka and write the _downsampled_ data to the corresponding InfluxDB bucket.
@@ -159,7 +160,7 @@ Provide the following credentials for the producer:
   want to query and write to.
 - **INFLUXDB_BUCKET**: InfluxDB bucket name
 
-The producer queries for fresh data from InfluxDB at specific intervals. It writes the raw data to a Kafka topic called 'influxv2-data'
+The producer queries for fresh data from InfluxDB at specific intervals. It writes the raw data to a Kafka topic called `influxv2-data`.
 
 {{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
 ```py
@@ -169,7 +170,7 @@ import influxdb_client
 app = Application(consumer_group="influxdbv2_migrate", auto_create_topics=True)
 # Define the topic using the "output" environment variable
 topic = app.topic(os.getenv("output", "influxv2-data"))
-# Create an InfluxDB V2 client
+# Create an InfluxDB v2 client
 influxdb2_client = influxdb_client.InfluxDBClient(token=os.environ["INFLUXDB_TOKEN"],
                         org=os.environ["INFLUXDB_ORG"],
                         url=os.environ["INFLUXDB_HOST"])
@@ -223,7 +224,7 @@ As before, provide the following credentials for the consumer:
 - **INFLUXDB_BUCKET**: InfluxDB bucket name
 
 {{% note %}}
-Note: These will be your InfluxDB V3 credentials.
+Note: These will be your InfluxDB v3 credentials.
 {{% /note %}}
 
 This process reads messages from the Kafka topic `downsampled-data` and writes each message as a point dictionary back to InfluxDB.
@@ -238,7 +239,7 @@ app = Application(consumer_group=consumer_group_name,
                        auto_offset_reset="earliest")
 # Create the input topic object, this uses json serialization by default.
 input_topic = app.topic(os.environ["input"])
-# Create the InfluxDB V3 client using details in environment variables.
+# Create the InfluxDB v3 client using details in environment variables.
 influx3_client = InfluxDBClient3(token=os.environ["INFLUXDB_TOKEN"],
                          host=os.environ["INFLUXDB_HOST"],
                          org=os.environ["INFLUXDB_ORG"],
@@ -282,8 +283,7 @@ You can find the full code for this process in the
 Now it's time to run the machine data generator code which will populate your source 
 bucket with data which will be read by the [producer](#create-the-consumer).
 
-Run `main.py` from the `Machine data to InfluxDB` folder.
-
+Run `main.py` from the `Machine data to InfluxDB` folder in the GitHub repository.
 
 ## Get the full downsampling code files
 
@@ -308,13 +308,13 @@ This repository contains the following folders which store different parts of th
     [InfluxCommunity repository](https://github.com/InfluxCommunity/Arrow-Task-Engine/blob/master/machine_simulator/src/machine_generator.py)
     but has been adapted to write directly to InfluxDB rather than using an MQTT broker.
     
-- **InfluxDB V2 Data Source**: A service that queries for fresh data from
+- **InfluxDB v2 Data Source**: A service that queries for fresh data from
   InfluxDB at specific intervals. It's configured to look for the measurement
   produced by the previously-mentioned synthetic machine data generator.
   It writes the raw data to a Kafka topic called "influxv2-data".
 - **Downsampler**: A service that performs a 1-minute tumbling window operation
   on the data from InfluxDB and emits the mean of the "temperature" reading
   every minute. It writes the output to a "downsampled" Kafka topic.
-- **InfluxDB V3 Data Sink**: A service that reads from the "downsampled"
+- **InfluxDB v3 Data Sink**: A service that reads from the "downsampled"
   topic and writes the downsampled records as points back into InfluxDB.
 
