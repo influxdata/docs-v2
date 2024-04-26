@@ -12,7 +12,7 @@ aliases:
 
 ## v1.10.4 {date="2024-04-25"}
 
-### Maintenance updates
+### Dependency updates
 
 - Upgrade Go to 1.21.9.
 
