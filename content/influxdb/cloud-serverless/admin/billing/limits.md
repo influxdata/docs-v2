@@ -183,6 +183,47 @@ The following API error responses occur when your plan's service quotas are exce
 | `HTTP 413 "Request Too Large"`  | cannot read data: points in batch is too large | If a **write** request exceeds the maximum [global limit](#global-limits) |  
 | `HTTP 429 "Too Many Requests"`  | Retry-After: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](#global-limits) |
 
+#### Error messages and their meaning
+
+- [Exceeded limited_write plan limit](#exceeded-limited_write-plan-limit)
+- [Exceeded limited_query plan limit](#exceeded-limited_query-plan-limit)
+- [Exceeded limited_query_time plan limit](#exceeded-limited_query_time-plan-limit)
+
+##### Exceeded limited_write plan limit
+
+```http
+org <ORG_ID> has exceeded limited_write plan limit
+```
+
+The `exceeded limited_write plan limit` error message means you have exceeded
+the amount of data your organization can write in a five minute period.
+
+_See [Free plan--Data-in limit](/influxdb/cloud-serverless/admin/billing/limits/#free-plan)
+and [Usage-based plan--Data-in limit](/influxdb/cloud-serverless/admin/billing/limits/#usage-based-plan)._
+
+##### Exceeded limited_query plan limit
+
+```http
+org <ORG_ID> has exceeded limited_query plan limit
+```
+
+The `exceeded limited_query plan limit` error message means you have exceeded
+the amount of data your organization can query in a five minute period.
+
+_See [Free plan--Read limit](/influxdb/cloud-serverless/admin/billing/limits/#free-plan)
+and [Usage-based plan--Read limit](/influxdb/cloud-serverless/admin/billing/limits/#usage-based-plan)._
+
+##### Exceeded limited_query_time plan limit
+
+```http
+org <ORG_ID> has exceeded limited_query_time plan limit
+```
+
+The `exceeded limited_query_time plan limit` error message means your organization
+has exceeded the amount of time allowed for query execution in a 30s period.
+
+_[See Global limits--Total query time](/influxdb/cloud-serverless/admin/billing/limits/#global-limits)._
+
 ### Read (query) limit errors
 
 #### Query would process too many files or partitions

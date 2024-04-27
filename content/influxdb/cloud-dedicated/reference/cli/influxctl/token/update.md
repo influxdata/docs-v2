@@ -12,6 +12,10 @@ weight: 301
 The `influxctl token update` command updates a database token with specified
 permissions to resources in an InfluxDB Cloud Dedicated cluster.
 
+The `--read-database` and `--write-database` flags support the `*` wildcard
+which grants read or write permissions to all databases. Enclose wildcards in
+single or double quotes--for example: `'*'` or `"*"`.
+
 ## Usage
 
 ```sh
@@ -50,6 +54,7 @@ _Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/inf
 ## Examples
 
 - [Update a token's permissions](#update-a-tokens-permissions)
+- [Update a token with read and write access to all databases](#update-a-token-with-read-and-write-access-to-all-databases)
 - [Update a token with read-only access to multiple databases](#update-a-token-with-read-only-access-to-multiple-databases)
 - [Update a token with mixed permissions to multiple databases](#update-a-token-with-mixed-permissions-to-multiple-databases)
 
@@ -66,6 +71,17 @@ In the examples below, replace the following:
 influxctl token update \
   --read-database DATABASE_NAME \
   --write-database DATABASE_NAME \
+  TOKEN_ID
+```
+{{% /code-placeholders %}}
+
+### Update a token with read and write access to all databases
+
+{{% code-placeholders "TOKEN_ID" %}}
+```sh
+influxctl token update \
+  --read-database "*" \
+  --write-database "*" \
   TOKEN_ID
 ```
 {{% /code-placeholders %}}
