@@ -11,6 +11,7 @@ weight: 6
 aliases:
   - /telegraf/v1/plugins/processors/
   - /telegraf/v1/plugins/plugins-list/
+  - /telegraf/v1/plugins/plugin-list/
   - /telegraf/v1/plugins/aggregators/
   - /telegraf/v1/plugins/outputs/
   - /telegraf/v1/plugins/inputs/
