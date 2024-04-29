@@ -44,13 +44,13 @@ and authorized through OAuth to manually create a management token.
     - _Optional_: the `--expires-at` flag with an RFC3339 date string that defines the
       token expiration date and time--for example, `{{< datetime/current-date offset=1 >}}`.
       If expiration isn't set, the token does not expire until revoked.
-    - _Optional_: the `--description` flag with a description for the management token.
+    - _Optional_: the `--description` flag with a description for the management token in double quotes `""`.
 
 {{% code-placeholders "RFC3339_EXPIRATION|TOKEN_DESCRIPTION" %}}
 ```sh
 influxctl management create \
-  --expire-at RFC3339_EXPIRATION \
-  --description TOKEN_DESCRIPTION
+  --expires-at RFC3339_EXPIRATION \
+  --description "TOKEN_DESCRIPTION"
 ```
 {{% /code-placeholders %}}
 

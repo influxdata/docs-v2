@@ -80,6 +80,11 @@ to update a database token's permissions in your {{< product-name omit=" Cluster
     - Token permissions (read and write)
       - `--read-database`: Grants read permissions to the specified database. Repeatable.
       - `--write-database`: Grants write permissions to the specified database. Repeatable.
+
+      Both of these flags support the `*` wildcard which grants read or write
+      permissions to all databases. Enclose wildcards in single or double
+      quotes--for example: `'*'` or `"*"`.
+
     - the token ID
 
 {{% code-placeholders "DATABASE_NAME|TOKEN_ID" %}}
@@ -179,6 +184,7 @@ To retain existing permissions, include them in the update command.
 ### Examples
 
 - [Update a token with read and write access to a database](#update-a-token-with-read-and-write-access-to-a-database)
+- [Update a token with read and write access to all databases](#update-a-token-with-read-and-write-access-to-all-databases)
 - [Update a token with read-only access to a database](#update-a-token-with-read-only-access-to-a-database)
 - [Update a token with read-only access to multiple databases](#update-a-token-with-read-only-access-to-multiple-databases)
 - [Update a token with mixed permissions to multiple databases](#update-a-token-with-mixed-permissions-to-multiple-databases)
@@ -237,6 +243,48 @@ curl \
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+{{% /code-placeholders %}}
+
+#### Update a token with read and write access to all databases
+
+{{% code-placeholders "TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" %}}
+{{% code-tabs-wrapper %}}
+{{% code-tabs %}}
+[influxctl](#)
+[Management API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+```sh
+influxctl token update \
+  --read-database "*" \
+  --write-database "*" \
+  TOKEN_ID
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+curl \
+   --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" \
+   --request PATCH \
+   --header "Accept: application/json" \
+   --header 'Content-Type: application/json' \
+   --header "Authorization: Bearer MANAGEMENT_TOKEN" \
+   --data '{
+     "permissions": [
+       {
+         "action": "read",
+         "resource": "*"
+       },
+       {
+         "action": "write",
+         "resource": "*"
+       }
+      ]
+   }'
+```
+{{% /code-tab-content %}}
+{{% /code-tabs-wrapper %}}
 {{% /code-placeholders %}}
 
 #### Update a token for read-only access to a database

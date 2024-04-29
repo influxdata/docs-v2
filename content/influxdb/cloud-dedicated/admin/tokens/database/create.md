@@ -69,6 +69,11 @@ to create a token that grants access to databases in your InfluxDB Cloud Dedicat
     - Token permissions (read and write)
       - `--read-database`: Grants read permissions to the specified database. Repeatable.
       - `--write-database`: Grants write permissions to the specified database. Repeatable.
+
+      Both of these flags support the `*` wildcard which grants read or write
+      permissions to all databases. Enclose wildcards in single or double
+      quotes--for example: `'*'` or `"*"`.
+
     - Token description
 
 {{% code-placeholders "DATABASE_NAME|TOKEN_DESCRIPTION" %}}
@@ -181,6 +186,7 @@ The Management API outputs JSON format in the response body.
 ### Examples
 
 - [Create a token with read and write access to a database](#create-a-token-with-read-and-write-access-to-a-database)
+- [Create a token with read and write access to all databases](#create-a-token-with-read-and-write-access-to-all-databases)
 - [Create a token with read-only access to a database](#create-a-token-with-read-only-access-to-a-database)
 - [Create a token with read-only access to multiple databases](#create-a-token-with-read-only-access-to-multiple-databases)
 - [Create a token with mixed permissions to multiple databases](#create-a-token-with-mixed-permissions-to-multiple-databases)
@@ -195,13 +201,13 @@ In the examples below, replace the following:
 
 #### Create a token with read and write access to a database
 
+{{% code-placeholders "DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
 [influxctl](#)
 [Management API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-{{% code-placeholders "DATABASE_NAME" %}}
 
 ```sh
 influxctl token create \
@@ -210,12 +216,8 @@ influxctl token create \
   "Read/write token for DATABASE_NAME"
 ```
 
-{{% /code-placeholders %}}
-
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-
-{{% code-placeholders "DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
 
 ```sh
 curl \
@@ -238,9 +240,53 @@ curl \
    }'
 ```
 
-{{% /code-placeholders %}}
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+{{% /code-placeholders %}}
+
+#### Create a token with read and write access to all databases
+
+{{% code-tabs-wrapper %}}
+{{% code-tabs %}}
+[influxctl](#)
+[Management API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+```sh
+influxctl token create \
+  --read-database "*" \
+  --write-database "*" \
+  "Read/write token for all databases"
+```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
+```sh
+curl \
+   --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" \
+   --header "Accept: application/json" \
+   --header 'Content-Type: application/json' \
+   --header "Authorization: Bearer MANAGEMENT_TOKEN" \
+   --data '{
+     "description": "Read/write token for all databases",
+     "permissions": [
+       {
+         "action": "write",
+         "resource": "*"
+       },
+       {
+         "action": "read",
+         "resource": "*"
+       }
+     ]
+   }'
+```
+{{% /code-placeholders %}}
+{{% /code-tab-content %}}
+{{% /code-tabs-wrapper %}}
 
 #### Create a token with read-only access to a database
 
