@@ -41,7 +41,7 @@ Use the [`influxctl database list` command](/influxdb/cloud-dedicated/reference/
 to list databases in your InfluxDB Cloud Dedicated cluster.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
-2.  Run the `influxctl database list` command and provide the following:
+2. In your terminal, run the `influxctl database list` command and provide the following:
 
     - _Optional_: [Output format](#output-format)
 
@@ -56,7 +56,7 @@ influxctl database list --format table
 _This example uses [cURL](https://curl.se/) to send a Management HTTP API request, but you can use any HTTP client._
 
 1. If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
-2. In your terminal, use cURL to send a request to the following {{% product-name %}} console endpoint:
+2. In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
    {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="get" api-ref="/influxdb/cloud-dedicated/api/management/#operation/GetClusterDatabases" %}}
 
