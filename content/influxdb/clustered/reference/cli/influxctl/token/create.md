@@ -13,6 +13,10 @@ The `influxctl token create` command creates a database token with specified
 permissions to resources in an InfluxDB cluster and outputs
 the token string.
 
+The `--read-database` and `--write-database` flags support the `*` wildcard
+which grants read or write permissions to all databases. Enclose wildcards in
+single or double quotes--for example: `'*'` or `"*"`.
+
 The `--format` flag lets you print the output in other formats.
 The `json` format is available for programmatic parsing by other tooling.
 Default: `table`.
@@ -55,6 +59,7 @@ _Also see [`influxctl` global flags](/influxdb/clustered/reference/cli/influxctl
 ## Examples
 
 - [Create a token with read and write access to a database](#create-a-token-with-read-and-write-access-to-a-database)
+- [Create a token with read and write access to all databases](#create-a-token-with-read-and-write-access-to-all-databases)
 - [Create a token with read-only access to a database](#create-a-token-with-read-only-access-to-a-database)
 - [Create a token with read-only access to multiple databases](#create-a-token-with-read-only-access-to-multiple-databases)
 - [Create a token with mixed permissions to multiple databases](#create-a-token-with-mixed-permissions-on-multiple-databases)
@@ -75,6 +80,15 @@ influxctl token create \
   "Read/write token for DATABASE_NAME"
 ```
 {{% /code-placeholders %}}
+
+### Create a token with read and write access to all databases
+
+```sh
+influxctl token create \
+  --read-database "*" \
+  --write-database "*" \
+  "Read/write token for all databases"
+```
 
 ### Create a token with read-only access to a database
 
