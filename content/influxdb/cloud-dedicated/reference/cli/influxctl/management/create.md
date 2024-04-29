@@ -74,7 +74,7 @@ influxctl management create
 ```sh
 influxctl management create \
   --expires-at RFC3339_EXPIRATION \
-  --description TOKEN_DESCRIPTION
+  --description "TOKEN_DESCRIPTION"
 ```
 {{% /code-placeholders %}}
 
