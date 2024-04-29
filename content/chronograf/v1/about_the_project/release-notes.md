@@ -10,6 +10,12 @@ aliases:
   - /chronograf/v1/about_the_project/release-notes-changelog/
 ---
 
+## v1.10.4 {date="2024-04-25"}
+
+### Dependency updates
+
+- Upgrade Go to 1.21.9.
+
 ## v1.10.3 {date="2024-02-28"}
 
 ### Features

@@ -87,7 +87,7 @@ chronograf:
   versions: [v1]
   latest: v1.10
   latest_patches:
-    v1: 1.10.3
+    v1: 1.10.4
 
 kapacitor:
   name: Kapacitor
