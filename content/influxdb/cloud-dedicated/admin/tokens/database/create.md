@@ -31,6 +31,11 @@ to create a token that grants access to databases in your InfluxDB Cloud Dedicat
     - Token permissions (read and write)
       - `--read-database`: Grants read permissions to the specified database. Repeatable.
       - `--write-database`: Grants write permissions to the specified database. Repeatable.
+
+      Both of these flags support the `*` wildcard which grants read or write
+      permissions to all databases. Enclose wildcards in single or double
+      quotes--for example: `'*'` or `"*"`.
+
     - Token description
 
 {{% code-placeholders "DATABASE_NAME|TOKEN_DESCRIPTION" %}}
@@ -63,6 +68,7 @@ For example, see how to [authenticate Telegraf using tokens in your OS secret st
 ### Examples
 
 - [Create a token with read and write access to a database](#create-a-token-with-read-and-write-access-to-a-database)
+- [Create a token with read and write access to all databases](#create-a-token-with-read-and-write-access-to-all-databases)
 - [Create a token with read-only access to a database](#create-a-token-with-read-only-access-to-a-database)
 - [Create a token with read-only access to multiple databases](#create-a-token-with-read-only-access-to-multiple-databases)
 - [Create a token with mixed permissions to multiple databases](#create-a-token-with-mixed-permissions-to-multiple-databases)
@@ -82,6 +88,15 @@ influxctl token create \
   "Read/write token for DATABASE_NAME"
 ```
 {{% /code-placeholders %}}
+
+#### Create a token with read and write access to all databases
+
+```sh
+influxctl token create \
+  --read-database "*" \
+  --write-database "*" \
+  "Read/write token for all databases"
+```
 
 #### Create a token with read-only access to a database
 
