@@ -49,7 +49,7 @@ and authorized through OAuth to manually create a management token.
 {{% code-placeholders "RFC3339_EXPIRATION|TOKEN_DESCRIPTION" %}}
 ```sh
 influxctl management create \
-  --expire-at RFC3339_EXPIRATION \
+  --expires-at RFC3339_EXPIRATION \
   --description TOKEN_DESCRIPTION
 ```
 {{% /code-placeholders %}}
