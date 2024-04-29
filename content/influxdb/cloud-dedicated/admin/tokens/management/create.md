@@ -45,7 +45,7 @@ management token.
     - _Optional_: the `--expires-at` flag with an RFC3339 date string that defines the
       token expiration date and time--for example, `{{< datetime/current-date offset=1 >}}`.
       If an expiration isn't set, the token does not expire until revoked.
-    - _Optional_: the `--description` flag with a description for the management token, in double quotes `""`.
+    - _Optional_: the `--description` flag with a description for the management token in double quotes `""`.
 
 {{% code-placeholders "RFC3339_EXPIRATION|TOKEN_DESCRIPTION" %}}
 ```sh
@@ -60,7 +60,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`RFC3339_EXPIRATION`{{% /code-placeholder-key %}}:
   An RFC3339 date string to expire the token at--for example,
   `{{< datetime/current-date offset=1 >}}`.
-- {{% code-placeholder-key %}}`"TOKEN_DESCRIPTION"`{{% /code-placeholder-key %}}:
+- {{% code-placeholder-key %}}`TOKEN_DESCRIPTION`{{% /code-placeholder-key %}}:
   Management token description.
 
 Once created, the command returns the management token string.
