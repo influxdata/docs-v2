@@ -8,7 +8,7 @@ menu:
     name: Quix
     parent: Downsample data
     identifier: influxdb_v2-downsample-quix
-weight: 2012
+weight: 202
 influxdb/v2/tags: [tasks]
 ---
 
