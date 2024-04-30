@@ -5,9 +5,10 @@ description: >
   How to create Python service that downsamples data with Quix Streams.
 menu:
   influxdb_v2:
-    name: Downsample data - Quix
-    parent: Common tasks
-weight: 201
+    name: Quix
+    parent: Downsample data
+    identifier: influxdb_v2-downsample-quix
+weight: 2012
 influxdb/v2/tags: [tasks]
 ---
 

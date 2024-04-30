@@ -7,7 +7,7 @@ menu:
   influxdb_cloud_dedicated:
     name: Use client libraries
     parent: Downsample data
-    identifier: influddb-dedicated-downsample-client-libraries
+    identifier: influxdb-dedicated-downsample-client-libraries
 weight: 101
 related:
   - /influxdb/cloud-dedicated/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
