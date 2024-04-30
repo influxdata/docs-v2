@@ -6,10 +6,11 @@ description: >
   in previous versions of InfluxDB.
 menu:
   influxdb_cloud:
-    name: Downsample data
-    parent: Common tasks
+    name: InfluxDB
+    parent: Downsample data
+    identifier: influxdb_cloud-downsample-influxdb
 weight: 201
-influxdb/cloud/tags: [tasks]
+influxdb/v2/tags: [tasks]
 ---
 
 One of the most common use cases for InfluxDB tasks is downsampling data to reduce
@@ -32,7 +33,7 @@ A separate bucket where aggregated, downsampled data is stored.
 To downsample data, it must be aggregated in some way.
 What specific method of aggregation you use depends on your specific use case,
 but examples include mean, median, top, bottom, etc.
-View [Flux's aggregate functions](/flux/v0/stdlib/universe/)
+View [Flux's aggregate functions](/flux/v0/function-types/#aggregates)
 for more information and ideas.
 
 ## Example downsampling task script
@@ -47,7 +48,6 @@ The example task script below is a very basic form of data downsampling that doe
    `my-org` organization.
 
 ```js
-// Task Options
 // Task Options
 option task = {name: "cq-mem-data-1w", every: 1w}
 
@@ -67,12 +67,11 @@ Again, this is a very basic example, but it should provide you with a foundation
 to build more complex downsampling tasks.
 
 ## Add your task
-Once your task is ready, see [Create a task](/influxdb/cloud/process-data/manage-tasks/create-task) for information about adding it to InfluxDB.
+Once your task is ready, see [Create a task](/influxdb/v2/process-data/manage-tasks/create-task) for information about adding it to InfluxDB.
 
 ## Things to consider
 - If there is a chance that data may arrive late, specify an `offset` in your
   task options long enough to account for late-data.
-- If running a task against a bucket with a finite retention period, do not schedule
-  tasks to run too closely to the end of the retention period.
-  Always provide a "cushion" for downsampling tasks to complete before the data
-  is dropped by the retention period.
+- If running a task against a bucket with a finite retention period,
+  schedule tasks to run prior to the end of the retention period to let
+  downsampling tasks complete before data outside of the retention period is dropped.

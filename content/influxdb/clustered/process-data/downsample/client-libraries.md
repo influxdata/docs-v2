@@ -1,15 +1,16 @@
 ---
-title: Downsample data stored in InfluxDB
+title: Downsample data with client libraries
 description: >
-  Query and downsample time series data stored in InfluxDB and write the
-  downsampled data back to InfluxDB.
+  Use InfluxDB client libraries to query and downsample time series data stored
+  in InfluxDB then write the downsampled data back to InfluxDB.
 menu:
-  influxdb_cloud_dedicated:
-    name: Downsample data
-    parent: Process & visualize data
-weight: 101
+  influxdb_clustered:
+    name: Use client libraries
+    parent: Downsample data
+    identifier: downsample-client-libs
+weight: 201
 related:
-  - /influxdb/cloud-dedicated/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
+  - /influxdb/cloud-serverless/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
 ---
 
 Query and downsample time series data stored in InfluxDB and write the
@@ -18,12 +19,12 @@ downsampled data back to InfluxDB.
 This guide uses [Python](https://www.python.org/) and the
 [InfluxDB v3 Python client library](https://github.com/InfluxCommunity/influxdb3-python),
 but you can use your runtime of choice and any of the available
-[InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/).
+[InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/).
 This guide also assumes you have already
-[setup your Python project and virtual environment](/influxdb/cloud-dedicated/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
+[setup your Python project and virtual environment](/influxdb/cloud-serverless/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
 
 - [Install dependencies](#install-dependencies)
-- [Prepare InfluxDB databases](#prepare-influxdb-databases)
+- [Prepare InfluxDB buckets](#prepare-influxdb-buckets)
 - [Create InfluxDB clients](#create-influxdb-clients)
 - [Query InfluxDB](#query-influxdb)
   - [Define a query that performs time-based aggregations](#define-a-query-that-performs-time-based-aggregations)
@@ -42,57 +43,59 @@ Use `pip` to install the following dependencies:
 pip install influxdb3-python pandas
 ```
 
-## Prepare InfluxDB databases
+## Prepare InfluxDB buckets
 
-The downsampling process involves two InfluxDB databases.
-Each database has a [retention period](/influxdb/cloud-dedicated/reference/glossary/#retention-period)
+The downsampling process involves two InfluxDB buckets.
+Each bucket has a [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period)
 that specifies how long data persists in the database before it expires and is deleted.
-By using two databases, you can store unmodified, high-resolution data in a database
+By using two buckets, you can store unmodified, high-resolution data in a bucket
 with a shorter retention period and then downsampled, low-resolution data in a
-database with a longer retention period.
+bucket with a longer retention period.
 
-Ensure you have a database for each of the following:
+Ensure you have a bucket for each of the following:
 
 - One to query unmodified data from
 - The other to write downsampled data to
 
-For information about creating databases, see
-[Create a database](/influxdb/cloud-dedicated/admin/databases/create/).
+For information about creating buckets, see
+[Create a bucket](/influxdb/cloud-serverless/admin/buckets/create-bucket/).
 
 ## Create InfluxDB clients
 
 Use the `InfluxDBClient3` function in the `influxdb_client_3` module to 
 instantiate two InfluxDB clients:
 
-- One configured to connect to your InfluxDB database with _unmodified_ data.
-- The other configured to connect to the InfluxDB database that you want to
+- One configured to connect to your InfluxDB bucket with _unmodified_ data.
+- The other configured to connect to the InfluxDB bucket that you want to
   write _downsampled_ data to.
 
 Provide the following credentials for each client:
 
-- **host**: {{< product-name omit="Clustered" >}} cluster URL _(without the protocol)_
-- **token**: [InfluxDB database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
-  with read and write permissions on the databases you want to query and write to.
-- **database**: InfluxDB database name
+- **host**: [{{< product-name >}} region URL](/influxdb/cloud-serverless/reference/regions)
+  _(without the protocol)_
+- **org**: InfluxDB organization name
+- **token**: InfluxDB API token with read and write permissions on the buckets you
+  want to query and write to.
+- **database**: InfluxDB bucket name
 
-{{% code-placeholders "((RAW_|DOWNSAMPLED_)*DATABASE)_(NAME|TOKEN)" %}}
+{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
 ```py
 from influxdb_client_3 import InfluxDBClient3
 import pandas
 
-# Instantiate an InfluxDBClient3 client configured for your unmodified database
+# Instantiate an InfluxDBClient3 client configured for your unmodified bucket
 influxdb_raw = InfluxDBClient3(
     host='{{< influxdb/host >}}',
-    token='DATABASE_TOKEN',
-    database='RAW_DATABASE_NAME'
+    token='API_TOKEN',
+    database='RAW_BUCKET_NAME'
 )
 
 # Instantiate an InfluxDBClient3 client configured for your downsampled database.
 # When writing, the org= argument is required by the client (but ignored by InfluxDB).
 influxdb_downsampled = InfluxDBClient3(
     host='{{< influxdb/host >}}',
-    token='DATABASE_TOKEN',
-    database='DOWNSAMPLED_DATABASE_NAME',
+    token='API_TOKEN',
+    database='DOWNSAMPLED_BUCKET_NAME',
     org=''
 )
 ```
@@ -120,14 +123,14 @@ functions to time intervals.
 
 1.  In the `SELECT` clause:
 
-    - Use [`DATE_BIN`](/influxdb/cloud-dedicated/reference/sql/functions/time-and-date/#date_bin)
+    - Use [`DATE_BIN`](/influxdb/cloud-serverless/reference/sql/functions/time-and-date/#date_bin)
       to assign each row to an interval based on the row's timestamp and update
       the `time` column with the assigned interval timestamp.
-      You can also use [`DATE_BIN_GAPFILL`](/influxdb/cloud-dedicated/reference/sql/functions/time-and-date/#date_bin_gapfill) 
+      You can also use [`DATE_BIN_GAPFILL`](/influxdb/cloud-serverless/reference/sql/functions/time-and-date/#date_bin_gapfill) 
       to fill any gaps created by intervals with no data
-      _(see [Fill gaps in data with SQL](/influxdb/cloud-dedicated/query-data/sql/fill-gaps/))_.
-    - Apply an [aggregate](/influxdb/cloud-dedicated/reference/sql/functions/aggregate/)
-      or [selector](/influxdb/cloud-dedicated/reference/sql/functions/selector/)
+      _(see [Fill gaps in data with SQL](/influxdb/cloud-serverless/query-data/sql/fill-gaps/))_.
+    - Apply an [aggregate](/influxdb/cloud-serverless/reference/sql/functions/aggregate/)
+      or [selector](/influxdb/cloud-serverless/reference/sql/functions/selector/)
       function to each queried field.
 
 2.  Include a `GROUP BY` clause that groups by intervals returned from the `DATE_BIN`
@@ -137,7 +140,7 @@ functions to time intervals.
 3.  Include an `ORDER BY` clause that sorts data by `time`.
 
 _For more information, see
-[Aggregate data with SQL - Downsample data by applying interval-based aggregates](/influxdb/cloud-dedicated/query-data/sql/aggregate-select/#downsample-data-by-applying-interval-based-aggregates)._
+[Aggregate data with SQL - Downsample data by applying interval-based aggregates](/influxdb/cloud-serverless/query-data/sql/aggregate-select/#downsample-data-by-applying-interval-based-aggregates)._
 
 ```sql
 SELECT
@@ -160,8 +163,8 @@ ORDER BY time
 {{% tab-content %}}
 
 1.  In the `SELECT` clause, apply an
-    [aggregate](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates/)
-    or [selector](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/)
+    [aggregate](/influxdb/cloud-serverless/reference/influxql/functions/aggregates/)
+    or [selector](/influxdb/cloud-serverless/reference/influxql/functions/selectors/)
     function to queried fields.
 
 2.  Include a `GROUP BY` clause that groups by `time()` at a specified interval.
@@ -252,19 +255,19 @@ data_frame = table.to_pandas()
     You'll avoid measurement name conflicts when querying your downsampled data later. 
 2.  Use the `sort_values` method to sort data in the Pandas DataFrame by `time`
     to ensure writing back to InfluxDB is as performant as possible.
-3.  Use the `write` method of your [instantiated downsampled client](#create-an-influxdb-client)
-    to write the query results back to your InfluxDB database for downsampled data.
+2.  Use the `write` method of your [instantiated downsampled client](#create-an-influxdb-client)
+    to write the query results back to your InfluxDB bucket for downsampled data.
     Include the following arguments:
 
     - **record**: Pandas DataFrame containing downsampled data
     - **data_frame_measurement_name**: Destination measurement name
     - **data_frame_timestamp_column**: Column containing timestamps for each point
-    - **data_frame_tag_columns**: List of [tag](/influxdb/cloud-dedicated/reference/glossary/#tag)
+    - **data_frame_tag_columns**: List of [tag](/influxdb/cloud-serverless/reference/glossary/#tag)
       columns 
       
     {{% note %}}
 Columns not listed in the **data_frame_tag_columns** or **data_frame_timestamp_column**
-arguments are written to InfluxDB as [fields](/influxdb/cloud-dedicated/reference/glossary/#field).
+arguments are written to InfluxDB as [fields](/influxdb/cloud-serverless/reference/glossary/#field).
     {{% /note %}}
 
 ```py
@@ -291,22 +294,22 @@ influxdb_downsampled.write(
 <!--------------------------------- BEGIN SQL --------------------------------->
 {{% code-tab-content %}}
 
-{{% code-placeholders "((RAW_|DOWNSAMPLED_)*DATABASE)_(NAME|TOKEN)" %}}
+{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
 ```py
 from influxdb_client_3 import InfluxDBClient3
 import pandas
 
 influxdb_raw = InfluxDBClient3(
     host='{{< influxdb/host >}}',
-    token='DATABASE_TOKEN',
-    database='RAW_DATABASE_NAME'
+    token='API_TOKEN',
+    database='RAW_BUCKET_NAME'
 )
 
 # When writing, the org= argument is required by the client (but ignored by InfluxDB).
 influxdb_downsampled = InfluxDBClient3(
     host='{{< influxdb/host >}}',
-    token='DATABASE_TOKEN',
-    database='DOWNSAMPLED_DATABASE_NAME',
+    token='API_TOKEN',
+    database='DOWNSAMPLED_BUCKET_NAME',
     org=''
 )
 
@@ -344,22 +347,23 @@ influxdb_downsampled.write(
 <!------------------------------- BEGIN INFLUXQL ------------------------------>
 {{% code-tab-content %}}
 
-{{% code-placeholders "((RAW_|DOWNSAMPLED_)*DATABASE)_(NAME|TOKEN)" %}}
+{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
 ```py
 from influxdb_client_3 import InfluxDBClient3
 import pandas
 
 influxdb_raw = InfluxDBClient3(
     host='{{< influxdb/host >}}',
-    token='DATABASE_TOKEN',
-    database='RAW_DATABASE_NAME'
+    org='ORG_NAME',
+    token='API_TOKEN',
+    database='RAW_BUCKET_NAME'
 )
 
 # When writing, the org= argument is required by the client (but ignored by InfluxDB).
 influxdb_downsampled = InfluxDBClient3(
     host='{{< influxdb/host >}}',
-    token='DATABASE_TOKEN',
-    database='DOWNSAMPLED_DATABASE_NAME',
+    token='API_TOKEN',
+    database='DOWNSAMPLED_BUCKET_NAME',
     org=''
 )
 
