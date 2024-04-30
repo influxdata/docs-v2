@@ -5,7 +5,7 @@ description: >
   data stored in InfluxDB and written to Kafka at regular intervals, continuously
   downsample it, and then write the downsampled data back to InfluxDB.
 menu:
-  influxdb_cloud_serverless:
+  influxdb_cloud_dedicated:
     name: Use Quix
     parent: Downsample data
     identifier: influddb-dedicated-downsample-quix
