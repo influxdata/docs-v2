@@ -60,6 +60,7 @@ influxctl write [flags] <LINE_PROTOCOL>
 |      | `--batch-size` | Number of metrics to write per batch (default is `10000`)           |
 |      | `--database`   | Database to write to                                                |
 |      | `--precision`  | Precision of data timestamps (`ns` _(default)_, `us`, `ms`, or `s`) |
+|      | `--timeout`    | Client timeout in seconds (default is `10`)                         |
 |      | `--token`      | Database token with write permissions on the target database        |
 | `-h` | `--help`       | Output command help                                                 |
 
