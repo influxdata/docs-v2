@@ -141,7 +141,6 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Name of the database to query
 
-
 ## Output format
 
 The `influxctl query` command supports the following output formats:
@@ -186,37 +185,76 @@ influxctl query \
     "hum": 35.9,
     "room": "Kitchen",
     "temp": 21,
-    "time": "2022-01-01T08:00:00Z"
+    "time": 1641024000000000000
   },
   {
     "co": 0,
     "hum": 36.2,
     "room": "Kitchen",
     "temp": 23,
-    "time": "2022-01-01T09:00:00Z"
+    "time": 1641027600000000000
   },
   {
     "co": 0,
     "hum": 36.1,
     "room": "Kitchen",
     "temp": 22.7,
-    "time": "2022-01-01T10:00:00Z"
+    "time": 1641031200000000000
   },
   {
     "co": 0,
     "hum": 36,
     "room": "Kitchen",
     "temp": 22.4,
-    "time": "2022-01-01T11:00:00Z"
+    "time": 1641034800000000000
   },
   {
     "co": 0,
     "hum": 36,
     "room": "Kitchen",
     "temp": 22.5,
-    "time": "2022-01-01T12:00:00Z"
+    "time": 1641038400000000000
   }
 ]
+```
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## Timestamp format
+
+When using the `table` [output format](#output-format), you can specify which of
+the following timestamp formats to use to display timestamp values in the query
+results:
+
+- `rfc3339`: _(Default)_
+  [RFC3339-formatted timestamp](/influxdb/clustered/reference/glossary/#rfc3339-timestamp)--for example:
+  `2024-01-01T00:00:00.000000000Z`
+- `unix`: [Unix nanosecond timestamp](/influxdb/clustered/reference/glossary/#unix-timestamp)
+
+{{% influxdb/custom-timestamps %}}
+```sh
+influxctl query \
+  --time-format unix \
+  "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' LIMIT 5"
+```
+{{% /influxdb/custom-timestamps %}}
+
+{{< expand-wrapper >}}
+{{% expand "View example results with unix nanosecond timestamps" %}}
+{{% influxdb/custom-timestamps %}}
+```
++-------+--------+---------+------+---------------------+
+|    co |    hum | room    | temp |                time |
++-------+--------+---------+------+---------------------+
+|     0 |   35.9 | Kitchen |   21 | 1641024000000000000 |
+|     0 |   36.2 | Kitchen |   23 | 1641027600000000000 |
+|     0 |   36.1 | Kitchen | 22.7 | 1641031200000000000 |
+|     0 |     36 | Kitchen | 22.4 | 1641034800000000000 |
+|     0 |     36 | Kitchen | 22.5 | 1641038400000000000 |
++-------+--------+---------+------+---------------------+
+| TOTAL | 5 ROWS |         |      |                     |
++-------+--------+---------+------+---------------------+
 ```
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
