@@ -5,15 +5,11 @@ description: >
   data stored in InfluxDB and written to Kafka at regular intervals, continuously
   downsample it, and then write the downsampled data back to InfluxDB.
 menu:
-
-menu:
   influxdb_cloud_serverless:
     name: Use Quix
     parent: Downsample data
-    identifier: downsample-quix
-weight: 202
-related:
-  - /influxdb/cloud-serverless/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
+    identifier: influddb-dedicated-downsample-quix
+weight: 102
 ---
 
 Use [Quix Streams](https://github.com/quixio/quix-streams) to query time series

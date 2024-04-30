@@ -5,8 +5,9 @@ description: >
   downsampled data back to InfluxDB.
 menu:
   influxdb_cloud_dedicated:
-    name: Downsample data
-    parent: Process & visualize data
+    name: Use client libraries
+    parent: Downsample data
+    identifier: influddb-dedicated-downsample-client-libraries
 weight: 101
 related:
   - /influxdb/cloud-dedicated/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
