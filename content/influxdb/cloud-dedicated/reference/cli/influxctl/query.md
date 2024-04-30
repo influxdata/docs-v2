@@ -49,6 +49,14 @@ The `--format` flag lets you print the output in other formats.
 The `json` format is available for programmatic parsing by other tooling.
 Default: `table`.
 
+When using the `table` format, by default, timestamps are formatted as RFC3339
+timestamps. Use the `--time-format` flag to specify one of the available time formats:
+
+- `rfc3339`: _(Default)_
+  [RFC3339-formatted timestamp](/influxdb/cloud-dedicated/reference/glossary/#rfc3339-timestamp)--for example:
+  `2024-01-01T00:00:00.000000000Z`
+- `unix`: [Unix nanosecond timestamp](/influxdb/cloud-dedicated/reference/glossary/#unix-timestamp)
+
 ## Usage
 
 ```sh
@@ -63,14 +71,15 @@ influxctl query [flags] <QUERY>
 
 ## Flags
 
-| Flag |                          | Description                                                  |
-| :--- | :----------------------- | :----------------------------------------------------------- |
-|      | `--database`             | Database to query                                            |
-|      | `--enable-system-tables` | Enable ability to query system tables                        |
-|      | `--format`               | Output format (`table` _(default)_ or `json`)                |
-|      | `--language`             | Query language (`sql` _(default)_ or `influxql`)             |
-|      | `--token`                | Database token with read permissions on the queried database |
-| `-h` | `--help`                 | Output command help                                          |
+| Flag |                          | Description                                                    |
+| :--- | :----------------------- | :------------------------------------------------------------- |
+|      | `--database`             | Database to query                                              |
+|      | `--enable-system-tables` | Enable ability to query system tables                          |
+|      | `--format`               | Output format (`table` _(default)_ or `json`)                  |
+|      | `--language`             | Query language (`sql` _(default)_ or `influxql`)               |
+|      | `--time-format`          | Time format for table output (`rfc3339` _(default)_ or `unix`) |
+|      | `--token`                | Database token with read permissions on the queried database   |
+| `-h` | `--help`                 | Output command help                                            |
 
 {{% caption %}}
 _Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
@@ -82,6 +91,7 @@ _Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/inf
 - [Query InfluxDB v3 with InfluxQL](#query-influxdb-v3-with-influxql)
 - [Query InfluxDB v3 and return results in table format](#query-influxdb-v3-and-return-results-in-table-format)
 - [Query InfluxDB v3 and return results in JSON format](#query-influxdb-v3-and-return-results-in-json-format)
+- [Query InfluxDB v3 and return results with Unix nanosecond timestamps](#query-influxdb-v3-and-return-results-with-unix-nanosecond-timestamps)
 - [Query InfluxDB v3 using credentials from the connection profile](#query-influxdb-v3-using-credentials-from-the-connection-profile)
 - [Query data from InfluxDB v3 system tables](#query-data-from-influxdb-v3-system-tables)
 
@@ -288,37 +298,100 @@ cat ./query.sql | influxctl query \
     "hum": 35.9,
     "room": "Kitchen",
     "temp": 21,
-    "time": "2022-01-01T08:00:00Z"
+    "time": 1641024000000000000
   },
   {
     "co": 0,
     "hum": 36.2,
     "room": "Kitchen",
     "temp": 23,
-    "time": "2022-01-01T09:00:00Z"
+    "time": 1641027600000000000
   },
   {
     "co": 0,
     "hum": 36.1,
     "room": "Kitchen",
     "temp": 22.7,
-    "time": "2022-01-01T10:00:00Z"
+    "time": 1641031200000000000
   },
   {
     "co": 0,
     "hum": 36,
     "room": "Kitchen",
     "temp": 22.4,
-    "time": "2022-01-01T11:00:00Z"
+    "time": 1641034800000000000
   },
   {
     "co": 0,
     "hum": 36,
     "room": "Kitchen",
     "temp": 22.5,
-    "time": "2022-01-01T12:00:00Z"
+    "time": 1641038400000000000
   }
 ]
+```
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### Query InfluxDB v3 and return results with Unix nanosecond timestamps
+
+{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[string](#)
+[file](#)
+[stdin](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+{{% influxdb/custom-timestamps %}}
+```sh
+influxctl query \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  --time-format unix \
+  "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' LIMIT 5"
+```
+{{% /influxdb/custom-timestamps %}}
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+influxctl query \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  --time-format unix \
+  /path/to/query.sql
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+cat ./query.sql | influxctl query \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  --time-format unix \
+  - 
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /code-placeholders %}}
+
+{{< expand-wrapper >}}
+{{% expand "View example table-formatted results" %}}
+{{% influxdb/custom-timestamps %}}
+```
++-------+--------+---------+------+---------------------+
+|    co |    hum | room    | temp |                time |
++-------+--------+---------+------+---------------------+
+|     0 |   35.9 | Kitchen |   21 | 1641024000000000000 |
+|     0 |   36.2 | Kitchen |   23 | 1641027600000000000 |
+|     0 |   36.1 | Kitchen | 22.7 | 1641031200000000000 |
+|     0 |     36 | Kitchen | 22.4 | 1641034800000000000 |
+|     0 |     36 | Kitchen | 22.5 | 1641038400000000000 |
++-------+--------+---------+------+---------------------+
+| TOTAL | 5 ROWS |         |      |                     |
++-------+--------+---------+------+---------------------+
 ```
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
@@ -389,6 +462,11 @@ cat ./query.sql | influxctl query \
 {{% /code-placeholders %}}
 
 {{% expand "View command updates" %}}
+
+#### v2.9.0 {date="2024-05-03"}
+
+- Add `--time-format` flag to specify which timestamp format to use in the
+  `table` output format.
 
 #### v2.8.0 {date="2024-04-11"}
 
