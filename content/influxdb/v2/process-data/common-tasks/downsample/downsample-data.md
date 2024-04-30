@@ -9,7 +9,7 @@ menu:
     name: InfluxDB
     parent: Downsample data
     identifier: influxdb_v2-downsample-influxdb
-weight: 2011
+weight: 301
 influxdb/v2/tags: [tasks]
 ---
 
