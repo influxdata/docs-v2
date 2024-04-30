@@ -4,12 +4,10 @@ description: >
   Learn about different methods for querying and downsampling time series data
   stored in InfluxDB.
 menu:
-  influxdb_cloud_serverless:
+  influxdb_cloud:
     name: Downsample data
-    parent: Process & visualize data
-weight: 101
-related:
-  - /influxdb/cloud-serverless/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
+    parent: Common tasks
+weight: 102
 ---
 
 Learn about different methods for querying and downsampling time series data
