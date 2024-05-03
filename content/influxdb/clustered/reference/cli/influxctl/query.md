@@ -52,7 +52,7 @@ RFC3339Nano timestamps. Use the `--time-format` flag to specify one of the
 available time formats:
 
 - `rfc3339nano`: _(Default)_
-  [RFC3339-formatted timestamp](/influxdb/clustered/reference/glossary/#rfc3339-timestamp)--for example:
+  [RFC3339Nano-formatted timestamp](/influxdb/clustered/reference/glossary/#rfc3339nano-timestamp)--for example:
   `2024-01-01T00:00:00.000000000Z`
 - `unixnano`: [Unix nanosecond timestamp](/influxdb/clustered/reference/glossary/#unix-timestamp)
 
