@@ -49,13 +49,14 @@ The `--format` flag lets you print the output in other formats.
 The `json` format is available for programmatic parsing by other tooling.
 Default: `table`.
 
-When using the `table` format, by default, timestamps are formatted as RFC3339
-timestamps. Use the `--time-format` flag to specify one of the available time formats:
+When using the `table` format, by default, timestamps are formatted as
+RFC3339Nano timestamps. Use the `--time-format` flag to specify one of the
+available time formats:
 
-- `rfc3339`: _(Default)_
-  [RFC3339-formatted timestamp](/influxdb/cloud-dedicated/reference/glossary/#rfc3339-timestamp)--for example:
+- `rfc3339nano`: _(Default)_
+  [RFC3339Nano-formatted timestamp](/influxdb/cloud-dedicated/reference/glossary/#rfc3339nano-timestamp)--for example:
   `2024-01-01T00:00:00.000000000Z`
-- `unix`: [Unix nanosecond timestamp](/influxdb/cloud-dedicated/reference/glossary/#unix-timestamp)
+- `unixnano`: [Unix nanosecond timestamp](/influxdb/cloud-dedicated/reference/glossary/#unix-timestamp)
 
 ## Usage
 
@@ -71,15 +72,15 @@ influxctl query [flags] <QUERY>
 
 ## Flags
 
-| Flag |                          | Description                                                    |
-| :--- | :----------------------- | :------------------------------------------------------------- |
-|      | `--database`             | Database to query                                              |
-|      | `--enable-system-tables` | Enable ability to query system tables                          |
-|      | `--format`               | Output format (`table` _(default)_ or `json`)                  |
-|      | `--language`             | Query language (`sql` _(default)_ or `influxql`)               |
-|      | `--time-format`          | Time format for table output (`rfc3339` _(default)_ or `unix`) |
-|      | `--token`                | Database token with read permissions on the queried database   |
-| `-h` | `--help`                 | Output command help                                            |
+| Flag |                          | Description                                                            |
+| :--- | :----------------------- | :--------------------------------------------------------------------- |
+|      | `--database`             | Database to query                                                      |
+|      | `--enable-system-tables` | Enable ability to query system tables                                  |
+|      | `--format`               | Output format (`table` _(default)_ or `json`)                          |
+|      | `--language`             | Query language (`sql` _(default)_ or `influxql`)                       |
+|      | `--time-format`          | Time format for table output (`rfc3339nano` _(default)_ or `unixnano`) |
+|      | `--token`                | Database token with read permissions on the queried database           |
+| `-h` | `--help`                 | Output command help                                                    |
 
 {{% caption %}}
 _Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
@@ -350,7 +351,7 @@ cat ./query.sql | influxctl query \
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
-  --time-format unix \
+  --time-format unixnano \
   "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' LIMIT 5"
 ```
 {{% /influxdb/custom-timestamps %}}
@@ -360,7 +361,7 @@ influxctl query \
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
-  --time-format unix \
+  --time-format unixnano \
   /path/to/query.sql
 ```
 {{% /code-tab-content %}}
@@ -369,8 +370,8 @@ influxctl query \
 cat ./query.sql | influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
-  --time-format unix \
-  - 
+  --time-format unixnano \
+  -
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -463,7 +464,7 @@ cat ./query.sql | influxctl query \
 
 {{% expand "View command updates" %}}
 
-#### v2.9.0 {date="2024-05-03"}
+#### v2.9.0 {date="2024-05-06"}
 
 - Add `--time-format` flag to specify which timestamp format to use in the
   `table` output format.
