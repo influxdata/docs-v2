@@ -153,7 +153,7 @@ WHERE room NOT IN ('Bathroom', 'Bedroom', 'Kitchen')
 
 ## SELECT clause subqueries
 
-`SELECT` clause subqueries use values returned from inner query as part
+`SELECT` clause subqueries use values returned from the inner query as part
 of the outer query's `SELECT` list.
 The `SELECT` clause only supports [scalar subqueries](#scalar-subqueries) that 
 return a single value per execution of the inner query.
