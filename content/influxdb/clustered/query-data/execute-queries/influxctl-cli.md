@@ -227,15 +227,15 @@ When using the `table` [output format](#output-format), you can specify which of
 the following timestamp formats to use to display timestamp values in the query
 results:
 
-- `rfc3339`: _(Default)_
+- `rfc3339nano`: _(Default)_
   [RFC3339-formatted timestamp](/influxdb/clustered/reference/glossary/#rfc3339-timestamp)--for example:
   `2024-01-01T00:00:00.000000000Z`
-- `unix`: [Unix nanosecond timestamp](/influxdb/clustered/reference/glossary/#unix-timestamp)
+- `unixnano`: [Unix nanosecond timestamp](/influxdb/clustered/reference/glossary/#unix-timestamp)
 
 {{% influxdb/custom-timestamps %}}
 ```sh
 influxctl query \
-  --time-format unix \
+  --time-format unixnano \
   "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' LIMIT 5"
 ```
 {{% /influxdb/custom-timestamps %}}
