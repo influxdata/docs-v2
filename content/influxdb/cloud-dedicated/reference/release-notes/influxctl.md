@@ -11,6 +11,30 @@ menu:
 weight: 202
 ---
 
+## v2.9.0 {date="2024-05-06"}
+
+### Features
+
+- Restore default `rfc3339nano` timestamps in table output for `influxctl query`
+  and add the option for `unixnano` timestamps.
+
+### Bug Fixes
+
+- Update unimplemented error message with additional information.
+
+### Dependecy Updates
+- Update `github.com/apache/arrow/go/v16` from 16.0.0-20240401180149-68241d8a86e9 to 16.0.0.
+- Update `github.com/jedib0t/go-pretty/v6` from 6.5.8 to 6.5.9.
+- Update `github.com/pelletier/go-toml/v2` from 2.2.0 to 2.2.1.
+- Update `github.com/pelletier/go-toml/v2` from 2.2.1 to 2.2.2.
+- Update `github.com/urfave/cli/v2` from 2.27.1 to 2.27.2.
+- Update `golang.org/x/net` from 0.22.0 to 0.23.0.
+- Update `golang.org/x/oauth2` from 0.19.0 to 0.20.0.
+- Update `google.golang.org/protobuf` from 1.33.0 to 1.34.0.
+- Update build dependencies.
+
+---
+
 ## v2.8.0 {date="2024-04-11"}
 
 ### Features
