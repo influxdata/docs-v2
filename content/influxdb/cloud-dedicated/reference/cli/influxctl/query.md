@@ -55,7 +55,7 @@ timestamps. Use the `--time-format` flag to specify one of the available time fo
 - `rfc3339nano`: _(Default)_
   [RFC3339-formatted timestamp](/influxdb/cloud-dedicated/reference/glossary/#rfc3339-timestamp)--for example:
   `2024-01-01T00:00:00.000000000Z`
-- `unixnan`: [Unix nanosecond timestamp](/influxdb/cloud-dedicated/reference/glossary/#unix-timestamp)
+- `unixnano`: [Unix nanosecond timestamp](/influxdb/cloud-dedicated/reference/glossary/#unix-timestamp)
 
 ## Usage
 
