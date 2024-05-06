@@ -230,7 +230,7 @@ the following timestamp formats to use to display timestamp values in the query
 results:
 
 - `rfc3339nano`: _(Default)_
-  [RFC3339-formatted timestamp](/influxdb/cloud-dedicated/reference/glossary/#rfc3339-timestamp)--for example:
+  [RFC3339Nano-formatted timestamp](/influxdb/cloud-dedicated/reference/glossary/#rfc3339nano-timestamp)--for example:
   `2024-01-01T00:00:00.000000000Z`
 - `unixnano`: [Unix nanosecond timestamp](/influxdb/cloud-dedicated/reference/glossary/#unix-timestamp)
 
