@@ -661,7 +661,7 @@ input:
     tags: [applications]
 
   - name: Hashicorp Vault
-    id: nomad
+    id: vault
     description: |
       The Vault plugin grabs metrics from every Nomad agent of the cluster.
     introduced: 1.22.0

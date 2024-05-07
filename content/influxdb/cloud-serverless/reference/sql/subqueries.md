@@ -153,7 +153,7 @@ WHERE room NOT IN ('Bathroom', 'Bedroom', 'Kitchen')
 
 ## SELECT clause subqueries
 
-`SELECT` clause subqueries use values returned from inner query as part
+`SELECT` clause subqueries use values returned from the inner query as part
 of the outer query's `SELECT` list.
 The `SELECT` clause only supports [scalar subqueries](#scalar-subqueries) that 
 return a single value per execution of the inner query.
@@ -309,7 +309,7 @@ FROM
 
 [`WHERE` clause](/influxdb/cloud-serverless/reference/sql/where/) subqueries
 compare an expression to the result of the subquery and return _true_ or _false_.
-Rows that evaluate to _false_ are filtered from results.
+Rows that evaluate to _false_ or NULL are filtered from results.
 The `WHERE` clause supports correlated and non-correlated subqueries
 as well as scalar and non-scalar subqueries (depending on the the operator used
 in the predicate expression).
@@ -383,8 +383,9 @@ WHERE
 {{% /expand %}}
 {{% expand "`WHERE` clause with non-scalar subquery" %}}
 
-Non-scalar subqueries must use the `[NOT] IN` operator and can only return a
-single column. The values in the returned column are evaluated as a list.
+Non-scalar subqueries must use the `[NOT] IN` or `[NOT] EXISTS` operators and
+can only return a single column.
+The values in the returned column are evaluated as a list.
 
 The following query returns all points in the `home` measurement associated with
 the same timestamps as `warn` level alerts in the `home_actions` measurement.
@@ -492,7 +493,7 @@ but the following table contains the median `temp` value for each room.
 [`HAVING` clause](/influxdb/cloud-serverless/reference/sql/having/) subqueries
 compare an expression that uses aggregate values returned by aggregate functions
 in the `SELECT` clause to the result of the subquery and return _true_ or _false_.
-Rows that evaluate to _false_ are filtered from results.
+Rows that evaluate to _false_ or NULL are filtered from results.
 The `HAVING` clause supports correlated and non-correlated subqueries
 as well as scalar and non-scalar subqueries (depending on the the operator used
 in the predicate expression).
@@ -557,8 +558,9 @@ HAVING
 {{% /expand %}}
 {{% expand "`HAVING` clause with non-scalar subquery" %}}
 
-Non-scalar subqueries must use the `[NOT] IN` operator and can only return a
-single column. The values in the returned column are evaluated as a list.
+Non-scalar subqueries must use the `[NOT] IN` or `[NOT] EXISTS` operators and
+can only return a single column.
+The values in the returned column are evaluated as a list.
 
 The following query returns the maximum `co` and `temp` values within 2-hour
 windows of time where the `time` value associated with time window is also

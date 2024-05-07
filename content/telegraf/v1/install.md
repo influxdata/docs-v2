@@ -302,7 +302,7 @@ In PowerShell _as an administrator_, do the following:
     wget `
     https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_windows_amd64.zip `
     -UseBasicParsing `
-    -OutFile telegraf-{{< latest-patch >}}_windows_amd64.zip `
+    -OutFile telegraf-{{< latest-patch >}}_windows_amd64.zip
     Expand-Archive .\telegraf-{{% latest-patch %}}_windows_amd64.zip `
     -DestinationPath 'C:\Program Files\InfluxData\telegraf\'
     ```
