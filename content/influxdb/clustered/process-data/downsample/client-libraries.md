@@ -10,7 +10,7 @@ menu:
     identifier: downsample-client-libs
 weight: 201
 related:
-  - /influxdb/cloud-serverless/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
+  - /influxdb/clustered/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
 ---
 
 Query and downsample time series data stored in InfluxDB and write the
@@ -19,12 +19,12 @@ downsampled data back to InfluxDB.
 This guide uses [Python](https://www.python.org/) and the
 [InfluxDB v3 Python client library](https://github.com/InfluxCommunity/influxdb3-python),
 but you can use your runtime of choice and any of the available
-[InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/).
+[InfluxDB v3 client libraries](/influxdb/clustered/reference/client-libraries/v3/).
 This guide also assumes you have already
-[setup your Python project and virtual environment](/influxdb/cloud-serverless/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
+[setup your Python project and virtual environment](/influxdb/clustered/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
 
 - [Install dependencies](#install-dependencies)
-- [Prepare InfluxDB buckets](#prepare-influxdb-buckets)
+- [Prepare InfluxDB databases](#prepare-influxdb-databases)
 - [Create InfluxDB clients](#create-influxdb-clients)
 - [Query InfluxDB](#query-influxdb)
   - [Define a query that performs time-based aggregations](#define-a-query-that-performs-time-based-aggregations)
@@ -43,10 +43,10 @@ Use `pip` to install the following dependencies:
 pip install influxdb3-python pandas
 ```
 
-## Prepare InfluxDB buckets
+## Prepare InfluxDB databases
 
-The downsampling process involves two InfluxDB buckets.
-Each bucket has a [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period)
+The downsampling process involves two InfluxDB databases.
+Each bucket has a [retention period](/influxdb/clustered/reference/glossary/#retention-period)
 that specifies how long data persists in the database before it expires and is deleted.
 By using two buckets, you can store unmodified, high-resolution data in a bucket
 with a shorter retention period and then downsampled, low-resolution data in a

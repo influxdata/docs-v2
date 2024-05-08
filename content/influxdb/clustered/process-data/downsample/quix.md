@@ -11,7 +11,7 @@ menu:
     identifier: downsample-quix
 weight: 202
 related:
-  - /influxdb/cloud-serverless/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
+  - /influxdb/clustered/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
 ---
 
 Use [Quix Streams](https://github.com/quixio/quix-streams) to query time series
@@ -58,7 +58,7 @@ already have raw data in InfluxDB that you want to downsample.
 
 The process described in this guide requires the following:
 
-- An InfluxDB Cloud Serverless account with data ready for downsampling.
+- An InfluxDB cluster with data ready for downsampling.
 - A [Quix Cloud](https://portal.platform.quix.io/self-sign-up/) account or a
   local Apache Kafka or Red Panda installation.
 - Familiarity with basic Python and Docker concepts.
@@ -77,20 +77,20 @@ pip install influxdb3-python pandas quixstreams<2.5
 
 ## Prepare InfluxDB buckets
 
-The downsampling process involves two InfluxDB buckets.
-Each bucket has a [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period)
+The downsampling process involves two InfluxDB databases.
+Each database has a [retention period](/influxdb/clustered/reference/glossary/#retention-period)
 that specifies how long data persists before it expires and is deleted.
-By using two buckets, you can store unmodified, high-resolution data in a bucket
+By using two databases, you can store unmodified, high-resolution data in a database
 with a shorter retention period and then downsampled, low-resolution data in a
-bucket with a longer retention period.
+database with a longer retention period.
 
-Ensure you have a bucket for each of the following:
+Ensure you have a database for each of the following:
 
 - One to query unmodified data from
 - The other to write downsampled data to
 
-For information about creating buckets, see
-[Create a bucket](/influxdb/cloud-serverless/admin/buckets/create-bucket/).
+For information about creating databases, see
+[Create a bucket](/influxdb/clustered/admin/databases/create/).
 
 ## Create the downsampling logic
 
@@ -155,34 +155,34 @@ You can find the full code for this process in the
 
 Use the `influxdb_client_3` and `quixstreams` modules to  instantiate two clients that interact with InfluxDB and Apache Kafka:
 
-- A **producer** client configured to read from your InfluxDB bucket with _unmodified_ data and _produce_ that data to Kafka.
-- A **consumer** client configured to _consume_ data from Kafka and write the _downsampled_ data to the corresponding InfluxDB bucket.
+- A **producer** client configured to read from your InfluxDB database with _unmodified_ data and _produce_ that data to Kafka.
+- A **consumer** client configured to _consume_ data from Kafka and write the _downsampled_ data to the corresponding InfluxDB database.
 
 ### Create the producer client
 
 Provide the following credentials for the producer:
 
-- **host**: [{{< product-name >}} region URL](/influxdb/cloud-serverless/reference/regions)
+- **host**: {{< product-name omit=" Clustered">}} cluster URL
   _(without the protocol)_
-- **org**: InfluxDB organization name
-- **token**: InfluxDB API token with read and write permissions on the buckets you
+- **org**: An arbitrary string. {{< product-name >}} ignores the organization.
+- **token**: InfluxDB database token with read and write permissions on the databases you
   want to query and write to.
-- **database**: InfluxDB bucket name
+- **database**: InfluxDB database name
 
 The producer queries for fresh data from InfluxDB at specific intervals. It's configured to look for a specific measurement defined in a variable. It writes the raw data to a Kafka topic called 'raw-data'
 
-{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
+{{% code-placeholders "(RAW|DOWNSAMPLED)_DATABASE_(NAME|TOKEN)" %}}
 ```py
 from influxdb_client_3 import InfluxDBClient3
 from quixstreams import Application
 from quixstreams.models.serializers.quix import JSONSerializer, SerializationContext
 import pandas
 
-# Instantiate an InfluxDBClient3 client configured for your unmodified bucket
+# Instantiate an InfluxDBClient3 client configured for your unmodified database
 influxdb_raw = InfluxDBClient3(
     host='{{< influxdb/host >}}',
-    token='API_TOKEN',
-    database='RAW_BUCKET_NAME'
+    token='DATABASE_TOKEN',
+    database='RAW_DATABASE_NAME'
 )
 
 # os.environ['localdev'] = 'true' # Uncomment if you're using local Kafka rather than Quix Cloud
@@ -257,23 +257,23 @@ You can find the full code for this process in the
 
 As before, provide the following credentials for the consumer:
 
-- **host**: [{{< product-name >}} region URL](/influxdb/cloud-serverless/reference/regions)
+- **host**: {{< product-name omit=" Clustered">}} cluster URL
   _(without the protocol)_
-- **org**: InfluxDB organization name
-- **token**: InfluxDB API token with read and write permissions on the buckets you
+- **org**: An arbitrary string. {{< product-name >}} ignores the organization.
+- **token**: InfluxDB database token with read and write permissions on the databases you
   want to query and write to.
-- **database**: InfluxDB bucket name
+- **database**: InfluxDB database name
 
 This process reads messages from the Kafka topic `downsampled-data` and writes each message as a point dictionary back to InfluxDB.
 
-{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
+{{% code-placeholders "(RAW|DOWNSAMPLED)_DATABASE_(NAME|TOKEN)" %}}
 ```py
 # Instantiate an InfluxDBClient3 client configured for your downsampled database.
 # When writing, the org= argument is required by the client (but ignored by InfluxDB).
 influxdb_downsampled = InfluxDBClient3(
     host='{{< influxdb/host >}}',
-    token='API_TOKEN',
-    database='DOWNSAMPLED_BUCKET_NAME',
+    token='DATABASE_TOKEN',
+    database='DOWNSAMPLED_DATABASE_NAME',
     org=''
 )
 
