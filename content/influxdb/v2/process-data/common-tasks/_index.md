@@ -1,18 +1,17 @@
 ---
-title: Manage tasks in InfluxDB
-seotitle: Manage data processing tasks in InfluxDB
-list_title: Manage tasks
+title: Common data processing tasks
+seotitle: Common data processing tasks performed with with InfluxDB
 description: >
-  InfluxDB provides options for creating, reading, updating, and deleting tasks
-  using the `influx` CLI, the InfluxDB UI, and the InfluxDB API.
+  InfluxDB Tasks process data on specified schedules.
+  This collection of articles walks through common use cases for InfluxDB tasks.
 influxdb/v2/tags: [tasks]
 menu:
   influxdb_v2:
     name: Common tasks
     parent: Process data
-weight: 103
+weight: 104
 ---
 
-abc 123 todo
+The following articles walk through common task use cases.
 
 {{< children >}}

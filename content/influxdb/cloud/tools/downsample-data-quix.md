@@ -1,19 +1,26 @@
 ---
-title: Downsample data with Quix Streams
+title: Downsample InfluxDB data from v2 to v3 with Quix Streams
 seotitle: Downsample data with Python and Quix Streams
 description: >
   How to create Python service that downsamples data with Quix Streams.
 menu:
-  influxdb_v2:
+  influxdb_cloud:
     name: Quix
-    parent: Downsample data
-    identifier: influxdb_v2-downsample-quix
-weight: 302
-influxdb/v2/tags: [tasks]
+    parent: Tools & integrations
+    identifier: influxdb_cloud-downsample-quix
+weight: 122
 ---
 
+Use [Quix Streams](https://github.com/quixio/quix-streams) to query time series
+data stored in InfluxDB and written to Kafka at regular intervals, continuously
+downsample it, and then write the downsampled data back to InfluxDB.
+Quix Streams is an open source Python library for building containerized stream
+processing applications with Apache Kafka. It is designed to run as a service
+that continuously processes a stream of data while streaming the results to a
+Kafka topic. You can try it locally, with a local Kafka installation, or run it
+in [Quix Cloud](https://quix.io/) with a free trial.
 A common practice when processing high volume data is to downsample it before comitting 
-it to InfluxDb to reduce the overall disk usage as data collects over time.
+it to InfluxDB to reduce the overall disk usage as data collects over time.
 
 This guide walks through the process of creating a series of Python services that ingest from InfluxDB v2, downsample and publish
 data to InfluxDB v3. By aggregating data within windows of time, then storing the aggregate values back to InfluxDB, you can reduce 

@@ -6,10 +6,9 @@ description: >
   in previous versions of InfluxDB.
 menu:
   influxdb_v2:
-    name: InfluxDB
-    parent: Downsample data
-    identifier: influxdb_v2-downsample-influxdb
-weight: 301
+    name: Downsample data
+    parent: Common tasks
+weight: 201
 influxdb/v2/tags: [tasks]
 ---
 
