@@ -10,7 +10,7 @@ menu:
     parent: Downsample data
     identifier: influxdb_cloud-downsample-influxdb
 weight: 201
-influxdb/v2/tags: [tasks]
+influxdb/cloud/tags: [tasks]
 ---
 
 One of the most common use cases for InfluxDB tasks is downsampling data to reduce
