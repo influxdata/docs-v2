@@ -67,7 +67,7 @@ Again, this is a very basic example, but it should provide you with a foundation
 to build more complex downsampling tasks.
 
 ## Add your task
-Once your task is ready, see [Create a task](/influxdb/v2/process-data/manage-tasks/create-task) for information about adding it to InfluxDB.
+Once your task is ready, see [Create a task](/influxdb/cloud/process-data/manage-tasks/create-task) for information about adding it to InfluxDB.
 
 ## Things to consider
 - If there is a chance that data may arrive late, specify an `offset` in your
