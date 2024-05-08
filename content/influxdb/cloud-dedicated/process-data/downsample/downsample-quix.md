@@ -8,7 +8,7 @@ menu:
   influxdb_cloud_dedicated:
     name: Use Quix
     parent: Downsample data
-    identifier: influddb-dedicated-downsample-quix
+    identifier: influxdb-dedicated-downsample-quix
 weight: 102
 ---
 
