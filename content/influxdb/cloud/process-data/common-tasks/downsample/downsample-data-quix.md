@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud:
     name: Quix
-    parent: Downsample data
+    parent: Tools & integrations
     identifier: influxdb_cloud-downsample-quix
 weight: 202
 influxdb/v2/tags: [tasks]
