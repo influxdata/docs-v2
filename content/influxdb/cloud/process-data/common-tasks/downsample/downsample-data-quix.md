@@ -9,7 +9,6 @@ menu:
     parent: Tools & integrations
     identifier: influxdb_cloud-downsample-quix
 weight: 202
-influxdb/v2/tags: [tasks]
 ---
 
 Use [Quix Streams](https://github.com/quixio/quix-streams) to query time series
