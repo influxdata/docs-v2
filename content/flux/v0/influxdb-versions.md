@@ -7,7 +7,7 @@ menu:
     weight: 13
 ---
 
-View which versions of InfluxDB are packaged with each version of InfluxDB.
+View which versions of Flux are packaged with each version of InfluxDB.
 
 - [InfluxDB Cloud](#influxdb-cloud)
 - [InfluxDB Open Source (OSS)](#influxdb-open-source-oss)
