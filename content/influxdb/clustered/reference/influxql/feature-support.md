@@ -100,15 +100,13 @@ storage engine.
 | <span style="opacity: .5;">INTEGRAL()</span>                                        |                          |
 | [MEAN()](/influxdb/clustered/reference/influxql/functions/aggregates/#mean)         | **{{< icon "check" >}}** |
 | [MEDIAN()](/influxdb/clustered/reference/influxql/functions/aggregates/#median)     | **{{< icon "check" >}}** |
-| <span style="opacity: .5;">MODE()</span>                                            |                          |
-| <span style="opacity: .5;">SPREAD()</span>                                          |                          |
+| [MODE()](/influxdb/clustered/reference/influxql/functions/aggregates/#mode)         | **{{< icon "check" >}}** |
+| [SPREAD()](/influxdb/clustered/reference/influxql/functions/aggregates/#spread)     | **{{< icon "check" >}}** |
 | [STDDEV()](/influxdb/clustered/reference/influxql/functions/aggregates/#stddev)     | **{{< icon "check" >}}** |
 | [SUM()](/influxdb/clustered/reference/influxql/functions/aggregates/#sum)           | **{{< icon "check" >}}** |
 
 <!--
 INTEGRAL [influxdb_iox#6937](https://github.com/influxdata/influxdb_iox/issues/6937)
-MODE [influxdb_iox#7334](https://github.com/influxdata/influxdb_iox/issues/7334)
-SPREAD [influxdb_iox#6937](https://github.com/influxdata/influxdb_iox/issues/6937)
 -->
 
 ### Selector functions
@@ -140,7 +138,7 @@ SPREAD [influxdb_iox#6937](https://github.com/influxdata/influxdb_iox/issues/693
 | [CUMULATIVE_SUM()](/influxdb/clustered/reference/influxql/functions/transformations/#cumulative_sum)                   | **{{< icon "check" >}}** |
 | [DERIVATIVE()](/influxdb/clustered/reference/influxql/functions/transformations/#derivative)                           | **{{< icon "check" >}}** |
 | [DIFFERENCE()](/influxdb/clustered/reference/influxql/functions/transformations/#difference)                           | **{{< icon "check" >}}** |
-| <span style="opacity: .5;">ELAPSED()<span>                                                                             |                          |
+| [ELAPSED()](/influxdb/clustered/reference/influxql/functions/transformations/#elapsed)                                 | **{{< icon "check" >}}** |
 | [EXP()](/influxdb/clustered/reference/influxql/functions/transformations/#exp)                                         | **{{< icon "check" >}}** |
 | [FLOOR()](/influxdb/clustered/reference/influxql/functions/transformations/#floor)                                     | **{{< icon "check" >}}** |
 | [LN()](/influxdb/clustered/reference/influxql/functions/transformations/#ln)                                           | **{{< icon "check" >}}** |
@@ -155,8 +153,6 @@ SPREAD [influxdb_iox#6937](https://github.com/influxdata/influxdb_iox/issues/693
 | [SIN()](/influxdb/clustered/reference/influxql/functions/transformations/#sin)                                         | **{{< icon "check" >}}** |
 | [SQRT()](/influxdb/clustered/reference/influxql/functions/transformations/#sqrt)                                       | **{{< icon "check" >}}** |
 | [TAN()](/influxdb/clustered/reference/influxql/functions/transformations/#tan)                                         | **{{< icon "check" >}}** |
-
-<!-- ELAPSED() [influxdb_iox#6934](https://github.com/influxdata/influxdb_iox/issues/6934) -->
 
 ### Technical and predictive analysis
 
