@@ -2667,6 +2667,8 @@
     - /influxdb/v2/reference/flux/functions/built-in/transformations/cumulativesum/
     - /influxdb/v2/reference/flux/stdlib/built-in/transformations/cumulativesum/
     - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/cumulativesum/
+    - /flux/v0/stdlib/built-in/transformations/cumulativesum/
+
   related:
     - /influxdb/v2/query-data/flux/cumulativesum/
     - /influxdb/v1/query_language/functions/#cumulative-sum, InfluxQL – CUMULATIVE_SUM()
