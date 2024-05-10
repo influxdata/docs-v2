@@ -29,8 +29,8 @@ Be sure to follow [partitioning best practices](/influxdb/cloud-dedicated/admin/
 
 If defining a custom partition template for your table with any of the
 `--template-*` flags, always include the `--template-timeformat` flag with a
-time format to use in your partition template. Otherwise time will be omitted
-from the partition template and partitions won't be able to be compacted.
+time format to use in your partition template.
+Otherwise, InfluxDB omits time from the partition template and won't compact partitions.
 {{% /note %}}
 
 ## Usage

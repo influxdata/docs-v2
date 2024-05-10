@@ -61,8 +61,8 @@ _View [partition template part restrictions](/influxdb/clustered/admin/custom-pa
 
 When defining a custom partition template for your database or table using any
 of the `influxctl` `--template-*` flags, always include the `--template-timeformat`
-flag with a time format to use in your partition template. Otherwise time will
-be omitted from the partition template and partitions won't be able to be compacted.
+flag with a time format to use in your partition template.
+Otherwise, InfluxDB omits time from the partition template and won't compact partitions.
 {{% /note %}}
 
 ## Create a database with a custom partition template
