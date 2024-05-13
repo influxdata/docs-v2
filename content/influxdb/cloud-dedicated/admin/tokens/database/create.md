@@ -61,7 +61,7 @@ or the [Management HTTP API](influxdb/cloud-dedicated/api/management/) to create
 
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->
 Use the [`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
-to create a token that grants access to databases in your InfluxDB Cloud Dedicated cluster.
+to create a token that grants access to databases in your {{% product-name omit=" Clustered" %}} cluster.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
 2.  In your terminal, run the `influxctl token create` command and provide the following:
@@ -91,7 +91,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
 
-The command returns the token string.
+The output is the token ID and the token string.
 **This is the only time the token string is available in plain text.**
 
 <!-------------------------------- END INFLUXCTL ------------------------------>
@@ -157,24 +157,30 @@ Replace the following in your request:
 - {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: a {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/) that the token will have read or write permission to
 
+The response body contains the token ID and the token string.
+**This is the only time the token string is available in plain text.**
 <!------------------------------- END cURL ------------------------------------>
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-InfluxDB might take some time to synchronize new tokens.
-If a new token doesn't immediately work for querying or writing, wait a few seconds and try again.
+## Notable behaviors
+
+- InfluxDB might take some time--from a few seconds to a few minutes--to activate and synchronize new tokens.
+If a new database token doesn't immediately work (you receive a `401 Unauthorized` error) for querying or writing, wait and then try again.
+- Token strings are viewable _only_ on token creation.
 
 {{% note %}}
+
 #### Store secure tokens in a secret store
 
-Token strings are returned _only_ on token creation and aren't stored by InfluxDB.
+Token strings are viewable _only_ on token creation and aren't stored by InfluxDB.
 We recommend storing database tokens in a **secure secret store**.
 For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
 
-If you lose a token, [delete the token](/influxdb/cloud-dedicated/admin/tokens/database/delete/) and create a new one.
+If you lose a token, [delete the token from InfluxDB](/influxdb/cloud-dedicated/admin/tokens/database/delete/) and create a new one.
 {{% /note %}}
 
-### Output format
+## Output format
 
 The `influxctl token create` command supports the `--format json` option.
 By default, the command outputs the token string.
@@ -183,7 +189,7 @@ with your command to format the output as JSON.
 
 The Management API outputs JSON format in the response body.
 
-### Examples
+## Examples
 
 - [Create a token with read and write access to a database](#create-a-token-with-read-and-write-access-to-a-database)
 - [Create a token with read and write access to all databases](#create-a-token-with-read-and-write-access-to-all-databases)
@@ -199,7 +205,7 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database token for
 - {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
 
-#### Create a token with read and write access to a database
+### Create a token with read and write access to a database
 
 {{% code-placeholders "DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
 {{% code-tabs-wrapper %}}
@@ -244,7 +250,7 @@ curl \
 {{< /code-tabs-wrapper >}}
 {{% /code-placeholders %}}
 
-#### Create a token with read and write access to all databases
+### Create a token with read and write access to all databases
 
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
@@ -288,7 +294,7 @@ curl \
 {{% /code-tab-content %}}
 {{% /code-tabs-wrapper %}}
 
-#### Create a token with read-only access to a database
+### Create a token with read-only access to a database
 
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
@@ -332,7 +338,7 @@ curl \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-#### Create a token with read-only access to multiple databases
+### Create a token with read-only access to multiple databases
 
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
@@ -379,7 +385,7 @@ curl \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-#### Create a token with mixed permissions to multiple databases
+### Create a token with mixed permissions to multiple databases
 
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}

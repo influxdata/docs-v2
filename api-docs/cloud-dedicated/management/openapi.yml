@@ -1006,9 +1006,21 @@ paths:
       description: |
         Create a [database token](/influxdb/cloud-dedicated/admin/tokens/database/) for a cluster.
 
-        The access token returned on the `accessToken` property in the response can be used to authenticate query and write requests to the cluster.
+        The token returned on the `accessToken` property in the response can be used to authenticate query and write requests to the cluster.
 
-        The access token is never stored by InfluxDB and is only returned once when the token is created. If the access token is lost, a new token must be created.
+        ### Notable behaviors
+
+        - InfluxDB might take some time--from a few seconds to a few minutes--to activate and synchronize new tokens. If a new database token doesn't immediately work (you receive a `401 Unauthorized` error) for querying or writing, wait and then try your request again.
+
+        - Token strings are viewable _only_ on token creation and aren't stored by InfluxDB; you can't recover a lost token.
+
+        #### Store secure tokens in a secret store
+
+        We recommend storing database tokens in a **secure secret store**.
+        For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
+
+        If you lose a token, [delete the token from InfluxDB](/influxdb/cloud-dedicated/admin/tokens/database/delete/) and create a new one.
+
       parameters:
         - name: accountId
           in: path
