@@ -21,11 +21,19 @@ The `--format` flag lets you print the output in other formats.
 The `json` format is available for programmatic parsing by other tooling.
 Default: `table`.
 
+## Notable behaviors
+
+- InfluxDB might take some time--from a few seconds to a few minutes--to activate and synchronize new tokens.
+If a new database token doesn't immediately work (you receive a `401 Unauthorized` error) for querying or writing, wait and then try again.
+- Token strings are viewable _only_ on token creation.
+
 {{% note %}}
+
 #### Store secure tokens in a secret store
 
-Token strings are returned _only_ on token creation.
+Token strings are viewable _only_ on token creation and aren't stored by InfluxDB.
 We recommend storing database tokens in a **secure secret store**.
+
 {{% /note %}}
 
 ## Usage
