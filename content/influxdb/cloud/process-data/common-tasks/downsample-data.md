@@ -6,8 +6,8 @@ description: >
   in previous versions of InfluxDB.
 menu:
   influxdb_cloud:
-    name: Downsample data
-    parent: Process & visualize data
+    name: Downsample with InfluxDB
+    parent: Common tasks
 weight: 201
 influxdb/cloud/tags: [tasks]
 ---
