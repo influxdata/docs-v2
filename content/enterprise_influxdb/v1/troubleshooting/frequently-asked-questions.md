@@ -623,7 +623,7 @@ The most common reasons why your query returns no data or partial data:
 
 ### Querying the wrong retention policy
 
-InfluxDB automatically queries data in a database’s `DEFAULT` retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp) (RP). If your data is stored in another RP, you must specify the RP in your query to get results.
+InfluxDB automatically queries data in a database’s default [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp) (RP). If your data is stored in another RP, you must specify the RP in your query to get results.
 
 ### No field key in the SELECT clause
 
