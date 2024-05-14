@@ -22,6 +22,7 @@ InfluxQL transformation functions modify and return values in each row of querie
 - [CUMULATIVE_SUM()](#cumulative_sum)
 - [DERIVATIVE()](#derivative)
 - [DIFFERENCE()](#difference)
+- [ELAPSED()](#elapsed)
 - [EXP()](#exp)
 - [FLOOR()](#floor)
 - [LN()](#ln)
@@ -36,8 +37,6 @@ InfluxQL transformation functions modify and return values in each row of querie
 - [SIN()](#sin)
 - [SQRT()](#sqrt)
 - [TAN()](#tan)
-
-<!-- - [ELAPSED()](#elapsed) -->
 
 {{% note %}}
 #### Missing InfluxQL functions
@@ -1138,7 +1137,7 @@ name: numbers
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-<!-- ## ELAPSED()
+## ELAPSED()
 
 Returns the difference between subsequent [field value's](/influxdb/clustered/reference/glossary/#field-value) 
 timestamps in a specified `unit` of time.
@@ -1254,7 +1253,7 @@ name: numbers
 | 2023-01-01T00:06:00Z |        60 |        60 |
 
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
 
 ## EXP()
 

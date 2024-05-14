@@ -61,7 +61,7 @@ or the [Management HTTP API](influxdb/cloud-dedicated/api/management/) to create
 
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->
 Use the [`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
-to create a token that grants access to databases in your {{% product-name omit="Clustered" %}} cluster.
+to create a token that grants access to databases in your {{% product-name omit=" Clustered" %}} cluster.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
 2.  In your terminal, run the `influxctl token create` command and provide the following:

@@ -24,6 +24,15 @@ into a specified number of "buckets."
 Each of these can be used as part of the partition template.
 Be sure to follow [partitioning best practices](/influxdb/clustered/admin/custom-partitions/best-practices/).
 
+{{% note %}}
+#### Always provide a time format when using custom partitioning
+
+If defining a custom partition template for your table with any of the
+`--template-*` flags, always include the `--template-timeformat` flag with a
+time format to use in your partition template.
+Otherwise, InfluxDB omits time from the partition template and won't compact partitions.
+{{% /note %}}
+
 ## Usage
 
 ```sh
@@ -43,7 +52,7 @@ influxctl table create [flags] <DATABASE_NAME> <TABLE_NAME>
 | :--- | :---------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
 |      | `--template-tag`        | Tag to add to partition template (can include multiple of this flag)                                                                     |
 |      | `--template-tag-bucket` | Tag and number of buckets to partition tag values into separated by a comma--for example: `tag1,100` (can include multiple of this flag) |
-|      | `--template-timeformat` | Timestamp format for partition template (default is `%Y-%m-%d`)                                                                          |
+|      | `--template-timeformat` | Timestamp format for partition template <!--(default is `%Y-%m-%d`)-->                                                                   |
 | `-h` | `--help`                | Output command help                                                                                                                      |
 
 {{% caption %}}
