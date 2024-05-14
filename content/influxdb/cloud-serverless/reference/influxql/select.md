@@ -66,44 +66,57 @@ It requires one or more **field expressions** and optional **tag expressions**.
 ### FROM clause
 
 The `FROM` clause specifies the
-[measurement](/influxdb/cloud-serverless/reference/glossary/#measurement) to query.
-It requires one or more comma-delimited [measurement_expressions](#measurement_expression).
+[measurement](/influxdb/cloud-serverless/reference/glossary/#measurement) or
+[subquery](/influxdb/cloud-serverless/reference/influxql/subqueries/) to query.
+It requires one or more comma-delimited
+[measurement expressions](#measurement_expression) or [subqueries](#subquery).
 
-- #### measurement_expression
+#### measurement_expression
 
-  Expression to identify one or more measurements to query.
-  Can be a measurement name, fully-qualified measurement, constant, or
-  [regular expression](/influxdb/cloud-serverless/reference/influxql/regular-expressions/).
+A measurement expression identifies a measurement to query.
+It can be a measurement name, fully-qualified measurement, constant, or
+a [regular expression](/influxdb/cloud-serverless/reference/influxql/regular-expressions/).
 
-  - ##### Measurement name
+- **Measurement name**: When using just the measurement name, InfluxQL assumes
+  the default retention policy of the database specified in the query request.
 
-    ```sql
-    FROM measurement
-    ```
+  ```sql
+  FROM measurement
+  ```
 
-  - ##### Fully-qualified measurement
+- **Fully-qualified measurement**: A fully qualified measurement includes a
+  database name, retention policy name, and measurement name, each separated by
+  a period (`.`). If the retention policy is not specified, InfluxQL uses the
+  default retention policy for the specified database.
 
-    ```sql
-    FROM database.retention_policy.measurement
+```sql
+FROM database.retention_policy.measurement
 
-    -- Fully-qualified measurement with default retention policy
-    FROM database..measurement
-    ```
+-- Fully-qualified measurement with default retention policy
+FROM database..measurement
+```
 
-    {{% note %}}
-#### InfluxDB retention policies
+{{% note %}}
+#### InfluxQL retention policies
 
-In {{< product-name >}}, **retention policies** are not part of the data model like
-they are in InfluxDB 1.x.
-Each {{< product-name >}} bucket has a **retention period** which defines the
-maximum age of data to retain in the bucket. To use fully-qualified
+In {{< product-name >}}, **retention policies** are not part of the data model
+like they are in InfluxDB 1.x.
+Each {{< product-name >}} database has a **retention period** which defines the
+maximum age of data to retain in the database. To use fully-qualified
 measurements in InfluxQL queries, use the following naming convention when
-[creating a bucket](/influxdb/cloud-serverless/admin/buckets/create-bucket/):
+[creating a database](/influxdb/cloud-serverless/admin/databases/create/):
 
 ```
 database_name/retention_policy
 ```
-    {{% /note %}}
+{{% /note %}}
+
+#### Subquery
+
+An InfluxQL subquery is a query nested in the `FROM` clause of an InfluxQL query.
+The outer query queries results returned by the inner query (subquery).
+
+For more information, see [InfluxQL subqueries](/influxdb/cloud-serverless/reference/influxql/subqueries/).
 
 ## Notable SELECT statement behaviors
 
