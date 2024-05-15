@@ -21,7 +21,6 @@ influxdb/v2/tags: [api, python]
 
 - [Contents](#contents)
 - [Set up InfluxDB](#set-up-influxdb)
-  - [Authenticate with an InfluxDB API token](#authenticate-with-an-influxdb-api-token)
 - [Introducing IoT Starter](#introducing-iot-starter)
 - [Create the application](#create-the-application)
 - [Install InfluxDB client library](#install-influxdb-client-library)
@@ -41,20 +40,12 @@ influxdb/v2/tags: [api, python]
 
 If you haven't already, [create an InfluxDB Cloud account](https://www.influxdata.com/products/influxdb-cloud/) or [install InfluxDB OSS](https://www.influxdata.com/products/influxdb/).
 
-### Authenticate with an InfluxDB API token
+The IoT Starter example app assumes the following prerequisites:
 
-For convenience in development,
-[create an _All Access_ token](/influxdb/v2/admin/tokens/create-token/)
-for your application. This grants your application full read and write
-permissions on all resources within your InfluxDB organization.
-
-{{% note %}}
-
-For a production application, create and use a
-{{% cloud-only %}}custom{{% /cloud-only %}}{{% oss-only %}}read-write{{% /oss-only %}}
-token with minimal permissions and only use it with your application.
-
-{{% /note %}}
+- An InfluxDB [org ID](/influxdb/v2/admin/organizations/view-orgs/)
+- An [API token](/influxdb/v2/admin/tokens/create-token/) (for example, an **All Access token**) that has read and write permissions for the buckets
+- A [bucket](/influxdb/v2/admin/buckets/create-bucket/#create-a-bucket-using-the-influxdb-api) named `iot_center` for storing time series data from devices
+- A [bucket](/influxdb/v2/admin/buckets/create-bucket/#create-a-bucket-using-the-influxdb-api) named `iot_center_devices` for storing device metadata and API token IDs
 
 ## Introducing IoT Starter
 
