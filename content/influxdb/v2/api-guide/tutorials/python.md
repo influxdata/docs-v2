@@ -347,8 +347,6 @@ Add the `/api/devices` API endpoint that retrieves, processes, and lists registe
   
    In `./api/devices.py`, add the following:
 
-   {{% truncate %}}
-
    ```python
    def get_device(device_id=None) -> {}:
        influxdb_client = InfluxDBClient(url=config.get('APP', 'INFLUX_URL'),
@@ -381,14 +379,12 @@ Add the `/api/devices` API endpoint that retrieves, processes, and lists registe
        return result
    ```
 
-{{% /truncate %}}
+   {{% caption %}}[iot-api-python/api/devices.py get_device()](https://github.com/influxdata/iot-api-python/blob/9bf44a659424a27eb937d545dc0455754354aef5/api/devices.py#L30){{% /caption %}}
 
-{{% caption %}}[iot-api-python/api/devices.py get_device()](https://github.com/influxdata/iot-api-python/blob/9bf44a659424a27eb937d545dc0455754354aef5/api/devices.py#L30){{% /caption %}}
+   The `get_device(device_id)` function does the following:
 
-The `get_device(device_id)` function does the following:
-
-1. Instantiates a `QueryApi` client and sends the Flux query to InfluxDB.
-2. Iterates over the `FluxTable` in the response and returns a list of tuples.
+   1. Instantiates a `QueryApi` client and sends the Flux query to InfluxDB.
+   2. Iterates over the `FluxTable` in the response and returns a list of tuples.
 
 ## Create IoT virtual device
 
