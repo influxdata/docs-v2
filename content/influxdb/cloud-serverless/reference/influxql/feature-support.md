@@ -18,7 +18,6 @@ InfluxQL features.
 
 - [In-progress features](#in-progress-features)
   - [Time zones](#time-zones)
-  - [Subqueries](#subqueries)
   - [SLIMIT clause](#slimit-clause)
   - [SOFFSET clause](#soffset-clause)
   - [Metaqueries](#metaqueries)
@@ -36,13 +35,6 @@ InfluxQL in {{< product-name >}} does not currently support the time zone clause
 which applies a time zone offset to UTC timestamps in query results.
 
 <!-- **Tracking issue**: [influxdb_iox#6933](https://github.com/influxdata/influxdb_iox/issues/6933) -->
-
-### Subqueries
-
-InfluxQL in {{< product-name >}} does not currently support subqueries, which
-let you query data from the results of another InfluxQL query.
-
-<!-- **Tracking issue**: [influxdb_iox#6897](https://github.com/influxdata/influxdb_iox/issues/6897) -->
 
 ### SLIMIT clause
 
@@ -100,15 +92,13 @@ storage engine.
 | <span style="opacity: .5;">INTEGRAL()</span>                                               |                          |
 | [MEAN()](/influxdb/cloud-serverless/reference/influxql/functions/aggregates/#mean)         | **{{< icon "check" >}}** |
 | [MEDIAN()](/influxdb/cloud-serverless/reference/influxql/functions/aggregates/#median)     | **{{< icon "check" >}}** |
-| <span style="opacity: .5;">MODE()</span>                                                   |                          |
-| <span style="opacity: .5;">SPREAD()</span>                                                 |                          |
+| [MODE()](/influxdb/cloud-serverless/reference/influxql/functions/aggregates/#mode)         | **{{< icon "check" >}}** |
+| [SPREAD()](/influxdb/cloud-serverless/reference/influxql/functions/aggregates/#spread)     | **{{< icon "check" >}}** |
 | [STDDEV()](/influxdb/cloud-serverless/reference/influxql/functions/aggregates/#stddev)     | **{{< icon "check" >}}** |
 | [SUM()](/influxdb/cloud-serverless/reference/influxql/functions/aggregates/#sum)           | **{{< icon "check" >}}** |
 
 <!--
 INTEGRAL [influxdb_iox#6937](https://github.com/influxdata/influxdb_iox/issues/6937)
-MODE [influxdb_iox#7334](https://github.com/influxdata/influxdb_iox/issues/7334)
-SPREAD [influxdb_iox#6937](https://github.com/influxdata/influxdb_iox/issues/6937)
 -->
 
 ### Selector functions
@@ -140,7 +130,7 @@ SPREAD [influxdb_iox#6937](https://github.com/influxdata/influxdb_iox/issues/693
 | [CUMULATIVE_SUM()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#cumulative_sum)                   | **{{< icon "check" >}}** |
 | [DERIVATIVE()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#derivative)                           | **{{< icon "check" >}}** |
 | [DIFFERENCE()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#difference)                           | **{{< icon "check" >}}** |
-| <span style="opacity: .5;">ELAPSED()<span>                                                                                    |                          |
+| [ELAPSED()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#elapsed)                                 | **{{< icon "check" >}}** |
 | [EXP()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#exp)                                         | **{{< icon "check" >}}** |
 | [FLOOR()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#floor)                                     | **{{< icon "check" >}}** |
 | [LN()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#ln)                                           | **{{< icon "check" >}}** |
@@ -155,8 +145,6 @@ SPREAD [influxdb_iox#6937](https://github.com/influxdata/influxdb_iox/issues/693
 | [SIN()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#sin)                                         | **{{< icon "check" >}}** |
 | [SQRT()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#sqrt)                                       | **{{< icon "check" >}}** |
 | [TAN()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#tan)                                         | **{{< icon "check" >}}** |
-
-<!-- ELAPSED() [influxdb_iox#6934](https://github.com/influxdata/influxdb_iox/issues/6934) -->
 
 ### Technical and predictive analysis
 

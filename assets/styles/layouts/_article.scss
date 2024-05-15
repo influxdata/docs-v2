@@ -70,13 +70,18 @@
       vertical-align: middle;
     }
 
-    &[date]::after {
-      content: attr(date);
+    &[date]::after,
+    &[note]::after {
       margin-left: .65rem;
       opacity: .4;
       font-size: .75em;
       font-weight: $medium;
       font-style: inherit;
+    }
+    &[date]::after {content: attr(date);}
+    &[note]::after {
+      content: attr(note);
+      font-size: .85em;
     }
   }
 
