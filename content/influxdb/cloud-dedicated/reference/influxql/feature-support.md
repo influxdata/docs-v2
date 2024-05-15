@@ -18,7 +18,6 @@ InfluxQL features.
 
 - [In-progress features](#in-progress-features)
   - [Time zones](#time-zones)
-  - [Subqueries](#subqueries)
   - [SLIMIT clause](#slimit-clause)
   - [SOFFSET clause](#soffset-clause)
   - [Metaqueries](#metaqueries)
@@ -36,13 +35,6 @@ InfluxQL in {{< product-name >}} does not currently support the time zone clause
 which applies a time zone offset to UTC timestamps in query results.
 
 <!-- **Tracking issue**: [influxdb_iox#6933](https://github.com/influxdata/influxdb_iox/issues/6933) -->
-
-### Subqueries
-
-InfluxQL in {{< product-name >}} does not currently support subqueries, which
-let you query data from the results of another InfluxQL query.
-
-<!-- **Tracking issue**: [influxdb_iox#6897](https://github.com/influxdata/influxdb_iox/issues/6897) -->
 
 ### SLIMIT clause
 
