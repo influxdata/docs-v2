@@ -1,3 +1,4 @@
+{{- $version := .Get 0 | default "v3" -}}
 <div id="quix-downsample-pipeline">
   <div class="logo-row top">
     <div class="influxdb-connector">
@@ -7,7 +8,7 @@
   </div>
   <div class="quix-stream-container">
     <div id="source-producer" class="quix-stream-component">
-      <p>InfluxDB v2 Source Producer</p>
+      <p>InfluxDB {{ $version }} Source Producer</p>
     </div>
     <div class="arrow"></div>
     <div class="kafka-toggle" topic="raw-data">
@@ -23,7 +24,7 @@
     </div>
     <div class="arrow"></div>
     <div id="sink-consumer" class="quix-stream-component">
-      <p>InfluxDB v3 Sink Consumer</p>
+      <p>InfluxDB {{ $version }} Sink Consumer</p>
     </div>
   </div>
   <div class="logo-row bottom">

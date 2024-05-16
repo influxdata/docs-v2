@@ -1,5 +1,5 @@
 ---
-title: Downsample data stored in InfluxDB using Quix Streams
+title: Use Quix Streams to downsample data
 description: >
   Use [Quix Streams](https://github.com/quixio/quix-streams) to query time series
   data stored in InfluxDB and written to Kafka at regular intervals, continuously
@@ -8,6 +8,7 @@ menu:
   influxdb_cloud_serverless:
     name: Use Quix
     parent: Downsample data
+    identifier: downsample-quix
 weight: 202
 related:
   - /influxdb/cloud-serverless/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
@@ -100,11 +101,10 @@ downsamples it, and then sends it to an output topic that is used to write back 
 
     ```py
     from quixstreams import Application
-    from quixstreams.models.serializers.quix import JSONDeserializer, JSONSerializer
 
     app = Application(consumer_group='downsampling-process', auto_offset_reset='earliest')
-    input_topic = app.topic('raw-data', value_deserializer=JSONDeserializer())
-    output_topic = app.topic('downsampled-data', value_serializer=JSONSerializer())
+    input_topic = app.topic('raw-data')
+    output_topic = app.topic('downsampled-data')
 
     # ...
     ```
@@ -152,7 +152,7 @@ You can find the full code for this process in the
 
 ## Create the producer and consumer clients
 
-Use the `influxdb_client_3` and `quixstreams` modules to  instantiate two clients that interact with InfluxDB and Apache Kafka:
+Use the `influxdb_client_3` and `quixstreams` modules to instantiate two clients that interact with InfluxDB and Apache Kafka:
 
 - A **producer** client configured to read from your InfluxDB bucket with _unmodified_ data and _produce_ that data to Kafka.
 - A **consumer** client configured to _consume_ data from Kafka and write the _downsampled_ data to the corresponding InfluxDB bucket.
@@ -174,7 +174,6 @@ The producer queries for fresh data from InfluxDB at specific intervals. It's co
 ```py
 from influxdb_client_3 import InfluxDBClient3
 from quixstreams import Application
-from quixstreams.models.serializers.quix import JSONSerializer, SerializationContext
 import pandas
 
 # Instantiate an InfluxDBClient3 client configured for your unmodified bucket
@@ -201,8 +200,7 @@ if localdev == 'false':
     # Create a Quix platform-specific application instead (broker address is in-built)
     app = Application(consumer_group=consumer_group_name, auto_create_topics=True)
 
-serializer = JSONSerializer()
-topic = app.topic(name='raw-data', value_serializer='json')
+topic = app.topic(name='raw-data')
 
 ## ... remaining code trunctated for brevity ...
 
@@ -293,7 +291,7 @@ if localdev == 'false':
     # Create a Quix platform-specific application instead (broker address is in-built)
     app = Application(consumer_group=consumer_group_name, auto_create_topics=True)
 
-input_topic = app.topic('downsampled-data', value_deserializer=JSONDeserializer())
+input_topic = app.topic('downsampled-data')
 
 ## ... remaining code trunctated for brevity ...
 
