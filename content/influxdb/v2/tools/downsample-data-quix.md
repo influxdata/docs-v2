@@ -236,9 +236,9 @@ app = Application(consumer_group=consumer_group_name, auto_offset_reset="earlies
 input_topic = app.topic(os.getenv("input", "input-data"))
 
 # Initialize InfluxDB v2 client
-influx2_client = InfluxDBClient(url=influx_host,
-                                token=influx_token,
-                                org=influx_org)
+influx2_client = InfluxDBClient(url={{< influxdb/host >}},
+                                token=API_TOKEN,
+                                org=ORG_NAME)
 
 ## ... remaining code trunctated for brevity ...
 
