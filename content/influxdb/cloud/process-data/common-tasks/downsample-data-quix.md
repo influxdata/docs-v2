@@ -1,8 +1,7 @@
 ---
-title: Downsample InfluxDB data from v2 to v3 with Quix Streams
-seotitle: Downsample data with Python and Quix Streams
+title: Downsample data with Python and Quix Streams
 description: >
-  How to create Python service that downsamples data with Quix Streams.
+  Use Quix Streams to create a Python service that downsamples data stored in InfluxDB.
 menu:
   influxdb_cloud:
     name: Downsample with Quix
@@ -24,7 +23,7 @@ it to InfluxDB to reduce the overall disk usage as data collects over time.
 
 This guide walks through the process of creating a series of Python services that ingest
 from an InfluxDB v2 bucket and then downsample and publish the data to another InfluxDB v2 bucket. 
-By aggregating data within windows of time, then storing the aggregate values back to InfluxDB, you can reduce 
+By aggregating data within windows of time and then storing the aggregate values back to InfluxDB, you can reduce 
 disk usage and costs over time.
 
 The guide uses the InfluxDB v2 and Quix Streams Python client libraries and can be run locally or deployed within Quix Cloud with a free trial. It assumes you have setup a Python project and virtual environment.

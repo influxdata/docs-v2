@@ -152,7 +152,7 @@ You can find the full code for this process in the
 
 ## Create the producer and consumer clients
 
-Use the `influxdb_client_3` and `quixstreams` modules to  instantiate two clients that interact with InfluxDB and Apache Kafka:
+Use the `influxdb_client_3` and `quixstreams` modules to instantiate two clients that interact with InfluxDB and Apache Kafka:
 
 - A **producer** client configured to read from your InfluxDB bucket with _unmodified_ data and _produce_ that data to Kafka.
 - A **consumer** client configured to _consume_ data from Kafka and write the _downsampled_ data to the corresponding InfluxDB bucket.
