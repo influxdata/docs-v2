@@ -46,7 +46,7 @@ pip install influxdb3-python pandas
 ## Prepare InfluxDB databases
 
 The downsampling process involves two InfluxDB databases.
-Each bucket has a [retention period](/influxdb/clustered/reference/glossary/#retention-period)
+Each database has a [retention period](/influxdb/clustered/reference/glossary/#retention-period)
 that specifies how long data persists in the database before it expires and is deleted.
 By using two databases, you can store unmodified, high-resolution data in a database
 with a shorter retention period and then downsampled, low-resolution data in a
