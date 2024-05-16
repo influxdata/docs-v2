@@ -131,7 +131,7 @@ paths:
       operationId: PostQueryV1
       tags:
         - Query
-      summary: Query InfluxDB in a V1 compatible format
+      summary: Query using the InfluxDB v1 HTTP API
       requestBody:
         description: InfluxQL query to execute.
         content:
@@ -213,6 +213,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InfluxQLResponse'
+              examples:
+                influxql-chunk_size_2:
+                  value: |
+                    {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag"],"values":[["2016-05-19T18:37:55Z",90,"1"],["2016-05-19T18:37:56Z",90,"1"]],"partial":true}],"partial":true}]}
+                    {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag"],"values":[["2016-05-19T18:37:57Z",90,"1"],["2016-05-19T18:37:58Z",90,"1"]]}]}]}
             application/x-msgpack:
               schema:
                 type: string
@@ -261,45 +266,75 @@ components:
       description: User token.
   schemas:
     InfluxQLResponse:
+      description: |
+        The JSON response for an InfluxQL query.
+
+        A response contains the collection of results for a query.
+        `results` is an array of resultset objects.
+
+        If the response is chunked, the `transfer-encoding` response header is set to `chunked` and each resultset object is sent in a separate JSON object.
       properties:
         results:
-          type: array
-          oneOf:
-            - required:
-                - statement_id
-                - error
-            - required:
-                - statement_id
-                - series
+          description: |
+              A resultset object that contains the `statement_id` and the `series` array.
+
+              Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
           items:
-            type: object
             properties:
-              statement_id:
-                type: integer
               error:
                 type: string
+              partial:
+                description: |
+                  True if the resultset is not complete--the response data is chunked; otherwise, false or omitted.
+                type: boolean
               series:
-                type: array
+                description: |
+                  An array of series objects--the results of the query. A series of rows shares the same group key returned from the execution of a statement.
+
+                  If a property is not present, it is assumed to be `null`.
                 items:
-                  type: object
                   properties:
+                    columns:
+                      description: An array of column names
+                      items:
+                        type: string
+                      type: array
                     name:
+                      description: The name of the series
                       type: string
+                    partial:
+                      description: |
+                        True if the series is not complete--the response data is chunked; otherwise, false or omitted.
+                      type: boolean
                     tags:
-                      type: object
                       additionalProperties:
                         type: string
-                    partial:
-                      type: boolean
-                    columns:
-                      type: array
-                      items:
-                        type: string
+                      description: |
+                        A map of tag key-value pairs. If a tag key is not present, it is assumed to be `null`.
+                      type: object
                     values:
-                      type: array
+                      description: |
+                        An array of rows, where each row is an array of values.
                       items:
-                        type: array
                         items: {}
+                        type: array
+                      type: array
+                  type: object
+                type: array
+              statement_id:
+                description: |
+                  An integer that represents the statement's position in the query. If statement results are buffered in memory, `statement_id` is used to combine statement results.
+                type: integer
+            type: object
+          oneOf:
+          - required:
+            - statement_id
+            - error
+          - required:
+            - statement_id
+            - series
+          type: array
+      type: object
     InfluxQLCSVResponse:
       type: string
       example: |
