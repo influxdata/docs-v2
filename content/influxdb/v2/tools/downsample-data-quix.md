@@ -2,7 +2,7 @@
 title: Downsample data with Quix Streams
 seotitle: Downsample data with Python and Quix Streams
 description: >
-  How to create Python service that downsamples data with Quix Streams.
+  Use Quix Streams to create Python service that downsamples data stored in InfluxDB.
 menu:
   influxdb_v2:
     name: Quix
