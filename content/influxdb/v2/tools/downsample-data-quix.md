@@ -70,7 +70,7 @@ pip install influxdb-client pandas quixstreams<2.5
 ## Prepare InfluxDB buckets
 
 The downsampling process involves two InfluxDB buckets.
-Each bucket has a [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period)
+Each bucket has a [retention period](/influxdb/v2/reference/glossary/#retention-period)
 that specifies how long data persists before it expires and is deleted.
 By using two buckets, you can store unmodified, high-resolution data in a bucket
 with a shorter retention period and then downsampled, low-resolution data in a
