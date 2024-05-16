@@ -22,7 +22,8 @@ in [Quix Cloud](https://quix.io/) with a free trial.
 A common practice when processing high volume data is to downsample it before comitting 
 it to InfluxDB to reduce the overall disk usage as data collects over time.
 
-This guide walks through the process of creating a series of Python services that ingest from an InfluxDB v2 bucket, downsample and publish the data to another InfluxDB v2 bucket. 
+This guide walks through the process of creating a series of Python services that ingest
+from an InfluxDB v2 bucket and then downsample and publish the data to another InfluxDB v2 bucket. 
 By aggregating data within windows of time, then storing the aggregate values back to InfluxDB, you can reduce 
 disk usage and costs over time.
 
