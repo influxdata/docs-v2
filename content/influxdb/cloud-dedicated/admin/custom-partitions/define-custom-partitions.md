@@ -56,6 +56,15 @@ and only 1 time part.
 
 _View [partition template part restrictions](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#restrictions)._
 
+{{% note %}}
+#### Always provide a time format when using custom partitioning
+
+When defining a custom partition template for your database or table using any
+of the `influxctl` `--template-*` flags, always include the `--template-timeformat`
+flag with a time format to use in your partition template.
+Otherwise, InfluxDB omits time from the partition template and won't compact partitions.
+{{% /note %}}
+
 ## Create a database with a custom partition template
 
 The following example creates a new `example-db` database and applies a partition

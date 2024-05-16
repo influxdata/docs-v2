@@ -24,7 +24,7 @@ alt_links:
 ---
 
 Use the [`influxctl token create` command](/influxdb/clustered/reference/cli/influxctl/token/create/)
-tto create a token that grants access to databases in your {{% product-name omit="Clustered" %}} cluster.
+to create a token that grants access to databases in your {{% product-name omit=" Clustered" %}} cluster.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/#download-and-install-influxctl).
 2.  In your terminal, run the `influxctl token create` command and provide the following:

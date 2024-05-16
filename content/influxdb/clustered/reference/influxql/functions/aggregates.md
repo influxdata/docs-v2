@@ -22,13 +22,13 @@ _Examples use the sample data set provided in the
 - [DISTINCT()](#distinct)
 - [MEAN()](#mean)
 - [MEDIAN()](#median)
+- [MODE()](#mode)
+- [SPREAD()](#spread)
 - [STDDEV()](#stddev)
 - [SUM()](#sum)
 
 <!-- When implemented, place back in alphabetical order -->
 <!-- - [INTEGRAL()](#integral) -->
-<!-- - [MODE()](#mode) -->
-<!-- - [SPREAD()](#spread) -->
 
 {{% note %}}
 #### Missing InfluxQL functions
@@ -536,9 +536,10 @@ name: home
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-<!-- ## MODE()
+## MODE()
 
-Returns the most frequent value in a list of [field values](/influxdb/clustered/reference/glossary/#field-value).
+Returns the most frequent value in a list of
+[field values](/influxdb/clustered/reference/glossary/#field-value).
 
 ```sql
 MODE(field_expression)
@@ -637,11 +638,12 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
 
-<!-- ## SPREAD()
+## SPREAD()
 
-Returns the difference between the minimum and maximum [field values](/influxdb/clustered/reference/glossary/#field-value).
+Returns the difference between the minimum and maximum
+[field values](/influxdb/clustered/reference/glossary/#field-value).
 
 ```sql
 SPREAD(field_expression)
@@ -734,7 +736,7 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
 
 ## STDDEV()
 
