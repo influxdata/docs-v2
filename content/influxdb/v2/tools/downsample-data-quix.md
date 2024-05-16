@@ -149,7 +149,7 @@ Use the `influxdb_client` and `quixstreams` modules to instantiate two clients t
 
 Provide the following credentials for the producer:
 
-- **INFLUXDB_HOST**: [{{< product-name >}} region URL](/influxdb/cloud-serverless/reference/regions)
+- **INFLUXDB_HOST**: [InfluxDB URL](/influxdb/v2/reference/urls/)
   _(without the protocol)_
 - **INFLUXDB_ORG**: InfluxDB organization name
 - **INFLUXDB_TOKEN**: InfluxDB API token with read and write permissions on the buckets you
