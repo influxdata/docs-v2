@@ -1,8 +1,7 @@
 ---
-title: Downsample data stored in InfluxDB
+title: Use client libraries to downsample data
 description: >
-  Query and downsample time series data stored in InfluxDB and write the
-  downsampled data back to InfluxDB.
+  Use InfluxDB client libraries to query and downsample time series data stored in InfluxDB and write the downsampled data back to InfluxDB.
 menu:
   influxdb_cloud_dedicated:
     name: Use client libraries
