@@ -32,7 +32,7 @@ This guide also assumes you have already
 
 The following diagram illustrates how data is passed between processes as it is downsampled:
 
-{{< html-diagram/influxdb-v3-quix-downsample-pipeline >}}
+{{< html-diagram/quix-downsample-pipeline >}}
 
 {{% note %}}
 It is usually more efficient to write raw data directly to Kafka rather than
