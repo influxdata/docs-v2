@@ -212,7 +212,7 @@ You can find the full code for this process in the
 
 As before, provide the following credentials for the consumer:
 
-- **INFLUXDB_HOST**: [{{< product-name >}} region URL](/influxdb/cloud-serverless/reference/regions)
+- **INFLUXDB_HOST**: [InfluxDB URL](/influxdb/v2/reference/urls/)
   _(without the protocol)_ 
 - **INFLUXDB_ORG**: InfluxDB organization name
 - **INFLUXDB_TOKEN**: InfluxDB API token with read and write permissions on the buckets you
