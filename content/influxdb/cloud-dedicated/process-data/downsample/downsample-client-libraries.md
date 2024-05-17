@@ -1,15 +1,15 @@
 ---
-title: Downsample data stored in InfluxDB
+title: Use client libraries to downsample data
 description: >
-  Query and downsample time series data stored in InfluxDB and write the
-  downsampled data back to InfluxDB.
+  Use InfluxDB client libraries to query and downsample time series data stored in InfluxDB and write the downsampled data back to InfluxDB.
 menu:
-  influxdb_clustered:
-    name: Downsample data
-    parent: Process & visualize data
-weight: 101
+  influxdb_cloud_dedicated:
+    name: Use client libraries
+    parent: Downsample data
+    identifier: influxdb-dedicated-downsample-client-libraries
+weight: 201
 related:
-  - /influxdb/clustered/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
+  - /influxdb/cloud-dedicated/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
 ---
 
 Query and downsample time series data stored in InfluxDB and write the
@@ -18,9 +18,9 @@ downsampled data back to InfluxDB.
 This guide uses [Python](https://www.python.org/) and the
 [InfluxDB v3 Python client library](https://github.com/InfluxCommunity/influxdb3-python),
 but you can use your runtime of choice and any of the available
-[InfluxDB v3 client libraries](/influxdb/clustered/reference/client-libraries/v3/).
+[InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/).
 This guide also assumes you have already
-[setup your Python project and virtual environment](/influxdb/clustered/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
+[setup your Python project and virtual environment](/influxdb/cloud-dedicated/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
 
 - [Install dependencies](#install-dependencies)
 - [Prepare InfluxDB databases](#prepare-influxdb-databases)
@@ -45,7 +45,7 @@ pip install influxdb3-python pandas
 ## Prepare InfluxDB databases
 
 The downsampling process involves two InfluxDB databases.
-Each database has a [retention period](/influxdb/clustered/reference/glossary/#retention-period)
+Each database has a [retention period](/influxdb/cloud-dedicated/reference/glossary/#retention-period)
 that specifies how long data persists in the database before it expires and is deleted.
 By using two databases, you can store unmodified, high-resolution data in a database
 with a shorter retention period and then downsampled, low-resolution data in a
@@ -57,7 +57,7 @@ Ensure you have a database for each of the following:
 - The other to write downsampled data to
 
 For information about creating databases, see
-[Create a database](/influxdb/clustered/admin/databases/create/).
+[Create a database](/influxdb/cloud-dedicated/admin/databases/create/).
 
 ## Create InfluxDB clients
 
@@ -70,10 +70,10 @@ instantiate two InfluxDB clients:
 
 Provide the following credentials for each client:
 
-- **host**: your {{< product-name omit="Clustered" >}} cluster URL _(without the protocol)_
-- **token**: a [database token](/influxdb/clustered/admin/tokens/#database-tokens)
+- **host**: {{< product-name omit="Clustered" >}} cluster URL _(without the protocol)_
+- **token**: [InfluxDB database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
   with read and write permissions on the databases you want to query and write to.
-- **database**: your [database](/influxdb/clustered/admin/databases/) name
+- **database**: InfluxDB database name
 
 {{% code-placeholders "((RAW_|DOWNSAMPLED_)*DATABASE)_(NAME|TOKEN)" %}}
 ```py
@@ -120,14 +120,14 @@ functions to time intervals.
 
 1.  In the `SELECT` clause:
 
-    - Use [`DATE_BIN`](/influxdb/clustered/reference/sql/functions/time-and-date/#date_bin)
+    - Use [`DATE_BIN`](/influxdb/cloud-dedicated/reference/sql/functions/time-and-date/#date_bin)
       to assign each row to an interval based on the row's timestamp and update
       the `time` column with the assigned interval timestamp.
-      You can also use [`DATE_BIN_GAPFILL`](/influxdb/clustered/reference/sql/functions/time-and-date/#date_bin_gapfill) 
+      You can also use [`DATE_BIN_GAPFILL`](/influxdb/cloud-dedicated/reference/sql/functions/time-and-date/#date_bin_gapfill) 
       to fill any gaps created by intervals with no data
-      _(see [Fill gaps in data with SQL](/influxdb/clustered/query-data/sql/fill-gaps/))_.
-    - Apply an [aggregate](/influxdb/clustered/reference/sql/functions/aggregate/)
-      or [selector](/influxdb/clustered/reference/sql/functions/selector/)
+      _(see [Fill gaps in data with SQL](/influxdb/cloud-dedicated/query-data/sql/fill-gaps/))_.
+    - Apply an [aggregate](/influxdb/cloud-dedicated/reference/sql/functions/aggregate/)
+      or [selector](/influxdb/cloud-dedicated/reference/sql/functions/selector/)
       function to each queried field.
 
 2.  Include a `GROUP BY` clause that groups by intervals returned from the `DATE_BIN`
@@ -137,7 +137,7 @@ functions to time intervals.
 3.  Include an `ORDER BY` clause that sorts data by `time`.
 
 _For more information, see
-[Aggregate data with SQL - Downsample data by applying interval-based aggregates](/influxdb/clustered/query-data/sql/aggregate-select/#downsample-data-by-applying-interval-based-aggregates)._
+[Aggregate data with SQL - Downsample data by applying interval-based aggregates](/influxdb/cloud-dedicated/query-data/sql/aggregate-select/#downsample-data-by-applying-interval-based-aggregates)._
 
 ```sql
 SELECT
@@ -160,8 +160,8 @@ ORDER BY time
 {{% tab-content %}}
 
 1.  In the `SELECT` clause, apply an
-    [aggregate](/influxdb/clustered/reference/influxql/functions/aggregates/)
-    or [selector](/influxdb/clustered/reference/influxql/functions/selectors/)
+    [aggregate](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates/)
+    or [selector](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/)
     function to queried fields.
 
 2.  Include a `GROUP BY` clause that groups by `time()` at a specified interval.
@@ -259,12 +259,12 @@ data_frame = table.to_pandas()
     - **record**: Pandas DataFrame containing downsampled data
     - **data_frame_measurement_name**: Destination measurement name
     - **data_frame_timestamp_column**: Column containing timestamps for each point
-    - **data_frame_tag_columns**: List of [tag](/influxdb/clustered/reference/glossary/#tag)
+    - **data_frame_tag_columns**: List of [tag](/influxdb/cloud-dedicated/reference/glossary/#tag)
       columns 
       
     {{% note %}}
 Columns not listed in the **data_frame_tag_columns** or **data_frame_timestamp_column**
-arguments are written to InfluxDB as [fields](/influxdb/clustered/reference/glossary/#field).
+arguments are written to InfluxDB as [fields](/influxdb/cloud-dedicated/reference/glossary/#field).
     {{% /note %}}
 
 ```py
