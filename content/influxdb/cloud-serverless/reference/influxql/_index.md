@@ -272,6 +272,7 @@ statement           = explain_stmt |
                       select_stmt |
                       show_field_keys_stmt |
                       show_measurements_stmt |
+                      show_retention_policies_stmt |
                       show_tag_keys_stmt |
                       show_tag_values_with_key = stmt .
 ```

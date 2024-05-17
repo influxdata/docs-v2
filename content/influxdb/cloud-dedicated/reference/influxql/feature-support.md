@@ -62,6 +62,7 @@ The following table provides information about what metaqueries are available in
 | Metaquery                                                     |        Supported         |
 | :------------------------------------------------------------ | :----------------------: |
 | <span style="opacity: .5;">SHOW DATABASES</span>              |                          |
+| **SHOW RETENTION POLICIES**                                   | **{{< icon "check" >}}** |
 | **SHOW MEASUREMENTS**                                         | **{{< icon "check" >}}** |
 | <span style="opacity: .5;">SHOW SERIES</span>                 |                          |
 | <span style="opacity: .5;">SHOW SERIES CARDINALITY</span>     |                          |

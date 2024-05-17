@@ -10,7 +10,7 @@ menu:
 weight: 207
 list_code_example: |
   ```sql
-  SHOW [MEASUREMENTS | FIELD KEYS | TAG KEYS | TAG VALUES]
+  SHOW [RETENTION POLICIES | MEASUREMENTS | FIELD KEYS | TAG KEYS | TAG VALUES]
   ```
 related:
   - /influxdb/clustered/query-data/influxql/explore-schema/
@@ -18,10 +18,43 @@ related:
 
 Use InfluxQL `SHOW` statements to query schema information from a database.
 
+- [SHOW RETENTION POLICIES](#show-retention-policies)
 - [SHOW MEASUREMENTS](#show-measurements)
 - [SHOW FIELD KEYS](#show-field-keys)
 - [SHOW TAG KEYS](#show-tag-keys)
 - [SHOW TAG VALUES](#show-tag-values)
+
+## SHOW RETENTION POLICIES
+
+Use the `SHOW RETENTION POLICIES` statement to list retention policies associated
+with a database.
+Each database has a single retention policy--`autogen`.
+
+{{% note %}}
+In {{< product-name >}}, retention policies are not part of the
+data structure but are expected by InfluxQL and used in fully-qualified measurements
+in the [`FROM` clause](/influxdb/clustered/reference/influxql/select/#from-clause).
+The data returned for each retention policy does not represent the actual
+retention-related attributes of the database. The values are placeholder values
+meant only for InfluxQL feature parity.
+
+For information about database data retention, see
+[List databases](/influxdb/clustered/admin/databases/list/).
+{{% /note %}}
+
+```sql
+SHOW RETENTION POLICIES [ON <database-name>]
+```
+
+#### Examples
+
+```sql
+-- Show retention policies in the database specified in the query request
+SHOW RETENTION POLICIES
+
+-- Show retention policies in a specific database
+SHOW RETENTION POLICIES ON "example-database"
+```
 
 ## SHOW MEASUREMENTS
 
