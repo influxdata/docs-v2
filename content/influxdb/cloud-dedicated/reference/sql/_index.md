@@ -304,7 +304,8 @@ WHERE
 
 ### JOIN clause 
 
-Use the `JOIN` clause to join data from multiple measurements (tables).  The following joins are supported:
+Use the `JOIN` clause to join data from multiple measurements (tables).
+The following joins are supported:
 
 {{< flex >}}
 {{< flex-content "quarter" >}}
@@ -328,45 +329,45 @@ Use the `JOIN` clause to join data from multiple measurements (tables).  The fol
 The `INNER JOIN` clause gathers data where there is a match between the two measurements being joined.
 
 ```sql
-SELECT 
-  * 
-FROM 
-  h2o_feet 
-  INNER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location 
-  AND h2o_feet.time = h2o_temperature.time
+SELECT
+    *
+FROM
+    home
+    INNER JOIN home home_actions ON home.room = home_actions.room
+    AND home.time = home_actions.time;
 ```
 
 The `LEFT JOIN` and `LEFT OUTER JOIN` clauses gather data from all rows in the left table regardless of whether there is a match in the right table. 
 
 ```sql
-SELECT 
-  * 
-FROM 
-  h2o_feet 
-  LEFT OUTER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location 
-  AND h2o_feet.time = h2o_temperature.time
+SELECT
+    *
+FROM
+    home
+    LEFT OUTER JOIN home home_actions ON home.room = home_actions.room
+    AND home.time = home_actions.time;
 ```
 
-The `RIGHT JOIN` and `RIGHT OUTER JOIN` clauses gather data from all rows in the right table regardless of whether there is a match in the left table
+The `RIGHT JOIN` and `RIGHT OUTER JOIN` clauses gather data from all rows in the right table regardless of whether there is a match in the left table.
 
 ```sql
-SELECT 
-  * 
-FROM 
-  h2o_feet 
-  RIGHT OUTER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location 
-  AND h2o_feet.time = h2o_temperature.time
+SELECT
+    *
+FROM
+    home
+    RIGHT OUTER JOIN home home_actions ON home.room = home_actions.room
+    AND home.time = home_actions.time;
 ```
 
 The `FULL JOIN` and `FULL OUTER JOIN` clauses return all rows from the left and the right side of the join with `NULL` values where there is no match.
 
 ```sql
-SELECT 
-  * 
-FROM 
-  h2o_feet
-  FULL JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location 
-  AND h2o_feet.time = h2o_temperature.time
+SELECT
+    *
+FROM
+    home
+    FULL JOIN home home_actions ON home.room = home_actions.room
+    AND home.time = home_actions.time;
 ```
 
 ### GROUP BY clause 
