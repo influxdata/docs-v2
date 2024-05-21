@@ -78,7 +78,7 @@ For information about using the `influx` CLI, see the
 
    ```sh
    # Download using cURL
-   curl -O https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz \
+   curl -LO https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz \
     --output-dir ~/Downloads
    ```
 
@@ -218,25 +218,25 @@ _You'll install the `influx CLI` in a [later step](#download-and-install-the-inf
 
    ```sh
    # Ubuntu/Debian AMD64
-   curl -O https://download.influxdata.com/influxdb/releases/influxdb2_{{< latest-patch >}}-1_amd64.deb
+   curl -LO https://download.influxdata.com/influxdb/releases/influxdb2_{{< latest-patch >}}-1_amd64.deb
    sudo dpkg -i influxdb2_{{< latest-patch >}}-1_amd64.deb
    ```
 
    ```sh
    # Ubuntu/Debian ARM64
-   curl -O https://download.influxdata.com/influxdb/releases/influxdb2_{{< latest-patch >}}-1_arm64.deb
+   curl -LO https://download.influxdata.com/influxdb/releases/influxdb2_{{< latest-patch >}}-1_arm64.deb
    sudo dpkg -i influxdb2_{{< latest-patch >}}-1_arm64.deb
    ```
 
    ```sh
    # Red Hat/CentOS/Fedora x86-64 (x64, AMD64)
-   curl -O https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-1.x86_64.rpm
+   curl -LO https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-1.x86_64.rpm
    sudo yum localinstall influxdb2-{{< latest-patch >}}-1.x86_64.rpm
    ```
 
    ```sh
    # Red Hat/CentOS/Fedora AArch64 (ARMv8-A)
-   curl -O https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-1.aarch64.rpm
+   curl -LO https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-1.aarch64.rpm
    sudo yum localinstall influxdb2-{{< latest-patch >}}-1.aarch64.rpm
    ```
 
@@ -297,12 +297,12 @@ You can use systemd to customize [InfluxDB configuration options](/influxdb/v2/r
 
    ```sh
    # Use curl to download the amd64 binary.
-   curl -O https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz
+   curl -LO https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz
    ```
 
    ```sh
    # Use curl to download the arm64 binary.
-   curl -O https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz
+   curl -LO https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz
    ```
 
 2. Extract the downloaded binary.
@@ -390,7 +390,7 @@ To install `gpg`, see the [GnuPG installation instructions](https://gnupg.org/do
    and then use `gpg` to verify the download signature--for example:
 
    ```sh
-   curl -s https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz.asc \
+   curl -sL https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz.asc \
    | gpg --verify - influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz \
    2>&1 | grep 'InfluxData Package Signing Key <support@influxdata.com>'
    ```
