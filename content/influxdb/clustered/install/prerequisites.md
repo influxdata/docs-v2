@@ -23,6 +23,8 @@ We **strongly** recommend that you enable object versioning in your object store
 - **PostgreSQL-compatible database** _(AWS Aurora, hosted Postgres, etc.)_:
   Used to store the InfluxDB catalog
   - Supported PostgreSQL versions: **13.8–14.6**
+  - InfluxDB Clustered requires a dedicated PostgreSQL instance used exclusively for InfluxDB purposes to avoid conflicts.
+
 - **OAuth 2.0 provider**:
   - Must support [Device Authorization Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/device-authorization-flow)
   - Tested and supported providers:
@@ -30,6 +32,10 @@ We **strongly** recommend that you enable object versioning in your object store
     - [Keycloak](https://www.keycloak.org/)
     - [Auth0](https://auth0.com/)
 - **TLS certificate**: for ingress to the cluster
+
+### Namespace Recommendations
+- **Separate Namespace (Recommended):**
+  - For better management and clarity, it is recommended to deploy the PostgreSQL instance and the Object Store (Parquet files) in a separate namespace from the rest of the InfluxDB components.
 
 ## Set up a Kubernetes cluster
 
