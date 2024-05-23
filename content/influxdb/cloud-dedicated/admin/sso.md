@@ -83,20 +83,17 @@ identity provider's documentation.
 
 ## Ongoing maintenance
 
-In order for your SSO integration to continue to function properly, there may be
-some ongoing maintenance that may involve InfluxData support. For example:
+Your SSO integration may require ongoing maintenance to continue to function properly. For example:
 
-- **You're using OIDC and you update your client secret**: You must provide the
-  new secret to InfluxData support so it can be updated in the
+- **You're using OIDC and you update your client secret**: Provide the
+  new secret to InfluxData support for updating in the
   InfluxData-managed Auth0 service.
 
-- **Your using SAML and your identity provider certificate is rotated**: You
-  must provide the new certificate to InfluxData support so it can be updated in
+- **Your using SAML and your identity provider certificate is rotated**: Provide the new certificate to InfluxData support for updating in
   the InfluxData-managed Auth0 service.
 
   {{% note %}}
 Some identity providers that support SAML are known to rotate certificates often.
-Each time the certificate is rotated, you must contact InfluxData support with
-the updated certificate. Consider this when selecting and identity provider and
+Each time the certificate is rotated, you must provide the updated certificate to InfluxData support. Consider this when selecting an identity provider and
 protocol to use.
   {{% /note %}}
