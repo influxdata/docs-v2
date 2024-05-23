@@ -23,6 +23,13 @@ To begin the process of enabling SSO, contact InfluxData Sales:
 <a class="btn" href="https://www.influxdata.com/contact-sales/">Contact InfluxData Sales</a>
 {{% /cloud %}}
 
+- [SSO authorization flow](#sso-authorization-flow)
+- [Set up your identity provider](#set-up-your-identity-provider)
+- [Connect your identity provider to Auth0](#connect-your-identity-provider-to-auth0)
+- [Manage users in your identity provider](#manage-users-in-your-identity-provider)
+- [Ongoing maintenance](#ongoing-maintenance)
+- [Troubleshooting](#troubleshooting)
+
 ## SSO authorization flow
 
 With SSO enabled, whenever a user attempts to log into your {{< product-name >}}
@@ -67,8 +74,12 @@ To integrate your identity provider with the InfluxData-managed Auth0 service:
     credentials are required.
 
 3. **Add the InfluxData Auth0 connection URL as a valid callback URL** to your
-    identity provider application.
-    InfluxData support will provide you with the connection URL.
+    identity provider application. This is also sometimes referred to as a
+    "post-back" URL.
+    
+    ```
+    https://auth.influxdata.com/login/callback
+    ```
 
 With the callback URL in place, you're free to test the integration by logging
 into your {{< product-name >}} cluster.
@@ -83,17 +94,67 @@ identity provider's documentation.
 
 ## Ongoing maintenance
 
-Your SSO integration may require ongoing maintenance to continue to function properly. For example:
+Your SSO integration may require ongoing maintenance to continue to function
+properly. For example:
 
 - **You're using OIDC and you update your client secret**: Provide the
-  new secret to InfluxData support for updating in the
-  InfluxData-managed Auth0 service.
-
-- **Your using SAML and your identity provider certificate is rotated**: Provide the new certificate to InfluxData support for updating in
-  the InfluxData-managed Auth0 service.
+  new secret to InfluxData support for updating in the InfluxData-managed Auth0
+  service.
 
   {{% note %}}
-Some identity providers that support SAML are known to rotate certificates often.
-Each time the certificate is rotated, you must provide the updated certificate to InfluxData support. Consider this when selecting an identity provider and
-protocol to use.
+  #### Keep client secrets secure
+
+  InfluxData provides a secure method for transmitting sensitive secrets such as
+  an OIDC client secret. Never send your client secret to InfluxData using an
+  insecure method.
   {{% /note %}}
+
+- **Your using SAML and your identity provider certificate is rotated**:
+  Provide the new certificate to InfluxData support for updating in the
+  InfluxData-managed Auth0 service.
+
+  {{% note %}}
+  #### SAML certificate rotation
+
+  Some identity providers that support SAML are known to rotate certificates often.
+  Each time the certificate is rotated, you must provide the updated certificate
+  to InfluxData support. Consider this when selecting an identity provider and
+  protocol to use.
+  {{% /note %}}
+
+## Troubleshooting
+
+The most common issues with SSO integrations occur when credentials related to
+your identity provider change and need to be updated in the InfluxData-managed
+Auth0 service (see [Ongoing maintenance](#ongoing-maintenance)).
+
+When encountered, SSO integration errors return a `500` error code the browser,
+but does not provide information about the specific error.
+**Error details are included in the URL as a the following query parameters**:
+
+- **error**
+- **error_description**
+- **state**
+
+### Invalid thumbprint
+
+The `Invalid thumbprint` error description indicates that the certificate used
+for SAML connections does not match the certificated configured in the
+InfluxData-managed Auth0 service.
+
+- **error**: `access_denied`
+- **error_description**: `Invalid thumbprint (configured: XXXXXXXX.
+  calculated: YYYYYYYY)`
+
+#### Cause
+
+The `configured` certificate is the certificate used by Auth0.
+The `calculated` certificate is the certificate used by your identity provider.
+If these certificates do not match, Auth0 will not authorize the request.
+This most likely means that the certificate was rotated by your identity
+provider and the new certificate needs to be added to Auth0.
+
+#### Solution
+
+Provide your updated certificate to [InfluxData support](https://support.influxdata.com)
+and they will add it to Auth0.
