@@ -109,7 +109,7 @@ properly. For example:
   insecure method.
   {{% /note %}}
 
-- **Your using SAML and your identity provider certificate is rotated**:
+- **You're using SAML and your identity provider certificate is rotated**:
   Provide the new certificate to InfluxData support for updating in the
   InfluxData-managed Auth0 service.
 
