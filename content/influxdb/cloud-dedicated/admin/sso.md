@@ -128,8 +128,7 @@ The most common issues with SSO integrations occur when credentials related to
 your identity provider change and need to be updated in the InfluxData-managed
 Auth0 service (see [Ongoing maintenance](#ongoing-maintenance)).
 
-When encountered, SSO integration errors return a `500` error code the browser,
-but does not provide information about the specific error.
+When encountered, SSO integration errors return a `500` error code the browser.
 **Error details are included in the URL as a the following query parameters**:
 
 - **error**
