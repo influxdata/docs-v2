@@ -54,7 +54,7 @@ Running the Catalog database and Object Store in a separate namespace or outside
 of Kubernetes makes management of the InfluxDB instance easier and helps to
 prevents accidental data loss.
 
-While deploying everything in the same namespace is possible for testing or initial setups, it is not recommended for production environments.
+While deploying everything in the same namespace is possible for testing or initial setup, it is not recommended for production environments.
 {{% /note %}}
 
 ### Cluster sizing recommendation
