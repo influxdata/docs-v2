@@ -23,7 +23,7 @@ We **strongly** recommend that you enable object versioning in your object store
 - **PostgreSQL-compatible database** _(AWS Aurora, hosted Postgres, etc.)_:
   Used to store the InfluxDB catalog
   - Supported PostgreSQL versions: **13.8–14.6**
-  - Ensure that the PostgreSQL instance is dedicated exclusively to InfluxDB purposes to avoid conflicts. This prevents issues due to shared usage with other applications.
+  - Ensure that the PostgreSQL-compatible instance is dedicated exclusively to InfluxDB. This avoids conflicts and prevents issues caused by shared usage with other applications.
 
 - **OAuth 2.0 provider**:
   - Must support [Device Authorization Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/device-authorization-flow)
