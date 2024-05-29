@@ -1,4 +1,7 @@
 Cloud Dedicated
 cloud-dedicated
+Clustered
+clustered
 database name
 database token
+management token

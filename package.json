@@ -24,9 +24,9 @@
   },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write",
-    "content/influxdb/cloud-dedicated/**/*.md": "npx vale --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=warning --output=JSON",
-    "content/influxdb/cloud-serverless/**/*.md": "npx vale --config=content/influxdb/cloud-serverless/.vale.ini --minAlertLevel=warning --output=JSON",
-    "content/influxdb/clustered/**/*.md": "npx vale --config=content/influxdb/clustered/.vale.ini --minAlertLevel=warning --output=JSON",
-    "content/influxdb/{cloud,v2,telegraf}/**/*.md": "npx vale --config=.vale.ini --minAlertLevel=warning --output=JSON"
+    "content/influxdb/cloud-dedicated/**/*.md": "npx vale --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=warning --output=line",
+    "content/influxdb/cloud-serverless/**/*.md": "npx vale --config=content/influxdb/cloud-serverless/.vale.ini --minAlertLevel=warning --output=line",
+    "content/influxdb/clustered/**/*.md": "npx vale --config=content/influxdb/clustered/.vale.ini --minAlertLevel=warning --output=line",
+    "content/influxdb/{cloud,v2,telegraf}/**/*.md": "npx vale --config=.vale.ini --minAlertLevel=warning --output=line"
   }
 }
