@@ -1,7 +1,10 @@
 # Lint cloud-dedicated
 docspath=.
 contentpath=$docspath/content
-npx vale --config=$contentpath/influxdb/cloud-dedicated/.vale.ini --output=line --relative --minAlertLevel=error $contentpath/influxdb/cloud-dedicated
+
+# Vale searches for a configuration file (.vale.ini) in the directory of the file being linted, and then in each of its parent directories.
+# Lint cloud-dedicated
+npx vale --output=line --relative --minAlertLevel=error $contentpath/influxdb/cloud-dedicated
 
 # Lint cloud-serverless
 npx vale --config=$contentpath/influxdb/cloud-serverless/.vale.ini --output=line --relative --minAlertLevel=error $contentpath/influxdb/cloud-serverless
@@ -10,4 +13,4 @@ npx vale --config=$contentpath/influxdb/cloud-serverless/.vale.ini --output=line
 npx vale --config=$contentpath/influxdb/clustered/.vale.ini --output=line --relative --minAlertLevel=error $contentpath/influxdb/clustered
 
 # Lint telegraf
-# vale --config=$docspath/.vale.ini --output=line --relative --minAlertLevel=error $contentpath/telegraf
+# npx vale --config=$docspath/.vale.ini --output=line --relative --minAlertLevel=error $contentpath/telegraf
