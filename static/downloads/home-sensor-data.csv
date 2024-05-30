@@ -1,0 +1,27 @@
+measurement,room,temp,hum,co,time
+home,Living Room,21.1,35.9,0,1712822400
+home,Kitchen,21.0,35.9,0,1712822400
+home,Living Room,21.4,35.9,0,1712826000
+home,Kitchen,23.0,36.2,0,1712826000
+home,Living Room,21.8,36.0,0,1712829600
+home,Kitchen,22.7,36.1,0,1712829600
+home,Living Room,22.2,36.0,0,1712833200
+home,Kitchen,22.4,36.0,0,1712833200
+home,Living Room,22.2,35.9,0,1712836800
+home,Kitchen,22.5,36.0,0,1712836800
+home,Living Room,22.4,36.0,0,1712840400
+home,Kitchen,22.8,36.5,1,1712840400
+home,Living Room,22.3,36.1,0,1712844000
+home,Kitchen,22.8,36.3,1,1712844000
+home,Living Room,22.3,36.1,1,1712847600
+home,Kitchen,22.7,36.2,3,1712847600
+home,Living Room,22.4,36.0,4,1712851200
+home,Kitchen,22.4,36.0,7,1712851200
+home,Living Room,22.6,35.9,5,1712854800
+home,Kitchen,22.7,36.0,9,1712854800
+home,Living Room,22.8,36.2,9,1712858400
+home,Kitchen,23.3,36.9,18,1712858400
+home,Living Room,22.5,36.3,14,1712862000
+home,Kitchen,23.1,36.6,22,1712862000
+home,Living Room,22.2,36.4,17,1712865600
+home,Kitchen,22.7,36.5,26,1712865600

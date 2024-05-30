@@ -8,6 +8,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   curl \
   git \
   gpg \
+  jq \
   maven \
   nodejs \
   npm \
@@ -32,37 +33,36 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
 
-# Some Python test dependencies (pytest-dotenv and pytest-codeblocks) aren't
-# available as packages in apt-cache, so use pip to download dependencies in a # separate step and use Docker's caching.
-# Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
-# Leverage a bind mount to requirements.txt to avoid having to copy them into
-# this layer.
-RUN --mount=type=cache,target=/root/.cache/pip \
-    --mount=type=bind,source=test/requirements.txt,target=./requirements.txt \
-    pip install -Ur ./requirements.txt
-
 # RUN --mount=type=cache,target=/root/.cache/node_modules \
 #     --mount=type=bind,source=package.json,target=package.json \
 #     npm install
 
 # Copy docs test directory to the image.
 WORKDIR /usr/src/app
-
 RUN chmod -R 755 .
 
 ARG SOURCE_DIR
 
-COPY test ./test
-COPY data ./test/data
-
-WORKDIR /usr/src/app/test
-
-COPY test/run-tests.sh /usr/local/bin/run-tests.sh
-RUN chmod +x /usr/local/bin/run-tests.sh
-
+COPY data ./data
 # Install parse_yaml.sh and parse YAML config files into dotenv files to be used by tests.
 RUN /bin/bash -c 'curl -sO https://raw.githubusercontent.com/mrbaseman/parse_yaml/master/src/parse_yaml.sh'
 RUN /bin/bash -c 'source ./parse_yaml.sh && parse_yaml ./data/products.yml > .env.products'
+
+COPY test ./test
+WORKDIR /usr/src/app/test
+COPY shared/fixtures ./tmp/data
+
+# Some Python test dependencies (pytest-dotenv and pytest-codeblocks) aren't
+# available as packages in apt-cache, so use pip to download dependencies in a # separate step and use Docker's caching.
+# Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
+# Leverage a bind mount to requirements.txt to avoid having to copy them into
+# this layer.
+RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=bind,source=test/requirements.txt,target=requirements.txt \
+    pip install -Ur requirements.txt
+
+COPY test/setup/run-tests.sh /usr/local/bin/run-tests.sh
+RUN chmod +x /usr/local/bin/run-tests.sh
 
 # Install Telegraf for use in tests.
 # Follow the install instructions (https://docs.influxdata.com/telegraf/v1/install/?t=curl), except for sudo (which isn't available in Docker).
@@ -88,6 +88,7 @@ RUN echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] h
 
 RUN apt-get update && apt-get install influxdb2-cli
 
-ENV TEMP_DIR=/usr/src/app/test/tmp
+ENV TEMP_DIR=./tmp
+
 ENTRYPOINT [ "run-tests.sh" ]
 CMD [""]

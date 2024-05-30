@@ -1,12 +1,13 @@
 ## Test dependencies
-pytest==7.4.1
-pytest-cov==2.12.1
-pytest-codeblocks==0.16.1
-python-dotenv==1.0.0
-pytest-dotenv==0.5.2
+pytest>=7.4.1
+pytest-cov>=2.12.1
+pytest-codeblocks>=0.16.1
+python-dotenv>=1.0.0
+pytest-dotenv>=0.5.2
 # Code sample dependencies
-influxdb3-python
-influxdb3-python-cli
+influxdb3-python @ git+https://github.com/InfluxCommunity/influxdb3-python@v0.5.0
+influxdb3-python-cli @ git+https://github.com/InfluxCommunity/influxdb3-python-cli@main
 pandas
+polars
 ## Tabulate for printing pandas DataFrames.
 tabulate
