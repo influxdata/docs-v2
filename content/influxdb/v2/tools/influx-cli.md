@@ -86,7 +86,7 @@ brew list | grep influxdb-cli
     #### Download from the command line
 
     ```sh
-    curl -O https://download.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz \
+    curl -LO https://download.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz \
         --output-dir ~/Downloads
     ```
 

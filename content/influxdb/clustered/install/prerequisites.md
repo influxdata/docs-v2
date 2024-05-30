@@ -23,6 +23,8 @@ We **strongly** recommend that you enable object versioning in your object store
 - **PostgreSQL-compatible database** _(AWS Aurora, hosted Postgres, etc.)_:
   Used to store the InfluxDB catalog
   - Supported PostgreSQL versions: **13.8–14.6**
+  - Ensure that the PostgreSQL-compatible instance is dedicated exclusively to InfluxDB. This avoids conflicts and prevents issues caused by shared usage with other applications.
+
 - **OAuth 2.0 provider**:
   - Must support [Device Authorization Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/device-authorization-flow)
   - Tested and supported providers:
@@ -51,6 +53,8 @@ in a separate namespace from InfluxDB or external to Kubernetes entirely.
 Running the Catalog database and Object Store in a separate namespace or outside
 of Kubernetes makes management of the InfluxDB instance easier and helps to
 prevents accidental data loss.
+
+While deploying everything in the same namespace is possible for testing or initial setup, it is not recommended for production environments.
 {{% /note %}}
 
 ### Cluster sizing recommendation
