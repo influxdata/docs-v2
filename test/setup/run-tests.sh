@@ -22,10 +22,6 @@ if has_option "-v" "$@"; then
     echo "Using verbose mode..."
 fi
 
-if [ -z "$TEMP_DIR" ]; then
-  TEMP_DIR=./tmp
-fi
-
 BASE_DIR=$(pwd)
 cd $TEMP_DIR
 
@@ -98,6 +94,9 @@ gpg -q --batch --yes --delete-key D8FF8E1F7DF8B07E > /dev/null 2>&1
 
 # Activate the Python virtual environment configured in the Dockerfile.
 . /opt/venv/bin/activate
+
+# List installed Python dependencies.
+pip list
 
 # Run test commands with options provided in the CMD of the Dockerfile.
 # pytest rootdir is the directory where pytest.ini is located (/test).
