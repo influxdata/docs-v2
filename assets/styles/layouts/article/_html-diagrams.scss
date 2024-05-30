@@ -529,6 +529,145 @@ table tr.point{
   }
 }
 
+//////////////////////// SSO AUTHORIZATION FLOW DIAGRAM ////////////////////////
+
+#sso-auth-flow {
+  max-width: 650px;
+  margin: 2rem auto;
+
+  .row {
+    display: flex;
+    
+    &.left {  justify-content: start;}
+    &.center {  justify-content: center;}
+    &.right {  justify-content: end;}
+  }
+
+  .auth-item {
+    margin: 1rem;
+    color: $g20-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1.5rem 1.75rem;
+    background: linear-gradient(-135deg, $article-table-header);
+    border-radius: $radius * 2;
+    min-width: 220px;
+    min-height: 90px;
+    text-align: center;
+    font-weight: $medium;
+  }
+
+  #auth0, #idp {
+    &::after {
+      display: block;
+      margin-top: .25rem;
+      font-weight: normal;
+      font-style: italic;
+      font-size: 1rem;
+      opacity: .75;
+    }
+  }
+
+  #auth0::after {content: "Managed by InfluxData"}
+  #idp::after {content: "Managed by you"}
+
+  .arrow {
+    display: block;
+    width: 65px;
+    height: 65px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $article-text;
+    border-style: dashed;
+    border-color: $article-text;
+
+    &.right, &.left {
+      &:before {
+        content: attr(step);
+        background: $article-bg;
+        font-size: .9rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 1px solid $article-text;
+        text-align: center;
+        line-height: 1.5rem;
+        border-radius: 50%;
+      }
+      &:after {       
+        position: absolute;
+        line-height: 0;
+        font-size: 1.35rem;
+      }
+    }
+
+    &.right {
+      border-radius: 0 100% 0 0;
+      border-width: 2px 2px 0 0;
+      align-self: flex-end;
+      &:before {translate: 45% -45%; }
+      &:after {
+        content: "⏷";
+        bottom: 0;
+        right: -.4rem;
+      }
+    }
+    &.left {
+      border-radius: 0 0 0 100%;
+      border-width: 0 0 2px 2px;
+      align-self: flex-start;
+      &:before {translate: -45% 45%;}
+      &:after {
+        content: "⏶";
+        top: 0;
+        left: -.4rem;
+      }
+    }
+  }
+}
+
+// AUTH FLOW-SPECIFIC MEDIA QUERIES
+
+@include media(small) {
+  #sso-auth-flow {
+    max-width: 350px;
+    margin: 6rem auto;
+    .row {
+      flex-direction: column;
+      margin: -50px 0;
+    }
+    .auth-item{
+      margin: .5rem 0;
+    }
+    .arrow {
+      width: 2rem;
+      height: 55px;
+      &.right, &.left {
+        border-width: 0 2px 0 0;
+        border-radius: 0;
+      }
+      &.right {
+        align-self: flex-start;
+        margin-left: 4rem;
+        &:before{translate: 60% -15%;}
+      }
+      &.left {
+        align-self: flex-end;
+        margin-right: 6rem;
+        &:before{translate: 60% 10%;}
+        &:after {
+          right: -.4rem;
+          left: unset;
+        }
+      }
+    }
+  }
+
+}
+
 /////////////////////////// QUIX DOWNSAMPLING DIAGRAM //////////////////////////
 
 #quix-downsample-pipeline {
