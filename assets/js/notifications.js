@@ -24,11 +24,26 @@ function showNotifications () {
       return false;
     }
 
+    function excludePage (path, exclude) {
+      if (exclude[0].length > 0) {
+        for (let i = 0; i < exclude.length; i++) {
+          if (path.includes(exclude[i])) {
+            return true;
+          }
+        }
+      }  
+      return false;
+    }
+
     var scope = $(this).data('scope').split(',');
+    var exclude = $(this).data('exclude').split(',');
     var pageInScope = inScope(window.location.pathname, scope);
+    var pageExcluded = excludePage(window.location.pathname, exclude);
     var notificationRead = notificationIsRead(notificationID(this), 'message');
 
-    if (pageInScope && !notificationRead) {
+    console.log(pageExcluded)
+
+    if (pageInScope && !pageExcluded && !notificationRead) {
       $(this).show().animate({ right: 0, opacity: 1 }, 200, 'swing');
     }
   });

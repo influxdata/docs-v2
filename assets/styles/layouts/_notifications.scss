@@ -39,6 +39,9 @@
         border-top: 1px dotted rgba($g20-white, .5);
         padding-top: 1.25rem;
       }
+
+      &:last-child {margin-bottom: 0;}
+      p:last-child {margin-bottom: 0;}
     }
 
     .notification-content {
