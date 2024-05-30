@@ -1,0 +1,210 @@
+[
+  {
+    "room": "Living Room",
+    "temp": 21.1,
+    "hum": 35.9,
+    "co": 0,
+    "measurement": "home",
+    "time": "1711008000"
+  },
+  {
+    "room": "Kitchen",
+    "temp": 21.0,
+    "hum": 35.9,
+    "co": 0,
+    "measurement": "home",
+    "time": "1711008000"
+  },
+  {
+    "room": "Living Room",
+    "temp": 21.4,
+    "hum": 35.9,
+    "co": 0,
+    "measurement": "home",
+    "time": "1711011600"
+  },
+  {
+    "room": "Kitchen",
+    "temp": 23.0,
+    "hum": 36.2,
+    "co": 0,
+    "measurement": "home",
+    "time": "1711011600"
+  },
+  {
+    "room": "Living Room",
+    "temp": 21.8,
+    "hum": 36.0,
+    "co": 0,
+    "measurement": "home",
+    "time": "1711015200"
+  },
+  {
+    "room": "Kitchen",
+    "temp": 22.7,
+    "hum": 36.1,
+    "co": 0,
+    "measurement": "home",
+    "time": "1711015200"
+  },
+  {
+    "room": "Living Room",
+    "temp": 22.2,
+    "hum": 36.0,
+    "co": 0,
+    "measurement": "home",
+    "time": "1711018800"
+  },
+  {
+    "room": "Kitchen",
+    "temp": 22.4,
+    "hum": 36.0,
+    "co": 0,
+    "measurement": "home",
+    "time": "1711018800"
+  },
+  {
+    "room": "Living Room",
+    "temp": 22.2,
+    "hum": 35.9,
+    "co": 0,
+    "measurement": "home",
+    "time": "1711022400"
+  },
+  {
+    "room": "Kitchen",
+    "temp": 22.5,
+    "hum": 36.0,
+    "co": 0,
+    "measurement": "home",
+    "time": "1711022400"
+  },
+  {
+    "room": "Living Room",
+    "temp": 22.4,
+    "hum": 36.0,
+    "co": 0,
+    "measurement": "home",
+    "time": "1711026000"
+  },
+  {
+    "room": "Kitchen",
+    "temp": 22.8,
+    "hum": 36.5,
+    "co": 1,
+    "measurement": "home",
+    "time": "1711026000"
+  },
+  {
+    "room": "Living Room",
+    "temp": 22.3,
+    "hum": 36.1,
+    "co": 0,
+    "measurement": "home",
+    "time": "1711029600"
+  },
+  {
+    "room": "Kitchen",
+    "temp": 22.8,
+    "hum": 36.3,
+    "co": 1,
+    "measurement": "home",
+    "time": "1711029600"
+  },
+  {
+    "room": "Living Room",
+    "temp": 22.3,
+    "hum": 36.1,
+    "co": 1,
+    "measurement": "home",
+    "time": "1711033200"
+  },
+  {
+    "room": "Kitchen",
+    "temp": 22.7,
+    "hum": 36.2,
+    "co": 3,
+    "measurement": "home",
+    "time": "1711033200"
+  },
+  {
+    "room": "Living Room",
+    "temp": 22.4,
+    "hum": 36.0,
+    "co": 4,
+    "measurement": "home",
+    "time": "1711036800"
+  },
+  {
+    "room": "Kitchen",
+    "temp": 22.4,
+    "hum": 36.0,
+    "co": 7,
+    "measurement": "home",
+    "time": "1711036800"
+  },
+  {
+    "room": "Living Room",
+    "temp": 22.6,
+    "hum": 35.9,
+    "co": 5,
+    "measurement": "home",
+    "time": "1711040400"
+  },
+  {
+    "room": "Kitchen",
+    "temp": 22.7,
+    "hum": 36.0,
+    "co": 9,
+    "measurement": "home",
+    "time": "1711040400"
+  },
+  {
+    "room": "Living Room",
+    "temp": 22.8,
+    "hum": 36.2,
+    "co": 9,
+    "measurement": "home",
+    "time": "1711044000"
+  },
+  {
+    "room": "Kitchen",
+    "temp": 23.3,
+    "hum": 36.9,
+    "co": 18,
+    "measurement": "home",
+    "time": "1711044000"
+  },
+  {
+    "room": "Living Room",
+    "temp": 22.5,
+    "hum": 36.3,
+    "co": 14,
+    "measurement": "home",
+    "time": "1711047600"
+  },
+  {
+    "room": "Kitchen",
+    "temp": 23.1,
+    "hum": 36.6,
+    "co": 22,
+    "measurement": "home",
+    "time": "1711047600"
+  },
+  {
+    "room": "Living Room",
+    "temp": 22.2,
+    "hum": 36.4,
+    "co": 17,
+    "measurement": "home",
+    "time": "1711051200"
+  },
+  {
+    "room": "Kitchen",
+    "temp": 22.7,
+    "hum": 36.5,
+    "co": 26,
+    "measurement": "home",
+    "time": "1711051200"
+  }
+]
