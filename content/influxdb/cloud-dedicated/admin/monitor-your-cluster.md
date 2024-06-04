@@ -2,7 +2,7 @@
 title: Monitor your cluster
 seotitle: Monitor your InfluxDB Cloud Dedicated cluster
 description: >
-  Use the Grafana dashboard provided by InfluxData to monitor your
+  Use the Grafana observability dashboard provided by InfluxData to monitor your
   InfluxDB Cloud Dedicated cluster.
 menu:
   influxdb_cloud_dedicated:
@@ -10,31 +10,31 @@ menu:
 weight: 104
 ---
 
-Use the Grafana dashboard provided by InfluxData to monitor your
+Use the Grafana observability dashboard provided by InfluxData to monitor your
 {{< product-name >}} cluster.
 
 {{% note %}}
 #### Not available for all clusters
 
-{{< product-name >}} monitoring dashboards are not available for all clusters.
+{{< product-name >}} observability dashboards are not available for all clusters.
 For questions about availability, [contact InfluxData support](https://support.influxdata.com).
 {{% /note %}}
 
-- [Access your monitoring dashboard](#access-your-monitoring-dashboard)
+- [Access your observability dashboard](#access-your-observability-dashboard)
 - [Dashboard sections and cells](#dashboard-sections-and-cells)
 
-{{< img-hd src="/img/influxdb/clustered-admin-monitoring-dashboard.png" alt="InfluxDB Cloud Dedicated monitoring dashboard" />}}
+{{< img-hd src="/img/influxdb/cloud-dedicated-admin-observability-dashboard.png" alt="InfluxDB Cloud Dedicated observability dashboard" />}}
 
-## Access your monitoring dashboard
+## Access your observability dashboard
 
-To access your {{< product-name >}} monitoring dashboard, visit the
+To access your {{< product-name >}} observability dashboard, visit the
 `/observability` endpoint of your {{< product-name >}} cluster in your browser:
 
 <pre>
 <a href="https://{{< influxdb/host >}}/observability">https://{{< influxdb/host >}}/observability</a>
 </pre>
 
-Use the credentials provided by InfluxData to log into your cluster monitoring dashboard.
+Use the credentials provided by InfluxData to log into your cluster observability dashboard.
 If you do not have login credentials, [contact InfluxData support](https://support.influxdata.com).
 
 ## Dashboard sections and cells
