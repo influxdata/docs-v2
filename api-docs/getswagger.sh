@@ -155,7 +155,7 @@ function updateCloudDedicatedManagement {
   then
     echo "Using existing $outFile"
   else
-    curl $UPDATE_OPTIONS https://raw.githubusercontent.com/influxdata/granite/3117fb47d5e56afaadcebc226ff4b25785d95b5a/openapi.yaml -o $outFile
+    curl $UPDATE_OPTIONS https://raw.githubusercontent.com/influxdata/granite/ab7ee2aceacfae7f415d15ffbcf8c9d0f6f3e015/openapi.yaml -o $outFile
   fi
   postProcess $outFile 'cloud-dedicated/.config.yml' management@0
 }
