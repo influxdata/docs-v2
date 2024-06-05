@@ -1597,7 +1597,7 @@ components:
 
         If the retention period is not set or is set to 0, the database will have infinite retention
       type: integer
-      format: int32
+      format: int64
       default: 0
       examples:
         - 300000000000
