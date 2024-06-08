@@ -15,7 +15,7 @@ flux/v0/tags: [single notification]
 
 IMPORTANT: This page was generated from comments in the Flux source code. Any
 edits made directly to this page will be overwritten the next time the
-documentation is generated. 
+documentation is generated.
 
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
@@ -28,8 +28,6 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ------------------------------------------------------------------------------->
 
 `pagerduty.sendEvent()` sends an event to PagerDuty and returns the HTTP response code of the request.
-
-
 
 ##### Function type signature
 
@@ -65,32 +63,29 @@ PagerDuty endpoint URL.
 Default is https://events.pagerduty.com/v2/enqueue.
 
 ### routingKey
+
 ({{< req >}})
 Routing key generated from your PagerDuty integration.
 
-
-
 ### client
+
 ({{< req >}})
 Name of the client sending the alert.
 
-
-
 ### clientURL
+
 ({{< req >}})
 URL of the client sending the alert.
 
-
-
 ### dedupKey
+
 ({{< req >}})
 Per-alert ID that acts as deduplication key and allows you to
 acknowledge or change the severity of previous messages.
 Supports a maximum of 255 characters.
 
-
-
 ### class
+
 ({{< req >}})
 Class or type of the event.
 
@@ -98,6 +93,7 @@ Classes are user-defined.
 For example, `ping failure` or `cpu load`.
 
 ### group
+
 ({{< req >}})
 Logical grouping used by PagerDuty.
 
@@ -105,56 +101,52 @@ Groups are user-defined.
 For example, `app-stack`.
 
 ### severity
+
 ({{< req >}})
 Severity of the event.
 
 Valid values:
+
 - `critical`
 - `error`
 - `warning`
 - `info`
 
 ### eventAction
+
 ({{< req >}})
 Event type to send to PagerDuty.
 
 Valid values:
+
 - `trigger`
 - `resolve`
 - `acknowledge`
 
 ### source
+
 ({{< req >}})
 Unique location of the affected system.
-For example, the hostname or fully qualified domain name (FQDN).
-
-
+For example, the hostname or fully-qualified domain name (FQDN).
 
 ### component
 
 Component responsible for the event.
 
-
-
 ### summary
+
 ({{< req >}})
 Brief text summary of the event used as the summaries or titles of associated alerts.
 The maximum permitted length is 1024 characters.
 
-
-
 ### timestamp
+
 ({{< req >}})
 Time the detected event occurred in RFC3339nano format.
-
-
 
 ### customDetails
 
 Record with additional details about the event.
-
-
-
 
 ## Examples
 
@@ -181,4 +173,3 @@ pagerduty.sendEvent(
 )
 
 ```
-

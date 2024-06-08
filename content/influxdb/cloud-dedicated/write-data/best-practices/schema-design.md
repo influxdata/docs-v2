@@ -13,46 +13,61 @@ menu:
 Use the following guidelines to design your [schema](/influxdb/cloud-dedicated/reference/glossary/#schema)
 for simpler and more performant queries.
 
-
 - [InfluxDB data structure](#influxdb-data-structure)
   - [Primary keys](#primary-keys)
   - [Tags versus fields](#tags-versus-fields)
 - [Schema restrictions](#schema-restrictions)
   - [Do not use duplicate names for tags and fields](#do-not-use-duplicate-names-for-tags-and-fields)
-  - [Measurements can contain up to 250 columns](#measurements-can-contain-up-to-250-columns)
+  - [Tables can contain up to 250 columns](#tables-can-contain-up-to-250-columns)
 - [Design for performance](#design-for-performance)
   - [Avoid wide schemas](#avoid-wide-schemas)
   - [Avoid sparse schemas](#avoid-sparse-schemas)
-  - [Measurement schemas should be homogenous](#measurement-schemas-should-be-homogenous)
+  - [Table schemas should be homogenous](#table-schemas-should-be-homogenous)
   - [Use the best data type for your data](#use-the-best-data-type-for-your-data)
 - [Design for query simplicity](#design-for-query-simplicity)
-  - [Keep measurement names, tags, and fields simple](#keep-measurement-names-tags-and-fields-simple)
+  - [Keep table names, tags, and fields simple](#keep-table-names-tags-and-fields-simple)
   - [Avoid keywords and special characters](#avoid-keywords-and-special-characters)
 
 ## InfluxDB data structure
 
-The InfluxDB data model organizes time series data into buckets and measurements.
-A bucket can contain multiple measurements. Measurements contain multiple
-tags and fields.
+The {{% product-name %}} data model organizes time series data into databases and tables.
+A database can contain multiple tables.
+Tables contain multiple tags and fields.
 
-- **Bucket**: Named location where time series data is stored.
-  In the InfluxDB SQL implementation, a bucket is synonymous with a _database_.
-  A bucket can contain multiple _measurements_.
-  - **Measurement**: Logical grouping for time series data.
-    In the InfluxDB SQL implementation, a measurement is synonymous with a _table_.
-    All _points_ in a given measurement should have the same _tags_.
-    A measurement contains multiple _tags_ and _fields_.
-      - **Tags**: Key-value pairs that store metadata string values for each point--for example,
-        a value that identifies or differentiates the data source or context--for example, host,
-        location, station, etc.
-        Tag values may be null.
-      - **Fields**: Key-value pairs that store data for each point--for example,
-        temperature, pressure, stock price, etc.
-        Field values may be null, but at least one field value is not null on any given row.
-      - **Timestamp**: Timestamp associated with the data.
-        When stored on disk and queried, all data is ordered by time.
-        In InfluxDB, a timestamp is a nanosecond-scale [unix timestamp](#unix-timestamp) in UTC.
-        A timestamp is never null.
+<!-- vale InfluxDataDocs.v3Schema = NO -->
+
+- **Database**: A named location where time series data is stored.
+  In {{% product-name %}}, _database_ is synonymous with _bucket_ in InfluxDB Cloud Serverless and InfluxDB TSM implementations.
+  A database can contain multiple _tables_.
+  - **Table**: A logical grouping for time series data.
+    In {{% product-name %}}, _table_ is synonymous with _measurement_ in InfluxDB Cloud Serverless and InfluxDB TSM implementations.
+    All _points_ in a given table should have the same _tags_.
+    A table contains multiple _tags_ and _fields_.
+    - **Tags**: Key-value pairs that store metadata string values for each point--for example,
+      a value that identifies or differentiates the data source or context--for example, host,
+      location, station, etc.
+      Tag values may be null.
+    - **Fields**: Key-value pairs that store data for each point--for example,
+      temperature, pressure, stock price, etc.
+      Field values may be null, but at least one field value is not null on any given row.
+    - **Timestamp**: Timestamp associated with the data.
+      When stored on disk and queried, all data is ordered by time.
+      In InfluxDB, a timestamp is a nanosecond-scale [unix timestamp](/influxdb/cloud-dedicated/reference/glossary/#unix-timestamp) in UTC.
+      A timestamp is never null.
+
+{{% note %}}
+
+#### What about buckets and measurements?
+
+If coming from InfluxDB Cloud Serverless or InfluxDB powered by the TSM storage engine, you're likely familiar
+with the concepts _bucket_ and _measurement_.
+_Bucket_ in TSM or InfluxDB Cloud Serverless is synonymous with
+_database_ in {{% product-name %}}.
+_Measurement_ in TSM or InfluxDB Cloud Serverless is synonymous with
+_table_ in {{% product-name %}}.
+{{% /note %}}
+
+<!-- vale InfluxDataDocs.v3Schema = YES -->
 
 ### Primary keys
 
@@ -91,39 +106,38 @@ cardinality doesn't affect the overall performance of your database.
 
 ### Do not use duplicate names for tags and fields
 
-Tags and fields within the same measurement can't be named the same.
+Tags and fields within the same table can't be named the same.
 All tags and fields are stored as unique columns in a table representing the
-measurement on disk.
-If you attempt to write a measurement that contains tags or fields with the same name,
+table on disk.
+If you attempt to write a table that contains tags or fields with the same name,
 the write fails due to a column conflict.
 
-### Measurements can contain up to 250 columns
+### Tables can contain up to 250 columns
 
-A measurement can contain **up to 250 columns**. Each row requires a time column,
-but the rest represent tags and fields stored in the measurement.
-Therefore, a measurement can contain one time column and 249 total field and tag columns.
-If you attempt to write to a measurement and exceed the 250 column limit, the
+A table can contain **up to 250 columns**. Each row requires a time column,
+but the rest represent tags and fields stored in the table.
+Therefore, a table can contain one time column and 249 total field and tag columns.
+If you attempt to write to a table and exceed the 250 column limit, the
 write request fails and InfluxDB returns an error.
 
 ---
 
 ## Design for performance
 
-How you structure your schema within a measurement can affect the overall
-performance of queries against that measurement.
+How you structure your schema within a table can affect the overall
+performance of queries against that table.
 The following guidelines help to optimize query performance:
 
 - [Avoid wide schemas](#avoid-wide-schemas)
 - [Avoid sparse schemas](#avoid-sparse-schemas)
-- [Measurement schemas should be homogenous](#measurement-schemas-should-be-homogenous)
+- [Table schemas should be homogenous](#table-schemas-should-be-homogenous)
 - [Use the best data type for your data](#use-the-best-data-type-for-your-data)
-
 
 ### Avoid wide schemas
 
 A wide schema is one with many tags and fields and corresponding columns for each.
 With the InfluxDB v3 storage engine, wide schemas don't impact query execution performance.
-Because v3 is a columnar database, it executes queries only against columns selected in the query.
+Because InfluxDB v3 is a columnar database, it executes queries only against columns selected in the query.
 
 Although a wide schema won't affect query performance, it can lead to the following:
 
@@ -131,11 +145,11 @@ Although a wide schema won't affect query performance, it can lead to the follow
 - Decreased sorting performance due to complex primary keys with [too many tags](#avoid-too-many-tags).
 
 The InfluxDB v3 storage engine has a
-[limit of 250 columns per measurement](#measurements-can-contain-up-to-250-columns).
+[limit of 250 columns per table](#tables-can-contain-up-to-250-columns).
 
-To avoid a wide schema, limit the number of tags and fields stored in a measurement.
+To avoid a wide schema, limit the number of tags and fields stored in a table.
 If you need to store more than 249 total tags and fields, consider segmenting
-your fields into a separate measurement.
+your fields into a separate table.
 
 #### Avoid too many tags
 
@@ -146,8 +160,9 @@ A point that contains more tags has a more complex primary key, which could impa
 
 A sparse schema is one where, for many rows, columns contain null values.
 
- These generally stem from the following:
-- [non-homogenous measurement schemas](#measurement-schemas-should-be-homogenous)
+These generally stem from the following:
+
+- [non-homogenous table schemas](#table-schemas-should-be-homogenous)
 - [writing individual fields with different timestamps](#writing-individual-fields-with-different-timestamps)
 
 Sparse schemas require the InfluxDB query engine to evaluate many
@@ -167,34 +182,38 @@ In contrast, if you report fields at different times while using the same tagset
 This requires slightly more resources at ingestion time, but then gets resolved at persistence time or compaction time
 and avoids a sparse schema.
 
-### Measurement schemas should be homogenous
+### Table schemas should be homogenous
 
-Data stored within a measurement should be "homogenous," meaning each row should
+Data stored within a table should be "homogenous," meaning each row should
 have the same tag and field keys.
-All rows stored in a measurement share the same columns, but if a point doesn't
+All rows stored in a table share the same columns, but if a point doesn't
 include a value for a column, the column value is null.
-A measurement full of null values has a ["sparse" schema](#avoid-sparse-schemas).
+A table full of null values has a ["sparse" schema](#avoid-sparse-schemas).
 
 {{< expand-wrapper >}}
 {{% expand "View example of a sparse, non-homogenous schema" %}}
 
-Non-homogenous schemas are often caused by writing points to a measurement with
+Non-homogenous schemas are often caused by writing points to a table with
 inconsistent tag or field sets.
 In the following example, data is collected from two
 different sources and each source returns data with different tag and field sets.
 
 {{< flex >}}
 {{% flex-content %}}
+
 ##### Source 1 tags and fields:
+
 - tags:
   - source
   - code
   - crypto
 - fields:
   - price
-{{% /flex-content %}}
-{{% flex-content %}}
+    {{% /flex-content %}}
+    {{% flex-content %}}
+
 ##### Source 2 tags and fields:
+
 - tags:
   - src
   - currency
@@ -202,10 +221,10 @@ different sources and each source returns data with different tag and field sets
 - fields:
   - cost
   - volume
-{{% /flex-content %}}
-{{< /flex >}}
+    {{% /flex-content %}}
+    {{< /flex >}}
 
-These sets of data written to the same measurement result in a measurement
+These sets of data written to the same table result in a table
 full of null values (also known as a _sparse schema_):
 
 | time                 | source | src | code | currency | crypto  |       price |       cost |      volume |
@@ -230,25 +249,25 @@ querying over many long string values can negatively affect performance.
 
 ## Design for query simplicity
 
-Naming conventions for measurements, tag keys, and field keys can simplify or
+Naming conventions for tables, tag keys, and field keys can simplify or
 complicate the process of writing queries for your data.
 The following guidelines help to ensure writing queries for your data is as
 simple as possible.
 
-- [Keep measurement names, tags, and fields simple](#keep-measurement-names-tags-and-fields-simple)
+- [Keep table names, tags, and fields simple](#keep-table-names-tags-and-fields-simple)
 - [Avoid keywords and special characters](#avoid-keywords-and-special-characters)
 
-### Keep measurement names, tags, and fields simple
+### Keep table names, tags, and fields simple
 
 Use one tag or one field for each data attribute.
 If your source data contains multiple data attributes in a single parameter,
 split each attribute into its own tag or field.
 
-Measurement names, tag keys, and field keys should be simple and accurately
+Table names, tag keys, and field keys should be simple and accurately
 describe what each contains.
 Keep names free of data.
 The most common cause of a complex naming convention is when you try to "embed"
-data attributes into a measurement name, tag key, or field key.
+data attributes into a table name, tag key, or field key.
 
 When each key and value represents one attribute (not multiple concatenated attributes) of your data,
 you'll reduce the need for regular expressions in your queries.
@@ -258,7 +277,7 @@ Without regular expressions, your queries will be easier to write and more perfo
 
 For example, consider the following [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/) that embeds multiple attributes (location, model, and ID) into a `sensor` tag value:
 
-```
+```text
 home,sensor=loc-kitchen.model-A612.id-1726ZA temp=72.1
 home,sensor=loc-bath.model-A612.id-2635YB temp=71.8
 ```
@@ -309,7 +328,7 @@ are less performant than simple equality expressions.
 
 The better approach would be to write each sensor attribute as a separate tag:
 
-```
+```text
 home,location=kitchen,sensor_model=A612,sensor_id=1726ZA temp=72.1
 home,location=bath,sensor_model=A612,sensor_id=2635YB temp=71.8
 ```
@@ -351,19 +370,19 @@ or regular expressions.
 ### Avoid keywords and special characters
 
 To simplify query writing, avoid using reserved keywords or special characters
-in measurement names, tag keys, and field keys.
+in table names, tag keys, and field keys.
 
 - [SQL keywords](/influxdb/cloud-dedicated/reference/sql/#keywords)
 - [InfluxQL keywords](/influxdb/cloud-dedicated/reference/influxql/#keywords)
 
-When using SQL or InfluxQL to query measurements, tags, and fields with special
+When using SQL or InfluxQL to query tables, tags, and fields with special
 characters or keywords, you have to wrap these keys in **double quotes**.
 
 ```sql
 SELECT
   "example-field", "tag@1-23"
 FROM
-  "example-measurement"
+  "example-table"
 WHERE
   "tag@1-23" = 'ABC'
 ```

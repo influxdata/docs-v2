@@ -10,7 +10,7 @@
 **/.classpath
 **/.dockerignore
 **/.env
-**/.env.influxdbv3
+**/.env.*
 **/.git
 **/.gitignore
 **/.project

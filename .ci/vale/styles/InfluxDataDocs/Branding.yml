@@ -1,45 +1,20 @@
 extends: substitution
 message: Use '%s' instead of '%s'
 level: warning
-ignorecase: true
+ignorecase: false 
 # swap maps tokens in form of bad: good
+  # NOTE: The left-hand (bad) side can match the right-hand (good) side;
+  # Vale ignores alerts that match the intended form.
 swap:
-  # NOTE: The left-hand (bad) side can match the right-hand (good) side; Vale
-  # will ignore any alerts that match the intended form.
-  "anaconda": Anaconda
-  "(?i)api": API
-  "arrow": Arrow
-  "authtoken": authToken
-  "Authtoken": AuthToken
-  "chronograf": Chronograf
-  "cli": CLI
-  "(?i)clockface": Clockface
-  "the compactor": the Compactor
-  "data explorer": Data Explorer
-  "datetime": dateTime
-  "dedupe": deduplicate
-  "(?i)executionplan": ExecutionPlan
-  "fieldkey": fieldKey
-  "fieldtype": fieldType
-  "flight": Flight
-  "(?i)flightquery": FlightQuery
-  "(?i)FlightSQL": Flight SQL
-  "/b(?i)influxdata/b": InfluxData
-  "/w*/b(?i)influxdb": InfluxDB
-  "(?i)influxql": InfluxQL
-  "influxer": Influxer
-  "the ingester": the Ingester
-  "(?i)iox": v3
-  "java[ -]?scripts?": JavaScript
-  "kapa": Kapacitor
-  "logicalplan": LogicalPlan
-  "the object store": the Object store
-  "a {{% product-name %}}": an {{% product-name %}}
-  "Pandas": pandas
-  " parquet": Parquet
-  "the querier": the Querier
-  "SQL Alchemy": SQLAlchemy
-  "superset": Superset
-  "tagkey": tagKey
-  "telegraf": Telegraf
-  "telegraph": Telegraf
+  'the compactor': the Compactor
+  'dedupe': deduplicate
+  '/b(?i)influxdata/b': InfluxData
+  '/w*/b(?i)influxdb': InfluxDB
+  'the ingester': the Ingester
+  '(?i)iox': v3
+  'the object store': the Object store
+  'a {{% product-name %}}': an {{% product-name %}}
+  'the querier': the Querier
+  'SQL Alchemy': SQLAlchemy
+  'telegraph': Telegraf
+  '(?i)vscode': VSCode

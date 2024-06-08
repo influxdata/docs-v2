@@ -25,9 +25,13 @@ The `SELECT` statement **requires** a [`SELECT` clause](#select-clause) and a
   - [SELECT clause](#select-clause)
   - [FROM clause](#from-clause)
 - [Notable SELECT statement behaviors](#notable-select-statement-behaviors)
+  - [Must query at least one field](#must-query-at-least-one-field)
+  - [Wildcard expressions](#wildcard-expressions)
+  - [Cannot include both aggregate and non-aggregate field expressions](#cannot-include-both-aggregate-and-non-aggregate-field-expressions)
 - [Data types and casting operations](#data-types-and-casting-operations)
 - [SELECT statement examples](#select-statement-examples)
-<!-- - [Multiple statements](#multiple-statements) -->
+  - [Type-casting examples](#type-casting-examples)
+  <!-- - [Multiple statements](#multiple-statements) -->
 
 ## Syntax
 
@@ -84,19 +88,20 @@ a [regular expression](/influxdb/cloud-serverless/reference/influxql/regular-exp
   FROM measurement
   ```
 
-- **Fully-qualified measurement**: A fully qualified measurement includes a
+- **Fully-qualified measurement**<a name="fully-qualified-measurement"></a><a name="fully-qualified-measurement"></a>: A fully-qualified measurement includes a
   database name, retention policy name, and measurement name, each separated by
   a period (`.`). If the retention policy is not specified, InfluxQL uses the
   default retention policy for the specified database.
 
-```sql
-FROM database.retention_policy.measurement
+  ```sql
+  FROM database.retention_policy.measurement
 
--- Fully-qualified measurement with default retention policy
-FROM database..measurement
-```
+  -- Fully-qualified measurement with default retention policy
+  FROM database..measurement
+  ```
 
 {{% note %}}
+
 #### InfluxQL retention policies
 
 In {{< product-name >}}, **retention policies** are not part of the data model
@@ -109,6 +114,7 @@ measurements in InfluxQL queries, use the following naming convention when
 ```
 database_name/retention_policy
 ```
+
 {{% /note %}}
 
 #### Subquery
@@ -120,9 +126,16 @@ For more information, see [InfluxQL subqueries](/influxdb/cloud-serverless/refer
 
 ## Notable SELECT statement behaviors
 
-- [Must query at least one field](#must-query-at-least-one-field)
-- [Wildcard expressions](#wildcard-expressions)
-- [Cannot include both aggregate and non-aggregate field expressions](#cannot-include-both-aggregate-and-non-aggregate-field-expressions)
+- [Syntax](#syntax)
+  - [SELECT clause](#select-clause)
+  - [FROM clause](#from-clause)
+- [Notable SELECT statement behaviors](#notable-select-statement-behaviors)
+  - [Must query at least one field](#must-query-at-least-one-field)
+  - [Wildcard expressions](#wildcard-expressions)
+  - [Cannot include both aggregate and non-aggregate field expressions](#cannot-include-both-aggregate-and-non-aggregate-field-expressions)
+- [Data types and casting operations](#data-types-and-casting-operations)
+- [SELECT statement examples](#select-statement-examples)
+  - [Type-casting examples](#type-casting-examples)
 
 ### Must query at least one field
 

@@ -29,7 +29,7 @@ Consider a use case where you collect data from sensors in your home.
 Each sensor collects temperature, humidity, and carbon monoxide readings.
 To collect this data, use the following schema:
 
-- **measurement**: `home` 
+- **measurement**: `home`
   - **tags**
     - `room`: Living Room or Kitchen
   - **fields**
@@ -87,6 +87,7 @@ Provide the following:
 
 {{% influxdb/custom-timestamps %}}
 {{% code-placeholders "DATABASE_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" %}}
+
 ```sh
 influxctl write \
   --database DATABASE_NAME \
@@ -105,6 +106,7 @@ home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
 home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
 home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000'
 ```
+
 {{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
@@ -119,6 +121,7 @@ Replace the following:
 {{% code-tab-content %}}
 
 {{% code-placeholders "DATABASE_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" %}}
+
 ```sh
 influxctl write \
   --database DATABASE_NAME \
@@ -126,6 +129,7 @@ influxctl write \
   --precision s \
   LINE_PROTOCOL_FILEPATH
 ```
+
 {{% /code-placeholders %}}
 
 Replace the following:
@@ -142,6 +146,7 @@ Replace the following:
 {{% code-tab-content %}}
 
 {{% code-placeholders "DATABASE_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" %}}
+
 ```sh
 cat LINE_PROTOCOL_FILEPATH | influxctl write \
   --database DATABASE_NAME \
@@ -149,6 +154,7 @@ cat LINE_PROTOCOL_FILEPATH | influxctl write \
   --precision s \
   -
 ```
+
 {{% /code-placeholders %}}
 
 Replace the following:

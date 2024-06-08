@@ -1,6 +1,6 @@
 ---
 title: Information schema
-description: > 
+description: >
   The `SHOW TABLES`, `SHOW COLUMNS`, and `SHOW ALL` commands return metadata related to
   your data schema.
 menu:
@@ -17,7 +17,7 @@ To access this information, use the `SHOW TABLES`, `SHOW COLUMNS`, and
 `information_schema` schema.
 
 In the context of InfluxDB, a [measurement](/influxdb/cloud-dedicated/reference/glossary/#measurement)
-is represented as a table. Time, [tags](/influxdb/cloud-dedicated/reference/glossary/#tag),
+is represented as a [table](/influxdb/clustered/reference/glossary/#table). Time, [tags](/influxdb/cloud-dedicated/reference/glossary/#tag),
 and [fields](/influxdb/cloud-dedicated/reference/glossary/#field) are each represented
 by columns in a table.
 

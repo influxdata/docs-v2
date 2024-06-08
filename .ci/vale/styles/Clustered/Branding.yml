@@ -1,0 +1,11 @@
+extends: substitution
+message: Did you mean '%s' instead of '%s'
+level: error 
+ignorecase: false 
+# swap maps tokens in form of bad: good
+  # NOTE: The left-hand (bad) side can match the right-hand (good) side;
+  # Vale ignores alerts that match the intended form.
+swap:
+  'cloud-serverless|cloud-dedicated': clustered
+  'Cloud Serverless|Cloud Dedicated': Clustered
+  'API token': database token

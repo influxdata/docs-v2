@@ -17,7 +17,7 @@ list_code_example: |
 ---
 
 Use the `SELECT` statement to query data from one or more
-[measurements](/influxdb/clustered/reference/glossary/#measurement).
+[tables](/influxdb/clustered/reference/glossary/#tables).
 The `SELECT` statement **requires** a [`SELECT` clause](#select-clause) and a
 [`FROM` clause](#from-clause).
 
@@ -28,6 +28,8 @@ The `SELECT` statement **requires** a [`SELECT` clause](#select-clause) and a
 - [Data types and casting operations](#data-types-and-casting-operations)
 - [SELECT statement examples](#select-statement-examples)
 <!-- - [Multiple statements](#multiple-statements) -->
+
+<!-- vale InfluxDataDocs.v3Schema = NO -->
 
 ## Syntax
 
@@ -66,14 +68,14 @@ It requires one or more **field expressions** and optional **tag expressions**.
 ### FROM clause
 
 The `FROM` clause specifies the
-[measurement](/influxdb/clustered/reference/glossary/#measurement) or
+[table](/influxdb/clustered/reference/glossary/#table) or
 [subquery](/influxdb/clustered/reference/influxql/subqueries/) to query.
 It requires one or more comma-delimited
 [measurement expressions](#measurement_expression) or [subqueries](#subquery).
 
 #### measurement_expression
 
-A measurement expression identifies a measurement to query.
+A measurement expression identifies a table (measurement) to query.
 It can be a measurement name, fully-qualified measurement, constant, or
 a [regular expression](/influxdb/clustered/reference/influxql/regular-expressions/).
 
@@ -84,19 +86,20 @@ a [regular expression](/influxdb/clustered/reference/influxql/regular-expression
   FROM measurement
   ```
 
-- **Fully-qualified measurement**: A fully qualified measurement includes a
+- **Fully-qualified measurement**<a name="fully-qualified-measurement"></a>: A fully-qualified measurement includes a
   database name, retention policy name, and measurement name, each separated by
   a period (`.`). If the retention policy is not specified, InfluxQL uses the
   default retention policy for the specified database.
 
-```sql
-FROM database.retention_policy.measurement
+  ```sql
+  FROM database.retention_policy.measurement
 
--- Fully-qualified measurement with default retention policy
-FROM database..measurement
-```
+  -- Fully-qualified measurement with default retention policy
+  FROM database..measurement
+  ```
 
 {{% note %}}
+
 #### InfluxQL retention policies
 
 In {{< product-name >}}, **retention policies** are not part of the data model
@@ -109,6 +112,7 @@ measurements in InfluxQL queries, use the following naming convention when
 ```
 database_name/retention_policy
 ```
+
 {{% /note %}}
 
 #### Subquery

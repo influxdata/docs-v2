@@ -1,8 +1,8 @@
 ---
 title: Install InfluxDB Enterprise meta nodes
 aliases:
-    - /enterprise_influxdb/v1/installation/meta_node_installation/
-    - /enterprise_influxdb/v1/introduction/install-and-deploy/installation/meta_node_installation/
+  - /enterprise_influxdb/v1/installation/meta_node_installation/
+  - /enterprise_influxdb/v1/introduction/install-and-deploy/installation/meta_node_installation/
 menu:
   enterprise_influxdb_v1:
     name: Install meta nodes
@@ -23,12 +23,12 @@ your InfluxDB Enterprise cluster--meta nodes.
   - [Networking](#networking)
   - [User account](#user-account)
 - [Set up meta nodes](#set-up-meta-nodes):
-    1.  [Add DNS entries](#add-dns-entries)
-    2.  [Set up, configure, and start the meta services](#set-up-configure-and-start-the-meta-services)
-        1. [Download and install the meta service](#download-and-install-the-meta-service)
-        2. [Edit the configuration file](#edit-the-configuration-file)
-        3. [Start the meta service](#start-the-meta-service)
-    3.  [Join meta nodes to the cluster](#join-meta-nodes-to-the-cluster)
+  1.  [Add DNS entries](#add-dns-entries)
+  2.  [Set up, configure, and start the meta services](#set-up-configure-and-start-the-meta-services)
+      1. [Download and install the meta service](#download-and-install-the-meta-service)
+      2. [Edit the configuration file](#edit-the-configuration-file)
+      3. [Start the meta service](#start-the-meta-service)
+  3.  [Join meta nodes to the cluster](#join-meta-nodes-to-the-cluster)
 
 ## Meta node setup and requirements
 
@@ -42,7 +42,7 @@ your InfluxDB Enterprise cluster--meta nodes.
 The installation process sets up three [meta nodes](/enterprise_influxdb/v1/concepts/glossary/#meta-node),
 with each meta node running on its own server.
 
-InfluxDB Enterprise clusters require an *odd number* of *at least three* meta nodes
+InfluxDB Enterprise clusters require an _odd number_ of _at least three_ meta nodes
 for high availability and redundancy.
 We typically recommend three meta nodes.
 If your servers have chronic communication or reliability issues, you can try adding nodes.
@@ -58,7 +58,7 @@ for more information about cluster architecture._
 
 ### License key or file
 
-InfluxDB Enterprise requires a license key *or* a license file to run.
+InfluxDB Enterprise requires a license key _or_ a license file to run.
 Your license key is available at [InfluxPortal](https://portal.influxdata.com/licenses).
 Contact support at the email we provided at signup to receive a license file.
 License files are required only if the nodes in your cluster cannot reach
@@ -98,12 +98,11 @@ The addition of DNS entries and IP assignment is usually site and policy specifi
 Contact your DNS administrator for assistance as necessary.
 Ultimately, use entries similar to the following (hostnames and domain IP addresses are representative).
 
-| Record Type | Hostname                          |            IP |
-|:------------|:---------------------------------:|--------------:|
+| Record Type |             Hostname              |            IP |
+| :---------- | :-------------------------------: | ------------: |
 | `A`         | `enterprise-meta-01.mydomain.com` | `<Meta_1_IP>` |
 | `A`         | `enterprise-meta-02.mydomain.com` | `<Meta_2_IP>` |
 | `A`         | `enterprise-meta-03.mydomain.com` | `<Meta_3_IP>` |
-
 
 #### Verify DNS resolution
 
@@ -143,16 +142,20 @@ Instructions for both are provided below.
 [FIPS-compliant](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
 ```sh
 wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
 sudo dpkg -i influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```sh
 wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
 sudo dpkg -i influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -164,16 +167,20 @@ sudo dpkg -i influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.de
 [FIPS-compliant](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
 ```sh
 wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
 sudo yum localinstall influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```sh
 wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
 sudo yum localinstall influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -191,36 +198,42 @@ For added security, follow these steps to verify the signature of your InfluxDB 
 2.  Download the signature file for the release by adding `.asc` to the download URL.
     For example:
 
-    {{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Standard](#)
-[FIPS-compliant](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+        {{< code-tabs-wrapper >}}
+
+    {{% code-tabs %}}
+    [Standard](#)
+    [FIPS-compliant](#)
+    {{% /code-tabs %}}
+    {{% code-tab-content %}}
+
 ```sh
 wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm.asc
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```sh
 wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm.asc
 ```
+
 {{% /code-tab-content %}}
-  {{< /code-tabs-wrapper >}}
+{{< /code-tabs-wrapper >}}
 
 3.  Verify the signature with `gpg --verify`:
 
-    ```sh
-    gpg --verify influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm.asc influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
-    ```
+        ```sh
+        gpg --verify influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm.asc influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
+        ```
 
-    The output from this command should include the following:
+        The output from this command should include the following:
 
-    ```sh
-    gpg: Good signature from "InfluxDB Packaging Service <support@influxdb.com>" [unknown]
-    ```
-{{% /expand %}}
-{{< /expand-wrapper >}}
+        ```sh
+        gpg: Good signature from "InfluxDB Packaging Service <support@influxdb.com>" [unknown]
+        ```
+
+    {{% /expand %}}
+    {{< /expand-wrapper >}}
 
 #### Edit the configuration file
 
@@ -237,8 +250,8 @@ In `/etc/influxdb/influxdb-meta.conf`:
   local path to the JSON license file you received from InfluxData.
 
   {{% warn %}}
-The `license-key` and `license-path` settings are mutually exclusive and one
-must remain set to the empty string.
+  The `license-key` and `license-path` settings are mutually exclusive and one
+  must remain set to the empty string.
   {{% /warn %}}
 
 **If using a FIPS-compliant InfluxDB Enterprise build, also do the following**:
@@ -272,14 +285,18 @@ hostname="<enterprise-meta-0x>"
 [systemd](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
 ```sh
 service influxdb-meta start
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```sh
 sudo systemctl start influxdb-meta
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -320,7 +337,7 @@ influxd-ctl add-meta enterprise-meta-03:8091
 ```
 
 {{% note %}}
-Make sure that you specify the fully qualified host name of
+Make sure that you specify the fully-qualified host name of
 the meta node during the join process.
 Please do not specify `localhost` as this can cause cluster connection issues.
 {{% /note %}}

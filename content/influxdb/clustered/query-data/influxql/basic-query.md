@@ -26,19 +26,22 @@ following clauses:
 {{< req type="key" >}}
 
 - {{< req "\*">}} `SELECT`: Specify fields, tags, and calculations to return from a
-  measurement or use the wildcard alias (`*`) to select all fields and tags
-  from a measurement. It requires at least one
+  [table](/influxdb/clustered/reference/glossary/#table) or use the wildcard alias (`*`) to select all fields and tags
+  from a table. It requires at least one
   [field key](/influxdb/clustered/reference/glossary/#field-key) or the wildcard alias (`*`).
   For more information, see [Notable SELECT statement behaviors](/influxdb/clustered/reference/influxql/select/#notable-select-statement-behaviors).
-- {{< req "\*">}} `FROM`: Specify the [measurement](/influxdb/clustered/reference/glossary/#measurement) to query from.
-It requires one or more comma-delimited [measurement expressions](/influxdb/clustered/reference/influxql/select/#measurement_expression).
+- {{< req "\*">}} `FROM`: Specify the [table](/influxdb/clustered/reference/glossary/#table) to query from.
+    <!-- vale InfluxDataDocs.v3Schema = NO -->
+  It requires one or more comma-delimited [measurement expressions](/influxdb/clustered/reference/influxql/select/#measurement_expression).
+    <!-- vale InfluxDataDocs.v3Schema = YES -->
 - `WHERE`: Filter data based on
-[field values](/influxdb/clustered/reference/glossary/#field),
-[tag values](/influxdb/clustered/reference/glossary/#tag), or
-[timestamps](/influxdb/clustered/reference/glossary/#timestamp). Only return data that meets the specified conditions--for example, falls within
+  [field values](/influxdb/clustered/reference/glossary/#field),
+  [tag values](/influxdb/clustered/reference/glossary/#tag), or
+  [timestamps](/influxdb/clustered/reference/glossary/#timestamp). Only return data that meets the specified conditions--for example, falls within
   a time range, contains specific tag values, or contains a field value outside a specified range.
 
 {{% influxdb/custom-timestamps %}}
+
 ```sql
 SELECT
   temp,
@@ -49,6 +52,7 @@ WHERE
   time >= '2022-01-01T08:00:00Z'
   AND time <= '2022-01-01T20:00:00Z'
 ```
+
 {{% /influxdb/custom-timestamps %}}
 
 ## Result set
@@ -58,7 +62,7 @@ If a query uses a `GROUP BY` clause, the result set includes the following:
 
 - Columns listed in the query's `SELECT` clause
 - A `time` column that contains the timestamp for the record or the group
-- An `iox::measurement` column that contains the record's measurement (table) name
+- An `iox::measurement` column that contains the record's [table](/influxdb/clustered/reference/glossary/#table) name
 - Columns listed in the query's `GROUP BY` clause; each row in the result set contains the values used for grouping
 
 ### GROUP BY result columns
@@ -75,9 +79,10 @@ If a query uses `GROUP BY` and the `WHERE` clause doesn't filter by time, then g
 - [Alias queried fields and tags](#alias-queried-fields-and-tags)
 
 {{% note %}}
+
 #### Sample data
 
-The following examples use the 
+The following examples use the
 [Get started home sensor data](/influxdb/clustered/reference/sample-data/#get-started-home-sensor-data).
 To run the example queries and return results,
 [write the sample data](/influxdb/clustered/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
@@ -89,12 +94,13 @@ to your {{% product-name %}} database before running the example queries.
 - Use the `SELECT` clause to specify what tags and fields to return.
   Specify at least one field key.
   To return all tags and fields, use the wildcard alias (`*`).
-- Specify the measurement to query in the `FROM` clause.
+- Specify the [table](/influxdb/clustered/reference/glossary/#table) to query in the `FROM` clause.
 - Specify time boundaries in the `WHERE` clause.
   Include time-based predicates that compare the value of the `time` column to a timestamp.
   Use the `AND` logical operator to chain multiple predicates together.
 
 {{% influxdb/custom-timestamps %}}
+
 ```sql
 SELECT *
 FROM home
@@ -102,6 +108,7 @@ WHERE
   time >= '2022-01-01T08:00:00Z'
   AND time <= '2022-01-01T12:00:00Z'
 ```
+
 {{% /influxdb/custom-timestamps %}}
 
 Query time boundaries can be relative or absolute.
@@ -120,6 +127,7 @@ SELECT * FROM home WHERE time >= now() - 30d
 ```
 
 ##### Query one day of data data from a week ago
+
 ```sql
 SELECT *
 FROM home
@@ -127,6 +135,7 @@ WHERE
   time >= now() - 7d
   AND time <= now() - 6d
 ```
+
 {{% /expand %}}
 
 {{% expand "Query with absolute time boundaries" %}}
@@ -137,6 +146,7 @@ Use the `AND` logical operator to chain together multiple predicates and define
 both start and stop boundaries for the query.
 
 {{% influxdb/custom-timestamps %}}
+
 ```sql
 SELECT
   *
@@ -146,6 +156,7 @@ WHERE
   time >= '2022-01-01T08:00:00Z'
   AND time <= '2022-01-01T20:00:00Z'
 ```
+
 {{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
@@ -213,5 +224,3 @@ SELECT temp AS temperature, hum AS "humidity (%)" FROM home
 When aliasing columns in **InfluxQL**, use the `AS` clause and an [identifier](/influxdb/clustered/reference/influxql/#identifiers).
 When [aliasing columns in **SQL**](/influxdb/clustered/query-data/sql/basic-query/#alias-queried-fields-and-tags), you can use the `AS` clause to define the alias, but it isn't necessary.
 {{% /note %}}
-
-

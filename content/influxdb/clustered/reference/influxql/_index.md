@@ -14,6 +14,7 @@ InfluxQL (Influx Query Language) is an SQL-like query language used to interact
 with InfluxDB and work with times series data.
 
 {{% warn %}}
+
 #### InfluxQL feature support
 
 InfluxQL is being rearchitected to work with the InfluxDB 3.0 storage engine.
@@ -96,7 +97,7 @@ digit               = "0" … "9" .
 Identifiers are tokens that refer to
 [database](/influxdb/clustered/reference/glossary/#database) names,
 [retention policy](/influxdb/clustered/reference/glossary/#retention-policy-rp) names,
-[measurement](/influxdb/clustered/reference/glossary/#measurement) names,
+[table (measurement)](/influxdb/clustered/reference/glossary/#table) names,
 [tag keys](/influxdb/clustered/reference/glossary/#tag-key), and
 [field keys](/influxdb/clustered/reference/glossary/#field-key).
 
@@ -105,8 +106,8 @@ The rules are as follows:
 - Double-quoted identifiers can contain any Unicode character except for a new line.
 - Double-quoted identifiers can also contain escaped `"` characters (i.e. `\"`).
 - Double-quoted identifiers can include InfluxQL [keywords](#keywords).
-- Unquoted identifiers must start with an upper or lowercase ASCII character or "_".
-- Unquoted identifiers may contain only ASCII letters, decimal digits, and "_".
+- Unquoted identifiers must start with an upper or lowercase ASCII character or "\_".
+- Unquoted identifiers may contain only ASCII letters, decimal digits, and "\_".
 
 ```
 identifier          = unquoted_identifier | quoted_identifier .
@@ -149,18 +150,31 @@ double-quote the identifier in every query.
 The `time` keyword is a special case.
 `time` can be a
 database name,
-[measurement](/influxdb/clustered/reference/glossary/#measurement) name,
+[table (measurement)](/influxdb/clustered/reference/glossary/#table) name,
 [retention policy](/influxdb/clustered/reference/glossary/#retention-policy-rp) name, and
 [user](/influxdb/clustered/reference/glossary/#user) name.
 
-In those cases, you don't need to double-quote `time`  in queries.
+In those cases, you don't need to double-quote `time` in queries.
 
 `time` can't be a [field key](/influxdb/clustered/reference/glossary/#field-key) or
 [tag key](/influxdb/clustered/reference/glossary/#tag-key);
 InfluxDB rejects writes with `time` as a field key or tag key and returns an error.
+
 <!--
 See [Frequently Asked Questions](/influxdb/v2/reference/faq/) for more information.
 -->
+
+{{% note %}}
+
+#### What about buckets and measurements?
+
+If coming from InfluxDB Cloud Serverless or InfluxDB powered by the TSM storage engine, you're likely familiar
+with the concepts _bucket_ and _measurement_.
+_Bucket_ in TSM or InfluxDB Cloud Serverless is synonymous with
+_database_ in {{% product-name %}}.
+_Measurement_ in TSM or InfluxDB Cloud Serverless is synonymous with
+_table_ in {{% product-name %}}.
+{{% /note %}}
 
 ### Literals
 
@@ -248,7 +262,7 @@ regex_lit           = "/" { unicode_char } "/" .
 InfluxQL supports using regular expressions when specifying:
 
 - [field keys](/influxdb/clustered/reference/glossary/#field-key) and [tag keys](/influxdb/clustered/reference/glossary/#tag-key) in the [`SELECT` clause](/influxdb/clustered/reference/influxql/select/)
-- [measurements](/influxdb/clustered/reference/glossary/#measurement) in the [`FROM` clause](/influxdb/clustered/reference/influxql/select/#from-clause)
+- [tables (measurements)](/influxdb/clustered/reference/glossary/#table) in the [`FROM` clause](/influxdb/clustered/reference/influxql/select/#from-clause)
 - [tag values](/influxdb/clustered/reference/glossary/#tag-value) and
   string [field values](/influxdb/clustered/reference/glossary/#field-value)
   in the [`WHERE` clause](/influxdb/clustered/reference/influxql/where/)
@@ -349,7 +363,7 @@ For example, if you execute the following statement:
 
 The output is similar to the following:
 
-```sql
+````sql
 EXPLAIN ANALYZE
 ---------------
 .
@@ -381,7 +395,7 @@ EXPLAIN ANALYZE
                 ├── boolean_blocks_decoded: 0
                 ├── boolean_blocks_size_bytes: 0
                 └── planning_time: 14.805277ms```
-```
+````
 
 {{% note %}}
 `EXPLAIN ANALYZE` ignores query output, so the cost of serialization to JSON or
@@ -398,7 +412,7 @@ Shows the amount of time the query took to plan.
 Planning a query in InfluxDB requires a number of steps. Depending on the complexity of the query, planning can require more work and consume more CPU and memory resources than executing the query. For example, the number of series keys required to execute a query affects how quickly the query is planned and how much memory the planning requires.
 
 First, InfluxDB determines the effective time range of the query and selects the shards to access.
-Next, for each shard and each measurement, InfluxDB performs the following steps:
+Next, for each shard and each table (measurement), InfluxDB performs the following steps:
 
 1. Select matching series keys from the index, filtered by tag predicates in the `WHERE` clause.
 2. Group filtered series keys into tag sets based on the `GROUP BY` dimensions.
@@ -418,8 +432,8 @@ For more information about iterators, see [Understanding iterators](#understandi
 
 `EXPLAIN ANALYZE` distinguishes 3 cursor types. While the cursor types have the same data structures and equal CPU and I/O costs, each cursor type is constructed for a different reason and separated in the final output. Consider the following cursor types when tuning a statement:
 
-- cursor_ref:	Reference cursor created for `SELECT` projections that include a function, such as `last()` or `mean()`.
-- cursor_aux:	Auxiliary cursor created for simple expression projections (not selectors or an aggregation). For example, `SELECT foo FROM m` or `SELECT foo+bar FROM m`, where `foo` and `bar` are fields.
+- cursor_ref: Reference cursor created for `SELECT` projections that include a function, such as `last()` or `mean()`.
+- cursor_aux: Auxiliary cursor created for simple expression projections (not selectors or an aggregation). For example, `SELECT foo FROM m` or `SELECT foo+bar FROM m`, where `foo` and `bar` are fields.
 - cursor_cond: Condition cursor created for fields referenced in a `WHERE` clause.
 
 For more information about cursors, see [Understanding cursors](#understanding-cursors).
@@ -447,7 +461,7 @@ select_stmt = "SELECT" fields from_clause [ where_clause ]
 
 #### Example
 
-Select from measurements grouped by the day with a timezone
+Select an aggregate value from table values grouped by the day with a timezone
 
 ```sql
 SELECT mean("value") FROM "cpu" GROUP BY region, time(1d) fill(0) tz('America/Chicago')
@@ -561,7 +575,7 @@ database unless a database is specified using the `ON database` option.
 
 #### Example
 
-SHOW SERIES EXACT CARDINALITY" [ on_clause ] [ from_clause ] 
+SHOW SERIES EXACT CARDINALITY" [ on_clause ] [ from_clause ]
 [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ]
 
 ```sql

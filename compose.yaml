@@ -1,27 +1,46 @@
 # This is a Docker Compose file for the InfluxData documentation site.
 ## Run documentation tests for code samples.
+name: influxdata-docs
 services:
+  vale:
+    image: jdkato/vale:latest
+    container_name: docs-lint
+    profiles:
+      - lint
+    volumes:
+      - type: bind 
+        source: ./tmp/lint
+        target: /src
+    working_dir: /src
+    entrypoint: ["/bin/vale"]
+    build:
+      context: .
+      dockerfile_inline: |
+        COPY .ci /src/.ci
+        COPY **/.vale.ini /src/
   test:
-    image: docs-v2-tests
-    container_name: docs-v2-tests
+    container_name: docs-tests
     profiles:
       - test
     volumes:
       - type: bind
         source: ./test
-        target: /usr/src/app/test
+        target: /test
+        read_only: true
       - type: bind
-        source: ./data
-        target: /usr/src/app/test/data
+        source: ./data 
+        target: /appdata
+        read_only: true 
+      - type: bind
+        source: ./tmp/test 
+        target: /app/src
       - type: bind
         source: ./static/downloads
-        target: /usr/src/app/test/tmp/data
+        target: /data
+        read_only: true
     build:
       context: .
       dockerfile: test.Dockerfile
-      args:
-        - SOURCE_DIR=test
-        - DOCKER_IMAGE=docs-v2-tests
   ## Run InfluxData documentation with the hugo development server on port 1313.
   ## For more information about the hugomods/hugo image, see
   ## https://docker.hugomods.com/docs/development/docker-compose/

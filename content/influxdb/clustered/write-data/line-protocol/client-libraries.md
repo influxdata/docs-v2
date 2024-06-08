@@ -1,16 +1,16 @@
 ---
 title: Use InfluxDB client libraries to write line protocol data
 description: >
-  Use InfluxDB API clients to write line protocol data to InfluxDB Cloud Dedicated.
+  Use InfluxDB API clients to write line protocol data to InfluxDB Clustered.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb_clustered:
     name: Use client libraries
     parent: Write line protocol
     identifier: write-client-libs
 weight: 103
 related:
-  - /influxdb/cloud-dedicated/reference/syntax/line-protocol/
-  - /influxdb/cloud-dedicated/get-started/write/
+  - /influxdb/clustered/reference/syntax/line-protocol/
+  - /influxdb/clustered/get-started/write/
 ---
 
 Use InfluxDB client libraries to build line protocol, and then write it to an
@@ -24,7 +24,7 @@ InfluxDB database.
 
 ## Construct line protocol
 
-With a [basic understanding of line protocol](/influxdb/cloud-dedicated/write-data/line-protocol/),
+With a [basic understanding of line protocol](/influxdb/clustered/write-data/line-protocol/),
 you can now construct line protocol and write data to InfluxDB.
 Consider a use case where you collect data from sensors in your home.
 Each sensor collects temperature, humidity, and carbon monoxide readings.
@@ -43,16 +43,16 @@ The following example shows how to construct and write points that follow this s
 
 ## Set up your project
 
-The examples in this guide assume you followed [Set up InfluxDB](/influxdb/cloud-dedicated/get-started/setup/)
-and [Write data set up](/influxdb/cloud-dedicated/get-started/write/#set-up-your-project-and-credentials)
-instructions in [Get started](/influxdb/cloud-dedicated/get-started/).
+The examples in this guide assume you followed [Set up InfluxDB](/influxdb/clustered/get-started/setup/)
+and [Write data set up](/influxdb/clustered/get-started/write/#set-up-your-project-and-credentials)
+instructions in [Get started](/influxdb/clustered/get-started/).
 
 After setting up InfluxDB and your project, you should have the following:
 
 - {{< product-name >}} credentials:
 
-  - [Database](/influxdb/cloud-dedicated/admin/databases/)
-  - [Database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  - [Database](/influxdb/clustered/admin/databases/)
+  - [Database token](/influxdb/clustered/admin/tokens/#database-tokens)
   - Cluster hostname
 
 - A directory for your project.
@@ -330,7 +330,10 @@ The sample code does the following:
 
 2.  Uses the client to instantiate a **write client** with credentials.
 
-3.  Constructs a `Point` object with the [measurement](/influxdb/cloud-dedicated/reference/glossary/#measurement) name (`"home"`).
+    <!-- vale InfluxDataDocs.v3Schema = NO -->
+
+3.  Constructs a `Point` object with the [measurement](/influxdb/clustered/reference/glossary/#measurement) name (`"home"`).
+    <!-- vale InfluxDataDocs.v3Schema = YES -->
 
 4.  Adds a tag and fields to the point.
 
@@ -342,7 +345,7 @@ The sample code does the following:
 
 ## Run the example
 
-To run the sample and write the data to your InfluxDB Cloud Dedicated database, enter the following command in your terminal:
+To run the sample and write the data to your InfluxDB Clustered database, enter the following command in your terminal:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}

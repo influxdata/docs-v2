@@ -157,7 +157,7 @@ Returns data from more than one measurement.
 
 `FROM <database_name>.<retention_policy_name>.<measurement_name>`
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Returns data from a fully qualified measurement.
+Returns data from a fully-qualified measurement.
 Fully qualify a measurement by specifying its database and retention policy.
 
 `FROM <database_name>..<measurement_name>`
@@ -175,7 +175,7 @@ begin with a digit, or if they are an [InfluxQL keyword](https://github.com/infl
 While not always necessary, we recommend that you double quote identifiers.
 
 > **Note:** The quoting syntax for queries differs from the [line protocol](/enterprise_influxdb/v1/concepts/glossary/#influxdb-line-protocol).
-Please review the [rules for single and double-quoting](/enterprise_influxdb/v1/troubleshooting/frequently-asked-questions/#when-should-i-single-quote-and-when-should-i-double-quote-in-queries) in queries.
+> Please review the [rules for single and double-quoting](/enterprise_influxdb/v1/troubleshooting/frequently-asked-questions/#when-should-i-single-quote-and-when-should-i-double-quote-in-queries) in queries.
 
 ### Examples
 
@@ -317,7 +317,7 @@ The query selects all fields and tags from two measurements: `h2o_feet` and
 `h2o_pH`.
 Separate multiple measurements with a comma (`,`).
 
-#### Select all data from a fully qualified measurement
+#### Select all data from a fully-qualified measurement
 
 ```sql
 > SELECT * FROM "NOAA_water_database"."autogen"."h2o_feet"
@@ -410,6 +410,7 @@ The `WHERE` filters data based on
 Tired of reading? Check out this InfluxQL Short:
 <br>
 <br>
+
 <iframe src="https://player.vimeo.com/video/195058724?title=0&byline=0&portrait=0" width="60%" height="250px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 ### Syntax
@@ -421,7 +422,7 @@ SELECT_clause FROM_clause WHERE <conditional_expression> [(AND|OR) <conditional_
 The `WHERE` clause supports `conditional_expression`s on fields, tags, and
 timestamps.
 
->**Note** InfluxDB does not support using OR in the WHERE clause to specify multiple time ranges. For example, InfluxDB returns an empty response for the following query:
+> **Note** InfluxDB does not support using OR in the WHERE clause to specify multiple time ranges. For example, InfluxDB returns an empty response for the following query:
 
 `> SELECT * FROM "absolutismus" WHERE time = '2016-07-31T20:07:00Z' OR time = '2016-07-31T23:07:17Z'`
 
@@ -442,14 +443,14 @@ will not return any data and, in most cases,
 ##### Supported operators
 
 | Operator | Meaning                  |
-|:--------:|:--------                 |
-| `=`      | equal to                 |
-| `<>`     | not equal to             |
-| `!=`     | not equal to             |
-| `>`      | greater than             |
-| `>=`     | greater than or equal to |
-| `<`      | less than                |
-| `<=`     | less than or equal to    |
+| :------: | :----------------------- |
+|   `=`    | equal to                 |
+|   `<>`   | not equal to             |
+|   `!=`   | not equal to             |
+|   `>`    | greater than             |
+|   `>=`   | greater than or equal to |
+|   `<`    | less than                |
+|   `<=`   | less than or equal to    |
 
 Other supported features:
 [Arithmetic Operations](/enterprise_influxdb/v1/query_language/math_operators/),
@@ -470,10 +471,10 @@ any data and, in most cases,
 ##### Supported operators
 
 | Operator | Meaning      |
-|:--------:|:-------      |
-| `=`      | equal to     |
-| `<>`     | not equal to |
-| `!=`     | not equal to |
+| :------: | :----------- |
+|   `=`    | equal to     |
+|   `<>`   | not equal to |
+|   `!=`   | not equal to |
 
 Other supported features:
 [Regular Expressions](#regular-expressions)
@@ -670,7 +671,7 @@ The `GROUP BY` clause groups query results by:
 - one or more specified [tags](/enterprise_influxdb/v1/concepts/glossary/#tag)
 - specified time interval
 
->**Note:** You cannot use `GROUP BY` to group fields.
+> **Note:** You cannot use `GROUP BY` to group fields.
 
 <table style="width:100%">
   <tr>
@@ -696,6 +697,7 @@ The `GROUP BY` clause groups query results by:
 Watch InfluxQL short about `GROUP BY` with tags:
 <br>
 <br>
+
 <iframe src="https://player.vimeo.com/video/200898048?title=0&byline=0&portrait=0" width="60%" height="250px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 #### Syntax
@@ -746,8 +748,8 @@ to calculate the average `water_level` for each
 the `h2o_feet` [measurement](/enterprise_influxdb/v1/concepts/glossary/#measurement).
 InfluxDB returns results in two [series](/enterprise_influxdb/v1/concepts/glossary/#series): one for each tag value of `location`.
 
->**Note:** In InfluxDB, [epoch 0](https://en.wikipedia.org/wiki/Unix_time) (`1970-01-01T00:00:00Z`) is often used as a null timestamp equivalent.
-If you request a query that has no timestamp to return, such as an [aggregation function](/enterprise_influxdb/v1/query_language/functions/) with an unbounded time range, InfluxDB returns epoch 0 as the timestamp.
+> **Note:** In InfluxDB, [epoch 0](https://en.wikipedia.org/wiki/Unix_time) (`1970-01-01T00:00:00Z`) is often used as a null timestamp equivalent.
+> If you request a query that has no timestamp to return, such as an [aggregation function](/enterprise_influxdb/v1/query_language/functions/) with an unbounded time range, InfluxDB returns epoch 0 as the timestamp.
 
 ##### Group query results by more than one tag
 
@@ -1024,10 +1026,10 @@ The table below shows the preset time boundary, the relevant `GROUP BY time()` i
 points included, and the returned timestamp for each `GROUP BY time()`
 interval in the results.
 
-| Time Interval Number | Preset Time Boundary |`GROUP BY time()` Interval | Points Included | Returned Timestamp |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| 1  | `time >= 2015-08-18T00:00:00Z AND time < 2015-08-18T00:12:00Z` | `time >= 2015-08-18T00:06:00Z AND time < 2015-08-18T00:12:00Z` | `8.005` | `2015-08-18T00:00:00Z` |
-| 2  | `time >= 2015-08-12T00:12:00Z AND time < 2015-08-18T00:24:00Z` | `time >= 2015-08-12T00:12:00Z AND time < 2015-08-18T00:18:00Z`  | `7.887` | `2015-08-18T00:12:00Z` |
+| Time Interval Number | Preset Time Boundary                                           | `GROUP BY time()` Interval                                     | Points Included | Returned Timestamp     |
+| :------------------- | :------------------------------------------------------------- | :------------------------------------------------------------- | :-------------- | :--------------------- |
+| 1                    | `time >= 2015-08-18T00:00:00Z AND time < 2015-08-18T00:12:00Z` | `time >= 2015-08-18T00:06:00Z AND time < 2015-08-18T00:12:00Z` | `8.005`         | `2015-08-18T00:00:00Z` |
+| 2                    | `time >= 2015-08-12T00:12:00Z AND time < 2015-08-18T00:24:00Z` | `time >= 2015-08-12T00:12:00Z AND time < 2015-08-18T00:18:00Z` | `7.887`         | `2015-08-18T00:12:00Z` |
 
 The first preset 12-minute time boundary begins at `00:00` and ends just before
 `00:12`.
@@ -1147,12 +1149,12 @@ time                   mean
 The time boundaries and returned timestamps for the query **without** the
 `offset_interval` adhere to the InfluxDB database's preset time boundaries:
 
-| Time Interval Number | Preset Time Boundary |`GROUP BY time()` Interval | Points Included | Returned Timestamp |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| 1  | `time >= 2015-08-18T00:00:00Z AND time < 2015-08-18T00:18:00Z` | `time >= 2015-08-18T00:06:00Z AND time < 2015-08-18T00:18:00Z` | `8.005`,`7.887` | `2015-08-18T00:00:00Z` |
-| 2  | `time >= 2015-08-18T00:18:00Z AND time < 2015-08-18T00:36:00Z` | <--- same | `7.762`,`7.635`,`7.5` | `2015-08-18T00:18:00Z` |
-| 3  | `time >= 2015-08-18T00:36:00Z AND time < 2015-08-18T00:54:00Z` | <--- same | `7.372`,`7.234`,`7.11` | `2015-08-18T00:36:00Z` |
-| 4  | `time >= 2015-08-18T00:54:00Z AND time < 2015-08-18T01:12:00Z` | `time = 2015-08-18T00:54:00Z` | `6.982` | `2015-08-18T00:54:00Z` |
+| Time Interval Number | Preset Time Boundary                                           | `GROUP BY time()` Interval                                     | Points Included        | Returned Timestamp     |
+| :------------------- | :------------------------------------------------------------- | :------------------------------------------------------------- | :--------------------- | :--------------------- |
+| 1                    | `time >= 2015-08-18T00:00:00Z AND time < 2015-08-18T00:18:00Z` | `time >= 2015-08-18T00:06:00Z AND time < 2015-08-18T00:18:00Z` | `8.005`,`7.887`        | `2015-08-18T00:00:00Z` |
+| 2                    | `time >= 2015-08-18T00:18:00Z AND time < 2015-08-18T00:36:00Z` | <--- same                                                      | `7.762`,`7.635`,`7.5`  | `2015-08-18T00:18:00Z` |
+| 3                    | `time >= 2015-08-18T00:36:00Z AND time < 2015-08-18T00:54:00Z` | <--- same                                                      | `7.372`,`7.234`,`7.11` | `2015-08-18T00:36:00Z` |
+| 4                    | `time >= 2015-08-18T00:54:00Z AND time < 2015-08-18T01:12:00Z` | `time = 2015-08-18T00:54:00Z`                                  | `6.982`                | `2015-08-18T00:54:00Z` |
 
 The first preset 18-minute time boundary begins at `00:00` and ends just before
 `00:18`.
@@ -1174,12 +1176,12 @@ fourth time boundary.
 The time boundaries and returned timestamps for the query **with** the
 `offset_interval` adhere to the offset time boundaries:
 
-| Time Interval Number | Offset Time Boundary |`GROUP BY time()` Interval | Points Included | Returned Timestamp |
-| :------------- | :------------- | :------------- | :------------- | ------------- |
-| 1  | `time >= 2015-08-18T00:06:00Z AND time < 2015-08-18T00:24:00Z` | <--- same | `8.005`,`7.887`,`7.762` | `2015-08-18T00:06:00Z` |
-| 2  | `time >= 2015-08-18T00:24:00Z AND time < 2015-08-18T00:42:00Z` | <--- same | `7.635`,`7.5`,`7.372` | `2015-08-18T00:24:00Z` |
-| 3  | `time >= 2015-08-18T00:42:00Z AND time < 2015-08-18T01:00:00Z` | <--- same | `7.234`,`7.11`,`6.982` | `2015-08-18T00:42:00Z` |
-| 4  | `time >= 2015-08-18T01:00:00Z AND time < 2015-08-18T01:18:00Z` | NA | NA | NA |
+| Time Interval Number | Offset Time Boundary                                           | `GROUP BY time()` Interval | Points Included         | Returned Timestamp     |
+| :------------------- | :------------------------------------------------------------- | :------------------------- | :---------------------- | ---------------------- |
+| 1                    | `time >= 2015-08-18T00:06:00Z AND time < 2015-08-18T00:24:00Z` | <--- same                  | `8.005`,`7.887`,`7.762` | `2015-08-18T00:06:00Z` |
+| 2                    | `time >= 2015-08-18T00:24:00Z AND time < 2015-08-18T00:42:00Z` | <--- same                  | `7.635`,`7.5`,`7.372`   | `2015-08-18T00:24:00Z` |
+| 3                    | `time >= 2015-08-18T00:42:00Z AND time < 2015-08-18T01:00:00Z` | <--- same                  | `7.234`,`7.11`,`6.982`  | `2015-08-18T00:42:00Z` |
+| 4                    | `time >= 2015-08-18T01:00:00Z AND time < 2015-08-18T01:18:00Z` | NA                         | NA                      | NA                     |
 
 The six-minute offset interval shifts forward the preset boundary's time range
 such that the boundary time ranges and the relevant `GROUP BY time()` interval time ranges are
@@ -1209,10 +1211,10 @@ to calculate the average `water_level`, grouping results into 18 minute
 time intervals, and offsetting the preset time boundaries by -12 minutes.
 
 > **Note:** The query in Example 2 returns the same results as the query in Example 1, but
-the query in Example 2 uses a negative `offset_interval` instead of a positive
-`offset_interval`.
+> the query in Example 2 uses a negative `offset_interval` instead of a positive
+> `offset_interval`.
 > There are no performance differences between the two queries; feel free to choose the most
-intuitive option when deciding between a positive and negative `offset_interval`.
+> intuitive option when deciding between a positive and negative `offset_interval`.
 
 The time boundaries and returned timestamps for the query **without** the `offset_interval` adhere to InfluxDB database's preset time boundaries. Let's first examine the results without the offset:
 
@@ -1231,12 +1233,12 @@ time                    mean
 The time boundaries and returned timestamps for the query **without** the
 `offset_interval` adhere to the InfluxDB database's preset time boundaries:
 
-| Time Interval Number | Preset Time Boundary |`GROUP BY time()` Interval | Points Included | Returned Timestamp |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| 1  | `time >= 2015-08-18T00:00:00Z AND time < 2015-08-18T00:18:00Z` | `time >= 2015-08-18T00:06:00Z AND time < 2015-08-18T00:18:00Z` | `8.005`,`7.887` | `2015-08-18T00:00:00Z` |
-| 2  | `time >= 2015-08-18T00:18:00Z AND time < 2015-08-18T00:36:00Z` | <--- same | `7.762`,`7.635`,`7.5` | `2015-08-18T00:18:00Z` |
-| 3  | `time >= 2015-08-18T00:36:00Z AND time < 2015-08-18T00:54:00Z` | <--- same | `7.372`,`7.234`,`7.11` | `2015-08-18T00:36:00Z` |
-| 4  | `time >= 2015-08-18T00:54:00Z AND time < 2015-08-18T01:12:00Z` | `time = 2015-08-18T00:54:00Z` | `6.982` | `2015-08-18T00:54:00Z` |
+| Time Interval Number | Preset Time Boundary                                           | `GROUP BY time()` Interval                                     | Points Included        | Returned Timestamp     |
+| :------------------- | :------------------------------------------------------------- | :------------------------------------------------------------- | :--------------------- | :--------------------- |
+| 1                    | `time >= 2015-08-18T00:00:00Z AND time < 2015-08-18T00:18:00Z` | `time >= 2015-08-18T00:06:00Z AND time < 2015-08-18T00:18:00Z` | `8.005`,`7.887`        | `2015-08-18T00:00:00Z` |
+| 2                    | `time >= 2015-08-18T00:18:00Z AND time < 2015-08-18T00:36:00Z` | <--- same                                                      | `7.762`,`7.635`,`7.5`  | `2015-08-18T00:18:00Z` |
+| 3                    | `time >= 2015-08-18T00:36:00Z AND time < 2015-08-18T00:54:00Z` | <--- same                                                      | `7.372`,`7.234`,`7.11` | `2015-08-18T00:36:00Z` |
+| 4                    | `time >= 2015-08-18T00:54:00Z AND time < 2015-08-18T01:12:00Z` | `time = 2015-08-18T00:54:00Z`                                  | `6.982`                | `2015-08-18T00:54:00Z` |
 
 The first preset 18-minute time boundary begins at `00:00` and ends just before
 `00:18`.
@@ -1258,12 +1260,12 @@ fourth time boundary.
 The time boundaries and returned timestamps for the query **with** the
 `offset_interval` adhere to the offset time boundaries:
 
-| Time Interval Number | Offset Time Boundary |`GROUP BY time()` Interval | Points Included | Returned Timestamp |
-| :------------- | :------------- | :------------- | :------------- | ------------- |
-| 1  | `time >= 2015-08-17T23:48:00Z AND time < 2015-08-18T00:06:00Z` | NA | NA | NA |
-| 2  | `time >= 2015-08-18T00:06:00Z AND time < 2015-08-18T00:24:00Z` | <--- same | `8.005`,`7.887`,`7.762` | `2015-08-18T00:06:00Z` |
-| 3  | `time >= 2015-08-18T00:24:00Z AND time < 2015-08-18T00:42:00Z` | <--- same | `7.635`,`7.5`,`7.372` | `2015-08-18T00:24:00Z` |
-| 4  | `time >= 2015-08-18T00:42:00Z AND time < 2015-08-18T01:00:00Z` | <--- same | `7.234`,`7.11`,`6.982` | `2015-08-18T00:42:00Z` |
+| Time Interval Number | Offset Time Boundary                                           | `GROUP BY time()` Interval | Points Included         | Returned Timestamp     |
+| :------------------- | :------------------------------------------------------------- | :------------------------- | :---------------------- | ---------------------- |
+| 1                    | `time >= 2015-08-17T23:48:00Z AND time < 2015-08-18T00:06:00Z` | NA                         | NA                      | NA                     |
+| 2                    | `time >= 2015-08-18T00:06:00Z AND time < 2015-08-18T00:24:00Z` | <--- same                  | `8.005`,`7.887`,`7.762` | `2015-08-18T00:06:00Z` |
+| 3                    | `time >= 2015-08-18T00:24:00Z AND time < 2015-08-18T00:42:00Z` | <--- same                  | `7.635`,`7.5`,`7.372`   | `2015-08-18T00:24:00Z` |
+| 4                    | `time >= 2015-08-18T00:42:00Z AND time < 2015-08-18T01:00:00Z` | <--- same                  | `7.234`,`7.11`,`6.982`  | `2015-08-18T00:42:00Z` |
 
 The negative 12-minute offset interval shifts back the preset boundary's time range
 such that the boundary time ranges and the relevant `GROUP BY time()` interval time ranges are always the
@@ -1307,10 +1309,10 @@ time                   count
 The time boundaries and returned timestamps for the query **without** the
 `offset_interval` adhere to InfluxDB database's preset time boundaries:
 
-| Time Interval Number | Preset Time Boundary |`GROUP BY time()` Interval | Points Included | Returned Timestamp |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| 1  | `time >= 2015-08-18T00:00:00Z AND time < 2015-08-18T00:12:00Z` | `time >= 2015-08-18T00:06:00Z AND time < 2015-08-18T00:12:00Z` | `8.005` | `2015-08-18T00:00:00Z` |
-| 2  | `time >= 2015-08-12T00:12:00Z AND time < 2015-08-18T00:24:00Z` | `time >= 2015-08-12T00:12:00Z AND time < 2015-08-18T00:18:00Z`  | `7.887` | `2015-08-18T00:12:00Z` |
+| Time Interval Number | Preset Time Boundary                                           | `GROUP BY time()` Interval                                     | Points Included | Returned Timestamp     |
+| :------------------- | :------------------------------------------------------------- | :------------------------------------------------------------- | :-------------- | :--------------------- |
+| 1                    | `time >= 2015-08-18T00:00:00Z AND time < 2015-08-18T00:12:00Z` | `time >= 2015-08-18T00:06:00Z AND time < 2015-08-18T00:12:00Z` | `8.005`         | `2015-08-18T00:00:00Z` |
+| 2                    | `time >= 2015-08-12T00:12:00Z AND time < 2015-08-18T00:24:00Z` | `time >= 2015-08-12T00:12:00Z AND time < 2015-08-18T00:18:00Z` | `7.887`         | `2015-08-18T00:12:00Z` |
 
 The first preset 12-minute time boundary begins at `00:00` and ends just before
 `00:12`.
@@ -1327,10 +1329,10 @@ second time boundary.
 The time boundaries and returned timestamps for the query **with** the
 `offset_interval` adhere to the offset time boundaries:
 
-| Time Interval Number | Offset Time Boundary |`GROUP BY time()` Interval | Points Included | Returned Timestamp |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| 1  | `time >= 2015-08-18T00:06:00Z AND time < 2015-08-18T00:18:00Z` | <--- same | `8.005`,`7.887` | `2015-08-18T00:06:00Z` |
-| 2  | `time >= 2015-08-18T00:18:00Z AND time < 2015-08-18T00:30:00Z` | NA | NA | NA |
+| Time Interval Number | Offset Time Boundary                                           | `GROUP BY time()` Interval | Points Included | Returned Timestamp     |
+| :------------------- | :------------------------------------------------------------- | :------------------------- | :-------------- | :--------------------- |
+| 1                    | `time >= 2015-08-18T00:06:00Z AND time < 2015-08-18T00:18:00Z` | <--- same                  | `8.005`,`7.887` | `2015-08-18T00:06:00Z` |
+| 2                    | `time >= 2015-08-18T00:18:00Z AND time < 2015-08-18T00:30:00Z` | NA                         | NA              | NA                     |
 
 The six-minute offset interval shifts forward the preset boundary's time range
 such that the preset boundary time range and the relevant `GROUP BY time()` interval time range are the
@@ -1362,7 +1364,7 @@ Note that `fill()` must go at the end of the `GROUP BY` clause if you're
 
 Any numerical value
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- Reports the given numerical value for time intervals with no data.
+Reports the given numerical value for time intervals with no data.
 
 `linear`
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1468,7 +1470,7 @@ time                   mean
 to the results of [linear interpolation](https://en.wikipedia.org/wiki/Linear_interpolation).
 
 > **Note:** The data in Example 2 are not in `NOAA_water_database`.
-We had to create a dataset with less regular data to work with `fill(linear)`.
+> We had to create a dataset with less regular data to work with `fill(linear)`.
 
 {{% /tab-content %}}
 
@@ -1704,7 +1706,7 @@ and the `DEFAULT` retention policy.
 
 `INTO <database_name>.<retention_policy_name>.<measurement_name>`
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Writes data to a fully qualified measurement.
+Writes data to a fully-qualified measurement.
 Fully qualify a measurement by specifying its database and retention policy.
 
 `INTO <database_name>..<measurement_name>`
@@ -1800,7 +1802,7 @@ The response shows the number of points (`7605`) that InfluxDB writes to `h2o_fe
 The timestamp in the response is meaningless; InfluxDB uses epoch 0
 (`1970-01-01T00:00:00Z`) as a null timestamp equivalent.
 
-#### Write the results of a query to a fully qualified measurement
+#### Write the results of a query to a fully-qualified measurement
 
 ```sql
 > SELECT "water_level" INTO "where_else"."autogen"."h2o_feet_copy_2" FROM "h2o_feet" WHERE "location" = 'coyote_creek'
@@ -2239,8 +2241,8 @@ Using the `OFFSET` clause without a `LIMIT` clause can cause [inconsistent
 query results](https://github.com/influxdata/influxdb/issues/7577).
 
 > **Note:** InfluxDB returns no results if the `WHERE` clause includes a time
-range and the `OFFSET` clause would cause InfluxDB to return points with
-timestamps outside of that time range.
+> range and the `OFFSET` clause would cause InfluxDB to return points with
+> timestamps outside of that time range.
 
 ### Examples
 
@@ -2279,7 +2281,7 @@ This example is pretty involved, so here's the clause-by-clause breakdown:
 The [`SELECT` clause](#the-basic-select-statement) specifies an InfluxQL [function](/enterprise_influxdb/v1/query_language/functions).
 The [`FROM` clause](#the-basic-select-statement) specifies a single measurement.
 The [`WHERE` clause](#the-where-clause) specifies the time range for the query.
-The [`GROUP BY` clause](#the-group-by-clause) groups results by all tags  (`*`) and into 12-minute intervals.
+The [`GROUP BY` clause](#the-group-by-clause) groups results by all tags (`*`) and into 12-minute intervals.
 The [`ORDER BY time DESC` clause](#order-by-time-desc) returns results in descending timestamp order.
 The [`LIMIT 2` clause](#the-limit-clause) limits the number of points returned to two.
 The `OFFSET 2` clause excludes the first two averages from the query results.
@@ -2313,7 +2315,7 @@ query results](https://github.com/influxdata/influxdb/issues/7578).
 There is an [ongoing issue](https://github.com/influxdata/influxdb/issues/7571) that requires queries with `SLIMIT` to include `GROUP BY *`.
 
 > **Note:** InfluxDB returns no results if the `SOFFSET` clause paginates
-through more than the total number of series.
+> through more than the total number of series.
 
 ### Examples
 
@@ -2356,7 +2358,7 @@ This example is pretty involved, so here's the clause-by-clause breakdown:
 The [`SELECT` clause](#the-basic-select-statement) specifies an InfluxQL [function](/enterprise_influxdb/v1/query_language/functions).
 The [`FROM` clause](#the-basic-select-statement) specifies a single measurement.
 The [`WHERE` clause](#the-where-clause) specifies the time range for the query.
-The [`GROUP BY` clause](#the-group-by-clause) groups results by all tags  (`*`) and into 12-minute intervals.
+The [`GROUP BY` clause](#the-group-by-clause) groups results by all tags (`*`) and into 12-minute intervals.
 The [`ORDER BY time DESC` clause](#order-by-time-desc) returns results in descending timestamp order.
 The [`LIMIT 2` clause](#the-limit-clause) limits the number of points returned to two.
 The [`OFFSET 2` clause](#the-offset-clause) excludes the first two averages from the query results.
@@ -2426,6 +2428,7 @@ statement's [`WHERE` clause](#the-where-clause).
 Tired of reading? Check out this InfluxQL Short:
 <br>
 <br>
+
 <iframe src="https://player.vimeo.com/video/198723778?title=0&byline=0&portrait=0" width="60%" height="250px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 ## Absolute time
@@ -2441,14 +2444,14 @@ SELECT_clause FROM_clause WHERE time <operator> ['<rfc3339_date_time_string>' | 
 #### Supported operators
 
 | Operator | Meaning                  |
-|:--------:|:-------                  |
-| `=`      | equal to                 |
-| `<>`     | not equal to             |
-| `!=`     | not equal to             |
-| `>`      | greater than             |
-| `>=`     | greater than or equal to |
-| `<`      | less than                |
-| `<=`     | less than or equal to    |
+| :------: | :----------------------- |
+|   `=`    | equal to                 |
+|   `<>`   | not equal to             |
+|   `!=`   | not equal to             |
+|   `>`    | greater than             |
+|   `>=`   | greater than or equal to |
+|   `<`    | less than                |
+|   `<=`   | less than or equal to    |
 
 Currently, InfluxDB does not support using `OR` with absolute time in the `WHERE`
 clause. See the [Frequently Asked Questions](/enterprise_influxdb/v1/troubleshooting/frequently-asked-questions/#why-is-my-query-with-a-where-or-time-clause-returning-empty-results)
@@ -2615,15 +2618,16 @@ SELECT_clause FROM_clause WHERE time <operator> now() [[ - | + ] <duration_liter
 The whitespace between `-` or `+` and the [duration literal](/enterprise_influxdb/v1/query_language/spec/#durations) is required.
 
 #### Supported operators
+
 | Operator | Meaning                  |
-|:--------:|:-------                  |
-| `=`      | equal to                 |
-| `<>`     | not equal to             |
-| `!=`     | not equal to             |
-| `>`      | greater than             |
-| `>=`     | greater than or equal to |
-| `<`      | less than                |
-| `<=`     | less than or equal to    |
+| :------: | :----------------------- |
+|   `=`    | equal to                 |
+|   `<>`   | not equal to             |
+|   `!=`   | not equal to             |
+|   `>`    | greater than             |
+|   `>=`   | greater than or equal to |
+|   `<`    | less than                |
+|   `<=`   | less than or equal to    |
 
 #### `duration_literal`
 
@@ -2742,10 +2746,10 @@ Specify alternative formats with the
 
 InfluxQL supports using regular expressions when specifying:
 
-* [field keys](/enterprise_influxdb/v1/concepts/glossary/#field-key) and [tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key) in the [`SELECT` clause](#the-basic-select-statement)
-* [measurements](/enterprise_influxdb/v1/concepts/glossary/#measurement) in the [`FROM` clause](#the-basic-select-statement)
-* [tag values](/enterprise_influxdb/v1/concepts/glossary/#tag-value) and string [field values](/enterprise_influxdb/v1/concepts/glossary/#field-value) in the [`WHERE` clause](#the-where-clause).
-* [tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key) in the [`GROUP BY` clause](#group-by-tags)
+- [field keys](/enterprise_influxdb/v1/concepts/glossary/#field-key) and [tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key) in the [`SELECT` clause](#the-basic-select-statement)
+- [measurements](/enterprise_influxdb/v1/concepts/glossary/#measurement) in the [`FROM` clause](#the-basic-select-statement)
+- [tag values](/enterprise_influxdb/v1/concepts/glossary/#tag-value) and string [field values](/enterprise_influxdb/v1/concepts/glossary/#field-value) in the [`WHERE` clause](#the-where-clause).
+- [tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key) in the [`GROUP BY` clause](#group-by-tags)
 
 Currently, InfluxQL does not support using regular expressions to match
 non-string field values in the
@@ -2754,8 +2758,8 @@ non-string field values in the
 [retention polices](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
 
 > **Note:** Regular expression comparisons are more computationally intensive than exact
-string comparisons; queries with regular expressions are not as performant
-as those without.
+> string comparisons; queries with regular expressions are not as performant
+> as those without.
 
 ### Syntax
 
@@ -2914,17 +2918,17 @@ operations with the `::` syntax.
 [Field values](/enterprise_influxdb/v1/concepts/glossary/#field-value) can be floats, integers, strings, or booleans.
 The `::` syntax allows users to specify the field's type in a query.
 
-> **Note:**  Generally, it is not necessary to specify the field value
-type in the [`SELECT` clause](#the-basic-select-statement).
-In most cases, InfluxDB rejects any writes that attempt to write a [field value](/enterprise_influxdb/v1/concepts/glossary/#field-value)
-to a field that previously accepted field values of a different type.
+> **Note:** Generally, it is not necessary to specify the field value
+> type in the [`SELECT` clause](#the-basic-select-statement).
+> In most cases, InfluxDB rejects any writes that attempt to write a [field value](/enterprise_influxdb/v1/concepts/glossary/#field-value)
+> to a field that previously accepted field values of a different type.
 >
-It is possible for field value types to differ across [shard groups](/enterprise_influxdb/v1/concepts/glossary/#shard-group).
-In these cases, it may be necessary to specify the field value type in the
-`SELECT` clause.
-Please see the
-[Frequently Asked Questions](/enterprise_influxdb/v1/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards)
-document for more information on how InfluxDB handles field value type discrepancies.
+> It is possible for field value types to differ across [shard groups](/enterprise_influxdb/v1/concepts/glossary/#shard-group).
+> In these cases, it may be necessary to specify the field value type in the
+> `SELECT` clause.
+> Please see the
+> [Frequently Asked Questions](/enterprise_influxdb/v1/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards)
+> document for more information on how InfluxDB handles field value type discrepancies.
 
 ### Syntax
 
@@ -3087,48 +3091,31 @@ With the [InfluxDB API](/enterprise_influxdb/v1/tools/api/):
 
 ```json
 {
-    "results": [
+  "results": [
+    {
+      "statement_id": 0,
+      "series": [
         {
-            "statement_id": 0,
-            "series": [
-                {
-                    "name": "h2o_feet",
-                    "columns": [
-                        "time",
-                        "mean"
-                    ],
-                    "values": [
-                        [
-                            "1970-01-01T00:00:00Z",
-                            4.442107025822522
-                        ]
-                    ]
-                }
-            ]
-        },
-        {
-            "statement_id": 1,
-            "series": [
-                {
-                    "name": "h2o_feet",
-                    "columns": [
-                        "time",
-                        "water_level"
-                    ],
-                    "values": [
-                        [
-                            "2015-08-18T00:00:00Z",
-                            8.12
-                        ],
-                        [
-                            "2015-08-18T00:00:00Z",
-                            2.064
-                        ]
-                    ]
-                }
-            ]
+          "name": "h2o_feet",
+          "columns": ["time", "mean"],
+          "values": [["1970-01-01T00:00:00Z", 4.442107025822522]]
         }
-    ]
+      ]
+    },
+    {
+      "statement_id": 1,
+      "series": [
+        {
+          "name": "h2o_feet",
+          "columns": ["time", "water_level"],
+          "values": [
+            ["2015-08-18T00:00:00Z", 8.12],
+            ["2015-08-18T00:00:00Z", 2.064]
+          ]
+        }
+      ]
+    }
+  ]
 }
 ```
 
@@ -3164,7 +3151,9 @@ SELECT_clause FROM ( SELECT_clause FROM ( SELECT_statement ) [...] ) [...]
 ```
 
 {{% note %}}
+
 #### Improve performance of time-bound subqueries
+
 To improve the performance of InfluxQL queries with time-bound subqueries,
 apply the `WHERE time` clause to the outer query instead of the inner query.
 For example, the following queries return the same results, but **the query with
@@ -3172,6 +3161,7 @@ time bounds on the outer query is more performant than the query with time
 bounds on the inner query**:
 
 ##### Time bounds on the outer query (recommended)
+
 ```sql
 SELECT inner_value AS value FROM (SELECT raw_value as inner_value)
 WHERE time >= '2020-07-19T21:00:00Z'
@@ -3179,6 +3169,7 @@ AND time <= '2020-07-20T22:00:00Z'
 ```
 
 ##### Time bounds on the inner query
+
 ```sql
 SELECT inner_value AS value FROM (
   SELECT raw_value as inner_value
@@ -3186,6 +3177,7 @@ SELECT inner_value AS value FROM (
   AND time <= '2020-07-20T22:00:00Z'
 )
 ```
+
 {{% /note %}}
 
 ### Examples

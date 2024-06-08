@@ -5,7 +5,7 @@
   "description": "InfluxDB documentation",
   "license": "MIT",
   "devDependencies": {
-    "@vvago/vale": "^3.0.7",
+    "@vvago/vale": "^3.4.2",
     "autoprefixer": ">=10.2.5",
     "hugo-extended": ">=0.101.0",
     "husky": "^9.0.11",
@@ -20,13 +20,15 @@
   },
   "scripts": {
     "prepare": "husky",
-    "test": "./test.sh"
+    "test": "./test.sh",
+    "lint": ".ci/vale/vale.sh",
+    "vale": "./node_modules/@vvago/vale/bin/vale"
   },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write",
-    "content/influxdb/cloud-dedicated/**/*.md": "npx vale --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=error --output=line",
-    "content/influxdb/cloud-serverless/**/*.md": "npx vale --config=content/influxdb/cloud-serverless/.vale.ini --minAlertLevel=error --output=line",
-    "content/influxdb/clustered/**/*.md": "npx vale --config=content/influxdb/clustered/.vale.ini --minAlertLevel=error --output=line",
-    "content/influxdb/{cloud,v2,telegraf}/**/*.md": "npx vale --config=.vale.ini --minAlertLevel=error --output=line"
+    "content/influxdb/cloud-dedicated/**/*.md": "docker compose run -T lint --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=error",
+    "content/influxdb/cloud-serverless/**/*.md": "docker compose run -T lint --config=content/influxdb/cloud-serverless/.vale.ini --minAlertLevel=error",
+    "content/influxdb/clustered/**/*.md": "docker compose run -T lint --config=content/influxdb/clustered/.vale.ini --minAlertLevel=error",
+    "content/influxdb/{cloud,v2,telegraf}/**/*.md": "docker compose run -T lint --config=.vale.ini --minAlertLevel=error"
   }
 }

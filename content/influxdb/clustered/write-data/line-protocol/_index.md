@@ -43,7 +43,7 @@ Each line of line protocol contains the following elements:
 
 {{< req type="key" >}}
 
-- {{< req "\*" >}} **measurement**:  String that identifies the [measurement](/influxdb/clustered/reference/glossary/#measurement) to store the data in.
+- {{< req "\*" >}} **measurement**: A string that identifies the [table](/influxdb/clustered/reference/glossary/#table) to store the data in.
 - **tag set**: Comma-delimited list of key value pairs, each representing a tag.
   Tag keys and values are unquoted strings. _Spaces, commas, and equal characters must be escaped._
 - {{< req "\*" >}} **field set**: Comma-delimited list of key value pairs, each representing a field.

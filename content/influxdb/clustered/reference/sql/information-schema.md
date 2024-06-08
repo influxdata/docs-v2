@@ -1,6 +1,6 @@
 ---
 title: Information schema
-description: > 
+description: >
   The `SHOW TABLES`, `SHOW COLUMNS`, and `SHOW ALL` commands return metadata related to
   your data schema.
 menu:
@@ -16,10 +16,14 @@ To access this information, use the `SHOW TABLES`, `SHOW COLUMNS`, and
 `SHOW ALL` commands or query views in the [ISO](https://www.iso.org/) SQL
 `information_schema` schema.
 
-In the context of InfluxDB, a [measurement](/influxdb/clustered/reference/glossary/#measurement)
-is represented as a table. Time, [tags](/influxdb/clustered/reference/glossary/#tag),
+<!-- vale Clustered.Schema= NO -->
+
+In the context of {{% product-name %}}, a [measurement](/influxdb/clustered/reference/glossary/#measurement)
+is represented as a [table](/influxdb/clustered/reference/glossary/#table). Time, [tags](/influxdb/clustered/reference/glossary/#tag),
 and [fields](/influxdb/clustered/reference/glossary/#field) are each represented
 by columns in a table.
+
+<!-- vale Clustered.Schema= YES -->
 
 - [SHOW TABLES](#show-tables)
   - [Example SHOW TABLES output](#example-show-tables-output)

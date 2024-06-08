@@ -1,13 +1,12 @@
 ---
 title: XPath MessagePack input data format
 list_title: XPath MessagePack
-description: 
-  Use the `xpath_msgpack` input data format and XPath expressions to parse MessagePack data into Telegraf metrics.
+description: Use the `xpath_msgpack` input data format and XPath expressions to parse MessagePack data into Telegraf metrics.
 menu:
   telegraf_v1_ref:
-     name: XPath MessagePack
-     weight: 10
-     parent: Input data formats
+    name: XPath MessagePack
+    weight: 10
+    parent: Input data formats
 metadata: [XPath parser plugin]
 ---
 
@@ -15,18 +14,17 @@ Use the `xpath_msgpack` input data format, provided by the [XPath parser plugin]
 
 For information about supported XPath functions, see [the underlying XPath library][xpath lib].
 
-**NOTE:** The type of fields are specified using [XPath functions][xpath
-lib]. The only exceptions are _integer_ fields that need to be specified in a
+**NOTE:** The type of fields are specified using [XPath functions][xpath lib]. The only exceptions are _integer_ fields that need to be specified in a
 `fields_int` section.
 
 ## Supported data formats
 
-| name                                    | `data_format` setting | comment |
-| --------------------------------------- | --------------------- | ------- |
-| [Extensible Markup Language (XML)][xml] | `"xml"`               |         |
-| [JSON][json]                            | `"xpath_json"`        |         |
-| [MessagePack][msgpack]                  | `"xpath_msgpack"`     |         |
-| [Protocol-buffers][protobuf]            | `"xpath_protobuf"`    | [see additional parameters](#protocol-buffers-additional-settings)|
+| name                                    | `data_format` setting | comment                                                            |
+| --------------------------------------- | --------------------- | ------------------------------------------------------------------ |
+| [Extensible Markup Language (XML)][xml] | `"xml"`               |                                                                    |
+| [JSON][json]                            | `"xpath_json"`        |                                                                    |
+| [MessagePack][msgpack]                  | `"xpath_msgpack"`     |                                                                    |
+| [Protocol-buffers][protobuf]            | `"xpath_protobuf"`    | [see additional parameters](#protocol-buffers-additional-settings) |
 
 ### Protocol-buffers additional settings
 
@@ -92,10 +90,10 @@ has a header e.g. for the message length or in case of GRPC messages.
 This is a list of known headers and the corresponding values for
 `xpath_protobuf_skip_bytes`
 
-| name                                    | setting | comment |
-| --------------------------------------- | ------- | ------- |
-| [GRPC protocol][GRPC] | 5 | GRPC adds a 5-byte header for _Length-Prefixed-Messages_ |
-| [PowerDNS logging][PDNS] | 2 | Sent messages contain a 2-byte header containing the message length |
+| name                     | setting | comment                                                             |
+| ------------------------ | ------- | ------------------------------------------------------------------- |
+| [GRPC protocol][GRPC]    | 5       | GRPC adds a 5-byte header for _Length-Prefixed-Messages_            |
+| [PowerDNS logging][PDNS] | 2       | Sent messages contain a 2-byte header containing the message length |
 
 [GRPC]: https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md
 [PDNS]: https://docs.powerdns.com/recursor/lua-config/protobuf.html
@@ -115,7 +113,7 @@ This is a list of known headers and the corresponding values for
   ## PROTOCOL-BUFFER definitions
   ## Protocol-buffer definition file
   # xpath_protobuf_file = "sparkplug_b.proto"
-  ## Name of the protocol-buffer message type to use in a fully qualified form.
+  ## Name of the protocol-buffer message type to use in a fully-qualified form.
   # xpath_protobuf_type = "org.eclipse.tahu.protobuf.Payload"
   ## List of paths to use when looking up imported protocol-buffer definition files.
   # xpath_protobuf_import_paths = ["."]
@@ -210,7 +208,7 @@ in the metric.
   ## PROTOCOL-BUFFER definitions
   ## Protocol-buffer definition file
   # xpath_protobuf_file = "sparkplug_b.proto"
-  ## Name of the protocol-buffer message type to use in a fully qualified form.
+  ## Name of the protocol-buffer message type to use in a fully-qualified form.
   # xpath_protobuf_type = "org.eclipse.tahu.protobuf.Payload"
   ## List of paths to use when looking up imported protocol-buffer definition files.
   # xpath_protobuf_import_paths = ["."]
@@ -282,6 +280,7 @@ in the metric.
 It is also possible to specify a mixture of the two alternative ways of
 specifying fields. In this case, _explicitly_ defined tags and fields take
 _precedence_ over the batch instances if both use the same tag or field name.
+
 ### metric_selection (optional)
 
 You can specify a [XPath][xpath] query to select a subset of nodes from the XML
@@ -309,7 +308,7 @@ time from values in the XML document you can specify a [XPath][xpath] query in
 
 The `timestamp_format` can be set to `unix`, `unix_ms`, `unix_us`, `unix_ns`, or
 an accepted [Go "reference time"][time const]. Consult the Go [time][time parse]
-package for details and additional examples on how to set the time format.  If
+package for details and additional examples on how to set the time format. If
 `timestamp_format` is omitted `unix` format is assumed as result of the
 `timestamp` query.
 
@@ -329,7 +328,7 @@ timestamp formats.
 metrics. The specified path can be absolute (starting with `/`) or
 relative. Relative paths use the currently selected node as reference.
 
-__NOTE:__ Results of tag-queries will always be converted to strings.
+**NOTE:** Results of tag-queries will always be converted to strings.
 
 ### fields_int sub-section
 
@@ -337,8 +336,8 @@ __NOTE:__ Results of tag-queries will always be converted to strings.
 fields to the metrics. The specified path can be absolute (starting with `/`) or
 relative. Relative paths use the currently selected node as reference.
 
-__NOTE:__ Results of field_int-queries will always be converted to
-__int64__. The conversion will fail in case the query result is not convertible!
+**NOTE:** Results of field_int-queries will always be converted to
+**int64**. The conversion will fail in case the query result is not convertible!
 
 ### fields sub-section
 
@@ -350,8 +349,8 @@ The type of the field is specified in the [XPath][xpath] query using the type
 conversion functions of XPath such as `number()`, `boolean()` or `string()` If
 no conversion is performed in the query the field will be of type string.
 
-__NOTE: Path conversion functions will always succeed even if you convert a text
-to float!__
+**NOTE: Path conversion functions will always succeed even if you convert a text
+to float!**
 
 ### field_selection, field_name, field_value (optional)
 
@@ -366,7 +365,7 @@ field if not starting with `/`. If not specified the field's _name_ defaults to
 the node name and the field's _value_ defaults to the content of the selected
 field node.
 
-__NOTE__: `field_name` and `field_value` queries are only evaluated if a
+**NOTE**: `field_name` and `field_value` queries are only evaluated if a
 `field_selection` is specified.
 
 Specifying `field_selection` is optional. This is an alternative way to specify
@@ -374,8 +373,8 @@ fields especially for documents where the node names are not known a priori or
 if there is a large number of fields to be specified. These options can also be
 combined with the field specifications above.
 
-__NOTE: Path conversion functions will always succeed even if you convert a text
-to float!__
+**NOTE: Path conversion functions will always succeed even if you convert a text
+to float!**
 
 ### field_name_expansion (optional)
 
@@ -396,7 +395,7 @@ The _name_ and the _value_ of each tag can be specified using the optional
 `tag_name` and `tag_value` queries. The queries are relative to the selected tag
 if not starting with `/`. If not specified the tag's _name_ defaults to the node
 name and the tag's _value_ defaults to the content of the selected tag node.
-__NOTE__: `tag_name` and `tag_value` queries are only evaluated if a
+**NOTE**: `tag_name` and `tag_value` queries are only evaluated if a
 `tag_selection` is specified.
 
 Specifying `tag_selection` is optional. This is an alternative way to specify
@@ -611,19 +610,19 @@ sensors,host=Hugin,name=Facility\ C consumers=0,frequency=49.78,power=0.02,tempe
 Using the `metric_selection` option we select all `Sensor` nodes in the XML
 document. For each _Sensor_ we then use `field_selection` to select all child
 nodes of the sensor as _field-nodes_ Please note that the field selection is
-relative to the selected nodes.  For each selected _field-node_ we use
+relative to the selected nodes. For each selected _field-node_ we use
 `field_name` and `field_value` to determining the field's name and value,
 respectively. The `field_name` derives the name of the first attribute of the
 node, while `field_value` derives the value of the first attribute and converts
 the result to a number.
 
-[xpath lib]:    https://github.com/antchfx/xpath
-[json]:         https://www.json.org/
-[msgpack]:      https://msgpack.org/
-[protobuf]:     https://developers.google.com/protocol-buffers
-[xml]:          https://www.w3.org/XML/
-[xpath]:        https://www.w3.org/TR/xpath/
-[xpather]:      http://xpather.com/
+[xpath lib]: https://github.com/antchfx/xpath
+[json]: https://www.json.org/
+[msgpack]: https://msgpack.org/
+[protobuf]: https://developers.google.com/protocol-buffers
+[xml]: https://www.w3.org/XML/
+[xpath]: https://www.w3.org/TR/xpath/
+[xpather]: http://xpather.com/
 [xpath tester]: https://codebeautify.org/Xpath-Tester
-[time const]:   https://golang.org/pkg/time/#pkg-constants
-[time parse]:   https://golang.org/pkg/time/#Parse
+[time const]: https://golang.org/pkg/time/#pkg-constants
+[time parse]: https://golang.org/pkg/time/#Parse
