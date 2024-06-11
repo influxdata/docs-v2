@@ -11,6 +11,246 @@ menu:
     weight: 60
 ---
 
+## v1.31.0 {date="2024-06-10"}
+
+### Important Changes
+
+- The fields `read_bytes` and `write_bytes` in `inputs.procstat` now contain all
+  I/O operations for consistency with other operating systems. Previous values
+  are output as `disk_read_bytes` and `disk_write_bytes` measuring only the I/O
+  on the storage layer.
+
+### New Plugins
+
+#### Inputs
+
+- [smartctl](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/smartctl) (`inputs.smartctl`)
+
+#### Parsers
+
+- [openmetrics](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/openmetrics) (`parsers.openmetrics`)
+- [parquet](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/parquet) (`parsers.parquet`)
+
+#### Processors
+
+- [timestamp](https://github.com/influxdata/telegraf/tree/master/plugins/processors/timestamp) (`processors.timestamp`)
+
+### Features
+
+- Agent:
+  - Add uint support in cli test output.
+  - Introduce CLI option to set config URL retry attempts.
+  - Introduce CLI option to reload remote URL configs on change.
+- Azure Monitor (`input.azure_monitor`): Use default Azure credentials chain when no secret provided.
+- Basicstats (aggregators.basicstats`): Add last field.
+- Binary (`parsers.binary`): Allow base64-encoded input data.
+- Ceph (`inputs.ceph`): Use perf schema to determine metric type.
+- CLI: List available parsers and serializers.
+- CrateDB (`outputs.cratedb`): Allow configuration of startup error handling.
+- DNS Query (`inputs.dns_query`): Allow ignoring errors of specific types.
+- ElasticSearch (`outputs.elasticsearch Allow settings extra headers for elasticsearch output.
+- Exec (`inputs.exec`): Add option to ignore return code.
+- Execd (`inputs.execd`): Add option to not restart program on error.
+- File (`inputs.file`): Add tag with absolute path of file.
+- Final (aggregators.final`): Add option to disable appending _final.
+- GNMI (`inputs.gnmi`):
+  - Add keepalive settings.
+  - Add option to create more descriptive tags.
+  - Add secret store support for username and password.
+  - Add yang-model decoding of JSON IETF payloads.
+  - Allow to pass accepted cipher suites.
+- HTTP Listener (`inputs.http_listener`): Allow setting custom success return code.
+- HTTP Response (`inputs.http_response`): Add cookie authentication.
+- Influx (`serializers.influx`): Add option to omit timestamp.
+- InfluxDB (`inputs.influxdb`): Add metrics for build, crypto and commandline.
+- InfluxDB (`outputs.influxdb`): Add option to define local address.
+- InfluxDB v2 (`outputs.influxdb_v2`)
+  - Add option to set local address.
+  - Preserve custom query parameters on write.
+- InfluxDB v2 Listener (`inputs.influxdb_v2_listener`):
+  - Add support for rate limiting.
+  - Support secret store for token.
+- Internet Speed (`inputs.internet_speed`): Introduce packet loss field.
+- Inputs (`inputs`): Add framework to retry on startup errors.
+- Kafka Consumer (`inputs.kafka_consumer`): Add resolve canonical bootstrap server option.
+- KNX Listener (`inputs.knx_listener`):
+  - Add support for string data type.
+  - Allow usage of DPT string representation.
+- Kubernetes (`inputs.kubernetes`): Add option to node metric name.
+- Lustre2 (`inputs.lustre2`):
+  - Add eviction_count field.
+  - Add health-check metric.
+  - Add support for bulk read/write stats.
+  - Skip brw_stats in case of insufficient permissions.
+- Merge (aggregators.merge`): Allow to round metric timestamps.
+- MQTT (`outputs.mqtt`): Add client trace logging, resolve MQTT5 reconnect login.
+- Mock (`inputs.mock`): Add baseline option to sine.
+- Netflow (`inputs.netflow`):
+  - Add support for IPFIX option packets.
+  - Add support for netflow v9 option packets.
+- Nvidia SMI (`inputs.nvidia_smi`): Add power-limit field for v12 scheme.
+- OPCUA (`common.opcua`): Add session timeout as configuration option.
+- OpenStack (`inputs.openstack`): Use service catalog from v3 authentication if available.
+- OpenTelemetry (`inputs.opentelemetry`): Add option to set max receive message size
+- Outputs (`outputs`): Add framework to retry on startup errors.
+- Parser (`processors.parser`): Add base64 decode for fields.
+- PostgreSQL (`outputs.postgresql`):
+  - Add secret store support.
+  - Allow configuration of startup error handling.
+- Printer (`processors.printer`): Embed Influx serializer options.
+- Procstat (`inputs.procstat`):
+  - Add option to select properties to collect.
+  - Allow multiple selection criteria.
+  - Report consistent I/O on Linux.
+- Prometheus Remote Write (`parser.prometheusremotewrite`): Parse and generate histogram buckets.
+- Radius (`inputs.radius`): Provide setting to set request IP address.
+- Redis (`inputs.redis`): Add latency percentiles metric.
+- s7comm (`inputs.s7comm`): Add optional connection type setting.
+- SNMP (`snmp`): Add secret support for auth_password and priv_password.
+- SNMP (`inputs.snmp`): Convert octet string with invalid data to hex.
+- SQLServer (`inputs.sqlserver`): Add persistent version store metrics.
+- Starlark (`processors.starlark`): Allow persistence of global state.
+- Statsd (`inputs.statsd`):
+  - Add support for DogStatsD v1.2.
+  - Allow counters to report as float.
+- Windows EventLog (`inputs.win_eventlog`): Add option to define event batch-size.
+- Windows WMI (`inputs.win_wmi`):
+  - Add support for remote queries.
+  - Allow to invoke methods.
+
+### Bug fixes
+
+- Agent: Warn on multiple agent configuration tables seen.
+- CloudWatch (`inputs.cloudwatch`):
+  - Add accounts when enabled.
+  - Ensure account list is larger than index.
+- ECS (`inputs.ecs`): Check for nil pointer before use.
+- PostgreSQL Extensible (`inputs.postgresql_extensible`): Use same timestamp for each gather.
+- procstat (`inputs.procstat`): Do not report dead processes as running for orphan PID files.
+- smartctl (`inputs.smartctl`): Add additional fields.
+- SNMP Lookup (`processors.snmp_lookup`): Return empty tag-map on error to avoid panic.
+
+### Dependency updates
+
+- Update `cloud.google.com/go/storage` from 1.40.0 to 1.41.0.
+- Update `github.com/awnumar/memguard` from 0.22.4 to 0.22.5.
+- Update `github.com/fatih/color` from 1.16.0 to 1.17.0.
+- Update `github.com/jhump/protoreflect` from 1.15.6 to 1.16.0.
+- Update `github.com/lxc/incus` v0.4.0 to v6.2.0.
+- Update `github.com/miekg/dns` from 1.1.58 to 1.1.59.
+- Update `github.com/openzipkin/zipkin-go` from 0.4.2 to 0.4.3.
+- Update `github.com/prometheus/common` from 0.52.2 to 0.53.0.
+- Update `github.com/showwin/speedtest-go` from 1.7.5 to 1.7.6.
+- Update `github.com/showwin/speedtest-go` from 1.7.6 to 1.7.7.
+- Update `github.com/snowflakedb/gosnowflake` from 1.7.2 to 1.10.0.
+- Update `go` from v1.22.3 to v1.22.4.
+- Update `golang.org/x/crypto` from 0.22.0 to 0.23.0.
+- Update `golang.org/x/net` from 0.24.0 to 0.25.0.
+- Update `k8s.io/*` from 0.29.3 to 0.30.1.
+- Update `modernc.org/sqlite` from 1.29.10 to 1.30.0.
+- Update `modernc.org/sqlite` from 1.29.5 to 1.29.10.
+- Update `super-linter/super-linter` from 6.4.1 to 6.5.0.
+- Update `super-linter/super-linter` from 6.5.0 to 6.5.1.
+- Switch to `github.com/leodido/go-syslog`.
+- Update all OpenTelemetry dependencies.
+
+## v1.30.3 {date="2024-04-01"}
+
+### Bug fixes
+
+- Cloudwatch (`inputs.cloudwatch`): Option to produce dense metrics.
+- GNMI (`inputs.gnmi`): Ensure path contains elements to avoid panic.
+- Graphite (`outputs.graphite`): Handle local address without port correctly.
+- HTTP (`http`): Stop plugins from leaking file descriptors on telegraf reload.
+- HTTP Listener v2 (`inputs.http_listener_v2`): Wrap timestamp parsing error messages.
+- Loki (`outputs.loki`): Option to sanitize label names.
+- Makefile (`makefile`): Use go's dependency checker for per platform builds.
+- Netflow (`inputs.netflow`): Log unknown fields only once.
+- Redis (`input.redis`): Discard invalid errorstat lines.
+- Sysstat (`inputs.sysstat`): Prevent default sadc_interval from increasing on reload.
+- Windows (`windows`): Make sure to log the final error message on exit.
+
+### Dependency updates
+
+- Update `cloud.google.com/go/bigquery` from 1.59.1 to 1.61.0.
+- Update `github.com/Azure/azure-kusto-go` from 0.15.0 to 0.15.2.
+- Update `github.com/aliyun/alibaba-cloud-sdk-go` from 1.62.713 to 1.62.721.
+- Update `github.com/antchfx/xmlquery` from 1.3.18 to 1.4.0.
+- Update `github.com/antchfx/xpath` from 1.2.5 to 1.3.0.
+- Update `github.com/aws/aws-sdk-go-v2/config` from 1.27.9 to 1.27.13.
+- Update `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.9 to 1.17.11.
+- Update `github.com/aws/aws-sdk-go-v2/service/ec2` from 1.151.1 to 1.161.1.
+- Update `github.com/coocood/freecache` from 1.2.3 to 1.2.4.
+- Update `github.com/google/cel-go` from 0.18.1 to 0.20.1.
+- Update `github.com/grid-x/modbus` from v0.0.0-20211113184042-7f2251c342c9 to v0.0.0-20240503115206-582f2ab60a18.
+- Update `github.com/nats-io/nats-server/v2` from 2.10.9 to 2.10.14.
+- Update `github.com/pion/dtls/v2` from 2.2.10 to 2.2.11.
+- Update `github.com/prometheus/procfs` from 0.13.0 to 0.14.0.
+- Update `github.com/shirou/gopsutil/v3` from v3.24.3 to v3.24.4.
+- Update `github.com/testcontainers/testcontainers-go/modules/kafka` from 0.26.1-0.20231116140448-68d5f8983d09 to 0.30.0.
+- Update `github.com/vmware/govmomi` from 0.37.0 to 0.37.2.
+- Update `go` from v1.22.2 to v1.22.3.
+- Update `golang.org/x/mod` from 0.16.0 to 0.17.0.
+- Update `golang.org/x/sync` from 0.6.0 to 0.7.0.
+- Update `golangci-lint` from v1.57.2 to v1.58.0.
+- Update `google.golang.org/api` from 0.171.0 to 0.177.0.
+- Update `super-linter/super-linter` from 6.3.1 to 6.4.1.
+- Migrate to maintained gopacket library.
+
+## v1.30.2 {date="2024-04-01"}
+
+### Important Changes
+
+- This release reverts the behavior of `inputs.systemd_units` back to
+  pre-v1.30.0 to only collect units already loaded by systemd (i.e. not
+  collecting disabled or static units). This was necessary because using
+  unspecific filters will cause significant load on the system as systemd needs
+  to read all unit-files matching the pattern in each gather cycle. If you use
+  specific patterns and want to collect non-loaded units, please set the
+  `collect_disabled_units` option to true.
+
+### Bug fixes
+
+- Agent (`agent`): Ensure import of required package for pprof support.
+- Disk I/O (`inputs.diskio`): Update path from /sys/block to /sys/class/block.
+- Modbus (`inputs.modbus`): Avoid overflow when calculating with uint16 addresses.
+- Nvidia (`inputs.nvidia`): Include power limit field for v11.
+- OPC UA (`inputs.opcua`): Make sure to always create a request.
+- OpenSearch (`outputs.opensearch`): Correctly error during failures or disconnect.
+- PHP FPM (`inputs.phpfpm`): Check for error before continue processing.
+- Prometheus (`inputs.prometheus`):
+  - Correctly handle host header.
+  - Remove duplicate response_timeout option.
+- SQL (`outputs.sql`): Enable the use of krb5 with mssql driver.
+- SQL Server (`inputs.sqlserver`): Honor timezone on backup metrics.
+- systemd (`systemd`): Remove 5 second timeout, use default (90 seconds).
+- systemd Units (`inputs.systemd_units`):
+  - Reconnect if connection is lost.
+  - Revert to only gather loaded units by default.
+- Windows Event Log (`inputs.win_eventlog`): Handle empty query correctly.
+
+### Dependency updates
+
+- Update `github.com/aliyun/alibaba-cloud-sdk-go` from 1.62.563 to 1.62.708.
+- Update `github.com/aliyun/alibaba-cloud-sdk-go` from 1.62.708 to 1.62.713.
+- Update `github.com/apache/iotdb-client-go` from 0.12.2-0.20220722111104-cd17da295b46 to 1.2.0-tsbs.
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatch` from 1.36.1 to 1.37.0.
+- Update `github.com/aws/aws-sdk-go-v2/service/kinesis` from 1.27.1 to 1.27.4.
+- Update `github.com/aws/aws-sdk-go-v2/service/timestreamwrite` from 1.25.2 to 1.25.5.
+- Update `github.com/go-sql-driver/mysql` from 1.7.1 to 1.8.1.
+- Update `github.com/gophercloud/gophercloud` from 1.9.0 to 1.11.0.
+- Update `github.com/jackc/pgtype` from 1.14.2 to 1.14.3.
+- Update `github.com/prometheus/client_golang` from 1.18.0 to 1.19.0.
+- Update `github.com/redis/go-redis/v9` from 9.2.1 to 9.5.1.
+- Update `github.com/shirou/gopsutil` from v3.23.11 to v3.24.3.
+- Update `github.com/testcontainers/testcontainers-go` from 0.27.0 to 0.29.1.
+- Update `github.com/vmware/govmomi` from 0.33.1 to 0.37.0.
+- Update `golang.org/x/net` from 0.22.0 to 0.23.0.
+- Update `golang.org/x/oauth2` from 0.18.0 to 0.19.0.
+- Update `k8s.io/client-go` from 0.29.2 to 0.29.3.
+- Update `super-linter/super-linter` from 6.3.0 to 6.3.1.
+- Update `tj-actions/changed-files` from 43 to 44
+
 ## v1.30.1 {date="2024-04-01"}
 
 ### Bug fixes
@@ -60,7 +300,6 @@ menu:
 - Update `google.golang.org/api` from 0.165.0 to 0.171.0.
 - Update `google.golang.org/protobuf` from 1.32.0 to 1.33.0.
 - Update `tj-actions/changed-files` from 42 to 43.
-
 
 ## v1.30.0 {date="2024-03-11"}
 
@@ -181,6 +420,156 @@ can help with migrating to newer plugins.
 - Update `golang.org/x/crypto` from 0.19.0 to 0.20.0.
 - Update `modernc.org/sqlite` from 1.28.0 to 1.29.2.
 - Update `super-linter/super-linter` from 6.1.1 to 6.3.0.
+
+## v1.29.5 {date="2023-12-11"}
+
+### Bug fixes
+
+- execd (`processors.execd`): Accept tracking metrics instead of dropping them.
+- Filecount (`inputs.filecount`): Respect symlink files with FollowSymLinks.
+- GNMI (`inputs.gnmi`): Normalize path for inline origin handling.
+- Kafka Consume (`inputs.kafka_consumer`): Fix typo of msg_headers_as_tags.
+- MQTT (`outputs.mqtt`): Retry metrics for server timeout.
+- Packaging (`rpm`): Ensure telegraf is installed after useradd.
+- PostgreSQL Extensible (`inputs.postgresql_extensible`): Add support for bool tags.
+- Redfish (`inputs.redfish`): Resolve iLO4 fan data.
+- SNMP Trap (`inputs.snmp_trap`): Enable SHA ciphers.
+- unpivot (`processors.unpivot`): Handle tracking metrics correctly.
+- Vsphere (`inputs.vsphere`): Use guest.guestId value if set for guest name.
+
+### Dependency updates
+
+- Update `cloud.google.com/go/bigquery` from 1.57.1 to 1.58.0.
+- Update `cloud.google.com/go/pubsub` from 1.33.0 to 1.36.1.
+- Update `cloud.google.com/go/storage` from 1.36.0 to 1.38.0.
+- Update `github.com/Azure/azure-event-hubs-go/v3` from 3.6.1 to 3.6.2.
+- Update `github.com/DATA-DOG/go-sqlmock` from 1.5.0 to 1.5.2.
+- Update `github.com/IBM/sarama` from 1.42.1 to 1.42.2.
+- Update `github.com/awnumar/memguard` from 0.22.4-0.20231204102859-fce56aae03b8 to 0.22.4.
+- Update `github.com/cloudevents/sdk-go/v2` from 2.14.0 to 2.15.0.
+- Update `github.com/eclipse/paho.golang` from 0.11.0 to 0.20.0.
+- Update `github.com/google/uuid` from 1.5.0 to 1.6.0.
+- Update `github.com/gopcua/opcua` from 0.4.0 to 0.5.3.
+- Update `github.com/gophercloud/gophercloud` from 1.7.0 to 1.9.0.
+- Update `github.com/gwos/tcg/sdk` from v0.0.0-20220621192633-df0eac0a1a4c to v8.7.2.
+- Update `github.com/jhump/protoreflect` from 1.15.4 to 1.15.6.
+- Update `github.com/klauspost/compress` from 1.17.4 to 1.17.6.
+- Update `github.com/miekg/dns` from 1.1.57 to 1.1.58.
+- Update `github.com/showwin/speedtest-go` from 1.6.7 to 1.6.10.
+- Update `github.com/urfave/cli/v2` from 2.25.7 to 2.27.1.
+- Update `go.opentelemetry.io/collector/pdata` from 1.0.1 to 1.1.0.
+- Update `golang.org/x/oauth2` from 0.16.0 to 0.17.0.
+- Update `google.golang.org/api` from 0.162.0 to 0.165.0.
+- Update `google.golang.org/grpc` from 1.61.0 to 1.61.1.
+- Update `k8s.io/apimachinery` from 0.29.0 to 0.29.1.
+- Update `k8s.io/client-go` from 0.29.0 to 0.29.1.
+- Update `k8s.io/client-go` from 0.29.1 to 0.29.2.
+- Update `super-linter/super-linter` from 6.0.0 to 6.1.1.
+- Update `tj-actions/changed-files` from 41 to 42.
+- Remove `golang.org/x/exp` and use stable versions instead.
+- Use `github.com/coreos/go-systemd/v22` instead of git version.
+
+## v1.29.4 {date="2023-12-11"}
+
+### Bug fixes
+
+- SNMP (`inputs.temp`): Fix regression in metric formats.
+- SNMP Trap (`inputs.snmp_trap`): Handle octet strings.
+- Parser (`processors.parser`): Drop tracking metrics when not carried forward.
+
+### Dependency updates
+
+- Update all AWS dependencies
+- Update `github.com/compose-spec/compose-go` from 1.20.0 to 1.20.2.
+- Update `github.com/gosnmp/gosnmp` from 1.36.1 to 1.37.0.
+- Update `github.com/microsoft/go-mssqldb` from 1.5.0 to 1.6.0.
+- Update `github.com/nats-io/nats-server/v2` from 2.10.6 to 2.10.9.
+- Update `github.com/yuin/goldmark` from 1.5.6 to 1.6.0.
+
+## v1.29.3 {date="2023-12-11"}
+
+### Bug fixes
+
+- Encoding (`common.encoding`): Remove locally-defined errors and use upstream ones.
+- GNMI (`inputs.gnmi`): Refactor alias handling to prevent clipping.
+- IOTDB (`outputs.iotdb`): Handle paths that contain illegal characters.
+- Loki (`outputs.loki`): Do not close body before reading it.
+- MQTT (`outputs.mqtt`): Preserve leading slash in topic.
+- Temperature (`inputs.temp`): Recover pre-v1.22.4 temperature sensor readings.
+- Windows Performance Counters (`inputs.win_perf_counters`):
+  - Check errors post-collection for skip.
+  - Ignore PdhCstatusNoInstance as well.
+
+### Dependency updates
+
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs` from 1.29.5 to 1.31.0.
+- Update `github.com/aws/aws-sdk-go-v2/service/sts` from 1.26.5 to 1.26.7.
+- Update `github.com/clarify/clarify-go` from 0.2.4 to 0.3.1.
+- Update `github.com/docker/docker` from 24.0.7+incompatible to 25.0.0+incompatible.
+- Update `github.com/docker/go-connections` from 0.4.0 to 0.5.0.
+- Update `github.com/fatih/color` from 1.15.0 to 1.16.0.
+- Update `github.com/gorilla/mux` from 1.8.0 to 1.8.1.
+- Update `github.com/intel/powertelemetry` from 1.0.0 to 1.0.1.
+- Update `github.com/nats-io/nats.go` from 1.31.0 to 1.32.0.
+- Update `github.com/prometheus/common` from 0.44.0 to 0.45.0.
+- Update `github.com/testcontainers/testcontainers-go` from 0.26.0 to 0.27.0.
+- Update `github.com/vapourismo/knx-go` from v0.0.0-20220829185957-fb5458a5389d to 20240107135439-816b70397a00.
+- Update `go.opentelemetry.io/collector/pdata` from 1.0.0-rcv0016 to 1.0.1.
+- Update `go.starlark.net` from `go.starlark.net` v0.0.0-20220328144851-d1966c6b9fcd to v0.0.0-20231121155337-90ade8b19d09.
+- Update `k8s.io/client-go` from 0.28.3 to 0.29.0.
+- Update `modernc.org/sqlite` from 1.24.0 to 1.28.0.
+
+## v1.29.2 {date="2023-12-11"}
+
+### Bug fixes
+
+- Bigquery (`outputs.bigquery`): Ignore fields containing NaN or infinity.
+- Filter (`processors.filter`): Rename processors.Filter -> processors.filter.
+- InfluxDB (`outputs.influxdb`): Support setting Host header.
+- InfluxDB v2 (`outputs.influxdb_v2`): Support setting Host header.
+- Kafka (`common.kafka`): Correctly set gssapi username/password.
+  - Add pid field to differentiate metrics.
+  - Use logger without causing panic.
+- PHP FPM (`inputs.phpfpm`):
+- procstat (`inputs.procstat`): Correctly set tags on procstat_lookup.
+- Prometheus Client (`outputs.prometheus_client`): Always default to TCP.
+- Starlark (`processors.starlark`): Use tracking ID to identify tracking metrics.
+- systemd (`systemd`): Allow notify access from all.
+- UPSD (`inputs.upsd`): Add additional fields to upsd from NUT.
+- Vsphere (`inputs.vsphere`): Resolve occasional serverFault.
+
+### Dependency updates
+
+- Update `collectd.org` from v0.5.0 to v0.6.0.
+- Update `github.com/Azure/azure-kusto-go` from 0.13.1 to 0.15.0.
+- Update `github.com/containerd/containerd` from 1.7.7 to 1.7.11.
+- Update `github.com/djherbis/times` from 1.5.0 to 1.6.0.
+- Update `github.com/dvsekhvalnov/jose2go` from v1.5.0 to v1.5.1-0.20231206184617-48ba0b76bc88.
+- Update `github.com/google/uuid` from 1.4.0 to 1.5.0.
+- Update `github.com/jhump/protoreflect` from 1.15.3 to 1.15.4.
+- Update `github.com/pion/dtls/v2` from 2.2.7 to 2.2.8.
+- Update `github.com/prometheus/prometheus` from 0.48.0 to 0.48.1.
+- Update `github.com/sijms/go-ora/v2` from 2.7.18 to 2.8.4.
+- Update `go.mongodb.org/mongo-driver` from 1.12.1 to 1.13.1.
+- Update `golang.org/x/crypto` from 0.16.0 to 0.17.0.
+- Update `golang.org/x/net` from 0.17.0 to 0.19.0.
+- Update `google.golang.org/protobuf` from 1.31.1-0.20231027082548-f4a6c1f6e5c1 to 1.32.0.
+
+## v1.29.1 {date="2023-12-11"}
+
+### Bug fixes
+
+- Clickhouse (`inputs.clickhouse`): Omit zookeeper metrics on clickhouse cloud.
+- PHP FPM (`inputs.php-fpm`): Parse JSON output.
+- procstat (`inputs.procstat`): Revert unintended renaming of systemd_unit option.
+
+### Dependency updates
+
+- Update `github.com/go-ldap/ldap/v3` from 3.4.5 to 3.4.6.
+- Update `github.com/klauspost/compress` from 1.17.3 to 1.17.4.
+- Update `github.com/openzipkin/zipkin-go` from 0.4.1 to 0.4.2.
+- Update `github.com/tidwall/gjson` from 1.14.4 to 1.17.0.
+- Update all `github.com/aws/aws-sdk-go-v2` dependencies.
 
 ## v1.29.0 {date="2023-12-11"}
 
@@ -313,6 +702,138 @@ can help with migrating to newer plugins.
 - Update `k8s.io/api` from 0.28.3 to 0.28.4
 - Point kafka dependency to IBM organization
 
+## v1.28.5 {date="2023-09-12"}
+
+### Bug Fixes
+
+- ECS (`inputs.ecs`): Correct v4 metadata URLs.
+- Intel RDT (`inputs.intel_rdt`): Do not fail on missing PIDs.
+- JSON v2 (`parsers.json_v2`): Log inner errors.
+- s7comm (`inputs.s7comm`): Truncate strings to reported length.
+
+### Dependency Updates
+
+- Update `github.com/gosnmp/gosnmp` from 1.35.1-0.20230602062452-f30602b8dad6 to 1.36.1.
+- Update `github.com/Masterminds/semver/v3` from 3.2.0 to 3.2.1.
+- Update `golang.org/x/sync` from 0.4.0 to 0.5.0.
+- Update `golang.org/x/mod` from 0.13.0 to 0.14.0.
+- Update `google.golang.org/api` from 0.149.0 to 0.150.0.
+
+## v1.28.4 {date="2023-09-12"}
+
+### Bug Fixes
+
+- cGroup (`inputs.cgroup`): Escape backslashes in path.
+- Config (`config`): Fix comment removal in TOML files.
+- Disk (`inputs.disk`): Add inodes_used_percent field.
+- ECS (`inputs.ecs`):
+  - Fix cgroupv2 CPU metrics.
+  - Test for v4 metadata endpoint.
+- Elasticsearch (`outputs.elasticsearch`): Print error status value.
+- IP Set (`inputs.ipset`): Parse lines with timeout.
+- JSON v2 (`parsers.json_v2`): Prevent race condition in parse function.
+- Prometheus (`inputs.prometheus`): Read bearer token from file every time.
+- MQTT Consumer (`inputs.mqtt_consumer`): Resolve could not mark message delivered.
+- Netflow (`inputs.netflow`): Fix sFlow metric timestamp.
+- s7comm (`inputs.s7comm`): Fix bit queries.
+- Timestream (`outputs.timestream`): Clip uint64 values.
+- Windows Performance Counters (`inputs.win_perf_counter`): Do not rely on returned buffer size.
+- ZFS (`inputs.zfs`):
+  - Parse metrics correctly on FreeBSD 14.
+  - Support gathering metrics on zfs 2.2.0 and later.
+
+### Dependency Updates
+
+- Update `cloud.google.com/go/storage` from 1.30.1 to 1.34.1.
+- Update `github.com/aws/aws-sdk-go-v2/config` from 1.18.42 to 1.19.1.
+- Update `github.com/aws/aws-sdk-go-v2/credentials` from 1.13.40 to 1.13.43.
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs` from 1.23.5 to 1.26.0.
+- Update `github.com/antchfx/xmlquery` from 1.3.17 to 1.3.18.
+- Update `github.com/antchfx/xpath` from 1.2.5-0.20230505064641-588960cceeac to 1.2.5.
+- Update `github.com/benbjohnson/clock` from 1.3.3 to 1.3.5.
+- Update `github.com/compose-spec/compose-go` from 1.16.0 to 1.20.0.
+- Update `github.com/docker/docker` from 24.0.6 to 24.0.7.
+- Update `github.com/hashicorp/consul/api` from 1.24.0 to 1.25.1.
+- Update `github.com/hashicorp/consul/api` from 1.25.1 to 1.26.1.
+- Update `github.com/nats-io/nkeys` from 0.4.5 to 0.4.6.
+- Update `github.com/prometheus/client_golang` from 1.16.0 to 1.17.0.
+- Update `github.com/rabbitmq/amqp091-go` from 1.8.1 to 1.9.0.
+- Update `github.com/showwin/speedtest-go` from 1.6.6 to 1.6.7.
+- Update `google.golang.org/grpc` from 1.58.2 to 1.58.3.
+- Update `k8s.io/client-go` from 0.28.2 to 0.28.3.
+
+## v1.28.3 {date="2023-09-12"}
+
+### Bug Fixes
+
+- Infiniband (`inputs.infiniband`): Handle devices without counters.
+- Jenkins (`inputs.jenkins`): Filter after searching sub-folders.
+- Jolokia2 Agent (`inputs.jolokia2_agent`): Trim quotes around tags.
+- JSON (`serializers.json`): Append newline for batch-serialization.
+- Kafka (`outputs.kafka`): Simplify send-error handling.
+- MQTT (`inputs.mqtt`): Reference correct password variable.
+- Nebius Cloud Monitoring (`outputs.nebius_cloud_monitoring`): Use correct endpoint.
+- PostgreSQL Extensible (`inputs.postgresql_extensible`): Restore default db name.
+- Redis Time Series (`outputs.redistimeseries`): Handle string fields correctly.
+- s7comm (`inputs.s7comm`): Allow PDU-size to be set as config option.
+- Vault (`inputs.vault`): Use http client to handle redirects correctly.
+
+### Dependency Updates
+
+- Update `github.com/apache/arrow/go/v13` from 13.0.0-git to 13.0.0.
+- Update `github.com/google/cel-go` from 0.14.1-git to 0.18.1.
+- Update `github.com/google/go-cmp` from 0.5.9 to 0.6.0.
+- Update `github.com/jhump/protoreflect` from 1.15.1 to 1.15.3.
+- Update `github.com/klauspost/compress` from 1.16.7 to 1.17.0.
+- Update `github.com/miekg/dns` from 1.1.55 to 1.1.56.
+- Update `github.com/nats-io/nats.go` from 1.28.0 to 1.31.0.
+- Update `github.com/nats-io/nats-server/v2` from 2.9.9 to 2.9.23.
+- Update `github.com/netsampler/goflow2` from 1.3.3 to 1.3.6.
+- Update `github.com/signalfx/golib/v3` from 3.3.50 to 3.3.53.
+- Update `github.com/testcontainers/testcontainers-go` from 0.22.0 to 0.25.0.
+- Update `github.com/yuin/goldmark` from 1.5.4 to 1.5.6.
+- Update `golang.org/x/mod` from 0.12.0 to 0.13.0.
+- Update `golang.org/x/net` from 0.15.0 to 0.17.0.
+- Update `golang.org/x/oauth2` from 0.11.0 to 0.13.0.
+- Update `gonum.org/v1/gonum` from 0.13.0 to 0.14.0.
+- Update `google.golang.org/api` from 0.139.0 to 0.147.0.
+
+## v1.28.2 {date="2023-09-12"}
+
+### Bug Fixes
+
+- Cisco Telemetry MDT (`inputs.cisco_telemetry_mdt`): Print string message on decode failure.
+- Cloudwatch (`outputs.cloudwatch`): Increase number of metrics per write.
+- exec (`inputs.exec`): Clean up grandchildren processes.
+- Intel PMT (`inputs.intel_pmt`): Handle telem devices without numa_node attribute.
+- JTI OpenConfig Telemetry (`inputs.jti_openconfig_telemetry`): Do not block gRPC dial.
+- JSON v2 (`parsers.json_v2`): Handle optional fields properly.
+- Mock (`inputs.mock`): Align plugin with documentation.
+- NFS Client (`inputs.nfsclient`): Avoid panics, better error messages.
+- Nvidia SMI (`inputs.nvidia_smi`): Add legacy power readings to v12 schema.
+- OpenStack (`inputs.openstack`): Handle dependencies between enabled services and available endpoints.
+- PostgreSQL Extensible (`inputs.postgresql_extensible`): Restore outputaddress behavior.
+- SMART (`inputs.smart`): Remove parsing error message.
+- Stackdriver (`outputs.stackdriver`):
+  - Do not shallow copy map.
+  - Drop metrics on InvalidArgument gRPC error.
+- systemd Units `inputs.systemd_units`): Add missing upstream states.
+- Template (`processors.template`): Handle tracking metrics correctly.
+
+### Dependency Updates
+
+- Update `github.com/aliyun/alibaba-cloud-sdk-go` from 1.62.470 to 1.62.563.
+- Update `github.com/aws/aws-sdk-go-v2/config` from 1.18.27 to 1.18.42.
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs` from 1.20.9 to 1.23.5.
+- Update `github.com/aws/aws-sdk-go-v2/service/ec2` from 1.80.1 to 1.120.0.
+- Update `github.com/aws/aws-sdk-go-v2/feature/ec2/imds` from 1.13.8 to 1.13.11.
+- Update `github.com/eclipse/paho.mqtt.golang` from 1.4.2 to 1.4.3.
+- Update `github.com/google/uuid` from 1.3.0 to 1.3.1.
+- Update `github.com/shirou/gopsutil/v3` from 3.23.6 to 3.23.8.
+- Update `github.com/vmware/govmomi` from 0.28.0 to 0.32.0.
+- Update `golang.org/x/net` from 0.14.0 to 0.15.0.
+- Update `k8s.io/api` from 0.28.1 to 0.28.2.
+
 ## v1.28.1 {date="2023-09-12"}
 
 ### Bugfixes
@@ -434,12 +955,148 @@ can help with migrating to newer plugins.
 
 ### Dependency Updates
 
-- Update github.com/aws/aws-sdk-go-v2/service/kinesis from 1.18.2 to 1.18.5
-- Update github.com/hashicorp/consul/api from 1.20.0 to 1.24.0
-- Update github.com/nats-io/nats.go from 1.27.0 to 1.28.0
-- Update github.com/prometheus/prometheus from 0.42.0 to 0.46.0
-- Update github.com/showwin/speedtest-go from 1.6.2 to 1.6.6
-- Update k8s.io/api from 0.27.4 to 0.28.1
+- Update `github.com/aws/aws-sdk-go-v2/service/kinesis` from 1.18.2 to 1.18.5.
+- Update `github.com/hashicorp/consul/api` from 1.20.0 to 1.24.0.
+- Update `github.com/nats-io/nats.go` from 1.27.0 to 1.28.0.
+- Update `github.com/prometheus/prometheus` from 0.42.0 to 0.46.0.
+- Update `github.com/showwin/speedtest-go` from 1.6.2 to 1.6.6.
+- Update `k8s.io/api` from 0.27.4 to 0.28.1.
+
+## v1.27.4 {date="2023-06-12"}
+
+### Bug fixes
+
+- Cisco Telemetry MDT (`inputs.cisco_telemetry_mdt`): Fix MDT source field overwrite.
+- NowMetric (`serializers.nowmetric`): Add option for JSONv2 format.
+- OPCUA (`inputs.opcua`): Register node IDs again on reconnect.
+- OPCUA Listener (`inputs.opcua_listener`): Avoid segfault when subscription was not successful.
+- Stackdriver (`outputs.stackdriver`): Regenerate time interval for unknown metrics.
+- Xpath (`parsers.xpath`): Handle protobuf maps correctly.
+
+### Dependency updates
+
+- Update `cloud.google.com/go/pubsub` from 1.32.0 to 1.33.0.
+- Update `github.com/aws/aws-sdk-go-v2/credentials` from 1.13.26 to 1.13.32.
+- Update `github.com/aws/aws-sdk-go-v2/feature/ec2/imds` from 1.13.4 to 1.13.7.
+- Update `github.com/aws/aws-sdk-go-v2/service/kinesis` from 1.17.14 to 1.18.0.
+- Update `github.com/aws/aws-sdk-go-v2/service/kinesis` from 1.18.0 to 1.18.2.
+- Update `github.com/aws/aws-sdk-go-v2/service/sts` from 1.19.3 to 1.21.2.
+- Update `github.com/gophercloud/gophercloud` from 1.2.0 to 1.5.0.
+- Update `github.com/microsoft/go-mssqldb` from 1.3.1-0.20230630170514-78ad89164253 to 1.5.0.
+- Update `github.com/miekg/dns` from 1.1.51 to 1.1.55.
+- Update `github.com/openconfig/gnmi` from 0.9.1 to 0.10.0.
+- Update `github.com/santhosh-tekuri/jsonschema/v5` from 5.3.0 to 5.3.1.
+- Update `go.mongodb.org/mongo-driver` from 1.11.6 to 1.12.1.
+- Update `golang.org/x/oauth2` from 0.10.0 to 0.11.0.
+- Update `google.golang.org/api` from 0.129.0 to 0.134.0.
+
+## v1.27.3 {date="2023-06-12"}
+
+### Bug fixes
+
+- Agent (`agent`): Respect processor order in file.
+- Config (`config`):
+  - Handle escaping and quotation correctly.
+  - Setup logger for secret-stores.
+- Custom Builder (`tools.custom_builder`): Ignore non-plugin sections during configuration.
+- Docker (`inputs.docker`): Add restart count.
+- JTI OpenConfig Telemetry (`inputs.jti_openconfig_telemetry`): Reauthenticate connection on reconnect.
+- MQTT Consumer (`inputs.mqtt_consumer`): Add client trace logs via option.
+- Nebius Cloud Monitoring (`outputs.nebius_cloud_monitoring`): Replace reserved label names.
+- OpenTelemetry (`outputs.opentelemetry`): Group metrics by age and timestamp.
+- Prometheus (`inputs.prometheus`):
+  - Do not collect metrics from finished pods.
+  - Fix missing metrics when multiple plugin instances specified.
+- Stackdriver (`outputs.stackdriver`): Add tag as resource label option.
+- Xpath (`parsers.xpath`):
+  - Ensure precedence of explicitly defined tags and fields.
+  - Fix field-names for arrays of simple types.
+  - Improve handling of complex-type nodes.
+
+### Dependency updates
+
+- Update `github.com/aliyun/alibaba-cloud-sdk-go` 1.62.389 to 1.62.470.
+- Update `github.com/antchfx/jsonquery` from 1.3.1 to 1.3.2.
+- Update `github.com/antchfx/xmlquery` from 1.3.15 to 1.3.17.
+- Update `github.com/antchfx/xpath` from v1.2.4 to latest master.
+- Update `github.com/aws/aws-sdk-go-v2/service/dynamodb` from 1.17.3 to 1.20.0.
+- Update `github.com/aws/aws-sdk-go-v2/service/sts` from 1.19.2 to 1.19.3.
+- Update `github.com/eclipse/paho.golang` from 0.10.0 to 0.11.0.
+- Update `github.com/go-ldap/ldap/v3` from 3.4.4 to 3.4.5.
+- Update `github.com/jaegertracing/jaeger` from 1.38.0 to 1.47.0.
+- Update `github.com/opensearch-project/opensearch-go/v2` from 2.2.0 to 2.3.0.
+- Update `github.com/prometheus-community/pro-bing` from 0.2.0 to 0.3.0.
+- Update `github.com/shirou/gopsutil/v3` from 3.23.5 to 3.23.6.
+- Update `github.com/thomasklein94/packer-plugin-libvirt` from 0.3.4 to 0.5.0.
+- Update `k8s.io/api` from 0.27.2 to 0.27.4.
+- Update `k8s.io/apimachinery` from 0.27.2 to 0.27.3.
+- Update `modernc.org/sqlite` from 1.23.1 to 1.24.0.
+
+## v1.27.2 {date="2023-06-12"}
+
+### Bug fixes
+
+- Binary (`parsers.binary`): Fix binary parser example in README.md.
+- Config (`config`): Replace environment variables if existing but empty.
+- Cloud PubSub (`inputs.cloud_pubsub`): Properly lock for decompression.
+- Custom Builder (`tools.custom_builder`): Error out for unknown plugins in configuration.
+- GNMI (`inputs.gnmi`): Add option to explicitly trim field-names.
+- Graphite (`outputs.graphite`): Rework connection handling.
+- Grok (`parsers.grok`): Use UTC as the default timezone.
+- InfluxDB v2 (`outputs.influxdb_v2`): Expose HTTP/2 client timeouts.
+- Internet Speed (`inputs.internet_speed`): Add location as a field.
+- Modbus (`inputs.modbus`):
+  - Check number of register for datatype.
+  - Fix optimization of overlapping requests and add warning.
+- MQTT Consumer (`inputs.mqtt_consumer`):
+  - Correctly handle semaphores on messages.
+  - Print warning on no metrics generated.
+- OPC UA (`inputs.opcua`): Ensure connection after reconnect.
+- PHP FPM (`inputs.phpfpm`): Check address length to avoid crash.
+- Printer (`processors.printer`): Convert output to string.
+- SNMP Trap (`inputs.snmp_trap`): Copy GoSNMP global defaults to prevent side-effects.
+- Secretstores (`secretstores`): Skip dbus connection with kwallet.
+- Splunk Metric (`serializers.splunkmetric`): Fix TOML option name for multi-metric.
+- Stackdriver (`outputs.stackdriver`): Options to use official path and types.
+- Sumologic (`outputs.sumologic`): Unwrap serializer for type check.
+- Vsphere (`inputs.vpshere`): Compare versions as a string.
+- Xpath (`parsers.xpath`): Handle explicitly defined fields correctly.
+
+### Dependency updates
+
+- Replace `github.com/denisenkom/go-mssqldb` with `github.com/microsoft/go-mssqldb`.
+- Update `cloud.google.com/go/bigquery` from 1.51.1 to 1.52.0.
+- Update `github.com/aliyun/alibaba-cloud-sdk-go` from 1.62.337 to 1.62.389.
+- Update `github.com/aws/aws-sdk-go-v2/config` from 1.18.8 to 1.18.27.
+- Update `github.com/aws/aws-sdk-go-v2/service/kinesis` from 1.17.8 to 1.17.14.
+- Update `github.com/gopcua/opcua` from 0.3.7 to 0.4.0.
+- Update `github.com/prometheus/client_golang` from 1.15.1 to 1.16.0.
+- Update `github.com/snowflakedb/gosnowflake` from 1.6.13 to 1.6.22.
+- Update `github.com/urfave/cli/v2` from 2.25.5 to 2.25.7.
+- Update `golang.org/x/text` from 0.9.0 to 0.10.0.
+- Update `golang.org/x/text` from 0.10.0 to 0.11.0.
+- Update `google.golang.org/api` from 0.126.0 to 0.129.0.
+
+## v1.27.1 {date="2023-06-12"}
+
+### Bug fixes
+
+- Correctly handle serializers and parsers with custom builder.
+- Handle compression level correctly for different algorithms.
+- Restore old environment var behavior with option.
+
+### Dependency updates
+
+- Update `github.com/aws/aws-sdk-go-v2/credentials` from 1.13.20 to 1.13.26.
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatch` from 1.25.9 to 1.26.2.
+- Update `github.com/aws/aws-sdk-go-v2/service/timestreamwrite` from 1.16.0 to 1.17.2.
+- Update `github.com/go-sql-driver/mysql` from 1.6.0 to 1.7.1.
+- Update `github.com/jackc/pgx/v4` from 4.17.1 to 4.18.1.
+- Update `github.com/nats-io/nats.go` from 1.24.0 to 1.27.0.
+- Update `github.com/prometheus-community/pro-bing` from 0.1.0 to 0.2.0.
+- Update `golang.org/x/crypto` from 0.8.0 to 0.9.0.
+- Update `golang.org/x/term` from 0.8.0 to 0.9.0.
+- Update `modernc.org/sqlite` from 1.21.0 to 1.23.1.
 
 ## v1.27.0 {date="2023-06-12"}
 
@@ -485,8 +1142,9 @@ can help with migrating to newer plugins.
 
 ### Features
 
-#13144 Add common expression language metric filtering
-- Agent (`agent`): Add option to avoid filtering of explicit plugin tags
+- Agent (`agent`):
+  - Add option to avoid filtering of explicit plugin tags
+  - Add common expression language metric filtering
 - BasicStats (`aggregators.basicstats`): Add percentage change
 - Cloud PubSub (`cloud_pubsub`): Add support for gzip compression
 - OPCUA (`common.opcua`): Add support for secret-store secrets
@@ -570,6 +1228,113 @@ can help with migrating to newer plugins.
 - Update github.com/showwin/speedtest-go from 1.5.2 to 1.6.2.
 - Update github.com/urfave/cli/v2 from 2.23.5 to 2.25.5.
 - Update k8s.io/client-go from 0.26.2 to 0.27.2.
+
+## v1.26.3 {date="2023-03-13"}
+
+### Bug fixes
+
+- GNMI (`inputs.gnmi`): Create selfstat to track connection state.
+- Graphite (`outputs.graphite`): Fix logic to reconnect with servers that were not up on agent startup.
+- Intel PMU (`inputs.intel_pmu`): Fix handling of the json perfmon format.
+- Prometheus Client (`outputs.prometheus_client`): Fix export_timestamp for v1 metric type.
+- Socket Listener (`inputs.socket_listener`):
+  - Fix loss of connection tracking.
+  - Fix race in tests.
+- Stackdriver (`outputs.stackdriver`):
+  - Allow for custom metric type prefix.
+  - Group batches by timestamp.
+- Starlark (`processors.starlark`): Do not reject tracking metrics twice.
+- Vsphere (`inputs.vsphere`): Specify the correct option for disconnected_servers_behavior.
+- Warp10 (`outputs.warp10`): Support Infinity/-Infinity/NaN values.
+
+### Dependency updates
+
+- Update `cloud.google.com/go/pubsub` from 1.30.0 to 1.30.1.
+- Update `github.com/aerospike/aerospike-client-go/v5` from 5.10.0 to 5.11.0.
+- Update `github.com/antchfx/xpath` to latest master for string-join().
+- Update `github.com/aws/aws-sdk-go-v2` from 1.17.8 to 1.18.0.
+- Update `github.com/Azure/go-autorest/autorest/adal` from 0.9.22 to 0.9.23.
+- Update `github.com/benbjohnson/clock` from 1.3.0 to 1.3.3.
+- Update `github.com/docker/distribution` from 2.8.1 to 2.8.2.
+- Update `github.com/fatih/color` from 1.13.0 to 1.15.0.
+- Update `github.com/netsampler/goflow2` from 1.1.1 to 1.3.3.
+- Update `github.com/yuin/goldmark` from 1.5.3 to 1.5.4.
+- Update `go.opentelemetry.io/collector/pdata` from 1.0.0-rc7 to 1.0.0-rcv0011.
+- Update `golang.org/x/net` from 0.8.0 to 0.9.0.
+- Update `golang.org/x/net` from 0.9.0 to 0.10.0.
+- Update `golang.org/x/oauth2` from 0.5.0 to 0.7.0.
+- Update `google.golang.org/api` from 0.106.0 to 0.120.0.
+- Update `govulncheck-action` from 0.10.0 to 0.10.1.
+- Update `prometheus` from v1.8.2 to v2.42.0.
+- Update `signalfx/golib` from 3.3.46 to 3.3.50.
+
+## v1.26.2 {date="2023-03-13"}
+
+### Bug fixes
+
+- Agent (`agent`): Pass quiet flag earlier.
+- Grok (`parsers.grok`): Fix nil metric for multiline inputs.
+- Lookup (`processors.lookup`): Fix tracking metrics.
+- Prometheus (`inputs.prometheus`): Add namespace option in k8s informer factory.
+- Socket Listener (`inputs.socket_listener`): Fix tracking of unix sockets.
+
+### Dependency updates
+
+- Update `github.com/aws/aws-sdk-go-v2/credentials` from 1.13.15 to 1.13.20.
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatch` from 1.21.6 to 1.25.9.
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs` from 1.15.13 to 1.20.9.
+- Update `github.com/aws/aws-sdk-go-v2/service/kinesis` from 1.15.19 to 1.17.8.
+- Update `github.com/aws/aws-sdk-go-v2/service/sts` from 1.18.5 to 1.18.9.
+- Update `github.com/docker/docker` from 23.0.0 to 23.0.4.
+- Update `github.com/openconfig/gnmi` from 0.0.0-20220920173703-480bf53a74d2 to 0.9.1.
+- Update `github.com/prometheus/common` from 0.41.0 to 0.42.0.
+- Update `github.com/safchain/ethtool` from 0.2.0 to 0.3.0.
+- Update `github.com/tinylib/msgp` from 1.1.6 to 1.1.8.
+- Update `github.com/vishvananda/netns` from 0.0.2 to 0.0.4.
+- Update `github.com/wavefronthq/wavefront-sdk-go` from 0.11.0 to 0.12.0.
+
+## v1.26.1 {date="2023-03-13"}
+
+### Bug fixes
+
+- Config (`config`): Return error on order set as string.
+- ethtool (`inputs.ethtool`): Check for nil.
+- execd (`inputs.execd`): Add option to set buffer size.
+- Graphite (`outputs.graphite`): Add custom regex to outputs.
+- Graphite (`serializers.graphite`): Allow for specifying regex to sanitize.
+- Internet Speed (`inputs.internet_speed`): Rename host tag to source.
+- Kubernetes (`inputs.kubernetes`): Apply timeout for the whole HTTP request.
+- Netflow (`inputs.netflow`): Use correct name in the build tag.
+- Procstat (`inputs.procstat`): Return tags of pids if lookup_error.
+- Prometheus (`inputs.prometheus`):
+  - Correctly set timeout param.
+  - Use set over add for custom headers.
+- Secret Stores (`secrets`):
+  - Add function to set a secret.
+  - Minimize secret holding time.
+  - Warn if OS limit for locked memory is too low.
+  - Handle array of secrets correctly.
+- systemd (`systemd`): Increase lock memory for service to 8192kb.
+- UPSD (`inputs.upsd`): Include ups.real_power.
+
+### Dependency updates
+
+- Update `github.com/antchfx/xpath` from 1.2.3 to 1.2.4.
+- Update `github.com/apache/thrift` from 0.16.0 to 0.18.1.
+- Update `github.com/Azure/azure-event-hubs-go/v3` from 3.3.20 to 3.4.0.
+- Update `github.com/Azure/go-autorest/autorest/azure/auth` from 0.5.11 to 0.5.12.
+- Update `github.com/golang-jwt/jwt/v4` from 4.4.2 to 4.5.0.
+- Update `github.com/jhump/protoreflect` from 1.8.3-0.20210616212123-6cc1efa697ca to 1.15.1.
+- Update `github.com/nats-io/nats.go` from 1.19.0 to 1.24.0.
+- Update `github.com/opencontainers/runc` from 1.1.4 to 1.1.5.
+- Update `github.com/pion/dtls/v2` from 2.2.4 to 2.2.6.
+- Update `github.com/rabbitmq/amqp091-go` from 1.7.0 to 1.8.0.
+- Update `github.com/shirou/gopsutil` from 3.23.2 to 3.23.3.
+- Update `github.com/Shopify/sarama` from 1.37.2 to 1.38.1.
+- Update `github.com/sensu/sensu-go/api/core/v2` from 2.15.0 to 2.16.0.
+- Update `github.com/tidwall/gjson` from 1.14.3 to 1.14.4.
+- Update `golang.org/x/net` from 0.7.0 to 0.8.0.
+- Update `modernc.org/sqlite` from 1.19.2 to 1.21.0.
 
 ## v1.26.0 {date="2023-03-13"}
 
