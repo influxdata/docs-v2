@@ -1293,7 +1293,7 @@ can help with migrating to newer plugins.
 - Update `github.com/vishvananda/netns` from 0.0.2 to 0.0.4.
 - Update `github.com/wavefronthq/wavefront-sdk-go` from 0.11.0 to 0.12.0.
 
-## v1.26.1 {date="2023-04-3"}
+## v1.26.1 {date="2023-04-03"}
 
 ### Bug fixes
 
