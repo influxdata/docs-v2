@@ -154,7 +154,7 @@ menu:
 - Switch to `github.com/leodido/go-syslog`.
 - Update all OpenTelemetry dependencies.
 
-## v1.30.3 {date="2024-04-01"}
+## v1.30.3 {date="2024-05-20"}
 
 ### Bug fixes
 
@@ -197,7 +197,7 @@ menu:
 - Update `super-linter/super-linter` from 6.3.1 to 6.4.1.
 - Migrate to maintained gopacket library.
 
-## v1.30.2 {date="2024-04-01"}
+## v1.30.2 {date="2024-04-22"}
 
 ### Important Changes
 
@@ -421,7 +421,7 @@ can help with migrating to newer plugins.
 - Update `modernc.org/sqlite` from 1.28.0 to 1.29.2.
 - Update `super-linter/super-linter` from 6.1.1 to 6.3.0.
 
-## v1.29.5 {date="2023-12-11"}
+## v1.29.5 {date="2024-02-20"}
 
 ### Bug fixes
 
@@ -469,7 +469,7 @@ can help with migrating to newer plugins.
 - Remove `golang.org/x/exp` and use stable versions instead.
 - Use `github.com/coreos/go-systemd/v22` instead of git version.
 
-## v1.29.4 {date="2023-12-11"}
+## v1.29.4 {date="2024-01-31"}
 
 ### Bug fixes
 
@@ -486,7 +486,7 @@ can help with migrating to newer plugins.
 - Update `github.com/nats-io/nats-server/v2` from 2.10.6 to 2.10.9.
 - Update `github.com/yuin/goldmark` from 1.5.6 to 1.6.0.
 
-## v1.29.3 {date="2023-12-11"}
+## v1.29.3 {date="2024-01-29"}
 
 ### Bug fixes
 
@@ -519,7 +519,7 @@ can help with migrating to newer plugins.
 - Update `k8s.io/client-go` from 0.28.3 to 0.29.0.
 - Update `modernc.org/sqlite` from 1.24.0 to 1.28.0.
 
-## v1.29.2 {date="2023-12-11"}
+## v1.29.2 {date="2024-01-08"}
 
 ### Bug fixes
 
@@ -555,7 +555,7 @@ can help with migrating to newer plugins.
 - Update `golang.org/x/net` from 0.17.0 to 0.19.0.
 - Update `google.golang.org/protobuf` from 1.31.1-0.20231027082548-f4a6c1f6e5c1 to 1.32.0.
 
-## v1.29.1 {date="2023-12-11"}
+## v1.29.1 {date="2023-12-13"}
 
 ### Bug fixes
 
@@ -702,7 +702,7 @@ can help with migrating to newer plugins.
 - Update `k8s.io/api` from 0.28.3 to 0.28.4
 - Point kafka dependency to IBM organization
 
-## v1.28.5 {date="2023-09-12"}
+## v1.28.5 {date="2023-11-15"}
 
 ### Bug Fixes
 
@@ -719,7 +719,7 @@ can help with migrating to newer plugins.
 - Update `golang.org/x/mod` from 0.13.0 to 0.14.0.
 - Update `google.golang.org/api` from 0.149.0 to 0.150.0.
 
-## v1.28.4 {date="2023-09-12"}
+## v1.28.4 {date="2023-11-13"}
 
 ### Bug Fixes
 
@@ -762,7 +762,7 @@ can help with migrating to newer plugins.
 - Update `google.golang.org/grpc` from 1.58.2 to 1.58.3.
 - Update `k8s.io/client-go` from 0.28.2 to 0.28.3.
 
-## v1.28.3 {date="2023-09-12"}
+## v1.28.3 {date="2023-10-23"}
 
 ### Bug Fixes
 
@@ -798,7 +798,7 @@ can help with migrating to newer plugins.
 - Update `gonum.org/v1/gonum` from 0.13.0 to 0.14.0.
 - Update `google.golang.org/api` from 0.139.0 to 0.147.0.
 
-## v1.28.2 {date="2023-09-12"}
+## v1.28.2 {date="2023-10-02"}
 
 ### Bug Fixes
 
@@ -962,7 +962,7 @@ can help with migrating to newer plugins.
 - Update `github.com/showwin/speedtest-go` from 1.6.2 to 1.6.6.
 - Update `k8s.io/api` from 0.27.4 to 0.28.1.
 
-## v1.27.4 {date="2023-06-12"}
+## v1.27.4 {date="2023-08-21"}
 
 ### Bug fixes
 
@@ -990,7 +990,7 @@ can help with migrating to newer plugins.
 - Update `golang.org/x/oauth2` from 0.10.0 to 0.11.0.
 - Update `google.golang.org/api` from 0.129.0 to 0.134.0.
 
-## v1.27.3 {date="2023-06-12"}
+## v1.27.3 {date="2023-07-31"}
 
 ### Bug fixes
 
@@ -1032,7 +1032,7 @@ can help with migrating to newer plugins.
 - Update `k8s.io/apimachinery` from 0.27.2 to 0.27.3.
 - Update `modernc.org/sqlite` from 1.23.1 to 1.24.0.
 
-## v1.27.2 {date="2023-06-12"}
+## v1.27.2 {date="2023-07-10"}
 
 ### Bug fixes
 
@@ -1077,7 +1077,7 @@ can help with migrating to newer plugins.
 - Update `golang.org/x/text` from 0.10.0 to 0.11.0.
 - Update `google.golang.org/api` from 0.126.0 to 0.129.0.
 
-## v1.27.1 {date="2023-06-12"}
+## v1.27.1 {date="2023-06-21"}
 
 ### Bug fixes
 
@@ -1229,7 +1229,7 @@ can help with migrating to newer plugins.
 - Update github.com/urfave/cli/v2 from 2.23.5 to 2.25.5.
 - Update k8s.io/client-go from 0.26.2 to 0.27.2.
 
-## v1.26.3 {date="2023-03-13"}
+## v1.26.3 {date="2023-05-22"}
 
 ### Bug fixes
 
@@ -1268,7 +1268,7 @@ can help with migrating to newer plugins.
 - Update `prometheus` from v1.8.2 to v2.42.0.
 - Update `signalfx/golib` from 3.3.46 to 3.3.50.
 
-## v1.26.2 {date="2023-03-13"}
+## v1.26.2 {date="2023-04-24"}
 
 ### Bug fixes
 
@@ -1293,7 +1293,7 @@ can help with migrating to newer plugins.
 - Update `github.com/vishvananda/netns` from 0.0.2 to 0.0.4.
 - Update `github.com/wavefronthq/wavefront-sdk-go` from 0.11.0 to 0.12.0.
 
-## v1.26.1 {date="2023-03-13"}
+## v1.26.1 {date="2023-04-3"}
 
 ### Bug fixes
 
