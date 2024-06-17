@@ -11,6 +11,16 @@ menu:
 weight: 202
 ---
 
+## v2.9.2 {date="2024-06-17"}
+
+### Bug Fixes
+
+- Ensure query subcommand returns any error while looping through results.
+
+### Dependency Updates
+
+- Update `google.golang.org/protobuf` from 1.34.1 to 1.34.2.
+
 ## v2.9.1 {date="2024-06-06"}
 
 ### Dependency Updates
