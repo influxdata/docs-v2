@@ -1,4 +1,14 @@
-trailingComma: "es5"
-tabWidth: 2 
+#  ~/.prettierrc.yaml
+printWidth: 80
 semi: true 
 singleQuote: true
+tabWidth: 2
+trailingComma: "es5"
+useTabs: false
+overrides:
+  - files:
+      - "*.md"
+      - "*.markdown"
+    options:
+      proseWrap: "preserve"
+# Prettier also uses settings, such as indent, specified in .editorconfig 

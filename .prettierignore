@@ -1,0 +1,5 @@
+# Ignore Prettier checking for files
+**/.git
+**/.svn
+**/.hg
+**/node_modules

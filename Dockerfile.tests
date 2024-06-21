@@ -1,0 +1,18 @@
+# Use the Dockerfile 1.2 syntax to leverage BuildKit features like cache mounts and inline mounts--temporary mounts that are only available during the build step, not at runtime.
+# syntax=docker/dockerfile:1.2
+
+# Starting from a Go base image is easier than setting up the Go environment later.
+FROM python:3.9-slim
+
+# Install the necessary packages for the test environment.
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+  rsync
+
+COPY --chmod=755 ./test/src/parse_yaml.sh /usr/local/bin/parse_yaml
+COPY --chmod=755 ./test/src/prepare-content.sh /usr/local/bin/prepare-content
+COPY ./data/products.yml /app/appdata/products.yml
+
+WORKDIR /src
+ENTRYPOINT [ "prepare-content" ]
+# The default command is an empty string to pass all command line arguments to the entrypoint and allow the entrypoint to run.
+CMD [ "" ]

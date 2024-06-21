@@ -1,8 +1,11 @@
 /target
 /Cargo.lock
+config.toml
 content
 node_modules
 tmp
+.config*
 .env*
+**/.env.test
 .pytest_cache
 .test-run.txt
