@@ -66,7 +66,8 @@ to write the [home sensor sample data](#home-sensor-data-line-protocol) to your
 {{< product-name omit=" Clustered" >}} cluster.
 Provide the following:
 
-- The [database](/influxdb/clustered/admin/databases/) name using the `--database` flag
+- The [database](/influxdb/clustered/admin/databases/) name using the
+  `--database` flag
 - A [database token](/influxdb/clustered/admin/tokens/#database-tokens)
   (with write permissions on the target database) using the `--token` flag
 - The timestamp precision as seconds (`s`) using the `--precision` flag
@@ -124,27 +125,28 @@ Replace the following:
 
 1.  In your terminal, enter the following command to create the sample data file:
 
-        ```sh
-        cat <<EOF > ./home.lp && LINE_PROTOCOL_FILEPATH=./home.lp
-        home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
-        home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
-        home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
-        home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
-        home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
-        home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
-        home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
-        home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
-        home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
-        home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
-        home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
-        home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+<!-- prettier-ignore -->
+    ```sh
+    cat <<EOF > ./home.lp && LINE_PROTOCOL_FILEPATH=./home.lp
+    home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+    home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+    home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+    home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+    home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+    home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+    home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+    home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+    home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+    home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+    home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+    home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
 
     EOF
     ```
 
 <!--pytest-codeblocks:cont-->
 
-2. Enter the following CLI command to write the data from the sample file:
+1. Enter the following CLI command to write the data from the sample file:
 
    ```sh
    influxctl write \
@@ -169,7 +171,7 @@ Replace the following:
 {{% /tab-content %}}
 {{% tab-content %}}
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" %}}
+{{% code-placeholders "DATABASE_(NAME|TOKEN)|(\$LINE_PROTOCOL_FILEPATH)" %}}
 
 <!--pytest-codeblocks:cont-->
 
