@@ -407,7 +407,7 @@ A physical plan can reveal overlaps and duplicates in your data and how they aff
 - The second `ParquetExec` node reads two files that overlap each other and overlap the ingested data scanned in the `RecordBatchesExec` node; the query plan must include the deduplication process for these nodes before completing the query.
 
 The remaining sections analyze `ExecutionPlan` node structure and arguments in the example physical plan.
-The example includes DataFusion and InfluxDB-specific [`ExecutionPlan` nodes](/influxdb/cloud-dedicated/reference/internals/query-plans/#executionplan-nodes).
+The example includes DataFusion and InfluxDB-specific [`ExecutionPlan` nodes](/influxdb/cloud-serverless/reference/internals/query-plans/#executionplan-nodes).
 
 ### Locate the physical plan
 
