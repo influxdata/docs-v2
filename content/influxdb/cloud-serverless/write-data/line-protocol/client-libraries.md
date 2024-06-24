@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud_serverless:
     name: Use client libraries
-    parent: Write line protocol
+    parent: Write line protocol data
     identifier: write-client-libs
 weight: 103
 related:

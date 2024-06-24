@@ -13,6 +13,8 @@ related:
   - /influxdb/cloud-dedicated/reference/cli/influxctl/write/
   - /influxdb/cloud-dedicated/reference/syntax/line-protocol/
   - /influxdb/cloud-dedicated/get-started/write/
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/write-data/line-protocol/
 ---
 
 Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)

@@ -13,6 +13,8 @@ related:
   - /influxdb/clustered/reference/cli/influxctl/write/
   - /influxdb/clustered/reference/syntax/line-protocol/
   - /influxdb/clustered/get-started/write/
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/write-data/line-protocol/
 ---
 
 Use the [`influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/)
