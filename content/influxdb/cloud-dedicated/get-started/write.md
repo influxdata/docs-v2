@@ -48,6 +48,8 @@ information, see the
 
 Each line of line protocol contains the following elements:
 
+ <!-- vale InfluxDataDocs.v3Schema = NO -->
+
 {{< req type="key" >}}
 
 - {{< req "\*" >}} **measurement**: A string that identifies the
@@ -74,8 +76,6 @@ Each line of line protocol contains the following elements:
 
 #### Line protocol element parsing
 
-  <!-- vale InfluxDataDocs.v3Schema = NO -->
-
 - **measurement**: Everything before the _first unescaped comma before the first
   whitespace_.
 - **tag set**: Key-value pairs between the _first unescaped comma_ and the
@@ -99,11 +99,10 @@ _For schema design recommendations, see
 ## Construct line protocol
 
 With a basic understanding of line protocol, you can now construct line protocol
-and write data to InfluxDB. Consider a use case where you collect data from
-sensors in your home. Each sensor collects temperature, humidity, and carbon
-monoxide readings. To collect this data, use the following schema:
-
-  <!-- vale InfluxDataDocs.v3Schema = NO -->
+and write data to InfluxDB.
+Consider a use case where you collect data from sensors in your home.
+Each sensor collects temperature, humidity, and carbon monoxide readings.
+To collect this data, use the following schema:
 
 - **measurement**: `home`
   - **tags**
@@ -115,10 +114,8 @@ monoxide readings. To collect this data, use the following schema:
   - **timestamp**: Unix timestamp in _second_ precision
   <!-- vale InfluxDataDocs.v3Schema = YES -->
 
-Data is collected hourly beginning at
-{{% influxdb/custom-timestamps-span %}}**2022-01-01T08:00:00Z (UTC)** until
-**2022-01-01T20:00:00Z (UTC)**{{% /influxdb/custom-timestamps-span %}}. The
-resulting line protocol would look something like the following:
+The following line protocol sample represents data collected hourly beginning at
+{{% influxdb/custom-timestamps-span %}}**2022-01-01T08:00:00Z (UTC)** until **2022-01-01T20:00:00Z (UTC)**{{% /influxdb/custom-timestamps-span %}}.
 
 {{% influxdb/custom-timestamps %}}
 
@@ -161,10 +158,10 @@ The following examples show how to write the
 [sample data](#home-sensor-data-line-protocol), already in line protocol format,
 to an {{% product-name %}} database.
 
-To learn more about available tools and options, see
-[Write data](/influxdb/cloud-dedicated/write-data/).
+To learn more about available tools and options, see [Write data](/influxdb/cloud-dedicated/write-data/).
 
-{{% note %}} Some examples in this getting started tutorial assume your InfluxDB
+{{% note %}}
+Some examples in this getting started tutorial assume your InfluxDB
 credentials (**URL**, **organization**, and **token**) are provided by
 [environment variables](/influxdb/cloud-dedicated/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
 {{% /note %}}
@@ -690,7 +687,7 @@ dependencies to your current project.
    # database WRITE token value.
    token = os.getenv('INFLUX_TOKEN')
 
-   # host is the URL without protocol or trailing slash
+   # host is the URL hostname without protocol or trailing slash
    client = InfluxDBClient3(
        host='{{< influxdb/host >}}',
        org='',
@@ -836,7 +833,7 @@ To write data to {{% product-name %}} using Go, use the InfluxDB v3
         Host:     "https://{{< influxdb/host >}}",
         Token:    token,
         Database: database,
-    	    WriteOptions: &influxdb3.WriteOptions{Precision: lineprotocol.Second},
+        WriteOptions: &influxdb3.WriteOptions{Precision: lineprotocol.Second},
       })
 
       // Close the client when the function returns.
@@ -1011,7 +1008,7 @@ To write data to {{% product-name %}} using Go, use the InfluxDB v3
     /**
      * Set InfluxDB credentials.
      */
-    const host = 'https://cluster-id.influxdb.io';
+    const host = '{{< influxdb/host >}}';
     const database = 'get-started';
     /**
      * INFLUX_TOKEN is an environment variable you assigned to your

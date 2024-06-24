@@ -48,6 +48,8 @@ information, see the
 
 Each line of line protocol contains the following elements:
 
+ <!-- vale InfluxDataDocs.v3Schema = NO -->
+
 {{< req type="key" >}}
 
 - {{< req "\*" >}} **measurement**: A string that identifies the
@@ -68,15 +70,14 @@ Each line of line protocol contains the following elements:
 
 #### Line protocol element parsing
 
-  <!-- vale InfluxDataDocs.v3Schema = NO -->
-
-- **measurement**: Everything before the _first unescaped comma before the first whitespace_.
-- **tag set**: Key-value pairs between the _first unescaped comma_ and the _first unescaped whitespace_.
+- **measurement**: Everything before the _first unescaped comma before the first
+  whitespace_.
+- **tag set**: Key-value pairs between the _first unescaped comma_ and the _first
+  unescaped whitespace_.
 - **field set**: Key-value pairs between the _first and second unescaped whitespaces_.
 - **timestamp**: Integer value after the _second unescaped whitespace_.
 - Lines are separated by the newline character (`\n`).
-Line protocol is whitespace sensitive.
-<!-- vale InfluxDataDocs.v3Schema = YES -->
+  Line protocol is whitespace sensitive.
 
 ---
 
@@ -94,8 +95,6 @@ Consider a use case where you collect data from sensors in your home.
 Each sensor collects temperature, humidity, and carbon monoxide readings.
 To collect this data, use the following schema:
 
-  <!-- vale InfluxDataDocs.v3Schema = NO -->
-
 - **measurement**: `home`
   - **tags**
     - `room`: Living Room or Kitchen
@@ -106,9 +105,8 @@ To collect this data, use the following schema:
   - **timestamp**: Unix timestamp in _second_ precision
   <!-- vale InfluxDataDocs.v3Schema = YES -->
 
-Data is collected hourly beginning at
+The following line protocol sample represents data collected hourly beginning at
 {{% influxdb/custom-timestamps-span %}}**2022-01-01T08:00:00Z (UTC)** until **2022-01-01T20:00:00Z (UTC)**{{% /influxdb/custom-timestamps-span %}}.
-The resulting line protocol would look something like the following:
 
 {{% influxdb/custom-timestamps %}}
 
@@ -287,61 +285,64 @@ and then write it to {{< product-name >}}.
 
 4.  In your editor, open `./telegraf.conf` and configure the following:
 
-    - **`file` input plugin**: In the `[[inputs.file]].files` list, replace
-      `"/tmp/metrics.out"` with your sample data filename. If Telegraf can't
-      find a file when started, it stops processing and exits.
+        - **`file` input plugin**: In the `[[inputs.file]].files` list, replace
+          `"/tmp/metrics.out"` with your sample data filename. If Telegraf can't
+          find a file when started, it stops processing and exits.
 
-      ```toml
-      [[inputs.file]]
-        ## Files to parse each interval.  Accept standard unix glob matching rules,
-        ## as well as ** to match recursive files and directories.
-        files = ["home.lp"]
-      ```
+          ```toml
+          [[inputs.file]]
+            ## Files to parse each interval.  Accept standard unix glob matching rules,
+            ## as well as ** to match recursive files and directories.
+            files = ["home.lp"]
+          ```
 
-      <!--test
-      ```bash
-      echo '[[inputs.file]]' > telegraf.conf
-      echo '  files = ["home.lp"]' >> telegraf.conf
-      ```
-      -->
+          <!--test
+          ```bash
+          echo '[[inputs.file]]' > telegraf.conf
+          echo '  files = ["home.lp"]' >> telegraf.conf
+          ```
+          -->
 
-    - **`output-influxdb_v2` output plugin**: In the `[[outputs.influxdb_v2]]` section, replace the default values with the following configuration for your {{% product-name %}} database:
+        - **`output-influxdb_v2` output plugin**: In the `[[outputs.influxdb_v2]]`
 
-      ```toml
-      [[outputs.influxdb_v2]]
-        # InfluxDB cluster URL
-        urls = ["${INFLUX_HOST}"]
+    section, replace the default values with the following configuration for your
+    {{% product-name %}} database:
 
-        # INFLUX_TOKEN is an environment variable you assigned to your database token
-        token = "${INFLUX_TOKEN}"
+          ```toml
+          [[outputs.influxdb_v2]]
+            # InfluxDB cluster URL
+            urls = ["${INFLUX_HOST}"]
 
-        # An empty string (InfluxDB ignores this parameter)
-        organization = ""
+            # INFLUX_TOKEN is an environment variable you assigned to your database token
+            token = "${INFLUX_TOKEN}"
 
-        # Database name
-        bucket = "get-started"
-      ```
+            # An empty string (InfluxDB ignores this parameter)
+            organization = ""
 
-      <!--test
-      ```bash
-      echo '[[outputs.influxdb_v2]]' >> telegraf.conf
-      echo '  urls = ["${INFLUX_HOST}"]' >> telegraf.conf
-      echo '' >> telegraf.conf
-      echo '  token = "${INFLUX_TOKEN}"' >> telegraf.conf
-      echo '' >> telegraf.conf
-      echo '  organization = ""' >> telegraf.conf
-      echo '' >> telegraf.conf
-      echo '  bucket = "get-started"' >> telegraf.conf
-      ```
-      -->
+            # Database name
+            bucket = "get-started"
+          ```
 
-      The example configuration uses the following InfluxDB credentials:
+          <!--test
+          ```bash
+          echo '[[outputs.influxdb_v2]]' >> telegraf.conf
+          echo '  urls = ["${INFLUX_HOST}"]' >> telegraf.conf
+          echo '' >> telegraf.conf
+          echo '  token = "${INFLUX_TOKEN}"' >> telegraf.conf
+          echo '' >> telegraf.conf
+          echo '  organization = ""' >> telegraf.conf
+          echo '' >> telegraf.conf
+          echo '  bucket = "get-started"' >> telegraf.conf
+          ```
+          -->
 
-      - **`urls`**: an array containing your **`INFLUX_HOST`** environment
-        variable
-      - **`token`**: your **`INFLUX_TOKEN`** environment variable
-      - **`organization`**: an empty string (InfluxDB ignores this parameter)
-      - **`bucket`**: the name of the database to write to
+          The example configuration uses the following InfluxDB credentials:
+
+          - **`urls`**: an array containing your **`INFLUX_HOST`** environment
+            variable
+          - **`token`**: your **`INFLUX_TOKEN`** environment variable
+          - **`organization`**: an empty string (InfluxDB ignores this parameter)
+          - **`bucket`**: the name of the database to write to
 
 5.  To write the data, start the `telegraf` daemon with the following options:
 
@@ -377,19 +378,23 @@ To learn more, see how to [use Telegraf to write data](/influxdb/clustered/write
 
 {{% influxdb/custom-timestamps %}}
 
-Write data with your existing workloads that already use the InfluxDB v1 `/write` API endpoint.
+Write data with your existing workloads that already use the InfluxDB v1 `/write`
+API endpoint.
 
 {{% note %}}
 
 If migrating data from InfluxDB 1.x, see the
-[Migrate data from InfluxDB 1.x to InfluxDB {{% product-name %}}](/influxdb/clustered/guides/migrate-data/migrate-1x-to-clustered/) guide.
+[Migrate data from InfluxDB 1.x to InfluxDB
+{{% product-name %}}](/influxdb/clustered/guides/migrate-data/migrate-1x-to-clustered/)
+guide.
 
 {{% /note %}}
 
 To write data to InfluxDB using the
 [InfluxDB v1 HTTP API](/influxdb/clustered/reference/api/), send a
 request to the
-[InfluxDB API `/write` endpoint](/influxdb/clustered/api/#operation/PostLegacyWrite) using the `POST` request method.
+[InfluxDB API `/write` endpoint](/influxdb/clustered/api/#operation/PostLegacyWrite)
+using the `POST` request method.
 
 {{% api-endpoint endpoint="https://{{< influxdb/host >}}/write" method="post" api-ref="/influxdb/clustered/api/#operation/PostLegacyWrite"%}}
 
@@ -405,8 +410,12 @@ Include the following with your request:
 - **Request body**: Line protocol as plain text
 
 {{% note %}}
-With the {{% product-name %}} [v1 API `/write` endpoint](/influxdb/clustered/api/#operation/PostLegacyWrite), `Authorization: Bearer` and `Authorization: Token` are equivalent and you can use either scheme to pass a database token in your request.
-For more information about HTTP API token schemes, see how to [authenticate API requests](/influxdb/clustered/guides/api-compatibility/v1/).
+With the {{% product-name %}}
+[v1 API `/write` endpoint](/influxdb/cloud-dedicated/api/#operation/PostLegacyWrite),
+`Authorization: Bearer` and `Authorization: Token` are equivalent and you can
+use either scheme to pass a database token in your request. For more information
+about HTTP API token schemes, see how to
+[authenticate API requests](/influxdb/cloud-dedicated/guides/api-compatibility/v1/).
 {{% /note %}}
 
 The following example uses cURL and the InfluxDB v1 API to write line protocol
@@ -580,7 +589,8 @@ Replace the following:
   a [database token](/influxdb/clustered/admin/tokens/#database-tokens) with
   sufficient permissions to the specified database
 
-If successful, the output is an HTTP `204 No Content` status code.
+If successful, the output is an HTTP `204 No Content` status code; otherwise,
+the status code and error message.
 
 <!--pytest-codeblocks:expected-output-->
 
@@ -664,7 +674,7 @@ dependencies to your current project.
    # database WRITE token value.
    token = os.getenv('INFLUX_TOKEN')
 
-   # host is the URL without protocol or trailing slash
+   # host is the URL hostname without protocol or trailing slash
    client = InfluxDBClient3(
        host='{{< influxdb/host >}}',
        org='',
@@ -810,7 +820,7 @@ To write data to {{% product-name %}} using Go, use the InfluxDB v3
         Host:     "https://{{< influxdb/host >}}",
         Token:    token,
         Database: database,
-    	    WriteOptions: &influxdb3.WriteOptions{Precision: lineprotocol.Second},
+        WriteOptions: &influxdb3.WriteOptions{Precision: lineprotocol.Second},
       })
 
       // Close the client when the function returns.
@@ -985,7 +995,7 @@ To write data to {{% product-name %}} using Go, use the InfluxDB v3
     /**
      * Set InfluxDB credentials.
      */
-    const host = 'https://cluster-id.influxdb.io';
+    const host = '{{< influxdb/host >}}';
     const database = 'get-started';
     /**
      * INFLUX_TOKEN is an environment variable you assigned to your

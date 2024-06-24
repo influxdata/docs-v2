@@ -44,6 +44,8 @@ see the [Line protocol reference](/influxdb/cloud-serverless/reference/syntax/li
 
 Each line of line protocol contains the following elements:
 
+ <!-- vale InfluxDataDocs.v3Schema = NO -->
+
 {{< req type="key" >}}
 
 - {{< req "\*" >}} **measurement**:  String that identifies the [measurement](/influxdb/cloud-serverless/reference/glossary/#measurement) to store the data in.
@@ -63,12 +65,14 @@ Each line of line protocol contains the following elements:
 
 #### Line protocol element parsing
 
-- **measurement**: Everything before the _first unescaped comma before the first whitespace_.
-- **tag set**: Key-value pairs between the _first unescaped comma_ and the _first unescaped whitespace_.
+- **measurement**: Everything before the _first unescaped comma before the first
+whitespace_.
+- **tag set**: Key-value pairs between the _first unescaped comma_ and the _first
+unescaped whitespace_.
 - **field set**: Key-value pairs between the _first and second unescaped whitespaces_.
 - **timestamp**: Integer value after the _second unescaped whitespace_.
 - Lines are separated by the newline character (`\n`).
-  Line protocol is whitespace sensitive.
+Line protocol is whitespace sensitive.
 
 ---
 
@@ -86,7 +90,7 @@ Consider a use case where you collect data from sensors in your home.
 Each sensor collects temperature, humidity, and carbon monoxide readings.
 To collect this data, use the following schema:
 
-- **measurement**: `home` 
+- **measurement**: `home`
   - **tags**
     - `room`: Living Room or Kitchen
   - **fields**
@@ -94,10 +98,10 @@ To collect this data, use the following schema:
     - `hum`: percent humidity (float)
     - `co`: carbon monoxide in parts per million (integer)
   - **timestamp**: Unix timestamp in _second_ precision
+  <!-- vale InfluxDataDocs.v3Schema = YES -->
 
-Data is collected hourly beginning at 
+The following line protocol sample represents data collected hourly beginning at
 {{% influxdb/custom-timestamps-span %}}**2022-01-01T08:00:00Z (UTC)** until **2022-01-01T20:00:00Z (UTC)**{{% /influxdb/custom-timestamps-span %}}.
-The resulting line protocol would look something like the following:
 
 {{% influxdb/custom-timestamps %}}
 
@@ -280,7 +284,9 @@ Use [Telegraf](/telegraf/v1/) to consume line protocol, and then write it to {{<
     EOF
     ```
 
-3.  Run the following command to generate a Telegraf configuration file (`./telegraf.conf`) that enables the `inputs.file` and `outputs.influxdb_v2` plugins:
+3.  Run the following command to generate a Telegraf configuration file
+    (`./telegraf.conf`) that enables the `inputs.file` and `outputs.influxdb_v2`
+    plugins:
 
     ```sh
     telegraf --sample-config \
@@ -291,8 +297,9 @@ Use [Telegraf](/telegraf/v1/) to consume line protocol, and then write it to {{<
 
 4.  In your editor, open `./telegraf.conf` and configure the following:
 
-    - **`file` input plugin**: In the `[[inputs.file]].files` list, replace `"/tmp/metrics.out"` with your sample data filename.
-      If Telegraf can't find a file when started, it stops processing and exits.
+    - **`file` input plugin**: In the `[[inputs.file]].files` list, replace
+      `"/tmp/metrics.out"` with your sample data filename. If Telegraf can't
+      find a file when started, it stops processing and exits.
 
       ```toml
       [[inputs.file]]
@@ -304,13 +311,13 @@ Use [Telegraf](/telegraf/v1/) to consume line protocol, and then write it to {{<
       <!--test
       ```bash
       echo '[[inputs.file]]' > telegraf.conf
-      echo '  ## Files to parse each interval.  Accept standard unix glob matching rules,' >> telegraf.conf
-      echo '  ## as well as ** to match recursive files and directories.' >> telegraf.conf
       echo '  files = ["home.lp"]' >> telegraf.conf
       ```
       -->
 
-    - **`output-influxdb_v2` output plugin**: In the `[[outputs.influxdb_v2]]` section, replace the default values with the following configuration for your {{% product-name %}} bucket:
+    - **`output-influxdb_v2` output plugin**: In the `[[outputs.influxdb_v2]]`
+section, replace the default values with the following configuration for your
+{{% product-name %}} bucket:
 
       ```toml
       [[outputs.influxdb_v2]]
@@ -330,16 +337,12 @@ Use [Telegraf](/telegraf/v1/) to consume line protocol, and then write it to {{<
       <!--test
       ```bash
       echo '[[outputs.influxdb_v2]]' >> telegraf.conf
-      echo '  # InfluxDB URL' >> telegraf.conf
       echo '  urls = ["${INFLUX_HOST}"]' >> telegraf.conf
       echo '' >> telegraf.conf
-      echo '  # INFLUX_TOKEN is an environment variable you assigned to your API token' >> telegraf.conf
       echo '  token = "${INFLUX_TOKEN}"' >> telegraf.conf
       echo '' >> telegraf.conf
-      echo '  # An empty string (InfluxDB ignores this parameter)' >> telegraf.conf
       echo '  organization = ""' >> telegraf.conf
       echo '' >> telegraf.conf
-      echo '  # Database name' >> telegraf.conf
       echo '  bucket = "get-started"' >> telegraf.conf
       ```
       -->
@@ -354,7 +357,8 @@ Use [Telegraf](/telegraf/v1/) to consume line protocol, and then write it to {{<
 5.  To write the data, start the `telegraf` daemon with the following options:
 
     - `--config`: Specifies the path of the configuration file.
-    - `--once`: Runs a single Telegraf collection cycle for the configured inputs and outputs, and then exits.
+    - `--once`: Runs a single Telegraf collection cycle for the configured
+      inputs and outputs, and then exits.
 
     Enter the following command in your terminal:
 
@@ -381,16 +385,23 @@ To learn more, see how to [use Telegraf to write data](/influxdb/cloud-serverles
 <!----------------------------- BEGIN v1 API CONTENT ----------------------------->
 {{% influxdb/custom-timestamps %}}
 
-Write data with your existing workloads that already use the InfluxDB v1 `/write` API endpoint.
+Write data with your existing workloads that already use the InfluxDB v1 `/write`
+API endpoint.
 
 {{% note %}}
 
-If migrating data from InfluxDB 1.x, see the [Migrate data from InfluxDB 1.x to InfluxDB {{% product-name %}}](/influxdb/cloud-serverless/guides/migrate-data/migrate-1x-to-serverless/) guide.
+If migrating data from InfluxDB 1.x, see the
+[Migrate data from InfluxDB 1.x to InfluxDB
+{{% product-name %}}](/influxdb/cloud-serverless/guides/migrate-data/migrate-1x-to-serverless/)
+guide.
 
 {{% /note %}}
 
-To write data to InfluxDB using the [InfluxDB v1 HTTP API](/influxdb/cloud-serverless/reference/api/), send a
-request to the [InfluxDB API `/write` endpoint](/influxdb/cloud-serverless/api/#operation/PostLegacyWrite) using the `POST` request method.
+To write data to InfluxDB using the
+[InfluxDB v1 HTTP API](/influxdb/cloud-serverless/reference/api/), send a
+request to the
+[InfluxDB API `/write` endpoint](/influxdb/cloud-serverless/api/#operation/PostLegacyWrite)
+using the `POST` request method.
 
 {{% api-endpoint endpoint="https://{{< influxdb/host >}}/write" method="post" api-ref="/influxdb/cloud-serverless/api/#operation/PostLegacyWrite" %}}
 
@@ -408,12 +419,15 @@ Include the following with your request:
 
 The following example uses cURL and the InfluxDB v1 API to write line protocol
 to InfluxDB.
-Given that `API_TOKEN` is an [All-Access API token](/influxdb/cloud-serverless/admin/tokens/#all-access-api-token), InfluxDB creates a bucket named `get-started/autogen` and an `autogen` DBRP mapping, and then writes the data to the bucket.
+Given that `API_TOKEN` is an
+[All-Access API token](/influxdb/cloud-serverless/admin/tokens/#all-access-api-token),
+InfluxDB creates a bucket named `get-started/autogen` and an
+`autogen` DBRP mapping, and then writes the data to the bucket.
 
 {{% code-placeholders "API_TOKEN " %}}
 
 ```sh
-curl --silent -w "%{response_code}: %{errormsg}\n" \
+response=$(curl --silent --write-out "%{response_code}:%{errormsg}" \
   "https://{{< influxdb/host >}}/write?db=get-started&precision=s" \
   --header "Authorization: Token API_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
@@ -445,36 +459,57 @@ home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
 home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
 home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
-"
+")
+
+# Format the response code and error message output.
+response_code=${response%%:*}
+errormsg=${response#*:}
+
+# Remove leading and trailing whitespace from errormsg
+errormsg=$(echo "${errormsg}" | tr -d '[:space:]')
+
+echo "$response_code"
+if [[ $errormsg ]]; then
+  echo "$errormsg"
+fi
 ```
 
 {{% /code-placeholders %}}
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket.
-  _For InfluxDB to [auto-generate the DBRP mapping](/influxdb/cloud-serverless/guides/api-compatibility/v1/#retention-policy-and-dbrp-mapping), you must use an [All-Access API token](/influxdb/cloud-serverless/admin/tokens/#all-access-api-token) in the write request_.
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
+a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions
+to the specified bucket.
+_For InfluxDB to [auto-generate the DBRP mapping](/influxdb/cloud-serverless/guides/api-compatibility/v1/#retention-policy-and-dbrp-mapping), you must use an
+[All-Access API token](/influxdb/cloud-serverless/admin/tokens/#all-access-api-token) 
+in the write request_.
 
 If successful, the output is an HTTP `204 No Content` status code.
 
 <!--pytest-codeblocks:expected-output-->
 
 ```
-204: 
+204
 ```
 
 {{% /influxdb/custom-timestamps %}}
+
 <!------------------------------ END v1 API CONTENT ------------------------------>
+
 {{% /tab-content %}}
 {{% tab-content %}}
+
 <!----------------------------- BEGIN v2 API CONTENT ----------------------------->
 
 {{% influxdb/custom-timestamps %}}
 
-To write data to InfluxDB using the [InfluxDB v2 HTTP API](/influxdb/cloud-serverless/reference/api/), send a
-request to the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
+To write data to InfluxDB using the
+[InfluxDB v2 HTTP API](/influxdb/cloud-serverless/reference/api/), send a request
+to the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write" method="post" api-ref="/influxdb/cloud-serverless/api/#operation/PostWrite" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write"
+method="post" api-ref="/influxdb/cloud-serverless/api/#operation/PostWrite" >}}
 
 Include the following with your request:
 
@@ -493,9 +528,9 @@ to InfluxDB:
 {{% code-placeholders "API_TOKEN" %}}
 
 ```sh
-curl --silent -w "%{response_code}: %{errormsg}\n" \
-"https://{{< influxdb/host >}}/api/v2/write?bucket=get-started&precision=s" \
-  --header "Authorization: Token API_TOKEN" \
+response=$(curl --silent --write-out "%{response_code}:%{errormsg}" \
+  "https://{{< influxdb/host >}}/api/v2/write?bucket=get-started&precision=s" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "
@@ -525,28 +560,47 @@ home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
 home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
 home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
-"
+")
+
+# Format the response code and error message output.
+response_code=${response%%:*}
+errormsg=${response#*:}
+
+# Remove leading and trailing whitespace from errormsg
+errormsg=$(echo "${errormsg}" | tr -d '[:space:]')
+
+echo "$response_code"
+if [[ $errormsg ]]; then
+  echo "$errormsg"
+fi
 ```
 
 {{% /code-placeholders %}}
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
+  a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions
+  to the specified bucket
 
-If successful, the output is an HTTP `204 No Content` status code.
+If successful, the output is an HTTP `204 No Content` status code; otherwise,
+the status code and error message.
 
 <!--pytest-codeblocks:expected-output-->
 
 ```
-204: 
+204
 ```
 
 {{% /influxdb/custom-timestamps %}}
+
 <!------------------------------ END v2 API CONTENT ------------------------------>
+
 {{% /tab-content %}}
 {{% tab-content %}}
+
 <!---------------------------- BEGIN PYTHON CONTENT --------------------------->
+
 {{% influxdb/custom-timestamps %}}
 
 To write data to {{% product-name %}} using Python, use the
@@ -590,7 +644,10 @@ dependencies to your current project.
     pip install influxdb3-python
     ```
 
-    The `influxdb3-python` package provides the `influxdb_client_3` module and also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
+   The `influxdb3-python` package provides the `influxdb_client_3` module and
+   also installs the
+   [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for
+   working with Arrow data returned from queries.
 
 5.  In your terminal or editor, create a new file for your code--for example: `write.py`.
 
@@ -610,7 +667,7 @@ dependencies to your current project.
     # API WRITE token value.
     token = os.getenv('INFLUX_TOKEN')
 
-    # host is the URL without protocol or trailing slash
+    # host is the URL hostname without protocol or trailing slash
     client = InfluxDBClient3(
         host='{{< influxdb/host >}}',
         token=token,
@@ -655,21 +712,26 @@ dependencies to your current project.
     2.  Calls the `InfluxDBClient3()` constructor to instantiate an InfluxDB client
         configured with the following credentials:
 
-        - **`host`**: {{% product-name %}} region hostname (URL without protocol or trailing slash)
-        - **`token`**: a [token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
-          _Store this in a secret store or environment variable to avoid exposing the raw token string._
+        - **`host`**: {{% product-name %}} region hostname (URL without protocol
+          or trailing slash)
+        - **`token`**: a [token](/influxdb/cloud-serverless/admin/tokens/) with
+          `write_ access to the specified bucket.
+          _Store this in a secret store or environment variable to avoid exposing
+          the raw token string._
         - **`database`**: the name of the {{% product-name %}} bucket to write to
-    
+
     3.  Defines a list of line protocol strings where each string represents a data record.
     4.  Calls the `client.write()` method with the line protocol record list and write options.
 
         **Because the timestamps in the sample line protocol are in second
         precision, the example passes the `write_precision='s'` option
-        to set the [timestamp precision](/influxdb/cloud-serverless/reference/glossary/#timestamp-precision) to seconds.**
+        to set the
+        [timestamp precision](/influxdb/cloud-serverless/reference/glossary/#timestamp-precision)
+        to seconds.**
 
-6.  To execute the module and write line protocol to your {{% product-name %}}
+1.  To execute the module and write line protocol to your {{% product-name %}}
     bucket, enter the following command in your terminal:
-    
+
     <!--pytest.mark.skip-->
 
     ```bash
@@ -686,7 +748,8 @@ dependencies to your current project.
 To write data to {{% product-name %}} using Go, use the
 InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommunity/influxdb3-go).
 
-1.  Inside of your project directory, create a new module directory and navigate into it.
+1.  Inside of your project directory, create a new module directory and navigate
+    into it.
 
     <!--
       Using bash here is required when running with pytest.
@@ -705,7 +768,8 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     go mod init influxdb_go_client
     ```
 
-3.  In your terminal or editor, create a new file for your code--for example: `write.go`.
+3.  In your terminal or editor, create a new file for your code--for example:
+    `write.go`.
 
     <!--pytest-codeblocks:cont-->
 
@@ -733,14 +797,14 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       // API WRITE token value.
       token := os.Getenv("INFLUX_TOKEN")
       database := os.Getenv("INFLUX_DATABASE")
-      
+
       // Initialize a client with URL and token,
       // and set the timestamp precision for writes.
       client, err := influxdb3.New(influxdb3.ClientConfig{
         Host:     "https://{{< influxdb/host >}}",
         Token:    token,
         Database: database,
-		    WriteOptions: &influxdb3.WriteOptions{Precision: lineprotocol.Second},
+          WriteOptions: &influxdb3.WriteOptions{Precision: lineprotocol.Second},
       })
 
       // Close the client when the function returns.
@@ -783,7 +847,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
         `home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641167200`,
         `home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641167200`,
       }
-      
+
       // Iterate over the lines array and write each line
       // separately to InfluxDB
       for _, record := range lines {
@@ -796,7 +860,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       if err != nil {
         panic(err)
       }
-      
+
       fmt.Println("Data has been written successfully.")
       return nil
     }
@@ -805,40 +869,46 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     The sample does the following:
 
     1.  Imports required packages.
-      
     2.  Defines a `WriteLineProtocol()` function that does the following:
-        
-        1.  To instantiate the client, calls the `influxdb3.New(influxdb3.ClientConfig)` function and passes the following:
+
+        1.  To instantiate the client, calls the
+            `influxdb3.New(influxdb3.ClientConfig)` function and passes the following:
             - **`Host`**: your {{% product-name %}} region URL
-            - **`Token`**: a [token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
-              _Store this in a secret store or environment variable to avoid exposing the raw token string._
-            - **`WriteOptions`**: `influxdb3.WriteOptions` options for writing to InfluxDB.
+            - **`Token`**: a [token](/influxdb/cloud-serverless/admin/tokens/)
+              with _write_ access to the specified bucket. _Store this in a
+              secret store or environment variable to avoid exposing the raw
+              token string._
+            - **`WriteOptions`**: `influxdb3.WriteOptions` options for writing
+              to InfluxDB.
 
               **Because the timestamps in the sample line protocol are in second
-              precision, the example passes the `Precision: lineprotocol.Second` option
-              to set the [timestamp precision](/influxdb/cloud-serverless/reference/glossary/#timestamp-precision) to seconds.**
-  
-        2.  Defines a deferred function that closes the client when the function returns.
-    
+              precision, the example passes the `Precision: lineprotocol.Second`
+              option to set the [timestamp precision](/influxdb/cloud-serverless/reference/glossary/#timestamp-precision)
+              to seconds.**
+
+        2.  Defines a deferred function that closes the client when the function
+            returns.
         3.  Defines an array of line protocol strings where each string
             represents a data record.
-    
-        4.  Iterates through the array of line protocol and calls the
-            write client's `Write()` method
-            to write each line of line protocol separately to InfluxDB.
+        4.  Iterates through the array of line protocol and calls the write
+            client's `Write()` method to write each line of line protocol
+            separately to InfluxDB.
 
-4.  In your editor, create a `main.go` file and enter the following sample code that calls the `WriteLineProtocol()` function:
+5.  In your editor, create a `main.go` file and enter the following sample code
+    that calls the `WriteLineProtocol()` function:
 
     ```go
     package main
 
     // Module main function
-    func main() {	
+    func main() {
       WriteLineProtocol()
     }
     ```
 
-6.  In your terminal, enter the following command to install the packages listed in `imports`, build the `influxdb_go_client` module, and execute the `main()` function:
+6.  In your terminal, enter the following command to install the packages listed
+    in `imports`, build the `influxdb_go_client` module, and execute the
+    `main()` function:
 
     <!--pytest.mark.skip-->
 
@@ -855,15 +925,19 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
 {{% influxdb/custom-timestamps %}}
 <!---------------------------- BEGIN NODE.JS CONTENT --------------------------->
 
-1.  If you haven't already, follow the instructions for [Downloading and installing Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) for your system.
-2.  In your terminal, enter the following command to create a `influxdb_js_client` directory for your project:
+1.  If you haven't already, follow the instructions for
+    [Downloading and installing Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+    for your system.
+2.  In your terminal, enter the following command to create a
+    `influxdb_js_client` directory for your project:
 
     ```bash
     mkdir influxdb_js_client && cd influxdb_js_client
     ```
 
-3.  Inside of `influxdb_js_client`, enter the following command to initialize a package.
-    This example configures the package to use [ECMAScript modules (ESM)](https://nodejs.org/api/packages.html#modules-loaders).
+3.  Inside of `influxdb_js_client`, enter the following command to initialize a
+    package. This example configures the package to use
+    [ECMAScript modules (ESM)](https://nodejs.org/api/packages.html#modules-loaders).
 
     <!--pytest-codeblocks:cont-->
 
@@ -871,7 +945,8 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     npm init -y; npm pkg set type="module"
     ```
 
-4.  Install the `@influxdata/influxdb3-client` JavaScript client library as a dependency to your project.
+4.  Install the `@influxdata/influxdb3-client` JavaScript client library as a
+    dependency to your project.
 
     <!--pytest-codeblocks:cont-->
 
@@ -894,10 +969,10 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     import { InfluxDBClient } from "@influxdata/influxdb3-client";
 
     /**
-    * Set InfluxDB credentials.
-    */
-    const host = "https://cloud2.influxdata.com";
-    const database = "get-started";
+     * Set InfluxDB credentials.
+     */
+    const host = '{{< influxdb/host >}}';
+    const database = 'get-started';
     /**
     * INFLUX_TOKEN is an environment variable you assigned to your
     * API WRITE token value.
@@ -969,30 +1044,40 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     The sample code does the following:
 
     1.  Imports the `InfluxDBClient` class.
-    2.  Calls the `new InfluxDBClient()` constructor and passes a `ClientOptions` object to instantiate a client configured
-        with InfluxDB credentials.
+    2.  Calls the `new InfluxDBClient()` constructor and passes a
+        `ClientOptions` object to instantiate a client configured with InfluxDB
+        credentials.
 
         - **`host`**: your {{% product-name %}} region URL
-        - **`token`**: a [token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+        - **`token`**: a [token](/influxdb/cloud-serverless/admin/tokens/)
+          with _write_ access to the specified bucket.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
-    3.  Defines a list of line protocol strings where each string represents a data record.
-    4.  Calls the client's `write()` method for each record, defines the success or failure message to return, and collects the pending promises into the `writePromises` array.
-        Each call to `write()` passes the following arguments:
-        
+    3.  Defines a list of line protocol strings where each string represents a
+        data record.
+    4.  Calls the client's `write()` method for each record, defines the success
+        or failure message to return, and collects the pending promises into the
+        `writePromises` array. Each call to `write()` passes the following
+        arguments:
+
         - **`record`**: the line protocol record
         - **`database`**: the name of the {{% product-name %}} bucket to write to
         - **`{precision}`**: a `WriteOptions` object that sets the `precision` value.
 
         **Because the timestamps in the sample line protocol are in second
-        precision, the example passes `s` as the `precision` value to set the write
-        [timestamp precision](/influxdb/cloud-serverless/reference/glossary/#timestamp-precision) to seconds.**
+        precision, the example passes `s` as the `precision` value to set the
+        write
+        [timestamp precision](/influxdb/cloud-serverless/reference/glossary/#timestamp-precision)
+        to seconds.**
 
-    5.  Calls `Promise.allSettled()` with the promises array to pause execution until the promises have completed, and then assigns the array containing success and failure messages to a `writeResults` constant.
-    7.  Iterates over and prints the messages in `writeResults`.
-    8.  Closes the client to release resources.
+    5.  Calls `Promise.allSettled()` with the promises array to pause execution
+        until the promises have completed, and then assigns the array containing
+        success and failure messages to a `writeResults` constant.
+    6.  Iterates over and prints the messages in `writeResults`.
+    7.  Closes the client to release resources.
 7.  In your terminal or editor, create an `index.js` file.
-8.  Inside of `index.js`, enter the following sample code to import and call `writeLineProtocol()`:
+8.  Inside of `index.js`, enter the following sample code to import and call
+    `writeLineProtocol()`:
 
     ```js
     // index.js
@@ -1018,14 +1103,21 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     ```
 
 {{% /influxdb/custom-timestamps %}}
+
 <!---------------------------- END NODE.JS CONTENT --------------------------->
+
 {{% /tab-content %}}
 {{% tab-content %}}
+
 <!---------------------------- BEGIN C# CONTENT --------------------------->
+
 {{% influxdb/custom-timestamps %}}
 
-1.  If you haven't already, follow the [Microsoft.com download instructions](https://dotnet.microsoft.com/en-us/download) to install .NET and the `dotnet` CLI.
-2. In your terminal, create an executable C# project using the .NET **console** template.
+1.  If you haven't already, follow the
+    [Microsoft.com download instructions](https://dotnet.microsoft.com/en-us/download)
+    to install .NET and the `dotnet` CLI.
+2.  In your terminal, create an executable C# project using the .NET **console**
+    template.
 
     <!--pytest.mark.skip-->
 
@@ -1227,8 +1319,10 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
       ...
     </dependencies>
     ```
-5.  To validate your `pom.xml`, run Maven's `validate` command--for example, enter the following in your terminal:
-    
+
+5.  To check your `pom.xml` for problems, run Maven's `validate` command--for example,
+    enter the following in your terminal:
+
     <!--pytest.mark.skip-->
 
     ```bash
