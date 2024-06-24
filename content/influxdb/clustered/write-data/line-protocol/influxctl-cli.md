@@ -125,7 +125,6 @@ Replace the following:
 
 1.  In your terminal, enter the following command to create the sample data file:
 
-<!-- prettier-ignore -->
     ```sh
     cat <<EOF > ./home.lp && LINE_PROTOCOL_FILEPATH=./home.lp
     home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000

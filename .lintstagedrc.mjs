@@ -4,8 +4,6 @@ function lintStagedContent(paths, productPath) {
   const name = `staged-${productPath.replace(/\//g, '-')}`;
 
   return [
-           `prettier --write ${paths.join(' ')}`,
-
            `docker build . -f Dockerfile.tests -t influxdata-docs/tests:latest`,
 
             // Remove any existing test container.
