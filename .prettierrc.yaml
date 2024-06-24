@@ -7,8 +7,11 @@ trailingComma: "es5"
 useTabs: false
 overrides:
   - files:
-      - "*.md"
-      - "*.markdown"
+    - "*.md"
+    - "*.markdown"
     options:
       proseWrap: "preserve"
+plugins:
+  - "prettier-plugin-sql"
+
 # Prettier also uses settings, such as indent, specified in .editorconfig 

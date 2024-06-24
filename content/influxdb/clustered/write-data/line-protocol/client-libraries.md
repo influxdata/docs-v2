@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_clustered:
     name: Use client libraries
-    parent: Write line protocol
+    parent: Write line protocol data
     identifier: write-client-libs
 weight: 103
 related:
@@ -14,8 +14,8 @@ related:
   - /influxdb/clustered/get-started/write/
 ---
 
-Use InfluxDB client libraries to build time series points, and then write them
-line protocol to an {{% product-name %}} database.
+Use InfluxDB client libraries to construct data as time series points, and then
+write them as line protocol to an {{% product-name %}} database.
 
 - [Construct line protocol](#construct-line-protocol)
   - [Example home schema](#example-home-schema)
@@ -79,15 +79,21 @@ After setting up InfluxDB and your project, you should have the following:
 
 - Client libraries installed for writing data to InfluxDB.
 
-The following example shows how to construct `Point` objects that follow the
+The following examples show how to construct `Point` objects that follow the
 [example `home` schema](#example-home-schema), and then write the data as line
 protocol to an {{% product-name %}} database.
 
-The examples use InfluxDB v3 client libraries. For examples using InfluxDB v2
+The examples use InfluxDB v3 client libraries.
+For examples using InfluxDB v2
 client libraries to write data to InfluxDB v3, see
 [InfluxDB v2 clients](/influxdb/clustered/reference/client-libraries/v2/).
 
-{{< tabs-wrapper >}} {{% tabs %}} [Go](#) [Node.js](#) [Python](#) {{% /tabs %}}
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Go](#)
+[Node.js](#)
+[Python](#)
+{{% /tabs %}}
 {{% tab-content %}}
 
 The following steps set up a Go project using the
@@ -192,7 +198,8 @@ The following steps set up a Python project using the
 
 <!-- END PYTHON SETUP PROJECT -->
 
-{{% /tab-content %}} {{< /tabs-wrapper >}}
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ## Construct points and write line protocol
 
@@ -200,7 +207,12 @@ Client libraries provide one or more `Point` constructor methods. Some libraries
 support language-native data structures, such as Go's `struct`, for creating
 points.
 
-{{< tabs-wrapper >}} {{% tabs %}} [Go](#) [Node.js](#) [Python](#) {{% /tabs %}}
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Go](#)
+[Node.js](#)
+[Python](#)
+{{% /tabs %}}
 {{% tab-content %}}
 
 <!-- BEGIN GO SETUP SAMPLE -->
@@ -452,12 +464,12 @@ The sample code does the following:
 <!-- vale InfluxDataDocs.v3Schema = NO -->
 
 1. Instantiates a client configured with the InfluxDB URL and API token.
-1. Constructs `home`
+2. Constructs `home`
    [measurement](/influxdb/clustered/reference/glossary/#measurement)
    `Point` objects.
-1. Sends data as line protocol format to InfluxDB and waits for the response.
-1. If the write succeeds, logs the success message to stdout; otherwise, logs
+3. Sends data as line protocol format to InfluxDB and waits for the response.
+4. If the write succeeds, logs the success message to stdout; otherwise, logs
    the failure message and error details.
-1. Closes the client to release resources.
+5. Closes the client to release resources.
 
 <!-- vale InfluxDataDocs.v3Schema = YES -->

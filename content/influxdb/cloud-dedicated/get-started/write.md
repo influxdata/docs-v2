@@ -69,12 +69,15 @@ Each line of line protocol contains the following elements:
   or
   [booleans](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#boolean).
 - **timestamp**:
-  [Unix timestamp](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#unix-timestamp)
-  associated with the data. InfluxDB supports up to nanosecond precision. _If
-  the precision of the timestamp is not in nanoseconds, you must specify the
-  precision when writing the data to InfluxDB._
+[Unix timestamp](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#unix-timestamp)
+associated with the data. InfluxDB supports up to nanosecond precision. _If
+the precision of the timestamp is not in nanoseconds, you must specify the
+precision when writing the data to InfluxDB._
+<!-- vale InfluxDataDocs.v3Schema = YES -->
 
 #### Line protocol element parsing
+
+ <!-- vale InfluxDataDocs.v3Schema = NO -->
 
 - **measurement**: Everything before the _first unescaped comma before the first
   whitespace_.
@@ -97,6 +100,8 @@ _For schema design recommendations, see
 [InfluxDB schema design](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/)._
 
 ## Construct line protocol
+
+ <!-- vale InfluxDataDocs.v3Schema = NO -->
 
 With a basic understanding of line protocol, you can now construct line protocol
 and write data to InfluxDB.
@@ -154,7 +159,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 
 ## Write line protocol to InfluxDB
 
-The following examples show how to write the
+The following examples show how to write the preceding
 [sample data](#home-sensor-data-line-protocol), already in line protocol format,
 to an {{% product-name %}} database.
 
@@ -234,6 +239,9 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200'
 
 {{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
+
+If successful, the output is the success message; otherwise, error details and
+the failure message.
 
 <!----------------------------- END INFLUXCTL CLI CONTENT ----------------------------->
 
@@ -492,7 +500,8 @@ Replace the following:
   a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-token) with
   sufficient permissions to the specified database
 
-If successful, the output is an HTTP `204 No Content` status code.
+If successful, the output is an HTTP `204 No Content` status code; otherwise,
+the error status code and failure message.
 
 <!--pytest-codeblocks:expected-output-->
 
@@ -603,7 +612,8 @@ Replace the following:
   [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) with
   sufficient permissions to the specified database
 
-If successful, the output is an HTTP `204 No Content` status code.
+If successful, the output is an HTTP `204 No Content` status code; otherwise,
+the error status code and failure message.
 
 <!--pytest-codeblocks:expected-output-->
 
@@ -629,17 +639,12 @@ dependencies to your current project.
 
 1. Create a module directory and navigate into it--for example:
 
-   <!--
-     Using bash here is required when running with pytest.
-     I don't know why, but sh evaluates $_ to /usr/bin/pytest.
-   -->
-
    ```bash
    mkdir -p influxdb_py_client && cd influxdb_py_client
    ```
 
 2. Setup your Python virtual environment.
-   Inside of your module directory:
+   Inside of your module directory, enter the following command:
 
    <!--pytest-codeblocks:cont-->
 
@@ -764,6 +769,9 @@ dependencies to your current project.
    ```
 
 {{% /influxdb/custom-timestamps %}}
+
+If successful, the output is the success message; otherwise, error details and
+the failure message.
 
 <!----------------------------- END PYTHON CONTENT ---------------------------->
 
@@ -940,17 +948,17 @@ To write data to {{% product-name %}} using Go, use the InfluxDB v3
     }
     ```
 
-6.  In your terminal, enter the following command to install the packages listed
-    in `imports`, build the `influxdb_go_client` module, and execute the
-    `main()` function:
+6.  To install dependencies and write the data to your {{% product-name %}}
+    database, enter the following command into your terminal:
 
     <!--pytest.mark.skip-->
 
     ```sh
-    go mod tidy && go build && go run influxdb_go_client
+    go mod tidy && go run influxdb_go_client
     ```
 
-    The program writes the line protocol to your {{% product-name %}} database.
+If successful, the output is the success message; otherwise, error details and
+the failure message.
 
 {{% /influxdb/custom-timestamps %}}
 
@@ -1146,6 +1154,9 @@ To write data to {{% product-name %}} using Go, use the InfluxDB v3
 
 {{% /influxdb/custom-timestamps %}}
 
+If successful, the output is the success message; otherwise, error details and
+the failure message.
+
 <!---------------------------- END NODE.JS CONTENT --------------------------->
 
 {{% /tab-content %}}
@@ -1281,8 +1292,8 @@ To write data to {{% product-name %}} using Go, use the InfluxDB v3
           with _write_ access to the specified database. _Store this in a secret
           store or environment variable to avoid exposing the raw token string._
 
-        _Instantiating the client with the `using` statement ensures that the
-        client is disposed of when it's no longer needed._
+        _The `using` statement ensures that the program disposes of the
+        client when it's no longer needed._
 
     2.  Defines an array of line protocol strings where each string represents a
         data record.
@@ -1324,19 +1335,23 @@ To write data to {{% product-name %}} using Go, use the InfluxDB v3
 7.  To build and execute the program and write the line protocol to your
     {{% product-name %}} database, enter the following command in your terminal:
 
-        <!--pytest.mark.skip-->
+    <!--pytest.mark.skip-->
 
-        ```sh
-        dotnet run
-        ```
+    ```sh
+    dotnet run
+    ```
 
-    <!---------------------------- END C# CONTENT --------------------------->
+If successful, the output is the success message; otherwise, error details and
+the failure message.
 
-    {{% /influxdb/custom-timestamps %}}
-    {{% /tab-content %}}
-    {{% tab-content %}}
-    {{% influxdb/custom-timestamps %}}
-    <!---------------------------- BEGIN JAVA CONTENT --------------------------->
+<!---------------------------- END C# CONTENT --------------------------->
+
+{{% /influxdb/custom-timestamps %}}
+{{% /tab-content %}}
+{{% tab-content %}}
+{{% influxdb/custom-timestamps %}}
+
+<!-------------------------- BEGIN JAVA CONTENT --------------------------->
 
 _The tutorial assumes using Maven version 3.9 and Java version >= 15._
 
@@ -1555,20 +1570,20 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
 10. In your terminal or editor, execute `App.main()` to write to InfluxDB--for
     example, using Maven:
 
-        <!--pytest.mark.skip-->
+    <!--pytest.mark.skip-->
 
-        ```sh
-        mvn exec:java -Dexec.mainClass="com.influxdbv3.App"
-        ```
-
-    <!---------------------------- END JAVA CONTENT --------------------------->
-
-    {{% /influxdb/custom-timestamps %}}
-    {{% /tab-content %}}
-    {{< /tabs-wrapper >}}
+    ```sh
+    mvn exec:java -Dexec.mainClass="com.influxdbv3.App"
+    ```
 
 If successful, the output is the success message; otherwise, error details and
 the failure message.
+
+<!---------------------------- END JAVA CONTENT --------------------------->
+
+{{% /influxdb/custom-timestamps %}}
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 {{< expand-wrapper >}}
 {{% expand "View the written data" %}}
@@ -1610,4 +1625,5 @@ the failure message.
 **Congratulations!** You've written data to InfluxDB.
 Next, learn how to query your data.
 
-{{< page-nav prev="/influxdb/cloud-dedicated/get-started/setup/" next="/influxdb/cloud-dedicated/get-started/query/" keepTab=true >}}
+{{< page-nav prev="/influxdb/cloud-dedicated/get-started/setup/"
+next="/influxdb/cloud-dedicated/get-started/query/" keepTab=true >}}
