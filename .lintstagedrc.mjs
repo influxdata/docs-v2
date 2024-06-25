@@ -1,24 +1,48 @@
 // Lint-staged configuration. This file must export a lint-staged configuration object.
 
-function lintStagedContent(paths, productPath) {
-  const name = `staged-${productPath.replace(/\//g, '-')}`;
+function testStagedContent(paths, productPath) {
+  const productName = productPath.replace(/\//g, '-');
+  const CONTENT = `staged-${productName}`;
+  const TEST = `pytest-${productName}`;
 
   return [
-           `docker build . -f Dockerfile.tests -t influxdata-docs/tests:latest`,
+    // Remove any existing test container and volume
+    `sh -c "docker rm -f ${CONTENT} || true"`,
+    `sh -c "docker rm -f ${TEST} || true"`,
 
-            // Remove any existing test container.
-           `docker rm -f ${name} || true`,
+    `docker build . -f Dockerfile.tests -t influxdata-docs/tests:latest`,
 
-           `docker run --name ${name} --mount type=volume,target=/app/content --mount type=bind,src=./content,dst=/src/content --mount type=bind,src=./static/downloads,dst=/app/data
-           influxdata-docs/tests --files "${paths.join(' ')}"`,
+    // Copy staged content to a volume and run the prepare script
+    `docker run --name ${CONTENT}
+      --mount type=volume,source=staged-content,target=/app/content
+      --mount type=bind,src=./content,dst=/src/content
+      --mount type=bind,src=./static/downloads,dst=/app/data
+      influxdata-docs/tests --files "${paths.join(' ')}"`,
 
-           `docker build . -f Dockerfile.pytest -t influxdata-docs/pytest:latest`,
+    `docker build .
+      -f Dockerfile.pytest
+      -t influxdata-docs/pytest:latest`,
 
-           // Run test runners. If tests fail, the container will be removed,
-           //but the "test-" container will remain until the next run.
-           `docker run --env-file ${productPath}/.env.test
-           --volumes-from ${name} --rm
-           influxdata-docs/pytest --codeblocks ${productPath}/`
+    // Run test runners.
+    // This script first checks if there are any tests to run using `pytest --collect-only`.
+    // If there are tests, it runs them; otherwise, it exits with a success code.
+    // Whether tests pass or fail, the container is removed,
+    // but the CONTENT container will remain until the next run.
+    `sh -c "docker run --rm --name ${TEST}-collector \
+      --env-file ${productPath}/.env.test \
+      --volumes-from ${CONTENT} \
+      influxdata-docs/pytest --codeblocks --collect-only \
+       ${productPath}/ > /dev/null 2>&1; \
+      TEST_COLLECT_EXIT_CODE=$?; \
+      if [ $TEST_COLLECT_EXIT_CODE -eq 5 ]; then \
+        echo 'No tests to run.'; \
+        exit 0; \
+      else \
+        docker run --rm --name ${TEST} \
+          --env-file ${productPath}/.env.test \
+          --volumes-from ${CONTENT} \
+          influxdata-docs/pytest --codeblocks --exitfirst ${productPath}/;
+      fi"`
   ];
 }
 
@@ -30,9 +54,11 @@ export default {
     // "*.md": paths => `prettier --check ${paths.join(' ')}`,
 
     "content/influxdb/cloud-dedicated/**/*.md":
-      paths => lintStagedContent(paths, 'content/influxdb/cloud-dedicated'),
+      paths => [...testStagedContent(paths, 'content/influxdb/cloud-dedicated')],
+    "content/influxdb/cloud-serverless/**/*.md":
+      paths => [...testStagedContent(paths, 'content/influxdb/cloud-serverless')], 
     "content/influxdb/clustered/**/*.md":
-      paths => lintStagedContent(paths, 'content/influxdb/clustered'),
+      paths => [...testStagedContent(paths, 'content/influxdb/clustered')],
     
     // "content/influxdb/cloud-serverless/**/*.md": "docker compose run -T lint --config=content/influxdb/cloud-serverless/.vale.ini --minAlertLevel=error",
 

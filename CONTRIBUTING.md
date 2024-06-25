@@ -71,7 +71,7 @@ Make your suggested changes being sure to follow the [style and formatting guide
 
 docs-v2 uses Husky to manage Git hook scripts.
 When you try to commit your changes (for example, `git commit`), Git runs
-scripts configured in `.husky/pre-commit`, including linting and tests for your staged files.
+scripts configured in `.husky/pre-commit`, including linting and tests for your **staged** files.
 
 ### Skip pre-commit hooks
 
@@ -85,13 +85,25 @@ git commit -m "<COMMIT_MESSAGE>" --no-verify
 
 For more options, see the [Husky documentation](https://typicode.github.io/husky/how-to.html#skipping-git-hooks).
 
+### Configure test credentials
+
+To configure credentials for tests, set the usual InfluxDB environment variables
+for each product inside a `content/influxdb/<PRODUCT_DIRECTORY>/.env.test` file.
+
+The Docker commands in the `.lintstagedrc.mjs` lint-staged configuration load
+the `.env.test` as product-specific environment variables.
+
+**Warning**: To prevent accidentally adding credentials to the docs-v2 repo,
+Git is configured to ignore `.env*` files. Don't add your `.env.test` files to Git.
+Consider backing them up on your local machine in case of accidental deletion.
+
 ### Pre-commit linting and testing
 
 When you try to commit your changes using `git commit` or your editor,
 the project automatically runs pre-commit checks for spelling, punctuation,
 and style on your staged files.
 
-The pre-commit hook calls [`lint-staged`](https://github.com/lint-staged/lint-staged) using the configuration in `package.json`.
+The pre-commit hook calls [`lint-staged`](https://github.com/lint-staged/lint-staged) using the configuration in `.lintstagedrc.mjs`.
 
 To run `lint-staged` scripts manually (without committing), enter the following
 command in your terminal:
