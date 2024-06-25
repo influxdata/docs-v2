@@ -45,13 +45,14 @@ ON <join_condition>
   that match the defined predicate are joined using the specified
   [join type](#join-types).
 
-<div id="specify-table"></div>
+<!-- Link anchor for fully-qualified references -->
+<div id="fully-qualified-reference"></div>
 
 {{% note %}}
 If both sides of the join include columns with the same name, you need to
-include the table name with the column name to prevent ambiguity.
-Use dot notation to reference the table and column--for example:
-`table_name.column_name`
+use the fully-qualified reference to prevent ambiguity.
+A _fully-qualified reference_ uses dot notation to reference both the table name
+and the column name--for example: `table_name.column_name`
 {{% /note %}}
 
 ## Join types
@@ -254,9 +255,9 @@ ORDER BY
 
 If a column exists on both sides of the join and is used in in the `SELECT`,
 `ON`, `WHERE`, `HAVING`, `GROUP BY`, or `ORDER BY` clause, you must
-[specify which table the column is from](#specify-table). For example, if both sides of the join have a
-`time` column and you want to sort results by time, you must just a side of the
-join from which to use the time column:
+[fully-qualified reference](#fully-qualified-reference). For example, if both 
+sides of the join have a `time` column and you want to sort results by time, you
+must specifiy which side of the join to use the time column from:
 
 ```sql
 ...
