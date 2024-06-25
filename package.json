@@ -20,9 +20,15 @@
     "js-yaml": "^4.1.0"
   },
   "scripts": {
+    "lint-cloud": "git diff --name-only --diff-filter=d HEAD | grep \"content/influxdb/cloud\" | xargs .ci/vale/vale.sh --minAlertLevel=suggestion --config=.vale.ini",
+    "lint-clustered": "git diff --name-only --diff-filter=d HEAD | grep \"content/influxdb/clustered\" | xargs .ci/vale/vale.sh --minAlertLevel=suggestion --config=content/influxdb/clustered/.vale.ini",
+    "lint-dedicated": "git diff --name-only --diff-filter=d HEAD | grep \"content/influxdb/cloud-dedicated\" | xargs .ci/vale/vale.sh --minAlertLevel=suggestion --config=content/influxdb/cloud-dedicated/.vale.ini",
+    "lint-serverless": "git diff --name-only --diff-filter=d HEAD | grep \"content/influxdb/cloud-serverless\" | xargs .ci/vale/vale.sh --minAlertLevel=suggestion --config=content/influxdb/cloud-serverless/.vale.ini",
+    "lint-telegraf": "git diff --name-only --diff-filter=d HEAD | grep \"content/telegraf\" | xargs .ci/vale/vale.sh --minAlertLevel=suggestion --config=.vale.ini",
+    "lint-v1": "git diff --name-only --diff-filter=d HEAD | grep \"content/influxdb/v1\" | xargs .ci/vale/vale.sh --minAlertLevel=suggestion --config=.vale.ini",
+    "lint-v2": "git diff --name-only --diff-filter=d HEAD | grep \"content/influxdb/v2\" | xargs .ci/vale/vale.sh --minAlertLevel=suggestion --config=.vale.ini",
     "prepare": "husky",
-    "lint-vale": ".ci/vale/vale.sh",
-    "lint-staged": "lint-staged --relative"
+    "test": "lint-staged --relative"
   },
   "main": "index.js",
   "module": "main.js",

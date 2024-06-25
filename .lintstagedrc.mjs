@@ -27,7 +27,7 @@ function testStagedContent(paths, productPath) {
     // This script first checks if there are any tests to run using `pytest --collect-only`.
     // If there are tests, it runs them; otherwise, it exits with a success code.
     // Whether tests pass or fail, the container is removed,
-    // but the CONTENT container will remain until the next run.
+    // but the CONTENT container and associated volume will remain until the next run.
     `sh -c "docker run --rm --name ${TEST}-collector \
       --env-file ${productPath}/.env.test \
       --volumes-from ${CONTENT} \
@@ -46,23 +46,55 @@ function testStagedContent(paths, productPath) {
   ];
 }
 
+// Export a lint-staged configuration object.
+// Run tests and linters on staged files.
 export default {
-    "*.{js,css}": paths => `prettier --write ${paths.join(' ')}`,
+  "*.{js,css}": paths => `prettier --write ${paths.join(' ')}`,
 
-    // Don't let prettier check or write Markdown files for now;
-    // it indents code blocks within list items, which breaks Hugo's rendering.
-    // "*.md": paths => `prettier --check ${paths.join(' ')}`,
+  "*.md": paths => `.ci/vale/vale.sh --config .vale.ini ${paths} --min|| true`,
 
-    "content/influxdb/cloud-dedicated/**/*.md":
-      paths => [...testStagedContent(paths, 'content/influxdb/cloud-dedicated')],
-    "content/influxdb/cloud-serverless/**/*.md":
-      paths => [...testStagedContent(paths, 'content/influxdb/cloud-serverless')], 
-    "content/influxdb/clustered/**/*.md":
-      paths => [...testStagedContent(paths, 'content/influxdb/clustered')],
-    
-    // "content/influxdb/cloud-serverless/**/*.md": "docker compose run -T lint --config=content/influxdb/cloud-serverless/.vale.ini --minAlertLevel=error",
+  "content/influxdb/api-docs/": paths =>
+    `.ci/vale/vale.sh --config .vale.ini --minAlertLevel error ${paths}`,
 
-    // "content/influxdb/clustered/**/*.md": "docker compose run -T lint --config=content/influxdb/clustered/.vale.ini --minAlertLevel=error",
+  "content/influxdb/cloud/**/*.md":
+    paths => [
+    `.ci/vale/vale.sh --config .vale.ini --minAlertLevel error ${paths}`,
+      ...testStagedContent(paths, 'content/influxdb/cloud'), 
+    ],
 
-    // "content/influxdb/{cloud,v2,telegraf}/**/*.md": "docker compose run -T lint --config=.vale.ini --minAlertLevel=error"
+  "content/influxdb/cloud-dedicated/**/*.md":
+    paths => [
+    `.ci/vale/vale.sh --config content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel error ${paths}`,
+      ...testStagedContent(paths, 'content/influxdb/cloud-dedicated'), 
+    ],
+
+  "content/influxdb/cloud-serverless/**/*.md":
+    paths => [
+     `.ci/vale/vale.sh --config content/influxdb/cloud-serverless/.vale.ini --minAlertLevel error ${paths}`,
+      ...testStagedContent(paths, 'content/influxdb/cloud-serverless'),
+    ], 
+
+  "content/influxdb/clustered/**/*.md":
+    paths => [
+    `.ci/vale/vale.sh --config content/influxdb/clustered/.vale.ini --minAlertLevel error ${paths}`,
+      ...testStagedContent(paths, 'content/influxdb/clustered'),
+    ],
+  
+  "content/influxdb/v1/**/*.md":
+    paths => [
+    `.ci/vale/vale.sh --config .vale.ini --minAlertLevel error ${paths}`,
+      ...testStagedContent(paths, 'content/influxdb/v1'), 
+    ],
+
+  "content/influxdb/v2/**/*.md":
+    paths => [
+    `.ci/vale/vale.sh --config .vale.ini --minAlertLevel error ${paths}`,
+      ...testStagedContent(paths, 'content/influxdb/v2'), 
+  ],
+
+  "content/telegraf/**/*.md":
+    paths => [
+    `.ci/vale/vale.sh --config .vale.ini --minAlertLevel error ${paths}`,
+      ...testStagedContent(paths, 'content/telegraf'),  
+    ],
 }
