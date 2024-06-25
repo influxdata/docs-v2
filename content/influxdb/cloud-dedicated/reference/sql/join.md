@@ -9,7 +9,7 @@ menu:
 weight: 202
 ---
 
-Use the `JOIN` clause to join to data from different tables together based on
+Use the `JOIN` clause to join data from different tables together based on
 logical relationships.
 
 - [Syntax](#syntax)
