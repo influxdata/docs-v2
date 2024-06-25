@@ -14,7 +14,7 @@ swap:
   "chronograf": Chronograf
   "cli": CLI
   "(?i)clockface": Clockface
-  "the\b[?compactor": the Compactor
+  "the compactor": the Compactor
   "data explorer": Data Explorer
   "datetime": dateTime
   "dedupe": deduplicate
@@ -28,16 +28,16 @@ swap:
   "/w*/b(?i)influxdb": InfluxDB
   "(?i)influxql": InfluxQL
   "influxer": Influxer
-  "the\b[?ingester": the Ingester
+  "the ingester": the Ingester
   "(?i)iox": v3
   "java[ -]?scripts?": JavaScript
   "kapa": Kapacitor
   "logicalplan": LogicalPlan
-  "the\b[?object store": the Object store
+  "the object store": the Object store
   "a {{% product-name %}}": an {{% product-name %}}
   "Pandas": pandas
   " parquet": Parquet
-  "the\b[?querier": the Querier
+  "the querier": the Querier
   "SQL Alchemy": SQLAlchemy
   "superset": Superset
   "tagkey": tagKey
