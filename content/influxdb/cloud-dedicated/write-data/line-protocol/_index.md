@@ -5,7 +5,7 @@ description: >
   to InfluxDB Cloud Dedicated.
 menu:
   influxdb_cloud_dedicated:
-    name: Write line protocol
+    name: Write line protocol data
     parent: Write data
 weight: 101
 related:

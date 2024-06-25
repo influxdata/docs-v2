@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud_dedicated:
     name: Use the influxctl CLI
-    parent: Write line protocol
+    parent: Write line protocol data
     identifier: write-influxctl
 weight: 101
 related:
@@ -89,7 +89,7 @@ Provide the following:
 {{% tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" %}}
+{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 
 ```sh
 influxctl write \
@@ -123,7 +123,7 @@ Replace the following:
 {{% /tab-content %}}
 {{% tab-content %}}
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" %}}
+{{% code-placeholders "DATABASE_(NAME|TOKEN)|(\$LINE_PROTOCOL_FILEPATH)" %}}
 
 1.  In your terminal, enter the following command to create the sample data file:
 
