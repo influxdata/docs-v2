@@ -1820,6 +1820,16 @@ input:
     introduced: 1.5.0
     tags: [linux, macos, windows, systems]
 
+  - name: smartctl
+    id: smartctl
+    description: |
+      The SMART input plugin gets metrics using the command line utility `smartctl`
+      for SMART (Self-Monitoring, Analysis and Reporting Technology) storage devices.
+      This plugin parses and uses the JSON output from `smartctl`. This is only
+      available in newer versions of the tool.
+    introduced: 1.31.0
+    tags: [linux, macos, windows, systems]
+
   - name: SNMP
     id: snmp
     description: |
@@ -3035,6 +3045,13 @@ processor:
       or to an output specific routing option. The template has access to each metric's measurement name,
       tags, fields, and timestamp using the interface in [template_metric.go](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/processors/template/template_metric.go).
     introduced: 1.14.0
+    tags: [linux, macos, windows]
+
+  - name: Timestamp
+    id: timestamp
+    description: |
+      Generate a metric timestamp based on values in a metric field.
+    introduced: 1.31.0
     tags: [linux, macos, windows]
 
   - name: TopK

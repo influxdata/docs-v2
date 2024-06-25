@@ -1,6 +1,7 @@
 <div id="docs-notifications">
   {{ range .Site.Data.notifications }}
-    <div class="notification {{ .level }} min" id="{{ .id }}" data-scope='{{ if .scope }}{{ delimit .scope "," }}{{ else }}/{{ end }}'>
+    <div class="notification {{ .level }} min" id="{{ .id }}" data-scope='{{ if .scope }}{{ delimit .scope "," }}{{ else }}/{{ end }}' data-exclude='{{ if .exclude }}{{ delimit .exclude ","}}{{ end }}'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
       <div class="notification-title">
         <h3>{{ .title }}</h3>
       </div>
@@ -9,11 +10,12 @@
         {{ .slug | markdownify }}
       </div>
       {{ end }}
+      {{ if .message }}
       <div class="notification-content">
         {{ .message | markdownify }}
       </div>
-      <div class="close-notification"><span class="cf-icon Remove_New"></span></div>
       <span class="show"></span>
+      {{ end }}     
     </div>
   {{ end }}
 </div>

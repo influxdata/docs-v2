@@ -21,8 +21,14 @@ date or through the Google Cloud Platform (GCP) or Azure marketplaces, see the
 To see which storage engine your organization is using,
 find the **InfluxDB Cloud powered by** link in your
 [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
-If your organization is using InfluxDB 3.0, you'll see
+If your organization is using InfluxDB v3, you'll see
 **InfluxDB Cloud Serverless** followed by the version number.
+
+#### InfluxDB v3 and Flux
+
+InfluxDB Cloud Serverless and other InfluxDB v3 products do not support Flux.
+Flux is now in maintenance mode. For more information, see
+[The future of Flux](/flux/v0/future-of-flux).
 {{% /note %}}
 
 InfluxDB Cloud Serverless is a hosted and managed version of InfluxDB backed

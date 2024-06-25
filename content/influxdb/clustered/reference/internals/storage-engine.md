@@ -68,7 +68,7 @@ In this process, the Ingester does the following:
 
 The Ingester can be scaled both [vertically](#vertical-scaling) and
 [horizontally](#horizontal-scaling).
-Horizontal scaling increases write throughput and is typically the most
+Vertical scaling increases write throughput and is typically the most
 effective scaling strategy for the Ingester.
 
 ### Querier

@@ -11,6 +11,29 @@ menu:
 weight: 202
 ---
 
+## v2.9.2 {date="2024-06-17"}
+
+### Bug Fixes
+
+- Ensure query subcommand returns any error while looping through results.
+
+### Dependency Updates
+
+- Update `google.golang.org/protobuf` from 1.34.1 to 1.34.2.
+
+## v2.9.1 {date="2024-06-06"}
+
+### Dependency Updates
+
+- Update Go from 1.22.2 to 1.22.4
+- Update `github.com/apache/arrow/go/v16` from 16.0.0 to 16.1.0
+- Update `github.com/fatih/color` from 1.16.0 to 1.17.0
+- Update `golang.org/x/mod` from 0.17.0 to 0.18.0
+- Update `golang.org/x/oauth2` from 0.20.0 to 0.21.0
+- Update `google.golang.org/grpc` from 1.63.2 to 1.64.0
+- Update `google.golang.org/protobuf` from 1.34.0 to 1.34.1
+- Update build dependencies.
+
 ## v2.9.0 {date="2024-05-06"}
 
 ### Features
@@ -23,6 +46,7 @@ weight: 202
 - Update unimplemented error message with additional information.
 
 ### Dependecy Updates
+
 - Update `github.com/apache/arrow/go/v16` from 16.0.0-20240401180149-68241d8a86e9 to 16.0.0.
 - Update `github.com/jedib0t/go-pretty/v6` from 6.5.8 to 6.5.9.
 - Update `github.com/pelletier/go-toml/v2` from 2.2.0 to 2.2.1.

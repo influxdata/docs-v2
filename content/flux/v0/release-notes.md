@@ -10,6 +10,32 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.195.1 {date="2024-06-11"}
+
+- _Internal code cleanup._
+
+---
+
+## v0.195.0 {date="2024-06-11"}
+
+### Features
+
+- Return to internal string references.
+- Allocate memory for string content.
+
+### Bug fixes
+
+- Join paths correctly in the `influxdb` source.
+- Optimize string arrays.
+
+### Dependency updates
+
+- Update `github.com/benbjohnson/immutable`.
+- Update `github.com/SAP/go-hdb`.
+- Build on Rust 1.78.
+
+---
+
 ## v0.194.5 {date="2023-11-22"}
 
 ### Bug fixes
