@@ -176,6 +176,14 @@ require more processing power.
 
 ### Horizontal scaling
 
+{{% warn %}}
+You **must** only alter the number of replicas through the `AppInstance` to ensure
+that all of the appropriate variables for scaling IOx are handled.
+
+Manually scaling resources may cause errors.
+{{% /warn %}}
+
+
 Horizontal scaling (also known as "scaling out") involves increasing the number of
 nodes or processes available to perform a given task.
 Horizontal scaling is typically used to increase the amount of workload or
