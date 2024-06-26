@@ -11,6 +11,12 @@ menu:
 weight: 202
 ---
 
+## v2.9.3 {date="2024-06-26"}
+
+### Bug Fixes
+
+- Update query subcommand to safely handle null timestamp in response.
+
 ## v2.9.2 {date="2024-06-17"}
 
 ### Bug Fixes
