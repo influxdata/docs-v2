@@ -6,14 +6,26 @@ function testStagedContent(paths, productPath) {
   const TEST = `pytest-${productName}`;
 
   return [
-    // Remove any existing test container and volume
+    // Remove existing containers
     `sh -c "docker rm -f ${CONTENT} || true"`,
     `sh -c "docker rm -f ${TEST} || true"`,
 
     `docker build . -f Dockerfile.tests -t influxdata-docs/tests:latest`,
 
+    // Remove any existing Docker volume for staged content
+    `sh -c "docker volume rm -f ${CONTENT} || true"`,
+     
+    // Create a Docker volume for product staged content
+    `sh -c "docker volume create \
+     --label tag=influxdata-docs \
+     --label stage=test \
+     --name ${CONTENT} || true"`,
+
     // Copy staged content to a volume and run the prepare script
+    // to remove the existing 
     `docker run --name ${CONTENT}
+      --label tag=influxdata-docs
+      --label stage=test
       --mount type=volume,source=staged-content,target=/app/content
       --mount type=bind,src=./content,dst=/src/content
       --mount type=bind,src=./static/downloads,dst=/app/data
@@ -38,7 +50,10 @@ function testStagedContent(paths, productPath) {
         echo 'No tests to run.'; \
         exit 0; \
       else \
-        docker run --rm --name ${TEST} \
+        docker run --rm \
+          --label tag=influxdata-docs \
+          --label stage=test \
+          --name ${TEST} \
           --env-file ${productPath}/.env.test \
           --volumes-from ${CONTENT} \
           influxdata-docs/pytest --codeblocks --exitfirst ${productPath}/;
