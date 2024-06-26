@@ -10,17 +10,16 @@ weight: 3
 influxdb/clustered/tags: [get-started]
 ---
 
-{{% product-name %}} is a highly available InfluxDB cluster hosted and
-managed on your own infrastructure and is the platform purpose-built to collect,
-store, and query time series data.
-It is powered by the InfluxDB 3.0 storage engine which provides a number of
-benefits including nearly unlimited series cardinality, improved query performance,
-and interoperability with widely used data processing tools and platforms.
+InfluxDB is the platform purpose-built to collect, store, and query
+time series data.
+{{% product-name %}} is powered by the InfluxDB 3.0 storage engine, that
+provides nearly unlimited series cardinality,
+improved query performance, and interoperability with widely used data
+processing tools and platforms.
 
-**Time series data** is a sequence of data points indexed in time order.
-Data points typically consist of successive measurements made from the same
-source and are used to track changes over time.
-Examples of time series data include:
+**Time series data** is a sequence of data points indexed in time order. Data
+points typically consist of successive measurements made from the same source
+and are used to track changes over time. Examples of time series data include:
 
 - Industrial sensor data
 - Server performance metrics
@@ -45,33 +44,43 @@ throughout this documentation.
 ### Data organization
 
 The {{% product-name %}} data model organizes time series data into databases
-and measurements.
+and tables.
 
-A database can contain multiple measurements.
-Measurements contain multiple tags and fields.
+A database can contain multiple tables.
+Tables contain multiple tags and fields.
 
-- **Database**: Named location where time series data is stored.
-  A database can contain multiple _measurements_.
-  - **Measurement**: Logical grouping for time series data.
-    All _points_ in a given measurement should have the same _tags_.
-    A measurement contains multiple _tags_ and _fields_.
-      - **Tags**: Key-value pairs that provide metadata for each point--for example,
-        something to identify the source or context of the data like host,
-        location, station, etc.
-        Tag values may be null.
-      - **Fields**: Key-value pairs with values that change over time--for example,
-        temperature, pressure, stock price, etc.
-        Field values may be null, but at least one field value is not null on any given row.
-      - **Timestamp**: Timestamp associated with the data.
-        When stored on disk and queried, all data is ordered by time.
-        A timestamp is never null.
+- **Database**: A named location where time series data is stored in _tables_.
+  _Database_ is synonymous with _bucket_ in InfluxDB Cloud Serverless and InfluxDB TSM.
+  - **Table**: A logical grouping for time series data. All _points_ in a given
+    table should have the same _tags_. A table contains _tags_ and
+    _fields_. _Table_ is synonymous with _measurement_ in InfluxDB Cloud
+    Serverless and InfluxDB TSM.
+    - **Tags**: Key-value pairs that provide metadata for each point--for
+      example, something to identify the source or context of the data like
+      host, location, station, etc. Tag values may be null.
+    - **Fields**: Key-value pairs with values that change over time--for
+      example, temperature, pressure, stock price, etc. Field values may be
+      null, but at least one field value is not null on any given row.
+    - **Timestamp**: Timestamp associated with the data. When stored on disk and
+      queried, all data is ordered by time. A timestamp is never null.
+
+{{% note %}}
+
+#### What about buckets and measurements?
+
+If coming from InfluxDB Cloud Serverless or InfluxDB powered by the TSM storage engine, you're likely familiar
+with the concepts _bucket_ and _measurement_.
+_Bucket_ in TSM or InfluxDB Cloud Serverless is synonymous with
+_database_ in {{% product-name %}}.
+_Measurement_ in TSM or InfluxDB Cloud Serverless is synonymous with
+_table_ in {{% product-name %}}.
+{{% /note %}}
 
 ### Schema on write
 
-When using InfluxDB, you define your schema as you write your data.
-You don't need to create measurements (equivalent to a relational table) or
-explicitly define the schema of the measurement.
-Measurement schemas are defined by the schema of data as it is written to the measurement.
+As you write data to InfluxDB, the data defines the table schema.
+You don't need to create tables or
+explicitly define the table schema.
 
 ### Important definitions
 
@@ -121,7 +130,7 @@ While it may coincidentally work, it isn't supported.
 
 ### `influxctl` admin CLI
 
-The [`influxctl` command line interface (CLI)](/influxdb/cloud-dedicated/reference/cli/influxctl/)
+The [`influxctl` command line interface (CLI)](/influxdb/clustered/reference/cli/influxctl/)
 writes, queries, and performs administrative tasks, such as managing databases
 and authorization tokens in a cluster.
 
@@ -143,7 +152,7 @@ The `/api/v2/write` v2-compatible endpoint works with existing InfluxDB 2.x tool
 InfluxDB client libraries are community-maintained, language-specific clients that interact with InfluxDB APIs.
 
 [InfluxDB v3 client libraries](/influxdb/clustered/reference/client-libraries/v3/) are the recommended client libraries for writing and querying data {{% product-name %}}.
-They use the HTTP API to write data and use Flight gRPC to query data.
+They use the HTTP API to write data and use InfluxDB's Flight gRPC API to query data.
 
 [InfluxDB v2 client libraries](/influxdb/clustered/reference/client-libraries/v2/) can use `/api/v2` HTTP endpoints to manage resources such as buckets and API tokens, and write data in {{% product-name %}}.
 
@@ -162,7 +171,7 @@ There are two types of tokens:
   administer your InfluxDB cluster.
   These are generated by the `influxctl` CLI and do not require any direct management.
   Management tokens authorize a user to perform tasks related to:
-  
+
   - Account management
   - Database management
   - Database token management

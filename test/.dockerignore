@@ -8,9 +8,10 @@
 **/__pycache__
 **/.venv
 **/.classpath
+**/.config.toml
 **/.dockerignore
 **/.env
-**/.env.influxdbv3
+**/.env.*
 **/.git
 **/.gitignore
 **/.project
@@ -23,6 +24,7 @@
 **/*.jfm
 **/bin
 **/charts
+**/config.toml
 **/docker-compose*
 **/compose*
 **/Dockerfile*

@@ -1,6 +1,7 @@
 # Contributing to InfluxData Documentation
 
 ## Sign the InfluxData CLA
+
 The InfluxData Contributor License Agreement (CLA) is part of the legal framework
 for the open source ecosystem that protects both you and InfluxData.
 To make substantial contributions to InfluxData documentation, first sign the InfluxData CLA.
@@ -10,77 +11,188 @@ What constitutes a "substantial" change is at the discretion of InfluxData docum
 
 _**Note:** Typo and broken link fixes are greatly appreciated and do not require signing the CLA._
 
-*If you're new to contributing or you're looking for an easy update, see [`docs-v2` good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue).*
+_If you're new to contributing or you're looking for an easy update, see [`docs-v2` good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue)._
 
 ## Make suggested updates
 
 ### Fork and clone InfluxData Documentation Repository
+
 [Fork this repository](https://help.github.com/articles/fork-a-repo/) and
 [clone it](https://help.github.com/articles/cloning-a-repository/) to your local machine.
 
+## Install project dependencies
+
+docs-v2 automatically runs format (Markdown, JS, and CSS) linting and code block tests for staged files that you try to commit.
+
+For the linting and tests to run, you need to install Docker and Node.js
+dependencies.
+
+\_**Note:**
+We strongly recommend running linting and tests, but you can skip them
+(and avoid installing dependencies)
+by including the `--no-verify` flag with your commit--for example, enter the following command in your terminal:
+
+```sh
+git commit -m "<COMMIT_MESSAGE>" --no-verify
+```
+
+### Install Node.js dependencies
+
+To install dependencies listed in package.json:
+
+1. Install [Node.js](https://nodejs.org/en) for your system.
+2. Install [Yarn](https://yarnpkg.com/getting-started/install) for your system.
+3. Run `yarn` to install dependencies (including Hugo).
+4. Install the Yarn package manager and run `yarn` to install project dependencies.
+
+`package.json` contains dependencies for linting and running Git hooks.
+
+- **[husky](https://github.com/typicode/husky)**: manages Git hooks, including the pre-commit hook for linting and testing
+- **[lint-staged](https://github.com/lint-staged/lint-staged)**: passes staged files to commands
+- **[prettier](https://prettier.io/docs/en/)**: formats code, including Markdown, according to style rules for consistency
+
+### Install Docker
+
+Install [Docker](https://docs.docker.com/get-docker/) for your system.
+
+docs-v2 includes Docker configurations (`compose.yaml` and Dockerfiles) for running the Vale style linter and tests for code blocks (Shell, Bash, and Python) in Markdown files.
+
 ### Run the documentation locally (optional)
+
 To run the documentation locally, follow the instructions provided in the README.
 
-### Install and run Vale
+### Make your changes
 
-Use the [Vale](https://vale.sh/) style linter for spellchecking and enforcing style guidelines.
-The docs-v2 `package.json` includes a Vale dependency that installs the Vale binary when you run `yarn`.
-After you use `yarn` to install Vale, you can run `npx vale` to execute Vale commands.
+Make your suggested changes being sure to follow the [style and formatting guidelines](#style--formatting) outline below.
 
-_To install Vale globally or use a different package manager, follow the [Vale CLI installation](https://vale.sh/docs/vale-cli/installation/) for your system._
+## Lint and test your changes
 
-#### Integrate with your editor
+### Automatic pre-commit checks
+
+docs-v2 uses Husky to manage Git hook scripts.
+When you try to commit your changes (for example, `git commit`), Git runs
+scripts configured in `.husky/pre-commit`, including linting and tests for your **staged** files.
+
+### Skip pre-commit hooks
+
+**We strongly recommend running linting and tests**, but you can skip them
+(and avoid installing dependencies)
+by including the `--no-verify` flag with your commit--for example, enter the following command in your terminal:
+
+```sh
+git commit -m "<COMMIT_MESSAGE>" --no-verify
+```
+
+For more options, see the [Husky documentation](https://typicode.github.io/husky/how-to.html#skipping-git-hooks).
+
+### Configure test credentials
+
+To configure credentials for tests, set the usual InfluxDB environment variables
+for each product inside a `content/influxdb/<PRODUCT_DIRECTORY>/.env.test` file.
+
+The Docker commands in the `.lintstagedrc.mjs` lint-staged configuration load
+the `.env.test` as product-specific environment variables.
+
+**Warning**: To prevent accidentally adding credentials to the docs-v2 repo,
+Git is configured to ignore `.env*` files. Don't add your `.env.test` files to Git.
+Consider backing them up on your local machine in case of accidental deletion.
+
+### Pre-commit linting and testing
+
+When you try to commit your changes using `git commit` or your editor,
+the project automatically runs pre-commit checks for spelling, punctuation,
+and style on your staged files.
+
+The pre-commit hook calls [`lint-staged`](https://github.com/lint-staged/lint-staged) using the configuration in `.lintstagedrc.mjs`.
+
+To run `lint-staged` scripts manually (without committing), enter the following
+command in your terminal:
+
+```sh
+npx lint-staged --relative --verbose
+```
+
+The pre-commit linting configuration checks for _error-level_ problems.
+An error-level rule violation fails the commit and you must
+fix the problems before you can commit your changes.
+
+If an error doesn't warrant a fix (for example, a term that should be allowed),
+you can override the check and try the commit again or you can edit the linter
+style rules to permanently allow the content. See **Configure style rules**.
+
+### Vale style linting
+
+docs-v2 includes Vale writing style linter configurations to enforce documentation writing style rules, guidelines, branding, and vocabulary terms.
+
+To run Vale, use the Vale extension for your editor or the included Docker configuration.
+For example, the following command runs Vale in a container and lints `*.md` (Markdown) files in the path `./content/influxdb/cloud-dedicated/write-data/` using the specified configuration for `cloud-dedicated`:
+
+```sh
+docker compose run -T vale --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=error content/influxdb/cloud-dedicated/write-data/**/*.md
+```
+
+The output contains error-level style alerts for the Markdown content.
+
+**Note**: We strongly recommend running Vale, but it's not included in the
+docs-v2 pre-commit hooks](#automatic-pre-commit-checks) for now.
+You can include it in your own Git hooks.
+
+If a file contains style, spelling, or punctuation problems,
+the Vale linter can raise one of the following alert levels:
+
+- **Error**:
+  - Problems that can cause content to render incorrectly
+  - Violations of branding guidelines or trademark guidelines
+  - Rejected vocabulary terms
+- **Warning**: General style guide rules and best practices
+- **Suggestion**: Style preferences that may require refactoring or updates to an exceptions list
+
+### Integrate Vale with your editor
 
 To integrate Vale with VSCode:
 
 1. Install the [Vale VSCode](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) extension.
-2. In the extension settings, set the `Vale:Vale CLI:Path` value to the path of your Vale binary.
-Use the path `${workspaceFolder}/node_modules/.bin/vale` for the Vale binary that you installed with Yarn.
+2. In the extension settings, set the `Vale:Vale CLI:Path` value to the path of your Vale binary (`${workspaceFolder}/node_modules/.bin/vale` for Yarn-installed Vale).
 
 To use with an editor other than VSCode, see the [Vale integration guide](https://vale.sh/docs/integrations/guide/).
 
-#### Lint product directories
+### Configure style rules
 
-The `docs-v2` repository includes a shell script that lints product directories using the `InfluxDataDocs` style rules and product-specific vocabularies, and then generates a report.
-To run the script, enter the following command in your terminal:
+`<docs-v2>/.ci/vale/styles/` contains configuration files for the custom `InfluxDataDocs` style.
 
-```sh
-sh .ci/vale/vale.sh
-```
-
-#### Configure style rules
-
-The `docs-v2` repository contains `.vale.ini` files that configure a custom `InfluxDataDocs` style with spelling and style rules.
-When you run `vale <file path>` (from the CLI or an editor extension), it searches for a `.vale.ini` file in the directory of the file being linted.
-
-`docs-v2` style rules are located at `.ci/vale/styles/`.
 The easiest way to add accepted or rejected spellings is to enter your terms (or regular expression patterns) into the Vocabulary files at `.ci/vale/styles/config/vocabularies`.
+
+To add accepted/rejected terms for specific products, configure a style for the product and include a `Branding.yml` configuration. As an example, see `content/influxdb/cloud-dedicated/.vale.ini` and `.ci/vale/styles/Cloud-Dedicated/Branding.yml`.
 
 To learn more about configuration and rules, see [Vale configuration](https://vale.sh/docs/topics/config).
 
-### Make your changes
-Make your suggested changes being sure to follow the [style and formatting guidelines](#style--formatting) outline below.
-
 ### Submit a pull request
+
 Push your changes up to your forked repository, then [create a new pull request](https://help.github.com/articles/creating-a-pull-request/).
 
 ## Style & Formatting
 
 ### Markdown
-All of our documentation is written in [Markdown](https://en.wikipedia.org/wiki/Markdown).
+
+Most docs-v2 documentation content uses [Markdown](https://en.wikipedia.org/wiki/Markdown).
+
+_Some parts of the documentation, such as `./api-docs`, contain Markdown within YAML and rely on additional tooling._
 
 ### Semantic line feeds
+
 Use [semantic line feeds](http://rhodesmill.org/brandon/2012/one-sentence-per-line/).
 Separating each sentence with a new line makes it easy to parse diffs with the human eye.
 
 **Diff without semantic line feeds:**
-``` diff
+
+```diff
 -Data is taking off. This data is time series. You need a database that specializes in time series. You should check out InfluxDB.
 +Data is taking off. This data is time series. You need a database that specializes in time series. You need InfluxDB.
 ```
 
 **Diff with semantic line feeds:**
-``` diff
+
+```diff
 Data is taking off.
 This data is time series.
 You need a database that specializes in time series.
@@ -89,16 +201,19 @@ You need a database that specializes in time series.
 ```
 
 ### Article headings
+
 Use only h2-h6 headings in markdown content.
 h1 headings act as the page title and are populated automatically from the `title` frontmatter.
 h2-h6 headings act as section headings.
 
 ### Image naming conventions
+
 Save images using the following naming format: `project/version-context-description.png`.
 For example, `influxdb/2-0-visualizations-line-graph.png` or `influxdb/2-0-tasks-add-new.png`.
 Specify a version other than 2.0 only if the image is specific to that version.
 
 ## Page frontmatter
+
 Every documentation page includes frontmatter which specifies information about the page.
 Frontmatter populates variables in page templates and the site's navigation menu.
 
@@ -121,7 +236,7 @@ external_url: # Used in children shortcode type="list" for page links that are e
 list_image: # Image included with article descriptions in children type="articles" shortcode
 list_note: # Used in children shortcode type="list" to add a small note next to listed links
 list_code_example: # Code example included with article descriptions in children type="articles" shortcode
-list_query_example: # Code examples included with article descriptions in children type="articles" shortcode,
+list_query_example:# Code examples included with article descriptions in children type="articles" shortcode,
   # References to examples in data/query_examples
 canonical: # Path to canonical page, overrides auto-gen'd canonical URL
 v2: # Path to v2 equivalent page
@@ -138,22 +253,27 @@ updated_in: # Product and version the referenced feature was updated in (display
 ### Title usage
 
 ##### `title`
+
 The `title` frontmatter populates each page's HTML `h1` heading tag.
 It shouldn't be overly long, but should set the context for users coming from outside sources.
 
 ##### `seotitle`
+
 The `seotitle` frontmatter populates each page's HTML `title` attribute.
 Search engines use this in search results (not the page's h1) and therefore it should be keyword optimized.
 
 ##### `list_title`
+
 The `list_title` frontmatter determines an article title when in a list generated
 by the [`{{< children >}}` shortcode](#generate-a-list-of-children-articles).
 
 ##### `menu > name`
+
 The `name` attribute under the `menu` frontmatter determines the text used in each page's link in the site navigation.
 It should be short and assume the context of its parent if it has one.
 
 #### Page Weights
+
 To ensure pages are sorted both by weight and their depth in the directory
 structure, pages should be weighted in "levels."
 All top level pages are weighted 1-99.
@@ -163,6 +283,7 @@ Then 201-299 and so on.
 _**Note:** `_index.md` files should be weighted one level up from the other `.md` files in the same directory._
 
 ### Related content
+
 Use the `related` frontmatter to include links to specific articles at the bottom of an article.
 
 - If the page exists inside of this documentation, just include the path to the page.
@@ -181,6 +302,7 @@ related:
 ```
 
 ### Canonical URLs
+
 Search engines use canonical URLs to accurately rank pages with similar or identical content.
 The `canonical` HTML meta tag identifies which page should be used as the source of truth.
 
@@ -200,6 +322,7 @@ canonical: /{{< latest "influxdb" "v2" >}}/path/to/canonical/doc/
 ```
 
 ### v2 equivalent documentation
+
 To display a notice on a 1.x page that links to an equivalent 2.0 page,
 add the following frontmatter to the 1.x page:
 
@@ -208,6 +331,7 @@ v2: /influxdb/v2.0/get-started/
 ```
 
 ### Prepend and append content to a page
+
 Use the `prepend` and `append` frontmatter to add content to the top or bottom of a page.
 Each has the following fields:
 
@@ -235,6 +359,7 @@ cascade:
 ```
 
 ### Cascade
+
 To automatically apply frontmatter to a page and all of its children, use the
 [`cascade` frontmatter](https://gohugo.io/content-management/front-matter/#front-matter-cascade)
 built in into Hugo.
@@ -253,6 +378,7 @@ those frontmatter keys. Frontmatter defined on the page overrides frontmatter
 ## Shortcodes
 
 ### Notes and warnings
+
 Shortcodes are available for formatting notes and warnings in each article:
 
 ```md
@@ -266,6 +392,7 @@ Insert warning markdown content here.
 ```
 
 ### Enterprise Content
+
 For sections content that relate specifically to InfluxDB Enterprise, use the `{{% enterprise %}}` shortcode.
 
 ```md
@@ -275,6 +402,7 @@ Insert enterprise-specific markdown content here.
 ```
 
 #### Enterprise name
+
 The name used to refer to InfluxData's enterprise offering is subject to change.
 To facilitate easy updates in the future, use the `enterprise-name` shortcode
 when referencing the enterprise product.
@@ -288,6 +416,7 @@ This is content that references {{< enterprise-name "short" >}}.
 Product names are stored in `data/products.yml`.
 
 #### Enterprise link
+
 References to InfluxDB Enterprise are often accompanied with a link to a page where
 visitors can get more information about the Enterprise offering.
 This link is subject to change.
@@ -299,6 +428,7 @@ Find more info [here][{{< enterprise-link >}}]
 ```
 
 ### InfluxDB Cloud Content
+
 For sections of content that relate specifically to InfluxDB Cloud, use the `{{% cloud %}}` shortcode.
 
 ```md
@@ -308,6 +438,7 @@ Insert cloud-specific markdown content here.
 ```
 
 #### InfluxDB Cloud name
+
 The name used to refer to InfluxData's cloud offering is subject to change.
 To facilitate easy updates in the future, use the `cloud-name` short-code when
 referencing the cloud product.
@@ -321,6 +452,7 @@ This is content that references {{< cloud-name "short" >}}.
 Product names are stored in `data/products.yml`.
 
 #### InfluxDB Cloud link
+
 References to InfluxDB Cloud are often accompanied with a link to a page where
 visitors can get more information.
 This link is subject to change.
@@ -332,6 +464,7 @@ Find more info [here][{{< cloud-link >}}]
 ```
 
 ### Latest links
+
 Each of the InfluxData projects have different "latest" versions.
 Use the `{{< latest >}}` shortcode to populate link paths with the latest version
 for the specified project.
@@ -365,6 +498,7 @@ Use the following for project names:
 ```
 
 ### Latest patch version
+
 Use the `{{< latest-patch >}}` shortcode to add the latest patch version of a product.
 By default, this shortcode parses the product and minor version from the URL.
 To specify a specific product and minor version, use the `product` and `version` arguments.
@@ -379,6 +513,7 @@ Easier to maintain being you update the version number in the `data/products.yml
 ```
 
 ### Latest influx CLI version
+
 Use the `{{< latest-cli >}}` shortcode to add the latest version of the `influx`
 CLI supported by the minor version of InfluxDB.
 By default, this shortcode parses the minor version from the URL.
@@ -392,6 +527,7 @@ Maintain CLI version numbers in the `data/products.yml` file instead of updating
 ```
 
 ### API endpoint
+
 Use the `{{< api-endpoint >}}` shortcode to generate a code block that contains
 a colored request method, a specified API endpoint, and an optional link to
 the API reference documentation.
@@ -420,6 +556,7 @@ Provide the following arguments:
 ```
 
 ### Tabbed Content
+
 To create "tabbed" content (content that is changed by a users' selection), use the following three shortcodes in combination:
 
 `{{< tabs-wrapper >}}`  
@@ -453,6 +590,7 @@ This shortcode must be closed with `{{% /tab-content %}}`.
 **Note**: The `%` characters used in this shortcode indicate that the contents should be processed as Markdown.
 
 #### Example tabbed content group
+
 ```md
 {{< tabs-wrapper >}}
 
@@ -473,6 +611,7 @@ Markdown content for tab 2.
 ```
 
 #### Tabbed code blocks
+
 Shortcodes are also available for tabbed code blocks primarily used to give users
 the option to choose between different languages and syntax.
 The shortcode structure is the same as above, but the shortcode names are different:
@@ -481,7 +620,7 @@ The shortcode structure is the same as above, but the shortcode names are differ
 `{{% code-tabs %}}`  
 `{{% code-tab-content %}}`
 
-~~~md
+````md
 {{< code-tabs-wrapper >}}
 
 {{% code-tabs %}}
@@ -490,6 +629,7 @@ The shortcode structure is the same as above, but the shortcode names are differ
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
+
 ```js
 data = from(bucket: "example-bucket")
   |> range(start: -15m)
@@ -498,18 +638,21 @@ data = from(bucket: "example-bucket")
     r._field == "used_percent"
   )
 ```
+
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
+
 ```sql
 SELECT "used_percent"
 FROM "telegraf"."autogen"."mem"
 WHERE time > now() - 15m
 ```
+
 {{% /code-tab-content %}}
 
 {{< /code-tabs-wrapper >}}
-~~~
+````
 
 #### Link to tabbed content
 
@@ -522,6 +665,7 @@ For example:
 ```
 
 ### Required elements
+
 Use the `{{< req >}}` shortcode to identify required elements in documentation with
 orange text and/or asterisks. By default, the shortcode outputs the text, "Required," but
 you can customize the text by passing a string argument with the shortcode.
@@ -546,8 +690,9 @@ customize the text of the required message.
 ```
 
 #### Required elements in a list
+
 When identifying required elements in a list, use `{{< req type="key" >}}` to generate
-a "* Required" key before the list. For required elements in the list, include
+a "\* Required" key before the list. For required elements in the list, include
 {{< req "\*" >}} before the text of the list item. For example:
 
 ```md
@@ -559,6 +704,7 @@ a "* Required" key before the list. For required elements in the list, include
 ```
 
 #### Change color of required text
+
 Use the `color` argument to change the color of required text.
 The following colors are available:
 
@@ -571,6 +717,7 @@ The following colors are available:
 ```
 
 ### Page navigation buttons
+
 Use the `{{< page-nav >}}` shortcode to add page navigation buttons to a page.
 These are useful for guiding users through a set of docs that should be read in sequential order.
 The shortcode has the following parameters:
@@ -587,16 +734,20 @@ document, but you can use `prevText` and `nextText` to override button text.
 
 ```md
 <!-- Simple example -->
+
 {{ page-nav prev="/path/to/prev/" next="/path/to/next" >}}
 
 <!-- Override button text -->
+
 {{ page-nav prev="/path/to/prev/" prevText="Previous" next="/path/to/next" nextText="Next" >}}
 
 <!-- Add currently selected tab to button link -->
+
 {{ page-nav prev="/path/to/prev/" next="/path/to/next" keepTab=true>}}
 ```
 
 ### Keybinds
+
 Use the `{{< keybind >}}` shortcode to include OS-specific keybindings/hotkeys.
 The following parameters are available:
 
@@ -608,16 +759,20 @@ The following parameters are available:
 
 ```md
 <!-- Provide keybinding for one OS and another for all others -->
+
 {{< keybind mac="⇧⌘P" other="Ctrl+Shift+P" >}}
 
 <!-- Provide a keybind for all OSs -->
+
 {{< keybind all="Ctrl+Shift+P" >}}
 
 <!-- Provide unique keybindings for each OS -->
+
 {{< keybind mac="⇧⌘P" linux="Ctrl+Shift+P" win="Ctrl+Shift+Alt+P" >}}
 ```
 
 ### Diagrams
+
 Use the `{{< diagram >}}` shortcode to dynamically build diagrams.
 The shortcode uses [mermaid.js](https://github.com/mermaid-js/mermaid) to convert
 simple text into SVG diagrams.
@@ -626,28 +781,32 @@ For information about the syntax, see the [mermaid.js documentation](https://mer
 ```md
 {{< diagram >}}
 flowchart TB
-  This --> That
-  That --> There
+This --> That
+That --> There
 {{< /diagram >}}
 ```
 
 ### File system diagrams
+
 Use the `{{< filesystem-diagram >}}` shortcode to create a styled file system
 diagram using a Markdown unordered list.
 
 ##### Example filesystem diagram shortcode
+
 ```md
 {{< filesystem-diagram >}}
+
 - Dir1/
 - Dir2/
   - ChildDir/
     - Child
   - Child
 - Dir3/
-{{< /filesystem-diagram >}}
+  {{< /filesystem-diagram >}}
 ```
 
 ### High-resolution images
+
 In many cases, screenshots included in the docs are taken from high-resolution (retina) screens.
 Because of this, the actual pixel dimension is 2x larger than it needs to be and is rendered 2x bigger than it should be.
 The following shortcode automatically sets a fixed width on the image using half of its actual pixel dimension.
@@ -659,12 +818,14 @@ cause by browser image resizing.
 ```
 
 ###### Notes
+
 - This should only be used on screenshots takes from high-resolution screens.
 - The `src` should be relative to the `static` directory.
 - Image widths are limited to the width of the article content container and will scale accordingly,
   even with the `width` explicitly set.
 
 ### Truncated content blocks
+
 In some cases, it may be appropriate to shorten or truncate blocks of content.
 Use cases include long examples of output data or tall images.
 The following shortcode truncates blocks of content and allows users to opt into
@@ -677,6 +838,7 @@ Truncated markdown content here.
 ```
 
 ### Expandable accordion content blocks
+
 Use the `{{% expand "Item label" %}}` shortcode to create expandable, accordion-style content blocks.
 Each expandable block needs a label that users can click to expand or collapse the content block.
 Pass the label as a string to the shortcode.
@@ -711,6 +873,7 @@ Markdown content associated with label 2.
 ```
 
 ### Captions
+
 Use the `{{% caption %}}` shortcode to add captions to images and code blocks.
 Captions are styled with a smaller font size, italic text, slight transparency,
 and appear directly under the previous image or code block.
@@ -722,6 +885,7 @@ Markdown content for the caption.
 ```
 
 ### Generate a list of children articles
+
 Section landing pages often contain just a list of articles with links and descriptions for each.
 This can be cumbersome to maintain as content is added.
 To automate the listing of articles in a section, use the `{{< children >}}` shortcode.
@@ -735,7 +899,9 @@ or only "page" articles (those with no children) using the `show` argument:
 
 ```md
 {{< children show="sections" >}}
+
 <!-- OR -->
+
 {{< children show="pages" >}}
 ```
 
@@ -757,6 +923,7 @@ The following list types are available:
 - **functions:** a special use-case designed for listing Flux functions.
 
 #### Include a "Read more" link
+
 To include a "Read more" link with each child summary, set `readmore=true`.
 _Only the `articles` list type supports "Read more" links._
 
@@ -765,6 +932,7 @@ _Only the `articles` list type supports "Read more" links._
 ```
 
 #### Include a horizontal rule
+
 To include a horizontal rule after each child summary, set `hr=true`.
 _Only the `articles` list type supports horizontal rules._
 
@@ -773,54 +941,63 @@ _Only the `articles` list type supports horizontal rules._
 ```
 
 #### Include a code example with a child summary
+
 Use the `list_code_example` frontmatter to provide a code example with an article
 in an articles list.
 
-~~~yaml
+````yaml
 list_code_example: |
   ```sh
   This is a code example
   ```
-~~~
+````
 
 #### Organize and include native code examples
+
 To include text from a file in `/shared/text/`, use the
 `{{< get-shared-text >}}` shortcode and provide the relative path and filename.
 
 This is useful for maintaining and referencing sample code variants in their
- native file formats.
+native file formats.
 
 1. Store code examples in their native formats at `/shared/text/`.
-  ```md
-    /shared/text/example1/example.js
-    /shared/text/example1/example.py
-  ```
+
+```md
+/shared/text/example1/example.js
+/shared/text/example1/example.py
+```
 
 2. Include the files--for example, in code tabs:
+
    ````md
-     {{% code-tabs-wrapper %}}
-     {{% code-tabs %}}
-     [Javascript](#js)
-     [Python](#py)
-     {{% /code-tabs %}}
-     {{% code-tab-content %}}
-     ```js
-     {{< get-shared-text "example1/example.js" >}}
-     ```
-     {{% /code-tab-content %}}
-     {{% code-tab-content %}}
-     ```py
-     {{< get-shared-text "example1/example.py" >}}
-     ```
-     {{% /code-tab-content %}}
-     {{% /code-tabs-wrapper %}}
+   {{% code-tabs-wrapper %}}
+   {{% code-tabs %}}
+   [Javascript](#js)
+   [Python](#py)
+   {{% /code-tabs %}}
+   {{% code-tab-content %}}
+
+   ```js
+   {{< get-shared-text "example1/example.js" >}}
+   ```
+
+   {{% /code-tab-content %}}
+   {{% code-tab-content %}}
+
+   ```py
+   {{< get-shared-text "example1/example.py" >}}
+   ```
+
+   {{% /code-tab-content %}}
+   {{% /code-tabs-wrapper %}}
    ````
 
 #### Include specific files from the same directory
+
 To include the text from one file in another file in the same
 directory, use the `{{< get-leaf-text >}}` shortcode.
 The directory that contains both files must be a
-Hugo [*Leaf Bundle*](https://gohugo.io/content-management/page-bundles/#leaf-bundles),
+Hugo [_Leaf Bundle_](https://gohugo.io/content-management/page-bundles/#leaf-bundles),
 a directory that doesn't have any child directories.
 
 In the following example, `api` is a leaf bundle. `content` isn't.
@@ -829,26 +1006,30 @@ In the following example, `api` is a leaf bundle. `content` isn't.
 content
 |
 |--- api
-     |  query.pdmc
-     |  query.sh
-     |  _index.md
+| query.pdmc
+| query.sh
+| \_index.md
 ```
 
 ##### query.pdmc
+
 ```md
 # Query examples
 ```
 
 ##### query.sh
+
 ```md
 curl https://localhost:8086/query
 ```
 
 To include `query.sh` and `query.pdmc` in `api/_index.md`, use the following code:
+
 ````md
 {{< get-leaf-text "query.pdmc" >}}
 
 # Curl example
+
 ```sh
 {{< get-leaf-text "query.sh" >}}
 ```
@@ -858,6 +1039,7 @@ Avoid using the following file extensions when naming included text files since 
 `.ad`, `.adoc`, `.asciidoc`, `.htm`, `.html`, `.markdown`, `.md`, `.mdown`, `.mmark`, `.pandoc`, `.pdc`, `.org`, or `.rst`.
 
 #### Reference a query example in children
+
 To include a query example with the children in your list, update `data/query_examples.yml`
 with the example code, input, and output, and use the `list_query_example`
 frontmatter to reference the corresponding example.
@@ -867,20 +1049,22 @@ list_query_example: cumulative_sum
 ```
 
 #### Children frontmatter
+
 Each children list `type` uses [frontmatter properties](#page-frontmatter) when generating the list of articles.
 The following table shows which children types use which frontmatter properties:
 
 | Frontmatter          | articles | list | functions |
-|:-----------          |:--------:|:----:|:---------:|
-| `list_title`         | ✓        | ✓    | ✓         |
-| `description`        | ✓        |      |           |
-| `external_url`       | ✓        | ✓    |           |
-| `list_image`         | ✓        |      |           |
-| `list_note`          |          | ✓    |           |
-| `list_code_example`  | ✓        |      |           |
-| `list_query_example` | ✓        |      |           |
+| :------------------- | :------: | :--: | :-------: |
+| `list_title`         |    ✓     |  ✓   |     ✓     |
+| `description`        |    ✓     |      |           |
+| `external_url`       |    ✓     |  ✓   |           |
+| `list_image`         |    ✓     |      |           |
+| `list_note`          |          |  ✓   |           |
+| `list_code_example`  |    ✓     |      |           |
+| `list_query_example` |    ✓     |      |           |
 
 ### Inline icons
+
 The `icon` shortcode allows you to inject icons in paragraph text.
 It's meant to clarify references to specific elements in the InfluxDB user interface.
 This shortcode supports Clockface (the UI) v2 and v3.
@@ -955,6 +1139,7 @@ Below is a list of available icons (some are aliases):
 - x
 
 ### InfluxDB UI left navigation icons
+
 In many cases, documentation references an item in the left nav of the InfluxDB UI.
 Provide a visual example of the navigation item using the `nav-icon` shortcode.
 This shortcode supports Clockface (the UI) v2 and v3.
@@ -978,6 +1163,7 @@ The following case insensitive values are supported:
 - feedback
 
 ### Flexbox-formatted content blocks
+
 CSS Flexbox formatting lets you create columns in article content that adjust and
 flow based on the viewable width.
 In article content, this helps if you have narrow tables that could be displayed
@@ -1010,6 +1196,7 @@ The following options are available:
 - quarter
 
 ### Tooltips
+
 Use the `{{< tooltip >}}` shortcode to add tooltips to text.
 The **first** argument is the text shown in the tooltip.
 The **second** argument is the highlighted text that triggers the tooltip.
@@ -1022,6 +1209,7 @@ The rendered output is "I like butterflies" with "butterflies" highlighted.
 When you hover over "butterflies," a tooltip appears with the text: "Butterflies are awesome!"
 
 ### Flux sample data tables
+
 The Flux `sample` package provides basic sample datasets that can be used to
 illustrate how Flux functions work. To quickly display one of the raw sample
 datasets, use the `{{% flux/sample %}}` shortcode.
@@ -1030,6 +1218,7 @@ The `flux/sample` shortcode has the following arguments that can be specified
 by name or positionally.
 
 #### set
+
 Sample dataset to output. Use either `set` argument name or provide the set
 as the first argument. The following sets are available:
 
@@ -1041,33 +1230,41 @@ as the first argument. The following sets are available:
 - numericBool
 
 #### includeNull
+
 Specify whether or not to include _null_ values in the dataset.
 Use either `includeNull` argument name or provide the boolean value as the second argument.
 
 #### includeRange
+
 Specify whether or not to include time range columns (`_start` and `_stop`) in the dataset.
 This is only recommended when showing how functions that require a time range
 (such as `window()`) operate on input data.
 Use either `includeRange` argument name or provide the boolean value as the third argument.
 
 ##### Example Flux sample data shortcodes
+
 ```md
 <!-- No arguments, defaults to "float" set without nulls -->
+
 {{% flux/sample %}}
 
 <!-- Output the "string" set without nulls or time range columns -->
+
 {{% flux/sample set="string" includeNull=false %}}
 
 <!-- Output the "int" set with nulls but without time range columns -->
+
 {{% flux/sample "int" true %}}
 
 <!-- Output the "int" set with nulls and time range columns -->
 <!-- The following shortcode examples render the same -->
+
 {{% flux/sample set="int" includeNull=true includeRange=true %}}
 {{% flux/sample "int" true true %}}
 ```
 
 ### Duplicate OSS content in Cloud
+
 Docs for InfluxDB OSS and InfluxDB Cloud share a majority of content.
 To prevent duplication of content between versions, use the following shortcodes:
 
@@ -1076,12 +1273,14 @@ To prevent duplication of content between versions, use the following shortcodes
 - `{{% cloud-only %}}`
 
 #### duplicate-oss
+
 The `{{< duplicate-oss >}}` shortcode copies the page content of the file located
 at the identical file path in the most recent InfluxDB OSS version.
 The Cloud version of this markdown file should contain the frontmatter required
 for all pages, but the body content should just be the `{{< duplicate-oss >}}` shortcode.
 
 #### oss-only
+
 Wrap content that should only appear in the OSS version of the doc with the `{{% oss-only %}}` shortcode.
 Use the shortcode on both inline and content blocks:
 
@@ -1090,7 +1289,7 @@ Use the shortcode on both inline and content blocks:
 
 {{% oss-only %}}
 
-This is a multi-paragraph content block that spans multiple paragraphs and  will
+This is a multi-paragraph content block that spans multiple paragraphs and will
 only render in the InfluxDB OSS documentation.
 
 **Note:** Notice the blank newline after the opening short-code tag.
@@ -1113,7 +1312,7 @@ This is necessary to get the first sentence/paragraph to render correctly.
 2.  {{% oss-only %}}This is a list item that will only render in InfluxDB OSS docs.{{% /oss-only %}}
 3.  {{% oss-only %}}
 
-     This is a list item that contains multiple paragraphs or nested list items and will only render in the InfluxDB OSS docs.
+    This is a list item that contains multiple paragraphs or nested list items and will only render in the InfluxDB OSS docs.
 
     **Note:** Notice shortcode is _inside_ of the line item.
     There also must be blank newline after the opening short-code tag.
@@ -1123,6 +1322,7 @@ This is necessary to get the first sentence/paragraph to render correctly.
 ```
 
 #### cloud-only
+
 Wrap content that should only appear in the Cloud version of the doc with the `{{% cloud-only %}}` shortcode.
 Use the shortcode on both inline and content blocks:
 
@@ -1164,6 +1364,7 @@ This is necessary to get the first sentence/paragraph to render correctly.
 ```
 
 #### All-Caps
+
 Clockface v3 introduces many buttons with text formatted as all-caps.
 Use the `{{< caps >}}` shortcode to format text to match those buttons.
 
@@ -1172,20 +1373,24 @@ Click {{< caps >}}Add Data{{< /caps >}}
 ```
 
 #### Code callouts
+
 Use the `{{< code-callout >}}` shortcode to highlight and emphasize a specific
 piece of code (for example, a variable, placeholder, or value) in a code block.
 Provide the string to highlight in the code block.
 Include a syntax for the codeblock to properly style the called out code.
 
-~~~md
+````md
 {{< code-callout "03a2bbf46249a000" >}}
+
 ```sh
 http://localhost:8086/orgs/03a2bbf46249a000/...
 ```
+
 {{< /code-callout >}}
-~~~
+````
 
 #### InfluxDB University banners
+
 Use the `{{< influxdbu >}}` shortcode to add an InfluxDB University banner that
 points to the InfluxDB University site or a specific course.
 Use the default banner template, a predefined course template, or fully customize
@@ -1199,10 +1404,12 @@ the content of the banner.
 {{< influxdbu "influxdb-101" >}}
 
 <!-- Custom banner -->
-{{< influxdbu title="Course title" summary="Short course summary." action="Take the course" link="https://university.influxdata.com/" >}}
+{{< influxdbu title="Course title" summary="Short course summary." action="Take
+the course" link="https://university.influxdata.com/" >}}
 ```
 
 ##### Course templates
+
 Use one of the following course templates:
 
 - influxdb-101
@@ -1210,6 +1417,7 @@ Use one of the following course templates:
 - flux-103
 
 ##### Custom banner content
+
 Use the following shortcode parameters to customize the content of the InfluxDB
 University banner:
 
@@ -1219,6 +1427,7 @@ University banner:
 - **link**: URL the button links to
 
 ### Reference content
+
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
 what a user is **doing**, not what they are **using**.
 However, there is a need to document tools and other things that don't necessarily
@@ -1242,6 +1451,7 @@ menu:
 ```
 
 ## InfluxDB URLs
+
 When a user selects an InfluxDB product and region, example URLs in code blocks
 throughout the documentation are updated to match their product and region.
 InfluxDB URLs are configured in `/data/influxdb_urls.yml`.
@@ -1251,7 +1461,7 @@ Use this URL in all code examples that should be updated with a selected provide
 
 For example:
 
-~~~
+````
 ```sh
 # This URL will get updated
 http://localhost:8086
@@ -1259,37 +1469,40 @@ http://localhost:8086
 # This URL will NOT get updated
 http://example.com
 ```
-~~~
+````
 
 If the user selects the **US West (Oregon)** region, all occurrences of `http://localhost:8086`
 in code blocks will get updated to `https://us-west-2-1.aws.cloud2.influxdata.com`.
 
 ### Exempt URLs from getting updated
+
 To exempt a code block from being updated, include the `{{< keep-url >}}` shortcode
 just before the code block.
 
-~~~
+````
 {{< keep-url >}}
 ```
 // This URL won't get updated
 http://localhost:8086
 ```
-~~~
+````
 
 ### Code examples only supported in InfluxDB Cloud
+
 Some functionality is only supported in InfluxDB Cloud and code examples should
 only use InfluxDB Cloud URLs. In these cases, use `https://cloud2.influxdata.com`
 as the placeholder in the code block. It will get updated on page load and when
 users select a Cloud region in the URL select modal.
 
-~~~
+````
 ```sh
 # This URL will get updated
 https://cloud2.influxdata.com
 ```
-~~~
+````
 
 ### Automatically populate InfluxDB host placeholder
+
 The InfluxDB host placeholder that gets replaced by custom domains differs
 between each InfluxDB product/version.
 Use the `influxdb/host` shortcode to automatically render the correct
@@ -1313,6 +1526,7 @@ Supported argument values:
 ```
 
 ## New Versions of InfluxDB
+
 Version bumps occur regularly in the documentation.
 Each minor version has its own directory with unique content.
 Patch versions within a minor version are updated in place.
@@ -1321,17 +1535,20 @@ To add a new minor version, go through the steps below.
 _This example assumes v2.0 is the most recent version and v2.1 is the new version._
 
 1. Ensure your `master` branch is up to date:
+
    ```sh
    git checkout master
    git pull
    ```
 
 2. Create a new branch for the new minor version:
+
    ```sh
    git checkout -b influxdb-2.1
    ```
 
 3. Duplicate the most recent version's content directory:
+
    ```sh
    # From the root of the project
    cp content/influxdb/v2.0 content/influxdb/v2.1
@@ -1355,6 +1572,7 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
    ```
 
 6. Update the `latest_version` in `data/products.yml`:
+
    ```yaml
    latest_version: v2.1
    ```
@@ -1370,6 +1588,7 @@ Once the necessary changes are in place and the new version is released,
 merge the new branch into `master`.
 
 ## InfluxDB API documentation
+
 InfluxData uses [Redoc](https://github.com/Redocly/redoc) to generate the full
 InfluxDB API documentation when documentation is deployed.
 Redoc generates HTML documentation using the InfluxDB `swagger.yml`.
