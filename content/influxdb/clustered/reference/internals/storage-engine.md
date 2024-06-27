@@ -182,7 +182,7 @@ Horizontal scaling is typically used to increase the amount of workload or
 throughput a system can manage, but also provides additional redundancy and failover.
 
 {{% warn %}}
-#### Only use the `AppInstance` to scale component replicas
+#### Only use the AppInstance to scale component replicas
 
 Manually scaling resources may cause errors.
 {{% /warn %}}
