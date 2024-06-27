@@ -176,18 +176,18 @@ require more processing power.
 
 ### Horizontal scaling
 
-{{% warn %}}
-#### Only use AppInstance to scale resources
-
-Only alter the number of replicas through the `AppInstance` to ensure
-that all of the appropriate variables for scaling resources are handled.
-Manually scaling resources may cause errors.
-{{% /warn %}}
-
-
 Horizontal scaling (also known as "scaling out") involves increasing the number of
 nodes or processes available to perform a given task.
 Horizontal scaling is typically used to increase the amount of workload or
 throughput a system can manage, but also provides additional redundancy and failover.
+
+{{% warn %}}
+#### Only use the `AppInstance` to scale resources
+
+Only alter the number of replicas through the `AppInstance` to ensure
+that all of the appropriate variables for scaling resources are handled.
+
+Manually scaling resources may cause errors.
+{{% /warn %}}
 
 {{< html-diagram/scaling-strategy "horizontal" >}}
