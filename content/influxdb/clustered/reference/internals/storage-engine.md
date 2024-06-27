@@ -177,9 +177,10 @@ require more processing power.
 ### Horizontal scaling
 
 {{% warn %}}
-You **must** only alter the number of replicas through the `AppInstance` to ensure
-that all of the appropriate variables for scaling IOx are handled.
+#### Only use AppInstance to scale resources
 
+Only alter the number of replicas through the `AppInstance` to ensure
+that all of the appropriate variables for scaling resources are handled.
 Manually scaling resources may cause errors.
 {{% /warn %}}
 
