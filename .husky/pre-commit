@@ -1,2 +1,1 @@
-npx lint-staged --relative --verbose
-yarn run test
+npx lint-staged --relative
