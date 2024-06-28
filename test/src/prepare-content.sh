@@ -24,6 +24,7 @@ function substitute_placeholders {
       s/f"API_TOKEN"/os.getenv("INFLUX_TOKEN")/g;
       s/f"BUCKET_NAME"/os.getenv("INFLUX_DATABASE")/g;
       s/f"DATABASE_NAME"/os.getenv("INFLUX_DATABASE")/g;
+      s/f"get-started"/os.getenv("INFLUX_DATABASE")/g;
       s|f"{{< influxdb/host >}}"|os.getenv("INFLUX_HOSTNAME")|g;
       s|f"RETENTION_POLICY_NAME\|RETENTION_POLICY"|"autogen"|g;
       ' $file
@@ -76,8 +77,6 @@ setup() {
 prepare_tests() {
   TEST_FILES="$*"
 
-  # Remove files from the previous run.
-  rm -rf "$TEST_CONTENT"/*
   # Copy the test files to the target directory while preserving the directory structure.
   for FILE in $TEST_FILES; do
     # Create the parent directories of the destination file

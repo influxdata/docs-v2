@@ -1014,7 +1014,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
 
     - The `App`, `Write`, and `Query` classes belong to the `com.influxdbv3` package (your project **groupId**).
     - `App` defines a `main()` function that calls `Write.writeLineProtocol()` and `Query.querySQL()`.
-4.  In your terminal or editor, use Maven to to install dependencies and compile the project code--for example:
+4.  In your terminal or editor, use Maven to install dependencies and compile the project code--for example:
 
     <!--pytest.mark.skip-->
 

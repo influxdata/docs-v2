@@ -1,6 +1,0 @@
-API token
-bucket name
-Cloud Serverless
-cloud-serverless
-Clustered
-clustered

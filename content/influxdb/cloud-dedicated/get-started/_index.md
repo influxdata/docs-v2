@@ -174,9 +174,7 @@ can write data to {{% product-name %}}.
 ## Authorization
 
 **{{% product-name %}} requires authentication** using
-[tokens](/influxdb/cloud-dedicated/admin/tokens/).
-
-There are two types of tokens:
+one of the following [token](/influxdb/cloud-dedicated/admin/tokens/) types:
 
 - **Database token**: A token that grants read and write access to InfluxDB
   databases.

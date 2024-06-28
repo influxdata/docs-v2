@@ -1,16 +1,20 @@
-# Lint cloud-dedicated
-docspath=.
-contentpath=$docspath/content
+#!/bin/bash
 
-# Vale searches for a configuration file (.vale.ini) in the directory of the file being linted, and then in each of its parent directories.
-# Lint cloud-dedicated
-npx vale --output=line --relative --minAlertLevel=error $contentpath/influxdb/cloud-dedicated
+# Run Vale to lint files for writing style and consistency
 
-# Lint cloud-serverless
-npx vale --config=$contentpath/influxdb/cloud-serverless/.vale.ini --output=line --relative --minAlertLevel=error $contentpath/influxdb/cloud-serverless
+# Example usage:
 
-# Lint clustered
-npx vale --config=$contentpath/influxdb/clustered/.vale.ini --output=line --relative --minAlertLevel=error $contentpath/influxdb/clustered
+# Lint all added and modified files in the cloud-dedicated directory and report suggestions, warnings, and errors.
 
-# Lint telegraf
-# npx vale --config=$docspath/.vale.ini --output=line --relative --minAlertLevel=error $contentpath/telegraf
+# git diff --name-only --diff-filter=d HEAD | grep "content/influxdb/cloud-dedicated" | xargs .ci/vale/vale.sh --minAlertLevel=suggestion --config=content/influxdb/cloud-dedicated/.vale.ini
+
+# Lint files provided as arguments
+docker run \
+  --rm \
+  --label tag=influxdata-docs \
+  --label stage=lint \
+  --mount type=bind,src=$(pwd),dst=/workdir \
+  -w /workdir \
+  --entrypoint /bin/vale \
+  jdkato/vale:latest \
+  "$@"

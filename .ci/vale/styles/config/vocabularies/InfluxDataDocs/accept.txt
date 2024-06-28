@@ -1,0 +1,77 @@
+(?i)AS \w+
+(InfluxQL|influxql)
+(tsm|TSM)
+(xpath|XPath)
+APIs?
+Anaconda
+Apache Superset
+Arrow
+AuthToken
+CLI
+CSV
+Data Explorer
+Dedup
+Execd
+ExecutionPlan
+Flight SQL
+FlightQuery
+GBs?
+Grafana
+HostURL
+InfluxDB Cloud
+InfluxDB OSS
+InfluxDB-specific
+Influxer
+JavaScript
+KBs?
+LogicalPlan
+MBs?
+PBs?
+Parquet
+Redoc
+SQLAlchemy
+SQLAlchemy
+Splunk
+[Ss]uperset
+TBs?
+UI
+URLs
+US (East|West|Central|North|South|Northeast|Northwest|Southeast|Southwest)
+Unix
+WALs?
+Webpack
+[pP]y.*\b
+\b\w+_\w+\b
+\b_\w+\b
+batchBucket
+batchInterval
+commentPrefix
+destinationBucket
+destinationHost
+destinationOrg
+destinationToken
+docs-v2
+fieldKey
+fieldType
+groupId
+hostURL
+hostUrl
+influx3
+influxctl
+influxd
+influxdata.com
+iox
+lat
+locf
+logicalplan
+noaa|NOAA
+npm|NPM
+oauth|OAuth
+pandas
+quoteChar
+retentionRules
+sourceBucket
+tagKey
+v2
+v3
+venv
