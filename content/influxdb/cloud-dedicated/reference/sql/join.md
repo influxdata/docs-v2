@@ -254,7 +254,7 @@ ORDER BY
 ### Ambiguous reference to unqualified field
 
 If a column exists on both sides of the join and is used in in the `SELECT`,
-`ON`, `WHERE`, `HAVING`, `GROUP BY`, or `ORDER BY` clause, you must
+`ON`, `WHERE`, `HAVING`, `GROUP BY`, or `ORDER BY` clause, you must use a
 [fully-qualified reference](#fully-qualified-reference). For example, if both 
 sides of the join have a `time` column and you want to sort results by time, you
 must specifiy which side of the join to use the time column from:
