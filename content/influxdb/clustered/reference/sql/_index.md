@@ -306,70 +306,106 @@ WHERE
 
 ### JOIN clause
 
-Use the `JOIN` clause to join data from multiple measurements (tables).  The following joins are supported:
+Use the `JOIN` clause to join data from multiple measurements (tables).
+For more information about joins, see
+[JOIN clause](/influxdb/clustered/reference/sql/join/).
+The following join types are supported:
 
 {{< flex >}}
 {{< flex-content "quarter" >}}
-  <p style="text-align:center"><strong>Inner join</strong></p>
-  {{< svg svg="static/svgs/join-diagram.svg" class="inner small center" >}}
+  <a href="#inner-join">
+    <p style="text-align:center"><strong>INNER JOIN</strong></p>
+    {{< svg svg="static/svgs/join-diagram.svg" class="inner small center" >}}
+  </a>
 {{< /flex-content >}}
 {{< flex-content "quarter" >}}
-  <p style="text-align:center"><strong>Left outer join</strong></p>
-  {{< svg svg="static/svgs/join-diagram.svg" class="left small center" >}}
+  <a href="#left-outer-join">
+    <p style="text-align:center"><strong>LEFT [OUTER] JOIN</strong></p>
+    {{< svg svg="static/svgs/join-diagram.svg" class="left small center" >}}
+  </a>
 {{< /flex-content >}}
 {{< flex-content "quarter" >}}
-  <p style="text-align:center"><strong>Right outer join</strong></p>
-  {{< svg svg="static/svgs/join-diagram.svg" class="right small center" >}}
+  <a href="#right-outer-join">
+    <p style="text-align:center"><strong>RIGHT [OUTER] JOIN</strong></p>
+    {{< svg svg="static/svgs/join-diagram.svg" class="right small center" >}}
+  </a>
 {{< /flex-content >}}
 {{< flex-content "quarter" >}}
-  <p style="text-align:center"><strong>Full outer join</strong></p>
-  {{< svg svg="static/svgs/join-diagram.svg" class="full small center" >}}
+  <a href="#full-outer-join">
+    <p style="text-align:center"><strong>FULL [OUTER] JOIN</strong></p>
+    {{< svg svg="static/svgs/join-diagram.svg" class="full small center" >}}
+  </a>
 {{< /flex-content >}}
 {{< /flex >}}
 
-The `INNER JOIN` clause gathers data where there is a match between the two measurements being joined.
+{{< expand-wrapper >}}
+{{% expand "INNER JOIN" %}}
+
+Inner joins combine rows from tables on the left and right side of the join
+based on common column values defined in the `ON` clause. Rows that don't have
+matching column values are not included in the output table.
 
 ```sql
 SELECT
-  * 
+  *
 FROM
-  h2o_feet
-  INNER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location
-  AND h2o_feet.time = h2o_temperature.time
+  home
+INNER JOIN home_actions ON
+  home.room = home_actions.room
+  AND home.time = home_actions.time;
 ```
 
-The `LEFT JOIN` and `LEFT OUTER JOIN` clauses gather data from all rows in the left table regardless of whether there is a match in the right table.
+{{% /expand %}}
+{{% expand "LEFT [OUTER] JOIN" %}}
+
+A left outer join returns all rows from the left side of the join and only
+returns data from the right side of the join in rows with matching column values
+defined in the `ON` clause.
 
 ```sql
 SELECT
-  * 
+  *
 FROM
-  h2o_feet
-  LEFT OUTER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location
-  AND h2o_feet.time = h2o_temperature.time
+  home
+LEFT OUTER JOIN home_actions ON
+  home.room = home_actions.room
+  AND home.time = home_actions.time;
 ```
 
-The `RIGHT JOIN` and `RIGHT OUTER JOIN` clauses gather data from all rows in the right table regardless of whether there is a match in the left table
+{{% /expand %}}
+{{% expand "RIGHT [OUTER] JOIN" %}}
+
+A right outer join returns all rows from the right side of the join and only
+returns data from the left side of the join in rows with matching column values
+defined in the `ON` clause.
 
 ```sql
 SELECT
-  * 
+  *
 FROM
-  h2o_feet
-  RIGHT OUTER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location
-  AND h2o_feet.time = h2o_temperature.time
+  home
+RIGHT OUTER JOIN home_actions ON
+  home.room = home_actions.room
+  AND home.time = home_actions.time;
 ```
 
-The `FULL JOIN` and `FULL OUTER JOIN` clauses return all rows from the left and the right side of the join with `NULL` values where there is no match.
+{{% /expand %}}
+{{% expand "FULL [OUTER] JOIN" %}}
+
+A full outer join returns all data from the left and right sides of the join and
+combines rows with matching column values defined in the `ON` clause.
 
 ```sql
 SELECT
-  * 
+  *
 FROM
-  h2o_feet
-  FULL JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location
-  AND h2o_feet.time = h2o_temperature.time
+  home
+FULL OUTER JOIN home_actions ON
+  home.room = home_actions.room
+  AND home.time = home_actions.time;
 ```
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### GROUP BY clause
 
