@@ -2,20 +2,20 @@
 title: Use InfluxDB client libraries to write line protocol data
 description: >
   Use InfluxDB API clients to write points as line protocol data to InfluxDB
-  Cloud Dedicated.
+  Clustered.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb_clustered:
     name: Use client libraries
     parent: Write line protocol data
     identifier: write-client-libs
 weight: 103
 related:
-  - /influxdb/cloud-dedicated/reference/syntax/line-protocol/
-  - /influxdb/cloud-dedicated/get-started/write/
+  - /influxdb/clustered/reference/syntax/line-protocol/
+  - /influxdb/clustered/get-started/write/
 ---
 
-Use InfluxDB client libraries to build time series points, and then write them
-line protocol to an {{% product-name %}} database.
+Use InfluxDB client libraries to construct data as time series points, and then
+write them as line protocol to an {{% product-name %}} database.
 
 - [Construct line protocol](#construct-line-protocol)
   - [Example home schema](#example-home-schema)
@@ -25,7 +25,7 @@ line protocol to an {{% product-name %}} database.
 ## Construct line protocol
 
 With a
-[basic understanding of line protocol](/influxdb/cloud-dedicated/write-data/line-protocol/),
+[basic understanding of line protocol](/influxdb/clustered/write-data/line-protocol/),
 you can construct line protocol data and write it to InfluxDB.
 
 All InfluxDB client libraries write data in line protocol format to InfluxDB.
@@ -60,16 +60,16 @@ The following example shows how to construct and write points that follow the
 ## Set up your project
 
 The examples in this guide assume you followed
-[Set up InfluxDB](/influxdb/cloud-dedicated/get-started/setup/) and
-[Write data set up](/influxdb/cloud-dedicated/get-started/write/#set-up-your-project-and-credentials)
-instructions in [Get started](/influxdb/cloud-dedicated/get-started/).
+[Set up InfluxDB](/influxdb/clustered/get-started/setup/) and
+[Write data set up](/influxdb/clustered/get-started/write/#set-up-your-project-and-credentials)
+instructions in [Get started](/influxdb/clustered/get-started/).
 
 After setting up InfluxDB and your project, you should have the following:
 
 - {{< product-name >}} credentials:
 
-  - [Database](/influxdb/cloud-dedicated/admin/databases/)
-  - [Database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  - [Database](/influxdb/clustered/admin/databases/)
+  - [Database token](/influxdb/clustered/admin/tokens/#database-tokens)
   - Cluster hostname
 
 - A directory for your project.
@@ -79,13 +79,14 @@ After setting up InfluxDB and your project, you should have the following:
 
 - Client libraries installed for writing data to InfluxDB.
 
-The following example shows how to construct `Point` objects that follow the
+The following examples show how to construct `Point` objects that follow the
 [example `home` schema](#example-home-schema), and then write the data as line
 protocol to an {{% product-name %}} database.
 
-The examples use InfluxDB v3 client libraries. For examples using InfluxDB v2
+The examples use InfluxDB v3 client libraries.
+For examples using InfluxDB v2
 client libraries to write data to InfluxDB v3, see
-[InfluxDB v2 clients](/influxdb/cloud-dedicated/reference/client-libraries/v2/).
+[InfluxDB v2 clients](/influxdb/clustered/reference/client-libraries/v2/).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -463,12 +464,12 @@ The sample code does the following:
 <!-- vale InfluxDataDocs.v3Schema = NO -->
 
 1. Instantiates a client configured with the InfluxDB URL and API token.
-1. Constructs `home`
-   [measurement](/influxdb/cloud-dedicated/reference/glossary/#measurement)
+2. Constructs `home`
+   [measurement](/influxdb/clustered/reference/glossary/#measurement)
    `Point` objects.
-1. Sends data as line protocol format to InfluxDB and waits for the response.
-1. If the write succeeds, logs the success message to stdout; otherwise, logs
+3. Sends data as line protocol format to InfluxDB and waits for the response.
+4. If the write succeeds, logs the success message to stdout; otherwise, logs
    the failure message and error details.
-1. Closes the client to release resources.
+5. Closes the client to release resources.
 
 <!-- vale InfluxDataDocs.v3Schema = YES -->

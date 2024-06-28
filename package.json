@@ -5,14 +5,15 @@
   "description": "InfluxDB documentation",
   "license": "MIT",
   "devDependencies": {
-    "@vvago/vale": "^3.0.7",
+    "@vvago/vale": "^3.4.2",
     "autoprefixer": ">=10.2.5",
     "hugo-extended": ">=0.101.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.5",
     "postcss": ">=8.4.31",
     "postcss-cli": ">=9.1.0",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "prettier-plugin-sql": "^0.18.0"
   },
   "dependencies": {
     "axios": "^1.6.0",
@@ -20,13 +21,14 @@
   },
   "scripts": {
     "prepare": "husky",
-    "test": "./test.sh"
+    "lint-vale": ".ci/vale/vale.sh",
+    "lint-staged": "lint-staged --relative"
   },
-  "lint-staged": {
-    "*.{js,css,md}": "prettier --write",
-    "content/influxdb/cloud-dedicated/**/*.md": "npx vale --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=error --output=line",
-    "content/influxdb/cloud-serverless/**/*.md": "npx vale --config=content/influxdb/cloud-serverless/.vale.ini --minAlertLevel=error --output=line",
-    "content/influxdb/clustered/**/*.md": "npx vale --config=content/influxdb/clustered/.vale.ini --minAlertLevel=error --output=line",
-    "content/influxdb/{cloud,v2,telegraf}/**/*.md": "npx vale --config=.vale.ini --minAlertLevel=error --output=line"
-  }
+  "main": "index.js",
+  "module": "main.js",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [],
+  "author": ""
 }

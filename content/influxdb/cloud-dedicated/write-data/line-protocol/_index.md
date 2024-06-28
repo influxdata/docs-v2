@@ -5,7 +5,7 @@ description: >
   to InfluxDB Cloud Dedicated.
 menu:
   influxdb_cloud_dedicated:
-    name: Write line protocol
+    name: Write line protocol data
     parent: Write data
 weight: 101
 related:
@@ -22,14 +22,9 @@ your data to line protocol.
 However, if you already have CSV data, you might want to use tools that [consume CSV
 and write it to InfluxDB as line protocol](/influxdb/cloud-dedicated/write-data/csv/).
 
-<!-- TOC -->
-
 - [Line protocol](#line-protocol)
   - [Line protocol elements](#line-protocol-elements)
-    - [Line protocol element parsing](#line-protocol-element-parsing)
 - [Write line protocol to InfluxDB](#write-line-protocol-to-influxdb)
-
-<!-- /TOC -->
 
 ## Line protocol
 
@@ -44,7 +39,7 @@ Each line of line protocol contains the following elements:
 
 {{< req type="key" >}}
 
-- {{< req "\*" >}} **measurement**:  String that identifies the [measurement](/influxdb/cloud-dedicated/reference/glossary/#measurement) to store the data in.
+- {{< req "\*" >}} **measurement**: String that identifies the [measurement](/influxdb/cloud-dedicated/reference/glossary/#measurement) to store the data in.
 - **tag set**: Comma-delimited list of key value pairs, each representing a tag.
   Tag keys and values are unquoted strings. _Spaces, commas, and equal characters must be escaped._
 - {{< req "\*" >}} **field set**: Comma-delimited list of key value pairs, each representing a field.

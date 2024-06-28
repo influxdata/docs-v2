@@ -3,6 +3,8 @@
 public
 .*.swp
 node_modules
+.config*
+**/.env*
 *.log
 /resources
 .hugo_build.lock
@@ -10,4 +12,6 @@ node_modules
 /api-docs/redoc-static.html*
 .vscode/*
 .idea
+config.toml
 package-lock.json
+tmp
