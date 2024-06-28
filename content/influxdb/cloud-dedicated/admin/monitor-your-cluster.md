@@ -10,7 +10,7 @@ menu:
 weight: 104
 ---
 
-InfluxData provides a Grafana operational dashboards that provide observability 
+InfluxData provides a Grafana operational dashboard that provide observability 
 into the your {{< product-name >}} cluster. Use the operational dashboard to
 monitor your cluster.
 
