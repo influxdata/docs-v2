@@ -1,6 +1,6 @@
 // Lint-staged configuration. This file must export a lint-staged configuration object.
 
-function testStagedContent(paths, productPath) {
+function pytestStagedContent(paths, productPath) {
   const productName = productPath.replace(/\//g, '-');
   const CONTENT = `staged-${productName}`;
   const TEST = `pytest-${productName}`;
@@ -26,7 +26,7 @@ function testStagedContent(paths, productPath) {
     `docker run --name ${CONTENT}
       --label tag=influxdata-docs
       --label stage=test
-      --mount type=volume,source=staged-content,target=/app/content
+      --mount type=volume,source=${CONTENT},target=/app/content
       --mount type=bind,src=./content,dst=/src/content
       --mount type=bind,src=./static/downloads,dst=/app/data
       influxdata-docs/tests --files "${paths.join(' ')}"`,
@@ -36,28 +36,23 @@ function testStagedContent(paths, productPath) {
       -t influxdata-docs/pytest:latest`,
 
     // Run test runners.
-    // This script first checks if there are any tests to run using `pytest --collect-only`.
-    // If there are tests, it runs them; otherwise, it exits with a success code.
+    // Uses a pytest plugin to suppress exit code 5 (if no tests are found),
+    // This avoids needing to "pre-run" test collection in a subshell to check the exit code.
+    // Instead of the plugin, we could use a placeholder test that always or conditionally passes.
     // Whether tests pass or fail, the container is removed,
     // but the CONTENT container and associated volume will remain until the next run.
-    `sh -c "docker run --rm --name ${TEST}-collector \
+    // Note: the "--network host" setting and `host-open` script are used to 
+    // forward influxctl authentication URLs from the container to the host
+    // where they can be opened and approved in a host browser.
+    // Allowing "--network host" has security implications and isn't ideal.
+    `docker run --rm -t \
+      --label tag=influxdata-docs \
+      --label stage=test \
+      --name ${TEST} \
       --env-file ${productPath}/.env.test \
       --volumes-from ${CONTENT} \
-      influxdata-docs/pytest --codeblocks --collect-only \
-       ${productPath}/ > /dev/null 2>&1; \
-      TEST_COLLECT_EXIT_CODE=$?; \
-      if [ $TEST_COLLECT_EXIT_CODE -eq 5 ]; then \
-        echo 'No tests to run.'; \
-        exit 0; \
-      else \
-        docker run --rm \
-          --label tag=influxdata-docs \
-          --label stage=test \
-          --name ${TEST} \
-          --env-file ${productPath}/.env.test \
-          --volumes-from ${CONTENT} \
-          influxdata-docs/pytest --codeblocks --exitfirst ${productPath}/;
-      fi"`
+      --mount type=bind,src=./test/shared,dst=/shared \
+      influxdata-docs/pytest --codeblocks --suppress-no-test-exit-code --exitfirst ${productPath}/`,
   ];
 }
 
@@ -74,42 +69,42 @@ export default {
   "content/influxdb/cloud/**/*.md":
     paths => [
     `.ci/vale/vale.sh --config .vale.ini --minAlertLevel error ${paths}`,
-      ...testStagedContent(paths, 'content/influxdb/cloud'), 
+      ...pytestStagedContent(paths, 'content/influxdb/cloud'), 
     ],
 
-  "content/influxdb/cloud-dedicated/**/*.md":
+    "content/influxdb/cloud-dedicated/**/*.md":
     paths => [
-    `.ci/vale/vale.sh --config content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel error ${paths}`,
-      ...testStagedContent(paths, 'content/influxdb/cloud-dedicated'), 
-    ],
+     `.ci/vale/vale.sh --config content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel error ${paths}`,
+      ...pytestStagedContent(paths, 'content/influxdb/cloud-dedicated'),
+    ], 
 
   "content/influxdb/cloud-serverless/**/*.md":
     paths => [
      `.ci/vale/vale.sh --config content/influxdb/cloud-serverless/.vale.ini --minAlertLevel error ${paths}`,
-      ...testStagedContent(paths, 'content/influxdb/cloud-serverless'),
+      ...pytestStagedContent(paths, 'content/influxdb/cloud-serverless'),
     ], 
 
   "content/influxdb/clustered/**/*.md":
     paths => [
     `.ci/vale/vale.sh --config content/influxdb/clustered/.vale.ini --minAlertLevel error ${paths}`,
-      ...testStagedContent(paths, 'content/influxdb/clustered'),
+      ...pytestStagedContent(paths, 'content/influxdb/clustered'),
     ],
   
   "content/influxdb/v1/**/*.md":
     paths => [
     `.ci/vale/vale.sh --config .vale.ini --minAlertLevel error ${paths}`,
-      ...testStagedContent(paths, 'content/influxdb/v1'), 
+      ...pytestStagedContent(paths, 'content/influxdb/v1'), 
     ],
 
   "content/influxdb/v2/**/*.md":
     paths => [
     `.ci/vale/vale.sh --config .vale.ini --minAlertLevel error ${paths}`,
-      ...testStagedContent(paths, 'content/influxdb/v2'), 
+      ...pytestStagedContent(paths, 'content/influxdb/v2'), 
   ],
 
   "content/telegraf/**/*.md":
     paths => [
     `.ci/vale/vale.sh --config .vale.ini --minAlertLevel error ${paths}`,
-      ...testStagedContent(paths, 'content/telegraf'),  
+      ...pytestStagedContent(paths, 'content/telegraf'),  
     ],
 }

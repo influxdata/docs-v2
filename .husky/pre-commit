@@ -1,1 +1,3 @@
+./test/src/monitor-tests.sh start
 npx lint-staged --relative
+./test/src/monitor-tests.sh kill

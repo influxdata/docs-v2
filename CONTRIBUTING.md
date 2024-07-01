@@ -85,17 +85,54 @@ git commit -m "<COMMIT_MESSAGE>" --no-verify
 
 For more options, see the [Husky documentation](https://typicode.github.io/husky/how-to.html#skipping-git-hooks).
 
-### Configure test credentials
+### Set up test scripts and credentials
 
-To configure credentials for tests, set the usual InfluxDB environment variables
-for each product inside a `content/influxdb/<PRODUCT_DIRECTORY>/.env.test` file.
+To set up your docs-v2 instance to run tests locally, do the following:
 
-The Docker commands in the `.lintstagedrc.mjs` lint-staged configuration load
-the `.env.test` as product-specific environment variables.
+1. **Set executable permissions on test scripts** in `./test/src`:
 
-**Warning**: To prevent accidentally adding credentials to the docs-v2 repo,
+   ```sh
+   chmod +x ./test/src/*.sh
+   ```
+
+2. **Create credentials for tests**:
+   
+   - Create databases, buckets, and tokens for the product(s) you're testing.
+   - If you don't have access to a Clustered instance, you can use your
+Cloud Dedicated instance for testing in most cases. To avoid conflicts when
+     running tests, create separate Cloud Dedicated and Clustered databases.
+
+3. **Create .env.test**: Copy the `./test/env.test.example` file into each
+    product directory to test and rename the file as `.env.test`--for example:
+   
+   ```sh
+   ./content/influxdb/cloud-dedicated/.env.test
+   ```
+   
+4. Inside each product's `.env.test` file, assign your InfluxDB credentials to
+   environment variables.
+
+   In addition to the usual `INFLUX_` environment variables, in your
+   `cloud-dedicated/.env.test` and `clustered/.env.test` files define the
+   following variables:
+
+   - `ACCOUNT_ID`, `CLUSTER_ID`: You can find these values in your `influxctl`
+     `config.toml` configuration file.
+   - `MANAGEMENT_TOKEN`: Use the `influxctl management create` command to generate
+     a long-lived management token to authenticate Management API requests
+
+   For the full list of variables you'll need to include, see the substitution
+   patterns in `./test/src/prepare-content.sh`.
+
+   **Warning**: The database you configure in `.env.test` and any written data may
+be deleted during test runs.
+
+   **Warning**: To prevent accidentally adding credentials to the docs-v2 repo,
 Git is configured to ignore `.env*` files. Don't add your `.env.test` files to Git.
 Consider backing them up on your local machine in case of accidental deletion.
+
+5. For influxctl commands to run in tests, move or copy your `config.toml` file
+   to the `./test` directory.
 
 ### Pre-commit linting and testing
 
@@ -103,22 +140,124 @@ When you try to commit your changes using `git commit` or your editor,
 the project automatically runs pre-commit checks for spelling, punctuation,
 and style on your staged files.
 
-The pre-commit hook calls [`lint-staged`](https://github.com/lint-staged/lint-staged) using the configuration in `.lintstagedrc.mjs`.
+`.husky/pre-commit` script runs Git pre-commit hook commands, including 
+[`lint-staged`](https://github.com/lint-staged/lint-staged).
 
-To run `lint-staged` scripts manually (without committing), enter the following
-command in your terminal:
+The `.lintstagedrc.mjs` lint-staged configuration maps product-specific glob
+patterns to lint and test commands and passes a product-specific
+`.env.test` file to a test runner Docker container.
+The container then loads the `.env` file into the container's environment variables.
 
-```sh
-npx lint-staged --relative --verbose
-```
+To test or troubleshoot testing and linting scripts and configurations before
+committing, choose from the following:
+
+- To run pre-commit scripts without actually committing, append `exit 1` to the
+`.husky/pre-commit` script--for example:
+
+  ```sh
+  ./test/src/monitor-tests.sh start
+  npx lint-staged --relative
+  ./test/src/monitor-tests.sh kill
+  exit 1
+  ```
+
+  And then run `git commit`.
+
+  The `exit 1` status fails the commit, even if all the tasks succeed.
+
+- Use `yarn` to run one of the lint or test scripts configured in
+  `package.json`--for example:
+  
+  ```sh
+  yarn run test
+  ```
+
+- Run `lint-staged` directly and specify options:
+
+  ```sh
+  npx lint-staged --relative --verbose
+  ```
 
 The pre-commit linting configuration checks for _error-level_ problems.
-An error-level rule violation fails the commit and you must
-fix the problems before you can commit your changes.
+An error-level rule violation fails the commit and you must do one of the following before you can commit your changes:
 
-If an error doesn't warrant a fix (for example, a term that should be allowed),
-you can override the check and try the commit again or you can edit the linter
-style rules to permanently allow the content. See **Configure style rules**.
+- fix the reported problem in the content
+
+- edit the linter rules to permanently allow the content.
+  See **Configure style rules**.
+
+- temporarily override the hook (using `git commit --no-verify`)
+
+#### Test shell and python code blocks
+
+[pytest-codeblocks](https://github.com/nschloe/pytest-codeblocks/tree/main) extracts code from python and shell Markdown code blocks and executes assertions for the code.
+If you don't assert a value (using a Python `assert` statement), `--codeblocks` considers a non-zero exit code to be a failure.
+
+**Note**: `pytest --codeblocks` uses Python's `subprocess.run()` to execute shell code.
+
+You can use this to test CLI and interpreter commands, regardless of programming
+language, as long as they return standard exit codes.
+
+To make the documented output of a code block testable, precede it with the
+`<!--pytest-codeblocks:expected-output-->` tag and **omit the code block language
+descriptor**--for example, in your Markdown file:
+
+##### Example markdown
+
+```python
+print("Hello, world!")
+```
+
+<!--pytest-codeblocks:expected-output-->
+
+The next code block is treated as an assertion.
+If successful, the output is the following:
+
+```
+Hello, world!
+```
+
+For commands, such as `influxctl` CLI commands, that require launching an
+OAuth URL in a browser, wrap the command in a subshell and redirect the output
+to `/shared/urls.txt` in the container--for example:
+
+```sh
+# Test the preceding command outside of the code block.
+# influxctl authentication requires TTY interaction--
+# output the auth URL to a file that the host can open.
+script -c "influxctl user list " \
+ /dev/null > /shared/urls.txt
+```
+
+You probably don't want to display this syntax in the docs, which unfortunately
+means you'd need to include the test block separately from the displayed code
+block.
+To hide it from users, wrap the code block inside an HTML comment.
+Pytest-codeblocks will still collect and run the code block.
+
+##### Mark tests to skip 
+
+pytest-codeblocks has features for skipping tests and marking blocks as failed.
+To learn more, see the pytest-codeblocks README and tests.
+
+#### Troubleshoot tests
+
+### Pytest collected 0 items
+
+Potential reasons:
+
+- See the test discovery options in `pytest.ini`.
+- For Python code blocks, use the following delimiter:
+
+    ```python
+    # Codeblocks runs this block.
+    ```
+
+  `pytest --codeblocks` ignores code blocks that use the following:
+
+    ```py
+    # Codeblocks ignores this block.
+    ```
 
 ### Vale style linting
 

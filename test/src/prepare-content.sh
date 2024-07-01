@@ -20,12 +20,15 @@ function substitute_placeholders {
       # Use f-strings to identify placeholders in Python while also keeping valid syntax if
       # the user replaces the value.
       # Remember to import os for your example code.
-      sed -i 's/f"DATABASE_TOKEN"/os.getenv("INFLUX_TOKEN")/g;
+      sed -i 's/f"ACCOUNT_ID"/os.getenv("ACCOUNT_ID")/g;
       s/f"API_TOKEN"/os.getenv("INFLUX_TOKEN")/g;
       s/f"BUCKET_NAME"/os.getenv("INFLUX_DATABASE")/g;
+      s/f"CLUSTER_ID"/os.getenv("CLUSTER_ID")/g;
       s/f"DATABASE_NAME"/os.getenv("INFLUX_DATABASE")/g;
+      s/f"DATABASE_TOKEN"/os.getenv("INFLUX_TOKEN")/g;
       s/f"get-started"/os.getenv("INFLUX_DATABASE")/g;
       s|f"{{< influxdb/host >}}"|os.getenv("INFLUX_HOSTNAME")|g;
+      s/f"MANAGEMENT_TOKEN"/os.getenv("MANAGEMENT_TOKEN")/g;
       s|f"RETENTION_POLICY_NAME\|RETENTION_POLICY"|"autogen"|g;
       ' $file
 
@@ -35,15 +38,24 @@ function substitute_placeholders {
       s|"name": "BUCKET_NAME"|"name": "$INFLUX_DATABASE"|g;' \
       $file
 
-      sed -i 's/API_TOKEN/$INFLUX_TOKEN/g;
-      s/ORG_ID/$INFLUX_ORG/g;
-      s/DATABASE_TOKEN/$INFLUX_TOKEN/g;
-      s/--bucket-id BUCKET_ID/--bucket-id $INFLUX_BUCKET_ID/g;
-      s/BUCKET_NAME/$INFLUX_DATABASE/g;
-      s/DATABASE_NAME/$INFLUX_DATABASE/g;
+      sed -i 's|"influxctl database create --retention-period 1y get-started"|"influxctl database create --retention-period 1y $INFLUX_TMP_DATABASE"|g;' \
+      $file
+
+      # Replace remaining placeholders with variables.
+      # If the placeholder is inside of a Python os.getenv() function, don't replace it.
+      # Note the specific use of double quotes for the os.getenv() arguments here. You'll need to use double quotes in your code samples for this to match.
+      sed -i '/os.getenv("ACCOUNT_ID")/! s/ACCOUNT_ID/$ACCOUNT_ID/g;
+      /os.getenv("API_TOKEN")/! s/API_TOKEN/$INFLUX_TOKEN/g;
+      /os.getenv("BUCKET_ID")/! s/--bucket-id BUCKET_ID/--bucket-id $INFLUX_BUCKET_ID/g;
+      /os.getenv("BUCKET_NAME")/! s/BUCKET_NAME/$INFLUX_DATABASE/g;
+      /os.getenv("CLUSTER_ID")/! s/CLUSTER_ID/$CLUSTER_ID/g;
+      /os.getenv("DATABASE_TOKEN")/! s/DATABASE_TOKEN/$INFLUX_TOKEN/g;
+      /os.getenv("DATABASE_NAME")/! s/DATABASE_NAME/$INFLUX_DATABASE/g;
       s/--id DBRP_ID/--id $INFLUX_DBRP_ID/g;
       s/get-started/$INFLUX_DATABASE/g;
-      s/RETENTION_POLICY_NAME\|RETENTION_POLICY/$INFLUX_RETENTION_POLICY/g;
+      /os.getenv("MANAGEMENT_TOKEN")/! s/MANAGEMENT_TOKEN/$MANAGEMENT_TOKEN/g;
+      /os.getenv("ORG_ID")/! s/ORG_ID/$INFLUX_ORG/g;
+      /os.getenv("RETENTION_POLICY")/! s/RETENTION_POLICY_NAME\|RETENTION_POLICY/$INFLUX_RETENTION_POLICY/g;
       s/CONFIG_NAME/CONFIG_$(shuf -i 0-100 -n1)/g;' \
       $file
 
