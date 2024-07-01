@@ -56,7 +56,8 @@ function substitute_placeholders {
       /os.getenv("MANAGEMENT_TOKEN")/! s/MANAGEMENT_TOKEN/$MANAGEMENT_TOKEN/g;
       /os.getenv("ORG_ID")/! s/ORG_ID/$INFLUX_ORG/g;
       /os.getenv("RETENTION_POLICY")/! s/RETENTION_POLICY_NAME\|RETENTION_POLICY/$INFLUX_RETENTION_POLICY/g;
-      s/CONFIG_NAME/CONFIG_$(shuf -i 0-100 -n1)/g;' \
+      s/CONFIG_NAME/CONFIG_$(shuf -i 0-100 -n1)/g;
+      s/TEST_RUN/TEST_RUN_$(date +%s)/g' \
       $file
 
       # v2-specific replacements.
