@@ -147,7 +147,6 @@ Provide the following:
 <!--Skip database create and delete tests: namespaces aren't reusable-->
 <!--pytest.mark.skip-->
 
-
 {{% code-placeholders "get-started" %}}
 
 ```sh
