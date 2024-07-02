@@ -9,10 +9,11 @@ menu:
 weight: 201
 list_code_example: |
   ```sh
-  influxctl database update DATABASE_NAME \
+  influxctl database update \
     --retention-period 30d \
     --max-tables 500 \
-    --max-columns 250
+    --max-columns 250 \
+    DATABASE_NAME
   ```
 related:
   - /influxdb/clustered/reference/cli/influxctl/database/update/
@@ -25,19 +26,26 @@ to update a database in your {{< product-name omit=" Clustered" >}} cluster.
 2.  Run the `influxctl database update` command and provide the following:
 
     - Database name
-    - _Optional_: Database [retention period](/influxdb/clustered/admin/databases/#retention-periods)
-      _(default is infinite)_
-    - _Optional_: Database table (measurement) limit _(default is 500)_
-    - _Optional_: Database column limit _(default is 250)_
+    - _Optional_: Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods).
+    Default is infinite (`0`).
+    - _Optional_: Database table (measurement) limit. Default is `500`.
+    - _Optional_: Database column limit. Default is `250`.
 
 {{% code-placeholders "DATABASE_NAME|30d|500|200" %}}
+
 ```sh
-influxctl database update DATABASE_NAME \
+influxctl database update \
   --retention-period 30d \
   --max-tables 500 \
-  --max-columns 250
+  --max-columns 250 \
+  DATABASE_NAME
 ```
+
 {{% /code-placeholders %}}
+
+Replace the following in your command:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/clustered/admin/databases/)
 
 {{% warn %}}
 #### Database names can't be updated
@@ -46,25 +54,28 @@ The `influxctl database update` command uses the database name to identify which
 database to apply updates to. The database name itself can't be updated.
 {{% /warn %}}
 
-- [Retention period syntax](#retention-period-syntax)
+## Database attributes
+
+- [Retention period syntax](#retention-period-syntax-influxctl-cli)
 - [Database naming restrictions](#database-naming-restrictions)
 - [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
 - [Table and column limits](#table-and-column-limits)
 
-## Retention period syntax
+### Retention period syntax (influxctl CLI)
 
 Use the `--retention-period` flag to define a specific
 [retention period](/influxdb/clustered/admin/databases/#retention-periods)
 for the database.
 The retention period value is a time duration value made up of a numeric value
-plus a duration unit. For example, `30d` means 30 days.
-A zero duration retention period is infinite and data will not expire.
+plus a duration unit.
+For example, `30d` means 30 days.
+A zero duration (for example, `0s` or `0d`) retention period is infinite and data won't expire.
 The retention period value cannot be negative or contain whitespace.
 
 {{< flex >}}
-{{% flex-content %}}
+{{% flex-content "half" %}}
 
-##### Valid durations units include
+#### Valid durations units include
 
 - **m**: minute
 - **h**: hour
@@ -74,9 +85,9 @@ The retention period value cannot be negative or contain whitespace.
 - **y**: year
 
 {{% /flex-content %}}
-{{% flex-content %}}
+{{% flex-content "half" %}}
 
-##### Example retention period values
+#### Example retention period values
 
 - `0d`: infinite/none
 - `3d`: 3 days
@@ -99,7 +110,7 @@ Database names must adhere to the following naming restrictions:
 - Should not start with an underscore (`_`).
 - Maximum length of 64 characters.
 
-## InfluxQL DBRP naming convention
+### InfluxQL DBRP naming convention
 
 In InfluxDB 1.x, data is stored in [databases](/influxdb/v1/concepts/glossary/#database)
 and [retention policies](/influxdb/v1/concepts/glossary/#retention-policy-rp).
@@ -112,11 +123,11 @@ database and retention policy (DBRP) to be queryable with InfluxQL.
 **When naming a database that you want to query with InfluxQL**, use the following
 naming convention to automatically map v1 DBRP combinations to a database:
 
-```sh
+```text
 database_name/retention_policy_name
 ```
 
-##### Database naming examples
+#### Database naming examples
 
 | v1 Database name | v1 Retention Policy name | New database name         |
 | :--------------- | :----------------------- | :------------------------ |
@@ -124,12 +135,12 @@ database_name/retention_policy_name
 | telegraf         | autogen                  | telegraf/autogen          |
 | webmetrics       | 1w-downsampled           | webmetrics/1w-downsampled |
 
-## Table and column limits
+### Table and column limits
 
 In {{< product-name >}}, table (measurement) and column limits can be
 configured using the `--max-tables` and `--max-columns` flags.
 
-### Table limit
+#### Table limit
 
 **Default maximum number of tables**: 500
 
@@ -172,7 +183,7 @@ operating cost of your cluster.
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Column limit
+#### Column limit
 
 **Default maximum number of columns**: 250
 
