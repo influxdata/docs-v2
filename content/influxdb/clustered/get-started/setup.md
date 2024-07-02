@@ -29,15 +29,14 @@ you need is in place.
 
 ## Install and configure your InfluxDB cluster
 
-{{% note %}}
-_InfluxDB Clustered installation instructions are coming soon._
-{{% /note %}}
+Follow the [Install InfluxDB Clustered](/influxdb/clustered/install/) guide to
+install prerequisites and set up your cluster.
 
 ## Download, install, and configure the influxctl CLI
-    
+
 The [`influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/)
-provides a simple way to manage your {{< product-name omit="Clustered" >}} cluster from a
-command line. It lets you perform administrative tasks such as managing
+lets you manage your {{< product-name omit="Clustered" >}} cluster from a
+command line and perform administrative tasks such as managing
 databases and tokens.
 
 1.  [Download and install the `influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/#download-and-install-influxctl).
@@ -57,13 +56,16 @@ databases and tokens.
     | Windows          | `%APPDATA%\influxctl\config.toml`                     |
 
     {{% note %}}
+
 If stored at a non-default location, include the `--config` flag with each
 `influxctl` command and provide the path to your profile configuration file.
+
     {{% /note %}}
 
-    **Copy and paste the sample configuration profile code** into your `config.toml`:
+1.  **Copy and paste the sample configuration profile code** into your `config.toml`:
 
 {{% code-placeholders "PORT|OAUTH_TOKEN_URL|OAUTH_DEVICE_URL|OAUTH_CLIENT_ID" %}}
+
 ```toml
 [[profile]]
   name = "default"
@@ -77,28 +79,32 @@ If stored at a non-default location, include the `--config` flag with each
   token_url = "OAUTH_TOKEN_URL"
   device_url = "OAUTH_DEVICE_URL"
 ```
+
 {{% /code-placeholders %}}
 
 Replace the following with your {{< product-name >}} credentials:
-  - {{% code-placeholder-key %}}`PORT`{{% /code-placeholder-key %}}: the port to use to access your InfluxDB cluster
-  - {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}: the client URL of your OAuth2 provider
-    (for example: `https://identityprovider/oauth2/v2/token`)
-  - {{% code-placeholder-key %}}`OAUTH_DEVICE_ID`{{% /code-placeholder-key %}}: the device URL of your OAuth2 provider
-    (for example: `https://identityprovider/oauth2/v2/auth/device`)
+
+- {{% code-placeholder-key %}}`PORT`{{% /code-placeholder-key %}}: the port to use to access your InfluxDB cluster
+- {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}: the client URL of your OAuth2 provider
+(for example: `https://identityprovider/oauth2/v2/token`)
+- {{% code-placeholder-key %}}`OAUTH_DEVICE_ID`{{% /code-placeholder-key %}}: the device URL of your OAuth2 provider
+(for example: `https://identityprovider/oauth2/v2/auth/device`)
 
 _For detailed information about `influxctl` profiles, see
 [Configure connection profiles](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles)_.
 
 ## Create a database
 
-Use the [`influxctl database create` command](/influxdb/clustered/reference/cli/influxctl/database/create/)
+Use the
+[`influxctl database create` command](/influxdb/clustered/reference/cli/influxctl/database/create/)
 to create a database. You can use an existing database or create a new one
 specifically for this getting started tutorial.
-_Examples in this getting started tutorial assume a database named **"get-started"**._
+_Examples in this getting started tutorial assume a database named `get-started`._
 
 {{% note %}}
+
 #### Authenticate with your cluster
-  
+
 The first time you run an `influxctl` CLI command, you are directed
 to login to your **OAuth provider**. Once logged in, your OAuth provider issues
 a short-lived (1 hour) management token for the `influxctl` CLI that grants
@@ -108,18 +114,25 @@ administrative access to your {{< product-name omit="Clustered" >}} cluster.
 Provide the following:
 
 - Database name.
-- _Optional:_ Database [retention period](/influxdb/clustered/admin/databases/#retention-periods)
+- _Optional:_ Database
+  [retention period](/influxdb/clustered/admin/databases/#retention-periods)
   as a duration value. If no retention period is specified, the default is infinite.
 
+<!--Skip tests for database create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
+
 {{% code-placeholders "get-started|1y" %}}
+
 ```sh
 influxctl database create --retention-period 1y get-started
 ```
+
 {{% /code-placeholders %}}
 
 ## Create a database token
 
-Use the [`influxctl token create` command](/influxdb/clustered/reference/cli/influxctl/token/create/)
+Use the
+[`influxctl token create` command](/influxdb/clustered/reference/cli/influxctl/token/create/)
 to create a database token with read and write permissions for your database.
 
 Provide the following:
@@ -129,15 +142,39 @@ Provide the following:
   - `--write-database` Grants write access to a database
 - Token description
 
+<!--Skip database create and delete tests: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
+
 {{% code-placeholders "get-started" %}}
+
 ```sh
 influxctl token create \
   --read-database get-started \
   --write-database get-started \
   "Read/write token for get-started database"
 ```
+
 {{% /code-placeholders %}}
 
+<!--actual test
+
+```sh
+
+# Test the preceding command outside of the code block.
+# influxctl authentication requires TTY interaction--
+# output the auth URL to a file that the host can open.
+
+TOKEN_NAME=token_TEST_RUN
+script -q /dev/null -c "influxctl token list > /shared/urls.txt \
+  && influxctl token create \
+  --read-database DATABASE_NAME \
+  --write-database DATABASE_NAME \
+  \"Read/write token ${TOKEN_NAME} for DATABASE_NAME database\" > /shared/tokens.txt
+  && influxctl token revoke $(head /shared/tokens.txt) \
+  && rm /shared/tokens.txt"
+```
+
+-->
 
 The command returns the token ID and the token string.
 Store the token string in a safe place.
@@ -145,6 +182,7 @@ You'll need it later.
 **This is the only time the token string is available in plain text.**
 
 {{% note %}}
+
 #### Store secure tokens in a secret store
 
 Token strings are returned _only_ on token creation.
@@ -159,44 +197,56 @@ Code samples in later sections assume you assigned the token string to an
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[macOS and Linux](#)
+[MacOS and Linux](#)
 [PowerShell](#)
 [CMD](#)
 {{% /tabs %}}
 {{% tab-content %}}
+
 <!-- Using tabs-wrapper b/c code-tabs-wrapper breaks here. -->
 <!-- BEGIN MACOS/LINUX -->
 
 {{% code-placeholders "DATABASE_TOKEN" %}}
+
 ```sh
 export INFLUX_TOKEN=DATABASE_TOKEN
 ```
+
 {{% /code-placeholders %}}
 
 <!-- END MACOS/LINUX -->
+
 {{% /tab-content %}}
 {{% tab-content %}}
+
 <!-- BEGIN POWERSHELL -->
 
 {{% code-placeholders "DATABASE_TOKEN" %}}
+
 ```powershell
 $env:INFLUX_TOKEN = "DATABASE_TOKEN"
 ```
+
 {{% /code-placeholders %}}
 
 <!-- END POWERSHELL -->
+
 {{% /tab-content %}}
 {{% tab-content %}}
+
 <!-- BEGIN CMD -->
 
 {{% code-placeholders "DATABASE_TOKEN" %}}
+
 ```sh
 set INFLUX_TOKEN=DATABASE_TOKEN 
 # Make sure to include a space character at the end of this command.
 ```
+
 {{% /code-placeholders %}}
 
 <!-- END CMD -->
+
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 

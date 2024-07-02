@@ -51,10 +51,10 @@ databases and tokens.
 
 1.  [Download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 
-2.  **Create a connection profile and provide your {{< product-name omit="Clustered" >}} connection credentials**.
+2.  **Create a connection profile and provide your {{< product-name >}} connection credentials**.
 
     The `influxctl` CLI uses [connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
-    to connect to and authenticate with your InfluxDB Cloud Dedicated cluster.
+    to connect to and authenticate with your {{< product-name omit="Clustered" >}} cluster.
 
     Create a file named `config.toml` at the following location depending on
     your operating system.
@@ -144,6 +144,10 @@ Provide the following:
   - `--write-database` Grants write access to a database
 - Token description
 
+<!--Skip database create and delete tests: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
+
+
 {{% code-placeholders "get-started" %}}
 
 ```sh
@@ -154,6 +158,26 @@ influxctl token create \
 ```
 
 {{% /code-placeholders %}}
+
+<!--actual test
+
+```sh
+
+# Test the preceding command outside of the code block.
+# influxctl authentication requires TTY interaction--
+# output the auth URL to a file that the host can open.
+
+TOKEN_NAME=token_TEST_RUN
+script -q /dev/null -c "influxctl token list > /shared/urls.txt \
+  && influxctl token create \
+  --read-database DATABASE_NAME \
+  --write-database DATABASE_NAME \
+  \"Read/write token ${TOKEN_NAME} for DATABASE_NAME database\" > /shared/tokens.txt
+  && influxctl token revoke $(head /shared/tokens.txt) \
+  && rm /shared/tokens.txt"
+```
+
+-->
 
 The command returns the token ID and the token string.
 Store the token string in a safe place.
