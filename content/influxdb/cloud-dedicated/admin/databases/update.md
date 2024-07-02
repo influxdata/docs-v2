@@ -15,8 +15,8 @@ list_code_example: |
   influxctl database update \
     --retention-period 30d \
     --max-tables 500 \
-    --max-columns 250
-    <DATABASE_NAME>
+    --max-columns 250 \
+    DATABASE_NAME
   ```
 
   ##### API
@@ -64,10 +64,11 @@ to update a database in your {{< product-name omit=" Clustered" >}} cluster.
 {{% code-placeholders "DATABASE_NAME|30d|500|200" %}}
 
 ```sh
-influxctl database update DATABASE_NAME \
+influxctl database update \
   --retention-period 30d \
   --max-tables 500 \
-  --max-columns 250
+  --max-columns 250 \
+  DATABASE_NAME
 ```
 
 {{% /code-placeholders %}}
@@ -217,7 +218,7 @@ database to apply updates to. The database name itself can't be updated.
 #### Partition templates can't be updated
 
 You can only apply a partition template when creating a database.
-There is no way to update a partition template on an existing database.
+You can't update a partition template on an existing database.
 {{% /warn %}}
 
 ### Database naming restrictions
@@ -243,7 +244,7 @@ database and retention policy (DBRP) to be queryable with InfluxQL.
 **When naming a database that you want to query with InfluxQL**, use the following
 naming convention to automatically map v1 DBRP combinations to a database:
 
-```sh
+```text
 database_name/retention_policy_name
 ```
 
