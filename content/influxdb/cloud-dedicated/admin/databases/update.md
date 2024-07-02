@@ -56,8 +56,8 @@ to update a database in your {{< product-name omit=" Clustered" >}} cluster.
 2. In your terminal, run the `influxctl database update` command and provide the following:
 
     - Database name
-    - _Optional_: Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
-    Default is `infinite` (`0`).
+    - _Optional_: Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods).
+    Default is infinite (`0`).
     - _Optional_: Database table (measurement) limit. Default is `500`.
     - _Optional_: Database column limit. Default is `250`.
 
@@ -77,6 +77,13 @@ Replace the following in your command:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
 
+{{% warn %}}
+#### Database names can't be updated
+
+The `influxctl database update` command uses the database name to identify which
+database to apply updates to. The database name itself can't be updated.
+{{% /warn %}}
+
 ## Database attributes
 
 - [Retention period syntax](#retention-period-syntax-influxctl-cli)
@@ -92,7 +99,7 @@ for the database.
 The retention period value is a time duration value made up of a numeric value
 plus a duration unit.
 For example, `30d` means 30 days.
-A zero duration (`0d`) retention period is infinite and data won't expire.
+A zero duration (for example, `0s` or `0d`) retention period is infinite and data won't expire.
 The retention period value cannot be negative or contain whitespace.
 
 {{< flex >}}
@@ -212,8 +219,10 @@ The retention period value cannot be negative or contain whitespace.
 
 #### Database names can't be updated
 
-The `influxctl database update` command uses the database name to identify which
-database to apply updates to. The database name itself can't be updated.
+The Management API `PATCH /api/v0/database` endpoint and
+the`influxctl database update` command use the database name to identify which
+database to apply updates to.
+The database name itself can't be updated.
 
 #### Partition templates can't be updated
 
@@ -235,7 +244,7 @@ Database names must adhere to the following naming restrictions:
 
 In InfluxDB 1.x, data is stored in [databases](/influxdb/v1/concepts/glossary/#database)
 and [retention policies](/influxdb/v1/concepts/glossary/#retention-policy-rp).
-In InfluxDB Cloud Dedicated, databases and retention policies have been merged into
+In {{< product-name >}}, databases and retention policies have been merged into
 _databases_, where databases have a retention period, but retention policies
 are no longer part of the data model.
 Because InfluxQL uses the 1.x data model, a database must be mapped to a v1
