@@ -41,10 +41,7 @@ function pytestStagedContent(paths, productPath) {
     // Instead of the plugin, we could use a placeholder test that always or conditionally passes.
     // Whether tests pass or fail, the container is removed,
     // but the CONTENT container and associated volume will remain until the next run.
-    // Note: the "--network host" setting and `host-open` script are used to 
-    // forward influxctl authentication URLs from the container to the host
-    // where they can be opened and approved in a host browser.
-    // Allowing "--network host" has security implications and isn't ideal.
+    // Note: the docker run -t flag is required to allocate a pseudo-TTY for the container--required for opening influxctl OAuth URLs.
     `docker run --rm -t \
       --label tag=influxdata-docs \
       --label stage=test \
