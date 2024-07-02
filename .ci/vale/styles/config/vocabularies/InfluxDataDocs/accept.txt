@@ -7,7 +7,7 @@ Anaconda
 Apache Superset
 Arrow
 AuthToken
-CLI
+CLI|\/cli\/
 CSV
 Data Explorer
 Dedup

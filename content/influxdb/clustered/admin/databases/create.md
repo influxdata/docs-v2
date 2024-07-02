@@ -1,20 +1,22 @@
 ---
 title: Create a database
 description: >
-  Use the [`influxctl database create` command](/influxdb/clustered/reference/cli/influxctl/database/create/)
-  to create a new InfluxDB database in your InfluxDB cluster.
+  Use the [`influxctl database create` command](/influxdb/clustered/reference/cli/influxctl/database/create/) to create a new InfluxDB database in your InfluxDB cluster.
   Provide a database name and an optional retention period.
 menu:
   influxdb_clustered:
     parent: Manage databases
 weight: 201
 list_code_example: |
+  <!--pytest.mark.skip-->
+  ##### CLI
+
   ```sh
   influxctl database create \
     --retention-period 30d \
     --max-tables 500 \
     --max-columns 250 \
-    <DATABASE_NAME>
+    DATABASE_NAME
   ```
 related:
   - /influxdb/clustered/reference/cli/influxctl/database/create/
@@ -44,7 +46,11 @@ to create a database in your {{< product-name omit=" Clustered" >}} cluster.
 _{{< product-name >}} supports up to 7 total tags or tag buckets in the partition template._
     {{% /note %}}
 
+<!--Allow fail for database create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
+
 {{% code-placeholders "DATABASE_NAME|30d|500|200" %}}
+
 ```sh
 influxctl database create \
   --retention-period 30d \
@@ -57,13 +63,16 @@ influxctl database create \
   --template-timeformat '%Y-%m-%d' \
   DATABASE_NAME
 ```
+
 {{% /code-placeholders %}}
 
 - [Retention period syntax](#retention-period-syntax)
 - [Database naming restrictions](#database-naming-restrictions)
 - [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
 - [Table and column limits](#table-and-column-limits)
-- [Custom partitioning](#custom-partitioning)
+  - [Table limit](#table-limit)
+  - [Column limit](#column-limit)
+  - [Custom partitioning](#custom-partitioning)
 
 ## Retention period syntax
 
@@ -127,7 +136,7 @@ database and retention policy (DBRP) to be queryable with InfluxQL.
 **When naming a database that you want to query with InfluxQL**, use the following
 naming convention to automatically map v1 DBRP combinations to an {{% product-name %}} database:
 
-```sh
+```text
 database_name/retention_policy_name
 ```
 
@@ -225,5 +234,5 @@ For more information, see [Manage data partitioning](/influxdb/clustered/admin/c
 #### Partition templates can only be applied on create
 
 You can only apply a partition template when creating a database.
-There is no way to update a partition template on an existing database.
+You can't update a partition template on an existing database.
 {{% /note %}}
