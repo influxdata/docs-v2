@@ -447,7 +447,7 @@ to InfluxDB:
 {{% code-placeholders "DATABASE_TOKEN" %}}
 
 ```sh
-response=$(curl --silent --write-out "%{response_code}:%{errormsg}" \
+response=$(curl --silent --write-out "%{response_code}:-%{errormsg}" \
   "https://{{< influxdb/host >}}/write?db=get-started&precision=s" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
@@ -482,8 +482,8 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ")
 
 # Format the response code and error message output.
-response_code=${response%%:*}
-errormsg=${response#*:}
+response_code=${response%%:-*}
+errormsg=${response#*:-}
 
 # Remove leading and trailing whitespace from errormsg
 errormsg=$(echo "${errormsg}" | tr -d '[:space:]')
@@ -559,7 +559,7 @@ to InfluxDB:
 {{% code-placeholders "DATABASE_TOKEN"%}}
 
 ```sh
-response=$(curl --silent --write-out "%{response_code}:%{errormsg}" \
+response=$(curl --silent --write-out "%{response_code}:-%{errormsg}" \
   "https://{{< influxdb/host >}}/api/v2/write?bucket=get-started&precision=s" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
@@ -594,8 +594,8 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ")
 
 # Format the response code and error message output.
-response_code=${response%%:*}
-errormsg=${response#*:}
+response_code=${response%%:-*}
+errormsg=${response#*:-}
 
 # Remove leading and trailing whitespace from errormsg
 errormsg=$(echo "${errormsg}" | tr -d '[:space:]')
