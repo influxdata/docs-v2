@@ -48,7 +48,6 @@ function pytestStagedContent(paths, productPath) {
     // Instead of the plugin, we could use a placeholder test that always or conditionally passes.
     // Whether tests pass or fail, the container is removed,
     // but the CONTENT container and associated volume will remain until the next run.
-    // Note: Run the container with TTY to open influxctl OAuth URLs in the host browser.
     // Run pytest with:
     //  -s to make pytest output log info during the test (instead of after).
     //  --suppress-no-test-exit-code to suppress exit code 5 (no tests collected).
