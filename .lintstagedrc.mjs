@@ -48,14 +48,20 @@ function pytestStagedContent(paths, productPath) {
     // Instead of the plugin, we could use a placeholder test that always or conditionally passes.
     // Whether tests pass or fail, the container is removed,
     // but the CONTENT container and associated volume will remain until the next run.
-    // Note: TTY is required for the container to open influxctl OAuth URLs in the host browser.
+    // Note: Run the container with TTY to open influxctl OAuth URLs in the host browser.
+    // Run pytest with:
+    //  -s to make pytest output log info during the test (instead of after).
+    //  --suppress-no-test-exit-code to suppress exit code 5 (no tests collected).
+    //  --exitfirst to stop after the first failure.
+    // --codeblocks to test code blocks in markdown files.
+    // Run
     `docker run --tty=true --label tag=influxdata-docs --label stage=test \
     --name ${TEST} \
     --env-file ${productPath}/.env.test \
     --volumes-from ${CONTENT} \
     --mount type=bind,src=./test/shared,dst=/shared \
     --mount type=volume,source=test-tmp,target=/app/iot-starter \
-    influxdata-docs/pytest --codeblocks --suppress-no-test-exit-code --exitfirst ${productPath}/`,
+    influxdata-docs/pytest -s --codeblocks --suppress-no-test-exit-code --exitfirst ${productPath}/`,
   ];
 }
 

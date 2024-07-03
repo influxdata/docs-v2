@@ -26,10 +26,9 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Create a mock xdg-open script` to prevent the test suite from attempting to open a browser (for example, during influxctl OAuth2 authentication), and instead execute the host-open script.
+# Create a mock xdg-open script` to prevent the test suite from attempting to open a browser (for example, during influxctl OAuth2 authentication).
 RUN echo '#!/bin/bash' > /usr/local/bin/xdg-open \
     && echo 'echo "$1" > /shared/urls.txt' >> /usr/local/bin/xdg-open \
-    && echo 'echo "$1" >> /shared/host_open.log' >> /usr/local/bin/xdg-open \
     && chmod +x /usr/local/bin/xdg-open
 
 # Some Python test dependencies (pytest-dotenv and pytest-codeblocks) aren't
