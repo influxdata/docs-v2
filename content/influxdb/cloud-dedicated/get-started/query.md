@@ -204,6 +204,44 @@ WHERE
 ```
 {{% /influxdb/custom-timestamps %}}
 
+<!--setup-test
+```sh
+curl --silent \
+  "https://{{< influxdb/host >}}/write?db=get-started&precision=s" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --header "Content-type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
+  --data-binary "
+home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1719907200
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719907200
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1719910800
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719910800
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1719914400
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719914400
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1719918000
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719918000
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1719921600
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719921600
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1719925200
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719925200
+home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1719928800
+home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719928800
+home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1719932400
+home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719932400
+home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1719936000
+home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719936000
+home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1719939600
+home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719939600
+home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1719943200
+home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719943200
+home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1719946800
+home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719946800
+home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1719950400
+home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719950400
+"
+```
+-->
+
 {{% note %}}
 Some examples in this getting started tutorial assume your InfluxDB
 credentials (**URL** and **token**) are provided by
@@ -251,6 +289,16 @@ influxctl query \
 
 {{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
+
+{{% note %}}
+#### Query using stored credentials
+
+Optionally, you can configure `database` and `token` query credentials in your `influxctl`
+[connection profile](/influxdb/clustered/reference/cli/influxctl/#create-a-configuration-file).
+
+The `--database` and `--token` command line flags override credentials in your
+configuration file.
+{{% /note %}}
 
 <!--------------------------- END influxctl CONTENT --------------------------->
 {{% /tab-content %}}

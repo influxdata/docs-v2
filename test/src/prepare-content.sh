@@ -5,6 +5,12 @@
 
 TEST_CONTENT="/app/content"
 
+# Pattern to match a 10-digit Unix timestamp
+TIMESTAMP_PATTERN='[0-9]{10}'
+
+NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+YESTERDAY=$(date -u -d 'yesterday 00:00' '+%Y-%m-%dT%H:%M:%SZ')
+
 function substitute_placeholders {
   for file in `find "$TEST_CONTENT" -type f \( -iname '*.md' \)`; do
     if [ -f "$file" ]; then
@@ -12,9 +18,37 @@ function substitute_placeholders {
 
       # Replaces placeholder values with environment variable references.
 
+      # Date-specific replacements.
+
+      grep -oE "$TIMESTAMP_PATTERN" "$file" | while read -r timestamp; do
+        # Replace Unix timestamps (for example, in line protocol sample data) with yesterday's date.
+        # Assuming the Unix timestamp is the whole line or a standalone word in the line
+        # Validate the extracted timestamp (optional)
+        if [[ $timestamp =~ ^1641[0-9]{6,12}$ ]]; then
+          specific_timestamp=$timestamp          
+
+          # Extract the time part
+          specific_time=$(date -u -d "@$specific_timestamp" '+%T')
+          
+          # Calculate 'yesterday' date but use 'specific_time' for the time part
+          yesterday_date=$(date -u -d 'yesterday' '+%Y-%m-%d')
+          yesterday_datetime="$yesterday_date"T"$specific_time"Z
+          
+          # Convert 'yesterday_datetime' to Unix timestamp
+          yesterday_timestamp=$(date -u -d "$yesterday_datetime" +%s)
+
+          # Replace the extracted timestamp with `yesterday_timestamp`
+          sed -i "s|$specific_timestamp|$yesterday_timestamp|g;" $file  
+        fi
+      done
+
+      ## Adjust time bounds in queries to be the current time and yesterday.
+      sed -i "s|'2022-01-01T20:00:00Z'|'$NOW'|g;
+      s|'2022-01-01T08:00:00Z'|'$YESTERDAY'|g; 
+      " $file
+
       # Non-language-specific replacements.
-      sed -i 's|https:\/\/{{< influxdb/host >}}|$INFLUX_HOST|g;
-      ' $file
+      sed -i 's|https:\/\/{{< influxdb/host >}}|$INFLUX_HOST|g;' $file
 
       # Python-specific replacements.
       # Use f-strings to identify placeholders in Python while also keeping valid syntax if
@@ -36,9 +70,6 @@ function substitute_placeholders {
       ## In JSON Heredoc
       sed -i 's|"orgID": "ORG_ID"|"orgID": "$INFLUX_ORG"|g;
       s|"name": "BUCKET_NAME"|"name": "$INFLUX_DATABASE"|g;' \
-      $file
-
-      sed -i 's|"influxctl database create --retention-period 1y get-started"|"influxctl database create --retention-period 1y $INFLUX_TMP_DATABASE"|g;' \
       $file
 
       # Replace remaining placeholders with variables.

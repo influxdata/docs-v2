@@ -204,32 +204,32 @@ influxctl write \
   --database get-started \
   --token $INFLUX_TOKEN \
   --precision s \
-  'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1719734400
-home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719734400
-home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1719738000
-home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719738000
-home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1719741600
-home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719741600
-home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1719745200
-home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719745200
-home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1719748800
-home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719748800
-home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1719752400
-home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719752400
-home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1719756000
-home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719756000
-home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1719759600
-home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719759600
-home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1719763200
-home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719763200
-home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1719766800
-home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719766800
-home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1719770400
-home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719770400
-home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1719774000
-home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719774000
-home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1719777600
-home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719777600'
+  'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200'
 ```
 
 {{% /code-placeholders %}}
@@ -258,32 +258,32 @@ and then write it to {{< product-name >}}.
 
     ```sh
     cat <<- EOF > home.lp
-    home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1719820800
-    home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719820800
-    home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1719824400
-    home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719824400
-    home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1719828000
-    home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719828000
-    home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1719831600
-    home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719831600
-    home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1719835200
-    home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719835200
-    home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1719838800
-    home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719838800
-    home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1719842400
-    home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719842400
-    home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1719846000
-    home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719846000
-    home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1719849600
-    home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719849600
-    home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1719853200
-    home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719853200
-    home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1719856800
-    home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719856800
-    home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1719860400
-    home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719860400
-    home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1719864000
-    home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719864000
+    home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+    home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+    home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+    home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+    home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+    home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+    home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+    home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+    home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+    home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+    home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+    home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+    home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+    home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+    home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+    home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+    home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+    home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+    home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+    home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+    home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+    home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+    home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+    home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+    home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+    home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
     EOF
     ```
 
@@ -467,32 +467,32 @@ response=$(curl --silent --write-out "%{response_code}:-%{errormsg}" \
   --header "Content-type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "
-home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1719734400
-home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719734400
-home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1719738000
-home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719738000
-home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1719741600
-home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719741600
-home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1719745200
-home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719745200
-home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1719748800
-home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719748800
-home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1719752400
-home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719752400
-home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1719756000
-home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719756000
-home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1719759600
-home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719759600
-home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1719763200
-home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719763200
-home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1719766800
-home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719766800
-home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1719770400
-home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719770400
-home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1719774000
-home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719774000
-home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1719777600
-home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719777600
+home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ")
 
 # Format the response code and error message output.
@@ -578,32 +578,32 @@ response=$(curl --silent --write-out "%{response_code}:-%{errormsg}" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "
-home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1719734400
-home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719734400
-home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1719738000
-home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719738000
-home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1719741600
-home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719741600
-home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1719745200
-home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719745200
-home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1719748800
-home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719748800
-home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1719752400
-home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719752400
-home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1719756000
-home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719756000
-home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1719759600
-home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719759600
-home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1719763200
-home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719763200
-home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1719766800
-home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719766800
-home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1719770400
-home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719770400
-home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1719774000
-home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719774000
-home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1719777600
-home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719777600
+home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ")
 
 # Format the response code and error message output.
