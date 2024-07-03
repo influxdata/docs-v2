@@ -2,7 +2,7 @@
 title: Monitor your cluster
 seotitle: Monitor your InfluxDB Cloud Dedicated cluster
 description: >
-  Use the Grafana observability dashboard provided by InfluxData to monitor your
+  Use the Grafana operational dashboard provided by InfluxData to monitor your
   InfluxDB Cloud Dedicated cluster.
 menu:
   influxdb_cloud_dedicated:
@@ -10,31 +10,32 @@ menu:
 weight: 104
 ---
 
-Use the Grafana observability dashboard provided by InfluxData to monitor your
-{{< product-name >}} cluster.
+InfluxData provides a Grafana operational dashboard that provide observability 
+into the your {{< product-name >}} cluster. Use the operational dashboard to
+monitor your cluster.
 
 {{% note %}}
 #### Not available for all clusters
 
-{{< product-name >}} observability dashboards are not available for all clusters.
+{{< product-name >}} operational dashboards are not available for all clusters.
 For questions about availability, [contact InfluxData support](https://support.influxdata.com).
 {{% /note %}}
 
-- [Access your observability dashboard](#access-your-observability-dashboard)
+- [Access your operational dashboard](#access-your-operational-dashboard)
 - [Dashboard sections and cells](#dashboard-sections-and-cells)
 
-{{< img-hd src="/img/influxdb/cloud-dedicated-admin-observability-dashboard.png" alt="InfluxDB Cloud Dedicated observability dashboard" />}}
+{{< img-hd src="/img/influxdb/cloud-dedicated-admin-observability-dashboard.png" alt="InfluxDB Cloud Dedicated operational dashboard" />}}
 
-## Access your observability dashboard
+## Access your operational dashboard
 
-To access your {{< product-name >}} observability dashboard, visit the
+To access your {{< product-name >}} operational dashboard, visit the
 `/observability` endpoint of your {{< product-name >}} cluster in your browser:
 
 <pre>
 <a href="https://{{< influxdb/host >}}/observability">https://{{< influxdb/host >}}/observability</a>
 </pre>
 
-Use the credentials provided by InfluxData to log into your cluster observability dashboard.
+Use the credentials provided by InfluxData to log into your cluster operational dashboard.
 If you do not have login credentials, [contact InfluxData support](https://support.influxdata.com).
 
 ## Dashboard sections and cells
