@@ -77,10 +77,15 @@ scripts configured in `.husky/pre-commit`, including linting and tests for your 
 
 **We strongly recommend running linting and tests**, but you can skip them
 (and avoid installing dependencies)
-by including the `--no-verify` flag with your commit--for example, enter the following command in your terminal:
+by including the `HUSKY=0` environment variable or the `--no-verify` flag with
+your commit--for example:
 
 ```sh
 git commit -m "<COMMIT_MESSAGE>" --no-verify
+```
+
+```sh
+HUSKY=0 git commit
 ```
 
 For more options, see the [Husky documentation](https://typicode.github.io/husky/how-to.html#skipping-git-hooks).

@@ -52,6 +52,7 @@ function substitute_placeholders {
       /os.getenv("DATABASE_TOKEN")/! s/DATABASE_TOKEN/$INFLUX_TOKEN/g;
       /os.getenv("DATABASE_NAME")/! s/DATABASE_NAME/$INFLUX_DATABASE/g;
       s/--id DBRP_ID/--id $INFLUX_DBRP_ID/g;
+      s/example-db/$INFLUX_DATABASE/g;
       s/get-started/$INFLUX_DATABASE/g;
       /os.getenv("MANAGEMENT_TOKEN")/! s/MANAGEMENT_TOKEN/$MANAGEMENT_TOKEN/g;
       /os.getenv("ORG_ID")/! s/ORG_ID/$INFLUX_ORG/g;
