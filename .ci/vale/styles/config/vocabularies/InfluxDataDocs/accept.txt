@@ -72,6 +72,8 @@ quoteChar
 retentionRules
 sourceBucket
 tagKey
+`url[s]?`
+URL
 v2
 v3
 venv

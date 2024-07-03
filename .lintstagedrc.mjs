@@ -34,6 +34,13 @@ function pytestStagedContent(paths, productPath) {
     `docker build .
       -f Dockerfile.pytest
       -t influxdata-docs/pytest:latest`,
+    
+        
+    // Create a Docker volume for temporary files generated during testing
+    `sh -c "docker volume create \
+    --label tag=influxdata-docs \
+    --label stage=test \
+    --name test-tmp || true"`,
 
     // Run test runners.
     // Uses a pytest plugin to suppress exit code 5 (if no tests are found),
@@ -49,6 +56,7 @@ function pytestStagedContent(paths, productPath) {
       --env-file ${productPath}/.env.test \
       --volumes-from ${CONTENT} \
       --mount type=bind,src=./test/shared,dst=/shared \
+      --mount type=volume,source=test-tmp,target=/app/iot-starter \
       influxdata-docs/pytest --codeblocks --suppress-no-test-exit-code --exitfirst ${productPath}/`,
   ];
 }
