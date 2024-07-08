@@ -86,7 +86,7 @@ deletes all data in the specified bucket with timestamps between the specified `
 ```sh
 influx delete --bucket example-bucket \
   --start '1970-01-01T00:00:00Z' \
-  --stop $(date --utc +"%Y-%m-%dT%H:%M:%SZ") \
+  --stop $(date -u +"%Y-%m-%dT%H:%M:%SZ") \
   --predicate '_measurement="example-measurement" AND exampleTag="exampleTagValue"'
 ```
 
