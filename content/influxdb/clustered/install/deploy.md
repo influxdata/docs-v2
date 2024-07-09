@@ -6,7 +6,7 @@ menu:
   influxdb_clustered:
     name: Deploy your cluster
     parent: Install InfluxDB Clustered
-weight: 104
+weight: 140
 related:
   - /influxdb/clustered/admin/upgrade/
 ---
