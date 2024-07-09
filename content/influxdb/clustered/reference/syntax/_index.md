@@ -3,7 +3,7 @@ title: Other InfluxDB syntaxes
 description: >
   InfluxDB uses a handful of languages and syntaxes to perform tasks such as
   writing, querying, and processing data.
-weight: 105
+weight: 145
 menu:
   influxdb_clustered:
     name: Other syntaxes
