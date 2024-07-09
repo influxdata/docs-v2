@@ -315,10 +315,10 @@ spec:
 
 ### Set up cluster ingress
 
-{{% warn %}}
-Components of Clustered utilise gRPC/HTTP2. You may need to explicitly allow this
-on any external load balancers you use.
-{{% /warn %}}
+{{% note %}}
+InfluxDB Clustered components use gRPC/HTTP2 protocols. If using an external load balancer,
+you may need to explicitly enable these protocols on your load balancers.
+{{% /note %}}
 
 [Kubernetes ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) routes HTTP/S requests to services within the cluster and requires deploying an [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/).
 
