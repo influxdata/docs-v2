@@ -9,6 +9,7 @@ menu:
 weight: 140
 related:
   - /influxdb/clustered/admin/upgrade/
+  - /influxdb/clustered/install/licensing/
 ---
 
 Use Kubernetes and related tools to deploy your InfluxDB cluster.
