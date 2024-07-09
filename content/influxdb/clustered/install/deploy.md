@@ -6,9 +6,10 @@ menu:
   influxdb_clustered:
     name: Deploy your cluster
     parent: Install InfluxDB Clustered
-weight: 104
+weight: 140
 related:
   - /influxdb/clustered/admin/upgrade/
+  - /influxdb/clustered/install/licensing/
 ---
 
 Use Kubernetes and related tools to deploy your InfluxDB cluster.

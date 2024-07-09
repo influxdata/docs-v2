@@ -8,7 +8,7 @@ menu:
   influxdb_clustered:
     name: Prerequisites
     parent: Install InfluxDB Clustered
-weight: 101
+weight: 110
 ---
 
 InfluxDB Clustered requires the following prerequisites:

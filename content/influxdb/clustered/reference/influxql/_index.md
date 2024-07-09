@@ -7,7 +7,7 @@ menu:
     parent: Reference
     name: InfluxQL reference
     identifier: influxql-reference
-weight: 102
+weight: 143
 ---
 
 InfluxQL (Influx Query Language) is an SQL-like query language used to interact
