@@ -315,6 +315,11 @@ spec:
 
 ### Set up cluster ingress
 
+{{% warn %}}
+Components of Clustered utilise gRPC/HTTP2. You may need to explicitly allow this
+on any external load balancers you use.
+{{% /warn %}}
+
 [Kubernetes ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) routes HTTP/S requests to services within the cluster and requires deploying an [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/).
 
 You can provide your own ingress or you can install [Nginx Ingress Controller](https://github.com/kubernetes/ingress-nginx) to use the InfluxDB-defined ingress.
