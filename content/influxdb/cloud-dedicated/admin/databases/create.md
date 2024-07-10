@@ -10,20 +10,22 @@ menu:
     parent: Manage databases
 weight: 201
 list_code_example: |
+  <!--pytest.mark.skip-->
   ##### CLI
   ```sh
   influxctl database create \
     --retention-period 30d \
     --max-tables 500 \
     --max-columns 250 \
-    <DATABASE_NAME>
+    DATABASE_NAME
   ```
 
+  <!--pytest.mark.skip-->
   ##### API
   ```sh
   curl \
     --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" \
-    --request POST
+    --request POST \
     --header "Accept: application/json" \
     --header 'Content-Type: application/json' \
     --header "Authorization: Bearer MANAGEMENT_TOKEN" \
@@ -103,6 +105,9 @@ to create a database in your {{< product-name omit=" Clustered" >}} cluster.
 _{{< product-name >}} supports up to 7 total tags or tag buckets in the partition template._
     {{% /note %}}
 
+<!--Skip tests for database create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
+
 {{% code-placeholders "DATABASE_NAME|30d|500|100|300|(TAG_KEY(_\d)?)" %}}
 
 ```sh
@@ -127,11 +132,15 @@ Replace the following in your command:
 
 ## Database attributes
 
-- [Retention period syntax (influxctl CLI)](#retention-period-syntax-influxctl-cli)
-- [Custom partitioning (influxctl CLI)](#custom-partitioning-influxctl-cli)
-- [Database naming restrictions](#database-naming-restrictions)
-- [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
-- [Table and column limits](#table-and-column-limits)
+- [Database attributes](#database-attributes)
+  - [Retention period syntax (influxctl CLI)](#retention-period-syntax-influxctl-cli)
+  - [Custom partitioning (influxctl CLI)](#custom-partitioning-influxctl-cli)
+- [Database attributes](#database-attributes-1)
+  - [Retention period syntax (Management API)](#retention-period-syntax-management-api)
+  - [Custom partitioning (Management API)](#custom-partitioning-management-api)
+  - [Database naming restrictions](#database-naming-restrictions)
+  - [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
+  - [Table and column limits](#table-and-column-limits)
 
 ### Retention period syntax (influxctl CLI)
 
@@ -190,7 +199,7 @@ For more information, see [Manage data partitioning](/influxdb/cloud-dedicated/a
 #### Partition templates can only be applied on create
 
 You can only apply a partition template when creating a database.
-There is no way to update a partition template on an existing database.
+You can't update a partition template on an existing database.
 {{% /note %}}
 
 <!-------------------------------- END INFLUXCTL ------------------------------>
@@ -237,12 +246,15 @@ _{{< product-name >}} supports up to 7 total tags or tag buckets in the partitio
 
 The following example shows how to use the Management API to create a database with custom partitioning:
 
+<!--Skip tests for database create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
+
 {{% code-placeholders "DATABASE_NAME|2592000000000|500|100|300|250|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN|(TAG_KEY(_\d)?)" %}}
 
 ```sh
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" \
-   --request POST
+   --request POST \
    --header "Accept: application/json" \
    --header 'Content-Type: application/json' \
    --header "Authorization: Bearer MANAGEMENT_TOKEN" \
@@ -294,11 +306,15 @@ Replace the following in your request:
 
 ## Database attributes
 
-- [Retention period syntax (Management API)](#retention-period-syntax-management-api)
-- [Custom partitioning (Management API)](#custom-partitioning-management-api)
-- [Database naming restrictions](#database-naming-restrictions)
-- [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
-- [Table and column limits](#table-and-column-limits)
+- [Database attributes](#database-attributes)
+  - [Retention period syntax (influxctl CLI)](#retention-period-syntax-influxctl-cli)
+  - [Custom partitioning (influxctl CLI)](#custom-partitioning-influxctl-cli)
+- [Database attributes](#database-attributes-1)
+  - [Retention period syntax (Management API)](#retention-period-syntax-management-api)
+  - [Custom partitioning (Management API)](#custom-partitioning-management-api)
+  - [Database naming restrictions](#database-naming-restrictions)
+  - [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
+  - [Table and column limits](#table-and-column-limits)
 
 ### Retention period syntax (Management API)
 
@@ -334,7 +350,7 @@ For more information, see [Manage data partitioning](/influxdb/cloud-dedicated/a
 #### Partition templates can only be applied on create
 
 You can only apply a partition template when creating a database.
-There is no way to update a partition template on an existing database.
+You can't update a partition template on an existing database.
 {{% /note %}}
 
 <!------------------------------- END cURL ------------------------------------>
@@ -364,7 +380,7 @@ database and retention policy (DBRP) to be queryable with InfluxQL.
 **When naming a database that you want to query with InfluxQL**, use the following
 naming convention to automatically map v1 DBRP combinations to an {{% product-name %}} database:
 
-```sh
+```text
 database_name/retention_policy_name
 ```
 

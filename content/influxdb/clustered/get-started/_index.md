@@ -161,9 +161,7 @@ They use the HTTP API to write data and use InfluxDB's Flight gRPC API to query 
 ## Authorization
 
 **{{% product-name %}} requires authentication** using
-[tokens](/influxdb/clustered/admin/tokens/).
-
-There are two types of tokens:
+one of the following [token](/influxdb/clustered/admin/tokens/) types:
 
 - **Database token**: A token that grants read and write access to InfluxDB
   databases.

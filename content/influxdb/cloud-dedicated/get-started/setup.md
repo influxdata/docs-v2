@@ -45,16 +45,16 @@ following information:
 ## Download, install, and configure the influxctl CLI
 
 The [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
-provides a simple way to manage your InfluxDB Cloud Dedicated cluster from a
-command line. It lets you perform administrative tasks such as managing
+lets you manage your {{< product-name omit="Clustered" >}} cluster from a
+command line and perform administrative tasks such as managing
 databases and tokens.
 
 1.  [Download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 
-2.  **Create a connection profile and provide your InfluxDB Cloud Dedicated connection credentials**.
+2.  **Create a connection profile and provide your {{< product-name >}} connection credentials**.
 
     The `influxctl` CLI uses [connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
-    to connect to and authenticate with your InfluxDB Cloud Dedicated cluster.
+    to connect to and authenticate with your {{< product-name omit="Clustered" >}} cluster.
 
     Create a file named `config.toml` at the following location depending on
     your operating system.
@@ -72,7 +72,7 @@ If stored at a non-default location, include the `--config` flag with each
 
     {{% /note %}}
 
-    **Copy and paste the sample configuration profile code** into your `config.toml`:
+3.  **Copy and paste the sample configuration profile code** into your `config.toml`:
 
 {{% code-placeholders "ACCOUNT_ID|CLUSTER_ID" %}}
 
@@ -97,10 +97,11 @@ _For detailed information about `influxctl` profiles, see
 
 ## Create a database
 
-Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
+Use the
+[`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
 to create a database. You can use an existing database or create a new one
 specifically for this getting started tutorial.
-_Examples in this getting started tutorial assume a database named **"get-started"**._
+_Examples in this getting started tutorial assume a database named `get-started`._
 
 {{% note %}}
 
@@ -109,14 +110,18 @@ _Examples in this getting started tutorial assume a database named **"get-starte
 The first time you run an `influxctl` CLI command, you are directed
 to login to **Auth0**. Once logged in, Auth0 issues a short-lived (1 hour)
 management token for the `influxctl` CLI that grants administrative access
-to your InfluxDB Cloud Dedicated cluster.
+to your {{< product-name omit="Clustered" >}} cluster.
 {{% /note %}}
 
 Provide the following:
 
 - Database name.
-- _Optional:_ Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
+- _Optional:_ Database
+  [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
   as a duration value. If no retention period is specified, the default is infinite.
+
+<!--Skip tests for database create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
 
 {{% code-placeholders "get-started|1y" %}}
 
@@ -128,7 +133,8 @@ influxctl database create --retention-period 1y get-started
 
 ## Create a database token
 
-Use the [`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
+Use the
+[`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
 to create a database token with read and write permissions for your database.
 
 Provide the following:
@@ -137,6 +143,9 @@ Provide the following:
   - `--read-database`: Grants read access to a database
   - `--write-database` Grants write access to a database
 - Token description
+
+<!--Skip database create and delete tests: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
 
 {{% code-placeholders "get-started" %}}
 
@@ -148,6 +157,26 @@ influxctl token create \
 ```
 
 {{% /code-placeholders %}}
+
+<!--actual test
+
+```sh
+
+# Test the preceding command outside of the code block.
+# influxctl authentication requires TTY interaction--
+# output the auth URL to a file that the host can open.
+
+TOKEN_NAME=token_TEST_RUN
+script -q /dev/null -c "influxctl token list > /shared/urls.txt \
+  && influxctl token create \
+  --read-database DATABASE_NAME \
+  --write-database DATABASE_NAME \
+  \"Read/write token ${TOKEN_NAME} for DATABASE_NAME database\" > /shared/tokens.txt
+  && influxctl token revoke $(head /shared/tokens.txt) \
+  && rm /shared/tokens.txt"
+```
+
+-->
 
 The command returns the token ID and the token string.
 Store the token string in a safe place.

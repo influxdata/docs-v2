@@ -60,7 +60,7 @@ The simplest way to do this is to directly modify the line protocol exported in
 
 For example, the following line protocol includes both a tag and field named `temp`.
 
-```
+```text
 home,room=Kitchen,temp=F co=0i,hum=56.6,temp=71.0 1672531200000000000
 ```
 
@@ -143,13 +143,13 @@ the [exported line protocol](#migrate-data-step-1) to group certain fields into
 unique measurements.
 For example:
 
-```
+```text
 example-measurement field1=0,field2=0,field3=0,field4=0,field5=0,field6=0,field7=0,field8=0 1672531200000000000
 ```
 
 Would become:
 
-```
+```text
 new-measurement-1 field1=0,field2=0,field3=0,field4=0 1672531200000000000
 new-measurement-2 field5=0,field6=0,field7=0,field8=0 1672531200000000000
 ```
@@ -209,6 +209,9 @@ databases.
     {{% /note %}}
 
     ##### Export all data in a database and retention policy to a file
+
+    <!--pytest.mark.xfail-->
+
     ```sh
     influx_inspect export \
       -lponly \
@@ -221,6 +224,8 @@ databases.
     {{< expand-wrapper >}}
 {{% expand "Export all data to a file" %}}
 
+<!--pytest.mark.xfail-->
+
 ```sh
 influx_inspect export \
   -lponly \
@@ -230,6 +235,8 @@ influx_inspect export \
 {{% /expand %}}
 
 {{% expand "Export all data to a compressed file" %}}
+
+<!--pytest.mark.xfail-->
 
 ```sh
 influx_inspect export \
@@ -241,6 +248,8 @@ influx_inspect export \
 {{% /expand %}}
 
 {{% expand "Export data within time bounds to a file" %}}
+
+<!--pytest.mark.xfail-->
 
 ```sh
 influx_inspect export \
@@ -254,6 +263,8 @@ influx_inspect export \
 
 {{% expand "Export a database and all its retention policies to a file" %}}
 
+<!--pytest.mark.xfail-->
+
 ```sh
 influx_inspect export \
   -lponly \
@@ -264,6 +275,8 @@ influx_inspect export \
 {{% /expand %}}
 
 {{% expand "Export a specific database and retention policy to a file" %}}
+
+<!--pytest.mark.xfail-->
 
 ```sh
 influx_inspect export \
@@ -276,6 +289,8 @@ influx_inspect export \
 {{% /expand %}}
 
 {{% expand "Export all data from _non-default_ `data` and `wal` directories" %}}
+
+<!--pytest.mark.xfail-->
 
 ```sh
 influx_inspect export \
@@ -328,6 +343,9 @@ You would create the following InfluxDB {{< current-version >}} databases:
     - _(Optional)_ Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
       (default is infinite)
     - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
+
+<!--Skip tests for dataase create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
 
     ```sh
     influxctl database create --retention-period 30d <DATABASE_NAME>

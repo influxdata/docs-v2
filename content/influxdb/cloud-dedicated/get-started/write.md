@@ -40,7 +40,8 @@ line protocol for you, but it's good to understand how line protocol works.
 
 All data written to InfluxDB is written using **line protocol**, a text-based
 format that lets you provide the necessary information to write a data point to
-InfluxDB. _This tutorial covers the basics of line protocol, but for detailed
+InfluxDB.
+_This tutorial covers the basics of line protocol, but for detailed
 information, see the
 [Line protocol reference](/influxdb/cloud-dedicated/reference/syntax/line-protocol/)._
 
@@ -163,7 +164,8 @@ The following examples show how to write the preceding
 [sample data](#home-sensor-data-line-protocol), already in line protocol format,
 to an {{% product-name %}} database.
 
-To learn more about available tools and options, see [Write data](/influxdb/cloud-dedicated/write-data/).
+To learn more about available tools and options, see
+[Write data](/influxdb/cloud-dedicated/write-data/).
 
 {{% note %}}
 Some examples in this getting started tutorial assume your InfluxDB
@@ -243,12 +245,12 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200'
 If successful, the output is the success message; otherwise, error details and
 the failure message.
 
-<!----------------------------- END INFLUXCTL CLI CONTENT ----------------------------->
+<!-------------------------- END INFLUXCTL CLI CONTENT ------------------------>
 
 {{% /tab-content %}}
 {{% tab-content %}}
 
-<!------------------------------- BEGIN TELEGRAF CONTENT ------------------------------>
+<!-------------------------- BEGIN TELEGRAF CONTENT --------------------------->
 
 {{% influxdb/custom-timestamps %}}
 
@@ -445,7 +447,7 @@ to InfluxDB:
 {{% code-placeholders "DATABASE_TOKEN" %}}
 
 ```sh
-response=$(curl --silent --write-out "%{response_code}:%{errormsg}" \
+response=$(curl --silent --write-out "%{response_code}:-%{errormsg}" \
   "https://{{< influxdb/host >}}/write?db=get-started&precision=s" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
@@ -480,8 +482,8 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ")
 
 # Format the response code and error message output.
-response_code=${response%%:*}
-errormsg=${response#*:}
+response_code=${response%%:-*}
+errormsg=${response#*:-}
 
 # Remove leading and trailing whitespace from errormsg
 errormsg=$(echo "${errormsg}" | tr -d '[:space:]')
@@ -557,7 +559,7 @@ to InfluxDB:
 {{% code-placeholders "DATABASE_TOKEN"%}}
 
 ```sh
-response=$(curl --silent --write-out "%{response_code}:%{errormsg}" \
+response=$(curl --silent --write-out "%{response_code}:-%{errormsg}" \
   "https://{{< influxdb/host >}}/api/v2/write?bucket=get-started&precision=s" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
@@ -592,8 +594,8 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ")
 
 # Format the response code and error message output.
-response_code=${response%%:*}
-errormsg=${response#*:}
+response_code=${response%%:-*}
+errormsg=${response#*:-}
 
 # Remove leading and trailing whitespace from errormsg
 errormsg=$(echo "${errormsg}" | tr -d '[:space:]')

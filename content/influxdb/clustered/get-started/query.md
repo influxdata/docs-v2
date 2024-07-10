@@ -35,8 +35,10 @@ the simplicity of SQL.
 
 {{% note %}}
 The examples in this section of the tutorial query the
-[**get-started** database](/influxdb/clustered/get-started/setup/#create-a-database) for data written in the
-[Get started writing data](/influxdb/clustered/get-started/write/#write-line-protocol-to-influxdb) section.
+[**get-started** database](/influxdb/clustered/get-started/setup/#create-a-database)
+for data written in the
+[Get started writing data](/influxdb/clustered/get-started/write/#write-line-protocol-to-influxdb)
+section.
 {{% /note %}}
 
 ## Tools to execute queries
@@ -202,6 +204,44 @@ WHERE
 ```
 {{% /influxdb/custom-timestamps %}}
 
+<!--setup-test
+```sh
+curl --silent \
+  "https://{{< influxdb/host >}}/write?db=get-started&precision=s" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --header "Content-type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
+  --data-binary "
+home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1719907200
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719907200
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1719910800
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719910800
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1719914400
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719914400
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1719918000
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719918000
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1719921600
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719921600
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1719925200
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719925200
+home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1719928800
+home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719928800
+home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1719932400
+home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719932400
+home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1719936000
+home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719936000
+home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1719939600
+home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719939600
+home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1719943200
+home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719943200
+home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1719946800
+home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719946800
+home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1719950400
+home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719950400
+"
+```
+-->
+
 {{% note %}}
 Some examples in this getting started tutorial assume your InfluxDB
 credentials (**URL** and **token**) are provided by
@@ -233,20 +273,32 @@ Provide the following:
 
 {{% influxdb/custom-timestamps %}}
 {{% code-placeholders "get-started" %}}
+
 ```sh
 influxctl query \
   --database get-started \
   --token $INFLUX_TOKEN \
   "SELECT
-  *
-FROM
-  home
-WHERE
-  time >= '2022-01-01T08:00:00Z'
-  AND time <= '2022-01-01T20:00:00Z'"
+    *
+    FROM
+      home
+    WHERE
+      time >= '2022-01-01T08:00:00Z'
+      AND time <= '2022-01-01T20:00:00Z'"
 ```
+
 {{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
+
+{{% note %}}
+#### Query using stored credentials
+
+Optionally, you can configure `database` and `token` query credentials in your `influxctl`
+[connection profile](/influxdb/clustered/reference/cli/influxctl/#create-a-configuration-file).
+
+The `--database` and `--token` command line flags override credentials in your
+configuration file.
+{{% /note %}}
 
 <!--------------------------- END influxctl CONTENT --------------------------->
 {{% /tab-content %}}
@@ -308,12 +360,12 @@ _If your project's virtual environment is already running, skip to step 3._
 
     <!--pytest-codeblocks:cont-->
 
-  ```sh
-  influx3 sql "SELECT *
+    ```sh
+    influx3 sql "SELECT *
                 FROM home
                 WHERE time >= '2022-01-01T08:00:00Z'
                 AND time <= '2022-01-01T20:00:00Z'"
-  ```
+    ```
 
 `influx3` displays query results in your terminal.
 
@@ -606,7 +658,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
     2.  Defines a `Query()` function that does the following:
 
-        1.  Instantiates `influx.Client` with InfluxDB credentials.
+        1.  Instantiates `influx.Client` with the following parameters for InfluxDB credentials:
           
             - **`Host`**: your {{% product-name omit=" Clustered" %}} cluster URL
             - **`Database`**: the name of your {{% product-name %}} database
@@ -637,7 +689,7 @@ _If your project's virtual environment is already running, skip to step 3._
     <!--pytest.mark.skip-->
 
     ```sh
-    go mod tidy && go build && go run influxdb_go_client
+    go mod tidy && go run influxdb_go_client
     ```
 
     The program executes the `main()` function that writes the data and prints the query results to the console.
@@ -1010,7 +1062,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
 
     - The `App`, `Write`, and `Query` classes belong to the `com.influxdbv3` package (your project **groupId**).
     - `App` defines a `main()` function that calls `Write.writeLineProtocol()` and `Query.querySQL()`.
-4.  In your terminal or editor, use Maven to to install dependencies and compile the project code--for example:
+4.  In your terminal or editor, use Maven to install dependencies and compile the project code--for example:
 
     <!--pytest.mark.skip-->
 
