@@ -78,6 +78,7 @@ template) that contains key information, such as:
 4. [Configure access to the InfluxDB container registry](#configure-access-to-the-influxdb-container-registry)
 5. [Set up cluster ingress](#set-up-cluster-ingress)
 6. [Modify the configuration file to point to prerequisites](#modify-the-configuration-file-to-point-to-prerequisites)
+7. _Optional_: [Provide a custom certificate authority bundle](#provide-a-custom-certificate-authority-bundle)
 
 ### Create a cluster configuration file
 
@@ -840,7 +841,7 @@ bundle containing your custom certificate authority chain.
     
     {{% note %}}
 This PEM-formatted bundle file is *not* the certificate that InfluxDB uses to
-host its own TLS endpoints. This bundle establishes a chain of trust for the
+secure its own TLS endpoints. This bundle establishes a chain of trust for the
 external services that InfluxDB depends on.
     {{% /note %}}
 
