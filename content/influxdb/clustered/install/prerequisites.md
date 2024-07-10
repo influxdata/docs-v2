@@ -35,7 +35,7 @@ We **strongly** recommend that you enable object versioning in your object store
 
 ## Set up a Kubernetes cluster
 
-1.  Deploy a Kubernetes cluster. You must Kubernetes v1.25 or higher.
+1.  Deploy a Kubernetes cluster. Kubernetes v1.25 or later is required.
 2.  Create two namespaces--`influxdb` and `kubit`.
 3.  Install an [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) in the cluster and a mechanism to obtain a
     valid TLS certificate (for example: [cert-manager](https://cert-manager.io/)
