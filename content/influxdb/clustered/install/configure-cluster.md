@@ -72,12 +72,14 @@ template) that contains key information, such as:
 
 ## Configure your cluster
 
-1. [Create a cluster configuration file](#create-a-cluster-configuration-file)
-2. [Create a namespace for InfluxDB](#create-a-namespace-for-influxdb)
-3. [Install kubecfg kubit operator](#install-kubecfg-kubit-operator)
-4. [Configure access to the InfluxDB container registry](#configure-access-to-the-influxdb-container-registry)
-5. [Set up cluster ingress](#set-up-cluster-ingress)
-6. [Modify the configuration file to point to prerequisites](#modify-the-configuration-file-to-point-to-prerequisites)
+1.  [Create a cluster configuration file](#create-a-cluster-configuration-file)
+2.  [Create a namespace for InfluxDB](#create-a-namespace-for-influxdb)
+3.  [Install kubecfg kubit operator](#install-kubecfg-kubit-operator)
+4.  [Configure access to the InfluxDB container registry](#configure-access-to-the-influxdb-container-registry)
+5.  [Set up cluster ingress](#set-up-cluster-ingress)
+6.  [Modify the configuration file to point to prerequisites](#modify-the-configuration-file-to-point-to-prerequisites)
+7.  [Provide a custom certificate authority bundle](#provide-a-custom-certificate-authority-bundle)
+    <em class="op65">(Optional)</em>
 
 ### Create a cluster configuration file
 
@@ -821,7 +823,7 @@ spec:
 
 {{% /code-placeholders %}}
 
-### Provide a custom certificate authority bundle {metadata="Optional"}
+### Provide a custom certificate authority bundle {note="Optional"}
 
 InfluxDB attempts to make TLS connections to the services it depends on; notably
 the [Catalog](/influxdb/clustered/reference/internals/storage-engine/#catalog),
