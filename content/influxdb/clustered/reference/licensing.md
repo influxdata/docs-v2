@@ -74,7 +74,7 @@ begins "browning out" requests. Brownouts consist of returning
 | 7 days after expiry  | 5 minutes / hour  |
 | 1 month after expiry | 100% of queries   |
 
-It's important to emphasize that **these brownouts only occur *after the
-license has contractually expired** and have no impact on normal InfluxDB 3.0
-operations. Also, they **only impact query operations**, and not any other
-operations (write-oriented operations, compaction, garbage collection).
+It's important to emphasize that **these brownouts only occur after the
+license has contractually expired**. Also, they **only impact query
+operations**, and not any other operations (eg write-oriented operations,
+compaction, garbage collection, etc).
