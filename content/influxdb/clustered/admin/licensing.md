@@ -31,12 +31,11 @@ the InfluxDB Clustered software.
 #### License enforcement is currently an opt-in feature
 
 In currently available versions of InfluxDB Clustered, license enforcement is an
-opt-in feature. This allows InfluxData to introduce license enforcement to a
-limited number of customers in a way that can easily be disabled if issues arise.
+opt-in feature that allows InfluxData to introduce license enforcement to customers, and allows customers to deactivate the feature if issues arise.
 In the future, all releases of InfluxDB Clustered will require an active license
 to use the product.
 
-To opt into license enforcement, enable the `useLicensedBinaries` feature flag
+To opt into license enforcement, include the `useLicensedBinaries` feature flag
 in your `AppInstance` resource _([See the example below](#enable-feature-flag))_.
 
 {{% /note %}}
@@ -63,7 +62,7 @@ created and prepared.
     ```
 
 4.  <span id="enable-feature-flag"></span>
-    Update your `AppInstance` resource to enable the `useLicensedBinaries` feature flag.
+    Update your `AppInstance` resource to include the `useLicensedBinaries` feature flag.
     Add the `useLicensedBinaries` entry to the `.spec.package.spec.featureFlags`
     property--for example:
 
@@ -88,12 +87,12 @@ per hour) while running.
 If you deploy a licensed release of InfluxDB Clustered without a valid license,
 many of the pods in your cluster will crash on startup and will likely enter a
 `CrashLoopBackoff` state without ever running or becoming healthy.
-If this happens during an upgrade, the Kubernetes control plane should detect
-the crash loop of the new pods and prevent the termination of existing pods.
-The previous version should continue running without experiencing any service
+If this happens during an upgrade, the Kubernetes control plane detects
+the crash loop of the new pods and prevents the termination of existing pods.
+The previous version will continue to run without service
 disruption while you work to provide a valid license.
 
-Once a valid `License` resource is applied, new pods should begin to start up normally.
+Once a valid `License` resource is applied, new pods will begin to start up normally.
 This is an error recovery feature of Kubernetes that depends on a correctly
 functioning Kubernetes cluster with enough capacity to perform rolling upgrades.
 
@@ -108,12 +107,12 @@ contact your sales representative at any time.
 ## License enforcement
 
 InfluxDB Clustered authorizes use of InfluxDB software through licenses issued
-by InfluxData. The following provides information about InfluxDB Clustered
+by InfluxData. The following sections provide information about InfluxDB Clustered
 license enforcement.
 
 ### A valid license is required
 
-_When the `useLicensedBinaries` feature flag is enabled_,
+_When you include the `useLicensedBinaries` feature flag_,
 Kubernetes pods running in your InfluxDB cluster must have a valid `License`
 resource to run. Licenses are issued by InfluxData. If there is no `License`
 resource installed in your cluster, one of two things may happen:
@@ -143,8 +142,8 @@ but this may be negotiated as needed with your InfluxData sales representative.
 
 #### License expiry logs
 
-The table below outlines license expiry logging behavior. It shows when the log
-messages begin, the level (warn vs error), and the periodicity at which they
+The following table outlines license expiry logging behavior to show when the log
+messages begin, the level (`Warn` or `Error`), and the periodicity at which they
 repeat.
 
 | Starts at             | Log level | Log periodicity |
@@ -157,7 +156,7 @@ repeat.
 
 Starting one month after your contractual license expiry, the InfluxDB
 [Querier](/influxdb/clustered/reference/internals/storage-engine/#querier)
-begins "browning out" requests. Brownouts consist of returning
+begins "browning out" requests. Brownouts return
 `FailedPrecondition` response codes to queries for a portion of every hour.
 
 | Starts at            | Brownout coverage  |
@@ -166,5 +165,5 @@ begins "browning out" requests. Brownouts consist of returning
 | 1 month after expiry | 100% of queries    |
 
 **Brownouts only occur after the license has contractually expired**.
-Also, they **only impact query operations**. No other operations (writes,
+Also, they **only impact query operations**--no other operations (writes,
 compaction, garbage collection, etc) are affected.

@@ -26,7 +26,7 @@ limited number of customers in a way that can easily be disabled if issues arise
 In the future, all releases of InfluxDB Clustered will require an active license
 to use the product.
 
-To opt into license enforcement, enable the `useLicensedBinaries` feature flag
+To opt into license enforcement, include the `useLicensedBinaries` feature flag
 in your `AppInstance` resource _([See the example below](#enable-feature-flag))_.
 
 {{% /note %}}
