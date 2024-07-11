@@ -18,7 +18,7 @@ Install and manage your InfluxDB Clustered license to authorize the use of
 the InfluxDB Clustered software.
 
 - [Install your InfluxDB license](#install-your-influxdb-license)
-- [Recover from an unlicensed release](#recover-from-an-unlicensed-release)
+- [Recover from a license misconfiguration](#recover-from-a-license-misconfiguration)
 - [Renew your license](#renew-your-license)
 - [License enforcement](#license-enforcement)
   - [A valid license is required](#a-valid-license-is-required)
