@@ -31,13 +31,14 @@ the InfluxDB Clustered software.
 #### License enforcement is currently an opt-in feature
 
 In currently available versions of InfluxDB Clustered, license enforcement is an
-opt-in feature that allows InfluxData to introduce license enforcement to customers, and allows customers to deactivate the feature if issues arise.
+opt-in feature that allows InfluxData to introduce license enforcement to
+customers, and allows customers to deactivate the feature if issues arise.
 In the future, all releases of InfluxDB Clustered will require an active license
 to use the product.
 
 To opt into license enforcement, include the `useLicensedBinaries` feature flag
 in your `AppInstance` resource _([See the example below](#enable-feature-flag))_.
-
+To deactivate license enforcement, remove the `useLicensedBinaries` feature flag.
 {{% /note %}}
 
 ## Install your InfluxDB license
@@ -84,17 +85,16 @@ per hour) while running.
 
 ## Recover from a license misconfiguration
 
-If you deploy a licensed release of InfluxDB Clustered without a valid license,
-many of the pods in your cluster will crash on startup and will likely enter a
-`CrashLoopBackoff` state without ever running or becoming healthy.
-If this happens during an upgrade, the Kubernetes control plane detects
-the crash loop of the new pods and prevents the termination of existing pods.
-The previous version will continue to run without service
-disruption while you work to provide a valid license.
+If you deploy a licensed release of InfluxDB Clustered without an invalid or
+expired license, many of the pods in your cluster will crash on startup and will
+likely enter a `CrashLoopBackoff` state without ever running or becoming healthy.
+Because the license is stored in a volume-mounted Kubernetes secret, invalid
+licenses affect both old and new pods.
 
 Once a valid `License` resource is applied, new pods will begin to start up normally.
-This is an error recovery feature of Kubernetes that depends on a correctly
-functioning Kubernetes cluster with enough capacity to perform rolling upgrades.
+Licenses are validated when the `License` resource is applied. If the license
+is invalid when you attempt to apply it, the InfluxDB clustered license
+controller will not add or update the required secret.
 
 ## Renew your license
 

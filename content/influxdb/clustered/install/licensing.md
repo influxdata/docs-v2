@@ -21,14 +21,14 @@ of the InfluxDB Clustered software.
 #### License enforcement is currently an opt-in feature
 
 In currently available versions of InfluxDB Clustered, license enforcement is an
-opt-in feature. This allows InfluxData to introduce license enforcement to a
-limited number of customers in a way that can easily be disabled if issues arise.
+opt-in feature that allows InfluxData to introduce license enforcement to
+customers, and allows customers to deactivate the feature if issues arise.
 In the future, all releases of InfluxDB Clustered will require an active license
 to use the product.
 
 To opt into license enforcement, include the `useLicensedBinaries` feature flag
 in your `AppInstance` resource _([See the example below](#enable-feature-flag))_.
-
+To deactivate license enforcement, remove the `useLicensedBinaries` feature flag.
 {{% /note %}}
 
 ## Install your InfluxDB license
