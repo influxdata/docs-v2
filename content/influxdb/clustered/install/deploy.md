@@ -6,9 +6,10 @@ menu:
   influxdb_clustered:
     name: Deploy your cluster
     parent: Install InfluxDB Clustered
-weight: 104
+weight: 140
 related:
   - /influxdb/clustered/admin/upgrade/
+  - /influxdb/clustered/install/licensing/
 ---
 
 Use Kubernetes and related tools to deploy your InfluxDB cluster.
@@ -172,4 +173,4 @@ influxdb      iox-shared-querier-7f5998b9b-fpt62        4/4     Running     1 (6
 influxdb      kubit-apply-influxdb-g6qpx                0/1     Completed   0              8s
 ```
 
-{{< page-nav prev="/influxdb/clustered/install/configure-cluster/" prevText="Configure your cluster" next="/influxdb/clustered/install/use-your-cluster/" nextText="Use your cluster" >}}
+{{< page-nav prev="/influxdb/clustered/install/licensing/" prevText="Install your license" next="/influxdb/clustered/install/use-your-cluster/" nextText="Use your cluster" >}}

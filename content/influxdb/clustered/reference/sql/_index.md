@@ -6,7 +6,7 @@ menu:
   influxdb_clustered:
     name: SQL reference
     parent: Reference
-weight: 101
+weight: 141
 related:
   - /influxdb/clustered/reference/internals/arrow-flightsql/
 ---

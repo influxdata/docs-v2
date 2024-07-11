@@ -2,7 +2,7 @@
 title: Glossary
 description: >
   Terms related to InfluxData products and platforms.
-weight: 109
+weight: 180
 menu:
   influxdb_clustered:
     parent: Reference

@@ -9,7 +9,7 @@ menu:
   influxdb_clustered:
     parent: Reference
     name: CLIs
-weight: 104
+weight: 120
 ---
 
 InfluxDB provides command line tools designed to manage and work with your

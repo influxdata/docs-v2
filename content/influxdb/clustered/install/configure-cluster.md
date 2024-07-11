@@ -7,7 +7,7 @@ menu:
   influxdb_clustered:
     name: Configure your cluster
     parent: Install InfluxDB Clustered
-weight: 103
+weight: 130
 related:
   - /influxdb/clustered/admin/upgrade/
 ---
@@ -876,4 +876,4 @@ be last in the bundle.
                   name: custom-ca
     ```
 
-{{< page-nav prev="/influxdb/clustered/install/auth/" prevText="Set up authentication" next="/influxdb/clustered/install/deploy/" nextText="Deploy your cluster" >}}
+{{< page-nav prev="/influxdb/clustered/install/auth/" prevText="Set up authentication" next="/influxdb/clustered/install/licensing/" nextText="Install your license" >}}
