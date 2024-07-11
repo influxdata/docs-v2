@@ -83,7 +83,7 @@ into a secret required by InfluxDB Clustered Kubernetes pods.
 Pods validate the license secret both at startup and periodically (roughly once
 per hour) while running.
 
-## Recover from an unlicensed release
+## Recover from a license misconfiguration
 
 If you deploy a licensed release of InfluxDB Clustered without a valid license,
 many of the pods in your cluster will crash on startup and will likely enter a
