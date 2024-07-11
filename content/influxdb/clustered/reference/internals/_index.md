@@ -5,7 +5,7 @@ description: >
 menu:
   influxdb_clustered:
     parent: Reference
-weight: 108
+weight: 130
 ---
 
 {{< children >}}

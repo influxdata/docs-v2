@@ -8,7 +8,7 @@ menu:
   influxdb_clustered:
     name: Sample data
     parent: Reference
-weight: 110
+weight: 182
 ---
 
 Sample datasets are used throughout the {{< product-name >}} documentation to

@@ -6,7 +6,7 @@ menu:
   influxdb_clustered:
     name: Set up authentication
     parent: Install InfluxDB Clustered
-weight: 102
+weight: 120
 ---
 
 Administrative access to your InfluxDB cluster is managed through your identity

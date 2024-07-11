@@ -6,7 +6,7 @@ menu:
   influxdb_clustered:
     name: Use your cluster
     parent: Install InfluxDB Clustered
-weight: 105
+weight: 150
 ---
 
 Now that your InfluxDB cluster is deployed, you can use and test it.

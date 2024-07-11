@@ -1,7 +1,6 @@
 # Use the Dockerfile 1.2 syntax to leverage BuildKit features like cache mounts and inline mounts--temporary mounts that are only available during the build step, not at runtime.
 # syntax=docker/dockerfile:1.2
 
-# Starting from a Go base image is easier than setting up the Go environment later.
 FROM python:3.9-slim
 
 # Install the necessary packages for the test environment.

@@ -7,7 +7,7 @@ menu:
   influxdb_clustered:
     name: Configure your cluster
     parent: Install InfluxDB Clustered
-weight: 103
+weight: 130
 related:
   - /influxdb/clustered/admin/upgrade/
 ---
@@ -72,12 +72,14 @@ template) that contains key information, such as:
 
 ## Configure your cluster
 
-1. [Create a cluster configuration file](#create-a-cluster-configuration-file)
-2. [Create a namespace for InfluxDB](#create-a-namespace-for-influxdb)
-3. [Install kubecfg kubit operator](#install-kubecfg-kubit-operator)
-4. [Configure access to the InfluxDB container registry](#configure-access-to-the-influxdb-container-registry)
-5. [Set up cluster ingress](#set-up-cluster-ingress)
-6. [Modify the configuration file to point to prerequisites](#modify-the-configuration-file-to-point-to-prerequisites)
+1.  [Create a cluster configuration file](#create-a-cluster-configuration-file)
+2.  [Create a namespace for InfluxDB](#create-a-namespace-for-influxdb)
+3.  [Install kubecfg kubit operator](#install-kubecfg-kubit-operator)
+4.  [Configure access to the InfluxDB container registry](#configure-access-to-the-influxdb-container-registry)
+5.  [Set up cluster ingress](#set-up-cluster-ingress)
+6.  [Modify the configuration file to point to prerequisites](#modify-the-configuration-file-to-point-to-prerequisites)
+7.  [Provide a custom certificate authority bundle](#provide-a-custom-certificate-authority-bundle)
+    <em class="op65">(Optional)</em>
 
 ### Create a cluster configuration file
 
@@ -821,4 +823,57 @@ spec:
 
 {{% /code-placeholders %}}
 
-{{< page-nav prev="/influxdb/clustered/install/auth/" prevText="Set up authentication" next="/influxdb/clustered/install/deploy/" nextText="Deploy your cluster" >}}
+### Provide a custom certificate authority bundle {note="Optional"}
+
+InfluxDB attempts to make TLS connections to the services it depends on; notably
+the [Catalog](/influxdb/clustered/reference/internals/storage-engine/#catalog),
+and the [Object store](/influxdb/clustered/reference/internals/storage-engine/#object-store).
+InfluxDB validates the certificates for all of the connections it makes.
+
+**If you host these services yourself and you use a private or otherwise not
+well-known certificate authority to issue certificates to theses services**, 
+InfluxDB will not recognize the issuer and will be unable to validate the certificates.
+To allow InfluxDB to validate these certificates, provide a PEM certificate
+bundle containing your custom certificate authority chain.
+
+1.  Use `kubectl` to create a config map containing your PEM bundle.
+    Your certificate authority administrator should provide you with a
+    PEM-formatted certificate bundle file.
+    
+    {{% note %}}
+This PEM-formatted bundle file is *not* the certificate that InfluxDB uses to
+host its own TLS endpoints. This bundle establishes a chain of trust for the
+external services that InfluxDB depends on.
+    {{% /note %}}
+
+    In the example below, `private_ca.pem` is the certificate bundle file.
+
+    ```sh
+    kubectl --namespace influxdb create configmap custom-ca --from-file=certs.pem=/path/to/private_ca.pem
+    ```
+
+    {{% note %}}
+It's possible to append multiple certificates into the same bundle.
+This can help if you need to include intermediate certificates or explicitly
+include leaf certificates. Leaf certificates should be included before any
+intermediate certificates they depend on. The root certificate should
+be last in the bundle.
+    {{% /note %}}
+
+2.  Update your `AppInstance` resource in your `myinfluxdb.yml` to refer to your
+    certificate authority config map. Update the `.spec.package.spec.egress`
+    property to refer to that config map. For example:
+
+    ```yml
+    spec:
+      package:
+        spec:
+          egress:
+            customCertificates:
+              valueFrom:
+                configMapKeyRef:
+                  key: ca.pem
+                  name: custom-ca
+    ```
+
+{{< page-nav prev="/influxdb/clustered/install/auth/" prevText="Set up authentication" next="/influxdb/clustered/install/licensing/" nextText="Install your license" >}}

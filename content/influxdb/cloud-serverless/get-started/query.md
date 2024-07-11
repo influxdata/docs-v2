@@ -1,6 +1,6 @@
 ---
 title: Get started querying data
-seotitle: Query data | Get started with InfluxDB
+seotitle: Query data | Get started with InfluxDB Cloud Serverless
 list_title: Query data
 description: >
   Get started querying data in InfluxDB by learning about SQL and InfluxQL, and
@@ -402,10 +402,15 @@ _If your project's virtual environment is already running, skip to step 3._
 {{< expand-wrapper >}}
 {{% expand "<span class='req'>Important</span>: If using **Windows**, specify the **Windows** certificate path" %}}
 
-  When instantiating the client, Python looks for SSL/TLS certificate authority (CA) certificates for verifying the server's authenticity.
-  If using a non-POSIX-compliant operating system (such as Windows), you need to specify a certificate bundle path that Python can access on your system.
+  When instantiating the client, Python looks for SSL/TLS certificate authority
+  (CA) certificates for verifying the server's authenticity.
+  If using a non-POSIX-compliant operating system (such as Windows), you need to
+  specify a certificate bundle path that Python can access on your system.
 
-  The following example shows how to use the [Python `certifi` package](https://certifiio.readthedocs.io/en/latest/) and client library options to provide a bundle of trusted certificates to the Python Flight client:
+  The following example shows how to use the
+  [Python `certifi` package](https://certifiio.readthedocs.io/en/latest/) and
+  client library options to provide a bundle of trusted certificates to the
+  Python Flight client:
 
   1.  In your terminal, install the Python `certifi` package.
 
@@ -444,28 +449,30 @@ _If your project's virtual environment is already running, skip to step 3._
   
   2.  Calls the `InfluxDBClient3()` constructor method with credentials to instantiate an InfluxDB `client` with the following credentials:
 
-      - **`host`**: {{% product-name %}} region hostname (URL without protocol or trailing slash)
+      - **`host`**: {{% product-name %}} region hostname
+        (without `https://` protocol or trailing slash)
       - **`database`**: the name of the [{{% product-name %}} bucket](/influxdb/cloud-serverless/admin/buckets/) to query
       - **`token`**:  an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the specified bucket.
-        _Store this in a secret store or environment variable to avoid exposing the raw token string._
+        _Store this in a secret store or environment variable to avoid exposing
+        the raw token string._
   
-  3.  Defines the SQL query to execute and assigns it to a `query` variable.
+  1.  Defines the SQL query to execute and assigns it to a `query` variable.
 
-  4.  Calls the `client.query()` method with the SQL query.
+  2.  Calls the `client.query()` method with the SQL query.
       `query()` sends a
       Flight request to InfluxDB, queries the database (bucket), retrieves result data from the endpoint, and then returns a
       [`pyarrow.Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table)
       assigned to the `table` variable.
 
-  5.  Calls the [`to_pandas()` method](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table.to_pandas)
+  3.  Calls the [`to_pandas()` method](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table.to_pandas)
       to convert the Arrow table to a [`pandas.DataFrame`](https://arrow.apache.org/docs/python/pandas.html).
 
-  6.  Calls the [`pandas.DataFrame.to_markdown()` method](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_markdown.html)
+  4.  Calls the [`pandas.DataFrame.to_markdown()` method](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_markdown.html)
       to convert the DataFrame to a markdown table.
 
-  7.  Calls the `print()` method to print the markdown table to stdout.
+  5.  Calls the `print()` method to print the markdown table to stdout.
 
-6. In your terminal, enter the following command to run the program and query {{% product-name %}}:
+1. In your terminal, enter the following command to run the program and query {{% product-name %}}:
 
     <!--pytest.mark.skip-->
 
@@ -609,14 +616,18 @@ _If your project's virtual environment is already running, skip to step 3._
             - **`Host`**: your {{% product-name %}} region URL
             - **`Database`**: The name of your {{% product-name %}} bucket
             - **`Token`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with read permission on the specified bucket.
-              _Store this in a secret store or environment variable to avoid exposing the raw token string._
+              _Store this in a secret store or environment variable to avoid
+              exposing the raw token string._
 
         2.  Defines a deferred function to close the client after execution.
         3.  Defines a string variable for the SQL query.
 
-        4.  Calls the `influxdb3.Client.Query(sql string)` method and passes the SQL string to query InfluxDB.
-            `Query(sql string)` method returns an `iterator` for data in the response stream.
-        5.  Iterates over rows, formats the timestamp as an [RFC3339 timestamp](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp), and prints the data in table format to stdout.
+        4.  Calls the `influxdb3.Client.Query(sql string)` method and passes the
+            SQL string to query InfluxDB.
+            The `Query(sql string)` method returns an `iterator` for data in the
+            response stream.
+        5.  Iterates over rows, formats the timestamp as an
+            [RFC3339 timestamp](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp),and prints the data in table format to stdout.
 
 3.  In your editor, open the `main.go` file you created in the
     [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Go#write-line-protocol-to-influxdb) and insert code to call the `Query()` function--for example:
@@ -630,12 +641,13 @@ _If your project's virtual environment is already running, skip to step 3._
     }
     ```
 
-4.  In your terminal, enter the following command to install the necessary packages, build the module, and run the program:
+4.  In your terminal, enter the following command to install the necessary
+    packages, build the module, and run the program:
 
     <!--pytest.mark.skip-->
 
     ```sh
-    go mod tidy && go build && go run influxdb_go_client
+    go mod tidy && go run influxdb_go_client
     ```
 
     The program executes the `main()` function that writes the data and prints the query results to the console.
@@ -719,8 +731,10 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
         with InfluxDB credentials.
 
         - **`host`**: your {{% product-name %}} region URL
-        - **`token`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the specified bucket.
-          _Store this in a secret store or environment variable to avoid exposing the raw token string._
+        - **`token`**: an [API token](/influxdb/cloud-serverless/admin/tokens/)
+          with _read_ permission on the bucket you want to query.
+          _Store this in a secret store or environment variable to avoid exposing
+          the raw token string._
 
       3.  Defines a string variable (`sql`) for the SQL query.
       4.  Defines an object (`data`) with column names for keys and array values for storing row data.
@@ -752,7 +766,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
     main();
     ```
 
-9.  In your terminal, execute `index.mjs` to write to and query {{% product-name %}}:
+6.  In your terminal, execute `index.mjs` to write to and query {{% product-name %}}:
 
     <!--pytest.mark.skip-->
 
@@ -1008,7 +1022,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
 
     - The `App`, `Write`, and `Query` classes belong to the `com.influxdbv3` package (your project **groupId**).
     - `App` defines a `main()` function that calls `Write.writeLineProtocol()` and `Query.querySQL()`.
-4.  In your terminal or editor, use Maven to to install dependencies and compile the project code--for example:
+4.  In your terminal or editor, use Maven to install dependencies and compile the project code--for example:
 
     <!--pytest.mark.skip-->
 
@@ -1022,8 +1036,6 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
     For example, enter the following command in your terminal:
 
     **Linux/MacOS**
-
-    <!--pytest.mark.skip-->
 
     ```sh
     export MAVEN_OPTS="--add-opens=java.base/java.nio=ALL-UNNAMED"

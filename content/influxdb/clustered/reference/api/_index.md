@@ -8,7 +8,7 @@ menu:
   influxdb_clustered:
     parent: Reference
     name: InfluxDB HTTP API
-weight: 104
+weight: 127
 influxdb/clustered/tags: [api]
 ---
 

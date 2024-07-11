@@ -288,17 +288,18 @@ and then write it to {{< product-name >}}.
     ```
 
 3.  Run the following command to generate a Telegraf configuration file
-    (`./telegraf.conf`) that enables the `inputs.file` and `outputs.influxdb_v2`
+    (`telegraf.conf`) that enables the `inputs.file` and `outputs.influxdb_v2`
     plugins:
 
     ```sh
-    telegraf --sample-config \
+    mkdir -p iot-project \
+    && telegraf --sample-config \
       --input-filter file \
       --output-filter influxdb_v2 \
-      > telegraf.conf
+      > iot-project/telegraf.conf
     ```
 
-4.  In your editor, open `./telegraf.conf` and configure the following:
+4.  In your editor, open `iot-project/telegraf.conf` and configure the following:
 
     - **`file` input plugin**: In the `[[inputs.file]].files` list, replace
       `"/tmp/metrics.out"` with your sample data filename. If Telegraf can't
@@ -309,12 +310,28 @@ and then write it to {{< product-name >}}.
         ## Files to parse each interval.  Accept standard unix glob matching rules,
         ## as well as ** to match recursive files and directories.
         files = ["home.lp"]
+        # Set the timestamp precision to the precision in your data.
+        influx_timestamp_precision = '1s'
+        ## Optionally, use the newer, more efficient line protocol parser
+        influx_parser_type = 'upstream' 
       ```
 
       <!--test
-      ```bash
-      echo '[[inputs.file]]' > telegraf.conf
-      echo '  files = ["home.lp"]' >> telegraf.conf
+      ```python
+      import toml
+
+      # Load the TOML file
+      with open('iot-project/telegraf.conf', 'r') as f:
+          data = toml.load(f)
+
+          # Modify the file content
+          data['inputs']['file'][0]['files'] = ['home.lp']
+          data['inputs']['file'][0]['influx_parser_type'] = 'upstream'
+          data['inputs']['file'][0]['influx_timestamp_precision'] = '1s'
+
+      # Write the modified data back to the file
+      with open('iot-project/telegraf.conf', 'w') as f:
+          toml.dump(data, f)
       ```
       -->
 
@@ -338,15 +355,20 @@ and then write it to {{< product-name >}}.
       ```
 
       <!--test
-      ```bash
-      echo '[[outputs.influxdb_v2]]' >> telegraf.conf
-      echo '  urls = ["${INFLUX_HOST}"]' >> telegraf.conf
-      echo '' >> telegraf.conf
-      echo '  token = "${INFLUX_TOKEN}"' >> telegraf.conf
-      echo '' >> telegraf.conf
-      echo '  organization = ""' >> telegraf.conf
-      echo '' >> telegraf.conf
-      echo '  bucket = "get-started"' >> telegraf.conf
+      ```python
+      import toml
+
+      with open('iot-project/telegraf.conf', 'r') as f:
+          data = toml.load(f)
+
+          # Modify the file content
+          data['outputs']['influxdb_v2'][0]['urls'] = [f"$INFLUX_HOST"]
+          data['outputs']['influxdb_v2'][0]['token'] = f"$INFLUX_TOKEN"
+          data['outputs']['influxdb_v2'][0]['organization'] = ''
+          data['outputs']['influxdb_v2'][0]['bucket'] = 'get-started'
+      # Write the modified data back to the file
+      with open('iot-project/telegraf.conf', 'w') as f:
+          toml.dump(data, f)
       ```
       -->
 
@@ -367,7 +389,7 @@ and then write it to {{< product-name >}}.
     Enter the following command in your terminal:
 
     ```sh
-    telegraf --once --config ./telegraf.conf
+    telegraf --once --config iot-project/telegraf.conf
     ```
 
     If the write is successful, the output is similar to the following:
@@ -439,7 +461,7 @@ to InfluxDB:
 {{% code-placeholders "DATABASE_TOKEN" %}}
 
 ```sh
-response=$(curl --silent --write-out "%{response_code}:%{errormsg}" \
+response=$(curl --silent --write-out "%{response_code}:-%{errormsg}" \
   "https://{{< influxdb/host >}}/write?db=get-started&precision=s" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
@@ -474,8 +496,8 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ")
 
 # Format the response code and error message output.
-response_code=${response%%:*}
-errormsg=${response#*:}
+response_code=${response%%:-*}
+errormsg=${response#*:-}
 
 # Remove leading and trailing whitespace from errormsg
 errormsg=$(echo "${errormsg}" | tr -d '[:space:]')
@@ -550,7 +572,7 @@ to InfluxDB:
 {{% code-placeholders "DATABASE_TOKEN"%}}
 
 ```sh
-response=$(curl --silent --write-out "%{response_code}:%{errormsg}" \
+response=$(curl --silent --write-out "%{response_code}:-%{errormsg}" \
   "https://{{< influxdb/host >}}/api/v2/write?bucket=get-started&precision=s" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
@@ -585,8 +607,8 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ")
 
 # Format the response code and error message output.
-response_code=${response%%:*}
-errormsg=${response#*:}
+response_code=${response%%:-*}
+errormsg=${response#*:-}
 
 # Remove leading and trailing whitespace from errormsg
 errormsg=$(echo "${errormsg}" | tr -d '[:space:]')

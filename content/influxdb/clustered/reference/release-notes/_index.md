@@ -7,7 +7,7 @@ menu:
   influxdb_clustered:
     name: Release notes
     parent: Reference
-weight: 101
+weight: 190
 ---
 
 View release notes and updates for products and tools related to

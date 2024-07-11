@@ -2,7 +2,9 @@
 /Cargo.lock
 config.toml
 content
+monitor_urls_pid
 node_modules
+shared
 tmp
 .config*
 .env*
