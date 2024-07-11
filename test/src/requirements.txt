@@ -4,6 +4,10 @@ pytest-cov>=2.12.1
 pytest-codeblocks>=0.16.1
 python-dotenv>=1.0.0
 pytest-dotenv>=0.5.2
+# Allow pytest to pass if no tests (i.e. testable code blocks) are found.
+pytest-custom-exit-code>=0.3.0
+requests>=2.26.0
+toml
 # Code sample dependencies
 influxdb3-python @ git+https://github.com/InfluxCommunity/influxdb3-python@v0.5.0
 influxdb3-python-cli @ git+https://github.com/InfluxCommunity/influxdb3-python-cli@main

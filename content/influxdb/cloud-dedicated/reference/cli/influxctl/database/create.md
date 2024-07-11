@@ -65,11 +65,28 @@ Be sure to follow [partitioning best practices](/influxdb/cloud-dedicated/admin/
 
 If defining a custom partition template for your database with any of the
 `--template-*` flags, always include the `--template-timeformat` flag with a
-time format to use in your partition template. Otherwise time will be omitted
-from the partition template and partitions won't be able to be compacted.
+time format to use in your partition template.
+Otherwise, InfluxDB omits time from the partition template and won't compact partitions.
 {{% /note %}}
 
+{{% warn %}}
+#### Cannot reuse deleted database names
+
+You cannot reuse the name of a deleted database when creating a new database.
+If you try to reuse the name, the API response status code
+is `400` and the `message` field contains the following:
+
+```text
+'iox_proxy.app.CreateDatabase failed to create database: \
+rpc error: code = AlreadyExists desc = A namespace with the
+name `<DATABASE_NAME>` already exists'
+```
+{{% /warn %}}
+
 ## Usage
+
+<!--Skip tests for database create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
 
 ```sh
 influxctl database create [flags] <DATABASE_NAME>
@@ -85,12 +102,12 @@ influxctl database create [flags] <DATABASE_NAME>
 
 | Flag |                         | Description                                                                                                                              |
 | :--- | :---------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
-|      | `--retention-period`    | Database retention period (default is 0s or infinite)                                                                                    |
-|      | `--max-tables`          | Maximum tables per database (default is 500, 0 uses default)                                                                             |
-|      | `--max-columns`         | Maximum columns per table (default is 250, 0 uses default)                                                                               |
+|      | `--retention-period`    | Database retention period (default is `0s`, infinite)                                                                                    |
+|      | `--max-tables`          | Maximum tables per database (default is 500, `0` uses default)                                                                             |
+|      | `--max-columns`         | Maximum columns per table (default is 250, `0` uses default)                                                                               |
 |      | `--template-tag`        | Tag to add to partition template (can include multiple of this flag)                                                                     |
 |      | `--template-tag-bucket` | Tag and number of buckets to partition tag values into separated by a comma--for example: `tag1,100` (can include multiple of this flag) |
-|      | `--template-timeformat` | Timestamp format for partition template <!--(default is `%Y-%m-%d`) -->                                                                  |
+|      | `--template-timeformat` | Timestamp format for partition template (default is `%Y-%m-%d`)                                                                          |
 | `-h` | `--help`                | Output command help                                                                                                                      |
 
 {{% caption %}}
@@ -106,11 +123,17 @@ _Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/inf
 
 ### Create a database with an infinite retention period
 
+<!--Skip tests for database create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
+
 ```sh
 influxctl database create mydb
 ```
 
 ### Create a database with a 30-day retention period
+
+<!--Skip tests for database create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
 
 ```sh
 influxctl database create \
@@ -119,6 +142,9 @@ influxctl database create \
 ```
 
 ### Create a database with non-default table and column limits
+
+<!--Skip tests for database create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
 
 ```sh
 influxctl database create \
@@ -132,6 +158,9 @@ influxctl database create \
 The following example creates a new `mydb` database and applies a partition
 template that partitions by two tags (`room` and `sensor-type`) and by week using
 the time format `%Y wk:%W`:
+
+<!--Skip tests for database create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
 
 ```sh
 influxctl database create \

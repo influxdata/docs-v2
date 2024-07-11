@@ -1,0 +1,10 @@
+extends: substitution
+message: Did you mean '%s' instead of '%s'
+level: warning
+ignorecase: false 
+# swap maps tokens in form of bad: good
+  # NOTE: The left-hand (bad) side can match the right-hand (good) side;
+  # Vale ignores alerts that match the intended form.
+swap:
+  '(?i)bucket': database
+  '(?i)measurement': table

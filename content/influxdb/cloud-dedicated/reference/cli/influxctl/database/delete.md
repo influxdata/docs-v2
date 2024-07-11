@@ -14,6 +14,9 @@ Cloud Dedicated cluster.
 
 ## Usage
 
+<!--Skip tests for database create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
+
 ```sh
 influxctl database delete [command options] [--force] <DATABASE_NAME> [<DATABASE_NAME_N>...]
 ```
@@ -50,11 +53,17 @@ _Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/inf
 
 ##### Delete a database named "mydb"
 
+<!--Skip tests for database create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
+
 ```sh
 influxctl database delete mydb
 ```
 
 ##### Delete multiple databases
+
+<!--Skip tests for database create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
 
 ```sh
 influxctl database delete mydb1 mydb2
