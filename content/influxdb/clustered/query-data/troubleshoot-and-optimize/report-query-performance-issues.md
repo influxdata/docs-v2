@@ -173,7 +173,7 @@ tar -czf "${DATETIME}-cluster-info.tar.gz" "${DATETIME}-cluster-info/"
 
 #### Query analysis
 
-**Outputs (InfluxQl):**
+**Outputs (InfluxQL):**
 
 - `explain.csv`
 - `explain-verbose.csv`
