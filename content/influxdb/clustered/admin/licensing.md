@@ -33,8 +33,8 @@ the InfluxDB Clustered software.
 In currently available versions of InfluxDB Clustered, license enforcement is an
 opt-in feature that allows InfluxData to introduce license enforcement to
 customers, and allows customers to deactivate the feature if issues arise.
-In the future, all releases of InfluxDB Clustered will require an active license
-to use the product.
+In the future, all releases of InfluxDB Clustered will require customers to
+configure an active license before they can use the product.
 
 To opt into license enforcement, include the `useLicensedBinaries` feature flag
 in your `AppInstance` resource _([See the example below](#enable-feature-flag))_.
@@ -47,8 +47,8 @@ To deactivate license enforcement, remove the `useLicensedBinaries` feature flag
 If setting up an InfluxDB Clustered deployment for the first time, first
 [set up the prerequisites](/influxdb/clustered/install/licensing/) and
 [configure your cluster](/influxdb/clustered/install/configure-cluster/).
-You will be able to install your license after the `influxdb` namespace is
-created and prepared.
+After your InfluxDB namespace is created and prepared, you will be able to
+install your license.
 {{% /note %}}
 
 1.  If you haven't already,
@@ -98,9 +98,9 @@ controller will not add or update the required secret.
 
 ## Renew your license
 
-Your InfluxData sales representative will proactively reach out to you regarding
-license renewals in advance of your license expiration. You are also welcome to
-contact your sales representative at any time.
+In advance of your license expiration, your InfluxData sales representative will
+contact you regarding license renewal.
+You may also contact your sales representative at any time.
 
 ---
 
