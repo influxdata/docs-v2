@@ -734,7 +734,7 @@ To adopt the new, separate `influx` CLI early, download the latest release from 
 - Prevent silently dropped writes when there are overlapping shards.
 - Invalid requests to `/api/v2` subroutes now return 404 instead of a list of links.
 - Flux meta queries for `_field` take fast path if `_measurement` is the only predicate.
-- Copy names from mmapped memory before closing iterator.
+- Copy names from `mmap` mapped memory before closing iterator.
 
 ---
 
