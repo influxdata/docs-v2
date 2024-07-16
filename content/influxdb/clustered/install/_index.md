@@ -10,6 +10,14 @@ InfluxDB Clustered is deployed and managed using Kubernetes.
 This multi-page guide walks through setting up prerequisites and configuring
 your InfluxDB cluster deployment.
 
+InfluxDB Clustered is a licensed InfluxDB product.
+Before installing and configuring your InfluxDB cluster, contact InfluxData
+Sales to obtain a license.
+
+<a class="btn" href="{{< cta-link >}}">Contact InfluxData Sales</a>
+
+## Setup, configure, and deploy InfluxDB Clustered
+
 {{< children type="ordered-list" >}}
 
 
