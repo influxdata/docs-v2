@@ -336,7 +336,16 @@ If stored at a non-default location, include the `--config` flag with each
     ## By default, the system certificates are used. If a custom certificate
     ## for connecting to InfluxDB is required, define it below.
     # [profile.tls]
+        ## When true, `insecure` influxctl configures HTTPS clients to not
+        ## verify server certificates. Use this if you are connecting to a
+        ## TLS endpoint with invalid (expired, self-signed, etc) server
+        ## certificates.
         # insecure = false
+        ## When true, `disable` causes influxctl to use HTTP rather than HTTPS
+        ## client. Use this if you don't have an ingress controller configured
+        ## to terminate TLS connections. InfluxDB 3.0 components themselves do
+        ## not terminate TLS.
+        # disable = false
         # cert = ""
         # key = ""
         # ca = ""
