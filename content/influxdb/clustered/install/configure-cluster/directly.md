@@ -1,15 +1,14 @@
 ---
-title: Configure your InfluxDB cluster
+title: Configure your InfluxDB AppInstance directly
 description: >
-  InfluxDB Clustered deployments are managed using Kubernetes and configured using
-  a YAML configuration file.
+  Configure your InfluxDB clustered by adding configuration options directly to
+  the provided `AppInstance` resource.
+menu:
 menu:
   influxdb_clustered:
-    name: Configure your cluster
-    parent: Install InfluxDB Clustered
-weight: 130
-related:
-  - /influxdb/clustered/admin/upgrade/
+    name: Configure directly
+    parent: Configure your cluster
+weight: 220
 ---
 
 InfluxDB Clustered deployments are managed using Kubernetes and configured using
@@ -62,7 +61,10 @@ The InfluxDB installation, update, and upgrade processes are driven by editing
 and applying a [Kubernetes custom resource (CRD)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 called `AppInstance`.
 The `AppInstance` CRD is defined in a YAML file (use `example-customer.yml` as a
-template) that contains key information, such as:
+template) or, if using the InfluxDB Clustered Helm chart, is provided by the
+chart and configured in the `values.yaml` included in the chart.
+
+The `AppInstance` resource contains key information, such as:
 
 - Name of the target namespace
 - Version of the InfluxDB package
