@@ -757,21 +757,21 @@ your anticipated workload.
 in your `myinfluxdb.yml`. If omitted, your cluster will use the default scale settings.
 
 - `spec.package.spec.resources`
-  - `.ingester.requests`
-    - `.cpu`: CPU Resource units to assign to ingesters
-    - `.memory`: Memory resource units to assign to ingesters
+  - `ingester.requests`
+    - `cpu`: CPU resource units to assign to ingesters
+    - `memory`: Memory resource units to assign to ingesters
     - `replicas`: Number of ingester replicas to provision
-  - `.compactor.requests`
-    - `.cpu`: CPU Resource units to assign to compactors
-    - `.memory`: Memory resource units to assign to compactors
+  - `compactor.requests`
+    - `cpu`: CPU resource units to assign to compactors
+    - `memory`: Memory resource units to assign to compactors
     - `replicas`: Number of compactor replicas to provision
-  - `.querier.requests`
-    - `.cpu`: CPU Resource units to assign to queriers
-    - `.memory`: Memory resource units to assign to queriers
+  - `querier.requests`
+    - `cpu`: CPU resource units to assign to queriers
+    - `memory`: Memory resource units to assign to queriers
     - `replicas`: Number of querier replicas to provision
-  - `.router.requests`
-    - `.cpu`: CPU Resource units to assign to routers
-    - `.memory`: Memory resource units to assign to routers
+  - `router.requests`
+    - `cpu`: CPU resource units to assign to routers
+    - `memory`: Memory resource units to assign to routers
     - `replicas`: Number of router replicas to provision
 
 ###### Related Kubernetes documentation
