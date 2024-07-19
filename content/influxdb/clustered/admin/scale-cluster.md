@@ -276,6 +276,44 @@ The Ingester can be scaled both [vertically](#vertical-scaling) and
 Vertical scaling increases write throughput and is typically the most effective
 scaling strategy for the Ingester.
 
+#### Ingester storage volume
+
+Ingesters use an attached storage volume to store the
+[Write-Ahead Log (WAL)](/influxdb/clustered/reference/glossary/#wal-write-ahead-log).
+With more storage available, Ingesters can keep bigger WAL buffers, which
+improves query performance and reduces pressure on the Compactor.
+Storage speed also helps with query performance.
+
+Configure the storage volume attached to Ingester pods in the
+`spec.package.spec.ingesterStorage` property of your `AppInstance` resource. 
+
+{{< expand-wrapper >}}
+{{% expand "View example Ingester storage configuration" %}}
+
+{{% code-placeholders "STORAGE_(CLASS|SIZE)" %}}
+
+```yml
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+# ...
+spec:
+  package:
+    spec:
+      # ...
+      ingesterStorage:
+        # (Optional) Set the storage class. This will differ based on the K8s
+        #environment and desired storage characteristics.
+        # If not set, the default storage class is used.
+        storageClassName: STORAGE_CLASS
+        # Set the storage size (minimum 2Gi recommended)
+        storage: STORAGE_SIZE
+```
+
+{{% /code-placeholders %}}
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### Querier
 
 The Querier can be scaled both [vertically](#vertical-scaling) and

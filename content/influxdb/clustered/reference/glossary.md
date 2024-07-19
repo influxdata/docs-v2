@@ -1131,15 +1131,17 @@ A statement that sets or updates the value stored in a variable.
 
 ## W
 
-### WAL (Write Ahead Log) - enterprise
+### WAL (Write-Ahead Log)
 
 The temporary cache for recently written points.
 To reduce the frequency that permanent storage files are accessed, InfluxDB
 caches new points in the WAL until their total size or age triggers a flush to
-more permanent storage. This allows for efficient batching of the writes into the TSM.
+more permanent storage. This allows for efficient batching of the writes into
+the storage engine.
 
 Points in the WAL can be queried and persist through a system reboot.
-On process start, all points in the WAL must be flushed before the system accepts new writes.
+On process start, all points in the WAL must be flushed before the system
+accepts new writes.
 
 Related entries:
 [tsm](#tsm-time-structured-merge-tree)
