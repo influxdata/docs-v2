@@ -83,7 +83,7 @@ for each pod and the number of replicas per component.
 `requests` are the minimum that the Kubernetes scheduler should reserve for a pod.
 `limits` are the maximum that a pod should be allowed to use.
 
-Your `AppInstance` resource can included the following properties to define
+Your `AppInstance` resource can include the following properties to define
 resource minimums and limits per pod and replicas per component:
 
 - `spec.package.spec.resources`
