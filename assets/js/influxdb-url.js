@@ -2,7 +2,7 @@ var placeholderUrls = {
   oss: 'http://localhost:8086',
   cloud: 'https://cloud2.influxdata.com',
   serverless: 'https://cloud2.influxdata.com',
-  dedicated: 'cluster-id.influxdb.io',
+  dedicated: 'cluster-id.a.influxdb.io',
   clustered: 'cluster-host.com',
 };
 

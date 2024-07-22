@@ -486,7 +486,7 @@ Follow these steps to build and run the application using Docker:
     ```sh
     docker build \
     --build-arg DATABASE_NAME=INFLUX_DATABASE \
-    --build-arg HOST=cluster-id.influxdb.io \
+    --build-arg HOST={{% influxdb/host %}}\
     --build-arg TOKEN=INFLUX_TOKEN \
     -t javaflight .
     ```
