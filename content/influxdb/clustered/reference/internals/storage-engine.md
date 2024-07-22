@@ -28,9 +28,6 @@ queries, and is optimized to reduce storage cost.
   - [Catalog](#catalog)
   - [Object store](#object-store)
   - [Compactor](#compactor)
-- [Scaling strategies](#scaling-strategies)
-  - [Vertical scaling](#vertical-scaling)
-  - [Horizontal scaling](#horizontal-scaling)
 
 ## Storage engine diagram
 
@@ -66,8 +63,8 @@ In this process, the Ingester does the following:
 
 ##### Ingester scaling strategies
 
-The Ingester can be scaled both [vertically](#vertical-scaling) and
-[horizontally](#horizontal-scaling).
+The Ingester can be scaled both [vertically](/influxdb/clustered/admin/scale-cluster/#vertical-scaling)
+and [horizontally](/influxdb/clustered/admin/scale-cluster/#horizontal-scaling).
 Vertical scaling increases write throughput and is typically the most
 effective scaling strategy for the Ingester.
 
@@ -98,10 +95,11 @@ At query time, the querier:
 
 ##### Querier scaling strategies
 
-The Querier can be scaled both [vertically](#vertical-scaling) and
-[horizontally](#horizontal-scaling).
+The Querier can be scaled both [vertically](/influxdb/clustered/admin/scale-cluster/#vertical-scaling)
+and [horizontally](/influxdb/clustered/admin/scale-cluster/#horizontal-scaling).
 Horizontal scaling increases query throughput to handle more concurrent queries.
-Vertical scaling improves the Querier's ability to process computationally intensive queries.
+Vertical scaling improves the Querier's ability to process computationally
+intensive queries.
 
 ### Catalog
 
@@ -117,8 +115,10 @@ It fulfills the following roles:
 ##### Catalog scaling strategies
 
 Scaling strategies available for the Catalog depend on the PostgreSQL-compatible
-database used to run the catalog. All support [vertical scaling](#vertical-scaling).
-Most support [horizontal scaling](#horizontal-scaling) for redundancy and failover.
+database used to run the catalog. All support
+[vertical scaling](/influxdb/clustered/admin/scale-cluster/#vertical-scaling).
+Most support [horizontal scaling](/influxdb/clustered/admin/scale-cluster/#horizontal-scaling)
+for redundancy and failover.
 
 ### Object store
 
@@ -132,8 +132,8 @@ Data in each Parquet file is sorted, encoded, and compressed.
 
 Scaling strategies available for the Object store depend on the underlying
 object storage services used to run the object store.
-Most support [horizontal scaling](#horizontal-scaling) for redundancy, failover,
-and increased capacity.
+Most support [horizontal scaling](/influxdb/clustered/admin/scale-cluster/#horizontal-scaling)
+for redundancy, failover, and increased capacity.
 
 ### Compactor
 
@@ -143,48 +143,9 @@ It then updates the [Catalog](#catalog) with locations of compacted data.
 
 ##### Compactor scaling strategies
 
-The Compactor can be scaled both [vertically](#vertical-scaling) and
-[horizontally](#horizontal-scaling).
+The Compactor can be scaled both [vertically](/influxdb/clustered/admin/scale-cluster/#vertical-scaling)
+and [horizontally](/influxdb/clustered/admin/scale-cluster/#horizontal-scaling).
 Because compaction is a compute-heavy process, vertical scaling (especially
 increasing the available CPU) is the most effective scaling strategy for the Compactor.
 Horizontal scaling increases compaction throughput, but not as efficiently as
 vertical scaling.
-
----
-
-## Scaling strategies
-
-The following scaling strategies can be applied to components of the InfluxDB v3
-storage architecture.
-
-{{% note %}}
-
-<!-- Cloud Dedicated-specific -->
-
-For information about scaling your {{< product-name >}} infrastructure,
-[contact InfluxData support](https://support.influxdata.com).
-{{% /note %}}
-
-### Vertical scaling
-
-Vertical scaling (also known as "scaling up") involves increasing the resources
-(such as RAM or CPU) available to a process or system.
-Vertical scaling is typically used to handle resource-intensive tasks that
-require more processing power.
-
-{{< html-diagram/scaling-strategy "vertical" >}}
-
-### Horizontal scaling
-
-Horizontal scaling (also known as "scaling out") involves increasing the number of
-nodes or processes available to perform a given task.
-Horizontal scaling is typically used to increase the amount of workload or
-throughput a system can manage, but also provides additional redundancy and failover.
-
-{{% warn %}}
-#### Only use the AppInstance to scale component replicas
-
-Manually scaling resources may cause errors.
-{{% /warn %}}
-
-{{< html-diagram/scaling-strategy "horizontal" >}}
