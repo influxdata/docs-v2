@@ -335,7 +335,7 @@ _For more information about the query lifecycle, see
 ##### Query example
 
 Consider the following query that selects everything in the `production` table
-where the `line` tag is `A` and the `station` tag is `1`:
+where the `line` tag is `A` and the `station` tag is `cnc`:
 
 ```sql
 SELECT *
