@@ -150,7 +150,7 @@
     {{ else if $isServerless }}
       {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "formID" "serverless" "filterServerless" true }}
     {{ else if $isDedicated }}
-      {{ template "productSpecificForm" dict "product" nil "formID" "dedicated" "placeholder" "cluster-id.influxdb.io" }}
+      {{ template "productSpecificForm" dict "product" nil "formID" "dedicated" "placeholder" "cluster-id.a.influxdb.io" }}
     {{ else if $isClustered }}
       {{ template "productSpecificForm" dict "product" nil "formID" "clustered" "placeholder" "cluster-host.com" }}
     {{ end }}

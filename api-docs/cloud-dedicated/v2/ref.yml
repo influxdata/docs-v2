@@ -17,8 +17,8 @@ servers:
     variables:
       baseurl:
         enum:
-          - cluster-id.influxdb.io
-        default: cluster-id.influxdb.io
+          - cluster-id.a.influxdb.io
+        default: cluster-id.a.influxdb.io
         description: InfluxDB Cloud Dedicated URL
 security:
   - BearerAuthentication: []
@@ -1996,7 +1996,7 @@ components:
         # Use the --user option with `--user username:DATABASE_TOKEN` syntax
         #######################################
 
-        curl --get "http://cluster-id.influxdb.io/query" \
+        curl --get "http://cluster-id.a.influxdb.io/query" \
           --user "":"DATABASE_TOKEN" \
           --data-urlencode "db=DATABASE_NAME" \
           --data-urlencode "q=SELECT * FROM MEASUREMENT"
@@ -2024,8 +2024,8 @@ components:
         ### Syntax
 
         ```http
-        https://cluster-id.influxdb.io/query/?[u=any]&p=DATABASE_TOKEN
-        https://cluster-id.influxdb.io/write/?[u=any]&p=DATABASE_TOKEN
+        https://cluster-id.a.influxdb.io/query/?[u=any]&p=DATABASE_TOKEN
+        https://cluster-id.a.influxdb.io/write/?[u=any]&p=DATABASE_TOKEN
         ```
 
         ### Example
@@ -2041,7 +2041,7 @@ components:
         #   ?p=DATABASE_TOKEN
         #######################################
 
-        curl --get "https://cluster-id.influxdb.io/query" \
+        curl --get "https://cluster-id.a.influxdb.io/query" \
           --data-urlencode "p=DATABASE_TOKEN" \
           --data-urlencode "db=DATABASE_NAME" \
           --data-urlencode "q=SELECT * FROM MEASUREMENT"
@@ -2078,7 +2078,7 @@ components:
         # to write data.
         ########################################################
 
-        curl --request post "https://cluster-id.influxdb.io/api/v2/write?bucket=DATABASE_NAME&precision=s" \
+        curl --request post "https://cluster-id.a.influxdb.io/api/v2/write?bucket=DATABASE_NAME&precision=s" \
           --header "Authorization: Bearer DATABASE_TOKEN" \
           --data-binary 'home,room=kitchen temp=72 1463683075'
         ```
@@ -2109,7 +2109,7 @@ components:
         # to write data.
         ########################################################
 
-        curl --request post "https://cluster-id.influxdb.io/api/v2/write?bucket=DATABASE_NAME&precision=s" \
+        curl --request post "https://cluster-id.a.influxdb.io/api/v2/write?bucket=DATABASE_NAME&precision=s" \
           --header "Authorization: Token DATABASE_TOKEN" \
           --data-binary 'home,room=kitchen temp=72 1463683075'
         ```

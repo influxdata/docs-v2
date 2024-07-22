@@ -93,7 +93,7 @@ var defaultUrls = {
   oss: 'http://localhost:8086',
   cloud: 'https://us-west-2-1.aws.cloud2.influxdata.com',
   serverless: 'https://us-east-1-1.aws.cloud2.influxdata.com',
-  dedicated: 'cluster-id.influxdb.io',
+  dedicated: 'cluster-id.a.influxdb.io',
   clustered: 'cluster-host.com',
 };
 
