@@ -1139,7 +1139,7 @@ caches new points in the WAL until their total size or age triggers a flush to
 more permanent storage. This allows for efficient batching of the writes into
 the storage engine.
 
-Points in the WAL can be queried and persist through a system reboot.
+Points in the WAL are queryable and persist through a system reboot.
 On process start, all points in the WAL must be flushed before the system
 accepts new writes.
 
