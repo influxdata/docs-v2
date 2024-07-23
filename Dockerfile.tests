@@ -12,6 +12,7 @@ COPY --chmod=755 ./test/src/prepare-content.sh /usr/local/bin/prepare-content
 COPY ./data/products.yml /app/appdata/products.yml
 
 WORKDIR /src
+# In your docker run or exec command, you can set the prepare-content script as your entrypoint or command.
 ENTRYPOINT [ "prepare-content" ]
 # The default command is an empty string to pass all command line arguments to the entrypoint and allow the entrypoint to run.
 CMD [ "" ]

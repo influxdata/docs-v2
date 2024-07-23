@@ -23,7 +23,6 @@ datasource
 deduplicate
 deserialize
 dotenv
-downsample
 enum
 file_groups
 fullscreen
