@@ -30,15 +30,11 @@ Use [Grafana](https://grafana.com/) to query and visualize data stored in
 >
 > {{% cite %}}-- [Grafana documentation](https://grafana.com/docs/grafana/latest/introduction/){{% /cite %}}
 
-<!-- TOC -->
-
 - [Install Grafana or login to Grafana Cloud](#install-grafana-or-login-to-grafana-cloud)
 - [InfluxDB data source](#influxdb-data-source)
 - [Create an InfluxDB data source](#create-an-influxdb-data-source)
 - [Query InfluxDB with Grafana](#query-influxdb-with-grafana)
 - [Build visualizations with Grafana](#build-visualizations-with-grafana)
-
-<!-- /TOC -->
 
 ## Install Grafana or login to Grafana Cloud
 
