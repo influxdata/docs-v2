@@ -2,9 +2,7 @@
 
 # This script is used to run tests for the InfluxDB documentation.
 # The script is designed to be run in a Docker container. It is used to substitute placeholder values in test files.
-
 TEST_CONTENT="/app/content"
-
 # Pattern to match a 10-digit Unix timestamp
 TIMESTAMP_PATTERN='[0-9]{10}'
 
@@ -17,7 +15,6 @@ function substitute_placeholders {
       # echo "PRETEST: substituting values in $file"
 
       # Replaces placeholder values with environment variable references.
-
       # Date-specific replacements.
 
       grep -oE "$TIMESTAMP_PATTERN" "$file" | while read -r timestamp; do
@@ -62,7 +59,7 @@ function substitute_placeholders {
       s/f"DATABASE_TOKEN"/os.getenv("INFLUX_TOKEN")/g;
       s/f"get-started"/os.getenv("INFLUX_DATABASE")/g;
       s|f"{{< influxdb/host >}}"|os.getenv("INFLUX_HOSTNAME")|g;
-      s/f"MANAGEMENT_TOKEN"/os.getenv("MANAGEMENT_TOKEN")/g;
+      s/f"MANAGEMENT_TOKEN"/os.getenv("INFLUX_MANAGEMENT_TOKEN")/g;
       s|f"RETENTION_POLICY_NAME\|RETENTION_POLICY"|"autogen"|g;
       ' $file
 
@@ -80,12 +77,13 @@ function substitute_placeholders {
       /os.getenv("BUCKET_ID")/! s/--bucket-id BUCKET_ID/--bucket-id $INFLUX_BUCKET_ID/g;
       /os.getenv("BUCKET_NAME")/! s/BUCKET_NAME/$INFLUX_DATABASE/g;
       /os.getenv("CLUSTER_ID")/! s/CLUSTER_ID/$CLUSTER_ID/g;
+      s/0x000000-xy00-0xy-x00-0x00y0000000/$CLUSTER_ID/g;
       /os.getenv("DATABASE_TOKEN")/! s/DATABASE_TOKEN/$INFLUX_TOKEN/g;
       /os.getenv("DATABASE_NAME")/! s/DATABASE_NAME/$INFLUX_DATABASE/g;
       s/--id DBRP_ID/--id $INFLUX_DBRP_ID/g;
       s/example-db/$INFLUX_DATABASE/g;
       s/get-started/$INFLUX_DATABASE/g;
-      /os.getenv("MANAGEMENT_TOKEN")/! s/MANAGEMENT_TOKEN/$MANAGEMENT_TOKEN/g;
+      /os.getenv("MANAGEMENT_TOKEN")/! s/INFLUX_MANAGEMENT_TOKEN/$MANAGEMENT_TOKEN/g;
       /os.getenv("ORG_ID")/! s/ORG_ID/$INFLUX_ORG/g;
       /os.getenv("RETENTION_POLICY")/! s/RETENTION_POLICY_NAME\|RETENTION_POLICY/$INFLUX_RETENTION_POLICY/g;
       s/CONFIG_NAME/CONFIG_$(shuf -i 0-100 -n1)/g;
@@ -111,8 +109,9 @@ function substitute_placeholders {
 }
 
 setup() {
+  # Set up the environment for the tests.
   # Parse YAML config files into dotenv files to be used by tests.
-  parse_yaml /app/appdata/products.yml > /app/appdata/.env.products
+  mkdir -p /app/appdata && (parse_yaml /src/data/products.yml > /app/appdata/.env.products)
 
   # Miscellaneous test setup.
   # For macOS samples.
@@ -120,30 +119,17 @@ setup() {
 }
 
 prepare_tests() {
-  TEST_FILES="$*"
+  echo "Preparing test files: $*"
+  SRC_FILES="$*"
 
   # Copy the test files to the target directory while preserving the directory structure.
-  for FILE in $TEST_FILES; do
-    # Create the parent directories of the destination file
-    #mkdir -p "$(dirname "$TEST_TARGET/$FILE")"
-    # Copy the file
-    rsync -avz --relative --log-file=./test.log "$FILE" /app/
+  cd /src
+  for FILE in $SRC_FILES; do
+    rsync -az --relative "$FILE" /app/
   done
-
+  cd /app
   substitute_placeholders
+  setup
 }
 
-# If arguments were passed and the first argument is not --files, run the command. This is useful for running "/bin/bash" for debugging the container.
-# If --files is passed, prepare all remaining arguments as test files.
-# Otherwise (no arguments), run the setup function and return existing files to be tested.
-if [ "$1" != "--files" ]; then
-  echo "Executing $0 without --files argument."
-  "$@"
-fi
-if [ "$1" == "--files" ]; then
-  shift
-  prepare_tests "$@"
-fi
-setup
-# Return new or existing files to be tested.
-find "$TEST_CONTENT" -type f -name '*.md'
+prepare_tests "$*"

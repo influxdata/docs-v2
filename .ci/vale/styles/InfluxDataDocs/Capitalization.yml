@@ -377,3 +377,7 @@ exceptions:
   - triple_exponential_moving_average
   - triple_exponential_derivative
   - relative_strength_index
+  # Telegraf config
+  - agent
+  - token
+  - urls
