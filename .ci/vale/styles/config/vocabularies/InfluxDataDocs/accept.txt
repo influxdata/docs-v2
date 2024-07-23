@@ -11,12 +11,13 @@ CLI|\/cli\/
 CSV
 Data Explorer
 Dedup
+[Dd]ownsampl(e|ed|es|ing)
 Execd
 ExecutionPlan
 Flight SQL
 FlightQuery
 GBs?
-Grafana
+Grafana|\{\{.*grafana.*\}\}
 HostURL
 InfluxDB Cloud
 InfluxDB OSS
@@ -25,6 +26,9 @@ Influxer
 JavaScript
 KBs?
 LogicalPlan
+[Mm]axim(ize|um)
+[Mm]inim(ize|um)
+[Mm]onitor
 MBs?
 PBs?
 Parquet
@@ -35,7 +39,7 @@ Splunk
 [Ss]uperset
 TBs?
 UI
-URLs
+URL
 US (East|West|Central|North|South|Northeast|Northwest|Southeast|Southwest)
 Unix
 WALs?
@@ -43,6 +47,8 @@ Webpack
 [pP]y.*\b
 \b\w+_\w+\b
 \b_\w+\b
+airSensors
+api-endpoint
 batchBucket
 batchInterval
 commentPrefix
@@ -51,8 +57,10 @@ destinationHost
 destinationOrg
 destinationToken
 docs-v2
+exampleTag
 fieldKey
 fieldType
+gotType
 groupId
 hostURL
 hostUrl
@@ -61,6 +69,7 @@ influxctl
 influxd
 influxdata.com
 iox
+keep-url
 lat
 locf
 logicalplan
@@ -72,8 +81,8 @@ quoteChar
 retentionRules
 sourceBucket
 tagKey
-`url[s]?`
-URL
+url[s]?
 v2
 v3
 venv
+wantType

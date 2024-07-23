@@ -1,6 +1,0 @@
-# If you're running tests in a container that doesn't support TTY (docker run -t), you can use monitor-tests.sh to open URLs in the host's browser.
-# Your test needs to redirect the URL to the test/urls.txt file--for example:
-#     influxctl database update /dev/null > test/urls.txt
-sh ./test/src/monitor-tests.sh start
-npx lint-staged --relative
-sh ./test/src/monitor-tests.sh stop 

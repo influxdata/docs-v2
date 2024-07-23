@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ## This script is meant to be run on the host and monitors a file for URLs written by a container.
-
+DOCS_ROOT=$(git rev-parse --show-toplevel)
 # The file to monitor for URLs written by the container.
-URL_FILE="./test/shared/urls.txt"
+URL_FILE=$DOCS_ROOT/test/shared/urls.txt
 # Define the URL pattern for OAuth2 authorization.
 OAUTH_PATTERN='https://auth\.influxdata\.com/activate\?user_code=[A-Z]{1,8}-[A-Z]{1,8}'
 

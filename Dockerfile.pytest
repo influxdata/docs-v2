@@ -1,9 +1,22 @@
 FROM golang:latest
 
+### Install InfluxDB clients for testing
+# Install InfluxDB keys to verify client installs.
+# Follow the install instructions (https://docs.influxdata.com/telegraf/v1/install/?t=curl), except for sudo (which isn't available in Docker).
+# influxdata-archive_compat.key GPG fingerprint:
+#     9D53 9D90 D332 8DC7 D6C8 D3B9 D8FF 8E1F 7DF8 B07E
+ADD https://repos.influxdata.com/influxdata-archive_compat.key ./influxdata-archive_compat.key
+RUN echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
+
+RUN echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | tee /etc/apt/sources.list.d/influxdata.list
+
+# Install InfluxDB clients to use in tests. 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   curl \
   git \
   gpg \
+  influxdb2-cli \
+  influxctl \
   jq \
   maven \
   nodejs \
@@ -11,6 +24,8 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   python3 \
   python3-pip \
   python3-venv \
+  rsync \
+  telegraf \
   wget
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
@@ -26,38 +41,33 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
+# Some Python test dependencies (pytest-dotenv and pytest-codeblocks) aren't
+# available as packages in apt-cache, so use pip to download dependencies in a # separate step and use Docker's caching.
+# Pytest configuration file.
+COPY ./test/pytest/pytest.ini pytest.ini
+# Python and Pytest dependencies.
+COPY ./test/pytest/requirements.txt requirements.txt
+# Pytest fixtures.
+COPY ./test/pytest/conftest.py conftest.py 
+RUN pip install -Ur requirements.txt
+
+# Activate the Python virtual environment configured in the Dockerfile.
+RUN . /opt/venv/bin/activate
+
+ARG CONTENT_PATH 
+ENV CONTENT_PATH="${CONTENT_PATH}"
+
 # Create a mock xdg-open script` to prevent the test suite from attempting to open a browser (for example, during influxctl OAuth2 authentication).
 RUN echo '#!/bin/bash' > /usr/local/bin/xdg-open \
     && echo 'echo "$1" > /shared/urls.txt' >> /usr/local/bin/xdg-open \
     && chmod +x /usr/local/bin/xdg-open
 
-# Some Python test dependencies (pytest-dotenv and pytest-codeblocks) aren't
-# available as packages in apt-cache, so use pip to download dependencies in a # separate step and use Docker's caching.
-# Pytest configuration file.
-COPY ./test/src/pytest.ini pytest.ini
-# Python and Pytest dependencies.
-COPY ./test/src/requirements.txt requirements.txt
-# Pytest fixtures.
-COPY ./test/src/conftest.py conftest.py 
-RUN pip install -Ur requirements.txt
-
-  # Activate the Python virtual environment configured in the Dockerfile.
-RUN . /opt/venv/bin/activate
-
-### Install InfluxDB clients for testing
-# Install InfluxDB keys to verify client installs.
-# Follow the install instructions (https://docs.influxdata.com/telegraf/v1/install/?t=curl), except for sudo (which isn't available in Docker).
-# influxdata-archive_compat.key GPG fingerprint:
-#     9D53 9D90 D332 8DC7 D6C8 D3B9 D8FF 8E1F 7DF8 B07E
-ADD https://repos.influxdata.com/influxdata-archive_compat.key ./influxdata-archive_compat.key
-RUN echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
-
-RUN echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | tee /etc/apt/sources.list.d/influxdata.list
-
-# Install InfluxDB clients to use in tests. 
-RUN apt-get update && apt-get -y install telegraf influxdb2-cli influxctl
-COPY --chmod=755 ./test/config.toml /root/.config/influxctl/config.toml
-### End InfluxDB client installs
+# Copy test scripts and make them executable.
+COPY --chmod=755 ./test/scripts/parse_yaml.sh /usr/local/bin/parse_yaml
 
 ENTRYPOINT [ "pytest" ]
-CMD [ "" ]
+
+# Specify command arguments:
+# --env-file to pass environment variables to the test suite.
+# the test directory to run the test suite.
+CMD [ "--codeblocks", "" ]
