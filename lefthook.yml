@@ -13,7 +13,7 @@ pre-commit:
       tags: lint v2
       glob: "content/influxdb/cloud/**/*.md"
       run: '.ci/vale/vale.sh
-        -config=.vale.ini
+        --config=.vale.ini
         --minAlertLevel=error {staged_files}'
     cloud-dedicated-lint:
       tags: lint v3
