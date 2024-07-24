@@ -25,6 +25,7 @@ The documentation for this client library is available on GitHub.
 ## Installation
 
 ### Maven
+
 ```xml
 <dependency>
   <groupId>com.influxdb</groupId>
