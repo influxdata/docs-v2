@@ -49,7 +49,7 @@ implementation group: 'com.influxdb', name: 'influxdb3-java', version: 'latest.r
 
 ## Example: write and query data
 
-The following example shows how to use `influxdb3-java` to write and query data stored in {{% product-name %}}:
+The following example, also available on [GitHub](https://github.com/suyashcjoshi/SimpleJavaInfluxDB/tree/main) shows how to use `influxdb3-java` to write and query data stored in {{% product-name %}}:
 
 ### Initialize the application
 
