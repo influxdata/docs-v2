@@ -48,7 +48,7 @@ The following example shows how to use `influxdb3-java` to write and query data 
 
 ```java
 public class HelloInfluxDB {
-  private static final String HOST_URL = "https://eu-central-1-1.aws.cloud2.influxdata.com"; // URL information is present in the cloud portal
+  private static final String HOST_URL = "https://{{< influxdb/host >}}";
   private static final String DATABASE = "java"; // Database name is the bucket name present in the cloud portal
   private static final char[] API_TOKEN = "API_TOKEN".toCharArray(); // Avoid hard-coding API_TOKEN in production. It is present in the cloud portal.
 
