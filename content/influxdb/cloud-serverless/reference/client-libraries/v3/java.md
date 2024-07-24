@@ -98,7 +98,7 @@ public class HelloInfluxDB {
   }
 }
 ```
-## Running the program
+## Run the program to write and query data
 
 Build the project and then run the executable .jar file with this [JVM Flag](https://arrow.apache.org/docs/java/install.html). 
 <br/><br/> 
