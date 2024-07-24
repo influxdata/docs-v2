@@ -104,5 +104,5 @@ Build the project and then run the executable .jar file with this [JVM Flag](htt
 <br/><br/> 
 **Example:**
 ```sh
-  java --add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED -jar target/{your-jar-file}.jar
+  java --add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED -jar target/PROJECT_NAME.jar
 ```
