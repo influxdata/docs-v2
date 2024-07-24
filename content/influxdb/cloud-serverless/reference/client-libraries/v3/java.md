@@ -24,7 +24,10 @@ The documentation for this client library is available on GitHub.
 
 ## Installation
 
-### Maven
+### Install using Maven
+
+To use Maven to install the client library in your project, add the following to your `pom.xml`:
+
 
 ```xml
 <dependency>
