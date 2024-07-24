@@ -42,7 +42,9 @@ To use Gradle to install the client library in your project, add the following t
 implementation group: 'com.influxdb', name: 'influxdb3-java', version: 'latest.release'
 ```
 
-## Sample Code
+## Example: write and query data
+
+The following example shows how to use `influxdb3-java` to write and query data stored in {{% product-name %}}:
 
 ```java
 public class HelloInfluxDB {
