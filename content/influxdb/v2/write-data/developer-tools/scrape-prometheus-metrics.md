@@ -48,7 +48,7 @@ endpoint and write them to InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}, 
       [metric parsing version](/influxdb/v2/reference/prometheus-metrics/) to use
       _(version `2` is recommended)_.
 2. Add the [InfluxDB v2 output plugin](/telegraf/v1/plugins/#output-influxdb_v2)
-   to your Telegraf configuration file and configure it to to write to
+   to your Telegraf configuration file and configure it to write to
    InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}.
   
 ##### Example telegraf.conf

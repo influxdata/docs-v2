@@ -314,15 +314,15 @@ _If your project's virtual environment is already running, skip to step 3._
 
 1.  Create a directory for your project and change into it:
 
-    ```sh
-    mkdir influx3-query-example && cd $_
+    ```bash
+    mkdir -p influx3-query-example && cd influx3-query-example 
     ```
 
 2.  To create and activate a Python virtual environment, run the following command:
 
     <!--pytest-codeblocks:cont-->
 
-    ```sh
+    ```bash
     python -m venv envs/virtual-env && . envs/virtual-env/bin/activate
     ```
 
@@ -330,7 +330,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
     <!--pytest-codeblocks:cont-->
 
-    ```sh
+    ```bash
     pip install influxdb3-python-cli
     ```
 
@@ -342,7 +342,7 @@ _If your project's virtual environment is already running, skip to step 3._
     <!--pytest-codeblocks:cont-->
 
     ```sh
-    influx3 config \
+    influx3 config create \
       --name="config-dedicated" \
       --database="get-started" \
       --host="{{< influxdb/host >}}" \
@@ -390,7 +390,7 @@ _If your project's virtual environment is already running, skip to step 3._
         <!-- Run for tests and hide from users.
 
         ```sh
-        mkdir -p influxdb_py_client && cd $_
+        mkdir -p influxdb_py_client && cd influxdb_py_client 
         ```
         -->
 
@@ -448,7 +448,8 @@ _If your project's virtual environment is already running, skip to step 3._
     '''
 
     table = client.query(query=sql)
-    assert table['room'], "Expect table to have room column."
+    assert table.num_rows > 0, "Expect query to return data."
+    assert table['room'], f"Expect ${table} to have room column."
     print(table.to_pandas().to_markdown())
     ```
 

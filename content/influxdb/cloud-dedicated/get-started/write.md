@@ -206,12 +206,12 @@ to write the [home sensor sample data](#home-sensor-data-line-protocol) to your
 {{% influxdb/custom-timestamps %}}
 {{% code-placeholders "get-started" %}}
 
-```sh
+```bash
 influxctl write \
   --database get-started \
   --token $INFLUX_TOKEN \
   --precision s \
-  'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
 home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
 home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
 home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
@@ -263,7 +263,7 @@ Use [Telegraf](/telegraf/v1/) to consume line protocol, and then write it to
 2.  Copy and save the [home sensor data sample](#home-sensor-data-line-protocol)
     to a file on your local system--for example, `home.lp`.
 
-    ```sh
+    ```bash
     cat <<- EOF > home.lp
     home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
     home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
@@ -298,7 +298,7 @@ Use [Telegraf](/telegraf/v1/) to consume line protocol, and then write it to
     (`./telegraf.conf`) that enables the `inputs.file` and `outputs.influxdb_v2`
     plugins:
 
-    ```sh
+    ```bash
     telegraf --sample-config \
       --input-filter file \
       --output-filter influxdb_v2 \
@@ -353,7 +353,7 @@ Use [Telegraf](/telegraf/v1/) to consume line protocol, and then write it to
       echo '' >> telegraf.conf
       echo '  organization = ""' >> telegraf.conf
       echo '' >> telegraf.conf
-      echo '  bucket = "get-started"' >> telegraf.conf
+      echo '  bucket = "${INFLUX_DATABASE}"' >> telegraf.conf
       ```
       -->
 
@@ -373,9 +373,17 @@ Use [Telegraf](/telegraf/v1/) to consume line protocol, and then write it to
 
     Enter the following command in your terminal:
 
-    ```sh
+    <!--pytest.mark.skip-->
+
+    ```bash
     telegraf --once --config ./telegraf.conf
     ```
+
+    <!--test
+    ```bash
+    telegraf --quiet --once --config ./telegraf.conf
+    ```
+    -->
 
     If the write is successful, the output is similar to the following:
 
@@ -446,12 +454,13 @@ to InfluxDB:
 
 {{% code-placeholders "DATABASE_TOKEN" %}}
 
-```sh
-response=$(curl --silent --write-out "%{response_code}:-%{errormsg}" \
+```bash
+response=$(curl --silent \
   "https://{{< influxdb/host >}}/write?db=get-started&precision=s" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
+  --write-out "\n%{response_code}" \
   --data-binary "
 home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
 home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
@@ -481,16 +490,15 @@ home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ")
 
-# Format the response code and error message output.
-response_code=${response%%:-*}
-errormsg=${response#*:-}
+# Extract the response body (all but the last line)
+response_body=$(echo "$response" | head -n -1)
 
-# Remove leading and trailing whitespace from errormsg
-errormsg=$(echo "${errormsg}" | tr -d '[:space:]')
+# Extract the HTTP status code (the last line)
+response_code=$(echo "$response" | tail -n 1)
 
 echo "$response_code"
-if [[ $errormsg ]]; then
-  echo "$errormsg"
+if [[ $response_body ]]; then
+  echo "$response_body"
 fi
 ```
 
@@ -558,7 +566,7 @@ to InfluxDB:
 
 {{% code-placeholders "DATABASE_TOKEN"%}}
 
-```sh
+```bash
 response=$(curl --silent --write-out "%{response_code}:-%{errormsg}" \
   "https://{{< influxdb/host >}}/api/v2/write?bucket=get-started&precision=s" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
@@ -801,7 +809,7 @@ To write data to {{% product-name %}} using Go, use the InfluxDB v3
 
 2.  Initialize a new Go module in the directory.
 
-    <!--pytest-codeblocks:cont-->
+    <!--pytest.mark.skip-->
 
     ```bash
     go mod init influxdb_go_client
@@ -810,7 +818,7 @@ To write data to {{% product-name %}} using Go, use the InfluxDB v3
 3.  In your terminal or editor, create a new file for your code--for example:
     `write.go`.
 
-    <!--pytest-codeblocks:cont-->
+    <!--pytest.mark.skip-->
 
     ```bash
     touch write.go
@@ -955,7 +963,7 @@ To write data to {{% product-name %}} using Go, use the InfluxDB v3
 
     <!--pytest.mark.skip-->
 
-    ```sh
+    ```bash
     go mod tidy && go run influxdb_go_client
     ```
 
@@ -979,14 +987,12 @@ the failure message.
     `influxdb_js_client` directory for your project:
 
     ```bash
-    mkdir influxdb_js_client && cd influxdb_js_client
+    mkdir -p influxdb_js_client && cd influxdb_js_client
     ```
 
 3.  Inside of `influxdb_js_client`, enter the following command to initialize a
     package. This example configures the package to use
     [ECMAScript modules (ESM)](https://nodejs.org/api/packages.html#modules-loaders).
-
-    <!--pytest-codeblocks:cont-->
 
     ```bash
     npm init -y; npm pkg set type="module"
@@ -995,8 +1001,6 @@ the failure message.
 4.  Install the `@influxdata/influxdb3-client` JavaScript client library as a
     dependency to your project.
 
-    <!--pytest-codeblocks:cont-->
-
     ```bash
     npm install --save @influxdata/influxdb3-client
     ```
@@ -1004,7 +1008,6 @@ the failure message.
 5.  In your terminal or editor, create a `write.js` file.
 
     <!--pytest-codeblocks:cont-->
-
     ```bash
     touch write.js
     ```
@@ -1148,9 +1151,9 @@ the failure message.
 
 9.  In your terminal, execute `index.js` to write to {{% product-name %}}:
 
-    <!--pytest-codeblocks:cont-->
+    <!--pytest.mark.skip-->
 
-    ```sh
+    ```bash
     node index.js
     ```
 
@@ -1176,7 +1179,7 @@ the failure message.
 
     <!--pytest.mark.skip-->
 
-    ```sh
+    ```bash
     dotnet new console --name influxdb_csharp_client
     ```
 
@@ -1184,7 +1187,7 @@ the failure message.
 
     <!--pytest.mark.skip-->
 
-    ```sh
+    ```bash
     cd influxdb_csharp_client
     ```
 
@@ -1193,7 +1196,7 @@ the failure message.
 
     <!--pytest.mark.skip-->
 
-    ```sh
+    ```bash
     dotnet add package InfluxDB3.Client
     ```
 
@@ -1339,7 +1342,7 @@ the failure message.
 
     <!--pytest.mark.skip-->
 
-    ```sh
+    ```bash
     dotnet run
     ```
 
@@ -1362,6 +1365,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
     [Maven](https://maven.apache.org/download.cgi) for your system.
 2.  In your terminal or editor, use Maven to generate a project--for example:
 
+    <!--pytest.mark.skip-->
     ```bash
     mvn org.apache.maven.plugins:maven-archetype-plugin:3.1.2:generate \
     -DarchetypeArtifactId="maven-archetype-quickstart" \
@@ -1403,7 +1407,6 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
     enter the following in your terminal:
 
     <!--pytest.mark.skip-->
-
     ```bash
     mvn validate
     ```
@@ -1564,7 +1567,6 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
     the project code--for example:
 
     <!--pytest.mark.skip-->
-
     ```bash
     mvn compile
     ```
@@ -1573,8 +1575,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
     example, using Maven:
 
     <!--pytest.mark.skip-->
-
-    ```sh
+    ```bash
     mvn exec:java -Dexec.mainClass="com.influxdbv3.App"
     ```
 
