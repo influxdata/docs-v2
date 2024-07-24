@@ -4,7 +4,7 @@
 #######################################
 
 
-curl --get "https://cluster-id.influxdb.io/query" \
+curl --get "https://cluster-id.a.influxdb.io/query" \
   --user "":"DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM MEASUREMENT"

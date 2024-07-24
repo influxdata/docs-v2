@@ -144,38 +144,24 @@ Provide the following:
   - `--write-database` Grants write access to a database
 - Token description
 
-<!--Skip database create and delete tests: namespaces aren't reusable-->
-<!--pytest.mark.skip-->
-
 {{% code-placeholders "get-started" %}}
 
-```sh
+```bash
 influxctl token create \
   --read-database get-started \
   --write-database get-started \
-  "Read/write token for get-started database"
+  "Read/write token for get-started database" > /app/iot-starter/secret.txt
 ```
 
 {{% /code-placeholders %}}
 
-<!--actual test
-
-```sh
-
-# Test the preceding command outside of the code block.
-# influxctl authentication requires TTY interaction--
-# output the auth URL to a file that the host can open.
-
-TOKEN_NAME=token_TEST_RUN
-script -q /dev/null -c "influxctl token list > /shared/urls.txt \
-  && influxctl token create \
-  --read-database DATABASE_NAME \
-  --write-database DATABASE_NAME \
-  \"Read/write token ${TOKEN_NAME} for DATABASE_NAME database\" > /shared/tokens.txt
-  && influxctl token revoke $(head /shared/tokens.txt) \
-  && rm /shared/tokens.txt"
+<!--test-cleanup
+```bash
+influxctl token delete --force \
+$(influxctl token list \
+ | grep "Read/write token for get-started database" \
+ | head -n1 | cut -d' ' -f2)
 ```
-
 -->
 
 The command returns the token ID and the token string.
@@ -239,6 +225,8 @@ $env:INFLUX_TOKEN = "DATABASE_TOKEN"
 <!-- BEGIN CMD -->
 
 {{% code-placeholders "DATABASE_TOKEN" %}}
+
+<!--pytest.mark.skip-->
 
 ```sh
 set INFLUX_TOKEN=DATABASE_TOKEN 

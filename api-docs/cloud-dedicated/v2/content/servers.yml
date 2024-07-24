@@ -3,6 +3,6 @@
   variables:
     baseurl:
       enum:
-        - 'cluster-id.influxdb.io'
-      default: 'cluster-id.influxdb.io'
+        - 'cluster-id.a.influxdb.io'
+      default: 'cluster-id.a.influxdb.io'
       description: InfluxDB Cloud Dedicated URL

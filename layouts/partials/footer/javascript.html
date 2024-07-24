@@ -34,9 +34,6 @@
   ]
 </script>
 
-<!-- Load footer.js -->
-<script type="text/javascript" src="{{ $footerjs.RelPermalink }}"></script>
-
 {{ if .Page.HasShortcode "diagram" }}
 <!-- Load mermaid.js for diagrams -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
@@ -78,3 +75,6 @@
 {{ if .Page.HasShortcode "code-placeholders" }}
 <script type="text/javascript" src="{{ $codePlaceholdersjs.RelPermalink }}"></script>
 {{ end }}
+
+<!-- Load footer.js -->
+<script type="text/javascript" src="{{ $footerjs.RelPermalink }}"></script>

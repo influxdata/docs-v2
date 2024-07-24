@@ -26,7 +26,7 @@ list_code_example: |
 
     func Query() error {
         client, err := influxdb3.New(influxdb3.ClientConfig{
-            Host:       "https://cluster-id.influxdb.io",
+            Host:       "https://cluster-id.a.influxdb.io",
             Token:      "DATABASE_TOKEN",
             Database:   "DATABASE_NAME",
         })

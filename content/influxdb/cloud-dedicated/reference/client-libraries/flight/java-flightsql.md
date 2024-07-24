@@ -36,6 +36,7 @@ list_code_example: |
             FlightInfo flightInfo = sqlClient.execute(query, auth);
         }
     }
+    ```
 ---
 
 [Apache Arrow Flight SQL for Java](https://arrow.apache.org/docs/java/reference/org/apache/arrow/flight/sql/package-summary.html) integrates with Java applications to query and retrieve data from Flight database servers using RPC and SQL.
@@ -483,10 +484,12 @@ Follow these steps to build and run the application using Docker:
     - **`HOST`**: your {{% product-name %}} hostname (URL without the "https://")
     - **`TOKEN`**: your [{{% product-name %}} database token](/influxdb/cloud-dedicated/get-started/setup/) with _read_ permission to the database
 
+    <!--pytest.mark.skip-->
+
     ```sh
     docker build \
     --build-arg DATABASE_NAME=INFLUX_DATABASE \
-    --build-arg HOST=cluster-id.influxdb.io \
+    --build-arg HOST={{% influxdb/host %}}\
     --build-arg TOKEN=INFLUX_TOKEN \
     -t javaflight .
     ```
@@ -495,6 +498,8 @@ Follow these steps to build and run the application using Docker:
 
 4. To run the application in a new Docker container, enter the following command:
     
+    <!--pytest.mark.skip-->
+
     ```sh
     docker run javaflight
     ```

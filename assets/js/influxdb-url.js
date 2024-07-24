@@ -2,7 +2,7 @@ var placeholderUrls = {
   oss: 'http://localhost:8086',
   cloud: 'https://cloud2.influxdata.com',
   serverless: 'https://cloud2.influxdata.com',
-  dedicated: 'cluster-id.influxdb.io',
+  dedicated: 'cluster-id.a.influxdb.io',
   clustered: 'cluster-host.com',
 };
 
@@ -13,7 +13,7 @@ var placeholderUrls = {
 var elementSelector = '.article--content pre:not(.preserve)';
 
 // Return the page context (cloud, serverless, oss/enterprise, dedicated, clustered, other)
-function context () {
+function context() {
   if (/\/influxdb\/cloud\//.test(window.location.pathname)) {
     return 'cloud';
   } else if (/\/influxdb\/cloud-serverless/.test(window.location.pathname)) {
@@ -37,12 +37,12 @@ function context () {
 
 // Retrieve the user's InfluxDB preference (cloud or oss) from the influxdb_pref session cookie
 // Default is cloud.
-function getURLPreference () {
+function getURLPreference() {
   return getPreference('influxdb_url');
 }
 
 // Set the user's selected InfluxDB preference (cloud or oss)
-function setURLPreference (preference) {
+function setURLPreference(preference) {
   setPreference('influxdb_url', preference);
 }
 
@@ -61,7 +61,7 @@ function setURLPreference (preference) {
 */
 
 // Store URLs in the urls session cookies
-function storeUrl (context, newUrl, prevUrl) {
+function storeUrl(context, newUrl, prevUrl) {
   urlsObj = {};
   urlsObj['prev_' + context] = prevUrl;
   urlsObj[context] = newUrl;
@@ -71,20 +71,20 @@ function storeUrl (context, newUrl, prevUrl) {
 
 // Store custom URL in the url session cookie.
 // Used to populate the custom URL field
-function storeCustomUrl (customUrl) {
+function storeCustomUrl(customUrl) {
   setInfluxDBUrls({ custom: customUrl });
   $('input#custom[type=radio]').val(customUrl);
 }
 
 // Set a URL in the urls session cookie to an empty string
 // Used to clear the form when custom url input is left empty
-function removeCustomUrl () {
+function removeCustomUrl() {
   removeInfluxDBUrl('custom');
 }
 
 // Store a product URL in the urls session cookie
 // Used to populate the custom URL field
-function storeProductUrl (product, productUrl) {
+function storeProductUrl(product, productUrl) {
   urlsObj = {};
   urlsObj[product] = productUrl;
 
@@ -94,7 +94,7 @@ function storeProductUrl (product, productUrl) {
 
 // Set a product URL in the urls session cookie to an empty string
 // Used to clear the form when dedicated url input is left empty
-function removeProductUrl (product) {
+function removeProductUrl(product) {
   removeInfluxDBUrl(product);
 }
 
@@ -104,7 +104,7 @@ function removeProductUrl (product) {
 
 // Preserve URLs in codeblocks that come just after or are inside a div
 // with the class, .keep-url
-function addPreserve () {
+function addPreserve() {
   $('.keep-url').each(function () {
     // For code blocks with no syntax highlighting
     $(this).next('pre').addClass('preserve');
@@ -119,7 +119,7 @@ function addPreserve () {
 }
 
 // Retrieve the currently selected URLs from the urls session cookie.
-function getUrls () {
+function getUrls() {
   var storedUrls = getInfluxDBUrls();
   var currentCloudUrl = storedUrls.cloud;
   var currentOSSUrl = storedUrls.oss;
@@ -138,7 +138,7 @@ function getUrls () {
 
 // Retrieve the previously selected URLs from the from the urls session cookie.
 // This is used to update URLs whenever you switch between browser tabs.
-function getPrevUrls () {
+function getPrevUrls() {
   var storedUrls = getInfluxDBUrls();
   var prevCloudUrl = storedUrls.prev_cloud;
   var prevOSSUrl = storedUrls.prev_oss;
@@ -156,7 +156,7 @@ function getPrevUrls () {
 }
 
 // Iterate through code blocks and update InfluxDB urls
-function updateUrls (prevUrls, newUrls) {
+function updateUrls(prevUrls, newUrls) {
   var preference = getURLPreference();
   var prevUrlsParsed = {
     oss: {},
@@ -244,7 +244,7 @@ function updateUrls (prevUrls, newUrls) {
     }
   });
 
-  function replaceWholename (startStr, endStr, replacement) {
+  function replaceWholename(startStr, endStr, replacement) {
     var startsWithSeparator = new RegExp('[/.]');
     var endsWithSeparator = new RegExp('[-.:]');
     if (
@@ -278,7 +278,7 @@ function updateUrls (prevUrls, newUrls) {
 }
 
 // Append the URL selector button to each codeblock containing a placeholder URL
-function appendUrlSelector () {
+function appendUrlSelector() {
   var appendToUrls = [
     placeholderUrls.oss,
     placeholderUrls.cloud,
@@ -290,15 +290,15 @@ function appendUrlSelector () {
   getBtnText = (context) => {
     contextText = {
       'oss/enterprise': 'Change InfluxDB URL',
-      'cloud': 'InfluxDB Cloud Region',
-      'serverless': 'InfluxDB Cloud Region',
-      'dedicated': 'Set Dedicated cluster URL',
-      'clustered': 'Set InfluxDB cluster URL',
-      'other': 'InfluxDB Cloud or OSS?'
-    }
-    
-    return contextText[context]
-  }
+      cloud: 'InfluxDB Cloud Region',
+      serverless: 'InfluxDB Cloud Region',
+      dedicated: 'Set Dedicated cluster URL',
+      clustered: 'Set InfluxDB cluster URL',
+      other: 'InfluxDB Cloud or OSS?',
+    };
+
+    return contextText[context];
+  };
 
   appendToUrls.forEach(function (url) {
     $(elementSelector).each(function () {
@@ -344,7 +344,7 @@ $('.url-trigger').click(function (e) {
 });
 
 // Set the selected URL radio buttons to :checked
-function setRadioButtons () {
+function setRadioButtons() {
   currentUrls = getUrls();
   $('input[name="influxdb-cloud-url"][value="' + currentUrls.cloud + '"]').prop(
     'checked',
@@ -426,7 +426,7 @@ $('input[name="influxdb-clustered-url"]').change(function () {
 });
 
 // Toggle preference tabs
-function togglePrefBtns (el) {
+function togglePrefBtns(el) {
   preference = el.length ? el.attr('id').replace('pref-', '') : 'cloud';
   prefUrls = $('#' + preference + '-urls');
 
@@ -443,7 +443,7 @@ $('#pref-tabs .pref-tab').click(function () {
 });
 
 // Select preference tab from cookie
-function showPreference () {
+function showPreference() {
   var preference = getPreference('influxdb_url');
   prefTab = $('#pref-' + preference);
   togglePrefBtns(prefTab);
@@ -457,7 +457,7 @@ showPreference();
 ////////////////////////////////////////////////////////////////////////////////
 
 // Validate custom URLs
-function validateUrl (url) {
+function validateUrl(url) {
   /** validDomain = (Named host | IPv6 host | IPvFuture host)(:Port)? **/
   var validDomain = new RegExp(
     `([a-z0-9\-._~%]+` +
@@ -505,19 +505,19 @@ function validateUrl (url) {
 }
 
 // Show validation errors
-function showValidationMessage (validation) {
+function showValidationMessage(validation) {
   $('#custom-url').addClass('error');
   $('#custom-url').attr('data-message', validation.error);
 }
 
 // Hide validation messages and replace the message attr with empty string
-function hideValidationMessage () {
+function hideValidationMessage() {
   $('#custom-url').removeClass('error').attr('data-message', '');
 }
 
 // Set the custom URL cookie and apply the change
 // If the custom URL field is empty, it defaults to the OSS default
-function applyCustomUrl () {
+function applyCustomUrl() {
   var custUrl = $('#custom-url-field').val();
   let urlValidation = validateUrl(custUrl);
   if (custUrl.length > 0) {
@@ -540,7 +540,7 @@ function applyCustomUrl () {
 
 // Set the product URL cookie and apply the change
 // If the product URL field is empty, it defaults to the product default
-function applyProductUrl (product) {
+function applyProductUrl(product) {
   var productUrl = $(`#${product}-url-field`).val();
   let urlValidation = validateUrl(productUrl);
   if (productUrl.length > 0) {
@@ -605,7 +605,7 @@ $(urlValueElements).blur(function () {
 /** Delay execution of a function `fn` for a number of milliseconds `ms`
  * e.g., delay a validation handler to avoid annoying the user.
  */
-function delay (fn, ms) {
+function delay(fn, ms) {
   let timer = 0;
   return function (...args) {
     clearTimeout(timer);
@@ -613,7 +613,7 @@ function delay (fn, ms) {
   };
 }
 
-function handleUrlValidation () {
+function handleUrlValidation() {
   let url = $(urlValueElements).val();
   let urlValidation = validateUrl(url);
   if (urlValidation.valid) {
@@ -657,4 +657,14 @@ if (cloudUrls.includes(referrerHost)) {
   setRadioButtons();
   setURLPreference('cloud');
   showPreference();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////// Dedicated URL Migration ///////////////////////////
+///////////////////////// REMOVE AFTER AUGUST 22, 2024 /////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+if (getUrls().dedicated == 'cluster-id.influxdb.io') {
+  storeUrl('dedicated', 'cluster-id.a.influxdb.io', getUrls().dedicated);
+  updateUrls(getPrevUrls(), getUrls());
 }

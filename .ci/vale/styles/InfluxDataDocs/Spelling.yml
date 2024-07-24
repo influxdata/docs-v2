@@ -12,3 +12,4 @@ ignore:
 filters:
 # Allow product-specific Branding.yml configurations to handle [Ss]erverless while also allowing serverless as a valid dictionary word.
   - '[Ss]erverless'
+
