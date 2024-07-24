@@ -64,7 +64,8 @@ public class HelloInfluxDB {
     }
   }
 
-  // Write sample measurement using Point class API
+  // Use the Point class to construct time series data.
+  // Call client.writePoint to write the point as line protocol to your bucket.
   private static void writeData(InfluxDBClient client) {
     Point point = Point.measurement("temperature")
                        .setTag("location", "London")
