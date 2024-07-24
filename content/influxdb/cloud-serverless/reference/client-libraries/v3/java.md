@@ -35,6 +35,9 @@ The documentation for this client library is available on GitHub.
 ```
 
 ### Gradle
+
+To use Gradle to install the client library in your project, add the following to your `build.gradle` dependencies:
+
 ```groovy
 implementation group: 'com.influxdb', name: 'influxdb3-java', version: 'latest.release'
 ```
