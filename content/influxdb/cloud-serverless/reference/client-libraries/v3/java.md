@@ -22,9 +22,11 @@ The documentation for this client library is available on GitHub.
 
 <a href="https://github.com/InfluxCommunity/influxdb3-java" target="_blank" class="btn github">InfluxDB v3 Java client library</a>
 
-## Installation
+## Setup & Installation
 
-### Install using Maven
+Create a command line java application using Maven or Gradle.
+
+### Maven
 
 To use Maven to install the client library in your project, add the following to your `pom.xml`:
 
@@ -49,12 +51,15 @@ implementation group: 'com.influxdb', name: 'influxdb3-java', version: 'latest.r
 
 The following example shows how to use `influxdb3-java` to write and query data stored in {{% product-name %}}:
 
+### Initialize the application
+
+Create a `HelloInfluxDB.java` class with the following information:
+
 ```java
 public class HelloInfluxDB {
   private static final String HOST_URL = "https://{{< influxdb/host >}}";
   private static final String DATABASE = "java"; // your bucket in InfluxDB Cloud Serverless
-  private static final char[] API_TOKEN = "API_TOKEN".toCharArray(); // Avoid hard-coding API_TOKEN in production. It is present in the cloud portal.
-
+  private static final char[] API_TOKEN = System.getenv("API_TOKEN"); // your API Token found in InfluxDB Cloud Serverless stored locally
   // Create a client instance, and then write and query data in InfluxDB Cloud Serverless.
   public static void main(String[] args) {
     try (InfluxDBClient client = InfluxDBClient.getInstance(HOST_URL, API_TOKEN, DATABASE)) {
@@ -66,7 +71,11 @@ public class HelloInfluxDB {
       e.printStackTrace();
     }
   }
+```
 
+### Write the data
+
+```java
   // Use the Point class to construct time series data.
   // Call client.writePoint to write the point as line protocol to your bucket.
   private static void writeData(InfluxDBClient client) {
@@ -83,7 +92,11 @@ public class HelloInfluxDB {
       e.printStackTrace();
     }
   }
+```
 
+### Query the data
+
+```java
   // Query the latest 10 measurements using SQL
   private static void queryData(InfluxDBClient client) {
     System.out.printf("--------------------------------------------------------%n");
@@ -101,9 +114,11 @@ public class HelloInfluxDB {
   }
 }
 ```
+
 ## Run the program to write and query data
 
 Build the project and then run the executable .jar file with this [JVM Flag](https://arrow.apache.org/docs/java/install.html). 
 ```sh
   java --add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED -jar target/PROJECT_NAME.jar
 ```
+You should be able to also confirm the newly written data in your InfluxDB Cloud Serverless.
