@@ -15,45 +15,9 @@ aliases:
   - /influxdb/cloud-serverless/reference/client-libraries/v3/pyinflux3/
 related:
   - /influxdb/cloud-serverless/query-data/execute-queries/troubleshoot/
-list_code_example: >
-  <!-- Import for tests and hide from users.
-  ```python
-  import os
-  ```
-  -->
-  <!--pytest-codeblocks:cont-->
-  ```python
-  from influxdb_client_3 import(InfluxDBClient3,
-                                WriteOptions,
-                                write_client_options)
-
-  # Instantiate batch writing options for the client
-
-  write_options = WriteOptions()
-  wco = write_client_options(write_options=write_options)
-
-  # Instantiate an InfluxDB v3 client
-
-  with InfluxDBClient3(host=f"{{< influxdb/host >}}",
-                        database=f"BUCKET_NAME",
-                        token=f"API_TOKEN",
-                        write_client_options=wco) as client:
-
-    # Write data in batches
-    client.write_file(file='./data/home-sensor-data.csv', timestamp_column='time',
-                      tag_columns=["room"])
-
-    # Execute a query and retrieve data formatted as a PyArrow Table
-
-    table = client.query(
-      '''SELECT *
-         FROM home
-         WHERE time >= now() - INTERVAL '90 days'
-         ORDER BY time''')
-    ```
 ---
 
-The InfluxDB v3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python)
+The InfluxDB v3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python/)
 integrates {{% product-name %}} write and query operations with Python scripts and applications.
 
 InfluxDB client libraries provide configurable batch writing of data to {{% product-name %}}.
@@ -85,8 +49,8 @@ Code samples in this page use the [Get started home sensor sample data](/influxd
 - [Class WriteOptions](#class-writeoptions)
   - [Parameters](#parameters-4)
 - [Functions](#functions)
-  - [Function write_client_options(\*\*kwargs)](#function-write_client_optionskwargs)
-  - [Function flight_client_options(\*\*kwargs)](#function-flight_client_optionskwargs)
+  - [Function write_client_options(**kwargs)](#function-write_client_optionskwargs)
+  - [Function flight_client_options(**kwargs)](#function-flight_client_optionskwargs)
 - [Constants](#constants)
 - [Exceptions](#exceptions)
 
@@ -137,12 +101,17 @@ The `influxdb_client_3` module includes the following classes and functions.
   - [Writing modes](#writing-modes)
   - [InfluxDBClient3 instance methods](#influxdbclient3-instance-methods)
   - [InfluxDBClient3.write](#influxdbclient3write)
-  - [InfluxDBClient3.write_file](#influxdbclient3write_file)
+  - [InfluxDBClient3.write\_file](#influxdbclient3write_file)
   - [InfluxDBClient3.query](#influxdbclient3query)
   - [InfluxDBClient3.close](#influxdbclient3close)
 - [Class Point](#class-point)
 - [Class WriteOptions](#class-writeoptions)
   - [Parameters](#parameters-4)
+- [Functions](#functions)
+  - [Function write\_client\_options(\*\*kwargs)](#function-write_client_optionskwargs)
+  - [Function flight\_client\_options(\*\*kwargs)](#function-flight_client_optionskwargs)
+- [Constants](#constants)
+- [Exceptions](#exceptions)
 
 ## Class InfluxDBClient3
 
@@ -186,9 +155,9 @@ Given that `write_client_options` isn't specified, the client uses the default [
 ```python
 import os
 ```
-<!--pytest-codeblocks:cont-->
-
 -->
+
+<!--pytest-codeblocks:cont-->
 
 ```python
 from influxdb_client_3 import InfluxDBClient3
@@ -216,6 +185,7 @@ To explicitly specify synchronous mode, create a client with `write_options=SYNC
 import os
 ```
 -->
+
 <!--pytest-codeblocks:cont-->
 
 ```python
@@ -270,6 +240,7 @@ specify callback functions for the response status (success, error, or retryable
 import os
 ```
 -->
+
 <!--pytest-codeblocks:cont-->
 
 ```python
@@ -348,6 +319,7 @@ Writes a record or a list of records to InfluxDB.
 import os
 ```
 -->
+
 <!--pytest-codeblocks:cont-->
 
 ```python
@@ -401,6 +373,7 @@ data to InfluxDB.
 import os
 ```
 -->
+
 <!--pytest-codeblocks:cont-->
 
 ```python
@@ -534,6 +507,7 @@ and how to write data from CSV and JSON files to InfluxDB:
 import os
 ```
 -->
+
 <!--pytest-codeblocks:cont-->
 
 ```python
@@ -636,6 +610,7 @@ Returns all data in the query result as an Arrow table ([`pyarrow.Table`](https:
 import os
 ```
 -->
+
 <!--pytest-codeblocks:cont-->
 
 ```python
@@ -672,6 +647,7 @@ In the examples, replace the following:
 import os
 ```
 -->
+
 <!--pytest-codeblocks:cont-->
 
 ```python
@@ -698,6 +674,7 @@ print(table.select(['room', 'temp']))
 import os
 ```
 -->
+
 <!--pytest-codeblocks:cont-->
 
 ```python
@@ -723,6 +700,7 @@ print(pd.to_markdown())
 import os
 ```
 -->
+
 <!--pytest-codeblocks:cont-->
 
 ```python
@@ -750,6 +728,7 @@ print(table.schema)
 import os
 ```
 -->
+
 <!--pytest-codeblocks:cont-->
 
 ```python
@@ -776,6 +755,7 @@ Pass `timeout=<number of seconds>` for [`FlightCallOptions`](https://arrow.apach
 import os
 ```
 -->
+
 <!--pytest-codeblocks:cont-->
 
 ```python
@@ -980,3 +960,5 @@ Replace the following:
 ## Exceptions
 
 - `influxdb_client_3.InfluxDBError`: Exception class raised for InfluxDB-related errors
+
+<a class="btn" href="https://github.com/InfluxCommunity/influxdb3-python/" target="\_blank">View the InfluxDB v3 Python client library</a>
