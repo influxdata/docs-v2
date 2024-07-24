@@ -52,7 +52,7 @@ public class HelloInfluxDB {
   private static final String DATABASE = "java"; // your bucket in InfluxDB Cloud Serverless
   private static final char[] API_TOKEN = "API_TOKEN".toCharArray(); // Avoid hard-coding API_TOKEN in production. It is present in the cloud portal.
 
-  // Authenticate, Write and Query data from the serverless InfluxDB
+  // Create a client instance, and then write and query data in InfluxDB Cloud Serverless.
   public static void main(String[] args) {
     try (InfluxDBClient client = InfluxDBClient.getInstance(HOST_URL, API_TOKEN, DATABASE)) {
       writeData(client);
