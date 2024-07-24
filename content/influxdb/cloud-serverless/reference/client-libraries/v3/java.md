@@ -104,7 +104,6 @@ public class HelloInfluxDB {
 ## Run the program to write and query data
 
 Build the project and then run the executable .jar file with this [JVM Flag](https://arrow.apache.org/docs/java/install.html). 
-<br/><br/> 
 ```sh
   java --add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED -jar target/PROJECT_NAME.jar
 ```
