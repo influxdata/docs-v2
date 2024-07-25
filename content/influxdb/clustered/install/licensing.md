@@ -40,10 +40,12 @@ To deactivate license enforcement, remove the `useLicensedBinaries` feature flag
 3.  Use `kubectl` to apply and create the `License` resource in your InfluxDB
     namespace:
 
+    <!--pytest.mark.skip-->
+
     ```sh
     kubectl apply --filename license.yml --namespace influxdb
     ```
-  
+
 4.  <span id="enable-feature-flag"></span>
     Update your `AppInstance` resource to enable the `useLicensedBinaries` feature flag.
     Add the `useLicensedBinaries` entry to the `.spec.package.spec.featureFlags`
@@ -100,5 +102,84 @@ spec:
 
 Replace {{% code-placeholder-key %}}`PACKAGE_VERSION`{{% /code-placeholder-key %}} with
 the version number to upgrade to.
+
+## Troubleshoot licensing
+
+After you have activated licensing, use the following signals to verify licensing
+and troubleshoot issues with your {{< product-name omit="Clustered" >}}
+cluster.
+
+In your commands, replace the following:
+
+- {{% code-placeholder-key %}}`NAMESPACE`{{% /code-placeholder-key %}}:
+  your [InfluxDB namespace](/influxdb/clustered/install/configure-cluster/#create-a-namespace-for-influxdb)
+- {{% code-placeholder-key %}}`POD_NAME`{{% /code-placeholder-key %}}:
+  your [InfluxDB Kubernetes pod](/influxdb/clustered/install/deploy/#inspect-cluster-pods)
+
+### Verify database components
+
+After you [install your license](#install-your-influxdb-license),
+run the following command to check that database pods start up and are in the
+`Running` state:
+
+<!--pytest.mark.skip-->
+
+{{% code-placeholders "NAMESPACE" %}}
+
+```sh
+kubectl get pods -l app=iox --namespace NAMESPACE
+```
+
+{{% /code-placeholders %}}
+
+If a `Pod` fails to start, run the following command to view pod information:
+
+<!--pytest.mark.skip-->
+
+{{% code-placeholders "POD_NAME|NAMESPACE" %}}
+
+```sh
+kubectl describe pod POD_NAME --namespace NAMESPACE
+```
+
+{{% /code-placeholders %}}
+
+### Verify the `Secret` exists 
+
+Run the following command to verify that the licensing activation created a
+`iox-license` secret:
+
+<!--pytest.mark.skip-->
+
+{{% code-placeholders "NAMESPACE" %}}
+
+```sh
+kubectl get secret iox-license --namespace NAMESPACE
+```
+
+If the secret doesn't exist,
+[view `license-controller` logs](#view-license-controller-logs) for
+more information or errors.
+
+{{% /code-placeholders %}}
+
+### View `license controller` logs
+
+The `license controller` component creates a `Secret` named `iox-license` from your
+`License`.
+
+To view `license controller` logs for troubleshooting, run the following
+command:
+
+<!--pytest.mark.skip-->
+
+{{% code-placeholders "NAMESPACE" %}}
+
+```sh
+kubectl logs deployment/license-controller --namespace NAMESPACE
+```
+
+{{% /code-placeholders %}}
+
 
 {{< page-nav prev="/influxdb/clustered/install/configure-cluster/" prevText="Configure your cluster" next="/influxdb/clustered/install/deploy/" nextText="Deploy your cluster" >}}
