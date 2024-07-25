@@ -58,6 +58,8 @@ install your license.
 3.  Use `kubectl` to apply and create the `License` resource in your InfluxDB
     namespace:
 
+    <!--pytest.mark.skip-->
+
     ```sh
     kubectl apply --filename license.yml --namespace influxdb
     ```
@@ -97,7 +99,7 @@ InfluxDB validates a license when you apply it.
 If the license is invalid when you try to apply it, the `license controller`
 won't add or update the required secret.
 
-## Renew your license
+## Renew your licensejk
 
 Before your license expires, your InfluxData sales representative will
 contact you about license renewal.

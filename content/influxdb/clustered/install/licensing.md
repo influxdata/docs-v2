@@ -40,6 +40,8 @@ To deactivate license enforcement, remove the `useLicensedBinaries` feature flag
 3.  Use `kubectl` to apply and create the `License` resource in your InfluxDB
     namespace:
 
+    <!--pytest.mark.skip-->
+
     ```sh
     kubectl apply --filename license.yml --namespace influxdb
     ```
@@ -120,6 +122,8 @@ After you [install your license](#install-your-influxdb-license),
 run the following command to check that database pods start up and are in the
 `Running` state:
 
+<!--pytest.mark.skip-->
+
 {{% code-placeholders "NAMESPACE" %}}
 
 ```sh
@@ -129,6 +133,8 @@ kubectl get pods -l app=iox --namespace NAMESPACE
 {{% /code-placeholders %}}
 
 If a `Pod` fails to start, run the following command to view pod information:
+
+<!--pytest.mark.skip-->
 
 {{% code-placeholders "POD_NAME|NAMESPACE" %}}
 
@@ -142,6 +148,8 @@ kubectl describe pod POD_NAME --namespace NAMESPACE
 
 Run the following command to verify that the licensing activation created a
 `iox-license` secret:
+
+<!--pytest.mark.skip-->
 
 {{% code-placeholders "NAMESPACE" %}}
 
@@ -162,6 +170,8 @@ The `license controller` component creates a `Secret` named `iox-license` from y
 
 To view `license controller` logs for troubleshooting, run the following
 command:
+
+<!--pytest.mark.skip-->
 
 {{% code-placeholders "NAMESPACE" %}}
 
