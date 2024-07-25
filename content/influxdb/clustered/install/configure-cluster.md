@@ -605,8 +605,8 @@ following fields in your `myinfluxdb.yml` configuration file:
     _If using Microsoft Entra ID (formerly Azure Active Directory), set the name
     to `azure`_.
   - `jwksEndpoint`: JWKS endpoint provide by your identity provider.
-  - `users`: List of OAuth2 user IDs to grant administrative access to
-    your InfluxDB cluster. IDs are provided by your identity provider.
+  - `users`: List of OAuth2 users to grant administrative access to your
+  InfluxDB cluster. IDs are provided by your identity provider.
 
 Below are examples for **Keycloak**, **Auth0**, and **Microsoft Entra ID**, but
 other OAuth2 providers should work as well:
@@ -634,7 +634,13 @@ spec:
         jwksEndpoint: |-
           https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/certs
         users:
-          - KEYCLOAK_USER_ID
+          # All fields are required but the firstName, lastName, and email can
+          # be arbitrary values -- only the `id` needs to match up with the
+          # identity provider user management system.
+          - id: KEYCLOAK_USER_ID
+            firstName: Marty
+            lastName: McFly
+            email: mcfly@influxdata.com
 ```
 
 {{% /code-placeholders %}}
