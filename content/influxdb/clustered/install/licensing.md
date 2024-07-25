@@ -43,7 +43,7 @@ To deactivate license enforcement, remove the `useLicensedBinaries` feature flag
     ```sh
     kubectl apply --filename license.yml --namespace influxdb
     ```
-  
+
 4.  <span id="enable-feature-flag"></span>
     Update your `AppInstance` resource to enable the `useLicensedBinaries` feature flag.
     Add the `useLicensedBinaries` entry to the `.spec.package.spec.featureFlags`
@@ -100,5 +100,60 @@ spec:
 
 Replace {{% code-placeholder-key %}}`PACKAGE_VERSION`{{% /code-placeholder-key %}} with
 the version number to upgrade to.
+
+## Troubleshooting licensing
+
+Detailed below are various signals to verify and troubleshoot licensing.
+
+### Verify database components
+
+Ensure that the database pods can start up and are in the `Running` state after
+the `License` has been applied:
+
+{{% code-placeholders "NAMESPACE" %}}
+
+```sh
+kubectl get pods -l app=iox --namespace NAMESPACE
+```
+
+{{% /code-placeholders %}}
+
+If a particular `Pod` is failing to start, you can gain more information by describing it:
+
+{{% code-placeholders "POD_NAME|NAMESPACE" %}}
+
+```sh
+kubectl describe pod POD_NAME --namespace NAMESPACE
+```
+
+{{% /code-placeholders %}}
+
+### Verify the creation of a `Secret`
+
+A `Secret` named `iox-license` should exist:
+
+{{% code-placeholders "NAMESPACE" %}}
+
+```sh
+kubectl get secret iox-license --namespace NAMESPACE
+```
+
+If no `Secret` exists, check the `license-controller` logs.
+
+{{% /code-placeholders %}}
+
+### Verify the `license-controller`
+
+Check the logs of the license controller, this component creates a `Secret` from
+your `License`, named `iox-license`.
+
+{{% code-placeholders "NAMESPACE" %}}
+
+```sh
+kubectl logs deployment/license-controller --namespace NAMESPACE
+```
+
+{{% /code-placeholders %}}
+
 
 {{< page-nav prev="/influxdb/clustered/install/configure-cluster/" prevText="Configure your cluster" next="/influxdb/clustered/install/deploy/" nextText="Deploy your cluster" >}}
