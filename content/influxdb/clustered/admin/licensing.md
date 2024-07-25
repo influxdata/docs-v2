@@ -85,21 +85,22 @@ per hour) while running.
 
 ## Recover from a license misconfiguration
 
-If you deploy a licensed release of InfluxDB Clustered without an invalid or
+If you deploy a licensed release of InfluxDB Clustered with an invalid or
 expired license, many of the pods in your cluster will crash on startup and will
 likely enter a `CrashLoopBackoff` state without ever running or becoming healthy.
-Because the license is stored in a volume-mounted Kubernetes secret, invalid
-licenses affect both old and new pods.
+Because InfluxDB stores the license in a volume-mounted Kubernetes secret, invalid
+licenses affect old and new pods.
 
-Once a valid `License` resource is applied, new pods will begin to start up normally.
-Licenses are validated when the `License` resource is applied. If the license
-is invalid when you attempt to apply it, the InfluxDB clustered license
-controller will not add or update the required secret.
+After you apply a valid `License` resource, new pods will begin to start up normally.
+
+InfluxDB validates a license when you apply it.
+If the license is invalid when you try to apply it, the `license controller`
+won't add or update the required secret.
 
 ## Renew your license
 
-In advance of your license expiration, your InfluxData sales representative will
-contact you regarding license renewal.
+Before your license expires, your InfluxData sales representative will
+contact you about license renewal.
 You may also contact your sales representative at any time.
 
 ---
