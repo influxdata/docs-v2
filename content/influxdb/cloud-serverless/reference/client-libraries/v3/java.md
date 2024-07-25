@@ -33,7 +33,7 @@ server metadata, and retrieving data from {{% product-name %}} using the Flight 
 - [Importing the client](#importing-the-client)
 - [API reference](#api-reference)
 - [Classes](#classes)
-- [Interface InfluxDBClient](#interface-influxdbclient)
+- [InfluxDBClient interface](#influxdbclient-interface)
   - [Initialize with credential parameters](#initialize-with-credential-parameters)
   - [InfluxDBClient instance methods](#influxdbclient-instance-methods)
   - [InfluxDBClient.writePoint](#influxdbclientwritepoint)
@@ -187,9 +187,9 @@ stored in {{< product-name >}}.
   - [InfluxDBClient.query](#influxdbclientquery)
 
 
-## Interface InfluxDBClient
+## InfluxDBClient interface
 
-Provides an interface for interacting with InfluxDB APIs for writing and querying data.
+`InfluxDBClient` provides an interface for interacting with InfluxDB APIs for writing and querying data.
 
 The `InfluxDBClient.getInstance` constructor initializes and returns a client instance with the following:
 
@@ -248,6 +248,7 @@ public class HelloInfluxDB {
       e.printStackTrace();
     }
   }
+}
 ```
 
 #### Default tags
@@ -313,7 +314,6 @@ To query data and process the results:
       e.printStackTrace();
     }
   }
-}
 ```
 
 <a class="btn" href="https://github.com/InfluxCommunity/influxdb3-java/" target="\_blank">View the InfluxDB v3 Java client library</a>
