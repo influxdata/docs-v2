@@ -99,7 +99,7 @@ InfluxDB validates a license when you apply it.
 If the license is invalid when you try to apply it, the `license controller`
 won't add or update the required secret.
 
-## Renew your licensejk
+## Renew your license
 
 Before your license expires, your InfluxData sales representative will
 contact you about license renewal.
