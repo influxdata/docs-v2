@@ -11,6 +11,17 @@ menu:
 weight: 202
 ---
 
+## v2.9.4 {date="2024-07-25"}
+
+### Bug Fixes
+
+- Resolve crash when parsing error message and authentication was null.
+
+### Dependency Updates
+
+- Update `golang.org/x/mod` from 0.18.0 to 0.19.0
+- Update `google.golang.org/grpc` from 1.64.0 to 1.65.0
+
 ## v2.9.3 {date="2024-06-26"}
 
 ### Bug Fixes
