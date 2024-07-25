@@ -8,6 +8,16 @@ menu:
 weight: 101
 ---
 
+## v2.7.8 {date="2024-07-25"}
+
+### Bug Fixes
+
+- Prevent an infinite loop in `measurementFieldSetChangeMgr`.
+- Prevent `Store.validateArgs` from wrongfully overwriting start and end Unix
+  times.
+
+---
+
 ## v2.7.7 {date="2024-07-12"}
 
 ### Features
