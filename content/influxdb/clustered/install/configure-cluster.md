@@ -634,9 +634,8 @@ spec:
         jwksEndpoint: |-
           https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/certs
         users:
-          # All fields are required but the firstName, lastName, and email can
-          # be arbitrary values -- only the `id` needs to match up with the
-          # identity provider user management system.
+          # All fields are required but `firstName`, `lastName`, and `email` can be
+          # arbitrary values. However, `id` must match the user ID provided by Keycloak.
           - id: KEYCLOAK_USER_ID
             firstName: Marty
             lastName: McFly
