@@ -12,9 +12,13 @@ weight: 101
 
 ### Bug Fixes
 
-- Prevent an infinite loop in `measurementFieldSetChangeMgr`.
-- Prevent `Store.validateArgs` from wrongfully overwriting start and end Unix
-  times.
+- Prevent an infinite loop in write path.
+- Fix `range()` filter behavior for timestamps before 1970-01-01 (UNIX time 0).
+- Update to latest `influxdb-templates`.
+
+### Maintenance
+
+- Update user interface (UI) with various improvements.
 
 ---
 
