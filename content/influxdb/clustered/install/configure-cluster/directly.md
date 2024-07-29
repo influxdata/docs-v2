@@ -1,5 +1,6 @@
 ---
 title: Configure your InfluxDB AppInstance directly
+list_title: Configure your InfluxDB AppInstance resource directly
 description: >
   Configure your InfluxDB clustered by adding configuration options directly to
   the provided `AppInstance` resource.
@@ -12,7 +13,7 @@ weight: 220
 ---
 
 InfluxDB Clustered deployments are managed using Kubernetes and configured using
-a YAML configuration file. InfluxData provides the following items:
+a YAML configuration file. The 
 
 - **`influxdb-docker-config.json`**: an authenticated Docker configuration file.
   The InfluxDB Clustered software is in a secure container registry.
@@ -27,7 +28,8 @@ a YAML configuration file. InfluxData provides the following items:
 
     {{% note %}}
 
-This documentation refers to a `myinfluxdb.yml` file that you copy from `example-customer.yml` and edit for your InfluxDB cluster.
+This documentation refers to a `myinfluxdb.yml` file that you copy from
+`example-customer.yml` and edit for your InfluxDB cluster.
 
     {{% /note %}}
 
@@ -61,8 +63,7 @@ The InfluxDB installation, update, and upgrade processes are driven by editing
 and applying a [Kubernetes custom resource (CRD)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 called `AppInstance`.
 The `AppInstance` CRD is defined in a YAML file (use `example-customer.yml` as a
-template) or, if using the InfluxDB Clustered Helm chart, is provided by the
-chart and configured in the `values.yaml` included in the chart.
+template).
 
 The `AppInstance` resource contains key information, such as:
 
@@ -103,7 +104,7 @@ InfluxData provides an `app-instance-schema.json` JSON schema file that VS Code 
 
 ### Create a namespace for InfluxDB
 
-Create a namespace for InfluxDB. For example, using `kubectl`::
+Create a namespace for InfluxDB. For example, using `kubectl`:
 
 ```sh
 kubectl create namespace influxdb
@@ -132,9 +133,9 @@ container images required to run InfluxDB Clustered.
 Your Kubernetes Cluster needs access to the container registry to pull down and
 install InfluxDB.
 
-There are two main scenarios:
+When pulling images, there are two main scenarios:
 
-- You have a kubernetes cluster that can pull from the InfluxData container registry.
+- You have a Kubernetes cluster that can pull from the InfluxData container registry.
 - You run in an environment with no network interfaces ("air-gapped") and you
   can only access a private container registry.
 
@@ -607,8 +608,8 @@ following fields in your `myinfluxdb.yml` configuration file:
     _If using Microsoft Entra ID (formerly Azure Active Directory), set the name
     to `azure`_.
   - `jwksEndpoint`: JWKS endpoint provide by your identity provider.
-  - `users`: List of OAuth2 user IDs to grant administrative access to
-    your InfluxDB cluster. IDs are provided by your identity provider.
+  - `users`: List of OAuth2 users to grant administrative access to your
+  InfluxDB cluster. IDs are provided by your identity provider.
 
 Below are examples for **Keycloak**, **Auth0**, and **Microsoft Entra ID**, but
 other OAuth2 providers should work as well:
@@ -636,7 +637,12 @@ spec:
         jwksEndpoint: |-
           https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/certs
         users:
-          - KEYCLOAK_USER_ID
+          # All fields are required but `firstName`, `lastName`, and `email` can be
+          # arbitrary values. However, `id` must match the user ID provided by Keycloak.
+          - id: KEYCLOAK_USER_ID
+            firstName: Marty
+            lastName: McFly
+            email: mcfly@influxdata.com
 ```
 
 {{% /code-placeholders %}}
@@ -759,21 +765,21 @@ your anticipated workload.
 in your `myinfluxdb.yml`. If omitted, your cluster will use the default scale settings.
 
 - `spec.package.spec.resources`
-  - `.ingester.requests`
-    - `.cpu`: CPU Resource units to assign to ingesters
-    - `.memory`: Memory resource units to assign to ingesters
+  - `ingester.requests`
+    - `cpu`: CPU resource units to assign to ingesters
+    - `memory`: Memory resource units to assign to ingesters
     - `replicas`: Number of ingester replicas to provision
-  - `.compactor.requests`
-    - `.cpu`: CPU Resource units to assign to compactors
-    - `.memory`: Memory resource units to assign to compactors
+  - `compactor.requests`
+    - `cpu`: CPU resource units to assign to compactors
+    - `memory`: Memory resource units to assign to compactors
     - `replicas`: Number of compactor replicas to provision
-  - `.querier.requests`
-    - `.cpu`: CPU Resource units to assign to queriers
-    - `.memory`: Memory resource units to assign to queriers
+  - `querier.requests`
+    - `cpu`: CPU resource units to assign to queriers
+    - `memory`: Memory resource units to assign to queriers
     - `replicas`: Number of querier replicas to provision
-  - `.router.requests`
-    - `.cpu`: CPU Resource units to assign to routers
-    - `.memory`: Memory resource units to assign to routers
+  - `router.requests`
+    - `cpu`: CPU resource units to assign to routers
+    - `memory`: Memory resource units to assign to routers
     - `replicas`: Number of router replicas to provision
 
 ###### Related Kubernetes documentation

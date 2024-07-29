@@ -101,7 +101,22 @@ for tool dependencies, meaning the required versions are tracked by `kubit`.
 
 <!-------------------------------- BEGIN Helm --------------------------------->
 
-HELM
+1.  Add the InfluxData Helm chart repository:
+
+    ```bash
+    helm repo add influxdata https://helm.influxdata.com/
+    ```
+
+2.  Deploy your Helm chart using your modified local `values.yaml`:
+
+    ```bash
+    helm upgrade \
+      --install \
+      influxdb \
+      influxdata/influxdb3-clustered \
+      -f ./values.yml \
+      --namespace influxdb
+    ```
 
 <!--------------------------------- END Helm ---------------------------------->
 
