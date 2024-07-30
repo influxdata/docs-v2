@@ -43,7 +43,7 @@ pre-commit:
       tags: lint v2
       glob: "content/influxdb/v2/**/*.md"
       run: '.ci/vale/vale.sh
-        --config=.vale.ini
+        --config=content/influxdb/v2/.vale.ini
         --minAlertLevel=error {staged_files}'
     cloud-pytest:
       glob: content/influxdb/cloud/**/*.md
@@ -86,7 +86,7 @@ pre-commit:
       glob: content/influxdb/v2/**/*.md
       env:
         - SERVICE: v2-pytest
-      run: docker compose run $SERVICE '{staged_files}'
+      run: docker compose run --rm $SERVICE '{staged_files}'
     prettier:
       tags: frontend style
       glob: "*.{css,js,ts,jsx,tsx}"
