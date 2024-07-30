@@ -363,6 +363,17 @@ services:
       - type: volume
         source: influxdb2-config
         target: /etc/influxdb2
+  remark-lint:
+    build:
+      context: . 
+      dockerfile: .ci/Dockerfile.remark
+    command: ["remark", "content/${PRODUCT_PATH}"]
+    profiles:
+      - lint
+    volumes:
+      - type: bind
+        source: ./content
+        target: /app/content
 volumes:
   test-content:
   cloud-tmp:
