@@ -1,20 +1,18 @@
 ---
-title: influx delete
-description: The `influx delete` command deletes points from an InfluxDB bucket.
+title: Delete predicate syntax
+list_title: Delete predicate
+description: >
+  InfluxDB uses an InfluxQL-like predicate syntax to determine what data points to delete.
 menu:
   influxdb_cloud_serverless:
-    name: influx delete
-    parent: influx
-weight: 101
-influxdb/cloud-serverless/tags: [delete]
+    parent: Syntax
+    name: Delete predicate
+weight: 104
+influxdb/cloud-serverless/tags: [syntax, delete]
 related:
   - /influxdb/cloud-serverless/write-data/delete-data/
-  - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-metadata: [influx CLI 2.0.3+]
-updated_in: CLI v2.2.0
+  - /influxdb/cloud-serverless/reference/cli/influx/delete/
 ---
-
 {{% warn %}}
 #### InfluxDB Cloud Serverless does not support data deletion
 
