@@ -13,6 +13,14 @@ related:
   - /influxdb/clustered/reference/sql/information-schema/
 ---
 
+{{% warn %}}
+Queries of InfluxDB system tables may affect production performance while
+system tables are accessed.
+
+System tables are not currently part of the stable API and the schema may change
+in subsequent releases.
+{{% /warn %}}
+
 InfluxDB system measurements contain time series data used by and generated from the
 InfluxDB internal monitoring system.
 
