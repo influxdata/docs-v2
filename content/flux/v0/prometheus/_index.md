@@ -3,7 +3,9 @@ title: Work with Prometheus
 description: >
   Flux provides tools for scraping and processing raw [Prometheus-formatted metrics](https://prometheus.io/docs/concepts/data_model/)
   from an HTTP-accessible endpoint.
-menu: flux_0_x
+menu:
+  flux_v0:
+    name: Work with Prometheus
 weight: 8
 flux/v0/tags: [prometheus]
 ---
