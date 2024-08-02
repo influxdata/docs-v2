@@ -282,16 +282,16 @@ status = None
 # Define callbacks for write responses
 def success(self, data: str):
     status = "Success writing batch: data: {data}"
-    assert status.startsWith('Success'), f"Expected {status} to be success"
+    assert status.startswith('Success'), f"Expected {status} to be success"
 
 def error(self, data: str, err: InfluxDBError):
     status = f"Error writing batch: config: {self}, data: {data}, error: {err}"
-    assert status.startsWith('Success'), f"Expected {status} to be success"
+    assert status.startswith('Success'), f"Expected {status} to be success"
 
 
 def retry(self, data: str, err: InfluxDBError):
     status = f"Retry error writing batch: config: {self}, data: {data}, error: {err}"
-    assert status.startsWith('Success'), f"Expected {status} to be success"
+    assert status.startswith('Success'), f"Expected {status} to be success"
 
 # Instantiate WriteOptions for batching
 write_options = WriteOptions()
