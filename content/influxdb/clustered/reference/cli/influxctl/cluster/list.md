@@ -13,8 +13,7 @@ weight: 301
 
 #### Doesn't work with InfluxDB Clustered
 
-The `influxctl cluster list` command won't work with {{% product-name %}}
-clusters.
+The `influxctl cluster list` command won't work with {{% product-name %}}.
 To retrieve cluster information, use the [`influxctl cluster get <CLUSTER_ID>`
 command](/influxdb/clustered/reference/cli/influxctl/cluster/get/).
 
