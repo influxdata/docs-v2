@@ -5,7 +5,7 @@ description: >
   Clustered software.
 menu:
   influxdb_clustered:
-    name: Install your License
+    name: Install your license
     parent: Install InfluxDB Clustered
 weight: 135
 influxdb/clustered/tags: [licensing]

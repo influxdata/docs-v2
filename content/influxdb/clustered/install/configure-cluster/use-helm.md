@@ -9,11 +9,11 @@ menu:
 weight: 230
 ---
 
-InfluxDB Clustered deployments are managed using Kubernetes and configured using
-a YAML configuration file.
+Manage your InfluxDB Clustered deployments using Kubernetes and apply configuration settings using a YAML configuration file.
 The [InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered)
 provides an alternative method for deploying your InfluxDB cluster using
-[Helm](https://helm.sh/). When using Helm, apply configuration options in a
+[Helm](https://helm.sh/). It acts as a wrapper for the InfluxDB `AppInstance`
+resource. When using Helm, apply configuration options in a
 a `values.yaml` on your local machine.
 
  InfluxData provides the following items:
