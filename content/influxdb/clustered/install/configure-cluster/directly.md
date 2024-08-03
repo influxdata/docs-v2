@@ -1,19 +1,19 @@
 ---
-title: Configure your InfluxDB cluster
+title: Use the InfluxDB AppInstance resource configuration
+list_title: Configure your InfluxDB AppInstance resource directly
 description: >
-  InfluxDB Clustered deployments are managed using Kubernetes and configured using
-  a YAML configuration file.
+  Configure your InfluxDB cluster by editing configuration options in 
+  the provided `AppInstance` resource.
+menu:
 menu:
   influxdb_clustered:
-    name: Configure your cluster
-    parent: Install InfluxDB Clustered
-weight: 130
-related:
-  - /influxdb/clustered/admin/upgrade/
+    name: Configure AppInstance
+    parent: Configure your cluster
+weight: 220
 ---
 
-InfluxDB Clustered deployments are managed using Kubernetes and configured using
-a YAML configuration file. InfluxData provides the following items:
+Manage your InfluxDB Clustered deployments using Kubernetes and apply configuration settings using
+a YAML configuration file.
 
 - **`influxdb-docker-config.json`**: an authenticated Docker configuration file.
   The InfluxDB Clustered software is in a secure container registry.
@@ -28,7 +28,8 @@ a YAML configuration file. InfluxData provides the following items:
 
     {{% note %}}
 
-This documentation refers to a `myinfluxdb.yml` file that you copy from `example-customer.yml` and edit for your InfluxDB cluster.
+This documentation refers to a `myinfluxdb.yml` file that you copy from
+`example-customer.yml` and edit for your InfluxDB cluster.
 
     {{% /note %}}
 
@@ -62,7 +63,9 @@ The InfluxDB installation, update, and upgrade processes are driven by editing
 and applying a [Kubernetes custom resource (CRD)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 called `AppInstance`.
 The `AppInstance` CRD is defined in a YAML file (use `example-customer.yml` as a
-template) that contains key information, such as:
+template).
+
+The `AppInstance` resource contains key information, such as:
 
 - Name of the target namespace
 - Version of the InfluxDB package
@@ -101,7 +104,7 @@ InfluxData provides an `app-instance-schema.json` JSON schema file that VS Code 
 
 ### Create a namespace for InfluxDB
 
-Create a namespace for InfluxDB. For example, using `kubectl`::
+Create a namespace for InfluxDB--for example, enter the following `kubectl` command in your terminal:
 
 ```sh
 kubectl create namespace influxdb
@@ -130,9 +133,9 @@ container images required to run InfluxDB Clustered.
 Your Kubernetes Cluster needs access to the container registry to pull down and
 install InfluxDB.
 
-There are two main scenarios:
+When pulling InfluxDB Clustered images, there are two main scenarios:
 
-- You have a kubernetes cluster that can pull from the InfluxData container registry.
+- You have a Kubernetes cluster that can pull from the InfluxData container registry.
 - You run in an environment with no network interfaces ("air-gapped") and you
   can only access a private container registry.
 
