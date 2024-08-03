@@ -87,7 +87,8 @@ function substitute_placeholders {
       /os.getenv("ORG_ID")/! s/ORG_ID/$INFLUX_ORG/g;
       /os.getenv("RETENTION_POLICY")/! s/RETENTION_POLICY_NAME\|RETENTION_POLICY/$INFLUX_RETENTION_POLICY/g;
       s/CONFIG_NAME/CONFIG_$(shuf -i 0-100 -n1)/g;
-      s/TEST_RUN/TEST_RUN_$(date +%s)/g' \
+      s/TEST_RUN/TEST_RUN_$(date +%s)/g;
+      s|/path/to/custom/assets-dir|/app/custom-assets|g;' \
       $file
 
       # v2-specific replacements.
