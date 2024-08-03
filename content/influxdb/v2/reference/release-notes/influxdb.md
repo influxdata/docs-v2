@@ -8,6 +8,20 @@ menu:
 weight: 101
 ---
 
+## v2.7.8 {date="2024-07-25"}
+
+### Bug Fixes
+
+- Prevent an infinite loop in write path.
+- Fix `range()` filter behavior for timestamps before 1970-01-01 (UNIX time 0).
+- Update to latest `influxdb-templates`.
+
+### Maintenance
+
+- Update user interface (UI) with various improvements.
+
+---
+
 ## v2.7.7 {date="2024-07-12"}
 
 ### Features
