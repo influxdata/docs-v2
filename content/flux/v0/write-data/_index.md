@@ -2,7 +2,9 @@
 title: Write to data sources
 description: >
   Write to different data sources with Flux including InfluxDB, SQL databases, CSV, and Prometheus.
-menu: flux_0_x
+menu:
+  flux_v0:
+    name: Write to data sources
 weight: 5
 ---
 
