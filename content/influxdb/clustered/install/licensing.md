@@ -47,7 +47,7 @@ To deactivate license enforcement, remove the `useLicensedBinaries` feature flag
     ```
 
 4.  <span id="enable-feature-flag"></span>
-    Update your `AppInstance` resource to enable the `useLicensedBinaries` feature flag:
+    Update your `AppInstance` resource to activate the `useLicensedBinaries` feature flag:
     
     - If configuring the `AppInstance` resource directly, add the
       `useLicensedBinaries` entry to the `.spec.package.spec.featureFlags`
@@ -97,7 +97,7 @@ If you are currently using a non-licensed preview release of InfluxDB Clustered
 and want to upgrade to a licensed release, do the following:
 
 1.  [Install an InfluxDB license](#install-your-influxdb-license)
-2.  If modifying the `AppInstance` resource directly, in your `myinfluxdb.yml`,
+2.  If you [use the `AppInstance` resource configuration](/influxdb/clustered/install/configure-cluster/directly/) to configure your cluster, in your `myinfluxdb.yml`,
     update the package version defined in `spec.package.image` to use a licensed
     release.
     

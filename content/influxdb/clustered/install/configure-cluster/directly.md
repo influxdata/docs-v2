@@ -1,19 +1,19 @@
 ---
-title: Configure your InfluxDB AppInstance directly
+title: Use the InfluxDB AppInstance resource configuration
 list_title: Configure your InfluxDB AppInstance resource directly
 description: >
-  Configure your InfluxDB clustered by adding configuration options directly to
+  Configure your InfluxDB cluster by editing configuration options in 
   the provided `AppInstance` resource.
 menu:
 menu:
   influxdb_clustered:
-    name: Configure directly
+    name: Configure AppInstance
     parent: Configure your cluster
 weight: 220
 ---
 
-InfluxDB Clustered deployments are managed using Kubernetes and configured using
-a YAML configuration file. The 
+Manage your InfluxDB Clustered deployments using Kubernetes and apply configuration settings using
+a YAML configuration file.
 
 - **`influxdb-docker-config.json`**: an authenticated Docker configuration file.
   The InfluxDB Clustered software is in a secure container registry.
@@ -104,7 +104,7 @@ InfluxData provides an `app-instance-schema.json` JSON schema file that VS Code 
 
 ### Create a namespace for InfluxDB
 
-Create a namespace for InfluxDB. For example, using `kubectl`:
+Create a namespace for InfluxDB--for example, enter the following `kubectl` command in your terminal:
 
 ```sh
 kubectl create namespace influxdb
@@ -133,7 +133,7 @@ container images required to run InfluxDB Clustered.
 Your Kubernetes Cluster needs access to the container registry to pull down and
 install InfluxDB.
 
-When pulling images, there are two main scenarios:
+When pulling InfluxDB Clustered images, there are two main scenarios:
 
 - You have a Kubernetes cluster that can pull from the InfluxData container registry.
 - You run in an environment with no network interfaces ("air-gapped") and you

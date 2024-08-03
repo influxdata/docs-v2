@@ -14,7 +14,7 @@ related:
 
 InfluxDB Clustered deployments are managed using Kubernetes and configured using
 a YAML configuration file. 
-Configuration settings applied to your cluster by editing and applying a
+Apply configuration settings to your cluster by editing and applying a
 Kubernetes custom resource (CRD) called `AppInstance`.
 The AppInstance CRD is defined in a YAML file (use example-customer.yml as a
 template) or, if using the InfluxDB Clustered Helm chart, is provided by the

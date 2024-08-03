@@ -46,7 +46,7 @@ your cluster, but from your terminal.**
 
 You can also use [Helm](https://helm.sh/) and the
 [InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered)
-to deploy your InfluxDB Cluster.
+to deploy your InfluxDB cluster.
 
 <!-- Hidden anchor for links to the kubectl/kubit/helm tabs -->
 
