@@ -8,6 +8,10 @@ menu:
     name: Manage users
     parent: Administer InfluxDB Clustered
 weight: 102
+cascade:
+  related:
+    - /influxdb/clustered/install/auth/
+    - /influxdb/clustered/install/configure-cluster/
 ---
 
 Manage users with administrative access to your InfluxDB cluster through your
@@ -24,7 +28,5 @@ _Database tokens_ authorize read and write access to databases in your InfluxDB
 cluster. One does not need to be a users to read and write data in your cluster,
 but they must have a database token.
 {{% /note %}}
-
-{{< children type="anchored-list" >}}
 
 {{< children >}}
