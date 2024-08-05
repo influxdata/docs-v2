@@ -81,7 +81,7 @@ Follow steps to set up and run InfluxDB using Docker Compose and `secrets`:
      influxdb2-config:
     ```
 
-1. For each secret in `compose.yaml`, create a file that contains the secret
+3. For each secret in `compose.yaml`, create a file that contains the secret
    value--for example:
 
    - `~/.env.influxdb2-admin-username`:
@@ -102,7 +102,7 @@ Follow steps to set up and run InfluxDB using Docker Compose and `secrets`:
      MyInitialAdminToken0==
      ```
 
-2. To set up and run InfluxDB, enter the following command in your
+4. To set up and run InfluxDB, enter the following command in your
    terminal:
 
    <!--pytest.mark.skip-->
