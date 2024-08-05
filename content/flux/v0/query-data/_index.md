@@ -2,7 +2,9 @@
 title: Query data sources
 description: >
   Query different data sources with Flux including InfluxDB, SQL databases, CSV, and Prometheus.
-menu: flux_0_x
+menu:
+  flux_v0:
+    name: Query data sources
 weight: 5
 ---
 

@@ -1,0 +1,76 @@
+
+
+# InfluxQL
+# is_scalar_math_function
+# Source: https://github.com/influxdata/influxdb_iox/blob/4f9c901dcfece5fcc4d17cfecb6ec45a0dccda5a/influxdb_influxql_parser/src/functions.rs
+abs
+sin
+cos
+tan
+asin
+acos
+acosh
+asinh
+atan
+atanh
+atan2
+cbrt
+exp
+gcd
+isnan
+iszero
+lcm
+log
+ln
+log2
+log10
+nanvl
+sqrt
+pow
+floor
+ceil
+round
+
+# InfluxQL operators
+bitfield
+
+# is_aggregate_function
+# Source: https://github.com/influxdata/influxdb_iox/blob/4f9c901dcfece5fcc4d17cfecb6ec45a0dccda5a/influxdb_influxql_parser/src/functions.rs
+approx_distinct
+approx_median
+approx_percentile_cont
+approx_percentile_cont_with_weight
+covar
+cumulative_sum
+derivative
+difference
+elapsed
+moving_average
+non_negative_derivative
+non_negative_difference
+bottom
+first
+last
+max
+min
+percentile
+sample
+top
+count
+integral
+mean
+median
+mode
+spread
+stddev
+sum
+holt_winters
+holt_winters_with_fit
+chande_momentum_oscillator
+exponential_moving_average
+double_exponential_moving_average
+kaufmans_efficiency_ratio
+kaufmans_adaptive_moving_average
+triple_exponential_moving_average
+triple_exponential_derivative
+relative_strength_index

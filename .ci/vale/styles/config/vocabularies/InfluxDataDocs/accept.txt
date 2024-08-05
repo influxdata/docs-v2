@@ -38,7 +38,7 @@ SQLAlchemy
 Splunk
 [Ss]uperset
 TBs?
-UI
+\bUI\b
 URL
 US (East|West|Central|North|South|Northeast|Northwest|Southeast|Southwest)
 Unix
