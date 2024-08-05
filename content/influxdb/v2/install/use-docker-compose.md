@@ -76,6 +76,9 @@ Follow steps to set up and run InfluxDB using Docker Compose and `secrets`:
        file: ~/.env.influxdb2-admin-password
      influxdb2-admin-token:
        file: ~/.env.influxdb2-admin-token
+   volumes:
+     influxdb2-data:
+     influxdb2-config:
     ```
 
 3. For each secret in `compose.yaml`, create a file that contains the secret
