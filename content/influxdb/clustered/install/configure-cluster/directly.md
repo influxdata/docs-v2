@@ -89,6 +89,8 @@ The `AppInstance` resource contains key information, such as:
 Copy the provided `example-customer.yml` file to create a new configuration file
 specific to your InfluxDB cluster. For example, `myinfluxdb.yml`.
 
+<!-- pymark.mark.skip -->
+
 ```sh
 cp example-customer.yml myinfluxdb.yml
 ```
@@ -735,34 +737,37 @@ Replace the following:
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-##### Adding users
+##### Add users
 
-Finally, add all the users you wish to have access to use `influxctl`.
-Update the `spec.package.spec.admin.users` field with a list of these users.
+Finally, to give users access to use `influxctl`, add the list of users to the `spec.package.spec.admin.users` field.
+
+<!-- Pending /admin/users
 See [Adding or removing users](/influxdb/clustered/admin/users/) for more details.
+-->
 
 #### Configure the size of your cluster
 
-By default, an InfluxDB cluster is configured with the following:
+##### Default scale settings
 
-- **3 ingesters**:  
+- **3 ingesters**:
   Ensures redundancy on the write path.
-- **1 compactor**:  
+- **1 compactor**:
   While you can have multiple compactors, it is more efficient to scale the
   compactor vertically (assign more CPU and memory) rather than horizontally
   (increase the number of compactors).
-- **1 querier**:  
+- **1 querier**:
   The optimal number of queriers depends on the number of concurrent queries you are
   likely to have and how long they take to execute.
 
 The default values provide a good starting point for testing.
-Once you have your cluster up and running and are looking for scaling recommendations,
+Once you have your cluster up and running and are looking for scaling recommendations
+for your anticipated workload,
 please [contact the InfluxData Support team](https://support.influxdata.com).
-We are happy to work with you to identify appropriate scale settings based on
-your anticipated workload.
 
-**To use custom scale settings for your InfluxDB cluster**, modify the following fields
-in your `myinfluxdb.yml`. If omitted, your cluster will use the default scale settings.
+##### Customize scale settings
+
+**To use custom scale settings for your InfluxDB cluster**, edit values for the following fields
+in your `myinfluxdb.yml`. If omitted, your cluster uses the default scale settings.
 
 - `spec.package.spec.resources`
   - `ingester.requests`
