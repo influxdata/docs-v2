@@ -114,6 +114,9 @@ pre[class*="language-"] {
 	.nl, 		/* Name.Label */
 	.si 		/* Literal.String.Interpol */
 					{ color: $article-code-accent4 }
+	
+	.gd     /* Generic.Deleted strike-through*/
+					{ text-decoration: line-through; }
 
 	.m,  		/* Literal.Number */
 	.ni, 		/* Name.Entity */
