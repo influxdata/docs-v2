@@ -89,7 +89,7 @@ The `AppInstance` resource contains key information, such as:
 Copy the provided `example-customer.yml` file to create a new configuration file
 specific to your InfluxDB cluster. For example, `myinfluxdb.yml`.
 
-<!-- pymark.mark.skip -->
+<!-- pytest.mark.skip -->
 
 ```sh
 cp example-customer.yml myinfluxdb.yml
@@ -108,6 +108,8 @@ InfluxData provides an `app-instance-schema.json` JSON schema file that VS Code 
 
 Create a namespace for InfluxDB--for example, enter the following `kubectl` command in your terminal:
 
+<!-- pytest.mark.skip -->
+
 ```sh
 kubectl create namespace influxdb
 ```
@@ -123,6 +125,8 @@ It manages the application of the jsonnet templates used to install, manage, and
 update an InfluxDB cluster.
 
 Use `kubectl` to install the [kubecfg kubit](https://github.com/kubecfg/kubit) operator.
+
+<!-- pytest.mark.skip -->
 
 ```sh
 kubectl apply -k 'https://github.com/kubecfg/kubit//kustomize/global?ref=v0.0.15'
@@ -149,6 +153,8 @@ Use [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane) 
     retrieve the necessary secrets:
 
 {{% code-placeholders "PACKAGE_VERSION" %}}
+
+<!-- pytest.mark.skip -->
 
 ```sh
 mkdir /tmp/influxdbsecret
@@ -258,6 +264,8 @@ You can obtain it with any standard OCI image inspection tool. For example:
 
 {{% code-placeholders "PACKAGE_VERSION" %}}
 
+<!-- pytest.mark.skip -->
+
 ```sh
 DOCKER_CONFIG=/tmp/influxdbsecret \
 crane config \
@@ -279,6 +287,8 @@ us-docker.pkg.dev/influxdb2-artifacts/iox/iox@sha256:b59d80add235f29b806badf7410
 Use `crane` to copy the images to your private registry:
 
 {{% code-placeholders "REGISTRY_HOSTNAME" %}}
+
+<!-- pytest.mark.skip -->
 
 ```sh
 </tmp/images.txt xargs -I% crane cp % REGISTRY_HOSTNAME/%
@@ -335,6 +345,8 @@ If using the InfluxDB-defined ingress, add a valid TLS Certificate to the
 cluster as a secret. Provide the paths to the TLS certificate file and key file:
 
 {{% code-placeholders "TLS_(CERT|KEY)_PATH" %}}
+
+<!-- pytest.mark.skip -->
 
 ```sh
 kubectl create secret tls ingress-tls \
@@ -838,44 +850,53 @@ spec:
 
 ### Provide a custom certificate authority bundle {note="Optional"}
 
-InfluxDB attempts to make TLS connections to the services it depends on; notably
-the [Catalog](/influxdb/clustered/reference/internals/storage-engine/#catalog),
+InfluxDB attempts to make TLS connections to the services it depends on--notably,
+the [Catalog](/influxdb/clustered/reference/internals/storage-engine/#catalog)
 and the [Object store](/influxdb/clustered/reference/internals/storage-engine/#object-store).
-InfluxDB validates the certificates for all of the connections it makes.
+InfluxDB validates certificates for all connections.
 
-**If you host these services yourself and you use a private or otherwise not
-well-known certificate authority to issue certificates to theses services**, 
-InfluxDB will not recognize the issuer and will be unable to validate the certificates.
-To allow InfluxDB to validate these certificates, provide a PEM certificate
-bundle containing your custom certificate authority chain.
+_If you host dependent services yourself and you use a private or otherwise not
+well-known certificate authority to issue certificates to them, 
+InfluxDB won't recognize the issuer and can't validate the certificates._
+To allow InfluxDB to validate the certificates from your custom CA,
+configure the `AppInstance` resource to use a **PEM certificate
+bundle** that contains your custom certificate authority chain.
 
-1.  Use `kubectl` to create a config map containing your PEM bundle.
+1.  Use `kubectl` to create a config map that contains your PEM-formatted
+    certificate bundle file.
     Your certificate authority administrator should provide you with a
-    PEM-formatted certificate bundle file.
+    PEM-formatted bundle file.
     
     {{% note %}}
-This PEM-formatted bundle file is *not* the certificate that InfluxDB uses to
-host its own TLS endpoints. This bundle establishes a chain of trust for the
+This PEM bundle file establishes a chain of trust for the
 external services that InfluxDB depends on.
+It's *not* the certificate that InfluxDB uses to
+host its own TLS endpoints.
     {{% /note %}}
 
-    In the example below, `private_ca.pem` is the certificate bundle file.
+    In the example, replace `/path/to/private_ca.pem` with the path to your PEM-formatted certificate bundle file:
+
+    <!-- pytest.mark.skip -->
 
     ```sh
     kubectl --namespace influxdb create configmap custom-ca --from-file=certs.pem=/path/to/private_ca.pem
     ```
 
     {{% note %}}
-It's possible to append multiple certificates into the same bundle.
-This can help if you need to include intermediate certificates or explicitly
-include leaf certificates. Leaf certificates should be included before any
-intermediate certificates they depend on. The root certificate should
-be last in the bundle.
+#### Bundle multiple certificates
+
+You can append multiple certificates into the same bundle.
+This approach helps when you need to include intermediate certificates or explicitly include leaf certificates.
+
+Include certificates in the bundle in the following order:
+
+1. Leaf certificates
+2. Intermediate certificates required by leaf certificates
+3. Root certificate
     {{% /note %}}
 
-2.  Update your `AppInstance` resource in your `myinfluxdb.yml` to refer to your
-    certificate authority config map. Update the `.spec.package.spec.egress`
-    property to refer to that config map. For example:
+2.  In `myinfluxdb.yml`, update the `.spec.package.spec.egress` field to refer
+    to the config map that you generated in the preceding step--for example:
 
     ```yml
     spec:
