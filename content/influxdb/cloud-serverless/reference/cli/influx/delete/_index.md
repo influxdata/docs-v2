@@ -24,3 +24,11 @@ This command is only supported when used with **InfluxDB OSS v2** and
 {{% /warn %}}
 
 {{< duplicate-oss >}}
+
+{{% warn %}}
+#### InfluxDB Cloud Serverless does not support data deletion
+
+InfluxDB Cloud Serverless does not currently support deleting data.
+This command is only supported when used with **InfluxDB OSS v2** and
+**InfluxDB Cloud (TSM)**.
+{{% /warn %}}

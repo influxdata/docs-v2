@@ -5,7 +5,7 @@ description: >
   Clustered software.
 menu:
   influxdb_clustered:
-    name: Install your License
+    name: Install your license
     parent: Install InfluxDB Clustered
 weight: 135
 influxdb/clustered/tags: [licensing]
@@ -47,20 +47,44 @@ To deactivate license enforcement, remove the `useLicensedBinaries` feature flag
     ```
 
 4.  <span id="enable-feature-flag"></span>
-    Update your `AppInstance` resource to enable the `useLicensedBinaries` feature flag.
-    Add the `useLicensedBinaries` entry to the `.spec.package.spec.featureFlags`
-    property--for example:
+    Update your `AppInstance` resource to activate the `useLicensedBinaries` feature flag:
+    
+    - If configuring the `AppInstance` resource directly, add the
+      `useLicensedBinaries` entry to the `.spec.package.spec.featureFlags`
+      property.
+    - If using the [InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered), add the `useLicensedBinaries` entry to the
+    `featureFlags` property in your `values.yaml`.
 
-    ```yml
-    apiVersion: kubecfg.dev/v1alpha1
-    kind: AppInstance
-    # ...
+    {{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[AppInstance](#)
+[Helm](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+```yml
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+# ...
+spec:
+  package:
     spec:
-      package:
-        spec:
-          featureFlags:
-            - useLicensedBinaries
-    ```
+      featureFlags:
+        - useLicensedBinaries
+```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+```yml
+# values.yaml
+
+featureFlags:
+  - useLicensedBinaries
+```
+
+{{% /code-tab-content %}}
+    {{< /code-tabs-wrapper >}}
 
 InfluxDB Clustered detects the `License` resource and extracts the credentials
 into a secret required by InfluxDB Clustered Kubernetes pods.
@@ -73,8 +97,12 @@ If you are currently using a non-licensed preview release of InfluxDB Clustered
 and want to upgrade to a licensed release, do the following:
 
 1.  [Install an InfluxDB license](#install-your-influxdb-license)
-2.  In your `myinfluxdb.yml`, update the package version defined in
-    `spec.package.image` to use a licensed release.
+2.  If you [use the `AppInstance` resource configuration](/influxdb/clustered/install/configure-cluster/directly/) to configure your cluster, in your `myinfluxdb.yml`,
+    update the package version defined in `spec.package.image` to use a licensed
+    release.
+    
+    If using the InfluxDB Clustered Helm chart, update the `image.tag` property
+    in your `values.yaml`to use a licensed release.
 
     {{% warn %}}
 #### Upgrade to checkpoint releases first
@@ -88,6 +116,13 @@ corrupt or lost data.
 
 {{% code-placeholders "PACKAGE_VERSION" %}}
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[AppInstance](#)
+[Helm](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
 ```yml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
@@ -97,6 +132,19 @@ spec:
     # ...
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:PACKAGE_VERSION
 ```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+```yml
+# values.yaml
+
+image:
+  tag: PACKAGE_VERSION
+```
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 {{% /code-placeholders %}}
 
@@ -182,4 +230,4 @@ kubectl logs deployment/license-controller --namespace NAMESPACE
 {{% /code-placeholders %}}
 
 
-{{< page-nav prev="/influxdb/clustered/install/configure-cluster/" prevText="Configure your cluster" next="/influxdb/clustered/install/deploy/" nextText="Deploy your cluster" >}}
+{{< page-nav prev="/influxdb/clustered/install/configure-cluster/" prevText="Configure your cluster" next="/influxdb/clustered/install/deploy/" nextText="Deploy your cluster" keepTab=true >}}

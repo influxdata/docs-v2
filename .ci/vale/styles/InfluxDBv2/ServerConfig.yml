@@ -1,0 +1,10 @@
+extends: spelling
+message: "Did you really mean '%s'?"
+level: warning
+ignore:
+# Ignore the following words. All words are case-insensitive.
+# To use case-sensitive matching, use the filters section or vocabulary Terms.
+  - InfluxDBv2/Terms/query-functions.txt
+  - InfluxDBv2/Terms/server-config-options.txt
+filters:
+  - '(\[|`)ui-disabled(`|\])'
