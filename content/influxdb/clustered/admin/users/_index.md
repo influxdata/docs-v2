@@ -16,7 +16,7 @@ cascade:
 
 Manage users with administrative access to your InfluxDB cluster through your
 [identity provider](/influxdb/clustered/install/auth/) and your InfluxDB
-`AppInstance` resource. Administrative access lets user perform actions like
+`AppInstance` resource. Administrative access lets users perform actions like
 creating databases and tokens.
 
 {{% note %}}

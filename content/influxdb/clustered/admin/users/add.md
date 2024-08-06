@@ -98,7 +98,8 @@ Replace the following:
 - {{% code-placeholder-key %}}`KEYCLOAK_REALM`{{% /code-placeholder-key %}}:
   Keycloak realm
 - {{% code-placeholder-key %}}`KEYCLOAK_USER_ID`{{% /code-placeholder-key %}}:
-  Keycloak user ID to grant InfluxDB administrative access to
+  Keycloak user ID to grant InfluxDB administrative access to 
+  _(See [Find user IDs with Keycloak](/influxdb/clustered/install/auth/#find-user-ids-with-keycloak))_
 
 ---
 
