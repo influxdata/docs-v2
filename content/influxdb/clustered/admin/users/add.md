@@ -66,7 +66,6 @@ other OAuth2 providers should work as well:
 {{% code-callout "keycloak" "green" %}}
 {{% code-placeholders "KEYCLOAK_(HOST|REALM|USER_ID)" %}}
 
-
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
@@ -108,8 +107,6 @@ Replace the following:
 {{% code-callout "auth0" "green" %}}
 {{% code-placeholders "AUTH0_(HOST|USER_ID)" %}}
 
-<!--pytest.mark.skip-->
-
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
@@ -142,8 +139,6 @@ Replace the following:
 
 {{% code-callout "azure" "green" %}}
 {{% code-placeholders "AZURE_(USER|TENANT)_ID" %}}
-
-<!--pytest.mark.skip-->
 
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
@@ -205,8 +200,6 @@ other OAuth2 providers should work as well:
 
 {{% code-callout "keycloak" "green" %}}
 {{% code-placeholders "KEYCLOAK_(HOST|REALM|USER_ID)" %}}
-
-<!--pytest.mark.skip-->
 
 ```yaml
 admin:
