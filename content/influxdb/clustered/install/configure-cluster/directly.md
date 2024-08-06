@@ -751,11 +751,9 @@ Replace the following:
 
 ##### Add users
 
-Finally, to give users access to use `influxctl`, add the list of users to the `spec.package.spec.admin.users` field.
-
-<!-- Pending /admin/users
-See [Adding or removing users](/influxdb/clustered/admin/users/) for more details.
--->
+Finally, to give users access to use `influxctl`, add the list of users to the
+`spec.package.spec.admin.users` field.
+See [Manage users](/influxdb/clustered/admin/users/) for more details.
 
 #### Configure the size of your cluster
 
