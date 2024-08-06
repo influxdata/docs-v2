@@ -5,8 +5,7 @@ WORKDIR /app/
 
 # Generic
 #RUN apk add --no-cache
-COPY /.ci/app /app/
-#COPY /.ci/remark-lint/package.json /app/
+COPY /.ci/remark-lint /app/
 
 # Node
 ENV PATH "$PATH:/app/node_modules/.bin/"

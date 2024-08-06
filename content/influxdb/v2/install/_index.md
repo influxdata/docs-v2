@@ -145,8 +145,6 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    ```
    -->
 
-   <!--pytest-codeblocks:cont-->
-
    ```sh
    curl -s https://repos.influxdata.com/influxdata-archive_compat.key \
     | gpg --import - 2>&1 \
@@ -489,7 +487,7 @@ $acl | Set-Acl "C:\Users\<username>\.influxdbv2"
 
 ### Install and set up InfluxDB in a container
 
-The following steps show to use the
+The following steps show how to use the
 [Docker CLI](https://docs.docker.com/reference/cli/docker/) to set up and
 run InfluxDB. but you can also
 [use Docker Compose](/influxdb/v2/install/use-docker-compose).
@@ -511,9 +509,9 @@ _If you don't specify InfluxDB initial setup options, you can
 [set up manually](#set-up-influxdb) later using the UI or CLI in a running
 container._
 
-<!--pytest.mark.skip-->
-
 {{% code-placeholders "ADMIN_(USERNAME|PASSWORD)|ORG_NAME|BUCKET_NAME" %}}
+
+<!--pytest.mark.skip-->
 
 ```sh
 docker run \
@@ -630,7 +628,7 @@ InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) a
 
 2. Start a local cluster:
 
-    <!--pytest.mark.skip-->
+   <!--pytest.mark.skip-->
 
    ```sh
    # with minikube
