@@ -25,7 +25,7 @@ creating databases and tokens.
 All _users_ have administrative access to your cluster and can perform
 administrative actions in your InfluxDB cluster.
 _Database tokens_ authorize read and write access to databases in your InfluxDB
-cluster. One does not need to be a users to read and write data in your cluster,
+cluster. A person or client doesn't need to be a user to read and write data in your cluster,
 but they must have a database token.
 {{% /note %}}
 

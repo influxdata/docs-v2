@@ -820,8 +820,8 @@ Replace the following:
 
 ##### Add users
 
-Finally, add all the users you wish to have access to use `influxctl`.
-Update the `admin.users` field with a list of these users.
+Finally, add the users you wish to have access to use `influxctl`.
+Update the `admin.users` field with a list of the users.
 See [Manage users](/influxdb/clustered/admin/users/) for more details.
 
 #### Configure the size of your cluster

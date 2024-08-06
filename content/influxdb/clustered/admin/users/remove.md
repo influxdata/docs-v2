@@ -12,7 +12,7 @@ weight: 201
 
 Remove a user with administrative access from your InfluxDB cluster:
 
-1.  Remove or disable the user in your identity provider.
+1.  Remove or deactivate the user in your identity provider.
 
     **Refer to your identity provider's documentation for information about
     removing users:**
@@ -41,8 +41,6 @@ If editing your `AppInstance` resource directly, remove the user from the list
 of users in the `spec.package.spec.admin.users` field in your `myinfluxdb.yml`
 configuration file--for example:
 
-<!--pytest.mark.skip-->
-
 ```diff
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
@@ -70,8 +68,6 @@ spec:
 
 If using the InfluxDB Clustered Helm chart, remove the user from the list of
 users in the `admin.users` field in your in your `values.yaml`--for example:
-
-<!--pytest.mark.skip-->
 
 ```diff
 admin:
@@ -130,6 +126,6 @@ helm upgrade \
 
 {{% note %}}
 After you complete step 1 above, the removed user no longer has administrative
-access to your InfluxDB cluster. However, they should still be removed from
-your `AppInstance` resource.
+access to your InfluxDB cluster.
+However, you should still remove them from your `AppInstance` resource.
 {{% /note %}}

@@ -25,7 +25,7 @@ Add a user with administrative access to your InfluxDB cluster through your
     - [Microsoft Entra ID: How to create, invite, and delete users {{% icon "export" %}}](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/add-users)
     - [Auth0: Team member management {{% icon "export" %}}](https://auth0.com/docs/get-started/auth0-teams/team-member-management)
 
-2.  Add the newly added user to your InfluxDB `AppInstance` resource.
+2.  Add the user to your InfluxDB `AppInstance` resource.
     You can edit your `AppInstance` resource directly in your `myinfluxdb.yml`,
     or, if you're using the
     [InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered),
@@ -66,7 +66,6 @@ other OAuth2 providers should work as well:
 {{% code-callout "keycloak" "green" %}}
 {{% code-placeholders "KEYCLOAK_(HOST|REALM|USER_ID)" %}}
 
-<!--pytest.mark.skip-->
 
 ```yaml
 apiVersion: kubecfg.dev/v1alpha1
@@ -211,8 +210,8 @@ other OAuth2 providers should work as well:
 
 ```yaml
 admin:
-  # The identity provider to be used e.g. "keycloak", "auth0", "azure", etc
-  # Note for Azure Active Directory it must be exactly "azure"
+  # The identity provider to be used (such as "keycloak", "auth0", or "azure")
+  # Note, use "azure" for Azure Active Directory
   identityProvider: keycloak
   # The JWKS endpoint provided by the Identity Provider
   jwksEndpoint: |-
@@ -247,12 +246,10 @@ Replace the following:
 {{% code-callout "auth0" "green" %}}
 {{% code-placeholders "AUTH0_(HOST|USER_ID)" %}}
 
-<!--pytest.mark.skip-->
-
 ```yaml
 admin:
   # The identity provider to be used e.g. "keycloak", "auth0", "azure", etc
-  # Note for Azure Active Directory it must be exactly "azure"
+  # Note, use "azure" for Azure Active Directory.
   identityProvider: auth0
   # The JWKS endpoint provided by the Identity Provider
   jwksEndpoint: |-
@@ -280,12 +277,10 @@ Replace the following:
 {{% code-callout "azure" "green" %}}
 {{% code-placeholders "AZURE_(USER|TENANT)_ID" %}}
 
-<!--pytest.mark.skip-->
-
 ```yaml
 admin:
   # The identity provider to be used e.g. "keycloak", "auth0", "azure", etc
-  # Note for Azure Active Directory it must be exactly "azure"
+  # Note, use "azure" for Azure Active Directory.
   identityProvider: azure
   # The JWKS endpoint provided by the Identity Provider
   jwksEndpoint: |-
