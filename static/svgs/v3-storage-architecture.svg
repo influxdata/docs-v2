@@ -1,7 +1,6 @@
 <svg version="1.1" id="influxdb-v3-storage-architecture"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 750 710"
 	 style="enable-background:new 0 0 750 710;" xml:space="preserve">
-</style>
 <path class="shape op25" d="M172.6,537.2h6.1c2.8,0,5-2.2,5-5V212.8c0-2.8-2.2-5-5-5H45.9c-2.8,0-5,2.2-5,5v6.1"/>
 <path class="shape op50" d="M161.5,548.3h6.1c2.8,0,5-2.2,5-5V223.9c0-2.8-2.2-5-5-5H34.8c-2.8,0-5,2.2-5,5v6.1"/>
 <path class="shape op70" d="M150.4,559.3h6.1c2.8,0,5-2.2,5-5V234.9c0-2.8-2.2-5-5-5H23.8c-2.8,0-5,2.2-5,5v6.1"/>
