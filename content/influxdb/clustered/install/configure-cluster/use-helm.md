@@ -7,6 +7,8 @@ menu:
     name: Use Helm
     parent: Configure your cluster
 weight: 230
+related:
+  - /influxdb/clustered/admin/users/
 ---
 
 Manage your InfluxDB Clustered deployments using Kubernetes and apply configuration settings using a YAML configuration file.
@@ -816,11 +818,11 @@ Replace the following:
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-##### Adding users
+##### Add users
 
-Finally, add all the users you wish to have access to use `influxctl`.
-Update the `admin.users` field with a list of these users.
-<!-- See [Adding or removing users](/influxdb/clustered/admin/users/) for more details. -->
+Finally, add the users you wish to have access to use `influxctl`.
+Update the `admin.users` field with a list of the users.
+See [Manage users](/influxdb/clustered/admin/users/) for more details.
 
 #### Configure the size of your cluster
 

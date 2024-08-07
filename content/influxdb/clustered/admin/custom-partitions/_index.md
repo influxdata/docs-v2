@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb_clustered:
     parent: Administer InfluxDB Clustered
-weight: 103
+weight: 104
 influxdb/clustered/tags: [storage]
 related:
   - /influxdb/clustered/reference/internals/storage-engine/
