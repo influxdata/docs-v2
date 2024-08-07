@@ -11,6 +11,7 @@ menu:
     parent: InfluxDB internals
 influxdb/clustered/tags: [storage, internals]
 related:
+  - /influxdb/clustered/admin/scale-cluster/
   - /influxdb/clustered/admin/custom-partitions/
 ---
 
@@ -23,11 +24,13 @@ queries, and is optimized to reduce storage cost.
 
 - [Storage engine diagram](#storage-engine-diagram)
 - [Storage engine components](#storage-engine-components)
+  - [Router](#router)
   - [Ingester](#ingester)
   - [Querier](#querier)
   - [Catalog](#catalog)
   - [Object store](#object-store)
   - [Compactor](#compactor)
+  - [Garbage collector](#garbage-collector)
 
 ## Storage engine diagram
 
@@ -35,11 +38,29 @@ queries, and is optimized to reduce storage cost.
 
 ## Storage engine components
 
+- [Router](#router)
 - [Ingester](#ingester)
 - [Querier](#querier)
 - [Catalog](#catalog)
 - [Object store](#object-store)
 - [Compactor](#compactor)
+- [Garbage collector](#garbage-collector)
+
+### Router
+
+The Router (also known as the Ingest Router) parses and shards incoming line
+protocol and then routes each shard to [Ingesters](#ingester).
+To ensure write durability, the Router replicates each shard to two of the
+available Ingesters.
+
+##### Router scaling strategies
+
+The Router can be scaled both [vertically](/influxdb/clustered/admin/scale-cluster/#vertical-scaling)
+and [horizontally](/influxdb/clustered/admin/scale-cluster/#horizontal-scaling).
+Horizontal scaling increases write throughput and is typically the most
+effective scaling strategy for the Router.
+Vertical scaling (specifically increased CPU) improves the Router's ability to
+parse incoming line protocol under heavy load.
 
 ### Ingester
 
@@ -149,3 +170,16 @@ Because compaction is a compute-heavy process, vertical scaling (especially
 increasing the available CPU) is the most effective scaling strategy for the Compactor.
 Horizontal scaling increases compaction throughput, but not as efficiently as
 vertical scaling.
+
+### Garbage collector
+
+The Garbage collector runs background jobs that evict expired or deleted data
+and reclaim space in both the [Catalog](#catalog) and the
+[Object store](#object-store).
+
+##### Garbage collector scaling strategies
+
+The Garbage collector is a lightweight service that typically doesn't need to be
+scaled, but it can be scaled
+[vertically](/influxdb/clustered/admin/scale-cluster/#vertical-scaling).
+Vertical scaling makes more system resources available to the background jobs.
