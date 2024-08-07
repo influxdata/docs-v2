@@ -23,6 +23,32 @@ tests="${*:2}"
 rm -rf /app/"${CONTENT_PATH}"/*
 bash /src/test/scripts/prepare-content.sh $tests
 
+
+
+setup() {
+  # Set up the environment for the tests.
+
+  ## Store test configuration in /app/appdata.
+  mkdir -p /app/appdata
+
+  ## Parse YAML config files into dotenv files to be used by tests.
+  ## You must source the parse_yaml function before you can use it.
+  source /usr/local/bin/parse_yaml
+  parse_yaml /src/data/products.yml > /app/appdata/.env.products
+  chmod -R +x /app/appdata/
+
+  ## Source non-sensitive environment variables for all test runners.
+  set -a
+  source /app/appdata/.env.*
+  set +a
+
+  # Miscellaneous test setup.
+  # For macOS samples.
+  mkdir -p ~/Downloads && rm -rf ~/Downloads/*
+}
+
+setup
+
 if [[ $runner == "pytest" ]]; then
     pytest \
     -s \

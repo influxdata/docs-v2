@@ -38,8 +38,6 @@ services:
   cloud-pytest:
     image: influxdata/docs-pytest
     build:
-      args:
-        - CONTENT_PATH=content/influxdb/cloud
       context: .
       dockerfile: Dockerfile.pytest
     entrypoint:
@@ -50,6 +48,8 @@ services:
       # In the command, pass file paths to test.
       # The container preprocesses the files for testing and runs the tests.
       - content/influxdb/cloud/**/*.md
+    environment:
+      - CONTENT_PATH=content/influxdb/cloud
     profiles:
       - test
       - v2
@@ -87,8 +87,6 @@ services:
   cloud-dedicated-pytest:
     image: influxdata/docs-pytest
     build:
-      args:
-        - CONTENT_PATH=content/influxdb/cloud-dedicated
       context: .
       dockerfile: Dockerfile.pytest
     entrypoint:
@@ -99,6 +97,8 @@ services:
       # In the command, pass file paths to test.
       # The container preprocesses the files for testing and runs the tests.
       - content/influxdb/cloud-dedicated/**/*.md
+    environment:
+      - CONTENT_PATH=content/influxdb/cloud-dedicated
     profiles:
       - test
       - v3
@@ -141,8 +141,6 @@ services:
   cloud-serverless-pytest:
     image: influxdata/docs-pytest
     build:
-      args:
-        - CONTENT_PATH=content/influxdb/cloud-serverless
       context: .
       dockerfile: Dockerfile.pytest
     entrypoint:
@@ -153,6 +151,8 @@ services:
       # In the command, pass file paths to test.
       # The container preprocesses the files for testing and runs the tests.
       - content/influxdb/cloud-serverless/**/*.md
+    environment:
+      - CONTENT_PATH=content/influxdb/cloud-serverless
     profiles:
       - test
       - v3
@@ -190,8 +190,6 @@ services:
   clustered-pytest:
     image: influxdata/docs-pytest
     build:
-      args:
-        - CONTENT_PATH=content/influxdb/clustered
       context: .
       dockerfile: Dockerfile.pytest
     entrypoint:
@@ -202,6 +200,8 @@ services:
       # In the command, pass file paths to test.
       # The container preprocesses the files for testing and runs the tests.
       - content/influxdb/clustered/**/*.md
+    environment:
+      - CONTENT_PATH=content/influxdb/clustered
     profiles:
       - test
       - v3
@@ -244,8 +244,6 @@ services:
   telegraf-pytest:
     image: influxdata/docs-pytest
     build:
-      args:
-        - CONTENT_PATH=content/telegraf
       context: .
       dockerfile: Dockerfile.pytest
     entrypoint:
@@ -256,6 +254,8 @@ services:
       # In the command, pass file paths to test.
       # The container preprocesses the files for testing and runs the tests.
       - content/telegraf/**/*.md
+    environment:
+      - CONTENT_PATH=content/telegraf
     profiles:
       - test
     stdin_open: true
@@ -292,8 +292,6 @@ services:
   v2-pytest:
     image: influxdata/docs-pytest
     build:
-      args:
-        - CONTENT_PATH=content/influxdb/v2
       context: .
       dockerfile: Dockerfile.pytest
     entrypoint:
@@ -304,6 +302,8 @@ services:
       # In the command, pass file paths to test.
       # The container preprocesses the files for testing and runs the tests.
       - content/influxdb/v2/**/*.md
+    environment:
+      - CONTENT_PATH=content/influxdb/v2
     profiles:
       - test
       - v2
@@ -348,7 +348,9 @@ services:
       DOCKER_INFLUXDB_INIT_PASSWORD_FILE: /run/secrets/influxdb2-admin-password
       DOCKER_INFLUXDB_INIT_ADMIN_TOKEN_FILE: /run/secrets/influxdb2-admin-token
       DOCKER_INFLUXDB_INIT_ORG: docs
-      DOCKER_INFLUXDB_INIT_BUCKET: home
+      DOCKER_INFLUXDB_INIT_BUCKET: get-started 
+      INFLUX_ORG: docs
+      INFLUX_BUCKET: get-started
     profiles:
       - v2
       - local 
@@ -367,7 +369,7 @@ services:
     build:
       context: . 
       dockerfile: .ci/Dockerfile.remark
-    command: ["remark", "content/${PRODUCT_PATH}"]
+    command: ["remark", "${CONTENT_PATH}"]
     profiles:
       - lint
     volumes:
