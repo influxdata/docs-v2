@@ -51,7 +51,8 @@ The `message` property of the response body may contain additional details about
 
 | HTTP response code              | Response body                                                                    | Description    |
 | :-------------------------------| :---------------------------------------------------------------        | :------------- |
-| `204 "No Content"`                 | error details about rejected points, up to 100 points: `line` contains the first rejected line, `message` describes rejected points                                                                     | If InfluxDB ingested some or all of the data |
+| `201 "Created"`                 | error details about rejected points, up to 100 points, `line` contains the first rejected line, `message` describes rejections | If some of the data is ingested and some of the data is rejected |
+| `204 "No Content"`              | no response body                                                        | If InfluxDB ingested all of the data in the batch |
 | `400 "Bad request"`             | `line` contains the first malformed line, `message` describes rejected points                             | If request data is malformed |
 | `401 "Unauthorized"`            |                                                                         | If the `Authorization` header is missing or malformed or if the [token](/influxdb/cloud-serverless/admin/tokens/) doesn't have [permission](/influxdb/cloud-serverless/admin/tokens/create-token/) to write to the bucket. See [examples using credentials](/influxdb/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb) in write requests. |
 | `403 "Forbidden"`               | `message` contains details about the error                              | If the data isn't allowed (for example, falls outside of the bucket's retention period).

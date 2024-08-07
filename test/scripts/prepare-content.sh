@@ -84,8 +84,12 @@ function substitute_placeholders {
       s/example-db/$INFLUX_DATABASE/g;
       s/get-started/$INFLUX_DATABASE/g;
       /os.getenv("MANAGEMENT_TOKEN")/! s/INFLUX_MANAGEMENT_TOKEN/$MANAGEMENT_TOKEN/g;
+      /os.getenv("ORG_NAME")/! s/ORG_NAME/$INFLUX_ORG_NAME/g;
+      /os.getenv("ORG_ID")/! s/ORG_ID/$INFLUX_ORG/g;
+      /os.getenv("PASSWORD")/! s/PASSWORD/$INFLUX_PASSWORD/g;
       /os.getenv("ORG_ID")/! s/ORG_ID/$INFLUX_ORG/g;
       /os.getenv("RETENTION_POLICY")/! s/RETENTION_POLICY_NAME\|RETENTION_POLICY/$INFLUX_RETENTION_POLICY/g;
+      /os.getenv("USERNAME")/! s/USERNAME/$INFLUX_USERNAME/g;
       s/CONFIG_NAME/CONFIG_$(shuf -i 0-100 -n1)/g;
       s/TEST_RUN/TEST_RUN_$(date +%s)/g;
       s|/path/to/custom/assets-dir|/app/custom-assets|g;' \
@@ -109,16 +113,6 @@ function substitute_placeholders {
   done
 }
 
-setup() {
-  # Set up the environment for the tests.
-  # Parse YAML config files into dotenv files to be used by tests.
-  mkdir -p /app/appdata && (parse_yaml /src/data/products.yml > /app/appdata/.env.products)
-
-  # Miscellaneous test setup.
-  # For macOS samples.
-  mkdir -p ~/Downloads && rm -rf ~/Downloads/*
-}
-
 prepare_tests() {
   echo "Preparing test files: $*"
   SRC_FILES="$*"
@@ -130,7 +124,6 @@ prepare_tests() {
   done
   cd /app
   substitute_placeholders
-  setup
 }
 
 prepare_tests "$*"
