@@ -65,16 +65,6 @@ All available InfluxDB Clustered package versions are provided at
 [oci.influxdata.com](https://oci.influxdata.com).
 Find the package version you want to upgrade to and copy the version number.
 
-{{% note %}}
-
-#### oci.influxdata.com credentials
-
-[oci.influxdata.com](https://oci.influxdata.com) requires you to log in with
-credentials provided by InfluxData.
-If you don't have these credentials,
-[contact InfluxData Support](https://support.influxdata.com).
-
-{{% /note %}}
 
 #### Checkpoint releases
 
