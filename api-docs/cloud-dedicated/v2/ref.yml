@@ -703,6 +703,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/LineProtocolLengthError'
           description: Write has been rejected because the payload is too large. Error message returns max size supported. All data in body was rejected and not written.
+        '422':
+          description: |
+            Unprocessable Entity.
+
+            The request contained data outside the database’s retention period. InfluxDB rejected the batch and wrote no data.
+
+            The response body contains details about the [rejected points](/influxdb/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points).
         '429':
           description: Token is temporarily over quota. The Retry-After header describes when to try the write again.
           headers:
