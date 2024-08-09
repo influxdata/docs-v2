@@ -707,7 +707,7 @@ paths:
           description: |
             Unprocessable Entity.
 
-            The request contained data outside the bucket's retention window, causing InfluxDB to reject the batch and write no data.
+            The request contained data outside the database’s retention period. InfluxDB rejected the batch and wrote no data.
 
             The response body contains details about the [rejected points](/influxdb/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points).
         '429':
