@@ -276,7 +276,7 @@ The Router can be scaled both [vertically](#vertical-scaling) and
 Horizontal scaling increases write throughput and is typically the most
 effective scaling strategy for the Router.
 Vertical scaling (specifically increased CPU) improves the Router's ability to
-parse incoming line protocol under heavy load.
+parse incoming line protocol with lower latency.
 
 ### Ingester
 

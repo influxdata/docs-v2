@@ -48,9 +48,9 @@ queries, and is optimized to reduce storage cost.
 
 ### Router
 
-The Router (also known as the Ingest Router) parses and shards incoming line
-protocol and then routes each shard to [Ingesters](#ingester).
-To ensure write durability, the Router replicates each shard to two of the
+The Router (also known as the Ingest Router) parses incoming line
+protocol and then routes it to [Ingesters](#ingester).
+To ensure write durability, the Router replicates data to two or more of the
 available Ingesters.
 
 ##### Router scaling strategies
@@ -60,7 +60,7 @@ and [horizontally](/influxdb/clustered/admin/scale-cluster/#horizontal-scaling).
 Horizontal scaling increases write throughput and is typically the most
 effective scaling strategy for the Router.
 Vertical scaling (specifically increased CPU) improves the Router's ability to
-parse incoming line protocol under heavy load.
+parse incoming line protocol with lower latency.
 
 ### Ingester
 
@@ -173,13 +173,15 @@ vertical scaling.
 
 ### Garbage collector
 
-The Garbage collector runs background jobs that evict expired or deleted data
-and reclaim space in both the [Catalog](#catalog) and the
+The Garbage collector runs background jobs that evict expired or deleted data,
+remove obsolete compaction files, and reclaim space in both the [Catalog](#catalog) and the
 [Object store](#object-store).
 
 ##### Garbage collector scaling strategies
 
-The Garbage collector is a lightweight service that typically doesn't need to be
-scaled, but it can be scaled
-[vertically](/influxdb/clustered/admin/scale-cluster/#vertical-scaling).
-Vertical scaling makes more system resources available to the background jobs.
+
+The Garbage collector is not designed for distributed load and should _not_ be
+scaled horizontally. The Garbage collector does not perform CPU- or
+memory-intensive work, so [vertical scaling](/influxdb/clustered/admin/scale-cluster/#vertical-scaling)
+should only be considered only if you observe very high CPU usage or
+if the container regularly runs out of memory.
