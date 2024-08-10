@@ -262,12 +262,21 @@ to automatically scale your cluster as needed.
 
 ## Recommended scaling strategies per component
 
+- [Router](#router)
 - [Ingester](#ingester)
 - [Querier](#querier)
-- [Router](#router)
 - [Compactor](#compactor)
 - [Catalog](#catalog)
 - [Object store](#object-store)
+
+### Router
+
+The Router can be scaled both [vertically](#vertical-scaling) and
+[horizontally](#horizontal-scaling).
+Horizontal scaling increases write throughput and is typically the most
+effective scaling strategy for the Router.
+Vertical scaling (specifically increased CPU) improves the Router's ability to
+parse incoming line protocol with lower latency.
 
 ### Ingester
 
@@ -321,13 +330,6 @@ The Querier can be scaled both [vertically](#vertical-scaling) and
 Horizontal scaling increases query throughput to handle more concurrent queries.
 Vertical scaling improves the Querier’s ability to process computationally
 intensive queries.
-
-### Router
-
-The Router can be scaled both [vertically](#vertical-scaling) and
-[horizontally](#horizontal-scaling).
-Horizontal scaling increases request throughput and is typically the most effective
-scaling strategy for the Router.
 
 ### Compactor
 

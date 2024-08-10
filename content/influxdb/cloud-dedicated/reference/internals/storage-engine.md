@@ -23,11 +23,13 @@ queries, and is optimized to reduce storage cost.
 
 - [Storage engine diagram](#storage-engine-diagram)
 - [Storage engine components](#storage-engine-components)
+  - [Router](#router)
   - [Ingester](#ingester)
   - [Querier](#querier)
   - [Catalog](#catalog)
   - [Object store](#object-store)
   - [Compactor](#compactor)
+  - [Garbage collector](#garbage-collector)
 - [Scaling strategies](#scaling-strategies)
   - [Vertical scaling](#vertical-scaling)
   - [Horizontal scaling](#horizontal-scaling)
@@ -38,11 +40,29 @@ queries, and is optimized to reduce storage cost.
 
 ## Storage engine components
 
+- [Router](#router)
 - [Ingester](#ingester)
 - [Querier](#querier)
 - [Catalog](#catalog)
 - [Object store](#object-store)
 - [Compactor](#compactor)
+- [Garbage collector](#garbage-collector)
+
+### Router
+
+The Router (also known as the Ingest Router) parses incoming line
+protocol and then routes it to [Ingesters](#ingester).
+To ensure write durability, the Router replicates data to two or more of the
+available Ingesters.
+
+##### Router scaling strategies
+
+The Router can be scaled both [vertically](#vertical-scaling) and
+[horizontally](#horizontal-scaling).
+Horizontal scaling increases write throughput and is typically the most
+effective scaling strategy for the Router.
+Vertical scaling (specifically increased CPU) improves the Router's ability to
+parse incoming line protocol with lower latency.
 
 ### Ingester
 
@@ -149,6 +169,20 @@ Because compaction is a compute-heavy process, vertical scaling (especially
 increasing the available CPU) is the most effective scaling strategy for the Compactor.
 Horizontal scaling increases compaction throughput, but not as efficiently as
 vertical scaling.
+
+### Garbage collector
+
+The Garbage collector runs background jobs that evict expired or deleted data,
+remove obsolete compaction files, and reclaim space in both the [Catalog](#catalog) and the
+[Object store](#object-store).
+
+##### Garbage collector scaling strategies
+
+The Garbage collector is not designed for distributed load and should _not_ be
+scaled horizontally. The Garbage collector does not perform CPU- or
+memory-intensive work, so [vertical scaling](#vertical-scaling) should only be
+considered only if you observe very high CPU usage or if the container regularly
+runs out of memory.
 
 ---
 
