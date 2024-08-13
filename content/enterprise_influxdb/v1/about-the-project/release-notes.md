@@ -19,12 +19,37 @@ InfluxDB Enterprise builds are available. For more information, see
 [FIPS-compliant InfluxDB Enterprise builds](/enterprise_influxdb/v1/introduction/installation/fips-compliant/).
 {{% /note %}}
 
+## v1.11.6 {date="2024-08-02"}
+
+### Bug Fixes
+
+- Prevent retention service from hanging, which could lead to a failure to remove old shards.
+- Fix shard precreation service to pre-create shards for more than the first database.
+- Fix issues with remote iterators caused by floating point literals being rounded in a way that causes precision loss and can drastically change the result.
+  This impacts InfluxQL statements that require creating remote iterators.
+  Clusters with replication across all data nodes are unlikely to see this issue.
+  The additional visible changes of this fix include:
+  - Changes precision of floating point numbers in error messages related to InfluxQL.
+  - Changes precision of floating point numbers in "EXPLAIN" and "EXPLAIN ANALYZE" output.
+  - Changes precision of floating point numbers from InfluxQL expressions included in tracing spans.
+- Fix panic when empty tags are queried.
+- Fix `influx_inspect` error when deleting last measurement.
+- Improve TSM error handling.
+
+### Other
+
+- Upgrade Flux to v0.194.5.
+- Upgrade Go to 1.21.10.
+- Upgrade `protobuf` library.
+
+---
+
 ## v1.11.5 {date="2024-02-14"}
 
 {{% note %}}
 #### Upgrading from InfluxDB Enterprise v1.11.3
 
-If upgrading from InfluxDB Enterprise v1.11.3 to {{< latest-patch >}}, you can
+If upgrading from InfluxDB Enterprise v1.11.3+ to {{< latest-patch >}}, you can
 now configure whether or not InfluxDB compacts series files on startup using the
 [`compact-series-file` configuration option](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#compact-series-file)
 in your [InfluxDB Enterprise data node configuration file](/enterprise_influxdb/v1/administration/configure/config-data-nodes/).
