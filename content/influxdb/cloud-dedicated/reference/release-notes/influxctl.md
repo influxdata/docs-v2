@@ -11,6 +11,18 @@ menu:
 weight: 202
 ---
 
+## v2.9.5 {date="2024-08-13"}
+
+### Bug Fixes
+
+- Introduce auth login and logout commands.
+
+### Dependency Updates
+
+- Update `github.com/urfave/cli/v2` from 2.27.2 to 2.27.4
+- Update `golang.org/x/mod` from 0.19.0 to 0.20.0
+- Update `golang.org/x/oauth2` from 0.21.0 to 0.22.0
+
 ## v2.9.4 {date="2024-07-25"}
 
 ### Bug Fixes
