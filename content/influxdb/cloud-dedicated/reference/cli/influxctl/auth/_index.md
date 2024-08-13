@@ -10,7 +10,7 @@ weight: 201
 ---
 
 The `influxctl auth` command and its subcommands provide information about
-{{< product-name omit="Clustered" >}} clusters.
+{{< product-name >}} clusters.
 
 ## Usage
 
