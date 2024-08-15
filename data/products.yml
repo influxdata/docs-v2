@@ -113,7 +113,7 @@ enterprise_influxdb:
     - v1.7
   latest: v1.11
   latest_patches:
-    v1: 1.11.5
+    v1: 1.11.6
 
 flux:
   name: Flux
