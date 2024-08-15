@@ -4,7 +4,7 @@ description: >
   The `influxctl auth` command and its subcommands provide the ability to
   login and logout.
 menu:
-  influxdb_clustered:
+  influxdb_cloud_dedicated:
     parent: influxctl
 weight: 201
 ---
@@ -22,7 +22,7 @@ influxctl auth [subcommand] [subcommand options] [arguments...]
 
 | Subcommand                                                               | Description                     |
 | :----------------------------------------------------------------------- | :------------------------------ |
-| [login](/influxdb/cloud-dedicated/reference/cli/influxctl/auth/login/)   | Log in using InfluxData Auth0 or an InfluxDB Clustered identity provider |
+| [login](/influxdb/cloud-dedicated/reference/cli/influxctl/auth/login/)   | Log in using InfluxData Auth0   |
 | [logout](/influxdb/cloud-dedicated/reference/cli/influxctl/auth/logout/) | Remove local authorization tokens to log out of an InfluxDB cluster            |
 | help, h                                                                  | Output command help             |
 

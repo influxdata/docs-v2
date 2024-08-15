@@ -11,6 +11,12 @@ menu:
 weight: 202
 ---
 
+## v2.9.6 {date="2024-08-15"}
+
+### Bug Fixes
+
+- Update query to wait for EOF on stdin instead of the first newline.
+
 ## v2.9.5 {date="2024-08-13"}
 
 ### Bug Fixes

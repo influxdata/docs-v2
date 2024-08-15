@@ -1,8 +1,8 @@
 ---
 title: influxctl auth login
 description: >
-  The `influxctl auth login` command lets a user log in to an InfluxDB cluster using InfluxData Auth0 or an InfluxDB
-  Clustered identity provider
+  The `influxctl auth login` command lets a user log in to an InfluxDB cluster using
+  {{< product-name omit="Clustered" >}} identity provider
 menu:
   influxdb_cloud_dedicated:
     parent: influxctl auth

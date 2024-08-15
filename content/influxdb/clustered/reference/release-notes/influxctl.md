@@ -12,6 +12,12 @@ weight: 202
 canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 ---
 
+## v2.9.6 {date="2024-08-15"}
+
+### Bug Fixes
+
+- Update query subcommand to wait for EOF on stdin instead of the first newline.
+
 ## v2.9.5 {date="2024-08-13"}
 
 ### Bug Fixes
