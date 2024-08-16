@@ -1,16 +1,15 @@
 ---
 title: influxctl auth
 description: >
-  The `influxctl auth` command and its subcommands provide the ability to
-  login and logout.
+  The `influxctl auth` command and its subcommands let a user
+  log in to and log out of an InfluxDB cluster.
 menu:
   influxdb_cloud_dedicated:
     parent: influxctl
 weight: 201
 ---
 
-The `influxctl auth` command and its subcommands provide information about
-{{< product-name >}} clusters.
+The `influxctl auth` command and its subcommands let a user log in to and log out of an {{< product-name omit="Clustered" >}} cluster.
 
 ## Usage
 

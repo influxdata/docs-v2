@@ -11,6 +11,7 @@ weight: 301
 
 The `influxctl auth login` command lets a user log in to an {{< product-name omit="Clustered" >}}
 cluster using the cluster's configured identity provider. 
+
 ## Usage
 
 ```sh

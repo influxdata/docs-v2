@@ -11,6 +11,7 @@ weight: 301
 
 The `influxctl auth logout` command lets a user logout of an {{< product-name omit="Clustered" >}}
 cluster; removes the user's local authorization tokens.
+
 ## Usage
 
 ```sh
