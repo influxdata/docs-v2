@@ -22,7 +22,7 @@ influxctl auth [subcommand] [subcommand options] [arguments...]
 
 | Subcommand                                                         | Description                     |
 | :----------------------------------------------------------------- | :------------------------------ |
-| [login](/influxdb/clustered/reference/cli/influxctl/auth/login/)   | Login with InfluxDB Clustered identity provider |
+| [login](/influxdb/clustered/reference/cli/influxctl/auth/login/)   | Log in to an InfluxDB cluster using the cluster's identity provider |
 | [logout](/influxdb/clustered/reference/cli/influxctl/auth/logout/) | Remove local tokens             |
 | help, h                                                            | Output command help             |
 

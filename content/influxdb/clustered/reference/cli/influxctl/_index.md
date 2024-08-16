@@ -32,7 +32,7 @@ influxctl [flags] [command]
 
 | Command                                                               | Description                            |
 | :-------------------------------------------------------------------- | :------------------------------------- |
-| [auth](/influxdb/clustered/reference/cli/influxctl/auth/)             | Login or logout of InfluxDB v3         |
+| [auth](/influxdb/clustered/reference/cli/influxctl/auth/)             | Log in to or log out of InfluxDB v3     |
 | [cluster](/influxdb/clustered/reference/cli/influxctl/cluster/)       | List InfluxDB v3 cluster information   |
 | [database](/influxdb/clustered/reference/cli/influxctl/database/)     | Manage InfluxDB v3 databases           |
 | [help](/influxdb/clustered/reference/cli/influxctl/help/)             | Output `influxctl` help information    |

@@ -9,7 +9,7 @@ menu:
 weight: 301
 ---
 
-The `influxctl auth login` command lets a user log in to an {{< product-name >}}
+The `influxctl auth login` command lets a user log in to an {{< product-name omit="Clustered" >}}
 cluster using InfluxData Auth0.
 
 ## Usage

@@ -1,14 +1,16 @@
 ---
 title: influxctl auth logout
 description: >
-  The `influxctl auth logout` command logs out a user by removing local authorization tokens
+  The `influxctl auth logout` command lets a user logout of an InfluxDB 
+  cluster; removes the user's local authorization tokens.  
 menu:
   influxdb_cloud_dedicated:
     parent: influxctl auth
 weight: 301
 ---
 
-The `influxctl auth logout` command logs out a user by removing local authorization tokens.
+The `influxctl auth logout` command lets a user logout of an {{< product-name omit="Clustered" >}} 
+cluster; removes the user's local authorization tokens.
 
 ## Usage
 

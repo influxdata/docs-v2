@@ -22,8 +22,8 @@ influxctl auth [subcommand] [subcommand options] [arguments...]
 
 | Subcommand                                                               | Description                     |
 | :----------------------------------------------------------------------- | :------------------------------ |
-| [login](/influxdb/cloud-dedicated/reference/cli/influxctl/auth/login/)   | Log in using InfluxData Auth0   |
-| [logout](/influxdb/cloud-dedicated/reference/cli/influxctl/auth/logout/) | Remove local authorization tokens to log out of an InfluxDB cluster            |
+| [login](/influxdb/cloud-dedicated/reference/cli/influxctl/auth/login/)   | Log in to an InfluxDB cluster using InfluxData Auth0 |
+| [logout](/influxdb/cloud-dedicated/reference/cli/influxctl/auth/logout/) | Log out of an InfluxDB cluster; remove local authorization tokens |
 | help, h                                                                  | Output command help             |
 
 ## Flags
