@@ -157,10 +157,7 @@ The DN of an LDAP entry is similar to a file path on a file system.
 enabled = true
 
 [[servers]]
-  enabled = true
-
-[[servers]]
-  host = "<LDAPserver>"
+  host = "ldap.example.com"
   port = 389
 
   # Security mode for LDAP connection to this server.
@@ -194,9 +191,24 @@ enabled = true
   client-tls-certificate = "/var/run/secrets/ldapClient.pem"
   client-tls-private-key = "/var/run/secrets/ldapClient.key"
 
+  # Client certificates to present to the LDAP server are supported with
+  # "client-tls-certificate" and  "client-tls-private-key" configurations.
+  # These are paths to the X.509 client certificate and corresponding private
+  # key, respectively. If "client-tls-certificate" is set but 
+  # "client-tls-private-key" is not, then "client-tls-certificate" is assumed
+  # to bundle both the certificate and private key.
+  # The LDAP server may request and require valid client certificates
+  # even when InfluxDB is configured with an insecure TLS mode that ignores
+  # LDAP server certificate errors.
+  # Not all LDAP servers will request a client certificate. It is not
+  # necessary to set "client-tls-certificate" and "client-tls-private-key"
+  # if the LDAP server does not require client certificates.
+  client-tls-certificate = "/var/run/secrets/ldapClient.pem"
+  client-tls-private-key = "/var/run/secrets/ldapClient.key"
+
   # Credentials to use when searching for a user or group.
   bind-dn = "cn=read-only-admin,dc=example,dc=com"
-  bind-password = "password"
+  bind-password = "read-only-admin's password"
 
   # Base DNs to use when applying the search-filter to discover an LDAP user.
   search-base-dns = [
@@ -204,44 +216,42 @@ enabled = true
   ]
 
   # LDAP filter to discover a user's DN.
-  # %s will be replaced with the provided username.
-  search-filter = "(uid=%s)"
-  # On Active Directory you might use "(sAMAccountName=%s)".
+  # %%s will be replaced with the provided username.
+  search-filter = "(uid=%%s)"
+  # On Active Directory you might use "(sAMAccountName=%%s)".
 
   # Base DNs to use when searching for groups.
-  group-search-base-dns = ["dc=example,dc=com"]
+  group-search-base-dns = ["ou=groups,dc=example,dc=com"]
 
   # LDAP filter to identify groups that a user belongs to.
-  # %s will be replaced with the user's DN.
-  group-membership-search-filter = "(&(objectClass=groupOfUniqueNames)(uniqueMember=%s))"
-  # On Active Directory you might use "(&(objectClass=group)(member=%s))".
+  # %%s will be replaced with the user's DN.
+  group-membership-search-filter = "(&(objectClass=groupOfUniqueNames)(uniqueMember=%%s))"
+  # On Active Directory you might use "(&(objectClass=group)(member=%%s))".
 
   # Attribute to use to determine the "group" in the group-mappings section.
   group-attribute = "ou"
   # On Active Directory you might use "cn".
 
-  # LDAP filter to search for a group with a particular name.
-  # This is used when warming the cache to load group membership.
-  group-search-filter = "(&(objectClass=groupOfUniqueNames)(cn=%s))"
-  # On Active Directory you might use "(&(objectClass=group)(cn=%s))".
+  # LDAP filter to search for groups during cache warming.
+  # %%s will be replaced with the "group" value in the group-mappings section.
+  group-search-filter = "(&(objectClass=groupOfUniqueNames)(ou=%%s))"
 
-  # Attribute of a group that contains the DNs of the group's members.
+  # Attribute on group objects indicating membership.
+  # Used during cache warming, should be same as part of the group-membership-search-filter.
   group-member-attribute = "uniqueMember"
-  # On Active Directory you might use "member".
 
-  # Create an administrator role in InfluxDB and then log in as a member of the admin LDAP group. Only members of a group with the administrator role can complete admin tasks.
-  # For example, if tesla is the only member of the `italians` group, you must log in as tesla/password.
-  admin-groups = ["italians"]
+  # Groups whose members have admin privileges on the influxdb servers.
+  admin-groups = ["influx-admins"]
 
-  # These two roles would have to be created by hand if you want these LDAP group memberships to do anything.
+  # Mappings of LDAP groups to Influx roles.
+  # All Influx roles need to be manually created to take effect.
   [[servers.group-mappings]]
-    group = "mathematicians"
-    role = "arithmetic"
+    group = "app-developers"
+    role = "app-metrics-rw"
 
   [[servers.group-mappings]]
-    group = "scientists"
-    role = "laboratory"
-
+    group = "web-support"
+    role = "web-traffic-ro"
 ```
 {{% /truncate %}}
 
