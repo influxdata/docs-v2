@@ -30,20 +30,9 @@ If a query doesn't return any data, it might be due to the following:
 - The query client timed out.
 - The query return type is not supported by the client library. For example, array / list type may not be supported, in this case convert the result into a string using `array_to_string()`. For example,
 
-{{% code-tab-content %}}
-
-```sql
-SELECT array_agg([1, 2, 3])
-```
-
-can be rewrote into
-
-
 ```sql
 SELECT array_to_string(array_agg([1, 2, 3]), ', ')
 ```
-
-{{% /code-tab-content %}}
 
 
 If a query times out or returns an error, it might be due to the following:
