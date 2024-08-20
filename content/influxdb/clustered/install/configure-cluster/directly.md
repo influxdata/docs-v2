@@ -145,7 +145,7 @@ When pulling InfluxDB Clustered images, there are two main scenarios:
 - You run in an environment with no network interfaces ("air-gapped") and you
   can only access a private container registry.
 
-In both scenarios, you need a valid pull secret.
+In both scenarios, you need a valid _pull secret_.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -198,7 +198,7 @@ from our container registry, do the following:
 
 We recommend using [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane) to copy images into your private registry.
 
-1.  [Install crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
+1.  [Install crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation) for your system.
 2.  Use the following command to create a container registry secret file and
     retrieve the necessary secrets:
 
@@ -263,7 +263,7 @@ Error: fetching manifest us-docker.pkg.dev/influxdb2-artifacts/clustered/influxd
 ```
 
 The list of images that you need to copy is included in the package metadata.
-You can obtain it with any standard OCI image inspection tool. For example:
+You can obtain it with any standard OCI image inspection tool--for example:
 
 {{% code-placeholders "PACKAGE_VERSION" %}}
 
