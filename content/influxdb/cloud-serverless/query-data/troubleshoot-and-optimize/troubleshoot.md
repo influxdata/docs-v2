@@ -36,7 +36,6 @@ If a query doesn't return any data, it might be due to the following:
   SELECT array_to_string(array_agg([1, 2, 3]), ', ')
   ```
 
-
 If a query times out or returns an error, it might be due to the following:
 
 - a bad request
