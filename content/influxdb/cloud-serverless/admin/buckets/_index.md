@@ -12,8 +12,12 @@ weight: 105
 influxdb/cloud-serverless/tags: [buckets]
 aliases:
   - /influxdb/cloud-serverless/organizations/buckets/
+  - /influxdb/cloud-serverless/admin/databases/
 alt_links:
   cloud: /influxdb/cloud/admin/buckets/
+  cloud_dedicated: /influxdb/cloud-dedicated/admin/databases/
+  clustered: /influxdb/clustered/admin/databases/
+  oss: /influxdb/v2/admin/buckets/
 ---
 
 A **bucket** is a named location where time series data is stored.
@@ -30,6 +34,8 @@ support InfluxQL and the InfluxDB v1 API `/write` and `/query` endpoints, which 
 See how to [map v1 databases and retention policies to buckets](/influxdb/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets).
 
 **If coming from InfluxDB v2 or InfluxDB Cloud**, _buckets_ are functionally equivalent.
+
+**If coming from InfluxDB Cloud Dedicated or InfluxDB Clustered**, _database_ and _bucket_ are synonymous.
 {{% /note %}}
 
 ## Retention period
