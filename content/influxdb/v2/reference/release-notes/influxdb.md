@@ -8,6 +8,30 @@ menu:
 weight: 101
 ---
 
+## v2.7.10 {date="2024-08-15"}
+
+### Bug Fixes
+
+- Update Flux to address performance regression.
+
+### Maintenance
+
+- Update Flux to 0.195.2.
+
+---
+
+## v2.7.9 {date="2024-08-09"}
+
+### Bug Fixes
+
+- Fix UI build error.
+
+### Maintenance
+
+- Update `go` toolchain to 1.21.12.
+
+---
+
 ## v2.7.8 {date="2024-07-25"}
 
 ### Bug Fixes
