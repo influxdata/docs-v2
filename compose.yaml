@@ -1,45 +1,28 @@
 # This is a Docker Compose file for the InfluxData documentation site.
 ## Run documentation tests for code samples.
 name: influxdata-docs
-volumes:
-  test-content:
+secrets:
+  influxdb2-admin-username:
+    file: ~/.env.influxdb2-admin-username
+  influxdb2-admin-password:
+    file: ~/.env.influxdb2-admin-password
+  influxdb2-admin-token:
+    file: ~/.env.influxdb2-admin-token 
 services:
-  markdownlint:
-    image: davidanson/markdownlint-cli2:v0.13.0
-    container_name: markdownlint
-    profiles:
-      - ci
-      - lint
-    volumes:
-      - type: bind 
-        source: .
-        target: /workdir
-    working_dir: /workdir
-    build:
-      context: .
-  vale:
-    image: jdkato/vale:latest
-    container_name: vale
-    profiles:
-      - ci
-      - lint
-    volumes:
-      - type: bind
-        source: .
-        target: /workdir
-    working_dir: /workdir
-    entrypoint: ["/bin/vale"]
-    build:
-      context: .
-      dockerfile_inline: |
-        COPY .ci /src/.ci
-        COPY **/.vale.ini /src/
-  ## Run InfluxData documentation with the hugo development server on port 1313.
-  ## For more information about the hugomods/hugo image, see
-  ## https://docker.hugomods.com/docs/development/docker-compose/
   local-dev:
-    image: hugomods/hugo:exts-0.123.8
+    build:
+      context: . 
+      dockerfile_inline: |
+        FROM hugomods/hugo:exts-0.123.8
+        RUN apk add --no-cache curl openssl
     command: hugo server --bind 0.0.0.0
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:1313/influxdb/cloud-dedicated/"]
+      interval: 1m
+      timeout: 10s
+      retries: 2
+      start_period: 40s
+      start_interval: 5s
     ports:
       - 1313:1313
     volumes:
@@ -49,3 +32,355 @@ services:
       - type: bind
         source: $HOME/hugo_cache
         target: /tmp/hugo_cache
+    profiles:
+      - local
+      - lint
+  cloud-pytest:
+    image: influxdata/docs-pytest
+    build:
+      context: .
+      dockerfile: Dockerfile.pytest
+    entrypoint:
+      - /bin/bash
+      - /src/test/scripts/run-tests.sh
+      - pytest
+    command:
+      # In the command, pass file paths to test.
+      # The container preprocesses the files for testing and runs the tests.
+      - content/influxdb/cloud/**/*.md
+    environment:
+      - CONTENT_PATH=content/influxdb/cloud
+    profiles:
+      - test
+      - v2
+    stdin_open: true
+    tty: true
+    volumes:
+      # Site configuration files.
+      - type: bind
+        source: .
+        target: /src
+        read_only: true
+      # Files shared between host and container and writeable by both.
+      - type: bind
+        source: ./test/shared
+        target: /shared
+      - type: bind
+        source: ./content/influxdb/cloud/.env.test
+        target: /app/.env.test
+        read_only: true
+      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
+      - type: bind
+        source: ./static/downloads
+        target: /app/data
+        read_only: true
+      # In your code samples, use `/app/iot-starter` to store example modules or project files.
+      - type: volume
+        source: cloud-tmp
+        target: /app/iot-starter
+      # Target directory for the content under test.
+      # Files are copied from /src/content/<productpath> to /app/content/<productpath> before running tests.
+      - type: volume
+        source: test-content
+        target: /app/content
+    working_dir: /app
+  cloud-dedicated-pytest:
+    image: influxdata/docs-pytest
+    build:
+      context: .
+      dockerfile: Dockerfile.pytest
+    entrypoint:
+      - /bin/bash
+      - /src/test/scripts/run-tests.sh
+      - pytest
+    command:
+      # In the command, pass file paths to test.
+      # The container preprocesses the files for testing and runs the tests.
+      - content/influxdb/cloud-dedicated/**/*.md
+    environment:
+      - CONTENT_PATH=content/influxdb/cloud-dedicated
+    profiles:
+      - test
+      - v3
+    stdin_open: true
+    tty: true
+    volumes:
+      # Site configuration files.
+      - type: bind
+        source: .
+        target: /src
+        read_only: true
+      # Files shared between host and container and writeable by both.
+      - type: bind
+        source: ./test/shared
+        target: /shared
+      - type: bind
+        source: ./content/influxdb/cloud-dedicated/.env.test
+        target: /app/.env.test
+        read_only: true
+      # The following mount assumes your influxctl configuration file is located at ./content/influxdb/cloud-dedicated/config.toml.
+      - type: bind
+        source: ./content/influxdb/cloud-dedicated/config.toml
+        target: /root/.config/influxctl/config.toml
+        read_only: true
+      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
+      - type: bind
+        source: ./static/downloads
+        target: /app/data
+        read_only: true
+      # In your code samples, use `/app/iot-starter` to store example modules or project files.
+      - type: volume
+        source: cloud-dedicated-tmp
+        target: /app/iot-starter
+      # Target directory for the content under test.
+      # Files are copied from /src/content/<productpath> to /app/content/<productpath> before running tests.
+      - type: volume
+        source: test-content
+        target: /app/content
+    working_dir: /app
+  cloud-serverless-pytest:
+    image: influxdata/docs-pytest
+    build:
+      context: .
+      dockerfile: Dockerfile.pytest
+    entrypoint:
+      - /bin/bash
+      - /src/test/scripts/run-tests.sh
+      - pytest
+    command:
+      # In the command, pass file paths to test.
+      # The container preprocesses the files for testing and runs the tests.
+      - content/influxdb/cloud-serverless/**/*.md
+    environment:
+      - CONTENT_PATH=content/influxdb/cloud-serverless
+    profiles:
+      - test
+      - v3
+    stdin_open: true
+    tty: true
+    volumes:
+      # Site configuration files.
+      - type: bind
+        source: .
+        target: /src
+        read_only: true
+      # Files shared between host and container and writeable by both.
+      - type: bind
+        source: ./test/shared
+        target: /shared
+      - type: bind
+        source: ./content/influxdb/cloud-serverless/.env.test
+        target: /app/.env.test
+        read_only: true
+      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
+      - type: bind
+        source: ./static/downloads
+        target: /app/data
+        read_only: true
+      # In your code samples, use `/app/iot-starter` to store example modules or project files.
+      - type: volume
+        source: cloud-serverless-tmp
+        target: /app/iot-starter
+      # Target directory for the content under test.
+      # Files are copied from /src/content/<productpath> to /app/content/<productpath> before running tests.
+      - type: volume
+        source: test-content
+        target: /app/content
+    working_dir: /app
+  clustered-pytest:
+    image: influxdata/docs-pytest
+    build:
+      context: .
+      dockerfile: Dockerfile.pytest
+    entrypoint:
+      - /bin/bash
+      - /src/test/scripts/run-tests.sh
+      - pytest
+    command:
+      # In the command, pass file paths to test.
+      # The container preprocesses the files for testing and runs the tests.
+      - content/influxdb/clustered/**/*.md
+    environment:
+      - CONTENT_PATH=content/influxdb/clustered
+    profiles:
+      - test
+      - v3
+    stdin_open: true
+    tty: true
+    volumes:
+      # Site configuration files.
+      - type: bind
+        source: .
+        target: /src
+        read_only: true
+      # Files shared between host and container and writeable by both.
+      - type: bind
+        source: ./test/shared
+        target: /shared
+      - type: bind
+        source: ./content/influxdb/clustered/.env.test
+        target: /app/.env.test
+        read_only: true
+      # The following mount assumes your influxctl configuration file is located at ./content/influxdb/clustered/config.toml.
+      - type: bind
+        source: ./content/influxdb/clustered/config.toml
+        target: /root/.config/influxctl/config.toml
+        read_only: true
+      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
+      - type: bind
+        source: ./static/downloads
+        target: /app/data
+        read_only: true
+      # In your code samples, use `/app/iot-starter` to store example modules or project files.
+      - type: volume
+        source: clustered-tmp
+        target: /app/iot-starter
+      # Target directory for the content under test.
+      # Files are copied from /src/content/<productpath> to /app/content/<productpath> before running tests.
+      - type: volume
+        source: test-content
+        target: /app/content
+    working_dir: /app
+  telegraf-pytest:
+    image: influxdata/docs-pytest
+    build:
+      context: .
+      dockerfile: Dockerfile.pytest
+    entrypoint:
+      - /bin/bash
+      - /src/test/scripts/run-tests.sh
+      - pytest
+    command:
+      # In the command, pass file paths to test.
+      # The container preprocesses the files for testing and runs the tests.
+      - content/telegraf/**/*.md
+    environment:
+      - CONTENT_PATH=content/telegraf
+    profiles:
+      - test
+    stdin_open: true
+    tty: true
+    volumes:
+      # Site configuration files.
+      - type: bind
+        source: .
+        target: /src
+        read_only: true
+      # Files shared between host and container and writeable by both.
+      - type: bind
+        source: ./test/shared
+        target: /shared
+      - type: bind
+        source: ./content/telegraf/.env.test
+        target: /app/.env.test
+        read_only: true
+      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
+      - type: bind
+        source: ./static/downloads
+        target: /app/data
+        read_only: true
+      # In your code samples, use `/app/iot-starter` to store example modules or project files.
+      - type: volume
+        source: telegraf-tmp
+        target: /app/iot-starter
+      # Target directory for the content under test.
+      # Files are copied from /src/content/<productpath> to /app/content/<productpath> before running tests.
+      - type: volume
+        source: test-content
+        target: /app/content
+    working_dir: /app
+  v2-pytest:
+    image: influxdata/docs-pytest
+    build:
+      context: .
+      dockerfile: Dockerfile.pytest
+    entrypoint:
+      - /bin/bash
+      - /src/test/scripts/run-tests.sh
+      - pytest
+    command:
+      # In the command, pass file paths to test.
+      # The container preprocesses the files for testing and runs the tests.
+      - content/influxdb/v2/**/*.md
+    environment:
+      - CONTENT_PATH=content/influxdb/v2
+    profiles:
+      - test
+      - v2
+    stdin_open: true
+    tty: true
+    volumes:
+      # Site configuration files.
+      - type: bind
+        source: .
+        target: /src
+        read_only: true
+      # Files shared between host and container and writeable by both.
+      - type: bind
+        source: ./test/shared
+        target: /shared
+      - type: bind
+        source: ./content/influxdb/v2/.env.test
+        target: /app/.env.test
+        read_only: true
+      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
+      - type: bind
+        source: ./static/downloads
+        target: /app/data
+        read_only: true
+      # In your code samples, use `/app/iot-starter` to store example modules or project files.
+      - type: volume
+        source: v2-tmp
+        target: /app/iot-starter
+      # Target directory for the content under test.
+      # Files are copied from /src/content/<productpath> to /app/content/<productpath> before running tests.
+      - type: volume
+        source: test-content
+        target: /app/content
+    working_dir: /app
+  influxdb2:
+    image: influxdb:2
+    ports:
+      - 8086:8086
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME_FILE: /run/secrets/influxdb2-admin-username
+      DOCKER_INFLUXDB_INIT_PASSWORD_FILE: /run/secrets/influxdb2-admin-password
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN_FILE: /run/secrets/influxdb2-admin-token
+      DOCKER_INFLUXDB_INIT_ORG: docs
+      DOCKER_INFLUXDB_INIT_BUCKET: get-started 
+      INFLUX_ORG: docs
+      INFLUX_BUCKET: get-started
+    profiles:
+      - v2
+      - local 
+    secrets:
+      - influxdb2-admin-username
+      - influxdb2-admin-password
+      - influxdb2-admin-token
+    volumes:
+      - type: volume
+        source: influxdb2-data
+        target: /var/lib/influxdb2
+      - type: volume
+        source: influxdb2-config
+        target: /etc/influxdb2
+  remark-lint:
+    build:
+      context: . 
+      dockerfile: .ci/Dockerfile.remark
+    command: ["remark", "${CONTENT_PATH}"]
+    profiles:
+      - lint
+    volumes:
+      - type: bind
+        source: ./content
+        target: /app/content
+volumes:
+  test-content:
+  cloud-tmp:
+  cloud-dedicated-tmp:
+  cloud-serverless-tmp:
+  clustered-tmp:
+  telegraf-tmp:
+  v2-tmp:

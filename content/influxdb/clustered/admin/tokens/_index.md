@@ -8,13 +8,13 @@ description: >
 menu:
   influxdb_clustered:
     parent: Administer InfluxDB Clustered
-weight: 101
+weight: 103
 influxdb/clustered/tags: [tokens]
 ---
 
 InfluxDB uses token authentication to authorize access to data in your
 {{< product-name omit=" Clustered" >}} cluster.
-There are two types of tokens:
+With {{< product-name >}}, there are two types of tokens:
 
 - [Database tokens](#database-tokens)
 - [Management tokens](#management-tokens)

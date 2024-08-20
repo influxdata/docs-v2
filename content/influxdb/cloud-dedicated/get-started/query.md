@@ -35,8 +35,10 @@ the simplicity of SQL.
 
 {{% note %}}
 The examples in this section of the tutorial query the
-[**get-started** database](/influxdb/cloud-dedicated/get-started/setup/#create-a-database) for data written in the
-[Get started writing data](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb) section.
+[**get-started** database](/influxdb/cloud-dedicated/get-started/setup/#create-a-database)
+for data written in the
+[Get started writing data](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb)
+section.
 {{% /note %}}
 
 ## Tools to execute queries
@@ -202,9 +204,47 @@ WHERE
 ```
 {{% /influxdb/custom-timestamps %}}
 
+<!--setup-test
+```sh
+curl --silent \
+  "https://{{< influxdb/host >}}/write?db=get-started&precision=s" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --header "Content-type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
+  --data-binary "
+home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1719907200
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719907200
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1719910800
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719910800
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1719914400
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719914400
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1719918000
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719918000
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1719921600
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719921600
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1719925200
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719925200
+home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1719928800
+home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719928800
+home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1719932400
+home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719932400
+home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1719936000
+home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719936000
+home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1719939600
+home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719939600
+home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1719943200
+home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719943200
+home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1719946800
+home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719946800
+home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1719950400
+home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719950400
+"
+```
+-->
+
 {{% note %}}
 Some examples in this getting started tutorial assume your InfluxDB
-credentials (**URL**, and **token**) are provided by
+credentials (**URL** and **token**) are provided by
 [environment variables](/influxdb/cloud-dedicated/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
 {{% /note %}}
 
@@ -233,20 +273,32 @@ Provide the following:
 
 {{% influxdb/custom-timestamps %}}
 {{% code-placeholders "get-started" %}}
+
 ```sh
 influxctl query \
   --database get-started \
   --token $INFLUX_TOKEN \
   "SELECT
-  *
-FROM
-  home
-WHERE
-  time >= '2022-01-01T08:00:00Z'
-  AND time <= '2022-01-01T20:00:00Z'"
+    *
+    FROM
+      home
+    WHERE
+      time >= '2022-01-01T08:00:00Z'
+      AND time <= '2022-01-01T20:00:00Z'"
 ```
+
 {{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
+
+{{% note %}}
+#### Query using stored credentials
+
+Optionally, you can configure `database` and `token` query credentials in your `influxctl`
+[connection profile](/influxdb/clustered/reference/cli/influxctl/#create-a-configuration-file).
+
+The `--database` and `--token` command line flags override credentials in your
+configuration file.
+{{% /note %}}
 
 <!--------------------------- END influxctl CONTENT --------------------------->
 {{% /tab-content %}}
@@ -262,15 +314,15 @@ _If your project's virtual environment is already running, skip to step 3._
 
 1.  Create a directory for your project and change into it:
 
-    ```sh
-    mkdir influx3-query-example && cd $_
+    ```bash
+    mkdir -p influx3-query-example && cd influx3-query-example 
     ```
 
 2.  To create and activate a Python virtual environment, run the following command:
 
     <!--pytest-codeblocks:cont-->
 
-    ```sh
+    ```bash
     python -m venv envs/virtual-env && . envs/virtual-env/bin/activate
     ```
 
@@ -278,7 +330,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
     <!--pytest-codeblocks:cont-->
 
-    ```sh
+    ```bash
     pip install influxdb3-python-cli
     ```
 
@@ -290,7 +342,7 @@ _If your project's virtual environment is already running, skip to step 3._
     <!--pytest-codeblocks:cont-->
 
     ```sh
-    influx3 config \
+    influx3 config create \
       --name="config-dedicated" \
       --database="get-started" \
       --host="{{< influxdb/host >}}" \
@@ -308,12 +360,12 @@ _If your project's virtual environment is already running, skip to step 3._
 
     <!--pytest-codeblocks:cont-->
 
-  ```sh
-  influx3 sql "SELECT *
+    ```sh
+    influx3 sql "SELECT *
                 FROM home
                 WHERE time >= '2022-01-01T08:00:00Z'
                 AND time <= '2022-01-01T20:00:00Z'"
-  ```
+    ```
 
 `influx3` displays query results in your terminal.
 
@@ -338,7 +390,7 @@ _If your project's virtual environment is already running, skip to step 3._
         <!-- Run for tests and hide from users.
 
         ```sh
-        mkdir -p influxdb_py_client && cd $_
+        mkdir -p influxdb_py_client && cd influxdb_py_client 
         ```
         -->
 
@@ -348,7 +400,7 @@ _If your project's virtual environment is already running, skip to step 3._
         python -m venv envs/virtual-env && . ./envs/virtual-env/bin/activate
         ```
 
-    3.  Install the following dependencies:
+    2.  Install the following dependencies:
 
         {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
 
@@ -364,7 +416,7 @@ _If your project's virtual environment is already running, skip to step 3._
         pip install influxdb3-python pandas tabulate
         ```
 
-    4.  In your terminal or editor, create a new file for your code--for example: `query.py`.
+    3.  In your terminal or editor, create a new file for your code--for example: `query.py`.
 
 2.  In `query.py`, enter the following sample code:
 
@@ -396,17 +448,23 @@ _If your project's virtual environment is already running, skip to step 3._
     '''
 
     table = client.query(query=sql)
-    assert table['room'], "Expect table to have room column."
+    assert table.num_rows > 0, "Expect query to return data."
+    assert table['room'], f"Expect ${table} to have room column."
     print(table.to_pandas().to_markdown())
     ```
 
 {{< expand-wrapper >}}
 {{% expand "<span class='req'>Important</span>: If using **Windows**, specify the **Windows** certificate path" %}}
 
-  When instantiating the client, Python looks for SSL/TLS certificate authority (CA) certificates for verifying the server's authenticity.
-  If using a non-POSIX-compliant operating system (such as Windows), you need to specify a certificate bundle path that Python can access on your system.
+  When instantiating the client, Python looks for SSL/TLS certificate authority
+  (CA) certificates for verifying the server's authenticity.
+  If using a non-POSIX-compliant operating system (such as Windows), you need to
+  specify a certificate bundle path that Python can access on your system.
 
-  The following example shows how to use the [Python `certifi` package](https://certifiio.readthedocs.io/en/latest/) and client library options to provide a bundle of trusted certificates to the Python Flight client:
+  The following example shows how to use the
+  [Python `certifi` package](https://certifiio.readthedocs.io/en/latest/) and
+  client library options to provide a bundle of trusted certificates to the
+  Python Flight client:
 
   1.  In your terminal, install the Python `certifi` package.
 
@@ -445,29 +503,31 @@ _If your project's virtual environment is already running, skip to step 3._
   
   2.  Calls the `InfluxDBClient3()` constructor method with credentials to instantiate an InfluxDB `client` with the following credentials:
 
-      - **`host`**: {{% product-name omit=" Clustered" %}} cluster URL (without `https://` protocol or trailing slash)
+      - **`host`**: {{% product-name omit=" Clustered" %}} cluster URL
+        (without `https://` protocol or trailing slash)
       - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
         with read access to the specified database.
-        _Store this in a secret store or environment variable to avoid exposing the raw token string._
+        _Store this in a secret store or environment variable to avoid exposing
+        the raw token string._
       - **`database`**: the name of the {{% product-name %}} database to query
   
-  3.  Defines the SQL query to execute and assigns it to a `query` variable.
+  1.  Defines the SQL query to execute and assigns it to a `query` variable.
 
-  4.  Calls the `client.query()` method with the SQL query.
+  2.  Calls the `client.query()` method with the SQL query.
       `query()` sends a
       Flight request to InfluxDB, queries the database, retrieves result data from the endpoint, and then returns a
       [`pyarrow.Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table)
       assigned to the `table` variable.
 
-  5.  Calls the [`to_pandas()` method](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table.to_pandas)
+  3.  Calls the [`to_pandas()` method](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table.to_pandas)
       to convert the Arrow table to a [`pandas.DataFrame`](https://arrow.apache.org/docs/python/pandas.html).
 
-  6.  Calls the [`pandas.DataFrame.to_markdown()` method](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_markdown.html)
+  4.  Calls the [`pandas.DataFrame.to_markdown()` method](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_markdown.html)
       to convert the DataFrame to a markdown table.
 
-  7.  Calls the `print()` method to print the markdown table to stdout.
+  5.  Calls the `print()` method to print the markdown table to stdout.
 
-2.  Enter the following command to run the program and query your {{% product-name omit=" Clustered" %}} cluster:
+1.  Enter the following command to run the program and query your {{% product-name omit=" Clustered" %}} cluster:
 
     <!--pytest.mark.skip-->
 
@@ -606,20 +666,25 @@ _If your project's virtual environment is already running, skip to step 3._
 
     2.  Defines a `Query()` function that does the following:
 
-        1.  Instantiates `influx.Client` with InfluxDB credentials.
+        1.  Instantiates `influx.Client` with the following parameters for InfluxDB credentials:
           
             - **`Host`**: your {{% product-name omit=" Clustered" %}} cluster URL
-            - **`Database`**: The name of your {{% product-name %}} database
+            - **`Database`**: the name of your {{% product-name %}} database
             - **`Token`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
               with read permission on the specified database.
-              _Store this in a secret store or environment variable to avoid exposing the raw token string._
+              _Store this in a secret store or environment variable to avoid
+              exposing the raw token string._
 
         2.  Defines a deferred function to close the client after execution.
         3.  Defines a string variable for the SQL query.
 
-        4.  Calls the `influxdb3.Client.Query(sql string)` method and passes the SQL string to query InfluxDB.
-            `Query(sql string)` method returns an `iterator` for data in the response stream.
-        5.  Iterates over rows, formats the timestamp as an [RFC3339 timestamp](/influxdb/cloud-dedicated/reference/glossary/#rfc3339-timestamp), and prints the data in table format to stdout.
+        4.  Calls the `influxdb3.Client.Query(sql string)` method and passes the
+            SQL string to query InfluxDB.
+            The `Query(sql string)` method returns an `iterator` for data in the
+            response stream.
+        5.  Iterates over rows, formats the timestamp as an
+            [RFC3339 timestamp](/influxdb/cloud-dedicated/reference/glossary/#rfc3339-timestamp),
+            and prints the data in table format to stdout.
 
 3.  In your editor, open the `main.go` file you created in the
     [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Go#write-line-protocol-to-influxdb) and insert code to call the `Query()` function--for example:
@@ -633,12 +698,13 @@ _If your project's virtual environment is already running, skip to step 3._
     }
     ```
 
-4.  In your terminal, enter the following command to install the necessary packages, build the module, and run the program:
+4.  In your terminal, enter the following command to install the necessary
+    packages, build the module, and run the program:
 
     <!--pytest.mark.skip-->
 
     ```sh
-    go mod tidy && go build && go run influxdb_go_client
+    go mod tidy && go run influxdb_go_client
     ```
 
     The program executes the `main()` function that writes the data and prints the query results to the console.
@@ -724,18 +790,19 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
         - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
         - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
           with read permission on the database you want to query.
-          _Store this in a secret store or environment variable to avoid exposing the raw token string._
+          _Store this in a secret store or environment variable to avoid exposing
+          the raw token string._
 
-      3.  Defines a string variable (`sql`) for the SQL query.
-      4.  Defines an object (`data`) with column names for keys and array values for storing row data.
-      5.  Calls the `InfluxDBClient.query()` method with the following arguments:
+      1.  Defines a string variable (`sql`) for the SQL query.
+      2.  Defines an object (`data`) with column names for keys and array values for storing row data.
+      3.  Calls the `InfluxDBClient.query()` method with the following arguments:
 
           - **`sql`**: the query to execute
           - **`database`**: the name of the {{% product-name %}} database to query
           
           `query()` returns a stream of row vectors.
-      6.  Iterates over rows and adds the column data to the arrays in `data`.
-      7.  Passes `data` to the Arrow `tableFromArrays()` function to format the arrays as a table, and then passes the result to the `console.table()` method to output a highlighted table in the terminal.
+      4.  Iterates over rows and adds the column data to the arrays in `data`.
+      5.  Passes `data` to the Arrow `tableFromArrays()` function to format the arrays as a table, and then passes the result to the `console.table()` method to output a highlighted table in the terminal.
 5.  Inside of `index.mjs` (created in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Nodejs)), enter the following sample code to import the modules and call the functions:
 
     ```js
@@ -756,7 +823,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
     main();
     ```
 
-9.  In your terminal, execute `index.mjs` to write to and query {{% product-name %}}:
+6.  In your terminal, execute `index.mjs` to write to and query {{% product-name %}}:
 
     <!--pytest.mark.skip-->
 
@@ -1014,7 +1081,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
 
     - The `App`, `Write`, and `Query` classes belong to the `com.influxdbv3` package (your project **groupId**).
     - `App` defines a `main()` function that calls `Write.writeLineProtocol()` and `Query.querySQL()`.
-4.  In your terminal or editor, use Maven to to install dependencies and compile the project code--for example:
+4.  In your terminal or editor, use Maven to install dependencies and compile the project code--for example:
 
     <!--pytest.mark.skip-->
 
@@ -1028,8 +1095,6 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
     For example, enter the following command in your terminal:
 
     **Linux/MacOS**
-
-    <!--pytest.mark.skip-->
 
     ```sh
     export MAVEN_OPTS="--add-opens=java.base/java.nio=ALL-UNNAMED"

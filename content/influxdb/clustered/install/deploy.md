@@ -6,9 +6,10 @@ menu:
   influxdb_clustered:
     name: Deploy your cluster
     parent: Install InfluxDB Clustered
-weight: 104
+weight: 140
 related:
   - /influxdb/clustered/admin/upgrade/
+  - /influxdb/clustered/install/licensing/
 ---
 
 Use Kubernetes and related tools to deploy your InfluxDB cluster.
@@ -22,16 +23,16 @@ following tools:
 
 InfluxDB Clustered uses an `AppInstance` Kubernetes custom resource (CR) to
 configure and deploy your InfluxDB Cluster.
-Installing a `CustomResourceDefinition` (CRD) requires cluster-wide permissions and may cause `kubectl` to
-fail if you do not have those permissions in your cluster.
+Installing a `CustomResourceDefinition` (CRD) requires cluster-wide permissions
+and may cause `kubectl` to fail if you do not have those permissions in your cluster.
 
 `kubectl` uses your local credentials to install the `AppInstance` CRD.
 If you do not have the necessary permissions, you can
-[use the `kubit` CLI to manually install the package in your cluster](?t=kubit#kubectl-or-kubit).
+[use the `kubit` CLI to manually install the package in your cluster](?t=kubit#kubectl-kubit-helm).
 
 {{% note %}}
 **If you meet any of the following criteria,
-[install and use the `kubit` CLI](?t=kubit#kubectl-or-kubit)
+[install and use the `kubit` CLI](?t=kubit#kubectl-kubit-helm)
 on your local machine. This allows you to act as the operator would and deploy
 your cluster, but from your terminal.**
 
@@ -43,14 +44,19 @@ your cluster, but from your terminal.**
 - You do not want to run the operator in your Kubernetes cluster.
   {{% /note %}}
 
-<!-- Hidden anchor for links to the kubectl/kubit tabs -->
+You can also use [Helm](https://helm.sh/) and the
+[InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered)
+to deploy your InfluxDB cluster.
 
-<span id="kubectl-or-kubit"></span>
+<!-- Hidden anchor for links to the kubectl/kubit/helm tabs -->
+
+<span id="kubectl-kubit-helm"></span>
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [kubectl](#)
 [kubit](#)
+[Helm](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -89,6 +95,30 @@ You can specify the `--docker` flag to opt-in to using containers instead. This 
 for tool dependencies, meaning the required versions are tracked by `kubit`.
 
 <!--------------------------------- END kubit --------------------------------->
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+<!-------------------------------- BEGIN Helm --------------------------------->
+
+1.  Add the InfluxData Helm chart repository:
+
+    ```bash
+    helm repo add influxdata https://helm.influxdata.com/
+    ```
+
+2.  Deploy your Helm chart using your modified local `values.yaml`:
+
+    ```bash
+    helm upgrade \
+      --install \
+      influxdb \
+      influxdata/influxdb3-clustered \
+      -f ./values.yml \
+      --namespace influxdb
+    ```
+
+<!--------------------------------- END Helm ---------------------------------->
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
@@ -172,4 +202,4 @@ influxdb      iox-shared-querier-7f5998b9b-fpt62        4/4     Running     1 (6
 influxdb      kubit-apply-influxdb-g6qpx                0/1     Completed   0              8s
 ```
 
-{{< page-nav prev="/influxdb/clustered/install/configure-cluster/" prevText="Configure your cluster" next="/influxdb/clustered/install/use-your-cluster/" nextText="Use your cluster" >}}
+{{< page-nav prev="/influxdb/clustered/install/licensing/" prevText="Install your license" next="/influxdb/clustered/install/use-your-cluster/" nextText="Use your cluster" >}}

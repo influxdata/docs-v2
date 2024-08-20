@@ -12,6 +12,6 @@ node_modules
 /api-docs/redoc-static.html*
 .vscode/*
 .idea
-config.toml
+**/config.toml
 package-lock.json
 tmp

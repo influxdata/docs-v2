@@ -1,0 +1,25 @@
+FROM registry.gitlab.com/pipeline-components/remark-lint:latest
+
+
+WORKDIR /app/
+
+# Generic
+#RUN apk add --no-cache
+COPY /.ci/remark-lint /app/
+
+# Node
+ENV PATH "$PATH:/app/node_modules/.bin/"
+RUN yarn install && yarn cache clean
+ENV NODE_PATH=/app/node_modules/
+RUN ln -nfs /app/node_modules /node_modules
+
+# Build arguments
+ARG BUILD_DATE
+ARG BUILD_REF
+
+# Labels
+LABEL \
+    org.label-schema.build-date=${BUILD_DATE} \
+    org.label-schema.name="Remark-lint" \
+    org.label-schema.schema-version="1.0" \
+    org.label-schema.url="https://pipeline-components.gitlab.io/"

@@ -45,6 +45,9 @@ Use the following environment variables to tune the garbage collector:
 - `INFLUXDB_IOX_GC_PARQUETFILE_CUTOFF`: how long to retain rows in the Catalog
   that reference Parquet files marked for deletion. The default is `30d`.
 
+These values tune how aggressive the garbage collector can be. A shorter duration
+value means that files can be removed at a faster pace.
+
 {{% warn %}}
 To ensure there is a grace period before files and references are removed, the
 minimum garbage collector (GC) object store and Parquet file cutoff time is

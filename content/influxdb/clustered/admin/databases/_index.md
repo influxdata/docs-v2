@@ -9,7 +9,7 @@ description: >
 menu:
   influxdb_clustered:
     parent: Administer InfluxDB Clustered
-weight: 101
+weight: 103
 influxdb/clustered/tags: [databases]
 ---
 

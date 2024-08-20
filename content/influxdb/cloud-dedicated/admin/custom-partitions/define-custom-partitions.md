@@ -33,7 +33,7 @@ table.
 #### Partition templates can only be applied on create
 
 You can only apply a partition template when creating a database or table.
-There is no way to update a partition template on an existing resource.
+You can't update a partition template on an existing resource.
 {{% /note %}}
 
 Use the following command flags to identify
@@ -71,6 +71,9 @@ The following example creates a new `example-db` database and applies a partitio
 template that partitions by distinct values of two tags (`room` and `sensor-type`),
 bucketed values of the `customerID` tag, and by week using the time format `%Y wk:%W`:
 
+<!--Skip database create and delete tests: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
+
 ```sh
 influxctl database create \
   --template-tag room \
@@ -82,10 +85,15 @@ influxctl database create \
 
 ## Create a table with a custom partition template
 
-The following example creates a new `example-table` table in the `example-db`
+The following example creates a new `example-table` table in the specified
 database and applies a partition template that partitions by distinct values of
 two tags (`room` and `sensor-type`), bucketed values of the `customerID` tag,
 and by month using the time format `%Y-%m`:
+
+<!--Skip database create and delete tests: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
+
+{{% code-placeholders "DATABASE_NAME" %}}
 
 ```sh
 influxctl table create \
@@ -93,9 +101,43 @@ influxctl table create \
   --template-tag sensor-type \
   --template-tag-bucket customerID,500 \
   --template-timeformat '%Y-%m' \
-  example-db \
+  DATABASE_NAME \
   example-table
 ```
+
+{{% /code-placeholders %}}
+
+Replace the following in your command:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+
+<!--actual test
+
+```sh
+
+# Test the preceding command outside of the code block.
+# influxctl authentication requires TTY interaction--
+# output the auth URL to a file that the host can open.
+
+TABLE_NAME=table_TEST_RUN
+script -c "influxctl table create \
+  --template-tag room \
+  --template-tag sensor-type \
+  --template-tag-bucket customerID,500 \
+  --template-timeformat '%Y-%m' \
+  DATABASE_NAME \
+  $TABLE_NAME" \
+ /dev/null > /shared/urls.txt
+
+script -c "influxctl query \
+ --database DATABASE_NAME \
+ --token DATABASE_TOKEN \
+ 'SHOW TABLES'" > /shared/temp_tables.txt
+grep -q $TABLE_NAME /shared/temp_tables.txt
+rm /shared/temp_tables.txt
+```
+
+-->
 
 ## Example partition templates
 
@@ -108,7 +150,7 @@ prod,line=A,station=weld1 temp=81.9,qty=36i 1704067200000000000
 
 ##### Partitioning by distinct tag values
 
-| Description             | Tag part(s)       | Time part  | Resulting partition key  |
+| Description             | Tag parts       | Time part  | Resulting partition key  |
 | :---------------------- | :---------------- | :--------- | :----------------------- |
 | By day (default)        |                   | `%Y-%m-%d` | 2024-01-01               |
 | By day (non-default)    |                   | `%d %b %Y` | 01 Jan 2024              |

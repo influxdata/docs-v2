@@ -45,7 +45,7 @@ regexp_like(str, regexp[, flags])
   - **U**: (ungreedy) Swap the meaning of `x*` and `x*?`.
 
 {{< expand-wrapper >}}
-{{% expand "View `regexp_replace` query example" %}}
+{{% expand "View `regexp_like` query example" %}}
 
 _The following example uses the sample data set provided in
 [Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
@@ -84,7 +84,7 @@ regexp_match(str, regexp, flags)
   - **i**: (insensitive) Ignore case when matching.
 
 {{< expand-wrapper >}}
-{{% expand "View `regexp_replace` query example" %}}
+{{% expand "View `regexp_match` query example" %}}
 
 _The following example uses the sample data set provided in
 [Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._

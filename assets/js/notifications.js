@@ -6,16 +6,16 @@
 */
 
 // Get notification ID
-function notificationID (el) {
+function notificationID(el) {
   return $(el).attr('id');
 }
 
 // Show notifications that are within scope and haven't been read
-function showNotifications () {
+function showNotifications() {
   $('#docs-notifications > .notification').each(function () {
     // Check if the path includes paths defined in the data-scope attribute
     // of the notification html element
-    function inScope (path, scope) {
+    function inScope(path, scope) {
       for (let i = 0; i < scope.length; i++) {
         if (path.includes(scope[i])) {
           return true;
@@ -24,14 +24,14 @@ function showNotifications () {
       return false;
     }
 
-    function excludePage (path, exclude) {
+    function excludePage(path, exclude) {
       if (exclude[0].length > 0) {
         for (let i = 0; i < exclude.length; i++) {
           if (path.includes(exclude[i])) {
             return true;
           }
         }
-      }  
+      }
       return false;
     }
 
@@ -41,8 +41,6 @@ function showNotifications () {
     var pageExcluded = excludePage(window.location.pathname, exclude);
     var notificationRead = notificationIsRead(notificationID(this), 'message');
 
-    console.log(pageExcluded)
-
     if (pageInScope && !pageExcluded && !notificationRead) {
       $(this).show().animate({ right: 0, opacity: 1 }, 200, 'swing');
     }
@@ -50,7 +48,7 @@ function showNotifications () {
 }
 
 // Hide a notification and set the notification as read
-function hideNotification (el) {
+function hideNotification(el) {
   $(el)
     .closest('.notification')
     .animate({ height: 0, opacity: 0 }, 200, 'swing', function () {
