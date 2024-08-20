@@ -32,9 +32,9 @@ If a query doesn't return any data, it might be due to the following:
   For example, array or list types may not be supported.
   In this case, use `array_to_string()` to convert the array value to a string--for example:
 
-```sql
-SELECT array_to_string(array_agg([1, 2, 3]), ', ')
-```
+  ```sql
+  SELECT array_to_string(array_agg([1, 2, 3]), ', ')
+  ```
 
 
 If a query times out or returns an error, it might be due to the following:
