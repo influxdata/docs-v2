@@ -129,7 +129,7 @@ Each row must include a time column.
 As a result, a table can have the following:
 
 - a time column
-- field and tag columns up to the configured maximum.
+- field and tag columns up to the configured maximum
 
 If you attempt to write to a table and exceed the column limit, then the write
 request fails and InfluxDB returns an error.

@@ -61,11 +61,13 @@ and learn how to [analyze a query plan](/influxdb/cloud-dedicated/query-data/tro
 
 #### Include a WHERE clause
 
-InfluxDB v3 stores data in a Parquet file for each measurement and day, and
-retrieves files from the Object store to answer a query.
+InfluxDB v3 stores data in a Parquet file for each partition.
+By default, {{< product-name >}} partitions tables by day, but you can also
+[custom-partition your data](/influxdb/cloud-dedicated/admin/custom-partitions/).
+At query time, InfluxDB retrieves files from the Object store to answer a query.
 To reduce the number of files that a query needs to retrieve from the Object store,
 include a [`WHERE` clause](/influxdb/cloud-dedicated/reference/sql/where/) that
-filters data by a time range.
+filters data by a time range or by specific tag values.
 
 #### SELECT only columns you need 
 

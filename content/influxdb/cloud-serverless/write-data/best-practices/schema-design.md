@@ -109,7 +109,7 @@ Each row must include a time column.
 As a result, a measurement can have the following:
 
 - a time column
-- field and tag columns up to the maximum number of columns.
+- field and tag columns up to the maximum number of columns
 
 If you attempt to write to a measurement and exceed the column limit, then the write
 request fails and InfluxDB returns an error.
