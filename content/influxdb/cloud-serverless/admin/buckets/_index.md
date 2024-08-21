@@ -59,6 +59,7 @@ Each measurement is represented by a table.
 Time, fields, and tags are each represented by a column.
 
 **Maximum number of tables**: 500
+
 **Maximum number of columns**: 200
 
 The following articles provide information about managing buckets:

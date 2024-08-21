@@ -134,11 +134,12 @@ As a result, a table can have the following:
 If you attempt to write to a table and exceed the column limit, then the write
 request fails and InfluxDB returns an error.
 
-InfluxData identified 1000 columns as the safe limit for maintaining system
+InfluxData identified the default maximum as the safe limit for maintaining system
 performance and stability.
 Exceeding this threshold can result in
 [wide schemas](#avoid-wide-schemas), which can negatively impact performance
-and resource use, depending on the shape and data types in your schema.
+and resource use, [depending on your queries](#avoid-non-specific-queries),
+the shape of your schema, and data types in the schema.
 
 ---
 
@@ -162,31 +163,12 @@ Wide schemas can lead to the following issues:
 
 - Increased resource usage for persisting and compacting data during ingestion.
 - Reduced sorting performance due to complex primary keys with [too many tags](#avoid-too-many-tags).
-- Reduced query performance when [using non-specific queries](#avoid-non-specific-queries).
+- Reduced query performance when
+  [selecting too many columns](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/#select-only-columns-you-need).
 
 To prevent wide schema issues, limit the number of tags and fields stored in a table.
 If you need to store more than the [maximum number of columns](/influxdb/cloud-dedicated/admin/databases/),
 consider segmenting your fields into separate tables.
-
-#### Avoid non-specific queries
-
-Because InfluxDB v3 is a columnar database, it only processes the columns
-selected in a query, which can mitigate the query performance impact of wide schemas.
-If you [query only the data that you need](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/#strategies-for-improving-query-performance),
-then a wide schema might not impact query performance.
-
-However, a non-specific query that retrieves a large number of columns from a
-wide schema
-is slower and less efficient than a more targeted query--for example, consider
-the following queries:
-
-- `SELECT time,a,b,c`
-- `SELECT *`
-
-If the table contains 10 columns, the difference in performance between the
-two queries is minimal.
-In a table with over 1000 columns, the `SELECT *` query is slower and
-less efficient.
 
 #### Avoid too many tags
 

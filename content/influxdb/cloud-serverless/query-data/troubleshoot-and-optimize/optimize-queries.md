@@ -22,6 +22,7 @@ Learn how to use observability tools to analyze query execution and view metrics
 
 - [Why is my query slow?](#why-is-my-query-slow)
 - [Strategies for improving query performance](#strategies-for-improving-query-performance)
+  - [Query only the data you need](#query-only-the-data-you-need)
 - [Analyze and troubleshoot queries](#analyze-and-troubleshoot-queries)
 
 ## Why is my query slow?

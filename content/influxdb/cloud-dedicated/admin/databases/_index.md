@@ -71,7 +71,8 @@ cluster in the following ways:
 {{% expand "**May improve query performance** <em style='opacity:.5;font-weight:normal;'>View more info</em>" %}}
 
 Schemas with many measurements that contain
-[focused sets of tags and fields](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/#design-for-performance) can make it easier for the query engine to
+[focused sets of tags and fields](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/#design-for-performance)
+can make it easier for the query engine to
 identify what partitions contain the queried data, resulting in better
 query performance.
 
@@ -100,20 +101,19 @@ operating cost of your cluster.
 
 ### Column limit
 
-**Default maximum number of columns**: 1000
+**Default maximum number of columns**: 250
 
-A table can contain **up to 1000 columns**.
 Each row must include a time column, with the remaining columns representing
 tags and fields.
-As a result, a table can have one time column and up to 999 field and tag columns.
-
-When creating or updating a database, you can configure the table column limit to be
-lower than 1000, based on your requirements.
-After you update the column limit for a database, the limit applies to newly
-created tables; it doesn't override the column limit for existing tables.
+As a result, a table can have one time column and up to 249 field and tag columns.
 
 If you attempt to write to a table and exceed the column limit, the write
 request fails and InfluxDB returns an error.
+
+When creating or updating a database, you can configure the table column limit to be
+lower than the default or up to 1000, based on your requirements.
+After you update the column limit for a database, the limit applies to newly
+created tables; it doesn't override the column limit for existing tables.
 
 Increasing your column limit affects your {{% product-name omit=" Clustered" %}}
 cluster in the following ways:
@@ -121,12 +121,12 @@ cluster in the following ways:
 {{< expand-wrapper >}}
 {{% expand "May adversely affect system performance" %}}
 
-InfluxData identified 1000 columns as the safe limit for maintaining system
+InfluxData identified 250 columns as the safe limit for maintaining system
 performance and stability.
 Exceeding this threshold can result in
 [wide schemas](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/#avoid-wide-schemas),
 which can negatively impact performance and resource use,
-depending on the shape of your schema and data types in the schema.
+depending on your queries, the shape of your schema, and data types in the schema.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

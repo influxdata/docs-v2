@@ -101,9 +101,9 @@ influxctl database create [flags] <DATABASE_NAME>
 
 | Flag |                         | Description                                                                                                                              |
 | :--- | :---------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
-|      | `--retention-period`    | Database retention period (default is `0s`, infinite)                                                                                    |
-|      | `--max-tables`          | Maximum tables per database (default is 500, `0` uses default)                                                                             |
-|      | `--max-columns`         | Maximum columns per table (default is 1000, `0` uses default)                                                                               |
+|      | `--retention-period`    | [Database retention period ](/influxdb/clustered/admin/databases/#retention-periods)(default is `0s`, infinite)                                                                                    |
+|      | `--max-tables`          | [Maximum tables per database](/influxdb/clustered/admin/databases/#table-limit) (default is 500, `0` uses default)                                                                             |
+|      | `--max-columns`         | [Maximum columns per table](/influxdb/clustered/admin/databases/#column-limit) (default is 250, `0` uses default)                                                                               |
 |      | `--template-tag`        | Tag to add to partition template (can include multiple of this flag)                                                                     |
 |      | `--template-tag-bucket` | Tag and number of buckets to partition tag values into separated by a comma--for example: `tag1,100` (can include multiple of this flag) |
 |      | `--template-timeformat` | Timestamp format for partition template (default is `%Y-%m-%d`)                                                                          |
