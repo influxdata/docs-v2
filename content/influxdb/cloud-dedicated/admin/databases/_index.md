@@ -17,7 +17,7 @@ related:
 alt_links:
   cloud: /influxdb/cloud/admin/buckets/
   cloud_serverless: /influxdb/cloud-serverless/admin/buckets/
-  clustered: /influxdb/clustered/admin/databases/
+  clustered: /influxdb/cloud-dedicated/admin/databases/
   oss: /influxdb/v2/admin/buckets/
 ---
 
@@ -103,17 +103,18 @@ operating cost of your cluster.
 
 **Default maximum number of columns**: 250
 
+**Configurable maximum number of columns**: 1000
+
 Each row must include a time column, with the remaining columns representing
 tags and fields.
-As a result, a table can have one time column and up to 249 field and tag columns.
+As a result, a table with 250 columns can have one time column and up to
+249 field and tag columns.
 
 If you attempt to write to a table and exceed the column limit, the write
 request fails and InfluxDB returns an error.
 
-When creating or updating a database, you can configure the table column limit to be
-lower than the default or up to 1000, based on your requirements.
-After you update the column limit for a database, the limit applies to newly
-created tables; it doesn't override the column limit for existing tables.
+If you update the column limit for a database, the limit applies to newly
+created tables; doesn't override the column limit for existing tables.
 
 Increasing your column limit affects your {{% product-name omit=" Clustered" %}}
 cluster in the following ways:
@@ -121,6 +122,8 @@ cluster in the following ways:
 {{< expand-wrapper >}}
 {{% expand "May adversely affect system performance" %}}
 
+When creating or updating a database, you can configure the table column limit to be
+lower than the default or up to 1000, based on your requirements.
 InfluxData identified 250 columns as the safe limit for maintaining system
 performance and stability.
 Exceeding this threshold can result in

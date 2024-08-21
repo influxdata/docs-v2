@@ -134,8 +134,9 @@ As a result, a table can have the following:
 If you attempt to write to a table and exceed the column limit, then the write
 request fails and InfluxDB returns an error.
 
-InfluxData identified the default maximum as the safe limit for maintaining system
-performance and stability.
+InfluxData identified the
+[default maximum](/influxdb/cloud-dedicated/admin/databases/#column-limit)
+as the safe limit for maintaining system performance and stability.
 Exceeding this threshold can result in
 [wide schemas](#avoid-wide-schemas), which can negatively impact performance
 and resource use, [depending on your queries](#avoid-non-specific-queries),
