@@ -5,4 +5,5 @@ nonword: true
 level: error
 tokens:
   - \b\d+(?:B|kB|MB|GB|TB)
-  - \b\d+(?:ns|ms|s|min|h|d)
+# Ignore duration literals in code blocks.
+  - \b(?!\`)\d+(?:ns|ms|s|min|h|d)

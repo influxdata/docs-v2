@@ -26,10 +26,12 @@ to update a database in your {{< product-name omit=" Clustered" >}} cluster.
 2.  Run the `influxctl database update` command and provide the following:
 
     - Database name
-    - _Optional_: Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods).
-    Default is infinite (`0`).
-    - _Optional_: Database table (measurement) limit. Default is `500`.
-    - _Optional_: Database column limit. Default is `250`.
+    - _Optional_: Database [retention period](/influxdb/clustered/admin/databases/#retention-periods).
+      Default is infinite (`0`).
+    - _Optional_: Database [table (measurement) limit](/influxdb/clustered/admin/databases/#table-limit).
+      Default is `500`.
+    - _Optional_: Database [column limit](/influxdb/clustered/admin/databases/#column-limit).
+      Default is `250`.
 
 {{% code-placeholders "DATABASE_NAME|30d|500|200" %}}
 
