@@ -8,6 +8,10 @@ menu:
     name: Schema design
     weight: 201
     parent: write-best-practices
+related:
+  - /influxdb/cloud-dedicated/admin/databases/
+  - /influxdb/cloud-dedicated/reference/cli/influxctl/
+  - /influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/
 ---
 
 Use the following guidelines to design your [schema](/influxdb/cloud-dedicated/reference/glossary/#schema)
@@ -18,7 +22,7 @@ for simpler and more performant queries.
   - [Tags versus fields](#tags-versus-fields)
 - [Schema restrictions](#schema-restrictions)
   - [Do not use duplicate names for tags and fields](#do-not-use-duplicate-names-for-tags-and-fields)
-  - [Tables can contain up to 250 columns](#tables-can-contain-up-to-250-columns)
+  - [Maximum number of columns per table](#maximum-number-of-columns-per-table)
 - [Design for performance](#design-for-performance)
   - [Avoid wide schemas](#avoid-wide-schemas)
   - [Avoid sparse schemas](#avoid-sparse-schemas)
@@ -37,10 +41,13 @@ Tables contain multiple tags and fields.
 <!-- vale InfluxDataDocs.v3Schema = NO -->
 
 - **Database**: A named location where time series data is stored.
-  In {{% product-name %}}, _database_ is synonymous with _bucket_ in InfluxDB Cloud Serverless and InfluxDB TSM implementations.
+  In {{% product-name %}}, _database_ is synonymous with _bucket_ in InfluxDB
+  Cloud Serverless and InfluxDB TSM implementations.
+
   A database can contain multiple _tables_.
   - **Table**: A logical grouping for time series data.
-    In {{% product-name %}}, _table_ is synonymous with _measurement_ in InfluxDB Cloud Serverless and InfluxDB TSM implementations.
+    In {{% product-name %}}, _table_ is synonymous with _measurement_ in
+    InfluxDB Cloud Serverless and InfluxDB TSM implementations.
     All _points_ in a given table should have the same _tags_.
     A table contains multiple _tags_ and _fields_.
     - **Tags**: Key-value pairs that store metadata string values for each point--for example,
@@ -52,7 +59,9 @@ Tables contain multiple tags and fields.
       Field values may be null, but at least one field value is not null on any given row.
     - **Timestamp**: Timestamp associated with the data.
       When stored on disk and queried, all data is ordered by time.
-      In InfluxDB, a timestamp is a nanosecond-scale [Unix timestamp](/influxdb/cloud-dedicated/reference/glossary/#unix-timestamp) in UTC.
+      In InfluxDB, a timestamp is a nanosecond-scale
+      [Unix timestamp](/influxdb/cloud-dedicated/reference/glossary/#unix-timestamp)
+      in UTC.
       A timestamp is never null.
 
 {{% note %}}
@@ -91,8 +100,9 @@ question as you design your schema.
   - String
   - Boolean
 
-{{% product-name %}} doesn't index tag values or field values.
-Tag keys, field keys, and other metadata are indexed to optimize performance.
+{{% product-name %}} indexes tag keys, field keys, and other metadata
+ to optimize performance.
+It doesn't index tag values or field values.
 
 {{% note %}}
 The InfluxDB v3 storage engine supports infinite tag value and series cardinality.
@@ -106,26 +116,39 @@ cardinality doesn't affect the overall performance of your database.
 
 ### Do not use duplicate names for tags and fields
 
-Tags and fields within the same table can't be named the same.
-All tags and fields are stored as unique columns in a table representing the
-table on disk.
+Use unique names for tags and fields within the same table.
+{{% product-name %}} stores tags and fields as unique columns in a table that
+represents the table on disk.
 If you attempt to write a table that contains tags or fields with the same name,
 the write fails due to a column conflict.
 
-### Tables can contain up to 250 columns
+### Maximum number of columns per table
 
-A table can contain **up to 250 columns**. Each row requires a time column,
-but the rest represent tags and fields stored in the table.
-Therefore, a table can contain one time column and 249 total field and tag columns.
-If you attempt to write to a table and exceed the 250 column limit, the
-write request fails and InfluxDB returns an error.
+A table has a [maximum number of columns](/influxdb/cloud-dedicated/admin/databases/#column-limit).
+Each row must include a time column.
+As a result, a table can have the following:
+
+- a time column
+- field and tag columns up to the configured maximum
+
+If you attempt to write to a table and exceed the column limit, then the write
+request fails and InfluxDB returns an error.
+
+InfluxData identified the
+[default maximum](/influxdb/cloud-dedicated/admin/databases/#column-limit)
+as the safe limit for maintaining system performance and stability.
+Exceeding this threshold can result in
+[wide schemas](#avoid-wide-schemas), which can negatively impact performance
+and resource use, [depending on your queries](#avoid-non-specific-queries),
+the shape of your schema, and data types in the schema.
 
 ---
 
 ## Design for performance
 
-How you structure your schema within a table can affect the overall
-performance of queries against that table.
+How you structure your schema within a table can affect resource use and
+the performance of queries against that table.
+
 The following guidelines help to optimize query performance:
 
 - [Avoid wide schemas](#avoid-wide-schemas)
@@ -135,26 +158,26 @@ The following guidelines help to optimize query performance:
 
 ### Avoid wide schemas
 
-A wide schema is one with many tags and fields and corresponding columns for each.
-With the InfluxDB v3 storage engine, wide schemas don't impact query execution performance.
-Because InfluxDB v3 is a columnar database, it executes queries only against columns selected in the query.
+A wide schema refers to a schema with a large number of columns (tags and fields).
 
-Although a wide schema won't affect query performance, it can lead to the following:
+Wide schemas can lead to the following issues:
 
-- More resources required for persisting and compacting data during ingestion.
-- Decreased sorting performance due to complex primary keys with [too many tags](#avoid-too-many-tags).
+- Increased resource usage for persisting and compacting data during ingestion.
+- Reduced sorting performance due to complex primary keys with [too many tags](#avoid-too-many-tags).
+- Reduced query performance when
+  [selecting too many columns](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/#select-only-columns-you-need).
 
-The InfluxDB v3 storage engine has a
-[limit of 250 columns per table](#tables-can-contain-up-to-250-columns).
-
-To avoid a wide schema, limit the number of tags and fields stored in a table.
-If you need to store more than 249 total tags and fields, consider segmenting
-your fields into a separate table.
+To prevent wide schema issues, limit the number of tags and fields stored in a table.
+If you need to store more than the [maximum number of columns](/influxdb/cloud-dedicated/admin/databases/),
+consider segmenting your fields into separate tables.
 
 #### Avoid too many tags
 
-In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb/cloud-dedicated/reference/glossary/#tag-key) and [tag values](/influxdb/cloud-dedicated/reference/glossary/#tag-value) on the point.
-A point that contains more tags has a more complex primary key, which could impact sorting performance if you sort using all parts of the key.
+In InfluxDB, the primary key for a row is the combination of the point's
+timestamp and _tag set_ - the collection of [tag keys](/influxdb/cloud-dedicated/reference/glossary/#tag-key)
+and [tag values](/influxdb/cloud-dedicated/reference/glossary/#tag-value) on the point.
+A point that contains more tags has a more complex primary key, which could
+impact sorting performance if you sort using all parts of the key.
 
 ### Avoid sparse schemas
 
@@ -275,7 +298,8 @@ Without regular expressions, your queries will be easier to write and more perfo
 
 #### Not recommended {.orange}
 
-For example, consider the following [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/) that embeds multiple attributes (location, model, and ID) into a `sensor` tag value:
+For example, consider the following [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/)
+that embeds multiple attributes (location, model, and ID) into a `sensor` tag value:
 
 ```text
 home,sensor=loc-kitchen.model-A612.id-1726ZA temp=72.1

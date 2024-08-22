@@ -11,6 +11,14 @@ menu:
     parent: Administer InfluxDB Clustered
 weight: 103
 influxdb/clustered/tags: [databases]
+related:
+  - /influxdb/clustered/write-data/best-practices/schema-design/
+  - /influxdb/clustered/reference/cli/influxctl/
+alt_links:
+  cloud: /influxdb/cloud/admin/buckets/
+  cloud_dedicated: /influxdb/cloud-dedicated/admin/databases/
+  cloud_serverless: /influxdb/cloud-serverless/admin/buckets/
+  oss: /influxdb/v2/admin/buckets/
 ---
 
 An InfluxDB database is a named location where time series data is stored.
@@ -19,7 +27,8 @@ Each InfluxDB database has a [retention period](#retention-periods).
 {{% note %}}
 **If coming from InfluxDB v1**, the concepts of databases and retention policies
 have been combined into a single concept--database. Retention policies are no
-longer part of the InfluxDB data model. However, InfluxDB Clustered does
+longer part of the InfluxDB data model.
+However, {{% product-name %}} does
 support InfluxQL, which requires databases and retention policies.
 See [InfluxQL DBRP naming convention](/influxdb/clustered/admin/databases/create/#influxql-dbrp-naming-convention).
 
@@ -41,9 +50,10 @@ never be removed by the retention enforcement service.
 
 ## Table and column limits
 
-In {{< product-name >}}, table (measurement) and column limits can be
-custom configured when [creating](#create-a-database) or
-[updating a database](#update-a-database).
+You can customize [table (measurement) limits](#table-limit) and
+[table column limits](#column-limit) when you
+[create](#create-a-database) or
+[update a database](#update-a-database) in {{< product-name >}}.
 
 ### Table limit
 
@@ -61,7 +71,8 @@ cluster in the following ways:
 {{% expand "**May improve query performance** <em style='opacity:.5;font-weight:normal;'>View more info</em>" %}}
 
 Schemas with many measurements that contain
-[focused sets of tags and fields](/influxdb/clustered/write-data/best-practices/schema-design/#design-for-performance) can make it easier for the query engine to
+[focused sets of tags and fields](/influxdb/clustered/write-data/best-practices/schema-design/#design-for-performance)
+can make it easier for the query engine to
 identify what partitions contain the queried data, resulting in better
 query performance.
 
@@ -73,7 +84,7 @@ data by measurement and time range and stores each partition as a Parquet
 file in your cluster's object store. By increasing the number of measurements
 (tables) you can store in your database, you also increase the potential for
 more `PUT` requests into your object store as InfluxDB creates more partitions.
-Each `PUT` request incurs a monetary cost and will increase the operating cost of
+Each `PUT` request incurs a monetary cost and increases the operating cost of
 your cluster.
 
 {{% /expand %}}
@@ -92,20 +103,33 @@ operating cost of your cluster.
 
 **Default maximum number of columns**: 250
 
-Time, fields, and tags are each represented by a column in a table.
+**Configurable maximum number of columns**: 1000
+
+Each row must include a time column, with the remaining columns representing
+tags and fields.
+As a result, a table with 250 columns can have one time column and up to
+249 field and tag columns.
+
+If you attempt to write to a table and exceed the column limit, the write
+request fails and InfluxDB returns an error.
+
+If you update the column limit for a database, the limit applies to newly
+created tables; doesn't override the column limit for existing tables.
+
 Increasing your column limit affects your {{% product-name omit=" Clustered" %}}
 cluster in the following ways:
 
 {{< expand-wrapper >}}
-{{% expand "May adversely affect query performance" %}}
+{{% expand "May adversely affect system performance" %}}
 
-At query time, the InfluxDB query engine identifies what table contains the queried
-data and then evaluates each row in the table to match the conditions of the query.
-The more columns that are in each row, the longer it takes to evaluate each row.
-
-Through performance testing, InfluxData has identified 250 columns as the
-threshold beyond which query performance may be affected
-(depending on the shape of and data types in your schema).
+When creating or updating a database, you can configure the table column limit to be
+lower than the default or up to 1000, based on your requirements.
+InfluxData identified 250 columns as the safe limit for maintaining system
+performance and stability.
+Exceeding this threshold can result in
+[wide schemas](/influxdb/clustered/write-data/best-practices/schema-design/#avoid-wide-schemas),
+which can negatively impact performance and resource use,
+depending on your queries, the shape of your schema, and data types in the schema.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

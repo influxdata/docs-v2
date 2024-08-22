@@ -10,49 +10,49 @@ pre-commit:
   parallel: true 
   commands:
     cloud-lint:
-      tags: lint v2
+      tags: lint,v2
       glob: "content/influxdb/cloud/**/*.md"
       run: '.ci/vale/vale.sh
         --config=.vale.ini
         --minAlertLevel=error {staged_files}'
     cloud-dedicated-lint:
-      tags: lint v3
+      tags: lint,v3
       glob: "content/influxdb/cloud-dedicated/**/*.md"
       run: '.ci/vale/vale.sh
         --config=content/influxdb/cloud-dedicated/.vale.ini
         --minAlertLevel=error {staged_files}'
     cloud-serverless-lint:
-      tags: lint v3
+      tags: lint,v3
       glob: "content/influxdb/cloud-serverless/**/*.md"
       run: '.ci/vale/vale.sh
         --config=content/influxdb/cloud-serverless/.vale.ini
         --minAlertLevel=error {staged_files}'
     clustered-lint:
-      tags: lint v3
+      tags: lint,v3
       glob: "content/influxdb/clustered/**/*.md"
       run: '.ci/vale/vale.sh
         --config=content/influxdb/cloud-serverless/.vale.ini
         --minAlertLevel=error {staged_files}'
     telegraf-lint:
-      tags: lint clients 
+      tags: lint,clients 
       glob: "content/telegraf/**/*.md"
       run: '.ci/vale/vale.sh
         --config=.vale.ini
         --minAlertLevel=error {staged_files}'
     v2-lint:
-      tags: lint v2
+      tags: lint,v2
       glob: "content/influxdb/v2/**/*.md"
       run: '.ci/vale/vale.sh
         --config=content/influxdb/v2/.vale.ini
         --minAlertLevel=error {staged_files}'
     cloud-pytest:
       glob: content/influxdb/cloud/**/*.md
-      tags: test codeblocks v2
+      tags: test,codeblocks,v2
       env:
         - SERVICE: cloud-pytest
       run: docker compose run $SERVICE '{staged_files}'
     cloud-dedicated-pytest:
-      tags: test codeblocks v3
+      tags: test,codeblocks,v3
       glob: content/influxdb/cloud-dedicated/**/*.md
       env:
         - SERVICE: cloud-dedicated-pytest
@@ -61,13 +61,13 @@ pre-commit:
         docker compose run $SERVICE {staged_files} ;
         ./test/scripts/monitor-tests.sh stop $SERVICE
     cloud-serverless-pytest:
-      tags: test codeblocks v3
+      tags: test,codeblocks,v3
       glob: content/influxdb/cloud-serverless/**/*.md
       env:
         - SERVICE: cloud-serverless-pytest
       run: docker compose run $SERVICE '{staged_files}'
     clustered-pytest:
-      tags: test codeblocks v3
+      tags: test,codeblocks,v3
       glob: content/influxdb/clustered/**/*.md
       env:
         - SERVICE: clustered-pytest
@@ -76,19 +76,19 @@ pre-commit:
         docker compose run $SERVICE {staged_files} ;
         ./test/scripts/monitor-tests.sh stop $SERVICE
     telegraf-pytest:
-      tags: test codeblocks
+      tags: test,codeblocks
       glob: content/telegraf/**/*.md
       env:
         - SERVICE: telegraf-pytest
       run: docker compose run $SERVICE '{staged_files}'
     v2-pytest:
-      tags: test codeblocks v2
+      tags: test,codeblocks,v2
       glob: content/influxdb/v2/**/*.md
       env:
         - SERVICE: v2-pytest
       run: docker compose run --rm $SERVICE '{staged_files}'
     prettier:
-      tags: frontend style
+      tags: frontend,style
       glob: "*.{css,js,ts,jsx,tsx}"
       run: yarn prettier {staged_files}
 
