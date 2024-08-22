@@ -127,7 +127,7 @@ SELECT * FROM system.tables
 
 {{% note %}}
 If a table doesn't include a partition template in the output of this command,
-the tables uses the default partition strategy of one day and does not partition
+the table uses the default (1 day) partition strategy and doesn't partition
 by tags or tag buckets.
 {{% /note %}}
 
