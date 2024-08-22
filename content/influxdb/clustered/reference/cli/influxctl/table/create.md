@@ -82,8 +82,8 @@ influxctl table create DATABASE_NAME TABLE_NAME
 ### Create a table with a custom partition template
 
 The following example creates a new table and applies a partition
-template that partitions by two tags (`room` and `sensor-type`) and by week using
-the time format `%Y wk:%W`:
+template that partitions by two tags (`room` and `sensor-type`) and by day using
+the time format `%d-%m-%Y`:
 
 {{% code-placeholders "(DATABASE|TABLE)_NAME" %}}
 ```sh
@@ -91,7 +91,7 @@ influxctl table create \
   --template-tag room \
   --template-tag sensor-type \
   --template-tag-bucket customerID,1000 \
-  --template-timeformat '%Y wk:%W' \
+  --template-timeformat '%d-%m-%Y' \
   DATABASE_NAME \
   TABLE_NAME
 ```

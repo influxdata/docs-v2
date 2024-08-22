@@ -156,8 +156,8 @@ influxctl database create \
 ### Create a database with a custom partition template
 
 The following example creates a new `mydb` database and applies a partition
-template that partitions by two tags (`room` and `sensor-type`) and by week using
-the time format `%Y wk:%W`:
+template that partitions by two tags (`room` and `sensor-type`) and by day using
+the time format `%d-%m-%Y`:
 
 <!--Skip tests for database create and delete: namespaces aren't reusable-->
 <!--pytest.mark.skip-->
@@ -167,7 +167,7 @@ influxctl database create \
   --template-tag room \
   --template-tag sensor-type \
   --template-tag-bucket customerID,1000 \
-  --template-timeformat '%Y wk:%W' \
+  --template-timeformat '%d-%m-%Y' \
   mydb
 ```
 
