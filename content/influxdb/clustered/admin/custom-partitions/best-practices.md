@@ -47,12 +47,9 @@ As you plan your partitioning strategy, keep in mind that data can be
 having to retrieve and read many partitions from the object store, which
 hurts query performance.
 
-- Avoid using partition time intervals that are **less than one day**.
-
-  The partition time interval should be balanced with the actual amount of data
-  written during each interval. If a single interval doesn't contain a lot of data,
+- Balance the partition time interval with the actual amount of data written
+  during each interval. If a single interval doesn't contain a lot of data,
   it is better to partition by larger time intervals.
-
 - Don't partition by tags that you typically don't use in your query workload.
 - Don't partition by distinct values of high-cardinality tags.
   Instead, [use tag buckets](#use-tag-buckets-for-high-cardinality-tags) to

@@ -34,7 +34,7 @@ to a table, you must manually create the table before you write any data to it.
       to use in the partition template
     - _Optional_: [InfluxDB tag buckets](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
       to use in the partition template
-    - _Optional_: A [Rust strftime date and time string](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
+    - _Optional_: A supported [Rust strftime date and time string](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
       that specifies the time format in the partition template and determines
       the time interval to partition by _(default is `%Y-%m-%d`)_
     - The name of the database to create the table in
@@ -71,9 +71,9 @@ If no template flags are provided, the table uses the partition template of the
 target database.
 For more information, see [Manage data partitioning](/influxdb/cloud-dedicated/admin/custom-partitions/).
 
-{{% note %}}
+{{% warn %}}
 #### Partition templates can only be applied on create
 
 You can only apply a partition template when creating a table.
 There is no way to update a partition template on an existing table.
-{{% /note %}}
+{{% /warn %}}
