@@ -14,6 +14,8 @@ table (measurement), or column limits in InfluxDB.
 
 ## Usage
 
+<!-- pytest.mark.skip -->
+
 ```sh
 influxctl database update [flags] <DATABASE_NAME>
 ```
@@ -28,9 +30,9 @@ influxctl database update [flags] <DATABASE_NAME>
 
 | Flag |                      | Description                                                  |
 | :--- | :------------------- | :----------------------------------------------------------- |
-|      | `--retention-period` | Database retention period (default is 0s or infinite)        |
-|      | `--max-tables`       | Maximum tables per database (default is 500, 0 uses default) |
-|      | `--max-columns`      | Maximum columns per table (default is 250, 0 uses default)   |
+|      | `--retention-period` | [Database retention period ](/influxdb/cloud-dedicated/admin/databases/#retention-periods)(default is `0s` or infinite)        |
+|      | `--max-tables`       | [Maximum tables per database](/influxdb/cloud-dedicated/admin/databases/#table-limit) (default is 500, 0 uses default) |
+|      | `--max-columns`      | [Maximum columns per table](/influxdb/cloud-dedicated/admin/databases/#column-limit) (default is 250, 0 uses default)   |
 | `-h` | `--help`             | Output command help                                          |
 
 {{% caption %}}

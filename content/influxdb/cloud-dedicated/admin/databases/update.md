@@ -57,9 +57,11 @@ to update a database in your {{< product-name omit=" Clustered" >}} cluster.
 
     - Database name
     - _Optional_: Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods).
-    Default is infinite (`0`).
-    - _Optional_: Database table (measurement) limit. Default is `500`.
-    - _Optional_: Database column limit. Default is `250`.
+      Default is infinite (`0`).
+    - _Optional_: Database [table (measurement) limit](/influxdb/cloud-dedicated/admin/databases/#table-limit).
+      Default is `500`.
+    - _Optional_: Database [column limit](/influxdb/cloud-dedicated/admin/databases/#column-limit).
+      Default is `250`.
 
 {{% code-placeholders "DATABASE_NAME|30d|500|200" %}}
 
