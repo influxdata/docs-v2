@@ -32,6 +32,7 @@ influxctl [flags] [command]
 
 | Command                                                                     | Description                            |
 | :-------------------------------------------------------------------------- | :------------------------------------- |
+| [auth](/influxdb/cloud-dedicated/reference/cli/influxctl/auth/)             | Log in to or log out of InfluxDB v3         |
 | [cluster](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/)       | List InfluxDB v3 cluster information   |
 | [database](/influxdb/cloud-dedicated/reference/cli/influxctl/database/)     | Manage InfluxDB v3 databases           |
 | [help](/influxdb/cloud-dedicated/reference/cli/influxctl/help/)             | Output `influxctl` help information    |
