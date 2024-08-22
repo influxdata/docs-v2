@@ -67,7 +67,6 @@ and SQL to query partition-related information from InfluxDB system tables.
 
 {{% code-placeholders "DATABASE_(TOKEN|NAME)|SQL_QUERY" %}}
 
-<!--pytest.mark.skip-->
 ```bash
 influxctl query \
   --enable-system-tables \
@@ -119,11 +118,11 @@ SELECT * FROM system.tables
 
 #### Example results
 
-| table_name | partition_template                                                                       |
-| :--------- | :--------------------------------------------------------------------------------------- |
-| weather    | {"parts":[{"timeFormat":"%Y-%m-%d"},{"bucket":{"tagName":"location","numBuckets":250}}]} |
-| home       | {"parts":[{"timeFormat":"%Y-%m-%d"},{"tagValue":"room"},{"tagValue":"sensor_id"}]}       |
-| numbers    | {"parts":[{"timeFormat":"%Y"}]}                                                          |
+| table_name | partition_template                                                                         |
+| :--------- | :----------------------------------------------------------------------------------------- |
+| weather    | `{"parts":[{"timeFormat":"%Y-%m-%d"},{"bucket":{"tagName":"location","numBuckets":250}}]}` |
+| home       | `{"parts":[{"timeFormat":"%Y-%m-%d"},{"tagValue":"room"},{"tagValue":"sensor_id"}]}`       |
+| numbers    | `{"parts":[{"timeFormat":"%Y"}]}`                                                          |
 
 {{% note %}}
 If a table doesn't include a partition template in the output of this command,
@@ -139,9 +138,9 @@ SELECT * FROM system.tables WHERE table_name = 'TABLE_NAME'
 
 #### Example results
 
-| table_name | partition_template                                                                       |
-| :--------- | :--------------------------------------------------------------------------------------- |
-| weather    | {"parts":[{"timeFormat":"%Y-%m-%d"},{"bucket":{"tagName":"location","numBuckets":250}}]} |
+| table_name | partition_template                                                                         |
+| :--------- | :----------------------------------------------------------------------------------------- |
+| weather    | `{"parts":[{"timeFormat":"%Y-%m-%d"},{"bucket":{"tagName":"location","numBuckets":250}}]}` |
 
 ### View all partitions for a table
 
