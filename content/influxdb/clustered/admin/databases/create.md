@@ -230,9 +230,9 @@ Use the `--template-tag`, `--template-tag-bucket, and `--template-timeformat`
 flags to define partition template parts used to generate partition keys for the database.
 For more information, see [Manage data partitioning](/influxdb/clustered/admin/custom-partitions/).
 
-{{% note %}}
+{{% warn %}}
 #### Partition templates can only be applied on create
 
 You can only apply a partition template when creating a database.
 You can't update a partition template on an existing database.
-{{% /note %}}
+{{% /warn %}}

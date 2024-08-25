@@ -71,9 +71,9 @@ If no template flags are provided, the table uses the partition template of the
 target database.
 For more information, see [Manage data partitioning](/influxdb/clustered/admin/custom-partitions/).
 
-{{% note %}}
+{{% warn %}}
 #### Partition templates can only be applied on create
 
 You can only apply a partition template when creating a table.
 There is no way to update a partition template on an existing table.
-{{% /note %}}
+{{% /warn %}}
