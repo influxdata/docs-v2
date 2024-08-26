@@ -50,7 +50,7 @@ pre-commit:
       tags: test,codeblocks,v2
       env:
         - SERVICE: cloud-pytest
-      run: docker compose run $SERVICE '{staged_files}'
+      run: docker compose run --rm --name $SERVICE $SERVICE '{staged_files}'
     cloud-dedicated-pytest:
       tags: test,codeblocks,v3
       glob: content/influxdb/cloud-dedicated/**/*.md
@@ -58,14 +58,14 @@ pre-commit:
         - SERVICE: cloud-dedicated-pytest
       run: |
         ./test/scripts/monitor-tests.sh start $SERVICE ;
-        docker compose run $SERVICE {staged_files} ;
+        docker compose run --name $SERVICE $SERVICE {staged_files} ;
         ./test/scripts/monitor-tests.sh stop $SERVICE
     cloud-serverless-pytest:
       tags: test,codeblocks,v3
       glob: content/influxdb/cloud-serverless/**/*.md
       env:
         - SERVICE: cloud-serverless-pytest
-      run: docker compose run $SERVICE '{staged_files}'
+      run: docker compose run --rm --name $SERVICE $SERVICE '{staged_files}'
     clustered-pytest:
       tags: test,codeblocks,v3
       glob: content/influxdb/clustered/**/*.md
@@ -73,20 +73,20 @@ pre-commit:
         - SERVICE: clustered-pytest
       run: |
         ./test/scripts/monitor-tests.sh start $SERVICE ;
-        docker compose run $SERVICE {staged_files} ;
+        docker compose run --name $SERVICE $SERVICE {staged_files} ;
         ./test/scripts/monitor-tests.sh stop $SERVICE
     telegraf-pytest:
       tags: test,codeblocks
       glob: content/telegraf/**/*.md
       env:
         - SERVICE: telegraf-pytest
-      run: docker compose run $SERVICE '{staged_files}'
+      run: docker compose run --rm --name $SERVICE $SERVICE '{staged_files}'
     v2-pytest:
       tags: test,codeblocks,v2
       glob: content/influxdb/v2/**/*.md
       env:
         - SERVICE: v2-pytest
-      run: docker compose run --rm $SERVICE '{staged_files}'
+      run: docker compose run --rm --name $SERVICE $SERVICE '{staged_files}'
     prettier:
       tags: frontend,style
       glob: "*.{css,js,ts,jsx,tsx}"
