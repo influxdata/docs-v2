@@ -138,7 +138,7 @@ If any file isn't a valid configuration, Telegraf returns an error.
 
 {{% warn %}}
 
-#### Partial configurations aren't supported
+#### Telegraf doesn't support partial configurations
 
 Telegraf doesn't concatenate configuration files before processing them.
 Each configuration file that you provide must be a valid configuration.
