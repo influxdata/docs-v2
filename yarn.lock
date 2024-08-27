@@ -534,9 +534,9 @@ eastasianwidth@^0.2.0:
   integrity sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==
 
 electron-to-chromium@^1.5.4:
-  version "1.5.12"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.12.tgz#ee31756eaa2e06f2aa606f170b7ad06dd402b4e4"
-  integrity sha512-tIhPkdlEoCL1Y+PToq3zRNehUaKp3wBX/sr7aclAWdIWjvqAe/Im/H0SiCM4c1Q8BLPHCdoJTol+ZblflydehA==
+  version "1.5.13"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.13.tgz#1abf0410c5344b2b829b7247e031f02810d442e6"
+  integrity sha512-lbBcvtIJ4J6sS4tb5TLp1b4LyfCdMkwStzXPyAgVgTRAsep4bvrAGaBOP7ZJtQMNJpSQ9SqG4brWOroNaQtm7Q==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -831,9 +831,9 @@ http2-wrapper@^2.1.10:
     resolve-alpn "^1.2.0"
 
 hugo-extended@>=0.101.0:
-  version "0.132.2"
-  resolved "https://registry.yarnpkg.com/hugo-extended/-/hugo-extended-0.132.2.tgz#cca3d82d7ffd6145d535a787d3963215c8af075b"
-  integrity sha512-KsEeBOratmFHaX8RnJSnkrqy4HaYn+GctHJRtUtoZJZ/mE1knogBKeB4Ss6T3juBwBS9PVF7hb9XSkjeJUAo2Q==
+  version "0.133.0"
+  resolved "https://registry.yarnpkg.com/hugo-extended/-/hugo-extended-0.133.0.tgz#77ad49e1e394634337b7ce198053e670969fe836"
+  integrity sha512-+C3I/0uUww04mcdkRdcdsfqHlCXMRQrvi7dUqlyPQViDqIMszPzKQorKEB3YddYEJLomLKoUtAoxs2JVqTXT8A==
   dependencies:
     careful-downloader "^3.0.0"
     log-symbols "^5.1.0"
@@ -875,9 +875,9 @@ is-binary-path@~2.1.0:
     binary-extensions "^2.0.0"
 
 is-core-module@^2.5.0:
-  version "2.15.0"
-  resolved "https://registry.yarnpkg.com/is-core-module/-/is-core-module-2.15.0.tgz#71c72ec5442ace7e76b306e9d48db361f22699ea"
-  integrity sha512-Dd+Lb2/zvk9SKy1TGCt1wFJFo/MWBPMX5x7KcvLajWTGuomczdQX61PvY5yK6SVACwpoexWo81IfFyoKY2QnTA==
+  version "2.15.1"
+  resolved "https://registry.yarnpkg.com/is-core-module/-/is-core-module-2.15.1.tgz#a7363a25bee942fefab0de13bf6aa372c82dcc37"
+  integrity sha512-z0vtXSwucUJtANQWldhbtbt7BnL0vxiFjIdDLAatwhDYty2bad6s+rijD6Ri4YuYJubLzIJLUidCh09e1djEVQ==
   dependencies:
     hasown "^2.0.2"
 

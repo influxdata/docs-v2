@@ -28,13 +28,13 @@ table.
 - [Create a table with a custom partition template](#create-a-table-with-a-custom-partition-template)
 - [Example partition templates](#example-partition-templates)
 
-{{% note %}}
+{{% warn %}}
 
 #### Partition templates can only be applied on create
 
 You can only apply a partition template when creating a database or table.
 You can't update a partition template on an existing resource.
-{{% /note %}}
+{{% /warn %}}
 
 Use the following command flags to identify
 [partition template parts](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-part-templates):
@@ -69,7 +69,7 @@ Otherwise, InfluxDB omits time from the partition template and won't compact par
 
 The following example creates a new `example-db` database and applies a partition
 template that partitions by distinct values of two tags (`room` and `sensor-type`),
-bucketed values of the `customerID` tag, and by week using the time format `%Y wk:%W`:
+bucketed values of the `customerID` tag, and by day using the time format `%Y-%m-%d`:
 
 <!--Skip database create and delete tests: namespaces aren't reusable-->
 <!--pytest.mark.skip-->
@@ -79,7 +79,7 @@ influxctl database create \
   --template-tag room \
   --template-tag sensor-type \
   --template-tag-bucket customerID,500 \
-  --template-timeformat '%Y wk:%W' \
+  --template-timeformat '%Y-%m-%d' \
   example-db
 ```
 
@@ -150,22 +150,21 @@ prod,line=A,station=weld1 temp=81.9,qty=36i 1704067200000000000
 
 ##### Partitioning by distinct tag values
 
-| Description             | Tag parts       | Time part  | Resulting partition key  |
+| Description             | Tag parts         | Time part  | Resulting partition key  |
 | :---------------------- | :---------------- | :--------- | :----------------------- |
 | By day (default)        |                   | `%Y-%m-%d` | 2024-01-01               |
-| By day (non-default)    |                   | `%d %b %Y` | 01 Jan 2024              |
-| By week                 |                   | `%Y wk:%W` | 2024 wk:01               |
 | By month                |                   | `%Y-%m`    | 2024-01                  |
-| Single tag, by day      | `line`            | `%F`       | A \| 2024-01-01          |
-| Single tag, by week     | `line`            | `%Y wk:%W` | A \| 2024 wk:01          |
+| By year                 |                   | `%Y`       | 2024                     |
+| Single tag, by day      | `line`            | `%Y-%m-%d` | A \| 2024-01-01          |
 | Single tag, by month    | `line`            | `%Y-%m`    | A \| 2024-01             |
-| Multiple tags, by day   | `line`, `station` | `%F`       | A \| weld1 \| 2024-01-01 |
-| Multiple tags, by week  | `line`, `station` | `%Y wk:%W` | A \| weld1 \| 2024 wk:01 |
+| Single tag, by year     | `line`            | `%Y`       | A \| 2024                |
+| Multiple tags, by day   | `line`, `station` | `%Y-%m-%d` | A \| weld1 \| 2024-01-01 |
 | Multiple tags, by month | `line`, `station` | `%Y-%m`    | A \| weld1 \| 2024-01    |
+| Multiple tags, by year  | `line`, `station` | `%Y`       | A \| weld1 \| 2024       |
 
 ##### Partition by tag buckets
 
-| Description                        | Tag part | Tag bucket part | Time part  | Resulting partition key |
-| :--------------------------------- | :------- | :-------------- | :--------- | :---------------------- |
-| Distinct tag, tag buckets, by day  | `line`   | `station,100`   | `%F`       | A \| 3 \| 2024-01-01    |
-| Distinct tag, tag buckets, by week | `line`   | `station,500`   | `%Y wk:%W` | A \| 303 \| 2024 wk:01  |
+| Description                         | Tag part | Tag bucket part | Time part  | Resulting partition key |
+| :---------------------------------- | :------- | :-------------- | :--------- | :---------------------- |
+| Distinct tag, tag buckets, by day   | `line`   | `station,100`   | `%Y-%m-%d` | A \| 3 \| 2024-01-01    |
+| Distinct tag, tag buckets, by month | `line`   | `station,500`   | `%Y-%m`    | A \| 303 \| 2024-01     |

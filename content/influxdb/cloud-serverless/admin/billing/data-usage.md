@@ -17,6 +17,18 @@ aliases:
   - /influxdb/cloud-serverless/admin/accounts/data-usage/
 ---
 
+{{% warn %}}
+
+#### Possible inaccurate or incomplete data usage reports
+
+The Cloud Serverless and Cloud 2 UI **Usage** page is currently experiencing an
+issue that may cause the data usage reports to be inaccurate or incomplete.
+Please note that actual billing records are not affected.
+Our team is actively working to resolve this issue.
+We apologize for any inconvenience and appreciate your patience.
+
+{{% /warn %}}
+
 View the statistics of your data usage and rate limits (reads and writes) on the
 InfluxDB Cloud Serverless UI **Usage** page.
 For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/admin/billing/limits/).
