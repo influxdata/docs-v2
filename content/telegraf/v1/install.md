@@ -76,7 +76,7 @@ To use the SHA checksum to verify the downloaded file, do the following:
 3. Compute the SHA checksum of the downloaded file and compare it to the
    published checksum--for example, enter the following command in your terminal.
 
-   _Note: Include two spaces between the checksum and the filename._
+   _Note: Use two spaces to separate the checksum from the filename._
 
    <!--test:actual
    ```sh
@@ -162,7 +162,6 @@ repository:
 [Ubuntu 20.04 LTS and newer](#)
 [Older than Ubuntu 20.04](#)
 {{% /code-tabs %}}
-
 {{% code-tab-content %}}
 <!------------------------BEGIN UBUNTU 20.04 LTS AND NEWER--------------------->
 
