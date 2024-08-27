@@ -18,6 +18,18 @@ alt_links:
   cloud-serverless: /influxdb/cloud-serverless/admin/billing/data-usage/
 ---
 
+{{% warn %}}
+
+#### Possible inaccurate or incomplete data usage reports
+
+The Cloud Serverless and Cloud 2 UI **Usage** page is currently experiencing an
+issue that may cause the data usage reports to be inaccurate or incomplete.
+Please note that actual billing records are not affected.
+Our team is actively working to resolve this issue.
+We apologize for any inconvenience and appreciate your patience.
+
+{{% /warn %}}
+
 View the statistics of your data usage and rate limits (reads, writes, and delete limits) on the Usage page. Some usage data affects monthly costs ([pricing vectors](/influxdb/cloud/account-management/pricing-plans/#pricing-vectors)) and other usage data (for example, delete limits), does not affect pricing. For more information, see the [InfluxDB Cloud limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
 
 To view your {{< product-name >}} data usage, do the following:
