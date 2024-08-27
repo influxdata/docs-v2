@@ -61,20 +61,12 @@ you can use to verify that the downloaded file is intact and hasn't been corrupt
 To use the SHA checksum to verify the downloaded file, do the following:
 
 1. In the [downloads page](https://www.influxdata.com/downloads),
-   select the **Version** and **Platform** for your download.
-
-   The page displays the unique SHA256 checksum for the file--for example:
-
-   {{< img-hd src="/img/telegraf/downloads-telegraf-linux-amd64.png" alt="Screenshot of InfluxData downloads page showing the Telegraf SHA256 and code snippet" />}}
-
-2. Copy the SHA256 value--for example:
-
-   ```text
-   030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea
-   ```
+   select the **Version** and **Platform** for your download, and then copy
+   the SHA256 checksum for the file.
 
 3. Compute the SHA checksum of the downloaded file and compare it to the
-   published checksum--for example, enter the following command in your terminal.
+   checksum you copied in the preceding step--for example, enter the following
+   command in your terminal.
 
    _Note: Use two spaces to separate the checksum from the filename._
 
@@ -87,15 +79,21 @@ To use the SHA checksum to verify the downloaded file, do the following:
    ```
    -->
 
-   <!--pytest.mark.skip-->
-   ```bash
-   echo '030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz' \
-   | sha256sum -c -
-   ```
+<!--pytest.mark.skip-->
 
-   Replace the following:
+{{% code-placeholders "030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea" %}}
 
-   - {{% code-placeholder-key %}}`030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea`{{% /code-placeholder-key %}}: the SHA checksum copied from the downloads page 
+```bash
+echo "030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
+| sha256sum -c -
+```
+
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea`{{% /code-placeholder-key %}}:
+  the **SHA256:** checksum value that you copied from the downloads page 
 
 If the checksums match, the output is the following:
 
