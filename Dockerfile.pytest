@@ -12,6 +12,7 @@ RUN echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] h
 
 # Install InfluxDB clients to use in tests. 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+  apt-utils \
   curl \
   git \
   gpg \
@@ -52,7 +53,7 @@ COPY ./test/pytest/pytest.ini pytest.ini
 # Python and Pytest dependencies.
 COPY ./test/pytest/requirements.txt requirements.txt
 # Pytest fixtures.
-COPY ./test/pytest/conftest.py conftest.py 
+COPY ./test/pytest/conftest.py conftest.py
 RUN pip install -Ur requirements.txt
 
 # Activate the Python virtual environment configured in the Dockerfile.
@@ -70,6 +71,7 @@ RUN service influxdb start
 
 # Copy test scripts and make them executable.
 COPY --chmod=755 ./test/scripts/parse_yaml.sh /usr/local/bin/parse_yaml
+COPY --chmod=755 ./test/scripts/get-container-info.sh /usr/local/bin/get-container-info
 
 ENTRYPOINT [ "pytest" ]
 

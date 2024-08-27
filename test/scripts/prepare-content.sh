@@ -97,8 +97,17 @@ function substitute_placeholders {
 
       # v2-specific replacements.
       sed -i 's|https:\/\/us-west-2-1.aws.cloud2.influxdata.com|$INFLUX_HOST|g;
-      s|{{< latest-patch >}}|${influxdb_latest_patches_v2}|g;
-      s|{{< latest-patch cli=true >}}|${influxdb_latest_cli_v2}|g;' \
+      s|influxdb2-{{< latest-patch >}}|influxdb2-${influxdb_latest_patches_v2}|g;
+      s|{{< latest-patch cli=true >}}|${influxdb_latest_cli_v2}|g;
+      s|influxdb2-{{% latest-patch %}}|influxdb2-${influxdb_latest_patches_v2}|g;
+      s|{{% latest-patch cli=true %}}|${influxdb_latest_cli_v2}|g;' \
+      $file
+
+      # Telegraf-specific replacements
+      sed -i 's|telegraf-{{< latest-patch >}}|telegraf-${telegraf_latest_patches_v1}|g;
+      s|telegraf-{{% latest-patch %}}|telegraf-${telegraf_latest_patches_v1}|g;
+      s/--input-filter <INPUT_PLUGIN_NAME>\[:<INPUT_PLUGIN_NAME>\]/--input-filter cpu:influxdb/g;
+      s/--output-filter <OUTPUT_PLUGIN_NAME>\[:<OUTPUT_PLUGIN_NAME>\]/--output-filter influxdb_v2:file/g;' \
       $file
 
       # Skip package manager commands.
@@ -107,6 +116,7 @@ function substitute_placeholders {
       $file
 
       # Environment-specific replacements.
+      # You can't use sudo with Docker.
       sed -i 's|sudo ||g;' \
       $file
     fi
