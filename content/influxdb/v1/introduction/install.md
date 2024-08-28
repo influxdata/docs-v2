@@ -213,7 +213,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    For example:
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb-{{< latest-patch >}}_linux_amd64.tar.gz.asc
+    wget https://download.influxdata.com/influxdb/releases/influxdb-{{< latest-patch >}}_linux_amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
