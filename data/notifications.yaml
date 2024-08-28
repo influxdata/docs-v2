@@ -42,8 +42,14 @@
 - id: v3-enhancements-clustered-ga
   level: note
   scope:
-    - /influxdb/cloud-dedicated/
-    - /influxdb/clustered/
+    - /
+  exclude:
+    - /influxdb/cloud/
+    - /influxdb/v1/
+    - /influxdb/v2/
+    - /telegraf/
+    - /kapacitor/
+    - /chronograf/
   title: InfluxDB v3 enhancements and InfluxDB Clustered is now generally available
   slug: |
     New capabilities, including faster query performance and management
