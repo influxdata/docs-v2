@@ -22,11 +22,18 @@ InfluxDB's SQL implementation supports time and date functions that are useful w
 - [datepart](#datepart)
 - [extract](#extract)
 - [from_unixtime](#from_unixtime)
+- [make_date](#make_date)
 - [now](#now)
+- [today](#today)
+- [to_char](#to_char)
+- [to_date](#to_date)
+- [to_local_time](#to_local_time)
 - [to_timestamp](#to_timestamp)
-- [to_timestamp_millis](#to_timestamp_millis)
 - [to_timestamp_micros](#to_timestamp_micros)
+- [to_timestamp_millis](#to_timestamp_millis)
+- [to_timestamp_nanos](#to_timestamp_nanos)
 - [to_timestamp_seconds](#to_timestamp_seconds)
+- [to_unixtime](#to_unixtime)
 
 ## current_date
 
@@ -34,7 +41,7 @@ Returns the current UTC date.
 
 {{% note %}}
 `current_date` returns a `DATE32` Arrow type, which isn't supported by InfluxDB.
-To use with InfluxDB, [cast the return value to a timestamp](/influxdb/cloud-serverless/query-data/sql/cast-types/#cast-to-a-timestamp-type).
+To use with InfluxDB, [cast the return value to a timestamp or string](/influxdb/cloud-serverless/query-data/sql/cast-types/).
 {{% /note %}}
 
 The `current_date()` return value is determined at query time and will return
@@ -218,13 +225,9 @@ The following intervals are supported:
 - hours
 - days
 - weeks
-
-<!-- https://github.com/influxdata/influxdb_iox/issues/9958 tracks adding this --> 
-The following intervals are not currently supported:
 - months
 - years
 - century
-
 
 ##### Related functions
 
@@ -465,7 +468,7 @@ date_part(part, expression)
   - microsecond
   - nanosecond
   - dow _(day of the week)_
-  - doy _(day of the year)_
+  - day _(day of the year)_
 
 - **expression**: Time expression to operate on.
   Can be a constant, column, or function.
@@ -531,7 +534,7 @@ extract(field FROM source)
   - microsecond
   - nanosecond
   - dow _(day of the week)_
-  - doy _(day of the year)_
+  - day _(day of the year)_
 
 - **source**: Source time expression to operate on.
   Can be a constant, column, or function.
@@ -569,6 +572,10 @@ from_unixtime(expression)
 - **expression**: Integer expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
 
+##### Related functions
+
+[to_unixtime](#to_unixtime)
+
 {{< expand-wrapper >}}
 {{% expand "View `from_unixtime` query example" %}}
 
@@ -580,6 +587,42 @@ SELECT
 | RFC3339              |
 | :------------------- |
 | 2023-01-01T00:00:00Z |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## make_date
+
+Returns a date using the component parts (year, month, day).
+
+{{% note %}}
+`make_date` returns a `DATE32` Arrow type, which isn't supported by InfluxDB.
+To use with InfluxDB, [cast the return value to a timestamp or string](/influxdb/cloud-serverless/query-data/sql/cast-types/).
+{{% /note %}}
+
+```sql
+make_date(year, month, day)
+```
+
+##### Arguments
+
+- **year**: Year to use when making the date.
+  Can be a constant, column or function, and any combination of arithmetic operators.
+- **month**: Month to use when making the date.
+  Can be a constant, column or function, and any combination of arithmetic operators.
+- **day**: Day to use when making the date.
+  Can be a constant, column or function, and any combination of arithmetic operators
+
+{{< expand-wrapper >}}
+{{% expand "View `make_date` query example" %}}
+
+```sql
+SELECT make_date(2024, 01, 01)::STRING AS date
+```
+
+| date       |
+| :--------- |
+| 2023-01-01 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -606,6 +649,156 @@ FROM h2o_feet
 WHERE
   time <= now() - interval '12 minutes'
 ```
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## today
+
+_Alias of [current_date](#current_date)._
+
+## to_char
+
+Returns the string representation of a date, time, timestamp, or duration based on
+a [Rust Chrono format string](https://docs.rs/chrono/latest/chrono/format/strftime/index.html).
+
+{{% note %}}
+Unlike the PostgreSQL `TO_CHAR()` function, this function does not support
+numeric formatting.
+{{% /note %}}
+
+```sql
+to_char(expression, format)
+```
+
+##### Arguments
+
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function that results in a date, time, timestamp or duration.
+- **format**: [Rust Chrono format string](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
+  to use to convert the expression.
+
+{{< expand-wrapper >}}
+{{% expand "View `to_char` query example" %}}
+
+```sql
+SELECT
+  to_char('2024-01-01T12:22:01Z'::TIMESTAMP, '%a %e-%b-%Y %H:%M:%S') AS datestring
+```
+
+| datestring               |
+| :----------------------- |
+| Mon  1-Jan-2024 12:22:01 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## to_date
+
+Converts a value to a date (`YYYY-MM-DD`).
+Supports strings and numeric types as input.
+Strings are parsed as `YYYY-MM-DD` unless another format is specified. if no Chrono formats are provided.
+Numeric values are interpreted as days since the
+[Unix epoch](/influxdb/cloud-serverless/reference/glossary/#unix-epoch).
+
+{{% note %}}
+`to_date` returns a `DATE32` Arrow type, which isn't supported by InfluxDB.
+To use with InfluxDB, [cast the return value to a timestamp or string](/influxdb/cloud-serverless/query-data/sql/cast-types/).
+{{% /note %}}
+
+```sql
+to_date(expression[, ..., format_n])
+```
+
+###### Arguments
+
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **format_n**: Optional [Rust strftime](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
+  pattern to use to parse the _string_ expression.
+  Formats are attempted in the order that they appear.
+  The function returns the timestamp from the first format to parse successfully.
+  If no formats parse successfully, the function returns an error.
+
+{{< expand-wrapper >}}
+{{% expand "View `to_date` query example" %}}
+
+```sql
+SELECT
+  to_date('1-Jan-2024', '%e-%b-%Y')::STRING AS date
+```
+
+| date       |
+| :--------- |
+| 2024-01-01 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## to_local_time
+
+Converts a timestamp with a timezone to a timestamp without a timezone
+(no offset or timezone information). This function accounts for time shifts
+like Daylight Saving Time (DST) or British Summer Time (BST).
+
+{{% note %}}
+Use `to_local_time()` with [`date_bin()`](#date_bin) and
+[`date_bin_gapfill`](#date_bin_gapfill) to generate window boundaries based the
+local time zone rather than UTC.
+{{% /note %}}
+
+```sql
+to_local_time(expression)
+```
+
+##### Arguments
+
+- **expression**: Time expression to operate on.
+  Can be a constant, column, or function.
+
+{{< expand-wrapper >}}
+{{% expand "View `to_local_time` query example" %}}
+
+```sql
+SELECT
+  to_local_time('2024-01-01 00:00:00'::TIMESTAMP) AS "local time";
+```
+
+| local time           |
+| :------------------- |
+| 2024-01-01T00:00:00Z |
+
+{{% /expand %}}
+{{% expand "View `to_local_time` query example with a time zone offset" %}}
+
+```sql
+SELECT
+  to_local_time((arrow_cast('2024-01-01 00:00:00', 'Timestamp(Nanosecond, Some("UTC"))')) AT TIME ZONE 'America/Los_Angeles') AS "local time"
+```
+
+| local time           |
+| :------------------- |
+| 2023-12-31T16:00:00Z |
+
+{{% /expand %}}
+{{% expand "View `to_local_time` query example with `date_bin`" %}}
+
+```sql
+SELECT
+  date_bin(interval '1 day', time, to_local_time(0::TIMESTAMP)) AT TIME ZONE 'America/Los_Angeles' AS time,
+  avg(f1),
+  avg(f2)
+FROM
+  (VALUES (arrow_cast('2024-01-01 12:00:00', 'Timestamp(Nanosecond, Some("UTC"))'), 1.23, 4.56),
+          (arrow_cast('2024-01-01 13:00:00', 'Timestamp(Nanosecond, Some("UTC"))'), 2.46, 8.1),
+          (arrow_cast('2024-01-01 14:00:00', 'Timestamp(Nanosecond, Some("UTC"))'), 4.81, 16.2)
+  ) AS data(time, f1, f2)
+GROUP BY 1
+```
+
+| time                      |       avg(data.f1) | avg(data.f2) |
+| :------------------------ | -----------------: | -----------: |
+| 2023-12-31T16:00:00-08:00 | 2.8333333333333335 |         9.62 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -641,6 +834,52 @@ SELECT to_timestamp(1704067200000000000)
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## to_timestamp_micros
+
+Converts a value to RFC3339 microsecond timestamp format (`YYYY-MM-DDT00:00:00.000000Z`).
+Supports timestamp, integer, and unsigned integer types as input.
+Integers and unsigned integers are parsed as
+[Unix microsecond timestamps](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
+and return the corresponding RFC3339 timestamp.
+
+```sql
+to_timestamp_micros(expression[, ..., format_n])
+```
+
+##### Arguments:
+
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **format_n**: Optional [Rust strftime](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
+  pattern to use to parse the _string_ expression.
+  Formats are attempted in the order that they appear.
+  The function returns the timestamp from the first format to parse successfully.
+  If no formats parse successfully, the function returns an error.
+
+{{< expand-wrapper >}}
+{{% expand "View `to_timestamp_micros` query example" %}}
+
+```sql
+SELECT to_timestamp_micros(1704067200000001)
+```
+
+| to_timestamp_micros(Int64(1704067200000001)) |
+| :------------------------------------------- |
+| 2024-01-01T00:00:00.000001Z                  |
+{{% /expand %}}
+{{% expand "View `to_timestamp_micros` example with string format parsing" %}}
+
+```sql
+SELECT to_timestamp_micros('01:01:59.123456789 01-01-2024', '%c', '%+', '%H:%M:%S%.f %m-%d-%Y') AS microsecond
+```
+
+| microsecond                 |
+| :-------------------------- |
+| 2024-01-01T01:01:59.123456Z |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ## to_timestamp_millis
 
 Converts a value to RFC3339 millisecond timestamp format (`YYYY-MM-DDT00:00:00.000Z`).
@@ -657,7 +896,7 @@ to_timestamp_millis(expression[, ..., format_n])
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
-- **format_n**: [Rust strftime](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
+- **format_n**: Optional [Rust strftime](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
   pattern to use to parse the _string_ expression.
   Formats are attempted in the order that they appear.
   The function returns the timestamp from the first format to parse successfully.
@@ -689,52 +928,6 @@ SELECT to_timestamp_millis('01:01:59.123456789 01-01-2024', '%c', '%+', '%H:%M:%
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-## to_timestamp_micros
-
-Converts a value to RFC3339 microsecond timestamp format (`YYYY-MM-DDT00:00:00.000000Z`).
-Supports timestamp, integer, and unsigned integer types as input.
-Integers and unsigned integers are parsed as
-[Unix microsecond timestamps](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
-and return the corresponding RFC3339 timestamp.
-
-```sql
-to_timestamp_micros(expression[, ..., format_n])
-```
-
-##### Arguments:
-
-- **expression**: Expression to operate on.
-  Can be a constant, column, or function, and any combination of arithmetic operators.
-- **format_n**: [Rust strftime](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
-  pattern to use to parse the _string_ expression.
-  Formats are attempted in the order that they appear.
-  The function returns the timestamp from the first format to parse successfully.
-  If no formats parse successfully, the function returns an error.
-
-{{< expand-wrapper >}}
-{{% expand "View `to_timestamp_micros` query example" %}}
-
-```sql
-SELECT to_timestamp_micros(1704067200000001)
-```
-
-| to_timestamp_micros(Int64(1704067200000001)) |
-| :------------------------------------------- |
-| 2024-01-01T00:00:00.000001Z                  |
-{{% /expand %}}
-{{% expand "View `to_timestamp_micros` example with string format parsing" %}}
-
-```sql
-SELECT to_timestamp_micros('01:01:59.123456789 01-01-2024', '%c', '%+', '%H:%M:%S%.f %m-%d-%Y') AS microsecond
-```
-
-| microsecond                 |
-| :-------------------------- |
-| 2024-01-01T01:01:59.123456Z |
-
-{{% /expand %}}
-{{< /expand-wrapper >}}
-
 ## to_timestamp_nanos
 
 Converts a value to RFC3339 nanosecond timestamp format (`YYYY-MM-DDT00:00:00.000000000Z`).
@@ -751,7 +944,7 @@ to_timestamp_nanos(expression[, ..., format_n])
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
-- **format_n**: [Rust strftime](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
+- **format_n**: Optional [Rust strftime](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
   pattern to use to parse the _string_ expression.
   Formats are attempted in the order that they appear.
   The function returns the timestamp from the first format to parse successfully.
@@ -797,7 +990,7 @@ to_timestamp_seconds(expression[, ..., format_n])
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
-- **format_n**: [Rust strftime](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
+- **format_n**: Optional [Rust strftime](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
   pattern to use to parse the _string_ expression.
   Formats are attempted in the order that they appear.
   The function returns the timestamp from the first format to parse successfully.
@@ -824,6 +1017,58 @@ SELECT to_timestamp_seconds('01:01:59.123456789 01-01-2024', '%c', '%+', '%H:%M:
 | second               |
 | :------------------- |
 | 2024-01-01T01:01:59Z |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## to_unixtime
+
+Converts a value to seconds since the [Unix epoch](/influxdb/cloud-serverless/reference/glossary/#unix-epoch).
+Supports strings, timestamps, and floats as input.
+Strings are parsed as RFC3339nano timestamps if no
+[Rust Chrono format strings](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
+are provided.
+
+```sql
+to_unixtime(expression[, ..., format_n])
+```
+
+##### Arguments
+
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **format_n**: Optional [Rust strftime](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
+  pattern to use to parse the _string_ expression.
+  Formats are attempted in the order that they appear.
+  The function returns the timestamp from the first format to parse successfully.
+  If no formats parse successfully, the function returns an error.
+
+##### Related functions
+
+[from_unixtime](#from_unixtime)
+
+{{< expand-wrapper >}}
+{{% expand "View `to_unixtime` query example" %}}
+
+```sql
+SELECT to_unixtime('2024-01-01T01:01:59.123456789Z') AS unixtime
+```
+
+| unixtime   |
+| :--------- |
+| 1704070919 |
+
+{{% /expand %}}
+{{% expand "View `to_unixtime` example with string format parsing" %}}
+
+```sql
+SELECT
+  to_unixtime('01:01:59.123456789 01-01-2024', '%c', '%+', '%H:%M:%S%.f %m-%d-%Y') AS unixtime
+```
+
+| unixtime   |
+| :--------- |
+| 1704070919 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
