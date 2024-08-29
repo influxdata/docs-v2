@@ -12,18 +12,6 @@ alt_links:
   cloud: /influxdb/cloud/account-management/billing/
 ---
 
-{{% warn %}}
-
-#### Possible inaccurate or incomplete data usage reports
-
-The Cloud Serverless and Cloud 2 UI **Usage** page is currently experiencing an
-issue that may cause the data usage reports to be inaccurate or incomplete.
-Please note that actual billing records are not affected.
-Our team is actively working to resolve this issue.
-We apologize for any inconvenience and appreciate your patience.
-
-{{% /warn %}}
-
 Learn how to upgrade your plan, access billing details, and review and resolve plan limit overages:
 
 - [Upgrade to Usage-Based Plan](#upgrade-to-usage-based-plan)
