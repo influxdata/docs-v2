@@ -90,7 +90,7 @@ Returns the current UTC time.
 To use with InfluxDB, [cast the return value to a string](/influxdb/cloud-dedicated/query-data/sql/cast-types/#cast-to-a-string-type).
 {{% /note %}}
 
-The `current_time()` return value is determined at query time and will return the same time,
+The `current_time()` return value is determined at query time and returns the same time,
 no matter when in the query plan the function executes.
 
 ```
@@ -631,7 +631,7 @@ SELECT make_date(2024, 01, 01)::STRING AS date
 
 Returns the current UTC timestamp.
 
-The `now()` return value is determined at query time and will return the same timestamp,
+The `now()` return value is determined at query time and returns the same timestamp,
 no matter when in the query plan the function executes.
 
 ```sql 
@@ -697,7 +697,7 @@ SELECT
 
 Converts a value to a date (`YYYY-MM-DD`).
 Supports strings and numeric types as input.
-Strings are parsed as `YYYY-MM-DD` unless another format is specified. if no Chrono formats are provided.
+Strings are parsed as `YYYY-MM-DD` unless another format is specified.
 Numeric values are interpreted as days since the
 [Unix epoch](/influxdb/cloud-dedicated/reference/glossary/#unix-epoch).
 
