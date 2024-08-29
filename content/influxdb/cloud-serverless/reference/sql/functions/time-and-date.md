@@ -44,7 +44,7 @@ Returns the current UTC date.
 To use with InfluxDB, [cast the return value to a timestamp or string](/influxdb/cloud-serverless/query-data/sql/cast-types/).
 {{% /note %}}
 
-The `current_date()` return value is determined at query time and will return
+The `current_date()` return value is determined at query time and returns
 the same date, no matter when in the query plan the function executes.
 
 ```
@@ -1025,7 +1025,7 @@ SELECT to_timestamp_seconds('01:01:59.123456789 01-01-2024', '%c', '%+', '%H:%M:
 
 Converts a value to seconds since the [Unix epoch](/influxdb/cloud-serverless/reference/glossary/#unix-epoch).
 Supports strings, timestamps, and floats as input.
-Strings are parsed as RFC3339nano timestamps if no
+Strings are parsed as [RFC3339Nano timestamps](/influxdb/cloud-serverless/reference/glossary/#rfc3339nano-timestamp) if no
 [Rust Chrono format strings](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
 are provided.
 

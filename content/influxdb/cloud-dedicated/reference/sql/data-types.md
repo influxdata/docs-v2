@@ -26,7 +26,7 @@ A data type is an attribute that specifies the type of data that the object can 
 DataFusion uses the [Arrow](https://arrow.apache.org/) type system for query execution.
 All SQL types are mapped to [Arrow data types](https://docs.rs/arrow/latest/arrow/datatypes/enum.DataType.html).
 
-Both SQL and Arrow data types play an important role is how data is operated on
+Both SQL and Arrow data types play an important role in how data is operated on
 during query execution and returned in query results.
 
 {{% note %}}

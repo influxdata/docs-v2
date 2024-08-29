@@ -44,7 +44,7 @@ Returns the current UTC date.
 To use with InfluxDB, [cast the return value to a timestamp or string](/influxdb/cloud-dedicated/query-data/sql/cast-types/).
 {{% /note %}}
 
-The `current_date()` return value is determined at query time and will return
+The `current_date()` return value is determined at query time and returns
 the same date, no matter when in the query plan the function executes.
 
 ```
@@ -127,7 +127,7 @@ Calculates time intervals and returns the start of the interval nearest to the s
 Use `date_bin` to downsample time series data by grouping rows into time-based "bins" or "windows"
 and applying an aggregate or selector function to each window.
 
-For example, if you "bin" or "window" data into 15 minute intervals, an input timestamp of `2023-01-01T18:18:18Z` will be updated to the start time of the 15 minute bin it is in: `2023-01-01T18:15:00Z`.
+For example, if you "bin" or "window" data into 15-minute intervals, an input timestamp of `2023-01-01T18:18:18Z` will be updated to the start time of the 15-minute bin it is in: `2023-01-01T18:15:00Z`.
 
 ```sql
 date_bin(interval, expression[, origin_timestamp])
@@ -1025,7 +1025,7 @@ SELECT to_timestamp_seconds('01:01:59.123456789 01-01-2024', '%c', '%+', '%H:%M:
 
 Converts a value to seconds since the [Unix epoch](/influxdb/cloud-dedicated/reference/glossary/#unix-epoch).
 Supports strings, timestamps, and floats as input.
-Strings are parsed as RFC3339nano timestamps if no
+Strings are parsed as [RFC3339Nano timestamps](/influxdb/cloud-dedicated/reference/glossary/#rfc3339nano-timestamp) if no
 [Rust Chrono format strings](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
 are provided.
 
