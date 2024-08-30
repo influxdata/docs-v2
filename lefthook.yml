@@ -9,6 +9,11 @@ pre-push:
 pre-commit:
   parallel: true 
   commands:
+    lint-markdown:
+      tags: lint
+      glob: "content/**/*.md"
+      run: |
+        docker compose run --rm --name remark-lint remark-lint '{staged_files}'
     cloud-lint:
       tags: lint,v2
       glob: "content/influxdb/cloud/**/*.md"
