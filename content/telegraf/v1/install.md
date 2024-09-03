@@ -42,7 +42,7 @@ aren't synchronized with NTP, the timestamps on the data might be inaccurate.
 
 <span id="installation"></span>
 
-_**Recommended**_: Before you open and install packages and downloaded files, use SHA
+{{< req text="Recommended:" color="magenta" >}}: Before you open and install packages and downloaded files, use SHA
 checksum verification and GPG signature verification to ensure the files are
 intact and authentic.
 
@@ -64,11 +64,9 @@ To use the SHA checksum to verify the downloaded file, do the following:
    select the **Version** and **Platform** for your download, and then copy
    the SHA256 checksum for the file.
 
-3. Compute the SHA checksum of the downloaded file and compare it to the
+2. Compute the SHA checksum of the downloaded file and compare it to the
    checksum you copied in the preceding step--for example, enter the following
    command in your terminal.
-
-   _Note: Use two spaces to separate the checksum from the filename._
 
    <!--test:actual
    ```sh
@@ -84,6 +82,7 @@ To use the SHA checksum to verify the downloaded file, do the following:
 {{% code-placeholders "030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea" %}}
 
 ```bash
+# Use 2 spaces to separate the checksum from the filename
 echo "030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
 | sha256sum -c -
 ```
@@ -95,13 +94,11 @@ Replace the following:
 - {{% code-placeholder-key %}}`030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea`{{% /code-placeholder-key %}}:
   the **SHA256:** checksum value that you copied from the downloads page 
 
-If the checksums match, the output is the following:
+If the checksums match, the output is the following; otherwise, an error message.
 
 ```
 telegraf-{{% latest-patch %}}_linux_amd64.tar.gz: OK
 ```
-
-Otherwise, an error message.
 
 {{% /expand %}}
 {{% expand "Verify file integrity and authenticity using GPG" %}}
@@ -323,7 +320,7 @@ Choose from the following options to install Telegraf binary files for Linux ARM
 
 ### Download and install on Linux AMDv8
 
-{{% code-placeholders "030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea" %}}
+{{% code-placeholders "0c57ff1a4a3af5fa387d23b0bc743b8eaed3a110d4ae7d422c439d2911cdf9b1" %}}
 
 ```bash
 curl -s --location -O \
@@ -377,8 +374,8 @@ To install using Homebrew, do the following:
    - Intel-based (x86_64) systems: `/usr/local/etc/telegraf.conf`
 3. Choose one of the following methods to start Telegraf and begin collecting and processing metrics:
 
-    - [Run Telegraf in your terminal](#run-telegraf-in-your-terminal)
-    - [Run Telegraf as a service](#run-telegraf-as-a-service)
+   - [Run Telegraf in your terminal](#run-telegraf-in-your-terminal)
+   - [Run Telegraf as a service](#run-telegraf-as-a-service)
 
 ### Run Telegraf in your terminal
 
@@ -471,12 +468,13 @@ In PowerShell _as an administrator_, do the following:
 2. Choose _one_ of the following steps to place your `telegraf.exe` and `telegraf.conf` files in `C:\Program Files\InfluxData\telegraf`:
 
    - Move the `telegraf.exe` and `telegraf.conf` files from
-   `C:\Program Files\InfluxData\telegraf\telegraf-{{% latest-patch %}}` to the parent directory `C:\Program Files\InfluxData\telegraf`--for example:
+     `C:\Program Files\InfluxData\telegraf\telegraf-{{% latest-patch %}}`
+     to the parent directory `C:\Program Files\InfluxData\telegraf`--for example:
 
-       ```powershell
-       cd "C:\Program Files\InfluxData\telegraf";
-       mv .\telegraf-{{% latest-patch %}}\telegraf.* .
-       ```
+     ```powershell
+     cd "C:\Program Files\InfluxData\telegraf";
+     mv .\telegraf-{{% latest-patch %}}\telegraf.* .
+     ```
 
    - **Or**, create a [Windows symbolic link (Symlink)](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/) for
    `C:\Program Files\InfluxData\telegraf` that points to the extracted directory.
@@ -625,7 +623,7 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
 
    <!--test:setup
    ```bash
-   # Run the command only if inside a Docker container
+   # If inside a Docker container, remove an existing telegraf repo
    if get-container-info .is_running_in_docker; then
      rm -rf ./telegraf
    fi
@@ -637,6 +635,7 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
    ```bash
    git clone https://github.com/influxdata/telegraf.git && cd ./telegraf
    ```
+
 2. To build the Telegraf custom builder tool, enter the following command:
 
    <!--pytest-codeblocks:cont--> 
