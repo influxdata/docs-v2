@@ -229,9 +229,8 @@ paths:
         2. If successful, attempts to [ingest data](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](/influxdb/cloud-dedicated/write-data/troubleshoot/#review-http-status-codes).
         3. Ingests or rejects data in the batch and returns one of the following HTTP status codes:
 
-           - `204 No Content`: all data in the batch is ingested
-           - `201 Created` (_If the cluster is configured to allow **partial writes**_): some points in the batch are ingested and queryable, and some points are rejected
-           - `400 Bad Request`: all data is rejected
+           - `204 No Content`: All data in the batch is ingested.
+           - `400 Bad Request`: Some (_when **partial writes** are configured for the cluster_) or all of the data has been rejected. Data that has not been rejected is ingested and queryable.
 
         The response body contains error details about [rejected points](/influxdb/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
 
