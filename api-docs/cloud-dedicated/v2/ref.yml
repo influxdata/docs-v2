@@ -229,9 +229,8 @@ paths:
         2. If successful, attempts to [ingest data](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](/influxdb/cloud-dedicated/write-data/troubleshoot/#review-http-status-codes).
         3. Ingests or rejects data in the batch and returns one of the following HTTP status codes:
 
-           - `204 No Content`: all data in the batch is ingested
-           - `201 Created` (_If the cluster is configured to allow **partial writes**_): some points in the batch are ingested and queryable, and some points are rejected
-           - `400 Bad Request`: all data is rejected
+           - `204 No Content`: All data in the batch is ingested.
+           - `400 Bad Request`: Some (_when **partial writes** are configured for the cluster_) or all of the data has been rejected. Data that has not been rejected is ingested and queryable.
 
         The response body contains error details about [rejected points](/influxdb/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
 
@@ -656,33 +655,29 @@ paths:
         description: Line protocol body
         required: true
       responses:
-        '201':
-          description: |
-            Success ("Created"). Some points in the batch are written and queryable, and some points are rejected. The response body contains details about the [rejected points](/influxdb/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
-          content:
-            application/json:
-              examples:
-                partialWriteErrorWithRejectedPoints:
-                  summary: Partial write rejects points with syntax errors
-                  value:
-                    code: invalid
-                    line: 2
-                    message: 'failed to parse line protocol: errors encountered on line(s): error message for first rejected point</n> error message for second rejected point</n> error message for Nth rejected point (up to 100 rejected points)'
-              schema:
-                $ref: '#/components/schemas/LineProtocolError'
         '204':
           description: Success ("No Content"). All data in the batch is written and queryable.
         '400':
-          description: Bad Request. All data in body was rejected and not written.
+          description: |
+            Data from the batch was rejected and not written. The response body indicates if a partial write occurred or all data was rejected.
+            If a partial write occurred, then some points from the batch are written and queryable. 
+
+            The response body contains details about the [rejected points](/influxdb/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
           content:
             application/json:
               examples:
-                rejectsAllPoints:
+                rejectedAllPoints:
                   summary: Rejected all points
                   value:
                     code: invalid
                     line: 2
-                    message: 'failed to parse line protocol: errors encountered on line(s): error message for first rejected point</n> error message for second rejected point</n> error message for Nth rejected point (up to 100 rejected points)'
+                    message: 'no data written, errors encountered on line(s): error message for first rejected point</n> error message for second rejected point</n> error message for Nth rejected point (up to 100 rejected points)'
+                partialWriteErrorWithRejectedPoints:
+                  summary: Partial write rejects some points
+                  value:
+                    code: invalid
+                    line: 2
+                    message: 'partial write has occurred, errors encountered on line(s): error message for first rejected point</n> error message for second rejected point</n> error message for Nth rejected point (up to 100 rejected points)'
               schema:
                 $ref: '#/components/schemas/LineProtocolError'
         '401':
