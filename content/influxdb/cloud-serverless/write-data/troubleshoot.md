@@ -33,8 +33,8 @@ Learn how to avoid unexpected results and recover from errors when writing to {{
   2. If successful, attempts to [ingest data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](#review-http-status-codes).
   3. Ingests or rejects data from the batch and returns one of the following HTTP status codes:
 
-     - `204 No Content`: all of the data is ingested and queryable
-     - `400 Bad Request`: some or all of the data has been rejected. data which has not been rejected is ingested and queryable  
+     - `204 No Content`: All of the data is ingested and queryable.
+     - `400 Bad Request`: Some or all of the data has been rejected. Data that has not been rejected is ingested and queryable.
 
      The response body contains error details about [rejected points](#troubleshoot-rejected-points), up to 100 points.
 
@@ -52,7 +52,7 @@ The `message` property of the response body may contain additional details about
 | HTTP response code              | Response body                                                                                                                  | Description    |
 | :-------------------------------| :---------------------------------------------------------------                                                               | :------------- |
 | `204 "No Content"`              | no response body                                                                                                               | If InfluxDB ingested all of the data in the batch |
-| `400 "Bad request"`             | error details about rejected points, up to 100 points: `line` contains the first rejected line, `message` describes rejections | If some or all request data isn't allowed (for example, is malformed or falls outside of the bucket's retention period). The response body indicates if a partial write has occurred or all data has been rejected |
+| `400 "Bad request"`             | error details about rejected points, up to 100 points: `line` contains the first rejected line, `message` describes rejections | If some or all request data isn't allowed (for example, is malformed or falls outside of the bucket's retention period)--the response body indicates whether a partial write has occurred or if all data has been rejected |
 | `401 "Unauthorized"`            |                                                                                                                                | If the `Authorization` header is missing or malformed or if the [token](/influxdb/cloud-serverless/admin/tokens/) doesn't have [permission](/influxdb/cloud-serverless/admin/tokens/create-token/) to write to the bucket. See [examples using credentials](/influxdb/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb) in write requests. |
 | `404 "Not found"`               | requested **resource type** (for example, "organization" or "bucket"), and **resource name**                                   | If a requested resource (for example, organization or bucket) wasn't found |
 | `413 “Request too large”`       | cannot read data: points in batch is too large                                                                                 | If a request exceeds the maximum [global limit](/influxdb/cloud-serverless/admin/billing/limits/) |
