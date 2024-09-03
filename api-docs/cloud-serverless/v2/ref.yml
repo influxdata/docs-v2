@@ -7639,27 +7639,14 @@ paths:
           - [Best practices for optimizing writes](/influxdb/cloud-serverless/write-data/best-practices/optimize-writes/)
         required: true
       responses:
-        '201':
-          description: |
-            Success ("Created"). Some points in the batch are written and queryable, and some points are rejected. The response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
-          content:
-            application/json:
-              examples:
-                partialWriteErrorWithRejectedPoints:
-                  summary: Partial write rejects points with syntax errors
-                  value:
-                    code: invalid
-                    line: 2
-                    message: 'failed to parse line protocol: errors encountered on line(s): error message for first rejected point</n> error message for second rejected point</n> error message for Nth rejected point (up to 100 rejected points)'
-              schema:
-                $ref: '#/components/schemas/LineProtocolError'
         '204':
           description: Success ("No Content"). All data in the batch is written and queryable.
         '400':
           description: |
-            All data in the batch was rejected and not written.
+            Data from the batch was rejected and not written. The response body indicates if a partial write occurred or all data was rejected.
+            If a partial write occurred, then some points from the batch are written and queryable. 
 
-            The response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points).
+            The response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
           content:
             application/json:
               examples:
@@ -7668,7 +7655,13 @@ paths:
                   value:
                     code: invalid
                     line: 2
-                    message: 'failed to parse line protocol: errors encountered on line(s): error message for first rejected point</n> error message for second rejected point</n> error message for Nth rejected point (up to 100 rejected points)'
+                    message: 'no data written, errors encountered on line(s): error message for first rejected point</n> error message for second rejected point</n> error message for Nth rejected point (up to 100 rejected points)'
+                partialWriteErrorWithRejectedPoints:
+                  summary: Partial write rejects some points
+                  value:
+                    code: invalid
+                    line: 2
+                    message: 'partial write has occurred, errors encountered on line(s): error message for first rejected point</n> error message for second rejected point</n> error message for Nth rejected point (up to 100 rejected points)'
               schema:
                 $ref: '#/components/schemas/LineProtocolError'
         '401':
@@ -7704,14 +7697,7 @@ paths:
             The request payload is too large.
             InfluxDB rejected the batch and did not write any data.
 
-            InfluxDB returns this error if the payload exceeds the 50MB size limit.
-        '422':
-          description: |
-            Unprocessable Entity.
-
-            The request contained data outside the bucket's retention period. InfluxDB rejected the batch and wrote no data.
-
-            The response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points).
+            InfluxDB returns this error if the payload exceeds the 50MB size limit or all data is outside the retention window.
         '429':
           description: |
             Too many requests.
