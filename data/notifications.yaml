@@ -47,6 +47,7 @@
     - /influxdb/cloud/
     - /influxdb/v1/
     - /influxdb/v2/
+    - /flux/v0/
     - /telegraf/
     - /kapacitor/
     - /chronograf/
