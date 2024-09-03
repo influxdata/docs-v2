@@ -23,13 +23,17 @@ process and visualize metrics and events.
 {{< req text="Recommended:" color="magenta" >}}: Before you open and install packages and downloaded files, use SHA
 checksum verification and GPG signature verification to ensure the files are
 intact and authentic.
-SHA checksum and GPG signature verification are complementary checks.
 
-The InfluxDB installation instructions include steps to verify downloaded packages and binaries.
+InfluxDB installation instructions for some OS versions include steps to
+verify downloaded files before you install them.
 
-### Choose the InfluxData key-pair for your OS version
+For more information about SHA and GPG verifications, see the following:
 
-_Before running the installation steps, substitute the key-pair compatible
+{{< expand-wrapper >}}
+
+{{% expand "Choose the InfluxData key-pair for your OS version" %}}
+
+_Before running the installation steps, substitute the InfluxData key-pair compatible
 with your OS version:_
 
 For newer releases (for example, Ubuntu 20.04 LTS and newer, Debian Buster
@@ -44,12 +48,8 @@ Stretch) that don't support subkeys for verification:
 -  Private key file: [`influxdata-archive_compat.key`](https://repos.influxdata.com/influxdata-archive_compat.key)
 -  Public key: `393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c`
 
-After you have selected the key-pair, then you're ready to run the InfluxDB
-[installation] instructions.
+{{% /expand %}}
 
-For more information about SHA and GPG verifications, see the following:
-
-{{< expand-wrapper >}}
 {{% expand "Verify download integrity using SHA-256" %}}
 
 For each released binary, InfluxData publishes the SHA checksum that
@@ -190,6 +190,9 @@ _For security, InfluxData periodically rotates keys and publishes the new key pa
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+The following instructions include steps for downloading, verifying, and installing
+{{< product-name >}}:
 
    {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -889,10 +892,9 @@ to collect and send data to:
 <!--------------------------------- END Raspberry Pi --------------------------->
 {{< /tabs-wrapper >}}
 
-2. **Start InfluxDB**.
-<span id="start-influxdb"></span>
+## Start InfluxDB
 
-   If it isn't already running, follow the instructions to start InfluxDB on your system:
+If it isn't already running, follow the instructions to start InfluxDB on your system:
 
    {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -1104,13 +1106,15 @@ influxd --reporting-disabled
    For information about InfluxDB v2 default settings and how to override them,
    see [InfluxDB configuration options](/influxdb/v2/reference/config-options/).
 
-1. {{< req text="Recommended:" color="magenta" >}} **Download, install, and configure the `influx` CLI**.
-   <span id="download-install-and-configure-influx-cli"></span>
 
-   We recommend installing the `influx` CLI, which provides a simple way to interact with InfluxDB from a
-   command line.
-   For detailed installation and setup instructions,
-   see [Use the influx CLI](/influxdb/v2/tools/influx-cli/).
+With InfluxDB installed and initialized, [get started](/influxdb/v2/get-started/) writing and querying data.
+
+## Download, install, and configure the `influx` CLI
+
+{{< req text="Recommended:" color="magenta" >}}: Install the `influx` CLI,
+which provides a simple way to interact with InfluxDB from a command line.
+For detailed installation and setup instructions,
+see [Use the influx CLI](/influxdb/v2/tools/influx-cli/).
 
    {{% note %}}
 
@@ -1122,5 +1126,3 @@ versioned separately.
 Some install methods (for example, the InfluxDB Docker Hub image) include both.
 
    {{% /note %}}
-
-With InfluxDB installed and initialized, [get started](/influxdb/v2/get-started/) writing and querying data.
