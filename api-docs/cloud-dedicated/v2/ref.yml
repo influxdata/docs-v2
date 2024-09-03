@@ -230,7 +230,7 @@ paths:
         3. Ingests or rejects data in the batch and returns one of the following HTTP status codes:
 
            - `204 No Content`: All data in the batch is ingested.
-           - `400 Bad Request`: Data from the batch was rejected and not written. The response body indicates if a partial write occurred.
+           - `400 Bad Request`: Some (_when **partial writes** are configured for the cluster_) or all of the data has been rejected. Data that has not been rejected is ingested and queryable.
 
         The response body contains error details about [rejected points](/influxdb/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
 
