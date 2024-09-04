@@ -544,9 +544,38 @@ We recommend storing sensitive credentials, such as your PostgreSQL-compatible D
 as secrets in your Kubernetes cluster.
 {{% /note %}}
 
-- `spec.package.spec.catalog.dsn.valueFrom.secretKeyRef`
-  - `.name`: Secret name
-  - `.key`: Key in the secret that contains the DSN
+{{% warn %}}
+PostgreSQL DSNs that contain special symbols may need to be percent-encoded in
+order to be parsed correctly by InfluxDB Clustered. This is particularly
+important to keep in mind when dealing with DSNs containing auto-generated
+passwords provided by cloud database providers which may automatically include
+special symbols in order to make their passwords harder to guess.
+
+For example, the following DSN used in InfluxDB Clustered:
+```
+postgresql://postgres:meow#meow@my-fancy.cloud-database.party:5432/postgres
+```
+
+Would result in error logs that look like:
+
+```
+Catalog DSN error: A catalog error occurred: unhandled external error: error with configuration: invalid port number
+```
+
+To fix this, the connection string would have to have the password (or any
+other part such as options) percent-encoded like so:
+
+```
+postgresql://postgres:meow%23meow@my-fancy.cloud-database.party:5432/postgres
+```
+
+For more information, see the [PostgreSQL Connection URI
+docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS).
+{{% /warn %}}
+
+- [ ] `spec.package.spec.catalog.dsn.valueFrom.secretKeyRef`
+  - [ ] `.name`: Secret name
+  - [ ] `.key`: Key in the secret that contains the DSN
 
 {{% code-placeholders "SECRET_(NAME|KEY)" %}}
 
