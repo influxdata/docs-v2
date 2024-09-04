@@ -377,7 +377,6 @@ services:
     build:
       context: . 
       dockerfile: .ci/Dockerfile.remark
-    command: ["remark", "${CONTENT_PATH}"]
     profiles:
       - lint
     volumes:

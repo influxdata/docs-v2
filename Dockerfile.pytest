@@ -10,7 +10,10 @@ RUN echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influ
 
 RUN echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | tee /etc/apt/sources.list.d/influxdata.list
 
-# Install InfluxDB clients to use in tests. 
+# Install depedencies for clients and tests.
+# - InfluxData clients to use in tests.
+# - apt-utils for verification tools
+# - perl for shasum (default on MacOS)
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   apt-utils \
   curl \
@@ -23,6 +26,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   maven \
   nodejs \
   npm \
+  perl \
   python3 \
   python3-pip \
   python3-venv \
