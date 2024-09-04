@@ -139,6 +139,12 @@
       code { background: transparent !important; }
     }
 
+    hr {
+      border-width: 1px 0 0 0;
+      border-style: dotted;
+      border-color: rgba($g20-white, .5);
+    }
+
     &.min {
       .notification-title {h3 {font-size: 1.15rem;}}
       .notification-content {
