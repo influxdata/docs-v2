@@ -129,7 +129,7 @@ Use `kubectl` to install the [kubecfg kubit](https://github.com/kubecfg/kubit) o
 <!-- pytest.mark.skip -->
 
 ```sh
-kubectl apply -k 'https://github.com/kubecfg/kubit//kustomize/global?ref=v0.0.15'
+kubectl apply -k 'https://github.com/kubecfg/kubit//kustomize/global?ref=v0.0.19'
 ```
 
 ### Configure access to the InfluxDB container registry
