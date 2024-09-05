@@ -5,25 +5,18 @@
   * release notes pages.
 */
 
-// Get an array all the *release* h2 elements
-var releases = $('h2').filter(function() {
-  return !this.id.match(/checkpoint-releases/);
-});
+// Use jQuery filter to get an array of all the *release* h2 elements
+const releases = $('h2').filter(
+  (_i, el) => !el.id.match(/checkpoint-releases/)
+);
 
 // Extract data about each release from the array of releases
-releaseData = releases.map(function() {
-  var releaseName = $(this)[0].textContent;
-  var releaseId = $(this)[0].id;
-  var releaseClass = $(this)[0].getAttribute('class');
-  var releaseDate = $(this)[0].getAttribute('date');
-
-  return {
-    'name': releaseName,
-    'id': releaseId,
-    'class': releaseClass,
-    'date': releaseDate
-  };
-});
+releaseData = releases.map((_i, el) => ({
+  name: el.textContent,
+  id: el.id,
+  class: el.getAttribute('class'),
+  date: el.getAttribute('date')
+}));
 
 // Use release data to generate a list item for each release
 getReleaseItem = (releaseData) => {
@@ -36,27 +29,29 @@ getReleaseItem = (releaseData) => {
   return li;
 }
 
-// Build the release table of contents
-releaseData.each(function() {
-  $('#release-toc ul')[0].appendChild(getReleaseItem(this));
-})
+// Use jQuery each to build the release table of contents
+releaseData.each((_i, release) => {
+  $('#release-toc ul')[0].appendChild(getReleaseItem(release));
+});
 
 /*
   * This script is used to expand the release notes table of contents by the
   * number specified in the `show` attribute of `ul.release-list`.
   * Once all the release items are visible, the "Show More" button is hidden.
 */
-$('#release-toc .show-more').click(function() {
-  var itemHeight = 1.885; // Item height in rem
-  var releaseNum = (releaseData.length);
-  var maxHeight = releaseNum * itemHeight;
-  var releaseIncrement = Number($('#release-list')[0].getAttribute('show'));
-  var currentHeight = Number($('#release-list')[0].style.height.match(/\d+\.?\d+/)[0]);
-  var potentialHeight = currentHeight + (releaseIncrement * itemHeight);
-  var newHeight = (potentialHeight > maxHeight) ? maxHeight : potentialHeight;
-  
-  $('#release-list')[0].style.height=`${newHeight}rem`;
-  
+$('#release-toc .show-more').click(function () {
+  const itemHeight = 1.885; // Item height in rem
+  const releaseNum = releaseData.length;
+  const maxHeight = releaseNum * itemHeight;
+  const releaseIncrement = Number($('#release-list')[0].getAttribute('show'));
+  const currentHeight = Number(
+    $('#release-list')[0].style.height.match(/\d+\.?\d+/)[0]
+  );
+  const potentialHeight = currentHeight + releaseIncrement * itemHeight;
+  const newHeight = potentialHeight > maxHeight ? maxHeight : potentialHeight;
+
+  $('#release-list')[0].style.height = `${newHeight}rem`;
+
   if (newHeight >= maxHeight) {
     $('#release-toc .show-more').fadeOut(100);
   }
