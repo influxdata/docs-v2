@@ -41,6 +41,11 @@ releaseData.each(function() {
   $('#release-toc ul')[0].appendChild(getReleaseItem(this));
 })
 
+/*
+  * This script is used to expand the release notes table of contents by the
+  * number specified in the `show` attribute of `ul.release-list`.
+  * Once all the release items are visible, the "Show More" button is hidden.
+*/
 $('#release-toc .show-more').click(function() {
   var itemHeight = 1.885; // Item height in rem
   var releaseNum = (releaseData.length);
