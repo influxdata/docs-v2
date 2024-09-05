@@ -552,20 +552,20 @@ passwords provided by cloud database providers which may automatically include
 special symbols in order to make their passwords harder to guess.
 
 For example, the following DSN used in InfluxDB Clustered:
-```
+
+```txt
 postgresql://postgres:meow#meow@my-fancy.cloud-database.party:5432/postgres
 ```
 
-Would result in error logs that look like:
+Would result in an error similar to:
 
-```
+```txt
 Catalog DSN error: A catalog error occurred: unhandled external error: error with configuration: invalid port number
 ```
 
-To fix this, the connection string would have to have the password (or any
-other part such as options) percent-encoded like so:
+To fix this, percent-encode special symbols in the connection string:
 
-```
+```txt
 postgresql://postgres:meow%23meow@my-fancy.cloud-database.party:5432/postgres
 ```
 
