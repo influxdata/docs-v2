@@ -545,11 +545,12 @@ as secrets in your Kubernetes cluster.
 {{% /note %}}
 
 {{% warn %}}
-PostgreSQL DSNs that contain special symbols may need to be percent-encoded in
-order to be parsed correctly by InfluxDB Clustered. This is particularly
-important to keep in mind when dealing with DSNs containing auto-generated
-passwords provided by cloud database providers which may automatically include
-special symbols in order to make their passwords harder to guess.
+#### Percent-encode special symbols in PostgreSQL DSNs
+
+Special symbols in PostgreSQL DSNs should be percent-encoded to ensure they
+are parsed correctly by InfluxDB Clustered. This is important to consider when
+using DSNs containing auto-generated passwords which may include special
+symbols to make passwords more secure.
 
 For example, the following DSN used in InfluxDB Clustered:
 
