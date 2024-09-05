@@ -34,22 +34,19 @@ Server configuration commands require an [Operator token](/influxdb/v2/admin/tok
 Use the [`influx server-config` command](/influxdb/v2/reference/cli/influx/server-config/)
 to retrieve your runtime server configuration.
 
-<!--test: setup
+<!--test:setup
 
 ```sh
 service influxdb start && \
 influx setup \
-  --username admin \
-  --password adminpassword \
-  --token admintoken \
-  --org influxdatadocs \
-  --bucket home \
-  --force && INFLUX_TOKEN=admintoken \
+  --username USERNAME \
+  --token API_TOKEN \
+  --org ORG_NAME \
+  --bucket BUCKET_NAME \
+  --force || true
 ```
 
 -->
-
-<!-- pytest-codeblocks:cont -->
 
 ```sh
 influx server-config
@@ -226,7 +223,7 @@ _Typically, InfluxData internal use only._
 influxd --assets-path=/path/to/custom/assets-dir
 ```
 
-<!--test-actual
+<!--test:previousblock
 
 ```sh
 service influxdb stop && \
@@ -283,6 +280,7 @@ user information, UI data, REST resources, and other key value data.
 | `--bolt-path` | `INFLUXD_BOLT_PATH`  | `bolt-path`       |
 
 ###### influxd flag
+
 <!--pytest.mark.skip-->
 
 ```sh
@@ -825,7 +823,7 @@ potentially hurt performance.
 influxd --http-write-timeout=10s
 ```
 
-<!--test-actual
+<!--test:previousblock
 
 ```sh
 service influxdb stop && \

@@ -99,6 +99,7 @@ In **extended annotated CSV**, measurements, fields, and values and their types 
 
 - [via stdin](#write-line-protocol-via-stdin)
 - [from a file](#write-line-protocol-from-a-file)
+- [and skip header lines](#skip-header-lines-in-a-file)
 - [from multiple files](#write-line-protocol-from-multiple-files)
 - [from a URL](#write-line-protocol-from-a-url)
 - [from multiple URLs](#write-line-protocol-from-multiple-urls)
@@ -133,6 +134,14 @@ m,host=host2 field1=2.4,field2=3i 1640995200000000000
 influx write \
   --bucket example-bucket \
   --file path/to/line-protocol.txt
+```
+
+##### Skip header lines in a file
+```sh
+influx write \
+  --bucket example-bucket \
+  --file path/to/line-protocol.txt
+  --skipHeader 8
 ```
 
 ##### Write line protocol from multiple files
