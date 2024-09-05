@@ -39,8 +39,8 @@ as those without.
 SELECT /<regular_expression_field_key>/ FROM /<regular_expression_measurement>/ WHERE [<tag_key> <operator> /<regular_expression_tag_value>/ | <field_key> <operator> /<regular_expression_field_value>/] GROUP BY /<regular_expression_tag_key>/
 ```
 
-Regular expressions are surrounded by `/` characters and use
-[Golang's regular expression syntax](http://golang.org/pkg/regexp/syntax/).
+Regular expressions are surrounded by `/` characters and use the
+[Go regular expression syntax](http://golang.org/pkg/regexp/syntax/).
 
 ## Supported operators
 
@@ -48,6 +48,22 @@ Regular expressions are surrounded by `/` characters and use
 `!~`: doesn't match against
 
 ### Examples
+
+<!--test:setup
+```bash
+service influxdb start && \
+influx setup \
+  --username USERNAME \
+  --token API_TOKEN \
+  --org ORG_NAME \
+  --bucket BUCKET_NAME \
+  --force \
+&& curl -L -O \
+https://s3.amazonaws.com/noaa.water-database/NOAA_data.txt \
+&& influx write --bucket BUCKET_NAME --file NOAA_data.txt --precision=s \
+--skipHeader 8
+```
+-->
 
 {{< expand-wrapper >}}
 
@@ -57,7 +73,20 @@ Regular expressions are surrounded by `/` characters and use
 SELECT /l/ FROM "h2o_feet" LIMIT 1
 ```
 
+<!--test:prevblock
+```bash
+# If not 200 status, fail
+curl -s -o /dev/null -w "%{http_code}" 'http://localhost:8086/query?pretty=true' \
+ --header "Authorization: Token API_TOKEN" \
+ --data-urlencode "db=BUCKET_NAME" \
+ --data-urlencode "rp=autogen" \
+ --data-urlencode "q=SELECT /l/ FROM \"h2o_feet\" LIMIT 1" \
+ | grep -q "200" || exit 1
+```
+-->
+
 Output:
+
 {{% influxql/table-meta %}}
 Name: h2o_feet
 {{% /influxql/table-meta %}}
@@ -74,6 +103,40 @@ expression.
 Currently, there is no syntax to distinguish between regular expressions for
 field keys and regular expressions for tag keys in the `SELECT` clause.
 The syntax `/<regular_expression>/::[field | tag]` is not supported.
+
+{{% /expand %}}
+
+{{% expand "Use a regular expression to specify field keys and tag keys in function arguments" %}}
+
+```sql
+SELECT MAX(/_level/) FROM "h2o_feet" LIMIT 1
+```
+
+<!--test:prevblock
+```bash
+# If not 200 status, fail
+curl -s \
+ 'http://localhost:8086/query?pretty=true' \
+ --header "Authorization: Token API_TOKEN" \
+ --data-urlencode "db=BUCKET_NAME" \
+ --data-urlencode "rp=autogen" \
+ --data-urlencode "q=SELECT MAX(/_level/) FROM \"h2o_feet\"" \
+| grep -Fq "\"columns\":[\"time\",\"max_water_level\"]" || exit 1
+```
+-->
+
+Output:
+
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
+| time                 | max_water_level |
+| :------------------- | ---------------------:|
+| 2019-08-28T07:24:00Z | 9.964
+
+This query uses the InfluxQL [`MAX()` selector function](/influxdb/v2/query-data/influxql/functions/selectors/#max)
+to find the greatest field value out of all field keys that match the regular expression.
 
 {{% /expand %}}
 
