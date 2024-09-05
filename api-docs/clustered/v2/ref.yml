@@ -646,17 +646,34 @@ paths:
         '204':
           description: Write data is correctly formatted and accepted for writing to the database.
         '400':
+           description: |
+            Data from the batch was rejected and not written. The response body indicates if a partial write occurred or all data was rejected.
+            If a partial write occurred, then some points from the batch are written and queryable. 
+            The response body contains details about the [rejected points](/influxdb/clustered/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
           content:
             application/json:
+              examples:
+                rejectedAllPoints:
+                  summary: Rejected all points
+                  value:
+                    code: invalid
+                    line: 2
+                    message: 'no data written, errors encountered on line(s): error message for first rejected point</n> error message for second rejected point</n> error message for Nth rejected point (up to 100 rejected points)'
+                partialWriteErrorWithRejectedPoints:
+                  summary: Partial write rejects some points
+                  value:
+                    code: invalid
+                    line: 2
+                    message: 'partial write has occurred, errors encountered on line(s): error message for first rejected point</n> error message for second rejected point</n> error message for Nth rejected point (up to 100 rejected points)'
               schema:
                 $ref: '#/components/schemas/LineProtocolError'
-          description: Line protocol poorly formed and no points were written.  Response can be used to determine the first malformed line in the body line-protocol. All data in body was rejected and not written.
+          description: Line protocol poorly formed and no points were written. Response can be used to determine the first malformed line in the body line-protocol. All data in body was rejected and not written.
         '401':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Token doesn't have sufficient permissions to write to this  database or the database doesn't exist.
+          description: Token doesn't have sufficient permissions to write to this database or the database doesn't exist.
         '403':
           content:
             application/json:
