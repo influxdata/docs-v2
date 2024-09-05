@@ -1,3 +1,4 @@
+#datatype measurement,tag,field,field,field,time
 measurement,room,temp,hum,co,time
 home,Living Room,21.1,35.9,0,1712822400
 home,Kitchen,21.0,35.9,0,1712822400

@@ -6,7 +6,6 @@
 # Example run command--logs are stored in the volume `influxdatadocs-oss-centos-log`:
 #  docker run --rm --mount type=volume,src=influxdatadocs-oss-centos-log,dst=/var/log/ influxdatadocs/oss-centos
 
-
 FROM dokken/centos-stream-9:latest AS influxdb
 LABEL name="test-oss-centos"
 LABEL description="InfluxData Docs Test OSS install on CentOS"
@@ -37,18 +36,10 @@ gpgcheck = 1
 gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-influxdata
 EOF
 
-# Follow the install instructions (https://docs.influxdata.com/influxdb/v2.1/introduction/install/?t=Linux) for ARM, except for sudo (which isn't available in Docker).
-
-RUN curl --silent --location -O \
-  "https://download.influxdata.com/influxdb/releases/influxdb2-${INFLUXDB_LATEST_PATCH}-1.${basearch}.rpm" \
-  && yum localinstall -y "$(basename https://download.influxdata.com/influxdb/releases/influxdb2-${INFLUXDB_LATEST_PATCH}-1.${basearch}.rpm)" 
-
-# Follow the documentation to add the InfluxData repository to the list of repositories.
-
-# Install InfluxDB clients to use in tests.
+# Install InfluxDB and clients to use in tests.
 
 # Follow the Telegraf install instructions (https://docs.influxdata.com/telegraf/v1/install/?t=curl), except for sudo (which isn't available in Docker).
-RUN yum install -y influxdb2-cli
+RUN yum install -y influxdb2 influxdb2-cli
 
 ENTRYPOINT ["/bin/bash"]
 # Run InfluxDB in the background, wait for it to start, and then test Telegraf.
