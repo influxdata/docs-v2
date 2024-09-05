@@ -56,6 +56,16 @@
       color: $r-dreamsicle;
     }
 
+    &.checkpoint::before {
+      content: '\e93b';
+      font-family: 'icomoon-v4';
+      font-size: 2.25rem;
+      color: $br-new-magenta;
+      display: inline;
+      margin: 0 .5rem 0 0;
+      vertical-align: top;
+    }
+
     &[metadata]::after {
       content: attr(metadata);
       margin-left: .65rem;
@@ -203,6 +213,7 @@
   "article/pagination-btns",
   "article/product-tags",
   "article/related",
+  "article/release-toc",
   "article/scrollbars",
   "article/svgs",
   "article/tabbed-content",
@@ -306,6 +317,10 @@
 
     &.magenta {
       color: $p-comet;
+    }
+
+    &.pink {
+      color: $br-new-magenta;
     }
   }
 
