@@ -21,10 +21,13 @@
 #   sh ./getswagger.sh -c <product> -o <version> -B
 #
 # Examples:
-#   sh ./getswagger.sh cloud-serverless
+#   sh ./getswagger.sh cloud-serverless-v2
 #   sh ./getswagger.sh clustered -B
-#   sh ./getswagger.sh cloud
-#   sh ./getswagger.sh -c v2 -o v2.0 -b file:///Users/johnsmith/github/openapi
+#   sh ./getswagger.sh cloud-v2
+#   sh ./getswagger.sh -c oss-v2 -b file:///Users/johnsmith/github/openapi
+
+DOCS_ROOT=$(git rev-parse --show-toplevel)
+API_DOCS_ROOT=$DOCS_ROOT/api-docs
 
 versionDirs=($(ls -d */))
 latestOSS=${versionDirs[${#versionDirs[@]}-1]}
@@ -117,7 +120,6 @@ function postProcess() {
   api="$3"
 
   openapiCLI=" @redocly/cli"
-  currentPath=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
   # TODO: Move some of this into the plugin:
 
@@ -131,71 +133,59 @@ function postProcess() {
   npx --version
   INFLUXDB_PRODUCT=$(dirname "$configPath") \
   INFLUXDB_API_NAME=$(echo "$api" | sed 's/@.*//g;') \
-  API_DOCS_ROOT_PATH=$currentPath \
+  API_DOCS_ROOT_PATH=$API_DOCS_ROOT \
   npm_config_yes=true \
   npx $openapiCLI bundle $specPath \
     -o $specPath \
     --config=$configPath
 }
 
- function updateCloudV2 {
-  outFile="influxdb/cloud/v2/ref.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
-  fi
-  postProcess $outFile 'influxdb/cloud/.config.yml' v2@2
-}
-
 function updateCloudDedicatedManagement {
-  outFile="influxdb3/cloud-dedicated/management/openapi.yml"
+  local version="$API_DOCS_ROOT/influxdb3/cloud-dedicated"
+  local outFile="$version/management/openapi.yml"
   if [[ -z "$baseUrl" ]];
   then
-    echo "Using existing $outFile"
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
   else
-    # Clone influxdata/granite and fetch the latest openapi.yaml file.
-    echo "Fetching the latest openapi.yaml file from influxdata/granite"
-    tmp_dir=$(mktemp -d)
-    git clone --depth 1 --branch main https://github.com/influxdata/granite.git "$tmp_dir"
-    cp "$tmp_dir/openapi.yaml" "$outFile"
-    rm -rf "$tmp_dir"
+    curl $UPDATE_OPTIONS https://raw.githubusercontent.com/influxdata/granite/ab7ee2aceacfae7f415d15ffbcf8c9d0f6f3e015/openapi.yaml -o $outFile
   fi
-  postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' management@0
+  postProcess $outFile "$version/.config.yml" management@0
 }
 
 function updateCloudDedicatedV2 {
-  outFile="influxdb3/cloud-dedicated/v2/ref.yml"
+  local version="$API_DOCS_ROOT/influxdb3/cloud-dedicated"
+  local outFile="$version/v2/ref.yml"
   if [[ -z "$baseUrl" ]];
   then
-    echo "Using existing $outFile"
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
   else
     curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
   fi
- postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' v2@2
-}
-
-function updateCloudServerlessV2 {
-  outFile="influxdb3/cloud-serverless/v2/ref.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
-  fi
-  postProcess $outFile 'influxdb3/cloud-serverless/.config.yml' v2@2
+ postProcess $outFile "$version/.config.yml" v2@2
 }
 
 function updateClusteredV2 {
-  outFile="influxdb3/clustered/v2/ref.yml"
+  local version="$API_DOCS_ROOT/influxdb3/clustered"
+  local outFile="$version/v2/ref.yml"
   if [[ -z "$baseUrl" ]];
   then
-    echo "Using existing $outFile"
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
   else
     curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
   fi
- postProcess $outFile 'influxdb3/clustered/.config.yml' v2@2
+ postProcess $outFile "$version/.config.yml" v2@2
+}
+
+function updateCloudServerlessV2 {
+  local version="$API_DOCS_ROOT/influxdb3/cloud-serverless"
+  local outFile="$version/v2/ref.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+  fi
+  postProcess $outFile "$version/.config.yml" v2@2
 }
 
 function updateCoreV3 {
@@ -223,38 +213,41 @@ function updateEnterpriseV3 {
 }
 
 function updateOSSV2 {
-  outFile="influxdb/v2/v2/ref.yml"
+  local version="$API_DOCS_ROOT/influxdb/v2"
+  local outFile="$version/ref.yml"
   if [[ -z "$baseUrlOSS" ]];
   then
-    echo "Using existing $outFile"
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
   else
     curl $UPDATE_OPTIONS ${baseUrlOSS}/contracts/ref/oss.yml -o $outFile
   fi
-  postProcess $outFile 'influxdb/v2/.config.yml' 'v2@2'
+  postProcess $outFile "$version/.config.yml" '@2'
 }
 
-function updateV1Compat {
-  outFile="influxdb/cloud/v1-compatibility/swaggerV1Compat.yml"
+function updateV1Compat { 
+  local product="$API_DOCS_ROOT/influxdb"
+  local outFile="$product/cloud/v1-compatibility/swaggerV1Compat.yml"
   if [[ -z "$baseUrl" ]];
   then
-    echo "Using existing $outFile"
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
   else
   curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
   fi
-  postProcess $outFile 'influxdb/cloud/.config.yml' 'v1-compatibility'
+  postProcess $outFile "$product/cloud/.config.yml" 'v1-compatibility'
 
-  outFile="influxdb/v2/v1-compatibility/swaggerV1Compat.yml"
-  cp influxdb/cloud/v1-compatibility/swaggerV1Compat.yml $outFile
-  postProcess $outFile 'influxdb/v2/.config.yml' 'v1-compatibility'
+  outFile="$product/v2/v1-compatibility/swaggerV1Compat.yml"
+  cp cloud/v1-compatibility/swaggerV1Compat.yml $outFile
+  postProcess $outFile "$product/v2/.config.yml" 'v1-compatibility'
 
-  outFile="influxdb3/cloud-dedicated/v1-compatibility/swaggerV1Compat.yml"
-  postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' 'v1-compatibility'
+  product="$API_DOCS_ROOT/influxdb3"
+  outFile="$product/cloud-dedicated/v1-compatibility/swaggerV1Compat.yml"
+  postProcess $outFile "$product/cloud-dedicated/.config.yml" 'v1-compatibility'
 
-  outFile="influxdb3/cloud-serverless/v1-compatibility/swaggerV1Compat.yml"
-  postProcess $outFile 'influxdb3/cloud-serverless/.config.yml' 'v1-compatibility'
+  outFile="$product/cloud-serverless/v1-compatibility/swaggerV1Compat.yml"
+  postProcess $outFile "$product/cloud-serverless/.config.yml" 'v1-compatibility'
 
-  outFile="influxdb3/clustered/v1-compatibility/swaggerV1Compat.yml"
-  postProcess $outFile 'influxdb3/clustered/.config.yml' 'v1-compatibility'
+  outFile="$product/clustered/v1-compatibility/swaggerV1Compat.yml"
+  postProcess $outFile "$product/clustered/.config.yml" 'v1-compatibility'
 }
 
 UPDATE_OPTIONS="--fail"
@@ -287,7 +280,7 @@ then
 elif [ "$product" = "enterprise-v3" ];
 then
   updateEnterpriseV3
-elif [ "$product" = "v2" ];
+elif [ "$product" = "oss-v2" ];
 then
   updateOSSV2
 elif [ "$product" = "v1-compat" ];
