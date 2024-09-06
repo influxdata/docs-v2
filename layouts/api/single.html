@@ -8,11 +8,10 @@
   <div class="content-wrapper">
     <api-ref class="col-12 col-md-9 col-xl-8" role="main">
       <script type="module" src="https://unpkg.com/rapidoc/dist/rapidoc-min.js"></script>
-      <h2 class="visually-hidden">{{ .Params.title }}</h2>
+      <h2>{{ .Params.title }}</h2>
       
       <rapi-doc
         id="api-doc"
-        theme = "dark"
         data-openapi-doc = "{{ .Params.staticFilePath }}"
         regular-font="Open Sans" mono-font="Roboto Mono" show-header="false"
         bg-color="#ffffff" text-color="" nav-bg-color="#fafafa" nav-text-color=""

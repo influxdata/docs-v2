@@ -5,6 +5,7 @@
   "description": "InfluxDB API documentation",
   "license": "MIT",
   "dependencies": {
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "hugo-data-to-pages": "file:../hugo-data-to-pages/hugo.js"
   }
 }

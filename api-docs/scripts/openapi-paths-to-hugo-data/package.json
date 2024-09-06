@@ -1,0 +1,19 @@
+{
+  "name": "openapi-paths-to-hugo-data",
+  "version": "1.0.0",
+  "description": "A tool to convert OpenAPI v3 paths to Hugo data.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "OpenAPI",
+    "Hugo",
+    "YAML"
+  ],
+  "author": "Jason Stirnaman",
+  "license": "ISC",
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
