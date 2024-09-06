@@ -646,7 +646,7 @@ paths:
         '204':
           description: Write data is correctly formatted and accepted for writing to the database.
         '400':
-           description: |
+          description: |
             Data from the batch was rejected and not written. The response body indicates if a partial write occurred or all data was rejected.
             If a partial write occurred, then some points from the batch are written and queryable. 
             The response body contains details about the [rejected points](/influxdb/clustered/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
