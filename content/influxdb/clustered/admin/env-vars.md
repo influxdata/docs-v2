@@ -100,6 +100,7 @@ the [InfluxDB v3 storage engine architecture](/influxdb/clustered/reference/inte
     ```
 {{% note %}}
 #### Update environment variables instead of removing them
+
 Most configuration settings that can be overridden by environment variables have default values that are used if the environment variable is unset.
 Removing environment variables from your `AppInstance` resource configuration will not remove those environment variables entirely; instead, they will revert to their default settings.
 To revert to the default settings, simply unset the environment variable or update the value in your `AppInstance` resource to the default value.
