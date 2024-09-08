@@ -93,7 +93,9 @@ the [InfluxDB v3 storage engine architecture](/influxdb/clustered/reference/inte
 3.  Use `kubectl apply` to apply the configuration changes to your cluster and
     add or update environment variables in each component.
 
-    ```sh
+    <!-- pytest.mark.skip -->
+
+    ```bash
     kubectl apply \
       --filename myinfluxdb.yml \
       --namespace influxdb
