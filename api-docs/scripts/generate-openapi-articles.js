@@ -18,8 +18,6 @@ const execCommand = (command) => {
   }
 };
 
-
-
 // Function to generate data from OpenAPI
 function generateDataFromOpenAPI(specFile, dataOutPath, articleOutPath) {
   if (!fs.existsSync(dataOutPath)) {
@@ -36,20 +34,23 @@ function generateDataFromOpenAPI(specFile, dataOutPath, articleOutPath) {
 // Example usage of generateDataFromOpenAPI function
 // generateDataFromOpenAPI('path/to/openapi-file.yml', 'path/to/paths-output-folder', 'path/to/metadata-output-folder');
 
-function generatePagesFromArticleData(articlesPath, contentPath) {
+const generatePagesFromArticleData = async (articlesPath, contentPath) => {
+  let config = {
+    root: '.', //Root hugo folder, can be empty
+    dataFolder: articlesPath, //Data folder path (will fetch ALL files from here)
+    type: "api", //Type name [basically layout] (save it under "layouts/NAME/single.html" or themes/THEME/layouts/NAME/single.html). Can be overridden on individual pages by defining "type" under "fields"
+    pages: "articles", //Pages element in your data, in case it's "posts" or "articles" etc.
+    contentPath: contentPath, //Path to content directory (in case it's not "content")
+    hugoPath: `${DOCS_ROOT}/node_modules/.bin/hugo-extended` //Path to hugo binary (if global, e.g. /snap/bin/hugo)
+  }
+  configJson = `'${JSON.stringify(config)}'`;
+  console.log('Clean...')
   execCommand(
-    `HUGO_DATAPAGES_DATA_PATH=${articlesPath} \
-    HUGO_DATAPAGES_ELEMENT=articles \
-    HUGO_DATAPAGES_TYPE=api \
-    HUGO_DATAPAGES_CONTENT_PATH=${contentPath} \
-    node ${path.join(DOCS_ROOT, '/hugo-data-to-pages/hugo.js')} clean --force`
+    `node ./node_modules/hugo-data-to-pages/hugo.js clean --force --config=${configJson}`
   )
+  console.log('Generate...')
   execCommand(
-    `HUGO_DATAPAGES_DATA_PATH=${articlesPath} \
-    HUGO_DATAPAGES_ELEMENT=articles \
-    HUGO_DATAPAGES_TYPE=api \
-    HUGO_DATAPAGES_CONTENT_PATH=${contentPath} \
-    node ${path.join(DOCS_ROOT, '/hugo-data-to-pages/hugo.js')} generate`
+    `node ./node_modules/hugo-data-to-pages/hugo.js generate --config=${configJson}`
   )
 }
 
