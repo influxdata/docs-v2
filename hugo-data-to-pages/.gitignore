@@ -1,7 +1,0 @@
-
-# Hugo default output directory
-/example/public
-# Hugo generated resources directory
-/example/resources
-
-node_modules/*
