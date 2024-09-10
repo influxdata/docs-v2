@@ -1689,7 +1689,7 @@ input:
     tags: [linux, macos, windows, messaging]
 
   - name: Radius
-    id: Radius
+    id: radius
     description: |
       Collects authentication response time metrics from Radius.
     introduced: 1.26.0
@@ -2668,13 +2668,6 @@ output:
     introduced: 1.19.0
     tags: [web, servers]
 
-  - name: XML
-    id: xml
-    description: |
-      The XML parser plugin parses an XML string into metric fields using XPath expressions.
-    introduced: 1.18.0
-    tags: []
-
   - name: Yandex Cloud Monitoring
     id: yandex_cloud_monitoring
     description: |
@@ -2785,7 +2778,7 @@ aggregator:
 
 processor:
   - name: AWS EC2 Metadata
-    id: aws/ec2
+    id: aws_ec2
     description: |
       The AWS EC2 Metadata processor plugin appends metadata gathered from [AWS IMDS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html) to metrics associated with EC2 instances.
     introduced: 1.18.0
