@@ -75,9 +75,9 @@ telegraf:
   menu_category: other
   list_order: 6
   versions: [v1]
-  latest: v1.31
+  latest: v1.32
   latest_patches:
-    v1: 1.31.3
+    v1: 1.32.0
 
 chronograf:
   name: Chronograf
