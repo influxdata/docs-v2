@@ -1,5 +1,5 @@
 {
-  "name": "openapi-paths-to-hugo-data",
+  "name": "api-docs-data",
   "version": "1.0.0",
   "description": "A tool to convert OpenAPI v3 paths to Hugo data.",
   "main": "index.js",

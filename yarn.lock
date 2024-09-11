@@ -875,8 +875,9 @@ http2-wrapper@^2.1.10:
     quick-lru "^5.1.1"
     resolve-alpn "^1.2.0"
 
-"hugo-data-to-pages@file:../hugo-data-to-pages":
+"hugo-data-to-pages@https://github.com/jstirnaman/hugo-data-to-pages":
   version "1.0.0"
+  resolved "https://github.com/jstirnaman/hugo-data-to-pages#75471ea58888665129fa6c117c736b5d8251e34d"
   dependencies:
     fs-extra "^8.1.0"
     js-yaml "^4.1.0"
