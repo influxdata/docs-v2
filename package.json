@@ -8,7 +8,6 @@
     "@evilmartians/lefthook": "^1.7.1",
     "@vvago/vale": "^3.4.2",
     "autoprefixer": ">=10.2.5",
-    "hugo-extended": ">=0.101.0",
     "postcss": ">=8.4.31",
     "postcss-cli": ">=9.1.0",
     "prettier": "^3.2.5",
@@ -17,6 +16,7 @@
   "dependencies": {
     "axios": "^1.7.4",
     "hugo-data-to-pages": "https://github.com/jstirnaman/hugo-data-to-pages",
+    "hugo-extended": "^0.134.2",
     "js-yaml": "^4.1.0"
   },
   "scripts": {

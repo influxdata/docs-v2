@@ -24,13 +24,11 @@ function openapiPaths(openapi, prefix, outPath) {
   .forEach((p) => {
     const delimiter = '/';
     let key = p.split(delimiter);
-   
     let isItemPath = openapiUtils.isPlaceholderFragment(key[key.length - 1]);
     if(isItemPath) {
       key = key.slice(0, -1);
     }
     key = (key.slice(0, 4))
-
     isItemPath = openapiUtils.isPlaceholderFragment(key[key.length - 1]);
     if(isItemPath) {
       key = key.slice(0, -1);
@@ -78,9 +76,10 @@ function createArticleDataForPathGroup(openapi) {
   article.fields.title = openapi.info && openapi.info.title;
   article.fields.description = openapi.description;
   const pathGroupFrags = path.parse(openapi['x-pathGroup']);
-    article.fields.tags = ([pathGroupFrags?.dir, pathGroupFrags?.name]).map(
-    t => snakifyPath(t)
-  )
+  console.log(pathGroupFrags)
+  article.fields.tags = ([pathGroupFrags?.dir, pathGroupFrags?.name])
+    .map( t => snakifyPath(t))
+    .filter(t => t.length > 0);
   return article;
 }
 
@@ -132,5 +131,4 @@ module.exports = {
   openapiToData,
   openapiPaths,
   openapiMetadata
-
 };
