@@ -1,15 +1,14 @@
-const path = require('path');
 const argparse = require('argparse');
-const openapiPathsToHugo = require('./index.js');
+const apiDocs = require('./index.js');
 
 const cli = new argparse.ArgumentParser({
-  prog:  'openapi-docs',
+  prog:  'api-docs',
   add_help: true
 });
 
 cli.add_argument('--hugo', {
-  help:   'Generate Hugo data from OpenAPI paths',
-  dest:   'generateHugoData'
+  help:   'Generate a data file with objects (e.g. for Hugo data) from OpenAPI paths',
+  dest:   'generateData'
 });
 
 cli.add_argument('-d', '--data-output', {
@@ -42,12 +41,12 @@ var options = cli.parse_args();
 
 /* Usage examples
  * 
- node ./openapi-paths-to-hugo-data/index.js \
+ node ./api-docs-data/index.js \
   ./data/influxdb/cloud/openapi.yaml \
   -d ./data/influxdb/cloud/path-apis \
   -o ./data/article-data/influxdb/cloud
 
- node ./openapi-paths-to-hugo-data/index.js \
+ node ./api-docs-data/index.js \
    ./data/influxdb/oss/openapi.yaml \
    -d ./data/influxdb/oss/path-apis \
    -o ./data/article-data/influxdb/oss
@@ -57,6 +56,6 @@ var options = cli.parse_args();
 ////////////////////////////////////////////////////////////////////////////////
 
 
-if (options.generateHugoData) {
-  openapiPathsToHugo.generateHugoData(options);
+if (options.generateData) {
+  apiDocs.openapiToData(options);
 }

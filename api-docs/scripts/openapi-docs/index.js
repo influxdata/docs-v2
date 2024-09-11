@@ -18,7 +18,7 @@ const openapiUtils = {
   }
 }
 
-function writePathOpenapis(openapi, prefix, outPath) {
+function openapiPaths(openapi, prefix, outPath) {
   const pathGroups = {};
   Object.keys(openapi.paths).sort()
   .forEach((p) => {
@@ -84,7 +84,7 @@ function createArticleDataForPathGroup(openapi) {
   return article;
 }
 
-function writeOpenapiArticleData(sourcePath, targetPath, opts) {
+function openapiMetadata(sourcePath, targetPath, opts) {
   const isFile = filePath => {
     return fs.lstatSync(filePath).isFile();
   };
@@ -117,17 +117,20 @@ function writeOpenapiArticleData(sourcePath, targetPath, opts) {
   }
 }
 
-function generateHugoData(options) {
+function openapiToData(options) {
   const filenamePrefix = `${path.parse(options.specFile).name}-`;
 
   const sourceFile = readFile(options.specFile, 'utf8');
   console.log(`Generating OpenAPI path files in ${options.dataOutPath}....`);
-  writePathOpenapis(sourceFile, filenamePrefix, options.dataOutPath);
+  openapiPaths(sourceFile, filenamePrefix, options.dataOutPath);
 
   console.log(`Generating OpenAPI article data in ${options.articleOutPath}...`);
-  writeOpenapiArticleData(options.dataOutPath, options.articleOutPath, {filePattern: filenamePrefix});
+  openapiMetadata(options.dataOutPath, options.articleOutPath, {filePattern: filenamePrefix});
 }
 
 module.exports = {
-  generateHugoData
+  openapiToData,
+  openapiPaths,
+  openapiMetadata
+
 };

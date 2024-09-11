@@ -1,7 +1,7 @@
 const { execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
-const openapiPathsToHugo = require('./openapi-paths-to-hugo-data/index.js');
+const openapiDocs = require('./openapi-docs/index.js');
 
 // Calculate the relative paths
 const DOCS_ROOT = '.';
@@ -24,7 +24,7 @@ function generateDataFromOpenAPI(specFile, dataOutPath, articleOutPath) {
     fs.mkdirSync(dataOutPath, { recursive: true });
   }
 
-  openapiPathsToHugo.generateHugoData({
+  openapiDocs.openapiToData({
     dataOutPath,
     articleOutPath,
     specFile
@@ -54,27 +54,33 @@ const generatePagesFromArticleData = async (articlesPath, contentPath) => {
   )
 }
 
-const api_reference_paths = {
-  'cloud-v2': {
-    spec_file: path.join(API_DOCS_ROOT, '/cloud/v2/ref.yml'),
-    pages_dir: path.join(DOCS_ROOT, '/content/influxdb/cloud/api/v2'),
-  },
-  'oss-v2': {
-    spec_file: path.join(API_DOCS_ROOT, '/v2/ref.yml'),
-    pages_dir: path.join(DOCS_ROOT, '/content/influxdb/v2/api/v2'),
-  }
+// To output to a public folder where JavaScript can access it, use /static/<namespace>--for example: /static/openapi/
+const config = {
+  dataOutPath: path.join(DOCS_ROOT, '/data/api/influxdb'),
+  metadataOutPath: path.join(DOCS_ROOT, `/data/api-metadata/influxdb`),
+  apis: [
+    {
+      name: 'cloud-v2',
+      spec_file: path.join(API_DOCS_ROOT, '/cloud/v2/ref.yml'),
+      pages_dir: path.join(DOCS_ROOT, '/content/influxdb/cloud/api/v2'),
+    },
+    {
+      name: 'oss-v2',
+      spec_file: path.join(API_DOCS_ROOT, '/v2/ref.yml'),
+      pages_dir: path.join(DOCS_ROOT, '/content/influxdb/v2/api/v2'),
+    }
+  ]
 }
 
-Object.keys(api_reference_paths).forEach((key) => {
-  const api = api_reference_paths[key];
-  const staticPath = path.join(DOCS_ROOT, '/static/openapi');
-  const staticSpecPath = path.join(staticPath, `/influxdb-${key}.yml`);
-  const staticPathsPath = path.join(staticPath, `/influxdb-${key}/paths`);
-  const articlesPath = path.join(DOCS_ROOT, `/data/article-data/influxdb/${key}`);
+config.apis.forEach(api => {
   // Execute the getswagger.sh script
-  execCommand(`${path.join(API_DOCS_ROOT, 'getswagger.sh')} ${key} -B`);
-  // Copy the generated OpenAPI spec to the static folder
-  fs.copyFileSync(api.spec_file, staticSpecPath);
-  generateDataFromOpenAPI(api.spec_file, staticPathsPath, articlesPath);
-  generatePagesFromArticleData(articlesPath, api.pages_dir);
+  execCommand(`${path.join(API_DOCS_ROOT, 'getswagger.sh')} ${api.name} -B`);
+  const dataOut = path.join(config.dataOutPath, api.name);
+  const metadataOut = path.join(config.metadataOutPath, api.name);
+  if (!fs.existsSync(dataOut)) {
+    fs.mkdirSync(dataOut, { recursive: true });
+  }
+  fs.copyFileSync(api.spec_file, path.join(dataOut, api.name + '.yml'));
+  generateDataFromOpenAPI(api.spec_file, dataOut, metadataOut);
+  generatePagesFromArticleData(metadataOut, api.pages_dir);
 });
