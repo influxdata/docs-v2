@@ -29,8 +29,7 @@ menu:
 - This release contains a feature for a disk-backed metric buffer under the
   `buffer_strategy` agent config (see
   PR [#15564](https://github.com/influxdata/telegraf/pull/15564)).
-  Please note, this feature is **experimental**, please give it a test and
-  report any issues you encounter.
+  _This feature is **experimental**. Please report any issues you encounter while using it._
 
 ### New Plugins
 
