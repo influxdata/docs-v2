@@ -4,8 +4,7 @@ const fs = require('fs');
 const openapiDocs = require('./openapi-docs/index.js');
 
 // Calculate the relative paths
-const DOCS_ROOT = '.';
-const API_DOCS_ROOT = 'api-docs';
+const DOCS_ROOT = process.env.DOCS_ROOT || '.';
 
 // Function to execute shell commands
 const execCommand = (command) => {
@@ -61,12 +60,12 @@ const config = {
   apis: [
     {
       name: 'cloud-v2',
-      spec_file: path.join(API_DOCS_ROOT, '/cloud/v2/ref.yml'),
+      spec_file: path.join(DOCS_ROOT, '/api-docs/cloud/v2/ref.yml'),
       pages_dir: path.join(DOCS_ROOT, '/content/influxdb/cloud/api/v2'),
     },
     {
       name: 'oss-v2',
-      spec_file: path.join(API_DOCS_ROOT, '/v2/ref.yml'),
+      spec_file: path.join(DOCS_ROOT, '/api-docs/v2/ref.yml'),
       pages_dir: path.join(DOCS_ROOT, '/content/influxdb/v2/api/v2'),
     }
   ]
@@ -74,7 +73,7 @@ const config = {
 
 config.apis.forEach(api => {
   // Execute the getswagger.sh script
-  execCommand(`${path.join(API_DOCS_ROOT, 'getswagger.sh')} ${api.name} -B`);
+  execCommand(`${path.join(DOCS_ROOT, '/api-docs/getswagger.sh')} ${api.name} -B`);
   const dataOut = path.join(config.dataOutPath, api.name);
   const metadataOut = path.join(config.metadataOutPath, api.name);
   if (!fs.existsSync(dataOut)) {
