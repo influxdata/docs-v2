@@ -21,7 +21,7 @@ menu:
   [#15677](https://github.com/influxdata/telegraf/pull/15677),
   [#15695](https://github.com/influxdata/telegraf/pull/15695) and
   [#15751](https://github.com/influxdata/telegraf/pull/15751)).
-  As a consequence the redunant `logtarget` setting is deprecated, `stderr` is
+  As a consequence, the redundant `logtarget` setting is deprecated. `stderr` is
   used if no `logfile` is provided, otherwise messages are logged to the given
   file. For using the Windows `eventlog` set `logformat = "eventlog"`!
 - This release contains a change in json_v2 parser config parsing -
