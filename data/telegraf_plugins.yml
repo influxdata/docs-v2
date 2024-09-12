@@ -2575,9 +2575,7 @@ output:
   - name: Parquet
     id: parquet
     description: |
-      This plugin writes metrics to parquet files. By default, the parquet
-      output groups metrics by metric name and write those metrics all to the
-      same file. If a metric schema does not match then metrics are dropped.
+      This plugin writes metrics to parquet files. By default, it groups metrics by name, and then writes each group to a separate file. If a metric schema doesn't match, the metrics are dropped.
     introduced: 1.32.0
     tags: [linux, macos, windows, data-stores]
 
