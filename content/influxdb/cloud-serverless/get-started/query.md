@@ -160,7 +160,7 @@ WHERE
 {{% influxdb/custom-timestamps %}}
 ```sql
 SELECT
-  DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP) as _time,
+  DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z') as _time,
   room,
   selector_max(temp, time)['value'] AS 'max temp'
 FROM
