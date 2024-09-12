@@ -129,7 +129,7 @@ Use `kubectl` to install the [kubecfg kubit](https://github.com/kubecfg/kubit) o
 <!-- pytest.mark.skip -->
 
 ```sh
-kubectl apply -k 'https://github.com/kubecfg/kubit//kustomize/global?ref=v0.0.15'
+kubectl apply -k 'https://github.com/kubecfg/kubit//kustomize/global?ref=v0.0.19'
 ```
 
 ### Configure access to the InfluxDB container registry
@@ -544,9 +544,39 @@ We recommend storing sensitive credentials, such as your PostgreSQL-compatible D
 as secrets in your Kubernetes cluster.
 {{% /note %}}
 
-- `spec.package.spec.catalog.dsn.valueFrom.secretKeyRef`
-  - `.name`: Secret name
-  - `.key`: Key in the secret that contains the DSN
+{{% warn %}}
+#### Percent-encode special symbols in PostgreSQL DSNs
+
+Special symbols in PostgreSQL DSNs should be percent-encoded to ensure they
+are parsed correctly by InfluxDB Clustered. This is important to consider when
+using DSNs containing auto-generated passwords which may include special
+symbols to make passwords more secure.
+
+For example, the following DSN used in InfluxDB Clustered:
+
+```txt
+postgresql://postgres:meow#meow@my-fancy.cloud-database.party:5432/postgres
+```
+
+Would result in an error similar to:
+
+```txt
+Catalog DSN error: A catalog error occurred: unhandled external error: error with configuration: invalid port number
+```
+
+To fix this, percent-encode special symbols in the connection string:
+
+```txt
+postgresql://postgres:meow%23meow@my-fancy.cloud-database.party:5432/postgres
+```
+
+For more information, see the [PostgreSQL Connection URI
+docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS).
+{{% /warn %}}
+
+- [ ] `spec.package.spec.catalog.dsn.valueFrom.secretKeyRef`
+  - [ ] `.name`: Secret name
+  - [ ] `.key`: Key in the secret that contains the DSN
 
 {{% code-placeholders "SECRET_(NAME|KEY)" %}}
 

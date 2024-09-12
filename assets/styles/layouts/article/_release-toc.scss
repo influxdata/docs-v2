@@ -1,0 +1,68 @@
+#release-toc {
+  margin: 2rem 0 3rem;
+  
+  ul {
+    list-style: none;
+    overflow: hidden;
+    padding-left: 0;
+    margin-bottom: .75rem;
+    transition: height .2s;
+
+    li {
+      line-height: 1.2em;
+      margin: .5rem 0;
+
+      &::after {
+        content: attr(date);
+        font-size: 1rem;
+        margin-left: .5rem;
+        color: rgba($article-text, .5);
+      }
+    }
+  }
+
+  &.clustered {
+    ul {
+      padding-left: 1.5rem;
+
+      .checkpoint {
+        margin-left: -1.5rem;
+
+        &::before {
+          content: '\e93b' !important;
+          font-family: 'icomoon-v4';
+          color: $br-new-magenta;
+          display: inline-block;
+          margin: 0 .5rem 0 0;
+          vertical-align: top;
+        }
+      }
+    }
+  }
+
+  .show-more {
+    color: $article-link;
+    transition: color .2s;
+    font-weight: $medium;
+    font-size: 1rem;
+
+    &::before {
+      content: '\e935';
+      font-family: 'icomoon-v4';
+      font-size: .9rem;
+      color: $article-bg;
+      background: $article-link;
+      border-radius: 50%;
+      margin-right: .5rem;
+      transition: background .15s;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: $article-link-hover;
+      &::before {
+        background: $article-link-hover;
+      }
+    }
+  }
+}

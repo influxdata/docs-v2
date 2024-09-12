@@ -58,7 +58,7 @@ Other supported features include:
 ### `FROM` clause
 
 The `SELECT` clause specifies the measurement to query.
-This clause supports several formats for specifying a [measurement(s)](/influxdb/v2/reference/glossary/#measurement):
+This clause supports several formats for specifying a [measurement](/influxdb/v2/reference/glossary/#measurement):
 
 - `FROM <measurement_name>` - Returns data from a measurement.
 - `FROM <measurement_name>,<measurement_name>` - Returns data from more than one measurement.
@@ -319,23 +319,11 @@ Name: h2o_feet
 
 ## Regular expressions
 
-InfluxQL supports using regular expressions when specifying:
+InfluxQL supports using [regular expressions](/influxdb/v2/query-data/influxql/explore-data/regular-expressions/) when specifying:
 - [field keys](/influxdb/v2/reference/glossary/#field-key) and [tag keys](/influxdb/v2/reference/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v2/query-data/influxql/explore-data/select/)
 - [measurements](/influxdb/v2/reference/glossary/#measurement) in the [`FROM` clause](/influxdb/v2/query-data/influxql/explore-data/select/#from-clause)
 - [tag values](/influxdb/v2/reference/glossary/#tag-value) and string [field values](/influxdb/v2/reference/glossary/#field-value) in the [`WHERE` clause](/influxdb/v2/query-data/influxql/explore-data/where/).
 - [tag keys](/influxdb/v2/reference/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v2/query-data/influxql/explore-data/group-by/)
-
-Currently, InfluxQL does not support using regular expressions to match
-non-string field values in the
-`WHERE` clause,
-[databases](/influxdb/v2/reference/glossary/#database), and
-[retention policies](/influxdb/v2/reference/glossary/#retention-policy-rp).
-
-{{% note %}}
-**Note:** Regular expression comparisons are more computationally intensive than exact
-string comparisons. Queries with regular expressions are not as performant
-as those without.
-{{% /note %}}
 
 ## Syntax
 
@@ -343,73 +331,7 @@ as those without.
 SELECT /<regular_expression_field_key>/ FROM /<regular_expression_measurement>/ WHERE [<tag_key> <operator> /<regular_expression_tag_value>/ | <field_key> <operator> /<regular_expression_field_value>/] GROUP BY /<regular_expression_tag_key>/
 ```
 
-Regular expressions are surrounded by `/` characters and use
-[Golang's regular expression syntax](http://golang.org/pkg/regexp/syntax/).
-
-## Supported operators
-
-`=~`: matches against
-`!~`: doesn't match against
-
-## Examples
-
-{{< expand-wrapper >}}
-{{% expand "Use a regular expression to specify field keys and tag keys in the SELECT statement" %}}
-#### Use a regular expression to specify field keys and tag keys in the SELECT statement
-
-```sql
-SELECT /l/ FROM "h2o_feet" LIMIT 1
-```
-Output:
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time   | level description | location | water_level |
-| :-------------- |:----------------------| :-------------------| ------------------:|
-| 2019-08-17T00:00:00Z | below 3 feet | santa_monica | 2.0640000000 |
-
-The query selects all [field keys](/influxdb/v2/reference/glossary/#field-key)
-and [tag keys](/influxdb/v2/reference/glossary/#tag-key) that include an `l`.
-Note that the regular expression in the `SELECT` clause must match at least one
-field key in order to return results for a tag key that matches the regular
-expression.
-
-Currently, there is no syntax to distinguish between regular expressions for
-field keys and regular expressions for tag keys in the `SELECT` clause.
-The syntax `/<regular_expression>/::[field | tag]` is not supported.
-
-{{% /expand %}}
-
-{{% expand "Use a regular expression to specify measurements in the FROM clause" %}}
-
-```sql
-SELECT MEAN("degrees") FROM /temperature/
-```
-Output:
-{{% influxql/table-meta %}}
-Name: average_temperature    
-{{% /influxql/table-meta %}}
-
-| time | mean|
-| :-------------- |----------------------:|
-| 1970-01-01T00:00:00Z | 79.9847293223
-
-
-{{% influxql/table-meta %}}
-Name: h2o_temperature      
-{{% /influxql/table-meta %}}
-
-| time | mean|
-| :-------------- |----------------------:|
-| 1970-01-01T00:00:00Z | 64.9980273540 |
-
-
-This query uses the InfluxQL [MEAN() function](/influxdb/v2/query-data/influxql/functions/aggregates/#mean) to calculate the average `degrees` for every [measurement](/influxdb/v2/reference/glossary/#measurement) in the `noaa` database that contains the word `temperature`.
-
-{{% /expand %}}
-
-{{< /expand-wrapper >}}
+See [regular expressions](/influxdb/v2/query-data/influxql/explore-data/regular-expressions/) for more information.
 
 ## Data types and cast operations
 
