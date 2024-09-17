@@ -18,7 +18,7 @@ const openapiUtils = {
   }
 }
 
-function openapiPaths(openapi, prefix, outPath) {
+function openapiPaths(openapi, outPath) {
   const pathGroups = {};
   Object.keys(openapi.paths).sort()
   .forEach((p) => {
@@ -49,7 +49,7 @@ function openapiPaths(openapi, prefix, outPath) {
       if (!fs.existsSync(outPath)) {
         fs.mkdirSync(outPath, {recursive: true});
       }
-      const realOutPath = path.resolve(outPath, `${prefix}${pg.replaceAll('/', '-').replace(/^-/, '')}.yaml`);
+      const realOutPath = path.resolve(outPath, `${pg.replaceAll('/', '-').replace(/^-/, '')}.yaml`);
       writeDataFile(doc, realOutPath);
     } catch (err) {
       console.error(err);
@@ -117,14 +117,10 @@ function openapiMetadata(sourcePath, targetPath, opts) {
 }
 
 function openapiToData(options) {
-  const filenamePrefix = `${path.parse(options.specFile).name}-`;
-
   const sourceFile = readFile(options.specFile, 'utf8');
-  console.log(`Generating OpenAPI path files in ${options.dataOutPath}....`);
-  openapiPaths(sourceFile, filenamePrefix, options.dataOutPath);
-
-  console.log(`Generating OpenAPI article data in ${options.articleOutPath}...`);
-  openapiMetadata(options.dataOutPath, options.articleOutPath, {filePattern: filenamePrefix});
+  console.log(`Generating OpenAPI path files in ${options.dataPath}....`);
+  openapiPaths(sourceFile, options.dataPath);
+  //openapiMetadata(options.dataPath);
 }
 
 module.exports = {
