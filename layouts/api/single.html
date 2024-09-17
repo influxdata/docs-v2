@@ -3,6 +3,16 @@
 {{ partial "header.html" . }}
 {{ partial "topnav.html" . }}
 
+{{ range $category, $api := .Site.Data.api.influxdb.v2_cloud.cloud_v2 }}
+  <p>{{ $category | title }}</p>
+  <ul>
+    {{ range $api }}
+      <li>{{ .info.title }}<br /> ({{ .info.description }})</li>
+    {{ end }}
+  </ul>
+{{ end }}
+
+<!--Rapidoc demo
 <div class="page-wrapper">
   {{ partial "sidebar.html" . }}
   <div class="content-wrapper">
@@ -35,5 +45,5 @@
     <div class="copyright">© {{ now.Year }} InfluxData, Inc.</div>
   </div>
 </div>
-
+-->
 {{ partial "footer.html" . }}
