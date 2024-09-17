@@ -7,8 +7,10 @@ description: >
 menu:
   influxdb_clustered:
     name: Prerequisites
-    parent: Install InfluxDB Clustered
-weight: 110
+    parent: Set up your cluster
+weight: 201
+aliases:
+  - /influxdb/clustered/install/prerequisites/
 ---
 
 InfluxDB Clustered requires the following prerequisites:
@@ -24,14 +26,6 @@ We **strongly** recommend that you enable object versioning in your object store
   Used to store the InfluxDB catalog
   - Supported PostgreSQL versions: **13.8–14.6**
   - Ensure that the PostgreSQL-compatible instance is dedicated exclusively to InfluxDB. This avoids conflicts and prevents issues caused by shared usage with other applications.
-
-- **OAuth 2.0 provider**:
-  - Must support [Device Authorization Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/device-authorization-flow)
-  - Tested and supported providers:
-    - [Microsoft Entra ID _(formerly Azure Active Directory)_](https://www.microsoft.com/en-us/security/business/microsoft-entra)
-    - [Keycloak](https://www.keycloak.org/)
-    - [Auth0](https://auth0.com/)
-- **TLS certificate**: for ingress to the cluster
 
 ## Set up a Kubernetes cluster
 
@@ -78,20 +72,6 @@ but this is a reasonable starting size for your initial testing.
 
 The InfluxDB ingester pods need local storage to store the Write-Ahead Log (WAL).
 The recommended minimum size of the local storage is 2 gibibytes (`2Gi`).
-
-## Set up an OAuth2 provider
-
-InfluxDB requires access to an OAuth2 authentication service to authenticate user access.
-InfluxDB Clustered requires that the OAuth2 service supports
-[Device Authorization Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/device-authorization-flow).
-InfluxData has tested with [Microsoft Entra ID _(formerly Azure Active Directory)_](https://www.microsoft.com/en-us/security/business/microsoft-entra), [Keycloak](https://www.keycloak.org/), and
-[Auth0](https://auth0.com/), but any OAuth2 provider should work.
-To access the OAuth2 server, InfluxDB requires the following OAuth2 connection credentials:
-
-  - Client ID
-  - JWKS endpoint
-  - Device authorization endpoint
-  - Token endpoint.
 
 ## Set up client Software
 

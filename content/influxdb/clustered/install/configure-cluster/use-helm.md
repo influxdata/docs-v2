@@ -68,7 +68,7 @@ The `AppInstance` resource contains key information, such as:
 - Version of the InfluxDB package
 - Reference to the InfluxDB container registry pull secrets
 - Hostname where the InfluxDB API is exposed
-- Parameters to connect to [external prerequisites](/influxdb/clustered/install/prerequisites/)
+- Parameters to connect to [external prerequisites](/influxdb/clustered/install/set-up-cluster/prerequisites/)
 
 ### Kubit operator
 

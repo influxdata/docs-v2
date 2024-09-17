@@ -391,4 +391,4 @@ The following examples show how to configure `influxctl` for various identity pr
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{< page-nav prev="/influxdb/clustered/install/prerequisites/" next="/influxdb/clustered/install/configure-cluster/" nextText="Configure your cluster" >}}
+{{< page-nav prev="/influxdb/clustered/install/set-up-cluster/prerequisites/" next="/influxdb/clustered/install/configure-cluster/" nextText="Configure your cluster" >}}

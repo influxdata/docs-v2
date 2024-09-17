@@ -24,7 +24,7 @@ a YAML configuration file.
   - **`app-instance-schema.json`**: Defines the schema for `example-customer.yml`
     to be used with [Visual Studio Code (VS Code)](https://code.visualstudio.com/).
   - **`example-customer.yml`**: Configuration for your InfluxDB cluster that includes
-    information about [prerequisites](/influxdb/clustered/install/prerequisites/).
+    information about [prerequisites](/influxdb/clustered/install/set-up-cluster/prerequisites/).
 
     {{% note %}}
 
@@ -71,7 +71,7 @@ The `AppInstance` resource contains key information, such as:
 - Version of the InfluxDB package
 - Reference to the InfluxDB container registry pull secrets
 - Hostname where the InfluxDB API is exposed
-- Parameters to connect to [external prerequisites](/influxdb/clustered/install/prerequisites/)
+- Parameters to connect to [external prerequisites](/influxdb/clustered/install/set-up-cluster/prerequisites/)
 
 ## Configure your cluster
 

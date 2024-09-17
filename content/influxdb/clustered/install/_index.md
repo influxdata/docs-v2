@@ -7,11 +7,29 @@ weight: 2
 ---
 
 InfluxDB Clustered is deployed and managed using Kubernetes.
-This multi-page guide walks through setting up prerequisites and configuring
-your InfluxDB cluster deployment.
+This installation guide walks through the following four installation phases and
+the goal of each phase. This process ensures your cluster is set up and running
+properly and will perform well with your expected production workload.
+
+1.  **[Set up your cluster](/influxdb/clustered/install/set-up-cluster/)**:
+    Get a basic InfluxDB cluster up and running with as few external
+    dependencies as possible and confirm you can write and query data.
+2.  **[Customize your cluster](/influxdb/clustered/install/customize-cluster/)**:
+    Review and customize the available configuration options specific to your workload.
+3.  **[Optimize your cluster](/influxdb/clustered/install/optimize-cluster/)**:
+    Scale and load test your InfluxDB cluster to confirm that it will satisfy
+    your scalability and performance needs. Work with InfluxData to review your
+    schema and determine how best to organize your data and develop queries
+    representative of your workload to ensure queries meet performance requirements.
+4.  **[Secure your cluster](/influxdb/clustered/install/secure-cluster/)**:
+    Integrate InfluxDB with your identity provider to manage access to your
+    cluster. Install TLS certificates and enable TLS access.
+    Prepare your cluster for production use.
+
+## InfluxDB Clustered license
 
 InfluxDB Clustered is a commercial product offered by InfluxData, the creators
-of InfluxDB. Please contact InfluxData Sales to obtain a license before
+of InfluxDB. Please contact InfluxData Sales to obtain a license _before_
 installing InfluxDB Clustered.
 
 <a class="btn" href="{{< cta-link >}}">Contact InfluxData Sales</a>
@@ -47,4 +65,4 @@ The Catalog and Object store contain all of the important state for Influxdb 3.0
 
 After recovering the catalog and object store, you will need to update the dsn in myinfluxdb.yml and re-apply. -->
 
-{{< page-nav next="/influxdb/clustered/install/prerequisites/" >}}
+{{< page-nav next="/influxdb/clustered/install/set-up-cluster/prerequisites/" >}}
