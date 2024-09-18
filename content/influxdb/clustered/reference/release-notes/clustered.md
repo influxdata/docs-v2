@@ -26,6 +26,78 @@ identified below with the <span class="cf-icon Shield pink"></span> icon.
 
 ---
 
+## 202409XX-XXXXXXX {date="2024-09-??" .checkpoint} 
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:202409XX-XXXXXXX
+```
+
+### Highlights
+
+#### Partial writes enabled by default
+
+In InfluxDB Clustered 202409XX-XXXXXXX+, "partial writes" are enabled by default.
+With partial writes enabled, InfluxDB accepts write requests with invalid or
+malformed lines of line protocol and successfully write valid lines and rejects
+invalid lines. Previously, if any line protocol in a batch was invalid, the
+entire batch was rejected and no data was written.
+
+To disable partial writes and revert back to the previous behavior, set the
+`INFLUXDB_IOX_PARTIAL_WRITES_ENABLED` environment variable on your cluster's
+Ingester to `false`. Define this environment variable in the
+`spec.package.spec.components.ingester.template.containers.iox.env` property in
+your `AppInstance` resource.
+
+{{< expand-wrapper >}}
+{{% expand "View example of disabling partial writes in your `AppInstance` resource" %}}
+
+```yaml
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+metadata:
+  name: influxdb
+  namespace: influxdb
+spec:
+  package:
+    spec:
+      components:
+        ingester:
+          template:
+              containers:
+                iox:
+                  env:
+                    INFLUXDB_IOX_PARTIAL_WRITES_ENABLED: false
+```
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+For more information about defining variables in your InfluxDB cluster, see
+[Manage environment variables in your InfluxDB Cluster](/influxdb/clustered/admin/env-vars/).
+
+##### Write API behaviors
+
+When submitting a write request that includes invalid or malformed line protocol,
+The InfluxDB write API returns a 400 response code and does the following: 
+
+- With partial writes _enabled_:
+
+  - Writes all valid points and rejects all invalid points.
+  - Includes details about the [rejected points](/influxdb/clustered/write-data/troubleshoot/#troubleshoot-rejected-points)
+    (up to 100 points) in the response body.
+
+- With partial writes _disabled_:
+
+  - Rejects all points in the batch.
+  - Includes an error message and the first malformed line of line protocol in
+    the response body.
+
+---
+
 ## 20240819-1176644 {date="2024-08-19" .checkpoint}
 
 ### Quickstart
@@ -463,7 +535,7 @@ mounted into your existing Grafana instance.
 An authentication component, previously known as `authz`, has been consolidated
 into the `token-management` service.
 
-There is now a temporary `Job` in place, `delete-authz-schema`, that
+Now there is a temporary `Job` in place, `delete-authz-schema`, that
 automatically removes the `authz` schema from the configured PostgreSQL database.
 
 ### Changes
@@ -704,7 +776,7 @@ the `create-admin-token` job.
 
 #### Deployment
 
-- Increase HTTP write request limit from 10MB to 50MB.
+- Increase HTTP write request limit from 10 MB to 50 MB.
 - Added support for [Telegraf Operator](https://github.com/influxdata/telegraf-operator).
   We have added the `telegraf.influxdata.com/port` annotation to all the pods.
   No configuration is required. We don't yet provide a way to specify the

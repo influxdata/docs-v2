@@ -15,14 +15,18 @@ InfluxDB cluster and adjust your cluster's running configuration.
 Define environment variables for each component in your `AppInstance` resource.
 
 InfluxDB Clustered components support various environment variables.
-While many of these variables have default settings, you can customize them by setting your own values.
+While many of these variables have default settings, you can customize them by
+setting your own values.
 
 {{% warn %}}
 #### Overriding default settings may affect overall cluster performance
 
-{{% product-name %}} components have complex interactions that can be affected when overriding default configuration settings.
+{{% product-name %}} components have complex interactions that can be affected
+when overriding default configuration settings.
 Changing these settings may impact overall cluster performance.
-Before making configuration changes using environment variables, consider consulting [InfluxData Support](https://support.influxdata.com/) to identify any potential unintended consequences.
+Before making configuration changes using environment variables, consider
+consulting [InfluxData Support](https://support.influxdata.com/) to identify any
+potential unintended consequences.
 {{% /warn %}}
 
 ## AppInstance component schema
@@ -65,8 +69,9 @@ the [InfluxDB v3 storage engine architecture](/influxdb/clustered/reference/inte
 
 ## Set environment variables for a component
 
-1.  Under the specific component property, use the `<component>.template.containers.iox.env`
-    property to define environment variables.
+1.  Under the specific component property, use the
+    `<component>.template.containers.iox.env` property to define environment
+    variables.
 2.  In the `env` property, structure each environment variable as a key-value pair.
     For example, to configure environment variables for the Garbage collector:
 
@@ -82,12 +87,12 @@ the [InfluxDB v3 storage engine architecture](/influxdb/clustered/reference/inte
         spec:
           components:
             garbage-collector:
-            template:
-              containers:
-                iox:
-                  env:
-                    INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF: '6h'
-                    INFLUXDB_IOX_GC_PARQUETFILE_CUTOFF: '6h'
+              template:
+                containers:
+                  iox:
+                    env:
+                      INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF: '6h'
+                      INFLUXDB_IOX_GC_PARQUETFILE_CUTOFF: '6h'
     ```
 
 3.  Use `kubectl apply` to apply the configuration changes to your cluster and
@@ -103,12 +108,17 @@ the [InfluxDB v3 storage engine architecture](/influxdb/clustered/reference/inte
 {{% note %}}
 #### Update environment variables instead of removing them
 
-Most configuration settings that can be overridden by environment variables have default values that are used if the environment variable is unset.
-Removing environment variables from your `AppInstance` resource configuration will not remove those environment variables entirely; instead, they will revert to their default settings.
-To revert to the default settings, simply unset the environment variable or update the value in your `AppInstance` resource to the default value.
+Most configuration settings that can be overridden by environment variables have
+default values that are used if the environment variable is unset. Removing
+environment variables from your `AppInstance` resource configuration will not
+remove those environment variables entirely; instead, they will revert to their
+default settings. To revert to the default settings, simply unset the
+environment variable or update the value in your `AppInstance` resource to the
+default value.
 
-In the preceding example, the `INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF` environment variable is set to `6h`.
-If you remove `INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF` from the `env` property, the cutoff reverts to its default setting of `30d`.
+In the preceding example, the `INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF` environment
+variable is set to `6h`. If you remove `INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF` from
+the `env` property, the cutoff reverts to its default setting of `30d`.
 {{% /note %}}
 
 {{< expand-wrapper >}}
