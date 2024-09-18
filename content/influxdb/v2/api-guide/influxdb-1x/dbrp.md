@@ -13,6 +13,8 @@ related:
   - /influxdb/v2/reference/api/influxdb-1x/write
   - /influxdb/v2/api/#tag/DBRPs, InfluxDB v2 API /dbrps endpoint
   - /influxdb/v2/query-data/influxql/
+alias:
+  - /influxdb/v2/reference/api/influxdb-1x/dbrp/
 ---
 
 The InfluxDB 1.x data model includes [databases](/influxdb/v1/concepts/glossary/#database)
@@ -82,9 +84,10 @@ the DBRP mapping service checks for a bucket mapped to the database and retentio
 
 - If a mapped bucket is found, data is written to the bucket.
 - If an unmapped bucket with a name matching:
-    - **database/retention policy** exists, a DBRP mapping is added to the bucket,
+
+    - `database/retention policy` exists, a DBRP mapping is added to the bucket,
       and data is written to the bucket.
-    - **database** exists (without a specified retention policy), the default
+    - `database` exists (without a specified retention policy), the default
       database retention policy is used, a DBRP mapping is added to the bucket,
       and data is written to the bucket.
 

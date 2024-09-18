@@ -32,6 +32,8 @@ smartDashes = false
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+    [markup.goldmark.extensions]
+      linkify = false
 
 [privacy]
   [privacy.googleAnalytics]
