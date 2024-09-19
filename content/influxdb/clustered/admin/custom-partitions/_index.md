@@ -74,7 +74,7 @@ Custom partitioning has the following limitations:
 - Database and table partitions can only be defined on create.
   You cannot update the partition strategy of a database or table after it has
   been created.
-- A partition template must include a time interval.
+- A partition template must include a time part.
 - You can partition by up to eight dimensions (seven tags and a time interval).
 
 ## How partitioning works
