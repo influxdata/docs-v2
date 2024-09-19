@@ -178,7 +178,7 @@ SELECT *
 FROM system.partitions 
 WHERE
   table_name = 'TABLE_NAME' 
-  AND partition_key = 'PARTITION_KEY';
+    AND partition_key = 'PARTITION_KEY';
 ```
 {{% /code-placeholders %}}
 
@@ -201,7 +201,7 @@ SELECT *
 FROM system.partitions 
 WHERE
   table_name = 'TABLE_NAME' 
-  AND partition_id = PARTITION_ID;
+    AND partition_id = PARTITION_ID;
 ```
 {{% /code-placeholders %}}
 
@@ -221,7 +221,7 @@ SELECT
 FROM system.partitions
 WHERE
   table_name = 'TABLE_NAME'
-  AND partition_key = 'PARTITION_KEY';
+    AND partition_key = 'PARTITION_KEY';
 ```
 {{% /code-placeholders %}}
 
