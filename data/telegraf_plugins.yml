@@ -1035,7 +1035,7 @@ input:
     introduced: 1.10.0
     tags: [linux, macos, windows, build-deploy, containers]
 
-  - name: ldap
+  - name: LDAP
     id: ldap
     description: |
       This plugin gathers metrics from LDAP servers' monitoring (cn=Monitor) backend.
@@ -1689,7 +1689,7 @@ input:
     tags: [linux, macos, windows, messaging]
 
   - name: Radius
-    id: Radius
+    id: radius
     description: |
       Collects authentication response time metrics from Radius.
     introduced: 1.26.0
@@ -1736,6 +1736,14 @@ input:
       and the elapsed time since the last RDB save (`rdb_last_save_time_elapsed`).
     introduced: 0.1.1
     tags: [linux, macos, windows, data-stores]
+
+  - name: Redis sentinel
+    id: redis_sentinel
+    description: |
+      A plugin for Redis Sentinel to monitor multiple Sentinel instances that
+      are monitoring multiple Redis servers and replicas.
+    introduced: 1.22.0
+    tags: [linux, macos, windows]
 
   - name: RethinkDB
     id: rethinkdb
@@ -1797,7 +1805,7 @@ input:
       This plugin gathers information from Siemens PLC (Programmatic Logic Controller).
     introduced: 1.28.0
     link: https://github.com/nicolasme/s7comm/blob/main/README.md
-    tags: [serial, iot]
+    tags: [linux, macos, windows, iot]
 
   - name: Slab
     id: slab
@@ -1806,6 +1814,14 @@ input:
     introduced: 1.23.0
     link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/slab/README.md
     tags: [linux, system]
+
+  - name: SLURM
+    id: slurm
+    description: |
+      This plugin gather diag, jobs, nodes, partitions and reservation metrics
+      by leveraging SLURM's REST API as provided by the slurmrestd daemon
+    introduced: 1.32.0
+    tags: [linux, macos, windows]
 
   - name: S.M.A.R.T.
     id: smart
@@ -2431,6 +2447,14 @@ output:
     introduced: 0.13.1
     tags: [linux, macos, windows, applications]
 
+  - name: IoTDB
+    id: iotdb
+    description: |
+      This output plugin saves Telegraf metrics to an Apache IoTDB backend,
+      supporting session connection and data insertion.
+    introduced: 1.24.0
+    tags: [linux, macos, windows, data-stores]
+
   - name: Librato
     id: librato
     description: |
@@ -2548,6 +2572,13 @@ output:
     introduced: 0.1.9
     tags: [linux, macos, windows, data-stores]
 
+  - name: Parquet
+    id: parquet
+    description: |
+      This plugin writes metrics to parquet files. By default, it groups metrics by name, and then writes each group to a separate file. If a metric schema doesn't match, the metrics are dropped.
+    introduced: 1.32.0
+    tags: [linux, macos, windows, data-stores]
+
   - name: Postgre SQL
     id: postgresql
     description: |
@@ -2563,12 +2594,21 @@ output:
     introduced: 0.2.1
     tags: [linux, macos, windows, applications]
 
-  - name: RedisTimeSeries
+  - name: Redis time series
     id: redistimeseries
     description: |
-      The RedisTimeSeries output plugin writes metrics to the RedisTimeSeries server.
+      The Redis time series output plugin writes metrics to the RedisTimeSeries server.
     introduced: 1.24.0
     tags: [linux, macos, windows, networking]
+
+  - name: Remote file
+    id: remotefile
+    description: |
+      This plugin writes telegraf metrics to files in remote locations using
+      the rclone library. Multiple backends such as Amazon S3 or SFTP are
+      supported.
+    introduced: 1.32.0
+    tags: [linux, macos, windows, data-stores]
 
   - name: Riemann
     id: riemann
@@ -2668,19 +2708,21 @@ output:
     introduced: 1.19.0
     tags: [web, servers]
 
-  - name: XML
-    id: xml
-    description: |
-      The XML parser plugin parses an XML string into metric fields using XPath expressions.
-    introduced: 1.18.0
-    tags: []
-
   - name: Yandex Cloud Monitoring
     id: yandex_cloud_monitoring
     description: |
       The Yandex Cloud Monitoring output plugin sends custom metrics to Yandex Cloud Monitoring.
     introduced: 1.17.0
     tags: [linux, macos, windows]
+
+  - name: Zabbix
+    id: zabbix
+    description: |
+      This plugin send metrics to Zabbix via traps. It has been tested with
+      versions 3.0, 4.0 and 6.0. It should work with newer versions as long as
+      Zabbix does not change the protocol.
+    introduced: 1.30.0
+    tags: [linux, macos, windows, data-stores]
 
 #    %%%%    %%%%    %%%%   %%%%%   %%%%%%   %%%%    %%%%   %%%%%%   %%%%   %%%%%    %%%%    #
 #   %%  %%  %%      %%      %%  %%  %%      %%      %%  %%    %%    %%  %%  %%  %%  %%       #
@@ -2785,7 +2827,7 @@ aggregator:
 
 processor:
   - name: AWS EC2 Metadata
-    id: aws/ec2
+    id: aws_ec2
     description: |
       The AWS EC2 Metadata processor plugin appends metadata gathered from [AWS IMDS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html) to metrics associated with EC2 instances.
     introduced: 1.18.0
@@ -2985,6 +3027,13 @@ processor:
     description: |
       Processor to scale values from a specified range into another range
     introduced: 1.27.0
+    tags: [linux, macos, windows]
+
+  - name: SNMP lookup
+    id: snmp_lookup
+    description: |
+      Processor to look-up extra tags using SNMP
+    introduced: 1.30.0
     tags: [linux, macos, windows]
 
   - name: Split
