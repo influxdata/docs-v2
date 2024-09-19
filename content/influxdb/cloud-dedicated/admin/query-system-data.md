@@ -168,13 +168,12 @@ WHERE
   AND partition_key = 'PARTITION_KEY';
 ```
 
-- `PARTITION_KEY`: a [partition key]((/influxdb/cloud-dedicated/admin/custom-partitions/#partition-keys))
+Replace the following:
+
+- `TABLE_NAME`: the table to retrieve partitions for
+- `PARTITION_KEY`: a [partition key](/influxdb/cloud-dedicated/admin/custom-partitions/#partition-keys)
    derived from the table's partition template.
-
-###### Partition key format
-
-The default format for `partition_key` is `%Y-%m-%d` (for example, `2024-01-01`).
-If the table uses a custom partition template, the `partition_key` format will differ.
+   The default format is `%Y-%m-%d` (for example, `2024-01-01`).
 
 ##### Filter by partition ID 
 
@@ -363,14 +362,13 @@ The examples in this section include `WHERE` filters to [optimize queries and re
   - [View all stored query logs](#view-all-stored-query-logs)
   - [View query logs for queries with end-to-end durations above a threshold](#view-query-logs-for-queries-with-end-to-end-durations-above-a-threshold)
 - [Partitions](#partitions)
-  - [View partition templates of all tables](#view-partition-templates-of-all-tables)
   - [View the partition template of a specific table](#view-the-partition-template-of-a-specific-table)
   - [View all partitions for a table](#view-all-partitions-for-a-table)
   - [View the number of partitions per table](#view-the-number-of-partitions-per-table)
   - [View the number of partitions for a specific table](#view-the-number-of-partitions-for-a-specific-table)
 - [Storage usage](#storage-usage)
-  - [View the size of tables in megabytes](#view-the-size-of-tables-in-megabytes)
   - [View the size of a specific table in megabytes](#view-the-size-of-a-specific-table-in-megabytes)
+  - [View the size of specific tables in megabytes](#view-the-size-of-specific-tables-in-megabytes)
   - [View the total size of all compacted partitions per table in bytes](#view-the-total-size-of-all-compacted-partitions-per-table-in-bytes)
   - [View the total size of all compacted partitions in bytes](#view-the-total-size-of-all-compacted-partitions-in-bytes)
 - [Compaction](#compaction)
@@ -458,7 +456,18 @@ WHERE
 
 ### Storage usage
 
-#### View the size of tables in megabytes
+#### View the size of a specific table in megabytes
+
+```sql
+SELECT
+  SUM(total_size_mb) AS total_size_mb
+FROM
+  system.partitions
+WHERE
+  table_name = 'TABLE_NAME'
+```
+
+#### View the size of specific tables in megabytes
 
 ```sql
 SELECT
@@ -470,17 +479,6 @@ WHERE
   table_name IN ('foo', 'bar', 'baz')
 GROUP BY
   table_name
-```
-
-#### View the size of a specific table in megabytes
-
-```sql
-SELECT
-  SUM(total_size_mb) AS total_size_mb
-FROM
-  system.partitions
-WHERE
-  table_name = 'TABLE_NAME'
 ```
 
 #### View the total size of all compacted partitions per table in bytes

@@ -5,7 +5,7 @@ description: >
   to queries, tables, partitions, and compaction in your cluster.
 menu:
   influxdb_clustered:
-    parent: Administer InfluxDB Cloud
+    parent: Administer InfluxDB Clustered
     name: Query system data
 weight: 105
 related:
@@ -142,18 +142,20 @@ cluster's performance.
 
 ##### Filter by table name
 
-Filter by `table_name` when querying `system.tables`, `system.partitions`, or `system.compactor`. 
+When querying the `system.tables`, `system.partitions`, or `system.compactor` tables, use the
+`WHERE` clause to filter by `table_name` . 
 
 ```sql
-WHERE table_name = 'TABLE_NAME' (string)
+SELECT * FROM system.partitions WHERE table_name = 'TABLE_NAME'
 ```
 
 ##### Filter by partition key 
 
-Filter by `partition_key` when querying `system.partitions` or `system.compactor`.
+When querying the `system.partitions` or `system.compactor` tables, use the `WHERE` clause to
+filter by `partition_key` .
 
 ```sql
-WHERE partition_key = 'PARTITION_KEY (string)
+SELECT * FROM system.partitions WHERE partition_key = 'PARTITION_KEY'
 ```
 
 To further improve performance, use `AND` to pair `partition_key` with `table_name`--for example: 
@@ -161,24 +163,25 @@ To further improve performance, use `AND` to pair `partition_key` with `table_na
 ```sql
 SELECT * 
 FROM system.partitions 
-WHERE table_name = 'TABLE_NAME' 
- AND partition_key = 'PARTITION_KEY';
+WHERE
+  table_name = 'TABLE_NAME' 
+  AND partition_key = 'PARTITION_KEY';
 ```
 
-- `PARTITION_KEY`: a [partition key]((/influxdb/clustered/admin/custom-partitions/#partition-keys))
+Replace the following:
+
+- `TABLE_NAME`: the table to retrieve partitions for
+- `PARTITION_KEY`: a [partition key](/influxdb/clustered/admin/custom-partitions/#partition-keys)
    derived from the table's partition template.
-
-###### Partition key format
-
-The default format for `partition_key` is `%Y-%m-%d` (for example, `2024-01-01`).
-If the table uses a custom partition template, the `partition_key` format will differ.
+   The default format is `%Y-%m-%d` (for example, `2024-01-01`).
 
 ##### Filter by partition ID 
 
-Filter by `partition_id` when querying `system.partitions` or `system.compactor`.
+When querying the `system.partitions` or `system.compactor` table, use the `WHERE` clause to
+filter by `partition_id` .
 
 ```sql
-WHERE partition_id = PARTITION_ID (int64)
+SELECT * FROM system.partitions WHERE partition_id = PARTITION_ID
 ```
 
 For the most optimized approach, use `AND` to pair `partition_id` with `table_name`--for example:
@@ -186,11 +189,12 @@ For the most optimized approach, use `AND` to pair `partition_id` with `table_na
 ```sql
 SELECT * 
 FROM system.partitions 
-WHERE table_name = 'TABLE_NAME' 
- AND partition_id = PARTITION_ID;
+WHERE
+  table_name = 'TABLE_NAME' 
+  AND partition_id = PARTITION_ID;
 ```
 
-- `PARTITION_ID`: a [partition ID](#retrieve-a-partition-id)
+- `PARTITION_ID`: a [partition ID](#retrieve-a-partition-id) (int64)
 
 Although you don't need to pair `partition_id` with `table_name` (because a partition ID is unique within a cluster),
 it's the most optimized approach, _especially when you have many tables in a database_.
@@ -200,17 +204,21 @@ it's the most optimized approach, _especially when you have many tables in a dat
 To retrieve a partition ID, query `system.partitions` for a `table_name` and `partition_key` pair--for example:
 
 ```sql
-SELECT * 
+SELECT
+  table_name,
+  partition_key,
+  partition_id 
 FROM system.partitions
-WHERE table_name = 'TABLE_NAME'
+WHERE
+  table_name = 'TABLE_NAME'
   AND partition_key = 'PARTITION_KEY';
 ```
 
 The result contains the `partition_id`:
 
-| partition_id | table_name | partition_key     | last_new_file_created_at | num_files | total_size_mb |
-| -----------: | :--------- | :---------------- | -----------------------: | --------: | ------------: |
-|         1362 | weather    | 43 \| 2020-05-27  |      1683747418763813713 |         1 |             0 |
+| table_name | partition_key     | partition_id |
+| :--------- | :---------------- | -----------: |
+| weather    | 43 \| 2020-05-27  |         1362 |
 
 ##### Combine filters for performance improvement
 
@@ -354,14 +362,13 @@ The examples in this section include `WHERE` filters to [optimize queries and re
   - [View all stored query logs](#view-all-stored-query-logs)
   - [View query logs for queries with end-to-end durations above a threshold](#view-query-logs-for-queries-with-end-to-end-durations-above-a-threshold)
 - [Partitions](#partitions)
-  - [View partition templates of all tables](#view-partition-templates-of-all-tables)
   - [View the partition template of a specific table](#view-the-partition-template-of-a-specific-table)
   - [View all partitions for a table](#view-all-partitions-for-a-table)
   - [View the number of partitions per table](#view-the-number-of-partitions-per-table)
   - [View the number of partitions for a specific table](#view-the-number-of-partitions-for-a-specific-table)
 - [Storage usage](#storage-usage)
-  - [View the size of tables in megabytes](#view-the-size-of-tables-in-megabytes)
   - [View the size of a specific table in megabytes](#view-the-size-of-a-specific-table-in-megabytes)
+  - [View the size of specific tables in megabytes](#view-the-size-of-specific-tables-in-megabytes)
   - [View the total size of all compacted partitions per table in bytes](#view-the-total-size-of-all-compacted-partitions-per-table-in-bytes)
   - [View the total size of all compacted partitions in bytes](#view-the-total-size-of-all-compacted-partitions-in-bytes)
 - [Compaction](#compaction)
@@ -449,7 +456,18 @@ WHERE
 
 ### Storage usage
 
-#### View the size of tables in megabytes
+#### View the size of a specific table in megabytes
+
+```sql
+SELECT
+  SUM(total_size_mb) AS total_size_mb
+FROM
+  system.partitions
+WHERE
+  table_name = 'TABLE_NAME'
+```
+
+#### View the size of specific tables in megabytes
 
 ```sql
 SELECT
@@ -461,17 +479,6 @@ WHERE
   table_name IN ('foo', 'bar', 'baz')
 GROUP BY
   table_name
-```
-
-#### View the size of a specific table in megabytes
-
-```sql
-SELECT
-  SUM(total_size_mb) AS total_size_mb
-FROM
-  system.partitions
-WHERE
-  table_name = 'TABLE_NAME'
 ```
 
 #### View the total size of all compacted partitions per table in bytes

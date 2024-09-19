@@ -74,6 +74,7 @@ Custom partitioning has the following limitations:
 - Database and table partitions can only be defined on create.
   You cannot update the partition strategy of a database or table after it has
   been created.
+- A partition template must include a time interval.
 - You can partition by up to eight dimensions (seven tags and a time interval).
 
 ## How partitioning works
@@ -89,10 +90,13 @@ _For more detailed information, see [Partition templates](/influxdb/cloud-dedica
 
 ### Partition keys
 
-A partition key uniquely identifies a partition. The structure of partition keys
-is defined by a _[partition template](#partition-templates)_. Partition keys are
-composed of up to eight parts or dimensions (tags, tag buckets, and time).
+A partition key uniquely identifies a partition.
+A _[partition template](#partition-templates)_ defines the partition key format.
+Partition keys are
+composed of up to 8 dimensions (1 time part and up to 7 tag or tag bucket parts).
 Each part is delimited by the partition key separator (`|`).
+
+The default format for partition keys is `%Y-%m-%d` (for example, `2024-01-01`).
 
 {{< expand-wrapper >}}
 {{% expand "View example partition templates and keys" %}}
