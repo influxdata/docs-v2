@@ -15,6 +15,8 @@ list_code_example: |
   </pre>
 related:
   - /influxdb/cloud/query-data/influxql
+alias:
+  - /influxdb/cloud/reference/api/influxdb-1x/query/
 ---
 
 {{% duplicate-oss %}}

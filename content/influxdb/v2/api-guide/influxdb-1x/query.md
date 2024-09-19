@@ -15,6 +15,8 @@ list_code_example: |
   </pre>
 related:
   - /influxdb/v2/query-data/influxql
+alias:
+  - /influxdb/v2/reference/api/influxdb-1x/query/
 ---
 
 The `/query` 1.x compatibility endpoint queries InfluxDB {{< current-version >}} using **InfluxQL**.
@@ -92,6 +94,8 @@ The following precisions are available:
 - [Return query results with millisecond Unix timestamps](#return-query-results-with-millisecond-unix-timestamps)
 - [Execute InfluxQL queries from a file](#execute-influxql-queries-from-a-file)
 
+{{% code-placeholders "API_TOKEN" %}}
+
 ##### Query using basic authentication
 
 {{% oss-only %}}
@@ -102,6 +106,9 @@ The following precisions are available:
 [Node.js](#nodejs)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
+<!--pytest.mark.skip-->
+
 ```sh
 {{% get-shared-text "api/v1-compat/auth/oss/basic-auth.sh" %}}
 ```
@@ -123,6 +130,9 @@ The following precisions are available:
 [Node.js](#nodejs)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
+<!--pytest.mark.skip-->
+
 ```sh
 {{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.sh" %}}
 ```
@@ -138,18 +148,34 @@ The following precisions are available:
 {{% /cloud-only %}}
 
 ##### Query a non-default retention policy
+
+<!--test:setup
+
+```sh
+service influxdb start && \
+influx setup \
+  --username USERNAME \
+  --token API_TOKEN \
+  --org ORG_NAME \
+  --bucket BUCKET_NAME \
+  --force || true
+```
+
+-->
+
 ```sh
 curl --get http://localhost:8086/query \
-  --header "Authorization: Token INFLUX_API_TOKEN" \
+  --header "Authorization: Token API_TOKEN" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=customrp" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
 ```
 
 ##### Execute multiple queries
+
 ```sh
 curl --get http://localhost:8086/query \
-  --header "Authorization: Token INFLUX_API_TOKEN" \
+  --header "Authorization: Token API_TOKEN" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT * FROM mem WHERE host=host1;SELECT mean(used_percent) FROM mem WHERE host=host1 GROUP BY time(10m)"
 ```
@@ -157,7 +183,7 @@ curl --get http://localhost:8086/query \
 ##### Return query results with millisecond Unix timestamps
 ```sh
 curl --get http://localhost:8086/query \
-  --header "Authorization: Token INFLUX_API_TOKEN" \
+  --header "Authorization: Token API_TOKEN" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=myrp" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1" \
@@ -167,11 +193,14 @@ curl --get http://localhost:8086/query \
 ##### Execute InfluxQL queries from a file
 ```sh
 curl --get http://localhost:8086/query \
-  --header "Authorization: Token INFLUX_API_TOKEN" \
+  --header "Authorization: Token API_TOKEN" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q@path/to/influxql.txt" \
   --data-urlencode "async=true"
 ```
 
+{{% /code-placeholders %}}
+
 Replace the following:
-- *`INFLUX_API_TOKEN`*: InfluxDB API token
+
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your InfluxDB [API token](/influxdb/v2/admin/tokens/)
