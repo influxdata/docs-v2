@@ -16,6 +16,8 @@ list_code_example: |
   </pre>
 related:
   - /influxdb/v2/reference/syntax/line-protocol
+alias:
+  - /influxdb/v2/reference/api/influxdb-1x/write/
 ---
 
 The `/write` 1.x compatibility endpoint writes data to InfluxDB Cloud and InfluxDB OSS {{< current-version >}}
@@ -30,8 +32,8 @@ to the `/write` endpoint.
 {{% cloud-only %}}
 
 {{% note %}}
-If you have an existing bucket that doesn't follow the **database/retention-policy** naming convention,
-you **must** [manually create a database and retention policy mapping](/influxdb/v2/query-data/influxql/dbrp/#create-dbrp-mappings)
+If you have an existing bucket that doesn't follow the `database/retention-policy` naming convention,
+you _must_ [manually create a database and retention policy mapping](/influxdb/v2/query-data/influxql/dbrp/#create-dbrp-mappings)
 to write data to that bucket with the `/write` compatibility API.
 {{% /note %}}
 
@@ -42,9 +44,9 @@ to write data to that bucket with the `/write` compatibility API.
 {{% oss-only %}}
 
 Use one of the following authentication methods:
-* **token authentication**
-* **basic authentication with username and password**
-* **query string authentication with username and password**
+- **token authentication**
+- **basic authentication with username and password**
+- **query string authentication with username and password**
 
 _For more information, see [Authentication](/influxdb/v2/reference/api/influxdb-1x/#authentication)._
 
@@ -120,79 +122,112 @@ The following precisions are available:
 
 ##### Write data using basic authentication
 
-{{% oss-only %}}
+<!--test:setup
 
 ```sh
-curl --request POST http://localhost:8086/write?db=mydb \
-  --user "INFLUX_USERNAME:INFLUX_PASSWORD_OR_TOKEN" \
+service influxdb start && \
+influx setup \
+  --username USERNAME \
+  --token API_TOKEN \
+  --org ORG_NAME \
+  --bucket BUCKET_NAME \
+  --force || true
+```
+
+-->
+
+{{% oss-only %}}
+
+{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
+```sh
+curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
+  --user "USERNAME:PASSWORD_OR_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
+{{% /code-placeholders %}}
 
 {{% /oss-only %}}
 
 {{% cloud-only %}}
-
+{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
 ```sh
-curl --request POST https://cloud2.influxdata.com/write?db=mydb \
-  --user "exampleuser@influxdata.com:INFLUX_API_TOKEN" \
+curl --request POST https://cloud2.influxdata.com/write?db=DATABASE_NAME \
+  --user "exampleuser@influxdata.com:API_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
+{{% /code-placeholders %}}
 
 {{% /cloud-only %}}
 
 ##### Write data using token authentication
+
+{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
 ```sh
-curl --request POST http://localhost:8086/write?db=mydb \
-  --header "Authorization: Token INFLUX_API_TOKEN" \
+curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
+  --header "Authorization: Token API_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
+{{% /code-placeholders %}}
 
 ##### Write data to a non-default retention policy
 
+{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
 ```sh
-curl --request POST http://localhost:8086/write?db=mydb&rp=customrp \
-  --header "Authorization: Token INFLUX_API_TOKEN" \
+curl --request POST "http://localhost:8086/write?db=DATABASE_NAME&rp=RETENTION_POLICY" \
+  --header "Authorization: Token API_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
-
-
+{{% /code-placeholders %}}
 
 ##### Write multiple lines of line protocol
+
+{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
 ```sh
-curl --request POST http://localhost:8086/write?db=mydb \
-  --header "Authorization: Token INFLUX_API_TOKEN" \
+curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
+  --header "Authorization: Token API_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000
 measurement,host=host2 field1=14i,field2=12.7 1577836800000000000
 measurement,host=host3 field1=5i,field2=6.8 1577836800000000000"
 ```
+{{% /code-placeholders %}}
 
 ##### Write data with millisecond Unix timestamps
+
+{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
 ```sh
-curl --request POST http://localhost:8086/write?db=mydb&precision=ms \
-  --header "Authorization: Token INFLUX_API_TOKEN" \
+curl --request POST "http://localhost:8086/write?db=DATABASE_NAME&precision=ms" \
+  --header "Authorization: Token API_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000"
 ```
+{{% /code-placeholders %}}
 
 ##### Use curl to write data from a file
+
+{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
 ```sh
-curl --request POST http://localhost:8086/write?db=mydb \
-  --header "Authorization: Token INFLUX_API_TOKEN" \
+curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
+  --header "Authorization: Token API_TOKEN" \
   --data-binary @path/to/line-protocol.txt
 ```
+{{% /code-placeholders %}}
 
 {{% oss-only %}}
 
 Replace the following:
-- *`INFLUX_USERNAME`*: [InfluxDB 1.x username](/influxdb/v2/reference/api/influxdb-1x/#manage-credentials)
-- *`INFLUX_PASSWORD_OR_TOKEN`*: [InfluxDB 1.x password or InfluxDB API token](/influxdb/v2/reference/api/influxdb-1x/#manage-credentials)
-- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/v2/reference/glossary/#token)
+
+- {{% code-placeholder-key %}}`DATABASE_NAME` and `RETENTION_POLICY`{{% /code-placeholder-key %}}: the [database and retention policy mapping (DBRP)](/influxdb/v2/reference/api/influxdb-1x/dbrp/) for the InfluxDB v2 bucket that you want to write to
+- {{% code-placeholder-key %}}`USERNAME`{{% /code-placeholder-key %}}: your [InfluxDB 1.x username](/influxdb/v2/reference/api/influxdb-1x/#manage-credentials)
+- {{% code-placeholder-key %}}`PASSWORD_OR_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB 1.x password or InfluxDB API token](/influxdb/v2/reference/api/influxdb-1x/#manage-credentials)
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB API token](/influxdb/v2/admin/tokens/)
 
 {{% /oss-only %}}
 
 {{% cloud-only %}}
 
 Replace the following:
-- *`exampleuser@influxdata.com`*: the email address that you signed up with
-- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token)
+
+- {{% code-placeholder-key %}}`DATABASE_NAME` and `RETENTION_POLICY`{{% /code-placeholder-key %}}: the [database and retention policy mapping (DBRP)](/influxdb/v2/reference/api/influxdb-1x/dbrp/) for the InfluxDB v2 bucket that you want to write to
+- {{% code-placeholder-key %}}}`exampleuser@influxdata.com`{{% /code-placeholder-key %}}: the email address that you signed up with
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB API token](/influxdb/v2/admin/tokens/)
 
 {{% /cloud-only %}}

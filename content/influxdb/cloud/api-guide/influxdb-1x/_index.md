@@ -6,11 +6,13 @@ description: >
 menu:
   influxdb_cloud:
     name: v1 compatibility
-    parent: InfluxDB v2 API
+    parent: Develop with the API
 weight: 104
 influxdb/cloud/tags: [influxql, query, write]
 related:
   - /influxdb/cloud/query-data/influxql
+alias:
+  - /influxdb/cloud/reference/api/influxdb-1x/
 ---
 
 {{< duplicate-oss >}}

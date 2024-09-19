@@ -16,6 +16,8 @@ list_code_example: |
   </pre>
 related:
   - /influxdb/cloud/reference/syntax/line-protocol
+alias:
+  - /influxdb/cloud/reference/api/influxdb-1x/write/
 ---
 
 {{% duplicate-oss %}}

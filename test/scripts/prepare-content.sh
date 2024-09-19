@@ -74,6 +74,7 @@ function substitute_placeholders {
       # Note the specific use of double quotes for the os.getenv() arguments here. You'll need to use double quotes in your code samples for this to match.
       sed -i '/os.getenv("ACCOUNT_ID")/! s/ACCOUNT_ID/$ACCOUNT_ID/g;
       /os.getenv("API_TOKEN")/! s/API_TOKEN/$INFLUX_TOKEN/g;
+      /os.getenv("PASSWORD_OR_TOKEN")/! s/PASSWORD_OR_TOKEN/$INFLUX_TOKEN/g;
       /os.getenv("BUCKET_ID")/! s/--bucket-id BUCKET_ID/--bucket-id $INFLUX_BUCKET_ID/g;
       /os.getenv("BUCKET_NAME")/! s/BUCKET_NAME/$INFLUX_DATABASE/g;
       /os.getenv("CLUSTER_ID")/! s/CLUSTER_ID/$CLUSTER_ID/g;
@@ -90,8 +91,10 @@ function substitute_placeholders {
       /os.getenv("ORG_ID")/! s/ORG_ID/$INFLUX_ORG/g;
       /os.getenv("RETENTION_POLICY")/! s/RETENTION_POLICY_NAME\|RETENTION_POLICY/$INFLUX_RETENTION_POLICY/g;
       /os.getenv("USERNAME")/! s/USERNAME/$INFLUX_USERNAME/g;
+      s/exampleuser@influxdata.com/$INFLUX_EMAIL_ADDRESS/g;
       s/CONFIG_NAME/CONFIG_$(shuf -i 0-100 -n1)/g;
       s/TEST_RUN/TEST_RUN_$(date +%s)/g;
+      s|@path/to/line-protocol.txt|data/home-sensor-data.lp/g;
       s|/path/to/custom/assets-dir|/app/custom-assets|g;' \
       $file
 
