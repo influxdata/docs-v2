@@ -171,6 +171,11 @@ Delete all data in the database that occur before January 01, 2020:
 > DELETE WHERE time < '2020-01-01'
 ```
 
+Delete all data associated with the measurement `h2o_feet` in retention policy `one_day`:
+```
+> DELETE FROM "one_day"."h2o_feet"
+```
+
 A successful `DELETE` query returns an empty result.
 
 Things to note about `DELETE`:
@@ -178,7 +183,8 @@ Things to note about `DELETE`:
 * `DELETE` supports
 [regular expressions](/influxdb/v1/query_language/explore-data/#regular-expressions)
 in the `FROM` clause when specifying measurement names and in the `WHERE` clause
-when specifying tag values.
+when specifying tag values. It *does not* support regular expressions for the retention policy in the `FROM` clause.
+`DELETE` requires that you define *one* retention policy in the `FROM` clause.
 * `DELETE` does not support [fields](/influxdb/v1/concepts/glossary/#field) in the `WHERE` clause.
 * If you need to delete points in the future, you must specify that time period as `DELETE SERIES` runs for `time < now()` by default. [Syntax](https://github.com/influxdata/influxdb/issues/8007)
 
