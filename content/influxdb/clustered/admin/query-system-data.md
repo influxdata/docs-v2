@@ -1,15 +1,15 @@
 --- 
 title: Query system data
 description: >
-  Query system tables in your InfluxDB Cloud Dedicated cluster to see data related
+  Query system tables in your InfluxDB cluster to see data related
   to queries, tables, partitions, and compaction in your cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb_clustered:
     parent: Administer InfluxDB Cloud
     name: Query system data
 weight: 105
 related:
-  - /influxdb/cloud-dedicated/reference/cli/influxctl/query/
+  - /influxdb/clustered/reference/cli/influxctl/query/
 --- 
 
 {{< product-name >}} stores data related to queries, tables, partitions, and
@@ -55,18 +55,18 @@ If you detect a schema change or a non-functioning query example, please
 Querying system tables with `influxctl` requires **`influxctl` v2.8.0 or newer**.
 {{% /note %}}
 
-Use the [`influxctl query` command](/influxdb/cloud-dedicated/reference/cli/influxctl/query/)
+Use the [`influxctl query` command](/influxdb/clustered/reference/cli/influxctl/query/)
 and SQL to query system tables.
 Provide the following:
 
 - **Enable system tables** with the `--enable-system-tables` command flag.
-- **Database token**: A [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+- **Database token**: A [database token](/influxdb/clustered/admin/tokens/#database-tokens)
   with read permissions on the specified database. Uses the `token` setting from
-  the [`influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
+  the [`influxctl` connection profile](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles)
   or the `--token` command flag.
 - **Database name**: The name of the database to query information about.
   Uses the `database` setting from the
-  [`influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
+  [`influxctl` connection profile](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles)
   or the `--database` command flag.
 - **SQL query**: The SQL query to execute.
 
@@ -165,7 +165,7 @@ WHERE table_name = 'TABLE_NAME'
  AND partition_key = 'PARTITION_KEY';
 ```
 
-- `PARTITION_KEY`: a [partition key]((/influxdb/cloud-dedicated/admin/custom-partitions/#partition-keys))
+- `PARTITION_KEY`: a [partition key]((/influxdb/clustered/admin/custom-partitions/#partition-keys))
    derived from the table's partition template.
 
 ###### Partition key format
@@ -248,7 +248,7 @@ _System tables are [subject to change](#system-tables-are-subject-to-change)._
 ### system.queries
 
 The `system.queries` table contains an unpersisted log of queries run against
-the current [InfluxDB Querier](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier)
+the current [InfluxDB Querier](/influxdb/clustered/reference/internals/storage-engine/#querier)
 to which your query is routed.
 The query log is specific to the current Querier and is not shared across Queriers
 in your cluster.
