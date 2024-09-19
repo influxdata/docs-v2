@@ -140,26 +140,39 @@ seconds or longer as files and partitions increase.
 Use the following filters to optimize your system table queries and reduce the impact on your
 cluster's performance.
 
+In your queries, replace the following:
+
+- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the table to retrieve partitions for
+- {{% code-placeholder-key %}}`PARTITION_ID`{{% /code-placeholder-key %}}: a [partition ID](#retrieve-a-partition-id) (int64) 
+- {{% code-placeholder-key %}}`PARTITION_KEY`{{% /code-placeholder-key %}}: a [partition key](/influxdb/clustered/admin/custom-partitions/#partition-keys)
+   derived from the table's partition template.
+   The default format is `%Y-%m-%d` (for example, `2024-01-01`).
+
 ##### Filter by table name
 
 When querying the `system.tables`, `system.partitions`, or `system.compactor` tables, use the
 `WHERE` clause to filter by `table_name` . 
 
+{{% code-placeholders "TABLE_NAME" %}}
 ```sql
 SELECT * FROM system.partitions WHERE table_name = 'TABLE_NAME'
 ```
+{{% /code-placeholders%}}
 
 ##### Filter by partition key 
 
 When querying the `system.partitions` or `system.compactor` tables, use the `WHERE` clause to
-filter by `partition_key` .
+filter by `partition_key`.
 
+{{% code-placeholders "PARTITION_KEY" %}}
 ```sql
 SELECT * FROM system.partitions WHERE partition_key = 'PARTITION_KEY'
 ```
+{{% /code-placeholders %}}
 
 To further improve performance, use `AND` to pair `partition_key` with `table_name`--for example: 
-   
+
+{{% code-placeholders "TABLE_NAME|PARTITION_KEY" %}}
 ```sql
 SELECT * 
 FROM system.partitions 
@@ -167,25 +180,22 @@ WHERE
   table_name = 'TABLE_NAME' 
   AND partition_key = 'PARTITION_KEY';
 ```
-
-Replace the following:
-
-- `TABLE_NAME`: the table to retrieve partitions for
-- `PARTITION_KEY`: a [partition key](/influxdb/clustered/admin/custom-partitions/#partition-keys)
-   derived from the table's partition template.
-   The default format is `%Y-%m-%d` (for example, `2024-01-01`).
+{{% /code-placeholders %}}
 
 ##### Filter by partition ID 
 
 When querying the `system.partitions` or `system.compactor` table, use the `WHERE` clause to
 filter by `partition_id` .
 
+{{% code-placeholders "PARTITION_ID" %}}
 ```sql
 SELECT * FROM system.partitions WHERE partition_id = PARTITION_ID
 ```
+{{% /code-placeholders %}}
 
 For the most optimized approach, use `AND` to pair `partition_id` with `table_name`--for example:
 
+{{% code-placeholders "TABLE_NAME|PARTITION_ID" %}}
 ```sql
 SELECT * 
 FROM system.partitions 
@@ -193,8 +203,7 @@ WHERE
   table_name = 'TABLE_NAME' 
   AND partition_id = PARTITION_ID;
 ```
-
-- `PARTITION_ID`: a [partition ID](#retrieve-a-partition-id) (int64)
+{{% /code-placeholders %}}
 
 Although you don't need to pair `partition_id` with `table_name` (because a partition ID is unique within a cluster),
 it's the most optimized approach, _especially when you have many tables in a database_.
@@ -203,6 +212,7 @@ it's the most optimized approach, _especially when you have many tables in a dat
 
 To retrieve a partition ID, query `system.partitions` for a `table_name` and `partition_key` pair--for example:
 
+{{% code-placeholders "TABLE_NAME|PARTITION_KEY" %}}
 ```sql
 SELECT
   table_name,
@@ -213,6 +223,7 @@ WHERE
   table_name = 'TABLE_NAME'
   AND partition_key = 'PARTITION_KEY';
 ```
+{{% /code-placeholders %}}
 
 The result contains the `partition_id`:
 
