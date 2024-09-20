@@ -336,7 +336,7 @@ The `system.partitions` table contains the following columns:
 
 ### system.compactor
 
-The `system.compaction` table contains information about compacted partition Parquet
+The `system.compactor` table contains information about compacted partition Parquet
 files associated with the specified database.
 
 {{< expand-wrapper >}}
