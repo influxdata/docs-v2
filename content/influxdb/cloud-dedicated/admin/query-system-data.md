@@ -378,13 +378,13 @@ The examples in this section include `WHERE` filters to [optimize queries and re
   - [View the number of partitions per table](#view-the-number-of-partitions-per-table)
   - [View the number of partitions for a specific table](#view-the-number-of-partitions-for-a-specific-table)
 - [Storage usage](#storage-usage)
-  - [View the size of a specific table in megabytes](#view-the-size-of-a-specific-table-in-megabytes)
-  - [View the size of specific tables in megabytes](#view-the-size-of-specific-tables-in-megabytes)
-  - [View the total size of all compacted partitions per table in bytes](#view-the-total-size-of-all-compacted-partitions-per-table-in-bytes)
-  - [View the total size of all compacted partitions in bytes](#view-the-total-size-of-all-compacted-partitions-in-bytes)
+  - [View the size in megabytes of a specific table](#view-the-size-in-megabytes-of-a-specific-table)
+  - [View the size in megabytes per table](#view-the-size-in-megabytes-per-table)
+  - [View the total size in bytes of compacted partitions per table](#view-the-total-size-in-bytes-of-compacted-partitions-per-table)
+  - [View the total size in bytes of compacted partitions for a specific table](#view-the-total-size-in-bytes-of-compacted-partitions-for-a-specific-table)
 - [Compaction](#compaction)
-  - [View overall compaction totals for each table](#view-overall-compaction-totals-for-each-table)
-  - [View overall compaction totals for a specific table](#view-overall-compaction-totals-for-a-specific-table)
+  - [View compaction totals for each table](#view-compaction-totals-for-each-table)
+  - [View compaction totals for a specific table](#view-compaction-totals-for-a-specific-table)
 
 In the examples below, replace {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}
 with the name of the table you want to query information about.
@@ -467,7 +467,7 @@ WHERE
 
 ### Storage usage
 
-#### View the size of a specific table in megabytes
+#### View the size in megabytes of a specific table
 
 ```sql
 SELECT
@@ -478,7 +478,7 @@ WHERE
   table_name = 'TABLE_NAME'
 ```
 
-#### View the size of specific tables in megabytes
+#### View the size in megabytes per table
 
 ```sql
 SELECT
@@ -492,7 +492,7 @@ GROUP BY
   table_name
 ```
 
-#### View the total size of all compacted partitions per table in bytes
+#### View the total size in bytes of compacted partitions per table
 
 ```sql
 SELECT
@@ -506,7 +506,7 @@ GROUP BY
   table_name
 ```
 
-#### View the total size of all compacted partitions in bytes
+#### View the total size in bytes of compacted partitions for a specific table
 
 ```sql
 SELECT
@@ -521,7 +521,7 @@ WHERE
 
 ### Compaction
 
-#### View overall compaction totals for each table
+#### View compaction totals for each table
 
 ```sql
 SELECT
@@ -540,7 +540,7 @@ GROUP BY
   table_name
 ```
 
-#### View overall compaction totals for a specific table
+#### View compaction totals for a specific table
 
 ```sql
 SELECT
