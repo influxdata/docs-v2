@@ -154,12 +154,14 @@ This is just an example. You don't have to go beyond the scale where queries get
 but you may also need to go further than what's outlined here.
 {{% /note %}}
 
+<!-- Don't mention dashboards until they're working working in a future Clustered release --
+
 ### Capture dashboard screens
 
 If you have set up alerts and dashboards for monitoring your cluster, capture
 screenshots of dashboard events for Queriers, Compactors, and Ingesters.
 
-See [system query examples](/influxdb/clustered/admin/query-system-data/#system-query-examples).
+-->
 
 ### Gather debug information
 
@@ -412,6 +414,7 @@ SELECT table_name,
   MAX(last_new_file_created_at) as last_new_file_created_at,
   SUM(total_size_mb) as total_size_mb
 FROM system.partitions
+WHERE table_name IN ('foo', 'bar', 'baz')
 GROUP BY table_name;
 ```
 {{% /code-placeholders%}}
