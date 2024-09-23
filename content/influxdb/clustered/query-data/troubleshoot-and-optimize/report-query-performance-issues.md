@@ -351,10 +351,15 @@ If queries are slow for a specific table, run the following system queries to co
 - [Collect compaction information for the table](#collect-compaction-information-for-the-table)
 - [Collect partition information for multiple tables](#collect-partition-information-for-multiple-tables)
 
+To [optimize system queries](/influxdb/clustered/admin/query-system-data/#optimize-queries-to-reduce-impact-to-your-cluster), use `table_name`, `partition_key`, and
+`partition_id` filters.
 In your queries, replace the following:
 
-- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the
-  table to retrieve information about 
+- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the table to retrieve partitions for
+- {{% code-placeholder-key %}}`PARTITION_ID`{{% /code-placeholder-key %}}: a [partition ID](/influxdb/clustered/admin/query-system-data/#retrieve-a-partition-id) (int64) 
+- {{% code-placeholder-key %}}`PARTITION_KEY`{{% /code-placeholder-key %}}: a [partition key](/influxdb/clustered/admin/custom-partitions/#partition-keys)
+   derived from the table's partition template.
+   The default format is `%Y-%m-%d` (for example, `2024-01-01`).
 
 #### Collect table information
 
@@ -368,13 +373,32 @@ WHERE table_name = 'TABLE_NAME';
 
 #### Collect compaction information for the table
 
-{{% code-placeholders "TABLE_NAME" %}}
+Query the `system.compactor` table to collect compaction information--for example, run one of the following
+queries:
+
+{{% code-placeholders "TABLE_NAME|PARTITION_KEY" %}}
+
 ```sql
-SELECT *
-FROM system.compactor
-WHERE table_name = 'TABLE_NAME';
+SELECT * 
+FROM system.compactor 
+WHERE
+  table_name = 'TABLE_NAME' 
+    AND partition_key = 'PARTITION_KEY';
 ```
-{{% /code-placeholders%}}
+
+{{% /code-placeholders %}}
+
+{{% code-placeholders "TABLE_NAME|PARTITION_ID" %}}
+
+```sql
+SELECT * 
+FROM system.compactor 
+WHERE
+  table_name = 'TABLE_NAME' 
+    AND partition_id = 'PARTITION_ID';
+```
+
+{{% /code-placeholders %}}
 
 #### Collect partition information for multiple tables
 
