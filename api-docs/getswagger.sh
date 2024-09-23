@@ -116,6 +116,8 @@ function postProcess() {
   # npm_config_yes=true npx overrides the prompt
   # and (vs. npx --yes) is compatible with npm@6 and npm@7.
   specPath="$1"
+  # Replace the .yml extension in specPath with .json.
+  specJsonPath="${specPath%.yml}.json"
   configPath="$2"
   api="$3"
 
