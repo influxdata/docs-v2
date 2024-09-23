@@ -116,6 +116,8 @@ function postProcess() {
   # npm_config_yes=true npx overrides the prompt
   # and (vs. npx --yes) is compatible with npm@6 and npm@7.
   specPath="$1"
+  # Replace the .yml extension in specPath with .json.
+  specJsonPath="${specPath%.yml}.json"
   configPath="$2"
   api="$3"
 
@@ -136,8 +138,14 @@ function postProcess() {
   API_DOCS_ROOT_PATH=$API_DOCS_ROOT \
   npm_config_yes=true \
   npx $openapiCLI bundle $specPath \
-    -o $specPath \
-    --config=$configPath
+    --config=$configPath \
+    --ext yml \
+    --output $specPath #\
+  # TODO: Uncommend this after fixing the circular reference ($ref) issues in the specs.
+  # && npx $openapiCLI bundle $specPath \
+  #     --dereferenced \
+  #     --ext json \
+  #     --output $specJsonPath
 }
 
 function updateCloudDedicatedManagement {

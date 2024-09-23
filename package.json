@@ -40,7 +40,8 @@
     "e2e:api-docs": "export cypress_test_subjects=\"http://localhost:1313/influxdb3/core/api/,http://localhost:1313/influxdb3/enterprise/api/,http://localhost:1313/influxdb3/cloud-dedicated/api/,http://localhost:1313/influxdb3/cloud-dedicated/api/v1/,http://localhost:1313/influxdb/cloud-dedicated/api/v1/,http://localhost:1313/influxdb/cloud-dedicated/api/management/,http://localhost:1313/influxdb3/cloud-dedicated/api/management/\"; npx cypress run --spec cypress/e2e/article-links.cy.js",
     "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && lefthook run pre-push",
     "pre-commit": "lefthook run pre-commit",
-    "test-content": "docker compose --profile test up"
+    "test-content": "docker compose --profile test up",
+    "build-apidocs": "node api-docs/scripts/create-pages.js"
   },
   "main": "index.js",
   "module": "main.js",
