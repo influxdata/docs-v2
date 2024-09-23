@@ -1,18 +1,7 @@
-
-
 {{ partial "header.html" . }}
 {{ partial "topnav.html" . }}
 
-{{ range $category, $api := .Site.Data.api.influxdb.v2_cloud.cloud_v2 }}
-  <p>{{ $category | title }}</p>
-  <ul>
-    {{ range $api }}
-      <li>{{ .info.title }}<br /> ({{ .info.description }})</li>
-    {{ end }}
-  </ul>
-{{ end }}
-
-<!--Rapidoc demo
+<!-- Rapidoc demo -->
 <div class="page-wrapper">
   {{ partial "sidebar.html" . }}
   <div class="content-wrapper">
@@ -22,7 +11,8 @@
       
       <rapi-doc
         id="api-doc"
-        data-openapi-doc = "{{ .Params.staticFilePath }}"
+        data-openapi-partof = "{{ .Params.api.part_of }}"
+        data-openapi-spec = "{{ .Params.api.spec }}"
         regular-font="Open Sans" mono-font="Roboto Mono" show-header="false"
         bg-color="#ffffff" text-color="" nav-bg-color="#fafafa" nav-text-color=""
         nav-hover-bg-color="#ffebea" nav-hover-text-color="#9b0700"
@@ -37,7 +27,7 @@
             // Sets the server to http://localhost:8080/api
             // you must have defined this server in your spec
           });
-          const spec = rapidocEl.dataset.openapiDoc;
+          const spec = JSON.parse(rapidocEl.dataset.openapiSpec);
           rapidocEl.loadSpec(spec);
         });
       </script>
@@ -45,5 +35,4 @@
     <div class="copyright">© {{ now.Year }} InfluxData, Inc.</div>
   </div>
 </div>
--->
 {{ partial "footer.html" . }}
