@@ -1,7 +1,7 @@
 ---
 title: InfluxDB Clustered release notes
 description: >
-  ....
+  View InfluxDB Clustered release information including new features, bug fixes, and more.
 menu:
   influxdb_clustered:
     parent: Release notes

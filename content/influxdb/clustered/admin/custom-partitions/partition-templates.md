@@ -15,20 +15,20 @@ A partition key uniquely identifies a partition and is used to name the partitio
 Parquet file in the [Object store](/influxdb/clustered/reference/internals/storage-engine/#object-store).
 
 A partition template consists of 1-8 _template parts_---dimensions to partition data by.
-There are three types of template parts:
+Three types of template parts exist:
 
 - **tag**: An [InfluxDB tag](/influxdb/clustered/reference/glossary/#tag)
   to partition by.
 - **tag bucket**: An [InfluxDB tag](/influxdb/clustered/reference/glossary/#tag)
   and number of "buckets" to group tag values into. Data is partitioned by the
   tag bucket rather than each distinct tag value.
-- **time**: A Rust strftime date and time string that specifies the time interval
+- {{< req type="key" >}} **time**: A Rust strftime date and time string that specifies the time interval
   to partition data by. The smallest unit of time included in the time part
   template is the interval used to partition data.
 
 {{% note %}}
-A partition template can include up to 7 total tag and tag bucket parts
-and only 1 time part.
+A partition template must include 1 [time part](#time-part-templates)
+and can include up to 7 total [tag](#tag-part-templates) and [tag bucket](#tag-bucket-part-templates) parts.
 {{% /note %}}
 
 <!-- TOC -->
@@ -75,6 +75,12 @@ characters must be [percent encoded](https://developer.mozilla.org/en-US/docs/Gl
 Tag part templates consist of a _tag key_ to partition by.
 Generated partition keys include the unique _tag value_ specific to each partition.
 
+A partition template may include a given tag key only once in template parts 
+that operate on tags (tag value and tag bucket)--for example:
+
+If a template partitions on unique values of `tag_A`, then
+you can't use `tag_A` as a tag bucket part.
+
 ## Tag bucket part templates
 
 Tag bucket part templates consist of a _tag key_ to partition by and the
@@ -101,6 +107,12 @@ each partition.
 Tag buckets should be used to partition by high cardinality tags or tags with an
 unknown number of distinct values.
 {{% /note %}}
+
+A partition template may include a given tag key only once in template parts 
+that operate on tags (tag value and tag bucket)--for example:
+
+If a template partitions on unique values of `tag_A`, then
+you can't use `tag_A` as a tag bucket part.
 
 ## Time part templates
 
