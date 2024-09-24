@@ -94,7 +94,7 @@ function substitute_placeholders {
       s/exampleuser@influxdata.com/$INFLUX_EMAIL_ADDRESS/g;
       s/CONFIG_NAME/CONFIG_$(shuf -i 0-100 -n1)/g;
       s/TEST_RUN/TEST_RUN_$(date +%s)/g;
-      s|@path/to/line-protocol.txt|data/home-sensor-data.lp/g;
+      s|@path/to/line-protocol.txt|data/home-sensor-data.lp|g;
       s|/path/to/custom/assets-dir|/app/custom-assets|g;' \
       $file
 
