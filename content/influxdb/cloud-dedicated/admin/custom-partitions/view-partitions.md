@@ -35,7 +35,7 @@ your {{< product-name omit=" Clustered" >}} cluster.
 #### System tables are subject to change
 
 System tables are not part of InfluxDB's stable API and may change with new releases.
-The provided schema information and query examples are valid as of **August 22, 2024**.
+The provided schema information and query examples are valid as of **September 24, 2024**.
 If you detect a schema change or a non-functioning query example, please
 [submit an issue](https://github.com/influxdata/docs-v2/issues/new/choose).
 
