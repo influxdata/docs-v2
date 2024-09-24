@@ -63,13 +63,13 @@ The only way to revoke the token is to do the following:
 
 {{% code-placeholders "INFLUXDB_NAMESPACE|KEY_GEN_JOB|001" %}}
 
-1.  Delete the `rsa-keys` secret from your InfluxDB cluster's context and namespace:
+1.  Delete the `rsa-keys` and `admin-token` secrets from your InfluxDB cluster's context and namespace:
 
     ```sh
-    kubectl delete secrets/rsa-keys --namespace INFLUXDB_NAMESPACE
+    kubectl delete secret rsa-keys admin-token --namespace INFLUXDB_NAMESPACE
     ```
 
-2.  Rerun the `key-gen` job:
+2.  Rerun the `key-gen` and `create-amin-token` jobs:
 
     1.  List the jobs in your InfluxDB namespace to find the key-gen job pod:
 
@@ -78,12 +78,11 @@ The only way to revoke the token is to do the following:
         kubectl get jobs --namespace INFLUXDB_NAMESPACE
         ```
 
-    2.  Run the key-gen job and increment the job number as needed:
-    
+    2.  Delete the key-gen and create-admin-token jobs so they it will be re-created by kubit:
+
         ```sh
-        kubectl create job \
-          --from=job/KEY_GEN_JOB key-gen-001 \
-          --namespace INFLUXDB_NAMESPACE
+        kubectl delete job/KEY_GEN_JOB job/CREATE_ADMIN_TOKEN_JOB \
+        --namespace INFLUXDB_NAMESPACE
         ```
 
 3.  Restart the `token-management` service:
