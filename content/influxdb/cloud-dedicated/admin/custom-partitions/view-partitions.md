@@ -35,7 +35,7 @@ your {{< product-name omit=" Clustered" >}} cluster.
 #### System tables are subject to change
 
 System tables are not part of InfluxDB's stable API and may change with new releases.
-The provided schema information and query examples are valid as of **August 22, 2024**.
+The provided schema information and query examples are valid as of **September 24, 2024**.
 If you detect a schema change or a non-functioning query example, please
 [submit an issue](https://github.com/influxdata/docs-v2/issues/new/choose).
 
@@ -108,27 +108,7 @@ with the name of the table you want to query information about.
 
 ---
 
-{{% code-placeholders "TABLE_NAME" %}}
-
-### View partition templates of all tables
-
-```sql
-SELECT * FROM system.tables
-```
-
-#### Example results
-
-| table_name | partition_template                                                                         |
-| :--------- | :----------------------------------------------------------------------------------------- |
-| weather    | `{"parts":[{"timeFormat":"%Y-%m-%d"},{"bucket":{"tagName":"location","numBuckets":250}}]}` |
-| home       | `{"parts":[{"timeFormat":"%Y-%m-%d"},{"tagValue":"room"},{"tagValue":"sensor_id"}]}`       |
-| numbers    | `{"parts":[{"timeFormat":"%Y"}]}`                                                          |
-
-{{% note %}}
-If a table doesn't include a partition template in the output of this command,
-the table uses the default (1 day) partition strategy and doesn't partition
-by tags or tag buckets.
-{{% /note %}}
+{{% code-placeholders "TABLE_NAME_(1|2|3)|TABLE_NAME" %}}
 
 ### View the partition template of a specific table
 
@@ -141,6 +121,12 @@ SELECT * FROM system.tables WHERE table_name = 'TABLE_NAME'
 | table_name | partition_template                                                                         |
 | :--------- | :----------------------------------------------------------------------------------------- |
 | weather    | `{"parts":[{"timeFormat":"%Y-%m-%d"},{"bucket":{"tagName":"location","numBuckets":250}}]}` |
+
+{{% note %}}
+If a table doesn't include a partition template in the output of this command,
+the table uses the default (1 day) partition strategy and doesn't partition
+by tags or tag buckets.
+{{% /note %}}
 
 ### View all partitions for a table
 
@@ -166,6 +152,8 @@ SELECT
   COUNT(*) AS partition_count
 FROM
   system.partitions
+WHERE
+  table_name IN ('TABLE_NAME_1', 'TABLE_NAME_2', 'TABLE_NAME_3')
 GROUP BY
   table_name
 ```

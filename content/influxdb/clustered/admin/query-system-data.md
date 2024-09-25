@@ -185,6 +185,16 @@ WHERE
 ```
 {{% /code-placeholders %}}
 
+{{% code-placeholders "TABLE_NAME|PARTITION_KEY" %}}
+```sql
+SELECT * 
+FROM system.compactor
+WHERE
+  table_name = 'TABLE_NAME' 
+    AND partition_key = 'PARTITION_KEY';
+```
+{{% /code-placeholders %}}
+
 ##### Filter by partition ID 
 
 When querying the `system.partitions` or `system.compactor` table, use the `WHERE` clause to
