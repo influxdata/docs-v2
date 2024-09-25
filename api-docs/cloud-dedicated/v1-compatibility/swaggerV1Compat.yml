@@ -240,6 +240,83 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /ping:
+    get:
+      description: |
+        Reports the InfluxQL bridge querier health and the InfluxDB version of the instance.
+        
+        The response is a HTTP `204` status code to inform you the querier is available.
+
+        For InfluxDB Cloud Dedicated, this endpoint only checks the status of queriers; doesn't check the status of ingesters.
+
+        To check the health of ingesters before writing data, send a request to one of the [write endpoints](/influxdb/cloud-dedicated/api/v2/#tag/Write).
+
+        This endpoint doesn't require authentication.
+      operationId: GetPing
+      responses:
+        '204':
+          description: |
+            Success--the querier is available.
+            Headers contain InfluxDB version information.
+          headers:
+            X-Influxdb-Build:
+              description: |
+                The type of InfluxDB build.
+              schema:
+                type: string
+            X-Influxdb-Version:
+              description: |
+                The version of InfluxDB.
+              schema:
+                type: integer
+        4xx:
+          description: |
+            #### InfluxDB Cloud
+            - Doesn't return this error.
+      security:
+        - {}
+      servers: []
+      summary: Get the status of the instance
+      tags:
+        - Ping
+    head:
+      description: |
+        Reports the InfluxQL bridge querier health and the InfluxDB version of the instance.
+        
+        The response is a HTTP `204` status code to inform you the querier is available.
+
+        For InfluxDB Cloud Dedicated, this endpoint only checks the status of queriers; doesn't check the status of ingesters.
+
+        To check the health of ingesters before writing data, send a request to one of the [write endpoints](/influxdb/cloud-dedicated/api/v2/#tag/Write).
+
+        This endpoint doesn't require authentication.
+
+      operationId: HeadPing
+      responses:
+        '204':
+          description: |
+            Success--the querier is available.
+            Headers contain InfluxDB version information.
+          headers:
+            X-Influxdb-Build:
+              description: The type of InfluxDB build.
+              schema:
+                type: string
+            X-Influxdb-Version:
+              description: |
+                The version of InfluxDB.
+              schema:
+                type: integer
+        4xx:
+          description: |
+            #### InfluxDB Cloud
+            - Doesn't return this error.
+      security:
+        - {}
+      servers: []
+      summary: Get the status of the instance
+      tags:
+        - Ping
 components:
   parameters:
     TraceSpan:
