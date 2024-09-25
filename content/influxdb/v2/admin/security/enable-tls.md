@@ -258,7 +258,16 @@ Restart Telegraf using the updated configuration file.
 
 ## Troubleshoot TLS
 
-### 1. Check InfluxDB logs
+Identify and resolve issues after activating TLS.
+
+- [Check InfluxDB logs](#check-influxdb-logs)
+- [Verify certificate and key files](#verify-certificate-and-key-files)
+- [Test with OpenSSL](#test-with-openssl)
+- [Check file permissions](#check-file-permissions)
+- [Verify TLS configuration](#verify-tls-configuration)
+- [Update OpenSSL and InfluxDB](#update-openssl-and-influxdb)
+
+### Check InfluxDB logs
 
 Review the InfluxDB logs for any error messages or warnings about the issue.
 
@@ -269,7 +278,7 @@ msg="http: TLS handshake error from [::1]:50476:
 remote error: tls: illegal parameter" log_id=0rqN8H_0000 service=http
 ```
 
-### 2. Verify certificate and key Files
+### Verify certificate and key Files
 
 To ensure that the certificate and key files are correct and match each other,
 enter the following command in your terminal:
@@ -279,7 +288,16 @@ openssl x509 -noout -modulus -in /etc/ssl/influxdb-selfsigned.crt | openssl md5
 openssl rsa -noout -modulus -in /etc/ssl/influxdb-selfsigned.key | openssl md5
 ```
 
-### 3. Check file permissions
+### Test with OpenSSL
+
+Use OpenSSL to test the server's certificate and key--for example, enter the
+following command in your terminal:
+
+```bash
+openssl s_client -connect localhost:8086 -CAfile /etc/ssl/influxdb-selfsigned.crt
+```
+
+### Check file permissions
 
 Ensure that the InfluxDB process has read access to the certificate and key
 files--for example, enter the following command to set file permissions:
@@ -289,22 +307,13 @@ sudo chmod 644 /etc/ssl/influxdb-selfsigned.crt
 sudo chmod 600 /etc/ssl/influxdb-selfsigned.key
 ```
 
-### 4. Verify TLS configuration
+### Verify TLS configuration
 
 Ensure that the TLS configuration in InfluxDB is correct.
 Check the paths to the certificate and key files in the InfluxDB configuration
 or command line flags.
 
-### 5. Test with OpenSSL
-
-Use OpenSSL to test the server's certificate and key--for example, enter the
-following command in your terminal:
-
-```bash
-openssl s_client -connect localhost:8086 -CAfile /etc/ssl/influxdb-selfsigned.crt
-```
-
-### 6. Update OpenSSL and InfluxDB
+### Update OpenSSL and InfluxDB
 
 Ensure that you are using the latest versions of OpenSSL and InfluxDB, as
 updates may include fixes for TLS-related issues.
