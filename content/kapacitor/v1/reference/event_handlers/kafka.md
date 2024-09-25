@@ -37,6 +37,7 @@ Below is an example configuration:
   # Optional SASL configuration
   sasl-username = "xxxxx"
   sasl-password = "xxxxxxxx"
+  sasl-extensions = {}
   sasl-mechanism = ""
   sasl-version = ""
   # Use if sasl-mechanism is GSSAPI. GSSAPI is for organizations using Kerberos.
@@ -46,7 +47,16 @@ Below is an example configuration:
   sasl-gssapi-kerberos-config-path = "/"
   sasl-gssapi-key-tab-path = ""
   sasl-gssapi-realm = "realm"
-  # Use if sasl-mechanism is `OAUTHBEARER` (experimental).
+  # Options if sasl-mechanism is OAUTHBEARER
+  sasl-oauth-service = "auth0"
+  sasl-oauth-client-id = "xxxxxxx"
+  sasl-oauth-client-secret = "xxxxxxxx"
+  sasl-oauth-token-url = "dedicated-auth0-token-url"
+  sasl-oauth-token-expiry-margin = "10s"
+  sasl-oauth-scopes = ""
+  sasl-oauth-tenant-id = ""
+  [kafka.sasl-oauth-parameters]
+     audience = "development"
   sasl-access-token = ""
 
 ```
@@ -102,8 +112,11 @@ Username to use for SASL authentication.
 #### sasl-password
 Password to use for SASL authentication.
 
+### sasl-extensions
+Arbitrary key value string pairs to pass as a TOML table
+
 #### sasl-mechanism
-SASL mechanism type. Options include `GSSAPI`, `OAUTHBEARER`, `PLAIN`.
+SASL mechanism type. Options include `GSSAPI`, `OAUTHBEARER`, `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`.
 
 #### sasl-version
 SASL protocol version.
@@ -126,8 +139,37 @@ Path to the Kerberos key tab.
 ####  sasl-gssapi-realm
 Default Kerberos realm.
 
+### Options if sasl-mechanism is OAUTHBEARER
+#### sasl-oauth-service
+The service name to use when authenticating with SASL/OAUTH.
+One of:
+ - `""` (empty) or `custom`
+ - `auth0`
+ - `azuread`
+
+#### sasl-oauth-client-id
+The client ID to use when authenticating with SASL/OAUTH.
+
+#### sasl-oauth-client-secret 
+The client secret to use when authenticating with SASL/OAUTH.
+
+#### sasl-oauth-token-url
+The token URL to use when sasl-oauth-service is `custom` or `auth0`. Leave empty otherwise.
+  
+#### sasl-oauth-token-expiry-margin
+The expiry margin for the token.
+  
+#### sasl-oauth-scopes  
+Optional scopes to use when authenticating with SASL/OAUTH.
+  
+#### sasl-oauth-tenant-id
+Tenant ID for the AzureAD service.
+  
+#### [kafka.sasl-oauth-parameters]
+The optional key/value params for SASL/OAUTH. e.g. audience for AUTH0
+  
 #### sasl-access-token
-Used if the SASL mechanism is `OAUTHBEARER` (experimental).
+Static OAUTH token. Use this instead of other OAUTH params.
 
 ## Options
 The following Kafka event handler options can be set in a
