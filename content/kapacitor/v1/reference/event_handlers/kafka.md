@@ -116,7 +116,12 @@ Password to use for SASL authentication.
 Arbitrary key value string pairs to pass as a TOML table
 
 #### sasl-mechanism
-SASL mechanism type. Options include `GSSAPI`, `OAUTHBEARER`, `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`.
+SASL mechanism type. Options are:
+- `GSSAPI`
+- `OAUTHBEARER`
+- `PLAIN`
+- `SCRAM-SHA-256`
+- `SCRAM-SHA-512`
 
 #### sasl-version
 SASL protocol version.
