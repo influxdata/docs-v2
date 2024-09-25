@@ -157,7 +157,7 @@ The client secret to use when authenticating with SASL/OAUTH.
 The token URL to use when sasl-oauth-service is `custom` or `auth0`. Leave empty otherwise.
   
 #### sasl-oauth-token-expiry-margin
-The expiry margin for the token.
+The margin for the token's expiration time.
   
 #### sasl-oauth-scopes  
 Optional scopes to use when authenticating with SASL/OAUTH.
