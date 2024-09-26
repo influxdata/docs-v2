@@ -22,8 +22,11 @@ the [InfluxDB v2 client libraries](/influxdb/v1/tools/api_client_libraries/),
 [Telegraf](https://docs.influxdata.com/telegraf/v1/),
 or the client of your choice.
 
+{{% note %}}
 If you're getting started with InfluxDB v1, we recommend using the
-InfluxDB v1 client libraries and InfluxQL for [InfluxDB v3 compatibility](#influxdb-v3-compatibility).
+InfluxDB v1 client libraries and InfluxQL for
+[InfluxDB v3 compatibility](/influxdb/v1/tools/api/#influxdb-v3-compatibility).
+{{% /note %}}
 
 The following sections assume your InfluxDB instance is running on `localhost`
 port `8086` and HTTPS is not enabled.
