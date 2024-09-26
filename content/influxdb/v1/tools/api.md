@@ -13,43 +13,62 @@ v2: /influxdb/v2/reference/api/
 ---
 
 The InfluxDB API provides a simple way to interact with the database.
-It uses HTTP response codes, HTTP authentication, JWT Tokens, and basic authentication, and responses are returned in JSON.
+It uses HTTP authentication and JWT Tokens.
+Responses use standard HTTP response codes and JSON format.
+
+To send API requests, you can use
+the [InfluxDB v1 client libraries](/influxdb/v1/tools/api_client_libraries/),
+the [InfluxDB v2 client libraries](/influxdb/v1/tools/api_client_libraries/),
+[Telegraf](https://docs.influxdata.com/telegraf/v1/),
+or the client of your choice.
+
+If you're getting started with InfluxDB v1, we recommend using the
+InfluxDB v1 client libraries and InfluxQL for [InfluxDB v3 compatibility](#influxdb-v3-compatibility).
 
 The following sections assume your InfluxDB instance is running on `localhost`
 port `8086` and HTTPS is not enabled.
 Those settings [are configurable](/influxdb/v1/administration/config/#http-endpoints-settings).
 
-- [InfluxDB 2.0 API compatibility endpoints](#influxdb-2-0-api-compatibility-endpoints)
-- [InfluxDB  1.x HTTP endpoints](#influxdb-1-x-http-endpoints)
+- [InfluxDB v3 compatibility](#influxdb-v3-compatibility)
+- [InfluxDB 2.x API compatibility endpoints](#influxdb-2x-api-compatibility-endpoints)
+- [InfluxDB 1.x HTTP endpoints](#influxdb-1x-http-endpoints)
 
-## InfluxDB 2.0 API compatibility endpoints
+## InfluxDB v3 compatibility
 
-InfluxDB 1.8.0 introduced forward compatibility APIs for InfluxDB 2.0.
-There are multiple reasons for introducing these:
+InfluxDB v3 is InfluxDB’s next generation that allows
+infinite series cardinality without impact on overall database performance, and
+brings native SQL support and improved InfluxQL performance.
 
-- The latest [InfluxDB client libraries](/influxdb/v1/tools/api_client_libraries/)
-  are built for the InfluxDB 2.0 API, but now also work with **InfluxDB 1.8.0+**.
-- InfluxDB Cloud is a generally available service across multiple cloud service providers and regions
-  that is fully compatible with the **latest** client libraries.
+InfluxDB v3 supports the v1 `/write` and `/query` HTTP API endpoints.
+InfluxDB v3 isn't optimized for Flux.
 
-If you are just getting started with InfluxDB 1.x today, we recommend adopting
-the [latest client libraries](/influxdb/v1/tools/api_client_libraries/).
-They allow you to easily move from InfluxDB 1.x to InfluxDB 2.0 Cloud or open source,
-(when you are ready).
+If you're getting started with InfluxDB v1, we recommend using the
+InfluxDB v1 client libraries and InfluxQL.
+When you're ready, you can migrate to InfluxDB v3 and continue using the v1 client
+libraries as you gradually move your query workloads to use the v3 client libraries
+(and the v3 Flight API).
 
-The following forward compatible APIs are available:
+For more information, see [API compatibility and migration guides for InfluxDB v3](/influxdb/cloud-dedicated/guides).
+
+## InfluxDB 2.x API compatibility endpoints
+
+InfluxDB 1.8.0 introduced forward compatibility APIs for InfluxDB v2.
+[InfluxDB v2 client libraries](/influxdb/v1/tools/api_client_libraries/)
+are built for the InfluxDB v2 API, but also work with **InfluxDB 1.8+**.
+
+The following v2 compatible APIs are available:
 
 | Endpoint                                     | Description                                                                                                |
 |:----------                                   |:----------                                                                                                 |
-| [/api/v2/query](#api-v2-query-http-endpoint) | Query data in InfluxDB 1.8.0+ using the InfluxDB 2.0 API and [Flux](/flux/latest/)                         |
-| [/api/v2/write](#api-v2-write-http-endpoint) | Write data to InfluxDB 1.8.0+ using the InfluxDB 2.0 API _(compatible with InfluxDB 2.0 client libraries)_ |
+| [/api/v2/query](#api-v2-query-http-endpoint) | Query data in InfluxDB 1.8.0+ using the InfluxDB v2 API and [Flux](/flux/latest/)                         |
+| [/api/v2/write](#api-v2-write-http-endpoint) | Write data to InfluxDB 1.8.0+ using the InfluxDB v2 API _(compatible with InfluxDB v2 client libraries)_ |
 | [/health](#health-http-endpoint)             | Check the health of your InfluxDB instance                                                                 |
 
 ### `/api/v2/query/` HTTP endpoint
 
 The `/api/v2/query` endpoint accepts `POST` HTTP requests.
-Use this endpoint to query data using [Flux](/influxdb/v1/flux/) and [InfluxDB 2.0 client libraries](/influxdb/v2/api-guide/client-libraries/).
- Flux is the primary language for working with data in InfluxDB 2.0.
+Use this endpoint to query data using [Flux](/influxdb/v1/flux/) and [InfluxDB v2 client libraries](/influxdb/v2/api-guide/client-libraries/).
+ Flux is the primary language for working with data in InfluxDB v2.
 
 **Include the following HTTP headers:**
 
@@ -90,11 +109,11 @@ curl -XPOST localhost:8086/api/v2/query -sS \
 ### `/api/v2/write/` HTTP endpoint
 
 The `/api/v2/write` endpoint accepts `POST` HTTP requests.
-Use this endpoint to write to an InfluxDB 1.8.0+ database using [InfluxDB 2.0 client libraries](/influxdb/v2/api-guide/client-libraries/).
+Use this endpoint to write to an InfluxDB 1.8.0+ database using [InfluxDB v2 client libraries](/influxdb/v2/api-guide/client-libraries/).
 
 Both InfluxDB 1.x and 2.0 APIs support the same line protocol format for raw time series data.
 For the purposes of writing data, the APIs differ only in the URL parameters and request headers.
-InfluxDB 2.0 uses [organizations](/influxdb/v2/reference/glossary/#organization)
+InfluxDB v2 uses [organizations](/influxdb/v2/reference/glossary/#organization)
 and [buckets](/influxdb/v2/reference/glossary/#bucket)
 instead of databases and retention policies.
 The `/api/v2/write` endpoint maps the supplied version 1.8 database and retention policy to a bucket.
@@ -112,7 +131,7 @@ The `/api/v2/write` endpoint maps the supplied version 1.8 database and retentio
 
 **Include the following HTTP header:**
 
-- `Authorization`: In InfluxDB 2.0 uses [API Tokens](/influxdb/v2/admin/tokens/)
+- `Authorization`: In InfluxDB v2 uses [API Tokens](/influxdb/v2/admin/tokens/)
   to access the platform and all its capabilities.
   InfluxDB v1.x uses a username and password combination when accessing the HTTP APIs.
   Use the Token schema to provide your InfluxDB 1.x username and password separated by a colon (`:`).
