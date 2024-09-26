@@ -1,7 +1,8 @@
-var tablesElement = $("#flux-group-keys-demo #grouped-tables")
+import $ from 'jquery';
 
-// Sample data
-let data = [
+// Default group key
+const groupKeyDefault = ["_measurement", "loc", "sensorID", "_field"];
+const sampleData = [
   [
     { _time: "2021-01-01T00:00:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "temp", _value: 110.3 },
     { _time: "2021-01-01T00:01:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "temp", _value: 112.5 },
@@ -24,26 +25,23 @@ let data = [
   ]
 ]
 
-// Default group key
-let groupKey = ["_measurement", "loc", "sensorID", "_field"]
-
 // Build a table group (group key and table) using an array of objects
-function buildTable(inputData) {
-
+function buildTable(inputData, groupKey) {
+  const stringColumns = ["_measurement", "loc", "sensorID", "_field"];
   // Build the group key string
   function wrapString(column, value) {
-    var stringColumns = ["_measurement", "loc", "sensorID", "_field"]
     if (stringColumns.includes(column)) {
       return '"' + value + '"'
     } else {
       return value
     }
   }
-  var groupKeyString = "Group key instance = [" + (groupKey.map(column => column + ": " + wrapString(column, (inputData[0])[column]))  ).join(", ") + "]";
+  
+  let groupKeyArray = groupKey.map(column => column + ": " + wrapString(column, inputData[0][column]))
+  var groupKeyString = `Group key instance = [${groupKeyArray.join(", ")}]`;
   var groupKeyLabel = document.createElement("p");
   groupKeyLabel.className = "table-group-key"
   groupKeyLabel.innerHTML = groupKeyString
-
 
   // Extract column headers
   var columns = [];
@@ -90,19 +88,18 @@ function buildTable(inputData) {
 }
 
 // Clear and rebuild all HTML tables
-function buildTables(data) {
-  existingTables = tablesElement[0]
-  while (existingTables.firstChild) {
-    existingTables.removeChild(existingTables.firstChild);
+function buildTables(tablesElement, data, groupKey) {
+  while (tablesElement.firstElementChild) {
+    tablesElement.firstElementChild.remove();
   }
   for (let i = 0; i < data.length; i++) {
-    var table = buildTable(data[i])
+    var table = buildTable(data[i], groupKey)
     tablesElement.append(table);
   }
 }
 
-// Group data based on the group key and output new tables
-function groupData() {
+// Helper function to group data based on the group key
+function groupData(data, groupKey) {
   let groupedData = data.flat()
 
   function groupBy(array, f) {
@@ -117,41 +114,45 @@ function groupData() {
     })
   }
 
-  groupedData = groupBy(groupedData, function (r) {
+  return groupBy(groupedData, function (r) {
     return groupKey.map(v => r[v]);
   });
-
-  buildTables(groupedData);
 }
 
-// Get selected column names
-var checkboxes = $("input[type=checkbox]");
-
-function getChecked() {
-  var checked = [];
-  for (var i = 0; i < checkboxes.length; i++) {
-    var checkbox = checkboxes[i];
-    if (checkbox.checked) checked.push(checkbox.name);
-  }
-  return checked;
-}
-
-function toggleCheckbox(element) {
-  element.checked = !element.checked;
+function getCheckedNames() {
+  // Get selected column names
+  return Array.from(document.querySelectorAll(`${checkboxSelector}:checked`))
+    .map(el => el.name);
 }
 
 // Build example group function
-function buildGroupExample() {
-  var columnCollection = getChecked().map(i => '<span class=\"s2\">"' + i + '"</span>').join(", ")
+function buildFluxCodeSample(columnNames) {
+  var columnCollection = columnNames.map(i => '<span class=\"s2\">"' + i + '"</span>').join(", ")
   $("pre#group-by-example")[0].innerHTML = "data\n  <span class='nx'>|></span> group(columns<span class='nx'>:</span> [" + columnCollection + "])";
 }
 
-$(".column-list label").click(function () {
-  toggleCheckbox($(this))
-  groupKey = getChecked();
-  groupData();
-  buildGroupExample();
-});
+const checkboxSelector = ".column-list input[type=checkbox]";
 
-// Group and render tables on load
-groupData()
+export default function FluxGroupKeysExample() {
+  // Group and render tables on load
+  // Build group example on load
+  const tablesElement = document.querySelector("#flux-group-keys-demo #grouped-tables");
+
+  if (!tablesElement) {
+    return;
+  }
+
+  tablesElement.addEventListener('load', buildTables(tablesElement, sampleData, groupKeyDefault));
+
+  // Add event listener to checkboxes
+  // Rebuild tables and group example on change
+  // Use on('change') so the function is only called once (after the change is complete).
+  document.querySelectorAll(checkboxSelector).forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      const checkedGroupKey = getCheckedNames();
+      const groupedData = groupData(sampleData, checkedGroupKey);
+      buildTables(tablesElement, groupedData, checkedGroupKey);
+      buildFluxCodeSample(checkedGroupKey);
+    });
+  });
+}

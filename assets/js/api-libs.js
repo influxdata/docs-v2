@@ -1,6 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////// Preferred Client Library programming language  ///////////////
 ////////////////////////////////////////////////////////////////////////////////
+import { setPreference, getPreference } from './cookies.js';
+import { activateTabs, updateBtnURLs } from './tabbed-content.js';
 
 function getVisitedApiLib () {
   const path = window.location.pathname.match(
@@ -35,3 +37,10 @@ var tab = getApiLibPreference();
   selector => activateTabs(selector, tab),
   updateBtnURLs(tab)
 );
+
+export {
+  getApiLibPreference,
+  setApiLibPreference,
+  getVisitedApiLib,
+  isApiLib,
+};

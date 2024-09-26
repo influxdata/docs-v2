@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 const placeholderWrapper = '.code-placeholder-wrapper';
 const placeholderElement = 'var.code-placeholder';
 const codePlaceholders = $(placeholderElement);
@@ -14,7 +16,7 @@ codePlaceholders.on('click', function() {
   $(this).before(placeholderInputWrapper)
   $(this).siblings('.code-input-wrapper').append(placeholderInput);
   $(`input#${placeholderID}`).width(`${placeholderValue.length}ch`);
-  $(`input#${placeholderID}`).focus().select();
+  $(`input#${placeholderID}`).trigger('focus').select();
   $(this).css('opacity', 0);
 })
 

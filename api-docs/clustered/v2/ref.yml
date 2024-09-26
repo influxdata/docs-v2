@@ -12,14 +12,7 @@ info:
     url: https://opensource.org/licenses/MIT
   summary: The InfluxDB v2 HTTP API for InfluxDB Clustered provides a v2-compatible programmatic interface for writing data stored in an InfluxDB Clustered database.
 servers:
-  - url: https://{baseurl}
-    description: InfluxDB Clustered API URL
-    variables:
-      baseurl:
-        enum:
-          - cluster-host.com
-        default: cluster-host.com
-        description: InfluxDB Clustered URL
+  - url: /
 security:
   - BearerAuthentication: []
   - TokenAuthentication: []
@@ -32,7 +25,7 @@ tags:
       InfluxDB Clustered provides the following HTTP API endpoints for writing data:
 
       - **Recommended**: [`/api/v2/write` endpoint](/influxdb/clustered/api/#operation/PostWrite) for new write workloads or for bringing existing InfluxDB v2 write workloads to v3.
-      - [`/write` endpoint](/influxdb/clustered/api/#operation/PostLegacyWrite) for bringing existing InfluxDB v1 write workloads to v3.
+      - /influxdb/clustered/api/#operation/PostLegacyWrite for bringing existing InfluxDB v1 write workloads to v3.
 
       Both endpoints accept the same line protocol format and process data in the same way.
 
@@ -60,11 +53,10 @@ tags:
   - description: |
       Use one of the following schemes to authenticate to the InfluxDB API:
 
-      - [Bearer authentication](#section/Authentication/BearerAuthentication)
-      - [Token authentication](#section/Authentication/TokenAuthentication)
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
-      <!-- ReDoc-Inject: <security-definitions> -->
+      - #section/Authentication/BearerAuthentication
+      - #section/Authentication/TokenAuthentication
+      - #section/Authentication/BasicAuthentication
+      - #section/Authentication/QuerystringAuthentication
     name: Authentication
     x-traitTag: true
   - description: |
@@ -105,10 +97,11 @@ tags:
       - The `/api/v2/query` endpoint can't query InfluxDB Clustered.
       - _Flight + gRPC_ clients can query using **SQL** or **InfluxQL** and retrieve data in **Arrow** format.
 
-      #### Related guides
+      x-influxdata-related-content:
 
-      - [Get started querying InfluxDB](/influxdb/clustered/get-started/query/)
-      - [Execute queries](/influxdb/clustered/query-data/execute-queries/)
+
+      - /influxdb/clustered/get-started/query/
+      - /influxdb/clustered/query-data/execute-queries/
     name: Query
   - description: |
       See the [**Get Started**](/influxdb/clustered/get-started/) tutorial
@@ -232,13 +225,11 @@ paths:
 
         To ensure that InfluxDB Cloud handles writes in the order you request them,
         wait for a success response (HTTP `2xx` status code) before you send the next request.
-
-        #### Related guides
-
-        - [Get started writing data](/influxdb/clustered/get-started/write/)
-        - [Write data](/influxdb/clustered/write-data/)
-        - [Best practices for writing data](/influxdb/clustered/write-data/best-practices/)
-        - [Troubleshoot issues writing data](/influxdb/clustered/write-data/troubleshoot/)
+      x-influxdata-related-content:
+        - /influxdb/clustered/get-started/write/
+        - /influxdb/clustered/write-data/
+        - /influxdb/clustered/write-data/best-practices/
+        - /influxdb/clustered/write-data/troubleshoot/
       operationId: PostWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -285,10 +276,6 @@ paths:
 
             - Returns only `application/json` for format and limit errors.
             - Returns only `text/html` for some quota limit errors.
-
-            #### Related guides
-
-            - [Troubleshoot issues writing data](/influxdb/clustered/write-data/troubleshoot/)
           in: header
           name: Accept
           schema:
@@ -350,10 +337,6 @@ paths:
             1. Use [gzip](https://www.gzip.org/) to compress the line protocol data.
             2. In your request, send the compressed data and the
                `Content-Encoding: gzip` header.
-
-          #### Related guides
-
-          - [Best practices for optimizing writes](/influxdb/clustered/write-data/best-practices/optimize-writes/)
         required: true
       responses:
         '204':
@@ -720,12 +703,10 @@ paths:
 
         To ensure that InfluxDB handles writes in the order you request them,
         wait for a success response (HTTP `2xx` status code) before you send the next request.
-
-        #### Related guides
-
-        - [Write data with the InfluxDB API](/influxdb/clustered/get-started/write/)
-        - [Optimize writes to InfluxDB](/influxdb/clustered/write-data/best-practices/optimize-writes/)
-        - [Troubleshoot issues writing data](/influxdb/clustered/write-data/troubleshoot/)
+      x-influxdata-related-content:
+        - /influxdb/clustered/get-started/write/
+        - /influxdb/clustered/write-data/best-practices/optimize-writes/
+        - /influxdb/clustered/write-data/troubleshoot/
       summary: Write data using the InfluxDB v1 HTTP API
       tags:
         - Write
@@ -1057,9 +1038,7 @@ components:
             Annotation rows to include in the results.
             An _annotation_ is metadata associated with an object (column) in the data model.
 
-            #### Related guides
-
-            - See [Annotated CSV annotations](/influxdb/clustered/reference/syntax/annotated-csv/#annotations) for examples and more information.
+            See [Annotated CSV annotations](/influxdb/clustered/reference/syntax/annotated-csv/#annotations) for examples and more information.
 
             For more information about **annotations** in tabular data,
             see [W3 metadata vocabulary for tabular data](https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/#columns).
@@ -1235,9 +1214,9 @@ components:
       properties:
         results:
           description: |
-              A resultset object that contains the `statement_id` and the `series` array.
+            A resultset object that contains the `statement_id` and the `series` array.
 
-              Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
+            Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
           items:
             properties:
               error:
@@ -1286,12 +1265,12 @@ components:
                 type: integer
             type: object
           oneOf:
-          - required:
-            - statement_id
-            - error
-          - required:
-            - statement_id
-            - series
+            - required:
+                - statement_id
+                - error
+            - required:
+                - statement_id
+                - series
           type: array
       type: object
     IntegerLiteral:
@@ -1822,10 +1801,6 @@ components:
             #### InfluxDB Cloud
 
             - Doesn't use `shardGroupDurationsSeconds`.
-
-            #### Related guides
-
-            - InfluxDB [shards and shard groups](/influxdb/clustered/reference/internals/shards/)
           format: int64
           type: integer
         type:
@@ -2084,8 +2059,8 @@ components:
         ```
 
         For examples and more information, see the following:
-          - [Authenticate API requests](/influxdb/clustered/primers/api/v2/#authenticate-api-requests)
-          - [Manage tokens](/influxdb/clustered/admin/tokens/)
+          - /influxdb/clustered/primers/api/v2/#authenticate-api-requests
+          - /influxdb/clustered/admin/tokens/
     TokenAuthentication:
       description: |
         Use the Token authentication
@@ -2113,11 +2088,9 @@ components:
           --header "Authorization: Token DATABASE_TOKEN" \
           --data-binary 'home,room=kitchen temp=72 1463683075'
         ```
-
-        ### Related guides
-
-        - [Authenticate API requests](/influxdb/clustered/primers/api/v2/#authenticate-api-requests)
-        - [Manage tokens](/influxdb/clustered/admin/tokens/)
+      x-influxdata-related-content:
+        - /influxdb/clustered/primers/api/v2/#authenticate-api-requests
+        - /influxdb/clustered/admin/tokens/
       in: header
       name: Authorization
       type: apiKey

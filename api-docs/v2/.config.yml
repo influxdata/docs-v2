@@ -6,8 +6,8 @@ extends:
 x-influxdata-product-name: InfluxDB v2 OSS
 
 apis:
-  '@2':
-    root: ref.yml
+  v2@2:
+    root: v2/ref.yml
     x-influxdata-default: true
   v1-compatibility@2:
     root: v1-compatibility/swaggerV1Compat.yml

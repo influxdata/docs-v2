@@ -12,14 +12,7 @@ info:
   summary: The InfluxDB v2 HTTP API for InfluxDB Cloud Dedicated provides a v2-compatible programmatic interface for writing data stored in an InfluxDB Cloud Dedicated database.
   version: ''
 servers:
-  - url: https://{baseurl}
-    description: InfluxDB Cloud Dedicated API URL
-    variables:
-      baseurl:
-        enum:
-          - cluster-id.a.influxdb.io
-        default: cluster-id.a.influxdb.io
-        description: InfluxDB Cloud Dedicated URL
+  - url: /
 security:
   - BearerAuthentication: []
   - TokenAuthentication: []
@@ -32,7 +25,7 @@ tags:
       InfluxDB Cloud Dedicated provides the following HTTP API endpoints for writing data:
 
       - **Recommended**: [`/api/v2/write` endpoint](#operation/PostWrite) for new write workloads or for bringing existing InfluxDB v2 write workloads to v3.
-      - [`/write` endpoint](#operation/PostLegacyWrite) for bringing existing InfluxDB v1 write workloads to v3.
+      - #operation/PostLegacyWrite for bringing existing InfluxDB v1 write workloads to v3.
 
       Both endpoints accept the same line protocol format and process data in the same way.
 
@@ -60,10 +53,10 @@ tags:
   - description: |
       Use one of the following schemes to authenticate to the InfluxDB API:
 
-      - [Bearer authentication](#section/Authentication/BearerAuthentication)
-      - [Token authentication](#section/Authentication/TokenAuthentication)
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      - #section/Authentication/BearerAuthentication
+      - #section/Authentication/TokenAuthentication
+      - #section/Authentication/BasicAuthentication
+      - #section/Authentication/QuerystringAuthentication
       <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication
     x-traitTag: true
@@ -105,10 +98,11 @@ tags:
       - The `/api/v2/query` endpoint can't query InfluxDB Cloud Dedicated.
       - _Flight + gRPC_ clients can query using **SQL** or **InfluxQL** and retrieve data in **Arrow** format.
 
-      #### Related guides
+      x-influxdata-related-content:
 
-      - [Get started querying InfluxDB](/influxdb/cloud-dedicated/get-started/query/)
-      - [Execute queries](/influxdb/cloud-dedicated/query-data/execute-queries/)
+
+      - /influxdb/cloud-dedicated/get-started/query/
+      - /influxdb/cloud-dedicated/query-data/execute-queries/
     name: Query
   - description: |
       See the [**Get Started**](/influxdb/cloud-dedicated/get-started/) tutorial
@@ -150,7 +144,7 @@ paths:
     get:
       description: |
         Reports the InfluxQL bridge querier health and the InfluxDB version of the instance.
-        
+
         The response is a HTTP `204` status code to inform you the querier is available.
 
         For InfluxDB Cloud Dedicated, this endpoint only checks the status of queriers; doesn't check the status of ingesters.
@@ -188,7 +182,7 @@ paths:
     head:
       description: |
         Reports the InfluxQL bridge querier health and the InfluxDB version of the instance.
-        
+
         The response is a HTTP `204` status code to inform you the querier is available.
 
         For InfluxDB Cloud Dedicated, this endpoint only checks the status of queriers; doesn't check the status of ingesters.
@@ -251,13 +245,11 @@ paths:
 
         - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb/cloud-dedicated/guides/api-compatibility/v1/).
         - Use the [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb/cloud-dedicated/guides/api-compatibility/v2/).
-
-        #### Related guides
-
-        - [Get started writing data](/influxdb/cloud-dedicated/get-started/write/)
-        - [Write data](/influxdb/cloud-dedicated/write-data/)
-        - [Best practices for writing data](/influxdb/cloud-dedicated/write-data/best-practices/)
-        - [Troubleshoot issues writing data](/influxdb/cloud-dedicated/write-data/troubleshoot/)
+      x-influxdata-related-content:
+        - /influxdb/cloud-dedicated/get-started/write/
+        - /influxdb/cloud-dedicated/write-data/
+        - /influxdb/cloud-dedicated/write-data/best-practices/
+        - /influxdb/cloud-dedicated/write-data/troubleshoot/
       operationId: PostWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -306,10 +298,6 @@ paths:
 
               - Returns only `application/json` for format and limit errors.
               - Returns only `text/html` for some quota limit errors.
-
-            #### Related guides
-
-            - [Troubleshoot issues writing data](/influxdb/cloud-dedicated/write-data/troubleshoot/)
           in: header
           name: Accept
           schema:
@@ -371,10 +359,6 @@ paths:
             1. Use [gzip](https://www.gzip.org/) to compress the line protocol data.
             2. In your request, send the compressed data and the
                `Content-Encoding: gzip` header.
-
-          #### Related guides
-
-          - [Best practices for optimizing writes](/influxdb/cloud-dedicated/write-data/best-practices/optimize-writes/)
         required: true
       responses:
         '201':
@@ -608,13 +592,11 @@ paths:
 
         - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb/cloud-dedicated/guides/api-compatibility/v1/).
         - Use the [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb/cloud-dedicated/guides/api-compatibility/v2/).
-
-        #### Related guides
-
-        - [Get started writing data](/influxdb/cloud-dedicated/get-started/write/)
-        - [Write data](/influxdb/cloud-dedicated/write-data/)
-        - [Best practices for writing data](/influxdb/cloud-dedicated/write-data/best-practices/)
-        - [Troubleshoot issues writing data](/influxdb/cloud-dedicated/write-data/troubleshoot/)
+      x-influxdata-related-content:
+        - /influxdb/cloud-dedicated/get-started/write/
+        - /influxdb/cloud-dedicated/write-data/
+        - /influxdb/cloud-dedicated/write-data/best-practices/
+        - /influxdb/cloud-dedicated/write-data/troubleshoot/
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: The InfluxDB 1.x username to authenticate the request.
@@ -1065,9 +1047,7 @@ components:
             Annotation rows to include in the results.
             An _annotation_ is metadata associated with an object (column) in the data model.
 
-            #### Related guides
-
-            - See [Annotated CSV annotations](/influxdb/cloud-dedicated/reference/syntax/annotated-csv/#annotations) for examples and more information.
+            See [Annotated CSV annotations](/influxdb/cloud-dedicated/reference/syntax/annotated-csv/#annotations) for examples and more information.
 
             For more information about **annotations** in tabular data,
             see [W3 metadata vocabulary for tabular data](https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/#columns).
@@ -1243,9 +1223,9 @@ components:
       properties:
         results:
           description: |
-              A resultset object that contains the `statement_id` and the `series` array.
+            A resultset object that contains the `statement_id` and the `series` array.
 
-              Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
+            Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
           items:
             properties:
               error:
@@ -1294,12 +1274,12 @@ components:
                 type: integer
             type: object
           oneOf:
-          - required:
-            - statement_id
-            - error
-          - required:
-            - statement_id
-            - series
+            - required:
+                - statement_id
+                - error
+            - required:
+                - statement_id
+                - series
           type: array
       type: object
     IntegerLiteral:
@@ -1830,10 +1810,6 @@ components:
             #### InfluxDB Cloud
 
             - Doesn't use `shardGroupDurationsSeconds`.
-
-            #### Related guides
-
-            - InfluxDB [shards and shard groups](/influxdb/cloud-dedicated/reference/internals/shards/)
           format: int64
           type: integer
         type:
@@ -2092,8 +2068,8 @@ components:
         ```
 
         For examples and more information, see the following:
-          - [Authenticate API requests](/influxdb/cloud-dedicated/primers/api/v2/#authenticate-api-requests)
-          - [Manage tokens](/influxdb/cloud-dedicated/admin/tokens/)
+          - /influxdb/cloud-dedicated/primers/api/v2/#authenticate-api-requests
+          - /influxdb/cloud-dedicated/admin/tokens/
     TokenAuthentication:
       description: |
         Use the Token authentication
@@ -2121,11 +2097,9 @@ components:
           --header "Authorization: Token DATABASE_TOKEN" \
           --data-binary 'home,room=kitchen temp=72 1463683075'
         ```
-
-        ### Related guides
-
-        - [Authenticate API requests](/influxdb/cloud-dedicated/primers/api/v2/#authenticate-api-requests)
-        - [Manage tokens](/influxdb/cloud-dedicated/admin/tokens/)
+      x-influxdata-related-content:
+        - /influxdb/cloud-dedicated/primers/api/v2/#authenticate-api-requests
+        - /influxdb/cloud-dedicated/admin/tokens/
       in: header
       name: Authorization
       type: apiKey

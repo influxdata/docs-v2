@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 // Dynamically update keybindings or hotkeys
 function getPlatform() {
   if (/Mac/.test(navigator.platform)) {
