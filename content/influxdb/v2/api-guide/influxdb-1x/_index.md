@@ -6,12 +6,14 @@ description: >
 menu:
   influxdb_v2:
     name: v1 compatibility
-    parent: InfluxDB v2 API
+    parent: Develop with the API
 weight: 104
 influxdb/v2/tags: [influxql, query, write]
 related:
   - /influxdb/v2/query-data/influxql
   - /influxdb/v2/install/upgrade/v1-to-v2/
+alias:
+  - /influxdb/v2/reference/api/influxdb-1x/
 ---
 
 The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
@@ -37,7 +39,7 @@ Use the `Authorization` header with the `Token` scheme to provide your token to 
 
 #### Syntax
 
-```sh
+```http
 Authorization: Token INFLUX_API_TOKEN
 ```
 
@@ -49,6 +51,9 @@ Authorization: Token INFLUX_API_TOKEN
 [Node.js](#nodejs)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
+<!--pytest.mark.skip-->
+
 ```sh
 {{% get-shared-text "api/v1-compat/auth/oss/token-auth.sh" %}}
 ```
@@ -77,21 +82,21 @@ Username and password schemes require the following credentials:
 
 {{% note %}}
 #### Password or Token
-If you have [set a password](/influxdb/v2/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations) for the 1.x-compatible username, provide the 1.x-compatible password.
+
+If you have [set a password](/influxdb/v2/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations) for the 1.x-compatible username, provide the 1.x-compatible password.
 If you haven't set a password for the 1.x-compatible username, provide the InfluxDB [authentication token](/influxdb/v2/admin/tokens/) as the password.
 {{% /note %}}
 
-For information about creating and managing 1.x-compatible authorizations, see:
-
-- [`influx v1 auth` command](/influxdb/v2/reference/cli/influx/v1/auth/)
-- [Manually upgrade – 1.x-compatible authorizations](/influxdb/v2/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
+For more information, see how to create and manage
+[1.x-compatible authorizations](/influxdb/v2/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
+when manually upgrading from InfluxDB v1 to v2.
 
 {{% /oss-only %}}
 
 {{% cloud-only %}}
 
 - **username**: InfluxDB Cloud username
-  (Use the email address you signed up with as your username, _e.g._ `exampleuser@influxdata.com`.)
+  (Use the email address you signed up with as your username--for example, `exampleuser@influxdata.com`.)
 - **password**: InfluxDB Cloud [API token](/influxdb/cloud/admin/tokens/)
 
 {{% /cloud-only %}}
@@ -107,7 +112,7 @@ password credentials to InfluxDB.
 
 {{% oss-only %}}
 
-```sh
+```http
 Authorization: Basic INFLUX_USERNAME:INFLUX_PASSWORD_OR_TOKEN
 ```
 
@@ -116,13 +121,15 @@ Authorization: Basic INFLUX_USERNAME:INFLUX_PASSWORD_OR_TOKEN
 
 {{% cloud-only %}}
 
-```sh
+```http
 Authorization: Basic exampleuser@influxdata.com:INFLUX_API_TOKEN
 ```
 
 {{% /cloud-only %}}
 
 ##### Example
+
+{{% code-placeholders "INFLUX_(USERNAME|PASSWORD_OR_TOKEN|API_TOKEN)|exampleuser@influxdata.com" %}}
 
 {{% oss-only %}}
 
@@ -132,6 +139,9 @@ Authorization: Basic exampleuser@influxdata.com:INFLUX_API_TOKEN
 [Node.js](#nodejs)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
+<!--pytest.mark.skip-->
+
 ```sh
 {{% get-shared-text "api/v1-compat/auth/oss/basic-auth.sh" %}}
 ```
@@ -154,6 +164,9 @@ Authorization: Basic exampleuser@influxdata.com:INFLUX_API_TOKEN
 [Node.js](#nodejs)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
+<!--pytest.mark.skip-->
+
 ```sh
 {{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.sh" %}}
 ```
@@ -167,8 +180,8 @@ Authorization: Basic exampleuser@influxdata.com:INFLUX_API_TOKEN
 {{< /code-tabs-wrapper >}}
 
 Replace the following:
-- *`exampleuser@influxdata.com`*: the email address that you signed up with
-- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token)
+- {{% code-placeholder-key %}}`exampleuser@influxdata.com`{{% /code-placeholder-key %}}: the email address that you signed up with
+- {{% code-placeholder-key %}}`INFLUX_API_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token)
 
 {{% /cloud-only %}}
 
@@ -186,7 +199,7 @@ Use InfluxDB 1.x API parameters to provide credentials through the query string.
 
 {{% oss-only %}}
 
-```sh
+```http
  /query/?u=INFLUX_USERNAME&p=INFLUX_PASSWORD_OR_TOKEN
  /write/?u=INFLUX_USERNAME&p=INFLUX_PASSWORD_OR_TOKEN
  ```
@@ -195,7 +208,7 @@ Use InfluxDB 1.x API parameters to provide credentials through the query string.
 
 {{% cloud-only %}}
 
-```sh
+```http
 /query/?u=INFLUX_USERNAME&p=INFLUX_API_TOKEN
 /write/?u=INFLUX_USERNAME&p=INFLUX_API_TOKEN
 ```
@@ -211,6 +224,9 @@ Use InfluxDB 1.x API parameters to provide credentials through the query string.
 [Node.js](#nodejs)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
+<!--pytest.mark.skip-->
+
 ```sh
 {{< get-shared-text "api/v1-compat/auth/oss/querystring-auth.sh" >}}
 ```
@@ -223,8 +239,8 @@ Use InfluxDB 1.x API parameters to provide credentials through the query string.
 {{< /code-tabs-wrapper >}}
 
 Replace the following:
-- *`INFLUX_USERNAME`*: [InfluxDB 1.x username](#manage-credentials)
-- *`INFLUX_PASSWORD_OR_TOKEN`*: [InfluxDB 1.x password or InfluxDB API token](#manage-credentials)
+- {{% code-placeholder-key %}}`INFLUX_USERNAME`{{% /code-placeholder-key %}}: [InfluxDB 1.x username](#manage-credentials)
+- {{% code-placeholder-key %}}`INFLUX_PASSWORD_OR_TOKEN`{{% /code-placeholder-key %}}: [InfluxDB 1.x password or InfluxDB API token](#manage-credentials)
 
 {{% /oss-only %}}
 
@@ -236,6 +252,9 @@ Replace the following:
 [Node.js](#nodejs)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
+<!--pytest.mark.skip-->
+
 ```sh
 {{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.sh" %}}
 ```
@@ -248,9 +267,11 @@ Replace the following:
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
+{{% /code-placeholders %}}
+
 Replace the following:
-- *`exampleuser@influxdata.com`*: the email address that you signed up with
-- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token)
+- {{% code-placeholder-key %}}`exampleuser@influxdata.com`{{% /code-placeholder-key %}}: the email address that you signed up with
+- {{% code-placeholder-key %}}`INFLUX_API_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token)
 
 {{% /cloud-only %}}
 
@@ -258,7 +279,7 @@ Replace the following:
 
 The compatibility API supports InfluxQL, with the following caveats:
 
-- The `INTO` clause (e.g. `SELECT ... INTO ...`) is not supported.
+- The `INTO` clause (for example, `SELECT ... INTO ...`) is not supported.
 - With the exception of [`DELETE`](/influxdb/v1/query_language/manage-database/#delete-series-with-delete) and
   [`DROP MEASUREMENT`](/influxdb/v1/query_language/manage-database/#delete-measurements-with-drop-measurement) queries, which are still allowed,
   InfluxQL database management commands are not supported.

@@ -91,3 +91,6 @@ less efficient.
 
 Learn how to [analyze a query plan](/influxdb/clustered/query-data/troubleshoot-and-optimize/analyze-query-plan/)
 to troubleshoot queries and find performance bottlenecks.
+
+If you need help troubleshooting, follow the guidelines to
+[report query performance issues](/influxdb/clustered/query-data/troubleshoot-and-optimize/report-query-performance-issues/).

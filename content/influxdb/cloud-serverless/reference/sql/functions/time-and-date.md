@@ -162,7 +162,7 @@ The following query returns the daily average of water levels in the queried tim
 
 ```sql
 SELECT
-  date_bin(INTERVAL '1 day', time, TIMESTAMP '1970-01-01 00:00:00Z') AS time,
+  date_bin(INTERVAL '1 day', time, TIMESTAMP '1970-01-01 00:00:00Z') AS _time,
   avg("water_level") AS water_level_avg
 FROM "h2o_feet"
 WHERE

@@ -55,7 +55,7 @@ influxdb_cloud_dedicated:
   list_order: 3
   latest: cloud-dedicated
   link: "https://www.influxdata.com/contact-sales-form/"
-  latest_cli: 2.9.6
+  latest_cli: 2.9.7
   placeholder_host: cluster-id.a.influxdb.io
 
 influxdb_clustered:
@@ -75,9 +75,9 @@ telegraf:
   menu_category: other
   list_order: 6
   versions: [v1]
-  latest: v1.31
+  latest: v1.32
   latest_patches:
-    v1: 1.31.3
+    v1: 1.32.0
 
 chronograf:
   name: Chronograf

@@ -224,10 +224,11 @@ measurement.
 {{% expand "Group query results by tags that start with `l`" %}}
 
 ```sql
-SELECT "water_level",location FROM "h2o_feet" GROUP BY /l/
+SELECT MAX("water_level"),location FROM "h2o_feet" GROUP BY /l/
 ```
 
-This query uses a regular expression to group by tags that start with `l`. With the sample NOAA water dataset, results are grouped by the `location` tag.
+This query uses a regular expression to group by tags that start with `l`.
+With the sample NOAA water dataset, results are grouped by the `location` tag.
 
 {{% /expand %}}
 

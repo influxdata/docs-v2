@@ -7,6 +7,8 @@ menu:
     name: Report query performance issues
     parent: Troubleshoot and optimize queries
 weight: 402
+related:
+  - /influxdb/clustered/admin/query-system-data/
 ---
 
 These guidelines are intended to faciliate collaboration between InfluxData
@@ -23,13 +25,17 @@ queries](/influxdb/clustered/query-data//troubleshoot-and-optimize).
 6. [Reduce query noise](#reduce-query-noise)
 7. [Establish baseline single-query performance](#establish-baseline-single-query-performance)
 8. [Run queries at multiple load scales](#run-queries-at-multiple-load-scales)
-9. [Gather debug info](#gather-debug-info)
+9. [Gather debug information](#gather-debug-information)
    1. [Kubernetes-specific information](#kubernetes-specific-information)
    2. [Clustered-specific information](#clustered-specific-information)
    3. [Query analysis](#query-analysis)
       1. [EXPLAIN](#explain)
       2. [EXPLAIN VERBOSE](#explain-verbose)
       3. [EXPLAIN ANALYZE](#explain-analyze)
+10. [Gather system information](#gather-system-information)
+    - [Collect table information](#collect-table-information)
+    - [Collect compaction information for the table](#collect-compaction-information-for-the-table)
+    - [Collect partition information for multiple tables](#collect-partition-information-for-multiple-tables)
 
 {{% note %}}
 Please note that this document may change from one support engagement to the
@@ -141,14 +147,23 @@ As an example, consider the following test plan outline:
 4. Run 10 concurrent instances of Query A and allow the cluster to recover for 1 minute.
 5. Run 20 concurrent instances of Query A and allow the cluster to recover for 1 minute.
 6. Run 40 concurrent instances of Query A and allow the cluster to recover for 1 minute.
-7. Provide InfluxData the debug information [described below](#gather-debug-info).
+7. Provide InfluxData the debug information [described below](#gather-debug-information).
 
 {{% note %}}
 This is just an example. You don't have to go beyond the scale where queries get slower
 but you may also need to go further than what's outlined here.
 {{% /note %}}
 
-### Gather debug info
+<!-- Don't mention dashboards until they're working working in a future Clustered release --
+
+### Capture dashboard screens
+
+If you have set up alerts and dashboards for monitoring your cluster, capture
+screenshots of dashboard events for Queriers, Compactors, and Ingesters.
+
+-->
+
+### Gather debug information
 
 The following debug information should be collected shortly _after_ a
  problematic query has been tried against your InfluxDB cluster.
@@ -165,7 +180,7 @@ kubectl cluster-info dump --namespace influxdb --output-directory "${DATETIME}-c
 tar -czf "${DATETIME}-cluster-info.tar.gz" "${DATETIME}-cluster-info/"
 ```
 
-#### Clustered-Specific Info
+#### Clustered-specific information
 
 **Outputs:**
 
@@ -310,3 +325,96 @@ curl --get "https://{{< influxdb/host >}}/query" \
 {{< /code-tabs-wrapper >}}
 
 {{% /code-placeholders %}}
+
+### Gather system information
+
+{{% warn %}}
+#### May impact cluster performance
+
+Querying InfluxDB v3 system tables may impact write and query
+performance of your {{< product-name omit=" Clustered" >}} cluster.
+Use filters to [optimize queries to reduce impact to your cluster](/influxdb/clustered/admin/query-system-data/#optimize-queries-to-reduce-impact-to-your-cluster).
+
+<!--------------- UPDATE THE DATE BELOW AS EXAMPLES ARE UPDATED --------------->
+
+#### System tables are subject to change
+
+System tables are not part of InfluxDB's stable API and may change with new releases.
+The provided schema information and query examples are valid as of **September 20, 2024**.
+If you detect a schema change or a non-functioning query example, please
+[submit an issue](https://github.com/influxdata/docs-v2/issues/new/choose).
+
+<!--------------- UPDATE THE DATE ABOVE AS EXAMPLES ARE UPDATED --------------->
+{{% /warn %}}
+
+If queries are slow for a specific table, run the following system queries to collect information for troubleshooting.
+
+- [Collect table information](#collect-table-information)
+- [Collect compaction information for the table](#collect-compaction-information-for-the-table)
+- [Collect partition information for multiple tables](#collect-partition-information-for-multiple-tables)
+
+To [optimize system queries](/influxdb/clustered/admin/query-system-data/#optimize-queries-to-reduce-impact-to-your-cluster), use `table_name`, `partition_key`, and
+`partition_id` filters.
+In your queries, replace the following:
+
+- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the table to retrieve partitions for
+- {{% code-placeholder-key %}}`PARTITION_ID`{{% /code-placeholder-key %}}: a [partition ID](/influxdb/clustered/admin/query-system-data/#retrieve-a-partition-id) (int64) 
+- {{% code-placeholder-key %}}`PARTITION_KEY`{{% /code-placeholder-key %}}: a [partition key](/influxdb/clustered/admin/custom-partitions/#partition-keys)
+   derived from the table's partition template.
+   The default format is `%Y-%m-%d` (for example, `2024-01-01`).
+
+#### Collect table information
+
+{{% code-placeholders "TABLE_NAME" %}}
+```sql
+SELECT *
+FROM system.tables
+WHERE table_name = 'TABLE_NAME';
+```
+{{% /code-placeholders%}}
+
+#### Collect compaction information for the table
+
+Query the `system.compactor` table to collect compaction information--for example, run one of the following
+queries:
+
+{{% code-placeholders "TABLE_NAME|PARTITION_KEY" %}}
+
+```sql
+SELECT * 
+FROM system.compactor 
+WHERE
+  table_name = 'TABLE_NAME' 
+    AND partition_key = 'PARTITION_KEY';
+```
+
+{{% /code-placeholders %}}
+
+{{% code-placeholders "TABLE_NAME|PARTITION_ID" %}}
+
+```sql
+SELECT * 
+FROM system.compactor 
+WHERE
+  table_name = 'TABLE_NAME' 
+    AND partition_id = 'PARTITION_ID';
+```
+
+{{% /code-placeholders %}}
+
+#### Collect partition information for multiple tables
+
+If the same queries are slow on more than 1 table, also run the following query to collect the size and
+number of partitions for all tables:
+
+{{% code-placeholders "TABLE_NAME" %}}
+```sql
+SELECT table_name,
+  COUNT(*) as partition_count,
+  MAX(last_new_file_created_at) as last_new_file_created_at,
+  SUM(total_size_mb) as total_size_mb
+FROM system.partitions
+WHERE table_name IN ('foo', 'bar', 'baz')
+GROUP BY table_name;
+```
+{{% /code-placeholders%}}
