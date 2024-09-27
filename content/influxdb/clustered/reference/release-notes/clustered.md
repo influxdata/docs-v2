@@ -26,6 +26,129 @@ identified below with the <span class="cf-icon Shield pink"></span> icon.
 
 ---
 
+## 20240925-1257864 {date="2024-09-25" .checkpoint} 
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:202409XX-XXXXXXX
+```
+
+### Highlights
+
+#### Default to partial write semantics
+
+In InfluxDB Clustered 20240925-1257864+, "partial writes" are enabled by default.
+With partial writes enabled, InfluxDB accepts write requests with invalid or
+malformed lines of line protocol and successfully write valid lines and rejects
+invalid lines. Previously, if any line protocol in a batch was invalid, the
+entire batch was rejected and no data was written.
+
+To disable partial writes and revert back to the previous behavior, set the
+`INFLUXDB_IOX_PARTIAL_WRITES_ENABLED` environment variable on your cluster's
+Ingester to `false`. Define this environment variable in the
+`spec.package.spec.components.ingester.template.containers.iox.env` property in
+your `AppInstance` resource.
+
+{{< expand-wrapper >}}
+{{% expand "View example of disabling partial writes in your `AppInstance` resource" %}}
+
+```yaml
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+metadata:
+  name: influxdb
+  namespace: influxdb
+spec:
+  package:
+    spec:
+      components:
+        ingester:
+          template:
+              containers:
+                iox:
+                  env:
+                    INFLUXDB_IOX_PARTIAL_WRITES_ENABLED: false
+```
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+For more information about defining variables in your InfluxDB cluster, see
+[Manage environment variables in your InfluxDB Cluster](/influxdb/clustered/admin/env-vars/).
+
+##### Write API behaviors
+
+When submitting a write request that includes invalid or malformed line protocol,
+The InfluxDB write API returns a 400 response code and does the following: 
+
+- With partial writes _enabled_:
+
+  - Writes all valid points and rejects all invalid points.
+  - Includes details about the [rejected points](/influxdb/clustered/write-data/troubleshoot/#troubleshoot-rejected-points)
+    (up to 100 points) in the response body.
+
+- With partial writes _disabled_:
+
+  - Rejects all points in the batch.
+  - Includes an error message and the first malformed line of line protocol in
+    the response body.
+
+#### Deploy and use the Catalog service by default
+
+The Catalog service is a new IOx component that centralizes access to the
+InfluxDB Catalog among Ingesters, Queriers, Compactors, and Garbage Collectors.
+This is expected to improve Catalog query performance overall with an expected
+drop in ninety-ninth percentile (p99) latencies.
+
+### Upgrade notes
+
+#### License now required
+
+A valid license token is now required to start up your InfluxDB Cluster.
+To avoid possible complications, ensure you have a valid license token. If you
+do not, contact your InfluxData sales representative to get a license token
+**before upgrading to this release**.
+
+#### Removed prometheusOperator feature flag
+
+The `prometheusOperator` feature flag has been removed.
+**If you current have this feature flag enabled in your `AppInstance` resource,
+remove it before upgrading to this release.**
+This flag was deprecated in a previous release, but from this release forward,
+enabling this feature flag may cause errors.
+
+The installation of the Prometheus operator should be handled externally.
+
+### Changes
+
+#### Deployment
+
+- Introduces the `nodeAffinity` and CPU/Memory requests setting for "granite"
+  components. Previously, these settings were only available for core IOx
+  components.
+- Prior to this release, many of the IOx dashboards deployed with the `grafana`
+  feature flag were showing "no data." This has been fixed and now all
+  dashboards should display actual data.
+
+#### Database Engine
+
+- Adjusted compactor concurrency scaling heuristic to improve performance as
+  memory and CPU scale.
+- Adjusted default `INFLUXDB_IOX_COMPACTION_PARTITION_MINUTE_THRESHOLD` from
+  `20m` to `100m` to help compactor more quickly rediscover cool partitions.
+
+#### Configuration
+
+- Introduces the `podAntiAffinity` setting for InfluxDB Clustered components.
+  Previously, the scheduling of pods was influenced by the Kubernetes
+  scheduler's default behavior. For further details, see the
+  [Kubernetes pod affinity documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#types-of-inter-pod-affinity-and-anti-affinity).
+
+---
+
 ## 20240819-1176644 {date="2024-08-19" .checkpoint}
 
 ### Quickstart
@@ -463,7 +586,7 @@ mounted into your existing Grafana instance.
 An authentication component, previously known as `authz`, has been consolidated
 into the `token-management` service.
 
-There is now a temporary `Job` in place, `delete-authz-schema`, that
+Now there is a temporary `Job` in place, `delete-authz-schema`, that
 automatically removes the `authz` schema from the configured PostgreSQL database.
 
 ### Changes
@@ -704,7 +827,7 @@ the `create-admin-token` job.
 
 #### Deployment
 
-- Increase HTTP write request limit from 10MB to 50MB.
+- Increase HTTP write request limit from 10 MB to 50 MB.
 - Added support for [Telegraf Operator](https://github.com/influxdata/telegraf-operator).
   We have added the `telegraf.influxdata.com/port` annotation to all the pods.
   No configuration is required. We don't yet provide a way to specify the

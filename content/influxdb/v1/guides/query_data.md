@@ -54,7 +54,7 @@ The header row defines column labels for the table. The `cpu` [measurement](/inf
 ### Flux
 
 Check out the [Get started with Flux](/influxdb/v2/query-data/get-started/) to learn more about building queries with Flux.
-For more information about querying data with the InfluxDB API using Flux, see the [API reference documentation](/influxdb/v1/tools/api/#influxdb-2-0-api-compatibility-endpoints).
+For more information about querying data with the InfluxDB API using Flux, see the [API reference documentation](/influxdb/v1/tools/api/#influxdb-2x-api-compatibility-endpoints).
 
 ## Query data with InfluxQL
 
