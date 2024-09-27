@@ -10,15 +10,19 @@ menu:
 weight: 105
 related:
   - /influxdb/cloud-dedicated/reference/cli/influxctl/query/
+  - /influxdb/cloud-dedicated/reference/internals/system-tables/
 --- 
 
 {{< product-name >}} stores data related to queries, tables, partitions, and
 compaction in _system tables_ within your cluster.
+System tables contain time series data used by and generated from the
+{{< product-name >}} internal monitoring system.
 You can query the cluster system tables for information about your cluster.
 
 - [Query system tables](#query-system-tables)
   - [Optimize queries to reduce impact to your cluster](#optimize-queries-to-reduce-impact-to-your-cluster)
 - [System tables](#system-tables)
+  - [Understanding system table data distribution](#understanding-system-table-data-distribution)
   - [system.queries](#systemqueries)
   - [system.tables](#systemtables)
   - [system.partitions](#systempartitions)
@@ -49,7 +53,6 @@ If you detect a schema change or a non-functioning query example, please
 {{% /warn %}}
 
 ## Query system tables
-
 
 {{% note %}}
 Querying system tables with `influxctl` requires **`influxctl` v2.8.0 or newer**.
@@ -259,6 +262,21 @@ Use the `AND`, `OR`, or `IN` keywords to combine filters in your query.
 _System tables are [subject to change](#system-tables-are-subject-to-change)._
 {{% /warn %}}
 
+### Understanding system table data distribution
+
+Data in `system.tables`, `system.partitions`, and `system.compactor` includes
+data for all [InfluxDB Queriers](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier) in your cluster.
+The data comes from the catalog, and because all the queriers share one catalog,
+the results from these three tables derive from the same source data,
+regardless of which querier you connect to.
+
+However, the `system.queries` table is different--data is local to each Querier.
+`system.queries` contains a non-persisted log of queries run against the current
+querier to which your query is routed.
+The query log is specific to the current Querier and isn't shared across
+queriers in your cluster.
+Logs are scoped to the specified database.
+
 - [system.queries](#systemqueries)
 - [system.tables](#systemtables)
 - [system.partitions](#systempartitions)
@@ -266,12 +284,18 @@ _System tables are [subject to change](#system-tables-are-subject-to-change)._
 
 ### system.queries
 
-The `system.queries` table contains an unpersisted log of queries run against
-the current [InfluxDB Querier](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier)
-to which your query is routed.
-The query log is specific to the current Querier and is not shared across Queriers
-in your cluster.
-Logs are scoped to the specified database.
+The `system.queries` table stores log entries for queries executed for the provided namespace (database) on the node that is _currently handling queries_.
+`system.queries` reflects a process-local, in-memory, namespace-scoped query log.
+
+While this table may be useful for debugging and monitoring queries, keep the following in mind:
+
+- Records stored in `system.queries` are transient and volatile
+  - InfluxDB deletes `system.queries` records during pod restarts.
+  - Queries for one namespace can evict records from another namespace.
+- Data reflects the state of a specific pod answering queries for the namespace.
+  - Data isn't shared across queriers in your cluster.
+  - A query for records in `system.queries` can return different results
+    depending on the pod the request was routed to.
 
 {{< expand-wrapper >}}
 {{% expand "View `system.queries` schema" %}}
@@ -280,9 +304,9 @@ The `system.queries` table contains the following columns:
 
 - id
 - phase
-- issue_time
-- query_type
-- query_text  
+- **issue_time**: timestamp when the query was issued
+- **query_type**: type (syntax: `sql`, `flightsql`, or `influxql`) of the query
+- **query_text**: query statement text
 - partitions
 - parquet_files
 - plan_duration
@@ -291,13 +315,19 @@ The `system.queries` table contains the following columns:
 - end2end_duration
 - compute_duration
 - max_memory
-- success
+- **success**: execution status (boolean) of the query
 - running
 - cancelled
-- trace_id
+- **trace_id**: trace ID for debugging and monitoring events
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+{{% note %}}
+_When listing measurements (tables) available within a namespace,
+some clients and query tools may include the `queries` table in the list of
+namespace tables._
+{{% /note %}}
 
 ### system.tables
 
@@ -372,6 +402,7 @@ The examples in this section include `WHERE` filters to [optimize queries and re
 - [Query logs](#query-logs)
   - [View all stored query logs](#view-all-stored-query-logs)
   - [View query logs for queries with end-to-end durations above a threshold](#view-query-logs-for-queries-with-end-to-end-durations-above-a-threshold)
+  - [View query logs for a specific query within a time interval](#view-query-logs-for-a-specific-query-within-a-time-interval)
 - [Partitions](#partitions)
   - [View the partition template of a specific table](#view-the-partition-template-of-a-specific-table)
   - [View all partitions for a table](#view-all-partitions-for-a-table)
@@ -413,6 +444,46 @@ FROM
 WHERE
   end2end_duration::BIGINT > (50 * 1000000)
 ```
+
+### View query logs for a specific query within a time interval
+
+{{< code-tabs >}}
+{{% tabs %}}
+[SQL](#)
+[Python](#)
+{{% /tabs %}}
+{{% code-tab-content %}}
+<!-----------------------------------BEGIN SQL------------------------------>
+```sql
+SELECT *
+FROM system.queries
+WHERE issue_time >= now() - INTERVAL '1 day'
+  AND query_text LIKE '%select * from home%'
+```
+<!-----------------------------------END SQL------------------------------>
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!-----------------------------------BEGIN PYTHON------------------------------>
+```python
+from influxdb_client_3 import InfluxDBClient3
+client = InfluxDBClient3(token = DATABASE_TOKEN,
+                          host = HOSTNAME,
+                          org = '',
+                          database=DATABASE_NAME)
+client.query('select * from home')
+reader = client.query('''
+                      SELECT *
+                      FROM system.queries
+                      WHERE issue_time >= now() - INTERVAL '1 day'
+                      AND query_text LIKE '%select * from home%'
+                      ''',
+                    language='sql',
+                    headers=[(b"iox-debug", b"true")],
+                    mode="reader")
+```
+<!-----------------------------------END PYTHON------------------------------>
+{{% /code-tab-content %}}
+{{< /code-tabs >}}
 
 --- 
 
