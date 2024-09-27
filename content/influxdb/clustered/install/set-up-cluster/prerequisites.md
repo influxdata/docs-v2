@@ -9,49 +9,86 @@ menu:
     name: Prerequisites
     parent: Set up your cluster
 weight: 201
+metadata: ['Install InfluxDB Clustered -- Phase 1: Set up your Cluster']
 aliases:
   - /influxdb/clustered/install/prerequisites/
 ---
 
-InfluxDB Clustered requires the following prerequisites:
+InfluxDB Clustered requires the following prerequisite external dependencies: 
 
-- **Kubernetes cluster**: version 1.25 or higher
-- **Object storage**: AWS S3 or S3-compatible storage used to store the InfluxDB Parquet files.
+- **kubectl command line tool** _(version 1.27 or higher)_
+- **Kubernetes cluster** _(version 1.25 or higher)_
+- **kubecfg kubit operator**
+- **Kubernetes ingress controller**
+- **Object storage**: AWS S3 or S3-compatible storage (including Google Cloud Storage
+  or Azure Blob Storage) to store the InfluxDB Parquet files.  
+- **PostgreSQL-compatible database** _(AWS Aurora, hosted PostgreSQL, etc.)_:
+  Stores the [InfluxDB Catalog](/influxdb/clustered/reference/internals/storage-engine/#catalog).
+- **Local or attached storage**: 
+  Stores the Write-Ahead Log (WAL) for
+  [InfluxDB Ingesters](/influxdb/clustered/reference/internals/storage-engine/#ingester).
 
-  {{% note %}}
-We **strongly** recommend that you enable object versioning in your object store.
-  {{% /note %}}
-  
-- **PostgreSQL-compatible database** _(AWS Aurora, hosted Postgres, etc.)_:
-  Used to store the InfluxDB catalog
-  - Supported PostgreSQL versions: **13.8–14.6**
-  - Ensure that the PostgreSQL-compatible instance is dedicated exclusively to InfluxDB. This avoids conflicts and prevents issues caused by shared usage with other applications.
+The following walks through preparing these prerequisites.
 
-## Set up a Kubernetes cluster
+- [Install kubectl](#install-kubectl)
+- [Set up your Kubernetes cluster](#set-up-your-kubernetes-cluster)
+- [Install the kubecfg kubit operator](#install-the-kubecfg-kubit-operator)
+- [Set up a Kubernetes ingress controller](#set-up-a-kubernetes-ingress-controller)
+- [Set up your object store](#set-up-your-object-store)
+- [Set up your PostgreSQL-compatible database](#set-up-your-postgresql-compatible-database)
+- [Set up local or attached storage](#set-up-local-or-attached-storage)
 
-1.  Deploy a Kubernetes cluster. Kubernetes v1.25 or later is required.
-2.  Create two namespaces--`influxdb` and `kubit`.
-3.  Install an [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) in the cluster and a mechanism to obtain a
-    valid TLS certificate (for example: [cert-manager](https://cert-manager.io/)
-    or provide the certificate PEM manually out of band).
+## Install kubectl
+
+Kubernetes provides the `kubectl` command line tool for communicating with a
+Kubernetes cluster's control plane. `kubectl` is used to manage your InfluxDB
+cluster. Install `kubectl` on your local machine.
+
+{{% note %}}
+InfluxDB Clustered Kubernetes deployments require `kubectl` 1.27 or higher.
+{{% /note %}}
+
+- [Install kubectl on Linux](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
+- [Install kubectl on macOS](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/)
+- [Install kubectl on Windows](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/)
+
+## Set up your Kubernetes cluster
+
+1.  Deploy a Kubernetes cluster. The deployment process depends on your
+    Kubernetes environment or Kubernetes cloud provider. Refer to the
+    [Kubernetes documentation](https://kubernetes.io/docs/home/) or your cloud
+    provider's documentation for information about deploying a Kubernetes cluster.
+    
+    {{% note %}}
+InfluxDB Clustered requires **Kubernetes v1.25 or later**.
+    {{% /note %}}
+
+2.  Ensure `kubectl` can connect to your Kubernetes cluster.
+    Your Manage [kubconfig file](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+    defines cluster connection credentials.
+
+3.  Create two namespaces--`influxdb` and `kubit`. Use
+    [`kubectl create namespace`](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_namespace/) to create the
+    namespaces:
+
+    <!-- pytest.mark.skip -->
+
+    ```bash
+    kubectl create namespace influxdb && \
+    kubectl create namespace kubit
+    ```
+
+4.  Install an [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)
+    in the cluster and a mechanism to obtain a valid TLS certificate
+    (for example: [cert-manager](https://cert-manager.io/) or provide the
+    certificate PEM manually out of band).
     To use the InfluxDB-specific ingress controller, install [Ingress NGINX](https://github.com/kubernetes/ingress-nginx).
-4.  Ensure your Kubernetes cluster can access the InfluxDB container registry,
+
+5.  Ensure your Kubernetes cluster can access the InfluxDB container registry,
     or, if running in an air-gapped environment, a local container registry to
     which you can copy the InfluxDB images.
 
-{{% note %}}
-It is strongly recommended that you run the PostgreSQL-compatible database
-(that stores the InfluxDB Catalog) and the Object Store (that stores InfluxDB Parquet files)
-in a separate namespace from InfluxDB or external to Kubernetes entirely.
-
-Running the Catalog database and Object Store in a separate namespace or outside
-of Kubernetes makes management of the InfluxDB instance easier and helps to
-prevents accidental data loss.
-
-While deploying everything in the same namespace is possible for testing or initial setup, it is not recommended for production environments.
-{{% /note %}}
-
-### Cluster sizing recommendation
+<!-- ### Cluster sizing recommendation
 
 For a [medium-size workload](https://www.influxdata.com/resources/influxdb-3-0-vs-oss/),
 InfluxData has tested InfluxDB Clustered using the following AWS products
@@ -66,25 +103,88 @@ and sizing:
   - 1 t3.large for the Kubernetes control plane
 
 Your sizing may need to be different based on your environment and workload,
-but this is a reasonable starting size for your initial testing.
+but this is a reasonable starting size for your initial testing. -->
 
-## Set up local storage
+## Install the kubecfg kubit operator
 
-The InfluxDB ingester pods need local storage to store the Write-Ahead Log (WAL).
-The recommended minimum size of the local storage is 2 gibibytes (`2Gi`).
+The [`kubecfg kubit` operator](https://github.com/kubecfg/kubit) (maintained by InfluxData)
+simplifies the installation and management of the InfluxDB Clustered package.
+It manages the application of the jsonnet templates used to install, manage, and
+update an InfluxDB cluster.
 
-## Set up client Software
+{{% note %}}
+#### The InfluxDB Clustered Helm chart includes the kubit operator
 
-On the system used to configure the cluster (not the cluster itself), install
-the following:
+If using the [InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered)
+to deploy your InfluxDB cluster, you do not need to install the kubit operator
+separately. The Helm chart installs the kubit operator.
+{{% /note %}}
 
-- [kubectl _(v1.27)_](https://kubernetes.io/docs/reference/kubectl/kubectl/)
-- [crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/README.md)
+Use `kubectl` to install the [kubecfg kubit](https://github.com/kubecfg/kubit) operator.
 
-## Configure object storage permissions
+<!-- pytest.mark.skip -->
 
-Ensure the identity you use to connect to your S3-compatible object store has the correct
-permissions to allow InfluxDB to perform all the actions it needs to.
+```bash
+kubectl apply -k 'https://github.com/kubecfg/kubit//kustomize/global?ref=v0.0.19'
+```
+
+## Set up a Kubernetes ingress controller
+
+[Kubernetes ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+routes HTTP/S requests to services within the cluster and requires deploying an
+[ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/).
+You can provide your own ingress or you can install
+[Nginx Ingress Controller](https://github.com/kubernetes/ingress-nginx) to use
+the InfluxDB-defined ingress.
+
+{{% note %}}
+InfluxDB Clustered components use gRPC/HTTP2 protocols. If using an external
+load balancer, you may need to explicitly enable these protocols on your load
+balancers.
+{{% /note %}}
+
+## Set up your object store
+
+InfluxDB Clustered supports AWS S3 or S3-compatible storage (including Google
+Cloud Storage, Azure Blob Storage, and MinIO) for storing
+[InfluxDB Parquet files](/influxdb/clustered/reference/internals/storage-engine/#object-store).
+Refer to your object storage provider's documentation for information about
+setting up an object store.
+
+- [Create an AWS S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html)
+- [Create a Google Cloud Storage bucket](https://cloud.google.com/storage/docs/creating-buckets)
+- [Create an Azure Blog Storage container](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-portal#create-a-container)
+- [Create a MinIO bucket](https://min.io/docs/minio/linux/reference/minio-mc/mc-mb.html)
+
+{{% caption %}}
+\* This list does not represent all S3-compatible object stores
+that work with InfluxDB Clustered. Other S3-compatible object stores should work
+as well.
+{{% /caption %}}
+
+{{% note %}}
+#### Object storage recommendations
+
+We **strongly** recommend the following:
+
+- ##### Enable object versioning
+
+  Enable object versioning in your object store.
+  Refer to your object storage provider's documentation for information about
+  enabling object versioning.
+
+- ##### Run the object store in a separate namespace or outside of Kubernetes
+
+  Run the Object store in a separate namespace from InfluxDB or external to
+  Kubernetes entirely. Doing so makes management of the InfluxDB cluster easier
+  and helps to prevent accidental data loss. While deploying everything in the
+  same namespace is possible, we do not recommend it for production environments.
+{{% /note %}}
+
+### Configure object storage permissions
+
+Ensure the identity you use to connect to your S3-compatible object store has
+the correct permissions to allow InfluxDB to perform all the actions it needs to.
 
 {{< expand-wrapper >}}
 {{% expand "View example AWS S3 access policy" %}}
@@ -185,4 +285,49 @@ Replace the following:
 
 {{< /expand-wrapper >}}
 
-{{< page-nav next="/influxdb/clustered/install/auth/" nextText="Set up authentication" >}}
+{{% note %}}
+To configure permissions with MinIO, use the
+[example AWS access policy](#view-example-aws-s3-access-policy).
+{{% /note %}}
+
+## Set up your PostgreSQL-compatible database
+
+The [InfluxDB Catalog](/influxdb/clustered/reference/internals/storage-engine/#catalog)
+that stores metadata related to your time series data requires a PostgreSQL or
+PostgreSQL-compatible database _(AWS Aurora, hosted PostgreSQL, etc.)_.
+The process for installing and setting up your PostgreSQL-compatible database
+depend on the database you use or the database provider.
+Refer to your database's or provider's documentation for setting up your
+PostgreSQL-compatible database.
+
+### PosgreSQL-compatible database requirements
+
+- PostgreSQL versions **13.8–14.6**
+- To avoid conflicts and prevents issues caused by shared usage with other
+  applications, ensure that your PostgreSQL-compatible instance is dedicated
+  exclusively to InfluxDB.
+
+{{% note %}}
+We **strongly** recommended running the PostgreSQL-compatible database
+in a separate namespace from InfluxDB or external to Kubernetes entirely.
+Doing so makes management of the InfluxDB cluster easier and helps to prevent
+accidental data loss.
+
+While deploying everything in the same namespace is possible, we do not
+recommend it for production environments.
+{{% /note %}}
+
+## Set up local or attached storage
+
+The [InfluxDB Ingester](/influxdb/clustered/reference/internals/storage-engine/#ingester)
+needs local or attached storage to store the Write-Ahead Log (WAL).
+The read and write speed of the the attached storage affects the write
+performance of the Ingester, so the faster the storage device, the better your
+write performance will be.
+The recommended minimum size of the local storage is 2 gibibytes (`2Gi`).
+
+Installation and setup of local or attached storage depends on your underlying
+hardware or cloud provider. Refer to your provider's documentation for
+information about installing and configuring local storage.
+
+{{< page-nav prev="/influxdb/clustered/install/set-up-cluster/" prevText="Back" next="/influxdb/clustered/install/set-up-cluster/configure-cluster" nextText="Configure your cluster" >}}

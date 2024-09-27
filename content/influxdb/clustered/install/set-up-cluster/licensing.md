@@ -6,30 +6,19 @@ description: >
 menu:
   influxdb_clustered:
     name: Install your license
-    parent: Install InfluxDB Clustered
-weight: 135
+    parent: Set up your cluster
+weight: 235
+metadata: ['Install InfluxDB Clustered -- Phase 1: Set up your Cluster']
 influxdb/clustered/tags: [licensing]
 related:
   - /influxdb/clustered/admin/licensing/
   - /influxdb/clustered/admin/upgrade/
+aliases:
+  - /influxdb/clustered/install/licensing/
 ---
 
 Install your InfluxDB Clustered license in your cluster to authorize the use
 of the InfluxDB Clustered software.
-
-{{% note %}}
-#### License enforcement is currently an opt-in feature
-
-In currently available versions of InfluxDB Clustered, license enforcement is an
-opt-in feature that allows InfluxData to introduce license enforcement to
-customers, and allows customers to deactivate the feature if issues arise.
-In the future, all releases of InfluxDB Clustered will require customers to
-configure an active license before they can use the product.
-
-To opt into license enforcement, include the `useLicensedBinaries` feature flag
-in your `AppInstance` resource _([See the example below](#enable-feature-flag))_.
-To deactivate license enforcement, remove the `useLicensedBinaries` feature flag.
-{{% /note %}}
 
 ## Install your InfluxDB license
 
@@ -42,49 +31,9 @@ To deactivate license enforcement, remove the `useLicensedBinaries` feature flag
 
     <!--pytest.mark.skip-->
 
-    ```sh
+    ```bash
     kubectl apply --filename license.yml --namespace influxdb
     ```
-
-4.  <span id="enable-feature-flag"></span>
-    Update your `AppInstance` resource to activate the `useLicensedBinaries` feature flag:
-    
-    - If configuring the `AppInstance` resource directly, add the
-      `useLicensedBinaries` entry to the `.spec.package.spec.featureFlags`
-      property.
-    - If using the [InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered), add the `useLicensedBinaries` entry to the
-    `featureFlags` property in your `values.yaml`.
-
-    {{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[AppInstance](#)
-[Helm](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-```yml
-apiVersion: kubecfg.dev/v1alpha1
-kind: AppInstance
-# ...
-spec:
-  package:
-    spec:
-      featureFlags:
-        - useLicensedBinaries
-```
-
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-
-```yml
-# values.yaml
-
-featureFlags:
-  - useLicensedBinaries
-```
-
-{{% /code-tab-content %}}
-    {{< /code-tabs-wrapper >}}
 
 InfluxDB Clustered detects the `License` resource and extracts the credentials
 into a secret required by InfluxDB Clustered Kubernetes pods.
@@ -97,9 +46,9 @@ If you are currently using a non-licensed preview release of InfluxDB Clustered
 and want to upgrade to a licensed release, do the following:
 
 1.  [Install an InfluxDB license](#install-your-influxdb-license)
-2.  If you [use the `AppInstance` resource configuration](/influxdb/clustered/install/configure-cluster/directly/) to configure your cluster, in your `myinfluxdb.yml`,
-    update the package version defined in `spec.package.image` to use a licensed
-    release.
+2.  If you [use the `AppInstance` resource configuration](/influxdb/clustered/install/set-up-cluster/configure-cluster/directly/)
+    to configure your cluster, in your `myinfluxdb.yml`, update the package
+    version defined in `spec.package.image` to use a licensed release.
     
     If using the InfluxDB Clustered Helm chart, update the `image.tag` property
     in your `values.yaml`to use a licensed release.
@@ -151,18 +100,17 @@ image:
 Replace {{% code-placeholder-key %}}`PACKAGE_VERSION`{{% /code-placeholder-key %}} with
 the version number to upgrade to.
 
-## Troubleshoot licensing
+## Verify your license
 
-After you have activated licensing, use the following signals to verify licensing
-and troubleshoot issues with your {{< product-name omit="Clustered" >}}
-cluster.
+After you have activated your license, use the following signals to verify the
+license is active and functioning.
 
 In your commands, replace the following:
 
 - {{% code-placeholder-key %}}`NAMESPACE`{{% /code-placeholder-key %}}:
-  your [InfluxDB namespace](/influxdb/clustered/install/configure-cluster/#create-a-namespace-for-influxdb)
+  your [InfluxDB namespace](/influxdb/clustered/install/set-up-cluster/configure-cluster/#create-a-namespace-for-influxdb)
 - {{% code-placeholder-key %}}`POD_NAME`{{% /code-placeholder-key %}}:
-  your [InfluxDB Kubernetes pod](/influxdb/clustered/install/deploy/#inspect-cluster-pods)
+  your [InfluxDB Kubernetes pod](/influxdb/clustered/install/set-up-cluster/deploy/#inspect-cluster-pods)
 
 ### Verify database components
 
@@ -172,22 +120,18 @@ run the following command to check that database pods start up and are in the
 
 <!--pytest.mark.skip-->
 
-{{% code-placeholders "NAMESPACE" %}}
-
-```sh
-kubectl get pods -l app=iox --namespace NAMESPACE
+```bash
+kubectl get pods -l app=iox --namespace influxdb
 ```
-
-{{% /code-placeholders %}}
 
 If a `Pod` fails to start, run the following command to view pod information:
 
 <!--pytest.mark.skip-->
 
-{{% code-placeholders "POD_NAME|NAMESPACE" %}}
+{{% code-placeholders "POD_NAME" %}}
 
 ```sh
-kubectl describe pod POD_NAME --namespace NAMESPACE
+kubectl describe pod POD_NAME --namespace influxdb
 ```
 
 {{% /code-placeholders %}}
@@ -199,35 +143,24 @@ Run the following command to verify that the licensing activation created a
 
 <!--pytest.mark.skip-->
 
-{{% code-placeholders "NAMESPACE" %}}
-
 ```sh
-kubectl get secret iox-license --namespace NAMESPACE
+kubectl get secret iox-license --namespace influxdb
 ```
 
 If the secret doesn't exist,
-[view `license-controller` logs](#view-license-controller-logs) for
-more information or errors.
-
-{{% /code-placeholders %}}
+[view `license-controller` logs](#view-license-controller-logs) for more
+information or errors.
 
 ### View `license controller` logs
 
-The `license controller` component creates a `Secret` named `iox-license` from your
-`License`.
-
-To view `license controller` logs for troubleshooting, run the following
-command:
+The `license controller` component creates a `Secret` named `iox-license` from
+your `License`. To view `license controller` logs for troubleshooting, run the
+following command:
 
 <!--pytest.mark.skip-->
 
-{{% code-placeholders "NAMESPACE" %}}
-
 ```sh
-kubectl logs deployment/license-controller --namespace NAMESPACE
+kubectl logs deployment/license-controller --namespace influxdb
 ```
 
-{{% /code-placeholders %}}
-
-
-{{< page-nav prev="/influxdb/clustered/install/configure-cluster/" prevText="Configure your cluster" next="/influxdb/clustered/install/deploy/" nextText="Deploy your cluster" keepTab=true >}}
+{{< page-nav prev="/influxdb/clustered/install/set-up-cluster/configure-cluster/" prevText="Configure your cluster" next="/influxdb/clustered/install/set-up-cluster/deploy/" nextText="Deploy your cluster" keepTab=true >}}

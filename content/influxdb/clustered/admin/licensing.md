@@ -10,7 +10,7 @@ menu:
 weight: 101
 influxdb/clustered/tags: [licensing]
 related:
-  - /influxdb/clustered/install/licensing/
+  - /influxdb/clustered/install/set-up-cluster/licensing/
   - /influxdb/clustered/admin/upgrade/
 ---
 
@@ -45,8 +45,8 @@ To deactivate license enforcement, remove the `useLicensedBinaries` feature flag
 
 {{% note %}}
 If setting up an InfluxDB Clustered deployment for the first time, first
-[set up the prerequisites](/influxdb/clustered/install/licensing/) and
-[configure your cluster](/influxdb/clustered/install/configure-cluster/).
+[set up the prerequisites](/influxdb/clustered/install/set-up-cluster/licensing/) and
+[configure your cluster](/influxdb/clustered/install/set-up-cluster/configure-cluster/).
 After your InfluxDB namespace is created and prepared, you will be able to
 install your license.
 {{% /note %}}

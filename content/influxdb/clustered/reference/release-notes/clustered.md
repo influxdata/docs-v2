@@ -251,7 +251,7 @@ us-docker.pkg.dev/influxdb2-artifacts/granite/granite@sha256:1683f97386f8af9ce60
 ```
 
 For more information, see the
-[documentation](/influxdb/clustered/install/configure-cluster/?t=Private+registry+%28air-gapped%29#public-registry-non-air-gapped).
+[documentation](/influxdb/clustered/install/set-up-cluster/configure-cluster/?t=Private+registry+%28air-gapped%29#public-registry-non-air-gapped).
 
 ### Changes
 

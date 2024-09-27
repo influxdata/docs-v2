@@ -14,6 +14,13 @@ provider. Use your identity provider to create OAuth2 accounts for all users
 who need administrative access to your InfluxDB cluster. Administrative access
 lets user perform actions like creating databases and tokens.
 
+<!-- Credentials need to connect -->
+- **OAuth2 provider credentials**
+  - Client ID
+  - JWKS endpoint
+  - Device authorization endpoint
+  - Token endpoint
+
 {{% note %}}
 Identity providers can be deployed with your InfluxDB cluster or run externally.
 If you choose to deploy your provider with your InfluxDB cluster, the process
@@ -173,7 +180,7 @@ The following are important fields in the JSON object that are necessary to
 connect your InfluxDB cluster and administrative tools to Keycloak:
 
 - **jwks_uri**: Used in your InfluxDB cluster configuration file.
-  _See [Configure your cluster--Configure your OAuth2 provider](/influxdb/clustered/install/configure-cluster/#configure-your-oauth2-provider)_.
+  _See [Configure your cluster--Configure your OAuth2 provider](/influxdb/clustered/install/set-up-cluster/configure-cluster/#configure-your-oauth2-provider)_.
 - **device_authorization_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.device_url`)
 - **token_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.token_url`)
 
@@ -283,7 +290,7 @@ The following are important fields in the JSON object that are necessary to
 connect your InfluxDB cluster and administrative tools to Keycloak:
 
 - **jwks_uri**: Used in your InfluxDB cluster configuration file.
-  _See [Configure your cluster--Configure your OAuth2 provider](/influxdb/clustered/install/configure-cluster/?t=Microsoft+Entra+ID#configure-your-oauth2-provider)_.
+  _See [Configure your cluster--Configure your OAuth2 provider](/influxdb/clustered/install/set-up-cluster/configure-cluster/?t=Microsoft+Entra+ID#configure-your-oauth2-provider)_.
 - **device_authorization_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.device_url`)
 - **token_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.token_url`)
 
@@ -391,4 +398,287 @@ The following examples show how to configure `influxctl` for various identity pr
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{< page-nav prev="/influxdb/clustered/install/set-up-cluster/prerequisites/" next="/influxdb/clustered/install/configure-cluster/" nextText="Configure your cluster" >}}
+{{< page-nav prev="/influxdb/clustered/install/set-up-cluster/prerequisites/" next="/influxdb/clustered/install/set-up-cluster/configure-cluster/" nextText="Configure your cluster" >}}
+
+
+<!-- ////////////////////////////// NEW STUFF ////////////////////////////// -->
+
+#### Configure your OAuth2 provider
+
+InfluxDB Clustered uses OAuth2 to authenticate administrative access to your cluster.
+To connect your InfluxDB cluster to your OAuth2 provide, provide values for the
+following fields in your `myinfluxdb.yml` configuration file:
+
+- `spec.package.spec.admin`
+  - `identityProvider`: Identity provider name.
+    _If using Microsoft Entra ID (formerly Azure Active Directory), set the name
+    to `azure`_.
+  - `jwksEndpoint`: JWKS endpoint provide by your identity provider.
+  - `users`: List of OAuth2 users to grant administrative access to your
+  InfluxDB cluster. IDs are provided by your identity provider.
+
+Below are examples for **Keycloak**, **Auth0**, and **Microsoft Entra ID**, but
+other OAuth2 providers should work as well:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Keycloak](#)
+[Auth0](#)
+[Microsoft Entra ID](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+{{% code-callout "keycloak" "green" %}}
+{{% code-placeholders "KEYCLOAK_(HOST|REALM|USER_ID)" %}}
+
+```yaml
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+# ...
+spec:
+  package:
+    spec:
+      admin:
+        identityProvider: keycloak
+        jwksEndpoint: |-
+          https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/certs
+        users:
+          # All fields are required but `firstName`, `lastName`, and `email` can be
+          # arbitrary values. However, `id` must match the user ID provided by Keycloak.
+          - id: KEYCLOAK_USER_ID
+            firstName: Marty
+            lastName: McFly
+            email: mcfly@influxdata.com
+```
+
+{{% /code-placeholders %}}
+{{% /code-callout %}}
+
+---
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`KEYCLOAK_HOST`{{% /code-placeholder-key %}}:
+  Host and port of your Keycloak server
+- {{% code-placeholder-key %}}`KEYCLOAK_REALM`{{% /code-placeholder-key %}}:
+  Keycloak realm
+- {{% code-placeholder-key %}}`KEYCLOAK_USER_ID`{{% /code-placeholder-key %}}:
+  Keycloak user ID to grant InfluxDB administrative access to
+
+---
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-callout "auth0" "green" %}}
+{{% code-placeholders "AUTH0_(HOST|USER_ID)" %}}
+
+```yaml
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+# ...
+spec:
+  package:
+    spec:
+      admin:
+        identityProvider: auth0
+        jwksEndpoint: |-
+          https://AUTH0_HOST/.well-known/openid-configuration
+        users:
+          - AUTH0_USER_ID
+```
+
+{{% /code-placeholders %}}
+{{% /code-callout %}}
+
+---
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`AUTH0_HOST`{{% /code-placeholder-key %}}:
+  Host and port of your Auth0 server
+- {{% code-placeholder-key %}}`AUTH0_USER_ID`{{% /code-placeholder-key %}}:
+  Auth0 user ID to grant InfluxDB administrative access to
+
+---
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-callout "azure" "green" %}}
+{{% code-placeholders "AZURE_(USER|TENANT)_ID" %}}
+
+```yaml
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+# ...
+spec:
+  package:
+    spec:
+      admin:
+        identityProvider: azure
+        jwksEndpoint: |-
+          https://login.microsoftonline.com/AZURE_TENANT_ID/discovery/v2.0/keys
+        users:
+          - AZURE_USER_ID
+```
+
+{{% /code-placeholders %}}
+{{% /code-callout %}}
+
+---
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`AZURE_TENANT_ID`{{% /code-placeholder-key %}}:
+  Microsoft Entra tenant ID
+- {{% code-placeholder-key %}}`AZURE_USER_ID`{{% /code-placeholder-key %}}:
+  Microsoft Entra user ID to grant InfluxDB administrative access to
+  _(See [Find user IDs with Microsoft Entra ID](/influxdb/clustered/install/auth/?t=Microsoft+Entra+ID#find-user-ids-with-microsoft-entra-id))_
+
+---
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+<!-- HELM VERSION -->
+
+#### Configure your OAuth2 provider
+
+InfluxDB Clustered uses OAuth2 to authenticate administrative access to your cluster.
+To connect your InfluxDB cluster to your OAuth2 provide, provide values for the
+following fields in your `values.yaml`:
+
+- `admin`
+  - `identityProvider`: Identity provider name.
+    _If using Microsoft Entra ID (formerly Azure Active Directory), set the name
+    to `azure`_.
+  - `jwksEndpoint`: JWKS endpoint provide by your identity provider.
+  - `users`: List of OAuth2 users to grant administrative access to your
+  InfluxDB cluster. IDs are provided by your identity provider.
+
+Below are examples for **Keycloak**, **Auth0**, and **Microsoft Entra ID**, but
+other OAuth2 providers should work as well:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Keycloak](#)
+[Auth0](#)
+[Microsoft Entra ID](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+{{% code-callout "keycloak" "green" %}}
+{{% code-placeholders "KEYCLOAK_(HOST|REALM|USER_ID)" %}}
+
+```yaml
+admin:
+  # The identity provider to be used e.g. "keycloak", "auth0", "azure", etc
+  # Note for Azure Active Directory it must be exactly "azure"
+  identityProvider: keycloak
+  # The JWKS endpoint provided by the Identity Provider
+  jwksEndpoint: |-
+    https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/certs
+  # The list of users to grant access to Clustered via influxctl
+  users:
+    # All fields are required but `firstName`, `lastName`, and `email` can be
+    # arbitrary values. However, `id` must match the user ID provided by Keycloak.
+    - id: KEYCLOAK_USER_ID
+      firstName: Marty
+      lastName: McFly
+      email: mcfly@influxdata.com
+```
+
+{{% /code-placeholders %}}
+{{% /code-callout %}}
+
+---
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`KEYCLOAK_HOST`{{% /code-placeholder-key %}}:
+  Host and port of your Keycloak server
+- {{% code-placeholder-key %}}`KEYCLOAK_REALM`{{% /code-placeholder-key %}}:
+  Keycloak realm
+- {{% code-placeholder-key %}}`KEYCLOAK_USER_ID`{{% /code-placeholder-key %}}:
+  Keycloak user ID to grant InfluxDB administrative access to
+
+---
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-callout "auth0" "green" %}}
+{{% code-placeholders "AUTH0_(HOST|USER_ID)" %}}
+
+```yaml
+admin:
+  # The identity provider to be used e.g. "keycloak", "auth0", "azure", etc
+  # Note for Azure Active Directory it must be exactly "azure"
+  identityProvider: auth0
+  # The JWKS endpoint provided by the Identity Provider
+  jwksEndpoint: |-
+    https://AUTH0_HOST/.well-known/openid-configuration
+  # The list of users to grant access to Clustered via influxctl
+  users:
+    - AUTH0_USER_ID
+```
+
+{{% /code-placeholders %}}
+{{% /code-callout %}}
+
+---
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`AUTH0_HOST`{{% /code-placeholder-key %}}:
+  Host and port of your Auth0 server
+- {{% code-placeholder-key %}}`AUTH0_USER_ID`{{% /code-placeholder-key %}}:
+  Auth0 user ID to grant InfluxDB administrative access to
+
+---
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-callout "azure" "green" %}}
+{{% code-placeholders "AZURE_(USER|TENANT)_ID" %}}
+
+```yaml
+admin:
+  # The identity provider to be used e.g. "keycloak", "auth0", "azure", etc
+  # Note for Azure Active Directory it must be exactly "azure"
+  identityProvider: azure
+  # The JWKS endpoint provided by the Identity Provider
+  jwksEndpoint: |-
+    https://login.microsoftonline.com/AZURE_TENANT_ID/discovery/v2.0/keys
+  # The list of users to grant access to Clustered via influxctl
+  users:
+    - AZURE_USER_ID
+```
+
+{{% /code-placeholders %}}
+{{% /code-callout %}}
+
+---
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`AZURE_TENANT_ID`{{% /code-placeholder-key %}}:
+  Microsoft Entra tenant ID
+- {{% code-placeholder-key %}}`AZURE_USER_ID`{{% /code-placeholder-key %}}:
+  Microsoft Entra user ID to grant InfluxDB administrative access to
+  _(See [Find user IDs with Microsoft Entra ID](/influxdb/clustered/install/auth/?t=Microsoft+Entra+ID#find-user-ids-with-microsoft-entra-id))_
+
+---
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+<!-- END HELM VERSIOn -->
+
+##### Add users
+
+Finally, to give users access to use `influxctl`, add the list of users to the
+`spec.package.spec.admin.users` field.
+See [Manage users](/influxdb/clustered/admin/users/) for more details.

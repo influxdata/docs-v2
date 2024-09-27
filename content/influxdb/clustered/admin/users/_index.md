@@ -11,7 +11,7 @@ weight: 102
 cascade:
   related:
     - /influxdb/clustered/install/auth/
-    - /influxdb/clustered/install/configure-cluster/
+    - /influxdb/clustered/install/set-up-cluster/configure-cluster/
 ---
 
 Manage users with administrative access to your InfluxDB cluster through your
