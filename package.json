@@ -17,7 +17,8 @@
     "axios": "^1.7.4",
     "hugo-data-to-pages": "https://github.com/jstirnaman/hugo-data-to-pages",
     "hugo-extended": "^0.134.2",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "rapidoc": "^9.3.6"
   },
   "scripts": {
     "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && lefthook run pre-push",

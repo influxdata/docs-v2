@@ -26,4 +26,7 @@
     <meta name="Copyright" content="InfluxData Inc." />
   </head>
   <body class='{{if ne $product nil}}{{ $product }}{{ else }}home{{ end }}{{ if in $currentVersion "v1" }} v1{{ end }}'>
+    <!-- Bundle main.js JavaScript modules-->
+    {{ $mainJs := resources.Get "js/main.js" | js.Build }}
+    <script src="{{ $mainJs.RelPermalink }}"></script>
     {{ if not hugo.IsServer }}{{ partial "header/google-analytics-body.html" }}{{ end }}

@@ -30,6 +30,7 @@ function validate() {
 
   // Create a Spectral ruleset file
   // Spectral is a flexible JSON/YAML linter, formatter, and style checker for OpenAPI v2, v3.0, v3.1, and AsyncAPI v2.0.
+  // For rule examples, see https://apistylebook.stoplight.io/docs/stoplight-style-guide/
   execCommand(`npx @stoplight/spectral-cli lint ${spec} --ruleset ./api-docs/.spectral.yaml`); // --ruleset myruleset.yaml
 
 }
