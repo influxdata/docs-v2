@@ -17,20 +17,6 @@ related:
 Install your InfluxDB Clustered license in your cluster to authorize the use
 of the InfluxDB Clustered software.
 
-{{% note %}}
-#### License enforcement is currently an opt-in feature
-
-In currently available versions of InfluxDB Clustered, license enforcement is an
-opt-in feature that allows InfluxData to introduce license enforcement to
-customers, and allows customers to deactivate the feature if issues arise.
-In the future, all releases of InfluxDB Clustered will require customers to
-configure an active license before they can use the product.
-
-To opt into license enforcement, include the `useLicensedBinaries` feature flag
-in your `AppInstance` resource _([See the example below](#enable-feature-flag))_.
-To deactivate license enforcement, remove the `useLicensedBinaries` feature flag.
-{{% /note %}}
-
 ## Install your InfluxDB license
 
 1.  If you haven't already,
@@ -46,46 +32,6 @@ To deactivate license enforcement, remove the `useLicensedBinaries` feature flag
     kubectl apply --filename license.yml --namespace influxdb
     ```
 
-4.  <span id="enable-feature-flag"></span>
-    Update your `AppInstance` resource to activate the `useLicensedBinaries` feature flag:
-    
-    - If configuring the `AppInstance` resource directly, add the
-      `useLicensedBinaries` entry to the `.spec.package.spec.featureFlags`
-      property.
-    - If using the [InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered), add the `useLicensedBinaries` entry to the
-    `featureFlags` property in your `values.yaml`.
-
-    {{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[AppInstance](#)
-[Helm](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-```yml
-apiVersion: kubecfg.dev/v1alpha1
-kind: AppInstance
-# ...
-spec:
-  package:
-    spec:
-      featureFlags:
-        - useLicensedBinaries
-```
-
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-
-```yml
-# values.yaml
-
-featureFlags:
-  - useLicensedBinaries
-```
-
-{{% /code-tab-content %}}
-    {{< /code-tabs-wrapper >}}
-
 InfluxDB Clustered detects the `License` resource and extracts the credentials
 into a secret required by InfluxDB Clustered Kubernetes pods.
 Pods validate the license secret both at startup and periodically (roughly once
@@ -97,7 +43,8 @@ If you are currently using a non-licensed preview release of InfluxDB Clustered
 and want to upgrade to a licensed release, do the following:
 
 1.  [Install an InfluxDB license](#install-your-influxdb-license)
-2.  If you [use the `AppInstance` resource configuration](/influxdb/clustered/install/configure-cluster/directly/) to configure your cluster, in your `myinfluxdb.yml`,
+2.  If you [use the `AppInstance` resource configuration](/influxdb/clustered/install/configure-cluster/directly/)
+    to configure your cluster, in your `myinfluxdb.yml`,
     update the package version defined in `spec.package.image` to use a licensed
     release.
     

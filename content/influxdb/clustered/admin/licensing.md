@@ -27,20 +27,6 @@ the InfluxDB Clustered software.
     - [License expiry logs](#license-expiry-logs)
     - [Query brownout](#query-brownout)
 
-{{% note %}}
-#### License enforcement is currently an opt-in feature
-
-In currently available versions of InfluxDB Clustered, license enforcement is an
-opt-in feature that allows InfluxData to introduce license enforcement to
-customers, and allows customers to deactivate the feature if issues arise.
-In the future, all releases of InfluxDB Clustered will require customers to
-configure an active license before they can use the product.
-
-To opt into license enforcement, include the `useLicensedBinaries` feature flag
-in your `AppInstance` resource _([See the example below](#enable-feature-flag))_.
-To deactivate license enforcement, remove the `useLicensedBinaries` feature flag.
-{{% /note %}}
-
 ## Install your InfluxDB license
 
 {{% note %}}
@@ -62,22 +48,6 @@ install your license.
 
     ```sh
     kubectl apply --filename license.yml --namespace influxdb
-    ```
-
-4.  <span id="enable-feature-flag"></span>
-    Update your `AppInstance` resource to include the `useLicensedBinaries` feature flag.
-    Add the `useLicensedBinaries` entry to the `.spec.package.spec.featureFlags`
-    property--for example:
-
-    ```yml
-    apiVersion: kubecfg.dev/v1alpha1
-    kind: AppInstance
-    # ...
-    spec:
-      package:
-        spec:
-          featureFlags:
-            - useLicensedBinaries
     ```
 
 InfluxDB Clustered detects the `License` resource and extracts the credentials
@@ -115,7 +85,6 @@ license enforcement.
 
 ### A valid license is required
 
-_When you include the `useLicensedBinaries` feature flag_,
 Kubernetes pods running in your InfluxDB cluster must have a valid `License`
 resource to run. Licenses are issued by InfluxData. If there is no `License`
 resource installed in your cluster, one of two things may happen:
