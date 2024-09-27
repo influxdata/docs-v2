@@ -38,6 +38,7 @@ import * as v3Wayfinding from './v3-wayfinding.js';
  *  - JavaScript: my-component.js
  * The JavaScript is ideally a single-purpose module that exports a single default function to initialize the component and handle any component interactions.
  */
+import { apiDocComponent } from "./api-doc";
 import AskAITrigger from './ask-ai-trigger.js';
 import { CustomTimeTrigger } from './custom-timestamps.js';
 import { SearchButton } from './search-button.js';
@@ -93,6 +94,10 @@ document.addEventListener('DOMContentLoaded', function () {
   components.forEach((component) => {
     const componentName = component.getAttribute('data-component');
     switch (componentName) {
+      case 'api-doc':
+        apiDocComponent({ component });
+        window.influxdatadocs[componentName] = apiDocComponent;
+        break;
       case 'ask-ai-trigger':
         AskAITrigger({ component });
         window.influxdatadocs[componentName] = AskAITrigger;
@@ -139,3 +144,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+

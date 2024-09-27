@@ -6,31 +6,32 @@
   {{ partial "sidebar.html" . }}
   <div class="content-wrapper">
     <api-ref class="col-12 col-md-9 col-xl-8" role="main">
-      <script type="module" src="https://unpkg.com/rapidoc/dist/rapidoc-min.js"></script>
-      <h2>{{ .Params.title }}</h2>
-      
-      <rapi-doc
-        id="api-doc"
-        data-openapi-partof = "{{ .Params.api.part_of }}"
-        data-openapi-spec = "{{ .Params.api.spec }}"
-        regular-font="Open Sans" mono-font="Roboto Mono" show-header="false"
-        bg-color="#ffffff" text-color="" nav-bg-color="#fafafa" nav-text-color=""
-        nav-hover-bg-color="#ffebea" nav-hover-text-color="#9b0700"
-        nav-accent-color="" primary-color="#F63C41" theme="light"
-        css-classes="col-12 col-md-9 col-xl-8"
-      > </rapi-doc>
-      <script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-          const rapidocEl = document.getElementById('api-doc');
-          rapidocEl.addEventListener('spec-loaded', (e) => {
-            rapidocEl.setApiServer(globalThis.origin + "/api");
-            // Sets the server to http://localhost:8080/api
-            // you must have defined this server in your spec
-          });
-          const spec = JSON.parse(rapidocEl.dataset.openapiSpec);
-          rapidocEl.loadSpec(spec);
-        });
-      </script>
+        <div>
+          <!-- For render-style=read you should try to provide height of rapi-doc element as it needs to calculate scroll positions-->
+          <rapi-doc
+            id="api-doc"
+            allow-authentication="false"
+            allow-search="true"
+            bg-color="#ffffff" 
+            css-classes="col-12 col-md-9 col-xl-8"
+            data-openapi-partof = "{{ .Params.api.part_of }}"
+            data-openapi-spec = "{{ .Params.api.spec }}"
+            default-api-server=""
+            mono-font="Roboto Mono"
+            nav-accent-color=""
+            nav-bg-color="#fafafa"
+            nav-hover-bg-color="#ffebea"
+            nav-hover-text-color="#9b0700"
+            nav-text-color=""
+            primary-color="#F63C41"
+            regular-font="Open Sans"
+            render-style="view"
+            show-header="false"
+            show-info="false"
+            style="height:100vh; width:100%"
+            text-color=""
+            theme="light"></rapi-doc>
+        </div>
     </api-ref>
     <div class="copyright">© {{ now.Year }} InfluxData, Inc.</div>
   </div>

@@ -6,6 +6,7 @@ const { execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 const yaml = require('js-yaml');
+const { create } = require('domain');
 
 // Calculate the relative paths
 const DOCS_ROOT = process.env.DOCS_ROOT || '.';
@@ -50,34 +51,95 @@ function getPathGroups(openapi) {
   return pathGroups;
 }
 
+const CONFIG = {
+  apis: [
+    {
+      name: 'cloud-v2',
+      menu_name: 'influxdb_cloud',
+      menu: 
+        {
+          parent: 'INFLUXDB HTTP API',
+          weight: 0,
+        },
+      // Source OpenAPI spec file
+      spec_file: path.join(DOCS_ROOT, '/api-docs/cloud/v2/ref.yml'),
+      // Target content directory for generated endpoint spec pages
+      // endpoints_dir: path.join(DOCS_ROOT, '/content/influxdb/cloud/api/v2/yaml'),
+      // Target content directory for generated .md pages
+      pages_dir: path.join(DOCS_ROOT, '/content/influxdb/cloud/api/v2'),
+    },
+    {
+      name: 'oss-v2',
+      menu_name: 'influxdb_v2',
+      menu: 
+        {
+          parent: 'INFLUXDB HTTP API',
+          weight: 0,
+        },
+      spec_file: path.join(DOCS_ROOT, '/api-docs/v2/ref.yml'),
+      // Target content directory for generated endpoint spec pages
+      // endpoints_dir: path.join(DOCS_ROOT, '/content/influxdb/v2/api/v2/yaml'),
+      // Target content directory for generated .md pages
+      pages_dir: path.join(DOCS_ROOT, '/content/influxdb/v2/api/v2'),
+    }
+  ]
+}
+
+function createIndexPage(spec, api) {
+
+  const menu = {...api.menu, name: spec.info.title};
+  const pageParams = {
+    title: spec.info.title,
+    description: spec.info.description,
+    menu: {},
+  };
+  pageParams.menu[api.menu_name] = menu;
+
+  let frontMatter = JSON.stringify(pageParams);
+  let page = frontMatter.concat('\n\n', spec.info.description, '\n\n', '{{< children >}}', '\n\n');
+
+  const pagePath = path.join(api.pages_dir, '_index.md');
+  fs.writeFileSync(pagePath, page);
+  console.log(`Created: ${pagePath}`);
+}
+
+function createPathGroupPage(pathGroup, pathSpec, api) {
+  pathSpec['x-pathGroupTitle'] = `${pathGroup}\n${spec.info.title}`;
+  pathSpec['x-pathGroup'] = pathGroup;
+
+  const pageParams = {
+    type: 'api',
+    title: pathSpec['x-pathGroupTitle'],
+    description: pathSpec.info.description,
+    api: {
+      part_of: api.spec_file,
+      spec: JSON.stringify(pathSpec),
+    },
+    menu: {},
+  }
+
+  const menu = {
+    parent: spec.info.title,
+    weight: 1,
+    name: pathGroup
+  };
+
+  pageParams.menu[api.menu_name] = menu;
+
+  let frontMatter = JSON.stringify(pageParams);
+  
+  const pageName = `${pathGroup.replaceAll('/', '-').replace(/^-/, '')}`;
+  const pagePath = path.join(api.pages_dir, `${pageName}.md`);
+  fs.writeFileSync(pagePath, frontMatter);
+  console.log(`Created: ${pagePath}`);
+}
+
 function main() {
   /**
    * Configure the product specs to generate markdown files for.
    */
-  const config = {
-    dataDir: path.join(DOCS_ROOT, '/data/api/influxdb'),
-    apis: [
-      {
-        name: 'cloud-v2',
-        menu: 'influxdb_cloud',
-        // Source OpenAPI spec file
-        spec_file: path.join(DOCS_ROOT, '/api-docs/cloud/v2/ref.yml'),
-        // Target content directory for generated endpoint spec pages
-        // endpoints_dir: path.join(DOCS_ROOT, '/content/influxdb/cloud/api/v2/yaml'),
-        // Target content directory for generated .md pages
-        pages_dir: path.join(DOCS_ROOT, '/content/influxdb/cloud/api/v2'),
-      },
-      {
-        name: 'oss-v2',
-        menu: 'influxdb_v2',
-        spec_file: path.join(DOCS_ROOT, '/api-docs/v2/ref.yml'),
-        // Target content directory for generated endpoint spec pages
-        // endpoints_dir: path.join(DOCS_ROOT, '/content/influxdb/v2/api/v2/yaml'),
-        // Target content directory for generated .md pages
-        pages_dir: path.join(DOCS_ROOT, '/content/influxdb/v2/api/v2'),
-      }
-    ]
-  }
+
+  let config = CONFIG;
 
   config.apis.forEach(api => {
     // Execute the getswagger.sh script to fetch and bundle the configured spec.
@@ -93,35 +155,12 @@ function main() {
       fs.mkdirSync(api.pages_dir, { recursive: true });
     };
     
+    createIndexPage(spec, api);
     Object.keys(pathGroups).forEach( pathGroup => {
       // Deep copy the spec object
       let pathSpec = JSON.parse(JSON.stringify(spec));
       pathSpec.paths = pathGroups[pathGroup];
-      pathSpec['x-pathGroupTitle'] = `${pathGroup}\n${spec.info.title}`;
-      pathSpec['x-pathGroup'] = pathGroup;
-
-      const pageParams = {
-        type: 'api',
-        title: pathSpec['x-pathGroupTitle'],
-        description: pathSpec.info.description,
-        api: {
-          part_of: api.spec_file,
-          spec: JSON.stringify(pathSpec),
-        },
-      }
-      pageParams.menu = {};
-      pageParams.menu[api.menu] = {
-        parent: 'INFLUXDB HTTP API',
-        weight: 1,
-        name: pathGroup 
-      };
-
-      let frontMatter = JSON.stringify(pageParams);
-
-      const pageName = `${pathGroup.replaceAll('/', '-').replace(/^-/, '')}`;
-      const pagePath = path.join(api.pages_dir, `${pageName}.md`);
-      fs.writeFileSync(pagePath, frontMatter);
-      console.log(`Created: ${pagePath}`);
+      createPathGroupPage(pathGroup, pathSpec, api);
     });
   });
 }
