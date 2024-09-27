@@ -5,18 +5,6 @@ const SwaggerParser = require('@apidevtools/swagger-parser');
 const { execSync } = require('child_process');
 const spec = '/Users/ja/Documents/GitHub/docs-v2/api-docs/cloud/v2/ref.yml'
 
-async function detectCircularRefs() {
-  try {
-    const api = await SwaggerParser.validate(spec);
-    console.log('API is valid:', api);
-  } catch (err) {
-    if (err.message.includes('Circular $ref pointer found')) {
-      console.error('Circular reference detected:', err);
-    } else {
-      console.error('API validation failed:', err);
-    }
-  }
-}
 
 // Function to execute shell commands
 const execCommand = (command) => {
@@ -30,15 +18,20 @@ const execCommand = (command) => {
 
 function validate() {
 
-detectCircularRefs();
+  // detectCircularRefs();
 
-// swagger-cli validate
- execCommand(`npx swagger-cli validate ${spec}`);
+  // // swagger-cli validate
+  // execCommand(`npx swagger-cli validate ${spec}`);
 
-// speccy lint. Treat $ref like JSON schema and convert to OpenAPI Schema Objects.
-execCommand(`npx speccy lint -j -v ${spec}`);
+  // // speccy lint. Treat $ref like JSON schema and convert to OpenAPI Schema Objects.
+  // execCommand(`npx speccy lint -j -v ${spec}`);
 
-execCommand(`npx @redocly/cli lint ${spec}`);
+  // execCommand(`npx @redocly/cli lint ${spec}`);
+
+  // Create a Spectral ruleset file
+  // Spectral is a flexible JSON/YAML linter, formatter, and style checker for OpenAPI v2, v3.0, v3.1, and AsyncAPI v2.0.
+  execCommand(`npx @stoplight/spectral-cli lint ${spec} --ruleset ./api-docs/.spectral.yaml`); // --ruleset myruleset.yaml
+
 }
 
 validate();
