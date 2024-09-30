@@ -456,7 +456,8 @@ For {{% product-name %}} v1 API `/query` requests, set parameters as listed in t
 
 Parameter | Allowed in | Ignored | Value
 ----------|------------|---------|-------------------------------------------------------------------------
-`chunked` |            | Ignored | N/A _(Note that an unbounded query might return a large amount of data)_
+`chunked` | Query string | Honored | Returns points in streamed batches instead of in a single response. If set to `true`, InfluxDB chunks responses by series or by every 10,000 points, whichever occurs first.
+`chunked_size` | Query string | Honored | **Requires `chunked` to be set to `true`**. If set to a specific value, InfluxDB chunks responses by series or by this number of points.
 `db`        | Query string | Honored    | Database name                               |
 `epoch`     | Query string | Honored    | [Timestamp precision](#timestamp-precision) |
 `p` | Query string | Honored | Database token
