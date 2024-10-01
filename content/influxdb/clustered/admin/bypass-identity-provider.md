@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb_clustered:
     parent: Administer InfluxDB Clustered
-weight: 208
+weight: 209
 ---
 
 {{< product-name >}} generates a valid access token (known as the _admin token_)
