@@ -133,6 +133,7 @@ Default is `(r) => true`.
 - [Query series cardinality in a bucket](#query-series-cardinality-in-a-bucket)
 - [Query series cardinality in a measurement//](#query-series-cardinality-in-a-measurement)
 - [Query series cardinality for a specific tag](#query-series-cardinality-for-a-specific-tag)
+- [Query series cardinality of Data Written In the Last 4 Hours](#query-series-cardinality-of-data-written-in-the-last-4-hours)
 
 ### Query series cardinality in a bucket
 
@@ -165,6 +166,15 @@ influxdb.cardinality(
 import "influxdata/influxdb"
 
 influxdb.cardinality(bucket: "example-bucket", start: time(v: 1), predicate: (r) => r.exampleTag == "foo")
+
+```
+
+
+### Query Cardinality of Data Written In the Last 4 hours
+```js
+import "influxdata/influxdb"
+
+influxdb.cardinality(bucket: "example-bucket", start: -4h)
 
 ```
 
