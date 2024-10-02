@@ -35,7 +35,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 Although this function is similar to InfluxQL's [`SHOW SERIES CARDINALITY`](/influxdb/v1/query_language/spec/#show-series-cardinality),
 it works in a slightly different manner.
 
-`influxdb.cardinality()` is time bounded and reports the cardinality of the data that's passed into it rather than the cardinality of the bucket as a whole.
+`influxdb.cardinality()` is time bounded and reports the cardinality of data that matches the conditions passed into it rather than that of the bucket as a whole.
 {{% /note %}}
 
 
