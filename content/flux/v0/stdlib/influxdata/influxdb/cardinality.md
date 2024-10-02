@@ -139,7 +139,7 @@ Default is `(r) => true`.
 ```js
 import "influxdata/influxdb"
 
-influxdb.cardinality(bucket: "example-bucket", start: 1)
+influxdb.cardinality(bucket: "example-bucket", start: time(v: 1))
 
 ```
 Note: if points have been written into the future, you will need to add an appropriate `stop` date
@@ -152,7 +152,7 @@ import "influxdata/influxdb"
 
 influxdb.cardinality(
     bucket: "example-bucket",
-    start: 1,
+    start: time(v: 1),
     predicate: (r) => r._measurement == "example-measurement",
 )
 
@@ -164,7 +164,7 @@ influxdb.cardinality(
 ```js
 import "influxdata/influxdb"
 
-influxdb.cardinality(bucket: "example-bucket", start: 1, predicate: (r) => r.exampleTag == "foo")
+influxdb.cardinality(bucket: "example-bucket", start: time(v: 1), predicate: (r) => r.exampleTag == "foo")
 
 ```
 
