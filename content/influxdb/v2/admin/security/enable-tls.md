@@ -116,6 +116,7 @@ cat > san.cnf <<EOF
    [alt_names]
    DNS.1 = example.com
    DNS.2 = www.example.com
+   IP.1 = 10.1.2.3
 EOF
 
 # Generate a private key and certificate signing request (CSR)
