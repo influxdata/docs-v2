@@ -151,7 +151,8 @@ The user running InfluxDB must have read permissions on the TLS certificate file
 Ultimately, make sure all users running InfluxDB have read permissions for the TLS certificate.
 {{% /note %}}
 
-In your terminal, run `chown` to set the owner and `chmod` to set permissions on your installed certificate files--for example:
+In your terminal, run `chown` to set the owner and `chmod` to set permissions on your installed certificate files.
+
 The following example shows how to transfer the ownership to the user and group `influxdb` and to set read permissions on the self-signed
 certificate and key files generated in [the preceding step](#1-download-or-generate-certificate-files):
 
