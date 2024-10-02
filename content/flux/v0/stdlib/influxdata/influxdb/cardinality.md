@@ -1,7 +1,7 @@
 ---
 title: influxdb.cardinality() function
 description: >
-  `influxdb.cardinality()` returns the series cardinality of data stored in InfluxDB.
+  `influxdb.cardinality()` returns the series cardinality of data retrieved from InfluxDB.
 menu:
   flux_v0_ref:
     name: influxdb.cardinality
@@ -28,8 +28,15 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`influxdb.cardinality()` returns the series cardinality of data stored in InfluxDB.
+`influxdb.cardinality()` returns the series cardinality of data retrieved from InfluxDB.
 
+
+{{% note %}}
+Although this function is similar to InfluxQL's [`SHOW SERIES CARDINALITY`](/influxdb/v1/query_language/spec/#show-series-cardinality),
+it works in a slightly different manner.
+
+`influxdb.cardinality()` is time bounded and reports the cardinality of the data that's passed into it rather than the cardinality of the bucket as a whole.
+{{% /note %}}
 
 
 ##### Function type signature
@@ -106,6 +113,12 @@ Latest time to include when calculating cardinality.
 The cardinality calculation excludes points that match the specified start time.
 Use a relative duration or absolute time. For example, `-1h` or `2019-08-28T22:00:00Z`.
 Durations are relative to `now()`. Default is `now()`.
+
+{{% note %}}
+The default value is `now()`, so any points that have been written into the future will
+not be counted unless a future `stop` date is provided.
+{{% /note %}}
+
 
 ### predicate
 
