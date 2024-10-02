@@ -139,9 +139,10 @@ Default is `(r) => true`.
 ```js
 import "influxdata/influxdb"
 
-influxdb.cardinality(bucket: "example-bucket", start: -1y)
+influxdb.cardinality(bucket: "example-bucket", start: 1)
 
 ```
+Note: if points have been written into the future, you will need to add an appropriate `stop` date
 
 
 ### Query series cardinality in a measurement//
@@ -151,7 +152,7 @@ import "influxdata/influxdb"
 
 influxdb.cardinality(
     bucket: "example-bucket",
-    start: -1y,
+    start: 1,
     predicate: (r) => r._measurement == "example-measurement",
 )
 
@@ -163,7 +164,7 @@ influxdb.cardinality(
 ```js
 import "influxdata/influxdb"
 
-influxdb.cardinality(bucket: "example-bucket", start: -1y, predicate: (r) => r.exampleTag == "foo")
+influxdb.cardinality(bucket: "example-bucket", start: 1, predicate: (r) => r.exampleTag == "foo")
 
 ```
 
