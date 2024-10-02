@@ -12,7 +12,7 @@ influxdb/v2/tags: [influxql, query, write]
 related:
   - /influxdb/v2/query-data/influxql
   - /influxdb/v2/install/upgrade/v1-to-v2/
-alias:
+aliases:
   - /influxdb/v2/reference/api/influxdb-1x/
 ---
 
