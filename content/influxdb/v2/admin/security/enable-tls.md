@@ -116,6 +116,7 @@ cat > san.cnf <<EOF
    [alt_names]
    DNS.1 = example.com
    DNS.2 = www.example.com
+   IP.1 = 10.1.2.3
 EOF
 
 # Generate a private key and certificate signing request (CSR)
@@ -150,11 +151,13 @@ The user running InfluxDB must have read permissions on the TLS certificate file
 Ultimately, make sure all users running InfluxDB have read permissions for the TLS certificate.
 {{% /note %}}
 
-In your terminal, run `chmod` to set permissions on your installed certificate files--for example:
-The following example shows how to set read permissions on the self-signed
+In your terminal, run `chown` to set the owner and `chmod` to set permissions on your installed certificate files.
+
+The following example shows how to transfer the ownership to the user and group `influxdb` and set read permissions on the self-signed
 certificate and key files generated in [the preceding step](#1-download-or-generate-certificate-files):
 
 ```bash
+sudo chown influxdb: /etc/ssl/influxdb-selfsigned.crt /etc/ssl/influxdb-selfsigned.key
 sudo chmod 644 /etc/ssl/influxdb-selfsigned.crt
 sudo chmod 600 /etc/ssl/influxdb-selfsigned.key
 ```
