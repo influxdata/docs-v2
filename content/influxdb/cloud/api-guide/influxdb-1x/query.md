@@ -15,7 +15,7 @@ list_code_example: |
   </pre>
 related:
   - /influxdb/cloud/query-data/influxql
-alias:
+aliases:
   - /influxdb/cloud/reference/api/influxdb-1x/query/
 ---
 

@@ -1,14 +1,13 @@
 ---
 title: Query data with the InfluxDB API
 description: Query data with Flux and InfluxQL in the InfluxDB API.
-alias:
-  -/docs/v1.8/query_language/querying_data/
 menu:
   enterprise_influxdb_v1:
     weight: 20
     parent: Guides
 aliases:
   - /enterprise_influxdb/v1/guides/querying_data/
+  - /docs/v1.8/query_language/querying_data/
 v2: /influxdb/v2/query-data/
 ---
 
