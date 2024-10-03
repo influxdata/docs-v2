@@ -19,6 +19,7 @@
 {{ $sameAsLatest := eq $introduced $fluxLatest }}
 {{ $excludePatternOSS := $.Page.Params.exclude_from.oss | default " " }}
 {{ $excludePatternEnterprise := $.Page.Params.exclude_from.enterprise | default " " }}
+{{ $excludeFromNightly := $.Page.Params.exclude_from.nightly | default false }}
 
 <div class="modal-content" id="flux-influxdb-versions">
   <div class="flex-wrapper">
@@ -49,7 +50,8 @@
         <div class="version-row">
           <div class="version-col"><p>InfluxDB {{ $key }}</p></div>
           <div class="version-col"><p>
-            {{ if $excluded }}
+            {{ if adm (eq . "nightly") $excludeFromNightly }}
+            {{ else if $excluded }}
             {{ else if $deprecated }}<span class="deprecated"></span>      
             {{ else if $supported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
             {{ end }}

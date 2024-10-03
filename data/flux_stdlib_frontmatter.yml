@@ -931,6 +931,7 @@
       publish to an MQTT broker.
   exclude_from:
     oss: ^2\.[7-9]
+    nightly: true
 
 /flux/v0/stdlib/experimental/mqtt/to.md: |
   aliases:
@@ -947,6 +948,7 @@
       publish to an MQTT broker.
   exclude_from:
     oss: ^2\.[7-9]
+    nightly: true
 
 /flux/v0/stdlib/experimental/mqtt/publish.md: |
   prepend:
@@ -960,6 +962,7 @@
       publish to an MQTT broker.
   exclude_from:
     oss: ^2\.[7-9]
+    nightly: true
 
 /flux/v0/stdlib/experimental/oee/_index.md: |
   aliases:
