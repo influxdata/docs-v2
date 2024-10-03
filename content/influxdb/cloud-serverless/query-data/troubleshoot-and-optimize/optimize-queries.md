@@ -86,7 +86,7 @@ less efficient.
 
 Use the following tools to analyze and troubleshoot queries and find performance bottlenecks:
 
-- [Analyze a query plan](/influxdb/cloud-serverless/query-data/analyze-query-plan/)
+- [Analyze a query plan](/influxdb/cloud-serverless/query-data/troubleshoot-and-optimize/analyze-query-plan/)
 - [Enable trace logging for a query](#enable-trace-logging-for-a-query)
 
 ### Enable trace logging for a query
