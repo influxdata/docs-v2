@@ -7,10 +7,17 @@ menu:
     name: Test your cluster
     parent: Set up your cluster
 weight: 250
-metadata: ['Install InfluxDB Clustered -- Phase 1: Set up your Cluster']
 ---
 
-- Purpose is to confirm writes and reads
+With your InfluxDB cluster deployed and running, test to ensure you can
+successfully write and query data from InfluxDB.
+
+1. [Download and install influxctl](#download-and-install-influxctl)
+1. [Retrieve your cluster's admin token](#retrieve-your-clusters-admin-token)
+1. [Configure influxctl to connect to your cluster](#configure-influxctl-to-connect-to-your-cluster)
+1. [Create a new database](#create-a-new-database)
+1. [Write test data to the new database](#write-test-data-to-the-new-database)
+1. [Query the test data from your database](#query-the-test-data-from-your-database)
 
 ## Download and install influxctl
 
@@ -83,6 +90,15 @@ code examples.
       operating system. If your connection profile is in the default location,
       you do not need to include the `--config` flag with your `influxctl` commands.
 
+{{% note %}}
+#### Connection configuration examples 
+
+In the examples below, replace {{% code-placeholder-key %}}`CONFIG_PATH`{{% /code-placeholder-key %}}
+with the directory path to your connection configuration file. If you placed
+your configuration file in the default location for your operating system, remove
+`--config /CONFIG_PATH/config.toml` from the example commands before running them.
+{{% /note %}}
+
 ## Create a new database
 
 Use [`influxctl database create`](/influxdb/clustered/reference/cli/influxctl/database/create/)
@@ -91,9 +107,11 @@ to create a new database named `testdb`. Include the following:
 - _(Optional)_ The path to your connection profile configuration file.
 - The database name--`testdb`.
 
+{{% code-placeholders "CONFIG_PATH" %}}
 ```sh
 influxctl --config /CONFIG_PATH/config.toml database create testdb
 ```
+{{% /code-placeholders %}}
 
 ## Write test data to the new database
 
@@ -107,6 +125,7 @@ write the following test data to your `testdb` database. Provide the following:
 
 {{% influxdb/custom-timestamps %}}
 
+{{% code-placeholders "CONFIG_PATH" %}}
 ```bash
 influxctl --config /CONFIG_PATH/config.toml write \
   --database testdb \
@@ -116,6 +135,7 @@ home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600000000000
 home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600000000000
 "
 ```
+{{% /code-placeholders %}}
 
 {{% /influxdb/custom-timestamps %}}
 
@@ -128,11 +148,14 @@ query the test data from your `testdb` database. Provide the following:
 - The database name--`testdb`.
 - The SQL query to execute.
 
+{{% code-placeholders "CONFIG_PATH" %}}
 ```bash
 influxctl --config /CONFIG_PATH/config.toml query \
   --database testdb \
   "SELECT * FROM home"
 ```
+{{% /code-placeholders %}}
+
 
 This should return results similar to:
 

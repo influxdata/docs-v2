@@ -7,7 +7,6 @@ menu:
     name: Deploy your cluster
     parent: Set up your cluster
 weight: 240
-metadata: ['Install InfluxDB Clustered -- Phase 1: Set up your Cluster']
 related:
   - /influxdb/clustered/admin/upgrade/
   - /influxdb/clustered/install/set-up-cluster/licensing/

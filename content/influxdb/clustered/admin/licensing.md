@@ -18,6 +18,10 @@ Install and manage your InfluxDB Clustered license to authorize the use of
 the InfluxDB Clustered software.
 
 - [Install your InfluxDB license](#install-your-influxdb-license)
+- [Verify your license](#verify-your-license)
+  - [Verify database components](#verify-database-components)
+  - [Verify the Secret exists ](#verify-the-secret-exists-)
+  - [View license controller logs](#view-license-controller-logs)
 - [Recover from a license misconfiguration](#recover-from-a-license-misconfiguration)
 - [Renew your license](#renew-your-license)
 - [License enforcement](#license-enforcement)
@@ -54,6 +58,69 @@ InfluxDB Clustered detects the `License` resource and extracts the credentials
 into a secret required by InfluxDB Clustered Kubernetes pods.
 Pods validate the license secret both at startup and periodically (roughly once
 per hour) while running.
+
+## Verify your license
+
+After you have activated your license, use the following signals to verify the
+license is active and functioning.
+
+In your commands, replace the following:
+
+- {{% code-placeholder-key %}}`NAMESPACE`{{% /code-placeholder-key %}}:
+  your [InfluxDB namespace](/influxdb/clustered/install/set-up-cluster/configure-cluster/#create-a-namespace-for-influxdb)
+- {{% code-placeholder-key %}}`POD_NAME`{{% /code-placeholder-key %}}:
+  your [InfluxDB Kubernetes pod](/influxdb/clustered/install/set-up-cluster/deploy/#inspect-cluster-pods)
+
+### Verify database components
+
+After you [install your license](#install-your-influxdb-license),
+run the following command to check that database pods start up and are in the
+`Running` state:
+
+<!--pytest.mark.skip-->
+
+```bash
+kubectl get pods -l app=iox --namespace influxdb
+```
+
+If a `Pod` fails to start, run the following command to view pod information:
+
+<!--pytest.mark.skip-->
+
+{{% code-placeholders "POD_NAME" %}}
+
+```sh
+kubectl describe pod POD_NAME --namespace influxdb
+```
+
+{{% /code-placeholders %}}
+
+### Verify the `Secret` exists 
+
+Run the following command to verify that the licensing activation created a
+`iox-license` secret:
+
+<!--pytest.mark.skip-->
+
+```sh
+kubectl get secret iox-license --namespace influxdb
+```
+
+If the secret doesn't exist,
+[view `license-controller` logs](#view-license-controller-logs) for more
+information or errors.
+
+### View `license controller` logs
+
+The `license controller` component creates a `Secret` named `iox-license` from
+your `License`. To view `license controller` logs for troubleshooting, run the
+following command:
+
+<!--pytest.mark.skip-->
+
+```sh
+kubectl logs deployment/license-controller --namespace influxdb
+```
 
 ## Recover from a license misconfiguration
 

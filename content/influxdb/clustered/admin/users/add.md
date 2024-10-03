@@ -12,7 +12,7 @@ weight: 201
 ---
 
 Add a user with administrative access to your InfluxDB cluster through your
-[identity provider](/influxdb/clustered/install/auth/) and your InfluxDB
+[identity provider](/influxdb/clustered/install/secure-cluster/auth/) and your InfluxDB
 `AppInstance` resource:
 
 1.  Use your identity provider to create an OAuth2 account for the user that
@@ -97,7 +97,7 @@ Replace the following:
   Keycloak realm
 - {{% code-placeholder-key %}}`KEYCLOAK_USER_ID`{{% /code-placeholder-key %}}:
   Keycloak user ID to grant InfluxDB administrative access to 
-  _(See [Find user IDs with Keycloak](/influxdb/clustered/install/auth/#find-user-ids-with-keycloak))_
+  _(See [Find user IDs with Keycloak](/influxdb/clustered/install/secure-cluster/auth/#find-user-ids-with-keycloak))_
 
 ---
 
@@ -164,7 +164,7 @@ Replace the following:
   Microsoft Entra tenant ID
 - {{% code-placeholder-key %}}`AZURE_USER_ID`{{% /code-placeholder-key %}}:
   Microsoft Entra user ID to grant InfluxDB administrative access to
-  _(See [Find user IDs with Microsoft Entra ID](/influxdb/clustered/install/auth/?t=Microsoft+Entra+ID#find-user-ids-with-microsoft-entra-id))_
+  _(See [Find user IDs with Microsoft Entra ID](/influxdb/clustered/install/secure-cluster/auth/?t=Microsoft+Entra+ID#find-user-ids-with-microsoft-entra-id))_
 
 ---
 
@@ -292,7 +292,7 @@ Replace the following:
   Microsoft Entra tenant ID
 - {{% code-placeholder-key %}}`AZURE_USER_ID`{{% /code-placeholder-key %}}:
   Microsoft Entra user ID to grant InfluxDB administrative access to
-  _(See [Find user IDs with Microsoft Entra ID](/influxdb/clustered/install/auth/?t=Microsoft+Entra+ID#find-user-ids-with-microsoft-entra-id))_
+  _(See [Find user IDs with Microsoft Entra ID](/influxdb/clustered/install/secure-cluster/auth/?t=Microsoft+Entra+ID#find-user-ids-with-microsoft-entra-id))_
 
 ---
 
@@ -303,7 +303,7 @@ Replace the following:
 {{% /tab-content %}}
     {{< /tabs-wrapper >}}
 
-3. Apply the change to your InfluxDB cluster.
+3.  Apply the change to your InfluxDB cluster.
     
     - If updating the `AppInstance` resource directly, use `kubectl` to apply
       the change.
@@ -342,6 +342,6 @@ helm upgrade \
 
 Once applied, the added user is granted administrative access to your InfluxDB
 cluster and can use `influxctl` to perform administrative actions.
-See [Set up Authorization--Configure influxctl](/influxdb/clustered/install/auth/#configure-influxctl)
+See [Set up Authorization--Configure influxctl](/influxdb/clustered/install/secure-cluster/auth/#configure-influxctl)
 for information about configuring the new user's `influxctl` client to communicate
 and authenticate with your InfluxDB cluster's identity provider.

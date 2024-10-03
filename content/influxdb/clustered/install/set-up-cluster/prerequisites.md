@@ -9,7 +9,6 @@ menu:
     name: Prerequisites
     parent: Set up your cluster
 weight: 201
-metadata: ['Install InfluxDB Clustered -- Phase 1: Set up your Cluster']
 aliases:
   - /influxdb/clustered/install/prerequisites/
 ---
@@ -88,22 +87,20 @@ InfluxDB Clustered requires **Kubernetes v1.25 or later**.
     or, if running in an air-gapped environment, a local container registry to
     which you can copy the InfluxDB images.
 
-<!-- ### Cluster sizing recommendation
+### Cluster sizing recommendation
 
 For a [medium-size workload](https://www.influxdata.com/resources/influxdb-3-0-vs-oss/),
-InfluxData has tested InfluxDB Clustered using the following AWS products
+InfluxData has tested InfluxDB Clustered using the following **AWS products**
 and sizing:
 
-- S3 for the object store (size is determined by how much data you write)
-- Aurora Postgresql - serverless v2 scaling configuration (2-64 ACUs)
-- EC2 instances - primarily m6i.2xlarge (8 CPU, 32GB RAM)
+- EC2 instances - primarily m6i.2xlarge (8 CPU, 32 GB RAM)
   - 3 m6i.2xlarge instances for ingesters and routers (with minimum of 2Gi of local storage)
   - 3 m6i.2xlarge instances for queriers
   - 1 m6i.2xlarge instance for compactors
   - 1 t3.large for the Kubernetes control plane
 
-Your sizing may need to be different based on your environment and workload,
-but this is a reasonable starting size for your initial testing. -->
+Your sizing may need to be different based on your environment, cloud provider,
+and workload, but this is a reasonable starting size for your initial testing.
 
 ## Install the kubecfg kubit operator
 
@@ -120,7 +117,8 @@ to deploy your InfluxDB cluster, you do not need to install the kubit operator
 separately. The Helm chart installs the kubit operator.
 {{% /note %}}
 
-Use `kubectl` to install the [kubecfg kubit](https://github.com/kubecfg/kubit) operator.
+Use `kubectl` to install the [kubecfg kubit](https://github.com/kubecfg/kubit)
+operator **v0.0.18 or later**.
 
 <!-- pytest.mark.skip -->
 
@@ -302,7 +300,8 @@ PostgreSQL-compatible database.
 
 ### PosgreSQL-compatible database requirements
 
-- PostgreSQL versions **13.8–14.6**
+- PostgreSQL versions **13.8–14.6**.
+- Minimum of 4 GB of memory or equivalent provider-specific units.
 - To avoid conflicts and prevents issues caused by shared usage with other
   applications, ensure that your PostgreSQL-compatible instance is dedicated
   exclusively to InfluxDB.
@@ -321,9 +320,9 @@ recommend it for production environments.
 
 The [InfluxDB Ingester](/influxdb/clustered/reference/internals/storage-engine/#ingester)
 needs local or attached storage to store the Write-Ahead Log (WAL).
-The read and write speed of the the attached storage affects the write
-performance of the Ingester, so the faster the storage device, the better your
-write performance will be.
+The read and write speed of the attached storage affects the write performance
+of the Ingester, so the faster the storage device, the better your write
+performance will be.
 The recommended minimum size of the local storage is 2 gibibytes (`2Gi`).
 
 Installation and setup of local or attached storage depends on your underlying

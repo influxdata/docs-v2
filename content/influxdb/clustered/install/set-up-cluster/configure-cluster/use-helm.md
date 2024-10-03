@@ -7,6 +7,8 @@ menu:
     name: Use Helm
     parent: Configure your cluster
 weight: 230
+list_code_example: |
+  <a class="btn arrow" style="margin-bottom:3rem;" href="/influxdb/clustered/install/set-up-cluster/configure-cluster/use-helm/">Use Helm to configure AppInstance <span class="cf-icon CaretOutlineRight"></span></a>
 related:
   - /influxdb/clustered/admin/users/
 aliases:
@@ -681,4 +683,4 @@ Replace the following:
 
 ---
 
-{{< page-nav prev="/influxdb/clustered/install/auth/" prevText="Set up authentication" next="/influxdb/clustered/install/set-up-cluster/licensing" nextText="Install your license" tab="Helm" >}}
+{{< page-nav prev="/influxdb/clustered/install/secure-cluster/auth/" prevText="Set up authentication" next="/influxdb/clustered/install/set-up-cluster/licensing" nextText="Install your license" tab="Helm" >}}

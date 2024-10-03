@@ -1,25 +1,41 @@
 ---
 title: Set up administrative authentication
 description: >
-  Manage administrative access to your InfluxDB cluster through your identity provider.
+  Set up an OAuth 2.0 identity provider to manage administrative access to your
+  InfluxDB cluster.
 menu:
   influxdb_clustered:
     name: Set up authentication
-    parent: Install InfluxDB Clustered
-weight: 120
+    parent: Secure your cluster
+weight: 220
+aliases:
+  - /influxdb/clustered/install/auth/
+related:
+  - /influxdb/clustered/admin/users/
+  - /influxdb/clustered/admin/bypass-identity-provider/
 ---
 
-Administrative access to your InfluxDB cluster is managed through your identity
-provider. Use your identity provider to create OAuth2 accounts for all users
-who need administrative access to your InfluxDB cluster. Administrative access
-lets user perform actions like creating databases and tokens.
+To manage administrative access to your InfluxDB cluster, integrate your cluster
+with an OAuth 2.0 identity provider. Use your identity provider to create OAuth2
+accounts for all users who need administrative access to your InfluxDB cluster.
+Administrative access lets users perform actions like creating databases and
+database tokens (which provide read and write access to databases).
 
-<!-- Credentials need to connect -->
-- **OAuth2 provider credentials**
-  - Client ID
-  - JWKS endpoint
-  - Device authorization endpoint
-  - Token endpoint
+- [Identity provider requirements](#identity-provider-requirements)
+- [Identity provider credentials](#identity-provider-credentials)
+- [Set up your identity provider](#set-up-your-identity-provider)
+- [Configure your cluster to connect to your identity provider](#configure-your-cluster-to-connect-to-your-identity-provider)
+- [Apply your configuration changes](#apply-your-configuration-changes)
+- [Configure influxctl](#configure-influxctl)
+- [Test your authorization flow](#test-your-authorization-flow)
+
+InfluxData has tested with the following identity providers, but any provider
+that [meets the requirements](#identity-provider-requirements)
+should work:
+
+- [Microsoft Entra ID _(formerly Azure Active Directory)_](https://www.microsoft.com/en-us/security/business/microsoft-entra)
+- [Keycloak](https://www.keycloak.org/)
+- [Auth0](https://auth0.com/)
 
 {{% note %}}
 Identity providers can be deployed with your InfluxDB cluster or run externally.
@@ -27,25 +43,25 @@ If you choose to deploy your provider with your InfluxDB cluster, the process
 outlined below should be done _after_ your initial InfluxDB cluster deployment.
 {{% /note %}}
 
-{{% note %}}
-#### Bypass your identity provider for development and testing
+## Identity provider requirements
 
-If running in a development or testing environment and you do not want to
-authorize with an OAuth2 identity provider, {{< product-name >}} provides an
-_admin token_ in your cluster's namespace that can be used to bypass your
-identity provider.
+To integrate an identity provider with your InfluxDB Cluster, it must meet the
+following requirements:
 
-For more information, see
-[Bypass your identity provider](/influxdb/clustered/admin/bypass-identity-provider/).
-{{% /note %}}
+- Supports OAuth 2.0
+- Supports [Device Authorization Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/device-authorization-flow)
 
-InfluxDB Clustered requires that your OAuth2 identity provider supports
-[Device Authorization Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/device-authorization-flow).
-InfluxData has tested with the following identity providers:
+## Identity provider credentials
 
-- [Keycloak](https://www.keycloak.org/)
-- [Microsoft Entra ID _(formerly Azure Active Directory)_](https://www.microsoft.com/en-us/security/business/microsoft-entra)
-- [Auth0](https://auth0.com/)
+To access the OAuth2 server, InfluxDB requires the following OAuth2 connection
+credentials:
+
+- Client ID
+- JWKS endpoint
+- Device authorization endpoint
+- Token endpoint
+
+## Set up your identity provider
 
 Setup instructions are provided for the following:
 
@@ -62,7 +78,7 @@ Setup instructions are provided for the following:
 
 <!------------------------------- BEGIN Keycloak ------------------------------>
 
-## Keycloak
+### Keycloak
 
 To use Keycloak as your identity provider:
 
@@ -71,12 +87,12 @@ To use Keycloak as your identity provider:
 3. [Create users that need administrative access to your InfluxDB cluster](#create-users)
 4. [Configure InfluxDB Clustered to use Keycloak](#configure-influxdb-clustered-to-use-keycloak)
 
-### Create a Keycloak realm
+#### Create a Keycloak realm
 
 See [Creating a realm](https://www.keycloak.org/docs/latest/server_admin/#proc-creating-a-realm_server_administration_guide)
 in the Keycloak documentation.
 
-### Create a Keycloak client with device flow enabled
+#### Create a Keycloak client with device flow enabled
 
 1.  In the **Keycloak Admin Console**, navigate to **Clients** and then click
     **Create Client**.
@@ -93,23 +109,23 @@ in the Keycloak documentation.
 4.  In the **Login settings** step, you don’t need to change anything.
     Click **Save**.
 
-### Create users
+#### Create users
 
 See [Creating users](https://www.keycloak.org/docs/latest/server_admin/#proc-creating-user_server_administration_guide)
 in the Keycloak documentation.
 
-#### Find user IDs with Keycloak
+##### Find user IDs with Keycloak
 
 To find the user IDs with Keycloak, use the Keycloak Admin Console or the Keycloak REST API.
 
-##### Keycloak Admin Console
+###### Keycloak Admin Console
 
 1. In the Keycloak Admin Console, navigate to your realm
 2. Select **Users** in the left navigation.
 3. Select the user you want to find the ID for.
 4. Select the **Details** tab. The user ID is listed here.
 
-##### Keycloak REST API
+###### Keycloak REST API
 
 Send a GET request to the Keycloak REST API `/users` endpoint to fetch
 the ID of a specific user. Provide the following:
@@ -136,7 +152,7 @@ Replace the following:
 
 ---
 
-### Configure InfluxDB Clustered to use Keycloak
+#### Configure InfluxDB Clustered to use Keycloak
 
 Run the following command to retrieve a JSON object that contains the OpenID configuration
 of your Keycloak realm:
@@ -191,7 +207,7 @@ connect your InfluxDB cluster and administrative tools to Keycloak:
 
 <!--------------------------- BEGIN Microsoft Entra --------------------------->
 
-## Microsoft Entra ID
+### Microsoft Entra ID
 
 To use Microsoft Entra ID as your identity provider:
 
@@ -200,18 +216,18 @@ To use Microsoft Entra ID as your identity provider:
 3. [Register a new application with device code flow enabled](#register-a-new-application-with-device-code-flow-enabled)
 4. Configure InfluxDB Clustered to use Microsoft Entra ID
 
-### Create a new tenant in Microsoft Entra ID
+#### Create a new tenant in Microsoft Entra ID
 
 See [Create a new tenant in Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/create-new-tenant)
 in the Microsoft Azure documentation.
 _Copy and store your **Microsoft Entra Tenant ID**_.
 
-### Add users that need administrative access to your InfluxDB cluster
+#### Add users that need administrative access to your InfluxDB cluster
 
 See [Add or delete users](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/add-users)
 in the Microsoft Azure documentation.
 
-#### Find user IDs with Microsoft Entra ID
+##### Find user IDs with Microsoft Entra ID
 
 For Microsoft Entra ID, the unique user ID is the Microsoft ObjectId (OID).
 To download a list of user OIDs:
@@ -221,7 +237,7 @@ To download a list of user OIDs:
 
 In the downloaded CSV file, user OIDs are provided in the `id` column.
 
-### Register a new application with device code flow enabled
+#### Register a new application with device code flow enabled
 
 1.  In the **Microsoft Azure Portal**, select **App Registrations** in the left navigation.
 2.  Click **New Registration** and enter a name for a new application to handle
@@ -232,7 +248,7 @@ In the downloaded CSV file, user OIDs are provided in the `id` column.
     This enables the use of the [device code flow](https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-device-code)
     for logging in to your InfluxDB cluster.
 
-### Configure InfluxDB Clustered to use Microsoft Entra ID
+#### Configure InfluxDB Clustered to use Microsoft Entra ID
 
 Use the following command to retrieve a JSON object that contains the OpenID configuration
 of your Microsoft Entra tenant:
@@ -306,108 +322,25 @@ connect your InfluxDB cluster and administrative tools to Keycloak:
 
 {{< /tabs-wrapper >}}
 
-## Configure influxctl
+## Configure your cluster to connect to your identity provider
 
-The [`influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/) is used to
-perform administrative actions such as creating databases or database tokens.
-All `influxctl` commands are first authorized using your identity provider.
-Update your [`influxctl` configuration file](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles)
-to connect to your identity provider.
+To connect your InfluxDB cluster to your OAuth2 provider, update your
+`AppInstance` resource with the required credentials. Modify your `AppInstance`
+resource directly or, if using the
+[InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered),
+update your `values.yaml`.
 
-The following examples show how to configure `influxctl` for various identity providers:
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[AppInstance](#)
+[Helm](#)
+{{% /tabs %}}
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Keycloak](#)
-[Auth0](#)
-[Microsoft Entra ID](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+{{% tab-content %}}
 
-<!------------------------------- BEGIN Keycloak ------------------------------>
+<!----------------------------- BEGIN APPINSTANCE ----------------------------->
 
-{{% code-placeholders "KEYCLOAK_(CLIENT_ID|PORT|REALM)" %}}
-
-```toml
-[[profile]]
-    name = "default"
-    product = "clustered"
-    host = "{{< influxdb/host >}}" # InfluxDB cluster host
-    port = "8086" # InfluxDB cluster port
-
-    [profile.auth.oauth2]
-        client_id = "KEYCLOAK_CLIENT_ID"
-        device_url = "https://KEYCLOAK_HOST/realms/KEYCLOAK_REALM/protocol/openid-connect/auth/device"
-        token_url = "https://KEYCLOAK_HOST/realms/KEYCLOAK_REALM/protocol/openid-connect/token"
-```
-
-{{% /code-placeholders %}}
-
-<!-------------------------------- END Keycloak ------------------------------->
-
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-
-<!-------------------------------- BEGIN Auth0 -------------------------------->
-
-{{% code-placeholders "AUTH0_(CLIENT_)*(ID|SECRET|HOST)" %}}
-
-```toml
-[[profile]]
-    name = "default"
-    product = "clustered"
-    host = "{{< influxdb/host >}}" # InfluxDB cluster host
-    port = "8086" # InfluxDB cluster port
-
-    [profile.auth.oauth2]
-        client_id = "AUTH0_CLIENT_ID"
-        client_secret = "AUTH0_CLIENT_SECRET"
-        device_url = "https://AUTH0_HOST/oauth/device/code"
-        token_url = "https://AUTH0_HOST/oauth/token"
-```
-
-{{% /code-placeholders %}}
-
-<!--------------------------------- END Auth0 --------------------------------->
-
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-
-<!--------------------------- BEGIN Microsoft Entra --------------------------->
-
-{{% code-placeholders "AZURE_(CLIENT|TENANT)_ID" %}}
-
-```toml
-[[profile]]
-    name = "default"
-    product = "clustered"
-    host = "{{< influxdb/host >}}" # InfluxDB cluster host
-    port = "8086" # InfluxDB cluster port
-
-    [profile.auth.oauth2]
-        client_id = "AZURE_CLIENT_ID"
-        scopes = ["AZURE_CLIENT_ID/.default"]
-        device_url = "https://login.microsoftonline.com/AZURE_TENANT_ID/oauth2/v2.0/devicecode"
-        token_url = "https://login.microsoftonline.com/AZURE_TENANT_ID/oauth2/v2.0/token"
-```
-
-{{% /code-placeholders %}}
-
-<!---------------------------- END Microsoft Entra ---------------------------->
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-{{< page-nav prev="/influxdb/clustered/install/set-up-cluster/prerequisites/" next="/influxdb/clustered/install/set-up-cluster/configure-cluster/" nextText="Configure your cluster" >}}
-
-
-<!-- ////////////////////////////// NEW STUFF ////////////////////////////// -->
-
-#### Configure your OAuth2 provider
-
-InfluxDB Clustered uses OAuth2 to authenticate administrative access to your cluster.
-To connect your InfluxDB cluster to your OAuth2 provide, provide values for the
-following fields in your `myinfluxdb.yml` configuration file:
+Provide values for the following fields in your `AppInstance` resource:
 
 - `spec.package.spec.admin`
   - `identityProvider`: Identity provider name.
@@ -534,20 +467,21 @@ Replace the following:
   Microsoft Entra tenant ID
 - {{% code-placeholder-key %}}`AZURE_USER_ID`{{% /code-placeholder-key %}}:
   Microsoft Entra user ID to grant InfluxDB administrative access to
-  _(See [Find user IDs with Microsoft Entra ID](/influxdb/clustered/install/auth/?t=Microsoft+Entra+ID#find-user-ids-with-microsoft-entra-id))_
+  _(See [Find user IDs with Microsoft Entra ID](/influxdb/clustered/install/secure-cluster/auth/?t=Microsoft+Entra+ID#find-user-ids-with-microsoft-entra-id))_
 
 ---
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-<!-- HELM VERSION -->
+<!------------------------------ END APPINSTANCE ------------------------------>
 
-#### Configure your OAuth2 provider
+{{% /tab-content %}}
+{{% tab-content %}}
 
-InfluxDB Clustered uses OAuth2 to authenticate administrative access to your cluster.
-To connect your InfluxDB cluster to your OAuth2 provide, provide values for the
-following fields in your `values.yaml`:
+<!--------------------------------- BEGIN HELM -------------------------------->
+
+Provide values for the following fields in your `values.yaml`:
 
 - `admin`
   - `identityProvider`: Identity provider name.
@@ -668,17 +602,171 @@ Replace the following:
   Microsoft Entra tenant ID
 - {{% code-placeholder-key %}}`AZURE_USER_ID`{{% /code-placeholder-key %}}:
   Microsoft Entra user ID to grant InfluxDB administrative access to
-  _(See [Find user IDs with Microsoft Entra ID](/influxdb/clustered/install/auth/?t=Microsoft+Entra+ID#find-user-ids-with-microsoft-entra-id))_
+  _(See [Find user IDs with Microsoft Entra ID](/influxdb/clustered/install/secure-cluster/auth/?t=Microsoft+Entra+ID#find-user-ids-with-microsoft-entra-id))_
 
 ---
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-<!-- END HELM VERSIOn -->
+<!--------------------------------- BEGIN HELM -------------------------------->
 
-##### Add users
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
-Finally, to give users access to use `influxctl`, add the list of users to the
-`spec.package.spec.admin.users` field.
-See [Manage users](/influxdb/clustered/admin/users/) for more details.
+{{% note %}}
+For more information about managing users in your InfluxDB Cluster, see
+[Manage users](/influxdb/clustered/admin/users/).
+{{% /note %}}
+
+## Apply your configuration changes
+
+Use `kubectl` or `helm` to apply your configuration changes and connect your
+InfluxDB cluster to your identity provider.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[kubectl](#)
+[Helm](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+<!-- pytest.mark.skip -->
+
+```bash
+kubectl apply \
+  --filename myinfluxdb.yml \
+  --namespace influxdb
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!-- pytest.mark.skip -->
+
+```bash
+helm upgrade \
+  influxdata/influxdb3-clustered \
+  -f ./values.yml \
+  --namespace influxdb
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+## Configure influxctl
+
+The [`influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/) lets you
+perform administrative actions such as creating databases or database tokens.
+All `influxctl` commands are first authorized using your identity provider.
+Update your [`influxctl` configuration file](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles)
+to connect to your identity provider.
+
+The following examples show how to configure `influxctl` for various identity providers:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Keycloak](#)
+[Auth0](#)
+[Microsoft Entra ID](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+<!------------------------------- BEGIN Keycloak ------------------------------>
+
+{{% code-placeholders "KEYCLOAK_(CLIENT_ID|PORT|REALM)" %}}
+
+```toml
+[[profile]]
+    name = "default"
+    product = "clustered"
+    host = "{{< influxdb/host >}}" # InfluxDB cluster host
+    port = "8086" # InfluxDB cluster port
+
+    [profile.auth.oauth2]
+        client_id = "KEYCLOAK_CLIENT_ID"
+        device_url = "https://KEYCLOAK_HOST/realms/KEYCLOAK_REALM/protocol/openid-connect/auth/device"
+        token_url = "https://KEYCLOAK_HOST/realms/KEYCLOAK_REALM/protocol/openid-connect/token"
+```
+
+{{% /code-placeholders %}}
+
+<!-------------------------------- END Keycloak ------------------------------->
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+<!-------------------------------- BEGIN Auth0 -------------------------------->
+
+{{% code-placeholders "AUTH0_(CLIENT_)*(ID|SECRET|HOST)" %}}
+
+```toml
+[[profile]]
+    name = "default"
+    product = "clustered"
+    host = "{{< influxdb/host >}}" # InfluxDB cluster host
+    port = "8086" # InfluxDB cluster port
+
+    [profile.auth.oauth2]
+        client_id = "AUTH0_CLIENT_ID"
+        client_secret = "AUTH0_CLIENT_SECRET"
+        device_url = "https://AUTH0_HOST/oauth/device/code"
+        token_url = "https://AUTH0_HOST/oauth/token"
+```
+
+{{% /code-placeholders %}}
+
+<!--------------------------------- END Auth0 --------------------------------->
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+<!--------------------------- BEGIN Microsoft Entra --------------------------->
+
+{{% code-placeholders "AZURE_(CLIENT|TENANT)_ID" %}}
+
+```toml
+[[profile]]
+    name = "default"
+    product = "clustered"
+    host = "{{< influxdb/host >}}" # InfluxDB cluster host
+    port = "8086" # InfluxDB cluster port
+
+    [profile.auth.oauth2]
+        client_id = "AZURE_CLIENT_ID"
+        scopes = ["AZURE_CLIENT_ID/.default"]
+        device_url = "https://login.microsoftonline.com/AZURE_TENANT_ID/oauth2/v2.0/devicecode"
+        token_url = "https://login.microsoftonline.com/AZURE_TENANT_ID/oauth2/v2.0/token"
+```
+
+{{% /code-placeholders %}}
+
+<!---------------------------- END Microsoft Entra ---------------------------->
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% warn %}}
+### Refresh your admin token {note="Recommended"}
+
+In preparation for moving into production, we strongly recommend revoking your
+cluster's _admin_ token used to authorize with your cluster in the earlier phases
+of the InfluxDB Clustered installation process and generate a new admin token.
+
+For detailed instructions, see
+[Revoke an admin token](/influxdb/clustered/admin/bypass-identity-provider/#revoke-an-admin-token).
+{{% /warn %}}
+
+## Test your authorization flow
+
+To test your identity provider integration and ensure administrative access is
+correctly authorized, run any `influxctl` command that
+_requires administrative authentication_--for example:
+
+<!-- pytest.mark.skip -->
+
+```bash
+influxctl token list
+```
+
+You are directed to authorize with your identity provider before the command
+executes and returns results. If authorized correctly, the command should run
+successfully.
+
+{{< page-nav prev="/influxdb/clustered/install/secure-cluster/tls/" prevText="Set up TLS" >}}

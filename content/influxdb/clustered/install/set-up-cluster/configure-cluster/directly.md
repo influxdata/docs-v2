@@ -10,6 +10,8 @@ menu:
     name: Configure AppInstance
     parent: Configure your cluster
 weight: 220
+list_code_example: |
+  <a class="btn arrow" href="/influxdb/clustered/install/set-up-cluster/configure-cluster/directly/">Configure AppInstance directly <span class="cf-icon CaretOutlineRight"></span></a>
 aliases:
   - /influxdb/clustered/install/configure-cluster/directly/
 ---
@@ -741,4 +743,4 @@ Replace the following:
 
 ---
 
-{{< page-nav prev="/influxdb/clustered/install/auth/" prevText="Set up authentication" next="/influxdb/clustered/install/set-up-cluster/licensing/" nextText="Install your license" >}}
+{{< page-nav prev="/influxdb/clustered/install/secure-cluster/auth/" prevText="Set up authentication" next="/influxdb/clustered/install/set-up-cluster/licensing/" nextText="Install your license" >}}

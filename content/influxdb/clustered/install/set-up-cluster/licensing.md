@@ -8,7 +8,6 @@ menu:
     name: Install your license
     parent: Set up your cluster
 weight: 235
-metadata: ['Install InfluxDB Clustered -- Phase 1: Set up your Cluster']
 influxdb/clustered/tags: [licensing]
 related:
   - /influxdb/clustered/admin/licensing/
@@ -105,37 +104,6 @@ the version number to upgrade to.
 After you have activated your license, use the following signals to verify the
 license is active and functioning.
 
-In your commands, replace the following:
-
-- {{% code-placeholder-key %}}`NAMESPACE`{{% /code-placeholder-key %}}:
-  your [InfluxDB namespace](/influxdb/clustered/install/set-up-cluster/configure-cluster/#create-a-namespace-for-influxdb)
-- {{% code-placeholder-key %}}`POD_NAME`{{% /code-placeholder-key %}}:
-  your [InfluxDB Kubernetes pod](/influxdb/clustered/install/set-up-cluster/deploy/#inspect-cluster-pods)
-
-### Verify database components
-
-After you [install your license](#install-your-influxdb-license),
-run the following command to check that database pods start up and are in the
-`Running` state:
-
-<!--pytest.mark.skip-->
-
-```bash
-kubectl get pods -l app=iox --namespace influxdb
-```
-
-If a `Pod` fails to start, run the following command to view pod information:
-
-<!--pytest.mark.skip-->
-
-{{% code-placeholders "POD_NAME" %}}
-
-```sh
-kubectl describe pod POD_NAME --namespace influxdb
-```
-
-{{% /code-placeholders %}}
-
 ### Verify the `Secret` exists 
 
 Run the following command to verify that the licensing activation created a
@@ -162,5 +130,8 @@ following command:
 ```sh
 kubectl logs deployment/license-controller --namespace influxdb
 ```
+
+For more information about InfluxDB Clustered licensing, see
+[Manage your InfluxDB Clustered license](/influxdb/clustered/admin/licensing/)
 
 {{< page-nav prev="/influxdb/clustered/install/set-up-cluster/configure-cluster/" prevText="Configure your cluster" next="/influxdb/clustered/install/set-up-cluster/deploy/" nextText="Deploy your cluster" keepTab=true >}}

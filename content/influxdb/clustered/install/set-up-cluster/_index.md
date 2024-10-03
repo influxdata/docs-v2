@@ -8,7 +8,13 @@ menu:
     name: Set up your cluster
     parent: Install InfluxDB Clustered
 weight: 101
-metadata: ['Install InfluxDB Clustered -- Phase 1']
+cascade:
+  metadata:
+    - Install InfluxDB Clustered
+    - 'Phase 1: Set up your cluster'
+metadata:
+  - Install InfluxDB Clustered
+  - Phase 1
 ---
 
 The first phase of installing InfluxDB Clustered is to get a basic InfluxDB
