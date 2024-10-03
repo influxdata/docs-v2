@@ -449,8 +449,8 @@ Related entries: [tsm](#tsm-time-structured-merge-tree)
 
 ## web console
 
-Legacy user interface for the InfluxDB Enterprise.
+Legacy user interface for InfluxDB Enterprise.
 
 This interface has been deprecated. We recommend using [Chronograf](/chronograf/v1/introduction/).
 
-If you are transitioning from the Enterprise Web Console to Chronograf, see how to [transition from the InfluxDB Web Admin Interface](/chronograf/v1/guides/transition-web-admin-interface/).
+If you are transitioning from the Enterprise Web Console to Chronograf, see how to [connect Chronograf to an InfluxDB Enterprise cluster](/chronograf/v1/troubleshooting/frequently-asked-questions/#how-do-i-connect-chronograf-to-an-influxdb-enterprise-cluster).

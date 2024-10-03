@@ -6,6 +6,8 @@ menu:
     name: Frequently asked questions (FAQs)
     weight: 10
     parent: Troubleshoot
+aliases:
+  - /chronograf/latest/guides/transition-web-admin-interface/
 ---
 
 ## How do I connect Chronograf to an InfluxDB Enterprise cluster?

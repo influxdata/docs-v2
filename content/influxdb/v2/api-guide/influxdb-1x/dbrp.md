@@ -13,7 +13,7 @@ related:
   - /influxdb/v2/reference/api/influxdb-1x/write
   - /influxdb/v2/api/#tag/DBRPs, InfluxDB v2 API /dbrps endpoint
   - /influxdb/v2/query-data/influxql/
-alias:
+aliases:
   - /influxdb/v2/reference/api/influxdb-1x/dbrp/
 ---
 
