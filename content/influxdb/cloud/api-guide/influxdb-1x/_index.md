@@ -11,7 +11,7 @@ weight: 104
 influxdb/cloud/tags: [influxql, query, write]
 related:
   - /influxdb/cloud/query-data/influxql
-alias:
+aliases:
   - /influxdb/cloud/reference/api/influxdb-1x/
 ---
 
