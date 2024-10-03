@@ -927,7 +927,7 @@
 
       The `experimental/mqtt` package is not supported in InfluxDB 2.7+, but
       is supported in InfluxDB Cloud (TSM). The package is still available to
-      import, but functions will not successfully publish to an MQTT broker.
+      import in OSS, but functions will not successfully publish to an MQTT broker.
   exclude_from:
     oss: ^2\.([7-9]|1[0-9])
     nightly: true
@@ -943,7 +943,7 @@
 
       The `experimental/mqtt` package is not supported in InfluxDB 2.7+, but
       is supported in InfluxDB Cloud (TSM). The package is still available to
-      import, but functions will not successfully publish to an MQTT broker.
+      import in OSS, but functions will not successfully publish to an MQTT broker.
   exclude_from:
     oss: ^2\.([7-9]|1[0-9])
     nightly: true
@@ -956,7 +956,7 @@
 
       The `experimental/mqtt` package is not supported in InfluxDB 2.7+, but
       is supported in InfluxDB Cloud (TSM). The package is still available to
-      import, but functions will not successfully publish to an MQTT broker.
+      import in OSS, but functions will not successfully publish to an MQTT broker.
   exclude_from:
     oss: ^2\.([7-9]|1[0-9])
     nightly: true
