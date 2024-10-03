@@ -7,7 +7,7 @@ menu:
   influxdb_v2:
     name: Query with Flux
     parent: Query data
-alias:
+aliases:
   - /influxdb/v2/query-data/guides/
 ---
 
