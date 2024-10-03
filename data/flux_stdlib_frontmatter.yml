@@ -925,12 +925,11 @@
     content: |
       #### Not supported in InfluxDB OSS 2.7+
 
-      The `experimental.mqtt` package is not supported in InfluxDB 2.7+, but
-      it is supported in InfluxDB Cloud (TSM). You can still import and use
-      the package in InfluxDB 2.7+, but functions will not successfully
-      publish to an MQTT broker.
+      The `experimental/mqtt` package is not supported in InfluxDB 2.7+, but
+      is supported in InfluxDB Cloud (TSM). The package is still available to
+      import, but functions will not successfully publish to an MQTT broker.
   exclude_from:
-    oss: ^2\.[7-9]
+    oss: ^2\.([7-9]|1[0-9])
     nightly: true
 
 /flux/v0/stdlib/experimental/mqtt/to.md: |
@@ -942,12 +941,11 @@
     content: |
       #### Not supported in InfluxDB OSS 2.7+
 
-      The `experimental.mqtt` package is not supported in InfluxDB 2.7+, but
-      it is supported in InfluxDB Cloud (TSM). You can still import and use
-      the package in InfluxDB 2.7+, but functions will not successfully
-      publish to an MQTT broker.
+      The `experimental/mqtt` package is not supported in InfluxDB 2.7+, but
+      is supported in InfluxDB Cloud (TSM). The package is still available to
+      import, but functions will not successfully publish to an MQTT broker.
   exclude_from:
-    oss: ^2\.[7-9]
+    oss: ^2\.([7-9]|1[0-9])
     nightly: true
 
 /flux/v0/stdlib/experimental/mqtt/publish.md: |
@@ -956,12 +954,11 @@
     content: |
       #### Not supported in InfluxDB OSS 2.7+
 
-      The `experimental.mqtt` package is not supported in InfluxDB 2.7+, but
-      it is supported in InfluxDB Cloud (TSM). You can still import and use
-      the package in InfluxDB 2.7+, but functions will not successfully
-      publish to an MQTT broker.
+      The `experimental/mqtt` package is not supported in InfluxDB 2.7+, but
+      is supported in InfluxDB Cloud (TSM). The package is still available to
+      import, but functions will not successfully publish to an MQTT broker.
   exclude_from:
-    oss: ^2\.[7-9]
+    oss: ^2\.([7-9]|1[0-9])
     nightly: true
 
 /flux/v0/stdlib/experimental/oee/_index.md: |
