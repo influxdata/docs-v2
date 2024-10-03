@@ -21,31 +21,47 @@ aliases:
 2. Ensure that InfluxDB is running and you can connect to it.
    For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/v2/reference/urls/).
 
-3. Start a new Node.js project.
-  The `npm` package manager is included with Node.js.
+3. Create a directory for your new Node.js project, and then change to the
+   directory--for example, enter the following command into your terminal:
 
-  ```sh
-  npm init -y influx-node-app
-  ```
+   ```sh
+   mkdir influx-node-app && cd influx-node-app 
+   ```
+
+4. Enter the following command to generate an npm package for your project. 
+   
+   - `npm`: the package manager included with Node.js
+   - `-y`: uses defaults for the package and bypasses prompts
+
+   ```sh
+   npm init -y
+   ```
 
 ## Install TypeScript
 
-Many of the client library examples use [TypeScript](https://www.typescriptlang.org/). Follow these steps to initialize the TypeScript project.
+Many of the client library examples use [TypeScript](https://www.typescriptlang.org/).
+Follow these steps to initialize the TypeScript project:
 
 1. Install TypeScript and type definitions for Node.js.
 
    ```sh
    npm i -g typescript && npm i --save-dev @types/node
    ```
-2. Create a TypeScript configuration with default values.
+
+2. Enter the following command to create a TypeScript configuration
+   (`tsconfig.json`) with default values:
 
    ```sh
    tsc --init
    ```
-3. Run the TypeScript compiler. To recompile your code automatically as you make changes, pass the `watch` flag to the compiler.
 
+3. Run the TypeScript compiler.
+   To recompile your code automatically as you make changes, pass the `--watch, -w` flag to the compiler.
+
+   <!--pytest.mark.skip-->
+   
    ```sh
-   tsc -w -p
+   tsc --watch
    ```
 
 ## Install dependencies
@@ -76,7 +92,7 @@ The client examples include an [`env`](https://github.com/influxdata/influxdb-cl
 The examples use these properties to interact with the InfluxDB API.
 {{% /note %}}
 
-1. Set environment variables or update `env.mjs` with your InfluxDB [bucket](/influxdb/v2/admin/buckets/), [organization](/influxdb/v2/admin/organizations/), [token](/influxdb/v2/admin/tokens/), and [url](/influxdb/v2/reference/urls/).
+1. Set environment variables or update `env.mjs` with your InfluxDB [bucket](/influxdb/v2/admin/buckets/), [organization](/influxdb/v2/admin/organizations/), [token](/influxdb/v2/admin/tokens/), and [URL](/influxdb/v2/reference/urls/).
 
    ```sh
    export INFLUX_URL=http://localhost:8086
@@ -89,7 +105,9 @@ The examples use these properties to interact with the InfluxDB API.
    - *`YOUR_ORG`*: InfluxDB organization ID
    - *`YOUR_BUCKET`*: InfluxDB bucket name
 
-2. Run an example script.
+2. Run one of the [`influxdb-client-js` example scripts](https://github.com/influxdata/influxdb-client-js/tree/master/examples/).
+
+   <!--pytest.mark.skip-->
 
    ```sh
    query.ts
