@@ -75,11 +75,16 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
    - **Create a new configuration**: Enter a configuration name and select an output bucket, and then click **Continue Configuring**.
    - **Add to an existing configuration**: Select an existing Telegraf configuration to add this plugin to, and then click **Add to Existing Config**.
 5. Provide a **Telegraf Configuration Name** and an optional **Telegraf Configuration Description**.
-6. Adjust configuration settings as needed. To find configuration settings for a specific plugin, see [Telegraf plugins](/telegraf/latest/plugins/).
-7. Click **Save and Test**.
-8. The **Test Your Configuration** page provides instructions for how to start
+6. Adjust configuration settings as needed.
+   The configuration includes settings for the [InfluxDB v2 output plugin](/telegraf/v1/plugins/#output-influxdb_v2) to write to your bucket.
+   To find configuration settings for a specific plugin, see [Telegraf plugins](/telegraf/latest/plugins/).
+7. Click **Save and Test**. Your input plugin configuration is appended to the default agent settings and the InfluxDB output plugin configuration.
+8.  The **Test Your Configuration** page provides instructions for how to start
    Telegraf using the generated configuration.
    _See [Start Telegraf](/influxdb/cloud/write-data/no-code/use-telegraf/auto-config/#start-telegraf) below for detailed information about what each step does._
-9. Once Telegraf is running, click **Listen for Data** to confirm Telegraf is successfully sending data to InfluxDB.
+9.  Once Telegraf is running, click **Listen for Data** to confirm Telegraf is successfully sending data to InfluxDB.
    Once confirmed, a **Connection Found!** message appears.
-10. Click **Finish**. Your Telegraf configuration name and the associated bucket name appear in the list of Telegraf configurations.
+10. Click **Finish**.
+    Your Telegraf configuration name and the associated bucket name appear in the list of Telegraf configurations.
+11. To view or edit the configuration, click the configuration name.
+12. To view default settings used to write data to InfluxDB, click **InfluxDB Output Plugin**.
