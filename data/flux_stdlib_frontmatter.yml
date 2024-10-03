@@ -923,14 +923,15 @@
   prepend:
     block: warn
     content: |
-      #### Not supported in InfluxDB OSS
+      #### Only supported in InfluxDB Cloud (TSM)
 
-      The `experimental/mqtt` package is not supported in InfluxDB, but is
-      supported in InfluxDB Cloud (TSM). The package is still available to
-      import in OSS, but functions will not successfully publish to an MQTT broker.
+      The `experimental/mqtt` package only supported in InfluxDB Cloud (TSM).
+      It is still available to import in InfluxDB OSS and Enterprise, but
+      functions will not successfully publish to an MQTT broker.
   exclude_from:
-    oss: *
     nightly: true
+    oss: ^*
+    enterprise: ^*
 
 /flux/v0/stdlib/experimental/mqtt/to.md: |
   aliases:
@@ -939,27 +940,29 @@
   prepend:
     block: warn
     content: |
-      #### Not supported in InfluxDB OSS
+      #### Only supported in InfluxDB Cloud (TSM)
 
-      The `experimental/mqtt` package is not supported in InfluxDB, but is
-      supported in InfluxDB Cloud (TSM). The package is still available to
-      import in OSS, but functions will not successfully publish to an MQTT broker.
+      The `experimental/mqtt` package only supported in InfluxDB Cloud (TSM).
+      It is still available to import in InfluxDB OSS and Enterprise, but
+      functions will not successfully publish to an MQTT broker.
   exclude_from:
-    oss: *
     nightly: true
+    oss: ^*
+    enterprise: ^*
 
 /flux/v0/stdlib/experimental/mqtt/publish.md: |
   prepend:
     block: warn
     content: |
-      #### Not supported in InfluxDB OSS
+      #### Only supported in InfluxDB Cloud (TSM)
 
-      The `experimental/mqtt` package is not supported in InfluxDB, but is
-      supported in InfluxDB Cloud (TSM). The package is still available to
-      import in OSS, but functions will not successfully publish to an MQTT broker.
+      The `experimental/mqtt` package only supported in InfluxDB Cloud (TSM).
+      It is still available to import in InfluxDB OSS and Enterprise, but
+      functions will not successfully publish to an MQTT broker.
   exclude_from:
-    oss: *
     nightly: true
+    oss: ^*
+    enterprise: ^*
 
 /flux/v0/stdlib/experimental/oee/_index.md: |
   aliases:
