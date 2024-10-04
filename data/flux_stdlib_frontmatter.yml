@@ -920,11 +920,49 @@
   aliases:
     - /influxdb/v2/reference/flux/stdlib/experimental/mqtt/
     - /influxdb/cloud/reference/flux/stdlib/experimental/mqtt/
+  prepend:
+    block: warn
+    content: |
+      #### Only supported in InfluxDB Cloud (TSM)
+
+      The `experimental/mqtt` package only supported in InfluxDB Cloud (TSM).
+      It is still available to import in InfluxDB OSS and Enterprise, but
+      functions will not successfully publish to an MQTT broker.
+  exclude_from:
+    nightly: true
+    oss: ^*
+    enterprise: ^*
 
 /flux/v0/stdlib/experimental/mqtt/to.md: |
   aliases:
     - /influxdb/v2/reference/flux/stdlib/experimental/mqtt/to/
     - /influxdb/cloud/reference/flux/stdlib/experimental/mqtt/to/
+  prepend:
+    block: warn
+    content: |
+      #### Only supported in InfluxDB Cloud (TSM)
+
+      The `experimental/mqtt` package only supported in InfluxDB Cloud (TSM).
+      It is still available to import in InfluxDB OSS and Enterprise, but
+      functions will not successfully publish to an MQTT broker.
+  exclude_from:
+    nightly: true
+    oss: ^*
+    enterprise: ^*
+
+/flux/v0/stdlib/experimental/mqtt/publish.md: |
+  prepend:
+    block: warn
+    content: |
+      #### Only supported in InfluxDB Cloud (TSM)
+
+      The `experimental/mqtt` package only supported in InfluxDB Cloud (TSM).
+      It is still available to import in InfluxDB OSS and Enterprise, but
+      functions will not successfully publish to an MQTT broker.
+  exclude_from:
+    nightly: true
+    oss: ^*
+    enterprise: ^*
 
 /flux/v0/stdlib/experimental/oee/_index.md: |
   aliases:
