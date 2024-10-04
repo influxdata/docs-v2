@@ -45,7 +45,8 @@
         {{ $versionSemVer := split $value "." }}
         {{ $supported := cond (ge (index $versionSemVer 0) (index $introducedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $introducedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $introducedSemVer 2)) true false) false) false }}
         {{ $deprecated := and (isset $.Page.Params "deprecated") (cond (ge (index $versionSemVer 0) (index $deprecatedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $deprecatedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $deprecatedSemVer 2)) true false) false) false) }}
-        {{ $excluded := gt (len (findRE (string $excludePatternOSS) $key)) 0 }}
+        {{ $nightlyExcluded := and (eq $key "nightly") $.Page.Params.exclude_from.nightly }}
+        {{ $excluded := or (gt (len (findRE (string $excludePatternOSS) $key)) 0) $nightlyExcluded }}
         <div class="version-row">
           <div class="version-col"><p>InfluxDB {{ $key }}</p></div>
           <div class="version-col"><p>
