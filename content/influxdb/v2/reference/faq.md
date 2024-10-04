@@ -1088,7 +1088,7 @@ Each InfluxDB Cloud organization has a series cardinality limit to prevent
 runaway cardinality. For information about adjusting cardinality limits, see
 [How do I increase my organization’s rate limits and quotas?](#how-do-i-increase-my-organizations-rate-limits-and-quotas).
 
-{{% /oss-only %}}
+{{% /cloud-only %}}
 
 Use [`influxdb.cardinality()`](/flux/v0/stdlib/influxdata/influxdb/cardinality/) in Flux
 or [`SHOW SERIES CARDINALITY`](/influxdb/v1/query_language/spec/#show-series-cardinality)
