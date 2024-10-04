@@ -20,6 +20,8 @@ metadata:
 This phase of the installation process prepares your InfluxDB cluster for
 production use by enabling security options to ensure your cluster is secured.
 
+## Phase 4 process
+
 {{< children type="ordered-list" >}}
 
-{{< page-nav prev="/influxdb/clustered/install/set-up-cluster/optimize-cluster/" prevText="Phase 3: Optimize your cluster" next="/influxdb/clustered/install/secure-cluster/tls/" nextText="Set up TLS" >}}
+{{< page-nav prev="/influxdb/clustered/install/optimize-cluster/optimize-querying/" prevText="Optimize querying" next="/influxdb/clustered/install/secure-cluster/tls/" nextText="Set up TLS" >}}

@@ -196,7 +196,7 @@ The following are important fields in the JSON object that are necessary to
 connect your InfluxDB cluster and administrative tools to Keycloak:
 
 - **jwks_uri**: Used in your InfluxDB cluster configuration file.
-  _See [Configure your cluster--Configure your OAuth2 provider](/influxdb/clustered/install/set-up-cluster/configure-cluster/#configure-your-oauth2-provider)_.
+  _See [Configure your cluster to connect to your identity provider](#configure-your-cluster-to-connect-to-your-identity-provider)_.
 - **device_authorization_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.device_url`)
 - **token_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.token_url`)
 
@@ -306,7 +306,7 @@ The following are important fields in the JSON object that are necessary to
 connect your InfluxDB cluster and administrative tools to Keycloak:
 
 - **jwks_uri**: Used in your InfluxDB cluster configuration file.
-  _See [Configure your cluster--Configure your OAuth2 provider](/influxdb/clustered/install/set-up-cluster/configure-cluster/?t=Microsoft+Entra+ID#configure-your-oauth2-provider)_.
+  _See [Configure your cluster to connect to your identity provider](#configure-your-cluster-to-connect-to-your-identity-provider)_.
 - **device_authorization_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.device_url`)
 - **token_endpoint**: Used in your [`influxctl` configuration file](#configure-influxctl) (`profile.auth.oauth2.token_url`)
 

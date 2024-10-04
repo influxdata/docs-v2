@@ -67,7 +67,7 @@ Provide the TLS certificate secret to the InfluxDB configuration in the
 ### Configure ingress
 
 Update your `AppInstance` resource to reference the secret that
-[contains your TLS certificate and key](#set-up-cluster-ingress).
+[contains your TLS certificate and key](#set-up-ingress-tls).
 The examples below use the name `ingress-tls`.
 
 - **If modifying the `AppInstance` resource directly**, reference the TLS secret

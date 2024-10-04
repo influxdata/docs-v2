@@ -348,8 +348,6 @@ connect your cluster to your prerequisites.
 - [Configure the object store](#configure-the-object-store)
 - [Configure the catalog database](#configure-the-catalog-database)
 - [Configure local storage for ingesters](#configure-local-storage-for-ingesters)
-- [Configure your OAuth2 provider](#configure-your-oauth2-provider)
-- [Configure the size of your cluster](#configure-the-size-of-your-cluster)
 
 #### Configure ingress
 

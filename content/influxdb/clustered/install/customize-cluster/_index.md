@@ -22,6 +22,8 @@ related:
 This phase of the installation process customizes the scale and configuration of
 your InfluxDB cluster to meet the needs of your specific workload.
 
+## Phase 2 process
+
 {{< children type="ordered-list" >}}
 
 {{< page-nav prev="/influxdb/clustered/install/set-up-cluster/test-cluster/" prevText="Test your cluster" next="/influxdb/clustered/install/customize-cluster/scale/" nextText="Customize cluster scale" >}}

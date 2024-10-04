@@ -14,7 +14,7 @@ aliases:
   - /influxdb/clustered/reference/client-libraries/v3/pyinflux3/
 related:
   - /influxdb/clustered/query-data/execute-queries/troubleshoot/
-list_code_example: >
+list_code_example: |
   <!-- Import for tests and hide from users.
   ```python
   import os

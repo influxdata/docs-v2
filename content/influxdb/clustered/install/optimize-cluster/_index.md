@@ -1,7 +1,8 @@
 ---
 title: Optimize your InfluxDB cluster
 description: >
-  ....
+  Test your cluster with a production-like workload and optimize your cluster
+  for your workload.
 menu:
   influxdb_clustered:
     name: Optimize your cluster
@@ -16,10 +17,31 @@ metadata:
   - Phase 3
 ---
 
-- Simulate a production-like workload
-- Define your schema
-- Define your query patterns
-- Optimize for your workload:
-  - Querying by specific tag values? Partition by those tags.
-  - Is your schema wide? SELECT specific columns in queries rather than wildcards.
+The goal of this phase of the installation process is to simulate a
+production-like workload against your InfluxDB cluster and make changes to
+optimize your cluster for your workload.
 
+{{% note %}}
+Depending on your requirements, this phase is likely to take the longest of all
+the installation phases.
+{{% /note %}}
+
+## Identify performance requirements {note="Recommended"}
+
+Before beginning this process, we recommend identifying performance requirements
+and goals--for example:
+
+- Writes per second
+- Query concurrency
+- Query response time
+- etc.
+
+This gives specific metrics to test for and make adjustments towards.
+Consult with [InfluxData support](https://support.influxdata.com) as you make
+changes to meet these requirements and goals.
+
+## Phase 3 process
+
+{{< children type="ordered-list" >}}
+
+{{< page-nav prev="/influxdb/clustered/install/customize-cluster/config/" prevText="Customize cluster configuration" next="/influxdb/clustered/install/optimize-cluster/design-schema/" nextText="Design your schema" >}}
