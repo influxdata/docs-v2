@@ -146,20 +146,25 @@ line protocol above to InfluxDB.
     {{% oss-only %}}[localhost:8086](http://localhost:8086){{% /oss-only %}}
     {{% cloud-only %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /cloud-only %}}
     in a browser to log in and access the InfluxDB UI.
-
-2.  Navigate to **Load Data** > **Buckets** using the left navigation bar.
+2. Navigate to **Load Data** > **Scraper** using the left navigation bar.
+3. Click **Add Scraper**.
+4. Enter a meaningful name for your scraper.
+5. Under **Bucket to store scraped data**, select the `get-started` bucket from the dropdown.
+6. Click **Create**.
+7. Navigate to **Load Data** > **Buckets** using the left navigation bar.
 
 {{< nav-icon "load data" >}}
 
-3.  Click **{{< icon "plus" >}} {{< caps >}}Add Data{{< /caps >}}** on the bucket
-    you want to write the data to and select **Line Protocol**.
-4.  Select **{{< caps >}}Enter Manually{{< /caps >}}**.
-5.  {{< req "Important" >}} In the **Precision** drop-down menu above the line
+8. Click **{{< icon "plus" >}} {{< caps >}}Add Data{{< /caps >}}** on the bucket you want to write the data to and select **Line Protocol**.
+9. Select **{{< caps >}}Enter Manually{{< /caps >}}**.
+10. {{< req "Important" >}} In the **Precision** drop-down menu above the line
     protocol text field, select **Seconds** (to match to precision of the
     timestamps in the line protocol).
-6.  Copy the [line protocol above](#home-sensor-data-line-protocol) and paste it
+11. Copy the [line protocol above](#home-sensor-data-line-protocol) and paste it
     into the line protocol text field.
-7.  Click **{{< caps >}}Write Data{{< /caps >}}**.
+12. Click **{{< caps >}}Write Data{{< /caps >}}**.
+ 
+
 
 The UI will confirm that the data has been written successfully.
 
