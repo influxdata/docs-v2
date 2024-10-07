@@ -22,7 +22,7 @@ related:
 This phase of the installation process customizes the scale and configuration of
 your InfluxDB cluster to meet the needs of your specific workload.
 
-## Phase 2 process
+## Phase 2 steps 
 
 {{< children type="ordered-list" >}}
 

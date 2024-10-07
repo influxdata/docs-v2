@@ -22,14 +22,14 @@ typical query patterns and employ optimizations to ensure query performance.
 
 ## Define your query patterns
 
-Understanding your typical query pattern helps to prioritize what optimizations
-can be made to ensure your query performance meets your requirements.
+Understanding your typical query patterns helps prioritize optimizations to meet your query performance requirements.
+
 For example, consider the following questions:
 
 - **Do you typically query data by a specific tag values?**  
   [Apply custom partitioning](/influxdb/clustered/admin/custom-partitions/) to
   your target database or table to partition by those tags. Partitioning by
-  commonly-queried tags helps InfluxDB to quickly identify where the relevant
+  commonly queried tags helps InfluxDB to quickly identify where the relevant
   data is in storage and improves query performance.
 - **Do you query tables with [wide schemas](/influxdb/clustered/write-data/best-practices/schema-design/#avoid-wide-schemas)?**  
   Avoid using wildcards (`*`) in your `SELECT` statement. Select specific
@@ -49,7 +49,7 @@ designed for InfluxDB v1 and specifically querying time series data.
 
 The InfluxDB SQL implementation is a full-featured SQL query engine powered by
 [Apache DataFusion](https://datafusion.apache.org/). It benefits from a robust
-upstream community that is constantly improving the functionality and performance
+upstream community that is constantly improving the features and performance
 of the engine. Some time series-specific queries (such as time-based aggregates)
 are more verbose in SQL than in InfluxQL, but they are still possible.
 

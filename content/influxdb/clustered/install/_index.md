@@ -7,9 +7,10 @@ weight: 2
 ---
 
 InfluxDB Clustered is deployed and managed using Kubernetes.
-This installation guide walks through the following four installation phases and
-the goal of each phase. This process ensures your cluster is set up and running
-properly and will perform well with your expected production workload.
+This installation guide walks you through the following four installation phases and
+the goal of each phase.
+This process helps you set up and run your cluster and ensure it
+performs well with your expected production workload.
 
 1.  **[Set up your cluster](/influxdb/clustered/install/set-up-cluster/)**:
     Get a basic InfluxDB cluster up and running with as few external

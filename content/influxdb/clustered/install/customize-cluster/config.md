@@ -13,7 +13,7 @@ related:
 ---
 
 Use environment variables to customize configuration options for components in
-your InfluxDB cluster. Environment variables are set on a per-component basis.
+your InfluxDB cluster.
 
 {{< tabs-wrapper >}}
 {{% tabs "medium" %}}
@@ -108,7 +108,7 @@ environment variables, [contact InfluxData Support](https://support.influxdata.c
 
 <!-- 
 
-TO-DO: We need to get a list of what environment variables users can modify and
+TODO: We need to get a list of what environment variables users can modify and
 what each does. This section should show examples of how to set the environment
 variables, but point to the master list somewhere in the reference section.
 

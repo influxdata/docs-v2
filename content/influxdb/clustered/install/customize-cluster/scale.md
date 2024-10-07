@@ -42,14 +42,14 @@ to increase your write throughput and latency.
 The default values provide a good starting point for testing.
 Once you have your cluster up and running and are looking for scaling
 recommendations for your anticipated workload, please
-[contact the InfluxData Support team](https://support.influxdata.com).
-We are happy to work with you to identify appropriate scale settings based on
+[contact the InfluxData Support team](https://support.influxdata.com) to help you
+identify appropriate scale settings based on
 your anticipated workload.
 
 ## Customize scale settings
 
 Your `AppInstance` resource controls the scale of components in your InfluxDB
-cluster. You can edit `AppInstance` resource directly or, if using the
+cluster. You can edit the `AppInstance` resource directly or, if using the
 [InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered)
 to manage your deployment, you can edit resource settings in your `values.yaml`.
 
@@ -58,8 +58,7 @@ _For specific scaling recommendations and guidelines, see
 [Scale your cluster](/influxdb/clustered/admin/scale-cluster/)._
 {{% /note %}}
 
-With Kubernetes, you can define both the minimum resources to request for each
-component and resource limits to apply to each component.
+With Kubernetes, you can define the minimum resources and the resource limits for each component.
 
 {{< tabs-wrapper >}}
 {{% tabs "medium" %}}

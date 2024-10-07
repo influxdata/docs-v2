@@ -20,7 +20,7 @@ the InfluxDB Clustered software.
 - [Install your InfluxDB license](#install-your-influxdb-license)
 - [Verify your license](#verify-your-license)
   - [Verify database components](#verify-database-components)
-  - [Verify the Secret exists ](#verify-the-secret-exists-)
+  - [Verify the Secret exists ](#verify-the-secret-exists)
   - [View license controller logs](#view-license-controller-logs)
 - [Recover from a license misconfiguration](#recover-from-a-license-misconfiguration)
 - [Renew your license](#renew-your-license)
@@ -37,7 +37,7 @@ the InfluxDB Clustered software.
 If setting up an InfluxDB Clustered deployment for the first time, first
 [set up the prerequisites](/influxdb/clustered/install/set-up-cluster/licensing/) and
 [configure your cluster](/influxdb/clustered/install/set-up-cluster/configure-cluster/).
-After your InfluxDB namespace is created and prepared, you will be able to
+After your InfluxDB namespace is created and prepared, you can 
 install your license.
 {{% /note %}}
 
@@ -124,7 +124,7 @@ kubectl logs deployment/license-controller --namespace influxdb
 
 ## Recover from a license misconfiguration
 
-If you deploy a licensed release of InfluxDB Clustered with an invalid or
+If you deploy a licensed release of {{% product-name %}} with an invalid or
 expired license, many of the pods in your cluster will crash on startup and will
 likely enter a `CrashLoopBackoff` state without ever running or becoming healthy.
 Because InfluxDB stores the license in a volume-mounted Kubernetes secret, invalid

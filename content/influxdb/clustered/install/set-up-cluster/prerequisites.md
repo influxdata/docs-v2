@@ -41,7 +41,9 @@ The following walks through preparing these prerequisites.
 
 Kubernetes provides the `kubectl` command line tool for communicating with a
 Kubernetes cluster's control plane. `kubectl` is used to manage your InfluxDB
-cluster. Install `kubectl` on your local machine.
+cluster.
+
+Follow instructions to install `kubectl` on your local machine:
 
 {{% note %}}
 InfluxDB Clustered Kubernetes deployments require `kubectl` 1.27 or higher.
@@ -63,7 +65,7 @@ InfluxDB Clustered requires **Kubernetes v1.25 or later**.
     {{% /note %}}
 
 2.  Ensure `kubectl` can connect to your Kubernetes cluster.
-    Your Manage [kubconfig file](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+    Your Manage [kubeconfig file](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
     defines cluster connection credentials.
 
 3.  Create two namespaces--`influxdb` and `kubit`. Use
@@ -89,7 +91,7 @@ InfluxDB Clustered requires **Kubernetes v1.25 or later**.
 
 ### Cluster sizing recommendation
 
-For a [medium-size workload](https://www.influxdata.com/resources/influxdb-3-0-vs-oss/),
+For a [medium-sized workload](https://www.influxdata.com/resources/influxdb-3-0-vs-oss/),
 InfluxData has tested InfluxDB Clustered using the following **AWS products**
 and sizing:
 
@@ -147,7 +149,7 @@ InfluxDB Clustered supports AWS S3 or S3-compatible storage (including Google
 Cloud Storage, Azure Blob Storage, and MinIO) for storing
 [InfluxDB Parquet files](/influxdb/clustered/reference/internals/storage-engine/#object-store).
 Refer to your object storage provider's documentation for information about
-setting up an object store.
+setting up an object store:
 
 - [Create an AWS S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html)
 - [Create a Google Cloud Storage bucket](https://cloud.google.com/storage/docs/creating-buckets)
@@ -294,11 +296,11 @@ The [InfluxDB Catalog](/influxdb/clustered/reference/internals/storage-engine/#c
 that stores metadata related to your time series data requires a PostgreSQL or
 PostgreSQL-compatible database _(AWS Aurora, hosted PostgreSQL, etc.)_.
 The process for installing and setting up your PostgreSQL-compatible database
-depend on the database you use or the database provider.
+depends on the database and database provider you use.
 Refer to your database's or provider's documentation for setting up your
 PostgreSQL-compatible database.
 
-### PosgreSQL-compatible database requirements
+### PostgreSQL-compatible database requirements
 
 - PostgreSQL versions **13.8–14.6**.
 - Minimum of 4 GB of memory or equivalent provider-specific units.

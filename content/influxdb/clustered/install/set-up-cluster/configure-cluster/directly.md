@@ -17,8 +17,8 @@ aliases:
 ---
 
 Configure your InfluxDB cluster by editing configuration options in 
-the provided `AppInstance` resource provided by InfluxData. InfluxData provides
-the following for your InfluxDB cluster:
+the `AppInstance` resource provided by InfluxData.
+Resource configuration for your cluster includes the following:
 
 - **`influxdb-docker-config.json`**: an authenticated Docker configuration file.
   The InfluxDB Clustered software is in a secure container registry.
@@ -26,14 +26,14 @@ the following for your InfluxDB cluster:
   install InfluxDB Clustered.
 - **A tarball that contains the following files**:
 
-  - **`app-instance-schema.json`**: Defines the schema for `example-customer.yml`
-    to be used with [Visual Studio Code (VS Code)](https://code.visualstudio.com/).
+  - **`app-instance-schema.json`**: Defines the schema
+    that you can use to validate `example-customer.yml` and your cluster configuration in tools like [Visual Studio Code (VS Code)](https://code.visualstudio.com/).
   - **`example-customer.yml`**: Configuration for your InfluxDB cluster that includes
     information about [prerequisites](/influxdb/clustered/install/set-up-cluster/prerequisites/).
 
     {{% note %}}
 
-This documentation refers to a `myinfluxdb.yml` file that you copy from
+The following sections refer to a `myinfluxdb.yml` file that you copy from
 `example-customer.yml` and edit for your InfluxDB cluster.
 
     {{% /note %}}
@@ -51,28 +51,27 @@ available:
   - Endpoint URL
   - Access key
   - Bucket name
-  - Region (required for S3, may not be required for other object stores)
+  - Region (required for S3, might not be required for other object stores)
 - **Local or attached storage information** _(for ingester pods)_
   - Storage class
   - Storage size
 
-InfluxDB is deployed to a Kubernetes namespace which, throughout the following
-installation procedure, is referred to as the _target_ namespace.
-For simplicity, we assume this namespace is `influxdb`, however
-you may use any name you like.
+You deploy {{% product-name %}} to a Kubernetes namespace, referred to as the
+_target_ namespace in the following procedures.
+For simplicity, we assume this namespace is `influxdb`--you can use any name you like.
 
-The InfluxDB installation, update, and upgrade processes are driven by editing
-and applying a [Kubernetes custom resource (CRD)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
-called `AppInstance`.
-The `AppInstance` CRD is defined in a YAML file (use `example-customer.yml` as a
-template).
+To manage {{% product-name %}} installation, updates, and upgrades, you edit  
+and apply a [Kubernetes custom resource (CRD)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)  
+(`AppInstance`), which you define in a YAML file that conforms to the `app-instance-schema.json` schema.
+
+{{% product-name %}} includes `example-customer.yml` as a configuration template.
 
 The `AppInstance` resource contains key information, such as:
 
 - Name of the target namespace
 - Version of the InfluxDB package
 - Reference to the InfluxDB container registry pull secrets
-- Hostname where the InfluxDB API is exposed
+- Hostname of your cluster's InfluxDB API
 - Parameters to connect to [external prerequisites](/influxdb/clustered/install/set-up-cluster/prerequisites/)
 
 {{% note %}}
@@ -106,7 +105,7 @@ cp example-customer.yml myinfluxdb.yml
 
 We recommend using [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
 to edit your `myinfluxdb.yml` configuration file due to its JSON Schema support,
-autocompletion, and validation features that ensure the best experience when
+including autocompletion and validation features that help when 
 editing your InfluxDB configuration. InfluxData provides an
 `app-instance-schema.json` JSON schema file that VS Code can use to validate
 your configuration settings.
@@ -115,14 +114,14 @@ your configuration settings.
 ### Configure access to the InfluxDB container registry
 
 The provided `influxdb-docker-config.json` grants access to a collection of
-container images required to run InfluxDB Clustered.
-Your Kubernetes Cluster needs access to the container registry to pull down and
+container images required to run {{% product-name %}}.
+Your Kubernetes Cluster needs access to the container registry to pull and
 install InfluxDB.
 
-When pulling InfluxDB Clustered images, there are two main scenarios:
+When pulling the {{% product-name %}} image, you're likely in one of two scenarios:
 
-- You have a Kubernetes cluster that can pull from the InfluxData container registry.
-- You run in an environment with no network interfaces ("air-gapped") and you
+- Your Kubernetes cluster can pull from the InfluxData container registry.
+- Your cluster runs in an environment without network interfaces ("air-gapped") and
   can only access a private container registry.
 
 In both scenarios, you need a valid _pull secret_.
@@ -153,8 +152,8 @@ If successful, the output is the following:
 secret/gar-docker-secret created
 ```
 
-By default, this secret is named `gar-docker-secret`.
-If you change the name of this secret, you must also change the value of the
+By default, the name of the secret is `gar-docker-secret`.
+If you change the name of the secret, you must also change the value of the
 `imagePullSecret` field in the `AppInstance` custom resource to match.
 
 <!---------------------------- END Public Registry ---------------------------->
@@ -167,9 +166,9 @@ If you change the name of this secret, you must also change the value of the
 #### Private registry (air-gapped)
 
 If your Kubernetes cluster can't use a public network to download container images
-from our container registry, do the following:
+from the InfluxData container registry, do the following:
 
-1.  Copy the images from the InfluxDB registry to your own private registry.
+1.  Copy the images from the InfluxData registry to your own private registry.
 2.  Configure your `AppInstance` resource with a reference to your private
     registry name.
 3.  Provide credentials to your private registry.
@@ -282,7 +281,6 @@ Use `crane` to copy the images to your private registry:
 
 {{% /code-placeholders %}}
 
----
 
 Replace {{% code-placeholder-key %}}`REGISTRY_HOSTNAME`{{% /code-placeholder-key %}}
 with the hostname of your private registry--for example:
@@ -291,7 +289,6 @@ with the hostname of your private registry--for example:
 myregistry.mydomain.io
 ```
 
----
 
 ##### Configure your AppInstance
 
@@ -318,7 +315,7 @@ spec:
 
 If your private container registry requires pull secrets to access images, you
 can create the required kubernetes secrets, and then configure them in your
-AppInstance resource.
+AppInstance resource--for example:
 
 {{% code-placeholders "PULL_SECRET_NAME" %}}
 
@@ -649,13 +646,13 @@ Replace the following:
 {{% warn %}}
 ##### Percent-encode special symbols in PostgreSQL DSNs
 
-Special symbols in PostgreSQL DSNs should be percent-encoded to ensure they
-are parsed correctly by InfluxDB Clustered. This is important to consider when
-using DSNs containing auto-generated passwords which may include special
-symbols to make passwords more secure.
+Percent-encode special symbols in PostgreSQL DSNs to ensure
+{{% product-name %}} parses them correctly.
+Consider this when using DSNs with auto-generated passwords that include special
+symbols for added security.
 
-A DSN with special characters that are not percent-encoded result in an error
-similar to:
+If a DSN contains special characters that aren't percent-encoded,
+you might encounter an error similar to the following:
 
 ```txt
 Catalog DSN error: A catalog error occurred: unhandled external error: error with configuration: invalid port number

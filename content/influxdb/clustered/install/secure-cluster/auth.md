@@ -765,8 +765,9 @@ _requires administrative authentication_--for example:
 influxctl token list
 ```
 
-You are directed to authorize with your identity provider before the command
-executes and returns results. If authorized correctly, the command should run
+Before executing, the command directs you to authorize with
+your identity provider.
+After you authorize successfully, the command runs and returns results.
 successfully.
 
 {{< page-nav prev="/influxdb/clustered/install/secure-cluster/tls/" prevText="Set up TLS" >}}

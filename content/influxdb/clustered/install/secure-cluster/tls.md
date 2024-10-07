@@ -10,8 +10,9 @@ menu:
 weight: 210
 ---
 
-Set up TLS in your InfluxDB to ensure both incoming and outgoing data is
-encrypted and secure. TLS should be used to encrypt communication for the
+Set up TLS in your InfluxDB cluster to ensure both incoming and outgoing data is
+encrypted and secure.
+We recommend using TLS to encrypt communication for the
 following:
 
 - Ingress to your cluster
@@ -174,8 +175,7 @@ objectStore:
 ## Require TLS on your catalog database
 
 Refer to your PostreSQL-compatible database provider's documentation for
-information about installing TLS certificates and ensuring all connections are
-secure.
+installing TLS certificates and ensuring secure connections.
 
 If currently using an unsecure connection to your Catalog database, update your
 Catalog data source name (DSN) to **remove the `sslmode=disable` query parameter**:

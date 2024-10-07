@@ -34,7 +34,6 @@ and goals--for example:
 - Writes per second
 - Query concurrency
 - Query response time
-- etc.
 
 This gives specific metrics to test for and make adjustments towards.
 Consult with [InfluxData support](https://support.influxdata.com) as you make

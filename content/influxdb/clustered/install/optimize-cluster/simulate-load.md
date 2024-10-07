@@ -21,9 +21,9 @@ We do not recommend writing production data to your InfluxDB cluster at this poi
 ## Load testing tools
 
 Contact your [InfluxData sales representative](https://influxdata.com/contact-sales)
-for information about tools that you can use to load test your InfluxDB cluster.
-There are tools available that can simulate your schema and desired write
-concurrency to ensure your cluster performs under production-like load.
+for information about load testing tools.
+These tools can simulate your schema and
+desired write concurrency to ensure your cluster performs under production-like load.
 
 <!-- TO-DO: Would love to be able to list available tools here -->
 

@@ -45,8 +45,7 @@ For more information, see [Tags versus fields](/influxdb/clustered/write-data/be
 InfluxDB enforces the following schema restrictions:
 
 - You cannot use the same name for a tag and a field in the same table.
-- There is a limit to the number of columns you can store in a table.
-  By default, tables can have up to 250 columns.
+- By default, a table can have up to 250 columns.
 
 For more information, see [InfluxDB schema restrictions](/influxdb/clustered/write-data/best-practices/schema-design/#schema-restrictions).
 

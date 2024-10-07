@@ -21,7 +21,7 @@ The first phase of installing InfluxDB Clustered is to get a basic InfluxDB
 cluster up and running with as few external dependencies as possible and confirm
 you can write and query data.
 
-## Phase 1 process
+## Phase 1 steps 
 
 {{< children type="ordered-list" >}}
 
