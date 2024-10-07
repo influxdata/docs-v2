@@ -11,7 +11,7 @@ menu:
     parent: Configure your cluster
 weight: 220
 list_code_example: |
-  <a class="btn arrow" href="/influxdb/clustered/install/set-up-cluster/configure-cluster/directly/">Configure AppInstance directly <span class="cf-icon CaretOutlineRight"></span></a>
+  <a class="btn arrow" href="/influxdb/clustered/install/set-up-cluster/configure-cluster/directly/">Configure AppInstance directly <em class="op65">Recommended</em> <span class="cf-icon CaretOutlineRight"></span></a>
 aliases:
   - /influxdb/clustered/install/configure-cluster/directly/
 ---

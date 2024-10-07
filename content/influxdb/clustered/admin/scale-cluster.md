@@ -32,6 +32,7 @@ resources available to each component.
   - [Querier](#querier)
   - [Router](#router)
   - [Compactor](#compactor)
+  - [Garbage collector](#garbage-collector)
   - [Catalog](#catalog)
   - [Object store](#object-store)
 
@@ -67,6 +68,7 @@ properties in your `AppInstance` resource:
 - Querier
 - Compactor
 - Router
+- Garbage collector
 
 {{% note %}}
 #### Scale your Catalog and Object store
@@ -129,11 +131,18 @@ resource minimums and limits per pod and replicas per component:
     - `limits`
       - `cpu`: Maximum CPU Resource units to assign to routers
       - `memory`: Maximum memory resource units to assign to routers
+  - `garbage-collector`
+    - `requests`
+      - `cpu`: Minimum CPU resource units to assign to the garbage collector
+      - `memory`: Minimum memory resource units to assign to the garbage collector
+    - `limits`
+      - `cpu`: Maximum CPU Resource units to assign to the garbage collector
+      - `memory`: Maximum memory resource units to assign to the garbage collector
 
 {{< expand-wrapper >}}
 {{% expand "View example `AppInstance` with resource requests and limits" %}}
 
-{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
+{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
 
 ```yml
 apiVersion: kubecfg.dev/v1alpha1
@@ -178,6 +187,13 @@ spec:
           limits:
             cpu: ROUTER_CPU_MAX
             memory: ROUTER_MEMORY_MAX
+        garbage-collector:
+          requests:
+            cpu: GC_CPU_MIN
+            memory: GC_MEMORY_MIN
+          limits:
+            cpu: GC_CPU_MAX
+            memory: GC_MEMORY_MAX
 ```
 
 {{% /code-placeholders %}}
@@ -233,11 +249,18 @@ replicas per component:
     - `limits`
       - `cpu`: Maximum CPU Resource units to assign to routers
       - `memory`: Maximum memory resource units to assign to routers
+  - `garbage-collector`
+    - `requests`
+      - `cpu`: Minimum CPU resource units to assign to the garbage collector
+      - `memory`: Minimum memory resource units to assign to the garbage collector
+    - `limits`
+      - `cpu`: Maximum CPU Resource units to assign to the garbage collector
+      - `memory`: Maximum memory resource units to assign to the garbage collector
 
 {{< expand-wrapper >}}
 {{% expand "View example `values.yaml` with resource requests and limits" %}}
 
-{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
+{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
 
 ```yml
 # ...
@@ -274,6 +297,13 @@ replicas per component:
       limits:
         cpu: ROUTER_CPU_MAX
         memory: ROUTER_MEMORY_MAX
+    garbage-collector:
+      requests:
+        cpu: GC_CPU_MIN
+        memory: GC_MEMORY_MIN
+      limits:
+        cpu: GC_CPU_MAX
+        memory: GC_MEMORY_MAX
 ```
 
 {{% /code-placeholders %}}
@@ -435,6 +465,7 @@ to automatically scale your cluster as needed.
 - [Ingester](#ingester)
 - [Querier](#querier)
 - [Compactor](#compactor)
+- [Garbage collector](#garbage-collector)
 - [Catalog](#catalog)
 - [Object store](#object-store)
 
@@ -529,6 +560,13 @@ Because compaction is a compute-heavy process, vertical scaling (especially
 increasing the available CPU) is the most effective scaling strategy for the
 Compactor. Horizontal scaling increases compaction throughput, but not as
 efficiently as vertical scaling.
+
+### Garbage collector
+
+The Garbage collector can be scaled [vertically](#vertical-scaling). It is a
+light-weight process that typically doesn't require many system resources, but
+if you begin to see high resource consumption on the garbage collector, you can
+scale it vertically to address the added workload.
 
 ### Catalog
 

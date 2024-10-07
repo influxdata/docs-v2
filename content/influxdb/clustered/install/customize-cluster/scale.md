@@ -27,13 +27,17 @@ to increase your write throughput and latency.
   requests.
 - **3 ingesters**:
   Ensures redundancy on the write path.
+- **1 querier**:
+  The optimal number of queriers depends on the number of concurrent queries you
+  are likely to have and how long they take to execute.
 - **1 compactor**:
   While you can have multiple compactors, it is more efficient to scale the
   compactor vertically (assign more CPU and memory) rather than horizontally
   (increase the number of compactors).
-- **1 querier**:
-  The optimal number of queriers depends on the number of concurrent queries you
-  are likely to have and how long they take to execute.
+- **1 garbage collector**:
+  The garbage collector is a light-weight process that only needs to be scaled
+  vertically when you observe high resource usage by the garbage collector.
+  _The garbage collector cannot be scaled horizontally._
 
 The default values provide a good starting point for testing.
 Once you have your cluster up and running and are looking for scaling
@@ -104,11 +108,18 @@ If omitted, your cluster uses the default scale settings.
     - `limits`
       - `cpu`: Maximum CPU Resource units to assign to routers
       - `memory`: Maximum memory resource units to assign to routers
+  - `garbage-collector`
+    - `requests`
+      - `cpu`: Minimum CPU resource units to assign to the garbage collector
+      - `memory`: Minimum memory resource units to assign to the garbage collector
+    - `limits`
+      - `cpu`: Maximum CPU Resource units to assign to the garbage collector
+      - `memory`: Maximum memory resource units to assign to the garbage collector
 
 {{< expand-wrapper >}}
 {{% expand "View example `AppInstance` with resource requests and limits" %}}
 
-{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
+{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
 
 ```yml
 apiVersion: kubecfg.dev/v1alpha1
@@ -153,6 +164,13 @@ spec:
           limits:
             cpu: ROUTER_CPU_MAX
             memory: ROUTER_MEMORY_MAX
+        garbage-collector:
+          requests:
+            cpu: GC_CPU_MIN
+            memory: GC_MEMORY_MIN
+          limits:
+            cpu: GC_CPU_MAX
+            memory: GC_MEMORY_MAX
 ```
 
 {{% /code-placeholders %}}
@@ -203,11 +221,18 @@ in your `values.yaml`. If omitted, your cluster will use the default scale setti
     - `limits`
       - `cpu`: Maximum CPU Resource units to assign to routers
       - `memory`: Maximum memory resource units to assign to routers
+  - `garbage-collector`
+    - `requests`
+      - `cpu`: Minimum CPU resource units to assign to the garbage collector
+      - `memory`: Minimum memory resource units to assign to the garbage collector
+    - `limits`
+      - `cpu`: Maximum CPU Resource units to assign to the garbage collector
+      - `memory`: Maximum memory resource units to assign to the garbage collector
 
 {{< expand-wrapper >}}
 {{% expand "View example `values.yaml` with resource requests and limits" %}}
 
-{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
+{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
 
 ```yml
 # The following settings tune the various pods for their cpu/memory/replicas
@@ -253,6 +278,15 @@ resources:
     limits:
       cpu: ROUTER_CPU_MAX
       memory: ROUTER_MEMORY_MAX
+  
+  # The garbage collector evicts obsolete data and files
+  garbage-collector:
+    requests:
+      cpu: GC_CPU_MIN
+      memory: GC_MEMORY_MIN
+    limits:
+      cpu: GC_CPU_MAX
+      memory: GC_MEMORY_MAX
 ```
 
 {{% /code-placeholders %}}

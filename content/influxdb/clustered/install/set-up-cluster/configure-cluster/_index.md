@@ -17,9 +17,12 @@ a YAML configuration file.
 Apply configuration settings to your cluster by editing and applying a
 Kubernetes custom resource (CRD) called `AppInstance`.
 The AppInstance CRD is defined in a YAML file (use the `example-customer.yml`
-provided by InfluxData as a template) or, if using the InfluxDB Clustered Helm
-chart, is provided by the chart and configured in a `values.yaml` file.
+provided by InfluxData as a template).
 
-Use one of the following methods to configure your InfluxDB cluster:
+We recommend editing the `AppInstance` resource directly as the primary method
+for configuring and managing your InfluxDB cluster. If you are required to use
+[Helm](https://helm.sh/), there is a InfluxDB Clustered Helm chart available
+that acts as a wrapper for the `AppInstance` resource and lets you use Helm to
+manage configuration changes in your InfluxDB cluster.
 
 {{< children >}}
