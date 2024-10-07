@@ -27,13 +27,17 @@ to increase your write throughput and latency.
   requests.
 - **3 ingesters**:
   Ensures redundancy on the write path.
+- **1 querier**:
+  The optimal number of queriers depends on the number of concurrent queries you
+  are likely to have and how long they take to execute.
 - **1 compactor**:
   While you can have multiple compactors, it is more efficient to scale the
   compactor vertically (assign more CPU and memory) rather than horizontally
   (increase the number of compactors).
-- **1 querier**:
-  The optimal number of queriers depends on the number of concurrent queries you
-  are likely to have and how long they take to execute.
+- **1 garbage collector**:
+  The garbage collector is a light-weight process that only needs to be scaled
+  vertically when you observe high resource usage by the garbage collector.
+  _The garbage collector cannot be scaled horizontally._
 
 The default values provide a good starting point for testing.
 Once you have your cluster up and running and are looking for scaling
