@@ -108,11 +108,18 @@ If omitted, your cluster uses the default scale settings.
     - `limits`
       - `cpu`: Maximum CPU Resource units to assign to routers
       - `memory`: Maximum memory resource units to assign to routers
+  - `garbage-collector`
+    - `requests`
+      - `cpu`: Minimum CPU resource units to assign to the garbage collector
+      - `memory`: Minimum memory resource units to assign to the garbage collector
+    - `limits`
+      - `cpu`: Maximum CPU Resource units to assign to the garbage collector
+      - `memory`: Maximum memory resource units to assign to the garbage collector
 
 {{< expand-wrapper >}}
 {{% expand "View example `AppInstance` with resource requests and limits" %}}
 
-{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
+{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
 
 ```yml
 apiVersion: kubecfg.dev/v1alpha1
@@ -157,6 +164,13 @@ spec:
           limits:
             cpu: ROUTER_CPU_MAX
             memory: ROUTER_MEMORY_MAX
+        garbage-collector:
+          requests:
+            cpu: GC_CPU_MIN
+            memory: GC_MEMORY_MIN
+          limits:
+            cpu: GC_CPU_MAX
+            memory: GC_MEMORY_MAX
 ```
 
 {{% /code-placeholders %}}
@@ -207,11 +221,18 @@ in your `values.yaml`. If omitted, your cluster will use the default scale setti
     - `limits`
       - `cpu`: Maximum CPU Resource units to assign to routers
       - `memory`: Maximum memory resource units to assign to routers
+  - `garbage-collector`
+    - `requests`
+      - `cpu`: Minimum CPU resource units to assign to the garbage collector
+      - `memory`: Minimum memory resource units to assign to the garbage collector
+    - `limits`
+      - `cpu`: Maximum CPU Resource units to assign to the garbage collector
+      - `memory`: Maximum memory resource units to assign to the garbage collector
 
 {{< expand-wrapper >}}
 {{% expand "View example `values.yaml` with resource requests and limits" %}}
 
-{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
+{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
 
 ```yml
 # The following settings tune the various pods for their cpu/memory/replicas
@@ -257,6 +278,15 @@ resources:
     limits:
       cpu: ROUTER_CPU_MAX
       memory: ROUTER_MEMORY_MAX
+  
+  # The garbage collector evicts obsolete data and files
+  garbage-collector:
+    requests:
+      cpu: GC_CPU_MIN
+      memory: GC_MEMORY_MIN
+    limits:
+      cpu: GC_CPU_MAX
+      memory: GC_MEMORY_MAX
 ```
 
 {{% /code-placeholders %}}
