@@ -417,8 +417,13 @@ spec:
         identityProvider: auth0
         jwksEndpoint: |-
           https://AUTH0_HOST/.well-known/openid-configuration
-        users:
-          - AUTH0_USER_ID
+        users:          
+          # All fields are required but `firstName`, `lastName`, and `email` can be
+          # arbitrary values. However, `id` must match the user ID provided by Auth0.
+          - id: AUTH0_USER_ID
+            firstName: Marty
+            lastName: McFly
+            email: mcfly@influxdata.com
 ```
 
 {{% /code-placeholders %}}
@@ -453,7 +458,12 @@ spec:
         jwksEndpoint: |-
           https://login.microsoftonline.com/AZURE_TENANT_ID/discovery/v2.0/keys
         users:
-          - AZURE_USER_ID
+          # All fields are required but `firstName`, `lastName`, and `email` can be
+          # arbitrary values. However, `id` must match the user ID provided by Auth0.
+          - id: AZURE_USER_ID
+            firstName: Marty
+            lastName: McFly
+            email: mcfly@influxdata.com
 ```
 
 {{% /code-placeholders %}}
@@ -554,8 +564,13 @@ admin:
   jwksEndpoint: |-
     https://AUTH0_HOST/.well-known/openid-configuration
   # The list of users to grant access to Clustered via influxctl
-  users:
-    - AUTH0_USER_ID
+  users:    
+    # All fields are required but `firstName`, `lastName`, and `email` can be
+    # arbitrary values. However, `id` must match the user ID provided by Auth0.
+    - id: AUTH0_USER_ID
+      firstName: Marty
+      lastName: McFly
+      email: mcfly@influxdata.com
 ```
 
 {{% /code-placeholders %}}
@@ -588,7 +603,12 @@ admin:
     https://login.microsoftonline.com/AZURE_TENANT_ID/discovery/v2.0/keys
   # The list of users to grant access to Clustered via influxctl
   users:
-    - AZURE_USER_ID
+    # All fields are required but `firstName`, `lastName`, and `email` can be
+    # arbitrary values. However, `id` must match the user ID provided by Auth0.
+    - id: AZURE_USER_ID
+      firstName: Marty
+      lastName: McFly
+      email: mcfly@influxdata.com
 ```
 
 {{% /code-placeholders %}}
