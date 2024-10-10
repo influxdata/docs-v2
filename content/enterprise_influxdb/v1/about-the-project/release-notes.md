@@ -25,6 +25,8 @@ InfluxDB Enterprise builds are available. For more information, see
 
 - Log errors when RPC calls fail for `MetaExecutor` operations like
   `SHOW TAG VALUES` and `SHOW TAG KEYS`.
+- Prevent `GROUP BY` queries with an offset that crossed a DST boundary from failing.
+- Ensure `range()` filters correctly for all years.
 
 ### Features
 
@@ -35,6 +37,7 @@ InfluxDB Enterprise builds are available. For more information, see
 
 ### Other
 
+- Upgrade to Go 1.22.7.
 - Upgrade `jwt-go`.
 - Upgrade `dvsekhvalnov/jose2go` to v1.6.0.
 
