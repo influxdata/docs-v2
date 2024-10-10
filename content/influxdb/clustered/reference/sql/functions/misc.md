@@ -32,7 +32,7 @@ arrow_cast(expression, datatype)
 - **expression**: Expression to cast.
   Can be a constant, column, or function, and any combination of arithmetic or
   string operators.
-- **datatype**: [Arrow data type](https://arrow.apache.org/datafusion/user-guide/sql/data_types.html)
+- **datatype**: [Arrow data type](/influxdb/clustered/reference/sql/data-types/#sql-and-arrow-data-types)
   to cast to.
 
 {{< expand-wrapper >}}
@@ -60,7 +60,7 @@ LIMIT 1
 ## arrow_typeof
 
 Returns the underlying [Arrow data type](https://arrow.apache.org/datafusion/user-guide/sql/data_types.html)
-of the the expression:
+of the expression:
 
 ```sql
 arrow_typeof(expression)

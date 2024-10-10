@@ -71,7 +71,7 @@ influxdata.com
 (iox|IOx)
 keep-url
 lat
-locf
+(locf|LOCF)
 logicalplan
 noaa|NOAA
 npm|NPM
