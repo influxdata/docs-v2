@@ -101,8 +101,6 @@ In the examples above, replace the following:
   The name of your InfluxDB namespace.
 - {{% code-placeholder-key %}}`KEY_GEN_JOB`{{% /code-placeholder-key %}}:
   The name of the key-gen job pod.
-- {{% code-placeholder-key %}}`001`{{% /code-placeholder-key %}}:
-  A unique number used to increment the key-gen job.
 
 {{% note %}}
 To create a new admin token after revoking the existing one, rerun the

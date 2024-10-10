@@ -84,6 +84,7 @@ span.code-callout, .code-placeholder {
   &.green {color: $article-code-accent3;}
   &.magenta {color: $br-new-magenta;}
   &.orange {color: $r-curacao;}
+  &.delete, &.strike {text-decoration: line-through;}
 }
 
 /////////////// Styles for code placeholders that can be updated ///////////////
@@ -157,7 +158,7 @@ span.code-callout, .code-placeholder {
     }
   }
 }
-.code-placeholder-key code {color: $code-placeholder}
+.code-placeholder-key code {color: $code-placeholder !important}
 
 
 ////////////////////////////////////////////////////////////////////////////////
