@@ -48,20 +48,28 @@
   {{ partial "sidebar/sidebar-toggle.html" (dict "state" "Close") }}
   <div class="search-and-nav-toggle">
     <div class="sidebar--search">
-      <input  class="sidebar--search-field"
-              id="algolia-search-input"
-              type="text"
-              accesskey="s"
-              autocomplete="off"
-              autocorrect="off"
-              autocapitalize="off"
-              spellcheck="false"
-              dir="auto"
-              placeholder='{{ $searchPlaceholder }}'>
+      <a class="btn" id="algolia-search-input" href="#" style="-webkit-text-size-adjust: 100%;
+    font-family: 'Proxima Nova',sans-serif;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    text-decoration: none;
+    position: relative;
+    display: block;
+    padding: .5rem 1.5rem;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    background: linear-gradient(45deg, #066FC5,#00A3FF);
+    transition: background-color .2s, color .2s;
+    border-radius: 2px;
+    z-index: 1;">Search or ask a question
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search" style="width: 2rem; height: 2rem; position: absolute; right: 1rem;">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+  </a>
+
     </div>
-    <a id="contents-toggle-btn" href="#">
-      <span class="toggle-hamburger"></span>
-    </a>
   </div>
   <ul id="nav-tree">
 
