@@ -47,7 +47,7 @@
 <aside class="sidebar">
   {{ partial "sidebar/sidebar-toggle.html" (dict "state" "Close") }}
   <div class="search-and-nav-toggle">
-    <div class="sidebar--search">
+    <div class="sidebar--search" style="grid-auto-columns: auto;">
       <a class="btn" id="algolia-search-input" href="#" style="-webkit-text-size-adjust: 100%;
     font-family: 'Proxima Nova',sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -63,7 +63,7 @@
     transition: background-color .2s, color .2s;
     border-radius: 2px;
     z-index: 1;">Search or ask a question
-    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search" style="width: 2rem; height: 2rem; position: absolute; right: 1rem;">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search" style="width: 2rem; height: 2rem; position: relative; vertical-align: middle;">
       <circle cx="11" cy="11" r="8"></circle>
       <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
     </svg>
