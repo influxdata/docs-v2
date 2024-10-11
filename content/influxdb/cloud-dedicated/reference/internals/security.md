@@ -238,13 +238,15 @@ separates workload cluster management authorizations (using _management tokens_)
 from database read and write authorizations (using _database tokens_).
 
 - [User provisioning](#user-provisioning)
+- [User groups](#user-groups)
 - [Management tokens](#management-tokens)
 - [Database tokens](#database-tokens)
 
 #### User provisioning
 
-InfluxData uses [Auth0](https://auth0.com/) to create user accounts and assign
-permission sets to user accounts on {{% product-name %}}.
+InfluxData uses [Auth0](https://auth0.com/) to create user accounts and 
+assign user attributes, including [user groups](#user-groups), on {{% product-name %}}.
+
 After a user account is created, InfluxData provides the user with the following:
 
 - An **Auth0 login** to authenticate access to the cluster
@@ -260,12 +262,48 @@ exchanged with `influxctl`.
 After a successful Auth0 authentication, {{% product-name %}} provides the
 user's `influxctl` session with a short-lived
 [management token](#management-tokens) for access to the Granite service.
-The user interacts with the `influxctl` command line tool to manage the workload
-cluster, including creating [database tokens](#database-tokens) for database
-read and write access and [creating long-lived management tokens](/influxdb/cloud-dedicated/admin/management-tokens/)
-for use with the [Management API](/influxdb/cloud-dedicated/api/management/).
+The user interacts with the `influxctl` command line tool to view or manage
+cluster resources.
+The [user groups](#user-groups) assigned to the user determine the level of
+access to resources.
+
+#### User groups
+
+User groups associate access privileges with user attributes--an important part of the
+Attribute-Based Access Control (ABAC) security model, which grants access based on
+user attributes, resource types, and environment context.
+
+In {{% product-name %}}, a user can belong to any of the following user groups,
+each with predefined privileges:
+
+- [Admin user group]
+- [Member user group]
+- [Auditor user group]
+
+##### Admin user group
+
+Admins are {{% product-name %}} users who have read and write permissions on
+all resources (for all clusters) in the account.
+Only Admins can create [management tokens](#management-tokens).
+
+##### Members (role: member)
+
+<!-- Define "certain resources" below: -->
+
+Members are {{% product-name %}} users who have read permission on certain
+resources and create permission for [database tokens](#database-tokens).
+Members can't delete or create databases or management tokens.
+
+##### Auditor (role: auditor)
+
+Auditors are {{% product-name %}} users who have read permission on all resources
+(for all clusters) in the account; auditors can't modify account resources.
 
 #### Management tokens
+
+[Admins](#admin-group) can create long-lived
+[management tokens](/influxdb/cloud-dedicated/admin/management-tokens/)
+for use with the [Management API](/influxdb/cloud-dedicated/api/management/).
 
 Management tokens authenticate user accounts to the Granite service and provide
 authorizations for workload cluster management activities, including:
@@ -308,6 +346,12 @@ cases--for example, using the [Management API for
 {{% product-name %}}](/influxdb/cloud-dedicated/api/management/) to rotate
 database tokens or create tables.
 
+Manually created management tokens:
+
+- have an optional expiration and don't require human interaction with the OAuth provider
+- are for automation use cases
+- shouldn't be used to circumvent the OAuth provider
+
 To authenticate a Management API request, the user passes the manually created
 token in the HTTP `Authorization` header:
 
@@ -315,17 +359,15 @@ token in the HTTP `Authorization` header:
 Authorization MANAGEMENT_TOKEN
 ```
 
-A manually created management token has an optional expiration and
-doesn't require human interaction with the OAuth provider.
-
-Manually created management tokens are meant for automation use cases
-and shouldn't be used to circumvent the OAuth provider.
-
 #### Database tokens
 
-Database tokens provide authorization for users and client applications to read and write data and metadata in an {{% product-name %}} database.
+[Admins](#admin-group) and [Members](#member-group), can create
+[database tokens](#database-tokens) for database read and write access.
+Database tokens provide authorization for users and client applications to read
+and write data and metadata in an {{% product-name %}} database.
 All data write and query API requests require a valid database token with sufficient permissions.
-_**Note:** an all-access management token can't read or write to a database because it's not a database token._
+_**Note:** an all-access [management token](#management-tokens) can't read or
+write to a database because it's not a database token._
 
 Database tokens consist of the following:
 
