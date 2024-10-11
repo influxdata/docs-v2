@@ -53,7 +53,7 @@ related:
 ---
 
 Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
-or the [Management HTTP API](influxdb/cloud-dedicated/reference/api/management/)
+or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/)
 to update a database token's permissions {{< product-name omit=" Clustered" >}} cluster.
 
 {{< tabs-wrapper >}}
