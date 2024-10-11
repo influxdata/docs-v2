@@ -36,7 +36,7 @@ related:
 ---
 
 Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
-or the [Management HTTP API](influxdb/cloud-dedicated/api/management/)
+or the [Management HTTP API](influxdb/cloud-dedicated/reference/api/management/)
 to list database tokens in your {{< product-name omit=" Clustered" >}} cluster.
 
 [List database tokens](#list-database-tokens)
