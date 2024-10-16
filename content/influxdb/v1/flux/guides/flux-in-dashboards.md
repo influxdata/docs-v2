@@ -20,7 +20,7 @@ This guide walks through using Flux queries in Chronograf dashboard cells.
 
 ---
 
-_**Chronograf v1.8+** and **InfluxDB v1.8 with [Flux enabled](/influxdb/v1/flux/installation)**
+_**Chronograf v1.8+** and **InfluxDB v1.8+ with [Flux enabled](/influxdb/v1/flux/installation)**
 are required to use Flux in dashboards._
 
 ---

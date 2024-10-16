@@ -1,6 +1,6 @@
 ---
 title: Back up and restore data
-seotitle: Back up and restore data in InfluxDB v1.8
+seotitle: Back up and restore data in InfluxDB v1.11
 description: >
   To prevent unexpected data loss, back up and restore InfluxDB OSS instances.
 aliases:
