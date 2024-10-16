@@ -77,8 +77,8 @@ one or more of the the following before upgrading:
     to improve Flux query performance.
 - **InfluxDB v2 compatibility API updates:**
   - Partially support create, retrieve, update, delete, and list operations in the
-  [`/v2/api/buckets` compatibility API](/influxdb/v1/tools/api/#influxdb-2x-api-compatibility-endpoints)
-  and correctly handle requests to unsupported `/v2/api/buckets` endpoints.
+    [`/v2/api/buckets` compatibility API](/influxdb/v1/tools/api/#influxdb-2x-api-compatibility-endpoints)
+    and correctly handle requests to unsupported `/v2/api/buckets` endpoints.
   - Implement the [`v2/api/delete` compatibility API](/influxdb/v1/tools/api/#apiv2delete-http-endpoint).
 - **Additional internal metrics:**
   - Ingress metrics by measurement.
