@@ -50,7 +50,7 @@ related:
 ---
 
 Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
-or the [Management HTTP API](influxdb/cloud-dedicated/api/management/) to create a [database token](/influxdb/cloud-dedicated/admin/tokens/database/) with permissions for reading and writing data in your {{< product-name omit=" Clustered" >}} cluster.
+or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/) to create a [database token](/influxdb/cloud-dedicated/admin/tokens/database/) with permissions for reading and writing data in your {{< product-name omit=" Clustered" >}} cluster.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
