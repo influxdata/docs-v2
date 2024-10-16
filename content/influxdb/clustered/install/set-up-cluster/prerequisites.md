@@ -375,7 +375,7 @@ PostgreSQL-compatible database.
 
 - PostgreSQL versions **13.8–14.6**.
 - **Minimum of 4 GB of memory** or equivalent provider-specific units.
-- To avoid conflicts and prevents issues caused by shared usage with other
+- To avoid conflicts and prevent issues caused by shared usage with other
   applications, ensure that your PostgreSQL-compatible instance is dedicated
   exclusively to InfluxDB.
 
