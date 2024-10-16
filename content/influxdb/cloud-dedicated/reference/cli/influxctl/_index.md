@@ -17,7 +17,7 @@ administrative tasks in an {{< product-name omit=" Clustered" >}} cluster.
 
 - [Usage](#usage)
 - [Commands](#commands)
-- [Flags](#command-flags)
+- [Global flags](#global-flags)
 - [Download and install influxctl](#download-and-install-influxctl)
 - [Configure connection profiles](#configure-connection-profiles)
 - [Authentication](#authentication)
@@ -25,14 +25,14 @@ administrative tasks in an {{< product-name omit=" Clustered" >}} cluster.
 ## Usage
 
 ```sh
-influxctl [flags] [command]
+influxctl [global-flags] [command]
 ```
 
 ## Commands
 
 | Command                                                                     | Description                            |
 | :-------------------------------------------------------------------------- | :------------------------------------- |
-| [auth](/influxdb/cloud-dedicated/reference/cli/influxctl/auth/)             | Log in to or log out of InfluxDB v3         |
+| [auth](/influxdb/cloud-dedicated/reference/cli/influxctl/auth/)             | Log in to or log out of InfluxDB v3    |
 | [cluster](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/)       | List InfluxDB v3 cluster information   |
 | [database](/influxdb/cloud-dedicated/reference/cli/influxctl/database/)     | Manage InfluxDB v3 databases           |
 | [help](/influxdb/cloud-dedicated/reference/cli/influxctl/help/)             | Output `influxctl` help information    |
@@ -45,15 +45,16 @@ influxctl [flags] [command]
 
 ## Global flags
 
-| Flag |             | Description                                                |
-| :--- | :---------- | :--------------------------------------------------------- |
-|      | `--debug`   | Enable debug logging                                       |
-|      | `--account` | Override account ID value in configuration file            |
-|      | `--cluster` | Override cluster ID value in configuration file            |
-|      | `--config`  | Path to configuration file to use                          |
-|      | `--profile` | Specify a connection profile to use (default is `default`) |
-|      | `--trace`   | Enable more verbose debug logging                          |
-| `-h` | `--help`    | Show help                                                  |
+| Flag |             | Description                                                  |
+| :--- | :---------- | :----------------------------------------------------------- |
+|      | `--debug`   | Enable debug logging                                         |
+|      | `--account` | Override account ID value in configuration file              |
+|      | `--cluster` | Override cluster ID value in configuration file              |
+|      | `--config`  | Path to configuration file to use                            |
+|      | `--profile` | Specify a connection profile to use (default is `default`)   |
+|      | `--timeout` | Specify a timeout duration for API calls (default is `1m0s`) |
+|      | `--trace`   | Enable more verbose debug logging                            |
+| `-h` | `--help`    | Show help                                                    |
 
 ---
 
@@ -344,7 +345,6 @@ If stored at a non-default location, include the `--config` flag with each
     ## OAuth2 client authorization settings
     # [profile.auth.oauth2]
         # client_id = ""
-        # client_secret = ""
         # scopes = [""]
         # parameters = { audience = "" }
         # token_url = "https://indentityprovider/oauth2/v2/token"
