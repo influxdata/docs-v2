@@ -683,4 +683,281 @@ Replace the following:
 
 ---
 
-{{< page-nav prev="/influxdb/clustered/install/secure-cluster/auth/" prevText="Set up authentication" next="/influxdb/clustered/install/set-up-cluster/licensing" nextText="Install your license" tab="Helm" >}}
+#### Configure your OAuth2 provider
+
+InfluxDB Clustered uses OAuth2 to authenticate administrative access to your cluster.
+To connect your InfluxDB cluster to your OAuth2 provide, provide values for the
+following fields in your `values.yaml`:
+
+- `admin`
+  - `identityProvider`: Identity provider name.
+    _If using Microsoft Entra ID (formerly Azure Active Directory), set the name
+    to `azure`_.
+  - `jwksEndpoint`: JWKS endpoint provide by your identity provider.
+  - `users`: List of OAuth2 users to grant administrative access to your
+  InfluxDB cluster. IDs are provided by your identity provider.
+
+Below are examples for **Keycloak**, **Auth0**, and **Microsoft Entra ID**, but
+other OAuth2 providers should work as well:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Keycloak](#)
+[Auth0](#)
+[Microsoft Entra ID](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+{{% code-callout "keycloak" "green" %}}
+{{% code-placeholders "KEYCLOAK_(HOST|REALM|USER_ID)" %}}
+
+```yaml
+admin:
+  # The identity provider to be used e.g. "keycloak", "auth0", "azure", etc
+  # Note for Azure Active Directory it must be exactly "azure"
+  identityProvider: keycloak
+  # The JWKS endpoint provided by the Identity Provider
+  jwksEndpoint: |-
+    https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/certs
+  # The list of users to grant access to Clustered via influxctl
+  users:
+    # All fields are required but `firstName`, `lastName`, and `email` can be
+    # arbitrary values. However, `id` must match the user ID provided by Keycloak.
+    - id: KEYCLOAK_USER_ID
+      firstName: Marty
+      lastName: McFly
+      email: mcfly@influxdata.com
+```
+
+{{% /code-placeholders %}}
+{{% /code-callout %}}
+
+---
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`KEYCLOAK_HOST`{{% /code-placeholder-key %}}:
+  Host and port of your Keycloak server
+- {{% code-placeholder-key %}}`KEYCLOAK_REALM`{{% /code-placeholder-key %}}:
+  Keycloak realm
+- {{% code-placeholder-key %}}`KEYCLOAK_USER_ID`{{% /code-placeholder-key %}}:
+  Keycloak user ID to grant InfluxDB administrative access to
+
+---
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-callout "auth0" "green" %}}
+{{% code-placeholders "AUTH0_(HOST|USER_ID)" %}}
+
+```yaml
+admin:
+  # The identity provider to be used e.g. "keycloak", "auth0", "azure", etc
+  # Note for Azure Active Directory it must be exactly "azure"
+  identityProvider: auth0
+  # The JWKS endpoint provided by the Identity Provider
+  jwksEndpoint: |-
+    https://AUTH0_HOST/.well-known/openid-configuration
+  # The list of users to grant access to Clustered via influxctl
+  users:
+    - AUTH0_USER_ID
+```
+
+{{% /code-placeholders %}}
+{{% /code-callout %}}
+
+---
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`AUTH0_HOST`{{% /code-placeholder-key %}}:
+  Host and port of your Auth0 server
+- {{% code-placeholder-key %}}`AUTH0_USER_ID`{{% /code-placeholder-key %}}:
+  Auth0 user ID to grant InfluxDB administrative access to
+
+---
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-callout "azure" "green" %}}
+{{% code-placeholders "AZURE_(USER|TENANT)_ID" %}}
+
+```yaml
+admin:
+  # The identity provider to be used e.g. "keycloak", "auth0", "azure", etc
+  # Note for Azure Active Directory it must be exactly "azure"
+  identityProvider: azure
+  # The JWKS endpoint provided by the Identity Provider
+  jwksEndpoint: |-
+    https://login.microsoftonline.com/AZURE_TENANT_ID/discovery/v2.0/keys
+  # The list of users to grant access to Clustered via influxctl
+  users:
+    - AZURE_USER_ID
+```
+
+{{% /code-placeholders %}}
+{{% /code-callout %}}
+
+---
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`AZURE_TENANT_ID`{{% /code-placeholder-key %}}:
+  Microsoft Entra tenant ID
+- {{% code-placeholder-key %}}`AZURE_USER_ID`{{% /code-placeholder-key %}}:
+  Microsoft Entra user ID to grant InfluxDB administrative access to
+  _(See [Find user IDs with Microsoft Entra ID](/influxdb/clustered/install/auth/?t=Microsoft+Entra+ID#find-user-ids-with-microsoft-entra-id))_
+
+---
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+##### Add users
+
+Finally, add the users you wish to have access to use `influxctl`.
+Update the `admin.users` field with a list of the users.
+See [Manage users](/influxdb/clustered/admin/users/) for more details.
+
+#### Configure the size of your cluster
+
+By default, an InfluxDB cluster is configured with the following:
+
+- **3 ingesters**:  
+  Ensures redundancy on the write path.
+- **1 compactor**:  
+  While you can have multiple compactors, it is more efficient to scale the
+  compactor vertically (assign more CPU and memory) rather than horizontally
+  (increase the number of compactors).
+- **1 querier**:  
+  The optimal number of queriers depends on the number of concurrent queries you are
+  likely to have and how long they take to execute.
+
+The default values provide a good starting point for testing.
+Once you have your cluster up and running and are looking for scaling recommendations,
+please [contact the InfluxData Support team](https://support.influxdata.com).
+We are happy to work with you to identify appropriate scale settings based on
+your anticipated workload.
+
+**To use custom scale settings for your InfluxDB cluster**, modify the following fields
+in your values.yaml`. If omitted, your cluster will use the default scale settings.
+
+- `resources`
+  - `ingester.requests`
+    - `cpu`: CPU resource units to assign to ingesters
+    - `memory`: Memory resource units to assign to ingesters
+    - `replicas`: Number of ingester replicas to provision
+  - `compactor.requests`
+    - `cpu`: CPU resource units to assign to compactors
+    - `memory`: Memory resource units to assign to compactors
+    - `replicas`: Number of compactor replicas to provision
+  - `querier.requests`
+    - `cpu`: CPU resource units to assign to queriers
+    - `memory`: Memory resource units to assign to queriers
+    - `replicas`: Number of querier replicas to provision
+  - `router.requests`
+    - `cpu`: CPU resource units to assign to routers
+    - `memory`: Memory resource units to assign to routers
+    - `replicas`: Number of router replicas to provision
+
+###### Related Kubernetes documentation
+
+- [CPU resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
+- [Memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory)
+
+{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER)_(CPU|MEMORY|REPLICAS)" %}}
+
+```yml
+# The following settings tune the various pods for their cpu/memory/replicas
+# based on workload needs. Only uncomment the specific resources you want
+# to change. Anything left commented will use the package default.
+resources:
+  # The ingester handles data being written
+  ingester:
+    requests:
+      cpu: INGESTER_CPU
+      memory: INGESTER_MEMORY
+      replicas: INGESTER_REPLICAS # Default is 3
+
+  # The compactor reorganizes old data to improve query and storage efficiency.
+  compactor:
+    requests:
+      cpu: COMPACTOR_CPU
+      memory: COMPACTOR_MEMORY
+      replicas: COMPACTOR_REPLICAS # Default is 1
+
+  # The querier handles querying data.
+  querier:
+    requests:
+      cpu: QUERIER_CPU
+      memory: QUERIER_MEMORY
+      replicas: QUERIER_REPLICAS # Default is 1
+
+  # The router performs some api routing.
+  router:
+    requests:
+      cpu: ROUTER_CPU
+      memory: ROUTER_MEMORY
+      replicas: ROUTER_REPLICAS # Default is 1
+```
+
+{{% /code-placeholders %}}
+
+### Provide a custom certificate authority bundle {note="Optional"}
+
+InfluxDB attempts to make TLS connections to the services it depends on; notably
+the [Catalog](/influxdb/clustered/reference/internals/storage-engine/#catalog),
+and the [Object store](/influxdb/clustered/reference/internals/storage-engine/#object-store).
+InfluxDB validates the certificates for all of the connections it makes.
+
+**If you host these services yourself and you use a private or otherwise not
+well-known certificate authority to issue certificates to theses services**, 
+InfluxDB will not recognize the issuer and will be unable to validate the certificates.
+To allow InfluxDB to validate these certificates, provide a PEM certificate
+bundle containing your custom certificate authority chain.
+
+1.  Use `kubectl` to create a config map containing your PEM bundle.
+    Your certificate authority administrator should provide you with a
+    PEM-formatted certificate bundle file.
+    
+    {{% note %}}
+This PEM-formatted bundle file is *not* the certificate that InfluxDB uses to
+host its own TLS endpoints. This bundle establishes a chain of trust for the
+external services that InfluxDB depends on.
+    {{% /note %}}
+
+    In the example below, `private_ca.pem` is the certificate bundle file.
+
+    ```sh
+    kubectl --namespace influxdb create configmap custom-ca --from-file=certs.pem=/path/to/private_ca.pem
+    ```
+
+    {{% note %}}
+It's possible to append multiple certificates into the same bundle.
+This can help if you need to include intermediate certificates or explicitly
+include leaf certificates. Leaf certificates should be included before any
+intermediate certificates they depend on. The root certificate should
+be last in the bundle.
+    {{% /note %}}
+
+2.  Update your `values.yaml` to enable custom egress and refer to your
+    certificate authority config map. Set `useCustomEgress` to `true` and update
+    the `egress` property to refer to that config map. For example:
+
+    ```yml
+    useCustomEgress: true
+    egress:
+      #    # If you're using a custom CA you will need to specify the full custom CA bundle here.
+      #    #
+      #    # NOTE: the custom CA is currently only honoured for outbound requests used to obtain
+      #    # the JWT public keys from your identiy provider (see `jwksEndpoint`).
+      customCertificates:
+        valueFrom:
+          configMapKeyRef:
+            key: ca.pem
+            name: custom-ca
+    ```
+
+{{< page-nav prev="/influxdb/clustered/install/auth/" prevText="Set up authentication" next="/influxdb/clustered/install/licensing" nextText="Install your license" tab="Helm" >}}
