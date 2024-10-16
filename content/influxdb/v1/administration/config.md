@@ -24,6 +24,7 @@ The InfluxDB open source (OSS) configuration file contains configuration setting
   * [Metastore `[meta]`](#metastore-settings)
   * [Data `[data]`](#data-settings)
   * [Query management `[coordinator]`](#query-management-settings)
+  * [Flux query management `[flux-controller]`](#flux-query-management-settings)
   * [Retention policies `[retention]`](#retention-policy-settings)
   * [Shard precreation `[shard-precreation]`](#shard-precreation-settings)
   * [Monitoring `[monitor]`](#monitoring-settings)
@@ -178,6 +179,12 @@ The bind address to use for the RPC service for [backup and restore](/influxdb/v
 
 Environment variable: `INFLUXDB_BIND_ADDRESS`
 
+### `compact-series-file = false` {metadata="v1.11.4+"}
+
+Determines if series files should be compacted on startup. If `true`, InfluxDB
+runs [`influxd_inspect -compact-series-file`](/influxdb/v1/tools/influx_inspect/#--compact-series-file-)
+before starting the `influxd` server. Default is `false`.
+
 ## Metastore settings
 
 ### `[meta]`
@@ -326,6 +333,13 @@ This setting does not apply to cache snapshotting.
 For more information on `GOMAXPROCS` environment variable, see [`GOMAXPROCS` environment variable](#gomaxprocs-environment-variable) on this page.
 
 Environment variable: `INFLUXDB_DATA_MAX_CONCURRENT_COMPACTIONS`
+
+#### `max-concurrent-deletes = 1` {metadata="v1.11.7+"}
+
+The maximum number of simultaneous `DELETE` calls on a shard. Default is `1`
+and should be left unchanged for most use cases.
+
+Environment variable: `INFLUXDB_DATA_MAX_CONCURRENT_DELETES`
 
 #### `compact-throughput = "48m"`
 
@@ -476,6 +490,66 @@ The default setting (`0`) allows a query to process an unlimited number of
 buckets.
 
 Environment variable: `INFLUXDB_COORDINATOR_MAX_SELECT_BUCKETS`
+
+#### `termination-query-log = false`
+
+Print a list of running queries when InfluxDB receives a `SIGTERM`
+(sent when a process exceeds a container memory limit or by the `kill` command).
+
+Environment variable: `INFLUXDB_COORDINATOR_TERMINATE_QUERY_LOG`
+
+-----
+
+## Flux query management settings
+
+### `[flux-controller]` {metadata="v1.11.7+"}
+
+The `flux-controller` settings control the behavior of Flux queries.
+
+#### `query-concurrency = 0` {metadata="v1.11.7+"}
+
+The number of Flux queries that are allowed to execute concurrently.
+`0` means unlimited. Default is `0`.
+
+Environment variable: `INFLUXDB_FLUX_CONTROLLER_QUERY_CONCURRENCY`
+
+#### `query-initial-memory-bytes = 0` {metadata="v1.11.7+"}
+
+The initial number of bytes allocated for a Flux query when it is started.
+If this is unset, then the `query-max-memory-bytes` is used.
+`0` means unlimited. Default is `0`.
+
+Environment variable: `INFLUXDB_FLUX_CONTROLLER_QUERY_INITIAL_MEMORY_BYTES`
+
+#### `query-max-memory-bytes = 0` {metadata="v1.11.7+"}
+
+The maximum number of bytes (in table memory) a Flux query is allowed to use at
+any given time. `0` means unlimited. Default is `0`.
+
+A query may not be able to use its entire quota of memory if requesting more
+memory would conflict with the maximum amount of memory that the controller can
+request.
+
+Environment variable: `INFLUXDB_FLUX_CONTROLLER_QUERY_MAX_MEMORY_BYTES`
+
+#### `total-max-memory-bytes = 0` {metadata="v1.11.7+"}
+
+The maximum amount of memory the Flux query controller is allowed to allocate to
+Flux queries. `0` means unlimited. Default is `0`.
+
+If this is unset, then this number is `query-concurrency * query-max-memory-bytes`.
+This number must be greater than or equal to
+`query-concurrency * query-initial-memory-bytes` and may be less than
+`query-concurrency * query-max-memory-bytes`.
+
+Environment variable: `INFLUXDB_FLUX_CONTROLLER_TOTAL_MAX_MEMORY_BYTES`
+
+#### `query-queue-size = 0` {metadata="v1.11.7+"}
+
+The number of Flux queries that are allowed to be queued for execution before
+new queries are rejected. `0` means unlimited. Default is `0`.
+
+Environment variable: `INFLUXDB_FLUX_CONTROLLER_QUERY_QUEUE_SIZE`
 
 -----
 
@@ -698,6 +772,13 @@ This setting has no effect if [`auth-enabled`](#auth-enabled-false) is set to `f
 
 Environment variable: `INFLUXDB_HTTP_PING_AUTH_ENABLED`
 
+#### `prom-read-auth-enabled = false`
+
+Enables authentication on the Prometheus remote read API. Default is `false`.
+This setting has no effect if [`auth-enabled`](#auth-enabled-false) is set to `false`.
+
+Environment variable: `INFLUXDB_HTTP_PROM_READ_AUTH_ENABLED`
+
 #### `http-headers`
 
 User-supplied [HTTP response headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers).
@@ -884,6 +965,14 @@ Environment variable: `INFLUXDB_SUBSCRIBER_WRITE_CONCURRENCY`
 The number of in-flight writes buffered in the write channel.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_WRITE_BUFFER_SIZE`
+
+#### `total-buffer-bytes = 0` {metadata="v1.11.7"}
+
+The total size in bytes allocated to buffering across all subscriptions.
+Each named subscription receives an even division of the total.
+Default is `0`.
+
+Environment variable: `INFLUXDB_SUBSCRIBER_TOTAL_BUFFER_BYTES`
 
 -----
 

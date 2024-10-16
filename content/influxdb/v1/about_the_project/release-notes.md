@@ -1,5 +1,5 @@
 ---
-title: InfluxDB 1.8 release notes
+title: InfluxDB v1 release notes
 description: Important changes and and what's new in each version of InfluxDB OSS.
 menu:
   influxdb_v1:
@@ -9,6 +9,173 @@ menu:
 aliases:
   - /influxdb/v1/about_the_project/releasenotes-changelog/
 v2: /influxdb/v2/reference/release-notes/influxdb/
+---
+
+## v1.11.7 {date="2024-10-10"}
+
+This release represents the first public release of InfluxDB OSS v1 since 2021
+and includes many enhancements and bug fixes added to InfluxDB Enterprise and
+then back-ported to InfluxDB OSS v1. Man of these enhancements improve
+compatibility between InfluxDB v1 and InfluxDB v3 and help to ease the migration
+of InfluxDB v1 workloads to InfluxDB v3.
+
+{{% warn %}}
+#### Before upgrading to InfluxDB 1.11
+
+The last public release of InfluxDB v1 was v1.8.10. Upgrading from v1.8.10 to
+v1.11.7 is a large jump and should be done with care. You may consider doing
+one or more of the the following before upgrading:
+
+- [Back up your data](/influxdb/v1/administration/backup_and_restore/)
+- Create a new InfluxDB 1.11 instance and dual-write to your to both your current
+  InfluxDB instance and the new 1.11 instance. Test both writing and querying
+  data with InfluxDB 1.11.
+{{% /warn %}}
+
+### Features
+
+- **InfluxQL improvements:**
+  - Support database and retention policy wildcards in `SHOW MEASUREMENTS`--for example:
+    `SHOW MEASUREMENTS ON *.*`
+  - Optimize `SHOW FIELD KEY CARDINALITY`.
+  - `SHOW TAG VALUES` returns results from one specific retention policy.
+  - Support `WITH KEY` clause in with `SHOW TAG KEYS`.
+  - Support Hyper Log Log operators: `count_hll`, `sum_hll`, `merge_hll`.
+  - Use `count_hll` for `SHOW SERIES CARDINALITY` queries.
+- **Logging improvements:**
+  - Log slow queries even without query logging enabled.
+  - Always log the log level.
+  - Add version number to `/debug/vars` output.
+  - Include `crypto` diagnostics in `/debug/vars` output.
+  - Add the ability to log queries killed by `query-timeout`.
+  - Add logging to compaction.
+- **New InfluxDB inspection tools:**
+  - Add [`influx_inspect report-db` command](/influxdb/v1/tools/influx_inspect/#report-db)
+    to estimate the cardinality of a 1.x database when migrated to InfluxDB Cloud (TSM).
+  - Add the [`influx_inspect check-schema`](/influxdb/v1/tools/influx_inspect/#check-schema)
+    and [`influx_inspect merge-schema`](/influxdb/v1/tools/influx_inspect/#merge-schema)
+    commands to check for type conflicts between shards.
+- **New configuration options:**
+  - Add [`total-buffer-bytes`](/influxdb/v1/administration/config/#total-buffer-bytes--0)
+    configuration option to set the total number of bytes to allocate to
+    subscription buffers.
+  - Add [`termination-query-log`](/influxdb/v1/administration/config/#termination-query-log--false)
+    configuration option to enable dumping running queries to log on `SIGTERM`.
+  - Add [`max-concurrent-deletes`](/influxdb/v1/administration/config/#max-concurrent-deletes--1)
+    configuration option to set delete concurrency.
+  - Add [Flux query configuration settings](/influxdb/v1/administration/config/#flux-query-management-settings).
+  - Add [`compact-series-file`](/influxdb/v1/administration/config/#compact-series-file--false)
+    configuration option to enable or disable series file compaction on startup.
+  - Add [`prom-read-auth-enabled` configuration option](/influxdb/v1/administration/config/#prom-read-auth-enabled--false)
+    to authenticate Prometheus remote read.
+- **Flux improvements:**
+  - Upgrade Flux to v0.194.4.
+  - Update Flux components to use `flux/array` instead of `arrow/array`.
+  - Add Flux query support to the `influx` REPL.
+  - Add [new pushdown capabilities](/influxdb/v1/flux/guides/optimize-queries/#start-queries-with-pushdowns)
+    to improve Flux query performance.
+- **InfluxDB v2 compatibility API updates:**
+  - Partially support create, retrieve, update, delete, and list operations in the
+  [`/v2/api/buckets` compatibility API](/influxdb/v1/tools/api/#influxdb-2x-api-compatibility-endpoints)
+  and correctly handle requests to unsupported `/v2/api/buckets` endpoints.
+  - Implement the [`v2/api/delete` compatibility API](/influxdb/v1/tools/api/#apiv2delete-http-endpoint).
+- **Additional internal metrics:**
+  - Ingress metrics by measurement.
+  - Measurement metrics by login.
+  - Series creation ingress metrics.
+  - Add subscription buffer size usage metric.
+- **Build improvements:**
+  - Enable static-pie builds for InfluxDB 1.x.
+  - Make Windows and ARM64 builds possible.
+- **Miscellaneous additions and optimizations:**
+  - Add multiple UDP writers.
+  - Optimize series iteration.
+  - Optimize saving changes to `fields.idx`.
+
+### Bug Fixes
+
+- Prevent `GROUP BY` from returning multiple results per group in some circumstances.
+- Add `curl` dependency to InfluxDB packages for use in systemd scripts.
+- Use `defer` to unlock mutexes.
+- Ensure `influxd-ctl backup` creates a usable backup when only the `-shard`
+  option is provided.
+- `influx_inspect verify -dir` no longer appends `/data` to the directory path.
+  Files are checked recursively, which include files in the `/data` directory
+  and other subdirectories.
+- Don't rename files on mmap failure.
+- Fully clean up partially opened TSI.
+- Remember shards that fail `Open()` and avoid repeated attempts.
+- Improve error messages when opening index partitions.
+- Create `TSI MANIFEST` files atomically
+- Add paths to TSI log and index file errors.
+- Restore in-memory Manifest on write error.
+- Generalize test for Windows.
+- Use `copy` when a rename spans volumes.
+- Add tests for file rename across volumes.
+- Log errors in continuous query statistics storage.
+- Remove breaking argument validation for `_fieldKeys` iterator.
+- `ListBuckets` properly returns a wrapped response.
+- Don't write skipped shard messages to the line protocol output destination.
+- Add warning if `fields.idxl` is encountered.
+- Prevent world-writable `MANIFEST` files.
+  to compact series files at startup.
+- Do not escape CSV output.
+- Avoid SIGBUS when reading non-standard series segment files.
+- Prevent retention service from creating orphaned shard files.
+- Sync index file before closing.
+- Abort processing a write request when encountering a precision error.
+- `MeasurementsCardinality` should not be less than 0.
+- Replace unprintable and invalid characters in errors.
+- Keep TSI reference or don't close `TagValueSeriesIDIterator` on error.
+- Eliminate race condition on `Monitor.globalTags`.
+- Correctly handle `MaxSeriesPerDatabaseExceeded`.
+- Return underlying errors when creating a subscription.
+- Fix a race condition that caused restore commands to fail.
+- Create shards without overlapping time ranges.
+- Improve error messages for snapshots with no data.
+- Detect misquoted tag values and return an error.
+- Use `debug` log level in `influx_tools compact-shard`.
+- Allow limiting shards during Flux iterator reads.
+- When restoring data, force the `-db` parameter when `-newdb` is used.
+- Sync series segments to disk after writing.
+- Fix deadlock in `influx_inspect dumptsi`.
+- Prevent errors when restoring from a portable backup.
+- Copy names from mmapped memory before closing the iterator.
+- TSI should compact log files that are old or too large.
+- Compact old `tsl` files without new writes.
+- Enforce a hard limit on field size while parsing line protocol.
+- Ensure log formatting (JSON) is respected.
+- Ensure systemd handles HTTPS and 40x response codes and blocks indefinitely
+  while waiting for API repsonses.
+- Avoid compaction queue stats flutter.
+- Require database authorization to see continuous queries.
+- Return correct count of `ErrNotExecuted`.
+- Address various `staticcheck` warnings.
+- Properly shutdown multiple HTTP servers.
+- Make error messaging for missing shards consistent.
+- Fix redundant registrations for prometheus collector metrics.
+- Improved performance for sorted merge iterator.
+- Grow tag index buffer when needed.
+- Fixes key collisions when serializing `/debug/vars`.
+- Return an error when trying to delete a nonexistent shard ID.
+- Improved CORS support:
+  - Add User-Agent to allowed CORS headers.
+  - Allow CORS in v2 compatibility endpoints.
+  - Allow the `PATCH` request method.
+
+### Other
+
+- Upgrade to Go 1.20.13.
+- Pin Rust version to 1.52.1.
+- Upgrade Flux to v0.194.4.
+- Upgrade multiple dependencies for maintenance and security hardening.
+- Upgrade `xbuilder` for parity with InfluxDB Enterprise.
+- Upgrade to latest crossbuilder.
+- Use community maintained `golang-jwt`
+- Generate `influxdb.${CIRCLE_TAG}.digests` for each release.
+- Update contribution guidelines.
+- Remove deprecated `influx_stress` tool.
+
 ---
 
 ## v1.8.10 {date="2021-10-11"}
