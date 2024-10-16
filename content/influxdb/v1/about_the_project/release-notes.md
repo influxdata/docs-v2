@@ -27,9 +27,10 @@ v1.11.7 is a large jump and should be done with care. You may consider doing
 one or more of the the following before upgrading:
 
 - [Back up your data](/influxdb/v1/administration/backup_and_restore/)
-- Create a new InfluxDB 1.11 instance and dual-write to your to both your current
-  InfluxDB instance and the new 1.11 instance. Test both writing and querying
-  data with InfluxDB 1.11.
+- Create a clone of your current InfluxDB using InfluxDB 1.11 with identical
+  configuration options. Dual-write to your to both your current InfluxDB
+  instance and the new 1.11 instance. Test both writing and querying data with
+  InfluxDB 1.11.
 {{% /warn %}}
 
 ### Features
