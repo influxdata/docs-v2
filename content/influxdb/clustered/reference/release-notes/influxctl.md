@@ -12,11 +12,53 @@ weight: 202
 canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 ---
 
+## v2.9.8 {date="2024-10-15"}
+
+### Bug Fixes
+
+- Continue revoking tokens on error.
+- Reject unsupported input to `--template-timeformat`.
+- Remove unused `client_secret` option from
+  [connection configuration profiles](/influxdb/clustered/reference/cli/influxctl/#configure-connection-profiles).
+
+### Dependency Updates
+
+- Update Go to v1.23.2.
+- Update `github.com/jedib0t/go-pretty/v6` from 6.5.9 to 6.6.0.
+- Update `github.com/urfave/cli/v2` from 2.27.4 to 2.27.5.
+- Update `google.golang.org/grpc` from 1.66.0 to 1.67.1.
+- Update `google.golang.org/protobuf` from 1.34.2 to 1.35.1.
+
+---
+
+## v2.9.7 {date="2024-09-11"}
+
+### Features
+
+- Add [global `--timeout` flag](/influxdb/clustered/reference/cli/influxctl/#global-flags).
+- Improve timezone support.
+
+### Bug Fixes
+
+- Use passthrough resolver for gRPC.
+
+### Dependency Updates
+
+- Update Go to 1.23.1.
+- Update `github.com/pelletier/go-toml/v2` from 2.2.2 to 2.2.3.
+- Update `golang.org/x/mod` from 0.20.0 to 0.21.0.
+- Update `golang.org/x/oauth2` from 0.22.0 to 0.23.0.
+- Update `google.golang.org/grpc` from 1.65.0 to 1.66.0.
+
+---
+
 ## v2.9.6 {date="2024-08-15"}
 
 ### Bug Fixes
 
-- Update query subcommand to wait for EOF on stdin instead of the first newline.
+- Update query to wait for EOF on stdin instead of the first newline.
+
+---
 
 ## v2.9.5 {date="2024-08-13"}
 
@@ -31,6 +73,8 @@ canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 - Update `golang.org/x/mod` from 0.19.0 to 0.20.0
 - Update `golang.org/x/oauth2` from 0.21.0 to 0.22.0
 
+---
+
 ## v2.9.4 {date="2024-07-25"}
 
 ### Bug Fixes
@@ -42,11 +86,15 @@ canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 - Update `golang.org/x/mod` from 0.18.0 to 0.19.0
 - Update `google.golang.org/grpc` from 1.64.0 to 1.65.0
 
+---
+
 ## v2.9.3 {date="2024-06-26"}
 
 ### Bug Fixes
 
 - Update query subcommand to safely handle null timestamp in response.
+
+---
 
 ## v2.9.2 {date="2024-06-17"}
 
@@ -57,6 +105,8 @@ canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 ### Dependency Updates
 
 - Update `google.golang.org/protobuf` from 1.34.1 to 1.34.2.
+
+---
 
 ## v2.9.1 {date="2024-06-06"}
 
@@ -71,6 +121,8 @@ canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 - Update `google.golang.org/protobuf` from 1.34.0 to 1.34.1
 - Update build dependencies.
 
+---
+
 ## v2.9.0 {date="2024-05-06"}
 
 ### Features
@@ -82,7 +134,7 @@ canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 
 - Update unimplemented error message with additional information.
 
-### Dependecy Updates
+### Dependency Updates
 
 - Update `github.com/apache/arrow/go/v16` from 16.0.0-20240401180149-68241d8a86e9 to 16.0.0.
 - Update `github.com/jedib0t/go-pretty/v6` from 6.5.8 to 6.5.9.
@@ -197,7 +249,7 @@ associated with another InfluxDB cluster.
 
 ### Bug Fixes
 
-- Update arrow to allow non-TLS connections.
+- Update Arrow to allow non-TLS connections.
 - Do not attempt to load cached tokens when an admin token file is provided.
 - Print retention period up to days rather than very large hours.
 - Fix indentation of help output.
