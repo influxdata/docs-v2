@@ -5,3 +5,9 @@ level: error
 nonword: true
 tokens:
   - \d+(?:st|nd|rd|th)
+  - tenth
+
+exceptions:
+  - 0th
+  - 50th
+  - 90th
