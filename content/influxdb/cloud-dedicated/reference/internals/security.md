@@ -276,7 +276,7 @@ user attributes, resource types, and environment context.
 In {{% product-name %}}, a user can belong to any of the following user groups,
 each with predefined privileges:
 
-- [Admin user group](#admins-role-admin
+- [Admin user group](#admins-role-admin)
 - [Member user group](#members-role-member)
 - [Auditor user group](#auditors-role-auditor)
 
