@@ -168,7 +168,7 @@ one or more of the the following before upgrading:
 - Upgrade to Go 1.20.13.
 - Pin Rust version to 1.52.1.
 - Upgrade Flux to v0.194.4.
-- Upgrade multiple dependencies for maintenance and security hardening.
+- Upgrade multiple dependencies for maintenance and security.
 - Upgrade `xbuilder` for parity with InfluxDB Enterprise.
 - Upgrade to latest crossbuilder.
 - Use community maintained `golang-jwt`
