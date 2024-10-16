@@ -15,8 +15,8 @@ aliases:
 
 InfluxDB Clustered requires the following prerequisite external dependencies: 
 
-- **kubectl command line tool** _(version 1.27 or higher)_
-- **Kubernetes cluster** _(version 1.25 or higher)_
+- **kubectl command line tool**
+- **Kubernetes cluster**
 - **kubecfg kubit operator**
 - **Kubernetes ingress controller**
 - **Object storage**: AWS S3 or S3-compatible storage (including Google Cloud Storage
@@ -59,10 +59,6 @@ InfluxDB Clustered Kubernetes deployments require `kubectl` 1.27 or higher.
     Kubernetes environment or Kubernetes cloud provider. Refer to the
     [Kubernetes documentation](https://kubernetes.io/docs/home/) or your cloud
     provider's documentation for information about deploying a Kubernetes cluster.
-    
-    {{% note %}}
-InfluxDB Clustered requires **Kubernetes v1.25 or later**.
-    {{% /note %}}
 
 2.  Ensure `kubectl` can connect to your Kubernetes cluster.
     Your Manage [kubeconfig file](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
