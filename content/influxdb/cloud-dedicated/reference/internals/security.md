@@ -276,11 +276,11 @@ user attributes, resource types, and environment context.
 In {{% product-name %}}, a user can belong to any of the following user groups,
 each with predefined privileges:
 
-- [Admin user group]
-- [Member user group]
-- [Auditor user group]
+- [Admin user group](#admins-role-admin
+- [Member user group](#members-role-member)
+- [Auditor user group](#auditors-role-auditor)
 
-##### Admin user group
+##### Admins (role: admin)
 
 Admins are {{% product-name %}} users who have read and write permissions on
 all resources (for all clusters) in the account.
@@ -294,7 +294,7 @@ Members are {{% product-name %}} users who have read permission on certain
 resources and create permission for [database tokens](#database-tokens).
 Members can't delete or create databases or management tokens.
 
-##### Auditor (role: auditor)
+##### Auditors (role: auditor)
 
 Auditors are {{% product-name %}} users who have read permission on all resources
 (for all clusters) in the account; auditors can't modify account resources.
