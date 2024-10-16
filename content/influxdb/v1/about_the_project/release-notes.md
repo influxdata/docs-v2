@@ -15,7 +15,7 @@ v2: /influxdb/v2/reference/release-notes/influxdb/
 
 This release represents the first public release of InfluxDB OSS v1 since 2021
 and includes many enhancements and bug fixes added to InfluxDB Enterprise and
-then back-ported to InfluxDB OSS v1. Man of these enhancements improve
+then back-ported to InfluxDB OSS v1. Many of these enhancements improve
 compatibility between InfluxDB v1 and InfluxDB v3 and help to ease the migration
 of InfluxDB v1 workloads to InfluxDB v3.
 
@@ -35,6 +35,7 @@ one or more of the the following before upgrading:
 ### Features
 
 - **InfluxQL improvements:**
+  - Upgrade to InfluxQL 1.2.0.
   - Support database and retention policy wildcards in `SHOW MEASUREMENTS`--for example:
     `SHOW MEASUREMENTS ON *.*`
   - Optimize `SHOW FIELD KEY CARDINALITY`.
@@ -165,9 +166,9 @@ one or more of the the following before upgrading:
 
 ### Other
 
-- Upgrade to Go 1.20.13.
-- Pin Rust version to 1.52.1.
-- Upgrade Flux to v0.194.4.
+- Upgrade to Go 1.22.7.
+- Detect and use the Rust version defined in Flux (1.73).
+- Upgrade Flux to v0.194.5.
 - Upgrade multiple dependencies for maintenance and security.
 - Upgrade `xbuilder` for parity with InfluxDB Enterprise.
 - Upgrade to latest crossbuilder.
