@@ -28,7 +28,7 @@ list_code_example: |
   ##### Aggregate by time-based intervals
   ```sql
   SELECT
-    DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP) AS time,
+    DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z') AS time,
     mean(field1),
     sum(field2),
     tag1
@@ -206,7 +206,7 @@ groups:
     
     ```sql
     SELECT
-      DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS time
+      DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z') AS time
     FROM home
     ...
     ```
@@ -225,7 +225,7 @@ groups:
 
   ```sql
   SELECT
-    DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS time
+    DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z') AS time
   ...
   GROUP BY 1, room
   ...
@@ -235,7 +235,7 @@ groups:
 
   ```sql
   SELECT
-    DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS _time
+    DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z') AS _time
   FROM home
   ...
   GROUP BY _time, room
@@ -247,7 +247,7 @@ The following example retrieves unique combinations of time intervals and rooms 
 
 ```sql
 SELECT
-  DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS time,
+  DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z') AS time,
   room,
   selector_max(temp, time)['value'] AS 'max temp',
   selector_min(temp, time)['value'] AS 'min temp',
@@ -288,7 +288,7 @@ If you want to reference a calculated time column by name, use an alias differen
 
 ```sql
 SELECT
-  DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP)
+  DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z')
   AS _time,
   room,
   selector_max(temp, time)['value'] AS 'max temp',
