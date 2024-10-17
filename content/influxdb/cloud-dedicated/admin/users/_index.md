@@ -26,7 +26,7 @@ user attributes, resource types, and environment context.
 - [Available user groups](#available-user-groups)
 - [Manage users](#manage-users)
 
-### Available user groups
+## Available user groups
 
 In {{% product-name %}}, users have "management" responsibilities, such as creating and 
 deleting [databases](/influxdb/cloud-dedicated/admin/databases/), [viewing resource information](/influxdb/cloud-dedicated/admin/monitor-your-cluster/), and provisioning
