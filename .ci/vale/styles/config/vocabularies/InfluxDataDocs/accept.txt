@@ -68,7 +68,7 @@ influx3
 influxctl
 influxd
 influxdata.com
-iox
+(iox|IOx)
 keep-url
 lat
 (locf|LOCF)

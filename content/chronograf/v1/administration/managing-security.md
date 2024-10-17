@@ -1,7 +1,8 @@
 ---
 title: Manage Chronograf security
 description: Manage Chronograf security with OAuth 2.0 providers.
-aliases: /chronograf/v1/administration/security-best-practices/
+aliases:
+  - /chronograf/v1/administration/security-best-practices/
 menu:
   chronograf_v1:
     name: Manage Chronograf security

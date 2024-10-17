@@ -149,17 +149,20 @@ paths:
   /ping:
     get:
       description: |
-        Retrieves the status and InfluxDB version of the instance.
+        Reports the InfluxQL bridge querier health and the InfluxDB version of the instance.
+        
+        The response is a HTTP `204` status code to inform you the querier is available.
 
-        Use this endpoint to monitor uptime for the InfluxDB instance. The response
-        returns a HTTP `204` status code to inform you the instance is available.
+        For InfluxDB Cloud Dedicated, this endpoint only checks the status of queriers; doesn't check the status of ingesters.
+
+        To check the health of ingesters before writing data, send a request to one of the [write endpoints](/influxdb/cloud-dedicated/api/v2/#tag/Write).
 
         This endpoint doesn't require authentication.
       operationId: GetPing
       responses:
         '204':
           description: |
-            Success.
+            Success--the querier is available.
             Headers contain InfluxDB version information.
           headers:
             X-Influxdb-Build:
@@ -184,17 +187,20 @@ paths:
         - Ping
     head:
       description: |
-        Returns the status and InfluxDB version of the instance.
+        Reports the InfluxQL bridge querier health and the InfluxDB version of the instance.
+        
+        The response is a HTTP `204` status code to inform you the querier is available.
 
-        Use this endpoint to monitor uptime for the InfluxDB instance. The response
-        returns a HTTP `204` status code to inform you the instance is available.
+        For InfluxDB Cloud Dedicated, this endpoint only checks the status of queriers; doesn't check the status of ingesters.
+
+        To check the health of ingesters before writing data, send a request to one of the [write endpoints](/influxdb/cloud-dedicated/api/v2/#tag/Write).
 
         This endpoint doesn't require authentication.
       operationId: HeadPing
       responses:
         '204':
           description: |
-            Success.
+            Success--the querier is available.
             Headers contain InfluxDB version information.
           headers:
             X-Influxdb-Build:

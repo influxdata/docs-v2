@@ -35,11 +35,13 @@ Install the Node.js JavaScript client library to write data to InfluxDB {{% prod
 3. In your terminal, create a directory for your Node.js project and change to it.
 
    ```sh
-   mkdir influx-node-app && cd $_
+   mkdir influx-node-app && cd influx-node-app
    ```
 
 4. Enter the following command to generate an npm package for your project. 
-   The `npm` package manager is included with Node.js.
+   
+   - `npm`: the package manager included with Node.js
+   - `-y`: uses defaults for the package and bypasses prompts
 
    ```sh
    npm init -y
@@ -55,15 +57,21 @@ Follow these steps to initialize the TypeScript project:
    ```sh
    npm i -g typescript && npm i --save-dev @types/node
    ```
-2. Create a TypeScript configuration with default values.
+
+2. Enter the following command to create a TypeScript configuration
+   (`tsconfig.json`) with default values:
 
    ```sh
    tsc --init
    ```
-3. Run the TypeScript compiler. To recompile your code automatically as you make changes, pass the `watch` flag to the compiler.
 
+3. Run the TypeScript compiler.
+   To recompile your code automatically as you make changes, pass the `--watch, -w` flag to the compiler.
+
+   <!--pytest.mark.skip-->
+   
    ```sh
-   tsc -w -p
+   tsc --watch
    ```
 
 ## Install dependencies
@@ -84,7 +92,7 @@ It only works with InfluxDB v2 management APIs.
 The client examples include an [`env`](https://github.com/influxdata/influxdb-client-js/blob/master/examples/env.js) module for accessing your InfluxDB properties from environment variables or from `env.js`.
 The examples use these properties to interact with the InfluxDB API.
 
-Set environment variables or update `env.js` with your InfluxDB [bucket](/influxdb/cloud-serverless/organizations/buckets/), [organization](/influxdb/cloud-serverless/organizations/), [token](/influxdb/cloud-serverless/security/tokens/), and [url](/influxdb/cloud-serverless/reference/urls/).
+Set environment variables or update `env.js` with your InfluxDB [bucket](/influxdb/cloud-serverless/organizations/buckets/), [organization](/influxdb/cloud-serverless/organizations/), [token](/influxdb/cloud-serverless/security/tokens/), and [URL](/influxdb/cloud-serverless/reference/urls/).
 
    ```sh
    export INFLUX_URL=https://{{< influxdb/host >}}
