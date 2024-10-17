@@ -16,6 +16,7 @@ related:
 aliases:
   - /influxdb/clustered/query-data/execute-queries/optimize-queries/
   - /influxdb/clustered/query-data/execute-queries/analyze-query-plan/
+  - /influxdb/clustered/query-data/optimize-queries/
 ---
 
 Optimize SQL and InfluxQL queries to improve performance and reduce their memory and compute (CPU) requirements.
