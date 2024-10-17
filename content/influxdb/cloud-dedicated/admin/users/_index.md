@@ -47,7 +47,7 @@ in your account are initially assigned to the Admin group, retaining full
 access to resources in your cluster.
 {{% /note %}}
 
-### Manage users
+## Manage users
 
 - [Assign a user to a different group](#assign-a-user-to-a-different-group)
 - [Invite a user to your account](#invite-a-user-to-your-account)
