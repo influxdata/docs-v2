@@ -10,9 +10,9 @@ menu:
 weight: 104
 ---
 
-InfluxData provides a Grafana operational dashboard that provide observability 
-into the your {{< product-name >}} cluster. Use the operational dashboard to
-monitor your cluster.
+InfluxData provides a Grafana operational dashboard that provides observability 
+into your {{< product-name >}} cluster.
+Use the operational dashboard to monitor your cluster.
 
 {{% note %}}
 #### Not available for all clusters
@@ -40,7 +40,7 @@ If you do not have login credentials, [contact InfluxData support](https://suppo
 
 ## Dashboard sections and cells
 
-The dashboard is divided into the following sections that visualize metrics
+The dashboard contains the following sections that visualize metrics
 related to the health of components in your {{< product-name >}} cluster:
 
 - [Query Tier Cpu/Mem](#query-tier-cpumem)
@@ -156,7 +156,7 @@ to the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engi
 
 #### CPU Utilization Ingesters (k8s)
 
-CPU Utilization of Ingester pods as reported by the Kubernetes container usage.
+CPU utilization of Ingester pods as reported by the Kubernetes container usage.
 Usage is reported by the number of CPU cores used by pods, including
 fractional cores.
 The CPU limit is represented by the top line in the visualization.
@@ -284,7 +284,7 @@ _These do not represent the most recent logs._
 The **Compaction Tier Cpu/Mem** section displays the CPU and memory usage of
 Compactor pods as reported by Kubernetes.
 [Compactors](/influxdb/cloud-dedicated/reference/internals/storage-engine/#compactor)
-process and compress parquet files in the
+process and compress Parquet files in the
 [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store)
 to continually optimize storage.
 
@@ -330,10 +330,10 @@ following levels:
 
 Parquet files store data partitioned by time and optionally tags
 _(see [Manage data partition](https://docs.influxdata.com/influxdb/cloud-dedicated/admin/custom-partitions/))_.
-After four L0 files accumulate for a partition, they are are eligible for compaction.
+After four L0 files accumulate for a partition, they're eligible for compaction.
 If the compactor is keeping up with the incoming write load, all compaction
-events will have exactly four files. If the number of L0 files compacted begins to
-to increase, it indicates the compactor is not keeping up.
+events have exactly four files.
+An increase in the number of L0 files compacted indicates the compactor isn't keeping up.
 
 This histogram helps to determine if the Compactor is starting compactions as
 soon as it can.
@@ -367,7 +367,7 @@ that the Catalog may be overloaded or unresponsive.
 
 #### Catalog Op Latency (P90)
 
-The 90th percentile (P90) of query latency against the catalog service per operation.
+The 90th percentile (P90) query latency for each operation against the catalog service.
 A high P90 value indicates that the Catalog may be overloaded.
 
 ---
