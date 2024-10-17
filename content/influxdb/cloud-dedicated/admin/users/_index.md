@@ -25,18 +25,14 @@ user attributes, resource types, and environment context.
 
 - [Available user groups](#available-user-groups)
 - [Manage users](#manage-users)
-- [Assign a user to a different group](#assign-a-user-to-a-different-group)
-- [Invite a user to your account](#invite-a-user-to-your-account)
 
 ### Available user groups
 
-In {{% product-name %}}, users have "management" roles, such as creating and 
-deleting databases, viewing resource information, and provisioning
+In {{% product-name %}}, users have "management" responsibilities, such as creating and 
+deleting [databases](/influxdb/cloud-dedicated/admin/databases/), [viewing resource information](/influxdb/cloud-dedicated/admin/monitor-your-cluster/), and provisioning
 [database tokens](/influxdb/cloud-dedicated/admin/tokens/database/) for reading and writing data. 
 
 A user can belong to the following groups, each with predefined privileges:
-
-<!-- Question: what are the "certain resources" below? -->
 
 - **Admin**: Read and write permissions on all resources.
 - **Member**: Read permission on certain resources and create permission for
@@ -53,8 +49,8 @@ access to resources in your cluster.
 
 ### Manage users
 
-InfluxData uses Auth0 to create user accounts and assign users to groups
-in {{% product-name %}}.
+- [Assign a user to a different group](#assign-a-user-to-a-different-group)
+- [Invite a user to your account](#invite-a-user-to-your-account)
 
 ### Assign a user to a different group
 
@@ -68,9 +64,6 @@ for each.
 For new users that you want to add to your account, the InfluxData Support Team
 configures invitations with the attributes and groups that you specify. 
 
-<!-- Question: cluster admins shouldn't use `influctl user invite` https://github.com/influxdata/docs-v2/blob/dddf699722bc9e2ba33c4ea9f34673454f3164a5/content/influxdb/cloud-dedicated/reference/cli/influxctl/user/invite.md
-How should we communicate this? -->
-
 1. [Contact InfluxData support](https://support.influxdata.com/s/login/)
    to invite a user to your account.
    In your request, provide the user details, including email address, desired
@@ -78,7 +71,7 @@ How should we communicate this? -->
 2. InfluxData support creates the user account and emails the user an invitation
    that includes following:
 
-   - An **Auth0 login** to authenticate access to the cluster
+   - A login URL to authenticate access to the cluster
    - The {{% product-name %}} **account ID**
    - The {{% product-name %}} **cluster ID**
    - The {{% product-name %}} **cluster URL**
