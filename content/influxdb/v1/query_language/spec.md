@@ -1135,7 +1135,7 @@ SHOW TAG KEY EXACT CARDINALITY
 ### SHOW TAG KEYS
 
 ```
-show_tag_keys_stmt = "SHOW TAG KEYS" [on_clause] [ from_clause ] [ where_clause ]
+show_tag_keys_stmt = "SHOW TAG KEYS" [on_clause] [with_key_clause] [ from_clause ] [ where_clause ]
                      [ limit_clause ] [ offset_clause ] .
 ```
 
@@ -1153,6 +1153,9 @@ SHOW TAG KEYS FROM "cpu" WHERE "region" = 'uswest'
 
 -- show all tag keys where the host key = 'serverA'
 SHOW TAG KEYS WHERE "host" = 'serverA'
+
+-- show specific tag keys
+SHOW TAG KEYS WITH KEY IN ("region", "host")
 ```
 
 ### SHOW TAG VALUES

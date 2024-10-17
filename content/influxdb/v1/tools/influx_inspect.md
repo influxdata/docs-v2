@@ -29,18 +29,21 @@ influx_inspect [ [ command ] [ options ] ]
 
 The `influx_inspect` commands are summarized here, with links to detailed information on each of the commands.
 
-* [`buildtsi`](#buildtsi): Converts in-memory (TSM-based) shards to TSI.
-* [`deletetsm`](#deletetsm): Bulk deletes a measurement from a raw TSM file.
-* [`dumptsi`](#dumptsi): Dumps low-level details about TSI files.
-* [`dumptsm`](#dumptsm): Dumps low-level details about TSM files.
-* [`dumptsmwal`](#dumptsmwal): Dump all data from a WAL file.  
-* [`export`](#export): Exports raw data from a shard in InfluxDB line protocol format.
-* [`report`](#report): Displays a shard level report.
-* [`report-disk`](#report-disk): Reports disk usage by shards and measurements.
-* [`reporttsi`](#reporttsi): Reports on cardinality for shards and measurements.
-* [`verify`](#verify): Verifies the integrity of TSM files.
-* [`verify-seriesfile`](#verify-seriesfile): Verifies the integrity of series files.
-* [`verify-tombstone`](#verify-tombstone): Verifies the integrity of tombstones.
+- [`buildtsi`](#buildtsi): Converts in-memory (TSM-based) shards to TSI.
+- [`check-schema`](#check-schema): Checks for type conflicts between shards.
+- [`deletetsm`](#deletetsm): Bulk deletes a measurement from a raw TSM file.
+- [`dumptsi`](#dumptsi): Dumps low-level details about TSI files.
+- [`dumptsm`](#dumptsm): Dumps low-level details about TSM files.
+- [`dumptsmwal`](#dumptsmwal): Dump all data from a WAL file.  
+- [`export`](#export): Exports raw data from a shard in InfluxDB line protocol format.
+- [`merge-schema`](#merge-schema): Merges a set of schema files from the `check-schema` command.
+- [`report`](#report): Displays a shard level report.
+- [`report-db`](#report-db): Estimates InfluxDB Cloud (TSM) cardinality for a database.
+- [`report-disk`](#report-disk): Reports disk usage by shards and measurements.
+- [`reporttsi`](#reporttsi): Reports on cardinality for shards and measurements.
+- [`verify`](#verify): Verifies the integrity of TSM files.
+- [`verify-seriesfile`](#verify-seriesfile): Verifies the integrity of series files.
+- [`verify-tombstone`](#verify-tombstone): Verifies the integrity of tombstones.
 
 ### `buildtsi`
 
@@ -138,6 +141,31 @@ $ influx_inspect buildtsi -database mydb -datadir ~/.influxdb/data -waldir ~/.in
 ```
 $ influx_inspect buildtsi -database stress -shard 1 -datadir ~/.influxdb/data -waldir ~/.influxdb/wal
 ```
+
+### `check-schema`
+
+Check for type conflicts between shards.
+
+#### Syntax
+
+```
+influx_inspect check-schema [ options ]
+```
+
+#### Options
+
+##### [ `-conflicts-file <string>` ]
+
+Filename conflicts data should be written to. Default is `conflicts.json`.
+
+##### [ `-path <string>` ]
+
+Directory path where `fields.idx` files are located. Default is the current
+working directory `.`.
+
+##### [ `-schema-file <string>` ]
+
+Filename schema data should be written to. Default is `schema.json`.
 
 ### `deletetsm`
 
@@ -427,6 +455,26 @@ randset value=97.9296104805 1439856000000000000
 randset value=25.3849066842 1439856100000000000
 ```
 
+### `merge-schema`
+
+Merge a set of schema files from the [`check-schema` command](#check-schema).
+
+#### Syntax
+
+```
+influx_inspect merge-schema [ options ]
+```
+
+#### Options
+
+##### [ `-conflicts-file <string>` ]
+
+Filename conflicts data should be written to. Default is `conflicts.json`.
+
+##### [ `-schema-file <string>` ]
+
+Filename for the output file. Default is `schema.json`.
+
 ### `report`
 
 Displays series metadata for all shards.
@@ -461,6 +509,48 @@ Default value is `false`.
 The flag to report exact cardinality counts instead of estimates.
 Default value is `false`.
 Note: This can use a lot of memory.
+
+### `report-db`
+
+Use the `report-db` command to estimate the series cardinality of data in a
+database when migrated to InfluxDB Cloud (TSM). InfluxDB Cloud (TSM) includes
+fields keys in the series key so unique field keys affect the total cardinality.
+The total series cardinality of data in a InfluxDB 1.x database may differ from
+from the series cardinality of that same data when migrated to InfluxDB Cloud (TSM).
+
+#### Syntax
+
+```
+influx_inspect report-db [ options ]
+```
+
+#### Options
+
+##### [ `-c <int>` ]
+
+Set worker concurrency. Default is `1`.
+
+##### `-db-path <string>`
+
+{{< req >}}: The path to the database.
+
+##### [ `-detailed` ]
+
+Include counts for fields, tags in the command output.
+
+##### [ `-exact` ]
+
+Report exact cardinality counts instead of estimates.
+This method of calculation can use a lot of memory.
+
+##### [ `-rollup <string>` ]
+
+Specify the cardinality "rollup" level--the granularity of the cardinality report:
+
+- `t`: total
+- `d`: database
+- `r`: retention policy
+- `m`: measurement <em class="op65">(Default)</em>
 
 ### `report-disk`
 
