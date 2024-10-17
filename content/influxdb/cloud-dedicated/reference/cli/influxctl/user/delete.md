@@ -9,6 +9,13 @@ weight: 301
 draft: true
 ---
 
+{{% warn %}}
+#### InfluxData internal use only
+
+This command is for InfluxData internal use only and won't work when run by
+a user account.
+{{% /warn %}}
+
 The `influxctl user delete` command deletes a user from your {{< product-name >}}
 account.
 
