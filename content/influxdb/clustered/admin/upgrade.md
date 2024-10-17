@@ -11,14 +11,14 @@ weight: 206
 influxdb/clustered/tags: [upgrade]
 related:
   - /influxdb/clustered/install/
-  - /influxdb/clustered/install/configure-cluster/
-  - /influxdb/clustered/install/deploy/
+  - /influxdb/clustered/install/set-up-cluster/configure-cluster/
+  - /influxdb/clustered/install/set-up-cluster/deploy/
 ---
 
 Use Kubernetes to upgrade your InfluxDB Clustered version.
 InfluxDB Clustered versioning is defined in the `AppInstance`
 `CustomResourceDefinition` (CRD) in your
-[`myinfluxdb.yml`](/influxdb/clustered/install/configure-cluster/).
+[`myinfluxdb.yml`](/influxdb/clustered/install/set-up-cluster/configure-cluster/).
 
 - [Version format](#version-format)
 - [Upgrade your InfluxDB Clustered version](#upgrade-your-influxdb-clustered-version)

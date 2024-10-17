@@ -48,6 +48,14 @@ a.btn {
     font-size: 1.1rem;
   }
 
+  &.arrow span.CaretOutlineRight {
+    font-size: 1.5rem;
+    line-height: 0;
+    vertical-align: sub;
+    display: inline-block;
+    margin-right: -.65rem;
+  }
+
   &.small-plus {
     padding: .25em;
     line-height: .65rem;

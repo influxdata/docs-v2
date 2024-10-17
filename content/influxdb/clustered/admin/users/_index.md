@@ -10,12 +10,12 @@ menu:
 weight: 102
 cascade:
   related:
-    - /influxdb/clustered/install/auth/
-    - /influxdb/clustered/install/configure-cluster/
+    - /influxdb/clustered/install/secure-cluster/auth/
+    - /influxdb/clustered/install/set-up-cluster/configure-cluster/
 ---
 
 Manage users with administrative access to your InfluxDB cluster through your
-[identity provider](/influxdb/clustered/install/auth/) and your InfluxDB
+[identity provider](/influxdb/clustered/install/secure-cluster/auth/) and your InfluxDB
 `AppInstance` resource. Administrative access lets users perform actions like
 creating databases and tokens.
 
