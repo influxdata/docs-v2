@@ -19,6 +19,30 @@ InfluxDB Enterprise builds are available. For more information, see
 [FIPS-compliant InfluxDB Enterprise builds](/enterprise_influxdb/v1/introduction/installation/fips-compliant/).
 {{% /note %}}
 
+## v1.11.7 {date"2024-09-19"}
+
+### Bug Fixes
+
+- Log errors when RPC calls fail for `MetaExecutor` operations like
+  `SHOW TAG VALUES` and `SHOW TAG KEYS`.
+- Prevent `GROUP BY` queries with an offset that crossed a DST boundary from failing.
+- Ensure `range()` filters correctly for all years.
+
+### Features
+
+- Run the `FIPS POST` if available and log the result.
+- Add support for LDAP over SSL (LDAPS).
+- Improve performance of `SHOW TAG VALUES` when using FGA by optimizing queries
+  to be limited to only tag values the user has permission to access.
+
+### Other
+
+- Upgrade to Go 1.22.7.
+- Upgrade `jwt-go`.
+- Upgrade `dvsekhvalnov/jose2go` to v1.6.0.
+
+---
+
 ## v1.11.6 {date="2024-08-02"}
 
 ### Bug Fixes

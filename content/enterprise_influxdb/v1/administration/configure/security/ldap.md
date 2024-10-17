@@ -164,12 +164,35 @@ enabled = true
   port = 389
 
   # Security mode for LDAP connection to this server.
-  # The recommended security is set "starttls" by default. This uses an initial unencrypted connection
-  # and upgrades to TLS as the first action against the server,
-  # per the LDAPv3 standard.
-  # Other options are "starttls+insecure" to behave the same as starttls
-  # but skip server certificate verification, or "none" to use an unencrypted connection.
+  # Valid settings: none, starttls, starttls+insecure, ldaps, ldaps+insecure.
+  # The recommended security is "starttls", which is the default. This uses
+  # an initial unencrypted connection and upgrades to TLS as the first action
+  # against the server, per the LDAPv3 standard.
+  # Another secure option is "ldaps", which starts the connection over
+  # TLS instead of upgrading like "starttls". This generally requires a
+  # dedicated port (usually 636).  "starttls" is generally preferred
+  # to "ldaps".
+  # Other options are "starttls+insecure" and "ldaps+insecure" which behave
+  # the same as "starttls" and and "ldaps" respectively, except they ignore
+  # server certificate verification errors.
+  # Finally, "none" does not use TLS. This is not recommended for
+  # production systems.
   security = "starttls"
+  
+  # Client certificates to present to the LDAP server are supported with
+  # "client-tls-certificate" and  "client-tls-private-key" configurations.
+  # These are paths to the X.509 client certificate and corresponding private
+  # key, respectively. If "client-tls-certificate" is set but 
+  # "client-tls-private-key" is not, then "client-tls-certificate" is assumed
+  # to bundle both the certificate and private key.
+  # The LDAP server may request and require valid client certificates
+  # even when InfluxDB is configured with an insecure TLS mode that ignores
+  # LDAP server certificate errors.
+  # Not all LDAP servers will request a client certificate. It is not
+  # necessary to set "client-tls-certificate" and "client-tls-private-key"
+  # if the LDAP server does not require client certificates.
+  client-tls-certificate = "/var/run/secrets/ldapClient.pem"
+  client-tls-private-key = "/var/run/secrets/ldapClient.key"
 
   # Credentials to use when searching for a user or group.
   bind-dn = "cn=read-only-admin,dc=example,dc=com"
