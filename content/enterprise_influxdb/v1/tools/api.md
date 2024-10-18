@@ -249,7 +249,7 @@ curl --request POST "http://localhost:8086/api/v2/delete?bucket=exampleDB/autoge
     }'
 ```
 
-If you use the `predicate` option in your request, review [delete predicate syntax](/influxdb/lv2/reference/syntax/delete-predicate/) and note its [limitations](/influxdb/lv2/reference/syntax/delete-predicate/#limitations).
+If you use the `predicate` option in your request, review [delete predicate syntax](/influxdb/v2/reference/syntax/delete-predicate/) and note its [limitations](/influxdb/v2/reference/syntax/delete-predicate/#limitations).
 
 ## InfluxDB 1.x HTTP endpoints
 The following InfluxDB 1.x API endpoints are available:

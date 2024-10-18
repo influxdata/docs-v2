@@ -120,7 +120,6 @@ one or more of the the following before upgrading:
 - Don't write skipped shard messages to the line protocol output destination.
 - Add warning if `fields.idxl` is encountered.
 - Prevent world-writable `MANIFEST` files.
-  to compact series files at startup.
 - Do not escape CSV output.
 - Avoid SIGBUS when reading non-standard series segment files.
 - Prevent retention service from creating orphaned shard files.
