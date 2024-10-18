@@ -136,7 +136,7 @@ Within the InfluxQL shell, execute any InfluxQL query supported by InfluxDB {{< 
 For information about what queries are supported see
 [InfluxQL support in InfluxDB {{< current-version >}}](/influxdb/v2/query-data/influxql/#influxql-support).
 
-View the [InfluxQL documentation (InfluxDB 1.8)](/influxdb/v1/query_language/)
+View the [InfluxQL documentation (1.11)](/influxdb/v1/query_language/)
 for in-depth documentation about the query language.
 
 ## Use and configure display formats

@@ -180,7 +180,8 @@ brew install influxdb@1
 
 {{% note %}}
 ##### Multiple versions of InfluxDB with Homebrew
-Installing both InfluxDB 1.8 and InfluxDB 2.0 with Homebrew
+
+Installing both InfluxDB 1.x and InfluxDB 2.x with Homebrew
 can result in unexpected path and naming conflicts.
 You can always run the desired version by specifying the full path:
 
