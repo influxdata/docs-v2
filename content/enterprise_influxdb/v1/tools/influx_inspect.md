@@ -513,7 +513,7 @@ Note: This can use a lot of memory.
 
 Use the `report-db` command to estimate the series cardinality of data in a
 database when migrated to InfluxDB Cloud (TSM). InfluxDB Cloud (TSM) includes
-fields keys in the series key so unique field keys affect the total cardinality.
+field keys in the series key so unique field keys affect the total cardinality.
 The total series cardinality of data in a InfluxDB 1.x database may differ from
 from the series cardinality of that same data when migrated to InfluxDB Cloud (TSM).
 

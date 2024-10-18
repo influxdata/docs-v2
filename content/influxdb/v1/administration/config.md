@@ -343,7 +343,7 @@ Environment variable: `INFLUXDB_DATA_MAX_CONCURRENT_DELETES`
 
 #### `compact-throughput = "48m"`
 
-The maximum number of bytes per seconds TSM compactions write to disk. Default is `"48m"` (48 million).
+The maximum number of bytes per second TSM compactions write to disk. Default is `"48m"` (48 million).
 Note that short bursts are allowed to happen at a possibly larger value, set by `compact-throughput-burst`.
 
 Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT`  

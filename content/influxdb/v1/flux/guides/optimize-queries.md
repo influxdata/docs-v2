@@ -134,7 +134,7 @@ Consider their necessity in your data processing before using them:
 [`set()`](/flux/v0/stdlib/universe/set/),
 [`experimental.set()`](/flux/v0/stdlib/experimental/set/),
 and [`map`](/flux/v0/stdlib/universe/map/)
-can each set columns value in data, however **set** functions have performance
+can each set column values in data, however **set** functions have performance
 advantages over `map()`.
 
 Use the following guidelines to determine which to use:

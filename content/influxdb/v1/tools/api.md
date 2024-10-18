@@ -59,7 +59,7 @@ InfluxDB 1.8.0 introduced forward compatibility APIs for InfluxDB v2.
 [InfluxDB v2 client libraries](/influxdb/v1/tools/api_client_libraries/)
 are built for the InfluxDB v2 API, but also work with **InfluxDB 1.8+**.
 
-The following v2 compatible APIs are available:
+InfluxDB v1 supports the following v2-compatible APIs:
 
 | Endpoint                                       | Description                                                                                                                           |
 | :--------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
@@ -202,7 +202,7 @@ curl --request GET "http://localhost:8086/api/v2/buckets"
   -H 'Authorization: Token <username>:<password>'
 ```
 
-The following example shows how to delete a database named "test":
+The following example shows how to delete a database named `test`:
 
 ```bash
 curl --request DELETE "http://localhost:8086/api/v2/buckets/test/autogen" 
