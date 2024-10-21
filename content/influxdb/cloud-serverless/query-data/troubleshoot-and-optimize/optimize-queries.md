@@ -15,6 +15,7 @@ related:
   - /influxdb/cloud-serverless/query-data/execute-queries/analyze-query-plan/
 aliases:
   - /influxdb/cloud-serverless/query-data/execute-queries/optimize-queries/
+  - /influxdb/cloud-serverless/query-data/optimize-queries/
 ---
 
 Optimize SQL and InfluxQL queries to improve performance and reduce their memory and compute (CPU) requirements.
