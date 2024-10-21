@@ -10,12 +10,13 @@
   
     li {
       margin-bottom: 0;
-      padding: 0 .65em 0 .75em;
+      padding: .45em .75em;
       color: $article-heading;
       background: rgba($article-heading, .07);
       font-size: .95rem;
       font-weight: $medium;
-      border-radius: 1em;
+      line-height: 1.1rem;
+      border-radius: 1.1em;
       display: inline-block;
 
       &.updated-in,
