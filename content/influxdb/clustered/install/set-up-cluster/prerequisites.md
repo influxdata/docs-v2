@@ -87,15 +87,90 @@ InfluxDB Clustered Kubernetes deployments require `kubectl` 1.27 or higher.
 
 ### Cluster sizing recommendation
 
-For a [medium-sized workload](https://www.influxdata.com/resources/influxdb-3-0-vs-oss/),
-InfluxData has tested InfluxDB Clustered using the following **AWS products**
-and sizing:
+As a starting point for a production workload, InfluxData recommends the
+following sizing for {{% product-name %}} components:
 
-- EC2 instances - primarily m6i.2xlarge (8 CPU, 32 GB RAM)
-  - 3 m6i.2xlarge instances for ingesters and routers (with minimum of 2Gi of local storage)
-  - 3 m6i.2xlarge instances for queriers
-  - 1 m6i.2xlarge instance for compactors
-  - 1 t3.large for the Kubernetes control plane
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[AWS](#)
+[Google Cloud Platform](#)
+[Microsoft Azure](#)
+[On-Prem](#)
+{{% /tabs %}}
+{{% tab-content %}}
+<!--------------------------------- BEGIN AWS --------------------------------->
+
+- **Catalog (PostgreSQL-compatible database) (x1):**
+  - _[See below](#postgresql-compatible-database-requirements)_
+- **Ingesters and Routers (x3):**
+  - EC2 m6i.2xlarge (8 CPU, 32 GB RAM)
+  - Local storage: mimumum of 2 GB (high-speed SSD)
+- **Queriers (x3):**
+  - EC2 m6i.2xlarge (8 CPU, 32 GB RAM)
+- **Compactors (x1):**
+  - EC2 m6i.2xlarge (8 CPU, 32 GB RAM)
+- **Kubernetes Control Plane (x1):**
+  - EC2 t3.large (2 CPU, 8 GB RAM)
+
+<!---------------------------------- END AWS ---------------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!--------------------------------- BEGIN GCP --------------------------------->
+
+- **Catalog (PostgreSQL-compatible database) (x1):**
+  - _[See below](#postgresql-compatible-database-requirements)_
+- **Ingesters and Routers (x3):**
+  - GCE c2-standard-8 (8 CPU, 32 GB RAM)
+  - Local storage: mimumum of 2 GB (high-speed SSD)
+- **Queriers (x3):**
+  - GCE c2-standard-8 (8 CPU, 32 GB RAM)
+- **Compactors (x1):**
+  - GCE c2-standard-8 (8 CPU, 32 GB RAM)
+- **Kubernetes Control Plane (x1):**
+  - GCE c2d-standard-2 (2 CPU, 8 GB RAM)
+
+<!---------------------------------- END GCP ---------------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!-------------------------------- BEGIN Azure -------------------------------->
+
+- **Catalog (PostgreSQL-compatible database) (x1):**
+  - _[See below](#postgresql-compatible-database-requirements)_
+- **Ingesters and Routers (x3):**
+  - Standard_D8s_v3 (8 CPU, 32 GB RAM)
+  - Local storage: mimumum of 2 GB (high-speed SSD)
+- **Queriers (x3):**
+  - Standard_D8s_v3 (8 CPU, 32 GB RAM)
+- **Compactors (x1):**
+  - Standard_D8s_v3 (8 CPU, 32 GB RAM)
+- **Kubernetes Control Plane (x1):**
+  - Standard_B2ms (2 CPU, 8 GB RAM)
+
+<!--------------------------------- END Azure --------------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------- BEGIN ON-PREM ------------------------------->
+
+- **Catalog (PostgreSQL-compatible database) (x1):**
+  - CPU: 4-8 cores
+  - RAM: 16-32 GB
+- **Ingesters and Routers (x3):**
+  - CPU: 8 cores
+  - RAM: 32 GB
+  - Local storage: 2 GB (high-speed SSD)
+- **Queriers (x3):**
+  - CPU: 8 cores
+  - RAM: 32 GB
+- **Compactors (x1):**
+  - CPU: 8 cores
+  - RAM: 32 GB
+- **Kubernetes Control Plane (x1):**
+  - CPU: 2 cores
+  - RAM: 8 GB
+
+<!-------------------------------- END ON-PREM -------------------------------->
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 Your sizing may need to be different based on your environment, cloud provider,
 and workload, but this is a reasonable starting size for your initial testing.
@@ -299,8 +374,8 @@ PostgreSQL-compatible database.
 ### PostgreSQL-compatible database requirements
 
 - PostgreSQL versions **13.8–14.6**.
-- Minimum of 4 GB of memory or equivalent provider-specific units.
-- To avoid conflicts and prevents issues caused by shared usage with other
+- **Minimum of 4 GB of memory** or equivalent provider-specific units.
+- To avoid conflicts and prevent issues caused by shared usage with other
   applications, ensure that your PostgreSQL-compatible instance is dedicated
   exclusively to InfluxDB.
 
