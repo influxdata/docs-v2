@@ -14,6 +14,7 @@ weight: 101
 metadata: [1 / 3]
 related:
   - /influxdb/cloud-dedicated/admin/databases/
+  - /influxdb/cloud-dedicated/admin/tokens/
   - /influxdb/cloud-dedicated/reference/cli/influxctl/
   - /influxdb/cloud-dedicated/reference/api/
 ---
