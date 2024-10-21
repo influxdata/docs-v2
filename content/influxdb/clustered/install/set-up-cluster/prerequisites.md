@@ -87,8 +87,8 @@ InfluxDB Clustered Kubernetes deployments require `kubectl` 1.27 or higher.
 
 ### Cluster sizing recommendation
 
-For a [medium-sized workload](https://www.influxdata.com/resources/influxdb-3-0-vs-oss/),
-InfluxData recommends the following sizing for {{% product-name %}} components:
+As a starting point for a production workload, InfluxData recommends the
+following sizing for {{% product-name %}} components:
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
