@@ -132,10 +132,10 @@ Floats can be a decimal point, decimal integer, or decimal fraction.
 
 InfluxDB SQL supports the following DATE/TIME data types:
 
-| SQL data type | Arrow data type                    | Description                                  |
-| :------------ | :--------------------------------- | :------------------------------------------- |
-| TIMESTAMP     | Timestamp(Nanosecond, Some("UTC")) | Nanosecond timestamp with a time zone offset |
-| INTERVAL      | Interval(IntervalMonthDayNano)     | Interval of time with a specified duration   |
+| SQL data type | Arrow data type                    | Description                                   |
+| :------------ | :--------------------------------- | :-------------------------------------------- |
+| TIMESTAMP     | Timestamp(Nanosecond, None)        | Nanosecond timestamp with no time zone offset |
+| INTERVAL      | Interval(IntervalMonthDayNano)     | Interval of time with a specified duration    |
 
 ### Timestamp
 

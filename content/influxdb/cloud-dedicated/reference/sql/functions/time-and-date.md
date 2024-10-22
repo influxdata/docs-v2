@@ -34,6 +34,7 @@ InfluxDB's SQL implementation supports time and date functions that are useful w
 - [to_timestamp_nanos](#to_timestamp_nanos)
 - [to_timestamp_seconds](#to_timestamp_seconds)
 - [to_unixtime](#to_unixtime)
+- [tz](#tz)
 
 ## current_date
 
@@ -1069,6 +1070,73 @@ SELECT
 | unixtime   |
 | :--------- |
 | 1704070919 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+
+## tz
+
+Converts a timestamp to a provided timezone. If the second argument is not provided, it defaults to UTC.
+
+```sql
+tz(time[, timezone])
+```
+
+##### Arguments
+
+- **expression**: time to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **timezone**: Optional [timezone db string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) into which the value should be cast. Defaults to "UTC" if not provided
+  The function returns the timestamp cast to the correct timezone.
+  If an incorrect timezone string is passed, or the wrong datatype is provided, the function returns an error.
+
+{{< expand-wrapper >}}
+{{% expand "View `tz` query example" %}}
+
+```sql
+SELECT tz('2024-01-01T01:00:00Z', 'America/New_York') AS time_tz
+```
+
+| time_tz                  |
+| :----------------------- |
+| 2024-10-01T02:00:00-04:00|
+
+{{% /expand %}}
+{{% expand "View `tz` query example from Getting Started data" %}}
+
+```sql
+SELECT tz(time, 'Australia/Sydney') AS time_tz, time FROM home ORDER BY time LIMIT 3;
+```
+
+| time_tz                             | time                           |
+| :---------------------------------- | ------------------------------ |
+| 1970-01-01T10:00:01.728979200+10:00 | 1970-01-01T00:00:01.728979200Z |
+| 1970-01-01T10:00:01.728979200+10:00 | 1970-01-01T00:00:01.728979200Z |
+| 1970-01-01T10:00:01.728982800+10:00 | 1970-01-01T00:00:01.728982800Z |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+##### What is the difference between tz and AT TIME ZONE?
+`tz` and [AT TIME ZONE](../operators/other/#at-time-zone) have similar behavior that differs when the input timestamp **does not** have a timezone associated with it.
+
+When a timestamp does not have a timezone associated with it (the default behavior in InfluxDB 3.0), `AT TIME ZONE` will cast a timestamp to the "wall clock" time in a particular time zone. This is the moment in time something would be experienced in a given time zone. This is a good way to define bounds on a query when you want them relative to some known range in a timezone (for example your local time).
+If a timezone is associated with the timestamp, then `AT TIME ZONE` will behave the same as `tz`.
+
+`tz` will **always** cast a timestamp to the "absolute" time in a particular time zone. This is a time relative to the unix epoch that has then be converted to that point in time in a given time zone. This is useful when you have data that was written as UTC or epoch timestamps, and you would like to view them in a specific timezone.
+
+{{< expand-wrapper >}}
+{{% expand "View `tz` and `::timestamp` comparison" %}}
+```sql
+SELECT
+  '2024-04-01T00:00:20Z'::timestamp AT TIME ZONE 'Europe/Brussels' as time_timestamp,
+  tz('2024-04-01T00:00:20', 'Europe/Brussels') as time_tz;
+```
+
+| time_timestamp               | time_tz                    |
+| :--------------------------- | :------------------------- |
+| 2024-04-01T00:00:20+02:00    | 2024-04-01T02:00:20+02:00  |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
