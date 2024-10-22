@@ -19,7 +19,7 @@ InfluxDB Enterprise builds are available. For more information, see
 [FIPS-compliant InfluxDB Enterprise builds](/enterprise_influxdb/v1/introduction/installation/fips-compliant/).
 {{% /note %}}
 
-## v1.11.7 {date"2024-09-19"}
+## v1.11.7 {date="2024-09-19"}
 
 ### Bug Fixes
 
