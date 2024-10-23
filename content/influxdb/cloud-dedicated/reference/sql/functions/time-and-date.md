@@ -1080,16 +1080,17 @@ SELECT
 Converts a timestamp to a provided timezone. If the second argument is not provided, it defaults to UTC.
 
 ```sql
-tz(time[, timezone])
+tz(time_expression[, timezone])
 ```
 
 ##### Arguments
 
-- **expression**: time to operate on.
+- **time_expression**: time to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
-- **timezone**: Optional [timezone db string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) into which the value should be cast. Defaults to "UTC" if not provided
-  The function returns the timestamp cast to the correct timezone.
-  If an incorrect timezone string is passed, or the wrong datatype is provided, the function returns an error.
+- **timezone**: [Timezone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+  to cast the value into. Default is `'UTC'`.
+  The function returns the timestamp cast to the specified timezone.
+  If an incorrect timezone string is passed or the wrong datatype is provided, the function returns an error.
 
 {{< expand-wrapper >}}
 {{% expand "View `tz` query example" %}}
@@ -1118,14 +1119,39 @@ SELECT tz(time, 'Australia/Sydney') AS time_tz, time FROM home ORDER BY time LIM
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-##### What is the difference between tz and AT TIME ZONE?
-`tz` and [AT TIME ZONE](../operators/other/#at-time-zone) have similar behavior that differs when the input timestamp **does not** have a timezone associated with it.
-
-When a timestamp does not have a timezone associated with it (the default behavior in InfluxDB 3.0), `AT TIME ZONE` will cast a timestamp to the "wall clock" time in a particular time zone. This is the moment in time something would be experienced in a given time zone. This is a good way to define bounds on a query when you want them relative to some known range in a timezone (for example your local time).
-If a timezone is associated with the timestamp, then `AT TIME ZONE` will behave the same as `tz`.
-
-`tz` will **always** cast a timestamp to the "absolute" time in a particular time zone. This is a time relative to the unix epoch that has then be converted to that point in time in a given time zone. This is useful when you have data that was written as UTC or epoch timestamps, and you would like to view them in a specific timezone.
-
+##### Differences between tz and AT TIME ZONE
+`tz` and [`AT TIME ZONE`](/influxdb/cloud-dedicated/reference/sql/operators/other/#at-time-zone)
+differ when the input timestamp **does not** have a timezone.
+- When using an input timestamp that does not have a timezone (the default behavior in InfluxDB) with the
+  `AT TIME ZONE` operator, the operator returns the the same timestamp, but with a timezone offset
+  (also known as the "wall clock" time)--for example:
+  ```sql
+  '2024-01-01 00:00:00'::TIMESTAMP AT TIME ZONE 'America/Los_Angeles'
+  
+  -- Returns
+  2024-01-01T00:00:00-08:00
+  ```
+- When using an input timestamp with a timezone, both the `tz()` function and the `AT TIME ZONE`
+  operator return the timestamp converted to the time in the specified timezone--for example:
+  ```sql
+  '2024-01-01T00:00:00-00:00' AT TIME ZONE 'America/Los_Angeles'
+  tz('2024-01-01T00:00:00-00:00', 'America/Los_Angeles')
+  
+  -- Both return
+  2023-12-31T16:00:00-08:00
+  ```
+- `tz()` always converts the input timestamp to the specified time zone.
+  If the input timestamp does not have a timezone, the function assumes it is a UTC timestamp--for example:
+  ```sql
+  tz('2024-01-01 00:00:00'::TIMESTAMP, 'America/Los_Angeles')
+  -- Returns
+  2023-12-31T16:00:00-08:00
+  ```
+  ```sql
+  tz('2024-01-01T00:00:00+1:00', 'America/Los_Angeles')
+  -- Returns
+  2023-12-31T15:00:00-08:00
+  ```
 {{< expand-wrapper >}}
 {{% expand "View `tz` and `::timestamp` comparison" %}}
 ```sql
@@ -1133,10 +1159,8 @@ SELECT
   '2024-04-01T00:00:20Z'::timestamp AT TIME ZONE 'Europe/Brussels' as time_timestamp,
   tz('2024-04-01T00:00:20', 'Europe/Brussels') as time_tz;
 ```
-
 | time_timestamp               | time_tz                    |
 | :--------------------------- | :------------------------- |
 | 2024-04-01T00:00:20+02:00    | 2024-04-01T02:00:20+02:00  |
-
 {{% /expand %}}
 {{< /expand-wrapper >}}
