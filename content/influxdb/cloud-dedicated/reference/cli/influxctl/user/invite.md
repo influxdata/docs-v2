@@ -1,7 +1,7 @@
 ---
 title: influxctl user invite
 description: >
-  The `influxctl user invite` command invites a user to your InfluxDB Cloud Dedicated
+  The `influxctl user invite` command invites a user to an InfluxDB Cloud Dedicated
   account.
 menu:
   influxdb_cloud_dedicated:
@@ -10,7 +10,14 @@ weight: 301
 draft: true
 ---
 
-The `influxctl user invite` command invites a user to your {{< product-name >}}
+{{% warn %}}
+#### InfluxData internal use only
+
+This command is for InfluxData internal use only and won't work when run by
+a user account.
+{{% /warn %}}
+
+The `influxctl user invite` command invites a user to an {{< product-name >}}
 account.
 
 ## Usage
