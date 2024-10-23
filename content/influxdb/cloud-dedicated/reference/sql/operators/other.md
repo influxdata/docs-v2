@@ -75,7 +75,7 @@ SELECT
 
 ```sql
 SELECT
-  '2024-01-01 00:00:00'::TIMESTAMP AT TIME ZONE 'America/Los_Angeles' AS 'Local time with TZ offset'
+  '2024-01-01 00:00:00' AT TIME ZONE 'America/Los_Angeles' AS 'Local time with TZ offset'
 ```
 
 | Local time with TZ offset |
