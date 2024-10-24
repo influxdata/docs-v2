@@ -21,7 +21,7 @@ list_code_example: |
   sql="""
     SELECT DATE_BIN(INTERVAL '2 hours',
         time,
-        '1970-01-01T00:00:00Z'::TIMESTAMP) AS time,
+        '1970-01-01T00:00:00Z') AS time,
       room,
       selector_max(temp, time)['value'] AS 'max temp',
       selector_min(temp, time)['value'] AS 'min temp',

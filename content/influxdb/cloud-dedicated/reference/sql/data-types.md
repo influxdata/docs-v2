@@ -13,16 +13,26 @@ related:
   - /influxdb/cloud-dedicated/query-data/sql/cast-types/
 ---
 
-InfluxDB Cloud Dedicated uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.
+{{< product-name >}} uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
+implementation of SQL.
 Data types define the type of values that can be stored in table columns.
 In InfluxDB's SQL implementation, a **measurement** is structured as a table,
 and  **tags**, **fields** and **timestamps** are exposed as columns.
 
+## SQL and Arrow data types
+
+In SQL, each column, expression, and parameter has a data type.
+A data type is an attribute that specifies the type of data that the object can hold.
 DataFusion uses the [Arrow](https://arrow.apache.org/) type system for query execution.
-Data types stored in InfluxDB's storage engine are mapped to SQL data types at query time.
+All SQL types are mapped to [Arrow data types](https://docs.rs/arrow/latest/arrow/datatypes/enum.DataType.html).
+
+Both SQL and Arrow data types play an important role in how data is operated on
+during query execution and returned in query results.
 
 {{% note %}}
-When performing casting operations, cast to the **name** of the data type, not the actual data type.
+When performing casting operations, cast to the SQL data type unless you use
+[`arrow_cast()`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#arrow_cast)
+to cast to a specific Arrow type.
 Names and identifiers in SQL are _case-insensitive_ by default. For example:
 
 ```sql
@@ -47,12 +57,12 @@ SELECT
 
 ## String types
 
-| Name    | Data type | Description                       |
-| :------ | :-------- | --------------------------------- |
-| STRING  | UTF8      | Character string, variable-length |
-| CHAR    | UTF8      | Character string, fixed-length    |
-| VARCHAR | UTF8      | Character string, variable-length |
-| TEXT    | UTF8      | Variable unlimited length         |
+| SQL data type | Arrow data type | Description                       |
+| :------------ | :-------------- | --------------------------------- |
+| STRING        | UTF8            | Character string, variable-length |
+| CHAR          | UTF8            | Character string, fixed-length    |
+| VARCHAR       | UTF8            | Character string, variable-length |
+| TEXT          | UTF8            | Variable unlimited length         |
 
 ##### Example string literals
 
@@ -66,11 +76,11 @@ SELECT
 
 The following numeric types are supported:
 
-| Name            | Data type | Description                  |
-| :-------------- | :-------- | :--------------------------- |
-| BIGINT          | INT64     | 64-bit signed integer        |
-| BIGINT UNSIGNED | UINT64    | 64-bit unsigned integer      |
-| DOUBLE          | FLOAT64   | 64-bit floating-point number |
+| SQL data type   | Arrow data type | Description                  |
+| :-------------- | :-------------- | :--------------------------- |
+| BIGINT          | INT64           | 64-bit signed integer        |
+| BIGINT UNSIGNED | UINT64          | 64-bit unsigned integer      |
+| DOUBLE          | FLOAT64         | 64-bit floating-point number |
 
 ### Integers
 
@@ -122,10 +132,10 @@ Floats can be a decimal point, decimal integer, or decimal fraction.
 
 InfluxDB SQL supports the following DATE/TIME data types:
 
-| Name      | Data type | Description                                                          |
-| :-------- | :-------- | :------------------------------------------------------------------- |
-| TIMESTAMP | TIMESTAMP | TimeUnit::Nanosecond, None                                           |
-| INTERVAL  | INTERVAL  | Interval(IntervalUnit::YearMonth) or Interval(IntervalUnit::DayTime) |
+| SQL data type | Arrow data type                    | Description                                   |
+| :------------ | :--------------------------------- | :-------------------------------------------- |
+| TIMESTAMP     | Timestamp(Nanosecond, None)        | Nanosecond timestamp with no time zone offset |
+| INTERVAL      | Interval(IntervalMonthDayNano)     | Interval of time with a specified duration    |
 
 ### Timestamp
 
@@ -180,9 +190,9 @@ INTERVAL '2 days 1 hour 31 minutes'
 
 Booleans store TRUE or FALSE values.
 
-| Name    | Data type | Description          |
-| :------ | :-------- | :------------------- |
-| BOOLEAN | BOOLEAN   | True or false values |
+| SQL data type | Arrow data type | Description          |
+| :------------ | :-------------- | :------------------- |
+| BOOLEAN       | Boolean         | True or false values |
 
 ##### Example boolean literals
 
