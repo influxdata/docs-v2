@@ -2,8 +2,13 @@
 const ANON_USER_ID = null;
 
 function showAIChat() {
-    loadCommandAIChat();
-    bootCommandAIChat(ANON_USER_ID);
+    // Show CommandAI chat
+    // loadCommandAIChat();
+    // bootCommandAIChat(ANON_USER_ID);
+    
+    // Show YextAI chat
+    loadYextAIChat();
+    bootCommandAIChat();
 }
 
 function loadCommandAIChat() {
@@ -23,4 +28,65 @@ function bootCommandAIChat(userid) {
     console.error('Error booting CommandBar', error);
   }
 
+}
+
+function bootYextAIChat() {
+  window.ChatApp.mount({
+    apiKey: "c8486ab4b244e31cdba220ce07c3853d",
+    botId: "docs-bot",
+    title: "InfluxData Docs AI Assistant",
+    // showRestartButton: true,
+    // onClose: () => { /* Your logic here */ },
+    // showFeedbackButtons: true,
+    // showTimestamp: true,
+    // footer: "",
+    // placeholder: "Type a message...",
+    // stream: true,
+    // inputAutoFocus: true,
+    // handleError: (e) => { /* Your error handling logic here */ },
+    // onSend: () => { /* Your logic here */ },
+    messageSuggestions: ["What is InfluxDB v3?", "How do I write data to InfluxDB?", "How do I use SQL with InfluxDB?"],
+    // openOnLoad: true,
+    // showHeartBeatAnimation: true,
+    // showUnreadNotification: true,
+    // showInitialMessagePopUp: true,
+    // saveToSessionStorage: true,
+    ctaLabel: "Ask the Docs",
+  });
+}
+
+function loadYextAIChat() {
+  // https://www.yext.com/docs/ai-assistant/quick
+  var script = document.createElement('script');
+  script.src = 'https://assets.sitescdn.net/chat/v0/chat.umd.js';
+  script.onload = bootYextAIChat;
+  document.head.appendChild(script);
+
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://assets.sitescdn.net/chat/v0/chat.css';
+  document.head.appendChild(link);
+
+  var style = document.createElement('style');
+  style.innerHTML = `
+  /* You can override styles by targeting the various yext-chat classes */
+  .yext-chat-panel__container {
+    background-color: #fff;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+  }
+  .yext-chat-header__container {
+    background-color: #00A3FF;
+    color: #fff;
+    padding: 10px;
+  }
+  .yext-chat-message-bubble__message__bot {
+    background-color: #00A3FF;
+    color: #1d2129;
+  }
+  .yext-chat-message-bubble__message__user {
+    background-color: #0084ff;
+    color: #fff;
+  }
+  `;
 }
