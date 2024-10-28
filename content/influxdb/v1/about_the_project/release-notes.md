@@ -31,6 +31,11 @@ one or more of the the following before upgrading:
   configuration options. Dual-write to your current InfluxDB
   instance and your new 1.11 instance. Test writing and querying data with
   InfluxDB 1.11.
+
+#### No 32-bit builds
+
+InfluxData no longer provides builds of InfluxDB v1 for 32-bit architectures.
+All official build packages are for 64-bit architectures.
 {{% /warn %}}
 
 ### Features
