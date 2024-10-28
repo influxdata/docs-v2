@@ -71,7 +71,7 @@ one or more of the the following before upgrading:
   - Add [`prom-read-auth-enabled` configuration option](/influxdb/v1/administration/config/#prom-read-auth-enabled--false)
     to authenticate Prometheus remote read.
 - **Flux improvements:**
-  - Upgrade Flux to v0.194.4.
+  - Upgrade Flux to v0.194.5.
   - Update Flux components to use `flux/array` instead of `arrow/array`.
   - Add Flux query support to the `influx` REPL.
   - Add [new pushdown capabilities](/influxdb/v1/flux/guides/optimize-queries/#start-queries-with-pushdowns)
