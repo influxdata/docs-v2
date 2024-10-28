@@ -1,0 +1,94 @@
+---
+description: "Telegraf plugin for collecting metrics from Fail2ban"
+menu:
+  telegraf_v1_ref:
+    parent: input_plugins_reference
+    name: Fail2ban
+    identifier: input-fail2ban
+tags: [Fail2ban, "input-plugins", "configuration"]
+related:
+  - /telegraf/v1/configure_plugins/
+---
+
+# Fail2ban Input Plugin
+
+The fail2ban plugin gathers the count of failed and banned ip addresses using
+[fail2ban](https://www.fail2ban.org).
+
+This plugin runs the `fail2ban-client` command which generally requires root
+access.  Acquiring the required permissions can be done using several methods:
+
+- Use sudo
+
+## Global configuration options <!-- @/docs/includes/plugin_config.md -->
+
+In addition to the plugin-specific configuration settings, plugins support
+additional global and plugin configuration settings. These settings are used to
+modify metrics, tags, and field or create aliases and configure ordering, etc.
+See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+
+[CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
+
+## Configuration
+
+```toml @sample.conf
+# Read metrics from fail2ban.
+[[inputs.fail2ban]]
+  ## Use sudo to run fail2ban-client
+  # use_sudo = false
+
+  ## Use the given socket instead of the default one
+  # socket = "/var/run/fail2ban/fail2ban.sock"
+```
+
+## Using sudo
+
+Make sure to set `use_sudo = true` in your configuration file.
+
+You will also need to update your sudoers file.  It is recommended to modify a
+file in the `/etc/sudoers.d` directory using `visudo`:
+
+```bash
+sudo visudo -f /etc/sudoers.d/telegraf
+```
+
+Add the following lines to the file, these commands allow the `telegraf` user
+to call `fail2ban-client` without needing to provide a password and disables
+logging of the call in the auth.log.  Consult `man 8 visudo` and `man 5
+sudoers` for details.
+
+```text
+Cmnd_Alias FAIL2BAN = /usr/bin/fail2ban-client status, /usr/bin/fail2ban-client status *
+telegraf  ALL=(root) NOEXEC: NOPASSWD: FAIL2BAN
+Defaults!FAIL2BAN !logfile, !syslog, !pam_session
+```
+
+## Metrics
+
+- fail2ban
+  - tags:
+    - jail
+  - fields:
+    - failed (integer, count)
+    - banned (integer, count)
+
+## Example Output
+
+```text
+fail2ban,jail=sshd failed=5i,banned=2i 1495868667000000000
+```
+
+### Execute the binary directly
+
+```shell
+# fail2ban-client status sshd
+Status for the jail: sshd
+|- Filter
+|  |- Currently failed: 5
+|  |- Total failed:     20
+|  `- File list:        /var/log/secure
+`- Actions
+   |- Currently banned: 2
+   |- Total banned:     10
+   `- Banned IP list:   192.168.0.1 192.168.0.2
+```
