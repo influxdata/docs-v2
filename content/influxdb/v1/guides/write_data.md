@@ -28,8 +28,9 @@ curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE m
 
 The InfluxDB API is the primary means of writing data into InfluxDB.
 
-- To **write to a database using the InfluxDB 1.8 API**, send `POST` requests to the `/write` endpoint. For example, to write a single point to the `mydb` database.
-The data consists of the [measurement](/influxdb/v1/concepts/glossary/#measurement) `cpu_load_short`, the [tag keys](/influxdb/v1/concepts/glossary/#tag-key) `host` and `region` with the [tag values](/influxdb/v1/concepts/glossary/#tag-value) `server01` and `us-west`, the [field key](/influxdb/v1/concepts/glossary/#field-key) `value` with a [field value](/influxdb/v1/concepts/glossary/#field-value) of `0.64`, and the [timestamp](/influxdb/v1/concepts/glossary/#timestamp) `1434055562000000000`.
+- To **write to a database using the InfluxDB v1 API**, send `POST` requests to the `/write` endpoint.
+
+   The following example shows how to write a point to the `mydb` database. The point data consists of the [measurement](/influxdb/v1/concepts/glossary/#measurement) `cpu_load_short`, the [tag keys](/influxdb/v1/concepts/glossary/#tag-key) `host` and `region` with the [tag values](/influxdb/v1/concepts/glossary/#tag-value) `server01` and `us-west`, the [field key](/influxdb/v1/concepts/glossary/#field-key) `value` with a [field value](/influxdb/v1/concepts/glossary/#field-value) of `0.64`, and the [timestamp](/influxdb/v1/concepts/glossary/#timestamp) `1434055562000000000`.
 
 ```bash
 curl -i -XPOST 'http://localhost:8086/write?db=mydb'

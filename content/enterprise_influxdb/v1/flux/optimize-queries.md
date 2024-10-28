@@ -22,9 +22,14 @@ Optimize your Flux queries to reduce their memory and compute (CPU) requirements
 - [Measure query performance with Flux profilers](#measure-query-performance-with-flux-profilers)
 
 ## Start queries with pushdowns
-**Pushdowns** are functions or function combinations that push data operations to the underlying data source rather than operating on data in memory. Start queries with pushdowns to improve query performance. Once a non-pushdown function runs, Flux pulls data into memory and runs all subsequent operations there.
+
+**Pushdowns** are functions or function combinations that push data operations
+to the underlying data source rather than operating on data in memory.
+Start queries with pushdowns to improve query performance. Once a non-pushdown
+function runs, Flux pulls data into memory and runs all subsequent operations there.
 
 #### Pushdown functions and function combinations
+
 The following pushdowns are supported in InfluxDB Enterprise 1.10+.
 
 | Functions                      | Supported            |
@@ -63,6 +68,7 @@ Once a non-pushdown function runs, Flux pulls data into memory and runs all
 subsequent operations there.
 
 ##### Pushdown functions in use
+
 ```js
 from(bucket: "db/rp")
     |> range(start: -1h)                       //
@@ -75,6 +81,7 @@ from(bucket: "db/rp")
 ```
 
 ### Avoid processing filters inline
+
 Avoid using mathematic operations or string manipulation inline to define data filters.
 Processing filter values inline prevents `filter()` from pushing its operation down
 to the underlying data source, so data returned by the
@@ -104,12 +111,14 @@ from(bucket: "db/rp")
 ```
 
 ## Avoid short window durations
+
 Windowing (grouping data based on time intervals) is commonly used to aggregate and downsample data.
 Increase performance by avoiding short window durations.
 More windows require more compute power to evaluate which window each row should be assigned to.
 Reasonable window durations depend on the total time range queried.
 
 ## Use "heavy" functions sparingly
+
 The following functions use more memory or CPU than others.
 Consider their necessity in your data processing before using them:
 
@@ -120,6 +129,7 @@ Consider their necessity in your data processing before using them:
 - [pivot()](/influxdb/v2/reference/flux/stdlib/built-in/transformations/pivot/)
 
 ## Use set() instead of map() when possible
+
 [`set()`](/influxdb/v2/reference/flux/stdlib/built-in/transformations/set/),
 [`experimental.set()`](/influxdb/v2/reference/flux/stdlib/experimental/set/),
 and [`map`](/influxdb/v2/reference/flux/stdlib/built-in/transformations/map/)
@@ -132,6 +142,7 @@ Use the following guidelines to determine which to use:
 - If dynamically setting a column value using **existing row data**, use `map()`.
 
 #### Set a column value to a static value
+
 The following queries are functionally the same, but using `set()` is more performant than using `map()`.
 
 ```js
@@ -144,12 +155,14 @@ data
 ```
 
 #### Dynamically set a column value using existing row data
+
 ```js
 data
     |> map(fn: (r) => ({ r with foo: r.bar }))
 ```
 
 ## Balance time range and data precision
+
 To ensure queries are performant, balance the time range and the precision of your data.
 For example, if you query data stored every second and request six months worth of data,
 results would include ≈15.5 million points per series.
@@ -160,7 +173,8 @@ Use [pushdowns](#pushdown-functions-and-function-combinations) to optimize how
 many points are stored in memory.
 
 ## Measure query performance with Flux profilers
-Use the [Flux Profiler package](/influxdb/v2/reference/flux/stdlib/profiler/)
+
+Use the [Flux Profiler package](/flux/v0/stdlib/profiler/)
 to measure query performance and append performance metrics to your query output.
 The following Flux profilers are available:
 

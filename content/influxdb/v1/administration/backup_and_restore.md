@@ -1,6 +1,6 @@
 ---
 title: Back up and restore data
-seotitle: Back up and restore data in InfluxDB v1.8
+seotitle: Back up and restore data in InfluxDB v1.11
 description: >
   To prevent unexpected data loss, back up and restore InfluxDB OSS instances.
 aliases:
@@ -121,8 +121,8 @@ Use the directory structure of the backup directory to determine the format of t
   [offline legacy restore](?t=Legacy+format#offline-legacy-restore)_.
 - Both the source and target InfluxDB instances must be the same InfluxDB version
   or differ by only a minor version.
-  For example, you can back up data from InfluxDB {{< latest-patch minorVersionOffset=-1 >}}
-  and restore it to an InfluxDB {{< latest-patch >}} instance.
+  For example, you can back up data from InfluxDB 1.7 and restore it to an InfluxDB 1.8 instance.
+  The only exception is restoring data from InfluxDB 1.8 into 1.11.
 
 ## Important notes
 

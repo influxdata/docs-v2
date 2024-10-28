@@ -18,15 +18,15 @@ provides Flux syntax highlighting, autocompletion, and a direct InfluxDB server
 integration that lets you run Flux scripts natively and show results in VS Code.
 
 {{% note %}}
-#### Enable Flux in InfluxDB 1.8
-To use the Flux VS Code extension with InfluxDB 1.8, ensure Flux is enabled in
+#### Enable Flux in InfluxDB 1.11
+To use the Flux VS Code extension with InfluxDB 1.11, ensure Flux is enabled in
 your InfluxDB configuration file.
 For more information, see [Enable Flux](/influxdb/v1/flux/installation/).
 {{% /note %}}
 
 ##### On this page
 - [Install the Flux VS Code extension](#install-the-flux-vs-code-extension)
-- [Connect to InfluxDB 1.8](#connect-to-influxdb-18)
+- [Connect to InfluxDB 1.11](#connect-to-influxdb-111)
 - [Query InfluxDB from VS Code](#query-influxdb-from-vs-code)
 - [Explore your schema](#explore-your-schema)
 - [Debug Flux queries](#debug-flux-queries)
@@ -38,7 +38,7 @@ The Flux VS Code extension is available in the **Visual Studio Marketplace**.
 For information about installing extensions from the Visual Studio marketplace,
 see the [Extension Marketplace documentation](https://code.visualstudio.com/docs/editor/extension-gallery).
 
-## Connect to InfluxDB 1.8
+## Connect to InfluxDB 1.11
 To create an InfluxDB connection in VS Code:
 
 1. Open the **VS Code Command Pallet** ({{< keybind mac="⇧⌘P" other="Ctrl+Shift+P" >}}).
