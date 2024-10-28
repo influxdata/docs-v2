@@ -34,11 +34,11 @@ function bootYextAIChat() {
   window.ChatApp.mount({
     apiKey: "c8486ab4b244e31cdba220ce07c3853d",
     botId: "docs-bot",
-    title: "InfluxData Docs AI Assistant",
+    title: "Experimental AI Chat",
     // showRestartButton: true,
     // onClose: () => { /* Your logic here */ },
-    // showFeedbackButtons: true,
-    // showTimestamp: true,
+    showFeedbackButtons: true,
+    showTimestamp: true,
     // footer: "",
     // placeholder: "Type a message...",
     // stream: true,
@@ -51,16 +51,11 @@ function bootYextAIChat() {
     // showUnreadNotification: true,
     // showInitialMessagePopUp: true,
     // saveToSessionStorage: true,
-    ctaLabel: "Ask the Docs",
+    ctaLabel: "Experimental AI Chat",
   });
 }
 
 function loadYextAIChat() {
-  // https://www.yext.com/docs/ai-assistant/quick
-  var script = document.createElement('script');
-  script.src = 'https://assets.sitescdn.net/chat/v0/chat.umd.js';
-  script.onload = bootYextAIChat;
-  document.head.appendChild(script);
 
   var link = document.createElement('link');
   link.rel = 'stylesheet';
@@ -70,23 +65,35 @@ function loadYextAIChat() {
   var style = document.createElement('style');
   style.innerHTML = `
   /* You can override styles by targeting the various yext-chat classes */
-  .yext-chat-panel__container {
+  #chat-app .yext-chat-panel__container {
     background-color: #fff;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
   }
-  .yext-chat-header__container {
+  #chat-app .yext-chat-header__container {
+    background: linear-gradient(to right, #066FC5, #00A3FF);
     background-color: #00A3FF;
     color: #fff;
     padding: 10px;
   }
-  .yext-chat-message-bubble__message__bot {
-    background-color: #00A3FF;
+  #chat-app .yext-chat-message-bubble__message__bot,
+  #chat-app .yext-chat-message-bubble__bubble,
+  #chat-app .yext-chat-message-bubble__user,
+  #chat-app .yext-chat-pop-up__button {
+    background-color: #066FC5;
     color: #1d2129;
   }
-  .yext-chat-message-bubble__message__user {
+  #chat-app .yext-chat-message-bubble__message__user {
     background-color: #0084ff;
     color: #fff;
   }
+  #
   `;
+  document.head.appendChild(style);
+
+  // https://www.yext.com/docs/ai-assistant/quick
+  var script = document.createElement('script');
+  script.src = 'https://assets.sitescdn.net/chat/v0/chat.umd.js';
+  script.onload = bootYextAIChat;
+  document.head.appendChild(script);
 }
