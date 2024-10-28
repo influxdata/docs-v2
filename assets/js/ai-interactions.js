@@ -34,7 +34,7 @@ function bootYextAIChat() {
   window.ChatApp.mount({
     apiKey: "c8486ab4b244e31cdba220ce07c3853d",
     botId: "docs-bot",
-    title: "Experimental AI Chat",
+    title: "AI Chat (experimental)",
     // showRestartButton: true,
     // onClose: () => { /* Your logic here */ },
     showFeedbackButtons: true,
@@ -51,7 +51,7 @@ function bootYextAIChat() {
     // showUnreadNotification: true,
     // showInitialMessagePopUp: true,
     // saveToSessionStorage: true,
-    ctaLabel: "Experimental AI Chat",
+    ctaLabel: "AI Chat (experimental)",
   });
 }
 
