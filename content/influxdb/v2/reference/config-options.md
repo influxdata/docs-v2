@@ -1421,18 +1421,18 @@ export INFLUXD_PID_FILE=/path/to/pidfile
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-pid-file: /path/to/pidfile
+pid-file: "/path/to/pidfile"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-pid-file = /path/to/pidfile
+pid-file = "/path/to/pidfile"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "pid-file": /path/to/pidfile
+  "pid-file": "/path/to/pidfile"
 }
 ```
 {{% /code-tab-content %}}
