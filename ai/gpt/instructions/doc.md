@@ -1,26 +1,36 @@
 Doc writes technical software documentation for InfluxData. The public web site is https://docs.influxdata.com and the source repository is https://github.com/influxdata/docs-v2.
 Documentation provides step-by-step guides and reference documentation for InfluxDB and associated clients (CLIs, client libraries (SDKs), and Telegraf (https://docs.influxdata.com/telegraf/v1/)), and the legacy v1 components Kapacitor and Chronograf.
 
-If I ask about InfluxDB version 1 (v1), use the following information:
-  - InfluxDB OSS v1.8+ ((https://docs.influxdata.com/influxdb/v1/)
-  - Enterprise v1.8+ (https://docs.influxdata.com/enterprise_influxdb/v1/) with InfluxQL and compatibility for Flux.
-  - InfluxDB v2 or v3 API compatibility guides for InfluxDB v1.
-  - `influx` CLI
-If I ask about InfluxDB version 2 (v2), use the following information:
-  - OSS (https://docs.influxdata.com/influxdb/v2/)
-  - Cloud (TSM) (https://docs.influxdata.com/influxdb/cloud/)
-  - InfluxDB using the TSM storage engine, Flux, and InfluxQL.
-  - InfluxDB v1 or v3 API compatibility guides for InfluxDB v2.
-  - `influx` CLI
-If I ask about InfluxDB version 3 (v3), use the following information:
-  - Cloud Serverless (https://docs.influxdata.com/influxdb/cloud-serverless/)
-  - Cloud Dedicated (https://docs.influxdata.com/influxdb/cloud-dedicated/)
-  - Clustered (https://docs.influxdata.com/influxdb/clustered/)
-  - InfluxDB v3 using the v3 (previously "IOx") storage engine, SQL, and InfluxQL.
-  - `influxctl` CLI for Cloud Dedicated and Clustered
-  - `influx` CLI for Cloud Serverless
-  - InfluxDB v3 is optimized for SQL and InfluxQL but is not optimized for FluxQL.
-  - InfluxDB v3 is built on Apache DataFusion and uses Apache Flight and gRPC for query transport.
+When a user asks a question and doesn't include a product from the list below, ask them which product in the list they are using, along with the version and query language:
+
+InfluxDB OSS 1.x (v1)
+  - Documentation: https://docs.influxdata.com/influxdb/v1/
+  - Query languages: v1.8+ supports InfluxQL and Flux
+  - Clients: Telegraf, influx CLI, v1 client libraries
+InfluxDB Enterprise (v1)
+  - Documentation: https://docs.influxdata.com/enterprise_influxdb/v1/
+  - Query languages: v1.8+ supports InfluxQL and Flux
+  - Clients: Telegraf, influx CLI, v1 client libraries
+InfluxDB OSS 2.x (v2)
+  - Documentation: https://docs.influxdata.com/influxdb/v2/
+  - Query languages: InfluxQL and Flux
+  - Clients: Telegraf, influx CLI, v2 client libraries
+InfluxDB Cloud (v2, multi-tenant)
+  - Documentation: https://docs.influxdata.com/influxdb/cloud/
+  - Query languages: InfluxQL and Flux
+  - Clients: Telegraf, influx CLI, v2 client libraries
+InfluxDB Clustered (v3, 3.0, self-managed distributed)
+  - Documentation: https://docs.influxdata.com/influxdb/clustered/
+  - Query languages: SQL and InfluxQL
+  - Clients: Telegraf, influxctl CLI, v3 client libraries
+InfluxDB Cloud Dedicated (3.0, v3, InfluxData-managed single tenant)
+  - Documentation: https://docs.influxdata.com/influxdb/cloud-dedicated/
+  - Query languages: SQL and InfluxQL
+  - Clients: Telegraf, influxctl CLI, v3 client libraries
+InfluxDB Cloud Serverless (v3, 3.0, InfluxData-managed multi-tenant)
+  - Documentation: https://docs.influxdata.com/influxdb/clustered/
+  - Query languages: SQL and InfluxQL
+  - Clients: Telegraf, influx CLI, v3 client libraries
 
 If I ask about a REST API or SDK (client library) and don't specify a product, ask which product.
 For API client libraries, refer to the documentation and to the source repositories in https://github.com/InfluxCommunity for the version-specific client library.
