@@ -13,14 +13,7 @@ info:
     The InfluxDB v2 HTTP API for InfluxDB Cloud Serverless provides a programmatic interface for writing data stored in an InfluxDB Cloud Serverless bucket.
   version: ''
 servers:
-  - url: https://{baseurl}
-    description: InfluxDB Cloud Serverless API URL
-    variables:
-      baseurl:
-        enum:
-          - us-east-1-1.aws.cloud2.influxdata.com
-        default: us-east-1-1.aws.cloud2.influxdata.com
-        description: InfluxDB Cloud Serverless URL
+  - url: /
 security:
   - TokenAuthentication: []
 tags:
@@ -10280,9 +10273,9 @@ components:
       properties:
         results:
           description: |
-              A resultset object that contains the `statement_id` and the `series` array.
+            A resultset object that contains the `statement_id` and the `series` array.
 
-              Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
+            Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
           items:
             properties:
               error:
@@ -10331,12 +10324,12 @@ components:
                 type: integer
             type: object
           oneOf:
-          - required:
-            - statement_id
-            - error
-          - required:
-            - statement_id
-            - series
+            - required:
+                - statement_id
+                - error
+            - required:
+                - statement_id
+                - series
           type: array
       type: object
     IntegerLiteral:
