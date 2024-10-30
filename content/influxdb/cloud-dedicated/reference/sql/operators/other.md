@@ -45,20 +45,42 @@ SELECT 'Hello' || ' world' AS "Concatenated"
 
 ## AT TIME ZONE
 
-The `AT TIME ZONE` operator applies the offset of the specified time zone to a 
-timestamp type and returns an updated UTC timestamp. Time zone offsets are
-provided by the the operating system time zone database.
+The `AT TIME ZONE` operator takes the timestamp in the left operand and returns
+an equivalent timestamp with the updated time and offset of the time zone
+specified in the right operand.
+If no time zone is included in the input timestamp's
+[Arrow data type](/influxdb/cloud-dedicated/reference/sql/data-types/#sql-and-arrow-data-types),
+the operator assumes the time is in the time zone specified.
+Time zone offsets are provided by the operating system time zone database.
 
-{{% note %}}
-Timestamp types in InfluxDB always represent a UTC time. The returned timestamp
-is a UTC timestamp adjusted for the offset of the specified time zone.
-{{% /note %}}
+```sql
+SELECT time AT TIME ZONE 'America/Los_Angeles' FROM home
+```
+
+{{< expand-wrapper >}}
+{{% expand "Convert a UTC timestamp to a specified timezone" %}}
 
 ```sql
 SELECT
-  '2024-01-01 00:00:00'::TIMESTAMP AT TIME ZONE 'America/Los_Angeles' AS 'UTC with TZ offset'
+  arrow_cast('2024-01-01 00:00:00', 'Timestamp(Nanosecond, Some("UTC"))')
+  AT TIME ZONE 'America/Los_Angeles' AS 'Time with TZ offset'
 ```
 
-| UTC with TZ offset       |
-| :----------------------- |
-| 2024-01-01T08:00:00.000Z |
+| Time with TZ offset       |
+| :------------------------ |
+| 2023-12-31T16:00:00-08:00 |
+
+{{% /expand %}}
+{{% expand "Add a time zone offset to a timestamp without a specified timezone" %}}
+
+```sql
+SELECT
+  '2024-01-01 00:00:00' AT TIME ZONE 'America/Los_Angeles' AS 'Local time with TZ offset'
+```
+
+| Local time with TZ offset |
+| :------------------------ |
+| 2024-01-01T00:00:00-08:00 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
