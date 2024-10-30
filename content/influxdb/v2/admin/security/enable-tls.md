@@ -55,7 +55,7 @@ You can generate a self-signed certificate on your own machine.
 
 ## Configure InfluxDB to use TLS
 
-1. [Download or generate certificate files](download-or-generate-certificate-files)
+1. [Download or generate certificate files](#download-or-generate-certificate-files)
 2. [Set certificate file permissions](#set-certificate-file-permissions)
 3. [Run `influxd` with TLS flags](#run-influxd-with-tls-flags)
 4. [Verify TLS connection](#verify-tls-connection)

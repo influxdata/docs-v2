@@ -59,13 +59,15 @@ InfluxDB 1.8.0 introduced forward compatibility APIs for InfluxDB v2.
 [InfluxDB v2 client libraries](/influxdb/v1/tools/api_client_libraries/)
 are built for the InfluxDB v2 API, but also work with **InfluxDB 1.8+**.
 
-The following v2 compatible APIs are available:
+InfluxDB v1 supports the following v2-compatible APIs:
 
-| Endpoint                                     | Description                                                                                                |
-|:----------                                   |:----------                                                                                                 |
-| [/api/v2/query](#api-v2-query-http-endpoint) | Query data in InfluxDB 1.8.0+ using the InfluxDB v2 API and [Flux](/flux/latest/)                         |
-| [/api/v2/write](#api-v2-write-http-endpoint) | Write data to InfluxDB 1.8.0+ using the InfluxDB v2 API _(compatible with InfluxDB v2 client libraries)_ |
-| [/health](#health-http-endpoint)             | Check the health of your InfluxDB instance                                                                 |
+| Endpoint                                       | Description                                                                                                                           |
+| :--------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
+| [/api/v2/query](#api-v2-query-http-endpoint)   | Query data in InfluxDB 1.8.0+ using the InfluxDB v2 API and [Flux](/flux/latest/)                                                     |
+| [/api/v2/write](#api-v2-write-http-endpoint)   | Write data to InfluxDB 1.8.0+ using the InfluxDB v2 API _(compatible with InfluxDB v2 client libraries)_                              |
+| [/api/v2/buckets](#apiv2buckets-http-endpoint) | Allows some client code using buckets to run against 1.x and 2.x without modification                                                 |
+| [/api/v2/delete](#apiv2delete-http-endpoint)   | Supports deletion by tag value, timestamp, and measurement using the InfluxDB v2 API _(compatible with InfluxDB v2 client libraries)_ |
+| [/health](#health-http-endpoint)               | Check the health of your InfluxDB instance                                                                                            |
 
 ### `/api/v2/query/` HTTP endpoint
 
@@ -119,7 +121,7 @@ For the purposes of writing data, the APIs differ only in the URL parameters and
 InfluxDB v2 uses [organizations](/influxdb/v2/reference/glossary/#organization)
 and [buckets](/influxdb/v2/reference/glossary/#bucket)
 instead of databases and retention policies.
-The `/api/v2/write` endpoint maps the supplied version 1.8 database and retention policy to a bucket.
+The `/api/v2/write` endpoint maps the supplied version 1.x database and retention policy to a bucket.
 
 **Include the following URL parameters:**
 
@@ -159,6 +161,105 @@ curl -XPOST "localhost:8086/api/v2/write?bucket=db/rp&precision=s" \
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+### `/api/v2/buckets/` HTTP endpoint
+
+The [/api/v2/buckets](/influxdb/v2/api/#tag/Buckets) endpoint accepts `GET`,
+`POST` and `DELETE` HTTP requests. Use this endpoint to
+[create](/influxdb/v2/api/#operation/PostBuckets),
+[delete](/influxdb/v2/api/#operation/DeleteBucketsID),
+[list](/influxdb/v2/api/#operation/GetBuckets),
+[update](/influxdb/v2/api/#operation/PatchBucketsID) and
+[retrieve](/influxdb/v2/api/#operation/GetBucketsID)
+buckets in your InfluxDB instance. Note that InfluxDB 2.x uses organizations and
+buckets instead of databases and retention policies.  
+
+**Include the following URL parameters:**
+
+- `bucket`: Provide the database name and retention policy separated by a forward slash (`/`).
+  For example: `database/retention-policy`.
+  Empty retention policies map to the default retention policy.
+- `org`: In InfluxDB 1.x, there is no concept of organization. The `org` parameter is ignored and can be left empty.
+
+**Include the following HTTP header:**
+
+- `Authorization`: InfluxDB 2.x uses this header with the `Token` scheme and
+  [API Tokens](/influxdb/v2/admin/tokens/) to authenticate each API request.
+  InfluxDB v1.x uses username and password credentials for authenticating API requests.
+  To provide InfluxDB 1.x credentials, use the `Token` scheme and include your
+  username and password separated by a colon (`:`).
+
+  - `Token` scheme with v1.x credentials:
+
+    ```
+    Authorization: Token USERNAME:PASSWORD
+    ```
+
+The following example shows how to list all databases:
+
+```bash
+curl --request GET "http://localhost:8086/api/v2/buckets"   
+  -H 'Authorization: Token <username>:<password>'
+```
+
+The following example shows how to delete a database named `test`:
+
+```bash
+curl --request DELETE "http://localhost:8086/api/v2/buckets/test/autogen" 
+  --header "Content-type: application/json"   
+  -H 'Authorization: Token <username>:<password>'
+```
+
+### `/api/v2/delete/` HTTP endpoint
+
+The [`/api/v2/delete`](/influxdb/v2/api/#tag/Delete) endpoint accepts `POST` HTTP requests. Use this endpoint to delete points from InfluxDB, including points with specific tag values, timestamps and measurements.  
+
+**Include the following URL parameters:**
+
+- `bucket`: Provide the database name and retention policy separated by a forward slash (`/`).
+  For example: `database/retention-policy`.
+- `precision`: Precision of timestamps in the line protocol.
+  Accepts `ns` (nanoseconds), `us`(microseconds), `ms` (milliseconds) and `s` (seconds).
+
+**Include the following HTTP header:**
+
+- `Authorization`: InfluxDB 2.x uses this header with the `Token` scheme and [API Tokens](/influxdb/v2/admin/tokens/)
+  to authenticate each API request.
+  InfluxDB v1.x uses username and password credentials for authenticating API requests.
+  To provide InfluxDB 1.x credentials, use the `Token` scheme and include your username and password separated by a colon (`:`).
+
+  - `Token` scheme with v1.x credentials:
+
+    ```http
+    Authorization: Token USERNAME:PASSWORD
+    ```
+
+Delete all points in a specified time range:
+
+```bash
+curl --request POST "http://localhost:8086/api/v2/delete?bucket=exampleDB/autogen \
+  --header 'Authorization: Token <username>:<password>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "start": "2020-03-01T00:00:00Z",
+    "stop": "2020-11-14T00:00:00Z"
+    }'
+```
+
+Delete points in a specific measurement with a specific tag value:
+
+```bash
+curl --request POST "http://localhost:8086/api/v2/delete?bucket=exampleDB/autogen \
+  --header 'Authorization: Token <username>:<password>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "start": "2020-03-01T00:00:00Z",
+    "stop": "2020-11-14T00:00:00Z",
+    "predicate": "_measurement=\"example-measurement\" AND exampleTag=\"exampleTagValue\""
+    }'
+```
+
+If you use the `predicate` option in your request, review [delete predicate syntax](/influxdb/v2/reference/syntax/delete-predicate/) and note its [limitations](/influxdb/v2/reference/syntax/delete-predicate/#limitations).
 
 ### `/health` HTTP endpoint
 The `/health` endpoint accepts `Get` HTTP requests.

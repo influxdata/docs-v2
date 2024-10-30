@@ -11,7 +11,7 @@
   code { font-size: .9rem; }
 }
 
-p, li {
+p, li, ol, ul {
   & + .caption {
     padding: 0;
     margin: -.75rem 0 0;

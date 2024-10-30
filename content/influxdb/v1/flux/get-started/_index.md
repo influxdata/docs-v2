@@ -25,9 +25,10 @@ It covers querying time series data from InfluxDB using Flux, and introduces Flu
 ## What you will need
 
 ##### InfluxDB v1.8+
-Flux v0.65 is built into InfluxDB v1.8 and can be used to query data stored in InfluxDB.
-InfluxDB v1.8's `influx` CLI also includes a `-type=` option that, when set to `flux`, will start an
-interactive Flux Read-Eval-Print-Loop (REPL) allowing you to write and run Flux queries from the command line.
+Flux is built into InfluxDB v1.8+ and can be used to query data stored in InfluxDB.
+InfluxDB `influx` CLI also includes a `-type=` option that, when set to `flux`,
+will start an interactive Flux Read-Eval-Print-Loop (REPL) allowing you to write
+and run Flux queries from the command line.
 
 ---
 
