@@ -181,6 +181,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [storage-shard-precreator-check-interval](#storage-shard-precreator-check-interval)
 - [storage-tsm-use-madv-willneed](#storage-tsm-use-madv-willneed)
 - [storage-validate-keys](#storage-validate-keys)
+- [storage-wal-flush-on-shutdown](#storage-wal-flush-on-shutdown)
 - [storage-wal-fsync-delay](#storage-wal-fsync-delay)
 - [storage-wal-max-concurrent-writes](#storage-wal-max-concurrent-writes)
 - [storage-wal-max-write-delay](#storage-wal-max-write-delay)
@@ -2639,6 +2640,56 @@ storage-validate-keys = true
 ```json
 {
   "storage-validate-keys": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-wal-flush-on-shutdown
+Flush WAL to TSM files on shutdown. This is useful when preparing for an in-place change to an incompatible WAL file format.
+This option may increase shutdown times.
+
+**Default:** `false`
+
+| influxd flag                      | Environment variable                    | Configuration key               |
+| :-------------------------------- | :-------------------------------------- | :------------------------------ |
+| `--storage-wal-flush-on-shutdown` | `INFLUXD_STORAGE_WAL_FLUSH_ON_SHUTDOWN` | `storage-wal-flush-on-shutdown` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --storage-wal-flush-on-shutdown
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_WAL_FLUSH_ON_SHUTDOWN=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-wal-flush-on-shutdown: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-wal-flush-on-shutdown = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-wal-flush-on-shutdown": true
 }
 ```
 {{% /code-tab-content %}}
