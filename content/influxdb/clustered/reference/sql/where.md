@@ -89,7 +89,7 @@ and a `level description` field value that equals `below 3 feet`.
 SELECT *
 FROM h2o_feet 
 WHERE "location" = 'santa_monica'
-AND "time" >= '2019-08-19T12:00:00Z'::timestamp AND "time" <= '2019-08-19T13:00:00Z'::timestamp 
+AND "time" >= '2019-08-19T12:00:00Z' AND "time" <= '2019-08-19T13:00:00Z'
 ```
 
 {{< expand-wrapper >}}
