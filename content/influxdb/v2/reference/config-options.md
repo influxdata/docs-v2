@@ -155,6 +155,8 @@ To configure InfluxDB, use the following configuration options when starting the
 - [nats-max-payload-bytes](#nats-max-payload-bytes) <em style="opacity:.65">- (deprecated)</em>
 - [nats-port](#nats-port) <em style="opacity:.65">- (deprecated)</em>
 - [no-tasks](#no-tasks)
+- [overwrite-pid-file](#overwrite-pid-file)
+- [pid-file](#pid-file)
 - [pprof-disabled](#pprof-disabled)
 - [query-concurrency](#query-concurrency)
 - [query-initial-memory-bytes](#query-initial-memory-bytes)
@@ -1328,6 +1330,109 @@ no-tasks = true
 ```json
 {
   "no-tasks": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### ovewrite-pid-file
+Overwrites PID file specified by [pid-file](#pid-file) if it already exists. Without specifying this, 
+`influxd` will exit with an error on startup if the PID file already exists. This has no effect if [pid-file](#pid-file) is not specified.
+
+**Default:** `false`
+
+| influxd flag           | Environment variable           | Configuration key    |
+| :--------------------- | :----------------------------- | :------------------- |
+| `--overwrite-pid-file` | `INFLUXD_OVERWRITE_PID_FILE`   | `overwrite-pid-file` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --overwrite-pid-file
+```
+
+###### Environment variable
+```sh
+export INFLUXD_OVERWRITE_PID_FILE=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+overwrite-pid-file: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+overwrite-pid-file = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "overwrite-pid-file": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### pid-file
+Specifies PID file to write on startup and delete on shutdown. The PID file contains the process ID of the `influxd` process.
+If not specified, then no PID file is written. `influxd` will exit with an error on startup if the specified PID file is already present,
+unless the [overwrite-pid-file](#overwrite-pid-file) is specified.
+
+The PID file is written early during startup, after the configuration is read but before data is read from disk or the API is started.
+Deleting the PID file is one of the last actions upon shutdown, after the API is shutdown and all data is safely flushed to disk. This
+allows the PID file to be used to determine if `influxd` is initializing or running, or if it has safely shutdown.
+
+| influxd flag | Environment variable | Configuration key |
+| :----------- | :------------------- | :---------------- |
+| `--pid-file` | `INFLUXD_PID_FILE`   | `pid-file`        |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --pid-file=/path/to/pidfile
+```
+
+###### Environment variable
+```sh
+export INFLUXD_PID_FILE=/path/to/pidfile
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+pid-file: "/path/to/pidfile"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+pid-file = "/path/to/pidfile"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "pid-file": "/path/to/pidfile"
 }
 ```
 {{% /code-tab-content %}}
