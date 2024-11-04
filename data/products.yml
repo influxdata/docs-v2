@@ -3,9 +3,10 @@ influxdb:
   altname: InfluxDB OSS
   namespace: influxdb
   menu_category: self-managed
-  list_order: 4
+  list_order: 1
   placeholder_host: localhost:8086
   versions:
+    - v3
     - v2
     - v1
   minor_versions:
@@ -21,10 +22,21 @@ influxdb:
     - v1.7
   latest: v2.7
   latest_patches:
+    v3: 3.0.0alpha
     v2: 2.7.10
     v1: 1.11.7
   latest_cli:
     v2: 2.7.5
+
+influxdb_pro:
+  name: InfluxDB Pro
+  altname: InfluxDB Pro
+  namespace: influxdb
+  menu_category: self-managed
+  versions: [pro]
+  list_order: 2
+  latest: pro
+  placeholder_host: localhost:8181
 
 influxdb_cloud:
   name: InfluxDB Cloud (TSM)
