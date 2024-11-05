@@ -6,7 +6,7 @@ description: >
   Learn how to use and leverage InfluxDB v3 in use cases such as edge data
   collection, IoT data, and events.
 menu:
-  influxdb_v2:
+  influxdb_v3:
     name: InfluxDB OSS v3
 weight: 1
 ---

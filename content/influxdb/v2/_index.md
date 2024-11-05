@@ -6,7 +6,7 @@ description: >
 layout: landing-influxdb
 menu:
   influxdb_v2:
-    name: InfluxDB v2
+    name: InfluxDB OSS v2
 weight: 1
 ---
 

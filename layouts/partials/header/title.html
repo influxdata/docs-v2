@@ -26,6 +26,8 @@
   {{ $scratch.Set "siteTitle" "InfluxDB Clustered Documentation" }}
 {{ else if and (eq $product "influxdb") (in $currentVersion "v")}}
   {{ $scratch.Set "siteTitle" (print "InfluxDB OSS " $version " Documentation") }}
+{{ else if and (eq $product "influxdb") (eq $currentVersion "pro")}}
+  {{ $scratch.Set "siteTitle" (print "InfluxDB Pro Documentation") }}
 {{ else if eq $currentVersion nil}}
   {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " Documentation") }}
 {{ else }}

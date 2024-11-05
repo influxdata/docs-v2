@@ -4,6 +4,7 @@
 {{ $currentVersion := index $productPathData 1 }}
 {{ $pageRoot := print $product "/" $currentVersion }}
 {{ $isOSSv2 := in $pageRoot "influxdb/v2" }}
+{{ $isPro := in $pageRoot "influxdb/pro" }}
 {{ $isCloud := eq $pageRoot "influxdb/cloud" }}
 {{ $isServerless := eq $pageRoot "influxdb/cloud-serverless" }}
 {{ $isDedicated := eq $pageRoot "influxdb/cloud-dedicated" }}
@@ -13,11 +14,12 @@
 
 {{/* //////////////////// INFLUXDB PRODUCT DICTIONARIES /////////////////// */}}
 {{ $ossInfo := dict $.Site.Data.products.influxdb.name (dict "path" (print "influxdb/" (index $.Site.Data.products.influxdb.versions 0)) "key" "oss") }}
+{{ $proInfo := dict $.Site.Data.products.influxdb_pro.name (dict "path" "influxdb/pro" "key" "pro") }}
 {{ $cloudInfo := dict $.Site.Data.products.influxdb_cloud.name (dict "path" "influxdb/cloud" "key" "cloud") }}
 {{ $serverlessInfo := dict $.Site.Data.products.influxdb_cloud_serverless.name (dict "path" "influxdb/cloud-serverless" "key" "cloud-serverless") }}
 {{ $dedicatedInfo := dict $.Site.Data.products.influxdb_cloud_dedicated.name (dict "path" "influxdb/cloud-dedicated" "key" "cloud-dedicated") }}
 {{ $clusteredInfo := dict $.Site.Data.products.influxdb_clustered.name (dict "path" "influxdb/clustered" "key" "clustered") }}
-{{ $influxdbInfo := merge $ossInfo $cloudInfo $serverlessInfo $dedicatedInfo $clusteredInfo }}
+{{ $influxdbInfo := merge $ossInfo $proInfo $cloudInfo $serverlessInfo $dedicatedInfo $clusteredInfo }}
 
 <div class="dropdown">
   {{ if or (eq $product nil) (eq $product "platform") (eq $product "resources") }}
@@ -25,6 +27,7 @@
   {{ else }}
     {{ $scratch.Set "displayName" "" }}
     {{ if $isCloud }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb_cloud.name}}
+    {{ else if $isPro }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb_pro.name }}
     {{ else if $isServerless }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb_cloud_serverless.name }}
     {{ else if $isDedicated }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb_cloud_dedicated.name }}
     {{ else if $isClustered }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb_clustered.name }}
