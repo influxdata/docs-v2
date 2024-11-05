@@ -25,12 +25,6 @@ export function setStyles(el) {
   let theme = getPreference('theme') || 'light';
   theme = theme.replace(/-theme/, '');
   let themeAttributes =  {
-    'nav-accent-color': "",
-    'nav-bg-color': "",
-    'nav-hover-bg-color': "",
-    'nav-hover-text-color': "",
-    'nav-text-color': "",
-    'primary-color': "#F63C41",
     'render-style': 'view',
     'show-header': 'false',
     'show-info': 'false',
