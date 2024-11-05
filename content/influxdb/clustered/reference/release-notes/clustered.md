@@ -36,6 +36,49 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241022-1346953
 ```
 
+### Known Bugs
+
+### `core` service DSN parsing errors
+
+This release has a known bug in the `core` pods with respect to handling of
+options in Postgres DSNs. This bug can be seen in the `core-MMMMMMMMMM-NNNNN`
+logs that look like the following:
+
+```
+2024-11-04T01:00:00.000Z | 3: error returned from database: database "influxdb&options=-c%20search_path=" does not exist
+2024-11-04T01:00:19.000Z | 4: database "influxdb&options=-c%20search_path=" does not exist
+```
+
+The issue here is that entire `influxdb&options=-c%20search_path=` string is
+being interpreted as the database name, owing to incorrect parsing of the
+`POSTGRES_DSN` environment variable.
+
+The workaround to deal with this before a fix makes its way into the next
+release is to use an image override in your AppInstance that looks like:
+
+```
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+metadata:
+  name: influxdb
+  namespace: influxdb
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241024-1354148
+    apiVersion: influxdata.com/v1alpha1
+    spec:
+      images:
+        overrides:
+          - name: 'influxdb2-artifacts/granite/granite'
+            newFQIN: 'us-docker.pkg.dev/influxdb2-artifacts/granite/granite:7acf9ca6e1ad15db80b22cd0bc071acdb561eb51'
+# ...additional configuration left out for brevity
+```
+
+Your AppInstance may have additional configuration, but the important part here
+is the `spec.package.spec.images.overrides` section where we override the
+built-in image used by the `core` pods with one that has a bugfix for the DSN
+parsing error.
+
 ### Highlights
 
 #### AppInstance image override bug fix
