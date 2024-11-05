@@ -73,7 +73,7 @@ spec:
         overrides:
           - name: 'influxdb2-artifacts/granite/granite'
             newFQIN: 'us-docker.pkg.dev/influxdb2-artifacts/granite/granite:7acf9ca6e1ad15db80b22cd0bc071acdb561eb51'
-# ...additional configuration left out for brevity
+# ...[remaining configuration]
 ```
 
 Your AppInstance may have additional configuration, but the important part here
