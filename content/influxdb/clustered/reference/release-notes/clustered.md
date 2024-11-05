@@ -53,8 +53,10 @@ Due to incorrect parsing of the
 `POSTGRES_DSN` environment variable, the `influxdb&options=-c%20search_path=` string is
 interpreted as the database name.
 
-The workaround to deal with this before a fix makes its way into the next
-release is to use an image override in your AppInstance that looks like:
+To work around this bug, in your AppInstance, 
+include a `spec.package.spec.images.overrides` section to override the
+`core` pods built-in image with an image that has the bugfix for the DSN
+parsing error--for example:
 
 ```
 apiVersion: kubecfg.dev/v1alpha1
