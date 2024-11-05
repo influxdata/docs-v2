@@ -1,40 +1,7 @@
-{{ $versionSelector := resources.Get "js/version-selector.js" }}
-{{ $contentInteractions := resources.Get "js/content-interactions.js" }}
-{{ $searchInteractions := resources.Get "js/search-interactions.js" }}
-{{ $listFilters := resources.Get "js/list-filters.js" }}
-{{ $modals := resources.Get "js/modals.js" }}
-{{ $influxdbURLs := resources.Get "js/influxdb-url.js" }}
-{{ $featureCallouts := resources.Get "js/feature-callouts.js" }}
-{{ $tabbedContent := resources.Get "js/tabbed-content.js" }}
-{{ $apiLibs := resources.Get "js/api-libs.js" }}
-{{ $notifications := resources.Get "js/notifications.js" }}
-{{ $keybindings := resources.Get "js/keybindings.js" }}
-{{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
-{{ $dateTime := resources.Get "js/datetime.js" }}
+{{ $contentInteractions := resources.Get "js/content-interactions.js" | js.Build }}
 {{ $influxdbGSTimestamps := resources.Get "js/custom-timestamps.js" }}
-{{ $codeControls := resources.Get "js/code-controls.js" }}
-{{ $pageFeedback := resources.Get "js/page-feedback.js" }}
-{{ $homepageInteractions := resources.Get "js/home-interactions.js" }}
-{{ $fluxInfluxDBVersions := resources.Get "/js/flux-influxdb-versions.js" }}
-{{ $v3Wayfinding := resources.Get "/js/v3-wayfinding.js"}}
-{{ $codePlaceholders := resources.Get "/js/code-placeholders.js" }}
-{{ $releaseTOC := resources.Get "/js/release-toc.js" }}
-{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $modals $influxdbURLs $featureCallouts $tabbedContent $apiLibs $notifications $keybindings $codeControls $pageFeedback $homepageInteractions $fluxInfluxDBVersions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
-{{ $fluxGroupKeyjs := $fluxGroupKeys | resources.Fingerprint }}
-{{ $dateTimejs := $dateTime | resources.Fingerprint }}
+{{ $footerjs := slice $influxdbGSTimestamps | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 {{ $influxdbGSTimestampsjs := $influxdbGSTimestamps | resources.Fingerprint }}
-{{ $v3Wayfindingjs := $v3Wayfinding | resources.Fingerprint }}
-{{ $codePlaceholdersjs := $codePlaceholders | resources.Fingerprint }}
-{{ $releaseTOCjs := $releaseTOC | resources.Fingerprint }}
-
-<!-- Load cloudUrls array -->
-<script type="text/javascript">
-  cloudUrls = [
-    {{- range.Site.Data.influxdb_urls.cloud.providers }}
-    {{- range.regions }}"{{ safeHTML .url }}", {{ end -}}
-    {{ end -}}
-  ]
-</script>
 
 {{ if .Page.HasShortcode "diagram" }}
 <!-- Load mermaid.js for diagrams -->
@@ -51,36 +18,9 @@
 </script>
 {{ end }}
 
-<!-- Load group key demo JS if when the group key demo shortcode is present -->
-{{ if .Page.HasShortcode "flux/group-key-demo" }}
-<script type="text/javascript" src="{{ $fluxGroupKeyjs.RelPermalink }}"></script>
-{{ end }}
-
-<!-- Load datetime js if when datetime shortcodes are present -->
-{{ if or (.Page.HasShortcode "datetime/current-time") (.Page.HasShortcode "datetime/current-timestamp")
-(.Page.HasShortcode "datetime/current-date") (.Page.HasShortcode "datetime/enterprise-eol-date") }}
-<script type="text/javascript" src="{{ $dateTimejs.RelPermalink }}"></script>
-{{ end }}
-
 <!-- Load getting started timestamps js if when the influxdb/custom-gs-timestamps shortcode is present -->
 {{ if or (.Page.HasShortcode "influxdb/custom-timestamps") (.Page.HasShortcode "influxdb/custom-timestamps-span") }}
-<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker.min.js"></script>
 <script type="text/javascript" src="{{ $influxdbGSTimestampsjs.RelPermalink }}"></script>
-{{ end }}
-
-<!-- Load IOx wayfinding JS if page is in cloud or cloud-serverless -->
-{{ if in (slice "cloud" "cloud-serverless") (index (findRE "[^/]+.*?" .Page.RelPermalink) 1) }}
-<script type="text/javascript" src="{{ $v3Wayfinding.RelPermalink }}"></script>
-{{ end }}
-
-<!-- Load code placeholders js when code-placeholders shortcode is present -->
-{{ if .Page.HasShortcode "code-placeholders" }}
-<script type="text/javascript" src="{{ $codePlaceholdersjs.RelPermalink }}"></script>
-{{ end }}
-
-<!-- Load code release-toc js when release-toc shortcode is present -->
-{{ if .Page.HasShortcode "release-toc" }}
-<script type="text/javascript" src="{{ $releaseTOCjs.RelPermalink }}"></script>
 {{ end }}
 
 <!-- Load footer.js -->

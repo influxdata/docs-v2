@@ -7,31 +7,21 @@
   <div class="content-wrapper">
     <api-ref class="col-12 col-md-9 col-xl-8" role="main">
         <div>
-          <!-- For render-style=read you should try to provide height of rapi-doc element as it needs to calculate scroll positions-->
+          <!-- For render-style=read, provide height of rapi-doc element for calculating scroll positions -->
           <rapi-doc
             id="api-doc"
             allow-authentication="false"
-            allow-search="true"
-            bg-color="#ffffff" 
+            allow-search="false"
             css-classes="col-12 col-md-9 col-xl-8"
             data-openapi-partof = "{{ .Params.api.part_of }}"
             data-openapi-spec = "{{ .Params.api.spec }}"
-            default-api-server=""
-            mono-font="Roboto Mono"
-            nav-accent-color=""
-            nav-bg-color="#fafafa"
-            nav-hover-bg-color="#ffebea"
-            nav-hover-text-color="#9b0700"
-            nav-text-color=""
-            primary-color="#F63C41"
-            regular-font="Open Sans"
-            render-style="view"
-            show-header="false"
-            show-info="false"
-            style="height:100vh; width:100%"
-            text-color=""
             theme="light"></rapi-doc>
         </div>
+        <script type="text/javascript">
+          window.addEventListener('load', function() {
+            influxdatadocs.ApiReferencePage();
+          });
+          </script>
     </api-ref>
     <div class="copyright">© {{ now.Year }} InfluxData, Inc.</div>
   </div>

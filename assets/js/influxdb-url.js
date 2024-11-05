@@ -1,3 +1,8 @@
+import $ from 'jquery';
+import { getInfluxDBUrls, getInfluxDBUrl, getPreference, setInfluxDBUrls, setPreference } from './cookies.js';
+// Import parameters passed from the calling page to js.Build.
+import { cloudUrls } from '@params';
+
 var placeholderUrls = {
   oss: 'http://localhost:8086',
   cloud: 'https://cloud2.influxdata.com',
@@ -646,8 +651,8 @@ productsWithUniqueURLs.forEach(function (productEl) {
 ////////////////////////////////////////////////////////////////////////////////
 
 // Extract the protocol and hostname of referrer
-referrerMatch = document.referrer.match(/^(?:[^\/]*\/){2}[^\/]+/g);
-referrerHost = referrerMatch ? referrerMatch[0] : '';
+const referrerMatch = document.referrer.match(/^(?:[^\/]*\/){2}[^\/]+/g);
+const referrerHost = referrerMatch ? referrerMatch[0] : '';
 
 // Check if the referrerHost is one of the cloud URLs
 // cloudUrls is built dynamically in layouts/partials/footer/javascript.html
@@ -668,3 +673,5 @@ if (getUrls().dedicated == 'cluster-id.influxdb.io') {
   storeUrl('dedicated', 'cluster-id.a.influxdb.io', getUrls().dedicated);
   updateUrls(getPrevUrls(), getUrls());
 }
+
+export { getUrls, referrerHost };

@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 // Count tag elements
 function countTag(tag) {
   return $(".visible[data-tags*='" + tag + "']").length

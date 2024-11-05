@@ -3,6 +3,8 @@
 	http://www.thesitewizard.com/javascripts/change-style-sheets.shtml
 */
 
+import { getPreference, setPreference } from './cookies.js';
+
 // *** TO BE CUSTOMISED ***
 var style_preference_name = 'theme';
 var style_cookie_duration = 30;
@@ -36,7 +38,15 @@ function switchStyle (css_title) {
 
 function setStyleFromCookie () {
   var css_title = `${getPreference(style_preference_name)}-theme`;
-  if (css_title !== undefined) {
+  if (css_title !== 'undefined-theme') {
     switchStyle(css_title);
   }
+}
+
+export {
+  setStyleFromCookie,
+  switchStyle,
+  style_preference_name,
+  style_cookie_duration,
+  style_domain
 }

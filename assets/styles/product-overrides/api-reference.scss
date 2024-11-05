@@ -1,0 +1,38 @@
+@import "tools/color-palette";
+@import "tools/fonts";
+
+rapi-doc {
+
+  min-height: 100%;
+  font-family: $proxima;
+  background: $body-bg;
+
+  $code: 'IBM Plex Mono', monospace;
+
+  /* targets the server div */
+  &::part(section-servers) { 
+    margin:0 24px 0 24px;
+    border-radius: 5px;
+
+    /* targets the server label */
+    label { 
+      font-family: $code;
+    }
+  }
+
+   /* targets API endpoints */
+  &::part(section-endpoint) { 
+    margin:0 24px 0 24px;
+    border-radius: 5px;
+
+    /* targets the server label */
+    label { 
+      font-family: $code;
+    }
+  } 
+
+  /* targets selected server label */
+  // rapi-doc::part(label-selected-server) { 
+  // color: #fff;
+  // }
+}

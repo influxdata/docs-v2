@@ -1,4 +1,28 @@
 ///////////////////////////// Make headers linkable /////////////////////////////
+import $ from 'jquery';
+import { scrollToAnchor } from './scroll.js';
+
+// Expand accordions on load based on URL anchor
+function openAccordionByHash() {
+  var anchor = window.location.hash;
+
+  function expandElement() {
+    if ($(anchor).parents('.expand').length > 0) {
+      return $(anchor).closest('.expand').children('.expand-label');
+    } else if ($(anchor).hasClass('expand')){
+      return $(anchor).children('.expand-label');
+    }
+  };
+
+  if (expandElement() != null) {
+    if (expandElement().children('.expand-toggle').hasClass('open')) {}
+    else {
+      expandElement().children('.expand-toggle').trigger('click');
+    };
+  };
+};
+
+function contentInteractions () {
 
 var headingWhiteList = $("\
   .article--content h2, \
@@ -12,7 +36,7 @@ var headingBlackList = ("\
   .influxdbu-banner h4 \
 ");
 
-headingElements = headingWhiteList.not(headingBlackList);
+const headingElements = headingWhiteList.not(headingBlackList);
 
 headingElements.each(function() {
     function getLink(element) {
@@ -32,26 +56,6 @@ var elementWhiteList = [
   "a.url-trigger",
   "a.fullscreen-close"
 ]
-
-function scrollToAnchor(target) {
-  var $target = $(target);
-  if($target && $target.length > 0) {
-    $('html, body').stop().animate({
-      'scrollTop': ($target.offset().top)
-    }, 400, 'swing', function () {
-      window.location.hash = target;
-    });
-
-    // Unique accordion functionality
-    // If the target is an accordion element, open the accordion after scrolling
-    if ($target.hasClass('expand')) {
-      if ($(target + ' .expand-label .expand-toggle').hasClass('open')) {}
-      else {
-        $(target + '> .expand-label').trigger('click');
-      };
-    };
-  }
-}
 
 $('.article a[href^="#"]:not(' + elementWhiteList + ')').click(function (e) {
   e.preventDefault();
@@ -98,25 +102,7 @@ $('.expand-label').click(function() {
   $(this).next('.expand-content').slideToggle(200)
 })
 
-// Expand accordions on load based on URL anchor
-function openAccordionByHash() {
-  var anchor = window.location.hash;
 
-  function expandElement() {
-    if ($(anchor).parents('.expand').length > 0) {
-      return $(anchor).closest('.expand').children('.expand-label');
-    } else if ($(anchor).hasClass('expand')){
-      return $(anchor).children('.expand-label');
-    }
-  };
-
-  if (expandElement() != null) {
-    if (expandElement().children('.expand-toggle').hasClass('open')) {}
-    else {
-      expandElement().children('.expand-toggle').trigger('click');
-    };
-  };
-};
 
 // Open accordions by hash on page load.
 openAccordionByHash()
@@ -152,3 +138,9 @@ $('.article--content a').each(function() {
     $(this).attr('target', '_blank');
   };
 })
+
+}
+
+export default function ContentInteractions() {
+  contentInteractions();
+}

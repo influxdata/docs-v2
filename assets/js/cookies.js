@@ -13,21 +13,10 @@
     - callouts: Feature callouts that have been seen (array)
   - influxdata_docs_ported: Temporary cookie to help port old cookies to new structure
 */
+import Cookies from 'js-cookie';
 
 // Prefix for all InfluxData docs cookies
 const cookiePrefix = 'influxdata_docs_';
-
-/*
-  Initialize a cookie with a default value.
-*/
-initializeCookie = (cookieName, defaultValue) => {
-  fullCookieName = cookiePrefix + cookieName;
-
-  // Check if the cookie exists before initializing the cookie
-  if (Cookies.get(fullCookieName) === undefined) {
-    Cookies.set(fullCookieName, defaultValue);
-  }
-};
 
 // Initialize all InfluxData docs cookies with defaults
 
@@ -50,10 +39,21 @@ var defaultPref = {
 };
 
 /*
+  Initialize a cookie with a default value.
+*/
+function initializeCookie (cookieName, defaultValue) {
+  const fullCookieName = cookiePrefix + cookieName;
+  if (typeof defaultValue !== 'string') {
+    val = JSON.stringify(defaultValue);
+    Cookies.set(fullCookieName, val);
+  }
+};
+
+/*
   Retrieve a preference from the preference cookie.
   If the cookie doesn't exist, initialize it with default values.
 */
-getPreference = prefName => {
+const getPreference = prefName => {
   // Initialize the preference cookie if it doesn't already exist
   if (Cookies.get(prefCookieName) === undefined) {
     initializeCookie('preferences', defaultPref);
@@ -68,17 +68,17 @@ getPreference = prefName => {
 };
 
 // Set a preference in the preferences cookie
-setPreference = (prefID, prefValue) => {
+const setPreference = (prefID, prefValue) => {
   var prefString = Cookies.get(prefCookieName);
   let prefObj = JSON.parse(prefString);
-
+  
   prefObj[prefID] = prefValue;
 
-  Cookies.set(prefCookieName, prefObj);
+  Cookies.set(prefCookieName, JSON.stringify(prefObj));
 };
 
 // Return an object containing all preferences
-getPreferences = () => JSON.parse(Cookies.get(prefCookieName));
+const getPreferences = () => JSON.parse(Cookies.get(prefCookieName));
 
 /*
 ////////////////////////////////////////////////////////////////////////////////
@@ -113,7 +113,7 @@ var defaultUrlsCookie = {
 };
 
 // Return an object that contains all InfluxDB urls stored in the urls cookie
-getInfluxDBUrls = () => {
+const getInfluxDBUrls = () => {
   // Initialize the urls cookie if it doesn't already exist
   if (Cookies.get(urlCookieName) === undefined) {
     initializeCookie('urls', defaultUrlsCookie);
@@ -123,7 +123,7 @@ getInfluxDBUrls = () => {
 };
 
 // Get the current or previous URL for a specific product or a custom url
-getInfluxDBUrl = product => {
+const getInfluxDBUrl = product => {
   // Initialize the urls cookie if it doesn't already exist
   if (Cookies.get(urlCookieName) === undefined) {
     initializeCookie('urls', defaultUrlsCookie);
@@ -142,23 +142,23 @@ getInfluxDBUrl = product => {
   Input should be an object where the key is the product and the value is the
   URL to set for that product.
 */
-setInfluxDBUrls = updatedUrlsObj => {
+const setInfluxDBUrls = updatedUrlsObj => {
   var urlsString = Cookies.get(urlCookieName);
   let urlsObj = JSON.parse(urlsString);
 
-  newUrlsObj = { ...urlsObj, ...updatedUrlsObj };
+  const newUrlsObj = { ...urlsObj, ...updatedUrlsObj };
 
-  Cookies.set(urlCookieName, newUrlsObj);
+  Cookies.set(urlCookieName, JSON.stringify(newUrlsObj));
 };
 
 // Set an InfluxDB URL to an empty string in the urls cookie
-removeInfluxDBUrl = product => {
+const removeInfluxDBUrl = product => {
   var urlsString = Cookies.get(urlCookieName);
-  let urlsObj = JSON.parse(urlsString);
+  const urlsObj = JSON.parse(urlsString);
 
   urlsObj[product] = '';
 
-  Cookies.set(urlCookieName, urlsObj);
+  Cookies.set(urlCookieName, JSON.stringify(urlsObj));
 };
 
 /*
@@ -175,7 +175,7 @@ var defaultNotifications = {
   callouts: [],
 };
 
-getNotifications = () => {
+const getNotifications = () => {
   // Initialize the notifications cookie if it doesn't already exist
   if (Cookies.get(notificationCookieName) === undefined) {
     initializeCookie('notifications', defaultNotifications);
@@ -199,11 +199,9 @@ getNotifications = () => {
   If the notification ID exists in the array assigned to the specified type, the
   notification has been read.
 */
-notificationIsRead = (notificationID, notificationType) => {
+const notificationIsRead = (notificationID, notificationType) => {
   let notificationsObj = getNotifications();
-  readNotifications = notificationsObj[`${notificationType}s`];
-
-  return readNotifications.includes(notificationID);
+  return notificationsObj[`${notificationType}s`].includes(notificationID);
 };
 
 /*
@@ -215,12 +213,26 @@ notificationIsRead = (notificationID, notificationType) => {
 
   The notification ID is added to the array assigned to the specified type.
 */
-setNotificationAsRead = (notificationID, notificationType) => {
+const setNotificationAsRead = (notificationID, notificationType) => {
   let notificationsObj = getNotifications();
   let readNotifications = notificationsObj[`${notificationType}s`];
 
   readNotifications.push(notificationID);
   notificationsObj[notificationType + 's'] = readNotifications;
 
-  Cookies.set(notificationCookieName, notificationsObj);
+  Cookies.set(notificationCookieName, JSON.stringify(notificationsObj));
 };
+
+export {
+  initializeCookie,
+  getPreference,
+  setPreference,
+  getPreferences,
+  getInfluxDBUrls,
+  getInfluxDBUrl,
+  setInfluxDBUrls,
+  removeInfluxDBUrl,
+  getNotifications,
+  notificationIsRead,
+  setNotificationAsRead,
+}

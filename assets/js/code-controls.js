@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 var codeBlockSelector = ".article--content pre";
 var codeBlocks = $(codeBlockSelector);
 
