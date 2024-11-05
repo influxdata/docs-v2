@@ -49,9 +49,9 @@ logs that look like the following:
 2024-11-04T01:00:19.000Z | 4: database "influxdb&options=-c%20search_path=" does not exist
 ```
 
-The issue here is that entire `influxdb&options=-c%20search_path=` string is
-being interpreted as the database name, owing to incorrect parsing of the
-`POSTGRES_DSN` environment variable.
+Due to incorrect parsing of the
+`POSTGRES_DSN` environment variable, the `influxdb&options=-c%20search_path=` string is
+interpreted as the database name.
 
 The workaround to deal with this before a fix makes its way into the next
 release is to use an image override in your AppInstance that looks like:
