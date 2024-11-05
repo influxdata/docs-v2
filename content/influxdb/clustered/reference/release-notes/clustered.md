@@ -76,11 +76,6 @@ spec:
 # ...[remaining configuration]
 ```
 
-Your AppInstance may have additional configuration, but the important part here
-is the `spec.package.spec.images.overrides` section where we override the
-built-in image used by the `core` pods with one that has a bugfix for the DSN
-parsing error.
-
 ### Highlights
 
 #### AppInstance image override bug fix
