@@ -1,0 +1,97 @@
+
+.caution {
+  &:before {
+    content: "C";
+    color: #fff;
+    background: $article-caution-base;
+  }
+
+  border-color: $article-caution-base;
+  background: $article-caution-bg;
+  h1,h2,h3,h4,h5,h6 {
+    color: $article-caution-heading;
+    a {
+      color: inherit !important;
+      &:hover{color: inherit !important}
+    }
+  }
+  p, li {color: $article-caution-text;}
+  strong { color: $article-caution-strong; }
+  a {
+    color: $article-caution-link !important;
+    code:after {
+      border-color: transparent rgba($article-caution-code, .35) transparent transparent;
+    }
+    &:hover {
+      color: $article-caution-link-hover !important;
+      code:after { border-color: transparent $article-caution-link-hover transparent transparent;}
+    }
+  }
+  ol li:before {
+    color: $article-caution-text;
+  }
+  code, pre{
+    color: $article-caution-code;
+    background: $article-caution-code-bg;
+  }
+  img {
+    box-shadow: 1px 3px 10px $article-caution-shadow;
+  }
+  table{
+    color: $article-caution-text;
+    box-shadow: 1px 3px 10px $article-caution-shadow;
+    thead{@include gradient($article-caution-table-header);}
+    tr:nth-child(even) td {background: $article-caution-table-row-alt;}
+  }
+  blockquote {
+    border-color: rgba($article-caution-text, .25);
+    p { color: rgba($article-caution-text, .6); }
+  }
+  .code-tabs-wrapper .code-tabs a {
+    background: transparent;
+    color: rgba($article-caution-text, .5);
+    &:hover { color: rgba($article-caution-text, 1); }
+    &.is-active {
+      color: rgba($article-caution-text, 1);
+      background: $article-caution-code-bg};
+  }
+  hr, .expand {
+    border-color: rgba($article-caution-base, .4)
+  }
+
+  ///////////////////////////////// Scrollbars /////////////////////////////////
+  pre   { @include scrollbar($article-caution-code-bg, $article-caution-code-scrollbar); }
+  table { @include scrollbar($article-caution-table-row-alt, $article-caution-table-scrollbar); }
+
+  ///////////////////////////// Syntax Highlighting ////////////////////////////
+  .highlight  {
+		color: $article-caution-code;
+
+		.gh,.go,.na,.nt,.nv,.ow
+			{ color: $article-caution-code }
+		.c,.ch,.cm,.cpf,.c1, .cs,.w
+			{ color: $article-caution-code-accent1; }
+		.gi
+			{ background-color: $article-caution-code-accent1; }
+		.k,.kc,.kd,.kn,.kp,.kr,.nn
+			{ color: $article-caution-code-accent2; }
+		.bp,.cp,.dl,.gt,.gu,.kt,.nb,.nc,.no,.sa,.sb,.sc,.sd,.se,.sh,.sx,.sr,.s1,.s2
+			{	color: $article-caution-code-accent3 }
+		.err,.fm,.gr,.gd,.nd,.ne,.nf,.nl,.si
+			{ color: $article-caution-code-accent4 }
+		.m,.ni,.mb,.mf,.mh,.mi,.mo,.vc,.vg,.vi,.vm,.il
+			{	color: $article-caution-code-accent5 }
+		.gp,.o
+			{ color: $article-caution-code-accent6	}
+		.ss
+			{ color: $article-caution-code-accent7 }
+    // Javascript / Flux specific styles (duration and time values)
+    .language-js {
+      .mi + .nx, .mf + .nx { color: $article-caution-code-accent5; }
+    }
+    // SQL / InfluxQL specific styles (duration values)
+    .language-sql {
+      .mi + .n { color: $article-caution-code-accent5; }
+    }
+	}
+}

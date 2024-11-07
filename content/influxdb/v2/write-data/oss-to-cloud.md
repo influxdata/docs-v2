@@ -23,11 +23,11 @@ To replicate all writes to an InfluxDB OSS instance to an InfluxDB Cloud instanc
 use [InfluxDB replication streams](/influxdb/v2/write-data/replication/).
 {{% /note %}}
 
-{{% cloud %}}
-#### InfluxDB Cloud rate limits
-Write requests to InfluxDB Cloud are subject to the rate limits associated with your
-[InfluxDB Cloud pricing plan](/influxdb/cloud/account-management/pricing-plans/).
-{{% /cloud %}}
+> [!Important]
+>
+> #### InfluxDB Cloud rate limits
+> Write requests to InfluxDB Cloud are subject to the rate limits associated with your
+> [InfluxDB Cloud pricing plan](/influxdb/cloud/account-management/pricing-plans/).
 
 1.  Query data from InfluxDB OSS.
 2.  _(Optional)_ [Filter](/flux/v0/stdlib/universe/filter/) or process data to write to InfluxDB Cloud.

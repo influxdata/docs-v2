@@ -15,9 +15,8 @@ related:
   - /influxdb/v2/reference/cli/influxd/restore/
 ---
 
-{{% cloud %}}
-Restores **not supported in InfluxDB Cloud**.
-{{% /cloud %}}
+> [!Important]
+> Restores **not supported in InfluxDB Cloud**.
 
 Use the `influx restore` command to restore backup data and metadata from InfluxDB OSS.
 

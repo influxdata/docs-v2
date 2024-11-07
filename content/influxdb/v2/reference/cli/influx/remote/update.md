@@ -12,9 +12,8 @@ related:
 ---
 
 
-{{% cloud %}}
-Replication remotes and replication streams can only be configured for InfluxDB OSS.
-{{% /cloud %}}
+> [!Important]
+> Replication remotes and replication streams can only be configured for InfluxDB OSS.
 
 The `influx remote update` command updates an existing InfluxDB remote connection used for replicating data.
 
