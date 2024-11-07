@@ -24,6 +24,7 @@ use [InfluxDB replication streams](/influxdb/v2/write-data/replication/).
 {{% /note %}}
 
 > [!Important]
+>
 > #### InfluxDB Cloud rate limits
 > Write requests to InfluxDB Cloud are subject to the rate limits associated with your
 > [InfluxDB Cloud pricing plan](/influxdb/cloud/account-management/pricing-plans/).
