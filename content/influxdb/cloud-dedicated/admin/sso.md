@@ -14,14 +14,14 @@ of [Auth0](https://auth0.com) and your identity provider of choice.
 Use SSO to provide users seamless access to your {{< product-name >}} cluster
 with an existing set of credentials. 
 
-{{% cloud %}}
-#### Contact InfluxData sales to enable SSO
-
-SSO is a paid upgrade to your {{< product-name >}} cluster.
-To begin the process of enabling SSO, contact InfluxData Sales:
-
-<a class="btn" href="https://www.influxdata.com/contact-sales/">Contact InfluxData Sales</a>
-{{% /cloud %}}
+> [!Important]
+>
+> #### Contact InfluxData sales to enable SSO
+> 
+> SSO is a paid upgrade to your {{< product-name >}} cluster.
+> To begin the process of enabling SSO, contact InfluxData Sales:
+> 
+> <a class="btn" href="https://www.influxdata.com/contact-sales/">Contact InfluxData Sales</a>
 
 - [SSO authorization flow](#sso-authorization-flow)
 - [Set up your identity provider](#set-up-your-identity-provider)

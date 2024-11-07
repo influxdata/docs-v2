@@ -127,6 +127,5 @@ For example: "5MB / 5min" can be also expressed as `17476.266666667Bs`, `1MB/1mi
 If the rate limit format is invalid, `influx write` prints out the format and an exact regular expression.
 The `--rate-limit` flag can be also used with [`influx write dryrun`](/influxdb/v2/reference/cli/influx/write/dryrun/).
 
-{{% cloud %}}
-By default, the free tier rate limit in InfluxDB Cloud is `1MB/min`.
-{{% /cloud %}}
+> [!Important]
+> By default, the free tier rate limit in InfluxDB Cloud is `1MB/min`.
