@@ -1,0 +1,11 @@
+{{ if eq .Type "alert" }}
+<div class="block {{ .AlertType }}">
+  {{/* Hugo render hooks add an opening paragraph tag if the .Text starts */}}
+  {{/* with a heading. This replaces the phantom paragraph tag. */}}
+  {{ replace .Text "<p><h" "<h" | safeHTML }}
+</div>
+{{ else }}
+<blockquote>
+{{ .Text | safeHTML}}
+</blockquote>
+{{ end }}

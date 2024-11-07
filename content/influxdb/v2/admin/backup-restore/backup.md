@@ -28,9 +28,8 @@ The InfluxDB {{< current-version >}} `influx backup` command is not compatible w
 - [Manually upgrade from InfluxDB 1.x to {{< current-version >}}](/influxdb/v2/upgrade/v1-to-v2/manual-upgrade/)
 {{% /note %}}
 
-{{% cloud %}}
-The `influx backup` command **cannot** back up data stored in **InfluxDB Cloud**.
-{{% /cloud %}}
+> [!Important]
+> The `influx backup` command **cannot** back up data stored in **InfluxDB Cloud**.
 
 The `influx backup` command requires:
 
