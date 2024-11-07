@@ -85,12 +85,12 @@ function isSemanticNewer(semverX, semverY) {
 }
 
 // Load product data from the product data file
-const productData = yaml.load(fs.readFileSync(path.resolve(__dirname,'../data/products.yml'), 'utf8'))
+const influxdbMinorVersions = yaml.load(fs.readFileSync(path.resolve(__dirname,'../data/flux_influxdb_minor_versions.yml'), 'utf8'))
 
 // Update InfluxDB version arrays by removing 'v' from each version
 // Filter out InfluxDB Enterprise versions that don't have a Flux dependency in their go.mod
-const ossVersionArr = productData.influxdb.minor_versions.map((element) => {return element.replace('v', '')});
-const enterpriseVersionArr = productData.enterprise_influxdb.minor_versions.map((element) => {return element.replace('v', '')}).filter(version => isSemanticNewer(version, '1.9'));
+const ossVersionArr = influxdbMinorVersions.influxdb;
+const enterpriseVersionArr = influxdbMinorVersions.enterprise.filter(version => isSemanticNewer(version, '1.9'));
 
 // Instantiate base Flux version variables
 var ossVersions = {};
@@ -104,7 +104,7 @@ var fluxVersions = {};
 
   // Manually add versions that aren't included in the original versions arrays
   await addVersion(ossVersions, 'nightly', await getFluxVersion('main-2.x'));
-  await addVersion(enterpriseVersions, '1.11', await getFluxVersion('1.11'));
+  // await addVersion(enterpriseVersions, '1.11', await getFluxVersion('1.11'));
   await addVersion(enterpriseVersions, '1.8', await getFluxVersion('1.8'));
   await addVersion(enterpriseVersions, '1.7', await getFluxVersion('1.7'));
 
