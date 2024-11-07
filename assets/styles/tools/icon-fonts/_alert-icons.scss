@@ -10,7 +10,7 @@
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="alert-icon-"], [class*=" alert-icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'alert-icons' !important;
   speak: never;
@@ -25,18 +25,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-caution:before {
+.alert-icon-caution:before {
   content: "\43";
 }
-.icon-important:before {
+.alert-icon-important:before {
   content: "\49";
 }
-.icon-note:before {
+.alert-icon-note:before {
   content: "\4e";
 }
-.icon-tip:before {
+.alert-icon-tip:before {
   content: "\54";
 }
-.icon-warning:before {
+.alert-icon-warning:before {
   content: "\57";
 }
