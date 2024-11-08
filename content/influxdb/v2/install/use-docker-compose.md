@@ -133,9 +133,13 @@ If successful, InfluxDB initializes the user, password, organization, bucket,
 and _[Operator token](/influxdb/v2/admin/tokens/#operator-token)_, and then
 logs to stdout.
 
-_Although Docker prevents inadvertently exposing secrets (for example, in
+{{% warn %}}
+
+Although Docker prevents inadvertently exposing secrets (for example, in
 `docker inspect` output), a
-user that has access to the running container's filesystem can view the secrets._
+user that has access to the running container's filesystem can view the secrets.
+
+{{% /warn %}}
 
 ### Run InfluxDB CLI commands in a container
 
