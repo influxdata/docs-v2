@@ -1015,7 +1015,7 @@ docker start influxdb2
 
 Replace `influxdb2` with the name of your container.
 
-To start a new container, follow instructions to [install and set up InfluxDB in a container](?t=docker#install-and-setup-influxdb-in-a-container).
+To start a new container, follow instructions to [install and set up InfluxDB in a container](?t=docker#install-and-set-up-influxdb-in-a-container).
 
 {{% /tab-content %}}
 <!-------------------------------- BEGIN Kubernetes -------------------------------->
