@@ -16,7 +16,7 @@ process and visualize metrics and events.
 
 - [Download and install InfluxDB v2](#download-and-install-influxdb-v2)
 - [Start InfluxDB](#start-influxdb)
-- [Download, install, and configure the `influx` CLI](#download-install-and-configure-influx-cli)
+- [Download, install, and configure the `influx` CLI](#download-install-and-configure-the-influx-cli)
 
 ## Download and install InfluxDB v2
 
@@ -86,7 +86,7 @@ echo "9cb54d3940c37a8c2a908458543e629412505cc71db55094147fd39088b99c6c  influxdb
 Replace the following:
 
 - {{% code-placeholder-key %}}`9cb54d3940c37a8c2a908458543e629412505cc71db55094147fd39088b99c6c`{{% /code-placeholder-key %}}:
-  the **SHA256:** checksum value that you copied from the downloads page 
+  the **SHA256:** checksum value that you copied from the downloads page
 
 If the checksums match, the output is the following; otherwise, an error message.
 
@@ -224,7 +224,7 @@ The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
 versioned separately.
 
-_You'll install the `influx CLI` in a [later step](#download-and-install-the-influx-cli)._
+_You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
 
 {{% /note %}}
 
@@ -248,7 +248,7 @@ brew install influxdb
    "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz"
    ```
 
-2. {{< req text="Recommended:" color="magenta" >}}: Verify the integrity of the download--for example, enter the 
+2. {{< req text="Recommended:" color="magenta" >}}: Verify the integrity of the download--for example, enter the
    following command in your terminal:
 
 {{% code-placeholders "964e1de641a43a0e1743aa5ead243e935a05631ba0bc570fb8bff486542173c1" %}}
@@ -334,7 +334,7 @@ The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
 versioned separately.
 
-_You'll install the `influx CLI` in a [later step](#download-and-install-the-influx-cli)._
+_You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
 
 {{% /note %}}
 
@@ -456,7 +456,7 @@ _If necessary, adjust the example file paths and utilities for your system._
    ```sh
    curl -s --location -O \
    "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz"
-   ``` 
+   ```
    -->
 
    <!--pytest.mark.skip-->
@@ -471,7 +471,7 @@ _If necessary, adjust the example file paths and utilities for your system._
 
    ```sh
    # Use curl to download the arm64 binary.
-   curl --location -O \ 
+   curl --location -O \
    https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz
    ```
 
@@ -618,7 +618,7 @@ The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
 versioned separately.
 
-_You'll install the `influx CLI` in a [later step](#download-and-install-the-influx-cli)._
+_You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
 
 {{% /note %}}
 
