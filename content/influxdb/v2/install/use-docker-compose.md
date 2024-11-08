@@ -131,7 +131,7 @@ in the container.
 
 If successful, InfluxDB initializes the user, password, organization, bucket,
 and _[Operator token](/influxdb/v2/admin/tokens/#operator-token)_, and then
-logs to stdout.
+logs to stdout. You can view the InfluxDB UI at <http://localhost:8086>.
 
 {{% warn %}}
 
