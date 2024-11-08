@@ -54,9 +54,9 @@ Follow steps to set up and run InfluxDB using Docker Compose and `secrets`:
        environment:
          DOCKER_INFLUXDB_INIT_MODE: setup
          DOCKER_INFLUXDB_INIT_USERNAME_FILE: /run/secrets/influxdb2-admin-username
-         DOCKER_INFLUXDB_INIT_PASSWORD_FILE: /run/secrets/influxdb2-admin-password 
+         DOCKER_INFLUXDB_INIT_PASSWORD_FILE: /run/secrets/influxdb2-admin-password
          DOCKER_INFLUXDB_INIT_ADMIN_TOKEN_FILE: /run/secrets/influxdb2-admin-token
-         DOCKER_INFLUXDB_INIT_ORG: docs 
+         DOCKER_INFLUXDB_INIT_ORG: docs
          DOCKER_INFLUXDB_INIT_BUCKET: home
        secrets:
          - influxdb2-admin-username
@@ -114,15 +114,15 @@ Follow steps to set up and run InfluxDB using Docker Compose and `secrets`:
 At runtime, the `influxdb` image:
 
 1. Mounts `secrets` files from your host filesystem to `/run/secrets/<SECRET_NAME>`
-in the container. 
+in the container.
 2. Assigns the environment variables to the specified files--for example:
 
-  ```yaml
-  environment:
-    DOCKER_INFLUXDB_INIT_USERNAME_FILE: /run/secrets/influxdb2-admin-username
-    DOCKER_INFLUXDB_INIT_PASSWORD_FILE: /run/secrets/influxdb2-admin-password
-    DOCKER_INFLUXDB_INIT_ADMIN_TOKEN_FILE: /run/secrets/influxdb2-admin-token
-  ```
+   ```yaml
+   environment:
+     DOCKER_INFLUXDB_INIT_USERNAME_FILE: /run/secrets/influxdb2-admin-username
+     DOCKER_INFLUXDB_INIT_PASSWORD_FILE: /run/secrets/influxdb2-admin-password
+     DOCKER_INFLUXDB_INIT_ADMIN_TOKEN_FILE: /run/secrets/influxdb2-admin-token
+   ```
 
 3. Retrieves the secrets from the mounted files and runs setup.
 4. Starts InfluxDB.
