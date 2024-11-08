@@ -321,6 +321,8 @@ If you rename the binaries, all references to `influxd` and `influx` in this doc
 <!-------------------------------- BEGIN Linux -------------------------------->
 {{% tab-content %}}
 
+<a id="install-linux"></a>
+
 To install {{% product-name %}} on Linux, do one of the following:
 
 - [Install InfluxDB as a service with systemd](#install-influxdb-as-a-service-with-systemd)
@@ -871,7 +873,7 @@ To run InfluxDB on Raspberry Pi, you need:
 
 ### Install Linux binaries
 
-Follow the [Linux installation instructions](/influxdb/v2/install/?t=linux)
+Follow the [Linux installation instructions](/influxdb/v2/install/?t=Linux#install-linux)
 to install InfluxDB on a Raspberry Pi.
 
 ### Monitor your Raspberry Pi
