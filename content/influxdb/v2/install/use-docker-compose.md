@@ -144,8 +144,8 @@ user that has access to the running container's filesystem can view the secrets.
 ### Run InfluxDB CLI commands in a container
 
 After you start a container using the `influxdb` Docker Hub image, you can
-[use `docker exec` with the `influx` and `influxd`
-CLIs](/influxdb/v2/install/#run-influxdb-cli-commands-in-a-container) inside the
+use `docker exec` with the `influx` and `influxd`
+CLIs inside the
 container.
 
 ### Manage files in mounted volumes
