@@ -114,6 +114,13 @@ If omitted, your cluster uses the default scale settings.
     - `limits`
       - `cpu`: Maximum CPU Resource units to assign to the garbage collector
       - `memory`: Maximum memory resource units to assign to the garbage collector
+  - `prometheus`
+    - `requests`
+      - `cpu`: Minimum CPU resource units to assign to prometheus
+      - `memory`: Minimum memory resource units to assign to prometheus
+    - `limits`
+      - `cpu`: Maximum CPU Resource units to assign to prometheus
+      - `memory`: Maximum memory resource units to assign to prometheus
 
 {{< expand-wrapper >}}
 {{% expand "View example `AppInstance` with resource requests and limits" %}}
