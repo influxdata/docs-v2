@@ -105,11 +105,10 @@ influx bucket create \
 
 ##### Create a bucket with an explicit schema
 
-{{% cloud %}}
-[Explicit bucket schemas](/influxdb/cloud/reference/cli/influx/bucket-schema) are only
-supported in **InfluxDB Cloud**.
-For more information, see [Manage bucket schema](/influxdb/cloud/admin/buckets/bucket-schema/).
-{{% /cloud %}}
+> [!Important]
+> [Explicit bucket schemas](/influxdb/cloud/reference/cli/influx/bucket-schema) are only
+> supported in **InfluxDB Cloud**.
+> For more information, see [Manage bucket schema](/influxdb/cloud/admin/buckets/bucket-schema/).
 
 ```sh
 {{< get-shared-text "bucket-schema/bucket-schema-type.sh" >}}

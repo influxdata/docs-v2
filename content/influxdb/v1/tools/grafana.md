@@ -1,8 +1,8 @@
 ---
 title: Use Grafana with InfluxDB
-seotitle: Use Grafana with InfluxDB v1.8
+seotitle: Use Grafana with InfluxDB v1.11
 description: >
-  Configure Grafana to query and visualize data from InfluxDB v1.8.
+  Configure Grafana to query and visualize data from InfluxDB v1.11.
 menu:
   influxdb_v1:
     name: Grafana
@@ -13,7 +13,7 @@ canonical: /influxdb/v2/tools/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/products/cloud/)
-to visualize data from your **InfluxDB v1.8** instance.
+to visualize data from your **InfluxDB v1.11** instance.
 
 {{% note %}}
 #### Required

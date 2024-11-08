@@ -9,9 +9,8 @@ weight: 102
 influxdb/v2/tags: [write, replication]
 ---
 
-{{% cloud %}}
-Replication remotes and replication streams can only be configured for InfluxDB OSS.
-{{% /cloud %}}
+> [!Important]
+> Replication remotes and replication streams can only be configured for InfluxDB OSS.
 
 The `influx replication update` command updates an InfluxDB replication stream.
 

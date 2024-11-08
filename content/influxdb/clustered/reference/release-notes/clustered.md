@@ -26,7 +26,103 @@ identified below with the <span class="cf-icon Shield pink"></span> icon.
 
 ---
 
-## 20240925-1257864 {date="2024-09-25" .checkpoint} 
+## 20241024-1354148  {date="2024-10-24" .checkpoint}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241022-1346953
+```
+
+### Known Bugs
+
+### `core` service DSN parsing errors
+
+This release has a known bug in the `core` pods with respect to handling of
+options in Postgres DSNs. This bug can be seen in the `core-MMMMMMMMMM-NNNNN`
+logs that look like the following:
+
+```
+2024-11-04T01:00:00.000Z | 3: error returned from database: database "influxdb&options=-c%20search_path=" does not exist
+2024-11-04T01:00:19.000Z | 4: database "influxdb&options=-c%20search_path=" does not exist
+```
+
+Due to incorrect parsing of the
+`POSTGRES_DSN` environment variable, the `influxdb&options=-c%20search_path=` string is
+interpreted as the database name.
+
+To work around this bug, in your AppInstance, 
+include a `spec.package.spec.images.overrides` section to override the
+`core` pods built-in image with an image that has the bugfix for the DSN
+parsing error--for example:
+
+```
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+metadata:
+  name: influxdb
+  namespace: influxdb
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241024-1354148
+    apiVersion: influxdata.com/v1alpha1
+    spec:
+      images:
+        overrides:
+          - name: 'influxdb2-artifacts/granite/granite'
+            newFQIN: 'us-docker.pkg.dev/influxdb2-artifacts/granite/granite:7acf9ca6e1ad15db80b22cd0bc071acdb561eb51'
+# ...[remaining configuration]
+```
+
+### Highlights
+
+#### AppInstance image override bug fix
+
+In [20240925-1257864](#20240925-1257864), the AppInstance image override was
+broken with the introduction of strict always-on license enforcement.
+This release fixes that bug.
+
+This bug is expected to have an outsized impact on customers running InfluxDB
+Clustered in air-gapped environments where the deployment model involves
+overriding the default image repository to point to images copied to an
+air-gapped registry.
+
+This release is an alternative to [20240925-1257864](#20240925-1257864) for
+customers who depend on this image override feature.
+
+#### Upgrade bug fix
+
+[20240925-1257864](#20240925-1257864) introduced a schema migration bug that
+caused an `init` container in the `account` Pods to hang indefinitely.
+This would only affect InfluxDB Clustered during an upgrade; not a fresh install.
+
+For customers who experience this bug when attempting to upgrade to
+[20240925-1257864](#20240925-1257864), upgrade to this 20241024-1354148 instead.
+
+### Changes
+
+#### Deployment
+
+- Enable overriding the default CPU and memory resource requests and limits for
+  the Garbage collector and Catalog services.
+- Remove the Gateway service and implement the newly introduced Core service.
+- Fix logic related to applying default resource limits for IOx components.
+- Support [`ResourceQuota`s](https://kubernetes.io/docs/concepts/policy/resource-quotas/)
+  with the `enableDefaultResourceLimits` feature flag. This causes resource
+  limits to be applied even to containers that don't normally have limits
+  applied.
+
+---
+
+## 20240925-1257864 {date="2024-09-25" .checkpoint}
+
+{{% warn %}}
+This release has a number of bugs in it which make it unsuitable for customer use.
+If you are currently running this version, please upgrade to
+[20241024-1354148](#20241024-1354148).
+{{% /warn %}}
 
 ### Quickstart
 
@@ -374,7 +470,7 @@ us-docker.pkg.dev/influxdb2-artifacts/granite/granite@sha256:1683f97386f8af9ce60
 ```
 
 For more information, see the
-[documentation](/influxdb/clustered/install/configure-cluster/?t=Private+registry+%28air-gapped%29#public-registry-non-air-gapped).
+[documentation](/influxdb/clustered/install/set-up-cluster/configure-cluster/?t=Private+registry+%28air-gapped%29#public-registry-non-air-gapped).
 
 ### Changes
 

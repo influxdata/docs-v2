@@ -23,9 +23,8 @@ normalizes degree-based wind directions to cardinal directions, and then writes
 the normalized data to a bucket.
 
 {{< cloud-only >}}  
-{{% cloud %}}  
-**Note**: Using sample data counts towards your total InfluxDB Cloud usage.
-{{% /cloud %}}  
+> [!Important]
+> **Note**: Using sample data counts towards your total InfluxDB Cloud usage.
 {{< /cloud-only >}}
 
 1.  [Create a new notebook](/influxdb/v2/tools/notebooks/create-notebook/).

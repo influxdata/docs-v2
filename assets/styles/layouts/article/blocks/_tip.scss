@@ -1,0 +1,101 @@
+.tip {
+  &:before {
+    content: "T";
+    color: #fff;
+    background: $article-tip-base;
+  }
+
+  border-color: $article-tip-base;
+  background: rgba($article-tip-base, .12);
+  h1,h2,h3,h4,h5,h6 {
+    color: $article-tip-heading;
+    a {
+      color: inherit !important;
+      &:hover{color: inherit !important}
+    }
+  }
+  p,li { color: $article-tip-text; }
+  strong {color: $article-tip-strong;}
+  a {
+    color: $article-tip-link;
+    code:after {border-color: transparent rgba($article-tip-code, .35) transparent transparent;}
+    &:hover {
+      color: $article-tip-link-hover;
+      code:after {border-color: transparent $article-tip-link-hover transparent transparent;}
+    }
+  }
+  ol li:before {color: $article-tip-text;}
+  code, pre{
+    color: $article-tip-code;
+    background: $article-tip-code-bg;
+  }
+  img {
+    box-shadow: 1px 3px 10px $article-tip-shadow;
+  }
+  table{
+    color: $article-tip-text;
+    box-shadow: 1px 3px 10px $article-tip-shadow;
+    thead{@include gradient($article-tip-table-header);}
+    tr:nth-child(even) td {background: $article-tip-table-row-alt;}
+  }
+  blockquote {
+    border-color: rgba($article-tip-text, .25);
+    p { color: rgba($article-tip-text, .6); }
+  }
+  .code-tabs-wrapper .code-tabs a {
+    background: transparent;
+    color: rgba($article-tip-text, .5);
+    &:hover { color: rgba($article-tip-text, 1); }
+    &.is-active {
+      color: rgba($article-tip-text, 1);
+      background: $article-tip-code-bg};
+  }
+
+  &.flex {
+    font-style: italic;
+    display: flex;
+    div:first-child {
+      position: relative;
+      margin: .25rem 2rem 0 0;
+    }
+  }
+  hr, .expand {
+    border-color: rgba($article-tip-base, .4)
+  }
+
+  ///////////////////////////////// Scrollbars /////////////////////////////////
+  pre   { @include scrollbar($article-tip-code-bg, $article-tip-code-scrollbar); }
+  table { @include scrollbar($article-tip-table-row-alt, $article-tip-table-scrollbar); }
+
+  ///////////////////////////// Syntax Highlighting ////////////////////////////
+  .highlight  {
+		color: $article-tip-code;
+
+		.gh,.go,.na,.nt,.nv,.ow
+			{ color: $article-tip-code }
+		.c,.ch,.cm,.cpf,.c1, .cs,.w
+			{ color: $article-tip-code-accent1; }
+		.gi
+			{ background-color: $article-tip-code-accent1; }
+		.k,.kc,.kd,.kn,.kp,.kr,.nn
+			{ color: $article-tip-code-accent2; }
+		.bp,.cp,.dl,.gt,.gu,.kt,.nb,.nc,.no,.sa,.sb,.sc,.sd,.se,.sh,.sx,.sr,.s1,.s2
+			{	color: $article-tip-code-accent3 }
+		.err,.fm,.gr,.gd,.nd,.ne,.nf,.nl,.si
+			{ color: $article-tip-code-accent4 }
+		.m,.ni,.mb,.mf,.mh,.mi,.mo,.vc,.vg,.vi,.vm,.il
+			{	color: $article-tip-code-accent5 }
+		.gp,.o
+			{ color: $article-tip-code-accent6	}
+		.ss
+			{ color: $article-tip-code-accent7 }
+      // Javascript / Flux specific styles (duration and time values)
+      .language-js {
+        .mi + .nx, .mf + .nx { color: $article-tip-code-accent5; }
+      }
+      // SQL / InfluxQL specific styles (duration values)
+      .language-sql {
+        .mi + .n { color: $article-tip-code-accent5; }
+      }
+	}
+}

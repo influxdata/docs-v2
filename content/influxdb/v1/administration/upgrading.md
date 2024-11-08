@@ -1,5 +1,5 @@
 ---
-title: Upgrade to InfluxDB 1.8.x
+title: Upgrade to InfluxDB 1.11.x
 description: Upgrade to the latest version of InfluxDB.
 menu:
   influxdb_v1:
@@ -9,7 +9,7 @@ menu:
 ---
 
 
-We recommend enabling Time Series Index (TSI) (step 3 of Upgrade to InfluxDB 1.8.x). [Switch between TSM and TSI](#switch-index-types) as needed. To learn more about TSI, see:
+We recommend enabling Time Series Index (TSI) (step 3 of Upgrade to InfluxDB 1.11.x). [Switch between TSM and TSI](#switch-index-types) as needed. To learn more about TSI, see:
 
 - [Time Series Index (TSI) overview](/influxdb/v1/concepts/time-series-index/)
 - [Time Series Index (TSI) details](/influxdb/v1/concepts/tsi-details/)
@@ -23,13 +23,13 @@ To upgrade from InfluxDB OSS to InfluxDB Enterprise, [contact InfluxData Sales](
 and see [Migrate to InfluxDB Enterprise](/enterprise_influxdb/v1/guides/migration/).
 {{% /note %}}
 
-## Upgrade to InfluxDB 1.8.x
+## Upgrade to InfluxDB 1.11.x
 
-1. [Download](https://www.influxdata.com/downloads/) InfluxDB version 1.8.x and [install the upgrade](/influxdb/v1/introduction/installation/).
+1. [Download](https://www.influxdata.com/downloads/) InfluxDB version 1.11.x and [install the upgrade](/influxdb/v1/introduction/installation/).
 
-2. Migrate configuration file customizations from your existing configuration file to the InfluxDB 1.8.x [configuration file](/influxdb/v1/administration/config/). Add or modify your environment variables as needed.
+2. Migrate configuration file customizations from your existing configuration file to the InfluxDB 1.11.x [configuration file](/influxdb/v1/administration/config/). Add or modify your environment variables as needed.
 
-3. To enable TSI in InfluxDB 1.8.x, complete the following steps:
+3. To enable TSI in InfluxDB 1.11.x, complete the following steps:
 
     1. If using the InfluxDB configuration file, find the `[data]` section, uncomment `index-version = "inmem"` and change the value to `tsi1`.
 
@@ -53,12 +53,12 @@ Run the `buildtsi` command using the user account that you are going to run the 
 
 Switch index types at any time by doing one of the following:
 
-- To switch from to `inmem` to `tsi1`, complete steps 3 and 4 above in [Upgrade to InfluxDB 1.8.x](#upgrade-to-influxdb-1-8-x).
-- To switch from to `tsi1` to `inmem`, change `tsi1` to `inmem` by completing steps 3a-3c and 4 above in [Upgrade to InfluxDB 1.8.x](#upgrade-to-influxdb-1-8-x).
+- To switch from to `inmem` to `tsi1`, complete steps 3 and 4 above in [Upgrade to InfluxDB 1.11.x](#upgrade-to-influxdb-1-8-x).
+- To switch from to `tsi1` to `inmem`, change `tsi1` to `inmem` by completing steps 3a-3c and 4 above in [Upgrade to InfluxDB 1.11.x](#upgrade-to-influxdb-1-8-x).
 
 ## Downgrade InfluxDB
 
-To downgrade to an earlier version, complete the procedures above in [Upgrade to InfluxDB 1.8.x](#upgrade-to-influxdb-1-8-x), replacing the version numbers with the version that you want to downgrade to.
+To downgrade to an earlier version, complete the procedures above in [Upgrade to InfluxDB 1.11.x](#upgrade-to-influxdb-1-8-x), replacing the version numbers with the version that you want to downgrade to.
 After downloading the release, migrating your configuration settings, and enabling TSI or TSM, make sure to [rebuild your index](/influxdb/v1/administration/rebuild-tsi-index/).
 
 >**Note:** Some versions of InfluxDB may have breaking changes that impact your ability to upgrade and downgrade. For example, you cannot downgrade from InfluxDB 1.3 or later to an earlier version. Please review the applicable version of release notes to check for compatibility issues between releases.

@@ -9,6 +9,23 @@ aliases:
   - /kapacitor/v1/about_the_project/releasenotes-changelog/
 ---
 
+## v1.7.6 {date="2024-10-28"}
+
+### Features
+
+- Kafka Handler set and send SASL extensions.
+- Kafka Handler SASL OAUTH token refreshing.
+
+### Bug Fixes
+
+- Using UTC timezone for alert levels.
+
+### Dependency updates
+
+- Upgrade Go to 1.22.7.
+
+---
+
 ## v1.7.5 {date="2024-06-12"}
 
 ### Dependency updates
