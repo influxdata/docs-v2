@@ -20,12 +20,12 @@ related:
 ---
 
 There are many tools you can use to visualize your time series data including the
-InfluxDB user interface (UI), [Chronograf](), and
+InfluxDB user interface (UI), [Chronograf](/influxdb/v2/tools/chronograf/), and
 [Grafana](/influxdb/v2/tools/grafana/).
 This tutorial walks you through using the **InfluxDB UI** to create a simple dashboard.
 
 Dashboards are a powerful way of displaying time series data and can help to
-identify trends and anomalies. A dashboard is comprised of one or more 
+identify trends and anomalies. A dashboard is comprised of one or more
 dashboard cells. A **dashboard cell** visualizes the results of a query using
 one of the available [visualization types](/influxdb/v2/visualize-data/visualization-types/).
 
@@ -59,7 +59,7 @@ With your new dashboard created and named, add a new dashboard cell:
     available.
     For this tutorial, use the default **Graph** visualization.
 4.  Use the query time range selector to select an absolute time range that
-    covers includes the time range of the 
+    covers includes the time range of the
     [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
     **2022-01-01T08:00:00Z** to **2022-01-01T20:00:01Z**.
 
@@ -78,7 +78,7 @@ With your new dashboard created and named, add a new dashboard cell:
 
         - **Start**: 2022-01-01 08:00:00
         - **Stop**: 2022-01-01 20:00:01
-    
+
     3. Click **{{% caps %}}Apply Time Range{{% /caps %}}**.
 
 5.  Use the **Query Builder** to select the measurement, fields, and tags to query:
@@ -110,7 +110,7 @@ each controlled by selections in your dashboard:
 
 ### Create a custom dashboard variable
 
-Let's create a custom dashboard variable that we can use to change the field 
+Let's create a custom dashboard variable that we can use to change the field
 displayed by your dashboard cell.
 
 1.  Select **Settings > Variables** in the left navigation bar.
@@ -183,5 +183,5 @@ Feel free to dive in deeper to each of these topics:
 - [Process data with InfluxDB](/influxdb/v2/process-data/)
 - [Visualize data with the InfluxDB UI](/influxdb/v2/visualize-data/)
 
-If you have questions as you're getting started, reach out to us using the 
+If you have questions as you're getting started, reach out to us using the
 available [Support and feedback](#bug-reports-and-feedback) channels.
