@@ -8,17 +8,6 @@ influxdb:
   versions:
     - v2
     - v1
-  minor_versions:
-    - v2.7
-    - v2.6
-    - v2.5
-    - v2.4
-    - v2.3
-    - v2.2
-    - v2.1
-    - v2.0
-    - v1.8
-    - v1.7
   latest: v2.7
   latest_patches:
     v2: 2.7.10
@@ -105,12 +94,6 @@ enterprise_influxdb:
   menu_category: self-managed
   list_order: 5
   versions: [v1]
-  minor_versions:
-    - v1.11
-    - v1.10
-    - v1.9
-    - v1.8
-    - v1.7
   latest: v1.11
   latest_patches:
     v1: 1.11.7
