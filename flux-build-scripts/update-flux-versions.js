@@ -87,7 +87,6 @@ function isSemanticNewer(semverX, semverY) {
 // Load product data from the product data file
 const influxdbMinorVersions = yaml.load(fs.readFileSync(path.resolve(__dirname,'../data/flux_influxdb_minor_versions.yml'), 'utf8'))
 
-// Update InfluxDB version arrays by removing 'v' from each version
 // Filter out InfluxDB Enterprise versions that don't have a Flux dependency in their go.mod
 const ossVersionArr = influxdbMinorVersions.influxdb;
 const enterpriseVersionArr = influxdbMinorVersions.enterprise.filter(version => isSemanticNewer(version, '1.9'));
