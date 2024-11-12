@@ -11,6 +11,9 @@ menu:
 weight: 201
 aliases:
   - /influxdb/v2/organizations/buckets/create-bucket/
+related:
+  - /influxdb/v2/reference/internals/data-retention/
+
 ---
 
 Use the InfluxDB user interface (UI), the `influx` command line interface (CLI),
