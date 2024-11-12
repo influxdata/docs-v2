@@ -13,7 +13,7 @@ aliases:
   - /influxdb/v2/organizations/buckets/create-bucket/
 ---
 
-Use the InfluxDB user interface (UI) the `influx` command line interface (CLI),
+Use the InfluxDB user interface (UI), the `influx` command line interface (CLI),
 or the InfluxDB API to create a bucket.
 
 {{% note %}}
