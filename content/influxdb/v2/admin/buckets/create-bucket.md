@@ -54,7 +54,7 @@ There are two places you can create a bucket in the UI.
 
 ### Create a bucket in the Data Explorer
 
-1.  In the navigation menu on the left, select **Explore* (**Data Explorer**).
+1.  In the navigation menu on the left, select **Explore (Data Explorer**).
 
     {{< nav-icon "data-explorer" >}}
 
