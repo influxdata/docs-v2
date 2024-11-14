@@ -183,5 +183,3 @@ Feel free to dive in deeper to each of these topics:
 - [Process data with InfluxDB](/influxdb/v2/process-data/)
 - [Visualize data with the InfluxDB UI](/influxdb/v2/visualize-data/)
 
-If you have questions as you're getting started, reach out to us using the
-available [Support and feedback](#bug-reports-and-feedback) channels.
