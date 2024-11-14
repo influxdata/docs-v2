@@ -34,8 +34,10 @@ configuration option.
 
 ## Bucket retention period
 A **bucket retention period** is the [duration](/influxdb/v2/reference/glossary/#duration)
-of time that a bucket retains data. Retention periods are set when [creating the buckets](/influxdb/v2/admin/buckets/create-bucket/),
-and can be infinite or as short as an hour. [Points](/influxdb/v2/reference/glossary/#point)
+of time that a bucket retains data.
+You can specify the retention period when you [create](/influxdb/v2/admin/buckets/create-bucket/) or [update](/influxdb/v2/admin/buckets/update-bucket/) a bucket.
+Retention periods can be infinite or as short as an hour.
+[Points](/influxdb/v2/reference/glossary/#point)
 in a bucket with timestamps beyond the defined retention period (relative to now)
 are _eligible_ for deletion.
 
