@@ -104,7 +104,7 @@ following sizing for {{% product-name %}} components:
   - _[See below](#postgresql-compatible-database-requirements)_
 - **Ingesters and Routers (x3):**
   - EC2 m6i.2xlarge (8 CPU, 32 GB RAM)
-  - Local storage: mimumum of 2 GB (high-speed SSD)
+  - Local storage: minimum of 2 GB (high-speed SSD)
 - **Queriers (x3):**
   - EC2 m6i.2xlarge (8 CPU, 32 GB RAM)
 - **Compactors (x1):**
@@ -121,7 +121,7 @@ following sizing for {{% product-name %}} components:
   - _[See below](#postgresql-compatible-database-requirements)_
 - **Ingesters and Routers (x3):**
   - GCE c2-standard-8 (8 CPU, 32 GB RAM)
-  - Local storage: mimumum of 2 GB (high-speed SSD)
+  - Local storage: minimum of 2 GB (high-speed SSD)
 - **Queriers (x3):**
   - GCE c2-standard-8 (8 CPU, 32 GB RAM)
 - **Compactors (x1):**
@@ -138,7 +138,7 @@ following sizing for {{% product-name %}} components:
   - _[See below](#postgresql-compatible-database-requirements)_
 - **Ingesters and Routers (x3):**
   - Standard_D8s_v3 (8 CPU, 32 GB RAM)
-  - Local storage: mimumum of 2 GB (high-speed SSD)
+  - Local storage: minimum of 2 GB (high-speed SSD)
 - **Queriers (x3):**
   - Standard_D8s_v3 (8 CPU, 32 GB RAM)
 - **Compactors (x1):**
