@@ -9,7 +9,8 @@ menu:
     name: Data retention
     parent: InfluxDB internals
 influxdb/v2/tags: [storage, internals]
-related: 
+related:
+  - /influxdb/v2/admin/buckets/create-bucket/
   - /influxdb/v2/reference/internals/shards/
   - /influxdb/v2/reference/internals/storage-engine/
   - /influxdb/v2/admin/internals/
@@ -32,10 +33,13 @@ configuration option.
 - [When does data actually get deleted?](#when-does-data-actually-get-deleted)
 
 ## Bucket retention period
-A **bucket retention period** is the [duration](/influxdb/v2/reference/glossary/#duration) of time that a bucket retains data.
+A **bucket retention period** is the [duration](/influxdb/v2/reference/glossary/#duration)
+of time that a bucket retains data.
+You can specify the retention period when you [create](/influxdb/v2/admin/buckets/create-bucket/) or [update](/influxdb/v2/admin/buckets/update-bucket/) a bucket.
 Retention periods can be infinite or as short as an hour.
-[Points](/influxdb/v2/reference/glossary/#point) in a bucket with timestamps
-beyond the defined retention period (relative to now) are _eligible_ for deletion.
+[Points](/influxdb/v2/reference/glossary/#point)
+in a bucket with timestamps beyond the defined retention period (relative to now)
+are _eligible_ for deletion.
 
 ## Shard group duration
 InfluxDB stores data on disk in [shards](/influxdb/v2/reference/glossary/#shard).
@@ -73,7 +77,7 @@ To calculate the possible time data will persist before being deleted:
 - **minimum**: `bucket-retention-period`
 - **maximum** `bucket-retention-period + shard-group-duration`
 
-For example, if your bucket retention period is three days (`3d`) and your 
+For example, if your bucket retention period is three days (`3d`) and your
 shard group duration is one day (`1d`), the retention enforcement service
 deletes all shard groups with data that is **three to four days old** the next
 time the service runs.
