@@ -32,10 +32,13 @@ InfluxDB Cloud Serverless and other InfluxDB v3 products do not support Flux.
 Flux is now in maintenance mode. For more information, see
 [The future of Flux](/flux/v0/future-of-flux).
 
-#### InfluxDB Cloud Serverless and custom partitioning
+#### Custom partitioning not supported
+
 InfluxDB Cloud Serverless does not support custom partitioning.
-To use custom partitioning, consider [InfluxDB Cloud Dedicated](../cloud-dedicated/admin/custom-partitions/)
-or [InfluxDB Clustered](../clustered/admin/custom-partitions/).
+
+Custom partitioning can benefit queries that look for a specific tag value in the `WHERE` clause.
+To use custom partitioning, consider [InfluxDB Cloud Dedicated](/influxdb/cloud-dedicated/admin/custom-partitions/)
+or [InfluxDB Clustered](/influxdb/clustered/admin/custom-partitions/).
 {{% /warn %}}
 
 InfluxDB Cloud Serverless is a hosted and managed version of InfluxDB backed
