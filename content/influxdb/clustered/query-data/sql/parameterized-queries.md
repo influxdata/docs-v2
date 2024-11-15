@@ -254,8 +254,7 @@ import (
     "os"
     "text/tabwriter"
     "time"
-    "github.com/apache/arrow/go/v14/arrow"
-    "github.com/InfluxCommunity/influxdb3-go/influxdb3"
+    "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
 )
 
 func Query(query string, parameters influxdb3.QueryParameters) error {
@@ -297,10 +296,10 @@ func Query(query string, parameters influxdb3.QueryParameters) error {
     // Process each row as key-value pairs.
     for iterator.Next() {
         row := iterator.Value()
-        // Use Go arrow and time packages to format unix timestamp
+        // Use Go time package to format unix timestamp
         // as a time with timezone layout (RFC3339 format)
-        time := (row["time"].(arrow.Timestamp)).
-                ToTime(arrow.Nanosecond).Format(time.RFC3339)
+        time := (row["time"].(time.Time)).
+                Format(time.RFC3339)
 
         fmt.Fprintf(w, "%s\t%s\t%d\t%.1f\t%.1f\n",
             time, row["room"], row["co"], row["hum"], row["temp"])

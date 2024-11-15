@@ -21,7 +21,7 @@ list_code_example: |
     ```go
     import (
       "context"
-      "github.com/InfluxCommunity/influxdb3-go/influxdb3"
+      "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
     )
 
     func Query() error {
@@ -139,8 +139,7 @@ import (
     "text/tabwriter"
     "time"
 
-    "github.com/InfluxCommunity/influxdb3-go/influxdb3"
-    "github.com/apache/arrow/go/v13/arrow"
+    "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
 )
 
 func Query() error {
@@ -187,10 +186,9 @@ func Query() error {
     fmt.Fprintln(w, "Process each row as key-value pairs:")
     for iterator2.Next() {
         row := iterator2.Value()
-        // Use Go arrow and time packages to format unix timestamp
+        // Use Go time package to format unix timestamp
         // as a time with timezone layout (RFC3339)
-        time := (row["time"].(arrow.Timestamp)).
-            ToTime(arrow.TimeUnit(arrow.Nanosecond)).
+        time := (row["time"].(time.Time)).
             Format(time.RFC3339)
         fmt.Fprintf(w, "%s\t%s\t%d\t%.1f\t%.1f\n",
             time, row["room"], row["co"], row["hum"], row["temp"])
@@ -236,8 +234,7 @@ import (
     "text/tabwriter"
     "time"
 
-    "github.com/InfluxCommunity/influxdb3-go/influxdb3"
-    "github.com/apache/arrow/go/v13/arrow"
+    "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
 )
 
 func InfluxQL() error {
@@ -289,10 +286,9 @@ func InfluxQL() error {
     fmt.Fprintln(w, "Process each row as key-value pairs:")
     for iterator2.Next() {
         row := iterator2.Value()
-        // Use Go arrow and time packages to format unix timestamp
+        // Use Go time package to format unix timestamp
         // as a time with timezone layout (RFC3339)
-        time := (row["time"].(arrow.Timestamp)).
-            ToTime(arrow.TimeUnit(arrow.Nanosecond)).
+        time := (row["time"].(time.Time)).
             Format(time.RFC3339)
         fmt.Fprintf(w, "%s\t%s\t%d\t%.1f\t%.1f\n",
             time, row["room"], row["co"], row["hum"], row["temp"])

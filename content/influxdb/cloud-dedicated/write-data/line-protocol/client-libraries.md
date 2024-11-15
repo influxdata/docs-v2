@@ -228,7 +228,7 @@ points.
     "os"
     "fmt"
     "time"
-    "github.com/InfluxCommunity/influxdb3-go/influxdb3"
+    "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
     "github.com/influxdata/line-protocol/v2/lineprotocol"
    )
 
