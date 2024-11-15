@@ -8,7 +8,8 @@ menu:
     parent: Query with Flux
 weight: 20
 canonical: /influxdb/v2/query-data/flux/monitor-states/
-v2: /influxdb/v2/query-data/flux/monitor-states/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/monitor-states/
 ---
 
 Flux helps you monitor states in your metrics and events:

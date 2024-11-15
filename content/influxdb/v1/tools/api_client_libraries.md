@@ -10,7 +10,8 @@ menu:
   influxdb_v1:
     weight: 30
     parent: Tools
-v2: /influxdb/v2/api-guide/client-libraries/
+alt_links:
+  v2: /influxdb/v2/api-guide/client-libraries/
 ---
 
 InfluxDB v2 client libraries are language-specific packages that integrate

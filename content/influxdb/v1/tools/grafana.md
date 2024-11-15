@@ -8,7 +8,8 @@ menu:
     name: Grafana
     weight: 60
     parent: Tools
-v2: /influxdb/v2/tools/grafana/
+alt_links:
+  v2: /influxdb/v2/tools/grafana/
 canonical: /influxdb/v2/tools/grafana/
 ---
 

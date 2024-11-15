@@ -12,7 +12,8 @@ related:
   - /flux/v0/stdlib/experimental/geo/
   - /flux/v0/stdlib/experimental/geo/shapedata/
 canonical: /influxdb/v2/query-data/flux/geo/shape-geo-data/
-v2: /influxdb/v2/query-data/flux/geo/shape-geo-data/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/geo/shape-geo-data/
 list_code_example: |
   ```js
   import "experimental/geo"

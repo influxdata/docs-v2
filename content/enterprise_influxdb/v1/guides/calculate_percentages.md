@@ -10,7 +10,6 @@ menu:
     name: Calculate percentages
 aliases:
   - /enterprise_influxdb/v1/guides/calculating_percentages/
-v2: /influxdb/v2/query-data/flux/calculate-percentages/
 ---
 
 Use Flux or InfluxQL to calculate percentages in a query.

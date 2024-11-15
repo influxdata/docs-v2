@@ -9,7 +9,8 @@ menu:
 weight: 20
 list_query_example: regular_expressions
 canonical: /influxdb/v2/query-data/flux/regular-expressions/
-v2: /influxdb/v2/query-data/flux/regular-expressions/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/regular-expressions/
 ---
 
 Regular expressions (regexes) are incredibly powerful when matching patterns in large collections of data.

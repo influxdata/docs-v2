@@ -6,7 +6,6 @@ menu:
   enterprise_influxdb_v1:
     name: Flux
     weight: 71
-v2: /influxdb/v2/query-data/get-started/
 ---
 
 Flux is a functional data scripting language designed for querying, analyzing, and acting on time series data.

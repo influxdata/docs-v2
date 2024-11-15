@@ -9,7 +9,6 @@ menu:
     name: InfluxDB API reference
     weight: 20
     parent: Tools
-v2: /influxdb/v2/reference/api/
 ---
 
 The InfluxDB API provides a simple way to interact with the database.

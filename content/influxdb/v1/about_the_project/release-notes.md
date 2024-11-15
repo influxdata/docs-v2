@@ -8,7 +8,8 @@ menu:
     parent: About the project
 aliases:
   - /influxdb/v1/about_the_project/releasenotes-changelog/
-v2: /influxdb/v2/reference/release-notes/influxdb/
+alt_links:
+  v2: /influxdb/v2/reference/release-notes/influxdb/
 ---
 
 ## v1.11.7 {date="2024-10-10"}
@@ -330,7 +331,6 @@ This release updates support for the Flux language and queries. To learn about F
     - Cast booleans to integers
     - Query geo-temporal data (experimental)
     - Many additional functions for working with data
-
 
   > We're evaluating the need for Flux query management controls equivalent to existing InfluxQL [query management controls](/influxdb/v1/troubleshooting/query_management/#configuration-settings-for-query-management) based on your feedback. Please join the discussion on [InfluxCommunity](https://community.influxdata.com/), [Slack](https://influxcommunity.slack.com/), or [GitHub](https://github.com/influxdata/flux). InfluxDB Enterprise customers, please contact <support@influxdata.com>.
 

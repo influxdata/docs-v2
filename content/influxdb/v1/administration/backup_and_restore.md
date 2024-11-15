@@ -10,7 +10,8 @@ menu:
     name: Back up and restore
     weight: 60
     parent: Administration
-v2: /influxdb/v2/backup-restore/
+alt_links:
+  v2: /influxdb/v2/backup-restore/
 ---
 
 Use the InfluxDB {{< current-version >}} `backup` and `restore` utilities

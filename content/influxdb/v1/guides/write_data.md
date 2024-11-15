@@ -8,7 +8,8 @@ menu:
     parent: Guides
 aliases:
   - /influxdb/v1/guides/writing_data/
-v2: /influxdb/v2/write-data/
+alt_links:
+  v2: /influxdb/v2/write-data/
 ---
 
 Write data into InfluxDB using the [command line interface](/influxdb/v1/tools/shell/), [client libraries](/influxdb/v1/clients/api/), and plugins for common data formats such as [Graphite](/influxdb/v1/write_protocols/graphite/).

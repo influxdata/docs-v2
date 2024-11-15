@@ -12,7 +12,6 @@ aliases:
   - /enterprise_influxdb/v1/flux/guides/grouping-data/
 list_query_example: group
 canonical: /influxdb/v2/query-data/flux/group-data/
-v2: /influxdb/v2/query-data/flux/group-data/
 ---
 
 With Flux, you can group data by any column in your queried data set.

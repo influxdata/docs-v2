@@ -11,7 +11,8 @@ related:
   - /flux/v0/stdlib/experimental/geo/
   - /flux/v0/stdlib/experimental/geo/filterrows/
 canonical: /influxdb/v2/query-data/flux/geo/filter-by-region/
-v2: /influxdb/v2/query-data/flux/geo/filter-by-region/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/geo/filter-by-region/
 list_code_example: |
   ```js
   import "experimental/geo"

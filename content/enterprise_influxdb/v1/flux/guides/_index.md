@@ -10,7 +10,6 @@ menu:
     name: Query with Flux
     parent: Flux
 canonical: /influxdb/v2/query-data/flux/
-v2: /influxdb/v2/query-data/flux/
 ---
 
 The following guides walk through both common and complex queries and use cases for Flux.

@@ -9,7 +9,8 @@ menu:
 aliases:
   - /influxdb/v1/flux/getting-started/query-influxdb/
 canonical: /influxdb/v2/query-data/get-started/query-influxdb/
-v2: /influxdb/v2/query-data/get-started/query-influxdb/
+alt_links:
+  v2: /influxdb/v2/query-data/get-started/query-influxdb/
 ---
 
 This guide walks through the basics of using Flux to query data from InfluxDB.

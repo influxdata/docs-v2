@@ -9,7 +9,8 @@ menu:
     parent: Query with Flux
 weight: 20
 canonical: /influxdb/v2/query-data/flux/geo/
-v2: /influxdb/v2/query-data/flux/geo/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/geo/
 list_code_example: |
   ```js
   import "experimental/geo"

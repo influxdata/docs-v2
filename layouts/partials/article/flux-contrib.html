@@ -5,14 +5,14 @@
   {{ if not (eq .RelPermalink $contribPath) }}
     {{ if eq .Kind "page" }}
       {{ $name := replaceRE " function" "" .Title }}
-      <div class="note block">
+      <div class="important block">
         <p>
           <code>{{ $name | safeHTML }}</code> is a user-contributed function maintained by
           the <a href="#package-author-and-maintainer">package author</a>.
         </p>
       </div>
     {{ else if eq .Kind "section" }}
-      <div class="note block">
+      <div class="important block">
         {{ $packageTitle := cond (isset .Params "list_title") $.Params.list_title .Title }}
         {{ $packageName := replaceRE `^(.*)( package)` "<code>$1</code>$2" $packageTitle }}
         <p>
