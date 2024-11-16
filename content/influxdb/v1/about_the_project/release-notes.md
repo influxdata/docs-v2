@@ -11,6 +11,14 @@ aliases:
 v2: /influxdb/v2/reference/release-notes/influxdb/
 ---
 
+## v1.11.8 {date="2024-11-15"}
+
+### Bug Fixes
+
+- Strip double quotes from measurement names in the [`/api/v2/delete`
+  compatibility API](/influxdb/v1/tools/api/#apiv2delete-http-endpoint) before
+  string comparisons (e.g. to allow special characters in measurement names).
+
 ## v1.11.7 {date="2024-10-10"}
 
 This release represents the first public release of InfluxDB OSS v1 since 2021
