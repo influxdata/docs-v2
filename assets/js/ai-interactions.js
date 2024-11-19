@@ -32,7 +32,7 @@ function bootCommandAIChat(userid) {
 
 function bootYextAIChat() {
   window.ChatApp.mount({
-    apiKey: "c8486ab4b244e31cdba220ce07c3853d",
+    apiKey: "63ef76290621ac9136076512c31bd986",
     botId: "docs-bot",
     title: "AI Chat (experimental)",
     // showRestartButton: true,
