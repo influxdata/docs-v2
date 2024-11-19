@@ -25,6 +25,7 @@ influxdb:
     v1: 1.11.7
   latest_cli:
     v2: 2.7.5
+  apis: api-docs/v2/.config.yml
 
 influxdb_cloud:
   name: InfluxDB Cloud (TSM)
@@ -35,6 +36,7 @@ influxdb_cloud:
   list_order: 1
   latest: cloud
   placeholder_host: cloud2.influxdata.com
+  apis: api-docs/cloud/.config.yml
 
 influxdb_cloud_serverless:
   name: InfluxDB Cloud Serverless
@@ -45,6 +47,7 @@ influxdb_cloud_serverless:
   list_order: 2
   latest: cloud-serverless
   placeholder_host: cloud2.influxdata.com
+  apis: api-docs/cloud-serverless/.config.yml
 
 influxdb_cloud_dedicated:
   name: InfluxDB Cloud Dedicated
@@ -57,6 +60,7 @@ influxdb_cloud_dedicated:
   link: "https://www.influxdata.com/contact-sales-form/"
   latest_cli: 2.9.8
   placeholder_host: cluster-id.a.influxdb.io
+  apis: api-docs/cloud-dedicated/.config.yml
 
 influxdb_clustered:
   name: InfluxDB Clustered
@@ -68,6 +72,7 @@ influxdb_clustered:
   latest: clustered
   link: "https://www.influxdata.com/contact-sales-influxdb-clustered"
   placeholder_host: cluster-host.com
+  apis: api-docs/clustered/.config.yml
 
 telegraf:
   name: Telegraf

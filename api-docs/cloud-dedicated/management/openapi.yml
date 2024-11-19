@@ -13,14 +13,7 @@ info:
     url: https://opensource.org/licenses/MIT
   version: ''
 servers:
-  - url: https://{baseurl}/api/v0
-    description: InfluxDB Cloud Dedicated Management API URL
-    variables:
-      baseurl:
-        enum:
-          - console.influxdata.com
-        default: console.influxdata.com
-        description: InfluxDB Cloud Dedicated Console URL
+  - url: /
 security:
   - bearerAuthManagementToken: []
     bearerAuthJwt: []
@@ -37,8 +30,6 @@ tags:
         See how to [create a management token](/influxdb/cloud-dedicated/admin/tokens/management/).
 
         By default, management tokens in InfluxDB v3 are short-lived tokens issued by an OAuth2 identity provider that grant a specific user administrative access to your InfluxDB cluster. However, for automation purposes, you can manually create management tokens that authenticate directly with your InfluxDB cluster and do not require human interaction with your identity provider.
-
-
   - name: Database tokens
     description: Manage database read/write tokens for a cluster
   - name: Databases
@@ -1020,7 +1011,6 @@ paths:
         For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
 
         If you lose a token, [delete the token from InfluxDB](/influxdb/cloud-dedicated/admin/tokens/database/delete/) and create a new one.
-
       parameters:
         - name: accountId
           in: path

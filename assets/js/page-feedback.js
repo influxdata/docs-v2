@@ -2,6 +2,8 @@
  * This file controls the interactions and life-cycles of the page feedback
  * buttons and modal.
  */
+import $ from 'jquery';
+import { toggleModal } from './modal.js';
 
 // Collect data from the page path
 const pathArr = location.pathname.split('/').slice(1, -1)
@@ -39,8 +41,7 @@ function submitFeedbackForm(formID) {
   // Use a honeypot form field to detect a bot
   // If the value of the honeypot field is greater than 0, the submitter is a bot
   function isBot() {
-    const honeypot = formData.get('fname');
-    return (honeypot.length > 0)
+    return formData.has('fname') && formData.get('fname').length > 0;
   }
   
   // If the submitter is not a bot, send the feedback data
@@ -80,18 +81,30 @@ function submitLifeCycleAndClose() {
 
 //////////////////////////////// Event triggers ////////////////////////////////
 
-// Submit page feedback (yes/no) on radio select and trigger life cycle
-$('#pagefeedback input[type=radio]').change(function() {
-  $('form#pagefeedback').submit();
-  submitLifeCycle()
-})
+export default function PageFeedback() {
+  $('#pagefeedbacktext').on('submit', function(event) {
+    event.preventDefault();
+    submitLifeCycleAndClose();
+  });
 
-// Toggle the feedback modal when user selects that the page is not helpful
-$('#pagefeedback #not-helpful input[type=radio]').click(function() {
-  setTimeout(function() {toggleModal('#page-feedback')}, 400);
-})
+  $('#pagefeedback').on('submit', function(event) {
+    event.preventDefault();
+    submitFeedbackForm();
+  });
 
-// Toggle the feedback modal when user selects that the page is not helpful
-$('.modal #no-thanks').click(function() {
-  toggleModal();
-})
+  // Submit page feedback (yes/no) on radio select and trigger life cycle
+  $('#pagefeedback input[type=radio]').on('change', (function() {
+    $('form#pagefeedback').trigger('submit');
+    submitLifeCycle()
+  }));
+
+  // Toggle the feedback modal when user selects that the page is not helpful
+  $('#pagefeedback #not-helpful input[type=radio]').on('click', (function() {
+    setTimeout(function() {toggleModal('#page-feedback')}, 400);
+  }));
+
+  // Toggle the feedback modal when user selects that the page is not helpful
+  $('.modal #no-thanks').on('click', (function() {
+    toggleModal();
+  }));
+};

@@ -19,9 +19,9 @@ tags:
   - description: |
       Use one of the following schemes to authenticate to the InfluxDB API:
 
-      - [Token authentication](#section/Authentication/TokenAuthentication)
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      - #section/Authentication/TokenAuthentication
+      - #section/Authentication/BasicAuthentication
+      - #section/Authentication/QuerystringAuthentication
       <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication
     x-traitTag: true
@@ -41,17 +41,6 @@ tags:
       the session carries the permissions granted by all the user's authorizations.
       For more information, see [how to assign a token to a specific user](/influxdb/latest/security/tokens/create-token/).
       To create a user session, use the [`POST /api/v2/signin` endpoint](#operation/PostSignin).
-
-      ### Related endpoints
-
-      - [Signin](#tag/Signin)
-      - [Signout](#tag/Signout)
-
-      ### Related guides
-
-      - [Authorize API requests](/influxdb/latest/api-guide/api_intro/#authentication)
-      - [Manage API tokens](/influxdb/latest/security/tokens/)
-      - [Assign a token to a specific user](/influxdb/latest/security/tokens/create-token/)
     name: Authorizations (API tokens)
   - name: Backup
   - description: |
@@ -61,10 +50,6 @@ tags:
       a duration of time that each data point persists. InfluxDB drops all
       points with timestamps older than the bucket’s retention period.
       A bucket belongs to an organization.
-
-      ### Related guides
-
-      - [Manage buckets](/influxdb/latest/organizations/buckets/)
     name: Buckets
   - name: Cells
   - name: Checks
@@ -95,10 +80,6 @@ tags:
       database and retention policy (DBRP) mapping service.
       The DBRP mapping service uses the database and retention policy
       specified in 1.x compatibility API requests to route operations to a bucket.
-
-      ### Related guides
-
-      - [Database and retention policy mapping](/influxdb/latest/reference/api/influxdb-1x/dbrp/)
     name: DBRPs
   - description: |
       Generate profiling and trace reports.
@@ -112,8 +93,8 @@ tags:
       For more information about **pprof profile** and **trace** reports,
       see the following resources:
 
-      - [Google pprof tool](https://github.com/google/pprof)
-      - [Golang diagnostics](https://go.dev/doc/diagnostics)
+      - https://github.com/google/pprof
+      - https://go.dev/doc/diagnostics
     name: Debug
   - description: |
       Delete data from an InfluxDB bucket.
@@ -254,11 +235,6 @@ tags:
       The following table defines the properties that appear in a `task` object:
 
       <SchemaDefinition schemaRef="#/components/schemas/Task" />
-
-      ### Related guides
-
-      - [Get started with tasks](/influxdb/latest/process-data/get-started/)
-      - [Common data processing tasks](/influxdb/latest/process-data/common-tasks/)
     name: Tasks
   - name: Telegraf Plugins
   - name: Telegrafs
@@ -280,11 +256,6 @@ tags:
       apply changes to distributed instances of InfluxDB OSS or InfluxDB Cloud.
 
       Use the `/api/v2/stacks` endpoints to manage installed template resources.
-
-      ### Related guides
-
-      - [InfluxDB stacks](/influxdb/latest/influxdb-templates/stacks/)
-      - [InfluxDB templates](/influxdb/latest/influxdb-templates/)
     name: Templates
   - description: |
       Manage users for your organization.
@@ -298,11 +269,6 @@ tags:
       If a user signs in with username and password, creating a _user session_,
       the session carries the permissions granted by all the user's authorizations.
       To create a user session, use the [`POST /api/v2/signin` endpoint](#operation/PostSignin).
-
-      ### Related guides
-
-      - [Manage users](/influxdb/latest/influxdb/latest/users/)
-      - [Create a token scoped to a user](/influxdb/latest/latest/security/tokens/create-token/#create-a-token-scoped-to-a-user)
     name: Users
   - name: Variables
   - name: Views
@@ -358,10 +324,8 @@ paths:
 
         - `read-authorizations`
         - `read-user` for the user that the authorization is scoped to
-
-        #### Related guides
-
-        - [View tokens](/influxdb/latest/security/tokens/view-tokens/)
+      x-influxdata-related-content:
+        - /influxdb/latest/security/tokens/view-tokens/
       operationId: GetAuthorizations
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -468,10 +432,8 @@ paths:
 
         - `write-authorizations`
         - `write-user` for the user that the authorization is scoped to
-
-        #### Related guides
-
-        - [Create a token](/influxdb/latest/security/tokens/create-token/)
+      x-influxdata-related-content:
+        - /influxdb/latest/security/tokens/create-token/
       operationId: PostAuthorizations
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -585,10 +547,8 @@ paths:
           [API token](/influxdb/latest/reference/glossary/#token) values in authorizations.
         - If the request uses an _[operator token](/influxdb/latest/security/tokens/#operator-token)_,
           InfluxDB OSS returns authorizations for all organizations in the instance.
-
-        #### Related guides
-
-        - [View tokens](/influxdb/latest/security/tokens/view-tokens/)
+      x-influxdata-related-content:
+        - /influxdb/latest/security/tokens/view-tokens/
       externalDocs:
         description: View tokens
         url: https://docs.influxdata.com/influxdb/latest/security/tokens/view-tokens/
@@ -839,7 +799,7 @@ paths:
 
         #### Related Guides
 
-        - [Manage buckets](/influxdb/latest/organizations/buckets/)
+        - /influxdb/latest/organizations/buckets/
       operationId: GetBuckets
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -970,8 +930,8 @@ paths:
 
         #### Related Guides
 
-        - [Create a bucket](/influxdb/latest/organizations/buckets/create-bucket/)
-        - [Create bucket CLI reference](/influxdb/latest/reference/cli/influx/bucket/create)
+        - /influxdb/latest/organizations/buckets/create-bucket/
+        - /influxdb/latest/reference/cli/influx/bucket/create
       operationId: PostBuckets
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1108,7 +1068,7 @@ paths:
 
         #### Related Guides
 
-        - [Delete a bucket](/influxdb/latest/organizations/buckets/delete-bucket/#delete-a-bucket-in-the-influxdb-ui)
+        - /influxdb/latest/organizations/buckets/delete-bucket/#delete-a-bucket-in-the-influxdb-ui
       operationId: DeleteBucketsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1271,7 +1231,7 @@ paths:
 
         #### Related Guides
 
-        - [Update a bucket](/influxdb/latest/organizations/buckets/update-bucket/)
+        - /influxdb/latest/organizations/buckets/update-bucket/
       operationId: PatchBucketsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1405,11 +1365,9 @@ paths:
         Labels are also capable of grouping across different resources--for example,
         you can apply a label named `air_sensor` to a bucket and a task to quickly
         organize resources.
-
-        #### Related guides
-
+      x-influxdata-related-content:
         - Use the [`/api/v2/labels` InfluxDB API endpoint](#tag/Labels) to retrieve and manage labels.
-        - [Manage labels in the InfluxDB UI](/influxdb/latest/visualize-data/labels/)
+        - /influxdb/latest/visualize-data/labels/
       operationId: GetBucketsIDLabels
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1469,11 +1427,9 @@ paths:
         - Before adding a label to a bucket, you must create the label if you
           haven't already. To create a label with the InfluxDB API, send a `POST`
           request to the [`/api/v2/labels` endpoint](#operation/PostLabels)).
-
-        #### Related guides
-
+      x-influxdata-related-content:
         - Use the [`/api/v2/labels` InfluxDB API endpoint](#tag/Labels) to retrieve and manage labels.
-        - [Manage labels in the InfluxDB UI](/influxdb/latest/visualize-data/labels/)
+        - /influxdb/latest/visualize-data/labels/
       operationId: PostBucketsIDLabels
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1606,11 +1562,9 @@ paths:
         an organization with access to the specified resource.
 
         Use this endpoint to retrieve all users with access to a bucket.
-
-        #### Related guides
-
-        - [Manage users](/influxdb/latest/users/)
-        - [Manage members](/influxdb/latest/organizations/members/)
+      x-influxdata-related-content:
+        - /influxdb/latest/users/
+        - /influxdb/latest/organizations/members/
       operationId: GetBucketsIDMembers
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1676,11 +1630,9 @@ paths:
         an organization.
 
         Use this endpoint to give a user member privileges to a bucket.
-
-        #### Related guides
-
-        - [Manage users](/influxdb/latest/users/)
-        - [Manage members](/influxdb/latest/organizations/members/)
+      x-influxdata-related-content:
+        - /influxdb/latest/users/
+        - /influxdb/latest/organizations/members/
       operationId: PostBucketsIDMembers
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1757,11 +1709,9 @@ paths:
 
         Use this endpoint to remove a user's member privileges from a bucket. This
         removes the user's `read` and `write` permissions for the bucket.
-
-        #### Related guides
-
-        - [Manage users](/influxdb/latest/users/)
-        - [Manage members](/influxdb/latest/organizations/members/)
+      x-influxdata-related-content:
+        - /influxdb/latest/users/
+        - /influxdb/latest/organizations/members/
       operationId: DeleteBucketsIDMembersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1824,14 +1774,10 @@ paths:
 
         *`INFLUX_ORG_ID`* is the ID of the organization that you want to retrieve a
         list of owners for.
-
-        #### Related endpoints
-
-        - [Authorizations](#tag/Authorizations-(API-tokens))
-
-        #### Related guides
-
-        - [Manage users](/influxdb/latest/users/)
+      x-influxdata-related-endpoints:
+        - null
+      x-influxdata-related-content:
+        - /influxdb/latest/users/
       operationId: GetBucketsIDOwners
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1904,14 +1850,10 @@ paths:
         - `write-orgs INFLUX_ORG_ID`
         *`INFLUX_ORG_ID`* is the ID of the organization that you want to add
           an owner for.
-
-        #### Related endpoints
-
-        - [Authorizations](#tag/Authorizations-(API-tokens))
-
-        #### Related guides
-
-        - [Manage users](/influxdb/latest/users/)
+      x-influxdata-related-endpoints:
+        - null
+      x-influxdata-related-content:
+        - /influxdb/latest/users/
       operationId: PostBucketsIDOwners
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -2006,14 +1948,10 @@ paths:
 
         *`INFLUX_ORG_ID`* is the ID of the organization that you want to remove an owner
         from.
-
-        #### Related endpoints
-
-        - [Authorizations](#tag/Authorizations-(API-tokens))
-
-        #### Related guides
-
-        - [Manage users](/influxdb/latest/users/)
+      x-influxdata-related-endpoints:
+        - null
+      x-influxdata-related-content:
+        - /influxdb/latest/users/
       operationId: DeleteBucketsIDOwnersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -2379,10 +2317,8 @@ paths:
 
         In InfluxDB v2.2+, use this endpoint to view your active runtime configuration,
         including flags and environment variables.
-
-        #### Related guides
-
-        - [View your runtime server configuration](/influxdb/latest/reference/config-options/#view-your-runtime-server-configuration)
+      x-influxdata-related-content:
+        - /influxdb/latest/reference/config-options/#view-your-runtime-server-configuration
       operationId: GetConfig
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -2407,10 +2343,8 @@ paths:
     get:
       description: |
         Lists [dashboards](/influxdb/latest/reference/glossary/#dashboard).
-
-        #### Related guides
-
-        - [Manage dashboards](/influxdb/latest/visualize-data/dashboards/).
+      x-influxdata-related-content:
+        - /influxdb/latest/visualize-data/dashboards/.
       operationId: GetDashboards
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3153,7 +3087,7 @@ paths:
 
         #### Related guide
 
-        - [Database and retention policy mapping](/influxdb/latest/reference/api/influxdb-1x/dbrp/)
+        - /influxdb/latest/reference/api/influxdb-1x/dbrp/
       operationId: GetDBRPs
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3264,7 +3198,7 @@ paths:
 
         #### Related guide
 
-        - [Database and retention policy mapping](/influxdb/latest/reference/api/influxdb-1x/dbrp/)
+        - /influxdb/latest/reference/api/influxdb-1x/dbrp/
       operationId: PostDBRP
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3349,7 +3283,7 @@ paths:
 
         #### Related guide
 
-        - [Database and retention policy mapping](/influxdb/latest/reference/api/influxdb-1x/dbrp/)
+        - /influxdb/latest/reference/api/influxdb-1x/dbrp/
       operationId: DeleteDBRPID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3412,7 +3346,7 @@ paths:
 
         #### Related guide
 
-        - [Database and retention policy mapping](/influxdb/latest/reference/api/influxdb-1x/dbrp/)
+        - /influxdb/latest/reference/api/influxdb-1x/dbrp/
       operationId: GetDBRPsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3521,7 +3455,7 @@ paths:
 
           #### Related guide
 
-          - [Database and retention policy mapping](/influxdb/latest/reference/api/influxdb-1x/dbrp/)
+          - /influxdb/latest/reference/api/influxdb-1x/dbrp/
         required: true
       responses:
         '200':
@@ -4344,13 +4278,10 @@ paths:
 
         `write` rate limits apply.
         For more information, see [limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
-
-        #### Related guides
-
-        - [Delete data](/influxdb/latest/write-data/delete-data/)
+      x-influxdata-related-content:
+        - /influxdb/latest/write-data/delete-data/
         - Learn how to use [delete predicate syntax](/influxdb/latest/reference/syntax/delete-predicate/).
-        - Learn how InfluxDB handles [deleted tags](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementtagkeys/)
-          and [deleted fields](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementfieldkeys/).
+        - Learn how InfluxDB handles [deleted tags](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementtagkeys/) and [deleted fields](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementfieldkeys/).
       operationId: PostDelete
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -4422,11 +4353,6 @@ paths:
           **delete predicate expression** in the `predicate` property of the request body.
           If you don't pass a `predicate`, InfluxDB deletes all data with timestamps
           in the specified time range.
-
-          #### Related guides
-
-          - [Delete data](/influxdb/latest/write-data/delete-data/)
-          - Learn how to use [delete predicate syntax](/influxdb/latest/reference/syntax/delete-predicate/).
         required: true
       responses:
         '204':
@@ -4509,10 +4435,8 @@ paths:
            - Send a request to this endpoint to retrieve the current feature flag values.
            - Send a request to the [`GET /api/v2/config` endpoint](#operation/GetConfig) to retrieve the
              current runtime server configuration.
-
-        #### Related guides
-
-        - [InfluxDB configuration options](/influxdb/latest/reference/config-options/)
+      x-influxdata-related-content:
+        - /influxdb/latest/reference/config-options/
       operationId: GetFlags
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -4753,17 +4677,13 @@ paths:
 
         - Doesn't let you manage user passwords through the API.
           Use the InfluxDB Cloud user interface (UI) to update your password.
-
-        #### Related endpoints
-
-        - [Signin](#tag/Signin)
-        - [Signout](#tag/Signout)
-        - [Users](#tag/Users)
-
-        #### Related guides
-
-        - [InfluxDB Cloud - Change your password](/influxdb/cloud/account-management/change-password/)
-        - [InfluxDB OSS - Change your password](/influxdb/latest/users/change-password/)
+      x-influxdata-related-endpoints:
+        - null
+        - null
+        - null
+      x-influxdata-related-content:
+        - /influxdb/cloud/account-management/change-password/
+        - /influxdb/latest/users/change-password/
       operationId: PutMePassword
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -4771,10 +4691,6 @@ paths:
             The user session cookie for the
             [user](/influxdb/latest/reference/glossary/#user)
             signed in with [Basic authentication credentials](#section/Authentication/BasicAuthentication).
-
-            #### Related guides
-
-            - [Manage users](/influxdb/v2.7/users/)
           example: influxdb-oss-session=19aaaZZZGOvP2GGryXVT2qYftlFKu3bIopurM6AGFow1yF1abhtOlbHfsc-d8gozZFC_6WxmlQIAwLMW5xs523w==
           in: cookie
           name: influxdb-oss-session
@@ -4821,9 +4737,7 @@ paths:
         Returns metrics about the workload performance of an InfluxDB instance.
 
         Use this endpoint to get performance, resource, and usage metrics.
-
-        #### Related guides
-
+      x-influxdata-related-content:
         - For the list of metrics categories, see [InfluxDB OSS metrics](/influxdb/latest/reference/internals/metrics/).
         - Learn how to use InfluxDB to [scrape Prometheus metrics](/influxdb/latest/write-data/developer-tools/scrape-prometheus-metrics/).
         - Learn how InfluxDB [parses the Prometheus exposition format](/influxdb/latest/reference/prometheus-metrics/).
@@ -5495,10 +5409,8 @@ paths:
         #### InfluxDB Cloud
 
         - Only returns the organization that owns the token passed in the request.
-
-        #### Related guides
-
-        - [View organizations](/influxdb/latest/organizations/view-orgs/)
+      x-influxdata-related-content:
+        - /influxdb/latest/organizations/view-orgs/
       operationId: GetOrgs
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -5576,10 +5488,8 @@ paths:
         #### InfluxDB Cloud
 
         - Doesn't allow you to use this endpoint to create organizations.
-
-        #### Related guides
-
-        - [Manage organizations](/influxdb/latest/organizations)
+      x-influxdata-related-content:
+        - /influxdb/latest/organizations
       operationId: PostOrgs
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -5674,10 +5584,8 @@ paths:
         #### Limitations
 
         - Only one organization can be deleted per request.
-
-        #### Related guides
-
-        - [Delete organizations](/influxdb/latest/organizations/delete-orgs/)
+      x-influxdata-related-content:
+        - /influxdb/latest/organizations/delete-orgs/
       operationId: DeleteOrgsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -5733,10 +5641,8 @@ paths:
         Retrieves an organization.
 
         Use this endpoint to retrieve information for a specific organization.
-
-        #### Related guides
-
-        - [View organizations](/influxdb/latest/organizations/view-orgs/)
+      x-influxdata-related-content:
+        - /influxdb/latest/organizations/view-orgs/
       operationId: GetOrgsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -5806,7 +5712,7 @@ paths:
 
         #### Related Guides
 
-        - [Update an organization](/influxdb/latest/organizations/update-org/)
+        - /influxdb/latest/organizations/update-org/
       operationId: PatchOrgsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -5875,11 +5781,9 @@ paths:
 
         *`INFLUX_ORG_ID`* is the ID of the organization that you want to retrieve
         members for.
-
-        #### Related guides
-
-        - [Manage users](/influxdb/latest/users/)
-        - [Manage members](/influxdb/latest/organizations/members/)
+      x-influxdata-related-content:
+        - /influxdb/latest/users/
+        - /influxdb/latest/organizations/members/
       operationId: GetOrgsIDMembers
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -5972,11 +5876,9 @@ paths:
         - `write-orgs INFLUX_ORG_ID`
 
         *`INFLUX_ORG_ID`* is the ID of the organization that you want to add a member to.
-
-        #### Related guides
-
-        - [Manage users](/influxdb/latest/users/)
-        - [Manage members](/influxdb/latest/organizations/members/)
+      x-influxdata-related-content:
+        - /influxdb/latest/users/
+        - /influxdb/latest/organizations/members/
       operationId: PostOrgsIDMembers
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6072,10 +5974,8 @@ paths:
 
         *`INFLUX_ORG_ID`* is the ID of the organization that you want to remove an
         owner from.
-
-        #### Related guides
-
-        - [Manage members](/influxdb/latest/organizations/members/)
+      x-influxdata-related-content:
+        - /influxdb/latest/organizations/members/
       operationId: DeleteOrgsIDMembersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6189,10 +6089,8 @@ paths:
         - `write-orgs INFLUX_ORG_ID`
 
         *`INFLUX_ORG_ID`* is the ID of the organization that you want to add an owner for.
-
-        #### Related endpoints
-
-        - [Authorizations](#tag/Authorizations-(API-tokens))
+      x-influxdata-related-endpoints:
+        - null
       operationId: PostOrgsIDOwners
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6279,9 +6177,8 @@ paths:
 
         *`INFLUX_ORG_ID`* is the ID of the organization that you want to
         remove an owner from.
-
-        #### Related endpoints
-        - [Authorizations](#tag/Authorizations-(API-tokens))
+      x-influxdata-related-endpoints:
+        - null
       operationId: DeleteOrgsIDOwnersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6446,10 +6343,8 @@ paths:
         #### InfluxDB Cloud
 
         - Isn't versioned and doesn't return `X-Influxdb-Version` in the headers.
-
-        #### Related guides
-
-        - [Influx ping](/influxdb/latest/reference/cli/influx/ping/)
+      x-influxdata-related-content:
+        - /influxdb/latest/reference/cli/influx/ping/
       operationId: GetPing
       responses:
         '204':
@@ -6490,10 +6385,8 @@ paths:
         #### InfluxDB Cloud
 
         - Isn't versioned and doesn't return `X-Influxdb-Version` in the headers.
-
-        #### Related guides
-
-        - [Influx ping](/influxdb/latest/reference/cli/influx/ping/)
+      x-influxdata-related-content:
+        - /influxdb/latest/reference/cli/influx/ping/
       operationId: HeadPing
       responses:
         '204':
@@ -6533,11 +6426,9 @@ paths:
 
         `read` rate limits apply.
         For more information, see [limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
-
-        #### Related guides
-
-        - [Query with the InfluxDB API](/influxdb/latest/query-data/execute-queries/influx-api/)
-        - [Get started with Flux](https://docs.influxdata.com/flux/v0.x/get-started/)
+      x-influxdata-related-content:
+        - /influxdb/latest/query-data/execute-queries/influx-api/
+        - https://docs.influxdata.com/flux/v0.x/get-started/
       operationId: PostQuery
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -7305,7 +7196,7 @@ paths:
 
         #### Related Guides
 
-        - [List of all Flux functions](https://docs.influxdata.com/flux/v0.x/stdlib/all-functions/)
+        - https://docs.influxdata.com/flux/v0.x/stdlib/all-functions/
       operationId: GetQuerySuggestions
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -7958,7 +7849,7 @@ paths:
 
         #### Related Guides
 
-        - [List of all Flux functions](https://docs.influxdata.com/flux/v0.x/stdlib/all-functions/)
+        - https://docs.influxdata.com/flux/v0.x/stdlib/all-functions/
       operationId: GetQuerySuggestionsName
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -9046,10 +8937,8 @@ paths:
           the organization.
         - In InfluxDB OSS, a user session inherits all the user's permissions for all
           the organizations that the user belongs to.
-
-        #### Related endpoints
-
-        - [Signout](#tag/Signout)
+      x-influxdata-related-endpoints:
+        - null
       operationId: PostSignin
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -9123,10 +9012,8 @@ paths:
 
         To learn more about cookies in HTTP requests, see
         [Mozilla Developer Network (MDN) Web Docs, HTTP cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies).
-
-        #### Related endpoints
-
-        - [Signin](#tag/Signin)
+      x-influxdata-related-endpoints:
+        - null
       operationId: PostSignout
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -9432,10 +9319,8 @@ paths:
         To limit stacks in the response, pass query parameters in your request.
         If no query parameters are passed, InfluxDB returns all installed stacks
         for the organization.
-
-        #### Related guides
-
-        - [View InfluxDB stacks](/influxdb/latest/influxdb-templates/stacks/).
+      x-influxdata-related-content:
+        - /influxdb/latest/influxdb-templates/stacks/.
       operationId: ListStacks
       parameters:
         - description: |
@@ -9550,11 +9435,9 @@ paths:
         #### Required permissions
 
         - `write` permission for the organization
-
-        #### Related guides
-
-        - [Initialize an InfluxDB stack](/influxdb/latest/influxdb-templates/stacks/init/).
-        - [Use InfluxDB templates](/influxdb/latest/influxdb-templates/use/#apply-templates-to-an-influxdb-instance).
+      x-influxdata-related-content:
+        - /influxdb/latest/influxdb-templates/stacks/init/.
+        - /influxdb/latest/influxdb-templates/use/#apply-templates-to-an-influxdb-instance.
       operationId: CreateStack
       requestBody:
         content:
@@ -9755,7 +9638,7 @@ paths:
 
         #### Related guide
 
-        - [Process data with InfluxDB tasks](/influxdb/latest/process-data/)
+        - /influxdb/latest/process-data/
       operationId: GetTasks
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -9928,13 +9811,11 @@ paths:
     post:
       description: |
         Creates a [task](/influxdb/latest/reference/glossary/#task)  and returns the task.
-
-        #### Related guides
-
-        - [Get started with tasks](/influxdb/latest/process-data/get-started/)
-        - [Create a task](/influxdb/latest/process-data/manage-tasks/create-task/)
-        - [Common tasks](/influxdb/latest/process-data/common-tasks/)
-        - [Task configuration options](/influxdb/latest/process-data/task-options/)
+      x-influxdata-related-content:
+        - /influxdb/latest/process-data/get-started/
+        - /influxdb/latest/process-data/manage-tasks/create-task/
+        - /influxdb/latest/process-data/common-tasks/
+        - /influxdb/latest/process-data/task-options/
       operationId: PostTasks
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -11450,11 +11331,9 @@ paths:
 
         - Adjustable service quotas apply.
           For more information, see [limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
-
-        #### Related guides
-
-        - [Use templates](/influxdb/latest/influxdb-templates/use/)
-        - [Stacks](/influxdb/latest/influxdb-templates/stacks/)
+      x-influxdata-related-content:
+        - /influxdb/latest/influxdb-templates/use/
+        - /influxdb/latest/influxdb-templates/stacks/
       operationId: ApplyTemplate
       requestBody:
         content:
@@ -11753,10 +11632,8 @@ paths:
         | List a specific user | `read-users` or `read-user USER_ID` | |
 
         *`USER_ID`* is the ID of the user that you want to retrieve.
-
-        #### Related guides
-
-        - [View users](/influxdb/latest/users/view-users/).
+      x-influxdata-related-content:
+        - /influxdb/latest/users/view-users/.
       operationId: GetUsers
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -11844,11 +11721,9 @@ paths:
         | Action | Permission required | Restriction |
         |:-------|:--------------------|:------------|
         | Create a user | _[Operator token](/influxdb/latest/security/tokens/#operator-token)_  | |
-
-        #### Related guides
-
-        - [Create a user](/influxdb/latest/users/create-user/)
-        - [Create an API token scoped to a user](/influxdb/latest/security/tokens/create-token/#create-a-token-scoped-to-a-user)
+      x-influxdata-related-content:
+        - /influxdb/latest/users/create-user/
+        - /influxdb/latest/security/tokens/create-token/#create-a-token-scoped-to-a-user
       operationId: PostUsers
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -11945,10 +11820,8 @@ paths:
         | Delete a user | `write-users` or `write-user USER_ID` |
 
         *`USER_ID`* is the ID of the user that you want to delete.
-
-        #### Related guides
-
-        - [Manage users](/influxdb/latest/organizations/users/)
+      x-influxdata-related-content:
+        - /influxdb/latest/organizations/users/
       operationId: DeleteUsersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -11984,10 +11857,8 @@ paths:
     get:
       description: |
         Retrieves a [user](/influxdb/latest/reference/glossary/#user).
-
-        #### Related guides
-
-        - [Manage users](/influxdb/latest/organizations/users/)
+      x-influxdata-related-content:
+        - /influxdb/latest/organizations/users/
       operationId: GetUsersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12024,10 +11895,8 @@ paths:
         | Update a user | `write-users` or `write-user USER_ID` |
 
         *`USER_ID`* is the ID of the user that you want to update.
-
-        #### Related guides
-
-        - [Manage users](/influxdb/latest/organizations/users/)
+      x-influxdata-related-content:
+        - /influxdb/latest/organizations/users/
       operationId: PatchUsersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12077,11 +11946,9 @@ paths:
 
         - Doesn't allow you to manage user passwords through the API.
           Use the InfluxDB Cloud user interface (UI) to update a password.
-
-        #### Related guides
-
-        - [InfluxDB Cloud - Change your password](/influxdb/cloud/account-management/change-password/)
-        - [InfluxDB OSS - Change your password](/influxdb/latest/users/change-password/)
+      x-influxdata-related-content:
+        - /influxdb/cloud/account-management/change-password/
+        - /influxdb/latest/users/change-password/
       operationId: PostUsersIDPassword
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12152,11 +12019,9 @@ paths:
 
         - Doesn't allow you to manage user passwords through the API.
           Use the InfluxDB Cloud user interface (UI) to update a password.
-
-        #### Related guides
-
-        - [InfluxDB Cloud - Change your password](/influxdb/cloud/account-management/change-password/)
-        - [InfluxDB OSS - Change your password](/influxdb/latest/users/change-password/)
+      x-influxdata-related-content:
+        - /influxdb/cloud/account-management/change-password/
+        - /influxdb/latest/users/change-password/
       operationId: PutUsersIDPassword
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12513,12 +12378,10 @@ paths:
 
         `write` rate limits apply.
         For more information, see [limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
-
-        #### Related guides
-
-        - [Write data with the InfluxDB API](/influxdb/latest/write-data/developer-tools/api)
-        - [Optimize writes to InfluxDB](/influxdb/latest/write-data/best-practices/optimize-writes/)
-        - [Troubleshoot issues writing data](/influxdb/latest/write-data/troubleshoot/)
+      x-influxdata-related-content:
+        - /influxdb/latest/write-data/developer-tools/api
+        - /influxdb/latest/write-data/best-practices/optimize-writes/
+        - /influxdb/latest/write-data/troubleshoot/
       operationId: PostWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12571,10 +12434,6 @@ paths:
             #### InfluxDB OSS
 
               - Returns only `application/json` for format and limit errors.
-
-            #### Related guides
-
-            - [Troubleshoot issues writing data](/influxdb/latest/write-data/troubleshoot/)
           in: header
           name: Accept
           schema:
@@ -12654,10 +12513,6 @@ paths:
             1. Use [gzip](https://www.gzip.org/) to compress the line protocol data.
             2. In your request, send the compressed data and the
                `Content-Encoding: gzip` header.
-
-          #### Related guides
-
-          - [Best practices for optimizing writes](/influxdb/latest/write-data/best-practices/optimize-writes/)
         required: true
       responses:
         '204':
@@ -12672,10 +12527,6 @@ paths:
             #### InfluxDB OSS
 
             - Successfully wrote all points in the batch.
-
-            #### Related guides
-
-            - [How to check for write errors](/influxdb/latest/write-data/troubleshoot/)
         '400':
           content:
             application/json:
@@ -14681,9 +14532,7 @@ components:
             Annotation rows to include in the results.
             An _annotation_ is metadata associated with an object (column) in the data model.
 
-            #### Related guides
-
-            - See [Annotated CSV annotations](/influxdb/latest/reference/syntax/annotated-csv/#annotations) for examples and more information.
+            See [Annotated CSV annotations](/influxdb/latest/reference/syntax/annotated-csv/#annotations) for examples and more information.
 
             For more information about **annotations** in tabular data,
             see [W3 metadata vocabulary for tabular data](https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/#columns).
@@ -16631,10 +16480,6 @@ components:
             #### InfluxDB OSS
 
             - Default value depends on the [bucket retention period](/influxdb/latest/reference/internals/shards/#shard-group-duration).
-
-            #### Related guides
-
-            - InfluxDB [shards and shard groups](/influxdb/latest/reference/internals/shards/)
           format: int64
           type: integer
         type:
@@ -18674,10 +18519,6 @@ components:
 
             InfluxDB stores the key-value pairs as secrets that you can access with `secrets.get()`.
             Once stored, you can't view secret values in InfluxDB.
-
-            #### Related guides
-
-            - [How to pass secrets when installing a template](/influxdb/latest/influxdb-templates/use/#pass-secrets-when-installing-a-template)
           type: object
         stackID:
           description: |
@@ -18688,11 +18529,6 @@ components:
             InfluxDB initializes a new stack with all new resources.
 
             To find a stack ID, use the InfluxDB [`/api/v2/stacks` API endpoint](#operation/ListStacks) to list stacks.
-
-            #### Related guides
-
-            - [Stacks](/influxdb/latest/influxdb-templates/stacks/)
-            - [View stacks](/influxdb/latest/influxdb-templates/stacks/view/)
           type: string
         template:
           description: |
@@ -20012,15 +19848,11 @@ components:
 
           - *`INFLUX_URL`*: your InfluxDB URL
           - *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/latest/reference/glossary/#token)
-
-        ### Related endpoints
-
-        - [`/authorizations` endpoints](#tag/Authorizations-(API-tokens))
-
-        ### Related guides
-
-        - [Authorize API requests](/influxdb/latest/api-guide/api_intro/#authentication)
-        - [Manage API tokens](/influxdb/latest/security/tokens/)
+      x-influxdata-related-endpoints:
+        - null
+      x-influxdata-related-content:
+        - /influxdb/latest/api-guide/api_intro/#authentication
+        - /influxdb/latest/security/tokens/
       in: header
       name: Authorization
       type: apiKey

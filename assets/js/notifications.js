@@ -4,6 +4,7 @@
   messages array in the influxdata_docs_notifications cookie.
   IDs in the messages array are considered read and no longer appear to the user.
 */
+import $ from 'jquery';
 
 // Get notification ID
 function notificationID(el) {

@@ -48,8 +48,8 @@ function showHelp {
   echo "       ./getswagger.sh cloud"
   echo "       ./getswagger.sh cloud-dedicated"
   echo "       ./getswagger.sh cloud-serverless"
-  echo "       ./getswagger.sh oss -o <ossVersion> -V"
-  echo "       ./getswagger.sh all -o <ossVersion>"
+  echo "       ./getswagger.sh v2 -V"
+  echo "       ./getswagger.sh all"
   echo "Commands:"
   echo "-b <URL> The base URL to fetch from."
   echo "      ex. ./getswagger.sh -b file:///Users/yourname/github/openapi"
@@ -65,7 +65,7 @@ function showHelp {
 subcommand=$1
 
 case "$subcommand" in
-  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-v2|cloud-v2|oss-v2|v2|v1-compat|all)
+  cloud-dedicated-v2|cloud-dedicated-v1-compatibility|cloud-dedicated-management|cloud-serverless-v2|cloud-serverless-v1-compatibility|clustered-v2|clustered-v1-compatibility|cloud-v2|cloud-v1-compatibility|v2-v2|v2-v1-compatibility|all|v1-compat)
     product=$1
     shift
 
@@ -86,9 +86,6 @@ case "$subcommand" in
         baseUrl=$OPTARG
         baseUrlOSS=$OPTARG
         ;;
-      o)
-        ossVersion=$OPTARG
-        ;;
       \?)
         echo "Invalid option: $OPTARG" 1>&2
         showHelp
@@ -108,7 +105,6 @@ esac
 function showArgs {
   echo "product: $product";
   echo "baseUrl: $baseUrl";
-  echo "ossVersion: $ossVersion";
 }
 
 function postProcess() {
@@ -146,17 +142,6 @@ function postProcess() {
   #     --dereferenced \
   #     --ext json \
   #     --output $specJsonPath
-}
-
-function updateOSS {
-  outFile="$API_DOCS_ROOT/v2/ref.yml"
-  if [[ -z "$baseUrlOSS" ]];
-  then
-    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
-  else
-    curl $UPDATE_OPTIONS ${baseUrlOSS}/contracts/ref/oss.yml -o $outFile
-  fi
-  postProcess $outFile "$API_DOCS_ROOT/v2/.config.yml" '@2'
 }
 
 function updateCloudV2 {
@@ -214,39 +199,78 @@ function updateCloudServerlessV2 {
   postProcess $outFile "$API_DOCS_ROOT/cloud-serverless/.config.yml" v2@2
 }
 
-function updateOSSV2 {
-  outFile="$API_DOCS_ROOT/v2/ref.yml"
-  if [[ -z "$baseUrlOSS" ]];
+function updateV2V2 {
+  outFile="$API_DOCS_ROOT/v2/v2/ref.yml"
+  if [[ -z "$baseUrl" ]];
   then
     echo "No URL was provided. I'll rebuild from the existing spec $outFile"
   else
-    curl $UPDATE_OPTIONS ${baseUrlOSS}/contracts/ref/oss.yml -o $outFile
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/oss.yml -o $outFile
   fi
-  postProcess $outFile "$API_DOCS_ROOT/v2/.config.yml" '@2'
+  postProcess $outFile "$API_DOCS_ROOT/v2/.config.yml" 'v2@2'
 }
 
-function updateV1Compat { 
+function updateCloudV1Compat {
   outFile="$API_DOCS_ROOT/cloud/v1-compatibility/swaggerV1Compat.yml"
   if [[ -z "$baseUrl" ]];
   then
     echo "No URL was provided. I'll rebuild from the existing spec $outFile"
   else
-  curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
   fi
   postProcess $outFile "$API_DOCS_ROOT/cloud/.config.yml" 'v1-compatibility'
+}
 
-  outFile="$API_DOCS_ROOT/v2/v1-compatibility/swaggerV1Compat.yml"
-  cp cloud/v1-compatibility/swaggerV1Compat.yml $outFile
-  postProcess $outFile "$API_DOCS_ROOT/v2/.config.yml" 'v1-compatibility'
-
+function updateCloudDedicatedV1Compat {
   outFile="$API_DOCS_ROOT/cloud-dedicated/v1-compatibility/swaggerV1Compat.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
+  fi
   postProcess $outFile "$API_DOCS_ROOT/cloud-dedicated/.config.yml" 'v1-compatibility'
+}
 
+function updateCloudServerlessV1Compat {
   outFile="$API_DOCS_ROOT/cloud-serverless/v1-compatibility/swaggerV1Compat.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
+  fi
   postProcess $outFile "$API_DOCS_ROOT/cloud-serverless/.config.yml" 'v1-compatibility'
+}
 
+function updateClusteredV1Compat {
   outFile="$API_DOCS_ROOT/clustered/v1-compatibility/swaggerV1Compat.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
+  fi
   postProcess $outFile "$API_DOCS_ROOT/clustered/.config.yml" 'v1-compatibility'
+}
+
+function updateV2V1Compatibility {
+  outFile="$API_DOCS_ROOT/v2/v1-compatibility/swaggerV1Compat.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
+  fi
+  postProcess $outFile "$API_DOCS_ROOT/v2/.config.yml" 'v1-compatibility'
+}
+
+function updateV1Compat { 
+  updateCloudV1Compat
+  updateCloudDedicatedV1Compat
+  updateCloudServerlessV1Compat
+  updateClusteredV1Compat
+  updateV2V1Compatibility
 }
 
 UPDATE_OPTIONS="--fail"
@@ -273,12 +297,24 @@ then
 elif [ "$product" = "clustered-v2" ];
 then
   updateClusteredV2
-elif [ "$product" = "oss-v2" ];
+elif [ "$product" = "v2-v2" ];
 then
-  updateOSSV2
-elif [ "$product" = "v2" ];
+  updateV2V2
+elif [ "$product" = "cloud-dedicated-v1-compatibility" ];
 then
-  updateOSSV2
+  updateCloudDedicatedV1Compat
+elif [ "$product" = "cloud-v1-compatibility" ];
+then
+  updateCloudV1Compat
+elif [ "$product" = "cloud-serverless-v1-compatibility" ];
+then
+  updateCloudServerlessV1Compat
+elif [ "$product" = "clustered-v1-compatibility" ];
+then
+  updateClusteredV1Compat
+elif [ "$product" = "v2-v1-compatibility" ];
+then
+  updateV2V1Compatibility
 elif [ "$product" = "v1-compat" ];
 then
   updateV1Compat
@@ -289,9 +325,9 @@ then
   updateCloudDedicatedManagement
   updateCloudServerlessV2
   updateClusteredV2
-  updateOSSV2
+  updateV2V2
   updateV1Compat
 else
-  echo "Provide a product argument: cloud-v2, cloud-serverless-v2, cloud-dedicated-v2, clustered-v2, v2, v1-compat, or all."
+  echo "Provide a product argument: cloud-v2, cloud-serverless-v2, cloud-dedicated-v2, clustered-v2, v2-v2, v1-compat, or all."
   showHelp
 fi
