@@ -91,6 +91,7 @@ influxdb:
     - How do I write and query data with InfluxDB v2 OSS? 
     - How can I migrate from InfluxDB v2 OSS to InfluxDB 3 Core? 
     - How do I manage auth tokens in InfluxDB v2 OSS?
+  apis: api-docs/v2/.config.yml
 
 influxdb_cloud:
   name: InfluxDB Cloud (TSM)
@@ -105,6 +106,43 @@ influxdb_cloud:
     - How do I write and query data with InfluxDB Cloud 2? 
     - How is Cloud 2 different from Cloud Serverless? 
     - How do I manage auth tokens in InfluxDB Cloud 2?
+  apis: api-docs/cloud/.config.yml
+
+influxdb_cloud_serverless:
+  name: InfluxDB Cloud Serverless
+  altname: InfluxDB Cloud
+  namespace: influxdb
+  menu_category: managed
+  versions: [cloud-serverless]
+  list_order: 2
+  latest: cloud-serverless
+  placeholder_host: cloud2.influxdata.com
+  apis: api-docs/cloud-serverless/.config.yml
+
+influxdb_cloud_dedicated:
+  name: InfluxDB Cloud Dedicated
+  altname: InfluxDB Cloud
+  namespace: influxdb
+  menu_category: managed
+  versions: [cloud-dedicated]
+  list_order: 3
+  latest: cloud-dedicated
+  link: "https://www.influxdata.com/contact-sales-form/"
+  latest_cli: 2.9.8
+  placeholder_host: cluster-id.a.influxdb.io
+  apis: api-docs/cloud-dedicated/.config.yml
+
+influxdb_clustered:
+  name: InfluxDB Clustered
+  altname: InfluxDB Clustered
+  namespace: influxdb
+  menu_category: self-managed
+  versions: [clustered]
+  list_order: 3
+  latest: clustered
+  link: "https://www.influxdata.com/contact-sales-influxdb-clustered"
+  placeholder_host: cluster-host.com
+  apis: api-docs/clustered/.config.yml
 
 telegraf:
   name: Telegraf

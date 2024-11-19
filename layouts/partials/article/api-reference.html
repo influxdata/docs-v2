@@ -1,0 +1,29 @@
+{{ $currentVersion := index (findRE "[^/]+.*?" .RelPermalink) 1 }}
+{{ $PostCSSOptions := (dict "use" "autoprefixer" "noMap" false) }}
+{{ $cssAPIOverrides := (dict "targetPath" "api.css" "outputStyle" "compressed" "enableSourceMap" true) }}
+{{ $stylesAPIOverrides := resources.Get "styles/styles-api.scss" | toCSS $cssAPIOverrides | postCSS $PostCSSOptions }}
+<link rel="stylesheet" type="text/css" href="{{ $stylesAPIOverrides.RelPermalink }}">
+
+{{if eq .Type "api-reference"}}
+  {{ if eq .Kind "page" }}
+    {{ if .Params.api.spec }}
+      <api-reference class="col-12 col-md-9 col-xl-8" role="main">
+          <div id="api-path">
+            <!-- Initialize with inline styles.
+                 Hide the element until the spec
+                 is loaded to prevent flashing the spinner icon. -->
+            <rapi-doc
+              id="api-path-doc"
+              css-file="{{ $stylesAPIOverrides.RelPermalink }}"
+              css-classes="col-12 col-md-9 col-xl-8"
+              data-openapi-partof = "{{ .Params.api.part_of }}"
+              data-openapi-spec = "{{ .Params.api.spec }}"
+              style = "width:100%; display: none;"
+              ></rapi-doc>
+          </div>
+      </api-reference>
+    {{ end }}
+  {{ else if eq .Kind "section" }}
+  <!-- Render API endpoint snippets -->
+  {{ end }}
+{{ end }}

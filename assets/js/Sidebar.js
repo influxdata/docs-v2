@@ -2,6 +2,8 @@
 	Portions of this code come from CSS swaps w/ cookies from
 	http://www.thesitewizard.com/javascripts/change-style-sheets.shtml
 */
+import $ from 'jquery';
+import { getPreference, setPreference } from './cookies.js';
 
 import * as localStorage from './local-storage.js';
 

@@ -34,9 +34,9 @@ tags:
 
 
       For more information, see the following:
-      - [Token authentication](#section/Authentication/TokenAuthentication)
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      - #section/Authentication/TokenAuthentication
+      - #section/Authentication/BasicAuthentication
+      - #section/Authentication/QuerystringAuthentication
 
       <!-- ReDoc-Inject: <security-definitions> -->
     x-traitTag: true
@@ -450,9 +450,9 @@ components:
 
 
         For examples and more information, see the following:
-          - [`/authorizations`](#tag/Authorizations) endpoint.
-          - [Authorize API requests](/influxdb/cloud/api-guide/api_intro/#authentication).
-          - [Manage API tokens](/influxdb/cloud/security/tokens/).
+          - #tag/Authorizations endpoint.
+          - /influxdb/cloud/api-guide/api_intro/#authentication.
+          - /influxdb/cloud/security/tokens/.
     BasicAuthentication:
       type: http
       scheme: basic

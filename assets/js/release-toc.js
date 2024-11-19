@@ -4,6 +4,7 @@
   * This script is used to generate a table of contents for the
   * release notes pages.
 */
+import $ from 'jquery';
 
 // Use jQuery filter to get an array of all the *release* h2 elements
 const releases = $('h2').filter(

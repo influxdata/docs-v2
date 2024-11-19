@@ -18,6 +18,8 @@
     {{ partial "header/javascript.html" . }}
     {{ partial "header/canonical.html" . }}
     {{ partial "header/stylesheets.html" }}
+    <!-- Load theme.js as soon as possible, but after the stylesheet elements -->
+    <script src="{{ $themeJs.RelPermalink }}"></script>
     {{ partial "header/google-fonts.html" }}
     {{ partial "header/search-attributes.html" . }}
     {{ partial "header/coveo-meta-data.html" . }}

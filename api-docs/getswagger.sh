@@ -48,8 +48,8 @@ function showHelp {
   echo "       ./getswagger.sh cloud"
   echo "       ./getswagger.sh cloud-dedicated"
   echo "       ./getswagger.sh cloud-serverless"
-  echo "       ./getswagger.sh oss -o <ossVersion> -V"
-  echo "       ./getswagger.sh all -o <ossVersion>"
+  echo "       ./getswagger.sh v2 -V"
+  echo "       ./getswagger.sh all"
   echo "Commands:"
   echo "-b <URL> The base URL to fetch from."
   echo "      ex. ./getswagger.sh -b file:///Users/yourname/github/openapi"
@@ -86,9 +86,6 @@ case "$subcommand" in
         baseUrl=$OPTARG
         baseUrlOSS=$OPTARG
         ;;
-      o)
-        ossVersion=$OPTARG
-        ;;
       \?)
         echo "Invalid option: $OPTARG" 1>&2
         showHelp
@@ -108,7 +105,6 @@ esac
 function showArgs {
   echo "product: $product";
   echo "baseUrl: $baseUrl";
-  echo "ossVersion: $ossVersion";
 }
 
 function postProcess() {
@@ -141,11 +137,25 @@ function postProcess() {
     --config=$configPath \
     --ext yml \
     --output $specPath #\
-  # TODO: Uncommend this after fixing the circular reference ($ref) issues in the specs.
+  # TODO: Uncomment this after fixing the circular reference ($ref) issues in the specs.
   # && npx $openapiCLI bundle $specPath \
   #     --dereferenced \
   #     --ext json \
   #     --output $specJsonPath
+}
+
+#TODO - Eliminate separate v1- and v2 files and use the same ref.yml files for all supported endpoints.
+function updateCloudV2 {
+  local version="$API_DOCS_ROOT/influxdb/cloud"
+  local outFile="$version/v2/ref.yml"
+  outFile="$API_DOCS_ROOT/cloud/v2/ref.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+  fi
+  postProcess $outFile "$version/.config.yml" v2@2
 }
 
 function updateCloudDedicatedManagement {
@@ -197,7 +207,8 @@ function updateCloudServerlessV2 {
 }
 
 function updateCoreV3 {
-  outFile="influxdb3/core/v3/ref.yml"
+  local version="$API_DOCS_ROOT/influxdb3/core"
+  local outFile="$version/v3/ref.yml"
   if [[ -z "$baseUrl" ]];
   then
     echo "Using existing $outFile"
@@ -205,11 +216,12 @@ function updateCoreV3 {
     local url="${baseUrl}/TO_BE_DECIDED"
     curl $UPDATE_OPTIONS $url -o $outFile
   fi
-  postProcess $outFile 'influxdb3/core/.config.yml' v3@3
+  postProcess $outFile "$version/.config.yml" v3@3
 }
 
 function updateEnterpriseV3 {
-  outFile="influxdb3/enterprise/v3/ref.yml"
+  local version="$API_DOCS_ROOT/influxdb3/enterprise"
+  local outFile="$version/v3/ref.yml"
   if [[ -z "$baseUrl" ]];
   then
     echo "Using existing $outFile"
@@ -217,21 +229,22 @@ function updateEnterpriseV3 {
     local url="${baseUrl}/TO_BE_DECIDED"
     curl $UPDATE_OPTIONS $url -o $outFile
   fi
-  postProcess $outFile 'influxdb3/enterprise/.config.yml' v3@3
+  postProcess $outFile "$version/.config.yml" v3@3
 }
 
 function updateOSSV2 {
   local version="$API_DOCS_ROOT/influxdb/v2"
-  local outFile="$version/ref.yml"
-  if [[ -z "$baseUrlOSS" ]];
+  local outFile="$version/v2/ref.yml"
+  if [[ -z "$baseUrl" ]];
   then
     echo "No URL was provided. I'll rebuild from the existing spec $outFile"
   else
-    curl $UPDATE_OPTIONS ${baseUrlOSS}/contracts/ref/oss.yml -o $outFile
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/oss.yml -o $outFile
   fi
   postProcess $outFile "$version/.config.yml" '@2'
 }
 
+#TODO - Eliminate separate v1- and v2 files and use the same ref.yml files for all supported endpoints.
 function updateV1Compat { 
   local product="$API_DOCS_ROOT/influxdb"
   local outFile="$product/cloud/v1-compatibility/swaggerV1Compat.yml"
@@ -239,7 +252,7 @@ function updateV1Compat {
   then
     echo "No URL was provided. I'll rebuild from the existing spec $outFile"
   else
-  curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
   fi
   postProcess $outFile "$product/cloud/.config.yml" 'v1-compatibility'
 
@@ -256,6 +269,25 @@ function updateV1Compat {
 
   outFile="$product/clustered/v1-compatibility/swaggerV1Compat.yml"
   postProcess $outFile "$product/clustered/.config.yml" 'v1-compatibility'
+}
+
+function updateV2V1Compatibility {
+  outFile="$API_DOCS_ROOT/v2/v1-compatibility/swaggerV1Compat.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
+  fi
+  postProcess $outFile "$API_DOCS_ROOT/v2/.config.yml" 'v1-compatibility'
+}
+
+function updateV1Compat { 
+  updateCloudV1Compat
+  updateCloudDedicatedV1Compat
+  updateCloudServerlessV1Compat
+  updateClusteredV1Compat
+  updateV2V1Compatibility
 }
 
 UPDATE_OPTIONS="--fail"
@@ -288,9 +320,21 @@ then
 elif [ "$product" = "enterprise-v3" ];
 then
   updateEnterpriseV3
-elif [ "$product" = "oss-v2" ];
+elif [ "$product" = "v2" ];
 then
-  updateOSSV2
+  updateCloudDedicatedV1Compat
+elif [ "$product" = "cloud-v1-compatibility" ];
+then
+  updateCloudV1Compat
+elif [ "$product" = "cloud-serverless-v1-compatibility" ];
+then
+  updateCloudServerlessV1Compat
+elif [ "$product" = "clustered-v1-compatibility" ];
+then
+  updateClusteredV1Compat
+elif [ "$product" = "v2-v1-compatibility" ];
+then
+  updateV2V1Compatibility
 elif [ "$product" = "v1-compat" ];
 then
   updateV1Compat

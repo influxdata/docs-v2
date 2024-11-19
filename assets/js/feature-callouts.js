@@ -5,6 +5,7 @@
   Callouts are treated as notifications and use the notification cookie API in
   assets/js/cookies.js.
 */
+import $ from 'jquery';
 
 // Get notification ID
 function getCalloutID (el) {

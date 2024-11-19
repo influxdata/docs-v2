@@ -391,7 +391,6 @@ export function InfluxDBUrl() {
       .siblings();
     $('.fake-radio', group).addClass('checked');
   }
-
   // Select first cluster when region is clicked
   $('p.region').click(function () {
     if (!$('.fake-radio', this).hasClass('checked')) {
@@ -399,7 +398,6 @@ export function InfluxDBUrl() {
       $('+ ul.clusters li:first label', this).trigger('click');
     }
   });
-
   // Remove checked class from fake-radio when another region is selected
   $('.region-group').click(function () {
     if (!$('.fake-radio', this).hasClass('checked')) {
@@ -407,7 +405,6 @@ export function InfluxDBUrl() {
       $('.fake-radio', this).addClass('checked');
     }
   });
-
   // Update URLs and URL preference when selected/clicked in the modal
   $('input[name="influxdb-oss-url"]').change(function () {
     var newUrl = $(this).val();
