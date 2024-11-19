@@ -22,3 +22,9 @@
 
 {{ $stylesAPIOverrides := resources.Get "styles/styles-api.scss" | toCSS $cssAPIOverrides | postCSS $PostCSSOptions }}
 <link rel="stylesheet" type="text/css" href="{{ $stylesAPIOverrides.RelPermalink }}">
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    window.influxdatadocs.ThemeStyle();
+  });
+</script>

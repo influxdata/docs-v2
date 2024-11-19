@@ -23,4 +23,10 @@
 
   </body>
   {{ partial "footer/javascript.html" . }}
+  <script type="text/javascript">
+    window.addEventListener('load', function() {
+      window.influxdatadocs.ContentInteractions();
+      window.influxdatadocs.tabbedContent.TabbedContent();
+    });
+  </script>
 </html>

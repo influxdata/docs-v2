@@ -1,16 +1,19 @@
+import { referrerHost } from './influxdb-url.js';
+import { getPreference, setPreference } from './cookies.js';
+// Import parameters passed from the calling page to js.Build.
+import { cloudUrls } from '@params';
+
 // Store the host value for the current page
 currentPageHost = window.location.href.match(/^(?:[^\/]*\/){2}[^\/]+/g)[0];
 
 // Define v3-wayfinding elements
 var wayfindingModal = document.getElementById('v3-wayfinding-modal');
-var wayfindingClose = document.getElementById('v3-wayfinding-close');
-var wayfindingStay = document.getElementById('v3-wayfinding-stay');
-var wayfindingSwitch = document.getElementById('v3-wayfinding-switch');
-var wayfindingOptOut = document.getElementById('v3-wayfinding-opt-out');
+
+
 var wayfindingOptOutInput = document.getElementById(
   'v3-wayfinding-opt-out-input'
 );
-var wayfindingFindOutToggle = document.getElementById('find-out-toggle');
+
 var wayfindingFindOutInstructions = document.getElementById(
   'find-out-instructions'
 );
@@ -102,53 +105,71 @@ function submitWayfindingData (engine, action) {
   return false;
 }
 
-// When the user clicks on the stay button, close modal, submit data, and stay on the page.
-wayfindingStay.onclick = function (event) {
-  var engine = wayfindingStay.dataset.engine;
-  var action = 'stay';
+function V3Wayfinding (params) {
+  var wayfindingClose = document.getElementById('v3-wayfinding-close');
+  var wayfindingFindOutToggle = document.getElementById('find-out-toggle');
+  var wayfindingOptOut = document.getElementById('v3-wayfinding-opt-out');
+  var wayfindingStay = document.getElementById('v3-wayfinding-stay');
+  var wayfindingSwitch = document.getElementById('v3-wayfinding-switch');
+  // When the user clicks on the stay button, close modal, submit data, and stay on the page.
+  wayfindingStay.onclick = function (event) {
+    var engine = wayfindingStay.dataset.engine;
+    var action = 'stay';
 
-  event.preventDefault();
-  submitWayfindingData(engine, action);
-  toggleWayfinding();
-};
+    event.preventDefault();
+    submitWayfindingData(engine, action);
+    toggleWayfinding();
+  };
 
-// When the user clicks on the switch button, submit data and follow link.
-wayfindingSwitch.onclick = function (event) {
-  var engine = wayfindingSwitch.dataset.engine;
-  var action = 'switch';
+  // When the user clicks on the switch button, submit data and follow link.
+  wayfindingSwitch.onclick = function (event) {
+    var engine = wayfindingSwitch.dataset.engine;
+    var action = 'switch';
 
-  submitWayfindingData(engine, action);
-};
+    submitWayfindingData(engine, action);
+  };
 
-// When the user clicks on the "X" wayfinding close element, close the modal
-wayfindingClose.onclick = function (event) {
-  toggleWayfinding();
-};
+  // When the user clicks on the "X" wayfinding close element, close the modal
+  wayfindingClose.onclick = function (event) {
+    toggleWayfinding();
+  };
 
-wayfindingOptOut.onclick = function (event) {
-  toggleWayfindingPreference();
-};
+  wayfindingOptOut.onclick = function (event) {
+    toggleWayfindingPreference();
+  };
 
-// Toggle instructions for finding out which storage engine you're using
-wayfindingFindOutToggle.onclick = function (event) {
-  event.preventDefault();
-  if (wayfindingFindOutInstructions.classList.contains('open')) {
-    slideUp(wayfindingFindOutInstructions);
-    wayfindingFindOutInstructions.classList.remove('open');
-  } else {
-    slideDown(wayfindingFindOutInstructions);
-    wayfindingFindOutInstructions.classList.add('open');
+  // Toggle instructions for finding out which storage engine you're using
+  wayfindingFindOutToggle.onclick = function (event) {
+    event.preventDefault();
+    if (wayfindingFindOutInstructions.classList.contains('open')) {
+      slideUp(wayfindingFindOutInstructions);
+      wayfindingFindOutInstructions.classList.remove('open');
+    } else {
+      slideDown(wayfindingFindOutInstructions);
+      wayfindingFindOutInstructions.classList.add('open');
+    }
+  };
+
+  /**
+   * Check to see if the referrer is in the referrer whitelist, otherwise trigger
+   * the v3-wayfinding modal.
+   * This reuses the referrerHost variable defined in assets/js/influxdb-url.js
+   */
+  if (shouldOpenWayfinding()) {
+    toggleWayfinding();
   }
+
+  // Set the state of the show wayfinding input checkbox
+  setWayfindingInputState();
 };
 
-/**
- * Check to see if the referrer is in the referrer whitelist, otherwise trigger
- * the v3-wayfinding modal.
- * This reuses the referrerHost variable defined in assets/js/influxdb-url.js
- */
-if (shouldOpenWayfinding()) {
-  toggleWayfinding();
+export {
+  toggleWayfinding,
+  toggleWayfindingPreference,
+  slideDown,
+  slideUp,
+  shouldOpenWayfinding,
+  setWayfindingInputState,
+  submitWayfindingData,
+  V3Wayfinding,
 }
-
-// Set the state of the show wayfinding input checkbox
-setWayfindingInputState();

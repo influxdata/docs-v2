@@ -36,7 +36,6 @@
 {{ $uiText := $scratch.Get "uiText" }}
 {{ $uiStorageDescription := $scratch.Get "uiStorageDescription" }}
 {{ $altLink := cond (eq ($scratch.Get "link") "") (print "/influxdb/" $altVersion "/") ($scratch.Get "link") }}
-
 <div id="v3-wayfinding-modal">
   <div class="wayfinding-wrapper">
     <div class="wayfinding-content">
@@ -80,3 +79,8 @@
     <span id="v3-wayfinding-close" class="cf-icon Remove_New"></span>
   </div>
 </div>
+<script type="text/javascript">
+  window.addEventListener('load', function() {
+    window.influxdatadocs.v3wayfinding.V3Wayfinding();
+  });
+</script>

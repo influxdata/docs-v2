@@ -1,6 +1,7 @@
 /*
 Interactions related to the Flux/InfluxDB version modal
 */
+import $ from 'jquery';
 
 const fluxInfluxDBModal = '.modal-content#flux-influxdb-versions'
 const pageType = ($(document).attr('title')).includes("package") ? "package" : "function";

@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 var tablesElement = $("#flux-group-keys-demo #grouped-tables")
 
 // Sample data
@@ -153,5 +155,10 @@ $(".column-list label").click(function () {
   buildGroupExample();
 });
 
-// Group and render tables on load
-groupData()
+export {
+  buildTable,
+  buildTables,
+  groupData,
+  getChecked,
+  toggleCheckbox
+};

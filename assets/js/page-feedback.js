@@ -2,6 +2,7 @@
  * This file controls the interactions and life-cycles of the page feedback
  * buttons and modal.
  */
+import $ from 'jquery';
 
 // Collect data from the page path
 const pathArr = location.pathname.split('/').slice(1, -1)

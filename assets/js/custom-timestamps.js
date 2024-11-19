@@ -1,3 +1,8 @@
+import $ from 'jquery';
+import { setPreference, getPreference } from './cookies.js';
+import { toggleModal } from './modal.js';
+import { Datepicker } from 'vanillajs-datepicker';
+
 // Placeholder start date used in InfluxDB custom timestamps
 const defaultStartDate = '2022-01-01';
 

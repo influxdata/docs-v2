@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 const placeholderWrapper = '.code-placeholder-wrapper';
 const placeholderElement = 'var.code-placeholder';
 const codePlaceholders = $(placeholderElement);

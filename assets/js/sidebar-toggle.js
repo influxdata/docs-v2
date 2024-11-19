@@ -3,6 +3,8 @@
 	http://www.thesitewizard.com/javascripts/change-style-sheets.shtml
 */
 
+import { getPreference, setPreference } from './cookies.js';
+
 // *** TO BE CUSTOMISED ***
 var sidebar_state_preference_name = 'sidebar_state';
 var sidebar_state_duration = 30;
@@ -42,4 +44,12 @@ function setSidebarState () {
   if (toggle_state !== undefined) {
     toggleSidebar(toggle_state);
   }
+}
+
+export {
+  setSidebarState,
+  toggleSidebar,
+  sidebar_state_preference_name,
+  sidebar_state_duration,
+  style_domain
 }
