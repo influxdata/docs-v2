@@ -48,8 +48,8 @@ function showHelp {
   echo "       ./getswagger.sh cloud"
   echo "       ./getswagger.sh cloud-dedicated"
   echo "       ./getswagger.sh cloud-serverless"
-  echo "       ./getswagger.sh oss -o <ossVersion> -V"
-  echo "       ./getswagger.sh all -o <ossVersion>"
+  echo "       ./getswagger.sh v2 -V"
+  echo "       ./getswagger.sh all"
   echo "Commands:"
   echo "-b <URL> The base URL to fetch from."
   echo "      ex. ./getswagger.sh -b file:///Users/yourname/github/openapi"
@@ -86,9 +86,6 @@ case "$subcommand" in
         baseUrl=$OPTARG
         baseUrlOSS=$OPTARG
         ;;
-      o)
-        ossVersion=$OPTARG
-        ;;
       \?)
         echo "Invalid option: $OPTARG" 1>&2
         showHelp
@@ -108,7 +105,6 @@ esac
 function showArgs {
   echo "product: $product";
   echo "baseUrl: $baseUrl";
-  echo "ossVersion: $ossVersion";
 }
 
 function postProcess() {
@@ -243,7 +239,7 @@ function updateOSSV2 {
   then
     echo "No URL was provided. I'll rebuild from the existing spec $outFile"
   else
-    curl $UPDATE_OPTIONS ${baseUrlOSS}/contracts/ref/oss.yml -o $outFile
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/oss.yml -o $outFile
   fi
   postProcess $outFile "$version/.config.yml" '@2'
 }
@@ -256,7 +252,7 @@ function updateV1Compat {
   then
     echo "No URL was provided. I'll rebuild from the existing spec $outFile"
   else
-  curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
   fi
   postProcess $outFile "$product/cloud/.config.yml" 'v1-compatibility'
 
@@ -281,13 +277,54 @@ function updateV2V1Compatibility {
   postProcess $outFile "$API_DOCS_ROOT/v2/.config.yml" 'v1-compatibility'
 
   outFile="$API_DOCS_ROOT/cloud-dedicated/v1-compatibility/swaggerV1Compat.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
+  fi
   postProcess $outFile "$API_DOCS_ROOT/cloud-dedicated/.config.yml" 'v1-compatibility'
+}
 
+function updateCloudServerlessV1Compat {
   outFile="$API_DOCS_ROOT/cloud-serverless/v1-compatibility/swaggerV1Compat.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
+  fi
   postProcess $outFile "$API_DOCS_ROOT/cloud-serverless/.config.yml" 'v1-compatibility'
+}
 
+function updateClusteredV1Compat {
   outFile="$API_DOCS_ROOT/clustered/v1-compatibility/swaggerV1Compat.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
+  fi
   postProcess $outFile "$API_DOCS_ROOT/clustered/.config.yml" 'v1-compatibility'
+}
+
+function updateV2V1Compatibility {
+  outFile="$API_DOCS_ROOT/v2/v1-compatibility/swaggerV1Compat.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "No URL was provided. I'll rebuild from the existing spec $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
+  fi
+  postProcess $outFile "$API_DOCS_ROOT/v2/.config.yml" 'v1-compatibility'
+}
+
+function updateV1Compat { 
+  updateCloudV1Compat
+  updateCloudDedicatedV1Compat
+  updateCloudServerlessV1Compat
+  updateClusteredV1Compat
+  updateV2V1Compatibility
 }
 
 UPDATE_OPTIONS="--fail"
@@ -322,7 +359,19 @@ then
   updateEnterpriseV3
 elif [ "$product" = "v2" ];
 then
-  updateOSSV2
+  updateCloudDedicatedV1Compat
+elif [ "$product" = "cloud-v1-compatibility" ];
+then
+  updateCloudV1Compat
+elif [ "$product" = "cloud-serverless-v1-compatibility" ];
+then
+  updateCloudServerlessV1Compat
+elif [ "$product" = "clustered-v1-compatibility" ];
+then
+  updateClusteredV1Compat
+elif [ "$product" = "v2-v1-compatibility" ];
+then
+  updateV2V1Compatibility
 elif [ "$product" = "v1-compat" ];
 then
   updateV1Compat
