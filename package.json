@@ -6,7 +6,7 @@
   "license": "MIT",
   "devDependencies": {
     "@evilmartians/lefthook": "^1.7.1",
-    "@vvago/vale": "^3.4.2",
+    "@vvago/vale": "^3.9.1",
     "autoprefixer": ">=10.2.5",
     "postcss": ">=8.4.31",
     "postcss-cli": ">=9.1.0",

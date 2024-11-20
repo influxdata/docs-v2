@@ -547,10 +547,10 @@
   resolved "https://registry.npmjs.org/@types/trusted-types/-/trusted-types-2.0.7.tgz"
   integrity sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==
 
-"@vvago/vale@^3.4.2":
-  version "3.7.1"
-  resolved "https://registry.npmjs.org/@vvago/vale/-/vale-3.7.1.tgz"
-  integrity sha512-TVpUtFPilUCq2GyO3j7+fYH4Fd50RIdlFTc85daJv6JePaXlYmYsz5q020bwo395kOOGWWW61nXWmmVkCqHG9A==
+"@vvago/vale@^3.9.1":
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/@vvago/vale/-/vale-3.9.1.tgz#8b34b30413ad087034fe171f6d8a21dc64a69bbe"
+  integrity sha512-EEit9vmdArdr+YE3+dnedX/KPecPV1spcwjRlsYH5FugREVkjyvx+TCwcxVlddJ1/tWS3vQ1DYWZBUZ8Hlikpg==
   dependencies:
     axios "^1.4.0"
     rimraf "^5.0.0"
