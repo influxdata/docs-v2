@@ -87,11 +87,8 @@ const yextDefaultConfig = {
 }
 
 function bootYextChat(config) {
-  if(config) {
-    config = Object.assign(config, yextDefaultConfig);
-  } else { 
-    config = yextDefaultConfig; 
-  }
+  config = typeof config === 'object' ? Object.assign({}, yextDefaultConfig, config) : yextDefaultConfig;
+
   window.ChatApp.mount(config);
   window.influxdatadocs = window.influxdatadocs || {};
   window.influxdatadocs.chat = window.influxdatadocs.chat || {};
