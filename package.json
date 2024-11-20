@@ -10,7 +10,7 @@
   "devDependencies": {
     "@eslint/js": "^9.18.0",
     "@evilmartians/lefthook": "^1.7.1",
-    "@vvago/vale": "^3.4.2",
+    "@vvago/vale": "^3.9.1",
     "autoprefixer": ">=10.2.5",
     "cypress": "^14.0.1",
     "eslint": "^9.18.0",
