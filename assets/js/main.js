@@ -68,7 +68,7 @@ $(function () {
 if (typeof window.influxdatadocs === 'undefined') {
   window.influxdatadocs = {};
 }
-Object.assign(window.influxdatadocs, {
+window.influxdatadocs = Object.assign({}, window.influxdatadocs, {
   AIChat,
   ApiReferencePage,
   codeblocksPreferences,
