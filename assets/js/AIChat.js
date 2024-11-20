@@ -1,14 +1,6 @@
 
 const ANON_USER_ID = null;
 
-function showAIChat() {
-    // Show CommandAI chat
-    // loadCommandAIChat();
-    // bootCommandAIChat(ANON_USER_ID);
-    
-    // Show YextAI chat
-    loadYextAIChat();
-}
 
 function loadCommandAIChat() {
   // https://www.command.ai/docs/platform/installation/installing-in-web-app/
@@ -29,35 +21,7 @@ function bootCommandAIChat(userid) {
 
 }
 
-function bootYextAIChat(chatSettings) {
-  const defaultSettings = { 
-    apiKey: "63ef76290621ac9136076512c31bd986",
-    botId: "docs-bot",
-    title: "AI Chat (experimental)",
-    showRestartButton: true,
-    // onClose: () => { /* Your logic here */ },
-    showFeedbackButtons: true,
-    showTimestamp: true,
-    footer: "",
-    placeholder: "Type a message...",
-    stream: true,
-    inputAutoFocus: true,
-    // handleError: (e) => { /* Your error handling logic here */ },
-    // onSend: () => { /* Your logic here */ },
-    messageSuggestions: ["What is InfluxDB v3?", "How do I write data to InfluxDB?", "How do I use SQL with InfluxDB?"],
-    openOnLoad: true,
-    showHeartBeatAnimation: true,
-    showUnreadNotification: true,
-    showInitialMessagePopUp: true,
-    saveToSessionStorage: true,
-    ctaLabel: "AI Chat (experimental)",
-   };
-  const settings = Object.assign(defaultSettings, chatSettings);
-  window.ChatApp.mount(settings);
-}
-
-function loadYextAIChat() {
-
+function loadYextChat(config) {
   var link = document.createElement('link');
   link.rel = 'stylesheet';
   link.href = 'https://assets.sitescdn.net/chat/v0/chat.css';
@@ -95,14 +59,49 @@ function loadYextAIChat() {
   // https://www.yext.com/docs/ai-assistant/quick
   var script = document.createElement('script');
   script.src = 'https://assets.sitescdn.net/chat/v0/chat.umd.js';
-  script.onload = bootYextAIChat;
+  script.onload = () => bootYextChat(config);
   document.head.appendChild(script);
 }
 
-export {
-  showAIChat,
-  loadCommandAIChat,
-  bootCommandAIChat,
-  bootYextAIChat,
-  loadYextAIChat,
+const yextDefaultConfig = {
+  apiKey: "63ef76290621ac9136076512c31bd986",
+  botId: "docs-bot",
+  title: "AI Chat (experimental)",
+  showRestartButton: true,
+  // onClose: () => { /* Your logic here */ },
+  showFeedbackButtons: true,
+  showTimestamp: true,
+  footer: "",
+  placeholder: "Type a message...",
+  stream: true,
+  inputAutoFocus: true,
+  // handleError: (e) => { /* Your error handling logic here */ },
+  // onSend: () => { /* Your logic here */ },
+  messageSuggestions: ["What is InfluxDB v3?", "How do I write data to InfluxDB?", "How do I use SQL with InfluxDB?"],
+  openOnLoad: true,
+  showHeartBeatAnimation: true,
+  showUnreadNotification: true,
+  showInitialMessagePopUp: true,
+  saveToSessionStorage: true,
+  ctaLabel: "AI Chat (experimental)",
+}
+
+function bootYextChat(config) {
+  if(config) {
+    config = Object.assign(config, yextDefaultConfig);
+  } else { 
+    config = yextDefaultConfig; 
+  }
+  window.ChatApp.mount(config);
+  window.influxdatadocs = window.influxdatadocs || {};
+  window.influxdatadocs.chat = window.influxdatadocs.chat || {};
+  window.influxdatadocs.chat.config = config;
+};
+
+export default function AIChat (config) {
+  if (config && window.ChatApp) {
+    bootYextChat(config);
+  } else {
+    loadYextChat(config);
+  }
 }

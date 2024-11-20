@@ -8,7 +8,6 @@ import $ from 'jquery';
 /** Import modules that are not components.
  * TODO: Refactor these into single-purpose component modules.
  */
-import * as aiInteractions from './ai-interactions.js';
 import * as codeblocksPreferences from './api-libs.js';
 import * as datetime from './datetime.js';
 import * as featureCallouts from './feature-callouts.js';
@@ -27,6 +26,7 @@ import { TabbedContent } from './tabbed-content.js';
  * single-purpose module for a specific UI element or interaction.
  * Ideally, a module should export a single function that initializes HTML component behavior and handles state changes or interactions.
  */
+import AIChat from './AIChat.js';
 import ApiReferencePage from './api-reference/ApiReferencePage.js';
 import CodeControls from './code-controls.js';
 import ContentInteractions from './content-interactions.js';
@@ -45,11 +45,8 @@ import ThemeLightDarkSwitch from './ThemeLightDarkToggle.js';
  Initialization in main.js: Each component is called in main.js inside a jQuery document ready function to ensure they are initialized when the document is ready.
  Note: These components should *not* be called directly in the HTML.
  */
-document.addEventListener('DOMContentLoaded', () => {
-  //ThemePreference();
-});
-
 $(function () {
+  AIChat();
   ApiReferencePage();
   CodeControls();
   ContentInteractions();
@@ -57,7 +54,6 @@ $(function () {
   FluxGroupKeysExample();
   FluxInfluxDBVersionsModal();
   InfluxDBUrl();
-  aiInteractions.loadYextAIChat();
   Modal();
   PageFeedback();
   SearchInput();
@@ -72,8 +68,8 @@ $(function () {
 if (typeof window.influxdatadocs === 'undefined') {
   window.influxdatadocs = {};
 }
-window.influxdatadocs = {
-  ...aiInteractions,
+Object.assign(window.influxdatadocs, {
+  AIChat,
   ApiReferencePage,
   codeblocksPreferences,
   CodeControls,
@@ -99,5 +95,4 @@ window.influxdatadocs = {
   ThemeLightDarkSwitch,
   V3Wayfinding,
   VersionSelector,
-  ...window.influxdatadocs,
-};
+});
