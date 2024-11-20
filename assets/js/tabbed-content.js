@@ -1,5 +1,8 @@
 //////////////////////////////// Tabbed Content ////////////////////////////////
 
+import $ from 'jquery';
+import { scrollToAnchor } from './scroll.js';
+
 /**
  * NOTE: Tab <a> elements are whitelisted elements that do not trigger
  * smoothscroll when clicked. The whitelist is defined in content-interactions.js.
@@ -29,9 +32,6 @@ function tabbedContent (container, tab, content) {
     });
   });
 }
-
-tabbedContent('.code-tabs-wrapper', '.code-tabs p a', '.code-tab-content');
-tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
 
 function getTabQueryParam () {
   const queryParams = new URLSearchParams(window.location.search);
@@ -68,35 +68,48 @@ function activateTabs (selector, tab) {
       );
     }
     if (targetTab) {
-      $(targetTab).click();
+      $(targetTab).trigger('click');
       scrollToAnchor(anchor);
     }
   }
 }
 
-$(`.tabs p a, .code-tabs p a`).click(function () {
-  var queryParams = new URLSearchParams(window.location.search);
-  var anchor = window.location.hash;
+function TabbedContent() {
+  tabbedContent('.code-tabs-wrapper', '.code-tabs p a', '.code-tab-content');
+  tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
+  $(`.tabs p a, .code-tabs p a`).click(function () {
+    var queryParams = new URLSearchParams(window.location.search);
+    var anchor = window.location.hash;
 
-  if ($(this).is(':not(":first-child")')) {
-    queryParams.set('t', $(this).html());
-    window.history.replaceState(
-      {},
-      '',
-      `${location.pathname}?${queryParams}${anchor}`
-    );
-    updateBtnURLs($(this).html());
-  } else {
-    queryParams.delete('t');
-    window.history.replaceState({}, '', `${location.pathname}${anchor}`);
-    updateBtnURLs($(this).html(), 'delete');
-  }
-});
+    if ($(this).is(':not(":first-child")')) {
+      queryParams.set('t', $(this).html());
+      window.history.replaceState(
+        {},
+        '',
+        `${location.pathname}?${queryParams}${anchor}`
+      );
+      updateBtnURLs($(this).html());
+    } else {
+      queryParams.delete('t');
+      window.history.replaceState({}, '', `${location.pathname}${anchor}`);
+      updateBtnURLs($(this).html(), 'delete');
+    }
+  });
+  //////////////////// Activate Tab with Cookie or Query Param ///////////////////
 
-//////////////////// Activate Tab with Cookie or Query Param ///////////////////
+  const tab = getTabQueryParam();
+  ['.tabs', '.code-tabs'].forEach(
+    selector => activateTabs(selector, tab),
+    updateBtnURLs(tab)
+  );
+}
 
-tab = getTabQueryParam();
-['.tabs', '.code-tabs'].forEach(
-  selector => activateTabs(selector, tab),
-  updateBtnURLs(tab)
-);
+// Anti-pattern: Exporting multiple objects.
+// ToDo: Refactor to export a single object and move shared functions to
+// -helpers.js
+export {
+  activateTabs,
+  updateBtnURLs,
+  getTabQueryParam,
+  TabbedContent,
+}

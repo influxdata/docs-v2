@@ -1,0 +1,5 @@
+{"type":"api-reference","title":"InfluxDB Cloud Dedicated Management API","description":"The InfluxDB v3 Management API lets you manage an InfluxDB Cloud Dedicated instance and integrate functions such as creating and managing databases, permissions, and tokens into your workflow or application.\n\nThis documentation is generated from the\nInfluxDB OpenAPI specification.\n","menu":{"influxdb_cloud_dedicated":{"parent":"InfluxDB HTTP API","weight":0,"name":"InfluxDB Cloud Dedicated Management API"}},"tags":["influxdb_cloud_dedicated","api"],"api_version":"management@0","api_name":"cloud-dedicated-management"}The InfluxDB v3 Management API lets you manage an InfluxDB Cloud Dedicated instance and integrate functions such as creating and managing databases, permissions, and tokens into your workflow or application.
+
+This documentation is generated from the
+InfluxDB OpenAPI specification.
+\n{{< children >}}

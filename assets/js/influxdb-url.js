@@ -1,3 +1,15 @@
+import $ from 'jquery';
+import {
+  getInfluxDBUrls,
+  getInfluxDBUrl,
+  getPreference,
+  setInfluxDBUrls,
+  setPreference,
+} from './cookies.js';
+import { toggleModal } from './modal.js';
+// Import parameters passed from the calling page to js.Build.
+import { cloudUrls } from '@params';
+
 var placeholderUrls = {
   oss: 'http://localhost:8086',
   cloud: 'https://cloud2.influxdata.com',
@@ -11,6 +23,13 @@ var placeholderUrls = {
 */
 
 var elementSelector = '.article--content pre:not(.preserve)';
+
+// List of elements that store custom URLs
+var urlValueElements = [
+  '#custom-url-field',
+  '#dedicated-url-field',
+  '#clustered-url-field',
+].join();
 
 // Return the page context (cloud, serverless, oss/enterprise, dedicated, clustered, other)
 function context() {
@@ -315,33 +334,95 @@ function appendUrlSelector() {
   });
 }
 
-////////////////////////////////////////////////////////////////////////////////
-///////////////////////////// Function executions //////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+function openUrlSelectorModal() {
+  // General modal window interactions are controlled in modal.js
+  // Open the InfluxDB URL selector modal
+  $('.url-trigger').click(function (e) {
+    e.preventDefault();
+    toggleModal('#influxdb-url-list');
+  });
+}
 
-// Add the preserve tag to code blocks that shouldn't be updated
-addPreserve();
+function handleClusterCheckbox() {
+  // Add checked to fake-radio if cluster is selected on page load
+  if ($('ul.clusters label input').is(':checked')) {
+    var group = $('ul.clusters label input:checked')
+      .parent()
+      .parent()
+      .parent()
+      .siblings();
+    $('.fake-radio', group).addClass('checked');
+  }
+}
 
-// Append URL selector buttons to code blocks
-appendUrlSelector();
+function handleRegionCheckbox() {
+  // Select first cluster when region is clicked
+  $('p.region').click(function () {
+    if (!$('.fake-radio', this).hasClass('checked')) {
+      $('.fake-radio', this).addClass('checked');
+      $('+ ul.clusters li:first label', this).trigger('click');
+    }
+  });
+}
 
-// Update URLs on load
-updateUrls(placeholderUrls, getUrls());
+function handleRegionGroupCheckbox() {
+  // Remove checked class from fake-radio when another region is selected
+  $('.region-group').click(function () {
+    if (!$('.fake-radio', this).hasClass('checked')) {
+      $('.fake-radio', !this).removeClass('checked');
+      $('.fake-radio', this).addClass('checked');
+    }
+  });
+}
 
-// Set active radio button on page load
-setRadioButtons(getUrls());
+function handleUrlInputChange() {
+  // Update URLs and URL preference when selected/clicked in the modal
+  $('input[name="influxdb-oss-url"]').change(function () {
+    var newUrl = $(this).val();
+    storeUrl('oss', newUrl, getUrls().oss);
+    updateUrls(getPrevUrls(), getUrls());
+    setURLPreference('oss');
+  });
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////// Modal window interactions ///////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+  $('input[name="influxdb-oss-url"]').click(function () {
+    setURLPreference('oss');
+  });
 
-// General modal window interactions are controlled in modals.js
+  $('input[name="influxdb-cloud-url"]').change(function () {
+    var newUrl = $(this).val();
+    storeUrl('cloud', newUrl, getUrls().cloud);
+    updateUrls(getPrevUrls(), getUrls());
+  });
 
-// Open the InfluxDB URL selector modal
-$('.url-trigger').click(function (e) {
-  e.preventDefault();
-  toggleModal('#influxdb-url-list');
-});
+  $('input[name="influxdb-cloud-url"]').click(function () {
+    setURLPreference('cloud');
+  });
+
+  $('input[name="influxdb-serverless-url"]').change(function () {
+    var newUrl = $(this).val();
+    storeUrl('serverless', newUrl, getUrls().serverless);
+    updateUrls(getPrevUrls(), getUrls());
+  });
+
+  $('input[name="influxdb-dedicated-url"]').change(function () {
+    var newUrl = $(this).val();
+    storeUrl('dedicated', newUrl, getUrls().dedicated);
+    updateUrls(getPrevUrls(), getUrls());
+  });
+
+  $('input[name="influxdb-clustered-url"]').change(function () {
+    var newUrl = $(this).val();
+    storeUrl('clustered', newUrl, getUrls().clustered);
+    updateUrls(getPrevUrls(), getUrls());
+  });
+}
+
+function handlePreferenceTabClick() {
+  // Select preference tab on click
+  $('#pref-tabs .pref-tab').click(function () {
+    togglePrefBtns($(this));
+  });
+}
 
 // Set the selected URL radio buttons to :checked
 function setRadioButtons() {
@@ -361,70 +442,6 @@ function setRadioButtons() {
   );
 }
 
-// Add checked to fake-radio if cluster is selected on page load
-if ($('ul.clusters label input').is(':checked')) {
-  var group = $('ul.clusters label input:checked')
-    .parent()
-    .parent()
-    .parent()
-    .siblings();
-  $('.fake-radio', group).addClass('checked');
-}
-
-// Select first cluster when region is clicked
-$('p.region').click(function () {
-  if (!$('.fake-radio', this).hasClass('checked')) {
-    $('.fake-radio', this).addClass('checked');
-    $('+ ul.clusters li:first label', this).trigger('click');
-  }
-});
-
-// Remove checked class from fake-radio when another region is selected
-$('.region-group').click(function () {
-  if (!$('.fake-radio', this).hasClass('checked')) {
-    $('.fake-radio', !this).removeClass('checked');
-    $('.fake-radio', this).addClass('checked');
-  }
-});
-
-// Update URLs and URL preference when selected/clicked in the modal
-$('input[name="influxdb-oss-url"]').change(function () {
-  var newUrl = $(this).val();
-  storeUrl('oss', newUrl, getUrls().oss);
-  updateUrls(getPrevUrls(), getUrls());
-  setURLPreference('oss');
-});
-$('input[name="influxdb-oss-url"]').click(function () {
-  setURLPreference('oss');
-});
-
-$('input[name="influxdb-cloud-url"]').change(function () {
-  var newUrl = $(this).val();
-  storeUrl('cloud', newUrl, getUrls().cloud);
-  updateUrls(getPrevUrls(), getUrls());
-});
-$('input[name="influxdb-cloud-url"]').click(function () {
-  setURLPreference('cloud');
-});
-
-$('input[name="influxdb-serverless-url"]').change(function () {
-  var newUrl = $(this).val();
-  storeUrl('serverless', newUrl, getUrls().serverless);
-  updateUrls(getPrevUrls(), getUrls());
-});
-
-$('input[name="influxdb-dedicated-url"]').change(function () {
-  var newUrl = $(this).val();
-  storeUrl('dedicated', newUrl, getUrls().dedicated);
-  updateUrls(getPrevUrls(), getUrls());
-});
-
-$('input[name="influxdb-clustered-url"]').change(function () {
-  var newUrl = $(this).val();
-  storeUrl('clustered', newUrl, getUrls().clustered);
-  updateUrls(getPrevUrls(), getUrls());
-});
-
 // Toggle preference tabs
 function togglePrefBtns(el) {
   preference = el.length ? el.attr('id').replace('pref-', '') : 'cloud';
@@ -437,25 +454,50 @@ function togglePrefBtns(el) {
   setURLPreference(preference);
 }
 
-// Select preference tab on click
-$('#pref-tabs .pref-tab').click(function () {
-  togglePrefBtns($(this));
-});
-
 // Select preference tab from cookie
-function showPreference() {
+function showURLPreference() {
   var preference = getPreference('influxdb_url');
   prefTab = $('#pref-' + preference);
   togglePrefBtns(prefTab);
 }
 
-// Toggled preferred service on load
-showPreference();
+function handleModalClose() {
+  // Update URLs and close modal when using 'enter' to exit custom URL field
+  $('#custom-url').submit(function (e) {
+    e.preventDefault();
+
+    const productContext = context();
+    let url = $('#custom-url-field').val() || '';
+
+    if (['dedicated', 'clustered'].includes(productContext)) {
+      url = $(`#${productContext}-url-field`).val() || '';
+    }
+
+    const urlValidation = validateUrl(url);
+
+    if (url === '' || urlValidation.valid) {
+      if (!['dedicated', 'clustered'].includes(productContext)) {
+        applyCustomUrl();
+      } else {
+        applyProductUrl(productContext);
+      }
+      $('#modal-close').trigger('click');
+    } else {
+      showValidationMessage(urlValidation);
+    }
+  });
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// Custom URLs //////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+function handleCustomUrlFieldFocus() {
+  // Trigger radio button on custom URL field focus
+  $('input#custom-url-field').focus(function (e) {
+    $('input#custom[type="radio"]').trigger('click');
+  });
+}
 // Validate custom URLs
 function validateUrl(url) {
   /** validDomain = (Named host | IPv6 host | IPvFuture host)(:Port)? **/
@@ -558,50 +600,6 @@ function applyProductUrl(product) {
   }
 }
 
-// Trigger radio button on custom URL field focus
-$('input#custom-url-field').focus(function (e) {
-  $('input#custom[type="radio"]').trigger('click');
-});
-
-// Update URLs and close modal when using 'enter' to exit custom URL field
-$('#custom-url').submit(function (e) {
-  e.preventDefault();
-
-  const productContext = context();
-  let url = $('#custom-url-field').val() || '';
-
-  if (['dedicated', 'clustered'].includes(productContext)) {
-    url = $(`#${productContext}-url-field`).val() || '';
-  }
-
-  const urlValidation = validateUrl(url);
-
-  if (url === '' || urlValidation.valid) {
-    if (!['dedicated', 'clustered'].includes(productContext)) {
-      applyCustomUrl();
-    } else {
-      applyProductUrl(productContext);
-    }
-    $('#modal-close').trigger('click');
-  } else {
-    showValidationMessage(urlValidation);
-  }
-});
-
-// List of elements that store custom URLs
-var urlValueElements = [
-  '#custom-url-field',
-  '#dedicated-url-field',
-  '#clustered-url-field',
-].join();
-
-// Store the custom InfluxDB URL or product-specific URL when exiting the field
-$(urlValueElements).blur(function () {
-  !['dedicated', 'clustered'].includes(context())
-    ? applyCustomUrl()
-    : applyProductUrl(context());
-});
-
 /** Delay execution of a function `fn` for a number of milliseconds `ms`
  * e.g., delay a validation handler to avoid annoying the user.
  */
@@ -622,49 +620,117 @@ function handleUrlValidation() {
     showValidationMessage(urlValidation);
   }
 }
-// When in erred state, revalidate custom URL on keyup
-$(document).on('keyup', urlValueElements, delay(handleUrlValidation, 500));
 
-// Populate the custom InfluxDB URL field on page load
-var customUrlOnLoad = getInfluxDBUrl('custom');
-if (customUrlOnLoad != '') {
-  $('input#custom').val(customUrlOnLoad);
-  $('#custom-url-field').val(customUrlOnLoad);
+function handleUrlFieldBlur() {
+  // Store the custom InfluxDB URL or product-specific URL when exiting the field
+  $(urlValueElements).on('blur', function () {
+    !['dedicated', 'clustered'].includes(context())
+      ? applyCustomUrl()
+      : applyProductUrl(context());
+  });
+
+  // When in erred state, revalidate custom URL on keyup
+  $(document).on('keyup', urlValueElements, delay(handleUrlValidation, 500));
+}
+
+function populateCustomUrlField() {
+  // Populate the custom InfluxDB URL field on page load
+  var customUrlOnLoad = getInfluxDBUrl('custom');
+  if (customUrlOnLoad != '') {
+    $('input#custom').val(customUrlOnLoad);
+    $('#custom-url-field').val(customUrlOnLoad);
+  }
 }
 
 // Populate the product-specific URL fields on page load
-var productsWithUniqueURLs = ['dedicated', 'clustered'];
+function populateProductUrlFields() {
+  var productsWithUniqueURLs = ['dedicated', 'clustered'];
 
-productsWithUniqueURLs.forEach(function (productEl) {
-  productUrlCookie = getInfluxDBUrl(productEl);
-  $(`input#${productEl}-url-field`).val(productUrlCookie);
-  $(`#${productEl}-url-field`).val(productUrlCookie);
-});
+  productsWithUniqueURLs.forEach(function (productEl) {
+    productUrlCookie = getInfluxDBUrl(productEl);
+    $(`input#${productEl}-url-field`).val(productUrlCookie);
+    $(`#${productEl}-url-field`).val(productUrlCookie);
+  });
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// Dynamically update URLs ////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-// Extract the protocol and hostname of referrer
-referrerMatch = document.referrer.match(/^(?:[^\/]*\/){2}[^\/]+/g);
-referrerHost = referrerMatch ? referrerMatch[0] : '';
+function  getReferrerHost() {
+  // Extract the protocol and hostname of referrer
+  const referrerMatch = document.referrer.match(/^(?:[^\/]*\/){2}[^\/]+/g);
+  return referrerMatch ? referrerMatch[0] : '';
+}
 
-// Check if the referrerHost is one of the cloud URLs
-// cloudUrls is built dynamically in layouts/partials/footer/javascript.html
-if (cloudUrls.includes(referrerHost)) {
-  storeUrl('cloud', referrerHost, getUrls().cloud);
-  updateUrls(getPrevUrls(), getUrls());
-  setRadioButtons();
-  setURLPreference('cloud');
-  showPreference();
+function updateUrlsFromReferrer() {
+  // Check if the referrerHost is one of the cloud URLs
+  const referrerHost = getReferrerHost();
+
+  if (cloudUrls.includes(referrerHost)) {
+    storeUrl('cloud', referrerHost, getUrls().cloud);
+    updateUrls(getPrevUrls(), getUrls());
+    setRadioButtons();
+    setURLPreference('cloud');
+    showURLPreference();
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Dedicated URL Migration ///////////////////////////
 ///////////////////////// REMOVE AFTER AUGUST 22, 2024 /////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
-if (getUrls().dedicated == 'cluster-id.influxdb.io') {
-  storeUrl('dedicated', 'cluster-id.a.influxdb.io', getUrls().dedicated);
-  updateUrls(getPrevUrls(), getUrls());
+function migrateCloudDedicatedUrl() {
+  if (getUrls().dedicated == 'cluster-id.influxdb.io') {
+    storeUrl('dedicated', 'cluster-id.a.influxdb.io', getUrls().dedicated);
+    updateUrls(getPrevUrls(), getUrls());
+  }
 }
+
+function InfluxDBUrl() {
+  // Add the preserve tag to code blocks that shouldn't be updated
+  addPreserve();
+
+  // Append URL selector buttons to code blocks
+  appendUrlSelector();
+
+  // Update URLs on load
+  updateUrls(placeholderUrls, getUrls());
+
+  // Set active radio button on page load
+  setRadioButtons();
+
+  ///// Modal window interactions /////
+
+  openUrlSelectorModal();
+
+  handleClusterCheckbox();
+
+  handleRegionCheckbox();
+
+  handleRegionGroupCheckbox();
+
+  handleUrlInputChange();
+
+  handlePreferenceTabClick();
+
+  // Toggle preferred service on load
+  showURLPreference();
+
+  handleCustomUrlFieldFocus();
+
+  handleModalClose();
+
+  handleUrlFieldBlur();
+
+  populateProductUrlFields();
+
+  populateCustomUrlField();
+
+  updateUrlsFromReferrer();
+
+  migrateCloudDedicatedUrl();
+} // End of InfluxDBUrl
+
+
+export { InfluxDBUrl, getUrls, getReferrerHost };

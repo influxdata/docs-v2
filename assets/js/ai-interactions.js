@@ -8,7 +8,6 @@ function showAIChat() {
     
     // Show YextAI chat
     loadYextAIChat();
-    bootCommandAIChat();
 }
 
 function loadCommandAIChat() {
@@ -30,29 +29,31 @@ function bootCommandAIChat(userid) {
 
 }
 
-function bootYextAIChat() {
-  window.ChatApp.mount({
+function bootYextAIChat(chatSettings) {
+  const defaultSettings = { 
     apiKey: "63ef76290621ac9136076512c31bd986",
     botId: "docs-bot",
     title: "AI Chat (experimental)",
-    // showRestartButton: true,
+    showRestartButton: true,
     // onClose: () => { /* Your logic here */ },
     showFeedbackButtons: true,
     showTimestamp: true,
-    // footer: "",
-    // placeholder: "Type a message...",
-    // stream: true,
-    // inputAutoFocus: true,
+    footer: "",
+    placeholder: "Type a message...",
+    stream: true,
+    inputAutoFocus: true,
     // handleError: (e) => { /* Your error handling logic here */ },
     // onSend: () => { /* Your logic here */ },
     messageSuggestions: ["What is InfluxDB v3?", "How do I write data to InfluxDB?", "How do I use SQL with InfluxDB?"],
-    // openOnLoad: true,
-    // showHeartBeatAnimation: true,
-    // showUnreadNotification: true,
-    // showInitialMessagePopUp: true,
-    // saveToSessionStorage: true,
+    openOnLoad: true,
+    showHeartBeatAnimation: true,
+    showUnreadNotification: true,
+    showInitialMessagePopUp: true,
+    saveToSessionStorage: true,
     ctaLabel: "AI Chat (experimental)",
-  });
+   };
+  const settings = Object.assign(defaultSettings, chatSettings);
+  window.ChatApp.mount(settings);
 }
 
 function loadYextAIChat() {
@@ -96,4 +97,12 @@ function loadYextAIChat() {
   script.src = 'https://assets.sitescdn.net/chat/v0/chat.umd.js';
   script.onload = bootYextAIChat;
   document.head.appendChild(script);
+}
+
+export {
+  showAIChat,
+  loadCommandAIChat,
+  bootCommandAIChat,
+  bootYextAIChat,
+  loadYextAIChat,
 }

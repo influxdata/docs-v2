@@ -1,0 +1,5 @@
+{"type":"api-reference","title":"InfluxDB v1 HTTP API for InfluxDB v2 OSS","description":"The InfluxDB 1.x compatibility /write and /query endpoints work with InfluxDB 1.x client libraries and third-party integrations like Grafana and others.\n\nThis documentation is generated from the\n[InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/swaggerV1Compat.yml).\n","menu":{"influxdb":{"parent":"InfluxDB HTTP API","weight":0,"name":"InfluxDB v1 HTTP API for InfluxDB v2 OSS"}},"tags":["influxdb","api"],"api_version":"v1-compatibility@2","api_name":"v2-v1-compatibility"}The InfluxDB 1.x compatibility /write and /query endpoints work with InfluxDB 1.x client libraries and third-party integrations like Grafana and others.
+
+This documentation is generated from the
+[InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/swaggerV1Compat.yml).
+\n{{< children >}}

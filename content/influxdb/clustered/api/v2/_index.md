@@ -1,0 +1,5 @@
+{"type":"api-reference","title":"InfluxDB Clustered API Service","description":"The InfluxDB v2 HTTP API lets you use `/api/v2` endpoints for managing retention policy mappings and writing data stored in an InfluxDB v3 instance.\n\nThis documentation is generated from the\n[InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).\n","menu":{"influxdb_clustered":{"parent":"InfluxDB HTTP API","weight":0,"name":"InfluxDB Clustered API Service"}},"tags":["influxdb_clustered","api"],"api_version":"v2@2","api_name":"clustered-v2"}The InfluxDB v2 HTTP API lets you use `/api/v2` endpoints for managing retention policy mappings and writing data stored in an InfluxDB v3 instance.
+
+This documentation is generated from the
+[InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
+\n{{< children >}}

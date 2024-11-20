@@ -10,7 +10,7 @@
 {{- $placeholderHost := $productData.placeholder_host }}
 {{- $method := .Get "method" | upper -}}
 {{- $methodStyle := .Get "method" | lower -}}
-{{- $apiRef := .Get "api-ref" | default "" -}}
+{{- $apiRef := .Get "api-path-reference" | default "" -}}
 {{- $renderedEndpoint := $endpoint | replaceRE `\{\{[<%] influxdb/host .*[>%]\}\}` $placeholderHost -}}
 <pre class="api-endpoint">
   {{- if ne $apiRef "" -}}

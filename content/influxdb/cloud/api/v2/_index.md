@@ -1,0 +1,5 @@
+{"type":"api-reference","title":"InfluxDB Cloud API Service","description":"The InfluxDB v2 HTTP API provides a programmatic interface for all interactions with InfluxDB v2. Access the InfluxDB API using `/api/v2/` and InfluxDB v1-compatible endpoints.\n\nThis documentation is generated from the\n[InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).\n","menu":{"influxdb_cloud":{"parent":"InfluxDB HTTP API","weight":0,"name":"InfluxDB Cloud API Service"}},"tags":["influxdb_cloud","api"],"api_version":"v2@2","api_name":"cloud-v2"}The InfluxDB v2 HTTP API provides a programmatic interface for all interactions with InfluxDB v2. Access the InfluxDB API using `/api/v2/` and InfluxDB v1-compatible endpoints.
+
+This documentation is generated from the
+[InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
+\n{{< children >}}

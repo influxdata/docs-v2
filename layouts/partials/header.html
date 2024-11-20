@@ -15,10 +15,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
+    <!-- Load cloudUrls array -->
+    {{ $cloudUrls := slice }}
+    {{- range.Site.Data.influxdb_urls.cloud.providers }}
+      {{- range.regions }}
+        {{ $cloudUrls = $cloudUrls | append "{{ safeHTML .url }}" }}
+      {{ end -}}
+    {{ end -}}
+
+    <!--Bundle JavaScript modules-->
+    {{ $themeJs := resources.Get "js/theme.js" | js.Build (dict "params" (dict "cloudUrls" $cloudUrls "product" $product "currentVersion" $currentVersion "isServer" hugo.IsServer))
+    }}
+
+    {{ $mainJs := resources.Get "js/main.js" | js.Build (dict "params" (dict "cloudUrls" $cloudUrls "product" $product "currentVersion" $currentVersion "isServer" hugo.IsServer))
+    }}
+
+
+    <!-- Load main.js after document is ready -->
+    <script src="{{ $mainJs.RelPermalink }}"></script>
     {{ partial "header/canonical.html" . }}
     {{ partial "header/stylesheets.html" }}
+    <!-- Load theme.js as soon as possible, but after the stylesheet elements -->
+    <script src="{{ $themeJs.RelPermalink }}"></script>
     {{ partial "header/google-fonts.html" }}
-    {{ partial "header/javascript.html" }}
     {{ partial "header/search-attributes.html" . }}
     {{ partial "header/coveo-meta-data.html" . }}
     {{ if not hugo.IsServer }}{{ partial "header/marketing.html" }}{{ end }}

@@ -25,9 +25,9 @@ tags:
 
 
       For more information, see the following:
-      - [Token authentication](#section/Authentication/TokenAuthentication)
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      - #section/Authentication/TokenAuthentication
+      - #section/Authentication/BasicAuthentication
+      - #section/Authentication/QuerystringAuthentication
 
       <!-- ReDoc-Inject: <security-definitions> -->
     x-traitTag: true
@@ -276,9 +276,9 @@ components:
       properties:
         results:
           description: |
-              A resultset object that contains the `statement_id` and the `series` array.
+            A resultset object that contains the `statement_id` and the `series` array.
 
-              Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
+            Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
           items:
             properties:
               error:
@@ -327,12 +327,12 @@ components:
                 type: integer
             type: object
           oneOf:
-          - required:
-            - statement_id
-            - error
-          - required:
-            - statement_id
-            - series
+            - required:
+                - statement_id
+                - error
+            - required:
+                - statement_id
+                - series
           type: array
       type: object
     InfluxQLCSVResponse:
@@ -441,9 +441,9 @@ components:
 
 
         For examples and more information, see the following:
-          - [`/authorizations`](#tag/Authorizations) endpoint.
-          - [Authorize API requests](/influxdb/cloud/api-guide/api_intro/#authentication).
-          - [Manage API tokens](/influxdb/cloud/security/tokens/).
+          - #tag/Authorizations endpoint.
+          - /influxdb/cloud/api-guide/api_intro/#authentication.
+          - /influxdb/cloud/security/tokens/.
     BasicAuthentication:
       type: http
       scheme: basic

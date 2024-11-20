@@ -1,0 +1,5 @@
+{"type":"api-reference","title":"InfluxDB OSS API Service","description":"The InfluxDB v2 HTTP API provides a programmatic interface for all interactions with an InfluxDB v2 instance. Access the InfluxDB API using `/api/v2/` and InfluxDB v1-compatible endpoints.\n\nThis documentation is generated from the\n[InfluxDB OpenAPI specification](https://github.com/influxdata/openapi/blob/influxdb-oss-v2.7.0/contracts/ref/oss.yml).\n","menu":{"influxdb":{"parent":"InfluxDB HTTP API","weight":0,"name":"InfluxDB OSS API Service"}},"tags":["influxdb","api"],"api_version":"v2@2","api_name":"v2-v2"}The InfluxDB v2 HTTP API provides a programmatic interface for all interactions with an InfluxDB v2 instance. Access the InfluxDB API using `/api/v2/` and InfluxDB v1-compatible endpoints.
+
+This documentation is generated from the
+[InfluxDB OpenAPI specification](https://github.com/influxdata/openapi/blob/influxdb-oss-v2.7.0/contracts/ref/oss.yml).
+\n{{< children >}}
