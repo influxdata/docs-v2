@@ -130,7 +130,7 @@ function postProcess() {
 #  INFLUXDB_API_VERSION=$apiVersion \
   npx --version
   INFLUXDB_PRODUCT=$(dirname "$configPath") \
-  INFLUXDB_API_NAME=$(echo "$api" | sed 's/@.*//g;') \
+  INFLUXDB_API_NAME=$(echo "$api" ,  sed 's/@.*//g;') \
   API_DOCS_ROOT_PATH=$API_DOCS_ROOT \
   npm_config_yes=true \
   npx $openapiCLI bundle $specPath \
