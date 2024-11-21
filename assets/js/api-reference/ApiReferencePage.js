@@ -60,7 +60,7 @@ export default function ApiReferencePage() {
   setFeatures(apiPathDoc);
   setServerUrl(apiPathDoc);
   apiPathDoc.addEventListener('spec-loaded', (e) => {
-    // Unhide the element once the spec is loaded--avoids a flash of Rapidoc's loading spinner
+    // Unhide the element once the spec is loaded--the only way to prevent a flash of Rapidoc's loading spinner
     const inlineStyles = apiPathDoc.getAttribute('style').replace('display: none;', '');
     apiPathDoc.setAttribute('style', inlineStyles);
   });
