@@ -65,6 +65,7 @@ function loadYextChat(config) {
 
 const yextDefaultConfig = {
   apiKey: "63ef76290621ac9136076512c31bd986",
+  env: "SANDBOX",
   botId: "docs-bot",
   title: "AI Chat (experimental)",
   showRestartButton: true,
