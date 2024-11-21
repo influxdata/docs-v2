@@ -43,7 +43,7 @@
     "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && lefthook run pre-push",
     "pre-commit": "lefthook run pre-commit",
     "test-content": "docker compose --profile test up",
-    "build-apidocs": "node api-docs/index.mjs"
+    "build-apirefs": "node api-build-scripts/index.mjs"
   },
   "main": "index.js",
   "module": "main.js",

@@ -9,7 +9,7 @@
    export DOCS="$HOME/github/docs-v2"
    alias gsd="cd $HOME/github/openapi && make generate-all && \
               npx oats ./contracts/ref/cloud.yml && npx oats ./contracts/ref/oss.yml && \
-              cd $DOCS/api-docs && ./getswagger.sh all -b file:///$HOME/github/openapi && \
+              cd $DOCS/api-build-scripts && ./getswagger.sh all -b file:///$HOME/github/openapi && \
               sh ./generate-api-docs.sh"
    ```
 
@@ -40,8 +40,8 @@
 2. Enter the following commands into your terminal to fetch and process the contracts:
 
    ```sh
-   # In your terminal, go to the `docs-v2/api-docs` directory:
-   cd ./api-docs
+   # In your terminal, go to the `docs-v2/api-build-scripts` directory:
+   cd ./api-build-scripts
 
    # Fetch the contracts, apply customizations, and bundle.
    sh getswagger.sh cloud
@@ -92,11 +92,11 @@
    git checkout -b release/api-oss origin/master
    ```
 
-7. In `./api-docs`, copy the previous version or create a directory for the new OSS version number--for example:
+7. In `./api-build-scripts`, copy the previous version or create a directory for the new OSS version number--for example:
 
    ```sh
-   # In your terminal, go to the `docs-v2/api-docs` directory:
-   cd ./api-docs
+   # In your terminal, go to the `docs-v2/api-build-scripts` directory:
+   cd ./api-build-scripts
    ```
 
    If the old version directory contains custom content files (for example, v2.2/content), you'll likely want to copy
@@ -150,11 +150,11 @@ Follow these steps to update OSS API docs between version releases--for example,
    git checkout -b docs/api-oss origin/master
    ```
 
-5. Go into `./api-docs` directory--for example:
+5. Go into `./api-build-scripts` directory--for example:
 
    ```sh
-   # In your terminal, go to the `docs-v2/api-docs` directory:
-   cd ./api-docs
+   # In your terminal, go to the `docs-v2/api-build-scripts` directory:
+   cd ./api-build-scripts
    ```
 
 6. Enter the following commands into your terminal to fetch and process the contracts:
@@ -215,7 +215,7 @@ The script uses `npx` to download and execute the Redocly CLI.
 The `api-docs` directory structure versions OpenAPI files using the following pattern:
 
 ```md
-api-docs/
+api-build-scripts/
   |-- cloud/
   │     └── ref.yml
   │     └── swaggerV1Compat.yml
@@ -290,7 +290,7 @@ for grouping tags in navigation.
 | Example                                                                                                | OpenAPI field                                         |                                            |
 |:-------------------------------------------------------------------------------------------------------|-------------------------------------------------------|--------------------------------------------|
 | [Add supplementary documentation](https://docs.influxdata.com/influxdb/cloud/api/#tag/Quick-start)     | `tags: [ { name: 'Quick start', x-traitTag: true } ]` | [Source](https://github.com/influxdata/openapi/master/src/cloud/tags.yml) |
-| Group tags in navigation                                                                               | `x-tagGroups: [ { name: 'All endpoints', tags: [...], ...} ]`   | [Source](https://github.com/influxdata/docs-v2/blob/da6c2e467de7212fc2197dfe0b87f0f0296688ee/api-docs/cloud-iox/content/tag-groups.yml)) |
+| Group tags in navigation                                                                               | `x-tagGroups: [ { name: 'All endpoints', tags: [...], ...} ]`   | [Source](https://github.com/influxdata/docs-v2/blob/da6c2e467de7212fc2197dfe0b87f0f0296688ee/api-build-scripts/cloud-iox/content/tag-groups.yml)) |
 
 #### Add and update x-tagGroups
 

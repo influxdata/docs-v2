@@ -36,7 +36,7 @@ function getAPIConfigs() {
       // Set API configuration properties used to create pages
       const api = apis[version];
       api.doc_path = path.join(DOCS_ROOT, `content/influxdb/${productVersion}/api/${apiShortName}`);
-      api.spec_path = path.join(DOCS_ROOT, 'api-docs', productVersion, api.root);
+      api.spec_path = path.join(DOCS_ROOT, 'api-build-scripts', productVersion, api.root);
       const menu = {}
       menu[productKey] = {
         parent: 'InfluxDB HTTP API',

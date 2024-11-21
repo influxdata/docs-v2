@@ -5,9 +5,10 @@
 
 import { writeFileSync, rmSync, readFileSync, existsSync, mkdirSync } from 'fs';
 import * as yaml from 'js-yaml';
-import { execCommand, getSwagger, isPlaceholderFragment } from './util.mjs';
+import { execCommand, getSwagger, isPlaceholderFragment } from './helpers.mjs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { getPageTemplate } from './templates.mjs';
 import winston from 'winston';
 
 // Get the current file's directory
@@ -54,13 +55,26 @@ function getPathGroups(openapi) {
   return pathGroups;
 }
 
+function createPageIdentifier(apiName, pathGroup) {
+  pathGroup = pathGroup && `-${pathGroup}` || '';
+  return (`api-reference-${apiName}${pathGroup}`).replace(/-/g, '_');
+}
+
 function createIndexPage(spec, params) {
+  const page = getPageTemplate('index');
   const menuKey = Object.keys(params.menu)[0];
+  const menu = {
+    [menuKey]: {...page.menu, ...params.menu[menuKey]}
+  };
+  page.menu = menu;
   params.menu[menuKey].name = spec.info.title;
+  // Create a unique identifier for the menu item
+  params.menu[menuKey].identifier = createPageIdentifier(params.api_name); 
   params.title = spec.info.title;
   params.description = spec.info.description;
 
-  return (JSON.stringify(params))
+  // Return params as a YAML frontmatter string
+  return (`---\n${yaml.dump(params)}\n---\n\n`)
     .concat(spec.info.description, '\\n', "{{< children >}}")
 }
 
@@ -122,20 +136,23 @@ function createPathGroupPage(pathGroup, pathSpec, params) {
   params.menu[menuKey].weight = 1;
   params.menu[menuKey].name = params.list_title;
   // Create a unique identifier for the menu item
-  params.menu[menuKey].identifier = (`${params.api_name}_${pathGroup}`).replace(/-/g, '_'); 
-
-  return JSON.stringify(params);
+  params.menu[menuKey].identifier = (`api-reference-${params.api_name}_${pathGroup}`).replace(/-/g, '_'); 
+  // Return params as a YAML frontmatter string
+  return `---\n${yaml.dump(params)}\n---\n`;
 }
 
 export function createOverviewPage(spec, params) {
-  params.title = `Overview`;
-  params.description = `${spec.info.description}. The API provides predictable
-  endpoint paths and supports standard HTTP methods, status codes, and authorization schemes. Resource management endpoints support JSON in requests and responses.`;
+  const pageParams = {
+    title: 'Overview',
+    description: `${spec.info.description}. The API provides predictable
+  endpoint paths and supports standard HTTP methods, status codes, and authorization schemes. Resource management endpoints support JSON in requests and responses.`,
+    menu: {},
+  };
   const menuKey = Object.keys(params.menu)[0];
-  params.menu[menuKey].parent = 'Overview';
+  pageParams.menu[menuKey].parent = params.api_name;
   params.menu[menuKey].weight = 10;
-  params.menu[menuKey].name = params.title;
-  params.menu[menuKey].identifier = (`${params.api_name}_overview`).replace(/-/g, '_');
+  params.menu[menuKey].name = 'Overview';
+  params.menu[menuKey].identifier = (`api-reference-${params.api_name}_overview`).replace(/-/g, '_');
   // const overviewSpec = JSON.parse(JSON.stringify(spec));
   // overviewSpec.paths = null;
   // params.api = {spec: JSON.stringify(overviewSpec)};
@@ -181,6 +198,7 @@ export function createAPIPages(params, specPath, docPath) {
       const specClone = JSON.parse(JSON.stringify(spec));
       specClone.paths = pathGroups[pathGroup];
       const page = createPathGroupPage(pathGroup, specClone, JSON.parse(paramsClone));
+      // For readability, we'll write the page as a YAML
       writeFileSync(path.join(docPath,
         `${pathGroup.replaceAll('/', '-').replace(/^-/, '')}.md`),
         page);

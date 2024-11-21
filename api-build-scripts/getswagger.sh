@@ -1,44 +1,11 @@
-#!/bin/bash -e
+#!/bin/bash
 
-# Use this script to retrieve the following InfluxData API specifications:
-# - the latest, fully resolved openapi (OAS, OpenAPI Specification) contract files from the influxdata/openapi repo
-#
-# Specify a product to retrieve (cloud-serverless, cloud-dedicated, clustered, cloud, v2, v1-compatibility, all).
-# Optionally specify:
-# - an OSS version as the second argument or using the -o flag.
-#   The version specifies where to write the updated openapi.
-#   The default version is the latest OSS version directory in the api-docs directory.
-# - a base URL using the -b flag.
-#   The baseURL specifies where to retrieve the openapi files from.
-#   The default baseUrl (used for InfluxDB Cloud) is the master branch of influxdata/openapi.
-#   The default baseUrl for OSS is the docs-release/influxdb-oss branch of influxdata/openapi.
-#   For local development, pass your openapi directory using the file:/// protocol.
-#   To use the existing ref.yml and prevent fetching any openapi files, use the -B flag.
-# Syntax:
-#   sh ./getswagger.sh <product>
-#   sh ./getswagger.sh <product> -b <baseUrl>
-#   sh ./getswagger.sh -c <product> -o <version> -b <baseUrl>
-#   sh ./getswagger.sh -c <product> -o <version> -B
-#
-# Examples:
-#   sh ./getswagger.sh cloud-serverless-v2
-#   sh ./getswagger.sh clustered -B
-#   sh ./getswagger.sh cloud-v2
-#   sh ./getswagger.sh -c oss-v2 -b file:///Users/johnsmith/github/openapi
+# Determine the root directory of the Git repository
+GIT_ROOT=$(git rev-parse --show-toplevel)
 
-DOCS_ROOT=$(git rev-parse --show-toplevel)
-API_DOCS_ROOT=$DOCS_ROOT/api-docs
+# Set SCRIPTS_ROOT to the api-build-scripts directory based on the Git root directory
+SCRIPTS_ROOT="$GIT_ROOT/api-build-scripts"
 
-versionDirs=($(ls -d */))
-latestOSS=${versionDirs[${#versionDirs[@]}-1]}
-
-# Use openapi master branch as the default base URL.
-baseUrl="https://raw.githubusercontent.com/influxdata/openapi/master"
-
-# Use openapi docs-release/influxdb-oss branch for the OSS base URL.
-baseUrlOSS="https://raw.githubusercontent.com/influxdata/openapi/docs-release/influxdb-oss"
-ossVersion=${latestOSS%/}
-verbose=""
 product=""
 
 function showHelp {
@@ -58,7 +25,7 @@ function showHelp {
   echo "-h Show this help."
   echo "-o <semantic version> The OSS Version to fetch."
   echo "      ex. ./getswagger.sh oss -o v2.0"
-  echo "      The default is the latest OSS version directory in the api-docs directory."
+  echo "      The default is the latest OSS version directory in the api-build-scripts directory."
   echo "-V Verbose. Print the processed arguments and verbose Curl output."
 }
 
@@ -68,39 +35,47 @@ case "$subcommand" in
   cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-v2|cloud-v2|v2|v1-compat|core-v3|enterprise-v3|all)
     product=$1
     shift
-
-  while getopts ":o:b:BhV" opt; do
-    case ${opt} in
-      h)
-        showHelp
-        exit 0
-        ;;
-      V)
-        verbose="-v"
-        ;;
-      B)
-        baseUrl=""
-        baseUrlOSS=""
-        ;;
-      b)
-        baseUrl=$OPTARG
-        baseUrlOSS=$OPTARG
-        ;;
-      \?)
-        echo "Invalid option: $OPTARG" 1>&2
-        showHelp
-        exit 22
-        ;;
-      :)
-        echo "Invalid option: $OPTARG requires an argument" 1>&2
-        showHelp
-        exit 22
-        ;;
-     esac
-  done
-  shift $((OPTIND -1))
-  ;;
+    ;;
+  *)
+    showHelp
+    exit 1
+    ;;
 esac
+
+while getopts ":o:b:BhV" opt; do
+  case ${opt} in
+    h)
+      showHelp
+      exit 0
+      ;;
+    V)
+      verbose="-v"
+      ;;
+    B)
+      baseUrl=""
+      baseUrlOSS=""
+      ;;
+    b)
+      baseUrl=$OPTARG
+      baseUrlOSS=$OPTARG
+      ;;
+    o)
+      ossVersion=$OPTARG
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" 1>&2
+      showHelp
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." 1>&2
+      showHelp
+      exit 1
+      ;;
+  esac
+done
+
+# Add your script logic here
 
 function showArgs {
   echo "product: $product";
@@ -131,7 +106,7 @@ function postProcess() {
   npx --version
   INFLUXDB_PRODUCT=$(dirname "$configPath") \
   INFLUXDB_API_NAME=$(echo "$api" ,  sed 's/@.*//g;') \
-  API_DOCS_ROOT_PATH=$API_DOCS_ROOT \
+  API_DOCS_ROOT_PATH=$SCRIPTS_ROOT \
   npm_config_yes=true \
   npx $openapiCLI bundle $specPath \
     --config=$configPath \
@@ -283,40 +258,40 @@ function updateV2V1Compatibility {
   else
     curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
   fi
-  postProcess $outFile "$API_DOCS_ROOT/cloud-dedicated/.config.yml" 'v1-compatibility'
+  postProcess $outFile "$SCRIPTS_ROOT/cloud-dedicated/.config.yml" 'v1-compatibility'
 }
 
 function updateCloudServerlessV1Compat {
-  outFile="$API_DOCS_ROOT/cloud-serverless/v1-compatibility/swaggerV1Compat.yml"
+  outFile="$SCRIPTS_ROOT/cloud-serverless/v1-compatibility/swaggerV1Compat.yml"
   if [[ -z "$baseUrl" ]];
   then
     echo "No URL was provided. I'll rebuild from the existing spec $outFile"
   else
     curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
   fi
-  postProcess $outFile "$API_DOCS_ROOT/cloud-serverless/.config.yml" 'v1-compatibility'
+  postProcess $outFile "$SCRIPTS_ROOT/cloud-serverless/.config.yml" 'v1-compatibility'
 }
 
 function updateClusteredV1Compat {
-  outFile="$API_DOCS_ROOT/clustered/v1-compatibility/swaggerV1Compat.yml"
+  outFile="$SCRIPTS_ROOT/clustered/v1-compatibility/swaggerV1Compat.yml"
   if [[ -z "$baseUrl" ]];
   then
     echo "No URL was provided. I'll rebuild from the existing spec $outFile"
   else
     curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
   fi
-  postProcess $outFile "$API_DOCS_ROOT/clustered/.config.yml" 'v1-compatibility'
+  postProcess $outFile "$SCRIPTS_ROOT/clustered/.config.yml" 'v1-compatibility'
 }
 
 function updateV2V1Compatibility {
-  outFile="$API_DOCS_ROOT/v2/v1-compatibility/swaggerV1Compat.yml"
+  outFile="$SCRIPTS_ROOT/v2/v1-compatibility/swaggerV1Compat.yml"
   if [[ -z "$baseUrl" ]];
   then
     echo "No URL was provided. I'll rebuild from the existing spec $outFile"
   else
     curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
   fi
-  postProcess $outFile "$API_DOCS_ROOT/v2/.config.yml" 'v1-compatibility'
+  postProcess $outFile "$SCRIPTS_ROOT/v2/.config.yml" 'v1-compatibility'
 }
 
 function updateV1Compat { 
