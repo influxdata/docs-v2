@@ -58,6 +58,7 @@ function loadYextChat(config) {
 
   // https://www.yext.com/docs/ai-assistant/quick
   var script = document.createElement('script');
+  script.defer = true;
   script.src = 'https://assets.sitescdn.net/chat/v0/chat.umd.js';
   script.onload = () => bootYextChat(config);
   document.head.appendChild(script);
