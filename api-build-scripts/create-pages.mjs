@@ -55,9 +55,8 @@ function getPathGroups(openapi) {
   return pathGroups;
 }
 
-function createPageIdentifier(apiName, pathGroup) {
-  pathGroup = pathGroup && `-${pathGroup}` || '';
-  return (`api-reference-${apiName}${pathGroup}`).replace(/-/g, '_');
+function createPageIdentifier(uniqueName) {
+  return (`api-reference-${uniqueName}`).replace(/-/g, '_');
 }
 
 function createIndexPage(spec, params) {
@@ -103,12 +102,26 @@ function getTraitTags(pathSpec) {
   return pathSpec['tags'].filter( k => k[`x-traitTag`]);
 }
 
+// Create a page for each group of operations within a path ("path group")
+// In OpenAPI, tags are used to group endpoints. OpenAPI doesn't allow
+// a description field for a path, so we use the name and description of
+// the first tag in the path.
+// Returns a string containing the page content
+// The page frontmatter contains an api.spec property to be rendered as the API reference doc for the path group.
 function createPathGroupPage(pathGroup, pathSpec, params) {
-  // In OpenAPI, tags are used to group endpoints. OpenAPI doesn't allow
-  // a description field for a path, so we'll use the name and description of
-  // the first tag in the path.
-  const primaryTag = getPathTags(pathSpec).flat()[0];
+
+  const page = getPageTemplate('path');
+  const menuKey = Object.keys(params.menu)[0];
+  const menu = {
+    [menuKey]: {...page.menu, ...params.menu[menuKey]}
+  };
+  page.menu = menu;
   params.title = pathGroup;
+  params.menu[menuKey].parent = pathSpec.info.title;
+  params.menu[menuKey].weight = 1;
+  params.menu[menuKey].name = params.list_title;
+
+  const primaryTag = getPathTags(pathSpec).flat()[0];
   if(primaryTag) {
     params.list_title = `${primaryTag['name']} ${pathGroup}`;
     params.description = (primaryTag && primaryTag['description']) || '';
@@ -116,12 +129,15 @@ function createPathGroupPage(pathGroup, pathSpec, params) {
     logger.log('warn', `Name: ${pathSpec.info.title} - No tags found for path group: ${pathGroup}`);
   }
 
+  // Create a unique identifier for the menu item
+  params.menu[menuKey].identifier = createPageIdentifier(`${params.api_name}_${pathGroup}`); 
+
   params.api = {
     spec: JSON.stringify(pathSpec),
     path_group: pathGroup,
   };
-  params.related = [];
 
+  params.related = [];
   if(pathSpec['x-influxdata-related-endpoints']) {
     params.related = [...pathSpec['x-influxdata-related-endpoints']];
   }
@@ -130,34 +146,24 @@ function createPathGroupPage(pathGroup, pathSpec, params) {
       ...params.related, ...pathSpec['x-influxdata-related-content']
     ];
   }
-
-  const menuKey = Object.keys(params.menu)[0];
-  params.menu[menuKey].parent = pathSpec.info.title;
-  params.menu[menuKey].weight = 1;
-  params.menu[menuKey].name = params.list_title;
-  // Create a unique identifier for the menu item
-  params.menu[menuKey].identifier = (`api-reference-${params.api_name}_${pathGroup}`).replace(/-/g, '_'); 
   // Return params as a YAML frontmatter string
   return `---\n${yaml.dump(params)}\n---\n`;
 }
 
 export function createOverviewPage(spec, params) {
-  const pageParams = {
-    title: 'Overview',
-    description: `${spec.info.description}. The API provides predictable
-  endpoint paths and supports standard HTTP methods, status codes, and authorization schemes. Resource management endpoints support JSON in requests and responses.`,
-    menu: {},
-  };
+  const page = getPageTemplate('overview');
   const menuKey = Object.keys(params.menu)[0];
-  pageParams.menu[menuKey].parent = params.api_name;
-  params.menu[menuKey].weight = 10;
-  params.menu[menuKey].name = 'Overview';
-  params.menu[menuKey].identifier = (`api-reference-${params.api_name}_overview`).replace(/-/g, '_');
+  const menu = {
+    [menuKey]: {...page.menu, ...params.menu[menuKey]}
+  };
+  page.menu = menu;
+  // Create a unique identifier for the menu item
+  params.menu[menuKey].identifier = createPageIdentifier(`${params.api_name}-overview`); 
+
   // const overviewSpec = JSON.parse(JSON.stringify(spec));
   // overviewSpec.paths = null;
   // params.api = {spec: JSON.stringify(overviewSpec)};
 
-  let toc = '';
   let body = '';
 
   getTraitTags(spec).forEach( traitTag => {
@@ -165,7 +171,9 @@ export function createOverviewPage(spec, params) {
     body = body.concat(traitTag['description'], "\n");
   });
   
-  return (JSON.stringify(params)).concat(body);
+  // Return params as a YAML frontmatter string
+  return (`---\n${yaml.dump(params)}\n---\n\n`)
+    .concat(spec.info.description, '\\n', body)
 }
 
 export function createAPIPages(params, specPath, docPath) {
@@ -187,9 +195,9 @@ export function createAPIPages(params, specPath, docPath) {
     writeFileSync(path.join(docPath, '_index.md'), createIndexPage(spec, JSON.parse(paramsClone)));
 
     // // Create the overview page
-    // writeFileSync(
-    // path.join(docPath, 'overview.md'),
-    // createOverviewPage(spec, JSON.parse(paramsClone)));
+    writeFileSync(
+    path.join(docPath, 'overview.md'),
+    createOverviewPage(spec, JSON.parse(paramsClone)));
 
     // Create a page for each group of operations within a path ("path group")
     const pathGroups = getPathGroups(spec);
