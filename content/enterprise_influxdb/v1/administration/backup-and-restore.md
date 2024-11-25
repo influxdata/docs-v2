@@ -500,7 +500,7 @@ After exporting the data in line protocol format, you can import the data using 
 In the following example, the compressed data file is imported into the specified database.
 
 ```bash
-influx -import -database myDB -compressed
+influx -import -path -compressed
 ```
 
 For details on using the `influx -import` command, see [Import data from a file with -import](/enterprise_influxdb/v1/tools/influx-cli/use-influx/#import-data-from-a-file-with--import).
