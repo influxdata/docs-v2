@@ -75,7 +75,6 @@ const yextDefaultConfig = {
   showTimestamp: true,
   footer: "",
   placeholder: "Type a message...",
-  stream: true,
   inputAutoFocus: true,
   // handleError: (e) => { /* Your error handling logic here */ },
   // onSend: () => { /* Your logic here */ },
