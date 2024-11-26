@@ -8,6 +8,30 @@ menu:
 weight: 101
 ---
 
+## v2.7.11 {date="2024-11-25"}
+
+### Features
+
+- Add startup logging on the percentage of shards opened.
+- Improve error messages and logging during shard opening.
+- Add additional logging when loading field set changes.
+- Add `--pid-file` option to write a PID file on startup.
+- Add `--storage-wal-flush-on-shutdown` to flush WAL on database shutdown.
+
+### Bug Fixes
+
+- Adds check for incompatible WAL formats during startup.
+- Changes to shard loading to improve maintainability of TSM code.
+- Hitting `vm.max_mmap_count` count no longer causes data to become unqueryable.
+
+### Maintenance
+
+- Minor user interface (UI) updates.
+- Update Go to 1.22.7.
+
+
+---
+
 ## v2.7.10 {date="2024-08-15"}
 
 ### Bug Fixes
@@ -254,12 +278,12 @@ _Internal changes only._
   - [`array.concat()`](/flux/v0/stdlib/array/concat/)
   - [`array.filter()`](/flux/v0/stdlib/array/filter/)
   - [`array.map()`](/flux/v0/stdlib/array/map/)
-- Promote the following functions from the experimental `http.requests` package into the [`http/requests` package](/flux/v0/stdlib/http/requests/): 
-  - [`requests.do()`](/flux/v0/stdlib/http/requests/do/) 
+- Promote the following functions from the experimental `http.requests` package into the [`http/requests` package](/flux/v0/stdlib/http/requests/):
+  - [`requests.do()`](/flux/v0/stdlib/http/requests/do/)
   - [`requests.get()`](/flux/v0/stdlib/http/requests/get/)
   - [`requests.peek()`](/flux/v0/stdlib/http/requests/peek/)
   - [`requests.post()`](/flux/v0/stdlib/http/requests/post/)
-- Promote `experimental.bitwise()` into the [`bitwise` package](/flux/v0/stdlib/bitwise/). 
+- Promote `experimental.bitwise()` into the [`bitwise` package](/flux/v0/stdlib/bitwise/).
 - Add new [experimental.catch()](/flux/v0/stdlib/experimental/catch/) and [testing.shouldError()](/flux/v0/stdlib/testing/shoulderror/) functions.
 - Support conditional expressions, constants, and literals in vectorized [`map()`](/flux/v0/stdlib/universe/map/).
 - Optimize [`holtWinters()`](/flux/v0/stdlib/universe/holtwinters/) and redundant sorts.
@@ -274,7 +298,7 @@ _Internal changes only._
 - Fix error-caching in `bufio.Writer`.
 - Remove `MATCHER_BEHAVIOR` environment variable.
 
-### Maintenance 
+### Maintenance
 
 - Upgrade to [Go 1.18.4](https://go.dev/doc/go1.18).
 - Upgrade to [Flux 0.179.0](/flux/v0/release-notes/#v01790).
@@ -365,7 +389,7 @@ Add the option to [replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb
 On rare occasions, remote write failures may cause data in the replication queue to get stuck. To ensure data is not dropped, restart the InfluxDB instance replicating data.
 
 To assess whether this issue is occurring, we recommend periodically doing one of the following:
-- Verify your data is successfully replicated to your target bucket. 
+- Verify your data is successfully replicated to your target bucket.
 - View your queue size using [`influx replication list`](/influxdb/cloud/reference/cli/influx/replication/list/) for unexpected growth.
 {{% /warn %}}
 
@@ -569,7 +593,7 @@ Ported the following [`influxd inspect`](/influxdb/v2/reference/cli/influxd/insp
 - [influxd inspect dump-wal](/influxdb/v2/reference/cli/influxd/inspect/dump-wal/)
 - [influxd inspect report-tsi](/influxdb/v2/reference/cli/influxd/inspect/report-tsi/)
 - [influxd inspect report-tsm](/influxdb/v2/reference/cli/influxd/inspect/report-tsm/)
-- [influxd inspect verify-seriesfile](/influxdb/v2/reference/cli/influxd/inspect/verify-seriesfile/) 
+- [influxd inspect verify-seriesfile](/influxdb/v2/reference/cli/influxd/inspect/verify-seriesfile/)
 - [influxd inspect verify-tombstone](/influxdb/v2/reference/cli/influxd/inspect/verify-tombstone/)
 - [influxd inspect verify-tsm](/influxdb/v2/reference/cli/influxd/inspect/verify-tsm/)
 - [influxd inspect verify-wal](/influxdb/v2/reference/cli/influxd/inspect/verify-wal/)
@@ -943,7 +967,7 @@ The startup process automatically generates replacement `tsi1` indexes for shard
        - [`nats-max-payload-bytes`](/influxdb/v2/reference/config-options/#nats-max-payload-bytes)
 - Add new commands:
        - Add [`influxd print-config`](/influxdb/v2/reference/cli/influxd/print-config/) to support automated configuration inspection.
-       - Add [`influxd inspect export-lp`](/influxdb/v2/reference/cli/influxd/inspect/export-lp/) to extract data in line-protocol format.  
+       - Add [`influxd inspect export-lp`](/influxdb/v2/reference/cli/influxd/inspect/export-lp/) to extract data in line-protocol format.
 
 #### New Telegraf plugins in UI
 - Update Telegraf plugins list in UI to include Beat, Intel PowerStats, and Rienmann.
