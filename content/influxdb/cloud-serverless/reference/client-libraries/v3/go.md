@@ -31,7 +31,7 @@ Import the package:
 
 ```go
 import (
-    "github.com/InfluxCommunity/influxdb3-go/influxdb3"
+    "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
 )
 ```
 
@@ -75,7 +75,7 @@ Initializes and returns a `influxdb3.Client` instance with the following:
 package main
 
 import (
-    "github.com/InfluxCommunity/influxdb3-go/influxdb3"
+    "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
 )
 
 func Query() error {

@@ -65,7 +65,7 @@ You can generate a self-signed certificate on your own machine.
 Choose one of the following:
 
 - [Download and install CA certificate files](#download-and-install-ca-certificate-files)
-- [Generate self-signed certificates](#generate-and-self-signed-certificates)
+- [Generate self-signed certificates](#generate-self-signed-certificates)
 
 #### Download and install CA certificate files
 
