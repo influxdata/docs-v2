@@ -17,7 +17,6 @@ This page provides information about the current implementation status of
 InfluxQL features.
 
 - [In-progress features](#in-progress-features)
-  - [Time zones](#time-zones)
   - [SLIMIT clause](#slimit-clause)
   - [SOFFSET clause](#soffset-clause)
   - [Metaqueries](#metaqueries)
@@ -28,13 +27,6 @@ InfluxQL features.
   - [Technical and predictive analysis](#technical-and-predictive-analysis)
 
 ## In-progress features
-
-### Time zones
-
-InfluxQL in {{< product-name >}} does not currently support the time zone clause,
-which applies a time zone offset to UTC timestamps in query results.
-
-<!-- **Tracking issue**: [influxdb_iox#6933](https://github.com/influxdata/influxdb_iox/issues/6933) -->
 
 ### SLIMIT clause
 
@@ -170,9 +162,7 @@ INTEGRAL [influxdb_iox#6937](https://github.com/influxdata/influxdb_iox/issues/6
 | :-------------------------------------------------------------------------------- | :----------------------: |
 | [now()](/influxdb/cloud-serverless/reference/influxql/functions/date-time/#now)   | **{{< icon "check" >}}** |
 | [time()](/influxdb/cloud-serverless/reference/influxql/functions/date-time/#time) | **{{< icon "check" >}}** |
-| <span style="opacity: .5;">tz()</span>                                            |                          |
-
-<!-- tz() [influxdb_iox#6933](https://github.com/influxdata/influxdb_iox/issues/6933) -->
+| [tz()](/influxdb/cloud-serverless/reference/influxql/functions/date-time/#tz)     | **{{< icon "check" >}}** |
 
 ### Miscellaneous functions
 
