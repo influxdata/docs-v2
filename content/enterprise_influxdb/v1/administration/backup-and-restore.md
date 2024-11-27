@@ -11,32 +11,39 @@ menu:
     parent: Administration
 ---
 
-- [Overview](#overview)
-- [Backup and restore utilities](#backup-and-restore-utilities)
-- [Exporting and importing data](#exporting-and-importing-data)
+Use the InfluxDB Enterprise `backup` and `restore` and `export` and `import` utilities
+to prevent unexpected data loss and preserve the ability to restore data if it
+ever is lost.
 
-## Overview
-
-When deploying InfluxDB Enterprise in production environments, you should have a strategy and procedures for backing up and restoring your InfluxDB Enterprise clusters to be prepared for unexpected data loss.
-
-The tools provided by InfluxDB Enterprise can be used to:
+You can use these tools in your back up and restore procedures to:
 
 - Provide disaster recovery due to unexpected events
 - Migrate data to new environments or servers
 - Restore clusters to a consistent state
-- Debugging
+- Export and import data for debugging
 
 Depending on the volume of data to be protected and your application requirements, InfluxDB Enterprise offers two methods, described below, for managing backups and restoring data:
 
 - [Backup and restore utilities](#backup-and-restore-utilities) — For most applications
 - [Exporting and importing data](#exporting-and-importing-data) — For large datasets
 
-> **Note:** Use the [`backup` and `restore` utilities (InfluxDB OSS 1.5 and later)](/enterprise_influxdb/v1/administration/backup-and-restore/) to:
+> [!Note]
+> #### Back up and restore between InfluxDB Enterprise and OSS 
+>
+> Use the `backup` and `restore` utilities in
+> [InfluxDB Enterprise](#backup-and-restore-utilities) and
+> [InfluxDB OSS (version 1.5 and later)](/influxdb/v1/administration/backup-and-restore/) to:
 >
 > - Restore InfluxDB Enterprise backup files to InfluxDB OSS instances.
 > - Back up InfluxDB OSS data that can be restored in InfluxDB Enterprise clusters.
 
 ## Backup and restore utilities
+
+Use InfluxDB Enterprise back up and restore utilities to:
+
+- Back up and restore multiple databases at a time.
+- Back up specific time ranges.
+- Create backup files compatible with InfluxDB OSS.
 
 InfluxDB Enterprise supports backing up and restoring data in a cluster, 
 a single database and retention policy, and single shards.
@@ -46,11 +53,20 @@ Use the `backup` and `restore` utilities to back up and restore between `influxd
 instances with the same versions or with only minor version differences.
 For example, you can backup from {{< latest-patch version="1.10" >}} and restore on {{< latest-patch >}}.
 
+- [Backup utility](#backup-utility)
+  - [Examples](#examples)
+- [Restore utility](#restore-utility)
+- [Exporting and importing data](#exporting-and-importing-data)
+  - [Exporting data](#exporting-data)
+  - [Importing data](#importing-data)
+  - [Example](#example)
+
 ### Backup utility
 
 A backup creates a copy of the [metastore](/enterprise_influxdb/v1/concepts/glossary/#metastore) and [shard](/enterprise_influxdb/v1/concepts/glossary/#shard) data at that point in time and stores the copy in the specified directory.
 
-Or, back up **only the cluster metastore** using the `-strategy only-meta` backup option. For more information, see [perform a metastore only backup](#perform-a-metastore-only-backup).
+To back up **only the cluster metastore**, use the `-strategy only-meta` backup option.
+For more information, see how to [perform a metastore only backup](#perform-a-metastore-only-backup).
 
 All backups include a manifest, a JSON file describing what was collected during the backup.
 The filenames reflect the UTC timestamp of when the backup was created, for example:
@@ -104,38 +120,44 @@ for a complete list of the global `influxd-ctl` flags.
 
 #### Back up a database and all retention policies
 
-Store the following incremental backups in different directories.
-The first backup specifies `-db myfirstdb` and the second backup specifies
-different options: `-db myfirstdb` and `-rp autogen`.
+The following example stores incremental backups of the database
+and all retention policies in the `./myfirstdb-allrp-backup` directory:
 
 ```bash
 influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
+```
+
+#### Back up a database with a specific retention policy
+
+The following example stores incremental backups in separate directories for the
+specified database and retention policy combinations.
+
+```bash
+influxd-ctl backup -db myfirstdb -rp oneday ./myfirstdb-oneday-backup
 
 influxd-ctl backup -db myfirstdb -rp autogen ./myfirstdb-autogen-backup
 ```
-#### Back up a database with a specific retention policy
 
-Store the following incremental backups in the same directory.
-Both backups specify the same `-db` flag and the same database.
+The output contains the status and backup file paths--for example:
 
-```bash
-influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
-
-influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
+```sh
+backing up db=myfirstdb rp=oneday shard=8 to <USER_HOME>/myfirstdb-oneday-backup/myfirstdb.oneday.00008.00
+backing up db=myfirstdb rp=autogen shard=10 to <USER_HOME>/myfirstdb-autogen-backup/myfirstdb.autogen.00010.00
 ```
+
 #### Back up data from a specific time range
 
 To back up data in a specific time range, use the `-start` and `-end` options:
 
 ```bash
 influxd-ctl backup -db myfirstdb ./myfirstdb-jandata -start 2022-01-01T012:00:00Z -end 2022-01-31T011:59:00Z
-
 ```
+
 #### Perform an incremental backup
 
-Perform an incremental backup into the current directory with the command below.
-If there are any existing backups the current directory, the system performs an incremental backup.
-If there aren't any existing backups in the current directory, the system performs a backup of all data in InfluxDB.
+The following example shows how to run an incremental backup stored in the current directory.
+If a backup already exists in the directory, `influxd-ctl` performs an incremental backup.
+If no backup is found in the directory, then `influxd-ctl` creates a full backup of all data in InfluxDB.
 
 ```bash
 # Syntax
@@ -156,7 +178,7 @@ $ ls
 
 #### Perform a full backup
 
-Perform a full backup into a specific directory with the command below.
+The following example shows how to run a full backup stored in a specific directory.
 The directory must already exist.
 
 ```bash
@@ -178,7 +200,11 @@ $ ls backup_dir
 
 #### Perform an incremental backup on a single database
 
-Point at a remote meta server and back up only one database into a given directory (the directory must already exist):
+Use the `-bind` option to specify a remote [meta node](/enterprise_influxdb/v1/concepts/glossary/#meta-node) to connect to.
+
+The following example shows how to connect to a remote meta server and back up
+a specific database into a given directory in the local system.
+The directory must already exist.
 
 ```bash
 # Syntax
@@ -195,7 +221,8 @@ $ ls ./telegrafbackup
 
 #### Perform a metadata only backup
 
-Perform a metadata only backup into a specific directory with the command below.
+The following example shows how to create and store a metadata-only backup
+in a specific directory.
 The directory must already exist.
 
 ```bash
@@ -213,10 +240,10 @@ Backed up to backup_dir in 51.388233ms, transferred 481 bytes
 
 ### Restore utility
 
-#### Disable anti-entropy (AE) before restoring a backup
-
+> [!Note]
+> #### Disable anti-entropy (AE) before restoring a backup
+>
 > Before restoring a backup, stop the anti-entropy (AE) service (if enabled) on **each data node in the cluster, one at a time**.
-
 >
 > 1. Stop the `influxd` service.
 > 2. Set `[anti-entropy].enabled` to `false` in the influx configuration file (by default, influx.conf).
@@ -469,48 +496,72 @@ for [restoring from a full backup](#restore-from-a-full-backup).
 
 ## Exporting and importing data
 
-For most InfluxDB Enterprise applications, the [backup and restore utilities](#backup-and-restore-utilities) provide the tools you need for your backup and restore strategy. However, in some cases, the standard backup and restore utilities may not adequately handle the volumes of data in your application.  
+For most InfluxDB Enterprise applications, the [backup and restore utilities](#backup-and-restore-utilities) provide the tools you need for your backup and restore strategy. However, in some cases, the standard backup and restore utilities might not adequately handle the volumes of data in your application.  
 
 As an alternative to the standard backup and restore utilities, use the InfluxDB `influx_inspect export` and `influx -import` commands to create backup and restore procedures for your disaster recovery and backup strategy. These commands can be executed manually or included in shell scripts that run the export and import operations at scheduled intervals (example below).
 
+- [Exporting data](#exporting-data)
+- [Importing data](#importing-data)
+- [Example: export and import for disaster recovery](#example-export-and-import-for-disaster-recovery)
+
 ### Exporting data
 
-Use the [`influx_inspect export` command](/enterprise_influxdb/v1/tools/influx_inspect#export) to export data in line protocol format from your InfluxDB Enterprise cluster. Options include:
+Use the [`influx_inspect export` command](/enterprise_influxdb/v1/tools/influx_inspect#export) to export data in line protocol format from your InfluxDB Enterprise cluster.
+Options include the following:
 
-- Exporting all, or specific, databases
-- Filtering with starting and ending timestamps
-- Using gzip compression for smaller files and faster exports
+- `-database`: Export all or specific databases
+- `-start` and `-end`: Filter with starting and ending timestamps
+- `-compress`: Use GNU zip (gzip) compression for smaller files and faster exports
 
-For details on optional settings and usage, see [`influx_inspect export` command](/enterprise_influxdb/v1/tools/influx_inspect#export).
-
-In the following example, the database is exported filtered to include only one day and compressed for optimal speed and file size.
+The following example shows how to export data filtered to one day and compressed
+for optimal speed and file size:
 
 ```bash
 influx_inspect export \
-  -database myDB \
+  -database DATABASE_NAME \
   -compress \
   -start 2019-05-19T00:00:00.000Z \
   -end 2019-05-19T23:59:59.999Z
 ```
 
+The exported file contains the following:
+
+```sh
+# DDL
+CREATE DATABASE <DATABASE_NAME> WITH NAME <RETENTION_POLICY>
+# DML
+# CONTEXT-DATABASE:<DATABASE_NAME>
+# CONTEXT-RETENTION-POLICY:<RETENTION_POLICY>
+
+<LINE_PROTOCOL_DATA>
+```
+
+- `DDL`: an InfluxQL `CREATE` statement to create the target database when [importing the data](#importing-data)
+- `DML`: Context metadata that specifies the target database and retention policy
+  for [importing the data](#importing-data)
+- the line protocol data
+
+For details on optional settings and usage, see [`influx_inspect export` command](/enterprise_influxdb/v1/tools/influx_inspect#export).
+ 
 ### Importing data
 
-After exporting the data in line protocol format, you can import the data using the [`influx -import` CLI command](/enterprise_influxdb/v1/tools/influx-cli/use-influx/#import-data-from-a-file-with--import).
+After exporting the data in line protocol format, you can import the data using the [`influx -import` CLI command](/enterprise_influxdb/v1/tools/influx-cli/use-influx/#import-data-from-a-file).
 
-In the following example, the compressed data file is imported into the specified database.
+In the following example, the compressed data file (in GNU zip format) is imported into the database
+specified in the file's `DML` metadata.
 
 ```bash
 influx -import -path -compressed
 ```
 
-For details on using the `influx -import` command, see [Import data from a file with -import](/enterprise_influxdb/v1/tools/influx-cli/use-influx/#import-data-from-a-file-with--import).
+For details on using the `influx -import` command, see [Import data from a file with `-import`](/enterprise_influxdb/v1/tools/influx-cli/use-influx/#import-data-from-a-file).
 
-### Example
+### Example: export and import for disaster recovery
 
-For an example of using the exporting and importing data approach for disaster recovery, see the Capital One presentation from Influxdays 2019 on ["Architecting for Disaster Recovery."](https://www.youtube.com/watch?v=LyQDhSdnm4A). In this presentation, Capital One discusses the following:
+For an example of using the exporting and importing data approach for disaster recovery, see the presentation from Influxdays 2019 on ["Architecting for Disaster Recovery."](https://www.youtube.com/watch?v=LyQDhSdnm4A). In this presentation, Capital One discusses the following:
 
-- Exporting data every 15 minutes from an active cluster to an AWS S3 bucket.
+- Exporting data every 15 minutes from an active InfluxDB Enterprise cluster to an AWS S3 bucket.
 - Replicating the export file in the S3 bucket using the AWS S3 copy command.
-- Importing data every 15 minutes from the AWS S3 bucket to a cluster available for disaster recovery.
+- Importing data every 15 minutes from the AWS S3 bucket to an InfluxDB Enterprise cluster available for disaster recovery.
 - Advantages of the export-import approach over the standard backup and restore utilities for large volumes of data.
 - Managing users and scheduled exports and imports with a custom administration tool.

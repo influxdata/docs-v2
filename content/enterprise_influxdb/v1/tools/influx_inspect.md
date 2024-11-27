@@ -93,6 +93,9 @@ The name of the database.
 
 The path to the `data` directory.
 
+Default value is `$HOME/.influxdb/data`.
+See the [file system layout](/enterprise_influxdb/v1/concepts/file-system-layout/) for InfluxDB on your system.
+
 ##### `[ -max-cache-size ]`
 
 The maximum size of the cache before it starts rejecting writes.
@@ -120,26 +123,29 @@ Flag to enable output in verbose mode.
 
 The directory for the WAL (Write Ahead Log) files.
 
+Default value is `$HOME/.influxdb/wal`.
+See the [file system layout](/enterprise_influxdb/v1/concepts/file-system-layout/) for InfluxDB on your system.
+
 #### Examples
 
 ##### Converting all shards on a node
 
 ```
-$ influx_inspect buildtsi -datadir ~/.influxdb/data -waldir ~/.influxdb/wal
+$ influx_inspect buildtsi -datadir /var/lib/influxdb/data -waldir /var/lib/influxdb/wal
 
 ```
 
 ##### Converting all shards for a database
 
 ```
-$ influx_inspect buildtsi -database mydb -datadir ~/.influxdb/data -waldir ~/.influxdb/wal
+$ influx_inspect buildtsi -database mydb datadir /var/lib/influxdb/data -waldir /var/lib/influxdb/wal
 
 ```
 
 ##### Converting a specific shard
 
 ```
-$ influx_inspect buildtsi -database stress -shard 1 -datadir ~/.influxdb/data -waldir ~/.influxdb/wal
+$ influx_inspect buildtsi -database stress -shard 1 datadir /var/lib/influxdb/data -waldir /var/lib/influxdb/wal
 ```
 
 ### `check-schema`
@@ -378,7 +384,9 @@ Default value is `""`.
 ##### `-datadir <data_dir>`
 
 The path to the `data` directory.
-Default value is `"$HOME/.influxdb/data"`.
+
+Default value is `$HOME/.influxdb/data`.
+See the [file system layout](/enterprise_influxdb/v1/concepts/file-system-layout/) for InfluxDB on your system.
 
 ##### [ `-end <timestamp>` ]
 
@@ -405,12 +413,12 @@ YYYY-MM-DDTHH:MM:SS+07:00
 
 ##### [ `-lponly` ]
 Output data in line protocol format only.
-Does not include comments or data definition language (DDL), like `CREATE DATABASE`.
+Does not output data definition language (DDL) statements (such as `CREATE DATABASE`) or DML context metadata (such as `# CONTEXT-DATABASE`).
 
 ##### [ `-out <export_dir>` ]
 
 The location for the export file.
-Default value is `"$HOME/.influxdb/export"`.
+Default value is `$HOME/.influxdb/export`.
 
 ##### [ `-retention <rp_name> ` ]
 
@@ -424,7 +432,9 @@ The timestamp string must be in [RFC3339 format](https://tools.ietf.org/html/rfc
 ##### [ `-waldir <wal_dir>` ]
 
 Path to the [WAL](/enterprise_influxdb/v1/concepts/glossary/#wal-write-ahead-log) directory.
-Default value is `"$HOME/.influxdb/wal"`.
+
+Default value is `$HOME/.influxdb/wal`.
+See the [file system layout](/enterprise_influxdb/v1/concepts/file-system-layout/) for InfluxDB on your system.
 
 #### Examples
 
@@ -437,19 +447,19 @@ influx_inspect export -compress
 ##### Export data from a specific database and retention policy
 
 ```bash
-influx_inspect export -database mydb -retention autogen
+influx_inspect export -database DATABASE_NAME -retention RETENTION_POLICY 
 ```
 
 ##### Output file
 
 ```bash
 # DDL
-CREATE DATABASE MY_DB_NAME
-CREATE RETENTION POLICY autogen ON MY_DB_NAME DURATION inf REPLICATION 1
+CREATE DATABASE DATABASE_NAME 
+CREATE RETENTION POLICY <RETENTION_POLICY> ON <DATABASE_NAME> DURATION inf REPLICATION 1
 
 # DML
-# CONTEXT-DATABASE:MY_DB_NAME
-# CONTEXT-RETENTION-POLICY:autogen
+# CONTEXT-DATABASE:DATABASE_NAME
+# CONTEXT-RETENTION-POLICY:RETENTION_POLICY
 randset value=97.9296104805 1439856000000000000
 randset value=25.3849066842 1439856100000000000
 ```
