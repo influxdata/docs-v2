@@ -14,7 +14,7 @@ Use InfluxQL date and time functions to perform time-related operations.
 
 - [now()](#now)
 - [time()](#time)
-<!-- - [tz()](#tz) -->
+- [tz()](#tz)
 
 ## now()
 
@@ -90,7 +90,7 @@ name: bitcoin
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-<!-- ## tz()
+## tz()
 
 Applies a timezone offset to timestamps in query results.
 Offsets include any seasonal offset such as Daylight Savings Time (DST) or
@@ -142,4 +142,4 @@ name: home
 
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
