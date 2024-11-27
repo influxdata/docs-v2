@@ -283,12 +283,7 @@ SELECT * FROM home WHERE time >= now() - 2h
 
 ## Time zone clause
 
-{{% warn %}}
-InfluxQL in {{< product-name >}} does not currently support the time zone clause,
-which applies a time zone offset to UTC timestamps in query results.
-{{% /warn %}}
-
-<!-- By default, InfluxDB stores and returns timestamps in UTC.
+By default, InfluxDB stores and returns timestamps in UTC.
 Use the time zone clause and the `tz()` function to apply a time zone offset to
 UTC times and return timestamps in the specified time zone including any applicable
 seasonal offset such as Daylight Savings Time (DST) or British Summer Time (BST).
@@ -336,7 +331,7 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
 
 ## Notable behaviors
 
