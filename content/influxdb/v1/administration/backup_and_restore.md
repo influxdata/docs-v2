@@ -13,7 +13,7 @@ menu:
 v2: /influxdb/v2/backup-restore/
 ---
 
-Use the InfluxDB OSS {{< current-version >}} `backup` and `restore` and `export` and `import` utilities
+Use the InfluxDB OSS {{< current-version >}} `backup`, `restore`, `export`, and `import` utilities
 to prevent unexpected data loss and preserve the ability to restore data if it
 ever is lost.
 

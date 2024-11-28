@@ -11,7 +11,7 @@ menu:
     parent: Administration
 ---
 
-Use the InfluxDB Enterprise `backup` and `restore` and `export` and `import` utilities
+Use the InfluxDB Enterprise `backup`, `restore`, `export` and `import` utilities
 to prevent unexpected data loss and preserve the ability to restore data if it
 ever is lost.
 
