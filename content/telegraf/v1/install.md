@@ -71,7 +71,7 @@ To use the SHA checksum to verify the downloaded file, do the following:
    <!--test:actual
    ```sh
    curl -s --location -O \
-   "https://download.influxdata.com/telegraf/releases/telegraf-${telegraf_latest_patches_v1}_linux_amd64.tar.gz"
+   "https://dl.influxdata.com/telegraf/releases/telegraf-${telegraf_latest_patches_v1}_linux_amd64.tar.gz"
    echo "030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea  telegraf-${telegraf_latest_patches_v1}_linux_amd64.tar.gz" \
    | sha256sum -c -
    ```
@@ -92,7 +92,7 @@ echo "030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea  telegraf
 Replace the following:
 
 - {{% code-placeholder-key %}}`030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea`{{% /code-placeholder-key %}}:
-  the **SHA256:** checksum value that you copied from the downloads page 
+  the **SHA256:** checksum value that you copied from the downloads page
 
 If the checksums match, the output is the following; otherwise, an error message.
 
@@ -298,7 +298,7 @@ Choose from the following options to install Telegraf binary files for Linux AMD
 
 ```bash
 curl -s --location -O \
-https://download.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_linux_amd64.tar.gz \
+https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_linux_amd64.tar.gz \
 && echo "030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
 | sha256sum -c -
 ```
@@ -324,7 +324,7 @@ Choose from the following options to install Telegraf binary files for Linux ARM
 
 ```bash
 curl -s --location -O \
-https://download.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_linux_arm64.tar.gz \
+https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_linux_arm64.tar.gz \
 && echo "0c57ff1a4a3af5fa387d23b0bc743b8eaed3a110d4ae7d422c439d2911cdf9b1  telegraf-{{% latest-patch %}}_linux_arm64.tar.gz" \
 | sha256sum -c -
 ```
@@ -458,7 +458,7 @@ In PowerShell _as an administrator_, do the following:
 
    ```powershell
    wget `
-   https://download.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_windows_amd64.zip `
+   https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_windows_amd64.zip `
    -UseBasicParsing `
    -OutFile telegraf-{{% latest-patch %}}_windows_amd64.zip
    Expand-Archive .\telegraf-{{% latest-patch %}}_windows_amd64.zip `
@@ -603,7 +603,7 @@ config > telegraf.conf
 For more advanced configuration details, see the
 [configuration documentation](/telegraf/v1/administration/configuration/).
 
-## Custom-compile Telegraf 
+## Custom-compile Telegraf
 
 Use the Telegraf custom builder tool to compile Telegraf with only the plugins you need and reduce the Telegraf binary size.
 
@@ -638,7 +638,7 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
 
 2. To build the Telegraf custom builder tool, enter the following command:
 
-   <!--pytest-codeblocks:cont--> 
+   <!--pytest-codeblocks:cont-->
 
    ```bash
    make build_tools
