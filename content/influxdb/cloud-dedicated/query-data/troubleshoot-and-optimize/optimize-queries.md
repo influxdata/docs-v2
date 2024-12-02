@@ -17,6 +17,7 @@ aliases:
   - /influxdb/cloud-dedicated/query-data/execute-queries/optimize-queries/
   - /influxdb/cloud-dedicated/query-data/execute-queries/analyze-query-plan/
   - /influxdb/cloud-dedicated/query-data/optimize-queries/
+
 ---
 
 Optimize SQL and InfluxQL queries to improve performance and reduce their memory and compute (CPU) requirements.
@@ -25,7 +26,6 @@ Learn how to use observability tools to analyze query execution and view metrics
 - [Why is my query slow?](#why-is-my-query-slow)
 - [Strategies for improving query performance](#strategies-for-improving-query-performance)
   - [Query only the data you need](#query-only-the-data-you-need)
-- [Analyze and troubleshoot queries](#analyze-and-troubleshoot-queries)
 
 ## Why is my query slow?
 
@@ -87,11 +87,3 @@ If the table contains 10 columns, the difference in performance between the
 two queries is minimal.
 In a table with over 1000 columns, the `SELECT *` query is slower and
 less efficient.
-
-## Analyze and troubleshoot queries
-
-Use the following tools to analyze and troubleshoot queries and find performance bottlenecks:
-
-- [Analyze a query plan](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/analyze-query-plan/)
-- [Enable trace logging for a query](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/trace/)
-- [Retrieve `system.queries` information for a query](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/system-information/)

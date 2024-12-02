@@ -14,12 +14,14 @@ related:
   - /influxdb/cloud-dedicated/reference/client-libraries/v3/
 aliases:
   - /influxdb/cloud-dedicated/query-data/execute-queries/troubleshoot/
+  - /influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/trace/
 ---
 
 Troubleshoot SQL and InfluxQL queries that return unexpected results.
 
 - [Why doesn't my query return data?](#why-doesnt-my-query-return-data)
 - [Optimize slow or expensive queries](#optimize-slow-or-expensive-queries)
+- [Analyze query information](#analyze-query-information)
 
 ## Why doesn't my query return data?
 
@@ -48,4 +50,21 @@ If a query times out or returns an error, it might be due to the following:
 
 If a query is slow or uses too many compute resources, limit the amount of data that it queries.
 
-See how to [optimize queries](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/) and use tools to view runtime metrics, identify bottlenecks, and debug queries.
+See how to [optimize queries](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/)
+
+## Analyze query information 
+
+Use the following tools to retrieve system query information, analyze query execution,
+and find performance bottlenecks:
+
+- [Analyze a query plan](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/analyze-query-plan/)
+- [Retrieve `system.queries` information for a query](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/system-information/)
+
+> [!Warn]
+>
+> #### Request help to troubleshoot queries
+>
+> Currently, customers can't enable trace logging for {{% product-name %}} clusters.
+> For help troubleshooting a specific performance bottleneck or query
+> problem, contact the
+> [contact the InfluxData Support team](https://support.influxdata.com). 
