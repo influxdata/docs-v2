@@ -24,8 +24,8 @@ You can use these tools in your back up and restore procedures to:
 
 Depending on the volume of data to be protected and your application requirements, InfluxDB Enterprise offers two methods, described below, for managing backups and restoring data:
 
-- [Backup and restore utilities](#backup-and-restore-utilities) — For most applications
-- [Exporting and importing data](#exporting-and-importing-data) — For large datasets
+- [Backup and restore utilities](#backup-and-restore-utilities): Use for most applications
+- [Exporting and importing data](#exporting-and-importing-data): Use for very large datasets and to debug data
 
 > [!Note]
 > #### Back up and restore between InfluxDB Enterprise and OSS 
@@ -545,7 +545,13 @@ For details on optional settings and usage, see [`influx_inspect export` command
  
 ### Importing data
 
-After exporting the data in line protocol format, you can import the data using the [`influx -import` CLI command](/enterprise_influxdb/v1/tools/influx-cli/use-influx/#import-data-from-a-file).
+To import line protocol data from a file, use the [`influx -import` CLI command](/enterprise_influxdb/v1/tools/influx-cli/use-influx-cli/#influx-arguments).
+
+In your import file, include the following sections:
+
+- _Optional_: **DDL (Data Definition Language)**: Contains the [InfluxQL commands](/enterprise_influxdb/v1/query_language/manage-database/) for creating the relevant [database](/enterprise_influxdb/v1/concepts/glossary/#database) and managing the [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
+If your database and retention policy already exist, your file can skip this section.
+- **DML (Data Manipulation Language)**: Context metadata that specifies the database and (if desired) retention policy for the import and contains the data in [line protocol](/enterprise_influxdb/v1/concepts/glossary/#influxdb-line-protocol).
 
 In the following example, the compressed data file (in GNU zip format) is imported into the database
 specified in the file's `DML` metadata.
@@ -554,7 +560,7 @@ specified in the file's `DML` metadata.
 influx -import -path -compressed
 ```
 
-For details on using the `influx -import` command, see [Import data from a file with `-import`](/enterprise_influxdb/v1/tools/influx-cli/use-influx/#import-data-from-a-file).
+For details on using the `influx -import` command, see [Import data from a file](/enterprise_influxdb/v1/tools/influx-cli/use-influx-cli/#import-data-from-a-file).
 
 ### Example: export and import for disaster recovery
 

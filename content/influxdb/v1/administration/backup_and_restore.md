@@ -22,7 +22,7 @@ You can use these tools in your back up and restore procedures to:
 - Provide disaster recovery due to unexpected events
 - Migrate data to new environments or servers
 - Restore instances to a consistent state
-- Export and import data for debugging 
+- Export and import data for debugging
 
 Depending on the volume of data to be protected and your application requirements, InfluxDB OSS {{< current-version >}} offers two methods, described below, for managing backups and restoring data:
 
@@ -744,7 +744,13 @@ For details on optional settings and usage, see [`influx_inspect export` command
 
 ### Importing data
 
-After exporting the data in line protocol format, you can import the data using the [`influx -import` CLI command](/influxdb/v1/tools/influx-cli/use-influx/#import-data-from-a-file).
+To import line protocol data from a file, use the [`influx -import` CLI command](/influxdb/v1/tools/influx-cli/use-influx-cli/#influx-arguments).
+
+In your import file, include the following sections:
+
+- _Optional_: **DDL (Data Definition Language)**: Contains the [InfluxQL commands](/influxdb/v1/query_language/manage-database/) for creating the relevant [database](/influxdb/v1/concepts/glossary/#database) and managing the [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp).
+If your database and retention policy already exist, your file can skip this section.
+- **DML (Data Manipulation Language)**: Context metadata that specifies the database and (if desired) retention policy for the import and contains the data in [line protocol](/influxdb/v1/concepts/glossary/#influxdb-line-protocol).
 
 In the following example, the compressed data file (in GNU zip format) is imported into the database
 specified in the file's `DML` metadata.
@@ -753,9 +759,9 @@ specified in the file's `DML` metadata.
 influx -import -path -compressed
 ```
 
-For details on using the `influx -import` command, see [Import data from a file with `-import`](/influxdb/v1/tools/influx-cli/use-influx/#import-data-from-a-file).
+For details on using the `influx -import` command, see [Import data from a file](/influxdb/v1/tools/influx-cli/use-influx-cli/#import-data-from-a-file).
 
-### Example: export and import for disaster recovery 
+### Example: export and import for disaster recovery
 
 For an example of using the exporting and importing data approach for disaster recovery, see the presentation from Influxdays 2019 on ["Architecting for Disaster Recovery."](https://www.youtube.com/watch?v=LyQDhSdnm4A). In this presentation, Capital One discusses the following:
 

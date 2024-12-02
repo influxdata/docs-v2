@@ -265,16 +265,17 @@ $ influx -format=json -pretty
 
 ### Import data from a file
 
-The import file has two sections:
+An import file has two sections:
 
-* **DDL (Data Definition Language)**: Contains the [InfluxQL commands](/enterprise_influxdb/v1/query_language/manage-database/) for creating the relevant [database](/enterprise_influxdb/v1/concepts/glossary/) and managing the [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
+- _Optional_: **DDL (Data Definition Language)**: Contains the [InfluxQL commands](/enterprise_influxdb/v1/query_language/manage-database/) for creating the relevant [database](/enterprise_influxdb/v1/concepts/glossary/) and managing the [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
 If your database and retention policy already exist, your file can skip this section.
-* **DML (Data Manipulation Language)**: Context metadata that specifies the database and (if desired) retention policy for the import and contains the data in [line protocol](/enterprise_influxdb/v1/concepts/glossary/#influxdb-line-protocol).
+- **DML (Data Manipulation Language)**: Context metadata that specifies the database and (if desired) retention policy for the import and contains the data in [line protocol](/enterprise_influxdb/v1/concepts/glossary/#influxdb-line-protocol).
 
-Example:
+#### Example: import data from a file
 
-File (`datarrr.txt`):
-```
+The following `datarrr.txt` file is output using the [`influx_inspect export` command](/enterprise_influxdb/v1/tools/influx_inspect#export):
+
+```text
 # DDL
 CREATE DATABASE pirates
 CREATE RETENTION POLICY oneday ON pirates DURATION 1d REPLICATION 1
@@ -290,13 +291,17 @@ treasures,captain_id=tetra value=47 1439856000
 treasures,captain_id=crunch value=109 1439858880
 ```
 
-Command:
-```
+To import the file, enter the following command in your terminal:
+
+```bash
 influx -import -path=datarrr.txt -precision=s
 ```
 
-Results:
-```
+The data is imported into the database and retention policy specified in the `# DML`
+context metadata.
+The output is the following:
+
+```text
 2015/12/22 12:25:06 Processed 2 commands
 2015/12/22 12:25:06 Processed 5 inserts
 2015/12/22 12:25:06 Failed 0 inserts
@@ -309,7 +314,7 @@ Results:
 >     Time elapsed: 56.740578415s.
 >     Points per second (PPS): 54634
 
-Things to note about `-import`:
+Keep the following in mind when using `-import`:
 
 - To throttle the import, use `-pps` to set the number of points per second to ingest. By default, pps is zero and `influx` does not throttle importing.
 - To import a file compressed with `gzip` (GNU zip), include the -compressed flag.
