@@ -198,7 +198,7 @@ and null values in aggregate columns.
 
 Use `date_bin_gapfill` with [`interpolate`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#interpolate)
 or [`locf`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#locf) to
-[fill gaps in data]()
+[fill gaps in data](/influxdb/cloud-dedicated/query-data/sql/fill-gaps/)
 at specified time intervals.
 
 ```sql
@@ -238,15 +238,10 @@ The following intervals are supported:
 [locf](/influxdb/cloud-dedicated/reference/sql/functions/misc/#locf)
 
 {{< expand-wrapper >}}
-{{% expand "View `date_bin_gapfill` query examples" %}}
+{{% expand "Use `date_bin_gapfill` to insert rows when no rows exists" %}}
 
-_The following examples use the sample data set provided in the
+_The following example uses the sample data set provided in the
 [Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
-
-- [Use date_bin_gapfill to insert rows when no rows exists](#use-date_bin_gapfill-to-insert-rows-when-no-rows-exists)
-- [Use date_bin_gapfill to fill gaps in data](#use-date_bin_gapfill-to-fill-gaps-in-data)
-
-#### Use date_bin_gapfill to insert rows when no rows exists
 
 {{% influxdb/custom-timestamps %}}
 
@@ -276,11 +271,15 @@ GROUP BY _time, room
 | 2022-01-01T10:00:00Z | Living Room | 21.8 |
 
 {{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
 
-#### Use date_bin_gapfill to fill gaps in data
+{{% expand "Use `date_bin_gapfill` to fill gaps in data" %}}
 
 Use `interpolate` and `locf` to fill the null values in rows inserted by
 `date_bin_gapfill`.
+
+_The following examples use the sample data set provided in the
+[Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
 
 {{< tabs-wrapper >}}
 {{% tabs "small" %}}
@@ -455,7 +454,7 @@ and null values in aggregate columns.
 
 Use `date_bin_wallclock_gapfill` with [`interpolate`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#interpolate)
 or [`locf`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#locf) to
-[fill gaps in data]()
+[fill gaps in data](/influxdb/cloud-dedicated/query-data/sql/fill-gaps/)
 at specified time intervals in a specified time zone.
 
 ### Time zone shifts
@@ -510,15 +509,10 @@ The following intervals are supported:
 [locf](/influxdb/cloud-dedicated/reference/sql/functions/misc/#locf)
 
 {{< expand-wrapper >}}
-{{% expand "View `date_bin_wallclock_gapfill` query examples" %}}
+{{% expand "Use `date_bin_wallclock_gapfill` to insert rows when no rows exists" %}}
 
-_The following examples use the sample data set provided in the
+_The following example uses the sample data set provided in the
 [Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
-
-- [Use date_bin_wallclock_gapfill to insert rows when no rows exists](#use-date_bin_wallclock_gapfill-to-insert-rows-when-no-rows-exists)
-- [Use date_bin_wallclock_gapfill to fill gaps in data](#use-date_bin_wallclock_gapfill-to-fill-gaps-in-data)
-
-#### Use date_bin_wallclock_gapfill to insert rows when no rows exists
 
 {{% influxdb/custom-timestamps %}}
 
@@ -548,11 +542,15 @@ GROUP BY 1, room
 | 2022-01-01T02:00:00-08:00 | Living Room | 21.8 |
 
 {{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
 
-#### Use date_bin_wallclock_gapfill to fill gaps in data
+{{% expand "Use `date_bin_wallclock_gapfill` to fill gaps in data" %}}
 
 Use `interpolate` and `locf` to fill the null values in rows inserted by
 `date_bin_wallclock_gapfill`.
+
+_The following examples use the sample data set provided in the
+[Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
 
 {{< tabs-wrapper >}}
 {{% tabs "small" %}}
