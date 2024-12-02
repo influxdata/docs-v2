@@ -8,16 +8,14 @@ menu:
 v2: /influxdb/v2/reference/cli/influx/
 ---
 
-The `influx` command line interface (CLI) provides an interactive shell for the HTTP API associated with `influxd`. 
-Use `influx` to write data (manually or from a file), query data interactively, and view query output in different formats.
-
+The `influx` command line interface (CLI) provides an interactive shell for the HTTP API associated with `influxd`.
+It includes commands for writing and querying data, and managing many aspects of InfluxDB, including databases, organizations, users, and tasks.
 
 ## Usage
 
 ```
 influx [flags]
 ```
-
 
 ## Flags {.no-shorthand}
 
@@ -43,3 +41,5 @@ influx [flags]
 | `-pps`         | Points per second the import will allow. The default is `0` and will not throttle importing.  |
 | `-path`        | Path to file to import                                                                        |
 | `-compressed`  | Set to true if the import file is compressed                                                  |
+
+{{< children >}}

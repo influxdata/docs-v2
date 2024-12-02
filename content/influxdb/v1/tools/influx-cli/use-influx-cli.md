@@ -1,40 +1,73 @@
 ---
-title: Use influx - InfluxDB command line interface
+title: Using influx - InfluxDB command line interface
 description: InfluxDB's command line interface (`influx`) is an interactive shell for the HTTP API.
-aliases:
-    - /enterprise_influxdb/v1/tools/shell
-    - /enterprise_influxdb/v1/tools/use-influx/
 menu:
-  enterprise_influxdb_v1:
-    name: Use influx
+  influxdb_v1:
+    name: Use influx CLI
     weight: 10
     parent: influx
+aliases:
+  - /influxdb/v1/tools/shell/
+related:
+  - /influxdb/v1/administration/backup_and_restore/
 ---
 
-InfluxDB's command line interface (`influx`) is an interactive shell for the HTTP API.
-Use `influx` to write data (manually or from a file), query data interactively, and view query output in different formats.
+The `influx` command line interface (CLI) provides an interactive shell for the HTTP API associated with `influxd`. 
+Use `influx` to write data (manually or from a file), query data interactively, view query output in different formats, and manage resources in InfluxDB.
 
 * [Launch `influx`](#launch-influx)
 * [`influx` Arguments](#influx-arguments)
 * [`influx` Commands](#influx-commands)
 
 ## Launch `influx`
-If you [install](https://influxdata.com/downloads/) InfluxDB via a package manager, the CLI is installed at `/usr/bin/influx` (`/usr/local/bin/influx` on macOS).
+
+The `influx` CLI is included when you [install InfluxDB OSS {{< current-version >}}](/influxdb/v1/introduction/install/).
+
+The `influx` CLI is installed at the following path, depending on your
+system and package manager:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Linux](#linux)
+[macOS](#macos)
+[Homebrew](#homebrew)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```bash
+/usr/bin/influx
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```bash
+/usr/local/bin/influx
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```bash
+/opt/homebrew/opt/influxdb@1/bin/influx
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 To access the CLI, first launch the `influxd` database process and then launch `influx` in your terminal.
-Once you've entered the shell and successfully connected to an InfluxDB node, you'll see the following output:
-<br>
-<br>
+
 ```bash
-$ influx
-Connected to http://localhost:8086 version {{< latest-patch >}}
-InfluxDB shell version: {{< latest-patch >}}
+influx
 ```
 
-> **Note:** The versions of InfluxDB and the CLI should be identical. If not, parsing issues can occur with queries.
+If successfully connected to an InfluxDB node, the output is the following:
 
-You can now enter InfluxQL queries as well as some CLI-specific commands directly in your terminal.
-You can use `help` at any time to get a list of available commands. Use `Ctrl+C` to cancel if you want to cancel a long-running InfluxQL query.
+```bash
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell version: {{< latest-patch >}}
+>
+```
+
+_The versions of InfluxDB and the CLI should be identical. If not, parsing issues can occur with queries._
+
+In the prompt, you can enter InfluxQL queries as well as CLI-specific commands.
+Enter `help` to get a list of available commands.
+Use `Ctrl+C` to cancel if you want to cancel a long-running InfluxQL query.
 
 ## Environment Variables
 
@@ -68,10 +101,13 @@ NO_PROXY=123.45.67.89,123.45.67.90
 ```
 
 ## `influx` Arguments
-There are several arguments you can pass into `influx` when starting.
-List them with `$ influx --help`.
-The list below offers a brief discussion of each option.
-We provide detailed information on `-execute`, `-format`, and `-import` at the end of this section.
+
+Arguments specify connection, write, import, and output options for the CLI session.
+
+`influx` provides the following arguments:
+
+`-h`, `-help`
+List `influx` arguments
 
 `-compressed`
 Set to true if the import file is compressed.
@@ -84,20 +120,20 @@ Set the write consistency level.
 The database to which `influx` connects.
 
 `-execute 'command'`
-Execute an [InfluxQL](/enterprise_influxdb/v1/query_language/explore-data/) command and quit.
-See [-execute](#execute-an-influxql-command-and-quit-with--execute).
+Execute an [InfluxQL](/influxdb/v1/query_language/explore-data/) command and quit.
+See [-execute](/influxdb/v1/tools/shell/#execute-an-influxql-command-and-quit-with-execute).
 
 `-format 'json|csv|column'`
 Specifies the format of the server responses.
-See [-format](#specify-the-format-of-the-server-responses-with--format).
+See [-format](/influxdb/v1/tools/shell/#specify-the-format-of-the-server-responses-with-format).
 
 `-host 'host name'`
 The host to which `influx` connects.
 By default, InfluxDB runs on localhost.
 
 `-import`
-Import new data from a file or import a previously [exported](https://github.com/influxdb/influxdb/blob/1.8/importer/README.md) database from a file.
-See [-import](#import-data-from-a-file-with--import).
+Import new data or [exported data](/enterprise_influxdb/v1/administration/backup-and-restore/#exporting-data) from a file.
+See [-import](#import-data-from-a-file).
 
 `-password 'password'`
 The password `influx` uses to connect to the server.
@@ -107,7 +143,7 @@ variable.
 
 `-path`
 The path to the file to import.
-Use with `-import`.
+Use with[-import](#import-data-from-a-file).
 
 `-port 'port #'`
 The port to which `influx` connects.
@@ -140,6 +176,12 @@ Alternatively, set the username for the CLI with the `INFLUX_USERNAME` environme
 
 `-version`
 Display the InfluxDB version and exit.
+
+The following sections provide detailed examples for some arguments, including `-execute`, `-format`, and `-import`. 
+
+- [Execute an InfluxQL command and quit with `-execute`](#execute-an-influxql-command-and-quit-with--execute)
+- [Specify the format of the server responses with `-format`](#specify-the-format-of-the-server-responses-with--format)
+- [Import data from a file](#import-data-from-a-file)
 
 ### Execute an InfluxQL command and quit with `-execute`
 
@@ -243,13 +285,13 @@ $ influx -format=json -pretty
 }
 ```
 
-### Import data from a file with `-import`
+### Import data from a file
 
-The import file has two sections:
+An import file has two sections:
 
-* **DDL (Data Definition Language)**: Contains the [InfluxQL commands](/enterprise_influxdb/v1/query_language/manage-database/) for creating the relevant [database](/enterprise_influxdb/v1/concepts/glossary/) and managing the [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
+- _Optional_: **DDL (Data Definition Language)**: Contains the [InfluxQL commands](/influxdb/v1/query_language/manage-database/) for creating the relevant [database](/influxdb/v1/concepts/glossary/) and managing the [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp).
 If your database and retention policy already exist, your file can skip this section.
-* **DML (Data Manipulation Language)**: Lists the relevant database and (if desired) retention policy and contains the data in [line protocol](/enterprise_influxdb/v1/concepts/glossary/#influxdb-line-protocol).
+- **DML (Data Manipulation Language)**: Context metadata that specifies the database and (if desired) retention policy for the import and contains the data in [line protocol](/influxdb/v1/concepts/glossary/#influxdb-line-protocol).
 
 Example:
 
@@ -281,26 +323,31 @@ Results:
 2015/12/22 12:25:06 Processed 5 inserts
 2015/12/22 12:25:06 Failed 0 inserts
 ```
-
-> **Note:** For large datasets, `influx` writes out a status message every 100,000 points.
+> [!Note]
+> For large datasets, `influx` writes out a status message every 100,000 points.
+> 
 > For example:
 >
->     2015/08/21 14:48:01 Processed 3100000 lines.
->     Time elapsed: 56.740578415s.
->     Points per second (PPS): 54634
+> ```sh
+> 2015/08/21 14:48:01 Processed 3100000 lines.
+> Time elapsed: 56.740578415s.
+> Points per second (PPS): 54634
+> ```
 
 Things to note about `-import`:
 
-* Allow the database to ingest points by using `-pps` to set the number of points per second allowed by the import. By default, pps is zero and `influx` does not throttle importing.
-* Imports work with `.gz` files, just include `-compressed` in the command.
-* Include timestamps in the data file. InfluxDB will assign the same timestamp to points without a timestamp. This can lead to unintended [overwrite behavior](/enterprise_influxdb/v1/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points).
-* If your data file has more than 5,000 points, it may be necessary to split that file into several files in order to write your data in batches to InfluxDB.
-We recommend writing points in batches of 5,000 to 10,000 points.
-Smaller batches, and more HTTP requests, will result in sub-optimal performance.
-By default, the HTTP request times out after five seconds.
-InfluxDB will still attempt to write the points after that time out but there will be no confirmation that they were successfully written.
+- To throttle the import, use `-pps` to set the number of points per second to ingest. By default, pps is zero and `influx` does not throttle importing.
+- To import a file compressed with `gzip` (GNU zip), include the -compressed flag.
+- Include timestamps in the data file.
+  If points don’t include a timestamp, InfluxDB assigns the same timestamp to those points, which can result in unintended [duplicate points or overwrites](/influxdb/v1/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points).
+- If your data file contains more than 5,000 points, consider splitting it into smaller files to write data to InfluxDB in batches.
+  We recommend writing points in batches of 5,000 to 10,000 for optimal performance.
+  Writing smaller batches increases the number of HTTP requests, which can negatively impact performance.
+  By default, the HTTP request times out after five seconds. Although InfluxDB continues attempting to write the points after a timeout, you won’t receive confirmation of a successful write.
 
-> **Note:** For how to export data from InfluxDB version 0.8.9, see [Exporting from 0.8.9](https://github.com/influxdb/influxdb/blob/1.8/importer/README.md).
+> **Note:** To export data from InfluxDB version 0.8.9, see [Exporting from 0.8.9](https://github.com/influxdb/influxdb/blob/1.8/importer/README.md).
+
+For more information, see [exporting and importing data](/influxdb/v1/administration/backup_and_restore/#exporting-and-importing-data).
 
 ## `influx` commands
 
@@ -327,7 +374,7 @@ The default size is `10,000`.
 Setting it to `0` resets `chunk size` to its default value.
 
 `clear [ database | db | retention policy | rp ]`
-Clears the current context for the [database](/enterprise_influxdb/v1/concepts/glossary/#database) or [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
+Clears the current context for the [database](/influxdb/v1/concepts/glossary/#database) or [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp).
 
 `connect <host:port>`
 Connect to a different server without exiting the shell.
@@ -346,7 +393,7 @@ Quits the `influx` shell.
 
 `format <format>`
 Specifies the format of the server responses: `json`, `csv`, or `column`.
-See the description of [-format](#specify-the-format-of-the-server-responses-with--format) for examples of each format.
+See the description of [-format](/influxdb/v1/tools/shell/#specify-the-format-of-the-server-responses-with-format) for examples of each format.
 
 `history`
 Displays your command history.
@@ -355,7 +402,7 @@ To use the history while in the shell, simply use the "up" arrow.
 
 `insert`
 Write data using line protocol.
-See [insert](#write-data-to-influxdb-with-insert).
+See [insert](/influxdb/v1/tools/shell/#write-data-to-influxdb-with-insert).
 
 `precision <format>`
 Specifies the format/precision of the timestamp: `rfc3339` (`YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ`), `h` (hours), `m` (minutes), `s` (seconds), `ms` (milliseconds), `u` (microseconds), `ns` (nanoseconds).
@@ -368,14 +415,14 @@ Turns on pretty print for the `json` format.
 Outputs the current settings for the shell including the `Host`, `Username`, `Database`, `Retention Policy`, `Pretty` status, `Chunked` status, `Chunk Size`, `Format`, and `Write Consistency`.
 
 `use [ "<database_name>" | "<database_name>"."<retention policy_name>" ]`
-Sets the current [database](/enterprise_influxdb/v1/concepts/glossary/#database) and/or [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
+Sets the current [database](/influxdb/v1/concepts/glossary/#database) and/or [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp).
 Once `influx` sets the current database and/or retention policy, there is no need to specify that database and/or retention policy in queries.
 If you do not specify the retention policy, `influx` automatically queries the `use`d database's `DEFAULT` retention policy.
 
 #### Write data to InfluxDB with `insert`
 
-Enter `insert` followed by the data in [line protocol](/enterprise_influxdb/v1/concepts/glossary/#influxdb-line-protocol) to write data to InfluxDB.
-Use `insert into <retention policy> <line protocol>` to write data to a specific [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
+Enter `insert` followed by the data in [line protocol](/influxdb/v1/concepts/glossary/#influxdb-line-protocol) to write data to InfluxDB.
+Use `insert into <retention policy> <line protocol>` to write data to a specific [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp).
 
 Write data to a single field in the measurement `treasures` with the tag `captain_id = pirate_king`.
 `influx` automatically writes the point to the database's `DEFAULT` retention policy.
@@ -395,4 +442,4 @@ Using retention policy oneday
 
 Execute all InfluxQL queries in `influx`.
 
-See [Data exploration](/enterprise_influxdb/v1/query_language/explore-data/), [Schema exploration](/enterprise_influxdb/v1/query_language/explore-schema/), [Database management](/enterprise_influxdb/v1/query_language/manage-database/), [Authentication and authorization](/enterprise_influxdb/v1/administration/authentication_and_authorization/) for InfluxQL documentation.
+See [Data exploration](/influxdb/v1/query_language/explore-data/), [Schema exploration](/influxdb/v1/query_language/explore-schema/), [Database management](/influxdb/v1/query_language/manage-database/), [Authentication and authorization](/influxdb/v1/administration/authentication_and_authorization/) for InfluxQL documentation.
