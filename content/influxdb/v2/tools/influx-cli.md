@@ -81,19 +81,19 @@ brew list | grep influxdb-cli
 
     #### Download from your browser
 
-    <a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz" download>influx CLI v{{< latest-patch cli=true >}} (macOS)</a>
+    <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz" download>influx CLI v{{< latest-patch cli=true >}} (macOS)</a>
 
     #### Download from the command line
 
     ```sh
-    curl -LO https://download.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz \
+    curl -LO https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz \
         --output-dir ~/Downloads
     ```
 
 2.  Unpackage the downloaded binary.
 
     Do one of the following:
-    
+
     - In **Finder**, double-click the downloaded package file.
     - In your terminal (for example, **Terminal** or **[iTerm2](https://www.iterm2.com/)**) use `tar` to extract the package--for example, enter the following command to extract it into `~/Downloads`:
 
@@ -153,19 +153,19 @@ brew list | grep influxdb-cli
 
     #### Download from your browser
 
-    <a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz" download >influx CLI v{{< latest-patch cli=true >}} (amd64)</a>
-    <a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz" download >influx CLI v{{< latest-patch cli=true >}} (arm)</a>
+    <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz" download >influx CLI v{{< latest-patch cli=true >}} (amd64)</a>
+    <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz" download >influx CLI v{{< latest-patch cli=true >}} (arm)</a>
 
     #### Download from the command line
 
       ```sh
       # amd64
-      wget https://download.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
+      wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
       ```
 
       ```sh
       # arm
-      wget https://download.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz
+      wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz
       ```
 
 2. Unpackage the downloaded binary.
@@ -215,10 +215,10 @@ Command Prompt is not fully compatible.
 
 1.  Download the `influx` CLI package.
 
-    <a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip" download>influx CLI v{{< latest-patch cli=true >}} (Windows)</a>
+    <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip" download>influx CLI v{{< latest-patch cli=true >}} (Windows)</a>
 
 2.  Expand the downloaded archive.
-  
+
     Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename it if desired.
 
     <!--pytest.mark.skip-->
