@@ -392,7 +392,7 @@ date_bin_wallclock(interval, expression[, origin])
 - **interval**: Bin interval.
 - **expression**: Time expression to operate on.
   Can be a constant, column, or function.
-  The output timestamp uses the time zone this time expression.
+  The output timestamp uses the time zone from this time expression.
 - **origin_timestamp**: Starting point used to determine bin boundaries.
   This must be a "wall clock" timestamp (no time zone).
   _Default is the Unix epoch._
@@ -413,8 +413,6 @@ The following intervals are supported:
 
 {{< expand-wrapper >}}
 {{% expand "View `date_bin_wallclock` query example" %}}
-
-_The following examples ._
 
 The following query uses  the sample data set provided in the
 [Get started with InfluxDB tutorial](/influxdb/clustered/get-started/write/#construct-line-protocol)
@@ -487,7 +485,7 @@ in the `WHERE` clause.
 - **interval**: Bin interval.
 - **expression**: Time expression to operate on.
   Can be a constant, column, or function.
-  The output timestamp uses the time zone this time expression.
+  The output timestamp uses the time zone from this time expression.
 - **origin_timestamp**: Starting point used to determine bin boundaries.
   This must be a "wall clock" timestamp (no time zone).
   _Default is the Unix epoch._
