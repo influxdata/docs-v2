@@ -21,7 +21,9 @@ Troubleshoot SQL and InfluxQL queries that return unexpected results.
 
 - [Why doesn't my query return data?](#why-doesnt-my-query-return-data)
 - [Optimize slow or expensive queries](#optimize-slow-or-expensive-queries)
-- [Analyze query information](#analyze-query-information)
+- [Analyze your queries](#analyze-your-queries)
+- [Request help to troubleshoot queries](#request-help-to-troubleshoot-queries)
+  - [Query trace logging](#query-trace-logging)
 
 ## Why doesn't my query return data?
 
@@ -50,9 +52,9 @@ If a query times out or returns an error, it might be due to the following:
 
 If a query is slow or uses too many compute resources, limit the amount of data that it queries.
 
-See how to [optimize queries](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/)
+See how to [optimize queries](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/).
 
-## Analyze query information 
+## Analyze your queries 
 
 Use the following tools to retrieve system query information, analyze query execution,
 and find performance bottlenecks:
@@ -60,11 +62,18 @@ and find performance bottlenecks:
 - [Analyze a query plan](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/analyze-query-plan/)
 - [Retrieve `system.queries` information for a query](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/system-information/)
 
-> [!Warn]
->
-> #### Request help to troubleshoot queries
->
-> Currently, customers can't enable trace logging for {{% product-name %}} clusters.
-> For help troubleshooting a specific performance bottleneck or query
-> problem, contact the
-> [contact the InfluxData Support team](https://support.influxdata.com). 
+## Request help to troubleshoot queries
+
+Some bottlenecks may result from suboptimal query [execution plans](/influxdb/cloud-dedicated/reference/internals/query-plan/#physical-plan) and are outside your control--for example:
+
+- Sorting (`ORDER BY`) data that is already sorted
+- Retrieving numerous small Parquet files from the object store, instead of fewer, larger files
+- Querying many overlapped Parquet files
+- Performing a high number of table scans
+
+If you're unable to resolve a performance bottleneck or query issue, contact the [InfluxData Support team](https://support.influxdata.com) for assistance.
+
+### Query trace logging
+
+Currently, customers cannot enable trace logging for {{% product-name %}} clusters.  
+Please contact the [InfluxData Support team](https://support.influxdata.com) for assistance.
