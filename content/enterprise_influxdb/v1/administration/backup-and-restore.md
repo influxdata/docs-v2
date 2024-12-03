@@ -78,14 +78,20 @@ The filenames reflect the UTC timestamp of when the backup was created, for exam
 Backups can be full, metastore only, or incremental, and they are incremental by default:
 
 - **Full backup**: Creates a copy of the metastore and shard data.
-- **Incremental backup**: Creates a copy of the metastore and shard data that have changed since the last incremental backup. If there are no existing incremental backups, the system automatically performs a complete backup.
+- **Incremental backup**: Creates a copy of the metastore and shard data that have changed since the last backup (the most recent backup file in the specified directory).
+  If no backups exist in the directory, then the system automatically performs a full backup.
 - **Metastore only backup**: Creates a copy of the metastore data only.
 
 Restoring different types of backups requires different syntax.
 To prevent issues with [restore](#restore-utility), keep full backups, metastore only backups, and incremental backups in separate directories.
 
->**Note:** The backup utility copies all data through the meta node that is used to
-execute the backup. As a result, performance of a backup and restore is typically limited by the network IO of the meta node. Increasing the resources available to this meta node (such as resizing the EC2 instance) can significantly improve backup and restore performance.
+> [!Note]
+> #### Backup and restore performance
+> 
+> The backup utility copies all data through the meta node that is used to
+execute the backup.
+> As a result, backup and restore performance is typically limited by the network IO of the meta node.
+> Increasing the resources available to this meta node (such as resizing the EC2 instance) can significantly improve backup and restore performance.
 
 #### Syntax
 
@@ -93,7 +99,8 @@ execute the backup. As a result, performance of a backup and restore is typicall
 influxd-ctl [global-options] backup [backup-options] <path-to-backup-directory>
 ```
 
-> **Note:** The `influxd-ctl backup` command exits with `0` for success and `1` for failure. If the backup fails, output can be directed to a log file to troubleshoot.
+If successful, the `influxd-ctl backup` command exits with `0` status;
+otherwise, error (`1`) status and a message that you can use for troubleshooting.
 
 ##### Global flags
 
@@ -105,7 +112,7 @@ for a complete list of the global `influxd-ctl` flags.
 - `-db <string>`: name of the single database to back up
 - `-from <TCP-address>`: the data node TCP address to prefer when backing up
 - `-strategy`: select the backup strategy to apply during backup
-    - `incremental`: _**(Default)**_ backup only data added since the previous backup.
+    - `incremental`: _**(Default)**_ backup data that is new or changed since the previous backup.
     - `full` perform a full backup. Same as `-full`
     - `only-meta` perform a backup for meta data only: users, roles,
       databases, continuous queries, retention policies. Shards are not exported.
@@ -155,9 +162,12 @@ influxd-ctl backup -db myfirstdb ./myfirstdb-jandata -start 2022-01-01T012:00:00
 
 #### Perform an incremental backup
 
-The following example shows how to run an incremental backup stored in the current directory.
-If a backup already exists in the directory, `influxd-ctl` performs an incremental backup.
-If no backup is found in the directory, then `influxd-ctl` creates a full backup of all data in InfluxDB.
+The incremental backup strategy (default, `-strategy=incremental`) checks for existing backup files in the specified directory. 
+
+- If a backup exists, `influxd-ctl` performs an incremental backup, saving only the data that has changed since the most recent backup file.
+- If no backup exists, it creates a full backup of all data in InfluxDB.
+
+The following example shows how to run an incremental backup stored in the current directory:
 
 ```bash
 # Syntax
