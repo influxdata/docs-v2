@@ -16,7 +16,7 @@ related:
 
 The InfluxDB `/api/v2/query` API returns query results in annotated CSV format.
 You can also write data to InfluxDB using annotated CSV and the `influx write` command,
-or [upload a CSV file](http://localhost:1313/influxdb/v2/write-data/no-code/load-data/)
+or [upload a CSV file](/influxdb/v2/write-data/no-code/load-data/)
 in the InfluxDB UI.
 
 CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/).
@@ -38,7 +38,7 @@ A table may have the following rows and columns.
 
 ##### Example
 
-```sh
+```text
 #group,false,false,true,true,false,false,true,true,true,true
 #datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,double,string,string,string,string
 #default,mean,,,,,,,,,
@@ -73,7 +73,7 @@ If a file or data stream contains multiple tables or results, the following requ
 
 ##### Example
 
-```sh
+```text
 #group,false,false,true,true,false,false,true,true,true,true
 #datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,double,string,string,string,string
 #default,_result,,,,,,,,,
@@ -173,7 +173,7 @@ Time column values should be **Unix nanosecond timestamps**, **RFC3339**, or **R
 
 ##### Example line protocol elements in datatype annotation
 
-```
+```text
 #group false,false,false,false,false,false,false
 #datatype measurement,tag,tag,field,field,ignored,time
 #default ,,,,,,
@@ -191,7 +191,7 @@ cpu,cpu=cpu1,host=host2 time_steal=0,usage_user=2.2 1482669087000000000
 
 ##### Example of mixing data types and line protocol elements
 
-```
+```text
 #group,false,false,false,false,false,false,false,false,false
 #datatype,measurement,tag,string,double,boolean,long,unsignedLong,duration,dateTime
 #default,test,annotatedDatatypes,,,,,,
@@ -202,7 +202,7 @@ cpu,cpu=cpu1,host=host2 time_steal=0,usage_user=2.2 1482669087000000000
 
 Resulting line protocol:
 
-```
+```text
 test,name=annotatedDatatypes s="str1",d=1,b=true,l=1i,ul=1u,dur=1000000i 1
 test,name=annotatedDatatypes s="str2",d=2,b=false,l=2i,ul=2u,dur=2000i 1578737410000000000
 ```
@@ -217,14 +217,14 @@ If an error occurs during execution, a table returns with:
 
 If an error occurs:
 
-- Before results materialize, the HTTP status code indicates an error. Error details are encoded in the csv table.
+- Before results materialize, the HTTP status code indicates an error. The output table contains error details.
 - After partial results are sent to the client, the error is encoded as the next table and remaining results are discarded. In this case, the HTTP status code remains 200 OK.
 
 ##### Example
 
 Encoding for an error with the datatype annotation:
 
-```
+```text
 #datatype,string,long
 ,error,reference
 ,Failed to parse query,897
