@@ -18,7 +18,7 @@ related:
 ---
 
 Use the `influxd upgrade` command to upgrade InfluxDB 1.x to InfluxDB {{< current-version >}}.
-The [`influxd upgrade`]((/influxdb/v2/reference/cli/influxd/upgrade/)) command is
+The [`influxd upgrade`](/influxdb/v2/reference/cli/influxd/upgrade/) command is
 part of the **v2 `influxd` service** and provides an in-place upgrade from
 InfluxDB 1.x to InfluxDB {{< current-version >}}.
 
@@ -148,7 +148,9 @@ If using an admin user for visualization or Chronograf administrative functions,
 **create a new read-only user before upgrading**:
 
 ##### Create a read-only 1.x user
-```sh
+
+<!--pytest.mark.skip-->
+```bash
 > CREATE USER <username> WITH PASSWORD '<password>'
 > GRANT READ ON <database> TO "<username>"
 ```
@@ -230,7 +232,8 @@ and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to Inf
 2.  Stop your running InfluxDB 1.x instance.
     Make a backup copy of all 1.x data before upgrading:
 
-    ```sh
+    <!--pytest.mark.skip-->
+    ```bash
     cp -R .influxdb/ .influxdb_bak/
     ```
 
@@ -239,7 +242,10 @@ and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to Inf
 
 4.  If your 1.x configuration file is at the
     [default location](/influxdb/v1/administration/config/#using-the-configuration-file), run:
-    ```sh
+    
+    <!--pytest.mark.skip-->
+
+    ```bash
     influxd upgrade
     ```
 
@@ -251,7 +257,9 @@ When installed from a `.deb` package, InfluxDB 1.x and 2.x run under the `influx
 If you've installed both versions from `.deb` packages, run the upgrade command
 as the `influxdb` user:
 
-```sh
+<!--pytest.mark.skip-->
+
+```bash
 sudo -u influxdb influxd upgrade
 ```
 
@@ -259,18 +267,22 @@ sudo -u influxdb influxd upgrade
 
     If your 1.x configuration file is not at the default location, run:
 
-    ```sh
+    <!--pytest.mark.skip-->
+
+    ```bash
     influxd upgrade --config-file <path to v1 config file>
     ```
 
     To store the upgraded {{< current-version >}} configuration file in a custom location, include the `--v2-config-path` flag:
 
-    ```sh
+    <!--pytest.mark.skip-->
+
+    ```bash
     influxd upgrade --v2-config-path <destination path for v2 config file>
     ```
     
     
-5. Follow the prompts to set up a new InfluxDB {{< current-version >}} instance.
+1. Follow the prompts to set up a new InfluxDB {{< current-version >}} instance.
 
    ```
    Welcome to InfluxDB {{< current-version >}} upgrade!
