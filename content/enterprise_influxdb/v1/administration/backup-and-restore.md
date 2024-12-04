@@ -88,8 +88,7 @@ To prevent issues with [restore](#restore-utility), keep full backups, metastore
 > [!Note]
 > #### Backup and restore performance
 > 
-> The backup utility copies all data through the meta node that is used to
-execute the backup.
+> The backup utility copies all data through the meta node that is used to execute the backup.
 > As a result, backup and restore performance is typically limited by the network IO of the meta node.
 > Increasing the resources available to this meta node (such as resizing the EC2 instance) can significantly improve backup and restore performance.
 
