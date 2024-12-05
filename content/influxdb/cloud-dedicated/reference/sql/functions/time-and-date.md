@@ -10,7 +10,8 @@ menu:
 weight: 305
 ---
 
-InfluxDB's SQL implementation supports time and date functions that are useful when working with time series data. 
+InfluxDB's SQL implementation supports time and date functions that are useful
+when working with time series data. 
 
 - [current_date](#current_date)
 - [current_time](#current_time)
@@ -138,25 +139,24 @@ date_bin(interval, expression[, origin_timestamp])
 
 ##### Arguments:
 
-- **interval**: Bin interval.
+- **interval**: Bin interval. Supports the following interval units:
+
+  - nanoseconds
+  - microseconds
+  - milliseconds
+  - seconds
+  - minutes
+  - hours
+  - days
+  - weeks
+  - months
+  - years
+  - century
+
 - **expression**: Time expression to operate on.
   Can be a constant, column, or function.
 - **origin_timestamp**: Starting point used to determine bin boundaries.
   _Default is the Unix epoch._
-
-The following intervals are supported:
-
-- nanoseconds
-- microseconds
-- milliseconds
-- seconds
-- minutes
-- hours
-- days
-- weeks
-- months
-- years
-- century
 
 {{< expand-wrapper >}}
 {{% expand "View `date_bin` query example" %}}
@@ -212,25 +212,24 @@ in the `WHERE` clause.
 
 ##### Arguments:
 
-- **interval**: Bin interval.
+- **interval**: Bin interval. Supports the following interval units:
+
+  - nanoseconds
+  - microseconds
+  - milliseconds
+  - seconds
+  - minutes
+  - hours
+  - days
+  - weeks
+  - months
+  - years
+  - century
+
 - **expression**: Time expression to operate on.
   Can be a constant, column, or function.
 - **origin_timestamp**: Starting point used to determine bin boundaries.
   _Default is the Unix epoch._
-
-The following intervals are supported:
-
-- nanoseconds
-- microseconds
-- milliseconds
-- seconds
-- minutes
-- hours
-- days
-- weeks
-- months
-- years
-- century
 
 ##### Related functions
 
@@ -371,10 +370,10 @@ specific timezone and applying an aggregate or selector function to each window.
 
 ### Time zone shifts
 
-Many regions use time zone shifts (such as Daylight Saving Time (DST) and British
-Summer Time (BST)). If a wall clock time bin starts at a time that does not
-exist in the specified time zone, the timestamp is adjusted to the time that is
-the same offset from the start of the day in that time zone.
+Many regions use time zone shifts (such as daylight saving time (DST)).
+If a wall clock time bin starts at a time that does not exist in the specified
+time zone, the timestamp is adjusted to the time that is the same offset from
+the start of the day in that time zone.
 
 If a wall clock time represents an ambiguous time in the region then the
 behavior depends on the size of the specified interval. If the interval is
@@ -388,7 +387,20 @@ date_bin_wallclock(interval, expression[, origin_timestamp])
 
 ##### Arguments:
 
-- **interval**: Bin interval.
+- **interval**: Bin interval. Supports the following interval units:
+
+  - nanoseconds
+  - microseconds
+  - milliseconds
+  - seconds
+  - minutes
+  - hours
+  - days
+  - weeks
+
+  > [!Note]
+  > `date_bin_wallclock` does _not_ support month-, year-, or century-based intervals.
+
 - **expression**: Time expression to operate on.
   Can be a constant, column, or function.
   The output timestamp uses the time zone from this time expression.
@@ -396,19 +408,53 @@ date_bin_wallclock(interval, expression[, origin_timestamp])
   This must be a "wall clock" timestamp (no time zone).
   _Default is the Unix epoch._
 
-The following intervals are supported:
+  > [!Important]
+  >
+  > #### Avoid bins in time zone discontinuities
+  >
+  > [Time zone shifts](#time-zone-shifts) result in *discontinuities*–breaks
+  > in the continuity of time intervals (losing an hour or gaining an hour)–that
+  > can result in unexpected timestamps when using `date_bin_wallclock`.
+  > Avoid using an `interval` and `origin_timestamp` combination that results in a
+  > bin falling inside a time discontinuity.
+  >
+  > As a general rule, use either the default `origin_timestamp` or a origin
+  > timestamp with an offset relative to the Unix epoch that is equal to your
+  > specified `interval`.
+  >
+  > {{< expand-wrapper >}}
+{{% expand "View time zone discontinuity example" %}}
 
-- nanoseconds
-- microseconds
-- milliseconds
-- seconds
-- minutes
-- hours
-- days
-- weeks
+The following query illustrates how two timestamps, only one minute apart, 
+result in timestamps two hours apart when binned across a daylight saving
+boundary:
 
-> [!Note]
-> `date_bin_wallclock` does _not_ support month-, year-, or century-based intervals.
+```sql
+SELECT
+  tz('2020-10-25T02:29:00+01:00', 'Europe/Paris') AS original_time,
+  date_bin_wallclock(
+    INTERVAL '1 hour',
+    tz('2020-10-25T02:29:00+01:00', 'Europe/Paris'),
+    '1970-01-01T00:30:00'
+  ) AT TIME ZONE 'UTC' AS utc_bin_time
+UNION
+SELECT
+  tz('2020-10-25T02:30:00+01:00', 'Europe/Paris') AS original_time,
+  date_bin_wallclock(
+    INTERVAL '1 hour',
+    tz('2020-10-25T02:30:00+01:00', 'Europe/Paris'),
+    '1970-01-01T00:30:00'
+  ) AT TIME ZONE 'UTC' AS utc_bin_time
+ORDER BY original_time;
+```
+
+| original_time             | utc_bin_time         |
+| :------------------------ | :------------------- |
+| 2020-10-25T02:29:00+01:00 | 2020-10-24T23:30:00Z |
+| 2020-10-25T02:30:00+01:00 | 2020-10-25T01:30:00Z |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 {{< expand-wrapper >}}
 {{% expand "View `date_bin_wallclock` query example" %}}
@@ -459,10 +505,10 @@ at specified time intervals in a specified time zone.
 
 ### Time zone shifts
 
-Many regions use time zone shifts (such as Daylight Saving Time (DST) and British
-Summer Time (BST)). If a wall clock time bin starts at a time that does not
-exist in the specified time zone, the timestamp is adjusted to the time that is
-the same offset from the start of the day in that time zone.
+Many regions use time zone shifts (such as daylight saving time (DST)).
+If a wall clock time bin starts at a time that does not exist in the specified
+time zone, the timestamp is adjusted to the time that is the same offset from
+the start of the day in that time zone.
 
 If a wall clock time represents an ambiguous time in the region then the
 behavior depends on the size of the specified interval. If the interval is
@@ -481,27 +527,42 @@ in the `WHERE` clause.
 
 ##### Arguments:
 
-- **interval**: Bin interval.
+- **interval**: Bin interval. Supports the following interval units:
+
+  - nanoseconds
+  - microseconds
+  - milliseconds
+  - seconds
+  - minutes
+  - hours
+  - days
+  - weeks
+
+  > [!Note]
+  > `date_bin_wallclock_gapfill` does _not_ support month-, year-, or century-based intervals.
+
 - **expression**: Time expression to operate on.
   Can be a constant, column, or function.
   The output timestamp uses the time zone from this time expression.
 - **origin_timestamp**: Starting point used to determine bin boundaries.
   This must be a "wall clock" timestamp (no time zone).
   _Default is the Unix epoch._
-
-The following intervals are supported:
-
-- nanoseconds
-- microseconds
-- milliseconds
-- seconds
-- minutes
-- hours
-- days
-- weeks
-
-> [!Note]
-> `date_bin_wallclock_gapfill` does _not_ support month-, year-, or century-based intervals.
+  
+  > [!Important]
+  >
+  > #### Avoid bins in time zone discontinuities
+  >
+  > [Time zone shifts](#time-zone-shifts) result in *discontinuities*–breaks
+  > in the continuity of time intervals (losing an hour or gaining an hour)–that
+  > can result in unexpected timestamps when using `date_bin_wallclock_gapfill`.
+  > Avoid using an `interval` and `origin_timestamp` combination that results in a
+  > bin falling inside a time discontinuity.
+  >
+  > As a general rule, use either the default `origin_timestamp` or a origin
+  > timestamp with an offset relative to the Unix epoch that is equal to your
+  > specified `interval`.
+  >
+  > [View time zone discontinuity example](#view-time-zone-discontinuity-example)
 
 ##### Related functions
 
@@ -1011,7 +1072,7 @@ SELECT
 
 Converts a timestamp with a timezone to a timestamp without a timezone
 (no offset or timezone information). This function accounts for time shifts
-like Daylight Saving Time (DST) or British Summer Time (BST).
+like daylight saving time (DST).
 
 {{% note %}}
 Use `to_local_time()` with [`date_bin()`](#date_bin) and
@@ -1391,19 +1452,24 @@ SELECT tz(time, 'Australia/Sydney') AS time_tz, time FROM home ORDER BY time LIM
 {{< /expand-wrapper >}}
 
 ##### Differences between tz and AT TIME ZONE
+
 `tz` and [`AT TIME ZONE`](/influxdb/cloud-dedicated/reference/sql/operators/other/#at-time-zone)
 differ when the input timestamp **does not** have a timezone.
+
 - When using an input timestamp that does not have a timezone (the default behavior in InfluxDB) with the
   `AT TIME ZONE` operator, the operator returns the the same timestamp, but with a timezone offset
   (also known as the "wall clock" time)--for example:
+
   ```sql
   '2024-01-01 00:00:00'::TIMESTAMP AT TIME ZONE 'America/Los_Angeles'
   
   -- Returns
   2024-01-01T00:00:00-08:00
   ```
+
 - When using an input timestamp with a timezone, both the `tz()` function and the `AT TIME ZONE`
   operator return the timestamp converted to the time in the specified timezone--for example:
+
   ```sql
   '2024-01-01T00:00:00-00:00' AT TIME ZONE 'America/Los_Angeles'
   tz('2024-01-01T00:00:00-00:00', 'America/Los_Angeles')
@@ -1411,18 +1477,22 @@ differ when the input timestamp **does not** have a timezone.
   -- Both return
   2023-12-31T16:00:00-08:00
   ```
+
 - `tz()` always converts the input timestamp to the specified time zone.
   If the input timestamp does not have a timezone, the function assumes it is a UTC timestamp--for example:
+
   ```sql
   tz('2024-01-01 00:00:00'::TIMESTAMP, 'America/Los_Angeles')
   -- Returns
   2023-12-31T16:00:00-08:00
   ```
+
   ```sql
   tz('2024-01-01T00:00:00+1:00', 'America/Los_Angeles')
   -- Returns
   2023-12-31T15:00:00-08:00
   ```
+  
 {{< expand-wrapper >}}
 {{% expand "View `tz` and `::timestamp` comparison" %}}
 ```sql
