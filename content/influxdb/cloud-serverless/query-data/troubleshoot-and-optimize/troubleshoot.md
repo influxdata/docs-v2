@@ -20,6 +20,8 @@ Troubleshoot SQL and InfluxQL queries that return unexpected results.
 
 - [Why doesn't my query return data?](#why-doesnt-my-query-return-data)
 - [Optimize slow or expensive queries](#optimize-slow-or-expensive-queries)
+- [Analyze your queries](#analyze-your-queries)
+- [Request help to troubleshoot queries](#request-help-to-troubleshoot-queries)
 
 ## Why doesn't my query return data?
 
@@ -48,4 +50,40 @@ If a query times out or returns an error, it might be due to the following:
 
 If a query is slow or uses too many compute resources, limit the amount of data that it queries.
 
-See how to [optimize queries](/influxdb/cloud-serverless/query-data/troubleshoot-and-optimize/optimize-queries/) and use tools to view runtime metrics, identify bottlenecks, and debug queries.
+See how to [optimize queries](/influxdb/cloud-serverless/query-data/troubleshoot-and-optimize/optimize-queries/).
+
+## Analyze your queries 
+
+Use the following tools to retrieve system query information, analyze query execution,
+and find performance bottlenecks:
+
+- [Analyze a query plan](/influxdb/cloud-serverless/query-data/troubleshoot-and-optimize/analyze-query-plan/)
+- [Retrieve `system.queries` information for a query](/influxdb/cloud-serverless/query-data/troubleshoot-and-optimize/system-information/)
+
+#### Request help to troubleshoot queries
+
+Some bottlenecks may result from suboptimal query [execution plans](/influxdb/cloud-serverless/reference/internals/query-plan/#physical-plan) and are outside your control--for example:
+
+- Sorting (`ORDER BY`) data that is already sorted
+- Retrieving numerous small Parquet files from the object store, instead of fewer, larger files
+- Querying many overlapped Parquet files
+- Performing a high number of table scans
+
+If you've followed steps to [optimize](#why-is-my-query-slow) and
+[troubleshoot a query](/influxdb/cloud-serverless/query-data/troubleshoot-and-optimize/troubleshoot/),
+but it still doesn't meet performance requirements, request help troubleshooting.
+Customers with an {{% product-name %}} [annual or support contract](https://www.influxdata.com/influxdb-cloud-pricing/)
+can [contact InfluxData Support](https://support.influxdata.com/) for assistance.
+
+> [!Note]
+>
+> #### Query trace logging
+>
+> Currently, customers cannot enable trace logging for {{% product-name omit="Clustered" %}} clusters.
+> InfluxData engineers can use query plans and trace logging to help pinpoint performance bottlenecks in a query.
+>
+> If you've followed steps to [optimize](#why-is-my-query-slow) and
+> [troubleshoot a query](/influxdb/cloud-serverless/query-data/troubleshoot-and-optimize/troubleshoot/),
+> but it still doesn't meet performance requirements, request help troubleshooting.
+> Customers with an {{% product-name %}} [annual or support contract](https://www.influxdata.com/influxdb-cloud-pricing/)
+> can [contact InfluxData Support](https://support.influxdata.com/) for assistance.

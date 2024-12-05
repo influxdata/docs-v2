@@ -31,10 +31,12 @@ The following are the most frequently overlooked requirements when installing a 
 - [Synchronize time between hosts](#synchronize-time-between-hosts)
 - [Use SSDs](#use-ssds)
 - [Do not use NFS or NFS-based services](#do-not-use-nfs-or-nfs-based-services)
+- [Do not use LVM](#do-not-use-lvm)
 - [Disable swap](#disable-swap)
 - [Use three and only three meta nodes](#use-three-and-only-three-meta-nodes)
 - [Meta and data nodes are fully independent](#meta-and-data-nodes-are-fully-independent)
 - [Install Chronograf last](#install-chronograf-last)
+
 
 #### Ensure connectivity between machines
 
@@ -63,6 +65,13 @@ InfluxDB Enterprise does **not** support NFS (Network File System)-mounted devic
 or services such as [AWS EFS](https://aws.amazon.com/efs/),
 [Google Filestore](https://cloud.google.com/filestore), or 
 [Azure files](https://azure.microsoft.com/en-us/services/storage/files/).
+
+#### Do not use LVM 
+
+Don't use LVM for software RAID, JBOD, or disk encryption.
+These use cases can lead to performance issues. 
+
+If you use LVM solely for creating logical volumes, use it with Device Mapper’s linear mapping for optimal performance.
 
 #### Disable swap
 

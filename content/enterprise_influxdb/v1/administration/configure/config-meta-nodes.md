@@ -1,5 +1,5 @@
 ---
-title: Configure InfluxDB Enterprise meta modes
+title: Configure InfluxDB Enterprise meta nodes
 description: >
   Configure InfluxDB Enterprise data node settings and environmental variables.
 menu:

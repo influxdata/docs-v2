@@ -12,7 +12,10 @@ related:
   - /influxdb/cloud-dedicated/query-data/sql/
   - /influxdb/cloud-dedicated/query-data/influxql/
   - /influxdb/cloud-dedicated/reference/client-libraries/v3/
+draft: true
 ---
+
+<!-- For draft status details, see https://github.com/influxdata/DAR/issues/453 -->
 
 Learn how to enable trace logging to help you identify performance bottlenecks and troubleshoot problems in queries.
 
