@@ -25,38 +25,26 @@ Learn how to use observability tools to analyze query execution and view metrics
 - [Why is my query slow?](#why-is-my-query-slow)
 - [Strategies for improving query performance](#strategies-for-improving-query-performance)
   - [Query only the data you need](#query-only-the-data-you-need)
-- [Analyze and troubleshoot queries](#analyze-and-troubleshoot-queries)
+- [Recognize and address bottlenecks](#recognize-and-address-bottlenecks)
+
 
 ## Why is my query slow?
 
-Query performance depends on time range and complexity.
-If a query is slower than you expect, it might be due to the following reasons:
+Query performance depends on factors like the time range and query complexity.
+If a query is slower than expected, consider the following potential causes:
 
-- It queries data from a large time range.
-- It includes intensive operations, such as querying many string values or `ORDER BY` sorting or re-sorting large amounts of data.
+- The query spans a large time range, which increases the amount of data being processed.
+- The query performs intensive operations, such as:
+  - Sorting or re-sorting large datasets with `ORDER BY`.
+  - Querying many string values, which can be computationally expensive.
 
 ## Strategies for improving query performance
 
-The following design strategies generally improve query performance and resource use:
+The following design strategies generally improve query performance and resource usage:
 
-- Follow [schema design best practices](/influxdb/clustered/write-data/best-practices/schema-design/) to make querying easier and more performant.
-- [Query only the data you need](#query-only-the-data-you-need).
-- [Downsample data](/influxdb/clustered/process-data/downsample/) to reduce the amount of data you need to query.
-
-Some bottlenecks may be out of your control and are the result of a suboptimal execution plan, such as:
-
-- Applying the same sort (`ORDER BY`) to already sorted data.
-- Retrieving many Parquet files from the Object store--the same query performs better if it retrieves fewer - though, larger - files.
-- Querying many overlapped Parquet files.
-- Performing a large number of table scans.
-
-{{% note %}}
-#### Analyze query plans to view metrics and recognize bottlenecks
-
-To view runtime metrics for a query, such as the number of files scanned, use
-the [`EXPLAIN ANALYZE` keywords](/influxdb/clustered/reference/sql/explain/#explain-analyze)
-and learn how to [analyze a query plan](/influxdb/clustered/query-data/troubleshoot-and-optimize/analyze-query-plan/).
-{{% /note %}}
+- Follow [schema design best practices](/influxdb/clustered/write-data/best-practices/schema-design/) to simplify and improve queries.
+- [Query only the data you need](#query-only-the-data-you-need) to reduce unnecessary processing.
+- [Downsample data](/influxdb/clustered/process-data/downsample/) to decrease the volume of data queried.
 
 ### Query only the data you need
 
@@ -88,10 +76,30 @@ two queries is minimal.
 In a table with over 1000 columns, the `SELECT *` query is slower and
 less efficient.
 
-## Analyze and troubleshoot queries
+## Recognize and address bottlenecks
 
-Learn how to [analyze a query plan](/influxdb/clustered/query-data/troubleshoot-and-optimize/analyze-query-plan/)
-to troubleshoot queries and find performance bottlenecks.
+To identify performance bottlenecks, learn how to [analyze a query plan](/influxdb/clustered/query-data/troubleshoot-and-optimize/analyze-query-plan/).
+Query plans provide runtime metrics, such as the number of files scanned, that may reveal inefficiencies in query execution.
 
-If you need help troubleshooting, follow the guidelines to
-[report query performance issues](/influxdb/clustered/query-data/troubleshoot-and-optimize/report-query-performance-issues/).
+> [!Note]
+>
+> #### Request help to troubleshoot queries
+>
+> Some bottlenecks may result from suboptimal query [execution plans](/influxdb/clustered/reference/internals/query-plan/#physical-plan) and are outside your control--for example:
+>
+> - Sorting (`ORDER BY`) data that is already sorted.
+> - Retrieving numerous small Parquet files from the object store instead of fewer, larger files.
+> - Querying many overlapped Parquet files.
+> - Performing a high number of table scans.
+>
+> If you've followed steps to [optimize](#why-is-my-query-slow) and
+> [troubleshoot a query](/influxdb/clustered/query-data/troubleshoot-and-optimize/troubleshoot/),
+> but it still doesn't meet performance requirements,
+> see how to [report query performance issues](/influxdb/clustered/query-data/troubleshoot-and-optimize/report-query-performance-issues/).
+>
+> #### Query trace logging
+>
+> Currently, customers cannot enable trace logging for {{% product-name omit="Clustered" %}} clusters.
+> InfluxData engineers can use query plans and trace logging to help pinpoint performance bottlenecks in a query.
+>
+> See how to [report query performance issues](/influxdb/clustered/query-data/troubleshoot-and-optimize/report-query-performance-issues/).
