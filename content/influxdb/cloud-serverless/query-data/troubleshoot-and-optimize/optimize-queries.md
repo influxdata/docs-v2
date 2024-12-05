@@ -21,6 +21,16 @@ aliases:
 Optimize SQL and InfluxQL queries to improve performance and reduce their memory and compute (CPU) requirements.
 Learn how to use observability tools to analyze query execution and view metrics.
 
+> [!Note]
+>
+> #### Custom partitioning not supported
+> 
+> {{% product-name %}} doesn't support custom partitioning.
+> 
+> Custom partitioning can benefit queries that look for a specific tag value in the `WHERE` clause.
+> To use custom partitioning, consider [InfluxDB Cloud Dedicated](/influxdb/cloud-dedicated/admin/custom-partitions/)
+> or [InfluxDB Clustered](/influxdb/clustered/admin/custom-partitions/).
+
 - [Why is my query slow?](#why-is-my-query-slow)
 - [Strategies for improving query performance](#strategies-for-improving-query-performance)
   - [Query only the data you need](#query-only-the-data-you-need)

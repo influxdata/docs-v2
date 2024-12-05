@@ -11,35 +11,29 @@ menu:
 weight: 1
 ---
 
-{{% note %}}
-This InfluxDB Cloud documentation applies to all [organizations](/influxdb/cloud-serverless/admin/organizations/) created through
-**cloud2.influxdata.com** on or after **January 31, 2023** that are powered by
-the InfluxDB v3 storage engine. If your organization was created before this
-date or through the Google Cloud Platform (GCP) or Azure marketplaces, see the
-[InfluxDB Cloud (TSM) documentation](/influxdb/cloud/).
+> [!Note]
+> This InfluxDB Cloud documentation applies to all [organizations](/influxdb/cloud-serverless/admin/organizations/) created through
+> **cloud2.influxdata.com** on or after **January 31, 2023** that are powered by
+> the InfluxDB v3 storage engine. If your organization was created before this
+> date or through the Google Cloud Platform (GCP) or Azure marketplaces, see the
+> [InfluxDB Cloud (TSM) documentation](/influxdb/cloud/).
+> 
+> To see which storage engine your organization is using,
+> find the **InfluxDB Cloud powered by** link in your
+> [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
+> If your organization is using InfluxDB v3, you'll see
+> **InfluxDB Cloud Serverless** followed by the version number.
 
-To see which storage engine your organization is using,
-find the **InfluxDB Cloud powered by** link in your
-[InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
-If your organization is using InfluxDB v3, you'll see
-**InfluxDB Cloud Serverless** followed by the version number.
-{{% /note %}}
+> [!Warn]
+> #### InfluxDB v3 and Flux
+> 
+> InfluxDB Cloud Serverless and other InfluxDB v3 products don't support Flux.
+> Although Flux might still work with {{% product-name %}}, it isn't
+> officially supported or optimized for InfluxDB v3.
+>
+> Flux is now in maintenance mode. For more information, see
+> [The future of Flux](/flux/v0/future-of-flux).
 
-{{% warn %}}
-#### InfluxDB v3 and Flux
-
-InfluxDB Cloud Serverless and other InfluxDB v3 products do not support Flux.
-Flux is now in maintenance mode. For more information, see
-[The future of Flux](/flux/v0/future-of-flux).
-
-#### Custom partitioning not supported
-
-InfluxDB Cloud Serverless does not support custom partitioning.
-
-Custom partitioning can benefit queries that look for a specific tag value in the `WHERE` clause.
-To use custom partitioning, consider [InfluxDB Cloud Dedicated](/influxdb/cloud-dedicated/admin/custom-partitions/)
-or [InfluxDB Clustered](/influxdb/clustered/admin/custom-partitions/).
-{{% /warn %}}
 
 InfluxDB Cloud Serverless is a hosted and managed version of InfluxDB backed
 by InfluxDB 3.0, the time series platform designed to handle high write and query loads.
