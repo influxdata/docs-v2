@@ -13,10 +13,7 @@ LABEL description="InfluxData Docs Test OSS install on Ubuntu"
 
 LABEL "com.influxdata.docs"="https://docs.influxdata.com/influxdb/v2/install/?t=Linux"
 
-ARG INFLUXDB_LATEST_PATCH=2.7.10
-ARG TELEGRAF_LATEST_PATCH=1.31.3
 ARG PUBLIC_SHA=943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515
-ARG basearch=aarch64
 
 # Install gnupg2 and curl to verify client installs.
 RUN apt-get update && apt-get install -y gnupg2 curl
@@ -34,8 +31,12 @@ RUN curl --silent --location -O \
 # Install InfluxDB and clients to use in tests.
 
 # Follow the Telegraf install instructions (https://docs.influxdata.com/telegraf/v1/install/?t=curl), except for sudo (which isn't available in Docker).
-RUN apt-get update && apt-get install influxdb2 influxdb2-cli telegraf
+RUN apt-get update && apt-get install -y \
+  influxdb2 \
+  influxdb2-cli \
+  telegraf
+ 
 
 ENTRYPOINT ["/bin/bash"]
 # Run InfluxDB in the background, wait for it to start, and then test Telegraf.
-CMD ["-c", "influxd > /var/log/influxd.log 2>&1 & while ! curl -s http://localhost:8086/health | grep -q '\"status\":\"pass\"'; do sleep 1; done; telegraf --config /etc/telegraf/telegraf.conf --test"]
+CMD ["-c", "echo $(telegraf version) && echo $(influxd version) && echo $(influx version)", "influxd > /var/log/influxd.log 2>&1 & while ! curl -s http://localhost:8086/health | grep -q '\"status\":\"pass\"'; do sleep 1; done; telegraf --config /etc/telegraf/telegraf.conf --test"]

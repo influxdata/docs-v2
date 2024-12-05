@@ -251,7 +251,7 @@ def create_authorization(device_id) -> Authorization:
     write = Permission(action="write", resource=org_resource)
     permissions = [read, write]
     authorization = Authorization(org_id=org_id, permissions=permissions, description=desc_prefix)
-    request = authorization_api.create_authorization(authorization)
+    request = authorization_api.create_authorization(authorization=authorization)
     return request
 ```
 
