@@ -62,4 +62,9 @@ option location = timezone.fixed(offset: -5h)
 option location = timezone.location(name: "America/Denver")
 ```
 
+{{% note %}}
+The `location` option affect the boundaries used for windowing, although the times may change, the timezone used in the `_time` results column will always be UTC.
+{{% /note %}}
+
+
 {{< page-nav prev="/flux/v0/spec/variables/" next="/flux/v0/spec/types/" >}}
