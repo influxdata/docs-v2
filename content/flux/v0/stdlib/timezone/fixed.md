@@ -77,7 +77,7 @@ option location = timezone.fixed(offset: -8h)
 
 ```
 
-{{% note %}}
-The `location` option affect the boundaries used for windowing, although the times may change, the timezone used in the `_time` results column will always be UTC.
-{{% /note %}}
+>  [!Note]
+> The `location` option only affects boundaries used for windowing, specifically around time shifts
+> like daylight savings. It does not change timestamps in the `_time` column, which are always UTC.
 
