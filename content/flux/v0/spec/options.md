@@ -62,7 +62,7 @@ option location = timezone.fixed(offset: -5h)
 option location = timezone.location(name: "America/Denver")
 ```
 
->  [!Note]
+> [!Note]
 > The `location` option only affects boundaries used for windowing, specifically around time shifts
 > like daylight savings. It does not change timestamps in the `_time` column, which are always UTC.
 
