@@ -383,7 +383,7 @@ timestamp is used. Otherwise, the function uses the timestamp that matches the
 UTC offset of the input timestamp.
 
 ```sql
-date_bin_wallclock(interval, expression[, origin])
+date_bin_wallclock(interval, expression[, origin_timestamp])
 ```
 
 ##### Arguments:
