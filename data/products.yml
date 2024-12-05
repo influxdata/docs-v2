@@ -66,7 +66,7 @@ telegraf:
   versions: [v1]
   latest: v1.32
   latest_patches:
-    v1: 1.32.1
+    v1: 1.32.3
 
 chronograf:
   name: Chronograf
