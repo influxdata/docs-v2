@@ -23,7 +23,6 @@ Troubleshoot SQL and InfluxQL queries that return unexpected results.
 - [Optimize slow or expensive queries](#optimize-slow-or-expensive-queries)
 - [Analyze your queries](#analyze-your-queries)
 - [Request help to troubleshoot queries](#request-help-to-troubleshoot-queries)
-  - [Query trace logging](#query-trace-logging)
 
 ## Why doesn't my query return data?
 
@@ -62,7 +61,7 @@ and find performance bottlenecks:
 - [Analyze a query plan](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/analyze-query-plan/)
 - [Retrieve `system.queries` information for a query](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/system-information/)
 
-## Request help to troubleshoot queries
+#### Request help to troubleshoot queries
 
 Some bottlenecks may result from suboptimal query [execution plans](/influxdb/cloud-dedicated/reference/internals/query-plan/#physical-plan) and are outside your control--for example:
 
@@ -71,9 +70,16 @@ Some bottlenecks may result from suboptimal query [execution plans](/influxdb/cl
 - Querying many overlapped Parquet files
 - Performing a high number of table scans
 
-If you're unable to resolve a performance bottleneck or query issue, contact the [InfluxData Support team](https://support.influxdata.com) for assistance.
+If you've followed steps to [optimize](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/)
+and [troubleshoot a query](#why-doesnt-my-query-return-data),
+but it still doesn't meet performance requirements,
+contact the [InfluxData Support team](https://support.influxdata.com) for assistance.
 
-### Query trace logging
-
-Currently, customers cannot enable trace logging for {{% product-name %}} clusters.  
-Please contact the [InfluxData Support team](https://support.influxdata.com) for assistance.
+> [!Note]
+>
+> #### Query trace logging
+>
+> Currently, customers cannot enable trace logging for {{% product-name omit="Clustered" %}} clusters.
+> InfluxData engineers can use query plans and trace logging to help pinpoint performance bottlenecks in a query.
+>
+> For help troubleshooting a query, contact the [InfluxData Support team](https://support.influxdata.com).
