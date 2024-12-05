@@ -418,7 +418,7 @@ date_bin_wallclock(interval, expression[, origin_timestamp])
   > Avoid using an `interval` and `origin_timestamp` combination that results in a
   > bin falling inside a time discontinuity.
   >
-  > As a general rule, use either the default `origin_timestamp` or a origin
+  > As a general rule, use either the default `origin_timestamp` or an origin
   > timestamp with an offset relative to the Unix epoch that is equal to your
   > specified `interval`.
   >
@@ -558,7 +558,7 @@ in the `WHERE` clause.
   > Avoid using an `interval` and `origin_timestamp` combination that results in a
   > bin falling inside a time discontinuity.
   >
-  > As a general rule, use either the default `origin_timestamp` or a origin
+  > As a general rule, use either the default `origin_timestamp` or an origin
   > timestamp with an offset relative to the Unix epoch that is equal to your
   > specified `interval`.
   >
