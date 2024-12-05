@@ -22,15 +22,10 @@ The information in each system table is scoped to the namespace you're querying;
 you can only retrieve system information for that particular instance.
 
 To get information about queries you've run on the current instance, use SQL to query the [`system.queries` table](/influxdb/cloud-dedicated/reference/internals/system-tables/#systemqueries-measurement), which contains information from the Querier instance currently handling queries.
-If you [enabled trace logging](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/trace/) for the query, the `trace-id` appears in the `system.queries.trace_id` column for the query.
 
 The `system.queries` table is an InfluxDB v3 **debug feature**.
-To enable the feature and query `system.queries`, include an `"iox-debug"` header set to `"true"` and use SQL to query the table.
+To enable the feature and query `system.queries`, include an `"iox-debug"` header set to `"true"` and use SQL to query the table--for example:
 
-The following sample code shows how to use the Python client library to do the following:
-
-1. Enable tracing for a query.
-2. Retrieve the trace ID record from `system.queries`.
 
 <!-- Import for tests and hide from users.
 ```python
@@ -54,13 +49,10 @@ def get_query_information():
                     host = f"{{< influxdb/host >}}",
                     database = f"DATABASE_NAME")
 
-  random_bytes = secrets.token_bytes(16)
-  trace_id = random_bytes.hex()
-  trace_value = (f"{trace_id}:1112223334445:0:1").encode('utf-8')
   sql = "SELECT * FROM home WHERE time >= now() - INTERVAL '30 days'"
 
   try:
-    client.query(sql, headers=[(b'influx-trace-id', trace_value)])
+    client.query(sql)
     client.close()
   except Exception as e:
     print("Query error: ", e)
@@ -75,14 +67,13 @@ def get_query_information():
   for i in range(0, 5):
     time.sleep(1)
     # Use SQL
-    # To query the system.queries table for your trace ID, pass the following:
+    # To retrieve data about your query from the system.queries table, pass the following:
     #   - the iox-debug: true request header
-    #   - an SQL query for the trace_id column
+    #   - an SQL query for system.queries
     reader = client.query(f'''SELECT compute_duration, query_type, query_text,
-                          success, trace_id
+                          success
                           FROM system.queries
                           WHERE issue_time >= now() - INTERVAL '1 day'
-                            AND trace_id = '{trace_id}'
                           ORDER BY issue_time DESC
                         ''',
                         headers=[(b"iox-debug", b"true")],
@@ -91,9 +82,18 @@ def get_query_information():
     df = reader.read_all().to_pandas()
     if df.shape[0]:
       break
+  # Adjust pandas display options to avoid truncating the output
 
-  assert df.shape == (1, 5), f"Expect a row for the query trace ID."
-  print(df)
+  # Filter the DataFrame to get rows where the column contains the query text
+  filtered_df = df[df['query_text'] == sql]
+
+  assert filtered_df.shape[0] > 0, "filtered_df should have at least 1 row"
+
+  # Specify system.queries columns to output
+  columns_to_output = ['compute_duration', 'query_text']
+
+  # Print row values for the specified columns
+  print(filtered_df[columns_to_output])
 
 get_query_information()
 ```
@@ -102,7 +102,9 @@ get_query_information()
 
 The output is similar to the following:
 
-```text
-compute_duration query_type                        query_text  success  trace_id
-          0 days        sql  SELECT compute_duration, quer...     True  67338...
+```
+# Get query information
+            compute_duration                                         query_text
+3            0 days  SELECT * FROM home WHERE time >= now() - INTER...
+4            0 days  SELECT * FROM home WHERE time >= now() - INTER...
 ```
