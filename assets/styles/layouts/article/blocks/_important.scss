@@ -69,7 +69,7 @@
       background: $article-important-code-bg};
   }
   hr, .expand {
-    border-color: rgba($article-important-base, .4)
+    border-color: rgba($article-important-base, .4) !important;
   }
 
   ///////////////////////////////// Scrollbars /////////////////////////////////

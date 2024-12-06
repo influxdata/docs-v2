@@ -27,7 +27,6 @@ Learn how to use observability tools to analyze query execution and view metrics
 - [Strategies for improving query performance](#strategies-for-improving-query-performance)
   - [Query only the data you need](#query-only-the-data-you-need)
 - [Recognize and address bottlenecks](#recognize-and-address-bottlenecks)
-  - [Query trace logging](#query-trace-logging)
 
 
 ## Why is my query slow?
@@ -81,7 +80,7 @@ less efficient.
 ## Recognize and address bottlenecks
 
 To identify performance bottlenecks, learn how to [analyze a query plan](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/analyze-query-plan/).
-Query plans provide runtime metrics, such as the number of files scanned, to help pinpoint inefficiencies.
+Query plans provide runtime metrics, such as the number of files scanned, that may reveal inefficiencies in query execution.
 
 > [!Note]
 >
@@ -89,14 +88,19 @@ Query plans provide runtime metrics, such as the number of files scanned, to hel
 >
 > Some bottlenecks may result from suboptimal query [execution plans](/influxdb/cloud-dedicated/reference/internals/query-plan/#physical-plan) and are outside your control--for example:
 >
-> - Sorting (`ORDER BY`) data that is already sorted
-> - Retrieving numerous small Parquet files from the object store, instead of fewer, larger files
-> - Querying many overlapped Parquet files
-> - Performing a high number of table scans
+> - Sorting (`ORDER BY`) data that is already sorted.
+> - Retrieving numerous small Parquet files from the object store instead of fewer, larger files.
+> - Querying many overlapped Parquet files.
+> - Performing a high number of table scans.
 >
-> If you're unable to resolve a performance bottleneck or query issue, contact the [InfluxData Support team](https://support.influxdata.com) for assistance.
-
-### Query trace logging
-
-Currently, customers cannot enable trace logging for {{% product-name %}} clusters.  
-Please contact the [InfluxData Support team](https://support.influxdata.com) for assistance.
+> If you have followed steps to [optimize](#why-is-my-query-slow) and
+> [troubleshoot a query](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/troubleshoot/),
+> but it still doesn't meet performance requirements,
+> contact the [InfluxData Support team](https://support.influxdata.com) for assistance.
+>
+> #### Query trace logging
+>
+> Currently, customers cannot enable trace logging for {{% product-name omit="Clustered" %}} clusters.
+> InfluxData engineers can use query plans and trace logging to help pinpoint performance bottlenecks in a query.
+>
+> For help troubleshooting a query, contact the [InfluxData Support team](https://support.influxdata.com).

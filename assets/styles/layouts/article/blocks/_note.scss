@@ -67,7 +67,7 @@
       background: $article-note-code-bg};
   }
   hr, .expand {
-    border-color: rgba($article-note-base, .4)
+    border-color: rgba($article-note-base, .4) !important;
   }
 
   ///////////////////////////////// Scrollbars /////////////////////////////////
