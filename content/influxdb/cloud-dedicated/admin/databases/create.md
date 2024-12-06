@@ -128,7 +128,7 @@ influxctl database create \
 Replace the following in your command:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
-- {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag]((/influxdb/cloud-dedicated/reference/glossary/#tag)) keys from your data
+- {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag](/influxdb/cloud-dedicated/reference/glossary/#tag) keys from your data
 
 ## Database attributes
 
@@ -294,7 +294,7 @@ Replace the following in your request:
 - {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
 - {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
-- {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag]((/influxdb/cloud-dedicated/reference/glossary/#tag)) keys from your data
+- {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag](/influxdb/cloud-dedicated/reference/glossary/#tag) keys from your data
 
 ## Database attributes
 
