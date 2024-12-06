@@ -10,12 +10,15 @@ menu:
 weight: 305
 ---
 
-InfluxDB's SQL implementation supports time and date functions that are useful when working with time series data. 
+InfluxDB's SQL implementation supports time and date functions that are useful
+when working with time series data. 
 
 - [current_date](#current_date)
 - [current_time](#current_time)
 - [date_bin](#date_bin)
 - [date_bin_gapfill](#date_bin_gapfill)
+- [date_bin_wallclock](#date_bin_wallclock)
+- [date_bin_wallclock_gapfill](#date_bin_wallclock_gapfill)
 - [date_trunc](#date_trunc)
 - [datetrunc](#datetrunc)
 - [date_part](#date_part)
@@ -136,25 +139,24 @@ date_bin(interval, expression[, origin_timestamp])
 
 ##### Arguments:
 
-- **interval**: Bin interval.
+- **interval**: Bin interval. Supports the following interval units:
+
+  - nanoseconds
+  - microseconds
+  - milliseconds
+  - seconds
+  - minutes
+  - hours
+  - days
+  - weeks
+  - months
+  - years
+  - century
+
 - **expression**: Time expression to operate on.
   Can be a constant, column, or function.
 - **origin_timestamp**: Starting point used to determine bin boundaries.
   _Default is the Unix epoch._
-
-The following intervals are supported:
-
-- nanoseconds
-- microseconds
-- milliseconds
-- seconds
-- minutes
-- hours
-- days
-- weeks
-- months
-- years
-- century
 
 {{< expand-wrapper >}}
 {{% expand "View `date_bin` query example" %}}
@@ -196,7 +198,7 @@ and null values in aggregate columns.
 
 Use `date_bin_gapfill` with [`interpolate`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#interpolate)
 or [`locf`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#locf) to
-[fill gaps in data]()
+[fill gaps in data](/influxdb/cloud-dedicated/query-data/sql/fill-gaps/)
 at specified time intervals.
 
 ```sql
@@ -210,25 +212,24 @@ in the `WHERE` clause.
 
 ##### Arguments:
 
-- **interval**: Bin interval.
+- **interval**: Bin interval. Supports the following interval units:
+
+  - nanoseconds
+  - microseconds
+  - milliseconds
+  - seconds
+  - minutes
+  - hours
+  - days
+  - weeks
+  - months
+  - years
+  - century
+
 - **expression**: Time expression to operate on.
   Can be a constant, column, or function.
 - **origin_timestamp**: Starting point used to determine bin boundaries.
   _Default is the Unix epoch._
-
-The following intervals are supported:
-
-- nanoseconds
-- microseconds
-- milliseconds
-- seconds
-- minutes
-- hours
-- days
-- weeks
-- months
-- years
-- century
 
 ##### Related functions
 
@@ -236,15 +237,10 @@ The following intervals are supported:
 [locf](/influxdb/cloud-dedicated/reference/sql/functions/misc/#locf)
 
 {{< expand-wrapper >}}
-{{% expand "View `date_bin_gapfill` query examples" %}}
+{{% expand "Use `date_bin_gapfill` to insert rows when no rows exists" %}}
 
-_The following examples use the sample data set provided in the
+_The following example uses the sample data set provided in the
 [Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
-
-- [Use date_bin_gapfill to insert rows when no rows exists](#use-date_bin_gapfill-to-insert-rows-when-no-rows-exists)
-- [Use date_bin_gapfill to fill gaps in data](#use-date_bin_gapfill-to-fill-gaps-in-data)
-
-#### Use date_bin_gapfill to insert rows when no rows exists
 
 {{% influxdb/custom-timestamps %}}
 
@@ -274,11 +270,15 @@ GROUP BY _time, room
 | 2022-01-01T10:00:00Z | Living Room | 21.8 |
 
 {{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
 
-#### Use date_bin_gapfill to fill gaps in data
+{{% expand "Use `date_bin_gapfill` to fill gaps in data" %}}
 
 Use `interpolate` and `locf` to fill the null values in rows inserted by
 `date_bin_gapfill`.
+
+_The following examples use the sample data set provided in the
+[Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
 
 {{< tabs-wrapper >}}
 {{% tabs "small" %}}
@@ -360,6 +360,338 @@ GROUP BY _time, room
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## date_bin_wallclock
+
+Calculates time intervals using the timezone of a specified time value and
+returns the start of the interval nearest to the specified timestamp.
+Use `date_bin_wallclock` to downsample time series data by grouping rows into
+time-based "bins" or "windows" that are based off "wall clock" times in a
+specific timezone and applying an aggregate or selector function to each window.
+
+### Time zone shifts
+
+Many regions use time zone shifts (such as daylight saving time (DST)).
+If a wall clock time bin starts at a time that does not exist in the specified
+time zone, the timestamp is adjusted to the time that is the same offset from
+the start of the day in that time zone.
+
+If a wall clock time represents an ambiguous time in the region then the
+behavior depends on the size of the specified interval. If the interval is
+larger than the difference between the two possible timestamps, then the earlier
+timestamp is used. Otherwise, the function uses the timestamp that matches the
+UTC offset of the input timestamp.
+
+```sql
+date_bin_wallclock(interval, expression[, origin_timestamp])
+```
+
+##### Arguments:
+
+- **interval**: Bin interval. Supports the following interval units:
+
+  - nanoseconds
+  - microseconds
+  - milliseconds
+  - seconds
+  - minutes
+  - hours
+  - days
+  - weeks
+
+  > [!Note]
+  > `date_bin_wallclock` does _not_ support month-, year-, or century-based intervals.
+
+- **expression**: Time expression to operate on.
+  Can be a constant, column, or function.
+  The output timestamp uses the time zone from this time expression.
+- **origin_timestamp**: Starting point used to determine bin boundaries.
+  This must be a "wall clock" timestamp (no time zone).
+  _Default is the Unix epoch._
+
+  > [!Important]
+  >
+  > #### Avoid bins in time zone discontinuities
+  >
+  > [Time zone shifts](#time-zone-shifts) result in *discontinuities*–breaks
+  > in the continuity of time intervals (losing an hour or gaining an hour)–that
+  > can result in unexpected timestamps when using `date_bin_wallclock`.
+  > Avoid using an `interval` and `origin_timestamp` combination that results in a
+  > bin falling inside a time discontinuity.
+  >
+  > As a general rule, use either the default `origin_timestamp` or an origin
+  > timestamp with an offset relative to the Unix epoch that is equal to your
+  > specified `interval`.
+  >
+  > {{< expand-wrapper >}}
+{{% expand "View time zone discontinuity example" %}}
+
+The following query illustrates how two timestamps, only one minute apart, 
+result in timestamps two hours apart when binned across a daylight saving
+boundary:
+
+```sql
+SELECT
+  tz('2020-10-25T02:29:00+01:00', 'Europe/Paris') AS original_time,
+  date_bin_wallclock(
+    INTERVAL '1 hour',
+    tz('2020-10-25T02:29:00+01:00', 'Europe/Paris'),
+    '1970-01-01T00:30:00'
+  ) AT TIME ZONE 'UTC' AS utc_bin_time
+UNION
+SELECT
+  tz('2020-10-25T02:30:00+01:00', 'Europe/Paris') AS original_time,
+  date_bin_wallclock(
+    INTERVAL '1 hour',
+    tz('2020-10-25T02:30:00+01:00', 'Europe/Paris'),
+    '1970-01-01T00:30:00'
+  ) AT TIME ZONE 'UTC' AS utc_bin_time
+ORDER BY original_time;
+```
+
+| original_time             | utc_bin_time         |
+| :------------------------ | :------------------- |
+| 2020-10-25T02:29:00+01:00 | 2020-10-24T23:30:00Z |
+| 2020-10-25T02:30:00+01:00 | 2020-10-25T01:30:00Z |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+{{< expand-wrapper >}}
+{{% expand "View `date_bin_wallclock` query example" %}}
+
+The following query uses the sample data set provided in the
+[Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)
+and returns the 12-hour average temperature for each room using times in the
+`America/Los_Angeles` time zone.
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+SELECT
+  date_bin_wallclock(INTERVAL '12 hours', tz(time, 'America/Los_Angeles')) AS time,
+  room,
+  avg(temp) AS avg_temp
+FROM home
+WHERE
+    time >= '2022-01-01T08:00:00Z'
+    AND time <= '2022-01-01T20:00:00Z'
+GROUP BY 1, room
+```
+
+| time                      | room        |           avg_temp |
+| :------------------------ | :---------- | -----------------: |
+| 2022-01-01T00:00:00-08:00 | Kitchen     |  22.61666666666667 |
+| 2022-01-01T12:00:00-08:00 | Kitchen     |               22.7 |
+| 2022-01-01T00:00:00-08:00 | Living Room | 22.166666666666668 |
+| 2022-01-01T12:00:00-08:00 | Living Room |               22.2 |
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## date_bin_wallclock_gapfill
+
+Calculates time intervals using the timezone of a specified time value and
+returns the start of the interval nearest to the specified timestamp.
+If no rows exist in a time interval, a new row is inserted with a `time` value
+set to the interval start time, all columns in the `GROUP BY` clause populated,
+and null values in aggregate columns.
+
+Use `date_bin_wallclock_gapfill` with [`interpolate`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#interpolate)
+or [`locf`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#locf) to
+[fill gaps in data](/influxdb/cloud-dedicated/query-data/sql/fill-gaps/)
+at specified time intervals in a specified time zone.
+
+### Time zone shifts
+
+Many regions use time zone shifts (such as daylight saving time (DST)).
+If a wall clock time bin starts at a time that does not exist in the specified
+time zone, the timestamp is adjusted to the time that is the same offset from
+the start of the day in that time zone.
+
+If a wall clock time represents an ambiguous time in the region then the
+behavior depends on the size of the specified interval. If the interval is
+larger than the difference between the two possible timestamps, then the earlier
+timestamp is used. Otherwise, the function uses the timestamp that matches the
+UTC offset of the input timestamp.
+
+```sql
+date_bin_wallclock_gapfill(interval, expression[, origin_timestamp])
+```
+
+{{% note %}}
+`date_bin_wallclock_gapfill` requires [time bounds](/influxdb/cloud-dedicated/query-data/sql/basic-query/#query-data-within-time-boundaries)
+in the `WHERE` clause.
+{{% /note %}}
+
+##### Arguments:
+
+- **interval**: Bin interval. Supports the following interval units:
+
+  - nanoseconds
+  - microseconds
+  - milliseconds
+  - seconds
+  - minutes
+  - hours
+  - days
+  - weeks
+
+  > [!Note]
+  > `date_bin_wallclock_gapfill` does _not_ support month-, year-, or century-based intervals.
+
+- **expression**: Time expression to operate on.
+  Can be a constant, column, or function.
+  The output timestamp uses the time zone from this time expression.
+- **origin_timestamp**: Starting point used to determine bin boundaries.
+  This must be a "wall clock" timestamp (no time zone).
+  _Default is the Unix epoch._
+  
+  > [!Important]
+  >
+  > #### Avoid bins in time zone discontinuities
+  >
+  > [Time zone shifts](#time-zone-shifts) result in *discontinuities*–breaks
+  > in the continuity of time intervals (losing an hour or gaining an hour)–that
+  > can result in unexpected timestamps when using `date_bin_wallclock_gapfill`.
+  > Avoid using an `interval` and `origin_timestamp` combination that results in a
+  > bin falling inside a time discontinuity.
+  >
+  > As a general rule, use either the default `origin_timestamp` or an origin
+  > timestamp with an offset relative to the Unix epoch that is equal to your
+  > specified `interval`.
+  >
+  > [View time zone discontinuity example](#view-time-zone-discontinuity-example)
+
+##### Related functions
+
+[interpolate](/influxdb/cloud-dedicated/reference/sql/functions/misc/#interpolate),
+[locf](/influxdb/cloud-dedicated/reference/sql/functions/misc/#locf)
+
+{{< expand-wrapper >}}
+{{% expand "Use `date_bin_wallclock_gapfill` to insert rows when no rows exists" %}}
+
+_The following example uses the sample data set provided in the
+[Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+SELECT
+  date_bin_wallclock_gapfill(INTERVAL '30 minutes', tz(time, 'America/Los_Angeles')) as time,
+  room,
+  avg(temp) as temp
+FROM home
+WHERE
+    time >= '2022-01-01T08:00:00Z'
+    AND time <= '2022-01-01T10:00:00Z'
+GROUP BY 1, room
+```
+
+| time                      | room        | temp |
+| :------------------------ | :---------- | ---: |
+| 2022-01-01T00:00:00-08:00 | Kitchen     |   21 |
+| 2022-01-01T00:30:00-08:00 | Kitchen     |      |
+| 2022-01-01T01:00:00-08:00 | Kitchen     |   23 |
+| 2022-01-01T01:30:00-08:00 | Kitchen     |      |
+| 2022-01-01T02:00:00-08:00 | Kitchen     | 22.7 |
+| 2022-01-01T00:00:00-08:00 | Living Room | 21.1 |
+| 2022-01-01T00:30:00-08:00 | Living Room |      |
+| 2022-01-01T01:00:00-08:00 | Living Room | 21.4 |
+| 2022-01-01T01:30:00-08:00 | Living Room |      |
+| 2022-01-01T02:00:00-08:00 | Living Room | 21.8 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Use `date_bin_wallclock_gapfill` to fill gaps in data" %}}
+
+Use `interpolate` and `locf` to fill the null values in rows inserted by
+`date_bin_wallclock_gapfill`.
+
+_The following examples use the sample data set provided in the
+[Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
+
+{{< tabs-wrapper >}}
+{{% tabs "small" %}}
+[interpolate](#)
+[locf](#)
+{{% /tabs %}}
+{{% tab-content %}}
+
+The example below uses [`interpolate`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#interpolate)
+to fill null values by interpolating values between non-null values.
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+SELECT
+  date_bin_wallclock_gapfill(INTERVAL '30 minutes', tz(time, 'America/Los_Angeles')) as time,
+  room,
+  interpolate(avg(temp))
+FROM home
+WHERE
+    time >= '2022-01-01T08:00:00Z'
+    AND time <= '2022-01-01T10:00:00Z'
+GROUP BY 1, room
+```
+
+| time                      | room        | interpolate(avg(home.temp)) |
+| :------------------------ | :---------- | --------------------------: |
+| 2022-01-01T00:00:00-08:00 | Kitchen     |                          21 |
+| 2022-01-01T00:30:00-08:00 | Kitchen     |                          22 |
+| 2022-01-01T01:00:00-08:00 | Kitchen     |                          23 |
+| 2022-01-01T01:30:00-08:00 | Kitchen     |                       22.85 |
+| 2022-01-01T02:00:00-08:00 | Kitchen     |                        22.7 |
+| 2022-01-01T00:00:00-08:00 | Living Room |                        21.1 |
+| 2022-01-01T00:30:00-08:00 | Living Room |                       21.25 |
+| 2022-01-01T01:00:00-08:00 | Living Room |                        21.4 |
+| 2022-01-01T01:30:00-08:00 | Living Room |                        21.6 |
+| 2022-01-01T02:00:00-08:00 | Living Room |                        21.8 |
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+The example below uses [`locf`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#locf)
+to fill null values by carrying the last observed value forward.
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+SELECT
+  date_bin_wallclock_gapfill(INTERVAL '30 minutes', tz(time, 'America/Los_Angeles')) as time,
+  room,
+  locf(avg(temp))
+FROM home
+WHERE
+    time >= '2022-01-01T08:00:00Z'
+    AND time <= '2022-01-01T10:00:00Z'
+GROUP BY 1, room
+```
+
+| time                      | room        | locf(avg(home.temp)) |
+| :------------------------ | :---------- | -------------------: |
+| 2022-01-01T00:00:00-08:00 | Kitchen     |                   21 |
+| 2022-01-01T00:30:00-08:00 | Kitchen     |                   21 |
+| 2022-01-01T01:00:00-08:00 | Kitchen     |                   23 |
+| 2022-01-01T01:30:00-08:00 | Kitchen     |                   23 |
+| 2022-01-01T02:00:00-08:00 | Kitchen     |                 22.7 |
+| 2022-01-01T00:00:00-08:00 | Living Room |                 21.1 |
+| 2022-01-01T00:30:00-08:00 | Living Room |                 21.1 |
+| 2022-01-01T01:00:00-08:00 | Living Room |                 21.4 |
+| 2022-01-01T01:30:00-08:00 | Living Room |                 21.4 |
+| 2022-01-01T02:00:00-08:00 | Living Room |                 21.8 |
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## date_trunc
 
@@ -740,7 +1072,7 @@ SELECT
 
 Converts a timestamp with a timezone to a timestamp without a timezone
 (no offset or timezone information). This function accounts for time shifts
-like Daylight Saving Time (DST) or British Summer Time (BST).
+like daylight saving time (DST).
 
 {{% note %}}
 Use `to_local_time()` with [`date_bin()`](#date_bin) and
@@ -1120,19 +1452,24 @@ SELECT tz(time, 'Australia/Sydney') AS time_tz, time FROM home ORDER BY time LIM
 {{< /expand-wrapper >}}
 
 ##### Differences between tz and AT TIME ZONE
+
 `tz` and [`AT TIME ZONE`](/influxdb/cloud-dedicated/reference/sql/operators/other/#at-time-zone)
 differ when the input timestamp **does not** have a timezone.
+
 - When using an input timestamp that does not have a timezone (the default behavior in InfluxDB) with the
   `AT TIME ZONE` operator, the operator returns the the same timestamp, but with a timezone offset
   (also known as the "wall clock" time)--for example:
+
   ```sql
   '2024-01-01 00:00:00'::TIMESTAMP AT TIME ZONE 'America/Los_Angeles'
   
   -- Returns
   2024-01-01T00:00:00-08:00
   ```
+
 - When using an input timestamp with a timezone, both the `tz()` function and the `AT TIME ZONE`
   operator return the timestamp converted to the time in the specified timezone--for example:
+
   ```sql
   '2024-01-01T00:00:00-00:00' AT TIME ZONE 'America/Los_Angeles'
   tz('2024-01-01T00:00:00-00:00', 'America/Los_Angeles')
@@ -1140,18 +1477,22 @@ differ when the input timestamp **does not** have a timezone.
   -- Both return
   2023-12-31T16:00:00-08:00
   ```
+
 - `tz()` always converts the input timestamp to the specified time zone.
   If the input timestamp does not have a timezone, the function assumes it is a UTC timestamp--for example:
+
   ```sql
   tz('2024-01-01 00:00:00'::TIMESTAMP, 'America/Los_Angeles')
   -- Returns
   2023-12-31T16:00:00-08:00
   ```
+
   ```sql
   tz('2024-01-01T00:00:00+1:00', 'America/Los_Angeles')
   -- Returns
   2023-12-31T15:00:00-08:00
   ```
+
 {{< expand-wrapper >}}
 {{% expand "View `tz` and `::timestamp` comparison" %}}
 ```sql

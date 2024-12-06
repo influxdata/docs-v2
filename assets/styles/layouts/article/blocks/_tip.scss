@@ -60,7 +60,7 @@
     }
   }
   hr, .expand {
-    border-color: rgba($article-tip-base, .4)
+    border-color: rgba($article-tip-base, .4) !important;
   }
 
   ///////////////////////////////// Scrollbars /////////////////////////////////
