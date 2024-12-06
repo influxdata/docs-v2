@@ -38,7 +38,7 @@ A table may have the following rows and columns.
 
 ##### Example
 
-```text
+```csv
 #group,false,false,true,true,false,false,true,true,true,true
 #datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,double,string,string,string,string
 #default,mean,,,,,,,,,
@@ -67,13 +67,13 @@ If a file or data stream contains multiple tables or results, the following requ
 - A table column indicates which table a row belongs to.
 - All rows in a table are contiguous.
 - An empty row delimits a new table boundary in the following cases:
-    - Between tables in the same result that do not share a common table schema.
-    - Between concatenated CSV files.
+  - Between tables in the same result that do not share a common table schema.
+  - Between concatenated CSV files.
 - Each new table boundary starts with new annotation and header rows.
 
 ##### Example
 
-```text
+```csv
 #group,false,false,true,true,false,false,true,true,true,true
 #datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,double,string,string,string,string
 #default,_result,,,,,,,,,
@@ -173,7 +173,7 @@ Time column values should be **Unix nanosecond timestamps**, **RFC3339**, or **R
 
 ##### Example line protocol elements in datatype annotation
 
-```text
+```csv
 #group false,false,false,false,false,false,false
 #datatype measurement,tag,tag,field,field,ignored,time
 #default ,,,,,,
@@ -184,14 +184,14 @@ cpu,cpu1,host2,0,2.2,b,1482669087000000000
 
 Resulting line protocol:
 
-```
+```text
 cpu,cpu=cpu1,host=host1 time_steal=0,usage_user=2.7 1482669077000000000
 cpu,cpu=cpu1,host=host2 time_steal=0,usage_user=2.2 1482669087000000000
 ```
 
 ##### Example of mixing data types and line protocol elements
 
-```text
+```csv
 #group,false,false,false,false,false,false,false,false,false
 #datatype,measurement,tag,string,double,boolean,long,unsignedLong,duration,dateTime
 #default,test,annotatedDatatypes,,,,,,
@@ -217,14 +217,14 @@ If an error occurs during execution, a table returns with:
 
 If an error occurs:
 
-- Before results materialize, the HTTP status code indicates an error. The output table contains error details.
-- After partial results are sent to the client, the error is encoded as the next table and remaining results are discarded. In this case, the HTTP status code remains 200 OK.
+- Before InfluxDB responds with data, the HTTP status code indicates an error. The output table contains error details.
+- After InfluxDB sends partial results to the client, the error is encoded as the next table and remaining results are discarded. In this case, the HTTP status code remains 200 OK.
 
 ##### Example
 
 Encoding for an error with the datatype annotation:
 
-```text
+```csv
 #datatype,string,long
 ,error,reference
 ,Failed to parse query,897
