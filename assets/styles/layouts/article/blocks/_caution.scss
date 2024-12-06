@@ -56,7 +56,7 @@
       background: $article-caution-code-bg};
   }
   hr, .expand {
-    border-color: rgba($article-caution-base, .4)
+    border-color: rgba($article-caution-base, .4) !important
   }
 
   ///////////////////////////////// Scrollbars /////////////////////////////////
