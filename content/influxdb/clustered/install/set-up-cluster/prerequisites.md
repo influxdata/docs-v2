@@ -373,7 +373,7 @@ PostgreSQL-compatible database.
 
 ### PostgreSQL-compatible database requirements
 
-- PostgreSQL versions **13.8–14.6**.
+- PostgreSQL version **13 or 14**.
 - **Minimum of 4 GB of memory** or equivalent provider-specific units.
 - To avoid conflicts and prevent issues caused by shared usage with other
   applications, ensure that your PostgreSQL-compatible instance is dedicated
