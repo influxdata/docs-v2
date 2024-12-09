@@ -9,7 +9,7 @@ menu:
     parent: Install
 ---
 
-Installing and running InfluxDB Enterprise on a single server or node is an
+Installing and running InfluxDB Enterprise on a single server, or node, is an
 alternative to using [InfluxDB OSS 1.x](/influxdb/v1).
 InfluxDB Enterprise provides advanced functionality such as
 [LDAP authentication](/enterprise_influxdb/v1/administration/configure/security/ldap/),
@@ -75,11 +75,11 @@ through server restarts.
 ## Set up, configure, and start the meta service
 
 The InfluxDB Enterprise meta process oversees and manages the InfluxDB Enterprise
-data process. In multi-node clusters, meta nodes manage data syncing and high
-availability of data nodes. In a single-node installation, the meta process 
+data process. In multi-node clusters, meta nodes (typically 3 nodes) manage data syncing and high
+availability of data nodes. In a single-server (single-node) installation, a meta process 
 and the accompanying [`influxd-ctl` utility](/enterprise_influxdb/v1/tools/influxd-ctl/)
-still manage the "cluster", even though the meta and data processes exist on the
-same server.
+still manage the "cluster", but with a single meta node and the data
+processes running on the same server.
 
 1. **Download and install the InfluxDB Enterprise meta service**:
 
@@ -174,10 +174,11 @@ The `license-key` and `license-path` settings are mutually exclusive and one mus
       internal-shared-secret = "<internal-shared-secret>"
     ```
 
-3. **Start the InfluxDB Enterprise meta service**:
+3. **Start the InfluxDB Enterprise meta service in single-server mode**:
 
-    Run the command appropriate to your operating system's service manager.
-    <!-- Include the `-single-server` flag when starting the service. -->
+    Run the `start` command appropriate to your operating system's service manager.
+    In the command, include the `-single-server` flag, which ensures that the single meta node
+    is the leader and has all the metadata for the cluster.
 
     {{< tabs-wrapper >}}
 {{% tabs "small" %}}
@@ -185,24 +186,93 @@ The `license-key` and `license-path` settings are mutually exclusive and one mus
 [systemd](#)
 {{% /tabs %}}
 {{% tab-content %}}
+<!-----------------------------BEGIN SYSVINIT---------------------------------->
+Edit the `influxdb-meta` init script to include the `-single-server` flag:
 
-<!-- Potential TODO: Add instructions for passing the -single-server flag to sysvinit -->
+1. Open the init script for editing, for example:
 
-```sh
-service influxdb-meta start
-```
+   ```bash
+   sudo nano /etc/init.d/influxdb-meta
+   ```
+
+2. Find the section of the script that starts the `influxdb-meta` service and add the `-single-server` flag--for example:
+
+   ```sh
+   case "$1" in
+       start)
+           echo "Starting InfluxDB Meta..."
+           /usr/bin/influxdb-meta -single-server &
+           ;;
+       stop)
+           echo "Stopping InfluxDB Meta..."
+           killall influxdb-meta
+           ;;
+       restart)
+           $0 stop
+           $0 start
+           ;;
+       *)
+           echo "Usage: $0 {start|stop|restart}"
+           exit 1
+   esac
+
+   exit 0
+   ```
+
+3. Restart the service to apply the changes:
+
+   ```bash
+   sudo service influxdb-meta restart
+   ```
+
+For more information about sysvinit and initscripts, see the [sysvinit](https://wiki.gentoo.org/wiki/Sysvinit) Gentoo Linux documentation.
+<!-------------------------------END SYSVINIT---------------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
+<!------------------------------BEGIN SYSTEMD---------------------------------->
+Edit the `influxdb-meta` service unit file or a drop-in configuration file to
+include the `-single-server` flag--for example: 
 
-<!-- Potential TODO: Add instructions for passing the -single-server flag to systemd -->
+1. Use `systemctl edit` with the `--drop-in` option to create the drop-in configuration file for the service:
 
-```sh
-sudo systemctl start influxdb-meta
-```
+   ```bash      
+   sudo systemctl edit --drop-in influxdb-meta
+   ```
+
+2. Add the following to the drop-in configuration file to include the -single-server flag in the startup command:
+
+   ```systemd
+   [Service]
+   ExecStart=
+   ExecStart=/usr/bin/influxdb-meta -single-server
+   ```
+
+3. Start the service using `systemctl`:
+   
+   ```bash
+   sudo systemctl start influxdb-meta
+   ```
+
+4. Reload the Systemd Daemon: Reload the systemd daemon to apply the changes:
+   
+   ```bash
+   sudo systemctl daemon-reload
+   ```
+
+5. Start the service using systemctl:
+   
+   ```bash
+   sudo systemctl start influxdb-meta
+   ```
+
+For more information about systemd unit files, see the Arch Linux documentation
+for [Writing unit files](https://wiki.archlinux.org/title/Systemd#Writing_unit_files)
+
+<!--------------------------------END SYSTEMD---------------------------------->
 {{% /tab-content %}}
     {{< /tabs-wrapper >}}
 
-4. **Ensure the `influxdb-meta` process is running**:
+1. **Ensure the `influxdb-meta` process is running**:
 
     Use `ps aux` to list running processes and `grep` to filter the list of
     running process to those that contain `influxdb-meta` and filter out the
@@ -218,7 +288,7 @@ sudo systemctl start influxdb-meta
     influxdb  3207  0.8  4.4 483000 22168 ?        Ssl  17:05   0:08 /usr/bin/influxd-meta -config /etc/influxdb/influxdb-meta.conf
     ```
 
-5. **Use `influxd-ctl` to add the meta process to the InfluxDB Enterprise "cluster"**:
+2. **Use `influxd-ctl` to add the meta process to the InfluxDB Enterprise "cluster"**:
 
     ```sh
     influxd-ctl add-meta <your-host-name>:8091
@@ -230,7 +300,7 @@ sudo systemctl start influxdb-meta
     Added meta node x at <your-host-name>:8091
     ```
 
-6. **Use `influxd-ctl` to verify the meta node was added to the InfluxDB Enterprise "cluster"**:
+3. **Use `influxd-ctl` to verify the meta node was added to the InfluxDB Enterprise "cluster"**:
 
     ```sh
     influxd-ctl show
