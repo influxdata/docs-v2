@@ -100,7 +100,7 @@ The following command lists every shard in our cluster:
 influxd-ctl show-shards
 ```
 
-The expected output is similar to the items in the codeblock below:
+The output is similar to the following:
 
 ```
 Shards
@@ -134,16 +134,19 @@ Take note of the cold shard's `ID` (for example: `22`) and the TCP address of
 one of its owners in the `Owners` column (for example:
 `enterprise-data-01:8088`).
 
-> **Note:**
+> [!Note]
 >
-Use the following command string to determine the size of the shards in
-your cluster:
->
-    find /var/lib/influxdb/data/ -mindepth 3 -type d -exec du -h {} \;
->
+> To determine the size of shards in
+> your cluster, enter the following command:
+> 
+> ```bash
+> find /var/lib/influxdb/data/ -mindepth 3 -type d -exec du -h {} \;
+> ```
+
 In general, we recommend moving larger shards to the new data node to increase the
 available disk space on the original data nodes.
-Users should note that moving shards will impact network traffic.
+
+_Moving shards will impact network traffic._
 
 ### Step 3: Copy Cold Shards
 
