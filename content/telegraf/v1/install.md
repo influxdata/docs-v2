@@ -68,22 +68,15 @@ To use the SHA checksum to verify the downloaded file, do the following:
    checksum you copied in the preceding step--for example, enter the following
    command in your terminal.
 
-   <!--test:actual
-   ```sh
-   curl -s --location -O \
-   "https://download.influxdata.com/telegraf/releases/telegraf-${telegraf_latest_patches_v1}_linux_amd64.tar.gz"
-   echo "030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea  telegraf-${telegraf_latest_patches_v1}_linux_amd64.tar.gz" \
-   | sha256sum -c -
-   ```
-   -->
+### Syntax
 
 <!--pytest.mark.skip-->
 
-{{% code-placeholders "030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea" %}}
+{{% code-placeholders "<SHA256_CHECKSUM>" %}}
 
 ```bash
 # Use 2 spaces to separate the checksum from the filename
-echo "030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
+echo "<SHA256_CHECKSUM>  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
 | sha256sum -c -
 ```
 
@@ -91,8 +84,29 @@ echo "030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea  telegraf
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea`{{% /code-placeholder-key %}}:
-  the **SHA256:** checksum value that you copied from the downloads page 
+- {{% code-placeholder-key %}}`<SHA256_CHECKSUM>`{{% /code-placeholder-key %}}:
+  the **SHA256:** checksum value that you copied from the downloads page
+
+### Example
+
+The following sample code uses `curl` to download Telegraf, and then
+uses `sha256` to compare it to the checksum:
+
+{{% code-placeholders "260bc3170dbd6cce67575c1215a0b89b8447945106e2943d74e617d06b750c03" %}}
+
+```bash
+curl -s --location -O \
+"https://dl.influxdata.com/telegraf/releases/telegraf-${telegraf_latest_patches_v1}_linux_amd64.tar.gz"
+echo "260bc3170dbd6cce67575c1215a0b89b8447945106e2943d74e617d06b750c03  telegraf-${telegraf_latest_patches_v1}_linux_amd64.tar.gz" \
+| sha256sum -c -
+```
+
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`260bc3170dbd6cce67575c1215a0b89b8447945106e2943d74e617d06b750c03`{{% /code-placeholder-key %}}:
+  the **SHA256:** checksum value that you copied from the downloads page
 
 If the checksums match, the output is the following; otherwise, an error message.
 
@@ -224,7 +238,7 @@ To use the `yum` package manager to install the latest stable version of Telegra
    cat <<EOF | sudo tee /etc/yum.repos.d/influxdata.repo
    [influxdata]
    name = InfluxData Repository - Stable
-   baseurl = https://repos.influxdata.com/stable/${basearch}/main
+   baseurl = https://repos.influxdata.com/stable/$basearch/main
    enabled = 1
    gpgcheck = 1
    gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-influxdata
@@ -289,17 +303,17 @@ Examples are installed at `/usr/local/etc/telegraf.conf.sample`.
 
 Choose from the following options to install Telegraf binary files for Linux AMD:
 
-- To install on Linux AMDv7, see the [downloads page](https://www.influxdata.com/downloads/#telegraf).
-- [Download and install on Linux AMDv8](#download-and-install-on-linux-amdv8)
+- To install on Linux AMD32, see the [downloads page](https://www.influxdata.com/downloads/#telegraf).
+- [Download and install on Linux AMD64](#download-and-install-on-linux-amd64)
 
-### Download and install on Linux AMDv8
+### Download and install on Linux AMD64
 
-{{% code-placeholders "030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea" %}}
+{{% code-placeholders "260bc3170dbd6cce67575c1215a0b89b8447945106e2943d74e617d06b750c03" %}}
 
 ```bash
 curl -s --location -O \
-https://download.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_linux_amd64.tar.gz \
-&& echo "030182d2dca7bf4793fb741d1bbf9c35cf2afb84e13802ac866914f72271b8ea  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
+https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_linux_amd64.tar.gz \
+&& echo "260bc3170dbd6cce67575c1215a0b89b8447945106e2943d74e617d06b750c03  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
 | sha256sum -c -
 ```
 
@@ -307,7 +321,7 @@ https://download.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`0c57ff1a4a3af5fa387d23b0bc743b8eaed3a110d4ae7d422c439d2911cdf9b1`{{% /code-placeholder-key %}}: the SHA checksum from the [downloads page](https://www.influxdata.com/downloads/#telegraf)
+- {{% code-placeholder-key %}}`260bc3170dbd6cce67575c1215a0b89b8447945106e2943d74e617d06b750c03`{{% /code-placeholder-key %}}: the SHA checksum from the [downloads page](https://www.influxdata.com/downloads/#telegraf)
 
 <!---------- END Linux binaries AMD   ---------->
 {{% /tab-content %}}
@@ -315,24 +329,24 @@ Replace the following:
 <!---------- BEGIN Linux binaries ARM ---------->
 Choose from the following options to install Telegraf binary files for Linux ARM:
 
-- To install on Linux ARM(32-bit), see the [downloads page](https://www.influxdata.com/downloads/#telegraf).
-- [Download and install on Linux ARM (64-bit)](#download-and-install-on-linux-arm-64)
+- To install on Linux ARMv7(32-bit), see the [downloads page](https://www.influxdata.com/downloads/#telegraf).
+- [Download and install on Linux ARMv8 (64-bit)](#download-and-install-on-linux-arm-64)
 
-### Download and install on Linux AMDv8
+### Download and install on Linux ARMv8
 
-{{% code-placeholders "0c57ff1a4a3af5fa387d23b0bc743b8eaed3a110d4ae7d422c439d2911cdf9b1" %}}
+{{% code-placeholders "f0d8ccae539afa04b171d5268dbab21eef58bc51b5437689e347619e2097c824" %}}
 
 ```bash
 curl -s --location -O \
-https://download.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_linux_arm64.tar.gz \
-&& echo "0c57ff1a4a3af5fa387d23b0bc743b8eaed3a110d4ae7d422c439d2911cdf9b1  telegraf-{{% latest-patch %}}_linux_arm64.tar.gz" \
+https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_linux_arm64.tar.gz \
+&& echo "f0d8ccae539afa04b171d5268dbab21eef58bc51b5437689e347619e2097c824  telegraf-{{% latest-patch %}}_linux_arm64.tar.gz" \
 | sha256sum -c -
 ```
 {{% /code-placeholders %}}
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`0c57ff1a4a3af5fa387d23b0bc743b8eaed3a110d4ae7d422c439d2911cdf9b1`{{% /code-placeholder-key %}}: the SHA checksum from the [downloads page](https://www.influxdata.com/downloads/#telegraf)
+- {{% code-placeholder-key %}}`f0d8ccae539afa04b171d5268dbab21eef58bc51b5437689e347619e2097c824`{{% /code-placeholder-key %}}: the SHA checksum from the [downloads page](https://www.influxdata.com/downloads/#telegraf)
 
 <!---------- END Linux binaries ARM   ---------->
 {{% /tab-content %}}
@@ -458,7 +472,7 @@ In PowerShell _as an administrator_, do the following:
 
    ```powershell
    wget `
-   https://download.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_windows_amd64.zip `
+   https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_windows_amd64.zip `
    -UseBasicParsing `
    -OutFile telegraf-{{% latest-patch %}}_windows_amd64.zip
    Expand-Archive .\telegraf-{{% latest-patch %}}_windows_amd64.zip `
@@ -603,7 +617,7 @@ config > telegraf.conf
 For more advanced configuration details, see the
 [configuration documentation](/telegraf/v1/administration/configuration/).
 
-## Custom-compile Telegraf 
+## Custom-compile Telegraf
 
 Use the Telegraf custom builder tool to compile Telegraf with only the plugins you need and reduce the Telegraf binary size.
 
@@ -638,7 +652,7 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
 
 2. To build the Telegraf custom builder tool, enter the following command:
 
-   <!--pytest-codeblocks:cont--> 
+   <!--pytest-codeblocks:cont-->
 
    ```bash
    make build_tools

@@ -7,15 +7,14 @@ menu:
     parent: Tools
 ---
 
-The `influx` command line interface (CLI) includes commands to manage many aspects of InfluxDB, including databases, organizations, users, and tasks.
-
+The `influx` command line interface (CLI) provides an interactive shell for the HTTP API associated with `influxd`.
+It includes commands for writing and querying data, and managing many aspects of InfluxDB, including databases, organizations, and users.
 
 ## Usage
 
 ```
 influx [flags]
 ```
-
 
 ## Flags {.no-shorthand}
 

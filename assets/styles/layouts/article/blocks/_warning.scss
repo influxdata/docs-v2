@@ -55,7 +55,7 @@
       background: $article-warning-code-bg};
   }
   hr, .expand {
-    border-color: rgba($article-warning-base, .4)
+    border-color: rgba($article-warning-base, .4) !important;
   }
 
   ///////////////////////////////// Scrollbars /////////////////////////////////

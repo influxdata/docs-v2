@@ -14,20 +14,43 @@ alt_links:
   v2: /influxdb/v2/backup-restore/
 ---
 
-Use the InfluxDB {{< current-version >}} `backup` and `restore` utilities
+Use the InfluxDB OSS {{< current-version >}} `backup`, `restore`, `export`, and `import` utilities
 to prevent unexpected data loss and preserve the ability to restore data if it
 ever is lost.
-These utilities let you:
+
+You can use these tools in your back up and restore procedures to:
+
+- Provide disaster recovery due to unexpected events
+- Migrate data to new environments or servers
+- Restore instances to a consistent state
+- Export and import data for debugging
+
+Depending on the volume of data to be protected and your application requirements, InfluxDB OSS {{< current-version >}} offers two methods, described below, for managing backups and restoring data:
+
+- [Backup and restore utilities](#backup-and-restore-utilities): Use for most applications
+- [Exporting and importing data](#exporting-and-importing-data): Use for very large datasets and to debug data
+
+> [!Note]
+> #### Back up and restore between InfluxDB Enterprise and OSS 
+>
+> Use the `backup` and `restore` utilities in
+> [InfluxDB Enterprise](/enterprise_influxdb/v1/administration/backup-and-restore/) and
+> [InfluxDB OSS (version 1.5 and later)](#backup-and-restore-utilities/) to:
+>
+> - Restore InfluxDB Enterprise backup files to InfluxDB OSS instances.
+> - Back up InfluxDB OSS data that can be restored in InfluxDB Enterprise clusters.
+
+## Backup and restore utilities
+
+Use InfluxDB OSS {{< current-version >}} `backup` and `restore` utilities to:
 
 - Back up and restore multiple databases at a time.
 - Back up specific time ranges.
-- Import data from [InfluxDB Enterprise](/enterprise_influxdb/v1/) clusters.
 - Create backup files compatible with InfluxDB Enterprise.
+  
+Use the `backup` and `restore` utilities to back up and restore data for `influxd`
+instances of InfluxDB OSS version 1.4 and earlier, version 1.5 and later, and [InfluxDB Enterprise](/enterprise_influxdb/v1/).
 
-{{% note %}}
-#### InfluxDB Enterprise users
-See [Back up and restore in InfluxDB Enterprise](/enterprise_influxdb/v1/administration/backup-and-restore/).
-{{% /note %}}
 
 - [Backup formats](#backup-formats)
   - [Specify your backup format](#specify-your-backup-format)
@@ -50,7 +73,14 @@ The InfluxDB `backup` utility outputs data backups in one of two formats: **lega
 Each format provides different functionality and support for other versions of InfluxDB.
 The major difference between the formats is that the legacy format can only
 be used with InfluxDB OSS 1.x. The portable format is "portable" between
-InfluxDB 1.5–{{< current-version >}} and InfluxDB Enterprise.
+InfluxDB 1.5–{{< current-version >}} and [InfluxDB Enterprise](/enterprise_influxdb/v1/).
+
+{{% note %}}
+#### Use the portable format for InfluxDB 1.5 and later
+
+Use the portable format unless you need to be able to restore
+the backup to InfluxDB 1.4 or earlier.
+{{% /note %}}
 
 | Backup functionality                                    |    Legacy format     |   Portable format    |
 | :------------------------------------------------------ | :------------------: | :------------------: |
@@ -79,13 +109,6 @@ influxd backup -portable /path/to/backup-destination
 influxd restore -portable /path/to/backup-destination
 ```
 {{< /code-callout >}}
-
-{{% note %}}
-#### We recommend the portable format
-
-We recommend using the portable format unless you need to be able to restore
-the backup to InfluxDB 1.4 or earlier.
-{{% /note %}}
 
 ### Determine your backup's format
 Use the directory structure of the backup directory to determine the format of the backup.
@@ -667,3 +690,84 @@ at the root level of your InfluxDB configuration file (`influxdb.conf`).
 # Bind address to use for the RPC service for backup and restore.
 bind-address = "127.0.0.1:8088"
 ```
+
+## Exporting and importing data
+
+For most applications, the [backup and restore utilities](#backup-and-restore-utilities) provide the tools you need for your backup and restore strategy.
+However, in some cases, the standard backup and restore utilities might not adequately handle the volumes of data in your application.  
+
+As an alternative to the standard backup and restore utilities, use the InfluxDB `influx_inspect export` and `influx -import` commands to create backup and restore procedures for your disaster recovery and backup strategy. These commands can be executed manually or included in shell scripts that run the export and import operations at scheduled intervals.
+You can use the commands to export and import data between an
+InfluxDB OSS {{< current-version >}} instance and an [InfluxDB Enterprise](/enterprise_influxdb/v1/) cluster.
+
+- [Exporting data](#exporting-data)
+- [Importing data](#importing-data)
+- [Example: export and import for disaster recovery](#example-export-and-import-for-disaster-recovery)
+
+### Exporting data
+
+Use the [`influx_inspect export` command](/influxdb/v1/tools/influx_inspect#export) to export data in line protocol format from your InfluxDB OSS {{< current-version >}} instance.
+Options include the following:
+
+- `-database`: Export all or specific databases
+- `-start` and `-end`: Filter with starting and ending timestamps
+- `-compress`: Use GNU zip (gzip) compression for smaller files and faster exports
+
+The following example shows how to export data filtered to one day and compressed
+for optimal speed and file size:
+
+```bash
+influx_inspect export \
+  -database DATABASE_NAME \
+  -compress \
+  -start 2019-05-19T00:00:00.000Z \
+  -end 2019-05-19T23:59:59.999Z
+```
+
+The exported file contains the following:
+
+```sh
+# DDL
+CREATE DATABASE <DATABASE_NAME> WITH NAME <RETENTION_POLICY>
+# DML
+# CONTEXT-DATABASE:<DATABASE_NAME>
+# CONTEXT-RETENTION-POLICY:<RETENTION_POLICY>
+
+<LINE_PROTOCOL_DATA>
+```
+
+- `DDL`: an InfluxQL `CREATE` statement to create the target database when [importing the data](#importing-data)
+- `DML`: Context metadata that specifies the target database and retention policy
+  for [importing the data](#importing-data)
+- the line protocol data
+
+For details on optional settings and usage, see [`influx_inspect export` command](/influxdb/v1/tools/influx_inspect#export).
+
+### Importing data
+
+To import line protocol data from a file, use the [`influx -import` CLI command](/influxdb/v1/tools/influx-cli/use-influx-cli/#influx-arguments).
+
+In your import file, include the following sections:
+
+- _Optional_: **DDL (Data Definition Language)**: Contains the [InfluxQL commands](/influxdb/v1/query_language/manage-database/) for creating the relevant [database](/influxdb/v1/concepts/glossary/#database) and managing the [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp).
+If your database and retention policy already exist, your file can skip this section.
+- **DML (Data Manipulation Language)**: Context metadata that specifies the database and (if desired) retention policy for the import and contains the data in [line protocol](/influxdb/v1/concepts/glossary/#influxdb-line-protocol).
+
+In the following example, the compressed data file (in GNU zip format) is imported into the database
+specified in the file's `DML` metadata.
+
+```bash
+influx -import -path -compressed
+```
+
+For details on using the `influx -import` command, see [Import data from a file](/influxdb/v1/tools/influx-cli/use-influx-cli/#import-data-from-a-file).
+
+### Example: export and import for disaster recovery
+
+For an example of using the exporting and importing data approach for disaster recovery, see the presentation from Influxdays 2019 on ["Architecting for Disaster Recovery."](https://www.youtube.com/watch?v=LyQDhSdnm4A). In this presentation, Capital One discusses the following:
+
+- Exporting data every 15 minutes from an active InfluxDB Enterprise cluster to an AWS S3 bucket.
+- Replicating the export file in the S3 bucket using the AWS S3 copy command.
+- Importing data every 15 minutes from the AWS S3 bucket to an InfluxDB Enterprise cluster available for disaster recovery.
+- Advantages of the export-import approach over the standard backup and restore utilities for large volumes of data.
+- Managing users and scheduled exports and imports with a custom administration tool.

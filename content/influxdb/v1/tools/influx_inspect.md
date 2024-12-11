@@ -92,7 +92,11 @@ The name of the database.
 
 ##### `-datadir <data_dir>`
 
-The path to the `data` directory.
+The path to the [`data` directory](/influxdb/v1/concepts/file-system-layout/#data-directory).
+
+Default value is `$HOME/.influxdb/data`.
+See the [file system layout](/influxdb/v1/concepts/file-system-layout/#file-system-layout)
+for InfluxDB on your system.
 
 ##### `[ -max-cache-size ]`
 
@@ -119,7 +123,11 @@ Flag to enable output in verbose mode.
 
 ##### `-waldir <wal_dir>`
 
-The directory for the WAL (Write Ahead Log) files.
+The directory for the (WAL (Write Ahead Log)](/influxdb/v1/concepts/file-system-layout/#wal-directory) files.
+
+Default value is `$HOME/.influxdb/wal`.
+See the [file system layout](/influxdb/v1/concepts/file-system-layout/#file-system-layout)
+for InfluxDB on your system.
 
 #### Examples
 
@@ -157,7 +165,7 @@ influx_inspect check-schema [ options ]
 
 ##### [ `-conflicts-file <string>` ]
 
-Filename conflicts data should be written to. Default is `conflicts.json`.
+The filename where conflicts data should be written. Default is `conflicts.json`.
 
 ##### [ `-path <string>` ]
 
@@ -166,7 +174,7 @@ working directory `.`.
 
 ##### [ `-schema-file <string>` ]
 
-Filename schema data should be written to. Default is `schema.json`.
+The filename where schema data should be written. Default is `schema.json`.
 
 ### `deletetsm`
 
@@ -240,7 +248,7 @@ Optional arguments are in brackets.
 
 ##### `-series-file <series_path>`
 
-Path to the `_series` directory under the database `data` directory. Required.
+The path to the `_series` directory under the database `data` directory. Required.
 
 ##### [ `-series` ]
 
@@ -305,7 +313,7 @@ influx_inspect dumptsm [ options ] <path>
 
 ##### `<path>`
 
-Path to the `.tsm` file, located by default in the `data` directory.
+The path to the `.tsm` file, located by default in the `data` directory.
 
 #### Options
 
@@ -313,17 +321,17 @@ Optional arguments are in brackets.
 
 ##### [ `-index` ]
 
-Flag to dump raw index data.
+The flag to dump raw index data.
 Default value is `false`.
 
 ##### [ `-blocks` ]
 
-Flag to dump raw block data.
+The flag to dump raw block data.
 Default value is `false`.
 
 ##### [ `-all` ]
 
-Flag to dump all data. Caution: This may print a lot of information.
+The flag to dump all data. Caution: This may print a lot of information.
 Default value is `false`.
 
 ##### [ `-filter-key <key_name>` ]
@@ -347,7 +355,7 @@ Optional arguments are in brackets.
 
 ##### [ `-show-duplicates` ]
 
-Flag to show keys which have duplicate or out-of-order timestamps.
+The flag to show keys which have duplicate or out-of-order timestamps.
 If a user writes points with timestamps set by the client, then multiple points with the same timestamp (or with time-descending timestamps) can be written.
 
 ### `export`
@@ -378,8 +386,11 @@ Default value is `""`.
 
 ##### `-datadir <data_dir>`
 
-The path to the `data` directory.
-Default value is `"$HOME/.influxdb/data"`.
+The path to the [`data` directory](/influxdb/v1/concepts/file-system-layout/#data-directory).
+
+Default value is `$HOME/.influxdb/data`.
+See the [file system layout](/influxdb/v1/concepts/file-system-layout/#file-system-layout)
+for InfluxDB on your system.
 
 ##### [ `-end <timestamp>` ]
 
@@ -406,13 +417,14 @@ YYYY-MM-DDTHH:MM:SS+07:00
 
 ##### [ `-lponly` ]
 Output data in line protocol format only.
-Does not include comments or data definition language (DDL), like `CREATE DATABASE`.
+Does not output data definition language (DDL) statements (such as `CREATE DATABASE`)
+or DML context metadata (such as `# CONTEXT-DATABASE`).
 
 ##### [ `-out <export_dir>` or `-out -`]
 
 Location to export shard data. Specify an export directory to export a file, or add a hyphen after out (`-out -`) to export shard data to standard out (`stdout`) and send status messages to standard error (`stderr`).
 
-Default value is `"$HOME/.influxdb/export"`.
+Default value is `$HOME/.influxdb/export`.
 
 ##### [ `-retention <rp_name> ` ]
 
@@ -426,7 +438,10 @@ The timestamp string must be in [RFC3339 format](https://tools.ietf.org/html/rfc
 ##### [ `-waldir <wal_dir>` ]
 
 Path to the [WAL](/influxdb/v1/concepts/glossary/#wal-write-ahead-log) directory.
-Default value is `"$HOME/.influxdb/wal"`.
+
+Default value is `$HOME/.influxdb/wal`.
+See the [file system layout](/influxdb/v1/concepts/file-system-layout/#file-system-layout)
+for InfluxDB on your system.
 
 #### Examples
 
@@ -439,19 +454,19 @@ influx_inspect export -compress
 ##### Export data from a specific database and retention policy
 
 ```bash
-influx_inspect export -database mydb -retention autogen
+influx_inspect export -database DATABASE_NAME -retention RETENTION_POLICY 
 ```
 
 ##### Output file
 
 ```bash
 # DDL
-CREATE DATABASE MY_DB_NAME
-CREATE RETENTION POLICY autogen ON MY_DB_NAME DURATION inf REPLICATION 1
+CREATE DATABASE DATABASE_NAME 
+CREATE RETENTION POLICY <RETENTION_POLICY> ON <DATABASE_NAME> DURATION inf REPLICATION 1
 
 # DML
-# CONTEXT-DATABASE:MY_DB_NAME
-# CONTEXT-RETENTION-POLICY:autogen
+# CONTEXT-DATABASE:DATABASE_NAME
+# CONTEXT-RETENTION-POLICY:RETENTION_POLICY
 randset value=97.9296104805 1439856000000000000
 randset value=25.3849066842 1439856100000000000
 ```
@@ -571,7 +586,7 @@ influx_inspect report-disk [ options ] <path>
 
 ##### `<path>`
 
-Path to the directory with `.tsm` file(s) to report disk usage for. Default location is `"$HOME/.influxdb/data"`.
+Path to the directory with `.tsm` file(s) to report disk usage for. Default location is `$HOME/.influxdb/data`.
 
 When specifying the path, wildcards (`*`) can replace one or more characters.
 

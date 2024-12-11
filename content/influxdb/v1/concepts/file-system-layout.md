@@ -59,6 +59,13 @@ For more information about using InfluxDB configuration files, see
 | [WAL directory](#wal-directory)             | `~/.influxdb/wal/`  |
 | [Metastore directory](#metastore-directory) | `~/.influxdb/meta/` |
 
+#### Homebrew default directories
+| Path                                        | Default             |
+| :------------------------------------------ | :------------------ |
+| [Data directory](#data-directory)           | `/opt/homebrew/var/influxdb/data/` |
+| [WAL directory](#wal-directory)             | `/opt/homebrew/var/influxdb/wal/` |
+| [Metastore directory](#metastore-directory) | `/opt/homebrew/var/meta/` |
+
 #### macOS file system overview
 {{% filesystem-diagram %}}
 - ~/.influxdb/

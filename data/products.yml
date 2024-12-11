@@ -12,7 +12,7 @@ influxdb:
   latest: v2.7
   latest_patches:
     v3: 3.0.0alpha
-    v2: 2.7.10
+    v2: 2.7.11
     v1: 1.11.8
   latest_cli:
     v2: 2.7.5
@@ -78,7 +78,7 @@ telegraf:
   versions: [v1]
   latest: v1.32
   latest_patches:
-    v1: 1.32.1
+    v1: 1.32.3
 
 chronograf:
   name: Chronograf

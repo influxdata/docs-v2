@@ -85,10 +85,9 @@ is in storage. For more information, see
 
 ## Report query performance issues
 
-If you have a query that isn't meeting your performance requirements despite
-implementing query optimizations, please following the process described in
-[Report query performance issues](/influxdb/clustered/query-data/troubleshoot-and-optimize/report-query-performance-issues/)
-to gather information for InfluxData engineers so they can help identify any
-potential solutions.
+If you've followed steps to [optimize and
+troubleshoot a query](/influxdb/clustered/query-data/troubleshoot-and-optimize/optimize-queries/),
+but it still doesn't meet performance requirements,
+see how to [report query performance issues](/influxdb/clustered/query-data/troubleshoot-and-optimize/report-query-performance-issues/).
 
 {{< page-nav prev="/influxdb/clustered/install/optimize-cluster/simulate-load/" prevText="Simulate load" next="/influxdb/clustered/install/secure-cluster/" nextText="Phase 4: Secure your cluster" >}}
