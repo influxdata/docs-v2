@@ -1,10 +1,9 @@
 The `HAVING` clause places conditions on results created by an aggregate operation on groups.
 The `HAVING` clause must follow the `GROUP BY` clause and precede the `ORDER BY` clause.
 
-{{% note %}}
-The `WHERE` clause filters rows based on specified conditions _before_ the aggregate operation.
-The `HAVING` clause filters rows based on specified conditions _after_ the aggregate operation has taken place.
-{{% /note %}}
+> [!Note]
+> The `WHERE` clause filters rows based on specified conditions _before_ the aggregate operation.
+> The `HAVING` clause filters rows based on specified conditions _after_ the aggregate operation has taken place.
 
 - [Syntax](#syntax)
 - [Examples](#examples)

@@ -10,10 +10,6 @@ The `SELECT` clause is required when querying data in SQL.
 SELECT a, b, "time" FROM <measurement>
 ```
 
-{{% note %}}
-**Note:** When querying InfluxDB, the `SELECT` statement **always requires** a `FROM` clause.
-{{% /note %}}
-
 The SELECT clause supports the following:
 
  - `SELECT *` - return all tags, fields and timestamps.

@@ -44,10 +44,9 @@ operating on string values:
 
 Returns the ASCII value of the first character in a string.
 
-{{% note %}}
-`ascii` returns a 32-bit integer.
-To use with InfluxDB, [cast the return value to 64-bit integer](/influxdb/version/query-data/sql/cast-types/#cast-to-an-integer).
-{{% /note %}}
+> [!Note]
+> `ascii` returns a 32-bit integer.
+> To use with InfluxDB, [cast the return value to 64-bit integer](/influxdb/version/query-data/sql/cast-types/#cast-to-an-integer).
 
 ```sql
 ascii(str)
@@ -87,10 +86,9 @@ FROM home
 
 Returns the bit length of a string.
 
-{{% note %}}
-`bit_length` returns a 32-bit integer.
-To use with InfluxDB, [cast the return value to 64-bit integer](/influxdb/version/query-data/sql/cast-types/#cast-to-an-integer).
-{{% /note %}}
+> [!Note]
+> `bit_length` returns a 32-bit integer.
+> To use with InfluxDB, [cast the return value to 64-bit integer](/influxdb/version/query-data/sql/cast-types/#cast-to-an-integer).
 
 ```sql
 bit_length(str)
@@ -510,10 +508,9 @@ FROM home
 
 Returns the number of characters in a string.
 
-{{% note %}}
-`char_length` returns a 32-bit integer.
-To use with InfluxDB, [cast the return value to 64-bit integer](/influxdb/version/query-data/sql/cast-types/#cast-to-an-integer).
-{{% /note %}}
+> [!Note]
+> `char_length` returns a 32-bit integer.
+> To use with InfluxDB, [cast the return value to 64-bit integer](/influxdb/version/query-data/sql/cast-types/#cast-to-an-integer).
 
 ```sql
 length(str)
@@ -755,10 +752,9 @@ FROM home
 
 Returns the length of a string in bytes.
 
-{{% note %}}
-`length` returns a 32-bit integer.
-To use with InfluxDB, [cast the return value to 64-bit integer](/influxdb/version/query-data/sql/cast-types/#cast-to-an-integer).
-{{% /note %}}
+> [!Note]
+> `length` returns a 32-bit integer.
+> To use with InfluxDB, [cast the return value to 64-bit integer](/influxdb/version/query-data/sql/cast-types/#cast-to-an-integer).
 
 ```sql
 octet_length(str)
@@ -1188,10 +1184,9 @@ Returns the starting position of a specified substring in a string.
 Positions begin at 1.
 If the substring does not exist in the string, the function returns 0.
 
-{{% note %}}
-`strpos` returns a 32-bit integer.
-To use with InfluxDB, [cast the return value to 64-bit integer](/influxdb/version/query-data/sql/cast-types/#cast-to-an-integer).
-{{% /note %}}
+> [!Note]
+> `strpos` returns a 32-bit integer.
+> To use with InfluxDB, [cast the return value to 64-bit integer](/influxdb/version/query-data/sql/cast-types/#cast-to-an-integer).
 
 ```sql
 strpos(str, substr)

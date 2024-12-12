@@ -76,11 +76,10 @@ regexp_match(str, regexp, flags)
 _The following example uses the sample data set provided in
 [Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
 
-{{% note %}}
-`regexp_match` returns a _list_ Arrow type, which is not supported by InfluxDB.
-Use _bracket notation_ to reference a value in the list.
-Lists use 1-based indexing.
-{{% /note %}}
+> [!Note]
+> `regexp_match` returns a _list_ Arrow type, which is not supported by InfluxDB.
+> Use _bracket notation_ to reference a value in the list.
+> Lists use 1-based indexing.
 
 ```sql
 SELECT DISTINCT

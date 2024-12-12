@@ -14,9 +14,9 @@ The following orders are supported:
 [SELECT CLAUSE] [FROM CLAUSE] [ ORDER BY expression [ ASC | DESC ][, …] ]
 ```
 
-{{% note %}}
-**Note:** If your query includes a `GROUP BY` clause, the `ORDER BY` clause must appear **after** the `GROUP BY` clause.
-{{% /note %}}
+> [!Note]
+> **Note:** If your query includes a `GROUP BY` clause, the `ORDER BY` clause
+> must appear **after** the `GROUP BY` clause.
 
 ## Examples
 

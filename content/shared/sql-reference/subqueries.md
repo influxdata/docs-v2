@@ -15,16 +15,14 @@ Subqueries can be used in `SELECT`, `FROM`, `WHERE`, and `HAVING` clauses.
   - [Scalar subqueries](#scalar-subqueries)
   - [Non-scalar subqueries](#non-scalar-subqueries)
 
-{{% note %}}
-#### Sample data
-
-Query examples on this page use the following sample data sets:
-
-- [Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data)
-- [Home sensor actions sample data](/influxdb/version/reference/sample-data/#home-sensor-actions-data)
-- [NOAA Bay Area weather sample data](/influxdb/version/reference/sample-data/#noaa-bay-area-weather-data)
-
-{{% /note %}}
+> [!Note]
+> #### Sample data
+> 
+> Query examples on this page use the following sample data sets:
+> 
+> - [Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data)
+> - [Home sensor actions sample data](/influxdb/version/reference/sample-data/#home-sensor-actions-data)
+> - [NOAA Bay Area weather sample data](/influxdb/version/reference/sample-data/#noaa-bay-area-weather-data)
 
 ## Subquery operators
 
@@ -148,9 +146,8 @@ The returned value can be unique per row.
 SELECT [expression1[, expression2, ..., expressionN],] (<subquery>)
 ```
 
-{{% note %}}
-`SELECT` clause subqueries can be used as an alternative to `JOIN` operations.
-{{% /note %}}
+> [!Note]
+> `SELECT` clause subqueries can be used as an alternative to `JOIN` operations.
 
 ### Examples {#select-subquery-examples}
 
@@ -308,9 +305,8 @@ WHERE
   expression operator (<subquery>)
 ```
 
-{{% note %}}
-`WHERE` clause subqueries can be used as an alternative to `JOIN` operations.
-{{% /note %}}
+> [!Note]
+> `WHERE` clause subqueries can be used as an alternative to `JOIN` operations.
 
 ### Examples {#where-subquery-examples}
 {{< expand-wrapper >}}
@@ -679,13 +675,13 @@ WHERE
   )
 ```
 
-{{% note %}}
-#### Correlated subquery performance
-
-Because correlated subqueries depend on the outer query and typically must
-execute for each row returned by the outer query, correlated subqueries are
-**less performant** than non-correlated subqueries.
-{{% /note %}}
+> [!Important]
+>
+> #### Correlated subquery performance
+>
+> Because correlated subqueries depend on the outer query and typically must
+> execute for each row returned by the outer query, correlated subqueries are
+> **less performant** than non-correlated subqueries.
 
 ### Non-correlated subqueries
 

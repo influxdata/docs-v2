@@ -37,12 +37,11 @@ ON <join_condition>
 <!-- Link anchor for fully-qualified references -->
 <div id="fully-qualified-reference"></div>
 
-{{% note %}}
-If both sides of the join include columns with the same name, you need to
-use the fully-qualified reference to prevent ambiguity.
-A _fully-qualified reference_ uses dot notation to reference both the table name
-and the column name--for example: `table_name.column_name`
-{{% /note %}}
+> [!Note]
+> If both sides of the join include columns with the same name, you need to
+> use the fully-qualified reference to prevent ambiguity.
+> A _fully-qualified reference_ uses dot notation to reference both the table name
+> and the column name--for example: `table_name.column_name`
 
 ## Join types
 

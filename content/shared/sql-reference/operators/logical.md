@@ -10,14 +10,14 @@ Logical operators combine or manipulate conditions in a SQL query.
 |   `NOT`   | Negates the subsequent expression.                                         | [{{< icon "link" >}}](#not)     |
 |   `OR`    | Returns true if any operand is true. Otherwise, returns false.             | [{{< icon "link" >}}](#or)      |
 
-{{% note %}}
-#### Sample data
-
-Query examples on this page use the following sample data sets:
-
-- [Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data)
-- [Home sensor actions sample data](/influxdb/version/reference/sample-data/#home-sensor-actions-data)
-{{% /note %}}
+> [!Note]
+>
+> #### Sample data
+> 
+> Query examples on this page use the following sample data sets:
+> 
+> - [Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data)
+> - [Home sensor actions sample data](/influxdb/version/reference/sample-data/#home-sensor-actions-data)
 
 ## AND {.monospace}
 

@@ -68,11 +68,10 @@ aggregate value.
 
 Returns an array created from the expression elements.
 
-{{% note %}}
-`array_agg` returns a `LIST` arrow type which is not supported by InfluxDB.
-To use with InfluxDB, use bracket notation to reference the index of an element
-in the returned array. Arrays are 1-indexed.
-{{% /note %}}
+> [!Note]
+> `array_agg` returns a `LIST` arrow type which is not supported by InfluxDB.
+> To use with InfluxDB, use bracket notation to reference the index of an element
+> in the returned array. Arrays are 1-indexed.
 
 ```sql
 array_agg(expression)

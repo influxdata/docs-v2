@@ -16,19 +16,17 @@ All SQL types are mapped to [Arrow data types](https://docs.rs/arrow/latest/arro
 Both SQL and Arrow data types play an important role in how data is operated on
 during query execution and returned in query results.
 
-{{% note %}}
-When performing casting operations, cast to the SQL data type unless you use
-[`arrow_cast()`](/influxdb/version/reference/sql/functions/misc/#arrow_cast)
-to cast to a specific Arrow type.
-Names and identifiers in SQL are _case-insensitive_ by default. For example:
-
-```sql
-SELECT
-  '99'::BIGINT,
-  '2019-09-18T00:00:00Z'::timestamp
-```
-
-{{% /note %}}
+> [!Note]
+> When performing casting operations, cast to the SQL data type unless you use
+> [`arrow_cast()`](/influxdb/version/reference/sql/functions/misc/#arrow_cast)
+> to cast to a specific Arrow type.
+> Names and identifiers in SQL are _case-insensitive_ by default. For example:
+> 
+> ```sql
+> SELECT
+>   '99'::BIGINT,
+>   '2019-09-18T00:00:00Z'::timestamp
+> ```
 
 - [String types](#string-types)
 - [Numeric types](#numeric-types)

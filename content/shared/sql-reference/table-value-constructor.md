@@ -25,10 +25,9 @@ FROM
   (VALUES (row_value_list)[,...n]) [AS] table_name(column_name[,...n])
 ```
 
-{{% note %}}
-When using the TVC, the `AS` keyword is optional and implied when naming the
-table and providing column names.
-{{% /note %}}
+> [!Note]
+> When using the TVC, the `AS` keyword is optional and implied when naming the
+> table and providing column names.
 
 ## Examples
 

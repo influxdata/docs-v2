@@ -999,9 +999,8 @@ _The following example uses the sample data set provided in
 SELECT temp * random() AS random FROM home LIMIT 3
 ```
 
-{{% note %}}
-Due to the nature of the function, your results will not match the results below.
-{{% /note %}}
+> [!Note]
+> Due to the nature of the function, your results will not match the results below.
 
 |             random |
 | -----------------: |

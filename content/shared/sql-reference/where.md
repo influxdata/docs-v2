@@ -9,9 +9,9 @@ Use the `WHERE` clause to filter results based on fields, tags, or timestamps.
 SELECT_clause FROM_clause WHERE <conditional_expression> [(AND|OR) <conditional_expression> [...]]
 ```
 
-{{% note %}}
-**Note:** Unlike InfluxQL, SQL **supports** `OR` in the `WHERE` clause to specify multiple conditions, including time ranges.
-{{% /note %}}
+> [!Note]
+> **Note:** Unlike InfluxQL, SQL **supports** `OR` in the `WHERE` clause to
+> specify multiple conditions, including time ranges.
 
 ## Examples
 

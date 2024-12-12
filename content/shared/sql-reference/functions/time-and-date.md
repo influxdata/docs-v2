@@ -31,10 +31,9 @@ that are useful when working with time series data.
 
 Returns the current UTC date.
 
-{{% note %}}
-`current_date` returns a `DATE32` Arrow type, which isn't supported by InfluxDB.
-To use with InfluxDB, [cast the return value to a timestamp or string](/influxdb/version/query-data/sql/cast-types/).
-{{% /note %}}
+> [!Note]
+> `current_date` returns a `DATE32` Arrow type, which isn't supported by InfluxDB.
+> To use with InfluxDB, [cast the return value to a timestamp or string](/influxdb/version/query-data/sql/cast-types/).
 
 The `current_date()` return value is determined at query time and returns
 the same date, no matter when in the query plan the function executes.
@@ -77,10 +76,9 @@ LIMIT 3
 
 Returns the current UTC time.
 
-{{% note %}}
-`current_date` returns a `TIME64` Arrow type, which isn't supported by InfluxDB.
-To use with InfluxDB, [cast the return value to a string](/influxdb/version/query-data/sql/cast-types/#cast-to-a-string-type).
-{{% /note %}}
+> [!Note]
+> `current_date` returns a `TIME64` Arrow type, which isn't supported by InfluxDB.
+> To use with InfluxDB, [cast the return value to a string](/influxdb/version/query-data/sql/cast-types/#cast-to-a-string-type).
 
 The `current_time()` return value is determined at query time and returns the same time,
 no matter when in the query plan the function executes.
@@ -193,10 +191,9 @@ at specified time intervals.
 date_bin_gapfill(interval, expression[, origin_timestamp])
 ```
 
-{{% note %}}
-`date_bin_gapfill` requires [time bounds](/influxdb/version/query-data/sql/basic-query/#query-data-within-time-boundaries)
-in the `WHERE` clause.
-{{% /note %}}
+> [!Note]
+> `date_bin_gapfill` requires [time bounds](/influxdb/version/query-data/sql/basic-query/#query-data-within-time-boundaries)
+> in the `WHERE` clause.
 
 ##### Arguments:
 
@@ -508,10 +505,9 @@ UTC offset of the input timestamp.
 date_bin_wallclock_gapfill(interval, expression[, origin_timestamp])
 ```
 
-{{% note %}}
-`date_bin_wallclock_gapfill` requires [time bounds](/influxdb/version/query-data/sql/basic-query/#query-data-within-time-boundaries)
-in the `WHERE` clause.
-{{% /note %}}
+> [!Note]
+> `date_bin_wallclock_gapfill` requires [time bounds](/influxdb/version/query-data/sql/basic-query/#query-data-within-time-boundaries)
+> in the `WHERE` clause.
 
 ##### Arguments:
 
@@ -916,10 +912,9 @@ SELECT
 
 Returns a date using the component parts (year, month, day).
 
-{{% note %}}
-`make_date` returns a `DATE32` Arrow type, which isn't supported by InfluxDB.
-To use with InfluxDB, [cast the return value to a timestamp or string](/influxdb/version/query-data/sql/cast-types/).
-{{% /note %}}
+> [!Note]
+> `make_date` returns a `DATE32` Arrow type, which isn't supported by InfluxDB.
+> To use with InfluxDB, [cast the return value to a timestamp or string](/influxdb/version/query-data/sql/cast-types/).
 
 ```sql
 make_date(year, month, day)
@@ -983,10 +978,9 @@ _Alias of [current_date](#current_date)._
 Returns the string representation of a date, time, timestamp, or duration based on
 a [Rust Chrono format string](https://docs.rs/chrono/latest/chrono/format/strftime/index.html).
 
-{{% note %}}
-Unlike the PostgreSQL `TO_CHAR()` function, this function does not support
-numeric formatting.
-{{% /note %}}
+> [!Note]
+> Unlike the PostgreSQL `TO_CHAR()` function, this function does not support
+> numeric formatting.
 
 ```sql
 to_char(expression, format)
@@ -1022,10 +1016,9 @@ Strings are parsed as `YYYY-MM-DD` unless another format is specified.
 Numeric values are interpreted as days since the
 [Unix epoch](/influxdb/version/reference/glossary/#unix-epoch).
 
-{{% note %}}
-`to_date` returns a `DATE32` Arrow type, which isn't supported by InfluxDB.
-To use with InfluxDB, [cast the return value to a timestamp or string](/influxdb/version/query-data/sql/cast-types/).
-{{% /note %}}
+> [!Note]
+> `to_date` returns a `DATE32` Arrow type, which isn't supported by InfluxDB.
+> To use with InfluxDB, [cast the return value to a timestamp or string](/influxdb/version/query-data/sql/cast-types/).
 
 ```sql
 to_date(expression[, ..., format_n])
@@ -1062,11 +1055,10 @@ Converts a timestamp with a timezone to a timestamp without a timezone
 (no offset or timezone information). This function accounts for time shifts
 like daylight saving time (DST).
 
-{{% note %}}
-Use `to_local_time()` with [`date_bin()`](#date_bin) and
-[`date_bin_gapfill`](#date_bin_gapfill) to generate window boundaries based the
-local time zone rather than UTC.
-{{% /note %}}
+> [!Note]
+> Use `to_local_time()` with [`date_bin()`](#date_bin) and
+> [`date_bin_gapfill`](#date_bin_gapfill) to generate window boundaries based the
+> local time zone rather than UTC.
 
 ```sql
 to_local_time(expression)
