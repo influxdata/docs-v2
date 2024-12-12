@@ -13,6 +13,8 @@
   {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/" .File.Path) }}
   {{ if .Page.HasShortcode "duplicate-oss" }}
     {{ .Scratch.Set "pageGithubLink" (replaceRE "/cloud/" "/v2/" (.Scratch.Get "pageGithubLink")) }}
+  {{ else if .Params.Source }}
+    {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master" .Params.source) }}
   {{ end }}
 {{ else }}
   {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/") }}
