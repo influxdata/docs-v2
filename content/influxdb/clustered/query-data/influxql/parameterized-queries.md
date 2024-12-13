@@ -257,7 +257,7 @@ import (
     "os"
     "text/tabwriter"
     "time"
-    "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
+    "github.com/InfluxCommunity/influxdb3-go/v2/influxdb3"
 )
 
 func Query(query string, parameters influxdb3.QueryParameters,
