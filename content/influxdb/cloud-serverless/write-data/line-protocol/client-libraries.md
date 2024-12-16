@@ -120,7 +120,7 @@ The following steps set up a Go project using the
    which provides the InfluxDB `influxdb3` Go client library module.
 
    ```sh
-   go get github.com/InfluxCommunity/influxdb3-go
+   go get github.com/InfluxCommunity/influxdb3-go/v2
    ```
 
 <!-- END GO SETUP PROJECT -->
@@ -229,7 +229,7 @@ points.
     "os"
     "fmt"
     "time"
-    "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
+    "github.com/InfluxCommunity/influxdb3-go/v2/influxdb3"
     "github.com/influxdata/line-protocol/v2/lineprotocol"
    )
 
