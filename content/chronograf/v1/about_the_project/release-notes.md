@@ -10,6 +10,19 @@ aliases:
   - /chronograf/v1/about_the_project/release-notes-changelog/
 ---
 
+## v1.10.6 {date="2024-12-16"}
+
+### Bug Fixes
+
+- Prevent dangerous InfluxQL statements from automatically executing.
+- Fix Hosts page loading when there is a large number of connections.
+- Support InfluxDB Enterprise when using the Flux Query Builder.
+- Support metaqueries for InfluxDB Cloud Serverless environments.
+
+### Dependency updates
+
+- Upgrade Go to 1.22.7.
+
 ## v1.10.5 {date="2024-05-31"}
 
 ### Dependency updates
