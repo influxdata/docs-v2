@@ -14,10 +14,10 @@ aliases:
 
 ### Bug Fixes
 
-- Prevent of dangerous InfluxQL statements from auto-executing.
-- Loading the Hosts page for a large number of connections.
-- Flux Query Builder connectivity with InfluxDB Enterprise.
-- Meta queries for Cloud Serverless environments.
+- Prevent dangerous InfluxQL statements from automatically executing.
+- Fix Hosts page loading when there is a large number of connections.
+- Support InfluxDB Enterprise when using the Flux Query Builder.
+- Support metaqueries for InfluxDB Cloud Serverless environments.
 
 ### Dependency updates
 
