@@ -369,7 +369,7 @@ Related entries:
 A function is an operation that performs a specific task.
 Functions take input, operate on that input, and then return output.
 For a complete list of available SQL functions, see
-[SQL functions](/inflxudb/cloud-dedicated/reference/sql/functions/).
+[SQL functions](/influxdb/cloud-dedicated/reference/sql/functions/).
 
 <!-- TODO: Add a link to InfluxQL aggregate functions -->
 

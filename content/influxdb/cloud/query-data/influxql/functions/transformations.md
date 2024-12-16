@@ -1,6 +1,6 @@
 ---
 title: InfluxQL transformation functions
-list_title: Tranfsormation functions
+list_title: Transformation functions
 description: >
   Use transformation functions modify and return values each row of queried data.
 menu:
