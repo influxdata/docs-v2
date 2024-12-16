@@ -20,7 +20,7 @@ to write and query data stored in an {{% product-name %}} bucket.
 ## Installation
 
 ```sh
-go get github.com/InfluxCommunity/influxdb3-go
+go get github.com/InfluxCommunity/influxdb3-go/v2
 ```
 
 ## Importing the package
@@ -31,7 +31,7 @@ Import the package:
 
 ```go
 import (
-    "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
+    "github.com/InfluxCommunity/influxdb3-go/v2/influxdb3"
 )
 ```
 
@@ -75,7 +75,7 @@ Initializes and returns a `influxdb3.Client` instance with the following:
 package main
 
 import (
-    "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
+    "github.com/InfluxCommunity/influxdb3-go/v2/influxdb3"
 )
 
 func Query() error {

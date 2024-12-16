@@ -585,7 +585,7 @@ _If your project's virtual environment is already running, skip to step 3._
       "time"
       "text/tabwriter"
 
-      "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
+      "github.com/InfluxCommunity/influxdb3-go/v2/influxdb3"
     )
 
     func Query() error {
@@ -651,7 +651,7 @@ _If your project's virtual environment is already running, skip to step 3._
         - `io`
         - `os`
         - `text/tabwriter`
-        - `github.com/InfluxCommunity/influxdb3-go/influxdb3/v1`
+        - `github.com/InfluxCommunity/influxdb3-go/v2/influxdb3`
 
     2.  Defines a `Query()` function that does the following:
 

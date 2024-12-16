@@ -21,7 +21,7 @@ list_code_example: |
     ```go
     import (
       "context"
-      "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
+      "github.com/InfluxCommunity/influxdb3-go/v2/influxdb3"
     )
 
     func Query() error {
@@ -94,7 +94,7 @@ to install a recent version of the Go programming language for your system.
 In your terminal, enter the following command to download and install the client library:
 
 ```sh
-go get github.com/InfluxCommunity/influxdb3-go
+go get github.com/InfluxCommunity/influxdb3-go/v2
 ```
 
 - [`influxdb3-go`](https://github.com/InfluxCommunity/influxdb3-go) {{< req text="\* " color="magenta" >}}: Provides the `influxdb3` package and also installs the [Apache `arrow` module](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
@@ -138,7 +138,7 @@ import (
     "text/tabwriter"
     "time"
 
-    "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
+    "github.com/InfluxCommunity/influxdb3-go/v2/influxdb3"
 )
 
 func Query() error {
@@ -233,7 +233,7 @@ import (
     "text/tabwriter"
     "time"
 
-    "github.com/InfluxCommunity/influxdb3-go/influxdb3/v1"
+    "github.com/InfluxCommunity/influxdb3-go/v2/influxdb3"
 )
 
 func InfluxQL() error {
