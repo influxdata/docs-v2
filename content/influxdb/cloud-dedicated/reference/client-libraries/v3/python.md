@@ -15,41 +15,35 @@ aliases:
 related:
   - /influxdb/cloud-dedicated/query-data/execute-queries/troubleshoot/
 list_code_example: >
-  <!-- Import for tests and hide from users.
-  ```python
-  import os
-  ```
-  -->
-  <!--pytest-codeblocks:cont-->
-  ```python
-  from influxdb_client_3 import(InfluxDBClient3,
-                                WriteOptions,
-                                write_client_options)
+{{< list_code_example language="python" >}}
+```python
+from influxdb_client_3 import InfluxDBClient3, WriteOptions, write_client_options
 
-  # Instantiate batch writing options for the client
+# Instantiate batch writing options for the client
+write_options = WriteOptions()
+wco = write_client_options(write_options=write_options)
 
-  write_options = WriteOptions()
-  wco = write_client_options(write_options=write_options)
-
-  # Instantiate an InfluxDB v3 client
-
-  with InfluxDBClient3(host=f"{{< influxdb/host >}}",
-                        database=f"DATABASE_NAME",
-                        token=f"DATABASE_TOKEN",
-                        write_client_options=wco) as client:
+# Instantiate an InfluxDB v3 client
+with InfluxDBClient3(host="cluster-id.a.influxdb.io",
+                     database="DATABASE_NAME",
+                     token="DATABASE_TOKEN",
+                     write_client_options=wco) as client:
 
     # Write data in batches
-    client.write_file(file='./data/home-sensor-data.csv', timestamp_column='time',
+    client.write_file(file='./data/home-sensor-data.csv',
+                      timestamp_column='time',
                       tag_columns=["room"])
 
     # Execute a query and retrieve data formatted as a PyArrow Table
+    query = """
+    SELECT *
+    FROM home
+    WHERE time >= now() - INTERVAL '90 days'
+    ORDER BY time
+    """
+    table = client.query(query)
 
-    table = client.query(
-      '''SELECT *
-         FROM home
-         WHERE time >= now() - INTERVAL '90 days'
-         ORDER BY time''')
-    ```
+
 ---
 
 The InfluxDB v3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python)
