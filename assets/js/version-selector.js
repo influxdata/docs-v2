@@ -4,10 +4,12 @@ export default function VersionSelector() {
   // Expand the menu on click
   dropdowns.forEach(function(dropdown) {
     dropdown.addEventListener("click", function(e) {
-      e.target.classList.toggle('open');
+      // Find the nearest dropdown ancestor and toggle it
+      const closest = e.target.closest('.dropdown')
+      closest.classList.toggle('open');
       // Close all other dropdowns
       dropdowns.forEach((dropdown) => {
-        if (dropdown !== e.target) {
+        if (dropdown !== closest) {
           dropdown.classList.remove('open');
         }
       });
@@ -16,7 +18,7 @@ export default function VersionSelector() {
 
   //  Close dropdowns by clicking anywhere else
   document.addEventListener('click', function(e) {
-    if (!e.target.matches('.dropdown')) {
+    if (!e.target.closest('.dropdown')) {
       dropdowns.forEach((dropdown) => { 
         if (dropdown.classList.contains('open')) {
           dropdown.classList.remove('open');
