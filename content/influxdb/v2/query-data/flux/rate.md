@@ -22,7 +22,7 @@ list_query_example: rate_of_change
 
 Use [`derivative()`](/flux/v0/stdlib/universe/derivative/)
 to calculate the rate of change between subsequent values or
-[`aggregate.rate()`](/flux/v0/stdlib/experimental/to/aggregate/rate/)
+[`aggregate.rate()`](/flux/v0/stdlib/experimental/aggregate/rate/)
 to calculate the average rate of change per window of time.
 If time between points varies, these functions normalize points to a common time interval
 making values easily comparable.
@@ -113,7 +113,7 @@ include negative values.
 
 ## Average rate of change per window of time
 
-Use the [`aggregate.rate()` function](/flux/v0/stdlib/experimental/to/aggregate/rate/)
+Use the [`aggregate.rate()` function](/flux/v0/stdlib/experimental/aggregate/rate/)
 to calculate the average rate of change per window of time.
 
 ```js
