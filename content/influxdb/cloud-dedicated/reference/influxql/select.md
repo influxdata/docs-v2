@@ -17,3 +17,7 @@ list_code_example: |
 
 source: /shared/influxql-v3-reference/select.md
 ---
+
+<!-- 
+The content of this page is at /shared/influxql-v3-reference/select.md
+-->

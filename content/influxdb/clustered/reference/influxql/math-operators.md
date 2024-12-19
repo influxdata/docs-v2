@@ -12,3 +12,7 @@ weight: 215
 
 source: /shared/influxql-v3-reference/math-operators.md
 ---
+
+<!-- 
+The content of this page is at /shared/influxql-v3-reference/math-operators.md
+-->

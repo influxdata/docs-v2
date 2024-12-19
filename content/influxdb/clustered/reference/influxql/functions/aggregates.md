@@ -13,3 +13,7 @@ related:
 
 source: /shared/influxql-v3-reference/functions/aggregates.md
 ---
+
+<!-- 
+The content of this page is at /shared/influxql-v3-reference/functions/aggregates.md
+-->
