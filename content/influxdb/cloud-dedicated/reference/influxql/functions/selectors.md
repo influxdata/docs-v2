@@ -13,3 +13,7 @@ related:
 
 source: /shared/influxql-v3-reference/functions/selectors.md
 ---
+
+<!-- 
+The content of this page is at /shared/influxql-v3-reference/functions/selectors.md
+-->

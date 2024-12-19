@@ -13,3 +13,7 @@ draft: true
 
 source: /shared/influxql-v3-reference/functions/technical-analysis.md
 ---
+
+<!-- 
+The content of this page is at /shared/influxql-v3-reference/functions/technical-analysis.md
+-->

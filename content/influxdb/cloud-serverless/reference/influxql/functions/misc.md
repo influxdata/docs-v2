@@ -13,3 +13,7 @@ weight: 206
 
 source: /shared/influxql-v3-reference/functions/misc.md
 ---
+
+<!-- 
+The content of this page is at /shared/influxql-v3-reference/functions/misc.md
+-->
