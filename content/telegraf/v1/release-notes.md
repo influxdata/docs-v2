@@ -158,9 +158,8 @@ menu:
   requeueing. This way, those messages are not lost and can optionally be
   handled using a dead-letter exchange by other means.
 - Removal of old-style serializer creation. This should not directly affect
-  users as it is an API change. All serializers in Telegraf are already ported
-  to the new framework. If you experience any issues with not being able to
-  create serializers let us know!
+  users as it is an API change; all serializers in Telegraf are already ported
+  to the new framework. If you experience any issues creating serializers, [contact us](/telegraf/v1/#bug-reports-and-feedback).
 
 ### Bugfixes
 
