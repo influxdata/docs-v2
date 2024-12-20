@@ -30,16 +30,17 @@
     {{ $mainJs := resources.Get "js/main.js" | js.Build (dict "params" (dict "cloudUrls" $cloudUrls "product" $product "currentVersion" $currentVersion "isServer" hugo.IsServer))
     }}
 
-
     <!-- Load main.js after document is ready -->
     <script src="{{ $mainJs.RelPermalink }}"></script>
     {{ partial "header/canonical.html" . }}
     {{ partial "header/stylesheets.html" }}
-    <!-- Load theme.js as soon as possible, but after the stylesheet elements -->
-    <script src="{{ $themeJs.RelPermalink }}"></script>
+    <!-- Load theme scripts as soon as possible, but after stylesheets have loaded (by using `defer`). -->
+    <script defer src="{{ $themeJs.RelPermalink }}"></script>
+
     {{ partial "header/google-fonts.html" }}
     {{ partial "header/search-attributes.html" . }}
     {{ partial "header/coveo-meta-data.html" . }}
+    {{ partial "header/ai-chat.html" . }}
     {{ if not hugo.IsServer }}{{ partial "header/marketing.html" }}{{ end }}
 
     <meta name="Copyright" content="InfluxData Inc." />

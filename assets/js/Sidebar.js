@@ -5,12 +5,11 @@
 import $ from 'jquery';
 import { getPreference, setPreference } from './cookies.js';
 
-// *** TO BE CUSTOMISED ***
-var sidebar_state_preference_name = 'sidebar_state';
-var sidebar_state_duration = 30;
-var style_domain = 'docs.influxdata.com';
+const COMPONENT = 'sidebar';
+const PROPS = {
+  toggle_preference_name: `${COMPONENT}_state`,
+};
 
-// *** END OF CUSTOMISABLE SECTION ***
 // You do not need to customise anything below this line
 
 function toggleSidebar (toggle_state) {
@@ -25,38 +24,39 @@ function toggleSidebar (toggle_state) {
   ) {
     if (
       link_tag[i].rel.indexOf('stylesheet') != -1 &&
-      link_tag[i].title.includes('sidebar')
+      link_tag[i].title.includes(COMPONENT)
     ) {
       link_tag[i].disabled = true;
       if (link_tag[i].title == toggle_state) {
         link_tag[i].disabled = false;
       }
     }
+    const regex = new RegExp(`${COMPONENT}-`);
     setPreference(
-      sidebar_state_preference_name,
-      toggle_state.replace(/sidebar-/, '')
+      PROPS.toggle_preference_name,
+      toggle_state.replace(regex, '')
     );
   }
 }
 
 function setSidebarState () {
-  var toggle_state = `sidebar-${getPreference(sidebar_state_preference_name)}`;
+  var toggle_state = `${COMPONENT}-${getPreference(PROPS.toggle_preference_name)}`;
   if (toggle_state !== undefined) {
     toggleSidebar(toggle_state);
   }
 }
 
 function handleSidebarToggle() {
-  $('.sidebar-toggle').on('click', function(event) {
+  $(`.${COMPONENT}-toggle`).on('click', function(event) {
     event.preventDefault();
     const modifiedState = $(this).data('modified-state');
-    toggleSidebar(`sidebar-${modifiedState}`);
+    toggleSidebar(`${COMPONENT}-${modifiedState}`);
   });
 
   // TODO: Move to SearchButton component
   $('#search-btn').on('click', function(event) {
     event.preventDefault();
-    toggleSidebar('sidebar-open');
+    toggleSidebar(`${COMPONENT}-open`);
     $('#algolia-search-input').trigger('focus');
   });
 }

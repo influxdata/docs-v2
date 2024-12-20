@@ -1,14 +1,16 @@
 import { getPreference, setPreference } from './cookies.js';
 import $ from 'jquery';
 
-const ThemeSettings = {
+const COMPONENT = 'theme-switch';
+
+const PROPS = {
   style_preference_name: 'theme',
   style_cookie_duration: 30, // number of days
   style_domain: 'docs.influxdata.com',
 };
 
 function setStyleFromCookie () {
-  const css_title = `${getPreference(ThemeSettings.style_preference_name)}-theme`;
+  const css_title = `${getPreference(PROPS.style_preference_name)}-theme`;
   if (css_title !== 'undefined-theme') {
     switchStyle(css_title);
   }
@@ -42,23 +44,23 @@ function switchStyle (css_title) {
       }
     }
 
-    setPreference(ThemeSettings.style_preference_name, css_title.replace(/-theme/, ''));
+    setPreference(PROPS.style_preference_name, css_title.replace(/-theme/, ''));
   }
 }
 
-export default function ThemeSwitch(style) {
+export default function ThemeModeSwitch({ style }) {
   if (style !== undefined) {
     switchStyle(style);
   } else {
   setStyleFromCookie();
   }
 
-  $('#theme-switch-light').on('click', function(event) {
+  $(`#${COMPONENT}-light`).on('click', function(event) {
     event.preventDefault();
     switchStyle('light-theme');
   });
 
-  $('#theme-switch-dark').on('click', function(event) {
+  $(`#${COMPONENT}-dark`).on('click', function(event) {
     event.preventDefault();
     switchStyle('dark-theme');
   });

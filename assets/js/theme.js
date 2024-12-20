@@ -1,8 +1,7 @@
-// Import parameters passed from the calling page to js.Build.
-import ThemeSwitch from './ThemeSwitch.js';
+import ThemeModeSwitch from './ThemeModeSwitch.js';
 
-// Initialize components to load as early as possible
-ThemeSwitch();
+// Initialize components
+ThemeModeSwitch({});
 
 // Expose libraries and components within a namespaced object (for backwards compatibility or testing)
 if (typeof window.influxdatadocs === 'undefined') {
@@ -10,6 +9,6 @@ if (typeof window.influxdatadocs === 'undefined') {
 }
 
 window.influxdatadocs = {
-  ThemeSwitch,
+  ThemeModeSwitch,
   ...window.influxdatadocs,
 };

@@ -1,4 +1,4 @@
-export default function VersionSelector() {
+export default function DropdownMenu() {
   const dropdowns = document.querySelectorAll('.dropdown');
 
   // Expand the menu on click

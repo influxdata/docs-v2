@@ -1,5 +1,7 @@
 import $ from 'jquery';
 
+const COMPONENT = "#flux-group-keys-demo #grouped-tables"
+
 // Default group key
 const groupKeyDefault = ["_measurement", "loc", "sensorID", "_field"];
 const sampleData = [
@@ -136,7 +138,7 @@ const checkboxSelector = ".column-list input[type=checkbox]";
 export default function FluxGroupKeysExample() {
   // Group and render tables on load
   // Build group example on load
-  const tablesElement = document.querySelector("#flux-group-keys-demo #grouped-tables");
+  const tablesElement = document.querySelector(COMPONENT);
 
   if (!tablesElement) {
     return;

@@ -36,8 +36,8 @@ import PageFeedback from './page-feedback.js';
 import SearchInput from './SearchInput.js';
 import Sidebar from './Sidebar.js';
 import V3Wayfinding from './v3-wayfinding.js';
-import VersionSelector from './version-selector.js';
-import ThemeLightDarkSwitch from './ThemeLightDarkToggle.js';
+import VersionSelector from './VersionSelector.js';
+import ThemeModeSwitch from './ThemeModeSwitch.js';
 
 /** Initialize components
  Component Structure: Each component is structured as a jQuery anonymous function that listens for the document ready state.
@@ -45,7 +45,7 @@ import ThemeLightDarkSwitch from './ThemeLightDarkToggle.js';
  Note: These components should *not* be called directly in the HTML.
  */
 $(function () {
-  // AIChat();
+  AIChat({});
   CodeControls();
   ContentInteractions();
   CustomTimestamps();
@@ -57,7 +57,6 @@ $(function () {
   SearchInput();
   Sidebar();
   TabbedContent();
-  ThemeLightDarkSwitch();
   V3Wayfinding();
   VersionSelector();
 });
@@ -89,7 +88,7 @@ window.influxdatadocs = Object.assign({}, window.influxdatadocs, {
   SearchInput,
   Sidebar,
   TabbedContent,
-  ThemeLightDarkSwitch,
+  ThemeModeSwitch,
   V3Wayfinding,
   VersionSelector,
 });
