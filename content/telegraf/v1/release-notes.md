@@ -79,9 +79,9 @@ menu:
   internal counters of the Bind plugin to unsigned integers matching the server
   implementation. We keep backward compatibility by setting
   `report_counters_as_int` is `true` by default to avoid type conflicts on the
-  output side. However, you should change this setting to `false` as soon as
+  output side. _However, you should set  `report_counters_as_int` to `false` as soon as
   possible to avoid invalid values and parsing errors with the v3 XML
-  statistics.
+  statistics._
 
 ### Bugfixes
 
