@@ -52,7 +52,7 @@ menu:
 
 - [#16248](https://github.com/influxdata/telegraf/pull/16248) `inputs.netflow` Decode flags in TCP and IP headers correctly
 - [#16257](https://github.com/influxdata/telegraf/pull/16257) `inputs.procstat` Handle running processes correctly across multiple filters
-- [#16219](https://github.com/influxdata/telegraf/pull/16219) `logging` Add Close() func for redirectLogger
+- [#16219](https://github.com/influxdata/telegraf/pull/16219) `logging` Add `Close()` func for redirectLogger
 - [#16255](https://github.com/influxdata/telegraf/pull/16255) `logging` Clean up extra empty spaces when redirectLogger is used
 - [#16274](https://github.com/influxdata/telegraf/pull/16274) `logging` Fix duplicated prefix and attrMsg in log message when redirectLogger is used
 
