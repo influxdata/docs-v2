@@ -9,9 +9,10 @@
     "@vvago/vale": "^3.4.2",
     "autoprefixer": ">=10.2.5",
     "hugo-extended": ">=0.101.0",
+    "lint-staged": "^15.2.11",
     "postcss": ">=8.4.31",
     "postcss-cli": ">=9.1.0",
-    "prettier": "^3.2.5",
+    "prettier": "3.4.2",
     "prettier-plugin-sql": "^0.18.0"
   },
   "dependencies": {
