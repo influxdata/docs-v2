@@ -7,6 +7,10 @@ influxdb3_core:
   list_order: 2
   latest: core
   placeholder_host: localhost:8181
+  ai_sample_questions:
+    - How do I install and run InfluxDB 3 Core?
+    - How do I write a plugin for the Python Processing engine?
+    - How do I write data using the HTTP API for InfluxDB 3 Core?
 
 influxdb3_enterprise:
   name: InfluxDB 3 Enterprise
@@ -17,6 +21,10 @@ influxdb3_enterprise:
   list_order: 2
   latest: enterprise
   placeholder_host: localhost:8181
+  ai_sample_questions:
+    - How do I install and run InfluxDB 3 Enterprise?
+    - Help me write a plugin for the Python Processing engine?
+    - How do I start a read replica node with InfluxDB 3 Enterprise?
 
 influxdb3_cloud_serverless:
   name: InfluxDB Cloud Serverless
@@ -27,6 +35,9 @@ influxdb3_cloud_serverless:
   list_order: 2
   latest: cloud-serverless
   placeholder_host: cloud2.influxdata.com
+  ai_sample_questions:
+    - How do I migrate from InfluxDB Cloud 2 to InfluxDB Cloud Serverless?
+    - What tools can I use to write data to InfluxDB Cloud Serverless?
 
 influxdb3_cloud_dedicated:
   name: InfluxDB Cloud Dedicated
@@ -39,6 +50,10 @@ influxdb3_cloud_dedicated:
   link: "https://www.influxdata.com/contact-sales-form/"
   latest_cli: 2.9.9
   placeholder_host: cluster-id.a.influxdb.io
+  ai_sample_questions:
+    - How do I migrate from InfluxDB v1 to InfluxDB Cloud Dedicated?
+    - What tools can I use to write data to Cloud Dedicated?
+    - How do I use SQL and parameterized queries with Cloud Dedicated?
 
 influxdb3_clustered:
   name: InfluxDB Clustered
@@ -50,6 +65,10 @@ influxdb3_clustered:
   latest: clustered
   link: "https://www.influxdata.com/contact-sales-influxdb-clustered"
   placeholder_host: cluster-host.com
+  ai_sample_questions:
+    - How do I use a Helm chart to configure Clustered?
+    - What tools can I use to write data to Clustered?
+    - How do I use SQL and parameterized queries with InfluxDB Clustered?
 
 influxdb:
   name: InfluxDB
@@ -68,6 +87,10 @@ influxdb:
     v1: 1.11.8
   latest_cli:
     v2: 2.7.5
+  ai_sample_questions:
+    - How do I write and query data with InfluxDB v2 OSS? 
+    - How can I migrate from InfluxDB v2 OSS to InfluxDB 3 Core? 
+    - How do I manage auth tokens in InfluxDB v2 OSS?
 
 influxdb_cloud:
   name: InfluxDB Cloud (TSM)
@@ -78,6 +101,10 @@ influxdb_cloud:
   list_order: 1
   latest: cloud
   placeholder_host: cloud2.influxdata.com
+  ai_sample_questions:
+    - How do I write and query data with InfluxDB Cloud 2? 
+    - How is Cloud 2 different from Cloud Serverless? 
+    - How do I manage auth tokens in InfluxDB Cloud 2?
 
 telegraf:
   name: Telegraf
@@ -88,6 +115,10 @@ telegraf:
   latest: v1.33
   latest_patches:
     v1: 1.33.0
+  ai_sample_questions:
+    - How do I install and configure Telegraf?
+    - How do I write a custom Telegraf plugin?
+    - How do I use Telegraf for MQTT?
 
 chronograf:
   name: Chronograf
@@ -118,6 +149,10 @@ enterprise_influxdb:
   latest: v1.11
   latest_patches:
     v1: 1.11.8
+  ai_sample_questions:
+  - How can I configure my InfluxDB v1 Enterprise server? 
+  - How do I replicate data between InfluxDB v1 Enterprise and OSS?
+  - How do I query data stored in InfluxDB v1?
 
 flux:
   name: Flux

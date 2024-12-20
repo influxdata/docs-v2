@@ -1,0 +1,139 @@
+.footer-widgets {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: auto; /* Ensure the parent takes up the full width */
+  height: auto; /* Adjust height to fit content */
+  display: flex;
+  flex-direction: column; /* Arrange items in a single column */
+  justify-content: flex-end; /* Align items to the start of the column */
+  align-items: flex-end; /* Align items to the left */
+  z-index: 100; /* Ensure the triggers are above other content except modals*/
+
+  .widget {
+    height: 50px;
+    width: 50px;
+    border-radius: $radius * 3;
+    position: relative;
+    box-shadow: 2px 2px 6px $sidebar-search-shadow;
+    color: $g20-white;
+    
+    &:not(:last-child) {margin-bottom: 5px;}
+
+    /* The before pseudo element contains the "tool tip" */
+    &:before {
+      content: attr(data-tooltip);
+      padding: .25rem .5rem;
+      display: flex;
+      position: absolute;
+      top: 11px;
+      right: 60px;
+      width: auto;
+      white-space: nowrap;
+      font-size: .9rem;
+      font-weight: bold;
+      border-radius: $radius * 3;
+      @include gradient($grad-burningDusk, 270deg);
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0;
+      transform: translateX(15px);
+      transition: opacity .2s, transform .2s;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 14px;
+      right: 56px;
+      width: 0px;
+      height: 0px;
+      opacity: 0;
+      transform: translateX(15px);
+      transition: opacity .2s, transform .2s;
+    }
+
+    &:hover {
+      cursor: pointer;
+      &:before, &:after {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    &.magenta {
+      @include gradient($grad-burningDusk, 90deg);
+      &:before {@include gradient($grad-burningDusk, 270deg);}
+      &:after {
+        border-style: solid;
+        border-width: 10px 0 10px 5px;
+        border-color: transparent transparent transparent $br-new-magenta;}
+    }
+    &.blue {
+      color: rgba($br-dark-blue, .7);
+      @include gradient($grad-tealDream, 270deg);
+      &:before {@include gradient($grad-tealDream, 90deg);}
+      &:after {
+        border-style: solid;
+        border-width: 10px 0 10px 5px;
+        border-color: transparent transparent transparent $br-teal;}
+    }
+  }
+}
+
+////////////////////////////// CUSTOM TIME TRIGGER /////////////////////////////
+
+.custom-time-trigger {
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1.2rem;
+    color: rgba($br-dark-blue, .8);
+    text-decoration: none;
+  }
+}
+
+///////////////////////////////// ASK AI WIDGET ////////////////////////////////
+
+.ask-ai-trigger {
+  
+  .ask-ai-open {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: .8rem;
+    font-weight: bold;
+
+    .icon-influx-logo {
+      margin-bottom: .15rem;
+      font-size: 1rem;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+////////////////////////////////// ANIMATIONS //////////////////////////////////
+
+@keyframes fadeInAnimation {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+
+@include media(small) {
+  .footer-widgets {
+    bottom: .75rem;
+    right: .75rem;
+  }
+}

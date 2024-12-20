@@ -8,7 +8,7 @@
       {{ partial "footer/modals/influxdb-url.html" . }}
       {{ partial "footer/modals/page-feedback.html" . }}
       {{ if or (.Page.HasShortcode "influxdb/custom-timestamps") (.Page.HasShortcode "influxdb/custom-timestamps-span") }}
-        {{ partial "footer/modals/influxdb-gs-date-select.html" }}
+        {{ partial "footer/modals/influxdb-gs-date-select.html" . }}
       {{ end }}
       {{ if $inStdlib }}
         {{ partial "footer/modals/flux-influxdb-versions.html" . }}

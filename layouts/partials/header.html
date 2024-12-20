@@ -15,15 +15,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
+    {{ partial "header/javascript.html" . }}
     {{ partial "header/canonical.html" . }}
     {{ partial "header/stylesheets.html" }}
     {{ partial "header/google-fonts.html" }}
-    {{ partial "header/javascript.html" }}
     {{ partial "header/search-attributes.html" . }}
     {{ partial "header/coveo-meta-data.html" . }}
     {{ if not hugo.IsServer }}{{ partial "header/marketing.html" }}{{ end }}
 
     <meta name="Copyright" content="InfluxData Inc." />
   </head>
-  <body class='{{if ne $product nil}}{{ $product }}{{ else }}home{{ end }}{{ if in $version "v1" }} v1{{ end }}'>
+  <body class='{{if ne $product nil}}{{ $product }}{{ else }}home{{ end }}{{ if in $version "v1" }} v1{{ end }}' data-component="theme" data-theme-callback="setVisibility">
     {{ if not hugo.IsServer }}{{ partial "header/google-analytics-body.html" }}{{ end }}
