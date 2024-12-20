@@ -45,10 +45,12 @@ function loadAIChat(dataAttributes) {
       }
     }
   }
+  return script;
 }
 
 function setUser(userid, email) {
-  // Set the user ID and email in the global namespace object
+  // Set the user ID and email in the global settings namespace.
+  // The chat widget will use this on subsequent chats to personalize the user's experience.
   window[NAMESPACE] = {
     user: {
       uniqueClientId: userid,
@@ -59,6 +61,6 @@ function setUser(userid, email) {
 
 export default function AIChat({ userid, email, ...chatParams }) {
   // For demonstration, set the userid if provided (in practice, it will likely come from a cookie).
-  window[NAMESPACE] && userid && setUser(userid, email);
-  loadAIChat(chatParams);
+  userid && setUser(userid, email);
+  const chatEl = loadAIChat(chatParams);
 }
