@@ -14,7 +14,8 @@ aliases:
   - /influxdb/cloud-dedicated/reference/client-libraries/v3/pyinflux3/
 related:
   - /influxdb/cloud-dedicated/query-data/execute-queries/troubleshoot/
-list_code_example: >
+---
+
 {{< list_code_example language="python" >}}
 ```python
 from influxdb_client_3 import InfluxDBClient3, WriteOptions, write_client_options
@@ -42,9 +43,7 @@ with InfluxDBClient3(host="cluster-id.a.influxdb.io",
     ORDER BY time
     """
     table = client.query(query)
-
-
----
+{{< /list_code_example >}}
 
 The InfluxDB v3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python)
 integrates {{% product-name %}} write and query operations with Python scripts and applications.
