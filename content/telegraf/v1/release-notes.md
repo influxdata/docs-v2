@@ -85,7 +85,7 @@ menu:
 
 ### Bugfixes
 
-- [#16123](https://github.com/influxdata/telegraf/pull/16123) `agent` Restore setup order of stateful plugins to Init() then SetState()
+- [#16123](https://github.com/influxdata/telegraf/pull/16123) `agent` Restore setup order of stateful plugins to `Init()` then `SetState()`
 - [#16111](https://github.com/influxdata/telegraf/pull/16111) `common.socket` Make sure the scanner buffer matches the read-buffer size
 - [#16156](https://github.com/influxdata/telegraf/pull/16156) `common.socket` Use read buffer size config setting as a datagram reader buffer size
 - [#16015](https://github.com/influxdata/telegraf/pull/16015) `inputs.bind` Convert counters to uint64
