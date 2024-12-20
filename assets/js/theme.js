@@ -1,10 +1,8 @@
 // Import parameters passed from the calling page to js.Build.
-import * as themeStyleHelpers from './theme-style-helpers.js';
-import ThemeStyleSettings from './ThemeSettings.js';
-import ThemePreference from './ThemePreference.js';
+import ThemeSwitch from './ThemeSwitch.js';
 
 // Initialize components to load as early as possible
-ThemePreference();
+ThemeSwitch();
 
 // Expose libraries and components within a namespaced object (for backwards compatibility or testing)
 if (typeof window.influxdatadocs === 'undefined') {
@@ -12,8 +10,6 @@ if (typeof window.influxdatadocs === 'undefined') {
 }
 
 window.influxdatadocs = {
-  ...themeStyleHelpers,
-  ThemePreference,
-  ThemeStyleSettings,
+  ThemeSwitch,
   ...window.influxdatadocs,
 };

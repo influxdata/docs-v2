@@ -27,7 +27,6 @@ import { TabbedContent } from './tabbed-content.js';
  * Ideally, a module should export a single function that initializes HTML component behavior and handles state changes or interactions.
  */
 import AIChat from './AIChat.js';
-import ApiReferencePage from './api-reference/ApiReferencePage.js';
 import CodeControls from './code-controls.js';
 import ContentInteractions from './content-interactions.js';
 import CustomTimestamps from './custom-timestamps.js';
@@ -46,8 +45,7 @@ import ThemeLightDarkSwitch from './ThemeLightDarkToggle.js';
  Note: These components should *not* be called directly in the HTML.
  */
 $(function () {
-  AIChat();
-  ApiReferencePage();
+  // AIChat();
   CodeControls();
   ContentInteractions();
   CustomTimestamps();
@@ -61,7 +59,7 @@ $(function () {
   TabbedContent();
   ThemeLightDarkSwitch();
   V3Wayfinding();
-  //VersionSelector();
+  VersionSelector();
 });
 
 // Expose libraries and components within a namespaced object (for backwards compatibility or testing)
@@ -70,7 +68,6 @@ if (typeof window.influxdatadocs === 'undefined') {
 }
 window.influxdatadocs = Object.assign({}, window.influxdatadocs, {
   AIChat,
-  ApiReferencePage,
   codeblocksPreferences,
   CodeControls,
   ContentInteractions,
