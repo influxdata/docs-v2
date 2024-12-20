@@ -5,6 +5,8 @@
   IDs in the messages array are considered read and no longer appear to the user.
 */
 
+import $ from 'jquery';
+
 // Get notification ID
 function notificationID(el) {
   return $(el).attr('id');
@@ -39,7 +41,10 @@ function showNotifications() {
     var exclude = $(this).data('exclude').split(',');
     var pageInScope = inScope(window.location.pathname, scope);
     var pageExcluded = excludePage(window.location.pathname, exclude);
-    var notificationRead = notificationIsRead(notificationID(this), 'message');
+    var notificationRead = window.LocalStorageAPI.notificationIsRead(
+      notificationID(this),
+      'message'
+    );
 
     if (pageInScope && !pageExcluded && !notificationRead) {
       $(this).show().animate({ right: 0, opacity: 1 }, 200, 'swing');
@@ -53,32 +58,43 @@ function hideNotification(el) {
     .closest('.notification')
     .animate({ height: 0, opacity: 0 }, 200, 'swing', function () {
       $(this).hide();
-      setNotificationAsRead(notificationID(this), 'message');
+      window.LocalStorageAPI.setNotificationAsRead(
+        notificationID(this),
+        'message'
+      );
     });
 }
 
-// Show notifications on page load
-showNotifications();
+function initialize() {
+  // Show notifications on page load
+  showNotifications();
 
-// Hide a notification and set the notification as read
-$('.close-notification').click(function (e) {
-  e.preventDefault();
-  hideNotification(this);
-});
+  // Hide a notification and set the notification as read
+  $('.close-notification').click(function (e) {
+    e.preventDefault();
+    hideNotification(this);
+  });
 
-$('.notification .show').click(function () {
-  $(this).closest('.notification').toggleClass('min');
-});
+  $('.notification .show').click(function () {
+    $(this).closest('.notification').toggleClass('min');
+  });
 
-// Notification element scroll position
-const notificationsInitialPosition = parseInt(
-  $('#docs-notifications').css('top'),
-  10
-);
-$(window).scroll(function () {
-  var notificationPosition =
-    notificationsInitialPosition - scrollY > 10
-      ? notificationsInitialPosition - scrollY
-      : 10;
-  $('#docs-notifications').css('top', notificationPosition);
-});
+  // Notification element scroll position
+  const notificationsInitialPosition = parseInt(
+    $('#docs-notifications').css('top'),
+    10
+  );
+  $(window).scroll(function () {
+    var notificationPosition =
+      notificationsInitialPosition - scrollY > 10
+        ? notificationsInitialPosition - scrollY
+        : 10;
+    $('#docs-notifications').css('top', notificationPosition);
+  });
+}
+
+export {
+  initialize,
+  showNotifications,
+  hideNotification,
+}

@@ -13,21 +13,23 @@ function getCalloutID (el) {
 
 // Hide a callout and update the cookie with the viewed callout
 function hideCallout (calloutID) {
-  if (!notificationIsRead(calloutID)) {
-    setNotificationAsRead(calloutID, 'callout');
+  if (!window.LocalStorageAPI.notificationIsRead(calloutID)) {
+    window.LocalStorageAPI.setNotificationAsRead(calloutID, 'callout');
     $(`#${calloutID}`).fadeOut(200);
   }
 }
 
 // Show the url feature callouts on page load
-$('.feature-callout').each(function () {
-  calloutID = calloutID($(this));
+$(document).ready(function () {
+  $('.feature-callout').each(function () {
+    const calloutID = getCalloutID($(this));
 
-  if (!notificationIsRead(calloutID, 'callout')) {
-    $(`#${calloutID}.feature-callout`)
-      .fadeIn(300)
-      .removeClass('start-position');
-  }
+    if (!window.LocalStorageAPI.notificationIsRead(calloutID, 'callout')) {
+      $(`#${calloutID}.feature-callout`)
+        .fadeIn(300)
+        .removeClass('start-position');
+    }
+  });
 });
 
 // Hide the InfluxDB URL selector callout
