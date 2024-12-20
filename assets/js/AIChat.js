@@ -1,60 +1,55 @@
 const ANON_USER_ID = null;
 
-const ELEMENT_ID = 'influxdata-docs-ai-widget';
-const OBJECT_NAME = 'kapaSettings';
+const COMPONENT = 'influxdata-docs-ai-widget';
+const NAMESPACE = 'kapaSettings';
 
-  // Set dataset attributes from the object
-  const chatRequiredAttributes = {
-    websiteId: 'ORG_ID',
-    projectName: 'InfluxData Docs',
-    projectColor: '#0058A0',
-    projectLogo: 'https://docs.influxdata.com/public/img/influx-logo-cubo-dark.png',
-  };
+/** Set dataset attributes from the object.
+* Keys are camelCase to be added to the script dataset, and represented as 
+* data-attr-key in the script HTML tag.
+* See https://docs.kapa.ai/integrations/website-widget/configuration for 
+* available configuration options.
+*/
+const REQUIRED_ATTRIBUTES = {
+  websiteId: 'a02bca75-1dd3-411e-95c0-79ee1139be4d',
+  projectName: 'InfluxDB',
+  projectColor: '#020a47',
+  projectLogo: 'https://docs.influxdata.com/img/influx-logo-cubo-dark.png',
+};
 
-  const chatOptionalAttributes = {
-    modalDisclaimer: "This is a custom LLM with access to all [documentation for InfluxDB and related tools](https://docs.influxdata.com).",
-    modalExampleQuestions: "How do I use Python to write data?,How do I query using SQL?",
-    modalOpenOnCommandK: "true",
-    userAnalyticsFingerprintEnabled: "true"
-  };
+const OPTIONAL_ATTRIBUTES = {
+  modalDisclaimer: "This is a custom AI with access to all [documentation for InfluxDB, clients, and related tools](https://docs.influxdata.com). Information you submit is used in accordance with our [Privacy Policy](https://www.influxdata.com/legal/privacy-policy/).",
+  modalExampleQuestions: "Use Python to write data to InfluxDB v3,How do I query using SQL?,How do I use MQTT with Telegraf?",
+  modalOpenOnCommandK: "true",
+  userAnalyticsFingerprintEnabled: "true"
+};
 
-function loadAIChat(customconfig) {
-  // https://www.command.ai/docs/platform/installation/installing-in-web-app/
-
-  var script = document.createElement('script');
+function loadAIChat(dataAttributes) {
+  const script = document.getElementById(COMPONENT);
   script.async = true;
   script.type = 'text/javascript';
   script.src = 'https://widget.kapa.ai/kapa-widget.bundle.js';
-  script.id = ELEMENT_ID;
 
-  for (const key in chatRequiredAttributes) {
-    if (chatRequiredAttributes.hasOwnProperty(key)) {
-      script.dataset[key] = chatRequiredAttributes[key];
+  // All Kapa widget attributes are set as data-* attributes.
+  const chatAttributes = Object.assign({}, REQUIRED_ATTRIBUTES, OPTIONAL_ATTRIBUTES);
+
+  for (const key in chatAttributes) {
+    if (chatAttributes.hasOwnProperty(key)) {
+      script.dataset[key] = chatAttributes[key];
     }
   }
 
-  for (const key in chatOptionalAttributes) {
-    if (chatOptionalAttributes.hasOwnProperty(key)) {
-      script.dataset[key] = chatOptionalAttributes[key];
-    }
-  }
-
-  if (typeof customconfig === 'object') {
-    for (const key in customconfig) {
-      if (customconfig.hasOwnProperty(key)) {
-        script.dataset[key] = customconfig[key];
+  if (typeof dataAttributes == 'object') {
+    for (const key in dataAttributes) {
+      if (dataAttributes.hasOwnProperty(key)) {
+        script.dataset[key] = chatAttributes[key];
       }
     }
-  }
-
-  script.onload = () => {
-    document.head.appendChild(script);
   }
 }
 
 function setUser(userid, email) {
-  // Set the user ID and email in the global object
-  window[OBJECT_NAME] = {
+  // Set the user ID and email in the global namespace object
+  window[NAMESPACE] = {
     user: {
       uniqueClientId: userid,
       email: email, 
@@ -62,30 +57,8 @@ function setUser(userid, email) {
   }
 }
 
-/* Reload the AI widget with the given user ID and new configuration */
-function bootAIChat(userid, chatconfig) {
-  // let script = document.getElementById(ELEMENT_ID);
-  // let config = typeof chatconfig === 'object' ? Object.assign({}, defaultConfig, chatconfig) : defaultConfig;
-  // // try {
-  // //   (window.CommandBar) ? window.CommandBar.boot(userid) : setTimeout(() => window.CommandBar.boot(userid), 1000);
-  // // } catch (error) {
-  // //   console.error('Error booting AI widget', error);
-  // // }
-  
-  // // script.src = 'https://widget.kapa.ai/kapa-widget.bundle.js';
-  // // window.influxdatadocs = window.influxdatadocs || {};
-  // // window.influxdatadocs.chat = window.influxdatadocs.chat || {};
-  // // window.influxdatadocs.chat.config = config;
-}
-
-export default function AIChat(chatconfig) {
-  if (typeof chatconfig === 'object') {
-   if (window[OBJECT_NAME] && chatconfig.userid) {
-      // Realistically, the user ID would likely come from a cookie.
-      setUser(chatconfig.userid, chatconfig.email);
-      chatconfig.userid = undefined;
-      chatconfig.email = undefined;
-    }
-  }
-  loadAIChat(chatconfig);
+export default function AIChat({ userid, email, ...chatParams }) {
+  // For demonstration, set the userid if provided (in practice, it will likely come from a cookie).
+  window[NAMESPACE] && userid && setUser(userid, email);
+  loadAIChat(chatParams);
 }
