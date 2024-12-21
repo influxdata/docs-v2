@@ -15,12 +15,12 @@ aliases:
 related:
   - /influxdb/cloud-dedicated/query-data/execute-queries/troubleshoot/
 list_code_example: >
-  <!-- Import for tests and hide from users.
+  
   ```python
   import os
   ```
   -->
-  <!--pytest-codeblocks:cont-->
+ 
   ```python
   from influxdb_client_3 import(InfluxDBClient3,
                                 WriteOptions,
