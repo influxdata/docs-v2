@@ -26,7 +26,7 @@ list_code_example: >
     client.write_file(file='./data/home-sensor-data.csv', timestamp_column='time',
                       tag_columns=["room"])
 
-    # Execute a query and retrieve data formatted as a PyArrow Table
+  # Execute a query and retrieve data formatted as a PyArrow Table
     table = client.query(
       '''SELECT *
          FROM home
