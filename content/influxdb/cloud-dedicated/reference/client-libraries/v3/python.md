@@ -16,44 +16,28 @@ related:
   - /influxdb/cloud-dedicated/query-data/execute-queries/troubleshoot/
 list_code_example: >
   
+  #### Example: Writing and querying data
+  
+  The following example demonstrates how to write sensor data into influxDB and retrieve data from the last 90 days for analysis. 
+
   ```python
-  import os
-  ```
-  -->
- 
-  ```python
-  from influxdb_client_3 import(InfluxDBClient3,
-                                WriteOptions,
-                                write_client_options)
-
-  # Instantiate batch writing options for the client
-
-  write_options = WriteOptions()
-  wco = write_client_options(write_options=write_options)
-
-  # Instantiate an InfluxDB v3 client
-
-  with InfluxDBClient3(host=f"{{< influxdb/host >}}",
-                        database=f"DATABASE_NAME",
-                        token=f"DATABASE_TOKEN",
-                        write_client_options=wco) as client:
-
-    # Write data in batches
+  
+  # Write sensor data in batches from a CSV file.
     client.write_file(file='./data/home-sensor-data.csv', timestamp_column='time',
                       tag_columns=["room"])
 
     # Execute a query and retrieve data formatted as a PyArrow Table
-
     table = client.query(
       '''SELECT *
          FROM home
          WHERE time >= now() - INTERVAL '90 days'
          ORDER BY time''')
     ```
+    This script assumes the client object is correctly configured with your database name, token, and host URL. After running the query, table will contain the queried data formatted as a PyArrow table.
 ---
 
 The InfluxDB v3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python)
-integrates {{% product-name %}} write and query operations with Python scripts and applications.
+integrates {{% product-name %}} write and query operations with Python scripts and applications. 
 
 InfluxDB client libraries provide configurable batch writing of data to {{% product-name %}}.
 Client libraries can be used to construct line protocol data, transform data from other formats
@@ -114,9 +98,9 @@ Import specific class methods from the module:
 from influxdb_client_3 import InfluxDBClient3, Point, WriteOptions
 ```
 
-- [`influxdb_client_3.InfluxDBClient3`](#class-influxdbclient3): a class for interacting with InfluxDB
-- [`influxdb_client_3.Point`](#class-point): a class for constructing a time series data
-  point
+- [`influxdb_client_3.InfluxDBClient3`](#class-influxdbclient3): a class for interacting with InfluxDB.
+- [`influxdb_client_3.Point`](#class-point): a class for constructing time a series data
+  point.
 - `influxdb_client_3.WriteOptions`: a class for configuring client
   write options.
 
@@ -187,7 +171,7 @@ import os
 ```
 <!--pytest-codeblocks:cont-->
 
--->
+
 
 ```python
 from influxdb_client_3 import InfluxDBClient3
