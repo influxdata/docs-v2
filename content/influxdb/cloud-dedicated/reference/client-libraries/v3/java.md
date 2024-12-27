@@ -15,7 +15,6 @@ list_code_example: >
 
   // The following example demonstrates how to write sensor data into InfluxDB
   
-  
   // and retrieve data from the last 90 days for analysis.
 
   
