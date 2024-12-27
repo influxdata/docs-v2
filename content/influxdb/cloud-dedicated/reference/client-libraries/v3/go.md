@@ -12,6 +12,83 @@ weight: 201
 aliases:
   - /influxdb/cloud-dedicated/reference/api/client-libraries/go/
   - /influxdb/cloud-dedicated/tools/client-libraries/go/
+list_code_example: >
+  ```go
+  
+  // This example demonstrates how to use the InfluxDB Go client library 
+  
+  // to write sensor data to an InfluxDB bucket and query historical data using Flux.
+
+  package main
+
+  import (
+      "context"
+      "fmt"
+      "log"
+      "time"
+
+      influxdb3 "github.com/influxdata/influxdb3-go"
+  )
+
+  func main() {
+      // Initialize the InfluxDB client
+      client, err := influxdb3.NewClient(&influxdb3.Options{
+          Host:     "https://your-influxdb-url",
+          Token:    "your-auth-token",
+          Org:      "your-organization-id",
+          Database: "your-database-name",
+      })
+      if err != nil {
+          log.Fatalf("Error creating InfluxDB client: %v", err)
+      }
+      defer client.Close()
+
+      // Write sensor data to the database
+      err = writeSensorData(client)
+      if err != nil {
+          log.Fatalf("Error writing sensor data: %v", err)
+      }
+
+      // Query data from the last 90 days
+      err = querySensorData(client)
+      if err != nil {
+          log.Fatalf("Error querying sensor data: %v", err)
+      }
+  }
+
+  func writeSensorData(client *influxdb3.Client) error {
+      // Create a point with tags and fields
+      point := influxdb3.NewPointWithMeasurement("home").
+          AddTag("room", "living_room").
+          AddField("temperature", 23.5).
+          SetTimestamp(time.Now())
+
+      // Write the point to the database
+      if err := client.WritePoint(context.Background(), point); err != nil {
+          return fmt.Errorf("failed to write point: %w", err)
+      }
+      fmt.Println("Data successfully written to InfluxDB.")
+      return nil
+  }
+
+  func querySensorData(client *influxdb3.Client) error {
+      // Define the query to retrieve data from the last 90 days
+      query := `from(bucket: "your-database-name")
+          |> range(start: -90d)
+          |> filter(fn: (r) => r._measurement == "home")`
+
+      // Execute the query
+      result, err := client.QueryRaw(context.Background(), query)
+      if err != nil {
+          return fmt.Errorf("failed to execute query: %w", err)
+      }
+
+      // Print the results
+      fmt.Println("Queried data:")
+      fmt.Println(result)
+      return nil
+  }
+
 ---
 
 The InfluxDB v3 [`influxdb3-go` Go client library](https://github.com/InfluxCommunity/influxdb3-go) integrates with Go scripts and applications

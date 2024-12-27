@@ -12,7 +12,6 @@ influxdb/cloud-dedicated/tags: [Flight client, Java, gRPC, SQL, Flight SQL, clie
 weight: 201
 list_code_example: >
   ```java
-  Example: Writing and querying data
 
   // The following example demonstrates how to write sensor data into InfluxDB
   
