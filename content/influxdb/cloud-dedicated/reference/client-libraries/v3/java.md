@@ -10,6 +10,82 @@ menu:
     identifier: influxdb3-java
 influxdb/cloud-dedicated/tags: [Flight client, Java, gRPC, SQL, Flight SQL, client libraries]
 weight: 201
+list_code_example: >
+  ```java
+  Example: Writing and querying data
+
+  // The following example demonstrates how to write sensor data into InfluxDB
+  
+  
+  // and retrieve data from the last 90 days for analysis.
+
+  
+  import com.influxdb.client.InfluxDBClient;
+  
+  import com.influxdb.client.InfluxDBClientFactory;
+  
+  import com.influxdb.client.QueryApi;
+  
+  import com.influxdb.client.write.Point;
+
+  import java.time.Instant;
+  
+  import java.util.List;
+
+  
+  public class InfluxDBExample {
+
+      public static void main(String[] args) {
+          // Initialize the InfluxDB client
+          String url = "https://your-influxdb-url";
+          String token = "your-auth-token";
+          String org = "your-organization-id";
+          String bucket = "your-database-name";
+
+          try (InfluxDBClient client = InfluxDBClientFactory.create(url, token.toCharArray(), org, bucket)) {
+
+              // Write sensor data
+              writeSensorData(client);
+
+              // Query sensor data
+              querySensorData(client);
+          }
+      }
+
+      private static void writeSensorData(InfluxDBClient client) {
+          // Create a point
+          Point point = Point.measurement("home")
+              .addTag("room", "living_room")
+              .addField("temperature", 23.5)
+              .time(Instant.now(), WritePrecision.NS);
+
+          // Write the point
+          client.getWriteApiBlocking().writePoint(point);
+          System.out.println("Data successfully written to InfluxDB.");
+      }
+
+      private static void querySensorData(InfluxDBClient client) {
+       // Query data for the last 90 days
+       String query = "from(bucket: \"your-database-name\") "
+               + "|> range(start: -90d) "
+               + "|> filter(fn: (r) => r._measurement == \"home\")";
+
+      QueryApi queryApi = client.getQueryApi();
+
+      // Execute the query and retrieve results
+      List<FluxTable> tables = queryApi.query(query);
+
+      // Print the results
+      if (tables != null) {
+          tables.forEach(table -> {
+              table.getRecords().forEach(record -> {
+                 System.out.println(record.getTime() + ": " + record.getValueByKey("_value"));
+              });
+          });
+      } else {
+         System.out.println("No data found for the specified query.");
+        }
+      }  
 ---
 
 The InfluxDB v3 [`influxdb3-java` Java client library](https://github.com/InfluxCommunity/influxdb3-java) integrates
