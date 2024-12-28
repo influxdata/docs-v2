@@ -171,14 +171,10 @@ Given that `write_client_options` isn't specified, the client uses the default [
 
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 
-<!-- Import for tests and hide from users.
-```python
+<!-- Import for tests and hide from users. -->
+<!--
 import os
-```
-<!--pytest-codeblocks:cont-->
-
-
-
+-->
 ```python
 from influxdb_client_3 import InfluxDBClient3
 
@@ -186,6 +182,7 @@ client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
                         database=f"DATABASE_NAME",
                         token=f"DATABASE_TOKEN")
 ```
+<!--pytest-codeblocks:cont-->
 
 {{% /code-placeholders %}}
 
