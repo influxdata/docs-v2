@@ -182,8 +182,6 @@ client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
                         database=f"DATABASE_NAME",
                         token=f"DATABASE_TOKEN")
 ```
-<!--pytest-codeblocks:cont-->
-
 {{% /code-placeholders %}}
 
 Replace the following:
