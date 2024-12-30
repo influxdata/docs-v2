@@ -1,7 +1,7 @@
 ---
 title: JOIN clause
 description: > 
-    Use the `JOIN` clause to join to data from different tables together.
+    Use the `JOIN` clause to join together data from different tables.
 menu:
   influxdb_v3:
     name: JOIN clause

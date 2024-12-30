@@ -3,7 +3,7 @@ title: SQL comparison operators
 list_title: Comparison operators
 description: >
   Comparison operators evaluate the relationship between the left and right
-  operands and returns `true` or `false`.
+  operands and return `true` or `false`.
 menu:
   influxdb_pro:
     name: Comparison operators
