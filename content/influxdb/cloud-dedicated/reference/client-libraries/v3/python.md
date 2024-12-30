@@ -17,9 +17,9 @@ related:
 list_code_example: >
   
   ```python
-  Example: Writing and querying data
+  # Example: Write and que data
   
-  # The following example demonstrates how to write sensor data into influxDB 
+  # Write sensor data into influxDB
   
   # and retrieve data from the last 90 days for analysis. 
 
@@ -171,10 +171,13 @@ Given that `write_client_options` isn't specified, the client uses the default [
 
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 
-<!-- Import for tests and hide from users. -->
-<!--
+<!-- Import for tests and hide from users.
+```python
 import os
+```
 -->
+<!--pytest-codeblocks:cont-->
+
 ```python
 from influxdb_client_3 import InfluxDBClient3
 
@@ -182,6 +185,7 @@ client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
                         database=f"DATABASE_NAME",
                         token=f"DATABASE_TOKEN")
 ```
+
 {{% /code-placeholders %}}
 
 Replace the following:
