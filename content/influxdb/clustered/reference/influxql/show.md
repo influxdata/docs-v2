@@ -17,3 +17,7 @@ related:
 
 source: /shared/influxql-v3-reference/show.md
 ---
+
+<!-- 
+The content of this page is at /shared/influxql-v3-reference/show.md
+-->

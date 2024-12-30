@@ -9,3 +9,7 @@ weight: 219
 
 source: /shared/influxql-v3-reference/internals.md
 ---
+
+<!-- 
+The content of this page is at /shared/influxql-v3-reference/internals.md
+-->

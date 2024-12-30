@@ -2,7 +2,7 @@
 title: InfluxQL transformation functions
 list_title: Transformation functions
 description: >
-  Use transformation functions modify and return values in each row of queried data.
+  Use transformation functions to modify and return values in each row of queried data.
 menu:
   influxdb_clustered:
     name: Transformations
@@ -11,3 +11,7 @@ weight: 205
 
 source: /shared/influxql-v3-reference/functions/transformations.md
 ---
+
+<!-- 
+The content of this page is at /shared/influxql-v3-reference/functions/transformations.md
+-->
