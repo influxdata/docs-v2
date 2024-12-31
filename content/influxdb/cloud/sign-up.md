@@ -29,6 +29,19 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 - [Sign in](#sign-in)
 - [Get started working with data](#get-started-working-with-data)
 
+### Other Deployment Options
+
+You can self-host:
+- **V1**: OSS (single node) or Enterprise (multi-node, paid)
+- **V2**: OSS (single node)
+- **V3 Clustered**: Multi-node, paid
+
+Or you can buy hosted versions of:
+- **V1 Enterprise**: Multi-node
+- **V2**: OSS (single node, through Amazon Timestream for InfluxDB)
+- **V3**: Dedicated (multi-node or serverless)
+
+
 ## Sign up
 
 1. Choose one of the following:
