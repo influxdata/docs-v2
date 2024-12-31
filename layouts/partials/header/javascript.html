@@ -1,9 +1,8 @@
 {{ $jquery := resources.Get "js/jquery-3.5.0.min.js" }}
-{{ $cookies := resources.Get "js/js.cookie.js" }}
-{{ $docsCookies := resources.Get "js/cookies.js" }}
+{{ $localStorage := resources.Get "js/local-storage.js" }}
 {{ $themes := resources.Get "js/docs-themes.js" }}
 {{ $sidebar := resources.Get "js/sidebar-toggle.js" }}
-{{ $headerjs := slice $jquery $cookies $docsCookies $themes $sidebar | resources.Concat "js/header.bundle.js" | resources.Fingerprint }}
+{{ $headerjs := slice $jquery $localStorage $themes $sidebar | resources.Concat "js/header.bundle.js" | resources.Fingerprint }}
 
 <script type="text/javascript" src="{{ $headerjs.RelPermalink }}"></script>
 <script type="text/javascript">setStyleFromCookie();</script>
