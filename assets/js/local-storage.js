@@ -1,35 +1,30 @@
 /*
-  This represents an API for managing cookies for the InfluxData documentation.
-  It uses the Cookies.js library to store data as session cookies.
-  This is done to comply with cookie privacy laws and limit the cookies used
-  to manage the user experience throughout the InfluxData documentation.
-
-  These functions manage the following InfluxDB cookies
+  This represents an API for managing user and client-side settings for the
+  InfluxData documentation. It uses the local browser storage.
+  
+  These functions manage the following InfluxDB settings:
 
   - influxdata_docs_preferences: Docs UI/UX-related preferences (obj)
   - influxdata_docs_urls: User-defined InfluxDB URLs for each product (obj)
   - influxdata_docs_notifications: 
     - messages: Messages (data/notifications.yaml) that have been seen (array)
     - callouts: Feature callouts that have been seen (array)
-  - influxdata_docs_ported: Temporary cookie to help port old cookies to new structure
 */
 
-// Prefix for all InfluxData docs cookies
-const cookiePrefix = 'influxdata_docs_';
+// Prefix for all InfluxData docs local storage
+const storagePrefix = 'influxdata_docs_';
 
 /*
-  Initialize a cookie with a default value.
+  Initialize data in local storage with a default value.
 */
-initializeCookie = (cookieName, defaultValue) => {
-  fullCookieName = cookiePrefix + cookieName;
+initializeLocalStorage = (storageKey, defaultValue) => {
+  fullStorageKey = storagePrefix + storageKey;
 
-  // Check if the cookie exists before initializing the cookie
-  if (Cookies.get(fullCookieName) === undefined) {
-    Cookies.set(fullCookieName, defaultValue);
+  // Check if the data exists before initializing the data
+  if (localStorage.getItem(fullStorageKey) === null) {
+    localStorage.setItem(fullStorageKey, defaultValue);
   }
 };
-
-// Initialize all InfluxData docs cookies with defaults
 
 /*
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,10 +32,10 @@ initializeCookie = (cookieName, defaultValue) => {
 ////////////////////////////////////////////////////////////////////////////////
 */
 
-const prefCookieName = cookiePrefix + 'preferences';
+const prefStorageKey = storagePrefix + 'preferences';
 
 // Default preferences
-var defaultPref = {
+var defaultPrefObj = {
   api_lib: null,
   influxdb_url: 'cloud',
   sidebar_state: 'open',
@@ -50,35 +45,35 @@ var defaultPref = {
 };
 
 /*
-  Retrieve a preference from the preference cookie.
-  If the cookie doesn't exist, initialize it with default values.
+  Retrieve a preference from the preference key.
+  If the key doesn't exist, initialize it with default values.
 */
 getPreference = prefName => {
-  // Initialize the preference cookie if it doesn't already exist
-  if (Cookies.get(prefCookieName) === undefined) {
-    initializeCookie('preferences', defaultPref);
+  // Initialize preference data if it doesn't already exist
+  if (localStorage.getItem(prefStorageKey) === null) {
+    initializeLocalStorage('preferences', JSON.stringify(defaultPrefObj));
   }
 
-  // Retrieve and parse the cookie as JSON
-  prefString = Cookies.get(prefCookieName);
+  // Retrieve and parse preferences as JSON
+  prefString = localStorage.getItem(prefStorageKey);
   prefObj = JSON.parse(prefString);
 
   // Return the value of the specified preference
   return prefObj[prefName];
 };
 
-// Set a preference in the preferences cookie
+// Set a preference in the preferences key
 setPreference = (prefID, prefValue) => {
-  var prefString = Cookies.get(prefCookieName);
+  var prefString = localStorage.getItem(prefStorageKey);
   let prefObj = JSON.parse(prefString);
 
   prefObj[prefID] = prefValue;
 
-  Cookies.set(prefCookieName, prefObj);
+  localStorage.setItem(prefStorageKey, JSON.stringify(prefObj));
 };
 
 // Return an object containing all preferences
-getPreferences = () => JSON.parse(Cookies.get(prefCookieName));
+getPreferences = () => JSON.parse(localStorage.getItem(prefStorageKey));
 
 /*
 ////////////////////////////////////////////////////////////////////////////////
@@ -86,7 +81,7 @@ getPreferences = () => JSON.parse(Cookies.get(prefCookieName));
 ////////////////////////////////////////////////////////////////////////////////
 */
 
-const urlCookieName = cookiePrefix + 'urls';
+const urlStorageKey = storagePrefix + 'urls';
 
 // Default URLs per product
 var defaultUrls = {
@@ -97,8 +92,8 @@ var defaultUrls = {
   clustered: 'cluster-host.com',
 };
 
-// Defines the default urls cookie value
-var defaultUrlsCookie = {
+// Defines the default urls value
+var defaultUrlsObj = {
   oss: defaultUrls.oss,
   cloud: defaultUrls.cloud,
   serverless: defaultUrls.serverless,
@@ -112,25 +107,25 @@ var defaultUrlsCookie = {
   custom: '',
 };
 
-// Return an object that contains all InfluxDB urls stored in the urls cookie
+// Return an object that contains all InfluxDB urls stored in the urls key
 getInfluxDBUrls = () => {
-  // Initialize the urls cookie if it doesn't already exist
-  if (Cookies.get(urlCookieName) === undefined) {
-    initializeCookie('urls', defaultUrlsCookie);
+  // Initialize urls data if it doesn't already exist
+  if (localStorage.getItem(urlStorageKey) === null) {
+    initializeLocalStorage('urls', JSON.stringify(defaultUrlsObj));
   }
 
-  return JSON.parse(Cookies.get(urlCookieName));
+  return JSON.parse(localStorage.getItem(urlStorageKey));
 };
 
 // Get the current or previous URL for a specific product or a custom url
 getInfluxDBUrl = product => {
-  // Initialize the urls cookie if it doesn't already exist
-  if (Cookies.get(urlCookieName) === undefined) {
-    initializeCookie('urls', defaultUrlsCookie);
+  // Initialize urls data if it doesn't already exist
+  if (localStorage.getItem(urlStorageKey) === null) {
+    initializeLocalStorage('urls', JSON.stringify(defaultUrlsObj));
   }
 
-  // Retrieve and parse the cookie as JSON
-  urlsString = Cookies.get(urlCookieName);
+  // Retrieve and parse the URLs as JSON
+  urlsString = localStorage.getItem(urlStorageKey);
   urlsObj = JSON.parse(urlsString);
 
   // Return the URL of the specified product
@@ -138,27 +133,27 @@ getInfluxDBUrl = product => {
 };
 
 /*
-  Set multiple product URLs in the urls cookie.
+  Set multiple product URLs in the urls key.
   Input should be an object where the key is the product and the value is the
   URL to set for that product.
 */
 setInfluxDBUrls = updatedUrlsObj => {
-  var urlsString = Cookies.get(urlCookieName);
+  var urlsString = localStorage.getItem(urlStorageKey);
   let urlsObj = JSON.parse(urlsString);
 
   newUrlsObj = { ...urlsObj, ...updatedUrlsObj };
 
-  Cookies.set(urlCookieName, newUrlsObj);
+  localStorage.setItem(urlStorageKey, JSON.stringify(newUrlsObj));
 };
 
-// Set an InfluxDB URL to an empty string in the urls cookie
+// Set an InfluxDB URL to an empty string in the urls key
 removeInfluxDBUrl = product => {
-  var urlsString = Cookies.get(urlCookieName);
+  var urlsString = localStorage.getItem(urlStorageKey);
   let urlsObj = JSON.parse(urlsString);
 
   urlsObj[product] = '';
 
-  Cookies.set(urlCookieName, urlsObj);
+  localStorage.setItem(urlStorageKey, JSON.stringify(urlsObj));
 };
 
 /*
@@ -167,25 +162,25 @@ removeInfluxDBUrl = product => {
 ////////////////////////////////////////////////////////////////////////////////
 */
 
-const notificationCookieName = cookiePrefix + 'notifications';
+const notificationStorageKey = storagePrefix + 'notifications';
 
 // Default notifications
-var defaultNotifications = {
+var defaultNotificationsObj = {
   messages: [],
   callouts: [],
 };
 
 getNotifications = () => {
-  // Initialize the notifications cookie if it doesn't already exist
-  if (Cookies.get(notificationCookieName) === undefined) {
-    initializeCookie('notifications', defaultNotifications);
+  // Initialize notifications data if it doesn't already exist
+  if (localStorage.getItem(notificationStorageKey) === null) {
+    initializeLocalStorage('notifications', JSON.stringify(defaultNotificationsObj));
   }
 
-  // Retrieve and parse the cookie as JSON
-  notificationString = Cookies.get(notificationCookieName);
+  // Retrieve and parse the notifications data as JSON
+  notificationString = localStorage.getItem(notificationStorageKey);
   notificationObj = JSON.parse(notificationString);
 
-  // Return the value of the specified preference
+  // Return the notifications object
   return notificationObj;
 };
 
@@ -222,5 +217,5 @@ setNotificationAsRead = (notificationID, notificationType) => {
   readNotifications.push(notificationID);
   notificationsObj[notificationType + 's'] = readNotifications;
 
-  Cookies.set(notificationCookieName, notificationsObj);
+  localStorage.setItem(notificationStorageKey, JSON.stringify(notificationsObj));
 };
