@@ -12,8 +12,9 @@ aliases:
   - /influxdb/v2/cloud/get-started/
 ---
 
-InfluxDB Cloud is a fully managed and hosted version of InfluxDB 2.0, the time series
-platform purpose-built to collect, store, process and visualize metrics and events.
+InfluxDB Cloud is a fully managed and hosted version of InfluxDB, designed to collect, store, process, and visualize metrics and events.
+
+**Note:** New InfluxDB Cloud signups are for version 3.0 only. If you are looking to use InfluxDB 2.0, consider self-hosting InfluxDB OSS 2.0.
 
 {{< product-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
 The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
@@ -27,7 +28,6 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 - [(Optional) Download, install, and use the influx CLI](#optional-download-install-and-use-the-influx-cli)
 - [Sign in](#sign-in)
 - [Get started working with data](#get-started-working-with-data)
-
 
 ## Sign up
 
