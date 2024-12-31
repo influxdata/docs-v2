@@ -7,3 +7,26 @@
 <script type="text/javascript" src="{{ $headerjs.RelPermalink }}"></script>
 <script type="text/javascript">setStyleFromCookie();</script>
 <script type="text/javascript">setSidebarState();</script>
+
+<!-- START COMPONENT AND JS BUNDLING REFACTOR
+  Eventually, all site-specific JavaScript and external JS
+  dependencies will be bundled in main.js
+-->
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $currentVersion := index $productPathData 1 }}
+<!-- Load cloudUrls array -->
+{{ $cloudUrls := slice }}
+{{- range.Site.Data.influxdb_urls.cloud.providers }}
+  {{- range.regions }}
+    {{ $cloudUrls = $cloudUrls | append "{{ safeHTML .url }}" }}
+  {{ end -}}
+{{ end -}}
+
+<!-- Bundle modules in main.js and pass in page data -->
+{{ $mainJs := resources.Get "js/main.js" | js.Build (dict "params" (dict "cloudUrls" $cloudUrls "product" $product "currentVersion" $currentVersion "isServer" hugo.IsServer))
+}}
+
+<script defer src="{{ $mainJs.RelPermalink }}"></script>
+
+<!-- END COMPONENT AND JS BUNDLING REFACTOR -->

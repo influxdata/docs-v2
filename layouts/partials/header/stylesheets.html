@@ -1,3 +1,10 @@
+<!-- Prevent flash of unstyled content -->
+<style>
+  body {
+    visibility: hidden;
+  }
+</style>
+
 <!-- Docsearch Styles -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
 
@@ -22,3 +29,10 @@
 
 {{ $stylesAPIOverrides := resources.Get "styles/styles-api.scss" | toCSS $cssAPIOverrides | postCSS $PostCSSOptions }}
 <link rel="stylesheet" type="text/css" href="{{ $stylesAPIOverrides.RelPermalink }}">
+
+<!-- Show body after DOM is fully loaded -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.visibility = 'visible';
+  });
+</script>
