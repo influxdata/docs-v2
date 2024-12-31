@@ -30,7 +30,7 @@ function toggleSidebar (toggle_state) {
         link_tag[i].disabled = false;
       }
     }
-    setPreference(
+    window.LocalStorageAPI.setPreference(
       sidebar_state_preference_name,
       toggle_state.replace(/sidebar-/, '')
     );
@@ -38,7 +38,7 @@ function toggleSidebar (toggle_state) {
 }
 
 function setSidebarState () {
-  var toggle_state = `sidebar-${getPreference(sidebar_state_preference_name)}`;
+  var toggle_state = `sidebar-${window.LocalStorageAPI.getPreference(sidebar_state_preference_name)}`;
   if (toggle_state !== undefined) {
     toggleSidebar(toggle_state);
   }

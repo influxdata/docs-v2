@@ -38,12 +38,12 @@ function context() {
 // Retrieve the user's InfluxDB preference (cloud or oss) from the influxdb_pref session cookie
 // Default is cloud.
 function getURLPreference() {
-  return getPreference('influxdb_url');
+  return window.LocalStorageAPI.getPreference('influxdb_url');
 }
 
 // Set the user's selected InfluxDB preference (cloud or oss)
 function setURLPreference(preference) {
-  setPreference('influxdb_url', preference);
+  window.LocalStorageAPI.setPreference('influxdb_url', preference);
 }
 
 /*
@@ -66,20 +66,20 @@ function storeUrl(context, newUrl, prevUrl) {
   urlsObj['prev_' + context] = prevUrl;
   urlsObj[context] = newUrl;
 
-  setInfluxDBUrls(urlsObj);
+  window.LocalStorageAPI.setInfluxDBUrls(urlsObj);
 }
 
 // Store custom URL in the url session cookie.
 // Used to populate the custom URL field
 function storeCustomUrl(customUrl) {
-  setInfluxDBUrls({ custom: customUrl });
+  window.LocalStorageAPI.setInfluxDBUrls({ custom: customUrl });
   $('input#custom[type=radio]').val(customUrl);
 }
 
 // Set a URL in the urls session cookie to an empty string
 // Used to clear the form when custom url input is left empty
 function removeCustomUrl() {
-  removeInfluxDBUrl('custom');
+  window.LocalStorageAPI.removeInfluxDBUrl('custom');
 }
 
 // Store a product URL in the urls session cookie
@@ -88,14 +88,14 @@ function storeProductUrl(product, productUrl) {
   urlsObj = {};
   urlsObj[product] = productUrl;
 
-  setInfluxDBUrls(urlsObj);
+  window.LocalStorageAPI.setInfluxDBUrls(urlsObj);
   $(`input#${product}-url-field`).val(productUrl);
 }
 
 // Set a product URL in the urls session cookie to an empty string
 // Used to clear the form when dedicated url input is left empty
 function removeProductUrl(product) {
-  removeInfluxDBUrl(product);
+  window.LocalStorageAPI.removeInfluxDBUrl(product);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -120,7 +120,7 @@ function addPreserve() {
 
 // Retrieve the currently selected URLs from the urls session cookie.
 function getUrls() {
-  var storedUrls = getInfluxDBUrls();
+  var storedUrls = window.LocalStorageAPI.getInfluxDBUrls();
   var currentCloudUrl = storedUrls.cloud;
   var currentOSSUrl = storedUrls.oss;
   var currentServerlessUrl = storedUrls.serverless;
@@ -139,7 +139,7 @@ function getUrls() {
 // Retrieve the previously selected URLs from the from the urls session cookie.
 // This is used to update URLs whenever you switch between browser tabs.
 function getPrevUrls() {
-  var storedUrls = getInfluxDBUrls();
+  var storedUrls = window.LocalStorageAPI.getInfluxDBUrls();
   var prevCloudUrl = storedUrls.prev_cloud;
   var prevOSSUrl = storedUrls.prev_oss;
   var prevServerlessUrl = storedUrls.prev_serverless;
@@ -444,7 +444,7 @@ $('#pref-tabs .pref-tab').click(function () {
 
 // Select preference tab from cookie
 function showPreference() {
-  var preference = getPreference('influxdb_url');
+  var preference = window.LocalStorageAPI.getPreference('influxdb_url');
   prefTab = $('#pref-' + preference);
   togglePrefBtns(prefTab);
 }
@@ -626,7 +626,7 @@ function handleUrlValidation() {
 $(document).on('keyup', urlValueElements, delay(handleUrlValidation, 500));
 
 // Populate the custom InfluxDB URL field on page load
-var customUrlOnLoad = getInfluxDBUrl('custom');
+var customUrlOnLoad = window.LocalStorageAPI.getInfluxDBUrl('custom');
 if (customUrlOnLoad != '') {
   $('input#custom').val(customUrlOnLoad);
   $('#custom-url-field').val(customUrlOnLoad);
@@ -636,7 +636,7 @@ if (customUrlOnLoad != '') {
 var productsWithUniqueURLs = ['dedicated', 'clustered'];
 
 productsWithUniqueURLs.forEach(function (productEl) {
-  productUrlCookie = getInfluxDBUrl(productEl);
+  productUrlCookie = window.LocalStorageAPI.getInfluxDBUrl(productEl);
   $(`input#${productEl}-url-field`).val(productUrlCookie);
   $(`#${productEl}-url-field`).val(productUrlCookie);
 });

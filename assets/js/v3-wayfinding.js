@@ -31,10 +31,10 @@ function toggleWayfinding () {
 
 // Toggle wayfinding modal preference cookie
 function toggleWayfindingPreference () {
-  if (getPreference(wayfindingPrefCookie) === true) {
-    setPreference(wayfindingPrefCookie, false);
+  if (window.LocalStorageAPI.getPreference(wayfindingPrefCookie) === true) {
+    window.LocalStorageAPI.setPreference(wayfindingPrefCookie, false);
   } else {
-    setPreference(wayfindingPrefCookie, true);
+    window.LocalStorageAPI.setPreference(wayfindingPrefCookie, true);
   }
 }
 
@@ -56,7 +56,7 @@ function slideUp (elem) {
  */
 function shouldOpenWayfinding () {
   var isExternalReferrer = !referrerWhitelist.includes(referrerHost);
-  var wayfindingOptedOut = getPreference(wayfindingPrefCookie);
+  var wayfindingOptedOut = window.LocalStorageAPI.getPreference(wayfindingPrefCookie);
 
   // Only return true if all conditions are true
   return isExternalReferrer && wayfindingOptedOut;
@@ -67,7 +67,7 @@ function shouldOpenWayfinding () {
  * wayfinding checkbox input.
  */
 function setWayfindingInputState () {
-  var currentPreference = getPreference(wayfindingPrefCookie);
+  var currentPreference = window.LocalStorageAPI.getPreference(wayfindingPrefCookie);
 
   if (currentPreference === false) {
     wayfindingOptOutInput.checked = true;

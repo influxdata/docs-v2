@@ -29,11 +29,11 @@ function datePart (date) {
 prefID = 'sample_get_started_date';
 
 function setStartDate (setDate) {
-  setPreference(prefID, setDate);
+  window.LocalStorageAPI.setPreference(prefID, setDate);
 }
 
 function getStartDate () {
-  return getPreference(prefID);
+  return window.LocalStorageAPI.getPreference(prefID);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
