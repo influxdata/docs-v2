@@ -17,7 +17,7 @@ related:
 list_code_example: >
   
   ```python
-  # Example: Write and que data
+  # Example: Write and query data
   
   # Write sensor data into influxDB
   
