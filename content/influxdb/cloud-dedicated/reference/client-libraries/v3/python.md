@@ -17,9 +17,9 @@ related:
 list_code_example: >
   
   ```python
-  Example: Writing and querying data
+  # Example: Write and query data
   
-  # The following example demonstrates how to write sensor data into influxDB 
+  # Write sensor data into influxDB
   
   # and retrieve data from the last 90 days for analysis. 
 
@@ -43,7 +43,7 @@ list_code_example: >
 ---
 
 The InfluxDB v3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python)
-integrates {{% product-name %}} write and query operations with Python scripts and applications. 
+integrates {{% product-name %}} write and query operations with Python scripts and applications.
 
 InfluxDB client libraries provide configurable batch writing of data to {{% product-name %}}.
 Client libraries can be used to construct line protocol data, transform data from other formats
@@ -171,10 +171,13 @@ Given that `write_client_options` isn't specified, the client uses the default [
 
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 
-<!-- Import for tests and hide from users. -->
-<!--
+<!-- Import for tests and hide from users.
+```python
 import os
+```
 -->
+<!--pytest-codeblocks:cont-->
+
 ```python
 from influxdb_client_3 import InfluxDBClient3
 
@@ -182,7 +185,6 @@ client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
                         database=f"DATABASE_NAME",
                         token=f"DATABASE_TOKEN")
 ```
-<!--pytest-codeblocks:cont-->
 
 {{% /code-placeholders %}}
 
