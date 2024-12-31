@@ -1,6 +1,6 @@
 {{ $jquery := resources.Get "js/jquery-3.5.0.min.js" }}
 {{ $localStorage := resources.Get "js/local-storage.js" }}
-{{ $themes := resources.Get "js/docs-themes.js" }}
+{{ $themes := resources.Get "js/theme.js" }}
 {{ $sidebar := resources.Get "js/sidebar-toggle.js" }}
 {{ $headerjs := slice $jquery $localStorage $themes $sidebar | resources.Concat "js/header.bundle.js" | resources.Fingerprint }}
 
