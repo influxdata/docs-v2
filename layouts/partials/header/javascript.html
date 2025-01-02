@@ -23,7 +23,7 @@
   {{ end -}}
 {{ end -}}
 
-<!-- Bundle modules in main.js and pass in page data -->
+<!-- Pass page "params" data to main.js and bundle the modules -->
 {{ $mainJs := resources.Get "js/main.js" | js.Build (dict "params" (dict "cloudUrls" $cloudUrls "product" $product "currentVersion" $currentVersion "isServer" hugo.IsServer))
 }}
 
