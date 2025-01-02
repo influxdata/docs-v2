@@ -36,8 +36,9 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 
 ### Other deployment options
 
-- **InfluxDB OSS 2.0 (single-node, self-hosted)**: Available for on-premises setups.
-- **InfluxDB Cloud (v3.0)**: Managed, multi-tenant or dedicated multi-node.
+- **InfluxDB OSS v2 (single-node, self-hosted)**: Available for on-premises setups.
+- **InfluxDB Cloud Serverless**: Managed, multi-tenant InfluxDB Cloud 3 instance.
+- **InfluxDB Cloud Dedicated**: Managed, single-tenant InfluxDB Cloud 3 cluster.
 
 ## Sign up
 
