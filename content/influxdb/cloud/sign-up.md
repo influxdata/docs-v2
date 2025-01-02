@@ -14,8 +14,13 @@ aliases:
 
 InfluxDB Cloud is a fully managed and hosted version of InfluxDB, designed to collect, store, process, and visualize metrics and events.
 
-**Note:** New InfluxDB Cloud signups are for version 3.0 only. If you are looking to use InfluxDB 2.0, consider self-hosting InfluxDB OSS 2.0.
-
+> [!Note]
+> #### New InfluxDB Cloud signups use InfluxDB 3
+>
+> New InfluxDB Cloud signups are for [InfluxDB Cloud Serverless, powered by the InfluxDB 3 storage engine](/influxdata/cloud-serverless/).
+>
+> If you are looking to use InfluxDB v2 (TSM), consider self-hosting [InfluxDB OSS v2](/influxdata/v2/).
+ 
 {{< product-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
 The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 
