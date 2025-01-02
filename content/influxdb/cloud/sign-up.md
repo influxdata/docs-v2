@@ -14,12 +14,12 @@ aliases:
 
 InfluxDB Cloud is a fully managed and hosted version of InfluxDB, designed to collect, store, process, and visualize metrics and events.
 
-> [!Note]
-> #### New InfluxDB Cloud signups use InfluxDB 3
->
-> New InfluxDB Cloud signups are for [InfluxDB Cloud Serverless, powered by the InfluxDB 3 storage engine](/influxdata/cloud-serverless/).
->
-> If you are looking to use InfluxDB v2 (TSM), consider self-hosting [InfluxDB OSS v2](/influxdata/v2/).
+  > [!Note]
+  > #### New InfluxDB Cloud signups use InfluxDB 3
+  >
+  > New InfluxDB Cloud signups are for [InfluxDB Cloud Serverless, powered by the InfluxDB 3 storage engine](/influxdata/cloud-serverless/).
+  >
+  > If you are looking to use InfluxDB v2 (TSM), consider self-hosting [InfluxDB OSS v2](/influxdata/v2/).
  
 {{< product-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
 The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
@@ -42,61 +42,12 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 
 ## Sign up
 
-1. Choose one of the following:
-
-    #### Subscribe through InfluxData
-
-    To subscribe to an InfluxDB Cloud **Free Plan** through InfluxData,
-    go to [InfluxDB Cloud](https://cloud2.influxdata.com/).
-
-    - To use social sign-on, click **Google** or **Microsoft**. Note that social sign-on does not support email aliases.
-    - Sign up with email by entering your name, email address, and password, then click **Create Account**.
-
-    If you originally signed up with email but want to enable social sign-on, you can do so by logging in through your cloud provider as long as you use the same email address.  
-
-    #### **Subscribe through a cloud provider**  
-    To subscribe to an InfluxDB Cloud **Usage-Based** plan and pay through your
-    **Amazon Web Services (AWS)**, **Microsoft Azure**, or **Google Cloud Platform (GCP)** account:
-
-    - **AWS**  
-      Sign in to AWS, navigate to the [InfluxDB Cloud product on AWS Marketplace](https://aws.amazon.com/marketplace/pp/B08234JZPS/?href=_ptnr_web_docs_gettingstarted),
-      and follow the prompts to subscribe. After you click **Set Up Your Account**,
-      enter your credentials, and then click **Start Now**.
-      All usage charges will be paid through the subscribed AWS account.
-
-    - **Microsoft**  
-      Sign in to Microsoft Azure, navigate to the [InfluxDB Cloud product on Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/influxdata.influxdb-cloud?ocid=iflxdbcloud_influxdata_docs_gettingstarted),
-      and follow the prompts to subscribe. After you click **Set Up Your Account**,
-      enter your credentials, and then click **Start Now**.
-      All usage charges will be paid through the subscribed Microsoft account.
-
-    - **GCP**  
-      Sign in to GCP, navigate to the [InfluxDB Cloud product on GCP Marketplace](https://console.cloud.google.com/marketplace/details/influxdata-public/cloud2-gcp-marketplace-prod?utm_campaign=influxdb-cloud&utm_medium=docs&utm_source=influxdata),
-      and follow the prompts to subscribe. After you click **Set Up Your Account**,
-      enter your credentials, and then click **Start Now**.
-      All usage charges will be paid through the subscribed GCP account.
-
-      {{%note%}}
-Currently, we do **not support** using an existing InfluxDB Cloud account to sign up for an InfluxDB Cloud plan through AWS, Microsoft, or GCP Marketplaces.
-      {{%/note%}}
-
-2. If you signed up with your email address, InfluxDB Cloud requires email verification to complete the sign up process.
-   Verify your email address by opening the email sent to the address you provided and clicking **Verify Your Email**.
-3. (If you subscribed through InfluxData) Choose your cloud provider.
-4. Select a provider and region for your {{< product-name >}} instance. The following are available:
-
-    {{< cloud_regions type="list" >}}
-
-    _To suggest regions to add, click **Let us know** under Regions._
-5. Enter your company name.
-6. (If you subscribed through InfluxData) Review the terms of the agreement, and then select **I have viewed and agree to InfluxDB Cloud Services Subscription Agreement and InfluxData Global Data Processing Agreement**.
-   For details on the agreements, see the [InfluxDB Cloud: Services Subscription Agreement](https://www.influxdata.com/legal/terms-of-use/) and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/influxdata-global-data-processing-agreement/).
-
-7. Click **Continue**, and then choose your plan:
-   - To upgrade to a Usage-Based plan, click **Upgrade Now**, set your limits (you may opt to receive an email when your usage exceeds the amount you enter in the **Limit ($1 minimum)** field). Next, enter your payment information and billing address, and then click **Upgrade**. A Ready To Rock confirmation appears; click **Start building your team**. Your plan will be upgraded and {{< product-name >}} opens with a default organization and bucket (both created from your email address). To review your usage and billing details at any time, see how to [access billing details](/influxdb/cloud/account-management/billing/#access-billing-details).  
-   - To keep the free plan, click **Keep**. {{< product-name >}} opens with a default organization and bucket (both created from your email address). _To update organization and bucket names, see [Update an organization](/influxdb/cloud/admin/organizations/update-org/)
-    and [Update a bucket](/influxdb/cloud/admin/buckets/update-bucket/#update-a-buckets-name-in-the-influxdb-ui)._
-   - To upgrade to an Annual plan, click **Contact Sales**, enter your information, and then click **Send**. Our team will contact you as soon as possible.
+  > [!Note]
+  > #### New InfluxDB Cloud signups use InfluxDB 3
+  >
+  > New InfluxDB Cloud signups are for [InfluxDB Cloud Serverless, powered by the InfluxDB 3 storage engine](/influxdata/cloud-serverless/).
+  >
+  > If you are looking to use InfluxDB v2 (TSM), consider self-hosting [InfluxDB OSS v2](/influxdata/v2/).
 
 ## (Optional) Download, install, and use the influx CLI
 
