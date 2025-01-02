@@ -44,39 +44,7 @@ import ThemeSwitch from './theme-switch.js';
 
 // Expose libraries and components within a namespaced object (for backwards compatibility or testing)
 // Expose libraries and components within a namespaced object (for backwards compatibility or testing)
-if (typeof window.influxdatadocs === 'undefined') {
-  window.influxdatadocs = {};
-}
-window.influxdatadocs = Object.assign({}, window.influxdatadocs, {
-  AIChat,
-  // codeblocksPreferences,
-  // CodeControls,
-  // ContentInteractions,
-  // CustomTimestamps,
-  // datetime,
-  // Diagram,
-  // featureCallouts,
-  // FluxGroupKeysExample,
-  // FluxInfluxDBVersionsModal,
-  // getUrls,
-  // homeInteractions,
-  // keybindings,
-  // listFilters,
-  // Modal,
-  // showNotifications,
-  // PageFeedback,
-  // ReleaseTOC,
-  // getReferrerHost,
-  // scroll,
-  // SearchInput,
-  // showNotifications,
-  // Sidebar,
-  // TabbedContent,
-  Theme,
-  ThemeSwitch,
-  // V3Wayfinding,
-  // VersionSelector,
-});
+
 
 /** Initialize components
  Component Structure: Each component is structured as a jQuery anonymous function that listens for the document ready state.
@@ -85,12 +53,19 @@ window.influxdatadocs = Object.assign({}, window.influxdatadocs, {
  */
 
 document.addEventListener('DOMContentLoaded', function () {
+  if (typeof window.influxdatadocs === 'undefined') {
+    window.influxdatadocs = {};
+  }
   const components = document.querySelectorAll('[data-component]');
   components.forEach(element => {
     const componentName = element.getAttribute('data-component');
     switch (componentName) {
-      case 'Theme':
+      case 'ai-chat':
+        // Don't initialize the component here, as it's loaded asynchronously.
+        window.influxdatadocs[componentName] = AIChat;
+      case 'theme':
         Theme({});
+        window.influxdatadocs[componentName] = Theme;
         break;
         // CodeControls();
         // ContentInteractions();
@@ -109,8 +84,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // ThemeSwitch({});
         // V3Wayfinding();
         // VersionSelector();
-        case 'ThemeSwitch':
+        case 'theme-switch':
           ThemeSwitch(element);
+          window.influxdatadocs[componentName] = ThemeSwitch;
           break;
       default:
         console.warn(`Unknown component: ${componentName}`);
