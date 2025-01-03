@@ -54,7 +54,7 @@ function slideUp (elem) {
  *  - Is the user coming from a non-whitelisted external referrer?
  *  - Has the user opted out of the wayfinding modal?
  */
-function shouldOpenWayfinding () {
+function shouldOpenWayfinding (referrerHost) {
   var isExternalReferrer = !referrerWhitelist.includes(referrerHost);
   var wayfindingOptedOut = window.LocalStorageAPI.getPreference(wayfindingPrefCookie);
 
@@ -144,9 +144,12 @@ wayfindingFindOutToggle.onclick = function (event) {
 /**
  * Check to see if the referrer is in the referrer whitelist, otherwise trigger
  * the v3-wayfinding modal.
- * This reuses the referrerHost variable defined in assets/js/influxdb-url.js
  */
-if (shouldOpenWayfinding()) {
+// Extract the protocol and hostname of referrer
+referrerMatch = document.referrer.match(/^(?:[^\/]*\/){2}[^\/]+/g);
+referrerHost = referrerMatch ? referrerMatch[0] : '';
+
+if (shouldOpenWayfinding(referrerHost)) {
   toggleWayfinding();
 }
 
