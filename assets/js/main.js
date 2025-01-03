@@ -26,8 +26,8 @@
  *  - JavaScript: my-component.js
  * The JavaScript is ideally a single-purpose module that exports a single default function to initialize the component and handle any component interactions.
  */
-
-import AIChat from './ai-chat.js';
+import AIChatConfig from './ai-chat-config.js';
+import AskAITrigger from './ask-ai-trigger.js';
 // import CodeControls from './code-controls.js';
 // import ContentInteractions from './content-interactions.js';
 // import CustomTimestamps from './custom-timestamps.js';
@@ -45,7 +45,6 @@ import ThemeSwitch from './theme-switch.js';
 // Expose libraries and components within a namespaced object (for backwards compatibility or testing)
 // Expose libraries and components within a namespaced object (for backwards compatibility or testing)
 
-
 /** Initialize components
  Component Structure: Each component is structured as a jQuery anonymous function that listens for the document ready state.
  Initialization in main.js: Each component is called in main.js inside a jQuery document ready function to ensure they are initialized when the document is ready.
@@ -56,13 +55,15 @@ document.addEventListener('DOMContentLoaded', function () {
   if (typeof window.influxdatadocs === 'undefined') {
     window.influxdatadocs = {};
   }
+
+  // Initialize components
   const components = document.querySelectorAll('[data-component]');
   components.forEach(element => {
     const componentName = element.getAttribute('data-component');
     switch (componentName) {
-      case 'ai-chat':
-        // Don't initialize the component here, as it's loaded asynchronously.
-        window.influxdatadocs[componentName] = AIChat;
+      case 'ask-ai-trigger':
+        AskAITrigger({ element });
+        window.influxdatadocs[componentName] = AskAITrigger;
       case 'theme':
         Theme({});
         window.influxdatadocs[componentName] = Theme;
@@ -91,5 +92,8 @@ document.addEventListener('DOMContentLoaded', function () {
       default:
         console.warn(`Unknown component: ${componentName}`);
     }
+
+    // Expose other components (not initialized here) to the global namespace
+    window.influxdatadocs.AIChatConfig = AIChatConfig;
   });
 });

@@ -1,0 +1,11 @@
+.footer-modal-triggers {
+  position: absolute;
+  bottom: 1rem;
+  right: 0;
+  width: 100%; /* Ensure the parent takes up the full width */
+  height: 3rem; /* Set the height of the footer */
+  display: flex;
+  justify-content: right; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  margin: auto;
+}

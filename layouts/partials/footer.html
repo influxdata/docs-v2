@@ -13,8 +13,8 @@
   <!-- Docs Notifications -->
   {{ partial "footer/notifications.html" . }}
 
-  <!-- Custom time modal trigger-->
-  {{ partial "footer/custom-time-trigger" . }}
+  <!-- Page modal triggers -->
+  {{ partial "footer/footer-modal-triggers.html" . }}
 
   <!-- IOx wayfinding modal -->
   {{ if in (slice "cloud" "cloud-serverless") $currentVersion }}

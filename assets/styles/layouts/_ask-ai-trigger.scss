@@ -1,4 +1,4 @@
-.custom-time-trigger {
+.ask-ai-trigger {
   display: flex;
   border-radius: $radius;
   box-shadow: 2px 2px 6px $sidebar-search-shadow;
@@ -24,9 +24,7 @@
     left: 0;
   }
 
-  &:hover:before {
-    opacity: 1
-  }
+  &:hover:before {opacity: 1}
 
   a {
     display: block;
@@ -41,13 +39,8 @@
       font-style: italic;
       white-space: nowrap;
       width: 0;
-      //opacity: 0;
-      //transition: width .2s, opacity .2s;
-      border-radius: $radius;
-      @include gradient($article-btn-gradient, 320deg);
-      z-index: -1;
       opacity: 0;
-      transition: opacity .2s;
+      transition: width .2s, opacity .2s;
     }
 
     &:hover {
@@ -66,7 +59,7 @@
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 
 @include media(small) {
-  .custom-time-trigger {
+  .ask-ai-trigger {
     bottom: .75rem;
     right: .75rem;
   }
