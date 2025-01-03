@@ -21,8 +21,9 @@ InfluxDB Cloud is a fully managed and hosted version of InfluxDB, designed to co
   >
   > If you are looking to use InfluxDB v2 (TSM), consider self-hosting [InfluxDB OSS v2](/influxdata/v2/).
  
-{{< product-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
-The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
+{{< product-name >}} is API-compatible and functionally compatible with InfluxDB OSS v2.
+
+The primary differences between InfluxDB OSS v2 and InfluxDB Cloud are:
 
 - [InfluxDB scrapers](/influxdb/v2/write-data/no-code/scrape-data/) that collect data from specified
   targets are not available in {{< product-name "short" >}}.
