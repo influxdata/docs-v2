@@ -46,15 +46,14 @@ function setUser(userid, email) {
   }
 }
 
-export default function AIChat({userid, email, ...chatParams }) {
+export default function AIChatConfig({ userid, email, ...chatParams }) {
   // In practice, the userid would typically come from the CookieStore.
-  const element = document.querySelector('script[src="https://widget.kapa.ai/kapa-widget.bundle.js"]');
-
   if (userid) {
     setUser(userid, email);
   }
 
   if (chatParams) {
-    reload(element, chatParams);
+    const scriptElement = document.querySelector('script[src="https://widget.kapa.ai/kapa-widget.bundle.js"]');
+    reload(scriptElement, chatParams);
   }
 }
