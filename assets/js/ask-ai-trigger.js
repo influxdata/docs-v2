@@ -1,13 +1,19 @@
-export default function AskAITrigger({ element }) {
-  const thirdpartyContainer = document.querySelector('#kapa-widget-container');
+import AskAI from './ask-ai.js';
 
-  if (!element && !thirdpartyContainer) {
+function showTrigger(element) {
+  // Remove the inline display: none style
+  element.removeAttribute('style');
+}
+
+export default function AskAITrigger({ element }) {
+  const kapaContainer = document.querySelector('#kapa-widget-container');
+  if (!element && !kapaContainer) {
     return;
   }
-
-  const triggers = element.getElementsByClassName('ask-ai-open');
-  console.log(triggers);
-  Array.from(triggers).forEach(trigger => {
-    trigger.removeAttribute('style');
-  });
+  if (!kapaContainer) {
+    // Initialize the chat widget
+    AskAI({ onChatLoad: () => showTrigger(element) });
+  } else {
+    showTrigger(element);
+  }
 }

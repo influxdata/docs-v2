@@ -26,7 +26,6 @@
  *  - JavaScript: my-component.js
  * The JavaScript is ideally a single-purpose module that exports a single default function to initialize the component and handle any component interactions.
  */
-import AIChatConfig from './ai-chat-config.js';
 import AskAITrigger from './ask-ai-trigger.js';
 // import CodeControls from './code-controls.js';
 // import ContentInteractions from './content-interactions.js';
@@ -64,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
       case 'ask-ai-trigger':
         AskAITrigger({ element });
         window.influxdatadocs[componentName] = AskAITrigger;
+        break;
       case 'theme':
         Theme({});
         window.influxdatadocs[componentName] = Theme;
@@ -93,7 +93,5 @@ document.addEventListener('DOMContentLoaded', function () {
         console.warn(`Unknown component: ${componentName}`);
     }
 
-    // Expose other components (not initialized here) to the global namespace
-    window.influxdatadocs.AIChatConfig = AIChatConfig;
   });
 });
