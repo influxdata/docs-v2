@@ -5,26 +5,25 @@
   z-index: 1;
   color: $g20-white;
   background: $g5-pepper;
-  margin: 0 5px;
+  margin: 5px 0; /* Adjust margin for vertical spacing */
 
   &:before {
     content: "";
     display: flex;
-    align-items: center;
-    justify-content: right;
-    height: 100%;
-    width: 100%; // Ensure the pseudo-element covers the entire parent
+    position: absolute;
+    right: 0;
+    width: 100%;
+    height: 50%; /* Adjust gradient height to the percent the element takes up in the container. There's likely a better way to do this that doesn't depend on knowing the number of sibling elements. */
     border-radius: $radius;
-    background: linear-gradient(320deg, $article-btn-gradient); // Apply the gradient background
+    @include gradient($article-btn-gradient, 320deg);
     z-index: -1;
     opacity: 0;
     transition: opacity .2s;
-    position: absolute; // Position the pseudo-element absolutely within the parent
-    top: 0;
-    left: 0;
   }
 
-  &:hover:before {opacity: 1}
+  &:hover:before {
+    opacity: 1
+  }
 
   a {
     display: block;
@@ -59,7 +58,7 @@
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 
 @include media(small) {
-  .ask-ai-trigger {
+  .custom-time-trigger {
     bottom: .75rem;
     right: .75rem;
   }
