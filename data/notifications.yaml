@@ -39,39 +39,39 @@
   #   - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
   #   - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
-- id: v3-enhancements-clustered-ga
-  level: note
-  scope:
-    - /
-  exclude:
-    - /influxdb/cloud/
-    - /influxdb/v1/
-    - /influxdb/v2/
-    - /flux/v0/
-    - /telegraf/
-    - /kapacitor/
-    - /chronograf/
-  title: InfluxDB v3 enhancements and InfluxDB Clustered is now generally available
-  slug: |
-    New capabilities, including faster query performance and management
-    tooling advance the InfluxDB v3 product line.
-    InfluxDB Clustered is now generally available.
-  message: |
-    ### InfluxDB v3 performance and features
+# - id: v3-enhancements-clustered-ga
+#   level: note
+#   scope:
+#     - /
+#   exclude:
+#     - /influxdb/cloud/
+#     - /influxdb/v1/
+#     - /influxdb/v2/
+#     - /flux/v0/
+#     - /telegraf/
+#     - /kapacitor/
+#     - /chronograf/
+#   title: InfluxDB v3 enhancements and InfluxDB Clustered is now generally available
+#   slug: |
+#     New capabilities, including faster query performance and management
+#     tooling advance the InfluxDB v3 product line.
+#     InfluxDB Clustered is now generally available.
+#   message: |
+#     ### InfluxDB v3 performance and features
 
-    The InfluxDB v3 product line has seen significant enhancements in query
-    performance and has made new management tooling available. These enhancements
-    include an operational dashboard to monitor the health of your InfluxDB cluster,
-    single sign-on (SSO) support in InfluxDB Cloud Dedicated, and new management
-    APIs for tokens and databases.
+#     The InfluxDB v3 product line has seen significant enhancements in query
+#     performance and has made new management tooling available. These enhancements
+#     include an operational dashboard to monitor the health of your InfluxDB cluster,
+#     single sign-on (SSO) support in InfluxDB Cloud Dedicated, and new management
+#     APIs for tokens and databases.
 
-    [Learn about the new v3 enhancements](https://www.influxdata.com/blog/scaling-time-series-workloads-influxdb)
+#     [Learn about the new v3 enhancements](https://www.influxdata.com/blog/scaling-time-series-workloads-influxdb)
 
-    ---
+#     ---
 
-    ### InfluxDB Clustered general availability
+#     ### InfluxDB Clustered general availability
 
-    InfluxDB Clustered is now generally available and gives you the power of
-    InfluxDB v3 in your self-managed stack.
+#     InfluxDB Clustered is now generally available and gives you the power of
+#     InfluxDB v3 in your self-managed stack.
 
-    [Talk to us about InfluxDB Clustered](https://www.influxdata.com/products/influxdb-clustered/)
+#     [Talk to us about InfluxDB Clustered](https://www.influxdata.com/products/influxdb-clustered/)

@@ -15,41 +15,31 @@ aliases:
 related:
   - /influxdb/cloud-dedicated/query-data/execute-queries/troubleshoot/
 list_code_example: >
-  <!-- Import for tests and hide from users.
+  
   ```python
-  import os
-  ```
-  -->
-  <!--pytest-codeblocks:cont-->
-  ```python
-  from influxdb_client_3 import(InfluxDBClient3,
-                                WriteOptions,
-                                write_client_options)
+  # Example: Write and query data
+  
+  # Write sensor data into influxDB
+  
+  # and retrieve data from the last 90 days for analysis. 
 
-  # Instantiate batch writing options for the client
-
-  write_options = WriteOptions()
-  wco = write_client_options(write_options=write_options)
-
-  # Instantiate an InfluxDB v3 client
-
-  with InfluxDBClient3(host=f"{{< influxdb/host >}}",
-                        database=f"DATABASE_NAME",
-                        token=f"DATABASE_TOKEN",
-                        write_client_options=wco) as client:
-
-    # Write data in batches
+  
+  # Write sensor data in batches from a CSV file
     client.write_file(file='./data/home-sensor-data.csv', timestamp_column='time',
                       tag_columns=["room"])
 
-    # Execute a query and retrieve data formatted as a PyArrow Table
-
+  # Execute a query and retrieve data formatted as a PyArrow Table
     table = client.query(
       '''SELECT *
          FROM home
          WHERE time >= now() - INTERVAL '90 days'
          ORDER BY time''')
+    
+    # This script assumes the client object is correctly configured with your database name, token, and host URL. 
+    # After the script runs, the table variable contains the data formatted as a PyArrow table.
+
     ```
+    
 ---
 
 The InfluxDB v3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python)
@@ -118,7 +108,7 @@ from influxdb_client_3 import InfluxDBClient3, Point, WriteOptions
 - [`influxdb_client_3.Point`](#class-point): a class for constructing a time series data
   point
 - `influxdb_client_3.WriteOptions`: a class for configuring client
-  write options.
+  write options
 
 ## API reference
 
@@ -185,9 +175,8 @@ Given that `write_client_options` isn't specified, the client uses the default [
 ```python
 import os
 ```
-<!--pytest-codeblocks:cont-->
-
 -->
+<!--pytest-codeblocks:cont-->
 
 ```python
 from influxdb_client_3 import InfluxDBClient3
