@@ -2,7 +2,7 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
-{{ $versionSelectorBlacklist := slice "resources" "platform" "example" }}
+{{ $versionSelectorBlacklist := slice "resources" "platform" "example" "influxdb3" }}
 {{ $listedAltVersions := .Page.Params.alt_links | default (dict "none" "") }}
 
 {{ if not (or (eq $product nil) (in $versionSelectorBlacklist $product)) }}

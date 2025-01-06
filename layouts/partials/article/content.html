@@ -5,7 +5,8 @@
 {{ $influxdbCloud := and (eq $product "influxdb") (in $version "cloud") }}
 
 {{ if .Params.source }}
-  {{ readFile .Params.source | replaceRE (print $product "/version") (print $product "/" $version) | .RenderString | safeHTML }}
+  {{ $linkRegex := print (replaceRE `[0-9]` "" $product) "(?:[0-9])*" "/version" }}
+  {{ readFile .Params.source | replaceRE $linkRegex (print $product "/" $version) | .RenderString | safeHTML }}
 {{ else if $influxdbOSSv2 }}
   {{ .Content | replaceRE `(?Us)(<li>\s*<(?:div|span) class=\'cloud\-only\'>.*<\/(?:div|span)><\!\-\- close \-\-\>\s*</li>)` "" | replaceRE `(?Us)(<(?:div|span) class=\'cloud\-only\'>.*<\/(?:div|span)><\!\-\- close \-\-\>)` "" | safeHTML}}
 {{ else if $influxdbCloud }}

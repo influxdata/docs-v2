@@ -6,7 +6,6 @@ influxdb:
   list_order: 1
   placeholder_host: localhost:8086
   versions:
-    - v3
     - v2
     - v1
   latest: v2.7
@@ -17,15 +16,25 @@ influxdb:
   latest_cli:
     v2: 2.7.5
 
-influxdb_pro:
-  name: InfluxDB Pro
-  altname: InfluxDB Pro
+influxdb3_core:
+  name: InfluxDB 3 Core
+  altname: InfluxDB 3 Core
   namespace: influxdb
   menu_category: self-managed
-  versions: [pro]
+  versions: [core]
   list_order: 2
-  latest: pro
-  placeholder_host: localhost:8181
+  latest: core
+  placeholder_host: localhost:8086
+
+influxdb3_enterprise:
+  name: InfluxDB 3 Enterprise
+  altname: InfluxDB 3 Enterprise
+  namespace: influxdb
+  menu_category: self-managed
+  versions: [enterprise]
+  list_order: 2
+  latest: enterprise
+  placeholder_host: localhost:8086
 
 influxdb_cloud:
   name: InfluxDB Cloud (TSM)
