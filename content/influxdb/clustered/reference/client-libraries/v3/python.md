@@ -8,48 +8,45 @@ menu:
     parent: v3 client libraries
     identifier: influxdb3-python
 influxdb/clustered/tags: [Flight API, python, gRPC, SQL, client libraries]
-metadata: [influxdb3-python v0.5.0]
+metadata: [influxdb3-python v0.10.0]
 weight: 201
 aliases:
   - /influxdb/clustered/reference/client-libraries/v3/pyinflux3/
 related:
   - /influxdb/clustered/query-data/execute-queries/troubleshoot/
 list_code_example: |
-  <!-- Import for tests and hide from users.
+
+  <!--Hide setup
   ```python
   import os
+  from influxdb_client_3 import InfluxDBClient3
+
+  client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
+      database=f"DATABASE_NAME", token=f"DATABASE_TOKEN")  
   ```
   -->
   <!--pytest-codeblocks:cont-->
+
   ```python
-  from influxdb_client_3 import(InfluxDBClient3,
-                                WriteOptions,
-                                write_client_options)
+  # Example: Write and query data
 
-  # Instantiate batch writing options for the client
+  # Write sensor data in batches from a CSV file to a database
+  client.write_file(file='./data/home-sensor-data.csv',
+      timestamp_column='time',
+      tag_columns=["room"])
 
-  write_options = WriteOptions()
-  wco = write_client_options(write_options=write_options)
-
-  # Instantiate an InfluxDB v3 client
-
-  with InfluxDBClient3(host=f"{{< influxdb/host >}}",
-                        database=f"DATABASE_NAME",
-                        token=f"DATABASE_TOKEN",
-                        write_client_options=wco) as client:
-
-    # Write data in batches
-    client.write_file(file='./data/home-sensor-data.csv', timestamp_column='time',
-                      tag_columns=["room"])
-
-    # Execute a query and retrieve data formatted as a PyArrow Table
-
-    table = client.query(
+  # Execute a query and retrieve data from the last 90 days
+  table = client.query(
       '''SELECT *
          FROM home
          WHERE time >= now() - INTERVAL '90 days'
          ORDER BY time''')
-    ```
+
+  # This script assumes the client object is correctly configured
+  # with your database name, token, and host URL. 
+  # After the script runs, the table variable contains the data
+  # formatted as a PyArrow table.
+  ```
 ---
 
 The InfluxDB v3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python)
@@ -958,7 +955,7 @@ fh.close()
 client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
                          database=f"DATABASE_NAME",
                          token=f"DATABASE_TOKEN",
-    fco=flight_client_options(tls_root_certs=cert))
+    flight_client_options=flight_client_options(tls_root_certs=cert))
 ```
 
 {{% /code-placeholders %}}
