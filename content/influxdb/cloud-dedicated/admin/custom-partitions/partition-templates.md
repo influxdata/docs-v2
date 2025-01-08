@@ -119,10 +119,15 @@ you can't use `tag_A` as a tag bucket part.
 Time part templates use a limited subset of the
 [Rust strftime date and time formatting syntax](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
 to specify time format in partition keys.
+Time part templates can be daily (`%Y-%m-%d`), monthly (`%Y-%m`), or yearly (`%Y`).
 InfluxDB uses the smallest unit of time included in the time part template as
 the partition interval.
 
+InfluxDB supports only [date specifiers](#date-specifiers) in time part templates. 
+
 ### Date specifiers
+
+Time part templates allow only the following date specifiers:
 
 | Variable | Example      | Description                                                                                                                                                                         |
 | :------: | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

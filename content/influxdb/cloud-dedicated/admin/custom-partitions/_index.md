@@ -13,25 +13,29 @@ related:
   - /influxdb/cloud-dedicated/reference/internals/storage-engine/
 ---
 
-When writing data to {{< product-name >}}, the InfluxDB v3 storage engine stores
-data in the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store)
-in [Apache Parquet](https://parquet.apache.org/) format.
-Each Parquet file represents a _partition_--a logical grouping of data.
-By default, InfluxDB partitions each table by day.
-{{< product-name >}} lets you customize the partitioning strategy and partition
-by tag values and different time intervals.
-Customize your partitioning strategy to optimize query performance for your
-specific schema and workload.
+When writing data to {{< product-name >}}, the InfluxDB v3 storage engine stores data in [Apache Parquet](https://parquet.apache.org/) format in the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store). Each Parquet file represents a _partition_--a logical grouping of data.
+By default, InfluxDB partitions each table _by day_.
+If this default strategy yields unsatisfactory performance for single-series queries,
+you can define a custom partitioning strategy by specifying tag values and different time intervals to optimize query performance for your specific schema and workload.
 
 - [Advantages](#advantages)
 - [Disadvantages](#disadvantages)
 - [Limitations](#limitations)
+- [Plan for custom partitioning](#plan-for-custom-partitioning)
 - [How partitioning works](#how-partitioning-works)
   - [Partition templates](#partition-templates)
   - [Partition keys](#partition-keys)
 - [Partitions in the query life cycle](#partitions-in-the-query-life-cycle)
 - [Partition guides](#partition-guides)
   {{< children type="anchored-list" >}}
+
+> [!Note]
+>
+> #### When to consider custom partitioning
+>
+> Consider custom partitioning if you have [optimized your queries](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/) and single-series query (a query that returns a single measurement, tag set, and field key) performance is still unsatisfactory. 
+> 
+> Before choosing a partitioning strategy, weigh the [advantages](#advantages), [disadvantages](#disadvantages), and [limitations](#limitations) of custom partitioning.
 
 ## Advantages
 
@@ -49,11 +53,11 @@ storage structure to improve query performance specific to your schema and workl
 
 Using custom partitioning may increase the load on other parts of the
 [InfluxDB v3 storage engine](/influxdb/cloud-dedicated/reference/internals/storage-engine/),
-but each can be scaled individually to address the added load.
+but you can scale each part individually to address the added load.
 
 {{% note %}}
-_The following disadvantages assume that your custom partitioning strategy includes
-additional tags to partition by or partition intervals smaller than a day._
+_The weight of these disadvantages depends upon the cardinality of
+ tags and the specificity of time intervals used for partitioning._
 {{% /note %}}
 
 - **Increased load on the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester)**
@@ -61,28 +65,38 @@ additional tags to partition by or partition intervals smaller than a day._
 - **Increased load on the [Catalog](/influxdb/cloud-dedicated/reference/internals/storage-engine/#catalog)**
   as more references to partition Parquet file locations are stored and queried.
 - **Increased load on the [Compactor](/influxdb/cloud-dedicated/reference/internals/storage-engine/#compactor)**
-  as more partition Parquet files need to be compacted.
+  as it needs to compact more partition Parquet files.
 - **Increased costs associated with [Object storage](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-storage)**
   as more partition Parquet files are created and stored.
+- **Increased latency**, although slight, is linear with the total partition count in a table.
 - **Risk of decreased performance for queries that don't use tags in the WHERE clause**.
-  These queries may end up reading many partitions and smaller files, degrading performance.
+  These queries might read many partitions and smaller files, which can degrade performance.
 
 ## Limitations
 
 Custom partitioning has the following limitations:
 
-- Database and table partitions can only be defined on create.
-  You cannot update the partition strategy of a database or table after it has
-  been created.
-- A partition template must include a time part.
+- Define database and table partitions only during creation; you can't update the partition strategy afterward.
+- Include a time part in a partition template.
 - You can partition by up to eight dimensions (seven tags and a time interval).
+
+## Plan for custom partitioning
+
+After you have considered the [advantages](#advantages), [disadvantages](#disadvantages), and [limitations](#limitations) of
+custom partitioning, use the guides in this section to:
+
+1. Learn [how partitioning works](#how-partitioning-works)
+2. Follow [best practices](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/),
+   for planning your partitioning strategy 
+3. [Define custom partitions](/influxdb/cloud-dedicated/admin/custom-partitions/define-custom-partitions/) for your data
+4. Take steps to [limit the number of partition files](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/#limit-the-number-of-partition-files)
 
 ## How partitioning works
 
 ### Partition templates
 
 A partition template defines the pattern used for _[partition keys](#partition-keys)_
-and determines the time interval that data is partitioned by.
+and determines the time interval that InfluxDB partitions data by.
 Partition templates use tag values and
 [Rust strftime date and time formatting syntax](https://docs.rs/chrono/latest/chrono/format/strftime/index.html).
 
@@ -94,9 +108,10 @@ A partition key uniquely identifies a partition.
 A _[partition template](#partition-templates)_ defines the partition key format.
 Partition keys are
 composed of up to 8 dimensions (1 time part and up to 7 tag or tag bucket parts).
-Each part is delimited by the partition key separator (`|`).
+A partition key uses the partition key separator (`|`) to delimit parts.
 
-The default format for partition keys is `%Y-%m-%d` (for example, `2024-01-01`).
+The default format for partition keys is `%Y-%m-%d` (for example, `2024-01-01`),
+which creates 1 partition for each day.
 
 {{< expand-wrapper >}}
 {{% expand "View example partition templates and keys" %}}
@@ -253,25 +268,21 @@ production,line=B,station=wld temp=106.5,qty=43i 1704070800000000000
 
 - `line` <em class="op50">tag</em>
 - `station` <em class="op50">tag</em>
-- `%Y-%m-%d %H:00` <em class="op50">time (by hour)</em>
+- `%Y-%m` <em class="op50">time (by month)</em>
 
 {{% /flex-content %}}
 {{% flex-content %}}
 
 ##### Partition keys
 
-- `A | cnc | 2023-12-31 23:00`
-- `A | wld | 2023-12-31 23:00`
-- `B | cnc | 2023-12-31 23:00`
-- `B | wld | 2023-12-31 23:00`
-- `A | cnc | 2024-01-01 00:00`
-- `A | wld | 2024-01-01 00:00`
-- `B | cnc | 2024-01-01 00:00`
-- `B | wld | 2024-01-01 00:00`
-- `A | cnc | 2024-01-01 01:00`
-- `A | wld | 2024-01-01 01:00`
-- `B | cnc | 2024-01-01 01:00`
-- `B | wld | 2024-01-01 01:00`
+- `A | cnc | 2023-12`
+- `A | wld | 2023-12`
+- `B | cnc | 2023-12`
+- `B | wld | 2023-12`
+- `A | cnc | 2024-01`
+- `A | wld | 2024-01`
+- `B | cnc | 2024-01`
+- `B | wld | 2024-01`
 
 {{% /flex-content %}}
 
@@ -291,25 +302,21 @@ production,line=B,station=wld temp=106.5,qty=43i 1704070800000000000
 
 - `line` <em class="op50">tag</em>
 - `station,50` <em class="op50">tag bucket</em>
-- `%Y-%m-%d %H:00` <em class="op50">time (by hour)</em>
+- `%Y-%m` <em class="op50">time (by month)</em>
 
 {{% /flex-content %}}
 {{% flex-content %}}
 
 ##### Partition keys
 
-- `A | 47 | 2023-12-31 23:00`
-- `A | 9 | 2023-12-31 23:00`
-- `B | 47 | 2023-12-31 23:00`
-- `B | 9 | 2023-12-31 23:00`
-- `A | 47 | 2024-01-01 00:00`
-- `A | 9 | 2024-01-01 00:00`
-- `B | 47 | 2024-01-01 00:00`
-- `B | 9 | 2024-01-01 00:00`
-- `A | 47 | 2024-01-01 01:00`
-- `A | 9 | 2024-01-01 01:00`
-- `B | 47 | 2024-01-01 01:00`
-- `B | 9 | 2024-01-01 01:00`
+- `A | 47 | 2023-12`
+- `A | 9 | 2023-12`
+- `B | 47 | 2023-12`
+- `B | 9 | 2023-12`
+- `A | 47 | 2024-01`
+- `A | 9 | 2024-01`
+- `B | 47 | 2024-01`
+- `B | 9 | 2024-01`
 
 {{% /flex-content %}}
 
@@ -367,12 +374,12 @@ The query engine must scan _all_ rows in the partitions to identify rows
 where `line` is `A` and `station` is `cnc`. This process takes valuable time
 and results in less performant queries.
 
-However, if you partition by other tags, InfluxDB can identify partitions that
-contain only the tag values your query needs and spend less time
-scanning rows to see if they contain the tag values.
+However, including tags in your partitioning strategy allows the query engine to 
+identify partitions containing only the required tag values.
+This avoids scanning rows for tag values.
 
-For example, if data is partitioned by `line`, `station`, and day, although
-there are more partition files, the query engine can quickly identify and read
+For example, if you partition data by `line`, `station`, and day, although
+the number of files increases, the query engine can quickly identify and read
 only those with data relevant to the query:
 
 {{% columns 4 %}}
