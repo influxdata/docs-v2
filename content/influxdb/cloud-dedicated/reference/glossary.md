@@ -331,6 +331,7 @@ Related entries:
 [field](#field),
 [field key](#field-key),
 [field set](#field-set),
+[tag set](#tag-set),
 [tag value](#tag-value),
 [timestamp](#timestamp)
 
