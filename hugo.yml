@@ -22,12 +22,12 @@ blackfriday:
 
 taxonomies:
   influxdb/v2/tag: influxdb/v2/tags
-  influxdb/v3/tags: influxdb/v3/tags
-  influxdb/pro/tags: influxdb/pro/tags
   influxdb/cloud/tag: influxdb/cloud/tags
   influxdb/cloud-serverless/tag: influxdb/cloud-serverless/tags
   influxdb/cloud-dedicated/tag: influxdb/cloud-dedicated/tags
   influxdb/clustered/tag: influxdb/clustered/tags
+  influxdb3/core/tags: influxdb3/core/tags
+  influxdb3/enterprise/tags: influxdb3/enterprise/tags
   flux/v0/tag: flux/v0/tags
 
 markup:
