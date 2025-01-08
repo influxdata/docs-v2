@@ -57,6 +57,17 @@ Install [Docker](https://docs.docker.com/get-docker/) for your system.
 
 docs-v2 includes Docker configurations (`compose.yaml` and Dockerfiles) for running the Vale style linter and tests for code blocks (Shell, Bash, and Python) in Markdown files.
 
+#### Build the test dependency image
+
+After you have installed Docker, run the following command to build the test
+dependency image, `influxdata:docs-pytest`.
+The tests defined in `compose.yaml` use the dependencies and execution
+environment from this image.
+
+```bash
+docker build -t influxdata:docs-pytest -f Dockerfile.pytest .
+```
+
 ### Run the documentation locally (optional)
 
 To run the documentation locally, follow the instructions provided in the README.

@@ -1,5 +1,5 @@
 // Store the host value for the current page
-currentPageHost = window.location.href.match(/^(?:[^\/]*\/){2}[^\/]+/g)[0];
+const currentPageHost = window.location.href.match(/^(?:[^\/]*\/){2}[^\/]+/g)[0];
 
 // Define v3-wayfinding elements
 var wayfindingModal = document.getElementById('v3-wayfinding-modal');
@@ -55,6 +55,9 @@ function slideUp (elem) {
  *  - Has the user opted out of the wayfinding modal?
  */
 function shouldOpenWayfinding () {
+  // Extract the protocol and hostname of referrer
+  const referrerMatch = document.referrer.match(/^(?:[^\/]*\/){2}[^\/]+/g);
+  const referrerHost = referrerMatch ? referrerMatch[0] : '';
   var isExternalReferrer = !referrerWhitelist.includes(referrerHost);
   var wayfindingOptedOut = getPreference(wayfindingPrefCookie);
 
