@@ -46,7 +46,8 @@ Related entries:
 ### aggregate
 
 A function that returns an aggregated value across a set of points.
-For a list of available aggregation functions, see [SQL aggregate functions](/influxdb/clustered/reference/sql/functions/aggregate/).
+For a list of available aggregation functions,
+see [SQL aggregate functions](/influxdb/clustered/reference/sql/functions/aggregate/).
 
 <!-- TODO: Add a link to InfluxQL aggregate functions -->
 
@@ -333,6 +334,7 @@ Related entries:
 [field](#field),
 [field key](#field-key),
 [field set](#field-set),
+[tag set](#tag-set),
 [tag value](#tag-value),
 [timestamp](#timestamp)
 
@@ -403,10 +405,10 @@ Identifiers are tokens that refer to specific database objects such as database
 names, field keys, measurement names, tag keys, etc.
 
 Related entries:
-[database](#database)
+[database](#database),
 [field key](#field-key),
 [measurement](#measurement),
-[tag key](#tag-key),
+[tag key](#tag-key)
 
 ### influx
 
@@ -425,8 +427,8 @@ and other required processes.
 
 ### InfluxDB
 
-An open source time series database (TSDB) developed by InfluxData.
-Written in Go and optimized for fast, high-availability storage and retrieval of
+An open source time series database (TSDB) developed by InfluxData, optimized
+for fast, high-availability storage and retrieval of
 time series data in fields such as operations monitoring, application metrics,
 Internet of Things sensor data, and real-time analytics.
 
@@ -438,8 +440,8 @@ The SQL-like query language used to query data in InfluxDB.
 
 Telegraf input plugins actively gather metrics and deliver them to the core agent,
 where aggregator, processor, and output plugins can operate on the metrics.
-In order to activate an input plugin, it needs to be enabled and configured in
-Telegraf's configuration file.
+To activate an input plugin, enable and configure it in the
+Telegraf configuration file.
 
 Related entries:
 [aggregator plugin](#aggregator-plugin),
@@ -752,7 +754,7 @@ relative to [now](#now).
 The minimum retention period is **one hour**.
 
 Related entries:
-[bucket](#bucket),
+[bucket](#bucket)
 
 ### retention policy (RP)
 
@@ -839,8 +841,8 @@ Related entries:
 
 ### series
 
-A collection of data in the InfluxDB data structure that share a common
-_measurement_, _tag set_, and _field key_.
+In the InfluxDB 3 data structure, a collection of data that share a common
+_measurement_ and _tag set_.
 
 Related entries:
 [field set](#field-set),
@@ -849,12 +851,13 @@ Related entries:
 
 ### series cardinality
 
-The number of unique measurement, tag set, and field key combinations in an InfluxDB database.
+The number of unique measurement (table), tag set, and field key combinations in an InfluxDB database.
 
 For example, assume that an InfluxDB database has one measurement.
 The single measurement has two tag keys: `email` and `status`.
-If there are three different `email`s, and each email address is associated with two
-different `status`es, the series cardinality for the measurement is 6
+If there are three different `email` tag values,
+and each email address is associated with two
+different `status` tag values, then the series cardinality for the measurement is 6
 (3 × 2 = 6):
 
 | email                 | status |
@@ -869,7 +872,7 @@ different `status`es, the series cardinality for the measurement is 6
 In some cases, performing this multiplication may overestimate series cardinality
 because of the presence of dependent tags.
 Dependent tags are scoped by another tag and do not increase series cardinality.
-If we add the tag `firstname` to the example above, the series cardinality
+If we add the tag `firstname` to the preceding example, the series cardinality
 would not be 18 (3 × 2 × 3 = 18).
 The series cardinality would remain unchanged at 6, as `firstname` is already scoped by the `email` tag:
 
@@ -1048,7 +1051,7 @@ Related entries: [aggregate](#aggregate), [function](#function), [selector](#sel
 
 The InfluxDB v1 and v2 data storage format that allows greater compaction and
 higher write and read throughput than B+ or LSM tree implementations.
-The TSM storage engine has been replaced by [the InfluxDB v3 storage engine (IOx)](#iox).
+The TSM storage engine has been replaced by the [InfluxDB v3 storage engine (IOx)](#iox).
 
 Related entries:
 [IOx](#iox)
@@ -1142,9 +1145,6 @@ the storage engine.
 Points in the WAL are queryable and persist through a system reboot.
 On process start, all points in the WAL must be flushed before the system
 accepts new writes.
-
-Related entries:
-[tsm](#tsm-time-structured-merge-tree)
 
 ### windowing
 
