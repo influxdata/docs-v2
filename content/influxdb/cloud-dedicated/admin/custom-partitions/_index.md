@@ -50,7 +50,7 @@ storage structure to improve query performance specific to your schema and workl
   partition by that tag to improve the performance of those queries.
 - **Optimized storage for specific types of data**. For example, if the data you
   store is sparse and the time ranges you query are often much larger than a day,
-  you could partition your data by week instead of by day.
+  you could partition your data by month instead of by day.
 
 ## Disadvantages
 
@@ -71,7 +71,7 @@ _The weight of these disadvantages depends upon the cardinality of
   as it needs to compact more partition Parquet files.
 - **Increased costs associated with [Object storage](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-storage)**
   as more partition Parquet files are created and stored.
-- **Increased latency**, although slight, is linear with the total partition count in a table.
+- **Increased latency**. The amount of time for InfluxDB to process a query and return results increases linearly, although slightly, with the total partition count for a table.
 - **Risk of decreased performance for queries that don't use tags in the WHERE clause**.
   These queries might read many partitions and smaller files, which can degrade performance.
 
