@@ -89,8 +89,8 @@ After you have considered the [advantages](#advantages), [disadvantages](#disadv
 custom partitioning, use the guides in this section to:
 
 1. Learn [how partitioning works](#how-partitioning-works)
-2. Follow partitioning [best practices](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/)
-   for planning your partitioning strategy 
+2. Follow [best practices](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/) for defining partitions and managing partition
+   growth
 3. [Define custom partitions](/influxdb/cloud-dedicated/admin/custom-partitions/define-custom-partitions/) for your data
 4. Take steps to [limit the number of partition files](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/#limit-the-number-of-partition-files)
 
