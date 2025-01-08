@@ -33,7 +33,10 @@ you can define a custom partitioning strategy by specifying tag values and diffe
 >
 > #### When to consider custom partitioning
 >
-> Consider custom partitioning if you have [optimized your queries](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/) and single-series query (a query that returns a single measurement, tag set, and field key) performance is still unsatisfactory. 
+> Consider custom partitioning if:
+> 
+> 1. You have taken steps to [optimize your queries](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/), and
+> 2. Performance for _single series queries_ (returns data with a specific tag value or tag set) is still unsatisfactory. 
 > 
 > Before choosing a partitioning strategy, weigh the [advantages](#advantages), [disadvantages](#disadvantages), and [limitations](#limitations) of custom partitioning.
 
@@ -86,7 +89,7 @@ After you have considered the [advantages](#advantages), [disadvantages](#disadv
 custom partitioning, use the guides in this section to:
 
 1. Learn [how partitioning works](#how-partitioning-works)
-2. Follow [best practices](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/),
+2. Follow partitioning [best practices](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/)
    for planning your partitioning strategy 
 3. [Define custom partitions](/influxdb/cloud-dedicated/admin/custom-partitions/define-custom-partitions/) for your data
 4. Take steps to [limit the number of partition files](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/#limit-the-number-of-partition-files)
