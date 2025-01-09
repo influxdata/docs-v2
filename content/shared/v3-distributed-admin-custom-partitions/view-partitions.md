@@ -1,3 +1,4 @@
+<!--Allow shortcode-->
 {{< product-name >}} stores partition information in InfluxDB v3 system tables.
 Query partition information to view partition templates and verify partitions
 are working as intended.
