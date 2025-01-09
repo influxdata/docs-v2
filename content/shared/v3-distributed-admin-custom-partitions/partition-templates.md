@@ -79,7 +79,7 @@ customerID,500
 ```
 
 Values of the `customerID` tag are bucketed into 500 distinct "buckets." 
-Each bucket is identified by the remainder of the tag value hashed into a 32bit
+Each bucket is identified by the remainder of the tag value hashed into a 32-bit
 integer divided by the specified number of buckets:
 
 ```rust
@@ -108,8 +108,8 @@ Time part templates use a limited subset of the
 [Rust strftime date and time formatting syntax](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
 to specify time format in partition keys.
 Time part templates can be daily (`%Y-%m-%d`), monthly (`%Y-%m`), or yearly (`%Y`).
-InfluxDB uses the smallest unit of time included in the time part template as
-the partition interval.
+InfluxDB partitions data by the smallest unit of time included in the time part
+template.
 
 InfluxDB supports only [date specifiers](#date-specifiers) in time part templates. 
 
