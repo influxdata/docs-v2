@@ -28,18 +28,18 @@ If you detect a schema change or a non-functioning query example, please
 
 ## Query partition information from system tables
 
-Use the [`influxctl query` command](/influxdb/cloud-dedicated/reference/cli/influxctl/query/)
+Use the [`influxctl query` command](/influxdb/version/reference/cli/influxctl/query/)
 and SQL to query partition-related information from InfluxDB system tables.
  Provide the following:
 
 - **Enable system tables** with the `--enable-system-tables` command flag.
-- **Database token**: A [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+- **Database token**: A [database token](/influxdb/version/admin/tokens/#database-tokens)
   with read permissions on the specified database. Uses the `token` setting from
-  the [`influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
+  the [`influxctl` connection profile](/influxdb/version/reference/cli/influxctl/#configure-connection-profiles)
   or the `--token` command flag.
 - **Database name**: The name of the database to query information about.
   Uses the `database` setting from the
-  [`influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
+  [`influxctl` connection profile](/influxdb/version/reference/cli/influxctl/#configure-connection-profiles)
   or the `--database` command flag.
 - **SQL query**: The SQL query to execute.
   Pass the query in one of the following ways:

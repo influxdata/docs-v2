@@ -1,10 +1,10 @@
-Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
+Use the [`influxctl` CLI](/influxdb/version/reference/cli/influxctl/)
 to define custom partition strategies when creating a database or table.
 By default, {{< product-name >}} partitions data by day.
 
 The partitioning strategy of a database or table is determined by a
-[partition template](/influxdb/cloud-dedicated/admin/custom-partitions/#partition-templates)
-which defines the naming pattern for [partition keys](/influxdb/cloud-dedicated/admin/custom-partitions/#partition-keys).
+[partition template](/influxdb/version/admin/custom-partitions/#partition-templates)
+which defines the naming pattern for [partition keys](/influxdb/version/admin/custom-partitions/#partition-keys).
 Partition keys uniquely identify each partition.
 When a partition template is applied to a database, it becomes the default template
 for all tables in that database, but can be overridden when creating a
@@ -23,15 +23,15 @@ You can't update a partition template on an existing resource.
 {{% /warn %}}
 
 Use the following command flags to identify
-[partition template parts](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-part-templates):
+[partition template parts](/influxdb/version/admin/custom-partitions/partition-templates/#tag-part-templates):
 
-- `--template-tag`: An [InfluxDB tag](/influxdb/cloud-dedicated/reference/glossary/#tag)
+- `--template-tag`: An [InfluxDB tag](/influxdb/version/reference/glossary/#tag)
   to use in the partition template.
-- `--template-tag-bucket`: An [InfluxDB tag](/influxdb/cloud-dedicated/reference/glossary/#tag)
+- `--template-tag-bucket`: An [InfluxDB tag](/influxdb/version/reference/glossary/#tag)
   and number of "buckets" to group tag values into.
   Provide the tag key and the number of buckets to bucket tag values into
   separated by a comma: `tagKey,N`.
-- `--template-timeformat`: A [Rust strftime date and time](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
+- `--template-timeformat`: A [Rust strftime date and time](/influxdb/version/admin/custom-partitions/partition-templates/#time-part-templates)
   string that specifies the time format in the partition template and determines
   the time interval to partition by.
 
@@ -40,7 +40,7 @@ A partition template can include up to 7 total tag and tag bucket parts
 and only 1 time part.
 {{% /note %}}
 
-_View [partition template part restrictions](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#restrictions)._
+_View [partition template part restrictions](/influxdb/version/admin/custom-partitions/partition-templates/#restrictions)._
 
 {{% note %}}
 #### Always provide a time format when using custom partitioning
@@ -95,7 +95,7 @@ influxctl table create \
 
 Replace the following in your command:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/version/admin/databases/)
 
 <!--actual test
 
@@ -127,7 +127,7 @@ rm /shared/temp_tables.txt
 
 ## Example partition templates
 
-Given the following [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/)
+Given the following [line protocol](/influxdb/version/reference/syntax/line-protocol/)
 with a `2024-01-01T00:00:00Z` timestamp:
 
 ```text
