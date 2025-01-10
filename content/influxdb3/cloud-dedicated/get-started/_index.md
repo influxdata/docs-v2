@@ -4,10 +4,10 @@ list_title: Get started
 description: >
   Start writing and querying time series data in InfluxDB Cloud Dedicated.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Get started
 weight: 3
-influxdb/cloud-dedicated/tags: [get-started]
+influxdb3/cloud-dedicated/tags: [get-started]
 ---
 
 InfluxDB is the platform purpose-built to collect, store, and query
@@ -110,14 +110,14 @@ The following table compares tools that you can use to interact with
 | [InfluxDB HTTP API](#influxdb-http-api){{< req text="\* " color="magenta" >}}                       |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | <span style="opacity:.5;">InfluxDB user interface</span>                                            |            -             |            -             |            -             |
 | [InfluxDB v3 client libraries](#influxdb-v3-client-libraries){{< req text="\* " color="magenta" >}} |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
-| [InfluxDB v2 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v2/)            |            -             | **{{< icon "check" >}}** |            -             |
-| [InfluxDB v1 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v1/)            |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [InfluxDB v2 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v2/)            |            -             | **{{< icon "check" >}}** |            -             |
+| [InfluxDB v1 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v1/)            |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [Telegraf](/telegraf/v1/){{< req text="\* " color="magenta" >}}                                     |            -             | **{{< icon "check" >}}** |            -             |
 | **Third-party tools**                                                                               |                          |                          |                          |
 | Flight SQL clients                                                                                  |            -             |            -             | **{{< icon "check" >}}** |
-| [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)                        |            -             |            -             | **{{< icon "check" >}}** |
-| [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/)                      |            -             |            -             | **{{< icon "check" >}}** |
-| [Tableau](/influxdb/cloud-dedicated/process-data/visualize/tableau/)                                |            -             |            -             | **{{< icon "check" >}}** |
+| [Grafana](/influxdb3/cloud-dedicated/query-data/sql/execute-queries/grafana/)                        |            -             |            -             | **{{< icon "check" >}}** |
+| [Superset](/influxdb3/cloud-dedicated/query-data/sql/execute-queries/superset/)                      |            -             |            -             | **{{< icon "check" >}}** |
+| [Tableau](/influxdb3/cloud-dedicated/process-data/visualize/tableau/)                                |            -             |            -             | **{{< icon "check" >}}** |
 
 {{< caption >}}
 {{< req type="key" text="Covered in this tutorial" color="magenta" >}}
@@ -131,14 +131,14 @@ may coincidentally work, it isn't supported.
 ### `influxctl` CLI
 
 The
-[`influxctl` command line interface (CLI)](/influxdb/cloud-dedicated/reference/cli/influxctl/)
+[`influxctl` command line interface (CLI)](/influxdb3/cloud-dedicated/reference/cli/influxctl/)
 writes, queries, and performs administrative tasks, such as managing databases
 and authorization tokens in a cluster.
 
 ### `influx3` data CLI
 
 The
-[`influx3` data CLI](/influxdb/cloud-dedicated/get-started/query/?t=influx3+CLI#execute-an-sql-query)
+[`influx3` data CLI](/influxdb3/cloud-dedicated/get-started/query/?t=influx3+CLI#execute-an-sql-query)
 is a community-maintained tool that lets you write and query data in
 {{% product-name %}} from a command line. It uses the HTTP API to write data and
 uses Flight gRPC to query data.
@@ -159,27 +159,27 @@ code. The `/api/v2/write` v2-compatible endpoint works with existing InfluxDB
 InfluxDB client libraries are community-maintained, language-specific clients
 that interact with InfluxDB APIs.
 
-[InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
+[InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/)
 are the recommended client libraries for writing and querying data
 {{% product-name %}}. They use the HTTP API to write data and use InfluxDB's
 Flight gRPC API to query data.
 
-[InfluxDB v2 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v2/)
+[InfluxDB v2 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v2/)
 can use `/api/v2` HTTP endpoints to manage resources such as buckets and API
 tokens, and write data in {{% product-name %}}.
 
-[InfluxDB v1 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v1/)
+[InfluxDB v1 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v1/)
 can write data to {{% product-name %}}.
 
 ## Authorization
 
 **{{% product-name %}} requires authentication** using
-one of the following [token](/influxdb/cloud-dedicated/admin/tokens/) types:
+one of the following [token](/influxdb3/cloud-dedicated/admin/tokens/) types:
 
 - **Database token**: A token that grants read and write access to InfluxDB
   databases.
 - **Management token**:
-  [Auth0 authentication token](/influxdb/cloud-dedicated/reference/internals/security/#access-authentication-and-authorization) generated by the `influxctl` CLI and used to administer your InfluxDB cluster.
+  [Auth0 authentication token](/influxdb3/cloud-dedicated/reference/internals/security/#access-authentication-and-authorization) generated by the `influxctl` CLI and used to administer your InfluxDB cluster.
 Management tokens authorize a user to perform tasks related to:
 
   - Account management
@@ -196,9 +196,9 @@ By default, management tokens are
 
 However, for automation purposes, an `influxctl` user can
 [manually create a long-lived
-management token](/influxdb/cloud-dedicated/admin/tokens/management/#create-a-management-token)
+management token](/influxdb3/cloud-dedicated/admin/tokens/management/#create-a-management-token)
 for use with the
-[Management API for Cloud Dedicated](/influxdb/cloud-dedicated/api/management).
+[Management API for Cloud Dedicated](/influxdb3/cloud-dedicated/api/management).
 Manually-created management tokens authenticate directly with your InfluxDB
 cluster and don't require human interaction with your identity provider.
   <!-- - Infrastructure management -->
