@@ -1,5 +1,5 @@
 {{ $scratch := newScratch }}
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $productPathData := split .RelPermalink "/" }}
 {{ $version := index $productPathData 1 }}
 {{ $altVersion := cond (ne $version "cloud-serverless") "cloud-serverless" "cloud" }}
 {{ $engine := cond (eq $version "cloud-serverless") "v3" "TSM" }}

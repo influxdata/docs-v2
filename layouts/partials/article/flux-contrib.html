@@ -1,4 +1,4 @@
-{{ $currentVersion := index (findRE "[^/]+.*?" .RelPermalink) 1 }}
+{{ $currentVersion := index (split .RelPermalink "/") 1 }}
 {{ $contribPath := print "/flux/" $currentVersion "/stdlib/contrib/" }}
 
 {{ if in .RelPermalink $contribPath }}

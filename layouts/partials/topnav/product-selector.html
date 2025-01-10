@@ -1,5 +1,5 @@
 {{ $scratch := newScratch }}
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $productPathData := split .RelPermalink "/" }}
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
 {{ $pageRoot := print $product "/" $currentVersion }}

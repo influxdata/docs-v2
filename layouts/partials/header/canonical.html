@@ -1,5 +1,5 @@
 {{ $scratch := newScratch }}
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $productPathData := split .RelPermalink "/" }}
 {{ $product := index $productPathData 0 | default "influxdb" }}
 {{ $minorVersions := (index .Site.Data.products $product).versions }}
 {{ $currentVersion := index $productPathData 1 }}
@@ -52,7 +52,7 @@
     {{ end }}
   {{ end }}
 <!-- Find the latest version of the page if canonical is not set and version is not cloud -->
-{{ else if and (ge (len (findRE "[^/]+.*?" .RelPermalink)) 2) (not (isset .Page.Params "canonical")) (ne $currentVersion "cloud") }}
+{{ else if and (ge (len (split .RelPermalink "/")) 2) (not (isset .Page.Params "canonical")) (ne $currentVersion "cloud") }}
   {{ range ( index $.Site.Data.products $product ).versions }}
     {{ $currentURL := $.Page.RelPermalink }}
     {{ if gt (len ($.GetPage ((replaceRE $currentVersion . $currentURL) | replaceRE `\/$` "")).Title) 0 }}
