@@ -15,9 +15,9 @@ menu:
     name: Telegraf (agent)
     parent: No-code solutions
 alt_links:
-  cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/
-  cloud-dedicated: /influxdb/cloud-dedicated/write-data/use-telegraf/
-  clustered: /influxdb/clustered/write-data/use-telegraf/
+  cloud-serverless: /influxdb3/cloud-serverless/write-data/use-telegraf/
+  cloud-dedicated: /influxdb3/cloud-dedicated/write-data/use-telegraf/
+  clustered: /influxdb3/clustered/write-data/use-telegraf/
 ---
 
 [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) is InfluxData's

@@ -7,8 +7,8 @@
 {{ $isCore := in $pageRoot "influxdb3/core" }}
 {{ $isEnterprise := in $pageRoot "influxdb3/enterprise" }}
 {{ $isServerless := eq $pageRoot "influxdb3/cloud-serverless" }}
-{{ $isDedicated := eq $pageRoot "influxdb/cloud-dedicated" }}
-{{ $isClustered := eq $pageRoot "influxdb/clustered" }}
+{{ $isDedicated := eq $pageRoot "influxdb3/cloud-dedicated" }}
+{{ $isClustered := eq $pageRoot "influxdb3/clustered" }}
 {{ $altLinks := .Page.Params.alt_links | default dict }}
 {{ $isInfluxDB3 := or $isCore $isEnterprise $isServerless $isDedicated $isClustered }}
 {{ $sortedProducts := sort .Site.Data.products "list_order" "asc"}}
@@ -19,8 +19,8 @@
 {{ $enterpriseInfo := dict $.Site.Data.products.influxdb3_enterprise.name (dict "path" "influxdb3/enterprise" "key" "enterprise") }}
 {{ $cloudInfo := dict $.Site.Data.products.influxdb_cloud.name (dict "path" "influxdb/cloud" "key" "cloud") }}
 {{ $serverlessInfo := dict $.Site.Data.products.influxdb3_cloud_serverless.name (dict "path" "influxdb3/cloud-serverless" "key" "cloud-serverless") }}
-{{ $dedicatedInfo := dict $.Site.Data.products.influxdb_cloud_dedicated.name (dict "path" "influxdb/cloud-dedicated" "key" "cloud-dedicated") }}
-{{ $clusteredInfo := dict $.Site.Data.products.influxdb_clustered.name (dict "path" "influxdb/clustered" "key" "clustered") }}
+{{ $dedicatedInfo := dict $.Site.Data.products.influxdb3_cloud_dedicated.name (dict "path" "influxdb3/cloud-dedicated" "key" "cloud-dedicated") }}
+{{ $clusteredInfo := dict $.Site.Data.products.influxdb3_clustered.name (dict "path" "influxdb3/clustered" "key" "clustered") }}
 {{ $influxdbInfo := merge $ossInfo $coreInfo $enterpriseInfo $cloudInfo $serverlessInfo $dedicatedInfo $clusteredInfo }}
 
 <div class="dropdown">
@@ -32,8 +32,8 @@
     {{ else if $isCore }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb3_core.name }}
     {{ else if $isEnterprise }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb3_enterprise.name }}
     {{ else if $isServerless }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb3_cloud_serverless.name }}
-    {{ else if $isDedicated }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb_cloud_dedicated.name }}
-    {{ else if $isClustered }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb_clustered.name }}
+    {{ else if $isDedicated }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb3_cloud_dedicated.name }}
+    {{ else if $isClustered }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb3_clustered.name }}
     {{ else }}
       {{ $productData := (index .Site.Data.products $product) }}
       {{ $scratch.Set "displayName" (cond (isset $productData "altname") $productData.altname $productData.name) }}

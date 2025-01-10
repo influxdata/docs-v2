@@ -51,7 +51,7 @@ The Cloud Serverless graphical user interface (GUI) provides basic features for 
 
 Unlike Cloud Serverless, Cloud Dedicated does not come with a GUI.
 Cloud Dedicated customers use an administrative command line tool (`influxctl`)
-for managing databases and tokens. The [`influxctl` utility](/influxdb/cloud-dedicated/reference/cli/influxctl/)
+for managing databases and tokens. The [`influxctl` utility](/influxdb3/cloud-dedicated/reference/cli/influxctl/)
 is not available for InfluxDB Cloud Serverless.
 Because the platforms use different administrative tools, if you're using
 Cloud Serverless as an evaluation platform for Cloud Dedicated, you won’t be
@@ -111,7 +111,7 @@ platform for InfluxDB Cloud Dedicated.
 For writing data, InfluxDB Cloud Dedicated and InfluxDB Cloud Serverless both
 support the v1 API and the v2 write API.
 
-In addition, [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
+In addition, [InfluxDB v3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/)
 are available that work the same for both InfluxDB Cloud Serverless and InfluxDB
 Cloud Dedicated and help avoid any API differences between the two platforms.
 For more detailed information about choosing a client library, see the
@@ -128,10 +128,10 @@ on InfluxDB Cloud Dedicated.
 
 With InfluxDB Cloud Dedicated, you can build custom task and alerting solutions or use third-party tools like Grafana or Prefect--for example:
 
-- [Send alerts using data in InfluxDB Cloud Serverless](/influxdb/cloud-serverless/process-data/send-alerts/)
-- [Downsample data](/influxdb/cloud-serverless/process-data/downsample/)
-- [Summarize data](/influxdb/cloud-serverless/process-data/summarize/)
-- [Use data analysis tools](/influxdb/cloud-serverless/process-data/tools/)
+- [Send alerts using data in InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/process-data/send-alerts/)
+- [Downsample data](/influxdb3/cloud-serverless/process-data/downsample/)
+- [Summarize data](/influxdb3/cloud-serverless/process-data/summarize/)
+- [Use data analysis tools](/influxdb3/cloud-serverless/process-data/tools/)
 
 ### Token management and authorization differences
 
@@ -183,7 +183,7 @@ as an evaluation or prototyping platform for InfluxDB Cloud Dedicated.
 
 ### Use the v3 lightweight client libraries
 
-Use the InfluxDB [v3 lightweight client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
+Use the InfluxDB [v3 lightweight client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/)
 to help make your code for writing and querying cross-compatible with InfluxDB Cloud Serverless, Cloud Dedicated, and Clustered.
 You'll only need to change your InfluxDB connection credentials
 (host, database name, and token).

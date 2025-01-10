@@ -13,7 +13,7 @@ aliases:
   - /influxdb/cloud/collect-data/use-telegraf/auto-config/delete-telegraf-config
   - /influxdb/cloud/telegraf-configs/remove/
 # alt_links:
-#   cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/telegraf-configs/remove/
+#   cloud-serverless: /influxdb3/cloud-serverless/write-data/use-telegraf/telegraf-configs/remove/
 ---
 
 {{< duplicate-oss >}}

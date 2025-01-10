@@ -52,7 +52,7 @@ When you're ready, you can migrate to InfluxDB v3 and continue using the v1 clie
 libraries as you gradually move your query workloads to use the v3 client libraries
 (and the v3 Flight API).
 
-For more information, see [API compatibility and migration guides for InfluxDB v3](/influxdb/cloud-dedicated/guides).
+For more information, see [API compatibility and migration guides for InfluxDB v3](/influxdb3/cloud-dedicated/guides).
 
 ## InfluxDB 2.x API compatibility endpoints
 

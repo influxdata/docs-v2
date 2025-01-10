@@ -27,7 +27,7 @@ or [our new database engine, InfluxDB v3](/blog/announcing-general-availability-
 To benefit from the InfluxDB v3 storage engine's unlimited cardinality and
 support for SQL, migrate your data to InfluxDB Cloud Serverless.
 
-- [Migrate data TSM to Serverless](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-serverless/)
+- [Migrate data TSM to Serverless](/influxdb3/cloud-serverless/write-data/migrate-data/migrate-tsm-to-serverless/)
 - [Migrate data from TSM to TSM](/influxdb/cloud/write-data/migrate-data/migrate-cloud-to-cloud/). 
 
 To see which storage engine your organization uses, find the **InfluxDB Cloud powered by**

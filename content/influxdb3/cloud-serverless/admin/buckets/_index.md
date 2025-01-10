@@ -9,14 +9,14 @@ menu:
     name: Manage buckets
     parent: Administer InfluxDB Cloud
 weight: 105
-influxdb/cloud-serverless/tags: [buckets]
+influxdb3/cloud-serverless/tags: [buckets]
 aliases:
-  - /influxdb/cloud-serverless/organizations/buckets/
-  - /influxdb/cloud-serverless/admin/databases/
+  - /influxdb3/cloud-serverless/organizations/buckets/
+  - /influxdb3/cloud-serverless/admin/databases/
 alt_links:
   cloud: /influxdb/cloud/admin/buckets/
-  cloud_dedicated: /influxdb/cloud-dedicated/admin/databases/
-  clustered: /influxdb/clustered/admin/databases/
+  cloud_dedicated: /influxdb3/cloud-dedicated/admin/databases/
+  clustered: /influxdb3/clustered/admin/databases/
   oss: /influxdb/v2/admin/buckets/
 ---
 
@@ -31,7 +31,7 @@ have been combined into a single concept--_bucket_.
 Retention policies are no longer part of the InfluxDB data model.
 However, {{% product-name %}} does
 support InfluxQL and the InfluxDB v1 API `/write` and `/query` endpoints, which require databases and retention policies.
-See how to [map v1 databases and retention policies to buckets](/influxdb/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets).
+See how to [map v1 databases and retention policies to buckets](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets).
 
 **If coming from InfluxDB v2 or InfluxDB Cloud**, _buckets_ are functionally equivalent.
 

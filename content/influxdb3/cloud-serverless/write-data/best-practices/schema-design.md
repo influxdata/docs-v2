@@ -9,11 +9,11 @@ menu:
     weight: 201
     parent: write-best-practices
 related:
-  - /influxdb/cloud-serverless/admin/buckets/
-  - /influxdb/cloud-serverless/query-data/troubleshoot-and-optimize/
+  - /influxdb3/cloud-serverless/admin/buckets/
+  - /influxdb3/cloud-serverless/query-data/troubleshoot-and-optimize/
 ---
 
-Use the following guidelines to design your [schema](/influxdb/cloud-serverless/reference/glossary/#schema)
+Use the following guidelines to design your [schema](/influxdb3/cloud-serverless/reference/glossary/#schema)
 for simpler and more performant queries.
 
 - [InfluxDB data structure](#influxdb-data-structure)
@@ -61,7 +61,7 @@ tags and fields.
 ### Primary keys
 
 In time series data, the primary key for a row of data is typically a combination of timestamp and other attributes that uniquely identify each data point.
-In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb/cloud-serverless/reference/glossary/#tag-key) and [tag values](/influxdb/cloud-serverless/reference/glossary/#tag-value) on the point.
+In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb3/cloud-serverless/reference/glossary/#tag-key) and [tag values](/influxdb3/cloud-serverless/reference/glossary/#tag-value) on the point.
 A row's primary key tag set does not include tags with null values.
 
 ### Tags versus fields
@@ -104,7 +104,7 @@ the write fails due to a column conflict.
 
 ### Maximum number of columns per measurement
 
-A measurement has a [maximum number of columns](/influxdb/cloud-serverless/admin/buckets/#column-limit).
+A measurement has a [maximum number of columns](/influxdb3/cloud-serverless/admin/buckets/#column-limit).
 Each row must include a time column.
 As a result, a measurement can have the following:
 
@@ -136,15 +136,15 @@ Wide schemas can lead to the following issues:
 - Increased resource usage for persisting and compacting data during ingestion.
 - Reduced sorting performance due to complex primary keys with [too many tags](#avoid-too-many-tags).
 - Reduced query performance when
-  [selecting too many columns](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/#select-only-columns-you-need).
+  [selecting too many columns](/influxdb3/cloud-serverless/query-data/troubleshoot-and-optimize/optimize-queries/#select-only-columns-you-need).
 
 To prevent wide schema issues, limit the number of tags and fields stored in a measurement.
-If you need to store more than the [maximum number of columns](/influxdb/cloud-serverless/admin/buckets/),
+If you need to store more than the [maximum number of columns](/influxdb3/cloud-serverless/admin/buckets/),
 consider segmenting your fields into separate measurements.
 
 #### Avoid too many tags
 
-In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb/cloud-serverless/reference/glossary/#tag-key) and [tag values](/influxdb/cloud-serverless/reference/glossary/#tag-value) on the point.
+In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb3/cloud-serverless/reference/glossary/#tag-key) and [tag values](/influxdb3/cloud-serverless/reference/glossary/#tag-value) on the point.
 A point that contains more tags has a more complex primary key, which could impact sorting performance if you sort using all parts of the key.
 
 ### Avoid sparse schemas
@@ -229,7 +229,7 @@ full of null values (also known as a _sparse schema_):
 
 ### Use the best data type for your data
 
-When writing data to a field, use the most appropriate [data type](/influxdb/cloud-serverless/reference/glossary/#data-type) for your data--write integers as integers, decimals as floats, and booleans as booleans.
+When writing data to a field, use the most appropriate [data type](/influxdb3/cloud-serverless/reference/glossary/#data-type) for your data--write integers as integers, decimals as floats, and booleans as booleans.
 A query against a field that stores integers outperforms a query against string data;
 querying over many long string values can negatively affect performance.
 
@@ -261,7 +261,7 @@ Without regular expressions, your queries will be easier to write and more perfo
 
 #### Not recommended {.orange}
 
-For example, consider the following [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) that embeds multiple attributes (location, model, and ID) into a `sensor` tag value:
+For example, consider the following [line protocol](/influxdb3/cloud-serverless/reference/syntax/line-protocol/) that embeds multiple attributes (location, model, and ID) into a `sensor` tag value:
 
 ```
 home,sensor=loc-kitchen.model-A612.id-1726ZA temp=72.1
@@ -358,8 +358,8 @@ or regular expressions.
 To simplify query writing, avoid using reserved keywords or special characters
 in measurement names, tag keys, and field keys.
 
-- [SQL keywords](/influxdb/cloud-serverless/reference/sql/#keywords)
-- [InfluxQL keywords](/influxdb/cloud-serverless/reference/influxql/#keywords)
+- [SQL keywords](/influxdb3/cloud-serverless/reference/sql/#keywords)
+- [InfluxQL keywords](/influxdb3/cloud-serverless/reference/influxql/#keywords)
 
 When using SQL or InfluxQL to query measurements, tags, and fields with special
 characters or keywords, you have to wrap these keys in **double quotes**.

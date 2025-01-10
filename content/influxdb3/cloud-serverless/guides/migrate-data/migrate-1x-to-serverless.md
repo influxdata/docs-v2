@@ -10,11 +10,11 @@ menu:
     parent: Migrate data
 weight: 103
 aliases:
-  - /influxdb/cloud-serverless/write-data/migrate-data/migrate-1x-to-iox/
-  - /influxdb/cloud-serverless/guides/migrate-data/migrate-1x-to-iox/
+  - /influxdb3/cloud-serverless/write-data/migrate-data/migrate-1x-to-iox/
+  - /influxdb3/cloud-serverless/guides/migrate-data/migrate-1x-to-iox/
 alt_links:
-  cloud-dedicated: /influxdb/cloud-dedicated/guides/migrate-data/migrate-1x-to-cloud-dedicated/
-  clustered: /influxdb/clustered/guides/migrate-data/migrate-1x-to-clustered/
+  cloud-dedicated: /influxdb3/cloud-dedicated/guides/migrate-data/migrate-1x-to-cloud-dedicated/
+  clustered: /influxdb3/clustered/guides/migrate-data/migrate-1x-to-clustered/
 ---
 
 To migrate data from an InfluxDB 1.x OSS or Enterprise instance to InfluxDB Cloud
@@ -25,7 +25,7 @@ adjustable quotas, migrate your data in batches.
 
 > [!Important]
 > All write requests are subject to your InfluxDB Cloud Serverless organization's
-> [rate limits and adjustable quotas](/influxdb/cloud-serverless/account-management/limits/).
+> [rate limits and adjustable quotas](/influxdb3/cloud-serverless/account-management/limits/).
 
 <!-- BEGIN TOC -->
 
@@ -45,7 +45,7 @@ supported in the InfluxDB v3 storage engine. Specifically, InfluxDB v3 enforces 
 - Measurements can contain up to 200 columns where each column represents time,
   a field, or a tag.
 
-_For more information, see [Schema restrictions](/influxdb/cloud-serverless/write-data/best-practices/schema-design/#schema-restrictions)._
+_For more information, see [Schema restrictions](/influxdb3/cloud-serverless/write-data/best-practices/schema-design/#schema-restrictions)._
 
 If your schema does not adhere to these restrictions, you must update your schema
 before migrating to {{< product-name >}}.
@@ -163,9 +163,9 @@ The migration process uses the following tools:
   is packaged with InfluxDB 1.x OSS and Enterprise.
 
 - **InfluxDB 2.x `influx` CLI**:  
-  The [2.x `influx` CLI](/influxdb/cloud-serverless/reference/cli/influx/) is packaged
+  The [2.x `influx` CLI](/influxdb3/cloud-serverless/reference/cli/influx/) is packaged
   separately from InfluxDB OSS 2.x and InfluxDB Cloud Serverless.
-  [Download and install the 2.x CLI](/influxdb/cloud-serverless/reference/cli/influx/).
+  [Download and install the 2.x CLI](/influxdb3/cloud-serverless/reference/cli/influx/).
 
 - **InfluxDB Cloud user interface (UI)**:  
   Visit [cloud2.influxdata.com](https://cloud2.influxdata.com) to access the
@@ -334,7 +334,7 @@ You would create the following InfluxDB {{< current-version >}} buckets:
 {{% tab-content %}}
 <!----------------------------- BEGIN CLI CONTENT ----------------------------->
 
-Use the [`influx bucket create` command](/influxdb/cloud-serverless/reference/cli/influx/bucket/create/)
+Use the [`influx bucket create` command](/influxdb3/cloud-serverless/reference/cli/influx/bucket/create/)
 to create a new bucket.
 
 **Provide the following**:
@@ -364,7 +364,7 @@ influx bucket create \
 
 3.  Click **+ {{< caps >}}Create bucket{{< /caps >}}**.
 4.  Provide a bucket name (for example: `example-db/autogen`) and select a
-    [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period).
+    [retention period](/influxdb3/cloud-serverless/reference/glossary/#retention-period).
     Supported retention periods depend on your InfluxDB Cloud Serverless plan.
 
 5.  Click **{{< caps >}}Create{{< /caps >}}**.

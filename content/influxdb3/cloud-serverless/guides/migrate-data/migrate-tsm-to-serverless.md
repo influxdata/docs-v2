@@ -11,12 +11,12 @@ menu:
     parent: Migrate data
 weight: 102
 aliases:
-  - /influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox
-  - /influxdb/cloud-serverless/guides/migrate-data/migrate-tsm-to-iox
+  - /influxdb3/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox
+  - /influxdb3/cloud-serverless/guides/migrate-data/migrate-tsm-to-iox
 alt_links:
   cloud: /influxdb/cloud/write-data/migrate-data/migrate-cloud-to-cloud/
-  cloud-dedicated: /influxdb/cloud-dedicated/guides/migrate-data/migrate-tsm-to-cloud-dedicated/
-  clustered: /influxdb/clustered/guides/migrate-data/migrate-tsm-to-clustered/
+  cloud-dedicated: /influxdb3/cloud-dedicated/guides/migrate-data/migrate-tsm-to-cloud-dedicated/
+  clustered: /influxdb3/clustered/guides/migrate-data/migrate-tsm-to-clustered/
 ---
 
 To migrate data from an InfluxDB Cloud (TSM) organization to an
@@ -33,7 +33,7 @@ another organization.
 
 > [!Important]
 > All query and write requests are subject to your InfluxDB Cloud organization's
-> [rate limits and adjustable quotas](/influxdb/cloud-serverless/account-management/limits/).
+> [rate limits and adjustable quotas](/influxdb3/cloud-serverless/account-management/limits/).
 
 - [Before you migrate](#before-you-migrate)
 - [Set up the migration](#set-up-the-migration)
@@ -54,7 +54,7 @@ supported in the InfluxDB v3 storage engine. Specifically, InfluxDB v3 enforces 
 - Measurements can contain up to 200 columns where each column represents time,
   a field, or a tag.
 
-_For more information, see [Schema restrictions](/influxdb/cloud-serverless/write-data/best-practices/schema-design/#schema-restrictions)._
+_For more information, see [Schema restrictions](/influxdb3/cloud-serverless/write-data/best-practices/schema-design/#schema-restrictions)._
 
 If your schema does not adhere to these restrictions, you must update your schema
 before migrating to {{< product-name >}}.
@@ -164,9 +164,9 @@ to complete the migration.
 
 1.  **In the InfluxDB Cloud Serverless organization you're migrating data _to_**:
 
-    1. [Create a bucket](/influxdb/cloud-serverless/organizations/buckets/create-bucket/)
+    1. [Create a bucket](/influxdb3/cloud-serverless/organizations/buckets/create-bucket/)
         **to migrate data to**.
-    2. [Create an API token](/influxdb/cloud-serverless/security/tokens/create-token/)
+    2. [Create an API token](/influxdb3/cloud-serverless/security/tokens/create-token/)
         with **write access** to the bucket you want to migrate to.
 
 2.  **In the InfluxDB Cloud (TSM) organization you're migrating data _from_**:
@@ -212,7 +212,7 @@ Batch range is beyond the migration range. Migration is complete.
       _See [Determine your batch interval](#determine-your-batch-interval)._
     - **batchBucket**: InfluxDB Cloud (TSM) bucket to store migration batch metadata in.
     - **sourceBucket**: InfluxDB Cloud (TSM) bucket to migrate data from.
-    - **destinationHost**: [InfluxDB Cloud Serverless region URL](/influxdb/cloud-serverless/reference/regions)
+    - **destinationHost**: [InfluxDB Cloud Serverless region URL](/influxdb3/cloud-serverless/reference/regions)
       to migrate data from.
     - **destinationOrg**: InfluxDB Cloud Serverless organization to migrate data to.
     - **destinationToken**: InfluxDB Cloud Serverless API token. To keep the API token secure, store
@@ -389,7 +389,7 @@ from(bucket: "example-cloud-bucket")
 
 The `migration.batchInterval` setting controls the time range queried by each batch.
 The "density" of the data in your InfluxDB Cloud bucket and your InfluxDB Cloud
-organization's [rate limits and quotas](/influxdb/cloud-serverless/admin/billing/limits/)
+organization's [rate limits and quotas](/influxdb3/cloud-serverless/admin/billing/limits/)
 determine what your batch interval should be.
 
 For example, if you're migrating data collected from hundreds of sensors with
@@ -462,7 +462,7 @@ The [InfluxDB TSM to Serverless Migration Community template](https://github.com
 installs the migration task outlined in this guide as well as a dashboard
 for monitoring running data migrations.
 
-{{< img-hd src="/img/influxdb/cloud-serverless-migration-dashboard.png" alt="InfluxDB Cloud migration dashboard" />}}
+{{< img-hd src="/img/influxdb3/cloud-serverless-migration-dashboard.png" alt="InfluxDB Cloud migration dashboard" />}}
 
 <a class="btn" href="https://github.com/influxdata/community-templates/tree/master/influxdb-tsm-iox-migration/#quick-install">Install the InfluxDB Cloud Migration template</a>
 
