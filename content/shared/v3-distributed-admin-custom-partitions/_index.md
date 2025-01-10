@@ -1,4 +1,4 @@
-When writing data to {{< product-name >}}, the InfluxDB v3 storage engine stores data in [Apache Parquet](https://parquet.apache.org/) format in the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store). Each Parquet file represents a _partition_--a logical grouping of data.
+When writing data to {{< product-name >}}, the InfluxDB v3 storage engine stores data in [Apache Parquet](https://parquet.apache.org/) format in the [Object store](/influxdb/version/reference/internals/storage-engine/#object-store). Each Parquet file represents a _partition_--a logical grouping of data.
 By default, InfluxDB partitions each table _by day_.
 If this default strategy yields unsatisfactory performance for single-series queries,
 you can define a custom partitioning strategy by specifying tag values and different time intervals to optimize query performance for your specific schema and workload.
@@ -20,8 +20,8 @@ you can define a custom partitioning strategy by specifying tag values and diffe
 >
 > Consider custom partitioning if:
 > 
-> 1. You have taken steps to [optimize your queries](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/), and
-> 2. Performance for _single-series queries_ (querying for a specific [tag value](/influxdb/cloud-dedicated/reference/glossary/#tag-value) or [tag set](/influxdb/cloud-dedicated/reference/glossary/#tag-set)) is still unsatisfactory. 
+> 1. You have taken steps to [optimize your queries](/influxdb/version/query-data/troubleshoot-and-optimize/optimize-queries/), and
+> 2. Performance for _single-series queries_ (querying for a specific [tag value](/influxdb/version/reference/glossary/#tag-value) or [tag set](/influxdb/version/reference/glossary/#tag-set)) is still unsatisfactory. 
 > 
 > Before choosing a partitioning strategy, weigh the [advantages](#advantages), [disadvantages](#disadvantages), and [limitations](#limitations) of custom partitioning.
 
@@ -40,7 +40,7 @@ storage structure to improve query performance specific to your schema and workl
 ## Disadvantages
 
 Using custom partitioning may increase the load on other parts of the
-[InfluxDB v3 storage engine](/influxdb/cloud-dedicated/reference/internals/storage-engine/),
+[InfluxDB v3 storage engine](/influxdb/version/reference/internals/storage-engine/),
 but you can scale each part individually to address the added load.
 
 {{% note %}}
@@ -48,13 +48,13 @@ _The weight of these disadvantages depends upon the cardinality of
  tags and the specificity of time intervals used for partitioning._
 {{% /note %}}
 
-- **Increased load on the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester)**
+- **Increased load on the [Ingester](/influxdb/version/reference/internals/storage-engine/#ingester)**
   as it groups data into smaller partitions and files.
-- **Increased load on the [Catalog](/influxdb/cloud-dedicated/reference/internals/storage-engine/#catalog)**
+- **Increased load on the [Catalog](/influxdb/version/reference/internals/storage-engine/#catalog)**
   as more references to partition Parquet file locations are stored and queried.
-- **Increased load on the [Compactor](/influxdb/cloud-dedicated/reference/internals/storage-engine/#compactor)**
+- **Increased load on the [Compactor](/influxdb/version/reference/internals/storage-engine/#compactor)**
   as it needs to compact more partition Parquet files.
-- **Increased costs associated with [Object storage](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-storage)**
+- **Increased costs associated with [Object storage](/influxdb/version/reference/internals/storage-engine/#object-storage)**
   as more partition Parquet files are created and stored.
 - **Increased latency**. The amount of time for InfluxDB to process a query and return results increases linearly, although slightly, with the total partition count for a table.
 - **Risk of decreased performance for queries that don't use tags in the WHERE clause**.
@@ -74,10 +74,10 @@ After you have considered the [advantages](#advantages), [disadvantages](#disadv
 custom partitioning, use the guides in this section to:
 
 1. Learn [how partitioning works](#how-partitioning-works)
-2. Follow [best practices](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/) for defining partitions and managing partition
+2. Follow [best practices](/influxdb/version/admin/custom-partitions/best-practices/) for defining partitions and managing partition
    growth
-3. [Define custom partitions](/influxdb/cloud-dedicated/admin/custom-partitions/define-custom-partitions/) for your data
-4. Take steps to [limit the number of partition files](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/#limit-the-number-of-partition-files)
+3. [Define custom partitions](/influxdb/version/admin/custom-partitions/define-custom-partitions/) for your data
+4. Take steps to [limit the number of partition files](/influxdb/version/admin/custom-partitions/best-practices/#limit-the-number-of-partition-files)
 
 ## How partitioning works
 
@@ -88,7 +88,7 @@ and determines the time interval that InfluxDB partitions data by.
 Partition templates use tag values and
 [Rust strftime date and time formatting syntax](https://docs.rs/chrono/latest/chrono/format/strftime/index.html).
 
-_For more detailed information, see [Partition templates](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/)._
+_For more detailed information, see [Partition templates](/influxdb/version/admin/custom-partitions/partition-templates/)._
 
 ### Partition keys
 
@@ -319,8 +319,8 @@ production,line=B,station=wld temp=106.5,qty=43i 1704070800000000000
 
 When querying data:
 
-1.  The [Catalog](/influxdb/cloud-dedicated/reference/internals/storage-engine/#catalog)
-    provides the v3 query engine ([Querier](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier))
+1.  The [Catalog](/influxdb/version/reference/internals/storage-engine/#catalog)
+    provides the v3 query engine ([Querier](/influxdb/version/reference/internals/storage-engine/#querier))
     with the locations of partitions that contain the queried time series data.
 2.  The query engine reads all rows in the returned partitions to identify what
     rows match the logic in the query and should be included in the query result.
@@ -329,7 +329,7 @@ The faster the query engine can identify what partitions to read and then read
 the data in those partitions, the more performant queries are.
 
 _For more information about the query lifecycle, see
-[InfluxDB v3 query life cycle](/influxdb/cloud-dedicated/reference/internals/storage-engine/#query-life-cycle)._
+[InfluxDB v3 query life cycle](/influxdb/version/reference/internals/storage-engine/#query-life-cycle)._
 
 ##### Query example
 

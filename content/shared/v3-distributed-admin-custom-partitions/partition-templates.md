@@ -1,13 +1,13 @@
 Use partition templates to define the patterns used to generate partition keys.
 A partition key uniquely identifies a partition and is used to name the partition
-Parquet file in the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
+Parquet file in the [Object store](/influxdb/version/reference/internals/storage-engine/#object-store).
 
 A partition template consists of 1-8 _template parts_---dimensions to partition data by.
 Three types of template parts exist:
 
-- **tag**: An [InfluxDB tag](/influxdb/cloud-dedicated/reference/glossary/#tag)
+- **tag**: An [InfluxDB tag](/influxdb/version/reference/glossary/#tag)
   to partition by.
-- **tag bucket**: An [InfluxDB tag](/influxdb/cloud-dedicated/reference/glossary/#tag)
+- **tag bucket**: An [InfluxDB tag](/influxdb/version/reference/glossary/#tag)
   and number of "buckets" to group tag values into. Data is partitioned by the
   tag bucket rather than each distinct tag value.
 - {{< req type="key" >}} **time**: A Rust strftime date and time string that specifies the time interval
@@ -79,7 +79,7 @@ customerID,500
 ```
 
 Values of the `customerID` tag are bucketed into 500 distinct "buckets." 
-Each bucket is identified by the remainder of the tag value hashed into a 32bit
+Each bucket is identified by the remainder of the tag value hashed into a 32-bit
 integer divided by the specified number of buckets:
 
 ```rust
@@ -108,8 +108,8 @@ Time part templates use a limited subset of the
 [Rust strftime date and time formatting syntax](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
 to specify time format in partition keys.
 Time part templates can be daily (`%Y-%m-%d`), monthly (`%Y-%m`), or yearly (`%Y`).
-InfluxDB uses the smallest unit of time included in the time part template as
-the partition interval.
+InfluxDB partitions data by the smallest unit of time included in the time part
+template.
 
 InfluxDB supports only [date specifiers](#date-specifiers) in time part templates. 
 
