@@ -16,7 +16,7 @@ aliases:
   - /influxdb3/clustered/query-data/influxql/execute-queries/grafana
   - /influxdb3/clustered/process-data/tools/grafana/
 alt_links:
-  oss: /influxdb/v2/tools/grafana/
+  v2: /influxdb/v2/tools/grafana/
   cloud: /influxdb/cloud/tools/grafana/
 ---
 

@@ -1,185 +1,86 @@
 {{ $scratch := newScratch }}
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
-{{ $currentVersion := index $productPathData 1 }}
-{{ $pageRoot := print $product "/" $currentVersion }}
-{{ $isCloud := eq $pageRoot "influxdb/cloud" }}
-{{ $isCore := in $pageRoot "influxdb3/core" }}
-{{ $isEnterprise := in $pageRoot "influxdb3/enterprise" }}
-{{ $isServerless := eq $pageRoot "influxdb3/cloud-serverless" }}
-{{ $isDedicated := eq $pageRoot "influxdb3/cloud-dedicated" }}
-{{ $isClustered := eq $pageRoot "influxdb3/clustered" }}
+{{ $version := index $productPathData 1 }}
+{{ $pageRoot := print $product "/" $version }}
+{{ $useRootProductLink := or (eq $product nil) (in (slice "resources" "platform") $product) }}
 {{ $altLinks := .Page.Params.alt_links | default dict }}
-{{ $isInfluxDB3 := or $isCore $isEnterprise $isServerless $isDedicated $isClustered }}
-{{ $sortedProducts := sort .Site.Data.products "list_order" "asc"}}
 
-{{/* //////////////////// INFLUXDB PRODUCT DICTIONARIES /////////////////// */}}
-{{ $ossInfo := dict $.Site.Data.products.influxdb.name (dict "path" (print "influxdb/" (replaceRE `\..*` "" $.Site.Data.products.influxdb.latest)) "key" "oss") }}
-{{ $coreInfo := dict $.Site.Data.products.influxdb3_core.name (dict "path" "influxdb3/core" "key" "core") }}
-{{ $enterpriseInfo := dict $.Site.Data.products.influxdb3_enterprise.name (dict "path" "influxdb3/enterprise" "key" "enterprise") }}
-{{ $cloudInfo := dict $.Site.Data.products.influxdb_cloud.name (dict "path" "influxdb/cloud" "key" "cloud") }}
-{{ $serverlessInfo := dict $.Site.Data.products.influxdb3_cloud_serverless.name (dict "path" "influxdb3/cloud-serverless" "key" "cloud-serverless") }}
-{{ $dedicatedInfo := dict $.Site.Data.products.influxdb3_cloud_dedicated.name (dict "path" "influxdb3/cloud-dedicated" "key" "cloud-dedicated") }}
-{{ $clusteredInfo := dict $.Site.Data.products.influxdb3_clustered.name (dict "path" "influxdb3/clustered" "key" "clustered") }}
-{{ $influxdbInfo := merge $ossInfo $coreInfo $enterpriseInfo $cloudInfo $serverlessInfo $dedicatedInfo $clusteredInfo }}
+<!--
+Identify products by their product path. Dictionary schema:
+- Key: Product path (product/version)
+  Value: Slice containing two elements:
+    - 0: Product name
+    - 1: Frontmatter alt_link key for explicit declarations of alternate links
+-->
+{{ $influxdbOSSv1 := dict "influxdb/v1" (slice "InfluxDB OSS v1" "v1") }}
+{{ $influxdbOSSv2 := dict "influxdb/v2" (slice "InfluxDB OSS v2" "v2") }}
+{{ $influxdbCloud := dict "influxdb/cloud" (slice $.Site.Data.products.influxdb_cloud.name "cloud") }}
+{{ $influxdb3Core := dict "influxdb3/core" (slice $.Site.Data.products.influxdb3_core.name "core") }}
+{{ $influxdb3Enterprise := dict "influxdb3/enterprise" (slice $.Site.Data.products.influxdb3_enterprise.name "enterprise") }}
+{{ $influxdb3CloudServerless := dict "influxdb3/cloud-serverless" (slice $.Site.Data.products.influxdb3_cloud_serverless.name "cloud-serverless") }}
+{{ $influxdb3CloudDedicated := dict "influxdb3/cloud-dedicated" (slice $.Site.Data.products.influxdb3_cloud_dedicated.name "cloud-dedicated") }}
+{{ $influxdb3Clustered := dict "influxdb3/clustered" (slice $.Site.Data.products.influxdb3_clustered.name "clustered") }}
+{{ $telegraf := dict "telegraf/v1" (slice "Telegraf" "telegraf") }}
+{{ $chronograf := dict "chronograf/v1" (slice "Chronograf" "chronograf") }}
+{{ $kapacitor := dict "kapacitor/v1" (slice "Kapacitor" "kapacitor") }}
+{{ $flux := dict "flux/v0" (slice "Flux" "flux") }}
+{{ $enterpriseInfluxdb := dict "enterprise_influxdb/v1" (slice "InfluxDB Enterprise" "enterprise_v1") }}
 
-<div class="dropdown">
-  {{ if or (eq $product nil) (eq $product "platform") (eq $product "resources") }}
-    <p class="selected">Select product</p>
-  {{ else }}
-    {{ $scratch.Set "displayName" "" }}
-    {{ if $isCloud }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb_cloud.name}}
-    {{ else if $isCore }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb3_core.name }}
-    {{ else if $isEnterprise }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb3_enterprise.name }}
-    {{ else if $isServerless }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb3_cloud_serverless.name }}
-    {{ else if $isDedicated }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb3_cloud_dedicated.name }}
-    {{ else if $isClustered }}{{ $scratch.Set "displayName" $.Site.Data.products.influxdb3_clustered.name }}
-    {{ else }}
-      {{ $productData := (index .Site.Data.products $product) }}
-      {{ $scratch.Set "displayName" (cond (isset $productData "altname") $productData.altname $productData.name) }}
-    {{ end }}
-    {{ $displayName := $scratch.Get "displayName" }}
-    <p class="selected">{{ $displayName }}</p>
-  {{ end }}
-  
-  <ul class="item-list products" data-category="Managed">
-    {{ range $sortedProducts }}
-      {{ if eq .menu_category "managed" }}       
-        {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
-        {{ if not $isCurrentProduct }}
-          {{ $scratch.Set "link" (print "/" .namespace "/" (replaceRE `\..*` "" .latest) "/") }}
+{{ $productInfo := merge $influxdbOSSv1 $influxdbOSSv2 $influxdbCloud $influxdb3Core $influxdb3Enterprise $influxdb3CloudServerless $influxdb3CloudDedicated $influxdb3Clustered $telegraf $chronograf $kapacitor $flux $enterpriseInfluxdb }}
 
-          {{ if eq $product "influxdb" }}
-            {{ $replacementPath := index (index $influxdbInfo .name) "path" }}
-            {{ $altProductPage := $.GetPage ((replaceRE $pageRoot $replacementPath $.Page.RelPermalink) | replaceRE `\/$` "") }}
+{{ define "productLink" }}
+  {{ $defaultAltProductPage := $.context.GetPage ((replaceRE .pageRoot .productPath $.context.Page.RelPermalink) | replaceRE `\/$` "") }}
+  {{ $defaultAltProductPageExists := gt (len $defaultAltProductPage.Title) 0 }}
+  {{ $productName := index (index $.productInfo .productPath) 0 }}
+  {{ $productAltLinkKey := index (index $.productInfo .productPath) 1 }}
+  {{ $isCurrentProduct := in $.context.RelPermalink .productPath }}
+  {{ $link := cond .useRootProductLink (print "/" .productPath "/") (cond (isset .altLinks $productAltLinkKey) (index .altLinks $productAltLinkKey) (cond $defaultAltProductPageExists $defaultAltProductPage.RelPermalink (print "/" .productPath "/"))) }}
+  <a href='{{ $link }}' {{ if $isCurrentProduct }}class="active"{{ end }}>{{ index (index $.productInfo .productPath) 0 }}</a>
+{{ end }}
 
-            {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
-            {{ if gt (len $altProductPage.Title) 0 }}
-              {{ $scratch.Set "link" $altProductPage.RelPermalink }}
+{{ $templateDefaults := dict "context" . "productInfo" $productInfo "altLinks" $altLinks "pageRoot" $pageRoot "useRootProductLink" $useRootProductLink }}
 
-            {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
-            {{ else if (gt (len $altLinks) 0) }}
-              {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
-              {{ if isset $altLinks $productKey }}
-                {{ $scratch.Set "link" (index $altLinks $productKey) }}
-              {{ else if gt (len $altProductPage.Title) 0 }}
-                {{ $scratch.Set "link" $altProductPage.RelPermalink }}
-              {{ end }}
-            {{ end }}        
-          {{ end }}
-
-        {{ else }}
-          {{ $scratch.Set "link" "" }}
-        {{ end }}
-        {{ $link := $scratch.Get "link" }}
-        <li>
-          <a href='{{ $link }}' {{ if $isCurrentProduct }}class="active"{{ end }}>{{ .name }}</a>
-        </li>
-      {{ end }}
-    {{ end }}
-  </ul>
-  <ul class="item-list products" data-category="Self-managed">
-    {{ range $sortedProducts }}
-      {{ if eq .menu_category "self-managed" }}
-        {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}
-
-        {{ if not $isCurrentProduct }}
-          {{ $scratch.Set "link" (print "/" .namespace "/" (replaceRE `\..*` "" .latest) "/") }}
-                   
-          {{ if and (eq $product "influxdb") (gt (len (findRE `^influxdb` .namespace)) 0) }}
-            {{ $replacementPath := index (index $influxdbInfo .name) "path" }}
-            {{ $altProductPage := $.GetPage ((replaceRE $pageRoot $replacementPath $.Page.RelPermalink) | replaceRE `\/$` "") }}
-
-            {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
-            {{ if gt (len $altProductPage.Title) 0 }}
-              {{ $scratch.Set "link" $altProductPage.RelPermalink }}
-
-            {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
-            {{ else if (gt (len $altLinks) 0) }}
-              {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
-              {{ if isset $altLinks $productKey }}
-                {{ $scratch.Set "link" (index $altLinks $productKey) }}
-              {{ end }}
-            {{ end }}
-          {{ end }}
-
-        {{ else }}
-          {{ $scratch.Set "link" "" }}
-        {{ end }}
-
-        {{ $link := $scratch.Get "link" }}
-        <li>
-          <a href='{{ $link }}' {{ if $isCurrentProduct }}class="active"{{ end }}>{{ if .altname }}{{.altname}}{{ else }}{{ .name }}{{ end }}</a>
-        </li>
-      {{ end }}
-    {{ end }}
-  </ul>
-  <ul class="item-list products" data-category="Other products">
-    {{ range $sortedProducts }}
-      {{ if eq .menu_category "other" }}
-        {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
-        {{ if not $isCurrentProduct }}
-          {{ $scratch.Set "link" (print "/" .namespace "/" (replaceRE `\..*` "" .latest) "/") }}
-          
-          {{ if and (eq $product "influxdb") (gt (len (findRE `^influxdb` .namespace)) 0) }}
-            {{ $replacementPath := index (index $influxdbInfo .name) "path" }}
-            {{ $altProductPage := $.GetPage ((replaceRE $pageRoot $replacementPath $.Page.RelPermalink) | replaceRE `\/$` "") }}
-            
-            {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
-            {{ if gt (len $altProductPage.Title) 0 }}
-              {{ $scratch.Set "link" $altProductPage.RelPermalink }} true
-
-            {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
-            {{ else if (gt (len $altLinks) 0) }}
-              {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
-              {{ if isset $altLinks $productKey }}
-                {{ $scratch.Set "link" (index $altLinks $productKey) }}
-              {{ end }}
-            {{ end }}        
-          {{ end }}
-
-        {{ else }}
-          {{ $scratch.Set "link" "" }}
-        {{ end }}
-        {{ $link := $scratch.Get "link" }}
-        <li>
-          <a href='{{ $link }}' {{ if $isCurrentProduct }}class="active"{{ end }}>{{ if .altname }}{{.altname}}{{ else }}{{ .name }}{{ end }}</a>
-        </li>
-      {{ end }}
-    {{ end }}
-  </ul>
-  <ul class="item-list products" data-category="Languages">
-    {{ range $sortedProducts }}
-      {{ if eq .menu_category "languages" }}
-        {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
-        {{ if not $isCurrentProduct }}
-          {{ $scratch.Set "link" (print "/" .namespace "/" (index .versions 0) "/") }}
-          
-          {{ if and (eq $product "influxdb") (gt (len (findRE `^influxdb` .namespace)) 0) }}
-            {{ $replacementPath := index (index $influxdbInfo .name) "path" }}
-            {{ $altProductPage := $.GetPage ((replaceRE $pageRoot $replacementPath $.Page.RelPermalink) | replaceRE `\/$` "") }}
-            
-            {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
-            {{ if gt (len $altProductPage.Title) 0 }}
-              {{ $scratch.Set "link" $altProductPage.RelPermalink }}
-
-            {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
-            {{ else if (gt (len $altLinks) 0) }}
-              {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
-              {{ if isset $altLinks $productKey }}
-                {{ $scratch.Set "link" (index $altLinks $productKey) }}
-              {{ end }}
-            {{ end }}        
-          {{ end }}
-
-        {{ else }}
-          {{ $scratch.Set "link" "" }}
-        {{ end }}
-        {{ $link := $scratch.Get "link" }}
-        <li>
-          <a href='{{ $link }}' {{ if $isCurrentProduct }}class="active"{{ end }}>{{ if .altname }}{{.altname}}{{ else }}{{ .name }}{{ end }}</a>
-        </li>
-      {{ end }}
-    {{ end }}
-  </ul>
+<div class="product-list">
+  <div class="product-dropdown">
+    <p class="selected">{{ index (index $productInfo $pageRoot) 0 | default "Select product" }}</p>
+  </div>
+  <div class="dropdown-items">
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 3</p></div>
+      <ul class="item-list products" data-category="Self-managed">
+        <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/core") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/enterprise") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/clustered") $templateDefaults) }}</li>
+      </ul>
+      <ul class="item-list products" data-category="Fully-Managed">
+        <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/cloud-serverless") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/cloud-dedicated") $templateDefaults) }}</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 2</p></div>
+      <ul class="item-list products">
+        <li>{{ template "productLink" (merge (dict "productPath" "influxdb/v2") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "influxdb/cloud") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "flux/v0") $templateDefaults) }}</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 1</p></div>
+      <ul class="item-list products">
+        <li>{{ template "productLink" (merge (dict "productPath" "influxdb/v1") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "enterprise_influxdb/v1") $templateDefaults) }}</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Other products</p></div>
+      <ul class="item-list products">
+        <li>{{ template "productLink" (merge (dict "productPath" "telegraf/v1") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "chronograf/v1") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "kapacitor/v1") $templateDefaults) }}</li>
+      </ul>
+    </div>
+  </div>
 </div>
+

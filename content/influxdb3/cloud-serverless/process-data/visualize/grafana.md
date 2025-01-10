@@ -17,7 +17,7 @@ aliases:
   - /influxdb3/cloud-serverless/process-data/tools/grafana/
   - /influxdb3/cloud-serverless/visualize-data/grafana/
 alt_links:
-  oss: /influxdb/v2/tools/grafana/
+  v2: /influxdb/v2/tools/grafana/
   cloud: /influxdb/cloud/tools/grafana/
 ---
 

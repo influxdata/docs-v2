@@ -17,7 +17,7 @@ alt_links:
   cloud: /influxdb/cloud/admin/buckets/
   cloud_dedicated: /influxdb3/cloud-dedicated/admin/databases/
   clustered: /influxdb3/clustered/admin/databases/
-  oss: /influxdb/v2/admin/buckets/
+  v2: /influxdb/v2/admin/buckets/
 ---
 
 A **bucket** is a named location where time series data is stored.

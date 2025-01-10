@@ -18,7 +18,7 @@ alt_links:
   cloud: /influxdb/cloud/admin/buckets/
   cloud_dedicated: /influxdb3/cloud-dedicated/admin/databases/
   cloud_serverless: /influxdb3/cloud-serverless/admin/buckets/
-  oss: /influxdb/v2/admin/buckets/
+  v2: /influxdb/v2/admin/buckets/
 ---
 
 An InfluxDB database is a named location where time series data is stored.

@@ -46,7 +46,7 @@ list_code_example: |
 aliases:
   - /influxdb3/cloud-dedicated/admin/tokens/update/
 alt_links:
-  serverless: /influxdb3/cloud-serverless/admin/tokens/update-tokens/
+  cloud-serverless: /influxdb3/cloud-serverless/admin/tokens/update-tokens/
 related:
   - /influxdb3/cloud-dedicated/reference/cli/influxctl/token/update/
   - /influxdb3/cloud-dedicated/reference/api/
