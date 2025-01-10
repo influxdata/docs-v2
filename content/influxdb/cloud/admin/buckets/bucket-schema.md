@@ -72,7 +72,7 @@ Use the [**`influx` CLI**](/influxdb/cloud/reference/cli/influx/) or [**InfluxDB
 
 #### Create a bucket schema using the influx CLI
 
-  1. Use your text editor to create a schema columns file for each measurement you want to add. Format the file as CSV, JSON, or [Newline delimited JSON (NDJSON)](http://ndjson.org/),
+  1. Use your text editor to create a schema columns file for each measurement you want to add. Format the file as CSV, JSON, or [Newline delimited JSON (NDJSON)](https://jsonlines.org/),
     as in the following examples:
   {{< code-tabs-wrapper >}}
   {{% code-tabs %}}
