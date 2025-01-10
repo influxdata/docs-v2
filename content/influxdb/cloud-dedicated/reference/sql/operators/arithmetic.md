@@ -5,7 +5,7 @@ description: >
   Arithmetic operators take two numeric values (either literals or variables)
   and perform a calculation that returns a single numeric value.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Arithmetic operators
     parent: Operators
 weight: 301

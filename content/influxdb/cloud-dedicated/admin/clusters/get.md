@@ -2,9 +2,9 @@
 title: Get cluster information
 description: >
   Use the
-  [`influxctl cluster get <CLUSTER_ID>` command](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/get/) to view information about your InfluxDB Cloud Dedicated cluster.
+  [`influxctl cluster get <CLUSTER_ID>` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/cluster/get/) to view information about your InfluxDB Cloud Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Manage clusters
 weight: 202
 list_code_example: |
@@ -13,10 +13,10 @@ list_code_example: |
   ```
 ---
 
-Use the [`influxctl cluster get` CLI command](/influxdb/cloud-dedicated/reference/cli/influxctl/get/)
+Use the [`influxctl cluster get` CLI command](/influxdb3/cloud-dedicated/reference/cli/influxctl/get/)
 to view information about your {{< product-name omit=" Clustered" >}} cluster.
 
-1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure a connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
+1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure a connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
 2.  Run `influxctl cluster get` with the following:
 
     - Cluster ID

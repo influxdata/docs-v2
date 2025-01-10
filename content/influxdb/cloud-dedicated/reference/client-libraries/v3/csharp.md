@@ -5,11 +5,11 @@ description: >
   The InfluxDB v3 `influxdb3-csharp` C# .NET client library integrates with C# .NET scripts and applications to write and query data stored in an InfluxDB Cloud Dedicated database.
 external_url: https://github.com/InfluxCommunity/influxdb3-csharp
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: C# .NET
     parent: v3 client libraries
     identifier: influxdb3-csharp
-influxdb/cloud-dedicated/tags: [C#, gRPC, SQL, Flight SQL, client libraries]
+influxdb3/cloud-dedicated/tags: [C#, gRPC, SQL, Flight SQL, client libraries]
 weight: 201
 ---
 

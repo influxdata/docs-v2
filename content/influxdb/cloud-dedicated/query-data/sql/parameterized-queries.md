@@ -4,11 +4,11 @@ description: >
   Use parameterized queries to prevent injection attacks and make queries more reusable.
 weight: 404
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Parameterized queries
     parent: Query with SQL
     identifier: parameterized-queries-sql
-influxdb/cloud-dedicated/tags: [query, security, sql]
+influxdb3/cloud-dedicated/tags: [query, security, sql]
 list_code_example: |
   ##### Using Go and the influxdb3-go client
 
@@ -166,9 +166,9 @@ If you use parameters for the following, your query might not work as you expect
 #### Sample data
 
 The following examples use the
-[Get started home sensor data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+[Get started home sensor data](/influxdb3/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
 To run the example queries and return results,
-[write the sample data](/influxdb/cloud-dedicated/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
+[write the sample data](/influxdb3/cloud-dedicated/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
 to your {{% product-name %}} database before running the example queries.
 {{% /note %}}
 
@@ -224,9 +224,9 @@ AND room = 'Kitchen'
 #### Sample data
 
 The following examples use the
-[Get started home sensor data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+[Get started home sensor data](/influxdb3/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
 To run the example queries and return results,
-[write the sample data](/influxdb/cloud-dedicated/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
+[write the sample data](/influxdb3/cloud-dedicated/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
 to your {{% product-name %}} database before running the example queries.
 {{% /note %}}
 
@@ -333,7 +333,7 @@ func main() {
 
 ## Client support for parameterized queries
 
-- Not all [InfluxDB v3 Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/v3/) support parameterized queries.
+- Not all [InfluxDB v3 Flight clients](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) support parameterized queries.
 - InfluxDB doesn't currently support parameterized queries or DataFusion prepared statements for Flight SQL or Flight SQL clients.
 - InfluxDB v3 SQL and InfluxQL parameterized queries aren’t supported in InfluxDB v1 and v2 clients.
 

@@ -4,7 +4,7 @@ description: >
   Learn best practices for applying custom partition strategies to your data
   stored in InfluxDB.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Best practices
     parent: Manage data partitioning
 weight: 202

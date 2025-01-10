@@ -4,7 +4,7 @@ description: >
   The `influxctl database delete` command deletes a database from an InfluxDB
   Cloud Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl database
 weight: 301
 ---
@@ -46,7 +46,7 @@ when creating a new database.
 | `-h` | `--help`  | Output command help                                         |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}
 
 ## Examples

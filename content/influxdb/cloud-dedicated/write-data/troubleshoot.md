@@ -7,14 +7,14 @@ description: >
   Find response codes for failed writes.
   Discover how writes fail, from exceeding rate or payload limits, to syntax errors and schema conflicts.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Troubleshoot issues
     parent: Write data
-influxdb/cloud-dedicated/tags: [write, line protocol, errors]
+influxdb3/cloud-dedicated/tags: [write, line protocol, errors]
 related:
-  - /influxdb/cloud-dedicated/reference/syntax/line-protocol/
-  - /influxdb/cloud-dedicated/write-data/best-practices/
-  - /influxdb/cloud-dedicated/reference/internals/durability/
+  - /influxdb3/cloud-dedicated/reference/syntax/line-protocol/
+  - /influxdb3/cloud-dedicated/write-data/best-practices/
+  - /influxdb3/cloud-dedicated/reference/internals/durability/
 ---
 
 Learn how to avoid unexpected results and recover from errors when writing to {{% product-name %}}.
@@ -29,7 +29,7 @@ Learn how to avoid unexpected results and recover from errors when writing to {{
 {{% product-name %}} does the following when you send a write request:
 
   1. Validates the request.
-  2. If successful, attempts to [ingest data](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](#review-http-status-codes).
+  2. If successful, attempts to [ingest data](/influxdb3/cloud-dedicated/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](#review-http-status-codes).
   3. Ingests or rejects data in the batch and returns one of the following HTTP status codes:
 
      - `204 No Content`: All data in the batch is ingested.
@@ -52,7 +52,7 @@ The `message` property of the response body may contain additional details about
 |:------------------------------|:------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `204 No Content"`             | no response body                                                                                                                    | If InfluxDB ingested all of the data in the batch                                                                                                                                                                                                                                                                                                                                |
 | `400 "Bad request"`           | error details about rejected points, up to 100 points: `line` contains the first rejected line, `message` describes rejections      | If some (_when **partial writes** are configured for the cluster_) or all request data isn't allowed (for example, if it is malformed or falls outside of the bucket's retention period)--the response body indicates whether a partial write has occurred or if all data has been rejected |
-| `401 "Unauthorized"`          |                                                                                                                                     | If the `Authorization` header is missing or malformed or if the [token](/influxdb/cloud-dedicated/admin/tokens/) doesn't have [permission](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/#examples) to write to the database. See [examples using credentials](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb) in write requests. |
+| `401 "Unauthorized"`          |                                                                                                                                     | If the `Authorization` header is missing or malformed or if the [token](/influxdb3/cloud-dedicated/admin/tokens/) doesn't have [permission](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/create/#examples) to write to the database. See [examples using credentials](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb) in write requests. |
 | `404 "Not found"`             | requested **resource type** (for example, "organization" or "database"), and **resource name**                                      | If a requested resource (for example, organization or database) wasn't found                                                                                                                                                                                                                                                                                                     |
 | `422 "Unprocessable Entity"`  | `message` contains details about the error                                                                                          | If the data isn't allowed (for example, falls outside of the database’s retention period).
 | `500 "Internal server error"` |                                                                                                                                     | Default status for an error                                                                                                                                                                                                                                                                                                                                                      |
@@ -68,9 +68,9 @@ If you notice data is missing in your database, do the following:
 - Check the [HTTP status code](#review-http-status-codes) in the response.
 - Check the `message` property in the response body for details about the error.
 - If the `message` describes a field error, [troubleshoot rejected points](#troubleshoot-rejected-points).
-- Verify all lines contain valid syntax ([line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/)).
-- Verify the timestamps in your data match the [precision parameter](/influxdb/cloud-dedicated/reference/glossary/#precision) in your request.
-- Minimize payload size and network errors by [optimizing writes](/influxdb/cloud-dedicated/write-data/best-practices/optimize-writes/).
+- Verify all lines contain valid syntax ([line protocol](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/)).
+- Verify the timestamps in your data match the [precision parameter](/influxdb3/cloud-dedicated/reference/glossary/#precision) in your request.
+- Minimize payload size and network errors by [optimizing writes](/influxdb3/cloud-dedicated/write-data/best-practices/optimize-writes/).
 
 ## Troubleshoot rejected points
 
@@ -107,4 +107,4 @@ The following example shows a response body for a write request that contains tw
 }
 ```
 
-Check for [field data type](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#data-types-and-format) differences between the rejected data point and points within the same database and partition--for example, did you attempt to write `string` data to an `int` field?
+Check for [field data type](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/#data-types-and-format) differences between the rejected data point and points within the same database and partition--for example, did you attempt to write `string` data to an `int` field?

@@ -14,7 +14,7 @@ related:
 aliases:
   - /influxdb/cloud/telegraf-configs/
 # alt_links:
-#   cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/telegraf-configs/
+#   cloud-serverless: /influxdb3/cloud-serverless/write-data/use-telegraf/telegraf-configs/
 ---
 
 {{< duplicate-oss >}}

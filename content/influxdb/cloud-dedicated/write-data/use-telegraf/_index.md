@@ -6,11 +6,11 @@ description: >
   Use Telegraf to collect and write data to InfluxDB.
   Create Telegraf configurations in the InfluxDB UI or manually configure Telegraf.
 aliases:
-  - /influxdb/cloud-dedicated/collect-data/advanced-telegraf
-  - /influxdb/cloud-dedicated/collect-data/use-telegraf
-  - /influxdb/cloud-dedicated/write-data/no-code/use-telegraf/
+  - /influxdb3/cloud-dedicated/collect-data/advanced-telegraf
+  - /influxdb3/cloud-dedicated/collect-data/use-telegraf
+  - /influxdb3/cloud-dedicated/write-data/no-code/use-telegraf/
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Use Telegraf
     parent: Write data
 alt_links:
@@ -53,7 +53,7 @@ Use the [`outputs.influxdb_v2`](/telegraf/v1/plugins/#output-influxdb_v2) plugin
 # ...
 ```
 
-_See how to [Configure Telegraf](/influxdb/cloud-dedicated/write-data/use-telegraf/configure/)._
+_See how to [Configure Telegraf](/influxdb3/cloud-dedicated/write-data/use-telegraf/configure/)._
 
 ## Use Telegraf with InfluxDB
 

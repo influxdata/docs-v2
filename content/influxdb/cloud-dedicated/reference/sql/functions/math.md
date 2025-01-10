@@ -4,7 +4,7 @@ list_title: Math functions
 description: >
   Use math functions to perform mathematical operations in SQL queries.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Math
     parent: sql-functions    
 weight: 306

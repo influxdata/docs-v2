@@ -4,11 +4,11 @@ description: >
   The `influxctl management revoke` command revokes management token access
   to your InfluxDB Cloud Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl management
 weight: 301
 related:
-  - /influxdb/cloud-dedicated/admin/tokens/management/revoke/
+  - /influxdb3/cloud-dedicated/admin/tokens/management/revoke/
 ---
 
 The `influxctl management revoke` command revokes management token access
@@ -19,7 +19,7 @@ to your {{< product-name omit=" Clustered" >}} cluster.
 #### Revoked tokens are included when listing tokens
 
 Revoked tokens still appear when
-[listing management tokens](/influxdb/cloud-dedicated/reference/cli/influxctl/management/list/),
+[listing management tokens](/influxdb3/cloud-dedicated/reference/cli/influxctl/management/list/),
 but they are no longer valid for any operations.
 {{% /note %}}
 
@@ -43,7 +43,7 @@ influxctl management revoke [flags] <TOKEN_ID>[ ... TOKEN_ID_N]
 | `-h` | `--help`  | Output command help                      |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}
 
 ## Examples

@@ -4,7 +4,7 @@ description: >
   Single quotation marks (`'`) are used in the string literal syntax.
   Double quotation marks (`"`) are used to quote identifiers.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Quotation
     identifier: influxql-quotation
     parent: influxql-reference

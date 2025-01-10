@@ -7,17 +7,17 @@ description: >
   Each InfluxDB database has a retention period, which defines the maximum age
   of data stored in the database.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Administer InfluxDB Cloud
 weight: 101
-influxdb/cloud-dedicated/tags: [databases]
+influxdb3/cloud-dedicated/tags: [databases]
 related:
-  - /influxdb/cloud-dedicated/write-data/best-practices/schema-design/
-  - /influxdb/cloud-dedicated/reference/cli/influxctl/
+  - /influxdb3/cloud-dedicated/write-data/best-practices/schema-design/
+  - /influxdb3/cloud-dedicated/reference/cli/influxctl/
 alt_links:
   cloud: /influxdb/cloud/admin/buckets/
-  cloud_serverless: /influxdb/cloud-serverless/admin/buckets/
-  clustered: /influxdb/cloud-dedicated/admin/databases/
+  cloud_serverless: /influxdb3/cloud-serverless/admin/buckets/
+  clustered: /influxdb3/cloud-dedicated/admin/databases/
   oss: /influxdb/v2/admin/buckets/
 ---
 
@@ -30,7 +30,7 @@ have been combined into a single concept--database. Retention policies are no
 longer part of the InfluxDB data model.
 However, {{% product-name %}} does
 support InfluxQL, which requires databases and retention policies.
-See [InfluxQL DBRP naming convention](/influxdb/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention).
+See [InfluxQL DBRP naming convention](/influxdb3/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention).
 
 **If coming from InfluxDB v2, InfluxDB Cloud (TSM), or InfluxDB Cloud Serverless**,
 _database_ and _bucket_ are synonymous.
@@ -71,7 +71,7 @@ cluster in the following ways:
 {{% expand "**May improve query performance** <em style='opacity:.5;font-weight:normal;'>View more info</em>" %}}
 
 Schemas with many measurements that contain
-[focused sets of tags and fields](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/#design-for-performance)
+[focused sets of tags and fields](/influxdb3/cloud-dedicated/write-data/best-practices/schema-design/#design-for-performance)
 can make it easier for the query engine to
 identify what partitions contain the queried data, resulting in better
 query performance.
@@ -127,7 +127,7 @@ lower than the default or up to 1000, based on your requirements.
 InfluxData identified 250 columns as the safe limit for maintaining system
 performance and stability.
 Exceeding this threshold can result in
-[wide schemas](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/#avoid-wide-schemas),
+[wide schemas](/influxdb3/cloud-dedicated/write-data/best-practices/schema-design/#avoid-wide-schemas),
 which can negatively impact performance and resource use,
 depending on your queries, the shape of your schema, and data types in the schema.
 

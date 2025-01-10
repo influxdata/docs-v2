@@ -5,7 +5,7 @@ description: >
   Comparison operators evaluate the relationship between the left and right
   operands and return `true` or `false`.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Comparison operators
     parent: Operators
 weight: 302

@@ -4,7 +4,7 @@ description: >
   The `influxctl database update` command updates a database's retention period,
   tables, or columns.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl database
 weight: 301
 ---
@@ -30,13 +30,13 @@ influxctl database update [flags] <DATABASE_NAME>
 
 | Flag |                      | Description                                                  |
 | :--- | :------------------- | :----------------------------------------------------------- |
-|      | `--retention-period` | [Database retention period ](/influxdb/cloud-dedicated/admin/databases/#retention-periods)(default is `0s` or infinite)        |
-|      | `--max-tables`       | [Maximum tables per database](/influxdb/cloud-dedicated/admin/databases/#table-limit) (default is 500, 0 uses default) |
-|      | `--max-columns`      | [Maximum columns per table](/influxdb/cloud-dedicated/admin/databases/#column-limit) (default is 250, 0 uses default)   |
+|      | `--retention-period` | [Database retention period ](/influxdb3/cloud-dedicated/admin/databases/#retention-periods)(default is `0s` or infinite)        |
+|      | `--max-tables`       | [Maximum tables per database](/influxdb3/cloud-dedicated/admin/databases/#table-limit) (default is 500, 0 uses default) |
+|      | `--max-columns`      | [Maximum columns per table](/influxdb3/cloud-dedicated/admin/databases/#column-limit) (default is 250, 0 uses default)   |
 | `-h` | `--help`             | Output command help                                          |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}
 
 ## Examples

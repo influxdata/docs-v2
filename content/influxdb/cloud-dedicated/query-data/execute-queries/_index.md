@@ -4,14 +4,14 @@ description: >
   Use tools and libraries to query data stored in InfluxDB Cloud Dedicated.
 weight: 101
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Execute queries
     parent: Query data
-influxdb/cloud-dedicated/tags: [query, sql, influxql]
+influxdb3/cloud-dedicated/tags: [query, sql, influxql]
 aliases:
-  - /influxdb/cloud-dedicated/query-data/tools/
-  - /influxdb/cloud-dedicated/query-data/sql/execute-queries/
-  - /influxdb/cloud-dedicated/query-data/influxql/execute-queries/
+  - /influxdb3/cloud-dedicated/query-data/tools/
+  - /influxdb3/cloud-dedicated/query-data/sql/execute-queries/
+  - /influxdb3/cloud-dedicated/query-data/influxql/execute-queries/
 ---
 
 Use tools and libraries to query data stored in an {{% product-name %}} bucket.

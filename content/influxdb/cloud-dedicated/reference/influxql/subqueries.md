@@ -4,7 +4,7 @@ description: >
   An InfluxQL subquery is a query nested in the `FROM` clause of an InfluxQL query.
   The outer query queries results returned by the inner query (subquery).
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Subqueries
     identifier: influxql-subqueries
     parent: influxql-reference

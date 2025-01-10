@@ -3,7 +3,7 @@ title: Dual write to InfluxDB OSS and InfluxDB Cloud
 description: >
   Configure Telegraf to write data to both InfluxDB OSS and InfluxDB Cloud Dedicated simultaneously.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Dual write to OSS & Cloud
     parent: Use Telegraf
 weight: 203
@@ -18,7 +18,7 @@ Use Telegraf to write to both InfluxDB OSS and {{< product-name >}} simultaneous
 
 The sample configuration below uses:
   - The [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2) twice: first pointing to the OSS instance and then to the {{< product-name omit="Clustered" >}} cluster.
-  - Two different tokens, one for OSS and one for Cloud Dedicated. You'll need to configure both tokens as environment variables (see how to [Configure authentication credentials as environment variables](/influxdb/cloud-dedicated/get-started/setup/#configure-authentication-credentials)).
+  - Two different tokens, one for OSS and one for Cloud Dedicated. You'll need to configure both tokens as environment variables (see how to [Configure authentication credentials as environment variables](/influxdb3/cloud-dedicated/get-started/setup/#configure-authentication-credentials)).
 
 Use the configuration below to write your data to both OSS and Cloud Dedicated instances simultaneously.
 

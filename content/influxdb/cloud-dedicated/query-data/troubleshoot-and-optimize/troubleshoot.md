@@ -4,17 +4,17 @@ description: >
   Troubleshoot SQL and InfluxQL queries in InfluxDB.
 weight: 201
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Troubleshoot queries
     parent: Troubleshoot and optimize queries
-influxdb/cloud-dedicated/tags: [query, performance, observability, errors, sql, influxql]
+influxdb3/cloud-dedicated/tags: [query, performance, observability, errors, sql, influxql]
 related:
-  - /influxdb/cloud-dedicated/query-data/sql/
-  - /influxdb/cloud-dedicated/query-data/influxql/
-  - /influxdb/cloud-dedicated/reference/client-libraries/v3/
+  - /influxdb3/cloud-dedicated/query-data/sql/
+  - /influxdb3/cloud-dedicated/query-data/influxql/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/v3/
 aliases:
-  - /influxdb/cloud-dedicated/query-data/execute-queries/troubleshoot/
-  - /influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/trace/
+  - /influxdb3/cloud-dedicated/query-data/execute-queries/troubleshoot/
+  - /influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/trace/
 ---
 
 Troubleshoot SQL and InfluxQL queries that return unexpected results.
@@ -45,32 +45,32 @@ If a query times out or returns an error, it might be due to the following:
 - a server or network problem
 - it queries too much data
 
-[Understand Arrow Flight responses](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/flight-responses/) and error messages for queries.
+[Understand Arrow Flight responses](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/flight-responses/) and error messages for queries.
 
 ## Optimize slow or expensive queries
 
 If a query is slow or uses too many compute resources, limit the amount of data that it queries.
 
-See how to [optimize queries](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/).
+See how to [optimize queries](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/).
 
 ## Analyze your queries 
 
 Use the following tools to retrieve system query information, analyze query execution,
 and find performance bottlenecks:
 
-- [Analyze a query plan](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/analyze-query-plan/)
-- [Retrieve `system.queries` information for a query](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/system-information/)
+- [Analyze a query plan](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/analyze-query-plan/)
+- [Retrieve `system.queries` information for a query](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/system-information/)
 
 #### Request help to troubleshoot queries
 
-Some bottlenecks may result from suboptimal query [execution plans](/influxdb/cloud-dedicated/reference/internals/query-plan/#physical-plan) and are outside your control--for example:
+Some bottlenecks may result from suboptimal query [execution plans](/influxdb3/cloud-dedicated/reference/internals/query-plan/#physical-plan) and are outside your control--for example:
 
 - Sorting (`ORDER BY`) data that is already sorted
 - Retrieving numerous small Parquet files from the object store, instead of fewer, larger files
 - Querying many overlapped Parquet files
 - Performing a high number of table scans
 
-If you've followed steps to [optimize](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/)
+If you've followed steps to [optimize](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/)
 and [troubleshoot a query](#why-doesnt-my-query-return-data),
 but it still doesn't meet performance requirements,
 contact the [InfluxData Support team](https://support.influxdata.com) for assistance.

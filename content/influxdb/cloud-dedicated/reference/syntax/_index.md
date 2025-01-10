@@ -5,10 +5,10 @@ description: >
   writing, querying, and processing data.
 weight: 105
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Other syntaxes
     parent: Reference
-influxdb/cloud-dedicated/tags: [syntax]
+influxdb3/cloud-dedicated/tags: [syntax]
 ---
 
 {{< product-name >}} uses a specific languages and syntaxes to perform tasks

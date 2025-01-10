@@ -17,7 +17,7 @@ related:
   - /influxdb/cloud/organizations/buckets/create-bucket/
   - /influxdb/cloud/reference/cli/influx/
 alt_links:
-  cloud-serverless: /influxdb/cloud-serverless/admin/buckets/manage-explicit-bucket-schemas/
+  cloud-serverless: /influxdb3/cloud-serverless/admin/buckets/manage-explicit-bucket-schemas/
 ---
 
 Use [**explicit bucket schemas**](/influxdb/cloud/reference/key-concepts/data-elements/#bucket-schema) to enforce [column names](/influxdb/cloud/reference/glossary/#column), [tags](/influxdb/cloud/reference/glossary/#tag), [fields](/influxdb/cloud/reference/glossary/#field), and

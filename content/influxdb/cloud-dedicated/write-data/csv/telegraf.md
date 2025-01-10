@@ -2,21 +2,21 @@
 title: Use Telegraf to write CSV data to InfluxDB
 description: >
   Use the Telegraf `file` input plugin to read and parse CSV data into
-  [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/)
+  [line protocol](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/)
   and write it to InfluxDB.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Use Telegraf
     identifier: write-csv-telegraf
     parent: Write CSV data
 weight: 203
 related:
   - /telegraf/v1/data_formats/input/csv/
-  - /influxdb/cloud-dedicated/write-data/use-telegraf/
+  - /influxdb3/cloud-dedicated/write-data/use-telegraf/
 ---
 
 Use the Telegraf `file` input plugin to read and parse CSV data into
-[line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/)
+[line protocol](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/)
 and write it to InfluxDB.
 [Telegraf](/telegraf/v1/) is a plugin-based agent that collects
 metrics from different sources and writes them to specified destinations.
@@ -85,9 +85,9 @@ in the `telegraf.conf`.
 
 Replace the following:
 
-- **`DATABASE_NAME`**: the name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
+- **`DATABASE_NAME`**: the name of the InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) to write data to
 
-To learn more about configuration options, see [Enable and configure the InfluxDB v2 output plugin](/influxdb/cloud-dedicated/write-data/use-telegraf/configure/#enable-and-configure-the-influxdb-v2-output-plugin).
+To learn more about configuration options, see [Enable and configure the InfluxDB v2 output plugin](/influxdb3/cloud-dedicated/write-data/use-telegraf/configure/#enable-and-configure-the-influxdb-v2-output-plugin).
 
 {{< expand-wrapper >}}
 {{% expand "View full example Telegraf configuration file" %}}
@@ -129,9 +129,9 @@ To learn more about configuration options, see [Enable and configure the InfluxD
 
 Replace the following:
 
-- **`DATABASE_NAME`**: the name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
+- **`DATABASE_NAME`**: the name of the InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) to write data to
 
-**`INFLUX_TOKEN`** is an environment variable you created in the [Setup instructions](/influxdb/cloud-dedicated/get-started/setup/?t=Telegraf) of the Get Started tutorial.
+**`INFLUX_TOKEN`** is an environment variable you created in the [Setup instructions](/influxdb3/cloud-dedicated/get-started/setup/?t=Telegraf) of the Get Started tutorial.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

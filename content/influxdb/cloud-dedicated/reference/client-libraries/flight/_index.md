@@ -5,14 +5,14 @@ description: >
   View the list of available clients.
 weight: 30
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Arrow Flight clients
     parent: Client libraries
-influxdb/cloud-dedicated/tags: [client libraries, Flight RPC, Flight SQL]
+influxdb3/cloud-dedicated/tags: [client libraries, Flight RPC, Flight SQL]
 aliases:
-  - /influxdb/cloud-dedicated/reference/client-libraries/flight-sql/
-  - /influxdb/cloud-dedicated/reference/client-libraries/flight-sql/go-flightsql/
-  - /influxdb/cloud-dedicated/reference/client-libraries/flight-sql/python-flightsql-dbapi/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/flight-sql/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/flight-sql/go-flightsql/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/flight-sql/python-flightsql-dbapi/
 ---
 
 Flight RPC and Flight SQL clients are language-specific drivers that interact with databases using the Arrow in-memory format and the Flight RPC protocol.
@@ -21,9 +21,9 @@ Apache Arrow Flight RPC and Flight SQL protocols define APIs for servers and cli
 {{% note %}}
 #### Use InfluxDB v3 client libraries
 
-We recommend using [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) for integrating InfluxDB v3 with your application code.
+We recommend using [InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) for integrating InfluxDB v3 with your application code.
 Client libraries wrap Apache Arrow Flight clients
-and provide convenient methods for [writing](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
+and provide convenient methods for [writing](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
 {{% /note %}}
 
 **Flight RPC clients** can use SQL or InfluxQL to query data stored in an {{% product-name %}} database.

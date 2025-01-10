@@ -6,21 +6,21 @@ description: >
   Learn how to authenticate, write, and query using Telegraf, client libraries, and HTTP clients.
 weight: 101
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: API compatibility
     parent: Guides
-influxdb/cloud-dedicated/tags: [api]
+influxdb3/cloud-dedicated/tags: [api]
 aliases:
-  - /influxdb/cloud-dedicated/primers/
-  - /influxdb/cloud-dedicated/primers/api/
-  - /influxdb/cloud-dedicated/api-compatibility/
+  - /influxdb3/cloud-dedicated/primers/
+  - /influxdb3/cloud-dedicated/primers/api/
+  - /influxdb3/cloud-dedicated/api-compatibility/
 related:
-  - /influxdb/cloud-dedicated/query-data/sql/
-  - /influxdb/cloud-dedicated/query-data/influxql/
-  - /influxdb/cloud-dedicated/write-data/
-  - /influxdb/cloud-dedicated/write-data/use-telegraf/configure/
-  - /influxdb/cloud-dedicated/reference/api/
-  - /influxdb/cloud-dedicated/reference/client-libraries/
+  - /influxdb3/cloud-dedicated/query-data/sql/
+  - /influxdb3/cloud-dedicated/query-data/influxql/
+  - /influxdb3/cloud-dedicated/write-data/
+  - /influxdb3/cloud-dedicated/write-data/use-telegraf/configure/
+  - /influxdb3/cloud-dedicated/reference/api/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/
 ---
 
 Choose the {{% product-name %}} API and tools that best fit your workload:

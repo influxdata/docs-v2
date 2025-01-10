@@ -4,7 +4,7 @@ description: >
   View release notes and updates for products and tools related to
   InfluxDB Cloud Dedicated.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Release notes
     parent: Reference
 weight: 101

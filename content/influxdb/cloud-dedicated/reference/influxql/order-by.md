@@ -4,7 +4,7 @@ list_title: ORDER BY clause
 description: >
   Use the `ORDER BY` clause to sort data by time in ascending or descending order.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: ORDER BY clause
     identifier: influxql-order-by
     parent: influxql-reference

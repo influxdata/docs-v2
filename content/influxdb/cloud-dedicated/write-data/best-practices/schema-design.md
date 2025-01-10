@@ -4,17 +4,17 @@ seotitle: InfluxDB schema design recommendations and best practices
 description: >
   Design your schema for simpler and more performant queries.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Schema design
     weight: 201
     parent: write-best-practices
 related:
-  - /influxdb/cloud-dedicated/admin/databases/
-  - /influxdb/cloud-dedicated/reference/cli/influxctl/
-  - /influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/
+  - /influxdb3/cloud-dedicated/admin/databases/
+  - /influxdb3/cloud-dedicated/reference/cli/influxctl/
+  - /influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/
 ---
 
-Use the following guidelines to design your [schema](/influxdb/cloud-dedicated/reference/glossary/#schema)
+Use the following guidelines to design your [schema](/influxdb3/cloud-dedicated/reference/glossary/#schema)
 for simpler and more performant queries.
 
 - [InfluxDB data structure](#influxdb-data-structure)
@@ -60,7 +60,7 @@ Tables contain multiple tags and fields.
     - **Timestamp**: Timestamp associated with the data.
       When stored on disk and queried, all data is ordered by time.
       In InfluxDB, a timestamp is a nanosecond-scale
-      [Unix timestamp](/influxdb/cloud-dedicated/reference/glossary/#unix-timestamp)
+      [Unix timestamp](/influxdb3/cloud-dedicated/reference/glossary/#unix-timestamp)
       in UTC.
       A timestamp is never null.
 
@@ -81,7 +81,7 @@ _table_ in {{% product-name %}}.
 ### Primary keys
 
 In time series data, the primary key for a row of data is typically a combination of timestamp and other attributes that uniquely identify each data point.
-In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb/cloud-dedicated/reference/glossary/#tag-key) and [tag values](/influxdb/cloud-dedicated/reference/glossary/#tag-value) on the point.
+In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb3/cloud-dedicated/reference/glossary/#tag-key) and [tag values](/influxdb3/cloud-dedicated/reference/glossary/#tag-value) on the point.
 A row's primary key tag set does not include tags with null values.
 
 ### Tags versus fields
@@ -124,7 +124,7 @@ the write fails due to a column conflict.
 
 ### Maximum number of columns per table
 
-A table has a [maximum number of columns](/influxdb/cloud-dedicated/admin/databases/#column-limit).
+A table has a [maximum number of columns](/influxdb3/cloud-dedicated/admin/databases/#column-limit).
 Each row must include a time column.
 As a result, a table can have the following:
 
@@ -135,7 +135,7 @@ If you attempt to write to a table and exceed the column limit, then the write
 request fails and InfluxDB returns an error.
 
 InfluxData identified the
-[default maximum](/influxdb/cloud-dedicated/admin/databases/#column-limit)
+[default maximum](/influxdb3/cloud-dedicated/admin/databases/#column-limit)
 as the safe limit for maintaining system performance and stability.
 Exceeding this threshold can result in
 [wide schemas](#avoid-wide-schemas), which can negatively impact performance
@@ -165,17 +165,17 @@ Wide schemas can lead to the following issues:
 - Increased resource usage for persisting and compacting data during ingestion.
 - Reduced sorting performance due to complex primary keys with [too many tags](#avoid-too-many-tags).
 - Reduced query performance when
-  [selecting too many columns](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/#select-only-columns-you-need).
+  [selecting too many columns](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/#select-only-columns-you-need).
 
 To prevent wide schema issues, limit the number of tags and fields stored in a table.
-If you need to store more than the [maximum number of columns](/influxdb/cloud-dedicated/admin/databases/),
+If you need to store more than the [maximum number of columns](/influxdb3/cloud-dedicated/admin/databases/),
 consider segmenting your fields into separate tables.
 
 #### Avoid too many tags
 
 In InfluxDB, the primary key for a row is the combination of the point's
-timestamp and _tag set_ - the collection of [tag keys](/influxdb/cloud-dedicated/reference/glossary/#tag-key)
-and [tag values](/influxdb/cloud-dedicated/reference/glossary/#tag-value) on the point.
+timestamp and _tag set_ - the collection of [tag keys](/influxdb3/cloud-dedicated/reference/glossary/#tag-key)
+and [tag values](/influxdb3/cloud-dedicated/reference/glossary/#tag-value) on the point.
 A point that contains more tags has a more complex primary key, which could
 impact sorting performance if you sort using all parts of the key.
 
@@ -266,7 +266,7 @@ full of null values (also known as a _sparse schema_):
 
 ### Use the best data type for your data
 
-When writing data to a field, use the most appropriate [data type](/influxdb/cloud-dedicated/reference/glossary/#data-type) for your data--write integers as integers, decimals as floats, and booleans as booleans.
+When writing data to a field, use the most appropriate [data type](/influxdb3/cloud-dedicated/reference/glossary/#data-type) for your data--write integers as integers, decimals as floats, and booleans as booleans.
 A query against a field that stores integers outperforms a query against string data;
 querying over many long string values can negatively affect performance.
 
@@ -298,7 +298,7 @@ Without regular expressions, your queries will be easier to write and more perfo
 
 #### Not recommended {.orange}
 
-For example, consider the following [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/)
+For example, consider the following [line protocol](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/)
 that embeds multiple attributes (location, model, and ID) into a `sensor` tag value:
 
 ```text
@@ -396,8 +396,8 @@ or regular expressions.
 To simplify query writing, avoid using reserved keywords or special characters
 in table names, tag keys, and field keys.
 
-- [SQL keywords](/influxdb/cloud-dedicated/reference/sql/#keywords)
-- [InfluxQL keywords](/influxdb/cloud-dedicated/reference/influxql/#keywords)
+- [SQL keywords](/influxdb3/cloud-dedicated/reference/sql/#keywords)
+- [InfluxQL keywords](/influxdb3/cloud-dedicated/reference/influxql/#keywords)
 
 When using SQL or InfluxQL to query tables, tags, and fields with special
 characters or keywords, you have to wrap these keys in **double quotes**.

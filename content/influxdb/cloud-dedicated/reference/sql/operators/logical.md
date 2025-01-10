@@ -4,13 +4,13 @@ list_title: Logical operators
 description: >
   Logical operators combine or manipulate conditions in a SQL query.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Logical operators
     parent: Operators
 weight: 303
 related:
-  - /influxdb/cloud-dedicated/reference/sql/where/
-  - /influxdb/cloud-dedicated/reference/sql/subqueries/#subquery-operators, Subquery operators
+  - /influxdb3/cloud-dedicated/reference/sql/where/
+  - /influxdb3/cloud-dedicated/reference/sql/subqueries/#subquery-operators, Subquery operators
 list_code_example: |
   | Operator  | Meaning                                                                    |
   | :-------: | :------------------------------------------------------------------------- |

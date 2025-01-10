@@ -4,7 +4,7 @@ description: >
   The `influxctl user` command and its subcommands manage users in InfluxDB
   Cloud Dedicated clusters.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl
 weight: 201
 ---
@@ -22,12 +22,12 @@ influxctl user [subcommand] [subcommand options] [arguments...]
 
 | Subcommand                                                               | Description         |
 | :----------------------------------------------------------------------- | :------------------ |
-| [list](/influxdb/cloud-dedicated/reference/cli/influxctl/user/list/)     | List all users      |
+| [list](/influxdb3/cloud-dedicated/reference/cli/influxctl/user/list/)     | List all users      |
 | help, h                                                                  | Output command help |
 
 <!--
-| [delete](/influxdb/cloud-dedicated/reference/cli/influxctl/user/delete/) | Delete a user       |
-| [invite](/influxdb/cloud-dedicated/reference/cli/influxctl/user/invite/) | Invite a user       |
+| [delete](/influxdb3/cloud-dedicated/reference/cli/influxctl/user/delete/) | Delete a user       |
+| [invite](/influxdb3/cloud-dedicated/reference/cli/influxctl/user/invite/) | Invite a user       |
 -->
 
 ## Flags

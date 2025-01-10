@@ -4,14 +4,14 @@ description: >
   Enable trace logging for a query in InfluxDB Cloud Dedicated.
 weight: 401
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Enable trace logging
     parent: Troubleshoot and optimize queries
-influxdb/cloud-dedicated/tags: [query, observability]
+influxdb3/cloud-dedicated/tags: [query, observability]
 related:
-  - /influxdb/cloud-dedicated/query-data/sql/
-  - /influxdb/cloud-dedicated/query-data/influxql/
-  - /influxdb/cloud-dedicated/reference/client-libraries/v3/
+  - /influxdb3/cloud-dedicated/query-data/sql/
+  - /influxdb3/cloud-dedicated/query-data/influxql/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/v3/
 draft: true
 ---
 
@@ -233,9 +233,9 @@ use_middleware_trace_header()
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 {{% note %}}
@@ -249,4 +249,4 @@ After you run your query with tracing enabled, do the following:
 
 ### Retrieve system information for a query
 
-If you enable trace logging for a query, the `trace-id` appears in the [`system.queries` table](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/system-information).
+If you enable trace logging for a query, the `trace-id` appears in the [`system.queries` table](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/system-information).

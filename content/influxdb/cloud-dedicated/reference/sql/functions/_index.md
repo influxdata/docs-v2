@@ -4,7 +4,7 @@ list_title: Functions
 description: >
   Use SQL functions to transform queried values.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Functions
     parent: SQL reference
     identifier: sql-functions

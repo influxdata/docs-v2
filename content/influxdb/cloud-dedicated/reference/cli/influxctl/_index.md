@@ -5,11 +5,11 @@ description: >
   The `influxctl` command line interface (CLI) writes to, queries, and performs
   administrative tasks in an InfluxDB Cloud Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: influxctl
     parent: CLIs
 weight: 101
-influxdb/cloud-dedicated/tags: [cli]
+influxdb3/cloud-dedicated/tags: [cli]
 ---
 
 The `influxctl` command line interface (CLI) writes to, queries, and performs
@@ -32,16 +32,16 @@ influxctl [global-flags] [command]
 
 | Command                                                                     | Description                            |
 | :-------------------------------------------------------------------------- | :------------------------------------- |
-| [auth](/influxdb/cloud-dedicated/reference/cli/influxctl/auth/)             | Log in to or log out of InfluxDB v3    |
-| [cluster](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/)       | List InfluxDB v3 cluster information   |
-| [database](/influxdb/cloud-dedicated/reference/cli/influxctl/database/)     | Manage InfluxDB v3 databases           |
-| [help](/influxdb/cloud-dedicated/reference/cli/influxctl/help/)             | Output `influxctl` help information    |
-| [management](/influxdb/cloud-dedicated/reference/cli/influxctl/management/) | Manage InfluxDB v3 management tokens   |
-| [query](/influxdb/cloud-dedicated/reference/cli/influxctl/query/)           | Query data from InfluxDB v3            |
-| [token](/influxdb/cloud-dedicated/reference/cli/influxctl/token/)           | Manage InfluxDB v3 database tokens     |
-| [user](/influxdb/cloud-dedicated/reference/cli/influxctl/user/)             | Manage InfluxDB v3 cluster users       |
-| [version](/influxdb/cloud-dedicated/reference/cli/influxctl/version/)       | Output the current `influxctl` version |
-| [write](/influxdb/cloud-dedicated/reference/cli/influxctl/write/)           | Write line protocol to InfluxDB v3     |
+| [auth](/influxdb3/cloud-dedicated/reference/cli/influxctl/auth/)             | Log in to or log out of InfluxDB v3    |
+| [cluster](/influxdb3/cloud-dedicated/reference/cli/influxctl/cluster/)       | List InfluxDB v3 cluster information   |
+| [database](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/)     | Manage InfluxDB v3 databases           |
+| [help](/influxdb3/cloud-dedicated/reference/cli/influxctl/help/)             | Output `influxctl` help information    |
+| [management](/influxdb3/cloud-dedicated/reference/cli/influxctl/management/) | Manage InfluxDB v3 management tokens   |
+| [query](/influxdb3/cloud-dedicated/reference/cli/influxctl/query/)           | Query data from InfluxDB v3            |
+| [token](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/)           | Manage InfluxDB v3 database tokens     |
+| [user](/influxdb3/cloud-dedicated/reference/cli/influxctl/user/)             | Manage InfluxDB v3 cluster users       |
+| [version](/influxdb3/cloud-dedicated/reference/cli/influxctl/version/)       | Output the current `influxctl` version |
+| [write](/influxdb3/cloud-dedicated/reference/cli/influxctl/write/)           | Write line protocol to InfluxDB v3     |
 
 ## Global flags
 

@@ -5,7 +5,7 @@ description: >
   Use InfluxQL miscellaneous functions to perform different operations in
   InfluxQL queries.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Miscellaneous
     identifier: influxql-misc-functions
     parent: influxql-functions

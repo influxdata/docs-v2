@@ -6,18 +6,18 @@ description: >
   Get started writing data to InfluxDB by learning about line protocol and using
   tools like Telegraf, client libraries, and the InfluxDB API.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Write data
     parent: Get started
     identifier: get-started-write-data
 weight: 101
 metadata: [2 / 3]
 related:
-  - /influxdb/cloud-dedicated/write-data/
-  - /influxdb/cloud-dedicated/write-data/best-practices/
-  - /influxdb/cloud-dedicated/reference/syntax/line-protocol/
-  - /influxdb/cloud-dedicated/guides/api-compatibility/v1/
-  - /influxdb/cloud-dedicated/guides/api-compatibility/v2/
+  - /influxdb3/cloud-dedicated/write-data/
+  - /influxdb3/cloud-dedicated/write-data/best-practices/
+  - /influxdb3/cloud-dedicated/reference/syntax/line-protocol/
+  - /influxdb3/cloud-dedicated/guides/api-compatibility/v1/
+  - /influxdb3/cloud-dedicated/guides/api-compatibility/v2/
   - /telegraf/v1/
 ---
 
@@ -43,7 +43,7 @@ format that lets you provide the necessary information to write a data point to
 InfluxDB.
 _This tutorial covers the basics of line protocol, but for detailed
 information, see the
-[Line protocol reference](/influxdb/cloud-dedicated/reference/syntax/line-protocol/)._
+[Line protocol reference](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/)._
 
 ### Line protocol elements
 
@@ -54,7 +54,7 @@ Each line of line protocol contains the following elements:
 {{< req type="key" >}}
 
 - {{< req "\*" >}} **measurement**: A string that identifies the
-  [table](/influxdb/cloud-dedicated/reference/glossary/#table) to store the data
+  [table](/influxdb3/cloud-dedicated/reference/glossary/#table) to store the data
   in.
 - **tag set**: Comma-delimited list of key value pairs, each representing a tag.
   Tag keys and values are unquoted strings. _Spaces, commas, and equal
@@ -62,15 +62,15 @@ Each line of line protocol contains the following elements:
 - {{< req "\*" >}} **field set**: Comma-delimited list of key value pairs, each
   representing a field. Field keys are unquoted strings. _Spaces and commas must
   be escaped._ Field values can be
-  [strings](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#string)
+  [strings](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/#string)
   (quoted),
-  [floats](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#float),
-  [integers](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#integer),
-  [unsigned integers](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#uinteger),
+  [floats](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/#float),
+  [integers](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/#integer),
+  [unsigned integers](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/#uinteger),
   or
-  [booleans](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#boolean).
+  [booleans](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/#boolean).
 - **timestamp**:
-[Unix timestamp](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#unix-timestamp)
+[Unix timestamp](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/#unix-timestamp)
 associated with the data. InfluxDB supports up to nanosecond precision. _If
 the precision of the timestamp is not in nanoseconds, you must specify the
 precision when writing the data to InfluxDB._
@@ -98,7 +98,7 @@ whitespace sensitive.
 ---
 
 _For schema design recommendations, see
-[InfluxDB schema design](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/)._
+[InfluxDB schema design](/influxdb3/cloud-dedicated/write-data/best-practices/schema-design/)._
 
 ## Construct line protocol
 
@@ -165,12 +165,12 @@ The following examples show how to write the preceding
 to an {{% product-name %}} database.
 
 To learn more about available tools and options, see
-[Write data](/influxdb/cloud-dedicated/write-data/).
+[Write data](/influxdb3/cloud-dedicated/write-data/).
 
 {{% note %}}
 Some examples in this getting started tutorial assume your InfluxDB
 credentials (**URL**, **organization**, and **token**) are provided by
-[environment variables](/influxdb/cloud-dedicated/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
+[environment variables](/influxdb3/cloud-dedicated/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
 {{% /note %}}
 
 {{< tabs-wrapper >}}
@@ -192,14 +192,14 @@ credentials (**URL**, **organization**, and **token**) are provided by
 <!---------------------------- BEGIN INFLUXCTL CLI CONTENT ---------------------------->
 
 Use the
-[`influxctl write` command](/influxdb/cloud-dedicated/reference/cli/influxctl/write/)
+[`influxctl write` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/write/)
 to write the [home sensor sample data](#home-sensor-data-line-protocol) to your
 {{< product-name omit=" Clustered" >}} cluster. Provide the following:
 
 - Database name using the `--database` flag
 - Database token using the `--token` flag (use the `INFLUX_TOKEN` environment
   variable created in
-  [Get started--Set up {{< product-name >}}](/influxdb/cloud-dedicated/get-started/setup/#configure-authentication-credentials))
+  [Get started--Set up {{< product-name >}}](/influxdb3/cloud-dedicated/get-started/setup/#configure-authentication-credentials))
 - Timestamp precision as seconds (`s`) using the `--precision` flag
 - [Home sensor data line protocol](#home-sensor-data-line-protocol)
 
@@ -395,7 +395,7 @@ Use [Telegraf](/telegraf/v1/) to consume line protocol, and then write it to
 
 Telegraf and its plugins provide many options for reading and writing data. To
 learn more, see how to
-[use Telegraf to write data](/influxdb/cloud-dedicated/write-data/use-telegraf/).
+[use Telegraf to write data](/influxdb3/cloud-dedicated/write-data/use-telegraf/).
 
 {{% /influxdb/custom-timestamps %}}
 
@@ -414,19 +414,19 @@ Write data with your existing workloads that already use the InfluxDB v1
 {{% note %}}
 
 If migrating data from InfluxDB 1.x, see the
-[Migrate data from InfluxDB 1.x to InfluxDB {{% product-name %}}](/influxdb/cloud-dedicated/guides/migrate-data/migrate-1x-to-cloud-dedicated/)
+[Migrate data from InfluxDB 1.x to InfluxDB {{% product-name %}}](/influxdb3/cloud-dedicated/guides/migrate-data/migrate-1x-to-cloud-dedicated/)
 guide.
 
 {{% /note %}}
 
 To write data to InfluxDB using the
-[InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/reference/api/), send a request
+[InfluxDB v1 HTTP API](/influxdb3/cloud-dedicated/reference/api/), send a request
 to the
-[InfluxDB API `/write` endpoint](/influxdb/cloud-dedicated/api/#operation/PostLegacyWrite)
+[InfluxDB API `/write` endpoint](/influxdb3/cloud-dedicated/api/#operation/PostLegacyWrite)
 using the `POST` request method.
 
 {{% api-endpoint endpoint="https://{{< influxdb/host >}}/write" method="post"
-api-ref="/influxdb/cloud-dedicated/api/#operation/PostLegacyWrite"%}}
+api-ref="/influxdb3/cloud-dedicated/api/#operation/PostLegacyWrite"%}}
 
 Include the following with your request:
 
@@ -436,17 +436,17 @@ Include the following with your request:
   - **Accept**: application/json
 - **Query parameters**:
   - **db**: InfluxDB database name
-  - **precision**:[timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision)
+  - **precision**:[timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#timestamp-precision)
     (default is `ns`)
 - **Request body**: Line protocol as plain text
 
 {{% note %}}
 With the {{% product-name %}}
-[v1 API `/write` endpoint](/influxdb/cloud-dedicated/api/#operation/PostLegacyWrite),
+[v1 API `/write` endpoint](/influxdb3/cloud-dedicated/api/#operation/PostLegacyWrite),
 `Authorization: Bearer` and `Authorization: Token` are equivalent and you can
 use either scheme to pass a database token in your request. For more information
 about HTTP API token schemes, see how to
-[authenticate API requests](/influxdb/cloud-dedicated/guides/api-compatibility/v1/).
+[authenticate API requests](/influxdb3/cloud-dedicated/guides/api-compatibility/v1/).
 {{% /note %}}
 
 The following example uses cURL and the InfluxDB v1 API to write line protocol
@@ -507,7 +507,7 @@ fi
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-token) with
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-token) with
   sufficient permissions to the specified database
 
 If successful, the output is an HTTP `204 No Content` status code; otherwise,
@@ -531,11 +531,11 @@ the error status code and failure message.
 {{% influxdb/custom-timestamps %}}
 
 To write data to InfluxDB using the
-[InfluxDB v2 HTTP API](/influxdb/cloud-dedicated/reference/api/), send a request
+[InfluxDB v2 HTTP API](/influxdb3/cloud-dedicated/reference/api/), send a request
 to the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
 
 {{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write"
-method="post" api-ref="/influxdb/cloud-dedicated/api/#operation/PostWrite" >}}
+method="post" api-ref="/influxdb3/cloud-dedicated/api/#operation/PostWrite" >}}
 
 Include the following with your request:
 
@@ -547,7 +547,7 @@ Include the following with your request:
   - **Accept**: application/json
 - **Query parameters**:
   - **bucket**: InfluxDB database name
-  - **precision**:[timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision)
+  - **precision**:[timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#timestamp-precision)
     (default is `ns`)
 - **Request body**: Line protocol as plain text
 <!-- vale InfluxDataDocs.v3Schema = YES -->
@@ -558,7 +558,7 @@ The {{% product-name %}} v2 API `/api/v2/write` endpoint supports
 a database token in your request.
 For more information about HTTP API token
 schemes, see how to
-[authenticate API requests](/influxdb/cloud-dedicated/guides/api-compatibility/v2/).
+[authenticate API requests](/influxdb3/cloud-dedicated/guides/api-compatibility/v2/).
 {{% /note %}}
 
 The following example uses cURL and the InfluxDB v2 API to write line protocol
@@ -619,7 +619,7 @@ fi
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a
-  [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) with
+  [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) with
   sufficient permissions to the specified database
 
 If successful, the output is an HTTP `204 No Content` status code; otherwise,
@@ -753,7 +753,7 @@ dependencies to your current project.
       - **`org`**: an empty or arbitrary string (InfluxDB ignores this
         parameter)
       - **`token`**: a
-        [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+        [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
         with write access to the specified database. _Store this in a secret
         store or environment variable to avoid exposing the raw token string._
       - **`database`**: the name of the {{% product-name %}} database to write
@@ -766,7 +766,7 @@ dependencies to your current project.
 
       **Because the timestamps in the sample line protocol are in second
       precision, the example passes the `write_precision='s'` option to set the
-      [timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision)
+      [timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#timestamp-precision)
       to seconds.**
 
 7. To execute the module and write line protocol to your {{% product-name %}}
@@ -925,7 +925,7 @@ To write data to {{% product-name %}} using Go, use the InfluxDB v3
             - **`Host`**: the {{% product-name omit=" Clustered" %}} cluster URL
             - **`Database`**: The name of your {{% product-name %}} database
             - **`Token`**: a
-              [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+              [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
               with _write_ access to the specified database. _Store this in a
               secret store or environment variable to avoid exposing the raw
               token string._
@@ -935,7 +935,7 @@ To write data to {{% product-name %}} using Go, use the InfluxDB v3
               **Because the timestamps in the sample line protocol are in second
               precision, the example passes the `Precision: lineprotocol.Second`
               option to set the
-              [timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision)
+              [timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#timestamp-precision)
               to seconds.**
 
         2.  Defines a deferred function that closes the client when the function
@@ -1101,7 +1101,7 @@ the failure message.
 
         - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
         - **`token`**: a
-          [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+          [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
           with _write_ access to the specified database. _Store this in a secret
           store or environment variable to avoid exposing the raw token string._
 
@@ -1121,7 +1121,7 @@ the failure message.
         **Because the timestamps in the sample line protocol are in second
         precision, the example passes `s` as the `precision` value to set the
         write
-        [timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision)
+        [timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#timestamp-precision)
         to seconds.**
 
     5.  Calls `Promise.allSettled()` with the promises array to pause execution
@@ -1293,7 +1293,7 @@ the failure message.
         - **`database`**: the name of the {{% product-name %}} database to write
           to
         - **`token`**: a
-          [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+          [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
           with _write_ access to the specified database. _Store this in a secret
           store or environment variable to avoid exposing the raw token string._
 
@@ -1309,7 +1309,7 @@ the failure message.
         precision, the example passes the
         [`WritePrecision.S` enum value](https://github.com/InfluxCommunity/influxdb3-csharp/blob/main/Client/Write/WritePrecision.cs)
         to the `precision:` option to set
-        the[timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision)
+        the[timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#timestamp-precision)
         to seconds.**
 
 6.  In your editor, open the `Program.cs` file and replace its contents with the
@@ -1518,7 +1518,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
         - **`database`**: the name of the {{% product-name %}} database to write
           to
         - **`token`**: a
-          [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+          [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
           with _write_ access to the specified database. _Store this in a secret
           store or environment variable to avoid exposing the raw token string._
 
@@ -1531,7 +1531,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
         precision, the example passes the
         [`WritePrecision.S` enum value](https://github.com/InfluxCommunity/influxdb3-java/blob/main/src/main/java/com/influxdb/v3/client/write/WritePrecision.java)
         as the `precision` argument to set the write
-        [timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision)
+        [timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#timestamp-precision)
         to seconds.**
 
 8.  In your editor, open the `App.java` file (created by Maven) and replace its
@@ -1628,5 +1628,5 @@ the failure message.
 **Congratulations!** You've written data to InfluxDB.
 Next, learn how to query your data.
 
-{{< page-nav prev="/influxdb/cloud-dedicated/get-started/setup/"
-next="/influxdb/cloud-dedicated/get-started/query/" keepTab=true >}}
+{{< page-nav prev="/influxdb3/cloud-dedicated/get-started/setup/"
+next="/influxdb3/cloud-dedicated/get-started/query/" keepTab=true >}}

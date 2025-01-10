@@ -4,12 +4,12 @@ description: >
   The `influxctl database create` command creates a new database in an InfluxDB
   Cloud Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl database
 weight: 301
 related:
-  - /influxdb/cloud-dedicated/admin/custom-partitions/define-custom-partitions/
-  - /influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/
+  - /influxdb3/cloud-dedicated/admin/custom-partitions/define-custom-partitions/
+  - /influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/
 ---
 
 The `influxctl database create` command creates a new database with a specified
@@ -55,10 +55,10 @@ The retention period value cannot be negative or contain whitespace.
 You can override the default partition template (`%Y-%m-%d`) of the database
 with the `--template-tag`, `--template-tag-bucket`, and `--template-timeformat`
 flags when you create the database.
-Provide a time format using [Rust strftime](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates), partition by specific tag, or partition tag values
+Provide a time format using [Rust strftime](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates), partition by specific tag, or partition tag values
 into a specified number of "buckets."
 Each of these can be used as part of the partition template.
-Be sure to follow [partitioning best practices](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/).
+Be sure to follow [partitioning best practices](/influxdb3/cloud-dedicated/admin/custom-partitions/best-practices/).
 
 {{% note %}}
 #### Always provide a time format when using custom partitioning
@@ -102,16 +102,16 @@ influxctl database create [flags] <DATABASE_NAME>
 
 | Flag |                         | Description                                                                                                                              |
 | :--- | :---------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
-|      | `--retention-period`    | [Database retention period ](/influxdb/cloud-dedicated/admin/databases/#retention-periods)(default is `0s`, infinite)                                                                                    |
-|      | `--max-tables`          | [Maximum tables per database](/influxdb/cloud-dedicated/admin/databases/#table-limit) (default is 500, `0` uses default)                                                                             |
-|      | `--max-columns`         | [Maximum columns per table](/influxdb/cloud-dedicated/admin/databases/#column-limit) (default is 250, `0` uses default)                                                                               |
+|      | `--retention-period`    | [Database retention period ](/influxdb3/cloud-dedicated/admin/databases/#retention-periods)(default is `0s`, infinite)                                                                                    |
+|      | `--max-tables`          | [Maximum tables per database](/influxdb3/cloud-dedicated/admin/databases/#table-limit) (default is 500, `0` uses default)                                                                             |
+|      | `--max-columns`         | [Maximum columns per table](/influxdb3/cloud-dedicated/admin/databases/#column-limit) (default is 250, `0` uses default)                                                                               |
 |      | `--template-tag`        | Tag to add to partition template (can include multiple of this flag)                                                                     |
 |      | `--template-tag-bucket` | Tag and number of buckets to partition tag values into separated by a comma--for example: `tag1,100` (can include multiple of this flag) |
 |      | `--template-timeformat` | Timestamp format for partition template (default is `%Y-%m-%d`)                                                                          |
 | `-h` | `--help`                | Output command help                                                                                                                      |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}
 
 ## Examples
@@ -172,7 +172,7 @@ influxctl database create \
 ```
 
 _For more information about custom partitioning, see
-[Manage data partitioning](/influxdb/cloud-dedicated/admin/custom-partitions/)._
+[Manage data partitioning](/influxdb3/cloud-dedicated/admin/custom-partitions/)._
 
 {{% expand "View command updates" %}}
 

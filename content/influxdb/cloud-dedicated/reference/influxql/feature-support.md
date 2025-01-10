@@ -6,7 +6,7 @@ description: >
   This page provides information about the current implementation status of
   InfluxQL features.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxql-reference
 weight: 220
 

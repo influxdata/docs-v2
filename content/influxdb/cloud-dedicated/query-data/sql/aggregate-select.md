@@ -5,15 +5,15 @@ description: >
   Use aggregate and selector functions to perform aggregate operations on your
   time series data.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Aggregate data
     parent: Query with SQL
     identifier: query-sql-aggregate
 weight: 203
-influxdb/cloud-dedicated/tags: [query, sql]
+influxdb3/cloud-dedicated/tags: [query, sql]
 related:
-  - /influxdb/cloud-dedicated/reference/sql/functions/aggregate/
-  - /influxdb/cloud-dedicated/reference/sql/functions/selector/
+  - /influxdb3/cloud-dedicated/reference/sql/functions/aggregate/
+  - /influxdb3/cloud-dedicated/reference/sql/functions/selector/
 list_code_example: |
   ##### Aggregate fields by groups
   ```sql
@@ -73,7 +73,7 @@ value of `room`.
 Use **aggregate functions** to aggregate values in a specified column for each
 group and return a single row per group containing the aggregate value.
 
-[View aggregate functions](/influxdb/cloud-dedicated/reference/sql/functions/aggregate/)
+[View aggregate functions](/influxdb3/cloud-dedicated/reference/sql/functions/aggregate/)
 
 ##### Basic aggregate query
 
@@ -86,7 +86,7 @@ SELECT AVG(co) from home
 Use **selector functions** to "select" a value from a specified column.
 The available selector functions are designed to work with time series data.
 
-[View selector functions](/influxdb/cloud-dedicated/reference/sql/functions/selector/)
+[View selector functions](/influxdb3/cloud-dedicated/reference/sql/functions/selector/)
 
 Each selector function returns a Rust _struct_ (similar to a JSON object)
 representing a single time and value from the specified column in the each group.
@@ -136,9 +136,9 @@ GROUP BY room
 #### Sample data
 
 The following examples use the sample data written in the
-[Get started writing data guide](/influxdb/cloud-dedicated/get-started/write/).
+[Get started writing data guide](/influxdb3/cloud-dedicated/get-started/write/).
 To run the example queries and return results,
-[write the sample data](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb)
+[write the sample data](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb)
 to your InfluxDB Cloud dedicated database before running the example queries.
 {{% /note %}}
 
@@ -199,7 +199,7 @@ groups:
 
 - In your `SELECT` clause:
 
-  - Use the [`DATE_BIN` function](/influxdb/cloud-dedicated/reference/sql/functions/time-and-date/#date_bin)
+  - Use the [`DATE_BIN` function](/influxdb3/cloud-dedicated/reference/sql/functions/time-and-date/#date_bin)
     to calculate time intervals and output a column that contains the start of the interval nearest to the `time` timestamp in each row--for example,
     the following clause calculates two-hour intervals starting at `1970-01-01T00:00:00Z` and returns a new `time` column that contains the start of the interval
     nearest to `home.time`:
@@ -216,7 +216,7 @@ groups:
     the output `time` column contains
     {{% influxdb/custom-timestamps-span %}}`2023-03-09T12:00:00.000Z`{{% /influxdb/custom-timestamps-span %}}.
 
-  - Use [aggregate](/influxdb/cloud-dedicated/reference/sql/functions/aggregate/) or [selector](/influxdb/cloud-dedicated/reference/sql/functions/selector/) functions on specified columns.
+  - Use [aggregate](/influxdb3/cloud-dedicated/reference/sql/functions/aggregate/) or [selector](/influxdb3/cloud-dedicated/reference/sql/functions/selector/) functions on specified columns.
 
 - In your `GROUP BY` clause:
  

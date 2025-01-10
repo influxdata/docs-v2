@@ -5,7 +5,7 @@ description: >
   data stored in InfluxDB and written to Kafka at regular intervals, continuously
   downsample it, and then write the downsampled data back to InfluxDB.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Use Quix
     parent: Downsample data
     identifier: influxdb-dedicated-downsample-quix
@@ -24,9 +24,9 @@ in [Quix Cloud](https://quix.io/) with a free trial.
 This guide uses [Python](https://www.python.org/) and the
 [InfluxDB v3 Python client library](https://github.com/InfluxCommunity/influxdb3-python),
 but you can use your runtime of choice and any of the available
-[InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/).
+[InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/).
 This guide also assumes you have already
-[setup your Python project and virtual environment](/influxdb/cloud-serverless/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
+[setup your Python project and virtual environment](/influxdb3/cloud-dedicated/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
 
 ## Pipeline architecture
 
@@ -76,7 +76,7 @@ pip install influxdb3-python pandas quixstreams<2.5
 ## Prepare InfluxDB buckets
 
 The downsampling process involves two InfluxDB buckets.
-Each bucket has a [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period)
+Each bucket has a [retention period](/influxdb3/cloud-dedicated/reference/glossary/#retention-period)
 that specifies how long data persists before it expires and is deleted.
 By using two buckets, you can store unmodified, high-resolution data in a bucket
 with a shorter retention period and then downsampled, low-resolution data in a
@@ -88,7 +88,7 @@ Ensure you have a bucket for each of the following:
 - The other to write downsampled data to
 
 For information about creating buckets, see
-[Create a bucket](/influxdb/cloud-serverless/admin/buckets/create-bucket/).
+[Create a bucket](/influxdb3/cloud-dedicated/admin/buckets/create-bucket/).
 
 ## Create the downsampling logic
 
@@ -159,7 +159,7 @@ Use the `influxdb_client_3` and `quixstreams` modules to  instantiate two client
 
 Provide the following credentials for the producer:
 
-- **host**: [{{< product-name >}} region URL](/influxdb/cloud-serverless/reference/regions)
+- **host**: [{{< product-name >}} region URL](/influxdb3/cloud-dedicated/reference/regions)
   _(without the protocol)_
 - **org**: InfluxDB organization name
 - **token**: InfluxDB API token with read and write permissions on the buckets you
@@ -252,7 +252,7 @@ You can find the full code for this process in the
 
 As before, provide the following credentials for the consumer:
 
-- **host**: [{{< product-name >}} region URL](/influxdb/cloud-serverless/reference/regions)
+- **host**: [{{< product-name >}} region URL](/influxdb3/cloud-dedicated/reference/regions)
   _(without the protocol)_
 - **org**: InfluxDB organization name
 - **token**: InfluxDB API token with read and write permissions on the buckets you

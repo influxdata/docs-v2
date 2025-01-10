@@ -4,7 +4,7 @@ description: >
   The `influxctl database list` command lists all databases in an InfluxDB Cloud
   Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl database
 weight: 301
 ---
@@ -30,5 +30,5 @@ influxctl database list [--format=table|json]
 | `-h` | `--help`   | Output command help                           |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}

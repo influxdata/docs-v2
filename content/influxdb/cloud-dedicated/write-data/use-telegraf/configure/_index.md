@@ -8,17 +8,17 @@ description: >
   output plugin to write to InfluxDB.
   Start Telegraf using the custom configuration.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Configure Telegraf
     parent: Use Telegraf
 weight: 101
-influxdb/cloud-dedicated/tags: [telegraf]
+influxdb3/cloud-dedicated/tags: [telegraf]
 related:
   - /telegraf/v1/plugins/
 alt_links:
   cloud: /influxdb/cloud/write-data/no-code/use-telegraf/manual-config/
 aliases:
-  - /influxdb/cloud-dedicated/write-data/use-telegraf/manual-config/
+  - /influxdb3/cloud-dedicated/write-data/use-telegraf/manual-config/
 ---
 
 Use the Telegraf `influxdb_v2` output plugin to collect and write metrics to
@@ -28,7 +28,7 @@ existing Telegraf configurations,
 and then start Telegraf using the custom configuration file.
 
 {{% note %}}
-_View the [requirements](/influxdb/cloud-dedicated/write-data/use-telegraf#requirements)
+_View the [requirements](/influxdb3/cloud-dedicated/write-data/use-telegraf#requirements)
 for using Telegraf with {{< product-name >}}._
 {{% /note %}}
 
@@ -51,8 +51,8 @@ Configure Telegraf input and output plugins in the Telegraf configuration file (
 Input plugins collect metrics.
 Output plugins define destinations where metrics are sent.
 
-This guide assumes you followed [Setup instructions](/influxdb/cloud-dedicated/get-started/setup/) in the Get Started tutorial
-to set up InfluxDB and [configure authentication credentials](/influxdb/cloud-dedicated/get-started/setup/?t=Telegraf).
+This guide assumes you followed [Setup instructions](/influxdb3/cloud-dedicated/get-started/setup/) in the Get Started tutorial
+to set up InfluxDB and [configure authentication credentials](/influxdb3/cloud-dedicated/get-started/setup/?t=Telegraf).
 
 ### Add Telegraf plugins
 
@@ -85,7 +85,7 @@ in the `telegraf.conf`.
 
 Replace the following:
 
-- **`DATABASE_NAME`**: the name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
+- **`DATABASE_NAME`**: the name of the InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) to write data to
 
 The InfluxDB output plugin configuration contains the following options:
 
@@ -100,11 +100,11 @@ To write to {{% product-name %}}, include your {{% product-name omit=" Clustered
 
 ##### `token`
 
-Your {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+Your {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
 with _write_ permission to the database.
 
 In the examples, **`INFLUX_TOKEN`** is an environment variable assigned to a
-[database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) that
+[database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) that
 has _write_ permission to the database.
 
 ##### `organization`

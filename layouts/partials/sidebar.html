@@ -11,11 +11,11 @@
 {{ else if eq $product "resources" }}
   {{ .Scratch.Set "menuKey" "resources" }}
 {{ else if in $currentVersion "serverless" }}
-  {{ .Scratch.Set "menuKey" "influxdb_cloud_serverless" }}
+  {{ .Scratch.Set "menuKey" "influxdb3_cloud_serverless" }}
 {{ else if in $currentVersion "dedicated" }}
-  {{ .Scratch.Set "menuKey" "influxdb_cloud_dedicated" }}
+  {{ .Scratch.Set "menuKey" "influxdb3_cloud_dedicated" }}
 {{ else if eq $currentVersion "clustered" }}
-  {{ .Scratch.Set "menuKey" "influxdb_clustered" }}
+  {{ .Scratch.Set "menuKey" "influxdb3_clustered" }}
 {{ else }}
   {{ .Scratch.Set "menuKey" (print $product "_" $currentVersion) }}
 {{ end }}

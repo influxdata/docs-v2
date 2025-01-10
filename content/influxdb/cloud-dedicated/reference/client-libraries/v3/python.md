@@ -3,17 +3,17 @@ title: Python client library for InfluxDB v3
 list_title: Python
 description: The InfluxDB v3 `influxdb3-python` Python client library integrates with Python scripts and applications to write and query data stored in an InfluxDB Cloud Dedicated database.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Python
     parent: v3 client libraries
     identifier: influxdb3-python
-influxdb/cloud-dedicated/tags: [Flight API, python, gRPC, SQL, client libraries]
+influxdb3/cloud-dedicated/tags: [Flight API, python, gRPC, SQL, client libraries]
 metadata: [influxdb3-python v0.10.0]
 weight: 201
 aliases:
-  - /influxdb/cloud-dedicated/reference/client-libraries/v3/pyinflux3/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/v3/pyinflux3/
 related:
-  - /influxdb/cloud-dedicated/query-data/execute-queries/troubleshoot/
+  - /influxdb3/cloud-dedicated/query-data/execute-queries/troubleshoot/
 list_code_example: |
 
   <!--Hide setup
@@ -62,7 +62,7 @@ in a convenient InfluxDB v3 interface for executing SQL and InfluxQL queries, re
 server metadata, and retrieving data from {{% product-name %}} using the Flight protocol with gRPC.
 
 {{% note %}}
-Code samples in this page use the [Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+Code samples in this page use the [Get started home sensor sample data](/influxdb3/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
 {{% /note %}}
 
 - [Installation](#installation)
@@ -197,9 +197,9 @@ client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with read/write permissions on the specified database
 
 To explicitly specify synchronous mode, create a client with `write_options=SYNCHRONOUS`--for example:
@@ -229,9 +229,9 @@ client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with write permissions on the specified database
 
 #### Batch writing
@@ -311,9 +311,9 @@ with InfluxDBClient3(host=f"{{< influxdb/host >}}",
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with write permissions on the specified database
 
 ### InfluxDBClient3 instance methods
@@ -328,7 +328,7 @@ Writes a record or a list of records to InfluxDB.
 - **`database`** (string): The database to write to. Default is to write to the database specified for the client.
 - **`**kwargs`\*\*: Additional write options--for example:
   - **`write_precision`** (string): _Optional_. Default is `"ns"`.
-    Specifies the [precision](/influxdb/cloud-dedicated/reference/glossary/#precision) (`"ms"`, `"s"`, `"us"`, `"ns"`) for timestamps in `record`.
+    Specifies the [precision](/influxdb3/cloud-dedicated/reference/glossary/#precision) (`"ms"`, `"s"`, `"us"`, `"ns"`) for timestamps in `record`.
   - **`write_client_options`** (dict): _Optional_.
     Specifies callback functions and options for [batch writing](#batch-writing) mode.
     To generate the `dict`, use the [`write_client_options` function](#function-write_client_optionskwargs).
@@ -377,9 +377,9 @@ assert f"{room}" == 'Living Room', f"Expected {room} to be Living Room"
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with write permissions on the specified database
 
 #### Example: write data using points
@@ -427,9 +427,9 @@ assert 21.5 in df['val'].values, f"Expected value in {df['val']}"
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with write permissions on the specified database
 
 ##### Example: write data using a dict
@@ -441,7 +441,7 @@ following _point_ attributes:
 - **measurement** (string): the measurement name
 - **tags** (dict): a dictionary of tag key-value pairs
 - **fields** (dict): a dictionary of field key-value pairs
-- **time**: the [timestamp](/influxdb/cloud-dedicated/reference/glossary/#timestamp) for the record
+- **time**: the [timestamp](/influxdb3/cloud-dedicated/reference/glossary/#timestamp) for the record
 
 The following example shows how to define a `dict` that represents a point, and then write the
 data to InfluxDB.
@@ -479,9 +479,9 @@ client.write(record=points, write_precision="s")
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with write permissions on the specified database
 
 ### InfluxDBClient3.write_file
@@ -512,7 +512,7 @@ Execution is synchronous.
 - **`file_parser_options`** (callable): A function for providing additional arguments to the file parser.
 - **`**kwargs`**: Additional options to pass to the `WriteAPI`--for example:
   - **`write_precision`** (string): _Optional_. Default is `"ns"`.
-    Specifies the [precision](/influxdb/cloud-dedicated/reference/glossary/#precision) (`"ms"`, `"s"`, `"us"`, `"ns"`) for timestamps in `record`.
+    Specifies the [precision](/influxdb3/cloud-dedicated/reference/glossary/#precision) (`"ms"`, `"s"`, `"us"`, `"ns"`) for timestamps in `record`.
   - **`write_client_options`** (dict): _Optional_.
     Specifies callback functions and options for [batch writing](#batch-writing) mode.
     To generate the `dict`, use the [`write_client_options` function](#function-write_client_optionskwargs).
@@ -598,9 +598,9 @@ with InfluxDBClient3(host=f"{{< influxdb/host >}}",
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with write permissions on the specified database
 
 ### InfluxDBClient3.query
@@ -653,9 +653,9 @@ print(table.group_by('hum').aggregate([]))
 
 In the examples, replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with read permission on the specified database
 
 #### Example: query using InfluxQL
@@ -962,9 +962,9 @@ client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+  the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with read permission on the specified database
 
 ## Constants

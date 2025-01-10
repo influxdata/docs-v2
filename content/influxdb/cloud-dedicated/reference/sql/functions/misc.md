@@ -4,7 +4,7 @@ list_title: Miscellaneous functions
 description: >
   Use miscellaneous SQL functions to perform a variety of operations in SQL queries.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Miscellaneous
     parent: sql-functions
 weight: 310

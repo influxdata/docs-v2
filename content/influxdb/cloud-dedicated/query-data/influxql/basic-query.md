@@ -5,12 +5,12 @@ description: >
   A basic InfluxQL query that queries data from InfluxDB most commonly includes
   `SELECT`, `FROM`, and `WHERE` clauses.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Basic query
     parent: Query with InfluxQL
     identifier: query-influxql-basic
 weight: 202
-influxdb/cloud-dedicated/tags: [query, influxql]
+influxdb3/cloud-dedicated/tags: [query, influxql]
 list_code_example: |
   ```sql
   SELECT temp, room FROM home WHERE time >= now() - 1d
@@ -26,22 +26,22 @@ following clauses:
 {{< req type="key" >}}
 
 - {{< req "\*">}} `SELECT`: Specify fields, tags, and calculations to return
-  from a [table](/influxdb/cloud-dedicated/reference/glossary/#table) or use the
+  from a [table](/influxdb3/cloud-dedicated/reference/glossary/#table) or use the
   wildcard alias (`*`) to select all fields and tags from a table. It requires
   at least one
-  [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key) or the
+  [field key](/influxdb3/cloud-dedicated/reference/glossary/#field-key) or the
   wildcard alias (`*`). For more information, see
-  [Notable SELECT statement behaviors](/influxdb/cloud-dedicated/reference/influxql/select/#notable-select-statement-behaviors).
+  [Notable SELECT statement behaviors](/influxdb3/cloud-dedicated/reference/influxql/select/#notable-select-statement-behaviors).
 - {{< req "\*">}} `FROM`: Specify the
-  [table](/influxdb/cloud-dedicated/reference/glossary/#table) to query from.
+  [table](/influxdb3/cloud-dedicated/reference/glossary/#table) to query from.
     <!-- vale InfluxDataDocs.v3Schema = NO -->
   It requires one or more comma-delimited
-  [measurement expressions](/influxdb/cloud-dedicated/reference/influxql/select/#measurement_expression).
+  [measurement expressions](/influxdb3/cloud-dedicated/reference/influxql/select/#measurement_expression).
     <!-- vale InfluxDataDocs.v3Schema = YES -->
 - `WHERE`: Filter data based on
-  [field values](/influxdb/cloud-dedicated/reference/glossary/#field),
-  [tag values](/influxdb/cloud-dedicated/reference/glossary/#tag), or
-  [timestamps](/influxdb/cloud-dedicated/reference/glossary/#timestamp). Only
+  [field values](/influxdb3/cloud-dedicated/reference/glossary/#field),
+  [tag values](/influxdb3/cloud-dedicated/reference/glossary/#tag), or
+  [timestamps](/influxdb3/cloud-dedicated/reference/glossary/#timestamp). Only
   return data that meets the specified conditions--for example, falls within a
   time range, contains specific tag values, or contains a field value outside a
   specified range.
@@ -71,7 +71,7 @@ includes the following:
 - Columns listed in the query's `SELECT` clause
 - A `time` column that contains the timestamp for the record or the group
 - An `iox::measurement` column that contains the record's
-  [table](/influxdb/cloud-dedicated/reference/glossary/#table) name
+  [table](/influxdb3/cloud-dedicated/reference/glossary/#table) name
 - Columns listed in the query's `GROUP BY` clause; each row in the result set
   contains the values used for grouping
 
@@ -79,7 +79,7 @@ includes the following:
 
 If a query uses `GROUP BY` and the `WHERE` clause doesn't filter by time, then
 groups are based on the
-[default time range](/influxdb/cloud-dedicated/reference/influxql/group-by/#default-time-range).
+[default time range](/influxdb3/cloud-dedicated/reference/influxql/group-by/#default-time-range).
 
 ## Basic query examples
 
@@ -95,9 +95,9 @@ groups are based on the
 #### Sample data
 
 The following examples use the
-[Get started home sensor data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+[Get started home sensor data](/influxdb3/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
 To run the example queries and return results,
-[write the sample data](/influxdb/cloud-dedicated/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
+[write the sample data](/influxdb3/cloud-dedicated/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
 to your {{% product-name %}} database before running the example queries.
 {{% /note %}}
 
@@ -106,7 +106,7 @@ to your {{% product-name %}} database before running the example queries.
 - Use the `SELECT` clause to specify what tags and fields to return.
   Specify at least one field key.
   To return all tags and fields, use the wildcard alias (`*`).
-- Specify the [table](/influxdb/cloud-dedicated/reference/glossary/#table) to
+- Specify the [table](/influxdb3/cloud-dedicated/reference/glossary/#table) to
   query in the `FROM` clause.
 - Specify time boundaries in the `WHERE` clause. Include time-based predicates
   that compare the value of the `time` column to a timestamp.
@@ -207,7 +207,7 @@ SELECT time, room, temp, hum FROM home
   base conditions on.
 - In the `WHERE` clause, include predicates that compare the tag identifier to a
   string literal. Use
-  [logical operators](/influxdb/cloud-dedicated/reference/influxql/where/#logical-operators)
+  [logical operators](/influxdb3/cloud-dedicated/reference/influxql/where/#logical-operators)
   to chain multiple predicates together and apply multiple conditions.
 
 ```sql
@@ -220,7 +220,7 @@ SELECT * FROM home WHERE room = 'Kitchen'
 - In the `WHERE` clause, include predicates that compare the field identifier to
   a value or expression.
   Use
-  [logical operators](/influxdb/cloud-dedicated/reference/influxql/where/#logical-operators)
+  [logical operators](/influxdb3/cloud-dedicated/reference/influxql/where/#logical-operators)
   (`AND`, `OR`) to chain multiple predicates together and apply multiple
   conditions.
 
@@ -241,7 +241,7 @@ SELECT temp AS temperature, hum AS "humidity (%)" FROM home
 
 {{% note %}}
 When aliasing columns in **InfluxQL**, use the `AS` clause and an
-[identifier](/influxdb/cloud-dedicated/reference/influxql/#identifiers). When
-[aliasing columns in **SQL**](/influxdb/cloud-dedicated/query-data/sql/basic-query/#alias-queried-fields-and-tags),
+[identifier](/influxdb3/cloud-dedicated/reference/influxql/#identifiers). When
+[aliasing columns in **SQL**](/influxdb3/cloud-dedicated/query-data/sql/basic-query/#alias-queried-fields-and-tags),
 you can use the `AS` clause to define the alias, but it isn't necessary.
 {{% /note %}}

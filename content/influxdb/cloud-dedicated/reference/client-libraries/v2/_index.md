@@ -5,10 +5,10 @@ description: >
   View the list of available client libraries.
 weight: 101
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: v2 client libraries
     parent: Client libraries
-influxdb/cloud-dedicated/tags: [client libraries, API, developer tools]
+influxdb3/cloud-dedicated/tags: [client libraries, API, developer tools]
 prepend:
   block: warn
   content: |
@@ -16,10 +16,10 @@ prepend:
 
     The `/api/v2/query` API endpoint and associated tooling, such as InfluxDB v2 client libraries and the `influx` CLI, **can't** query an {{% product-name omit=" Clustered" %}} cluster.
 
-    [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) and [Flight SQL clients](/influxdb/cloud-dedicated/reference/client-libraries/) are available that integrate with your code to write and query data stored in {{% product-name %}}.
+    [InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) and [Flight SQL clients](/influxdb3/cloud-dedicated/reference/client-libraries/) are available that integrate with your code to write and query data stored in {{% product-name %}}.
 
-    InfluxDB v3 supports many different tools for [**writing**](/influxdb/cloud-dedicated/write-data/) and [**querying**](/influxdb/cloud-dedicated/query-data/) data.
-    [**Compare tools you can use**](/influxdb/cloud-dedicated/get-started/#tools-to-use) to interact with {{% product-name %}}.
+    InfluxDB v3 supports many different tools for [**writing**](/influxdb3/cloud-dedicated/write-data/) and [**querying**](/influxdb3/cloud-dedicated/query-data/) data.
+    [**Compare tools you can use**](/influxdb3/cloud-dedicated/get-started/#tools-to-use) to interact with {{% product-name %}}.
 ---
 
 ## Client libraries for InfluxDB 2.x and 1.8+

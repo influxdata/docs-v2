@@ -4,9 +4,9 @@ description: >
   Terms related to InfluxData products and platforms.
 weight: 109
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Reference
-influxdb/cloud-dedicated/tags: [glossary]
+influxdb3/cloud-dedicated/tags: [glossary]
 ---
 
 [A](#a) | [B](#b) | [C](#c) | [D](#d) | [E](#e) | [F](#f) | [G](#g) | [H](#h) | [I](#i) | [J](#j) | [K](#k) | [L](#l) | [M](#m) | [N](#n) | [O](#o) | [P](#p) | [Q](#q) | [R](#r) | [S](#s) | [T](#t) | [U](#u) | [V](#v) | [W](#w) | <span style="opacity:.35;font-weight:500">X</span> | <span style="opacity:.35;font-weight:500">Y</span> | <span style="opacity:.35;font-weight:500">Z</span>
@@ -47,7 +47,7 @@ Related entries:
 
 A function that returns an aggregated value across a set of points.
 For a list of available aggregation functions,
-see [SQL aggregate functions](/influxdb/cloud-dedicated/reference/sql/functions/aggregate/).
+see [SQL aggregate functions](/influxdb3/cloud-dedicated/reference/sql/functions/aggregate/).
 
 <!-- TODO: Add a link to InfluxQL aggregate functions -->
 
@@ -202,7 +202,7 @@ A data model organizes elements of data and standardizes how they relate to one
 another and to properties of the real world entities.
 
 For information about the InfluxDB data model, see
-[InfluxDB data organization](/influxdb/cloud-dedicated/get-started/#data-organization)
+[InfluxDB data organization](/influxdb3/cloud-dedicated/get-started/#data-organization)
 
 ### data service
 
@@ -371,7 +371,7 @@ Related entries:
 A function is an operation that performs a specific task.
 Functions take input, operate on that input, and then return output.
 For a complete list of available SQL functions, see
-[SQL functions](/influxdb/cloud-dedicated/reference/sql/functions/).
+[SQL functions](/influxdb3/cloud-dedicated/reference/sql/functions/).
 
 <!-- TODO: Add a link to InfluxQL aggregate functions -->
 
@@ -413,8 +413,8 @@ Related entries:
 
 ### influxctl
 
-[`influxctl`](/influxdb/cloud-dedicated/reference/cli/influxctl/) is a CLI that
-performs [administrative tasks](/influxdb/cloud-dedicated/admin/) for an
+[`influxctl`](/influxdb3/cloud-dedicated/reference/cli/influxctl/) is a CLI that
+performs [administrative tasks](/influxdb3/cloud-dedicated/admin/) for an
 InfluxDB Cloud dedicated cluster.
 
 ### influxd
@@ -499,8 +499,8 @@ you can't use `SELECT` (an SQL keyword) as a variable name in an SQL query.
 
 See keyword lists:
 
-- [SQL keywords](/influxdb/cloud-dedicated/reference/sql/#keywords)
-- [InfluxQL keywords](/influxdb/cloud-dedicated/reference/influxql/#keywords)
+- [SQL keywords](/influxdb3/cloud-dedicated/reference/sql/#keywords)
+- [InfluxQL keywords](/influxdb3/cloud-dedicated/reference/influxql/#keywords)
 
 ## L
 
@@ -530,7 +530,7 @@ database crashes or other errors occur.
 ### line protocol (LP)
 
 The text based format for writing points to InfluxDB.
-See [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/).
+See [line protocol](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/).
 
 ## M
 
@@ -715,7 +715,7 @@ A simple text-based format for exposing metrics and ingesting them into Promethe
 A request for information.
 An InfluxDB query returns time series data.
 
-See [Query data in InfluxDB](/influxdb/cloud-dedicated/query-data/).
+See [Query data in InfluxDB](/influxdb3/cloud-dedicated/query-data/).
 
 ### query plan
 
@@ -724,7 +724,7 @@ A _logical plan_ is a high level representation of a query and doesn't consider 
 A _physical plan_ represents the query execution plan and data flow through plan nodes that read (_scan_), deduplicate, merge, filter, and sort data.
 A physical plan is optimized for the cluster configuration and data organization.
 
-See [Query plans](/influxdb/cloud-dedicated/reference/internals/query-plans/).
+See [Query plans](/influxdb3/cloud-dedicated/reference/internals/query-plans/).
 
 ## R
 
@@ -828,7 +828,7 @@ to, such as API keys, passwords, or certificates.
 ### selector
 
 A function that returns a single point from the range of specified points.
-See [SQL selector functions](/influxdb/cloud-dedicated/reference/sql/functions/selector/)
+See [SQL selector functions](/influxdb3/cloud-dedicated/reference/sql/functions/selector/)
 for a complete list of available SQL selector functions.
 
 Related entries:
@@ -995,7 +995,7 @@ A plugin-driven agent that collects, processes, aggregates, and writes metrics.
 
 Related entries:
 [Telegraf plugins](/telegraf/v1/plugins/),
-[Use Telegraf to collect data](/influxdb/cloud-dedicated/write-data/use-telegraf/),
+[Use Telegraf to collect data](/influxdb3/cloud-dedicated/write-data/use-telegraf/),
 
 ### time (data type)
 
@@ -1017,7 +1017,7 @@ The date and time associated with a point.
 Time in InfluxDB is in UTC.
 
 To specify time when writing data, see
-[Elements of line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#elements-of-line-protocol).
+[Elements of line protocol](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/#elements-of-line-protocol).
 
 Related entries:
 [point](#point),
@@ -1034,13 +1034,13 @@ There are different types of API tokens:
   access to your InfluxDB Cloud Dedicated cluster.
 
 Related entries:
-[Manage token](/influxdb/cloud-dedicated/admin/tokens/)
+[Manage token](/influxdb3/cloud-dedicated/admin/tokens/)
 
 ### transformation
 
 Data transformation refers to the process of converting or modifying input data from one format, value, or structure to another.
 
-InfluxQL [transformation functions](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/) modify and return values in each row of queried data, but do not return an aggregated value across those rows.
+InfluxQL [transformation functions](/influxdb3/cloud-dedicated/reference/influxql/functions/transformations/) modify and return values in each row of queried data, but do not return an aggregated value across those rows.
 
 Related entries: [aggregate](#aggregate), [function](#function), [selector](#selector)
 
@@ -1072,7 +1072,7 @@ The Unix epoch is `1970-01-01T00:00:00Z`.
 ### unix timestamp
 
 Counts time since **Unix Epoch (1970-01-01T00:00:00Z UTC)** in specified units ([precision](#precision)).
-Specify timestamp precision when [writing data to InfluxDB](/influxdb/cloud-dedicated/write-data/).
+Specify timestamp precision when [writing data to InfluxDB](/influxdb3/cloud-dedicated/write-data/).
 InfluxDB supports the following unix timestamp precisions:
 
 | Precision | Description  | Example               |

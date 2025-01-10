@@ -6,15 +6,15 @@ description: >
   stored in InfluxDB.
 weight: 201
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Use Grafana
     parent: Visualize data
-influxdb/cloud-dedicated/tags: [Flight client, query, visualization]
+influxdb3/cloud-dedicated/tags: [Flight client, query, visualization]
 aliases:
-  - /influxdb/cloud-dedicated/query-data/tools/grafana/
-  - /influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/
-  - /influxdb/cloud-dedicated/query-data/influxql/execute-queries/grafana
-  - /influxdb/cloud-dedicated/process-data/tools/grafana/
+  - /influxdb3/cloud-dedicated/query-data/tools/grafana/
+  - /influxdb3/cloud-dedicated/query-data/sql/execute-queries/grafana/
+  - /influxdb3/cloud-dedicated/query-data/influxql/execute-queries/grafana
+  - /influxdb3/cloud-dedicated/process-data/tools/grafana/
 alt_links:
   oss: /influxdb/v2/tools/grafana/
   cloud: /influxdb/cloud/tools/grafana/
@@ -92,12 +92,12 @@ When creating an InfluxDB data source that uses SQL to query data:
 2.  Under **InfluxDB Details**:
 
     - **Database**: Provide a default database name to query.
-    - **Token**: Provide a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+    - **Token**: Provide a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
       with read access to the databases you want to query.
 
 3.  Click **Save & test**.
 
-    {{< img-hd src="/img/influxdb/cloud-dedicated-grafana-influxdb-data-source-sql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Serverless that uses SQL" />}}
+    {{< img-hd src="/img/influxdb3/cloud-dedicated-grafana-influxdb-data-source-sql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Serverless that uses SQL" />}}
 
 <!---------------------------------- END SQL ---------------------------------->
 {{% /tab-content %}}
@@ -120,7 +120,7 @@ When creating an InfluxDB data source that uses InfluxQL to query data:
     - **Database**: Provide a default database name to query.
     - **User**: Provide an arbitrary string.
       _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
-    - **Password**: Provide a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+    - **Password**: Provide a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
       with read access to the databases you want to query.
     - **HTTP Method**: Choose one of the available HTTP request methods to use when querying data:
 
@@ -129,7 +129,7 @@ When creating an InfluxDB data source that uses InfluxQL to query data:
 
 3.  Click **Save & test**.
 
-    {{< img-hd src="/img/influxdb/cloud-dedicated-grafana-influxdb-data-source-influxql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Serverless using InfluxQL" />}}
+    {{< img-hd src="/img/influxdb3/cloud-dedicated-grafana-influxdb-data-source-influxql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Serverless using InfluxQL" />}}
 
 <!-------------------------------- END INFLUXQL ------------------------------->
 {{% /tab-content %}}
@@ -150,7 +150,7 @@ use Grafana to build, run, and inspect queries against your InfluxDB database.
 
 {{% note %}}
 {{% sql/sql-schema-intro %}}
-To learn more, see [Query Data](/influxdb/cloud-dedicated/query-data/sql/).
+To learn more, see [Query Data](/influxdb3/cloud-dedicated/query-data/sql/).
 {{% /note %}}
 
 1. Click **Explore**.

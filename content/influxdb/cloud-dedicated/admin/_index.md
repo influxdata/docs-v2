@@ -4,7 +4,7 @@ description: >
   Perform administrative tasks in your InfluxDB Cloud Dedicated cluster such as
   creating and managing tokens and databases.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Administer InfluxDB Cloud
 weight: 6
 ---

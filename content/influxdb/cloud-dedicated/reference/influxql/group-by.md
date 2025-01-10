@@ -2,9 +2,9 @@
 title: GROUP BY clause
 description: >
   Use the `GROUP BY` clause to group data by one or more specified
-  [tags](/influxdb/cloud-dedicated/reference/glossary/#tag) or into specified time intervals.
+  [tags](/influxdb3/cloud-dedicated/reference/glossary/#tag) or into specified time intervals.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: GROUP BY clause
     identifier: influxql-group-by
     parent: influxql-reference

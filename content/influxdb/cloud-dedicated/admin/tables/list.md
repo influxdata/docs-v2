@@ -1,11 +1,11 @@
 ---
 title: List tables
 description: >
-  Use the [`SHOW TABLES` SQL statement](/influxdb/cloud-dedicated/query-data/sql/explore-schema/#list-measurements-in-a-database)
-  or the [`SHOW MEASUREMENTS` InfluxQL statement](/influxdb/cloud-dedicated/query-data/influxql/explore-schema/#list-measurements-in-a-database)
+  Use the [`SHOW TABLES` SQL statement](/influxdb3/cloud-dedicated/query-data/sql/explore-schema/#list-measurements-in-a-database)
+  or the [`SHOW MEASUREMENTS` InfluxQL statement](/influxdb3/cloud-dedicated/query-data/influxql/explore-schema/#list-measurements-in-a-database)
   to list tables in a database.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Manage tables
 weight: 201
 list_code_example: |
@@ -21,12 +21,12 @@ list_code_example: |
   SHOW MEASUREMENTS
   ```
 related:
-  - /influxdb/cloud-dedicated/query-data/sql/explore-schema/
-  - /influxdb/cloud-dedicated/query-data/influxql/explore-schema/
+  - /influxdb3/cloud-dedicated/query-data/sql/explore-schema/
+  - /influxdb3/cloud-dedicated/query-data/influxql/explore-schema/
 ---
 
-Use the [`SHOW TABLES` SQL statement](/influxdb/cloud-dedicated/query-data/sql/explore-schema/#list-measurements-in-a-database)
-or the [`SHOW MEASUREMENTS` InfluxQL statement](/influxdb/cloud-dedicated/query-data/influxql/explore-schema/#list-measurements-in-a-database)
+Use the [`SHOW TABLES` SQL statement](/influxdb3/cloud-dedicated/query-data/sql/explore-schema/#list-measurements-in-a-database)
+or the [`SHOW MEASUREMENTS` InfluxQL statement](/influxdb3/cloud-dedicated/query-data/influxql/explore-schema/#list-measurements-in-a-database)
 to list tables in a database.
 
 {{% note %}}
@@ -56,12 +56,12 @@ The `influxctl query` command only supports SQL queries; not InfluxQL.
 
 Provide the following with your command:
 
-- **Database token**: [Database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+- **Database token**: [Database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with read permissions on the queried database. Uses the `token` setting from
-  the [`influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
+  the [`influxctl` connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
   or the `--token` command flag.
 - **Database name**: Name of the database to query. Uses the `database` setting
-  from the [`influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
+  from the [`influxctl` connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
   or the `--database` command flag.
 - **SQL query**: SQL query with the `SHOW TABLES` statement.
 

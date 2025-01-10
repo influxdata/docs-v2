@@ -6,11 +6,11 @@ description: >
   Database tokens grant read and write permissions to one or more databases and
   allow for actions like writing and querying data.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Manage tokens
     name: Database tokens
 weight: 101
-influxdb/cloud-dedicated/tags: [tokens]
+influxdb3/cloud-dedicated/tags: [tokens]
 ---
 
 {{< product-name >}} database tokens grant read and write permissions to one or

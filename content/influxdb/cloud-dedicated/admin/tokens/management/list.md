@@ -1,26 +1,26 @@
 ---
 title: List management tokens
 description: >
-  Use the [`influxctl management list` command](/influxdb/cloud-dedicated/reference/cli/influxctl/management/list/)
+  Use the [`influxctl management list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/management/list/)
   to list manually-created management tokens.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Management tokens
 weight: 201
-influxdb/cloud-dedicated/tags: [tokens]
+influxdb3/cloud-dedicated/tags: [tokens]
 related:
-  - /influxdb/cloud-dedicated/admin/tokens/management/#use-a-management-token, Use a management token
-  - /influxdb/cloud-dedicated/reference/cli/influxctl/management/list/
+  - /influxdb3/cloud-dedicated/admin/tokens/management/#use-a-management-token, Use a management token
+  - /influxdb3/cloud-dedicated/reference/cli/influxctl/management/list/
 list_code_example: |
   ```sh
   influxctl management list --format json
   ```
 ---
 
-Use the [`influxctl management list` command](/influxdb/cloud-dedicated/reference/cli/influxctl/management/list)
+Use the [`influxctl management list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/management/list)
 to list manually-created management tokens.
 
-1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
+1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 2.  Run `influxctl management list` with the following:
 
     - _Optional_: [Output format](#output-formats)

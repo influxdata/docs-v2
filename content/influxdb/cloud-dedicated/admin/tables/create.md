@@ -1,11 +1,11 @@
 ---
 title: Create a table
 description: >
-  Use the [`influxctl table create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/table/create/)
+  Use the [`influxctl table create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/create/)
   to create a new table in a specified database your InfluxDB cluster.
   Provide the database name and a table name.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Manage tables
 weight: 201
 list_code_example: |
@@ -13,28 +13,28 @@ list_code_example: |
   influxctl table create <DATABASE_NAME> <TABLE_NAME>
   ```
 related:
-  - /influxdb/cloud-dedicated/reference/cli/influxctl/table/create/
-  - /influxdb/cloud-dedicated/admin/custom-partitions/
+  - /influxdb3/cloud-dedicated/reference/cli/influxctl/table/create/
+  - /influxdb3/cloud-dedicated/admin/custom-partitions/
 ---
 
-Use the [`influxctl table create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/table/create/)
+Use the [`influxctl table create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/create/)
 to create a table in a specified database in your
 {{< product-name omit=" Clustered" >}} cluster.
 
 With {{< product-name >}}, tables and measurements are synonymous.
 Typically, tables are created automatically on write using the measurement name
 specified in line protocol written to InfluxDB.
-However, to apply a [custom partition template](/influxdb/cloud-dedicated/admin/custom-partitions/)
+However, to apply a [custom partition template](/influxdb3/cloud-dedicated/admin/custom-partitions/)
 to a table, you must manually create the table before you write any data to it.
 
-1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
+1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 2.  Run the `influxctl table create` command and provide the following:
 
-    - _Optional_: [InfluxDB tags](/influxdb/cloud-dedicated/reference/glossary/#tag)
+    - _Optional_: [InfluxDB tags](/influxdb3/cloud-dedicated/reference/glossary/#tag)
       to use in the partition template
-    - _Optional_: [InfluxDB tag buckets](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
+    - _Optional_: [InfluxDB tag buckets](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
       to use in the partition template
-    - _Optional_: A supported [Rust strftime date and time string](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
+    - _Optional_: A supported [Rust strftime date and time string](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
       that specifies the time format in the partition template and determines
       the time interval to partition by _(default is `%Y-%m-%d`)_
     - The name of the database to create the table in
@@ -69,7 +69,7 @@ Use the `--template-tag`, `--template-tag-bucket`, and `--template-timeformat`
 flags to define partition template parts used to generate partition keys for the table.
 If no template flags are provided, the table uses the partition template of the
 target database.
-For more information, see [Manage data partitioning](/influxdb/cloud-dedicated/admin/custom-partitions/).
+For more information, see [Manage data partitioning](/influxdb3/cloud-dedicated/admin/custom-partitions/).
 
 {{% warn %}}
 #### Partition templates can only be applied on create

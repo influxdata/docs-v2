@@ -7,25 +7,25 @@ description: >
   Execute queries and retrieve data over the Flight+gRPC protocol, and then process data using common Python tools.
 weight: 401
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Use client libraries
     name: Use Python
     identifier: query-with-python-sql
-influxdb/cloud-dedicated/tags: [query, flight, Flight client, python, sql, influxql]
+influxdb3/cloud-dedicated/tags: [query, flight, Flight client, python, sql, influxql]
 aliases:
-    - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/
-    - /influxdb/cloud-dedicated/query-data/execute-queries/influxql/python/
-    - /influxdb/cloud-dedicated/query-data/execute-queries/sql/python/
-    - /influxdb/cloud-dedicated/query-data/tools/python/
+    - /influxdb3/cloud-dedicated/query-data/execute-queries/flight-sql/python/
+    - /influxdb3/cloud-dedicated/query-data/execute-queries/influxql/python/
+    - /influxdb3/cloud-dedicated/query-data/execute-queries/sql/python/
+    - /influxdb3/cloud-dedicated/query-data/tools/python/
 related:
-    - /influxdb/cloud-dedicated/reference/client-libraries/v3/python/
-    - /influxdb/cloud-dedicated/process-data/tools/pandas/
-    - /influxdb/cloud-dedicated/process-data/tools/pyarrow/
-    - /influxdb/cloud-dedicated/query-data/influxql/
-    - /influxdb/cloud-dedicated/query-data/sql/
-    - /influxdb/cloud-dedicated/reference/influxql/
-    - /influxdb/cloud-dedicated/reference/sql/
-    - /influxdb/cloud-dedicated/query-data/execute-queries/troubleshoot/
+    - /influxdb3/cloud-dedicated/reference/client-libraries/v3/python/
+    - /influxdb3/cloud-dedicated/process-data/tools/pandas/
+    - /influxdb3/cloud-dedicated/process-data/tools/pyarrow/
+    - /influxdb3/cloud-dedicated/query-data/influxql/
+    - /influxdb3/cloud-dedicated/query-data/sql/
+    - /influxdb3/cloud-dedicated/reference/influxql/
+    - /influxdb3/cloud-dedicated/reference/sql/
+    - /influxdb3/cloud-dedicated/query-data/execute-queries/troubleshoot/
 
 list_code_example: |
     ```py
@@ -66,10 +66,10 @@ Execute queries and retrieve data over the Flight+gRPC protocol, and then proces
 
 This guide assumes the following prerequisites:
 
-- an {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/) with data to query
-- a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) with _read_ access to the database
+- an {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/) with data to query
+- a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) with _read_ access to the database
 
-To learn how to set up InfluxDB and write data, see the [Setup instructions](/influxdb/cloud-dedicated/get-started/setup/) in the Get Started tutorial.
+To learn how to set up InfluxDB and write data, see the [Setup instructions](/influxdb3/cloud-dedicated/get-started/setup/) in the Get Started tutorial.
 
 ## Create a Python virtual environment
 
@@ -207,7 +207,7 @@ The module supports writing data to InfluxDB and querying data using SQL or Infl
 
 Install the following dependencies:
 
-{{% req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" %}}
+{{% req type="key" text="Already installed in the [Write data section](/influxdb3/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" %}}
 
 - `influxdb3-python` {{< req text="\* " color="magenta" >}}: Provides the `influxdb_client_3` module and also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
 - `pandas`: Provides [pandas modules](https://pandas.pydata.org/) for analyzing and manipulating data.
@@ -282,15 +282,15 @@ tls_root_certs=cert))
 {{< /code-callout >}}
 {{% /code-placeholders %}}
 
-For more information, see [`influxdb_client_3` query exceptions](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/#query-exceptions).
+For more information, see [`influxdb_client_3` query exceptions](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/#query-exceptions).
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
 Replace the following configuration values:
 
-- **`database`**: the name of the [{{% product-name %}} database](/influxdb/cloud-dedicated/admin/databases/) to query
-- **`token`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+- **`database`**: the name of the [{{% product-name %}} database](/influxdb3/cloud-dedicated/admin/databases/) to query
+- **`token`**:  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with _read_ access to the specified database.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
@@ -298,7 +298,7 @@ Replace the following configuration values:
 
 To execute a query, call the following client method:
 
-[`query(query,language)` method](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/#influxdbclient3query)
+[`query(query,language)` method](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/#influxdbclient3query)
 
 and specify the following arguments:
 
@@ -408,12 +408,12 @@ print(table.group_by('room').aggregate([('temp', 'mean')]))
 
 Replace the following configuration values:
 
-- **`database`**: the name of the [{{% product-name %}} database](/influxdb/cloud-dedicated/admin/databases/) to query
-- **`token`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+- **`database`**: the name of the [{{% product-name %}} database](/influxdb3/cloud-dedicated/admin/databases/) to query
+- **`token`**:  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with _read_ access to the specified database.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 Next, learn how to use Python tools to work with time series data:
 
-- [Use PyArrow](/influxdb/cloud-dedicated/process-data/tools/pyarrow/)
-- [Use pandas](/influxdb/cloud-dedicated/process-data/tools/pandas/)
+- [Use PyArrow](/influxdb3/cloud-dedicated/process-data/tools/pyarrow/)
+- [Use pandas](/influxdb3/cloud-dedicated/process-data/tools/pandas/)

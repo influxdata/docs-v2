@@ -3,13 +3,13 @@ title: Summarize query results and data distribution
 description: >
   Query data stored in InfluxDB and use tools like pandas to summarize the results schema and distribution.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Summarize data
     parent: Process & visualize data
 weight: 101
-influxdb/cloud-dedicated/tags: [analysis, pandas, pyarrow, python, schema]
+influxdb3/cloud-dedicated/tags: [analysis, pandas, pyarrow, python, schema]
 related:
-  - /influxdb/cloud-dedicated/query-data/execute-queries/client-libraries/python/
+  - /influxdb3/cloud-dedicated/query-data/execute-queries/client-libraries/python/
 ---
 
 Query data stored in InfluxDB and use tools like pandas to summarize the results schema and distribution.
@@ -18,9 +18,9 @@ Query data stored in InfluxDB and use tools like pandas to summarize the results
 #### Sample data
 
 The following examples use the sample data written in the
-[Get started writing data guide](/influxdb/cloud-dedicated/get-started/write/).
+[Get started writing data guide](/influxdb3/cloud-dedicated/get-started/write/).
 To run the example queries and return results,
-[write the sample data](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb)
+[write the sample data](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb)
 to your {{% product-name %}} database before running the example queries.
 {{% /note %}}
 
@@ -28,7 +28,7 @@ to your {{% product-name %}} database before running the example queries.
 
 #### Using Python and pandas
 
-The following example uses the [InfluxDB client library for Python](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/) to query an {{% product-name %}} database,
+The following example uses the [InfluxDB client library for Python](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/) to query an {{% product-name %}} database,
 and then uses pandas [`DataFrame.info()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.info.html) and [`DataFrame.describe()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.describe.html) methods to summarize the schema and distribution of the data.
 
 1.  In your editor, create a file (for example, `pandas-example.py`) and enter the following sample code:

@@ -1,12 +1,12 @@
 ---
 title: Update a database
 description: >
-  Use the [`influxctl database update` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/update/)
-  or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/)
+  Use the [`influxctl database update` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/update/)
+  or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
   to update attributes for a database in your InfluxDB Cloud Dedicated cluster.
   Provide the database name and the attributes to update.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Manage databases
 weight: 201
 list_code_example: |
@@ -34,12 +34,12 @@ list_code_example: |
     }'
   ```
 related:
-  - /influxdb/cloud-dedicated/reference/cli/influxctl/database/update/
-  - /influxdb/cloud-dedicated/reference/api/
+  - /influxdb3/cloud-dedicated/reference/cli/influxctl/database/update/
+  - /influxdb3/cloud-dedicated/reference/api/
 ---
 
-Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
-or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/) to update attributes such as retention period, column limits, and table limits for a database in your {{< product-name omit=" Clustered" >}} cluster.
+Use the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/create/)
+or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/) to update attributes such as retention period, column limits, and table limits for a database in your {{< product-name omit=" Clustered" >}} cluster.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -49,18 +49,18 @@ or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/) to updat
 {{% tab-content %}}
 
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->
-Use the [`influxctl database update` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/update/)
+Use the [`influxctl database update` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/update/)
 to update a database in your {{< product-name omit=" Clustered" >}} cluster.
 
-1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
+1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 2. In your terminal, run the `influxctl database update` command and provide the following:
 
     - Database name
-    - _Optional_: Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods).
+    - _Optional_: Database [retention period](/influxdb3/cloud-dedicated/admin/databases/#retention-periods).
       Default is infinite (`0`).
-    - _Optional_: Database [table (measurement) limit](/influxdb/cloud-dedicated/admin/databases/#table-limit).
+    - _Optional_: Database [table (measurement) limit](/influxdb3/cloud-dedicated/admin/databases/#table-limit).
       Default is `500`.
-    - _Optional_: Database [column limit](/influxdb/cloud-dedicated/admin/databases/#column-limit).
+    - _Optional_: Database [column limit](/influxdb3/cloud-dedicated/admin/databases/#column-limit).
       Default is `250`.
 
 {{% code-placeholders "DATABASE_NAME|30d|500|200" %}}
@@ -77,7 +77,7 @@ influxctl database update \
 
 Replace the following in your command:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 
 {{% warn %}}
 #### Database names can't be updated
@@ -96,7 +96,7 @@ database to apply updates to. The database name itself can't be updated.
 ### Retention period syntax (influxctl CLI)
 
 Use the `--retention-period` flag to define the
-[retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
+[retention period](/influxdb3/cloud-dedicated/admin/databases/#retention-periods)
 for the database.
 The retention period value is a time duration value made up of a numeric value
 plus a duration unit.
@@ -139,23 +139,23 @@ The retention period value cannot be negative or contain whitespace.
 
 1. In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
-   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="post" api-ref="/influxdb/cloud-dedicated/api/management/#operation/CreateClusterDatabase" %}}
+   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="post" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/CreateClusterDatabase" %}}
 
    In the URL, provide the following credentials:
 
-   - `ACCOUNT_ID`: The ID of the [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
-   - `CLUSTER_ID`: The ID of the [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
-   - `DATABASE_NAME`: The name of the [database](/influxdb/cloud-dedicated/admin/databases/) that you want to delete _(see how to [list databases](/influxdb/cloud-dedicated/admin/databases/list/))_.
+   - `ACCOUNT_ID`: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+   - `CLUSTER_ID`: The ID of the [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+   - `DATABASE_NAME`: The name of the [database](/influxdb3/cloud-dedicated/admin/databases/) that you want to delete _(see how to [list databases](/influxdb3/cloud-dedicated/admin/databases/list/))_.
 
    Provide the following request headers:
 
    - `Accept: application/json` to ensure the response body is JSON content
    - `Content-Type: application/json` to indicate the request body is JSON content
-   - `Authorization: Bearer` and a [Management API token](/influxdb/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
+   - `Authorization: Bearer` and a [Management API token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
 
    In the request body, provide the parameters to update:
 
-   - _Optional:_ Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods) in nanoseconds.
+   - _Optional:_ Database [retention period](/influxdb3/cloud-dedicated/admin/databases/#retention-periods) in nanoseconds.
     Default is `0` (infinite).
    - _Optional_: Database table (measurement) limit. Default is `500`.
    - _Optional_: Database column limit. Default is `250`.
@@ -184,10 +184,10 @@ The following example shows how to use the Management API to update a database:
 
 Replace the following in your request:
 
-- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
-- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
-- {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
+- {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 
 ## Database attributes
 
@@ -199,7 +199,7 @@ Replace the following in your request:
 ### Retention period syntax (Management API)
 
 Use the `retentionPeriod` property to specify the
-[retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
+[retention period](/influxdb3/cloud-dedicated/admin/databases/#retention-periods)
 for the database.
 The retention period value is an integer (`<int32>`) that represents the number of nanoseconds.
 For example, `2592000000000` means 30 days.
@@ -293,7 +293,7 @@ cluster in the following ways:
 {{% expand "**May improve query performance** <em style='opacity:.5;font-weight:normal;'>View more info</em>" %}}
 
 Schemas with many measurements that contain
-[focused sets of tags and fields](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/#design-for-performance) can make it easier for the query engine to
+[focused sets of tags and fields](/influxdb3/cloud-dedicated/write-data/best-practices/schema-design/#design-for-performance) can make it easier for the query engine to
 identify what partitions contain the queried data, resulting in better
 query performance.
 

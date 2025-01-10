@@ -6,12 +6,12 @@ description: >
   Database tokens grant read and write permissions to one or more databases and
   allow for actions like writing and querying data.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Administer InfluxDB Cloud
 weight: 101
-influxdb/cloud-dedicated/tags: [tokens]
+influxdb3/cloud-dedicated/tags: [tokens]
 aliases:
-  - /influxdb/cloud-dedicated/security/tokens/
+  - /influxdb3/cloud-dedicated/security/tokens/
 ---
 
 InfluxDB uses token authentication to authorize access to data in your
@@ -34,7 +34,7 @@ All read and write actions performed against time series data in your
 Management tokens grant permission to perform administrative actions such as
 managing users, databases, and database tokens.
 Management tokens allow clients, such as the
-[`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/),
+[`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/),
 to perform administrative actions.
 
 {{% note %}}

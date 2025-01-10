@@ -3,7 +3,7 @@ title: influxctl cluster update
 description: >
   The `influxctl cluster update` command updates an InfluxDB cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl cluster
 weight: 301
 draft: true
@@ -21,7 +21,7 @@ influxctl cluster update [flags] <CLUSTER_ID>
 
 | Argument       | Description              |
 | :------------- | :----------------------- |
-| **CLUSTER_ID** | ID of the [cluster](/influxdb/cloud-dedicated/reference/glossary/#cluster) to get |
+| **CLUSTER_ID** | ID of the [cluster](/influxdb3/cloud-dedicated/reference/glossary/#cluster) to get |
 
 ## Flags
 
@@ -38,7 +38,7 @@ influxctl cluster update [flags] <CLUSTER_ID>
 | `-h` | `--help`                  | Output command help                                                                           |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}
 
 ## Examples

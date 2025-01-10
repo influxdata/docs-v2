@@ -1,10 +1,10 @@
 ---
 title: List clusters
 description: >
-  Use the [`influxctl cluster list` command](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/list/)
+  Use the [`influxctl cluster list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/cluster/list/)
   to view information about InfluxDB Cloud Dedicated clusters associated with your account ID.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Manage clusters
 weight: 202
 list_code_example: |
@@ -12,13 +12,13 @@ list_code_example: |
   influxctl cluster list
   ```
 aliases:
-  - /influxdb/cloud-dedicated/admin/clusters/list/
+  - /influxdb3/cloud-dedicated/admin/clusters/list/
 ---
 
-Use the [`influxctl cluster list` CLI command](/influxdb/cloud-dedicated/reference/cli/influxctl/list/)
+Use the [`influxctl cluster list` CLI command](/influxdb3/cloud-dedicated/reference/cli/influxctl/list/)
 view information about all {{< product-name omit=" Clustered" >}} clusters associated with your account ID.
 
-1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure a connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
+1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure a connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
 2.  Run `influxctl cluster list` with the following:
 
     - _Optional_: [Output format](#output-formats)

@@ -4,7 +4,7 @@ description: >
   The `influxctl cluster list` command information about all InfluxDB
   Cloud Dedicated clusters associated with your account ID.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl cluster
 weight: 301
 ---
@@ -33,5 +33,5 @@ influxctl cluster list
 | `-h` | `--help`   | Output command help                           |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}

@@ -1,14 +1,14 @@
 ---
 title: InfluxDB v3 API client libraries
 description: >
-  InfluxDB v3 client libraries use InfluxDB HTTP APIs to write data and use [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql) to execute SQL and InfluxQL queries.
+  InfluxDB v3 client libraries use InfluxDB HTTP APIs to write data and use [Flight clients](/influxdb3/cloud-dedicated/reference/client-libraries/flight-sql) to execute SQL and InfluxQL queries.
   View the list of available client libraries.
 weight: 30
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: v3 client libraries
     parent: Client libraries
-influxdb/cloud-dedicated/tags: [client libraries, API, developer tools]
+influxdb3/cloud-dedicated/tags: [client libraries, API, developer tools]
 ---
 
 ## Client libraries for InfluxDB v3

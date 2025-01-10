@@ -5,15 +5,15 @@ description: >
   Use InfluxQL aggregate and selector functions to perform aggregate operations
   on your time series data.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Aggregate data
     parent: Query with InfluxQL
     identifier: query-influxql-aggregate
 weight: 203
-influxdb/cloud-dedicated/tags: [query, influxql]
+influxdb3/cloud-dedicated/tags: [query, influxql]
 related:
-  - /influxdb/cloud-dedicated/reference/influxql/functions/aggregates/
-  - /influxdb/cloud-dedicated/reference/influxql/functions/selectors/
+  - /influxdb3/cloud-dedicated/reference/influxql/functions/aggregates/
+  - /influxdb3/cloud-dedicated/reference/influxql/functions/selectors/
 list_code_example: |
   ##### Aggregate fields by groups
   ```sql
@@ -74,7 +74,7 @@ value of `room`.
 Use **aggregate functions** to aggregate values in a specified field for each
 group and return a single row per group containing the aggregate field value.
 
-[View aggregate functions](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates/)
+[View aggregate functions](/influxdb3/cloud-dedicated/reference/influxql/functions/aggregates/)
 
 ##### Basic aggregate query
 
@@ -86,7 +86,7 @@ SELECT MEAN(co) from home
 
 Use **selector functions** to "select" a value from a specified field.
 
-[View selector functions](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/)
+[View selector functions](/influxdb3/cloud-dedicated/reference/influxql/functions/selectors/)
 
 ##### Basic selector query
 
@@ -105,9 +105,9 @@ SELECT TOP(co, 3) from home
 #### Sample data
 
 The following examples use the sample data written in the
-[Get started home sensor data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+[Get started home sensor data](/influxdb3/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
 To run the example queries and return results,
-[write the sample data](/influxdb/cloud-dedicated/reference/sample-data/#write-home-sensor-data-to-influxdb)
+[write the sample data](/influxdb3/cloud-dedicated/reference/sample-data/#write-home-sensor-data-to-influxdb)
 to your {{% product-name %}} database before running the example queries.
 {{% /note %}}
 
@@ -181,8 +181,8 @@ A common use case when querying time series is downsampling data by applying
 aggregates to time-based groups. To group and aggregate data into time-based
 groups:
 
-- In your `SELECT` clause, apply [aggregate](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates/)
-  or [selector](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/)
+- In your `SELECT` clause, apply [aggregate](/influxdb3/cloud-dedicated/reference/influxql/functions/aggregates/)
+  or [selector](/influxdb3/cloud-dedicated/reference/influxql/functions/selectors/)
   functions to queried fields.
 
 - In your `WHERE` clause, include time bounds for the query.
@@ -193,7 +193,7 @@ groups:
 
 - In your `GROUP BY` clause:
  
-  - Use the [`time()` function](/influxdb/cloud-dedicated/reference/influxql/functions/date-time/#time)
+  - Use the [`time()` function](/influxdb3/cloud-dedicated/reference/influxql/functions/date-time/#time)
     to specify the time interval to group by.
   - _Optional_: Specify other tags to group by.
 

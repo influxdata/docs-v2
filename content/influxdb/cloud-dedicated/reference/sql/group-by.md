@@ -3,7 +3,7 @@ title: GROUP BY clause
 description: > 
     Use the `GROUP BY` clause to group query data by column values.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: GROUP BY clause
     parent: SQL reference
 weight: 203

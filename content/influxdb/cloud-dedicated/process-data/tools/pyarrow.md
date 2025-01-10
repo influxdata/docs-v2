@@ -5,17 +5,17 @@ description: >
   Use [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze InfluxDB query results.
 weight: 201
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Use data analysis tools
     name: Use PyArrow
     identifier: analyze_with_pyarrow
-influxdb/cloud-dedicated/tags: [analysis, arrow, pyarrow, python]
+influxdb3/cloud-dedicated/tags: [analysis, arrow, pyarrow, python]
 related:
-  - /influxdb/cloud-dedicated/process-data/tools/pandas/
-  - /influxdb/cloud-dedicated/query-data/sql/
-  - /influxdb/cloud-dedicated/query-data/execute-queries/client-libraries/python/
+  - /influxdb3/cloud-dedicated/process-data/tools/pandas/
+  - /influxdb3/cloud-dedicated/query-data/sql/
+  - /influxdb3/cloud-dedicated/query-data/execute-queries/client-libraries/python/
 aliases:
-  - /influxdb/cloud-dedicated/visualize-data/pyarrow/
+  - /influxdb3/cloud-dedicated/visualize-data/pyarrow/
 list_code_example: |
   ```py
   ...
@@ -51,8 +51,8 @@ and conversion of Arrow format data.
 
 ## Install prerequisites
 
-The examples in this guide assume using a Python virtual environment and the InfluxDB v3 [`influxdb3-python` Python client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/).
-For more information, see how to [get started using Python to query InfluxDB](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/).
+The examples in this guide assume using a Python virtual environment and the InfluxDB v3 [`influxdb3-python` Python client library](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/).
+For more information, see how to [get started using Python to query InfluxDB](/influxdb3/cloud-dedicated/query-data/execute-queries/flight-sql/python/).
 
 Installing `influxdb3-python` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that provides Python bindings for Apache Arrow.
 
@@ -96,9 +96,9 @@ print(querySQL())
 2.  Replace the following configuration values:
 
     - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-      An InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+      An InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
       with read permissions on the databases you want to query.
-    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to query.
+    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) to query.
 
 3. In your terminal, use the Python interpreter to run the file:
 
@@ -156,10 +156,10 @@ print(table.group_by('room').aggregate([('temp', 'mean')]))
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  An InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  An InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with read permissions on the databases you want to query.
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  The name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to query.
+  The name of the InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) to query.
 
 {{< expand-wrapper >}}
 {{% expand "View example results" %}}

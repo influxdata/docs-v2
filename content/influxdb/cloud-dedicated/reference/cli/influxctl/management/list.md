@@ -4,11 +4,11 @@ description: >
   The `influxctl management list` command lists all management tokens used to
   perform administrative tasks in an InfluxDB Cloud Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl management
 weight: 301
 related:
-  - /influxdb/cloud-dedicated/admin/tokens/management/list/
+  - /influxdb3/cloud-dedicated/admin/tokens/management/list/
 ---
 
 The `influxctl management list` command lists all management tokens used to
@@ -45,5 +45,5 @@ influxctl management list [--format=table|json]
 | `-h` | `--help`   | Output command help                           |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}

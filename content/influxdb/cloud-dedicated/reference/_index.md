@@ -4,7 +4,7 @@ description: >
   Reference documentation for InfluxDB Cloud Dedicated including updates,
   API documentation, tools, syntaxes, and more.
 menu: 
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Reference
 weight: 20
 ---

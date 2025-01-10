@@ -5,7 +5,7 @@ description: >
   Use the Grafana operational dashboard provided by InfluxData to monitor your
   InfluxDB Cloud Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Administer InfluxDB Cloud
 weight: 104
 ---
@@ -24,7 +24,7 @@ For questions about availability, [contact InfluxData support](https://support.i
 - [Access your operational dashboard](#access-your-operational-dashboard)
 - [Dashboard sections and cells](#dashboard-sections-and-cells)
 
-{{< img-hd src="/img/influxdb/cloud-dedicated-admin-observability-dashboard.png" alt="InfluxDB Cloud Dedicated operational dashboard" />}}
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-observability-dashboard.png" alt="InfluxDB Cloud Dedicated operational dashboard" />}}
 
 ## Access your operational dashboard
 
@@ -56,7 +56,7 @@ related to the health of components in your {{< product-name >}} cluster:
 
 The **Query Tier Cpu/Mem** section displays the CPU and memory usage of query
 pods as reported by Kubernetes.
-[Queriers](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier)
+[Queriers](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#querier)
 handle query requests and returns query results for requests.
 
 - [CPU Utilization (k8s)](#cpu-utilization-k8s)
@@ -81,7 +81,7 @@ The memory limit is represented by the top line in the visualization.
 
 The **Query Tier** section displays metrics reported from the InfluxDB gRPC
 query API.
-[Queriers](/influxdb/cloud-dedicated/reference/internals/storage-engine/#querier)
+[Queriers](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#querier)
 handle query requests and returns query results for requests.
 
 - [gRPC Requests (ok)](#grpc-requests-ok)
@@ -145,9 +145,9 @@ cluster load.
 
 The **Query Tier Cpu/Mem** section displays the CPU and memory usage of Ingester
 pods as reported by Kubernetes.
-[Ingesters](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester)
+[Ingesters](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester)
 process line protocol submitted in write requests and persist time series data
-to the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
+to the [Object store](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#object-store).
 
 - [CPU Utilization Ingesters (k8s)](#cpu-utilization-ingesters-k8s)
 - [Memory Usage Ingesters (k8s)](#memory-usage-ingesters-k8s)
@@ -184,9 +184,9 @@ Usage is reported in a magnitude of bytes.
 
 The **Ingest Tier** section displays metrics reported from the InfluxDB gRPC
 and HTTP write APIs.
-[Ingesters](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester)
+[Ingesters](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester)
 process line protocol submitted in write requests and persist time series data
-to the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
+to the [Object store](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#object-store).
 
 - [Write Requests (at router)](#write-requests-at-router)
 - [LP Ingest (at router)](#lp-ingest-at-router-lines)
@@ -241,7 +241,7 @@ The Persist Queue is the queue for persisting, or saving to s3, new parquey file
 The number of queued persist jobs that have not started.
 Each persist jobs consists of taking data from the Write Ahead Log (WAL),
 storing it in a Parquet file, and saving the Parquet file to the
-[Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
+[Object store](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#object-store).
 
 If the persist queue is growing it means Ingesters are not keeping up with the
 incoming write load and may result in Ingester failure. 
@@ -283,9 +283,9 @@ _These do not represent the most recent logs._
 
 The **Compaction Tier Cpu/Mem** section displays the CPU and memory usage of
 Compactor pods as reported by Kubernetes.
-[Compactors](/influxdb/cloud-dedicated/reference/internals/storage-engine/#compactor)
+[Compactors](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#compactor)
 process and compress Parquet files in the
-[Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store)
+[Object store](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#object-store)
 to continually optimize storage.
 
 - [CPU Utilization (k8s)](#compaction-cpu-utilization)
@@ -309,8 +309,8 @@ The memory limit is represented by the top line in the visualization.
 ### Compactor
 
 The **Compactor** section displays metrics related to the compaction of Parquet
-files in the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
-[Compactors](/influxdb/cloud-dedicated/reference/internals/storage-engine/#compactor)
+files in the [Object store](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#object-store).
+[Compactors](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#compactor)
 process and compress Parquet files to continually optimize storage.
 
 - [Compactor: L0 File Counts (5m bucket width)](#compactor-l0-file-counts-5m-bucket-width)
@@ -329,7 +329,7 @@ following levels:
 - **L3**: 4 L2 files compacted together
 
 Parquet files store data partitioned by time and optionally tags
-_(see [Manage data partition](https://docs.influxdata.com/influxdb/cloud-dedicated/admin/custom-partitions/))_.
+_(see [Manage data partition](https://docs.influxdata.com/influxdb3/cloud-dedicated/admin/custom-partitions/))_.
 After four L0 files accumulate for a partition, they're eligible for compaction.
 If the compactor is keeping up with the incoming write load, all compaction
 events have exactly four files.
@@ -344,10 +344,10 @@ soon as it can.
 
 The **Ingestor Catalog Operations** section displays metrics related to 
 Catalog operations requested by Ingesters.
-The [Catalog](/influxdb/cloud-dedicated/reference/internals/storage-engine/#catalog)
+The [Catalog](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#catalog)
 is a relational database that stores metadata related to your time series data
 including schema information and physical locations of partitions in the 
-[Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
+[Object store](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#object-store).
 
 - [Catalog Ops - success](#catalog-ops---success)
 - [Catalog Ops - error](#catalog-ops---error)

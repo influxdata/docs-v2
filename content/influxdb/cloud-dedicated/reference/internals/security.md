@@ -4,13 +4,13 @@ description: >
   InfluxDB Cloud Dedicated is built on industry-standard security practices and principles.
 weight: 101
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Security
     parent: InfluxDB internals
-influxdb/cloud-dedicated/tags: [security, internals]
+influxdb3/cloud-dedicated/tags: [security, internals]
 related:
-  - /influxdb/cloud-dedicated/admin/tokens
-  - /influxdb/cloud-dedicated/admin/users
+  - /influxdb3/cloud-dedicated/admin/tokens
+  - /influxdb3/cloud-dedicated/admin/users
 ---
 
 InfluxData's information security program is based on industry-recognized standards and frameworks,
@@ -261,7 +261,7 @@ After creating the user account, InfluxData provides the user with the following
 - A password reset email for setting the login password
 
 With a valid password, the user can login by invoking one of the
-[`influxctl` commands](/influxdb/cloud-dedicated/reference/influxctl/).
+[`influxctl` commands](/influxdb3/cloud-dedicated/reference/influxctl/).
 The command initiates a browser login between the identity provider and the user
 so that the password is never
 exchanged with `influxctl`.
@@ -352,8 +352,8 @@ For example, a user's Linux system would store the management token at
 ##### Management tokens and the Management API
 
 For automation use cases, [Admins](#admin-group) can
-[manually create and revoke long-lived management tokens](/influxdb/cloud-dedicated/admin/tokens/management/)
-for use with the [Management API](/influxdb/cloud-dedicated/api/management/)--for
+[manually create and revoke long-lived management tokens](/influxdb3/cloud-dedicated/admin/tokens/management/)
+for use with the [Management API](/influxdb3/cloud-dedicated/api/management/)--for
 example, to rotate database tokens or create tables.
 
 Manually created management tokens:

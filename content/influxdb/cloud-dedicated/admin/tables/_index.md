@@ -6,10 +6,10 @@ description: >
   A table is a collection of related data stored in table format.
   In previous versions of InfluxDB, tables were known as "measurements."
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Administer InfluxDB Cloud
 weight: 101
-influxdb/cloud-dedicated/tags: [tables]
+influxdb3/cloud-dedicated/tags: [tables]
 ---
 
 Manage tables in your {{< product-name omit=" Clustered" >}} cluster.

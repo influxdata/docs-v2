@@ -4,12 +4,12 @@ list_title: Aggregate functions
 description: >
   Aggregate data with SQL aggregate functions.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Aggregate
     parent: sql-functions
 weight: 301
 related:
-  - /influxdb/cloud-dedicated/query-data/sql/aggregate-select/
+  - /influxdb3/cloud-dedicated/query-data/sql/aggregate-select/
 
 source: /content/shared/sql-reference/functions/aggregate.md
 ---

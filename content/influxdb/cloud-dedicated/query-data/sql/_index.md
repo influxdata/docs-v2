@@ -4,11 +4,11 @@ seotitle: Query data with SQL
 description: >
   Learn to query data stored in InfluxDB Cloud using SQL.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Query with SQL
     parent: Query data
 weight: 101
-influxdb/cloud-dedicated/tags: [query, sql]
+influxdb3/cloud-dedicated/tags: [query, sql]
 ---
 
 Learn to query data stored in InfluxDB using SQL.

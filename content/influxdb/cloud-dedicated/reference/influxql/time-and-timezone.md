@@ -5,7 +5,7 @@ description: >
   Use the `tz` (time zone) clause to return the UTC offset for the specified
   time zone.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Time and time zones
     parent: influxql-reference
 weight: 208

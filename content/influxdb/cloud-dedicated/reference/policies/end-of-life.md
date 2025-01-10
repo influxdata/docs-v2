@@ -4,7 +4,7 @@ description: >
   InfluxData adheres to the following process for any End-of-Life (EOL) of
   products and features.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Policies & procedures
     name: End-of-life procedures
 weight: 201
@@ -77,5 +77,5 @@ products and features.
     if a restore of the service is not possible.
 
 5.  **Data Retention**: Data retention in InfluxDB Cloud is described in
-    InfluxData’s [Data retention documentation](/influxdb/cloud-dedicated/reference/internals/data-retention/)
+    InfluxData’s [Data retention documentation](/influxdb3/cloud-dedicated/reference/internals/data-retention/)
     and SOC-2 Statement.

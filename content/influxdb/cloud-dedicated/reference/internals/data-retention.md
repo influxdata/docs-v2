@@ -6,10 +6,10 @@ description: >
   files containing only expired data.
 weight: 103
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Data retention
     parent: InfluxDB internals
-influxdb/cloud-dedicated/tags: [internals]
+influxdb3/cloud-dedicated/tags: [internals]
 ---
 
 {{< product-name >}} enforces database retention periods at query time.
@@ -26,14 +26,14 @@ Retention periods automatically delete expired data and optimize
 storage without the need for user intervention.
 
 Retention periods can be as short as an hour or infinite.
-[Points](/influxdb/cloud-dedicated/reference/glossary/#point) in a database with
+[Points](/influxdb3/cloud-dedicated/reference/glossary/#point) in a database with
 timestamps beyond the defined retention period (relative to now) are not queryable,
 but may still exist in storage until [fully deleted](#when-does-data-actually-get-deleted).
 
 {{% note %}}
 #### View database retention periods
 
-Use the [`influxctl database list` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/list/)
+Use the [`influxctl database list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/list/)
 to view your databases' retention periods.
 {{% /note %}}
 

@@ -1,12 +1,12 @@
 ---
 title: Create a database
 description: >
-  Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
-  or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/)
+  Use the [`influxctl database create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/create/)
+  or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
   to create a new InfluxDB database in your InfluxDB Cloud Dedicated cluster.
   Provide a database name and an optional retention period.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Manage databases
 weight: 201
 list_code_example: |
@@ -65,13 +65,13 @@ list_code_example: |
       }'
   ```
 related:
-  - /influxdb/cloud-dedicated/reference/cli/influxctl/database/create/
-  - /influxdb/cloud-dedicated/admin/custom-partitions/
-  - /influxdb/cloud-dedicated/reference/api/
+  - /influxdb3/cloud-dedicated/reference/cli/influxctl/database/create/
+  - /influxdb3/cloud-dedicated/admin/custom-partitions/
+  - /influxdb3/cloud-dedicated/reference/api/
 ---
 
-Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
-or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/) to create a database in your {{< product-name omit=" Clustered" >}} cluster.
+Use the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/)
+or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/) to create a database in your {{< product-name omit=" Clustered" >}} cluster.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -81,22 +81,22 @@ or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/) to creat
 {{% tab-content %}}
 
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->
-Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
+Use the [`influxctl database create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/create/)
 to create a database in your {{< product-name omit=" Clustered" >}} cluster.
 
-1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
+1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
 
 2. In your terminal, run the `influxctl database create` command and provide the following:
 
-    - _Optional_: Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
+    - _Optional_: Database [retention period](/influxdb3/cloud-dedicated/admin/databases/#retention-periods)
     Default is `infinite` (`0`).
     - _Optional_: Database table (measurement) limit. Default is `500`.
     - _Optional_: Database column limit. Default is `250`.
-    - _Optional_: [InfluxDB tags](/influxdb/cloud-dedicated/reference/glossary/#tag)
+    - _Optional_: [InfluxDB tags](/influxdb3/cloud-dedicated/reference/glossary/#tag)
      to use in the partition template. Limit is 7 total tags or tag buckets.
-    - _Optional_: [InfluxDB tag buckets](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
+    - _Optional_: [InfluxDB tag buckets](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
      to use in the partition template. Limit is 7 total tags or tag buckets.
-    - _Optional_: A [Rust strftime date and time string](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
+    - _Optional_: A [Rust strftime date and time string](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
      that specifies the time format in the partition template and determines
      the time interval to partition by. Default is `%Y-%m-%d`.
     - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
@@ -127,8 +127,8 @@ influxctl database create \
 
 Replace the following in your command:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
-- {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag](/influxdb/cloud-dedicated/reference/glossary/#tag) keys from your data
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag](/influxdb3/cloud-dedicated/reference/glossary/#tag) keys from your data
 
 ## Database attributes
 
@@ -145,7 +145,7 @@ Replace the following in your command:
 ### Retention period syntax (influxctl CLI)
 
 Use the `--retention-period` flag to define the
-[retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
+[retention period](/influxdb3/cloud-dedicated/admin/databases/#retention-periods)
 for the database.
 The retention period value is a time duration value made up of a numeric value
 plus a duration unit.
@@ -192,7 +192,7 @@ strategy can improve query performance.
 Use the `--template-tag`, `--template-tag-bucket`, and `--template-timeformat`
 flags to define partition template parts used to generate partition keys for the database.
 
-For more information, see [Manage data partitioning](/influxdb/cloud-dedicated/admin/custom-partitions/).
+For more information, see [Manage data partitioning](/influxdb3/cloud-dedicated/admin/custom-partitions/).
 
 <!-------------------------------- END INFLUXCTL ------------------------------>
 {{% /tab-content %}}
@@ -204,30 +204,30 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 1. If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
 2. In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
-   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="post" api-ref="/influxdb/cloud-dedicated/api/management/#operation/CreateClusterDatabase" %}}
+   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="post" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/CreateClusterDatabase" %}}
 
    In the URL, provide the following credentials:
 
-   - `ACCOUNT_ID`: The ID of the [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
-   - `CLUSTER_ID`: The ID of the [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+   - `ACCOUNT_ID`: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+   - `CLUSTER_ID`: The ID of the [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
 
    Provide the following request headers:
 
    - `Accept: application/json` to ensure the response body is JSON content
    - `Content-Type: application/json` to indicate the request body is JSON content
-   - `Authorization: Bearer` and a [Management API token](/influxdb/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
+   - `Authorization: Bearer` and a [Management API token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
 
    In the request body, provide the following parameters:
 
-   - _Optional:_ Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods) in nanoseconds.
+   - _Optional:_ Database [retention period](/influxdb3/cloud-dedicated/admin/databases/#retention-periods) in nanoseconds.
     Default is `0` (infinite).
    - _Optional_: Database table (measurement) limit. Default is `500`.
    - _Optional_: Database column limit. Default is `250`.
-   - _Optional_: [InfluxDB tags](/influxdb/cloud-dedicated/reference/glossary/#tag)
+   - _Optional_: [InfluxDB tags](/influxdb3/cloud-dedicated/reference/glossary/#tag)
     to use in the partition template. Limit is 7 total tags or tag buckets.
-   - _Optional_: [InfluxDB tag buckets](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
+   - _Optional_: [InfluxDB tag buckets](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
     to use in the partition template. Limit is 7 total tags or tag buckets.
-   - _Optional_: A supported [Rust strftime date and time string](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
+   - _Optional_: A supported [Rust strftime date and time string](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
     that specifies the time format in the partition template and determines
     the time interval to partition by. Default is `%Y-%m-%d`.
    - Database name _(see [Database naming restrictions](#database-naming-restrictions))_.
@@ -290,11 +290,11 @@ curl \
 
 Replace the following in your request:
 
-- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
-- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
-- {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
-- {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag](/influxdb/cloud-dedicated/reference/glossary/#tag) keys from your data
+- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
+- {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag](/influxdb3/cloud-dedicated/reference/glossary/#tag) keys from your data
 
 ## Database attributes
 
@@ -311,7 +311,7 @@ Replace the following in your request:
 ### Retention period syntax (Management API)
 
 Use the `retentionPeriod` property to specify the
-[retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
+[retention period](/influxdb3/cloud-dedicated/admin/databases/#retention-periods)
 for the database.
 The retention period value is an integer (`<int32>`) that represents the number of nanoseconds.
 For example, `2592000000000` means 30 days.
@@ -333,11 +333,11 @@ format in the InfluxDB v3 storage engine. By default, data is partitioned by day
 but, depending on your schema and workload, customizing the partitioning
 strategy can improve query performance.
 
-Use the [`partitionTemplate`](/influxdb/cloud-dedicated/api/management/#operation/CreateClusterDatabase)
+Use the [`partitionTemplate`](/influxdb3/cloud-dedicated/api/management/#operation/CreateClusterDatabase)
 property to define an array of partition template parts used to generate
 partition keys for the database.
 
-For more information, see [Manage data partitioning](/influxdb/cloud-dedicated/admin/custom-partitions/).
+For more information, see [Manage data partitioning](/influxdb3/cloud-dedicated/admin/custom-partitions/).
 
 <!------------------------------- END cURL ------------------------------------>
 {{% /tab-content %}}
@@ -412,7 +412,7 @@ cluster in the following ways:
 {{% expand "**May improve query performance** <em style='opacity:.5;font-weight:normal;'>View more info</em>" %}}
 
 Schemas with many measurements that contain
-[focused sets of tags and fields](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/#design-for-performance) can make it easier for the query engine to
+[focused sets of tags and fields](/influxdb3/cloud-dedicated/write-data/best-practices/schema-design/#design-for-performance) can make it easier for the query engine to
 identify what partitions contain the queried data, resulting in better
 query performance.
 

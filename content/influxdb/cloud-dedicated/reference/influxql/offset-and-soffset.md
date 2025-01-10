@@ -1,12 +1,12 @@
 ---
 title: OFFSET and SOFFSET clauses
 description: >
-  Use `OFFSET` to specify the number of [rows](/influxdb/cloud-dedicated/reference/glossary/#series)
+  Use `OFFSET` to specify the number of [rows](/influxdb3/cloud-dedicated/reference/glossary/#series)
   to skip in each InfluxQL group before returning results.
-  Use `SOFFSET` to specify the number of [series](/influxdb/cloud-dedicated/reference/glossary/#series)
+  Use `SOFFSET` to specify the number of [series](/influxdb3/cloud-dedicated/reference/glossary/#series)
   to skip before returning results.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: OFFSET and SOFFSET clauses
     parent: influxql-reference
 weight: 207

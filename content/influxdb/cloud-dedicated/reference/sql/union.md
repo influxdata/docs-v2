@@ -4,7 +4,7 @@ description: >
   The `UNION` clause combines the results of two or more `SELECT` statements into
   a single result set.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: UNION clause
     parent: SQL reference
 weight: 206

@@ -14,10 +14,10 @@ weight: 11
 #### Migrate to InfluxDB Cloud Serverless
 
 To unlock the benefits of the InfluxDB v3 storage engine, including unlimited
-cardinality and SQL, [migrate your data to an InfluxDB Cloud Serverless organization](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-serverless/).
+cardinality and SQL, [migrate your data to an InfluxDB Cloud Serverless organization](/influxdb3/cloud-serverless/write-data/migrate-data/migrate-tsm-to-serverless/).
 
-All InfluxDB Cloud [accounts](/influxdb/cloud-serverless/admin/accounts/) and
-[organizations](/influxdb/cloud-serverless/admin/organizations/) created through
+All InfluxDB Cloud [accounts](/influxdb3/cloud-serverless/admin/accounts/) and
+[organizations](/influxdb3/cloud-serverless/admin/organizations/) created through
 [cloud2.influxdata.com](https://cloud2.influxdata.com) on or after **January 31, 2023**
 are on InfluxDB Cloud Serverless and are powered by the InfluxDB v3 storage engine.
 

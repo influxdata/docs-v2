@@ -2,15 +2,15 @@
 title: Go Flight client
 description: The Go Flight client integrates with Go scripts and applications to query data stored in InfluxDB.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Go
     parent: Arrow Flight clients
     identifier: go-flight-client
-influxdb/cloud-dedicated/tags: [Flight client, Go, gRPC, SQL, Flight SQL, client libraries]
+influxdb3/cloud-dedicated/tags: [Flight client, Go, gRPC, SQL, Flight SQL, client libraries]
 related:
-  - /influxdb/cloud-dedicated/reference/client-libraries/v3/go/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/v3/go/
 aliases:
-  - /influxdb/cloud-dedicated/reference/client-libraries/flight-sql/go-flightsql/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/flight-sql/go-flightsql/
 weight: 201
 ---
 
@@ -19,10 +19,10 @@ weight: 201
 {{% note %}}
 #### Use InfluxDB v3 client libraries
 
-We recommend using the [`influxdb3-go` Go client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/go/) for integrating InfluxDB v3 with your Go application code.
+We recommend using the [`influxdb3-go` Go client library](/influxdb3/cloud-dedicated/reference/client-libraries/v3/go/) for integrating InfluxDB v3 with your Go application code.
 
-[InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
-and provide convenient methods for [writing](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
+[InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
+and provide convenient methods for [writing](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
 Client libraries can query using SQL or InfluxQL.
 {{% /note %}}
 
@@ -140,7 +140,7 @@ The following example shows how to use the Arrow Flight SQL client for Go to que
           
             - **`url`**: {{% product-name omit=" Clustered" %}} cluster hostname and port (`:443`) _(no protocol)_
             - **`database`**: the name of the {{% product-name %}} database to query
-            - **`token`**:  a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-an-all-access-api-token) with read permission on the specified database.
+            - **`token`**:  a [database token](/influxdb3/cloud-dedicated/get-started/setup/#create-an-all-access-api-token) with read permission on the specified database.
           _For security reasons, we recommend setting this as an environment
           variable rather than including the raw token string._
 

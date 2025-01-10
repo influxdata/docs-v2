@@ -4,7 +4,7 @@ description: >
   The `influxctl user invite` command invites a user to an InfluxDB Cloud Dedicated
   account.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl user
 weight: 301
 draft: true
@@ -41,7 +41,7 @@ influxctl user invite [command options] <FIRST_NAME> <LAST_NAME> <EMAIL>
 | `-h` | `--help` | Output command help |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}
 
 ## Examples

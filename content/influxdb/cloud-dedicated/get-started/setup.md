@@ -6,17 +6,17 @@ description: >
   Learn how to set up InfluxDB Cloud Dedicated for the "Get started with InfluxDB"
   tutorial and for general use.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Set up InfluxDB
     parent: Get started
     identifier: get-started-set-up
 weight: 101
 metadata: [1 / 3]
 related:
-  - /influxdb/cloud-dedicated/admin/databases/
-  - /influxdb/cloud-dedicated/admin/tokens/
-  - /influxdb/cloud-dedicated/reference/cli/influxctl/
-  - /influxdb/cloud-dedicated/reference/api/
+  - /influxdb3/cloud-dedicated/admin/databases/
+  - /influxdb3/cloud-dedicated/admin/tokens/
+  - /influxdb3/cloud-dedicated/reference/cli/influxctl/
+  - /influxdb3/cloud-dedicated/reference/api/
 ---
 
 As you get started with this tutorial, do the following to make sure everything
@@ -45,16 +45,16 @@ following information:
 
 ## Download, install, and configure the influxctl CLI
 
-The [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
+The [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/)
 lets you manage your {{< product-name omit="Clustered" >}} cluster from a
 command line and perform administrative tasks such as managing
 databases and tokens.
 
-1.  [Download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
+1.  [Download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 
 2.  **Create a connection profile and provide your {{< product-name >}} connection credentials**.
 
-    The `influxctl` CLI uses [connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
+    The `influxctl` CLI uses [connection profiles](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
     to connect to and authenticate with your {{< product-name omit="Clustered" >}} cluster.
 
     Create a file named `config.toml` at the following location depending on
@@ -94,12 +94,12 @@ Replace the following with your {{< product-name >}} credentials:
 - {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: Your cluster ID
 
 _For detailed information about `influxctl` profiles, see
-[Configure connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)_.
+[Configure connection profiles](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)_.
 
 ## Create a database
 
 Use the
-[`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
+[`influxctl database create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/create/)
 to create a database. You can use an existing database or create a new one
 specifically for this getting started tutorial.
 _Examples in this getting started tutorial assume a database named `get-started`._
@@ -118,7 +118,7 @@ Provide the following:
 
 - Database name.
 - _Optional:_ Database
-  [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
+  [retention period](/influxdb3/cloud-dedicated/admin/databases/#retention-periods)
   as a duration value. If no retention period is specified, the default is infinite.
 
 <!--Skip tests for database create and delete: namespaces aren't reusable-->
@@ -135,7 +135,7 @@ influxctl database create --retention-period 1y get-started
 ## Create a database token
 
 Use the
-[`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
+[`influxctl token create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/create/)
 to create a database token with read and write permissions for your database.
 
 Provide the following:
@@ -244,4 +244,4 @@ set INFLUX_TOKEN=DATABASE_TOKEN
 Replace {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}
 with your [database token](#create-a-database-token) string.
 
-{{< page-nav prev="/influxdb/cloud-dedicated/get-started/" next="/influxdb/cloud-dedicated/get-started/write/" keepTab=true >}}
+{{< page-nav prev="/influxdb3/cloud-dedicated/get-started/" next="/influxdb3/cloud-dedicated/get-started/write/" keepTab=true >}}

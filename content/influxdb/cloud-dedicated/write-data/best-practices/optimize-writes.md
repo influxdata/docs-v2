@@ -5,13 +5,13 @@ description: >
   InfluxDB Cloud Dedicated.
 weight: 203
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Optimize writes
     parent: write-best-practices
 influxdb/cloud/tags: [best practices, write]
 related:
   - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
-  - /influxdb/cloud-dedicated/write-data/use-telegraf/
+  - /influxdb3/cloud-dedicated/write-data/use-telegraf/
 ---
 
 Use these tips to optimize performance and system overhead when writing data to InfluxDB.
@@ -36,8 +36,8 @@ Use these tips to optimize performance and system overhead when writing data to 
 {{% note %}}
 The following tools write to InfluxDB and employ _most_ write optimizations by default:
 
-- [Telegraf](/influxdb/cloud-dedicated/write-data/use-telegraf/)
-- [InfluxDB client libraries](/influxdb/cloud-dedicated/reference/client-libraries/)
+- [Telegraf](/influxdb3/cloud-dedicated/write-data/use-telegraf/)
+- [InfluxDB client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/)
 {{% /note %}}
 
 ## Batch writes
@@ -68,7 +68,7 @@ By default, InfluxDB writes data in nanosecond precision.
 However if your data isn't collected in nanoseconds, there is no need to write at that precision.
 For better performance, use the coarsest precision possible for timestamps.
 
-_Specify timestamp precision when [writing to InfluxDB](/influxdb/cloud-dedicated/write-data/)._
+_Specify timestamp precision when [writing to InfluxDB](/influxdb3/cloud-dedicated/write-data/)._
 
 ## Use gzip compression
 
@@ -100,11 +100,11 @@ In the `influxdb_v2` output plugin configuration in your `telegraf.conf`, set th
 
 ### Enable gzip compression in InfluxDB client libraries
 
-Each [InfluxDB client library](/influxdb/cloud-dedicated/reference/client-libraries/) provides
+Each [InfluxDB client library](/influxdb3/cloud-dedicated/reference/client-libraries/) provides
 options for compressing write requests or enforces compression by default.
 The method for enabling compression is different for each library.
 For specific instructions, see the
-[InfluxDB client libraries documentation](/influxdb/cloud-dedicated/reference/client-libraries/).
+[InfluxDB client libraries documentation](/influxdb3/cloud-dedicated/reference/client-libraries/).
 {{% /tab-content %}}
 {{% tab-content %}}
 
@@ -135,9 +135,9 @@ curl --request POST "https://{{< influxdb/host >}}/api/v2/write?org=ignored&buck
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/cloud-dedicated/admin/databases/) to write data to
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with _write_ access to the specified database.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
@@ -157,7 +157,7 @@ To write multiple lines in one request, each line of line protocol must be delim
 
 ## Pre-process data before writing
 
-Pre-processing data in your write workload can help you avoid [write failures](/influxdb/cloud-dedicated/write-data/troubleshoot/#troubleshoot-failures) due to schema conflicts or resource use.
+Pre-processing data in your write workload can help you avoid [write failures](/influxdb3/cloud-dedicated/write-data/troubleshoot/#troubleshoot-failures) due to schema conflicts or resource use.
 For example, if you have many devices that write to the same measurement, and some devices use different data types for the same field, then you might want to generate an alert or convert field data to fit your schema before you send the data to InfluxDB.
 
 With [Telegraf](/telegraf/v1/), you can process data from other services and files and then write it to InfluxDB.
@@ -202,8 +202,8 @@ EOF
 
     Replace the following:
 
-    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
-    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) with _write_ access to the specified database.
+    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/cloud-dedicated/admin/databases/) to write data to
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) with _write_ access to the specified database.
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 2.  To test the input and processor, enter the following command:
@@ -228,7 +228,7 @@ For each row of input data, the filters pass the metric name, tags, specified fi
 Use Telegraf and the [Converter processor plugin](/telegraf/v1/plugins/#processor-converter) to convert field data types to fit your schema.
 
 For example, if you write the sample data in
-[Get started home sensor data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data) to a database, and then try to write the following batch to the same measurement:
+[Get started home sensor data](/influxdb3/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data) to a database, and then try to write the following batch to the same measurement:
 
 ```text
 home,room=Kitchen temp=23.1,hum=36.6,co=22.1 1641063600
@@ -239,7 +239,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 InfluxDB expects `co` to contain an integer value and rejects points with `co` floating-point decimal (`22.1`) values.
 To avoid the error, configure Telegraf to convert fields to the data types in your schema columns.
 
-The following example converts the `temp`, `hum`, and `co` fields to fit the [sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data) schema:
+The following example converts the `temp`, `hum`, and `co` fields to fit the [sample data](/influxdb3/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data) schema:
 
 <!--before-test
 ```sh
@@ -298,8 +298,8 @@ curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precisi
 
     Replace the following:
 
-    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
-    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) with _write_ access to the specified database.
+    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/cloud-dedicated/admin/databases/) to write data to
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) with _write_ access to the specified database.
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 3.  To test the input and processor, enter the following command:
@@ -386,8 +386,8 @@ The following example creates sample data for two series (the combination of mea
 
     Replace the following:
 
-    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
-    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) with _write_ access to the specified database.
+    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/cloud-dedicated/admin/databases/) to write data to
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) with _write_ access to the specified database.
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 3.  To test the input and aggregator, enter the following command:
@@ -475,8 +475,8 @@ The following example shows how to use Telegraf to remove points that repeat fie
 
     Replace the following:
 
-    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
-    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) with _write_ access to the specified database.
+    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/cloud-dedicated/admin/databases/) to write data to
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) with _write_ access to the specified database.
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 3.  To test the input and processor, enter the following command:
@@ -700,8 +700,8 @@ The Go `multiplier.go` sample code does the following:
 
     Replace the following:
 
-    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
-    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) with _write_ access to the specified database.
+    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/cloud-dedicated/admin/databases/) to write data to
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) with _write_ access to the specified database.
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 5.  To test the input and processor, enter the following command:

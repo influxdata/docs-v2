@@ -5,12 +5,12 @@ description: >
   A basic SQL query that queries data from InfluxDB most commonly includes
   `SELECT`, `FROM`, and `WHERE` clauses.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Basic query
     parent: Query with SQL
     identifier: query-sql-basic
 weight: 202
-influxdb/cloud-dedicated/tags: [query, sql]
+influxdb3/cloud-dedicated/tags: [query, sql]
 list_code_example: |
   ```sql
   SELECT temp, room FROM home WHERE time >= now() - INTERVAL '1 day'
@@ -63,9 +63,9 @@ An SQL query result set includes columns listed in the query's `SELECT` statemen
 #### Sample data
 
 The following examples use the sample data written in the
-[Get started writing data guide](/influxdb/cloud-dedicated/get-started/write/).
+[Get started writing data guide](/influxdb3/cloud-dedicated/get-started/write/).
 To run the example queries and return results,
-[write the sample data](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb)
+[write the sample data](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb)
 to your {{% product-name %}} database before running the example queries.
 {{% /note %}}
 
@@ -136,7 +136,7 @@ WHERE
 {{% expand "Query data using a time zone offset" %}}
 
 To query data using a time zone offset, use the
-[`AT TIME ZONE` operator](/influxdb/cloud-dedicated/reference/sql/operators/other/#at-time-zone)
+[`AT TIME ZONE` operator](/influxdb3/cloud-dedicated/reference/sql/operators/other/#at-time-zone)
 to apply a time zone offset to timestamps in the `WHERE` clause.
 
 {{% note %}}
@@ -192,7 +192,7 @@ SELECT time, room, temp, hum FROM home
   on in the `SELECT` clause.
 - Include predicates in the `WHERE` clause that compare the tag identifier to
   a string literal.
-  Use [logical operators](/influxdb/cloud-dedicated/reference/sql/where/#logical-operators) to chain multiple predicates together and apply
+  Use [logical operators](/influxdb3/cloud-dedicated/reference/sql/where/#logical-operators) to chain multiple predicates together and apply
   multiple conditions.
 
 ```sql
@@ -203,7 +203,7 @@ SELECT * FROM home WHERE room = 'Kitchen'
 
 - In the `SELECT` clause, include fields you want to query.
 - In the `WHERE` clause, include predicates that compare the field identifier to a value or expression.
-  Use [logical operators](/influxdb/cloud-dedicated/reference/sql/where/#logical-operators) (`AND`, `OR`) to chain multiple predicates together
+  Use [logical operators](/influxdb3/cloud-dedicated/reference/sql/where/#logical-operators) (`AND`, `OR`) to chain multiple predicates together
   and apply multiple conditions.
 
 ```sql

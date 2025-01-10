@@ -3,7 +3,7 @@ title: Send alerts using data in InfluxDB
 description: >
   Query, analyze, and send alerts using time series data stored in InfluxDB.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Send alerts
     parent: Process & visualize data
 weight: 104
@@ -16,7 +16,7 @@ This guide uses [Python](https://www.python.org/), the
 and the [Python Slack SDK](https://slack.dev/python-slack-sdk/) to demonstrate
 how to query data from InfluxDB and send alerts to Slack, but you can use your
 runtime and alerting platform of choice with any of the available
-[InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/).
+[InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/).
 Whatever clients and platforms you choose the use, the process is the same:
 
 #### Alerting process
@@ -46,7 +46,7 @@ More information is provided in the
 
 {{% note %}}
 This guide assumes you have already
-[setup your Python project and virtual environment](/influxdb/cloud-dedicated/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
+[setup your Python project and virtual environment](/influxdb3/cloud-dedicated/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
 {{% /note %}}
 
 Use `pip` to install the following dependencies:
@@ -67,7 +67,7 @@ Provide the following credentials:
 
 - **host**: {{< product-name omit="Clustered" >}} cluster URL _(without the protocol)_
 - **org**: InfluxDB organization name
-- **token**: [InfluxDB database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+- **token**: [InfluxDB database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   read permissions on the database you want to query
 - **database**: InfluxDB database name
 

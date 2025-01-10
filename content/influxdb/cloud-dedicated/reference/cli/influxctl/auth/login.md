@@ -4,7 +4,7 @@ description: >
   The `influxctl auth login` command lets a user log in to an InfluxDB cluster using
   the InfluxDB Cloud Dedicated identity provider.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl auth
 weight: 301
 ---
@@ -25,5 +25,5 @@ influxctl auth login
 | `-h` | `--help`   | Output command help                           |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}

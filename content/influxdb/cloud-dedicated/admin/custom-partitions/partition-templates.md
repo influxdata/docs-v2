@@ -5,7 +5,7 @@ description: >
   Learn how to define custom partitioning strategies using partition templates.
   Data can be partitioned by tag and time.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Manage data partitioning
 weight: 202
 source: /shared/v3-distributed-admin-custom-partitions/partition-templates.md

@@ -4,7 +4,7 @@ list_title: String functions
 description: >
   Use string functions to operate on string values in SQL queries.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: String
     parent: sql-functions    
 weight: 307

@@ -1,11 +1,11 @@
 ---
 title: Update a database token
 description: >
-  Use the [`influxctl token update` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/update/)
-    or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/)
+  Use the [`influxctl token update` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/update/)
+    or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
   to update a database token's permissions in your InfluxDB Cloud Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Database tokens
 weight: 201
 list_code_example: |
@@ -44,16 +44,16 @@ list_code_example: |
       }'
   ```
 aliases:
-  - /influxdb/cloud-dedicated/admin/tokens/update/
+  - /influxdb3/cloud-dedicated/admin/tokens/update/
 alt_links:
-  serverless: /influxdb/cloud-serverless/admin/tokens/update-tokens/
+  serverless: /influxdb3/cloud-serverless/admin/tokens/update-tokens/
 related:
-  - /influxdb/cloud-dedicated/reference/cli/influxctl/token/update/
-  - /influxdb/cloud-dedicated/reference/api/
+  - /influxdb3/cloud-dedicated/reference/cli/influxctl/token/update/
+  - /influxdb3/cloud-dedicated/reference/api/
 ---
 
-Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
-or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/)
+Use the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/)
+or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
 to update a database token's permissions {{< product-name omit=" Clustered" >}} cluster.
 
 {{< tabs-wrapper >}}
@@ -64,11 +64,11 @@ to update a database token's permissions {{< product-name omit=" Clustered" >}} 
 {{% tab-content %}}
 
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->
-Use the [`influxctl token update` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/update/)
+Use the [`influxctl token update` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/update/)
 to update a database token's permissions in your {{< product-name omit=" Clustered" >}} cluster.
 
-1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
-2.  To list token IDs, run the [`influxctl token list` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/list) in your terminal.
+1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
+2.  To list token IDs, run the [`influxctl token list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/list) in your terminal.
 
      ```sh
     influxctl token list
@@ -101,7 +101,7 @@ influxctl token update \
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)- {{% code-placeholder-key %}}`TOKEN ID`{{% /code-placeholder-key %}}: ID of the token to update
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)- {{% code-placeholder-key %}}`TOKEN ID`{{% /code-placeholder-key %}}: ID of the token to update
 
 <!-------------------------------- END INFLUXCTL ------------------------------>
 {{% /tab-content %}}
@@ -113,23 +113,23 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 1. If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
 2. In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
-   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" method="patch" api-ref="/influxdb/cloud-dedicated/api/management/#operation/UpdateDatabaseToken" %}}
+   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" method="patch" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/UpdateDatabaseToken" %}}
 
    In the URL, provide the following:
 
-   - `ACCOUNT_ID`: The ID of the [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
-   - `CLUSTER_ID`: The ID of the [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
-   - `TOKEN_ID`: The ID of the database [token](/influxdb/cloud-dedicated/admin/tokens/database) that you want to update _(see how to [list token details](/influxdb/cloud-dedicated/admin/tokens/database/list/#detailed-output-in-json))_.
+   - `ACCOUNT_ID`: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+   - `CLUSTER_ID`: The ID of the [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+   - `TOKEN_ID`: The ID of the database [token](/influxdb3/cloud-dedicated/admin/tokens/database) that you want to update _(see how to [list token details](/influxdb3/cloud-dedicated/admin/tokens/database/list/#detailed-output-in-json))_.
 
    Provide the following request headers:
 
    - `Accept: application/json` to ensure the response body is JSON content
    - `Content-Type: application/json` to indicate the request body is JSON content
-   - `Authorization: Bearer` and a [Management API token](/influxdb/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
+   - `Authorization: Bearer` and a [Management API token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
 
    In the request body, provide the following parameters:
 
-    - `permissions`: an array of token [permissions](/influxdb/cloud-dedicated/api/management/#operation/CreateDatabaseToken) (read or write) objects:
+    - `permissions`: an array of token [permissions](/influxdb3/cloud-dedicated/api/management/#operation/CreateDatabaseToken) (read or write) objects:
       - `"action"`: Specify `read` or `write` permission to the database.
       - `"resource"`: Specify the database name.
     - `description`: Provide a description of the token.
@@ -162,10 +162,10 @@ curl \
 
 Replace the following in your request:
 
-- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database token for
-- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database token for
-- {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: a {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/) that the token will have read or write permission to
+- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database token for
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database token for
+- {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: a {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/) that the token will have read or write permission to
 
 {{% /code-placeholders %}}
 <!------------------------------- END cURL ------------------------------------>
@@ -194,9 +194,9 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{< product-name >}} database
 - {{% code-placeholder-key %}}`DATABASE2_NAME`{{% /code-placeholder-key %}}: your {{< product-name >}} database
 - {{% code-placeholder-key %}}`TOKEN ID`{{% /code-placeholder-key %}}: ID of the token to update
-- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database token for
-- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database token for
-- {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
+- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database token for
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database token for
+- {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
 
 #### Update a token for read and write access to a database
 

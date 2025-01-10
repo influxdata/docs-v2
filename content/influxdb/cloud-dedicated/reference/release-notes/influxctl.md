@@ -4,7 +4,7 @@ list_title: influxctl
 description: >
   Release notes for the `influxctl` CLI used to manage InfluxDB v3 clusters.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     identifier: influxctl-release-notes
     name: influxctl
     parent: Release notes
@@ -18,7 +18,7 @@ weight: 202
 - Continue revoking tokens on error.
 - Reject unsupported input to `--template-timeformat`.
 - Remove unused `client_secret` option from
-  [connection configuration profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles).
+  [connection configuration profiles](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles).
 
 ### Dependency Updates
 
@@ -34,7 +34,7 @@ weight: 202
 
 ### Features
 
-- Add [global `--timeout` flag](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags).
+- Add [global `--timeout` flag](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags).
 - Improve timezone support.
 
 ### Bug Fixes
@@ -225,9 +225,9 @@ InfluxDB cluster instead of an OAuth2 provider.
 ## v2.5.0 {date="2024-03-04"}
 
 `influxctl` 2.5.0 introduces the ability to set
-[partition templates](/influxdb/cloud-dedicated/admin/custom-partitions/) during
+[partition templates](/influxdb3/cloud-dedicated/admin/custom-partitions/) during
 database or table creation. It introduces the
-[`table` subcommand](/influxdb/cloud-dedicated/reference/cli/influxctl/table/)
+[`table` subcommand](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/)
 that lets users manually create tables. Additionally, `influxctl` now removes a
 previously cached token if the response from InfluxDB is unauthorized. This
 helps InfluxDB Clustered users who deploy new clusters using unexpired tokens
@@ -395,7 +395,7 @@ not affect any public APIs._
 
 ### Features
 
-- Add `--format` flag to [`influxctl token create`](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
+- Add `--format` flag to [`influxctl token create`](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/create/)
   to specify the command output format.
 
 ### Bug fixes
@@ -437,8 +437,8 @@ not affect any public APIs._
 
 ### Bug fixes
 
-- Add pagination support to [`influxctl token list`](/influxdb/cloud-dedicated/reference/cli/influxctl/token/list/)
-  and [`influxctl user list`](/influxdb/cloud-dedicated/reference/cli/influxctl/user/list/).
+- Add pagination support to [`influxctl token list`](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/list/)
+  and [`influxctl user list`](/influxdb3/cloud-dedicated/reference/cli/influxctl/user/list/).
 - Send all logging output to stderr.
 - Return error for commands that are not supported by InfluxDB Clustered.
 
@@ -457,12 +457,12 @@ not affect any public APIs._
 ### Bug fixes
 
 - Add cluster get args, clarify error message.
-- [`influxctl database update`](/influxdb/cloud-dedicated/reference/cli/influxctl/database/update/)
+- [`influxctl database update`](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/update/)
   should only accept retention policy updates as a flag.
-- Update [`influxctl token create`](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
-  and [`influxctl token update`](/influxdb/cloud-dedicated/reference/cli/influxctl/token/update/)
+- Update [`influxctl token create`](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/create/)
+  and [`influxctl token update`](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/update/)
   help information with examples that use multiple permission flags.
-- Update [`influxctl cluster get`](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/get/)
+- Update [`influxctl cluster get`](/influxdb3/cloud-dedicated/reference/cli/influxctl/cluster/get/)
   help text.
 - Switch email param ordering.
 
@@ -503,7 +503,7 @@ following guidelines:
 
 1.  Create a 2.0+ configuration file (`config.toml`) at the default location
     for your operating system.
-    _See [Create a configuration file](/influxdb/cloud-dedicated/reference/cli/influxctl/#create-a-configuration-file)_.
+    _See [Create a configuration file](/influxdb3/cloud-dedicated/reference/cli/influxctl/#create-a-configuration-file)_.
 
 2.  Copy the `account_id` and `cluster_id` credentials from your `influxctl` 1.x
     configuration file and add them to a `[[profile]]` TOML table along with the
@@ -536,10 +536,10 @@ following guidelines:
   and the <https://repos.influxdata.com/> repository.
 - The `influxctl` configuration file is now a single file that you can
   optionally pass in via the CLI.
-- Add additional options to [`influxctl database`](/influxdb/cloud-dedicated/reference/cli/influxctl/database/)
-  and [`influxctl token`](/influxdb/cloud-dedicated/reference/cli/influxctl/token/)
+- Add additional options to [`influxctl database`](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/)
+  and [`influxctl token`](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/)
   subcommands.
-- Introduce [`influxctl cluster`](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/)
+- Introduce [`influxctl cluster`](/influxdb3/cloud-dedicated/reference/cli/influxctl/cluster/)
   subcommands.
 - Remove the `influxctl init` subcommand to avoid additional complexity of an
   InfluxDB Cloud Dedicated configuration.
@@ -586,9 +586,9 @@ following guidelines:
 
 ### Features
 
-- Add the [`influxctl database update`](/influxdb/cloud-dedicated/reference/cli/influxctl/database/update/)
+- Add the [`influxctl database update`](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/update/)
   subcommand to update retention periods.
-- Add the [`influxctl token update`](/influxdb/cloud-dedicated/reference/cli/influxctl/database/update/)
+- Add the [`influxctl token update`](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/update/)
   subcommand to update token descriptions.
 - Using the `influxctl init` command:
   - Confirm before overwriting an existing profile.

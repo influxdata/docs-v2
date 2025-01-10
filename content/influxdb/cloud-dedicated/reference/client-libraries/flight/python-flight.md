@@ -2,13 +2,13 @@
 title: Python Flight client
 description: The Python Flight client integrates with Python scripts and applications to query data stored in InfluxDB.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Python
     parent: Arrow Flight clients
     identifier: python-flight-client
-influxdb/cloud-dedicated/tags: [Flight client, Python, gRPC, SQL, Flight SQL, client libraries]
+influxdb3/cloud-dedicated/tags: [Flight client, Python, gRPC, SQL, Flight SQL, client libraries]
 aliases:
-  - /influxdb/cloud-dedicated/reference/client-libraries/flight-sql/python-flightsql/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/flight-sql/python-flightsql/
 weight: 201
 list_code_example: |
   ```py
@@ -52,10 +52,10 @@ list_code_example: |
 {{% note %}}
 #### Use InfluxDB v3 client libraries
 
-We recommend using the [`influxdb3-python` Python client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/) for integrating InfluxDB v3 with your Python application code.
+We recommend using the [`influxdb3-python` Python client library](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/) for integrating InfluxDB v3 with your Python application code.
 
-[InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
-and provide convenient methods for [writing](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
+[InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
+and provide convenient methods for [writing](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
 Client libraries can query using SQL or InfluxQL.
 {{% /note %}}
 
@@ -152,7 +152,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 {{% /code-tabs-wrapper %}}

@@ -2,16 +2,16 @@
 title: Java Flight SQL package
 description: The Java Flight SQL client integrates with Java applications to query and retrieve data from Flight database servers using RPC and SQL.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Java Flight SQL
     parent: Arrow Flight clients
     identifier: java-flightsql-client
-influxdb/cloud-dedicated/tags: [Flight client, Java, gRPC, SQL, Flight SQL]
+influxdb3/cloud-dedicated/tags: [Flight client, Java, gRPC, SQL, Flight SQL]
 weight: 201
 related:
-  - /influxdb/cloud-dedicated/reference/client-libraries/v3/java/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/v3/java/
 aliases:
-  - /influxdb/cloud-dedicated/reference/client-libraries/flight-sql/java-flightsql/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/flight-sql/java-flightsql/
 list_code_example: |
     ```java
     public class Query {
@@ -44,10 +44,10 @@ list_code_example: |
 {{% note %}}
 #### Use InfluxDB v3 client libraries
 
-We recommend using the [`influxdb3-java` Java client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/java/) for integrating InfluxDB v3 with your Java application code.
+We recommend using the [`influxdb3-java` Java client library](/influxdb3/cloud-dedicated/reference/client-libraries/v3/java/) for integrating InfluxDB v3 with your Java application code.
 
-[InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
-and provide convenient methods for [writing](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
+[InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
+and provide convenient methods for [writing](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
 Client libraries can query using SQL or InfluxQL.
 {{% /note %}}
 
@@ -90,9 +90,9 @@ To configure the application for querying {{% product-name %}}, you'll need the 
 - {{% product-name %}} **database**
 - {{% product-name %}} **database token** with _read_ permission to the database
 
-If you don't already have a database token and a database, see how to [set up InfluxDB](/influxdb/cloud-dedicated/get-started/setup/).
+If you don't already have a database token and a database, see how to [set up InfluxDB](/influxdb3/cloud-dedicated/get-started/setup/).
 If you don't already have data to query, see how to
-[write data](/influxdb/cloud-dedicated/get-started/write/) to a database.
+[write data](/influxdb3/cloud-dedicated/get-started/write/) to a database.
 
 ### Install prerequisites
 
@@ -480,9 +480,9 @@ Follow these steps to build and run the application using Docker:
 2. Open a terminal in your project root directory.
 3. In your terminal, run the `docker build` command and pass `--build-arg` flags for the server credentials:
    
-    - **`DATABASE_NAME`**: your [{{% product-name %}} database](/influxdb/cloud-dedicated/admin/databases/)
+    - **`DATABASE_NAME`**: your [{{% product-name %}} database](/influxdb3/cloud-dedicated/admin/databases/)
     - **`HOST`**: your {{% product-name %}} hostname (URL without the "https://")
-    - **`TOKEN`**: your [{{% product-name %}} database token](/influxdb/cloud-dedicated/get-started/setup/) with _read_ permission to the database
+    - **`TOKEN`**: your [{{% product-name %}} database token](/influxdb3/cloud-dedicated/get-started/setup/) with _read_ permission to the database
 
     <!--pytest.mark.skip-->
 

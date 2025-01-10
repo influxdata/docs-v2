@@ -4,7 +4,7 @@ description: >
   The `influxctl token list` command lists all database tokens in an InfluxDB
   Cloud Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl token
 weight: 301
 ---
@@ -30,5 +30,5 @@ influxctl token list [--format=table|json]
 | `-h` | `--help`   | Output command help                           |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}

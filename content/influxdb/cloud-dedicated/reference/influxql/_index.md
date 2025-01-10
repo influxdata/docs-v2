@@ -3,7 +3,7 @@ title: InfluxQL reference documentation
 description: >
   InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Reference
     name: InfluxQL reference
     identifier: influxql-reference

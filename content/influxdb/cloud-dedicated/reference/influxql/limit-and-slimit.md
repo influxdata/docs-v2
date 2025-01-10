@@ -2,10 +2,10 @@
 title: LIMIT and SLIMIT clauses
 description: >
   Use `LIMIT` to limit the number of **rows** returned per InfluxQL group.
-  Use `SLIMIT` to limit the number of [series](/influxdb/cloud-dedicated/reference/glossary/#series)
+  Use `SLIMIT` to limit the number of [series](/influxdb3/cloud-dedicated/reference/glossary/#series)
   returned in query results.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: LIMIT and SLIMIT clauses
     parent: influxql-reference
 weight: 206

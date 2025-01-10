@@ -3,9 +3,9 @@ title: SELECT statement
 list_title: SELECT statement
 description: >
   Use the `SELECT` statement to query data from one or more
-  [measurements](/influxdb/cloud-dedicated/reference/glossary/#measurement).
+  [measurements](/influxdb3/cloud-dedicated/reference/glossary/#measurement).
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: SELECT statement
     identifier: influxql-select-statement
     parent: influxql-reference

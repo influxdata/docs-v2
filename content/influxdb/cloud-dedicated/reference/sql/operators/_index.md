@@ -4,7 +4,7 @@ description: >
   SQL operators are reserved words or characters which perform certain operations,
   including comparisons and arithmetic.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Operators
     parent: SQL reference
 weight: 211

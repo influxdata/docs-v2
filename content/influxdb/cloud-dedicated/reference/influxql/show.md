@@ -3,7 +3,7 @@ title: InfluxQL SHOW statements
 description: >
   Use InfluxQL `SHOW` statements to query schema information from a database.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: SHOW statements
     identifier: influxql-show-statements
     parent: influxql-reference
@@ -13,7 +13,7 @@ list_code_example: |
   SHOW [RETENTION POLICIES | MEASUREMENTS | FIELD KEYS | TAG KEYS | TAG VALUES]
   ```
 related:
-  - /influxdb/cloud-dedicated/query-data/influxql/explore-schema/
+  - /influxdb3/cloud-dedicated/query-data/influxql/explore-schema/
 
 source: /shared/influxql-v3-reference/show.md
 ---

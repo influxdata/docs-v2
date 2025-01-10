@@ -6,10 +6,10 @@ description: >
   that can be used to restore data in the event of a node failure or data corruption.
 weight: 102
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Data durability
     parent: InfluxDB internals
-influxdb/cloud-dedicated/tags: [backups, internals]
+influxdb3/cloud-dedicated/tags: [backups, internals]
 related:
   - https://docs.aws.amazon.com/AmazonS3/latest/userguide/DataDurability.html, AWS S3 Data Durabililty
   - /influxdb/cloud-dedicated/reference/internals/storage-engine/

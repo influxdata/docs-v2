@@ -5,7 +5,7 @@ description: >
   documentation to demonstrate functionality.
   Use the following sample datasets to replicate provided examples.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Sample data
     parent: Reference
 weight: 110
@@ -24,7 +24,7 @@ Use the following sample datasets to replicate provided examples.
 ## Get started home sensor data
 
 Includes hourly home sensor data used in the
-[Get started with {{< product-name >}}](/influxdb/cloud-dedicated/get-started/) guide.
+[Get started with {{< product-name >}}](/influxdb3/cloud-dedicated/get-started/) guide.
 This dataset includes anomalous sensor readings and helps to demonstrate
 processing and alerting on time series data.
 To customize timestamps in the dataset, use the {{< icon "clock" >}} button in
@@ -156,7 +156,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Dedicated database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with _write_ permission to the database
 
 {{% /expand %}}
@@ -263,7 +263,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Dedicated database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with _write_ permission to the database
 
 {{% /expand %}}
@@ -342,7 +342,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Dedicated database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 {{% /expand %}}
@@ -425,7 +425,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Dedicated database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 {{% /expand %}}
@@ -496,7 +496,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Dedicated database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 {{% /expand %}}

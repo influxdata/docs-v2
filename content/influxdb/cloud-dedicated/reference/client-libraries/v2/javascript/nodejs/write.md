@@ -4,15 +4,15 @@ list_title: Write data
 description: >
   The InfluxDB v2 JavaScript client library integrates with Node.js applications to write data to the InfluxDB v2 API.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Write
     parent: Node.js
-influxdb/cloud-dedicated/tags: [client libraries, JavaScript]
+influxdb3/cloud-dedicated/tags: [client libraries, JavaScript]
 weight: 101
 aliases:
-  - /influxdb/cloud-dedicated/reference/api/client-libraries/nodejs/write
+  - /influxdb3/cloud-dedicated/reference/api/client-libraries/nodejs/write
 related:
-  - /influxdb/cloud-dedicated/write-data/troubleshoot/
+  - /influxdb3/cloud-dedicated/write-data/troubleshoot/
 prepend:
   block: warn
   content: |
@@ -20,10 +20,10 @@ prepend:
 
     The `/api/v2/query` API endpoint and associated tooling, such as InfluxDB v2 client libraries and the `influx` CLI, **can't** query an {{% product-name omit=" Clustered" %}} cluster.
 
-    [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) and [Flight SQL clients](/influxdb/cloud-dedicated/reference/client-libraries/) are available that integrate with your code to write and query data stored in {{% product-name %}}.
+    [InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) and [Flight SQL clients](/influxdb3/cloud-dedicated/reference/client-libraries/) are available that integrate with your code to write and query data stored in {{% product-name %}}.
 
-    InfluxDB v3 supports many different tools for [**writing**](/influxdb/cloud-dedicated/write-data/) and [**querying**](/influxdb/cloud-dedicated/query-data/) data.
-    [**Compare tools you can use**](/influxdb/cloud-dedicated/get-started/#tools-to-use) to interact with {{% product-name %}}.
+    InfluxDB v3 supports many different tools for [**writing**](/influxdb3/cloud-dedicated/write-data/) and [**querying**](/influxdb3/cloud-dedicated/query-data/) data.
+    [**Compare tools you can use**](/influxdb3/cloud-dedicated/get-started/#tools-to-use) to interact with {{% product-name %}}.
 ---
 
 Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) to write data from a Node.js environment to InfluxDB.
@@ -36,11 +36,11 @@ The JavaScript client library includes the following convenient features for wri
 
 ### Before you begin
 
-- [Install the client library and other dependencies](/influxdb/cloud-dedicated/reference/client-libraries/v2/javascript/nodejs/install/).
+- [Install the client library and other dependencies](/influxdb3/cloud-dedicated/reference/client-libraries/v2/javascript/nodejs/install/).
 
 ### Write data with the client library
 
-1. Instantiate a client by calling the `new InfluxDB()` constructor with your InfluxDB URL and database token (environment variables you already set in the [Install section](/influxdb/cloud-dedicated/reference/client-libraries/v2/javascript/nodejs/install/)).
+1. Instantiate a client by calling the `new InfluxDB()` constructor with your InfluxDB URL and database token (environment variables you already set in the [Install section](/influxdb3/cloud-dedicated/reference/client-libraries/v2/javascript/nodejs/install/)).
 
    ```js
    import {InfluxDB, Point} from '@influxdata/influxdb-client'
@@ -57,15 +57,15 @@ The JavaScript client library includes the following convenient features for wri
                                           process.env.INFLUX_DATABASE)
    ```
 
-3. To apply one or more [tags](/influxdb/cloud-dedicated/reference/glossary/#tag) to all points, use the `useDefaultTags()` method.
+3. To apply one or more [tags](/influxdb3/cloud-dedicated/reference/glossary/#tag) to all points, use the `useDefaultTags()` method.
    Provide tags as an object of key/value pairs.
 
     ```js
     writeApi.useDefaultTags({region: 'west'})
     ```
 
-4. Use the `Point()` constructor to create a [point](/influxdb/cloud-dedicated/reference/glossary/#point).
-   1. Call the constructor and provide a [measurement](/influxdb/cloud-dedicated/reference/glossary/#measurement).
+4. Use the `Point()` constructor to create a [point](/influxdb3/cloud-dedicated/reference/glossary/#point).
+   1. Call the constructor and provide a [measurement](/influxdb3/cloud-dedicated/reference/glossary/#measurement).
    2. To add one or more tags, chain the `tag()` method to the constructor.
       Provide a `name` and `value`.
    3. To add a field of type `float`, chain the `floatField()` method to the constructor.
@@ -136,7 +136,7 @@ writeApi.close().then(() => {
 })
 ```
 
-In your terminal with [environment variables or `env.js` set](/influxdb/cloud-dedicated/reference/client-libraries/v2/javascript/nodejs/install/#configure-credentials), run the following command to execute the JavaScript file:
+In your terminal with [environment variables or `env.js` set](/influxdb3/cloud-dedicated/reference/client-libraries/v2/javascript/nodejs/install/#configure-credentials), run the following command to execute the JavaScript file:
 
 ```sh
 node write.js
@@ -145,4 +145,4 @@ node write.js
 ### Response codes
 
 _For information about **InfluxDB API response codes**, see
-[InfluxDB API Write documentation](/influxdb/cloud-dedicated/api/#operation/PostWrite)._
+[InfluxDB API Write documentation](/influxdb3/cloud-dedicated/api/#operation/PostWrite)._

@@ -4,7 +4,7 @@ description: >
   The `influxctl token delete` command deletes a database token from an InfluxDB
   Cloud Dedicated cluster and revokes all permissions associated with the token.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl token
 weight: 301
 ---
@@ -45,7 +45,7 @@ Cloud Dedicated cluster.
 | `-h` | `--help`  | Output command help                                         |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}
 
 ## Examples

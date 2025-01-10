@@ -5,18 +5,18 @@ description: >
   understand how a query is executed and find performance bottlenecks.
 weight: 401
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Analyze a query plan
     parent: Troubleshoot and optimize queries
-influxdb/cloud-dedicated/tags: [query, sql, influxql, observability, query plan]
+influxdb3/cloud-dedicated/tags: [query, sql, influxql, observability, query plan]
 related:
-  - /influxdb/cloud-dedicated/query-data/sql/
-  - /influxdb/cloud-dedicated/query-data/influxql/
-  - /influxdb/cloud-dedicated/reference/internals/query-plans/
-  - /influxdb/cloud-dedicated/reference/internals/storage-engine
+  - /influxdb3/cloud-dedicated/query-data/sql/
+  - /influxdb3/cloud-dedicated/query-data/influxql/
+  - /influxdb3/cloud-dedicated/reference/internals/query-plans/
+  - /influxdb3/cloud-dedicated/reference/internals/storage-engine
 ---
 
-Learn how to read and analyze a [query plan](/influxdb/cloud-dedicated/reference/glossary/#query-plan) to
+Learn how to read and analyze a [query plan](/influxdb3/cloud-dedicated/reference/glossary/#query-plan) to
 understand query execution steps and data organization, and find performance bottlenecks.
 
 When you query InfluxDB v3, the Querier devises a query plan for executing the query.
@@ -25,7 +25,7 @@ By learning how to generate and interpret reports for the query plan,
 you can better understand how the query is executed and identify bottlenecks that affect the performance of your query.
 
 For example, if the query plan reveals that your query reads a large number of Parquet files,
-you can then take steps to [optimize your query](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/), such as add filters to read less data or
+you can then take steps to [optimize your query](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/), such as add filters to read less data or
 configure your cluster to store fewer and larger files.
 
 - [Use EXPLAIN keywords to view a query plan](#use-explain-keywords-to-view-a-query-plan)
@@ -44,7 +44,7 @@ configure your cluster to store fewer and larger files.
 
 ## Use EXPLAIN keywords to view a query plan
 
-Use the `EXPLAIN` keyword (and the optional [`ANALYZE`](/influxdb/cloud-dedicated/reference/sql/explain/#explain-analyze) and [`VERBOSE`](/influxdb/cloud-dedicated/reference/sql/explain/#explain-analyze-verbose) keywords) to view the query plans for a query.
+Use the `EXPLAIN` keyword (and the optional [`ANALYZE`](/influxdb3/cloud-dedicated/reference/sql/explain/#explain-analyze) and [`VERBOSE`](/influxdb3/cloud-dedicated/reference/sql/explain/#explain-analyze-verbose) keywords) to view the query plans for a query.
 
 {{% expand-wrapper %}}
 {{% expand "Use Python and pandas to view an EXPLAIN report" %}}
@@ -91,9 +91,9 @@ assert 'logical_plan' in df.plan_type.values, "Expect logical_plan"
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 {{% /expand %}}
@@ -104,8 +104,8 @@ Replace the following:
 When you [use `EXPLAIN` keywords to view a query plan](#use-explain-keywords-to-view-a-query-plan), the report contains the following:
 
 - two columns: `plan_type` and `plan`
-- one row for the [logical plan](/influxdb/cloud-dedicated/reference/internals/query-plans/#logical-plan) (`logical_plan`)
-- one row for the [physical plan](/influxdb/cloud-dedicated/reference/internals/query-plans/#physical-plan) (`physical_plan`)
+- one row for the [logical plan](/influxdb3/cloud-dedicated/reference/internals/query-plans/#logical-plan) (`logical_plan`)
+- one row for the [physical plan](/influxdb3/cloud-dedicated/reference/internals/query-plans/#physical-plan) (`physical_plan`)
 
 ## Read a query plan
 
@@ -116,13 +116,13 @@ Whether reading a logical or physical plan, keep the following in mind:
 - Start at the _leaf nodes_ and read upward.
 - At the top of the plan, the _root node_ represents the final, encompassing step.
 
-In a [physical plan](/influxdb/cloud-dedicated/reference/internals/query-plan/#physical-plan), each step is an [`ExecutionPlan` node](/influxdb/cloud-dedicated/reference/internals/query-plan/#execution-plan-nodes) that receives expressions for input data and output requirements, and computes a partition of data.
+In a [physical plan](/influxdb3/cloud-dedicated/reference/internals/query-plan/#physical-plan), each step is an [`ExecutionPlan` node](/influxdb3/cloud-dedicated/reference/internals/query-plan/#execution-plan-nodes) that receives expressions for input data and output requirements, and computes a partition of data.
 
 Use the following steps to analyze a query plan and estimate how much work is required to complete the query.
 The same steps apply regardless of how large or complex the plan might seem.
 
 1. Start from the furthest indented steps (the _leaf nodes_), and read upward.
-2. Understand the job of each [`ExecutionPlan` node](/influxdb/cloud-dedicated/reference/internals/query-plan/#executionplan-nodes)--for example, a [`UnionExec`](/influxdb/cloud-dedicated/reference/internals/query-plan/#unionexec) node encompassing the leaf nodes means that the `UnionExec` concatenates the output of all the leaves.
+2. Understand the job of each [`ExecutionPlan` node](/influxdb3/cloud-dedicated/reference/internals/query-plan/#executionplan-nodes)--for example, a [`UnionExec`](/influxdb3/cloud-dedicated/reference/internals/query-plan/#unionexec) node encompassing the leaf nodes means that the `UnionExec` concatenates the output of all the leaves.
 3. For each expression, answer the following questions:
     - What is the shape and size of data input to the plan?
     - What is the shape and size of data output from the plan?
@@ -411,7 +411,7 @@ A physical plan can reveal overlaps and duplicates in your data and how they aff
 - The second `ParquetExec` node reads two files that overlap each other and overlap the ingested data scanned in the `RecordBatchesExec` node; the query plan must include the deduplication process for these nodes before completing the query.
 
 The remaining sections analyze `ExecutionPlan` node structure and arguments in the example physical plan.
-The example includes DataFusion and InfluxDB-specific [`ExecutionPlan` nodes](/influxdb/cloud-dedicated/reference/internals/query-plans/#executionplan-nodes).
+The example includes DataFusion and InfluxDB-specific [`ExecutionPlan` nodes](/influxdb3/cloud-dedicated/reference/internals/query-plans/#executionplan-nodes).
 
 ### Locate the physical plan
 
@@ -438,8 +438,8 @@ Leaf node structures in the physical plan
 
 The [example physical plan](#physical-plan-leaf-nodes) contains three [leaf nodes](#physical-plan-leaf-nodes)--the innermost nodes where the execution flow begins:
 
-- [`ParquetExec`](/influxdb/cloud-dedicated/reference/internals/query-plan/#parquetexec) nodes retrieve and scan data from Parquet files in the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store)
-- a [`RecordBatchesExec`](/influxdb/cloud-dedicated/reference/internals/query-plan/#recordbatchesexec) node retrieves recently written, yet-to-be-persisted data from the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester)
+- [`ParquetExec`](/influxdb3/cloud-dedicated/reference/internals/query-plan/#parquetexec) nodes retrieve and scan data from Parquet files in the [Object store](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#object-store)
+- a [`RecordBatchesExec`](/influxdb3/cloud-dedicated/reference/internals/query-plan/#recordbatchesexec) node retrieves recently written, yet-to-be-persisted data from the [Ingester](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester)
 
 Because `ParquetExec` and `RecordBatchesExec` retrieve and scan data for a query, every query plan starts with one or more of these nodes.
 
@@ -566,13 +566,13 @@ RecordBatchesExec: chunks=1, projection=[__chunk_order, city, state, time]
 
 {{% caption %}}RecordBatchesExec{{% /caption %}}
 
-[`RecordBatchesExec`](/influxdb/cloud-dedicated/reference/internals/query-plans/#recordbatchesexec) is an InfluxDB-specific `ExecutionPlan` implementation that retrieves recently written, yet-to-be-persisted data from the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester).
+[`RecordBatchesExec`](/influxdb3/cloud-dedicated/reference/internals/query-plans/#recordbatchesexec) is an InfluxDB-specific `ExecutionPlan` implementation that retrieves recently written, yet-to-be-persisted data from the [Ingester](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester).
 
 In the example, `RecordBatchesExec` contains the following expressions:
 
 ##### `chunks`
 
-`chunks` is the number of data chunks received from the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester).
+`chunks` is the number of data chunks received from the [Ingester](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester).
 
 ```text
 chunks=1
@@ -667,7 +667,7 @@ SortExec: expr=[state@2 ASC,city@1 ASC,time@3 ASC,__chunk_order@0 ASC]
 ```
 
 The node uses the specified expression `state ASC, city ASC, time ASC, __chunk_order ASC` to sort the yet-to-be-persisted data.
-Neither ParquetExec_A nor ParquetExec_B contain a similar node because data in the Object store is already sorted (by the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester) or the [Compactor](/influxdb/cloud-dedicated/reference/internals/storage-engine/#compactor)) in the given order; the query plan only needs to sort data that arrives from the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester).
+Neither ParquetExec_A nor ParquetExec_B contain a similar node because data in the Object store is already sorted (by the [Ingester](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester) or the [Compactor](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#compactor)) in the given order; the query plan only needs to sort data that arrives from the [Ingester](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester).
 
 #### Recognize overlapping and duplicate data
 
@@ -688,12 +688,12 @@ DeduplicateExec: [state@2 ASC,city@1 ASC,time@3 ASC]
 3. `DeduplicateExec: [state@2 ASC,city@1 ASC,time@3 ASC]`: deduplicates an input stream of sorted data.
   Because `SortPreservingMergeExec` ensures a single sorted stream, it often, but not always, precedes `DeduplicateExec`.
 
-A `DeduplicateExec` node indicates that encompassed nodes have [_overlapped data_](/influxdb/cloud-dedicated/reference/internals/query-plan/#overlapping-data-and-deduplication)--data in a file or batch have timestamps in the same range as data in another file or batch.
+A `DeduplicateExec` node indicates that encompassed nodes have [_overlapped data_](/influxdb3/cloud-dedicated/reference/internals/query-plan/#overlapping-data-and-deduplication)--data in a file or batch have timestamps in the same range as data in another file or batch.
 Due to how InfluxDB organizes data, data is never duplicated _within_ a file.
 
 In the example, the `DeduplicateExec` node encompasses ParquetExec_B and the `RecordBatchesExec` node, which indicates that ParquetExec_B [file group](#file_groups) files overlap the yet-to-be persisted data.
 
-The following [sample data](#sample-data) excerpt shows overlapping data between a file and [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester) data:
+The following [sample data](#sample-data) excerpt shows overlapping data between a file and [Ingester](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester) data:
 
 ```text
 // Chunk 4: stored Parquet file
@@ -720,7 +720,7 @@ If a plan reads many files and performs deduplication on all of them, it might b
 - the Object store has many small overlapped files that the Compactor hasn't compacted yet. After compaction, your query may perform better because it has fewer files to read
 - the Compactor isn't keeping up. If the data isn't duplicated and you still have many small overlapping files after compaction, then you might want to review the Compactor's workload and add more resources as needed
 
-A leaf node that doesn't have a `DeduplicateExec` node in its branch doesn't require deduplication and doesn't overlap other files or [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester) data--for example, ParquetExec_A has no overlaps:
+A leaf node that doesn't have a `DeduplicateExec` node in its branch doesn't require deduplication and doesn't overlap other files or [Ingester](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester) data--for example, ParquetExec_A has no overlaps:
 
 ```sql
 ProjectionExec:...
@@ -770,4 +770,4 @@ Operator structure for aggregating, sorting, and final output.
 - `SortPreservingMergeExec: [city@0 ASC NULLS LAST]`: Merges and sorts the four sorted streams for the final output.
 
 In the preceding examples, the `EXPLAIN` report shows the query plan without executing the query.
-To view runtime metrics, such as execution time for a plan and its operators, use [`EXPLAIN ANALYZE`](/influxdb/cloud-dedicated/reference/sql/explain/#explain-analyze) to generate the report and [tracing](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/#enable-trace-logging) for further debugging, if necessary.
+To view runtime metrics, such as execution time for a plan and its operators, use [`EXPLAIN ANALYZE`](/influxdb3/cloud-dedicated/reference/sql/explain/#explain-analyze) to generate the report and [tracing](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/#enable-trace-logging) for further debugging, if necessary.

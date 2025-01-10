@@ -1,10 +1,10 @@
 ---
 title: List databases
 description: >
-  Use the [`influxctl database list` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/list/)
+  Use the [`influxctl database list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/list/)
   to list databases in your InfluxDB Cloud Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Manage databases
 weight: 202
 list_code_example: |
@@ -21,12 +21,12 @@ list_code_example: |
     --header "Authorization: Bearer MANAGEMENT_TOKEN"
   ```
 related:
-  - /influxdb/cloud-dedicated/reference/cli/influxctl/database/list/
-  - /influxdb/cloud-dedicated/reference/api/
+  - /influxdb3/cloud-dedicated/reference/cli/influxctl/database/list/
+  - /influxdb3/cloud-dedicated/reference/api/
 ---
 
-Use the [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
-or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/) to create a database in your {{< product-name omit=" Clustered" >}} cluster.
+Use the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/create/)
+or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/) to create a database in your {{< product-name omit=" Clustered" >}} cluster.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -37,10 +37,10 @@ or the [Management HTTP API](/influxdb/cloud-dedicated/api/management/) to creat
 
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->
 
-Use the [`influxctl database list` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/list/)
+Use the [`influxctl database list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/list/)
 to list databases in your InfluxDB Cloud Dedicated cluster.
 
-1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
+1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
 2. In your terminal, run the `influxctl database list` command and provide the following:
 
     - _Optional_: [Output format](#output-format)
@@ -58,16 +58,16 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 1. If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
 2. In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
-   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="get" api-ref="/influxdb/cloud-dedicated/api/management/#operation/GetClusterDatabases" %}}
+   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="get" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/GetClusterDatabases" %}}
 
    In the URL, provide the following credentials:
-   - `ACCOUNT_ID`: The ID of the [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
-   - `CLUSTER_ID`: The ID of the [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+   - `ACCOUNT_ID`: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+   - `CLUSTER_ID`: The ID of the [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
 
    Provide the following request headers:
 
    - `Accept: application/json` to ensure the response body is JSON content
-   - `Authorization: Bearer` and a [Management API token](/influxdb/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
+   - `Authorization: Bearer` and a [Management API token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
 
  The following example shows how to use the Management API to list databases in a cluster:
 
@@ -84,9 +84,9 @@ curl \
 
 Replace the following in your request:
 
-- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [account](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
-- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
-- {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
+- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
+- {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
 <!------------------------------- END cURL ------------------------------------>
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

@@ -4,11 +4,11 @@ list_title: Regular expression functions
 description: >
   Use regular expression functions to operate on data in SQL queries.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Regular expression
     parent: sql-functions    
 weight: 308
-influxdb/cloud-dedicated/tags: [regular expressions, sql]
+influxdb3/cloud-dedicated/tags: [regular expressions, sql]
 
 source: /content/shared/sql-reference/functions/regular-expression.md
 ---

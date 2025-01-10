@@ -5,13 +5,13 @@ description: >
   Manage users and access to resources in your InfluxDB Cloud Dedicated cluster.
   Assign user groups for role-based access control and security.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Administer InfluxDB Cloud
 weight: 101
-influxdb/cloud-dedicated/tags: [user groups]
+influxdb3/cloud-dedicated/tags: [user groups]
 related:
-  - /influxdb/cloud-dedicated/reference/internals/security/
-  - /influxdb/cloud-dedicated/admin/tokens/ 
+  - /influxdb3/cloud-dedicated/reference/internals/security/
+  - /influxdb3/cloud-dedicated/admin/tokens/ 
 ---
 
 Manage users and access to resources in your {{% product-name %}} cluster.
@@ -29,8 +29,8 @@ user attributes, resource types, and environment context.
 ## Available user groups
 
 In {{% product-name %}}, users have "management" responsibilities, such as creating and 
-deleting [databases](/influxdb/cloud-dedicated/admin/databases/), [viewing resource information](/influxdb/cloud-dedicated/admin/monitor-your-cluster/), and provisioning
-[database tokens](/influxdb/cloud-dedicated/admin/tokens/database/) for reading and writing data. 
+deleting [databases](/influxdb3/cloud-dedicated/admin/databases/), [viewing resource information](/influxdb3/cloud-dedicated/admin/monitor-your-cluster/), and provisioning
+[database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/) for reading and writing data. 
 
 A user can belong to the following groups, each with predefined privileges:
 
@@ -80,13 +80,13 @@ configures invitations with the attributes and groups that you specify.
 3. The user accepts the invitation to your account
 
 With a valid password, the user can access cluster resources by interacting with the
-[`influxctl`](/influxdb/cloud-dedicated/reference/influxctl/) command line tool.
+[`influxctl`](/influxdb3/cloud-dedicated/reference/influxctl/) command line tool.
 The assigned user groups determine the user's access to resources.
 
 {{% note %}}
 #### Use database tokens to authorize data reads and writes
 
 In {{% product-name %}}, user groups control access for managing cluster resources.
-[Database tokens](/influxdb/cloud-dedicated/admin/tokens/database/) control access
+[Database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/) control access
 for reading and writing data in cluster databases.
 {{% /note %}}

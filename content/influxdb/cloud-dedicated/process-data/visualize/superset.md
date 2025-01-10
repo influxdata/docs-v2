@@ -6,18 +6,18 @@ description: >
   to query and visualize data stored in InfluxDB.
 weight: 201
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Visualize data
     name: Use Superset
     identifier: query-with-superset
-influxdb/cloud-dedicated/tags: [Flight client, query, flightsql, superset]
+influxdb3/cloud-dedicated/tags: [Flight client, query, flightsql, superset]
 aliases:
-  - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/
-  - /influxdb/cloud-dedicated/query-data/tools/superset/
-  - /influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/
-  - /influxdb/cloud-dedicated/process-data/tools/superset/
+  - /influxdb3/cloud-dedicated/query-data/execute-queries/flight-sql/superset/
+  - /influxdb3/cloud-dedicated/query-data/tools/superset/
+  - /influxdb3/cloud-dedicated/query-data/sql/execute-queries/superset/
+  - /influxdb3/cloud-dedicated/process-data/tools/superset/
 related:
-  - /influxdb/cloud-dedicated/visualize-data/superset/
+  - /influxdb3/cloud-dedicated/visualize-data/superset/
 metadata: [SQL only]
 ---
 
@@ -221,8 +221,8 @@ With Superset running, you're ready to [log in](#log-in-to-superset) and set up 
     
     **Query parameters**
 
-    - **`?database`**: URL-encoded InfluxDB [database name](/influxdb/cloud-dedicated/admin/databases/list/)
-    - **`?token`**: InfluxDB [API token](/influxdb/cloud-dedicated/get-started/setup/) with `READ` access to the specified database
+    - **`?database`**: URL-encoded InfluxDB [database name](/influxdb3/cloud-dedicated/admin/databases/list/)
+    - **`?token`**: InfluxDB [API token](/influxdb3/cloud-dedicated/get-started/setup/) with `READ` access to the specified database
 
     {{< code-callout "&lt;(domain|port|database-name|token)&gt;" >}}
 {{< code-callout "cluster-id\.influxdb\.io|443|example-database|example-token" >}}

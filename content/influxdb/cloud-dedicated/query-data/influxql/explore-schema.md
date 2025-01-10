@@ -3,14 +3,14 @@ title: Explore your schema with InfluxQL
 description: >
   Use InfluxQL `SHOW` statements to return information about your data schema.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Explore your schema
     parent: Query with InfluxQL
     identifier: query-influxql-schema
 weight: 201
-influxdb/cloud-dedicated/tags: [query, influxql]
+influxdb3/cloud-dedicated/tags: [query, influxql]
 related:
-  - /influxdb/cloud-dedicated/reference/influxql/show/
+  - /influxdb3/cloud-dedicated/reference/influxql/show/
 list_code_example: |
   ##### List measurements
   ```sql
@@ -39,7 +39,7 @@ Use InfluxQL `SHOW` statements to return information about your data schema.
 
 #### Sample data
 
-The following examples use data provided in [sample data sets](/influxdb/cloud-dedicated/reference/sample-data/).
+The following examples use data provided in [sample data sets](/influxdb3/cloud-dedicated/reference/sample-data/).
 To run the example queries and return identical results, follow the instructions
 provided for each sample data set to write the data to your {{% product-name %}}
 database.
@@ -58,7 +58,7 @@ database.
 
 ## List measurements in a database
 
-Use [`SHOW MEASUREMENTS`](/influxdb/cloud-dedicated/reference/influxql/show/#show-measurements)
+Use [`SHOW MEASUREMENTS`](/influxdb3/cloud-dedicated/reference/influxql/show/#show-measurements)
 to list measurements in your InfluxDB database.
 
 ```sql
@@ -110,7 +110,7 @@ name: measurements
 #### List measurements that match a regular expression
 
 To return only measurements with names that match a
-[regular expression](/influxdb/cloud-dedicated/reference/influxql/regular-expressions/),
+[regular expression](/influxdb3/cloud-dedicated/reference/influxql/regular-expressions/),
 include a `WITH` clause that compares the `MEASUREMENT` to a regular expression.
 
 ```sql
@@ -134,7 +134,7 @@ name: measurements
 
 ## List field keys in a measurement
 
-Use [`SHOW FIELD KEYS`](/influxdb/cloud-dedicated/reference/influxql/show/#show-field-keys)
+Use [`SHOW FIELD KEYS`](/influxdb3/cloud-dedicated/reference/influxql/show/#show-field-keys)
 to return all field keys in a measurement.
 Include a `FROM` clause to specify the measurement.
 If no measurement is specified, the query returns all field keys in the database.
@@ -161,7 +161,7 @@ name: home
 
 ## List tag keys in a measurement
 
-Use [`SHOW TAG KEYS`](/influxdb/cloud-dedicated/reference/influxql/show/#show-field-keys)
+Use [`SHOW TAG KEYS`](/influxdb3/cloud-dedicated/reference/influxql/show/#show-field-keys)
 to return all tag keys in a measurement.
 Include a `FROM` clause to specify the measurement.
 If no measurement is specified, the query returns all tag keys in the database.
@@ -221,7 +221,7 @@ name: home_actions
 
 ## List tag values for a specific tag key
 
-Use [`SHOW TAG VALUES`](/influxdb/cloud-dedicated/reference/influxql/show/#show-field-values)
+Use [`SHOW TAG VALUES`](/influxdb3/cloud-dedicated/reference/influxql/show/#show-field-values)
 to return all values for specific tags in a measurement.
 
 - Include a `FROM` clause to specify one or more measurements to query.

@@ -4,12 +4,12 @@ description: >
   The InfluxDB SQL implementation uses **Arrow Flight SQL** to query InfluxDB
   and return results.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: InfluxDB internals
 weight: 101
 related:
-  - /influxdb/cloud-dedicated/reference/sql/
-  - /influxdb/cloud-dedicated/reference/client-libraries/flight/
+  - /influxdb3/cloud-dedicated/reference/sql/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/flight/
 ---
 
 The InfluxDB SQL implementation uses [Arrow Flight SQL](https://arrow.apache.org/docs/format/FlightSql.html)

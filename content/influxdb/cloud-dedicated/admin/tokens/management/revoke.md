@@ -1,26 +1,26 @@
 ---
 title: Revoke a management token
 description: >
-  Use the [`influxctl management revoke` command](/influxdb/cloud-dedicated/reference/cli/influxctl/management/revoke/)
+  Use the [`influxctl management revoke` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/management/revoke/)
   to revoke a management token and remove all access associated with the token.
   Provide the ID of the management token you want to revoke.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Management tokens
 weight: 203
 related:
-  - /influxdb/cloud-dedicated/reference/cli/influxctl/management/revoke/
+  - /influxdb3/cloud-dedicated/reference/cli/influxctl/management/revoke/
 list_code_example: |
   ```sh
   influxctl management revoke <TOKEN_ID>
   ```
 ---
 
-Use the [`influxctl management revoke` command](/influxdb/cloud-dedicated/reference/cli/influxctl/management/revoke/)
+Use the [`influxctl management revoke` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/management/revoke/)
 to revoke a management token and remove all access associated with the token.
 
-1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
-2.  Run the [`influxctl management list` command](/influxdb/cloud-dedicated/reference/cli/influxctl/management/list)
+1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
+2.  Run the [`influxctl management list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/management/list)
     to output tokens with their IDs.
     Copy the **ID** of the token you want to delete.
 

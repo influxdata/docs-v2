@@ -5,14 +5,14 @@ list_title: Python
 description: >
   Use the InfluxDB Python client library to interact with InfluxDB.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Python
     parent: v2 client libraries
-influxdb/cloud-dedicated/tags: [client libraries, python]
+influxdb3/cloud-dedicated/tags: [client libraries, python]
 aliases:
-  - /influxdb/cloud-dedicated/reference/api/client-libraries/python/
-  - /influxdb/cloud-dedicated/reference/api/client-libraries/python-cl-guide/
-  - /influxdb/cloud-dedicated/tools/client-libraries/python/
+  - /influxdb3/cloud-dedicated/reference/api/client-libraries/python/
+  - /influxdb3/cloud-dedicated/reference/api/client-libraries/python-cl-guide/
+  - /influxdb3/cloud-dedicated/tools/client-libraries/python/
 weight: 201
 prepend:
   block: warn
@@ -21,16 +21,16 @@ prepend:
 
     The `/api/v2/query` API endpoint and associated tooling, such as InfluxDB v2 client libraries and the `influx` CLI, **can't** query an {{% product-name omit=" Clustered" %}} cluster.
 
-    [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) and [Flight SQL clients](/influxdb/cloud-dedicated/reference/client-libraries/) are available that integrate with your code to write and query data stored in {{% product-name %}}.
+    [InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) and [Flight SQL clients](/influxdb3/cloud-dedicated/reference/client-libraries/) are available that integrate with your code to write and query data stored in {{% product-name %}}.
 
-    InfluxDB v3 supports many different tools for [**writing**](/influxdb/cloud-dedicated/write-data/) and [**querying**](/influxdb/cloud-dedicated/query-data/) data.
-    [**Compare tools you can use**](/influxdb/cloud-dedicated/get-started/#tools-to-use) to interact with {{% product-name %}}.
+    InfluxDB v3 supports many different tools for [**writing**](/influxdb3/cloud-dedicated/write-data/) and [**querying**](/influxdb3/cloud-dedicated/query-data/) data.
+    [**Compare tools you can use**](/influxdb3/cloud-dedicated/get-started/#tools-to-use) to interact with {{% product-name %}}.
 ---
 
 Use the [InfluxDB Python client library](https://github.com/influxdata/influxdb-client-python) to integrate InfluxDB into Python scripts and applications.
 
 This guide presumes some familiarity with Python and InfluxDB.
-If just getting started, see [Get started with InfluxDB](/influxdb/cloud-dedicated/get-started/).
+If just getting started, see [Get started with InfluxDB](/influxdb3/cloud-dedicated/get-started/).
 
 ## Before you begin
 
@@ -47,14 +47,14 @@ You'll need the following prerequisites:
     ```
     https://{{< influxdb/host >}}
     ```
-3. Name of the [database](/influxdb/cloud-dedicated/admin/databases/) to write to.
-4. InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+3. Name of the [database](/influxdb3/cloud-dedicated/admin/databases/) to write to.
+4. InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
    with permission to write to the database.
    _For security reasons, we recommend setting an environment variable to store your token and avoid exposing the raw token value in your script._
 
 ## Write data to InfluxDB with Python
 
-Follow the steps to write [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/) data to an InfluxDB Cloud Dedicated database.
+Follow the steps to write [line protocol](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/) data to an InfluxDB Cloud Dedicated database.
 
 1. In your editor, create a file for your Python program--for example: `write.py`.
 2. In the file, import the InfluxDB client library.
@@ -65,7 +65,7 @@ Follow the steps to write [line protocol](/influxdb/cloud-dedicated/reference/sy
    import os
    ```
 
-3. Define variables for your [database name](/influxdb/cloud-dedicated/admin/databases/), organization (required, but ignored), and [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens).
+3. Define variables for your [database name](/influxdb3/cloud-dedicated/admin/databases/), organization (required, but ignored), and [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens).
 
    ```python
    database = "DATABASE_NAME"
@@ -92,7 +92,7 @@ Follow the steps to write [line protocol](/influxdb/cloud-dedicated/reference/sy
    write_api = client.write_api(write_options=SYNCHRONOUS)
    ```
 
-6. Create a [point](/influxdb/cloud-dedicated/reference/glossary/#point) object and write it to InfluxDB using the `write` method of the API writer object. The write method requires three parameters: `bucket`, `org`, and `record`.
+6. Create a [point](/influxdb3/cloud-dedicated/reference/glossary/#point) object and write it to InfluxDB using the `write` method of the API writer object. The write method requires three parameters: `bucket`, `org`, and `record`.
 
    ```python
    p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("temperature", 25.3)
@@ -127,4 +127,4 @@ write_api.write(bucket=database, org=org, record=p)
 ## Query data from InfluxDB with Python
 
 The InfluxDB v2 Python client can't query InfluxDB Cloud Dedicated.
-To query your dedicated instance, use a Python [Flight SQL client with gRPC](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql/).
+To query your dedicated instance, use a Python [Flight SQL client with gRPC](/influxdb3/cloud-dedicated/reference/client-libraries/flight-sql/).

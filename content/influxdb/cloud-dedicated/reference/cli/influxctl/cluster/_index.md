@@ -4,7 +4,7 @@ description: >
   The `influxctl cluster` command and its subcommands provide information about
   InfluxDB Cloud Dedicated clusters.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl
 weight: 201
 ---
@@ -22,8 +22,8 @@ influxctl cluster [subcommand] [subcommand options] [arguments...]
 
 | Subcommand                                                              | Description                     |
 | :---------------------------------------------------------------------- | :------------------------------ |
-| [get](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/get/)   | Get information about a cluster |
-| [list](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/list/) | List all clusters               |
+| [get](/influxdb3/cloud-dedicated/reference/cli/influxctl/cluster/get/)   | Get information about a cluster |
+| [list](/influxdb3/cloud-dedicated/reference/cli/influxctl/cluster/list/) | List all clusters               |
 | help, h                                                                 | Output command help             |
 
 ## Flags

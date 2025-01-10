@@ -4,12 +4,12 @@ description: >
     Use the `HAVING` clause to filter query results based on values returned from
     an aggregate operation.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: HAVING clause
     parent: SQL reference
 weight: 205
 related:
-  - /influxdb/cloud-dedicated/reference/sql/subqueries/
+  - /influxdb3/cloud-dedicated/reference/sql/subqueries/
 
 source: /content/shared/sql-reference/having.md
 ---

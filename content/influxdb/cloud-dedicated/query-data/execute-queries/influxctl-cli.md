@@ -6,15 +6,15 @@ description: >
   with SQL.
 weight: 301
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Execute queries
     name: Use the influxctl CLI
-influxdb/cloud-dedicated/tags: [query, sql, influxql, influxctl, CLI]
+influxdb3/cloud-dedicated/tags: [query, sql, influxql, influxctl, CLI]
 related:
-  - /influxdb/cloud-dedicated/reference/cli/influxctl/query/
-  - /influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query, Get started querying data
-  - /influxdb/cloud-dedicated/reference/sql/
-  - /influxdb/cloud-dedicated/reference/influxql/
+  - /influxdb3/cloud-dedicated/reference/cli/influxctl/query/
+  - /influxdb3/cloud-dedicated/get-started/query/#execute-an-sql-query, Get started querying data
+  - /influxdb3/cloud-dedicated/reference/sql/
+  - /influxdb3/cloud-dedicated/reference/influxql/
 list_code_example: |
   ```sh
   influxctl query \
@@ -24,17 +24,17 @@ list_code_example: |
   ```
 ---
 
-Use the [`influxctl query` command](/influxdb/cloud-dedicated/reference/cli/influxctl/query/)
+Use the [`influxctl query` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/query/)
 to query data in {{< product-name >}} with SQL or InfluxQL.
 
 Provide the following with your command:
 
-- **Database token**: A [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+- **Database token**: A [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with read permissions on the queried database. By default, this uses
-  the `database` setting from the [`influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
+  the `database` setting from the [`influxctl` connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
   or the `--token` command flag.
 - **Database name**: The name of the database to query. By default, this uses
-  the `database` setting from the [`influxctl` connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
+  the `database` setting from the [`influxctl` connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
   or the `--database` command flag.
 - **Query language** <em class="op65">(Optional)</em>: The query language of the query.
   Use the `--language` flag to specify one of the following query languages:
@@ -230,9 +230,9 @@ the following timestamp formats to use to display timestamp values in the query
 results:
 
 - `rfc3339nano`: _(Default)_
-  [RFC3339Nano-formatted timestamp](/influxdb/cloud-dedicated/reference/glossary/#rfc3339nano-timestamp)--for example:
+  [RFC3339Nano-formatted timestamp](/influxdb3/cloud-dedicated/reference/glossary/#rfc3339nano-timestamp)--for example:
   `2024-01-01T00:00:00.000000000Z`
-- `unixnano`: [Unix nanosecond timestamp](/influxdb/cloud-dedicated/reference/glossary/#unix-timestamp)
+- `unixnano`: [Unix nanosecond timestamp](/influxdb3/cloud-dedicated/reference/glossary/#unix-timestamp)
 
 {{% influxdb/custom-timestamps %}}
 ```sh

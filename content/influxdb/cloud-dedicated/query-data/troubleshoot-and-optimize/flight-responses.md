@@ -4,14 +4,14 @@ description: >
   Understand responses and troubleshoot errors encountered when querying InfluxDB with Flight+gRPC and Arrow Flight clients.
 weight: 401
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Understand Flight responses
     parent: Troubleshoot and optimize queries
-influxdb/cloud-dedicated/tags: [query, errors, flight]
+influxdb3/cloud-dedicated/tags: [query, errors, flight]
 related:
-  - /influxdb/cloud-dedicated/query-data/sql/
-  - /influxdb/cloud-dedicated/query-data/influxql/
-  - /influxdb/cloud-dedicated/reference/client-libraries/v3/
+  - /influxdb3/cloud-dedicated/query-data/sql/
+  - /influxdb3/cloud-dedicated/query-data/influxql/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/v3/
 ---
 
 Learn how to handle responses and troubleshoot errors encountered when querying {{% product-name %}} with Flight+gRPC and Arrow Flight clients.
@@ -31,7 +31,7 @@ Flight SQL uses Flight RPC and defines additional methods to query database meta
 To learn more about Flight SQL, see [Introducing Apache Arrow Flight SQL: Accelerating Database Access](https://arrow.apache.org/blog/2022/02/16/introducing-arrow-flight-sql/).
 
 To query data or retrieve information about data stored in {{% product-name %}}, use a Flight client to send a call to an InfluxDB Flight RPC or Flight SQL service method.
-For example, if you use the [`influxdb3-python` Python client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/) and call the `InfluxDBClient3.query()` method, the client in turn calls the `pyarrow.flight.FlightClient.do_get()` method and passes a Flight ticket containing your credentials and query to InfluxDB's Flight [`DoGet(FlightCallOptions, Ticket)` method](https://arrow.apache.org/docs/cpp/api/flight.html#_CPPv4N5arrow6flight12FlightClient5DoGetERK17FlightCallOptionsRK6Ticket).
+For example, if you use the [`influxdb3-python` Python client library](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/) and call the `InfluxDBClient3.query()` method, the client in turn calls the `pyarrow.flight.FlightClient.do_get()` method and passes a Flight ticket containing your credentials and query to InfluxDB's Flight [`DoGet(FlightCallOptions, Ticket)` method](https://arrow.apache.org/docs/cpp/api/flight.html#_CPPv4N5arrow6flight12FlightClient5DoGetERK17FlightCallOptionsRK6Ticket).
 
 InfluxDB responds with one of the following:
 
@@ -99,7 +99,7 @@ Schema:
 ```
 
 Using PyArrow, you can access the schema through the [`FlightStreamReader.schema`](https://arrow.apache.org/docs/python/generated/pyarrow.flight.FlightStreamReader.html#pyarrow.flight.FlightStreamReader) attribute.
-See [`InfluxDBClient3.query()` examples](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/#influxdbclient3query) for retrieving the schema.
+See [`InfluxDBClient3.query()` examples](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/#influxdbclient3query) for retrieving the schema.
 
 ### RecordBatch
 
@@ -123,7 +123,7 @@ In gRPC, every call returns a status object that contains an integer code and a 
 During a request, the gRPC client and server may each return a status--for example:
 
 - The server fails to process the query; responds with status `internal error` and gRPC status `13`.
-- The request is missing a [token](/influxdb/cloud-dedicated/admin/tokens/); the server responds with status `unauthenticated` and gRPC status `16`.
+- The request is missing a [token](/influxdb3/cloud-dedicated/admin/tokens/); the server responds with status `unauthenticated` and gRPC status `16`.
 - The server responds with a stream, but the client loses the connection due to a network failure and returns status `unavailable`.
 
 gRPC defines the integer [status codes](https://grpc.github.io/grpc/core/status_8h.html) and definitions for servers and clients and
@@ -271,6 +271,6 @@ pyarrow._flight.FlightUnavailableError: Flight returned unavailable error,
 **Potential reason**:
 
 - Non-POSIX-compliant systems (such as Windows) need to specify the root certificates in SslCredentialsOptions for the gRPC client, since the defaults are only configured for POSIX filesystems.
-  [Specify the root certificate path](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/#specify-the-root-certificate-path) For Windows User to config the Flight gRPC client.
+  [Specify the root certificate path](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/#specify-the-root-certificate-path) For Windows User to config the Flight gRPC client.
 
   For more information about gRPC SSL/TLS client-server authentication, see [Using client-side SSL/TLS](https://grpc.io/docs/guides/auth/#using-client-side-ssltls) in the [gRPC.io Authentication guide](https://grpc.io/docs/guides/auth/).

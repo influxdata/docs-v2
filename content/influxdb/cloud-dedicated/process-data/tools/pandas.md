@@ -7,16 +7,16 @@ description: >
   to analyze and visualize time series data stored in InfluxDB Cloud Dedicated.
 weight: 101
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Use data analysis tools
     name: Use pandas
     identifier: analyze-with-pandas
-influxdb/cloud-dedicated/tags: [analysis, pandas, pyarrow, python]
+influxdb3/cloud-dedicated/tags: [analysis, pandas, pyarrow, python]
 aliases:
-  - /influxdb/cloud-dedicated/visualize-data/pandas/
+  - /influxdb3/cloud-dedicated/visualize-data/pandas/
 related:
-  - /influxdb/cloud-dedicated/query-data/execute-queries/client-libraries/python/
-  - /influxdb/cloud-dedicated/process-data/tools/pyarrow/
+  - /influxdb3/cloud-dedicated/query-data/execute-queries/client-libraries/python/
+  - /influxdb3/cloud-dedicated/process-data/tools/pyarrow/
 list_code_example: |
   ```py
   ...
@@ -48,8 +48,8 @@ stored in an {{% product-name %}} database.
 
 ## Install prerequisites
 
-The examples in this guide assume using a Python virtual environment and the InfluxDB v3 [`influxdb3-python` Python client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/).
-For more information, see how to [get started using Python to query InfluxDB](/influxdb/cloud-dedicated/query-data/execute-queries/client-libraries/python/).
+The examples in this guide assume using a Python virtual environment and the InfluxDB v3 [`influxdb3-python` Python client library](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/).
+For more information, see how to [get started using Python to query InfluxDB](/influxdb3/cloud-dedicated/query-data/execute-queries/client-libraries/python/).
 
 Installing `influxdb3-python` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that provides Python bindings for Apache Arrow.
 
@@ -57,7 +57,7 @@ Installing `influxdb3-python` also installs the [`pyarrow`](https://arrow.apache
 
 To use pandas, you need to install and import the `pandas` library.
 
-In your terminal, use `pip` to install `pandas` in your active [Python virtual environment](/influxdb/cloud-dedicated/query-data/execute-queries/client-libraries/python/#create-a-project-virtual-environment):
+In your terminal, use `pip` to install `pandas` in your active [Python virtual environment](/influxdb3/cloud-dedicated/query-data/execute-queries/client-libraries/python/#create-a-project-virtual-environment):
 
 ```sh
 pip install pandas
@@ -104,9 +104,9 @@ print(dataframe)
 
 2.  Replace the following configuration values:
 
-    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to query
+    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) to query
     - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-      an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+      an InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
       with _read_ permission on the specified database
 
 3.  In your terminal, use the Python interpreter to run the file:
@@ -117,7 +117,7 @@ print(dataframe)
 
 The example calls the following methods:
 
-- [`InfluxDBClient3.query()`](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/#influxdbclient3query): sends the query request and returns a [`pyarrow.Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html) that contains all the Arrow record batches from the response stream.
+- [`InfluxDBClient3.query()`](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/#influxdbclient3query): sends the query request and returns a [`pyarrow.Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html) that contains all the Arrow record batches from the response stream.
 
 - [`pyarrow.Table.to_pandas()`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table.to_pandas): Creates a [`pandas.DataFrame`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame) from the data in the PyArrow `Table`.
 
@@ -212,9 +212,9 @@ print(dataframe.to_markdown())
 
 Replace the following configuration values:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to query.
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) to query.
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  An InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  An InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with read permission on the specified database.
   
 ### Downsample time series

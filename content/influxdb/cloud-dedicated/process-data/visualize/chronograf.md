@@ -5,7 +5,7 @@ description: >
   Chronograf is a data visualization and dashboarding tool designed to visualize data in InfluxDB 1.x.
   Learn how to use Chronograf with InfluxDB Cloud Dedicated.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Use Chronograf
     parent: Visualize data
 weight: 202
@@ -13,7 +13,7 @@ related:
   - /chronograf/v1/
 metadata: [InfluxQL only]
 related:
-  - /influxdb/cloud-dedicated/query-data/influxql/
+  - /influxdb3/cloud-dedicated/query-data/influxql/
 ---
 
 [Chronograf](/chronograf/v1/) is a data visualization and dashboarding
@@ -38,11 +38,11 @@ If you haven't already, [download and install Chronograf](/chronograf/v1/introdu
 
     - **Connection Name:** Name to uniquely identify this connection configuration
     - **Username:** Arbitrary string _(ignored, but cannot be empty)_
-    - **Password:** InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+    - **Password:** InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
       with read permissions on the database you want to query
-    - **Telegraf Database Name:** InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/)
+    - **Telegraf Database Name:** InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/)
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
-    - **Default Retention Policy:** Default [retention policy](/influxdb/cloud-dedicated/reference/glossary/#retention-policy-rp)
+    - **Default Retention Policy:** Default [retention policy](/influxdb3/cloud-dedicated/reference/glossary/#retention-policy-rp)
       _**(leave blank)**_
 
         {{% note %}}
@@ -85,7 +85,7 @@ This query is routed to the {{% product-name %}} database with the name `mydb/au
 schema information may not be available in the Data Explorer.
 This limits the Data Explorer's query building functionality and requires you to
 build queries manually using
-[fully-qualified measurements](/influxdb/cloud-dedicated/reference/influxql/select/#fully-qualified-measurement)
+[fully-qualified measurements](/influxdb3/cloud-dedicated/reference/influxql/select/#fully-qualified-measurement)
 in the `FROM` clause. For example:
 
 ```sql
@@ -97,7 +97,7 @@ SELECT * FROM "db-name".."measurement-name"
 ```
 
 For more information about available InfluxQL functionality, see
-[InfluxQL feature support](/influxdb/cloud-dedicated/reference/influxql/feature-support/).
+[InfluxQL feature support](/influxdb3/cloud-dedicated/reference/influxql/feature-support/).
 {{% /note %}}
 
 ## Important notes
@@ -118,12 +118,12 @@ For example, you **cannot** do the following:
 When connected to an {{% product-name %}} database, functionality in the
 **{{< icon "crown" >}} InfluxDB Admin** section of Chronograf is disabled.
 
-To complete [administrative tasks](/influxdb/cloud-dedicated/admin/), use the
-[influxctl CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/).
+To complete [administrative tasks](/influxdb3/cloud-dedicated/admin/), use the
+[influxctl CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/).
 
 ### Limited InfluxQL feature support
 
 InfluxQL is being rearchitected to work with the InfluxDB v3 storage engine.
 This process is ongoing and some InfluxQL features are still being implemented.
 For information about the current implementation status of InfluxQL features,
-see [InfluxQL feature support](/influxdb/cloud-dedicated/reference/influxql/feature-support/).
+see [InfluxQL feature support](/influxdb3/cloud-dedicated/reference/influxql/feature-support/).

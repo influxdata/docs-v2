@@ -6,11 +6,11 @@ description: >
   Access the InfluxDB API using the `/api/v2/write`, InfluxDB v1, or
   Management API endpoints for InfluxDB Cloud Dedicated.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Reference
     name: InfluxDB HTTP API
 weight: 104
-influxdb/cloud-dedicated/tags: [api]
+influxdb3/cloud-dedicated/tags: [api]
 ---
 
 The InfluxDB HTTP API provides a programmatic interface for interactions with
@@ -21,7 +21,7 @@ Management API endpoints for {{% product-name %}}.
 
 ## InfluxDB v2 Compatibility API reference documentation
 
-<a class="btn" href="/influxdb/cloud-dedicated/api/v2/">InfluxDB v2 API for {{% product-name %}}</a>
+<a class="btn" href="/influxdb3/cloud-dedicated/api/v2/">InfluxDB v2 API for {{% product-name %}}</a>
 
 The API reference describes requests and responses for InfluxDB v2-compatible
 endpoints that work with {{% product-name %}} and with InfluxDB 2.x client
@@ -29,13 +29,13 @@ libraries and third-party integrations.
 
 ## InfluxDB v1 Compatibility API reference documentation
 
-<a class="btn" href="/influxdb/cloud-dedicated/api/v1/">InfluxDB v1 API for {{% product-name %}}</a>
+<a class="btn" href="/influxdb3/cloud-dedicated/api/v1/">InfluxDB v1 API for {{% product-name %}}</a>
 
 The API reference describes requests and responses for InfluxDB v1-compatible `/write` and `/query` endpoints that work with {{% product-name %}} and with InfluxDB 1.x client libraries and third-party integrations.
 
 ## InfluxDB Management API reference documentation
 
-<a class="btn" href="/influxdb/cloud-dedicated/api/management/">InfluxDB Management API for {{% product-name %}}</a>
+<a class="btn" href="/influxdb3/cloud-dedicated/api/management/">InfluxDB Management API for {{% product-name %}}</a>
 
 The API reference describes requests and responses for InfluxDB Management API endpoints.
 The Management API lets cluster administrators manage resources such as databases, partitioning templates, and database tokens.

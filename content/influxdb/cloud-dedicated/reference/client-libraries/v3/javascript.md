@@ -5,15 +5,15 @@ description: >
   The InfluxDB v3 `influxdb3-js` JavaScript client library integrates with JavaScript scripts and applications to write and query data stored in an InfluxDB Cloud Dedicated database.
 external_url: https://github.com/InfluxCommunity/influxdb3-js
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: JavaScript
     parent: v3 client libraries
     identifier: influxdb3-js
-influxdb/cloud-dedicated/tags: [Flight client, JavaScript, gRPC, SQL, Flight SQL, client libraries]
+influxdb3/cloud-dedicated/tags: [Flight client, JavaScript, gRPC, SQL, Flight SQL, client libraries]
 weight: 201
 aliases:
-  - /influxdb/cloud-dedicated/reference/api/client-libraries/go/
-  - /influxdb/cloud-dedicated/tools/client-libraries/go/
+  - /influxdb3/cloud-dedicated/reference/api/client-libraries/go/
+  - /influxdb3/cloud-dedicated/tools/client-libraries/go/
 ---
 
 The InfluxDB v3 [`influxdb3-js` JavaScript client library](https://github.com/InfluxCommunity/influxdb3-js) integrates with JavaScript scripts and applications

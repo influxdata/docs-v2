@@ -7,16 +7,16 @@ description: >
   Execute queries and retrieve data over the Flight+gRPC protocol, and then process data using common Go tools.
 weight: 401
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Use client libraries
     name: Use Go
     identifier: query-with-go
 metadata: [InfluxQL, SQL]
-influxdb/cloud-dedicated/tags: [query, flight, Flight client, go, sql, influxql]
+influxdb3/cloud-dedicated/tags: [query, flight, Flight client, go, sql, influxql]
 related:
-    - /influxdb/cloud-dedicated/reference/client-libraries/v3/go/
-    - /influxdb/cloud-dedicated/reference/sql/
-    - /influxdb/cloud-dedicated/reference/client-libraries/flight/
+    - /influxdb3/cloud-dedicated/reference/client-libraries/v3/go/
+    - /influxdb3/cloud-dedicated/reference/sql/
+    - /influxdb3/cloud-dedicated/reference/client-libraries/flight/
 list_code_example: |
     ```go
     import (
@@ -104,15 +104,15 @@ analyze data stored in an InfluxDB database.
 
 ### Execute a query
 
-The following examples show how to create an [InfluxDB client](/influxdb/cloud-dedicated/reference/client-libraries/v3/go/#function-new), use client query methods to select all fields in a measurement, and then access query result data and metadata.
+The following examples show how to create an [InfluxDB client](/influxdb3/cloud-dedicated/reference/client-libraries/v3/go/#function-new), use client query methods to select all fields in a measurement, and then access query result data and metadata.
 
 In your `influxdb_go_client` module directory, create a file named `query.go` and enter one of the following samples to query using SQL or InfluxQL.
 
 Replace the following configuration values in the sample code:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to query
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) to query
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  an InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with _read_ permission on the specified database
 
 {{% tabs-wrapper %}}

@@ -5,12 +5,12 @@ description: >
   The InfluxDB SQL implementation supports a number of data types including 64-bit integers,
   double-precision floating point numbers, strings, and more.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Data types
     parent: SQL reference
 weight: 200
 related:
-  - /influxdb/cloud-dedicated/query-data/sql/cast-types/
+  - /influxdb3/cloud-dedicated/query-data/sql/cast-types/
 
 source: /content/shared/sql-reference/data-types.md
 ---

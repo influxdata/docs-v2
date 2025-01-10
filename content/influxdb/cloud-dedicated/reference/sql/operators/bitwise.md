@@ -4,7 +4,7 @@ list_title: Bitwise operators
 description: >
   Bitwise operators perform bitwise operations on bit patterns or binary numerals.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Bitwise operators
     parent: Operators
 weight: 304

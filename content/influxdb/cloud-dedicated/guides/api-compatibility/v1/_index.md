@@ -5,20 +5,20 @@ description: >
   Use InfluxDB v1 API authentication, endpoints, and tools when bringing existing 1.x workloads to InfluxDB Cloud Dedicated.
 weight: 3
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: API compatibility
     name: v1 API
 aliases:
-  - /influxdb/cloud-dedicated/primers/api/v1/
-  - /influxdb/cloud-dedicated/api-compatibility/v1/
-influxdb/cloud-dedicated/tags: [write, line protocol]
+  - /influxdb3/cloud-dedicated/primers/api/v1/
+  - /influxdb3/cloud-dedicated/api-compatibility/v1/
+influxdb3/cloud-dedicated/tags: [write, line protocol]
 related:
-  - /influxdb/cloud-dedicated/query-data/sql/
-  - /influxdb/cloud-dedicated/query-data/influxql/
-  - /influxdb/cloud-dedicated/write-data/
-  - /influxdb/cloud-dedicated/write-data/use-telegraf/configure/
-  - /influxdb/cloud-dedicated/reference/api/
-  - /influxdb/cloud-dedicated/reference/client-libraries/
+  - /influxdb3/cloud-dedicated/query-data/sql/
+  - /influxdb3/cloud-dedicated/query-data/influxql/
+  - /influxdb3/cloud-dedicated/write-data/
+  - /influxdb3/cloud-dedicated/write-data/use-telegraf/configure/
+  - /influxdb3/cloud-dedicated/reference/api/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/
 ---
 
 Use the InfluxDB v1 API `/write` and `/query` endpoints with v1 workloads that you bring to {{% product-name %}}.
@@ -63,7 +63,7 @@ Learn how to authenticate requests, adjust request parameters for existing v1 wo
 ## Authenticate API requests
 
 {{% product-name %}} requires each API request to be authenticated with a
-[database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens).
+[database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens).
 With the InfluxDB v1 API, you can use database tokens in InfluxDB 1.x username and password
 schemes, in the InfluxDB v2 `Authorization: Token` scheme, or in the OAuth `Authorization: Bearer` scheme.
 
@@ -74,8 +74,8 @@ schemes, in the InfluxDB v2 `Authorization: Token` scheme, or in the OAuth `Auth
 
 With the InfluxDB v1 API, you can use the InfluxDB 1.x convention of
 username and password to authenticate database reads and writes by passing a
-[database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) as the `password` credential.
-When authenticating requests to the v1 API `/write` and `/query` endpoints, {{% product-name %}} checks that the `password` (`p`) value is an authorized [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens).
+[database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) as the `password` credential.
+When authenticating requests to the v1 API `/write` and `/query` endpoints, {{% product-name %}} checks that the `password` (`p`) value is an authorized [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens).
 {{% product-name %}} ignores the `username` (`u`) parameter in the request.
 
 Use one of the following authentication schemes with clients that support Basic authentication or query parameters (that don't support [token authentication](#authenticate-with-a-token)):
@@ -86,7 +86,7 @@ Use one of the following authentication schemes with clients that support Basic 
 #### Basic authentication
 
 Use the `Authorization` header with the `Basic` scheme to authenticate v1 API `/write` and `/query` requests.
-When authenticating requests, {{% product-name %}} checks that the `password` part of the decoded credential is an authorized [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens).
+When authenticating requests, {{% product-name %}} checks that the `password` part of the decoded credential is an authorized [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens).
 {{% product-name %}} ignores the `username` part of the decoded credential.
 
 ##### Syntax
@@ -102,7 +102,7 @@ Encode the `[USERNAME]:DATABASE_TOKEN` credential using base64 encoding, and the
 ##### Example
 
 The following example shows how to use cURL with the `Basic` authentication
-scheme and a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens):
+scheme and a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens):
 
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```sh
@@ -114,7 +114,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 #### Query string authentication
@@ -132,7 +132,7 @@ https://{{< influxdb/host >}}/write/?[u=any]&p=DATABASE_TOKEN
 ##### Example
 
 The following example shows how to use cURL with query string authentication and
-[database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens).
+[database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens).
 
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```sh
@@ -144,13 +144,13 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 ### Authenticate with a token scheme
 
 Use the `Authorization: Bearer` or the `Authorization: Token` scheme to pass a
-[database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) for
+[database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) for
 authenticating v1 API `/write` and `/query` requests.
 
 `Bearer` and `Token` are equivalent in {{% product-name %}}.
@@ -190,13 +190,13 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) with
+a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) with
 sufficient permissions to the specified database
 
 ## Responses
 
-InfluxDB HTTP API responses use standard [HTTP status codes](/influxdb/cloud-dedicated/api/#tag/Response-codes).
-The response body for [partial writes](/influxdb/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points) and errors contains a JSON object with `code` and `message` properties that describe the error.
+InfluxDB HTTP API responses use standard [HTTP status codes](/influxdb3/cloud-dedicated/api/#tag/Response-codes).
+The response body for [partial writes](/influxdb3/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points) and errors contains a JSON object with `code` and `message` properties that describe the error.
 Response body messages may differ across {{% product-name %}} v1 API, v2 API, InfluxDB Cloud, and InfluxDB OSS.
 
 ### Error examples
@@ -214,7 +214,7 @@ Response body messages may differ across {{% product-name %}} v1 API, v2 API, In
   ```
   
   The `?db=` parameter value is missing in the request.
-  Provide the [database](/influxdb/cloud-dedicated/admin/databases/) name.
+  Provide the [database](/influxdb3/cloud-dedicated/admin/databases/) name.
  
 
 - **Failed to deserialize db/rp/precision**
@@ -252,7 +252,7 @@ Parameter              | Allowed in   | Ignored                  | Value
 `precision`            | Query string | Honored                  | [Timestamp precision](#timestamp-precision)
 `rp`                   | Query string | Honored, but discouraged | Retention policy
 `u`                    | Query string | Ignored                  | For [query string authentication](#query-string-authentication), any arbitrary string
-`p`                    | Query string | Honored                  | For [query string authentication](#query-string-authentication), a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with permission to write to the database
+`p`                    | Query string | Honored                  | For [query string authentication](#query-string-authentication), a [database token](/influxdb3/cloud-dedicated/get-started/setup/#create-a-database-token) with permission to write to the database
 `Content-Encoding`     | Header       | Honored                  | `gzip` (compressed data) or `identity` (uncompressed)
 `Authorization`        | Header       | Honored                  | `Bearer DATABASE_TOKEN`, `Token DATABASE_TOKEN`, or `Basic <base64 [USERNAME]:DATABASE_TOKEN>`
 
@@ -283,7 +283,7 @@ If you have existing v1 workloads that use Telegraf,
 you can use the [InfluxDB v1.x `influxdb` Telegraf output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) to write data.
 
 {{% note %}}
-See how to [use Telegraf and the v2 API](/influxdb/cloud-dedicated/write-data/use-telegraf/) for new workloads that don't already use the v1 API.
+See how to [use Telegraf and the v2 API](/influxdb3/cloud-dedicated/write-data/use-telegraf/) for new workloads that don't already use the v1 API.
 {{% /note %}}
 
 The following table shows `outputs.influxdb` plugin parameters and values for writing to the {{% product-name %}} v1 API: 
@@ -291,11 +291,11 @@ The following table shows `outputs.influxdb` plugin parameters and values for wr
 Parameter                | Ignored                  | Value
 -------------------------|--------------------------|---------------------------------------------------------------------------------------------------
 `database`               | Honored                  | Database name
-`retention_policy`       | Honored, but discouraged | [Duration](/influxdb/cloud-dedicated/reference/glossary/#duration)
+`retention_policy`       | Honored, but discouraged | [Duration](/influxdb3/cloud-dedicated/reference/glossary/#duration)
 `username`               | Ignored                  | String or empty
-`password`               | Honored                  | [Database token](/influxdb/cloud-dedicated/administration/tokens/#database-tokens) with permission to write to the database
+`password`               | Honored                  | [Database token](/influxdb3/cloud-dedicated/administration/tokens/#database-tokens) with permission to write to the database
 `content_encoding`       | Honored                  | `gzip` (compressed data) or `identity` (uncompressed)
-`skip_database_creation` | Ignored                  | N/A (see how to [create a database](/influxdb/cloud-dedicated/admin/databases/create/))
+`skip_database_creation` | Ignored                  | N/A (see how to [create a database](/influxdb3/cloud-dedicated/admin/databases/create/))
 
 To configure the v1.x output plugin for writing to {{% product-name %}}, add the following `outputs.influxdb` configuration in your `telegraf.conf` file:
 
@@ -316,7 +316,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 ##### Other Telegraf configuration options
@@ -332,8 +332,8 @@ To test InfluxDB v1 API writes interactively from the command line, use common H
 Include the following in your request:
 
 - A `db` query string parameter with the name of the database to write to.
-- A request body that contains a string of data in [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/) syntax.
-- A [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens) in
+- A request body that contains a string of data in [line protocol](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/) syntax.
+- A [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) in
   one of the following authentication schemes: [Basic authentication](#basic-authentication), [query string authentication](#query-string-authentication), or [token authentication](#authenticate-with-a-token).
 - Optional [parameters](#v1-api-write-parameters).
 
@@ -354,7 +354,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 ##### v1 CLI (not supported)
@@ -365,7 +365,7 @@ While it may coincidentally work, it isn't officially supported.
 #### Client libraries
 
 Use language-specific [v1 client libraries](/influxdb/v1/tools/api_client_libraries/) and your custom code to write data to InfluxDB.
-v1 client libraries send data in [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/) syntax to the v1 API `/write` endpoint.
+v1 client libraries send data in [line protocol](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/) syntax to the v1 API `/write` endpoint.
 
 The following samples show how to configure **v1** client libraries for writing to {{% product-name %}}:
 
@@ -426,7 +426,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
 ## Query data
@@ -434,8 +434,8 @@ Replace the following:
 {{% product-name %}} provides the following protocols for executing a query:
 
 - [Flight+gRPC](https://arrow.apache.org/docs/format/Flight.html) request that contains an SQL or InfluxQL query.
-  To learn how to query {{% product-name %}} using Flight and SQL, see the [Get started](/influxdb/cloud-dedicated/get-started/) tutorial.
-- InfluxDB v1 API `/query` request that contains an InfluxQL query. Use this endpoint with {{% product-name %}} when you bring InfluxDB 1.x workloads that already use [InfluxQL](/influxdb/cloud-dedicated/reference/glossary/#influxql) and the v1 API `/query` endpoint.
+  To learn how to query {{% product-name %}} using Flight and SQL, see the [Get started](/influxdb3/cloud-dedicated/get-started/) tutorial.
+- InfluxDB v1 API `/query` request that contains an InfluxQL query. Use this endpoint with {{% product-name %}} when you bring InfluxDB 1.x workloads that already use [InfluxQL](/influxdb3/cloud-dedicated/reference/glossary/#influxql) and the v1 API `/query` endpoint.
 
 {{% note %}}
 #### Tools to execute queries
@@ -443,11 +443,11 @@ Replace the following:
 {{% product-name %}} supports many different tools for querying data, including:
 
 - [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
-- [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
-- [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight/)
-- [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/)
-- [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)
-- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/query-data/execute-queries/influxdb-v1-api/)
+- [InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/)
+- [Flight clients](/influxdb3/cloud-dedicated/reference/client-libraries/flight/)
+- [Superset](/influxdb3/cloud-dedicated/query-data/sql/execute-queries/superset/)
+- [Grafana](/influxdb3/cloud-dedicated/query-data/sql/execute-queries/grafana/)
+- [InfluxQL with InfluxDB v1 HTTP API](/influxdb3/cloud-dedicated/query-data/execute-queries/influxdb-v1-api/)
 - [Chronograf](/chronograf/v1/)
 {{% /note %}}
 
@@ -464,7 +464,7 @@ Parameter | Allowed in | Ignored | Value
 `p` | Query string | Honored | Database token
 `pretty` | Query string | Ignored | N/A
 `u`                    | Query string | Ignored                  | For [query string authentication](#query-string-authentication), any arbitrary string
-`p`                    | Query string | Honored                  | For [query string authentication](#query-string-authentication), a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with permission to write to the database
+`p`                    | Query string | Honored                  | For [query string authentication](#query-string-authentication), a [database token](/influxdb3/cloud-dedicated/get-started/setup/#create-a-database-token) with permission to write to the database
 `rp` | Query string | Honored, but discouraged | Retention policy
 
 {{% note %}}

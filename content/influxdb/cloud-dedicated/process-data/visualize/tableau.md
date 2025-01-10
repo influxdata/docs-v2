@@ -6,18 +6,18 @@ description: >
   data stored in InfluxDB.
 weight: 201
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Visualize data
     name: Use Tableau
     identifier: query-with-tableau
-influxdb/cloud-dedicated/tags: [Flight client, query, flightsql, tableau, sql]
+influxdb3/cloud-dedicated/tags: [Flight client, query, flightsql, tableau, sql]
 aliases:
-  - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/tableau/
-  - /influxdb/cloud-dedicated/query-data/tools/tableau/
-  - /influxdb/cloud-dedicated/query-data/sql/execute-queries/tableau/
-  - /influxdb/cloud-dedicated/process-data/tools/tableau/
+  - /influxdb3/cloud-dedicated/query-data/execute-queries/flight-sql/tableau/
+  - /influxdb3/cloud-dedicated/query-data/tools/tableau/
+  - /influxdb3/cloud-dedicated/query-data/sql/execute-queries/tableau/
+  - /influxdb3/cloud-dedicated/process-data/tools/tableau/
 related:
-  - /influxdb/cloud-dedicated/visualize-data/tableau/
+  - /influxdb3/cloud-dedicated/visualize-data/tableau/
 metadata: [SQL only]
 ---
 
@@ -87,7 +87,7 @@ Setting `useSystemTrustStore=false` is only necessary on macOS and doesn't actua
     
     - **Dialect**: PostgreSQL
     - **Username**: _Leave empty_
-    - **Password**: [Database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+    - **Password**: [Database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
       with read access to the specified database
     - **Properties File**: _Leave empty_
 

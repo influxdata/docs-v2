@@ -7,7 +7,7 @@ description: >
   Learn how to use and leverage InfluxDB Cloud Dedicated for your specific
   time series use case.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: InfluxDB Cloud Dedicated
 weight: 1
 ---
@@ -19,7 +19,7 @@ Learn how to use and leverage InfluxDB Cloud Dedicated for your specific
 time series use case.
 
 <a class="btn" href="{{< cta-link >}}">Request an InfluxDB Cloud Dedicated cluster</a>  
-<a class="btn" href="/influxdb/cloud-dedicated/get-started/">Get started with InfluxDB Cloud Dedicated</a>
+<a class="btn" href="/influxdb3/cloud-dedicated/get-started/">Get started with InfluxDB Cloud Dedicated</a>
 
 ## InfluxDB 3.0
 

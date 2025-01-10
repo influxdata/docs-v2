@@ -52,7 +52,7 @@
     {{ end }}
   {{ end }}
 <!-- Find the latest version of the page if canonical is not set and version is not cloud -->
-{{ else if and (ge (len (findRE "[^/]+.*?" .RelPermalink)) 2) (not (isset .Page.Params "canonical")) (ne $currentVersion "cloud") }}
+{{ else if and (ge (len ($productPathData)) 2) (not (isset .Page.Params "canonical")) (ne $currentVersion "cloud") }}
   {{ range ( index $.Site.Data.products $product ).versions }}
     {{ $currentURL := $.Page.RelPermalink }}
     {{ if gt (len ($.GetPage ((replaceRE $currentVersion . $currentURL) | replaceRE `\/$` "")).Title) 0 }}

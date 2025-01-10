@@ -4,7 +4,7 @@ description: >
   The `influxctl token update` command updates a database token with specified
   permissions to resources in an InfluxDB Cloud Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl token
 weight: 301
 ---
@@ -48,7 +48,7 @@ To retain existing permissions, include them in the update command.
 | `-h` | `--help`           | Output command help                                  |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}
 
 ## Examples

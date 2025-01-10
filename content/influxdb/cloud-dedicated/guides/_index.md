@@ -4,7 +4,7 @@ description: >
   Learn how to integrate with and perform specific operations on data stored in
   InfluxDB Cloud Dedicated.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Guides
 weight: 10
 ---

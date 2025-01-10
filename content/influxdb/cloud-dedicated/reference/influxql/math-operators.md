@@ -4,7 +4,7 @@ descriptions: >
   Use InfluxQL mathematical operators to perform mathematical operations in
   InfluxQL queries.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Math operators
     parent: influxql-reference
     identifier: influxql-mathematical-operators

@@ -3,13 +3,13 @@ title: Install the InfluxDB v2 JavaScript client library
 description: >
   Install the Node.js JavaScript client library to write data to an InfluxDB Cloud Dedicated database.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Install
     parent: Node.js
-influxdb/cloud-dedicated/tags: [client libraries, JavaScript]
+influxdb3/cloud-dedicated/tags: [client libraries, JavaScript]
 weight: 100
 aliases:
-  - /influxdb/cloud-dedicated/reference/api/client-libraries/nodejs/install
+  - /influxdb3/cloud-dedicated/reference/api/client-libraries/nodejs/install
 prepend:
   block: warn
   content: |
@@ -17,10 +17,10 @@ prepend:
 
     The `/api/v2/query` API endpoint and associated tooling, such as InfluxDB v2 client libraries and the `influx` CLI, **can't** query an {{% product-name omit=" Clustered" %}} cluster.
 
-    [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) and [Flight SQL clients](/influxdb/cloud-dedicated/reference/client-libraries/) are available that integrate with your code to write and query data stored in {{% product-name %}}.
+    [InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) and [Flight SQL clients](/influxdb3/cloud-dedicated/reference/client-libraries/) are available that integrate with your code to write and query data stored in {{% product-name %}}.
 
-    InfluxDB v3 supports many different tools for [**writing**](/influxdb/cloud-dedicated/write-data/) and [**querying**](/influxdb/cloud-dedicated/query-data/) data.
-    [**Compare tools you can use**](/influxdb/cloud-dedicated/get-started/#tools-to-use) to interact with {{% product-name %}}.
+    InfluxDB v3 supports many different tools for [**writing**](/influxdb3/cloud-dedicated/write-data/) and [**querying**](/influxdb3/cloud-dedicated/query-data/) data.
+    [**Compare tools you can use**](/influxdb3/cloud-dedicated/get-started/#tools-to-use) to interact with {{% product-name %}}.
 ---
 
 ## Install Node.js
@@ -90,7 +90,7 @@ It only works with InfluxDB v2 management APIs.
 The client examples include an [`env`](https://github.com/influxdata/influxdb-client-js/blob/master/examples/env.js) module for accessing your InfluxDB properties from environment variables or from `env.js`.
 The examples use these properties to interact with the InfluxDB API.
 
-Set environment variables or update `env.js` with your InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/), organization (required, but ignored), [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens), and cluster URL.
+Set environment variables or update `env.js` with your InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/), organization (required, but ignored), [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens), and cluster URL.
 
    ```sh
    export INFLUX_URL=https://{{< influxdb/host >}}
@@ -105,6 +105,6 @@ Set environment variables or update `env.js` with your InfluxDB [database](/infl
 
 ## Next steps
 
-Once you've installed the client library and configured credentials, you're ready to [write data](/influxdb/cloud-dedicated/reference/client-libraries/v2/javascript/nodejs/write/) to InfluxDB.
+Once you've installed the client library and configured credentials, you're ready to [write data](/influxdb3/cloud-dedicated/reference/client-libraries/v2/javascript/nodejs/write/) to InfluxDB.
 
-{{< page-nav next="/influxdb/cloud-dedicated/reference/client-libraries/v2/javascript/nodejs/write/" keepTab=true >}}
+{{< page-nav next="/influxdb3/cloud-dedicated/reference/client-libraries/v2/javascript/nodejs/write/" keepTab=true >}}

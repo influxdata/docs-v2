@@ -3,16 +3,16 @@ title: influxctl write
 description: >
   The `influxctl write` command writes line protocol to InfluxDB Cloud Dedicated.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl
 weight: 201
 metadata: [influxctl 2.4.0+]
 related:
-  - /influxdb/cloud-dedicated/reference/syntax/line-protocol/
-  - /influxdb/cloud-dedicated/write-data/
+  - /influxdb3/cloud-dedicated/reference/syntax/line-protocol/
+  - /influxdb3/cloud-dedicated/write-data/
 ---
 
-The `influxctl write` command writes [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/)
+The `influxctl write` command writes [line protocol](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/)
 to {{< product-name >}}.
 
 Provide line protocol in one of the following ways:
@@ -34,7 +34,7 @@ Provide line protocol in one of the following ways:
 
 Your {{< product-name omit=" Clustered" >}} cluster host and port are
 configured in your `influxctl`
-[connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles).
+[connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles).
 Default uses TLS and port 443.
 You can set a default database and token to use for the `query` and `write`
 commands in your connection profile or pass them with the
@@ -65,7 +65,7 @@ influxctl write [flags] <LINE_PROTOCOL>
 | `-h` | `--help`       | Output command help                                                 |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}
 
 ## Examples
@@ -270,7 +270,7 @@ cat ./metrics.lp | influxctl write \
 ### Write line protocol to InfluxDB v3 using credentials from the connection profile
 
 The following example uses the `database` and `token` defined in the `default`
-[connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles).
+[connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles).
 
 {{% influxdb/custom-timestamps %}}
 ```sh

@@ -4,11 +4,11 @@ list_title: Java
 description: >
   The InfluxDB v3 `influxdb3-java` Java client library integrates with application code to write and query data stored in an InfluxDB Cloud Dedicated database.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Java
     parent: v3 client libraries
     identifier: influxdb3-java
-influxdb/cloud-dedicated/tags: [Flight client, Java, gRPC, SQL, Flight SQL, client libraries]
+influxdb3/cloud-dedicated/tags: [Flight client, Java, gRPC, SQL, Flight SQL, client libraries]
 weight: 201
 ---
 
@@ -114,10 +114,10 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of your {{% product-name %}}
-  [database](/influxdb/cloud-dedicated/admin/databases/) to read and write data to
+  [database](/influxdb3/cloud-dedicated/admin/databases/) to read and write data to
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a
   local environment variable that stores your
-  [token](/influxdb/cloud-dedicated/admin/tokens/database/)--the token must have
+  [token](/influxdb3/cloud-dedicated/admin/tokens/database/)--the token must have
   read and write permissions on the specified database.
 
 ### Run the example to write and query data
@@ -222,8 +222,8 @@ static InfluxDBClient getInstance(@Nonnull final String host,
 {{% /code-placeholders %}}
 
 - {{% code-placeholder-key %}}`host`{{% /code-placeholder-key %}} (string): The host URL of the InfluxDB instance.
-- {{% code-placeholder-key %}}`database`{{% /code-placeholder-key %}} (string): The [database](/influxdb/cloud-dedicated/admin/databases/) to use for writing and querying.
-- {{% code-placeholder-key %}}`token`{{% /code-placeholder-key %}} (char array): A [database token](/influxdb/cloud-dedicated/admin/tokens/database/) with read/write permissions.
+- {{% code-placeholder-key %}}`database`{{% /code-placeholder-key %}} (string): The [database](/influxdb3/cloud-dedicated/admin/databases/) to use for writing and querying.
+- {{% code-placeholder-key %}}`token`{{% /code-placeholder-key %}} (char array): A [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) with read/write permissions.
 
 #### Example: initialize with credential parameters
 
@@ -264,14 +264,14 @@ public class HelloInfluxDB {
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+  your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a
-  [database token](/influxdb/cloud-dedicated/admin/tokens/database/) that has
+  [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) that has
   the necessary permissions on the specified database.
 
 #### Default tags
 
-To include default [tags](/influxdb/cloud-dedicated/reference/glossary/#tag) in
+To include default [tags](/influxdb3/cloud-dedicated/reference/glossary/#tag) in
 all written data, pass a `Map` of tag keys and values.
 
 ```java
@@ -295,9 +295,9 @@ InfluxDBClient getInstance(@Nonnull final String host,
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+  your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a
-  [database token](/influxdb/cloud-dedicated/admin/tokens/database/) that has
+  [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) that has
   the necessary permissions on the specified database.
 
 ### InfluxDBClient instance methods

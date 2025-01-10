@@ -3,7 +3,7 @@ title: View InfluxQL functions
 description: >
   Aggregate, select, transform, and predict data with InfluxQL functions.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: InfluxQL functions
     parent: influxql-reference
     identifier: influxql-functions

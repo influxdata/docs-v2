@@ -3,12 +3,12 @@ title: influxctl table create
 description: >
   The `influxctl table create` command creates a new table in the specified database.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl table
 weight: 301
 related:
-  - /influxdb/cloud-dedicated/admin/custom-partitions/define-custom-partitions/
-  - /influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/
+  - /influxdb3/cloud-dedicated/admin/custom-partitions/define-custom-partitions/
+  - /influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/
 ---
 
 The `influxctl table create` command creates a new table in the specified
@@ -19,10 +19,10 @@ database in an {{< product-name omit=" Clustered" >}} cluster.
 You can override the default partition template (the partition template of the target database)
 with the `--template-tag`, `--template-tag-bucket`, and `--template-timeformat`
 flags when you create the table.
-Provide a time format using [Rust strftime](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates), partition by specific tag, or partition tag values
+Provide a time format using [Rust strftime](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates), partition by specific tag, or partition tag values
 into a specified number of "buckets."
 Each of these can be used as part of the partition template.
-Be sure to follow [partitioning best practices](/influxdb/cloud-dedicated/admin/custom-partitions/best-practices/).
+Be sure to follow [partitioning best practices](/influxdb3/cloud-dedicated/admin/custom-partitions/best-practices/).
 
 {{% note %}}
 #### Always provide a time format when using custom partitioning
@@ -56,7 +56,7 @@ influxctl table create [flags] <DATABASE_NAME> <TABLE_NAME>
 | `-h` | `--help`                | Output command help                                                                                                                      |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}
 
 ## Examples
@@ -98,7 +98,7 @@ influxctl table create \
 {{% /code-placeholders %}}
 
 _For more information about custom partitioning, see
-[Manage data partitioning](/influxdb/cloud-dedicated/admin/custom-partitions/)._
+[Manage data partitioning](/influxdb3/cloud-dedicated/admin/custom-partitions/)._
 
 {{% expand "View command updates" %}}
 

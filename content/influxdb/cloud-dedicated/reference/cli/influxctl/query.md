@@ -4,15 +4,15 @@ description: >
   The `influxctl query` command queries data from InfluxDB Cloud Dedicated
   using SQL or InfluxQL and prints results as a table or JSON.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl
 weight: 201
 metadata: [influxctl 2.4.0+]
 related:
-  - /influxdb/cloud-dedicated/reference/sql/
-  - /influxdb/cloud-dedicated/reference/influxql/
-  - /influxdb/cloud-dedicated/query-data/
-  - /influxdb/cloud-dedicated/admin/query-system-data/
+  - /influxdb3/cloud-dedicated/reference/sql/
+  - /influxdb3/cloud-dedicated/reference/influxql/
+  - /influxdb3/cloud-dedicated/query-data/
+  - /influxdb3/cloud-dedicated/admin/query-system-data/
 ---
 
 The `influxctl query` command queries data from {{< product-name >}} using SQL
@@ -36,7 +36,7 @@ Provide the query in one of the following ways:
 
 Your {{< product-name omit=" Clustered" >}} cluster host and port are
 configured in your `influxctl`
-[connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles).
+[connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles).
 Default uses TLS and port 443.
 You can set a default database and token to use for the `query` and `write`
 commands in your connection profile or pass them with the
@@ -53,9 +53,9 @@ When using the `table` format, by default, timestamps are formatted as RFC3339
 timestamps. Use the `--time-format` flag to specify one of the available time formats:
 
 - `rfc3339nano`: _(Default)_
-  [RFC3339Nano-formatted timestamp](/influxdb/cloud-dedicated/reference/glossary/#rfc3339nano-timestamp)--for example:
+  [RFC3339Nano-formatted timestamp](/influxdb3/cloud-dedicated/reference/glossary/#rfc3339nano-timestamp)--for example:
   `2024-01-01T00:00:00.000000000Z`
-- `unixnano`: [Unix nanosecond timestamp](/influxdb/cloud-dedicated/reference/glossary/#unix-timestamp)
+- `unixnano`: [Unix nanosecond timestamp](/influxdb3/cloud-dedicated/reference/glossary/#unix-timestamp)
 
 ## Usage
 
@@ -82,7 +82,7 @@ influxctl query [flags] <QUERY>
 | `-h` | `--help`                 | Output command help                                                    |
 
 {{% caption %}}
-_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+_Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}
 
 ## Examples
@@ -400,7 +400,7 @@ cat ./query.sql | influxctl query \
 ### Query InfluxDB v3 using credentials from the connection profile
 
 The following example uses the `database` and `token` defined in the `default`
-[connection profile](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles).
+[connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles).
 
 {{% influxdb/custom-timestamps %}}
 ```sh

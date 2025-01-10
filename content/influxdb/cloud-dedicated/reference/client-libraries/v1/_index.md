@@ -4,18 +4,18 @@ description: >
   InfluxDB v1 client libraries use the InfluxDB 1.7 API and should be fully compatible with InfluxDB 1.5+.
   View the list of available client libraries.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     weight: 201
     name: v1 client libraries
     parent: Client libraries
-influxdb/cloud-dedicated/tags: [client libraries, API, developer tools]
+influxdb3/cloud-dedicated/tags: [client libraries, API, developer tools]
 ---
 
 InfluxDB client libraries are language-specific tools that integrate with InfluxDB APIs.
 Client libraries for InfluxDB v1 work with the InfluxDB 1.7 API and should be fully compatible with InfluxDB 1.5+.
 
 {{% note %}}
-Upgrade to InfluxDB v3 to use new client libraries compatible with InfluxDB write APIs, SQL, and InfluxQL. For more information, see [InfluxDB client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/).
+Upgrade to InfluxDB v3 to use new client libraries compatible with InfluxDB write APIs, SQL, and InfluxQL. For more information, see [InfluxDB client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/).
 {{% /note %}}
 
 Functionality varies among client libraries.

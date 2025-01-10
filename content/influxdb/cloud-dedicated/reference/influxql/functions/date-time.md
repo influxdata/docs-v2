@@ -4,7 +4,7 @@ list_title: Date and time functions
 description: >
   Use InfluxQL date and time functions to perform time-related operations.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Date and time
     parent: influxql-functions
 weight: 206

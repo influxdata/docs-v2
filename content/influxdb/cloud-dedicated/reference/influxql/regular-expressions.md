@@ -4,7 +4,7 @@ list_title: Regular expressions
 description: >
   Use `regular expressions` to match patterns in your data.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Regular expressions
     identifier: influxql-regular-expressions
     parent: influxql-reference

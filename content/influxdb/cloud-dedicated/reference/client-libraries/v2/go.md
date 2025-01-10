@@ -4,10 +4,10 @@ list_title: Go
 description: >
    The InfluxDB v2 Go client library integrates with Go applications to write data to an InfluxDB Cloud Dedicated database.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Go
     parent: v2 client libraries
-influxdb/cloud-dedicated/tags: [client libraries, Go]
+influxdb3/cloud-dedicated/tags: [client libraries, Go]
 weight: 201
 prepend:
   block: warn
@@ -16,16 +16,16 @@ prepend:
 
     The `/api/v2/query` API endpoint and associated tooling, such as InfluxDB v2 client libraries and the `influx` CLI, **can't** query an {{% product-name omit=" Clustered" %}} cluster.
 
-    [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) and [Flight SQL clients](/influxdb/cloud-dedicated/reference/client-libraries/) are available that integrate with your code to write and query data stored in {{% product-name %}}.
+    [InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) and [Flight SQL clients](/influxdb3/cloud-dedicated/reference/client-libraries/) are available that integrate with your code to write and query data stored in {{% product-name %}}.
 
-    InfluxDB v3 supports many different tools for [**writing**](/influxdb/cloud-dedicated/write-data/) and [**querying**](/influxdb/cloud-dedicated/query-data/) data.
-    [**Compare tools you can use**](/influxdb/cloud-dedicated/get-started/#tools-to-use) to interact with {{% product-name %}}.
+    InfluxDB v3 supports many different tools for [**writing**](/influxdb3/cloud-dedicated/write-data/) and [**querying**](/influxdb3/cloud-dedicated/query-data/) data.
+    [**Compare tools you can use**](/influxdb3/cloud-dedicated/get-started/#tools-to-use) to interact with {{% product-name %}}.
 ---
 
 Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to write data to an {{% product-name %}} database.
 
 This guide presumes some familiarity with Go and InfluxDB.
-If just getting started, see [Get started with InfluxDB](/influxdb/cloud-dedicated/get-started/).
+If just getting started, see [Get started with InfluxDB](/influxdb3/cloud-dedicated/get-started/).
 
 ## Before you begin
 
@@ -57,7 +57,7 @@ Use the Go library to write and query data from InfluxDB.
    )
    ```
 
-2. Define variables for your InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) (bucket), organization (required, but ignored), and [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens).
+2. Define variables for your InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) (bucket), organization (required, but ignored), and [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens).
 
    ```go
    bucket := "DATABASE_NAME"
@@ -83,7 +83,7 @@ Use the Go library to write and query data from InfluxDB.
 
 Use the Go library to write data to InfluxDB.
 
-1. Create a [point](/influxdb/cloud-dedicated/reference/glossary/#point) and write it to InfluxDB using the `WritePoint` method of the API writer struct.
+1. Create a [point](/influxdb3/cloud-dedicated/reference/glossary/#point) and write it to InfluxDB using the `WritePoint` method of the API writer struct.
 
 2. Close the client to flush all pending writes and finish.
 

@@ -12,11 +12,11 @@
 {{- else if eq $currentProduct "enterprise" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb3_enterprise -}}
 {{- else if eq $currentProduct "cloud-serverless" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb_cloud_serverless -}}
+  {{- $scratch.Set "productData" .Site.Data.products.influxdb3_cloud_serverless -}}
 {{- else if eq $currentProduct "cloud-dedicated" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb_cloud_dedicated -}}
+  {{- $scratch.Set "productData" .Site.Data.products.influxdb3_cloud_dedicated -}}
 {{- else if eq $currentProduct "clustered" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb_clustered -}}
+  {{- $scratch.Set "productData" .Site.Data.products.influxdb3_clustered -}}
 {{- end -}}
 {{- $productData := $scratch.Get "productData" -}}
 {{- if eq $length "long" }}

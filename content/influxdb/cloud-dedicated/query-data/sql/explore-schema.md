@@ -5,12 +5,12 @@ description: >
   structured as a table, and **time**, **fields**, and **tags** are structured
   as columns.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Explore your schema
     parent: Query with SQL
     identifier: query-sql-schema
 weight: 201
-influxdb/cloud-dedicated/tags: [query, sql]
+influxdb3/cloud-dedicated/tags: [query, sql]
 list_code_example: |
   ##### List measurements
   ```sql

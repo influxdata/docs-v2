@@ -3,7 +3,7 @@ title: Set up and use single sign-on (SSO)
 description:
   Set up and use single sign-on (SSO) to authenicate access to your InfluxDB Cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Set up and use SSO
     parent: Administer InfluxDB Cloud
 weight: 106

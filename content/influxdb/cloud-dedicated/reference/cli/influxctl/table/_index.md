@@ -4,7 +4,7 @@ description: >
   The `influxctl table` command and its subcommands manage tables in an
   InfluxDB Cloud Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl
 weight: 201
 cascade:
@@ -24,7 +24,7 @@ influxctl table [subcommand] [flags]
 
 | Subcommand                                                                | Description    |
 | :------------------------------------------------------------------------ | :------------- |
-| [create](/influxdb/cloud-dedicated/reference/cli/influxctl/table/create/) | Create a table |
+| [create](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/create/) | Create a table |
 
 ## Flags
 

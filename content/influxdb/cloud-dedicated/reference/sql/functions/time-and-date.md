@@ -4,7 +4,7 @@ list_title: Time and date functions
 description: >
   Use time and date functions to work with time values and time series data.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Time and date
     parent: sql-functions    
 weight: 305

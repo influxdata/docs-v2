@@ -3,7 +3,7 @@ title: JOIN clause
 description: > 
     Use the `JOIN` clause to join together data from different tables.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: JOIN clause
     parent: SQL reference
 weight: 202

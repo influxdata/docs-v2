@@ -1,21 +1,3 @@
-influxdb:
-  name: InfluxDB
-  altname: InfluxDB OSS
-  namespace: influxdb
-  menu_category: self-managed
-  list_order: 1
-  placeholder_host: localhost:8086
-  versions:
-    - v2
-    - v1
-  latest: v2.7
-  latest_patches:
-    v3: 3.0.0alpha
-    v2: 2.7.11
-    v1: 1.11.8
-  latest_cli:
-    v2: 2.7.5
-
 influxdb3_core:
   name: InfluxDB 3 Core
   altname: InfluxDB 3 Core
@@ -36,17 +18,7 @@ influxdb3_enterprise:
   latest: enterprise
   placeholder_host: localhost:8086
 
-influxdb_cloud:
-  name: InfluxDB Cloud (TSM)
-  altname: InfluxDB Cloud
-  namespace: influxdb
-  menu_category: managed
-  versions: [cloud]
-  list_order: 1
-  latest: cloud
-  placeholder_host: cloud2.influxdata.com
-
-influxdb_cloud_serverless:
+influxdb3_cloud_serverless:
   name: InfluxDB Cloud Serverless
   altname: InfluxDB Cloud
   namespace: influxdb
@@ -56,7 +28,7 @@ influxdb_cloud_serverless:
   latest: cloud-serverless
   placeholder_host: cloud2.influxdata.com
 
-influxdb_cloud_dedicated:
+influxdb3_cloud_dedicated:
   name: InfluxDB Cloud Dedicated
   altname: InfluxDB Cloud
   namespace: influxdb
@@ -68,7 +40,7 @@ influxdb_cloud_dedicated:
   latest_cli: 2.9.8
   placeholder_host: cluster-id.a.influxdb.io
 
-influxdb_clustered:
+influxdb3_clustered:
   name: InfluxDB Clustered
   altname: InfluxDB Clustered
   namespace: influxdb
@@ -78,6 +50,34 @@ influxdb_clustered:
   latest: clustered
   link: "https://www.influxdata.com/contact-sales-influxdb-clustered"
   placeholder_host: cluster-host.com
+
+influxdb:
+  name: InfluxDB
+  altname: InfluxDB OSS
+  namespace: influxdb
+  menu_category: self-managed
+  list_order: 1
+  placeholder_host: localhost:8086
+  versions:
+    - v2
+    - v1
+  latest: v2.7
+  latest_patches:
+    v3: 3.0.0alpha
+    v2: 2.7.11
+    v1: 1.11.8
+  latest_cli:
+    v2: 2.7.5
+
+influxdb_cloud:
+  name: InfluxDB Cloud (TSM)
+  altname: InfluxDB Cloud
+  namespace: influxdb
+  menu_category: managed
+  versions: [cloud]
+  list_order: 1
+  latest: cloud
+  placeholder_host: cloud2.influxdata.com
 
 telegraf:
   name: Telegraf

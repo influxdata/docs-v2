@@ -3,7 +3,7 @@ title: LIMIT clause
 description: > 
     Use the `LIMIT` clause to limit the number of results returned by a query.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: LIMIT clause
     parent: SQL reference
 weight: 206

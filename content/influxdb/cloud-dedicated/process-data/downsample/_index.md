@@ -5,7 +5,7 @@ description: >
   stored in InfluxDB.
 weight: 101
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Downsample data
     parent: Process & visualize data
 ---

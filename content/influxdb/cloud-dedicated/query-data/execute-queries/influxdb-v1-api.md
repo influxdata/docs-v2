@@ -7,15 +7,15 @@ description: >
   with InfluxQL.
 weight: 301
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: Execute queries
     name: Use the v1 query API
-influxdb/cloud-dedicated/tags: [query, influxql, python]
+influxdb3/cloud-dedicated/tags: [query, influxql, python]
 metadata: [InfluxQL]
 related:
-  - /influxdb/cloud-dedicated/api-compatibility/v1/
+  - /influxdb3/cloud-dedicated/api-compatibility/v1/
 aliases:
-  - /influxdb/cloud-dedicated/query-data/influxql/execute-queries/influxdb-v1-api/
+  - /influxdb3/cloud-dedicated/query-data/influxql/execute-queries/influxdb-v1-api/
 list_code_example: |
   ```sh
   curl --get https://{{< influxdb/host >}}/query \
@@ -37,12 +37,12 @@ but you can use any HTTP client.
 InfluxQL is being rearchitected to work with the InfluxDB v3 storage engine.
 This process is ongoing and some InfluxQL features are still being implemented.
 For information about the current implementation status of InfluxQL features,
-see [InfluxQL feature support](/influxdb/cloud-dedicated/reference/influxql/feature-support/).
+see [InfluxQL feature support](/influxdb3/cloud-dedicated/reference/influxql/feature-support/).
 {{% /warn %}}
 
 Use the v1 `/query` endpoint and the `GET` request method to query data with InfluxQL:
 
-{{< api-endpoint endpoint="https://{{< influxdb/host >}}/query" method="get" api-ref="/influxdb/cloud-dedicated/api/#tag/Query" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/query" method="get" api-ref="/influxdb3/cloud-dedicated/api/#tag/Query" >}}
 
 Provide the following with your request:
 
@@ -65,9 +65,9 @@ curl --get https://{{< influxdb/host >}}/query \
 Replace the following configuration values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  the name of the [database](/influxdb/cloud-dedicated/admin/databases/) to query.
+  the name of the [database](/influxdb3/cloud-dedicated/admin/databases/) to query.
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with _read_ access to the specified database.
 
 {{% note %}}
@@ -77,7 +77,7 @@ If using basic authentication or query string authentication (username and passw
 to interact with the v1 HTTP query API, provide the following credentials:
 
 - **username**: an arbitrary string _({{< product-name >}} ignores the username)_
-- **password**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+- **password**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with _read_ access to the specified database.
 
 {{< code-tabs-wrapper >}}

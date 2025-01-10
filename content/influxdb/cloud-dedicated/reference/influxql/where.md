@@ -1,9 +1,9 @@
 ---
 title: WHERE clause
 description: >
-  Use the `WHERE` clause to filter data based on [fields](/influxdb/cloud-dedicated/reference/glossary/#field), [tags](/influxdb/cloud-dedicated/reference/glossary/#tag), and/or [timestamps](/influxdb/cloud-dedicated/reference/glossary/#timestamp).
+  Use the `WHERE` clause to filter data based on [fields](/influxdb3/cloud-dedicated/reference/glossary/#field), [tags](/influxdb3/cloud-dedicated/reference/glossary/#tag), and/or [timestamps](/influxdb3/cloud-dedicated/reference/glossary/#timestamp).
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: WHERE clause
     identifier: influxql-where-clause
     parent: influxql-reference

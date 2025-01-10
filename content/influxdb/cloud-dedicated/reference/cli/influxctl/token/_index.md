@@ -4,7 +4,7 @@ description: >
   The `influxctl token` command and its subcommands manage database tokens in an
   InfluxDB Cloud Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     parent: influxctl
 weight: 201
 ---
@@ -22,11 +22,11 @@ influxctl token [subcommand] [flags]
 
 | Subcommand                                                                | Description                   |
 | :------------------------------------------------------------------------ | :---------------------------- |
-| [create](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/) | Create a database token       |
-| [delete](/influxdb/cloud-dedicated/reference/cli/influxctl/token/delete/) | Delete a database token       |
-| [get](/influxdb/cloud-dedicated/reference/cli/influxctl/token/get/)       | Get information about a token |
-| [list](/influxdb/cloud-dedicated/reference/cli/influxctl/token/list/)     | List database tokens          |
-| [update](/influxdb/cloud-dedicated/reference/cli/influxctl/token/update/) | Update a database token       |
+| [create](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/create/) | Create a database token       |
+| [delete](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/delete/) | Delete a database token       |
+| [get](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/get/)       | Get information about a token |
+| [list](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/list/)     | List database tokens          |
+| [update](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/update/) | Update a database token       |
 | help, h                                                                   | Output command help           |
 
 ## Flags

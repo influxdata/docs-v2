@@ -4,12 +4,12 @@ description: >
   Migrate data from InfluxDB powered by TSM (OSS, Enterprise, or Cloud) to
   InfluxDB Cloud Dedicated.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Migrate data
     parent: Guides
 weight: 104
 aliases: 
-  - /influxdb/cloud-dedicated/write-data/migrate-data/
+  - /influxdb3/cloud-dedicated/write-data/migrate-data/
 alt_links:
   cloud: /influxdb/cloud/write-data/migrate-data/
 ---
@@ -45,8 +45,8 @@ question, the better solution for high series cardinality workloads.
 **Yes, you should migrate**. InfluxDB Cloud Dedicated lets you query your time
 series data with SQL. For more information about querying your data with SQL, see:
 
-- [Query data with SQL](/influxdb/cloud-dedicated/query-data/sql/)
-- [InfluxDB SQL reference](/influxdb/cloud-dedicated/reference/sql/)
+- [Query data with SQL](/influxdb3/cloud-dedicated/query-data/sql/)
+- [InfluxDB SQL reference](/influxdb3/cloud-dedicated/reference/sql/)
 
 #### Do you want better InfluxQL performance?
 
@@ -83,7 +83,7 @@ supported in the InfluxDB v3 storage engine. Specifically, InfluxDB v3 enforces 
 - By default, measurements can contain up to 250 columns where each column
   represents time, a field, or a tag.
 
-_For more information, see [Schema restrictions](/influxdb/cloud-serverless/write-data/best-practices/schema-design/#schema-restrictions)._
+_For more information, see [Schema restrictions](/influxdb3/cloud-serverless/write-data/best-practices/schema-design/#schema-restrictions)._
 
 If your schema does not adhere to these restrictions, you must update your schema
 before migrating to {{< product-name >}}.
