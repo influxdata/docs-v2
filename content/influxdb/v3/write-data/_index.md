@@ -39,9 +39,13 @@ Write data to {{% product-name %}} using the following tools and methods:
 Write line protocol data using the `influxdb3` CLI
    
    ```bash
+   # Download sample data
+   curl -O https://docs.influxdata.com/downloads/home-sensor-data.lp \
+   && \
+   # Write the data
    influxdb3 write \
    --database=home \
-   --file /Users/ja/Documents/github/docs-v2/static/downloads/home-sensor-data.lp
+   --file ./home-sensor-data.lp
    ```
    
    Outputs the following:
@@ -116,7 +120,7 @@ Write line protocol data using `curl` and the InfluxDB HTTP API `/api/v3/write` 
 Write line protocol from a compressed file using `curl` and the InfluxDB HTTP API `/api/v3/write` endpoint:
 
    ```bash
-   gzip ./static/downloads/home-sensor-data.lp home-sensor-data.gzip
+   gzip ./home-sensor-data.lp home-sensor-data.gzip
 
    response=$(curl --silent --write-out "%{response_code}:-%{errormsg}" \
      "http://0.0.0.0:8181/api/v3/write?database=home&precision=s" \
