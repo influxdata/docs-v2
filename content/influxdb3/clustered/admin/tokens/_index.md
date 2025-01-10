@@ -32,7 +32,7 @@ All read and write actions performed against time series data in your
 Management tokens grant permission to perform administrative actions such as
 managing users, databases, and database tokens.
 Management tokens allow clients, such as the
-[`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/),
+[`influxctl` CLI](/influxdb3/clustered/reference/cli/influxctl/),
 to perform administrative actions.
 
 {{% note %}}
