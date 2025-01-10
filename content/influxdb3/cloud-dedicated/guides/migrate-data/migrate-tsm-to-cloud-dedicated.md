@@ -6,7 +6,7 @@ description: >
   the queried data to an InfluxDB v3 database in your
   InfluxDB Cloud Dedicated cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Migrate from TSM to Dedicated
     parent: Migrate data
 weight: 102
@@ -50,7 +50,7 @@ supported in the InfluxDB v3 storage engine. Specifically, InfluxDB v3 enforces 
 - By default, measurements can contain up to 250 columns where each column
   represents time, a field, or a tag.
 
-_For more information, see [Schema restrictions](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/#schema-restrictions)._
+_For more information, see [Schema restrictions](/influxdb3/cloud-dedicated/write-data/best-practices/schema-design/#schema-restrictions)._
 
 If your schema does not adhere to these restrictions, you must update your schema
 before migrating to {{< product-name >}}.
@@ -87,7 +87,7 @@ If in your current schema, the total number of tags, fields, and time
 columns in a single measurement exceeds 250, you need to update your schema
 before migrating to {{< product-name >}}.
 
-Although you can [increase the column limit](/influxdb/cloud-dedicated/admin/databases/create/#table-and-column-limits)
+Although you can [increase the column limit](/influxdb3/cloud-dedicated/admin/databases/create/#table-and-column-limits)
 per measurement when creating a database, it may adversely affect query performance.
 
 Because tags are metadata used to identify specific series, we recommend
@@ -166,9 +166,9 @@ to complete the migration.
 
 1.  **In the {{< product-name omit=" Clustered" >}} cluster you're migrating data _to_**:
 
-    1. [Create a database](/influxdb/cloud-dedicated/admin/databases/create/)
+    1. [Create a database](/influxdb3/cloud-dedicated/admin/databases/create/)
         **to migrate data to**.
-    2. [Create a database token](/influxdb/cloud-dedicated/admin/tokens/database/create/)
+    2. [Create a database token](/influxdb3/cloud-dedicated/admin/tokens/database/create/)
         with **write access** to the database you want to migrate to.
 
 2.  **In the InfluxDB Cloud (TSM) organization you're migrating data _from_**:

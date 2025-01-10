@@ -5,18 +5,18 @@ description: >
   InfluxDB Cloud Dedicated cluster, export the data as line protocol and
   write the exported data to your InfluxDB Cloud Dedicated database.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Migrate from 1.x to Dedicated
     parent: Migrate data
 weight: 103
 aliases:
-  - /influxdb/cloud-dedicated/write-data/migrate-data/migrate-1x-to-iox/
-  - /influxdb/cloud-dedicated/write-data/migrate-data/migrate-1x-to-cloud-dedicated/
+  - /influxdb3/cloud-dedicated/write-data/migrate-data/migrate-1x-to-iox/
+  - /influxdb3/cloud-dedicated/write-data/migrate-data/migrate-1x-to-cloud-dedicated/
 related:
-  - /influxdb/cloud-dedicated/admin/databases/
-  - /influxdb/cloud-dedicated/admin/tokens/
-  - /influxdb/cloud-dedicated/primers/api/v1/
-  - /influxdb/cloud-dedicated/primers/api/v2/
+  - /influxdb3/cloud-dedicated/admin/databases/
+  - /influxdb3/cloud-dedicated/admin/tokens/
+  - /influxdb3/cloud-dedicated/primers/api/v1/
+  - /influxdb3/cloud-dedicated/primers/api/v2/
 alt_links:
   cloud-serverless: /influxdb/cloud-serverless/guides/migrate-data/migrate-1x-to-serverless/
   clustered: /influxdb/clustered/guides/migrate-data/migrate-1x-to-clustered/
@@ -44,7 +44,7 @@ supported in the InfluxDB v3 storage engine. Specifically, InfluxDB v3 enforces 
 - By default, measurements can contain up to 250 columns where each column
   represents time, a field, or a tag.
 
-_For more information, see [Schema restrictions](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/#schema-restrictions)._
+_For more information, see [Schema restrictions](/influxdb3/cloud-dedicated/write-data/best-practices/schema-design/#schema-restrictions)._
 
 If your schema does not adhere to these restrictions, you must update your schema
 before migrating to {{< product-name >}}.
@@ -78,7 +78,7 @@ If in your current schema, the total number of tags, fields, and time
 columns in a single measurement exceeds 250, we recommend updating your schema
 before migrating to {{< product-name >}}.
 
-Although you can [increase the column limit](/influxdb/cloud-dedicated/admin/databases/create/#table-and-column-limits)
+Although you can [increase the column limit](/influxdb3/cloud-dedicated/admin/databases/create/#table-and-column-limits)
 per measurement when creating a database, it may adversely affect query performance.
 
 Because tags are metadata used to identify specific series, we recommend
@@ -164,8 +164,8 @@ The migration process uses the following tools:
 - **`influx_inspect` utility**:
   The [`influx_inspect` utility](/influxdb/v1/tools/influx_inspect/#export)
   is packaged with InfluxDB 1.x OSS and Enterprise.
-- **[`influxctl` admin CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)**.
-- [v1 API `/write` endpoint](/influxdb/cloud-dedicated/primers/api/v1/) or [v2 API `/api/v2/write` endpoint](/influxdb/cloud-dedicated/primers/api/v2/) and API client libraries.
+- **[`influxctl` admin CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/)**.
+- [v1 API `/write` endpoint](/influxdb3/cloud-dedicated/primers/api/v1/) or [v2 API `/api/v2/write` endpoint](/influxdb3/cloud-dedicated/primers/api/v2/) and API client libraries.
 
 
 ## Migrate data
@@ -310,7 +310,7 @@ influx_inspect export \
 have been combined into a single concept--database. Retention policies are no
 longer part of the InfluxDB data model. However, InfluxDB Cloud Dedicated does
 support InfluxQL, which requires databases and retention policies.
-See [InfluxQL DBRP naming convention](/influxdb/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention).
+See [InfluxQL DBRP naming convention](/influxdb3/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention).
 
 **If coming from InfluxDB v2 or InfluxDB Cloud**, _database_ and _bucket_ are synonymous.
     {{% /note %}}
@@ -335,12 +335,12 @@ You would create the following InfluxDB {{< current-version >}} databases:
 {{% /expand %}}
     {{< /expand-wrapper >}}
 
-    Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
-    to [create a database](/influxdb/cloud-dedicated/admin/databases/create/) in your InfluxDB Cloud Dedicated cluster.
+    Use the [`influxctl database create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/create/)
+    to [create a database](/influxdb3/cloud-dedicated/admin/databases/create/) in your InfluxDB Cloud Dedicated cluster.
 
     Provide the following arguments:
 
-    - _(Optional)_ Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
+    - _(Optional)_ Database [retention period](/influxdb3/cloud-dedicated/admin/databases/#retention-periods)
       (default is infinite)
     - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
 
@@ -351,12 +351,12 @@ You would create the following InfluxDB {{< current-version >}} databases:
     influxctl database create --retention-period 30d <DATABASE_NAME>
     ```
 
-    To learn more about databases in InfluxDB Cloud Dedicated, see [Manage databases](/influxdb/cloud-dedicated/admin/databases/).
+    To learn more about databases in InfluxDB Cloud Dedicated, see [Manage databases](/influxdb3/cloud-dedicated/admin/databases/).
 
 3. **Create a database token for writing to your InfluxDB Cloud Dedicated database.**
 
-    Use the [`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
-    to [create a database token](/influxdb/cloud-dedicated/admin/tokens/database/create/) with
+    Use the [`influxctl token create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/create/)
+    to [create a database token](/influxdb3/cloud-dedicated/admin/tokens/database/create/) with
     _write_ permission to your database.
 
     Provide the following:
@@ -379,8 +379,8 @@ You would create the following InfluxDB {{< current-version >}} databases:
 
     Choose from the following options:
 
-    - The [v1 API `/write` endpoint](/influxdb/cloud-dedicated/primers/api/v1/) with v1 client libraries or HTTP clients.
-    - The [v2 API `/api/v2/write` endpoint](/influxdb/cloud-dedicated/primers/api/v2/) with v2 client libraries or HTTP clients.
+    - The [v1 API `/write` endpoint](/influxdb3/cloud-dedicated/primers/api/v1/) with v1 client libraries or HTTP clients.
+    - The [v2 API `/api/v2/write` endpoint](/influxdb3/cloud-dedicated/primers/api/v2/) with v2 client libraries or HTTP clients.
     
     Write each export file to the target database.
 

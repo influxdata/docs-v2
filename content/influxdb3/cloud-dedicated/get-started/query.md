@@ -6,17 +6,17 @@ description: >
   Get started querying data in InfluxDB Cloud Dedicated by learning about SQL and
   InfluxQL, and using tools like the influx3 CLI and InfluxDB client libraries.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb3_cloud_dedicated:
     name: Query data
     parent: Get started
     identifier: get-started-query-data
 weight: 102
 metadata: [3 / 3]
 related:
-  - /influxdb/cloud-dedicated/query-data/
-  - /influxdb/cloud-dedicated/query-data/sql/
-  - /influxdb/cloud-dedicated/query-data/execute-queries/
-  - /influxdb/cloud-dedicated/reference/client-libraries/v3/
+  - /influxdb3/cloud-dedicated/query-data/
+  - /influxdb3/cloud-dedicated/query-data/sql/
+  - /influxdb3/cloud-dedicated/query-data/execute-queries/
+  - /influxdb3/cloud-dedicated/reference/client-libraries/v3/
 ---
 
 {{% product-name %}} supports multiple query languages:
@@ -35,9 +35,9 @@ the simplicity of SQL.
 
 {{% note %}}
 The examples in this section of the tutorial query the
-[**get-started** database](/influxdb/cloud-dedicated/get-started/setup/#create-a-database)
+[**get-started** database](/influxdb3/cloud-dedicated/get-started/setup/#create-a-database)
 for data written in the
-[Get started writing data](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb)
+[Get started writing data](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb)
 section.
 {{% /note %}}
 
@@ -48,11 +48,11 @@ section.
 {{< req type="key" text="Covered in this tutorial" color="magenta" >}}
 - [`influxctl` CLI](#execute-an-sql-query){{< req text="\*  " color="magenta" >}}
 - [`influx3` data CLI](?t=influx3+CLI#execute-an-sql-query){{< req text="\*  " color="magenta" >}}
-- [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/){{< req text="\*  " color="magenta" >}}
-- [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight/)
-- [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/)
-- [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)
-- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/query-data/execute-queries/influxdb-v1-api/)
+- [InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/){{< req text="\*  " color="magenta" >}}
+- [Flight clients](/influxdb3/cloud-dedicated/reference/client-libraries/flight/)
+- [Superset](/influxdb3/cloud-dedicated/query-data/sql/execute-queries/superset/)
+- [Grafana](/influxdb3/cloud-dedicated/query-data/sql/execute-queries/grafana/)
+- [InfluxQL with InfluxDB v1 HTTP API](/influxdb3/cloud-dedicated/query-data/execute-queries/influxdb-v1-api/)
 - [Chronograf](/chronograf/v1/)
 
 {{% warn %}}
@@ -70,7 +70,7 @@ query engine which provides an SQL syntax similar to PostgreSQL.
 
 {{% note %}}
 This is a brief introduction to writing SQL queries for InfluxDB.
-For more in-depth details, see [Query data with SQL](/influxdb/cloud-dedicated/query-data/sql/).
+For more in-depth details, see [Query data with SQL](/influxdb3/cloud-dedicated/query-data/sql/).
 {{% /note %}}
 
 InfluxDB SQL queries most commonly include the following clauses:
@@ -180,7 +180,7 @@ ORDER BY room, _time
 Get started with one of the following tools for querying data stored in an {{% product-name %}} database:
 
 - **`influxctl` CLI**: Query data from your command-line using the
-  [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/).
+  [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/).
 - **`influx3` CLI**: Query data from your terminal command-line using the
   Python-based [`influx3` CLI](https://github.com/InfluxCommunity/influxdb3-python).
 - **InfluxDB v3 client libraries**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
@@ -245,7 +245,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719950400
 {{% note %}}
 Some examples in this getting started tutorial assume your InfluxDB
 credentials (**URL** and **token**) are provided by
-[environment variables](/influxdb/cloud-dedicated/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
+[environment variables](/influxdb3/cloud-dedicated/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
 {{% /note %}}
 
 {{< tabs-wrapper >}}
@@ -261,14 +261,14 @@ credentials (**URL** and **token**) are provided by
 {{% tab-content %}}
 <!-------------------------- BEGIN influxctl CONTENT -------------------------->
 
-Use the [`influxctl query` command](/influxdb/cloud-dedicated/reference/cli/influxctl/query/)
+Use the [`influxctl query` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/query/)
 to query the [home sensor sample data](#home-sensor-data-line-protocol) in your
 {{< product-name omit=" Clustered" >}} cluster.
 Provide the following:
 
 - Database name to query using the `--database` flag
 - Database token using the `--token` flag (use the `INFLUX_TOKEN` environment variable created in
-  [Get started--Set up {{< product-name >}}](/influxdb/cloud-dedicated/get-started/setup/#configure-authentication-credentials))
+  [Get started--Set up {{< product-name >}}](/influxdb3/cloud-dedicated/get-started/setup/#configure-authentication-credentials))
 - SQL query
 
 {{% influxdb/custom-timestamps %}}
@@ -309,7 +309,7 @@ configuration file.
 Query InfluxDB v3 using SQL and the [`influx3` CLI](https://github.com/InfluxCommunity/influxdb3-python-cli).
 
 The following steps include setting up a Python virtual environment already
-covered in [Get started writing data](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb).
+covered in [Get started writing data](/influxdb3/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb).
 _If your project's virtual environment is already running, skip to step 3._
 
 1.  Create a directory for your project and change into it:
@@ -326,7 +326,7 @@ _If your project's virtual environment is already running, skip to step 3._
     python -m venv envs/virtual-env && . envs/virtual-env/bin/activate
     ```
 
-3.  Install the CLI package (already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)).
+3.  Install the CLI package (already installed in the [Write data section](/influxdb3/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)).
 
     <!--pytest-codeblocks:cont-->
 
@@ -352,7 +352,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
     Replace the following:
 
-    - **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+    - **`DATABASE_TOKEN`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
       with read access to the **get-started** database
     - **`ORG_ID`**: any non-empty string (InfluxDB ignores this parameter, but the client requires it)
 
@@ -379,11 +379,11 @@ Use the `influxdb_client_3` client library module to integrate {{< product-name 
 The client library supports writing data to InfluxDB and querying data using SQL or InfluxQL.
 
 The following steps include setting up a Python virtual environment already
-covered in [Get started writing data](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb).
+covered in [Get started writing data](/influxdb3/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb).
 _If your project's virtual environment is already running, skip to step 3._
 
 1.  Open a terminal in the `influxdb_py_client` module directory you created in the
-    [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb):
+    [Write data section](/influxdb3/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb):
 
     1.  To create and activate your Python virtual environment, enter the following command in your terminal:
 
@@ -402,7 +402,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
     2.  Install the following dependencies:
 
-        {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
+        {{< req type="key" text="Already installed in the [Write data section](/influxdb3/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
 
         - [`influxdb3-python`{{< req text="\* " color="magenta" >}}](https://github.com/InfluxCommunity/influxdb3-python): Provides the InfluxDB `influxdb_client_3` Python client library module and also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
         - [`pandas`](https://pandas.pydata.org/): Provides `pandas` functions, modules, and data structures for analyzing and manipulating data.
@@ -492,7 +492,7 @@ _If your project's virtual environment is already running, skip to step 3._
               tls_root_certs=cert))
       ```
   
-  For more information, see [`influxdb_client_3` query exceptions](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/#query-exceptions).
+  For more information, see [`influxdb_client_3` query exceptions](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/#query-exceptions).
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -505,7 +505,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
       - **`host`**: {{% product-name omit=" Clustered" %}} cluster URL
         (without `https://` protocol or trailing slash)
-      - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+      - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
         with read access to the specified database.
         _Store this in a secret store or environment variable to avoid exposing
         the raw token string._
@@ -577,7 +577,7 @@ _If your project's virtual environment is already running, skip to step 3._
 {{% influxdb/custom-timestamps %}}
 
 1.  In the `influxdb_go_client` directory you created in the
-    [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Go#write-line-protocol-to-influxdb),
+    [Write data section](/influxdb3/cloud-dedicated/get-started/write/?t=Go#write-line-protocol-to-influxdb),
     create a new file named `query.go`.
 
 2.  In `query.go`, enter the following sample code:
@@ -667,7 +667,7 @@ _If your project's virtual environment is already running, skip to step 3._
           
             - **`Host`**: your {{% product-name omit=" Clustered" %}} cluster URL
             - **`Database`**: the name of your {{% product-name %}} database
-            - **`Token`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+            - **`Token`**:  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
               with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid
               exposing the raw token string._
@@ -680,11 +680,11 @@ _If your project's virtual environment is already running, skip to step 3._
             The `Query(sql string)` method returns an `iterator` for data in the
             response stream.
         5.  Iterates over rows, formats the timestamp as an
-            [RFC3339 timestamp](/influxdb/cloud-dedicated/reference/glossary/#rfc3339-timestamp),
+            [RFC3339 timestamp](/influxdb3/cloud-dedicated/reference/glossary/#rfc3339-timestamp),
             and prints the data in table format to stdout.
 
 3.  In your editor, open the `main.go` file you created in the
-    [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Go#write-line-protocol-to-influxdb) and insert code to call the `Query()` function--for example:
+    [Write data section](/influxdb3/cloud-dedicated/get-started/write/?t=Go#write-line-protocol-to-influxdb) and insert code to call the `Query()` function--for example:
 
     ```go
     package main
@@ -713,10 +713,10 @@ _If your project's virtual environment is already running, skip to step 3._
 {{% influxdb/custom-timestamps %}}
 <!---------------------------- BEGIN NODE.JS CONTENT --------------------------->
 
-_This tutorial assumes you installed Node.js and npm, and created an `influxdb_js_client` npm project as described in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Nodejs)._
+_This tutorial assumes you installed Node.js and npm, and created an `influxdb_js_client` npm project as described in the [Write data section](/influxdb3/cloud-dedicated/get-started/write/?t=Nodejs)._
 
 1.  In your terminal or editor, change to the `influxdb_js_client` directory you created in the
-    [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Nodejs).
+    [Write data section](/influxdb3/cloud-dedicated/get-started/write/?t=Nodejs).
 2.  If you haven't already, install the `@influxdata/influxdb3-client` JavaScript client library as a dependency to your project:
 
     <!--pytest.mark.skip-->
@@ -785,7 +785,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
         with InfluxDB credentials.
 
         - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
-        - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+        - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
           with read permission on the database you want to query.
           _Store this in a secret store or environment variable to avoid exposing
           the raw token string._
@@ -800,7 +800,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
           `query()` returns a stream of row vectors.
       4.  Iterates over rows and adds the column data to the arrays in `data`.
       5.  Passes `data` to the Arrow `tableFromArrays()` function to format the arrays as a table, and then passes the result to the `console.table()` method to output a highlighted table in the terminal.
-5.  Inside of `index.mjs` (created in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Nodejs)), enter the following sample code to import the modules and call the functions:
+5.  Inside of `index.mjs` (created in the [Write data section](/influxdb3/cloud-dedicated/get-started/write/?t=Nodejs)), enter the following sample code to import the modules and call the functions:
 
     ```js
     // index.mjs
@@ -835,7 +835,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
 {{% influxdb/custom-timestamps %}}
 
 1.  In the `influxdb_csharp_client` directory you created in the
-    [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=C%23),
+    [Write data section](/influxdb3/cloud-dedicated/get-started/write/?t=C%23),
     create a new file named `Query.cs`.
 
 2.  In `Query.cs`, enter the following sample code:
@@ -912,7 +912,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
           
             - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL.
             - **`database`**: the name of the {{% product-name %}} database to query
-            - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+            - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
               with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
         2.  Defines a string variable for the SQL query.
@@ -920,7 +920,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
             `Query()` returns batches of rows from the response stream as a two-dimensional array--an array of rows in which each row is an array of values.
         4.  Iterates over rows and prints the data in table format to stdout.
 3.  In your editor, open the `Program.cs` file you created in the
-    [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=C%23#write-line-protocol-to-influxdb) and insert code to call the `Query()` function--for example:
+    [Write data section](/influxdb3/cloud-dedicated/get-started/write/?t=C%23#write-line-protocol-to-influxdb) and insert code to call the `Query()` function--for example:
 
       ```c#
       // Program.cs
@@ -955,10 +955,10 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
 <!------------------------------ BEGIN JAVA CONTENT ------------------------------->
 {{% influxdb/custom-timestamps %}}
 
-_This tutorial assumes using Maven version 3.9, Java version >= 15, and an `influxdb_java_client` Maven project created in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Java)._
+_This tutorial assumes using Maven version 3.9, Java version >= 15, and an `influxdb_java_client` Maven project created in the [Write data section](/influxdb3/cloud-dedicated/get-started/write/?t=Java)._
 
 1.  In your terminal or editor, change to the `influxdb_java_client` directory you created in the
-    [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Java).
+    [Write data section](/influxdb3/cloud-dedicated/get-started/write/?t=Java).
 2.  Inside of the `src/main/java/com/influxdbv3` directory, create a new file named `Query.java`.
 3.  In `Query.java`, enter the following sample code:
 
@@ -1041,7 +1041,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
 
             - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
             - **`database`**: the name of the {{% product-name %}} database to write to
-            - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/#database-tokens)
+            - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
               with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
         2.  Defines a string variable (`sql`) for the SQL query.
@@ -1157,6 +1157,6 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
 
 **Congratulations!** You've learned the basics of querying data in InfluxDB with SQL.
 For a deep dive into all the ways you can query {{% product-name %}}, see the
-[Query data in InfluxDB](/influxdb/cloud-dedicated/query-data/) section of documentation.
+[Query data in InfluxDB](/influxdb3/cloud-dedicated/query-data/) section of documentation.
 
-{{< page-nav prev="/influxdb/cloud-dedicated/get-started/write/" keepTab=true >}}
+{{< page-nav prev="/influxdb3/cloud-dedicated/get-started/write/" keepTab=true >}}
