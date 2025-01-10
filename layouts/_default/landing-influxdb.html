@@ -1,7 +1,7 @@
 {{ partial "header.html" . }}
 {{ partial "topnav.html" . }}
 
-{{ $productPathData := split .RelPermalink "/" }}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
 {{ $isCloud := in $currentVersion "cloud"}}

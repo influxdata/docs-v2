@@ -1,5 +1,5 @@
 {{ $scratch := newScratch }}
-{{ $productPathData := split .RelPermalink "/" }}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
 {{ $versionSelectorBlacklist := slice "resources" "platform" "example" "influxdb3" }}
