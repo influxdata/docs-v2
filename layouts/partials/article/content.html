@@ -2,7 +2,7 @@
 {{ $product := index $productPathData 0 }}
 {{ $version := index $productPathData 1 }}
 {{ $influxdbOSSv2 := and (eq $product "influxdb") (in $version "v2") }}
-{{ $influxdbCloud := and (eq $product "influxdb") (in $version "cloud") }}
+{{ $influxdbCloud := and (in $product "influxdb") (in (slice "cloud" "cloud-serverless") $version) }}
 
 {{ if .Params.source }}
   {{ $linkRegex := print (replaceRE `[0-9]` "" $product) "(?:[0-9])*" "/version" }}

@@ -2,7 +2,7 @@
 {{- $currentProduct := index $productPathData 1 -}}
 {{- $scratch := newScratch -}}
 {{- if eq $currentProduct "cloud-serverless" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb_cloud_serverless -}}
+  {{- $scratch.Set "productData" .Site.Data.products.influxdb3_cloud_serverless -}}
 {{- else if eq $currentProduct "cloud-dedicated" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb_cloud_dedicated -}}
 {{- else if eq $currentProduct "clustered" -}}

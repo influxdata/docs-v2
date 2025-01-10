@@ -1,7 +1,8 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
-{{ $productName := cond (isset (index .Site.Data.products $product) "altname") (index .Site.Data.products $product).altname (index .Site.Data.products $product).name }}
-{{ $currentVersion := index $productPathData 1 | default "0" }}
+{{ $version := index $productPathData 1 | default "0"}}
+{{ $productKey := cond (eq $product "influxdb3") (print "influxdb3_" (replaceRE "-" "_" $version)) $product }}
+{{ $productName := cond (isset (index .Site.Data.products $productKey) "altname") (index .Site.Data.products $productKey).altname (index .Site.Data.products $productKey).name }}
 
 {{ $stableVersion := (replaceRE `\.[0-9x]+$` "" (index .Site.Data.products $product).latest) }}
 {{ $stableVersionURL := replaceRE `v[1-3]` $stableVersion .RelPermalink }}
@@ -10,11 +11,11 @@
 {{ $stableEquivalentPage := .GetPage (replaceRE `\/$` "" $stableEquivalentURL) }}
 {{ $stablePageExists := gt (len $stableEquivalentPage.Title) 0 }}
 {{ $productWhiteList := slice "telegraf" "influxdb" "chronograf" "kapacitor" "flux" }}
-{{ $isMultiVersion := in (print "/" $currentVersion) "/v" }}
+{{ $isMultiVersion := in (print "/" $version) "/v" }}
 
 {{ if and (in $productWhiteList $product) $isMultiVersion }}
   <!-- Check if the current version is less than the stable version -->
-  {{ if lt (int (replaceRE `[a-z]` "" $currentVersion)) (int (replaceRE `[a-z]` "" $stableVersion)) }}
+  {{ if lt (int (replaceRE `[a-z]` "" $version)) (int (replaceRE `[a-z]` "" $stableVersion)) }}
     <div class="warn block old-version">
       <p>
         This page documents an earlier version of {{ $productName }}.
@@ -33,7 +34,7 @@
   {{ end }}
 {{ end }}
 
-{{ if and .Page.Params.v2 (eq (findRE `v[1-3]` $currentVersion) (findRE `v[1-3]` $stableVersion)) }}
+{{ if and .Page.Params.v2 (eq (findRE `v[1-3]` $version) (findRE `v[1-3]` $stableVersion)) }}
   <div class="note block old-version">
     <p>
       {{ if $stablePageExists }}
