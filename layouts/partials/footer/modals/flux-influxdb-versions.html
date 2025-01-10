@@ -41,20 +41,83 @@
 
       <h4>InfluxDB Open Source (OSS)</h4>
       <div class="version-list">
+      <!-- Loop that only loops over only v1 versions with 1-digit minor version -->
+      {{ range $key, $value := $oss }}
+        {{ $versionSemVer := split $value "." }}
+        {{ $supported := cond (ge (index $versionSemVer 0) (index $introducedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $introducedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $introducedSemVer 2)) true false) false) false }}
+        {{ $deprecated := and (isset $.Page.Params "deprecated") (cond (ge (index $versionSemVer 0) (index $deprecatedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $deprecatedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $deprecatedSemVer 2)) true false) false) false) }}
+        {{ $nightlyExcluded := and (eq $key "nightly") $.Page.Params.exclude_from.nightly }}
+        {{ $excluded := or (gt (len (findRE (string $excludePatternOSS) $key)) 0) $nightlyExcluded }}
+        {{ if and (in $key "1.") (eq (len $key) 3) }}
+          <div class="version-row">
+            <div class="version-col"><p>InfluxDB {{ $key }}</p></div>
+            <div class="version-col"><p>
+              {{ if $excluded }}
+              {{ else if $deprecated }}<span class="deprecated"></span>      
+              {{ else if $supported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
+              {{ end }}
+            </div>
+          </div>
+        {{ end }}
+      {{ end }}
+
+      <!-- Loop over only v1 versions with 2+-digit minor version -->
       {{ range $key, $value := $oss }}
         {{ $versionSemVer := split $value "." }}
         {{ $supported := cond (ge (index $versionSemVer 0) (index $introducedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $introducedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $introducedSemVer 2)) true false) false) false }}
         {{ $deprecated := and (isset $.Page.Params "deprecated") (cond (ge (index $versionSemVer 0) (index $deprecatedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $deprecatedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $deprecatedSemVer 2)) true false) false) false) }}
         {{ $excluded := gt (len (findRE (string $excludePatternOSS) $key)) 0 }}
-        <div class="version-row">
-          <div class="version-col"><p>InfluxDB {{ $key }}</p></div>
-          <div class="version-col"><p>
-            {{ if $excluded }}
-            {{ else if $deprecated }}<span class="deprecated"></span>      
-            {{ else if $supported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
-            {{ end }}
+        {{ if and (in $key "1.") (gt (len $key) 3) }}
+          <div class="version-row">
+            <div class="version-col"><p>InfluxDB {{ $key }}</p></div>
+            <div class="version-col"><p>
+              {{ if $excluded }}
+              {{ else if $deprecated }}<span class="deprecated"></span>
+              {{ else if $supported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
+              {{ end }}
+            </div>
           </div>
-        </div>
+        {{ end }}
+      {{ end }}
+
+      <!-- Loop over only v2 versions with 1-digit minor version -->
+      {{ range $key, $value := $oss }}
+        {{ $versionSemVer := split $value "." }}
+        {{ $supported := cond (ge (index $versionSemVer 0) (index $introducedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $introducedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $introducedSemVer 2)) true false) false) false }}
+        {{ $deprecated := and (isset $.Page.Params "deprecated") (cond (ge (index $versionSemVer 0) (index $deprecatedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $deprecatedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $deprecatedSemVer 2)) true false) false) false) }}
+        {{ $nightlyExcluded := and (eq $key "nightly") $.Page.Params.exclude_from.nightly }}
+        {{ $excluded := or (gt (len (findRE (string $excludePatternOSS) $key)) 0) $nightlyExcluded }}
+        {{ if and (in $key "2.") (eq (len $key) 3) }}
+          <div class="version-row">
+            <div class="version-col"><p>InfluxDB {{ $key }}</p></div>
+            <div class="version-col"><p>
+              {{ if $excluded }}
+              {{ else if $deprecated }}<span class="deprecated"></span>      
+              {{ else if $supported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
+              {{ end }}
+            </div>
+          </div>
+        {{ end }}
+      {{ end }}
+      
+      <!-- Loop over only v2 versions with 2+-digit minor version -->
+      {{ range $key, $value := $oss }}
+        {{ $versionSemVer := split $value "." }}
+        {{ $supported := cond (ge (index $versionSemVer 0) (index $introducedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $introducedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $introducedSemVer 2)) true false) false) false }}
+        {{ $deprecated := and (isset $.Page.Params "deprecated") (cond (ge (index $versionSemVer 0) (index $deprecatedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $deprecatedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $deprecatedSemVer 2)) true false) false) false) }}
+        {{ $nightlyExcluded := and (eq $key "nightly") $.Page.Params.exclude_from.nightly }}
+        {{ $excluded := or (gt (len (findRE (string $excludePatternOSS) $key)) 0) $nightlyExcluded }}
+        {{ if and (in $key "2.") (gt (len $key) 3) }}
+          <div class="version-row">
+            <div class="version-col"><p>InfluxDB {{ $key }}</p></div>
+            <div class="version-col"><p>
+              {{ if $excluded }}
+              {{ else if $deprecated }}<span class="deprecated"></span>      
+              {{ else if $supported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
+              {{ end }}
+            </div>
+          </div>
+        {{ end }}
       {{ end }}
       </div>
 

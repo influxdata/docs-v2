@@ -2,7 +2,8 @@
 title: Install the InfluxData 1.x TICK stack (OSS)
 list_title: TICK stack (OSS)
 description: Install and configure the open source InfluxData 1.x TICK stack – Telegraf, InfluxDB, Chronograf, and Kapacitor.
-alias: /platform/installation/oss-install
+aliases:
+  - /platform/installation/oss-install
 menu:
   platform:
     name: TICK stack (OSS)

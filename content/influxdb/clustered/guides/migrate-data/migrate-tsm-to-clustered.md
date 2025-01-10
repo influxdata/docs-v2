@@ -27,10 +27,9 @@ that queries data from an InfluxDB Cloud TSM-powered bucket in time-based batche
 and writes each batch to an {{< product-name >}} (InfluxDB v3) database in
 another organization.
 
-{{% cloud %}}
-All query requests are subject to your InfluxDB Cloud organization's
-[rate limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
-{{% /cloud %}}
+> [!Important]
+> All query requests are subject to your InfluxDB Cloud organization's
+> [rate limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
 
 - [Before you migrate](#before-you-migrate)
 - [Set up the migration](#set-up-the-migration)

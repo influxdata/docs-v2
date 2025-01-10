@@ -472,7 +472,7 @@ Use the **`influx` CLI**, or **InfluxDB API** to execute InfluxQL queries.
 <!------------------------- BEGIN INFLUXQL UI CONTENT ------------------------->
 
 {{% note %}}
-#### The InflxuDB UI does not support InfluxQL
+#### The influxdb UI does not support InfluxQL
 
 The InfluxDB {{< current-version >}} UI does not provide a way to query data with InfluxQL.
 For a user interface that builds and executes InfluxQL queries, consider using

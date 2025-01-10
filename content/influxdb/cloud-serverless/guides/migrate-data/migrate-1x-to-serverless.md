@@ -23,10 +23,9 @@ the exported data to a bucket in your InfluxDB Cloud Serverless organization.
 Because full data migrations will likely exceed your organizations' limits and
 adjustable quotas, migrate your data in batches.
 
-{{% cloud %}}
-All write requests are subject to your InfluxDB Cloud Serverless organization's
-[rate limits and adjustable quotas](/influxdb/cloud-serverless/account-management/limits/).
-{{% /cloud %}}
+> [!Important]
+> All write requests are subject to your InfluxDB Cloud Serverless organization's
+> [rate limits and adjustable quotas](/influxdb/cloud-serverless/account-management/limits/).
 
 <!-- BEGIN TOC -->
 

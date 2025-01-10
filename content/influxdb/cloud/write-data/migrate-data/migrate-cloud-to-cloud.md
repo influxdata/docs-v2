@@ -25,10 +25,9 @@ The following guide provides instructions for setting up an InfluxDB task
 that queries data from an InfluxDB Cloud bucket in time-based batches and writes
 each batch to another InfluxDB Cloud bucket in another organization.
 
-{{% cloud %}}
-All query and write requests are subject to your InfluxDB Cloud organization's
-[rate limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
-{{% /cloud %}}
+> [!Important]
+> All query and write requests are subject to your InfluxDB Cloud organization's
+> [rate limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
 
 - [Set up the migration](#set-up-the-migration)
 - [Migration task](#migration-task)

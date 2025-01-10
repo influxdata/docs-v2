@@ -15,15 +15,12 @@ aliases:
 Enabling TLS encrypts the communication between clients and the InfluxDB server.
 When configured with a signed certificate, TLS also allows clients to verify the authenticity of the InfluxDB server.
 
-To set up TLS over HTTPS, do the following:
+Follow steps to set up TLS over HTTPS, connect to your server, and troubleshoot problems:
 
 - [Obtain requirements](#obtain-requirements)
-  - [Single domain certificates signed by a Certificate Authority (CA)](#single-domain-certificates-signed-by-a-certificate-authority-ca)
-  - [Wildcard certificates signed by a Certificate Authority](#wildcard-certificates-signed-by-a-certificate-authority)
-  - [Self-signed certificates](#self-signed-certificates)
 - [Configure InfluxDB to use TLS](#configure-influxdb-to-use-tls)
 - [Connect Telegraf to a secured InfluxDB instance](#connect-telegraf-to-a-secured-influxdb-instance)
-  - [Example configuration](#example-configuration)
+- [Troubleshoot TLS](#troubleshoot-tls)
 
 {{% warn %}}
 InfluxData **strongly recommends** enabling HTTPS, especially if you plan on sending requests to InfluxDB over a network.
@@ -58,86 +55,191 @@ You can generate a self-signed certificate on your own machine.
 
 ## Configure InfluxDB to use TLS
 
-1. **Download or generate certificate files**
+1. [Download or generate certificate files](#download-or-generate-certificate-files)
+2. [Set certificate file permissions](#set-certificate-file-permissions)
+3. [Run `influxd` with TLS flags](#run-influxd-with-tls-flags)
+4. [Verify TLS connection](#verify-tls-connection)
 
-    If using a [certificate signed by a CA](#single-domain-certificates-signed-by-a-certificate-authority-ca), follow their instructions to download and install the certificate files.
-    Note the location where certificate files are installed, and then continue to [set certificate file permissions](#set-certificate-file-permissions).
+### Download or generate certificate files
 
-    {{% note %}}
- #### Where are my certificates?
+Choose one of the following:
 
- The location of your certificate files depends on your system, domain, and certificate authority.
+- [Download and install CA certificate files](#download-and-install-ca-certificate-files)
+- [Generate self-signed certificates](#generate-self-signed-certificates)
 
- For example, if [Let's Encrypt](https://letsencrypt.org/) is your CA and you use [certbot](https://certbot.eff.org/) to install certificates, the default location is
- `/etc/letsencrypt/live/$domain`. For more information about Let's Encrypt certificate paths, see [Where are my certificates?](https://eff-certbot.readthedocs.io/en/latest/using.html#where-are-my-certificates)
-    {{% /note %}}
+#### Download and install CA certificate files
 
-    To generate [self-signed certificates](#self-signed-certificates), use the `openssl` command on your system.
+If using a [certificate signed by a CA](#single-domain-certificates-signed-by-a-certificate-authority-ca), follow their instructions to download and install the certificate files.
+Note the location where certificate files are installed, and then continue to [set certificate file permissions](#set-certificate-file-permissions).
 
-    The following example shows how to generate certificates located in `/etc/ssl`.
-    Files remain valid for the specified `NUMBER_OF_DAYS`.
-    The `openssl` command prompts you for optional fields that you can fill out or leave blank; both actions generate valid certificate files.
+{{% note %}}
+#### Where are my certificates?
 
-    ```bash
-    sudo openssl req -x509 -nodes -newkey rsa:2048 \
-      -keyout /etc/ssl/influxdb-selfsigned.key \
-      -out /etc/ssl/influxdb-selfsigned.crt \
-      -days <NUMBER_OF_DAYS>
-    ```
+The location of your certificate files depends on your system, domain, and certificate authority.
 
-1. **Set certificate file permissions**
-   <span id="set-certificate-file-permissions"><span>
+For example, if [Let's Encrypt](https://letsencrypt.org/) is your CA and you use [certbot](https://certbot.eff.org/) to install certificates, the default location is
+`/etc/letsencrypt/live/$domain`. For more information about Let's Encrypt certificate paths, see [Where are my certificates?](https://eff-certbot.readthedocs.io/en/latest/using.html#where-are-my-certificates)
+{{% /note %}}
 
-    The user running InfluxDB must have read permissions on the TLS certificate files.
+#### Generate self-signed certificates 
 
-    {{% note %}}You may opt to set up multiple users, groups, and permissions.
-    Ultimately, make sure all users running InfluxDB have read permissions for the TLS certificate.
-    {{% /note %}}
+To generate [self-signed certificates](#self-signed-certificates), use the `openssl` command on your system.
 
-    In your terminal, run `chmod` to set permissions on your installed certificate files--for example:
+The following example:
 
-    ```bash
-    sudo chmod 644 <path/to/crt>
-    sudo chmod 600 <path/to/key>
-    ```
+1. Configures [Subject Alternative Name](https://docs.openssl.org/master/man5/x509v3_config/#subject-alternative-name) (`subjectAltName`, SAN)
+   for your TLS certificate.
+2. Generates certificates located in `/etc/ssl` for Unix-like and Windows systems.
 
-    The following example shows how to set read permissions on the self-signed certificate files saved in `/etc/ssl`:
+_For example purposes only, the code creates an unencrypted private key._
 
-    ```bash
-    sudo chmod 644 /etc/ssl/influxdb-selfsigned.crt
-    sudo chmod 600 /etc/ssl/influxdb-selfsigned.key
-    ```
+{{% warn %}}
+#### Encrypt private keys
 
-2. **Run `influxd` with TLS flags**
+Use encrypted keys to enhance security.
+If you must use an unencrypted key, ensure it's stored securely and has appropriate file permissions.
+{{% /warn %}}
 
-    Start InfluxDB with TLS command line flags:
+```bash
+# Create a temporary configuration file that defines properties for
+# the Subject Alternative Name (SAN) extension
+cat > san.cnf <<EOF
+   [req]
+   distinguished_name = req_distinguished_name
+   req_extensions = v3_req
+   prompt = no
 
-    ```bash
-    influxd \
-    --tls-cert="<path-to-crt>" \
-    --tls-key="<path-to-key>"
-    ```
+   [req_distinguished_name]
+   C = US
+   ST = California
+   L = San Francisco
+   O = Example Company
+   OU = IT Department
+   CN = example.com
 
-3. **Verify TLS connection**
+   [v3_req]
+   keyUsage = keyEncipherment, dataEncipherment
+   extendedKeyUsage = serverAuth
+   subjectAltName = @alt_names
 
-    To test your certificates, access InfluxDB using the `https://` protocol--for example, using cURL:
+   [alt_names]
+   DNS.1 = example.com
+   DNS.2 = www.example.com
+   IP.1 = 10.1.2.3
+EOF
 
-    ```bash
-    curl --verbose https://localhost:8086/api/v2/ping
-    ```
+# Generate a private key and certificate signing request (CSR)
+# using the configuration file 
+openssl req -new -newkey rsa:2048 -nodes \
+  -keyout /etc/ssl/influxdb-selfsigned.key \
+  -out /etc/ssl/influxdb-selfsigned.csr \
+  -config san.cnf
 
-    If using a self-signed certificate, skip certificate verification--for example, in a cURL command,
-    pass the `-k, --insecure` flag:
+# Generate the self-signed certificate
+openssl x509 -req -in /etc/ssl/influxdb-selfsigned.csr \
+  -signkey /etc/ssl/influxdb-selfsigned.key \
+  -out /etc/ssl/influxdb-selfsigned.crt \
+  -days NUMBER_OF_DAYS \
+  -extensions v3_req -extfile san.cnf
 
-    ```bash
-    curl --verbose --insecure https://localhost:8086/api/v2/ping
-    ```
+# Remove the temporary configuration file
+rm san.cnf
+```
 
-    If successful, the `curl --verbose` output shows a TLS handshake--for example:
+Replace the following with your own values:
 
-    ```bash
-    * [CONN-0-0][CF-SSL] TLSv1.3 (IN), TLS handshake
-    ```
+- {{% code-placeholder-key %}}`NUMBER_OF_DAYS`{{% /code-placeholder-key %}}:
+  the number of days for files to remain valid 
+- {{% code-placeholder-key %}}`/etc/ssl`{{% /code-placeholder-key %}}: the SSL
+  configurations directory for your system
+- Configuration field values in `req_distinguished_name` and `alt_names`--for
+  example, in the `[alt_names]` section, set the domain names and IP addresses
+  you use to access your InfluxDB server.
+
+The output is a private key and a CSR that includes the
+specified domain names and IP address in the
+[Subject Alternative Name](https://docs.openssl.org/master/man5/x509v3_config/#subject-alternative-name)
+SAN extension.
+The resulting certificate is valid for `example.com`, `www.example.com`, and
+the IP address `10.1.2.3`.
+
+### Set certificate file permissions
+
+The user running InfluxDB must have read permissions on the TLS certificate files.
+
+{{% note %}}You may opt to set up multiple users, groups, and permissions.
+Ultimately, make sure all users running InfluxDB have read permissions for the TLS certificate.
+{{% /note %}}
+
+In your terminal, run `chown` to set the owner and `chmod` to set permissions on your installed certificate files.
+
+The following example shows how to transfer the ownership to the user and group `influxdb` and set read permissions on the self-signed
+certificate and key files generated in [the preceding step](#download-or-generate-certificate-files):
+
+```bash
+sudo chown influxdb: /etc/ssl/influxdb-selfsigned.crt /etc/ssl/influxdb-selfsigned.key
+sudo chmod 644 /etc/ssl/influxdb-selfsigned.crt
+sudo chmod 600 /etc/ssl/influxdb-selfsigned.key
+```
+
+### Verify certificate and key files
+
+To ensure that the certificate and key files are correct and match each other,
+enter the following commands in your terminal:
+
+```bash
+openssl x509 -noout -modulus -in /etc/ssl/influxdb-selfsigned.crt | openssl md5
+openssl rsa -noout -modulus -in /etc/ssl/influxdb-selfsigned.key | openssl md5
+```
+
+### Run `influxd` with TLS flags
+
+To start InfluxDB with TLS command line flags, enter the following command with
+paths to your key and certificate files:
+
+```bash
+influxd \
+  --tls-cert="/etc/ssl/influxdb-selfsigned.crt" \
+  --tls-key="/etc/ssl/influxdb-selfsigned.key" > /var/log/influxdb.log 2>&1 &
+```
+
+If successful, InfluxDB runs in the background and logs to `influxdb.log`.
+
+### Verify TLS connection
+
+To test your certificates, access InfluxDB using the `https://` protocol--for example, using cURL:
+
+<!--pytest-codeblocks:cont-->
+
+<!--test:nextblock
+```bash
+# Wait...
+sleep 1 && curl --verbose --insecure https://localhost:8086/api/v2/ping
+```
+-->
+
+<!--pytest.mark.skip-->
+
+```bash
+curl --verbose https://localhost:8086/api/v2/ping
+```
+
+If using a self-signed certificate, skip certificate verification--for example, in a cURL command,
+pass the `-k, --insecure` flag:
+
+<!--pytest.mark.skip-->
+
+```bash
+curl --verbose --insecure https://localhost:8086/api/v2/ping
+```
+
+If successful, the `curl --verbose` output shows a TLS handshake--for example:
+
+<!--pytest.mark.skip-->
+
+```bash
+* [CONN-0-0][CF-SSL] TLSv1.3 (IN), TLS handshake
+```
 
 You can further configure TLS settings using
 [`tls-min-version`](/influxdb/v2/reference/config-options/#tls-min-version)
@@ -152,7 +254,7 @@ update the following `influxdb_v2` output settings in your Telegraf configuratio
 - Update URLs to use HTTPS instead of HTTP.
 - If using a self-signed certificate, uncomment and set `insecure_skip_verify` to `true`.
 
-### Example configuration
+### Example Telegraf configuration
 
 ```toml
 ###############################################################################
@@ -176,3 +278,75 @@ update the following `influxdb_v2` output settings in your Telegraf configuratio
 ```
 
 Restart Telegraf using the updated configuration file.
+
+## Troubleshoot TLS
+
+Identify and resolve issues after activating TLS.
+
+- [Check InfluxDB logs](#check-influxdb-logs)
+- [Verify certificate and key files](#verify-certificate-and-key-files)
+- [Test with OpenSSL](#test-with-openssl)
+- [Check file permissions](#check-file-permissions)
+- [Verify TLS configuration](#verify-tls-configuration)
+- [Update OpenSSL and InfluxDB](#update-openssl-and-influxdb)
+
+### Check InfluxDB logs
+
+Review the InfluxDB logs for any error messages or warnings about the issue.
+
+#### Example TLS error
+
+```text
+msg="http: TLS handshake error from [::1]:50476:
+remote error: tls: illegal parameter" log_id=0rqN8H_0000 service=http
+```
+
+### Verify certificate and key Files
+
+To ensure that the certificate and key files are correct and match each other,
+enter the following command in your terminal:
+
+```bash
+openssl x509 -noout -modulus -in /etc/ssl/influxdb-selfsigned.crt | openssl md5
+openssl rsa -noout -modulus -in /etc/ssl/influxdb-selfsigned.key | openssl md5
+```
+
+### Test with OpenSSL
+
+Use OpenSSL to test the server's certificate and key--for example, enter the
+following command in your terminal:
+
+```bash
+openssl s_client -connect localhost:8086 -CAfile /etc/ssl/influxdb-selfsigned.crt
+```
+
+### Check file permissions
+
+Ensure that the InfluxDB process has read access to the certificate and key
+files--for example, enter the following command to set file permissions:
+
+```bash
+sudo chmod 644 /etc/ssl/influxdb-selfsigned.crt
+sudo chmod 600 /etc/ssl/influxdb-selfsigned.key
+```
+
+### Verify TLS configuration
+
+Ensure that the TLS configuration in InfluxDB is correct.
+Check the paths to the certificate and key files in the InfluxDB configuration
+or command line flags.
+
+#### Example error: cannot validate certificate for <IP_ADDRESS>
+
+```log
+Sep 25 14:00:02 host influxd-systemd-start.sh[11782]: ts=2024-09-25T12:00:02.055617Z lvl=error msg="Unable to gather" log_id=0rr6jG30000 service=scraper scraper-name="new target" error="Get \"https://10.1.2.3:8086/metrics\": tls: failed to verify certificate: x509: cannot validate certificate for 10.1.2.3 because it doesn't contain any IP SANs"
+Sep 25 14:00:02 host influxd-systemd-start.sh[11782]: ts=2024-09-25T12:00:02.055397Z lvl=info msg="http: TLS handshake error from 10.1.2.3:46380: remote error: tls: bad certificate" log_id=0rr6jG30000 service=http
+```
+
+If you access your InfluxDB server via IP address, then include the address in
+your subjectAltName configuration.
+
+### Update OpenSSL and InfluxDB
+
+Ensure that you are using the latest versions of OpenSSL and InfluxDB, as
+updates may include fixes for TLS-related issues.

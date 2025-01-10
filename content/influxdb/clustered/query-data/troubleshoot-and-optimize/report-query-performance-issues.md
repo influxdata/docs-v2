@@ -1,19 +1,25 @@
 ---
 title: Report query performance issues
 description: >
-  A comprehensive guide on ensuring a quick turnaround when troubleshooting query performance.
+  Follow guidelines to help InfluxData engineers troubleshoot and resolve query performance issues.
 menu:
   influxdb_clustered:
     name: Report query performance issues
     parent: Troubleshoot and optimize queries
 weight: 402
+related:
+  - /influxdb/clustered/admin/query-system-data/
+  - /influxdb/clustered/query-data/troubleshoot-and-optimize/analyze-query-plan/
 ---
 
-These guidelines are intended to faciliate collaboration between InfluxData
-engineers and you. They allow engineers to conduct timely analyses of any performance
-issues that you have not been able to resolve following our [guide on
-troubleshooting and optimizing
-queries](/influxdb/clustered/query-data//troubleshoot-and-optimize).
+Use these guidelines to work with InfluxData engineers to troubleshoot and resolve query performance issues.
+
+> [!Note]
+> #### Optimize your query
+>
+> Before reporting a query performance problem,
+> see the [troubleshooting and optimization guide](/influxdb/clustered/query-data/troubleshoot-and-optimize)
+> to learn how to optimize your query and reduce compute and memory requirements.
 
 1. [Send InfluxData output artifacts](#send-influxdata-output-artifacts)
 2. [Document your test process](#document-your-test-process)
@@ -23,13 +29,17 @@ queries](/influxdb/clustered/query-data//troubleshoot-and-optimize).
 6. [Reduce query noise](#reduce-query-noise)
 7. [Establish baseline single-query performance](#establish-baseline-single-query-performance)
 8. [Run queries at multiple load scales](#run-queries-at-multiple-load-scales)
-9. [Gather debug info](#gather-debug-info)
+9. [Gather debug information](#gather-debug-information)
    1. [Kubernetes-specific information](#kubernetes-specific-information)
    2. [Clustered-specific information](#clustered-specific-information)
    3. [Query analysis](#query-analysis)
       1. [EXPLAIN](#explain)
       2. [EXPLAIN VERBOSE](#explain-verbose)
       3. [EXPLAIN ANALYZE](#explain-analyze)
+10. [Gather system information](#gather-system-information)
+    - [Collect table information](#collect-table-information)
+    - [Collect compaction information for the table](#collect-compaction-information-for-the-table)
+    - [Collect partition information for multiple tables](#collect-partition-information-for-multiple-tables)
 
 {{% note %}}
 Please note that this document may change from one support engagement to the
@@ -48,12 +58,13 @@ Send InfluxData engineers all produced artifacts for analysis.
 
 ### Document your test process
 
-There currently is no standardized performance test suite that you can run in
-your environment, so please document your process so it can be replicated.
-Include the following:
+Currently, {{% product-name %}} doesn't provide a standardized performance test
+suite that you can run in your cluster.
+Please document your test process so that InfluxData engineers can replicate
+it--include the following:
 
 - The steps you take when performance testing.
-- Timestamps of the tests you perform so they can be correlated with associated logs.
+- Timestamps of your test runs, to correlate tests with logs.
 
 ### Document your environment
 
@@ -75,7 +86,7 @@ including the following:
 {{% note %}}
 #### If possible, provide a synthetic dataset
 
-If you can reproduce the performance issue with a synthetic dataset and your
+If you can reproduce the performance issue with a synthetic dataset, and your
 process and environment are well-documented, InfluxData engineers _may_
 be able to reproduce the issue, shorten the feedback cycle, and resolve the
 issue sooner.
@@ -89,8 +100,8 @@ conditions that reproduce your issue.
 ### Establish query performance degradation conditions
 
 The most effective way to investigate query performance is to have a good understanding of
-the conditions in which you don't see the expected performance. Things to think about
-and provide:
+the conditions in which you don't see the expected performance.
+Consider the following:
 
 - Does this always happen, or only sometimes?
   - If only sometimes, is it at a consistent time of day or over a consistent period?
@@ -103,37 +114,25 @@ and provide:
 
 ### Reduce query noise
 
-To get a sense of the baseline performance of your system without the
-noise of additional queries, test in an environment that doesn't have periodic
-or intermittent queries running concurrently.
+Test in an environment without periodic or intermittent queries to measure baseline system performance without additional query noise.
 
-Additionally, when running multiple tests with different queries, let the system
-recover between tests by waiting at least a minute after receiving a query result
-before executing the next query.
+When running multiple tests with different queries, allow the system to recover between tests.
+Wait at least one minute after receiving a query result before executing the next query.
 
 ### Establish baseline single-query performance
 
-To get a sense of the baseline performance of your system without the
-noise of additional queries, perform at least some of your testing with
-single queries in isolation from one another.
-
-This is may be useful for the purposes of analysis by InfluxData engineers even if a
-single query in isolation isn't enough to reproduce the issue you are having.
+Perform some tests with single queries in isolation to measure baseline performance.
+This approach may not always reproduce your issue but can provide useful data for analysis by InfluxData engineers.
 
 ### Run queries at multiple load scales
 
-Once you've established baseline performance with a single query and your
-performance issue can't be replicated with a single query, use a systematic
-approach to identify the scale at which it does become a problem.
-This involves systematic incremental increases to your query
-concurrency until you identify a threshold at which the issue can be
-reproduced.
+If the issue isn't replicated after [reducing query noise](#reduce-query-noise)
+and [establishing baseline single-query performance](#establish-baseline-single-query-performance),
+systematically increase query concurrency to reproduce the problem and identify
+the scale at which it occurs--for example, run the following test plan.
 
-This, along with information about your Kubernetes environment, can provide 
-insight necessary to recommend changes to your configuration to improve
-query performance characteristis as your usage scales.
-
-As an example, consider the following test plan outline:
+> [!Note]
+> You might need to scale the example plan up or down, as necessary, to reproduce the problem.
 
 1. Turn off intermittent or periodic InfluxDB queries and allow the cluster to recover.
 2. Run Query A and allow the cluster to recover for 1 minute.
@@ -141,17 +140,26 @@ As an example, consider the following test plan outline:
 4. Run 10 concurrent instances of Query A and allow the cluster to recover for 1 minute.
 5. Run 20 concurrent instances of Query A and allow the cluster to recover for 1 minute.
 6. Run 40 concurrent instances of Query A and allow the cluster to recover for 1 minute.
-7. Provide InfluxData the debug information [described below](#gather-debug-info).
+7. Provide InfluxData the [debug information](#gather-debug-information) associated
+   with each test run.
 
-{{% note %}}
-This is just an example. You don't have to go beyond the scale where queries get slower
-but you may also need to go further than what's outlined here.
-{{% /note %}}
+Your test findings and associated debug information 
+from your Kubernetes environment can help recommend configuration changes to
+improve query performance as your usage scales.
 
-### Gather debug info
+<!-- Don't mention dashboards until they're working working in a future Clustered release --
 
-The following debug information should be collected shortly _after_ a
- problematic query has been tried against your InfluxDB cluster.
+### Capture dashboard screens
+
+If you have set up alerts and dashboards for monitoring your cluster, capture
+screenshots of dashboard events for Queriers, Compactors, and Ingesters.
+
+-->
+
+### Gather debug information
+
+Shortly after testing a problematic query against your InfluxDB cluster,
+collect the following debug information.
 
 #### Kubernetes-specific information
 
@@ -165,13 +173,16 @@ kubectl cluster-info dump --namespace influxdb --output-directory "${DATETIME}-c
 tar -czf "${DATETIME}-cluster-info.tar.gz" "${DATETIME}-cluster-info/"
 ```
 
-#### Clustered-Specific Info
+#### Clustered-specific information
 
 **Outputs:**
 
 - `app-instance.yml`: Provide a copy of your `AppInstance` manifest.
 
 #### Query analysis
+
+[Use `EXPLAIN` commands](/influxdb/clustered/query-data/troubleshoot-and-optimize/analyze-query-plan/#use-explain-keywords-to-view-a-query-plan) 
+ to output query plan information for a long-running query.
 
 **Outputs (InfluxQL):**
 
@@ -184,9 +195,6 @@ tar -czf "${DATETIME}-cluster-info.tar.gz" "${DATETIME}-cluster-info/"
 - `explain.txt`
 - `explain-verbose.txt`
 - `explain-analyze.txt`
-
-For any known long-running queries, it may be helpful to execute variations of
-the `EXPLAIN` command on them.
 
 In the examples below, replace the following:
 
@@ -310,3 +318,97 @@ curl --get "https://{{< influxdb/host >}}/query" \
 {{< /code-tabs-wrapper >}}
 
 {{% /code-placeholders %}}
+
+### Gather system information
+
+> [!Warn]
+>
+> #### May impact cluster performance
+>
+> Querying InfluxDB v3 system tables may impact write and query
+> performance of your {{< product-name omit=" Clustered" >}} cluster.
+> Use filters to [optimize queries to reduce impact to your cluster](/influxdb/clustered/admin/query-system-data/#optimize-queries-to-reduce-impact-to-your-cluster).
+>
+> <!--------------- UPDATE THE DATE BELOW AS EXAMPLES ARE UPDATED --------------->
+>
+> #### System tables are subject to change
+> 
+> System tables are not part of InfluxDB's stable API and may change with new releases.
+> The provided schema information and query examples are valid as of **September 20, 2024**.
+> If you detect a schema change or a non-functioning query example, please
+> [submit an issue](https://github.com/influxdata/docs-v2/issues/new/choose).
+> 
+> <!--------------- UPDATE THE DATE ABOVE AS EXAMPLES ARE UPDATED --------------->
+
+If queries are slow for a specific table, run the following system queries to
+collect information for troubleshooting:
+
+- [Collect table information](#collect-table-information)
+- [Collect compaction information for the table](#collect-compaction-information-for-the-table)
+- [Collect partition information for multiple tables](#collect-partition-information-for-multiple-tables)
+
+To [optimize system queries](/influxdb/clustered/admin/query-system-data/#optimize-queries-to-reduce-impact-to-your-cluster), use `table_name`, `partition_key`, and
+`partition_id` filters.
+In your queries, replace the following:
+
+- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the table to retrieve partitions for
+- {{% code-placeholder-key %}}`PARTITION_ID`{{% /code-placeholder-key %}}: a [partition ID](/influxdb/clustered/admin/query-system-data/#retrieve-a-partition-id) (int64) 
+- {{% code-placeholder-key %}}`PARTITION_KEY`{{% /code-placeholder-key %}}: a [partition key](/influxdb/clustered/admin/custom-partitions/#partition-keys)
+   derived from the table's partition template.
+   The default format is `%Y-%m-%d` (for example, `2024-01-01`).
+
+#### Collect table information
+
+{{% code-placeholders "TABLE_NAME" %}}
+```sql
+SELECT *
+FROM system.tables
+WHERE table_name = 'TABLE_NAME';
+```
+{{% /code-placeholders%}}
+
+#### Collect compaction information for the table
+
+Query the `system.compactor` table to collect compaction information--for example, run one of the following
+queries:
+
+{{% code-placeholders "TABLE_NAME|PARTITION_KEY" %}}
+
+```sql
+SELECT * 
+FROM system.compactor 
+WHERE
+  table_name = 'TABLE_NAME' 
+    AND partition_key = 'PARTITION_KEY';
+```
+
+{{% /code-placeholders %}}
+
+{{% code-placeholders "TABLE_NAME|PARTITION_ID" %}}
+
+```sql
+SELECT * 
+FROM system.compactor 
+WHERE
+  table_name = 'TABLE_NAME' 
+    AND partition_id = 'PARTITION_ID';
+```
+
+{{% /code-placeholders %}}
+
+#### Collect partition information for multiple tables
+
+If the same queries are slow on more than 1 table, also run the following query to collect the size and
+number of partitions for all tables:
+
+{{% code-placeholders "TABLE_NAME" %}}
+```sql
+SELECT table_name,
+  COUNT(*) as partition_count,
+  MAX(last_new_file_created_at) as last_new_file_created_at,
+  SUM(total_size_mb) as total_size_mb
+FROM system.partitions
+WHERE table_name IN ('foo', 'bar', 'baz')
+GROUP BY table_name;
+```
+{{% /code-placeholders%}}

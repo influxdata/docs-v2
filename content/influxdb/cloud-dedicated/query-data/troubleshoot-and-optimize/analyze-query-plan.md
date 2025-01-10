@@ -25,7 +25,7 @@ By learning how to generate and interpret reports for the query plan,
 you can better understand how the query is executed and identify bottlenecks that affect the performance of your query.
 
 For example, if the query plan reveals that your query reads a large number of Parquet files,
-you can then take steps to [optimize your query](/influxdb/cloud-dedicated/query-data/optimize-queries/), such as add filters to read less data or
+you can then take steps to [optimize your query](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/), such as add filters to read less data or
 configure your cluster to store fewer and larger files.
 
 - [Use EXPLAIN keywords to view a query plan](#use-explain-keywords-to-view-a-query-plan)
@@ -113,7 +113,7 @@ Plans are in _tree format_--each plan is an upside-down tree in which
 execution and data flow from _leaf nodes_, the innermost steps in the plan, to outer _branch nodes_.
 Whether reading a logical or physical plan, keep the following in mind:
 
-- Start at the the _leaf nodes_ and read upward.
+- Start at the _leaf nodes_ and read upward.
 - At the top of the plan, the _root node_ represents the final, encompassing step.
 
 In a [physical plan](/influxdb/cloud-dedicated/reference/internals/query-plan/#physical-plan), each step is an [`ExecutionPlan` node](/influxdb/cloud-dedicated/reference/internals/query-plan/#execution-plan-nodes) that receives expressions for input data and output requirements, and computes a partition of data.
@@ -770,4 +770,4 @@ Operator structure for aggregating, sorting, and final output.
 - `SortPreservingMergeExec: [city@0 ASC NULLS LAST]`: Merges and sorts the four sorted streams for the final output.
 
 In the preceding examples, the `EXPLAIN` report shows the query plan without executing the query.
-To view runtime metrics, such as execution time for a plan and its operators, use [`EXPLAIN ANALYZE`](/influxdb/cloud-dedicated/reference/sql/explain/#explain-analyze) to generate the report and [tracing](/influxdb/cloud-dedicated/query-data/optimize-queries/#enable-trace-logging) for further debugging, if necessary.
+To view runtime metrics, such as execution time for a plan and its operators, use [`EXPLAIN ANALYZE`](/influxdb/cloud-dedicated/reference/sql/explain/#explain-analyze) to generate the report and [tracing](/influxdb/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/#enable-trace-logging) for further debugging, if necessary.

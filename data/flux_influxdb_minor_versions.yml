@@ -1,0 +1,24 @@
+# This is a list of all InfluxDB minor versions that support Flux.
+# It is used by flux-build-scripts/update-flux-versions.js to generate the
+# "Supported Versions" section of the Flux page.
+# When new versions of InfluxDB are released that support Flux, this list should
+# be updated.
+
+influxdb:
+  - '2.7'
+  - '2.6'
+  - '2.5'
+  - '2.4'
+  - '2.3'
+  - '2.2'
+  - '2.1'
+  - '2.0'
+  - '1.11'
+  - '1.8'
+  - '1.7'
+enterprise:
+  - '1.11'
+  - '1.10'
+  - '1.9'
+  - '1.8'
+  - '1.7'

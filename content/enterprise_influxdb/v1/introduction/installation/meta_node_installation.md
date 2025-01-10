@@ -47,11 +47,26 @@ for high availability and redundancy.
 We typically recommend three meta nodes.
 If your servers have chronic communication or reliability issues, you can try adding nodes.
 
-{{% note %}}
-Deploying multiple meta nodes on the same server is strongly discouraged
-since it creates a larger point of potential failure if that particular server is unresponsive.
-InfluxData recommends deploying meta nodes on relatively small footprint servers.
-{{% /note %}}
+> [!Note]
+>
+> #### Run meta nodes on separate servers
+>
+> Avoid deploying multiple meta nodes on the same server.
+> Doing so increases the risk of failure if the server becomes unresponsive.  
+> InfluxData recommends deploying meta nodes on separate, low-resource servers
+> to minimize risks and optimize performance.
+>
+> #### Using a single meta node for non-production environments
+>
+> Installing and running InfluxDB Enterprise on a single server, or node, is an
+alternative to using [InfluxDB OSS 1.x](/influxdb/v1).
+> To start a {{% product-name %}} cluster with a single meta node,
+> pass the `-single-server flag` when starting the node.
+> 
+> _A cluster with only one meta node is **not** recommended for
+> production environments._
+> 
+> For more information, see how to [install InfluxDB Enterprise on a single server](/enterprise_influxdb/v1/introduction/installation/single-server/).
 
 _See [Clustering in InfluxDB Enterprise](/enterprise_influxdb/v1/concepts/clustering/)
 for more information about cluster architecture._
@@ -292,18 +307,11 @@ Run the following command to search for a running `influxdb-meta` process:
 ps aux | grep -v grep | grep influxdb-meta
 ```
 
-You should see output similar to:
+The output is similar to the following:
 
 ```
 influxdb  3207  0.8  4.4 483000 22168 ?        Ssl  17:05   0:08 /usr/bin/influxd-meta -config /etc/influxdb/influxdb-meta.conf
 ```
-
-{{% note %}}
-It is possible to start the cluster with a single meta node but you
-must pass the `-single-server flag` when starting the single meta node.
-Please note that a cluster with only one meta node is **not** recommended for
-production environments.
-{{% /note %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -350,9 +358,9 @@ enterprise-meta-02:8091   {{< latest-patch >}}-c{{< latest-patch >}}
 enterprise-meta-03:8091   {{< latest-patch >}}-c{{< latest-patch >}}
 ```
 
-Note that your cluster must have at least three meta nodes.
+_Your cluster must have at least three meta nodes.
 If you do not see your meta nodes in the output, retry adding them to
-the cluster.
+the cluster._
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

@@ -29,18 +29,21 @@ influx_inspect [ [ command ] [ options ] ]
 
 The `influx_inspect` commands are summarized here, with links to detailed information on each of the commands.
 
-* [`buildtsi`](#buildtsi): Converts in-memory (TSM-based) shards to TSI.
-* [`deletetsm`](#deletetsm): Bulk deletes a measurement from a raw TSM file.
-* [`dumptsi`](#dumptsi): Dumps low-level details about TSI files.
-* [`dumptsm`](#dumptsm): Dumps low-level details about TSM files.
-* [`dumptsmwal`](#dumptsmwal): Dump all data from a WAL file.  
-* [`export`](#export): Exports raw data from a shard in InfluxDB line protocol format.
-* [`report`](#report): Displays a shard level report.
-* [`report-disk`](#report-disk): Reports disk usage by shards and measurements.
-* [`reporttsi`](#reporttsi): Reports on cardinality for shards and measurements.
-* [`verify`](#verify): Verifies the integrity of TSM files.
-* [`verify-seriesfile`](#verify-seriesfile): Verifies the integrity of series files.
-* [`verify-tombstone`](#verify-tombstone): Verifies the integrity of tombstones.
+- [`buildtsi`](#buildtsi): Converts in-memory (TSM-based) shards to TSI.
+- [`check-schema`](#check-schema): Checks for type conflicts between shards.
+- [`deletetsm`](#deletetsm): Bulk deletes a measurement from a raw TSM file.
+- [`dumptsi`](#dumptsi): Dumps low-level details about TSI files.
+- [`dumptsm`](#dumptsm): Dumps low-level details about TSM files.
+- [`dumptsmwal`](#dumptsmwal): Dump all data from a WAL file.  
+- [`export`](#export): Exports raw data from a shard in InfluxDB line protocol format.
+- [`merge-schema`](#merge-schema): Merges a set of schema files from the `check-schema` command.
+- [`report`](#report): Displays a shard level report.
+- [`report-db`](#report-db): Estimates InfluxDB Cloud (TSM) cardinality for a database.
+- [`report-disk`](#report-disk): Reports disk usage by shards and measurements.
+- [`reporttsi`](#reporttsi): Reports on cardinality for shards and measurements.
+- [`verify`](#verify): Verifies the integrity of TSM files.
+- [`verify-seriesfile`](#verify-seriesfile): Verifies the integrity of series files.
+- [`verify-tombstone`](#verify-tombstone): Verifies the integrity of tombstones.
 
 ### `buildtsi`
 
@@ -88,7 +91,11 @@ The name of the database.
 
 ##### `-datadir <data_dir>`
 
-The path to the `data` directory.
+The path to the [`data` directory](/influxdb/v1/concepts/file-system-layout/#data-directory).
+
+Default value is `$HOME/.influxdb/data`.
+See the [file system layout](/influxdb/v1/concepts/file-system-layout/#file-system-layout)
+for InfluxDB on your system.
 
 ##### `[ -max-cache-size ]`
 
@@ -115,7 +122,11 @@ Flag to enable output in verbose mode.
 
 ##### `-waldir <wal_dir>`
 
-The directory for the WAL (Write Ahead Log) files.
+The directory for the (WAL (Write Ahead Log)](/influxdb/v1/concepts/file-system-layout/#wal-directory) files.
+
+Default value is `$HOME/.influxdb/wal`.
+See the [file system layout](/influxdb/v1/concepts/file-system-layout/#file-system-layout)
+for InfluxDB on your system.
 
 #### Examples
 
@@ -138,6 +149,31 @@ $ influx_inspect buildtsi -database mydb -datadir ~/.influxdb/data -waldir ~/.in
 ```
 $ influx_inspect buildtsi -database stress -shard 1 -datadir ~/.influxdb/data -waldir ~/.influxdb/wal
 ```
+
+### `check-schema`
+
+Check for type conflicts between shards.
+
+#### Syntax
+
+```
+influx_inspect check-schema [ options ]
+```
+
+#### Options
+
+##### [ `-conflicts-file <string>` ]
+
+The filename where conflicts data should be written. Default is `conflicts.json`.
+
+##### [ `-path <string>` ]
+
+Directory path where `fields.idx` files are located. Default is the current
+working directory `.`.
+
+##### [ `-schema-file <string>` ]
+
+The filename where schema data should be written. Default is `schema.json`.
 
 ### `deletetsm`
 
@@ -211,7 +247,7 @@ Optional arguments are in brackets.
 
 ##### `-series-file <series_path>`
 
-Path to the `_series` directory under the database `data` directory. Required.
+The path to the `_series` directory under the database `data` directory. Required.
 
 ##### [ `-series` ]
 
@@ -276,7 +312,7 @@ influx_inspect dumptsm [ options ] <path>
 
 ##### `<path>`
 
-Path to the `.tsm` file, located by default in the `data` directory.
+The path to the `.tsm` file, located by default in the `data` directory.
 
 #### Options
 
@@ -284,17 +320,17 @@ Optional arguments are in brackets.
 
 ##### [ `-index` ]
 
-Flag to dump raw index data.
+The flag to dump raw index data.
 Default value is `false`.
 
 ##### [ `-blocks` ]
 
-Flag to dump raw block data.
+The flag to dump raw block data.
 Default value is `false`.
 
 ##### [ `-all` ]
 
-Flag to dump all data. Caution: This may print a lot of information.
+The flag to dump all data. Caution: This may print a lot of information.
 Default value is `false`.
 
 ##### [ `-filter-key <key_name>` ]
@@ -318,7 +354,7 @@ Optional arguments are in brackets.
 
 ##### [ `-show-duplicates` ]
 
-Flag to show keys which have duplicate or out-of-order timestamps.
+The flag to show keys which have duplicate or out-of-order timestamps.
 If a user writes points with timestamps set by the client, then multiple points with the same timestamp (or with time-descending timestamps) can be written.
 
 ### `export`
@@ -349,8 +385,11 @@ Default value is `""`.
 
 ##### `-datadir <data_dir>`
 
-The path to the `data` directory.
-Default value is `"$HOME/.influxdb/data"`.
+The path to the [`data` directory](/influxdb/v1/concepts/file-system-layout/#data-directory).
+
+Default value is `$HOME/.influxdb/data`.
+See the [file system layout](/influxdb/v1/concepts/file-system-layout/#file-system-layout)
+for InfluxDB on your system.
 
 ##### [ `-end <timestamp>` ]
 
@@ -377,13 +416,14 @@ YYYY-MM-DDTHH:MM:SS+07:00
 
 ##### [ `-lponly` ]
 Output data in line protocol format only.
-Does not include comments or data definition language (DDL), like `CREATE DATABASE`.
+Does not output data definition language (DDL) statements (such as `CREATE DATABASE`)
+or DML context metadata (such as `# CONTEXT-DATABASE`).
 
 ##### [ `-out <export_dir>` or `-out -`]
 
 Location to export shard data. Specify an export directory to export a file, or add a hyphen after out (`-out -`) to export shard data to standard out (`stdout`) and send status messages to standard error (`stderr`).
 
-Default value is `"$HOME/.influxdb/export"`.
+Default value is `$HOME/.influxdb/export`.
 
 ##### [ `-retention <rp_name> ` ]
 
@@ -397,7 +437,10 @@ The timestamp string must be in [RFC3339 format](https://tools.ietf.org/html/rfc
 ##### [ `-waldir <wal_dir>` ]
 
 Path to the [WAL](/influxdb/v1/concepts/glossary/#wal-write-ahead-log) directory.
-Default value is `"$HOME/.influxdb/wal"`.
+
+Default value is `$HOME/.influxdb/wal`.
+See the [file system layout](/influxdb/v1/concepts/file-system-layout/#file-system-layout)
+for InfluxDB on your system.
 
 #### Examples
 
@@ -410,22 +453,42 @@ influx_inspect export -compress
 ##### Export data from a specific database and retention policy
 
 ```bash
-influx_inspect export -database mydb -retention autogen
+influx_inspect export -database DATABASE_NAME -retention RETENTION_POLICY 
 ```
 
 ##### Output file
 
 ```bash
 # DDL
-CREATE DATABASE MY_DB_NAME
-CREATE RETENTION POLICY autogen ON MY_DB_NAME DURATION inf REPLICATION 1
+CREATE DATABASE DATABASE_NAME 
+CREATE RETENTION POLICY <RETENTION_POLICY> ON <DATABASE_NAME> DURATION inf REPLICATION 1
 
 # DML
-# CONTEXT-DATABASE:MY_DB_NAME
-# CONTEXT-RETENTION-POLICY:autogen
+# CONTEXT-DATABASE:DATABASE_NAME
+# CONTEXT-RETENTION-POLICY:RETENTION_POLICY
 randset value=97.9296104805 1439856000000000000
 randset value=25.3849066842 1439856100000000000
 ```
+
+### `merge-schema`
+
+Merge a set of schema files from the [`check-schema` command](#check-schema).
+
+#### Syntax
+
+```
+influx_inspect merge-schema [ options ]
+```
+
+#### Options
+
+##### [ `-conflicts-file <string>` ]
+
+Filename conflicts data should be written to. Default is `conflicts.json`.
+
+##### [ `-schema-file <string>` ]
+
+Filename for the output file. Default is `schema.json`.
 
 ### `report`
 
@@ -462,6 +525,48 @@ The flag to report exact cardinality counts instead of estimates.
 Default value is `false`.
 Note: This can use a lot of memory.
 
+### `report-db`
+
+Use the `report-db` command to estimate the series cardinality of data in a
+database when migrated to InfluxDB Cloud (TSM). InfluxDB Cloud (TSM) includes
+fields keys in the series key so unique field keys affect the total cardinality.
+The total series cardinality of data in a InfluxDB 1.x database may differ from
+from the series cardinality of that same data when migrated to InfluxDB Cloud (TSM).
+
+#### Syntax
+
+```
+influx_inspect report-db [ options ]
+```
+
+#### Options
+
+##### [ `-c <int>` ]
+
+Set worker concurrency. Default is `1`.
+
+##### `-db-path <string>`
+
+{{< req >}}: The path to the database.
+
+##### [ `-detailed` ]
+
+Include counts for fields, tags in the command output.
+
+##### [ `-exact` ]
+
+Report exact cardinality counts instead of estimates.
+This method of calculation can use a lot of memory.
+
+##### [ `-rollup <string>` ]
+
+Specify the cardinality "rollup" level--the granularity of the cardinality report:
+
+- `t`: total
+- `d`: database
+- `r`: retention policy
+- `m`: measurement <em class="op65">(Default)</em>
+
 ### `report-disk`
 
 Use the `report-disk` command to review disk usage by shards and measurements for TSM files in a specified directory. Useful for determining disk usage for capacity planning and identifying which measurements or shards are using the most space.
@@ -480,7 +585,7 @@ influx_inspect report-disk [ options ] <path>
 
 ##### `<path>`
 
-Path to the directory with `.tsm` file(s) to report disk usage for. Default location is `"$HOME/.influxdb/data"`.
+Path to the directory with `.tsm` file(s) to report disk usage for. Default location is `$HOME/.influxdb/data`.
 
 When specifying the path, wildcards (`*`) can replace one or more characters.
 

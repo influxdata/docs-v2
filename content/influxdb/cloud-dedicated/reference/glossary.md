@@ -46,7 +46,8 @@ Related entries:
 ### aggregate
 
 A function that returns an aggregated value across a set of points.
-For a list of available aggregation functions, see [SQL aggregate functions](/influxdb/cloud-dedicated/reference/sql/functions/aggregate/).
+For a list of available aggregation functions,
+see [SQL aggregate functions](/influxdb/cloud-dedicated/reference/sql/functions/aggregate/).
 
 <!-- TODO: Add a link to InfluxQL aggregate functions -->
 
@@ -330,6 +331,7 @@ Related entries:
 [field](#field),
 [field key](#field-key),
 [field set](#field-set),
+[tag set](#tag-set),
 [tag value](#tag-value),
 [timestamp](#timestamp)
 
@@ -356,7 +358,7 @@ Related entries:
 
 Flush jitter prevents every Telegraf output plugin from sending writes
 simultaneously, which can overwhelm some data sinks.
-Each flush interval, every Telegraf output plugin will sleep for a random time
+Each flush interval, every Telegraf output plugin sleeps for a random time
 between zero and the flush jitter before emitting metrics.
 Flush jitter smooths out write spikes when running a large number of Telegraf instances.
 
@@ -369,7 +371,7 @@ Related entries:
 A function is an operation that performs a specific task.
 Functions take input, operate on that input, and then return output.
 For a complete list of available SQL functions, see
-[SQL functions](/inflxudb/cloud-dedicated/reference/sql/functions/).
+[SQL functions](/influxdb/cloud-dedicated/reference/sql/functions/).
 
 <!-- TODO: Add a link to InfluxQL aggregate functions -->
 
@@ -400,10 +402,10 @@ Identifiers are tokens that refer to specific database objects such as database
 names, field keys, measurement names, tag keys, etc.
 
 Related entries:
-[database](#database)
+[database](#database),
 [field key](#field-key),
 [measurement](#measurement),
-[tag key](#tag-key),
+[tag key](#tag-key)
 
 ### influx
 
@@ -422,8 +424,7 @@ and other required processes.
 
 ### InfluxDB
 
-An open source time series database (TSDB) developed by InfluxData.
-Written in Go and optimized for fast, high-availability storage and retrieval of
+An open source time series database (TSDB) developed by InfluxData, optimized for fast, high-availability storage and retrieval of
 time series data in fields such as operations monitoring, application metrics,
 Internet of Things sensor data, and real-time analytics.
 
@@ -435,8 +436,8 @@ The SQL-like query language used to query data in InfluxDB.
 
 Telegraf input plugins actively gather metrics and deliver them to the core agent,
 where aggregator, processor, and output plugins can operate on the metrics.
-In order to activate an input plugin, it needs to be enabled and configured in
-Telegraf's configuration file.
+To activate an input plugin, enable and configure it in the
+Telegraf configuration file.
 
 Related entries:
 [aggregator plugin](#aggregator-plugin),
@@ -760,7 +761,7 @@ in the cluster (replication factor), and the time range covered by shard groups
 (shard group duration). RPs are unique per database and along with the measurement
 and tag set define a series.
 
-In {{< product-name >}} the equivalent is [retention period](#retention-period),
+In {{< product-name >}}, the equivalent is [retention period](#retention-period),
 however retention periods are not part of the data model.
 The retention period describes the data persistence behavior of a database.
 
@@ -837,8 +838,8 @@ Related entries:
 
 ### series
 
-A collection of data in the InfluxDB data structure that share a common
-_measurement_, _tag set_, and _field key_.
+In the InfluxDB 3 data structure, a collection of data that share a common
+_measurement_ and _tag set_.
 
 Related entries:
 [field set](#field-set),
@@ -847,12 +848,13 @@ Related entries:
 
 ### series cardinality
 
-The number of unique measurement, tag set, and field key combinations in an InfluxDB database.
+The number of unique measurement (table), tag set, and field key combinations in an InfluxDB database.
 
-For example, assume that an InfluxDB bucket has one measurement.
+For example, assume that an InfluxDB database has one measurement.
 The single measurement has two tag keys: `email` and `status`.
-If there are three different `email`s, and each email address is associated with two
-different `status`es, the series cardinality for the measurement is 6
+If there are three different `email` tag values,
+and each email address is associated with two
+different `status` tag values, then the series cardinality for the measurement is 6
 (3 × 2 = 6):
 
 | email                 | status |
@@ -867,7 +869,7 @@ different `status`es, the series cardinality for the measurement is 6
 In some cases, performing this multiplication may overestimate series cardinality
 because of the presence of dependent tags.
 Dependent tags are scoped by another tag and do not increase series cardinality.
-If we add the tag `firstname` to the example above, the series cardinality
+If we add the tag `firstname` to the preceding example, the series cardinality
 would not be 18 (3 × 2 × 3 = 18).
 The series cardinality would remain unchanged at 6, as `firstname` is already scoped by the `email` tag:
 
@@ -892,7 +894,7 @@ A series key identifies a particular series by measurement, tag set, and field k
 
 For example:
 
-```
+```text
 # measurement, tag set, field key
 h2o_level, location=santa_monica, h2o_feet
 ```
@@ -1129,18 +1131,17 @@ A statement that sets or updates the value stored in a variable.
 
 ## W
 
-### WAL (Write Ahead Log) - enterprise
+### WAL (Write-Ahead Log)
 
 The temporary cache for recently written points.
 To reduce the frequency that permanent storage files are accessed, InfluxDB
 caches new points in the WAL until their total size or age triggers a flush to
-more permanent storage. This allows for efficient batching of the writes into the TSM.
+more permanent storage. This allows for efficient batching of the writes into
+the storage engine.
 
-Points in the WAL can be queried and persist through a system reboot.
-On process start, all points in the WAL must be flushed before the system accepts new writes.
-
-Related entries:
-[tsm](#tsm-time-structured-merge-tree)
+Points in the WAL are queryable and persist through a system reboot.
+On process start, all points in the WAL must be flushed before the system
+accepts new writes.
 
 ### windowing
 

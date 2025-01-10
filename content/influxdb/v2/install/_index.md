@@ -16,10 +16,183 @@ process and visualize metrics and events.
 
 - [Download and install InfluxDB v2](#download-and-install-influxdb-v2)
 - [Start InfluxDB](#start-influxdb)
-- [Download, install, and configure the `influx` CLI](#download-install-and-configure-influx-cli)
+- [Download, install, and configure the `influx` CLI](#download-install-and-configure-the-influx-cli)
 
-1. **Download and install InfluxDB v2**.
-   <span id="download-and-install-influxdb-v2"></span>
+## Download and install InfluxDB v2
+
+{{< req text="Recommended:" color="magenta" >}}: Before you open and install packages and downloaded files, use SHA
+checksum verification and GPG signature verification to ensure the files are
+intact and authentic.
+
+InfluxDB installation instructions for some OS versions include steps to
+verify downloaded files before you install them.
+
+For more information about SHA and GPG verifications, see the following:
+
+{{< expand-wrapper >}}
+
+{{% expand "Choose the InfluxData key-pair for your OS version" %}}
+
+_Before running the installation steps, substitute the InfluxData key-pair compatible
+with your OS version:_
+
+For newer releases (for example, Ubuntu 20.04 LTS and newer, Debian Buster
+and newer) that support subkey verification:
+
+-  Private key file: [`influxdata-archive.key`](https://repos.influxdata.com/influxdata-archive.key)
+-  Public key: `943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515`
+
+For older versions (for example, CentOS/RHEL 7, Ubuntu 18.04 LTS, or Debian
+Stretch) that don't support subkeys for verification:
+
+-  Private key file: [`influxdata-archive_compat.key`](https://repos.influxdata.com/influxdata-archive_compat.key)
+-  Public key: `393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c`
+
+{{% /expand %}}
+
+{{% expand "Verify download integrity using SHA-256" %}}
+
+For each released binary, InfluxData publishes the SHA checksum that
+you can use to verify that the downloaded file is intact and hasn't been corrupted.
+
+To use the SHA checksum to verify the downloaded file, do the following:
+
+1. In the [downloads page](https://www.influxdata.com/downloads),
+   select the **Version** and **Platform** for your download, and then copy
+   the **SHA256:** checksum value.
+
+2. Compute the SHA checksum of the downloaded file and compare it to the
+   published checksum--for example, enter the following command in your terminal.
+
+   <!--test:actual
+   ```bash
+   curl -s --location -O \
+   "https://dl.influxdata.com/influxdb/releases/influxdb2-${influxdb_latest_patches_v2}_linux_amd64.tar.gz"
+   ```
+   -->
+
+<!--pytest-codeblocks:cont-->
+
+{{% code-placeholders "9cb54d3940c37a8c2a908458543e629412505cc71db55094147fd39088b99c6c" %}}
+
+```bash
+# Use 2 spaces to separate the checksum from the filename
+echo "9cb54d3940c37a8c2a908458543e629412505cc71db55094147fd39088b99c6c  influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz" \
+| sha256sum --check -
+```
+
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`9cb54d3940c37a8c2a908458543e629412505cc71db55094147fd39088b99c6c`{{% /code-placeholder-key %}}:
+  the **SHA256:** checksum value that you copied from the downloads page
+
+If the checksums match, the output is the following; otherwise, an error message.
+
+```
+influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz: OK
+```
+
+{{% /expand %}}
+{{% expand "Verify file integrity and authenticity using GPG" %}}
+
+InfluxData uses [GPG (GnuPG)](https://www.gnupg.org/software/) to sign released software and provides
+public key and encrypted private key (`.key` file) pairs that you can use to
+verify the integrity of packages and binaries from the InfluxData repository.
+
+Most operating systems include `gpg` by default.
+_If `gpg` isn't available on your system, see
+[GnuPG download](https://gnupg.org/download/) and install instructions._
+
+The following steps guide you through using GPG to verify InfluxDB
+binary releases:
+
+1. [Choose the InfluxData key-pair for your OS version](#choose-the-influxdata-key-pair-for-your-system).
+2. Download and import the InfluxData public key.
+
+   `gpg --import` outputs to stderr.
+   The following example shows how to import the key, redirect the output to stdout,
+   and then check for the expected key name:
+
+   <!--test:setup
+   ```bash
+   # Prevent a test error by removing any existing InfluxData key.
+   # Find the key ID associated with the email address
+   KEY_ID=$(gpg --list-keys | grep -B 1 "support@influxdata.com" | head -n 1 | awk '{print $1}')
+   # Check if a key ID was found
+   if [ -n "$KEY_ID" ]; then
+     gpg --batch --yes --delete-key "$KEY_ID"
+   else
+     echo "No Key!!!"
+   fi
+   ```
+   -->
+
+{{% code-placeholders "https://repos.influxdata.com/influxdata-archive.key" %}}
+
+```sh
+curl --silent --location \
+ https://repos.influxdata.com/influxdata-archive.key \
+ | gpg --import - 2>&1 \
+ | grep 'InfluxData Package Signing Key <support@influxdata.com>'
+```
+
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`https://repos.influxdata.com/influxdata-archive.key`{{% /code-placeholder-key %}}:
+  the InfluxData private key file compatible with your OS version
+
+If successful, the output is the following:
+
+<!--pytest-codeblocks:expected-output-->
+
+```
+gpg: key 7C3D57159FC2F927: public key "InfluxData Package Signing Key <support@influxdata.com>" imported
+```
+
+3. Download the signature file for the release by appending `.asc` to the download URL,
+   and then use `gpg` to verify the download signature--for example, enter the
+   following in your terminal:
+
+   <!--test:setup
+
+   ```sh
+   curl --silent --location --output-dir ~/Downloads -O \
+   "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" \
+   ```
+
+   -->
+
+   ```sh
+   curl --silent --location \
+   https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz.asc \
+   | gpg --verify - ~/Downloads/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz \
+   2>&1 | grep 'InfluxData Package Signing Key <support@influxdata.com>'
+   ```
+
+   - `curl --silent --location`: Follows any server redirects and fetches the
+     signature file silently (without progress meter).
+   - `gpg --verify -`: Reads the signature from stdin and uses it to verify the
+     the downloaded `influxdbv2` binary.
+
+   If successful, the output is the following:
+
+   <!--pytest-codeblocks:expected-output-->
+
+   ```
+   gpg: Good signature from "InfluxData Package Signing Key <support@influxdata.com>" [unknown]
+   ```
+
+_For security, InfluxData periodically rotates keys and publishes the new key pairs._
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+The following instructions include steps for downloading, verifying, and installing
+{{< product-name >}}:
 
    {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -51,24 +224,17 @@ The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
 versioned separately.
 
-_You'll install the `influx CLI` in a [later step](#download-and-install-the-influx-cli)._
+_You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
 
 {{% /note %}}
 
 ### Install using Homebrew
 
 <!--pytest.mark.skip-->
-
 ```sh
 brew update
 brew install influxdb
 ```
-
-{{% note %}}
-Homebrew also installs `influxdb-cli` as a dependency.
-For information about using the `influx` CLI, see the
-[`influx` CLI reference documentation](/influxdb/v2/reference/cli/influx/).
-{{% /note %}}
 
 ### Manually download and install for macOS
 
@@ -78,28 +244,42 @@ For information about using the `influx` CLI, see the
 
    ```sh
    # Download using cURL
-   curl -LO https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz \
-    --output-dir ~/Downloads
+   curl --location -O \
+   "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz"
    ```
 
-2. Unpackage the InfluxDB binary.
+2. {{< req text="Recommended:" color="magenta" >}}: Verify the integrity of the download--for example, enter the
+   following command in your terminal:
+
+{{% code-placeholders "964e1de641a43a0e1743aa5ead243e935a05631ba0bc570fb8bff486542173c1" %}}
+
+```sh
+# Use 2 spaces to separate the checksum from the filename
+echo "964e1de641a43a0e1743aa5ead243e935a05631ba0bc570fb8bff486542173c1  influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" \
+| shasum --algorithm 256 --quiet --check -
+```
+
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`964e1de641a43a0e1743aa5ead243e935a05631ba0bc570fb8bff486542173c1`{{% /code-placeholder-key %}}: the SHA checksum from the [downloads page](https://www.influxdata.com/downloads/#telegraf)
+
+3. Unpackage the InfluxDB binary.
 
    Do one of the following:
 
    - In **Finder**, double-click the downloaded package file.
    - In your terminal (for example, **Terminal** or **[iTerm2](https://www.iterm2.com/)**), use `tar` to unpackage the file--for example, enter the following command to extract it into the current directory:
 
-   <!--pytest-codeblocks:cont-->
-
    ```sh
    # Unpackage contents to the current working directory
-   tar zxvf ~/Downloads/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz
+   tar zxvf ./influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz
    ```
 
-3. Optional: Place the `influxd` binary in your `$PATH`--for example, copy the binary to `/usr/local/bin`:
+4. Optional: Place the `influxd` binary in your `$PATH`--for example, copy the binary to `/usr/local/bin`:
 
-   <!--pytest.mark.skip-->
-
+   <!--pytest-codeblocks:cont-->
    ```sh
    # (Optional) Copy the influxd binary to your $PATH
    sudo cp influxdb2-{{< latest-patch >}}/influxd /usr/local/bin/
@@ -110,7 +290,6 @@ For information about using the `influx` CLI, see the
    If you choose not to move the `influxd` binary into your `$PATH`, enter the path to the binary to start the server--for example:
 
    <!--pytest.mark.skip-->
-
    ```sh
    ./influxdb2-{{< latest-patch >}}/influxd
    ```
@@ -119,62 +298,13 @@ For information about using the `influx` CLI, see the
 {{% expand "<span class='req'>Recommended</span> – Set appropriate directory permissions" %}}
 
 To prevent unwanted access to data, set the permissions on the influxdb `data-dir` to not be world readable.
-If installing on a server, set a umask of `0027` to properly permission all newly created files--for example, enter the following command in your terminal:
+If installing on a server, set a umask of `0027` to properly permission all
+newly created files--for example, enter the following command in your terminal:
 
 <!--pytest.mark.skip-->
-
-```sh
+```bash
 chmod 0750 ~/.influxdbv2
 ```
-
-{{% /expand %}}
-{{% expand "<span class='req'>Recommended</span> – Verify the authenticity of the downloaded binary" %}}
-
-For added security, use `gpg` to verify the signature of your download.
-(Most operating systems include the `gpg` command by default.
-If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/) for installation instructions.)
-
-1. Download and import InfluxData's public key.
-   `gpg --import` outputs to stderr.
-   The following example shows how to import the key, redirect the output to stdout,
-   and then check for the expected key name:
-
-   <!-- Setup test, hide from users
-   ```sh
-   gpg -q --batch --yes --delete-key D8FF8E1F7DF8B07E
-   ```
-   -->
-
-   ```sh
-   curl -s https://repos.influxdata.com/influxdata-archive_compat.key \
-    | gpg --import - 2>&1 \
-    | grep 'InfluxData Package Signing Key <support@influxdata.com>'
-   ```
-
-   If successful, the output is similar to the following:
-
-   <!--pytest-codeblocks:expected-output-->
-
-   ```
-   gpg: key D8FF8E1F7DF8B07E: public key "InfluxData Package Signing Key <support@influxdata.com>" imported
-   ```
-
-2. Download the signature file for the release by adding `.asc` to the download URL,
-   and then use `gpg` to verify the download signature--for example:
-
-   ```sh
-   curl -s https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz.asc \
-   | gpg --verify - ~/Downloads/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz \
-   2>&1 | grep 'InfluxData Package Signing Key <support@influxdata.com>'
-   ```
-
-   If successful, the output is the following:
-
-   <!--pytest-codeblocks:expected-output-->
-
-   ```
-   gpg: Good signature from "InfluxData Package Signing Key <support@influxdata.com>" [unknown]
-   ```
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -191,6 +321,8 @@ If you rename the binaries, all references to `influxd` and `influx` in this doc
 <!-------------------------------- BEGIN Linux -------------------------------->
 {{% tab-content %}}
 
+<a id="install-linux"></a>
+
 To install {{% product-name %}} on Linux, do one of the following:
 
 - [Install InfluxDB as a service with systemd](#install-influxdb-as-a-service-with-systemd)
@@ -204,54 +336,74 @@ The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
 versioned separately.
 
-_You'll install the `influx CLI` in a [later step](#download-and-install-the-influx-cli)._
+_You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
 
 {{% /note %}}
 
 ### Install InfluxDB as a service with systemd
 
-1. Download and install the appropriate `.deb` or `.rpm` file using a URL from the
-   [InfluxData downloads page](https://www.influxdata.com/downloads/)
-   with the following commands:
+1. [Choose the InfluxData key-pair for your OS version](#choose-the-influxdata-key-pair-for-your-os-version).
 
-   ```sh
-   # Ubuntu/Debian AMD64
-   curl -LO https://download.influxdata.com/influxdb/releases/influxdb2_{{< latest-patch >}}-1_amd64.deb
-   sudo dpkg -i influxdb2_{{< latest-patch >}}-1_amd64.deb
+2. Run the command for your OS version to install the InfluxData key,
+   add the InfluxData repository, and install `influxdb`.
+
+   _Before running the command, replace the checksum and key filename with the
+   key-pair from the preceding step._
+
+   ```bash
+   # Ubuntu and Debian
+   # Add the InfluxData key to verify downloads and add the repository
+   curl --silent --location -O \
+   https://repos.influxdata.com/influxdata-archive.key
+   echo "943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515  influxdata-archive.key" \
+   | sha256sum --check - && cat influxdata-archive.key \
+   | gpg --dearmor \
+   | tee /etc/apt/trusted.gpg.d/influxdata-archive.gpg > /dev/null \
+   && echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' \
+   | tee /etc/apt/sources.list.d/influxdata.list
+   # Install influxdb
+   sudo apt-get update && sudo apt-get install influxdb2
    ```
-
-   ```sh
-   # Ubuntu/Debian ARM64
-   curl -LO https://download.influxdata.com/influxdb/releases/influxdb2_{{< latest-patch >}}-1_arm64.deb
-   sudo dpkg -i influxdb2_{{< latest-patch >}}-1_arm64.deb
-   ```
-
-   ```sh
-   # Red Hat/CentOS/Fedora x86-64 (x64, AMD64)
-   curl -LO https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-1.x86_64.rpm
-   sudo yum localinstall influxdb2-{{< latest-patch >}}-1.x86_64.rpm
-   ```
-
-   ```sh
-   # Red Hat/CentOS/Fedora AArch64 (ARMv8-A)
-   curl -LO https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-1.aarch64.rpm
-   sudo yum localinstall influxdb2-{{< latest-patch >}}-1.aarch64.rpm
-   ```
-
-2. Start the InfluxDB service:
 
    <!--pytest.mark.skip-->
+   ```bash
+   # RedHat and CentOS
+   # Add the InfluxData key to verify downloads
+   curl --silent --location -O \
+   https://repos.influxdata.com/influxdata-archive.key \
+   && echo "943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515  influxdata-archive.key" \
+   | sha256sum --check - && cat influxdata-archive.key \
+   | gpg --dearmor \
+   | tee /etc/pki/rpm-gpg/RPM-GPG-KEY-influxdata > /dev/null
 
-   ```sh
+   # Add the InfluxData repository to the repository list.
+   cat <<EOF | tee /etc/yum.repos.d/influxdata.repo
+   [influxdata]
+   name = InfluxData Repository - Stable
+   baseurl = https://repos.influxdata.com/stable/${basearch}/main
+   enabled = 1
+   gpgcheck = 1
+   gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-influxdata
+   EOF
+
+   # Install influxdb
+   sudo yum install influxdb2
+   ```
+
+3. Start the InfluxDB service:
+
+   <!--pytest.mark.skip-->
+   ```bash
    sudo service influxdb start
    ```
 
    Installing the InfluxDB package creates a service file at `/lib/systemd/system/influxdb.service`
    to start InfluxDB as a background service on startup.
 
-3. To verify that the service is running correctly, restart your system and then enter the following command in your terminal:
+4. To verify that the service is running correctly, restart your system and then enter the following command in your terminal:
 
-   ```sh
+   <!--pytest.mark.skip-->
+   ```bash
    sudo service influxdb status
    ```
 
@@ -277,6 +429,7 @@ You can use systemd to customize [InfluxDB configuration options](/influxdb/v2/r
    ```sh
    ARG1="--http-bind-address :8087"
    ARG2="--storage-wal-fsync-delay=15m"
+   ```
 
 2. Edit the `/lib/systemd/system/influxdb.service` file to pass the variables to the `ExecStart` value:
 
@@ -296,39 +449,113 @@ _If necessary, adjust the example file paths and utilities for your system._
    <a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz" download >InfluxDB v2 (amd64)</a>
    <a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz" download >InfluxDB v2 (arm)</a>
 
+   <!--test:actual
+   ```sh
+   curl -s --location -O \
+   "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz"
+   ```
+
+   ```sh
+   curl -s --location -O \
+   "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz"
+   ```
+   -->
+
+   <!--pytest.mark.skip-->
+
    ```sh
    # Use curl to download the amd64 binary.
-   curl -LO \
+   curl --location -O \
    https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz
    ```
 
+   <!--pytest.mark.skip-->
+
    ```sh
    # Use curl to download the arm64 binary.
-   curl -LO \
+   curl --location -O \
    https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz
    ```
 
-2. Extract the downloaded binary--for example, enter the following command
+2. [Choose the InfluxData key-pair for your OS version](#choose-the-influxdata-key-pair-for-your-system).
+
+3. {{< req text="Recommended:" color="magenta" >}}: Verify the authenticity of the downloaded binary--for example,
+   enter the following command in your terminal.
+
+   _Before running the command for your system, replace
+   `https://repos.influxdata.com/influxdata-archive.key` with the key URL
+   from the preceding step._
+
+   <!--test:setup
+   ```bash
+   # Prevent a test error by removing any existing InfluxData key.
+   # Find the key ID associated with the email address
+   KEY_ID=$(gpg --list-keys | grep -B 1 "support@influxdata.com" | head -n 1 | awk '{print $1}')
+   # Check if a key ID was found
+   if [ -n "$KEY_ID" ]; then
+     gpg --batch --yes --delete-key "$KEY_ID"
+   else
+     echo "No Key!!!"
+   fi
+   ```
+   -->
+
+   ```bash
+   # amd64
+   # Download and import the key
+   curl --silent --location https://repos.influxdata.com/influxdata-archive.key \
+   | gpg --import - 2>&1 \
+   | grep 'InfluxData Package Signing Key <support@influxdata.com>' \
+   &&
+   # Download and verify the binary's signature file
+   curl --silent --location "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz.asc" \
+   | gpg --verify - influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz \
+   2>&1 | grep 'InfluxData Package Signing Key <support@influxdata.com>'
+   ```
+
+   <!--pytest.mark.skip-->
+   ```bash
+   # arm64
+   # Download and import the key
+   curl --silent --location https://repos.influxdata.com/influxdata-archive.key \
+   | gpg --import - 2>&1 \
+   | grep 'InfluxData Package Signing Key <support@influxdata.com>' \
+   &&
+   # Download and verify the binary's signature file
+   curl --silent --location "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz.asc" \
+   | gpg --verify - influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz \
+   2>&1 | grep 'InfluxData Package Signing Key <support@influxdata.com>'
+   ```
+
+   If successful, the output is similar to the following:
+
+   <!--pytest-codeblocks:expected-output-->
+
+   ```
+   gpg: Good signature from "InfluxData Package Signing Key <support@influxdata.com>" [unknown]
+   ```
+
+4. Extract the downloaded binary--for example, enter the following command
    for your system:
 
-   ```sh
+   ```bash
    # amd64
    tar xvzf ./influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz
    ```
 
-   ```sh
+   ```bash
    # arm64
    tar xvzf ./influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz
    ```
 
-3. Optional: Place the extracted `influxd` executable binary in your system `$PATH`.
+5. Optional: Place the extracted `influxd` executable binary in your system `$PATH`.
 
-   ```sh
+   ```bash
    # amd64
    sudo cp ./influxdb2-{{< latest-patch >}}/usr/bin/influxd /usr/local/bin/
    ```
 
-   ```sh
+   ```bash
    # arm64
    sudo cp ./influxdb2-{{< latest-patch >}}/usr/bin/influxd /usr/local/bin/
    ```
@@ -338,7 +565,7 @@ _If necessary, adjust the example file paths and utilities for your system._
 
    <!--pytest.mark.skip-->
 
-   ```sh
+   ```bash
    ./influxdb2-{{< latest-patch >}}/usr/bin/influxd
    ```
 
@@ -358,57 +585,6 @@ command in your terminal:
 ```sh
 chmod 0750 ~/.influxdbv2
 ```
-
-{{% /expand %}}
-{{% expand "<span class='req'>Recommended</span> – Verify the authenticity of downloaded binary" %}}
-
-For added security, use `gpg` to verify the signature of your download.
-(Most operating systems include the `gpg` command by default.
-To install `gpg`, see the [GnuPG installation instructions](https://gnupg.org/download/)).
-
-1. Download and import InfluxData's public key.
-   `gpg --import` outputs to stderr.
-   The following example shows how to import the key, redirect the output to stdout,
-   and then check for the expected key name:
-
-   <!-- Setup test, hide from users
-   ```sh
-   gpg -q --batch --yes --delete-key D8FF8E1F7DF8B07E
-   ```
-   -->
-
-   <!--pytest-codeblocks:cont-->
-
-   ```sh
-   curl -s https://repos.influxdata.com/influxdata-archive_compat.key \
-   | gpg --import - 2>&1 \
-   | grep 'InfluxData Package Signing Key <support@influxdata.com>'
-   ```
-
-   If successful, the output is similar to the following:
-
-   <!--pytest-codeblocks:expected-output-->
-
-   ```
-   gpg: key D8FF8E1F7DF8B07E: public key "InfluxData Package Signing Key <support@influxdata.com>" imported
-   ```
-
-2. Download the signature file for the release by adding `.asc` to the download
-   URL, and then use `gpg` to verify the download signature--for example:
-
-   ```sh
-   curl -sL https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz.asc \
-   | gpg --verify - influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz \
-   2>&1 | grep 'InfluxData Package Signing Key <support@influxdata.com>'
-   ```
-
-   If successful, the output is the following:
-
-   <!--pytest-codeblocks:expected-output-->
-
-   ```
-   gpg: Good signature from "InfluxData Package Signing Key <support@influxdata.com>" [unknown]
-   ```
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -444,7 +620,7 @@ The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
 versioned separately.
 
-_You'll install the `influx CLI` in a [later step](#download-and-install-the-influx-cli)._
+_You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
 
 {{% /note %}}
 
@@ -513,7 +689,7 @@ container._
 
 <!--pytest.mark.skip-->
 
-```sh
+```bash
 docker run \
  --name influxdb2 \
  --publish 8086:8086 \
@@ -584,7 +760,7 @@ command to interact with the `influx` and `influxd` CLIs inside the container.
 
 <!--pytest.mark.skip-->
 
-```sh
+```bash
 docker exec -it <CONTAINER_NAME> <CLI_NAME> <COMMAND>`
 ```
 
@@ -592,14 +768,14 @@ docker exec -it <CONTAINER_NAME> <CLI_NAME> <COMMAND>`
 
 <!--pytest.mark.skip-->
 
-```sh
+```bash
 # List CLI configurations
 docker exec -it influxdb2 influx config ls
 ```
 
 <!--pytest.mark.skip-->
 
-```sh
+```bash
 # View the server configuration
 docker exec -it influxdb2 influx server-config
 # Inspect server details
@@ -630,14 +806,14 @@ InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) a
 
    <!--pytest.mark.skip-->
 
-   ```sh
+   ```bash
    # with minikube
    minikube start
    ```
 
    <!--pytest.mark.skip-->
 
-   ```sh
+   ```bash
    # with kind
    kind create cluster
    ```
@@ -646,7 +822,7 @@ InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) a
 
    <!--pytest.mark.skip-->
 
-   ```sh
+   ```bash
    kubectl apply -f https://raw.githubusercontent.com/influxdata/docs-v2/master/static/downloads/influxdb-k8-minikube.yaml
    ```
 
@@ -659,7 +835,7 @@ InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) a
 
    <!--pytest.mark.skip-->
 
-   ```sh
+   ```bash
    kubectl get pods -n influxdb
    ```
 
@@ -667,7 +843,7 @@ InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) a
 
    <!--pytest.mark.skip-->
 
-   ```sh
+   ```bash
    kubectl describe service -n influxdb influxdb
    ```
 
@@ -677,7 +853,7 @@ InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) a
 
    <!--pytest.mark.skip-->
 
-   ```sh
+   ```bash
    kubectl port-forward -n influxdb service/influxdb 8086:8086
    ```
 
@@ -692,12 +868,12 @@ To run InfluxDB on Raspberry Pi, you need:
 
 - a Raspberry Pi 4+ or 400
 - a 64-bit operating system.
-  _Recommended_ : a [64-bit version of Ubuntu](https://ubuntu.com/download/raspberry-pi)
+  {{< req text="Recommended:" color="magenta" >}}: a [64-bit version of Ubuntu](https://ubuntu.com/download/raspberry-pi)
   of Ubuntu Desktop or Ubuntu Server compatible with 64-bit Raspberry Pi.
 
 ### Install Linux binaries
 
-Follow the [Linux installation instructions](/influxdb/v2/install/?t=linux)
+Follow the [Linux installation instructions](/influxdb/v2/install/?t=Linux#install-linux)
 to install InfluxDB on a Raspberry Pi.
 
 ### Monitor your Raspberry Pi
@@ -718,10 +894,9 @@ to collect and send data to:
 <!--------------------------------- END Raspberry Pi --------------------------->
 {{< /tabs-wrapper >}}
 
-2. **Start InfluxDB**.
-<span id="start-influxdb"></span>
+## Start InfluxDB
 
-   If it isn't already running, follow the instructions to start InfluxDB on your system:
+If it isn't already running, follow the instructions to start InfluxDB on your system:
 
    {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -739,7 +914,7 @@ To start InfluxDB, run the `influxd` daemon:
 
 <!--pytest.mark.skip-->
 
-```sh
+```bash
 influxd
 ```
 
@@ -777,9 +952,7 @@ We are in the process of updating the build process to ensure released binaries 
 After running `influxd`, you might see an error in the log output like the
 following:
 
-<!--pytest.mark.skip-->
-
-```sh
+```text
 too many open files
 ```
 
@@ -798,7 +971,7 @@ If the binary was manually downloaded and added to the system `$PATH`, start the
 
 <!--pytest.mark.skip-->
 
-```sh
+```bash
 influxd
 ```
 
@@ -835,13 +1008,14 @@ the following message:
 
 To use the Docker CLI to start an existing container, enter the following command:
 
-```sh
+<!--pytest.mark.skip-->
+```bash
 docker start influxdb2
 ```
 
 Replace `influxdb2` with the name of your container.
 
-To start a new container, follow instructions to [install and set up InfluxDB in a container](?t=docker#install-and-setup-influxdb-in-a-container).
+To start a new container, follow instructions to [install and set up InfluxDB in a container](?t=docker#install-and-set-up-influxdb-in-a-container).
 
 {{% /tab-content %}}
 <!-------------------------------- BEGIN Kubernetes -------------------------------->
@@ -865,7 +1039,9 @@ To start InfluxDB using Kubernetes, follow instructions to [install InfluxDB in 
 {{% expand "Configure the port or address" %}}
 By default, the InfluxDB UI and HTTP API use port `8086`.
 
-To specify a different port or address, override the [`http-bind-address` option](/influxdb/v2/reference/config-options/#http-bind-address) when starting `influxd`--for example:
+To specify a different port or address, override the
+[`http-bind-address` option](/influxdb/v2/reference/config-options/#http-bind-address)
+when starting `influxd`--for example:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -876,7 +1052,7 @@ To specify a different port or address, override the [`http-bind-address` option
 
 <!--pytest.mark.skip-->
 
-```sh
+```bash
 influxd --http-bind-address
 ```
 
@@ -911,7 +1087,7 @@ To opt-out of sending telemetry data back to InfluxData, specify the
 
 <!--pytest.mark.skip-->
 
-```sh
+```bash
 influxd --reporting-disabled
 ```
 
@@ -932,13 +1108,15 @@ influxd --reporting-disabled
    For information about InfluxDB v2 default settings and how to override them,
    see [InfluxDB configuration options](/influxdb/v2/reference/config-options/).
 
-3. {{< req text="Recommended:" color="magenta" >}} **Download, install, and configure the `influx` CLI**.
-   <span id="download-install-and-configure-influx-cli"></span>
 
-   We recommend installing the `influx` CLI, which provides a simple way to interact with InfluxDB from a
-   command line.
-   For detailed installation and setup instructions,
-   see [Use the influx CLI](/influxdb/v2/tools/influx-cli/).
+With InfluxDB installed and initialized, [get started](/influxdb/v2/get-started/) writing and querying data.
+
+## Download, install, and configure the `influx` CLI
+
+{{< req text="Recommended:" color="magenta" >}}: Install the `influx` CLI,
+which provides a simple way to interact with InfluxDB from a command line.
+For detailed installation and setup instructions,
+see [Use the influx CLI](/influxdb/v2/tools/influx-cli/).
 
    {{% note %}}
 
@@ -950,5 +1128,3 @@ versioned separately.
 Some install methods (for example, the InfluxDB Docker Hub image) include both.
 
    {{% /note %}}
-
-With InfluxDB installed and initialized, [get started](/influxdb/v2/get-started/) writing and querying data.

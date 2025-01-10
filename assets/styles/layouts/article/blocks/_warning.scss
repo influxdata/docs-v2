@@ -1,0 +1,97 @@
+.warn, .warning {
+  &:before {
+    content: "W";
+    color: #fff;
+    background: $article-warning-base;
+  }
+
+  border-color: $article-warning-base;
+  background: $article-warning-bg;
+  h1,h2,h3,h4,h5,h6 {
+    color: $article-warning-heading;
+    a {
+      color: inherit !important;
+      &:hover{color: inherit !important}
+    }
+  }
+  p, li {color: $article-warning-text;}
+  strong { color: $article-warning-strong; }
+  a {
+    color: $article-warning-link !important;
+    code:after {
+      border-color: transparent rgba($article-warning-code, .35) transparent transparent;
+    }
+    &:hover {
+      color: $article-warning-link-hover !important;
+      code:after { border-color: transparent $article-warning-link-hover transparent transparent;}
+    }
+  }
+  ol li:before {
+    color: $article-warning-text;
+  }
+  code, pre{
+    color: $article-warning-code;
+    background: $article-warning-code-bg;
+  }
+  img {
+    box-shadow: 1px 3px 10px $article-warning-shadow;
+  }
+  table{
+    color: $article-warning-text;
+    box-shadow: 1px 3px 10px $article-warning-shadow;
+    thead{@include gradient($article-warning-table-header);}
+    tr:nth-child(even) td {background: $article-warning-table-row-alt;}
+  }
+  blockquote {
+    border-color: rgba($article-warning-text, .25);
+    p { color: rgba($article-warning-text, .6); }
+  }
+  .code-tabs-wrapper .code-tabs a {
+    background: transparent;
+    color: rgba($article-warning-text, .5);
+    &:hover { color: rgba($article-warning-text, 1); }
+    &.is-active {
+      color: rgba($article-warning-text, 1);
+      background: $article-warning-code-bg};
+  }
+  hr, .expand {
+    border-color: rgba($article-warning-base, .4) !important;
+  }
+
+  ///////////////////////////////// Scrollbars /////////////////////////////////
+  pre   { @include scrollbar($article-warning-code-bg, $article-warning-code-scrollbar); }
+  table { @include scrollbar($article-warning-table-row-alt, $article-warning-table-scrollbar); }
+
+  ///////////////////////////// Syntax Highlighting ////////////////////////////
+  .highlight  {
+		color: $article-warning-code;
+
+		.gh,.go,.na,.nt,.nv,.ow
+			{ color: $article-warning-code }
+		.c,.ch,.cm,.cpf,.c1, .cs,.w
+			{ color: $article-warning-code-accent1; }
+		.gi
+			{ background-color: $article-warning-code-accent1; }
+		.k,.kc,.kd,.kn,.kp,.kr,.nn
+			{ color: $article-warning-code-accent2; }
+		.bp,.cp,.dl,.gt,.gu,.kt,.nb,.nc,.no,.sa,.sb,.sc,.sd,.se,.sh,.sx,.sr,.s1,.s2
+			{	color: $article-warning-code-accent3 }
+		.err,.fm,.gr,.gd,.nd,.ne,.nf,.nl,.si
+			{ color: $article-warning-code-accent4 }
+		.m,.ni,.mb,.mf,.mh,.mi,.mo,.vc,.vg,.vi,.vm,.il
+			{	color: $article-warning-code-accent5 }
+		.gp,.o
+			{ color: $article-warning-code-accent6	}
+		.ss
+			{ color: $article-warning-code-accent7 }
+      // Javascript / Flux specific styles (duration and time values)
+      .language-js {
+        .mi + .nx, .mf + .nx { color: $article-warning-code-accent5; }
+      }
+      // SQL / InfluxQL specific styles (duration values)
+      .language-sql {
+        .mi + .n { color: $article-warning-code-accent5; }
+      }
+	}
+
+}

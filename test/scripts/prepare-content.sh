@@ -35,7 +35,7 @@ function substitute_placeholders {
           yesterday_timestamp=$(date -u -d "$yesterday_datetime" +%s)
 
           # Replace the extracted timestamp with `yesterday_timestamp`
-          sed -i "s|$specific_timestamp|$yesterday_timestamp|g;" $file  
+          sed -i "s|$specific_timestamp|$yesterday_timestamp|g;" $file
         fi
       done
 
@@ -66,14 +66,15 @@ function substitute_placeholders {
       # Shell-specific replacements.
       ## In JSON Heredoc
       sed -i 's|"orgID": "ORG_ID"|"orgID": "$INFLUX_ORG"|g;
-      s|"name": "BUCKET_NAME"|"name": "$INFLUX_DATABASE"|g;' \
-      $file
+      s|"name": "BUCKET_NAME"|"name": "$INFLUX_DATABASE"|g;
+      ' $file
 
       # Replace remaining placeholders with variables.
       # If the placeholder is inside of a Python os.getenv() function, don't replace it.
       # Note the specific use of double quotes for the os.getenv() arguments here. You'll need to use double quotes in your code samples for this to match.
       sed -i '/os.getenv("ACCOUNT_ID")/! s/ACCOUNT_ID/$ACCOUNT_ID/g;
       /os.getenv("API_TOKEN")/! s/API_TOKEN/$INFLUX_TOKEN/g;
+      /os.getenv("PASSWORD_OR_TOKEN")/! s/PASSWORD_OR_TOKEN/$INFLUX_TOKEN/g;
       /os.getenv("BUCKET_ID")/! s/--bucket-id BUCKET_ID/--bucket-id $INFLUX_BUCKET_ID/g;
       /os.getenv("BUCKET_NAME")/! s/BUCKET_NAME/$INFLUX_DATABASE/g;
       /os.getenv("CLUSTER_ID")/! s/CLUSTER_ID/$CLUSTER_ID/g;
@@ -88,27 +89,41 @@ function substitute_placeholders {
       /os.getenv("ORG_ID")/! s/ORG_ID/$INFLUX_ORG/g;
       /os.getenv("PASSWORD")/! s/PASSWORD/$INFLUX_PASSWORD/g;
       /os.getenv("ORG_ID")/! s/ORG_ID/$INFLUX_ORG/g;
-      /os.getenv("RETENTION_POLICY")/! s/RETENTION_POLICY_NAME\|RETENTION_POLICY/$INFLUX_RETENTION_POLICY/g;
+      /os.getenv("RETENTION_POLICY")/! s/RETENTION_POLICY_NAME/$INFLUX_RETENTION_POLICY/g;
+      /os.getenv("RETENTION_POLICY")/! s/RETENTION_POLICY/$INFLUX_RETENTION_POLICY/g;
       /os.getenv("USERNAME")/! s/USERNAME/$INFLUX_USERNAME/g;
+      s/exampleuser@influxdata.com/$INFLUX_EMAIL_ADDRESS/g;
       s/CONFIG_NAME/CONFIG_$(shuf -i 0-100 -n1)/g;
       s/TEST_RUN/TEST_RUN_$(date +%s)/g;
-      s|/path/to/custom/assets-dir|/app/custom-assets|g;' \
-      $file
+      s|NUMBER_OF_DAYS|365|g;
+      s|@path/to/line-protocol.txt|data/home-sensor-data.lp|g;
+      s|/path/to/custom/assets-dir|/app/custom-assets|g;
+      ' $file
 
       # v2-specific replacements.
       sed -i 's|https:\/\/us-west-2-1.aws.cloud2.influxdata.com|$INFLUX_HOST|g;
-      s|{{< latest-patch >}}|${influxdb_latest_patches_v2}|g;
-      s|{{< latest-patch cli=true >}}|${influxdb_latest_cli_v2}|g;' \
-      $file
+      s|influxdb2-{{< latest-patch >}}|influxdb2-${influxdb_latest_patches_v2}|g;
+      s|{{< latest-patch cli=true >}}|${influxdb_latest_cli_v2}|g;
+      s|influxdb2-{{% latest-patch %}}|influxdb2-${influxdb_latest_patches_v2}|g;
+      s|{{% latest-patch cli=true %}}|${influxdb_latest_cli_v2}|g;
+      ' $file
+
+      # Telegraf-specific replacements
+      sed -i 's|telegraf-{{< latest-patch >}}|telegraf-${telegraf_latest_patches_v1}|g;
+      s|telegraf-{{% latest-patch %}}|telegraf-${telegraf_latest_patches_v1}|g;
+      s/--input-filter <INPUT_PLUGIN_NAME>\[:<INPUT_PLUGIN_NAME>\]/--input-filter cpu:influxdb/g;
+      s/--output-filter <OUTPUT_PLUGIN_NAME>\[:<OUTPUT_PLUGIN_NAME>\]/--output-filter influxdb_v2:file/g;
+      ' $file
 
       # Skip package manager commands.
       sed -i 's|sudo dpkg.*$||g;
-      s|sudo yum.*$||g;' \
-      $file
+      s|sudo yum.*$||g;
+      ' $file
 
       # Environment-specific replacements.
-      sed -i 's|sudo ||g;' \
-      $file
+      # You can't use sudo with Docker.
+      sed -i 's|sudo ||g;
+      ' $file
     fi
   done
 }

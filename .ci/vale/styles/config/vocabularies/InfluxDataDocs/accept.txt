@@ -68,10 +68,10 @@ influx3
 influxctl
 influxd
 influxdata.com
-iox
+(iox|IOx)
 keep-url
 lat
-locf
+(locf|LOCF)
 logicalplan
 noaa|NOAA
 npm|NPM

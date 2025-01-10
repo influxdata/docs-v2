@@ -585,8 +585,7 @@ _If your project's virtual environment is already running, skip to step 3._
       "time"
       "text/tabwriter"
 
-      "github.com/apache/arrow/go/v13/arrow"
-      "github.com/InfluxCommunity/influxdb3-go/influxdb3"
+      "github.com/InfluxCommunity/influxdb3-go/v2/influxdb3"
     )
 
     func Query() error {
@@ -630,10 +629,9 @@ _If your project's virtual environment is already running, skip to step 3._
       // Iterate over rows and prints column values in table format.
       for iterator.Next() {
         row := iterator.Value()
-        // Use Go arrow and time packages to format unix timestamp
+        // Use Go time package to format unix timestamp
         // as a time with timezone layout (RFC3339).
-        time := (row["time"].(arrow.Timestamp)).
-          ToTime(arrow.TimeUnit(arrow.Nanosecond)).
+        time := (row["time"].(time.Time)).
           Format(time.RFC3339)
         fmt.Fprintf(w, "%s\t%s\t%d\t%.1f\t%.1f\n",
           time, row["room"], row["co"], row["hum"], row["temp"])
@@ -653,8 +651,7 @@ _If your project's virtual environment is already running, skip to step 3._
         - `io`
         - `os`
         - `text/tabwriter`
-        - `github.com/apache/arrow/go/v13/arrow`
-        - `github.com/InfluxCommunity/influxdb3-go/influxdb3`
+        - `github.com/InfluxCommunity/influxdb3-go/v2/influxdb3`
 
     2.  Defines a `Query()` function that does the following:
 

@@ -8,21 +8,10 @@ influxdb:
   versions:
     - v2
     - v1
-  minor_versions:
-    - v2.7
-    - v2.6
-    - v2.5
-    - v2.4
-    - v2.3
-    - v2.2
-    - v2.1
-    - v2.0
-    - v1.8
-    - v1.7
   latest: v2.7
   latest_patches:
-    v2: 2.7.10
-    v1: 1.8.10
+    v2: 2.7.11
+    v1: 1.11.8
   latest_cli:
     v2: 2.7.5
 
@@ -55,7 +44,7 @@ influxdb_cloud_dedicated:
   list_order: 3
   latest: cloud-dedicated
   link: "https://www.influxdata.com/contact-sales-form/"
-  latest_cli: 2.9.6
+  latest_cli: 2.9.8
   placeholder_host: cluster-id.a.influxdb.io
 
 influxdb_clustered:
@@ -75,9 +64,9 @@ telegraf:
   menu_category: other
   list_order: 6
   versions: [v1]
-  latest: v1.31
+  latest: v1.33
   latest_patches:
-    v1: 1.31.0
+    v1: 1.33.0
 
 chronograf:
   name: Chronograf
@@ -87,7 +76,7 @@ chronograf:
   versions: [v1]
   latest: v1.10
   latest_patches:
-    v1: 1.10.5
+    v1: 1.10.6
 
 kapacitor:
   name: Kapacitor
@@ -97,7 +86,7 @@ kapacitor:
   versions: [v1]
   latest: v1.7
   latest_patches:
-    v1: 1.7.5
+    v1: 1.7.6
 
 enterprise_influxdb:
   name: "InfluxDB Enterprise"
@@ -105,15 +94,9 @@ enterprise_influxdb:
   menu_category: self-managed
   list_order: 5
   versions: [v1]
-  minor_versions:
-    - v1.11
-    - v1.10
-    - v1.9
-    - v1.8
-    - v1.7
   latest: v1.11
   latest_patches:
-    v1: 1.11.6
+    v1: 1.11.8
 
 flux:
   name: Flux

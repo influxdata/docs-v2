@@ -36,6 +36,7 @@ services:
       - local
       - lint
   cloud-pytest:
+    container_name: cloud-pytest
     image: influxdata/docs-pytest
     build:
       context: .
@@ -85,6 +86,7 @@ services:
         target: /app/content
     working_dir: /app
   cloud-dedicated-pytest:
+    container_name: cloud-dedicated-pytest
     image: influxdata/docs-pytest
     build:
       context: .
@@ -139,6 +141,7 @@ services:
         target: /app/content
     working_dir: /app
   cloud-serverless-pytest:
+    container_name: cloud-serverless-pytest
     image: influxdata/docs-pytest
     build:
       context: .
@@ -188,6 +191,7 @@ services:
         target: /app/content
     working_dir: /app
   clustered-pytest:
+    container_name: clustered-pytest
     image: influxdata/docs-pytest
     build:
       context: .
@@ -242,6 +246,7 @@ services:
         target: /app/content
     working_dir: /app
   telegraf-pytest:
+    container_name: telegraf-pytest
     image: influxdata/docs-pytest
     build:
       context: .
@@ -290,6 +295,7 @@ services:
         target: /app/content
     working_dir: /app
   v2-pytest:
+    container_name: v2-pytest
     image: influxdata/docs-pytest
     build:
       context: .
@@ -339,6 +345,7 @@ services:
         target: /app/content
     working_dir: /app
   influxdb2:
+    container_name: influxdb2
     image: influxdb:2
     ports:
       - 8086:8086
@@ -366,10 +373,10 @@ services:
         source: influxdb2-config
         target: /etc/influxdb2
   remark-lint:
+    container_name: remark-lint
     build:
       context: . 
       dockerfile: .ci/Dockerfile.remark
-    command: ["remark", "${CONTENT_PATH}"]
     profiles:
       - lint
     volumes:

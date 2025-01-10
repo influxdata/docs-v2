@@ -128,7 +128,7 @@ influxctl database create \
 Replace the following in your command:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
-- {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag]((/influxdb/cloud-dedicated/reference/glossary/#tag)) keys from your data
+- {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag](/influxdb/cloud-dedicated/reference/glossary/#tag) keys from your data
 
 ## Database attributes
 
@@ -194,14 +194,6 @@ flags to define partition template parts used to generate partition keys for the
 
 For more information, see [Manage data partitioning](/influxdb/cloud-dedicated/admin/custom-partitions/).
 
-{{% note %}}
-
-#### Partition templates can only be applied on create
-
-You can only apply a partition template when creating a database.
-You can't update a partition template on an existing database.
-{{% /note %}}
-
 <!-------------------------------- END INFLUXCTL ------------------------------>
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -235,7 +227,7 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
     to use in the partition template. Limit is 7 total tags or tag buckets.
    - _Optional_: [InfluxDB tag buckets](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
     to use in the partition template. Limit is 7 total tags or tag buckets.
-   - _Optional_: A [Rust strftime date and time string](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
+   - _Optional_: A supported [Rust strftime date and time string](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
     that specifies the time format in the partition template and determines
     the time interval to partition by. Default is `%Y-%m-%d`.
    - Database name _(see [Database naming restrictions](#database-naming-restrictions))_.
@@ -302,7 +294,7 @@ Replace the following in your request:
 - {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the ID of the {{% product-name %}} [cluster](/influxdb/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
 - {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
-- {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag]((/influxdb/cloud-dedicated/reference/glossary/#tag)) keys from your data
+- {{% code-placeholder-key %}}`TAG_KEY_1`, `TAG_KEY_2`, `TAG_KEY_3`, and `TAG_KEY_4`{{% /code-placeholder-key %}}: [tag](/influxdb/cloud-dedicated/reference/glossary/#tag) keys from your data
 
 ## Database attributes
 
@@ -341,21 +333,23 @@ format in the InfluxDB v3 storage engine. By default, data is partitioned by day
 but, depending on your schema and workload, customizing the partitioning
 strategy can improve query performance.
 
-Use the [`partitionTemplate`](/influxdb/cloud-dedicated/api/management/#operation/CreateClusterDatabase) property to define an array of partition template parts used to generate partition keys for the database.
+Use the [`partitionTemplate`](/influxdb/cloud-dedicated/api/management/#operation/CreateClusterDatabase)
+property to define an array of partition template parts used to generate
+partition keys for the database.
 
 For more information, see [Manage data partitioning](/influxdb/cloud-dedicated/admin/custom-partitions/).
 
-{{% note %}}
+<!------------------------------- END cURL ------------------------------------>
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+{{% warn %}}
 
 #### Partition templates can only be applied on create
 
 You can only apply a partition template when creating a database.
 You can't update a partition template on an existing database.
-{{% /note %}}
-
-<!------------------------------- END cURL ------------------------------------>
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
+{{% /warn %}}
 
 ### Database naming restrictions
 

@@ -10,7 +10,7 @@ menu:
 weight: 101
 influxdb/clustered/tags: [licensing]
 related:
-  - /influxdb/clustered/install/licensing/
+  - /influxdb/clustered/install/set-up-cluster/licensing/
   - /influxdb/clustered/admin/upgrade/
 ---
 
@@ -18,6 +18,10 @@ Install and manage your InfluxDB Clustered license to authorize the use of
 the InfluxDB Clustered software.
 
 - [Install your InfluxDB license](#install-your-influxdb-license)
+- [Verify your license](#verify-your-license)
+  - [Verify database components](#verify-database-components)
+  - [Verify the Secret exists ](#verify-the-secret-exists)
+  - [View license controller logs](#view-license-controller-logs)
 - [Recover from a license misconfiguration](#recover-from-a-license-misconfiguration)
 - [Renew your license](#renew-your-license)
 - [License enforcement](#license-enforcement)
@@ -27,27 +31,13 @@ the InfluxDB Clustered software.
     - [License expiry logs](#license-expiry-logs)
     - [Query brownout](#query-brownout)
 
-{{% note %}}
-#### License enforcement is currently an opt-in feature
-
-In currently available versions of InfluxDB Clustered, license enforcement is an
-opt-in feature that allows InfluxData to introduce license enforcement to
-customers, and allows customers to deactivate the feature if issues arise.
-In the future, all releases of InfluxDB Clustered will require customers to
-configure an active license before they can use the product.
-
-To opt into license enforcement, include the `useLicensedBinaries` feature flag
-in your `AppInstance` resource _([See the example below](#enable-feature-flag))_.
-To deactivate license enforcement, remove the `useLicensedBinaries` feature flag.
-{{% /note %}}
-
 ## Install your InfluxDB license
 
 {{% note %}}
 If setting up an InfluxDB Clustered deployment for the first time, first
-[set up the prerequisites](/influxdb/clustered/install/licensing/) and
-[configure your cluster](/influxdb/clustered/install/configure-cluster/).
-After your InfluxDB namespace is created and prepared, you will be able to
+[set up the prerequisites](/influxdb/clustered/install/set-up-cluster/licensing/) and
+[configure your cluster](/influxdb/clustered/install/set-up-cluster/configure-cluster/).
+After your InfluxDB namespace is created and prepared, you can 
 install your license.
 {{% /note %}}
 
@@ -64,30 +54,77 @@ install your license.
     kubectl apply --filename license.yml --namespace influxdb
     ```
 
-4.  <span id="enable-feature-flag"></span>
-    Update your `AppInstance` resource to include the `useLicensedBinaries` feature flag.
-    Add the `useLicensedBinaries` entry to the `.spec.package.spec.featureFlags`
-    property--for example:
-
-    ```yml
-    apiVersion: kubecfg.dev/v1alpha1
-    kind: AppInstance
-    # ...
-    spec:
-      package:
-        spec:
-          featureFlags:
-            - useLicensedBinaries
-    ```
-
 InfluxDB Clustered detects the `License` resource and extracts the credentials
 into a secret required by InfluxDB Clustered Kubernetes pods.
 Pods validate the license secret both at startup and periodically (roughly once
 per hour) while running.
 
+## Verify your license
+
+After you have activated your license, use the following signals to verify the
+license is active and functioning.
+
+In your commands, replace the following:
+
+- {{% code-placeholder-key %}}`NAMESPACE`{{% /code-placeholder-key %}}:
+  your [InfluxDB namespace](/influxdb/clustered/install/set-up-cluster/configure-cluster/#create-a-namespace-for-influxdb)
+- {{% code-placeholder-key %}}`POD_NAME`{{% /code-placeholder-key %}}:
+  your [InfluxDB Kubernetes pod](/influxdb/clustered/install/set-up-cluster/deploy/#inspect-cluster-pods)
+
+### Verify database components
+
+After you [install your license](#install-your-influxdb-license),
+run the following command to check that database pods start up and are in the
+`Running` state:
+
+<!--pytest.mark.skip-->
+
+```bash
+kubectl get pods -l app=iox --namespace influxdb
+```
+
+If a `Pod` fails to start, run the following command to view pod information:
+
+<!--pytest.mark.skip-->
+
+{{% code-placeholders "POD_NAME" %}}
+
+```sh
+kubectl describe pod POD_NAME --namespace influxdb
+```
+
+{{% /code-placeholders %}}
+
+### Verify the `Secret` exists 
+
+Run the following command to verify that the licensing activation created a
+`iox-license` secret:
+
+<!--pytest.mark.skip-->
+
+```sh
+kubectl get secret iox-license --namespace influxdb
+```
+
+If the secret doesn't exist,
+[view `license-controller` logs](#view-license-controller-logs) for more
+information or errors.
+
+### View `license controller` logs
+
+The `license controller` component creates a `Secret` named `iox-license` from
+your `License`. To view `license controller` logs for troubleshooting, run the
+following command:
+
+<!--pytest.mark.skip-->
+
+```sh
+kubectl logs deployment/license-controller --namespace influxdb
+```
+
 ## Recover from a license misconfiguration
 
-If you deploy a licensed release of InfluxDB Clustered with an invalid or
+If you deploy a licensed release of {{% product-name %}} with an invalid or
 expired license, many of the pods in your cluster will crash on startup and will
 likely enter a `CrashLoopBackoff` state without ever running or becoming healthy.
 Because InfluxDB stores the license in a volume-mounted Kubernetes secret, invalid
@@ -115,7 +152,6 @@ license enforcement.
 
 ### A valid license is required
 
-_When you include the `useLicensedBinaries` feature flag_,
 Kubernetes pods running in your InfluxDB cluster must have a valid `License`
 resource to run. Licenses are issued by InfluxData. If there is no `License`
 resource installed in your cluster, one of two things may happen:

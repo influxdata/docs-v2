@@ -1,5 +1,5 @@
 ---
-title: InfluxDB v2 API
+title: InfluxDB HTTP API
 description: >
   The InfluxDB HTTP API provides a programmatic interface for interactions with InfluxDB, such as writing and querying data,
   and managing resources within an InfluxDB instance.
@@ -7,13 +7,17 @@ description: >
 menu:
   influxdb_v2:
     parent: Reference
+    name: InfluxDB HTTP API
 weight: 3
 influxdb/v2/tags: [api]
 aliases:
   - /influxdb/v2/concepts/api/
+related:
+  - /influxdb/v2/api-guide/api_intro/
+  - /influxdb/v2/api-guide/influxdb-1x/
 ---
 
-The InfluxDB v2 API provides a programmatic interface for interactions such as writing and querying data, and managing resources in {{% product-name %}}.
+The InfluxDB HTTP API provides a programmatic interface for interactions such as writing and querying data, and managing resources in {{% product-name %}}.
 
 Access the InfluxDB HTTP API using the `/api/v2/` endpoint or InfluxDB v1 endpoints
 for {{% product-name %}}
@@ -37,6 +41,6 @@ and visit the `/docs` endpoint in a browser ([localhost:8086/docs](http://localh
 
 <a class="btn" href="/influxdb/v2/api/v1-compatibility/">InfluxDB v1 API for {{% product-name %}}</a>
 
-The InfluxDB HTTP API includes [InfluxDB v1 compatibility endpoints](/influxdb/v2/reference/api/influxdb-1x/)
+The InfluxDB HTTP API includes InfluxDB v1 compatibility endpoints
 that work with InfluxDB 1.x client libraries and third-party integrations like
 [Grafana](https://grafana.com) and others.

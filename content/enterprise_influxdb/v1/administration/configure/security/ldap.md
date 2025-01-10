@@ -175,6 +175,21 @@ enabled = true
   # Finally, "none" does not use TLS. This is not recommended for
   # production systems.
   security = "starttls"
+  
+  # Client certificates to present to the LDAP server are supported with
+  # "client-tls-certificate" and  "client-tls-private-key" configurations.
+  # These are paths to the X.509 client certificate and corresponding private
+  # key, respectively. If "client-tls-certificate" is set but 
+  # "client-tls-private-key" is not, then "client-tls-certificate" is assumed
+  # to bundle both the certificate and private key.
+  # The LDAP server may request and require valid client certificates
+  # even when InfluxDB is configured with an insecure TLS mode that ignores
+  # LDAP server certificate errors.
+  # Not all LDAP servers will request a client certificate. It is not
+  # necessary to set "client-tls-certificate" and "client-tls-private-key"
+  # if the LDAP server does not require client certificates.
+  client-tls-certificate = "/var/run/secrets/ldapClient.pem"
+  client-tls-private-key = "/var/run/secrets/ldapClient.key"
 
   # Client certificates to present to the LDAP server are supported with
   # "client-tls-certificate" and  "client-tls-private-key" configurations.

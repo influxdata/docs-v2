@@ -15,44 +15,45 @@ related:
   - /influxdb/cloud-serverless/query-data/execute-queries/analyze-query-plan/
 aliases:
   - /influxdb/cloud-serverless/query-data/execute-queries/optimize-queries/
+  - /influxdb/cloud-serverless/query-data/optimize-queries/
 ---
 
 Optimize SQL and InfluxQL queries to improve performance and reduce their memory and compute (CPU) requirements.
 Learn how to use observability tools to analyze query execution and view metrics.
 
+> [!Note]
+>
+> #### Custom partitioning not supported
+> 
+> {{% product-name %}} doesn't support custom partitioning.
+> 
+> Custom partitioning can benefit queries that look for a specific tag value in the `WHERE` clause.
+> To use custom partitioning, consider [InfluxDB Cloud Dedicated](/influxdb/cloud-dedicated/admin/custom-partitions/)
+> or [InfluxDB Clustered](/influxdb/clustered/admin/custom-partitions/).
+
 - [Why is my query slow?](#why-is-my-query-slow)
 - [Strategies for improving query performance](#strategies-for-improving-query-performance)
   - [Query only the data you need](#query-only-the-data-you-need)
-- [Analyze and troubleshoot queries](#analyze-and-troubleshoot-queries)
+- [Recognize and address bottlenecks](#recognize-and-address-bottlenecks)
+
 
 ## Why is my query slow?
 
-Query performance depends on time range and complexity.
-If a query is slower than you expect, it might be due to the following reasons:
+Query performance depends on factors like the time range and query complexity.
+If a query is slower than expected, consider the following potential causes:
 
-- It queries data from a large time range.
-- It includes intensive operations, such as querying many string values or `ORDER BY` sorting or re-sorting large amounts of data.
+- The query spans a large time range, which increases the amount of data being processed.
+- The query performs intensive operations, such as:
+  - Sorting or re-sorting large datasets with `ORDER BY`.
+  - Querying many string values, which can be computationally expensive.
 
 ## Strategies for improving query performance
 
-The following design strategies generally improve query performance and resource use:
+The following design strategies generally improve query performance and resource usage:
 
-- Follow [schema design best practices](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/) to make querying easier and more performant.
-- [Query only the data you need](#query-only-the-data-you-need).
-- [Downsample data](/influxdb/cloud-dedicated/process-data/downsample/) to reduce the amount of data you need to query.
-
-Some bottlenecks may be out of your control and are the result of a suboptimal execution plan, such as:
-
-- Applying the same sort (`ORDER BY`) to already sorted data.
-- Retrieving many Parquet files from the Object store--the same query performs better if it retrieves fewer - though, larger - files.
-- Querying many overlapped Parquet files.
-- Performing a large number of table scans.
-
-{{% note %}}
-#### Analyze query plans to view metrics and recognize bottlenecks
-
-To view runtime metrics for a query, such as the number of files scanned, use the [`EXPLAIN ANALYZE` keywords](/influxdb/cloud-serverless/reference/sql/explain/#explain-analyze) and learn how to [analyze a query plan](/influxdb/cloud-serverless/query-data/troubleshoot-and-optimize/analyze-query-plan/).
-{{% /note %}}
+- Follow [schema design best practices](/influxdb/cloud-serverless/write-data/best-practices/schema-design/) to simplify and improve queries.
+- [Query only the data you need](#query-only-the-data-you-need) to reduce unnecessary processing.
+- [Downsample data](/influxdb/cloud-serverless/process-data/downsample/) to decrease the volume of data queried.
 
 ### Query only the data you need
 
@@ -61,7 +62,7 @@ To view runtime metrics for a query, such as the number of files scanned, use th
 InfluxDB v3 stores data in a Parquet file for each measurement and day, and
 retrieves files from the Object store to answer a query.
 To reduce the number of files that a query needs to retrieve from the Object store,
-include a [`WHERE` clause](/influxdb/cloud-dedicated/reference/sql/where/) that
+include a [`WHERE` clause](/influxdb/cloud-serverless/reference/sql/where/) that
 filters data by a time range.
 
 #### SELECT only columns you need 
@@ -82,15 +83,31 @@ two queries is minimal.
 In a table with over 1000 columns, the `SELECT *` query is slower and
 less efficient.
 
-## Analyze and troubleshoot queries
+## Recognize and address bottlenecks
 
-Use the following tools to analyze and troubleshoot queries and find performance bottlenecks:
+To identify performance bottlenecks, learn how to [analyze a query plan](/influxdb/cloud-serverless/query-data/troubleshoot-and-optimize/analyze-query-plan/).
+Query plans provide runtime metrics, such as the number of files scanned, that may reveal inefficiencies in query execution.
 
-- [Analyze a query plan](/influxdb/cloud-serverless/query-data/analyze-query-plan/)
-- [Enable trace logging for a query](#enable-trace-logging-for-a-query)
-
-### Enable trace logging for a query
-
-Customers with an {{% product-name %}} [annual or support contract](https://www.influxdata.com/influxdb-cloud-pricing/) can [contact InfluxData Support](https://support.influxdata.com/) to enable tracing and request help troubleshooting your query.
-With tracing enabled, InfluxData Support can trace system processes and analyze log information for a query instance.
-The tracing system follows the [OpenTelemetry traces](https://opentelemetry.io/docs/concepts/signals/traces/) model for providing observability into a request.
+> [!Note]
+>
+> #### Request help to troubleshoot queries
+>
+> Some bottlenecks may result from suboptimal query [execution plans](/influxdb/cloud-serverless/reference/internals/query-plan/#physical-plan) that are outside your control. Examples include:
+>
+> - Sorting (`ORDER BY`) data that is already sorted.
+> - Retrieving numerous small Parquet files from the object store instead of fewer, larger files.
+> - Querying many overlapped Parquet files.
+> - Performing a high number of table scans.
+>
+> If you've followed steps to [optimize](#why-is-my-query-slow) and
+> [troubleshoot a query](/influxdb/cloud-serverless/query-data/troubleshoot-and-optimize/troubleshoot/),
+> but it still doesn't meet performance requirements, request help troubleshooting.
+> Customers with an {{% product-name %}} [annual or support contract](https://www.influxdata.com/influxdb-cloud-pricing/)
+> can [contact InfluxData Support](https://support.influxdata.com/) for assistance.
+> 
+> #### Query trace logging
+>
+> Customers with an {{% product-name %}} [annual or support contract](https://www.influxdata.com/influxdb-cloud-pricing/) can [contact InfluxData Support](https://support.influxdata.com/) to enable tracing for queries.
+> With tracing enabled, InfluxData Support can analyze system processes and logs for specific query instances. 
+>
+> The tracing system uses the [OpenTelemetry traces](https://opentelemetry.io/docs/concepts/signals/traces/) model to provide observability into requests and identify performance bottlenecks.

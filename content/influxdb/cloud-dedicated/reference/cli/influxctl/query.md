@@ -420,7 +420,7 @@ Querying system tables can impact the overall performance of your
 InfluxDB's stable API and are subject to change.
 {{% /warn %}}
 
-{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
+{{% code-placeholders "DATABASE_(TOKEN|NAME)|TABLE_NAME" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -435,7 +435,7 @@ influxctl query \
   --enable-system-tables \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
-  "SELECT * FROM system.tables"
+  "SELECT * FROM system.tables WHERE table_name = 'TABLE_NAME'"
 ```
 {{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}

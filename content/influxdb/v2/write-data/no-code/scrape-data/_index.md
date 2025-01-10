@@ -21,10 +21,8 @@ then write the scraped data to an InfluxDB bucket.
 Scrapers can collect data from any HTTP(S)-accessible endpoint that provides data
 in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
-{{% cloud %}}
-Scrapers are not available in InfluxDB Cloud.
-{{% /cloud %}}
-
+> [!Important]
+> Scrapers are not available in InfluxDB Cloud.
 
 The following articles provide information about creating and managing InfluxDB data scrapers:
 

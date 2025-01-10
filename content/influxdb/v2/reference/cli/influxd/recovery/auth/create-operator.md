@@ -35,7 +35,7 @@ influxd recovery auth create-operator [flags]
 
 ##### Generate a new operator token
 ```sh
-influxd \
+influxd recovery auth create-operator \
   --org example-org \
   --username example-user
 ```

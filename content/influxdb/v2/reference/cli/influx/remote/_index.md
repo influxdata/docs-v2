@@ -12,9 +12,11 @@ related:
   - /influxdb/v2/write-data/replication
 ---
 
-{{% cloud %}}
-Configure InfluxDB Edge Data Replication remotes and replication streams to replicate data from InfluxDB OSS to remote buckets on InfluxDB Cloud, InfluxDB Enterprise, or another InfluxDB OSS instance. Currently, you cannot configure remotes and replication streams on InfluxDB Cloud.
-{{% /cloud %}}
+> [!Important]
+> Configure InfluxDB Edge Data Replication remotes and replication streams to
+> replicate data from InfluxDB OSS to remote buckets on InfluxDB Cloud, InfluxDB
+> Enterprise, or another InfluxDB OSS instance. Currently, you cannot configure
+> remotes and replication streams on InfluxDB Cloud.
 
 Use the `influx remote` command to manage connections to remote instances of InfluxDB.
 Remote connections are used to replicate data on write at the bucket level.

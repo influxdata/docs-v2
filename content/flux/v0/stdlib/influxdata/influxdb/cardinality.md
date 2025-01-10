@@ -1,7 +1,7 @@
 ---
 title: influxdb.cardinality() function
 description: >
-  `influxdb.cardinality()` returns the series cardinality of data stored in InfluxDB.
+  `influxdb.cardinality()` returns the series cardinality of data retrieved from InfluxDB.
 menu:
   flux_v0_ref:
     name: influxdb.cardinality
@@ -28,8 +28,15 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`influxdb.cardinality()` returns the series cardinality of data stored in InfluxDB.
+`influxdb.cardinality()` returns the series cardinality of data retrieved from InfluxDB.
 
+
+{{% note %}}
+Although this function is similar to InfluxQL's [`SHOW SERIES CARDINALITY`](/influxdb/v1/query_language/spec/#show-series-cardinality),
+it works in a slightly different manner.
+
+`influxdb.cardinality()` is time bounded and reports the cardinality of data that matches the conditions passed into it rather than that of the bucket as a whole.
+{{% /note %}}
 
 
 ##### Function type signature
@@ -107,6 +114,12 @@ The cardinality calculation excludes points that match the specified start time.
 Use a relative duration or absolute time. For example, `-1h` or `2019-08-28T22:00:00Z`.
 Durations are relative to `now()`. Default is `now()`.
 
+{{% note %}}
+The default value is `now()`, so any points that have been written into the future will
+not be counted unless a future `stop` date is provided.
+{{% /note %}}
+
+
 ### predicate
 
 Predicate function that filters records.
@@ -120,15 +133,17 @@ Default is `(r) => true`.
 - [Query series cardinality in a bucket](#query-series-cardinality-in-a-bucket)
 - [Query series cardinality in a measurement//](#query-series-cardinality-in-a-measurement)
 - [Query series cardinality for a specific tag](#query-series-cardinality-for-a-specific-tag)
+- [Query series cardinality of Data Written In the Last 4 Hours](#query-series-cardinality-of-data-written-in-the-last-4-hours)
 
 ### Query series cardinality in a bucket
 
 ```js
 import "influxdata/influxdb"
 
-influxdb.cardinality(bucket: "example-bucket", start: -1y)
+influxdb.cardinality(bucket: "example-bucket", start: time(v: 1))
 
 ```
+Note: if points have been written into the future, you will need to add an appropriate `stop` date
 
 
 ### Query series cardinality in a measurement//
@@ -138,7 +153,7 @@ import "influxdata/influxdb"
 
 influxdb.cardinality(
     bucket: "example-bucket",
-    start: -1y,
+    start: time(v: 1),
     predicate: (r) => r._measurement == "example-measurement",
 )
 
@@ -150,7 +165,16 @@ influxdb.cardinality(
 ```js
 import "influxdata/influxdb"
 
-influxdb.cardinality(bucket: "example-bucket", start: -1y, predicate: (r) => r.exampleTag == "foo")
+influxdb.cardinality(bucket: "example-bucket", start: time(v: 1), predicate: (r) => r.exampleTag == "foo")
+
+```
+
+
+### Query Cardinality of Data Written In the Last 4 hours
+```js
+import "influxdata/influxdb"
+
+influxdb.cardinality(bucket: "example-bucket", start: -4h)
 
 ```
 

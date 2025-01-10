@@ -804,7 +804,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       "fmt"
       "log"
 
-      "github.com/InfluxCommunity/influxdb3-go/influxdb3"
+      "github.com/InfluxCommunity/influxdb3-go/v2/influxdb3"
     )
 
     // Write line protocol data to InfluxDB

@@ -1,0 +1,108 @@
+.note {
+  &:before {
+    content: "N";
+    color: #fff;
+    background: $article-note-base;
+  }
+}
+
+.note {
+  border-color: $article-note-base;
+  background: rgba($article-note-base, .1);
+  h1,h2,h3,h4,h5,h6 {
+    color: $article-note-heading;
+    a {
+      color: inherit !important;
+      &:hover{color: inherit !important}
+    }
+  }
+  p, li {
+    color: $article-note-text;
+  }
+  strong {
+    color: $article-note-strong;
+  }
+  a {
+    color: $article-note-link;
+    code:after {
+      border-color: transparent rgba($article-note-code, .35) transparent transparent;
+    }
+    &:hover {
+      color: $article-note-link-hover;
+      code:after {
+        border-color: transparent $article-note-link-hover transparent transparent;
+      }
+    }
+  }
+  ol li:before {
+    color: $article-note-text;
+  }
+  code, pre{
+    color: $article-note-code;
+    background: $article-note-code-bg;
+  }
+  img {
+    box-shadow: 1px 3px 10px $article-note-shadow;
+  }
+  table{
+    color: $article-note-text;
+    box-shadow: 1px 3px 10px $article-note-shadow;
+    thead{
+      @include gradient($article-note-table-header);
+    }
+    tr:nth-child(even) td {
+      background: $article-note-table-row-alt;
+    }
+  }
+  blockquote {
+    border-color: rgba($article-note-text, .25);
+    p { color: rgba($article-note-text, .6); }
+  }
+  .code-tabs-wrapper .code-tabs a {
+    background: transparent;
+    color: rgba($article-note-text, .5);
+    &:hover { color: rgba($article-note-text, 1); }
+    &.is-active {
+      color: rgba($article-note-text, 1);
+      background: $article-note-code-bg};
+  }
+  hr, .expand {
+    border-color: rgba($article-note-base, .4) !important;
+  }
+
+  ///////////////////////////////// Scrollbars /////////////////////////////////
+  pre   { @include scrollbar($article-note-code-bg, $article-note-code-scrollbar); }
+  table { @include scrollbar($article-note-table-row-alt, $article-note-table-scrollbar); }
+
+  ///////////////////////////// Syntax Highlighting ////////////////////////////
+  .highlight  {
+		color: $article-note-code;
+
+		.gh,.go,.na,.nt,.nv,.ow
+			{ color: $article-note-code }
+		.c,.ch,.cm,.cpf,.c1, .cs,.w
+			{ color: $article-note-code-accent1; }
+		.gi
+			{ background-color: $article-note-code-accent1; }
+		.k,.kc,.kd,.kn,.kp,.kr,.nn
+			{ color: $article-note-code-accent2; }
+		.bp,.cp,.dl,.gt,.gu,.kt,.nb,.nc,.no,.sa,.sb,.sc,.sd,.se,.sh,.sx,.sr,.s1,.s2
+			{	color: $article-note-code-accent3 }
+		.err,.fm,.gr,.gd,.nd,.ne,.nf,.nl,.si
+			{ color: $article-note-code-accent4 }
+		.m,.ni,.mb,.mf,.mh,.mi,.mo,.vc,.vg,.vi,.vm,.il
+			{	color: $article-note-code-accent5 }
+		.gp,.o
+			{ color: $article-note-code-accent6	}
+		.ss
+			{ color: $article-note-code-accent7 }
+    // Javascript / Flux specific styles (duration and time values)
+    .language-js {
+      .mi + .nx, .mf + .nx { color: $article-note-code-accent5; }
+    }
+    // SQL / InfluxQL specific styles (duration values)
+    .language-sql {
+      .mi + .n { color: $article-note-code-accent5; }
+    }
+	}
+}

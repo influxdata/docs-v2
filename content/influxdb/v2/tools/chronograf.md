@@ -62,9 +62,9 @@ For information, see [DBRP mapping](/influxdb/v2/reference/api/influxdb-1x/dbrp/
 
 ## Important notes
 
-- [Update upgraded InfluxDB connections](#Update-upgraded-InfluxDB-connections)
-- [No administrative functionality](#No-administrative-functionality)
-- [Limited InfluxQL support](#Limited-InfluxQL-support)
+- [Update upgraded InfluxDB connections](#update-upgraded-influxdb-connections)
+- [No administrative functionality](#no-administrative-functionality)
+- [Limited InfluxQL support](#limited-influxql-support)
 
 ### Update upgraded InfluxDB connections
 If using Chronograf with an InfluxDB instance that was upgraded from 1.x

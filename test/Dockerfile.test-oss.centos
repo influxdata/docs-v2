@@ -1,0 +1,47 @@
+# Description: Dockerfile for testing installation of InfluxDB and clients on CentOS Stream 9.
+
+# Example build command:
+#  docker buildx build -t influxdatadocs/oss-centos --file test/Dockerfile.test-oss.centos .
+
+# Example run command--logs are stored in the volume `influxdatadocs-oss-centos-log`:
+#  docker run --rm --mount type=volume,src=influxdatadocs-oss-centos-log,dst=/var/log/ influxdatadocs/oss-centos
+
+FROM dokken/centos-stream-9:latest AS influxdb
+LABEL name="test-oss-centos"
+LABEL description="InfluxData Docs Test OSS install on CentOS"
+
+LABEL "com.influxdata.docs"="https://docs.influxdata.com/influxdb/v2/install/?t=Linux"
+
+ARG INFLUXDB_LATEST_PATCH=2.7.10
+ARG TELEGRAF_LATEST_PATCH=1.32.3
+ARG PUBLIC_SHA=943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515
+# ARG basearch=aarch64
+
+# Install InfluxDB keys to verify client installs.
+
+RUN curl --silent --location -O \
+  https://repos.influxdata.com/influxdata-archive.key \
+  && echo "${PUBLIC_SHA} influxdata-archive.key" \
+  | sha256sum -c && cat influxdata-archive.key \
+  | gpg --dearmor \
+  | tee /etc/pki/rpm-gpg/RPM-GPG-KEY-influxdata > /dev/null
+
+# Follow the documentation to add the InfluxData repository to the list of repositories.
+RUN cat <<EOF | tee /etc/yum.repos.d/influxdata.repo
+[influxdata]
+name = InfluxData Repository - Stable
+baseurl = https://repos.influxdata.com/stable/\$basearch/main
+enabled = 1
+gpgcheck = 1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-influxdata
+EOF
+
+# Install InfluxDB and clients to use in tests.
+
+# Follow the Telegraf install instructions (https://docs.influxdata.com/telegraf/v1/install/?t=curl), except for sudo (which isn't available in Docker).
+RUN yum install -y influxdb2 influxdb2-cli telegraf-${TELEGRAF_LATEST_PATCH} \
+  && yum clean all
+
+ENTRYPOINT ["/bin/bash"]
+# Run InfluxDB in the background, wait for it to start, and then test Telegraf.
+CMD ["-c", "influxd > /var/log/influxd.log 2>&1 & while ! curl -s http://localhost:8086/health | grep -q '\"status\":\"pass\"'; do sleep 1; done; telegraf --config /etc/telegraf/telegraf.conf --test"]

@@ -835,7 +835,7 @@ To write data to {{% product-name %}} using Go, use the InfluxDB v3
       "fmt"
       "log"
 
-      "github.com/InfluxCommunity/influxdb3-go/influxdb3"
+      "github.com/InfluxCommunity/influxdb3-go/v2/influxdb3"
     )
 
     // Write line protocol data to InfluxDB

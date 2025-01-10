@@ -8,11 +8,10 @@ menu:
     name: Operators
     parent: SQL reference
 weight: 211
+
+source: /content/shared/sql-reference/operators/_index.md
 ---
 
-SQL operators are reserved words or characters which perform certain operations,
-including comparisons and arithmetic.
-
-{{< children type="anchored-list" >}}
-
-{{< children hlevel="h2" >}}
+<!-- 
+The content of this page is at /content/shared/sql-reference/operators/_index.md
+-->

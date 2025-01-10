@@ -1,4 +1,4 @@
-////////////////// Blockquotes, Notes, Warnings, & Messages //////////////////
+///////////////////////// Blockquotes and Alert Blocks /////////////////////////
 
 blockquote,
 .block, {
@@ -20,7 +20,39 @@ blockquote,
   & > h6 {
     &:first-child {margin-top: 0; padding-top: 0.25em;}
   }
+
+  &.note,
+  &.tip,
+  &.important,
+  &.warning, &.warn,
+  &.caution {
+    position: relative;
+    &:before {
+      position: absolute;
+      font-family: "alert-icons";
+      font-size: 1em;
+      line-height: 1em;
+      padding: .3rem;
+      text-align: center;
+      top: -.5rem;
+      left: -.95rem;
+      display: block;
+      border-radius: 50%;
+      box-shadow: 1px 3px 5px rgba($article-shadow, .5);
+    }
+  }
 }
+
+h2, h3, h4, h5, h6 {
+  & + .note,
+  & + .tip,
+  & + .important,
+  & + .warning,
+  & + .caution {
+    margin-top: 1.25rem;
+  }
+}
+
 
 blockquote {
   padding: 1rem 1rem 1rem 1.25rem;
@@ -59,3 +91,9 @@ blockquote {
     margin: .5rem 0 1rem;
   }
 }
+
+@import "blocks/note",
+  "blocks/tip",
+  "blocks/important",
+  "blocks/warning",
+  "blocks/caution";
