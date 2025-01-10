@@ -65,7 +65,7 @@ updated timestamp.
 ## Query time range
 
 To specify the time range of a query, use conditional expressions in the
-[`WHERE` clause](/influxdb/cloud-dedicated/reference/influxql/where/) that
+[`WHERE` clause](/influxdb/version/reference/influxql/where/) that
 compare the value of the `time` column to an absolute timestamp or a relative
 timestamp.
 
