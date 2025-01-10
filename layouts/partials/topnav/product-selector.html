@@ -23,6 +23,7 @@
 {{ $clusteredInfo := dict $.Site.Data.products.influxdb3_clustered.name (dict "path" "influxdb3/clustered" "key" "clustered") }}
 {{ $influxdbInfo := merge $ossInfo $coreInfo $enterpriseInfo $cloudInfo $serverlessInfo $dedicatedInfo $clusteredInfo }}
 
+{{ $productPathData }}
 <div class="dropdown">
   {{ if or (eq $product nil) (eq $product "platform") (eq $product "resources") }}
     <p class="selected">Select product</p>
