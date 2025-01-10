@@ -26,8 +26,6 @@ blackfriday:
 
 taxonomies:
   influxdb/v2/tag: influxdb/v2/tags
-  influxdb/v3/tags: influxdb/v3/tags
-  influxdb/pro/tags: influxdb/pro/tags
   influxdb/cloud/tag: influxdb/cloud/tags
   influxdb3/cloud-serverless/tag: influxdb/cloud-serverless/tags
   influxdb/cloud-dedicated/tag: influxdb/cloud-dedicated/tags

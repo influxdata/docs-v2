@@ -59,7 +59,6 @@ influxdb:
   list_order: 1
   placeholder_host: localhost:8086
   versions:
-    - v3
     - v2
     - v1
   latest: v2.7
