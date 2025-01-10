@@ -48,8 +48,8 @@ $product-enterprise: $br-pulsar !default;
 
 // Article Content
 $article-bg: $g20-white !default;
-$article-heading: $br-pulsar !default;
-$article-heading-alt: $g5-pepper !default;
+$article-heading: $br-dark-blue !default;
+$article-heading-alt: $br-new-purple !default;
 $article-text: $br-dark-blue !default;
 $article-bold: $br-dark-blue !default;
 $article-link: $b-pool !default;
@@ -259,7 +259,3 @@ $diagram-arrow: $g14-chromium !default;
 // Code placeholder colors
 $code-placeholder: $br-new-magenta !default;
 $code-placeholder-hover: $br-new-purple !default;
-
-@import "light/telegraf",
-        "light/chronograf",
-        "light/kapacitor";

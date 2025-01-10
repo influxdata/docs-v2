@@ -1,12 +1,9 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
-{{ $latestV2 := .Site.Data.products.influxdb.latest }}
-{{ .Scratch.Set "product" (index $productPathData 0) }}
-{{ if in (.Scratch.Get "product") "influxdb" }}
-  {{ .Scratch.Set "product" "influxdb" }}
-{{ end }}
-
-{{ $product := .Scratch.Get "product" }}
-{{ $productName := (index .Site.Data.products $product).name }}
+{{ $product := index $productPathData 0 }}
+{{ $version := index $productPathData 1 }}
+{{ $productKey := cond (eq $product "influxdb3") (print "influxdb3_" (replaceRE "-" "_" $version)) $product }}
+{{ $productNamespace := cond (eq $product "influxdb3") "influxdb" $product }}
+{{ $productName := (index .Site.Data.products $productKey).name }}
 {{ $supportBlacklist := slice "chronograf" "kapacitor" }}
 
 {{ if .File }}
@@ -19,7 +16,7 @@
 {{ else }}
   {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/") }}
 {{ end }}
-{{ .Scratch.Set "productGithubLink" (print "https://github.com/influxdata/" $product "/issues/new/choose/") }}
+{{ .Scratch.Set "productGithubLink" (print "https://github.com/influxdata/" $productNamespace "/issues/new/choose/") }}
 {{ $pageGithubLink := .Scratch.Get "pageGithubLink" }}
 {{ $productGithubLink := .Scratch.Get "productGithubLink" }}
 

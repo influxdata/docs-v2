@@ -6,9 +6,9 @@ menu:
     parent: Telegraf (agent)
 weight: 201
 alt_links:
-  cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/dual-write/
-  cloud-dedicated: /influxdb/cloud-dedicated/write-data/use-telegraf/dual-write/
-  clustered: /influxdb/clustered/write-data/use-telegraf/dual-write/
+  cloud-serverless: /influxdb3/cloud-serverless/write-data/use-telegraf/dual-write/
+  cloud-dedicated: /influxdb3/cloud-dedicated/write-data/use-telegraf/dual-write/
+  clustered: /influxdb3/clustered/write-data/use-telegraf/dual-write/
 ---
 
 {{< duplicate-oss >}}

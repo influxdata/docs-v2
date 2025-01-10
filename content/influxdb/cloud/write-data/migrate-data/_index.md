@@ -10,9 +10,9 @@ weight: 106
 aliases:
   - /influxdb/cloud/migrate-data/
 alt_links:
-  cloud-serverless: /influxdb/cloud-serverless/write-data/migrate-data/
-  cloud-dedicated: /influxdb/cloud-dedicated/write-data/migrate-data/
-  clustered: /influxdb/clustered/write-data/migrate-data/
+  cloud-serverless: /influxdb3/cloud-serverless/write-data/migrate-data/
+  cloud-dedicated: /influxdb3/cloud-dedicated/write-data/migrate-data/
+  clustered: /influxdb3/clustered/write-data/migrate-data/
 ---
 
 Migrate data to InfluxDB from other InfluxDB instances including by InfluxDB OSS

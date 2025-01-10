@@ -9,7 +9,7 @@ menu:
     parent: Input data formats
 ---
 
-Use the `influx` line protocol input data format to parse InfluxDB [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) data into Telegraf [metrics](/telegraf/v1/metrics/).
+Use the `influx` line protocol input data format to parse InfluxDB [line protocol](/influxdb3/cloud-serverless/reference/syntax/line-protocol/) data into Telegraf [metrics](/telegraf/v1/metrics/).
 
 ## Configuration
 
