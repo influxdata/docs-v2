@@ -21,7 +21,7 @@ query engine to more quickly identify what partitions contain the relevant data.
 
 Partitioning using distinct values of tags with many (10K+) unique values can
 actually hurt query performance as partitions are created for each unique tag value.
-Instead, use [tag buckets](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
+Instead, use [tag buckets](/influxdb/version/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
 to partition by high-cardinality tags.
 This method of partitioning groups tag values into "buckets" and partitions by bucket.
 {{% /note %}}
@@ -33,7 +33,7 @@ If points don't have a value for the tag, InfluxDB can't store them in the corre
 
 ## Avoid over-partitioning
 
-As you plan your partitioning strategy, keep in mind that over-partitioning your data can hurt query performance. If partitions are too granular, queries may need to retrieve and read many partitions from the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
+As you plan your partitioning strategy, keep in mind that over-partitioning your data can hurt query performance. If partitions are too granular, queries may need to retrieve and read many partitions from the [Object store](/influxdb/version/reference/internals/storage-engine/#object-store).
 
 - Balance the partition time interval with the actual amount of data written during each interval. If a single interval doesn't contain a lot of data, partition by larger time intervals.
 - Avoid partitioning by tags that you typically don't use in your query workload.
@@ -49,7 +49,7 @@ partition count.
 We currently recommend planning to keep the total partition count below 10,000.
 
 - [Estimate the total partition count](#estimate-the-total-partition-count) for the lifespan of your data
-- **Set a [database retention period](/influxdb/cloud-dedicated/admin/databases/#retention-period)**
+- **Set a [database retention period](/influxdb/version/admin/databases/#retention-period)**
   to prevent the number of partitions from growing unbounded
 - **Partition by month or year** to [avoid over-partitioning](#avoid-over-partitioning)
 - **Don't partition on high cardinality tags** unless you also use [tag buckets](#use-tag-buckets-for-high-cardinality-tags)
@@ -63,7 +63,7 @@ lifetime of the database (or retention period):
 total_partition_count = (cardinality_of_partitioned_tag) * (data_lifespan / partition_duration)
 ```
 
-- `total_partition_count`: The number of partition files in [Object storage](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-storage)
+- `total_partition_count`: The number of partition files in [Object storage](/influxdb/version/reference/internals/storage-engine/#object-storage)
 - `cardinality_of_partitioned_tag`: The number of distinct values for a tag
-- `data_lifespan`: The [database retention period](/influxdb/cloud-dedicated/admin/databases/#retention-period), if set, or the expected lifetime of the database
-- `partition_duration`: The partition time interval, defined by the [time part template](/influxdb/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
+- `data_lifespan`: The [database retention period](/influxdb/version/admin/databases/#retention-period), if set, or the expected lifetime of the database
+- `partition_duration`: The partition time interval, defined by the [time part template](/influxdb/version/admin/custom-partitions/partition-templates/#time-part-templates)

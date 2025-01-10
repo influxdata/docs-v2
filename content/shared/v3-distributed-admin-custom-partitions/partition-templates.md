@@ -1,13 +1,13 @@
 Use partition templates to define the patterns used to generate partition keys.
 A partition key uniquely identifies a partition and is used to name the partition
-Parquet file in the [Object store](/influxdb/cloud-dedicated/reference/internals/storage-engine/#object-store).
+Parquet file in the [Object store](/influxdb/version/reference/internals/storage-engine/#object-store).
 
 A partition template consists of 1-8 _template parts_---dimensions to partition data by.
 Three types of template parts exist:
 
-- **tag**: An [InfluxDB tag](/influxdb/cloud-dedicated/reference/glossary/#tag)
+- **tag**: An [InfluxDB tag](/influxdb/version/reference/glossary/#tag)
   to partition by.
-- **tag bucket**: An [InfluxDB tag](/influxdb/cloud-dedicated/reference/glossary/#tag)
+- **tag bucket**: An [InfluxDB tag](/influxdb/version/reference/glossary/#tag)
   and number of "buckets" to group tag values into. Data is partitioned by the
   tag bucket rather than each distinct tag value.
 - {{< req type="key" >}} **time**: A Rust strftime date and time string that specifies the time interval
