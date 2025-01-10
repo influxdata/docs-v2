@@ -70,16 +70,6 @@ influxdb:
   latest_cli:
     v2: 2.7.5
 
-influxdb_pro:
-  name: InfluxDB Pro
-  altname: InfluxDB Pro
-  namespace: influxdb
-  menu_category: self-managed
-  versions: [pro]
-  list_order: 2
-  latest: pro
-  placeholder_host: localhost:8181
-
 influxdb_cloud:
   name: InfluxDB Cloud (TSM)
   altname: InfluxDB Cloud
