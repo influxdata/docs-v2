@@ -12,6 +12,7 @@ menu:
 influxdb/cloud-dedicated/tags: [backups, internals]
 related:
   - https://docs.aws.amazon.com/AmazonS3/latest/userguide/DataDurability.html, AWS S3 Data Durabililty
+  - /influxdb/cloud-dedicated/reference/internals/storage-engine/
 ---
 
 {{< product-name >}} writes data to multiple Write-Ahead-Log (WAL) files on local
@@ -24,30 +25,25 @@ across a minimum of three availability zones in a cloud region.
 In {{< product-name >}}, all measurements are stored in
 [Apache Parquet](https://parquet.apache.org/) files that represent a
 point-in-time snapshot of the data. The Parquet files are immutable and are
-never replaced nor modified. Parquet files are stored in object storage.
-
-<span id="influxdb-catalog"></span>
-The _InfluxDB catalog_ is a relational, PostreSQL-compatible database that
-contains references to all Parquet files in object storage and is used as an
-index to find the appropriate Parquet files for a particular set of data.
+never replaced nor modified. Parquet files are stored in object storage and
+referenced in the [Catalog](/influxdb/cloud-dedicated/reference/internals/storage-engine/#catalog), which InfluxDB uses to find the appropriate Parquet files for a particular set of data.
 
 ### Data deletion
 
-When data is deleted or when the retention period is reached for data within
-a database, the associated Parquet files are marked as deleted _in the catalog_,
-but the actual Parquet files are _not removed from object storage_.
-All queries filter out data that has been marked as deleted.
-Parquet files remain in object storage for approximately 100 days after the
-youngest data in the Parquet file ages out of retention.
+When data is deleted or expires (reaches the database's [retention period](/influxdb/cloud-dedicated/reference/internals/data-retention/#database-retention-period)), InfluxDB performs the following steps:
+
+1. Marks the associated Parquet files as deleted in the catalog.
+2. Filters out data marked for deletion from all queries.
+3. Retains Parquet files marked for deletion in object storage for approximately 30 days after the youngest data in the file ages out of retention.
 
 ## Data ingest
 
-When data is written to {{< product-name >}}, the data is first written to a
-Write-Ahead-Log (WAL) on locally-attached storage on the ingester node before
-the write request is acknowledged. After acknowledging the write request, the
-ingester holds the data in memory temporarily and then writes the contents of
-the WAL to Parquet files in object storage and updates the InfluxDB catalog to
-reference the newly created Parquet files. If an ingester is gracefully shut
+When data is written to {{< product-name >}}, InfluxDB first writes the data to a
+Write-Ahead-Log (WAL) on locally attached storage on the [Ingester](/influxdb/cloud-dedicated/reference/internals/storage-engine/#ingester) node before
+acknowledging the write request. After acknowledging the write request, the
+Ingester holds the data in memory temporarily and then writes the contents of
+the WAL to Parquet files in object storage and updates the [Catalog](/influxdb/cloud-dedicated/reference/internals/storage-engine/#catalog) to
+reference the newly created Parquet files. If an Ingester node is gracefully shut
 down (for example, during a new software deployment), it flushes the contents of
 the WAL to the Parquet files before shutting down.
 
@@ -55,7 +51,7 @@ the WAL to the Parquet files before shutting down.
 
 {{< product-name >}} implements the following data backup strategies:
 
-- **Backup of WAL file**: The WAL file is written on locally-attached storage.
+- **Backup of WAL file**: The WAL file is written on locally attached storage.
   If an ingester process fails, the new ingester simply reads the WAL file on
   startup and continues normal operation. WAL files are maintained until their
   contents have been written to the Parquet files in object storage.
@@ -67,11 +63,11 @@ the WAL to the Parquet files before shutting down.
   they are redundantly stored on multiple devices across a minimum of three
   availability zones in a cloud region. Parquet files associated with each
   database are kept in object storage for the duration of database retention period
-  plus an additional time period (approximately 100 days).
+  plus an additional time period (approximately 30 days).
 
 - **Backup of catalog**: InfluxData keeps a transaction log of all recent updates
-  to the [InfluxDB catalog](#influxdb-catalog) and generates a daily backup of
-  the catalog. Backups are preserved for at least 100 days in object storage across a minimum
+  to the [InfluxDB catalog](/influxdb/cloud-dedicated/reference/internals/storage-engine/#catalog) and generates a daily backup of
+  the catalog. Backups are preserved for at least 30 days in object storage across a minimum
   of three availability zones.
 
 ## Recovery
@@ -84,6 +80,6 @@ InfluxData can perform the following recovery operations:
 - **Recovery of Parquet files**: {{< product-name >}} uses the provided object
   storage data durability to recover Parquet files.
 
-- **Recovery of the catalog**: InfluxData can restore the InfluxDB catalog to
-  the most recent daily backup of the catalog and then reapply any transactions
+- **Recovery of the catalog**: InfluxData can restore the [Catalog](/influxdb/cloud-dedicated/reference/internals/storage-engine/#catalog) to
+  the most recent daily backup and then reapply any transactions
   that occurred since the interruption.

@@ -22,8 +22,8 @@ are filtered out of query results, even though the data may still exist.
 ## Database retention period
 
 A **database retention period** is the duration of time that a database retains data.
-Retention periods are designed to automatically delete expired data and optimize
-storage without any user intervention.
+Retention periods automatically delete expired data and optimize
+storage without the need for user intervention.
 
 Retention periods can be as short as an hour or infinite.
 [Points](/influxdb/cloud-dedicated/reference/glossary/#point) in a database with
@@ -40,6 +40,6 @@ to view your databases' retention periods.
 ## When does data actually get deleted?
 
 InfluxDB routinely deletes [Parquet](https://parquet.apache.org/) files containing only expired data.
-InfluxDB retains expired Parquet files for approximately 100 days for disaster recovery.
-After the disaster recovery period, expired Parquet files are permanently deleted
-and can't be recovered.
+Expired Parquet files are retained for approximately 30 days for disaster recovery purposes.
+After this period, the files are permanently deleted and cannot be recovered.
+For more information see [data durability](/influxdb/cloud-dedicated/reference/internals/durability/).
