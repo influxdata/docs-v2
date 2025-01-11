@@ -42,10 +42,10 @@ Identify products by their product path. Dictionary schema:
 {{ $templateDefaults := dict "context" . "productInfo" $productInfo "altLinks" $altLinks "pageRoot" $pageRoot "useRootProductLink" $useRootProductLink }}
 
 <div class="product-list">
-  <div class="product-dropdown">
+  <div id="product-dropdown">
     <p class="selected">{{ index (index $productInfo $pageRoot) 0 | default "Select product" }}</p>
   </div>
-  <div class="dropdown-items">
+  <div id="dropdown-items">
     <div class="product-group">
       <div class="group-title"><p>InfluxDB 3</p></div>
       <ul class="item-list products" data-category="Self-managed">

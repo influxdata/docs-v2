@@ -59,7 +59,7 @@
   .product-list {
     position: relative;
 
-    .product-dropdown {
+    #product-dropdown {
       display: inline-block;
       width: 100%;
       color: $g20-white;
@@ -93,8 +93,9 @@
       }
     }
   
-    .dropdown-items {
+    #dropdown-items {
       opacity: 0;
+      height: 0;
       pointer-events: none;
       margin-top: -10px;
       transition: opacity .2s, margin-top .5s;
@@ -103,6 +104,7 @@
         opacity: 1;
         pointer-events: auto;
         margin-top: 0;
+        height: auto;
 
         .product-group {
           margin: 0 0 5px;
