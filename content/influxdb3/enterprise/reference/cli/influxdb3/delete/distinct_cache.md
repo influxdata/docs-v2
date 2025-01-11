@@ -1,32 +1,30 @@
 ---
-title: influxdb3 create meta_cache
+title: influxdb3 delete distinct_cache
 description: >
-  The `influxdb3 create meta_cache` command creates a new metadata cache.
+  The `influxdb3 delete distinct_cache` command deletes a distinct value cache.
 menu:
   influxdb3_enterprise:
-    parent: influxdb3 create
-    name: influxdb3 create meta_cache
+    parent: influxdb3 delete
+    name: influxdb3 delete distinct_cache
 weight: 400
 ---
 
-The `influxdb3 create meta_cache` command creates a new metadata cache.
+The `influxdb3 delete distinct_cache` command deletes a distinct value cache.
 
 ## Usage
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create meta_cache [OPTIONS] \
+influxdb3 delete distinct_cache [OPTIONS] \
   --database <DATABASE_NAME> \
   --table <TABLE> \
-  --columns <COLUMNS> \
   [CACHE_NAME]
 ```
 
 ## Arguments
 
-- **CACHE_NAME**: _(Optional)_ Name for the cache.
-  If not provided, the command automatically generates a name.
+- **CACHE_NAME**: _(Optional)_ Name of the cache to delete.
 
 ## Options
 
@@ -35,19 +33,8 @@ influxdb3 create meta_cache [OPTIONS] \
 | `-H`   | `--host`            | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                                                |
 | `-d`   | `--database`        | _({{< req >}})_ Name of the database to operate on                                                                                                                      |
 |        | `--token`           | Authentication token                                                                                                                                                    |
-| `-t`   | `--table`           | _({{< req >}})_ Table to create the cache for                                                                                                                           |
-|        | `--columns`         | _({{< req >}})_ Comma-separated list of columns to cache distinct values for--for example: `col1,col2,col3` (see [Metadata cache hierarchy](#metadata-cache-hierarchy)) |
-|        | `--max-cardinality` | Maximum number of distinct value combinations to hold in the cache                                                                                                      |
-|        | `--max-age`         | Maximum age of an entry in the cache entered as a human-readable duration--for example: `30d`, `24h`                                                                    |
+| `-t`   | `--table`           | _({{< req >}})_ Table to delete the cache for                                                                                                                           |
 | `-h`   | `--help`            | Print help information                                                                                                                                                  |
-
-> [!Important]
->
-> #### Metadata cache hierarchy
->
-> The metadata cache has a hierarchical structure with a level for each specified column.
-> The order specified in the `--columns` option determines the order of levels,
-> from top-to-bottom, of the cache hierarchy.
 
 ### Option environment variables
 
@@ -59,4 +46,28 @@ You can use the following environment variables to set command options:
 | `INFLUXDB3_DATABASE_NAME` | `--database` |
 | `INFLUXDB3_AUTH_TOKEN`    | `--token`    |
 
-<!-- TODO: GET EXAMPLES -->
+## Examples
+
+### Delete a distinct value cache
+
+{{% code-placeholders "(DATABASE|TABLE|CACHE)_NAME" %}}
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 delete distinct_cache \
+  --database DATABASE_NAME \
+  --table TABLE_NAME \
+  CACHE_NAME
+```
+
+{{% /code-placeholders %}}
+
+In the example above, replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
+  Database name
+- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
+  Table name
+- {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: 
+  Name of the distinct value cache to delete

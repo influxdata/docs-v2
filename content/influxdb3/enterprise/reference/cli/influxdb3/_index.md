@@ -22,17 +22,17 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 
 ## Commands
 
-| Command                                                                 | Description                         |
-| :---------------------------------------------------------------------- | :---------------------------------- |
-| [activate](/influxdb3/enterprise/reference/cli/influxdb3/activate/)     | Activate resources                  |
-| [create](/influxdb3/enterprise/reference/cli/influxdb3/create/)         | Create resources                    |
-| [deactivate](/influxdb3/enterprise/reference/cli/influxdb3/deactivate/) | Deactivate resources                |
-| [delete](/influxdb3/enterprise/reference/cli/influxdb3/delete/)         | Delete resources                    |
-| [query](/influxdb3/enterprise/reference/cli/influxdb3/query/)           | Query {{% product-name %}}          |
-| [serve](/influxdb3/enterprise/reference/cli/influxdb3/serve/)           | Run the {{% product-name %}} server |
-| [show](/influxdb3/enterprise/reference/cli/influxdb3/show/)             | List resources                      |
-| [test](/influxdb3/enterprise/reference/cli/influxdb3/test/)             | Test plugins                        |
-| [write](/influxdb3/enterprise/reference/cli/influxdb3/write/)           | Write to {{% product-name %}}       |
+| Command                                                           | Description                         |
+| :---------------------------------------------------------------- | :---------------------------------- |
+| [create](/influxdb3/enterprise/reference/cli/influxdb3/create/)   | Create resources                    |
+| [delete](/influxdb3/enterprise/reference/cli/influxdb3/delete/)   | Delete resources                    |
+| [disable](/influxdb3/enterprise/reference/cli/influxdb3/disable/) | Disable resources                   |
+| [enable](/influxdb3/enterprise/reference/cli/influxdb3/enable/)   | Enable resources                    |
+| [query](/influxdb3/enterprise/reference/cli/influxdb3/query/)     | Query {{% product-name %}}          |
+| [serve](/influxdb3/enterprise/reference/cli/influxdb3/serve/)     | Run the {{% product-name %}} server |
+| [show](/influxdb3/enterprise/reference/cli/influxdb3/show/)       | List resources                      |
+| [test](/influxdb3/enterprise/reference/cli/influxdb3/test/)       | Test plugins                        |
+| [write](/influxdb3/enterprise/reference/cli/influxdb3/write/)     | Write to {{% product-name %}}       |
 
 ## Global options
 

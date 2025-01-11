@@ -1,16 +1,16 @@
 ---
-title: influxdb3 create file_index
+title: influxdb3 delete file_index
 description: >
-  The `influxdb3 create file_index` command creates a new file index for a
+  The `influxdb3 delete file_index` command deletes a file index for a
   database or table.
 menu:
   influxdb3_enterprise:
-    parent: influxdb3 create
-    name: influxdb3 create file_index
+    parent: influxdb3 delete
+    name: influxdb3 delete file_index
 weight: 400
 ---
 
-The `influxdb3 create file_index` command creates a new file index for a
+The `influxdb3 delete file_index` command deletes a file index for a
 database or table.
 
 ## Usage
@@ -18,12 +18,8 @@ database or table.
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create file_index [OPTIONS] --database <DATABASE_NAME> <COLUMNS>...
+influxdb3 delete file_index [OPTIONS] --database <DATABASE_NAME>
 ```
-
-## Arguments
-
-- **COLUMNS**: The columns to use for the file index.
 
 ## Options
 
@@ -32,7 +28,7 @@ influxdb3 create file_index [OPTIONS] --database <DATABASE_NAME> <COLUMNS>...
 | `-H`   | `--host`     | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 | `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
 |        | `--token`    | Authentication token                                                                     |
-| `-t`   | `--table`    | Table to apply the file index too                                                        |
+| `-t`   | `--table`    | Table to delete the file index from                                                        |
 | `-h`   | `--help`     | Print help information                                                                   |
   
 ### Option environment variables
@@ -47,8 +43,8 @@ You can use the following environment variables to set command options:
 
 ## Examples
 
-- [Create a new file index for a database](#create-a-new-file-index-for-a-database)
-- [Create a new file index for a specific table](#create-a-new-file-index-for-a-specific-table)
+- [Delete a file index from a database](#delete-a-file-index-from-a-database)
+- [Delete a file index from a specific table](#delete-a-file-index-from-a-specific-table)
 
 In the examples below, replace the following:
 
@@ -59,25 +55,20 @@ In the examples below, replace the following:
 
 {{% code-placeholders "(DATABASE|TABLE)_NAME" %}}
 
-### Create a new file index for a database
+### Delete a file index from a database
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create file_index \
-  --database DATABASE_NAME \
-  column1 column2 column3
+influxdb3 delete file_index --database DATABASE_NAME
 ```
 
-### Create a new file index for a specific table
+### Delete a file index from a specific table
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create file_index \
-  --database DATABASE_NAME \
-  --table TABLE_NAME \
-  column1 column2 column3
+influxdb3 delete file_index --database DATABASE_NAME --table TABLE_NAME
 ```
 
 {{% /code-placeholders %}}

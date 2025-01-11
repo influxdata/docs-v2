@@ -1,29 +1,29 @@
 ---
-title: influxdb3 activate
+title: influxdb3 show
 description: >
-  The `influxdb3 activate` command resources such as a trigger.
+  The `influxdb3 show` command lists resources in your InfluxDB 3 Enterprise server.
 menu:
   influxdb3_enterprise:
     parent: influxdb3
-    name: influxdb3 activate
+    name: influxdb3 show
 weight: 300
 ---
 
-The `influxdb3 activate` command resources such as a trigger.
+The `influxdb3 show` command lists resources in your InfluxDB 3 Enterprise server.
 
 ## Usage
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 activate <SUBCOMMAND>
+influxdb3 show <SUBCOMMAND>
 ```
 
 ## Subcommands
 
 | Subcommand                                                                 | Description                                    |
 | :------------------------------------------------------------------------- | :--------------------------------------------- |
-| [trigger](/influxdb3/enterprise/reference/cli/influxdb3/activate/trigger/) | Activate a trigger to enable plugin execution  |
+| [databases](/influxdb3/enterprise/reference/cli/influxdb3/show/databases/) | List database                                  |
 | help                                                                       | Print command help or the help of a subcommand |
 
 ## Options

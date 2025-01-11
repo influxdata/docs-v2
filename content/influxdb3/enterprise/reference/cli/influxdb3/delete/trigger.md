@@ -1,29 +1,27 @@
 ---
-title: influxdb3 create file_index
+title: influxdb3 delete trigger
 description: >
-  The `influxdb3 create file_index` command creates a new file index for a
-  database or table.
+  The `influxdb3 delete trigger` command deletes a processing engine trigger.
 menu:
   influxdb3_enterprise:
-    parent: influxdb3 create
-    name: influxdb3 create file_index
+    parent: influxdb3 delete
+    name: influxdb3 delete trigger
 weight: 400
 ---
 
-The `influxdb3 create file_index` command creates a new file index for a
-database or table.
+The `influxdb3 delete trigger` command deletes a processing engine trigger.
 
 ## Usage
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create file_index [OPTIONS] --database <DATABASE_NAME> <COLUMNS>...
+influxdb3 delete trigger [OPTIONS] --database <DATABASE_NAME> <TRIGGER_NAME>
 ```
 
 ## Arguments
 
-- **COLUMNS**: The columns to use for the file index.
+- **TRIGGER_NAME**: The name of the trigger to delete.
 
 ## Options
 
@@ -32,9 +30,9 @@ influxdb3 create file_index [OPTIONS] --database <DATABASE_NAME> <COLUMNS>...
 | `-H`   | `--host`     | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 | `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
 |        | `--token`    | Authentication token                                                                     |
-| `-t`   | `--table`    | Table to apply the file index too                                                        |
+|        | `--force`    | Force delete even if the trigger is active                                               |
 | `-h`   | `--help`     | Print help information                                                                   |
-  
+
 ### Option environment variables
 
 You can use the following environment variables to set command options:
@@ -47,37 +45,32 @@ You can use the following environment variables to set command options:
 
 ## Examples
 
-- [Create a new file index for a database](#create-a-new-file-index-for-a-database)
-- [Create a new file index for a specific table](#create-a-new-file-index-for-a-specific-table)
+- [Delete a trigger](#delete-a-trigger)
+- [Force delete an active trigger](#force-delete-an-active-trigger)
 
 In the examples below, replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Database name
-- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
-  Table name
+- {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}: 
+  Name of the trigger to delete
 
-{{% code-placeholders "(DATABASE|TABLE)_NAME" %}}
+{{% code-placeholders "(DATABASE|TRIGGER)_NAME" %}}
 
-### Create a new file index for a database
+### Delete a trigger
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create file_index \
-  --database DATABASE_NAME \
-  column1 column2 column3
+influxdb3 delete trigger --database DATABASE_NAME TRIGGER_NAME
 ```
 
-### Create a new file index for a specific table
+### Force delete an active trigger
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create file_index \
-  --database DATABASE_NAME \
-  --table TABLE_NAME \
-  column1 column2 column3
+influxdb3 delete trigger --force --database DATABASE_NAME TRIGGER_NAME
 ```
 
 {{% /code-placeholders %}}
