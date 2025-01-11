@@ -61,13 +61,13 @@ The InfluxDB 3 data model organizes time series data into databases and tables. 
 | Point | Single data record identified by its measurement, tag keys, tag values, field key, and timestamp. | A single entry for a specific weather sensor, detailing its location, temperature, and time. |
 | Series | A group of points with the same measurement, tag keys, and tag values. | All the entries for a specific weather sensor, detailing its location, temperature, and time for each entry. |
 ---
-# Installation and Setup
+## Installation and Setup
 
-## **System Requirements**
+### **System Requirements**
 
 InfluxDB 3 Enteprise runs on Linux, MacOS, and Windows. A key feature of InfluxDB 3 is its use of object storage, which is where the Apache Parquet files InfluxDB writes to are ultimately stored. While you can choose to simply store these files on your local file system, we recommend leveraging an object store for best overall performance. Amazon S3, Azure Blob Storage, and Google Cloud Storage have native support; additional, many local object storage implementations, such as Minio, work as well with the S3 API.
 
-## **Installation for Fast Deployments**
+### **Installation for Fast Deployments**
 
 We’ve strived to make downloading and installing InfluxDB as simple as possible. If you are looking to get started quickly with an installation on your local machine, we recommend leveraging our install script below. Regardless of your platform OS, it will handle the download and installation of InfluxDB 3 Enterprise.
 
@@ -90,7 +90,7 @@ source ~/.zshrc
 If you want to leverage additional installation options for your system, we offer multiple approaches, including Docker images. Start by visiting [www.influxdata.com/downloads](http://www.influxdata.com/downloads) to discover the binary for your particular system.
 
 
-## **Starting InfluxDB**
+### **Starting InfluxDB**
 
 To start your InfluxDB instance, you’ll need to know your object store of choice for data storage and its connection information. InfluxDB supports the following storage options:
 
