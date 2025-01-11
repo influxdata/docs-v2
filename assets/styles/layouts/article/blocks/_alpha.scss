@@ -32,6 +32,7 @@
       a {
         color: $article-heading;
         font-weight: $medium;
+        position: relative;
 
         &.discord:before {
           content: url('/svgs/discord.svg');
@@ -67,6 +68,26 @@
           width: 1.2rem;
           vertical-align: top;
           margin: 2px .65rem 0 0;
+        }
+
+        &::after {
+          content: "\e90a";
+          font-family: 'icomoon-v4';
+          font-weight: bold;
+          font-size: 1.3rem;
+          display: inline-block;
+          position: absolute;
+          @include gradient($grad-burningDusk);
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          right: 0;
+          transform: translateX(.25rem);
+          opacity: 0;
+          transition: transform .2s, opacity .2s;
+        }
+
+        &:hover {
+          &::after {transform: translateX(1.5rem); opacity: 1;}
         }
       }
     }
