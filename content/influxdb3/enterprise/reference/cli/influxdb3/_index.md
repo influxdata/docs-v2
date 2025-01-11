@@ -26,8 +26,8 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 | :---------------------------------------------------------------- | :---------------------------------- |
 | [create](/influxdb3/enterprise/reference/cli/influxdb3/create/)   | Create resources                    |
 | [delete](/influxdb3/enterprise/reference/cli/influxdb3/delete/)   | Delete resources                    |
-| [disable](/influxdb3/enterprise/reference/cli/influxdb3/disable/) | Disable resources                   |
-| [enable](/influxdb3/enterprise/reference/cli/influxdb3/enable/)   | Enable resources                    |
+| [disable](/influxdb3/enterprise/reference/cli/influxdb3/deactivate/) | Disable resources                   |
+| [enable](/influxdb3/enterprise/reference/cli/influxdb3/activate/)   | Activate resources                    |
 | [query](/influxdb3/enterprise/reference/cli/influxdb3/query/)     | Query {{% product-name %}}          |
 | [serve](/influxdb3/enterprise/reference/cli/influxdb3/serve/)     | Run the {{% product-name %}} server |
 | [show](/influxdb3/enterprise/reference/cli/influxdb3/show/)       | List resources                      |

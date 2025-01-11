@@ -44,7 +44,7 @@ influxdb3 serve [OPTIONS] --host-id <HOST_IDENTIFIER_PREFIX>
 | `-h`             | `--help`                                             | Print help information                                                                                                          |
 |                  | `--object-store-cache-endpoint`                      | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store-cache-endpoint)_                      |
 |                  | `--log-filter`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#log-filter)_                                       |
-| `-v`             | `--verbose`                                          | Enable verbose output                                                                                                           |
+| `-v`             | `--verbose`                                          | Activate verbose output                                                                                                           |
 |                  | `--log-destination`                                  | _See [configuration options](/influxdb3/enterprise/reference/config-options/#log-destination)_                                  |
 |                  | `--log-format`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#log-format)_                                       |
 |                  | `--traces-exporter`                                  | _See [configuration options](/influxdb3/enterprise/reference/config-options/#traces-exporter)_                                  |

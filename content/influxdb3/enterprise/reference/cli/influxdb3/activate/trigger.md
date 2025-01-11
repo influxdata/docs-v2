@@ -1,27 +1,27 @@
 ---
-title: influxdb3 disable trigger
+title: influxdb3 activate trigger
 description: >
-  The `influxdb3 disable trigger` command disables a plugin trigger.
+  The `influxdb3 activate trigger` command activates a trigger to enable plugin execution.
 menu:
   influxdb3_enterprise:
-    parent: influxdb3 disable
-    name: influxdb3 disable trigger
+    parent: influxdb3 activate
+    name: influxdb3 activate trigger
 weight: 400
 ---
 
-The `influxdb3 disable trigger` command disables a plugin trigger.
+The `influxdb3 activate trigger` command activates a trigger to enable plugin execution.
 
 ## Usage
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 disable trigger [OPTIONS] --database <DATABASE_NAME> <TRIGGER_NAME>
+influxdb3 activate trigger [OPTIONS] --database <DATABASE_NAME> <TRIGGER_NAME>
 ```
 
 ## Arguments:
 
-- **TRIGGER_NAME**:  Name of the trigger to disable
+- **TRIGGER_NAME**:  Name of the trigger to enable
 
 ## Options
 
