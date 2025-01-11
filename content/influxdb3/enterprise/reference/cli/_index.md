@@ -9,6 +9,6 @@ menu:
 weight: 101
 ---
 
-Use command line tools used to run, manage, and interact with InfluxDB 3 Enterprise:
+View command line tools used to run, manage, and interact with InfluxDB 3 Enterprise:
 
 {{< children >}}

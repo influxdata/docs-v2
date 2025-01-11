@@ -22,7 +22,7 @@ influxdb3 create database [OPTIONS] <DATABASE_NAME>
 ## Arguments
 
 - **DATABASE_NAME**: The name of the database to create.
-  Valid database names are alphanumeric and starts with a letter or number.
+  Valid database names are alphanumeric and start with a letter or number.
   Dashes (`-`) and underscores (`_`) are allowed.
   
   Environment variable: `INFLUXDB3_DATABASE_NAME`
