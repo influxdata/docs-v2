@@ -9,7 +9,7 @@ menu:
 weight: 300
 ---
 
-The `influxdb3 serve` command starts the InfluxDB 3 Enterprise server.
+The `influxdb3 serve` command starts the {{< product-name >}} server.
 
 ## Usage
 

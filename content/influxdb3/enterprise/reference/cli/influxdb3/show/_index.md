@@ -7,27 +7,9 @@ menu:
     parent: influxdb3
     name: influxdb3 show
 weight: 300
+source: /shared/influxdb3-cli/show/_index.md
 ---
 
-The `influxdb3 show` command lists resources in your InfluxDB 3 Enterprise server.
-
-## Usage
-
-<!--pytest.mark.skip-->
-
-```bash
-influxdb3 show <SUBCOMMAND>
-```
-
-## Subcommands
-
-| Subcommand                                                                 | Description                                    |
-| :------------------------------------------------------------------------- | :--------------------------------------------- |
-| [databases](/influxdb3/enterprise/reference/cli/influxdb3/show/databases/) | List database                                  |
-| help                                                                       | Print command help or the help of a subcommand |
-
-## Options
-
-| Option |          | Description            |
-| :----- | :------- | :--------------------- |
-| `-h`   | `--help` | Print help information |
+<!--
+The content of this file is at content/shared/influxdb3-cli/show/_index.md
+-->
