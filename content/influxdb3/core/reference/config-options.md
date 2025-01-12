@@ -4,7 +4,7 @@ description: >
   InfluxDB 3 Core lets you customize your server configuration by using
   `influxdb3 serve` command options or by setting environment variables.
 menu:
-  influxdb3_enterprise:
+  influxdb3_core:
     parent: Reference
     name: Configuration options
 weight: 100
@@ -40,7 +40,7 @@ influxdb3 serve \
 ```sh
 export INFLUXDB3_OBJECT_STORE=file
 export INFLUXDB3_DB_DIR=~/.influxdb3
-export INFLUXDB3_HOST_IDENTIFIER_PREFIX=my-host
+export INFLUXDB3_WRITER_IDENTIFIER_PREFIX=my-host
 export LOG_FILTER=info
 export INFLUXDB3_MAX_HTTP_REQUEST_SIZE=20971520
 export AWS_ALLOW_HTTP=true
