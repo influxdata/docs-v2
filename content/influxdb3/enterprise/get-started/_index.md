@@ -1,8 +1,16 @@
 ---
 title: Get Started with InfluxDB 3 Enterprise
+list_title: Get started
+description: >
+  Start writing, querying, and processing time series data in InfluxDB 3 Enterprise.
+menu:
+  influxdb3_enterprise:
+    name: Get started
+weight: 3
+influxdb3/enterprise/tags: [get-started]
 ---
 
-InfluxDB is a [time series database](https://www.influxdata.com/time-series-database/) designed to collect, process, transform, and store time series data.
+InfluxDB is the [time series database](https://www.influxdata.com/time-series-database/) purpose-built to collect, store, query, and process time series data.
 It provides a platform for real-time analytics, observability, and monitoring.
 Common use cases include:
 
@@ -89,7 +97,7 @@ The following table compares InfluxDB 3 data model concepts to InfluxDB TSM (Inf
 
 ### System requirements
 
-InfluxDB 3 Enterprise runs on Linux, macOS, and Windows.  
+{{% product-name %}} runs on Linux, macOS, and Windows.  
 A key feature of InfluxDB 3 is its use of object storage, which is where the Apache Parquet files written by InfluxDB are ultimately stored.  
 
 While you can choose to store these files on your local file system, we recommend leveraging an object store for the best overall performance.  
@@ -100,7 +108,7 @@ Additionally, many local object storage implementations, such as MinIO, also wor
 
 We’ve worked to make downloading and installing InfluxDB as simple as possible.  
 To get started quickly with installing on your local machine, use the install script below. 
-This script handles downloading and installing InfluxDB 3 Enterprise, regardless of your operating system.
+This script handles downloading and installing {{% product-name %}}, regardless of your operating system.
 
 ```
 curl -O https://www.influxdata.com/d/install_influxdb3.sh && sh install_influxdb3.sh enterprise
@@ -135,7 +143,7 @@ InfluxDB supports the following storage options:
 | *Azure* | Microsoft Azure Blob Storage | Bucket and Azure Storage Account |
 
 To start the database, use the `serve` command.
-This creates a new, running instance of InfluxDB 3 Enterprise.
+This creates a new, running instance of {{% product-name %}}.
 
 ### Example commands with object store options
 
@@ -156,7 +164,7 @@ $ influxdb3 serve --host-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-ac
 
 ## Licensing
 
-If you're starting InfluxDB 3 Enterprise for the first time, you'll be asked to enter an email address for verification. Upon verification, the license creation, retrieval, and application is automated. 
+If you're starting {{% product-name %}} for the first time, you'll be asked to enter an email address for verification. Upon verification, the license creation, retrieval, and application is automated. 
 
 ## Create a database
 
@@ -205,21 +213,29 @@ To write this data to the database, you must supply the database name, and then 
 influxdb3 write --database=servers --file=server_data
 ```
 
-## Query data
+## Query data 
 
-InfluxDB 3 now supports native SQL for querying, in addition to InfluxQL – a SQL-like language with tailorings for time series queries. Note: Flux, a language introduced in InfluxDB 2.0, is not supported in 3\.
+InfluxDB 3 now supports native SQL for querying, in addition to InfluxQL, an SQL-like language tailored for time series queries. 
 
-There are several approaches to querying data. The quickest way to get started is simply leveraging the CLI, though for production use cases you will want to utilize our API endpoints or the supported libraries. For querying from the CLI, you need to supply the database name first.
+> [!Warning]
+> FluxQL, a language introduced in InfluxDB 2.0, isn't supported in > InfluxDB 3.
 
-### Query using the CLI
+The quickest way to get started querying is with the `influxdb3` command line interface (CLI).
+
+> [!Note]
+> #### Integrate with APIs and client libraries
+> The `influxdb3` CLI provides a convenient way to write, query, and process your data.
+> For production use, you might prefer to use one of the [supported client libraries] and APIs to integrate with your own code.
+
+### Query using the CLI for SQL
 
 The `query` subcommand has several parameters to ensure the right database is queried with the correct permissions. Only the `--database` command is required every time, but depending on your specific setup (host port, server token), you may have additional required parameters.
 
 | Option | Description | Required |
 |---------|-------------|--------------|
-| `--host` | The host URL of the running InfluxDB 3 Enterprise server [default: http://127.0.0.1:8181] | No |
+| `--host` | The host URL of the running {{% product-name %}} server [default: http://127.0.0.1:8181] | No |
 | `--database` | The name of the database to operate on | Yes |
-| `--token` | The token for authentication with the InfluxDB 3 Enterprise server | No |
+| `--token` | The token for authentication with the {{% product-name %}} server | No |
 | `--language` | The query language used to format the provided query string [default: sql] [possible values: sql, influxql] | No  |
 | `--format` | The format in which to output the query [default: pretty] [possible values: pretty, json, json_lines, csv, parquet] | No |
 | `--output` | Put all query output into `output` | No |
@@ -262,24 +278,35 @@ $ influxdb3 query --database=servers "SELECT DISTINCT usage_percent, time FROM c
 
 ### Query using the CLI for InfluxQL
 
-InfluxQL is a SQL-like language developed by InfluxData with specific features tailored for leveraging and working with InfluxDB. It’s compatible with all versions of InfluxDB, making it a tremendous choice for interoperability across different InfluxDB installations.
+[InfluxQL](/influxdb3/enterprise/reference/influxql/) is an SQL-like language developed by InfluxData with specific features tailored for leveraging and working with InfluxDB.
+It’s compatible with all versions of InfluxDB, making it a tremendous choice for interoperability across different InfluxDB installations.
 
-To learn more about all that InfluxQL has to offer, you can [learn more here](https://docs.influxdata.com/influxdb/cloud-serverless/query-data/influxql/basic-query/).
-
-Once you’re familiar with InfluxQL, you can run queries directly from the CLI similarly to how you can run SQL queries. The only adjustment is supplying the language option: `--lang=influxql`
+To run InfluxQL queries from the CLI (just as you [ran SQL queries](#query-using-the-cli-for-sql)), only pass the `--lang=influxql` option--for example:
 
 ```
-$ influxdb3 query --database=servers --lang=influxql "SELECT DISTINCT usage_percent FROM cpu WHERE time >= now() - 1d"
+influxdb3 query --database=servers --lang=influxql "SELECT DISTINCT usage_percent FROM cpu WHERE time >= now() - 1d"
 ```
 
 ### Query using the API
 
-For production usage, you can leverage our HTTP API for access to your data. To query your database, you can send a request to the `/v3/query_sql` or `/v3/query_influxql` endpoints, supplying the database as a parameter, as well as the entire query in a URL-encoded format.
+For production use cases, use the HTTP API or the Flight API (via a supported client library) for access to your data.
 
-Example of a SQL query leveraging the API:
+#### Query using the HTTP API 
 
+To query your database, send a request to the `/v3/query_sql` or `/v3/query_influxql` endpoints, supplying the database as a parameter, as well as the entire query in a URL-encoded format.
+
+The following examples query using SQL and the HTTP API--pass your database name and query as URL query string parameters or inside a JSON object in the body:
+
+##### Query passing URL parameters
+
+```bash
+curl -v "http://127.0.0.1:8181/api/v3/query_sql?db=servers&q=select+*+from+cpu+limit+5"
 ```
-$ curl -v "http://127.0.0.1:8181/api/v3/query_sql?db=servers&q=select+*+from+cpu+limit+5"
+
+##### Query passing JSON parameters
+
+```bash
+curl http://127.0.0.1:8181/api/v3/query_sql --data '{"db": "server", "q": "select * from cpu limit 5"}'
 ```
 
 ### Query using the Python Client
@@ -335,19 +362,15 @@ print(table.group_by('room').aggregate([('temp', 'mean')]))
 
 ```
 
-### 
-
-### 
-
 ## **Advanced Features**
 
 ### Creating a Last Values Cache
 
-InfluxDB 3 Enterprise supports a **last-n values cache** which accelerates the performance on your most recent data queries. To create this cache, you can leverage the following CLI commands, along with the options presented.
+{{% product-name %}} supports a **last-n values cache** which accelerates the performance on your most recent data queries.
+To create the cache, enter the following command and options:
 
 ```
-
-Usage: $ influxdb3 create last-cache [OPTIONS] -d <DATABASE_NAME> -t <TABLE>
+$ influxdb3 create last-cache [OPTIONS] -d <DATABASE_NAME> -t <TABLE>
 
 Options:
   -h, --host <HOST_URL>                URL of the running InfluxDB 3 server
@@ -363,7 +386,7 @@ Options:
 
 ```
 
-You can create a last value cache per time series with as high of a count as you wish (up to your hardware limits), but we recommend you only choose the amount you will likely need for your most important time series.
+You can create a last-value cache per time series with as high of a count as you wish (up to your hardware limits), but we recommend you only choose the amount you will likely need for your most important time series.
 
 An example of creating this cache in use:
 
@@ -375,7 +398,7 @@ An example of creating this cache in use:
 | Bravo | database | 2024-12-11T10:01:00 | 80.5 | OK |
 | Alpha | webserver | 2024-12-11T10:02:00 | 25.3 | Warn |
 
-```
+```bash
 influxdb3 create last-cache --database=servers --table=cpu --cache-name=cpuCache --key-columns=host,application --value-columns=usage_percent,status --count=5
 ```
 
@@ -383,9 +406,10 @@ influxdb3 create last-cache --database=servers --table=cpu --cache-name=cpuCache
 
 Removing a Last Values Cache is also easy and straightforward, with the instructions below.
 
-```
+#### Usage
 
-Usage: influxdb3 delete delete [OPTIONS] -d <DATABASE_NAME> -t <TABLE> --cache-name <CACHE_NAME>
+```
+$ influxdb3 delete last_cache [OPTIONS] -d <DATABASE_NAME> -t <TABLE> --cache-name <CACHE_NAME>
 
 Options:
   -h, --host <HOST_URL>          Host URL of the running InfluxDB 3 server
@@ -412,7 +436,7 @@ Usage: $ influxdb3 query --database=servers "SELECT * FROM last_cache('cpu', 'cp
 
 ## **Multi-Node Setups**
 
-InfluxDB 3 Enterprise is built to support multi-node setups for high availability, read replicas, and flexible implementations depending on use case. 
+{{% product-name %}} is built to support multi-node setups for high availability, read replicas, and flexible implementations depending on use case. 
 
 ### High Availability
 
@@ -498,11 +522,9 @@ For the compactor node, we need to set a few more options. First, we need to spe
 Usage: $ influxdb3 serve --host-id=host03 --mode=compactor --compactor-id=c01 --compaction-hosts=host01,host02 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
 ```
 
-### 
+### High availability with read replicas and compactor 
 
-### High Availability with Read Replicas and a Dedicated Compactor
-
-To create a very robust and effective setup for managing time-series data, we recommend running ingest nodes alongside read-only nodes, and leveraging a compactor-node for excellent performance. 
+To create a robust and effective setup for managing time-series data, you can run ingest nodes alongside read-only nodes, and leverage a compactor node to scale performance and provide even more efficient data storage. 
 
 ![][image3]
 
@@ -564,7 +586,7 @@ Usage: $ influxdb3 serve --host-id=host04 --mode=read --object-store=s3 --replic
 Usage: $ influxdb3 serve --host-id=host05 --mode=read --object-store=s3 --replicas=host01,host02 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8484 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
 ```
 
-That’s it\! A full fledged setup of a robust implementation for InfluxDB 3 Enterprise is now complete with 
+Congratulations, you now have a robust setup for managing time-series data: {{% product-name %}} running ingest (read-write) nodes alongside read-only nodes, and leveraging a compactor node for high performance and efficient data storage. 
 
 ## **Writing/Querying on InfluxDB 3 Enterprise**
 
