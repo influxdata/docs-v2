@@ -66,7 +66,7 @@ You can use the following environment variables to set `influxdb3` global option
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --host-id my_host_name
+  --writer-id MY_HOST_NAME
 ```
 
 ### Display short-form help for all commands
@@ -93,7 +93,7 @@ influxdb3 --help
 influxdb3 serve -v \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --host-id my_host_name
+  --writer-id MY_HOST_NAME
 ```
 
 ### Run {{< product-name >}} with debug logging using LOG_FILTER
@@ -104,5 +104,5 @@ influxdb3 serve -v \
 LOG_FILTER=debug influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --host-id my_host_name
+  --writer-id MY_HOST_NAME
 ```

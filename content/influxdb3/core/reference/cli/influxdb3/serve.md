@@ -16,7 +16,7 @@ The `influxdb3 serve` command starts the {{< product-name >}} server.
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 serve [OPTIONS] --host-id <HOST_IDENTIFIER_PREFIX>
+influxdb3 serve [OPTIONS] --writer-id <HOST_IDENTIFIER_PREFIX>
 ```
 
 ## Options
@@ -79,7 +79,7 @@ influxdb3 serve [OPTIONS] --host-id <HOST_IDENTIFIER_PREFIX>
 |                  | `--snapshotted-wal-files-to-keep`                    | _See [configuration options](/influxdb3/core/reference/config-options/#snapshotted-wal-files-to-keep)_                    |
 |                  | `--query-log-size`                                   | _See [configuration options](/influxdb3/core/reference/config-options/#query-log-size)_                                   |
 |                  | `--buffer-mem-limit-mb`                              | _See [configuration options](/influxdb3/core/reference/config-options/#buffer-mem-limit-mb)_                              |
-| {{< req "\*" >}} | `--host-id`                                          | _See [configuration options](/influxdb3/core/reference/config-options/#host-id)_                                          |
+| {{< req "\*" >}} | `--writer-id`                                        | _See [configuration options](/influxdb3/core/reference/config-options/#writer-id)_                                        |
 |                  | `--parquet-mem-cache-size-mb`                        | _See [configuration options](/influxdb3/core/reference/config-options/#parquet-mem-cache-size-mb)_                        |
 |                  | `--parquet-mem-cache-prune-percentage`               | _See [configuration options](/influxdb3/core/reference/config-options/#parquet-mem-cache-prune-percentage)_               |
 |                  | `--parquet-mem-cache-prune-interval`                 | _See [configuration options](/influxdb3/core/reference/config-options/#parquet-mem-cache-prune-interval)_                 |
@@ -119,7 +119,7 @@ with a unique identifier for your {{< product-name >}} server.
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --host-id MY_HOST_ID
+  --writer-id MY_HOST_ID
 ```
 
 ### Run the InfluxDB 3 server with extra verbose logging
@@ -131,7 +131,7 @@ influxdb3 serve \
   --verbose \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --host-id MY_HOST_ID
+  --writer-id MY_HOST_ID
 ```
 
 ### Run InfluxDB 3 with debug logging using LOG_FILTER
@@ -142,7 +142,7 @@ influxdb3 serve \
 LOG_FILTER=debug influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --host-id MY_HOST_ID
+  --writer-id MY_HOST_ID
 ```
 
 {{% /code-placeholders %}}
