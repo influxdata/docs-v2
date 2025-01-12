@@ -9,14 +9,14 @@ menu:
 weight: 300
 ---
 
-The `influxdb3 serve` command starts the InfluxDB 3 Enterprise server.
+The `influxdb3 serve` command starts the {{< product-name >}} server.
 
 ## Usage
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 serve [OPTIONS] --host-id <HOST_IDENTIFIER_PREFIX>
+influxdb3 serve [OPTIONS] --writer-id <HOST_IDENTIFIER_PREFIX>
 ```
 
 ## Options
@@ -78,7 +78,7 @@ influxdb3 serve [OPTIONS] --host-id <HOST_IDENTIFIER_PREFIX>
 |                  | `--wal-max-write-buffer-size`                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wal-max-write-buffer-size)_                        |
 |                  | `--query-log-size`                                   | _See [configuration options](/influxdb3/enterprise/reference/config-options/#query-log-size)_                                   |
 |                  | `--buffer-mem-limit-mb`                              | _See [configuration options](/influxdb3/enterprise/reference/config-options/#buffer-mem-limit-mb)_                              |
-| {{< req "\*" >}} | `--host-id`                                          | _See [configuration options](/influxdb3/enterprise/reference/config-options/#host-id)_                                          |
+| {{< req "\*" >}} | `--writer-id`                                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#writer-id)_                                        |
 |                  | `--mode`                                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#mode)_                                             |
 |                  | `--replicas`                                         | _See [configuration options](/influxdb3/enterprise/reference/config-options/#replicas)_                                         |
 |                  | `--replication-interval`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#replication-interval)_                             |
@@ -95,7 +95,7 @@ influxdb3 serve [OPTIONS] --host-id <HOST_IDENTIFIER_PREFIX>
 |                  | `--parquet-mem-cache-prune-interval`                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#parquet-mem-cache-prune-interval)_                 |
 |                  | `--disable-parquet-mem-cache`                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#disable-parquet-mem-cache)_                        |
 |                  | `--last-cache-eviction-interval`                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#last-cache-eviction-interval)_                     |
-|                  | `--meta-cache-eviction-interval`                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#meta-cache-eviction-interval)_                     |
+|                  | `--distinct-cache-eviction-interval`                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#distinct-cache-eviction-interval)_                 |
 |                  | `--plugin-dir`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#plugin-dir)_                                       |
 
 {{< caption >}}
@@ -115,10 +115,10 @@ For more information, see
 - [Run InfluxDB 3 with debug logging using LOG_FILTER](#run-influxdb-3-with-debug-logging-using-log_filter)
 
 In the examples below, replace
-{{% code-placeholder-key %}}`MY_HOST_ID`{{% /code-placeholder-key %}}:
+{{% code-placeholder-key %}}`MY_HOST_NAME`{{% /code-placeholder-key %}}:
 with a unique identifier for your {{< product-name >}} server.
 
-{{% code-placeholders "MY_HOST_ID" %}}
+{{% code-placeholders "MY_HOST_NAME" %}}
 
 ### Run the InfluxDB 3 server
 
@@ -128,7 +128,7 @@ with a unique identifier for your {{< product-name >}} server.
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --host-id MY_HOST_ID
+  --writer-id MY_HOST_NAME
 ```
 
 ### Run the InfluxDB 3 server with extra verbose logging
@@ -140,7 +140,7 @@ influxdb3 serve \
   --verbose \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --host-id MY_HOST_ID
+  --writer-id MY_HOST_NAME
 ```
 
 ### Run InfluxDB 3 with debug logging using LOG_FILTER
@@ -151,7 +151,7 @@ influxdb3 serve \
 LOG_FILTER=debug influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --host-id MY_HOST_ID
+  --writer-id MY_HOST_NAME
 ```
 
 {{% /code-placeholders %}}
