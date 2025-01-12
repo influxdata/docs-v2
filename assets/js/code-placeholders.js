@@ -1,22 +1,23 @@
 const placeholderWrapper = '.code-placeholder-wrapper';
 const placeholderElement = 'var.code-placeholder';
-const codePlaceholders = $(placeholderElement);
 const editIcon = "<span class='code-placeholder-edit-icon cf-icon Pencil'></span>";
 
 // When clicking a placeholder, append the edit input
-codePlaceholders.on('click', function() {
-  var placeholderData = $(this)[0].dataset;
-  var placeholderID = placeholderData.codeVar;
-  var placeholderValue = placeholderData.codeVarValue;
-  var placeholderInputWrapper = $('<div class="code-input-wrapper"></div>');
-  var placeholderInput = `<input class="placeholder-edit" id="${placeholderID}" value="${placeholderValue}" spellcheck=false onblur="submitPlaceholder($(this))" oninput="updateInputWidth($(this))" onkeydown="closeOnEnter($(this)[0], event)"></input>`;
+function handleClick(element) {
+  $(element).on('click', function() {
+    var placeholderData = $(this)[0].dataset;
+    var placeholderID = placeholderData.codeVar;
+    var placeholderValue = placeholderData.codeVarValue;
+    var placeholderInputWrapper = $('<div class="code-input-wrapper"></div>');
+    var placeholderInput = `<input class="placeholder-edit" id="${placeholderID}" value="${placeholderValue}" spellcheck=false onblur="submitPlaceholder($(this))" oninput="updateInputWidth($(this))" onkeydown="closeOnEnter($(this)[0], event)"></input>`;
 
-  $(this).before(placeholderInputWrapper)
-  $(this).siblings('.code-input-wrapper').append(placeholderInput);
-  $(`input#${placeholderID}`).width(`${placeholderValue.length}ch`);
-  $(`input#${placeholderID}`).focus().select();
-  $(this).css('opacity', 0);
-})
+    $(this).before(placeholderInputWrapper)
+    $(this).siblings('.code-input-wrapper').append(placeholderInput);
+    $(`input#${placeholderID}`).width(`${placeholderValue.length}ch`);
+    $(`input#${placeholderID}`).focus().select();
+    $(this).css('opacity', 0);
+  });
+}
 
 function submitPlaceholder(placeholderInput) {
   var placeholderID = placeholderInput.attr('id');
@@ -42,3 +43,14 @@ function closeOnEnter(input, event) {
     input.blur();
   }
 }
+
+function CodePlaceholder({element}) {
+  handleClick(element);
+}
+
+$(function() {
+  const codePlaceholders = $(placeholderElement);
+  codePlaceholders.each(function() {
+    CodePlaceholder({element: this});
+  });
+});
