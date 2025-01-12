@@ -95,7 +95,7 @@ influxdb3 serve [OPTIONS] --host-id <HOST_IDENTIFIER_PREFIX>
 |                  | `--parquet-mem-cache-prune-interval`                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#parquet-mem-cache-prune-interval)_                 |
 |                  | `--disable-parquet-mem-cache`                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#disable-parquet-mem-cache)_                        |
 |                  | `--last-cache-eviction-interval`                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#last-cache-eviction-interval)_                     |
-|                  | `--meta-cache-eviction-interval`                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#meta-cache-eviction-interval)_                     |
+|                  | `--distinct-cache-eviction-interval`                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#distinct-cache-eviction-interval)_                 |
 |                  | `--plugin-dir`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#plugin-dir)_                                       |
 
 {{< caption >}}
