@@ -106,16 +106,16 @@ You start the database using the `serve` command. This creates a new, running in
 
 ```
 MEMORY
-$ influxdb3 serve --host-id=local01 --object-store=memory
+$ influxdb3 serve --writer-id=local01 --object-store=memory
 
 FILESYSTEM
-$ influxdb3 serve --host-id=local01 --object-store=file --data-dir ~/.influxdb3
+$ influxdb3 serve --writer-id=local01 --object-store=file --data-dir ~/.influxdb3
 
 S3
-$ influxdb3 serve --host-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY]
+$ influxdb3 serve --writer-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY]
 
 Minio/Open Source Object Store (Uses the AWS S3 API, with additional parameters)
-$ influxdb3 serve --host-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY] --aws-endpoint=[ENDPOINT] --aws-allow-http
+$ influxdb3 serve --writer-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY] --aws-endpoint=[ENDPOINT] --aws-allow-http
 
 ```
 
