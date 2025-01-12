@@ -1,7 +1,7 @@
 ---
-title: InfluxDB 3 Enterprise configuration options
+title: InfluxDB 3 Core configuration options
 description: >
-  InfluxDB 3 Enterprise lets you customize your server configuration by using
+  InfluxDB 3 Core lets you customize your server configuration by using
   `influxdb3 serve` command options or by setting environment variables.
 menu:
   influxdb3_enterprise:
@@ -40,7 +40,7 @@ influxdb3 serve \
 ```sh
 export INFLUXDB3_OBJECT_STORE=file
 export INFLUXDB3_DB_DIR=~/.influxdb3
-export INFLUXDB3_WRITER_IDENTIFIER_PREFIX=my-host
+export INFLUXDB3_HOST_IDENTIFIER_PREFIX=my-host
 export LOG_FILTER=info
 export INFLUXDB3_MAX_HTTP_REQUEST_SIZE=20971520
 export AWS_ALLOW_HTTP=true
@@ -54,7 +54,6 @@ influxdb3 serve
   - [object-store](#object-store)
   - [data-dir](#data-dir)
   - [writer-id](#writer-id)
-  - [mode](#mode)
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
   - [aws-secret-access-key](#aws-secret-access-key)
@@ -117,17 +116,7 @@ influxdb3 serve
   - [wal-snapshot-size](#wal-snapshot-size)
   - [wal-max-write-buffer-size](#wal-max-write-buffer-size)
   - [snapshotted-wal-files-to-keep](#snapshotted-wal-files-to-keep)
-- [Replication](#replication)
-  - [read-from-writer-ids](#read-from-writer-ids)
-  - [replication-interval](#replication-interval)
 - [Compaction](#compaction)
-  - [compactor-id](#compactor-id)
-  - [compact-from-writer-ids](#compact-from-writer-ids)
-  - [run-compactions](#run-compactions)
-  - [compaction-row-limit](#compaction-row-limit)
-  - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
-  - [compaction-gen2-duration](#compaction-gen2-duration)
-  - [compaction-multipliers](#compaction-multipliers)
   - [gen1-duration](#gen1-duration)
 - [Caching](#caching)
   - [preemptive-cache-age](#preemptive-cache-age)
@@ -148,7 +137,6 @@ influxdb3 serve
 - [bucket](#bucket)
 - [data-dir](#data-dir)
 - [writer-id](#writer-id)
-- [mode](#mode)
 
 #### object-store
 
@@ -187,24 +175,6 @@ configuration--for example, the same bucket.
 | influxdb3 serve option | Environment variable                 |
 | :--------------------- | :----------------------------------- |
 | `--writer-id`          | `INFLUXDB3_WRITER_IDENTIFIER_PREFIX` |
-
----
-
-#### mode
-
-Sets the mode to start the server in.
-
-This option supports the following values:
-
-- `read`
-- `read_write` _(default)_
-- `compactor`
-
-**Default:** `read_write`
-
-| influxdb3 serve option | Environment variable        |
-| :--------------------- | :-------------------------- |
-| `--mode`               | `INFLUXDB3_ENTERPRISE_MODE` |
 
 ---
 
@@ -900,141 +870,14 @@ they are deleted when the number of snapshotted WAL files exceeds this number.
 
 ---
 
-### Replication
-
-- [read-from-writer-ids](#read-from-writer-ids)
-- [replication-interval](#replication-interval)
-
-#### read-from-writer-ids
-
-Specifies a comma-separated list of writer identifier prefixes (`writer-id`s) to
-read WAL files from. [env: =]
-
-| influxdb3 serve option | Environment variable            |
-| :--------------------- | :------------------------------ |
-| `--read-from-writer-ids`           | `INFLUXDB3_ENTERPRISE_READ_FROM_WRITER_IDS` |
-
----
-
-#### replication-interval
-
-Defines the interval at which each replica specified in the
-`read-from-writer-ids` option is replicated.
-
-**Default:** `250ms`
-
-| influxdb3 serve option   | Environment variable                        |
-| :----------------------- | :------------------------------------------ |
-| `--replication-interval` | `INFLUXDB3_ENTERPRISE_REPLICATION_INTERVAL` |
-
----
-
 ### Compaction
-
-- [compactor-id](#compactor-id)
-- [compact-from-writer-ids](#compact-from-writer-ids)
-- [run-compactions](#run-compactions)
-- [compaction-row-limit](#compaction-row-limit)
-- [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
-- [compaction-gen2-duration](#compaction-gen2-duration)
-- [compaction-multipliers](#compaction-multipliers)
-- [gen1-duration](#gen1-duration)
-
-#### compactor-id
-
-Specifies the prefix in the object store where all compacted data is written.
-Provide this option only if this server should handle compaction for its own
-write buffer and any replicas it manages.
-
-| influxdb3 serve option | Environment variable                |
-| :--------------------- | :---------------------------------- |
-| `--compactor-id`       | `INFLUXDB3_ENTERPRISE_COMPACTOR_ID` |
-
----
-
-#### compact-from-writer-ids
-
-Defines a comma-separated list of writer identifier prefixes from which data is
-compacted.
-
-| influxdb3 serve option      | Environment variable                           |
-| :-------------------------- | :--------------------------------------------- |
-| `--compact-from-writer-ids` | `INFLUXDB3_ENTERPRISE_COMPACT_FROM_WRITER_IDS` |
-
----
-
-#### run-compactions
-
-Indicates that the server should run compactions. Only a single server should
-run compactions for a given `compactor-id`. This option is only applicable if a
-`compactor-id` is set.
-
-| influxdb3 serve option | Environment variable                   |
-| :--------------------- | :------------------------------------- |
-| `--run-compactions`    | `INFLUXDB3_ENTERPRISE_RUN_COMPACTIONS` |
-
----
-
-#### compaction-row-limit
-
-Specifies the soft limit for the number of rows per file that the compactor
-writes. The compactor may write more rows than this limit.
-
-**Default:** `1000000`
-
-| influxdb3 serve option   | Environment variable                        |
-| :----------------------- | :------------------------------------------ |
-| `--compaction-row-limit` | `INFLUXDB3_ENTERPRISE_COMPACTION_ROW_LIMIT` |
-
----
-
-#### compaction-max-num-files-per-plan
-
-Sets the maximum number of files included in any compaction plan.
-
-**Default:** `500`
-
-| influxdb3 serve option                | Environment variable                                     |
-| :------------------------------------ | :------------------------------------------------------- |
-| `--compaction-max-num-files-per-plan` | `INFLUXDB3_ENTERPRISE_COMPACTION_MAX_NUM_FILES_PER_PLAN` |
-
----
-
-#### compaction-gen2-duration
-
-Specifies the duration of the first level of compaction (gen2). Later levels of
-compaction are multiples of this duration. This value should be equal to or
-greater than the gen1 duration.
-
-**Default:** `20m`
-
-| influxdb3 serve option       | Environment variable                            |
-| :--------------------------- | :---------------------------------------------- |
-| `--compaction-gen2-duration` | `INFLUXDB3_ENTERPRISE_COMPACTION_GEN2_DURATION` |
-
----
-
-#### compaction-multipliers
-
-Specifies a comma-separated list of multiples defining the duration of each
-level of compaction. The number of elements in the list determines the number of
-compaction levels. The first element specifies the duration of the first level
-(gen3); subsequent levels are multiples of the previous level.
-
-**Default:** `3,4,6,5`
-
-| influxdb3 serve option     | Environment variable                          |
-| :------------------------- | :-------------------------------------------- |
-| `--compaction-multipliers` | `INFLUXDB3_ENTERPRISE_COMPACTION_MULTIPLIERS` |
-
----
 
 #### gen1-duration
 
 Specifies the duration that Parquet files are arranged into. Data timestamps
 land each row into a file of this duration. Supported durations are `1m`,
 `5m`, and `10m`. These files are known as "generation 1" files, which the
-compactor can merge into larger generations.
+compactor in InfluxDB 3 Enterprise can merge into larger generations.
 
 **Default:** `10m`
 
