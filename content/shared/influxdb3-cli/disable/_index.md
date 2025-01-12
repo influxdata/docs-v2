@@ -13,7 +13,7 @@ influxdb3 disable <SUBCOMMAND>
 
 | Subcommand                                                                | Description                                    |
 | :------------------------------------------------------------------------ | :--------------------------------------------- |
-| [trigger](/influxdb3/enterprise/reference/cli/influxdb3/disable/trigger/) | Disables a plugin trigger                      |
+| [trigger](/influxdb3/version/reference/cli/influxdb3/disable/trigger/) | Disables a plugin trigger                      |
 | help                                                                      | Print command help or the help of a subcommand |
 
 ## Options

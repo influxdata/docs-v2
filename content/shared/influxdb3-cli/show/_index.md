@@ -13,7 +13,7 @@ influxdb3 show <SUBCOMMAND>
 
 | Subcommand                                                                 | Description                                    |
 | :------------------------------------------------------------------------- | :--------------------------------------------- |
-| [databases](/influxdb3/enterprise/reference/cli/influxdb3/show/databases/) | List database                                  |
+| [databases](/influxdb3/version/reference/cli/influxdb3/show/databases/) | List database                                  |
 | help                                                                       | Print command help or the help of a subcommand |
 
 ## Options
