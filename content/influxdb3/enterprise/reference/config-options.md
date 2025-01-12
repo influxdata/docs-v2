@@ -27,7 +27,7 @@ environment variables.
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --host-id my-host \
+  --writer-id my-host \
   --log-filter info \
   --max-http-request-size 20971520 \
   --aws-allow-http
@@ -53,7 +53,7 @@ influxdb3 serve
 - [General](#general)
   - [object-store](#object-store)
   - [data-dir](#data-dir)
-  - [host-id](#host-id)
+  - [writer-id](#writer-id)
   - [mode](#mode)
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
@@ -145,7 +145,7 @@ influxdb3 serve
 - [object-store](#object-store)
 - [bucket](#bucket)
 - [data-dir](#data-dir)
-- [host-id](#host-id)
+- [writer-id](#writer-id)
 - [mode](#mode)
 
 #### object-store
@@ -176,15 +176,15 @@ Defines the location {{< product-name >}} uses to store files locally.
 
 ---
 
-#### host-id
+#### writer-id
 
-Specifies the host identifier used as a prefix in all object store file paths.
+Specifies the writer identifier used as a prefix in all object store file paths.
 This should be unique for any hosts sharing the same object store
 configuration--for example, the same bucket.
 
-| influxdb3 serve option | Environment variable               |
-| :--------------------- | :--------------------------------- |
-| `--host-id`            | `INFLUXDB3_HOST_IDENTIFIER_PREFIX` |
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--writer-id`          | `INFLUXDB3_WRITER_IDENTIFIER_PREFIX` |
 
 ---
 
