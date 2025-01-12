@@ -80,10 +80,10 @@ influxdb3 serve [OPTIONS] --writer-id <HOST_IDENTIFIER_PREFIX>
 |                  | `--buffer-mem-limit-mb`                              | _See [configuration options](/influxdb3/enterprise/reference/config-options/#buffer-mem-limit-mb)_                              |
 | {{< req "\*" >}} | `--writer-id`                                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#writer-id)_                                        |
 |                  | `--mode`                                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#mode)_                                             |
-|                  | `--replicas`                                         | _See [configuration options](/influxdb3/enterprise/reference/config-options/#replicas)_                                         |
+|                  | `--read-from-writer-ids`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#read-from-writer-ids)_                             |
 |                  | `--replication-interval`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#replication-interval)_                             |
 |                  | `--compactor-id`                                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compactor-id)_                                     |
-|                  | `--compaction-hosts`                                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compaction-hosts)_                                 |
+|                  | `--compact-from-writer-ids`                          | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compact-from-writer-ids)_                          |
 |                  | `--run-compactions`                                  | _See [configuration options](/influxdb3/enterprise/reference/config-options/#run-compactions)_                                  |
 |                  | `--compaction-row-limit`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compaction-row-limit)_                             |
 |                  | `--compaction-max-num-files-per-plan`                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compaction-max-num-files-per-plan)_                |
