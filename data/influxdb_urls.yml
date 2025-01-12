@@ -8,6 +8,26 @@ oss:
     - name: Custom
       url: http://example.com:8080
 
+core:
+  product: InfluxDB 3 Core
+  providers:
+    - name: Default
+      regions:
+        - name: localhost:8181
+          url: http://localhost:8181
+    - name: Custom
+      url: http://example.com:8080
+
+enterprise:
+  product: InfluxDB 3 Enterprise
+  providers:
+    - name: Default
+      regions:
+        - name: localhost:8181
+          url: http://localhost:8181
+    - name: Custom
+      url: http://example.com:8080
+
 cloud:
   product: InfluxDB Cloud
   providers:
