@@ -80,6 +80,7 @@ influxdb3 serve
   - [log-filter](#log-filter)
   - [log-destination](#log-destination)
   - [log-format](#log-format)
+  - [query-log-size](#query-log-size)
 - [Traces](#traces)
   - [traces-exporter](#traces-exporter)
   - [traces-exporter-jaeger-agent-host](#traces-exporter-jaeger-agent-host)
@@ -109,12 +110,13 @@ influxdb3 serve
 - [Memory](#memory)
   - [ram-pool-data-bytes](#ram-pool-data-bytes)
   - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
+  - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
+  - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 - [Write-Ahead Log (WAL)](#write-ahead-log-wal)
   - [wal-flush-interval](#wal-flush-interval)
   - [wal-snapshot-size](#wal-snapshot-size)
   - [wal-max-write-buffer-size](#wal-max-write-buffer-size)
-  - [query-log-size](#query-log-size)
-  - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
+  - [snapshotted-wal-files-to-keep](#snapshotted-wal-files-to-keep)
 - [Replication](#replication)
   - [replicas](#replicas)
   - [replication-interval](#replication-interval)
@@ -424,6 +426,7 @@ Sets the endpoint of an S3-compatible, HTTP/2-enabled object store cache.
 - [log-filter](#log-filter)
 - [log-destination](#log-destination)
 - [log-format](#log-format)
+- [query-log-size](#query-log-size)
 
 #### log-filter
 
@@ -460,6 +463,19 @@ This option supports the following values:
 | influxdb3 serve option | Environment variable |
 | :--------------------- | :------------------- |
 | `--log-format`         | `LOG_FORMAT`         |
+
+---
+
+#### query-log-size
+
+Defines the size of the query log. Up to this many queries remain in the
+log before older queries are evicted to make room for new ones.
+
+**Default:** `1000`
+
+| influxdb3 serve option | Environment variable       |
+| :--------------------- | :------------------------- |
+| `--query-log-size`     | `INFLUXDB3_QUERY_LOG_SIZE` |
 
 ---
 
@@ -770,6 +786,8 @@ Specifies the bearer token to be set for requests.
 
 - [ram-pool-data-bytes](#ram-pool-data-bytes)
 - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
+- [buffer-mem-limit-mb](#buffer-mem-limit-mb)
+- [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 
 #### ram-pool-data-bytes
 
@@ -795,13 +813,39 @@ Specifies the size of the memory pool used during query execution, in bytes.
 
 ---
 
+#### buffer-mem-limit-mb
+
+Specifies the size limit of the buffered data in MB. If this limit is exceeded,
+the server forces a snapshot.
+
+**Default:** `5000`
+
+| influxdb3 serve option  | Environment variable            |
+| :---------------------- | :------------------------------ |
+| `--buffer-mem-limit-mb` | `INFLUXDB3_BUFFER_MEM_LIMIT_MB` |
+
+---
+
+#### force-snapshot-mem-threshold
+
+Specifies the threshold for the internal memory buffer. Supports either a
+percentage (portion of available memory)of or absolute value
+(total bytes)--for example: `70%` or `100000`.
+
+**Default:** `70%`
+
+| influxdb3 serve option           | Environment variable                     |
+| :------------------------------- | :--------------------------------------- |
+| `--force-snapshot-mem-threshold` | `INFLUXDB3_FORCE_SNAPSHOT_MEM_THRESHOLD` |
+
+---
+
 ### Write-Ahead Log (WAL)
 
 - [wal-flush-interval](#wal-flush-interval)
 - [wal-snapshot-size](#wal-snapshot-size)
 - [wal-max-write-buffer-size](#wal-max-write-buffer-size)
-- [query-log-size](#query-log-size)
-- [buffer-mem-limit-mb](#buffer-mem-limit-mb)
+- [snapshotted-wal-files-to-keep](#snapshotted-wal-files-to-keep)
 
 #### wal-flush-interval
 
@@ -842,29 +886,17 @@ flush must be executed and succeed.
 
 ---
 
-#### query-log-size
+#### snapshotted-wal-files-to-keep
 
-Defines the size of the query log. Up to this many queries remain in the
-log before older queries are evicted to make room for new ones.
+Specifies the number of snapshotted WAL files to retain in the object store.
+Flushing the WAL files does not clear the WAL files immediately; 
+they are deleted when the number of snapshotted WAL files exceeds this number.
 
-**Default:** `1000`
+**Default:** `300`
 
-| influxdb3 serve option | Environment variable       |
-| :--------------------- | :------------------------- |
-| `--query-log-size`     | `INFLUXDB3_QUERY_LOG_SIZE` |
-
----
-
-#### buffer-mem-limit-mb
-
-Specifies the size limit of the buffered data in MB. If this limit is exceeded,
-the server forces a snapshot.
-
-**Default:** `5000`
-
-| influxdb3 serve option  | Environment variable            |
-| :---------------------- | :------------------------------ |
-| `--buffer-mem-limit-mb` | `INFLUXDB3_BUFFER_MEM_LIMIT_MB` |
+| influxdb3 serve option            | Environment variable              |
+| :-------------------------------- | :-------------------------------- |
+| `--snapshotted-wal-files-to-keep` | `INFLUXDB3_NUM_WAL_FILES_TO_KEEP` |
 
 ---
 
