@@ -134,7 +134,7 @@ influxdb3 serve
   - [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
   - [disable-parquet-mem-cache](#disable-parquet-mem-cache)
   - [last-cache-eviction-interval](#last-cache-eviction-interval)
-  - [meta-cache-eviction-interval](#meta-cache-eviction-interval)
+  - [distinct-cache-eviction-interval](#distinct-cache-eviction-interval)
 - [Plugins](#plugins)
   - [plugin-dir](#plugin-dir)
 
@@ -1019,7 +1019,7 @@ compactor can merge into larger generations.
 - [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
 - [disable-parquet-mem-cache](#disable-parquet-mem-cache)
 - [last-cache-eviction-interval](#last-cache-eviction-interval)
-- [meta-cache-eviction-interval](#meta-cache-eviction-interval)
+- [distinct-cache-eviction-interval](#distinct-cache-eviction-interval)
 
 #### preemptive-cache-age
 
@@ -1093,16 +1093,16 @@ expressed as a human-readable time--for example: `20s`, `1m`, `1h`.
 
 ---
 
-#### meta-cache-eviction-interval
+#### distinct-cache-eviction-interval
 
-Specifies the interval to evict expired entries from the Meta cache, expressed
-as a human-readable time--for example: `20s`, `1m`, `1h`.
+Specifies the interval to evict expired entries from the distinct value cache,
+expressed as a human-readable time--for example: `20s`, `1m`, `1h`.
 
 **Default:** `10s`
 
-| influxdb3 serve option           | Environment variable                     |
-| :------------------------------- | :--------------------------------------- |
-| `--meta-cache-eviction-interval` | `INFLUXDB3_META_CACHE_EVICTION_INTERVAL` |
+| influxdb3 serve option               | Environment variable                         |
+| :----------------------------------- | :------------------------------------------- |
+| `--distinct-cache-eviction-interval` | `INFLUXDB3_DISTINCT_CACHE_EVICTION_INTERVAL` |
 
 ---
 
