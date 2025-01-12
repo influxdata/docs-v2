@@ -1,26 +1,44 @@
-# **Getting Started with InfluxDB 3 Enterprise**
+---
+title: Get Started with InfluxDB 3 Enterprise
+---
 
-InfluxDB is a [database](https://www.influxdata.com/time-series-database/) platform purposefully built to collect, process, transform, and store time series data. It is a solution for real-time analytics, observability, and monitoring. Use cases include working with and monitoring sensor data, server monitoring, application performance monitoring, network monitoring, financial market and trading analytics, behavioral analytics, and more. InfluxDB is focused on problem domains where data must be monitored in near real-time and queries must return quickly to drive user experiences like dashboards and interactive UIs. 
+InfluxDB is a [time series database](https://www.influxdata.com/time-series-database/) designed to collect, process, transform, and store time series data.
+It provides a platform for real-time analytics, observability, and monitoring.
+Common use cases include:
 
-In the newest version of the database — InfluxDB 3 — we’ve introduced several major changes that enable improved performance, better usability, and lower overall costs. 
+- Monitoring sensor data
+- Server monitoring
+- Application performance monitoring
+- Network monitoring
+- Financial market and trading analytics
+- Behavioral analytics
 
-## **What is time series data and why use InfluxDB?**
+InfluxDB is optimized for scenarios where near real-time data monitoring is essential and queries need to return quickly to support user experiences such as dashboards and interactive UIs.
 
-Time series data is, in its simplest form, a list of time:value pairs ordered by time. There will usually be metadata that describes this list. A time series represents a summarization of some underlying set of events or observations, or it could be the observations themselves.
+## What is time series data and why use InfluxDB?
 
-The important thing to note about InfluxDB is that it's not just for storing time series data, which is usually a summary. InfluxDB can be used for storing raw observational and event data (i.e. the highest precision data you have) and can compute time series summarizations on the fly.
+Time series data, in its simplest form, is a list of time:value pairs ordered by time.  
+This list is usually accompanied by metadata that provides additional context.  
+A time series can represent a summarization of underlying events or observations, or it can be the observations themselves.
 
-This makes it much more than a simple metrics database.
+InfluxDB is not limited to storing summarized time series data.  
+It can also store raw observational and event data (for example, the highest precision data available) and compute time series summaries on the fly.
 
-* Industrial sensor data  
-* Server performance metrics  
-* Heartbeats per minute  
-* Rainfall measurements  
-* Stock prices
+This capability makes InfluxDB much more than a simple metrics database.
 
-A **time series database** excels at storing and accessing this type of data, often called OLAP (Online Analytical Processing) data, whereas traditional relational databases focus on OLTP (Online Transactional Processing). 
+### Examples of time series data include:
 
-In a rainfall measurement scenario, you may collect records on the amount of rain, acidity, cloud coverage, and more, over time. For an analytical query, you don’t want all of that data at a specific time, but rather a specific type of data across many different times; for example, rainfall over time.
+- Industrial sensor data  
+- Server performance metrics  
+- Heartbeats per minute  
+- Rainfall measurements  
+- Stock prices  
+
+A time series database excels at storing and accessing this type of data, often called OLAP (Online Analytical Processing) data, whereas traditional relational databases focus on OLTP (Online Transactional Processing). 
+
+In a rainfall measurement scenario, you may collect records on the amount of rain, acidity, cloud coverage, and more over time.  
+For an analytical query, you don’t want all of that data at a specific time.  
+Instead, you want a specific type of data across many different times; for example, rainfall over time.
 
 | \_time | \_measurement | \_sensor | \_rainfall | \_acidity | \_coverage |
 | :---- | :---- | :---- | :---- | :---- | :---- |
@@ -28,71 +46,85 @@ In a rainfall measurement scenario, you may collect records on the amount of rai
 | 2024-02-02T12:00:00Z | rainfall | outside\_2 | 0.02 | 1.1 | .8 |
 | 2024-02-02T12:01:00Z | rainfall | outside\_1 | 0.03 | 1.0 | .7 |
 
-With InfluxDB, you don’t have to scan \_sensor, \_acidity, or \_coverage like you would in an RDBMS. Instead, you can access just the \_rainfall information alone, with incredibly low latency due to its columnar structure. You can learn more about columnar databases [here](https://www.example.com). 
+With InfluxDB, you don’t have to scan `\_sensor`, `\_acidity`, or `\_coverage` like you would in an RDBMS.
+Instead, you can access just the `\_rainfall` information alone, with incredibly low latency due to its columnar structure.
+You can learn more about columnar databases [here](https://www.example.com). 
 
-## **What’s new in InfluxDB 3?**
+## What’s new in InfluxDB 3?
 
 With the third iteration of InfluxDB, we’ve crafted an entirely new database from the ground up, with new features that maximize speed, usability, and reliability.
 
 | Update | Utilization | Benefit |
 | :---- | :---- | :---- |
 | Apache Parquet | Storage format | Using Parquet as the new storage solution for InfluxDB provides for simpler storage, easier accessibility across many different tools, and faster performance on analytical queries. |
-| Object Storage | Storage location | With Parquet files as the base for persisted data, InfluxDB 3 now allows for object storage as the preferred location for long-term storage. This dramatically reduces storage costs while keeping performance very high. |
+| Object Storage | Storage location | With Parquet files as the base for persisted data, InfluxDB 3 now allows for object storage as the preferred location for long-term storage. This dramatically reduces storage costs while keeping performance high. |
 | Unlimited Cardinality | Data variety | Leveraging Parquet, we’ve built an entirely new storage architecture that allows for unlimited cardinality. This ensures that your data can be as descriptive and variable as you need. |
 | SQL | Query language | InfluxDB now allows for native SQL querying syntax, leveraging Apache Arrow FlightSQL. This ensures incredibly fast performance on columnar databases with familiar querying concepts. |
 | Incredible Performance | Multi-Series Queries |  |
 
-## **Data Organization**
+## Data Organization
 
 The InfluxDB 3 data model organizes time series data into databases and tables. A database can contain multiple tables. Tables contain multiple tags and fields.
 
-| InfluxDB V3 Term | Similar InfluxDB V1 / V2 Term | Similar RDBMS Term | Description |
+The following table compares InfluxDB 3 data model concepts to InfluxDB TSM (InfluxDB v1 and v2), and relational database (RDBMS) concepts:
+
+| InfluxDB 3 | InfluxDB TSM | RDBMS | Description |
 | :---- | :---- | :---- | :---- |
-| Database | Database (V1) Bucket (V2) | Database | A named location where time series data is stored in *tables*.  |
+| Database | Database (v1), Bucket (v2) | Database | A named location where time series data is stored in *tables*.  |
 | Table | Measurement | Table | A logical grouping for time series data. All points in a table should have the same tags. Tables contain *tags* and *fields*.  |
 | Tags | Tags | Composite Primary Key | Key-value pairs that provide metadata for each point–for example, something to identify the source or context of the data like host, location, station, etc. Tag values may be null. |
 | Fields | Fields | Cell Value | Key-value pairs with values that change over time–for example, temperature, stock price, etc. Fields may be null, but at least one is non-null on any given row. |
 | Timestamp | Timestamp | *None* | Timestamp associated with the data. When stored on disk and queried, all data is ordered by time. A timestamp is always required and is never null. |
 
-## **Important Definitions**
+## Important Definitions
 
 | Term | Definition | Example |
 | :---- | :---- | :---- |
 | Point | Single data record identified by its measurement, tag keys, tag values, field key, and timestamp. | A single entry for a specific weather sensor, detailing its location, temperature, and time. |
 | Series | A group of points with the same measurement, tag keys, and tag values. | All the entries for a specific weather sensor, detailing its location, temperature, and time for each entry. |
+
 ---
-## Installation and Setup
 
-### **System Requirements**
+## Install and set up
 
-InfluxDB 3 Enteprise runs on Linux, MacOS, and Windows. A key feature of InfluxDB 3 is its use of object storage, which is where the Apache Parquet files InfluxDB writes to are ultimately stored. While you can choose to simply store these files on your local file system, we recommend leveraging an object store for best overall performance. Amazon S3, Azure Blob Storage, and Google Cloud Storage have native support; additional, many local object storage implementations, such as Minio, work as well with the S3 API.
+### System requirements
 
-### **Installation for Fast Deployments**
+InfluxDB 3 Enterprise runs on Linux, macOS, and Windows.  
+A key feature of InfluxDB 3 is its use of object storage, which is where the Apache Parquet files written by InfluxDB are ultimately stored.  
 
-We’ve strived to make downloading and installing InfluxDB as simple as possible. If you are looking to get started quickly with an installation on your local machine, we recommend leveraging our install script below. Regardless of your platform OS, it will handle the download and installation of InfluxDB 3 Enterprise.
+While you can choose to store these files on your local file system, we recommend leveraging an object store for the best overall performance.  
+Amazon S3, Azure Blob Storage, and Google Cloud Storage have native support.  
+Additionally, many local object storage implementations, such as MinIO, also work with the S3 API.
+
+### Install for fast deployments
+
+We’ve worked to make downloading and installing InfluxDB as simple as possible.  
+To get started quickly with installing on your local machine, use the install script below. 
+This script handles downloading and installing InfluxDB 3 Enterprise, regardless of your operating system.
 
 ```
 curl -O https://www.influxdata.com/d/install_influxdb3.sh && sh install_influxdb3.sh enterprise
 ```
 
-To ensure that the download and installation completed successfully, you can run:
+To verify that the download and installation completed successfully, run the following command:
 
 ```
 influxdb3 --version
 ```
 
-If it your system doesn't locate your installation of InfluxDB, `source` your current shell configuration file (.bashrc, .zshrc, etc). 
+If your system doesn't locate `influxdb3`, then `source` your current shell configuration file (.bashrc, .zshrc)--for example:
 
 ```
 source ~/.zshrc
 ```
 
-If you want to leverage additional installation options for your system, we offer multiple approaches, including Docker images. Start by visiting [www.influxdata.com/downloads](http://www.influxdata.com/downloads) to discover the binary for your particular system.
+If you want to leverage additional installation options for your system, we offer multiple approaches, including Docker images.
+Visit the [Downloads](http://www.influxdata.com/downloads) page to find the binary for your system.
 
+## Start InfluxDB
 
-### **Starting InfluxDB**
-
-To start your InfluxDB instance, you’ll need to know your object store of choice for data storage and its connection information. InfluxDB supports the following storage options:
+To start your InfluxDB instance, you’ll need to know your object store of choice for data storage and its connection information.
+InfluxDB supports the following storage options:
 
 | Type | Description | Requirements |
 | :---- | :---- | :---- |
@@ -102,7 +134,10 @@ To start your InfluxDB instance, you’ll need to know your object store of choi
 | *Google* | Google Cloud Storage | Bucket and Google Service Account |
 | *Azure* | Microsoft Azure Blob Storage | Bucket and Azure Storage Account |
 
-You start the database using the `serve` command. This creates a new, running instance of InfluxDB 3 Enterprise. Here are some quick examples:
+To start the database, use the `serve` command.
+This creates a new, running instance of InfluxDB 3 Enterprise.
+
+### Example commands with object store options
 
 ```
 MEMORY
@@ -119,26 +154,30 @@ $ influxdb3 serve --host-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-ac
 
 ```
 
-### **Licensing**
+## Licensing
 
 If you're starting InfluxDB 3 Enterprise for the first time, you'll be asked to enter an email address for verification. Upon verification, the license creation, retrieval, and application is automated. 
 
-## **Creating a Database**
+## Create a database
 
-To create a database, use the subcommand `create`. For this guide, we'll use a database called **servers**. InfluxDB also supports creating a database on first write.
+To create a database, use the subcommand `create`.
+For this guide, we'll use a database called **servers**.
+InfluxDB also supports creating a database on the first write.
 
 ```
-$ influxdb3 create database servers
+influxdb3 create database servers
 ```
 
+## Write data
 
-## **Writing Data**
+InfluxDB 3 supports several approaches to writing data to the database.
+The most basic approach is leveraging the command line interface to write data points directly.
+In order to use this approach, you’ll need to supply a file with data in _line protocol_ syntax. 
 
-InfluxDB 3 supports several approaches to writing data to the database. The most basic approach is leveraging the command line interface to write data points directly. In order to use this approach, you’ll need to supply a file with InfluxDB Line Protocol. 
+### Line protocol
 
-### Line Protocol
-
-All data written to InfluxDB is written using [line protocol](https://docs.influxdata.com/influxdb/clustered/reference/syntax/line-protocol/), a text-based format that lets you provide the necessary information to write a data point to InfluxDB. A point contains a measurement name, one or more fields, a timestamp, and optional tags that provide metadata about the observation.
+All data written to InfluxDB is written using [line protocol](/influxdb3/enterprise/reference/syntax/line-protocol/), a text-based format that lets you provide the necessary information to write a data point to InfluxDB.
+A point contains a measurement name, one or more fields, a timestamp, and optional tags that provide metadata about the observation.
 
 | Element | Purpose | Required? |
 | :---- | :---- | :---- |
@@ -163,17 +202,14 @@ cpu,host=Alpha,region=us-west,application=webserver val=6i,usage_percent=25.3,st
 To write this data to the database, you must supply the database name, and then specify which file contains the line protocol data you wish to write. Below is an example of this command.
 
 ```
-$ influxdb3 write --database=servers --file=server_data
+influxdb3 write --database=servers --file=server_data
 ```
 
-
-# **Query Data**
+## Query data
 
 InfluxDB 3 now supports native SQL for querying, in addition to InfluxQL – a SQL-like language with tailorings for time series queries. Note: Flux, a language introduced in InfluxDB 2.0, is not supported in 3\.
 
 There are several approaches to querying data. The quickest way to get started is simply leveraging the CLI, though for production use cases you will want to utilize our API endpoints or the supported libraries. For querying from the CLI, you need to supply the database name first.
-
-### 
 
 ### Query using the CLI
 
@@ -188,7 +224,7 @@ The `query` subcommand has several parameters to ensure the right database is qu
 | `--format` | The format in which to output the query [default: pretty] [possible values: pretty, json, json_lines, csv, parquet] | No |
 | `--output` | Put all query output into `output` | No |
 
-Example for “SHOW TABLES” on the database called **servers**. 
+#### Example querying `“SHOW TABLES”` on the `servers` database:
 
 ```
 $ influxdb3 query --database=servers "SHOW TABLES"
@@ -204,7 +240,7 @@ $ influxdb3 query --database=servers "SHOW TABLES"
 +---------------+--------------------+--------------+------------+
 ```
 
-Another example of querying directly on that **cpu** table (limiting to last ten for brevity):
+#### Example querying the `cpu` table, limiting to 10 rows:
 
 ```
 $ influxdb3 query --database=servers "SELECT DISTINCT usage_percent, time FROM cpu LIMIT 10"
@@ -224,7 +260,7 @@ $ influxdb3 query --database=servers "SELECT DISTINCT usage_percent, time FROM c
 +---------------+---------------------+
 ```
 
-### Querying using the CLI for InfluxQL
+### Query using the CLI for InfluxQL
 
 InfluxQL is a SQL-like language developed by InfluxData with specific features tailored for leveraging and working with InfluxDB. It’s compatible with all versions of InfluxDB, making it a tremendous choice for interoperability across different InfluxDB installations.
 
