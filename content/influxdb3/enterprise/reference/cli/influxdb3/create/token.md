@@ -7,20 +7,9 @@ menu:
     parent: influxdb3 create
     name: influxdb3 create token
 weight: 400
+source: /shared/influxdb3-cli/create/token.md
 ---
 
-The `influxdb3 create token` command creates a new authentication token.
-
-## Usage
-
-<!--pytest.mark.skip-->
-
-```bash
-influxdb3 create token
-```
-
-## Options
-
-| Option |          | Description            |
-| :----- | :------- | :--------------------- |
-| `-h`   | `--help` | Print help information |
+<!--
+The content of this file is at content/shared/influxdb3-cli/create/token.md
+-->
