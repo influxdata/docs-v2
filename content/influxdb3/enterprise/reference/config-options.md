@@ -1,167 +1,1120 @@
 ---
 title: InfluxDB 3 Enterprise configuration options
 description: >
-  Use InfluxDB 3 configuration options to configure your InfluxDB 3 Enterprise server.
+  InfluxDB 3 Enterprise lets you customize your server configuration by using
+  `influxdb3 serve` command options or by setting environment variables.
 menu:
   influxdb3_enterprise:
     parent: Reference
     name: Configuration options
 weight: 100
-draft: true
 ---
 
-<!-- This is just a draft to contain notes for future work -->
+{{< product-name >}} lets you customize your server configuration by using
+`influxdb3 serve` command options or by setting environment variables.
 
-## Global configuration options
+## Configure your server
+
+Pass configuration options to the `influxdb serve` server using either command
+options or environment variables. Command options take precedence over
+environment variables.
+
+##### Example influxdb3 serve command options
+
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 serve \
+  --object-store file \
+  --data-dir ~/.influxdb3 \
+  --host-id my-host \
+  --log-filter info \
+  --max-http-request-size 20971520 \
+  --aws-allow-http
+```
+
+##### Example environment variables
+
+<!--pytest.mark.skip-->
+
+```sh
+export INFLUXDB3_OBJECT_STORE=file
+export INFLUXDB3_DB_DIR=~/.influxdb3
+export INFLUXDB3_HOST_IDENTIFIER_PREFIX=my-host
+export LOG_FILTER=info
+export INFLUXDB3_MAX_HTTP_REQUEST_SIZE=20971520
+export AWS_ALLOW_HTTP=true
+
+influxdb3 serve
+```
 
 ## Server configuration options
 
-Options:
-      --object-store <object-store>
-          Which object storage to use. If not specified, defaults to memory. [env: INFLUXDB3_OBJECT_STORE=] [possible values: memory, memory-throttled, file, s3, google, azure]
-      --bucket <bucket>
-          Name of the bucket to use for the object store. Must also set `--object-store` to a cloud object storage to have any effect [env: INFLUXDB3_BUCKET=]
-      --data-dir <data-dir>
-          The location InfluxDB 3 Enterprise will use to store files locally [env: INFLUXDB3_DB_DIR=]
-      --aws-access-key-id <aws-access-key-id>
-          When using Amazon S3 as the object store, set this to an access key that has permission to read from and write to the specified S3 bucket [env: AWS_ACCESS_KEY_ID=] [default: ]
-      --aws-secret-access-key <aws-secret-access-key>
-          When using Amazon S3 as the object store, set this to the secret access key that goes with the specified access key ID [env: AWS_SECRET_ACCESS_KEY=] [default: ]
-      --aws-default-region <aws-default-region>
-          When using Amazon S3 as the object store, set this to the region that goes with the specified bucket if different from the fallback value [env: AWS_DEFAULT_REGION=] [default: us-east-1]
-      --aws-endpoint <aws-endpoint>
-          When using Amazon S3 compatibility storage service, set this to the endpoint [env: AWS_ENDPOINT=]
-      --aws-session-token <aws-session-token>
-          When using Amazon S3 as an object store, set this to the session token. This is handy when using a federated login / SSO and you fetch credentials via the UI [env: AWS_SESSION_TOKEN=]
-      --aws-allow-http
-          Allow unencrypted HTTP connection to AWS [env: AWS_ALLOW_HTTP=]
-      --aws-skip-signature
-          If enabled, S3 stores will not fetch credentials and will not sign requests [env: AWS_SKIP_SIGNATURE=]
-      --google-service-account <google-service-account>
-          When using Google Cloud Storage as the object store, set this to the path to the JSON file that contains the Google credentials [env: GOOGLE_SERVICE_ACCOUNT=]
-      --azure-storage-account <azure-storage-account>
-          When using Microsoft Azure as the object store, set this to the name you see when going to All Services > Storage accounts > `[name]` [env: AZURE_STORAGE_ACCOUNT=]
-      --azure-storage-access-key <azure-storage-access-key>
-          When using Microsoft Azure as the object store, set this to one of the Key values in the Storage account's Settings > Access keys [env: AZURE_STORAGE_ACCESS_KEY=]
-      --object-store-connection-limit <object-store-connection-limit>
-          When using a network-based object store, limit the number of connection to this value [env: OBJECT_STORE_CONNECTION_LIMIT=] [default: 16]
-      --object-store-http2-only
-          Force HTTP/2 connection to network-based object stores [env: OBJECT_STORE_HTTP2_ONLY=]
-      --object-store-http2-max-frame-size <object-store-http2-max-frame-size>
-          Set max frame size (in bytes/octets) for HTTP/2 connection [env: OBJECT_STORE_HTTP2_MAX_FRAME_SIZE=]
-      --object-store-max-retries <object-store-max-retries>
-          The maximum number of times to retry a request [env: OBJECT_STORE_MAX_RETRIES=]
-      --object-store-retry-timeout <object-store-retry-timeout>
-          The maximum length of time from the initial request after which no further retries will be attempted [env: OBJECT_STORE_RETRY_TIMEOUT=]
-  -h, --help
-          Print help information
-      --object-store-cache-endpoint <object-store-cache-endpoint>
-          Endpoint of an S3 compatible, HTTP/2 enabled object store cache [env: OBJECT_STORE_CACHE_ENDPOINT=]
-      --log-filter <LOG_FILTER>
-          Logs: filter directive [env: LOG_FILTER=]
-  -v, --verbose...
-          Logs: filter short-hand
-      --log-destination <LOG_DESTINATION>
-          Logs: destination [env: LOG_DESTINATION=] [default: stdout]
-      --log-format <LOG_FORMAT>
-          Logs: message format [env: LOG_FORMAT=] [default: full]
-      --traces-exporter <TRACES_EXPORTER>
-          Tracing: exporter type [env: TRACES_EXPORTER=] [default: none]
-      --traces-exporter-jaeger-agent-host <TRACES_EXPORTER_JAEGER_AGENT_HOST>
-          Tracing: Jaeger agent network hostname [env: TRACES_EXPORTER_JAEGER_AGENT_HOST=] [default: 0.0.0.0]
-      --traces-exporter-jaeger-agent-port <TRACES_EXPORTER_JAEGER_AGENT_PORT>
-          Tracing: Jaeger agent network port [env: TRACES_EXPORTER_JAEGER_AGENT_PORT=] [default: 6831]
-      --traces-exporter-jaeger-service-name <TRACES_EXPORTER_JAEGER_SERVICE_NAME>
-          Tracing: Jaeger service name [env: TRACES_EXPORTER_JAEGER_SERVICE_NAME=] [default: iox-conductor]
-      --traces-exporter-jaeger-trace-context-header-name <TRACES_JAEGER_TRACE_CONTEXT_HEADER_NAME>
-          Tracing: specifies the header name used for passing trace context [env: TRACES_EXPORTER_JAEGER_TRACE_CONTEXT_HEADER_NAME=] [default: uber-trace-id]
-      --traces-jaeger-debug-name <TRACES_JAEGER_DEBUG_NAME>
-          Tracing: specifies the header name used for force sampling [env: TRACES_EXPORTER_JAEGER_DEBUG_NAME=] [default: jaeger-debug-id]
-      --traces-jaeger-tags <TRACES_JAEGER_TAGS>
-          Tracing: set of key=value pairs to annotate tracing spans with [env: TRACES_EXPORTER_JAEGER_TAGS=]
-      --traces-jaeger-max-msgs-per-second <TRACES_JAEGER_MAX_MSGS_PER_SECOND>
-          Tracing: Maximum number of message sent to a Jaeger service, per second [env: TRACES_JAEGER_MAX_MSGS_PER_SECOND=] [default: 1000]
-      --datafusion-num-threads <datafusion_runtime_num_threads>
-          Set the maximum number of Datafusion runtime threads to use [env: INFLUXDB3_DATAFUSION_NUM_THREADS=]
-      --datafusion-runtime-type <datafusion_runtime_type>
-          Datafusion tokio runtime type [env: INFLUXDB3_DATAFUSION_RUNTIME_TYPE=] [default: multi-thread] [possible values: current-thread, multi-thread, multi-thread-alt]
-      --datafusion-runtime-disable-lifo-slot <datafusion_runtime_disable_lifo>
-          Disable LIFO slot of Datafusion runtime [env: INFLUXDB3_DATAFUSION_RUNTIME_DISABLE_LIFO_SLOT=] [possible values: true, false]
-      --datafusion-runtime-event-interval <datafusion_runtime_event_interval>
-          Sets the number of scheduler ticks after which the scheduler of the Datafusiontokio runtime will poll for external events (timers, I/O, and so on) [env: INFLUXDB3_DATAFUSION_RUNTIME_EVENT_INTERVAL=]
-      --datafusion-runtime-global-queue-interval <datafusion_runtime_global_queue_interval>
-          Sets the number of scheduler ticks after which the scheduler of the Datafusion runtime will poll the global task queue [env: INFLUXDB3_DATAFUSION_RUNTIME_GLOBAL_QUEUE_INTERVAL=]
-      --datafusion-runtime-max-blocking-threads <datafusion_runtime_max_blocking_threads>
-          Specifies the limit for additional threads spawned by the Datafusion runtime [env: INFLUXDB3_DATAFUSION_RUNTIME_MAX_BLOCKING_THREADS=]
-      --datafusion-runtime-max-io-events-per-tick <datafusion_runtime_max_io_events_per_tick>
-          Configures the max number of events to be processed per tick by the tokio Datafusion runtime [env: INFLUXDB3_DATAFUSION_RUNTIME_MAX_IO_EVENTS_PER_TICK=]
-      --datafusion-runtime-thread-keep-alive <datafusion_runtime_thread_keep_alive>
-          Sets a custom timeout for a thread in the blocking pool of the tokio Datafusion runtime [env: INFLUXDB3_DATAFUSION_RUNTIME_THREAD_KEEP_ALIVE=]
-      --datafusion-runtime-thread-priority <datafusion_runtime_thread_priority>
-          Set thread priority tokio Datafusion runtime workers [env: INFLUXDB3_DATAFUSION_RUNTIME_THREAD_PRIORITY=] [default: 10]
-      --datafusion-max-parquet-fanout <MAX_PARQUET_FANOUT>
-          When multiple parquet files are required in a sorted way (e.g. for de-duplication), we have two options: [env: INFLUXDB3_DATAFUSION_MAX_PARQUET_FANOUT=] [default: 1000]
-      --datafusion-use-cached-parquet-loader
-          Use a cached parquet loader when reading parquet files from object store [env: INFLUXDB3_DATAFUSION_USE_CACHED_PARQUET_LOADER=]
-      --datafusion-config <DATAFUSION_CONFIG>
-          Provide custom configuration to DataFusion as a comma-separated list of key:value pairs [env: INFLUXDB3_DATAFUSION_CONFIG=] [default: ]
-      --max-http-request-size <MAX_HTTP_REQUEST_SIZE>
-          Maximum size of HTTP requests [env: INFLUXDB3_MAX_HTTP_REQUEST_SIZE=] [default: 10485760]
-      --http-bind <HTTP_BIND_ADDRESS>
-          The address on which InfluxDB will serve HTTP API requests [env: INFLUXDB3_HTTP_BIND_ADDR=] [default: 0.0.0.0:8181]
-      --ram-pool-data-bytes <RAM_POOL_DATA_BYTES>
-          Size of the RAM cache used to store data in bytes [env: INFLUXDB3_RAM_POOL_DATA_BYTES=] [default: 1073741824]
-      --exec-mem-pool-bytes <EXEC_MEM_POOL_BYTES>
-          Size of memory pool used during query exec, in bytes [env: INFLUXDB3_EXEC_MEM_POOL_BYTES=] [default: 8589934592]
-      --bearer-token <BEARER_TOKEN>
-          bearer token to be set for requests [env: INFLUXDB3_BEARER_TOKEN=]
-      --gen1-duration <GEN1_DURATION>
-          Duration that the Parquet files get arranged into. The data timestamps will land each row into a file of this duration. 1m, 5m, and 10m are supported. These are known as "generation 1" files. The compactor in Pro can compact these into larger and longer generations [env: INFLUXDB3_GEN1_DURATION=] [default: 10m]
-      --wal-flush-interval <WAL_FLUSH_INTERVAL>
-          Interval to flush buffered data to a wal file. Writes that wait for wal confirmation will take as long as this interval to complete [env: INFLUXDB3_WAL_FLUSH_INTERVAL=] [default: 1s]
-      --wal-snapshot-size <WAL_SNAPSHOT_SIZE>
-          The number of WAL files to attempt to remove in a snapshot. This times the interval will determine how often snapshot is taken [env: INFLUXDB3_WAL_SNAPSHOT_SIZE=] [default: 600]
-      --wal-max-write-buffer-size <WAL_MAX_WRITE_BUFFER_SIZE>
-          The maximum number of writes requests that can be buffered before a flush must be run and succeed [env: INFLUXDB3_WAL_MAX_WRITE_BUFFER_SIZE=] [default: 100000]
-      --query-log-size <QUERY_LOG_SIZE>
-          The size of the query log. Up to this many queries will remain in the log before old queries are evicted to make room for new ones [env: INFLUXDB3_QUERY_LOG_SIZE=] [default: 1000]
-      --buffer-mem-limit-mb <BUFFER_MEM_LIMIT_MB>
-          The size limit of the buffered data. If this limit is passed a snapshot will be forced [env: INFLUXDB3_BUFFER_MEM_LIMIT_MB=] [default: 5000]
-      --host-id <HOST_IDENTIFIER_PREFIX>
-          The host idendifier used as a prefix in all object store file paths. This should be unique for any hosts that share the same object store configuration, i.e., the same bucket [env: INFLUXDB3_HOST_IDENTIFIER_PREFIX=]
-      --mode <MODE>
-          The mode to start the server in [env: INFLUXDB3_ENTERPRISE_MODE=] [default: read_write] [possible values: read, read_write, compactor]
-      --replicas <REPLICAS>
-          Comma-separated list of host identifier prefixes to replicate [env: INFLUXDB3_ENTERPRISE_REPLICAS=]
-      --replication-interval <REPLICATION_INTERVAL>
-          The interval at which each replica specified in the `replicas` option will be replicated [env: INFLUXDB3_ENTERPRISE_REPLICATION_INTERVAL=] [default: 250ms]
-      --compactor-id <COMPACTOR_ID>
-          The prefix in object store where all compacted data will be written to. Only provide this option if this server should be running compaction for its own write buffer and any replicas it is managing [env: INFLUXDB3_ENTERPRISE_COMPACTOR_ID=]
-      --compaction-hosts <COMPACTION_HOSTS>
-          Comma-separated list of host identifier prefixes to compact data from [env: INFLUXDB3_ENTERPRISE_COMPACTION_HOSTS=]
-      --run-compactions
-          This tells the server to run compactions. Only a single server should ever be running compactions for a given compactor_id. All other servers can read from that compactor id to pick up compacted files. This option is only applicable if a compactor-id is set. Set this flag if this server should be running compactions [env: INFLUXDB3_ENTERPRISE_RUN_COMPACTIONS=]
-      --compaction-row-limit <COMPACTION_ROW_LIMIT>
-          The limit to the number of rows per file that the compactor will write. This is a soft limit and the compactor may write more rows than this limit [env: INFLUXDB3_ENTERPRISE_COMPACTION_ROW_LIMIT=] [default: 1000000]
-      --compaction-max-num-files-per-plan <COMPACTION_MAX_NUM_FILES_PER_PLAN>
-          Set the maximum number of files that will be included in any compaction plan [env: INFLUXDB3_ENTERPRISE_COMPACTION_MAX_NUM_FILES_PER_PLAN=] [default: 500]
-      --compaction-gen2-duration <COMPACTION_GEN2_DURATION>
-          This is the duration of the first level of compaction (gen2). Later levels of compaction will be multiples of this duration. This number should be equal to or greater than the gen1 duration. The default is 20m, which is 2x the default gen1 duration of 10m [env: INFLUXDB3_ENTERPRISE_COMPACTION_GEN2_DURATION=] [default: 20m]
-      --compaction-multipliers <COMPACTION_MULTIPLIERS>
-          This comma-separated list of multiples specifies the duration of each level of compaction. The number of elements in this list will also determine the number of levels of compaction. The first element in the list will be the duration of the first level of compaction (gen3). Each subsequent level will be a multiple of the previous level [env: INFLUXDB3_ENTERPRISE_COMPACTION_MULTIPLIERS=] [default: 3,4,6,5]
-      --preemptive-cache-age <PREEMPTIVE_CACHE_AGE>
-          The interval to prefetch into parquet cache when compacting [env: INFLUXDB3_PREEMPTIVE_CACHE_AGE=] [default: 3d]
-      --parquet-mem-cache-size-mb <PARQUET_MEM_CACHE_SIZE>
-          The size of the in-memory Parquet cache in megabytes (MB) [env: INFLUXDB3_PARQUET_MEM_CACHE_SIZE_MB=] [default: 1000]
-      --parquet-mem-cache-prune-percentage <PARQUET_MEM_CACHE_PRUNE_PERCENTAGE>
-          The percentage of entries to prune during a prune operation on the in-memory Parquet cache [env: INFLUXDB3_PARQUET_MEM_CACHE_PRUNE_PERCENTAGE=] [default: 0.1]
-      --parquet-mem-cache-prune-interval <PARQUET_MEM_CACHE_PRUNE_INTERVAL>
-          The interval on which to check if the in-memory Parquet cache needs to be pruned [env: INFLUXDB3_PARQUET_MEM_CACHE_PRUNE_INTERVAL=] [default: 1s]
-      --disable-parquet-mem-cache
-          Disable the in-memory Parquet cache. By default, the cache is enabled [env: INFLUXDB3_DISABLE_PARQUET_MEM_CACHE=]
-      --last-cache-eviction-interval <LAST_CACHE_EVICTION_INTERVAL>
-          The interval on which to evict expired entries from the Last-N-Value cache, expressed as a human-readable time, e.g., "20s", "1m", "1h" [env: INFLUXDB3_LAST_CACHE_EVICTION_INTERVAL=] [default: 10s]
-      --meta-cache-eviction-interval <META_CACHE_EVICTION_INTERVAL>
-          The interval on which to evict expired entries from the Last-N-Value cache, expressed as a human-readable time, e.g., "20s", "1m", "1h" [env: INFLUXDB3_META_CACHE_EVICTION_INTERVAL=] [default: 10s]
-      --plugin-dir <PLUGIN_DIR>
-          The local directory that has python plugins and their test files [env: INFLUXDB3_PLUGIN_DIR=]
+- [General](#general)
+  - [object-store](#object-store)
+  - [data-dir](#data-dir)
+  - [host-id](#host-id)
+  - [mode](#mode)
+- [AWS](#aws)
+  - [aws-access-key-id](#aws-access-key-id)
+  - [aws-secret-access-key](#aws-secret-access-key)
+  - [aws-default-region](#aws-default-region)
+  - [aws-endpoint](#aws-endpoint)
+  - [aws-session-token](#aws-session-token)
+  - [aws-allow-http](#aws-allow-http)
+  - [aws-skip-signature](#aws-skip-signature)
+- [Google Cloud Service](#google-cloud-service)
+  - [google-service-account](#google-service-account)
+- [Microsoft Azure](#microsoft-azure)
+  - [azure-storage-account](#azure-storage-account)
+  - [azure-storage-access-key](#azure-storage-access-key)
+- [Object Storage](#object-storage)
+  - [bucket](#bucket)
+  - [object-store-connection-limit](#object-store-connection-limit)
+  - [object-store-http2-only](#object-store-http2-only)
+  - [object-store-http2-max-frame-size](#object-store-http2-max-frame-size)
+  - [object-store-max-retries](#object-store-max-retries)
+  - [object-store-retry-timeout](#object-store-retry-timeout)
+  - [object-store-cache-endpoint](#object-store-cache-endpoint)
+- [Logs](#logs)
+  - [log-filter](#log-filter)
+  - [log-destination](#log-destination)
+  - [log-format](#log-format)
+- [Traces](#traces)
+  - [traces-exporter](#traces-exporter)
+  - [traces-exporter-jaeger-agent-host](#traces-exporter-jaeger-agent-host)
+  - [traces-exporter-jaeger-agent-port](#traces-exporter-jaeger-agent-port)
+  - [traces-exporter-jaeger-service-name](#traces-exporter-jaeger-service-name)
+  - [traces-exporter-jaeger-trace-context-header-name](#traces-exporter-jaeger-trace-context-header-name)
+  - [traces-jaeger-debug-name](#traces-jaeger-debug-name)
+  - [traces-jaeger-tags](#traces-jaeger-tags)
+  - [traces-jaeger-max-msgs-per-second](#traces-jaeger-max-msgs-per-second)
+- [DataFusion](#datafusion)
+  - [datafusion-num-threads](#datafusion-num-threads)
+  - [datafusion-runtime-type](#datafusion-runtime-type)
+  - [datafusion-runtime-disable-lifo-slot](#datafusion-runtime-disable-lifo-slot)
+  - [datafusion-runtime-event-interval](#datafusion-runtime-event-interval)
+  - [datafusion-runtime-global-queue-interval](#datafusion-runtime-global-queue-interval)
+  - [datafusion-runtime-max-blocking-threads](#datafusion-runtime-max-blocking-threads)
+  - [datafusion-runtime-max-io-events-per-tick](#datafusion-runtime-max-io-events-per-tick)
+  - [datafusion-runtime-thread-keep-alive](#datafusion-runtime-thread-keep-alive)
+  - [datafusion-runtime-thread-priority](#datafusion-runtime-thread-priority)
+  - [datafusion-max-parquet-fanout](#datafusion-max-parquet-fanout)
+  - [datafusion-use-cached-parquet-loader](#datafusion-use-cached-parquet-loader)
+  - [datafusion-config](#datafusion-config)
+- [HTTP](#http)
+  - [max-http-request-size](#max-http-request-size)
+  - [http-bind](#http-bind)
+  - [bearer-token](#bearer-token)
+- [Memory](#memory)
+  - [ram-pool-data-bytes](#ram-pool-data-bytes)
+  - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
+- [Write-Ahead Log (WAL)](#write-ahead-log-wal)
+  - [wal-flush-interval](#wal-flush-interval)
+  - [wal-snapshot-size](#wal-snapshot-size)
+  - [wal-max-write-buffer-size](#wal-max-write-buffer-size)
+  - [query-log-size](#query-log-size)
+  - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
+- [Replication](#replication)
+  - [replicas](#replicas)
+  - [replication-interval](#replication-interval)
+- [Compaction](#compaction)
+  - [compactor-id](#compactor-id)
+  - [compaction-hosts](#compaction-hosts)
+  - [run-compactions](#run-compactions)
+  - [compaction-row-limit](#compaction-row-limit)
+  - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
+  - [compaction-gen2-duration](#compaction-gen2-duration)
+  - [compaction-multipliers](#compaction-multipliers)
+  - [gen1-duration](#gen1-duration)
+- [Caching](#caching)
+  - [preemptive-cache-age](#preemptive-cache-age)
+  - [parquet-mem-cache-size-mb](#parquet-mem-cache-size-mb)
+  - [parquet-mem-cache-prune-percentage](#parquet-mem-cache-prune-percentage)
+  - [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
+  - [disable-parquet-mem-cache](#disable-parquet-mem-cache)
+  - [last-cache-eviction-interval](#last-cache-eviction-interval)
+  - [meta-cache-eviction-interval](#meta-cache-eviction-interval)
+- [Plugins](#plugins)
+  - [plugin-dir](#plugin-dir)
+
+---
+
+### General
+
+- [object-store](#object-store)
+- [bucket](#bucket)
+- [data-dir](#data-dir)
+- [host-id](#host-id)
+- [mode](#mode)
+
+#### object-store
+
+Specifies which object storage to use to store Parquet files.
+This option supports the following values:
+
+- `memory` _(default)_
+- `memory-throttled`
+- `file`
+- `s3`
+- `google`
+- `azure`
+
+| influxdb3 serve option | Environment variable     |
+| :--------------------- | :----------------------- |
+| `--object-store`       | `INFLUXDB3_OBJECT_STORE` |
+
+---
+
+#### data-dir
+
+Defines the location {{< product-name >}} uses to store files locally.
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--data-dir`           | `INFLUXDB3_DB_DIR`   |
+
+---
+
+#### host-id
+
+Specifies the host identifier used as a prefix in all object store file paths.
+This should be unique for any hosts sharing the same object store
+configuration--for example, the same bucket.
+
+| influxdb3 serve option | Environment variable               |
+| :--------------------- | :--------------------------------- |
+| `--host-id`            | `INFLUXDB3_HOST_IDENTIFIER_PREFIX` |
+
+---
+
+#### mode
+
+Sets the mode to start the server in.
+
+This option supports the following values:
+
+- `read`
+- `read_write` _(default)_
+- `compactor`
+
+**Default:** `read_write`
+
+| influxdb3 serve option | Environment variable        |
+| :--------------------- | :-------------------------- |
+| `--mode`               | `INFLUXDB3_ENTERPRISE_MODE` |
+
+---
+
+### AWS
+
+- [aws-access-key-id](#aws-access-key-id)
+- [aws-secret-access-key](#aws-secret-access-key)
+- [aws-default-region](#aws-default-region)
+- [aws-endpoint](#aws-endpoint)
+- [aws-session-token](#aws-session-token)
+- [aws-allow-http](#aws-allow-http)
+- [aws-skip-signature](#aws-skip-signature)
+
+#### aws-access-key-id
+
+When using Amazon S3 as the object store, set this to an access key that has
+permission to read from and write to the specified S3 bucket.
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--aws-access-key-id`  | `AWS_ACCESS_KEY_ID`  |
+
+---
+
+#### aws-secret-access-key
+
+When using Amazon S3 as the object store, set this to the secret access key that
+goes with the specified access key ID.
+
+| influxdb3 serve option    | Environment variable    |
+| :------------------------ | :---------------------- |
+| `--aws-secret-access-key` | `AWS_SECRET_ACCESS_KEY` |
+
+---
+
+#### aws-default-region
+
+When using Amazon S3 as the object store, set this to the region that goes with
+the specified bucket if different from the fallback value.
+
+**Default:** `us-east-1`
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--aws-default-region` | `AWS_DEFAULT_REGION` |
+
+---
+
+#### aws-endpoint
+
+When using an Amazon S3 compatibility storage service, set this to the endpoint.
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--aws-endpoint`       | `AWS_ENDPOINT`       |
+
+---
+
+#### aws-session-token
+
+When using Amazon S3 as an object store, set this to the session token. This is
+handy when using a federated login or SSO and fetching credentials via the UI.
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--aws-session-token`  | `AWS_SESSION_TOKEN`  |
+
+---
+
+#### aws-allow-http
+
+Allows unencrypted HTTP connections to AWS.
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--aws-allow-http`     | `AWS_ALLOW_HTTP`     |
+
+---
+
+#### aws-skip-signature
+
+If enabled, S3 object stores do not fetch credentials and do not sign requests.
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--aws-skip-signature` | `AWS_SKIP_SIGNATURE` |
+
+---
+
+### Google Cloud Service
+
+- [google-service-account](#google-service-account)
+
+#### google-service-account
+
+When using Google Cloud Storage as the object store, set this to the path to the
+JSON file that contains the Google credentials.
+
+| influxdb3 serve option     | Environment variable     |
+| :------------------------- | :----------------------- |
+| `--google-service-account` | `GOOGLE_SERVICE_ACCOUNT` |
+
+---
+
+### Microsoft Azure
+
+- [azure-storage-account](#azure-storage-account)
+- [azure-storage-access-key](#azure-storage-access-key)
+
+#### azure-storage-account
+
+When using Microsoft Azure as the object store, set this to the name you see
+when navigating to **All Services > Storage accounts > `[name]`**.
+
+| influxdb3 serve option    | Environment variable    |
+| :------------------------ | :---------------------- |
+| `--azure-storage-account` | `AZURE_STORAGE_ACCOUNT` |
+
+---
+
+#### azure-storage-access-key
+
+When using Microsoft Azure as the object store, set this to one of the Key
+values in the Storage account's **Settings > Access keys**.
+
+| influxdb3 serve option       | Environment variable       |
+| :--------------------------- | :------------------------- |
+| `--azure-storage-access-key` | `AZURE_STORAGE_ACCESS_KEY` |
+
+---
+
+### Object Storage
+
+- [bucket](#bucket)
+- [object-store-connection-limit](#object-store-connection-limit)
+- [object-store-http2-only](#object-store-http2-only)
+- [object-store-http2-max-frame-size](#object-store-http2-max-frame-size)
+- [object-store-max-retries](#object-store-max-retries)
+- [object-store-retry-timeout](#object-store-retry-timeout)
+- [object-store-cache-endpoint](#object-store-cache-endpoint)
+
+#### bucket
+
+Sets the name of the object storage bucket to use. Must also set
+`--object-store` to a cloud object storage for this option to take effect.
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--bucket`             | `INFLUXDB3_BUCKET`   |
+
+---
+
+#### object-store-connection-limit
+
+When using a network-based object store, limits the number of connections to
+this value.
+
+**Default:** `16`
+
+| influxdb3 serve option            | Environment variable            |
+| :-------------------------------- | :------------------------------ |
+| `--object-store-connection-limit` | `OBJECT_STORE_CONNECTION_LIMIT` |
+
+---
+
+#### object-store-http2-only
+
+Forces HTTP/2 connections to network-based object stores.
+
+| influxdb3 serve option      | Environment variable      |
+| :-------------------------- | :------------------------ |
+| `--object-store-http2-only` | `OBJECT_STORE_HTTP2_ONLY` |
+
+---
+
+#### object-store-http2-max-frame-size
+
+Sets the maximum frame size (in bytes/octets) for HTTP/2 connections.
+
+| influxdb3 serve option                | Environment variable                |
+| :------------------------------------ | :---------------------------------- |
+| `--object-store-http2-max-frame-size` | `OBJECT_STORE_HTTP2_MAX_FRAME_SIZE` |
+
+---
+
+#### object-store-max-retries
+
+Defines the maximum number of times to retry a request.
+
+| influxdb3 serve option       | Environment variable       |
+| :--------------------------- | :------------------------- |
+| `--object-store-max-retries` | `OBJECT_STORE_MAX_RETRIES` |
+
+---
+
+#### object-store-retry-timeout
+
+Specifies the maximum length of time from the initial request after which no
+further retries are be attempted.
+
+| influxdb3 serve option         | Environment variable         |
+| :----------------------------- | :--------------------------- |
+| `--object-store-retry-timeout` | `OBJECT_STORE_RETRY_TIMEOUT` |
+
+---
+
+#### object-store-cache-endpoint
+
+Sets the endpoint of an S3-compatible, HTTP/2-enabled object store cache.
+
+| influxdb3 serve option          | Environment variable          |
+| :------------------------------ | :---------------------------- |
+| `--object-store-cache-endpoint` | `OBJECT_STORE_CACHE_ENDPOINT` |
+
+---
+
+### Logs
+
+- [log-filter](#log-filter)
+- [log-destination](#log-destination)
+- [log-format](#log-format)
+
+#### log-filter
+
+Sets the filter directive for logs.
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--log-filter`         | `LOG_FILTER`         |
+
+---
+
+#### log-destination
+
+Specifies the destination for logs.
+
+**Default:** `stdout`
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--log-destination`    | `LOG_DESTINATION`    |
+
+---
+
+#### log-format
+
+Defines the message format for logs.
+
+This option supports the following values:
+
+- `full` _(default)_
+
+**Default:** `full`
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--log-format`         | `LOG_FORMAT`         |
+
+---
+
+### Traces
+
+- [traces-exporter](#traces-exporter)
+- [traces-exporter-jaeger-agent-host](#traces-exporter-jaeger-agent-host)
+- [traces-exporter-jaeger-agent-port](#traces-exporter-jaeger-agent-port)
+- [traces-exporter-jaeger-service-name](#traces-exporter-jaeger-service-name)
+- [traces-exporter-jaeger-trace-context-header-name](#traces-exporter-jaeger-trace-context-header-name)
+- [traces-jaeger-debug-name](#traces-jaeger-debug-name)
+- [traces-jaeger-tags](#traces-jaeger-tags)
+- [traces-jaeger-max-msgs-per-second](#traces-jaeger-max-msgs-per-second)
+
+#### traces-exporter
+
+Sets the type of tracing exporter.
+
+**Default:** `none`
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--traces-exporter`    | `TRACES_EXPORTER`    |
+
+---
+
+#### traces-exporter-jaeger-agent-host
+
+Specifies the Jaeger agent network hostname for tracing.
+
+**Default:** `0.0.0.0`
+
+| influxdb3 serve option                | Environment variable                |
+| :------------------------------------ | :---------------------------------- |
+| `--traces-exporter-jaeger-agent-host` | `TRACES_EXPORTER_JAEGER_AGENT_HOST` |
+
+---
+
+#### traces-exporter-jaeger-agent-port
+
+Defines the Jaeger agent network port for tracing.
+
+**Default:** `6831`
+
+| influxdb3 serve option                | Environment variable                |
+| :------------------------------------ | :---------------------------------- |
+| `--traces-exporter-jaeger-agent-port` | `TRACES_EXPORTER_JAEGER_AGENT_PORT` |
+
+---
+
+#### traces-exporter-jaeger-service-name
+
+Sets the Jaeger service name for tracing.
+
+**Default:** `iox-conductor`
+
+| influxdb3 serve option                  | Environment variable                  |
+| :-------------------------------------- | :------------------------------------ |
+| `--traces-exporter-jaeger-service-name` | `TRACES_EXPORTER_JAEGER_SERVICE_NAME` |
+
+---
+
+#### traces-exporter-jaeger-trace-context-header-name
+
+Specifies the header name used for passing trace context.
+
+**Default:** `uber-trace-id`
+
+| influxdb3 serve option                               | Environment variable                               |
+| :--------------------------------------------------- | :------------------------------------------------- |
+| `--traces-exporter-jaeger-trace-context-header-name` | `TRACES_EXPORTER_JAEGER_TRACE_CONTEXT_HEADER_NAME` |
+
+---
+
+#### traces-jaeger-debug-name
+
+Specifies the header name used for force sampling in tracing.
+
+**Default:** `jaeger-debug-id`
+
+| influxdb3 serve option       | Environment variable                |
+| :--------------------------- | :---------------------------------- |
+| `--traces-jaeger-debug-name` | `TRACES_EXPORTER_JAEGER_DEBUG_NAME` |
+
+---
+
+#### traces-jaeger-tags
+
+Defines a set of `key=value` pairs to annotate tracing spans with.
+
+| influxdb3 serve option | Environment variable          |
+| :--------------------- | :---------------------------- |
+| `--traces-jaeger-tags` | `TRACES_EXPORTER_JAEGER_TAGS` |
+
+---
+
+#### traces-jaeger-max-msgs-per-second
+
+Specifies the maximum number of messages sent to a Jaeger service per second.
+
+**Default:** `1000`
+
+| influxdb3 serve option                | Environment variable                |
+| :------------------------------------ | :---------------------------------- |
+| `--traces-jaeger-max-msgs-per-second` | `TRACES_JAEGER_MAX_MSGS_PER_SECOND` |
+
+---
+
+### DataFusion
+
+- [datafusion-num-threads](#datafusion-num-threads)
+- [datafusion-runtime-type](#datafusion-runtime-type)
+- [datafusion-runtime-disable-lifo-slot](#datafusion-runtime-disable-lifo-slot)
+- [datafusion-runtime-event-interval](#datafusion-runtime-event-interval)
+- [datafusion-runtime-global-queue-interval](#datafusion-runtime-global-queue-interval)
+- [datafusion-runtime-max-blocking-threads](#datafusion-runtime-max-blocking-threads)
+- [datafusion-runtime-max-io-events-per-tick](#datafusion-runtime-max-io-events-per-tick)
+- [datafusion-runtime-thread-keep-alive](#datafusion-runtime-thread-keep-alive)
+- [datafusion-runtime-thread-priority](#datafusion-runtime-thread-priority)
+- [datafusion-max-parquet-fanout](#datafusion-max-parquet-fanout)
+- [datafusion-use-cached-parquet-loader](#datafusion-use-cached-parquet-loader)
+- [datafusion-config](#datafusion-config)
+
+#### datafusion-num-threads
+
+Sets the maximum number of DataFusion runtime threads to use.
+
+| influxdb3 serve option     | Environment variable               |
+| :------------------------- | :--------------------------------- |
+| `--datafusion-num-threads` | `INFLUXDB3_DATAFUSION_NUM_THREADS` |
+
+---
+
+#### datafusion-runtime-type
+
+Specifies the DataFusion tokio runtime type.
+
+This option supports the following values:
+
+- `current-thread`
+- `multi-thread` _(default)_
+- `multi-thread-alt`
+
+**Default:** `multi-thread`
+
+| influxdb3 serve option      | Environment variable                |
+| :-------------------------- | :---------------------------------- |
+| `--datafusion-runtime-type` | `INFLUXDB3_DATAFUSION_RUNTIME_TYPE` |
+
+---
+
+#### datafusion-runtime-disable-lifo-slot
+
+Disables the LIFO slot of the DataFusion runtime.
+
+This option supports the following values:
+
+- `true`
+- `false`
+
+| influxdb3 serve option                   | Environment variable                             |
+| :--------------------------------------- | :----------------------------------------------- |
+| `--datafusion-runtime-disable-lifo-slot` | `INFLUXDB3_DATAFUSION_RUNTIME_DISABLE_LIFO_SLOT` |
+
+---
+
+#### datafusion-runtime-event-interval
+
+Sets the number of scheduler ticks after which the scheduler of the DataFusion
+tokio runtime polls for external events--for example: timers, I/O.
+
+| influxdb3 serve option                | Environment variable                          |
+| :------------------------------------ | :-------------------------------------------- |
+| `--datafusion-runtime-event-interval` | `INFLUXDB3_DATAFUSION_RUNTIME_EVENT_INTERVAL` |
+
+---
+
+#### datafusion-runtime-global-queue-interval
+
+Sets the number of scheduler ticks after which the scheduler of the DataFusion
+runtime polls the global task queue.
+
+| influxdb3 serve option                       | Environment variable                                 |
+| :------------------------------------------- | :--------------------------------------------------- |
+| `--datafusion-runtime-global-queue-interval` | `INFLUXDB3_DATAFUSION_RUNTIME_GLOBAL_QUEUE_INTERVAL` |
+
+---
+
+#### datafusion-runtime-max-blocking-threads
+
+Specifies the limit for additional threads spawned by the DataFusion runtime.
+
+| influxdb3 serve option                      | Environment variable                                |
+| :------------------------------------------ | :-------------------------------------------------- |
+| `--datafusion-runtime-max-blocking-threads` | `INFLUXDB3_DATAFUSION_RUNTIME_MAX_BLOCKING_THREADS` |
+
+---
+
+#### datafusion-runtime-max-io-events-per-tick
+
+Configures the maximum number of events processed per tick by the tokio
+DataFusion runtime.
+
+| influxdb3 serve option                        | Environment variable                                  |
+| :-------------------------------------------- | :---------------------------------------------------- |
+| `--datafusion-runtime-max-io-events-per-tick` | `INFLUXDB3_DATAFUSION_RUNTIME_MAX_IO_EVENTS_PER_TICK` |
+
+---
+
+#### datafusion-runtime-thread-keep-alive
+
+Sets a custom timeout for a thread in the blocking pool of the tokio DataFusion
+runtime.
+
+| influxdb3 serve option                   | Environment variable                             |
+| :--------------------------------------- | :----------------------------------------------- |
+| `--datafusion-runtime-thread-keep-alive` | `INFLUXDB3_DATAFUSION_RUNTIME_THREAD_KEEP_ALIVE` |
+
+---
+
+#### datafusion-runtime-thread-priority
+
+Sets the thread priority for tokio DataFusion runtime workers.
+
+**Default:** `10`
+
+| influxdb3 serve option                 | Environment variable                           |
+| :------------------------------------- | :--------------------------------------------- |
+| `--datafusion-runtime-thread-priority` | `INFLUXDB3_DATAFUSION_RUNTIME_THREAD_PRIORITY` |
+
+---
+
+#### datafusion-max-parquet-fanout
+
+When multiple parquet files are required in a sorted way
+(deduplication for example), specifies the maximum fanout.
+
+**Default:** `1000`
+
+| influxdb3 serve option            | Environment variable                      |
+| :-------------------------------- | :---------------------------------------- |
+| `--datafusion-max-parquet-fanout` | `INFLUXDB3_DATAFUSION_MAX_PARQUET_FANOUT` |
+
+---
+
+#### datafusion-use-cached-parquet-loader
+
+Uses a cached parquet loader when reading parquet files from the object store.
+
+| influxdb3 serve option                   | Environment variable                             |
+| :--------------------------------------- | :----------------------------------------------- |
+| `--datafusion-use-cached-parquet-loader` | `INFLUXDB3_DATAFUSION_USE_CACHED_PARQUET_LOADER` |
+
+---
+
+#### datafusion-config
+
+Provides custom configuration to DataFusion as a comma-separated list of
+`key:value` pairs.
+
+| influxdb3 serve option | Environment variable          |
+| :--------------------- | :---------------------------- |
+| `--datafusion-config`  | `INFLUXDB3_DATAFUSION_CONFIG` |
+
+---
+
+### HTTP
+
+- [max-http-request-size](#max-http-request-size)
+- [http-bind](#http-bind)
+- [bearer-token](#bearer-token)
+
+#### max-http-request-size
+
+Specifies the maximum size of HTTP requests.
+
+**Default:** `10485760`
+
+| influxdb3 serve option    | Environment variable              |
+| :------------------------ | :-------------------------------- |
+| `--max-http-request-size` | `INFLUXDB3_MAX_HTTP_REQUEST_SIZE` |
+
+---
+
+#### http-bind
+
+Defines the address on which InfluxDB serves HTTP API requests.
+
+**Default:** `0.0.0.0:8181`
+
+| influxdb3 serve option | Environment variable       |
+| :--------------------- | :------------------------- |
+| `--http-bind`          | `INFLUXDB3_HTTP_BIND_ADDR` |
+
+---
+
+#### bearer-token
+
+Specifies the bearer token to be set for requests.
+
+| influxdb3 serve option | Environment variable     |
+| :--------------------- | :----------------------- |
+| `--bearer-token`       | `INFLUXDB3_BEARER_TOKEN` |
+
+---
+
+### Memory
+
+- [ram-pool-data-bytes](#ram-pool-data-bytes)
+- [exec-mem-pool-bytes](#exec-mem-pool-bytes)
+
+#### ram-pool-data-bytes
+
+Specifies the size of the RAM cache used to store data, in bytes.
+
+**Default:** `1073741824`
+
+| influxdb3 serve option  | Environment variable            |
+| :---------------------- | :------------------------------ |
+| `--ram-pool-data-bytes` | `INFLUXDB3_RAM_POOL_DATA_BYTES` |
+
+---
+
+#### exec-mem-pool-bytes
+
+Specifies the size of the memory pool used during query execution, in bytes.
+
+**Default:** `8589934592`
+
+| influxdb3 serve option  | Environment variable            |
+| :---------------------- | :------------------------------ |
+| `--exec-mem-pool-bytes` | `INFLUXDB3_EXEC_MEM_POOL_BYTES` |
+
+---
+
+### Write-Ahead Log (WAL)
+
+- [wal-flush-interval](#wal-flush-interval)
+- [wal-snapshot-size](#wal-snapshot-size)
+- [wal-max-write-buffer-size](#wal-max-write-buffer-size)
+- [query-log-size](#query-log-size)
+- [buffer-mem-limit-mb](#buffer-mem-limit-mb)
+
+#### wal-flush-interval
+
+Specifies the interval to flush buffered data to a WAL file. Writes that wait
+for WAL confirmation take up to this interval to complete.
+
+**Default:** `1s`
+
+| influxdb3 serve option | Environment variable           |
+| :--------------------- | :----------------------------- |
+| `--wal-flush-interval` | `INFLUXDB3_WAL_FLUSH_INTERVAL` |
+
+---
+
+#### wal-snapshot-size
+
+Defines the number of WAL files to attempt to remove in a snapshot. This,
+multiplied by the interval, determines how often snapshots are taken.
+
+**Default:** `600`
+
+| influxdb3 serve option | Environment variable          |
+| :--------------------- | :---------------------------- |
+| `--wal-snapshot-size`  | `INFLUXDB3_WAL_SNAPSHOT_SIZE` |
+
+---
+
+#### wal-max-write-buffer-size
+
+Specifies the maximum number of write requests that can be buffered before a
+flush must be executed and succeed.
+
+**Default:** `100000`
+
+| influxdb3 serve option        | Environment variable                  |
+| :---------------------------- | :------------------------------------ |
+| `--wal-max-write-buffer-size` | `INFLUXDB3_WAL_MAX_WRITE_BUFFER_SIZE` |
+
+---
+
+#### query-log-size
+
+Defines the size of the query log. Up to this many queries remain in the
+log before older queries are evicted to make room for new ones.
+
+**Default:** `1000`
+
+| influxdb3 serve option | Environment variable       |
+| :--------------------- | :------------------------- |
+| `--query-log-size`     | `INFLUXDB3_QUERY_LOG_SIZE` |
+
+---
+
+#### buffer-mem-limit-mb
+
+Specifies the size limit of the buffered data in MB. If this limit is exceeded,
+the server forces a snapshot.
+
+**Default:** `5000`
+
+| influxdb3 serve option  | Environment variable            |
+| :---------------------- | :------------------------------ |
+| `--buffer-mem-limit-mb` | `INFLUXDB3_BUFFER_MEM_LIMIT_MB` |
+
+---
+
+### Replication
+
+- [replicas](#replicas)
+- [replication-interval](#replication-interval)
+
+#### replicas
+
+Specifies a comma-separated list of host identifier prefixes to replicate.
+
+| influxdb3 serve option | Environment variable            |
+| :--------------------- | :------------------------------ |
+| `--replicas`           | `INFLUXDB3_ENTERPRISE_REPLICAS` |
+
+---
+
+#### replication-interval
+
+Defines the interval at which each replica specified in the `replicas` option
+is replicated.
+
+**Default:** `250ms`
+
+| influxdb3 serve option   | Environment variable                        |
+| :----------------------- | :------------------------------------------ |
+| `--replication-interval` | `INFLUXDB3_ENTERPRISE_REPLICATION_INTERVAL` |
+
+---
+
+### Compaction
+
+- [compactor-id](#compactor-id)
+- [compaction-hosts](#compaction-hosts)
+- [run-compactions](#run-compactions)
+- [compaction-row-limit](#compaction-row-limit)
+- [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
+- [compaction-gen2-duration](#compaction-gen2-duration)
+- [compaction-multipliers](#compaction-multipliers)
+- [gen1-duration](#gen1-duration)
+
+#### compactor-id
+
+Specifies the prefix in the object store where all compacted data is written.
+Provide this option only if this server should handle compaction for its own
+write buffer and any replicas it manages.
+
+| influxdb3 serve option | Environment variable                |
+| :--------------------- | :---------------------------------- |
+| `--compactor-id`       | `INFLUXDB3_ENTERPRISE_COMPACTOR_ID` |
+
+---
+
+#### compaction-hosts
+
+Defines a comma-separated list of host identifier prefixes from which data is
+compacted.
+
+| influxdb3 serve option | Environment variable                    |
+| :--------------------- | :-------------------------------------- |
+| `--compaction-hosts`   | `INFLUXDB3_ENTERPRISE_COMPACTION_HOSTS` |
+
+---
+
+#### run-compactions
+
+Indicates that the server should run compactions. Only a single server should
+run compactions for a given `compactor-id`. This option is only applicable if a
+`compactor-id` is set.
+
+| influxdb3 serve option | Environment variable                   |
+| :--------------------- | :------------------------------------- |
+| `--run-compactions`    | `INFLUXDB3_ENTERPRISE_RUN_COMPACTIONS` |
+
+---
+
+#### compaction-row-limit
+
+Specifies the soft limit for the number of rows per file that the compactor
+writes. The compactor may write more rows than this limit.
+
+**Default:** `1000000`
+
+| influxdb3 serve option   | Environment variable                        |
+| :----------------------- | :------------------------------------------ |
+| `--compaction-row-limit` | `INFLUXDB3_ENTERPRISE_COMPACTION_ROW_LIMIT` |
+
+---
+
+#### compaction-max-num-files-per-plan
+
+Sets the maximum number of files included in any compaction plan.
+
+**Default:** `500`
+
+| influxdb3 serve option                | Environment variable                                     |
+| :------------------------------------ | :------------------------------------------------------- |
+| `--compaction-max-num-files-per-plan` | `INFLUXDB3_ENTERPRISE_COMPACTION_MAX_NUM_FILES_PER_PLAN` |
+
+---
+
+#### compaction-gen2-duration
+
+Specifies the duration of the first level of compaction (gen2). Later levels of
+compaction are multiples of this duration. This value should be equal to or
+greater than the gen1 duration.
+
+**Default:** `20m`
+
+| influxdb3 serve option       | Environment variable                            |
+| :--------------------------- | :---------------------------------------------- |
+| `--compaction-gen2-duration` | `INFLUXDB3_ENTERPRISE_COMPACTION_GEN2_DURATION` |
+
+---
+
+#### compaction-multipliers
+
+Specifies a comma-separated list of multiples defining the duration of each
+level of compaction. The number of elements in the list determines the number of
+compaction levels. The first element specifies the duration of the first level
+(gen3); subsequent levels are multiples of the previous level.
+
+**Default:** `3,4,6,5`
+
+| influxdb3 serve option     | Environment variable                          |
+| :------------------------- | :-------------------------------------------- |
+| `--compaction-multipliers` | `INFLUXDB3_ENTERPRISE_COMPACTION_MULTIPLIERS` |
+
+---
+
+#### gen1-duration
+
+Specifies the duration that Parquet files are arranged into. Data timestamps
+land each row into a file of this duration. Supported durations are `1m`,
+`5m`, and `10m`. These files are known as "generation 1" files, which the
+compactor can merge into larger generations.
+
+**Default:** `10m`
+
+| influxdb3 serve option | Environment variable      |
+| :--------------------- | :------------------------ |
+| `--gen1-duration`      | `INFLUXDB3_GEN1_DURATION` |
+
+---
+
+### Caching
+
+- [preemptive-cache-age](#preemptive-cache-age)
+- [parquet-mem-cache-size-mb](#parquet-mem-cache-size-mb)
+- [parquet-mem-cache-prune-percentage](#parquet-mem-cache-prune-percentage)
+- [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
+- [disable-parquet-mem-cache](#disable-parquet-mem-cache)
+- [last-cache-eviction-interval](#last-cache-eviction-interval)
+- [meta-cache-eviction-interval](#meta-cache-eviction-interval)
+
+#### preemptive-cache-age
+
+Specifies the interval to prefetch into the Parquet cache during compaction.
+
+**Default:** `3d`
+
+| influxdb3 serve option   | Environment variable             |
+| :----------------------- | :------------------------------- |
+| `--preemptive-cache-age` | `INFLUXDB3_PREEMPTIVE_CACHE_AGE` |
+
+---
+
+#### parquet-mem-cache-size-mb
+
+Defines the size of the in-memory Parquet cache in megabytes (MB).
+
+**Default:** `1000`
+
+| influxdb3 serve option        | Environment variable                  |
+| :---------------------------- | :------------------------------------ |
+| `--parquet-mem-cache-size-mb` | `INFLUXDB3_PARQUET_MEM_CACHE_SIZE_MB` |
+
+---
+
+#### parquet-mem-cache-prune-percentage
+
+Specifies the percentage of entries to prune during a prune operation on the
+in-memory Parquet cache.
+
+**Default:** `0.1`
+
+| influxdb3 serve option                 | Environment variable                           |
+| :------------------------------------- | :--------------------------------------------- |
+| `--parquet-mem-cache-prune-percentage` | `INFLUXDB3_PARQUET_MEM_CACHE_PRUNE_PERCENTAGE` |
+
+---
+
+#### parquet-mem-cache-prune-interval
+
+Sets the interval to check if the in-memory Parquet cache needs to be pruned.
+
+**Default:** `1s`
+
+| influxdb3 serve option               | Environment variable                         |
+| :----------------------------------- | :------------------------------------------- |
+| `--parquet-mem-cache-prune-interval` | `INFLUXDB3_PARQUET_MEM_CACHE_PRUNE_INTERVAL` |
+
+---
+
+#### disable-parquet-mem-cache
+
+Disables the in-memory Parquet cache. By default, the cache is enabled.
+
+| influxdb3 serve option        | Environment variable                  |
+| :---------------------------- | :------------------------------------ |
+| `--disable-parquet-mem-cache` | `INFLUXDB3_DISABLE_PARQUET_MEM_CACHE` |
+
+---
+
+#### last-cache-eviction-interval
+
+Specifies the interval to evict expired entries from the Last-N-Value cache,
+expressed as a human-readable time--for example: `20s`, `1m`, `1h`.
+
+**Default:** `10s`
+
+| influxdb3 serve option           | Environment variable                     |
+| :------------------------------- | :--------------------------------------- |
+| `--last-cache-eviction-interval` | `INFLUXDB3_LAST_CACHE_EVICTION_INTERVAL` |
+
+---
+
+#### meta-cache-eviction-interval
+
+Specifies the interval to evict expired entries from the Meta cache, expressed
+as a human-readable time--for example: `20s`, `1m`, `1h`.
+
+**Default:** `10s`
+
+| influxdb3 serve option           | Environment variable                     |
+| :------------------------------- | :--------------------------------------- |
+| `--meta-cache-eviction-interval` | `INFLUXDB3_META_CACHE_EVICTION_INTERVAL` |
+
+---
+
+### Plugins
+
+- [plugin-dir](#plugin-dir)
+
+#### plugin-dir
+
+Specifies the local directory that contains Python plugins and their test files.
+
+| influxdb3 serve option | Environment variable   |
+| :--------------------- | :--------------------- |
+| `--plugin-dir`         | `INFLUXDB3_PLUGIN_DIR` |
+
