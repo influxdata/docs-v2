@@ -12,7 +12,7 @@ alt_links:
 
 - [System Requirements](#system-requirements)
 - [Quick install](#quick-install)
-- [Download InfluxDB 3 Core binaries](#download-influxdb-3-enterprise-binaries)
+- [Download InfluxDB 3 Core binaries](#download-influxdb-3-core-binaries)
 - [Docker image](#docker-image)
 
 ## System Requirements
