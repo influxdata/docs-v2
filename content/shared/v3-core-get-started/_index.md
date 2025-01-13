@@ -58,7 +58,7 @@ Or, if you prefer, you can download and install {{% product-name %}} from [build
 
 #### Run the install script 
 
-Enter the following command to use [curl](https://curl.se/download.html)to download the script and install {{% product-name %}}, regardless of your operating system:
+Enter the following command to use [curl](https://curl.se/download.html) to download the script and install {{% product-name %}} for MacOS and Linux operating systems:
 
 ```bash
 curl -O https://www.influxdata.com/d/install_influxdb3.sh && sh install_influxdb3.sh
@@ -78,7 +78,7 @@ source ~/.zshrc
 
 #### Optional: Download build artifacts and Docker images 
 
-Download the latest build artifacts and Docker images from the links below. These are updated with every merge into `main`.
+Download the latest build artifacts — including Windows — and Docker images from the links below. These are updated with every merge into `main`.
 
 ##### {{% product-name %}} (latest):
 * Docker: [quay.io/influxdb/influxdb3-core:latest](https://quay.io/influxdb/influxdb3-core:latest)
@@ -416,7 +416,7 @@ influxdb3 create distinct_cache -h
 #### Only supported in Docker
 
 As of this writing, the Processing Engine is only supported in Docker environments.
-We expect it to launch in non-Docker environments soon. We're still in very active development creating the API and developer experience; things will break and change fast. Join our <a href=https://discord.com/invite/eMnhxPyj>Discord</a> to ask questions and give feedback.
+We expect it to launch in non-Docker environments soon. We're still in very active development creating the API and developer experience; things will break and change fast. Join our <a href="https://discord.gg/9zaNCW2PRT">Discord</a> to ask questions and give feedback.
 {{% /note %}}
 
 InfluxDB3 has an embedded Python VM for running code inside the database. Currently, we only support plugins that get triggered on WAL file flushes, but more will be coming soon. Specifically, plugins will be able to be triggered by:
