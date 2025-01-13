@@ -276,13 +276,13 @@ print("\n#### View Schema information\n")
 print(table.schema)
 
 print("\n#### Use PyArrow to read the specified columns\n")
-print(table.column('temp'))
-print(table.select(['room', 'temp']))
-print(table.select(['time', 'room', 'temp']))
+print(table.column('usage_active'))
+print(table.select(['host', 'usage_active']))
+print(table.select(['time', 'host', 'usage_active']))
 
 print("\n#### Use PyArrow compute functions to aggregate data\n")
-print(table.group_by('hum').aggregate([]))
-print(table.group_by('room').aggregate([('temp', 'mean')]))
+print(table.group_by('host').aggregate([]))
+print(table.group_by('cpu').aggregate([('time_system', 'mean')]))
 ```
 
 ## Last Values Cache
