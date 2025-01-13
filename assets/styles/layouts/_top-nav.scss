@@ -187,7 +187,7 @@
     margin-left: .5rem;
   }
 
-  .theme-switcher, #search-btn, .url-trigger {
+  .theme-switch, #search-btn, .url-trigger {
     display: inline-block;
     padding: 0;
     line-height: 0;
@@ -206,8 +206,8 @@
       color: rgba($topnav-link, 1);
       cursor: pointer;
     }
-    &#theme-switch-dark { display: $theme-switch-dark; font-size: 1.15rem; }
-    &#theme-switch-light { display: $theme-switch-light; font-size: 1.3rem; }
+    &.theme-switch-dark { display: $theme-switch-dark; font-size: 1.15rem; }
+    &.theme-switch-light { display: $theme-switch-light; font-size: 1.3rem; }
   }
 
   .url-trigger {

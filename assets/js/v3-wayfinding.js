@@ -31,10 +31,10 @@ function toggleWayfinding () {
 
 // Toggle wayfinding modal preference cookie
 function toggleWayfindingPreference () {
-  if (getPreference(wayfindingPrefCookie) === true) {
-    setPreference(wayfindingPrefCookie, false);
+  if (window.LocalStorageAPI.getPreference(wayfindingPrefCookie) === true) {
+    window.LocalStorageAPI.setPreference(wayfindingPrefCookie, false);
   } else {
-    setPreference(wayfindingPrefCookie, true);
+    window.LocalStorageAPI.setPreference(wayfindingPrefCookie, true);
   }
 }
 
@@ -54,12 +54,9 @@ function slideUp (elem) {
  *  - Is the user coming from a non-whitelisted external referrer?
  *  - Has the user opted out of the wayfinding modal?
  */
-function shouldOpenWayfinding () {
-  // Extract the protocol and hostname of referrer
-  const referrerMatch = document.referrer.match(/^(?:[^\/]*\/){2}[^\/]+/g);
-  const referrerHost = referrerMatch ? referrerMatch[0] : '';
+function shouldOpenWayfinding (referrerHost) {
   var isExternalReferrer = !referrerWhitelist.includes(referrerHost);
-  var wayfindingOptedOut = getPreference(wayfindingPrefCookie);
+  var wayfindingOptedOut = window.LocalStorageAPI.getPreference(wayfindingPrefCookie);
 
   // Only return true if all conditions are true
   return isExternalReferrer && wayfindingOptedOut;
@@ -70,7 +67,7 @@ function shouldOpenWayfinding () {
  * wayfinding checkbox input.
  */
 function setWayfindingInputState () {
-  var currentPreference = getPreference(wayfindingPrefCookie);
+  var currentPreference = window.LocalStorageAPI.getPreference(wayfindingPrefCookie);
 
   if (currentPreference === false) {
     wayfindingOptOutInput.checked = true;
@@ -147,9 +144,12 @@ wayfindingFindOutToggle.onclick = function (event) {
 /**
  * Check to see if the referrer is in the referrer whitelist, otherwise trigger
  * the v3-wayfinding modal.
- * This reuses the referrerHost variable defined in assets/js/influxdb-url.js
  */
-if (shouldOpenWayfinding()) {
+// Extract the protocol and hostname of referrer
+referrerMatch = document.referrer.match(/^(?:[^\/]*\/){2}[^\/]+/g);
+referrerHost = referrerMatch ? referrerMatch[0] : '';
+
+if (shouldOpenWayfinding(referrerHost)) {
   toggleWayfinding();
 }
 

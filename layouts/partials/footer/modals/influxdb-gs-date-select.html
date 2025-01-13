@@ -1,6 +1,11 @@
+{{ $productPathData := findRE "[^/]+.*?" $.Page.RelPermalink }}
+{{ $version := index $productPathData 1 }}
+{{ $dbWhiteList := (slice "core" "enterprise" "cloud-dedicated" "clustered") }}
+{{ $useDB := in $dbWhiteList $version }}
+{{ $storageTerm := cond $useDB "database" "bucket" }}
 <div class="modal-content" id="influxdb-gs-date-select">
   <h3>Select a new date</h3>
-  <p><em>Select a date in your bucket's retention period.</em></p>
+  <p><em>Select a date in your {{ $storageTerm }}'s retention period.</em></p>
   <div id="custom-date-selector"></div>
   <a class="btn" id="submit-custom-date" onclick="">Update</a>
 </div>

@@ -15,18 +15,18 @@ function isApiLib () {
 
 // Set the user's programming language (client library) preference.
 function setApiLibPreference (preference) {
-  setPreference('api_lib', preference);
+  window.LocalStorageAPI.setPreference('api_lib', preference);
 }
 
 // Retrieve the user's programming language (client library) preference.
 function getApiLibPreference () {
-  return getPreference('api_lib') || '';
+  return window.LocalStorageAPI.getPreference('api_lib') || '';
 }
 
 // When visit a client library page, set the api_lib preference
 if (isApiLib()) {
   var selectedApiLib = getVisitedApiLib();
-  setPreference('api_lib', selectedApiLib);
+  window.LocalStorageAPI.setPreference('api_lib', selectedApiLib);
 }
 
 // Activate code-tabs based on the cookie then override with query param.
