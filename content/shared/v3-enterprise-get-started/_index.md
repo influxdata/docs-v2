@@ -471,7 +471,7 @@ def process_writes(influxdb3_local, table_batches, args=None):
     # here's an example of executing a parameterized query. Only SQL is supported. 
     # It will query the database that the trigger is attached to by default. We'll 
     # soon have support for querying other DBs.
-    query_result = influxdb3_local.query("SELECT * FROM cpu where host = $host", query_params)
+    query_result = influxdb3_local.query("SELECT * FROM cpu where host = '$host'", query_params)
     # the result is a list of Dict that have the column name as key and value as 
     # value. If you run the WAL test plugin with your plugin against a DB that 
     # you've written data into, you'll be able to see some results
