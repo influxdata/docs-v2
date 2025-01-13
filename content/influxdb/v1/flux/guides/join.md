@@ -10,7 +10,8 @@ menu:
 weight: 10
 list_query_example: join
 canonical: /influxdb/v2/query-data/flux/join/
-v2: /influxdb/v2/query-data/flux/join/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/join/
 ---
 
 The [`join()` function](/flux/v0/stdlib/universe/join) merges two or more

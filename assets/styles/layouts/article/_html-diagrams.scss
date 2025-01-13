@@ -322,6 +322,7 @@ table tr.point{
     }
   }
 
+  &.v3 {p span.measurement::before{content: "table";}}
   &.hide-elements {p span.el { border: none; &:before, &:after {display: none}}}
   &.hide-commas {p span.comma { border: none; &:before, &:after {display: none}}}
   &.hide-whitespace {p span.whitespace { border: none; &:before, &:after {display: none}}}

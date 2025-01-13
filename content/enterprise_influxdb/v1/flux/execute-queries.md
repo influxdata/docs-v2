@@ -9,7 +9,6 @@ weight: 1
 aliases:
   - /enterprise_influxdb/v1/flux/guides/executing-queries/
   - /enterprise_influxdb/v1/flux/guides/execute-queries/
-v2: /influxdb/v2/query-data/execute-queries/
 ---
 
 There are multiple ways to execute Flux queries with InfluxDB Enterprise and Chronograf v1.8+.

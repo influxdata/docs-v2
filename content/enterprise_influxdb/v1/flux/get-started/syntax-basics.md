@@ -9,7 +9,6 @@ menu:
 aliases:
   - /enterprise_influxdb/v1/flux/getting-started/syntax-basics/
 canonical: /influxdb/v2/query-data/get-started/syntax-basics/
-v2: /influxdb/v2/query-data/get-started/syntax-basics/
 ---
 
 

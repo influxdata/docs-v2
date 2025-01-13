@@ -6,13 +6,13 @@
   {{ if not (eq .RelPermalink $expPath) }}
     {{ if eq .Kind "page" }}
       {{ $name := replaceRE " function" "" .Title }}
-      <div class="warn block">
+      <div class="important block">
         <p>
           <code>{{ $name | safeHTML }}</code> is {{ if in $name "experimental" }}{{ else }}experimental and{{ end }} <a href="{{ $expRiskURL }}">subject to change at any time</a>.
         </p>
       </div>
     {{ else if eq .Kind "section" }}
-      <div class="warn block">
+      <div class="important block">
         {{ $packageTitle := cond (isset .Params "list_title") $.Params.list_title .Title }}
         {{ $packageName := replaceRE `^(.*)( package)` "<code>$1</code>$2" $packageTitle }}
         <p>

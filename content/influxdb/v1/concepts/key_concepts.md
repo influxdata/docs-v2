@@ -6,7 +6,8 @@ menu:
     name: Key concepts
     weight: 10
     parent: Concepts
-v2: /influxdb/v2/reference/key-concepts/
+alt_links:
+  v2: /influxdb/v2/reference/key-concepts/
 ---
 
 Before diving into InfluxDB, it's good to get acquainted with some key concepts of the database. This document introduces key InfluxDB concepts and elements. To introduce the key concepts, we’ll cover how the following elements work together in InfluxDB:

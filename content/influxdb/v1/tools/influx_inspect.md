@@ -6,7 +6,8 @@ menu:
   influxdb_v1:
     weight: 50
     parent: Tools
-v2: /influxdb/v2/reference/cli/influxd/inspect/
+alt_links:
+  v2: /influxdb/v2/reference/cli/influxd/inspect/
 ---
 
 Influx Inspect is an InfluxDB disk utility that can be used to:

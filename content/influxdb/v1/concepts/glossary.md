@@ -6,7 +6,8 @@ menu:
     name: Glossary
     weight: 20
     parent: Concepts
-v2: /influxdb/v2/reference/glossary/
+alt_links:
+  v2: /influxdb/v2/reference/glossary/
 ---
 
 ## aggregation

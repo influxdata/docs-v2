@@ -1,6 +1,6 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
-{{ $currentVersion := index $productPathData 1 }}
+{{ $version := index $productPathData 1 }}
 
 <!doctype html>
 <html lang="en" data-theme="light">
@@ -25,5 +25,5 @@
 
     <meta name="Copyright" content="InfluxData Inc." />
   </head>
-  <body class='{{if ne $product nil}}{{ $product }}{{ else }}home{{ end }}{{ if in $currentVersion "v1" }} v1{{ end }}'>
+  <body class='{{if ne $product nil}}{{ $product }}{{ else }}home{{ end }}{{ if in $version "v1" }} v1{{ end }}'>
     {{ if not hugo.IsServer }}{{ partial "header/google-analytics-body.html" }}{{ end }}

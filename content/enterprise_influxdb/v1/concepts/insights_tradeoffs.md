@@ -7,7 +7,6 @@ menu:
     name: InfluxDB design insights and tradeoffs
     weight: 40
     parent: Concepts
-v2: /influxdb/v2/reference/key-concepts/design-principles/
 ---
 
 InfluxDB is a time series database.

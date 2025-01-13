@@ -12,7 +12,8 @@ menu:
 weight: 4
 list_query_example: aggregate_window
 canonical: /influxdb/v2/query-data/flux/window-aggregate/
-v2: /influxdb/v2/query-data/flux/window-aggregate/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/window-aggregate/
 ---
 
 A common operation performed with time series data is grouping data into windows of time,

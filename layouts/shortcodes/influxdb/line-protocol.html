@@ -1,9 +1,12 @@
 {{- $includeElements := .Get "elements" | default true -}}
 {{- $includeCommas := .Get "commas" | default true -}}
 {{- $includeWhitespace := .Get "whitespace" | default true -}}
-<div id="line-protocol-anatomy" class="{{ if not $includeElements }}hide-elements {{ end }}{{ if not $includeCommas }}hide-commas {{ end }}{{ if not $includeWhitespace }}hide-whitespace{{ end }}">
+{{- $version := .Get "version" | default "v2" -}}
+{{- $isV3 := eq $version "v3" -}}
+{{- $storageName := cond $isV3 "table" "measurement" -}}
+<div id="line-protocol-anatomy" class="{{ if not $includeElements }}hide-elements {{ end }}{{ if not $includeCommas }}hide-commas {{ end }}{{ if not $includeWhitespace }}hide-whitespace{{ end }} {{ $version }}">
   <p>
-    <span class="el measurement">measurement</span><span class="comma">,</span><span class="el tagset">tag1=val1,tag2=val2</span><span class="whitespace" data-whitespace="1st"> </span>
+    <span class="el measurement">my{{ title $storageName }}</span><span class="comma">,</span><span class="el tagset">tag1=val1,tag2=val2</span><span class="whitespace" data-whitespace="1st"> </span>
     <span class="el fieldset">field1="v1",field2=1i</span><span class="whitespace" data-whitespace="2nd"> </span><span class="el timestamp">0000000000000000000</span>
   </p>
 </div>

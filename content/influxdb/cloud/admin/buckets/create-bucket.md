@@ -12,9 +12,9 @@ weight: 201
 aliases:
   - /influxdb/cloud/organizations/buckets/create-bucket/
 alt_links:
-  cloud-serverless: /influxdb/cloud-serverless/admin/buckets/create-bucket/
-  cloud-dedicated: /influxdb/cloud-dedicated/admin/databases/create/
-  clustered: /influxdb/clustered/admin/databases/create/
+  cloud-serverless: /influxdb3/cloud-serverless/admin/buckets/create-bucket/
+  cloud-dedicated: /influxdb3/cloud-dedicated/admin/databases/create/
+  clustered: /influxdb3/clustered/admin/databases/create/
 ---
 
 Use the InfluxDB user interface (UI), the `influx` command line interface (CLI),
@@ -131,7 +131,7 @@ The following example creates a bucket with a retention period of `86,400` secon
 ```
 
 _For information about **InfluxDB API options and response codes**, see
-[InfluxDB API Buckets reference documentation](/influxdb/cloud-serverless/api/#operation/PostBuckets)._
+[InfluxDB API Buckets reference documentation](/influxdb3/cloud-serverless/api/#operation/PostBuckets)._
 
 {{% /tab-content %}}
 <!------------------------------ END API CONTENT ------------------------------>

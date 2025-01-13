@@ -35,7 +35,7 @@ each batch to an InfluxDB OSS bucket.
 
 ## Set up the migration
 
-1.  [Install and set up InfluxDB OSS](/influxdb/{{< current-version-link >}}/install/).
+1.  [Install and set up InfluxDB OSS](/influxdb/v2/install/).
 
 2.  **In InfluxDB Cloud**, [create an API token](/influxdb/cloud/admin/tokens/create-token/)
         with **read access** to the bucket you want to migrate.
@@ -43,12 +43,12 @@ each batch to an InfluxDB OSS bucket.
 3.  **In InfluxDB OSS**:
     1.  Add your **InfluxDB Cloud API token** as a secret using the key,
         `INFLUXDB_CLOUD_TOKEN`.
-        _See [Add secrets](/influxdb/{{< current-version-link >}}/security/secrets/add/) for more information._
-    2.  [Create a bucket](/influxdb/{{< current-version-link >}}/organizations/buckets/create-bucket/)
+        _See [Add secrets](/influxdb/v2/security/secrets/add/) for more information._
+    2.  [Create a bucket](/influxdb/v2/organizations/buckets/create-bucket/)
         **to migrate data to**.
-    3.  [Create a bucket](/influxdb/{{< current-version-link >}}/organizations/buckets/create-bucket/)
+    3.  [Create a bucket](/influxdb/v2/organizations/buckets/create-bucket/)
         **to store temporary migration metadata**.
-    4.  [Create a new task](/influxdb/{{< current-version-link >}}/process-data/manage-tasks/create-task/)
+    4.  [Create a new task](/influxdb/v2/process-data/manage-tasks/create-task/)
         using the provided [migration task](#migration-task).
         Update the necessary [migration configuration options](#configure-the-migration).
     5.  _(Optional)_ Set up [migration monitoring](#monitor-the-migration-progress).

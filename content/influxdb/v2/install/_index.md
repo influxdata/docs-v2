@@ -1,7 +1,9 @@
 ---
-title: Install InfluxDB
+title: Install InfluxDB OSS v2
 description: Download, install, and set up InfluxDB OSS.
-menu: influxdb_v2
+menu:
+  influxdb_v2:
+    name: Install InfluxDB
 weight: 2
 influxdb/v2/tags: [install]
 related:
@@ -9,6 +11,8 @@ related:
   - /influxdb/v2/reference/cli/influx/config/
   - /influxdb/v2/reference/cli/influx/
   - /influxdb/v2/admin/tokens/
+alt_links:
+   v1: /influxdb/v1/introduction/install/
 ---
 
 The InfluxDB v2 time series platform is purpose-built to collect, store,
@@ -212,21 +216,18 @@ To install InfluxDB, do one of the following:
 - [Install using Homebrew](#install-using-homebrew)
 - [Manually download and install for macOS](#manually-download-and-install-for-macos)
 
-{{% note %}}
-We recommend using [Homebrew](https://brew.sh/) to install InfluxDB v2 on macOS.
-{{% /note %}}
+> [!Tip]
+> We recommend using [Homebrew](https://brew.sh/) to install InfluxDB v2 on macOS.
 
-{{% note %}}
-
-#### InfluxDB and the influx CLI are separate packages
-
-The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
-[`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
-versioned separately.
-
-_You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
-
-{{% /note %}}
+> [!Note]
+>
+> #### InfluxDB and the influx CLI are separate packages
+> 
+> The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
+> [`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
+> versioned separately.
+> 
+> _You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
 
 ### Install using Homebrew
 
@@ -309,12 +310,12 @@ chmod 0750 ~/.influxdbv2
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-{{% note %}}
-Both InfluxDB 1.x and 2.x have associated `influxd` and `influx` binaries.
-If InfluxDB 1.x binaries are already in your `$PATH`, run the v2 binaries in place
-or rename them before putting them in your `$PATH`.
-If you rename the binaries, all references to `influxd` and `influx` in this documentation refer to your renamed binaries.
-{{% /note %}}
+> [!Important]
+> Both InfluxDB 1.x and 2.x have associated `influxd` and `influx` binaries.
+> If InfluxDB 1.x binaries are already in your `$PATH`, run the v2 binaries in
+> place or rename them before putting them in your `$PATH`.
+> If you rename the binaries, all references to `influxd` and `influx` in this
+> documentation refer to your renamed binaries.
 
 {{% /tab-content %}}
 <!--------------------------------- END macOS --------------------------------->
@@ -328,17 +329,15 @@ To install {{% product-name %}} on Linux, do one of the following:
 - [Install InfluxDB as a service with systemd](#install-influxdb-as-a-service-with-systemd)
 - [Manually download and install the influxd binary](#manually-download-and-install-the-influxd-binary)
 
-{{% note %}}
-
-#### InfluxDB and the influx CLI are separate packages
-
-The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
-[`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
-versioned separately.
-
-_You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
-
-{{% /note %}}
+> [!Note]
+>
+> #### InfluxDB and the influx CLI are separate packages
+> 
+> The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
+> [`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
+> versioned separately.
+> 
+> _You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
 
 ### Install InfluxDB as a service with systemd
 
@@ -602,27 +601,24 @@ chmod 0750 ~/.influxdbv2
 - [Powershell](https://docs.microsoft.com/powershell/) or
   [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/)
 
-{{% note %}}
-### Command line examples
+> [!Important]
+> ### Command line examples
+> 
+> Use **Powershell** or **WSL** to execute `influx` and `influxd` commands.
+> The command line examples in this documentation use `influx` and `influxd` as if
+> installed on the system `PATH`.
+> If these binaries are not installed on your `PATH`, replace `influx` and `influxd`
+> in the provided examples with `./influx` and `./influxd` respectively.
 
-Use **Powershell** or **WSL** to execute `influx` and `influxd` commands.
-The command line examples in this documentation use `influx` and `influxd` as if
-installed on the system `PATH`.
-If these binaries are not installed on your `PATH`, replace `influx` and `influxd`
-in the provided examples with `./influx` and `./influxd` respectively.
-{{% /note %}}
-
-{{% note %}}
-
-#### InfluxDB and the influx CLI are separate packages
-
-The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
-[`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
-versioned separately.
-
-_You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
-
-{{% /note %}}
+> [!Note]
+> 
+> #### InfluxDB and the influx CLI are separate packages
+> 
+> The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
+> [`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
+> versioned separately.
+> 
+> _You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
 
 <a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows.zip" download >InfluxDB v2 (Windows)</a>
 
@@ -945,22 +941,20 @@ To manually authorize the `influxd` binary, follow the instructions for your mac
 
 We are in the process of updating the build process to ensure released binaries are signed by InfluxData.
 
-{{% warn %}}
-
-#### "too many open files" errors
-
-After running `influxd`, you might see an error in the log output like the
-following:
-
-```text
-too many open files
-```
-
-To resolve this error, follow the
-[recommended steps](https://unix.stackexchange.com/a/221988/471569) to increase
-file and process limits for your operating system version then restart `influxd`.
-
-{{% /warn %}}
+> [!Important]
+>
+> #### "too many open files" errors
+> 
+> After running `influxd`, you might see an error in the log output like the
+> following:
+> 
+> ```text
+> too many open files
+> ```
+> 
+> To resolve this error, follow the
+> [recommended steps](https://unix.stackexchange.com/a/221988/471569) to increase
+> file and process limits for your operating system version then restart `influxd`.
 
 {{% /tab-content %}}
 <!-------------------------------- BEGIN Linux -------------------------------->
@@ -989,18 +983,17 @@ cd -Path 'C:\Program Files\InfluxData\influxdb'
 ./influxd
 ```
 
-{{% note %}}
-
-#### Grant network access
-
-When starting InfluxDB for the first time, **Windows Defender** appears with
-the following message:
-
-> Windows Defender Firewall has blocked some features of this app.
-
-1. Select **Private networks, such as my home or work network**.
-2. Click **Allow access**.
-{{% /note %}}
+> [!Note]
+> 
+> #### Grant network access
+> 
+> When starting InfluxDB for the first time, **Windows Defender** appears with
+> the following message:
+> 
+> > Windows Defender Firewall has blocked some features of this app.
+> 
+> 1. Select **Private networks, such as my home or work network**.
+> 2. Click **Allow access**.
 
 {{% /tab-content %}}
 <!-------------------------------- BEGIN Docker -------------------------------->
@@ -1118,13 +1111,11 @@ which provides a simple way to interact with InfluxDB from a command line.
 For detailed installation and setup instructions,
 see [Use the influx CLI](/influxdb/v2/tools/influx-cli/).
 
-   {{% note %}}
-
-#### InfluxDB and the influx CLI are separate packages
-
-The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
-[`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
-versioned separately.
-Some install methods (for example, the InfluxDB Docker Hub image) include both.
-
-   {{% /note %}}
+> [!Note]
+> 
+> #### InfluxDB and the influx CLI are separate packages
+> 
+> The InfluxDB server ([`influxd`](/influxdb/v2/reference/cli/influxd/)) and the
+> [`influx` CLI](/influxdb/v2/reference/cli/influx/) are packaged and
+> versioned separately.
+> Some install methods (for example, the InfluxDB Docker Hub image) include both.

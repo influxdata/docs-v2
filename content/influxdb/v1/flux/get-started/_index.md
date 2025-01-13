@@ -13,7 +13,8 @@ aliases:
   - /influxdb/v1/flux/getting-started/
   - /influxdb/v1/flux/introduction/getting-started/
 canonical: /influxdb/v2/query-data/get-started/
-v2: /influxdb/v2/query-data/get-started/
+alt_links:
+  v2: /influxdb/v2/query-data/get-started/
 ---
 
 Flux is InfluxData's new functional data scripting language designed for querying,

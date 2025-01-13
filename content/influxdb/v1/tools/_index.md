@@ -8,7 +8,8 @@ menu:
   influxdb_v1:
     name: Tools
     weight: 60
-v2: /influxdb/v2/tools/
+alt_links:
+  v2: /influxdb/v2/tools/
 ---
 
 This section covers the available tools for interacting with InfluxDB.

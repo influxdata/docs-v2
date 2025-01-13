@@ -1,0 +1,4 @@
+{
+    "vale.valeCLI.config": "${workspaceFolder}/content/influxdb3/cloud-dedicated/.vale.ini",
+    "vale.valeCLI.minAlertLevel": "warning",
+}

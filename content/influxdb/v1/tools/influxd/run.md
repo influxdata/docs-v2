@@ -7,7 +7,8 @@ menu:
     name: influxd run
     weight: 10
     parent: influxd
-v2: /influxdb/v2/reference/cli/influxd/run/
+alt_links:
+  v2: /influxdb/v2/reference/cli/influxd/run/
 ---
 
 The `influxd run` command is the default command for `influxd`.

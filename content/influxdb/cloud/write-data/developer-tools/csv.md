@@ -14,9 +14,9 @@ related:
   - /influxdb/cloud/reference/syntax/annotated-csv/
   - /influxdb/cloud/reference/cli/influx/write/
 alt_links:
-  cloud-serverless: /influxdb/cloud-serverless/write-data/csv/
-  cloud-dedicated: /influxdb/cloud-dedicated/write-data/csv/
-  clustered: /influxdb/clustered/write-data/csv/
+  cloud-serverless: /influxdb3/cloud-serverless/write-data/csv/
+  cloud-dedicated: /influxdb3/cloud-dedicated/write-data/csv/
+  clustered: /influxdb3/clustered/write-data/csv/
 ---
 
 {{< duplicate-oss >}}

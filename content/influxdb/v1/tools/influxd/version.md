@@ -7,7 +7,8 @@ menu:
     name: influxd version
     weight: 10
     parent: influxd
-v2: /influxdb/v2/reference/cli/influxd/version/
+alt_links:
+  v2: /influxdb/v2/reference/cli/influxd/version/
 ---
 
 

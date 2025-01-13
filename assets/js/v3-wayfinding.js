@@ -1,5 +1,5 @@
 // Store the host value for the current page
-currentPageHost = window.location.href.match(/^(?:[^\/]*\/){2}[^\/]+/g)[0];
+const currentPageHost = window.location.href.match(/^(?:[^\/]*\/){2}[^\/]+/g)[0];
 
 // Define v3-wayfinding elements
 var wayfindingModal = document.getElementById('v3-wayfinding-modal');

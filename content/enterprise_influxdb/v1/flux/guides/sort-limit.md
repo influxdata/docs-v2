@@ -12,7 +12,6 @@ menu:
 weight: 3
 list_query_example: sort_limit
 canonical: /influxdb/v2/query-data/flux/sort-limit/
-v2: /influxdb/v2/query-data/flux/sort-limit/
 ---
 
 Use the [`sort()`function](/flux/v0/stdlib/universe/sort)
