@@ -365,7 +365,7 @@ As of this writing, the Processing Engine is only supported in Docker environmen
 We expect it to launch in non-Docker environments soon. We're still in very active development creating the API and developer experience so things will break and change fast. Join our <a href=https://discord.com/invite/eMnhxPyj>Discord</a> to ask questions and give feedback.
 {{% /note %}}
 
-InfluxDB3 has an embedded Python VM for running code inside the database. Currently, we only support plugins that get triggered on WAL file flushes, but more will be coming soon. Specifically, plugins will be able to be triggered by:
+InfluxDB 3 has an embedded Python VM for running code inside the database. Currently, we only support plugins that get triggered on WAL file flushes, but more will be coming soon. Specifically, plugins will be able to be triggered by:
 
 * On WAL flush sends a batch of write data to a plugin once a second (can be configured).
 * On Snapshot (persist of Parquet files) sends the metadata to a plugin to do further processing against the Parquet data or send the information elsewhere (e.g., adding it to an Iceberg Catalog).
