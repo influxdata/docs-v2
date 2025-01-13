@@ -33,6 +33,12 @@ S3-compatible API, such as [Minio](https://min.io/).
 
 ## Quick install
 
+Use the InfluxDB 3 quick install script to install {{< product-name >}} on
+**Linux** and **macOS**.
+
+> [!Important]
+> If using Windows, [download the InfluxDB 3 Core Windows binary](?t=Windows#download-influxdb-3-core-binaries).
+
 1.  Use the following command to download and install the appropriate
     {{< product-name >}} package on your local machine:
 
