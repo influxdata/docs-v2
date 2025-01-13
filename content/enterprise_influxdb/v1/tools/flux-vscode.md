@@ -10,7 +10,6 @@ menu:
   enterprise_influxdb_v1:
     name: Flux VS Code extension
     parent: Tools
-v2: /influxdb/v2/tools/flux-vscode/
 ---
 
 The [Flux Visual Studio Code (VS Code) extension](https://marketplace.visualstudio.com/items?itemName=influxdata.flux)

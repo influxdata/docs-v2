@@ -13,7 +13,6 @@ menu:
     name: Increase
 list_query_example: increase
 canonical: /influxdb/v2/query-data/flux/increase/
-v2: /influxdb/v2/query-data/flux/increase/
 ---
 
 Use the [`increase()` function](/flux/v0/stdlib/universe/increase/)

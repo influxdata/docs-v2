@@ -5,7 +5,8 @@ menu:
     name: influx
     weight: 10
     parent: Tools
-v2: /influxdb/v2/reference/cli/influx/
+alt_links:
+  v2: /influxdb/v2/reference/cli/influx/
 ---
 
 The `influx` command line interface (CLI) provides an interactive shell for the HTTP API associated with `influxd`.

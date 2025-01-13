@@ -1,13 +1,15 @@
 var placeholderUrls = {
   oss: 'http://localhost:8086',
   cloud: 'https://cloud2.influxdata.com',
+  core: 'http://localhost:8181',
+  enterprise: 'http://localhost:8181',
   serverless: 'https://cloud2.influxdata.com',
   dedicated: 'cluster-id.a.influxdb.io',
   clustered: 'cluster-host.com',
 };
 
 /*
-  NOTE: The defaultUrls variable is defined in assets/js/cookies.js
+  NOTE: The defaultUrls variable is defined in assets/js/local-storage.js
 */
 
 var elementSelector = '.article--content pre:not(.preserve)';
@@ -16,11 +18,15 @@ var elementSelector = '.article--content pre:not(.preserve)';
 function context() {
   if (/\/influxdb\/cloud\//.test(window.location.pathname)) {
     return 'cloud';
-  } else if (/\/influxdb\/cloud-serverless/.test(window.location.pathname)) {
+  } else if (/\/influxdb3\/core/.test(window.location.pathname)) {
+    return 'core';
+  } else if (/\/influxdb3\/enterprise/.test(window.location.pathname)) {
+    return 'enterprise';
+  } else if (/\/influxdb3\/cloud-serverless/.test(window.location.pathname)) {
     return 'serverless';
-  } else if (/\/influxdb\/cloud-dedicated/.test(window.location.pathname)) {
+  } else if (/\/influxdb3\/cloud-dedicated/.test(window.location.pathname)) {
     return 'dedicated';
-  } else if (/\/influxdb\/clustered/.test(window.location.pathname)) {
+  } else if (/\/influxdb3\/clustered/.test(window.location.pathname)) {
     return 'clustered';
   } else if (
     /\/(enterprise_|influxdb).*\/v[1-2]\//.test(window.location.pathname)
@@ -35,8 +41,8 @@ function context() {
 ///////////////////////// Session-management functions /////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-// Retrieve the user's InfluxDB preference (cloud or oss) from the influxdb_pref session cookie
-// Default is cloud.
+// Retrieve the user's InfluxDB preference (cloud or oss) from the influxdb_pref
+// local storage key. Default is cloud.
 function getURLPreference() {
   return getPreference('influxdb_url');
 }
@@ -47,20 +53,24 @@ function setURLPreference(preference) {
 }
 
 /*
-  influxdata_docs_urls cookie object keys: 
+  influxdata_docs_urls local storage object keys: 
 
   - oss
   - cloud
+  - core
+  - enterprise
   - dedicated
   - clustered
   - prev_oss
   - prev_cloud
+  - prev_core
+  - prev_enterprise
   - prev_dedicated
   - prev_clustered
   - custom
 */
 
-// Store URLs in the urls session cookies
+// Store URLs in the urls local storage object
 function storeUrl(context, newUrl, prevUrl) {
   urlsObj = {};
   urlsObj['prev_' + context] = prevUrl;
@@ -69,20 +79,20 @@ function storeUrl(context, newUrl, prevUrl) {
   setInfluxDBUrls(urlsObj);
 }
 
-// Store custom URL in the url session cookie.
+// Store custom URL in the url local storage object
 // Used to populate the custom URL field
 function storeCustomUrl(customUrl) {
   setInfluxDBUrls({ custom: customUrl });
   $('input#custom[type=radio]').val(customUrl);
 }
 
-// Set a URL in the urls session cookie to an empty string
+// Set a URL in the urls local storage object to an empty string
 // Used to clear the form when custom url input is left empty
 function removeCustomUrl() {
   removeInfluxDBUrl('custom');
 }
 
-// Store a product URL in the urls session cookie
+// Store a product URL in the urls local storage object
 // Used to populate the custom URL field
 function storeProductUrl(product, productUrl) {
   urlsObj = {};
@@ -92,7 +102,7 @@ function storeProductUrl(product, productUrl) {
   $(`input#${product}-url-field`).val(productUrl);
 }
 
-// Set a product URL in the urls session cookie to an empty string
+// Set a product URL in the urls local storage object to an empty string
 // Used to clear the form when dedicated url input is left empty
 function removeProductUrl(product) {
   removeInfluxDBUrl(product);
@@ -118,17 +128,21 @@ function addPreserve() {
   });
 }
 
-// Retrieve the currently selected URLs from the urls session cookie.
+// Retrieve the currently selected URLs from the urls local storage object.
 function getUrls() {
   var storedUrls = getInfluxDBUrls();
   var currentCloudUrl = storedUrls.cloud;
   var currentOSSUrl = storedUrls.oss;
+  var currentCoreUrl = storedUrls.core;
+  var currentEnterpriseUrl = storedUrls.enterprise;
   var currentServerlessUrl = storedUrls.serverless;
   var currentDedicatedUrl = storedUrls.dedicated;
   var currentClusteredUrl = storedUrls.clustered;
   var urls = {
     oss: currentOSSUrl,
     cloud: currentCloudUrl,
+    core: currentCoreUrl,
+    enterprise: currentEnterpriseUrl,
     serverless: currentServerlessUrl,
     dedicated: currentDedicatedUrl,
     clustered: currentClusteredUrl,
@@ -136,18 +150,22 @@ function getUrls() {
   return urls;
 }
 
-// Retrieve the previously selected URLs from the from the urls session cookie.
+// Retrieve the previously selected URLs from the from the urls local storage object.
 // This is used to update URLs whenever you switch between browser tabs.
 function getPrevUrls() {
   var storedUrls = getInfluxDBUrls();
   var prevCloudUrl = storedUrls.prev_cloud;
   var prevOSSUrl = storedUrls.prev_oss;
+  var prevCoreUrl = storedUrls.prev_core;
+  var prevEnterpriseUrl = storedUrls.prev_enterprise;
   var prevServerlessUrl = storedUrls.prev_serverless;
   var prevDedicatedUrl = storedUrls.prev_dedicated;
   var prevClusteredUrl = storedUrls.prev_clustered;
   var prevUrls = {
     oss: prevOSSUrl,
     cloud: prevCloudUrl,
+    core: prevCoreUrl,
+    enterprise: prevEnterpriseUrl,
     serverless: prevServerlessUrl,
     dedicated: prevDedicatedUrl,
     clustered: prevClusteredUrl,
@@ -161,6 +179,8 @@ function updateUrls(prevUrls, newUrls) {
   var prevUrlsParsed = {
     oss: {},
     cloud: {},
+    core: {},
+    enterprise: {},
     serverless: {},
     dedicated: {},
     clustered: {},
@@ -169,6 +189,8 @@ function updateUrls(prevUrls, newUrls) {
   var newUrlsParsed = {
     oss: {},
     cloud: {},
+    core: {},
+    enterprise: {},
     serverless: {},
     dedicated: {},
     clustered: {},
@@ -206,6 +228,12 @@ function updateUrls(prevUrls, newUrls) {
     { replace: prevUrlsParsed.serverless, with: newUrlsParsed.serverless },
     { replace: prevUrlsParsed.oss, with: newUrlsParsed.serverless },
   ];
+  var coreReplacements = [
+    { replace: prevUrlsParsed.core, with: newUrlsParsed.core },
+  ];
+  var enterpriseReplacements = [
+    { replace: prevUrlsParsed.enterprise, with: newUrlsParsed.enterprise },
+  ];
   var dedicatedReplacements = [
     { replace: prevUrlsParsed.dedicated, with: newUrlsParsed.dedicated },
   ];
@@ -215,6 +243,10 @@ function updateUrls(prevUrls, newUrls) {
 
   if (context() === 'cloud') {
     var replacements = cloudReplacements;
+  } else if (context() === 'core') {
+    var replacements = coreReplacements;
+  } else if (context() === 'enterprise') {
+    var replacements = enterpriseReplacements;
   } else if (context() === 'serverless') {
     var replacements = serverlessReplacements;
   } else if (context() === 'dedicated') {
@@ -282,6 +314,8 @@ function appendUrlSelector() {
   var appendToUrls = [
     placeholderUrls.oss,
     placeholderUrls.cloud,
+    placeholderUrls.core,
+    placeholderUrls.enterprise,
     placeholderUrls.serverless,
     placeholderUrls.dedicated,
     placeholderUrls.clustered,
@@ -291,6 +325,8 @@ function appendUrlSelector() {
     contextText = {
       'oss/enterprise': 'Change InfluxDB URL',
       cloud: 'InfluxDB Cloud Region',
+      core: 'Change InfluxDB URL',
+      enterprise: 'Change InfluxDB URL',
       serverless: 'InfluxDB Cloud Region',
       dedicated: 'Set Dedicated cluster URL',
       clustered: 'Set InfluxDB cluster URL',
@@ -359,6 +395,14 @@ function setRadioButtons() {
     'checked',
     true
   );
+  $('input[name="influxdb-core-url"][value="' + currentUrls.core + '"]').prop(
+    'checked',
+    true
+  );
+  $('input[name="influxdb-enterprise-url"][value="' + currentUrls.enterprise + '"]').prop(
+    'checked',
+    true
+  );
 }
 
 // Add checked to fake-radio if cluster is selected on page load
@@ -407,6 +451,18 @@ $('input[name="influxdb-cloud-url"]').click(function () {
   setURLPreference('cloud');
 });
 
+$('input[name="influxdb-core-url"]').change(function () {
+  var newUrl = $(this).val();
+  storeUrl('core', newUrl, getUrls().core);
+  updateUrls(getPrevUrls(), getUrls());
+});
+
+$('input[name="influxdb-enterprise-url"]').change(function () {
+  var newUrl = $(this).val();
+  storeUrl('enterprise', newUrl, getUrls().enterprise);
+  updateUrls(getPrevUrls(), getUrls());
+});
+
 $('input[name="influxdb-serverless-url"]').change(function () {
   var newUrl = $(this).val();
   storeUrl('serverless', newUrl, getUrls().serverless);
@@ -442,7 +498,7 @@ $('#pref-tabs .pref-tab').click(function () {
   togglePrefBtns($(this));
 });
 
-// Select preference tab from cookie
+// Select preference tab from local storage
 function showPreference() {
   var preference = getPreference('influxdb_url');
   prefTab = $('#pref-' + preference);
@@ -515,8 +571,8 @@ function hideValidationMessage() {
   $('#custom-url').removeClass('error').attr('data-message', '');
 }
 
-// Set the custom URL cookie and apply the change
-// If the custom URL field is empty, it defaults to the OSS default
+// Set the custom URL local storage object and apply the change
+// If the custom URL field is empty, it defaults to the context default
 function applyCustomUrl() {
   var custUrl = $('#custom-url-field').val();
   let urlValidation = validateUrl(custUrl);
@@ -524,7 +580,7 @@ function applyCustomUrl() {
     if (urlValidation.valid) {
       hideValidationMessage();
       storeCustomUrl(custUrl);
-      storeUrl('oss', custUrl, getUrls().oss);
+      storeUrl(context(), custUrl, getUrls()[context()]);
       updateUrls(getPrevUrls(), getUrls());
     } else {
       showValidationMessage(urlValidation);
@@ -533,12 +589,12 @@ function applyCustomUrl() {
     removeCustomUrl();
     hideValidationMessage();
     $(
-      'input[name="influxdb-oss-url"][value="' + defaultUrls.oss + '"]'
+      'input[name="influxdb-${context()}-url"][value="' + defaultUrls[context()] + '"]'
     ).trigger('click');
   }
 }
 
-// Set the product URL cookie and apply the change
+// Set the product URL local storage object and apply the change
 // If the product URL field is empty, it defaults to the product default
 function applyProductUrl(product) {
   var productUrl = $(`#${product}-url-field`).val();
@@ -657,14 +713,4 @@ if (cloudUrls.includes(referrerHost)) {
   setRadioButtons();
   setURLPreference('cloud');
   showPreference();
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//////////////////////////// Dedicated URL Migration ///////////////////////////
-///////////////////////// REMOVE AFTER AUGUST 22, 2024 /////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-if (getUrls().dedicated == 'cluster-id.influxdb.io') {
-  storeUrl('dedicated', 'cluster-id.a.influxdb.io', getUrls().dedicated);
-  updateUrls(getPrevUrls(), getUrls());
 }

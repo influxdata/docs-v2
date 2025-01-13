@@ -10,7 +10,6 @@ menu:
     weight: 10
     parent: Write protocols
 canonical: /influxdb/v2/reference/syntax/line-protocol/
-v2: /influxdb/v2/reference/syntax/line-protocol/
 ---
 
 InfluxDB line protocol is a text-based format for writing points to InfluxDB.

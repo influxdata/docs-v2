@@ -8,7 +8,8 @@ menu:
     parent: About the project
 aliases:
   - /influxdb/v1/about_the_project/releasenotes-changelog/
-v2: /influxdb/v2/reference/release-notes/influxdb/
+alt_links:
+  v2: /influxdb/v2/reference/release-notes/influxdb/
 ---
 
 ## v1.11.8 {date="2024-11-15"}
@@ -24,8 +25,8 @@ v2: /influxdb/v2/reference/release-notes/influxdb/
 This release represents the first public release of InfluxDB OSS v1 since 2021
 and includes many enhancements and bug fixes added to InfluxDB Enterprise and
 then back-ported to InfluxDB OSS v1. Many of these enhancements improve
-compatibility between InfluxDB v1 and InfluxDB v3 and help to ease the migration
-of InfluxDB v1 workloads to InfluxDB v3.
+compatibility between InfluxDB v1 and InfluxDB 3 and help to ease the migration
+of InfluxDB v1 workloads to InfluxDB 3.
 
 {{% warn %}}
 #### Before upgrading to InfluxDB 1.11
@@ -338,7 +339,6 @@ This release updates support for the Flux language and queries. To learn about F
     - Cast booleans to integers
     - Query geo-temporal data (experimental)
     - Many additional functions for working with data
-
 
   > We're evaluating the need for Flux query management controls equivalent to existing InfluxQL [query management controls](/influxdb/v1/troubleshooting/query_management/#configuration-settings-for-query-management) based on your feedback. Please join the discussion on [InfluxCommunity](https://community.influxdata.com/), [Slack](https://influxcommunity.slack.com/), or [GitHub](https://github.com/influxdata/flux). InfluxDB Enterprise customers, please contact <support@influxdata.com>.
 

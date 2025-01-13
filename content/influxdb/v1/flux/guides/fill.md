@@ -11,7 +11,8 @@ menu:
     name: Fill
 list_query_example: fill_null
 canonical: /influxdb/v2/query-data/flux/fill/
-v2: /influxdb/v2/query-data/flux/fill/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/fill/
 ---
 
 Use the [`fill()` function](/flux/v0/stdlib/universe/fill/)

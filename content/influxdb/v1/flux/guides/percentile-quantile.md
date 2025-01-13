@@ -12,7 +12,8 @@ menu:
     name: Percentile & quantile
 list_query_example: quantile
 canonical: /influxdb/v2/query-data/flux/percentile-quantile/
-v2: /influxdb/v2/query-data/flux/percentile-quantile/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/percentile-quantile/
 ---
 
 Use the [`quantile()` function](/flux/v0/stdlib/universe/quantile/)

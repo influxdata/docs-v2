@@ -18,6 +18,10 @@
   {{ end }}
 {{ else if eq $currentVersion "cloud"}}
   {{ $scratch.Set "siteTitle" "InfluxDB Cloud (TSM) Documentation" }}
+{{ else if eq $currentVersion "core"}}
+  {{ $scratch.Set "siteTitle" "InfluxDB 3 Core Documentation" }}
+{{ else if eq $currentVersion "enterprise"}}
+  {{ $scratch.Set "siteTitle" "InfluxDB 3 Enterprise Documentation" }}
 {{ else if eq $currentVersion "cloud-serverless"}}
   {{ $scratch.Set "siteTitle" "InfluxDB Cloud Serverless Documentation" }}
 {{ else if eq $currentVersion "cloud-dedicated"}}
@@ -26,6 +30,8 @@
   {{ $scratch.Set "siteTitle" "InfluxDB Clustered Documentation" }}
 {{ else if and (eq $product "influxdb") (in $currentVersion "v")}}
   {{ $scratch.Set "siteTitle" (print "InfluxDB OSS " $version " Documentation") }}
+{{ else if and (eq $product "influxdb3") (eq $currentVersion "enterprise")}}
+  {{ $scratch.Set "siteTitle" (print "InfluxDB 3 Enterprise Documentation") }}
 {{ else if eq $currentVersion nil}}
   {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " Documentation") }}
 {{ else }}

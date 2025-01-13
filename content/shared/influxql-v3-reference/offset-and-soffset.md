@@ -128,7 +128,7 @@ tags: room=Living Room
 ## `SOFFSET` clause
 
 > [!Important]
-> InfluxQL is being rearchitected to work with the InfluxDB v3 storage engine.
+> InfluxQL is being rearchitected to work with the InfluxDB 3 storage engine.
 > This process is ongoing and some InfluxQL features, such as `SOFFSET` are still
 > being implemented. For more information, see
 > [InfluxQL feature support](/influxdb/version/reference/influxql/feature-support/).

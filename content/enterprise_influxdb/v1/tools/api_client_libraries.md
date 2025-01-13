@@ -10,7 +10,6 @@ menu:
   enterprise_influxdb_v1:
     weight: 30
     parent: Tools
-v2: /influxdb/v2/api-guide/client-libraries/
 ---
 
 InfluxDB client libraries are language-specific packages that integrate with InfluxDB APIs and support **InfluxDB 1.8+** and **InfluxDB 2.x**.

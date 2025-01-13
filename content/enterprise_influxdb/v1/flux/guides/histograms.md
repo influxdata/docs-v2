@@ -10,7 +10,6 @@ menu:
 weight: 10
 list_query_example: histogram
 canonical: /influxdb/v2/query-data/flux/histograms/
-v2: /influxdb/v2/query-data/flux/histograms/
 ---
 
 Histograms provide valuable insight into the distribution of your data.

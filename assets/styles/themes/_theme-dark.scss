@@ -260,7 +260,3 @@ $influxdb-logo: url('/svgs/influxdb-logo-white.svg') !default;
 // Code placeholder colors
 $code-placeholder: #e659a2;
 $code-placeholder-hover: $br-teal;
-
-@import "dark/telegraf",
-        "dark/chronograf",
-        "dark/kapacitor";

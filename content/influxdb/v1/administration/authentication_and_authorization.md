@@ -8,7 +8,8 @@ menu:
     name: Manage authentication and authorization
     weight: 20
     parent: Administration
-v2: /influxdb/v2/admin/tokens/
+alt_links:
+  v2: /influxdb/v2/admin/tokens/
 ---
 
 This document covers setting up and managing authentication and authorization in InfluxDB.

@@ -1,7 +1,7 @@
 ---
 title: The future of Flux
 description: >
-  Flux is in maintenance mode and is not supported in InfluxDB v3.
+  Flux is in maintenance mode and is not supported in InfluxDB 3.
   This decision was based on the broad demand for native SQL and the continued
   growth and adoption of InfluxQL.
 menu:
@@ -10,18 +10,18 @@ menu:
 weight: 15
 ---
 
-Flux is in maintenance mode and is not supported in InfluxDB v3 due to the broad
+Flux is in maintenance mode and is not supported in InfluxDB 3 due to the broad
 demand for native SQL and the continued growth and adoption of InfluxQL. 
 
 InfluxData continues to support Flux for InfluxDB 1.x and 2.x, and you can
 continue using it without changing your code.
-If interested in transitioning to InfluxDB v3 and you want to future-proof your
+If interested in transitioning to InfluxDB 3 and you want to future-proof your
 code, we suggest using InfluxQL.
 
-As we developed InfluxDB v3, our top priority was improving performance at the
+As we developed InfluxDB 3, our top priority was improving performance at the
 database layer: faster ingestion, better compression, enhanced querying,
 and more scalability. However, this meant we couldn’t bring everything forward
-from v2. As InfluxDB v3 is a ground-up rewrite of the database in a new language
+from v2. As InfluxDB 3 is a ground-up rewrite of the database in a new language
 (from Go to Rust), we couldn’t bring Flux forward to v3.
 
 - [What do you mean by Flux is in maintenance mode?](#what-do-you-mean-by-flux-is-in-maintenance-mode)
@@ -33,7 +33,7 @@ from v2. As InfluxDB v3 is a ground-up rewrite of the database in a new language
 We still support Flux, but are not actively developing any new Flux features.
 We will continue to provide security patches and will address any critical
 defects through the maintenance period.
-Our focus is our latest database engine, InfluxDB v3, and its associated products.
+Our focus is our latest database engine, InfluxDB 3, and its associated products.
 
 ## Is Flux going to End-of-Life?
 
@@ -44,7 +44,7 @@ future-proof your code, we recommend using InfluxQL or SQL.
 
 ## What alternatives do you have for Flux tasks?
 
-If moving to InfluxDB v3, you can't bring Flux tasks because InfluxDB v3 doesn't
+If moving to InfluxDB 3, you can't bring Flux tasks because InfluxDB 3 doesn't
 support Flux natively. When you move to v3, you will need to rewrite your tasks
 using whatever technologies your team prefers. However, if you’re using tasks
 for downsampling specifically, the storage performance in v3 is much better so

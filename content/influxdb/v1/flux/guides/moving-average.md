@@ -11,7 +11,8 @@ menu:
     name: Moving Average
 list_query_example: moving_average
 canonical: /influxdb/v2/query-data/flux/moving-average/
-v2: /influxdb/v2/query-data/flux/moving-average/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/moving-average/
 ---
 
 Use the [`movingAverage()`](/flux/v0/stdlib/universe/movingaverage/)

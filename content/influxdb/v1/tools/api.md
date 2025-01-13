@@ -9,7 +9,8 @@ menu:
     name: InfluxDB API reference
     weight: 20
     parent: Tools
-v2: /influxdb/v2/reference/api/
+alt_links:
+  v2: /influxdb/v2/reference/api/
 ---
 
 The InfluxDB API provides a simple way to interact with the database.
@@ -25,33 +26,33 @@ or the client of your choice.
 {{% note %}}
 If you're getting started with InfluxDB v1, we recommend using the
 InfluxDB v1 client libraries and InfluxQL for
-[InfluxDB v3 compatibility](/influxdb/v1/tools/api/#influxdb-v3-compatibility).
+[InfluxDB 3 compatibility](/influxdb/v1/tools/api/#influxdb-3-compatibility).
 {{% /note %}}
 
 The following sections assume your InfluxDB instance is running on `localhost`
 port `8086` and HTTPS is not enabled.
 Those settings [are configurable](/influxdb/v1/administration/config/#http-endpoints-settings).
 
-- [InfluxDB v3 compatibility](#influxdb-v3-compatibility)
+- [InfluxDB 3 compatibility](#influxdb-3-compatibility)
 - [InfluxDB 2.x API compatibility endpoints](#influxdb-2x-api-compatibility-endpoints)
 - [InfluxDB 1.x HTTP endpoints](#influxdb-1x-http-endpoints)
 
-## InfluxDB v3 compatibility
+## InfluxDB 3 compatibility
 
-InfluxDB v3 is InfluxDB’s next generation that allows
+InfluxDB 3 is InfluxDB’s next generation that allows
 infinite series cardinality without impact on overall database performance, and
 brings native SQL support and improved InfluxQL performance.
 
-InfluxDB v3 supports the v1 `/write` and `/query` HTTP API endpoints.
-InfluxDB v3 isn't optimized for Flux.
+InfluxDB 3 supports the v1 `/write` and `/query` HTTP API endpoints.
+InfluxDB 3 isn't optimized for Flux.
 
 If you're getting started with InfluxDB v1, we recommend using the
 InfluxDB v1 client libraries and InfluxQL.
-When you're ready, you can migrate to InfluxDB v3 and continue using the v1 client
+When you're ready, you can migrate to InfluxDB 3 and continue using the v1 client
 libraries as you gradually move your query workloads to use the v3 client libraries
 (and the v3 Flight API).
 
-For more information, see [API compatibility and migration guides for InfluxDB v3](/influxdb/cloud-dedicated/guides).
+For more information, see [API compatibility and migration guides for InfluxDB 3](/influxdb3/cloud-dedicated/guides).
 
 ## InfluxDB 2.x API compatibility endpoints
 

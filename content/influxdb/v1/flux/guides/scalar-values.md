@@ -10,7 +10,8 @@ menu:
     parent:  Query with Flux
 weight: 20
 canonical: /influxdb/v2/query-data/flux/scalar-values/
-v2: /influxdb/v2/query-data/flux/scalar-values/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/scalar-values/
 list_code_example: |
   ```js
   scalarValue = {

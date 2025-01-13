@@ -1,20 +1,26 @@
 {{ $OSSLink := print "/influxdb/v2/reference/urls/ "}}
 {{ $CloudLink := "/influxdb/cloud/reference/regions/" }}
-{{ $ServerlessLink := "/influxdb/cloud-serverless/reference/regions/" }}
+{{ $ServerlessLink := "/influxdb3/cloud-serverless/reference/regions/" }}
 {{ $EnterpriseLink := print "/enterprise_influxdb/v1/administration/config-data-nodes/#http-endpoint-settings" }}
-{{ $isInfluxDB := cond (gt (len (findRE `^/influxdb/|^/enterprise_influxdb/` .RelPermalink)) 0) true false }}
-{{ $isOSS := cond (in .RelPermalink "/influxdb/v") true false }}
-{{ $isCloud := cond (in .RelPermalink "/influxdb/cloud/") true false }}
-{{ $isServerless := cond (in .RelPermalink "/influxdb/cloud-serverless/") true false }}
-{{ $isDedicated := cond (in .RelPermalink "/influxdb/cloud-dedicated/") true false }}
-{{ $isClustered := cond (in .RelPermalink "/influxdb/clustered/") true false }}
-{{ $isEnterprise := cond (in .RelPermalink "/enterprise_influxdb/") true false }}
+{{ $isInfluxDB := cond (gt (len (findRE `^/influxdb(?:3)*/|^/enterprise_influxdb/` .RelPermalink)) 0) true false }}
+{{ $isOSS := in .RelPermalink "/influxdb/v" }}
+{{ $isCloud := in .RelPermalink "/influxdb/cloud/" }}
+{{ $isCore := in .RelPermalink "/influxdb3/core/" }}
+{{ $isEnterprise := in .RelPermalink "/influxdb3/enterprise/" }}
+{{ $isServerless := in .RelPermalink "/influxdb3/cloud-serverless/" }}
+{{ $isDedicated := in .RelPermalink "/influxdb3/cloud-dedicated/" }}
+{{ $isClustered := in .RelPermalink "/influxdb3/clustered/" }}
+{{ $isEnterpriseV1 := in .RelPermalink "/enterprise_influxdb/" }}
 
 {{ .Scratch.Set "modalTitle" "Where are you running InfluxDB?" }}
 {{ if $isOSS }}
   {{ .Scratch.Set "modalTitle" "What is your InfluxDB OSS URL?"}}
 {{ else if $isCloud }}
   {{ .Scratch.Set "modalTitle" "Select your InfluxDB Cloud region" }}
+{{ else if $isCore }}
+  {{ .Scratch.Set "modalTitle" "What is your InfluxDB 3 Core URL?" }}
+{{ else if $isEnterprise }}
+  {{ .Scratch.Set "modalTitle" "What is your InfluxDB 3 Enterprise URL?" }}
 {{ else if $isServerless }}
   {{ .Scratch.Set "modalTitle" "Select your InfluxDB Cloud Serverless region" }}
 {{ else if $isDedicated }}
@@ -26,10 +32,14 @@
 {{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud region and cluster** or your **InfluxDB OSS URL** and we'll customize code examples for you. _[Identify your InfluxDB Cloud cluster](/influxdb/cloud/reference/regions/#regions-with-multiple-clusters)_." }}
 {{ if $isOSS }}
   {{ .Scratch.Set "modalMessage" "Customize your **InfluxDB OSS URL** and we'll update code examples for you." }}
-{{ else if $isEnterprise }}
+{{ else if $isEnterpriseV1 }}
   {{ .Scratch.Set "modalMessage" "Customize your **InfluxDB Enterprise URL** and we'll update code examples for you." }}
 {{ else if $isCloud }}
   {{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud region and cluster** and we'll customize code examples for you. _[Identify your InfluxDB Cloud cluster](/influxdb/cloud/reference/regions/#regions-with-multiple-clusters)_." }}
+{{ else if $isCore }}
+  {{ .Scratch.Set "modalMessage" "Customize your **InfluxDB 3 Core URL** and we'll update code examples for you." }}
+{{ else if $isEnterprise }}
+  {{ .Scratch.Set "modalMessage" "Customize your **InfluxDB 3 Enterprise URL** and we'll update code examples for you." }}
 {{ else if $isServerless }}
   {{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud Serverless region** and we'll customize code examples for you." }}
 {{ else if $isDedicated }}
@@ -41,7 +51,7 @@
 {{ .Scratch.Set "modalRefLinks" (print "[InfluxDB Cloud regions](" $CloudLink ") or [InfluxDB OSS URLs](" $OSSLink ")") }}
 {{ if $isOSS }}
   {{ .Scratch.Set "modalRefLinks" (print "[InfluxDB OSS URLs](" $OSSLink ")") }}
-{{ else if $isEnterprise }}
+{{ else if $isEnterpriseV1 }}
   {{ .Scratch.Set "modalRefLinks" (print "[InfluxDB Enterprise HTTP settings](" $EnterpriseLink ")") }}
 {{ else if $isServerless }}
   {{ .Scratch.Set "modalRefLinks" (print "[InfluxDB Cloud Serverless regions](" $ServerlessLink ")") }}
@@ -119,11 +129,12 @@
   {{ $p := .product }}
   {{ $formID := .formID }}
   {{ $placeholder := .placeholder }}
+  {{ $label := .label }}
   {{ $initialState := .initialState | default "" }}
   <div class="product {{ $initialState }}" id="{{ $formID }}-urls">
     <div class="providers">
       <div class="provider">
-        <h5>Enter cluster URL</h5>
+        <h5>{{ $label }}</h5>
         <form action="#" id="custom-url" data-message="">
           <input type="text" name="influxdb-{{ $formID }}-url" id="{{ $formID }}-url-field" placeholder="{{ $placeholder}}">
         </form>
@@ -145,14 +156,18 @@
       {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss "formID" "oss" "initialState" "inactive"}}
     {{ else if $isCloud }}
       {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "formID" "cloud" "filterServerless" $isServerless }}
-    {{ else if or $isOSS $isEnterprise }}
+    {{ else if or $isOSS $isEnterpriseV1 }}
       {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss "formID" "oss" }}
+    {{ else if $isCore }}
+      {{ template "productSection" dict "product" .Site.Data.influxdb_urls.core "formID" "core" }}
+    {{ else if $isEnterprise }}
+      {{ template "productSection" dict "product" .Site.Data.influxdb_urls.enterprise "formID" "enterprise" }}
     {{ else if $isServerless }}
       {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "formID" "serverless" "filterServerless" true }}
     {{ else if $isDedicated }}
-      {{ template "productSpecificForm" dict "product" nil "formID" "dedicated" "placeholder" "cluster-id.a.influxdb.io" }}
+      {{ template "productSpecificForm" dict "product" nil "formID" "dedicated" "label" "Enter cluster URL" "placeholder" "cluster-id.a.influxdb.io" }}
     {{ else if $isClustered }}
-      {{ template "productSpecificForm" dict "product" nil "formID" "clustered" "placeholder" "cluster-host.com" }}
+      {{ template "productSpecificForm" dict "product" nil "formID" "clustered" "label" "Enter cluster URL" "placeholder" "cluster-host.com" }}
     {{ end }}
   </div>
   {{ if not (or $isDedicated $isClustered) }}<p class="note">For more information, see {{ $modalRefLinks | markdownify }}.</p>{{ end }}

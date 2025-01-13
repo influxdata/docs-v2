@@ -14,7 +14,6 @@ menu:
     name: Rate
 list_query_example: rate_of_change
 canonical: /influxdb/v2/query-data/flux/rate/
-v2: /influxdb/v2/query-data/flux/rate/
 ---
 
 

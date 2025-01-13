@@ -9,7 +9,8 @@ menu:
 aliases:
   - /influxdb/v1/flux/getting-started/syntax-basics/
 canonical: /influxdb/v2/query-data/get-started/syntax-basics/
-v2: /influxdb/v2/query-data/get-started/syntax-basics/
+alt_links:
+  v2: /influxdb/v2/query-data/get-started/syntax-basics/
 ---
 
 

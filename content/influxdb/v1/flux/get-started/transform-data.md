@@ -9,7 +9,8 @@ menu:
 aliases:
   - /influxdb/v1/flux/getting-started/transform-data/
 canonical: /influxdb/v2/query-data/get-started/transform-data/
-v2: /influxdb/v2/query-data/get-started/transform-data/
+alt_links:
+  v2: /influxdb/v2/query-data/get-started/transform-data/
 ---
 
 When [querying data from InfluxDB](/influxdb/v1/flux/get-started/query-influxdb),

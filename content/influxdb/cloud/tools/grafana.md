@@ -13,9 +13,9 @@ related:
   - /influxdb/cloud/query-data/get-started/
   - /influxdb/cloud/query-data/influxql/
 alt_links:
-  cloud-serverless: /influxdb/cloud-serverless/visualize-data/grafana/
-  cloud-dedicated: /influxdb/cloud-dedicated/process-data/visualize/grafana/
-  clustered: /influxdb/clustered/process-data/visualize/grafana/
+  cloud-serverless: /influxdb3/cloud-serverless/visualize-data/grafana/
+  cloud-dedicated: /influxdb3/cloud-dedicated/process-data/visualize/grafana/
+  clustered: /influxdb3/clustered/process-data/visualize/grafana/
 ---
 
 {{< duplicate-oss >}}

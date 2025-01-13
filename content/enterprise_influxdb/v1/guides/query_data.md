@@ -8,7 +8,6 @@ menu:
 aliases:
   - /enterprise_influxdb/v1/guides/querying_data/
   - /docs/v1.8/query_language/querying_data/
-v2: /influxdb/v2/query-data/
 ---
 
 

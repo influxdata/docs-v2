@@ -11,7 +11,7 @@ menu:
     parent: Account management
 weight: 105
 alt_links:
-  cloud-serverless: /influxdb/cloud-serverless/admin/accounts/change-password/
+  cloud-serverless: /influxdb3/cloud-serverless/admin/accounts/change-password/
 ---
 
 To change or reset your InfluxDB Cloud password:

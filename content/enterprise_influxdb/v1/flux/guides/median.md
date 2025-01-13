@@ -11,7 +11,6 @@ menu:
     name: Median
 list_query_example: median
 canonical: /influxdb/v2/query-data/flux/median/
-v2: /influxdb/v2/query-data/flux/median/
 ---
 
 Use the [`median()` function](/flux/v0/stdlib/universe/median/)
