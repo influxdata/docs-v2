@@ -27,7 +27,7 @@ environment variables.
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --host-id my-host \
+  --writer-id my-host \
   --log-filter info \
   --max-http-request-size 20971520 \
   --aws-allow-http
@@ -40,7 +40,7 @@ influxdb3 serve \
 ```sh
 export INFLUXDB3_OBJECT_STORE=file
 export INFLUXDB3_DB_DIR=~/.influxdb3
-export INFLUXDB3_HOST_IDENTIFIER_PREFIX=my-host
+export INFLUXDB3_WRITER_IDENTIFIER_PREFIX=my-host
 export LOG_FILTER=info
 export INFLUXDB3_MAX_HTTP_REQUEST_SIZE=20971520
 export AWS_ALLOW_HTTP=true
@@ -53,7 +53,7 @@ influxdb3 serve
 - [General](#general)
   - [object-store](#object-store)
   - [data-dir](#data-dir)
-  - [host-id](#host-id)
+  - [writer-id](#writer-id)
   - [mode](#mode)
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
@@ -80,6 +80,7 @@ influxdb3 serve
   - [log-filter](#log-filter)
   - [log-destination](#log-destination)
   - [log-format](#log-format)
+  - [query-log-size](#query-log-size)
 - [Traces](#traces)
   - [traces-exporter](#traces-exporter)
   - [traces-exporter-jaeger-agent-host](#traces-exporter-jaeger-agent-host)
@@ -109,18 +110,19 @@ influxdb3 serve
 - [Memory](#memory)
   - [ram-pool-data-bytes](#ram-pool-data-bytes)
   - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
+  - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
+  - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 - [Write-Ahead Log (WAL)](#write-ahead-log-wal)
   - [wal-flush-interval](#wal-flush-interval)
   - [wal-snapshot-size](#wal-snapshot-size)
   - [wal-max-write-buffer-size](#wal-max-write-buffer-size)
-  - [query-log-size](#query-log-size)
-  - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
+  - [snapshotted-wal-files-to-keep](#snapshotted-wal-files-to-keep)
 - [Replication](#replication)
-  - [replicas](#replicas)
+  - [read-from-writer-ids](#read-from-writer-ids)
   - [replication-interval](#replication-interval)
 - [Compaction](#compaction)
   - [compactor-id](#compactor-id)
-  - [compaction-hosts](#compaction-hosts)
+  - [compact-from-writer-ids](#compact-from-writer-ids)
   - [run-compactions](#run-compactions)
   - [compaction-row-limit](#compaction-row-limit)
   - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
@@ -145,7 +147,7 @@ influxdb3 serve
 - [object-store](#object-store)
 - [bucket](#bucket)
 - [data-dir](#data-dir)
-- [host-id](#host-id)
+- [writer-id](#writer-id)
 - [mode](#mode)
 
 #### object-store
@@ -176,15 +178,15 @@ Defines the location {{< product-name >}} uses to store files locally.
 
 ---
 
-#### host-id
+#### writer-id
 
-Specifies the host identifier used as a prefix in all object store file paths.
+Specifies the writer identifier used as a prefix in all object store file paths.
 This should be unique for any hosts sharing the same object store
 configuration--for example, the same bucket.
 
-| influxdb3 serve option | Environment variable               |
-| :--------------------- | :--------------------------------- |
-| `--host-id`            | `INFLUXDB3_HOST_IDENTIFIER_PREFIX` |
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--writer-id`          | `INFLUXDB3_WRITER_IDENTIFIER_PREFIX` |
 
 ---
 
@@ -424,6 +426,7 @@ Sets the endpoint of an S3-compatible, HTTP/2-enabled object store cache.
 - [log-filter](#log-filter)
 - [log-destination](#log-destination)
 - [log-format](#log-format)
+- [query-log-size](#query-log-size)
 
 #### log-filter
 
@@ -460,6 +463,19 @@ This option supports the following values:
 | influxdb3 serve option | Environment variable |
 | :--------------------- | :------------------- |
 | `--log-format`         | `LOG_FORMAT`         |
+
+---
+
+#### query-log-size
+
+Defines the size of the query log. Up to this many queries remain in the
+log before older queries are evicted to make room for new ones.
+
+**Default:** `1000`
+
+| influxdb3 serve option | Environment variable       |
+| :--------------------- | :------------------------- |
+| `--query-log-size`     | `INFLUXDB3_QUERY_LOG_SIZE` |
 
 ---
 
@@ -770,6 +786,8 @@ Specifies the bearer token to be set for requests.
 
 - [ram-pool-data-bytes](#ram-pool-data-bytes)
 - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
+- [buffer-mem-limit-mb](#buffer-mem-limit-mb)
+- [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 
 #### ram-pool-data-bytes
 
@@ -795,13 +813,39 @@ Specifies the size of the memory pool used during query execution, in bytes.
 
 ---
 
+#### buffer-mem-limit-mb
+
+Specifies the size limit of the buffered data in MB. If this limit is exceeded,
+the server forces a snapshot.
+
+**Default:** `5000`
+
+| influxdb3 serve option  | Environment variable            |
+| :---------------------- | :------------------------------ |
+| `--buffer-mem-limit-mb` | `INFLUXDB3_BUFFER_MEM_LIMIT_MB` |
+
+---
+
+#### force-snapshot-mem-threshold
+
+Specifies the threshold for the internal memory buffer. Supports either a
+percentage (portion of available memory)of or absolute value
+(total bytes)--for example: `70%` or `100000`.
+
+**Default:** `70%`
+
+| influxdb3 serve option           | Environment variable                     |
+| :------------------------------- | :--------------------------------------- |
+| `--force-snapshot-mem-threshold` | `INFLUXDB3_FORCE_SNAPSHOT_MEM_THRESHOLD` |
+
+---
+
 ### Write-Ahead Log (WAL)
 
 - [wal-flush-interval](#wal-flush-interval)
 - [wal-snapshot-size](#wal-snapshot-size)
 - [wal-max-write-buffer-size](#wal-max-write-buffer-size)
-- [query-log-size](#query-log-size)
-- [buffer-mem-limit-mb](#buffer-mem-limit-mb)
+- [snapshotted-wal-files-to-keep](#snapshotted-wal-files-to-keep)
 
 #### wal-flush-interval
 
@@ -842,51 +886,40 @@ flush must be executed and succeed.
 
 ---
 
-#### query-log-size
+#### snapshotted-wal-files-to-keep
 
-Defines the size of the query log. Up to this many queries remain in the
-log before older queries are evicted to make room for new ones.
+Specifies the number of snapshotted WAL files to retain in the object store.
+Flushing the WAL files does not clear the WAL files immediately; 
+they are deleted when the number of snapshotted WAL files exceeds this number.
 
-**Default:** `1000`
+**Default:** `300`
 
-| influxdb3 serve option | Environment variable       |
-| :--------------------- | :------------------------- |
-| `--query-log-size`     | `INFLUXDB3_QUERY_LOG_SIZE` |
-
----
-
-#### buffer-mem-limit-mb
-
-Specifies the size limit of the buffered data in MB. If this limit is exceeded,
-the server forces a snapshot.
-
-**Default:** `5000`
-
-| influxdb3 serve option  | Environment variable            |
-| :---------------------- | :------------------------------ |
-| `--buffer-mem-limit-mb` | `INFLUXDB3_BUFFER_MEM_LIMIT_MB` |
+| influxdb3 serve option            | Environment variable              |
+| :-------------------------------- | :-------------------------------- |
+| `--snapshotted-wal-files-to-keep` | `INFLUXDB3_NUM_WAL_FILES_TO_KEEP` |
 
 ---
 
 ### Replication
 
-- [replicas](#replicas)
+- [read-from-writer-ids](#read-from-writer-ids)
 - [replication-interval](#replication-interval)
 
-#### replicas
+#### read-from-writer-ids
 
-Specifies a comma-separated list of host identifier prefixes to replicate.
+Specifies a comma-separated list of writer identifier prefixes (`writer-id`s) to
+read WAL files from. [env: =]
 
 | influxdb3 serve option | Environment variable            |
 | :--------------------- | :------------------------------ |
-| `--replicas`           | `INFLUXDB3_ENTERPRISE_REPLICAS` |
+| `--read-from-writer-ids`           | `INFLUXDB3_ENTERPRISE_READ_FROM_WRITER_IDS` |
 
 ---
 
 #### replication-interval
 
-Defines the interval at which each replica specified in the `replicas` option
-is replicated.
+Defines the interval at which each replica specified in the
+`read-from-writer-ids` option is replicated.
 
 **Default:** `250ms`
 
@@ -899,7 +932,7 @@ is replicated.
 ### Compaction
 
 - [compactor-id](#compactor-id)
-- [compaction-hosts](#compaction-hosts)
+- [compact-from-writer-ids](#compact-from-writer-ids)
 - [run-compactions](#run-compactions)
 - [compaction-row-limit](#compaction-row-limit)
 - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
@@ -919,14 +952,14 @@ write buffer and any replicas it manages.
 
 ---
 
-#### compaction-hosts
+#### compact-from-writer-ids
 
-Defines a comma-separated list of host identifier prefixes from which data is
+Defines a comma-separated list of writer identifier prefixes from which data is
 compacted.
 
-| influxdb3 serve option | Environment variable                    |
-| :--------------------- | :-------------------------------------- |
-| `--compaction-hosts`   | `INFLUXDB3_ENTERPRISE_COMPACTION_HOSTS` |
+| influxdb3 serve option      | Environment variable                           |
+| :-------------------------- | :--------------------------------------------- |
+| `--compact-from-writer-ids` | `INFLUXDB3_ENTERPRISE_COMPACT_FROM_WRITER_IDS` |
 
 ---
 

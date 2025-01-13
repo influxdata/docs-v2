@@ -82,7 +82,7 @@ To start your InfluxDB instance, you’ll need to set your object store configur
 
 You start the database using the `serve` command. This creates a new, running instance of InfluxDB 3 Core. Here are some quick examples:
 
-```
+```bash
 # MEMORY
 influxdb3 serve --writer-id=local01 --object-store=memory
 
@@ -94,7 +94,6 @@ influxdb3 serve --writer-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-ac
 
 # Minio/Open Source Object Store (Uses the AWS S3 API, with additional parameters)
 influxdb3 serve --writer-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY] --aws-endpoint=[ENDPOINT] --aws-allow-http
-
 ```
 
 ## **Data Model**

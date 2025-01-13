@@ -7,27 +7,9 @@ menu:
     parent: influxdb3
     name: influxdb3 test
 weight: 300
+source: /shared/influxdb3-cli/test/_index.md
 ---
 
-The `influxdb3 test` command tests InfluxDB 3 resources, such as plugins.
-
-## Usage
-
-<!--pytest.mark.skip-->
-
-```bash
-influxdb3 test <SUBCOMMAND>
-```
-
-## Subcommands
-
-| Subcommand                                                                   | Description                                    |
-| :--------------------------------------------------------------------------- | :--------------------------------------------- |
-| [wal_plugin](/influxdb3/enterprise/reference/cli/influxdb3/test/wal_plugin/) | Test a write-ahead log (WAL) plugin            |
-| help                                                                         | Print command help or the help of a subcommand |
-
-## Options
-
-| Option |          | Description            |
-| :----- | :------- | :--------------------- |
-| `-h`   | `--help` | Print help information |
+<!--
+The content of this file is at content/shared/influxdb3-cli/test/_index.md
+-->
