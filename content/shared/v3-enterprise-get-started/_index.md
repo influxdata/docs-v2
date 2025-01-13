@@ -419,7 +419,7 @@ influxdb3 create distinct_cache -h
 #### Only supported in Docker
 
 As of this writing, the Processing Engine is only supported in Docker environments.
-We expect it to launch in non-Docker environments soon. We're still in very active development creating the API and developer experience; things will break and change fast. Join our <a href=https://discord.com/invite/eMnhxPyj>Discord</a> to ask questions and give feedback.
+We expect it to launch in non-Docker environments soon. We're still in very active development creating the API and developer experience; things will break and change fast. Join our <a href=https://discord.gg/9zaNCW2PRT>Discord</a> to ask questions and give feedback.
 {{% /note %}}
 
 InfluxDB3 has an embedded Python VM for running code inside the database. Currently, we only support plugins that get triggered on WAL file flushes, but more will be coming soon. Specifically, plugins will be able to be triggered by:
