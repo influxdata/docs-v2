@@ -80,12 +80,12 @@ Download the latest build artifacts — including Windows — and Docker images 
 ##### {{% product-name %}} (latest):
 
 * Docker: [quay.io/influxdb/influxdb3-enterprise:latest](quay.io/influxdb/influxdb3-enterprise:latest)
-* [Linux | x86_64 | GNU](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-gnu.tar.gz)
-* [Linux | x86_64 | MUSL](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz)
-* [Linux | ARM64 | GNU](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz)
-* [Linux | ARM64 | MUSL](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz)
-* [macOS | ARM64](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-apple-darwin.tar.gz)
-* [Windows | x86_64](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-pc-windows-gnu.tar.gz)
+* [Linux | x86_64 | GNU](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-gnu.tar.gz) ([sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-gnu.tar.gz.sha256))
+* [Linux | x86_64 | MUSL](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz) ([sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz.sha256))
+* [Linux | ARM64 | GNU](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz) ([sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz.sha256))
+* [Linux | ARM64 | MUSL](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz) ([sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz.sha256))
+* [macOS | ARM64](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-apple-darwin.tar.gz) ([sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-apple-darwin.tar.gz.sha256))
+* [Windows | x86_64](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-pc-windows-gnu.tar.gz) ([sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-apple-darwin.tar.gz.sha256))
 
 #### Start InfluxDB
 
