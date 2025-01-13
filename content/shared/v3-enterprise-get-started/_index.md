@@ -22,7 +22,7 @@ Core's feature highlights include:
 * Parquet file persistence
 * Compatibility with InfluxDB 1.x and 2.x write APIs
 
-{{% product-name %}} adds the following features to Core:
+The Enterprise version adds onto Core's functionality with:
 
 * Historical query capability and single series indexing
 * High availability
@@ -33,11 +33,10 @@ Core's feature highlights include:
 
 ### What's in this guide
 
-This guide covers Enterprise as well as InfluxDB 3 Core.
-Here's what we'll cover:
+This guide covers Enterprise as well as InfluxDB 3 Core, including the following topics:
 
 * [Install and startup](#install-and-startup)
-* [The Data Model](#data-model)
+* [Data Model](#data-model)
 * [Write data to the database](#write-data)
 * [Query the database](#query-the-database)
 * [Last Values Cache](#last-values-cache)
@@ -70,7 +69,7 @@ influxdb3 --version
 
 If your system doesn't locate `influxdb3`, then `source` the configuration file (for example, .bashrc, .zshrc) for your shell--for example:
 
-```bash
+```zsh
 source ~/.zshrc
 ```
 
@@ -130,7 +129,7 @@ _During the alpha period, licenses are valid until May 7, 2025._
 The database server contains logical databases, which have tables, which have columns. Compared to previous versions of InfluxDB you can think of a database as a `bucket` in v2 or as a `db/retention_policy` in v1. A `table` is equivalent to a `measurement`, which has columns that can be of type `tag` (a string dictionary), `int64`, `float64`, `uint64`, `bool`, or `string` and finally every table has a `time` column that is a nanosecond precision timestamp.
 
 In InfluxDB 3, every table has a primary key--the ordered set of tags and the time--for its data.
-This is the sort order used for all Parquet files that get created. When you create a table, either through an explicit call or by writing data into a table for the first time, it sets the primary key to the tags in the order they arrived. This is immutable. Although InfluxDB is still a "schema on write" database, the tag column definitions for a table are immutable.
+This is the sort order used for all Parquet files that get created. When you create a table, either through an explicit call or by writing data into a table for the first time, it sets the primary key to the tags in the order they arrived. This is immutable. Although InfluxDB is still a _schema-on-write_ database, the tag column definitions for a table are immutable.
 
 Tags should hold unique identifying information like `sensor_id`, or `building_id` or `trace_id`. All other data should be kept in fields. You will be able to add fast last N value and distinct value lookups later for any column, whether it is a field or a tag.
 
@@ -155,7 +154,7 @@ However, these APIs differ from the APIs in the previous versions in the followi
 - Tags in a table (measurement) are _immutable_
 - A tag and a field can't have the same name within a table.
 
-The `/api/v3/write` endpoint accepts the same line protocol syntax as previous versions, and brings new functionality that lets you accept or reject partial writes using the `accept_partial` parameter, which defaults to true.
+The `/api/v3/write` endpoint accepts the same line protocol syntax as previous versions, and brings new functionality that lets you accept or reject partial writes using the `accept_partial` parameter (`true` is default).
 
 The following code block is an example of [line protocol](/influxdb3/enterprise/reference/syntax/line-protocol/), which shows the table name followed by tags, which are an ordered, comma-separated list of key/value pairs where the values are strings, followed by a comma-separated list of key/value pairs that are the fields, and ending with an optional timestamp. The timestamp by default is a nanosecond epoch, but you can specify a different precision through the `precision` query parameter.
 
@@ -206,7 +205,7 @@ The `query` subcommand includes options to help ensure that the right database i
 |---------|-------------|--------------|
 | `--host` | The host URL of the running {{% product-name %}} server [default: http://127.0.0.1:8181] | No |
 | `--database` | The name of the database to operate on | Yes |
-| `--token` | The token for authentication with the {{% product-name %}}server | No |
+| `--token` | The token for authentication with the {{% product-name %}} server | No |
 | `--language` | The query language used to format the provided query string [default: sql] [possible values: sql, influxql] | No  |
 | `--format` | The format in which to output the query [default: pretty] [possible values: pretty, json, json_lines, csv, parquet] | No |
 | `--output` | Put all query output into `output` | No |
@@ -305,7 +304,8 @@ client = InfluxDBClient3(
 )
 ```
 
-Here are more examples of using the Python client to query the database.
+The following example shows how to query using SQL, and then
+use PyArrow to explore the schema and process results:
 
 ```py
 from influxdb_client_3 import InfluxDBClient3
@@ -424,10 +424,10 @@ We expect it to launch in non-Docker environments soon. We're still in very acti
 
 InfluxDB3 has an embedded Python VM for running code inside the database. Currently, we only support plugins that get triggered on WAL file flushes, but more will be coming soon. Specifically, plugins will be able to be triggered by:
 
-* On WAL flush sends a batch of write data to a plugin once a second (can be configured).
-* On Snapshot (persist of Parquet files) sends the metadata to a plugin to do further processing against the Parquet data or send the information elsewhere (e.g., adding it to an Iceberg Catalog).
-* On Schedule executes plugin on a schedule configured by the user, and is useful for data collection and deadman monitoring.
-* On Request binds a plugin to an HTTP endpoint at /api/v3/plugins/<name> where request headers and content are sent to the plugin, which can then parse, process, and send the data into the database or to third party services
+* On WAL flush: sends a batch of write data to a plugin once a second (can be configured).
+* On Snapshot (persist of Parquet files): sends the metadata to a plugin to do further processing against the Parquet data or send the information elsewhere (for example, adding it to an Iceberg Catalog).
+* On Schedule: executes plugin on a schedule configured by the user, and is useful for data collection and deadman monitoring.
+* On Request: binds a plugin to an HTTP endpoint at `/api/v3/plugins/<name>` where request headers and content are sent to the plugin, which can then parse, process, and send the data into the database or to third party services
 
 Plugins work in two parts: plugins and triggers. Plugins are the generic Python code that represent a plugin. Once you've loaded a plugin into the server, you can create many triggers of that plugin. A trigger has a plugin, a database and then a trigger-spec, which can be either all_tables or table:my_table_name where my_table_name is the name of your table you want to filter the plugin to.
 
@@ -439,8 +439,8 @@ influxdb3 create trigger -h
 ```
 
 > [!Note]
-> #### Only work with x86 Docker
-> For now, plugins only work with the x86 Docker image. So you'll need to run from there.
+> #### Plugins only work with x86 Docker
+> For now, plugins only work with the x86 Docker image.
 
 Before we try to load up a plugin and create a trigger for it, we should write one and test it out. To test out and run plugins, you'll need to create a plugin directory. Start up your server with the --plugin-dir argument and point it at your plugin dir (note that you'll need to make this available in your Docker container).
 
@@ -521,10 +521,17 @@ def process_writes(influxdb3_local, table_batches, args=None):
 
 Then you'll want to drop a file into that plugin directory. You can use the example from above, but comment out the section where it queries (unless you write some data to that table, in which case leave it in!).
 
-The server has a way to test out what a plugin will do in advance of actually loading it into the server or creating a trigger that calls it. To see that do:
+To use the server to test what a plugin will do, in advance of actually loading it into the server or creating a trigger that calls it, enter the following command:
 
-influxdb3 test wal_plugin -h
-The important arguments are `lp` or `file` which will read line protocol from that file. This is what will get yielded as a test to your new plugin. --input-arguments take the form of key/value pairs separated by commas (e.g. --input-arguments "arg1=foo,arg2=bar".
+`influxdb3 test wal_plugin -h`
+
+The important arguments are `lp` or `file`, which read line protocol from that file and yield it as a test to your new plugin.
+
+`--input-arguments` are key/value pairs separated by commas--for example:
+
+```bash
+--input-arguments "arg1=foo,arg2=bar"
+```
 
 If you execute a query within the plugin, it will query against the live server you're sending this request to. Any writes you do will not be sent into the server, but instead returned back to you.
 
@@ -541,7 +548,7 @@ influxdb3 create plugin -d mydb --code-filename="/Users/pauldix/.influxdb3/plugi
 influxdb3 create trigger -d mydb --plugin=test_plugin --trigger-spec="table:foo" trigger1
 ```
 
-After you've tested it, you can create the plugin in the serve (the file will need to be there in the plugin-dir) and then create a trigger to trigger it on WAL flushes.
+After you've tested it, you can create the plugin in the server(the file will need to be there in the plugin-dir) and then create a trigger to trigger it on WAL flushes.
 
 ### Diskless Architecture
 
@@ -549,11 +556,11 @@ InfluxDB 3 is able to operate using only object storage with no locally attached
 
 {{< img-hd src="/img/influxdb/influxdb-3-write-path.png" alt="Write Path for InfluxDB 3 Core & Enterprise" />}}
 
-As write requests come in to the server, they are parsed and validated and put into an in-memory WAL buffer. This buffer is flushed every second by default (can be changed through configuration), which will create a WAL file. Once the data is flushed to disk it is put into a queryable in-memory buffer and then a response is sent back to the client that the write was successful. That data will now show up in queries to the server.
+As write requests come in to the server, they are parsed and validated and put into an in-memory WAL buffer. This buffer is flushed every second by default (can be changed through configuration), which will create a WAL file. Once the data is flushed to disk, it is put into a queryable in-memory buffer and then a response is sent back to the client that the write was successful. That data will now show up in queries to the server.
 
-The WAL is periodically snapshotted, which will persist the oldest data in the queryable buffer, allowing the server to remove old WAL files. By default, the server will keep up to 900 WAL files buffered up (15 minutes of data) and attempt to persist the oldest 10 minutes, keeping the most recent 5 minutes around.
+InfluxDB periodically snapshots the WAL to persist the oldest data in the queryable buffer, allowing the server to remove old WAL files. By default, the server will keep up to 900 WAL files buffered up (15 minutes of data) and attempt to persist the oldest 10 minutes, keeping the most recent 5 minutes around.
 
-When the data is persisted out of the queryable buffer it is put into the configured object store as Paruqet files. Those files are also put into an in-memory cache so that queries against the most recently persisted data do not have to go to object storage.
+When the data is persisted out of the queryable buffer it is put into the configured object store as Parquet files. Those files are also put into an in-memory cache so that queries against the most recently persisted data do not have to go to object storage.
 
 ### Multi-Server Setup
 
@@ -735,4 +742,5 @@ To accelerate performance on specific queries, you can define non-primary keys t
 
 Create Usage: $ influxdb3 file-index create --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE> <COLUMNS>
 
-Delete Usage: $ influxdb3 file-index delete --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE>```
+Delete Usage: $ influxdb3 file-index delete --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE>
+```
