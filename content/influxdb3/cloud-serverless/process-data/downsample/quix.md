@@ -24,9 +24,9 @@ Kafka topic. You can try it locally, with a local Kafka installation, or run it
 in [Quix Cloud](https://quix.io/) with a free trial.
 
 This guide uses [Python](https://www.python.org/) and the
-[InfluxDB v3 Python client library](https://github.com/InfluxCommunity/influxdb3-python),
+[InfluxDB 3 Python client library](https://github.com/InfluxCommunity/influxdb3-python),
 but you can use your runtime of choice and any of the available
-[InfluxDB v3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/).
+[InfluxDB 3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/).
 This guide also assumes you have already
 [setup your Python project and virtual environment](/influxdb3/cloud-serverless/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
 
@@ -211,7 +211,7 @@ def get_data():
         try:
             myquery = f'SELECT * FROM "{measurement_name}" WHERE time >= {interval}'
             print(f'sending query {myquery}')
-            # Query InfluxDB 3.0 using influxql or sql
+            # Query InfluxDB 3 using influxql or sql
             table = influxdb_raw.query(
                                     query=myquery,
                                     mode='pandas',

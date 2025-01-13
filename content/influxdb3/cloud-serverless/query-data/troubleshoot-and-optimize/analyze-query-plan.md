@@ -18,7 +18,7 @@ related:
 Learn how to read and analyze a [query plan](/influxdb3/cloud-serverless/reference/glossary/#query-plan) to
 understand query execution steps and data organization, and find performance bottlenecks.
 
-When you query InfluxDB v3, the Querier devises a query plan for executing the query.
+When you query InfluxDB 3, the Querier devises a query plan for executing the query.
 The engine tries to determine the optimal plan for the query structure and data.
 By learning how to generate and interpret reports for the query plan,
 you can better understand how the query is executed and identify bottlenecks that affect the performance of your query.
@@ -47,7 +47,7 @@ Use the `EXPLAIN` keyword (and the optional [`ANALYZE`](/influxdb3/cloud-serverl
 {{% expand-wrapper %}}
 {{% expand "Use Python and pandas to view an EXPLAIN report" %}}
 
-The following example shows how to use the InfluxDB v3 Python client library and pandas to view the `EXPLAIN` report for a query:
+The following example shows how to use the InfluxDB 3 Python client library and pandas to view the `EXPLAIN` report for a query:
 
 <!-- Import for tests and hide from users.
 ```python

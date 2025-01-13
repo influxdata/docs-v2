@@ -37,7 +37,7 @@ The following questions will help guide your decision to migrate.
 **Yes, you should migrate**. Series cardinality is a major limiting factor with
 the InfluxDB TSM storage engine. The more unique series in your data, the less
 performant your database.
-The InfluxDB v3 storage engine supports limitless series cardinality and is, without
+The InfluxDB 3 storage engine supports limitless series cardinality and is, without
 question, the better solution for high series cardinality workloads.
 
 #### Do you want to use SQL to query your data?
@@ -64,7 +64,7 @@ from the following providers:
 
 If your deployment requires other cloud providers or regions, you may need to
 wait until the v3 storage engine is available in a region that meets your requirements.
-We are currently working to make InfluxDB v3 available on more providers and
+We are currently working to make InfluxDB 3 available on more providers and
 in more regions around the world.
 
 #### Are you reliant on Flux queries and Flux tasks?
@@ -77,7 +77,7 @@ in more regions around the world.
 
 Before you migrate from InfluxDB 1.x or 2.x to {{< product-name >}}, there
 are schema design practices supported by the TSM storage engine that are not
-supported in the InfluxDB v3 storage engine. Specifically, InfluxDB v3 enforces the following schema restrictions:
+supported in the InfluxDB 3 storage engine. Specifically, InfluxDB 3 enforces the following schema restrictions:
 
 - You can't use duplicate names for tags and fields.
 - By default, measurements can contain up to 250 columns where each column

@@ -325,7 +325,7 @@ Replace the following:
 
 ##### Other Telegraf configuration options
 
-`influx_uint_support`: supported in InfluxDB v3.
+`influx_uint_support`: supported in InfluxDB 3.
 
 For more plugin options, see [`influxdb`](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) on GitHub.
 
@@ -442,7 +442,7 @@ Replace the following:
 {{% product-name %}} supports many different tools for querying data, including:
 
 - [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
-- [InfluxDB v3 client libraries](/influxdb3/clustered/reference/client-libraries/v3/)
+- [InfluxDB 3 client libraries](/influxdb3/clustered/reference/client-libraries/v3/)
 - [Flight clients](/influxdb3/clustered/reference/client-libraries/flight/)
 - [Superset](/influxdb3/clustered/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb3/clustered/query-data/sql/execute-queries/grafana/)

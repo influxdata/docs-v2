@@ -46,7 +46,7 @@ The examples in this section of the tutorial query the [**get-started** bucket](
 
 - [InfluxDB user interface (UI)](?t=InfluxDB+UI#execute-an-sql-query){{< req "\*  " >}}
 - [`influx3` data CLI](?t=influx3+CLI#execute-an-sql-query){{< req "\*  " >}}
-- [InfluxDB v3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/){{< req "\*  " >}}
+- [InfluxDB 3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/){{< req "\*  " >}}
 - [Flight clients](/influxdb3/cloud-serverless/reference/client-libraries/flight/)
 - [Superset](/influxdb3/cloud-serverless/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb3/cloud-serverless/query-data/sql/execute-queries/grafana/)
@@ -178,7 +178,7 @@ ORDER BY room, _time
 Get started with one of the following tools for querying data stored in an {{% product-name %}} bucket:
 
 - **InfluxDB UI**: View your schema, build queries using the query editor, and generate data visualizations.
-- **InfluxDB v3 client libraries**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
+- **InfluxDB 3 client libraries**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
 - **influx3 data CLI**: Send queries from your terminal command-line.
 - **Grafana**: Use the [FlightSQL Data Source plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/), to query, connect, and visualize data.
 
@@ -255,7 +255,7 @@ See [Query in the Data Explorer](/influxdb3/cloud-serverless/query-data/execute-
 <!--------------------------- BEGIN influx3 CONTENT --------------------------->
 {{% influxdb/custom-timestamps %}}
 
-Query InfluxDB v3 using SQL and the [`influx3` CLI](https://github.com/InfluxCommunity/influxdb3-python-cli).
+Query InfluxDB 3 using SQL and the [`influx3` CLI](https://github.com/InfluxCommunity/influxdb3-python-cli).
 
 The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb3/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb).
@@ -1009,7 +1009,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
         * @throws Exception
         */
         public static void main(final String[] args) throws Exception {
-            // Write data to InfluxDB v3.
+            // Write data to InfluxDB 3.
             Write.writeLineProtocol();
             // Run the SQL query.
             Query.querySQL();

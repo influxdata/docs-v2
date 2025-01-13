@@ -1,7 +1,7 @@
 ---
 title: InfluxQL feature support
 description: >
-  InfluxQL is being rearchitected to work with the InfluxDB 3.0 storage engine.
+  InfluxQL is being rearchitected to work with the InfluxDB 3 storage engine.
   This process is ongoing and some InfluxQL features are still being implemented.
   This page provides information about the current implementation status of
   InfluxQL features.

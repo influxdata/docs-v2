@@ -48,7 +48,7 @@ InfluxDB Cloud Serverless has adjustable service quotas applied per account.
 
 ### Storage-level
 
-The InfluxDB v3 storage engine enforces limits on the storage level that apply
+The InfluxDB 3 storage engine enforces limits on the storage level that apply
 to all accounts (Free Plan and Usage-Based Plan).
 
 - [Terminology](#terminology)

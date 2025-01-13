@@ -70,11 +70,11 @@ _Also see [`influxctl` global flags](/influxdb3/clustered/reference/cli/influxct
 
 ## Examples
 
-- [Write line protocol to InfluxDB v3](#write-line-protocol-to-influxdb-v3)
-- [Write line protocol to InfluxDB v3 with non-default timestamp precision](#write-line-protocol-to-influxdb-v3-with-non-default-timestamp-precision)
-- [Write line protocol to InfluxDB v3 with a custom batch size](#write-line-protocol-to-influxdb-v3-with-a-custom-batch-size)
-- [Write line protocol to InfluxDB v3 with a custom client timeout](#write-line-protocol-to-influxdb-v3-with-a-custom-client-timeout)
-- [Write line protocol to InfluxDB v3 using credentials from the connection profile](#write-line-protocol-to-influxdb-v3-using-credentials-from-the-connection-profile)
+- [Write line protocol to InfluxDB 3](#write-line-protocol-to-influxdb-3)
+- [Write line protocol to InfluxDB 3 with non-default timestamp precision](#write-line-protocol-to-influxdb-3-with-non-default-timestamp-precision)
+- [Write line protocol to InfluxDB 3 with a custom batch size](#write-line-protocol-to-influxdb-3-with-a-custom-batch-size)
+- [Write line protocol to InfluxDB 3 with a custom client timeout](#write-line-protocol-to-influxdb-3-with-a-custom-client-timeout)
+- [Write line protocol to InfluxDB 3 using credentials from the connection profile](#write-line-protocol-to-influxdb-3-using-credentials-from-the-connection-profile)
 
 In the examples below, replace the following:
 
@@ -83,7 +83,7 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Name of the database to write to
 
-### Write line protocol to InfluxDB v3
+### Write line protocol to InfluxDB 3
 
 {{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
 
@@ -127,7 +127,7 @@ cat ./metrics.lp | influxctl write \
 
 {{% /code-placeholders %}}
 
-### Write line protocol to InfluxDB v3 with non-default timestamp precision
+### Write line protocol to InfluxDB 3 with non-default timestamp precision
 
 {{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
 
@@ -174,7 +174,7 @@ cat ./metrics.lp | influxctl write \
 
 {{% /code-placeholders %}}
 
-### Write line protocol to InfluxDB v3 with a custom batch size
+### Write line protocol to InfluxDB 3 with a custom batch size
 
 {{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
 
@@ -221,7 +221,7 @@ cat ./metrics.lp | influxctl write \
 
 {{% /code-placeholders %}}
 
-### Write line protocol to InfluxDB v3 with a custom client timeout
+### Write line protocol to InfluxDB 3 with a custom client timeout
 
 {{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
 
@@ -268,7 +268,7 @@ cat ./metrics.lp | influxctl write \
 
 {{% /code-placeholders %}}
 
-### Write line protocol to InfluxDB v3 using credentials from the connection profile
+### Write line protocol to InfluxDB 3 using credentials from the connection profile
 
 The following example uses the `database` and `token` defined in the `default`
 [connection profile](/influxdb3/clustered/reference/cli/influxctl/#configure-connection-profiles).

@@ -222,7 +222,7 @@ Request rate is reported in bytes per second.
 
 #### HTTP request error rate (server's POV at Router)
 
-HTTP request error rate reported by the InfluxDB v3 HTTP request handler.
+HTTP request error rate reported by the InfluxDB 3 HTTP request handler.
 Error rate is represented the percentage in total requests that return a non-2xx
 response code.
 

@@ -183,7 +183,7 @@ To setup and start using client libraries, see the [Get started](/influxdb3/clou
 
 ## Query data
 
-InfluxDB v3 provides the following protocols for executing a query:
+InfluxDB 3 provides the following protocols for executing a query:
 
 - [Flight+gRPC](https://arrow.apache.org/docs/format/Flight.html) request that contains an SQL or InfluxQL query.
   To learn how to query {{% product-name %}} using Flight and SQL, see the [Get started](/influxdb3/cloud-serverless/get-started/) tutorial.
@@ -196,7 +196,7 @@ InfluxDB v3 provides the following protocols for executing a query:
 {{% product-name %}} supports many different tools for querying data, including:
 
 - [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
-- [InfluxDB v3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/)
+- [InfluxDB 3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/)
 - [Flight clients](/influxdb3/cloud-serverless/reference/client-libraries/flight/)
 - [Superset](/influxdb3/cloud-serverless/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb3/cloud-serverless/query-data/sql/execute-queries/grafana/)

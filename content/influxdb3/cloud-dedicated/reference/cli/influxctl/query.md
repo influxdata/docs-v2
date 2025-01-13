@@ -87,13 +87,13 @@ _Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/in
 
 ## Examples
 
-- [Query InfluxDB v3 with SQL](#query-influxdb-v3-with-sql)
-- [Query InfluxDB v3 with InfluxQL](#query-influxdb-v3-with-influxql)
-- [Query InfluxDB v3 and return results in table format](#query-influxdb-v3-and-return-results-in-table-format)
-- [Query InfluxDB v3 and return results in JSON format](#query-influxdb-v3-and-return-results-in-json-format)
-- [Query InfluxDB v3 and return results with Unix nanosecond timestamps](#query-influxdb-v3-and-return-results-with-unix-nanosecond-timestamps)
-- [Query InfluxDB v3 using credentials from the connection profile](#query-influxdb-v3-using-credentials-from-the-connection-profile)
-- [Query data from InfluxDB v3 system tables](#query-data-from-influxdb-v3-system-tables)
+- [Query InfluxDB 3 with SQL](#query-influxdb-3-with-sql)
+- [Query InfluxDB 3 with InfluxQL](#query-influxdb-3-with-influxql)
+- [Query InfluxDB 3 and return results in table format](#query-influxdb-3-and-return-results-in-table-format)
+- [Query InfluxDB 3 and return results in JSON format](#query-influxdb-3-and-return-results-in-json-format)
+- [Query InfluxDB 3 and return results with Unix nanosecond timestamps](#query-influxdb-3-and-return-results-with-unix-nanosecond-timestamps)
+- [Query InfluxDB 3 using credentials from the connection profile](#query-influxdb-3-using-credentials-from-the-connection-profile)
+- [Query data from InfluxDB 3 system tables](#query-data-from-influxdb-3-system-tables)
 
 In the examples below, replace the following:
 
@@ -102,7 +102,7 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Name of the database to query
 
-### Query InfluxDB v3 with SQL
+### Query InfluxDB 3 with SQL
 
 {{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
 
@@ -142,7 +142,7 @@ cat ./query.sql | influxctl query \
 
 {{% /code-placeholders %}}
 
-### Query InfluxDB v3 with InfluxQL
+### Query InfluxDB 3 with InfluxQL
 
 {{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
 
@@ -185,7 +185,7 @@ cat ./query.influxql | influxctl query \
 
 {{% /code-placeholders %}}
 
-### Query InfluxDB v3 and return results in table format
+### Query InfluxDB 3 and return results in table format
 
 {{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
 
@@ -245,7 +245,7 @@ cat ./query.sql | influxctl query \
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Query InfluxDB v3 and return results in JSON format
+### Query InfluxDB 3 and return results in JSON format
 
 {{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
 
@@ -334,7 +334,7 @@ cat ./query.sql | influxctl query \
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Query InfluxDB v3 and return results with Unix nanosecond timestamps
+### Query InfluxDB 3 and return results with Unix nanosecond timestamps
 
 {{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
 
@@ -397,7 +397,7 @@ cat ./query.sql | influxctl query \
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Query InfluxDB v3 using credentials from the connection profile
+### Query InfluxDB 3 using credentials from the connection profile
 
 The following example uses the `database` and `token` defined in the `default`
 [connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles).
@@ -408,10 +408,10 @@ influxctl query "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z'"
 ```
 {{% /influxdb/custom-timestamps %}}
 
-### Query data from InfluxDB v3 system tables
+### Query data from InfluxDB 3 system tables
 
 {{% note %}}
-You must use **SQL** to query InfluxDB v3 system tables.
+You must use **SQL** to query InfluxDB 3 system tables.
 {{% /note %}}
 
 {{% warn %}}
@@ -472,7 +472,7 @@ cat ./query.sql | influxctl query \
 
 - Add InfluxQL support and introduce the `--language` flag to specify the query
   language.
-- Add `--enable-system-tables` flag to enable the ability to query InfluxDB v3
+- Add `--enable-system-tables` flag to enable the ability to query InfluxDB 3
   system tables.
 
 {{% /expand %}}

@@ -1,7 +1,7 @@
 ---
-title: InfluxDB v3 storage engine architecture
+title: InfluxDB 3 storage engine architecture
 description: >
-  The InfluxDB v3 storage engine is a real-time, columnar database optimized for
+  The InfluxDB 3 storage engine is a real-time, columnar database optimized for
   time series data that supports infinite tag cardinality, real-time queries,
   and is optimized to reduce storage cost.
 weight: 103
@@ -15,7 +15,7 @@ related:
   - /influxdb3/clustered/admin/custom-partitions/
 ---
 
-The InfluxDB v3 storage engine is a real-time, columnar database optimized for
+The InfluxDB 3 storage engine is a real-time, columnar database optimized for
 time series data built in [Rust](https://www.rust-lang.org/) on top of
 [Apache Arrow](https://arrow.apache.org/) and
 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html).

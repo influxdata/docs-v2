@@ -27,7 +27,7 @@ list_code_example: |
 ---
 
 Use the InfluxDB v1 HTTP API `/query` endpoint and InfluxQL to query data stored in {{< product-name >}} and return results in JSON or CSV format.
-The `/query` endpoint provides compatibility for InfluxDB 1.x workloads that you bring to InfluxDB v3.
+The `/query` endpoint provides compatibility for InfluxDB 1.x workloads that you bring to InfluxDB 3.
 
 _Before you can use the v1 query API,
 [databases and retention policies must be mapped to buckets](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets)._

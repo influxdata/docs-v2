@@ -124,7 +124,7 @@ enabling the InfluxDB v2 output plugin will write data to both v1.x and your {{<
 
 ### Other Telegraf configuration options
 
-`influx_uint_support`: supported in InfluxDB v3.
+`influx_uint_support`: supported in InfluxDB 3.
 
 For more plugin options, see [`influxdb`](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) on GitHub.
 

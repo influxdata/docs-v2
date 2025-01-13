@@ -24,7 +24,7 @@ list_code_example: |
 ---
 
 Use the InfluxDB v1 HTTP API `/write` endpoint and InfluxQL to write data stored in {{< product-name >}}.
-The `/write` endpoint provides compatibility for InfluxDB 1.x workloads that you bring to InfluxDB v3.
+The `/write` endpoint provides compatibility for InfluxDB 1.x workloads that you bring to InfluxDB 3.
 
 _The v1 write and query APIs require [mapping databases and retention policies to buckets](#map-databases-and-retention-policies-to-buckets)._
 
@@ -161,7 +161,7 @@ Replace the following:
 
 ##### Other Telegraf configuration options
 
-`influx_uint_support`: supported in InfluxDB v3.
+`influx_uint_support`: supported in InfluxDB 3.
 
 For more plugin options, see [`influxdb`](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) on GitHub.
 

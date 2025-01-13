@@ -12,7 +12,7 @@ alt_links:
   cloud: /influxdb/cloud/write-data/migrate-data/
 ---
 
-Migrate data to InfluxDB Clustered powered by InfluxDB v3 from other 
+Migrate data to InfluxDB Clustered powered by InfluxDB 3 from other 
 InfluxDB instances powered by TSM including InfluxDB OSS 1.x, 2.x,
 InfluxDB Enterprise, and InfluxDB Cloud (TSM).
 
@@ -35,7 +35,7 @@ The following questions will help guide your decision to migrate.
 **Yes, you should migrate**. Series cardinality is a major limiting factor with
 the InfluxDB TSM storage engine. The more unique series in your data, the less
 performant your database.
-The InfluxDB v3 storage engine supports near limitless series cardinality and is,
+The InfluxDB 3 storage engine supports near limitless series cardinality and is,
 without question, the better solution for high series cardinality workloads.
 
 #### Do you want to use SQL to query your data?
@@ -51,7 +51,7 @@ series data with SQL. For more information about querying your data with SQL, se
 **Yes, you should migrate**. One of the primary goals when designing the InfluxDB
 v3 storage engine was to enable performant implementations of both SQL and InfluxQL.
 When compared to querying InfluxDB powered by TSM (InfluxDB OSS 1.x, 2.x, and Enterprise),
-InfluxQL queries are more performant when querying InfluxDB powered by InfluxDB v3.
+InfluxQL queries are more performant when querying InfluxDB powered by InfluxDB 3.
 
 #### Are you reliant on Flux queries and Flux tasks?
 
@@ -63,7 +63,7 @@ InfluxQL queries are more performant when querying InfluxDB powered by InfluxDB 
 
 Before you migrate from InfluxDB 1.x or 2.x to {{< product-name >}}, there
 are schema design practices supported by the TSM storage engine that are not
-supported in the InfluxDB v3 storage engine. Specifically, InfluxDB v3 enforces the following schema restrictions:
+supported in the InfluxDB 3 storage engine. Specifically, InfluxDB 3 enforces the following schema restrictions:
 
 - You can't use duplicate names for tags and fields
 - By default, measurements can contain up to 250 columns where each column

@@ -12,11 +12,11 @@ weight: 104
 Query, analyze, and send alerts using time series data stored in InfluxDB.
 
 This guide uses [Python](https://www.python.org/), the
-[InfluxDB v3 Python client library](https://github.com/InfluxCommunity/influxdb3-python),
+[InfluxDB 3 Python client library](https://github.com/InfluxCommunity/influxdb3-python),
 and the [Python Slack SDK](https://slack.dev/python-slack-sdk/) to demonstrate
 how to query data from InfluxDB and send alerts to Slack, but you can use your
 runtime and alerting platform of choice with any of the available
-[InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/).
+[InfluxDB 3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/).
 Whatever clients and platforms you choose the use, the process is the same:
 
 #### Alerting process

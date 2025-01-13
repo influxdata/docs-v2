@@ -1,7 +1,7 @@
 ---
 title: Sign up for InfluxDB Cloud Serverless
 description: >
-  InfluxDB Cloud Serverless is a fully managed and hosted version of InfluxDB 3.0,
+  InfluxDB Cloud Serverless is a fully managed and hosted version of InfluxDB 3,
   the time series platform purpose-built to collect and store time series data.
 menu:
   influxdb3_cloud_serverless:
@@ -10,7 +10,7 @@ weight: 1
 influxdb3/cloud-serverless/tags: [get-started, install, cli]
 ---
 
-InfluxDB Cloud Serverless is a fully managed and hosted version of InfluxDB 3.0,
+InfluxDB Cloud Serverless is a fully managed and hosted version of InfluxDB 3,
 the time series platform purpose-built to collect and store time series data.
 
 - [Start for free](#start-for-free)

@@ -50,11 +50,11 @@ list_code_example: |
 [Apache Arrow Python bindings](https://arrow.apache.org/docs/python/index.html) integrate with Python scripts and applications to query data stored in InfluxDB.
 
 {{% note %}}
-#### Use InfluxDB v3 client libraries
+#### Use InfluxDB 3 client libraries
 
-We recommend using the [`influxdb3-python` Python client library](/influxdb3/cloud-serverless/reference/client-libraries/v3/python/) for integrating InfluxDB v3 with your Python application code.
+We recommend using the [`influxdb3-python` Python client library](/influxdb3/cloud-serverless/reference/client-libraries/v3/python/) for integrating InfluxDB 3 with your Python application code.
 
-[InfluxDB v3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
+[InfluxDB 3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
 and provide convenient methods for [writing](/influxdb3/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/cloud-serverless/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
 Client libraries can query using SQL or InfluxQL.
 {{% /note %}}

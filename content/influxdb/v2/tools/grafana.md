@@ -38,7 +38,7 @@ The instructions in this guide require **Grafana Cloud** or **Grafana 10.3+**.
     supported by InfluxDB {{< current-version >}} (Flux or InfluxQL):
 
     {{% note %}}
-SQL is only supported in InfluxDB v3.
+SQL is only supported in InfluxDB 3.
     {{% /note %}}
 
 {{< tabs-wrapper >}}

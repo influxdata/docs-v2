@@ -59,13 +59,13 @@ able to evaluate the Cloud Dedicated administrative features directly.
 
 ### Terminology differences
 
-InfluxDB Cloud Serverless was an upgrade that introduced the InfluxDB 3.0 storage
+InfluxDB Cloud Serverless was an upgrade that introduced the InfluxDB 3 storage
 engine to InfluxData’s original InfluxDB Cloud (TSM) multi-tenant solution.
 InfluxDB Cloud utilizes the Time-Structured Merge Tree (TSM) storage engine in
 which databases were referred to as "buckets".
 Cloud Serverless still uses this term.
 
-InfluxDB Cloud Dedicated has only ever used the InfluxDB 3.0 storage engine.
+InfluxDB Cloud Dedicated has only ever used the InfluxDB 3 storage engine.
 Resource names in Cloud Dedicated are more traditionally aligned with SQL database engines.
 Databases are named "databases" and "measurements" are structured as tables.
 "Tables" or "measurements" can be used interchangeably.
@@ -110,11 +110,11 @@ platform for InfluxDB Cloud Dedicated.
 For writing data, InfluxDB Cloud Dedicated and InfluxDB Cloud Serverless both
 support the v1 API and the v2 write API.
 
-In addition, [InfluxDB v3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/)
+In addition, [InfluxDB 3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/)
 are available that work the same for both InfluxDB Cloud Serverless and InfluxDB
 Cloud Dedicated and help avoid any API differences between the two platforms.
 For more detailed information about choosing a client library, see the
-_[Choosing a Client Library When Developing with InfluxDB 3.0](https://www.influxdata.com/blog/choosing-client-library-when-developing-with-influxdb-3-0/)_
+_[Choosing a Client Library When Developing with InfluxDB 3](https://www.influxdata.com/blog/choosing-client-library-when-developing-with-influxdb-3-0/)_
 blog post.
 
 ### Tasks and alerts differences
@@ -204,7 +204,7 @@ mentioned in _[Tasks and alerts differences](#tasks-and-alerts-differences)_).
 
 ### Use SQL or InfluxQL as your Query Language
 
-SQL and InfluxQL are optimized for InfluxDB v3 and both are excellent
+SQL and InfluxQL are optimized for InfluxDB 3 and both are excellent
 options in Cloud Dedicated and Cloud Serverless.
 Avoid Flux since it can’t be used with InfluxDB Cloud Dedicated.
 

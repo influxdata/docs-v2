@@ -1,7 +1,7 @@
 ---
-title: Python client library for InfluxDB v3
+title: Python client library for InfluxDB 3
 list_title: Python
-description: The InfluxDB v3 `influxdb3-python` Python client library integrates with Python scripts and applications to write and query data stored in an InfluxDB Clustered database.
+description: The InfluxDB 3 `influxdb3-python` Python client library integrates with Python scripts and applications to write and query data stored in an InfluxDB Clustered database.
 menu:
   influxdb3_clustered:
     name: Python
@@ -49,16 +49,16 @@ list_code_example: |
   ```
 ---
 
-The InfluxDB v3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python)
+The InfluxDB 3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python)
 integrates {{% product-name %}} write and query operations with Python scripts and applications.
 
 InfluxDB client libraries provide configurable batch writing of data to {{% product-name %}}.
 Client libraries can be used to construct line protocol data, transform data from other formats
 to line protocol, and batch write line protocol data to InfluxDB HTTP APIs.
 
-InfluxDB v3 client libraries can query {{% product-name %}} using SQL or InfluxQL.
+InfluxDB 3 client libraries can query {{% product-name %}} using SQL or InfluxQL.
 The `influxdb3-python` Python client library wraps the Apache Arrow `pyarrow.flight` client
-in a convenient InfluxDB v3 interface for executing SQL and InfluxQL queries, requesting
+in a convenient InfluxDB 3 interface for executing SQL and InfluxQL queries, requesting
 server metadata, and retrieving data from {{% product-name %}} using the Flight protocol with gRPC.
 
 {{% note %}}

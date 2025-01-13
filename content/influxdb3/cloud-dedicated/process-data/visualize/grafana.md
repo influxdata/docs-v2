@@ -58,7 +58,7 @@ both InfluxQL and SQL.
 
 The instructions below are for **Grafana 10.3+** which introduced the newest
 version of the InfluxDB core plugin.
-The updated plugin includes **SQL support** for InfluxDB v3-based products such
+The updated plugin includes **SQL support** for InfluxDB 3-based products such
 as {{< product-name >}}.
 {{% /note %}}
 

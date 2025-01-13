@@ -16,7 +16,7 @@ aliases:
 
 Use tools and libraries to query data stored in an {{% product-name %}} bucket.
 
-InfluxDB v3 supports the following APIs and languages for querying data:
+InfluxDB 3 supports the following APIs and languages for querying data:
 
 - Flight+RPC with SQL or InfluxQL.
   Use InfluxDB client libraries and Flight+RPC clients to query with SQL or InfluxQL and retrieve data in [Arrow in-memory format](https://arrow.apache.org/docs/format/Columnar.html).
@@ -26,10 +26,10 @@ InfluxDB v3 supports the following APIs and languages for querying data:
   Use the `/query` endpoint with InfluxQL and tools such as Telegraf, HTTP clients, and InfluxDB v1 client libraries to query and retrieve data in JSON or CSV format.
 
 {{% warn %}}
-#### /api/v2/query endpoint can't query InfluxDB v3
+#### /api/v2/query endpoint can't query InfluxDB 3
 
 {{% product-name %}} doesn't support the InfluxDB v2 HTTP `/api/v2/query` endpoint and isn't optimized for the Flux query language.
-Use SQL or InfluxQL to query data stored in InfluxDB v3.
+Use SQL or InfluxQL to query data stored in InfluxDB 3.
 {{% /warn %}}
 
 Learn how to connect to InfluxDB and query your data using the following tools:

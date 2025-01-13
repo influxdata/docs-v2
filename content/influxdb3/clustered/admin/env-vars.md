@@ -89,8 +89,8 @@ components:
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-_For more information about components in the InfluxDB v3 storage engine, see
-the [InfluxDB v3 storage engine architecture](/influxdb3/clustered/reference/internals/storage-engine/)._
+_For more information about components in the InfluxDB 3 storage engine, see
+the [InfluxDB 3 storage engine architecture](/influxdb3/clustered/reference/internals/storage-engine/)._
 
 ## Set environment variables for a component
 

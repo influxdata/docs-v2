@@ -107,8 +107,8 @@ See [`InfluxDBClient3.query()` examples](/influxdb3/clustered/reference/client-l
 When the Flight client receives a stream, it reads each record batch from the stream until there are no more messages to read.
 The client considers the request complete when it has received all the messages.
 
-Flight clients and InfluxDB v3 client libraries provide methods for reading record batches, or "data chunks," from a stream.
-The InfluxDB v3 Python client library uses the [`pyarrow.flight.FlightStreamReader`](https://arrow.apache.org/docs/python/generated/pyarrow.flight.FlightStreamReader.html#pyarrow.flight.FlightStreamReader) class and provides the following reader methods:
+Flight clients and InfluxDB 3 client libraries provide methods for reading record batches, or "data chunks," from a stream.
+The InfluxDB 3 Python client library uses the [`pyarrow.flight.FlightStreamReader`](https://arrow.apache.org/docs/python/generated/pyarrow.flight.FlightStreamReader.html#pyarrow.flight.FlightStreamReader) class and provides the following reader methods:
 
 - `all`: Read all record batches into a `pyarrow.Table`.
 - `pandas`: Read all record batches into a `pandas.DataFrame`.

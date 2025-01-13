@@ -32,16 +32,16 @@ influxctl [global-flags] [command]
 
 | Command                                                               | Description                            |
 | :-------------------------------------------------------------------- | :------------------------------------- |
-| [auth](/influxdb3/clustered/reference/cli/influxctl/auth/)             | Log in to or log out of InfluxDB v3    |
-| [cluster](/influxdb3/clustered/reference/cli/influxctl/cluster/)       | List InfluxDB v3 cluster information   |
-| [database](/influxdb3/clustered/reference/cli/influxctl/database/)     | Manage InfluxDB v3 databases           |
+| [auth](/influxdb3/clustered/reference/cli/influxctl/auth/)             | Log in to or log out of InfluxDB 3    |
+| [cluster](/influxdb3/clustered/reference/cli/influxctl/cluster/)       | List InfluxDB 3 cluster information   |
+| [database](/influxdb3/clustered/reference/cli/influxctl/database/)     | Manage InfluxDB 3 databases           |
 | [help](/influxdb3/clustered/reference/cli/influxctl/help/)             | Output `influxctl` help information    |
-| [management](/influxdb3/clustered/reference/cli/influxctl/management/) | Manage InfluxDB v3 management tokens   |
-| [query](/influxdb3/clustered/reference/cli/influxctl/query/)           | Query data from InfluxDB v3            |
-| [token](/influxdb3/clustered/reference/cli/influxctl/token/)           | Manage InfluxDB v3 database tokens     |
-| [user](/influxdb3/clustered/reference/cli/influxctl/user/)             | Manage InfluxDB v3 cluster users       |
+| [management](/influxdb3/clustered/reference/cli/influxctl/management/) | Manage InfluxDB 3 management tokens   |
+| [query](/influxdb3/clustered/reference/cli/influxctl/query/)           | Query data from InfluxDB 3            |
+| [token](/influxdb3/clustered/reference/cli/influxctl/token/)           | Manage InfluxDB 3 database tokens     |
+| [user](/influxdb3/clustered/reference/cli/influxctl/user/)             | Manage InfluxDB 3 cluster users       |
 | [version](/influxdb3/clustered/reference/cli/influxctl/version/)       | Output the current `influxctl` version |
-| [write](/influxdb3/clustered/reference/cli/influxctl/write/)           | Write line protocol to InfluxDB v3     |
+| [write](/influxdb3/clustered/reference/cli/influxctl/write/)           | Write line protocol to InfluxDB 3     |
 
 ## Global flags
 
@@ -345,7 +345,7 @@ If stored at a non-default location, include the `--config` flag with each
         # insecure = false
         ## When true, `disable` causes influxctl to use HTTP rather than HTTPS
         ## client. Use this if you don't have an ingress controller configured
-        ## to terminate TLS connections. InfluxDB 3.0 components themselves do
+        ## to terminate TLS connections. InfluxDB 3 components themselves do
         ## not terminate TLS.
         # disable = false
         # cert = ""
