@@ -47,7 +47,7 @@ This guide covers InfluxDB 3 Core (the open source release), including the follo
 * [Data Model](#data-model)
 * [Write data to the database](#write-data)
 * [Query the database](#query-the-database)
-* [Last Values Cache](#last-values-cache)
+* [Last values cache](#last-values-cache)
 * [Distinct Values Cache](#distinct-values-cache)
 * [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
 * [Diskless architecture](#diskless-architecture)
@@ -373,7 +373,7 @@ Options:
 
 ```
 
-You can create a last value cache per time series, but be mindful of high cardinality tables that could take excessive memory.
+You can create a last values cache per time series, but be mindful of high cardinality tables that could take excessive memory.
 
 An example of creating this cache in use:
 
@@ -389,7 +389,7 @@ An example of creating this cache in use:
 influxdb3 create last-cache --database=servers --table=cpu --cache-name=cpuCache --key-columns=host,application --value-columns=usage_percent,status --count=5
 ```
 
-### Querying a Last Values Cache
+### Querying a Last values cache
 
 To leverage the LVC, you need to specifically call on it using the `last_cache()` function. An example of this type of query:
 
@@ -402,9 +402,9 @@ Usage: $ influxdb3 query --database=servers "SELECT * FROM last_cache('cpu', 'cp
 The Last Value Cache only works with SQL, not InfluxQL; SQL is the default language.
 {{% /note %}}
 
-### Deleting a Last Values Cache
+### Deleting a Last values cache
 
-Removing a Last Values Cache is also easy and straightforward, with the instructions below.
+Removing a Last values cache is also easy and straightforward, with the instructions below.
 
 ```
 
@@ -421,7 +421,7 @@ Options:
 
 ## Distinct Values Cache
 
-Similar to the Last Values Cache, the database can cache in RAM the distinct values for a single column in a table or a heirarchy of columns. This is useful for fast metadata lookups, which can return in under 30 milliseoncds. Many of the options are similar to the last value cache. See the CLI output for more information:
+Similar to the Last values cache, the database can cache in RAM the distinct values for a single column in a table or a heirarchy of columns. This is useful for fast metadata lookups, which can return in under 30 milliseoncds. Many of the options are similar to the last value cache. See the CLI output for more information:
 
 ```bash
 influxdb3 create distinct_cache -h
@@ -564,7 +564,7 @@ influxdb3 create trigger -d mydb --plugin=test_plugin --trigger-spec="table:foo"
 
 After you've tested it, you can create the plugin in the server(the file will need to be there in the plugin-dir) and then create a trigger to trigger it on WAL flushes.
 
-### Diskless Architecture
+### Diskless architecture
 
 InfluxDB 3 is able to operate using only object storage with no locally attached disk. While it can use only a disk with no dependencies, the ability to operate without one is a new capability with this release. The figure below illustrates the write path for data landing in the database.
 
