@@ -2,7 +2,7 @@
 title: influxctl release notes
 list_title: influxctl
 description: >
-  Release notes for the `influxctl` CLI used to manage InfluxDB v3 clusters.
+  Release notes for the `influxctl` CLI used to manage InfluxDB 3 clusters.
 menu:
   influxdb3_clustered:
     identifier: influxctl-release-notes
@@ -339,8 +339,8 @@ This release includes the following notable changes:
   to allow Cloud Dedicated users without a local UI or browser to continue to
   use `influxctl`.
 - Introduce the `influxctl write` and `influxctl query` commands.
-  `influxctl query` queries an InfluxDB v3 instance using SQL.
-  `influxctl write` writes line protocol to a InfluxDB v3 instance.
+  `influxctl query` queries an InfluxDB 3 instance using SQL.
+  `influxctl write` writes line protocol to a InfluxDB 3 instance.
 
 ### Features
 
@@ -503,7 +503,7 @@ configurations now managed in a single configuration file. If using `influxctl`
 
 ### Migrate from influxctl 1.x to 2.0
 
-`influxctl` 2.0+ supports multiple InfluxDB v3 products.
+`influxctl` 2.0+ supports multiple InfluxDB 3 products.
 To simplify connection configuration management, all configurations are now managed
 in a single file rather than separate files for each connection configuration.
 

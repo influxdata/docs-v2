@@ -36,7 +36,7 @@ You can query the cluster system tables for information about your cluster.
 {{% warn %}}
 #### May impact cluster performance
 
-Querying InfluxDB v3 system tables may impact write and query
+Querying InfluxDB 3 system tables may impact write and query
 performance of your {{< product-name omit=" Clustered" >}} cluster.
 Use filters to [optimize queries to reduce impact to your cluster](#optimize-queries-to-reduce-impact-to-your-cluster).
 
@@ -133,7 +133,7 @@ tables may have on your cluster.
 
 ### Optimize queries to reduce impact to your cluster
 
-Querying InfluxDB v3 system tables may impact the performance of your
+Querying InfluxDB 3 system tables may impact the performance of your
 {{< product-name omit=" Clustered" >}} cluster.
 As you write data to a cluster, the number of partitions and Parquet files
 can increase to a point that impacts system table performance.
@@ -393,7 +393,7 @@ The `system.compactor` table contains the following columns:
 {{% warn %}}
 #### May impact cluster performance
 
-Querying InfluxDB v3 system tables may impact write and query
+Querying InfluxDB 3 system tables may impact write and query
 performance of your {{< product-name omit=" Clustered" >}} cluster.
 
 The examples in this section include `WHERE` filters to [optimize queries and reduce impact to your cluster](#optimize-queries-to-reduce-impact-to-your-cluster).

@@ -1,7 +1,7 @@
 ---
 title: View partition information
 description: >
-  Query partition information from InfluxDB v3 system tables to view partition 
+  Query partition information from InfluxDB 3 system tables to view partition 
   templates and verify partitions are working as intended.
 menu:
   influxdb3_cloud_dedicated:

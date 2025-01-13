@@ -3,7 +3,7 @@ title: Migrate data from TSM to InfluxDB Cloud Serverless
 description: >
   To migrate data from a TSM-powered InfluxDB Cloud organization to an InfluxDB
   Cloud Serverless organization powered by the v3 storage engine, query the data in
-  time-based batches and write the queried data to an InfluxDB v3 bucket in your
+  time-based batches and write the queried data to an InfluxDB 3 bucket in your
   InfluxDB Cloud Serverless organization.
 menu:
   influxdb_cloud_serverless:
@@ -28,7 +28,7 @@ adjustable quotas, migrate your data in batches.
 
 The following guide provides instructions for setting up an InfluxDB task
 that queries data from an InfluxDB Cloud TSM-powered bucket in time-based batches
-and writes each batch to an InfluxDB Cloud Serverless (InfluxDB v3) bucket in
+and writes each batch to an InfluxDB Cloud Serverless (InfluxDB 3) bucket in
 another organization.
 
 > [!Important]
@@ -48,7 +48,7 @@ another organization.
 
 Before you migrate from InfluxDB Cloud (TSM) to {{< product-name >}}, there
 are schema design practices supported by the TSM storage engine that are not
-supported in the InfluxDB v3 storage engine. Specifically, InfluxDB v3 enforces the following schema restrictions:
+supported in the InfluxDB 3 storage engine. Specifically, InfluxDB 3 enforces the following schema restrictions:
 
 - You can't use duplicate names for tags and fields
 - Measurements can contain up to 200 columns where each column represents time,

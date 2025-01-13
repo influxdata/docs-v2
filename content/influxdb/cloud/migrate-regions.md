@@ -22,9 +22,9 @@ walks through the migration.
 The specific process varies depending on whether your destination account is
 powered by our current database engine,
 [Time-Structured Merge Tree (TSM)](/influxdb/v2/reference/internals/storage-engine/#time-structured-merge-tree-tsm)
-or [our new database engine, InfluxDB v3](/blog/announcing-general-availability-new-database-engine/).
+or [our new database engine, InfluxDB 3](/blog/announcing-general-availability-new-database-engine/).
 
-To benefit from the InfluxDB v3 storage engine's unlimited cardinality and
+To benefit from the InfluxDB 3 storage engine's unlimited cardinality and
 support for SQL, migrate your data to InfluxDB Cloud Serverless.
 
 - [Migrate data TSM to Serverless](/influxdb3/cloud-serverless/write-data/migrate-data/migrate-tsm-to-serverless/)

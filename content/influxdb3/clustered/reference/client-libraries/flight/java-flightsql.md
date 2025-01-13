@@ -41,11 +41,11 @@ list_code_example: |
 [Apache Arrow Flight SQL for Java](https://arrow.apache.org/docs/java/reference/org/apache/arrow/flight/sql/package-summary.html) integrates with Java applications to query and retrieve data from Flight database servers using RPC and SQL.
 
 {{% note %}}
-#### Use InfluxDB v3 client libraries
+#### Use InfluxDB 3 client libraries
 
-We recommend using the [`influxdb3-java` Go client library](/influxdb3/clustered/reference/client-libraries/v3/java/) for integrating InfluxDB v3 with your Java application code.
+We recommend using the [`influxdb3-java` Go client library](/influxdb3/clustered/reference/client-libraries/v3/java/) for integrating InfluxDB 3 with your Java application code.
 
-[InfluxDB v3 client libraries](/influxdb3/clustered/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
+[InfluxDB 3 client libraries](/influxdb3/clustered/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
 and provide convenient methods for [writing](/influxdb3/clustered/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/clustered/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
 Client libraries can query using SQL or InfluxQL.
 {{% /note %}}
@@ -67,7 +67,7 @@ Client libraries can query using SQL or InfluxQL.
 Write a Java class for a Flight SQL client that connects to {{% product-name %}},
 executes an SQL query, and retrieves data stored in an {{% product-name %}} database.
 
-The example uses the [Apache Arrow Java implementation (`org.apache.arrow`)](https://arrow.apache.org/docs/java/index.html) for interacting with Flight database servers like InfluxDB v3.
+The example uses the [Apache Arrow Java implementation (`org.apache.arrow`)](https://arrow.apache.org/docs/java/index.html) for interacting with Flight database servers like InfluxDB 3.
 
 - **`org.apache.arrow`**: Provides classes and methods for integrating Java applications with Apache Arrow data and protocols.
 - **`org.apache.arrow.flight.sql`**: Provides classes and methods for

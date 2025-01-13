@@ -325,7 +325,7 @@ curl --get "https://{{< influxdb/host >}}/query" \
 >
 > #### May impact cluster performance
 >
-> Querying InfluxDB v3 system tables may impact write and query
+> Querying InfluxDB 3 system tables may impact write and query
 > performance of your {{< product-name omit=" Clustered" >}} cluster.
 > Use filters to [optimize queries to reduce impact to your cluster](/influxdb3/clustered/admin/query-system-data/#optimize-queries-to-reduce-impact-to-your-cluster).
 >

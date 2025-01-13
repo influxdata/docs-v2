@@ -12,7 +12,7 @@ influxdb3/cloud-serverless/tags: [get-started]
 
 InfluxDB {{< current-version >}} is the platform purpose-built to collect, store,
 process and visualize time series data.
-The InfluxDB v3.0 storage engine provides a number of benefits including nearly
+The InfluxDB 3.0 storage engine provides a number of benefits including nearly
 unlimited series cardinality, improved query performance, and interoperability
 with widely used data processing tools and platforms.
 
@@ -100,7 +100,7 @@ This tutorial covers many of the recommended tools.
 | <span style="color:gray">`influxctl` CLI</span>                          |       -         |   -     |   -     |
 | [InfluxDB HTTP API](#influxdb-http-api)                          |    **{{< icon "check" >}}**        |   **{{< icon "check" >}}**  |   **{{< icon "check" >}}**     |
 | [InfluxDB user interface](#influxdb-user-interface) {{< req text="\* " color="magenta" >}} |     **{{< icon "check" >}}**      |   -     | **{{< icon "check" >}}**  |
-| [InfluxDB v3 client libraries](#influxdb-v3-client-libraries){{< req text="\* " color="magenta" >}}      |       -         | **{{< icon "check" >}}**  | **{{< icon "check" >}}**  |
+| [InfluxDB 3 client libraries](#influxdb-3-client-libraries){{< req text="\* " color="magenta" >}}      |       -         | **{{< icon "check" >}}**  | **{{< icon "check" >}}**  |
 | [InfluxDB v1 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v1/)      |       -         | **{{< icon "check" >}}**  | **{{< icon "check" >}}**  |
 | [InfluxDB v2 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v2/)      |     **{{< icon "check" >}}**      | **{{< icon "check" >}}**  |   -     |
 | Telegraf                          |       -         | **{{< icon "check" >}}**  |   -     |
@@ -149,7 +149,7 @@ The `/api/v2/write` v2-compatible endpoint works with existing InfluxDB 2.x tool
 
 InfluxDB client libraries are community-maintained, language-specific clients that interact with InfluxDB APIs.
 
-[InfluxDB v3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/) are the recommended client libraries for writing and querying data {{% product-name %}}.
+[InfluxDB 3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/) are the recommended client libraries for writing and querying data {{% product-name %}}.
 They use the HTTP API to write data and use Flight gRPC to query data.
 
 [InfluxDB v2 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v2/) can use `/api/v2` HTTP endpoints to manage resources such as buckets and API tokens, and write data in {{% product-name %}}.

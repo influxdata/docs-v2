@@ -38,7 +38,7 @@ the exported data to an InfluxDB Cloud Dedicated database.
 
 Before you migrate from InfluxDB 1.x to {{< product-name >}}, there
 are schema design practices supported by the TSM storage engine that are not
-supported in the InfluxDB v3 storage engine. Specifically, InfluxDB v3 enforces the following schema restrictions:
+supported in the InfluxDB 3 storage engine. Specifically, InfluxDB 3 enforces the following schema restrictions:
 
 - You can't use duplicate names for tags and fields.
 - By default, measurements can contain up to 250 columns where each column

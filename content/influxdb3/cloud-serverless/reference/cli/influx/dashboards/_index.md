@@ -19,7 +19,7 @@ metadata: [influx CLI 2.0.0+]
 
 While this command is included in the `influx` CLI {{< latest-cli >}}, this
 functionality is not available in InfluxDB Cloud Serverless organizations
-powered by the InfluxDB v3 storage engine.
+powered by the InfluxDB 3 storage engine.
 {{% /warn %}}
 
 {{< duplicate-oss >}}

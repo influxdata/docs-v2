@@ -52,7 +52,7 @@ For more information on security and query parameterization,
 see the [OWASP SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html#defense-option-1-prepared-statements-with-parameterized-queries).
 {{% /note %}}
 
-In InfluxDB v3, a parameterized query is an InfluxQL or SQL query that contains one or more named parameter placeholders–variables that represent input data.
+In InfluxDB 3, a parameterized query is an InfluxQL or SQL query that contains one or more named parameter placeholders–variables that represent input data.
 
 - [Use parameters in `WHERE` expressions](#use-parameters-in-where-expressions)
 - [Parameter data types](#parameter-data-types)
@@ -69,7 +69,7 @@ In InfluxDB v3, a parameterized query is an InfluxQL or SQL query that contains 
 
 #### Parameters only supported in `WHERE` expressions
 
-InfluxDB v3 supports parameters in `WHERE` clause **predicate expressions**.
+InfluxDB 3 supports parameters in `WHERE` clause **predicate expressions**.
 Parameter values must be one of the [allowed parameter data types](#parameter-data-types).
 
 If you use parameters in other expressions or clauses,
@@ -235,7 +235,7 @@ to your {{% product-name %}} database before running the example queries.
 
 ### Use InfluxDB Flight RPC clients
 
-Using the InfluxDB v3 native Flight RPC protocol and supported clients, you can send a parameterized query and a list of parameter name-value pairs.
+Using the InfluxDB 3 native Flight RPC protocol and supported clients, you can send a parameterized query and a list of parameter name-value pairs.
 InfluxDB Flight clients that support parameterized queries pass the parameter name-value pairs in a Flight ticket `params` field.
 
 The following examples show how to use client libraries to execute parameterized InfluxQL queries:
@@ -341,9 +341,9 @@ func main() {
 
 ## Client support for parameterized queries
 
-- Not all [InfluxDB v3 Flight clients](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) support parameterized queries.
+- Not all [InfluxDB 3 Flight clients](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) support parameterized queries.
 - InfluxDB doesn't currently support parameterized queries or DataFusion prepared statements for Flight SQL or Flight SQL clients.
-- InfluxDB v3 SQL and InfluxQL parameterized queries aren’t supported in InfluxDB v1 and v2 clients.
+- InfluxDB 3 SQL and InfluxQL parameterized queries aren’t supported in InfluxDB v1 and v2 clients.
 
 ## Not supported
 

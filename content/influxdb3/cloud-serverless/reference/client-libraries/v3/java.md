@@ -1,8 +1,8 @@
 ---
-title: Java client library for InfluxDB v3
+title: Java client library for InfluxDB 3
 list_title: Java
 description: >
-  The InfluxDB v3 `influxdb3-java` Java client library integrates with application code to write and query data stored in an InfluxDB Cloud Serverless bucket.
+  The InfluxDB 3 `influxdb3-java` Java client library integrates with application code to write and query data stored in an InfluxDB Cloud Serverless bucket.
 menu:
   influxdb3_cloud_serverless:
     name: Java
@@ -14,16 +14,16 @@ aliases:
   - /cloud-serverless/query-data/sql/execute-queries/java/
 ---
 
-The InfluxDB v3 [`influxdb3-java` Java client library](https://github.com/InfluxCommunity/influxdb3-java) integrates
+The InfluxDB 3 [`influxdb3-java` Java client library](https://github.com/InfluxCommunity/influxdb3-java) integrates
 with Java application code to write and query data stored in {{% product-name %}}.
 
 InfluxDB client libraries provide configurable batch writing of data to {{% product-name %}}.
 Use client libraries to construct line protocol data, transform data from other formats
 to line protocol, and batch write line protocol data to InfluxDB HTTP APIs.
 
-InfluxDB v3 client libraries can query {{% product-name %}} using SQL or InfluxQL.
+InfluxDB 3 client libraries can query {{% product-name %}} using SQL or InfluxQL.
 The `influxdb3-java` Java client library wraps the Apache Arrow `org.apache.arrow.flight.FlightClient`
-in a convenient InfluxDB v3 interface for executing SQL and InfluxQL queries, requesting
+in a convenient InfluxDB 3 interface for executing SQL and InfluxQL queries, requesting
 server metadata, and retrieving data from {{% product-name %}} using the Flight protocol with gRPC.
 
 - [Installation](#installation)
@@ -361,4 +361,4 @@ To query data and process the results:
   }
 ```
 
-<a class="btn" href="https://github.com/InfluxCommunity/influxdb3-java/" target="\_blank">View the InfluxDB v3 Java client library</a>
+<a class="btn" href="https://github.com/InfluxCommunity/influxdb3-java/" target="\_blank">View the InfluxDB 3 Java client library</a>

@@ -21,9 +21,9 @@ Use the URLs below to interact with your InfluxDB Cloud Serverless instances wit
 [Telegraf](/influxdb3/cloud-serverless/write-data/use-telegraf/).
 
 {{% note %}}
-#### InfluxDB v3 cloud regions
+#### InfluxDB 3 cloud regions
 
-We are in the process of deploying and enabling the InfluxDB v3 storage engine
+We are in the process of deploying and enabling the InfluxDB 3 storage engine
 on other cloud providers and regions.
 {{% /note %}}
 

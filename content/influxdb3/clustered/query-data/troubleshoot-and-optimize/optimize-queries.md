@@ -50,7 +50,7 @@ The following design strategies generally improve query performance and resource
 
 #### Include a WHERE clause
 
-InfluxDB v3 stores data in a Parquet file for each partition.
+InfluxDB 3 stores data in a Parquet file for each partition.
 By default, {{< product-name >}} partitions tables by day, but you can also
 [custom-partition your data](/influxdb3/clustered/admin/custom-partitions/).
 At query time, InfluxDB retrieves files from the Object store to answer a query.
@@ -60,7 +60,7 @@ filters data by a time range or by specific tag values.
 
 #### SELECT only columns you need 
 
-Because InfluxDB v3 is a columnar database, it only processes the columns
+Because InfluxDB 3 is a columnar database, it only processes the columns
 selected in a query, which can mitigate the query performance impact of
 [wide schemas](/influxdb3/clustered/write-data/best-practices/schema-design/#avoid-wide-schemas).
 

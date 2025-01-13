@@ -5,7 +5,7 @@ Use InfluxQL functions to aggregate, select, transform, analyze, and predict dat
 > #### Missing InfluxQL functions
 > 
 > Some InfluxQL functions are in the process of being rearchitected to work with
-> the InfluxDB v3 storage engine. If a function you need is not here, check the
+> the InfluxDB 3 storage engine. If a function you need is not here, check the
 > [InfluxQL feature support page](/influxdb/version/reference/influxql/feature-support/#function-support)
 > for more information.
 

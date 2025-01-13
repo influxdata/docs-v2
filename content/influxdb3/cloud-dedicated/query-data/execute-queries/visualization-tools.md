@@ -40,7 +40,7 @@ The following visualization tools support querying InfluxDB with InfluxQL:
 {{% warn %}}
 #### InfluxQL feature support
 
-InfluxQL is being rearchitected to work with the InfluxDB v3 storage engine.
+InfluxQL is being rearchitected to work with the InfluxDB 3 storage engine.
 This process is ongoing and some InfluxQL features are still being implemented.
 For information about the current implementation status of InfluxQL features,
 see [InfluxQL feature support](/influxdb3/cloud-dedicated/reference/influxql/feature-support/).

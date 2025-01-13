@@ -50,7 +50,7 @@ stored in an {{% product-name %}} bucket.
 
 ## Install prerequisites
 
-The examples in this guide assume using a Python virtual environment and the InfluxDB v3 [`influxdb3-python` Python client library](/influxdb3/cloud-serverless/reference/client-libraries/v3/python/).
+The examples in this guide assume using a Python virtual environment and the InfluxDB 3 [`influxdb3-python` Python client library](/influxdb3/cloud-serverless/reference/client-libraries/v3/python/).
 For more information, see how to [get started using Python to query InfluxDB](/influxdb3/cloud-serverless/query-data/execute-queries/client-libraries/python/).
 
 Installing `influxdb3-python` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that provides Python bindings for Apache Arrow.

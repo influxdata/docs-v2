@@ -358,9 +358,9 @@ enforcement mechanism. License enforcement mechanisms include:
 - During the `License`'s grace period, the following happens:
   - Throughout the grace period, all components gradually increase the
     frequency of license expiry warnings.
-  - One week into the grace period, the InfluxDB 3.0 Querier begins returning
+  - One week into the grace period, the InfluxDB 3 Querier begins returning
     `FailedPrecondition` gRPC responses for the first 5 minutes of every hour.
-  - One month into the grace period, the InfluxDB 3.0 Querier begins returning
+  - One month into the grace period, the InfluxDB 3 Querier begins returning
     `FailedPrecondition` gRPC responses 100% of the time until the grace period
     ends.
 - At the end of the `License` grace period, all IOx components shutdown as

@@ -17,7 +17,7 @@ related:
   - /influxdb3/cloud-dedicated/reference/internals/storage-engine/
 ---
 
-A query plan is a sequence of steps that the InfluxDB v3 [Querier](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#querier) devises and executes to calculate the result of a query.
+A query plan is a sequence of steps that the InfluxDB 3 [Querier](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#querier) devises and executes to calculate the result of a query.
 The Querier uses DataFusion and Arrow to build and execute query plans
 that call DataFusion and InfluxDB-specific operators that read data from the [Object store](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#object-store), and the [Ingester](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester), and apply query transformations, such as deduplicating, filtering, aggregating, merging, projecting, and sorting to calculate the final result.
 
@@ -188,7 +188,7 @@ Files are referenced by path:
 - `1/1/b862a7e9b.../243db601-....parquet`
 - `1/1/b862a7e9b.../f5fb7c7d-....parquet`
 
-In InfluxDB v3, the path structure represents how data is organized.
+In InfluxDB 3, the path structure represents how data is organized.
 
 A path has the following structure:
 
@@ -300,7 +300,7 @@ DataFusion [`ProjectionExec`](https://docs.rs/datafusion/latest/datafusion/physi
 
 ### `RecordBatchesExec`
 
-The InfluxDB `RecordBatchesExec` implementation retrieves and scans recently written, yet-to-be-persisted, data from the InfluxDB v3 [Ingester](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester).
+The InfluxDB `RecordBatchesExec` implementation retrieves and scans recently written, yet-to-be-persisted, data from the InfluxDB 3 [Ingester](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester).
 
 When generating the plan, the [Querier](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#querier) sends the query criteria, such as database, table, and columns, to the [Ingester](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester) to retrieve data not yet persisted to Parquet files.
 If the [Ingester](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester) has data that meets the criteria (the chunk size is non-zero), then the plan includes `RecordBatchesExec`.
@@ -379,14 +379,14 @@ For example, the following chunks represent line protocol written to InfluxDB:
 If data overlaps at query time, the [Querier](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#querier) must include the _deduplication_ process in the query plan, which uses the same multi-column sort-merge operators used by the [Ingester](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#ingester).
 Compared to an ingestion plan that uses sort-merge operators, a query plan is more complex and ensures that data streams through the plan after deduplication.
 
-Because sort-merge operations used in deduplication have a non-trivial execution cost, InfluxDB v3 tries to avoid the need for deduplication.
+Because sort-merge operations used in deduplication have a non-trivial execution cost, InfluxDB 3 tries to avoid the need for deduplication.
 Due to how InfluxDB organizes data, a Parquet file never contains duplicates of the data it stores; only overlapped data can contain duplicates.
 During compaction, the [Compactor](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#compactor) sorts stored data to reduce overlaps and optimize query performance.
 For data that doesn't have overlaps, the [Querier](/influxdb3/cloud-dedicated/reference/internals/storage-engine/#querier) doesn't need to include the deduplication process and the query plan can further distribute non-overlapping data for parallel processing.
 
 ## DataFusion query plans
 
-For more information about DataFusion query plans and the DataFusion API used in InfluxDB v3, see the following:
+For more information about DataFusion query plans and the DataFusion API used in InfluxDB 3, see the following:
 
 - [Query Planning and Execution Overview](https://docs.rs/datafusion/latest/datafusion/index.html#query-planning-and-execution-overview) in the DataFusion documentation.
 - [Plan representations](https://docs.rs/datafusion/latest/datafusion/#plan-representations) in the DataFusion documentation.

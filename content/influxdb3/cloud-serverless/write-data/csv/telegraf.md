@@ -144,5 +144,5 @@ data to InfluxDB.
 The preceding examples describe Telegraf configurations necessary for writing to {{% product-name %}}.
 The output plugin provides several other options for configuring the Telegraf client:
 
-- `influx_uint_support`: supported by the InfluxDB v3 storage engine.
+- `influx_uint_support`: supported by the InfluxDB 3 storage engine.
 - See [`influxdb_v2` plugin options](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md) on GitHub.

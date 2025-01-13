@@ -1,7 +1,7 @@
 ---
-title: Go client library for InfluxDB v3
+title: Go client library for InfluxDB 3
 list_title: Go
-description: The InfluxDB v3 `influxdb3-go` Go client library integrates with Go scripts and applications to write and query data stored in an {{% product-name %}} database.
+description: The InfluxDB 3 `influxdb3-go` Go client library integrates with Go scripts and applications to write and query data stored in an {{% product-name %}} database.
 menu:
   influxdb3_clustered:
     name: Go
@@ -14,7 +14,7 @@ aliases:
   - /influxdb3/clustered/tools/client-libraries/go/
 ---
 
-The InfluxDB v3 [`influxdb3-go` Go client library](https://github.com/InfluxCommunity/influxdb3-go) integrates with Go scripts and applications
+The InfluxDB 3 [`influxdb3-go` Go client library](https://github.com/InfluxCommunity/influxdb3-go) integrates with Go scripts and applications
 to write and query data stored in an {{% product-name %}} database.
 
 ## Installation
@@ -108,7 +108,7 @@ Replace the following configuration values:
 
 ### Function `Client.Query()`
 
-Query data from InfluxDB v3 using SQL.
+Query data from InfluxDB 3 using SQL.
 
 #### Syntax
 
@@ -143,7 +143,7 @@ iterator, err := client.Query(context.Background(), query)
 
 ### Function `Client.QueryWithOptions()`
 
-Query data from InfluxDB v3 with query options such as **query type** for querying with InfluxQL.
+Query data from InfluxDB 3 with query options such as **query type** for querying with InfluxQL.
 
 #### Syntax
 

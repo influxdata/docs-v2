@@ -228,7 +228,7 @@ To setup and start using client libraries, see the [Get started](/influxdb3/clus
 {{% product-name %}} supports many different tools for querying data, including:
 
 - [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
-- [InfluxDB v3 client libraries](/influxdb3/clustered/reference/client-libraries/v3/)
+- [InfluxDB 3 client libraries](/influxdb3/clustered/reference/client-libraries/v3/)
 - [Flight clients](/influxdb3/clustered/reference/client-libraries/flight/)
 - [Superset](/influxdb3/clustered/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb3/clustered/query-data/sql/execute-queries/grafana/)

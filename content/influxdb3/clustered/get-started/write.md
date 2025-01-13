@@ -797,7 +797,7 @@ the failure message.
 
 {{% influxdb/custom-timestamps %}}
 
-To write data to {{% product-name %}} using Go, use the InfluxDB v3
+To write data to {{% product-name %}} using Go, use the InfluxDB 3
 [influxdb3-go client library package](https://github.com/InfluxCommunity/influxdb3-go).
 
 1.  Inside of your project directory, create a new module directory and navigate
@@ -1201,7 +1201,7 @@ the failure message.
     cd influxdb_csharp_client
     ```
 
-4.  Run the following command to install the latest version of the InfluxDB v3
+4.  Run the following command to install the latest version of the InfluxDB 3
     C# client library.
 
     <!--pytest.mark.skip-->
@@ -1441,7 +1441,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
       */
     public final class Write {
         /**
-        * Write data to InfluxDB v3.
+        * Write data to InfluxDB 3.
         */
         private Write() {
             //not called
@@ -1563,7 +1563,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
         * @throws Exception
         */
         public static void main(final String[] args) throws Exception {
-            // Write data to InfluxDB v3.
+            // Write data to InfluxDB 3.
             Write.writeLineProtocol();
         }
     }

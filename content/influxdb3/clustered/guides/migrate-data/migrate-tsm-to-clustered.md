@@ -3,7 +3,7 @@ title: Migrate data from InfluxDB Cloud to InfluxDB Clustered
 description: >
   To migrate data from a TSM-powered InfluxDB Cloud to InfluxDB Clustered 
   powered by the v3 storage engine, query the data in time-based batches and write
-  the queried data to an InfluxDB v3 database in your InfluxDB cluster.
+  the queried data to an InfluxDB 3 database in your InfluxDB cluster.
 menu:
   influxdb3_clustered:
     name: Migrate from TSM to Clustered
@@ -24,7 +24,7 @@ limits and adjustable quotas, migrate your data in batches.
 
 The following guide provides instructions for setting up an InfluxDB task
 that queries data from an InfluxDB Cloud TSM-powered bucket in time-based batches
-and writes each batch to an {{< product-name >}} (InfluxDB v3) database in
+and writes each batch to an {{< product-name >}} (InfluxDB 3) database in
 another organization.
 
 > [!Important]
@@ -43,7 +43,7 @@ another organization.
 
 Before you migrate from InfluxDB Cloud (TSM) to {{< product-name >}}, there
 are schema design practices supported by the TSM storage engine that are not
-supported in the InfluxDB v3 storage engine. Specifically, InfluxDB v3 enforces the following schema restrictions:
+supported in the InfluxDB 3 storage engine. Specifically, InfluxDB 3 enforces the following schema restrictions:
 
 - You can't use duplicate names for tags and fields.
 - By default, measurements can contain up to 250 columns where each column

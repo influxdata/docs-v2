@@ -23,7 +23,7 @@ you can only retrieve system information for that particular instance.
 
 To get information about queries you've run on the current instance, use SQL to query the [`system.queries` table](/influxdb3/cloud-dedicated/reference/internals/system-tables/#systemqueries-measurement), which contains information from the Querier instance currently handling queries.
 
-The `system.queries` table is an InfluxDB v3 **debug feature**.
+The `system.queries` table is an InfluxDB 3 **debug feature**.
 To enable the feature and query `system.queries`, include an `"iox-debug"` header set to `"true"` and use SQL to query the table--for example:
 
 

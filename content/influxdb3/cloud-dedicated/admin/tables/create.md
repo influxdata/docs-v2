@@ -61,7 +61,7 @@ influxctl table create \
 
 {{< product-name >}} lets you define a custom partitioning strategy for each table.
 A _partition_ is a logical grouping of data stored in [Apache Parquet](https://parquet.apache.org/)
-format in the InfluxDB v3 storage engine. By default, data is partitioned by day,
+format in the InfluxDB 3 storage engine. By default, data is partitioned by day,
 but, depending on your schema and workload, customizing the partitioning
 strategy can improve query performance.
 

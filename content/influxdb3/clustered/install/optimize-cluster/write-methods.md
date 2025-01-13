@@ -65,7 +65,7 @@ same client library to write data to your cluster.
 
 <!-- TO-DO: Somehow automate this list -->
 
-- [InfluxDB v3 client libraries](/influxdb3/clustered/reference/client-libraries/v3/)
+- [InfluxDB 3 client libraries](/influxdb3/clustered/reference/client-libraries/v3/)
   - [C# .NET](/influxdb3/clustered/reference/client-libraries/v3/csharp/)
   - [Go](/influxdb3/clustered/reference/client-libraries/v3/go/)
   - [Java](/influxdb3/clustered/reference/client-libraries/v3/java/)

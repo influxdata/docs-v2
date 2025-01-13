@@ -25,8 +25,8 @@ alt_links:
 This release represents the first public release of InfluxDB OSS v1 since 2021
 and includes many enhancements and bug fixes added to InfluxDB Enterprise and
 then back-ported to InfluxDB OSS v1. Many of these enhancements improve
-compatibility between InfluxDB v1 and InfluxDB v3 and help to ease the migration
-of InfluxDB v1 workloads to InfluxDB v3.
+compatibility between InfluxDB v1 and InfluxDB 3 and help to ease the migration
+of InfluxDB v1 workloads to InfluxDB 3.
 
 {{% warn %}}
 #### Before upgrading to InfluxDB 1.11

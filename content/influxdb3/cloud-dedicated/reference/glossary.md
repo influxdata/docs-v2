@@ -124,7 +124,7 @@ CSV file format is not fully standardized.
 
 Cardinality is the number of unique values in a set.
 Series cardinality is the number of unique [series](#series) in a database as a whole.
-With the InfluxDB v3 storage engine, high series cardinality _does not_ affect performance.
+With the InfluxDB 3 storage engine, high series cardinality _does not_ affect performance.
 
 ### cluster
 
@@ -460,7 +460,7 @@ Related entries:
 
 ### IOx
 
-The IOx storage engine (InfluxDB v3 storage engine) is a real-time, columnar
+The IOx storage engine (InfluxDB 3 storage engine) is a real-time, columnar
 database optimized for time series data built in Rust on top of
 [Apache Arrow](https://arrow.apache.org/) and
 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html).
@@ -1048,7 +1048,7 @@ Related entries: [aggregate](#aggregate), [function](#function), [selector](#sel
 
 The InfluxDB v1 and v2 data storage format that allows greater compaction and
 higher write and read throughput than B+ or LSM tree implementations.
-The TSM storage engine has been replaced by the [InfluxDB v3 storage engine (IOx)](#iox).
+The TSM storage engine has been replaced by the [InfluxDB 3 storage engine (IOx)](#iox).
 
 Related entries:
 [IOx](#iox)

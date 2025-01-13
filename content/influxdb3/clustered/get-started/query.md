@@ -48,7 +48,7 @@ section.
 {{< req type="key" text="Covered in this tutorial" color="magenta" >}}
 - [`influxctl` CLI](#execute-an-sql-query){{< req text="\*  " color="magenta" >}}
 - [`influx3` data CLI](?t=influx3+CLI#execute-an-sql-query){{< req text="\*  " color="magenta" >}}
-- [InfluxDB v3 client libraries](/influxdb3/clustered/reference/client-libraries/v3/){{< req text="\*  " color="magenta" >}}
+- [InfluxDB 3 client libraries](/influxdb3/clustered/reference/client-libraries/v3/){{< req text="\*  " color="magenta" >}}
 - [Flight clients](/influxdb3/clustered/reference/client-libraries/flight/)
 - [Superset](/influxdb3/clustered/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb3/clustered/query-data/sql/execute-queries/grafana/)
@@ -183,7 +183,7 @@ Get started with one of the following tools for querying data stored in an {{% p
   [`influxctl` CLI](/influxdb3/clustered/reference/cli/influxctl/).
 - **`influx3` CLI**: Query data from your terminal command-line using the
   Python-based [`influx3` CLI](https://github.com/InfluxCommunity/influxdb3-python).
-- **InfluxDB v3 client libraries**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
+- **InfluxDB 3 client libraries**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
 - **Grafana**: Use the [FlightSQL Data Source plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/), to query, connect, and visualize data.
 
 For this example, use the following query to select all the data written to the
@@ -306,7 +306,7 @@ configuration file.
 <!--------------------------- BEGIN influx3 CONTENT --------------------------->
 {{% influxdb/custom-timestamps %}}
 
-Query InfluxDB v3 using SQL and the [`influx3` CLI](https://github.com/InfluxCommunity/influxdb3-python-cli).
+Query InfluxDB 3 using SQL and the [`influx3` CLI](https://github.com/InfluxCommunity/influxdb3-python-cli).
 
 The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb3/clustered/get-started/write/?t=Python#write-line-protocol-to-influxdb).
@@ -1049,7 +1049,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
         * @throws Exception
         */
         public static void main(final String[] args) throws Exception {
-            // Write data to InfluxDB v3.
+            // Write data to InfluxDB 3.
             Write.writeLineProtocol();
             // Run the SQL query.
             Query.querySQL();

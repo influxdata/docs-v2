@@ -83,8 +83,8 @@ The following example shows how to construct `Point` objects that follow the
 [example `home` schema](#example-home-schema), and then write the data as line
 protocol to an {{% product-name %}} database.
 
-The examples use InfluxDB v3 client libraries. For examples using InfluxDB v2
-client libraries to write data to InfluxDB v3, see
+The examples use InfluxDB 3 client libraries. For examples using InfluxDB v2
+client libraries to write data to InfluxDB 3, see
 [InfluxDB v2 clients](/influxdb3/cloud-dedicated/reference/client-libraries/v2/).
 
 {{< tabs-wrapper >}}
@@ -96,7 +96,7 @@ client libraries to write data to InfluxDB v3, see
 {{% tab-content %}}
 
 The following steps set up a Go project using the
-[InfluxDB v3 Go client](https://github.com/InfluxCommunity/influxdb3-go/):
+[InfluxDB 3 Go client](https://github.com/InfluxCommunity/influxdb3-go/):
 
 <!-- BEGIN GO PROJECT SETUP -->
 
@@ -129,7 +129,7 @@ The following steps set up a Go project using the
 <!-- BEGIN NODE.JS PROJECT SETUP -->
 
 The following steps set up a JavaScript project using the
-[InfluxDB v3 JavaScript client](https://github.com/InfluxCommunity/influxdb3-js/).
+[InfluxDB 3 JavaScript client](https://github.com/InfluxCommunity/influxdb3-js/).
 
 1. Install [Node.js](https://nodejs.org/en/download/).
 
@@ -148,7 +148,7 @@ The following steps set up a JavaScript project using the
    npm init
    ```
 
-1. Install the `@influxdata/influxdb3-client` InfluxDB v3 JavaScript client
+1. Install the `@influxdata/influxdb3-client` InfluxDB 3 JavaScript client
    library.
 
    ```sh
@@ -162,7 +162,7 @@ The following steps set up a JavaScript project using the
 <!-- BEGIN PYTHON SETUP PROJECT -->
 
 The following steps set up a Python project using the
-[InfluxDB v3 Python client](https://github.com/InfluxCommunity/influxdb3-python/):
+[InfluxDB 3 Python client](https://github.com/InfluxCommunity/influxdb3-python/):
 
 1. Install [Python](https://www.python.org/downloads/)
 
