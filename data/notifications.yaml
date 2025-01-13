@@ -39,39 +39,26 @@
   #   - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
   #   - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
-# - id: v3-enhancements-clustered-ga
-#   level: note
-#   scope:
-#     - /
-#   exclude:
-#     - /influxdb/cloud/
-#     - /influxdb/v1/
-#     - /influxdb/v2/
-#     - /flux/v0/
-#     - /telegraf/
-#     - /kapacitor/
-#     - /chronograf/
-#   title: InfluxDB v3 enhancements and InfluxDB Clustered is now generally available
-#   slug: |
-#     New capabilities, including faster query performance and management
-#     tooling advance the InfluxDB v3 product line.
-#     InfluxDB Clustered is now generally available.
-#   message: |
-#     ### InfluxDB v3 performance and features
+- id: influxdb3-alpha
+  level: note
+  scope:
+    - /
+  title: InfluxDB 3 Open Source Now in Public Alpha
 
-#     The InfluxDB v3 product line has seen significant enhancements in query
-#     performance and has made new management tooling available. These enhancements
-#     include an operational dashboard to monitor the health of your InfluxDB cluster,
-#     single sign-on (SSO) support in InfluxDB Cloud Dedicated, and new management
-#     APIs for tokens and databases.
+  slug: |
+    InfluxDB 3 Open Source is now available for alpha testing, licensed under MIT or Apache 2 licensing.
+  message: |
+    We are releasing two products as part of the alpha. 
 
-#     [Learn about the new v3 enhancements](https://www.influxdata.com/blog/scaling-time-series-workloads-influxdb)
+    InfluxDB 3 Core, is our new open source product.
+    It is a recent-data engine for time series and event data.
+    InfluxDB 3 Enterprise is a commercial version that builds on Core’s
+    foundation, adding historical query capability, read replicas, high
+    availability, scalability, and fine-grained security.
 
-#     ---
-
-#     ### InfluxDB Clustered general availability
-
-#     InfluxDB Clustered is now generally available and gives you the power of
-#     InfluxDB v3 in your self-managed stack.
-
-#     [Talk to us about InfluxDB Clustered](https://www.influxdata.com/products/influxdb-clustered/)
+    For more information on how to get started, check out:
+    
+    - [Announcement blog from InfluxData Founder & CTO Paul Dix](https://www.influxdata.com/blog/influxdb3-open-source-public-alpha)
+    - Getting Started guides for
+      [InfluxDB 3 Core](https://docs.influxdata.com/influxdb3/core/get-started/)
+      and [InfluxDB 3 Enterprise](https://docs.influxdata.com/influxdb3/enterprise/get-started/)
