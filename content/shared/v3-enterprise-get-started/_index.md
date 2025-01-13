@@ -55,7 +55,7 @@ Or, if you prefer, you can download and install {{% product-name %}} from [build
 
 #### Run the install script 
 
-Enter the following command to use [curl](https://curl.se/download.html)to download the script and install {{% product-name %}}, regardless of your operating system:
+Enter the following command to use [curl](https://curl.se/download.html) to download the script and install {{% product-name %}}, for MacOS and Linux operating systems:
 
 ```bash
 curl -O https://www.influxdata.com/d/install_influxdb3.sh && sh install_influxdb3.sh enterprise
@@ -75,7 +75,7 @@ source ~/.zshrc
 
 #### Optional: Download build artifacts and Docker images 
 
-Download the latest build artifacts and Docker images from the links below. These are updated with every merge into `main`.
+Download the latest build artifacts — including Windows — and Docker images from the links below. These are updated with every merge into `main`.
 
 ##### {{% product-name %}} (latest):
 
