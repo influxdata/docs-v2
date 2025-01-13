@@ -20,7 +20,7 @@ myTable,tag1=value1,tag2=value2 fieldKey="fieldValue" 1556813561098000000
 ```
 
 Lines separated by the newline character `\n` represent a single point
-in InfluxDB. Line protocol is whitespace sensitive.
+in InfluxDB. Line protocol is whitespace-sensitive.
 
 {{% note %}}
 Line protocol does not support the newline character `\n` in tag or field values.
