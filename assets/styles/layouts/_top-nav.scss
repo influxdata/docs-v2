@@ -173,6 +173,11 @@
           border-radius: 0 0 $radius $radius;
           position: relative;
         }
+        span.state {
+          font-size: .9em;
+          opacity: .65;
+          font-style: italic;
+        }
       }
     }
   }
