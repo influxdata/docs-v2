@@ -1,5 +1,8 @@
+# 
+{{% note %}}
+InfluxDB 3 Core is tailored for real-time data monitoring and recent data. InfluxDB 3 Enterprise builds on top of Core with support for historical data querying, high availability, read replicas, and more. It will soon enable enhanced security, row-level deletions, an administration UI, and additional features. You can learn more about InfluxDB 3 Enterprise [here](/influxdb3/enterprise/get-started/).
+{{% /note %}}
 ## Getting Started with InfluxDB 3 Core
-
 InfluxDB is a database built to collect, process, transform, and store event and time series data. It is ideal for use cases that require real-time ingest and fast query response times to build user interfaces, monitoring, and automation solutions.
 
 Common use cases include:
@@ -25,7 +28,7 @@ The Enterprise version adds onto Core's functionality with:
 * Historical query capability and single series indexing
 * High availability
 * Read replicas
-* Enhanced security
+* Enhanced security (coming soon)
 * Row-level delete support (coming soon)
 * Integrated admin UI (coming soon)
 
