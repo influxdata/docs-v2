@@ -88,17 +88,21 @@ source ~/.zshrc
 
 <!-------------------------------- BEGIN LINUX -------------------------------->
 
-- **InfluxDB 3 Enterprise • Linux (x86) • GNU**  
-  <https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-gnu.tar.gz>
+- [InfluxDB 3 Enterprise • Linux (x86) • GNU](https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-gnu.tar.gz)
+  •
+  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-gnu.tar.gz.sha256)
 
-- **InfluxDB 3 Enterprise • Linux (x86) • MUSL**  
-  <https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz>
+- [InfluxDB 3 Enterprise • Linux (x86) • MUSL](https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz)
+  •
+  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz.sha256)
 
-- **InfluxDB 3 Enterprise • Linux (ARM) • GNU**  
-  <https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz>
+- [InfluxDB 3 Enterprise • Linux (ARM) • GNU](https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz)
+  •
+  [sha256](ps://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz.sha256)
 
-- **InfluxDB 3 Enterprise • Linux (ARM) • MUSL**  
-  <https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz>
+- [InfluxDB 3 Enterprise • Linux (ARM) • MUSL](https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz)
+  •
+  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz)
 
 <!--------------------------------- END LINUX --------------------------------->
 
@@ -107,7 +111,9 @@ source ~/.zshrc
 
 <!-------------------------------- BEGIN MACOS -------------------------------->
 
-<a class="btn download" href="https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-apple-darwin.tar.gz" download>InfluxDB 3 Enterprise • macOS (Silicon)</a>
+- [InfluxDB 3 Enterprise • macOS (Silicon)](https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-apple-darwin.tar.gz)
+  •
+  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-apple-darwin.tar.gz.sha256)
 
 > [!Note]
 > macOS Intel builds are coming soon.
@@ -119,7 +125,9 @@ source ~/.zshrc
 
 <!------------------------------- BEGIN WINDOWS ------------------------------->
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-pc-windows-gnu.tar.gz" download>InfluxDB 3 Enterprise • Windows (x86)</a>
+- [InfluxDB 3 Enterprise • Windows (x86)](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-pc-windows-gnu.tar.gz)
+  •
+  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-pc-windows-gnu.tar.gz.sha256)
 
 <!-------------------------------- END WINDOWS -------------------------------->
 

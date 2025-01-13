@@ -1,8 +1,13 @@
-# 
-{{% note %}}
-InfluxDB 3 Core is tailored for real-time data monitoring and recent data. InfluxDB 3 Enterprise builds on top of Core with support for historical data querying, high availability, read replicas, and more. It will soon enable enhanced security, row-level deletions, an administration UI, and additional features. You can learn more about InfluxDB 3 Enterprise [here](/influxdb3/enterprise/get-started/).
-{{% /note %}}
+> [!Note] 
+> InfluxDB 3 Core is tailored for real-time data monitoring and recent data.
+> InfluxDB 3 Enterprise builds on top of Core with support for historical data
+> querying, high availability, read replicas, and more. It will soon enable
+> enhanced security, row-level deletions, an administration UI, and additional
+> features. You can learn more about InfluxDB 3 Enterprise
+> [here](/influxdb3/enterprise/get-started/).
+
 ## Getting Started with InfluxDB 3 Core
+
 InfluxDB is a database built to collect, process, transform, and store event and time series data. It is ideal for use cases that require real-time ingest and fast query response times to build user interfaces, monitoring, and automation solutions.
 
 Common use cases include:
@@ -81,13 +86,25 @@ source ~/.zshrc
 Download the latest build artifacts — including Windows — and Docker images from the links below. These are updated with every merge into `main`.
 
 ##### {{% product-name %}} (latest):
-* Docker: [quay.io/influxdb/influxdb3-core:latest](https://quay.io/influxdb/influxdb3-core:latest)
-* [Linux | x86 | musl](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-musl.tar.gz) ([sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-musl.tar.gz.sha256))
-* [Linux | x86 | gnu](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-gnu.tar.gz) ([sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-gnu.tar.gz.sha256))
-* [Linux | ARM | musl](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-musl.tar.gz) ([sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-musl.tar.gz.sha256))
-* [Linux | ARM | gnu](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-gnu.tar.gz) ([sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-gnu.tar.gz.sha256))
-* [macOS | Darwin](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-apple-darwin.tar.gz) ([sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-apple-darwin.tar.gz.sha256))
-* [Windows | x86](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-pc-windows-gnu.tar.gz) ([sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-apple-darwin.tar.gz.sha256))
+- Docker: [quay.io/influxdb/influxdb3-core:latest](https://quay.io/influxdb/influxdb3-core:latest)
+- [Linux | x86 | musl](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-musl.tar.gz)
+  •
+  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-musl.tar.gz.sha256)
+- [Linux | x86 | gnu](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-gnu.tar.gz)
+  •
+  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-gnu.tar.gz.sha256)
+- [Linux | ARM | musl](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-musl.tar.gz)
+  •
+  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-musl.tar.gz.sha256)
+- [Linux | ARM | gnu](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-gnu.tar.gz)
+  •
+  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-gnu.tar.gz.sha256)
+- [macOS | Darwin](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-apple-darwin.tar.gz)
+  •
+  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-apple-darwin.tar.gz.sha256)
+- [Windows | x86](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-pc-windows-gnu.tar.gz)
+  •
+  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-pc-windows-gnu.tar.gz.sha256)
 
 #### Start InfluxDB
 
