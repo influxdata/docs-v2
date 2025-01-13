@@ -119,7 +119,7 @@ source ~/.zshrc
 
 <!------------------------------- BEGIN WINDOWS ------------------------------->
 
-<a class="btn download" href="https://download.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-apple-darwin.tar.gz" download>InfluxDB 3 Core • Windows (x86)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-pc-windows-gnu.tar.gz" download>InfluxDB 3 Core • Windows (x86)</a>
 
 <!-------------------------------- END WINDOWS -------------------------------->
 
