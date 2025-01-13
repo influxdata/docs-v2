@@ -110,7 +110,7 @@ influxdb3 serve --writer-id=local01 --object-store=file --data-dir ~/.influxdb3
 ```
 
 ```bash
-# S3
+# S3 (defaults to us-east-1 for region)
 influxdb3 serve --writer-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY]
 ```
 
