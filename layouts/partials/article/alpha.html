@@ -13,22 +13,39 @@
     <h4>{{ $displayName }} is in Public Alpha</h4>
     <p>
       {{ $displayName }} is in public alpha and available for testing and feedback,
-      but is <strong>not meant for production use</strong>. During the alpha period we 
-      may make breaking changes that will require you to blow away your data and start 
-      over. You should have copies of your data in other places during the alpha period.
-      Both the product and this documentation are works in progress. New builds get 
-      created on every merge into main, so things will be moving quickly for the next 
-      month or so. We welcome and encourage your input about your experience with the alpha.
-      <a href="{{ $product }}/{{ $version }}/get-started/">Get started in minutes</a>
-      and join our public channels for updates and to share feedback.
+      but is <strong>not meant for production use</strong>.
+      Both the product and this documentation are works in progress.
+      We welcome and encourage your input about your experience with the alpha.
+      <a href="/{{ $product }}/{{ $version }}/get-started/">Get started in minutes</a>
+      and <strong>join our public channels</strong> for updates and to share feedback.
     </p>
     <div class="expand-wrapper">
-      <div class="expand" id="#alpha-feedback-channels">
+      <div class="expand" id="#alpha-expecations">
         <p class="expand-label">
-          <span class="expand-toggle"></span><span>Get updates and share feedback</span>
+          <span class="expand-toggle"></span><span>Alpha expectations and recommendations</span>
         </p>
         <div class="expand-content" style="display: none;" >
           <ul>
+            <li>
+              During the alpha period, we may make breaking changes that require
+              you to delete your data and start over.
+              If the data you're using is important, keep backup copies in other
+              places.
+            </li>
+            <li>
+              During the alpha period, we generate new builds on every merge
+              into into the InfluxDB <code>main</code> branch. Changes are
+              frequent and relevant updates are posted to our public channels.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="expand" id="#alpha-feedback-channels">
+        <p class="expand-label">
+          <span class="expand-toggle"></span><span>Join our public channels</span>
+        </p>
+        <div class="expand-content" style="display: none;" >
+          <ul class="feedback-channels">
             <li><a href="https://discord.com/invite/eMnhxPyj" target="_blank" class="discord">InfluxDB Discord Server <em style="opacity:.5">(Preferred)</em></a></li>
             <li><a href="https://community.influxdata.com" target="_blank" class="community">InfluxData Community</a></li>
             <li><a href="https://influxdata.com/slack" target="_blank" class="slack">InfluxDB Community Slack</a></li>
