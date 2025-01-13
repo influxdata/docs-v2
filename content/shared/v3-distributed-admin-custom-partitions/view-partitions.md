@@ -1,5 +1,5 @@
 <!--Allow shortcode-->
-{{< product-name >}} stores partition information in InfluxDB v3 system tables.
+{{< product-name >}} stores partition information in InfluxDB 3 system tables.
 Query partition information to view partition templates and verify partitions
 are working as intended.
 
@@ -9,7 +9,7 @@ are working as intended.
 {{% warn %}}
 #### Querying system tables may impact overall cluster performance
 
-Partition information is stored in InfluxDB v3 system tables.
+Partition information is stored in InfluxDB 3 system tables.
 Querying system tables may impact the overall write and query performance of
 your {{< product-name omit=" Clustered" >}} cluster.
 

@@ -1,16 +1,16 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 | default "" }}
-{{ $currentVersion := index $productPathData 1 | default ""}}
+{{ $version := index $productPathData 1 | default "" }}
 {{ $fluxPath := print "/flux/v0/" }}
 {{ $isFluxLatest := cond (in .RelPermalink $fluxPath) true false }}
 {{ $isResources :=  cond (eq $product "resources") true false}}
-{{ $searchTag := print $product "-" $currentVersion }}
+{{ $searchTag := print $product "-" $version }}
 
 {{ if not .IsHome }}
-  {{ if or (eq $currentVersion (replaceRE `\.[0-9x]+$` "" (index $.Site.Data.products $product).latest)) (or (eq $product "platform") (eq $product "resources")) (in $currentVersion "cloud") (in $currentVersion "clustered") }}
+  {{ if or (eq $version (replaceRE `\.[0-9x]+$` "" (index $.Site.Data.products $product).latest)) (or (eq $product "platform") (eq $product "resources")) (in (slice "cloud" "core" "enterprise" "cloud-serverless" "cloud-dedicated" "clustered") $version ) }}
     <meta name="docsearch:latest" content="true">
   {{ end }}
-  {{ if and (ne $product "platform") (ne $product "resources") (ne $currentVersion "") }}
+  {{ if and (ne $product "platform") (ne $product "resources") (ne $version "") }}
     <meta name="docsearch:searchTag" content="{{ $searchTag }}">
   {{ end }}
 {{ end }}

@@ -11,7 +11,7 @@ weight: 201
 related:
   - /influxdb/cloud/tools/telegraf-configs/create/
 # alt_links:
-#   cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/configure/auto-config/
+#   cloud-serverless: /influxdb3/cloud-serverless/write-data/use-telegraf/configure/auto-config/
 ---
 
 The InfluxDB user interface (UI) can automatically create

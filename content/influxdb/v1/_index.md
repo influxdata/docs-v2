@@ -1,9 +1,9 @@
 ---
-title: InfluxDB v1 documentation
+title: InfluxDB OSS v1 documentation
 description: Overview of documentation available for InfluxDB.
 menu:
   influxdb_v1:
-    name: InfluxDB v1
+    name: InfluxDB OSS v1
 weight: 1
 ---
 

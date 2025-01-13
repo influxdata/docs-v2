@@ -7,7 +7,8 @@ menu:
     name: Configure InfluxDB
     weight: 10
     parent: Administration
-v2: /influxdb/v2/reference/config-options/
+alt_links:
+  v2: /influxdb/v2/reference/config-options/
 ---
 
 The InfluxDB open source (OSS) configuration file contains configuration settings specific to a local node.

@@ -8,7 +8,8 @@ menu:
     name: Grafana
     weight: 60
     parent: Tools
-v2: /influxdb/v2/tools/grafana/
+alt_links:
+  v2: /influxdb/v2/tools/grafana/
 canonical: /influxdb/v2/tools/grafana/
 ---
 
@@ -39,7 +40,7 @@ to visualize data from your **InfluxDB v1.11** instance.
     supported by InfluxDB {{< current-version >}} (InfluxQL or Flux):
 
     {{% note %}}
-SQL is only supported in InfluxDB v3.
+SQL is only supported in InfluxDB 3.
     {{% /note %}}
 
 {{< tabs-wrapper >}}

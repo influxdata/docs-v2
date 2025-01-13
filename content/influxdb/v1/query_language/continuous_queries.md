@@ -7,7 +7,8 @@ menu:
     name: Continuous Queries
     weight: 50
     parent: InfluxQL
-v2: /influxdb/v2/process-data/
+alt_links:
+  v2: /influxdb/v2/process-data/
 ---
 
 ## Introduction

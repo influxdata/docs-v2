@@ -10,9 +10,9 @@ weight: 202
 aliases:
   - /influxdb/cloud/organizations/buckets/view-buckets/
 alt_links:
-  cloud-serverless: /influxdb/cloud-serverless/admin/buckets/view-buckets/
-  cloud-dedicated: /influxdb/cloud-dedicated/admin/databases/list/
-  clustered: /influxdb/clustered/admin/databases/list/
+  cloud-serverless: /influxdb3/cloud-serverless/admin/buckets/view-buckets/
+  cloud-dedicated: /influxdb3/cloud-dedicated/admin/databases/list/
+  clustered: /influxdb3/clustered/admin/databases/list/
 ---
 
 ## View buckets in the InfluxDB UI

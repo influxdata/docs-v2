@@ -1,23 +1,15 @@
-////////////////////////////// HOMEPAGE VARIABLES //////////////////////////////
-
-$home-body-width: 1300px;
-
 //////////////////////////////// HOMEPAGE STYLES ///////////////////////////////
 
-body.home {
-  background-image: url('/img/hero-bg-light-1-diamond.png');
-  background-size: 65%;
-  background-repeat: no-repeat;
-}
-
-.home {
+.home-content {
   color: $article-bold;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
 
   .section{
     width: 100%;
     margin: 0 auto;
     padding: 2rem 2rem 0;
-    max-width: $home-body-width;
     display: block;
     position: relative;
   }
@@ -81,342 +73,251 @@ body.home {
 
   ///////////////////////////////// SPAN STYLES ////////////////////////////////
 
-  span {
-    &.magenta {color: $br-new-magenta;}
-    &.orange {color: $r-dreamsicle;}
-    &.blue {color: $b-pool;}
+  // span {
+  //   &.magenta {color: $br-new-magenta;}
+  //   &.orange {color: $r-dreamsicle;}
+  //   &.blue {color: $b-pool;}
+  // }
+
+  ////////////////////////////////// PRODUCTS //////////////////////////////////
+  /// 
+  
+  .padding-wrapper {padding: 0 2rem;}
+
+  h1 {
+    text-align: center;
+    color: $article-heading;
   }
 
-  ///////////////////////////// EXPANDABLE BUTTONS /////////////////////////////
+  .product-group {
+    background: $article-bg;
+    padding: 3rem;
+    margin-bottom: 2rem;
+    border-radius: 30px;
 
-  .exp-btn-wrapper {
-    position: relative;
-    display: block;
-
-    .exp-btn {
-      background: $br-dark-blue;
-      border-radius: 6px;
-      color: $br-teal;
-      padding: 1.5rem 2rem;
-      font-weight: $medium;
-      align-items: center;
-      min-width: 340px;
-      min-height: 70px;
-      cursor: pointer;
-      transition: color .2s, background .2s, padding .2s;
-
-      &:hover, &.open {
-        background: $br-teal;
-        color: $br-dark-blue;
-      }
-
-      p {
-        margin: 0 !important;
-        text-align: center;
-      }
-      & > * {width: 100%;}
-
-      &.open {
-        padding: 0;        
-        li a {padding: 1rem 2rem;}
-      }
-    }
-
-    .exp-btn-links { 
-      border-radius: 6px;
-      color: $br-dark-blue;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      width: 100%;
-      height: 100%;
-      display: none;
-      
-      li {
-        background: $br-teal;
-  
-        &:first-child {
-          border-radius: 6px 6px 0 0;
-          border-bottom: 1px solid rgba($br-dark-blue, .5);
-        }
-        &:last-child {
-          border-radius: 0 0 6px 6px;
-          border-bottom: none;
-        }
-        a {
-          display: block;
-          padding: 0rem 2rem;
-          color: $br-dark-blue;
-          text-decoration: none;
-          text-align: center;
-          transition: padding .2s;
-        }
-      }
-    }
-  
-    .close-btn {
-      position: absolute;
-      top: 38%;
-      right: -32px;
-      color: rgba($br-teal, .6);
-      font-size: 1.5rem;
-      display: none;
-      cursor: pointer;
-      transition: color .2s;
-  
-      &:hover {
-        opacity: 1;
-        color: $br-teal;
-      }
-    }
-  }
-
-  //////////////////////////////// PRODUCT CARDS ///////////////////////////////
-
-  .product-cards {
-    display: flex;
-    flex-direction: row;
-
-    .card {
-      padding: 3rem;
-      background: $sidebar-search-bg;
-      border-radius: 30px;
-      box-shadow: 1px 1px 7px $sidebar-search-shadow;
-      flex: 1 1 0;
+    .products {
       display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      margin: 0 -1rem;
+    }
+
+    .product {
+      padding: 0 1rem;
+      display: flex;
+      flex: 1 1 50%;
       flex-direction: column;
+      justify-content: space-between;
+      max-width: 33%;
+      min-width: 200px;
 
-      &:first-child {margin-right: 1rem}
-      &:last-child {margin-left: 1rem}
-
-      h3 {
-        margin: 0 0 1.5rem;
-        line-height: 1.1em;
-        font-size: 2.35rem;
+      .product-info {
+        p {
+          margin-bottom: .5rem;
+          font-size: 1.1rem;
+          line-height: 1.5rem;
+          color: rgba($article-text, .7);
+        }
       }
 
-      .no-wrap { white-space: nowrap; }
-
-      p {
-        margin-bottom: 2rem;
+      &.alpha {
+        .product-info h3::after {
+          content: "alpha";
+          margin-left: .5rem;
+          font-size: 1rem;
+          padding: .25em .5em .25em .4em;
+          @include gradient($grad-burningDusk);
+          color: $g20-white;
+          border-radius: $radius * 2;
+          font-style: italic;
+          vertical-align: middle;
+        }
       }
 
-      .card-links {
-        margin-top: auto;
-        
+      ul.product-links {
+        padding-left: 0;
+        list-style: none;
+
+        li:not(:last-child) {margin-bottom: .35rem;}
+
         a {
-          position: relative;
-          display: inline-block;
-          color: $article-text;
-          font-weight: $medium;
           text-decoration: none;
-          margin-bottom: .3rem;
-          
-          &:after {
+          color: $article-heading;
+          font-weight: $medium;
+          position: relative;
+
+          &::before {
             content: "";
-            display: block;
-            margin-top: .15rem;
-            border-top: 2px solid $br-new-magenta;
-            width: 0;
+            position: absolute;
+            bottom: -2px;
+            height: 2px;
+            width: 0%;
+            @include gradient($grad-burningDusk);
             transition: width .2s;
           }
 
-          &:hover{
-            color: $br-new-magenta;
-            &:after {width: 100%}
-          }
-        }
-      }
-    }
-  }
-
-  ///////////////////////// GENERAL BLUE SECTION STYLES ////////////////////////
-
-  .section.blue {
-
-    h2, h3, h4 {
-      color: $br-teal;
-    }
-
-    .padding-wrapper {
-      width: 100%;
-      max-width: $home-body-width;
-      color: $g20-white;
-      background: $br-dark-blue;
-      background-size: cover;
-      border-radius: 30px;
-    }
-
-    &.flush-left .padding-wrapper {
-      padding: 2rem;
-      background-image: url('/svgs/home-bg-circle-right.svg')}
-    &.flush-right .padding-wrapper {
-      padding: 2rem;
-      background-image: url('/svgs/home-bg-circle-left.svg');
-    }
-  }
-
-  ////////////////////////////// INFLUXDB SECTION //////////////////////////////
-
-  #influxdb {
-    
-    padding-top: 3rem;
-
-    .categories {
-      display: flex;
-      width: 100%;
-      flex: 1 1 0;
-    }
-
-    .category {
-      width: 50%;
-      margin-right: 2rem;
-      display: flex;
-      flex-direction: column;
-
-      &:last-child { margin-right: 0; }
-      
-      .category-card{
-        padding: 3rem;
-        background: $sidebar-search-bg;
-        border-radius: 30px;
-        box-shadow: 1px 1px 7px $sidebar-search-shadow;
-        flex: 1 1 0;
-        display: flex;
-        flex-direction: column;
-        // justify-content: space-evenly;
-
-        .product {
-          margin-bottom: 2.5rem;
-
-          &:last-child{margin-bottom: 0;}
-          &.new, &.limited{
-            h3:after {
-              display: inline-block;
-              margin-left: .75rem;
-              padding: .15rem .35rem;
-              font-size: 1rem;
-              vertical-align: middle;
-              border-radius: $radius;
-            }
-          }
-          &.new h3:after {
-            content: "New";
-            color: $br-dark-blue;
-            background-color: $br-chartreuse;
-          }
-          &.limited h3:after{
-            content: "Limited Availability";
-            color: $br-dark-blue;
-            background-color: $br-teal;
-          }
-        }
-
-        .product-links {
-          margin-top: .9rem;
-
-          a {
-            position: relative;
+          &::after {
+            content: "\e90a";
+            font-family: 'icomoon-v4';
+            font-weight: bold;
+            font-size: 1.3rem;
             display: inline-block;
-            color: $article-text;
-            font-weight: $medium;
-            text-decoration: none;
-            
-            &:after {
-              content: "";
-              display: block;
-              margin-top: .15rem;
-              border-top: 2px solid $br-new-magenta;
-              width: 0;
-              transition: width .2s;
-            }
-  
-            &:hover{
-              color: $br-new-magenta;
-              &:after {width: 100%}
-            }
+            position: absolute;
+            @include gradient($grad-burningDusk);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            right: 0;
+            transform: translateX(.25rem);
+            opacity: 0;
+            transition: transform .2s, opacity .2s;
+          }
 
-            &:not(:first-child) {
-              position: relative;
-              margin-left: 1.8rem;
-              &:before {
-                content: "";
-                position: absolute;
-                display: inline-block;
-                left: -1rem;
-                top: .1rem;
-                height: 1em;
-                width: 1px;
-                margin-right: 1rem;
-                border-left: 1px solid rgba($article-text, .5);
-              }
-            }
+          &:hover {
+            &::before {width: 100%;}
+            &::after {transform: translateX(1.5rem); opacity: 1;}
           }
         }
       }
     }
 
     h2 {
+      display: inline-block;
+      font-size: 2.75rem;
       margin: 0;
-      font-size: 3.5rem;
-      line-height: 1.1em;
-      width: 100%;
-      text-align: center;
-
-      & + p {
-        font-size: 1.2rem;
-        margin: .5rem 0 2rem;
-        text-align: center;
-      }
+      color: $article-bg;
+      @include gradient($grad-burningDusk);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     h3 {
-      margin: 0;
-      font-size: 2rem;
-      color: $br-new-magenta;
-      .version {
-        opacity: .5;
-        font-size: .7em;
-        color: $article-bold;
-        transition: color .2s;}
-      & > a {
-        text-decoration: none;
-        color: inherit;
-        transition: color .2s;
+      font-size: 1.6rem;
+      margin: 1rem 0 0;
 
-        &:hover {
-          color: $article-bold;
-          .version {color: $article-bold;}
+      a {
+        text-decoration: none;
+        color: $article-heading;
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: -2px;
+          height: 2px;
+          width: 0%;
+          @include gradient($grad-burningDusk);
+          transition: width .2s;
         }
+
+        &:hover::before {width: 100%;}
       }
-      & + p {margin: .5rem 0;}
+
+      .version {
+        font-size: .9em;
+        opacity: .5
+      }
     }
 
     h4 {
-      font-size: 1.15rem;
-      margin: 1rem 0 .75rem 1.5rem;
+      font-size: 1.1rem;
+      margin: 1.5rem 0 .5rem;
+      display: inline-block;
+      padding-right: 1rem;
+      color: rgba($article-text, .7);
+      background: $article-bg;
+    }
+
+    .category-head{
+      margin: 1rem 0 2rem;
+      &::after {
+        content: "";
+        display: block;
+        border-top: 1px solid $article-hr;
+        margin-top: -1.15rem;
+      }
     }
   }
 
-  ///////////////////////////////// API SECTION ////////////////////////////////
+  // InfluxDB 3 Section //
 
-  #api-guides {
-    .padding-wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 3.5rem;
+  #influxdb3 {
+    margin-top: 1.75rem;
 
-      .text {margin-right: 2rem;}
+    h2 + p {margin-top: .75rem;}
+  }
 
-      h3 {
-        margin: 0;
-        font-size: 1.8rem;
-      }
+  #telegraf {
+    background: linear-gradient(65deg, #020d66, $br-dark-blue);
+    color: $g20-white;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 
-      p {
-        margin: .5rem 0;
-        line-height: 1.5rem;
+    .bg-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('/img/bg-texture-new.png');
+      background-position: bottom;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      @include gradient($grad-tealDream, 270deg);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      & + p {margin-top: .65rem;}
+    }
+
+    ul.product-links {
+      padding-left: 0;
+      margin: 0 3rem 0 2rem;
+      list-style: none;
+
+      li:not(:last-child) {margin-bottom: .35rem;}
+
+      a {
+        text-decoration: none;
+        color: $g20-white;
+        font-weight: $medium;
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: -2px;
+          height: 2px;
+          width: 0%;
+          @include gradient($grad-tealDream, 270deg);
+          transition: width .2s;
+        }
+
+        &::after {
+          content: "\e90a";
+          font-family: 'icomoon-v4';
+          font-weight: bold;
+          font-size: 1.3rem;
+          display: inline-block;
+          position: absolute;
+          @include gradient($grad-tealDream, 270deg);
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          right: 0;
+          transform: translateX(.25rem);
+          opacity: 0;
+          transition: transform .2s, opacity .2s;
+        }
+
+        &:hover {
+          &::before {width: 100%;}
+          &::after {transform: translateX(1.5rem); opacity: 1;}
+        }
       }
     }
   }
@@ -426,7 +327,7 @@ body.home {
   #learn-more {
     margin-bottom: 2rem;
 
-    h4 {
+    h3 {
       font-size: 1.8rem;
       margin: 1rem 0 2rem;
     }
@@ -450,7 +351,7 @@ body.home {
           .magenta {fill: $br-new-magenta;}
         }
 
-        h5 {
+        h4 {
           font-size: 1.4rem;
           margin: 1rem 0 0;
         }
@@ -458,23 +359,47 @@ body.home {
         p {
           margin: .5rem 0 1.5rem;
           line-height: 1.7rem;
+          &:last-child {margin-bottom: 0;}
         }
         a {
           position: relative;
-          color: $br-new-magenta;
+          display: inline;
+          color: $article-heading;
           font-weight: $medium;
           text-decoration: none;
           
-          &:after {
+          &::before {
             content: "";
-            display: block;
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            bottom: -4px;
             margin-top: .25rem;
-            border-top: 2px solid $br-new-magenta;
+            height: 2px;
+            @include gradient($grad-burningDusk);
             width: 0;
             transition: width .2s;
           }
+          &::after {
+            content: "\e90a";
+            font-family: 'icomoon-v4';
+            font-weight: bold;
+            font-size: 1.3rem;
+            display: inline-block;
+            position: absolute;
+            @include gradient($grad-burningDusk, 270deg);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            right: 0;
+            transform: translateX(.25rem);
+            opacity: 0;
+            transition: transform .2s, opacity .2s;
+          }
 
-          &:hover:after {width: 30%}
+          &:hover {
+            &::before {width: 100%;}
+            &::after {transform: translateX(1.5rem); opacity: 1;}
+          }
         }
 
         & > *:last-child {margin-top: auto}
@@ -482,65 +407,9 @@ body.home {
     }
   }
 
-  ////////////////////////////// TICK STACK STYLES /////////////////////////////
-
-  #tick {
-    padding-bottom: 0;
-
-    .padding-wrapper {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      padding: 2rem 3rem;
-
-      h4 {
-        margin: 0;
-        font-size: 1.5rem;
-        & > a {color: inherit; text-decoration: none;}
-        & + p {margin: .5rem 0;}
-      }
-      h5 {
-        margin: 0 0 .5rem;
-        text-transform: uppercase;
-        letter-spacing: .06rem;
-        // font-weight: $medium;
-      }
-
-      .tick-title {
-        padding-right: 3rem;
-      }
-
-      .tick-links {
-        border-left: 1px solid rgba($br-teal, .3);
-        padding-left: 3rem;
-        display: flex;
-
-        ul {
-          padding: 0;
-          margin-right: 4rem;
-          list-style: none;
-
-          &:last-child {margin-right: 0;}
-    
-          li a {
-            color: $g20-white;
-            line-height: 1.6rem;
-            text-decoration: none;
-    
-            &:hover {color: $br-teal;}
-            span {
-              font-size: .75em;
-              opacity: .5;
-            }
-          }
-        }
-      }    
-    }
-  }
 
   #copyright {
-    width: 100vw;
-    max-width: $home-body-width;
+    width: 100%;
     padding: 1rem 3rem;
     color: rgba($article-text, .5);
 
@@ -554,50 +423,33 @@ body.home {
   /////////////////////////// HOMEPAGE MEDIA QUERIES ///////////////////////////
 
   @media (max-width: 900px) {
-    #tick .padding-wrapper{
-      flex-direction: column;
-      align-items: flex-start;
-      padding-top: 3rem;
-
-      .tick-links {
-        padding-left: 0;
-        border: none;
-      }
+    .product-group .products .product {
+          max-width: 50%;
+          margin-bottom: 2rem;
     }
   }
 
-  @include media(medium) {
-    #influxdb {
-      .categories {
+  @media (max-width: 720px) {
+    .product-group {
+      .products {
         flex-direction: column;
-        .category {
-          width: 100%;
-          margin: 0;
+
+        .product {
+          margin-bottom: 1rem;
+          max-width: 100%;
+
+          ul {margin-bottom: 0;}
         }
       }
     }
-    #api-guides {
-      .padding-wrapper{
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 3rem;
-      }
-      .exp-btn-wrapper {width: 100%;}
-      .exp-btn {
-        margin-top: 2rem;
-        width: 100%;
-        background: $br-teal;
-        color: $br-dark-blue;
-      }
-    }
-    .product-cards {
+    #telegraf {
       flex-direction: column;
-      .card {
-        margin-bottom: 2rem;
-        &:first-child {margin-right: 0;}
-        &:last-child {margin-left: 0;}
-      }
+      align-items: flex-start;
+      ul.product-links {margin: 1rem 0 0;}
     }
+  }
+
+  @include media(medium) {    
     #learn-more {
       margin-bottom: 0;
       
@@ -612,49 +464,47 @@ body.home {
         }
       }
     }
-
   }
 
   @include media(small) {
-    .section {padding: 1rem 1rem 0;}
-    .search.section {padding-top: .25rem;}
-    .exp-btn-wrapper .exp-btn {min-width: revert;}
-    .product-cards .card {
-      padding: 2rem;
-      margin-bottom: 1rem;
-
-      h3 {font-size: 2rem;}
+    .section, .padding-wrapper{padding: 0 1rem}
+    h1 {
+      font-size: 1.55rem;
+      line-height: 1.5rem;
+      padding: 0 1.75rem;
+      margin-bottom: -.5rem;
     }
-    #influxdb {
-      h2 {font-size: 2.15rem; }
-      .subhead {margin-bottom: 1.5rem;}
-      .categories {
-        .category-card {
-          padding: 2rem;
-          h3 {font-size: 1.75rem;}
+    .product-group {
+      padding: 1.5rem;
+      p, .product .product-info p {font-size: 1.05rem;}      
+
+      h2 {font-size: 2.1rem;}
+      h3 {font-size: 1.5rem;}
+      h4 {font-size: 1rem;}
+    }
+    #telegraf {
+      padding: 1.75rem;
+      h2 {font-size: 2rem;}
+    }
+    #learn-more {
+      h3 {font-size: 1.5rem;}
+      .learn-items .item h4 {font-size: 1.2rem;}
+    }
+    #copyright p {
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 540px) {
+    #learn-more {
           
-          .product { margin-bottom: 2rem; }
+      .learn-items {
+        flex-direction: column;
+        .item {
+          max-width: 100%;
+          margin: 0 0 2rem;
         }
       }
     }
-    #api-guides {
-      .padding-wrapper {
-        padding: 2rem;
-        h3 {font-size: 1.6rem;}
-        p {font-size: 1.1rem;}
-      }
-    }
-    #learn-more {
-      h4 {margin-left: 1rem;}
-      .learn-items {
-        flex-direction: column;
-        .item {max-width: 100%;}
-      }
-    }
-    #tick .padding-wrapper {padding: 2rem;}
-  }
-
-  @media (max-width: 480px) {
-    #tick .padding-wrapper .tick-links {flex-direction: column;}
   }
 }

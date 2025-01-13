@@ -1,4 +1,4 @@
-When writing data to {{< product-name >}}, the InfluxDB v3 storage engine stores data in [Apache Parquet](https://parquet.apache.org/) format in the [Object store](/influxdb/version/reference/internals/storage-engine/#object-store). Each Parquet file represents a _partition_--a logical grouping of data.
+When writing data to {{< product-name >}}, the InfluxDB 3 storage engine stores data in [Apache Parquet](https://parquet.apache.org/) format in the [Object store](/influxdb/version/reference/internals/storage-engine/#object-store). Each Parquet file represents a _partition_--a logical grouping of data.
 By default, InfluxDB partitions each table _by day_.
 If this default strategy yields unsatisfactory performance for single-series queries,
 you can define a custom partitioning strategy by specifying tag values and different time intervals to optimize query performance for your specific schema and workload.
@@ -40,7 +40,7 @@ storage structure to improve query performance specific to your schema and workl
 ## Disadvantages
 
 Using custom partitioning may increase the load on other parts of the
-[InfluxDB v3 storage engine](/influxdb/version/reference/internals/storage-engine/),
+[InfluxDB 3 storage engine](/influxdb/version/reference/internals/storage-engine/),
 but you can scale each part individually to address the added load.
 
 {{% note %}}
@@ -329,7 +329,7 @@ The faster the query engine can identify what partitions to read and then read
 the data in those partitions, the more performant queries are.
 
 _For more information about the query lifecycle, see
-[InfluxDB v3 query life cycle](/influxdb/version/reference/internals/storage-engine/#query-life-cycle)._
+[InfluxDB 3 query life cycle](/influxdb/version/reference/internals/storage-engine/#query-life-cycle)._
 
 ##### Query example
 

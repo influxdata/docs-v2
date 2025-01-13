@@ -16,7 +16,7 @@
 {{ if $isCloud }}
   {{ $scratch.Set "uiText" "InfluxDB Cloud powered by TSM"}}
   {{ $scratch.Set "uiStorageDescription" "Storage Engine Version 2" }}
-  {{ $altV3Page := $.GetPage ((replaceRE "influxdb/cloud" "influxdb/cloud-serverless" $.Page.RelPermalink) | replaceRE `\/$` "") }}
+  {{ $altV3Page := $.GetPage ((replaceRE "influxdb/cloud" "influxdb3/cloud-serverless" $.Page.RelPermalink) | replaceRE `\/$` "") }}
   {{ if ne $altDoc "" }}
     {{ $scratch.Set "link" $altDoc }}
   {{ else if gt (len $altV3Page.Title) 0 }}
@@ -25,7 +25,7 @@
 {{ else if $isV3 }}
   {{ $scratch.Set "uiText" "InfluxDB Cloud Serverless"}}
   {{ $scratch.Set "uiStorageDescription" "Storage Engine Version 3" }}
-  {{ $altCloudPage := $.GetPage ((replaceRE "influxdb/cloud-serverless" "influxdb/cloud" $.Page.RelPermalink) | replaceRE `\/$` "") }}
+  {{ $altCloudPage := $.GetPage ((replaceRE "influxdb3/cloud-serverless" "influxdb/cloud" $.Page.RelPermalink) | replaceRE `\/$` "") }}
   {{ if ne $altDoc "" }}
     {{ $scratch.Set "link" $altDoc }}
   {{ else if gt (len $altCloudPage.Title) 0 }}

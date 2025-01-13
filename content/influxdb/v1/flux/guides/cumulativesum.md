@@ -11,7 +11,8 @@ menu:
     name: Cumulative sum
 list_query_example: cumulative_sum
 canonical: /influxdb/v2/query-data/flux/cumulativesum/
-v2: /influxdb/v2/query-data/flux/cumulativesum/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/cumulativesum/
 ---
 
 Use the [`cumulativeSum()` function](/flux/v0/stdlib/universe/cumulativesum/)

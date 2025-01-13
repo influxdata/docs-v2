@@ -11,7 +11,7 @@ menu:
 aliases:
   - /influxdb/cloud/telegraf-configs/update/
 # alt_links:
-#   cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/telegraf-configs/update/
+#   cloud-serverless: /influxdb3/cloud-serverless/write-data/use-telegraf/telegraf-configs/update/
 ---
 
 {{< duplicate-oss >}}

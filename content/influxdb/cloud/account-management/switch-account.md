@@ -9,7 +9,7 @@ menu:
     parent: Account management
 weight: 105
 alt_links: 
-  cloud-serverless: /influxdb/cloud-serverless/admin/accounts/switch-account/
+  cloud-serverless: /influxdb3/cloud-serverless/admin/accounts/switch-account/
 ---
 
 If you belong to more than one {{< product-name >}} account with the same email address, you can switch from one account to another while staying logged in.

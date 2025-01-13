@@ -1,11 +1,11 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
-{{ $currentVersion := index $productPathData 1 }}
+{{ $version := index $productPathData 1 }}
 {{ $latestV2 := .Site.Data.products.influxdb.latest }}
 {{ $fluxSupported := slice "influxdb" "enterprise_influxdb" }}
 {{ $influxdbFluxSupport := slice "v1" "v2" "cloud" }}
-{{ $includeFlux := cond (and (in $fluxSupported $product) (in $influxdbFluxSupport $currentVersion)) true false }}
-{{ $includeResources := not (in (slice "cloud-serverless" "cloud-dedicated" "clustered") $currentVersion) }}
+{{ $includeFlux := and (in $fluxSupported $product) (in $influxdbFluxSupport $version) }}
+{{ $includeResources := not (in (slice "cloud-serverless" "cloud-dedicated" "clustered" "core" "enterprise") $version) }}
 
 <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
@@ -23,6 +23,10 @@ docsearch({
         return '';
       } else if (version === 'cloud') {
         return 'Cloud (TSM)';
+      } else if (version === 'core') {
+        return 'Core';
+      } else if (version === 'enterprise') {
+        return 'Enterprise';
       } else if (version === 'cloud-serverless') {
         return 'Cloud Serverless';
       } else if (version === 'cloud-dedicated') {
@@ -37,6 +41,7 @@ docsearch({
     };
     productNames = {
       influxdb: 'InfluxDB',
+      influxdb3: 'InfluxDB 3',
       enterprise_influxdb: 'InfluxDB Enterprise',
       flux: 'Flux',
       telegraf: 'Telegraf',
@@ -67,9 +72,9 @@ docsearch({
       {{ if or (eq $product "platform") (eq $product "resources") (le (len $productPathData) 1) }}
         'latest:true'
       {{ else if $includeFlux }}
-        ['searchTag: {{ $product }}-{{ $currentVersion }}', 'flux:true', 'resources:{{ $includeResources }}']
+        ['searchTag: {{ $product }}-{{ $version }}', 'flux:true', 'resources:{{ $includeResources }}']
       {{ else }}
-        ['searchTag: {{ $product }}-{{ $currentVersion }}', 'resources:{{ $includeResources }}']
+        ['searchTag: {{ $product }}-{{ $version }}', 'resources:{{ $includeResources }}']
       {{ end }}
     ]
   },

@@ -10,9 +10,9 @@ weight: 201
 aliases:
   - /influxdb/cloud/security/tokens/create-token/
 alt_links:
-  cloud-serverless: /influxdb/cloud-serverless/admin/tokens/create-token
-  cloud-dedicated: /influxdb/cloud-dedicated/admin/tokens/database/create
-  clustered: /influxdb/clustered/admin/tokens/database/create
+  cloud-serverless: /influxdb3/cloud-serverless/admin/tokens/create-token
+  cloud-dedicated: /influxdb3/cloud-dedicated/admin/tokens/database/create
+  clustered: /influxdb3/clustered/admin/tokens/database/create
 ---
 
 {{< duplicate-oss >}}

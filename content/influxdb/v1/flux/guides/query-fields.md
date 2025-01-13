@@ -10,7 +10,8 @@ menu:
   influxdb_v1:
     parent: Query with Flux
 canonical: /influxdb/v2/query-data/flux/query-fields/
-v2: /influxdb/v2/query-data/flux/query-fields/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/query-fields/
 list_code_example: |
   ```js
   from(bucket: "db/rp")

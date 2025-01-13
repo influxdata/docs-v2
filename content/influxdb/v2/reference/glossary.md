@@ -592,7 +592,7 @@ See [line protocol](/influxdb/v2/reference/syntax/line-protocol/).
 The part of InfluxDB's structure that describes the data stored in the associated fields.
 Measurements are strings.
 
-{{% cloud-only %}}With **InfluxDB v3**, a time series measurement equates to a relational database table with fields, tags, and timestamp as columns.{{% /cloud-only %}}
+{{% cloud-only %}}With **InfluxDB 3**, a time series measurement equates to a relational database table with fields, tags, and timestamp as columns.{{% /cloud-only %}}
 
 Related entries: [field](#field), [series](#series), [table](#table)
 
@@ -762,7 +762,7 @@ Related entries: [measurement](#measurement), [tag set](#tag-set), [field set](#
 
 ### primary key
 
-With the InfluxDB v3 storage engine, the primary key is the list of columns
+With the InfluxDB 3 storage engine, the primary key is the list of columns
 used to uniquely identify each row in a table.
 Rows are uniquely identified by their timestamp and tag set.
 
@@ -1079,7 +1079,7 @@ Flux processes a series of tables for a specified time series.
 These tables in sequence result in a stream of data.
 {{% /oss-only %}}
 
-{{% cloud-only %}}With **InfluxDB v3**, a time series measurement equates to a relational database table with fields, tags, and timestamp as columns.{{% /cloud-only %}}
+{{% cloud-only %}}With **InfluxDB 3**, a time series measurement equates to a relational database table with fields, tags, and timestamp as columns.{{% /cloud-only %}}
 
 Related entries: [measurement](#measurement)
 

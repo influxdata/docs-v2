@@ -7,7 +7,8 @@ menu:
     name: influxd
     weight: 10
     parent: Tools
-v2: /influxdb/v2/reference/cli/influxd/
+alt_links:
+  v2: /influxdb/v2/reference/cli/influxd/
 ---
 
 The `influxd` command starts and runs all the processes necessary for InfluxDB to function.

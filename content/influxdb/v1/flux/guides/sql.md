@@ -11,7 +11,8 @@ menu:
     list_title: SQL data
 weight: 20
 canonical: /influxdb/v2/query-data/flux/sql/
-v2: /influxdb/v2/query-data/flux/sql/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/sql/
 list_code_example: |
   ```js
   import "sql"

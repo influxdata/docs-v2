@@ -1,4 +1,4 @@
-InfluxQL is being rearchitected to work with the InfluxDB v3 storage engine.
+InfluxQL is being rearchitected to work with the InfluxDB 3 storage engine.
 This process is ongoing and some InfluxQL features are still being implemented.
 This page provides information about the current implementation status of
 InfluxQL features.
@@ -56,9 +56,9 @@ The following table provides information about what metaqueries are available in
 >
 > #### Cardinality metaqueries
 > 
-> With the InfluxDB v3 storage engine, series cardinality is no longer a limiting
+> With the InfluxDB 3 storage engine, series cardinality is no longer a limiting
 > factor for database performance.
-> Cardinality-related metaqueries will likely not be supported with the InfluxDB v3
+> Cardinality-related metaqueries will likely not be supported with the InfluxDB 3
 > storage engine.
 
 ## Function support

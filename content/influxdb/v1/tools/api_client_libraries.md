@@ -10,7 +10,8 @@ menu:
   influxdb_v1:
     weight: 30
     parent: Tools
-v2: /influxdb/v2/api-guide/client-libraries/
+alt_links:
+  v2: /influxdb/v2/api-guide/client-libraries/
 ---
 
 InfluxDB v2 client libraries are language-specific packages that integrate
@@ -19,7 +20,7 @@ with the InfluxDB v2 API and support both **InfluxDB 1.8+** and **InfluxDB 2.x**
 {{% note %}}
 If you're getting started with InfluxDB v1, we recommend using the
 InfluxDB v1 client libraries and InfluxQL for
-[InfluxDB v3 compatibility](/influxdb/v1/tools/api/#influxdb-v3-compatibility).
+[InfluxDB 3 compatibility](/influxdb/v1/tools/api/#influxdb-3-compatibility).
 
 For more information about API and client library compatibility, see the
 [InfluxDB v1 API reference](/influxdb/v1/tools/api/).

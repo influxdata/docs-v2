@@ -7,6 +7,8 @@
   border-radius: $radius;
   box-shadow: 1px 2px 6px $article-shadow;
   background: rgba($article-text, .03);
+
+  h4 {color: $article-heading;}
 }
 
 .support {
@@ -23,7 +25,7 @@
 
     a {
       margin-right: 1.5rem;
-      color: $article-heading-alt;
+      color: $article-heading;
 
       &:hover {
         color: $article-link;
@@ -32,7 +34,7 @@
 
       &.community:before {
         content: "\e900";
-        color: $article-heading-alt;
+        color: $article-heading;
         margin: 0 .5rem 0 -.25rem;
         font-size: 1.2rem;
         font-family: 'icomoon-v2';

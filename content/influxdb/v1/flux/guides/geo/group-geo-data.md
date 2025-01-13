@@ -12,7 +12,8 @@ related:
   - /flux/v0/stdlib/experimental/geo/groupbyarea/
   - /flux/v0/stdlib/experimental/geo/astracks/
 canonical: /influxdb/v2/query-data/flux/geo/group-geo-data/
-v2: /influxdb/v2/query-data/flux/geo/group-geo-data/
+alt_links:
+  v2: /influxdb/v2/query-data/flux/geo/group-geo-data/
 list_code_example: |
   ```js
   import "experimental/geo"

@@ -18,9 +18,9 @@ related:
   - /influxdb/cloud/tools/telegraf-configs/create/
   - /influxdb/cloud/tools/telegraf-configs/update/
 alt_links:
-  cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/configure/
-  cloud-dedicated: /influxdb/cloud-dedicated/write-data/use-telegraf/configure/
-  clustered: /influxdb/clustered/write-data/use-telegraf/configure/
+  cloud-serverless: /influxdb3/cloud-serverless/write-data/use-telegraf/configure/
+  cloud-dedicated: /influxdb3/cloud-dedicated/write-data/use-telegraf/configure/
+  clustered: /influxdb3/clustered/write-data/use-telegraf/configure/
 ---
 
 Use the Telegraf `influxdb_v2` output plugin to collect and write metrics into an InfluxDB v2.0 bucket.

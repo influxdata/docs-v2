@@ -91,6 +91,11 @@ exports.handler = (event, context, callback) => {
 
   ////////////////////// START PRODUCT-SPECIFIC REDIRECTS //////////////////////
 
+  //////////////////////// Distributed product redirects ///////////////////////
+  permanentRedirect(/\/influxdb\/cloud-serverless/.test(request.uri), request.uri.replace(/\/influxdb\/cloud-serverless/, '/influxdb3/cloud-serverless'));
+  permanentRedirect(/\/influxdb\/cloud-dedicated/.test(request.uri), request.uri.replace(/\/influxdb\/cloud-dedicated/, '/influxdb3/cloud-dedicated'));
+  permanentRedirect(/\/influxdb\/clustered/.test(request.uri), request.uri.replace(/\/influxdb\/clustered/, '/influxdb3/clustered'));
+
   //////////////////////////// v2 subdomain redirect ///////////////////////////
   permanentRedirect(request.headers.host[0].value === 'v2.docs.influxdata.com', `https://docs.influxdata.com${request.uri}`);
 
