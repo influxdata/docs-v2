@@ -59,6 +59,5 @@
     For more information on how to get started, check out:
     
     - [Announcement blog from InfluxData Founder & CTO Paul Dix](https://www.influxdata.com/blog/influxdb3-open-source-public-alpha)
-    - Getting Started guides for
-      [InfluxDB 3 Core](https://docs.influxdata.com/influxdb3/core/get-started/)
-      and [InfluxDB 3 Enterprise](https://docs.influxdata.com/influxdb3/enterprise/get-started/)
+    - [Get Started with InfluxDB 3 Core](https://docs.influxdata.com/influxdb3/core/get-started/)
+    - [Get Started with InfluxDB 3 Enterprise](https://docs.influxdata.com/influxdb3/enterprise/get-started/)
