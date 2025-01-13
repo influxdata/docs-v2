@@ -1,4 +1,4 @@
-# **Getting Started with InfluxDB 3 Core**
+## Getting Started with InfluxDB 3 Core
 
 InfluxDB is a database built to collect, process, transform, and store event and time series data. It is ideal for use cases that require real-time ingest and fast query response times to build user interfaces, monitoring, and automation solutions. Use cases include applications in sensor data, server monitoring, application performance monitoring, network monitoring, financial market and trading analytics, behavioral analytics, and more. InfluxDB is focused on problem domains where data must be monitored in near real-time and queries must return quickly to drive user experiences like dashboards and interactive UIs. 
 
@@ -19,7 +19,7 @@ The Enterprise version adds onto Core's functionality with:
 
 You can find the [Enterprise Guide here](https://docs.influxdata.com/influxdb3/enterprise/get-started/).
 
-## **What's in this guide**
+### What's in this guide
 
 Here's what we'll cover in this guide:
 
@@ -32,7 +32,7 @@ Here's what we'll cover in this guide:
 * [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
 * [Diskless architechture](#diskless-architechture)
 
-## **Installation and Startup**
+### Installation and Startup
 
 If you are looking to get started quickly with an installation on your local machine, we recommend using our install script below. Regardless of your platform OS, it will handle the download and installation of InfluxDB 3 Core. If you just want to find the built artifacts or Docker images and install them yourself, details are after the install script instructions.
 
@@ -54,7 +54,7 @@ source ~/.zshrc
 
 If you just want to download the build artifacts and Docker images you can find them here. These are build on every merge into `main` so they represent the latest builds.
 
-### **InfluxDB 3 Core (latest):**
+#### InfluxDB 3 Core (latest):
 * Docker: [quay.io/influxdb/influxdb3-core:latest](https://quay.io/influxdb/influxdb3-core:latest)
 * [Linux | x86 | musl](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-musl.tar.gz)
 * [Linux | x86 | gnu](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-gnu.tar.gz)
@@ -63,7 +63,7 @@ If you just want to download the build artifacts and Docker images you can find 
 * [macOS | Darwin](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-apple-darwin.tar.gz)
 * [Windows | x86](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-pc-windows-gnu.tar.gz)
 
-### **Starting InfluxDB**
+#### Starting InfluxDB
 
 To start your InfluxDB instance, you’ll need to set your object store configuration and choose a unique `writer-id`. InfluxDB can use either the local file system, RAM, S3 (or compatible services like Ceph or Minio), Google, and Azure. In the configured storage location, all files that this instance writes will be kept under the path of the `writer-id` you choose, which is just a string identifier.
 
@@ -83,7 +83,7 @@ influxdb3 serve --writer-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-ac
 influxdb3 serve --writer-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY] --aws-endpoint=[ENDPOINT] --aws-allow-http
 ```
 
-## **Data Model**
+### Data Model
 
 The database server contains logical databases, which have tables, which have columns. Compared to previous versions of InfluxDB you can think of a database as a `bucket` in v2 or as a `db/retention_policy` in v1. A `table` is equivalent to a `measurement` which has columns that can be of type `tag` (a string dictionary), `int64`, `float64`, `uint64`, `bool`, or `string` and finally every table has a `time` column that is a nanosecond precision timestamp.
 
@@ -91,7 +91,7 @@ In InfluxDB 3, every table has a primary key for the data in it, which is the or
 
 Tags should hold unique identifying information like `sensor_id`, or `building_id` or `trace_id`. All other data should be kept in fields. You will be able to add fast last N value and distinct value lookups later for any column, whether it is a field or a tag.
 
-## **Write Data**
+### Write Data
 
 InfluxDB is a schema on write database. You can start writing data and it will create the logical database, tables, and their schemas on the fly. Once schema has been created, future requests with get validated against that schema before being accepted. New on-the-fly field additions are possible in subsequent requests (but tags are not).
 
@@ -130,7 +130,7 @@ influxdb3 write --database=mydb --file=server_data
 
 The written data will go into WAL files, which are created once per second, and into an in-memory queryable buffer. Later when the WAL is snapshotted, the data will be persisted into object storage as Parquet files. We'll cover more about the [diskless architecture](#diskless-architechture) later in this document.
 
-### **Creating a Database or Table**
+#### Creating a Database or Table
 
 You can create a database without writing data into it, use the subcommand `create`.
 
@@ -144,7 +144,7 @@ Explore the create API with the help flag:
 influxdb3 create -h
 ```
 
-## **Querying the database**
+### Querying the database
 
 InfluxDB 3 now supports native SQL for querying, in addition to InfluxQL – a SQL-like language customized for time series queries. Note: Flux, the language introduced in InfluxDB 2.0, is not supported in 3.
 
@@ -230,7 +230,7 @@ To get started, install the `influxdb3-python` package.
 pip install influxdb3-python
 ```
 
-From here, you can connect to your database with the client library using just the **host** and **database name:**
+From here, you can connect to your database with the client library using just the **host** and **database name:
 
 ```py
 from influxdb_client_3 import InfluxDBClient3
@@ -345,7 +345,7 @@ Similar to the Last Values Cache, the database can cache in RAM the distinct val
 influxdb3 create distinct_cache -h
 ```
 
-## **Python Plugins and the Processing Engine**
+### Python Plugins and the Processing Engine
 {{% note %}}
 As of this writing, the Processing Engine is only supported in Docker environments.<br/>
 We expect it to launch in non-Docker environments soon. We're still in very active development creating the API and developer experience so things will break and change fast. Join our <a href=https://discord.com/invite/eMnhxPyj>Discord</a> to ask questions and give feedback.
@@ -470,7 +470,7 @@ influxdb3 create trigger -d mydb --plugin=test_plugin --trigger-spec="table:foo"
 
 After you've tested it, you can create the plugin in the serve (the file will need to be there in the plugin-dir) and then create a trigger to trigger it on WAL flushes.
 
-## **Diskless Architechture**
+### Diskless Architechture
 
 InfluxDB 3 is able to operate using only object storage with no locally attached disk. While it can use only a disk with no dependencies, the ability to operate without one is a new capability with this release. The figure below illustrates the write path for data landing in the database.
 
