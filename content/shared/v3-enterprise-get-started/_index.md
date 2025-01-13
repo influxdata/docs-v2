@@ -35,17 +35,17 @@ The Enterprise version adds onto Core's functionality with:
 
 This guide covers Enterprise as well as InfluxDB 3 Core, including the following topics:
 
-* [Install and startup](#install-and-startup)
+* [Installation and startup](#installation-and-startup)
 * [Data Model](#data-model)
 * [Write data to the database](#write-data)
 * [Query the database](#query-the-database)
-* [Last values cache](#last-values-cache)
+* [Last Values Cache](#last-values-cache)
 * [Distinct Values Cache](#distinct-values-cache)
 * [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
 * [Diskless architecture](#diskless-architecture)
 * [Multi-server setups](#multi-server-setup)
 
-### Install and startup
+### Installation and startup
 
 {{% product-name %}} runs on **Linux**, **macOS**, and **Windows**.
 [Run the install script](#run-the-install-script) to get started quickly,
@@ -79,25 +79,13 @@ Download the latest build artifacts — including Windows — and Docker images 
 
 ##### {{% product-name %}} (latest):
 
-- Docker: [quay.io/influxdb/influxdb3-enterprise:latest](quay.io/influxdb/influxdb3-enterprise:latest)
-- [Linux | x86_64 | GNU](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-gnu.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-gnu.tar.gz.sha256)
-- [Linux | x86_64 | MUSL](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz.sha256)
-- [Linux | ARM64 | GNU](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz.sha256)
-- [Linux | ARM64 | MUSL](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz.sha256)
-- [macOS | ARM64](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-apple-darwin.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-apple-darwin.tar.gz.sha256)
-- [Windows | x86_64](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-pc-windows-gnu.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-pc-windows-gnu.tar.gz.sha256)
+* Docker: [quay.io/influxdb/influxdb3-enterprise:latest](quay.io/influxdb/influxdb3-enterprise:latest)
+* [Linux | x86_64 | GNU](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-gnu.tar.gz)
+* [Linux | x86_64 | MUSL](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz)
+* [Linux | ARM64 | GNU](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz)
+* [Linux | ARM64 | MUSL](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz)
+* [macOS | ARM64](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-apple-darwin.tar.gz)
+* [Windows | x86_64](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-pc-windows-gnu.tar.gz)
 
 #### Start InfluxDB
 
@@ -120,7 +108,7 @@ influxdb3 serve --writer-id=local01 --object-store=file --data-dir ~/.influxdb3
 ```
 
 ```bash
-# S3 (defaults to us-east-1 for region)
+# S3
 influxdb3 serve --writer-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY]
 ```
 
@@ -371,7 +359,7 @@ Options:
 
 ```
 
-You can create a last values cache per time series, but be mindful of high cardinality tables that could take excessive memory.
+You can create a last value cache per time series, but be mindful of high cardinality tables that could take excessive memory.
 
 An example of creating this cache in use:
 
@@ -387,7 +375,7 @@ An example of creating this cache in use:
 influxdb3 create last-cache --database=servers --table=cpu --cache-name=cpuCache --key-columns=host,application --value-columns=usage_percent,status --count=5
 ```
 
-### Querying a Last values cache
+### Querying a Last Values Cache
 
 To leverage the LVC, you need to specifically call on it using the `last_cache()` function. An example of this type of query:
 
@@ -400,9 +388,9 @@ Usage: $ influxdb3 query --database=servers "SELECT * FROM last_cache('cpu', 'cp
 The Last Value Cache only works with SQL, not InfluxQL; SQL is the default language.
 {{% /note %}}
 
-### Deleting a Last values cache
+### Deleting a Last Values Cache
 
-Removing a Last values cache is also easy and straightforward, with the instructions below.
+Removing a Last Values Cache is also easy and straightforward, with the instructions below.
 
 ```
 
@@ -419,7 +407,7 @@ Options:
 
 ## Distinct Values Cache
 
-Similar to the Last values cache, the database can cache in RAM the distinct values for a single column in a table or a heirarchy of columns. This is useful for fast metadata lookups, which can return in under 30 milliseoncds. Many of the options are similar to the last value cache. See the CLI output for more information:
+Similar to the Last Values Cache, the database can cache in RAM the distinct values for a single column in a table or a heirarchy of columns. This is useful for fast metadata lookups, which can return in under 30 milliseoncds. Many of the options are similar to the last value cache. See the CLI output for more information:
 
 ```bash
 influxdb3 create distinct_cache -h
@@ -483,7 +471,7 @@ def process_writes(influxdb3_local, table_batches, args=None):
     # here's an example of executing a parameterized query. Only SQL is supported. 
     # It will query the database that the trigger is attached to by default. We'll 
     # soon have support for querying other DBs.
-    query_result = influxdb3_local.query("SELECT * FROM cpu where host = '$host'", query_params)
+    query_result = influxdb3_local.query("SELECT * FROM cpu where host = $host", query_params)
     # the result is a list of Dict that have the column name as key and value as 
     # value. If you run the WAL test plugin with your plugin against a DB that 
     # you've written data into, you'll be able to see some results
@@ -562,7 +550,7 @@ influxdb3 create trigger -d mydb --plugin=test_plugin --trigger-spec="table:foo"
 
 After you've tested it, you can create the plugin in the server(the file will need to be there in the plugin-dir) and then create a trigger to trigger it on WAL flushes.
 
-### Diskless architecture
+### Diskless Architecture
 
 InfluxDB 3 is able to operate using only object storage with no locally attached disk. While it can use only a disk with no dependencies, the ability to operate without one is a new capability with this release. The figure below illustrates the write path for data landing in the database.
 
@@ -574,38 +562,24 @@ InfluxDB periodically snapshots the WAL to persist the oldest data in the querya
 
 When the data is persisted out of the queryable buffer it is put into the configured object store as Parquet files. Those files are also put into an in-memory cache so that queries against the most recently persisted data do not have to go to object storage.
 
-### Multi-server setup
+### Multi-Server Setup
 
 {{% product-name %}} is built to support multi-node setups for high availability, read replicas, and flexible implementations depending on use case.  
 
-### High availability
+### High Availability
 
-Enterprise is architecturally flexible, giving you options on how to configure multiple servers that work together for high availability (HA) and high performance.
-Built on top of the diskless engine and leveraging the Object store, an HA setup ensures that if a node fails, you can still continue reading from, and writing to, a secondary node.
+This functionality is built on top of the diskless engine, leveraging the object store as the solution for ensuring that if a node fails, you can still continue reading from and writing to a secondary node. Enterprise is designed to be architecturally flexible, giving operators options on how to configure multiple servers together. At a minimum, a two-node setup—both with read/write permissions—will enable high availability with excellent performance.
 
-A two-node setup is the minimum for basic high availability, with both nodes having read-write permissions.
+{{< img-hd src="/img/influxdb/influxdb-3-enterprise-high-availability.png" alt="Basic High Availability Setup" />}}
 
-{{< img-hd src="/img/influxdb/influxdb-3-enterprise-high-availability.png" alt="Basic high availability setup" />}}
+In this setup, we have two nodes both writing data to the same object store and servicing queries as well. On instantiation, you can enable Node 1 and Node 2 to read from each other’s object store directories. Importantly, you’ll also notice that one of the nodes is designated as the compactor in this instance as well to ensure long-range queries are high performance.
 
-In a basic HA setup:
+| IMPORTANT  Only one node can be designated as the compactor. The area of compacted data is meant to be single writer, many reader.  |
+| :---- |
 
-- Two nodes both write data to the same Object store and both handle queries
-- Node 1 and Node 2 are _read replicas_ that read from each other’s Object store directories
-- One of the nodes is designated as the Compactor node
+Using the `--read-from-writer-ids` option, we instruct the server to check the object store for data landing from the other servers. We additionally will set the compactor to be active for Node 1 using the `--compactor-id` option. We *do not* set a compactor ID for Node 2\. We additionally pass a `--run-compactions` option to ensure Node 1 runs the compaction process.
 
-> [!Note]
-> Only one node can be designated as the Compactor.
-> Compacted data is meant for a single writer, and many readers.
-
-The following examples show how to configure and start two nodes
-for a basic HA setup.
-The example commands pass the following options:
-
-- `--read-from-writer-ids`: makes the node a _read replica_, which checks the Object store for data arriving from other nodes
-- `--compactor-id`: activates the Compactor for a node. Only one node can run compaction
-- `--run-compactions`: ensures the Compactor runs the compaction process
-
-```bash
+```
 ## NODE 1
 
 # Example variables
@@ -614,7 +588,7 @@ The example commands pass the following options:
 # compactor-id: 'c01'
 
 
-influxdb3 serve --writer-id=host01 --read-from-writer-ids=host02 --compactor-id=c01 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8181 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY> 
+Usage: $ influxdb3 serve --writer-id=host01 --read-from-writer-ids=host02 --compactor-id=c01 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8181 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY> 
 ```
 
 ```
@@ -624,165 +598,133 @@ influxdb3 serve --writer-id=host01 --read-from-writer-ids=host02 --compactor-id=
 # writer-id: 'host02'
 # bucket: 'influxdb-3-enterprise-storage'
 
-influxdb3 serve --writer-id=host02 --read-from-writer-ids=host01 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8282
+Usage: $ influxdb3 serve --writer-id=host02 --read-from-writer-ids=host01 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8282
 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY> 
 ```
 
-After the nodes have started, querying either node returns data for both nodes, and `NODE 1` runs compaction.
-To add nodes to this setup, start more read replicas:
+That’s it\! Querying either node will return data for both nodes. Additionally, compaction will be running on Node 1\. To add additional nodes to this setup, simply add to the replicas list. 
 
-```bash
-influxdb3 serve --read-from-writer-ids=host01,host02 [...OPTIONS]
+| NOTE | If you want to run this setup on the same node for testing, you can run both commands in separate terminals and pass a different `--http-bind` parameter. E.g., pass `--http-bind=http://127.0.0.1:8181` for terminal 1’s `serve` command and `--http-bind=http://127.0.0.1:8282` for terminal 2’s. |
+| :---- | :---- |
+
+### High Availability with Dedicated Compactor
+
+One of the more computationally expensive operations is compaction. To ensure that your node servicing writes and reads doesn’t slow down due to compaction work, we suggest setting up a compactor-only node for high and level performance across all nodes.
+
+{{< img-hd src="/img/influxdb/influxdb-3-enterprise-dedicated-compactor.png" alt="Dedicated Compactor Setup" />}}
+
+For our first two nodes, we are going to keep them similar except for the host id and replicas list (which are flipped). We also need to specify where the compacted data is going to land with the `compactor-id` setting.
+
+```
+## NODE 1 — Writer/Reader Node #1
+
+# Example variables
+# writer-id: 'host01'
+# bucket: 'influxdb-3-enterprise-storage'
+
+
+Usage: $ influxdb3 serve --writer-id=host01 --compactor-id=c01 --read-from-writer-ids=host02 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8181 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+
 ```
 
-> [!Note]
-> To run this setup for testing, you can start nodes in separate terminals and pass a different `--http-bind` value for each--for example:
-> 
-> ```bash
-> # In terminal 1
-> influxdb3 serve --writer-id=host01 --http-bind=http://127.0.0.1:8181 [...OPTIONS]
-> ```
->
-> ```bash
-> # In terminal 2
-> influxdb3 serve --writer-id=host01 --http-bind=http://127.0.0.1:8181 [...OPTIONS]
+```
+## NODE 2 — Writer/Reader Node #2
 
-### High availability with a dedicated Compactor
+# Example variables
+# writer-id: 'host02'
+# bucket: 'influxdb-3-enterprise-storage'
 
-Data compaction in InfluxDB 3 is one of the more computationally expensive operations.
-To ensure that your read-write node doesn’t slow down due to compaction work, set up a compactor-only node for consistent and high performance across all nodes.
+Usage: $ influxdb3 serve --writer-id=host02 --compactor-id=c01 --read-from-writer-ids=host01 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8282 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+```
 
-{{< img-hd src="/img/influxdb/influxdb-3-enterprise-dedicated-compactor.png" alt="Dedicated Compactor setup" />}}
+For the compactor node, we need to set a few more options. First, we need to specify the mode which needs to be `--mode=compactor`; this ensures not only that it runs compaction, but that it *only* runs compaction. Since this node isn’t replicating data, we don’t pass it the replicas parameter, which means we need another way to tell it the hosts to run compaction. To do this, we set `--compaction-hosts` option with a comma-delimited list, similar to the replicas option. 
 
-The following examples show how to set up HA with a dedicated Compactor node:
+```
+## NODE 3 — Compactor Node
 
-1. Start two read-write nodes as read replicas, similar to the previous example,
-   and pass the `--compactor-id` option with a dedicated compactor ID (which you'll configure in the next step).
+# Example variables
+# writer-id: 'host03'
+# bucket: 'influxdb-3-enterprise-storage'
+# compactor-id: 'c01'
 
-   ```
-   ## NODE 1 — Writer/Reader Node #1
+Usage: $ influxdb3 serve --writer-id=host03 --mode=compactor --compactor-id=c01 --compaction-hosts=host01,host02 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+```
 
-   # Example variables
-   # writer-id: 'host01'
-   # bucket: 'influxdb-3-enterprise-storage'
+### 
 
-   influxdb3 serve --writer-id=host01 --compactor-id=c01 --read-from-writer-ids=host02 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8181 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
-   ```
+### High Availability with Read Replicas and a Dedicated Compactor
 
-   ```bash
-   ## NODE 2 — Writer/Reader Node #2
-
-   # Example variables
-   # writer-id: 'host02'
-   # bucket: 'influxdb-3-enterprise-storage'
-
-   influxdb3 serve --writer-id=host02 --compactor-id=c01 --read-from-writer-ids=host01 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8282 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
-   ```
-
-2. Start the dedicated compactor node, which uses the following options:
-
-   - `--mode=compactor`: Ensures the node **only** runs compaction.
-   - `--compaction-hosts`: Specifies a comma-delimited list of hosts to run compaction for.
-  
-  _**Don't include the replicas (`--read-from-writer-ids`) parameter because this node doesn't replicate data._
-
-   ```bash
-
-   ## NODE 3 — Compactor Node
-
-   # Example variables
-   # writer-id: 'host03'
-   # bucket: 'influxdb-3-enterprise-storage'
-   # compactor-id: 'c01'
-
-   influxdb3 serve --writer-id=host03 --mode=compactor --compactor-id=c01 --compaction-hosts=host01,host02 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
-   ```
-
-### High availability with read replicas and a dedicated Compactor
-
-For a very robust and effective setup for managing time-series data, you can run ingest nodes alongside read-only nodes, and a dedicated Compactor node.
+To create a very robust and effective setup for managing time-series data, we recommend running ingest nodes alongside read-only nodes, and leveraging a compactor-node for excellent performance. 
 
 {{< img-hd src="/img/influxdb/influxdb-3-enterprise-workload-isolation.png" alt="Workload Isolation Setup" />}}
 
-1. Start writer nodes for ingest. Enterprise doesn’t designate a write-only mode, so assign them **`read_write`** mode.
-   To achieve the benefits of workload isolation, you'll send _only write requests_ to these read-write nodes. Later, you'll configure the _read-only_ nodes.
+First, we want to set up our writer nodes for ingest. Enterprise doesn’t designate a write-only mode, so writers set their mode to **`read_write`**. To properly leverage this architecture though, you should only send requests to reader nodes that have their mode set for reading only; more on that in a moment.
 
-   ```
-   ## NODE 1 — Writer Node #1
+```
+## NODE 1 — Writer Node #1
 
-   # Example variables
-   # writer-id: 'host01'
-   # bucket: 'influxdb-3-enterprise-storage'
+# Example variables
+# writer-id: 'host01'
+# bucket: 'influxdb-3-enterprise-storage'
 
-   influxdb3 serve --writer-id=host01 --mode=read_write --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8181 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
 
-   ```
+Usage: $ influxdb3 serve --writer-id=host01 --mode=read_write --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8181 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
 
-   ```
-   ## NODE 2 — Writer Node #2
+```
 
-   # Example variables
-   # writer-id: 'host02'
-   # bucket: 'influxdb-3-enterprise-storage'
+```
+## NODE 2 — Writer Node #2
 
-   Usage: $ influxdb3 serve --writer-id=host02 --mode=read_write --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8282 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
-   ```
+# Example variables
+# writer-id: 'host02'
+# bucket: 'influxdb-3-enterprise-storage'
 
-2. Start the dedicated Compactor node (`--mode=compactor`) and ensure it runs compactions on the specified `compaction-hosts`.
+Usage: $ influxdb3 serve --writer-id=host02 --mode=read_write --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8282 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+```
 
-   ```
-   ## NODE 3 — Compactor Node
+For the compactor node, we want to follow the same principles we used earlier, by setting its mode to compaction only, and ensuring its running compactions on the proper set of replicas.
 
-   # Example variables
-   # writer-id: 'host03'
-   # bucket: 'influxdb-3-enterprise-storage'
+```
+## NODE 3 — Compactor Node
 
-   influxdb3 serve --writer-id=host03 --mode=compactor --compaction-hosts=host01,host02 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
-   ```
+# Example variables
+# writer-id: 'host03'
+# bucket: 'influxdb-3-enterprise-storage'
 
-3. Finally, start the query nodes as _read-only_.
-   Include the following options: 
-   
-   - `--mode=read`: Sets the node to _read-only_
-   - `--read-from-writer-ids=host01,host02`: A comma-demlimited list of host IDs to read data from
+Usage: $ influxdb3 serve --writer-id=host03 --mode=compactor --compaction-hosts=host01,host02 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+```
 
-   ```bash
-   ## NODE 4 — Read Node #1
+Finally, we have the query nodes, which we need to set the mode to read-only. We use `--mode=read` as our option parameter, along with unique host IDs. 
 
-   # Example variables
-   # writer-id: 'host04'
-   # bucket: 'influxdb-3-enterprise-storage'
+```
+## NODE 4 — Read Node #1
 
-   influxdb3 serve --writer-id=host04 --mode=read --object-store=s3 --read-from-writer-ids=host01,host02 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8383 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
-   ```
+# Example variables
+# writer-id: 'host04'
+# bucket: 'influxdb-3-enterprise-storage'
 
-   ```
-   ## NODE 5 — Read Node #2
+Usage: $ influxdb3 serve --writer-id=host04 --mode=read --object-store=s3 --read-from-writer-ids=host01,host02 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8383 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+```
 
-   # Example variables
-   # writer-id: 'host05'
-   # bucket: 'influxdb-3-enterprise-storage'
+```
+## NODE 5 — Read Node #2
 
-   influxdb3 serve --writer-id=host05 --mode=read --object-store=s3 --read-from-writer-ids=host01,host02 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8484 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
-   ```
+# Example variables
+# writer-id: 'host05'
+# bucket: 'influxdb-3-enterprise-storage'
 
-Congratulations, you have a robust setup to workload isolation using {{% product-name %}}.
+Usage: $ influxdb3 serve --writer-id=host05 --mode=read --object-store=s3 --read-from-writer-ids=host01,host02 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8484 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+```
+
+That’s it\! A full fledged setup of a robust implementation for {{% product-name %}} is now complete with 
+
+### Writing/Querying on {{% product-name %}}
 
 ### Writing and Querying for Multi-Node Setups
 
-If you’re running {{% product-name %}} in a single-instance setup, writing and querying is the same as for {{% product-name %}}.
-You can use the default port `8181` for any write or query, without changing any of the commands.
+If you’re running {{% product-name %}} in a single-instance setup, writing and querying is the same as for {{% product-name %}}. Additionally, if you want to leverage the default port of 8181 for any write or query, then no changes need to be made to your commands.
 
-> [!Note]
-> #### Specify hosts for writes and queries
->
-> To benefit from this multi-node, isolated architecture specify hosts:
-> 
-> - In write requests, specify a host designated for _write-only_
-> - In query requests, specify a host designated for _read-only
-> 
-> When running multiple local instances for testing, or separate nodes in production, specifying the host ensures writes and queries are routed to the correct instance.
-> If you run locally and serve an instance on 8181 (the default port), then you don’t need to specify the host.
+The key change in leveraging read/writes on this wider architecture is in ensuring that you’re specifying the correct host. If you run locally and serve an instance on 8181 (the default port), you don’t need to specify which host. However, when running multiple local instances for testing, or separate nodes in production, specifying the host ensures writes and queries are routed to the correct instance.
 
 ```
 # Example variables on a query
@@ -792,20 +734,13 @@ Usage: $ influxdb3 query --host=http://127.0.0.1:8585 -d <DATABASE> "<QUERY>"
 
 ### File index settings
 
-To accelerate performance on specific queries, you can define non-primary keys to index on, which helps improve performance for single-series queries.
-This feature is only available in Enterprise and is not available in Core.
+To accelerate performance on specific queries, you can define non-primary keys to index on, which will especially help improve performance on single-series queries. This functionality is reserved for Enterprise and is not available on Enterprise.
 
-#### Create a file index
-
-```bash
+```
 # Example variables on a query
 # HTTP-bound Port: 8585
 
-influxdb3 file-index create --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE> <COLUMNS>
-```
+Create Usage: $ influxdb3 file-index create --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE> <COLUMNS>
 
-#### Delete a file index
-
-```bash
-influxdb3 file-index delete --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE>
+Delete Usage: $ influxdb3 file-index delete --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE>
 ```

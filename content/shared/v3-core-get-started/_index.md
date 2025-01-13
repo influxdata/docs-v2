@@ -43,7 +43,7 @@ For more information, see the [Enterprise guide](/influxdb3/enterprise/get-start
 
 This guide covers InfluxDB 3 Core (the open source release), including the following topics:
 
-* [Install and startup](#install-and-startup)
+* [Installation and startup](#installation-and-startup)
 * [Data Model](#data-model)
 * [Write data to the database](#write-data)
 * [Query the database](#query-the-database)
@@ -53,7 +53,6 @@ This guide covers InfluxDB 3 Core (the open source release), including the follo
 * [Diskless architecture](#diskless-architecture)
 
 ### Installation and Startup
-### Install and startup
 
 {{% product-name %}} runs on **Linux**, **macOS**, and **Windows**.
 [Run the install script](#run-the-install-script) to get started quickly,
