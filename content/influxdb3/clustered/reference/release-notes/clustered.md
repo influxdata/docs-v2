@@ -25,6 +25,7 @@ identified below with the <span class="cf-icon Shield pink"></span> icon.
 {{< release-toc >}}
 
 ---
+
 ## 20241217-1494922 {date="2024-12-17"}
 
 ### Quickstart
@@ -36,21 +37,25 @@ spec:
 ```
 
 ### Bug Fixes
-This fixes a bug present in release 20241024-1354148(#20241024-1354148), in which `core` pods used an invalid DSN (omitting the `?` in the query string) when attempting to connect to Postgres. `core` pods will now properly populate the DSN before connecting.
+
+This fixes a bug present in release [20241024-1354148](#20241024-1354148), in
+which `core` pods used an invalid DSN (omitting the `?` in the query string)
+when attempting to connect to PostgreSQL. `core` pods now properly populate the
+DSN before connecting.
 
 ### Changes
 
 #### Deployment
 
-- Entitlements associated with a `License` Custom Resource (CR), including the license expiration date, are now exposed in the `entitlements` property of that CR's `spec`.
+- Entitlements associated with a `License` Custom Resource (CR), including the
+  license expiration date, are now exposed in the `entitlements` property of
+  that CR's `spec`.
 - Reduced default log level from `debug` to `info` in auth sidecar.
 
 #### Database Engine
+
 - Datafusion upgrades
 - Upgrade Rust to 1.83.0
-
-#### Configuration
-- N/A
 
 ---
 
