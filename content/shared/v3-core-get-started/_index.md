@@ -262,7 +262,7 @@ influxdb3 write --database=mydb --file=server_data
 ```
 
 The following examples show how to write data using `curl` and the `/api/3/write_lp` HTTP endpoint.
-To show the difference between accepting and rejecting partial writes, `line 2` in the example contains a `string` value for a `float` field (`temp=hi`).
+To show the difference between accepting and rejecting partial writes, line `2` in the example contains a `string` value for a `float` field (`temp=hi`).
 
 ##### Partial write of line protocol occurred
 
@@ -278,6 +278,7 @@ With `accept_partial=true`:
 {"error":"partial write of line protocol occurred","data":[{"original_line":"dquote> home,room=Sunroom temp=hi","line_number":2,"error_message":"No fields were provided"}]}%                 
 ```
 
+Line `1` is written and queryable.
 The response is an HTTP error (`400`) status, and the response body contains `partial write of line protocol occurred` and details about the problem line.
 
 ##### Parsing failed for write_lp endpoint
@@ -296,6 +297,7 @@ dquote> home,room=Sunroom temp=hi"
 {"error":"parsing failed for write_lp endpoint","data":{"original_line":"dquote> home,room=Sunroom temp=hi","line_number":2,"error_message":"No fields were provided"}}%
 ```
 
+Neither line is written to the database.
 The response is an HTTP error (`400`) status, and the response body contains `parsing failed for write_lp endpoint` and details about the problem line.
 
 ##### Data durability
