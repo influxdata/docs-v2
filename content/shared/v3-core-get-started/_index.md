@@ -228,22 +228,21 @@ Subsequent requests can add new fields on-the-fly, but can't add new tags.
 
 InfluxDB 3 Core is optimized for recent data only--it accepts writes for data with timestamps from the last 72 hours. It persists that data in Parquet files for access by third-party systems for longer term historical analysis and queries. If you require longer historical queries with a compactor that optimizes data organization, consider using [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
 
-**Note**: write requests to the database _don't_ return until a WAL file has been flushed to the configured object store, which by default happens once per second.
-This means that individual write requests may not complete quickly, but you can make many concurrent requests to get higher total throughput. In the future, we will add an API parameter to make requests that do not wait for the WAL flush to return.
 
 The database has three write API endpoints that respond to HTTP `POST` requests:
 
-* `/write_lp?db=mydb,precision=ns`
-* `/api/v2/write_lp?db=mydb,precision=ns`
-* `/api/v3/write_lp?db=mydb,precision=ns`
+* `/write?db=mydb&precision=ns`
+* `/api/v2/write?bucket=mydb&precision=ns`
+* `/api/v3/write_lp?db=mydb&precision=ns&accept_partial=true`
 
-{{% product-name %}} provides the `/write_lp` and `/api/v2` endpoints for backward compatibility with clients that can write data to previous versions of InfluxDB.
+{{% product-name %}} provides the `/write` and `/api/v2/write` endpoints for backward compatibility with clients that can write data to previous versions of InfluxDB.
 However, these APIs differ from the APIs in the previous versions in the following ways:
 
 - Tags in a table (measurement) are _immutable_
 - A tag and a field can't have the same name within a table.
 
-The `/api/v3/write_lp` endpoint accepts the same line protocol syntax as previous versions, and brings new functionality that lets you accept or reject partial writes using the `accept_partial` parameter (`true` is default).
+{{% product-name %}} adds the `/api/v3/write_lp` endpoint, which accepts the same line protocol syntax as previous versions, and supports an `?accept_partial=<BOOLEAN>` parameter, which
+lets you accept or reject partial writes (default is `true`).
 
 The following code block is an example of [line protocol](/influxdb3/core/reference/syntax/line-protocol/), which shows the table name followed by tags, which are an ordered, comma-separated list of key/value pairs where the values are strings, followed by a comma-separated list of key/value pairs that are the fields, and ending with an optional timestamp. The timestamp by default is a nanosecond epoch, but you can specify a different precision through the `precision` query parameter.
 
@@ -262,8 +261,52 @@ If you save the preceding line protocol to a file (for example, `server_data`), 
 influxdb3 write --database=mydb --file=server_data
 ```
 
-The written data goes into WAL files, created once per second, and into an in-memory queryable buffer. Later, InfluxDB snapshots the WAL and persists the data into object storage as Parquet files.
-We'll cover the [diskless architecture](#diskless-architecture) later in this document.
+The following examples show how to write data using `curl` and the `/api/3/write_lp` HTTP endpoint.
+To show the difference between accepting and rejecting partial writes, `line 2` in the example contains a `string` value for a `float` field (`temp=hi`).
+
+##### Partial write of line protocol occurred
+
+With `accept_partial=true`:
+
+```
+* upload completely sent off: 59 bytes
+< HTTP/1.1 400 Bad Request
+< transfer-encoding: chunked
+< date: Wed, 15 Jan 2025 19:35:36 GMT
+< 
+* Connection #0 to host localhost left intact
+{"error":"partial write of line protocol occurred","data":[{"original_line":"dquote> home,room=Sunroom temp=hi","line_number":2,"error_message":"No fields were provided"}]}%                 
+```
+
+The response is an HTTP error (`400`) status, and the response body contains `partial write of line protocol occurred` and details about the problem line.
+
+##### Parsing failed for write_lp endpoint
+
+With `accept_partial=false`:
+
+> curl -v -XPOST "localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
+  --data-raw "home,room=Sunroom temp=96
+dquote> home,room=Sunroom temp=hi"
+< HTTP/1.1 400 Bad Request
+< transfer-encoding: chunked
+< date: Wed, 15 Jan 2025 19:28:27 GMT
+< 
+* Connection #0 to host localhost left intact
+{"error":"parsing failed for write_lp endpoint","data":{"original_line":"dquote> home,room=Sunroom temp=hi","line_number":2,"error_message":"No fields were provided"}}%
+```
+
+The response is an HTTP error (`400`) status, and the response body contains `parsing failed for write_lp endpoint` and details about the problem line.
+
+##### Data durability
+
+Written data goes into WAL files, created once per second, and into an in-memory queryable buffer. Later, InfluxDB snapshots the WAL and persists the data into object storage as Parquet files.
+We cover the [diskless architecture](#diskless-architecture) later in this guide.
+
+> [!Note]
+> ##### Write requests return after WAL flush
+> Write requests to the database _don't_ return until a WAL file has been flushed to the configured object store, which by default happens once per second.
+> Individual write requests might not complete quickly, but you can make many concurrent requests to get higher total throughput.
+> In the future, we will add an API parameter that lets requests return without waiting for the WAL flush.
 
 #### Create a Database or Table
 
