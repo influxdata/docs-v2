@@ -742,7 +742,7 @@ influxdb3 create trigger \
   trigger1
 ```
 
-After you have created a plugin and trigger, enter the following command to can
+After you have created a plugin and trigger, enter the following command to
 enable the trigger and have it run the plugin as you write data:
 
 ```bash
