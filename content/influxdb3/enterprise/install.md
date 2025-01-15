@@ -37,7 +37,7 @@ Use the InfluxDB 3 quick install script to install {{< product-name >}} on
 **Linux** and **macOS**.
 
 > [!Important]
-> If using Windows, [download the InfluxDB 3 Enterprise Windows binary](?t=Windows#download-influxdb-3-enterprise-binaries).
+> If using Windows, [download the {{% product-name %}} Windows binary](?t=Windows#download-influxdb-3-enterprise-binaries).
 
 1.  Use the following command to download and install the appropriate
     {{< product-name >}} package on your local machine:
@@ -46,7 +46,7 @@ Use the InfluxDB 3 quick install script to install {{< product-name >}} on
     curl -O https://www.influxdata.com/d/install_influxdb3.sh && sh install_influxdb3.sh enterprise
     ```
 
-2.  Ensure installation completed successfully:
+2.  Verify that installation completed successfully:
 
     ```bash
     influxdb3 --version
@@ -56,7 +56,7 @@ Use the InfluxDB 3 quick install script to install {{< product-name >}} on
 > 
 > #### influxdb3 not found
 > 
-> If it your system can't locate your `influxdb3` binary, `source` your
+> If your system can't locate your `influxdb3` binary, `source` your
 > current shell configuration file (`.bashrc`, `.zshrc`, etc.). 
 >
 > {{< code-tabs-wrapper >}}
@@ -98,7 +98,7 @@ source ~/.zshrc
 
 - [InfluxDB 3 Enterprise • Linux (ARM) • GNU](https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz)
   •
-  [sha256](ps://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz.sha256)
+  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz.sha256)
 
 - [InfluxDB 3 Enterprise • Linux (ARM) • MUSL](https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz)
   •
@@ -136,10 +136,10 @@ source ~/.zshrc
 
 ## Docker image
 
-Use the {{< product-name >}} Docker image to deploy {{< product-name >}} in a
+Use the `influxdb3-enterprise` Docker image to deploy {{< product-name >}} in a
 Docker container.
 
-```
+```bash
 docker pull quay.io/influxdb/influxdb3-enterprise:latest
 ```
 
