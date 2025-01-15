@@ -421,7 +421,7 @@ Options:
 
 ## Distinct Values Cache
 
-Similar to the Last values cache, the database can cache in RAM the distinct values for a single column in a table or a heirarchy of columns. This is useful for fast metadata lookups, which can return in under 30 milliseoncds. Many of the options are similar to the last value cache. See the CLI output for more information:
+Similar to the Last values cache, the database can cache in RAM the distinct values for a single column in a table or a heirarchy of columns. This is useful for fast metadata lookups, which can return in under 30 milliseconds. Many of the options are similar to the last value cache. See the CLI output for more information:
 
 ```bash
 influxdb3 create distinct_cache -h
