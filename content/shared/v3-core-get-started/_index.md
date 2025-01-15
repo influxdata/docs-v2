@@ -284,6 +284,7 @@ The response is an HTTP error (`400`) status, and the response body contains `pa
 
 With `accept_partial=false`:
 
+```
 > curl -v -XPOST "localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
   --data-raw "home,room=Sunroom temp=96
 dquote> home,room=Sunroom temp=hi"
