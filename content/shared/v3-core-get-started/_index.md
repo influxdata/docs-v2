@@ -158,17 +158,17 @@ This means that individual write requests may not complete quickly, but you can 
 
 The database has three write API endpoints that respond to HTTP `POST` requests:
 
-* `/write?db=mydb,precision=ns`
-* `/api/v2/write?db=mydb,precision=ns`
-* `/api/v3/write?db=mydb,precision=ns`
+* `/write_lp?db=mydb,precision=ns`
+* `/api/v2/write_lp?db=mydb,precision=ns`
+* `/api/v3/write_lp?db=mydb,precision=ns`
 
-{{% product-name %}} provides the `/write` and `/api/v2` endpoints for backward compatibility with clients that can write data to previous versions of InfluxDB.
+{{% product-name %}} provides the `/write_lp` and `/api/v2` endpoints for backward compatibility with clients that can write data to previous versions of InfluxDB.
 However, these APIs differ from the APIs in the previous versions in the following ways:
 
 - Tags in a table (measurement) are _immutable_
 - A tag and a field can't have the same name within a table.
 
-The `/api/v3/write` endpoint accepts the same line protocol syntax as previous versions, and brings new functionality that lets you accept or reject partial writes using the `accept_partial` parameter (`true` is default).
+The `/api/v3/write_lp` endpoint accepts the same line protocol syntax as previous versions, and brings new functionality that lets you accept or reject partial writes using the `accept_partial` parameter (`true` is default).
 
 The following code block is an example of [line protocol](/influxdb3/core/reference/syntax/line-protocol/), which shows the table name followed by tags, which are an ordered, comma-separated list of key/value pairs where the values are strings, followed by a comma-separated list of key/value pairs that are the fields, and ending with an optional timestamp. The timestamp by default is a nanosecond epoch, but you can specify a different precision through the `precision` query parameter.
 
