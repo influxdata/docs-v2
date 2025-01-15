@@ -135,7 +135,7 @@ source ~/.zshrc
 
 #### Start InfluxDB
 
-To start an InfluxDB node, use the `influxdb3 serve` command
+To start your InfluxDB instance, use the `influxdb3 serve` command
 and provide the following:
 
 - `--object-store`: Specifies the type of Object store to use. InfluxDB supports the following: local file system (`file`), `memory`, S3 (and compatible services like Ceph or Minio) (`s3`), Google Cloud Storage (`google`), and Azure Blob Storage (`azure`).
