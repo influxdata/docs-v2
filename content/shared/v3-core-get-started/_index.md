@@ -388,7 +388,7 @@ $ influxdb3 query --database=servers "SELECT DISTINCT usage_percent, time FROM c
 To query using InfluxQL, enter the `influxdb3 query` subcommand and specify `influxql` in the language option--for example:
 
 ```bash
-influxdb3 query --database=servers --lang=influxql "SELECT DISTINCT usage_percent FROM cpu WHERE time >= now() - 1d"
+influxdb3 query --database=servers --language=influxql "SELECT DISTINCT usage_percent FROM cpu WHERE time >= now() - 1d"
 ```
 
 ### Query using the API
