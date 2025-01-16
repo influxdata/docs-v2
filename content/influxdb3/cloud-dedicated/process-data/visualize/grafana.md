@@ -18,6 +18,8 @@ aliases:
 alt_links:
   v2: /influxdb/v2/tools/grafana/
   cloud: /influxdb/cloud/tools/grafana/
+  core: /influxdb3/core/visualize-data/grafana/
+  enterprise: /influxdb3/enterprise/visualize-data/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) to query and visualize data stored in

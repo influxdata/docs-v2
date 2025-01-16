@@ -1,6 +1,6 @@
 ---
 title: Use Grafana to visualize data
-list_title: Use Grafana with InfluxDB 3 Enterprise
+list_title: Grafana
 description: >
   Install and run [Grafana](https://grafana.com/) to query and visualize data
   stored in InfluxDB.

@@ -18,6 +18,9 @@ aliases:
   - /influxdb3/clustered/process-data/tools/superset/
 related:
   - /influxdb3/clustered/visualize-data/superset/
+alt_links:
+  core: /influxdb3/core/visualize-data/superset/
+  enterprise: /influxdb3/enterprise/visualize-data/superset/
 metadata: [SQL only]
 ---
 
@@ -210,7 +213,7 @@ With Superset running, you're ready to [log in](#log-in-to-superset) and set up 
 3.  In the **Connect a Database** window, click on the **Supported Databases**
     drop-down menu and select **Other**.
 
-    {{< img-hd src="/img/influxdb/cloud-serverless-superset-connect.png" alt="Configure InfluxDB connection in Superset" />}}
+    {{< img-hd src="/img/influxdb3/cloud-serverless-superset-connect.png" alt="Configure InfluxDB connection in Superset" />}}
 
 4.  Enter a **Display Name** (for example, _InfluxDB Clustered_) for the database connection.
 5.  Enter your **SQL Alchemy URI** comprised of the following:
@@ -253,7 +256,7 @@ to query and visualize data from InfluxDB.
 
     The measurement schema appears in the left pane:
 
-    {{< img-hd src="/img/influxdb/cloud-serverless-superset-schema.png" alt="Select your InfluxDB schema in Superset" />}}
+    {{< img-hd src="/img/influxdb3/cloud-serverless-superset-schema.png" alt="Select your InfluxDB schema in Superset" />}}
 
 3.  Use the **query editor** to write an SQL query that queries data in your 
     InfluxDB database.
@@ -267,4 +270,4 @@ Use Superset to create visualizations and dashboards for InfluxDB queries.
 For a comprehensive walk-through of creating visualizations with
 Superset, see the [Creating Charts and Dashboards in Superset documentation](https://superset.apache.org/docs/creating-charts-dashboards/creating-your-first-dashboard).
 
-{{< img-hd src="/img/influxdb/cloud-serverless-superset-dashboard.png" alt="Build InfluxDB dashboards in Apache Superset" />}}
+{{< img-hd src="/img/influxdb3/cloud-serverless-superset-dashboard.png" alt="Build InfluxDB dashboards in Apache Superset" />}}
