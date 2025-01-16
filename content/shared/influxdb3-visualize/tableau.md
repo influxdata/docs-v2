@@ -1,21 +1,3 @@
----
-title: Use Tableau to query data with SQL
-seotitle: Use Tableau to query data stored in InfluxDB Cloud Serverless
-description: >
-  Install and use [Tableau](https://www.tableau.com/) to query data stored in InfluxDB.
-weight: 201
-menu:
-  influxdb3_cloud_serverless:
-    parent: Visualize data
-    name: Use Tableau
-influxdb3/cloud-serverless/tags: [Flight client, query, flightsql, tableau, sql]
-aliases:
-  - /influxdb3/cloud-serverless/query-data/sql/execute-queries/tableau/
-alt_links:
-  core: /influxdb3/core/visualize-data/tableau/
-  enterprise: /influxdb3/enterprise/visualize-data/tableau/
-metadata: [SQL only]
----
 
 Use [Tableau](https://www.tableau.com/) to query and visualize time series data
 stored in {{< product-name >}}. Tableau supports multiple SQL dialects.
@@ -25,13 +7,12 @@ stored in {{< product-name >}}. Tableau supports multiple SQL dialects.
 >
 > {{% cite %}}[tableau.com](https://www.tableau.com/why-tableau/what-is-tableau){{% /cite %}}
 
-{{% note %}}
-#### Tableau Desktop
-
-These instructions are for **Tableau Desktop**.
-Tableau Cloud and other Tableau products have not been tested, but may support
-connecting to {{< product-name >}} through the **Flight SQL JDBC driver**.
-{{% /note %}}
+> [!Note]
+> #### Tableau Desktop
+> 
+> These instructions are for **[Tableau Desktop](https://www.tableau.com/trial/tableau-software)**.
+> Tableau Cloud and other Tableau products have not been tested, but may support
+> connecting to {{< product-name >}} through the **Flight SQL JDBC driver**.
 
 ## Install Tableau Desktop
 
@@ -39,8 +20,8 @@ If you have not already, [download and install Tableau Desktop](https://www.tabl
 
 ## Download and install the Flight SQL JDBC driver
 
-To query {{< product-name >}} from Tableau, use the **Flight SQL protocol** and the
-**Flight SQL JDBC driver**.
+To query {{< product-name >}} from Tableau, use the **Flight SQL protocol** and
+the **Flight SQL JDBC driver**.
 
 1.  **Download the Flight SQL JDBC driver.**
     1.  Visit the [Flight SQL JDBC driver](https://central.sonatype.com/artifact/org.apache.arrow/flight-sql-jdbc-driver/) page.
@@ -68,8 +49,7 @@ To query {{< product-name >}} from Tableau, use the **Flight SQL protocol** and 
     the full list of connection options.
 3.  Provide the required credentials:
 
-    - **URL**: Your [InfluxDB Cloud Serverless region URL](/influxdb3/cloud-serverless/reference/regions/)
-      with the following:
+    - **URL**: Your **InfluxDB cluster URL** with the following:
 
       - **Protocol**: `jdbc:arrow-flight-sql`
       - **Port**: `443`
@@ -78,38 +58,37 @@ To query {{< product-name >}} from Tableau, use the **Flight SQL protocol** and 
             {{% note %}}
 Setting `useSystemTrustStore=false` is only necessary on macOS and doesn't actually affect the security of the connection to Tableau.
             {{% /note %}}
-        - **database**: InfluxDB bucket name to query
+        - **database**: InfluxDB database name to query
     
       _See an [example connection URL](#example-connection-url)._
     
-    - **Dialect**: PostreSQL
+    - **Dialect**: PostgreSQL
     - **Username**: _Leave empty_
-    - **Password**: [API token](/influxdb3/cloud-serverless/admin/tokens/)
-      with read access to the specified bucket
+    - **Password**: _Leave empty_
+
+      > [!Note]
+      > While in alpha, {{< product-name >}} does not require authorization tokens.
+
     - **Properties File**: _Leave empty_
 
 4.  Click **Sign In**.
 
 #### Example connection URL
 
-{{< code-placeholders "BUCKET_NAME" >}}
+{{< code-placeholders "DATABASE_NAME" >}}
 ```
-jdbc:arrow-flight-sql://us-east-1-1.aws.cloud2.influxdata.com:443?useSystemTrustStore=false&database=BUCKET_NAME
+jdbc:arrow-flight-sql://{{< influxdb/host >}}?useSystemTrustStore=false&database=DATABASE_NAME
 ```
 {{< /code-placeholders >}}
 
-## Query InfluxDB Cloud Serverless
+## Query InfluxDB
 
 With the connection successfully established, query your time series data stored
 in {{< product-name >}}. In the left pane:
 
 1.  Under **Database**, select **public** from the drop-down menu.
 2.  Under **Schema**, select **iox** from the drop-down menu.
-3.  Under **Table**, click and drag the measurement you want to query into the query pane.
+3.  Under **Table**, click and drag the table you want to query into the query pane.
 4.  Use Tableau to build and execute SQL queries.
     For more information, see the
     [Tableau Desktop documentation](https://help.tableau.com/current/pro/desktop/en-us/default.htm).
-
-## Build visualizations with Tableau
-
-After you've connected Tableau to your InfluxDB database, see the Tableau documentation to [Set Up Data Sources](https://help.tableau.com/current/pro/desktop/en-us/datasource_prepare.htm) and begin working with data.
