@@ -156,11 +156,11 @@ This means that individual write requests may not complete quickly, but you can 
 
 The database has three write API endpoints that respond to HTTP `POST` requests:
 
-* `/write_lp?db=mydb,precision=ns`
-* `/api/v2/write_lp?db=mydb,precision=ns`
+* `/write?db=mydb,precision=ns`
+* `/api/v2/write?db=mydb,precision=ns`
 * `/api/v3/write_lp?db=mydb,precision=ns`
 
-{{% product-name %}} provides the `/write_lp` and `/api/v2` endpoints for backward compatibility with clients that can write data to previous versions of InfluxDB.
+{{% product-name %}} provides the `/write` and `/api/v2/write` endpoints for backward compatibility with clients that can write data to previous versions of InfluxDB.
 However, these APIs differ from the APIs in the previous versions in the following ways:
 
 - Tags in a table (measurement) are _immutable_
