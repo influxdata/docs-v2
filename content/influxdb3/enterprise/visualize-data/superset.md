@@ -16,6 +16,7 @@ alt_links:
   cloud-serverless: /influxdb3/cloud-serverless/process-data/visualize/superset/
   cloud-dedicated: /influxdb3/cloud-dedicated/process-data/visualize/superset/
   clustered: /influxdb3/clustered/process-data/visualize/superset/
+draft: true 
 source: /shared/influxdb3-visualize/superset.md
 ---
 
