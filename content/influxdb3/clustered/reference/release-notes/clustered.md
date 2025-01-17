@@ -26,6 +26,40 @@ identified below with the <span class="cf-icon Shield pink"></span> icon.
 
 ---
 
+## 20241217-1494922 {date="2024-12-17"}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241217-1494922
+```
+
+### Bug Fixes
+
+This fixes a bug present in release [20241024-1354148](#20241024-1354148), in
+which `core` pods used an invalid DSN (omitting the `?` in the query string)
+when attempting to connect to PostgreSQL. `core` pods now properly populate the
+DSN before connecting.
+
+### Changes
+
+#### Deployment
+
+- Entitlements associated with a `License` Custom Resource (CR), including the
+  license expiration date, are now exposed in the `entitlements` property of
+  that CR's `spec`.
+- Reduced default log level from `debug` to `info` in auth sidecar.
+
+#### Database Engine
+
+- Datafusion upgrades
+- Upgrade Rust to 1.83.0
+
+---
+
+
 ## 20241024-1354148  {date="2024-10-24" .checkpoint}
 
 ### Quickstart
