@@ -204,13 +204,6 @@ _For more information about server options, run `influxdb3 serve --help`._
 >    docker kill <CONTAINER_ID>
 >    ``` 
 
-#### Licensing
-
-When starting {{% product-name %}} for the first time, it prompts you to enter an email address for verification. You will receive an email with a verification link.
-Upon verification, the license creation, retrieval, and application are automated.
-
-_During the alpha period, licenses are valid until May 7, 2025._
-
 ### Data Model
 
 The database server contains logical databases, which have tables, which have columns. Compared to previous versions of InfluxDB you can think of a database as a `bucket` in v2 or as a `db/retention_policy` in v1. A `table` is equivalent to a `measurement`, which has columns that can be of type `tag` (a string dictionary), `int64`, `float64`, `uint64`, `bool`, or `string` and finally every table has a `time` column that is a nanosecond precision timestamp.
