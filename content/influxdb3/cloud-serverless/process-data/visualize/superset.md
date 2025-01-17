@@ -14,6 +14,9 @@ aliases:
   - /influxdb3/cloud-serverless/query-data/tools/superset/
   - /influxdb3/cloud-serverless/query-data/sql/execute-queries/superset/
   - /influxdb3/cloud-serverless/process-data/tools/superset/
+alt_links:
+  core: /influxdb3/core/visualize-data/superset/
+  enterprise: /influxdb3/enterprise/visualize-data/superset/
 metadata: [SQL only]
 ---
 

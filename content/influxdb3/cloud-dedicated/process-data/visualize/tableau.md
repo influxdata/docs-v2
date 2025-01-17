@@ -16,8 +16,9 @@ aliases:
   - /influxdb3/cloud-dedicated/query-data/tools/tableau/
   - /influxdb3/cloud-dedicated/query-data/sql/execute-queries/tableau/
   - /influxdb3/cloud-dedicated/process-data/tools/tableau/
-related:
-  - /influxdb3/cloud-dedicated/visualize-data/tableau/
+alt_links:
+  core: /influxdb3/core/visualize-data/tableau/
+  enterprise: /influxdb3/enterprise/visualize-data/tableau/
 metadata: [SQL only]
 ---
 

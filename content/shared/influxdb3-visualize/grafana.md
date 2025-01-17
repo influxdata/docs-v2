@@ -1,28 +1,3 @@
----
-title: Use Grafana to query and visualize data
-seotitle: Use Grafana to query and visualize data stored in InfluxDB
-list_title: Use Grafana
-description: >
-  Install and run [Grafana](https://grafana.com/) to query and visualize data
-  stored in InfluxDB.
-weight: 201
-menu:
-  influxdb3_cloud_serverless:
-    name: Use Grafana
-    parent: Visualize data
-influxdb3/cloud-serverless/tags: [query, visualization, Grafana]
-aliases:
-  - /influxdb3/cloud-serverless/query-data/tools/grafana/
-  - /influxdb3/cloud-serverless/query-data/sql/execute-queries/grafana/
-  - /influxdb3/cloud-serverless/process-data/tools/grafana/
-  - /influxdb3/cloud-serverless/visualize-data/grafana/
-alt_links:
-  v2: /influxdb/v2/tools/grafana/
-  cloud: /influxdb/cloud/tools/grafana/
-  core: /influxdb3/core/visualize-data/grafana/
-  enterprise: /influxdb3/enterprise/visualize-data/grafana/
----
-
 Use [Grafana](https://grafana.com/) to query and visualize data stored in
 {{% product-name %}}.
 
@@ -33,15 +8,11 @@ Use [Grafana](https://grafana.com/) to query and visualize data stored in
 >
 > {{% cite %}}-- [Grafana documentation](https://grafana.com/docs/grafana/latest/introduction/){{% /cite %}}
 
-<!-- TOC -->
-
 - [Install Grafana or login to Grafana Cloud](#install-grafana-or-login-to-grafana-cloud)
 - [InfluxDB data source](#influxdb-data-source)
 - [Create an InfluxDB data source](#create-an-influxdb-data-source)
 - [Query InfluxDB with Grafana](#query-influxdb-with-grafana)
 - [Build visualizations with Grafana](#build-visualizations-with-grafana)
-
-<!-- /TOC -->
 
 ## Install Grafana or login to Grafana Cloud
 
@@ -54,21 +25,17 @@ If using **Grafana Cloud**, login to your Grafana Cloud instance.
 
 The InfluxDB data source plugin is included in the Grafana core distribution.
 Use the plugin to query and visualize data stored in {{< product-name >}} with
-both InfluxQL and SQL. 
+both SQL and InfluxQL.
 
-{{% note %}}
-#### Grafana 10.3+
-
-The instructions below are for **Grafana 10.3+** which introduced the newest
-version of the InfluxDB core plugin.
-The updated plugin includes **SQL support** for InfluxDB 3-based products such
-as {{< product-name >}}.
-{{% /note %}}
+> [!Note]
+> #### Grafana 10.3+
+>
+> The instructions below are for **Grafana 10.3+** which introduced the newest
+> version of the InfluxDB core plugin.
+> The updated plugin includes **SQL support** for InfluxDB 3-based products such
+> as {{< product-name >}}.
 
 ## Create an InfluxDB data source
-
-Which data source you create depends on which query language you want to use to
-query {{% product-name %}}:
 
 1.  In your Grafana user interface (UI), navigate to **Data Sources**.
 2.  Click **Add new data source**.
@@ -88,23 +55,29 @@ When creating an InfluxDB data source that uses SQL to query data:
 
 1.  Under **HTTP**:
 
-    - **URL**: Provide your [{{% product-name %}} region URL](/influxdb3/cloud-serverless/reference/regions/)
-      using the HTTPS protocol:
+    - **URL**: Provide your {{% product-name %}} URL:
 
       ```
-      https://{{< influxdb/host >}}
+      http://{{< influxdb/host >}}
       ```
+
+    > [!Note]
+    > If you are _not_ using HTTPS, enable the **Insecure Connection** option
+    > under **InfluxDB Details**.
 
 2.  Under **InfluxDB Details**:
 
-    - **Database**: Provide a default bucket name to query.
-      In {{< product-name >}}, a bucket functions as a database.
-    - **Token**: Provide an [API token](/influxdb3/cloud-serverless/admin/tokens/)
-      with read access to the buckets you want to query.
+    - **Database**: Provide a default database name to query.
+    - **Token**: Provide an arbitrary string.
+
+      > [!Note]
+      > While in alpha, {{< product-name >}} does not require an authorization token.
+
+    - **Insecure Connection**: If _not_ using HTTPS, enable this option.
 
 3.  Click **Save & test**.
 
-    {{< img-hd src="/img/influxdb3/cloud-serverless-grafana-influxdb-data-source-sql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Serverless that uses SQL" />}}
+    {{< img-hd src="/img/influxdb3/influxdb3-grafana-sql.png" alt="Grafana InfluxDB data source for InfluxDB 3 that uses SQL" />}}
 
 <!---------------------------------- END SQL ---------------------------------->
 {{% /tab-content %}}
@@ -113,18 +86,9 @@ When creating an InfluxDB data source that uses SQL to query data:
 
 When creating an InfluxDB data source that uses InfluxQL to query data:
 
-{{% note %}}
-#### Map databases and retention policies to buckets
-
-To query {{% product-name %}} with InfluxQL, first map database and retention policy
-(DBRP) combinations to your InfluxDB Cloud buckets. For more information, see
-[Map databases and retention policies to buckets](/influxdb3/cloud-serverless/query-data/influxql/dbrp/).
-{{% /note %}}
-
 1.  Under **HTTP**:
 
-    - **URL**: Provide your [{{% product-name %}} region URL](/influxdb3/cloud-serverless/reference/regions/)
-    using the HTTPS protocol:
+    - **URL**: Provide your {{% product-name %}} URL:
 
       ```
       https://{{< influxdb/host >}}
@@ -132,12 +96,15 @@ To query {{% product-name %}} with InfluxQL, first map database and retention po
 
 2.  Under **InfluxDB Details**:
 
-    - **Database**: Provide a database name to query.
-      Use the database name that is mapped to your InfluxBD bucket.
+    - **Database**: Provide a default database name to query.
     - **User**: Provide an arbitrary string.
       _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
-    - **Password**: Provide an [API token](/influxdb3/cloud-serverless/admin/tokens/)
-      with read access to the buckets you want to query.
+    - **Password**: Provide an arbitrary string.
+
+      > [!Note]
+      > While in alpha, {{< product-name >}} does not require an authorization
+      > token, but the **Password** field does require a value.
+
     - **HTTP Method**: Choose one of the available HTTP request methods to use when querying data:
 
         - **POST** ({{< req text="Recommended" >}})
@@ -145,7 +112,7 @@ To query {{% product-name %}} with InfluxQL, first map database and retention po
 
 3.  Click **Save & test**.
 
-    {{< img-hd src="/img/influxdb3/cloud-serverless-grafana-influxdb-data-source-influxql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Serverless using InfluxQL" />}}
+    {{< img-hd src="/img/influxdb3/influxdb3-grafana-influxql.png" alt="Grafana InfluxDB data source for InfluxDB 3 that uses InfluxQL" />}}
 
 <!-------------------------------- END INFLUXQL ------------------------------->
 {{% /tab-content %}}
@@ -153,8 +120,8 @@ To query {{% product-name %}} with InfluxQL, first map database and retention po
 
 ## Query InfluxDB with Grafana
 
-After you [configure and save a FlightSQL or InfluxDB datasource](#create-a-datasource),
-use Grafana to build, run, and inspect queries against your InfluxDB bucket.
+After you [configure and save an InfluxDB datasource](#create-an-influxdb-data-source),
+use Grafana to build, run, and inspect queries against {{< product-name >}}.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -166,7 +133,7 @@ use Grafana to build, run, and inspect queries against your InfluxDB bucket.
 
 {{% note %}}
 {{% sql/sql-schema-intro %}}
-To learn more, see [Query Data](/influxdb3/cloud-serverless/query-data/sql/).
+To learn more, see [Query Data](/influxdb3/version/query-data/sql/).
 {{% /note %}}
 
 1. Click **Explore**.

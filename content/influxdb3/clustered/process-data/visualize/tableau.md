@@ -16,8 +16,9 @@ aliases:
   - /influxdb3/clustered/query-data/tools/tableau/
   - /influxdb3/clustered/query-data/sql/execute-queries/tableau/
   - /influxdb3/clustered/process-data/tools/tableau/
-related:
-  - /influxdb3/clustered/visualize-data/tableau/
+alt_links:
+  core: /influxdb3/core/visualize-data/tableau/
+  enterprise: /influxdb3/enterprise/visualize-data/tableau/
 metadata: [SQL only]
 ---
 
