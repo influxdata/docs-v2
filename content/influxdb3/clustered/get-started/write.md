@@ -450,7 +450,9 @@ Include the following with your request:
 With the {{% product-name %}}
 [v1 API `/write` endpoint](/influxdb3/clustered/api/#operation/PostLegacyWrite),
 `Authorization: Bearer` and `Authorization: Token` are equivalent and you can
-use either scheme to pass a database token in your request. For more information
+use either scheme to pass a database token in your request.
+Include the word `Bearer` or `Token`, a space, and your **token** value (all case-sensitive).
+For more information
 about HTTP API token schemes, see how to
 [authenticate API requests](/influxdb3/clustered/guides/api-compatibility/v1/).
 {{% /note %}}

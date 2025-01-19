@@ -54,7 +54,7 @@ With the InfluxDB v1 API, you can use API tokens in InfluxDB 1.x username and pa
 schemes or in the InfluxDB v2 `Authorization: Token` scheme.
 
 - [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
-- [Authenticate with a token scheme](#authenticate-with-a-token)
+- [Authenticate with a token scheme](#authenticate-with-a-token-scheme)
 
 ### Authenticate with a username and password scheme
 
@@ -150,6 +150,8 @@ Replace the following:
 
 Use the `Authorization: Token` scheme to pass a [token](/influxdb3/cloud-serverless/admin/tokens/) for authenticating
 v1 API `/write` and `/query` requests.
+
+Include the word `Token`, a space, and your **token** value (all case-sensitive).
 
 #### Syntax
 
