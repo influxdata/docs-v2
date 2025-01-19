@@ -25,8 +25,9 @@ InfluxDB 3 Core runs on **Linux**, **macOS**, and **Windows**.
 
 A key feature of InfluxDB 3 is its use of object storage to store time series
 data in Apache Parquet format. You can choose to store these files on your local
-file system, however, we recommend using an object store for the best overall
-performance. {{< product-name >}} natively supports Amazon S3,
+file system. Performance on your local filesystem will likely be better, but 
+object storage has the advantage of not running out of space and being accessible
+by other systems over the network. {{< product-name >}} natively supports Amazon S3,
 Azure Blob Storage, and Google Cloud Storage.
 You can also use many local object storage implementations that provide an
 S3-compatible API, such as [Minio](https://min.io/).
