@@ -20,7 +20,7 @@ SELECT 1234.5::BIGINT
 
 Casting operations can be performed on a column expression or a literal value.
 For example, the following query uses the
-[Home sensor sample data](/influxdb3/core/reference/sample-data/#home-sensor-data)
+[Home sensor sample data](/influxdb3/version/reference/sample-data/#home-sensor-data)
 and: 
 
 - Casts all values in the `time` column to integers (Unix nanosecond timestamps).
@@ -169,7 +169,7 @@ SQL supports casting the following to an integer:
 - **Unsigned integers**: Returns the signed integer equivalent of the unsigned integer.
 - **Booleans**: Returns `1` for `true` and `0` for `false`.
 - **Timestamps**: Returns the equivalent
-  [nanosecond epoch timestamp](/influxdb3/core/reference/glossary/#unix-timestamp).
+  [nanosecond epoch timestamp](/influxdb3/version/reference/glossary/#unix-timestamp).
 
 ### Cast to an unsigned integer
 
@@ -200,7 +200,7 @@ SQL supports casting the following to an unsigned integer:
 - **Integers**: Returns the unsigned integer equivalent of the signed integer.
 - **Booleans**: Returns `1` for `true` and `0` for `false`.
 - **Timestamps**: Returns the equivalent
-  [nanosecond epoch timestamp](/influxdb3/core/reference/glossary/#unix-timestamp).
+  [nanosecond epoch timestamp](/influxdb3/version/reference/glossary/#unix-timestamp).
 
 ---
 
@@ -289,7 +289,7 @@ SQL supports casting the following to a timestamp:
 
 To cast a Unix nanosecond timestamp to a timestamp type, first cast the numeric
 value to an unsigned integer (`BIGINT UNSIGNED`) and then a timestamp.
-You can also use the [`to_timestamp_nanos`](/influxdb3/core/reference/sql/functions/time-and-date/#to_timestamp_nanos)
+You can also use the [`to_timestamp_nanos`](/influxdb3/version/reference/sql/functions/time-and-date/#to_timestamp_nanos)
 function.
 
 {{< code-tabs-wrapper >}}
@@ -320,9 +320,9 @@ to_timestamp_nanos(1704067200000000000)
 
 You can also use the following SQL functions to cast a value to a timestamp type:
 
-- [`to_timestamp`](/influxdb3/core/reference/sql/functions/time-and-date/#to_timestamp)
-- [`to_timestamp_millis`](/influxdb3/core/reference/sql/functions/time-and-date/#to_timestamp_millis)
-- [`to_timestamp_micros`](/influxdb3/core/reference/sql/functions/time-and-date/#to_timestamp_micros)
-- [`to_timestamp_nanos`](/influxdb3/core/reference/sql/functions/time-and-date/#to_timestamp_nanos)
-- [`to_timestamp_seconds`](/influxdb3/core/reference/sql/functions/time-and-date/#to_timestamp_seconds)
-- [to_unixtime](/influxdb3/core/reference/sql/functions/time-and-date/#to_unixtime)
+- [`to_timestamp`](/influxdb3/version/reference/sql/functions/time-and-date/#to_timestamp)
+- [`to_timestamp_millis`](/influxdb3/version/reference/sql/functions/time-and-date/#to_timestamp_millis)
+- [`to_timestamp_micros`](/influxdb3/version/reference/sql/functions/time-and-date/#to_timestamp_micros)
+- [`to_timestamp_nanos`](/influxdb3/version/reference/sql/functions/time-and-date/#to_timestamp_nanos)
+- [`to_timestamp_seconds`](/influxdb3/version/reference/sql/functions/time-and-date/#to_timestamp_seconds)
+- [to_unixtime](/influxdb3/version/reference/sql/functions/time-and-date/#to_unixtime)

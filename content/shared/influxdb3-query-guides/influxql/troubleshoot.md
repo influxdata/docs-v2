@@ -21,8 +21,8 @@ error: database name required
 ### Cause
 
 The `database name required` error occurs when certain
-[`SHOW` queries](/influxdb3/core/reference/influxql/show/)
-do not specify a [database](/influxdb3/core/reference/glossary/#database)
+[`SHOW` queries](/influxdb3/version/reference/influxql/show/)
+do not specify a [database](/influxdb3/version/reference/glossary/#database)
 in the query or with the query request.
 
 For example, the following `SHOW` query doesn't specify the database and assumes
@@ -59,8 +59,8 @@ of the following:
 {{% /code-placeholders %}}
 
 **Related:**
-[InfluxQL `SHOW` statements](/influxdb3/core/reference/influxql/show/),
-[Explore your schema with InfluxQL](/influxdb3/core/query-data/influxql/explore-schema/)
+[InfluxQL `SHOW` statements](/influxdb3/version/reference/influxql/show/),
+[Explore your schema with InfluxQL](/influxdb3/version/query-data/influxql/explore-schema/)
 
 ---
 
@@ -89,7 +89,7 @@ measurements, tags, or fields. If the statement is missing a required identifier
 the query returns the `expected identifier` error.
 
 For example, the following query omits the measurement name from the
-[`FROM` clause](/influxdb3/core/reference/influxql/select/#from-clause):
+[`FROM` clause](/influxdb3/version/reference/influxql/select/#from-clause):
 
 ```sql
 SELECT * FROM WHERE color = 'blue'
@@ -134,7 +134,7 @@ SELECT * FROM "measurement-name" WHERE color = 'blue'
 
 #### An InfluxQL keyword is used as an unquoted identifier
 
-[InfluxQL keyword](/influxdb3/core/reference/influxql/#keywords)
+[InfluxQL keyword](/influxdb3/version/reference/influxql/#keywords)
 are character sequences reserved for specific functionality in the InfluxQL syntax.
 It is possible to use a keyword as an identifier, but the identifier must be
 wrapped in double quotes (`""`).
@@ -142,7 +142,7 @@ wrapped in double quotes (`""`).
 {{% note %}}
 While wrapping identifiers that are InfluxQL keywords in double quotes is an
 acceptable workaround, for simplicity, you should avoid using
-[InfluxQL keywords](/influxdb3/core/reference/influxql/#keywords)
+[InfluxQL keywords](/influxdb3/version/reference/influxql/#keywords)
 as identifiers.
 {{% /note %}}
 
@@ -158,7 +158,7 @@ error parsing query: found DURATION, expected identifier, string, number, bool a
 
 ##### Solution
 
-Double quote [InfluxQL keywords](/influxdb3/core/reference/influxql/#keywords)
+Double quote [InfluxQL keywords](/influxdb3/version/reference/influxql/#keywords)
 when used as identifiers:
 
 ```sql
@@ -166,7 +166,7 @@ SELECT "duration" FROM runs
 ```
 
 **Related:**
-[InfluxQL keywords](/influxdb3/core/reference/influxql/#keywords)
+[InfluxQL keywords](/influxdb3/version/reference/influxql/#keywords)
 
 ---
 
@@ -179,9 +179,9 @@ error parsing query: mixing aggregate and non-aggregate queries is not supported
 ### Cause
 
 The `mixing aggregate and non-aggregate` error occurs when a `SELECT` statement
-includes both an [aggregate function](/influxdb3/core/reference/influxql/functions/aggregates/)
-and a standalone [field key](/influxdb3/core/reference/glossary/#field-key) or
-[tag key](/influxdb3/core/reference/glossary/#tag-key).
+includes both an [aggregate function](/influxdb3/version/reference/influxql/functions/aggregates/)
+and a standalone [field key](/influxdb3/version/reference/glossary/#field-key) or
+[tag key](/influxdb3/version/reference/glossary/#tag-key).
 
 Aggregate functions return a single calculated value per group and column and
 there is no obvious single value to return for any un-aggregated fields or tags.
@@ -204,8 +204,8 @@ SELECT MEAN(temp), MAX(hum) FROM home
 ```
 
 **Related:**
-[InfluxQL functions](/influxdb3/core/reference/influxql/functions/),
-[Aggregate data with InfluxQL](/influxdb3/core/query-data/influxql/aggregate-select/)
+[InfluxQL functions](/influxdb3/version/reference/influxql/functions/),
+[Aggregate data with InfluxQL](/influxdb3/version/query-data/influxql/aggregate-select/)
 
 ---
 
@@ -254,6 +254,6 @@ WHERE
 {{% /influxdb/custom-timestamps %}}
 
 **Related:**
-[Query data within time boundaries](/influxdb3/core/query-data/influxql/basic-query/#query-data-within-time-boundaries),
-[`WHERE` clause--Time ranges](/influxdb3/core/reference/influxql/where/#time-ranges),
-[InfluxQL time syntax](/influxdb3/core/reference/influxql/time-and-timezone/#time-syntax)
+[Query data within time boundaries](/influxdb3/version/query-data/influxql/basic-query/#query-data-within-time-boundaries),
+[`WHERE` clause--Time ranges](/influxdb3/version/reference/influxql/where/#time-ranges),
+[InfluxQL time syntax](/influxdb3/version/reference/influxql/time-and-timezone/#time-syntax)

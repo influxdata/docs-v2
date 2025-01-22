@@ -40,7 +40,7 @@ value of `room`.
 Use **aggregate functions** to aggregate values in a specified field for each
 group and return a single row per group containing the aggregate field value.
 
-<a href="/influxdb3/core/reference/influxql/functions/aggregates/" class="btn small">View InfluxQL aggregate functions</a>
+<a href="/influxdb3/version/reference/influxql/functions/aggregates/" class="btn small">View InfluxQL aggregate functions</a>
 
 ##### Basic aggregate query
 
@@ -52,7 +52,7 @@ SELECT MEAN(co) from home
 
 Use **selector functions** to "select" a value from a specified field.
 
-<a href="/influxdb3/core/reference/influxql/functions/selectors/" class="btn small">View InfluxQL selector functions</a>
+<a href="/influxdb3/version/reference/influxql/functions/selectors/" class="btn small">View InfluxQL selector functions</a>
 
 ##### Basic selector query
 
@@ -71,9 +71,9 @@ SELECT TOP(co, 3) from home
 >
 > #### Sample data
 > 
-> The following examples use the [Home sensor data](/influxdb3/core/reference/sample-data/#home-sensor-data).
+> The following examples use the [Home sensor data](/influxdb3/version/reference/sample-data/#home-sensor-data).
 > To run the example queries and return results,
-> [write the sample data](/influxdb3/core/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
+> [write the sample data](/influxdb3/version/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
 > to your {{% product-name %}} database before running the example queries.
 
 ### Perform an ungrouped aggregation
@@ -146,8 +146,8 @@ A common use case when querying time series is downsampling data by applying
 aggregates to time-based groups. To group and aggregate data into time-based
 groups:
 
-- In your `SELECT` clause, apply [aggregate](/influxdb3/core/reference/influxql/functions/aggregates/)
-  or [selector](/influxdb3/core/reference/influxql/functions/selectors/)
+- In your `SELECT` clause, apply [aggregate](/influxdb3/version/reference/influxql/functions/aggregates/)
+  or [selector](/influxdb3/version/reference/influxql/functions/selectors/)
   functions to queried fields.
 
 - In your `WHERE` clause, include time bounds for the query.
@@ -158,7 +158,7 @@ groups:
 
 - In your `GROUP BY` clause:
  
-  - Use the [`time()` function](/influxdb3/core/reference/influxql/functions/date-time/#time)
+  - Use the [`time()` function](/influxdb3/version/reference/influxql/functions/date-time/#time)
     to specify the time interval to group by.
   - _Optional_: Specify other tags to group by.
 

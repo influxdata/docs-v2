@@ -131,9 +131,9 @@ If you use parameters for the following, your query might not work as you expect
 #### Sample data
 
 The following examples use the
-[Get started home sensor data](/influxdb3/core/reference/sample-data/#get-started-home-sensor-data).
+[Get started home sensor data](/influxdb3/version/reference/sample-data/#get-started-home-sensor-data).
 To run the example queries and return results,
-[write the sample data](/influxdb3/core/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
+[write the sample data](/influxdb3/version/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
 to your {{% product-name %}} database before running the example queries.
 {{% /note %}}
 
@@ -189,9 +189,9 @@ AND room = 'Kitchen'
 #### Sample data
 
 The following examples use the
-[Get started home sensor data](/influxdb3/core/reference/sample-data/#get-started-home-sensor-data).
+[Get started home sensor data](/influxdb3/version/reference/sample-data/#get-started-home-sensor-data).
 To run the example queries and return results,
-[write the sample data](/influxdb3/core/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
+[write the sample data](/influxdb3/version/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
 to your {{% product-name %}} database before running the example queries.
 {{% /note %}}
 
@@ -298,7 +298,7 @@ func main() {
 
 ## Client support for parameterized queries
 
-- Not all [InfluxDB 3 Flight clients](/influxdb3/core/reference/client-libraries/v3/) support parameterized queries.
+- Not all [InfluxDB 3 Flight clients](/influxdb3/version/reference/client-libraries/v3/) support parameterized queries.
 - InfluxDB doesn't currently support parameterized queries or DataFusion prepared statements for Flight SQL or Flight SQL clients.
 - InfluxDB 3 SQL and InfluxQL parameterized queries aren’t supported in InfluxDB v1 and v2 clients.
 

@@ -5,7 +5,7 @@ description: >
   to demonstrate functionality.
   Use the following sample datasets to replicate provided examples.
 menu:
-  influxdb3_core:
+  influxdb3_enterprise:
     name: Sample data
     parent: Reference
 weight: 182

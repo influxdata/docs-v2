@@ -37,7 +37,7 @@ value of `room`.
 Use **aggregate functions** to aggregate values in a specified column for each
 group and return a single row per group containing the aggregate value.
 
-<a href="/influxdb3/core/reference/sql/functions/aggregate/" class="btn small">View SQL aggregate functions</a>
+<a href="/influxdb3/version/reference/sql/functions/aggregate/" class="btn small">View SQL aggregate functions</a>
 
 ##### Basic aggregate query
 
@@ -50,7 +50,7 @@ SELECT AVG(co) from home
 Use **selector functions** to "select" a value from a specified column.
 The available selector functions are designed to work with time series data.
 
-<a href="/influxdb3/core/reference/sql/functions/selector/" class="btn small">View SQL selector functions</a>
+<a href="/influxdb3/version/reference/sql/functions/selector/" class="btn small">View SQL selector functions</a>
 
 Each selector function returns a Rust _struct_ (similar to a JSON object)
 representing a single time and value from the specified column in the each group.
@@ -101,9 +101,9 @@ GROUP BY room
 > #### Sample data
 > 
 > The following examples use the
-> [Home sensor sample data](/influxdb3/core/reference/sample-data/#home-sensor-data).
+> [Home sensor sample data](/influxdb3/version/reference/sample-data/#home-sensor-data).
 > To run the example queries and return results,
-> [write the sample data](/influxdb3/core/reference/sample-data/#write-home-sensor-data-to-influxdb)
+> [write the sample data](/influxdb3/version/reference/sample-data/#write-home-sensor-data-to-influxdb)
 > to your {{% product-name %}} database before running the example queries.
 
 ### Perform an ungrouped aggregation
@@ -166,7 +166,7 @@ groups:
 
 - In your `SELECT` clause:
 
-  - Use the [`DATE_BIN` function](/influxdb3/core/reference/sql/functions/time-and-date/#date_bin)
+  - Use the [`DATE_BIN` function](/influxdb3/version/reference/sql/functions/time-and-date/#date_bin)
     to calculate time intervals and output a column that contains the start of
     the interval nearest to the `time` timestamp in each row--for example, the
     following clause calculates two-hour intervals (originating at the Unix epoch)
@@ -185,8 +185,8 @@ groups:
     the output `time` column contains
     {{% influxdb/custom-timestamps-span %}}`2022-01-01T12:00:00.000Z`{{% /influxdb/custom-timestamps-span %}}.
 
-  - Use [aggregate](/influxdb3/core/reference/sql/functions/aggregate/) or
-    [selector](/influxdb3/core/reference/sql/functions/selector/) functions on
+  - Use [aggregate](/influxdb3/version/reference/sql/functions/aggregate/) or
+    [selector](/influxdb3/version/reference/sql/functions/selector/) functions on
     specified columns.
 
 - In your `GROUP BY` clause:

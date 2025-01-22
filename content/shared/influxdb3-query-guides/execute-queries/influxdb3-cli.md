@@ -1,10 +1,10 @@
 
-Use the [`influxdb3 query` command](/influxdb3/core/reference/cli/influxdb3/query/)
+Use the [`influxdb3 query` command](/influxdb3/version/reference/cli/influxdb3/query/)
 to query data in {{< product-name >}} with SQL or InfluxQL.
 
 Provide the following with your command:
 
-<!-- - **Authorization token**: A [authorization token](/influxdb3/core/admin/tokens/#database-tokens)
+<!-- - **Authorization token**: A [authorization token](/influxdb3/version/admin/tokens/#database-tokens)
   with read permissions on the queried database.
   Provide this using one of the following:
   

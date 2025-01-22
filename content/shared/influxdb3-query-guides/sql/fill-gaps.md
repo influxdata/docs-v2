@@ -1,7 +1,7 @@
 
-Use [`date_bin_gapfill`](/influxdb3/core/reference/sql/functions/time-and-date/#date_bin_gapfill)
-with [`interpolate`](/influxdb3/core/reference/sql/functions/misc/#interpolate)
-or [`locf`](/influxdb3/core/reference/sql/functions/misc/#locf) to
+Use [`date_bin_gapfill`](/influxdb3/version/reference/sql/functions/time-and-date/#date_bin_gapfill)
+with [`interpolate`](/influxdb3/version/reference/sql/functions/misc/#interpolate)
+or [`locf`](/influxdb3/version/reference/sql/functions/misc/#locf) to
 fill gaps of time where no data is returned.
 Gap-filling SQL queries handle missing data in time series data by filling in
 gaps with interpolated values or by carrying forward the last available observation.
@@ -9,7 +9,7 @@ gaps with interpolated values or by carrying forward the last available observat
 **To fill gaps in data:**
 
 1.  Use the `date_bin_gapfill` function to window your data into time-based groups
-    and apply an [aggregate function](/influxdb3/core/reference/sql/functions/aggregate/)
+    and apply an [aggregate function](/influxdb3/version/reference/sql/functions/aggregate/)
     to each window. If no data exists in a window, `date_bin_gapfill` inserts
     a new row with the starting timestamp of the window, all columns in the
     `GROUP BY` clause populated, and null values for the queried fields.
@@ -22,7 +22,7 @@ gaps with interpolated values or by carrying forward the last available observat
     
     > [!Note]
     > The expression passed to `interpolate` or `locf` must use an
-    > [aggregate function](/influxdb3/core/reference/sql/functions/aggregate/).
+    > [aggregate function](/influxdb3/version/reference/sql/functions/aggregate/).
 
 3.  Include a `WHERE` clause that sets upper and lower time bounds.
     For example:
@@ -36,7 +36,7 @@ WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T10:00:00Z'
 
 ## Example of filling gaps in data
 
-The following examples use the [Home sensor sample data](/influxdb3/core/reference/sample-data/#home-sensor-data)
+The following examples use the [Home sensor sample data](/influxdb3/version/reference/sample-data/#home-sensor-data)
 to show how to use `date_bin_gapfill` and the different results of `interplate`
 and `locf`.
 

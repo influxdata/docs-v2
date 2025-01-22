@@ -47,9 +47,9 @@ query's `SELECT` statement.
 > #### Sample data
 > 
 > The following examples use the
-> [Home sensor sample data](/influxdb3/core/reference/sample-data/#home-sensor-data).
+> [Home sensor sample data](/influxdb3/version/reference/sample-data/#home-sensor-data).
 > To run the example queries and return results,
-> [write the sample data](/influxdb3/core/reference/sample-data/#write-home-sensor-data-to-influxdb)
+> [write the sample data](/influxdb3/version/reference/sample-data/#write-home-sensor-data-to-influxdb)
 > to your {{% product-name %}} database before running the example queries.
 
 ### Query data within time boundaries
@@ -120,7 +120,7 @@ WHERE
 {{% expand "Query data using a time zone offset" %}}
 
 To query data using a time zone offset, use the
-[`AT TIME ZONE` operator](/influxdb3/core/reference/sql/operators/other/#at-time-zone)
+[`AT TIME ZONE` operator](/influxdb3/version/reference/sql/operators/other/#at-time-zone)
 to apply a time zone offset to timestamps in the `WHERE` clause.
 
 {{% note %}}
@@ -176,7 +176,7 @@ SELECT time, room, temp, hum FROM home
   on in the `SELECT` clause.
 - Include predicates in the `WHERE` clause that compare the tag identifier to
   a string literal.
-  Use [logical operators](/influxdb3/core/reference/sql/operators/logical/) to
+  Use [logical operators](/influxdb3/version/reference/sql/operators/logical/) to
   chain multiple predicates together and apply multiple conditions.
 
 ```sql
@@ -187,7 +187,7 @@ SELECT * FROM home WHERE room = 'Kitchen'
 
 - In the `SELECT` clause, include fields you want to query.
 - In the `WHERE` clause, include predicates that compare the field identifier to a value or expression.
-  Use [logical operators](/influxdb3/core/reference/sql/where/#logical-operators) (`AND`, `OR`) to chain multiple predicates together
+  Use [logical operators](/influxdb3/version/reference/sql/where/#logical-operators) (`AND`, `OR`) to chain multiple predicates together
   and apply multiple conditions.
 
 ```sql

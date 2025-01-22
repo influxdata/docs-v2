@@ -11,12 +11,12 @@ but you can use any HTTP client.
 InfluxQL is being rearchitected to work with the InfluxDB 3 storage engine.
 This process is ongoing and some InfluxQL features are still being implemented.
 For information about the current implementation status of InfluxQL features,
-see [InfluxQL feature support](/influxdb3/core/reference/influxql/feature-support/).
+see [InfluxQL feature support](/influxdb3/version/reference/influxql/feature-support/).
 {{% /warn %}}
 
 Use the v1 `/query` endpoint and the `GET` request method to query data with InfluxQL:
 
-{{< api-endpoint endpoint="http://{{< influxdb/host >}}/query" method="get" api-ref="/influxdb3/core/api/#tag/Query" >}}
+{{< api-endpoint endpoint="http://{{< influxdb/host >}}/query" method="get" api-ref="/influxdb3/version/api/#tag/Query" >}}
 
 Provide the following with your request:
 

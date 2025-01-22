@@ -10,22 +10,22 @@ following clauses:
 {{< req type="key" >}}
 
 - {{< req "\*">}} `SELECT`: Specify fields, tags, and calculations to return
-  from a [table](/influxdb3/core/reference/glossary/#table) or use the
+  from a [table](/influxdb3/version/reference/glossary/#table) or use the
   wildcard alias (`*`) to select all fields and tags from a table. It requires
   at least one
-  [field key](/influxdb3/core/reference/glossary/#field-key) or the
+  [field key](/influxdb3/version/reference/glossary/#field-key) or the
   wildcard alias (`*`). For more information, see
-  [Notable SELECT statement behaviors](/influxdb3/core/reference/influxql/select/#notable-select-statement-behaviors).
+  [Notable SELECT statement behaviors](/influxdb3/version/reference/influxql/select/#notable-select-statement-behaviors).
 - {{< req "\*">}} `FROM`: Specify the
-  [table](/influxdb3/core/reference/glossary/#table) to query from.
+  [table](/influxdb3/version/reference/glossary/#table) to query from.
     <!-- vale InfluxDataDocs.v3Schema = NO -->
   It requires one or more comma-delimited
-  [measurement expressions](/influxdb3/core/reference/influxql/select/#measurement_expression).
+  [measurement expressions](/influxdb3/version/reference/influxql/select/#measurement_expression).
     <!-- vale InfluxDataDocs.v3Schema = YES -->
 - `WHERE`: Filter data based on
-  [field values](/influxdb3/core/reference/glossary/#field),
-  [tag values](/influxdb3/core/reference/glossary/#tag), or
-  [timestamps](/influxdb3/core/reference/glossary/#timestamp). Only
+  [field values](/influxdb3/version/reference/glossary/#field),
+  [tag values](/influxdb3/version/reference/glossary/#tag), or
+  [timestamps](/influxdb3/version/reference/glossary/#timestamp). Only
   return data that meets the specified conditions--for example, falls within a
   time range, contains specific tag values, or contains a field value outside a
   specified range.
@@ -55,7 +55,7 @@ includes the following:
 - Columns listed in the query's `SELECT` clause
 - A `time` column that contains the timestamp for the record or the group
 - An `iox::measurement` column that contains the record's
-  [table](/influxdb3/core/reference/glossary/#table) name
+  [table](/influxdb3/version/reference/glossary/#table) name
 - Columns listed in the query's `GROUP BY` clause; each row in the result set
   contains the values used for grouping
 
@@ -63,7 +63,7 @@ includes the following:
 
 If a query uses `GROUP BY` and the `WHERE` clause doesn't filter by time, then
 groups are based on the
-[default time range](/influxdb3/core/reference/influxql/group-by/#default-time-range).
+[default time range](/influxdb3/version/reference/influxql/group-by/#default-time-range).
 
 ## Basic query examples
 
@@ -78,9 +78,9 @@ groups are based on the
 >
 > #### Sample data
 > 
-> The following examples use the [Home sensor data](/influxdb3/core/reference/sample-data/#home-sensor-data).
+> The following examples use the [Home sensor data](/influxdb3/version/reference/sample-data/#home-sensor-data).
 > To run the example queries and return results,
-> [write the sample data](/influxdb3/core/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
+> [write the sample data](/influxdb3/version/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
 > to your {{% product-name %}} database before running the example queries.
 
 ### Query data within time boundaries
@@ -88,7 +88,7 @@ groups are based on the
 - Use the `SELECT` clause to specify what tags and fields to return.
   Specify at least one field key.
   To return all tags and fields, use the wildcard alias (`*`).
-- Specify the [table](/influxdb3/core/reference/glossary/#table) to
+- Specify the [table](/influxdb3/version/reference/glossary/#table) to
   query in the `FROM` clause.
 - Specify time boundaries in the `WHERE` clause. Include time-based predicates
   that compare the value of the `time` column to a timestamp.
@@ -190,7 +190,7 @@ SELECT time, room, temp, hum FROM home
   base conditions on.
 - In the `WHERE` clause, include predicates that compare the tag identifier to a
   string literal. Use
-  [logical operators](/influxdb3/core/reference/influxql/where/#logical-operators)
+  [logical operators](/influxdb3/version/reference/influxql/where/#logical-operators)
   to chain multiple predicates together and apply multiple conditions.
 
 ```sql
@@ -203,7 +203,7 @@ SELECT * FROM home WHERE room = 'Kitchen'
 - In the `WHERE` clause, include predicates that compare the field identifier to
   a value or expression.
   Use
-  [logical operators](/influxdb3/core/reference/influxql/where/#logical-operators)
+  [logical operators](/influxdb3/version/reference/influxql/where/#logical-operators)
   (`AND`, `OR`) to chain multiple predicates together and apply multiple
   conditions.
 
@@ -224,7 +224,7 @@ SELECT temp AS temperature, hum AS "humidity (%)" FROM home
 
 {{% note %}}
 When aliasing columns in **InfluxQL**, use the `AS` clause and an
-[identifier](/influxdb3/core/reference/influxql/#identifiers). When
-[aliasing columns in **SQL**](/influxdb3/core/query-data/sql/basic-query/#alias-queried-fields-and-tags),
+[identifier](/influxdb3/version/reference/influxql/#identifiers). When
+[aliasing columns in **SQL**](/influxdb3/version/query-data/sql/basic-query/#alias-queried-fields-and-tags),
 you can use the `AS` clause to define the alias, but it isn't necessary.
 {{% /note %}}
