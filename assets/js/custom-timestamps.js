@@ -131,7 +131,7 @@ function updateTimestamps (newStartDate) {
       oldDatePart = datePart(x.rfc3339.replace(/T.*$/, ''));
       newDatePart = datePart(x.rfc3339_new.replace(/T.*$/, ''));
       rfc3339Regex = new RegExp(
-        `${oldDatePart.year}(.*)${oldDatePart.month}(.*)${oldDatePart.day}`,
+        `${oldDatePart.year}(.*?)${oldDatePart.month}(.*?)${oldDatePart.day}`,
         'g'
       );
       rfc3339Repl = `${newDatePart.year}$1${newDatePart.month}$2${newDatePart.day}`;
