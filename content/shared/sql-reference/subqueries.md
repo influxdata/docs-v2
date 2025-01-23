@@ -20,7 +20,7 @@ Subqueries can be used in `SELECT`, `FROM`, `WHERE`, and `HAVING` clauses.
 > 
 > Query examples on this page use the following sample data sets:
 > 
-> - [Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data)
+> - [Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data)
 > - [Home sensor actions sample data](/influxdb/version/reference/sample-data/#home-sensor-actions-data)
 > - [NOAA Bay Area weather sample data](/influxdb/version/reference/sample-data/#noaa-bay-area-weather-data)
 

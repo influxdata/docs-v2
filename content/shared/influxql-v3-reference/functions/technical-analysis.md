@@ -278,7 +278,7 @@ CHANDE_MOMENTUM_OSCILLATOR(field_expression, period[, hold_period[, warmup_type]
 {{% expand "Apply `CHANDE_MOMENTUM_OSCILLATOR` to a field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -313,7 +313,7 @@ name: home
 {{% expand "Apply `CHANDE_MOMENTUM_OSCILLATOR` to each field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -348,7 +348,7 @@ name: home
 {{% expand "Apply `CHANDE_MOMENTUM_OSCILLATOR` with a custom hold period" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -380,7 +380,7 @@ name: home
 {{% expand "Apply `CHANDE_MOMENTUM_OSCILLATOR` with a default non-default warmup type" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -502,7 +502,7 @@ DOUBLE_EXPONENTIAL_MOVING_AVERAGE(field_expression, period[, hold_period[, warmu
 {{% expand "Apply `DOUBLE_EXPONENTIAL_MOVING_AVERAGE` to a field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -537,7 +537,7 @@ name: home
 {{% expand "Apply `DOUBLE_EXPONENTIAL_MOVING_AVERAGE` to each field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -572,7 +572,7 @@ name: home
 {{% expand "Apply `DOUBLE_EXPONENTIAL_MOVING_AVERAGE` with a custom hold period" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -604,7 +604,7 @@ name: home
 {{% expand "Apply `DOUBLE_EXPONENTIAL_MOVING_AVERAGE` with a default non-default warmup type" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -724,7 +724,7 @@ EXPONENTIAL_MOVING_AVERAGE(field_expression, period[, hold_period[, warmup_type]
 {{% expand "Apply `EXPONENTIAL_MOVING_AVERAGE` to a field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -759,7 +759,7 @@ name: home
 {{% expand "Apply `EXPONENTIAL_MOVING_AVERAGE` to each field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -794,7 +794,7 @@ name: home
 {{% expand "Apply `EXPONENTIAL_MOVING_AVERAGE` with a custom hold period" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -826,7 +826,7 @@ name: home
 {{% expand "Apply `EXPONENTIAL_MOVING_AVERAGE` with a default non-default warmup type" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -938,7 +938,7 @@ KAUFMANS_EFFICIENCY_RATIO(field_expression, period[, hold_period])
 {{% expand "Apply `KAUFMANS_EFFICIENCY_RATIO` to a field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -972,7 +972,7 @@ name: home
 {{% expand "Apply `KAUFMANS_EFFICIENCY_RATIO` to each field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1006,7 +1006,7 @@ name: home
 {{% expand "Apply `KAUFMANS_EFFICIENCY_RATIO` with a custom hold period" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1111,7 +1111,7 @@ KAUFMANS_ADAPTIVE_MOVING_AVERAGE(field_expression, period[, hold_period])
 {{% expand "Apply `KAUFMANS_ADAPTIVE_MOVING_AVERAGE` to a field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1145,7 +1145,7 @@ name: home
 {{% expand "Apply `KAUFMANS_ADAPTIVE_MOVING_AVERAGE` to each field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1179,7 +1179,7 @@ name: home
 {{% expand "Apply `KAUFMANS_ADAPTIVE_MOVING_AVERAGE` with a custom hold period" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1289,7 +1289,7 @@ RELATIVE_STRENGTH_INDEX(field_expression, period[, hold_period[, warmup_type]])
 {{% expand "Apply `RELATIVE_STRENGTH_INDEX` to a field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1323,7 +1323,7 @@ name: home
 {{% expand "Apply `RELATIVE_STRENGTH_INDEX` to each field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1357,7 +1357,7 @@ name: home
 {{% expand "Apply `RELATIVE_STRENGTH_INDEX` with a custom hold period" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1389,7 +1389,7 @@ name: home
 {{% expand "Apply `RELATIVE_STRENGTH_INDEX` with a default non-default warmup type" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1510,7 +1510,7 @@ TRIPLE_EXPONENTIAL_MOVING_AVERAGE(field_expression, period[, hold_period[, warmu
 {{% expand "Apply `TRIPLE_EXPONENTIAL_MOVING_AVERAGE` to a field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1545,7 +1545,7 @@ name: home
 {{% expand "Apply `TRIPLE_EXPONENTIAL_MOVING_AVERAGE` to each field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1580,7 +1580,7 @@ name: home
 {{% expand "Apply `TRIPLE_EXPONENTIAL_MOVING_AVERAGE` with a custom hold period" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1612,7 +1612,7 @@ name: home
 {{% expand "Apply `TRIPLE_EXPONENTIAL_MOVING_AVERAGE` with a default non-default warmup type" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1738,7 +1738,7 @@ TRIPLE_EXPONENTIAL_DERIVATIVE(field_expression, period[, hold_period[, warmup_ty
 {{% expand "Apply `TRIPLE_EXPONENTIAL_DERIVATIVE` to a field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1772,7 +1772,7 @@ name: home
 {{% expand "Apply `TRIPLE_EXPONENTIAL_DERIVATIVE` to each field" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1806,7 +1806,7 @@ name: home
 {{% expand "Apply `TRIPLE_EXPONENTIAL_DERIVATIVE` with a custom hold period" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT
@@ -1838,7 +1838,7 @@ name: home
 {{% expand "Apply `TRIPLE_EXPONENTIAL_DERIVATIVE` with a default non-default warmup type" %}}
 
 The following example uses the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT

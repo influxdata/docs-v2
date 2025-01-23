@@ -11,7 +11,7 @@
 
     {{ partial "header/title" . }}
 
-    <meta name="description" content="{{ if .Description }}{{ .Description | markdownify | plainify }}{{else}}{{ .Summary | markdownify | plainify }}{{ end }}">
+    <meta name="description" content="{{ if .Description }}{{ .Description | .RenderString | plainify }}{{else}}{{ .Summary | .RenderString | plainify }}{{ end }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 

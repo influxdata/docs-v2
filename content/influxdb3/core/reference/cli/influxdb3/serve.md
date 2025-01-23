@@ -7,6 +7,8 @@ menu:
     parent: influxdb3
     name: influxdb3 serve
 weight: 300
+related:
+  - /influxdb3/core/reference/config-options/
 ---
 
 The `influxdb3 serve` command starts the {{< product-name >}} server.

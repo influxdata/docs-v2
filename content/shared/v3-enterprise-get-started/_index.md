@@ -330,7 +330,7 @@ The `query` subcommand includes options to help ensure that the right database i
 | `--database` | The name of the database to operate on | Yes |
 | `--token` | The authentication token for the {{% product-name %}} server | No |
 | `--language` | The query language of the provided query string [default: `sql`] [possible values: `sql`, `influxql`] | No  |
-| `--format` | The format in which to output the query [default: `pretty`] [possible values: `pretty`, `json`, `json_lines`, `csv`, `parquet`] | No |
+| `--format` | The format in which to output the query [default: `pretty`] [possible values: `pretty`, `json`, `jsonl`, `csv`, `parquet`] | No |
 | `--output` | The path to output data to | No |
 
 #### Example: query `“SHOW TABLES”` on the `servers` database:
@@ -467,19 +467,18 @@ For more information about the Python client library, see the [`influxdb3-python
 You can use the `influxdb3` CLI to create a last value cache.
 
 ```
-Usage: $ influxdb3 create last-cache [OPTIONS] -d <DATABASE_NAME> -t <TABLE>
+Usage: $ influxdb3 create last_cache [OPTIONS] -d <DATABASE_NAME> -t <TABLE> [CACHE_NAME]
 
 Options:
-  -h, --host <HOST_URL>                URL of the running InfluxDB 3 server
-  -d, --database <DATABASE_NAME>       The database to run the query against 
-      --token <AUTH_TOKEN>             The token for authentication 
+  -h, --host <HOST_URL>                URL of the running InfluxDB 3 Enterprise server [env: INFLUXDB3_HOST_URL=] 
+  -d, --database <DATABASE_NAME>       The database to run the query against [env: INFLUXDB3_DATABASE_NAME=]
+      --token <AUTH_TOKEN>             The token for authentication [env: INFLUXDB3_AUTH_TOKEN=]
   -t, --table <TABLE>                  The table for which the cache is created
-      --cache-name <CACHE_NAME>        Give a name for the cache
-      --help                           Print help information
       --key-columns <KEY_COLUMNS>      Columns used as keys in the cache
       --value-columns <VALUE_COLUMNS>  Columns to store as values in the cache
       --count <COUNT>                  Number of entries per unique key:column 
       --ttl <TTL>                      The time-to-live for entries (seconds)
+      --help                           Print help information
 
 ```
 
@@ -496,7 +495,7 @@ An example of creating this cache in use:
 | Alpha | webserver | 2024-12-11T10:02:00 | 25.3 | Warn |
 
 ```bash
-influxdb3 create last-cache --database=servers --table=cpu --cache-name=cpuCache --key-columns=host,application --value-columns=usage_percent,status --count=5
+influxdb3 create last_cache --database=servers --table=cpu --key-columns=host,application --value-columns=usage_percent,status --count=5 cpuCache
 ```
 
 #### Query a Last values cache
@@ -983,11 +982,11 @@ This feature is only available in Enterprise and is not available in Core.
 # Example variables on a query
 # HTTP-bound Port: 8585
 
-influxdb3 file-index create --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE> <COLUMNS>
+influxdb3 create file_index --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE> <COLUMNS>
 ```
 
 #### Delete a file index
 
 ```bash
-influxdb3 file-index delete --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE>
+influxdb3 delete file_index --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE>
 ```

@@ -54,4 +54,4 @@
 {{ $pageTitle := $scratch.Get "pageTitle" }}
 {{ $siteTitle := $scratch.Get "siteTitle" }}
 
-<title>{{ $pageTitle }}{{ cond (ne (len $pageTitle) 0) " | " "" }}{{ $siteTitle }}</title>
+<title>{{ $pageTitle | .RenderString }}{{ cond (ne (len $pageTitle) 0) " | " "" }}{{ $siteTitle }}</title>
