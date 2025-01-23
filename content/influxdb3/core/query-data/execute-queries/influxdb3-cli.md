@@ -2,7 +2,7 @@
 title: Use the influxdb3 CLI to query data
 list_title: Use the influxdb3 CLI
 description: >
-  Use the `influxdb3 query` command to query data in InfluxDB Clustered with SQL.
+  Use the `influxdb3 query` command to query data in {{< product-name >}} with SQL.
 weight: 301
 menu:
   influxdb3_core:

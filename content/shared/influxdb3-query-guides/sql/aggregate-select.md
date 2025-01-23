@@ -219,7 +219,7 @@ groups:
 - Include an `ORDER BY` clause with columns to sort by.
 
 The following example retrieves unique combinations of time intervals and rooms
-with their minimum, maximum, and average temperatures.
+with their minimum, maximum, and average temperatures:
 
 ```sql
 SELECT

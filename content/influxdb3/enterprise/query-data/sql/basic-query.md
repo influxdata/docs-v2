@@ -1,6 +1,6 @@
 ---
 title: Perform a basic SQL query
-seotitle: Perform a basic SQL query in InfluxDB 3 Core
+seotitle: Perform a basic SQL query in {{< product-name >}}
 description: >
   A basic SQL query that queries data from {{< product-name >}} most commonly
   includes   `SELECT`, `FROM`, and `WHERE` clauses.

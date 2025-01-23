@@ -1,6 +1,6 @@
 ---
 title: Perform a basic InfluxQL query
-seotitle: Perform a basic InfluxQL query in InfluxDB Clustered
+seotitle: Perform a basic InfluxQL query in {{< product-name >}}
 description: >
   A basic InfluxQL query that queries data from InfluxDB most commonly includes
   `SELECT`, `FROM`, and `WHERE` clauses.
