@@ -25,7 +25,7 @@
           <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.
         <!-- Check if the stable equivalent page exists -->
         {{ else if $stablePageExists }}
-          <span style="margin-right:.25rem">See the equivalent <strong>InfluxDB {{ $stableVersion }}</strong> documentation:</span> <a href="{{ $stableEquivalentPage.RelPermalink }}">{{ $stableEquivalentPage.Title }}</a>.
+          <span style="margin-right:.25rem">See the equivalent <strong>InfluxDB {{ $stableVersion }}</strong> documentation:</span> <a href="{{ $stableEquivalentPage.RelPermalink }}">{{ $stableEquivalentPage.Title | .RenderString }}</a>.
         {{ else }}
           See the <a href="{{ $stableDefaultURL }}">InfluxDB {{ $stableVersion }} documentation</a>.
         {{ end }}
@@ -38,7 +38,7 @@
   <div class="note block old-version">
     <p>
       {{ if $stablePageExists }}
-        <span style="margin-right:.25rem">See the equivalent <strong>InfluxDB {{ $stableVersion }}</strong> documentation:</span> <a href="{{ $stableEquivalentPage.RelPermalink }}">{{ $stableEquivalentPage.Title }}</a>.
+        <span style="margin-right:.25rem">See the equivalent <strong>InfluxDB {{ $stableVersion }}</strong> documentation:</span> <a href="{{ $stableEquivalentPage.RelPermalink }}">{{ $stableEquivalentPage.Title | .RenderString }}</a>.
       {{ else }}
         See the <a href="{{ $stableEquivalentURL }}">equivalent InfluxDB {{ $stableVersion }} documentation</a>.
       {{ end }}

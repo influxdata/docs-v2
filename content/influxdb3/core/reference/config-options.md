@@ -1,5 +1,5 @@
 ---
-title: InfluxDB 3 Core configuration options
+title: '{{< product-name >}} configuration options'
 description: >
   InfluxDB 3 Core lets you customize your server configuration by using
   `influxdb3 serve` command options or by setting environment variables.

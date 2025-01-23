@@ -330,7 +330,7 @@ The `query` subcommand includes options to help ensure that the right database i
 | `--database` | The name of the database to operate on | Yes |
 | `--token` | The authentication token for the {{% product-name %}} server | No |
 | `--language` | The query language of the provided query string [default: `sql`] [possible values: `sql`, `influxql`] | No  |
-| `--format` | The format in which to output the query [default: `pretty`] [possible values: `pretty`, `json`, `json_lines`, `csv`, `parquet`] | No |
+| `--format` | The format in which to output the query [default: `pretty`] [possible values: `pretty`, `json`, `jsonl`, `csv`, `parquet`] | No |
 | `--output` | The path to output data to | No |
 
 #### Example: query `“SHOW TABLES”` on the `servers` database:
