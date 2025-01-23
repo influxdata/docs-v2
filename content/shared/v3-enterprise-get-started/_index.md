@@ -982,11 +982,11 @@ This feature is only available in Enterprise and is not available in Core.
 # Example variables on a query
 # HTTP-bound Port: 8585
 
-influxdb3 file-index create --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE> <COLUMNS>
+influxdb3 create file_index --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE> <COLUMNS>
 ```
 
 #### Delete a file index
 
 ```bash
-influxdb3 file-index delete --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE>
+influxdb3 delete file_index --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE>
 ```
