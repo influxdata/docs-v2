@@ -27,7 +27,7 @@ environment variables.
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --writer-id my-host \
+  --node-id my-host \
   --log-filter info \
   --max-http-request-size 20971520 \
   --aws-allow-http
@@ -53,7 +53,7 @@ influxdb3 serve
 - [General](#general)
   - [object-store](#object-store)
   - [data-dir](#data-dir)
-  - [writer-id](#writer-id)
+  - [node-id](#node-id)
   - [mode](#mode)
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
@@ -118,11 +118,11 @@ influxdb3 serve
   - [wal-max-write-buffer-size](#wal-max-write-buffer-size)
   - [snapshotted-wal-files-to-keep](#snapshotted-wal-files-to-keep)
 - [Replication](#replication)
-  - [read-from-writer-ids](#read-from-writer-ids)
+  - [read-from-node-ids](#read-from-node-ids)
   - [replication-interval](#replication-interval)
 - [Compaction](#compaction)
   - [compactor-id](#compactor-id)
-  - [compact-from-writer-ids](#compact-from-writer-ids)
+  - [compact-from-node-ids](#compact-from-node-ids)
   - [run-compactions](#run-compactions)
   - [compaction-row-limit](#compaction-row-limit)
   - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
@@ -147,7 +147,7 @@ influxdb3 serve
 - [object-store](#object-store)
 - [bucket](#bucket)
 - [data-dir](#data-dir)
-- [writer-id](#writer-id)
+- [node-id](#node-id)
 - [mode](#mode)
 
 #### object-store
@@ -178,15 +178,15 @@ Defines the location {{< product-name >}} uses to store files locally.
 
 ---
 
-#### writer-id
+#### node-id
 
-Specifies the writer identifier used as a prefix in all object store file paths.
+Specifies the node identifier used as a prefix in all object store file paths.
 This should be unique for any hosts sharing the same object store
 configuration--for example, the same bucket.
 
-| influxdb3 serve option | Environment variable                 |
-| :--------------------- | :----------------------------------- |
-| `--writer-id`          | `INFLUXDB3_WRITER_IDENTIFIER_PREFIX` |
+| influxdb3 serve option | Environment variable               |
+| :--------------------- | :--------------------------------- |
+| `--node-id`            | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` |
 
 ---
 
@@ -902,24 +902,24 @@ they are deleted when the number of snapshotted WAL files exceeds this number.
 
 ### Replication
 
-- [read-from-writer-ids](#read-from-writer-ids)
+- [read-from-node-ids](#read-from-node-ids)
 - [replication-interval](#replication-interval)
 
-#### read-from-writer-ids
+#### read-from-node-ids
 
-Specifies a comma-separated list of writer identifier prefixes (`writer-id`s) to
+Specifies a comma-separated list of writer identifier prefixes (`node-id`s) to
 read WAL files from. [env: =]
 
 | influxdb3 serve option | Environment variable            |
 | :--------------------- | :------------------------------ |
-| `--read-from-writer-ids`           | `INFLUXDB3_ENTERPRISE_READ_FROM_WRITER_IDS` |
+| `--read-from-node-ids`           | `INFLUXDB3_ENTERPRISE_READ_FROM_WRITER_IDS` |
 
 ---
 
 #### replication-interval
 
 Defines the interval at which each replica specified in the
-`read-from-writer-ids` option is replicated.
+`read-from-node-ids` option is replicated.
 
 **Default:** `250ms`
 
@@ -932,7 +932,7 @@ Defines the interval at which each replica specified in the
 ### Compaction
 
 - [compactor-id](#compactor-id)
-- [compact-from-writer-ids](#compact-from-writer-ids)
+- [compact-from-node-ids](#compact-from-node-ids)
 - [run-compactions](#run-compactions)
 - [compaction-row-limit](#compaction-row-limit)
 - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
@@ -952,14 +952,14 @@ write buffer and any replicas it manages.
 
 ---
 
-#### compact-from-writer-ids
+#### compact-from-node-ids
 
 Defines a comma-separated list of writer identifier prefixes from which data is
 compacted.
 
 | influxdb3 serve option      | Environment variable                           |
 | :-------------------------- | :--------------------------------------------- |
-| `--compact-from-writer-ids` | `INFLUXDB3_ENTERPRISE_COMPACT_FROM_WRITER_IDS` |
+| `--compact-from-node-ids` | `INFLUXDB3_ENTERPRISE_COMPACT_FROM_WRITER_IDS` |
 
 ---
 

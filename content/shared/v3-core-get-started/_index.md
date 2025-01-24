@@ -139,21 +139,21 @@ To start your InfluxDB instance, use the `influxdb3 serve` command
 and provide the following:
 
 - `--object-store`: Specifies the type of Object store to use. InfluxDB supports the following: local file system (`file`), `memory`, S3 (and compatible services like Ceph or Minio) (`s3`), Google Cloud Storage (`google`), and Azure Blob Storage (`azure`).
-- `--writer-id`: A string identifier that determines the server's storage path within the configured storage location
+- `--node-id`: A string identifier that determines the server's storage path within the configured storage location
 
 The following examples show how to start InfluxDB 3 with different object store configurations:
 
 ```bash
 # MEMORY
 # Stores data in RAM; doesn't persist data
-influxdb3 serve --writer-id=local01 --object-store=memory
+influxdb3 serve --node-id=local01 --object-store=memory
 ```
 
 ```bash
 # FILESYSTEM
 # Provide the filesystem directory
 influxdb3 serve \
-  --writer-id=local01 \
+  --node-id=local01 \
   --object-store=file \
   --data-dir ~/.influxdb3
 ```
@@ -170,7 +170,7 @@ To run the [Docker image](/influxdb3/core/install/#docker-image) and persist dat
 docker run -it \
  -v /path/on/host:/path/in/container \
  quay.io/influxdb/influxdb3-core:latest serve \
- --writer-id my_host \
+ --node-id my_host \
  --object-store file \
  --data-dir /path/in/container
 ```
@@ -178,13 +178,13 @@ docker run -it \
 ```bash
 # S3 (defaults to us-east-1 for region)
 # Specify the Object store type and associated options
-influxdb3 serve --writer-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY]
+influxdb3 serve --node-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY]
 ```
 
 ```bash
 # Minio/Open Source Object Store (Uses the AWS S3 API, with additional parameters)
 # Specify the Object store type and associated options
-influxdb3 serve --writer-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY] --aws-endpoint=[ENDPOINT] --aws-allow-http
+influxdb3 serve --node-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY] --aws-endpoint=[ENDPOINT] --aws-allow-http
 ```
 
 _For more information about server options, run `influxdb3 serve --help`._
