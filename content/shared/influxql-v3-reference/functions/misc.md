@@ -201,7 +201,7 @@ tz(time_zone)
 {{% expand "Return the UTC offset for Chicago's time zone" %}}
 
 The following example uses the
-[Get started home sensor sample dataset](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample dataset](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 {{% influxdb/custom-timestamps %}}
 

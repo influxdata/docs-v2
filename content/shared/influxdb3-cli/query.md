@@ -26,7 +26,7 @@ influxdb3 query [OPTIONS] --database <DATABASE_NAME> [QUERY]...
 | `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
 |        | `--token`    | Authentication token                                                                     |
 | `-l`   | `--language` | Query language of the query string (`sql` _(default)_ or `influxql`)                     |
-|        | `--format`   | Output format (`pretty` _(default)_, `json`, `json_lines`, `csv`, `parquet`)             |
+|        | `--format`   | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, `parquet`)             |
 | `-o`   | `--output`   | Output query results to the specified file                                               |
 | `-h`   | `--help`     | Print help information                                                                   |
 

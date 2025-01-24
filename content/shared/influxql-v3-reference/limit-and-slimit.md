@@ -36,7 +36,7 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIM
 ### Examples {#limit-examples}
 
 The following examples use the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 {{< expand-wrapper >}}
 

@@ -18,7 +18,7 @@ influxdb3 show databases [OPTIONS]
 | `-d`   | `--database`     | _({{< req >}})_ Name of the database to operate on                                       |
 |        | `--token`        | Authentication token                                                                     |
 |        | `--show-deleted` | Include databases marked as deleted in the output                                        |
-|        | `--format`       | Output format (`pretty` _(default)_, `json`, `json_lines`, or `csv`)                     |
+|        | `--format`       | Output format (`pretty` _(default)_, `json`, `jsonl`, or `csv`)                     |
 | `-h`   | `--help`         | Print help information                                                                   |
 
 ### Option environment variables
