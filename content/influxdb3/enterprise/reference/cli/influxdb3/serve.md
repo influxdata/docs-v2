@@ -16,7 +16,7 @@ The `influxdb3 serve` command starts the {{< product-name >}} server.
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 serve [OPTIONS] --writer-id <HOST_IDENTIFIER_PREFIX>
+influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 ```
 
 ## Options
@@ -78,12 +78,12 @@ influxdb3 serve [OPTIONS] --writer-id <HOST_IDENTIFIER_PREFIX>
 |                  | `--wal-max-write-buffer-size`                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wal-max-write-buffer-size)_                        |
 |                  | `--query-log-size`                                   | _See [configuration options](/influxdb3/enterprise/reference/config-options/#query-log-size)_                                   |
 |                  | `--buffer-mem-limit-mb`                              | _See [configuration options](/influxdb3/enterprise/reference/config-options/#buffer-mem-limit-mb)_                              |
-| {{< req "\*" >}} | `--writer-id`                                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#writer-id)_                                        |
+| {{< req "\*" >}} | `--node-id`                                          | _See [configuration options](/influxdb3/enterprise/reference/config-options/#node-id)_                                          |
 |                  | `--mode`                                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#mode)_                                             |
-|                  | `--read-from-writer-ids`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#read-from-writer-ids)_                             |
+|                  | `--read-from-node-ids`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#read-from-node-ids)_                               |
 |                  | `--replication-interval`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#replication-interval)_                             |
 |                  | `--compactor-id`                                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compactor-id)_                                     |
-|                  | `--compact-from-writer-ids`                          | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compact-from-writer-ids)_                          |
+|                  | `--compact-from-node-ids`                            | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compact-from-node-ids)_                            |
 |                  | `--run-compactions`                                  | _See [configuration options](/influxdb3/enterprise/reference/config-options/#run-compactions)_                                  |
 |                  | `--compaction-row-limit`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compaction-row-limit)_                             |
 |                  | `--compaction-max-num-files-per-plan`                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compaction-max-num-files-per-plan)_                |
@@ -128,7 +128,7 @@ with a unique identifier for your {{< product-name >}} server.
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --writer-id MY_HOST_NAME
+  --node-id MY_HOST_NAME
 ```
 
 ### Run the InfluxDB 3 server with extra verbose logging
@@ -140,7 +140,7 @@ influxdb3 serve \
   --verbose \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --writer-id MY_HOST_NAME
+  --node-id MY_HOST_NAME
 ```
 
 ### Run InfluxDB 3 with debug logging using LOG_FILTER
@@ -151,7 +151,7 @@ influxdb3 serve \
 LOG_FILTER=debug influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --writer-id MY_HOST_NAME
+  --node-id MY_HOST_NAME
 ```
 
 {{% /code-placeholders %}}
