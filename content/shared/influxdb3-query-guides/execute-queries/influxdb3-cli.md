@@ -26,8 +26,8 @@ Provide the following with your command:
 - **Query**: SQL or InfluxQL query to execute. Provide the query in one of the 
   following ways:
   
-  - a string on the command line
-  - a path to a file that contains the query using the `--file` option
+  - a string
+  - the `--file` option and the path to a file that contains the query
   - from stdin
 
 {{% code-placeholders "(DATABASE|AUTH)_(TOKEN|NAME)" %}}

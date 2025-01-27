@@ -18,7 +18,7 @@ influxdb3 write [OPTIONS] --database <DATABASE_NAME> [LINE_PROTOCOL]...
 - **LINE_PROTOCOL**: The line protocol to write to {{< product-name >}}.
   Provide the line protocol in one of the following ways:
 
-  - a string on the command line
+  - a string
   - a path to a file that contains the line protocol using the `--file` option
   - from stdin
 
@@ -29,7 +29,7 @@ influxdb3 write [OPTIONS] --database <DATABASE_NAME> [LINE_PROTOCOL]...
 | `-H`   | `--host`           | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 | `-d`   | `--database`       | _({{< req >}})_ Name of the database to operate on                                       |
 |        | `--token`          | Authentication token                                                                     |
-| `-f`   | `--file`           | Line protocol file to use to write data                                                  |
+| `-f`   | `--file`           | A file that contains line protocol to write                                                 |
 |        | `--accept-partial` | Accept partial writes                                                                    |
 | `-h`   | `--help`           | Print help information                                                                   |
 

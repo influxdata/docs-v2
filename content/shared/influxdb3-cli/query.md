@@ -18,7 +18,7 @@ influxdb3 query [OPTIONS] --database <DATABASE_NAME> [QUERY]...
 
 - **QUERY**: The query to execute. Provide the query in one of the following ways:
 
-  - a string on the command line
+  - a string
   - a path to a file that contains the query using the `--file` option
   - from stdin
 
@@ -32,7 +32,7 @@ influxdb3 query [OPTIONS] --database <DATABASE_NAME> [QUERY]...
 | `-l`   | `--language` | Query language of the query string (`sql` _(default)_ or `influxql`)                     |
 |        | `--format`   | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, `parquet`)                  |
 | `-o`   | `--output`   | Output query results to the specified file                                               |
-| `-f`   | `--file`     | File containing the query to execute                                                     |
+| `-f`   | `--file`     | A file that contains the query to execute                                                     |
 | `-h`   | `--help`     | Print help information                                                                   |
 
 ### Option environment variables
