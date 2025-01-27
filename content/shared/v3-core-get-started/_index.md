@@ -219,7 +219,7 @@ InfluxDB is a schema-on-write database. You can start writing data and InfluxDB 
 After a schema is created, InfluxDB validates future write requests against it before accepting the data.
 Subsequent requests can add new fields on-the-fly, but can't add new tags.
 
-InfluxDB 3 Core is optimized for recent data only--it accepts writes for data with timestamps from the last 72 hours. It persists that data in Parquet files for access by third-party systems for longer term historical analysis and queries. If you require longer historical queries with a compactor that optimizes data organization, consider using [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
+InfluxDB 3 Core is optimized for recent data, but accepts writes from any time period. It persists that data in Parquet files for access by third-party systems for longer term historical analysis and queries. If you require longer historical queries with a compactor that optimizes data organization, consider using [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
 
 
 The database has three write API endpoints that respond to HTTP `POST` requests:
@@ -320,7 +320,9 @@ influxdb3 create -h
 
 ### Query the database
 
-InfluxDB 3 now supports native SQL for querying, in addition to InfluxQL, an SQL-like language customized for time series queries.
+InfluxDB 3 now supports native SQL for querying, in addition to InfluxQL, an
+SQL-like language customized for time series queries. {{< product-name >}} limits
+query time ranges to 72 hours (both recent and historical) to ensure query performance.
 
 > [!Note]
 > Flux, the language introduced in InfluxDB 2.0, is **not** supported in InfluxDB 3.

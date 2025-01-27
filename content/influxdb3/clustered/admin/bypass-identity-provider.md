@@ -69,7 +69,7 @@ The only way to revoke the token is to do the following:
     kubectl delete secret rsa-keys admin-token --namespace INFLUXDB_NAMESPACE
     ```
 
-2.  Rerun the `key-gen` and `create-amin-token` jobs:
+2.  Rerun the `key-gen` and `create-admin-token` jobs:
 
     1.  List the jobs in your InfluxDB namespace to find the key-gen job pod:
 
