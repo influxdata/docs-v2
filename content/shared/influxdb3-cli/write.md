@@ -29,7 +29,7 @@ influxdb3 write [OPTIONS] --database <DATABASE_NAME> [LINE_PROTOCOL]...
 | `-H`   | `--host`           | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 | `-d`   | `--database`       | _({{< req >}})_ Name of the database to operate on                                       |
 |        | `--token`          | Authentication token                                                                     |
-| `-f`   | `--file`           | A file that contains line protocol to write                                                 |
+| `-f`   | `--file`           | A file that contains line protocol to write                                              |
 |        | `--accept-partial` | Accept partial writes                                                                    |
 | `-h`   | `--help`           | Print help information                                                                   |
 
