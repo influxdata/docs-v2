@@ -54,6 +54,7 @@ influxdb3 serve
   - [object-store](#object-store)
   - [data-dir](#data-dir)
   - [node-id](#node-id)
+  - [query-file-limit](#query-file-limit)
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
   - [aws-secret-access-key](#aws-secret-access-key)
@@ -134,9 +135,9 @@ influxdb3 serve
 ### General
 
 - [object-store](#object-store)
-- [bucket](#bucket)
 - [data-dir](#data-dir)
 - [node-id](#node-id)
+- [query-file-limit](#query-file-limit)
 
 #### object-store
 
@@ -175,6 +176,25 @@ configuration--for example, the same bucket.
 | influxdb3 serve option | Environment variable               |
 | :--------------------- | :--------------------------------- |
 | `--node-id`            | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` |
+
+---
+
+#### query-file-limit
+
+Limits the number of Parquet files a query can access. Default is `432` (72 hours).
+You can increase this limit to allow more files to be queried, but be aware of
+the following side-effects:
+
+- Degraded query performance for queries that read more Parquet files
+- Increased memory usage
+- Your system potentially killing the `influxdb3` process due to Out-of-Memory
+  (OOM) errors
+
+We recommend keeping the default setting and querying smaller time ranges.
+
+| influxdb3 serve option | Environment variable         |
+| :--------------------- | :--------------------------- |
+| `--query-file-limit`   | `INFLUXDB3_QUERY_FILE_LIMIT` |
 
 ---
 
