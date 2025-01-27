@@ -181,17 +181,31 @@ configuration--for example, the same bucket.
 
 #### query-file-limit
 
-Limits the number of Parquet files a query can access. Default is `432`. With the default setting of gen1 time blocks of 10 minutes, this can be up to 72 hours, but could be less depending on gen1 configuration and whether all data for a given 10 minute block of time was ingested during the same period.
+Limits the number of Parquet files a query can access.
+
+**Default:** `432`
+
+With the default `432` setting and the default [`gen1-duration`](#`gen1-duration`)
+setting of 10 minutes, queries can access up to a 72 hours of data, but
+potentially less depending on whether all data for a given 10 minute block of
+time was ingested during the same period.
+
 You can increase this limit to allow more files to be queried, but be aware of
 the following side-effects:
 
 - Degraded query performance for queries that read more Parquet files
 - Increased memory usage
 - Your system potentially killing the `influxdb3` process due to Out-of-Memory
-- If using object storage backend, many GET requests to access the data (as many as 2 per file)
   (OOM) errors
+- If using object storage to store data, many GET requests to access the data
+  (as many as 2 per file)
 
-We recommend keeping the default setting and querying smaller time ranges. If you require longer time range queries or faster query performance on any query that accesses an hour of data or more, our InfluxDB 3 Enterprise product optimizes this with a compactor that rearranges files to achieve faster query performance.
+> [!Note]
+> We recommend keeping the default setting and querying smaller time ranges.
+> If you need to query longer time ranges or faster query performance on any query
+> that accesses an hour or more of data, [InfluxDB 3 Enterprise](/influxdb3/enterprise/)
+> optimizes data storage by compacting and rearranging Parquet files to achieve
+> faster query performance.
 
 | influxdb3 serve option | Environment variable         |
 | :--------------------- | :--------------------------- |
