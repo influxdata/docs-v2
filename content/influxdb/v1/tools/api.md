@@ -141,6 +141,7 @@ The `/api/v2/write` endpoint maps the supplied version 1.x database and retentio
   to access the platform and all its capabilities.
   InfluxDB v1.x uses a username and password combination when accessing the HTTP APIs.
   Use the Token schema to provide your InfluxDB 1.x username and password separated by a colon (`:`).
+  The `Token` scheme is the word `Token`, a space, and your credentials (all case-sensitive).
   For example: `Authorization: Token username:password`.
 
 {{< code-tabs-wrapper >}}

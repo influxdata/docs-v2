@@ -67,7 +67,7 @@ With the InfluxDB v1 API, you can use database tokens in InfluxDB 1.x username a
 schemes, in the InfluxDB v2 `Authorization: Token` scheme, or in the OAuth `Authorization: Bearer` scheme.
 
 - [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
-- [Authenticate with a token scheme](#authenticate-with-a-token)
+- [Authenticate with a token scheme](#authenticate-with-a-token-scheme)
 
 ### Authenticate with a username and password scheme
 
@@ -154,6 +154,8 @@ v1 API `/write` and `/query` requests.
 The `Token` scheme is used in the InfluxDB 2.x API.
 `Bearer` is defined by the [OAuth 2.0 Framework](https://www.rfc-editor.org/rfc/rfc6750#page-14).
 Support for one or the other may vary across InfluxDB API clients.
+
+Include the word `Bearer` or `Token`, a space, and your **token** value (all case-sensitive).
 
 #### Syntax
 
