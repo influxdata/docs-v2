@@ -23,7 +23,12 @@ Provide the following with your command:
   - `sql` _(default)_
   - `influxql`
 
-- **Query**: SQL or InfluxQL query string to execute.
+- **Query**: SQL or InfluxQL query to execute. Provide the query in one of the 
+  following ways:
+  
+  - a string on the command line
+  - a path to a file that contains the query using the `--file` option
+  - from stdin
 
 {{% code-placeholders "(DATABASE|AUTH)_(TOKEN|NAME)" %}}
 
@@ -35,21 +40,87 @@ Provide the following with your command:
 
 {{% tab-content %}}
 
-```sh
+<!--------------------------------- BEGIN SQL --------------------------------->
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[string](#)
+[file](#)
+[stdin](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
 influxdb3 query \
   --database DATABASE_NAME \
   "SELECT * FROM home"
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 query \
+  --database DATABASE_NAME \
+  --file ./query.sql
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+cat ./query.sql | influxdb3 query --database DATABASE_NAME
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+<!---------------------------------- END SQL ---------------------------------->
+
 {{% /tab-content %}}
 
 {{% tab-content %}}
 
-```sh
+<!------------------------------- BEGIN INFLUXQL ------------------------------>
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[string](#)
+[file](#)
+[stdin](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
 influxdb3 query \
-  --database DATABASE_NAME \
   --language influxql \
+  --database DATABASE_NAME \
   "SELECT * FROM home"
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 query \
+  --language influxql \
+  --database DATABASE_NAME \
+  --file ./query.influxql
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+cat ./query.influxql | influxdb3 query \
+  --language influxql \
+  --database DATABASE_NAME
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+<!-------------------------------- END INFLUXQL ------------------------------->
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

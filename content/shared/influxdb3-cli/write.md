@@ -6,12 +6,21 @@ The `influxdb3 write` command writes data to your {{< product-name >}} server.
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 write [OPTIONS] --database <DATABASE_NAME> --file <FILE_PATH>
+influxdb3 write [OPTIONS] --database <DATABASE_NAME> [LINE_PROTOCOL]...
 ```
 
 ##### Aliases
 
 `write`, `w`
+
+## Arguments
+
+- **LINE_PROTOCOL**: The line protocol to write to {{< product-name >}}.
+  Provide the line protocol in one of the following ways:
+
+  - a string on the command line
+  - a path to a file that contains the line protocol using the `--file` option
+  - from stdin
 
 ## Options
 
@@ -20,7 +29,7 @@ influxdb3 write [OPTIONS] --database <DATABASE_NAME> --file <FILE_PATH>
 | `-H`   | `--host`           | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 | `-d`   | `--database`       | _({{< req >}})_ Name of the database to operate on                                       |
 |        | `--token`          | Authentication token                                                                     |
-| `-f`   | `--file`           | _({{< req >}})_ Line protocol file to use to write data                                  |
+| `-f`   | `--file`           | Line protocol file to use to write data                                                  |
 |        | `--accept-partial` | Accept partial writes                                                                    |
 | `-h`   | `--help`           | Print help information                                                                   |
 
@@ -47,21 +56,77 @@ with the name of the database to query.
 
 ### Write line protocol to your InfluxDB 3 server
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[string](#)
+[file](#)
+[stdin](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+{{% influxdb/custom-timestamps %}}
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 write --database DATABASE_NAME --file /path/to/data.lp
+influxdb3 write --database DATABASE_NAME \
+  'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000'
 ```
+{{% /influxdb/custom-timestamps %}}
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 write --database DATABASE_NAME --file ./data.lp
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+cat ./data.lp | influxdb3 write --database DATABASE_NAME
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 ### Write line protocol and accept partial writes
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[string](#)
+[file](#)
+[stdin](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+{{% influxdb/custom-timestamps %}}
 <!--pytest.mark.skip-->
 
 ```bash
 influxdb3 write \
   --accept-partial \
   --database DATABASE_NAME \
-  --file /path/to/data.lp
+  'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000'
 ```
+{{% /influxdb/custom-timestamps %}}
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 write \
+  --accept-partial \
+  --database DATABASE_NAME \
+  --file ./data.lp
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+cat ./data.lp | influxdb3 write \
+  --accept-partial \
+  --database DATABASE_NAME \
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 {{% /code-placeholders %}}

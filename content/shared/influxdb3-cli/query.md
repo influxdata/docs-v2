@@ -16,7 +16,11 @@ influxdb3 query [OPTIONS] --database <DATABASE_NAME> [QUERY]...
 
 ## Arguments
 
-- **QUERY**: The query string to execute.
+- **QUERY**: The query to execute. Provide the query in one of the following ways:
+
+  - a string on the command line
+  - a path to a file that contains the query using the `--file` option
+  - from stdin
 
 ## Options
 
@@ -26,8 +30,9 @@ influxdb3 query [OPTIONS] --database <DATABASE_NAME> [QUERY]...
 | `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
 |        | `--token`    | Authentication token                                                                     |
 | `-l`   | `--language` | Query language of the query string (`sql` _(default)_ or `influxql`)                     |
-|        | `--format`   | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, `parquet`)             |
+|        | `--format`   | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, `parquet`)                  |
 | `-o`   | `--output`   | Output query results to the specified file                                               |
+| `-f`   | `--file`     | File containing the query to execute                                                     |
 | `-h`   | `--help`     | Print help information                                                                   |
 
 ### Option environment variables
@@ -55,14 +60,44 @@ with the name of the database to query.
 
 ### Query data using SQL
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[string](#)
+[file](#)
+[stdin](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
 ```bash
 influxdb3 query --database DATABASE_NAME 'SELECT * FROM home'
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 query --database DATABASE_NAME --file ./query.sql
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+cat ./query.sql | influxdb3 query --database DATABASE_NAME
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 ### Query data using InfluxQL
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[string](#)
+[file](#)
+[stdin](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
 ```bash
@@ -71,9 +106,37 @@ influxdb3 query \
   --database DATABASE_NAME \
   'SELECT * FROM home'
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 query \
+  --language influxql \
+  --database DATABASE_NAME \
+  --file ./query.influxql
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+cat ./query.influxql | influxdb3 query \
+  --language influxql \
+  --database DATABASE_NAME
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 ### Query data and return JSON-formatted results
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[string](#)
+[file](#)
+[stdin](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
 ```bash
@@ -82,9 +145,37 @@ influxdb3 query \
   --database DATABASE_NAME \
   'SELECT * FROM home'
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 query \
+  --format json \
+  --database DATABASE_NAME \
+  --file ./query.sql
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+cat ./query.sql | influxdb3 query \
+  --format json \
+  --database DATABASE_NAME
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 ### Query data and write results to a file
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[string](#)
+[file](#)
+[stdin](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
 ```bash
@@ -93,5 +184,26 @@ influxdb3 query \
   --database DATABASE_NAME \
   'SELECT * FROM home'
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 query \
+  --output /path/to/results.txt \
+  --database DATABASE_NAME \
+  --file ./query.sql
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!--pytest.mark.skip-->
+
+```bash
+cat ./query.sql | influxdb3 query \
+  --output /path/to/results.txt \
+  --database DATABASE_NAME
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 {{% /code-placeholders %}}
