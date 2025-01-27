@@ -181,16 +181,17 @@ configuration--for example, the same bucket.
 
 #### query-file-limit
 
-Limits the number of Parquet files a query can access. Default is `432` (72 hours).
+Limits the number of Parquet files a query can access. Default is `432`. With the default setting of gen1 time blocks of 10 minutes, this can be up to 72 hours, but could be less depending on gen1 configuration and whether all data for a given 10 minute block of time was ingested during the same period.
 You can increase this limit to allow more files to be queried, but be aware of
 the following side-effects:
 
 - Degraded query performance for queries that read more Parquet files
 - Increased memory usage
 - Your system potentially killing the `influxdb3` process due to Out-of-Memory
+- If using object storage backend, many GET requests to access the data (as many as 2 per file)
   (OOM) errors
 
-We recommend keeping the default setting and querying smaller time ranges.
+We recommend keeping the default setting and querying smaller time ranges. If you require longer time range queries or faster query performance on any query that accesses an hour of data or more, our InfluxDB 3 Enterprise product optimizes this with a compactor that rearranges files to achieve faster query performance.
 
 | influxdb3 serve option | Environment variable         |
 | :--------------------- | :--------------------------- |
