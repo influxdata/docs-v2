@@ -1,0 +1,13 @@
+plugins:
+  - '../openapi/plugins/docs-plugin.js'
+extends:
+  - recommended
+  - docs/all
+x-influxdata-product-name: InfluxDB 3 Serverless
+
+apis:
+  v2@2:
+    root: v2/ref.yml
+    x-influxdata-default: true
+  v1-compatibility@2:
+    root: v1-compatibility/swaggerV1Compat.yml
