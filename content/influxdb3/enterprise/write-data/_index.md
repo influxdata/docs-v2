@@ -5,9 +5,9 @@ description: >
   Collect and write time series data to {{% product-name %}}.
 weight: 3
 menu:
-  influxdb3_core:
+  influxdb3_enterprise:
     name: Write data
-influxdb3/core/tags: [write, line protocol]
+influxdb3/enterprise/tags: [write, line protocol]
 source: /shared/influxdb3-write-guides/_index.md
 ---
 

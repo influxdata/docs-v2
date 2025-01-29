@@ -5,7 +5,7 @@ description: >
   Learn about the recommendations and best practices for writing data to {{< product-name >}}.
 weight: 105
 menu:
-  influxdb3_core:
+  influxdb3_enterprise:
     name: Best practices
     identifier: write-best-practices
     parent: Write data

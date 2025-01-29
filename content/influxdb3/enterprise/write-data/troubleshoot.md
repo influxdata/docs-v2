@@ -8,14 +8,14 @@ description: >
   Discover how writes fail, from exceeding rate or payload limits, to syntax
   errors and schema conflicts.
 menu:
-  influxdb3_core:
+  influxdb3_enterprise:
     name: Troubleshoot issues
     parent: Write data
-influxdb3/core/tags: [write, line protocol, errors]
+influxdb3/enterprise/tags: [write, line protocol, errors]
 related:
-  - /influxdb3/core/reference/syntax/line-protocol/
-  - /influxdb3/core/write-data/best-practices/
-  - /influxdb3/core/reference/internals/durability/
+  - /influxdb3/enterprise/reference/syntax/line-protocol/
+  - /influxdb3/enterprise/write-data/best-practices/
+  - /influxdb3/enterprise/reference/internals/durability/
 source: /shared/influxdb3-write-guides/troubleshoot.md
 ---
 

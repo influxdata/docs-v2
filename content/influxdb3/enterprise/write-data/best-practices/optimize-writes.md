@@ -5,13 +5,13 @@ description: >
   data to {{< product-name >}}.
 weight: 203
 menu:
-  influxdb3_core:
+  influxdb3_enterprise:
     name: Optimize writes
     parent: write-best-practices
 influxdb/cloud/tags: [best practices, write]
 related:
   - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
-  - /influxdb3/core/write-data/use-telegraf/
+  - /influxdb3/enterprise/write-data/use-telegraf/
 source: /shared/influxdb3-write-guides/best-practices/optimize-writes.md
 ---
 

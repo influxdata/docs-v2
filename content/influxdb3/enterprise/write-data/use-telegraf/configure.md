@@ -6,11 +6,11 @@ description: >
   output plugin to write to {{< product-name >}}.
   Start Telegraf using the custom configuration.
 menu:
-  influxdb3_core:
+  influxdb3_enterprise:
     name: Configure Telegraf
     parent: Use Telegraf
 weight: 101
-influxdb3/core/tags: [telegraf]
+influxdb3/enterprise/tags: [telegraf]
 related:
   - /telegraf/v1/plugins/, Telegraf plugins
 alt_links:

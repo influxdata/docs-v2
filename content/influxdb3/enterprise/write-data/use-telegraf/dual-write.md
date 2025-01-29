@@ -4,7 +4,7 @@ description: >
   Configure Telegraf to write data to multiple InfluxDB instances or clusters
   simultaneously.
 menu:
-  influxdb3_core:
+  influxdb3_enterprise:
     name: Dual write to InfluxDB
     parent: Use Telegraf
 weight: 203

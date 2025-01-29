@@ -5,11 +5,11 @@ weight: 102
 description: >
   Use Telegraf to collect and write data to {{< product-name >}}.
 aliases:
-  - /influxdb3/core/collect-data/advanced-telegraf
-  - /influxdb3/core/collect-data/use-telegraf
-  - /influxdb3/core/write-data/no-code/use-telegraf/
+  - /influxdb3/enterprise/collect-data/advanced-telegraf
+  - /influxdb3/enterprise/collect-data/use-telegraf
+  - /influxdb3/enterprise/write-data/no-code/use-telegraf/
 menu:
-  influxdb3_core:
+  influxdb3_enterprise:
     name: Use Telegraf
     parent: Write data
 alt_links:
