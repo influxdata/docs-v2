@@ -26,12 +26,12 @@ to write line protocol data to {{< product-name >}}.
 ## Construct line protocol
 
 With a [basic understanding of line protocol](/influxdb3/core/write-data/#line-protocol),
-you can now construct line protocol and write data to InfluxDB.
+you can now construct line protocol and write data to {{< product-name >}}.
 Consider a use case where you collect data from sensors in your home.
 Each sensor collects temperature, humidity, and carbon monoxide readings.
 To collect this data, use the following schema:
 
-- **measurement**: `home`
+- **table**: `home`
   - **tags**
     - `room`: Living Room or Kitchen
   - **fields**
@@ -41,6 +41,8 @@ To collect this data, use the following schema:
   - **timestamp**: Unix timestamp in _second_ precision
 
 The following line protocol represent the schema described above:
+
+{{% influxdb/custom-timestamps %}}
 
 ```text
 home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
@@ -57,28 +59,42 @@ home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
 home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
 ```
 
+{{% /influxdb/custom-timestamps %}}
+
 For this tutorial, you can either pass this line protocol directly to the
-`influxdb3 write` command as a string, via `stdin`, or you can save it to and read
-it from a file.
+`influxdb3 write` command as a string, via `stdin`, or you can save it to and
+read it from a file.
 
 ## Write the line protocol to InfluxDB
 
 Use the [`influxdb3 write` command](/influxdb3/core/reference/cli/influxdb3/write/)
-to write the [home sensor sample data](#home-sensor-data-line-protocol) to your
-{{< product-name omit=" Clustered" >}} cluster.
+to write the home sensor sample data to {{< product-name >}}.
 Provide the following:
 
 - The [database](/influxdb3/core/admin/databases/) name using the
-  `--database` flag
-- A [database token](/influxdb3/core/admin/tokens/#database-tokens)
-  (with write permissions on the target database) using the `--token` flag
-- The timestamp precision as seconds (`s`) using the `--precision` flag
+  `--database` option
+- Your {{< product-name >}} authorization token using the `-t`, `--token` option
 - [Line protocol](#construct-line-protocol).
-  Pass the line protocol in one of the following ways:
+  Provide the line protocol in one of the following ways:
 
-  - a string on the command line
-  - a path to a file that contains the query
-  - a single dash (`-`) to read the query from stdin
+  - a string
+  - a path to a file that contains the line protocol using the `--file` option
+  - from stdin
+
+> [!Note]
+> {{< product-name >}} auto-detects the timestamp precision by identifying which
+> precision results in timestamps relatively close to "now."
+
+<!--
+ADD THIS BACK WHEN THE precision FLAG IS ADDED
+
+- The timestamp precision as seconds (`s`) using the `--precision` option
+
+  > [!Note]
+  > If no precision is provided, {{< product-name >}} attempts to auto-detect
+  > the timestamp precision by identifying which precision results in timestamps
+  > relatively close to "now."
+-->
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -89,13 +105,12 @@ Provide the following:
 {{% tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" %}}
+{{% code-placeholders "(DATABASE|AUTH)_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" %}}
 
 ```sh
 influxdb3 write \
   --database DATABASE_NAME \
-  --token DATABASE_TOKEN \
-  --precision s \
+  --token AUTH_TOKEN \
   'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
 home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
 home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
@@ -113,23 +128,15 @@ home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000'
 {{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
-Replace the following:
-
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  Name of the database to write to.
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  Database token with write permissions on the target database.
-
 {{% /tab-content %}}
 {{% tab-content %}}
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" %}}
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
 
 1.  In your terminal, enter the following command to create the sample data file:
 
     ```sh
-    cat <<EOF > ./home.lp && LINE_PROTOCOL_FILEPATH=./home.lp
-    home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+    echo 'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
     home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
     home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
     home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
@@ -140,61 +147,65 @@ Replace the following:
     home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
     home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
     home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
-    home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
-
-    EOF
+    home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000' > ./home.lp
     ```
 
-<!--pytest-codeblocks:cont-->
+    <!--pytest-codeblocks:cont-->
 
-1. Enter the following CLI command to write the data from the sample file:
+2.  Enter the following CLI command to write the data from the sample file:
 
-   ```sh
-   influxdb3 write \
-     --database DATABASE_NAME \
-     --token DATABASE_TOKEN \
-     --precision s \
-     $LINE_PROTOCOL_FILEPATH
-   ```
+    ```sh
+    influxdb3 write \
+      --database DATABASE_NAME \
+      --token AUTH_TOKEN \
+      ./home.lp
+    ```
 
 {{% /code-placeholders %}}
-
-Replace the following:
-
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  Name of the database to write to.
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  Database token with write permissions on the target database.
-- {{% code-placeholder-key %}}`$LINE_PROTOCOL_FILEPATH`{{% /code-placeholder-key %}}:
-  File path to the file containing the line protocol. Can be an absolute file path
-  or relative to the current working directory.
 
 {{% /tab-content %}}
 {{% tab-content %}}
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|(\$LINE_PROTOCOL_FILEPATH)" %}}
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
 
-<!--pytest-codeblocks:cont-->
+1.  In your terminal, enter the following command to create the sample data file:
 
-```sh
-cat $LINE_PROTOCOL_FILEPATH | influxdb3 write \
-  --database DATABASE_NAME \
-  --token DATABASE_TOKEN \
-  --precision s \
-  -
-```
+    ```sh
+    echo 'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+    home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+    home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+    home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+    home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+    home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+    home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+    home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+    home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+    home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+    home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+    home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000' > ./home.lp
+    ```
+
+    <!--pytest-codeblocks:cont-->
+
+2.  Enter the following CLI command to write the data from the sample file:
+
+    ```sh
+    cat ./home.lp | influxdb3 write \
+      --database DATABASE_NAME \
+      --token AUTH_TOKEN
+    ```
 
 {{% /code-placeholders %}}
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  Name of the database to write to.
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  Database token with write permissions on the target database.
-- {{% code-placeholder-key %}}`$LINE_PROTOCOL_FILEPATH`{{% /code-placeholder-key %}}:
-  File path to the file containing the line protocol. Can be an absolute file path
-  or relative to the current working directory.
+  the name of the database to write to
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
+  your {{< product-name >}} authorization token
 
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
+  > [!Note]
+  > While in alpha, {{< product-name >}} does not require an authorization token.

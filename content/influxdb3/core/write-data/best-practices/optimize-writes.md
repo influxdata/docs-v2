@@ -761,28 +761,29 @@ The Go `multiplier.go` sample code does the following:
     <!--pytest-codeblocks:cont-->
 
     {{< code-placeholders "DATABASE_NAME|AUTH_TOKEN" >}}
-  ```bash
-  cat <<EOF > ./telegraf.conf
-  # Parse metrics from a file
-  [[inputs.file]]
-    ## A list of files to parse during each interval.
-    files = ["home.lp"]
-    ## The precision of timestamps in your data.
-    influx_timestamp_precision = "1s"
-    tagexclude = ["host"]
-  # Filter metrics that repeat previous field values
-  [[processors.execd]]
-    ## A list that contains the executable command and arguments to run as a daemon.
-    command = ["go", "run", "multiplier.go"]
-  # Writes metrics as line protocol to the InfluxDB v2 API
-  [[outputs.influxdb_v2]]
-    ## InfluxDB v2 API credentials and the database to write data to.
-    urls = ["https://{{< influxdb/host >}}"]
-    token = "AUTH_TOKEN"
-    organization = ""
-    bucket = "DATABASE_NAME"
-  EOF
-  ```
+    
+```bash
+cat <<EOF > ./telegraf.conf
+# Parse metrics from a file
+[[inputs.file]]
+  ## A list of files to parse during each interval.
+  files = ["home.lp"]
+  ## The precision of timestamps in your data.
+  influx_timestamp_precision = "1s"
+  tagexclude = ["host"]
+# Filter metrics that repeat previous field values
+[[processors.execd]]
+  ## A list that contains the executable command and arguments to run as a daemon.
+  command = ["go", "run", "multiplier.go"]
+# Writes metrics as line protocol to the InfluxDB v2 API
+[[outputs.influxdb_v2]]
+  ## InfluxDB v2 API credentials and the database to write data to.
+  urls = ["https://{{< influxdb/host >}}"]
+  token = "AUTH_TOKEN"
+  organization = ""
+  bucket = "DATABASE_NAME"
+EOF
+```
 
     {{< /code-placeholders >}}
 
@@ -815,9 +816,9 @@ The Go `multiplier.go` sample code does the following:
     > home,room=Living\ Room count=2,temp=22.7 1641063600000000000
     ```
 
-   <!-- hidden-test >
-   ```bash
-   # Run once and exit.
-   telegraf --once --config telegraf.conf
-   ```
-   -->
+    <!-- hidden-test >
+    ```bash
+    # Run once and exit.
+    telegraf --once --config telegraf.conf
+    ```
+    -->

@@ -14,8 +14,8 @@ related:
   - /influxdb3/core/get-started/write/
 ---
 
-Use InfluxDB client libraries to construct data as time series points, and then
-write them as line protocol to an {{% product-name %}} database.
+Use InfluxDB 3 client libraries to construct data as time series points, and
+then write them as line protocol to an {{% product-name %}} database.
 
 - [Construct line protocol](#construct-line-protocol)
   - [Example home schema](#example-home-schema)
@@ -24,9 +24,8 @@ write them as line protocol to an {{% product-name %}} database.
 
 ## Construct line protocol
 
-With a
-[basic understanding of line protocol](/influxdb3/core/write-data/line-protocol/),
-you can construct line protocol data and write it to InfluxDB.
+With a [basic understanding of line protocol](/influxdb3/core/write-data/#line-protocol),
+you can construct line protocol data and write it to {{% product-name %}}.
 
 All InfluxDB client libraries write data in line protocol format to InfluxDB.
 Client library `write` methods let you provide data as raw line protocol or as
@@ -43,7 +42,7 @@ To collect this data, use the following schema:
 
 <!-- vale InfluxDataDocs.v3Schema = NO -->
 
-- **measurement**: `home`
+- **table**: `home`
   - **tags**
     - `room`: Living Room or Kitchen
   - **fields**
@@ -59,34 +58,28 @@ The following example shows how to construct and write points that follow the
 
 ## Set up your project
 
-The examples in this guide assume you followed
-[Set up InfluxDB](/influxdb3/core/get-started/setup/) and
-[Write data set up](/influxdb3/core/get-started/write/#set-up-your-project-and-credentials)
-instructions in [Get started](/influxdb3/core/get-started/).
-
-After setting up InfluxDB and your project, you should have the following:
+After setting up {{< product-name >}} and your project, you should have the following:
 
 - {{< product-name >}} credentials:
 
   - [Database](/influxdb3/core/admin/databases/)
-  - [Database token](/influxdb3/core/admin/tokens/#database-tokens)
-  - Cluster hostname
+  - Authorization token
+
+    > [!Note]
+    > While in alpha, {{< product-name >}} does not require an authorization token.
+
+  - {{% product-name %}} URL
 
 - A directory for your project.
 
 - Credentials stored as environment variables or in a project configuration
   file--for example, a `.env` ("dotenv") file.
 
-- Client libraries installed for writing data to InfluxDB.
+- Client libraries installed for writing data to {{< product-name >}}.
 
-The following examples show how to construct `Point` objects that follow the
-[example `home` schema](#example-home-schema), and then write the data as line
-protocol to an {{% product-name %}} database.
-
-The examples use InfluxDB 3 client libraries.
-For examples using InfluxDB v2
-client libraries to write data to InfluxDB 3, see
-[InfluxDB v2 clients](/influxdb3/core/reference/client-libraries/v2/).
+The following examples use InfluxDB 3 client libraries to show how to construct
+`Point` objects that follow the [example `home` schema](#example-home-schema),
+and then write the data as line protocol to an {{% product-name %}} database.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -463,13 +456,11 @@ The sample code does the following:
 
 <!-- vale InfluxDataDocs.v3Schema = NO -->
 
-1. Instantiates a client configured with the InfluxDB URL and API token.
-2. Constructs `home`
-   [measurement](/influxdb3/core/reference/glossary/#measurement)
-   `Point` objects.
-3. Sends data as line protocol format to InfluxDB and waits for the response.
-4. If the write succeeds, logs the success message to stdout; otherwise, logs
-   the failure message and error details.
-5. Closes the client to release resources.
+1.  Instantiates a client configured with the InfluxDB URL and API token.
+2.  Constructs `home`table `Point` objects.
+3.  Sends data as line protocol format to InfluxDB and waits for the response.
+4.  If the write succeeds, logs the success message to stdout; otherwise, logs
+    the failure message and error details.
+5.  Closes the client to release resources.
 
 <!-- vale InfluxDataDocs.v3Schema = YES -->

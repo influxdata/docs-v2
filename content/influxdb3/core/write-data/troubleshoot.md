@@ -51,8 +51,9 @@ wait for the response before you send the next request.
 
 ### Review HTTP status codes
 
-InfluxDB uses conventional HTTP status codes to indicate the success or failure of a request.
-The `message` property of the response body may contain additional details about the error.
+{{< product-name >}} uses conventional HTTP status codes to indicate the success
+or failure of a request. The `message` property of the response body may contain
+additional details about the error.
 Write requests return the following status codes:
 
 | HTTP response code              | Message                                                                 | Description    |
@@ -78,10 +79,8 @@ If you notice data is missing in your database, do the following:
 
 ## Troubleshoot rejected points
 
-InfluxDB rejects points that fall within the same partition (default partitioning
-is by measurement and day) as existing bucket data and have a different data type
-for an existing field.
+InfluxDB rejects points that don't match the schema of existing data.
 
 Check for [field data type](/influxdb3/core/reference/syntax/line-protocol/#data-types-and-format)
-differences between the rejected data point and points within the same database
-and partition--for example, did you attempt to write `string` data to an `int` field?
+differences between the rejected data point and points within the same
+database--for example, did you attempt to write `string` data to an `int` field?

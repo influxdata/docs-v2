@@ -17,7 +17,7 @@ related:
 
 Use the Telegraf `file` input plugin to read and parse CSV data into
 [line protocol](/influxdb3/core/reference/syntax/line-protocol/)
-and write it to InfluxDB.
+and write it to {{< product-name >}}.
 [Telegraf](/telegraf/v1/) is a plugin-based agent that collects
 metrics from different sources and writes them to specified destinations.
 
@@ -37,7 +37,7 @@ metrics from different sources and writes them to specified destinations.
     CSV files must be accessible by the Telegraf agent.
 3.  Set the `data_format` option to `csv`.
 4.  Define all other `csv_` configuration options specific to the CSV data you
-    want to write to InfluxDB.
+    want to write to {{< product-name >}}.
     _For detailed information about each of the CSV format configuration options,
     see [CSV input data format](/telegraf/v1/data_formats/input/csv/)._
 
@@ -68,31 +68,11 @@ metrics from different sources and writes them to specified destinations.
 
 ## Configure Telegraf to write to InfluxDB
 
-To send data to {{< product-name >}}, enable the
-[`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
-in the `telegraf.conf`.
+To send data to {{< product-name >}}, enable and configure the
+[`influxdb_v2` output plugin](/influxdb3/core/write-data/use-telegraf/configure/#enable-and-configure-the-influxdb-v2-output-plugin)
+in your `telegraf.conf`.
 
-{{% code-placeholders "DATABASE_NAME" %}}
-```toml
-[[outputs.influxdb_v2]]
-  urls = ["https://{{< influxdb/host >}}"]
-  # INFLUX_TOKEN is an environment variable you created for your database WRITE token
-  token = "${INFLUX_TOKEN}"
-  organization = ""
-  bucket = "DATABASE_NAME"
-```
-{{% /code-placeholders %}}
-
-Replace the following:
-
-- **`DATABASE_NAME`**: the name of the InfluxDB [database](/influxdb3/core/admin/databases/) to write data to
-
-To learn more about configuration options, see [Enable and configure the InfluxDB v2 output plugin](/influxdb3/core/write-data/use-telegraf/configure/#enable-and-configure-the-influxdb-v2-output-plugin).
-
-{{< expand-wrapper >}}
-{{% expand "View full example Telegraf configuration file" %}}
-
-{{% code-placeholders "DATABASE_NAME" %}}
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
 ```toml
 [[inputs.file]]
   files = ["/path/to/example.csv"]
@@ -118,9 +98,8 @@ To learn more about configuration options, see [Enable and configure the InfluxD
   csv_reset_mode = "none"
 
 [[outputs.influxdb_v2]]
-  urls = ["https://{{< influxdb/host >}}"]
-  # INFLUX_TOKEN is an environment variable you created for your database WRITE token
-  token = "{$INFLUX_TOKEN}"
+  urls = ["http://{{< influxdb/host >}}"]
+  token = "AUTH_TOKEN"
   organization = ""
   bucket = "DATABASE_NAME"
   content_encoding = "gzip"
@@ -129,20 +108,40 @@ To learn more about configuration options, see [Enable and configure the InfluxD
 
 Replace the following:
 
-- **`DATABASE_NAME`**: the name of the InfluxDB [database](/influxdb3/core/admin/databases/) to write data to
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
+  the name of the database to write data to
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
+  your {{< product-name >}} authorization token.
+  _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
-**`INFLUX_TOKEN`** is an environment variable you created in the [Setup instructions](/influxdb3/core/get-started/setup/?t=Telegraf) of the Get Started tutorial.
+  > [!Note]
+  > While in alpha, {{< product-name >}} does not require an authorization token.
+  > For the `token` option, provide an empty or arbitrary token string.
 
-{{% /expand %}}
-{{< /expand-wrapper >}}
+  > [!Tip]
+  >
+  > ##### Store your authorization token as an environment variable
+  >
+  > To prevent a plain text token in your Telegraf configuration file, we
+  > recommend that you store the token as an environment variable and then
+  > reference the environment variable in your configuration file using string
+  > interpolation. For example:
+  > 
+  > ```toml
+  > [[outputs.influxdb_v2]]
+  >   urls = ["http://{{< influxdb/host >}}"]
+  >   token = "${INFLUX_TOKEN}"
+  >   # ...
+  > ```
 
-**Restart the Telegraf agent** to apply the configuration change and write the CSV
-data to InfluxDB.
+
+**Restart the Telegraf agent** to apply the configuration change and write the
+CSV data to {{% product-name %}}.
 
 #### Other Telegraf configuration options
 
-The preceding examples describe Telegraf configurations necessary for writing to {{% product-name %}}.
-The output plugin provides several other options for configuring the Telegraf client:
-
-- `influx_uint_support`: supported by the InfluxDB 3 storage engine.
-- See [`influxdb_v2` plugin options](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md) on GitHub.
+The preceding examples describe Telegraf configurations necessary for writing to
+{{% product-name %}}. The `influxdb_v2` output plugin provides several other
+configuration options. For more information, see the
+[`influxdb_v2` plugin options](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
+on GitHub.

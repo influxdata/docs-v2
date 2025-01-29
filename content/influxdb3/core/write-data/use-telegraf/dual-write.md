@@ -12,53 +12,67 @@ alt_links:
   cloud: /influxdb/cloud/write-data/no-code/use-telegraf/dual-write/
 ---
 
-If you want to back up your data in two places, or if you're migrating from InfluxDB OSS to {{< product-name >}},
-you may want to set up Telegraf to dual write.
+If you want to write your data to two different instances or clusters of InfluxDB,
+use Telegraf to write data to multiple InfluxDB targets.
+This method, known as "dual writing," is useful if you need to back up your data
+in two places, or if you're migrating from other version of InfluxDB to
+{{< product-name >}}.
 
-Use Telegraf to write to both InfluxDB OSS and {{< product-name >}} simultaneously.
+Use Telegraf to write to both {{< product-name >}} and InfluxDB instances or 
+clusters simultaneously.
 
 The sample configuration below uses:
 
-  - The [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2) twice: first pointing to the OSS instance and then to the {{< product-name omit="Clustered" >}} cluster.
-  - Two different tokens, one for OSS and one for Clustered. You'll need to configure both tokens as environment variables (see how to [Configure authentication credentials as environment variables](/influxdb3/core/get-started/setup/#configure-authentication-credentials)).
+  - The [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2)
+    twice--the first pointing to {{< product-name >}} and the other to an
+    InfluxDB v2 OSS instance.
+  - Two different tokens--one for InfluxDB v2 OSS and one for Clustered.
+    Configure both tokens as environment variables and use string interpolation
+    in your Telegraf configuration file to reference each environment variable.
 
-Use the configuration below to write your data to both OSS and Clustered instances simultaneously.
+    > [!Note]
+    > While in alpha, {{< product-name >}} does not require an authorization token.
+    > For the `token` option, provide an empty or arbitrary token string.
+
+The example configuration below writes to both {{% product-name %}} and
+InfluxDB v2 OSS simultaneously.
 
 ## Sample configuration
 
 ```toml
-# Include any other input, processor, or aggregator plugins that you want to include in your configuration.
+# Include any other input, processor, or aggregator plugins that you want to
+# include in your configuration.
 
-# Send data to InfluxDB OSS v2
+# Send data to {{% product-name %}}
 [[outputs.influxdb_v2]]
-  ## The URLs of the InfluxDB instance.
-  ##
-  ## Multiple URLs can be specified for a single cluster, only ONE of the
-  ## urls will be written to each interval.
-  ## urls exp: http://127.0.0.1:9999
-  urls = ["http://localhost:8086"]
-
-  ## OSS token for authentication.
-  token = "${INFLUX_TOKEN_OSS}"
-
-  ## Organization is the name of the organization you want to write to. It must already exist.
-  organization = "ORG_NAME_OSS"
-
-  ## Destination bucket to write to.
-  bucket = "BUCKET_NAME_OSS"
-
-# Send data to InfluxDB cluster
- [[outputs.influxdb_v2]]
-  ## The URLs of the InfluxDB instance.
-
-  urls = ["https://{{< influxdb/host >}}"]
-
-  ## Cloud token for authentication.
+  ## The {{% product-name %}} URL
+  urls = ["http://{{< influxdb/host >}}"]
+  ## {{% product-name %}} authorization token
   token = "${INFLUX_TOKEN}"
-
-  ## For InfluxDB Clustered, set organization to an empty string.
+  ## For {{% product-name %}}, set organization to an empty string
   organization = ""
-
-  ## Destination bucket to write into.
+  ## Destination database to write into
   bucket = "DATABASE_NAME"
-  ```
+
+# Send data to InfluxDB v2 OSS
+[[outputs.influxdb_v2]]
+  ## The InfluxDB v2 OSS URL
+  urls = ["http://localhost:8086"]
+  ## OSS token for authentication
+  token = "${INFLUX_TOKEN_OSS}"
+  ## Organization is the name of the organization you want to write to.
+  organization = "ORG_NAME_OSS"
+  ## Destination bucket to write to
+  bucket = "BUCKET_NAME_OSS"
+```
+
+Telegraf lets you dual write data to any version of InfluxDB using the
+[`influxdb` (InfluxDB v1)](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md)
+and [`influxdb_v2` output plugins](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md).
+A single Telegraf agent sends identical data sets to all target outputs.
+You cannot filter data based on the output.
+
+> [!Note]
+> InfluxDB v1 does _not_ support the unsigned integer data type.
+> You can only write unsigned integer field values to InfluxDB v2- and 3-based
+> products.
