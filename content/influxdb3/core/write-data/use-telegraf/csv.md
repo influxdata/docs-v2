@@ -25,7 +25,7 @@ metrics from different sources and writes them to specified destinations.
 
 - [Configure Telegraf to read CSV files](#configure-telegraf-to-read-csv-files)
 - [Configure Telegraf to write to InfluxDB](#configure-telegraf-to-write-to-influxdb)
-    - [Other Telegraf configuration options](#other-telegraf-configuration-options)
+  - [Other Telegraf configuration options](#other-telegraf-configuration-options)
 
 <!-- /TOC -->
 

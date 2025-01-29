@@ -24,20 +24,19 @@ This plugin uses the InfluxDB v2 HTTP API write endpoint available with
 Learn how to enable and configure the `influxdb_v2` output plugin to write data
 to {{% product-name %}}.
 
-{{% note %}}
-_View the [requirements](/influxdb3/core/write-data/use-telegraf#requirements)
-for using Telegraf with {{< product-name >}}._
-{{% /note %}}
+> [!Note]
+> _View the [requirements](/influxdb3/core/write-data/use-telegraf#requirements)
+> for using Telegraf with {{< product-name >}}._
 
 <!-- TOC -->
 
 - [Configure Telegraf input and output plugins](#configure-telegraf-input-and-output-plugins)
   - [Add Telegraf plugins](#add-telegraf-plugins)
   - [Enable and configure the InfluxDB v2 output plugin](#enable-and-configure-the-influxdb-v2-output-plugin)
-      - [urls](#urls)
-      - [token](#token)
-      - [organization](#organization)
-      - [bucket](#bucket)
+    - [urls](#urls)
+    - [token](#token)
+    - [organization](#organization)
+    - [bucket](#bucket)
   - [Other Telegraf configuration options](#other-telegraf-configuration-options)
 - [Start Telegraf](#start-telegraf)
 
