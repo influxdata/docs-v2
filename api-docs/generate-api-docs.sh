@@ -36,27 +36,30 @@ while getopts "hc" opt; do
 done
 
 function generateHtml {
-  specPath="$1"
-  product="$2"
-  productName="$3"
-  api="$4"
-  configPath="$5"
-  isDefault=$6
+  local specPath="$1"
+  local productVersion="$2"
+  local productName="$3"
+  local api="$4"
+  local configPath="$5"
+  local isDefault=$6
 
   # Use the product name to define the menu for the Hugo template
-  menu="influxdb_$(echo $product | sed 's/\./_/g;s/-/_/g;')"
+  local menu="$(echo $productVersion | sed 's/\./_/g;s/-/_/g;s/\//_/g;')"
+  # Short version name (for old aliases)
+  # Everything after the last slash
+  local versionDir=$(echo $productVersion | sed 's/.*\///g;')
   # Extract the API name--for example, "management" from "management@v2".
-  apiName=$(echo $api | sed 's/@.*//g;')
+  local apiName=$(echo $api | sed 's/@.*//g;')
   # Extract the API version--for example, "v0" from "management@v0".
-  version=$(echo $api | sed 's/.*@//g;')
+  local apiVersion=$(echo $api | sed 's/.*@//g;')
   # Use the title and summary defined in the product API's info.yml file.
-  title=$(yq '.title' $product/$apiName/content/info.yml)
-  menuTitle=$(yq '.x-influxdata-short-title' $product/$apiName/content/info.yml)
-  description=$(yq '.summary' $product/$apiName/content/info.yml)
+  local title=$(yq '.title' $productVersion/$apiName/content/info.yml)
+  local menuTitle=$(yq '.x-influxdata-short-title' $productVersion/$apiName/content/info.yml)
+  local description=$(yq '.summary' $productVersion/$apiName/content/info.yml)
   # Define the file name for the Redoc HTML output.
-  specbundle=redoc-static_index.html
+  local specbundle=redoc-static_index.html
   # Define the temporary file for the Hugo template and Redoc HTML.
-  tmpfile="${product}-${api}_index.tmp"
+  local tmpfile="${productVersion}-${api}_index.tmp"
 
   echo "Bundling $specPath"
 
@@ -75,7 +78,7 @@ function generateHtml {
   --options.noAutoAuth \
   --output=$specbundle \
   --templateOptions.description=$description \
-  --templateOptions.product="$product" \
+  --templateOptions.product="$productVersion" \
   --templateOptions.productName="$productName"
 
   if [[ $apiName == "v1-compatibility" ]]; then
@@ -90,10 +93,10 @@ menu:
     identifier: api-reference-$apiName
 weight: 304
 aliases:
-  - /influxdb/$product/api/v1/
+  - /influxdb/$versionDir/api/v1/
 ---
 "
-  elif [[ $version == "0" ]]; then
+  elif [[ $apiVersion == "0" ]]; then
   echo $productName $apiName
     frontmatter="---
 title: $title
@@ -119,7 +122,7 @@ menu:
     identifier: api-reference-$apiName
 weight: 102
 aliases:
-  - /influxdb/$product/api/
+  - /influxdb/$versionDir/api/
 ---
 "
   else
@@ -152,68 +155,74 @@ weight: 102
   rm -f $specbundle
   # Create the directory and move the file.
   if [ ! -z "$apiName" ]; then
-    mkdir -p ../content/influxdb/$product/api/$apiName
-    mv $tmpfile ../content/influxdb/$product/api/$apiName/_index.html
+    mkdir -p ../content/$productVersion/api/$apiName
+    mv $tmpfile ../content/$productVersion/api/$apiName/_index.html
   else
-    mkdir -p ../content/influxdb/$product/api
-    mv $tmpfile ../content/influxdb/$product/api/_index.html
+    mkdir -p ../content/$productVersion/api
+    mv $tmpfile ../content/$productVersion/api/_index.html
   fi
 }
 
 # Use a combination of directory names and configuration files to build the API documentation.
 # Each directory represents a product, and each product directory contains a configuration file that defines APIs and their spec file locations.
 function build {
-# Get the list of products from directory names
-products="$(ls -d -- */ | grep -v 'node_modules' | grep -v 'openapi')"
-
-for product in $products; do
-  #Trim the trailing slash off the directory name
-  product="${product%/}"
-  # Get the product API configuration file.
-  configPath="$product/.config.yml"
-  if [ ! -f $configPath ]; then
-    configPath=".config.yml"
-  fi
-  echo "Checking product config $configPath"
-  # Get the product name from the configuration.
-  productName=$(yq e '.x-influxdata-product-name' $configPath)
-  if [[ -z "$productName" ]]; then
-    productName=InfluxDB
-  fi
-  # Get an array of product API names (keys) from the configuration file
-  apis=$(yq e '.apis | keys | .[]' $configPath)
-  # Read each element of the apis array
-  while IFS= read -r api; do
-    # Get the spec file path from the configuration.
-    specRootPath=$(yq e ".apis | .$api | .root" $configPath)
-    # Check that the YAML spec file exists.
-    specPath="$product/$specRootPath"
-    echo "Checking for spec $specPath"
-    if [ -d "$specPath" ] || [ ! -f "$specPath" ]; then
-      echo "OpenAPI spec $specPath doesn't exist."
+  local versions
+  versions="$(ls -d -- */* | grep -v 'node_modules' | grep -v 'openapi')"
+  for version in $versions; do
+    # Trim the trailing slash off the directory name
+    local version="${version%/}"
+    # Get the version API configuration file.
+    local configPath="$version/.config.yml"
+    if [ ! -f "$configPath" ]; then
+      configPath=".config.yml"
     fi
-    # Get default status from the configuration.
-    isDefault=false
-    defaultStatus=$(yq e ".apis | .$api | .x-influxdata-default" $configPath)
-    if [[ $defaultStatus == "true" ]]; then
-      isDefault=true
+    echo "Using config $configPath"
+    # Get the product name from the configuration.
+    local versionName
+    versionName=$(yq e '.x-influxdata-product-name' "$configPath")
+    if [[ -z "$versionName" ]]; then
+      versionName=InfluxDB
     fi
-
-    # If the spec file differs from master, regenerate the HTML.
-    update=0
-    if [[ $generate_changed == 0 ]]; then
-      diff=$(git diff --name-status master -- ${specPath})
-      if [[ -z "$diff" ]]; then
-        update=1
+    # Get an array of API names (keys) from the configuration file
+    local apis
+    apis=$(yq e '.apis | keys | .[]' "$configPath")
+    # Read each element of the apis array
+    while IFS= read -r api; do
+      echo "======Building $version $api======"
+      # Get the spec file path from the configuration.
+      local specRootPath
+      specRootPath=$(yq e ".apis | .$api | .root" "$configPath")
+      # Check that the YAML spec file exists.
+      local specPath
+      specPath="$version/$specRootPath"
+      if [ -d "$specPath" ] || [ ! -f "$specPath" ]; then
+        echo "OpenAPI spec $specPath doesn't exist."
       fi
-    fi
+      # Get default status from the configuration.
+      local isDefault=false
+      local defaultStatus
+      defaultStatus=$(yq e ".apis | .$api | .x-influxdata-default" "$configPath")
+      if [[ $defaultStatus == "true" ]]; then
+        isDefault=true
+      fi
 
-    if [[ $update -eq 0 ]]; then
-      echo "Regenerating $product $api"
-      generateHtml "$specPath" "$product" "$productName" "$api" "$configPath" $isDefault
-    fi
-  done <<< "$apis"
-done
+      # If the spec file differs from master, regenerate the HTML.
+      local update=0
+      if [[ $generate_changed == 0 ]]; then
+        local diff
+        diff=$(git diff --name-status master -- "${specPath}")
+        if [[ -z "$diff" ]]; then
+          update=1
+        fi
+      fi
+
+      if [[ $update -eq 0 ]]; then
+        echo "Regenerating $version $api"
+        generateHtml "$specPath" "$version" "$versionName" "$api" "$configPath" "$isDefault"
+      fi
+      echo "========Done with $version $api========"
+    done <<< "$apis"
+  done
 }
 
 build
