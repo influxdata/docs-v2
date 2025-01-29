@@ -12,17 +12,7 @@ InfluxDB 3 has an embedded Python VM for dynamically loading plugins that can ex
 
 Each plugin type has a different trigger configuration, which will be described in the section on each plugin type.
 
-## Installing Plugins from the repo
-The repository at [https://github.com/influxdata/influxdb3_plugins](https://github.com/influxdata/influxdb3_plugins) contans example plugins and contributions from the community. To install a plugin from the repository, you can using the `influxdb3` CLI.
-
-Just use `gh:<path>` as the plugin name to install a plugin from the repository. For example, to install the `wal_plugin.py` from the repository, you can use the following command:
-
-```shell
-influxdb3 create plugin -d=mydb --filename "gh:examples/shedule/system_metrics" --plugin-type=scheduled system_metrics
-influxdb3 create plugin -d=mydb --filename "gh:examples/wal_plugin" --plugin-type=wal_rows wal_plugin_example
-```
-
-You will then need to create a trigger to activate the plugin. Details on triggers for each type of plugin are provided below.
+When starting the server, the argument `--plugin-dir` must be provided that specifies what directory plugins are located in. There is also a public Github repository of example plugins that can be referenced when creating a trigger. The repository at [https://github.com/influxdata/influxdb3_plugins](https://github.com/influxdata/influxdb3_plugins) contans example plugins and contributions from the community.
 
 ## Shared API
 
@@ -195,7 +185,7 @@ influxdb3_local.info("This is an info message with an object", obj_to_log)
 ```
 
 ### Trigger arguments
-Every plugin type can receive arguments from the configuration of the trigger. This is useful for passing configuration to the plugin. This can drive behavior like things to monitor for or it could be connection information to third party services that the plugin will interact with. The arguments are passed as a `Dict` of `String` to `String` where the key is the argument name and the value is the argument value. Here's an example of how to use arguments in a plugin:
+Every plugin type can receive arguments from the configuration of the trigger. This is useful for passing configuration to the plugin. This can drive behavior like things to monitor for or it could be connection information to third party services that the plugin will interact with. The arguments are passed as a `Dict[str, str]` where the key is the argument name and the value is the argument value. Here's an example of how to use arguments in a WAL plugin:
 
 ```python
 def process_writes(influxdb3_local, table_batches, args=None):
@@ -244,7 +234,17 @@ Every trigger is associated with a specific database. The best reference for the
 influxdb3 create trigger help
 ```
 
-For the WAL plugin, the `trigger-spec` can be either `all-tables` which will trigger on any write to the assoicated database or `table:<table_name>` which will call the `process_writes` function only with the writes for the given table. The `args` parameter can be used to pass configuration to the plugin.
+For the WAL plugin, the `trigger-spec` can be either `all-tables` which will trigger on any write to the assoicated database or `table:<table_name>` which will call the `process_writes` function only with the writes for the given table. The trigger-spec is what the server uses to determine which plugin type the plugin-filename points to.
+
+The `args` parameter can be used to pass configuration to the plugin.
+
+For example, if creating a trigger of WAL flush from the examples repo:
+
+```shell
+influxdb3 create trigger --trigger-spec "table:foo" --plugin-filename "gh:examples/wal_plugin/wal_plugin.py" --database mydb foo-trigger
+```
+
+Without the `gh:` at the start of the filename, the server will look for the file in its plugin directory.
 
 ## Schedule Plugin
 Schedule plugins run on a schedule specified in cron syntax. The plugin will receive the local API, the time of the trigger, and any arguments passed in the trigger definition. Here's an example of a simple schedule plugin:
@@ -263,7 +263,11 @@ def process_scheduled_call(influxdb3_local, time, args=None):
 ```
 
 ### Schedule Trigger Configuration
-Schedule plugins are set with a `trigger-spec` of `schedule:<cron_expression>`. The `args` parameter can be used to pass configuration to the plugin. For example, if we wanted the above plugin to run the check every minute, we would use `schedule:*/5 * * * *` as the `trigger-spec`.
+Schedule plugins are set with a `trigger-spec` of `schedule:<cron_expression>` or `every:<duration>`. The `args` parameter can be used to pass configuration to the plugin. For example, if we wanted to use the system-metrics example from the Github repo and have it collect every 10 seconds we could use the following trigger definition:
+
+```shell
+influxdb3 create trigger --trigger-spec "every:10s" --plugin-filename "gh:examples/schedule/system_metrics/system_metrics.py" --database mydb system-metrics
+```
 
 ## On Request Plugin
 On Request plugins are triggered by a request to a specific endpoint under `/api/v3/engine`. The plugin will receive the local API, query parameters `Dict[str, str]`, request headers `Dict[str, str]`, request body (as bytes), and any arguments passed in the trigger definition. Here's an example of a simple On Request plugin:
@@ -294,4 +298,8 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
 ### On Request Trigger Configuration
 On Request plugins are set with a `trigger-spec` of `request:<endpoint>`. The `args` parameter can be used to pass configuration to the plugin. For example, if we wanted the above plugin to run on the endpoint `/api/v3/engine/my_plugin`, we would use `request:my_plugin` as the `trigger-spec`.
 
-Trigger specs must be unique across all configured plugins, regardless of which database they are tied to, given the path is the same.
+Trigger specs must be unique across all configured plugins, regardless of which database they are tied to, given the path is the same. Here's an example to create a request trigger tied to the "hello-world' path using a plugin in the plugin-dir:
+
+```shell
+influxdb3 create trigger --trigger-spec "request:hello-world" --plugin-filename "hellp/hello_world.py" --database mydb hello-world
+```
