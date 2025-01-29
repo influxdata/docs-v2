@@ -21,7 +21,7 @@
 			{{ $title := cond ( isset .Params "list_title" ) (.Params.list_title | .RenderString) (.Title | .RenderString) }}
 			{{ $url := cond ( isset .Params "external_url" ) .Params.external_url .RelPermalink }}
 			{{ $target := cond ( isset .Params "external_url" ) "_blank" "" }}
-			{{ if eq $hlevel "h2"}} <{{ $hlevel }} id="{{ anchorize $title }}"><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a></{{ $hlevel }}>
+			{{ if eq $hlevel "h2"}} <h2 id="{{ anchorize $title }}"><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a></h2>
 			{{ else if eq $hlevel "h3"}} <h3 id="{{ anchorize $title }}"><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a></h3>
 			{{ else if eq $hlevel "h4"}} <h4 id="{{ anchorize $title }}"><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a></h4>
 			{{end}}
