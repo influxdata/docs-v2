@@ -1,5 +1,5 @@
 
-The `influxdb3 show system summary` command returns a summary various types of
+The `influxdb3 show system summary` command returns a summary of various types of
 system table data.
 
 ## Usage
