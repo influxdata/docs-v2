@@ -20,7 +20,7 @@ influxdb3 show system --database <DATABASE_NAME> table [OPTIONS] <SYSTEM_TABLE>
 | `-l`   | `--limit`    | Maximum number of tables entries to display (default is `10`, `0` indicates no limit) |
 | `-o`   | `--order-by` | Order by the specified columns                                                        |
 | `-s`   | `--select`   | Select specific columns from the system table                                         |
-|        | `--format`   | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet)             |
+|        | `--format`   | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet`)             |
 | `-h`   | `--help`     | Print help information                                                                |
 
 ## Examples
@@ -41,6 +41,7 @@ the name of the database to operate on.
 <!--pytest.mark.skip-->
 
 ```bash
+# Query the parquet_files system table
 influxdb3 show system --database DATABASE_NAME table parquet_files
 ```
 
@@ -49,6 +50,7 @@ influxdb3 show system --database DATABASE_NAME table parquet_files
 <!--pytest.mark.skip-->
 
 ```bash
+# Select specific columns from the parquet_files system table
 influxdb3 show system \
   --database DATABASE_NAME \
   table \

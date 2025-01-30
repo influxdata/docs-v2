@@ -13,7 +13,7 @@ influxdb3 show system --database <DATABASE_NAME> table-list [OPTIONS]
 
 | Option |            | Description                                                                                    |
 | :----- | :--------- | :--------------------------------------------------------------------------------------------- |
-|        | `--format` | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet)                      |
+|        | `--format` | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet`)                      |
 | `-h`   | `--help`   | Print help information                                                                         |
 
 ## Examples
