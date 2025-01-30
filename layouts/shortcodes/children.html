@@ -50,7 +50,7 @@
 				{{- $productRef := index $productAliases $productKey -}}
 				{{- $productData := index .Site.Data.products $productRef -}}
 				{{- $placeholderHost := $productData.placeholder_host }}
-				{{ .Params.list_code_example | replaceRE `\{\{[<\%] influxdb/host [>%]\}\}` $placeholderHost | markdownify }}
+				{{ .Params.list_code_example | replaceRE `\{\{[<\%] influxdb/host [>%]\}\}` $placeholderHost | .RenderString }}
 			{{ end }}
 
 			{{ if .Params.list_query_example }}
