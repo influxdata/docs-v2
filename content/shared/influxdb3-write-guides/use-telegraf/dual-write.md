@@ -1,13 +1,11 @@
 
-Use Telegraf to write your data to multiple instances or clusters of InfluxDB.
-This method, known as "dual writing," is useful if you need to back up your data
-in two places or if you're migrating from other version of InfluxDB to
+Use Telegraf to write your data simultaneously to multiple InfluxDB instances or clusters.
+This method, known as "dual writing," is useful for backing up data
+to a separate instance or for migrating from other versions of InfluxDB to
 {{< product-name >}}.
 
-Use Telegraf to write to both {{< product-name >}} and InfluxDB instances or 
-clusters simultaneously.
+The following example configures Telegraf for dual writing to {{% product-name %}} and an InfluxDB v2 OSS instance.
 
-The sample configuration below uses:
 
   - The [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2)
     twice--the first pointing to {{< product-name >}} and the other to an
@@ -20,8 +18,6 @@ The sample configuration below uses:
     > While in alpha, {{< product-name >}} does not require an authorization token.
     > For the `token` option, provide an empty or arbitrary token string.
 
-The example configuration below writes to both {{% product-name %}} and
-InfluxDB v2 OSS simultaneously.
 
 ## Sample configuration
 

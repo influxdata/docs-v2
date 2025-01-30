@@ -106,8 +106,8 @@ Replace the following:
   >
   > ##### Store your authorization token as an environment variable
   >
-  > To prevent a plain text token in your Telegraf configuration file, we
-  > recommend that you store the token as an environment variable and then
+  > Avoid storing a plain text token in your Telegraf configuration file.
+  > Store the token as an environment variable and then
   > reference the environment variable in your configuration file using string
   > interpolation. For example:
   > 
