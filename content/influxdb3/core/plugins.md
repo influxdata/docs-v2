@@ -1,6 +1,6 @@
 ---
 title: Python Plugins and Processing Engine
-description: Instructions for using the Python processing engine in InfluxDB 3
+description: Use the Python processing engine to trigger and execute custom code on different events in an {{< product-name >}} instance.
 menu:
   influxdb3_core:
     name: Processing Engine and Python Plugins
