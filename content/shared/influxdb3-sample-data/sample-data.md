@@ -40,13 +40,54 @@ to
 
 #### Write the home sensor data to InfluxDB
 
-Use the InfluxDB v2 or v1 API to write the home sensor sample data to {{< product-name >}}.
+Use the `influxdb3` CLI, InfluxDB v2 API, or InfluxDB v1 API to write the
+home sensor sample data to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
+[influxdb3](#)
 [v2 API](#)
 [v1 API](#)
 {{% /code-tabs %}}
+{{% code-tab-content %}}
+
+{{% influxdb/custom-timestamps %}}
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
+```sh
+influxdb3 write \
+  --token AUTH_TOKEN \
+  --database DATABASE_NAME \
+  'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200'
+```
+{{% /code-placeholders %}}
+{{% /influxdb/custom-timestamps %}}
+
+{{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
@@ -96,7 +137,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
 ```sh
 curl --request POST \
-  https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s \
+  http://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "
@@ -139,12 +180,12 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of database to write to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your InfluxDB authorization token
+  your {{< product-name >}} authorization token
   
   > [!Note]
   > While in alpha, {{< product-name >}} does not require an authorization token.
-  > You can either omit the `Authorization` header or you can provide an
-  > arbitrary token string.
+  > You can either omit the `--token` option or the `Authorization` header or
+  > you can provide an arbitrary token string.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -186,11 +227,12 @@ to
 
 #### Write the home sensor actions data to InfluxDB
 
-Use the InfluxDB v2 or v1 API to write the home sensor actions sample data
-to {{< product-name >}}.
+Use the `influxdb3` CLI, InfluxDB v2 API, or InfluxDB v1 API to write the
+home sensor actions sample data to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
+[influxdb3](#)
 [v2 API](#)
 [v1 API](#)
 {{% /code-tabs %}}
@@ -199,8 +241,29 @@ to {{< product-name >}}.
 {{% influxdb/custom-timestamps %}}
 {{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
 ```sh
+influxdb3 write \
+  --token AUTH_TOKEN \
+  --database DATABASE_NAME \
+  'home_actions,room=Kitchen,action=cool,level=ok description="Temperature at or above 23°C (23°C). Cooling to 22°C." 1641027600
+home_actions,room=Kitchen,action=cool,level=ok description="Temperature at or above 23°C (23.3°C). Cooling to 22°C." 1641060000
+home_actions,room=Kitchen,action=cool,level=ok description="Temperature at or above 23°C (23.1°C). Cooling to 22°C." 1641063600
+home_actions,room=Kitchen,action=alert,level=warn description="Carbon monoxide level above normal: 18 ppm." 1641060000
+home_actions,room=Kitchen,action=alert,level=warn description="Carbon monoxide level above normal: 22 ppm." 1641063600
+home_actions,room=Kitchen,action=alert,level=warn description="Carbon monoxide level above normal: 26 ppm." 1641067200
+home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 14 ppm." 1641063600
+home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 17 ppm." 1641067200'
+```
+{{% /code-placeholders %}}
+{{% /influxdb/custom-timestamps %}}
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% influxdb/custom-timestamps %}}
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
+```sh
 curl --request POST \
-  https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s \
+  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -225,7 +288,7 @@ home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monox
 {{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
 ```sh
 curl --request POST \
-  https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s \
+  http://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary '
@@ -250,12 +313,12 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of database to write to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your InfluxDB authorization token
+  your {{< product-name >}} authorization token
   
   > [!Note]
   > While in alpha, {{< product-name >}} does not require an authorization token.
-  > You can either omit the `Authorization` header or you can provide an
-  > arbitrary token string.
+  > You can either omit the `--token` option or the `Authorization` header or
+  > you can provide an arbitrary token string.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -291,14 +354,27 @@ series use cases that involve seasonality.
 
 #### Write the NOAA Bay Area weather data to InfluxDB
 
-Use the InfluxDB v2 or v1 API to write the NOAA Bay Area weather sample data to
-{{< product-name >}}.
+Use the `influxdb3` CLI, InfluxDB v2 API, or InfluxDB v1 API to write the
+NOAA Bay Area weather sample data to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
+[influxdb3](#)
 [v2 API](#)
 [v1 API](#)
 {{% /code-tabs %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
+```sh
+influxdb3 write \
+  --token AUTH_TOKEN \
+  --database DATABASE_NAME \
+  "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
+```
+{{% /code-placeholders %}}
+
+{{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 {{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
@@ -333,12 +409,12 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of database to write to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your InfluxDB authorization token
+  your {{< product-name >}} authorization token
   
   > [!Note]
   > While in alpha, {{< product-name >}} does not require an authorization token.
-  > You can either omit the `Authorization` header or you can provide an
-  > arbitrary token string.
+  > You can either omit the `--token` option or the `Authorization` header or
+  > you can provide an arbitrary token string.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -378,11 +454,12 @@ The Bitcoin price sample dataset provides Bitcoin prices from
 
 #### Write the Bitcoin price sample data to InfluxDB
 
-Use the InfluxDB v2 or v1 API to write the Bitcoin price sample data to
-{{< product-name >}}.
+Use the `influxdb3` CLI, InfluxDB v2 API, or InfluxDB v1 API to write the
+Bitcoin price sample data to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
+[influxdb3](#)
 [v2 API](#)
 [v1 API](#)
 {{% /code-tabs %}}
@@ -390,12 +467,10 @@ Use the InfluxDB v2 or v1 API to write the Bitcoin price sample data to
 
 {{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
 ```sh
-curl --request POST \
-  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
-  --header "Authorization: Bearer AUTH_TOKEN" \
-  --header "Content-Type: text/plain; charset=utf-8" \
-  --header "Accept: application/json" \
-  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
+influxdb3 write \
+  --token AUTH_TOKEN \
+  --database DATABASE_NAME \
+  "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
 {{% /code-placeholders %}}
 
@@ -420,12 +495,12 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of database to write to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your InfluxDB authorization token
+  your {{< product-name >}} authorization token
   
   > [!Note]
   > While in alpha, {{< product-name >}} does not require an authorization token.
-  > You can either omit the `Authorization` header or you can provide an
-  > arbitrary token string.
+  > You can either omit the `--token` option or the `Authorization` header or
+  > you can provide an arbitrary token string.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -453,14 +528,27 @@ transformation functions.
 
 #### Write the random number sample data to InfluxDB
 
-Use the InfluxDB v2 or v1 API to write the random number sample data to
-{{< product-name >}}.
+Use the `influxdb3` CLI, InfluxDB v2 API, or InfluxDB v1 API to write the
+random number sample data to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
+[influxdb3](#)
 [v2 API](#)
 [v1 API](#)
 {{% /code-tabs %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
+```sh
+influxdb3 write \
+  --token AUTH_TOKEN \
+  --database DATABASE_NAME \
+  "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
+```
+{{% /code-placeholders %}}
+
+{{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 {{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
@@ -495,12 +583,12 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of database to write to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your InfluxDB authorization token
+  your {{< product-name >}} authorization token
   
   > [!Note]
   > While in alpha, {{< product-name >}} does not require an authorization token.
-  > You can either omit the `Authorization` header or you can provide an
-  > arbitrary token string.
+  > You can either omit the `--token` option or the `Authorization` header or
+  > you can provide an arbitrary token string.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
