@@ -184,7 +184,7 @@ Replace the following in the sample script:
   
   > [!Note]
   > While in alpha, {{< product-name >}} does not require an authorization token.
-  > You can either omit the `--token` option or the `Authorization` header or
+  > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
   > you can provide an arbitrary token string.
 
 {{% /expand %}}
@@ -317,7 +317,7 @@ Replace the following in the sample script:
   
   > [!Note]
   > While in alpha, {{< product-name >}} does not require an authorization token.
-  > You can either omit the `--token` option or the `Authorization` header or
+  > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
   > you can provide an arbitrary token string.
 
 {{% /expand %}}
@@ -413,7 +413,7 @@ Replace the following in the sample script:
   
   > [!Note]
   > While in alpha, {{< product-name >}} does not require an authorization token.
-  > You can either omit the `--token` option or the `Authorization` header or
+  > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
   > you can provide an arbitrary token string.
 
 {{% /expand %}}
@@ -499,7 +499,7 @@ Replace the following in the sample script:
   
   > [!Note]
   > While in alpha, {{< product-name >}} does not require an authorization token.
-  > You can either omit the `--token` option or the `Authorization` header or
+  > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
   > you can provide an arbitrary token string.
 
 {{% /expand %}}
@@ -587,7 +587,7 @@ Replace the following in the sample script:
   
   > [!Note]
   > While in alpha, {{< product-name >}} does not require an authorization token.
-  > You can either omit the `--token` option or the `Authorization` header or
+  > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
   > you can provide an arbitrary token string.
 
 {{% /expand %}}
