@@ -115,7 +115,7 @@ For more information about InfluxQL regular expression syntax, see
 ## WHERE clause examples
 
 The following examples use the
-[Get started home sensor sample dataset](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample dataset](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 {{< expand-wrapper >}}
 {{% expand "Select data with a specific tag value" %}}

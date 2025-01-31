@@ -36,6 +36,7 @@ Token authentication requires the following credential:
 - **token**: InfluxDB [API token](/influxdb/v2/admin/tokens/)
 
 Use the `Authorization` header with the `Token` scheme to provide your token to InfluxDB.
+The `Token` scheme is the word `Token`, a space, and your token (all case-sensitive).
 
 #### Syntax
 

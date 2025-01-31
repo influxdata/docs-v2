@@ -36,7 +36,7 @@ SELECT_clause FROM ( SELECT_clause FROM ( SELECT_statement ) [...] ) [...]
 > 
 > The examples below use the following sample data sets:
 > 
-> - [Get started home sensor data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data)
+> - [Get started home sensor data](/influxdb/version/reference/sample-data/#home-sensor-data)
 > - [Random numbers sample data](/influxdb/version/reference/sample-data/#random-numbers-sample-data)
 
 {{< expand-wrapper >}}

@@ -4,7 +4,7 @@ seotitle: InfluxDB schema design recommendations and best practices
 description: >
   Design your schema for simpler and more performant queries.
 menu:
-  influxdb_clustered:
+  influxdb3_clustered:
     name: Schema design
     weight: 201
     parent: write-best-practices

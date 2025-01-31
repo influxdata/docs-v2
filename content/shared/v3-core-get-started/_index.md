@@ -139,21 +139,21 @@ To start your InfluxDB instance, use the `influxdb3 serve` command
 and provide the following:
 
 - `--object-store`: Specifies the type of Object store to use. InfluxDB supports the following: local file system (`file`), `memory`, S3 (and compatible services like Ceph or Minio) (`s3`), Google Cloud Storage (`google`), and Azure Blob Storage (`azure`).
-- `--writer-id`: A string identifier that determines the server's storage path within the configured storage location
+- `--node-id`: A string identifier that determines the server's storage path within the configured storage location
 
 The following examples show how to start InfluxDB 3 with different object store configurations:
 
 ```bash
 # MEMORY
 # Stores data in RAM; doesn't persist data
-influxdb3 serve --writer-id=local01 --object-store=memory
+influxdb3 serve --node-id=local01 --object-store=memory
 ```
 
 ```bash
 # FILESYSTEM
 # Provide the filesystem directory
 influxdb3 serve \
-  --writer-id=local01 \
+  --node-id=local01 \
   --object-store=file \
   --data-dir ~/.influxdb3
 ```
@@ -170,7 +170,7 @@ To run the [Docker image](/influxdb3/core/install/#docker-image) and persist dat
 docker run -it \
  -v /path/on/host:/path/in/container \
  quay.io/influxdb/influxdb3-core:latest serve \
- --writer-id my_host \
+ --node-id my_host \
  --object-store file \
  --data-dir /path/in/container
 ```
@@ -178,13 +178,13 @@ docker run -it \
 ```bash
 # S3 (defaults to us-east-1 for region)
 # Specify the Object store type and associated options
-influxdb3 serve --writer-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY]
+influxdb3 serve --node-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY]
 ```
 
 ```bash
 # Minio/Open Source Object Store (Uses the AWS S3 API, with additional parameters)
 # Specify the Object store type and associated options
-influxdb3 serve --writer-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY] --aws-endpoint=[ENDPOINT] --aws-allow-http
+influxdb3 serve --node-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY] --aws-endpoint=[ENDPOINT] --aws-allow-http
 ```
 
 _For more information about server options, run `influxdb3 serve --help`._
@@ -219,7 +219,7 @@ InfluxDB is a schema-on-write database. You can start writing data and InfluxDB 
 After a schema is created, InfluxDB validates future write requests against it before accepting the data.
 Subsequent requests can add new fields on-the-fly, but can't add new tags.
 
-InfluxDB 3 Core is optimized for recent data only--it accepts writes for data with timestamps from the last 72 hours. It persists that data in Parquet files for access by third-party systems for longer term historical analysis and queries. If you require longer historical queries with a compactor that optimizes data organization, consider using [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
+InfluxDB 3 Core is optimized for recent data, but accepts writes from any time period. It persists that data in Parquet files for access by third-party systems for longer term historical analysis and queries. If you require longer historical queries with a compactor that optimizes data organization, consider using [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
 
 
 The database has three write API endpoints that respond to HTTP `POST` requests:
@@ -320,7 +320,9 @@ influxdb3 create -h
 
 ### Query the database
 
-InfluxDB 3 now supports native SQL for querying, in addition to InfluxQL, an SQL-like language customized for time series queries.
+InfluxDB 3 now supports native SQL for querying, in addition to InfluxQL, an
+SQL-like language customized for time series queries. {{< product-name >}} limits
+query time ranges to 72 hours (both recent and historical) to ensure query performance.
 
 > [!Note]
 > Flux, the language introduced in InfluxDB 2.0, is **not** supported in InfluxDB 3.
@@ -335,7 +337,7 @@ The `query` subcommand includes options to help ensure that the right database i
 | `--database` | The name of the database to operate on | Yes |
 | `--token` | The authentication token for the {{% product-name %}} server | No |
 | `--language` | The query language of the provided query string [default: `sql`] [possible values: `sql`, `influxql`] | No  |
-| `--format` | The format in which to output the query [default: `pretty`] [possible values: `pretty`, `json`, `json_lines`, `csv`, `parquet`] | No |
+| `--format` | The format in which to output the query [default: `pretty`] [possible values: `pretty`, `json`, `jsonl`, `csv`, `parquet`] | No |
 | `--output` | The path to output data to | No |
 
 #### Example: query `“SHOW TABLES”` on the `servers` database:
@@ -472,19 +474,18 @@ For more information about the Python client library, see the [`influxdb3-python
 You can use the `influxdb3` CLI to create a last value cache.
 
 ```
-Usage: $ influxdb3 create last-cache [OPTIONS] -d <DATABASE_NAME> -t <TABLE>
+Usage: $ influxdb3 create last_cache [OPTIONS] -d <DATABASE_NAME> -t <TABLE> [CACHE_NAME]
 
 Options:
-  -h, --host <HOST_URL>                URL of the running InfluxDB 3 server
-  -d, --database <DATABASE_NAME>       The database to run the query against 
-      --token <AUTH_TOKEN>             The token for authentication 
+  -h, --host <HOST_URL>                URL of the running InfluxDB 3 Core server [env: INFLUXDB3_HOST_URL=] 
+  -d, --database <DATABASE_NAME>       The database to run the query against [env: INFLUXDB3_DATABASE_NAME=]
+      --token <AUTH_TOKEN>             The token for authentication [env: INFLUXDB3_AUTH_TOKEN=]
   -t, --table <TABLE>                  The table for which the cache is created
-      --cache-name <CACHE_NAME>        Give a name for the cache
-      --help                           Print help information
       --key-columns <KEY_COLUMNS>      Columns used as keys in the cache
       --value-columns <VALUE_COLUMNS>  Columns to store as values in the cache
       --count <COUNT>                  Number of entries per unique key:column 
       --ttl <TTL>                      The time-to-live for entries (seconds)
+      --help                           Print help information
 
 ```
 
@@ -501,7 +502,7 @@ An example of creating this cache in use:
 | Alpha | webserver | 2024-12-11T10:02:00 | 25.3 | Warn |
 
 ```bash
-influxdb3 create last-cache --database=servers --table=cpu --cache-name=cpuCache --key-columns=host,application --value-columns=usage_percent,status --count=5
+influxdb3 create last_cache --database=servers --table=cpu --key-columns=host,application --value-columns=usage_percent,status --count=5 cpuCache
 ```
 
 #### Query a Last values cache

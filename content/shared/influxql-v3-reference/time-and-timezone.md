@@ -116,7 +116,7 @@ Conditional expressions with time operands support the following comparison oper
 ## Query examples
 
 The following examples use the
-[Get started home sensor sample dataset](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample dataset](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 {{< expand-wrapper >}}
 
@@ -284,7 +284,7 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LI
 {{% influxdb/custom-timestamps %}}
 
 The following example uses the
-[Get started home sensor sample dataset](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample dataset](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 ```sql
 SELECT *

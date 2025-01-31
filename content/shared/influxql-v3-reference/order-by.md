@@ -26,7 +26,7 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] ORDER BY time [ASC|DE
 ## Examples
 
 The following examples use the
-[Get started home sensor sample data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data).
+[Home sensor sample data](/influxdb/version/reference/sample-data/#home-sensor-data).
 
 {{< expand-wrapper >}}
 

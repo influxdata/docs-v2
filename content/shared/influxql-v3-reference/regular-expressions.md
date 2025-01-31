@@ -63,7 +63,7 @@ the [`WHERE` clause](/influxdb/version/reference/influxql/where/).
 The examples below use the following sample data sets:
 
 - [NOAA Bay Area weather data](/influxdb/version/reference/sample-data/#noaa-bay-area-weather-data)
-- [Get started home sensor data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data)
+- [Get started home sensor data](/influxdb/version/reference/sample-data/#home-sensor-data)
 
 {{< expand-wrapper >}}
 

@@ -1,5 +1,5 @@
 ---
-title: InfluxDB 3 Core configuration options
+title: '{{< product-name >}} configuration options'
 description: >
   InfluxDB 3 Core lets you customize your server configuration by using
   `influxdb3 serve` command options or by setting environment variables.
@@ -27,7 +27,7 @@ environment variables.
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --writer-id my-host \
+  --node-id my-host \
   --log-filter info \
   --max-http-request-size 20971520 \
   --aws-allow-http
@@ -53,7 +53,8 @@ influxdb3 serve
 - [General](#general)
   - [object-store](#object-store)
   - [data-dir](#data-dir)
-  - [writer-id](#writer-id)
+  - [node-id](#node-id)
+  - [query-file-limit](#query-file-limit)
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
   - [aws-secret-access-key](#aws-secret-access-key)
@@ -134,9 +135,9 @@ influxdb3 serve
 ### General
 
 - [object-store](#object-store)
-- [bucket](#bucket)
 - [data-dir](#data-dir)
-- [writer-id](#writer-id)
+- [node-id](#node-id)
+- [query-file-limit](#query-file-limit)
 
 #### object-store
 
@@ -166,15 +167,49 @@ Defines the location {{< product-name >}} uses to store files locally.
 
 ---
 
-#### writer-id
+#### node-id
 
-Specifies the writer identifier used as a prefix in all object store file paths.
+Specifies the node identifier used as a prefix in all object store file paths.
 This should be unique for any hosts sharing the same object store
 configuration--for example, the same bucket.
 
-| influxdb3 serve option | Environment variable                 |
-| :--------------------- | :----------------------------------- |
-| `--writer-id`          | `INFLUXDB3_WRITER_IDENTIFIER_PREFIX` |
+| influxdb3 serve option | Environment variable               |
+| :--------------------- | :--------------------------------- |
+| `--node-id`            | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` |
+
+---
+
+#### query-file-limit
+
+Limits the number of Parquet files a query can access.
+
+**Default:** `432`
+
+With the default `432` setting and the default [`gen1-duration`](#`gen1-duration`)
+setting of 10 minutes, queries can access up to a 72 hours of data, but
+potentially less depending on whether all data for a given 10 minute block of
+time was ingested during the same period.
+
+You can increase this limit to allow more files to be queried, but be aware of
+the following side-effects:
+
+- Degraded query performance for queries that read more Parquet files
+- Increased memory usage
+- Your system potentially killing the `influxdb3` process due to Out-of-Memory
+  (OOM) errors
+- If using object storage to store data, many GET requests to access the data
+  (as many as 2 per file)
+
+> [!Note]
+> We recommend keeping the default setting and querying smaller time ranges.
+> If you need to query longer time ranges or faster query performance on any query
+> that accesses an hour or more of data, [InfluxDB 3 Enterprise](/influxdb3/enterprise/)
+> optimizes data storage by compacting and rearranging Parquet files to achieve
+> faster query performance.
+
+| influxdb3 serve option | Environment variable         |
+| :--------------------- | :--------------------------- |
+| `--query-file-limit`   | `INFLUXDB3_QUERY_FILE_LIMIT` |
 
 ---
 
