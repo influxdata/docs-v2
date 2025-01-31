@@ -1,4 +1,4 @@
-This guide shows some of the capabilities of the HTTP API API for querying and accessing useful information from system tables.
+Learn how to use the HTTP API to query and access information about the database server and table schemas.
 
 The HTTP API for querying is reached via either a `GET` or `POST` to the endpoint `/api/v3/query_sql`. There is also an endpoint for InfluxQL at `/api/v3/query_influxql` but this guide will focus on just the SQL endpoint.
 
