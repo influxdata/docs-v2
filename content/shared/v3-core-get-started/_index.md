@@ -557,7 +557,7 @@ To use the Processing engine, you create [plugins](#plugin) and [triggers](#trig
 #### Plugin
 
 A plugin is a Python function that has a signature compatible with one of the [trigger types](#trigger-types).
-The [`influxdb3 create plugin`](/influxdb3/core/influxdb3-cli/create/plugin/) command loads a Python plugin file into the server.
+The [`influxdb3 create plugin`](/influxdb3/core/reference/cli/influxdb3/create/plugin/) command loads a Python plugin file into the server.
 
 #### Trigger
 
@@ -745,9 +745,9 @@ influxdb3 enable trigger --database mydb trigger1
 
 For more information, see the following:
 
-- [`influxdb3 test wal_plugin`](/influxdb3/core/influxdb3-cli/test/wal_plugin/) 
-- [`influxdb3 create plugin`](/influxdb3/core/influxdb3-cli/create/plugin/) 
-- [`influxdb3 create trigger`](/influxdb3/core/influxdb3-cli/create/trigger/) 
+- [`influxdb3 test wal_plugin`](/influxdb3/core/reference/cli/influxdb3/test/wal_plugin/) 
+- [`influxdb3 create plugin`](/influxdb3/core/reference/cli/influxdb3/create/plugin/) 
+- [`influxdb3 create trigger`](/influxdb3/core/reference/cli/influxdb3/create/trigger/) 
 
 ### Diskless architecture
 
