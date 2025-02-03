@@ -268,7 +268,16 @@ With `accept_partial=true`:
 < date: Wed, 15 Jan 2025 19:35:36 GMT
 < 
 * Connection #0 to host localhost left intact
-{"error":"partial write of line protocol occurred","data":[{"original_line":"dquote> home,room=Sunroom temp=hi","line_number":2,"error_message":"No fields were provided"}]}%                 
+{
+  "error": "partial write of line protocol occurred",
+  "data": [
+    {
+      "original_line": "dquote> home,room=Sunroom temp=hi",
+      "line_number": 2,
+      "error_message": "No fields were provided"
+    }
+  ]
+}
 ```
 
 Line `1` is written and queryable.
@@ -278,16 +287,28 @@ The response is an HTTP error (`400`) status, and the response body contains `pa
 
 With `accept_partial=false`:
 
-```
-> curl -v -XPOST "localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
+```bash
+curl -v "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
   --data-raw "home,room=Sunroom temp=96
-dquote> home,room=Sunroom temp=hi"
+home,room=Sunroom temp=hi"
+```
+
+The response is the following:
+
+```
 < HTTP/1.1 400 Bad Request
 < transfer-encoding: chunked
 < date: Wed, 15 Jan 2025 19:28:27 GMT
 < 
 * Connection #0 to host localhost left intact
-{"error":"parsing failed for write_lp endpoint","data":{"original_line":"dquote> home,room=Sunroom temp=hi","line_number":2,"error_message":"No fields were provided"}}%
+{
+  "error": "parsing failed for write_lp endpoint",
+  "data": {
+    "original_line": "home,room=Sunroom temp=hi",
+    "line_number": 2,
+    "error_message": "No fields were provided"
+  }
+}
 ```
 
 Neither line is written to the database.
@@ -401,7 +422,7 @@ Use the `format` parameter to specify the response format: `pretty`, `jsonl`, `p
 The following example sends an HTTP `GET` request with a URL-encoded SQL query:
 
 ```bash
-curl -v "http://127.0.0.1:8181/api/v3/query_sql?db=servers&q=select+*+from+cpu+limit+5"
+curl -v "http://{{< influxdb/host >}}/api/v3/query_sql?db=servers&q=select+*+from+cpu+limit+5"
 ```
 
 ##### Example: Query passing JSON parameters
@@ -409,7 +430,7 @@ curl -v "http://127.0.0.1:8181/api/v3/query_sql?db=servers&q=select+*+from+cpu+l
 The following example sends an HTTP `POST` request with parameters in a JSON payload:
 
 ```bash
-curl http://127.0.0.1:8181/api/v3/query_sql \
+curl http://{{< influxdb/host >}}/api/v3/query_sql \
   --data '{"db": "server", "q": "select * from cpu limit 5"}'
 ```
 
@@ -430,7 +451,7 @@ From here, you can connect to your database with the client library using just t
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
-    host='http://127.0.0.1:8181',
+    host='http://{{< influxdb/host >}}',
     database='servers'
 )
 ```
@@ -442,7 +463,7 @@ use PyArrow to explore the schema and process results:
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
-    host='http://127.0.0.1:8181',
+    host='http://{{< influxdb/host >}}',
 
     database='servers'
 )

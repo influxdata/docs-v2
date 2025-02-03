@@ -1,4 +1,4 @@
 {{- $initialState := .state | default "Open" -}}
 {{- $modifiedState := cond (eq $initialState "Close") "closed" "open" -}}
-<div class="sidebar-toggle" onclick="toggleSidebar('sidebar-{{ $modifiedState }}');return false;"><a href="#"><span
+<div class="sidebar-toggle" data-component="sidebar-toggle" data-state="{{ $modifiedState }}" ><a data-action="toggle" href="#"><span
       class="cf-icon Sidebar{{ $initialState }}"></span></a></div>
