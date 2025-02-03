@@ -129,6 +129,10 @@ chronograf:
   latest: v1.10
   latest_patches:
     v1: 1.10.6
+  ai_sample_questions:
+    - How do I configure Chronograf for InfluxDB v1?
+    - How do I create a dashboard in Chronograf?
+    - How do I use Grafana to visualize data stored in InfluxDB 3?
 
 kapacitor:
   name: Kapacitor
@@ -139,6 +143,10 @@ kapacitor:
   latest: v1.7
   latest_patches:
     v1: 1.7.6
+  ai_sample_questions:
+    - How do I configure Kapacitor for InfluxDB v1?
+    - How do I write a custom Kapacitor task?
+    - How do I create tasks using InfluxDB 3 Core?
 
 enterprise_influxdb:
   name: "InfluxDB Enterprise"
@@ -161,3 +169,7 @@ flux:
   list_order: 8
   versions: [v0]
   latest: v0.x
+  ai_sample_questions:
+    - How do I write a Flux query for InfluxDB v2 (TSM)?
+    - How do I use Flux to transform data stored in InfluxDB v2?
+    - How do I join data with Flux?
