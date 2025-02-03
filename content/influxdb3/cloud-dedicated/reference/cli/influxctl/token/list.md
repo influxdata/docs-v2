@@ -24,10 +24,11 @@ influxctl token list [--format=table|json]
 
 ## Flags
 
-| Flag |            | Description                                   |
-| :--- | :--------- | :-------------------------------------------- |
-|      | `--format` | Output format (`table` _(default)_ or `json`) |
-| `-h` | `--help`   | Output command help                           |
+| Flag |            | Description                                                                                                   |
+| :--- | :--------- | :------------------------------------------------------------------------------------------------------------ |
+|      | `--format` | Output format (`table` _(default)_ or `json`)                                                                 |
+|      | `--sort`   | Sort output by a specific column (`created` _(default)_, `id`, `description`, `prefix`, `expires`, `revoked`) |
+| `-h` | `--help`   | Output command help                                                                                           |
 
 {{% caption %}}
 _Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
