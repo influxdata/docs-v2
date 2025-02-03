@@ -18,6 +18,7 @@ function getCurrentProductData() {
     { pattern: /\/kapacitor\//, product: products.kapacitor, urls: influxdb_urls.oss },
     { pattern: /\/telegraf\//, product: products.telegraf, urls: influxdb_urls.oss },
     { pattern: /\/chronograf\//, product: products.chronograf, urls: influxdb_urls.oss },
+    { pattern: /\/flux\//, product: products.flux, urls: influxdb_urls.oss },
   ];
 
   for (const { pattern, product, urls } of mappings) {
