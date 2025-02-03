@@ -78,7 +78,7 @@ function initializeChat({onChatLoad, chatAttributes}) {
 }
 
 function getProductExampleQuestions() {
-  const questions = productData?.product?.ai_sample_questions || null;
+  const questions = productData?.product?.ai_sample_questions;
     return questions?.join(',') || '';
 }
 
@@ -88,8 +88,10 @@ function getProductExampleQuestions() {
  * userid: optional, a unique user ID for the user (not currently used for public docs)
 */
 export default function AskAI({ userid, email, onChatLoad, ...chatParams }) {
+  
+  const modalExampleQuestions = getProductExampleQuestions();
   const chatAttributes = {
-    modalExampleQuestions: getProductExampleQuestions(),
+    ...(modalExampleQuestions && { modalExampleQuestions }),
     ...chatParams,
   }
   initializeChat({onChatLoad, chatAttributes});
