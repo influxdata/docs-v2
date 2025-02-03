@@ -22,7 +22,7 @@ When a point's timestamp is beyond the retention period (relative to now), the
 point is marked for deletion and is removed from the database the next time the
 retention enforcement service runs.
 
-The _minimum_ retention period for and InfluxDB database is 1 hour.
+The _minimum_ retention period for an InfluxDB database is 1 hour.
 The _maximum_ retention period is infinite meaning data does not expire and will
 never be removed by the retention enforcement service.
 -->
