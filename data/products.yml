@@ -172,4 +172,4 @@ flux:
   ai_sample_questions:
     - How do I write a Flux query for InfluxDB v2 (TSM)?
     - How do I use Flux to transform data stored in InfluxDB v2?
-    - How do I query data stored in InfluxDB 3?
+    - How do I join data with Flux?
