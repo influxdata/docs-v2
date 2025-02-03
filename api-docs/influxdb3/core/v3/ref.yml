@@ -1,0 +1,1168 @@
+openapi: 3.0.3
+info:
+  title: InfluxDB 3 Core HTTP API
+  description: HTTP API service for managing, writing to, and querying from InfluxDB 3 Core.
+  version: 1.0.2
+paths:
+  /write:
+    post:
+      summary: Write Line Protocol (Legacy)
+      description: >
+        Accepts line protocol data and writes it to the database.
+        Write options are provided via query parameters.
+      parameters:
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Database name.
+        - name: accept_partial
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+          description: Whether to accept partial writes.
+        - name: precision
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [ns, us, ms, s]
+            default: ns
+          description: Precision of timestamps.
+        - name: no_sync
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: Do not sync writes.
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+            example: "measurement,tag=value field=1 1234567890"
+      responses:
+        "204":
+          description: Write successful.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          description: Access denied.
+        "413":
+          description: Request entity too large.
+      security:
+        - BearerAuth: []
+  /api/v2/write:
+    post:
+      summary: Write Line Protocol (v2)
+      description: >
+        Accepts line protocol data and writes it to the database.
+        Write options are provided via query parameters.
+      parameters:
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Database name.
+        - name: accept_partial
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: Whether to accept partial writes.
+        - name: precision
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [ns, us, ms, s]
+            default: ns
+          description: Precision of timestamps.
+        - name: no_sync
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: Do not sync writes.
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+            example: "measurement,tag=value field=1 1234567890"
+      responses:
+        "204":
+          description: Write successful.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          description: Access denied.
+        "413":
+          description: Request entity too large.
+      security:
+        - BearerAuth: []
+  /api/v3/write_lp:
+    post:
+      summary: Write Line Protocol (v3)
+      description: >
+        Accepts line protocol data and writes it to the database.
+        Write options are provided via query parameters.
+      parameters:
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Database name.
+        - name: accept_partial
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+          description: Whether to accept partial writes.
+        - name: precision
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [ns, us, ms, s]
+            default: ns
+          description: Precision of timestamps.
+        - name: no_sync
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: Do not sync writes.
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+            example: "measurement,tag=value field=1 1234567890"
+      responses:
+        "204":
+          description: Write successful.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          description: Access denied.
+        "413":
+          description: Request entity too large.
+        "422":
+          description: Unprocessable entity.
+      security:
+        - BearerAuth: []
+  /api/v3/query_sql:
+    get:
+      summary: Execute SQL Query
+      description: Executes an SQL query against the database.
+      parameters:
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: false
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Accept'
+      responses:
+        "200":
+          description: Successful query execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+              example:
+                results:
+                  - series:
+                      - name: "mytable"
+                        columns: ["time", "value"]
+                        values: [["2024-02-02T12:00:00Z", 42]]
+            text/csv:
+              schema:
+                type: string
+            application/vnd.apache.parquet:
+              schema:
+                type: string
+            application/jsonl:
+              schema:
+                type: string
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          description: Access denied.
+        "404":
+          description: Database not found.
+        "405":
+          description: Method not allowed.
+        "422":
+          description: Unprocessable entity.
+      security:
+        - BearerAuth: []
+    post:
+      summary: Execute SQL Query
+      description: Executes an SQL query against the database.
+      parameters:
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        "200":
+          description: Successful query execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+            text/csv:
+              schema:
+                type: string
+            application/vnd.apache.parquet:
+              schema:
+                type: string
+            application/jsonl:
+              schema:
+                type: string
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          description: Access denied.
+        "404":
+          description: Database not found.
+        "405":
+          description: Method not allowed.
+        "422":
+          description: Unprocessable entity.
+      security:
+        - BearerAuth: []
+  /api/v3/query_influxql:
+    get:
+      summary: Execute InfluxQL Query (v3)
+      description: Executes an InfluxQL query against the database.
+      parameters:
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: false
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Accept'
+      responses:
+        "200":
+          description: Successful query execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+            text/csv:
+              schema:
+                type: string
+            application/vnd.apache.parquet:
+              schema:
+                type: string
+            application/jsonl:
+              schema:
+                type: string
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          description: Access denied.
+        "404":
+          description: Database not found.
+        "405":
+          description: Method not allowed.
+        "422":
+          description: Unprocessable entity.
+      security:
+        - BearerAuth: []
+    post:
+      summary: Execute InfluxQL Query (v3)
+      description: Executes an InfluxQL query against the database.
+      parameters:
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        "200":
+          description: Successful query execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+            text/csv:
+              schema:
+                type: string
+            application/vnd.apache.parquet:
+              schema:
+                type: string
+            application/jsonl:
+              schema:
+                type: string
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          description: Access denied.
+        "404":
+          description: Database not found.
+        "405":
+          description: Method not allowed.
+        "422":
+          description: Unprocessable entity.
+      security:
+        - BearerAuth: []
+  /query:
+    get:
+      summary: Execute InfluxQL Query
+      description: Executes an InfluxQL query against the database.
+      parameters:
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: false
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Accept'
+      responses:
+        "200":
+          description: Successful query execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+            text/csv:
+              schema:
+                type: string
+            application/vnd.apache.parquet:
+              schema:
+                type: string
+            application/jsonl:
+              schema:
+                type: string
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          description: Access denied.
+        "404":
+          description: Database not found.
+        "405":
+          description: Method not allowed.
+        "422":
+          description: Unprocessable entity.
+      security:
+        - BearerAuth: []
+    post:
+      summary: Execute InfluxQL Query
+      description: Executes an InfluxQL query against the database.
+      parameters:
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        "200":
+          description: Successful query execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+            text/csv:
+              schema:
+                type: string
+            application/vnd.apache.parquet:
+              schema:
+                type: string
+            application/jsonl:
+              schema:
+                type: string
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "403":
+          description: Access denied.
+        "404":
+          description: Database not found.
+        "405":
+          description: Method not allowed.
+        "422":
+          description: Unprocessable entity.
+      security:
+        - BearerAuth: []
+  /health:
+    get:
+      summary: Health Check
+      description: Returns the status of the service.
+      responses:
+        "200":
+          description: Service is running.
+        "500":
+          description: Service is unavailable.
+  /api/v1/health:
+    get:
+      summary: Health Check (v1)
+      description: Returns the status of the service.
+      responses:
+        "200":
+          description: Service is running.
+        "500":
+          description: Service is unavailable.
+  /ping:
+    get:
+      summary: Ping the Server
+      description: Returns basic server information.
+      responses:
+        "200":
+          description: Server is reachable.
+  /metrics:
+    get:
+      summary: Metrics
+      description: Retrieves Prometheus-compatible metrics.
+      responses:
+        "200":
+          description: Metrics returned.
+  /api/v3/configure/database:
+    get:
+      summary: List Databases
+      description: Retrieves a list of databases.
+      responses:
+        "200":
+          description: Databases retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShowDatabasesResponse'
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Database not found.
+      security:
+        - BearerAuth: []
+    post:
+      summary: Create a Database
+      description: Creates a new database in the system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDatabaseRequest'
+      responses:
+        "201":
+          description: Database created.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "409":
+          description: Database already exists.
+      security:
+        - BearerAuth: []
+    delete:
+      summary: Delete a Database
+      description: Soft deletes a database.
+      parameters:
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Database deleted.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Database not found.
+      security:
+        - BearerAuth: []
+  /api/v3/configure/table:
+    post:
+      summary: Create a Table
+      description: Creates a new table within a database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTableRequest'
+      responses:
+        "201":
+          description: Table created.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Database not found.
+      security:
+        - BearerAuth: []
+    delete:
+      summary: Delete a Table
+      description: Soft deletes a table.
+      parameters:
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: table
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Table deleted.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Table not found.
+      security:
+        - BearerAuth: []
+  /api/v3/configure/distinct_cache:
+    post:
+      summary: Create Distinct Cache
+      description: Creates a distinct cache for a table.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DistinctCacheCreateRequest'
+      responses:
+        "201":
+          description: Distinct cache created.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Cache not found.
+        "409":
+          description: Cache already exists.
+      security:
+        - BearerAuth: []
+    delete:
+      summary: Delete Distinct Cache
+      description: Deletes a distinct cache.
+      parameters:
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: table
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Distinct cache deleted.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Cache not found.
+      security:
+        - BearerAuth: []
+  /api/v3/configure/last_cache:
+    post:
+      summary: Create Last Cache
+      description: Creates a last cache for a table.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LastCacheCreateRequest'
+      responses:
+        "201":
+          description: Last cache created.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Cache not found.
+        "409":
+          description: Cache already exists.
+      security:
+        - BearerAuth: []
+    delete:
+      summary: Delete Last Cache
+      description: Deletes a last cache.
+      parameters:
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: table
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Last cache deleted.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Cache not found.
+      security:
+        - BearerAuth: []
+  /api/v3/configure/processing_engine_trigger:
+    post:
+      summary: Create Processing Engine Trigger
+      description: Creates a new processing engine trigger.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessingEngineTriggerRequest'
+      responses:
+        "201":
+          description: Processing engine trigger created.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Trigger not found.
+      security:
+        - BearerAuth: []
+    delete:
+      summary: Delete Processing Engine Trigger
+      description: Deletes a processing engine trigger.
+      parameters:
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: trigger_name
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: force
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: Processing engine trigger deleted.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Trigger not found.
+      security:
+        - BearerAuth: []
+  /api/v3/configure/processing_engine_trigger/disable:
+    post:
+      summary: Disable Processing Engine Trigger
+      description: Disables a processing engine trigger.
+      parameters:
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessingEngineTriggerRequest'
+      responses:
+        "200":
+          description: Processing engine trigger disabled.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Trigger not found.
+      security:
+        - BearerAuth: []
+  /api/v3/configure/processing_engine_trigger/enable:
+    post:
+      summary: Enable Processing Engine Trigger
+      description: Enables a processing engine trigger.
+      parameters:
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessingEngineTriggerRequest'
+      responses:
+        "200":
+          description: Processing engine trigger enabled.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Trigger not found.
+      security:
+        - BearerAuth: []
+  /api/v3/configure/plugin_environment/install_packages:
+    post:
+      summary: Install Plugin Packages
+      description: Installs packages for the plugin environment.
+      parameters:
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        "200":
+          description: Packages installed.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+      security:
+        - BearerAuth: []
+  /api/v3/configure/plugin_environment/install_requirements:
+    post:
+      summary: Install Plugin Requirements
+      description: Installs requirements for the plugin environment.
+      parameters:
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        "200":
+          description: Requirements installed.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+      security:
+        - BearerAuth: []
+  /api/v3/plugin_test/wal:
+    post:
+      summary: Test WAL Plugin
+      description: Executes a plugin test for write-ahead logging.
+      responses:
+        "200":
+          description: Plugin test executed.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Plugin not enabled.
+      security:
+        - BearerAuth: []
+  /api/v3/plugin_test/schedule:
+    post:
+      summary: Test Scheduling Plugin
+      description: Executes a plugin test for scheduling.
+      responses:
+        "200":
+          description: Plugin test executed.
+        "400":
+          description: Bad request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Plugin not enabled.
+      security:
+        - BearerAuth: []
+  /api/v3/engine/{plugin_path}:
+    parameters:
+      - name: plugin_path
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Custom Processing Engine Request (GET)
+      description: Sends a custom request to a processing engine plugin.
+      parameters:
+        - $ref: '#/components/parameters/Accept'
+      responses:
+        "200":
+          description: Request successful.
+        "400":
+          description: Malformed request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Plugin not found.
+        "500":
+          description: Processing failure.
+      security:
+        - BearerAuth: []
+    post:
+      summary: Custom Processing Engine Request (POST)
+      description: Sends a custom request to a processing engine plugin.
+      parameters:
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        "200":
+          description: Request successful.
+        "400":
+          description: Malformed request.
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          description: Plugin not found.
+        "500":
+          description: Processing failure.
+      security:
+        - BearerAuth: []
+components:
+  parameters:
+    ContentEncoding:
+      name: Content-Encoding
+      in: header
+      schema:
+        type: string
+        enum: [gzip, identity]
+      required: false
+      description: Optional encoding of the request body.
+    Accept:
+      name: Accept
+      in: header
+      schema:
+        type: string
+        enum: [application/json, application/vnd.apache.parquet, application/jsonl]
+      required: false
+      description: Acceptable response content type.
+    ContentType:
+      name: Content-Type
+      in: header
+      schema:
+        type: string
+        enum: [text/plain, application/json, text/csv]
+      required: false
+      description: Request content type.
+  schemas:
+    WriteParams:
+      type: object
+      properties:
+        db:
+          type: string
+        accept_partial:
+          type: boolean
+          default: true
+        precision:
+          type: string
+          enum: [ns, us, ms, s]
+          default: ns
+        no_sync:
+          type: boolean
+          default: false
+      required:
+        - db
+        - precision
+      example:
+        db: "mydb"
+        accept_partial: true
+        precision: "ns"
+        no_sync: false
+    QueryRequest:
+      type: object
+      properties:
+        database:
+          type: string
+        query_str:
+          type: string
+        format:
+          type: string
+        params:
+          type: object
+          additionalProperties: true
+      required:
+        - database
+        - query_str
+      example:
+        database: "mydb"
+        query_str: "SELECT * FROM mytable"
+        format: "json"
+        params: {}
+    CreateDatabaseRequest:
+      type: object
+      properties:
+        db:
+          type: string
+      required:
+        - db
+    CreateTableRequest:
+      type: object
+      properties:
+        db:
+          type: string
+        table:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+            required:
+              - name
+              - type
+      required:
+        - db
+        - table
+        - fields
+    DistinctCacheCreateRequest:
+      type: object
+      properties:
+        db:
+          type: string
+        table:
+          type: string
+        name:
+          type: string
+          description: Optional cache name.
+        columns:
+          type: array
+          items:
+            type: string
+        max_cardinality:
+          type: integer
+          description: Optional maximum cardinality.
+        max_age:
+          type: integer
+          description: Optional maximum age in seconds.
+      required:
+        - db
+        - table
+        - columns
+      example:
+        db: "mydb"
+        table: "mytable"
+        columns: ["tag1", "tag2"]
+        max_cardinality: 1000
+        max_age: 3600
+    LastCacheCreateRequest:
+      type: object
+      properties:
+        db:
+          type: string
+        table:
+          type: string
+        name:
+          type: string
+          description: Optional cache name.
+        key_columns:
+          type: array
+          items:
+            type: string
+          description: Optional list of key columns.
+        value_columns:
+          type: array
+          items:
+            type: string
+          description: Optional list of value columns.
+        count:
+          type: integer
+          description: Optional count.
+        ttl:
+          type: integer
+          description: Optional time-to-live in seconds.
+      required:
+        - db
+        - table
+      example:
+        db: "mydb"
+        table: "mytable"
+        key_columns: ["tag1"]
+        value_columns: ["field1"]
+        count: 100
+        ttl: 3600
+    ProcessingEngineTriggerRequest:
+      type: object
+      properties:
+        db:
+          type: string
+        plugin_filename:
+          type: string
+        trigger_name:
+          type: string
+        trigger_specification:
+          type: string
+        trigger_arguments:
+          type: object
+          additionalProperties: true
+        disabled:
+          type: boolean
+      required:
+        - db
+        - plugin_filename
+        - trigger_name
+        - trigger_specification
+    ShowDatabasesResponse:
+      type: object
+      properties:
+        databases:
+          type: array
+          items:
+            type: string
+    QueryResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+      example:
+        results:
+          - series:
+              - name: "mytable"
+                columns: ["time", "value"]
+                values: [["2024-02-02T12:00:00Z", 42]]
+    ErrorMessage:
+      type: object
+      properties:
+        error:
+          type: string
+        data:
+          type: object
+          nullable: true
+    PingResponse:
+      type: object
+      properties:
+        version:
+          type: string
+        revision:
+          type: string
+  responses:
+    Unauthorized:
+      description: Unauthorized access.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    Forbidden:
+      description: Access denied.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
