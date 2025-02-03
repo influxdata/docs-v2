@@ -4,7 +4,7 @@ description: >
   Use visualization tools like Grafana, Superset, and others to visualize time
   series data stored in InfluxDB 3 Core.
 menu: influxdb3_enterprise
-weight: 19
+weight: 10
 related:
   - /influxdb3/enterprise/query-data/
 ---
