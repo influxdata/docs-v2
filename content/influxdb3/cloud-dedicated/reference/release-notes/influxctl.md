@@ -11,6 +11,34 @@ menu:
 weight: 202
 ---
 
+## v2.9.9 {date="2025-01-24"}
+
+### Features
+
+- Sort [`influxctl token list`](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/list/)
+and [`influxctl management list`](/influxdb3/cloud-dedicated/reference/cli/influxctl/management/list/) output.
+
+### Bug fixes
+
+- Remove `UpdateAccount` and `UpdateCluster`.
+- Remove "incorrect version" warning for gRPC unimplemented error code.
+- Correctly parse multi-line queries from stdin.
+
+### Dependency updates
+
+- Update `github.com/fatih/color` from 1.17.0 to 1.18.0.
+- Update `github.com/go-git/go-git/v5` from 5.12.0 to 5.13.1.
+- Update `github.com/jedib0t/go-pretty/v6` from 6.6.0 to 6.6.5.
+- Update `github.com/stretchr/testify` from 1.9.0 to 1.10.0.
+- Update `golang.org/x/crypto` from 0.27.0 to 0.31.0.
+- Update `golang.org/x/mod` from 0.21.0 to 0.22.0.
+- Update `golang.org/x/oauth2` from 0.23.0 to 0.25.0.
+- Update `google.golang.org/grpc` from 1.67.1 to 1.69.4.
+- Update `google.golang.org/protobuf` from 1.35.1 to 1.36.3.
+- Update Go to v1.23.5.
+
+---
+
 ## v2.9.8 {date="2024-10-15"}
 
 ### Bug Fixes
