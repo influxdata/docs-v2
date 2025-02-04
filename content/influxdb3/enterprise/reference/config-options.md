@@ -55,6 +55,8 @@ influxdb3 serve
   - [data-dir](#data-dir)
   - [node-id](#node-id)
   - [mode](#mode)
+  - [license-email](#license-email)
+  - [query-file-limit](#query-file-limit)
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
   - [aws-secret-access-key](#aws-secret-access-key)
@@ -135,11 +137,14 @@ influxdb3 serve
   - [parquet-mem-cache-prune-percentage](#parquet-mem-cache-prune-percentage)
   - [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
   - [disable-parquet-mem-cache](#disable-parquet-mem-cache)
+  - [parquet-mem-cache-query-path-duration](#parquet-mem-cache-query-path-duration)
   - [last-cache-eviction-interval](#last-cache-eviction-interval)
   - [distinct-cache-eviction-interval](#distinct-cache-eviction-interval)
-- [Plugins](#plugins)
+- [Processing engine](#processing-engine)
   - [plugin-dir](#plugin-dir)
-
+  - [virtual-env-location](#virtual-env-location)
+  - [package-manager](#package-manager)
+  
 ---
 
 ### General
@@ -149,6 +154,8 @@ influxdb3 serve
 - [data-dir](#data-dir)
 - [node-id](#node-id)
 - [mode](#mode)
+- [license-email](#license-email)
+- [query-file-limit](#query-file-limit)
 
 #### object-store
 
@@ -205,6 +212,40 @@ This option supports the following values:
 | influxdb3 serve option | Environment variable        |
 | :--------------------- | :-------------------------- |
 | `--mode`               | `INFLUXDB3_ENTERPRISE_MODE` |
+
+---
+
+#### license-email
+
+Specifies the email address to associate with your {{< product-name >}} license
+and automatically responds to the interactive email prompt when the server starts.
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-email`      | `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` |
+
+---
+
+#### query-file-limit
+
+Limits the number of Parquet files a query can access.
+If a query attempts to read more than this limit, InfluxDB returns an error.
+
+**Default:** `432`
+
+You can increase this limit to allow more files to be queried, but be aware of
+the following side-effects:
+
+- Degraded query performance for queries that read more Parquet files
+- Increased memory usage
+- Your system potentially killing the `influxdb3` process due to Out-of-Memory
+  (OOM) errors
+- If using object storage to store data, many GET requests to access the data
+  (as many as 2 per file)
+
+| influxdb3 serve option | Environment variable         |
+| :--------------------- | :--------------------------- |
+| `--query-file-limit`   | `INFLUXDB3_QUERY_FILE_LIMIT` |
 
 ---
 
@@ -1051,6 +1092,7 @@ compactor can merge into larger generations.
 - [parquet-mem-cache-prune-percentage](#parquet-mem-cache-prune-percentage)
 - [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
 - [disable-parquet-mem-cache](#disable-parquet-mem-cache)
+- [parquet-mem-cache-query-path-duration](#parquet-mem-cache-query-path-duration)
 - [last-cache-eviction-interval](#last-cache-eviction-interval)
 - [distinct-cache-eviction-interval](#distinct-cache-eviction-interval)
 
@@ -1113,10 +1155,23 @@ Disables the in-memory Parquet cache. By default, the cache is enabled.
 
 ---
 
+#### parquet-mem-cache-query-path-duration
+
+Specifies the duration from _now_ to check if Parquet files pulled in query path
+require caching, expressed as a human-readable duration--for example: `5h`, `3d`.
+
+**Default:** `5h`
+
+| influxdb3 serve option        | Environment variable                  |
+| :---------------------------- | :------------------------------------ |
+| `--parquet-mem-cache-query-path-duration` | `INFLUXDB3_PARQUET_MEM_CACHE_QUERY_PATH_DURATION` |
+
+---
+
 #### last-cache-eviction-interval
 
 Specifies the interval to evict expired entries from the Last-N-Value cache,
-expressed as a human-readable time--for example: `20s`, `1m`, `1h`.
+expressed as a human-readable duration--for example: `20s`, `1m`, `1h`.
 
 **Default:** `10s`
 
@@ -1129,7 +1184,7 @@ expressed as a human-readable time--for example: `20s`, `1m`, `1h`.
 #### distinct-cache-eviction-interval
 
 Specifies the interval to evict expired entries from the distinct value cache,
-expressed as a human-readable time--for example: `20s`, `1m`, `1h`.
+expressed as a human-readable duration--for example: `20s`, `1m`, `1h`.
 
 **Default:** `10s`
 
@@ -1139,9 +1194,11 @@ expressed as a human-readable time--for example: `20s`, `1m`, `1h`.
 
 ---
 
-### Plugins
+### Processing engine
 
 - [plugin-dir](#plugin-dir)
+- [virtual-env-location](#virtual-env-location)
+- [package-manager](#package-manager)
 
 #### plugin-dir
 
@@ -1151,3 +1208,25 @@ Specifies the local directory that contains Python plugins and their test files.
 | :--------------------- | :--------------------- |
 | `--plugin-dir`         | `INFLUXDB3_PLUGIN_DIR` |
 
+---
+
+#### virtual-env-location
+
+Specifies the location of the Python virtual environment that the processing
+engine uses.
+
+| influxdb3 serve option   | Environment variable   |
+| :----------------------- | :--------------------- |
+| `--virtual-env-location` | `VIRTUAL_ENV_LOCATION` |
+
+---
+
+#### package-manager
+
+Specifies the Python package manager that the processing engine uses.
+
+**Default:** `10s`
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--package-manager`    | `PACKAGE_MANAGER`    |
