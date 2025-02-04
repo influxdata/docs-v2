@@ -5,7 +5,10 @@
  * smoothscroll when clicked. The whitelist is defined in content-interactions.js.
  **/
 
-function tabbedContent (container, tab, content) {
+import $ from 'jquery';
+import { scrollToAnchor } from './content-interactions.js';
+
+function tabbedContent(container, tab, content) {
   // Add the active class to the first tab in each tab group,
   // in case it wasn't already set in the markup.
   $(container).each(function () {
@@ -30,10 +33,7 @@ function tabbedContent (container, tab, content) {
   });
 }
 
-tabbedContent('.code-tabs-wrapper', '.code-tabs p a', '.code-tab-content');
-tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
-
-function getTabQueryParam () {
+function getTabQueryParam() {
   const queryParams = new URLSearchParams(window.location.search);
   return $('<textarea />').html(queryParams.get('t')).text();
 }
@@ -41,7 +41,7 @@ function getTabQueryParam () {
 // Add query param to .keep-tab paginated navigation buttons to persist tab
 // selection when navigating between the pages.
 
-function updateBtnURLs (tabId, op = 'update') {
+function updateBtnURLs(tabId, op = 'update') {
   $('a.keep-tab').each(function () {
     var link = $(this)[0].href;
     var tabStr = tabId.replace(/ /, '+');
@@ -54,7 +54,7 @@ function updateBtnURLs (tabId, op = 'update') {
   });
 }
 
-function activateTabs (selector, tab) {
+function activateTabs(selector, tab) {
   var anchor = window.location.hash;
   if (tab !== '') {
     let targetTab = $(`${selector} a:contains("${tab}")`);
@@ -74,29 +74,36 @@ function activateTabs (selector, tab) {
   }
 }
 
-$(`.tabs p a, .code-tabs p a`).click(function () {
-  var queryParams = new URLSearchParams(window.location.search);
-  var anchor = window.location.hash;
+function initialize() {
+  tabbedContent('.code-tabs-wrapper', '.code-tabs p a', '.code-tab-content');
+  tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
 
-  if ($(this).is(':not(":first-child")')) {
-    queryParams.set('t', $(this).html());
-    window.history.replaceState(
-      {},
-      '',
-      `${location.pathname}?${queryParams}${anchor}`
-    );
-    updateBtnURLs($(this).html());
-  } else {
-    queryParams.delete('t');
-    window.history.replaceState({}, '', `${location.pathname}${anchor}`);
-    updateBtnURLs($(this).html(), 'delete');
-  }
-});
+  $(`.tabs p a, .code-tabs p a`).click(function () {
+    var queryParams = new URLSearchParams(window.location.search);
+    var anchor = window.location.hash;
 
-//////////////////// Activate Tab with Cookie or Query Param ///////////////////
+    if ($(this).is(':not(":first-child")')) {
+      queryParams.set('t', $(this).html());
+      window.history.replaceState(
+        {},
+        '',
+        `${location.pathname}?${queryParams}${anchor}`
+      );
+      updateBtnURLs($(this).html());
+    } else {
+      queryParams.delete('t');
+      window.history.replaceState({}, '', `${location.pathname}${anchor}`);
+      updateBtnURLs($(this).html(), 'delete');
+    }
+  });
 
-tab = getTabQueryParam();
-['.tabs', '.code-tabs'].forEach(
-  selector => activateTabs(selector, tab),
-  updateBtnURLs(tab)
-);
+  //////////////////// Activate Tab with Cookie or Query Param ///////////////////
+
+  const tab = getTabQueryParam();
+  ['.tabs', '.code-tabs'].forEach(
+    (selector) => activateTabs(selector, tab),
+    updateBtnURLs(tab)
+  );
+}
+
+export { activateTabs, initialize, tabbedContent, updateBtnURLs };

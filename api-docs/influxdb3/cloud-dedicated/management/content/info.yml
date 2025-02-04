@@ -1,0 +1,12 @@
+title: InfluxDB 3 Cloud Dedicated Management API
+x-influxdata-short-title: Management API
+summary: |
+    The Management API for InfluxDB 3 Cloud Dedicated provides a programmatic interface for managing a Cloud Dedicated instance.
+description: |
+    The Management API lets you manage an InfluxDB 3 Cloud Dedicated instance and integrate functions such as creating and managing databases, permissions, and tokens into your workflow or application.
+
+    This documentation is generated from the
+    InfluxDB OpenAPI specification.
+license:
+  name: MIT
+  url: 'https://opensource.org/licenses/MIT'

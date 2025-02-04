@@ -198,7 +198,7 @@ is truncated at the decimal point. No rounding is performed.
 
 The examples below use the following sample data sets:
 
-- [Get started home sensor data](/influxdb/version/reference/sample-data/#get-started-home-sensor-data)
+- [Get started home sensor data](/influxdb/version/reference/sample-data/#home-sensor-data)
 - [NOAA Bay Area weather data](/influxdb/version/reference/sample-data/#noaa-bay-area-weather-data)
 
 {{< expand-wrapper >}}

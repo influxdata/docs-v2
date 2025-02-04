@@ -26,7 +26,7 @@
       {{ else }}
         {{ $sanitizedPath := replaceRE `\/$` "" (print $relatedItem) }}
         {{ with $.Page.GetPage $sanitizedPath }}
-          <li><a href="{{ .RelPermalink }}" >{{ .Title }}</a></li>
+          <li><a href="{{ .RelPermalink }}" >{{ .Title | .RenderString }}</a></li>
         {{ end }}
       {{ end }}
     {{ end }}

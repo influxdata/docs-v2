@@ -66,3 +66,20 @@ cloud:
         - name: East US (Virginia)
           location: Virginia, USA
           url: https://eastus-1.azure.cloud2.influxdata.com
+cloud_dedicated:
+  providers:
+    - name: Default
+      regions:
+        - name: cluster-id.a.influxdb.io
+          url: https://cluster-id.a.influxdb.io
+    - name: Custom
+      url: http://example.com:8080
+  product: InfluxDB Cloud Dedicated
+clustered:
+  providers:
+    - name: Default
+      regions:
+        - name: cluster-host.com
+          url: https://cluster-host.com
+    - name: Custom
+      url: http://example.com:8080

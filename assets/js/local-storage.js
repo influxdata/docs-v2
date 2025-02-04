@@ -10,6 +10,7 @@
     - messages: Messages (data/notifications.yaml) that have been seen (array)
     - callouts: Feature callouts that have been seen (array)
 */
+import * as pageParams from '@params';
 
 // Prefix for all InfluxData docs local storage
 const storagePrefix = 'influxdata_docs_';
@@ -17,14 +18,14 @@ const storagePrefix = 'influxdata_docs_';
 /*
   Initialize data in local storage with a default value.
 */
-initializeLocalStorage = (storageKey, defaultValue) => {
-  fullStorageKey = storagePrefix + storageKey;
+function initializeStorageItem(storageKey, defaultValue) {
+  const fullStorageKey = storagePrefix + storageKey;
 
   // Check if the data exists before initializing the data
   if (localStorage.getItem(fullStorageKey) === null) {
     localStorage.setItem(fullStorageKey, defaultValue);
   }
-};
+}
 
 /*
 ////////////////////////////////////////////////////////////////////////////////
@@ -35,7 +36,7 @@ initializeLocalStorage = (storageKey, defaultValue) => {
 const prefStorageKey = storagePrefix + 'preferences';
 
 // Default preferences
-var defaultPrefObj = {
+const defaultPrefObj = {
   api_lib: null,
   influxdb_url: 'cloud',
   sidebar_state: 'open',
@@ -48,119 +49,113 @@ var defaultPrefObj = {
   Retrieve a preference from the preference key.
   If the key doesn't exist, initialize it with default values.
 */
-getPreference = prefName => {
+function getPreference(prefName) {
   // Initialize preference data if it doesn't already exist
   if (localStorage.getItem(prefStorageKey) === null) {
-    initializeLocalStorage('preferences', JSON.stringify(defaultPrefObj));
+    initializeStorageItem('preferences', JSON.stringify(defaultPrefObj));
   }
 
   // Retrieve and parse preferences as JSON
-  prefString = localStorage.getItem(prefStorageKey);
-  prefObj = JSON.parse(prefString);
+  const prefString = localStorage.getItem(prefStorageKey);
+  const prefObj = JSON.parse(prefString);
 
   // Return the value of the specified preference
   return prefObj[prefName];
-};
+}
 
 // Set a preference in the preferences key
-setPreference = (prefID, prefValue) => {
-  var prefString = localStorage.getItem(prefStorageKey);
-  let prefObj = JSON.parse(prefString);
+function setPreference(prefID, prefValue) {
+  const prefString = localStorage.getItem(prefStorageKey);
+  const prefObj = JSON.parse(prefString);
 
   prefObj[prefID] = prefValue;
 
   localStorage.setItem(prefStorageKey, JSON.stringify(prefObj));
-};
+}
 
 // Return an object containing all preferences
-getPreferences = () => JSON.parse(localStorage.getItem(prefStorageKey));
+function getPreferences() {
+  return JSON.parse(localStorage.getItem(prefStorageKey));
+}
 
-/*
 ////////////////////////////////////////////////////////////////////////////////
-///////////////////////////// INFLUXDATA DOCS URLS /////////////////////////////
+//////////// MANAGE INFLUXDATA DOCS URLS IN LOCAL STORAGE //////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-*/
 
-const urlStorageKey = storagePrefix + 'urls';
 
-// Default URLs per product
-var defaultUrls = {
-  oss: 'http://localhost:8086',
-  cloud: 'https://us-west-2-1.aws.cloud2.influxdata.com',
-  core: 'http://localhost:8181',
-  enterprise: 'http://localhost:8181',
-  serverless: 'https://us-east-1-1.aws.cloud2.influxdata.com',
-  dedicated: 'cluster-id.a.influxdb.io',
-  clustered: 'cluster-host.com',
-};
+const defaultUrls = {};
+Object.entries(pageParams.influxdb_urls).forEach(([product, {providers}]) => {
+  defaultUrls[product] = providers.filter(provider => provider.name === 'Default')[0]?.regions[0]?.url;
+});
 
-// Defines the default urls value
-var defaultUrlsObj = {
+export const DEFAULT_STORAGE_URLS = {
   oss: defaultUrls.oss,
   cloud: defaultUrls.cloud,
   serverless: defaultUrls.serverless,
   core: defaultUrls.core,
   enterprise: defaultUrls.enterprise,
-  dedicated: defaultUrls.dedicated,
+  dedicated: defaultUrls.cloud_dedicated,
   clustered: defaultUrls.clustered,
   prev_oss: defaultUrls.oss,
   prev_cloud: defaultUrls.cloud,
   prev_core: defaultUrls.core,
   prev_enterprise: defaultUrls.enterprise,
   prev_serverless: defaultUrls.serverless,
-  prev_dedicated: defaultUrls.dedicated,
+  prev_dedicated: defaultUrls.cloud_dedicated,
   prev_clustered: defaultUrls.clustered,
   custom: '',
 };
 
+const urlStorageKey = storagePrefix + 'urls';
+
 // Return an object that contains all InfluxDB urls stored in the urls key
-getInfluxDBUrls = () => {
+function getInfluxDBUrls() {
   // Initialize urls data if it doesn't already exist
   if (localStorage.getItem(urlStorageKey) === null) {
-    initializeLocalStorage('urls', JSON.stringify(defaultUrlsObj));
+    initializeStorageItem('urls', JSON.stringify(DEFAULT_STORAGE_URLS));
   }
 
   return JSON.parse(localStorage.getItem(urlStorageKey));
-};
+}
 
 // Get the current or previous URL for a specific product or a custom url
-getInfluxDBUrl = product => {
+function getInfluxDBUrl(product) {
   // Initialize urls data if it doesn't already exist
   if (localStorage.getItem(urlStorageKey) === null) {
-    initializeLocalStorage('urls', JSON.stringify(defaultUrlsObj));
+    initializeStorageItem('urls', JSON.stringify(DEFAULT_STORAGE_URLS));
   }
 
   // Retrieve and parse the URLs as JSON
-  urlsString = localStorage.getItem(urlStorageKey);
-  urlsObj = JSON.parse(urlsString);
+  const urlsString = localStorage.getItem(urlStorageKey);
+  const urlsObj = JSON.parse(urlsString);
 
   // Return the URL of the specified product
   return urlsObj[product];
-};
+}
 
 /*
   Set multiple product URLs in the urls key.
   Input should be an object where the key is the product and the value is the
   URL to set for that product.
 */
-setInfluxDBUrls = updatedUrlsObj => {
-  var urlsString = localStorage.getItem(urlStorageKey);
-  let urlsObj = JSON.parse(urlsString);
+function setInfluxDBUrls(updatedUrlsObj) {
+  const urlsString = localStorage.getItem(urlStorageKey);
+  const urlsObj = JSON.parse(urlsString);
 
-  newUrlsObj = { ...urlsObj, ...updatedUrlsObj };
+  const newUrlsObj = { ...urlsObj, ...updatedUrlsObj };
 
   localStorage.setItem(urlStorageKey, JSON.stringify(newUrlsObj));
-};
+}
 
 // Set an InfluxDB URL to an empty string in the urls key
-removeInfluxDBUrl = product => {
-  var urlsString = localStorage.getItem(urlStorageKey);
-  let urlsObj = JSON.parse(urlsString);
+function removeInfluxDBUrl(product) {
+  const urlsString = localStorage.getItem(urlStorageKey);
+  const urlsObj = JSON.parse(urlsString);
 
   urlsObj[product] = '';
 
   localStorage.setItem(urlStorageKey, JSON.stringify(urlsObj));
-};
+}
 
 /*
 ////////////////////////////////////////////////////////////////////////////////
@@ -171,24 +166,24 @@ removeInfluxDBUrl = product => {
 const notificationStorageKey = storagePrefix + 'notifications';
 
 // Default notifications
-var defaultNotificationsObj = {
+const defaultNotificationsObj = {
   messages: [],
   callouts: [],
 };
 
-getNotifications = () => {
+function getNotifications() {
   // Initialize notifications data if it doesn't already exist
   if (localStorage.getItem(notificationStorageKey) === null) {
-    initializeLocalStorage('notifications', JSON.stringify(defaultNotificationsObj));
+    initializeStorageItem('notifications', JSON.stringify(defaultNotificationsObj));
   }
 
   // Retrieve and parse the notifications data as JSON
-  notificationString = localStorage.getItem(notificationStorageKey);
-  notificationObj = JSON.parse(notificationString);
+  const notificationString = localStorage.getItem(notificationStorageKey);
+  const notificationObj = JSON.parse(notificationString);
 
   // Return the notifications object
   return notificationObj;
-};
+}
 
 /*
   Checks if a notification is read. Provide the notification ID and one of the
@@ -200,12 +195,12 @@ getNotifications = () => {
   If the notification ID exists in the array assigned to the specified type, the
   notification has been read.
 */
-notificationIsRead = (notificationID, notificationType) => {
-  let notificationsObj = getNotifications();
-  readNotifications = notificationsObj[`${notificationType}s`];
+function notificationIsRead(notificationID, notificationType) {
+  const notificationsObj = getNotifications();
+  const readNotifications = notificationsObj[`${notificationType}s`];
 
   return readNotifications.includes(notificationID);
-};
+}
 
 /*
   Sets a notification as read. Provide the notification ID and one of the
@@ -216,12 +211,28 @@ notificationIsRead = (notificationID, notificationType) => {
 
   The notification ID is added to the array assigned to the specified type.
 */
-setNotificationAsRead = (notificationID, notificationType) => {
-  let notificationsObj = getNotifications();
-  let readNotifications = notificationsObj[`${notificationType}s`];
+function setNotificationAsRead(notificationID, notificationType) {
+  const notificationsObj = getNotifications();
+  const readNotifications = notificationsObj[`${notificationType}s`];
 
   readNotifications.push(notificationID);
   notificationsObj[notificationType + 's'] = readNotifications;
 
   localStorage.setItem(notificationStorageKey, JSON.stringify(notificationsObj));
+}
+
+// Export functions as a module and make the file backwards compatible for non-module environments until all remaining dependent scripts are ported to modules
+export {
+  defaultUrls,
+  initializeStorageItem,
+  getPreference,
+  setPreference,
+  getPreferences,
+  getInfluxDBUrls,
+  getInfluxDBUrl,
+  setInfluxDBUrls,
+  removeInfluxDBUrl,
+  getNotifications,
+  notificationIsRead,
+  setNotificationAsRead,
 };

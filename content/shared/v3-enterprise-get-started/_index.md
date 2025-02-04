@@ -130,21 +130,21 @@ To start your InfluxDB instance, use the `influxdb3 serve` command
 and provide the following:
 
 - `--object-store`: Specifies the type of Object store to use. InfluxDB supports the following: local file system (`file`), `memory`, S3 (and compatible services like Ceph or Minio) (`s3`), Google Cloud Storage (`google`), and Azure Blob Storage (`azure`).
-- `--writer-id`: A string identifier that determines the server's storage path within the configured storage location, and, in a multi-node setup, is used to reference the node
+- `--node-id`: A string identifier that determines the server's storage path within the configured storage location, and, in a multi-node setup, is used to reference the node
 
 The following examples show how to start InfluxDB 3 with different object store configurations:
 
 ```bash
 # MEMORY
 # Stores data in RAM; doesn't persist data
-influxdb3 serve --writer-id=local01 --object-store=memory
+influxdb3 serve --node-id=local01 --object-store=memory
 ```
 
 ```bash
 # FILESYSTEM
 # Provide the filesystem directory
 influxdb3 serve \
-  --writer-id=local01 \
+  --node-id=local01 \
   --object-store=file \
   --data-dir ~/.influxdb3
 ```
@@ -161,7 +161,7 @@ To run the [Docker image](/influxdb3/enterprise/install/#docker-image) and persi
 docker run -it \
  -v /path/on/host:/path/in/container \
  quay.io/influxdb/influxdb3-enterprise:latest serve \
- --writer-id my_host \
+ --node-id my_host \
  --object-store file \
  --data-dir /path/in/container
 ```
@@ -169,13 +169,13 @@ docker run -it \
 ```bash
 # S3 (defaults to us-east-1 for region)
 # Specify the Object store type and associated options
-influxdb3 serve --writer-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY]
+influxdb3 serve --node-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY]
 ```
 
 ```bash
 # Minio/Open Source Object Store (Uses the AWS S3 API, with additional parameters)
 # Specify the Object store type and associated options
-influxdb3 serve --writer-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY] --aws-endpoint=[ENDPOINT] --aws-allow-http
+influxdb3 serve --node-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY] --aws-endpoint=[ENDPOINT] --aws-allow-http
 ```
 
 _For more information about server options, run `influxdb3 serve --help`._
@@ -263,7 +263,16 @@ With `accept_partial=true`:
 < date: Wed, 15 Jan 2025 19:35:36 GMT
 < 
 * Connection #0 to host localhost left intact
-{"error":"partial write of line protocol occurred","data":[{"original_line":"dquote> home,room=Sunroom temp=hi","line_number":2,"error_message":"No fields were provided"}]}%                 
+{
+  "error": "partial write of line protocol occurred",
+  "data": [
+    {
+      "original_line": "dquote> home,room=Sunroom temp=hi",
+      "line_number": 2,
+      "error_message": "No fields were provided"
+    }
+  ]
+}
 ```
 
 Line `1` is written and queryable.
@@ -273,16 +282,28 @@ The response is an HTTP error (`400`) status, and the response body contains `pa
 
 With `accept_partial=false`:
 
-```
-> curl -v -XPOST "localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
+```bash
+curl -v "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
   --data-raw "home,room=Sunroom temp=96
-dquote> home,room=Sunroom temp=hi"
+home,room=Sunroom temp=hi"
+```
+
+The response is the following:
+
+```
 < HTTP/1.1 400 Bad Request
 < transfer-encoding: chunked
 < date: Wed, 15 Jan 2025 19:28:27 GMT
 < 
 * Connection #0 to host localhost left intact
-{"error":"parsing failed for write_lp endpoint","data":{"original_line":"dquote> home,room=Sunroom temp=hi","line_number":2,"error_message":"No fields were provided"}}%
+{
+  "error": "parsing failed for write_lp endpoint",
+  "data": {
+    "original_line": "home,room=Sunroom temp=hi",
+    "line_number": 2,
+    "error_message": "No fields were provided"
+  }
+}
 ```
 
 Neither line is written to the database.
@@ -330,7 +351,7 @@ The `query` subcommand includes options to help ensure that the right database i
 | `--database` | The name of the database to operate on | Yes |
 | `--token` | The authentication token for the {{% product-name %}} server | No |
 | `--language` | The query language of the provided query string [default: `sql`] [possible values: `sql`, `influxql`] | No  |
-| `--format` | The format in which to output the query [default: `pretty`] [possible values: `pretty`, `json`, `json_lines`, `csv`, `parquet`] | No |
+| `--format` | The format in which to output the query [default: `pretty`] [possible values: `pretty`, `json`, `jsonl`, `csv`, `parquet`] | No |
 | `--output` | The path to output data to | No |
 
 #### Example: query `“SHOW TABLES”` on the `servers` database:
@@ -394,7 +415,7 @@ Use the `format` parameter to specify the response format: `pretty`, `jsonl`, `p
 The following example sends an HTTP `GET` request with a URL-encoded SQL query:
 
 ```bash
-curl -v "http://127.0.0.1:8181/api/v3/query_sql?db=servers&q=select+*+from+cpu+limit+5"
+curl -v "http://{{< influxdb/host >}}/api/v3/query_sql?db=servers&q=select+*+from+cpu+limit+5"
 ```
 
 ##### Example: Query passing JSON parameters
@@ -402,7 +423,7 @@ curl -v "http://127.0.0.1:8181/api/v3/query_sql?db=servers&q=select+*+from+cpu+l
 The following example sends an HTTP `POST` request with parameters in a JSON payload:
 
 ```bash
-curl http://127.0.0.1:8181/api/v3/query_sql \
+curl http://{{< influxdb/host >}}/api/v3/query_sql \
   --data '{"db": "server", "q": "select * from cpu limit 5"}'
 ```
 
@@ -423,7 +444,7 @@ From here, you can connect to your database with the client library using just t
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
-    host='http://127.0.0.1:8181',
+    host='http://{{< influxdb/host >}}',
     database='servers'
 )
 ```
@@ -435,7 +456,7 @@ use PyArrow to explore the schema and process results:
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
-    host='http://127.0.0.1:8181',
+    host='http://{{< influxdb/host >}}',
 
     database='servers'
 )
@@ -467,19 +488,18 @@ For more information about the Python client library, see the [`influxdb3-python
 You can use the `influxdb3` CLI to create a last value cache.
 
 ```
-Usage: $ influxdb3 create last-cache [OPTIONS] -d <DATABASE_NAME> -t <TABLE>
+Usage: $ influxdb3 create last_cache [OPTIONS] -d <DATABASE_NAME> -t <TABLE> [CACHE_NAME]
 
 Options:
-  -h, --host <HOST_URL>                URL of the running InfluxDB 3 server
-  -d, --database <DATABASE_NAME>       The database to run the query against 
-      --token <AUTH_TOKEN>             The token for authentication 
+  -h, --host <HOST_URL>                URL of the running InfluxDB 3 Enterprise server [env: INFLUXDB3_HOST_URL=] 
+  -d, --database <DATABASE_NAME>       The database to run the query against [env: INFLUXDB3_DATABASE_NAME=]
+      --token <AUTH_TOKEN>             The token for authentication [env: INFLUXDB3_AUTH_TOKEN=]
   -t, --table <TABLE>                  The table for which the cache is created
-      --cache-name <CACHE_NAME>        Give a name for the cache
-      --help                           Print help information
       --key-columns <KEY_COLUMNS>      Columns used as keys in the cache
       --value-columns <VALUE_COLUMNS>  Columns to store as values in the cache
       --count <COUNT>                  Number of entries per unique key:column 
       --ttl <TTL>                      The time-to-live for entries (seconds)
+      --help                           Print help information
 
 ```
 
@@ -496,7 +516,7 @@ An example of creating this cache in use:
 | Alpha | webserver | 2024-12-11T10:02:00 | 25.3 | Warn |
 
 ```bash
-influxdb3 create last-cache --database=servers --table=cpu --cache-name=cpuCache --key-columns=host,application --value-columns=usage_percent,status --count=5
+influxdb3 create last_cache --database=servers --table=cpu --key-columns=host,application --value-columns=usage_percent,status --count=5 cpuCache
 ```
 
 #### Query a Last values cache
@@ -551,7 +571,7 @@ To use the Processing engine, you create [plugins](#plugin) and [triggers](#trig
 #### Plugin
 
 A plugin is a Python function that has a signature compatible with one of the [trigger types](#trigger-types).
-The [`influxdb3 create plugin`](/influxdb3/enterprise/influxdb3-cli/create/plugin/) command loads a Python plugin file into the server.
+The [`influxdb3 create plugin`](/influxdb3/enterprise/reference/cli/influxdb3/create/plugin/) command loads a Python plugin file into the server.
 
 #### Trigger
 
@@ -660,8 +680,7 @@ def process_writes(influxdb3_local, table_batches, args=None):
 
 ##### Test a plugin on the server
 
-Use InfluxDB 3 to safely test a plugin before you load it, without touching written data.
-During a plugin test:
+Test your InfluxDB 3 plugin safely without affecting written data. During a plugin test:
 
 - A query executed by the plugin queries against the server you send the request to.
 - Writes aren't sent to the server but are returned to you.
@@ -740,9 +759,9 @@ influxdb3 enable trigger --database mydb trigger1
 
 For more information, see the following:
 
-- [`influxdb3 test wal_plugin`](/influxdb3/enterprise/influxdb3-cli/test/wal_plugin/) 
-- [`influxdb3 create plugin`](/influxdb3/enterprise/influxdb3-cli/create/plugin/) 
-- [`influxdb3 create trigger`](/influxdb3/enterprise/influxdb3-cli/create/trigger/) 
+- [`influxdb3 test wal_plugin`](/influxdb3/enterprise/reference/cli/influxdb3/test/wal_plugin/) 
+- [`influxdb3 create plugin`](/influxdb3/enterprise/reference/cli/influxdb3/create/plugin/) 
+- [`influxdb3 create trigger`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/) 
 
 ### Diskless architecture
 
@@ -783,7 +802,7 @@ The following examples show how to configure and start two nodes
 for a basic HA setup.
 The example commands pass the following options:
 
-- `--read-from-writer-ids`: makes the node a _read replica_, which checks the Object store for data arriving from other nodes
+- `--read-from-node-ids`: makes the node a _read replica_, which checks the Object store for data arriving from other nodes
 - `--compactor-id`: activates the Compactor for a node. Only one node can run compaction
 - `--run-compactions`: ensures the Compactor runs the compaction process
 
@@ -791,22 +810,22 @@ The example commands pass the following options:
 ## NODE 1
 
 # Example variables
-# writer-id: 'host01'
+# node-id: 'host01'
 # bucket: 'influxdb-3-enterprise-storage'
 # compactor-id: 'c01'
 
 
-influxdb3 serve --writer-id=host01 --read-from-writer-ids=host02 --compactor-id=c01 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8181 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY> 
+influxdb3 serve --node-id=host01 --read-from-node-ids=host02 --compactor-id=c01 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://{{< influxdb/host >}} --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY> 
 ```
 
 ```
 ## NODE 2
 
 # Example variables
-# writer-id: 'host02'
+# node-id: 'host02'
 # bucket: 'influxdb-3-enterprise-storage'
 
-influxdb3 serve --writer-id=host02 --read-from-writer-ids=host01 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8282
+influxdb3 serve --node-id=host02 --read-from-node-ids=host01 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8282
 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY> 
 ```
 
@@ -814,7 +833,7 @@ After the nodes have started, querying either node returns data for both nodes, 
 To add nodes to this setup, start more read replicas:
 
 ```bash
-influxdb3 serve --read-from-writer-ids=host01,host02 [...OPTIONS]
+influxdb3 serve --read-from-node-ids=host01,host02 [...OPTIONS]
 ```
 
 > [!Note]
@@ -822,12 +841,12 @@ influxdb3 serve --read-from-writer-ids=host01,host02 [...OPTIONS]
 > 
 > ```bash
 > # In terminal 1
-> influxdb3 serve --writer-id=host01 --http-bind=http://127.0.0.1:8181 [...OPTIONS]
+> influxdb3 serve --node-id=host01 --http-bind=http://{{< influxdb/host >}} [...OPTIONS]
 > ```
 >
 > ```bash
 > # In terminal 2
-> influxdb3 serve --writer-id=host01 --http-bind=http://127.0.0.1:8181 [...OPTIONS]
+> influxdb3 serve --node-id=host01 --http-bind=http://{{< influxdb/host >}} [...OPTIONS]
 
 ### High availability with a dedicated Compactor
 
@@ -845,20 +864,20 @@ The following examples show how to set up HA with a dedicated Compactor node:
    ## NODE 1 — Writer/Reader Node #1
 
    # Example variables
-   # writer-id: 'host01'
+   # node-id: 'host01'
    # bucket: 'influxdb-3-enterprise-storage'
 
-   influxdb3 serve --writer-id=host01 --compactor-id=c01 --read-from-writer-ids=host02 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8181 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   influxdb3 serve --node-id=host01 --compactor-id=c01 --read-from-node-ids=host02 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://{{< influxdb/host >}} --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
    ```bash
    ## NODE 2 — Writer/Reader Node #2
 
    # Example variables
-   # writer-id: 'host02'
+   # node-id: 'host02'
    # bucket: 'influxdb-3-enterprise-storage'
 
-   influxdb3 serve --writer-id=host02 --compactor-id=c01 --read-from-writer-ids=host01 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8282 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   influxdb3 serve --node-id=host02 --compactor-id=c01 --read-from-node-ids=host01 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8282 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
 2. Start the dedicated compactor node, which uses the following options:
@@ -866,18 +885,18 @@ The following examples show how to set up HA with a dedicated Compactor node:
    - `--mode=compactor`: Ensures the node **only** runs compaction.
    - `--compaction-hosts`: Specifies a comma-delimited list of hosts to run compaction for.
   
-  _**Don't include the replicas (`--read-from-writer-ids`) parameter because this node doesn't replicate data._
+  _**Don't include the replicas (`--read-from-node-ids`) parameter because this node doesn't replicate data._
 
    ```bash
 
    ## NODE 3 — Compactor Node
 
    # Example variables
-   # writer-id: 'host03'
+   # node-id: 'host03'
    # bucket: 'influxdb-3-enterprise-storage'
    # compactor-id: 'c01'
 
-   influxdb3 serve --writer-id=host03 --mode=compactor --compactor-id=c01 --compaction-hosts=host01,host02 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   influxdb3 serve --node-id=host03 --mode=compactor --compactor-id=c01 --compaction-hosts=host01,host02 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
 ### High availability with read replicas and a dedicated Compactor
@@ -893,21 +912,23 @@ For a very robust and effective setup for managing time-series data, you can run
    ## NODE 1 — Writer Node #1
 
    # Example variables
-   # writer-id: 'host01'
+   # node-id: 'host01'
    # bucket: 'influxdb-3-enterprise-storage'
 
-   influxdb3 serve --writer-id=host01 --mode=read_write --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8181 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   influxdb3 serve --node-id=host01 --mode=read_write --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://{{< influxdb/host >}} --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
 
    ```
+
+<!-- The following examples use different ports for different nodes. Don't use the influxdb/host shortcode below. -->
 
    ```
    ## NODE 2 — Writer Node #2
 
    # Example variables
-   # writer-id: 'host02'
+   # node-id: 'host02'
    # bucket: 'influxdb-3-enterprise-storage'
 
-   Usage: $ influxdb3 serve --writer-id=host02 --mode=read_write --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8282 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   Usage: $ influxdb3 serve --node-id=host02 --mode=read_write --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8282 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
 2. Start the dedicated Compactor node (`--mode=compactor`) and ensure it runs compactions on the specified `compaction-hosts`.
@@ -916,36 +937,36 @@ For a very robust and effective setup for managing time-series data, you can run
    ## NODE 3 — Compactor Node
 
    # Example variables
-   # writer-id: 'host03'
+   # node-id: 'host03'
    # bucket: 'influxdb-3-enterprise-storage'
 
-   influxdb3 serve --writer-id=host03 --mode=compactor --compaction-hosts=host01,host02 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   influxdb3 serve --node-id=host03 --mode=compactor --compaction-hosts=host01,host02 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
 3. Finally, start the query nodes as _read-only_.
    Include the following options: 
    
    - `--mode=read`: Sets the node to _read-only_
-   - `--read-from-writer-ids=host01,host02`: A comma-demlimited list of host IDs to read data from
+   - `--read-from-node-ids=host01,host02`: A comma-demlimited list of host IDs to read data from
 
    ```bash
    ## NODE 4 — Read Node #1
 
    # Example variables
-   # writer-id: 'host04'
+   # node-id: 'host04'
    # bucket: 'influxdb-3-enterprise-storage'
 
-   influxdb3 serve --writer-id=host04 --mode=read --object-store=s3 --read-from-writer-ids=host01,host02 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8383 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   influxdb3 serve --node-id=host04 --mode=read --object-store=s3 --read-from-node-ids=host01,host02 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8383 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
    ```
    ## NODE 5 — Read Node #2
 
    # Example variables
-   # writer-id: 'host05'
+   # node-id: 'host05'
    # bucket: 'influxdb-3-enterprise-storage'
 
-   influxdb3 serve --writer-id=host05 --mode=read --object-store=s3 --read-from-writer-ids=host01,host02 --bucket=influxdb-3-enterprise-storage --http-bind=0.0.0.0:8484 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   influxdb3 serve --node-id=host05 --mode=read --object-store=s3 --read-from-node-ids=host01,host02 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8484 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
 Congratulations, you have a robust setup to workload isolation using {{% product-name %}}.
@@ -969,7 +990,7 @@ You can use the default port `8181` for any write or query, without changing any
 ```
 # Example variables on a query
 # HTTP-bound Port: 8585
-Usage: $ influxdb3 query --host=http://127.0.0.1:8585 -d <DATABASE> "<QUERY>" 
+Usage: $ influxdb3 query --host=http://localhost:8585 -d <DATABASE> "<QUERY>" 
 ```
 
 ### File index settings
@@ -983,11 +1004,11 @@ This feature is only available in Enterprise and is not available in Core.
 # Example variables on a query
 # HTTP-bound Port: 8585
 
-influxdb3 file-index create --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE> <COLUMNS>
+influxdb3 create file_index --host=http://localhost:8585 -d <DATABASE> -t <TABLE> <COLUMNS>
 ```
 
 #### Delete a file index
 
 ```bash
-influxdb3 file-index delete --host=http://127.0.0.1:8585 -d <DATABASE> -t <TABLE>
+influxdb3 delete file_index --host=http://localhost:8585 -d <DATABASE> -t <TABLE>
 ```
