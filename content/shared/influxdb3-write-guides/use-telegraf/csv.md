@@ -100,7 +100,7 @@ Replace the following:
 
   > [!Note]
   > While in alpha, {{< product-name >}} does not require an authorization token.
-  > For the `token` option, provide an empty or arbitrary token string.
+  > For the `token` option, provide an arbitrary, non-empty token string.
 
   > [!Tip]
   >
