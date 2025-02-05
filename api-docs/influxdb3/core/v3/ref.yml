@@ -995,7 +995,7 @@ paths:
     post:
       operationId: PostTestWALPlugin
       summary: Test WAL Plugin
-      description: Executes a plugin test for write-ahead logging.
+      description: Executes a plugin test for write-ahead logging (WAL).
       responses:
         "200":
           description: Plugin test executed.
