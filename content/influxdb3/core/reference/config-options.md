@@ -127,8 +127,10 @@ influxdb3 serve
   - [disable-parquet-mem-cache](#disable-parquet-mem-cache)
   - [last-cache-eviction-interval](#last-cache-eviction-interval)
   - [distinct-cache-eviction-interval](#distinct-cache-eviction-interval)
-- [Plugins](#plugins)
+- [Processing engine](#processing-engine)
   - [plugin-dir](#plugin-dir)
+  - [virtual-env-location](#virtual-env-location)
+  - [package-manager](#package-manager)
 
 ---
 
@@ -1017,9 +1019,11 @@ expressed as a human-readable time--for example: `20s`, `1m`, `1h`.
 
 ---
 
-### Plugins
+### Processing engine
 
 - [plugin-dir](#plugin-dir)
+- [virtual-env-location](#virtual-env-location)
+- [package-manager](#package-manager)
 
 #### plugin-dir
 
@@ -1029,3 +1033,25 @@ Specifies the local directory that contains Python plugins and their test files.
 | :--------------------- | :--------------------- |
 | `--plugin-dir`         | `INFLUXDB3_PLUGIN_DIR` |
 
+---
+
+#### virtual-env-location
+
+Specifies the location of the Python virtual environment that the processing
+engine uses.
+
+| influxdb3 serve option   | Environment variable   |
+| :----------------------- | :--------------------- |
+| `--virtual-env-location` | `VIRTUAL_ENV_LOCATION` |
+
+---
+
+#### package-manager
+
+Specifies the Python package manager that the processing engine uses.
+
+**Default:** `10s`
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--package-manager`    | `PACKAGE_MANAGER`    |
