@@ -683,7 +683,7 @@ paths:
     delete:
       operationId: DeleteConfigureTable
       summary: Delete a Table
-      description: Soft deletes a table.
+      description: Soft deletes a table. The table is queued for deletion and unavailable for querying.
       parameters:
         - name: db
           in: query
