@@ -241,7 +241,7 @@ the following side-effects:
 - Your system potentially killing the `influxdb3` process due to Out-of-Memory
   (OOM) errors
 - If using object storage to store data, many GET requests to access the data
-  (as many as 2 per file)
+  (as many as 2 requests per file)
 
 | influxdb3 serve option | Environment variable         |
 | :--------------------- | :--------------------------- |
@@ -1157,8 +1157,8 @@ Disables the in-memory Parquet cache. By default, the cache is enabled.
 
 #### parquet-mem-cache-query-path-duration
 
-Specifies the duration from _now_ to check if Parquet files pulled in query path
-require caching, expressed as a human-readable duration--for example: `5h`, `3d`.
+Specifies the duration to check if Parquet files pulled in query path
+require caching, expressed as a human-readable duration (starting from _now_)--for example: `5h`, `3d`.
 
 **Default:** `5h`
 
