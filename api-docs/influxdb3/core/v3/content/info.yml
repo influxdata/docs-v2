@@ -1,0 +1,19 @@
+title: InfluxDB 3 Core API Service
+x-influxdata-short-title: InfluxDB 3 API
+summary: The InfluxDB HTTP API for InfluxDB 3 Core provides a programmatic interface for writing data stored in an InfluxDB 3 Core database.
+description: |
+  Write and query data, and perform administrative tasks, such as managing databases and processing engine plugins.
+
+  The InfluxDB HTTP API for InfluxDB 3 Core includes endpoints for compatibility with InfluxDB 2.x and InfluxDB 1.x APIs.
+
+  <!-- TODO: verify where to host the spec that users can download.
+  This documentation is generated from the
+  [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
+  -->
+license:
+  name: MIT
+  url: 'https://opensource.org/licenses/MIT'
+contact:
+  name: InfluxData
+  url: https://www.influxdata.com
+  email: support@influxdata.com
