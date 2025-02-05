@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: InfluxDB 3 Core HTTP API
-  description: HTTP API service for managing, writing to, and querying from InfluxDB 3 Core.
+  title: InfluxDB 3 Enterprise HTTP API
+  description: HTTP API service for managing, writing to, and querying from InfluxDB 3 Enterprise.
   version: 1.0.2
   license:
     name: MIT
