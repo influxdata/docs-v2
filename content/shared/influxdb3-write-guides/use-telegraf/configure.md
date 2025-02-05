@@ -70,7 +70,7 @@ Replace the following:
 
   > [!Note]
   > While in alpha, {{< product-name >}} does not require an authorization token.
-  > For the `token` option, provide an empty or arbitrary token string.
+  > For the `token` option, provide an arbitrary, non-empty token string.
 
 The InfluxDB output plugin configuration contains the following options:
 
@@ -89,7 +89,7 @@ Your {{% product-name %}} authorization token.
 
 > [!Note]
 > While in alpha, {{< product-name >}} does not require an authorization token.
-> For the `token` option, provide an empty or arbitrary token string.
+> For the `token` option, provide an arbitrary, non-empty token string.
 
 > [!Tip]
 >
