@@ -245,6 +245,68 @@ services:
         source: test-content
         target: /app/content
     working_dir: /app
+  influxdb3-core-pytest:
+    container_name: influxdb3-core-pytest
+    image: influxdata/docs-pytest
+    build:
+      context: .
+      dockerfile: Dockerfile.pytest
+    entrypoint:
+      - /bin/bash
+      - /src/test/scripts/run-tests.sh
+      - pytest
+    command:  
+      # In the command, pass file paths to test.
+      # The container preprocesses the files for testing and runs the tests.
+      - content/influxdb3/core/**/*.md
+      - content/shared/**/*.md
+    environment:
+      - CONTENT_PATH=content/influxdb3/core
+    profiles:
+      - test
+      - influxdb3
+    stdin_open: true
+    tty: true
+    volumes:
+      # Site configuration files.
+      - type: bind
+        source: .
+        target: /src
+        read_only: true
+      # Files shared between host and container and writeable by both.
+      - type: bind
+        source: ./test/shared
+        target: /shared
+      - type: bind
+        source: ./content/influxdb3/core/.env.test
+        target: /app/.env.test
+        read_only: true
+      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
+      - type: bind
+        source: ./static/downloads
+        target: /app/data
+        read_only: true
+      # In your code samples, use `/app/iot-starter` to store example modules or project files.
+      - type: volume
+        source: influxdb3-core-tmp
+        target: /app/iot-starter
+      # Target directory for the content under test.
+      # Files are copied from /src/content/<productpath> to /app/content/<productpath> before running tests.
+      - type: volume
+        source: test-content
+        target: /app/content
+    working_dir: /app
+  influxdb3-core:
+    container_name: influxdb3-core
+    image: quay.io/influxdb/influxdb3-core:latest
+    ports:
+      - 8181:8181
+    command:
+      - serve
+      - --node-id=sensors_node0
+      - --log-filter=debug
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3
   telegraf-pytest:
     container_name: telegraf-pytest
     image: influxdata/docs-pytest

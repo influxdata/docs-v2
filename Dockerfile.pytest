@@ -34,6 +34,11 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   telegraf \
   wget
 
+# Install InfluxDB 3 Core
+RUN curl -O https://www.influxdata.com/d/install_influxdb3.sh \
+&& chmod +x install_influxdb3.sh \
+&& bash -c yes | ./install_influxdb3.sh
+
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # Create a virtual environment for Python to avoid conflicts with the system Python and having to use the --break-system-packages flag when installing packages with pip.

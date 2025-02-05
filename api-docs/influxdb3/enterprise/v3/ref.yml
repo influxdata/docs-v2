@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: InfluxDB 3 Core HTTP API
-  description: HTTP API service for managing, writing to, and querying from InfluxDB 3 Core.
+  title: InfluxDB 3 Enterprise HTTP API
+  description: HTTP API service for managing, writing to, and querying from InfluxDB 3 Enterprise.
   version: 1.0.2
   license:
     name: MIT
@@ -11,17 +11,37 @@ info:
     url: https://www.influxdata.com
     email: support@influxdata.com
 servers:
-  - url: http://localhost:8080
+  - url: http://localhost:8181
     description: Local development server
 tags:
-  - name: Databases
-    description: Create, read, update, and delete database and cache resources
-  - name: Tables
-    description: Manage table schemas and data
-  - name: Data Operations
-    description: Write, query, and process data
-  - name: Legacy APIs
-    description: Backwards compatibility APIs for v1.x and v2.x clients
+  - name: Legacy v1-compatible
+    description: Endpoints compatible with InfluxDB 1.x client libraries and third-party integrations.
+  - name: Legacy v2-compatible
+    description: Endpoints compatible with InfluxDB 2.x client libraries and third-party integrations.
+  - name: Write data
+    description: Endpoints for writing data to InfluxDB.
+  - name: Query data
+    description: Endpoints for querying data from InfluxDB.
+  - name: InfluxQL query
+    description: Endpoints for executing InfluxQL queries.
+  - name: SQL query
+    description: Endpoints for executing SQL queries.
+  - name: Server
+    description: Endpoints for checking the status and health of the service and retrieving service metrics.
+  - name: List
+    description: Endpoints for listing databases, tables, and other resources.
+  - name: Database
+    description: Endpoints for creating, deleting, and listing databases.
+  - name: Create
+    description: Endpoints for creating resources.
+  - name: Delete
+    description: Endpoints for deleting resources.
+  - name: Table
+    description: Endpoints for creating, deleting, and listing tables.
+  - name: Cache
+    description: Endpoints for creating and deleting caches.
+  - name: Processing engine
+    description: Endpoints for creating, deleting, and testing processing engine plugins and triggers.
 paths:
   /write:
     post:
@@ -30,17 +50,31 @@ paths:
       description: >
         Writes line protocol to the specified database.
 
-        This is a legacy endpoint compatible with InfluxDB 2.x client libraries, the Telegraf `outputs.influxdb` output plugin, and third-party tools.
-
-        Use this endpoint to send data in [line protocol](https://docs.influxdata.com/influxdb3/core/reference/syntax/line-protocol/) format to InfluxDB.
+        Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format to InfluxDB.
         Use query parameters to specify options for writing data.
+
+        This endpoint is compatible with InfluxDB 1.x client libraries and Telegraf plugins.
       parameters:
-        - $ref: '#/components/parameters/dbWriteParam'
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Database name.
+        - name: accept_partial
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+          description: Whether to accept partial writes.
         - name: precision
           in: query
           required: true
           schema:
-            $ref: '#/components/schemas/LegacyWritePrecision'
+            type: string
+            enum: [ns, us, ms, s]
+            default: ns
           description: Precision of timestamps.
         - name: no_sync
           in: query
@@ -56,52 +90,12 @@ paths:
           text/plain:
             schema:
               type: string
-              format: byte
-            examples:
-              plain-utf8-multiline:
-                value: |
-                  measurement,tag=id001 field=1.0 1234567890
-                  measurement,tag=id001 field=1.1 1234567900
+            example: "measurement,tag=value field=1 1234567890"
       responses:
         "204":
-          description: Success ("No Content"). All data in the batch is written and queryable.
+          description: Write successful.
         "400":
-          description: |
-            Bad request. Some (a _partial write_) or all of the data from the batch was rejected and not written.
-            If a partial write occurred, then some points from the batch are written and queryable.
-
-            The response body:
-              - indicates if a partial write occurred or all data was rejected.
-              - contains details about the [rejected points](/influxdb3/core/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
-          content:
-            application/json:
-              examples:
-                rejectedAllPoints:
-                  summary: Rejected all points in the batch
-                  value: |
-                    {
-                      "error": "write of line protocol failed",
-                      "data": [
-                        {
-                          "original_line": "dquote> home,room=Kitchen temp=hi",
-                          "line_number": 2,
-                          "error_message": "No fields were provided"
-                        }
-                      ]
-                    }
-                partialWriteErrorWithRejectedPoints:
-                  summary: Partial write rejected some points in the batch
-                  value: |
-                    {
-                      "error": "partial write of line protocol occurred",
-                      "data": [
-                        {
-                          "original_line": "dquote> home,room=Kitchen temp=hi",
-                          "line_number": 2,
-                          "error_message": "No fields were provided"
-                        }
-                      ]
-                    }
+          description: Bad request.
         "401":
           $ref: '#/components/responses/Unauthorized'
         "403":
@@ -120,67 +114,17 @@ paths:
       description: >
         Writes line protocol to the specified database.
 
-        This is a legacy endpoint compatible with InfluxDB 2.x client libraries the Telegraf `outputs.influxdb_v2` output plugin, and third-party tools.
-
         Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format to InfluxDB.
         Use query parameters to specify options for writing data.
 
+        This endpoint is compatible with InfluxDB 2.x client libraries and Telegraf plugins.
       parameters:
-        - description: |
-            The compression applied to the line protocol in the request payload.
-            To send a gzip payload, pass `Content-Encoding: gzip` header.
-          in: header
-          name: Content-Encoding
-          schema:
-            default: identity
-            description: |
-              Content coding.
-              Use `gzip` for compressed data or `identity` for unmodified, uncompressed data.
-            enum:
-              - gzip
-              - identity
-            type: string
-        - description: |
-            The format of the data in the request body.
-            To send a line protocol payload, pass `Content-Type: text/plain; charset=utf-8`.
-          in: header
-          name: Content-Type
-          schema:
-            default: text/plain; charset=utf-8
-            description: |
-              `text/plain` is the content type for line protocol. `UTF-8` is the default character set.
-            enum:
-              - text/plain
-              - text/plain; charset=utf-8
-            type: string
-        - description: |
-            The size of the entity-body, in bytes, sent to InfluxDB.
-          in: header
-          name: Content-Length
-          schema:
-            description: The length in decimal number of octets.
-            type: integer
-        - description: |
-            The content type that the client can understand.
-            Writes only return a response body if they fail (partially or completely)--for example,
-            due to a syntax problem or type mismatch.
-          in: header
-          name: Accept
-          schema:
-            default: application/json
-            description: Error content type.
-            enum:
-              - application/json
-            type: string
         - name: db
           in: query
           required: true
           schema:
             type: string
-          description: |
-            A database name.
-            InfluxDB creates the database if it doesn't already exist, and then
-            writes all points in the batch to the database.
+          description: Database name.
         - name: accept_partial
           in: query
           required: false
@@ -192,8 +136,10 @@ paths:
           in: query
           required: true
           schema:
-            $ref: '#/components/schemas/LegacyWritePrecision' 
-          description: The precision for unix timestamps in the line protocol batch.
+            type: string
+            enum: [ns, us, ms, s]
+            default: ns
+          description: Precision of timestamps.
         - name: no_sync
           in: query
           required: false
@@ -227,7 +173,7 @@ paths:
         - Write data
   /api/v3/write_lp:
     post:
-      operationId: PostWriteLP
+      operationId: PostWriteLPV3
       summary: Write line protocol
       description: >
         Writes line protocol to the specified database.
@@ -235,7 +181,12 @@ paths:
         Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format to InfluxDB.
         Use query parameters to specify options for writing data.
       parameters:
-        - $ref: '#/components/parameters/dbWriteParam' 
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Database name.
         - name: accept_partial
           in: query
           required: false
@@ -247,7 +198,9 @@ paths:
           in: query
           required: true
           schema:
-            $ref: '#/components/schemas/WritePrecision'
+            type: string
+            enum: [ns, us, ms, s]
+            default: ns
           description: Precision of timestamps.
         - name: no_sync
           in: query
@@ -283,11 +236,15 @@ paths:
         - Write data
   /api/v3/query_sql:
     get:
-      operationId: GetExecuteQuerySQL
+      operationId: GetSQLQuery
       summary: Execute SQL query
-      description: Executes an SQL query to retrieve data from the specified database.
+      description: Executes an SQL query against the database.
       parameters:
-        - $ref: '#/components/parameters/db'
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
         - name: q
           in: query
           required: true
@@ -301,7 +258,7 @@ paths:
         - $ref: '#/components/parameters/Accept'
       responses:
         "200":
-          description: Success. The response body contains query results.
+          description: Successful query execution.
           content:
             application/json:
               schema:
@@ -338,9 +295,9 @@ paths:
       tags:
         - Query data 
     post:
-      operationId: PostExecuteQuerySQL
+      operationId: PostSQLQuery
       summary: Execute SQL query
-      description: Executes an SQL query to retrieve data from the specified database.
+      description: Executes an SQL query against the database.
       parameters:
         - $ref: '#/components/parameters/ContentType'
       requestBody:
@@ -383,11 +340,15 @@ paths:
         - Query data
   /api/v3/query_influxql:
     get:
-      operationId: GetExecuteInfluxQLQuery
+      operationId: GetInfluxQLQueryV3
       summary: Execute InfluxQL query
-      description: Executes an InfluxQL query to retrieve data from the specified database. 
+      description: Executes an InfluxQL query against the database.
       parameters:
-        - $ref: '#/components/parameters/db' 
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
         - name: q
           in: query
           required: true
@@ -432,9 +393,9 @@ paths:
       tags:
         - InfluxQL query
     post:
-      operationId: PostExecuteQueryInfluxQL
+      operationId: PostInfluxQLQueryV3
       summary: Execute InfluxQL query
-      description: Executes an InfluxQL query to retrieve data from the specified database. 
+      description: Executes an InfluxQL query against the database.
       parameters:
         - $ref: '#/components/parameters/ContentType'
       requestBody:
@@ -477,16 +438,20 @@ paths:
         - InfluxQL query
   /query:
     get:
-      operationId: GetLegacyV1ExecuteQuery
+      operationId: GetQueryV1
       summary: Execute InfluxQL query (v1-compatible)
       description: |
-        Executes an InfluxQL query to retrieve data from the specified database. 
+        Executes an InfluxQL query against the specified database.
 
-        This endpoint is compatible with InfluxDB 1.x client libraries and third-party integrations such as Grafana.
         Use query parameters to specify the database and the InfluxQL query.
 
+        This endpoint is compatible with InfluxDB 1.x client libraries and third-party integrations such as Grafana.
       parameters:
-        - $ref: '#/components/parameters/db' 
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
         - name: q
           in: query
           required: true
@@ -532,9 +497,9 @@ paths:
         - Query data
         - Legacy v1-compatible
     post:
-      operationId: PostExecuteLegacyV1Query
+      operationId: PostQueryV1
       summary: Execute InfluxQL query (v1-compatible)
-      description: Executes an InfluxQL query to retrieve data from the specified database. 
+      description: Executes an InfluxQL query against the database.
       parameters:
         - $ref: '#/components/parameters/ContentType'
       requestBody:
@@ -545,7 +510,7 @@ paths:
               $ref: '#/components/schemas/QueryRequest'
       responses:
         "200":
-          description: Success. The response body contains query results.
+          description: Successful query execution.
           content:
             application/json:
               schema:
@@ -671,11 +636,13 @@ paths:
     delete:
       operationId: DeleteConfigureDatabase
       summary: Delete a Database
-      description: |
-        Soft deletes a database.
-        The database is scheduled for deletion and unavailable for querying.  
+      description: Soft deletes a database.
       parameters:
-        - $ref: '#/components/parameters/db' 
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: Database deleted.
@@ -716,11 +683,13 @@ paths:
     delete:
       operationId: DeleteConfigureTable
       summary: Delete a Table
-      description: |
-        Soft deletes a table.
-        The table is scheduled for deletion and unavailable for querying.  
+      description: Soft deletes a table.
       parameters:
-        - $ref: '#/components/parameters/db' 
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
         - name: table
           in: query
           required: true
@@ -770,7 +739,11 @@ paths:
       summary: Delete Distinct Cache
       description: Deletes a distinct cache.
       parameters:
-        - $ref: '#/components/parameters/db'
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
         - name: table
           in: query
           required: true
@@ -827,7 +800,11 @@ paths:
       summary: Delete Last Cache
       description: Deletes a last cache.
       parameters:
-        - $ref: '#/components/parameters/db' 
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
         - name: table
           in: query
           required: true
@@ -882,7 +859,11 @@ paths:
       summary: Delete Processing Engine Trigger
       description: Deletes a processing engine trigger.
       parameters:
-        - $ref: '#/components/parameters/db' 
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
         - name: trigger_name
           in: query
           required: true
@@ -1014,7 +995,7 @@ paths:
     post:
       operationId: PostTestWALPlugin
       summary: Test WAL Plugin
-      description: Executes a test of a write-ahead logging (WAL) plugin.
+      description: Executes a plugin test for write-ahead logging.
       responses:
         "200":
           description: Plugin test executed.
@@ -1032,7 +1013,7 @@ paths:
     post:
       operationId: PostTestSchedulingPlugin
       summary: Test Scheduling Plugin
-      description: Executes a test of a scheduling plugin.
+      description: Executes a plugin test for scheduling.
       responses:
         "200":
           description: Plugin test executed.
@@ -1107,171 +1088,51 @@ components:
     ContentEncoding:
       name: Content-Encoding
       in: header
-      description: |
-        The compression applied to the line protocol in the request payload.
-        To send a gzip payload, pass `Content-Encoding: gzip` header.
       schema:
-        $ref: '#/components/schemas/ContentEncoding'
+        type: string
+        enum: [gzip, identity]
       required: false
+      description: Optional encoding of the request body.
     Accept:
       name: Accept
       in: header
       schema:
-        $ref: '#/components/schemas/Accept'
+        type: string
+        enum: [application/json, application/vnd.apache.parquet, application/jsonl]
       required: false
-      description: The content type that the client can understand.
-    ContentLength:
-      name: Content-Length
-      in: header
-      description: |
-        The size of the entity-body, in bytes, sent to InfluxDB.
-      schema:
-        $ref: '#/components/schemas/ContentLength' 
+      description: Acceptable response content type.
     ContentType:
       name: Content-Type
       in: header
-      description: |
-        The format of the data in the request body.
-
-        To send a line protocol payload, pass `Content-Type: text/plain; charset=utf-8`.
-      schema:
-        $ref: '#/components/schemas/ContentType'
-      required: false
-    dbWriteParam:
-      name: db
-      in: query
-      required: true
       schema:
         type: string
-      description: |
-        A database name.
-        InfluxDB creates the database if it doesn't already exist, and then
-        writes all points in the batch to the database.
-    accept_partial:
-      name: accept_partial
-      in: query
+        enum: [text/plain, application/json, text/csv]
       required: false
-      schema:
-        type: boolean
-        default: false
-      description: Whether to accept partial writes.
-    precision:
-      name: precision
-      in: query
-      required: true
-      schema:
-        $ref: '#/components/schemas/WritePrecision' 
-      description: The precision for unix timestamps in the line protocol batch.
-    precisionLegacyParam:
-      name: precision
-      in: query
-      required: true
-      schema:
-        $ref: '#/components/schemas/LegacyWritePrecision' 
-      description: The precision for unix timestamps in the line protocol batch.
-    no_sync:
-      name: no_sync
-      in: query
-      required: false
-      schema:
-        type: boolean
-        default: false
-      description: Do not sync writes.
-    db:
-      name: db
-      in: query
-      required: true
-      schema:
-        type: string
-      description: |
-        The name of the database.
-    q:
-      name: q
-      in: query
-      required: true
-      schema:
-        type: string
-      description: |
-        The query to execute.
-  requestBodies:
-    lineProtocolRequestBody:
-      required: true
-      content:
-        text/plain:
-          schema:
-            type: string
-          examples:
-            line:
-              summary: Example line protocol
-              value: "measurement,tag=value field=1 1234567890"
-            multiline:
-              summary: Example line protocol with UTF-8 characters
-              value: |
-                measurement,tag=value field=1 1234567890
-                measurement,tag=value field=2 1234567900
-                measurement,tag=value field=3 1234568000
+      description: Request content type.
   schemas:
-    ContentEncoding:
-      type: string
-      enum: [gzip, identity]
-      description: |
-        Content coding.
-        Use `gzip` for compressed data or `identity` for unmodified, uncompressed data.
-      default: identity
-
-    ContentType:
-      type: string
-      enum: [text/plain, text/plain; charset=utf-8] 
-      description: |
-        `text/plain` is the content type for line protocol. `UTF-8` is the default character set.
-      default: text/plain; charset=utf-8
-
-    ContentLength:
-      type: integer
-      description: The length in decimal number of octets.
-
-    Accept:  
-      type: string
-      enum: [application/json]
-      description: Error content type.
-      default: application/json
-
-    db:
-      type: string 
-      description: |
-        A database name.
-        InfluxDB creates the database if it doesn't already exist, and then
-        writes all points in the batch to the database.
-
-    accept_partial:
-      type: boolean
-      default: false
-      description: Whether to accept partial writes.
-    precision:
-      $ref: '#/components/schemas/LegacyWritePrecision'
-    no_sync:
-      type: boolean
-      default: false
-      description: Do not sync writes.
-
-    LegacyWritePrecision:
-      enum:
-        - ms
-        - s
-        - us
-        - ns
-      type: string
-      description: |
-        The precision for unix timestamps in the line protocol batch.
-        Use `ms` for milliseconds, `s` for seconds, `us` for microseconds, or `ns` for nanoseconds.
-    WritePrecision:
-      enum:
-        - auto
-        - millisecond
-        - second
-        - microsecond
-        - nanosecond
-      type: string
+    WriteParams:
+      type: object
+      properties:
+        db:
+          type: string
+        accept_partial:
+          type: boolean
+          default: true
+        precision:
+          type: string
+          enum: [ns, us, ms, s]
+          default: ns
+        no_sync:
+          type: boolean
+          default: false
+      required:
+        - db
+        - precision
+      example:
+        db: "mydb"
+        accept_partial: true
+        precision: "ns"
+        no_sync: false
     QueryRequest:
       type: object
       properties:
@@ -1441,38 +1302,13 @@ components:
         data:
           type: object
           nullable: true
-    LineProtocolError:
+    PingResponse:
+      type: object
       properties:
-        code:
-          description: Code is the machine-readable error code.
-          enum:
-            - internal error
-            - not found
-            - conflict
-            - invalid
-            - empty value
-            - unavailable
-          readOnly: true
+        version:
           type: string
-        err:
-          description: Stack of errors that occurred during processing of the request. Useful for debugging.
-          readOnly: true
+        revision:
           type: string
-        line:
-          description: First line in the request body that contains malformed data.
-          format: int32
-          readOnly: true
-          type: integer
-        message:
-          description: Human-readable message.
-          readOnly: true
-          type: string
-        op:
-          description: Describes the logical code operation when the error occurred. Useful for debugging.
-          readOnly: true
-          type: string
-      required:
-        - code
   responses:
     Unauthorized:
       description: Unauthorized access.
@@ -1495,13 +1331,6 @@ components:
   securitySchemes:
     BearerAuth:
       type: http
-      scheme: Bearer
+      scheme: bearer
       bearerFormat: JWT
-      description: |
-        A Bearer token for authentication.
-        Provide the scheme and the API token in the `Authorization` header--for example:
-
-        ```bash
-        curl http://localhost:8181/api/v3/query_influxql \
-          --header "Authorization: Bearer API_TOKEN"
-        ```
+      description: Bearer token for authentication. The API token must be provided in the Authorization header.
