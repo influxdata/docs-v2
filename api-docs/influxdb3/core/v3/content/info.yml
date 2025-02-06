@@ -1,5 +1,9 @@
 title: InfluxDB 3 Core API Service
 x-influxdata-short-title: InfluxDB 3 API
+x-influxdata-version-matrix:
+  v1: Legacy compatibility layer
+  v2: Backward compatibility with InfluxDB 2.x
+  v3: Current native API
 summary: The InfluxDB HTTP API for InfluxDB 3 Core provides a programmatic interface for writing data stored in an InfluxDB 3 Core database.
 description: |
   Write and query data, and perform administrative tasks, such as managing databases and processing engine plugins.

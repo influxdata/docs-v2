@@ -3,6 +3,6 @@
   variables:
     baseurl:
       enum:
-        - 'localhost:8080'
-      default: 'localhost:8080'
+        - 'localhost:8181'
+      default: 'localhost:8181'
       description: InfluxDB 3 Core URL

@@ -11,7 +11,7 @@ info:
     url: https://www.influxdata.com
     email: support@influxdata.com
 servers:
-  - url: http://localhost:8080
+  - url: http://localhost:8181
     description: Local development server
 tags:
   - name: Legacy v1-compatible
