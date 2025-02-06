@@ -25,7 +25,7 @@ to
 
 ##### Schema
 
-- home <em style="opacity: .5">(measurement)</em>
+- home <em style="opacity: .5">(table)</em>
   - **tags**:
     - room
       - Kitchen
@@ -208,7 +208,7 @@ to
 
 ##### Schema
 
-- home_actions <em style="opacity: .5">(measurement)</em>
+- home_actions <em style="opacity: .5">(table)</em>
   - **tags**:
     - room
       - Kitchen
@@ -336,7 +336,7 @@ series use cases that involve seasonality.
 
 ##### Schema
 
-- weather <em style="opacity: .5">(measurement)</em>
+- weather <em style="opacity: .5">(table)</em>
   - **tags**:
     - location
       - Concord
@@ -430,7 +430,7 @@ The Bitcoin price sample dataset provides Bitcoin prices from
 
 ##### Schema
 
-- bitcoin <em style="opacity: .5">(measurement)</em>
+- bitcoin <em style="opacity: .5">(table)</em>
   - **tags**:
     - code
       - EUR
@@ -518,7 +518,7 @@ transformation functions.
 
 ##### Schema
 
-- numbers <em style="opacity: .5">(measurement)</em>
+- numbers <em style="opacity: .5">(table)</em>
   - **fields**
     - a <em style="opacity: .5">(float between -1 and 1)</em>
     - b <em style="opacity: .5">(float between -3 and 3)</em>
