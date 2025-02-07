@@ -2,15 +2,15 @@
 The {{< product-name >}} SQL implementation supports the following functions
 that return data from {{< product-name >}} caches.
 
-- [distinct_value](#distinct_value)
-- [last_value](#last_value)
+- [distinct_cache](#distinct_cache)
+- [last_cache](#last_cache)
 
-## distinct_value
+## distinct_cache
 
 Returns data from an {{< product-name >}} distinct value cache.
 
 ```sql
-distinct_value(table_name, cache_name)
+distinct_cache(table_name, cache_name)
 ```
 
 #### Arguments
@@ -21,21 +21,21 @@ distinct_value(table_name, cache_name)
   _(formatted as a string literal)_.
 
 {{< expand-wrapper >}}
-{{% expand "View `distinct_value` query example" %}}
+{{% expand "View `distinct_cache` query example" %}}
 
 ```sql
-SELECT * FROM distinct_value('example_table', 'exampleCacheName')
+SELECT * FROM distinct_cache('example_table', 'exampleCacheName')
 ```
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-## last_value
+## last_cache
 
 Returns data from an {{< product-name >}} last value cache.
 
 ```sql
-last_value(table_name, cache_name)
+last_cache(table_name, cache_name)
 ```
 
 #### Arguments
@@ -46,10 +46,10 @@ last_value(table_name, cache_name)
   _(formatted as a string literal)_.
 
 {{< expand-wrapper >}}
-{{% expand "View `last_value` query example" %}}
+{{% expand "View `last_cache` query example" %}}
 
 ```sql
-SELECT * FROM last_value('example_table', 'exampleCacheName')
+SELECT * FROM last_cache('example_table', 'exampleCacheName')
 ```
 
 {{% /expand %}}
