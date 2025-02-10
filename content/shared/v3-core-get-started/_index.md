@@ -30,7 +30,7 @@ Core's feature highlights include:
 * Parquet file persistence
 * Compatibility with InfluxDB 1.x and 2.x write APIs
 
-The Enterprise version adds onto Core's functionality with:
+The Enterprise version adds the following features to Core:
 
 * Historical query capability and single series indexing
 * High availability
@@ -226,7 +226,7 @@ The database has three write API endpoints that respond to HTTP `POST` requests:
 
 * `/write?db=mydb&precision=ns`
 * `/api/v2/write?bucket=mydb&precision=ns`
-* `/api/v3/write_lp?db=mydb&precision=ns&accept_partial=true`
+* `/api/v3/write_lp?db=mydb&precision=nanosecond&accept_partial=true`
 
 {{% product-name %}} provides the `/write` and `/api/v2/write` endpoints for backward compatibility with clients that can write data to previous versions of InfluxDB.
 However, these APIs differ from the APIs in the previous versions in the following ways:
@@ -311,23 +311,24 @@ The response is the following:
 }
 ```
 
-Neither line is written to the database.
+InfluxDB rejects all points in the batch.
 The response is an HTTP error (`400`) status, and the response body contains `parsing failed for write_lp endpoint` and details about the problem line.
 
 ##### Data durability
 
-Written data goes into WAL files, created once per second, and into an in-memory queryable buffer. Later, InfluxDB snapshots the WAL and persists the data into object storage as Parquet files.
-We cover the [diskless architecture](#diskless-architecture) later in this guide.
+When you write data to InfluxDB, InfluxDB ingests the data and writes it to WAL files, created once per second, and to an in-memory queryable buffer.
+Later, InfluxDB snapshots the WAL and persists the data into object storage as Parquet files.
+For more information, see [diskless architecture](#diskless-architecture).
 
 > [!Note]
 > ##### Write requests return after WAL flush
-> Write requests to the database _don't_ return until a WAL file has been flushed to the configured object store, which by default happens once per second.
-> Individual write requests might not complete quickly, but you can make many concurrent requests to get higher total throughput.
-> In the future, we will add an API parameter that lets requests return without waiting for the WAL flush.
+>
+> Because InfluxDB sends a write response after the WAL file has been flushed to the configured object store (default is every second), individual write requests might not complete quickly, but you can make many concurrent requests to achieve higher total throughput.
+> Future enhancements will include an API parameter that lets requests return without waiting for the WAL flush.
 
-#### Create a Database or Table
+#### Create a database or Table
 
-To create a database without writing data into it, use the `create` subcommand--for example:
+To create a database without writing data, use the `create` subcommand--for example:
 
 ```bash
 influxdb3 create database mydb
@@ -344,6 +345,9 @@ influxdb3 create -h
 InfluxDB 3 now supports native SQL for querying, in addition to InfluxQL, an
 SQL-like language customized for time series queries. {{< product-name >}} limits
 query time ranges to 72 hours (both recent and historical) to ensure query performance.
+
+For more information about the 72-hour limitation, see the
+[update on InfluxDB 3 Core’s 72-hour limitation](https://www.influxdata.com/blog/influxdb3-open-source-public-alpha-jan-27/).
 
 > [!Note]
 > Flux, the language introduced in InfluxDB 2.0, is **not** supported in InfluxDB 3.
