@@ -346,7 +346,8 @@ InfluxDB 3 now supports native SQL for querying, in addition to InfluxQL, an
 SQL-like language customized for time series queries. {{< product-name >}} limits
 query time ranges to 72 hours (both recent and historical) to ensure query performance.
 
-For more information about the 72-hour limitation, see the [Jan 27, 2025 blog post](https://www.influxdata.com/blog/influxdb3-open-source-public-alpha-jan-27/).
+For more information about the 72-hour limitation, see the
+[update on InfluxDB 3 Core’s 72-hour limitation](https://www.influxdata.com/blog/influxdb3-open-source-public-alpha-jan-27/).
 
 > [!Note]
 > Flux, the language introduced in InfluxDB 2.0, is **not** supported in InfluxDB 3.
