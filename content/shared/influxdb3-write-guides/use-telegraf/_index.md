@@ -51,7 +51,7 @@ Replace the following:
 
   > [!Note]
   > While in alpha, {{< product-name >}} does not require an authorization token.
-  > For the `token` option, provide an empty or arbitrary token string.
+  > For the `token` option, provide an arbitrary, non-empty token string.
 
 _See how to [Configure Telegraf to write to {{% product-name %}}](/influxdb3/version/write-data/use-telegraf/configure/)._
 
