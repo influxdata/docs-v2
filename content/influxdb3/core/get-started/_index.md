@@ -13,5 +13,6 @@ source: /shared/v3-core-get-started/_index.md
 ---
 
 <!-- 
-The content of this page is at /shared/v3-core-get-started/_index.md
+The content of this page is at
+// SOURCE content/shared/v3-core-get-started/_index.md
 -->
