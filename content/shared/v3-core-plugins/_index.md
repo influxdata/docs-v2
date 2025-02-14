@@ -35,7 +35,7 @@ The Processing engine provides four types of plugins and triggers--each type cor
 - **On Request**: Bound to the HTTP API `/api/v3/engine/<CUSTOM_PATH>` endpoint and triggered by a GET or POST request to the endpoint.
 
 ## Activate the Processing engine
-To enable the Processing engine, start the {{% product-name %}} server with the --plugin-dir argument and a path to your plugins directory (it doesn't need to exist yet)--for example:
+To enable the Processing engine, start the {{% product-name %}} server with the `--plugin-dir` option and a path to your plugins directory (it doesn't need to exist yet)--for example:
 
 ```bash
 influxdb3 serve --node-id node0 --plugin-dir /path/to/plugins
@@ -244,6 +244,7 @@ Use the `influxdb3 install` command to download and install Python packages that
 
 ```bash
 influxdb3 install package <PACKAGE_NAME>
+```
 
 ### Use `influxdb3 install` with Docker
 
@@ -316,7 +317,10 @@ For a WAL flush trigger you specify a `trigger-spec`, which determines when the 
 The following example creates a WAL flush trigger for the `gh:examples/wal_plugin/wal_plugin.py` plugin. 
 
 ```bash
-influxdb3 create trigger --trigger-spec "table:TABLE_NAME" --plugin-filename "gh:examples/wal_plugin/wal_plugin.py" --database DATABASE_NAME TRIGGER_NAME
+influxdb3 create trigger \
+  --trigger-spec "table:TABLE_NAME" \
+  --plugin-filename "gh:examples/wal_plugin/wal_plugin.py" \
+  --database DATABASE_NAME TRIGGER_NAME
 ```
 
 The `gh:` prefix lets you fetch a plugin file directly from the [influxdata/influxdb3_plugins](https://github.com/influxdata/influxdb3_plugins) repository in GitHub.
@@ -350,7 +354,10 @@ def process_scheduled_call(influxdb3_local, time, args=None):
 Schedule plugins are set with a `trigger-spec` of `schedule:<cron_expression>` or `every:<duration>`. The `args` parameter can be used to pass configuration to the plugin. For example, if we wanted to use the system-metrics example from the Github repo and have it collect every 10 seconds we could use the following trigger definition:
 
 ```shell
-influxdb3 create trigger --trigger-spec "every:10s" --plugin-filename "gh:examples/schedule/system_metrics/system_metrics.py" --database mydb system-metrics
+influxdb3 create trigger \
+  --trigger-spec "every:10s" \
+  --plugin-filename "gh:examples/schedule/system_metrics/system_metrics.py" \
+  --database mydb system-metrics
 ```
 
 ## On Request Plugin
@@ -385,5 +392,8 @@ On Request plugins are set with a `trigger-spec` of `request:<endpoint>`. The `a
 Trigger specs must be unique across all configured plugins, regardless of which database they are tied to, given the path is the same. Here's an example to create a request trigger tied to the "hello-world' path using a plugin in the plugin-dir:
 
 ```shell
-influxdb3 create trigger --trigger-spec "request:hello-world" --plugin-filename "hellp/hello_world.py" --database mydb hello-world
+influxdb3 create trigger \
+  --trigger-spec "request:hello-world" \
+  --plugin-filename "hellp/hello_world.py" \
+  --database mydb hello-world
 ```
