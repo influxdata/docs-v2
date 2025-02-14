@@ -265,12 +265,13 @@ to
 
 #### Write the home sensor actions data to InfluxDB
 
-Use the `influxdb3` CLI, InfluxDB v2 API, or InfluxDB v1 API to write the
+Use the `influxdb3` CLI, InfluxDB v3 API, InfluxDB v2 API, or InfluxDB v1 API to write the
 home sensor actions sample data to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [influxdb3](#)
+[V3 API](#)
 [v2 API](#)
 [v1 API](#)
 {{% /code-tabs %}}
@@ -290,6 +291,25 @@ home_actions,room=Kitchen,action=alert,level=warn description="Carbon monoxide l
 home_actions,room=Kitchen,action=alert,level=warn description="Carbon monoxide level above normal: 26 ppm." 1641067200
 home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 14 ppm." 1641063600
 home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 17 ppm." 1641067200'
+```
+{{% /code-placeholders %}}
+{{% /influxdb/custom-timestamps %}}
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% influxdb/custom-timestamps %}}
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
+```sh
+curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=true" \
+  --data-raw "home_actions,room=Kitchen,action=cool,level=ok description=\"Temperature at or above 23°C (23°C). Cooling to 22°C.\" 1739437200
+home_actions,room=Kitchen,action=cool,level=ok description=\"Temperature at or above 23°C (23.3°C). Cooling to 22°C.\" 1739469600
+home_actions,room=Kitchen,action=cool,level=ok description=\"Temperature at or above 23°C (23.1°C). Cooling to 22°C.\" 1739473200
+home_actions,room=Kitchen,action=alert,level=warn description=\"Carbon monoxide level above normal: 18 ppm.\" 1739469600
+home_actions,room=Kitchen,action=alert,level=warn description=\"Carbon monoxide level above normal: 22 ppm.\" 1739473200
+home_actions,room=Kitchen,action=alert,level=warn description=\"Carbon monoxide level above normal: 26 ppm.\" 1739476800
+home_actions,room=Living Room,action=alert,level=warn description=\"Carbon monoxide level above normal: 14 ppm.\" 1739473200
+home_actions,room=Living Room,action=alert,level=warn description=\"Carbon monoxide level above normal: 17 ppm.\" 1739476800"
 ```
 {{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
