@@ -45,13 +45,13 @@ Prometheus CPU limit was set to an integer instead of a string.
 
 #### Deployment
 
-- The Prometheus `retention` period has been exposed, allowing users 
-  to set a custom retention period for Prometheus metrics.
+- Expose the Prometheus `retention` period to let users set a custom
+  retention period for Prometheus metrics.
 
 #### Database Engine
 
-- Datafusion upgrades
-- Added the ability to restore a cluster's data from a Data Snapshot.
+- Upgrade DataFusion
+- Add the ability to restore a cluster from a Catalog snapshot.
 
 ---
 
