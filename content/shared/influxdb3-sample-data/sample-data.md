@@ -412,7 +412,7 @@ series use cases that involve seasonality.
 
 #### Write the NOAA Bay Area weather data to InfluxDB
 
-Use the `influxdb3` CLI, InfluxDb v3 API, InfluxDB v2 API, or InfluxDB v1 API to write the
+Use the `influxdb3` CLI, InfluxDB v3 API, InfluxDB v2 API, or InfluxDB v1 API to write the
 NOAA Bay Area weather sample data to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
@@ -523,12 +523,13 @@ The Bitcoin price sample dataset provides Bitcoin prices from
 
 #### Write the Bitcoin price sample data to InfluxDB
 
-Use the `influxdb3` CLI, InfluxDB v2 API, or InfluxDB v1 API to write the
+Use the `influxdb3` CLI, InfluxDB v3 API, InfluxDB v2 API, or InfluxDB v1 API to write the
 Bitcoin price sample data to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [influxdb3](#)
+[v3 API](#)
 [v2 API](#)
 [v1 API](#)
 {{% /code-tabs %}}
@@ -540,6 +541,16 @@ influxdb3 write \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
+```
+{{% /code-placeholders %}}
+
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
+```sh
+curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
+  --data-raw "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
 {{% /code-placeholders %}}
 
