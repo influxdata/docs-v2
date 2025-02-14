@@ -1,6 +1,5 @@
 ---
 title: Upgrade InfluxDB Clustered
-seotitle:
 description: >
   Use Kubernetes to upgrade your InfluxDB Clustered version.
 menu:

@@ -6,7 +6,7 @@ description: >
   Database tokens grant read and write permissions to one or more databases and
   allow for actions like writing and querying data.
 menu:
-  influxdb_clustered:
+  influxdb3_clustered:
     parent: Administer InfluxDB Clustered
 weight: 103
 influxdb/clustered/tags: [tokens]
