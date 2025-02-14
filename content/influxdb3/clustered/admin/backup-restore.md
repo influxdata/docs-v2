@@ -317,15 +317,20 @@ associated with the recovery point and [soft deletes](#soft-delete) them.
 
 ### Soft delete
 
-A soft delete refers to when, on compaction, the Compactor sets a `deleted_at` timestamp on the Parquet file entry in the Catalog. The Parquet file is no longer queryable, but remains intact in the object store. 
+A soft delete refers to when, on compaction, the Compactor sets a `deleted_at`
+timestamp on the Parquet file entry in the Catalog. The Parquet file is no
+longer queryable, but remains intact in the object store. 
 
 ### Hard delete
 
-A hard delete refers to when a Parquet file is actually deleted from object storage and no longer exists.
+A hard delete refers to when a Parquet file is actually deleted from object
+storage and no longer exists.
 
 ### Recovery Point Objective (RPO)
 
-The maximum amount of data (based on time) that can be lost after a disruptive event. RPO indicates how much time can pass between data snapshots before data is considered lost if a disaster occurs.
+The maximum amount of data (based on time) that can be lost after a disruptive event.
+RPO indicates how much time can pass between data snapshots before data is
+considered lost if a disaster occurs.
 
 ### Recovery Time Objective (RTO)
 
