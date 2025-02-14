@@ -219,8 +219,8 @@ using Catalog snapshots:
     <!-- pytest.mark.skip -->
 
     ```bash
-    $ gunzip pg_dump.gz
-    $ cat pg_dump | prep_pg_dump.awk > snapshot.sql
+    gunzip pg_dump.gz
+    cat pg_dump | prep_pg_dump.awk > snapshot.sql
     ```
 
 4.  **Pause the kubit operator**
@@ -257,12 +257,12 @@ using Catalog snapshots:
     <!-- pytest.mark.skip -->
         
     ```bash
-    $ kubectl scale --namespace influxdb --replicas=0 deployment/global-gc
-    $ kubectl scale --namespace influxdb --replicas=0 deployment/global-router
-    $ kubectl scale --namespace influxdb --replicas=0 deployment/iox-shared-querier
-    $ kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-compactor
-    $ kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-ingester
-    $ kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-catalog
+    kubectl scale --namespace influxdb --replicas=0 deployment/global-gc
+    kubectl scale --namespace influxdb --replicas=0 deployment/global-router
+    kubectl scale --namespace influxdb --replicas=0 deployment/iox-shared-querier
+    kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-compactor
+    kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-ingester
+    kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-catalog
     ```
 
     > [!Note]
