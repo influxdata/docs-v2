@@ -546,6 +546,25 @@ Insert warning markdown content here.
 {{% /warn %}}
 ```
 
+### Product data
+
+Display the full product name and version name for the current page--for example:
+
+- InfluxDB 3 Core
+- InfluxDB 3 Cloud Dedicated
+
+```md
+{{% product-name %}}
+```
+
+Display the short version name (part of the key used in `products.yml`) from the current page URL--for example: 
+
+- `/influxdb3/core` returns `core`
+
+```md
+{{% product-key %}}
+```
+
 ### Enterprise Content
 
 For sections content that relate specifically to InfluxDB Enterprise, use the `{{% enterprise %}}` shortcode.
