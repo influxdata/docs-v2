@@ -608,12 +608,13 @@ transformation functions.
 
 #### Write the random number sample data to InfluxDB
 
-Use the `influxdb3` CLI, InfluxDB v2 API, or InfluxDB v1 API to write the
+Use the `influxdb3` CLI, InfluxDB v3 API, InfluxDB v2 API, or InfluxDB v1 API to write the
 random number sample data to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [influxdb3](#)
+[v3 API](#)
 [v2 API](#)
 [v1 API](#)
 {{% /code-tabs %}}
@@ -625,6 +626,16 @@ influxdb3 write \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
+```
+{{% /code-placeholders %}}
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
+```sh
+curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
 {{% /code-placeholders %}}
 
