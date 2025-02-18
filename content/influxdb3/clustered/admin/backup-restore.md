@@ -51,7 +51,7 @@ snapshot. When a snapshot is restored to the Catalog, the Compactor
 - [Resources](#resources)
   - [prep_pg_dump.awk](#preppgdumpawk)
 
-### Soft delete
+## Soft delete
 
 A _soft delete_ refers to when, on compaction, the Compactor sets a `deleted_at`
 timestamp on the Parquet file entry in the Catalog.
@@ -63,7 +63,6 @@ longer queryable, but remains intact in the object store.
 A _hard delete_ refers to when a Parquet file is actually deleted from object
 storage and no longer exists.
 
-
 ## Recovery Point Objective (RPO)
 
 RPO is the maximum amount of data loss (based on time) allowed after a disruptive event.
@@ -71,15 +70,15 @@ It indicates how much time can pass between data snapshots before data is consid
 
 The InfluxDB Clustered snapshot strategy RPO allows for the following maximum data loss:
 
-  - 1 hour for hourly snapshots _(up to the configured hourly snapshot expiration)_  
-  - 1 day for daily snapshots _(up to the configured daily snapshot expiration)_
+- 1 hour for hourly snapshots _(up to the configured hourly snapshot expiration)_  
+- 1 day for daily snapshots _(up to the configured daily snapshot expiration)_
  
  ## Recovery Time Objective (RTO)
 
 RTO is the maximum amount of downtime allowed for an InfluxDB cluster after a failure.
 RTO varies depending on the size of your Catalog database, network speeds
-  between the client machine and the Catalog database, cluster load, the status
-  of your underlying hosting provider, and other factors.
+between the client machine and the Catalog database, cluster load, the status
+of your underlying hosting provider, and other factors.
 
 ## Data written just before a snapshot may not be present after restoring
 
