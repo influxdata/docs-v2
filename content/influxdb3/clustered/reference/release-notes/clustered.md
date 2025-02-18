@@ -26,6 +26,35 @@ identified below with the <span class="cf-icon Shield pink"></span> icon.
 
 ---
 
+## 20250212-1570743 {date="2025-02-12"}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250212-1570743
+```
+
+### Bug Fixes
+
+This release fixes a bug in the 20241217-1494922 release where the default 
+Prometheus CPU limit was set to an integer instead of a string.
+
+### Changes
+
+#### Deployment
+
+- Expose the Prometheus `retention` period to let users set a custom
+  retention period for Prometheus metrics.
+
+#### Database Engine
+
+- Upgrade DataFusion
+- Add the ability to restore a cluster from a Catalog snapshot.
+
+---
+
 ## 20241217-1494922 {date="2024-12-17"}
 
 ### Quickstart

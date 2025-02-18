@@ -32,11 +32,10 @@ list_code_example: |
   // Call the client's function to query InfluxDB with parameters.
   iterator, err := client.QueryWithParameters(context.Background(), query, parameters)
   ```
-# Leaving in draft until tested
-draft: true
 source: /shared/influxdb3-query-guides/sql/parameterized-queries.md
 ---
 
 <!--
-The content for this page is at content/shared/influxdb3-query-guides/sql/parameterized-queries.md
+The content for this page is at
+//SOURCE content/shared/influxdb3-query-guides/sql/parameterized-queries.md
 -->
