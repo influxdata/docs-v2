@@ -1,10 +1,17 @@
 title: InfluxDB 3 Enterprise API Service
 x-influxdata-short-title: InfluxDB 3 API
-summary: The InfluxDB HTTP API for InfluxDB 3 Enterprise provides a programmatic interface for writing data stored in an InfluxDB 3 Enterprise database.
+x-influxdata-version-matrix:
+  v1: Compatibility layer for InfluxDB 1.x clients (supported)
+  v2: Compatibility layer for InfluxDB 2.x clients (supported) 
+  v3: Native API for InfluxDB 3.x (current)
+summary: The InfluxDB HTTP API for InfluxDB 3 Core provides a programmatic interface for writing data stored in an InfluxDB 3 Core database.
 description: |
   Write and query data, and perform administrative tasks, such as managing databases and processing engine plugins.
 
-  The InfluxDB HTTP API for InfluxDB 3 Enterprise includes endpoints for compatibility with InfluxDB 2.x and InfluxDB 1.x APIs.
+  The InfluxDB HTTP API for InfluxDB 3 Core includes endpoints for the following:
+    - InfluxDB v1: Compatibility layer for InfluxDB 1.x clients (supported)
+    - `/api/v2`: Compatibility layer for InfluxDB 2.x clients (supported)
+    - `/api/v3`: Native API for InfluxDB 3.x (current)
 
   <!-- TODO: verify where to host the spec that users can download.
   This documentation is generated from the
