@@ -49,7 +49,7 @@ snapshot. When a snapshot is restored to the Catalog, the Compactor
 - [Restore to a recovery point](#restore-to-a-recovery-point)
 - [Definitions](#definitions)
 - [Resources](#resources)
-  - [*prep_pg_dump.awk*](#preppgdumpawk)
+  - [prep_pg_dump.awk](#preppgdumpawk)
 
 ### Soft delete
 
@@ -71,8 +71,8 @@ It indicates how much time can pass between data snapshots before data is consid
 
 The InfluxDB Clustered snapshot strategy RPO allows for the following maximum data loss:
 
-  - 1 hour for hourly snapshots *(up to the configured hourly snapshot expiration)*  
-  - 1 day for daily snapshots *(up to the configured daily snapshot expiration)*
+  - 1 hour for hourly snapshots _(up to the configured hourly snapshot expiration)_  
+  - 1 day for daily snapshots _(up to the configured daily snapshot expiration)_
  
  ## Recovery Time Objective (RTO)
 
@@ -146,6 +146,7 @@ Enable hourly Catalog snapshotting. The default is `false`. Set to `true`:
 
 ```yaml
 INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: true
+```
 
 #### INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES
 
@@ -155,6 +156,7 @@ snapshots. The default is `false`. Set to `true`:
 
 ```yaml
 INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: true
+```
 
 > [!Caution]
 > If set to `false` (the default) with snapshots enabled, the Garbage Collector does not check
@@ -164,17 +166,18 @@ INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: true
 
 #### INFLUXDB_IOX_KEEP_HOURLY_CATALOG_BACKUP_FILE_LISTS
 
-After this duration of time, the Garbage Collector deletes *hourly* snapshots,
+After this duration of time, the Garbage Collector deletes _hourly_ snapshots,
 allowing the Garbage Collector to [hard-delete](#hard-delete) Parquet files from the object
 store and the Catalog.  The default is `30d`. The recommended range for snapshots is between
 `1d` and `30d`:
 
 ```yaml
 INFLUXDB_IOX_KEEP_HOURLY_CATALOG_BACKUP_FILE_LISTS: '30d'
+```
 
 #### INFLUXDB_IOX_KEEP_DAILY_CATALOG_BACKUP_FILE_LISTS
 
-After this duration of time, the Garbage Collector deletes *daily* snapshots,
+After this duration of time, the Garbage Collector deletes _daily_ snapshots,
 allowing the Garbage Collector to [hard-delete](#hard-delete) Parquet files from the object
 store and the Catalog. The default is `90d`. The recommended range is between
 `3d` and `90d`.
@@ -183,8 +186,11 @@ store and the Catalog. The default is `90d`. The recommended range is between
 > Daily snapshots must expire after hourly backups
 > Make sure to set `INFLUXDB_IOX_KEEP_DAILY_CATALOG_BACKUP_FILE_LISTS` to a value greater than
 > `INFLUXDB_IOX_KEEP_HOURLY_CATALOG_BACKUP_FILE_LISTS`.
+
 ```yaml
 INFLUXDB_IOX_KEEP_DAILY_CATALOG_BACKUP_FILE_LISTS: '90d'
+```
+
 #### INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF
 
 The duration of time after a Parquet file is no longer referenced in the Catalog
@@ -194,6 +200,7 @@ is between `6h` and `14d`:
 
 ```yaml
 INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF: '14d'
+```
 
 ## Verify snapshots
 
@@ -202,7 +209,7 @@ InfluxDB Clustered stores hourly and daily snapshots in the
 use clients provided by
 your object storage provider to ensure that snapshots are written to the object store.
 
-Hourly snapshots are taken at *approximately* the beginning of each hour
+Hourly snapshots are taken at _approximately_ the beginning of each hour
 (≈1:00, ≈2:00, ≈3:00, etc.). After you enable snapshotting, the first snapshot is
 written on or around the beginning of the next hour.
 
@@ -347,7 +354,7 @@ associated with the recovery point and [soft deletes](#soft-delete) them.
 
 ## Resources
 
-### *prep\_pg\_dump.awk*
+### prep\_pg\_dump.awk
 
 {{% truncate %}}
 <!-- pytest.mark.skip -->
