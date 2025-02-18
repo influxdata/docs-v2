@@ -255,7 +255,7 @@ influxdb3 install package <PACKAGE_NAME>
    --name CONTAINER_NAME \
    -v /path/to/.influxdb3/data:/data \
    -v /path/to/.influxdb3/plugins:/plugins \
-   quay.io/influxdb/influxdb3-core:latest \
+   quay.io/influxdb/influxdb3-{{< product-key >}}:latest \
    serve --node-id=node0 \
    --object-store=file \
    --data-dir=/data \
