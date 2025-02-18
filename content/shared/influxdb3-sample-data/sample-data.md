@@ -439,7 +439,7 @@ influxdb3 write \
 {{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
 ```sh
 curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
-  --data-raw "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
 ```
 {{% /code-placeholders %}}
 
@@ -550,7 +550,7 @@ influxdb3 write \
 {{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
 ```sh
 curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
-  --data-raw "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
 {{% /code-placeholders %}}
 
