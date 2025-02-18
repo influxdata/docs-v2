@@ -3,6 +3,7 @@ info:
   title: InfluxDB v1 HTTP API for InfluxDB 3 Cloud Dedicated
   version: ''
   description: |
+    The v1-compatibility HTTP API provides compatibility for writing and querying data in an InfluxDB 3 Cloud Dedicated database using InfluxDB v1 endpoints.
     The InfluxDB 1.x `/write` and `/query` endpoints work with InfluxDB 1.x client libraries and third-party integrations like Grafana and others.
 
     This documentation is generated from the
@@ -14,7 +15,10 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-  summary: The InfluxDB v1 HTTP API provides v1 compatibility for writing and querying data in an InfluxDB 3 Cloud Dedicated database.
+  contact:
+    name: InfluxData
+    url: https://www.influxdata.com
+    email: support@influxdata.com
 servers:
   - url: /
 security:
@@ -35,6 +39,7 @@ tags:
 
       <!-- ReDoc-Inject: <security-definitions> -->
     x-traitTag: true
+  - name: Ping
   - name: Query
   - name: Write
 paths:
@@ -244,7 +249,7 @@ paths:
     get:
       description: |
         Reports the InfluxQL bridge querier health and the InfluxDB version of the instance.
-        
+
         The response is a HTTP `204` status code to inform you the querier is available.
 
         For InfluxDB 3 Cloud Dedicated, this endpoint only checks the status of queriers; doesn't check the status of ingesters.
@@ -282,7 +287,7 @@ paths:
     head:
       description: |
         Reports the InfluxQL bridge querier health and the InfluxDB version of the instance.
-        
+
         The response is a HTTP `204` status code to inform you the querier is available.
 
         For InfluxDB 3 Cloud Dedicated, this endpoint only checks the status of queriers; doesn't check the status of ingesters.
@@ -290,7 +295,6 @@ paths:
         To check the health of ingesters before writing data, send a request to one of the [write endpoints](/influxdb3/cloud-dedicated/api/v2/#tag/Write).
 
         This endpoint doesn't require authentication.
-
       operationId: HeadPing
       responses:
         '204':
@@ -357,9 +361,9 @@ components:
       properties:
         results:
           description: |
-              A resultset object that contains the `statement_id` and the `series` array.
+            A resultset object that contains the `statement_id` and the `series` array.
 
-              Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
+            Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
           items:
             properties:
               error:
@@ -408,12 +412,12 @@ components:
                 type: integer
             type: object
           oneOf:
-          - required:
-            - statement_id
-            - error
-          - required:
-            - statement_id
-            - series
+            - required:
+                - statement_id
+                - error
+            - required:
+                - statement_id
+                - series
           type: array
       type: object
     InfluxQLCSVResponse:

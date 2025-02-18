@@ -1,12 +1,16 @@
 title: InfluxDB v2 HTTP API for InfluxDB 3 Cloud Dedicated
 x-influxdata-short-title: v2 API
-summary: The InfluxDB v2 HTTP API for InfluxDB 3 Cloud Dedicated provides a v2-compatible programmatic interface for writing data stored in an InfluxDB 3 Cloud Dedicated database.
-
 description: |
-  The InfluxDB v2 HTTP API lets you use `/api/v2` endpoints for managing retention policy mappings and writing data stored in an InfluxDB 3 instance.
+  The InfluxDB v2 HTTP API provides a v2-compatible programmatic interface for writing and managing data stored in an InfluxDB 3 Cloud Dedicated database.
+
+  Use the InfluxDB v2 HTTP API `/api/v2` endpoints to manage retention policy mappings and write data to an InfluxDB 3 instance.
 
   This documentation is generated from the
   [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
 license:
   name: MIT
   url: 'https://opensource.org/licenses/MIT'
+contact:
+  name: InfluxData
+  url: https://www.influxdata.com
+  email: support@influxdata.com

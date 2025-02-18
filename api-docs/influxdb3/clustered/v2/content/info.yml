@@ -9,3 +9,7 @@ description: |
 license:
   name: MIT
   url: 'https://opensource.org/licenses/MIT'
+contact:
+  name: InfluxData
+  url: https://www.influxdata.com
+  email: support@influxdata.com

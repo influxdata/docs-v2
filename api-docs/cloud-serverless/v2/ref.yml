@@ -1,63 +1,57 @@
 openapi: 3.0.0
 info:
-  title: InfluxDB 3 Cloud Serverless API Service
+  title: InfluxDB Cloud Serverless API Service
   description: |
-    The InfluxDB v2 HTTP API lets you use `/api/v2` endpoints for managing retention policy mappings and writing data stored in an InfluxDB 3 instance.
+    The InfluxDB v2 HTTP API lets you use `/api/v2` endpoints for managing retention policy mappings and writing data stored in an InfluxDB v3 instance.
 
     This documentation is generated from the
     [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-  summary: |
-    The InfluxDB v2 HTTP API for InfluxDB 3 Cloud Serverless provides a programmatic interface for writing data stored in an InfluxDB 3 Cloud Serverless bucket.
   version: ''
-  contact:
-    name: InfluxData
-    url: https://www.influxdata.com
-    email: support@influxdata.com
 servers:
   - url: https://{baseurl}
-    description: InfluxDB 3 Cloud Serverless API URL
+    description: InfluxDB Cloud Serverless API URL
     variables:
       baseurl:
         enum:
           - us-east-1-1.aws.cloud2.influxdata.com
         default: us-east-1-1.aws.cloud2.influxdata.com
-        description: InfluxDB 3 Cloud Serverless URL
+        description: InfluxDB Cloud Serverless URL
 security:
   - TokenAuthentication: []
 tags:
   - description: |
       ### Write data
 
-      InfluxDB 3 Cloud Serverless provides the following HTTP API endpoints for writing data:
+      InfluxDB Cloud Serverless provides the following HTTP API endpoints for writing data:
 
       - **Recommended**: [`/api/v2/write` endpoint](#operation/PostWrite)
-        for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB 3.
-      - [`/write` endpoint](#operation/PostLegacyWrite) for bringing existing InfluxDB v1 write workloads to InfluxDB 3.
+        for new write workloads or for bringing existing InfluxDB v2 write workloads to v3.
+      - [`/write` endpoint](#operation/PostLegacyWrite) for bringing existing InfluxDB v1 write workloads to v3.
 
       Both endpoints accept the same line protocol format and process data in the same way.
 
       ### Query data
 
-      InfluxDB 3 Cloud Serverless provides the following protocols for executing a query:
+      InfluxDB Cloud Serverless provides the following protocols for executing a query:
 
-      - **Recommended**: _Flight+gRPC_ request that contains an SQL or InfluxQL query. See how to [get started querying InfluxDB using Flight and SQL](/influxdb3/cloud-serverless/get-started/query/).
-      - HTTP API [`/query` request](/influxdb3/cloud-serverless/api/#operation/GetLegacyQuery) that contains an InfluxQL query.
-        Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB 3.
+      - **Recommended**: _Flight+gRPC_ request that contains an SQL or InfluxQL query. See how to [get started querying InfluxDB using Flight and SQL](/influxdb/cloud-serverless/get-started/query/).
+      - HTTP API [`/query` request](/influxdb/cloud-serverless/api/#operation/GetLegacyQuery) that contains an InfluxQL query.
+        Use this protocol when bringing existing InfluxDB v1 query workloads to v3.
 
       ### InfluxDB v2 compatibility
 
-      The HTTP API [`/api/v2/write` endpoint](#operation/PostWrite) works with the [`Token` authentication scheme](#section/Authentication/TokenAuthentication) and existing InfluxDB 2.x tools and code for [writing data](/influxdb3/cloud-serverless/write-data/).
+      The HTTP API [`/api/v2/write` endpoint](#operation/PostWrite) works with the [`Token` authentication scheme](#section/Authentication/TokenAuthentication) and existing InfluxDB 2.x tools and code for [writing data](/influxdb/cloud-serverless/write-data/).
 
-      See how to [use the InfluxDB v2 HTTP API with InfluxDB 3 Cloud Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v2/).
+      See how to [use the InfluxDB v2 HTTP API with InfluxDB Cloud Serverless](/influxdb/cloud-serverless/guides/api-compatibility/v2/).
 
       ### InfluxDB v1 compatibility
 
       The HTTP API [`/write` endpoint](#operation/PostLegacyWrite) and [`/query` endpoint](#operation/GetLegacyQuery) work with InfluxDB 1.x username/password [authentication schemes](#section/Authentication/) and existing InfluxDB 1.x tools and code.
 
-      See how to [use the InfluxDB v1 HTTP API with InfluxDB 3 Cloud Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v1/).
+      See how to [use the InfluxDB v1 HTTP API with InfluxDB Cloud Serverless](/influxdb/cloud-serverless/guides/api-compatibility/v1/).
     name: API compatibility
     x-traitTag: true
   - description: |
@@ -86,7 +80,7 @@ tags:
       Optionally, when creating an authorization, you can scope it to a specific user.
       If the user signs in with username and password, creating a _user session_,
       the session carries the permissions granted by all the user's authorizations.
-      For more information, see [how to assign a token to a specific user](/influxdb3/cloud-serverless/security/tokens/create-token/).
+      For more information, see [how to assign a token to a specific user](/influxdb/cloud-serverless/security/tokens/create-token/).
       To create a user session, use the [`POST /api/v2/signin` endpoint](#operation/PostSignin).
 
       ### Related endpoints
@@ -96,22 +90,22 @@ tags:
 
       ### Related guides
 
-      - [Authorize API requests](/influxdb3/cloud-serverless/api-guide/api_intro/#authentication)
-      - [Manage API tokens](/influxdb3/cloud-serverless/security/tokens/)
-      - [Assign a token to a specific user](/influxdb3/cloud-serverless/security/tokens/create-token/)
+      - [Authorize API requests](/influxdb/cloud-serverless/api-guide/api_intro/#authentication)
+      - [Manage API tokens](/influxdb/cloud-serverless/security/tokens/)
+      - [Assign a token to a specific user](/influxdb/cloud-serverless/security/tokens/create-token/)
     name: Authorizations (API tokens)
   - name: Bucket Schemas
   - description: |
-      Store your data in InfluxDB [buckets](/influxdb3/cloud-serverless/reference/glossary/#bucket).
+      Store your data in InfluxDB [buckets](/influxdb/cloud-serverless/reference/glossary/#bucket).
       A bucket is a named location where time series data is stored. All buckets
-      have a [retention period](/influxdb3/cloud-serverless/reference/glossary/#retention-period),
+      have a [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period),
       a duration of time that each data point persists. InfluxDB drops all
       points with timestamps older than the bucket’s retention period.
       A bucket belongs to an organization.
 
       ### Related guides
 
-      - [Manage buckets](/influxdb3/cloud-serverless/admin/buckets/)
+      - [Manage buckets](/influxdb/cloud-serverless/admin/buckets/)
     name: Buckets
   - name: Cells
   - name: Checks
@@ -124,10 +118,10 @@ tags:
 
       | Query parameter          | Value type            | Description                                |
       |:------------------------ |:--------------------- |:-------------------------------------------|
-      | `bucket`                 | string                | The bucket name or ID ([find your bucket](/influxdb3/cloud-serverless/admin/buckets/view-buckets/). |
-      | `bucketID`               | string                | The bucket ID ([find your bucket](/influxdb3/cloud-serverless/admin/buckets/view-buckets/). |
-      | `org`                    | string                | The organization name or ID ([find your organization](/influxdb3/cloud-serverless/organizations/view-orgs/). |
-      | `orgID`                  | 16-byte string        | The organization ID ([find your organization](/influxdb3/cloud-serverless/organizations/view-orgs/). |
+      | `bucket`                 | string                | The bucket name or ID ([find your bucket](/influxdb/cloud-serverless/admin/buckets/view-buckets/). |
+      | `bucketID`               | string                | The bucket ID ([find your bucket](/influxdb/cloud-serverless/admin/buckets/view-buckets/). |
+      | `org`                    | string                | The organization name or ID ([find your organization](/influxdb/cloud-serverless/organizations/view-orgs/). |
+      | `orgID`                  | 16-byte string        | The organization ID ([find your organization](/influxdb/cloud-serverless/organizations/view-orgs/). |
     name: Common parameters
     x-traitTag: true
   - name: Config
@@ -145,7 +139,7 @@ tags:
 
       ### Related guides
 
-      - [Database and retention policy mapping](/influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/)
+      - [Database and retention policy mapping](/influxdb/cloud-serverless/reference/api/influxdb-1x/dbrp/)
     name: DBRPs
   - description: |
       Delete data from an InfluxDB bucket.
@@ -189,7 +183,7 @@ tags:
   - name: NotificationEndpoints
   - name: NotificationRules
   - description: |
-      Manage your [organization](/influxdb3/cloud-serverless/reference/glossary/#organization).
+      Manage your [organization](/influxdb/cloud-serverless/reference/glossary/#organization).
       An organization is a workspace for a group of users. Organizations can be
       used to separate different environments, projects, teams or users within
       InfluxDB.
@@ -237,20 +231,20 @@ tags:
   - description: |
       Query data stored in a bucket.
 
-      - HTTP clients can query the v1 [`/query` endpoint](/influxdb3/cloud-serverless/api/#operation/GetLegacyQuery)
+      - HTTP clients can query the v1 [`/query` endpoint](/influxdb/cloud-serverless/api/#operation/GetLegacyQuery)
       using **InfluxQL** and retrieve data in **CSV** or **JSON** format.
       - _Flight + gRPC_ clients can query using **SQL** or **InfluxQL** and retrieve data in **Arrow** format.
 
       #### Related guides
 
-      - [Get started querying InfluxDB](/influxdb3/cloud-serverless/get-started/query/)
-      - [Execute queries](/influxdb3/cloud-serverless/query-data/execute-queries/)
+      - [Get started querying InfluxDB](/influxdb/cloud-serverless/get-started/query/)
+      - [Execute queries](/influxdb/cloud-serverless/query-data/execute-queries/)
     name: Query
   - description: |
-      See the [**Get started**](/influxdb3/cloud-serverless/get-started/) tutorial
+      See the [**Get started**](/influxdb/cloud-serverless/get-started/) tutorial
       to get up and running authenticating with tokens, writing to buckets, and querying data.
 
-      [**InfluxDB API client libraries and Flight clients**](/influxdb3/cloud-serverless/reference/client-libraries/)
+      [**InfluxDB API client libraries and Flight clients**](/influxdb/cloud-serverless/reference/client-libraries/)
       are available to integrate InfluxDB with your application.
     name: Quick start
     x-traitTag: true
@@ -269,7 +263,7 @@ tags:
       | `201`       | Created                  | Successfully created a resource. The response body may contain details, for example [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) response bodies contain details of partial write failures. |
       | `204`       | No content               | The request succeeded. |
       | `400`       | Bad request              | InfluxDB can't parse the request due to an incorrect parameter or bad syntax. For _writes_, the error may indicate one of the following problems: <ul><li>Line protocol is malformed. The response body contains the first malformed line in the data and indicates what was expected.</li><li>The batch contains a point with the same series as other points, but one of the field values has a different data type.<li>`Authorization` header is missing or malformed or the API token doesn't have permission for the operation.</li></ul> |
-      | `401`       | Unauthorized             | May indicate one of the following: <ul><li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token doesn't have permission. For more information about token types and permissions, see [Manage API tokens](/influxdb3/cloud-serverless/security/tokens/)</li></ul> |
+      | `401`       | Unauthorized             | May indicate one of the following: <ul><li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token doesn't have permission. For more information about token types and permissions, see [Manage API tokens](/influxdb/cloud-serverless/security/tokens/)</li></ul> |
       | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |
       | `405`       | Method not allowed       | The API path doesn't support the HTTP method used in the request--for example, you send a `POST` request to an endpoint that only allows `GET`. |
       | `413`       | Request entity too large | Request payload exceeds the size limit. |
@@ -351,12 +345,12 @@ tags:
 
       ### Related guides
 
-      - [Manage users](/influxdb3/cloud-serverless/organizations/users/)
+      - [Manage users](/influxdb/cloud-serverless/organizations/users/)
     name: Users
   - name: Variables
   - name: Views
   - description: |
-      Write time series data to [buckets](/influxdb3/cloud-serverless/reference/glossary/#bucket) using InfluxDB v1 or v2 endpoints.
+      Write time series data to [buckets](/influxdb/cloud-serverless/reference/glossary/#bucket) using InfluxDB v1 or v2 endpoints.
     name: Write
 paths:
   /api/v2:
@@ -394,7 +388,7 @@ paths:
         To limit which authorizations are returned, pass query parameters in your request.
         If no query parameters are passed, InfluxDB returns all authorizations.
 
-        InfluxDB 3 Cloud Serverless doesn't expose [API token](/influxdb3/cloud-serverless/reference/glossary/#token)
+        InfluxDB Cloud Serverless doesn't expose [API token](/influxdb/cloud-serverless/reference/glossary/#token)
           values in `GET /api/v2/authorizations` responses;
           returns `token: redacted` for all authorizations.
 
@@ -408,38 +402,38 @@ paths:
 
         #### Related guides
 
-        - [View tokens](/influxdb3/cloud-serverless/security/tokens/view-tokens/)
+        - [View tokens](/influxdb/cloud-serverless/security/tokens/view-tokens/)
       operationId: GetAuthorizations
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: |
             A user ID.
-            Only returns authorizations scoped to the specified [user](/influxdb3/cloud-serverless/reference/glossary/#user).
+            Only returns authorizations scoped to the specified [user](/influxdb/cloud-serverless/reference/glossary/#user).
           in: query
           name: userID
           schema:
             type: string
         - description: |
             A user name.
-            Only returns authorizations scoped to the specified [user](/influxdb3/cloud-serverless/reference/glossary/#user).
+            Only returns authorizations scoped to the specified [user](/influxdb/cloud-serverless/reference/glossary/#user).
           in: query
           name: user
           schema:
             type: string
-        - description: An organization ID. Only returns authorizations that belong to the specified [organization](/influxdb3/cloud-serverless/reference/glossary/#organization).
+        - description: An organization ID. Only returns authorizations that belong to the specified [organization](/influxdb/cloud-serverless/reference/glossary/#organization).
           in: query
           name: orgID
           schema:
             type: string
         - description: |
             An organization name.
-            Only returns authorizations that belong to the specified [organization](/influxdb3/cloud-serverless/reference/glossary/#organization).
+            Only returns authorizations that belong to the specified [organization](/influxdb/cloud-serverless/reference/glossary/#organization).
           in: query
           name: org
           schema:
             type: string
         - description: |
-            An API [token](/influxdb3/cloud-serverless/reference/glossary/#token) value.
+            An API [token](/influxdb/cloud-serverless/reference/glossary/#token) value.
             Specifies an authorization by its `token` property value
             and returns the authorization.
 
@@ -473,7 +467,7 @@ paths:
             #### InfluxDB OSS
 
             - **Warning**: The response body contains authorizations with their
-              [API token](/influxdb3/cloud-serverless/reference/glossary/#token) values in clear text.
+              [API token](/influxdb/cloud-serverless/reference/glossary/#token) values in clear text.
             - If the request uses an  _[operator token](/influxdb/latest/security/tokens/#operator-token)_,
               InfluxDB OSS returns authorizations for all organizations in the instance.
         '400':
@@ -493,7 +487,7 @@ paths:
     post:
       description: |
         Creates an authorization and returns the authorization with the
-        generated API [token](/influxdb3/cloud-serverless/reference/glossary/#token).
+        generated API [token](/influxdb/cloud-serverless/reference/glossary/#token).
 
         Use this endpoint to create an authorization, which generates an API token
         with permissions to `read` or `write` to a specific resource or `type` of resource.
@@ -518,7 +512,7 @@ paths:
 
         #### Related guides
 
-        - [Create a token](/influxdb3/cloud-serverless/security/tokens/create-token/)
+        - [Create a token](/influxdb/cloud-serverless/security/tokens/create-token/)
       operationId: PostAuthorizations
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -629,13 +623,13 @@ paths:
         #### InfluxDB OSS
 
         - InfluxDB OSS returns
-          [API token](/influxdb3/cloud-serverless/reference/glossary/#token) values in authorizations.
+          [API token](/influxdb/cloud-serverless/reference/glossary/#token) values in authorizations.
         - If the request uses an _[operator token](/influxdb/latest/security/tokens/#operator-token)_,
           InfluxDB OSS returns authorizations for all organizations in the instance.
 
         #### Related guides
 
-        - [View tokens](/influxdb3/cloud-serverless/security/tokens/view-tokens/)
+        - [View tokens](/influxdb/cloud-serverless/security/tokens/view-tokens/)
       operationId: GetAuthorizationsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -730,19 +724,19 @@ paths:
   /api/v2/buckets:
     get:
       description: |
-        Lists [buckets](/influxdb3/cloud-serverless/reference/glossary/#bucket).
+        Lists [buckets](/influxdb/cloud-serverless/reference/glossary/#bucket).
 
         InfluxDB retrieves buckets owned by the
-        [organization](/influxdb3/cloud-serverless/reference/glossary/#organization)
+        [organization](/influxdb/cloud-serverless/reference/glossary/#organization)
         associated with the authorization
-        ([API token](/influxdb3/cloud-serverless/reference/glossary/#token)).
+        ([API token](/influxdb/cloud-serverless/reference/glossary/#token)).
         To limit which buckets are returned, pass query parameters in your request.
         If no query parameters are passed, InfluxDB returns all buckets up to the
         default `limit`.
 
         #### InfluxDB OSS
 
-        - If you use an _[operator token](/influxdb3/cloud-serverless/security/tokens/#operator-token)_
+        - If you use an _[operator token](/influxdb/cloud-serverless/security/tokens/#operator-token)_
           to authenticate your request, InfluxDB retrieves resources for _all
           organizations_ in the instance.
           To retrieve resources for only a specific organization, use the
@@ -753,11 +747,11 @@ paths:
         | Action                    | Permission required |
         |:--------------------------|:--------------------|
         | Retrieve _user buckets_   | `read-buckets`      |
-        | Retrieve [_system buckets_](/influxdb3/cloud-serverless/reference/internals/system-buckets/) | `read-orgs`         |
+        | Retrieve [_system buckets_](/influxdb/cloud-serverless/reference/internals/system-buckets/) | `read-orgs`         |
 
         #### Related Guides
 
-        - [Manage buckets](/influxdb3/cloud-serverless/admin/buckets/)
+        - [Manage buckets](/influxdb/cloud-serverless/admin/buckets/)
       operationId: GetBuckets
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -767,7 +761,7 @@ paths:
         - description: |
             An organization name.
 
-            #### InfluxDB 3 Cloud Serverless
+            #### InfluxDB Cloud Serverless
 
             - Doesn't use the `org` parameter or `orgID` parameter.
             - Lists buckets for the organization associated with the authorization (API token).
@@ -778,7 +772,7 @@ paths:
         - description: |
             An organization ID.
 
-            #### InfluxDB 3 Cloud Serverless
+            #### InfluxDB Cloud Serverless
 
             - Doesn't use the `org` parameter or `orgID` parameter.
             - Lists buckets for the organization associated with the authorization (API token).
@@ -857,10 +851,10 @@ paths:
               --header "Content-Type: application/json"
     post:
       description: |
-        Creates a [bucket](/influxdb3/cloud-serverless/reference/glossary/#bucket)
+        Creates a [bucket](/influxdb/cloud-serverless/reference/glossary/#bucket)
         and returns the bucket resource.
         The default data
-        [retention period](/influxdb3/cloud-serverless/reference/glossary/#retention-period)
+        [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period)
         is 30 days.
 
         #### InfluxDB OSS
@@ -879,8 +873,8 @@ paths:
 
         #### Related Guides
 
-        - [Create a bucket](/influxdb3/cloud-serverless/admin/buckets/create-bucket/)
-        - [Create bucket CLI reference](/influxdb3/cloud-serverless/reference/cli/influx/bucket/create)
+        - [Create a bucket](/influxdb/cloud-serverless/admin/buckets/create-bucket/)
+        - [Create bucket CLI reference](/influxdb/cloud-serverless/reference/cli/influx/bucket/create)
       operationId: PostBuckets
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -998,7 +992,7 @@ paths:
       description: |
         Deletes a bucket and all associated records.
 
-        #### InfluxDB 3 Cloud Serverless
+        #### InfluxDB Cloud Serverless
 
         - Does the following when you send a delete request:
 
@@ -1012,7 +1006,7 @@ paths:
 
         #### Related Guides
 
-        - [Manage buckets](/influxdb3/cloud-serverless/admin/buckets/)
+        - [Manage buckets](/influxdb/cloud-serverless/admin/buckets/)
       operationId: DeleteBucketsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1029,7 +1023,7 @@ paths:
           description: |
             Success.
 
-            #### InfluxDB 3 Cloud Serverless
+            #### InfluxDB Cloud Serverless
               - The bucket is queued for deletion.
         '400':
           content:
@@ -1161,14 +1155,14 @@ paths:
         Use this endpoint to update properties
         (`name`, `description`, and `retentionRules`) of a bucket.
 
-        #### InfluxDB 3 Cloud Serverless
+        #### InfluxDB Cloud Serverless
 
         - Requires the `retentionRules` property in the request body. If you don't
         provide `retentionRules`, InfluxDB responds with an HTTP `403` status code.
 
         #### Related Guides
 
-        - [Update a bucket](/influxdb3/cloud-serverless/admin/buckets/update-bucket/)
+        - [Update a bucket](/influxdb/cloud-serverless/admin/buckets/update-bucket/)
       operationId: PatchBucketsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1306,7 +1300,7 @@ paths:
         #### Related guides
 
         - Use the [`/api/v2/labels` InfluxDB API endpoint](#tag/Labels) to retrieve and manage labels.
-        - [Manage buckets](/influxdb3/cloud-serverless/admin/buckets/)
+        - [Manage buckets](/influxdb/cloud-serverless/admin/buckets/)
       operationId: GetBucketsIDLabels
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1370,7 +1364,7 @@ paths:
         #### Related guides
 
         - Use the [`/api/v2/labels` InfluxDB API endpoint](#tag/Labels) to retrieve and manage labels.
-        - [Manage labels in the InfluxDB UI](/influxdb3/cloud-serverless/visualize-data/labels/)
+        - [Manage labels in the InfluxDB UI](/influxdb/cloud-serverless/visualize-data/labels/)
       operationId: PostBucketsIDLabels
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1496,10 +1490,10 @@ paths:
       description: |
         Lists all users for a bucket.
 
-        InfluxDB [users](/influxdb3/cloud-serverless/reference/glossary/#user) have
+        InfluxDB [users](/influxdb/cloud-serverless/reference/glossary/#user) have
         permission to access InfluxDB.
 
-        [Members](/influxdb3/cloud-serverless/reference/glossary/#member) are users in
+        [Members](/influxdb/cloud-serverless/reference/glossary/#member) are users in
         an organization with access to the specified resource.
 
         Use this endpoint to retrieve all users with access to a bucket.
@@ -1563,18 +1557,18 @@ paths:
       description: |
         Add a user to a bucket and return the new user information.
 
-        InfluxDB [users](/influxdb3/cloud-serverless/reference/glossary/#user) have
+        InfluxDB [users](/influxdb/cloud-serverless/reference/glossary/#user) have
         permission to access InfluxDB.
 
-        [Members](/influxdb3/cloud-serverless/reference/glossary/#member) are users in
+        [Members](/influxdb/cloud-serverless/reference/glossary/#member) are users in
         an organization.
 
         Use this endpoint to give a user member privileges to a bucket.
 
         #### Related guides
 
-        - [Manage users](/influxdb3/cloud-serverless/users/)
-        - [Manage members](/influxdb3/cloud-serverless/organizations/members/)
+        - [Manage users](/influxdb/cloud-serverless/users/)
+        - [Manage members](/influxdb/cloud-serverless/organizations/members/)
       operationId: PostBucketsIDMembers
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1654,8 +1648,8 @@ paths:
 
         #### Related guides
 
-        - [Manage users](/influxdb3/cloud-serverless/users/)
-        - [Manage members](/influxdb3/cloud-serverless/organizations/members/)
+        - [Manage users](/influxdb/cloud-serverless/users/)
+        - [Manage members](/influxdb/cloud-serverless/organizations/members/)
       operationId: DeleteBucketsIDMembersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1696,13 +1690,13 @@ paths:
   /api/v2/buckets/{bucketID}/owners:
     get:
       description: |
-        Lists all [owners](/influxdb3/cloud-serverless/reference/glossary/#owner)
+        Lists all [owners](/influxdb/cloud-serverless/reference/glossary/#owner)
         of a bucket.
 
         Bucket owners have permission to delete buckets and remove user and member
         permissions from the bucket.
 
-        InfluxDB 3 Cloud Serverless uses [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign resource permissions; doesn't use `owner` and `member` roles.
+        InfluxDB Cloud Serverless uses [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign resource permissions; doesn't use `owner` and `member` roles.
 
 
         #### Limitations
@@ -1770,14 +1764,14 @@ paths:
         - Buckets
     post:
       description: |
-        Adds an owner to a bucket and returns the [owners](/influxdb3/cloud-serverless/reference/glossary/#owner)
+        Adds an owner to a bucket and returns the [owners](/influxdb/cloud-serverless/reference/glossary/#owner)
         with role and user detail.
 
         Use this endpoint to create a _resource owner_ for the bucket.
         Bucket owners have permission to delete buckets and remove user and member
         permissions from the bucket.
 
-        InfluxDB 3 Cloud Serverless uses [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign resource permissions; doesn't use `owner` and `member` roles.
+        InfluxDB Cloud Serverless uses [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign resource permissions; doesn't use `owner` and `member` roles.
 
         #### Limitations
 
@@ -1796,7 +1790,7 @@ paths:
 
         #### Related guides
 
-        - [Manage users](/influxdb3/cloud-serverless/users/)
+        - [Manage users](/influxdb/cloud-serverless/users/)
       operationId: PostBucketsIDOwners
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1875,7 +1869,7 @@ paths:
 
         Use this endpoint to remove a user's `owner` role for a bucket.
 
-        InfluxDB 3 Cloud Serverless uses [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign resource permissions; doesn't use `owner` and `member` roles.
+        InfluxDB Cloud Serverless uses [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign resource permissions; doesn't use `owner` and `member` roles.
 
         #### Limitations
 
@@ -1895,7 +1889,7 @@ paths:
 
         #### Related guides
 
-        - [Manage users](/influxdb3/cloud-serverless/users/)
+        - [Manage users](/influxdb/cloud-serverless/users/)
       operationId: DeleteBucketsIDOwnersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1937,7 +1931,7 @@ paths:
     get:
       description: |
         Lists _explicit_
-        [schemas](/influxdb3/cloud-serverless/reference/glossary/#schema)
+        [schemas](/influxdb/cloud-serverless/reference/glossary/#schema)
         (`"schemaType": "explicit"`) for a bucket.
 
         _Explicit_ schemas are used to enforce column names, tags, fields, and data
@@ -2016,7 +2010,7 @@ paths:
         - Bucket Schemas
     post:
       description: |
-        Creates an _explicit_ measurement [schema](/influxdb3/cloud-serverless/reference/glossary/#schema)
+        Creates an _explicit_ measurement [schema](/influxdb/cloud-serverless/reference/glossary/#schema)
         for a bucket.
 
         _Explicit_ schemas are used to enforce column names, tags, fields, and data
@@ -2152,7 +2146,7 @@ paths:
   /api/v2/buckets/{bucketID}/schema/measurements/{measurementID}:
     get:
       description: |
-        Retrieves an explicit measurement [schema](/influxdb3/cloud-serverless/reference/glossary/#schema).
+        Retrieves an explicit measurement [schema](/influxdb/cloud-serverless/reference/glossary/#schema).
       operationId: getMeasurementSchema
       parameters:
         - description: |
@@ -2208,7 +2202,7 @@ paths:
         - Bucket Schemas
     patch:
       description: |
-        Updates a measurement [schema](/influxdb3/cloud-serverless/reference/glossary/#schema).
+        Updates a measurement [schema](/influxdb/cloud-serverless/reference/glossary/#schema).
 
         Use this endpoint to update the fields (`name`, `type`, and `dataType`) of a
         measurement schema.
@@ -2219,7 +2213,7 @@ paths:
 
         #### Related guides
 
-        - [Manage bucket schemas](/influxdb3/cloud-serverless/admin/buckets/bucket-schema/).
+        - [Manage bucket schemas](/influxdb/cloud-serverless/admin/buckets/bucket-schema/).
         - [Using bucket schemas](https://www.influxdata.com/blog/new-bucket-schema-option-protect-from-unwanted-schema-changes/).
       operationId: updateMeasurementSchema
       parameters:
@@ -2340,7 +2334,7 @@ paths:
 
         #### Related guide
 
-        - [Database and retention policy mapping](/influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/)
+        - [Database and retention policy mapping](/influxdb/cloud-serverless/reference/api/influxdb-1x/dbrp/)
       operationId: GetDBRPs
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -2451,7 +2445,7 @@ paths:
 
         #### Related guide
 
-        - [Database and retention policy mapping](/influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/)
+        - [Database and retention policy mapping](/influxdb/cloud-serverless/reference/api/influxdb-1x/dbrp/)
       operationId: PostDBRP
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -2466,7 +2460,7 @@ paths:
           Note that _`retention_policy`_ is a required parameter in the request body.
           The value of _`retention_policy`_ can be any arbitrary `string` name or
           value, with the default value commonly set as `autogen`.
-          The value of _`retention_policy`_ isn't a [retention_policy](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp)
+          The value of _`retention_policy`_ isn't a [retention_policy](/influxdb/cloud-serverless/reference/glossary/#retention-policy-rp)
         required: true
       responses:
         '201':
@@ -2536,7 +2530,7 @@ paths:
 
         #### Related guide
 
-        - [Database and retention policy mapping](/influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/)
+        - [Database and retention policy mapping](/influxdb/cloud-serverless/reference/api/influxdb-1x/dbrp/)
       operationId: DeleteDBRPID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -2599,7 +2593,7 @@ paths:
 
         #### Related guide
 
-        - [Database and retention policy mapping](/influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/)
+        - [Database and retention policy mapping](/influxdb/cloud-serverless/reference/api/influxdb-1x/dbrp/)
       operationId: GetDBRPsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -2708,7 +2702,7 @@ paths:
 
           #### Related guide
 
-          - [Database and retention policy mapping](/influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/)
+          - [Database and retention policy mapping](/influxdb/cloud-serverless/reference/api/influxdb-1x/dbrp/)
         required: true
       responses:
         '200':
@@ -2774,19 +2768,19 @@ paths:
       description: |
         Deletes data from a bucket.
 
-        **NOTE**: This endpoint has been **disabled** for InfluxDB 3 Cloud Serverless organizations.
-        See how to [**delete data**](/influxdb3/cloud-serverless/write-data/delete-data/).
+        **NOTE**: This endpoint has been **disabled** for InfluxDB Cloud Serverless organizations.
+        See how to [**delete data**](/influxdb/cloud-serverless/write-data/delete-data/).
 
         #### Related guides
 
-        - [Delete data](/influxdb3/cloud-serverless/write-data/delete-data/)
+        - [Delete data](/influxdb/cloud-serverless/write-data/delete-data/)
       operationId: PostDelete
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: |
             An organization name or ID.
 
-            #### InfluxDB 3 Cloud Serverless
+            #### InfluxDB Cloud Serverless
 
             - Doesn't use the `org` parameter or `orgID` parameter.
           in: query
@@ -2806,7 +2800,7 @@ paths:
         - description: |
             An organization ID.
 
-            #### InfluxDB 3 Cloud Serverless
+            #### InfluxDB Cloud Serverless
 
             - Doesn't use the `org` parameter or `orgID` parameter.
           in: query
@@ -2839,8 +2833,8 @@ paths:
       responses:
         '204':
           description: |
-            **NOTE**: This endpoint has been **disabled** for InfluxDB 3 Cloud Serverless organizations.
-            See how to [**delete data**](/influxdb3/cloud-serverless/write-data/delete-data/).
+            **NOTE**: This endpoint has been **disabled** for InfluxDB Cloud Serverless organizations.
+            See how to [**delete data**](/influxdb/cloud-serverless/write-data/delete-data/).
         '400':
           content:
             application/json:
@@ -2904,13 +2898,13 @@ paths:
   /api/v2/orgs:
     get:
       description: |
-        Lists [organizations](/influxdb3/cloud-serverless/reference/glossary/#organization/).
+        Lists [organizations](/influxdb/cloud-serverless/reference/glossary/#organization/).
 
-        InfluxDB 3 Cloud Serverless only returns the organization that owns the token passed in the request.
+        InfluxDB Cloud Serverless only returns the organization that owns the token passed in the request.
 
         #### Related guides
 
-        - [View organizations](/influxdb3/cloud-serverless/organizations/view-orgs/)
+        - [View organizations](/influxdb/cloud-serverless/organizations/view-orgs/)
       operationId: GetOrgs
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -2981,14 +2975,14 @@ paths:
         - Organizations
     post:
       description: |
-        Creates an [organization](/influxdb3/cloud-serverless/reference/glossary/#organization)
+        Creates an [organization](/influxdb/cloud-serverless/reference/glossary/#organization)
         and returns the newly created organization.
 
-        InfluxDB 3 Cloud Serverless doesn't allow you to use this endpoint to create organizations.
+        InfluxDB Cloud Serverless doesn't allow you to use this endpoint to create organizations.
 
         #### Related guides
 
-        - [Manage organizations](/influxdb3/cloud-serverless/organizations)
+        - [Manage organizations](/influxdb/cloud-serverless/organizations)
       operationId: PostOrgs
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3086,7 +3080,7 @@ paths:
 
         #### Related guides
 
-        - [Delete organizations](/influxdb3/cloud-serverless/organizations/delete-orgs/)
+        - [Delete organizations](/influxdb/cloud-serverless/organizations/delete-orgs/)
       operationId: DeleteOrgsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3145,7 +3139,7 @@ paths:
 
         #### Related guides
 
-        - [View organizations](/influxdb3/cloud-serverless/organizations/view-orgs/)
+        - [View organizations](/influxdb/cloud-serverless/organizations/view-orgs/)
       operationId: GetOrgsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3214,7 +3208,7 @@ paths:
 
         #### Related Guides
 
-        - [Update an organization](/influxdb3/cloud-serverless/organizations/update-org/)
+        - [Update an organization](/influxdb/cloud-serverless/organizations/update-org/)
       operationId: PatchOrgsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3290,7 +3284,7 @@ paths:
       description: |
         Lists all users that belong to an organization.
 
-        InfluxDB 3 Cloud Serverless doesn't use `owner` and `member` roles.
+        InfluxDB Cloud Serverless doesn't use `owner` and `member` roles.
         Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to manage resource permissions.
       operationId: GetOrgsIDMembers
       parameters:
@@ -3363,7 +3357,7 @@ paths:
       description: |
         Add a user to an organization.
 
-        InfluxDB 3 Cloud Serverless doesn't use `owner` and `member` roles.
+        InfluxDB Cloud Serverless doesn't use `owner` and `member` roles.
         Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to manage resource permissions.
       operationId: PostOrgsIDMembers
       parameters:
@@ -3440,7 +3434,7 @@ paths:
       description: |
         Removes a member from an organization.
 
-        InfluxDB 3 Cloud Serverless doesn't use `owner` and `member` roles.
+        InfluxDB Cloud Serverless doesn't use `owner` and `member` roles.
         Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to manage resource permissions.
       operationId: DeleteOrgsIDMembersID
       parameters:
@@ -3482,7 +3476,7 @@ paths:
       description: |
         Lists all owners of an organization.
 
-        InfluxDB 3 Cloud Serverless doesn't use `owner` and `member` roles.
+        InfluxDB Cloud Serverless doesn't use `owner` and `member` roles.
         Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to manage resource permissions.
       operationId: GetOrgsIDOwners
       parameters:
@@ -3532,7 +3526,7 @@ paths:
       description: |
         Adds an owner to an organization.
 
-        InfluxDB 3 Cloud Serverless doesn't use `owner` and `member` roles.
+        InfluxDB Cloud Serverless doesn't use `owner` and `member` roles.
         Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to manage resource permissions.
       operationId: PostOrgsIDOwners
       parameters:
@@ -3599,10 +3593,10 @@ paths:
   /api/v2/orgs/{orgID}/owners/{userID}:
     delete:
       description: |
-        Removes an [owner](/influxdb3/cloud-serverless/reference/glossary/#owner) from
+        Removes an [owner](/influxdb/cloud-serverless/reference/glossary/#owner) from
         the organization.
 
-        InfluxDB 3 Cloud Serverless doesn't use `owner` and `member` roles.
+        InfluxDB Cloud Serverless doesn't use `owner` and `member` roles.
         Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to manage resource permissions.
       operationId: DeleteOrgsIDOwnersID
       parameters:
@@ -3764,7 +3758,7 @@ paths:
           schema:
             type: string
         - description: |
-            Earliest time ([unix timestamp format](/influxdb3/cloud-serverless/reference/glossary/#unix-timestamp)) to include in results.
+            Earliest time ([unix timestamp format](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)) to include in results.
           in: query
           name: start
           required: true
@@ -3772,7 +3766,7 @@ paths:
             format: unix timestamp
             type: integer
         - description: |
-            Latest time ([unix timestamp format](/influxdb3/cloud-serverless/reference/glossary/#unix-timestamp)) to include in results.
+            Latest time ([unix timestamp format](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)) to include in results.
           in: query
           name: stop
           required: false
@@ -3818,9 +3812,9 @@ paths:
       description: |
         Retrieves data from buckets.
 
-        This endpoint isn't supported in InfluxDB 3 Cloud Serverless.
+        This endpoint isn't supported in InfluxDB Cloud Serverless.
 
-        See how to [query data](/influxdb3/cloud-serverless/query-data/).
+        See how to [query data](/influxdb/cloud-serverless/query-data/).
       operationId: PostQuery
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3844,7 +3838,7 @@ paths:
         - description: |
             An organization name or ID.
 
-            #### InfluxDB 3 Cloud Serverless
+            #### InfluxDB Cloud Serverless
 
             - Doesn't use the `org` parameter or `orgID` parameter.
           in: query
@@ -3854,7 +3848,7 @@ paths:
         - description: |
             An organization ID.
 
-            #### InfluxDB 3 Cloud Serverless
+            #### InfluxDB Cloud Serverless
 
             - Doesn't use the `org` parameter or `orgID` parameter.
           in: query
@@ -3877,8 +3871,8 @@ paths:
               schema:
                 type: string
           description: |
-            This endpoint isn't supported in InfluxDB 3 Cloud Serverless.
-            See how to [query data](/influxdb3/cloud-serverless/query-data/).
+            This endpoint isn't supported in InfluxDB Cloud Serverless.
+            See how to [query data](/influxdb/cloud-serverless/query-data/).
           headers:
             Content-Encoding:
               description: Lists encodings (usually compression algorithms) that have been applied to the response payload.
@@ -3919,11 +3913,11 @@ paths:
           $ref: '#/components/responses/ResourceNotFoundError'
         '429':
           description: |
-            #### InfluxDB 3 Cloud Serverless:
+            #### InfluxDB Cloud Serverless:
               - returns this error if a **read** or **write** request exceeds your
-                plan's [adjustable service quotas](/influxdb3/cloud-serverless/account-management/limits/#adjustable-service-quotas)
+                plan's [adjustable service quotas](/influxdb/cloud-serverless/account-management/limits/#adjustable-service-quotas)
                 or if a **delete** request exceeds the maximum
-                [global limit](/influxdb3/cloud-serverless/account-management/limits/#global-limits).
+                [global limit](/influxdb/cloud-serverless/account-management/limits/#global-limits).
           headers:
             Retry-After:
               description: Non-negative decimal integer indicating seconds to wait before retrying the request.
@@ -3941,8 +3935,8 @@ paths:
     post:
       deprecated: true
       description: |
-        This endpoint isn't supported in InfluxDB 3 Cloud Serverless.
-        See how to [query data](/influxdb3/cloud-serverless/query-data/).
+        This endpoint isn't supported in InfluxDB Cloud Serverless.
+        See how to [query data](/influxdb/cloud-serverless/query-data/).
       operationId: PostQueryAnalyze
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3985,8 +3979,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/AnalyzeQueryResponse'
           description: |
-            This endpoint isn't supported in InfluxDB 3 Cloud Serverless.
-            See how to [query data](/influxdb3/cloud-serverless/query-data/).
+            This endpoint isn't supported in InfluxDB Cloud Serverless.
+            See how to [query data](/influxdb/cloud-serverless/query-data/).
         '400':
           content:
             application/json:
@@ -4045,8 +4039,8 @@ paths:
     post:
       deprecated: true
       description: |
-        This endpoint isn't supported in InfluxDB 3 Cloud Serverless.
-        See how to [query data](/influxdb3/cloud-serverless/query-data/).
+        This endpoint isn't supported in InfluxDB Cloud Serverless.
+        See how to [query data](/influxdb/cloud-serverless/query-data/).
       operationId: PostQueryAst
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -4068,8 +4062,8 @@ paths:
             schema:
               $ref: '#/components/schemas/ASTResponse'
           description: |
-            This endpoint isn't supported in InfluxDB 3 Cloud Serverless.
-            See how to [query data](/influxdb3/cloud-serverless/query-data/).
+            This endpoint isn't supported in InfluxDB Cloud Serverless.
+            See how to [query data](/influxdb/cloud-serverless/query-data/).
         '400':
           content:
             application/json:
@@ -4108,16 +4102,16 @@ paths:
     get:
       deprecated: true
       description: |
-        This endpoint isn't supported in InfluxDB 3 Cloud Serverless.
-        See how to [query data](/influxdb3/cloud-serverless/query-data/).
+        This endpoint isn't supported in InfluxDB Cloud Serverless.
+        See how to [query data](/influxdb/cloud-serverless/query-data/).
       operationId: GetQuerySuggestions
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
         '200':
           description: |
-            This endpoint isn't supported in InfluxDB 3 Cloud Serverless.
-            See how to [query data](/influxdb3/cloud-serverless/query-data/).
+            This endpoint isn't supported in InfluxDB Cloud Serverless.
+            See how to [query data](/influxdb/cloud-serverless/query-data/).
         '301':
           content:
             text/html:
@@ -4158,8 +4152,8 @@ paths:
     get:
       deprecated: true
       description: |
-        This endpoint isn't supported in InfluxDB 3 Cloud Serverless.
-        See how to [query data](/influxdb3/cloud-serverless/query-data/).
+        This endpoint isn't supported in InfluxDB Cloud Serverless.
+        See how to [query data](/influxdb/cloud-serverless/query-data/).
       operationId: GetQuerySuggestionsName
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -4173,8 +4167,8 @@ paths:
       responses:
         '200':
           description: |
-            This endpoint isn't supported in InfluxDB 3 Cloud Serverless.
-            See how to [query data](/influxdb3/cloud-serverless/query-data/).
+            This endpoint isn't supported in InfluxDB Cloud Serverless.
+            See how to [query data](/influxdb/cloud-serverless/query-data/).
         '500':
           content:
             application/json:
@@ -4230,7 +4224,7 @@ paths:
             The offset for pagination.
             The number of records to skip.
 
-            For more information about pagination parameters, see [Pagination](/influxdb3/cloud-serverless/api/#tag/Pagination).
+            For more information about pagination parameters, see [Pagination](/influxdb/cloud-serverless/api/#tag/Pagination).
           in: query
           name: offset
           required: false
@@ -4818,7 +4812,7 @@ paths:
       parameters:
         - description: |
             An organization ID.
-            Only returns stacks owned by the specified [organization](/influxdb3/cloud-serverless/reference/glossary/#organization).
+            Only returns stacks owned by the specified [organization](/influxdb/cloud-serverless/reference/glossary/#organization).
 
             #### InfluxDB Cloud
 
@@ -5123,7 +5117,7 @@ paths:
   /api/v2/tasks:
     get:
       description: |
-        Retrieves a list of [tasks](/influxdb3/cloud-serverless/reference/glossary/#task).
+        Retrieves a list of [tasks](/influxdb/cloud-serverless/reference/glossary/#task).
 
         To limit which tasks are returned, pass query parameters in your request.
         If no query parameters are passed, InfluxDB returns all tasks up to the default `limit`.
@@ -5131,7 +5125,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: |
-            A [task](/influxdb3/cloud-serverless/reference/glossary/#task) name.
+            A [task](/influxdb/cloud-serverless/reference/glossary/#task) name.
             Only returns tasks with the specified name.
             Different tasks may have the same name.
           in: query
@@ -5139,35 +5133,35 @@ paths:
           schema:
             type: string
         - description: |
-            A [task](/influxdb3/cloud-serverless/reference/glossary/#task) ID.
+            A [task](/influxdb/cloud-serverless/reference/glossary/#task) ID.
             Only returns tasks created after the specified task.
           in: query
           name: after
           schema:
             type: string
         - description: |
-            A [user](/influxdb3/cloud-serverless/reference/glossary/#user) ID.
+            A [user](/influxdb/cloud-serverless/reference/glossary/#user) ID.
             Only returns tasks owned by the specified user.
           in: query
           name: user
           schema:
             type: string
         - description: |
-            An [organization](/influxdb3/cloud-serverless/reference/glossary/#organization) name.
+            An [organization](/influxdb/cloud-serverless/reference/glossary/#organization) name.
             Only returns tasks owned by the specified organization.
           in: query
           name: org
           schema:
             type: string
         - description: |
-            An [organization](/influxdb3/cloud-serverless/reference/glossary/#organization) ID.
+            An [organization](/influxdb/cloud-serverless/reference/glossary/#organization) ID.
             Only returns tasks owned by the specified organization.
           in: query
           name: orgID
           schema:
             type: string
         - description: |
-            A [task](/influxdb3/cloud-serverless/reference/glossary/#task) status.
+            A [task](/influxdb/cloud-serverless/reference/glossary/#task) status.
             Only returns tasks that have the specified status (`active` or `inactive`).
           in: query
           name: status
@@ -5177,7 +5171,7 @@ paths:
               - inactive
             type: string
         - description: |
-            The maximum number of [tasks](/influxdb3/cloud-serverless/reference/glossary/#task) to return.
+            The maximum number of [tasks](/influxdb/cloud-serverless/reference/glossary/#task) to return.
             Default is `100`.
             The minimum is `1` and the maximum is `500`.
 
@@ -5216,7 +5210,7 @@ paths:
               - name
             type: string
         - description: |
-            A [task](/influxdb3/cloud-serverless/reference/glossary/#task) type (`basic` or `system`).
+            A [task](/influxdb/cloud-serverless/reference/glossary/#task) type (`basic` or `system`).
             Default is `system`.
             Specifies the level of detail for tasks in the response.
             The default (`system`) response contains all the metadata properties for tasks.
@@ -5329,7 +5323,7 @@ paths:
               --header 'Authorization: Token INFLUX_API_TOKEN'
     post:
       description: |
-        Creates a [task](/influxdb3/cloud-serverless/reference/glossary/#task) and returns the task.
+        Creates a [task](/influxdb/cloud-serverless/reference/glossary/#task) and returns the task.
 
         Use this endpoint to create a scheduled task that runs a Flux script.
 
@@ -5474,7 +5468,7 @@ paths:
   /api/v2/tasks/{taskID}:
     delete:
       description: |
-        Deletes a [task](/influxdb3/cloud-serverless/reference/glossary/#task) and associated records.
+        Deletes a [task](/influxdb/cloud-serverless/reference/glossary/#task) and associated records.
 
         Use this endpoint to delete a task and all associated records (task runs, logs, and labels).
         Once the task is deleted, InfluxDB cancels all scheduled runs of the task.
@@ -5483,7 +5477,7 @@ paths:
       operationId: DeleteTasksID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: A [task](/influxdb3/cloud-serverless/reference/glossary/#task) ID. Specifies the task to delete.
+        - description: A [task](/influxdb/cloud-serverless/reference/glossary/#task) ID. Specifies the task to delete.
           in: path
           name: taskID
           required: true
@@ -5507,12 +5501,12 @@ paths:
         - Tasks
     get:
       description: |
-        Retrieves a [task](/influxdb3/cloud-serverless/reference/glossary/#task).
+        Retrieves a [task](/influxdb/cloud-serverless/reference/glossary/#task).
       operationId: GetTasksID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: |
-            A [task](/influxdb3/cloud-serverless/reference/glossary/#task) ID.
+            A [task](/influxdb/cloud-serverless/reference/glossary/#task) ID.
             Specifies the task to retrieve.
           in: path
           name: taskID
@@ -5541,7 +5535,7 @@ paths:
         - Tasks
     patch:
       description: |
-        Updates a [task](/influxdb3/cloud-serverless/reference/glossary/#task),
+        Updates a [task](/influxdb/cloud-serverless/reference/glossary/#task),
         and then cancels all scheduled runs of the task.
 
         Use this endpoint to set, modify, or clear task properties--for example: `cron`, `name`, `flux`, `status`.
@@ -5599,7 +5593,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: |
-            A [task](/influxdb3/cloud-serverless/reference/glossary/#task) ID.
+            A [task](/influxdb/cloud-serverless/reference/glossary/#task) ID.
             Specifies the task to update.
           in: path
           name: taskID
@@ -5747,7 +5741,7 @@ paths:
   /api/v2/tasks/{taskID}/logs:
     get:
       description: |
-        Retrieves a list of all logs for a [task](/influxdb3/cloud-serverless/reference/glossary/#task).
+        Retrieves a list of all logs for a [task](/influxdb/cloud-serverless/reference/glossary/#task).
 
         When an InfluxDB task runs, a “run” record is created in the task’s history.
         Logs associated with each run provide relevant log messages, timestamps, and the exit status of the run attempt.
@@ -5817,7 +5811,7 @@ paths:
         **Deprecated**: Tasks don't use `owner` and `member` roles.
         Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign user permissions.
 
-        Lists all users that have the `member` role for the specified [task](/influxdb3/cloud-serverless/reference/glossary/#task).
+        Lists all users that have the `member` role for the specified [task](/influxdb/cloud-serverless/reference/glossary/#task).
       operationId: GetTasksIDMembers
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -5891,7 +5885,7 @@ paths:
         **Deprecated**: Tasks don't use `owner` and `member` roles.
         Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign user permissions.
 
-        Removes a member from a [task](/influxdb3/cloud-serverless/reference/glossary/#task).
+        Removes a member from a [task](/influxdb/cloud-serverless/reference/glossary/#task).
       operationId: DeleteTasksIDMembersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6111,7 +6105,7 @@ paths:
             minimum: 1
             type: integer
         - description: |
-            A timestamp ([RFC3339 date/time format](/influxdb3/cloud-serverless/reference/glossary/#rfc3339-timestamp)).
+            A timestamp ([RFC3339 date/time format](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp)).
             Only returns runs scheduled after this time.
           in: query
           name: afterTime
@@ -6119,7 +6113,7 @@ paths:
             format: date-time
             type: string
         - description: |
-            A timestamp ([RFC3339 date/time format](/influxdb3/cloud-serverless/reference/glossary/#rfc3339-timestamp)).
+            A timestamp ([RFC3339 date/time format](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp)).
             Only returns runs scheduled before this time.
           in: query
           name: beforeTime
@@ -6185,7 +6179,7 @@ paths:
   /api/v2/tasks/{taskID}/runs/{runID}:
     delete:
       description: |
-        Cancels a running [task](/influxdb3/cloud-serverless/reference/glossary/#task).
+        Cancels a running [task](/influxdb/cloud-serverless/reference/glossary/#task).
 
         Use this endpoint with InfluxDB OSS to cancel a running task.
 
@@ -6395,7 +6389,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: |
-            A [task](/influxdb3/cloud-serverless/reference/glossary/#task)  ID.
+            A [task](/influxdb/cloud-serverless/reference/glossary/#task)  ID.
             Specifies the task to retry.
           in: path
           name: taskID
@@ -6403,7 +6397,7 @@ paths:
           schema:
             type: string
         - description: |
-            A [task](/influxdb3/cloud-serverless/reference/glossary/#task) run ID.
+            A [task](/influxdb/cloud-serverless/reference/glossary/#task) run ID.
             Specifies the task run to retry.
 
             To find a task run ID, use the
@@ -6926,7 +6920,7 @@ paths:
           property in the request body.
 
         - Some templates may contain queries that use
-          [secrets](/influxdb3/cloud-serverless/reference/glossary/#secret).
+          [secrets](/influxdb/cloud-serverless/reference/glossary/#secret).
           To provide custom secret values, pass the _`secrets`_ property
           in the request body.
           Don't expose secret values in templates.
@@ -6938,7 +6932,7 @@ paths:
         #### Rate limits (with InfluxDB Cloud)
 
         - Adjustable service quotas apply.
-          For more information, see [limits and adjustable quotas](/influxdb3/cloud-serverless/account-management/limits/).
+          For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/account-management/limits/).
 
         <!-- TSM-ONLY -->
       operationId: ApplyTemplate
@@ -7487,18 +7481,18 @@ paths:
       description: |
         Writes data to a bucket.
 
-        Use this endpoint to send data in [line protocol](/influxdb3/cloud-serverless/reference/syntax/line-protocol/) format to InfluxDB.
+        Use this endpoint to send data in [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) format to InfluxDB.
 
-        InfluxDB 3 Cloud Serverless does the following when you send a write request:
+        InfluxDB Cloud Serverless does the following when you send a write request:
 
         1. Validates the request.
-        2. If successful, attempts to [ingest data](/influxdb3/cloud-serverless/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](/influxdb3/cloud-serverless/write-data/troubleshoot/#review-http-status-codes).
+        2. If successful, attempts to [ingest data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](/influxdb/cloud-serverless/write-data/troubleshoot/#review-http-status-codes).
         3. Ingests or rejects data in the batch and returns one of the following HTTP status codes:
 
           - `204 No Content`: All data in the batch is ingested.
           - `400 Bad Request`: Data from the batch was rejected and not written. The response body indicates if a partial write occurred.
 
-        The response body contains error details about [rejected points](/influxdb3/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
+        The response body contains error details about [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
 
         Writes are synchronous--the response status indicates the final status of the write and all ingested data is queryable.
 
@@ -7507,22 +7501,22 @@ paths:
 
         #### Write endpoints
 
-        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB 3 Cloud Serverless.
+        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB Cloud Serverless.
 
-        - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb3/cloud-serverless/guides/api-compatibility/v1/).
-        - Use [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb3/cloud-serverless/guides/api-compatibility/v2/).
+        - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb/cloud-serverless/guides/api-compatibility/v1/).
+        - Use [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb/cloud-serverless/guides/api-compatibility/v2/).
 
         #### Rate limits
 
         _Write_ rate limits apply.
-        For more information, see [limits and adjustable quotas](/influxdb3/cloud-serverless/admin/billing/limits/).
+        For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/admin/billing/limits/).
 
         #### Related guides
 
-        - [Get started writing data](/influxdb3/cloud-serverless/get-started/write/)
-        - [Write data with the InfluxDB API](/influxdb3/cloud-serverless/get-started/write/)
-        - [Best practices for writing data](/influxdb3/cloud-serverless/write-data/best-practices/)
-        - [Troubleshoot issues writing data](/influxdb3/cloud-serverless/write-data/troubleshoot/)
+        - [Get started writing data](/influxdb/cloud-serverless/get-started/write/)
+        - [Write data with the InfluxDB API](/influxdb/cloud-serverless/get-started/write/)
+        - [Best practices for writing data](/influxdb/cloud-serverless/write-data/best-practices/)
+        - [Troubleshoot issues writing data](/influxdb/cloud-serverless/write-data/troubleshoot/)
       operationId: PostWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -7567,14 +7561,14 @@ paths:
             Writes only return a response body if they fail--for example,
             due to a formatting problem or quota limit.
 
-            #### InfluxDB 3 Cloud Serverless
+            #### InfluxDB Cloud Serverless
 
               - Returns only `application/json` for format and limit errors.
               - Returns only `text/html` for some quota limit errors.
 
             #### Related guides
 
-            - [Troubleshoot issues writing data](/influxdb3/cloud-serverless/write-data/troubleshoot/)
+            - [Troubleshoot issues writing data](/influxdb/cloud-serverless/write-data/troubleshoot/)
           in: header
           name: Accept
           schema:
@@ -7586,7 +7580,7 @@ paths:
         - description: |
             An organization name or ID.
 
-            InfluxDB 3 Cloud Serverless writes data to the bucket in the organization associated with the authorization (API token);
+            InfluxDB Cloud Serverless writes data to the bucket in the organization associated with the authorization (API token);
             doesn't use the `org` parameter or `orgID` parameter.
           in: query
           name: org
@@ -7597,7 +7591,7 @@ paths:
         - description: |
             An organization ID.
 
-            InfluxDB 3 Cloud Serverless writes data to the bucket in the organization associated with the authorization (API token);
+            InfluxDB Cloud Serverless writes data to the bucket in the organization associated with the authorization (API token);
             doesn't use the `org` parameter or `orgID` parameter.
           in: query
           name: orgID
@@ -7629,7 +7623,7 @@ paths:
               format: byte
               type: string
         description: |
-          In the request body, provide data in [line protocol format](/influxdb3/cloud-serverless/reference/syntax/line-protocol/).
+          In the request body, provide data in [line protocol format](/influxdb/cloud-serverless/reference/syntax/line-protocol/).
 
           To send compressed data, do the following:
 
@@ -7639,7 +7633,7 @@ paths:
 
           #### Related guides
 
-          - [Best practices for optimizing writes](/influxdb3/cloud-serverless/write-data/best-practices/optimize-writes/)
+          - [Best practices for optimizing writes](/influxdb/cloud-serverless/write-data/best-practices/optimize-writes/)
         required: true
       responses:
         '204':
@@ -7649,7 +7643,7 @@ paths:
             Data from the batch was rejected and not written. The response body indicates if a partial write occurred or all data was rejected.
             If a partial write occurred, then some points from the batch are written and queryable. 
 
-            The response body contains details about the [rejected points](/influxdb3/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
+            The response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
           content:
             application/json:
               examples:
@@ -7707,8 +7701,8 @@ paths:
 
             #### InfluxDB Cloud
 
-              - Returns this error if a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb3/cloud-serverless/account-management/limits/#adjustable-service-quotas)
-                or if a **delete** request exceeds the maximum [global limit](/influxdb3/cloud-serverless/account-management/limits/#global-limits).
+              - Returns this error if a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb/cloud-serverless/account-management/limits/#adjustable-service-quotas)
+                or if a **delete** request exceeds the maximum [global limit](/influxdb/cloud-serverless/account-management/limits/#global-limits).
               - For rate limits that reset automatically, returns a `Retry-After` header that describes when to try the write again.
               - For limits that can't reset (for example, **cardinality limit**), doesn't return a `Retry-After` header.
 
@@ -7757,8 +7751,8 @@ paths:
 
         #### Related guides
 
-        - [Use the InfluxDB v1 HTTP API](/influxdb3/cloud-serverless/guides/api-compatibility/v1/)
-        - [Query data](/influxdb3/cloud-serverless/query-data/)
+        - [Use the InfluxDB v1 HTTP API](/influxdb/cloud-serverless/guides/api-compatibility/v1/)
+        - [Query data](/influxdb/cloud-serverless/query-data/)
       operationId: GetLegacyQuery
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -7769,7 +7763,7 @@ paths:
             description: |
               Media type that the client can understand.
 
-              **Note**: With `application/csv`, query results include [**unix timestamps**](/influxdb3/cloud-serverless/reference/glossary/#unix-timestamp) instead of [RFC3339 timestamps](/influxdb3/cloud-serverless/reference/glossary/#rfc3339-timestamp).
+              **Note**: With `application/csv`, query results include [**unix timestamps**](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp) instead of [RFC3339 timestamps](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp).
             enum:
               - application/json
               - application/csv
@@ -7804,7 +7798,7 @@ paths:
             type: string
         - description: |
             The database to query data from.
-            This is mapped to an InfluxDB [bucket](/influxdb3/cloud-serverless/reference/glossary/#bucket).
+            This is mapped to an InfluxDB [bucket](/influxdb/cloud-serverless/reference/glossary/#bucket).
             For more information, see [Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/).
           in: query
           name: db
@@ -7813,7 +7807,7 @@ paths:
             type: string
         - description: |
             The retention policy to query data from.
-            This is mapped to an InfluxDB [bucket](/influxdb3/cloud-serverless/reference/glossary/#bucket).
+            This is mapped to an InfluxDB [bucket](/influxdb/cloud-serverless/reference/glossary/#bucket).
             For more information, see [Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/).
           in: query
           name: rp
@@ -7827,8 +7821,8 @@ paths:
             type: string
         - description: |
             A unix timestamp precision.
-            Formats timestamps as [unix (epoch) timestamps](/influxdb3/cloud-serverless/reference/glossary/#unix-timestamp) the specified precision
-            instead of [RFC3339 timestamps](/influxdb3/cloud-serverless/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
+            Formats timestamps as [unix (epoch) timestamps](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp) the specified precision
+            instead of [RFC3339 timestamps](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
           in: query
           name: epoch
           schema:
@@ -7888,9 +7882,9 @@ paths:
           description: |
             #### InfluxDB Cloud:
               - returns this error if a **read** or **write** request exceeds your
-                plan's [adjustable service quotas](/influxdb3/cloud-serverless/account-management/limits/#adjustable-service-quotas)
+                plan's [adjustable service quotas](/influxdb/cloud-serverless/account-management/limits/#adjustable-service-quotas)
                 or if a **delete** request exceeds the maximum
-                [global limit](/influxdb3/cloud-serverless/account-management/limits/#global-limits)
+                [global limit](/influxdb/cloud-serverless/account-management/limits/#global-limits)
               - returns `Retry-After` header that describes when to try the write again.
           headers:
             Retry-After:
@@ -7914,19 +7908,19 @@ paths:
       description: |
         Writes data to a bucket.
 
-        Use this endpoint for [InfluxDB v1 parameter compatibility](/influxdb3/cloud-serverless/guides/api-compatibility/v1/) when sending data in [line protocol](/influxdb3/cloud-serverless/reference/syntax/line-protocol/) format to InfluxDB.
+        Use this endpoint for [InfluxDB v1 parameter compatibility](/influxdb/cloud-serverless/guides/api-compatibility/v1/) when sending data in [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) format to InfluxDB.
 
-        InfluxDB 3 Cloud Serverless does the following when you send a write request:
+        InfluxDB Cloud Serverless does the following when you send a write request:
 
         1. Validates the request.
-        2. If successful, attempts to [ingest data](/influxdb3/cloud-serverless/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](/influxdb3/cloud-serverless/write-data/troubleshoot/#review-http-status-codes).
+        2. If successful, attempts to [ingest data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest) from the request body; otherwise, responds with an [error status](/influxdb/cloud-serverless/write-data/troubleshoot/#review-http-status-codes).
         3. Ingests or rejects data in the batch and returns one of the following HTTP status codes:
 
           - `204 No Content`: all data in the batch is ingested
           - `201 Created`: some points in the batch are ingested and queryable, and some points are rejected
           - `400 Bad Request`: all data is rejected
 
-        The response body contains error details about [rejected points](/influxdb3/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
+        The response body contains error details about [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
 
         Writes are synchronous--the response status indicates the final status of the write and all ingested data is queryable.
 
@@ -7935,21 +7929,21 @@ paths:
 
         #### Write endpoints
 
-        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB 3 Cloud Serverless.
+        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB Cloud Serverless.
 
-        - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb3/cloud-serverless/guides/api-compatibility/v1/).
-        - Use [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb3/cloud-serverless/guides/api-compatibility/v2/).
+        - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb/cloud-serverless/guides/api-compatibility/v1/).
+        - Use [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb/cloud-serverless/guides/api-compatibility/v2/).
 
         #### Rate limits
 
         _Write_ rate limits apply.
-        For more information, see [limits and adjustable quotas](/influxdb3/cloud-serverless/admin/billing/limits/).
+        For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/admin/billing/limits/).
 
         #### Related guides
 
-        - [Write data with the InfluxDB API](/influxdb3/cloud-serverless/get-started/write/)
-        - [Optimize writes to InfluxDB](/influxdb3/cloud-serverless/write-data/best-practices/optimize-writes/)
-        - [Troubleshoot issues writing data](/influxdb3/cloud-serverless/write-data/troubleshoot/)
+        - [Write data with the InfluxDB API](/influxdb/cloud-serverless/get-started/write/)
+        - [Optimize writes to InfluxDB](/influxdb/cloud-serverless/write-data/best-practices/optimize-writes/)
+        - [Troubleshoot issues writing data](/influxdb/cloud-serverless/write-data/troubleshoot/)
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: The InfluxDB 1.x username to authenticate the request.
@@ -7998,7 +7992,7 @@ paths:
       responses:
         '201':
           description: |
-            Success ("Created"). Some points in the batch are written and queryable, and some points are rejected. The response body contains details about the [rejected points](/influxdb3/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
+            Success ("Created"). Some points in the batch are written and queryable, and some points are rejected. The response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
           content:
             application/json:
               examples:
@@ -8016,7 +8010,7 @@ paths:
           description: |
             All data in the batch is rejected and not written.
 
-            The response body contains details about the [rejected points](/influxdb3/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points).
+            The response body contains details about the [rejected points](/influxdb/cloud-serverless/write-data/troubleshoot/#troubleshoot-rejected-points).
           content:
             application/json:
               examples:
@@ -8136,7 +8130,7 @@ components:
         results don't include the specified record.
 
         Use `after` instead of the `offset` parameter.
-        For more information about pagination parameters, see [Pagination](/influxdb3/cloud-serverless/api/#tag/Pagination).
+        For more information about pagination parameters, see [Pagination](/influxdb/cloud-serverless/api/#tag/Pagination).
       in: query
       name: after
       required: false
@@ -8165,7 +8159,7 @@ components:
         The offset for pagination.
         The number of records to skip.
 
-        For more information about pagination parameters, see [Pagination](/influxdb3/cloud-serverless/api/#tag/Pagination).
+        For more information about pagination parameters, see [Pagination](/influxdb/cloud-serverless/api/#tag/Pagination).
       in: query
       name: offset
       required: false
@@ -8362,14 +8356,14 @@ components:
             org:
               description: |
                 The organization name.
-                Specifies the [organization](/influxdb3/cloud-serverless/reference/glossary/#organization)
+                Specifies the [organization](/influxdb/cloud-serverless/reference/glossary/#organization)
                 that the token is scoped to.
               readOnly: true
               type: string
             orgID:
               description: |
                 The organization ID.
-                Specifies the [organization](/influxdb3/cloud-serverless/reference/glossary/#organization) that the authorization is scoped to.
+                Specifies the [organization](/influxdb/cloud-serverless/reference/glossary/#organization) that the authorization is scoped to.
               type: string
             permissions:
               description: |
@@ -8383,7 +8377,7 @@ components:
               description: |
                 The API token.
                 The token value is unique to the authorization.
-                [API tokens](/influxdb3/cloud-serverless/reference/glossary/#token) are
+                [API tokens](/influxdb/cloud-serverless/reference/glossary/#token) are
                 used to authenticate and authorize InfluxDB API requests and `influx`
                 CLI commands--after receiving the request, InfluxDB checks that the
                 token is valid and that the `permissions` allow the requested action(s).
@@ -8396,13 +8390,13 @@ components:
             user:
               description: |
                 The user name.
-                Specifies the [user](/influxdb3/cloud-serverless/reference/glossary/#user) that owns the authorization.
+                Specifies the [user](/influxdb/cloud-serverless/reference/glossary/#user) that owns the authorization.
                 If the authorization is _scoped_ to a user, the user;
                 otherwise, the creator of the authorization.
               readOnly: true
               type: string
             userID:
-              description: The user ID. Specifies the [user](/influxdb3/cloud-serverless/reference/glossary/#user) that owns the authorization. If _scoped_, the user that the authorization is scoped to; otherwise, the creator of the authorization.
+              description: The user ID. Specifies the [user](/influxdb/cloud-serverless/reference/glossary/#user) that owns the authorization. If _scoped_, the user that the authorization is scoped to; otherwise, the creator of the authorization.
               readOnly: true
               type: string
           type: object
@@ -8875,7 +8869,7 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: A timestamp ([RFC3339 date/time format](/influxdb3/cloud-serverless/reference/glossary/#rfc3339-timestamp)) of the latest scheduled and completed run.
+          description: A timestamp ([RFC3339 date/time format](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp)) of the latest scheduled and completed run.
           format: date-time
           readOnly: true
           type: string
@@ -9128,7 +9122,7 @@ components:
         orgID:
           description: |
             An organization ID.
-            Identifies the [organization](/influxdb3/cloud-serverless/reference/glossary/#organization) that owns the mapping.
+            Identifies the [organization](/influxdb/cloud-serverless/reference/glossary/#organization) that owns the mapping.
           type: string
         retention_policy:
           description: |
@@ -9166,12 +9160,12 @@ components:
         org:
           description: |
             An organization name.
-            Identifies the [organization](/influxdb3/cloud-serverless/reference/glossary/#organization) that owns the mapping.
+            Identifies the [organization](/influxdb/cloud-serverless/reference/glossary/#organization) that owns the mapping.
           type: string
         orgID:
           description: |
             An organization ID.
-            Identifies the [organization](/influxdb3/cloud-serverless/reference/glossary/#organization) that owns the mapping.
+            Identifies the [organization](/influxdb/cloud-serverless/reference/glossary/#organization) that owns the mapping.
           type: string
         retention_policy:
           description: |
@@ -9353,7 +9347,7 @@ components:
           $ref: '#/components/schemas/Links'
       type: object
     DateTimeLiteral:
-      description: Represents an instant in time with nanosecond precision in [RFC3339Nano date/time format](/influxdb3/cloud-serverless/reference/glossary/#rfc3339nano-timestamp).
+      description: Represents an instant in time with nanosecond precision in [RFC3339Nano date/time format](/influxdb/cloud-serverless/reference/glossary/#rfc3339nano-timestamp).
       properties:
         type:
           $ref: '#/components/schemas/NodeType'
@@ -9418,18 +9412,18 @@ components:
       properties:
         predicate:
           description: |
-            An expression in [delete predicate syntax](/influxdb3/cloud-serverless/reference/syntax/delete-predicate/).
+            An expression in [delete predicate syntax](/influxdb/cloud-serverless/reference/syntax/delete-predicate/).
           example: tag1="value1" and (tag2="value2" and tag3!="value3")
           type: string
         start:
           description: |
-            A timestamp ([RFC3339 date/time format](/influxdb3/cloud-serverless/reference/glossary/#rfc3339-timestamp)).
+            A timestamp ([RFC3339 date/time format](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp)).
             The earliest time to delete from.
           format: date-time
           type: string
         stop:
           description: |
-            A timestamp ([RFC3339 date/time format](/influxdb3/cloud-serverless/reference/glossary/#rfc3339-timestamp)).
+            A timestamp ([RFC3339 date/time format](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp)).
             The latest time to delete from.
           format: date-time
           type: string
@@ -9440,7 +9434,7 @@ components:
     Dialect:
       description: |
         Options for tabular data output.
-        Default output is [annotated CSV](/influxdb3/cloud-serverless/reference/syntax/annotated-csv/#csv-response-format) with headers.
+        Default output is [annotated CSV](/influxdb/cloud-serverless/reference/syntax/annotated-csv/#csv-response-format) with headers.
 
         For more information about tabular data **dialect**,
         see [W3 metadata vocabulary for tabular data](https://www.w3.org/TR/2015/REC-tabular-metadata-20151217/#dialect-descriptions).
@@ -9452,7 +9446,7 @@ components:
 
             #### Related guides
 
-            - See [Annotated CSV annotations](/influxdb3/cloud-serverless/reference/syntax/annotated-csv/#annotations) for examples and more information.
+            - See [Annotated CSV annotations](/influxdb/cloud-serverless/reference/syntax/annotated-csv/#annotations) for examples and more information.
 
             For more information about **annotations** in tabular data,
             see [W3 metadata vocabulary for tabular data](https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/#columns).
@@ -9474,7 +9468,7 @@ components:
           default: RFC3339
           description: |
             The format for timestamps in results.
-            Default is [`RFC3339` date/time format](/influxdb3/cloud-serverless/reference/glossary/#rfc3339-timestamp).
+            Default is [`RFC3339` date/time format](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp).
             To include nanoseconds in timestamps, use `RFC3339Nano`.
 
             #### Example formatted date/time values
@@ -10284,9 +10278,9 @@ components:
       properties:
         results:
           description: |
-            A resultset object that contains the `statement_id` and the `series` array.
+              A resultset object that contains the `statement_id` and the `series` array.
 
-            Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
+              Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
           items:
             properties:
               error:
@@ -10335,12 +10329,12 @@ components:
                 type: integer
             type: object
           oneOf:
-            - required:
-                - statement_id
-                - error
-            - required:
-                - statement_id
-                - series
+          - required:
+            - statement_id
+            - error
+          - required:
+            - statement_id
+            - series
           type: array
       type: object
     IntegerLiteral:
@@ -10823,7 +10817,7 @@ components:
           readOnly: true
           type: string
         time:
-          description: The time ([RFC3339Nano date/time format](/influxdb3/cloud-serverless/reference/glossary/#rfc3339nano-timestamp)) that the event occurred.
+          description: The time ([RFC3339Nano date/time format](/influxdb/cloud-serverless/reference/glossary/#rfc3339nano-timestamp)) that the event occurred.
           example: 2006-01-02T15:04:05.999999999Z07:00
           format: date-time
           readOnly: true
@@ -10975,7 +10969,7 @@ components:
           type: array
         name:
           description: |
-            The [measurement](/influxdb3/cloud-serverless/reference/glossary/#measurement)
+            The [measurement](/influxdb/cloud-serverless/reference/glossary/#measurement)
             name.
           type: string
       required:
@@ -11309,7 +11303,7 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: A timestamp ([RFC3339 date/time format](/influxdb3/cloud-serverless/reference/glossary/#rfc3339-timestamp)) of the latest scheduled and completed run.
+          description: A timestamp ([RFC3339 date/time format](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp)) of the latest scheduled and completed run.
           format: date-time
           readOnly: true
           type: string
@@ -11674,20 +11668,20 @@ components:
           type: integer
         shardGroupDurationSeconds:
           description: |
-            The [shard group duration](/influxdb3/cloud-serverless/reference/glossary/#shard).
+            The [shard group duration](/influxdb/cloud-serverless/reference/glossary/#shard).
             The number of seconds that each shard group covers.
 
-            #### InfluxDB 3 Cloud Serverless
+            #### InfluxDB Cloud Serverless
 
             - Doesn't use `shardGroupDurationsSeconds`.
 
             #### InfluxDB OSS
 
-            - Default value depends on the [bucket retention period](/influxdb3/cloud-serverless/reference/internals/shards/#shard-group-duration).
+            - Default value depends on the [bucket retention period](/influxdb/cloud-serverless/reference/internals/shards/#shard-group-duration).
 
             #### Related guides
 
-            - InfluxDB [shards and shard groups](/influxdb3/cloud-serverless/reference/internals/shards/)
+            - InfluxDB [shards and shard groups](/influxdb/cloud-serverless/reference/internals/shards/)
           format: int64
           type: integer
         type:
@@ -11817,7 +11811,7 @@ components:
             [Retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
             is an InfluxDB 1.x concept.
             The InfluxDB 2.x and Cloud equivalent is
-            [retention period](/influxdb3/cloud-serverless/reference/glossary/#retention-period).
+            [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period).
             The InfluxDB `/api/v2` API uses `RetentionRules` to configure the retention period.
           type: string
         schemaType:
@@ -12111,7 +12105,7 @@ components:
             The shard group duration.
             The duration or interval (in seconds) that each shard group covers.
 
-            #### InfluxDB 3 Cloud Serverless
+            #### InfluxDB Cloud Serverless
 
             - Does not use `shardGroupDurationsSeconds`.
           format: int64
@@ -12127,9 +12121,9 @@ components:
     RetentionRules:
       description: |
         Retention rules to expire or retain data.
-        The InfluxDB `/api/v2` API uses `RetentionRules` to configure the [retention period](/influxdb3/cloud-serverless/reference/glossary/#retention-period).
+        The InfluxDB `/api/v2` API uses `RetentionRules` to configure the [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period).
 
-        #### InfluxDB 3 Cloud Serverless
+        #### InfluxDB Cloud Serverless
 
         - `retentionRules` is required.
 
@@ -12276,13 +12270,13 @@ components:
           readOnly: true
           type: array
         requestedAt:
-          description: The time ([RFC3339Nano date/time format](/influxdb3/cloud-serverless/reference/glossary/#rfc3339nano-timestamp)) the run was manually requested.
+          description: The time ([RFC3339Nano date/time format](/influxdb/cloud-serverless/reference/glossary/#rfc3339nano-timestamp)) the run was manually requested.
           example: 2006-01-02T15:04:05.999999999Z07:00
           format: date-time
           readOnly: true
           type: string
         scheduledFor:
-          description: The time [RFC3339 date/time format](/influxdb3/cloud-serverless/reference/glossary/#rfc3339-timestamp) used for the run's `now` option.
+          description: The time [RFC3339 date/time format](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp) used for the run's `now` option.
           format: date-time
           type: string
         startedAt:
@@ -12307,7 +12301,7 @@ components:
       properties:
         scheduledFor:
           description: |
-            The time [RFC3339 date/time format](/influxdb3/cloud-serverless/reference/glossary/#rfc3339-timestamp)
+            The time [RFC3339 date/time format](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp)
             used for the run's `now` option.
             Default is the server _now_ time.
           format: date-time
@@ -12896,7 +12890,7 @@ components:
           description: A description of the task.
           type: string
         every:
-          description: The interval ([duration literal](/influxdb3/cloud-serverless/reference/glossary/#rfc3339-timestamp)) at which the task runs. `every` also determines when the task first runs, depending on the specified time.
+          description: The interval ([duration literal](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp)) at which the task runs. `every` also determines when the task first runs, depending on the specified time.
           format: duration
           type: string
         flux:
@@ -12923,7 +12917,7 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: A timestamp ([RFC3339 date/time format](/influxdb3/cloud-serverless/reference/glossary/#rfc3339-timestamp)) of the latest scheduled and completed run.
+          description: A timestamp ([RFC3339 date/time format](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp)) of the latest scheduled and completed run.
           format: date-time
           readOnly: true
           type: string
@@ -12959,17 +12953,17 @@ components:
           type: string
         org:
           description: |
-            An [organization](/influxdb3/cloud-serverless/reference/glossary/#organization) name.
+            An [organization](/influxdb/cloud-serverless/reference/glossary/#organization) name.
             Specifies the organization that owns the task.
           type: string
         orgID:
           description: |
-            An [organization](/influxdb3/cloud-serverless/reference/glossary/#organization) ID.
+            An [organization](/influxdb/cloud-serverless/reference/glossary/#organization) ID.
             Specifies the organization that owns the task.
           type: string
         ownerID:
           description: |
-            A [user](/influxdb3/cloud-serverless/reference/glossary/#user) ID.
+            A [user](/influxdb/cloud-serverless/reference/glossary/#user) ID.
             Specifies the owner of the task.
 
             To find a user ID, you can use the
@@ -13400,7 +13394,7 @@ components:
             The organization owns all resources created by the template.
 
             To find your organization, see how to
-            [view organizations](/influxdb3/cloud-serverless/organizations/view-orgs/).
+            [view organizations](/influxdb/cloud-serverless/organizations/view-orgs/).
           type: string
         remotes:
           description: |
@@ -14722,7 +14716,7 @@ components:
         In the examples, replace the following:
 
         - **`EMAIL_ADDRESS`**: InfluxDB Cloud username (the email address the user signed up with)
-        - **`PASSWORD`**: InfluxDB Cloud [API token](/influxdb3/cloud-serverless/reference/glossary/#token)
+        - **`PASSWORD`**: InfluxDB Cloud [API token](/influxdb/cloud-serverless/reference/glossary/#token)
         - **`INFLUX_URL`**: your InfluxDB Cloud URL
 
         #### Encode credentials with cURL
@@ -14795,7 +14789,7 @@ components:
         Replace the following:
 
           - *`INFLUX_URL`*: your InfluxDB Cloud URL
-          - *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb3/cloud-serverless/reference/glossary/#token)
+          - *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud-serverless/reference/glossary/#token)
 
         ### Related endpoints
 
@@ -14803,8 +14797,8 @@ components:
 
         ### Related guides
 
-        - [Authorize API requests](/influxdb3/cloud-serverless/api-guide/api_intro/#authentication)
-        - [Manage API tokens](/influxdb3/cloud-serverless/security/tokens/)
+        - [Authorize API requests](/influxdb/cloud-serverless/api-guide/api_intro/#authentication)
+        - [Manage API tokens](/influxdb/cloud-serverless/security/tokens/)
       in: header
       name: Authorization
       type: apiKey

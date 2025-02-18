@@ -11,6 +11,10 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
   summary: The InfluxDB v2 HTTP API for InfluxDB 3 Clustered provides a v2-compatible programmatic interface for writing data stored in an InfluxDB 3 Clustered database.
+  contact:
+    name: InfluxData
+    url: https://www.influxdata.com
+    email: support@influxdata.com
 servers:
   - url: https://{baseurl}
     description: InfluxDB 3 Clustered API URL
@@ -1235,9 +1239,9 @@ components:
       properties:
         results:
           description: |
-              A resultset object that contains the `statement_id` and the `series` array.
+            A resultset object that contains the `statement_id` and the `series` array.
 
-              Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
+            Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
           items:
             properties:
               error:
@@ -1286,12 +1290,12 @@ components:
                 type: integer
             type: object
           oneOf:
-          - required:
-            - statement_id
-            - error
-          - required:
-            - statement_id
-            - series
+            - required:
+                - statement_id
+                - error
+            - required:
+                - statement_id
+                - series
           type: array
       type: object
     IntegerLiteral:
