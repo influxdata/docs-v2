@@ -29,9 +29,8 @@ database tokens (which provide read and write access to databases).
 - [Configure influxctl](#configure-influxctl)
 - [Test your authorization flow](#test-your-authorization-flow)
 
-InfluxData has tested with the following identity providers, but any provider
-that [meets the requirements](#identity-provider-requirements)
-should work:
+InfluxData has tested with and supports the following identity providers, but any
+provider that [meets the requirements](#identity-provider-requirements) should work:
 
 - [Microsoft Entra ID _(formerly Azure Active Directory)_](https://www.microsoft.com/en-us/security/business/microsoft-entra)
 - [Keycloak](https://www.keycloak.org/)
