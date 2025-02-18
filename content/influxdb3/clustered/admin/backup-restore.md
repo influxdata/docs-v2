@@ -47,9 +47,8 @@ snapshot. When a snapshot is restored to the Catalog, the Compactor
   - [Environment Variables](#environment-variables)
 - [Verify snapshots](#verify-snapshots)
 - [Restore to a recovery point](#restore-to-a-recovery-point)
-- [Definitions](#definitions)
 - [Resources](#resources)
-  - [prep_pg_dump.awk](#preppgdumpawk)
+  - [prep_pg_dump.awk](#prep_pg_dumpawk)
 
 ## Soft delete
 
