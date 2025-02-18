@@ -174,9 +174,10 @@ function build {
     # Get the version API configuration file.
     local configPath="$version/.config.yml"
     if [ ! -f "$configPath" ]; then
-      configPath=".config.yml"
+     # Skip to the next version if the configuration file doesn't exist.
+      continue  
     fi
-    echo "Using config $configPath"
+    echo "Using config $version $configPath"
     # Get the product name from the configuration.
     local versionName
     versionName=$(yq e '.x-influxdata-product-name' "$configPath")
