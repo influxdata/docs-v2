@@ -13,7 +13,6 @@
     "eslint": "^9.18.0",
     "globals": "^15.14.0",
     "hugo-extended": ">=0.101.0",
-    "nightwatch": "^3.11.0",
     "postcss": ">=8.4.31",
     "postcss-cli": ">=9.1.0",
     "prettier": "^3.2.5",
