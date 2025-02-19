@@ -970,7 +970,7 @@ You can use the default port `8181` for any write or query, without changing any
 >
 > To benefit from this multi-node, isolated architecture, specify hosts:
 > 
-> - In write requests, specify a host designated for _write-only_.
+> - In write requests, specify a host that you have designated as _write-only_.
 > - In query requests, specify a host designated for _read-only_. 
 > 
 > When running multiple local instances for testing or separate nodes in production, specifying the host ensures writes and queries are routed to the correct instance.
