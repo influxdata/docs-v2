@@ -40,12 +40,13 @@ to
 
 #### Write the home sensor data to InfluxDB
 
-Use the `influxdb3` CLI, InfluxDB v2 API, or InfluxDB v1 API to write the
+Use the `influxdb3` CLI, InfluxDB v3 API, InfluxDB v2 API, or InfluxDB v1 API to write the
 home sensor sample data to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [influxdb3](#)
+[v3 API](#)
 [v2 API](#)
 [v1 API](#)
 {{% /code-tabs %}}
@@ -83,6 +84,43 @@ home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
 home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
 home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200'
+```
+{{% /code-placeholders %}}
+{{% /influxdb/custom-timestamps %}}
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% influxdb/custom-timestamps %}}
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
+```sh
+curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=true" \
+  --data-raw "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1735545600
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1735545600
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1735549200
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1735549200
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1735552800
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1735552800
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1735556400
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1735556400
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1735560000
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1735560000
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1735563600
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1735563600
+home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1735567200
+home,room=Kitchen temp=22.8,hum=36.3,co=1i 1735567200
+home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1735570800
+home,room=Kitchen temp=22.7,hum=36.2,co=3i 1735570800
+home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1735574400
+home,room=Kitchen temp=22.4,hum=36.0,co=7i 1735574400
+home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1735578000
+home,room=Kitchen temp=22.7,hum=36.0,co=9i 1735578000
+home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1735581600
+home,room=Kitchen temp=23.3,hum=36.9,co=18i 1735581600
+home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1735585200
+home,room=Kitchen temp=23.1,hum=36.6,co=22i 1735585200
+home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1735588800
+home,room=Kitchen temp=22.7,hum=36.5,co=26i 1735588800"
 ```
 {{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
@@ -227,12 +265,13 @@ to
 
 #### Write the home sensor actions data to InfluxDB
 
-Use the `influxdb3` CLI, InfluxDB v2 API, or InfluxDB v1 API to write the
+Use the `influxdb3` CLI, InfluxDB v3 API, InfluxDB v2 API, or InfluxDB v1 API to write the
 home sensor actions sample data to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [influxdb3](#)
+[v3 API](#)
 [v2 API](#)
 [v1 API](#)
 {{% /code-tabs %}}
@@ -252,6 +291,25 @@ home_actions,room=Kitchen,action=alert,level=warn description="Carbon monoxide l
 home_actions,room=Kitchen,action=alert,level=warn description="Carbon monoxide level above normal: 26 ppm." 1641067200
 home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 14 ppm." 1641063600
 home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 17 ppm." 1641067200'
+```
+{{% /code-placeholders %}}
+{{% /influxdb/custom-timestamps %}}
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% influxdb/custom-timestamps %}}
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
+```sh
+curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=true" \
+  --data-raw "home_actions,room=Kitchen,action=cool,level=ok description=\"Temperature at or above 23°C (23°C). Cooling to 22°C.\" 1739437200
+home_actions,room=Kitchen,action=cool,level=ok description=\"Temperature at or above 23°C (23.3°C). Cooling to 22°C.\" 1739469600
+home_actions,room=Kitchen,action=cool,level=ok description=\"Temperature at or above 23°C (23.1°C). Cooling to 22°C.\" 1739473200
+home_actions,room=Kitchen,action=alert,level=warn description=\"Carbon monoxide level above normal: 18 ppm.\" 1739469600
+home_actions,room=Kitchen,action=alert,level=warn description=\"Carbon monoxide level above normal: 22 ppm.\" 1739473200
+home_actions,room=Kitchen,action=alert,level=warn description=\"Carbon monoxide level above normal: 26 ppm.\" 1739476800
+home_actions,room=Living Room,action=alert,level=warn description=\"Carbon monoxide level above normal: 14 ppm.\" 1739473200
+home_actions,room=Living Room,action=alert,level=warn description=\"Carbon monoxide level above normal: 17 ppm.\" 1739476800"
 ```
 {{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
@@ -354,12 +412,13 @@ series use cases that involve seasonality.
 
 #### Write the NOAA Bay Area weather data to InfluxDB
 
-Use the `influxdb3` CLI, InfluxDB v2 API, or InfluxDB v1 API to write the
+Use the `influxdb3` CLI, InfluxDB v3 API, InfluxDB v2 API, or InfluxDB v1 API to write the
 NOAA Bay Area weather sample data to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [influxdb3](#)
+[v3 API](#)
 [v2 API](#)
 [v1 API](#)
 {{% /code-tabs %}}
@@ -371,6 +430,16 @@ influxdb3 write \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
+```
+{{% /code-placeholders %}}
+
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
+```sh
+curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
 ```
 {{% /code-placeholders %}}
 
@@ -454,12 +523,13 @@ The Bitcoin price sample dataset provides Bitcoin prices from
 
 #### Write the Bitcoin price sample data to InfluxDB
 
-Use the `influxdb3` CLI, InfluxDB v2 API, or InfluxDB v1 API to write the
+Use the `influxdb3` CLI, InfluxDB v3 API, InfluxDB v2 API, or InfluxDB v1 API to write the
 Bitcoin price sample data to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [influxdb3](#)
+[v3 API](#)
 [v2 API](#)
 [v1 API](#)
 {{% /code-tabs %}}
@@ -471,6 +541,16 @@ influxdb3 write \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
+```
+{{% /code-placeholders %}}
+
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
+```sh
+curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
 {{% /code-placeholders %}}
 
@@ -528,12 +608,13 @@ transformation functions.
 
 #### Write the random number sample data to InfluxDB
 
-Use the `influxdb3` CLI, InfluxDB v2 API, or InfluxDB v1 API to write the
+Use the `influxdb3` CLI, InfluxDB v3 API, InfluxDB v2 API, or InfluxDB v1 API to write the
 random number sample data to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [influxdb3](#)
+[v3 API](#)
 [v2 API](#)
 [v1 API](#)
 {{% /code-tabs %}}
@@ -545,6 +626,16 @@ influxdb3 write \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
+```
+{{% /code-placeholders %}}
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
+```sh
+curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
 {{% /code-placeholders %}}
 
