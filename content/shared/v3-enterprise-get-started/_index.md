@@ -974,7 +974,6 @@ You can use the default port `8181` for any write or query, without changing any
 > - In query requests, specify a host designated for _read-only_. 
 > 
 > When running multiple local instances for testing or separate nodes in production, specifying the host ensures writes and queries are routed to the correct instance.
-> If you run locally and serve an instance on 8181 (the default port), you don’t need to specify the host.
 
 ```
 # Example variables on a query
