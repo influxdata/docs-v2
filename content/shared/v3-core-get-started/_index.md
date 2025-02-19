@@ -570,11 +570,6 @@ influxdb3 create distinct_cache -h
 
 ### Python plugins and the Processing engine
 
-> [!Important]
-> #### Processing engine only works with Docker
-> 
-> The Processing engine is currently supported only in Docker x86 environments. Non-Docker support is coming soon. The engine, API, and developer experience are actively evolving and may change. Join our [Discord](https://discord.gg/9zaNCW2PRT) for updates and feedback.
-
 The InfluxDB 3 Processing engine is an embedded Python VM for running code inside the database to process and transform data.
 
 To use the Processing engine, you create [plugins](#plugin) and [triggers](#trigger).
@@ -608,11 +603,6 @@ InfluxDB 3 provides the following types of triggers:
 >   The plugin receives the HTTP request headers and content, and can then parse, process, and send the data into the database or to third-party services.
 
 ### Test, create, and trigger plugin code
-
-> [!Important]
-> #### Processing engine only works with Docker
-> 
-> The Processing engine is currently supported only in Docker x86 environments. Non-Docker support is coming soon. The engine, API, and developer experience are actively evolving and may change. Join our [Discord](https://discord.gg/9zaNCW2PRT) for updates and feedback.
 
 ##### Example: Python plugin for WAL flush
 
@@ -699,10 +689,9 @@ Test your InfluxDB 3 plugin safely without affecting written data. During a plug
 To test a plugin, do the following:
 
 1. Create a _plugin directory_--for example, `/path/to/.influxdb/plugins`
-2. Make the plugin directory available to the Docker container (for example, using a bind mount)
-3. Run the Docker command to [start the server](#start-influxdb) and include the `--plugin-dir` option with your plugin directory path.
-4. Save the [preceding example code](#example-python-plugin) to a plugin file inside of the plugin directory. If you haven't yet written data to the table in the example, comment out the lines where it queries.
-5. To run the test, enter the following command with the following options:
+2. [Start the InfluxDB server](#start-influxdb) and include the `--plugin-dir` option with your plugin directory path.
+3. Save the [preceding example code](#example-python-plugin) to a plugin file inside of the plugin directory. If you haven't yet written data to the table in the example, comment out the lines where it queries.
+4. To run the test, enter the following command with the following options:
 
    - `--lp` or  `--file`: The line protocol to test
    - Optional: `--input-arguments`: A comma-delimited list of `<KEY>=<VALUE>` arguments for your plugin code
