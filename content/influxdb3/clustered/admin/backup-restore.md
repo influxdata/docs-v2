@@ -129,8 +129,8 @@ spec:
             containers:
               iox:
                 env:
-                  INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: true
-                  INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: true
+                  INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: 'true'
+                  INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: 'true'
                   INFLUXDB_IOX_KEEP_HOURLY_CATALOG_BACKUP_FILE_LISTS: '30d'
                   INFLUXDB_IOX_KEEP_DAILY_CATALOG_BACKUP_FILE_LISTS: '90d'
                   INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF: '14d'
@@ -140,20 +140,20 @@ spec:
 
 #### INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES
 
-Enable hourly Catalog snapshotting. The default is `false`. Set to `true`:
+Enable hourly Catalog snapshotting. The default is `'false'`. Set to `'true'`:
 
 ```yaml
-INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: true
+INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: 'true'
 ```
 
 #### INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES
 
 Enable a snapshot check when deleting files to ensure the Garbage Collector does
 not remove Parquet files from the object store that are associated with existing
-snapshots. The default is `false`. Set to `true`:
+snapshots. The default is `'false'`. Set to `'true'`:
 
 ```yaml
-INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: true
+INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: 'true'
 ```
 
 > [!Caution]
