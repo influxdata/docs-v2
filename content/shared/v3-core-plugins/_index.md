@@ -1,7 +1,3 @@
-> [!Important]
-> #### Processing engine only works with Docker
-> 
-> The Processing engine is currently supported only in Docker x86 environments. Non-Docker support is coming soon. The engine, API, and developer experience are actively evolving and may change. Join our [Discord](https://discord.gg/9zaNCW2PRT) for updates and feedback.
 
 Use the {{% product-name %}} Processing engine to run code and perform tasks
 for different database events.
@@ -35,6 +31,7 @@ The Processing engine provides four types of plugins and triggers--each type cor
 - **On Request**: Bound to the HTTP API `/api/v3/engine/<CUSTOM_PATH>` endpoint and triggered by a GET or POST request to the endpoint.
 
 ## Activate the Processing engine
+
 To enable the Processing engine, start the {{% product-name %}} server with the `--plugin-dir` option and a path to your plugins directory (it doesn't need to exist yet)--for example:
 
 ```bash
@@ -351,6 +348,7 @@ def process_scheduled_call(influxdb3_local, time, args=None):
 ```
 
 ### Schedule Trigger Configuration
+
 Schedule plugins are set with a `trigger-spec` of `schedule:<cron_expression>` or `every:<duration>`. The `args` parameter can be used to pass configuration to the plugin. For example, if we wanted to use the system-metrics example from the Github repo and have it collect every 10 seconds we could use the following trigger definition:
 
 ```shell
@@ -361,6 +359,7 @@ influxdb3 create trigger \
 ```
 
 ## On Request Plugin
+
 On Request plugins are triggered by a request to a specific endpoint under `/api/v3/engine`. The plugin will receive the local API, query parameters `Dict[str, str]`, request headers `Dict[str, str]`, request body (as bytes), and any arguments passed in the trigger definition. Here's an example of a simple On Request plugin:
 
 ```python
@@ -387,6 +386,7 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
 ```
 
 ### On Request Trigger Configuration
+
 On Request plugins are set with a `trigger-spec` of `request:<endpoint>`. The `args` parameter can be used to pass configuration to the plugin. For example, if we wanted the above plugin to run on the endpoint `/api/v3/engine/my_plugin`, we would use `request:my_plugin` as the `trigger-spec`.
 
 Trigger specs must be unique across all configured plugins, regardless of which database they are tied to, given the path is the same. Here's an example to create a request trigger tied to the "hello-world' path using a plugin in the plugin-dir:
