@@ -133,7 +133,7 @@ spec:
                   INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: 'true'
                   INFLUXDB_IOX_KEEP_HOURLY_CATALOG_BACKUP_FILE_LISTS: '30d'
                   INFLUXDB_IOX_KEEP_DAILY_CATALOG_BACKUP_FILE_LISTS: '90d'
-                  INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF: '14d'
+                  INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF: '30d'
 ```
 
 ### Environment Variables
@@ -193,12 +193,15 @@ INFLUXDB_IOX_KEEP_DAILY_CATALOG_BACKUP_FILE_LISTS: '90d'
 
 The duration of time after a Parquet file is no longer referenced in the Catalog
 or included in any snapshots after which the Garbage Collector removes the
-Parquet file from the Object store. The default is `14d`. The recommended range
-is between `6h` and `14d`:
+Parquet file from the Object store. The default is `30d`:
 
 ```yaml
-INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF: '14d'
+INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF: '30d'
 ```
+
+For an in-depth explanation of the recommended value, see the
+[data lifecycle garbage tuning best practices](/influxdb3/clustered/write-data/best-practices/data-lifecycle/#tune-garbage-collection)
+and [use case examples](/influxdb3/clustered/write-data/best-practices/data-lifecycle/#use-case-examples).
 
 ## Verify snapshots
 
