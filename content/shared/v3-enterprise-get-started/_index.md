@@ -961,7 +961,7 @@ For a very robust and effective setup for managing time-series data, you can run
 
 Congratulations, you have a robust setup to workload isolation using {{% product-name %}}.
 
-### Writing and Querying for Multi-Node Setups
+### Writing and querying for multi-node setups
 
 You can use the default port `8181` for any write or query, without changing any of the commands.
 
