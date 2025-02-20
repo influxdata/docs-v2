@@ -1,11 +1,16 @@
 
-Use the {{% product-name %}} Processing engine to run code and perform tasks
+Use the {{% product-name %}} ProcessingEngine to run code and perform tasks
 for different database events.
 
-{{% product-name %}} provides the InfluxDB 3 Processing engine, an embedded Python VM that can dynamically load and trigger Python plugins
+{{% product-name %}} provides the InfluxDB 3 Processing Engine, an embedded Python VM that can dynamically load and trigger Python plugins
 in response to events in your database.
 
-## Plugins
+## Key Concepts
+
+### Plugins
+
+A Processing Engine _plugin_ is Python code you provide to run tasks, such as
+downsampling data, monitoring, creating alerts, or calling external services.
 
 > [!Note]
 > #### Contribute and use community plugins
@@ -14,31 +19,30 @@ in response to events in your database.
 > and contribute example plugins.
 > You can reference plugins from the repository directly within a trigger configuration.
 
-A Processing engine _plugin_ is Python code you provide to run tasks, such as
-downsampling data, monitoring, creating alerts, or calling external services.
-
-## Triggers
+### Triggers
 
 A _trigger_ is an InfluxDB 3 resource you create to associate a database
 event (for example, a WAL flush) with the plugin that should run.
-When an event occurs, the trigger passes configuration, optional arguments, and event data to the plugin.
+When an event occurs, the trigger passes configuration details, optional arguments, and event data to the plugin.
 
-The Processing engine provides four types of plugins and triggers--each type corresponds to an event type with event-specific configuration to let you handle events with targeted logic.
+The Processing Engine provides four types of triggers—each type corresponds to an event type with event-specific configuration to let you handle events with targeted logic.
 
-- **WAL flush**: Triggered when the write-ahead log (WAL) is flushed to the object store (default is every second)
-- **Parquet persistence (coming soon)**: Triggered when InfluxDB 3 persists data to object store Parquet files
-- **Scheduled tasks**: Triggered on a schedule you specify using cron syntax
-- **On Request**: Bound to the HTTP API `/api/v3/engine/<CUSTOM_PATH>` endpoint and triggered by a GET or POST request to the endpoint.
+- **WAL Flush**: Triggered when the write-ahead log (WAL) is flushed to the object store (default is every second).
+- **Scheduled Tasks**: Triggered on a schedule you specify using cron syntax.
+- **On Request**: Triggered on a GET or POST request to the bound HTTP API endpoint at `/api/v3/engine/<CUSTOM_PATH>`.
+- **Parquet Persistence (coming soon)**: Triggered when InfluxDB 3 persists data to object storage Parquet files.
 
-## Activate the Processing engine
+### Activate the Processing Engine
 
-To enable the Processing engine, start the {{% product-name %}} server with the `--plugin-dir` option and a path to your plugins directory (it doesn't need to exist yet)--for example:
+To enable the Processing Engine, start the {{% product-name %}} server with the `--plugin-dir` option and a path to your plugins directory. If the directory doesn’t exist, the server creates it. 
 
 ```bash
-influxdb3 serve --node-id node0 --plugin-dir /path/to/plugins
+influxdb3 serve --node-id node0 --object-store [OBJECT STORE TYPE] --plugin-dir /path/to/plugins
 ```
 
-## Shared API
+
+
+## The Shared API
 
 All plugin types provide the InfluxDB 3 _shared API_ for interacting with the database.
 The shared API provides access to the following:
@@ -47,7 +51,7 @@ The shared API provides access to the following:
 - `query` to query data from any database
 - `info`, `warn`, and `error` to log messages to the database log, which is output in the server logs and captured in system tables queryable by SQL
 
-### Line builder
+### LineBuilder
 
 The `LineBuilder` is a simple API for building lines of Line Protocol to write into the database. Writes are buffered while the plugin runs and are flushed when the plugin completes. The `LineBuilder` API is available in all plugin types.
 
@@ -198,12 +202,12 @@ influxdb3_local.query("SELECT * from foo where bar = $bar and time > now() - 'in
 ### Logging
 
 The shared API `info`, `warn`, and `error` functions log messages to the database log, which is output in the server logs and captured in system tables queryable by SQL.
-The `info`, `warn`, and `error` functions are available in all plugin types. The functions take an arbitrary number of arguments, convert them to strings, and then join them into a single message separated by a space.
+The `info`, `warn`, and `error` functions are available in all plugin types. Each function accepts multiple arguments, converts them to strings, and logs them as a single, space-separated message.
 
-The following examples show to use the `info`, `warn`, and `error` logging functions:
+The following examples show how to use the `info`, `warn`, and `error` logging functions:
 
 ```python
-ifluxdb3_local.info("This is an info message")
+influxdb3_local.info("This is an info message")
 influxdb3_local.warn("This is a warning message")
 influxdb3_local.error("This is an error message")
 
@@ -212,10 +216,10 @@ obj_to_log = {"hello": "world"}
 influxdb3_local.info("This is an info message with an object", obj_to_log)
 ```
 
-### Trigger arguments
+### Trigger Arguments
 
 Every plugin type can receive arguments from the configuration of the trigger that runs it.
-You can use this to provide runtime configuration and drive behavior of a plugin--for example:
+You can use this to provide runtime configuration and drive behavior of a plugin—for example:
 
 - threshold values for monitoring
 - connection properties for connecting to third-party services
@@ -233,9 +237,9 @@ def process_writes(influxdb3_local, table_batches, args=None):
         influxdb3_local.warn("No threshold provided")
 ```
 
-The `args` parameter is optional and can be omitted from the trigger definition if the plugin doesn't need to use arguments.
+The `args` parameter is optional. If a plugin doesn’t require arguments, you can omit it from the trigger definition.
 
-## Import plugin dependencies
+## Import Plugin Dependencies
 
 Use the `influxdb3 install` command to download and install Python packages that your plugin depends on.
 
@@ -267,14 +271,17 @@ influxdb3 install package <PACKAGE_NAME>
    ```
 
 The result is an active Python virtual environment with the package installed in `<PLUGINS_DIR>/.venv`.
-You can pass additional options to use a `requirements.txt` file or a custom virtual environment path.
+You can specify additional options to install dependencies from a `requirements.txt` file or a custom virtual environment path.
 For more information, see the `influxdb3` CLI help:
 
 ```bash
 influxdb3 install package --help
 ```
 
-## WAL flush plugin
+## Trigger Types and How They Work
+Triggers define when and how plugins execute in response to database events. Each trigger type corresponds to a specific event, allowing precise control over automation within {{% product-name %}}.
+
+### WAL Flush Trigger
 
 When a WAL flush plugin is triggered, the plugin receives a list of `table_batches` filtered by the trigger configuration (either _all tables_ in the database or a specific table).
 
@@ -302,7 +309,7 @@ def process_writes(influxdb3_local, table_batches, args=None):
     influxdb3_local.info("wal_plugin.py done")
 ```
 
-### WAL flush trigger Configuration
+#### WAL flush trigger configuration
 
 When you create a trigger, you associate it with a database and provide configuration specific to the trigger type.
 
@@ -330,7 +337,7 @@ For more information about trigger arguments, see the CLI help:
 influxdb3 create trigger help
 ```
 
-## Schedule Plugin
+### Schedule Trigger
 
 Schedule plugins run on a schedule specified in cron syntax. The plugin will receive the local API, the time of the trigger, and any arguments passed in the trigger definition. Here's an example of a simple schedule plugin:
 
@@ -347,7 +354,7 @@ def process_scheduled_call(influxdb3_local, time, args=None):
         influxdb3_local.error("No table_name provided for schedule plugin")
 ```
 
-### Schedule Trigger Configuration
+#### Schedule trigger configuration
 
 Schedule plugins are set with a `trigger-spec` of `schedule:<cron_expression>` or `every:<duration>`. The `args` parameter can be used to pass configuration to the plugin. For example, if we wanted to use the system-metrics example from the Github repo and have it collect every 10 seconds we could use the following trigger definition:
 
@@ -358,7 +365,7 @@ influxdb3 create trigger \
   --database mydb system-metrics
 ```
 
-## On Request Plugin
+### On Request Trigger
 
 On Request plugins are triggered by a request to a specific endpoint under `/api/v3/engine`. The plugin will receive the local API, query parameters `Dict[str, str]`, request headers `Dict[str, str]`, request body (as bytes), and any arguments passed in the trigger definition. Here's an example of a simple On Request plugin:
 
@@ -385,7 +392,7 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
     return 200, {"Content-Type": "application/json"}, json.dumps({"status": "ok", "line": line_str})
 ```
 
-### On Request Trigger Configuration
+#### On request trigger configuration
 
 On Request plugins are set with a `trigger-spec` of `request:<endpoint>`. The `args` parameter can be used to pass configuration to the plugin. For example, if we wanted the above plugin to run on the endpoint `/api/v3/engine/my_plugin`, we would use `request:my_plugin` as the `trigger-spec`.
 
@@ -394,6 +401,6 @@ Trigger specs must be unique across all configured plugins, regardless of which 
 ```shell
 influxdb3 create trigger \
   --trigger-spec "request:hello-world" \
-  --plugin-filename "hellp/hello_world.py" \
+  --plugin-filename "hello/hello_world.py" \
   --database mydb hello-world
 ```
