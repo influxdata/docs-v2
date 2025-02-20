@@ -13,11 +13,6 @@ You can query the system tables for information about your running server, datab
 
 Use the HTTP API `/api/v3/query_sql` endpoint to retrieve system information about your database server and table schemas in {{% product-name %}}.
 
-> [!Note]
-> {{% product-name %}} uses separate API endpoints for SQL and InfluxQL queries.
-> Both endpoints support the same parameters.
-> 
-> For more information about using InfluxQL, see [Query data with InfluxQL](/influxdb3/version/query-data/influxql/).
 
 To execute a query, send a `GET` or `POST` request to the endpoint:
 
