@@ -62,7 +62,7 @@ This guide covers InfluxDB 3 Core (the open source release), including the follo
 {{% tabs %}}
 [Linux or macOS](#linux-or-macos)
 [Windows](#windows)
-[Docker (x86)](#docker-x86)
+[Docker](#docker)
 {{% /tabs %}}
 {{% tab-content %}}
 <!--------------- BEGIN LINUX AND MACOS -------------->
@@ -101,7 +101,10 @@ Download and install the {{% product-name %}} [Windows (x86) binary](https://dl.
 {{% tab-content %}}
 <!--------------- BEGIN DOCKER -------------->
 
-Pull the [`influxdb3-core` image](https://quay.io/repository/influxdb/influxdb3-core?tab=tags&tag=latest):
+The [`influxdb3-core` image](https://quay.io/repository/influxdb/influxdb3-core?tab=tags&tag=latest)
+is available for x86_64 (AMD64) and ARM64 architectures.
+
+Pull the image:
 
 ```bash
 docker pull quay.io/influxdb/influxdb3-core:latest
