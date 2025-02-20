@@ -93,17 +93,9 @@ source ~/.zshrc
   •
   [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-gnu.tar.gz.sha256)
 
-- [InfluxDB 3 Enterprise • Linux (x86) • MUSL](https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz.sha256)
-
 - [InfluxDB 3 Enterprise • Linux (ARM) • GNU](https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz)
   •
   [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz.sha256)
-
-- [InfluxDB 3 Enterprise • Linux (ARM) • MUSL](https://download.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz)
 
 <!--------------------------------- END LINUX --------------------------------->
 
