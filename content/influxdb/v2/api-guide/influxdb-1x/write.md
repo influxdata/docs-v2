@@ -123,7 +123,6 @@ The following precisions are available:
 ##### Write data using basic authentication
 
 <!--test:setup
-
 ```sh
 service influxdb start && \
 influx setup \
@@ -133,7 +132,6 @@ influx setup \
   --bucket BUCKET_NAME \
   --force || true
 ```
-
 -->
 
 {{% oss-only %}}
