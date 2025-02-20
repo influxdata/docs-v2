@@ -5,8 +5,9 @@ You can query the system tables for information about your running server, datab
 ## Query system tables
 
 - [Use the HTTP query API](#use-the-http-query-api)
-  - [Example: show tables](#example-show-tables)
-  - [Example: view column information for a table](#example-view-column-information-for-a-table)
+  - [Examples](#examples)
+    - [Show tables](#show-tables)
+    - [View column information for a table](#view-column-information-for-a-table)
 
 ### Use the HTTP query API 
 
@@ -32,7 +33,18 @@ Include the following parameters:
   JSONL (`jsonl`) is preferred because it streams results back to the client.
   `pretty` is for human-readable output. Default is `json`.
 
-#### Example: show tables
+#### Examples
+
+> [!Note]
+> #### system_ sample data
+>
+> In examples, tables with `"table_name":"system_` are user-created tables for CPU, memory, disk,
+> network, and other resource statistics collected and written
+> by the user--for example, using the `psutil` Python library or
+> [Telegraf](https://docs.influxdata.com/telegraf/v1/get-started/) to collect
+> and write system metrics to an InfluxDB 3 database.
+
+##### Show tables
 
 The following example sends a `GET` request that executes a `show tables` query
 to retrieve all user-created
@@ -76,7 +88,7 @@ A table has one of the following `table_schema` values:
   while others, such as the `queries` table, hold ephemeral state in memory.
 - `information_schema`: views that show schema information for tables in the database.
 
-#### Example: view column information for a table
+#### View column information for a table
 
 The following query sends a `POST` request that executes an SQL query to
 retrieve information about columns in the sample `system_swap` table schema:
@@ -88,7 +100,7 @@ that surround field names._
 curl "http://localhost:8181/api/v3/query_sql" \
   --header "Content-Type: application/json" \
   --json '{
-    "db": "cpu",
+    "db": "mydb",
     "q": "SELECT * FROM information_schema.columns WHERE table_schema = '"'iox'"' AND table_name = '"'system_swap'"'",
     "format": "jsonl"
   }'
@@ -107,11 +119,21 @@ The output is the following:
 {"table_catalog":"public","table_schema":"iox","table_name":"system_swap","column_name":"used","ordinal_position":7,"is_nullable":"YES","data_type":"UInt64"}
 ```
 
+#### Recently executed queries
+
 To view recently executed queries, query the `queries` system table:
 
-```SQL
-SELECT * FROM system.queries LIMIT 2
+```bash
+curl "http://localhost:8181/api/v3/query_sql" \
+  --header "Content-Type: application/json" \
+  --json '{
+    "db": "mydb",
+    "q": "SELECT * FROM system.queries LIMIT 2",
+    "format": "jsonl"
+  }'
 ```
+
+The output is the following:
 
 ```jsonl
 {"id":"cdd63409-1822-4e65-8e3a-d274d553dbb3","phase":"success","issue_time":"2025-01-20T17:01:40.690067","query_type":"sql","query_text":"show tables","partitions":0,"parquet_files":0,"plan_duration":"PT0.032689S","permit_duration":"PT0.000202S","execute_duration":"PT0.000223S","end2end_duration":"PT0.033115S","compute_duration":"P0D","max_memory":0,"success":true,"running":false,"cancelled":false}
