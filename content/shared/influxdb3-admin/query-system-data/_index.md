@@ -1,9 +1,16 @@
-Use the HTTP query API to access and view information about your database server and table schemas in {{% product-name %}}.
+<!--Shortcode-->
+{{% product-name %}} stores data related to the database server, queries, and tables in _system tables_ within your cluster.
+You can query the system tables for information about your running server, databases, and and table schemas.
 
-## Query using SQL
+## Query system tables
 
-{{% product-name %}} provides the HTTP API `/api/v3/query_sql` endpoint for querying
-data, database server information, and system tables.
+- [Use the HTTP query API](#use-the-http-query-api)
+  - [Example: show tables](#example-show-tables)
+  - [Example: view column information for a table](#example-view-column-information-for-a-table)
+
+### Use the HTTP query API 
+
+Use the HTTP API `/api/v3/query_sql` endpoint to retrieve and system information about your database server and table schemas in {{% product-name %}}.
 
 > [!Note]
 > {{% product-name %}} uses separate API endpoints for SQL and InfluxQL queries.
@@ -11,16 +18,12 @@ data, database server information, and system tables.
 > 
 > For more information about using InfluxQL, see [Query data with InfluxQL](/influxdb3/version/query-data/influxql/).
 
-To execute a query, send a `GET` request or a `POST` request to the endpoint:
+To execute a query, send a `GET` or `POST` request to the endpoint:
 
-- `GET`: Pass parameters in the URL query string.
-   Use for quickly exploring your data and for queries that you can easily encode in a URL.
-- `POST`: Pass parameters in a JSON object.
-  Use for longer, complex
-  queries, queries you can't easily URL-encode, and for better readability in
-  in your code.
+- `GET`: Pass parameters in the URL query string (for simple queries)
+- `POST`: Pass parameters in a JSON object (for complex queries and readability in your code)
 
-and include the following parameters:
+Include the following parameters:
 
 - `q`: _({{< req >}})_ The SQL query to execute.
 - `db`: _({{< req >}})_ The database to execute the query against.
@@ -29,7 +32,7 @@ and include the following parameters:
   JSONL (`jsonl`) is preferred because it streams results back to the client.
   `pretty` is for human-readable output. Default is `json`.
 
-### Example: show tables
+#### Example: show tables
 
 The following example sends a `GET` request that executes a `show tables` query
 to retrieve all user-created
@@ -73,12 +76,13 @@ A table has one of the following `table_schema` values:
   while others, such as the `queries` table, hold ephemeral state in memory.
 - `information_schema`: views that show schema information for tables in the database.
 
-### Example: view column information for a table
+#### Example: view column information for a table
 
 The following query sends a `POST` request that executes an SQL query to
 retrieve information about columns in the sample `system_swap` table schema:
 
-_Note: when sending a query in JSON, escape the single quotes  around database field names._
+_Note: when you send a query in JSON, you must escape single quotes
+that surround field names._
 
 ```bash
 curl "http://localhost:8181/api/v3/query_sql" \
