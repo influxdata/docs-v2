@@ -1,15 +1,53 @@
-<!--Shortcode-->
-{{% product-name %}} stores data related to the database server, queries, and tables in _system tables_ within your cluster.
-You can query the system tables for information about your running server, databases, and and table schemas.
 
-## Query system tables
+Use the InfluxDB 3 HTTP query API to query data in {{< product-name >}}.
+The API provides `GET` and `POST` endpoints for querying data and system information using SQL or InfluxQL.
 
-- [Use the HTTP query API](#use-the-http-query-api)
-  - [Examples](#examples)
-    - [Show tables](#show-tables)
-    - [View column information for a table](#view-column-information-for-a-table)
+> [!Note]
+> #### Query using gRPC or HTTP
+>
+> InfluxDB 3 supports HTTP and Flight (gRPC) query APIs.
+> For more information about using Flight, see the [InfluxDB 3 (`influxdb3-`) client libraries](https://github.com/InfluxCommunity/).
 
-### Use the HTTP query API 
+The examples below use **cURL** to send HTTP requests to the InfluxDB 3 HTTP API,
+but you can use any HTTP client.
+
+- [Query using SQL and the HTTP API](#query-using-sql-and-the-http-api)
+- [Query using InfluxQL and the HTTP API](#query-using-influxql-and-the-http-api)
+
+## Query using SQL and the HTTP API
+
+Use the `/api/v3/query_sql` endpoint with the `GET` or `POST` request methods.
+
+- `GET`: Pass parameters in the URL query string (for simple queries)
+- `POST`: Pass parameters in a JSON object (for complex queries and readability in your code)
+
+Include the following parameters:
+
+- `q`: _({{< req >}})_ The **SQL** query to execute.
+- `db`: _({{< req >}})_ The database to execute the query against.
+- `params`: A JSON object containing parameters to be used in a _parameterized query_.
+- `format`: The format of the response (`json`, `jsonl`, `csv`, `pretty`, or `parquet`).
+  JSONL (`jsonl`) is preferred because it streams results back to the client.
+  `pretty` is for human-readable output. Default is `json`.
+
+### Example: Query passing URL-encoded parameters
+
+The following example sends an HTTP `GET` request with a URL-encoded SQL query:
+
+```bash
+curl -v "http://{{< influxdb/host >}}/api/v3/query_sql?db=servers&q=select+*+from+cpu+limit+5"
+```
+
+### Example: Query passing JSON parameters
+
+The following example sends an HTTP `POST` request with parameters in a JSON payload:
+
+```bash
+curl http://{{< influxdb/host >}}/api/v3/query_sql \
+  --data '{"db": "server", "q": "select * from cpu limit 5"}'
+```
+
+### Query system information
 
 Use the HTTP API `/api/v3/query_sql` endpoint to retrieve system information about your database server and table schemas in {{% product-name %}}.
 
@@ -18,20 +56,6 @@ Use the HTTP API `/api/v3/query_sql` endpoint to retrieve system information abo
 > Both endpoints support the same parameters.
 > 
 > For more information about using InfluxQL, see [Query data with InfluxQL](/influxdb3/version/query-data/influxql/).
-
-To execute a query, send a `GET` or `POST` request to the endpoint:
-
-- `GET`: Pass parameters in the URL query string (for simple queries)
-- `POST`: Pass parameters in a JSON object (for complex queries and readability in your code)
-
-Include the following parameters:
-
-- `q`: _({{< req >}})_ The SQL query to execute.
-- `db`: _({{< req >}})_ The database to execute the query against.
-- `params`: A JSON object containing parameters to be used in a _parameterized query_.
-- `format`: The format of the response (`json`, `jsonl`, `csv`, `pretty`, or `parquet`).
-  JSONL (`jsonl`) is preferred because it streams results back to the client.
-  `pretty` is for human-readable output. Default is `json`.
 
 #### Examples
 
@@ -138,4 +162,37 @@ The output is the following:
 ```jsonl
 {"id":"cdd63409-1822-4e65-8e3a-d274d553dbb3","phase":"success","issue_time":"2025-01-20T17:01:40.690067","query_type":"sql","query_text":"show tables","partitions":0,"parquet_files":0,"plan_duration":"PT0.032689S","permit_duration":"PT0.000202S","execute_duration":"PT0.000223S","end2end_duration":"PT0.033115S","compute_duration":"P0D","max_memory":0,"success":true,"running":false,"cancelled":false}
 {"id":"47f8d312-5e75-4db2-837a-6fcf94c09927","phase":"success","issue_time":"2025-01-20T17:02:32.627782","query_type":"sql","query_text":"show tables","partitions":0,"parquet_files":0,"plan_duration":"PT0.000583S","permit_duration":"PT0.000015S","execute_duration":"PT0.000063S","end2end_duration":"PT0.000662S","compute_duration":"P0D","max_memory":0,"success":true,"running":false,"cancelled":false}
+```
+
+## Query using InfluxQL and the HTTP API
+
+Use the `/api/v3/query_influxql` endpoint with the `GET` or `POST` request methods.
+
+- `GET`: Pass parameters in the URL query string (for simple queries)
+- `POST`: Pass parameters in a JSON object (for complex queries and readability in your code)
+
+Include the following parameters:
+
+- `q`: _({{< req >}})_ The **InfluxQL** query to execute.
+- `db`: _({{< req >}})_ The database to execute the query against.
+- `params`: A JSON object containing parameters to be used in a _parameterized query_.
+- `format`: The format of the response (`json`, `jsonl`, `csv`, `pretty`, or `parquet`).
+  JSONL (`jsonl`) is preferred because it streams results back to the client.
+  `pretty` is for human-readable output. Default is `json`.
+
+### Example: Query passing URL-encoded parameters
+
+The following example sends an HTTP `GET` request with a URL-encoded InfluxQL query:
+
+```bash
+curl -v "http://{{< influxdb/host >}}/api/v3/query_influxql?db=servers&q=select+*+from+cpu+limit+5"
+```
+
+### Example: Query passing JSON parameters
+
+The following example sends an HTTP `POST` request with parameters in a JSON payload:
+
+```bash
+curl http://{{< influxdb/host >}}/api/v3/query_influxql \
+  --data '{"db": "server", "q": "select * from cpu limit 5"}'
 ```
