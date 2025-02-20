@@ -82,7 +82,10 @@ current row.
 ### ORDER BY clause
 
 The `ORDER BY` clause inside of the `OVER` clause controls the order that the
-window function processors rows in each partition.
+window function processes rows in each partition.
+When a window clause contains an `ORDER BY` clause, the window frame boundaries
+may be explicit or implicit, limiting a window frame size in both directions
+relative to the current row.
 
 > [!Note]
 > The `ORDER BY` clause in an `OVER` clause is separate from the `ORDER BY`
@@ -91,14 +94,49 @@ window function processors rows in each partition.
 
 ### Frame clause
 
-The frame clause can be one of the following:
+The frame clause defines window frame boundaries relative to the current row and
+can be one of the following:
 
 ```sql
 { RANGE | ROWS | GROUPS } frame_start
 { RANGE | ROWS | GROUPS } BETWEEN frame_start AND frame_end
 ```
 
-and **frame_start** and **frame_end** can be one of
+#### Frame units
+
+##### RANGE
+
+Defines frame boundaries using rows with distinct values for columns specified 
+in the [`ORDER BY` clause](#order-by-clause) within a value range relative to
+the current row value.
+
+> [!Important]
+> When using `RANGE` frame units, you must include an `ORDER BY` clause with
+> _exactly one column_.
+
+The offset is the difference the between the current row value and surrounding
+row values. `RANGE` supports the following offset types:
+
+- Numeric
+- String
+- Interval
+
+##### ROWS
+
+Defines frame boundaries using row positions relative to the current row.
+The offset is the difference in row position from the current row.
+
+##### GROUPS
+
+Defines frame boundaries using row groups.
+Rows with the same values for the columns in the [`ORDER BY` clause](#order-by-clause)
+comprise a row group. The offset is the difference in row group position
+relative to the the current row group.
+When using `GROUPS` frame units, you must include an `ORDER BY` clause.
+
+#### Frame boundaries
+
+**frame_start** and **frame_end** can be one of the following:
 
 ```sql
 UNBOUNDED PRECEDING
@@ -108,18 +146,23 @@ offset FOLLOWING
 UNBOUNDED FOLLOWING
 ```
 
+##### UNBOUNDED PRECEDING
+
+
+##### offset PRECEDING
+
 where **offset** is an non-negative integer.
 
-`RANGE` and `GROUPS` modes require an `ORDER BY` clause (with `RANGE` the `ORDER BY` must
-specify exactly one column).
+##### CURRENT ROW
 
-#### Framing modes
 
-##### RANGE
 
-##### ROWS
+##### offset FOLLOWING
 
-##### GROUPs
+where **offset** is an non-negative integer.
+
+##### UNBOUNDED FOLLOWING
+
 
 
 
