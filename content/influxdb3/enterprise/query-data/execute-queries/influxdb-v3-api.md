@@ -1,5 +1,5 @@
 ---
-title: Use the InfluxDB v3 HTTP query API to query data
+title: Use the InfluxDB v3 HTTP query API
 seotitle: Use SQL or InfluxQL and InfluxDB v3 HTTP query API
 list_title: Use the v3 query API
 description: >
@@ -13,8 +13,6 @@ influxdb3/enterprise/tags: [query, influxql, sql, python]
 metadata: [InfluxQL, SQL]
 related:
   - /influxdb3/enterprise/api-compatibility/v1/
-aliases:
-  - /influxdb3/enterprise/query-data/influxql/execute-queries/influxdb-v1-api/
 list_code_example: |
   ```sh
   curl --get http://{{< influxdb/host >}}/api/v3/query_sql \

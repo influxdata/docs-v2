@@ -60,7 +60,7 @@ Use the HTTP API `/api/v3/query_sql` endpoint to retrieve system information abo
 #### Examples
 
 > [!Note]
-> #### system_ sample data
+> #### system\_ sample data
 >
 > In examples, tables with `"table_name":"system_` are user-created tables for CPU, memory, disk,
 > network, and other resource statistics collected and written
@@ -130,7 +130,7 @@ curl "http://localhost:8181/api/v3/query_sql" \
   }'
 ```
 
-The output is the following:
+The output is similar to the following:
 
 ```jsonl
 {"table_catalog":"public","table_schema":"iox","table_name":"system_swap","column_name":"free","ordinal_position":0,"is_nullable":"YES","data_type":"UInt64"}
@@ -157,7 +157,7 @@ curl "http://localhost:8181/api/v3/query_sql" \
   }'
 ```
 
-The output is the following:
+The output is similar to the following:
 
 ```jsonl
 {"id":"cdd63409-1822-4e65-8e3a-d274d553dbb3","phase":"success","issue_time":"2025-01-20T17:01:40.690067","query_type":"sql","query_text":"show tables","partitions":0,"parquet_files":0,"plan_duration":"PT0.032689S","permit_duration":"PT0.000202S","execute_duration":"PT0.000223S","end2end_duration":"PT0.033115S","compute_duration":"P0D","max_memory":0,"success":true,"running":false,"cancelled":false}
