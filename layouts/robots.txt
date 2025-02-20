@@ -1,5 +1,5 @@
 User-agent: *
-{{- if eq .Site.Params.environment "staging" }}Disallow: /
+{{ if eq .Site.Params.environment "staging" }}Disallow: /
 {{- else }}{{ range where .Site.Pages ".Params.noindex" true }}
 Disallow: {{ .RelPermalink }}
 {{ end -}}
