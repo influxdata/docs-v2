@@ -1,22 +1,46 @@
-Learn how to use the HTTP API to query and access information about the database server and table schemas.
+Use the HTTP query API to access and view information about your database server and table schemas in {{% product-name %}}.
 
-The HTTP API for querying is reached via either a `GET` or `POST` to the endpoint `/api/v3/query_sql`. There is also an endpoint for InfluxQL at `/api/v3/query_influxql` but this guide will focus on just the SQL endpoint.
+## Query using SQL
 
-The `POST` endpoint is there for when the query is too large to fit in a URL. The `GET` endpoint is useful for quick queries that can be easily encoded in a URL.
+{{% product-name %}} provides the HTTP API `/api/v3/query_sql` endpoint for querying
+data, database server information, and system tables.
 
-The HTTP Query API takes the following parameters:
-- `q` - The SQL query to execute
-- `db` - The database to execute the query against
-- `params` - A JSON object containing parameters to be used in the query (for parameterize SQL)
-- `format` - The format of the response. Can be `json`, `jsonl`, `csv`, `pretty`, or `parquet`. JSONL is the preferred format as it will stream the results back to the client. Pretty is for human-readable output.
+> [!Note]
+> {{% product-name %}} uses separate API endpoints for SQL and InfluxQL queries.
+> Both endpoints support the same parameters.
+> 
+> For more information about using InfluxQL, see [Query data with InfluxQL](/influxdb3/version/query-data/influxql/).
 
-For example, running the `show tables` query, which will show all user created tables (listed as `table_schema` of `iox`), system tables, and information schema tables. Here's the command:
+To execute a query, send a `GET` request or a `POST` request to the endpoint:
 
-```shell
-curl "http://localhost:8181/api/v3/query_sql?db=mydb&format=jsonl&q=show%20tables"
+- `GET`: Pass parameters in the URL query string.
+   Use for quickly exploring your data and for queries that you can easily encode in a URL.
+- `POST`: Pass parameters in a JSON object.
+  Use for longer, complex
+  queries, queries you can't easily URL-encode, and for better readability in
+  in your code.
+
+and include the following parameters:
+
+- `q`: _({{< req >}})_ The SQL query to execute.
+- `db`: _({{< req >}})_ The database to execute the query against.
+- `params`: A JSON object containing parameters to be used in a _parameterized query_.
+- `format`: The format of the response (`json`, `jsonl`, `csv`, `pretty`, or `parquet`).
+  JSONL (`jsonl`) is preferred because it streams results back to the client.
+  `pretty` is for human-readable output. Default is `json`.
+
+### Example: show tables
+
+The following example sends a `GET` request that executes a `show tables` query
+to retrieve all user-created
+tables (`"table_schema":"iox"`), system tables, and information schema tables
+for a database:
+
+```bash
+curl "http://{{< influxdb/host >}}/api/v3/query_sql?db=mydb&format=jsonl&q=show%20tables"
 ```
 
-Returns the following JSONL output
+The response body contains the following JSONL:
 
 ```jsonl
 {"table_catalog":"public","table_schema":"iox","table_name":"system_cpu","table_type":"BASE TABLE"}
@@ -41,20 +65,32 @@ Returns the following JSONL output
 {"table_catalog":"public","table_schema":"information_schema","table_name":"schemata","table_type":"VIEW"}
 ```
 
-The `iox` tables are all those created by the user of the database. The `system` tables 
-are all the system tables that are used by the system to show information about 
-the running of the database server. Some of these tables show stored information like 
-configurations, while others keep ephemeral state in memory like the `queries` table.
+A table has one of the following `table_schema` values:
 
-The `information_schema` tables are views that show information about the schema of the 
-tables in the database. Here's the output of querying the information schema of the `system_swap` 
-table
+- `iox`: tables created by the user of the database.
+- `system`: tables used by the system to show information about the running database server.
+  Some of these tables show stored information such as configurations,
+  while others, such as the `queries` table, hold ephemeral state in memory.
+- `information_schema`: views that show schema information for tables in the database.
 
-```SQL
-SELECT * FROM information_schema.columns where table_schema = 'iox' AND table_name = 'system_cpu'
+### Example: view column information for a table
+
+The following query sends a `POST` request that executes an SQL query to
+retrieve information about columns in the sample `system_swap` table schema:
+
+_Note: when sending a query in JSON, escape the single quotes  around database field names._
+
+```bash
+curl "http://localhost:8181/api/v3/query_sql" \
+  --header "Content-Type: application/json" \
+  --json '{
+    "db": "cpu",
+    "q": "SELECT * FROM information_schema.columns WHERE table_schema = '"'iox'"' AND table_name = '"'system_swap'"'",
+    "format": "jsonl"
+  }'
 ```
 
-And the response shows the schema of our example `system_cpu` table:
+The output is the following:
 
 ```jsonl
 {"table_catalog":"public","table_schema":"iox","table_name":"system_swap","column_name":"free","ordinal_position":0,"is_nullable":"YES","data_type":"UInt64"}
@@ -67,7 +103,7 @@ And the response shows the schema of our example `system_cpu` table:
 {"table_catalog":"public","table_schema":"iox","table_name":"system_swap","column_name":"used","ordinal_position":7,"is_nullable":"YES","data_type":"UInt64"}
 ```
 
-And here's query against the `queries` system table to see what queries we've recently executed:
+To view recently executed queries, query the `queries` system table:
 
 ```SQL
 SELECT * FROM system.queries LIMIT 2
