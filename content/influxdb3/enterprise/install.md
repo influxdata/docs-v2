@@ -44,7 +44,8 @@ Use the InfluxDB 3 quick install script to install {{< product-name >}} on
     {{< product-name >}} package on your local machine:
 
     ```bash
-    curl -O https://www.influxdata.com/d/install_influxdb3.sh && sh install_influxdb3.sh enterprise
+    curl -O https://www.influxdata.com/d/install_influxdb3.sh \
+    && sh install_influxdb3.sh enterprise
     ```
 
 2.  Verify that installation completed successfully:
@@ -131,9 +132,28 @@ source ~/.zshrc
 
 Use the `influxdb3-enterprise` Docker image to deploy {{< product-name >}} in a
 Docker container.
+The image is available for x86_64 (AMD64) and ARM64 architectures.
 
 ```bash
 docker pull quay.io/influxdb/influxdb3-enterprise:latest
 ```
 
-{{< page-nav next="/influxdb3/enterprise/get-started/" nextText="Get started with InfluxDB 3 Enterprise" >}}
+Docker automatically pulls the appropriate image for your system architecture.
+
+You can also explicitly specify the architecture by using platform-specific tags:
+
+```bash
+# For x86_64/AMD64
+docker pull \
+--platform linux/amd64 \
+quay.io/influxdb/influxdb3-enterprise:latest
+```
+
+```bash
+# For ARM64
+docker pull \
+--platform linux/arm64 \
+quay.io/influxdb/influxdb3-enterprise:latest
+```
+
+{{< page-nav next="/influxdb3/core/get-started/" nextText="Get started with InfluxDB 3 Enterprise" >}}
