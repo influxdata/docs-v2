@@ -958,21 +958,19 @@ For a very robust and effective setup for managing time-series data, you can run
 
 Congratulations, you have a robust setup to workload isolation using {{% product-name %}}.
 
-### Writing and Querying for Multi-Node Setups
+### Writing and querying for multi-node setups
 
-If you’re running {{% product-name %}} in a single-instance setup, writing and querying is the same as for {{% product-name %}}.
 You can use the default port `8181` for any write or query, without changing any of the commands.
 
 > [!Note]
 > #### Specify hosts for writes and queries
 >
-> To benefit from this multi-node, isolated architecture specify hosts:
+> To benefit from this multi-node, isolated architecture, specify hosts:
 > 
-> - In write requests, specify a host designated for _write-only_
-> - In query requests, specify a host designated for _read-only
+> - In write requests, specify a host that you have designated as _write-only_.
+> - In query requests, specify a host that you have designated as _read-only_. 
 > 
-> When running multiple local instances for testing, or separate nodes in production, specifying the host ensures writes and queries are routed to the correct instance.
-> If you run locally and serve an instance on 8181 (the default port), then you don’t need to specify the host.
+> When running multiple local instances for testing or separate nodes in production, specifying the host ensures writes and queries are routed to the correct instance.
 
 ```
 # Example variables on a query
