@@ -5,7 +5,7 @@ list_title: Use the v1 query API and InfluxQL
 description: >
   Use the InfluxDB v1 HTTP query API to query data in {{< product-name >}}
   with InfluxQL.
-weight: 302
+weight: 303
 menu:
   influxdb3_enterprise:
     parent: Execute queries

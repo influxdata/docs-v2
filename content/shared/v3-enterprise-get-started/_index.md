@@ -53,7 +53,7 @@ This guide covers Enterprise as well as InfluxDB 3 Core, including the following
 {{% tabs %}}
 [Linux or macOS](#linux-or-macos)
 [Windows](#windows)
-[Docker (x86)](#docker-x86)
+[Docker](#docker)
 {{% /tabs %}}
 {{% tab-content %}}
 <!--------------- BEGIN LINUX AND MACOS -------------->
@@ -69,15 +69,9 @@ Or, download and install [build artifacts](/influxdb3/enterprise/install/#downlo
 - [Linux | x86_64 | GNU](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-gnu.tar.gz)
   •
   [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-gnu.tar.gz.sha256)
-- [Linux | x86_64 | MUSL](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz.sha256)
 - [Linux | ARM64 | GNU](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz)
   •
   [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz.sha256)
-- [Linux | ARM64 | MUSL](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz.sha256)
 - [macOS | ARM64](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-apple-darwin.tar.gz)
   •
   [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-apple-darwin.tar.gz.sha256)
@@ -98,7 +92,10 @@ Download and install the {{% product-name %}} [Windows (x86) binary](https://dl.
 {{% tab-content %}}
 <!--------------- BEGIN DOCKER -------------->
 
-Pull the [`influxdb3-enterprise` image](https://quay.io/repository/influxdb/influxdb3-enterprise?tab=tags&tag=latest):
+The [`influxdb3-enterprise` image](https://quay.io/repository/influxdb/influxdb3-enterprise?tab=tags&tag=latest)
+is available for x86_64 (AMD64) and ARM64 architectures.
+
+Pull the image:
 
 ```bash
 docker pull quay.io/influxdb/influxdb3-enterprise:latest
@@ -961,21 +958,19 @@ For a very robust and effective setup for managing time-series data, you can run
 
 Congratulations, you have a robust setup to workload isolation using {{% product-name %}}.
 
-### Writing and Querying for Multi-Node Setups
+### Writing and querying for multi-node setups
 
-If you’re running {{% product-name %}} in a single-instance setup, writing and querying is the same as for {{% product-name %}}.
 You can use the default port `8181` for any write or query, without changing any of the commands.
 
 > [!Note]
 > #### Specify hosts for writes and queries
 >
-> To benefit from this multi-node, isolated architecture specify hosts:
+> To benefit from this multi-node, isolated architecture, specify hosts:
 > 
-> - In write requests, specify a host designated for _write-only_
-> - In query requests, specify a host designated for _read-only
+> - In write requests, specify a host that you have designated as _write-only_.
+> - In query requests, specify a host that you have designated as _read-only_. 
 > 
-> When running multiple local instances for testing, or separate nodes in production, specifying the host ensures writes and queries are routed to the correct instance.
-> If you run locally and serve an instance on 8181 (the default port), then you don’t need to specify the host.
+> When running multiple local instances for testing or separate nodes in production, specifying the host ensures writes and queries are routed to the correct instance.
 
 ```
 # Example variables on a query

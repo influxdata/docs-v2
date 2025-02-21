@@ -44,7 +44,8 @@ Use the InfluxDB 3 quick install script to install {{< product-name >}} on
     {{< product-name >}} package on your local machine:
 
     ```bash
-    curl -O https://www.influxdata.com/d/install_influxdb3.sh && sh install_influxdb3.sh
+    curl -O https://www.influxdata.com/d/install_influxdb3.sh \
+    && sh install_influxdb3.sh
     ```
 
 2.  Verify that installation completed successfully:
@@ -93,17 +94,9 @@ source ~/.zshrc
   •
   [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-gnu.tar.gz.sha256)
 
-- [InfluxDB 3 Core • Linux (x86) • MUSL](https://download.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-musl.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-musl.tar.gz.sha256)
-
 - [InfluxDB 3 Core • Linux (ARM) • GNU](https://download.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-gnu.tar.gz)
   •
   [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-gnu.tar.gz.sha256)
-
-- [InfluxDB 3 Core • Linux (ARM) • MUSL](https://download.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-musl.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-musl.tar.gz)
 
 <!--------------------------------- END LINUX --------------------------------->
 
@@ -139,9 +132,28 @@ source ~/.zshrc
 
 Use the `influxdb3-core` Docker image to deploy {{< product-name >}} in a
 Docker container.
+The image is available for x86_64 (AMD64) and ARM64 architectures.
 
 ```bash
 docker pull quay.io/influxdb/influxdb3-core:latest
+```
+
+Docker automatically pulls the appropriate image for your system architecture.
+
+You can also explicitly specify the architecture by using platform-specific tags:
+
+```bash
+# For x86_64/AMD64
+docker pull \
+--platform linux/amd64 \
+quay.io/influxdb/influxdb3-core:latest
+```
+
+```bash
+# For ARM64
+docker pull \
+--platform linux/arm64 \
+quay.io/influxdb/influxdb3-core:latest
 ```
 
 {{< page-nav next="/influxdb3/core/get-started/" nextText="Get started with InfluxDB 3 Core" >}}
