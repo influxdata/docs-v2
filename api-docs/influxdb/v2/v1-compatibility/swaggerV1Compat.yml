@@ -467,19 +467,3 @@ components:
 
 
         For examples and more information, see how to [authenticate with a username and password](/influxdb/cloud/reference/api/influxdb-1x/).
-x-tagGroups:
-  - name: Using the InfluxDB HTTP API
-    tags:
-      - Quick start
-      - Authentication
-      - Supported operations
-      - Headers
-      - Pagination
-      - Response codes
-      - Data I/O endpoints
-      - Security and access endpoints
-      - System information endpoints
-  - name: All endpoints
-    tags:
-      - Query
-      - Write

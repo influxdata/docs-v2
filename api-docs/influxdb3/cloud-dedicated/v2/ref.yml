@@ -2,9 +2,9 @@ openapi: 3.0.0
 info:
   title: InfluxDB v2 HTTP API for InfluxDB 3 Cloud Dedicated
   description: |
-    The InfluxDB v2 HTTP API provides a v2-compatible programmatic interface for writing data stored in an InfluxDB 3 Cloud Dedicated database.
+    The InfluxDB v2 HTTP API provides a v2-compatible programmatic interface for writing and managing data stored in an InfluxDB 3 Cloud Dedicated database.
 
-    The InfluxDB v2 HTTP API lets you use `/api/v2` endpoints for managing retention policy mappings and writing data stored in an InfluxDB 3 instance.
+    Use the InfluxDB v2 HTTP API `/api/v2` endpoints to manage retention policy mappings and write data to an InfluxDB 3 instance.
 
     This documentation is generated from the
     [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
@@ -504,7 +504,7 @@ paths:
             type: string
         - description: |
             A unix timestamp precision.
-            Formats timestamps as [unix (epoch) timestamps](/influxdb3/cloud-dedicated/reference/glossary/#unix-timestamp) the specified precision
+            Formats timestamps as [unix (epoch) timestamps](/influxdb3/cloud-dedicated/reference/glossary/#unix-timestamp) with the specified precision
             instead of [RFC3339 timestamps](/influxdb3/cloud-dedicated/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
           in: query
           name: epoch

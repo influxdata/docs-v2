@@ -1,7 +1,8 @@
 title: InfluxDB 3 Clustered API Service
 x-influxdata-short-title: v2 API
-summary: The InfluxDB v2 HTTP API for InfluxDB 3 Clustered provides a v2-compatible programmatic interface for writing data stored in an InfluxDB 3 Clustered database.
 description: |
+  The InfluxDB v2 HTTP API for InfluxDB 3 Clustered provides a v2-compatible programmatic interface for writing data stored in an InfluxDB 3 Clustered database.
+
   The InfluxDB v2 HTTP API lets you use `/api/v2` endpoints for managing retention policy mappings and writing data stored in an InfluxDB 3 instance.
 
   This documentation is generated from the
