@@ -928,7 +928,7 @@ components:
           type: string
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb3/clustered/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
         virtual:
@@ -971,7 +971,7 @@ components:
           type: string
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb3/clustered/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
       required:
@@ -995,7 +995,7 @@ components:
           type: boolean
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb3/clustered/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
     DBRPs:

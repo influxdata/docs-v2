@@ -87,8 +87,8 @@ tags:
   - name: Dashboards
   - name: Data I/O endpoints
   - description: |
-      The InfluxDB 1.x data model includes [databases](/influxdb/v1.8/concepts/glossary/#database)
-      and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp).
+      The InfluxDB 1.x data model includes [databases](/influxdb/v2/reference/glossary/#database)
+      and [retention policies](/influxdb/v2/reference/glossary/#retention-policy-rp).
       InfluxDB 2.x replaces databases and retention policies with buckets.
       To support InfluxDB 1.x query and write patterns in InfluxDB 2.x,
       databases and retention policies are mapped to buckets using the
@@ -3198,7 +3198,7 @@ paths:
           schema:
             type: string
         - description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp).
+            A [retention policy](/influxdb/v2/reference/glossary/#retention-policy-rp).
             Specifies the 1.x retention policy to filter on.
           in: query
           name: rp
@@ -14363,7 +14363,7 @@ components:
           type: string
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb/v2/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
         virtual:
@@ -14406,7 +14406,7 @@ components:
           type: string
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb/v2/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
       required:
@@ -14430,7 +14430,7 @@ components:
           type: boolean
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb/v2/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
     DBRPs:
@@ -16761,7 +16761,7 @@ components:
             If you need compatibility with InfluxDB 1.x, specify a value for the `rp` property;
             otherwise, see the `retentionRules` property.
 
-            [Retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
+            [Retention policy](/influxdb/v2/reference/glossary/#retention-policy-rp)
             is an InfluxDB 1.x concept.
             The InfluxDB 2.x and Cloud equivalent is
             [retention period](/influxdb/latest/reference/glossary/#retention-period).
