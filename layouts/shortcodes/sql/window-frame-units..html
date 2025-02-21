@@ -1,0 +1,335 @@
+{{ $unit := .Get 0 | default "groups" }}
+
+{{ if eq $unit "groups" }}
+<table class="window-frame-units groups">
+  <thead>
+      <tr>
+          <th style="text-align: left">time</th>
+          <th style="text-align: left">country</th>
+          <th style="text-align: left">city</th>
+          <th style="text-align: right">wind_direction</th>
+      </tr>
+  </thead>
+  <tbody class="group">
+      <tr>
+          <td style="text-align: left">2025-02-17T00:00:00</td>
+          <td style="text-align: left">France</td>
+          <td style="text-align: left">Strasbourg</td>
+          <td style="text-align: right">181</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T01:00:00</td>
+          <td style="text-align: left">France</td>
+          <td style="text-align: left">Strasbourg</td>
+          <td style="text-align: right">228</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T02:00:00</td>
+          <td style="text-align: left">France</td>
+          <td style="text-align: left">Strasbourg</td>
+          <td style="text-align: right">289</td>
+      </tr>
+  </tbody>
+  <tbody class="group">
+      <tr>
+          <td style="text-align: left">2025-02-17T00:00:00</td>
+          <td style="text-align: left">France</td>
+          <td style="text-align: left">Toulouse</td>
+          <td style="text-align: right">24</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T01:00:00</td>
+          <td style="text-align: left">France</td>
+          <td style="text-align: left">Toulouse</td>
+          <td style="text-align: right">210</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T02:00:00</td>
+          <td style="text-align: left">France</td>
+          <td style="text-align: left">Toulouse</td>
+          <td style="text-align: right">206</td>
+      </tr>
+    </tbody>
+    <tbody class="group">
+      <tr>
+          <td style="text-align: left">2025-02-17T00:00:00</td>
+          <td style="text-align: left">Italy</td>
+          <td style="text-align: left">Bari</td>
+          <td style="text-align: right">2</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T01:00:00</td>
+          <td style="text-align: left">Italy</td>
+          <td style="text-align: left">Bari</td>
+          <td style="text-align: right">57</td>
+      </tr>
+    </tbody>
+    <tbody class="group">
+      <tr>
+          <td style="text-align: left">2025-02-17T00:00:00</td>
+          <td style="text-align: left">Italy</td>
+          <td style="text-align: left">Bologna</td>
+          <td style="text-align: right">351</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T01:00:00</td>
+          <td style="text-align: left">Italy</td>
+          <td style="text-align: left">Bologna</td>
+          <td style="text-align: right">232</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T02:00:00</td>
+          <td style="text-align: left">Italy</td>
+          <td style="text-align: left">Bologna</td>
+          <td style="text-align: right">29</td>
+      </tr>
+  </tbody>
+</table>
+
+{{ else if eq $unit "groups with frame" }}
+<table class="window-frame-units groups-with-frame">
+  <thead>
+      <tr>
+          <th style="text-align: left">time</th>
+          <th style="text-align: left">country</th>
+          <th style="text-align: left">city</th>
+          <th style="text-align: right">wind_direction</th>
+      </tr>
+  </thead>
+  <tbody class="frame">
+      <tr>
+          <td style="text-align: left">2025-02-17T00:00:00</td>
+          <td style="text-align: left">France</td>
+          <td style="text-align: left">Strasbourg</td>
+          <td style="text-align: right">181</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T01:00:00</td>
+          <td style="text-align: left">France</td>
+          <td style="text-align: left">Strasbourg</td>
+          <td style="text-align: right">228</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T02:00:00</td>
+          <td style="text-align: left">France</td>
+          <td style="text-align: left">Strasbourg</td>
+          <td style="text-align: right">289</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T00:00:00</td>
+          <td style="text-align: left">France</td>
+          <td style="text-align: left">Toulouse</td>
+          <td style="text-align: right">24</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T01:00:00</td>
+          <td style="text-align: left">France</td>
+          <td style="text-align: left">Toulouse</td>
+          <td style="text-align: right">210</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T02:00:00</td>
+          <td style="text-align: left">France</td>
+          <td style="text-align: left">Toulouse</td>
+          <td style="text-align: right">206</td>
+      </tr>
+      <tr class="current-row">
+          <td style="text-align: left">2025-02-17T00:00:00</td>
+          <td style="text-align: left">Italy</td>
+          <td style="text-align: left">Bari</td>
+          <td style="text-align: right">2</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T01:00:00</td>
+          <td style="text-align: left">Italy</td>
+          <td style="text-align: left">Bari</td>
+          <td style="text-align: right">57</td>
+      </tr>
+    </tbody>
+    <tbody class="group">
+      <tr>
+          <td style="text-align: left">2025-02-17T00:00:00</td>
+          <td style="text-align: left">Italy</td>
+          <td style="text-align: left">Bologna</td>
+          <td style="text-align: right">351</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T01:00:00</td>
+          <td style="text-align: left">Italy</td>
+          <td style="text-align: left">Bologna</td>
+          <td style="text-align: right">232</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T02:00:00</td>
+          <td style="text-align: left">Italy</td>
+          <td style="text-align: left">Bologna</td>
+          <td style="text-align: right">29</td>
+      </tr>
+  </tbody>
+</table>
+
+{{ else if (eq $unit "range interval") }}
+
+<table class="window-frame-units range-interval">
+  <thead>
+      <tr>
+          <th style="text-align: left">time</th>
+          <th style="text-align: left">room</th>
+          <th style="text-align: right">temp</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">2022-01-01T08:00:00</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: right">21.0</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T09:00:00</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: right">23.0</td>
+      </tr>
+  </tbody>
+  <tbody class="frame">
+      <tr>
+          <td style="text-align: left">2022-01-01T10:00:00</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: right">22.7</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T11:00:00</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: right">22.4</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T12:00:00</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: right">22.5</td>
+      </tr>
+      <tr class="current-row">
+          <td style="text-align: left">2022-01-01T13:00:00</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: right">22.8</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T14:00:00</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: right">22.8</td>
+      </tr>
+  </tbody>
+  <tbody>
+      <tr>
+          <td style="text-align: left">2022-01-01T15:00:00</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: right">22.7</td>
+      </tr>
+  </tbody>
+</table>
+
+{{ else if (eq $unit "range numeric") }}
+
+<table class="window-frame-units range-numeric">
+  <thead>
+      <tr>
+          <th style="text-align: left">time</th>
+          <th style="text-align: left">city</th>
+          <th style="text-align: right">wind_direction</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">2025-02-17T13:00:00</td>
+          <td style="text-align: left">Rome</td>
+          <td style="text-align: right">33</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T08:00:00</td>
+          <td style="text-align: left">Rome</td>
+          <td style="text-align: right">34</td>
+      </tr>
+  </tbody>
+  <tbody class="frame">
+      <tr>
+          <td style="text-align: left">2025-02-17T23:00:00</td>
+          <td style="text-align: left">Rome</td>
+          <td style="text-align: right">49</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T17:00:00</td>
+          <td style="text-align: left">Rome</td>
+          <td style="text-align: right">86</td>
+      </tr>
+      <tr class="current-row">
+          <td style="text-align: left">2025-02-17T11:00:00</td>
+          <td style="text-align: left">Rome</td>
+          <td style="text-align: right">93</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T12:00:00</td>
+          <td style="text-align: left">Rome</td>
+          <td style="text-align: right">115</td>
+      </tr>
+  </tbody>
+  <tbody>
+      <tr>
+          <td style="text-align: left">2025-02-17T10:00:00</td>
+          <td style="text-align: left">Rome</td>
+          <td style="text-align: right">156</td>
+      </tr>
+  </tbody>
+</table>
+
+{{ else if (eq $unit "rows") }}
+
+<table class="window-frame-units rows">
+  <thead>
+      <tr>
+          <th style="text-align: left">time</th>
+          <th style="text-align: left">city</th>
+          <th style="text-align: right">wind_direction</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">2025-02-17T08:00:00</td>
+          <td style="text-align: left">Rome</td>
+          <td style="text-align: right">34</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T10:00:00</td>
+          <td style="text-align: left">Rome</td>
+          <td style="text-align: right">156</td>
+      </tr>      
+  </tbody>
+  <tbody class="frame">
+      <tr>
+          <td style="text-align: left">2025-02-17T11:00:00</td>
+          <td style="text-align: left">Rome</td>
+          <td style="text-align: right">93</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T12:00:00</td>
+          <td style="text-align: left">Rome</td>
+          <td style="text-align: right">115</td>
+      </tr>
+      <tr class="current-row">
+          <td style="text-align: left">2025-02-17T13:00:00</td>
+          <td style="text-align: left">Rome</td>
+          <td style="text-align: right">33</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2025-02-17T17:00:00</td>
+          <td style="text-align: left">Rome</td>
+          <td style="text-align: right">86</td>
+      </tr>
+  </tbody>
+  <tbody>    
+      <tr>
+          <td style="text-align: left">2025-02-17T23:00:00</td>
+          <td style="text-align: left">Rome</td>
+          <td style="text-align: right">49</td>
+      </tr>
+  </tbody>
+</table>
+
+{{ end }}

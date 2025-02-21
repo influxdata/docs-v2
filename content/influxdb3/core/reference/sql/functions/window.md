@@ -5,7 +5,7 @@ description: >
   SQL window functions perform an operation across a set of rows related to the
   current row.
 menu:
-  influxdb3_cloud_dedicated:
+  influxdb3_core:
     name: Window
     parent: sql-functions
 weight: 309
