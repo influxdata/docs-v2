@@ -30,6 +30,21 @@
 </head>
 
 <body>
+  {{!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Prevent throwing errors when the Google Tag Manager script is blocked
+      if (!window.hasOwnProperty('fcdsc')) {
+        window.fcdsc = (function() {
+          // Return nothing for any function call chained off of fcdsc
+          return new Proxy({}, {
+            get: function(target, prop) {
+              return function() {};
+            }
+          });
+        })();
+      }
+    });
+  </script> --}}
   <!-- Google Tag Manager (noscript) -->
   <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WXRH9C" height="0" width="0" style="display:none;visibility:hidden"></iframe>
