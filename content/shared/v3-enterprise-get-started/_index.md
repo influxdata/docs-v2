@@ -53,7 +53,7 @@ This guide covers Enterprise as well as InfluxDB 3 Core, including the following
 {{% tabs %}}
 [Linux or macOS](#linux-or-macos)
 [Windows](#windows)
-[Docker (x86)](#docker-x86)
+[Docker](#docker)
 {{% /tabs %}}
 {{% tab-content %}}
 <!--------------- BEGIN LINUX AND MACOS -------------->
@@ -69,15 +69,9 @@ Or, download and install [build artifacts](/influxdb3/enterprise/install/#downlo
 - [Linux | x86_64 | GNU](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-gnu.tar.gz)
   •
   [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-gnu.tar.gz.sha256)
-- [Linux | x86_64 | MUSL](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_x86_64-unknown-linux-musl.tar.gz.sha256)
 - [Linux | ARM64 | GNU](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz)
   •
   [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-gnu.tar.gz.sha256)
-- [Linux | ARM64 | MUSL](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-unknown-linux-musl.tar.gz.sha256)
 - [macOS | ARM64](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-apple-darwin.tar.gz)
   •
   [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-enterprise_aarch64-apple-darwin.tar.gz.sha256)
@@ -98,7 +92,10 @@ Download and install the {{% product-name %}} [Windows (x86) binary](https://dl.
 {{% tab-content %}}
 <!--------------- BEGIN DOCKER -------------->
 
-Pull the [`influxdb3-enterprise` image](https://quay.io/repository/influxdb/influxdb3-enterprise?tab=tags&tag=latest):
+The [`influxdb3-enterprise` image](https://quay.io/repository/influxdb/influxdb3-enterprise?tab=tags&tag=latest)
+is available for x86_64 (AMD64) and ARM64 architectures.
+
+Pull the image:
 
 ```bash
 docker pull quay.io/influxdb/influxdb3-enterprise:latest

@@ -241,7 +241,7 @@ ORDER BY
 
 ### Ambiguous reference to unqualified field
 
-If a column exists on both sides of the join and is used in in the `SELECT`,
+If a column exists on both sides of the join and is used in the `SELECT`,
 `ON`, `WHERE`, `HAVING`, `GROUP BY`, or `ORDER BY` clause, you must use a
 [fully-qualified reference](#fully-qualified-reference). For example, if both 
 sides of the join have a `time` column and you want to explicitly select a
