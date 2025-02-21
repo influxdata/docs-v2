@@ -4,6 +4,7 @@ info:
   version: ''
   description: |
     The v1-compatibility HTTP API provides compatibility for writing and querying data in an InfluxDB 3 Cloud Dedicated database using InfluxDB v1 endpoints.
+
     The InfluxDB 1.x `/write` and `/query` endpoints work with InfluxDB 1.x client libraries and third-party integrations like Grafana and others.
 
     This documentation is generated from the

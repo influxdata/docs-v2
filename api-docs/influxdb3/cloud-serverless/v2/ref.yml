@@ -2,6 +2,8 @@ openapi: 3.0.0
 info:
   title: InfluxDB 3 Cloud Serverless API Service
   description: |
+    The InfluxDB v2 HTTP API for InfluxDB 3 Cloud Serverless provides a programmatic interface for writing data stored in an InfluxDB 3 Cloud Serverless bucket.
+
     The InfluxDB v2 HTTP API lets you use `/api/v2` endpoints for managing retention policy mappings and writing data stored in an InfluxDB 3 instance.
 
     This documentation is generated from the
@@ -9,8 +11,6 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-  summary: |
-    The InfluxDB v2 HTTP API for InfluxDB 3 Cloud Serverless provides a programmatic interface for writing data stored in an InfluxDB 3 Cloud Serverless bucket.
   version: ''
   contact:
     name: InfluxData
@@ -7827,7 +7827,7 @@ paths:
             type: string
         - description: |
             A unix timestamp precision.
-            Formats timestamps as [unix (epoch) timestamps](/influxdb3/cloud-serverless/reference/glossary/#unix-timestamp) the specified precision
+            Formats timestamps as [unix (epoch) timestamps](/influxdb3/cloud-serverless/reference/glossary/#unix-timestamp) with the specified precision
             instead of [RFC3339 timestamps](/influxdb3/cloud-serverless/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
           in: query
           name: epoch

@@ -223,14 +223,14 @@ function updateEnterpriseV3 {
 }
 
 function updateOSSV2 {
-  outFile="influxdb/v2/ref.yml"
+  outFile="influxdb/v2/v2/ref.yml"
   if [[ -z "$baseUrlOSS" ]];
   then
     echo "Using existing $outFile"
   else
     curl $UPDATE_OPTIONS ${baseUrlOSS}/contracts/ref/oss.yml -o $outFile
   fi
-  postProcess $outFile 'influxdb/v2/.config.yml' '@2'
+  postProcess $outFile 'influxdb/v2/.config.yml' 'v2@2'
 }
 
 function updateV1Compat {

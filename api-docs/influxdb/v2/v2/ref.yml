@@ -3,6 +3,8 @@ info:
   title: InfluxDB OSS API Service
   version: 2.x
   description: |
+    The InfluxDB v2 HTTP API provides a programmatic interface for all interactions with an InfluxDB v2 instance.
+
     The InfluxDB v2 HTTP API provides a programmatic interface for all interactions with an InfluxDB v2 instance. Access the InfluxDB API using `/api/v2/` and InfluxDB v1-compatible endpoints.
 
     This documentation is generated from the
@@ -10,7 +12,10 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-  summary: The InfluxDB v2 HTTP API provides a programmatic interface for all interactions with an InfluxDB v2 instance.
+  contact:
+    name: InfluxData
+    url: https://www.influxdata.com
+    email: support@influxdata.com
 servers:
   - url: /
 security:
@@ -13103,7 +13108,7 @@ paths:
             type: string
         - description: |
             A unix timestamp precision.
-            Formats timestamps as [unix (epoch) timestamps](/influxdb/v2.7/reference/glossary/#unix-timestamp) the specified precision
+            Formats timestamps as [unix (epoch) timestamps](/influxdb/v2.7/reference/glossary/#unix-timestamp) with the specified precision
             instead of [RFC3339 timestamps](/influxdb/v2.7/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
           in: query
           name: epoch
@@ -15515,9 +15520,9 @@ components:
       properties:
         results:
           description: |
-              A resultset object that contains the `statement_id` and the `series` array.
+            A resultset object that contains the `statement_id` and the `series` array.
 
-              Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
+            Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
           items:
             properties:
               error:
@@ -15566,12 +15571,12 @@ components:
                 type: integer
             type: object
           oneOf:
-          - required:
-            - statement_id
-            - error
-          - required:
-            - statement_id
-            - series
+            - required:
+                - statement_id
+                - error
+            - required:
+                - statement_id
+                - series
           type: array
       type: object
     IntegerLiteral:

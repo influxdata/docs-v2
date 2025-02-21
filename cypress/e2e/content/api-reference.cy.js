@@ -32,8 +32,8 @@ describe('API reference content', () => {
     '/influxdb3/clustered/api/v1/',
     '/influxdb3/clustered/api/v1-compatibility/',
     '/influxdb3/clustered/api/v2/',
-    '/influxdb3/core/api/',
 
+    '/influxdb3/core/api/',
     '/influxdb3/enterprise/api/',
   ];
 

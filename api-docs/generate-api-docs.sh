@@ -41,7 +41,6 @@ function generateHtml {
   local productName="$3"
   local api="$4"
   local configPath="$5"
-  local isDefault=$6
 
   # Use the product name to define the menu for the Hugo template
   local menu="$(echo $productVersion | sed 's/\./_/g;s/-/_/g;s/\//_/g;')"
@@ -55,12 +54,25 @@ function generateHtml {
   # Use the title and summary defined in the product API's info.yml file.
   local title=$(yq '.title' $productVersion/$apiName/content/info.yml)
   local menuTitle=$(yq '.x-influxdata-short-title' $productVersion/$apiName/content/info.yml)
-  local description=$(yq '.summary' $productVersion/$apiName/content/info.yml)
+  # Get the first paragraph of the description for the meta description.
+
+  # Get the description with whitespace and newlines preserved.
+  local description=$(yq e -r '.description // ""' $productVersion/$apiName/content/info.yml | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/"/\\"/g')
+  # Get the aliases array from the configuration file.
+  local aliases=$(yq e ".apis | .$api | .x-influxdata-docs-aliases" "$configPath")
+  # If aliases is null, set it to an empty YAML array. 
+  if [[ "$aliases" == "null" ]]; then
+    aliases='[]'
+  fi
+  local weight=102
+  if [[ $apiName == "v1-compatibility" ]]; then
+    weight=304
+  fi
   # Define the file name for the Redoc HTML output.
   local specbundle=redoc-static_index.html
   # Define the temporary file for the Hugo template and Redoc HTML.
   local tmpfile="${productVersion}-${api}_index.tmp"
-
+  
   echo "Bundling $specPath"
 
   # Use npx to install and run the specified version of redoc-cli.
@@ -77,68 +89,24 @@ function generateHtml {
   --options.hideHostname \
   --options.noAutoAuth \
   --output=$specbundle \
-  --templateOptions.description=$description \
+  --templateOptions.description= $(echo "$description" | sed 's/\n//g') \
   --templateOptions.product="$productVersion" \
   --templateOptions.productName="$productName"
 
-  if [[ $apiName == "v1-compatibility" ]]; then
-    frontmatter="---
-title: $title
-description: $description
-layout: api
-menu:
-  $menu:
-    parent: InfluxDB HTTP API
-    name: $menuTitle
-    identifier: api-reference-$apiName
-weight: 304
-aliases:
-  - /influxdb/$versionDir/api/v1/
+  local frontmatter=$(yq eval -n \
+      ".title = \"$title\" |
+       .description = \"$description\" |
+       .layout = \"api\" |
+       .weight = $weight |
+       .menu.[\"$menu\"].parent = \"InfluxDB HTTP API\" |
+       .menu.[\"$menu\"].name = \"$menuTitle\" |
+       .menu.[\"$menu\"].identifier = \"api-reference-$apiName\" |
+      .aliases = \"$aliases\"")
+
+  frontmatter="---
+$frontmatter
 ---
 "
-  elif [[ $apiVersion == "0" ]]; then
-  echo $productName $apiName
-    frontmatter="---
-title: $title
-description: $description
-layout: api
-weight: 102
-menu:
-  $menu:
-    parent: InfluxDB HTTP API
-    name: $menuTitle
-    identifier: api-reference-$apiName
----
-"
-  elif [[ $isDefault == true ]]; then
-    frontmatter="---
-title: $title
-description: $description
-layout: api
-menu:
-  $menu:
-    parent: InfluxDB HTTP API
-    name: $menuTitle
-    identifier: api-reference-$apiName
-weight: 102
-aliases:
-  - /influxdb/$versionDir/api/
----
-"
-  else
-    frontmatter="---
-title: $title
-description: $description
-layout: api
-menu:
-  $menu:
-    parent: InfluxDB HTTP API
-    name: $menuTitle
-    identifier: api-reference-$apiName
-weight: 102
----
-"
-  fi
 
   # Create the Hugo template file with the frontmatter and Redoc HTML
   echo "$frontmatter" >> $tmpfile
@@ -199,13 +167,7 @@ function build {
       if [ -d "$specPath" ] || [ ! -f "$specPath" ]; then
         echo "OpenAPI spec $specPath doesn't exist."
       fi
-      # Get default status from the configuration.
-      local isDefault=false
-      local defaultStatus
-      defaultStatus=$(yq e ".apis | .$api | .x-influxdata-default" "$configPath")
-      if [[ $defaultStatus == "true" ]]; then
-        isDefault=true
-      fi
+
 
       # If the spec file differs from master, regenerate the HTML.
       local update=0
@@ -219,9 +181,9 @@ function build {
 
       if [[ $update -eq 0 ]]; then
         echo "Regenerating $version $api"
-        generateHtml "$specPath" "$version" "$versionName" "$api" "$configPath" "$isDefault"
+        generateHtml "$specPath" "$version" "$versionName" "$api" "$configPath"
       fi
-      echo "========Done with $version $api========"
+      echo -e "========Finished $version $api========\n\n"
     done <<< "$apis"
   done
 }

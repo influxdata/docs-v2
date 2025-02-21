@@ -3,6 +3,8 @@ info:
   title: InfluxDB 3 Clustered API Service
   version: ''
   description: |
+    The InfluxDB v2 HTTP API for InfluxDB 3 Clustered provides a v2-compatible programmatic interface for writing data stored in an InfluxDB 3 Clustered database.
+
     The InfluxDB v2 HTTP API lets you use `/api/v2` endpoints for managing retention policy mappings and writing data stored in an InfluxDB 3 instance.
 
     This documentation is generated from the
@@ -10,7 +12,6 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-  summary: The InfluxDB v2 HTTP API for InfluxDB 3 Clustered provides a v2-compatible programmatic interface for writing data stored in an InfluxDB 3 Clustered database.
   contact:
     name: InfluxData
     url: https://www.influxdata.com
@@ -521,7 +522,7 @@ paths:
             type: string
         - description: |
             A unix timestamp precision.
-            Formats timestamps as [unix (epoch) timestamps](/influxdb3/clustered/reference/glossary/#unix-timestamp) the specified precision
+            Formats timestamps as [unix (epoch) timestamps](/influxdb3/clustered/reference/glossary/#unix-timestamp) with the specified precision
             instead of [RFC3339 timestamps](/influxdb3/clustered/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
           in: query
           name: epoch

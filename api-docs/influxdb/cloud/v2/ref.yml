@@ -12212,7 +12212,7 @@ paths:
             type: string
         - description: |
             A unix timestamp precision.
-            Formats timestamps as [unix (epoch) timestamps](/influxdb/cloud/reference/glossary/#unix-timestamp) the specified precision
+            Formats timestamps as [unix (epoch) timestamps](/influxdb/cloud/reference/glossary/#unix-timestamp) with the specified precision
             instead of [RFC3339 timestamps](/influxdb/cloud/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
           in: query
           name: epoch

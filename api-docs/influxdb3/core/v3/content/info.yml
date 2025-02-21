@@ -4,8 +4,9 @@ x-influxdata-version-matrix:
   v1: Compatibility layer for InfluxDB 1.x clients (supported)
   v2: Compatibility layer for InfluxDB 2.x clients (supported) 
   v3: Native API for InfluxDB 3.x (current)
-summary: The InfluxDB HTTP API for InfluxDB 3 Core provides a programmatic interface for writing data stored in an InfluxDB 3 Core database.
 description: |
+  The InfluxDB HTTP API for InfluxDB 3 Core provides a programmatic interface for writing data stored in an InfluxDB 3 Core database.
+
   Write and query data, and perform administrative tasks, such as managing databases and processing engine plugins.
 
   The InfluxDB HTTP API for InfluxDB 3 Core includes endpoints for the following:

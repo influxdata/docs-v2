@@ -3,6 +3,8 @@ info:
   title: InfluxDB v1 HTTP API for InfluxDB 3 Cloud Serverless
   version: ''
   description: |
+    The InfluxDB v1 HTTP API provides v1 compatibility for writing and querying data in an InfluxDB 3 Cloud Serverless bucket.
+
     The InfluxDB 1.x `/write` and `/query` endpoints work with InfluxDB 1.x client libraries and third-party integrations like Grafana and others.
 
     This documentation is generated from the
@@ -14,7 +16,6 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-  summary: The InfluxDB v1 HTTP API provides v1 compatibility for writing and querying data in an InfluxDB 3 Cloud Serverless bucket.
   contact:
     name: InfluxData
     url: https://www.influxdata.com
