@@ -394,7 +394,7 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
     return 200, {"Content-Type": "application/json"}, json.dumps({"status": "ok", "line": line_str})
 ```
 
-#### On-request trigger configuration
+#### On Request trigger configuration
 
 On-request plugins are set with a `trigger-spec` of `request:<endpoint>`. The `args` parameter can be used to pass configuration to the plugin. For example, if we wanted the above plugin to run on the endpoint `/api/v3/engine/my_plugin`, we would use `request:my_plugin` as the `trigger-spec`.
 
