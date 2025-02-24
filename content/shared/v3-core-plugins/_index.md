@@ -406,6 +406,7 @@ influxdb3 create trigger \
   --trigger-spec "request:my-plugin" \
   --plugin-filename "examples/my-on-request.py" \
   --database mydb my-plugin
+```
 
 To run the plugin, you send an HTTP request to `<HOST>/api/v3/engine/my-plugin`.
 
