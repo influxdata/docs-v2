@@ -351,8 +351,8 @@ When the `admin` section is omitted, the `admin-token` `Secret` can be used
 instead to get started quickly.
 
 > [!Note]
-> We still highly recommend OAuth for production; however, this lets you run an
-> InfluxDB Cluster with out having to integrate with an identity provider.**
+> We recommend OAuth for production; however, the `admin-token` lets you run an
+> InfluxDB Cluster without having to integrate with an identity provider.**
 
 ### Upgrade notes
 
