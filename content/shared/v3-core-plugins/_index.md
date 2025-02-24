@@ -396,7 +396,15 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
 
 #### On Request trigger configuration
 
-On-request plugins are set with a `trigger-spec` of `request:<endpoint>`. The `args` parameter can be used to pass configuration to the plugin. For example, if we wanted the above plugin to run on the endpoint `/api/v3/engine/my_plugin`, we would use `request:my_plugin` as the `trigger-spec`.
+**On Request** plugins are defined using the `request:<endpoint>` trigger-spec.
+
+For example, the following command creates an `/api/v3/engine/my_plugin` endpoint that runs a `<plugin-directory>/examples/my-on-request.py` plugin:
+
+```bash
+influxdb3 create trigger \
+  --trigger-spec "request:my_plugin" \
+  --plugin-filename "examples/my-on-request.py" \
+  --database mydb my-plugin
 
 Trigger specs must be unique across all configured plugins, regardless of which database they are tied to, given the path is the same. Here's an example to create a request trigger tied to the "hello-world' path using a plugin in the plugin-dir:
 
