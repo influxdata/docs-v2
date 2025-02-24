@@ -303,6 +303,29 @@ Very useful for troubleshooting, but will log any sensitive data contained withi
 
 Environment variable: `INFLUXDB_DATA_QUERY_LOG_ENABLED`
 
+#### query-log-path
+
+An absolute path to the query log file.
+The default is `""` (queries aren't logged to a file).
+
+Query logging supports SIGHUP-based log rotation.
+
+The following is an example of a `logrotate` configuration:
+
+```
+/var/log/influxdb/queries.log {
+        rotate 5
+        daily
+        compress
+        missingok
+        notifempty
+        create 644 root root
+        postrotate
+                /bin/kill -HUP `pgrep -x influxd`
+        endscript
+}
+```
+
 #### wal-fsync-delay
 
 Default is `"0s"`.
