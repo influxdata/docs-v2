@@ -367,7 +367,7 @@ influxdb3 create trigger \
   --database mydb system-metrics
 ```
 
-### On Request Trigger
+### On Request trigger
 
 On Request plugins are triggered by a request to a specific endpoint under `/api/v3/engine`. The plugin will receive the local API, query parameters `Dict[str, str]`, request headers `Dict[str, str]`, request body (as bytes), and any arguments passed in the trigger definition. Here's an example of a simple On Request plugin:
 
