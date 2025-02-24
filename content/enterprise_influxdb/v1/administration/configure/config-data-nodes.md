@@ -309,7 +309,8 @@ An absolute path to the query log file.
 The default is `""` (queries aren't logged to a file).
 
 
-We support `SIGHUP` based log rotation. The following is an example of a `logrotate` configuration:
+Query logging supports SIGHUP-based log rotation.
+The following is an example of a `logrotate` configuration:
 
 ```
 /var/log/influxdb/queries.log {
