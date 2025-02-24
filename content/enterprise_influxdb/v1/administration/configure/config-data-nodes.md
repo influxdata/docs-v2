@@ -305,10 +305,8 @@ Environment variable: `INFLUXDB_DATA_QUERY_LOG_ENABLED`
 
 #### query-log-path
 
-Default is `""`.
-
-Whether queries should be logged to a file at a given path.
-If the value is set to `""` (default) queries are not logged to a file.
+An absolute path to the query log file.
+The default is `""` (queries aren't logged to a file).
 Please make sure you are using the absolute path when configuring this.
 We support `SIGHUP` based log rotation. The following is an example of a `logrotate` configuration:
 
