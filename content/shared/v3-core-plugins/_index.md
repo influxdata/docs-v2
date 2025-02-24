@@ -30,7 +30,9 @@ The Processing engine provides four types of triggers—each type corresponds to
 - **WAL Flush**: Triggered when the write-ahead log (WAL) is flushed to the object store (default is every second).
 - **Scheduled Tasks**: Triggered on a schedule you specify using cron syntax.
 - **On-request**: Triggered on a GET or POST request to the bound HTTP API endpoint at `/api/v3/engine/<CUSTOM_PATH>`.
+<!--
 - **Parquet Persistence (coming soon)**: Triggered when InfluxDB 3 persists data to object storage Parquet files.
+-->
 
 ### Activate the Processing engine
 
