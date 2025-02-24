@@ -227,16 +227,25 @@ You can use this to provide runtime configuration and drive behavior of a plugin
 - threshold values for monitoring
 - connection properties for connecting to third-party services
 
-To pass arguments to a plugin, specify argument key-value pairs in the trigger--for example, using the CLI:
+To pass arguments to a plugin, specify trigger arguments in a comma-separated list
+of key-value pairs--for example, using the CLI:
 
 ```bash
 influxdb3 create trigger
---trigger-arguments <TRIGGER_ARGUMENTS>
-          Comma separated list of key/value pairs to use as trigger arguments. Example: key1=val1,key2=val2
-The arguments are passed to the plugin as a `Dict[str, str]` where the key is
-the argument name and the value is the argument value.
+--trigger-arguments key1=val1,key2=val2
+```
 
-The following example shows how to use an argument in a WAL plugin:
+The arguments are passed to the plugin as a `Dict[str, str]` where the key is
+the argument name and the value is the argument value--for example:
+
+```python
+args = {
+    "key1": "value1",
+    "key2": "value2",
+}
+```
+
+The following example shows how to access and use an argument in a WAL plugin:
 
 ```python
 def process_writes(influxdb3_local, table_batches, args=None):
@@ -368,7 +377,7 @@ def process_scheduled_call(influxdb3_local, time, args=None):
 
 Schedule plugins are set with a `trigger-spec` of `schedule:<cron_expression>` or `every:<duration>`. The `args` parameter can be used to pass configuration to the plugin. For example, if we wanted to use the system-metrics example from the Github repo and have it collect every 10 seconds we could use the following trigger definition:
 
-```shell
+```bash
 influxdb3 create trigger \
   --trigger-spec "every:10s" \
   --plugin-filename "gh:examples/schedule/system_metrics/system_metrics.py" \
@@ -377,13 +386,10 @@ influxdb3 create trigger \
 
 ### On Request trigger
 
-On Request plugins are triggered by a request to an endpoint that you define 
-under `/api/v3/engine`.
-When triggered, the plugin receives the shared API, query parameters `Dict[str, str]`,
-request headers `Dict[str, str]`, the request body (as bytes),
-and any arguments passed in the trigger definition.
+On Request plugins are triggered by a request to a custom HTTP API endpoint.
+The plugin receives the shared API, query parameters `Dict[str, str]`, request headers `Dict[str, str]`, the request body (as bytes), and any arguments passed in the trigger definition.
 
-#### Example: simple On Request plugin
+#### Example: On Request plugin
 
 ```python
 import json
@@ -410,16 +416,19 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
 
 #### On Request trigger configuration
 
-Define an On Request plugin using the `request:<endpoint>` trigger-spec.
+To create a trigger for an On Request plugin, specify the `request:<ENDPOINT>` trigger-spec.
 
-For example, the following command creates an `/api/v3/engine/my_plugin` endpoint
-that runs a `<plugin-directory>/examples/my-on-request.py` plugin:
+For example, the following command creates an HTTP API `/api/v3/engine/my-plugin` endpoint for the plugin file:
 
 ```bash
 influxdb3 create trigger \
-  --trigger-spec "request:my_plugin" \
+  --trigger-spec "request:my-plugin" \
   --plugin-filename "examples/my-on-request.py" \
   --database mydb my-plugin
+```
 
-Because all On Request plugins share the same root URL, trigger specs must be
-unique across all plugins configured for a server, regardless of which database they are associated with.
+To run the plugin, you send an HTTP request to `<HOST>/api/v3/engine/my-plugin`.
+
+Because all On Request plugins for a server share the same `<host>/api/v3/engine/` base URL,
+the trigger-spec you define must be unique across all plugins configured for a server,
+regardless of which database they are associated with.

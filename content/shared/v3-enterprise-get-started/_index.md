@@ -580,9 +580,9 @@ and a _trigger-spec_, which defines when the plugin is executed and what data it
 InfluxDB 3 provides the following types of triggers, each with specific trigger-specs:
 
 - **On WAL flush**: Sends a batch of written data (for a specific table or all tables) to a plugin (by default, every second).
-> - **On Schedule**: Executes a plugin on a user-configured schedule (using a crontab or a duration); useful for data collection and deadman monitoring.
-> - **On Request**: Binds a plugin to a custom HTTP API endpoint at `/api/v3/engine/<PATH>`.
->   The plugin receives the HTTP request headers and content, and can then parse, process, and send the data into the database or to third-party services.
+- **On Schedule**: Executes a plugin on a user-configured schedule (using a crontab or a duration); useful for data collection and deadman monitoring.
+- **On Request**: Binds a plugin to a custom HTTP API endpoint at `/api/v3/engine/<ENDPOINT>`.
+  The plugin receives the HTTP request headers and content, and can then parse, process, and send the data into the database or to third-party services.
 
 ### Test, create, and trigger plugin code
 
