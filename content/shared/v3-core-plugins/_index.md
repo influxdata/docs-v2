@@ -369,7 +369,10 @@ influxdb3 create trigger \
 
 ### On Request trigger
 
-On Request plugins are triggered by a request to a specific endpoint under `/api/v3/engine`. The plugin will receive the local API, query parameters `Dict[str, str]`, request headers `Dict[str, str]`, request body (as bytes), and any arguments passed in the trigger definition. Here's an example of a simple On Request plugin:
+On Request plugins are triggered by a request to a specific endpoint under `/api/v3/engine`. The plugin receives the shared API, query parameters `Dict[str, str]`, request headers `Dict[str, str]`, the request body (as bytes), and any arguments passed in the trigger definition.
+
+#### Example: simple On Request plugin
+
 
 ```python
 import json
