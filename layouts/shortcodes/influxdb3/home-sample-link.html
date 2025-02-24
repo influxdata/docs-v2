@@ -2,7 +2,7 @@
 {{- $product := index $productPathData 2 -}}
 {{- $isDistributed := in (slice "cloud-dedicated" "cloud-serverless" "clustered") $product -}}
 {{- if $isDistributed -}}
-<a href="/influxdb3/{{ $product }}//reference/sample-data/#get-started-home-sensor-data">Get started home sensor sample data</a>
+<a href="/influxdb3/{{ $product }}/reference/sample-data/#get-started-home-sensor-data">Get started home sensor sample data</a>
 {{- else -}}
-<a href="/influxdb3/{{ $product }}//reference/sample-data/#home-sensor-data">Home sensor sample data</a>
+<a href="/influxdb3/{{ $product }}/reference/sample-data/#home-sensor-data">Home sensor sample data</a>
 {{- end -}}
