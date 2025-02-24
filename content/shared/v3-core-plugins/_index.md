@@ -25,7 +25,8 @@ A _trigger_ is an InfluxDB 3 resource you create to associate a database
 event (for example, a WAL flush) with the plugin that should run.
 When an event occurs, the trigger passes configuration details, optional arguments, and event data to the plugin.
 
-The Processing engine provides four types of triggers—each type corresponds to an event type with event-specific configuration to let you handle events with targeted logic.
+The Processing engine provides four types of triggers--each type corresponds to
+an event type with event-specific configuration to let you handle events with targeted logic.
 
 - **WAL Flush**: Triggered when the write-ahead log (WAL) is flushed to the object store (default is every second).
 - **Scheduled Tasks**: Triggered on a schedule you specify using cron syntax.
@@ -36,15 +37,15 @@ The Processing engine provides four types of triggers—each type corresponds to
 
 ### Activate the Processing engine
 
-To enable the Processing engine, start the {{% product-name %}} server with the `--plugin-dir` option and a path to your plugins directory. If the directory doesn’t exist, the server creates it. 
+To enable the Processing engine, start the {{% product-name %}} server with the
+`--plugin-dir` option and a path to your plugins directory.
+If the directory doesn’t exist, the server creates it. 
 
 ```bash
 influxdb3 serve --node-id node0 --object-store [OBJECT STORE TYPE] --plugin-dir /path/to/plugins
 ```
 
-
-
-## The Shared API
+## Shared API
 
 All plugin types provide the InfluxDB 3 _shared API_ for interacting with the database.
 The shared API provides access to the following:
@@ -194,11 +195,11 @@ The shared API `query` function executes an SQL query with optional parameters (
 The following examples show how to use the `query` function:
 
 ```python
-influxdb3_local.query("SELECT * from foo where bar = 'baz' and time > now() - 'interval 1 hour'")
+influxdb3_local.query("SELECT * from foo where bar = 'baz' and time > now() - INTERVAL '1 hour'")
 
 # Or using parameterized queries
 args = {"bar": "baz"}
-influxdb3_local.query("SELECT * from foo where bar = $bar and time > now() - 'interval 1 hour'", args)
+influxdb3_local.query("SELECT * from foo where bar = $bar and time > now() - INTERVAL '1 hour'", args)
 ```
 
 ### Logging
@@ -220,13 +221,20 @@ influxdb3_local.info("This is an info message with an object", obj_to_log)
 
 ### Trigger arguments
 
-Every plugin type can receive arguments from the configuration of the trigger that runs it.
+A plugin can receive arguments from the trigger that runs it.
 You can use this to provide runtime configuration and drive behavior of a plugin—for example:
 
 - threshold values for monitoring
 - connection properties for connecting to third-party services
 
-The arguments are passed as a `Dict[str, str]` where the key is the argument name and the value is the argument value.
+To pass arguments to a plugin, specify argument key-value pairs in the trigger--for example, using the CLI:
+
+```bash
+influxdb3 create trigger
+--trigger-arguments <TRIGGER_ARGUMENTS>
+          Comma separated list of key/value pairs to use as trigger arguments. Example: key1=val1,key2=val2
+The arguments are passed to the plugin as a `Dict[str, str]` where the key is
+the argument name and the value is the argument value.
 
 The following example shows how to use an argument in a WAL plugin:
 
@@ -369,10 +377,13 @@ influxdb3 create trigger \
 
 ### On Request trigger
 
-On Request plugins are triggered by a request to a specific endpoint under `/api/v3/engine`. The plugin receives the shared API, query parameters `Dict[str, str]`, request headers `Dict[str, str]`, the request body (as bytes), and any arguments passed in the trigger definition.
+On Request plugins are triggered by a request to an endpoint that you define 
+under `/api/v3/engine`.
+When triggered, the plugin receives the shared API, query parameters `Dict[str, str]`,
+request headers `Dict[str, str]`, the request body (as bytes),
+and any arguments passed in the trigger definition.
 
 #### Example: simple On Request plugin
-
 
 ```python
 import json
@@ -399,9 +410,10 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
 
 #### On Request trigger configuration
 
-**On Request** plugins are defined using the `request:<endpoint>` trigger-spec.
+Define an On Request plugin using the `request:<endpoint>` trigger-spec.
 
-For example, the following command creates an `/api/v3/engine/my_plugin` endpoint that runs a `<plugin-directory>/examples/my-on-request.py` plugin:
+For example, the following command creates an `/api/v3/engine/my_plugin` endpoint
+that runs a `<plugin-directory>/examples/my-on-request.py` plugin:
 
 ```bash
 influxdb3 create trigger \
@@ -409,11 +421,5 @@ influxdb3 create trigger \
   --plugin-filename "examples/my-on-request.py" \
   --database mydb my-plugin
 
-Because all On Request plugins share the same root URL, trigger specs must be unique across all plugins configured for a server, regardless of which database they are associated with.
-
-```shell
-influxdb3 create trigger \
-  --trigger-spec "request:hello-world" \
-  --plugin-filename "hello/hello_world.py" \
-  --database mydb hello-world
-```
+Because all On Request plugins share the same root URL, trigger specs must be
+unique across all plugins configured for a server, regardless of which database they are associated with.
