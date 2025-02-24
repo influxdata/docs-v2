@@ -409,7 +409,7 @@ influxdb3 create trigger \
   --plugin-filename "examples/my-on-request.py" \
   --database mydb my-plugin
 
-Trigger specs must be unique across all configured plugins, regardless of which database they are tied to, given the path is the same. Here's an example to create a request trigger tied to the "hello-world' path using a plugin in the plugin-dir:
+Because all On Request plugins share the same root URL, trigger specs must be unique across all plugins configured for a server, regardless of which database they are associated with.
 
 ```shell
 influxdb3 create trigger \
