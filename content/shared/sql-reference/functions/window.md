@@ -1,10 +1,8 @@
 
-A _window function_ performs an operation across a set of rows related to the
-current row. This is similar to the type of operations
-[aggregate functions](/influxdb3/cloud-dedicated/reference/sql/functions/aggregate/)
-perform. However, window functions do not return a single output row per group
-like non-window aggregate functions do. Instead, rows retain their separate
-identities.
+Window functions let you calculate running totals, moving averages, or other aggregate-like results without collapsing rows into groups.
+They perform their calculations over a “window” of rows, which you can partition and order in various ways, and return a calculated value for each row in the set.
+
+Unlike non-window [aggregate functions](/influxdb3/version/reference/sql/functions/aggregate/) that combine each group into a single row, window functions preserve each row’s identity and calculate an additional value for every row in the partition.
 
 For example, the following query uses the {{< influxdb3/home-sample-link >}}
 and returns each temperature reading with the average temperature per room over
@@ -65,9 +63,10 @@ ORDER BY
 
 As window functions operate on a row, there is a set of rows in the row's
 partition that the window function uses to perform the operation. This set of
-rows is called the _window frame_. Window frame boundaries can be defined using
+rows is called the _window frame_.
+Window frame boundaries can be defined using
 `RANGE`, `ROW`, or `GROUPS` frame units, each relative to the current row--for
-exmaple:
+example:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -117,10 +116,8 @@ FROM home
 
 _For more information about how window frames work, see the [frame clause](#frame-clause)._
 
-If window frames are not defined, window functions use all rows in the current
+If you don't specify window frames, window functions use all rows in the current
 partition to perform their operation.
-
-## Window function syntax
 
 ```sql
 function([expr])
@@ -133,10 +130,10 @@ function([expr])
 
 ### OVER clause
 
-Window functions use an `OVER` clause directly following the window function's
-name and arguments. The `OVER` clause syntactically distinguishes a window
-function from a normal function or non-window aggregate function and determines
-how rows are split up for the window operation.
+Window functions use an `OVER` clause that directly follows the window function's  
+name and arguments.  
+The `OVER` clause syntactically distinguishes a window  
+function from a non-window or aggregate function and defines how to group and order rows for the window operation.
 
 ### PARTITION BY clause
 
@@ -154,13 +151,13 @@ may be explicit or implicit, limiting a window frame size in both directions
 relative to the current row.
 
 > [!Note]
-> The `ORDER BY` clause in an `OVER` clause is separate from the `ORDER BY`
-> clause of the query and only determines the order that rows in each partition
-> are processed in.
+> The `ORDER BY` clause in an `OVER` clause determines the processing order for
+> rows in each partition and is separate from the `ORDER BY`
+> clause of the query.
 
 ### Frame clause
 
-The frame clause defines window frame boundaries and can be one of the following:
+The _frame clause_ defines window frame boundaries and can be one of the following:
 
 ```sql
 { RANGE | ROWS | GROUPS } frame_start
@@ -196,7 +193,7 @@ the current row value.
 > When using `RANGE` frame units, you must include an `ORDER BY` clause with
 > _exactly one column_.
 
-The offset is the difference the between the current row value and surrounding
+The offset is the difference between the current row value and surrounding
 row values. `RANGE` supports the following offset types:
 
 - Numeric _(non-negative)_
@@ -207,7 +204,7 @@ row values. `RANGE` supports the following offset types:
 {{% expand "See how `RANGE` frame units work with numeric offsets" %}}
 
 To use a numeric offset with the `RANGE` frame unit, you must sort partitions
-by a numeric-typed column.
+by a numeric-type column.
 
 ```sql
 ... OVER (
@@ -226,7 +223,7 @@ The window frame includes rows with sort column values between 45 below and
 {{% expand "See how `RANGE` frame units work with interval offsets" %}}
 
 To use an interval offset with the `RANGE` frame unit, you must sort partitions
-by `time` or a timestamp-typed column.
+by `time` or a timestamp-type column.
 
 ```sql
 ... OVER (
@@ -251,7 +248,7 @@ one hour after the current row's timestamp:
 
 ##### ROWS
 
-Defines frame boundaries using row positions relative to the current row.
+Defines window frame boundaries using row positions relative to the current row.
 The offset is the difference in row position from the current row.
 `ROWS` supports the following offset types:
 
@@ -279,14 +276,14 @@ The window frame includes the two rows before and the one row after the current 
 
 ##### GROUPS
 
-Defines frame boundaries using row groups.
+Defines window frame boundaries using row groups.
 Rows with the same values for the columns in the [`ORDER BY` clause](#order-by-clause)
 comprise a row group.
 
 > [!Important]
-> When using `GROUPS` frame units, you must include an `ORDER BY` clause.
+> When using `GROUPS` frame units, include an `ORDER BY` clause.
 
-The offset is the difference in row group position relative to the the current row group.
+The offset is the difference in row group position relative to the current row group.
 `GROUPS` supports the following offset types:
 
 - Numeric _(non-negative)_
@@ -319,8 +316,7 @@ You can then use group offsets to determine frame boundaries:
 )
 ```
 
-The window function uses all rows in the two row groups before the current
-row group and the current row group to perform the operation:
+The window function uses all rows in the current row group and the two preceding row groups to perform the operation:
 
 {{< sql/window-frame-units "groups with frame" >}}
 
@@ -330,45 +326,75 @@ row group and the current row group to perform the operation:
 #### Frame boundaries
 
 Frame boundaries (**frame_start** and **frame_end**) define the boundaries of
-each frame the window function operates on. Use the following to define
-frame boundaries:
+each frame that the window function operates on.  
 
-```sql
-UNBOUNDED PRECEDING
-offset PRECEDING
-CURRENT ROW
-offset FOLLOWING
-UNBOUNDED FOLLOWING
-```
+- [UNBOUNDED PRECEDING](#unbounded-preceding)
+- [offset PRECEDING](#offset-preceding)
+- CURRENT_ROW](#current-row)
+- [offset> FOLLOWING](#offset-following)
+- [UNBOUNDED FOLLOWING](#unbounded-following)
 
 ##### UNBOUNDED PRECEDING
 
-Use the beginning of the partition to the current row as the frame boundary.
+Starts at the first row of the partition and ends at the current row.
+
+```sql
+UNBOUNDED PRECEDING
+```
 
 ##### offset PRECEDING
 
-Use a specified offset of [frame units](#frame-units) _before_ the current row
-as a frame boundary.
+Starts at `offset` [frame units](#frame-units) before the current row and ends at the current row.
+For example, `3 PRECEDING` includes 3 rows before the current row.
+
+```sql
+<offset> PRECEDING
+```
 
 ##### CURRENT ROW
 
-Use the current row as a frame boundary.
+Both starts and ends at the current row when used as a boundary.
 
+```sql
+CURRENT ROW
+```
+
+##### offset FOLLOWING
+
+Starts at the current row and ends at `offset` [frame units](#frame-units) after the current row.
+For example, `3 FOLLOWING` includes 3 rows after the current row.
+
+```sql
+<offset> FOLLOWING
+```
+
+##### UNBOUNDED FOLLOWING
+
+Starts at the current row and ends at the last row of the partition.
 ##### offset FOLLOWING
 
 Use a specified offset of [frame units](#frame-units) _after_ the current row
 as a frame boundary.
 
+```sql
+offset FOLLOWING
+```
+
 ##### UNBOUNDED FOLLOWING
 
 Use the current row to the end of the current partition the frame boundary.
 
+```sql
+UNBOUNDED FOLLOWING
+```
+
 ### WINDOW clause
 
-When a query has multiple window functions that use the same window, rather than
-writing each with a separate `OVER` clause (which is duplicative and error-prone),
-use the `WINDOW` clause to define the window and then reference the window alias
-in each `OVER` clause--for example:
+Use the `WINDOW` clause to define a reusable alias for a window specification.
+This is useful when multiple window functions in your query share the same window definition.  
+
+Instead of repeating the same OVER clause for each function,
+define the window once and reference it by alias--for example:  
 
 ```sql
 SELECT
@@ -400,16 +426,15 @@ can be used as window functions.
 Returns the cumulative distribution of a value within a group of values.
 The returned value is greater than 0 and less than or equal to 1 and represents
 the relative rank of the value in the set of values.
-The [`ORDER BY` clause](#order-by-clause) in the `OVER` clause determines
-ranking order.
+The [`ORDER BY` clause](#order-by-clause) in the `OVER` clause is used
+to correctly calculate the cumulative distribution of the current row value.  
 
 ```sql
 cume_dist()
 ```
 
 > [!Important]
-> `cume_dist` needs an [`ORDER BY` clause](#order-by-clause) in the `OVER` clause
-> to correctly calculate the cumulative distribution of the current row value.
+> When using `cume_dist`, include an [`ORDER BY` clause](#order-by-clause) in the `OVER` clause.  
 
 {{< expand-wrapper >}}
 {{% expand "View `cume_dist` query example" %}}
@@ -451,8 +476,9 @@ WHERE
 
 ### dense_rank
 
-Returns the rank of the current row without gaps. This function ranks rows in a
-dense manner, meaning consecutive ranks are assigned even for identical values.
+Returns a rank for each row without gaps in the numbering.  
+Unlike [rank()](#rank), this function assigns consecutive ranks even when values
+are identical.  
 The [`ORDER BY` clause](#order-by-clause) in the `OVER` clause determines
 ranking order.
 
@@ -500,9 +526,9 @@ WHERE
 
 ### ntile
 
-Distributes the rows in an ordered partition into a specified number of groups.
-Each group is numbered, starting at one. For each row, `ntile` returns the
-group number to which the row belongs.
+Distributes the rows in an ordered partition into the specified number of groups.
+Each group is numbered, starting at one.
+For each row, `ntile` returns the group number to which the row belongs.
 Group numbers range from 1 to the `expression` value, dividing the partition as
 equally as possible.
 The [`ORDER BY` clause](#order-by-clause) in the `OVER` clause determines
@@ -514,8 +540,7 @@ ntile(expression)
 
 ##### Arguments
 
-- **expression**: An integer describing the number groups to split the partition
-  into.
+- **expression**: An integer. The number of groups to split the partition into.
 
 {{< expand-wrapper >}}
 {{% expand "View `ntile` query example" %}}
@@ -556,10 +581,14 @@ WHERE
 ### percent_rank
 
 Returns the percentage rank of the current row within its partition.
-The returned value is between `0` and `1` and is computed as
-`(rank - 1) / (total_rows - 1)`.
+The returned value is between `0` and `1`, computed as:
+
+```
+(rank - 1) / (total_rows - 1)
+```
+
 The [`ORDER BY` clause](#order-by-clause) in the `OVER` clause determines
-ranking order.
+the ranking order.
 
 ```sql
 percent_rank()
@@ -760,7 +789,7 @@ ORDER BY room, time
 ### lag
 
 Returns the value from the row that is at the specified offset before the
-current row in the partition. If the offset row is outside of the partition,
+current row in the partition. If the offset row is outside the partition,
 the function returns the specified default.
 
 ```sql
@@ -876,7 +905,7 @@ ORDER BY room, time
 ### lead
 
 Returns the value from the row that is at the specified offset after the
-current row in the partition. If the offset row is outside of the partition,
+current row in the partition. If the offset row is outside the partition,
 the function returns the specified default.
 
 ```sql
