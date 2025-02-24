@@ -310,6 +310,7 @@ The default is `""` (queries aren't logged to a file).
 
 
 Query logging supports SIGHUP-based log rotation.
+
 The following is an example of a `logrotate` configuration:
 
 ```
