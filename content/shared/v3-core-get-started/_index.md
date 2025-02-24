@@ -62,7 +62,7 @@ This guide covers InfluxDB 3 Core (the open source release), including the follo
 {{% tabs %}}
 [Linux or macOS](#linux-or-macos)
 [Windows](#windows)
-[Docker (x86)](#docker-x86)
+[Docker](#docker)
 {{% /tabs %}}
 {{% tab-content %}}
 <!--------------- BEGIN LINUX AND MACOS -------------->
@@ -75,15 +75,9 @@ curl -O https://www.influxdata.com/d/install_influxdb3.sh \
 
 Or, download and install [build artifacts](/influxdb3/core/install/#download-influxdb-3-core-binaries):
 
-- [Linux | x86 | musl](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-musl.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-musl.tar.gz.sha256)
 - [Linux | x86 | gnu](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-gnu.tar.gz)
   •
   [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-gnu.tar.gz.sha256)
-- [Linux | ARM | musl](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-musl.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-musl.tar.gz.sha256)
 - [Linux | ARM | gnu](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-gnu.tar.gz)
   •
   [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-gnu.tar.gz.sha256)
@@ -107,7 +101,10 @@ Download and install the {{% product-name %}} [Windows (x86) binary](https://dl.
 {{% tab-content %}}
 <!--------------- BEGIN DOCKER -------------->
 
-Pull the [`influxdb3-core` image](https://quay.io/repository/influxdb/influxdb3-core?tab=tags&tag=latest):
+The [`influxdb3-core` image](https://quay.io/repository/influxdb/influxdb3-core?tab=tags&tag=latest)
+is available for x86_64 (AMD64) and ARM64 architectures.
+
+Pull the image:
 
 ```bash
 docker pull quay.io/influxdb/influxdb3-core:latest

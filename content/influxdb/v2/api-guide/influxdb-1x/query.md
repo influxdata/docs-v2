@@ -150,7 +150,6 @@ The following precisions are available:
 ##### Query a non-default retention policy
 
 <!--test:setup
-
 ```sh
 service influxdb start && \
 influx setup \
@@ -160,7 +159,6 @@ influx setup \
   --bucket BUCKET_NAME \
   --force || true
 ```
-
 -->
 
 ```sh

@@ -35,7 +35,6 @@ Use the [`influx server-config` command](/influxdb/v2/reference/cli/influx/serve
 to retrieve your runtime server configuration.
 
 <!--test:setup
-
 ```sh
 service influxdb start && \
 influx setup \
@@ -45,7 +44,6 @@ influx setup \
   --bucket BUCKET_NAME \
   --force || true
 ```
-
 -->
 
 ```sh
@@ -2748,7 +2746,7 @@ storage-wal-max-concurrent-writes = 0
 
 ### storage-wal-max-write-delay
 Maximum amount of time a write request to the WAL directory will wait when the
-the [maximum number of concurrent active writes to the WAL directory](#storage-wal-max-concurrent-writes)
+[maximum number of concurrent active writes to the WAL directory](#storage-wal-max-concurrent-writes)
 has been met. Set to `0` to disable the timeout.
 
 **Default:** `10m`

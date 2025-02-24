@@ -66,7 +66,7 @@ To use the SHA checksum to verify the downloaded file, do the following:
    the **SHA256:** checksum value.
 
 2. Compute the SHA checksum of the downloaded file and compare it to the
-   published checksum--for example, enter the following command in your terminal.
+   published checksum--for example, enter the following command in your terminal:
 
    <!--test:actual
    ```bash
@@ -77,11 +77,11 @@ To use the SHA checksum to verify the downloaded file, do the following:
 
 <!--pytest-codeblocks:cont-->
 
-{{% code-placeholders "9cb54d3940c37a8c2a908458543e629412505cc71db55094147fd39088b99c6c" %}}
+{{% code-placeholders "8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf" %}}
 
 ```bash
 # Use 2 spaces to separate the checksum from the filename
-echo "9cb54d3940c37a8c2a908458543e629412505cc71db55094147fd39088b99c6c  influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz" \
+echo "8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf  influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz" \
 | sha256sum --check -
 ```
 
@@ -89,7 +89,7 @@ echo "9cb54d3940c37a8c2a908458543e629412505cc71db55094147fd39088b99c6c  influxdb
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`9cb54d3940c37a8c2a908458543e629412505cc71db55094147fd39088b99c6c`{{% /code-placeholder-key %}}:
+- {{% code-placeholder-key %}}`8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf`{{% /code-placeholder-key %}}:
   the **SHA256:** checksum value that you copied from the downloads page
 
 If the checksums match, the output is the following; otherwise, an error message.
@@ -162,12 +162,10 @@ gpg: key 7C3D57159FC2F927: public key "InfluxData Package Signing Key <support@i
    following in your terminal:
 
    <!--test:setup
-
    ```sh
    curl --silent --location --output-dir ~/Downloads -O \
    "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" \
    ```
-
    -->
 
    ```sh
@@ -252,11 +250,11 @@ brew install influxdb
 2. {{< req text="Recommended:" color="magenta" >}}: Verify the integrity of the download--for example, enter the
    following command in your terminal:
 
-{{% code-placeholders "964e1de641a43a0e1743aa5ead243e935a05631ba0bc570fb8bff486542173c1" %}}
+{{% code-placeholders "224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b" %}}
 
 ```sh
 # Use 2 spaces to separate the checksum from the filename
-echo "964e1de641a43a0e1743aa5ead243e935a05631ba0bc570fb8bff486542173c1  influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" \
+echo "224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b  influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" \
 | shasum --algorithm 256 --quiet --check -
 ```
 
@@ -264,7 +262,7 @@ echo "964e1de641a43a0e1743aa5ead243e935a05631ba0bc570fb8bff486542173c1  influxdb
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`964e1de641a43a0e1743aa5ead243e935a05631ba0bc570fb8bff486542173c1`{{% /code-placeholder-key %}}: the SHA checksum from the [downloads page](https://www.influxdata.com/downloads/#telegraf)
+- {{% code-placeholder-key %}}`224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b`{{% /code-placeholder-key %}}: the SHA checksum from the [downloads page](https://www.influxdata.com/downloads/#telegraf)
 
 3. Unpackage the InfluxDB binary.
 
