@@ -367,10 +367,10 @@ influxdb3 create trigger \
 
 ### On Request trigger
 
-On Request plugins are triggered by a request to a specific endpoint under `/api/v3/engine`. The plugin receives the shared API, query parameters `Dict[str, str]`, request headers `Dict[str, str]`, the request body (as bytes), and any arguments passed in the trigger definition.
+On Request plugins are triggered by a request to an HTTP API endpoint.
+The plugin receives the shared API, query parameters `Dict[str, str]`, request headers `Dict[str, str]`, the request body (as bytes), and any arguments passed in the trigger definition.
 
-#### Example: simple On Request plugin
-
+#### Example: On Request plugin
 
 ```python
 import json
@@ -397,9 +397,9 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
 
 #### On Request trigger configuration
 
-On Request plugins are defined using the `request:<endpoint>` trigger-spec.
-For example, the following `influxdb3` CLI command creates an `/api/v3/engine/my-plugin` HTTP endpoint
-to execute the `<plugin-directory>/examples/my-on-request.py` plugin:
+To create a trigger for an On Request plugin, specify the `request:<ENDPOINT>` trigger-spec.
+
+For example, the following command creates an HTTP API `/api/v3/engine/my-plugin` endpoint for the plugin file:
 
 ```bash
 influxdb3 create trigger \
@@ -407,7 +407,8 @@ influxdb3 create trigger \
   --plugin-filename "examples/my-on-request.py" \
   --database mydb my-plugin
 
-Because all On Request plugins for a server share the same `<host>/api/v3/engine/` base URL ,
-the trigger-spec
-you define must be unique across all plugins configured for a server,
+To run the plugin, you send an HTTP request to `<HOST>/api/v3/engine/my-plugin`.
+
+Because all On Request plugins for a server share the same `<host>/api/v3/engine/` base URL,
+the trigger-spec you define must be unique across all plugins configured for a server,
 regardless of which database they are associated with.
