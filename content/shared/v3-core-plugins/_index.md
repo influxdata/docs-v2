@@ -42,9 +42,7 @@ To enable the Processing engine, start the {{% product-name %}} server with the 
 influxdb3 serve --node-id node0 --object-store [OBJECT STORE TYPE] --plugin-dir /path/to/plugins
 ```
 
-
-
-## The Shared API
+## Shared API
 
 All plugin types provide the InfluxDB 3 _shared API_ for interacting with the database.
 The shared API provides access to the following:
@@ -399,21 +397,17 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
 
 #### On Request trigger configuration
 
-**On Request** plugins are defined using the `request:<endpoint>` trigger-spec.
-
-For example, the following command creates an `/api/v3/engine/my_plugin` endpoint that runs a `<plugin-directory>/examples/my-on-request.py` plugin:
+On Request plugins are defined using the `request:<endpoint>` trigger-spec.
+For example, the following `influxdb3` CLI command creates an `/api/v3/engine/my-plugin` HTTP endpoint
+to execute the `<plugin-directory>/examples/my-on-request.py` plugin:
 
 ```bash
 influxdb3 create trigger \
-  --trigger-spec "request:my_plugin" \
+  --trigger-spec "request:my-plugin" \
   --plugin-filename "examples/my-on-request.py" \
   --database mydb my-plugin
 
-Because all On Request plugins share the same root URL, trigger specs must be unique across all plugins configured for a server, regardless of which database they are associated with.
-
-```shell
-influxdb3 create trigger \
-  --trigger-spec "request:hello-world" \
-  --plugin-filename "hello/hello_world.py" \
-  --database mydb hello-world
-```
+Because all On Request plugins for a server share the same `<host>/api/v3/engine/` base URL ,
+the trigger-spec
+you define must be unique across all plugins configured for a server,
+regardless of which database they are associated with.
