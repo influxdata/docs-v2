@@ -10,17 +10,16 @@ menu:
 weight: 201
 ---
 
-{{% note %}}
-## Checkpoint releases {.checkpoint}
-
-Some InfluxDB Clustered releases are checkpoint releases that introduce a
-breaking change to an InfluxDB component.
-When [upgrading InfluxDB Clustered](/influxdb3/clustered/admin/upgrade/),
-**always upgrade to each checkpoint release first, before proceeding to newer versions**.
-
-Checkpoint releases are only made when absolutely necessary and are clearly
-identified below with the <span class="cf-icon Shield pink"></span> icon.
-{{% /note %}}
+> [!Note]
+> ## Checkpoint releases {.checkpoint}
+> 
+> Some InfluxDB Clustered releases are checkpoint releases that introduce a
+> breaking change to an InfluxDB component.
+> When [upgrading InfluxDB Clustered](/influxdb3/clustered/admin/upgrade/),
+> **always upgrade to each checkpoint release first, before proceeding to newer versions**.
+> 
+> Checkpoint releases are only made when absolutely necessary and are clearly
+> identified below with the <span class="cf-icon Shield pink"></span> icon.
 
 {{< release-toc >}}
 
@@ -181,11 +180,10 @@ For customers who experience this bug when attempting to upgrade to
 
 ## 20240925-1257864 {date="2024-09-25" .checkpoint}
 
-{{% warn %}}
-This release has a number of bugs in it which make it unsuitable for customer use.
-If you are currently running this version, please upgrade to
-[20241024-1354148](#20241024-1354148).
-{{% /warn %}}
+> [!Caution]
+> This release has a number of bugs in it which make it unsuitable for customer use.
+> If you are currently running this version, please upgrade to
+> [20241024-1354148](#20241024-1354148).
 
 ### Quickstart
 
@@ -352,10 +350,9 @@ validation error when omitted.
 When the `admin` section is omitted, the `admin-token` `Secret` can be used
 instead to get started quickly.
 
-{{% note %}}
-We still highly recommend OAuth for production; however, this lets you run an
-InfluxDB Cluster with out having to integrate with an identity provider.**
-{{% /note %}}
+> [!Note]
+> We recommend OAuth for production; however, the `admin-token` lets you run an
+> InfluxDB Cluster without having to integrate with an identity provider.**
 
 ### Upgrade notes
 
@@ -680,11 +677,10 @@ Kubernetes scheduler's default behavior. For further details, please consult the
 - Fix gRPC reflection to only include services served by a particular listening
   port.
   
-  {{% note %}}
-  `arrow.flight.protocol.FlightService` is known to be missing in the
-  `iox-shared-querier`'s reflection service even though `iox-shared-querier`
-  does run that gRPC service.
-  {{% /note %}}
+  > [!Note]
+  > `arrow.flight.protocol.FlightService` is known to be missing in the
+  > `iox-shared-querier`'s reflection service even though `iox-shared-querier`
+  > does run that gRPC service.
 
 ---
 
@@ -889,10 +885,9 @@ spec:
 
 ### Highlights
 
-{{% warn %}}
-**This release fixes a regression in the database engine that was introduced in
-[20231115-746129](#20231115-746129).**
-{{% /warn %}}
+> ![Important]
+> **This release fixes a regression in the database engine that was introduced in
+> [20231115-746129](#20231115-746129).**
 
 ### Changes
 
