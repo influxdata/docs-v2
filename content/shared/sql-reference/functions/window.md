@@ -476,9 +476,10 @@ WHERE
 
 ### dense_rank
 
-Returns a rank for each row without gaps in the numbering.  
-Unlike [rank()](#rank), this function assigns consecutive ranks even when values
-are identical.  
+Returns the rank of the current row in its partition.
+Ranking is consecutive; assigns duplicate values the same rank number and the rank sequence continues
+with the next distinct value (unlike [`rank()`](#rank)).
+
 The [`ORDER BY` clause](#order-by-clause) in the `OVER` clause determines
 ranking order.
 
@@ -521,6 +522,33 @@ WHERE
 
 {{% /influxdb/custom-timestamps %}}
 
+{{% /expand %}}
+{{% expand "Compare `dense_rank`, `rank`, and `row_number` functions"%}}
+
+Consider a table with duplicate ID values.
+The following query shows how each ranking function handles duplicate values:
+
+```sql
+SELECT
+  id,
+  rank() OVER(ORDER BY id),
+  dense_rank() OVER(ORDER BY id),
+  row_number() OVER(ORDER BY id)
+FROM my_table;
+```
+
+| ID  | rank | dense_rank | row_number |
+|:----|-----:|-----------:|-----------:|
+| 1   | 1    | 1         | 1          |
+| 1   | 1    | 1         | 2          |
+| 1   | 1    | 1         | 3          |
+| 2   | 4    | 2         | 4          |
+
+Key differences:
+
+- [`rank()`](#rank) assigns the same rank to equal values but skips ranks for subsequent values
+- [`dense_rank()`](#dense_rank) assigns the same rank to equal values and uses consecutive ranks
+- [`row_number()`](#row_number) assigns unique sequential numbers regardless of value (non-deterministic)
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
@@ -632,9 +660,10 @@ WHERE
 
 ### rank
 
-Returns the rank of the current row in its partition, allowing gaps between
-ranks. This function provides a ranking similar to [`row_number`](#row_number),
-but skips ranks for identical values.
+Returns the rank of the current row in its partition.
+For duplicate values, `rank` assigns them the same rank number, skips subsequent ranks (unlike [`dense_rank()`](#dense_rank)),
+and then continues ranking with the next distinct value.
+
 The [`ORDER BY` clause](#order-by-clause) in the `OVER` clause determines
 ranking order.
 
@@ -675,6 +704,33 @@ WHERE
 
 {{% /influxdb/custom-timestamps %}}
 
+{{% /expand %}}
+{{% expand "Compare `dense_rank`, `rank`, and `row_number` functions"%}}
+
+Consider a table with duplicate ID values.
+The following query shows how each ranking function handles duplicate values:
+
+```sql
+SELECT
+  id,
+  rank() OVER(ORDER BY id),
+  dense_rank() OVER(ORDER BY id),
+  row_number() OVER(ORDER BY id)
+FROM my_table;
+```
+
+| ID  | rank | dense_rank | row_number |
+|:----|-----:|-----------:|-----------:|
+| 1   | 1    | 1         | 1          |
+| 1   | 1    | 1         | 2          |
+| 1   | 1    | 1         | 3          |
+| 2   | 4    | 2         | 4          |
+
+Key differences:
+
+- [`rank()`](#rank) assigns the same rank to equal values but skips ranks for subsequent values
+- [`dense_rank()`](#dense_rank) assigns the same rank to equal values and uses consecutive ranks
+- [`row_number()`](#row_number) assigns unique sequential numbers regardless of value (non-deterministic)
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
@@ -721,6 +777,33 @@ WHERE
 
 {{% /influxdb/custom-timestamps %}}
 
+{{% /expand %}}
+{{% expand "Compare `dense_rank`, `rank`, and `row_number` functions"%}}
+
+Consider a table with duplicate ID values.
+The following query shows how each ranking function handles duplicate values:
+
+```sql
+SELECT
+  id,
+  rank() OVER(ORDER BY id),
+  dense_rank() OVER(ORDER BY id),
+  row_number() OVER(ORDER BY id)
+FROM my_table;
+```
+
+| ID  | rank | dense_rank | row_number |
+|:----|-----:|-----------:|-----------:|
+| 1   | 1    | 1         | 1          |
+| 1   | 1    | 1         | 2          |
+| 1   | 1    | 1         | 3          |
+| 2   | 4    | 2         | 4          |
+
+Key differences:
+
+- [`rank()`](#rank) assigns the same rank to equal values but skips ranks for subsequent values
+- [`dense_rank()`](#dense_rank) assigns the same rank to equal values and uses consecutive ranks
+- [`row_number()`](#row_number) assigns unique sequential numbers regardless of value (non-deterministic)
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
