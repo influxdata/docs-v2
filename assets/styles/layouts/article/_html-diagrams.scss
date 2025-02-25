@@ -904,6 +904,244 @@ table tr.point{
   }
 }
 
+//////////////////////// SQL WINDOW FRAME UNITS EXAMPLES ///////////////////////
+
+table.window-frame-units {
+  &.groups {
+    .group {
+      position: relative;
+      outline-style: solid;
+      outline-width: 3px;
+      outline-offset: -5px;
+      border-radius: 10px;
+
+      &::before {
+        content: "Row Group";
+        display: block;
+        padding: .25rem .5rem;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        border-radius: 4px;
+        color: #fff;
+        font-size: .8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: .02em;
+        box-shadow: 4px 4px 4px $article-bg;
+      }
+
+      td:nth-child(2), td:nth-child(3) {
+        font-weight: bold;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 5px;        
+      }
+
+      &:nth-of-type(1) {     
+        &::before {background: $br-new-magenta;}   
+        outline-color: $br-new-magenta;
+        td:nth-child(2), td:nth-child(3) {
+          text-decoration-color: $br-new-magenta;
+        }
+      }
+      &:nth-of-type(2) {
+        &::before {background: $br-new-purple;}  
+        outline-color: $br-new-purple;
+        td:nth-child(2), td:nth-child(3) {
+          text-decoration-color: $br-new-purple;
+        }
+      }
+      &:nth-of-type(3) {
+        &::before {background: $b-dodger;}  
+        outline-color: $b-dodger;
+        td:nth-child(2), td:nth-child(3) {
+          text-decoration-color: $b-dodger;
+        }
+      }
+      &:nth-of-type(4) {
+        &::before {background: $b-sapphire;}  
+        outline-color: $b-sapphire;
+        td:nth-child(2), td:nth-child(3) {
+          text-decoration-color: $b-sapphire;
+        }
+      }
+    }
+  }
+
+  &.groups-with-frame {
+    .frame, tr.current-row {
+      position: relative;
+      outline-style: solid;
+      outline-width: 3px;
+      outline-offset: -5px;
+      border-radius: 10px;
+
+      &::after {
+        display: block;
+        padding: .25rem .5rem;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        border-radius: 4px;
+        color: #fff;
+        font-size: .8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: .02em;
+        box-shadow: 4px 4px 4px $article-bg;
+      }
+
+      tr:nth-child(n + 1):nth-child(-n + 3) {
+        td {text-decoration-color: $br-new-magenta;}
+      }
+      tr:nth-child(n + 4):nth-child(-n + 6) {
+        td {text-decoration-color: $br-magenta;}
+      }
+      tr:nth-child(n + 7):nth-child(-n + 8) {
+        td {text-decoration-color: $b-dodger;}
+      }
+
+      td:nth-child(n + 2):nth-child(-n + 3) {
+        font-weight: bold;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 5px;
+      }
+    }
+    tr.current-row {
+      outline-color: $br-new-magenta;
+      &::after {
+        content: "Current Row";
+        background: $br-new-magenta;
+      }
+      td {text-decoration-color: $b-dodger !important;}
+    }
+
+    .frame {
+      outline-color: $br-new-purple;
+      &::after {
+        content: "Frame";
+        background: $br-new-purple;
+      }
+    }
+    .group {
+      position: relative;
+      outline-color: $b-sapphire;
+      td:nth-child(2), td:nth-child(3) {
+        font-weight: bold;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 5px;
+        text-decoration-color: $b-sapphire;
+      }
+    }
+  }
+
+  &.range-interval {
+    .frame, tr.current-row {
+      position: relative;
+      outline-style: solid;
+      outline-width: 3px;
+      outline-offset: -5px;
+      border-radius: 10px;
+      
+      td:first-child {
+        font-weight: bold;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 5px;
+        text-decoration-color: $br-new-purple;
+      }
+      &::after {
+        display: block;
+        padding: .25rem .5rem;
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        border-radius: 4px;
+        color: #fff;
+        font-size: .8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: .02em;
+        box-shadow: -4px 4px 4px $article-bg;
+      }
+    }
+    tr.current-row {
+      outline-color: $br-new-magenta;
+      td:first-child {text-decoration-color: $br-new-magenta;}
+      &::after {
+        content: "Current Row";
+        background: $br-new-magenta;
+        box-shadow: -4px 4px 4px $article-table-row-alt;
+      }
+    }
+
+    .frame {
+      outline-color: $br-new-purple;
+      &::after {
+        content: "Frame";
+        background: $br-new-purple;
+      }
+    }
+  }
+
+  &.range-numeric, &.rows {
+    .frame, tr.current-row {
+      position: relative;
+      outline-style: solid;
+      outline-width: 3px;
+      outline-offset: -5px;
+      border-radius: 10px;
+      
+      &::after {
+        display: block;
+        padding: .25rem .5rem;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        border-radius: 4px;
+        color: #fff;
+        font-size: .8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: .02em;
+        box-shadow: 4px 4px 4px $article-bg;
+      }
+    }
+    tr.current-row {
+      outline-color: $br-new-magenta;
+      &::after {
+        content: "Current Row";
+        background: $br-new-magenta;
+      }
+    }
+
+    .frame {
+      outline-color: $br-new-purple;
+      &::after {
+        content: "Frame";
+        background: $br-new-purple;
+      }
+    }
+  }
+  &.range-numeric {
+    .frame {
+      td:nth-child(3) {
+        font-weight: bold;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 5px;
+        text-decoration-color: $br-new-purple;
+      }
+      tr.current-row {
+        td:nth-child(3) {text-decoration-color: $br-new-magenta;}
+      }
+    }
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
