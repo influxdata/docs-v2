@@ -582,6 +582,58 @@ FROM "h2o_feet"
 GROUP BY "location"
 ```
 
+### Window aggregate functions
+
+Window functions let you calculate running totals, moving averages, or other
+aggregate-like results without collapsing rows into groups
+(unlike non-window aggregate functions).
+
+Window aggregate functions include **all [aggregate functions](#aggregate-functions/)**
+and the [ranking functions](#ranking-functions).
+The SQL `OVER` clause syntactically distinguishes a window  
+function from a non-window or aggregate function and defines how to group and
+order rows for the window operation.
+
+#### Examples:
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+SELECT
+  time,
+  room,
+  temp,
+  avg(temp) OVER (PARTITION BY room) AS avg_room_temp
+FROM
+  home
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T09:00:00Z'
+ORDER BY
+  room,
+  time
+```
+
+| time                | room        | temp | avg_room_temp |
+| :------------------ | :---------- | ---: | ------------: |
+| 2022-01-01T08:00:00 | Kitchen     | 21.0 |          22.0 |
+| 2022-01-01T09:00:00 | Kitchen     | 23.0 |          22.0 |
+| 2022-01-01T08:00:00 | Living Room | 21.1 |         21.25 |
+| 2022-01-01T09:00:00 | Living Room | 21.4 |         21.25 |
+
+{{% /influxdb/custom-timestamps %}}
+
+#### Ranking Functions
+
+| Function | Description                                                |
+| :------- | :--------------------------------------------------------- |
+| CUME_DIST() | Returns the cumulative distribution of a value within a group of values |
+| DENSE_RANK() | Returns a rank for each row without gaps in the numbering |
+| NTILE() | Distributes the rows in an ordered partition into the specified number of groups |
+| PERCENT_RANK() | Returns the percentage rank of the current row within its partition |
+| RANK() | Returns the rank of the current row in its partition, allowing gaps between ranks |
+| ROW_NUMBER() | Returns the position of the current row in its partition |
+
 ### Selector functions
 
 Selector functions are unique to InfluxDB. They behave like aggregate functions in that they take a row of data and compute it down to a single value.  However, selectors are unique in that they return a **time value** in addition to the computed value. In short, selectors return an aggregated value along with a timestamp. 
