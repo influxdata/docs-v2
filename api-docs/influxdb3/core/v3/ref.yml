@@ -2,14 +2,20 @@ openapi: 3.0.3
 info:
   title: InfluxDB 3 Core API Service
   description: |
-    The InfluxDB HTTP API for InfluxDB 3 Core provides a programmatic interface for writing data stored in an InfluxDB 3 Core database.
+    The InfluxDB HTTP API for InfluxDB 3 Core provides a programmatic interface for
+    interacting with InfluxDB 3 Core databases and resources.
+    Use this API to:
 
-    Write and query data, and perform administrative tasks, such as managing databases and processing engine plugins.
+    - Write data stored in InfluxDB 3 Core databases
+    - Query data using SQL or InfluxQL
+    - Process data using Processing engine plugins
+    - Manage databases, tables, and Processing engine triggers
+    - Perform administrative tasks and access system information
 
-    The InfluxDB HTTP API for InfluxDB 3 Core includes endpoints for the following:
-      - InfluxDB v1: Compatibility layer for InfluxDB 1.x clients (supported)
-      - `/api/v2`: Compatibility layer for InfluxDB 2.x clients (supported)
-      - `/api/v3`: Native API for InfluxDB 3.x (current)
+    The API includes endpoints under the following paths:
+    - `/api/v3`: InfluxDB 3 Core native endpoints 
+    - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients 
+    - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
     <!-- TODO: verify where to host the spec that users can download.
     This documentation is generated from the
@@ -35,86 +41,41 @@ servers:
 security:
   - BearerAuth: []
 tags:
-  - name: Compatibility endpoints
-    description: |
-      InfluxDB 3 provides compatibility endpoints for InfluxDB 1.x and InfluxDB 2.x workloads and clients.
-
-      ### Write data
-
-      Use the following endpoints for writing data stored in InfluxDB 3 Core:
-
-      - **Recommended**: [`/api/v3/write_lp` endpoint]()
-          for new write workloads and InfluxDB v3 clients that write line protocol.
-      - [`/api/v2/write` endpoint]()
-          for InfluxDB v2 clients and bringing existing InfluxDB v2 write workloads to InfluxDB 3.
-      - [`/write` endpoint]() for InfluxDB v1 clients and bringing existing InfluxDB v1 write workloads to InfluxDB 3.
-
-      All endpoints accept the same line protocol format and process data in the same way.
-      Like previous versions, InfluxDB 3 is a schema-on-write database, however tag column definitions for a table are immutable; you can't add tag columns to a table after it's created.
-
-      ### Query data
-
-       InfluxDB 3 supports Flight+gRPC and HTTP requests for querying data.
-
-      - HTTP [`/api/v3/query_sql` endpoint]() for new query workloads using SQL.
-      - HTTP [`/api/v3/query_influxql` endpoint]() for new query workloads using InfluxQL.
-      - Flight SQL and InfluxDB 3 _Flight+gRPC_ APIs for querying with SQL or InfluxQL. For more information about using Flight+gRPC, see [InfluxDB 3 client libraries](https://github.com/InfluxCommunity).
-      - HTTP [`/query`]() endpoint for InfluxDB v1 clients and v1 query workloads using InfluxQL.
-
-      ### Server information
-
-      Server information endpoints are compatible with InfluxDB 1.x and InfluxDB 2.x clients.
-  - name: Data I/O
-    description: Write and query data
-  - name: Databases
-    description: Create, read, update, and delete database and cache resources
-  - name: Processing engine
-    description: Manage processing engine triggers and plugins
-  - name: Server information
-    description: Retrieve server metrics, status, and version information
-  - name: Tables
-    description: Manage table schemas and data
-  - name: Quick start
-    description: |
-      #### Get started with the InfluxDB HTTP API for InfluxDB 3 Core
-
-      1. [Check the status](#section/Server-information) of the InfluxDB server.
-
-         ```bash
-         curl "http://localhost:9191/health"
-         ```
-
-      2. [Write data](#section/Compatibility-endpoints/Write-data) to InfluxDB.
-
-         ```bash
-         curl "http://localhost:9191/api/v3/write_lp?db=sensors&precision=auto" \
-           --data-raw "home,room=Kitchen temp=72.0
-          home,room=Living\ room temp=71.5"
-         ```
-
-         If all data is written, the response is `204 No Content`.
-
-      3. [Query data](#section/Compatibility-endpoints/Query-data) from InfluxDB.
-
-         ```bash
-         curl -G "http://localhost:9191/api/v3/query_sql" \
-           --data-urlencode "db=sensors" \
-           --data-urlencode "q=SELECT * FROM home WHERE room='Living room'" \
-           --data-urlencode "format=jsonl"
-         ```
-         
-         Output:
-
-         ```jsonl
-         {"room":"Living room","temp":71.5,"time":"2025-02-25T20:19:34.984098"}
-         ```
-        
-      For more information about using InfluxDB 3 Core, see the [Get started](/influxdb3/core/get-started/) guide.
-    x-traitTag: true
   - name: Authentication
     description: |
       During the initial Alpha phase, InfluxDB 3 Core does not require authentication.
     x-traitTag: true
+  - name: Compatibility endpoints
+    description: |
+      InfluxDB 3 provides compatibility endpoints for InfluxDB 1.x and InfluxDB 2.x workloads and clients.
+
+      ### Write data using v1- or v2-compatible endpoints
+
+      - [`/api/v2/write` endpoint](#operation/PostV2Write)
+          for InfluxDB v2 clients and when you bring existing InfluxDB v2 write workloads to InfluxDB 3.
+      - [`/write` endpoint](#operation/PostV1Write) for InfluxDB v1 clients and when you bring existing InfluxDB v1 write workloads to InfluxDB 3.
+
+      For new workloads, use the [`/api/v3/write_lp` endpoint](#operation/PostWriteLP).
+
+      All endpoints accept the same line protocol format.
+
+      ### Query data
+
+      Use the HTTP [`/query`](#operation/GetV1ExecuteQuery) endpoint for InfluxDB v1 clients and v1 query workloads using InfluxQL.
+
+      For new workloads, use one of the following:
+
+      - HTTP [`/api/v3/query_sql` endpoint](#operation/GetExecuteQuerySQL) for new query workloads using SQL.
+      - HTTP [`/api/v3/query_influxql` endpoint](#operation/GetExecuteInfluxQLQuery) for new query workloads using InfluxQL.
+      - Flight SQL and InfluxDB 3 _Flight+gRPC_ APIs for querying with SQL or InfluxQL. For more information about using Flight APIs, see [InfluxDB 3 client libraries](https://github.com/InfluxCommunity).
+
+      ### Server information
+
+      Server information endpoints such as `/health` and `metrics` are compatible with InfluxDB 1.x and InfluxDB 2.x clients.
+  - name: Data I/O
+    description: Write and query data
+  - name: Databases
+    description: Create, read, update, and delete database and cache resources
   - description: |
       Most InfluxDB API endpoints require parameters in the request--for example, specifying the database to use.
 
@@ -141,6 +102,53 @@ tags:
       | `Content-Type`           | string                | The format of the data in the request body. |
     name: Headers and parameters
     x-traitTag: true
+  - name: Processing engine
+    description: |
+      Manage Processing engine triggers, test plugins, and send requests to trigger On Request plugins.
+
+      InfluxDB 3 Core provides the InfluxDB 3 Processing engine, an embedded Python VM that can dynamically load and trigger Python plugins in response to events in your database.
+      Use Processing engine plugins and triggers to run code and perform tasks for different database events.
+
+      To get started with the Processing engine, see the [Processing engine and Python plugins](/influxdb3/core/processing-engine/) guide.
+  - name: Quick start
+    description: |
+      1. [Check the status](#section/Server-information) of the InfluxDB server.
+
+         ```bash
+         curl "http://localhost:8181/health"
+         ```
+
+      2. [Write data](#section/Compatibility-endpoints/Write-data) to InfluxDB.
+
+         ```bash
+         curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto" \
+           --data-raw "home,room=Kitchen temp=72.0
+          home,room=Living\ room temp=71.5"
+         ```
+
+         If all data is written, the response is `204 No Content`.
+
+      3. [Query data](#section/Compatibility-endpoints/Query-data) from InfluxDB.
+
+         ```bash
+         curl -G "http://localhost:8181/api/v3/query_sql" \
+           --data-urlencode "db=sensors" \
+           --data-urlencode "q=SELECT * FROM home WHERE room='Living room'" \
+           --data-urlencode "format=jsonl"
+         ```
+         
+         Output:
+
+         ```jsonl
+         {"room":"Living room","temp":71.5,"time":"2025-02-25T20:19:34.984098"}
+         ```
+        
+      For more information about using InfluxDB 3 Core, see the [Get started](/influxdb3/core/get-started/) guide.
+    x-traitTag: true
+  - name: Server information
+    description: Retrieve server metrics, status, and version information
+  - name: Tables
+    description: Manage table schemas and data
 paths:
   /write:
     post:
@@ -1202,12 +1210,12 @@ paths:
           type: string
     get:
       operationId: GetProcessingEnginePluginRequest
-      summary: On-request processing engine plugin request
+      summary: On Request processing engine plugin request
       description: |
-        Sends a request to invoke an _on-request_ processing engine plugin.
+        Sends a request to invoke an _On Request_ processing engine plugin.
         The request can include request headers, query string parameters, and a request body, which InfluxDB passes to the plugin.
 
-        An on-request plugin implements the following signature:
+        An On Request plugin implements the following signature:
 
         ```python
         def process_request(influxdb3_local, query_parameters, request_headers, request_body, args=None)
@@ -1229,8 +1237,18 @@ paths:
         - Processing engine
     post:
       operationId: PostProcessingEnginePluginRequest
-      summary: On-request processing engine plugin request
-      description: Sends custom request to a processing engine plugin.
+      summary: On Request processing engine plugin request
+      description: |
+        Sends a request to invoke an _On Request_ processing engine plugin.
+        The request can include request headers, query string parameters, and a request body, which InfluxDB passes to the plugin.
+
+        An On Request plugin implements the following signature:
+
+        ```python
+        def process_request(influxdb3_local, query_parameters, request_headers, request_body, args=None)
+        ```
+
+        The response depends on the plugin implementation.
       parameters:
         - $ref: '#/components/parameters/ContentType'
       requestBody:
@@ -1744,6 +1762,11 @@ x-tagGroups:
     tags:
       - Quick start
       - Authentication
-      - Headers
-      - Pagination
+      - Common parameters
       - Response codes
+      - Compatibility endpoints
+      - Data I/O
+      - Databases
+      - Processing engine
+      - Server information
+      - Tables

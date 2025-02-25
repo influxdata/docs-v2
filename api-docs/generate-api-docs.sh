@@ -57,7 +57,7 @@ function generateHtml {
   # Get the first paragraph of the description for the meta description.
 
   # Get the description with whitespace and newlines preserved.
-  local description=$(yq e -r '.description // ""' $productVersion/$apiName/content/info.yml | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/"/\\"/g')
+  local description=$(yq e -r '.description // ""' $productVersion/$apiName/content/info.yml | tr '\n' '\r' | sed 's/\r/\\n/g' | sed 's/"/\\"/g')
   # Get the aliases array from the configuration file.
   local aliases=$(yq e ".apis | .$api | .x-influxdata-docs-aliases" "$configPath")
   # If aliases is null, set it to an empty YAML array. 

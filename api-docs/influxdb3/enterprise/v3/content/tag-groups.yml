@@ -2,12 +2,11 @@
   tags:
     - Quick start
     - Authentication
-    - Headers
-    - Pagination
+    - Common parameters
     - Response codes
-    - System information endpoints
-- name: All endpoints
-  tags:
-    - Ping
-    - Query
-    - Write
+    - Compatibility endpoints
+    - Data I/O
+    - Databases
+    - Processing engine
+    - Server information
+    - Tables
