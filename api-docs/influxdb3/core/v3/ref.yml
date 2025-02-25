@@ -32,13 +32,40 @@ servers:
           - localhost:8181
         default: localhost:8181
         description: InfluxDB 3 Core URL
-security: 
+security:
   - BearerAuth: []
 tags:
-  - name: Backward compatibility
-    description: Endpoints compatible with v1.x and v2.x clients
-  - name: Data operations (write and query) 
-    description: Write, query, and process data
+  - name: Compatibility endpoints
+    description: |
+      InfluxDB 3 provides compatibility endpoints for InfluxDB 1.x and InfluxDB 2.x workloads and clients.
+
+      ### Write data
+
+      Use the following endpoints for writing data stored in InfluxDB 3 Core:
+
+      - **Recommended**: [`/api/v3/write_lp` endpoint]()
+          for new write workloads and InfluxDB v3 clients that write line protocol.
+      - [`/api/v2/write` endpoint]()
+          for InfluxDB v2 clients and bringing existing InfluxDB v2 write workloads to InfluxDB 3.
+      - [`/write` endpoint]() for InfluxDB v1 clients and bringing existing InfluxDB v1 write workloads to InfluxDB 3.
+
+      All endpoints accept the same line protocol format and process data in the same way.
+      Like previous versions, InfluxDB 3 is a schema-on-write database, however tag column definitions for a table are immutable; you can't add tag columns to a table after it's created.
+
+      ### Query data
+
+       InfluxDB 3 supports Flight+gRPC and HTTP requests for querying data.
+
+      - HTTP [`/api/v3/query_sql` endpoint]() for new query workloads using SQL.
+      - HTTP [`/api/v3/query_influxql` endpoint]() for new query workloads using InfluxQL.
+      - Flight SQL and InfluxDB 3 _Flight+gRPC_ APIs for querying with SQL or InfluxQL. For more information about using Flight+gRPC, see [InfluxDB 3 client libraries](https://github.com/InfluxCommunity).
+      - HTTP [`/query`]() endpoint for InfluxDB v1 clients and v1 query workloads using InfluxQL.
+
+      ### Server information
+
+      Server information endpoints are compatible with InfluxDB 1.x and InfluxDB 2.x clients.
+  - name: Data I/O
+    description: Write and query data
   - name: Databases
     description: Create, read, update, and delete database and cache resources
   - name: Processing engine
@@ -47,12 +74,79 @@ tags:
     description: Retrieve server metrics, status, and version information
   - name: Tables
     description: Manage table schemas and data
+  - name: Quick start
+    description: |
+      #### Get started with the InfluxDB HTTP API for InfluxDB 3 Core
+
+      1. [Check the status](#section/Server-information) of the InfluxDB server.
+
+         ```bash
+         curl "http://localhost:9191/health"
+         ```
+
+      2. [Write data](#section/Compatibility-endpoints/Write-data) to InfluxDB.
+
+         ```bash
+         curl "http://localhost:9191/api/v3/write_lp?db=sensors&precision=auto" \
+           --data-raw "home,room=Kitchen temp=72.0
+          home,room=Living\ room temp=71.5"
+         ```
+
+         If all data is written, the response is `204 No Content`.
+
+      3. [Query data](#section/Compatibility-endpoints/Query-data) from InfluxDB.
+
+         ```bash
+         curl -G "http://localhost:9191/api/v3/query_sql" \
+           --data-urlencode "db=sensors" \
+           --data-urlencode "q=SELECT * FROM home WHERE room='Living room'" \
+           --data-urlencode "format=jsonl"
+         ```
+         
+         Output:
+
+         ```jsonl
+         {"room":"Living room","temp":71.5,"time":"2025-02-25T20:19:34.984098"}
+         ```
+        
+      For more information about using InfluxDB 3 Core, see the [Get started](/influxdb3/core/get-started/) guide.
+    x-traitTag: true
+  - name: Authentication
+    description: |
+      During the initial Alpha phase, InfluxDB 3 Core does not require authentication.
+    x-traitTag: true
+  - description: |
+      Most InfluxDB API endpoints require parameters in the request--for example, specifying the database to use.
+
+      ### Common parameters
+
+      The following table shows common parameters used by many InfluxDB API endpoints.
+      Many endpoints may require other parameters in the query string or in the
+      request body that perform functions specific to those endpoints.
+
+      | Query parameter          | Value type            | Description                                |
+      |:------------------------ |:--------------------- |:-------------------------------------------|
+      | `db`                 | string                | The database name |
+
+      InfluxDB HTTP API endpoints use standard HTTP request and response headers.
+      The following table shows common headers used by many InfluxDB API endpoints.
+      Some endpoints may use other headers that perform functions more specific to those endpoints--for example,
+      the write endpoints accept the `Content-Encoding` header to indicate that line protocol is compressed in the request body.
+
+      | Header                   | Value type            | Description                                |
+      |:------------------------ |:--------------------- |:-------------------------------------------|
+      | `Accept`                 | string                | The content type that the client can understand. |
+      | `Authorization`          | string                | The authorization scheme and credential. |
+      | `Content-Length`         | integer               | The size of the entity-body, in bytes. |
+      | `Content-Type`           | string                | The format of the data in the request body. |
+    name: Headers and parameters
+    x-traitTag: true
 paths:
   /write:
     post:
       operationId: PostV1Write
       summary: Write line protocol (v1-compatible)
-      description: | 
+      description: |
         Writes line protocol to the specified database.
 
         This endpoint provides backward compatibility for InfluxDB 1.x write workloads using tools such as InfluxDB 1.x client libraries, the Telegraf `outputs.influxdb` output plugin, or third-party tools.
@@ -76,17 +170,17 @@ paths:
             Writes only return a response body if they fail (partially or completely)--for example,
             due to a syntax problem or type mismatch.
           schema:
-             type: string
-             default: application/json
-             enum:
-               - application/json 
+            type: string
+            default: application/json
+            enum:
+              - application/json
           required: false
-        - $ref: "#/components/parameters/ContentEncoding"
-        - $ref: "#/components/parameters/ContentLength"
+        - $ref: '#/components/parameters/ContentEncoding'
+        - $ref: '#/components/parameters/ContentLength'
       requestBody:
         $ref: '#/components/requestBodies/lineProtocolRequestBody'
       responses:
-        "204":
+        '204':
           description: Success ("No Content"). All data in the batch is written and queryable.
         '400':
           description: |
@@ -125,15 +219,15 @@ paths:
                         }
                       ]
                     }
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "403":
+        '403':
           description: Access denied.
-        "413":
+        '413':
           description: Request entity too large.
       tags:
-        - Backward compatibility
-        - Data operations
+        - Compatibility endpoints
+        - Data I/O
   /api/v2/write:
     post:
       operationId: PostV2Write
@@ -145,7 +239,6 @@ paths:
 
         Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format to InfluxDB.
         Use query parameters to specify options for writing data.
-
       parameters:
         - name: Content-Type
           in: header
@@ -205,30 +298,30 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/lineProtocolRequestBody'
       responses:
-        "204":
+        '204':
           description: Success ("No Content"). All data in the batch is written and queryable.
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "403":
+        '403':
           description: Access denied.
-        "413":
+        '413':
           description: Request entity too large.
       tags:
-        - Backward compatibility
-        - Data operations
+        - Compatibility endpoints
+        - Data I/O
   /api/v3/write_lp:
     post:
       operationId: PostWriteLP
       summary: Write line protocol
-      description: | 
+      description: |
         Writes line protocol to the specified database.
 
         Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format to InfluxDB.
         Use query parameters to specify options for writing data.
       parameters:
-        - $ref: '#/components/parameters/dbWriteParam' 
+        - $ref: '#/components/parameters/dbWriteParam'
         - $ref: '#/components/parameters/accept_partial'
         - name: precision
           in: query
@@ -254,30 +347,30 @@ paths:
             Writes only return a response body if they fail (partially or completely)--for example,
             due to a syntax problem or type mismatch.
           schema:
-              type: string
-              default: application/json
-              enum:
-                - application/json 
+            type: string
+            default: application/json
+            enum:
+              - application/json
           required: false
-        - $ref: "#/components/parameters/ContentEncoding"
-        - $ref: "#/components/parameters/ContentLength"
+        - $ref: '#/components/parameters/ContentEncoding'
+        - $ref: '#/components/parameters/ContentLength'
       requestBody:
         $ref: '#/components/requestBodies/lineProtocolRequestBody'
       responses:
-        "204":
+        '204':
           description: Success ("No Content"). All data in the batch is written and queryable.
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "403":
+        '403':
           description: Access denied.
-        "413":
+        '413':
           description: Request entity too large.
-        "422":
+        '422':
           description: Unprocessable entity.
       tags:
-        - Data operations
+        - Data I/O
   /api/v3/query_sql:
     get:
       operationId: GetExecuteQuerySQL
@@ -298,7 +391,7 @@ paths:
         - $ref: '#/components/parameters/AcceptQueryHeader'
         - $ref: '#/components/parameters/ContentType'
       responses:
-        "200":
+        '200':
           description: Success. The response body contains query results.
           content:
             application/json:
@@ -307,9 +400,13 @@ paths:
               example:
                 results:
                   - series:
-                      - name: "mytable"
-                        columns: ["time", "value"]
-                        values: [["2024-02-02T12:00:00Z", 42]]
+                      - name: mytable
+                        columns:
+                          - time
+                          - value
+                        values:
+                          - - '2024-02-02T12:00:00Z'
+                            - 42
             text/csv:
               schema:
                 type: string
@@ -319,20 +416,20 @@ paths:
             application/jsonl:
               schema:
                 type: string
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "403":
+        '403':
           description: Access denied.
-        "404":
+        '404':
           description: Database not found.
-        "405":
+        '405':
           description: Method not allowed.
-        "422":
+        '422':
           description: Unprocessable entity.
       tags:
-        - Data operations 
+        - Data I/O
     post:
       operationId: PostExecuteQuerySQL
       summary: Execute SQL query
@@ -343,7 +440,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/queryRequestBody'
       responses:
-        "200":
+        '200':
           description: Success. The response body contains query results.
           content:
             application/json:
@@ -358,27 +455,27 @@ paths:
             application/jsonl:
               schema:
                 type: string
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "403":
+        '403':
           description: Access denied.
-        "404":
+        '404':
           description: Database not found.
-        "405":
+        '405':
           description: Method not allowed.
-        "422":
+        '422':
           description: Unprocessable entity.
       tags:
-        - Data operations
+        - Data I/O
   /api/v3/query_influxql:
     get:
       operationId: GetExecuteInfluxQLQuery
       summary: Execute InfluxQL query
-      description: Executes an InfluxQL query to retrieve data from the specified database. 
+      description: Executes an InfluxQL query to retrieve data from the specified database.
       parameters:
-        - $ref: '#/components/parameters/dbQueryParam' 
+        - $ref: '#/components/parameters/dbQueryParam'
         - name: q
           in: query
           required: true
@@ -391,7 +488,7 @@ paths:
             type: string
         - $ref: '#/components/parameters/AcceptQueryHeader'
       responses:
-        "200":
+        '200':
           description: Success. The response body contains query results.
           content:
             application/json:
@@ -406,31 +503,31 @@ paths:
             application/jsonl:
               schema:
                 type: string
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "403":
+        '403':
           description: Access denied.
-        "404":
+        '404':
           description: Database not found.
-        "405":
+        '405':
           description: Method not allowed.
-        "422":
+        '422':
           description: Unprocessable entity.
       tags:
-        - Data operations
+        - Data I/O
     post:
       operationId: PostExecuteQueryInfluxQL
       summary: Execute InfluxQL query
-      description: Executes an InfluxQL query to retrieve data from the specified database. 
+      description: Executes an InfluxQL query to retrieve data from the specified database.
       parameters:
         - $ref: '#/components/parameters/AcceptQueryHeader'
         - $ref: '#/components/parameters/ContentType'
       requestBody:
         $ref: '#/components/requestBodies/queryRequestBody'
       responses:
-        "200":
+        '200':
           description: Success. The response body contains query results.
           content:
             application/json:
@@ -445,20 +542,20 @@ paths:
             application/jsonl:
               schema:
                 type: string
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "403":
+        '403':
           description: Access denied.
-        "404":
+        '404':
           description: Database not found.
-        "405":
+        '405':
           description: Method not allowed.
-        "422":
+        '422':
           description: Unprocessable entity.
       tags:
-        - Data operations
+        - Data I/O
   /query:
     get:
       operationId: GetV1ExecuteQuery
@@ -469,7 +566,6 @@ paths:
         This endpoint is compatible with InfluxDB 1.x client libraries and third-party integrations such as Grafana.
         Use query parameters to specify the database and the InfluxQL query.
       parameters:
-      # Source: https://github.com/influxdata/influxdb/blob/main/influxdb3_server/src/http/v1.rs
         - name: Accept
           in: header
           schema:
@@ -486,7 +582,7 @@ paths:
             If `text/csv` is specified, the `Content-type` response header is `application/csv` and the response is formatted as CSV.
 
             Returns an error if the format is invalid or non-UTF8.
-        - in: query 
+        - in: query
           name: chunked
           description: |
             If true, the response is divided into chunks of size `chunk_size`.
@@ -501,8 +597,8 @@ paths:
           schema:
             type: integer
             default: 10000
-        - in: query 
-          name: db 
+        - in: query
+          name: db
           description: The database to query. If not provided, the InfluxQL query string must specify the database.
           schema:
             type: string
@@ -528,7 +624,7 @@ paths:
           schema:
             $ref: '#/components/schemas/EpochCompatibility'
       responses:
-        "200":
+        '200':
           description: |
             Success. The response body contains query results.
           content:
@@ -552,27 +648,26 @@ paths:
                 enum:
                   - application/json
                   - application/csv
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "403":
+        '403':
           description: Access denied.
-        "404":
+        '404':
           description: Database not found.
-        "405":
+        '405':
           description: Method not allowed.
-        "422":
+        '422':
           description: Unprocessable entity.
       tags:
-        - Data operations
-        - Backward compatibility
+        - Data I/O
+        - Compatibility endpoints
     post:
       operationId: PostExecuteV1Query
       summary: Execute InfluxQL query (v1-compatible)
       description: Executes an InfluxQL query to retrieve data from the specified database.
       requestBody:
-      # Source: https://github.com/influxdata/influxdb/blob/main/influxdb3_server/src/http/v1.rs
         content:
           application/json:
             schema:
@@ -608,13 +703,13 @@ paths:
                     Formats timestamps as [unix (epoch) timestamps](/influxdb3/core/reference/glossary/#unix-timestamp) with the specified precision
                     instead of [RFC3339 timestamps](/influxdb3/core/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
                   enum:
-                      - ns
-                      - u
-                      - µ
-                      - ms
-                      - s
-                      - m
-                      - h
+                    - ns
+                    - u
+                    - µ
+                    - ms
+                    - s
+                    - m
+                    - h
                   type: string
                 pretty:
                   description: |
@@ -640,7 +735,7 @@ paths:
 
             Returns an error if the format is invalid or non-UTF8.
       responses:
-        "200":
+        '200':
           description: |
             Success. The response body contains query results.
           content:
@@ -664,47 +759,46 @@ paths:
                 enum:
                   - application/json
                   - application/csv
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "403":
+        '403':
           description: Access denied.
-        "404":
+        '404':
           description: Database not found.
-        "405":
+        '405':
           description: Method not allowed.
-        "422":
+        '422':
           description: Unprocessable entity.
       tags:
-        - Data operations
-        - Backward compatibility
+        - Data I/O
+        - Compatibility endpoints
   /health:
     get:
       operationId: GetHealth
       summary: Health check
       description: Checks the status of the service.
       responses:
-        "200":
+        '200':
           description: Service is running.
-        "500":
+        '500':
           description: Service is unavailable.
       tags:
         - Server information
-  # Why /api/v1/health? The v1 endpoint is `/health`.
   /api/v1/health:
     get:
       operationId: GetHealthV1
       summary: Health check (v1)
       description: Checks the status of the service.
       responses:
-        "200":
+        '200':
           description: Service is running.
-        "500":
+        '500':
           description: Service is unavailable.
       tags:
         - Server information
-        - Backward compatibility
+        - Compatibility endpoints
   /ping:
     get:
       operationId: GetPing
@@ -713,21 +807,21 @@ paths:
       summary: Ping the server
       description: Returns version information for the server.
       responses:
-        "200":
+        '200':
           description: Success. The response body contains server information.
           content:
             application/json:
               schema:
                 example:
-                  version: "0.1.0"
-                  revision: "f3d3d3d"
+                  version: 0.1.0
+                  revision: f3d3d3d
   /metrics:
     get:
       operationId: GetMetrics
       summary: Metrics
       description: Retrieves Prometheus-compatible server metrics.
       responses:
-        "200":
+        '200':
           description: Success. The response body contains Prometheus-compatible server metrics.
       tags:
         - Server information
@@ -737,19 +831,19 @@ paths:
       summary: List databases
       description: Retrieves a list of databases.
       parameters:
-        - $ref: '#/components/parameters/formatRequired' 
+        - $ref: '#/components/parameters/formatRequired'
       responses:
-        "200":
+        '200':
           description: Success. The response body contains the list of databases.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ShowDatabasesResponse'
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "404":
+        '404':
           description: Database not found.
       tags:
         - Databases
@@ -764,13 +858,13 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateDatabaseRequest'
       responses:
-        "201":
+        '201':
           description: Success. Database created.
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "409":
+        '409':
           description: Database already exists.
       tags:
         - Databases
@@ -783,18 +877,16 @@ paths:
       parameters:
         - $ref: '#/components/parameters/db'
       responses:
-        "200":
+        '200':
           description: Success. Database deleted.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "404":
+        '404':
           description: Database not found.
-
       tags:
         - Databases
   /api/v3/configure/table:
     post:
-      # client log message: [CreateTable(WalTableDefinition { database_id: DbId(0), database_name: "sensors2", table_name: "home2", table_id: TableId(3), field_definitions: [FieldDefinition { name: "time", id: ColumnId(3), data_type: Timestamp }], key: [] })] }
       operationId: PostConfigureTable
       summary: Create a table
       description: Creates a new table within a database.
@@ -805,15 +897,14 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateTableRequest'
       responses:
-        "201":
+        '201':
           description: Success. The table has been created.
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "404":
+        '404':
           description: Database not found.
-
       tags:
         - Tables
     delete:
@@ -830,13 +921,12 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Success (no content). The table has been deleted.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "404":
+        '404':
           description: Table not found.
-
       tags:
         - Tables
   /api/v3/configure/distinct_cache:
@@ -844,8 +934,8 @@ paths:
       operationId: PostConfigureDistinctCache
       summary: Create distinct cache
       description: Creates a distinct cache for a table.
-      tags: 
-        -  Tables
+      tags:
+        - Tables
       requestBody:
         required: true
         content:
@@ -853,11 +943,11 @@ paths:
             schema:
               $ref: '#/components/schemas/DistinctCacheCreateRequest'
       responses:
-        "201":
+        '201':
           description: Success. The distinct cache has been created.
-        "204":
+        '204':
           description: Not created. A distinct cache with this configuration already exists.
-        "400":
+        '400':
           description: |
             Bad request.
 
@@ -874,25 +964,24 @@ paths:
             schema:
               $ref: '#/components/schemas/LastCacheCreateRequest'
       responses:
-        "201":
+        '201':
           description: Success. Last cache created.
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "404":
+        '404':
           description: Cache not found.
-        "409":
+        '409':
           description: Cache already exists.
-
       tags:
-        - Tables 
+        - Tables
     delete:
       operationId: DeleteConfigureLastCache
       summary: Delete last cache
       description: Deletes a last cache.
       parameters:
-        - $ref: '#/components/parameters/db' 
+        - $ref: '#/components/parameters/db'
         - name: table
           in: query
           required: true
@@ -904,15 +993,14 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Success. The last cache has been deleted.
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "404":
+        '404':
           description: Cache not found.
-
       tags:
         - Tables
   /api/v3/configure/processing_engine_trigger:
@@ -927,23 +1015,22 @@ paths:
             schema:
               $ref: '#/components/schemas/ProcessingEngineTriggerRequest'
       responses:
-        "201":
+        '201':
           description: Success. Processing engine trigger created.
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "404":
+        '404':
           description: Trigger not found.
-
       tags:
-        - Processing engine 
+        - Processing engine
     delete:
       operationId: DeleteConfigureProcessingEngineTrigger
       summary: Delete processing engine trigger
       description: Deletes a processing engine trigger.
       parameters:
-        - $ref: '#/components/parameters/db' 
+        - $ref: '#/components/parameters/db'
         - name: trigger_name
           in: query
           required: true
@@ -956,17 +1043,16 @@ paths:
             type: boolean
             default: false
       responses:
-        "200":
+        '200':
           description: Success. The processing engine trigger has been deleted.
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "404":
+        '404':
           description: Trigger not found.
-
       tags:
-        - Processing engine 
+        - Processing engine
   /api/v3/configure/processing_engine_trigger/disable:
     post:
       operationId: PostDisableProcessingEngineTrigger
@@ -981,17 +1067,16 @@ paths:
             schema:
               $ref: '#/components/schemas/ProcessingEngineTriggerRequest'
       responses:
-        "200":
+        '200':
           description: Success. The processing engine trigger has been disabled.
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "404":
+        '404':
           description: Trigger not found.
-
       tags:
-        - Processing engine 
+        - Processing engine
   /api/v3/configure/processing_engine_trigger/enable:
     post:
       operationId: PostEnableProcessingEngineTrigger
@@ -1006,17 +1091,16 @@ paths:
             schema:
               $ref: '#/components/schemas/ProcessingEngineTriggerRequest'
       responses:
-        "200":
+        '200':
           description: Success. The processing engine trigger has been enabled.
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "404":
+        '404':
           description: Trigger not found.
-
       tags:
-        - Processing engine 
+        - Processing engine
   /api/v3/configure/plugin_environment/install_packages:
     post:
       operationId: PostInstallPluginPackages
@@ -1032,14 +1116,14 @@ paths:
               type: object
               additionalProperties: true
       responses:
-        "200":
+        '200':
           description: Success. The packages have been installed.
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
       tags:
-        - Processing engine 
+        - Processing engine
   /api/v3/configure/plugin_environment/install_requirements:
     post:
       operationId: PostInstallPluginRequirements
@@ -1055,52 +1139,52 @@ paths:
               type: object
               additionalProperties: true
       responses:
-        "200":
+        '200':
           description: Success. The requirements have been installed.
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
       tags:
-        - Processing engine 
+        - Processing engine
   /api/v3/plugin_test/wal:
     post:
       operationId: PostTestWALPlugin
       summary: Test WAL plugin
       description: Executes a test of a write-ahead logging (WAL) plugin.
       responses:
-        "200":
+        '200':
           description: Success. The plugin test has been executed.
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "404":
+        '404':
           description: Plugin not enabled.
       tags:
-        - Processing engine 
+        - Processing engine
   /api/v3/plugin_test/schedule:
     post:
       operationId: PostTestSchedulingPlugin
       summary: Test scheduling plugin
       description: Executes a test of a scheduling plugin.
       responses:
-        "200":
+        '200':
           description: Success. The plugin test has been executed.
-        "400":
+        '400':
           description: Bad request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "404":
+        '404':
           description: Plugin not enabled.
       tags:
-        - Processing engine 
+        - Processing engine
   /api/v3/engine/{plugin_path}:
     parameters:
       - name: plugin_path
         description: |
           The path configured in the `trigger-spec` for the plugin.
-          
+
           For example, if you define a trigger with the following:
 
           ```
@@ -1131,18 +1215,18 @@ paths:
 
         The response depends on the plugin implementation.
       responses:
-        "200":
+        '200':
           description: Success. The plugin request has been executed.
-        "400":
+        '400':
           description: Malformed request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "404":
+        '404':
           description: Plugin not found.
-        "500":
+        '500':
           description: Processing failure.
       tags:
-        - Processing engine 
+        - Processing engine
     post:
       operationId: PostProcessingEnginePluginRequest
       summary: On-request processing engine plugin request
@@ -1157,19 +1241,18 @@ paths:
               type: object
               additionalProperties: true
       responses:
-        "200":
+        '200':
           description: Success. The plugin request has been executed.
-        "400":
+        '400':
           description: Malformed request.
-        "401":
+        '401':
           $ref: '#/components/responses/Unauthorized'
-        "404":
+        '404':
           description: Plugin not found.
-        "500":
+        '500':
           description: Processing failure.
       tags:
-        - Processing engine 
-
+        - Processing engine
 components:
   parameters:
     AcceptQueryHeader:
@@ -1259,7 +1342,7 @@ components:
       in: query
       required: true
       schema:
-        $ref: '#/components/schemas/PrecisionWrite' 
+        $ref: '#/components/schemas/PrecisionWrite'
       description: The precision for unix timestamps in the line protocol batch.
     querySqlParam:
       name: q
@@ -1282,7 +1365,6 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/Format'
-
   requestBodies:
     lineProtocolRequestBody:
       required: true
@@ -1328,14 +1410,18 @@ components:
       type: integer
       description: The length in decimal number of octets.
     Database:
-      type: string 
+      type: string
     AcceptPartial:
       type: boolean
       default: true
       description: Accept partial writes.
     Format:
       type: string
-      enum: [json, csv, parquet, jsonl]
+      enum:
+        - json
+        - csv
+        - parquet
+        - jsonl
       description: |
         The format of data in the response body.
     NoSync:
@@ -1381,7 +1467,11 @@ components:
         format:
           description: The format of the query results.
           type: string
-          enum: [json, csv, parquet, jsonl]
+          enum:
+            - json
+            - csv
+            - parquet
+            - jsonl
         params:
           description: |
             Additional parameters for the query.
@@ -1595,16 +1685,15 @@ components:
         - `u` or `µ` for microseconds
         - `ns` for nanoseconds
       enum:
-          - ns
-          - u
-          - µ
-          - ms
-          - s
-          - m
-          - h
+        - ns
+        - u
+        - µ
+        - ms
+        - s
+        - m
+        - h
       type: string
   responses:
-  # // Source https://github.com/influxdata/influxdb/blob/main/influxdb3_server/src/http.rs
     Unauthorized:
       description: Unauthorized access.
       content:
@@ -1650,3 +1739,11 @@ components:
         curl http://localhost:8181/api/v3/query_influxql \
           --header "Authorization: Bearer API_TOKEN"
         ```
+x-tagGroups:
+  - name: Using the InfluxDB HTTP API
+    tags:
+      - Quick start
+      - Authentication
+      - Headers
+      - Pagination
+      - Response codes

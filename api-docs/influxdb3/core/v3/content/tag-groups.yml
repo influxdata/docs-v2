@@ -5,9 +5,3 @@
     - Headers
     - Pagination
     - Response codes
-    - System information endpoints
-- name: All endpoints
-  tags:
-    - Ping
-    - Query
-    - Write
