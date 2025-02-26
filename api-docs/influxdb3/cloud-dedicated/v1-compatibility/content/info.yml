@@ -1,5 +1,6 @@
 title: InfluxDB v1 HTTP API for InfluxDB 3 Cloud Dedicated
 x-influxdata-short-title: v1 Compatibility API
+x-influxdata-short-description: The v1-compatibility HTTP API provides compatibility for writing and querying data in an InfluxDB 3 Cloud Dedicated database using InfluxDB v1 endpoints.
 description: |
   The v1-compatibility HTTP API provides compatibility for writing and querying data in an InfluxDB 3 Cloud Dedicated database using InfluxDB v1 endpoints.
 

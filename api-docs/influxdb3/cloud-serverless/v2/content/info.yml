@@ -1,5 +1,6 @@
 title: InfluxDB 3 Cloud Serverless API Service
 x-influxdata-short-title: v2 API
+x-influxdata-short-description: The InfluxDB v2 HTTP API for InfluxDB 3 Cloud Serverless provides a programmatic interface for writing data stored in an InfluxDB 3 Cloud Serverless bucket.
 description: |
   The InfluxDB v2 HTTP API for InfluxDB 3 Cloud Serverless provides a programmatic interface for writing data stored in an InfluxDB 3 Cloud Serverless bucket.
 

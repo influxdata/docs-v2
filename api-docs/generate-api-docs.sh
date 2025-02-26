@@ -54,10 +54,8 @@ function generateHtml {
   # Use the title and summary defined in the product API's info.yml file.
   local title=$(yq '.title' $productVersion/$apiName/content/info.yml)
   local menuTitle=$(yq '.x-influxdata-short-title' $productVersion/$apiName/content/info.yml)
-  # Get the first paragraph of the description for the meta description.
-
-  # Get the description with whitespace and newlines preserved.
-  local description=$(yq e -r '.description // ""' $productVersion/$apiName/content/info.yml | tr '\n' '\r' | sed 's/\r/\\n/g' | sed 's/"/\\"/g')
+  # Get the shortened description to use for metadata.
+  local shortDescription=$(yq '.x-influxdata-short-description' $productVersion/$apiName/content/info.yml)
   # Get the aliases array from the configuration file.
   local aliases=$(yq e ".apis | .$api | .x-influxdata-docs-aliases" "$configPath")
   # If aliases is null, set it to an empty YAML array. 
@@ -82,20 +80,20 @@ function generateHtml {
   npm_config_yes=true npx redoc-cli@0.12.3 bundle $specPath \
   --config $configPath \
   -t template.hbs \
-  --title=$title \
+  --title="$title" \
   --options.sortPropsAlphabetically \
   --options.menuToggle \
   --options.hideDownloadButton \
   --options.hideHostname \
   --options.noAutoAuth \
   --output=$specbundle \
-  --templateOptions.description= $(echo "$description" | sed 's/\n//g') \
+  --templateOptions.description="$shortDescription" \
   --templateOptions.product="$productVersion" \
   --templateOptions.productName="$productName"
 
   local frontmatter=$(yq eval -n \
       ".title = \"$title\" |
-       .description = \"$description\" |
+       .description = \"$shortDescription\" |
        .layout = \"api\" |
        .weight = $weight |
        .menu.[\"$menu\"].parent = \"InfluxDB HTTP API\" |

@@ -1,5 +1,6 @@
 title: InfluxDB v1 HTTP API for InfluxDB Cloud (TSM)
 x-influxdata-short-title: v1 Compatibility API
+x-influxdata-short-description: The v1-compatibility HTTP API provides compatibility for writing and querying data in an InfluxDB v2 bucket using InfluxDB v1 endpoints.
 description: |
   The v1-compatibility HTTP API provides compatibility for writing and querying data in an InfluxDB v2 bucket using InfluxDB v1 endpoints.
 
