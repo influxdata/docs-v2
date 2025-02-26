@@ -334,11 +334,20 @@ InfluxDB provides a `no_sync` write option to allow faster response of write req
 - Default behavior(`no_sync=false`): Ensures data is persisted before acknowledging writes. Thus, reducing the risk of data loss. 
 - With `no_sync=true`: Improves write performance but increases the risk of data loss in case of crashes before WAL persistence. 
 
+If you are using the HTTP API, here is an example of how to enable the `no_sync` option:
+
+```sh
+curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=true" \
+  --data-raw "home,room=Sunroom temp=96
+home,room=Sunroom temp=hi"
+```
+
 If you are using the CLI, here is an example of how to enable the `no_sync` option:
 
 ```sh
-influx write --bucket=mydb --org=my_org --token=my-token --no-sync
+influxdb3 write --bucket=mydb --org=my_org --token=my-token --no-sync
 ```
+Using `no_sync=true` is best when prioritizing high-throughput writes over absolute durability. 
 
 #### Create a database or Table
 
