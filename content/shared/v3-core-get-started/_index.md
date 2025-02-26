@@ -327,15 +327,20 @@ For more information, see [diskless architecture](#diskless-architecture).
 > Because InfluxDB sends a write response after the WAL file has been flushed to the configured object store (default is every second), individual write requests might not complete quickly, but you can make many concurrent requests to achieve higher total throughput.
 > Future enhancements will include an API parameter that lets requests return without waiting for the WAL flush.
 
+##### No sync write option
 
-##### no_sync Write Option
-
-InfluxDB provides a no_sync write option to allow faster response of write request by skipping the wait for WAL presistence. When `no_sync=true`, InfluxDB writes data to WAL but immediately acknowledges the write request without waiting for persistence. 
+InfluxDB provides a `no_sync` write option to allow faster response of write request by skipping the wait for WAL presistence. When `no_sync=true`, InfluxDB writes data to WAL but immediately acknowledges the write request without waiting for persistence. 
 
 - Default behavior(`no_sync=false`): Ensures data is persisted before acknowledging writes. Thus, reducing the risk of data loss. 
 - With `no_sync=true`: Improves write performance but increases the risk of data loss in case of crashes before WAL persistence. 
 
-#### Create a database or table
+If you are using the CLI, here is an example of how to enable the `no_sync` option:
+
+```sh
+influx write --bucket=mydb --org=my_org --token=my-token --no-sync
+```
+
+#### Create a database or Table
 
 To create a database without writing data, use the `create` subcommand--for example:
 
