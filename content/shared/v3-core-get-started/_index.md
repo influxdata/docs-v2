@@ -338,8 +338,7 @@ If you are using the HTTP API, here is an example of how to enable the `no_sync`
 
 ```sh
 curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=true" \
-  --data-raw "home,room=Sunroom temp=96
-home,room=Sunroom temp=hi"
+  --data-raw "home,room=Sunroom temp=96"
 ```
 
 If you are using the CLI, here is an example of how to enable the `no_sync` option:
