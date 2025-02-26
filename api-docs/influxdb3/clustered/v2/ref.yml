@@ -417,16 +417,6 @@ paths:
         '429':
           description: |
             Too many requests.
-
-            #### InfluxDB Cloud
-
-              - Returns this error if a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb3/clustered/account-management/limits/#adjustable-service-quotas)
-                or if a **delete** request exceeds the maximum [global limit](/influxdb3/clustered/account-management/limits/#global-limits).
-              - For rate limits that reset automatically, returns a `Retry-After` header that describes when to try the write again.
-              - For limits that can't reset (for example, **cardinality limit**), doesn't return a `Retry-After` header.
-
-              Rates (data-in (writes), queries (reads), and deletes) accrue within a fixed five-minute window.
-              Once a rate limit is exceeded, InfluxDB returns an error response until the current five-minute window resets.
           headers:
             Retry-After:
               description: Non-negative decimal integer indicating seconds to wait before retrying the request.
@@ -578,12 +568,7 @@ paths:
                 type: string
         '429':
           description: |
-            #### InfluxDB Cloud:
-              - returns this error if a **read** or **write** request exceeds your
-                plan's [adjustable service quotas](/influxdb3/clustered/account-management/limits/#adjustable-service-quotas)
-                or if a **delete** request exceeds the maximum
-                [global limit](/influxdb3/clustered/account-management/limits/#global-limits)
-              - returns `Retry-After` header that describes when to try the write again.
+            Token is temporarily over quota. The Retry-After header describes when to try the write again.
           headers:
             Retry-After:
               description: A non-negative decimal integer indicating the seconds to delay after the response is received.
@@ -2134,7 +2119,6 @@ x-tagGroups:
       - Headers
       - Pagination
       - Response codes
-      - System information endpoints
   - name: All endpoints
     tags:
       - Ping

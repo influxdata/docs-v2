@@ -37,21 +37,36 @@ describe('API reference content', () => {
     '/influxdb3/enterprise/api/',
   ];
 
+
   subjects.forEach((subject) => {
     describe(subject, () => {
-      it(`has API info`, function () {
+      beforeEach(() => {
+                // Intercept and modify the page HTML before it loads
+                cy.intercept('GET', '**', (req) => {
+                  req.continue((res) => {
+                    if (res.headers['content-type']?.includes('text/html')) {
+                      // Modify the Kapa widget script attributes
+                      // Avoid socket errors from fpjs in tests by disabling fingerprinting
+                      res.body = res.body.replace(
+                        /data-user-analytics-fingerprint-enabled="true"/,
+                        'data-user-analytics-fingerprint-enabled="false"'
+                      );
+                    }
+                  });
+                });
         cy.visit(subject);
+
+
         window.fcdsc = fakeGoogleTagManager;
         cy.stub(window.fcdsc, 'trackingOptIn').as('trackingOptIn');
         cy.stub(window.fcdsc, 'trackingOptOut').as('trackingOptOut');
+      });
+      it(`has API info`, function () {
+        cy.get('script[data-user-analytics-fingerprint-enabled=false]').should('have.length', 1);
         cy.get('h1').first().should('have.length', 1);
         cy.get('[data-role$=description]').should('have.length', 1);
       });
       it('links back to the version home page', function () {
-        cy.visit(`${subject}`);
-        window.fcdsc = fakeGoogleTagManager;
-        cy.stub(window.fcdsc, 'trackingOptIn').as('trackingOptIn');
-        cy.stub(window.fcdsc, 'trackingOptOut').as('trackingOptOut');
         cy.get('a.back').contains('Docs')
           .should('have.length', 1)
           .click();
@@ -61,10 +76,6 @@ describe('API reference content', () => {
         cy.get('h1').should('have.length', 1);
       });
       it('contains valid internal links', function () {
-        cy.visit(subject);
-        window.fcdsc = fakeGoogleTagManager;
-        cy.stub(window.fcdsc, 'trackingOptIn').as('trackingOptIn');
-        cy.stub(window.fcdsc, 'trackingOptOut').as('trackingOptOut');
         // The following conditional test isn't the cypress way, but the doc might not have internal links.
         cy.get('body').then(($body) => {
           if ($body.find('p a[href^="/"]').length === 0) {
@@ -82,10 +93,6 @@ describe('API reference content', () => {
         });
       });
       it('contains valid external links', function () {
-        cy.visit(subject);
-        window.fcdsc = fakeGoogleTagManager;
-        cy.stub(window.fcdsc, 'trackingOptIn').as('trackingOptIn');
-        cy.stub(window.fcdsc, 'trackingOptOut').as('trackingOptOut');
         // The following conditional test isn't the cypress way, but the doc might not have external links.
         cy.get('body').then(($body) => {
           if ($body.find('p a[href^="http"]').length === 0) {
