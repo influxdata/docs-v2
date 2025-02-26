@@ -19,6 +19,7 @@ function initializeChat({onChatLoad, chatAttributes}) {
    * available configuration options.
    * All values are strings.
    */
+  // If you make changes to data attributes here, you also need to port the changes to the api-docs/template.hbs API reference template.
   const requiredAttributes = {
     websiteId: 'a02bca75-1dd3-411e-95c0-79ee1139be4d',
     projectName: 'InfluxDB',
@@ -27,6 +28,7 @@ function initializeChat({onChatLoad, chatAttributes}) {
   }
 
   const optionalAttributes = {
+
     modalDisclaimer: 'This AI can access [documentation for InfluxDB, clients, and related tools](https://docs.influxdata.com). Information you submit is used in accordance with our [Privacy Policy](https://www.influxdata.com/legal/privacy-policy/).',
     modalExampleQuestions: 'Use Python to write data to InfluxDB 3,How do I query using SQL?,How do I use MQTT with Telegraf?',
     buttonHide: 'true',
