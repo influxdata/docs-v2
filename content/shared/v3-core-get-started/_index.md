@@ -135,8 +135,12 @@ source ~/.zshrc
 To start your InfluxDB instance, use the `influxdb3 serve` command
 and provide the following:
 
-- `--object-store`: Specifies the type of Object store to use. InfluxDB supports the following: local file system (`file`), `memory`, S3 (and compatible services like Ceph or Minio) (`s3`), Google Cloud Storage (`google`), and Azure Blob Storage (`azure`).
-- `--node-id`: A string identifier that determines the server's storage path within the configured storage location
+- `--object-store`: Specifies the type of Object store to use.
+  InfluxDB supports the following: local file system (`file`), `memory`,
+  S3 (and compatible services like Ceph or Minio) (`s3`),
+  Google Cloud Storage (`google`), and Azure Blob Storage (`azure`).
+- `--node-id`: A string identifier that determines the server's storage path
+  within the configured storage location, and, in a multi-node setup, is used to reference the node.
 
 The following examples show how to start InfluxDB 3 with different object store configurations:
 
@@ -216,7 +220,7 @@ InfluxDB is a schema-on-write database. You can start writing data and InfluxDB 
 After a schema is created, InfluxDB validates future write requests against it before accepting the data.
 Subsequent requests can add new fields on-the-fly, but can't add new tags.
 
-InfluxDB 3 Core is optimized for recent data, but accepts writes from any time period. It persists that data in Parquet files for access by third-party systems for longer term historical analysis and queries. If you require longer historical queries with a compactor that optimizes data organization, consider using [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
+{{% product-name %}} is optimized for recent data, but accepts writes from any time period. It persists that data in Parquet files for access by third-party systems for longer term historical analysis and queries. If you require longer historical queries with a compactor that optimizes data organization, consider using [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
 
 
 The database has three write API endpoints that respond to HTTP `POST` requests:
@@ -278,7 +282,7 @@ With `accept_partial=true`:
 ```
 
 Line `1` is written and queryable.
-The response is an HTTP error (`400`) status, and the response body contains `partial write of line protocol occurred` and details about the problem line.
+The response is an HTTP error (`400`) status, and the response body contains the error message `partial write of line protocol occurred` with details about the problem line. 
 
 ##### Parsing failed for write_lp endpoint
 
@@ -323,6 +327,7 @@ For more information, see [diskless architecture](#diskless-architecture).
 > Because InfluxDB sends a write response after the WAL file has been flushed to the configured object store (default is every second), individual write requests might not complete quickly, but you can make many concurrent requests to achieve higher total throughput.
 > Future enhancements will include an API parameter that lets requests return without waiting for the WAL flush.
 
+
 ##### no_sync Write Option
 
 InfluxDB provides a no_sync write option to allow faster response of write request by skipping the wait for WAL presistence. When `no_sync=true`, InfluxDB writes data to WAL but immediately acknowledges the write request without waiting for persistence. 
@@ -330,7 +335,7 @@ InfluxDB provides a no_sync write option to allow faster response of write reque
 - Default behavior(`no_sync=false`): Ensures data is persisted before acknowledging writes. Thus, reducing the risk of data loss. 
 - With `no_sync=true`: Improves write performance but increases the risk of data loss in case of crashes before WAL persistence. 
 
-#### Create a database or Table
+#### Create a database or table
 
 To create a database without writing data, use the `create` subcommand--for example:
 
@@ -347,9 +352,10 @@ influxdb3 create -h
 ### Query the database
 
 InfluxDB 3 now supports native SQL for querying, in addition to InfluxQL, an
-SQL-like language customized for time series queries. {{< product-name >}} limits
-query time ranges to 72 hours (both recent and historical) to ensure query performance.
+SQL-like language customized for time series queries.
 
+{{< product-name >}} limits
+query time ranges to 72 hours (both recent and historical) to ensure query performance.
 For more information about the 72-hour limitation, see the
 [update on InfluxDB 3 Core’s 72-hour limitation](https://www.influxdata.com/blog/influxdb3-open-source-public-alpha-jan-27/).
 
@@ -407,7 +413,7 @@ $ influxdb3 query --database=servers "SELECT DISTINCT usage_percent, time FROM c
 
 ### Querying using the CLI for InfluxQL
 
-[InfluxQL](/influxdb3/core/reference/influxql/) is an SQL-like language developed by InfluxData with specific features tailored for leveraging and working with InfluxDB. It’s compatible with all versions of InfluxDB, making it a good choice for interoperability across different InfluxDB installations.
+[InfluxQL](/influxdb3/version/reference/influxql/) is an SQL-like language developed by InfluxData with specific features tailored for leveraging and working with InfluxDB. It’s compatible with all versions of InfluxDB, making it a good choice for interoperability across different InfluxDB installations.
 
 To query using InfluxQL, enter the `influxdb3 query` subcommand and specify `influxql` in the language option--for example:
 
@@ -506,7 +512,7 @@ You can use the `influxdb3` CLI to create a last value cache.
 Usage: $ influxdb3 create last_cache [OPTIONS] -d <DATABASE_NAME> -t <TABLE> [CACHE_NAME]
 
 Options:
-  -h, --host <HOST_URL>                URL of the running InfluxDB 3 Core server [env: INFLUXDB3_HOST_URL=] 
+  -h, --host <HOST_URL>                URL of the running {{% product-name %}} server [env: INFLUXDB3_HOST_URL=] 
   -d, --database <DATABASE_NAME>       The database to run the query against [env: INFLUXDB3_DATABASE_NAME=]
       --token <AUTH_TOKEN>             The token for authentication [env: INFLUXDB3_AUTH_TOKEN=]
   -t, --table <TABLE>                  The table for which the cache is created
@@ -576,35 +582,26 @@ influxdb3 create distinct_cache -h
 
 The InfluxDB 3 Processing engine is an embedded Python VM for running code inside the database to process and transform data.
 
-To use the Processing engine, you create [plugins](#plugin) and [triggers](#trigger).
+To activate the Processing engine, pass the `--plugin-dir <PLUGIN_DIR>` option when starting the {{% product-name %}} server.
+`PLUGIN_DIR` is your filesystem location for storing [plugin](#plugin) files for the Processing engine to run.
 
 #### Plugin
 
-A plugin is a Python function that has a signature compatible with one of the [trigger types](#trigger-types).
-The [`influxdb3 create plugin`](/influxdb3/core/reference/cli/influxdb3/create/plugin/) command loads a Python plugin file into the server.
+A plugin is a Python function that has a signature compatible with a Processing engine [trigger](#trigger).
 
 #### Trigger
 
-After you load a plugin into an InfluxDB 3 server, you can create one or more
-triggers associated with the plugin.
-When you create a trigger, you specify a plugin, a database, optional runtime arguments,
-and a trigger-spec, which specifies `all_tables` or `table:my_table_name` (for filtering data sent to the plugin).
-When you _enable_ a trigger, the server executes the plugin code according to the  
-plugin signature.
+When you create a trigger, you specify a [plugin](#plugin), a database, optional arguments,
+and a _trigger-spec_, which defines when the plugin is executed and what data it receives.
 
 ##### Trigger types
 
-InfluxDB 3 provides the following types of triggers:
+InfluxDB 3 provides the following types of triggers, each with specific trigger-specs:
 
-- **On WAL flush**: Sends the batch of write data to a plugin once a second (configurable).
-
-> [!Note]
-> Currently, only the **WAL flush** trigger is supported, but more are on the way:
->  
-> - **On Snapshot**: Sends metadata to a plugin for further processing against the Parquet data or to send the information elsewhere (for example, to an Iceberg Catalog). _Not yet available._
-> - **On Schedule**: Executes a plugin on a user-configured schedule, useful for data collection and deadman monitoring. _Not yet available._
-> - **On Request**: Binds a plugin to an HTTP endpoint at `/api/v3/plugins/<name>`. _Not yet available._
->   The plugin receives the HTTP request headers and content, and can then parse, process, and send the data into the database or to third-party services.
+- **On WAL flush**: Sends a batch of written data (for a specific table or all tables) to a plugin (by default, every second).
+- **On Schedule**: Executes a plugin on a user-configured schedule (using a crontab or a duration); useful for data collection and deadman monitoring.
+- **On Request**: Binds a plugin to a custom HTTP API endpoint at `/api/v3/engine/<ENDPOINT>`.
+  The plugin receives the HTTP request headers and content, and can then parse, process, and send the data into the database or to third-party services.
 
 ### Test, create, and trigger plugin code
 
@@ -693,7 +690,7 @@ Test your InfluxDB 3 plugin safely without affecting written data. During a plug
 To test a plugin, do the following:
 
 1. Create a _plugin directory_--for example, `/path/to/.influxdb/plugins`
-2. [Start the InfluxDB server](#start-influxdb) and include the `--plugin-dir` option with your plugin directory path.
+2. [Start the InfluxDB server](#start-influxdb) and include the `--plugin-dir <PATH>` option.
 3. Save the [preceding example code](#example-python-plugin) to a plugin file inside of the plugin directory. If you haven't yet written data to the table in the example, comment out the lines where it queries.
 4. To run the test, enter the following command with the following options:
 
@@ -713,7 +710,7 @@ You can quickly see how the plugin behaves, what data it would have written to t
 You can then edit your Python code in the plugins directory, and rerun the test.
 The server reloads the file for every request to the `test` API.
 
-For more information, see [`influxdb3 test wal_plugin`](/influxdb3/core/reference/cli/influxdb3/test/wal_plugin/) or run `influxdb3 test wal_plugin -h`.
+For more information, see [`influxdb3 test wal_plugin`](/influxdb3/version/reference/cli/influxdb3/test/wal_plugin/) or run `influxdb3 test wal_plugin -h`.
 
 With the plugin code inside the server plugin directory, and a successful test,
 you're ready to create a plugin and a trigger to run on the server.
@@ -737,14 +734,6 @@ influxdb3 test wal_plugin \
 ```
 
 ```bash
-# Create a plugin to run
-influxdb3 create plugin \
-  -d mydb \
-  --code-filename="/path/to/.influxdb3/plugins/test.py" \
-  test_plugin
-```
-
-```bash
 # Create a trigger that runs the plugin
 influxdb3 create trigger \
   -d mydb \
@@ -761,11 +750,7 @@ enable the trigger and have it run the plugin as you write data:
 influxdb3 enable trigger --database mydb trigger1 
 ```
 
-For more information, see the following:
-
-- [`influxdb3 test wal_plugin`](/influxdb3/core/reference/cli/influxdb3/test/wal_plugin/) 
-- [`influxdb3 create plugin`](/influxdb3/core/reference/cli/influxdb3/create/plugin/) 
-- [`influxdb3 create trigger`](/influxdb3/core/reference/cli/influxdb3/create/trigger/) 
+For more information, see [Python plugins and the Processing engine](/influxdb3/version/plugins/).
 
 ### Diskless architecture
 
