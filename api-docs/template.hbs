@@ -1,36 +1,73 @@
-<!DOCTYPE html>
 <html>
 
-<head>
-  <!-- Google Tag Manager -->
-  <script>window.location.hostname.endsWith('influxdata.com') && (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-WXRH9C');</script>
-  <!-- End Google Tag Manager -->
+  <head>
+    <!-- Google Tag Manager -->
+    <script>window.location.hostname.endsWith('influxdata.com') &&
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new
+      Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-WXRH9C');</script>
+    <!-- End Google Tag Manager -->
 
-  <meta charset="utf8" />
-  <title>{{title}}</title>
-  <meta name="description" content="{{templateOptions.description}}">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
+    <meta charset='utf8' />
+    <title>{{title}}</title>
+    <meta name='description' content='{{templateOptions.description}}' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <link
+      rel='shortcut icon'
+      href='/img/favicon.png'
+      type='image/png'
+      sizes='32x32'
+    />
 
-  <meta name="google-site-verification" content="_V6CNhaIIgVsTO9max_ECw7DUfPL-ZGE7G03MQgEGMU" />
+    <meta
+      name='google-site-verification'
+      content='_V6CNhaIIgVsTO9max_ECw7DUfPL-ZGE7G03MQgEGMU'
+    />
 
-  <style>
-    body {
-      padding: 0;
-      margin: 0;
-    }
-  </style>
-  {{#unless disableGoogleFont}}<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500,500i,700,700i|Roboto:400,400i,700,700i|Rubik:400,400i,500,500i,700,700i" rel="stylesheet">{{/unless}}
-  {{{redocHead}}}
-  <link rel="stylesheet" type="text/css" href="/api.css">
-</head>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+    {{#unless disableGoogleFont}}<link
+        href="https://fonts.googleapis.com/css?family=Roboto+Mono:500,500i,700,700i|Roboto:400,400i,700,700i|Rubik:400,400i,500,500i,700,700i"
+        rel="stylesheet"
+      />{{/unless}}
+    {{{redocHead}}}
+    <link rel="stylesheet" type="text/css" href="/api.css" />
+    <script type="text/javascript"
+      async="true"
+      src="https://widget.kapa.ai/kapa-widget.bundle.js"
+      data-website-id="a02bca75-1dd3-411e-95c0-79ee1139be4d"
+      data-project-name="InfluxDB"
+      data-project-color="#d30971"
+      data-project-logo="/img/influx-logo-cubo-white.png"
+      data-modal-disclaimer="This AI can access [documentation for InfluxDB, clients, and related tools](https://docs.influxdata.com). Information you submit is used in accordance with our [Privacy Policy](https://www.influxdata.com/legal/privacy-policy/)."
+      data-modal-example-questions="How do I write and query data with the {{title}}?, How do I use client libraries for the {{title}}?" data-button-height="65px" data-button-width="65px"
+      data-button-text="Ask AI" data-conversation-button-icons-only="true"
+      data-font-family="Proxima Nova, sans-serif"
+      data-modal-example-questions-col-span="8"
+      data-modal-full-screen-on-mobile="true"
+      data-modal-header-bg-color="#d30971"
+      data-modal-header-border-bottom="none" data-modal-header-padding=".5rem"
+      data-modal-header-text-color="#ffffff" data-modal-x-offset="0"
+      data-modal-y-offset="0" data-modal-with-overlay="false"
+      data-modal-inner-flex-direction="column"
+      data-modal-inner-justify-content="end" data-modal-inner-max-width="600px"
+      data-modal-inner-position-left="auto"
+      data-modal-inner-position-right="20px"
+      data-modal-inner-position-bottom="calc(2.5rem + 25px)"
+      data-modal-size="640px"
+      data-modal-title-color="#fff"
+      data-modal-title-font-size="1.25rem"
+      data-modal-lock-scroll="false" ></script>
+  </head>
 
-<body>
-  {{!-- <script>
+  <body>
+    {{! <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Prevent throwing errors when the Google Tag Manager script is blocked
       if (!window.hasOwnProperty('fcdsc')) {
@@ -44,31 +81,38 @@
         })();
       }
     });
-  </script> --}}
-  <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WXRH9C" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  <div id="loading">
-    <div class="spinner"></div>
-  </div>
-  <div id="influx-header">
-    <a class="back" href="/{{templateOptions.product}}/"><span class="version">{{templateOptions.productName}}</span> Docs</a>
-    <a class="btn" href="https://github.com/influxdata/influxdb/issues/new/choose/" target="_blank">Submit API issue</a>
-  </div>
-  {{{redocHTML}}}
-  <script type="text/javascript">
-    function removeFadeOut( el, speed ) {
-      var seconds = speed/1000;
-      el.style.transition = "opacity "+seconds+"s ease";
-      el.style.opacity = 0;
-      setTimeout(function() {
-          el.parentNode.removeChild(el);
-      }, speed);
-    }
-    removeFadeOut(document.getElementById('loading'), 500);
-  </script>
-</body>
+  </script> }}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe
+        src='https://www.googletagmanager.com/ns.html?id=GTM-WXRH9C'
+        height='0'
+        width='0'
+        style='display:none;visibility:hidden'
+      ></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id='loading'>
+      <div class='spinner'></div>
+    </div>
+    <div id='influx-header'>
+      <a class='back' href='/{{templateOptions.product}}/'><span
+          class='version'
+        >{{templateOptions.productName}}</span>
+        Docs</a>
+      <a
+        class='btn'
+        href='https://github.com/influxdata/influxdb/issues/new/choose/'
+        target='_blank'
+      >Submit API issue</a>
+    </div>
+    {{{redocHTML}}}
+    <script type='text/javascript'>
+      function removeFadeOut( el, speed ) { var seconds = speed/1000;
+      el.style.transition = "opacity "+seconds+"s ease"; el.style.opacity = 0;
+      setTimeout(function() { el.parentNode.removeChild(el); }, speed); }
+      removeFadeOut(document.getElementById('loading'), 500);
+    </script>
+  </body>
 
 </html>
