@@ -32,7 +32,8 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   python3-venv \
   rsync \
   telegraf \
-  wget
+  wget \
+  yq
 
 # Install InfluxDB 3 Core
 RUN curl -O https://www.influxdata.com/d/install_influxdb3.sh \

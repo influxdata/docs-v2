@@ -66,7 +66,7 @@ The tests defined in `compose.yaml` use the dependencies and execution
 environment from this image.
 
 ```bash
-docker build -t influxdata:docs-pytest -f Dockerfile.pytest .
+docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .
 ```
 
 ### Run the documentation locally (optional)

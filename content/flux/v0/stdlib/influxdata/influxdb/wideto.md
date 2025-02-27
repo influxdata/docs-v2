@@ -81,7 +81,7 @@ _`bucket` and `bucketID` are mutually exclusive_.
 URL of the InfluxDB instance to write to.
 
 See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)
-or [InfluxDB OSS URLs](/influxdb/latest/reference/urls/).
+or [InfluxDB OSS URLs](/influxdb/v2/reference/urls/).
 `host` is required when writing to a remote InfluxDB instance.
 If specified, `token` is also required.
 

@@ -72,7 +72,7 @@ _`org` and `orgID` are mutually exclusive_.
 URL of the InfluxDB instance.
 
 See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)
-or [InfluxDB OSS URLs](/influxdb/latest/reference/urls/).
+or [InfluxDB OSS URLs](/influxdb/v2/reference/urls/).
 _`host` is required when `org` or `orgID` are specified._
 
 ### token

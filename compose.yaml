@@ -84,6 +84,9 @@ services:
       - type: volume
         source: test-content
         target: /app/content
+      - type: bind 
+        source: ./test/shared/influxdb-templates
+        target: /root/influxdb-templates
     working_dir: /app
   cloud-dedicated-pytest:
     container_name: cloud-dedicated-pytest
