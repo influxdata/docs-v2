@@ -584,8 +584,8 @@ telegraf config > telegraf.conf
 
 To generate a configuration file that contains settings for only specific plugins,
 use the `--input-filter` and `--output-filter` options to
-specify [input plugins](/telegraf/v1/plugins/input_plugins)
-and [output plugins](/telegraf/v1/plugins/output_plugins/)--for example:
+specify [input plugins](/telegraf/v1/plugins/#input-plugins/)
+and [output plugins](/telegraf/v1/plugins/#output-plugins/)--for example:
 
 {{% code-placeholders "cpu|http|influxdb_v2|file" %}}
 
