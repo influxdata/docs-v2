@@ -346,7 +346,9 @@ curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=tr
   --data-raw "home,room=Sunroom temp=96"
 ```
 
-If you are using the CLI, here is an example of how to enable the `no_sync` option:
+###### Immediate write using the influxdb3 CLI
+
+The `no_sync` CLI option controls when writes are acknowledged--for example:
 
 ```sh
 influxdb3 write --bucket=mydb --org=my_org --token=my-token --no-sync
