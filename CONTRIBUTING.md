@@ -46,9 +46,10 @@ To install dependencies listed in package.json:
 4. Install the Yarn package manager and run `yarn` to install project dependencies.
 
 `package.json` contains dependencies for linting and running Git hooks.
+docs-v2 uses [Lefthook](https://github.com/evilmartians/lefthook) to configure and manage pre-commit hooks for linting and testing Markdown content.
 
-- **[husky](https://github.com/typicode/husky)**: manages Git hooks, including the pre-commit hook for linting and testing
-- **[lint-staged](https://github.com/lint-staged/lint-staged)**: passes staged files to commands
+Other dependencies used in the project:
+
 - **[prettier](https://prettier.io/docs/en/)**: formats code, including Markdown, according to style rules for consistency
 
 ### Install Docker
@@ -65,12 +66,23 @@ The tests defined in `compose.yaml` use the dependencies and execution
 environment from this image.
 
 ```bash
-docker build -t influxdata:docs-pytest -f Dockerfile.pytest .
+docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .
 ```
 
 ### Run the documentation locally (optional)
 
 To run the documentation locally, follow the instructions provided in the README.
+
+### Install Visual Studio Code extensions
+
+If you use Microsoft Visual Studio (VS) Code, you can install extensions
+to help you navigate, check, and edit files.
+
+docs-v2 contains a `./.vscode/settings.json` that configures the following extensions:
+
+- Comment Anchors: recognizes tags (for example, `//SOURCE`) and makes links and filepaths clickable in comments.
+- Vale: shows linter errors and suggestions in the editor.
+- YAML Schemas: validates frontmatter attributes.
 
 ### Make your changes
 
@@ -80,15 +92,15 @@ Make your suggested changes being sure to follow the [style and formatting guide
 
 ### Automatic pre-commit checks
 
-docs-v2 uses Husky to manage Git hook scripts.
-When you try to commit your changes (for example, `git commit`), Git runs
-scripts configured in `.husky/pre-commit`, including linting and tests for your **staged** files.
+docs-v2 uses Lefthook to manage Git hooks, such as pre-commit hooks that lint Markdown and test code blocks.
+When you try to commit changes (`git commit`), Git runs
+the commands configured in `lefthook.yml` which pass your **staged** files to Vale, Prettier, and Pytest (in a Docker container).
 
 ### Skip pre-commit hooks
 
 **We strongly recommend running linting and tests**, but you can skip them
 (and avoid installing dependencies)
-by including the `HUSKY=0` environment variable or the `--no-verify` flag with
+by including the `LEFTHOOK=0` environment variable or the `--no-verify` flag with
 your commit--for example:
 
 ```sh
@@ -96,10 +108,8 @@ git commit -m "<COMMIT_MESSAGE>" --no-verify
 ```
 
 ```sh
-HUSKY=0 git commit
+LEFTHOOK=0 git commit
 ```
-
-For more options, see the [Husky documentation](https://typicode.github.io/husky/how-to.html#skipping-git-hooks).
 
 ### Set up test scripts and credentials
 

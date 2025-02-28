@@ -4,7 +4,7 @@ description: >
   Use [`join.time()`](/flux/v0/stdlib/join/time/) to join two streams of data
   based on time values in the `_time` column.
   This type of join operation is common when joining two streams of
-  [time series data](/influxdb/latest/reference/glossary/#time-series-data).
+  [time series data](/influxdb/v2/reference/glossary/#time-series-data).
 menu:
   flux_v0:
     parent: Join data
@@ -31,7 +31,7 @@ list_code_example: |
 Use [`join.time()`](/flux/v0/stdlib/join/time/) to join two streams of data
 based on time values in the `_time` column.
 This type of join operation is common when joining two streams of
-[time series data](/influxdb/latest/reference/glossary/#time-series-data).
+[time series data](/influxdb/v2/reference/glossary/#time-series-data).
 
 `join.time()` can use any of the available join methods.
 Which method you use depends on your desired behavior:

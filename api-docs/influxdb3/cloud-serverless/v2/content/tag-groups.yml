@@ -6,9 +6,6 @@
     - Headers
     - Pagination
     - Response codes
-    - Data I/O endpoints
-    - Security and access endpoints
-    - System information endpoints
 - name: All endpoints
   tags:
     - Authorizations (API tokens)

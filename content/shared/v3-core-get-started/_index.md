@@ -68,6 +68,8 @@ This guide covers InfluxDB 3 Core (the open source release), including the follo
 <!--------------- BEGIN LINUX AND MACOS -------------->
 To get started quickly, download and run the install script--for example, using [curl](https://curl.se/download.html):
 
+<!--pytest.mark.skip-->
+
 ```bash
 curl -O https://www.influxdata.com/d/install_influxdb3.sh \
 && sh install_influxdb3.sh
@@ -106,6 +108,8 @@ is available for x86_64 (AMD64) and ARM64 architectures.
 
 Pull the image:
 
+<!--pytest.mark.skip-->
+
 ```bash
 docker pull quay.io/influxdb/influxdb3-core:latest
 ```
@@ -126,6 +130,8 @@ influxdb3 --version
 
 If your system doesn't locate `influxdb3`, then `source` the configuration file (for example, .bashrc, .zshrc) for your shell--for example:
 
+<!--pytest.mark.skip-->
+
 ```zsh
 source ~/.zshrc
 ```
@@ -145,13 +151,13 @@ and provide the following:
 The following examples show how to start InfluxDB 3 with different object store configurations:
 
 ```bash
-# MEMORY
+# Memory object store
 # Stores data in RAM; doesn't persist data
 influxdb3 serve --node-id=local01 --object-store=memory
 ```
 
 ```bash
-# FILESYSTEM
+# Filesystem object store
 # Provide the filesystem directory
 influxdb3 serve \
   --node-id=local01 \
@@ -164,10 +170,13 @@ To run the [Docker image](/influxdb3/core/install/#docker-image) and persist dat
 - `-v /path/on/host:/path/in/container`: Mounts a directory from your filesystem to the container
 - `--object-store file --data-dir /path/in/container`: Uses the mount for server storage
 
+<!--pytest.mark.skip-->
+
 ```bash
-# FILESYSTEM USING DOCKER
+# Filesystem object store with Docker 
 # Create a mount
 # Provide the mount path
+
 docker run -it \
  -v /path/on/host:/path/in/container \
  quay.io/influxdb/influxdb3-core:latest serve \
@@ -177,15 +186,29 @@ docker run -it \
 ```
 
 ```bash
-# S3 (defaults to us-east-1 for region)
+# S3 object store (default is the us-east-1 region)
 # Specify the Object store type and associated options
-influxdb3 serve --node-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY]
+
+```bash
+influxdb3 serve \
+  --node-id=local01 \
+  --object-store=s3 \
+  --bucket=BUCKET \
+  --aws-access-key=AWS_ACCESS_KEY \
+  --aws-secret-access-key=AWS_SECRET_ACCESS_KEY
 ```
 
 ```bash
-# Minio/Open Source Object Store (Uses the AWS S3 API, with additional parameters)
-# Specify the Object store type and associated options
-influxdb3 serve --node-id=local01 --object-store=s3 --bucket=[BUCKET] --aws-access-key=[AWS ACCESS KEY] --aws-secret-access-key=[AWS SECRET ACCESS KEY] --aws-endpoint=[ENDPOINT] --aws-allow-http
+# Minio or other open source object store
+# (using the AWS S3 API with additional parameters)
+# Specify the object store type and associated options
+
+```bash
+influxdb3 serve --node-id=local01 --object-store=s3 --bucket=BUCKET \
+  --aws-access-key=AWS_ACCESS_KEY \
+  --aws-secret-access-key=AWS_SECRET_ACCESS_KEY \
+  --aws-endpoint=ENDPOINT \
+  --aws-allow-http
 ```
 
 _For more information about server options, run `influxdb3 serve --help`._
@@ -197,15 +220,17 @@ _For more information about server options, run `influxdb3 serve --help`._
 > Use the `docker kill` command to stop the container:
 > 
 > 1. Enter the following command to find the container ID:
+>    <!--pytest.mark.skip-->
 >    ```bash
 >    docker ps -a
 >    ```
 > 2. Enter the command to stop the container:
+>    <!--pytest.mark.skip-->
 >    ```bash
 >    docker kill <CONTAINER_ID>
 >    ``` 
 
-### Data Model
+### Data model
 
 The database server contains logical databases, which have tables, which have columns. Compared to previous versions of InfluxDB you can think of a database as a `bucket` in v2 or as a `db/retention_policy` in v1. A `table` is equivalent to a `measurement`, which has columns that can be of type `tag` (a string dictionary), `int64`, `float64`, `uint64`, `bool`, or `string` and finally every table has a `time` column that is a nanosecond precision timestamp.
 
@@ -214,7 +239,7 @@ This is the sort order used for all Parquet files that get created. When you cre
 
 Tags should hold unique identifying information like `sensor_id`, or `building_id` or `trace_id`. All other data should be kept in fields. You will be able to add fast last N value and distinct value lookups later for any column, whether it is a field or a tag.
 
-### Write Data
+### Write data
 
 InfluxDB is a schema-on-write database. You can start writing data and InfluxDB creates the logical database, tables, and their schemas on the fly.
 After a schema is created, InfluxDB validates future write requests against it before accepting the data.
@@ -222,23 +247,43 @@ Subsequent requests can add new fields on-the-fly, but can't add new tags.
 
 {{% product-name %}} is optimized for recent data, but accepts writes from any time period. It persists that data in Parquet files for access by third-party systems for longer term historical analysis and queries. If you require longer historical queries with a compactor that optimizes data organization, consider using [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
 
+The database provides three write API endpoints that respond to HTTP `POST` requests:
 
-The database has three write API endpoints that respond to HTTP `POST` requests:
+#### /api/v3/write_lp endpoint
 
-* `/write?db=mydb&precision=ns`
-* `/api/v2/write?bucket=mydb&precision=ns`
-* `/api/v3/write_lp?db=mydb&precision=nanosecond&accept_partial=true`
+{{% product-name %}} adds the `/api/v3/write_lp` endpoint.
 
-{{% product-name %}} provides the `/write` and `/api/v2/write` endpoints for backward compatibility with clients that can write data to previous versions of InfluxDB.
-However, these APIs differ from the APIs in the previous versions in the following ways:
+{{<api-endpoint endpoint="/api/v3/write_lp?db=mydb&precision=nanosecond&accept_partial=true" method="post" >}}
+
+This endpoint accepts the same line protocol syntax as previous versions,
+and supports the `?accept_partial=<BOOLEAN>` parameter, which
+lets you accept or reject partial writes (default is `true`).
+
+#### /api/v2/write InfluxDB v2 compatibility endpoint
+
+Provides backwards compatibility with clients that can write data to InfluxDB OSS v2.x and Cloud 2 (TSM).
+{{<api-endpoint endpoint="/api/v2/write?bucket=mydb&precision=ns" method="post" >}}
+
+#### /write InfluxDB v1 compatibility endpoint
+
+Provides backwards compatibility for clients that can write data to InfluxDB v1.x
+{{<api-endpoint endpoint="/write?db=mydb&precision=ns" method="post" >}}
+
+Keep in mind that these compatibility APIs differ from the v1 and v2 APIs in previous versions in the following ways:
 
 - Tags in a table (measurement) are _immutable_
 - A tag and a field can't have the same name within a table.
 
-{{% product-name %}} adds the `/api/v3/write_lp` endpoint, which accepts the same line protocol syntax as previous versions, and supports an `?accept_partial=<BOOLEAN>` parameter, which
-lets you accept or reject partial writes (default is `true`).
+#### Write line protocol
 
-The following code block is an example of [line protocol](/influxdb3/core/reference/syntax/line-protocol/), which shows the table name followed by tags, which are an ordered, comma-separated list of key/value pairs where the values are strings, followed by a comma-separated list of key/value pairs that are the fields, and ending with an optional timestamp. The timestamp by default is a nanosecond epoch, but you can specify a different precision through the `precision` query parameter.
+The following code block is an example of time series data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) syntax:
+
+- `cpu`: the table name.
+- `host`, `region`, `applications`: the tags. A tag set is an ordered, comma-separated list of key/value pairs where the values are strings.
+- `val`, `usage_percent`, `status`: the fields. A field set is a comma-separated list of key/value pairs.
+- timestamp: If you don't specify a timestamp, InfluxData uses the time when data is written.
+  The default precision is a nanosecond epoch.
+  To specify a different precision, pass the `precision` query parameter.
 
 ```
 cpu,host=Alpha,region=us-west,application=webserver val=1i,usage_percent=20.5,status="OK"
@@ -249,16 +294,20 @@ cpu,host=Bravo,region=us-central,application=database val=5i,usage_percent=80.5,
 cpu,host=Alpha,region=us-west,application=webserver val=6i,usage_percent=25.3,status="Warn"
 ```
 
+##### Example: write data using the influxdb3 CLI
+
 If you save the preceding line protocol to a file (for example, `server_data`), then you can use the `influxdb3` CLI to write the data--for example:
 
 ```bash
 influxdb3 write --database=mydb --file=server_data
 ```
 
+##### Example: write data using the /api/v3 HTTP API
+
 The following examples show how to write data using `curl` and the `/api/3/write_lp` HTTP endpoint.
 To show the difference between accepting and rejecting partial writes, line `2` in the example contains a `string` value for a `float` field (`temp=hi`).
 
-##### Partial write of line protocol occurred
+###### Partial write of line protocol occurred
 
 With `accept_partial=true`:
 
@@ -284,7 +333,7 @@ With `accept_partial=true`:
 Line `1` is written and queryable.
 The response is an HTTP error (`400`) status, and the response body contains the error message `partial write of line protocol occurred` with details about the problem line. 
 
-##### Parsing failed for write_lp endpoint
+###### Parsing failed for write_lp endpoint
 
 With `accept_partial=false`:
 
@@ -315,7 +364,7 @@ The response is the following:
 InfluxDB rejects all points in the batch.
 The response is an HTTP error (`400`) status, and the response body contains `parsing failed for write_lp endpoint` and details about the problem line.
 
-##### Data durability
+#### Data durability
 
 When you write data to InfluxDB, InfluxDB ingests the data and writes it to WAL files, created once per second, and to an in-memory queryable buffer.
 Later, InfluxDB snapshots the WAL and persists the data into object storage as Parquet files.
@@ -327,7 +376,7 @@ For more information, see [diskless architecture](#diskless-architecture).
 > Because InfluxDB sends a write response after the WAL file has been flushed to the configured object store (default is every second), individual write requests might not complete quickly, but you can make many concurrent requests to achieve higher total throughput.
 > Future enhancements will include an API parameter that lets requests return without waiting for the WAL flush.
 
-#### Create a database or table
+### Create a database or table
 
 To create a database without writing data, use the `create` subcommand--for example:
 
@@ -341,7 +390,7 @@ To learn more about a subcommand, use the `-h, --help` flag:
 influxdb3 create -h
 ```
 
-### Query the database
+### Query a database
 
 InfluxDB 3 now supports native SQL for querying, in addition to InfluxQL, an
 SQL-like language customized for time series queries.

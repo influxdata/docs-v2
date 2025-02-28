@@ -51,6 +51,7 @@ setup
 
 if [[ $runner == "pytest" ]]; then
     pytest \
+    -ra \
     -s \
     --codeblocks \
     --suppress-no-test-exit-code \

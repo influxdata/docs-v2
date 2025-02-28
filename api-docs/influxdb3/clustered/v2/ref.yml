@@ -3,6 +3,8 @@ info:
   title: InfluxDB 3 Clustered API Service
   version: ''
   description: |
+    The InfluxDB v2 HTTP API for InfluxDB 3 Clustered provides a v2-compatible programmatic interface for writing data stored in an InfluxDB 3 Clustered database.
+
     The InfluxDB v2 HTTP API lets you use `/api/v2` endpoints for managing retention policy mappings and writing data stored in an InfluxDB 3 instance.
 
     This documentation is generated from the
@@ -10,7 +12,10 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-  summary: The InfluxDB v2 HTTP API for InfluxDB 3 Clustered provides a v2-compatible programmatic interface for writing data stored in an InfluxDB 3 Clustered database.
+  contact:
+    name: InfluxData
+    url: https://www.influxdata.com
+    email: support@influxdata.com
 servers:
   - url: https://{baseurl}
     description: InfluxDB 3 Clustered API URL
@@ -412,16 +417,6 @@ paths:
         '429':
           description: |
             Too many requests.
-
-            #### InfluxDB Cloud
-
-              - Returns this error if a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb3/clustered/account-management/limits/#adjustable-service-quotas)
-                or if a **delete** request exceeds the maximum [global limit](/influxdb3/clustered/account-management/limits/#global-limits).
-              - For rate limits that reset automatically, returns a `Retry-After` header that describes when to try the write again.
-              - For limits that can't reset (for example, **cardinality limit**), doesn't return a `Retry-After` header.
-
-              Rates (data-in (writes), queries (reads), and deletes) accrue within a fixed five-minute window.
-              Once a rate limit is exceeded, InfluxDB returns an error response until the current five-minute window resets.
           headers:
             Retry-After:
               description: Non-negative decimal integer indicating seconds to wait before retrying the request.
@@ -517,7 +512,7 @@ paths:
             type: string
         - description: |
             A unix timestamp precision.
-            Formats timestamps as [unix (epoch) timestamps](/influxdb3/clustered/reference/glossary/#unix-timestamp) the specified precision
+            Formats timestamps as [unix (epoch) timestamps](/influxdb3/clustered/reference/glossary/#unix-timestamp) with the specified precision
             instead of [RFC3339 timestamps](/influxdb3/clustered/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
           in: query
           name: epoch
@@ -573,12 +568,7 @@ paths:
                 type: string
         '429':
           description: |
-            #### InfluxDB Cloud:
-              - returns this error if a **read** or **write** request exceeds your
-                plan's [adjustable service quotas](/influxdb3/clustered/account-management/limits/#adjustable-service-quotas)
-                or if a **delete** request exceeds the maximum
-                [global limit](/influxdb3/clustered/account-management/limits/#global-limits)
-              - returns `Retry-After` header that describes when to try the write again.
+            Token is temporarily over quota. The Retry-After header describes when to try the write again.
           headers:
             Retry-After:
               description: A non-negative decimal integer indicating the seconds to delay after the response is received.
@@ -924,7 +914,7 @@ components:
           type: string
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb3/clustered/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
         virtual:
@@ -967,7 +957,7 @@ components:
           type: string
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb3/clustered/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
       required:
@@ -991,7 +981,7 @@ components:
           type: boolean
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb3/clustered/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
     DBRPs:
@@ -1235,9 +1225,9 @@ components:
       properties:
         results:
           description: |
-              A resultset object that contains the `statement_id` and the `series` array.
+            A resultset object that contains the `statement_id` and the `series` array.
 
-              Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
+            Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
           items:
             properties:
               error:
@@ -1286,12 +1276,12 @@ components:
                 type: integer
             type: object
           oneOf:
-          - required:
-            - statement_id
-            - error
-          - required:
-            - statement_id
-            - series
+            - required:
+                - statement_id
+                - error
+            - required:
+                - statement_id
+                - series
           type: array
       type: object
     IntegerLiteral:
@@ -2129,7 +2119,6 @@ x-tagGroups:
       - Headers
       - Pagination
       - Response codes
-      - System information endpoints
   - name: All endpoints
     tags:
       - Ping
