@@ -335,7 +335,10 @@ Using `no_sync=true` is best when prioritizing high-throughput writes over absol
 - Default behavior(`no_sync=false`): Waits for data to be written to disk before acknowledging writes. This reduces the risk of data loss but increases latency for writes.
 - With `no_sync=true`: Reduces write latency but increases the risk of data loss in case of crashes before WAL persistence. 
 
-If you are using the HTTP API, here is an example of how to enable the `no_sync` option:
+###### Immediate write using the HTTP API
+
+The `no_sync` parameter controls when writes are acknowledged--for example:
+
 
 ```sh
 curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=true" \
