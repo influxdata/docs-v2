@@ -165,6 +165,7 @@ To run the [Docker image](/influxdb3/core/install/#docker-image) and persist dat
 - `--object-store file --data-dir /path/in/container`: Uses the mount for server storage
 
 > [!Note]
+> 
 > The {{% product-name %}} Docker image exposes port `8181`, the default for the `influxdb3` server HTTP port.
 
 ```bash
