@@ -329,7 +329,7 @@ For faster write responses, you can use the [`no_sync` option](#no-sync-write-op
 
 ##### No sync write option
 
-InfluxDB provides a `no_sync` write option that allows the write request to respond faster by skipping the wait for WAL presistence. When `no_sync=true`, InfluxDB writes data to the WAL and then immediately acknowledges the write request without waiting for persistence to the Object store.
+InfluxDB provides a `no_sync` write option that allows the write request to respond faster by skipping the wait for WAL persistence. When `no_sync=true`, InfluxDB writes data to the WAL and then immediately acknowledges the write request without waiting for persistence to the Object store.
 
 Using `no_sync=true` is best when prioritizing high-throughput writes over absolute durability. 
 
