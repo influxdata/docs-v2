@@ -351,7 +351,7 @@ If you are using the CLI, here is an example of how to enable the `no_sync` opti
 influxdb3 write --bucket=mydb --org=my_org --token=my-token --no-sync
 ```
 
-#### Create a database or Table
+#### Create a database or table
 
 To create a database without writing data, use the `create` subcommand--for example:
 
