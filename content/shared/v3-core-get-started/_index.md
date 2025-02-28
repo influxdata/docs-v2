@@ -164,6 +164,9 @@ To run the [Docker image](/influxdb3/core/install/#docker-image) and persist dat
 - `-v /path/on/host:/path/in/container`: Mounts a directory from your filesystem to the container
 - `--object-store file --data-dir /path/in/container`: Uses the mount for server storage
 
+> [!Note]
+> The InfluxDB 3 Core Docker image **can expose port 8181**.
+
 ```bash
 # FILESYSTEM USING DOCKER
 # Create a mount
