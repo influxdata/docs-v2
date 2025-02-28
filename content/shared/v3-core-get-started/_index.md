@@ -350,7 +350,6 @@ If you are using the CLI, here is an example of how to enable the `no_sync` opti
 ```sh
 influxdb3 write --bucket=mydb --org=my_org --token=my-token --no-sync
 ```
-Using `no_sync=true` is best when prioritizing high-throughput writes over absolute durability. 
 
 #### Create a database or Table
 
