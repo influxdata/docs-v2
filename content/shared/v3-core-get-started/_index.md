@@ -324,8 +324,35 @@ For more information, see [diskless architecture](#diskless-architecture).
 > [!Note]
 > ##### Write requests return after WAL flush
 >
-> Because InfluxDB sends a write response after the WAL file has been flushed to the configured object store (default is every second), individual write requests might not complete quickly, but you can make many concurrent requests to achieve higher total throughput.
-> Future enhancements will include an API parameter that lets requests return without waiting for the WAL flush.
+> By default, when you write data, InfluxDB sends a write response after the WAL file has been flushed to the Object store (default is every second). Write requests might not complete quickly, but you can make many concurrent requests to achieve higher total throughput.
+For faster write responses, you can use the [`no_sync` option](#no-sync-write-option) to skip the wait for WAL persistence.
+
+##### No sync write option
+
+InfluxDB provides a `no_sync` write option that allows the write request to respond faster by skipping the wait for WAL persistence. When `no_sync=true`, InfluxDB writes data to the WAL and then immediately acknowledges the write request without waiting for persistence to the Object store.
+
+Using `no_sync=true` is best when prioritizing high-throughput writes over absolute durability. 
+
+- Default behavior (`no_sync=false`): Waits for data to be written to disk before acknowledging writes. This reduces the risk of data loss but increases latency for writes.
+- With `no_sync=true`: Reduces write latency but increases the risk of data loss in case of crashes before WAL persistence. 
+
+###### Immediate write using the HTTP API
+
+The `no_sync` parameter controls when writes are acknowledged--for example:
+
+
+```sh
+curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=true" \
+  --data-raw "home,room=Sunroom temp=96"
+```
+
+###### Immediate write using the influxdb3 CLI
+
+The `no_sync` CLI option controls when writes are acknowledged--for example:
+
+```sh
+influxdb3 write --bucket=mydb --org=my_org --token=my-token --no-sync
+```
 
 #### Create a database or table
 
