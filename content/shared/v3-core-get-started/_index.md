@@ -333,7 +333,7 @@ InfluxDB provides a `no_sync` write option that allows the write request to resp
 
 Using `no_sync=true` is best when prioritizing high-throughput writes over absolute durability. 
 
-- Default behavior(`no_sync=false`): Waits for data to be written to disk before acknowledging writes. This reduces the risk of data loss but increases latency for writes.
+- Default behavior (`no_sync=false`): Waits for data to be written to disk before acknowledging writes. This reduces the risk of data loss but increases latency for writes.
 - With `no_sync=true`: Reduces write latency but increases the risk of data loss in case of crashes before WAL persistence. 
 
 ###### Immediate write using the HTTP API
