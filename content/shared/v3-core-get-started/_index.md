@@ -342,7 +342,7 @@ The `no_sync` parameter controls when writes are acknowledged--for example:
 
 
 ```sh
-curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=true" \
+curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=true" \
   --data-raw "home,room=Sunroom temp=96"
 ```
 
