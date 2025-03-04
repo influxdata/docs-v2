@@ -62,6 +62,7 @@ Default is the `location` option.
 - [Return the hour of a time value](#return-the-hour-of-a-time-value)
 - [Return the hour of a relative duration](#return-the-hour-of-a-relative-duration)
 - [Return the current hour](#return-the-current-hour)
+- [Return the hour in localtime ](#return-the-hour-in-localtime)
 
 ### Return the hour of a time value
 
@@ -96,3 +97,11 @@ date.hour(t: now())
 
 ```
 
+### Return the hour in local time
+
+```js
+import "date"
+import "timezone"
+
+date.hour(t: r._time, location: timezone.location(name: "Europe/Berlin"))
+```
