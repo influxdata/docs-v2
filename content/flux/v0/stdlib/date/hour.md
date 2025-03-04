@@ -102,6 +102,6 @@ date.hour(t: now())
 ```js
 import "date"
 import "timezone"
-date.hour(t: r._time, location: timezone.location(name: "Europe/Berlin"))
 
+date.hour(t: r._time, location: timezone.location(name: "Europe/Berlin"))
 ```
