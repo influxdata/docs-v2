@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: InfluxDB 3 Cloud Dedicated Management API
   description: |
-    The Management API for InfluxDB 3 Cloud Dedicated provides a programmatic interface for managing a Cloud Dedicated instance.
+    The Management API for InfluxDB 3 Cloud Dedicated provides a programmatic interface for managing a Cloud Dedicated cluster.
     The Management API lets you integrate functions such as creating and managing databases, permissions, and tokens into your workflow or application.
 
     This documentation is generated from the

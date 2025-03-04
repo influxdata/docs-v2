@@ -135,7 +135,7 @@ Use the `influxdb3-core` Docker image to deploy {{< product-name >}} in a
 Docker container.
 The image is available for x86_64 (AMD64) and ARM64 architectures.
 
-### Using Docker CLI
+### Use Docker CLI
 
 <!--pytest.mark.skip-->
 ```bash
@@ -160,7 +160,7 @@ docker pull \
 quay.io/influxdb/influxdb3-core:latest
 ```
 
-### Using Docker Compose
+### Use Docker Compose
 
 1. Open `compose.yaml` for editing and add a `services` entry for {{% product-name %}}--for example:
 
