@@ -6,7 +6,7 @@ info:
     interacting with InfluxDB 3 Enterprise databases and resources.
     Use this API to:
 
-    - Write data stored in InfluxDB 3 Enterprise databases
+    - Write data to InfluxDB 3 Enterprise databases
     - Query data using SQL or InfluxQL
     - Process data using Processing engine plugins
     - Manage databases, tables, and Processing engine triggers
