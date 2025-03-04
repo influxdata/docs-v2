@@ -159,6 +159,9 @@ docker pull \
 --platform linux/arm64 \
 quay.io/influxdb/influxdb3-core:latest
 ```
+> [!Note]
+> The {{% product-name %}} Docker image exposes port `8181`, the `influxdb3` server default for HTTP connections.
+> To map the exposed port to a different port when running a container, see the Docker guide for [Publishing and exposing ports](https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/).
 
 ### Use Docker Compose
 
