@@ -56,7 +56,7 @@ The generated file contains settings for all available plugins--some are enabled
 To generate a configuration file that contains settings for only specific plugins,
 use the `--input-filter` and `--output-filter` options to
 specify [input plugins](/telegraf/v1/configure_plugins/input_plugins/)
-and [output plugins](/telegraf/v1/plugins/#output-plugins).
+and [output plugins](/telegraf/v1/configure_plugins/output_plugins/).
 Use a colon (`:`) to separate plugin names.
 
 #### Syntax
