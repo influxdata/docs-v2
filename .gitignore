@@ -9,7 +9,9 @@ node_modules
 /resources
 .hugo_build.lock
 /content/influxdb/*/api/**/*.html
-/api-docs/redoc-static.html*
+/build-scripts/api-reference/redoc-static.html*
+/data/api*
+/content/influxdb/*/api/**
 .vscode/*
 .idea
 **/config.toml

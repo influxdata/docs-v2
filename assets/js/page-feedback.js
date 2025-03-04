@@ -2,6 +2,8 @@
  * This file controls the interactions and life-cycles of the page feedback
  * buttons and modal.
  */
+import $ from 'jquery';
+import { toggleModal } from './modal.js';
 
 import $ from 'jquery';
 import { hostname, path, product, protocol, version } from './page-context.js';

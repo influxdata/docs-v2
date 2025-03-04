@@ -2,15 +2,20 @@ openapi: 3.0.0
 info:
   title: InfluxDB v2 HTTP API for InfluxDB 3 Cloud Dedicated
   description: |
-    The InfluxDB v2 HTTP API lets you use `/api/v2` endpoints for managing retention policy mappings and writing data stored in an InfluxDB 3 instance.
+    The InfluxDB v2 HTTP API provides a v2-compatible programmatic interface for writing and managing data stored in an InfluxDB 3 Cloud Dedicated database.
+
+    Use the InfluxDB v2 HTTP API `/api/v2` endpoints to manage retention policy mappings and write data to an InfluxDB 3 instance.
 
     This documentation is generated from the
     [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-  summary: The InfluxDB v2 HTTP API for InfluxDB 3 Cloud Dedicated provides a v2-compatible programmatic interface for writing data stored in an InfluxDB 3 Cloud Dedicated database.
   version: ''
+  contact:
+    name: InfluxData
+    url: https://www.influxdata.com
+    email: support@influxdata.com
 servers:
   - url: https://{baseurl}
     description: InfluxDB 3 Cloud Dedicated API URL
@@ -60,10 +65,10 @@ tags:
   - description: |
       Use one of the following schemes to authenticate to the InfluxDB API:
 
-      - [Bearer authentication](#section/Authentication/BearerAuthentication)
-      - [Token authentication](#section/Authentication/TokenAuthentication)
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      - #section/Authentication/BearerAuthentication
+      - #section/Authentication/TokenAuthentication
+      - #section/Authentication/BasicAuthentication
+      - #section/Authentication/QuerystringAuthentication
       <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication
     x-traitTag: true
@@ -105,7 +110,7 @@ tags:
       - The `/api/v2/query` endpoint can't query InfluxDB 3 Cloud Dedicated.
       - _Flight + gRPC_ clients can query using **SQL** or **InfluxQL** and retrieve data in **Arrow** format.
 
-      #### Related guides
+      x-influxdata-related-content:
 
       - [Get started querying InfluxDB](/influxdb3/cloud-dedicated/get-started/query/)
       - [Execute queries](/influxdb3/cloud-dedicated/query-data/execute-queries/)
@@ -150,7 +155,7 @@ paths:
     get:
       description: |
         Reports the InfluxQL bridge querier health and the InfluxDB version of the instance.
-        
+
         The response is a HTTP `204` status code to inform you the querier is available.
 
         For InfluxDB 3 Cloud Dedicated, this endpoint only checks the status of queriers; doesn't check the status of ingesters.
@@ -175,7 +180,7 @@ paths:
                 The version of InfluxDB.
               schema:
                 type: integer
-        4xx:
+        '400':
           description: |
             #### InfluxDB Cloud
             - Doesn't return this error.
@@ -188,7 +193,7 @@ paths:
     head:
       description: |
         Reports the InfluxQL bridge querier health and the InfluxDB version of the instance.
-        
+
         The response is a HTTP `204` status code to inform you the querier is available.
 
         For InfluxDB 3 Cloud Dedicated, this endpoint only checks the status of queriers; doesn't check the status of ingesters.
@@ -212,7 +217,7 @@ paths:
                 The version of InfluxDB.
               schema:
                 type: integer
-        4xx:
+        '400':
           description: |
             #### InfluxDB Cloud
             - Doesn't return this error.
@@ -251,13 +256,11 @@ paths:
 
         - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb3/cloud-dedicated/guides/api-compatibility/v1/).
         - Use the [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb3/cloud-dedicated/guides/api-compatibility/v2/).
-
-        #### Related guides
-
-        - [Get started writing data](/influxdb3/cloud-dedicated/get-started/write/)
-        - [Write data](/influxdb3/cloud-dedicated/write-data/)
-        - [Best practices for writing data](/influxdb3/cloud-dedicated/write-data/best-practices/)
-        - [Troubleshoot issues writing data](/influxdb3/cloud-dedicated/write-data/troubleshoot/)
+      x-influxdata-related-content:
+        - /influxdb3/cloud-dedicated/get-started/write/
+        - /influxdb3/cloud-dedicated/write-data/
+        - /influxdb3/cloud-dedicated/write-data/best-practices/
+        - /influxdb3/cloud-dedicated/write-data/troubleshoot/
       operationId: PostWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -306,10 +309,6 @@ paths:
 
               - Returns only `application/json` for format and limit errors.
               - Returns only `text/html` for some quota limit errors.
-
-            #### Related guides
-
-            - [Troubleshoot issues writing data](/influxdb3/cloud-dedicated/write-data/troubleshoot/)
           in: header
           name: Accept
           schema:
@@ -371,10 +370,6 @@ paths:
             1. Use [gzip](https://www.gzip.org/) to compress the line protocol data.
             2. In your request, send the compressed data and the
                `Content-Encoding: gzip` header.
-
-          #### Related guides
-
-          - [Best practices for optimizing writes](/influxdb3/cloud-dedicated/write-data/best-practices/optimize-writes/)
         required: true
       responses:
         '201':
@@ -499,7 +494,7 @@ paths:
             type: string
         - description: |
             A unix timestamp precision.
-            Formats timestamps as [unix (epoch) timestamps](/influxdb3/cloud-dedicated/reference/glossary/#unix-timestamp) the specified precision
+            Formats timestamps as [unix (epoch) timestamps](/influxdb3/cloud-dedicated/reference/glossary/#unix-timestamp) with the specified precision
             instead of [RFC3339 timestamps](/influxdb3/cloud-dedicated/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
           in: query
           name: epoch
@@ -524,7 +519,7 @@ paths:
                 $ref: '#/components/schemas/InfluxqlJsonResponse'
               examples:
                 influxql-chunk_size_2:
-                  value: |
+                  value: | 
                     {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag"],"values":[["2016-05-19T18:37:55Z",90,"1"],["2016-05-19T18:37:56Z",90,"1"]],"partial":true}],"partial":true}]}
                     {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag"],"values":[["2016-05-19T18:37:57Z",90,"1"],["2016-05-19T18:37:58Z",90,"1"]]}]}]}
             application/x-msgpack:
@@ -608,13 +603,11 @@ paths:
 
         - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb3/cloud-dedicated/guides/api-compatibility/v1/).
         - Use the [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb3/cloud-dedicated/guides/api-compatibility/v2/).
-
-        #### Related guides
-
-        - [Get started writing data](/influxdb3/cloud-dedicated/get-started/write/)
-        - [Write data](/influxdb3/cloud-dedicated/write-data/)
-        - [Best practices for writing data](/influxdb3/cloud-dedicated/write-data/best-practices/)
-        - [Troubleshoot issues writing data](/influxdb3/cloud-dedicated/write-data/troubleshoot/)
+      x-influxdata-related-content:
+        - /influxdb3/cloud-dedicated/get-started/write/
+        - /influxdb3/cloud-dedicated/write-data/
+        - /influxdb3/cloud-dedicated/write-data/best-practices/
+        - /influxdb3/cloud-dedicated/write-data/troubleshoot/
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: The InfluxDB 1.x username to authenticate the request.
@@ -741,11 +734,7 @@ components:
   parameters:
     TraceSpan:
       description: OpenTracing span context
-      example:
-        baggage:
-          key: value
-        span_id: '1'
-        trace_id: '1'
+      example: '{"baggage":{"key":"value"},"span_id":"1","trace_id":"1"}'
       in: header
       name: Zap-Trace-Span
       required: false
@@ -932,7 +921,7 @@ components:
           type: string
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb3/cloud-dedicated/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
         virtual:
@@ -975,7 +964,7 @@ components:
           type: string
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb3/cloud-dedicated/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
       required:
@@ -999,7 +988,7 @@ components:
           type: boolean
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb3/cloud-dedicated/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
     DBRPs:
@@ -1065,9 +1054,7 @@ components:
             Annotation rows to include in the results.
             An _annotation_ is metadata associated with an object (column) in the data model.
 
-            #### Related guides
-
-            - See [Annotated CSV annotations](/influxdb3/cloud-dedicated/reference/syntax/annotated-csv/#annotations) for examples and more information.
+            See [Annotated CSV annotations](/influxdb3/cloud-dedicated/reference/syntax/annotated-csv/#annotations) for examples and more information.
 
             For more information about **annotations** in tabular data,
             see [W3 metadata vocabulary for tabular data](https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/#columns).
@@ -1138,24 +1125,6 @@ components:
       properties:
         code:
           $ref: '#/components/schemas/ErrorCode'
-          description: code is the machine-readable error code.
-          enum:
-            - internal error
-            - not implemented
-            - not found
-            - conflict
-            - invalid
-            - unprocessable entity
-            - empty value
-            - unavailable
-            - forbidden
-            - too many requests
-            - unauthorized
-            - method not allowed
-            - request too large
-            - unsupported media type
-          readOnly: true
-          type: string
         err:
           description: Stack of errors that occurred during processing of the request. Useful for debugging.
           readOnly: true
@@ -1243,9 +1212,9 @@ components:
       properties:
         results:
           description: |
-              A resultset object that contains the `statement_id` and the `series` array.
+            A resultset object that contains the `statement_id` and the `series` array.
 
-              Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
+            Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
           items:
             properties:
               error:
@@ -1294,12 +1263,12 @@ components:
                 type: integer
             type: object
           oneOf:
-          - required:
-            - statement_id
-            - error
-          - required:
-            - statement_id
-            - series
+            - required:
+                - statement_id
+                - error
+            - required:
+                - statement_id
+                - series
           type: array
       type: object
     IntegerLiteral:
@@ -1830,10 +1799,6 @@ components:
             #### InfluxDB Cloud
 
             - Doesn't use `shardGroupDurationsSeconds`.
-
-            #### Related guides
-
-            - InfluxDB [shards and shard groups](/influxdb3/cloud-dedicated/reference/internals/shards/)
           format: int64
           type: integer
         type:
@@ -2090,10 +2055,6 @@ components:
           --header "Authorization: Bearer DATABASE_TOKEN" \
           --data-binary 'home,room=kitchen temp=72 1463683075'
         ```
-
-        For examples and more information, see the following:
-          - [Authenticate API requests](/influxdb3/cloud-dedicated/primers/api/v2/#authenticate-api-requests)
-          - [Manage tokens](/influxdb3/cloud-dedicated/admin/tokens/)
     TokenAuthentication:
       description: |
         Use the Token authentication
@@ -2121,11 +2082,9 @@ components:
           --header "Authorization: Token DATABASE_TOKEN" \
           --data-binary 'home,room=kitchen temp=72 1463683075'
         ```
-
-        ### Related guides
-
-        - [Authenticate API requests](/influxdb3/cloud-dedicated/primers/api/v2/#authenticate-api-requests)
-        - [Manage tokens](/influxdb3/cloud-dedicated/admin/tokens/)
+      x-influxdata-related-content:
+        - /influxdb3/cloud-dedicated/primers/api/v2/#authenticate-api-requests
+        - /influxdb3/cloud-dedicated/admin/tokens/
       in: header
       name: Authorization
       type: apiKey
@@ -2138,7 +2097,6 @@ x-tagGroups:
       - Headers
       - Pagination
       - Response codes
-      - System information endpoints
   - name: All endpoints
     tags:
       - Ping

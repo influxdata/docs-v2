@@ -1,12 +1,12 @@
 //////////////////////////////// Tabbed Content ////////////////////////////////
 
+import $ from 'jquery';
+import { scrollToAnchor } from './scroll.js';
+
 /**
  * NOTE: Tab <a> elements are whitelisted elements that do not trigger
  * smoothscroll when clicked. The whitelist is defined in content-interactions.js.
  **/
-
-import $ from 'jquery';
-import { scrollToAnchor } from './content-interactions.js';
 
 function tabbedContent(container, tab, content) {
   // Add the active class to the first tab in each tab group,
@@ -68,7 +68,7 @@ function activateTabs(selector, tab) {
       );
     }
     if (targetTab) {
-      $(targetTab).click();
+      $(targetTab).trigger('click');
       scrollToAnchor(anchor);
     }
   }

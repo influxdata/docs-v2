@@ -1,0 +1,8 @@
+- url: https://{baseurl}
+  description: InfluxDB Cloud API URL
+  variables:
+    baseurl:
+      enum:
+        - 'us-east-1-1.aws.cloud2.influxdata.com'
+      default: 'us-east-1-1.aws.cloud2.influxdata.com'
+      description: InfluxDB Cloud URL

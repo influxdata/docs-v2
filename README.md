@@ -40,7 +40,7 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
 
        _**Note:** The most recent version of Hugo tested with this documentation is **0.123.8**._
 
-3. To generate the API docs, see [api-docs/README.md](api-docs/README.md).
+3. To generate the API docs, see [api-build-scripts/README.md](api-build-scripts/README.md).
 
 4.  **Start the Hugo server**
 

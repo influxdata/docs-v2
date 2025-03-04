@@ -1,0 +1,12 @@
+- name: Using the InfluxDB HTTP API
+  tags:
+    - Quick start
+    - Authentication
+    - Common parameters
+    - Response codes
+    - Compatibility endpoints
+    - Data I/O
+    - Databases
+    - Processing engine
+    - Server information
+    - Tables

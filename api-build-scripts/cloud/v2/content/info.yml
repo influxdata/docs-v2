@@ -1,0 +1,12 @@
+title: InfluxDB Cloud API Service
+x-influxdata-short-title: v2 API
+summary: The InfluxDB v2 HTTP API provides a programmatic interface for all interactions with InfluxDB v2.
+description: |
+    The InfluxDB v2 HTTP API provides a programmatic interface for all interactions with InfluxDB v2. Access the InfluxDB API using `/api/v2/` and InfluxDB v1-compatible endpoints.
+
+    This documentation is generated from the
+    [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
+version: 2.x
+license:
+  name: MIT
+  url: 'https://opensource.org/licenses/MIT'

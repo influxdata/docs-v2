@@ -24,7 +24,7 @@ UI and export the resources as a template.
 {{< youtube 714uHkxKM6U >}}
 
 {{% note %}}
-#### InfluxDB OSS for creating templates
+#### InfluxDB OSS v2 for creating templates
 Templatable resources are scoped to a single organization, so the simplest way to create a
 template is to create a new organization, build the template within the organization,
 and then [export all resources](#export-all-resources) as a template.
@@ -54,15 +54,21 @@ Provide the following:
   **JSON** (`.json`) are supported.
 
 ###### Export all resources to a template
-```sh
-# Syntax
-influx export all -o <INFLUX_ORG> -f <FILE_PATH> -t <INFLUX_TOKEN>
 
+<!--pytest.mark.skip-->
+```bash
+# Syntax
+influx export all --org <INFLUX_ORG> --file <FILE_PATH> --token <INFLUX_TOKEN>
+```
+
+<!--The following fails due to an apparent missing task query in the account-->
+<!--pytest.mark.skip-->
+```bash
 # Example
 influx export all \
-  -o my-org \
-  -f ~/templates/awesome-template.yml \
-  -t $INFLUX_TOKEN
+  --org $INFLUX_ORG \
+  --file /path/to/TEMPLATE_FILE.yml \
+  --token $INFLUX_TOKEN
 ```
 
 #### Export resources filtered by labelName or resourceKind
@@ -81,9 +87,9 @@ and
 
 ```sh
 influx export all \
-  -o my-org \
-  -f ~/templates/awesome-template.yml \
-  -t $INFLUX_TOKEN \
+  --org $INFLUX_ORG \
+  --file /path/to/TEMPLATE_FILE.yml \
+  --token $INFLUX_TOKEN \
   --filter=resourceKind=Bucket \
   --filter=resourceKind=Dashboard \
   --filter=labelName=Example1 \
@@ -94,12 +100,14 @@ For information about flags, see the
 [`influx export all` documentation](/influxdb/cloud/reference/cli/influx/export/all/).
 
 ### Export specific resources
+
 To export specific resources within an organization to a template manifest,
 use the `influx export` with resource flags for each resource to include.
+The command uses the API token to filter resources for the organization.
+
 Provide the following:
 
-- **Organization name** or **ID**
-- **API token** with read access to the organization
+- **API token** with read access to the organization.
 - **Destination path and filename** for the template manifest.
   The filename extension determines the template format—both **YAML** (`.yml`) and
   **JSON** (`.json`) are supported.
@@ -108,15 +116,20 @@ Provide the following:
   [`influx export` documentation](/influxdb/cloud/reference/cli/influx/export/).
 
 ###### Export specific resources to a template
-```sh
-# Syntax
-influx export all -o <INFLUX_ORG> -f <FILE_PATH> -t <INFLUX_TOKEN> [resource-flags]
 
+<!--pytest.mark.skip-->
+```bash
+# Syntax
+influx export --file <FILE_PATH> --token <INFLUX_TOKEN> [resource-flags]
+```
+
+<!-- Fails due to resource ID placeholders -->
+<!--pytest.mark.xfail-->
+```bash
 # Example
-influx export all \
-  -o my-org \
-  -f ~/templates/awesome-template.yml \
-  -t $INFLUX_TOKEN \
+influx export \
+  --file /path/to/TEMPLATE_FILE.yml \
+  --token $INFLUX_TOKEN \
   --buckets=00x000ooo0xx0xx,o0xx0xx00x000oo \
   --dashboards=00000xX0x0X00x000 \
   --telegraf-configs=00000x0x000X0x0X0
@@ -125,9 +138,10 @@ influx export all \
 ### Export a stack
 To export a stack and all its associated resources as a template, use the
 `influx export stack` command.
+The command uses the API token to filter resources for the organization.
+
 Provide the following:
 
-- **Organization name** or **ID**
 - **API token** with read access to the organization
 - **Destination path and filename** for the template manifest.
   The filename extension determines the template format—both **YAML** (`.yml`) and
@@ -135,19 +149,23 @@ Provide the following:
 - **Stack ID**
 
 ###### Export a stack as a template
-```sh
+
+<!--pytest.mark.skip-->
+```bash
 # Syntax
 influx export stack \
-  -o <INFLUX_ORG> \
-  -t <INFLUX_TOKEN> \
-  -f <FILE_PATH> \
+  --token <INFLUX_TOKEN> \
+  --file <FILE_PATH> \
   <STACK_ID>
+```
 
+<!-- Fails due to non-existent STACK_ID -->
+<!--pytest.mark.xfail-->
+```bash
 # Example
 influx export stack \
-  -o my-org \
-  -t mYSuP3RS3CreTt0K3n
-  -f ~/templates/awesome-template.yml \
+  -t $INFLUX_TOKEN \
+  -f /path/to/TEMPLATE_FILE.yml \
   05dbb791a4324000
 ```
 
@@ -206,11 +224,47 @@ when [applying the template](/influxdb/cloud/tools/influxdb-templates/use/#apply
 Users can also include the `--env-ref` flag with the appropriate key-value pair
 when installing the template.
 
+<!-- //REVIEW I can't get this to work with environment reference substitution
+  -- Skipping the test for now, but we should review it and fix it.
+  -->
+<!--pytest.mark.skip-->
+<!--test:setup
 ```sh
-# Set bucket-name-1 to "myBucket"
+jq -n '{
+  apiVersion: "influxdata.com/v2alpha1",
+  kind: "Bucket",
+  metadata: {
+    name: {
+      envRef: {
+        key: "bucket-name-1"
+      }
+    }
+  }
+}' >  /path/to/TEMPLATE_FILE.json
+chmod +rx /path/to/TEMPLATE_FILE.json
+# View formatted JSON
+jq '.' /path/to/TEMPLATE_FILE.json
+```
+-->
+
+For example, to set a custom bucket name when applying a template with an environment reference:
+
+<!--pytest-codeblocks:cont-->
+```sh
+# The template, edited to include an environment reference:
+# apiVersion: influxdata.com/v2alpha1
+# kind: Bucket
+# metadata:
+#   name:
+#     envRef: bucket-name-1
+
+# Apply template, set bucket-name-1 to "myBucket", and skip verification 
 influx apply \
-  -f /path/to/template.yml \
-  --env-ref=bucket-name-1=myBucket
+  --file /path/to/TEMPLATE_FILE.json \
+  --env-ref bucket-name-1=myBucket \
+  --force yes
+  --org $INFLUX_ORG
+  --token $INFLUX_TOKEN
 ```
 
 _If sharing your template, we recommend documenting what environment references

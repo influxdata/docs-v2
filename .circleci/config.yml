@@ -25,10 +25,10 @@ jobs:
           command: yarn install
       - run:
           name: Install API documentation dependencies
-          command: cd api-docs && yarn install
+          command: cd api-build-scripts && yarn install
       - run:
           name: Generate API documentation
-          command: cd api-docs && bash generate-api-docs.sh      
+          command: cd api-build-scripts && bash generate-api-docs.sh      
       - run:
           name: Inject Flux stdlib frontmatter
           command: node ./flux-build-scripts/inject-flux-stdlib-frontmatter.js

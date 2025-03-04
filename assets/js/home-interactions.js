@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 $('.exp-btn').click(function() {
   var targetBtnElement = $(this).parent()
   $('.exp-btn > p', targetBtnElement).fadeOut(100);

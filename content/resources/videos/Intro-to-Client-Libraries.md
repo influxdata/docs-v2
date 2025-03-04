@@ -1,7 +1,7 @@
 ---
 title: Intro to Client Libraries
 description: >
-  [Client libraries](/influxdb/latest/api-guide/client-libraries/) are a powerful way to harness the power of InfluxDB's API using familiar programming languages. Here, Jay Clifford explains what client libraries are, how they work, and why you should use them when working with InfluxDB.
+  [Client libraries](/influxdb/v2/api-guide/client-libraries/) are a powerful way to harness the power of InfluxDB's API using familiar programming languages. Here, Jay Clifford explains what client libraries are, how they work, and why you should use them when working with InfluxDB.
 menu:
   resources:
     parent: Videos

@@ -11,6 +11,7 @@ influxdb3_core:
     - How do I install and run InfluxDB 3 Core?
     - How do I write a plugin for the Python Processing engine?
     - How do I write data using the HTTP API for InfluxDB 3 Core?
+  apis: build-scripts/api-reference/influxdb3/core/.config.yml 
 
 influxdb3_enterprise:
   name: InfluxDB 3 Enterprise
@@ -25,6 +26,7 @@ influxdb3_enterprise:
     - How do I install and run InfluxDB 3 Enterprise?
     - Help me write a plugin for the Python Processing engine?
     - How do I start a read replica node with InfluxDB 3 Enterprise?
+  apis: build-scripts/api-reference/influxdb3/enterprise/.config.yml
 
 influxdb3_cloud_serverless:
   name: InfluxDB Cloud Serverless
@@ -38,6 +40,7 @@ influxdb3_cloud_serverless:
   ai_sample_questions:
     - How do I migrate from InfluxDB Cloud 2 to InfluxDB Cloud Serverless?
     - What tools can I use to write data to InfluxDB Cloud Serverless?
+  apis: build-scripts/api-reference/influxdb3/cloud-serverless/.config.yml
 
 influxdb3_cloud_dedicated:
   name: InfluxDB Cloud Dedicated
@@ -54,6 +57,7 @@ influxdb3_cloud_dedicated:
     - How do I migrate from InfluxDB v1 to InfluxDB Cloud Dedicated?
     - What tools can I use to write data to Cloud Dedicated?
     - How do I use SQL and parameterized queries with Cloud Dedicated?
+  apis: build-scripts/api-reference/influxdb3/cloud-dedicated/.config.yml 
 
 influxdb3_clustered:
   name: InfluxDB Clustered
@@ -69,6 +73,7 @@ influxdb3_clustered:
     - How do I use a Helm chart to configure Clustered?
     - What tools can I use to write data to Clustered?
     - How do I use SQL and parameterized queries with InfluxDB Clustered?
+  apis: build-scripts/api-reference/influxdb3/clustered/.config.yml
 
 influxdb:
   name: InfluxDB
@@ -91,6 +96,7 @@ influxdb:
     - How do I write and query data with InfluxDB v2 OSS? 
     - How can I migrate from InfluxDB v2 OSS to InfluxDB 3 Core? 
     - How do I manage auth tokens in InfluxDB v2 OSS?
+  apis: build-scripts/api-reference/influxdb/v2/.config.yml
 
 influxdb_cloud:
   name: InfluxDB Cloud (TSM)
@@ -105,6 +111,7 @@ influxdb_cloud:
     - How do I write and query data with InfluxDB Cloud 2? 
     - How is Cloud 2 different from Cloud Serverless? 
     - How do I manage auth tokens in InfluxDB Cloud 2?
+  apis: build-scripts/api-reference/influxdb/cloud/.config.yml
 
 telegraf:
   name: Telegraf
