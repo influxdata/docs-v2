@@ -10,7 +10,7 @@ The following example configures Telegraf for dual writing to {{% product-name %
   - The [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2)
     twice--the first pointing to {{< product-name >}} and the other to an
     InfluxDB v2 OSS instance.
-  - Two different tokens--one for InfluxDB v2 OSS and one for Clustered.
+  - Two different tokens--one for InfluxDB v2 OSS and one for {{< product-name >}}.
     Configure both tokens as environment variables and use string interpolation
     in your Telegraf configuration file to reference each environment variable.
 

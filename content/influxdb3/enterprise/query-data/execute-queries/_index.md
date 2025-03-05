@@ -1,7 +1,7 @@
 ---
 title: Execute queries
 description: >
-  Use tools and libraries to query data stored in {{< product-name >}}.
+  Use tools and libraries to query data from {{< product-name >}}.
 weight: 101
 menu:
   influxdb3_enterprise:
