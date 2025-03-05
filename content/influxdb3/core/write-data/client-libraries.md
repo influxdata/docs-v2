@@ -1,8 +1,7 @@
 ---
 title: Use InfluxDB client libraries to write data
 description: >
-  Use InfluxDB API clients to write points as line protocol data to InfluxDB
-  Clustered.
+  Use InfluxDB API clients to write points as line protocol data to {{% product-name %}}.
 menu:
   influxdb3_core:
     name: Use client libraries

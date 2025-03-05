@@ -1,4 +1,4 @@
-Use [Grafana](https://grafana.com/) to query and visualize data stored in
+Use [Grafana](https://grafana.com/) to query and visualize data from 
 {{% product-name %}}.
 
 > [Grafana] enables you to query, visualize, alert on, and explore your metrics,
@@ -24,7 +24,7 @@ If using **Grafana Cloud**, login to your Grafana Cloud instance.
 ## InfluxDB data source
 
 The InfluxDB data source plugin is included in the Grafana core distribution.
-Use the plugin to query and visualize data stored in {{< product-name >}} with
+Use the plugin to query and visualize data from {{< product-name >}} with
 both SQL and InfluxQL.
 
 > [!Note]
