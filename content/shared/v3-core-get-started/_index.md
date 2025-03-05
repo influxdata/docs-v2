@@ -329,8 +329,9 @@ For more information, see [diskless architecture](#diskless-architecture).
 > [!Note]
 > ##### Write requests return after WAL flush
 >
-> By default, when you write data, InfluxDB sends a write response after the WAL file has been flushed to the Object store (default is every second). Write requests might not complete quickly, but you can make many concurrent requests to achieve higher total throughput.
-For faster write responses, you can use the [`no_sync` option](#no-sync-write-option) to skip the wait for WAL persistence.
+> By default, InfluxDB acknowledges writes after flushing the WAL file to the Object store (occurring every second). For high throughput, you can send multiple concurrent write requests.
+>
+> To reduce the latency of writes, use the [`no_sync` write option](#no-sync-write-option), which acknowledges writes _before_ WAL persistence completes.
 
 ##### No sync write option
 
