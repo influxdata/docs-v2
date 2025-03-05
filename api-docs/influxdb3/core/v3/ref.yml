@@ -1450,7 +1450,7 @@ components:
             
         By default, InfluxDB writes ingested data to the WAL file and then waits for the WAL to be persistend to disk before acknowledging the write.
 
-        If `no_sync=true`, InfluxDB writes ingested data to the WAL file and the server does not wait for the write to be persisted before acknowledging the write.
+        If `no_sync=true`, InfluxDB validates and buffers the ingested data but the server does not wait for the WAL file to be persisted to object storage before acknowledging the write.
     PrecisionWriteCompatibility:
       enum:
         - ms
