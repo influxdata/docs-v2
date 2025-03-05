@@ -219,6 +219,19 @@ obj_to_log = {"hello": "world"}
 influxdb3_local.info("This is an info message with an object", obj_to_log)
 ```
 
+### Trigger Settings
+
+#### Run Asynchronously
+Triggers can be optionally configured to run asynchronously. This is enabled in the CLI via the `--run-asynchronously` flag.
+If this flag is set individual instances of the trigger will run simultaneously.
+
+#### Error Behavior
+By default, errors in a plugin will simply be _logged_, writing to the server output and the system.processing_engine_logs system table. 
+This behavior can be changed by specifying the "Error behavior", via the `--error-behavior` flag. Apart from the default `log`, you may set
+
+* `--error-behavior retry` will immediately the plugin in the event of error.
+* `--error-behavior disable` will turn off the plugin as soon as an error occurs. You can enable it again using the CLI.
+
 ### Trigger arguments
 
 A plugin can receive arguments from the trigger that runs it.
@@ -388,6 +401,7 @@ influxdb3 create trigger \
 
 On Request plugins are triggered by a request to a custom HTTP API endpoint.
 The plugin receives the shared API, query parameters `Dict[str, str]`, request headers `Dict[str, str]`, the request body (as bytes), and any arguments passed in the trigger definition.
+The response conventions for On Request plugins follows Flask conventions, as detailed [here](https://flask.palletsprojects.com/en/stable/quickstart/#about-responses).
 
 #### Example: On Request plugin
 
@@ -411,7 +425,7 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
 
     influxdb3_local.write(line)
 
-    return 200, {"Content-Type": "application/json"}, json.dumps({"status": "ok", "line": line_str})
+    return {"status": "ok", "line": line_str}
 ```
 
 #### On Request trigger configuration
