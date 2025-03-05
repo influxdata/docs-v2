@@ -3,7 +3,7 @@ title: Use Tableau to visualize data
 list_title: Tableau
 description: >
   Install and use [Tableau](https://www.tableau.com/) to query and visualize
-  data stored in InfluxDB 3 Core.
+  data from {{< product-name >}}.
 weight: 101
 menu:
   influxdb3_core:

@@ -1,4 +1,4 @@
-Use tools and libraries to query data stored in an {{< product-name >}} database.
+Use tools and libraries to query data from an {{< product-name >}} database.
 
 InfluxDB client libraries and Flight clients can use the Flight+gRPC protocol to
 query with SQL or InfluxQL and retrieve data in the
