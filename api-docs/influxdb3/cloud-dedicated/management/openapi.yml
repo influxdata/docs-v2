@@ -2,16 +2,19 @@ openapi: 3.1.0
 info:
   title: InfluxDB 3 Cloud Dedicated Management API
   description: |
-    The Management API lets you manage an InfluxDB 3 Cloud Dedicated instance and integrate functions such as creating and managing databases, permissions, and tokens into your workflow or application.
+    The Management API for InfluxDB 3 Cloud Dedicated provides a programmatic interface for managing a Cloud Dedicated cluster.
+    The Management API lets you integrate functions such as creating and managing databases, permissions, and tokens into your workflow or application.
 
     This documentation is generated from the
     InfluxDB OpenAPI specification.
-  summary: |
-    The Management API for InfluxDB 3 Cloud Dedicated provides a programmatic interface for managing a Cloud Dedicated instance.
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
   version: ''
+  contact:
+    name: InfluxData
+    url: https://www.influxdata.com
+    email: support@influxdata.com
 servers:
   - url: https://{baseurl}/api/v0
     description: InfluxDB 3 Cloud Dedicated Management API URL
@@ -37,8 +40,6 @@ tags:
         See how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/).
 
         By default, management tokens in InfluxDB 3 are short-lived tokens issued by an OAuth2 identity provider that grant a specific user administrative access to your InfluxDB cluster. However, for automation purposes, you can manually create management tokens that authenticate directly with your InfluxDB cluster and do not require human interaction with your identity provider.
-
-
   - name: Database tokens
     description: Manage database read/write tokens for a cluster
   - name: Databases
@@ -1020,7 +1021,6 @@ paths:
         For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
 
         If you lose a token, [delete the token from InfluxDB](/influxdb3/cloud-dedicated/admin/tokens/database/delete/) and create a new one.
-
       parameters:
         - name: accountId
           in: path

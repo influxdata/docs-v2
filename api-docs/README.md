@@ -237,7 +237,7 @@ InfluxDB Cloud releases are frequent and not versioned, so the Cloud API spec is
 We regenerate API reference docs from `influxdata/openapi`
 **master** branch as features are released.
 
-### InfluxDB OSS version
+### InfluxDB OSS v2 version
 
  Given that
  `influxdata/openapi` **master** may contain OSS spec changes not implemented

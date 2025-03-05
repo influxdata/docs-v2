@@ -62,7 +62,7 @@ function showHelp {
 subcommand=$1
 
 case "$subcommand" in
-  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-v2|cloud-v2|v2|v1-compat|all)
+  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-v2|cloud-v2|v2|v1-compat|core-v3|enterprise-v3|all)
     product=$1
     shift
 
@@ -176,17 +176,6 @@ function updateCloudDedicatedV2 {
  postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' v2@2
 }
 
-function updateClusteredV2 {
-  outFile="influxdb3/clustered/v2/ref.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
-  fi
- postProcess $outFile 'influxdb3/clustered/.config.yml' v2@2
-}
-
 function updateCloudServerlessV2 {
   outFile="influxdb3/cloud-serverless/v2/ref.yml"
   if [[ -z "$baseUrl" ]];
@@ -198,15 +187,50 @@ function updateCloudServerlessV2 {
   postProcess $outFile 'influxdb3/cloud-serverless/.config.yml' v2@2
 }
 
+function updateClusteredV2 {
+  outFile="influxdb3/clustered/v2/ref.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "Using existing $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+  fi
+ postProcess $outFile 'influxdb3/clustered/.config.yml' v2@2
+}
+
+function updateCoreV3 {
+  outFile="influxdb3/core/v3/ref.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "Using existing $outFile"
+  else
+    local url="${baseUrl}/TO_BE_DECIDED"
+    curl $UPDATE_OPTIONS $url -o $outFile
+  fi
+  postProcess $outFile 'influxdb3/core/.config.yml' v3@3
+}
+
+function updateEnterpriseV3 {
+  outFile="influxdb3/enterprise/v3/ref.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "Using existing $outFile"
+  else
+    local url="${baseUrl}/TO_BE_DECIDED"
+    curl $UPDATE_OPTIONS $url -o $outFile
+  fi
+  postProcess $outFile 'influxdb3/enterprise/.config.yml' v3@3
+}
+
 function updateOSSV2 {
-  outFile="influxdb/v2/ref.yml"
+  outFile="influxdb/v2/v2/ref.yml"
   if [[ -z "$baseUrlOSS" ]];
   then
     echo "Using existing $outFile"
   else
     curl $UPDATE_OPTIONS ${baseUrlOSS}/contracts/ref/oss.yml -o $outFile
   fi
-  postProcess $outFile 'influxdb/v2/.config.yml' '@2'
+  postProcess $outFile 'influxdb/v2/.config.yml' 'v2@2'
 }
 
 function updateV1Compat {
@@ -220,7 +244,7 @@ function updateV1Compat {
   postProcess $outFile 'influxdb/cloud/.config.yml' 'v1-compatibility'
 
   outFile="influxdb/v2/v1-compatibility/swaggerV1Compat.yml"
-  cp cloud/v1-compatibility/swaggerV1Compat.yml $outFile
+  cp influxdb/cloud/v1-compatibility/swaggerV1Compat.yml $outFile
   postProcess $outFile 'influxdb/v2/.config.yml' 'v1-compatibility'
 
   outFile="influxdb3/cloud-dedicated/v1-compatibility/swaggerV1Compat.yml"
@@ -257,6 +281,12 @@ then
 elif [ "$product" = "clustered-v2" ];
 then
   updateClusteredV2
+elif [ "$product" = "core-v3" ];
+then
+  updateCoreV3
+elif [ "$product" = "enterprise-v3" ];
+then
+  updateEnterpriseV3
 elif [ "$product" = "v2" ];
 then
   updateOSSV2
@@ -270,9 +300,11 @@ then
   updateCloudDedicatedManagement
   updateCloudServerlessV2
   updateClusteredV2
+  updateCoreV3
+  updateEnterpriseV3
   updateOSSV2
   updateV1Compat
 else
-  echo "Provide a product argument: cloud-v2, cloud-serverless-v2, cloud-dedicated-v2, clustered-v2, v2, v1-compat, or all."
+  echo "Provide a product argument: cloud-v2, cloud-serverless-v2, cloud-dedicated-v2, cloud-dedicated-management, clustered-v2, core-v3, enterprise-v3, v2, v1-compat, or all."
   showHelp
 fi

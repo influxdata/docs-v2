@@ -1,7 +1,7 @@
 ---
 title: csv.from() function
 description: >
-  `csv.from()` retrieves [annotated CSV](/influxdb/latest/reference/syntax/annotated-csv/) **from a URL**.
+  `csv.from()` retrieves [annotated CSV](/influxdb/v2/reference/syntax/annotated-csv/) **from a URL**.
 menu:
   flux_v0_ref:
     name: csv.from
@@ -26,7 +26,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`csv.from()` retrieves [annotated CSV](/influxdb/latest/reference/syntax/annotated-csv/) **from a URL**.
+`csv.from()` retrieves [annotated CSV](/influxdb/v2/reference/syntax/annotated-csv/) **from a URL**.
 
 {{% warn %}}
 #### Deprecated

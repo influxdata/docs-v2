@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Title of the page"
+    },
+    "description": {
+      "type": "string",
+      "description": "Page description that supports multi-line text"
+    },
+    "menu": {
+      "type": "object",
+      "properties": {
+        "influxdb3_core": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Menu item name"
+            }
+          },
+          "required": ["name"]
+        }
+      }
+    },
+    "weight": {
+      "type": "integer",
+      "description": "Order weight for menu items",
+      "minimum": 0
+    },
+    "source": {
+      "type": "string",
+      "description": "Path to source content file",
+      "pattern": "^/shared/.+\\.md$"
+    }
+  },
+  "required": ["title", "description", "menu", "weight"]
+}
