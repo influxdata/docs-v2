@@ -229,7 +229,7 @@ If this flag is set individual instances of the trigger will run simultaneously.
 By default, errors in a plugin will simply be _logged_, writing to the server output and the system.processing_engine_logs system table. 
 This behavior can be changed by specifying the "Error behavior", via the `--error-behavior` flag. Apart from the default `log`, you may set
 
-* `--error-behavior retry` will immediately the plugin in the event of error.
+* `--error-behavior retry` will immediately retry the plugin trigger in the event of error.
 * `--error-behavior disable` will turn off the plugin as soon as an error occurs. You can enable it again using the CLI.
 
 ### Trigger arguments
