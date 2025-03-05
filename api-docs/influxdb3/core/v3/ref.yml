@@ -1490,6 +1490,7 @@ components:
             - csv
             - parquet
             - jsonl
+            - pretty
         params:
           description: |
             Additional parameters for the query.
