@@ -1,5 +1,5 @@
 
-Learn to query data stored in {{< product-name >}} using SQL.
+Learn to query data in {{< product-name >}} using SQL.
 
 {{< children type="anchored-list" >}}
 

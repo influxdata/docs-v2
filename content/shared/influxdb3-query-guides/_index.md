@@ -1,4 +1,4 @@
 
-Learn to query data stored in {{< product-name >}}.
+Learn to query data in {{< product-name >}}.
 
 {{< children >}}

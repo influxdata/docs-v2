@@ -1,7 +1,7 @@
 ---
 title: Query data in {{< product-name >}}
 description: >
-  Learn to query data stored in InfluxDB using SQL and InfluxQL.
+  Learn to query data in {{< product-name >}} using SQL and InfluxQL.
 menu:
   influxdb3_enterprise:
     name: Query data
