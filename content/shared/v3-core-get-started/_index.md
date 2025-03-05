@@ -335,7 +335,7 @@ For more information, see [diskless architecture](#diskless-architecture).
 
 ##### No sync write option
 
-InfluxDB provides a `no_sync` write option that allows the write request to respond faster by skipping the wait for WAL persistence. When `no_sync=true`, InfluxDB writes data to the WAL and then immediately acknowledges the write request without waiting for persistence to the Object store.
+The `no_sync` write option reduces latency by acknowledging write requests before WAL persistence completes. When set to `true`, InfluxDB validates the data, writes the data to the WAL, and then immediately confirms the write, without waiting for persistence to the Object store.
 
 Using `no_sync=true` is best when prioritizing high-throughput writes over absolute durability. 
 
