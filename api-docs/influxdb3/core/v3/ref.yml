@@ -1531,7 +1531,13 @@ components:
               name:
                 type: string
               type:
-                type: string
+                type:
+                  enum:
+                    - utf8
+                    - int64
+                    - uint64
+                    - float64
+                    - bool
             required:
               - name
               - type
