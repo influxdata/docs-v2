@@ -340,7 +340,7 @@ The `no_sync` write option reduces latency by acknowledging write requests befor
 Using `no_sync=true` is best when prioritizing high-throughput writes over absolute durability. 
 
 - Default behavior (`no_sync=false`): Waits for data to be written to the Object store before acknowledging the write. Reduces the risk of data loss, but increases the latency of the response.
-- With `no_sync=true`: Reduces write latency but increases the risk of data loss in case of crashes before WAL persistence. 
+- With `no_sync=true`: Reduces write latency, but increases the risk of data loss in case of a crash before WAL persistence. 
 
 ###### Immediate write using the HTTP API
 
