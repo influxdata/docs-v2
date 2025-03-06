@@ -73,7 +73,16 @@ tags:
 
       Server information endpoints such as `/health` and `metrics` are compatible with InfluxDB 1.x and InfluxDB 2.x clients.
   - name: Data I/O
-    description: Write and query data
+    description: |
+            Write and query data
+
+            #### Data flow in InfluxDB 3 Core
+
+            1. **Incoming writes**: The system validates incoming data and stores it in the write buffer (in memory). If the `no_sync` write option is enabled (`no_sync=true`), the server sends a response to acknowledge the write.
+            2. **WAL flush**: Every second (default), the system flushes the write buffer to the Write-Ahead Log (WAL) for persistence in the Object store. If `no_sync=false` (default), the server sends a response to acknowledge the write.
+            3. **Query availability**: After WAL persistence completes, data moves to the queryable buffer where it becomes available for queries. By default, the server keeps up to 900 WAL files (15 minutes of data) buffered.
+            4. **Long-term storage in Parquet**: Every ten minutes (default), the system persists the oldest data from the queryable buffer to the Object store in Parquet format. InfluxDB keeps the remaining data (the most recent 5 minutes) in memory.
+            5. **In-memory cache**: InfluxDB puts Parquet files into an in-memory cache so that queries against the most recently persisted data don't have to go to object storage.
   - name: Databases
     description: Create, read, update, and delete database and cache resources
   - description: |
@@ -1446,11 +1455,16 @@ components:
       type: boolean
       default: false
       description: |
-        Do not sync writes.
-            
-        By default, InfluxDB writes ingested data to the WAL file and then waits for the WAL to be persisted to object storage before acknowledging the write.
+        Acknowledges a successful write without waiting for WAL persistence.
 
-        If `no_sync=true`, InfluxDB validates and buffers the ingested data, and the server responds to acknowledge the write without waiting for the WAL to be persisted to the Object store.
+        #### Data flow in InfluxDB 3 Core
+
+          1. **Incoming writes**: The system validates incoming data and stores it in the write buffer (in memory). If the `no_sync` write option is enabled (`no_sync=true`), the server sends a response to acknowledge the write.
+          2. **WAL flush**: Every second (default), the system flushes the write buffer to the Write-Ahead Log (WAL) for persistence in the Object store. If `no_sync=false` (default), the server sends a response to acknowledge the write.
+          3. **Query availability**: After WAL persistence completes, data moves to the queryable buffer where it becomes available for queries. By default, the server keeps up to 900 WAL files (15 minutes of data) buffered.
+          4. **Long-term storage in Parquet**: Every ten minutes (default), the system persists the oldest data from the queryable buffer to the Object store in Parquet format. InfluxDB keeps the remaining data (the most recent 5 minutes) in memory.
+          5. **In-memory cache**: InfluxDB puts Parquet files into an in-memory cache so that queries against the most recently persisted data don't have to go to object storage.
+
     PrecisionWriteCompatibility:
       enum:
         - ms
@@ -1531,13 +1545,13 @@ components:
               name:
                 type: string
               type:
-                type:
-                  enum:
-                    - utf8
-                    - int64
-                    - uint64
-                    - float64
-                    - bool
+                type: string
+                enum:
+                  - utf8
+                  - int64
+                  - uint64
+                  - float64
+                  - bool
             required:
               - name
               - type
