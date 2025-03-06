@@ -221,12 +221,32 @@ influxdb3_local.info("This is an info message with an object", obj_to_log)
 
 ### Trigger Settings
 
-#### Run Asynchronously
-Triggers can be optionally configured to run asynchronously. This is enabled in the CLI via the `--run-asynchronously` flag.
-If this flag is set individual instances of the trigger will run simultaneously.
+#### Control trigger execution
 
-#### Error Behavior
-By default, errors in a plugin will simply be _logged_, writing to the server output and the system.processing_engine_logs system table. 
+By default, triggers run synchronously—each instance waits for previous instances to complete before executing.
+
+To allow multiple instances of the same trigger to run simultaneously, configure triggers to run asynchronously:
+
+```bash
+# Create an asynchronous trigger
+influx create trigger --run-asynchronously
+
+#### Configure error handling
+#### Configure error behavior for plugins
+
+The Processing engine logs all plugin errors to stdout and the `system.processing_engine_logs` system table.
+
+To  configure additional error handling for a trigger, use the `--error-behavior` flag:
+
+- `--error-behavior retry`: Attempt to run the plugin again immediately after an error
+- `--error-behavior disable`: Automatically disable the plugin when an error occurs (can be re-enabled later via CLI)
+
+```bash
+# Create a trigger that retries on error
+influx create trigger --error-behavior retry
+
+# Create a trigger that disables the plugin on error
+influx create trigger --error-behavior disable
 This behavior can be changed by specifying the "Error behavior", via the `--error-behavior` flag. Apart from the default `log`, you may set
 
 * `--error-behavior retry` will immediately retry the plugin trigger in the event of error.
@@ -401,7 +421,7 @@ influxdb3 create trigger \
 
 On Request plugins are triggered by a request to a custom HTTP API endpoint.
 The plugin receives the shared API, query parameters `Dict[str, str]`, request headers `Dict[str, str]`, the request body (as bytes), and any arguments passed in the trigger definition.
-The response conventions for On Request plugins follows Flask conventions, as detailed [here](https://flask.palletsprojects.com/en/stable/quickstart/#about-responses).
+On Request plugin responses follow conventions for [Flask responses](https://flask.palletsprojects.com/en/stable/quickstart/#about-responses).
 
 #### Example: On Request plugin
 
