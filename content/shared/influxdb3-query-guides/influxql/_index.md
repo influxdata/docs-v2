@@ -1,5 +1,5 @@
 
-Learn to use InfluxQL to query data stored in {{< product-name >}}.
+Learn to query data in {{< product-name >}} using InfluxQL.
 
 {{< children type="anchored-list" >}}
 

@@ -12,7 +12,7 @@ aliases:
   - /influxdb/v2/introduction/getting_started/
   - /influxdb/v2/introduction/getting_started/
   - /influxdb/v2/introduction/getting_started/
-  - /influxdb/latest/introduction/getting-started/
+  - /influxdb/v2/introduction/getting-started/
 
 menu:
   influxdb_v1:

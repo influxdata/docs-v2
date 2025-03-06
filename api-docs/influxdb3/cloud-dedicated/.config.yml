@@ -10,6 +10,9 @@ apis:
     root: management/openapi.yml
   v2@2:
     root: v2/ref.yml
-    x-influxdata-default: true
+    x-influxdata-docs-aliases:
+      - /influxdb3/cloud-dedicated/api/
   v1-compatibility@2:
     root: v1-compatibility/swaggerV1Compat.yml
+    x-influxdata-docs-aliases:
+      - /influxdb3/cloud-dedicated/api/v1/

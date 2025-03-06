@@ -2,7 +2,7 @@
 title: Visualize data
 description: >
   Use visualization tools like Grafana, Superset, and others to visualize time
-  series data stored in InfluxDB 3 Core.
+  series data queried from {{< product-name >}}.
 menu: influxdb3_enterprise
 weight: 10
 related:
@@ -10,6 +10,6 @@ related:
 ---
 
 Use visualization tools like Grafana, Superset, and others to visualize time
-series data stored in {{< product-name >}}.
+series data queried from {{< product-name >}}.
 
 {{< children >}}

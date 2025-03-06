@@ -1,4 +1,17 @@
 {
-    "vale.valeCLI.config": " \"${workspaceFolder}/.vale.ini\"",
+    "commentAnchors.tags.anchors": 
+      { "SOURCE": {
+        "scope": "file",
+        "behavior": "link",
+        "iconColor": "#FF0000",
+        "highlightColor": "#FF0000",
+        "style": "bold"
+      }},
+    "commentAnchors.workspace.matchFiles": "**/*.{md,ini,json,yaml,yml}",
+    "commentAnchors.workspace.enabled": true,
+    "yaml.schemas": {
+        "./.frontmatter-schema.json": "${workspaceFolder}/content/**/*.md"
+    },
+    "vale.valeCLI.config": "${workspaceFolder}/.vale.ini",
     "vale.valeCLI.minAlertLevel": "warning",
 }

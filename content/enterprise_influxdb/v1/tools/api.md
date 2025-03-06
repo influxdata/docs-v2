@@ -162,7 +162,7 @@ curl -XGET "localhost:8086/health"
 
 ### `/api/v2/buckets/` HTTP endpoint
 
-The [/api/v2/buckets](/influxdb/latest/api/#tag/Buckets) endpoint accepts `GET`, `POST` and `DELETE` HTTP requests. Use this endpoint to [create](/influxdb/latest/api/#operation/PostBuckets), [delete](/influxdb/latest/api/#operation/DeleteBucketsID), [list](/influxdb/latest/api/#operation/GetBuckets), [update](/influxdb/latest/api/#operation/PatchBucketsID) and [retrieve](/influxdb/latest/api/#operation/GetBucketsID) buckets in your InfluxDB instance. Note that InfluxDB 2.x uses organizations and buckets instead of databases and retention policies.  
+The [/api/v2/buckets](/influxdb/v2/api/#tag/Buckets) endpoint accepts `GET`, `POST` and `DELETE` HTTP requests. Use this endpoint to [create](/influxdb/v2/api/#operation/PostBuckets), [delete](/influxdb/v2/api/#operation/DeleteBucketsID), [list](/influxdb/v2/api/#operation/GetBuckets), [update](/influxdb/v2/api/#operation/PatchBucketsID) and [retrieve](/influxdb/v2/api/#operation/GetBucketsID) buckets in your InfluxDB instance. Note that InfluxDB 2.x uses organizations and buckets instead of databases and retention policies.  
 
 **Include the following URL parameters:**
 
@@ -201,7 +201,7 @@ curl --request DELETE "http://localhost:8086/api/v2/buckets/test/autogen"
 
 ### `/api/v2/delete/` HTTP endpoint
 
-The [`/api/v2/delete`](/influxdb/latest/api/#tag/Delete) endpoint accepts `POST` HTTP requests. Use this endpoint to delete points from InfluxDB, including points with specific tag values, timestamps and measurements.  
+The [`/api/v2/delete`](/influxdb/v2/api/#tag/Delete) endpoint accepts `POST` HTTP requests. Use this endpoint to delete points from InfluxDB, including points with specific tag values, timestamps and measurements.  
 
 **Include the following URL parameters:**
 
@@ -353,8 +353,12 @@ curl http://localhost:8086/debug/requests
 ##### Track requests over a ten-second interval
 
 ```bash
-$ curl http://localhost:8086/debug/requests
+curl http://localhost:8086/debug/requests
+```
 
+The response body contains data in JSON format:
+
+```JSON
 {
 "user1:123.45.678.91": {"writes":1,"queries":0},
 }
@@ -365,8 +369,12 @@ The response shows that, over the past ten seconds, the `user1` user sent one re
 ##### Track requests over a one-minute interval
 
 ```bash
-$ curl http://localhost:8086/debug/requests?seconds=60
+curl http://localhost:8086/debug/requests?seconds=60
+```
 
+The response body contains data in JSON format:
+
+```JSON
 {
 "user1:123.45.678.91": {"writes":3,"queries":0},
 "user1:000.0.0.0": {"writes":0,"queries":16},
@@ -468,8 +476,12 @@ Those `SELECT` queries require a `POST` request.
 ###### Query data with a `SELECT` statement
 
 ```bash
-$ curl -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FROM "mymeas"'
+curl -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FROM "mymeas"'
+```
 
+The response body contains data in JSON format:
+
+```JSON
 {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[["2017-03-01T00:16:18Z",33.1,null,null],["2017-03-01T00:17:18Z",12.4,"12","14"]]}]}]}
 ```
 
@@ -490,8 +502,12 @@ time                  myfield  mytag1  mytag2
 ##### Query data with a `SELECT` statement and an `INTO` clause
 
 ```bash
-$ curl -XPOST 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * INTO "newmeas" FROM "mymeas"'
+curl -XPOST 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * INTO "newmeas" FROM "mymeas"'
+```
 
+The response body contains data in JSON format:
+
+```JSON
 {"results":[{"statement_id":0,"series":[{"name":"result","columns":["time","written"],"values":[["1970-01-01T00:00:00Z",2]]}]}]}
 ```
 
@@ -503,8 +519,12 @@ Note that the system uses epoch 0 (`1970-01-01T00:00:00Z`) as a [null timestamp 
 ##### Create a database
 
 ```bash
-$ curl -XPOST 'http://localhost:8086/query' --data-urlencode 'q=CREATE DATABASE "mydb"'
+curl -XPOST 'http://localhost:8086/query' --data-urlencode 'q=CREATE DATABASE "mydb"'
+```
 
+The response data is similar to the following:
+
+```JSON
 {"results":[{"statement_id":0}]}
 ```
 
@@ -536,7 +556,7 @@ See below for an [example](#create-a-database-using-basic-authentication) of bas
 ##### Query data with a `SELECT` statement and return pretty-printed JSON
 
 ```bash
-$ curl -G 'http://localhost:8086/query?db=mydb&pretty=true' --data-urlencode 'q=SELECT * FROM "mymeas"'
+curl -G 'http://localhost:8086/query?db=mydb&pretty=true' --data-urlencode 'q=SELECT * FROM "mymeas"'
 
 {
     "results": [
@@ -575,8 +595,12 @@ $ curl -G 'http://localhost:8086/query?db=mydb&pretty=true' --data-urlencode 'q=
 ##### Query data with a `SELECT` statement and return second precision epoch timestamps
 
 ```bash
-$ curl -G 'http://localhost:8086/query?db=mydb&epoch=s' --data-urlencode 'q=SELECT * FROM "mymeas"'
+curl -G 'http://localhost:8086/query?db=mydb&epoch=s' --data-urlencode 'q=SELECT * FROM "mymeas"'
+```
 
+The response body data is similar to the following:
+
+```bash
 {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[[1488327378,33.1,null,null],[1488327438,12.4,"12","14"]]}]}]}
 ```
 
@@ -586,7 +610,7 @@ The following example shows how to authenticate with v1.x credentials in the que
 create a database:
 
 ```bash
-$ curl -XPOST 'http://localhost:8086/query?u=myusername&p=mypassword' --data-urlencode 'q=CREATE DATABASE "mydb"'
+curl -XPOST 'http://localhost:8086/query?u=myusername&p=mypassword' --data-urlencode 'q=CREATE DATABASE "mydb"'
 ```
 
 The response body contains the following:
@@ -698,26 +722,37 @@ Delimit multiple placeholder key-value pairs with comma `,`.
 ##### Send multiple queries
 
 ```bash
-$ curl -G 'http://localhost:8086/query?db=mydb&epoch=s' --data-urlencode 'q=SELECT * FROM "mymeas";SELECT mean("myfield") FROM "mymeas"'
+curl -G 'http://localhost:8086/query?db=mydb&epoch=s' --data-urlencode 'q=SELECT * FROM "mymeas";SELECT mean("myfield") FROM "mymeas"'
+```
 
+The response body contains results for both queries:
+
+```JSON
 {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[[1488327378,33.1,null,null],[1488327438,12.4,"12","14"]]}]},{"statement_id":1,"series":[{"name":"mymeas","columns":["time","mean"],"values":[[0,22.75]]}]}]}
 ```
 
-The request includes two queries: `SELECT * FROM "mymeas"` and `SELECT mean("myfield") FROM "mymeas"'`.
-In the results, the system assigns a statement identifier to each query return.
-The first query's result has a `statement_id` of `0` and the second query's result has a `statement_id` of `1`.
+- The request includes two queries: `SELECT * FROM "mymeas"` and `SELECT mean("myfield") FROM "mymeas"'`.
+- In the results, InfluxDB assigns a statement identifier to each query:
+  - `"statement_id": 0`: the first query
+  - `"statement_id": 1`: the second query 
 
 ##### Request query results in CSV format
 
-```bash
-$ curl -H "Accept: application/csv" -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FROM "mymeas"'
+To format results in CSV, specify `application/csv` in the HTTP `Accept` header--for example:
 
+```bash
+curl -H "Accept: application/csv" -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FROM "mymeas"'
+```
+
+The response body contains data in CSV format:
+
+```csv
 name,tags,time,myfield,mytag1,mytag2
 mymeas,,1488327378000000000,33.1,mytag1,mytag2
 mymeas,,1488327438000000000,12.4,12,14
 ```
 
-The first point has no [tag values](/enterprise_influxdb/v1/concepts/glossary/#tag-value) for the `mytag1` and `mytag2` [tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key).
+- In the sample data, the first point doesn't contain [tag values](/enterprise_influxdb/v1/concepts/glossary/#tag-value) for the `mytag1` and `mytag2` [tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key).
 
 ##### Submit queries from a file
 
@@ -734,57 +769,77 @@ CREATE RETENTION POLICY four_weeks ON mydb DURATION 4w REPLICATION 1;
 
 ##### Bind a parameter in the `WHERE` clause to specific tag value
 
-```bash
-$ curl -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FROM "mymeas" WHERE "mytag1" = $tag_value' --data-urlencode 'params={"tag_value":"12"}'
+Use the `params` option to pass arguments for a parameterized query--for example:
 
+```bash
+curl -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FROM "mymeas" WHERE "mytag1" = $tag_value' --data-urlencode 'params={"tag_value":"12"}'
+```
+
+The response data is similar to the following:
+
+```JSON
 {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[["2017-03-01T00:17:18Z",12.4,"12","14"]]}]}]}
 ```
 
-The request maps `$tag_value` to `12`.
-InfluxDB stores [tag values](/enterprise_influxdb/v1/concepts/glossary/#tag-value) as strings they and must be double quoted in the request.
+- In the request, `params` maps `$tag_value` to `"12"`.
+  Because InfluxDB stores [tag values](/enterprise_influxdb/v1/concepts/glossary/#tag-value) as strings, you must double-quote them in parameter values.
+- During query execution, InfluxDB substitutes the parameter values for the associated keys in the query.
 
 ##### Bind a parameter in the `WHERE` clause to a numerical field value
 
 ```bash
-$ curl -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FROM "mymeas" WHERE "myfield" > $field_value' --data-urlencode 'params={"field_value":30}'
+curl -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FROM "mymeas" WHERE "myfield" > $field_value' --data-urlencode 'params={"field_value":30}'
+```
 
+The response data is similar to the following:
+
+```JSON
 {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[["2017-03-01T00:16:18Z",33.1,null,null]]}]}]}
 ```
 
-The request maps `$field_value` to `30`.
-The value `30` does not require double quotes because `myfield` stores numerical [field values](/enterprise_influxdb/v1/concepts/glossary/#field-value).
+- In the request, `params` maps `$field_value` to `30`. Because `myfield` stores numerical [field values](/enterprise_influxdb/v1/concepts/glossary/#field-value), the parameter value `30` does not require double quotes.
+- During query execution, InfluxDB substitutes the parameter values for the associated keys in the query.
 
 ##### Bind two parameters in the `WHERE` clause to a specific tag value and numerical field value
 
 ```bash
-$ curl -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FROM "mymeas" WHERE "mytag1" = $tag_value AND  "myfield" < $field_value' --data-urlencode 'params={"tag_value":"12","field_value":30}'
+curl -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FROM "mymeas" WHERE "mytag1" = $tag_value AND  "myfield" < $field_value' --data-urlencode 'params={"tag_value":"12","field_value":30}'
+```
 
+The response data is similar to the following:
+
+```JSON
 {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[["2017-03-01T00:17:18Z",12.4,"12","14"]]}]}]}
 ```
 
-The request maps `$tag_value` to `12` and `$field_value` to `30`.
+- In the request, `params` maps `$tag_value` to `12` and `$field_value` to `30`.
+- During query execution, InfluxDB substitutes the parameter values for the associated keys in the query.
 
 #### Status codes and responses
 
 The API response body contains results or error messages in JSON format.
 To pretty-print JSON for viewing, include the query string parameter `pretty=true`
-or pipe the response to a JSON-processor like [**jq**](https://stedolan.github.io/jq/).
+or pipe the response to a JSON-processor, such as [**jq**](https://stedolan.github.io/jq/).
 
 ##### Summary table
 
 | HTTP status code | Description |
 | :--------------- | :---------- |
-| 200 OK | Success. Response body contains data in JSON format. |
-| 400 Bad Request | Unacceptable request. Can occur with a syntactically incorrect query. Response body contains an error message with additional information in JSON format. |
-| 401 Unauthorized | Unacceptable request. Can occur with invalid authentication credentials. |
+| `200 OK` | Success. Response body contains data in JSON format. |
+| `400 Bad Request` | Unacceptable request. Can occur with a syntactically incorrect query. Response body contains an error message with additional information in JSON format. |
+| `401 Unauthorized` | Unacceptable request. Can occur with invalid authentication credentials. |
 
 #### Examples
 
 ##### A successful request that returns data
 
 ```bash
-$ curl -i -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FROM "mymeas"'
+curl -i -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT * FROM "mymeas"'
+```
 
+The response is HTTP status `200 OK` and the body contains data in JSON format:
+
+```
 HTTP/1.1 200 OK
 Connection: close
 Content-Type: application/json
@@ -799,8 +854,11 @@ Transfer-Encoding: chunked
 ##### A query that contains an error
 
 ```bash
-$ curl -i -G 'http://localhost:8086/query?db=mydb1' --data-urlencode 'q=SELECT * FROM "mymeas"'
+curl -i -G 'http://localhost:8086/query?db=mydb1' --data-urlencode 'q=SELECT * FROM "mymeas"'
 
+The response body contains details about the error:
+
+```
 HTTP/1.1 200 OK
 Connection: close
 Content-Type: application/json
@@ -815,8 +873,13 @@ Transfer-Encoding: chunked
 ##### An incorrectly formatted query
 
 ```bash
-$ curl -i -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT *'
+curl -i -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT *'
+```
 
+The response is HTTP status `400 Bad Request` and the body contains details
+about the error:
+
+```
 HTTP/1.1 400 Bad Request
 Content-Type: application/json
 Request-Id: [...]
@@ -830,8 +893,12 @@ Content-Length: 76
 ##### A request with invalid authentication credentials
 
 ```bash
-$ curl -i  -XPOST 'http://localhost:8086/query?u=myusername&p=notmypassword' --data-urlencode 'q=CREATE DATABASE "mydb"'
+curl -i  -XPOST 'http://localhost:8086/query?u=myusername&p=notmypassword' --data-urlencode 'q=CREATE DATABASE "mydb"'
+```
 
+The response is HTTP status `401 Unauthorized` and the body contains the error message.
+
+```
 HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
@@ -878,8 +945,12 @@ in significant improvements in compression.
 ##### Write a point to the database `mydb` with a timestamp in seconds
 
 ```bash
-$ curl -i -XPOST "http://localhost:8086/write?db=mydb&precision=s" --data-binary 'mymeas,mytag=1 myfield=90 1463683075'
+curl -i -XPOST "http://localhost:8086/write?db=mydb&precision=s" --data-binary 'mymeas,mytag=1 myfield=90 1463683075'
+```
 
+A successful write returns HTTP status `204 No Content`--for example:
+
+```
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
@@ -890,13 +961,7 @@ Date: Wed, 08 Nov 2017 17:33:23 GMT
 ##### Write a point to the database `mydb` and the retention policy `myrp`
 
 ```bash
-$ curl -i -XPOST "http://localhost:8086/write?db=mydb&rp=myrp" --data-binary 'mymeas,mytag=1 myfield=90'
-
-HTTP/1.1 204 No Content
-Content-Type: application/json
-Request-Id: [...]
-X-Influxdb-Version: {{< latest-patch >}}
-Date: Wed, 08 Nov 2017 17:34:31 GMT
+curl -i -XPOST "http://localhost:8086/write?db=mydb&rp=myrp" --data-binary 'mymeas,mytag=1 myfield=90'
 ```
 
 ##### Write a point to the database `mydb` using HTTP authentication
@@ -904,20 +969,25 @@ Date: Wed, 08 Nov 2017 17:34:31 GMT
 Valid credentials:
 
 ```bash
-$ curl -i -XPOST "http://localhost:8086/write?db=mydb&u=myusername&p=mypassword" --data-binary 'mymeas,mytag=1 myfield=91'
+curl -i -XPOST "http://localhost:8086/write?db=mydb&u=myusername&p=mypassword" --data-binary 'mymeas,mytag=1 myfield=91'
+```
 
+A successful write returns HTTP status `204 No Content`.
+
+```
 HTTP/1.1 204 No Content
-Content-Type: application/json
-Request-Id: [...]
-X-Influxdb-Version: {{< latest-patch >}}
-Date: Wed, 08 Nov 2017 17:34:56 GMT
 ```
 
 Invalid credentials:
 
 ```bash
-$ curl -i -XPOST "http://localhost:8086/write?db=mydb&u=myusername&p=notmypassword" --data-binary 'mymeas,mytag=1 myfield=91'
+curl -i -XPOST "http://localhost:8086/write?db=mydb&u=myusername&p=notmypassword" --data-binary 'mymeas,mytag=1 myfield=91'
+```
 
+If the username or password is incorrect, the response status is `401 Unauthorized`
+and the response body contains the error message--for example:
+
+```
 HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
@@ -931,23 +1001,20 @@ Content-Length: 33
 
 ##### Write a point to the database `mydb` using basic authentication
 
-Valid credentials:
-
 ```bash
-$ curl -i -XPOST -u myusername:mypassword "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,mytag=1 myfield=91'
-
-HTTP/1.1 204 No Content
-Content-Type: application/json
-Request-Id: [...]
-X-Influxdb-Version: {{< latest-patch >}}
-Date: Wed, 08 Nov 2017 17:36:40 GMT
+curl -i -XPOST -u myusername:mypassword "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,mytag=1 myfield=91'
 ```
 
 Invalid credentials:
 
 ```bash
-$ curl -i -XPOST -u myusername:notmypassword "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,mytag=1 myfield=91'
+curl -i -XPOST -u myusername:notmypassword "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,mytag=1 myfield=91'
+```
 
+If the username or password is incorrect, the response status is `401 Unauthorized`
+and the response body contains the error message--for example:
+
+```
 HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
@@ -965,79 +1032,65 @@ Content-Length: 33
 --data-binary '<Data in InfluxDB line protocol format>'
 ```
 
-All data must be binary encoded and in the
+Data to write must be binary encoded and in the
 [InfluxDB line protocol](/enterprise_influxdb/v1/concepts/glossary/#influxdb-line-protocol) format.
-Our example shows the `--data-binary` parameter from curl, which we will use in
-all examples on this page.
+
+Examples in this page use `curl` with the `--data-binary` parameter to encode
+line protocol in the request. 
 Using any encoding method other than `--data-binary` will likely lead to issues;
 `-d`, `--data-urlencode`, and `--data-ascii` may strip out newlines or
-introduce new, unintended formatting.
+introduce unintended formatting.
 
 Options:
 
-* Write several points to the database with one request by separating each point
+- Write several points to the database with one request by separating each point
 by a new line.
-* Write points from a file with the `@` flag.
-The file should contain a batch of points in the InfluxDB line protocol format.
+- Write points from a file with the `@` flag.
+The file should contain a batch of points in line protocol format.
 Individual points must be on their own line and separated by newline characters
 (`\n`).
-Files containing carriage returns will cause parser errors.
+Files containing carriage returns cause parser errors.
 
-    We recommend writing points in batches of 5,000 to 10,000 points.
-Smaller batches, and more HTTP requests, will result in sub-optimal performance.
+> [!Important]
+> #### Batch writes for optimal performance
+> Write points in batches of 5,000 to 10,000 points.
+> Smaller batches, and more HTTP requests, will result in sub-optimal performance.
 
 #### Examples
 
-##### Write a point to the database `mydb` with a nanosecond timestamp
+##### Write a point with a nanosecond timestamp to the `mydb` database
 
 ```bash
-$ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,mytag=1 myfield=90 1463683075000000000'
-
-HTTP/1.1 204 No Content
-Content-Type: application/json
-Request-Id: [...]
-X-Influxdb-Version: {{< latest-patch >}}
-Date: Wed, 08 Nov 2017 18:02:57 GMT
+curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,mytag=1 myfield=90 1463683075000000000'
 ```
 
-##### Write a point to the database `mydb` with the local server's nanosecond timestamp
+If successful, the response status is HTTP `204 No Content`.
 
-```bash
-$ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,mytag=1 myfield=90'
-
+```
 HTTP/1.1 204 No Content
-Content-Type: application/json
-Request-Id: [...]
-X-Influxdb-Version: {{< latest-patch >}}
-Date: Wed, 08 Nov 2017 18:03:44 GMT
 ```
 
-##### Write several points to the database `mydb` by separating points with a new line
+##### Write a point with the local server's nanosecond timestamp to the `mydb` database
 
 ```bash
-$ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,mytag=3 myfield=89 1463689152000000000
+curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,mytag=1 myfield=90'
+```
+
+##### Write several points to the database by separating points with a new line
+
+```bash
+curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,mytag=3 myfield=89 1463689152000000000
 mymeas,mytag=2 myfield=34 1463689152000000000'
-
-HTTP/1.1 204 No Content
-Content-Type: application/json
-Request-Id: [...]
-X-Influxdb-Version: {{< latest-patch >}}
-Date: Wed, 08 Nov 2017 18:04:02 GMT
 ```
 
 ##### Write several points to the database `mydb` from the file `data.txt`
 
 ```bash
-$ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary @data.txt
-
-HTTP/1.1 204 No Content
-Content-Type: application/json
-Request-Id: [...]
-X-Influxdb-Version: {{< latest-patch >}}
-Date: Wed, 08 Nov 2017 18:08:11 GMT
+curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary @data.txt
 ```
 
-A sample of the data in `data.txt`:
+`data.txt` contains the following sample data:
+
 ```
 mymeas,mytag1=1 value=21 1463689680000000000
 mymeas,mytag1=1 value=34 1463689690000000000
@@ -1132,7 +1185,7 @@ Requests to `/shard-status` return the following information in JSON format:
 - `size`: the size on disk of the shard in bytes
 - `is_hot`: whether the time range from the shard includes `now`
   {{% note %}}
-An *idle* shard is fully compacted and not receiving new (potentially historical) writes.
+An _idle_ shard is fully compacted and not receiving new (potentially historical) writes.
 A hot shard may or may not be idle.
   {{% /note %}}
 - `state`: the anti-entropy status of the shard can be one of the following:

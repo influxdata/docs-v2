@@ -90,7 +90,7 @@ String-encoded organization ID.
 URL of the InfluxDB instance to query.
 
 See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)
-or [InfluxDB OSS URLs](/influxdb/latest/reference/urls/).
+or [InfluxDB OSS URLs](/influxdb/v2/reference/urls/).
 
 ### token
 
