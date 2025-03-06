@@ -12,7 +12,7 @@ aliases:
   - /influxdb/v2/query_language/spec/
   - /influxdb/v2/query_language/spec/
   - /influxdb/v2/query_language/spec/
-  - /influxdb/latest/query_language/spec/
+  - /influxdb/v2/query_language/spec/
 ---
 
 ## Introduction
@@ -234,12 +234,13 @@ regex_lit           = "/" { unicode_char } "/" .
 `=~` matches against
 `!~` doesn't match against
 
-> **Note:** InfluxQL supports using regular expressions when specifying:
+> [!Note]
+> InfluxQL supports using regular expressions when specifying:
 >
-* [field keys](/influxdb/v1/concepts/glossary/#field-key) and [tag keys](/influxdb/v1/concepts/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v1/query_language/explore-data/#the-basic-select-statement)
-* [measurements](/influxdb/v1/concepts/glossary/#measurement) in the [`FROM` clause](/influxdb/v1/query_language/explore-data/#the-basic-select-statement)
-* [tag values](/influxdb/v1/concepts/glossary/#tag-value) and string [field values](/influxdb/v1/concepts/glossary/#field-value) in the [`WHERE` clause](/influxdb/v1/query_language/explore-data/#the-where-clause).
-* [tag keys](/influxdb/v1/concepts/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v1/query_language/explore-data/#group-by-tags)
+> * [field keys](/influxdb/v1/concepts/glossary/#field-key) and [tag keys](/influxdb/v1/concepts/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v1/query_language/explore-data/#the-basic-select-statement)
+> * [measurements](/influxdb/v1/concepts/glossary/#measurement) in the [`FROM` clause](/influxdb/v1/query_language/explore-data/#the-basic-select-statement)
+> * [tag values](/influxdb/v1/concepts/glossary/#tag-value) and string [field values](/influxdb/v1/concepts/glossary/#field-value) in the [`WHERE` clause](/influxdb/v1/query_language/explore-data/#the-where-clause).
+> * [tag keys](/influxdb/v1/concepts/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v1/query_language/explore-data/#group-by-tags)
 >
 >Currently, InfluxQL does not support using regular expressions to match
 >non-string field values in the
