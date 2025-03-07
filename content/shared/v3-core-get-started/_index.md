@@ -422,7 +422,9 @@ The `no_sync` CLI option controls when writes are acknowledged--for example:
 ```bash
 influxdb3 write --bucket=mydb --org=my_org --token=my-token --no-sync
 ```
-#### Data persistence flow
+## How Data flows through InfluxDB 3
+
+When you write data to InfluxDB 3, it moves through several stages, balancing performance, durability, and query efficiency. Configuration options impact each stage, offering tradeoffs in reliability and system overhead.
 
 When you write data to InfluxDB 3, your data flows through the following stages:
 
