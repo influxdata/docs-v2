@@ -422,6 +422,23 @@ The `no_sync` CLI option controls when writes are acknowledged--for example:
 ```bash
 influxdb3 write --bucket=mydb --org=my_org --token=my-token --no-sync
 ```
+#### Data persistence flow
+
+When you write data to InfluxDB 3, your data flows through the following stages:
+
+1. **Write validation**: InfluxDB validates incoming data and rejects invalid points with an HTTP 400 error.
+
+2. **Memory buffer**: Valid data points are initially stored in an in-memory write buffer.
+
+3. **WAL persistence**: Every second (by default), InfluxDB flushes the write buffer to Write-Ahead Log (WAL) files in object storage.
+   - By default, write requests are acknowledged only after this WAL persistence completes
+   - With the `no_sync` option, writes are acknowledged before WAL persistence, reducing latency but increasing risk of data loss during system failure
+
+4. **Query availability**: After WAL persistence completes, data moves to the queryable buffer where it becomes available for queries.
+
+5. **Parquet storage**: Every ten minutes (by default), InfluxDB persists data from the queryable buffer to object storage as Parquet files for long-term storage.
+
+This architecture balances write performance, query performance, and data durability.
 
 ### Create a database or table
 
