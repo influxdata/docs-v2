@@ -422,31 +422,6 @@ The `no_sync` CLI option controls when writes are acknowledged--for example:
 ```bash
 influxdb3 write --bucket=mydb --org=my_org --token=my-token --no-sync
 ```
-## How Data Flows Through InfluxDB 3
-
-When you write data to InfluxDB 3, it moves through several stages, balancing performance, durability, and query efficiency. Configuration options impact each stage, offering tradeoffs in reliability and system overhead.
-
-1. **Write validation**: InfluxDB validates incoming data and rejects invalid points with an HTTP 400 error.
-
-2. **Memory buffer**: Valid data points are initially stored in an in-memory write buffer.
-   - Key Option: Batching & Ingestion Rate Control - Larger batches improve throughput but increase memory usage.
-
-3. **WAL persistence**: Every second (by default), InfluxDB flushes the write buffer to Write-Ahead Log (WAL) files in object storage.
-   - WAL Flush Interval: Controls how often data is persisted
-   - No-Sync Option: If enabled, write requests are acknowledged before WAL persistence, reducing latency but increasing risk of data loss.
-   - Tradeoff: More frequent flushing ensures durability but increases I/O; `no_sync` improves speed but risks recent data loss on failure.
-
-4. **Query availability**: After WAL persistence completes, data moves to the queryable buffer where it becomes available for queries.
-   - Key Option: Queryable Buffer Size – Determines how much recent data stays in memory.
-   - Tradeoff: A larger buffer speeds up queries but increases memory usage; a smaller buffer saves memory but may slow queries.
-
-5. **Parquet storage**: Every ten minutes (by default), InfluxDB persists data from the queryable buffer to object storage as Parquet files for long-term storage.
-   - Key Options:
-     - Persistence Interval – Frequency of data persistence.
-     - Object Store Configuration – Defines where Parquet files are stored.
-   - Tradeoff: Frequent persistence improves durability but increases I/O costs; less frequent persistence conserves resources but may impact query performance.
-
-Adjust these options to optimize InfluxDB 3 for your workload.
 
 ### Create a database or table
 
