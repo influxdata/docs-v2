@@ -4,9 +4,14 @@ description: >
   Learn about InfluxDB3 internal systems and mechanisms.
 menu:
   influxdb3_core:
-    parent: Reference
     name: InfluxDB3 internals
+    parent: Reference
 weight: 104
-influxdb3/core/tags: [backups, internals]
 ---
 
+Hola 
+
+<!--
+The content for this page is at
+// SOURCE /content/shared/influxdb3-internals-reference/_index.md
+->

@@ -5,7 +5,7 @@ description: >
   The `influxdb3` CLI runs and interacts with the InfluxDB 3 Core server.
 menu:
   influxdb3_core:
-    parent: Reference
+    parent: InfluxDB3 internals
     name: Data durability
 weight: 200
 source: /shared/influxdb3-internals-reference/durability.md
@@ -13,5 +13,5 @@ source: /shared/influxdb3-internals-reference/durability.md
 
 <!--
 The content for this page is at
-// SOURCE /content/shared/influxdb3-internals-reference/_index.md
+// SOURCE /content/shared/influxdb3-internals-reference/durability.md
 ->
