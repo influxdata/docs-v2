@@ -7,9 +7,8 @@ menu:
     name: InfluxDB3 internals
     parent: Reference
 weight: 104
+source: /shared/influxdb3-internals-reference/_index.md
 ---
-
-Hola 
 
 <!--
 The content for this page is at
