@@ -1,1 +1,2 @@
-Hi
+### Data durability 
+InfluxDB 3 ensures data durability through a structured write path that balances performance, persistence, and query efficiency. Data moves through validation, in-memory buffering, Write-Ahead Log (WAL) persistence, and long-term storage in Parquet format to provide reliability and optimized access.
