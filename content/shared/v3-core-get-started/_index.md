@@ -379,17 +379,7 @@ The response is the following:
 InfluxDB rejects all points in the batch.
 The response is an HTTP error (`400`) status, and the response body contains `parsing failed for write_lp endpoint` and details about the problem line.
 
-### Data flow
-
-The figure below shows how written data flows through the database.
-
-{{< img-hd src="/img/influxdb/influxdb-3-write-path.png" alt="Write Path for InfluxDB 3 Core & Enterprise" />}}
-
-1. **Incoming writes**: The system validates incoming data and stores it in the write buffer (in memory). If [`no_sync=true`](#no-sync-write-option), the server sends a response to acknowledge the write.
-2. **WAL flush**: Every second (default), the system flushes the write buffer to the Write-Ahead Log (WAL) for persistence in the Object store. If [`no_sync=false`](#no-sync-write-option) (default), the server sends a response to acknowledge the write.
-3. **Query availability**: After WAL persistence completes, data moves to the queryable buffer where it becomes available for queries. By default, the server keeps up to 900 WAL files (15 minutes of data) buffered.
-4. **Long-term storage in Parquet**: Every ten minutes (default), the system persists the oldest data from the queryable buffer to the Object store in Parquet format. InfluxDB keeps the remaining data (the most recent 5 minutes) in memory.
-5. **In-memory cache**: InfluxDB puts Parquet files into an in-memory cache so that queries against the most recently persisted data don't have to go to object storage.
+For more information on data durability see [Data Durability](/influxdb3-internals-reference/durability.md)
 
 #### Write responses
 

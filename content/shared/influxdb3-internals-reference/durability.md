@@ -1,22 +1,79 @@
-How Data Flows Through InfluxDB 3
+## How Data Flows Through InfluxDB 3
 
-When you write data to InfluxDB 3, it moves through several stages, balancing performance, durability, and query efficiency. Configuration options impact each stage, offering tradeoffs in reliability and system overhead.
+When data is written to InfluxDB 3, it progresses through multiple stages to ensure durability, optimize performance, and enable efficient querying. Configuration options at each stage affect system behavior, balancing reliability and resource usage.
 
-1. Write Validation
-Process: InfluxDB validates incoming data and rejects invalid points with an HTTP 400 error.
-2. Memory Buffer
-Process: Valid data is temporarily stored in an in-memory write buffer before persistence.
-Impact: Larger ingestion batches improve throughput but increase memory usage.
-3. WAL Persistence
-Process: Every second (default), InfluxDB flushes the write buffer to Write-Ahead Log (WAL) files in object storage.
-Impact: The WAL flush interval determines how often data is persisted. More frequent flushing improves durability but increases I/O.
-Tradeoff: By default, write requests are acknowledged only after WAL persistence, ensuring durability. However, enabling the no_sync option acknowledges writes before WAL persistence, reducing latency but increasing the risk of data loss if a failure occurs.
-4. Query Availability
-Process: Once persisted to the WAL, data moves to the queryable buffer, making it available for queries.
-Impact: The size of the queryable buffer determines how much recent data stays in memory.
-Tradeoff: A larger buffer speeds up queries but increases memory usage. A smaller buffer reduces memory footprint but may slow queries as older data needs to be retrieved from storage.
-5. Parquet Storage
-Process: Every 10 minutes (default), InfluxDB writes data from the queryable buffer to object storage as Parquet files.
-Impact: The persistence interval controls how often data is written to long-term storage.
-Tradeoff: More frequent persistence improves durability and reduces reliance on the WAL but increases I/O costs. Less frequent persistence conserves resources but may delay access to historical data.
-This architecture ensures efficient write handling, fast query performance, and reliable long-term storage. Adjust these options to optimize InfluxDB 3 for your workload.
+### Write Path Overview
+
+When data is written to InfluxDB 3, it progresses through multiple stages to ensure durability, optimize performance, and enable efficient querying. Configuration options at each stage affect system behavior, balancing reliability and resource usage.
+
+1. **Write validation**: InfluxDB validates incoming data and rejects invalid points with an HTTP 400 error.
+
+2. **Memory buffer**: Valid data is stored in an in-memory buffer before being persisted.
+
+3. **Write-Ahead Log (WAL) persistence**: Data is flushed from memory to the WAL every second (default), ensuring durability.
+
+4. **Queryable buffer**: Persisted data becomes queryable once moved from the WAL to an in-memory buffer.
+
+5. **Parquet storage**: Every ten minutes (default), InfluxDB writes data from the queryable buffer to object storage in Parquet format.
+
+6. **In-memory cache**: Frequently queried Parquet files are cached in memory to improve performance.
+
+#### Write Path Details
+
+##### Write Validation
+
+- Process: InfluxDB validates incoming data before accepting it into the system.
+     
+- Impact: Prevents malformed or unsupported data from entering the database.
+
+##### Memory Buffer
+
+- Process: Incoming writes are stored in an in-memory buffer before persistence.
+
+- Impact: Increases ingestion efficiency by allowing batch processing.
+
+- Tradeoff: Larger batches improve throughput but require more memory.
+
+##### WAL Persistence
+
+- Process: The write buffer is flushed to the WAL every second (default).
+
+- Impact: Ensures durability by persisting data to object storage.
+
+- Tradeoff: More frequent flushing improves durability but increases I/O overhead.
+
+##### Query Availability
+
+- Process: After WAL persistence, data moves to the queryable buffer.
+
+- Impact: Enables fast queries on recent data.
+
+- Tradeoff: A larger buffer speeds up queries but increases memory usage.
+
+##### Parquet Storage
+
+- Process: Every ten minutes (default), data is persisted to Parquet files in object storage.
+
+- Impact: Provides durable, long-term storage.
+
+- Tradeoff: More frequent persistence reduces reliance on the WAL but increases I/O costs.
+
+##### In-Memory Cache
+
+- Process: Recently persisted Parquet files are cached in memory.
+
+- Impact: Reduces query latency by minimizing object storage access.
+
+## Data flow
+
+As data moves through InfluxDB 3, it follows a structured path to ensure durability, efficient querying, and optimized storage. 
+
+The figure below shows how written data flows through the database.
+
+{{< img-hd src="/img/influxdb/influxdb-3-write-path.png" alt="Write Path for InfluxDB 3 Core & Enterprise" />}}
+
+1. **Incoming writes**: The system validates incoming data and stores it in the write buffer (in memory). If [`no_sync=true`](#no-sync-write-option), the server sends a response to acknowledge the write.
+2. **WAL flush**: Every second (default), the system flushes the write buffer to the Write-Ahead Log (WAL) for persistence in the Object store. If [`no_sync=false`](#no-sync-write-option) (default), the server sends a response to acknowledge the write.
+3. **Query availability**: After WAL persistence completes, data moves to the queryable buffer where it becomes available for queries. By default, the server keeps up to 900 WAL files (15 minutes of data) buffered.
+4. **Long-term storage in Parquet**: Every ten minutes (default), the system persists the oldest data from the queryable buffer to the Object store in Parquet format. InfluxDB keeps the remaining data (the most recent 5 minutes) in memory.
+5. **In-memory cache**: InfluxDB puts Parquet files into an in-memory cache so that queries against the most recently persisted data don't have to go to object storage.
