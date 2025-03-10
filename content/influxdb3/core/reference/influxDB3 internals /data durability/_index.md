@@ -1,5 +1,5 @@
 ---
-title: InfluxDB3 Data durability
+title: InfluxDB 3 Data durability
 list_title: Data durability
 description: >
   The `influxdb3` CLI runs and interacts with the InfluxDB 3 Core server.
