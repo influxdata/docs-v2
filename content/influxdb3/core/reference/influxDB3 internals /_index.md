@@ -10,8 +10,6 @@ weight: 107
 source: /shared/influxdb3-internals-reference/_index.md
 ---
 
-{{< children >}}
-
 <!--
 The content for this page is at
 // SOURCE /content/shared/influxdb3-internals-reference/_index.md
