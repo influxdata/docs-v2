@@ -18,7 +18,6 @@ When data is written to InfluxDB 3, it progresses through multiple stages to ens
 
 6. **In-memory cache**: Frequently queried Parquet files are cached in memory to improve performance.
 
-#### Write Path Details
 
 ##### Write Validation
 
