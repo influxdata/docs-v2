@@ -37,14 +37,21 @@ installing InfluxDB Clustered.
 
 ## Setup, configure, and deploy InfluxDB Clustered
 
+> [!Note]
+> #### Deploying in air-gapped environments
+>
+> To deploy InfluxDB Clustered in an air-gapped environment (without internet access),
+> use one of the following approaches:
+> - **Recommended**: Directly using `kubit local apply`
+> - Helm (includes the kubit operator)
+> - Directly using the kubit operator
+> 
+> For more information, see [Choose the right deployment tool for your environment](/influxdb3/clustered/install/set-up-cluster/configure-cluster/#choose-the-right-deployment-tool-for-your-environment)
+
 {{< children type="ordered-list" >}}
 
-
 <!-- TODO: ADD CLUSTER ARCHITECTURE OVERVIEW -->
-
-<!--
-
--------- TODO: ALL THIS INFORMATION NEEDS TO LAND IN THE ADMIN SECTION ---------
+<!---------- TODO: ALL THIS INFORMATION NEEDS TO LAND IN THE ADMIN SECTION ---------
 
 ### Updating your InfluxDB Cluster
 
