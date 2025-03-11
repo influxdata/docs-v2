@@ -4,7 +4,7 @@ description: >
   Learn about {{% product-name %}} internal systems and mechanisms.
 menu:
   influxdb3_core:
-    name: InfluxDB3 internals
+    name: Core internals
     parent: Reference
 weight: 107
 source: /shared/influxdb3-internals-reference/_index.md
