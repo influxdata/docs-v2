@@ -17,7 +17,7 @@ following:
 
 - Ingress to your cluster
 - Connection to your Object store
-- Connection to your Catalog (PostgreSQL-compatible) database
+- Connection to your Catalog store (PostgreSQL-compatible) database
 
 {{% note %}}
 If using self-signed certs,
@@ -177,8 +177,8 @@ objectStore:
 Refer to your PostreSQL-compatible database provider's documentation for
 installing TLS certificates and ensuring secure connections.
 
-If currently using an unsecure connection to your Catalog database, update your
-Catalog data source name (DSN) to **remove the `sslmode=disable` query parameter**:
+If currently using an unsecure connection to your Catalog store database, update your
+Catalog store data source name (DSN) to **remove the `sslmode=disable` query parameter**:
 
 {{% code-callout "\?sslmode=disable" "magenta delete" %}}
 ```txt

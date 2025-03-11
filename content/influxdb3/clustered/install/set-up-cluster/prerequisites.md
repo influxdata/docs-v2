@@ -100,7 +100,7 @@ following sizing for {{% product-name %}} components:
 {{% tab-content %}}
 <!--------------------------------- BEGIN AWS --------------------------------->
 
-- **Catalog (PostgreSQL-compatible database) (x1):**
+- **Catalog store (PostgreSQL-compatible database) (x1):**
   - _[See below](#postgresql-compatible-database-requirements)_
 - **Ingesters and Routers (x3):**
   - EC2 m6i.2xlarge (8 CPU, 32 GB RAM)
@@ -117,7 +117,7 @@ following sizing for {{% product-name %}} components:
 {{% tab-content %}}
 <!--------------------------------- BEGIN GCP --------------------------------->
 
-- **Catalog (PostgreSQL-compatible database) (x1):**
+- **Catalog store (PostgreSQL-compatible database) (x1):**
   - _[See below](#postgresql-compatible-database-requirements)_
 - **Ingesters and Routers (x3):**
   - GCE c2-standard-8 (8 CPU, 32 GB RAM)
@@ -134,7 +134,7 @@ following sizing for {{% product-name %}} components:
 {{% tab-content %}}
 <!-------------------------------- BEGIN Azure -------------------------------->
 
-- **Catalog (PostgreSQL-compatible database) (x1):**
+- **Catalog store (PostgreSQL-compatible database) (x1):**
   - _[See below](#postgresql-compatible-database-requirements)_
 - **Ingesters and Routers (x3):**
   - Standard_D8s_v3 (8 CPU, 32 GB RAM)
@@ -151,7 +151,7 @@ following sizing for {{% product-name %}} components:
 {{% tab-content %}}
 <!------------------------------- BEGIN ON-PREM ------------------------------->
 
-- **Catalog (PostgreSQL-compatible database) (x1):**
+- **Catalog store (PostgreSQL-compatible database) (x1):**
   - CPU: 4-8 cores
   - RAM: 16-32 GB
 - **Ingesters and Routers (x3):**

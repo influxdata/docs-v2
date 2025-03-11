@@ -50,7 +50,7 @@ Prometheus CPU limit was set to an integer instead of a string.
 #### Database Engine
 
 - Upgrade DataFusion
-- Add the ability to restore a cluster from a Catalog snapshot.
+- Add the ability to restore a cluster from a Catalog store snapshot.
 
 ---
 

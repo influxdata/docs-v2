@@ -53,15 +53,6 @@ protocol and then routes it to [Ingesters](#ingester).
 To ensure write durability, the Router replicates data to two or more of the
 available Ingesters.
 
-##### Router scaling strategies
-
-The Router can be scaled both [vertically](/influxdb3/clustered/admin/scale-cluster/#vertical-scaling)
-and [horizontally](/influxdb3/clustered/admin/scale-cluster/#horizontal-scaling).
-Horizontal scaling increases write throughput and is typically the most
-effective scaling strategy for the Router.
-Vertical scaling (specifically increased CPU) improves the Router's ability to
-parse incoming line protocol with lower latency.
-
 ### Ingester
 
 The Ingester processes line protocol submitted in write requests and persists
@@ -82,13 +73,6 @@ In this process, the Ingester does the following:
 - Maintains a short-term [write-ahead log (WAL)](/influxdb3/clustered/reference/internals/durability/)
   to prevent data loss in case of a service interruption.
 
-##### Ingester scaling strategies
-
-The Ingester can be scaled both [vertically](/influxdb3/clustered/admin/scale-cluster/#vertical-scaling)
-and [horizontally](/influxdb3/clustered/admin/scale-cluster/#horizontal-scaling).
-Vertical scaling increases write throughput and is typically the most
-effective scaling strategy for the Ingester.
-
 ### Querier
 
 The Querier handles query requests and returns query results for requests.
@@ -106,7 +90,8 @@ At query time, the querier:
     - include recently written, [yet-to-be-persisted](/influxdb3/clustered/reference/internals/durability/#data-ingest)
       data in query results
 
-3.  Queries the [Catalog](#catalog) to find partitions in the [Object store](#object-store)
+3.  Queries the [Catalog service](#catalog-service) to retrieve [Catalog store](#catalog-store)
+    information about partitions in the [Object store](#object-store)
     that contain the queried data.
 4.  Reads partition Parquet files that contain the queried data and scans each
     row to filter data that matches predicates in the query plan.
@@ -114,32 +99,30 @@ At query time, the querier:
     specified in the query plan.
 6.  Returns the query result to the client.
 
-##### Querier scaling strategies
-
-The Querier can be scaled both [vertically](/influxdb3/clustered/admin/scale-cluster/#vertical-scaling)
-and [horizontally](/influxdb3/clustered/admin/scale-cluster/#horizontal-scaling).
-Horizontal scaling increases query throughput to handle more concurrent queries.
-Vertical scaling improves the Querier's ability to process computationally
-intensive queries.
-
 ### Catalog
 
-The Catalog is a PostgreSQL-compatible relational database that stores metadata
+InfluxDB's catalog system consists of two distinct components: the [Catalog store](#catalog-store)
+and the [Catalog service](#catalog-service).
+
+> [!Note]
+> The Catalog service is managed through the `AppInstance` resource, while the Catalog store 
+> is managed separately according to your PostgreSQL implementation.
+
+#### Catalog store
+
+The Catalog store is a PostgreSQL-compatible relational database that stores metadata
 related to your time series data including schema information and physical
 locations of partitions in the [Object store](#object-store).
 It fulfills the following roles:
 
 - Provides information about the schema of written data.
 - Tells the [Ingester](#ingester) what partitions to persist data to.
-- Tells the [Querier](#querier) what partitions contain the queried data.
+- Tells the [Querier](#querier) what partitions contain the queried data. 
 
-##### Catalog scaling strategies
+#### Catalog service
 
-Scaling strategies available for the Catalog depend on the PostgreSQL-compatible
-database used to run the catalog. All support
-[vertical scaling](/influxdb3/clustered/admin/scale-cluster/#vertical-scaling).
-Most support [horizontal scaling](/influxdb3/clustered/admin/scale-cluster/#horizontal-scaling)
-for redundancy and failover.
+The Catalog service (iox-shared-catalog statefulset) is an IOx component that caches 
+and manages access to the Catalog store.
 
 ### Object store
 
@@ -149,39 +132,14 @@ By default, InfluxDB partitions tables by day, but you can
 [customize the partitioning strategy](/influxdb3/clustered/admin/custom-partitions/).
 Data in each Parquet file is sorted, encoded, and compressed.
 
-##### Object store scaling strategies
-
-Scaling strategies available for the Object store depend on the underlying
-object storage services used to run the object store.
-Most support [horizontal scaling](/influxdb3/clustered/admin/scale-cluster/#horizontal-scaling)
-for redundancy, failover, and increased capacity.
-
 ### Compactor
 
 The Compactor processes and compresses partitions in the [Object store](#object-store)
 to continually optimize storage.
 It then updates the [Catalog](#catalog) with locations of compacted data.
 
-##### Compactor scaling strategies
-
-The Compactor can be scaled both [vertically](/influxdb3/clustered/admin/scale-cluster/#vertical-scaling)
-and [horizontally](/influxdb3/clustered/admin/scale-cluster/#horizontal-scaling).
-Because compaction is a compute-heavy process, vertical scaling (especially
-increasing the available CPU) is the most effective scaling strategy for the Compactor.
-Horizontal scaling increases compaction throughput, but not as efficiently as
-vertical scaling.
-
 ### Garbage collector
 
 The Garbage collector runs background jobs that evict expired or deleted data,
 remove obsolete compaction files, and reclaim space in both the [Catalog](#catalog) and the
 [Object store](#object-store).
-
-##### Garbage collector scaling strategies
-
-
-The Garbage collector is not designed for distributed load and should _not_ be
-scaled horizontally. The Garbage collector does not perform CPU- or
-memory-intensive work, so [vertical scaling](/influxdb3/clustered/admin/scale-cluster/#vertical-scaling)
-should only be considered only if you observe very high CPU usage or
-if the container regularly runs out of memory.

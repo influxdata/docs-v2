@@ -22,19 +22,12 @@ resources available to each component.
 - [Scaling strategies](#scaling-strategies)
   - [Vertical scaling](#vertical-scaling)
   - [Horizontal scaling](#horizontal-scaling)
+- [Scale your cluster as a whole](#scale-your-cluster-as-a-whole)
 - [Scale components in your cluster](#scale-components-in-your-cluster)
   - [Horizontally scale a component](#horizontally-scale-a-component)
   - [Vertically scale a component](#vertically-scale-a-component)
   - [Apply your changes](#apply-your-changes)
-- [Scale your cluster as a whole](#scale-your-cluster-as-a-whole)
 - [Recommended scaling strategies per component](#recommended-scaling-strategies-per-component)
-  - [Ingester](#ingester)
-  - [Querier](#querier)
-  - [Router](#router)
-  - [Compactor](#compactor)
-  - [Garbage collector](#garbage-collector)
-  - [Catalog](#catalog)
-  - [Object store](#object-store)
 
 ## Scaling strategies
 
@@ -59,6 +52,14 @@ throughput a system can manage, but also provides additional redundancy and fail
 
 {{< html-diagram/scaling-strategy "horizontal" >}}
 
+## Scale your cluster as a whole
+
+Scaling your entire InfluxDB Cluster is done by scaling your Kubernetes cluster
+and is managed outside of InfluxDB. The process of scaling your entire Kubernetes
+cluster depends on your underlying Kubernetes provider. You can also use 
+[Kubernetes autoscaling](https://kubernetes.io/docs/concepts/cluster-administration/cluster-autoscaling/)
+to automatically scale your cluster as needed.
+
 ## Scale components in your cluster
 
 The following components of your InfluxDB cluster are scaled by modifying
@@ -69,11 +70,12 @@ properties in your `AppInstance` resource:
 - Compactor
 - Router
 - Garbage collector
+- Catalog service
 
 {{% note %}}
-#### Scale your Catalog and Object store
+#### Scale your Catalog store and Object store
 
-Your InfluxDB [Catalog](/influxdb3/clustered/reference/internals/storage-engine/#catalog)
+Your InfluxDB [Catalog store](/influxdb3/clustered/reference/internals/storage-engine/#catalog-store)
 and [Object store](/influxdb3/clustered/reference/internals/storage-engine/#object-store)
 are managed outside of your `AppInstance` resource. Scaling mechanisms for these
 components depend on the technology and underlying provider used for each.
@@ -451,14 +453,6 @@ helm upgrade \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-## Scale your cluster as a whole
-
-Scaling your entire InfluxDB Cluster is done by scaling your Kubernetes cluster
-and is managed outside of InfluxDB. The process of scaling your entire Kubernetes
-cluster depends on your underlying Kubernetes provider. You can also use 
-[Kubernetes autoscaling](https://kubernetes.io/docs/concepts/cluster-administration/cluster-autoscaling/)
-to automatically scale your cluster as needed.
-
 ## Recommended scaling strategies per component
 
 - [Router](#router)
@@ -466,7 +460,8 @@ to automatically scale your cluster as needed.
 - [Querier](#querier)
 - [Compactor](#compactor)
 - [Garbage collector](#garbage-collector)
-- [Catalog](#catalog)
+- [Catalog store](#catalog-store)
+- [Catalog service](#catalog-service)
 - [Object store](#object-store)
 
 ### Router
@@ -563,16 +558,29 @@ efficiently as vertical scaling.
 
 ### Garbage collector
 
-The Garbage collector can be scaled [vertically](#vertical-scaling). It is a
-light-weight process that typically doesn't require many system resources, but
-if you begin to see high resource consumption on the garbage collector, you can
-scale it vertically to address the added workload.
+The Garbage collector is not designed for distributed load and should _not_ be
+scaled horizontally. It is a lightweight process that typically doesn't require
+significant system resources. [Vertical scaling](#vertical-scaling) should only
+be considered if you observe consistently high CPU usage or if the container
+regularly runs out of memory.
 
-### Catalog
+### Catalog store
 
-Scaling strategies available for the Catalog depend on the PostgreSQL-compatible
-database used to run the catalog. All support [vertical scaling](#vertical-scaling).
-Most support [horizontal scaling](#horizontal-scaling) for redundancy and failover.
+The Catalog store is a PostgreSQL-compatible database that persistently stores metadata. 
+Scaling strategies depend on your chosen PostgreSQL implementation.
+All support [vertical scaling](#vertical-scaling), and most support
+[horizontal scaling](#horizontal-scaling) for redundancy and failover.
+
+### Catalog service
+
+The Catalog service should maintain exactly 
+3 replicas for optimal redundancy.
+Additional replicas are discouraged; favor vertical scaling instead if performance improvements are needed.
+
+> [!Note]
+> The [Catalog service](/influxdb3/clustered/reference/internals/storage-engine/#catalog-service) is managed through the
+> `AppInstance` resource, while the [Catalog store](/influxdb3/clustered/reference/internals/storage-engine/#catalog-store) 
+> is managed separately according to your PostgreSQL implementation.
 
 ### Object store
 

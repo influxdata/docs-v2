@@ -34,15 +34,15 @@ InfluxDB cluster.
 ## Tune garbage collection
 
 Once data falls outside of a database's retention period, the garbage collection
-service can remove all artifacts associated with the data from the Catalog and Object store.
+service can remove all artifacts associated with the data from the Catalog store and Object store.
 Tune the garbage collector cutoff period to ensure that data is removed in a timely manner.
 
 Use the following environment variables to tune the garbage collector:
 
 - `INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF`: the age at which Parquet files not
-  referenced in the Catalog become eligible for deletion from Object storage.
+  referenced in the Catalog store become eligible for deletion from Object storage.
   The default is `30d`.
-- `INFLUXDB_IOX_GC_PARQUETFILE_CUTOFF`: how long to retain rows in the Catalog
+- `INFLUXDB_IOX_GC_PARQUETFILE_CUTOFF`: how long to retain rows in the Catalog store
   that reference Parquet files marked for deletion. The default is `30d`.
 
 These values tune how aggressive the garbage collector can be. A shorter duration
@@ -69,7 +69,7 @@ Use the following scenarios as a guide for different use cases:
 When only the most recent data is important and backups are not required, use a
 very low cutoff point for the garbage collector.
 Using a low value means that the garbage collection service will promptly delete
-files from the Object store and remove rows associated rows from the Catalog.
+files from the Object store and remove  associated rows from the Catalog store.
 This results in a lean Catalog with lower operational overhead and less files
 in the Object store.
 
@@ -102,8 +102,8 @@ Object store (provided by your object store provider), use a low cutoff point
 for the garbage collector service. Your object versioning policy ensures expired
 files are kept for the specified backup window time.
 
-Object versioning maintains Parquet files in Objects storage after data expires,
-but allows the Catalog to remove references to the Parquet files.
+Object versioning maintains Parquet files in Object storage after data expires,
+but allows the Catalog store to remove references to the Parquet files.
 Non-current objects should be configured to be expired as soon as possible, but
 retained long enough to satisfy your organization's backup policy.
 
@@ -157,7 +157,7 @@ If you cannot make use of object versioning policies but still requires a backup
 window, configure the garbage collector to retain Parquet files for as long as
 your backup period requires.
 
-This will likely result in higher operational costs as the Catalog maintains
+This will likely result in higher operational costs as the Catalog store maintains
 more references to associated Parquet files and the Parquet files persist for
 longer in the Object store.
 
