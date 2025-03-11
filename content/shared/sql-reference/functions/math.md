@@ -13,6 +13,7 @@ performing mathematic operations:
 - [ceil](#ceil)
 - [cos](#cos)
 - [cosh](#cosh)
+- [cot](#cot)
 - [degrees](#degrees)
 - [exp](#exp)
 - [factorial](#factorial)
@@ -56,8 +57,7 @@ abs(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `abs` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT abs(temp) AS abs FROM home LIMIT 3
@@ -88,8 +88,7 @@ acos(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `acos` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT acos(temp * .01) AS acos FROM home LIMIT 3
@@ -120,8 +119,7 @@ acosh(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `acosh` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT acosh(temp) AS acosh FROM home LIMIT 3
@@ -152,8 +150,7 @@ asin(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `asin` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT asin(temp * .01) AS asin FROM home LIMIT 3
@@ -184,8 +181,7 @@ asinh(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `asinh` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT asinh(temp) AS asinh FROM home LIMIT 3
@@ -216,8 +212,7 @@ atan(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `atan` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT atan(temp * .01) AS atan FROM home LIMIT 3
@@ -248,8 +243,7 @@ atanh(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `atanh` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT atanh(temp * .01) AS atanh FROM home LIMIT 3
@@ -282,8 +276,7 @@ atan2(expression_y, expression_x)
 {{< expand-wrapper >}}
 {{% expand "View `atan2` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT atan2(temp, hum) AS atan2 FROM home LIMIT 3
@@ -314,8 +307,7 @@ cbrt(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `cbrt` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT cbrt(temp) AS cbrt FROM home LIMIT 3
@@ -346,8 +338,7 @@ ceil(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `ceil` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT ceil(temp) AS ceil FROM home LIMIT 3
@@ -378,8 +369,7 @@ cos(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `cos` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT cos(temp) AS cos FROM home LIMIT 3
@@ -410,8 +400,7 @@ cosh(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `cosh` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT cosh(temp) AS cosh FROM home LIMIT 3
@@ -422,6 +411,38 @@ SELECT cosh(temp) AS cosh FROM home LIMIT 3
 |  659407867.2416073 |
 |  4872401723.124452 |
 | 3609563974.9715896 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## cot
+
+Returns the cotangent of a number.
+
+```sql
+cot(numeric_expression)
+```
+
+##### Arguments
+
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `cot` query example" %}}
+
+_The following example uses the
+[Random numbers sample dataset](/influxdb/version/reference/sample-data/#random-numbers-sample-data)._
+
+```sql
+SELECT cot(a) AS cot FROM numbers LIMIT 3
+```
+
+|                cot |
+| -----------------: |
+| 2.9293528483724423 |
+|  3.705570308335524 |
+| -3.314652247498361 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -474,8 +495,7 @@ exp(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `exp` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT exp(temp) AS exp FROM home LIMIT 3
@@ -539,8 +559,7 @@ floor(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `floor` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT floor(temp) AS floor FROM home LIMIT 3
@@ -722,8 +741,7 @@ ln(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `ln` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT ln(temp) AS ln FROM home LIMIT 3
@@ -758,7 +776,7 @@ log([base, ]numeric_expression)
 {{% expand "View `log` query example" %}}
 
 _The following example uses the sample data set provided in the 
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+{{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT
@@ -795,8 +813,7 @@ log10(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `log10` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT log10(temp) AS log10 FROM home LIMIT 3
@@ -827,8 +844,7 @@ log2(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `log2` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT log2(temp) AS log2 FROM home LIMIT 3
@@ -928,8 +944,7 @@ power(base, exponent)
 {{< expand-wrapper >}}
 {{% expand "View `power` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT power(temp, hum * .1) AS power FROM home LIMIT 3
@@ -992,8 +1007,7 @@ random()
 {{< expand-wrapper >}}
 {{% expand "View `random` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT temp * random() AS random FROM home LIMIT 3
@@ -1027,8 +1041,7 @@ round(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `round` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT round(temp) AS round FROM home LIMIT 3
@@ -1061,8 +1074,7 @@ signum(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `signum` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT signum(temp - 23) AS signum FROM home LIMIT 3
@@ -1093,8 +1105,7 @@ sin(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `sin` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT sin(temp) AS sin FROM home LIMIT 3
@@ -1125,8 +1136,7 @@ sinh(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `sinh ` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT sinh(temp) AS sinh FROM home LIMIT 3
@@ -1157,8 +1167,7 @@ sqrt(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `sqrt` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT sqrt(temp) AS sqrt FROM home LIMIT 3
@@ -1189,8 +1198,7 @@ tan(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `tan` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT tan(temp) AS tan FROM home LIMIT 3
@@ -1253,8 +1261,7 @@ trunc(numeric_expression)
 {{< expand-wrapper >}}
 {{% expand "View `trunc` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{ influxdb3/home-sample-link }}._
 
 ```sql
 SELECT trunc(temp) AS trunc FROM home LIMIT 3

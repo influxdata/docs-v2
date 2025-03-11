@@ -3,12 +3,14 @@ that are useful when working with time series data.
 
 - [current_date](#current_date)
 - [current_time](#current_time)
+- [current_timestamp](#current_timestamp)
 - [date_bin](#date_bin)
 - [date_bin_gapfill](#date_bin_gapfill)
 - [date_bin_wallclock](#date_bin_wallclock)
 - [date_bin_wallclock_gapfill](#date_bin_wallclock_gapfill)
 - [date_trunc](#date_trunc)
 - [datetrunc](#datetrunc)
+- [date_format](#date_format)
 - [date_part](#date_part)
 - [datepart](#datepart)
 - [extract](#extract)
@@ -76,10 +78,6 @@ LIMIT 3
 
 Returns the current UTC time.
 
-> [!Note]
-> `current_date` returns a `TIME64` Arrow type, which isn't supported by InfluxDB.
-> To use with InfluxDB, [cast the return value to a string](/influxdb/version/query-data/sql/cast-types/#cast-to-a-string-type).
-
 The `current_time()` return value is determined at query time and returns the same time,
 no matter when in the query plan the function executes.
 
@@ -97,7 +95,7 @@ _The following example uses the sample data set provided in the
 SELECT
   time,
   temp,
-  current_time()::STRING AS current_time
+  current_time() AS current_time
 FROM home
 LIMIT 3
 ```
@@ -110,6 +108,10 @@ LIMIT 3
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+## current_timestamp
+
+_Alias of [now](#now)._
 
 ## date_bin
 
@@ -761,6 +763,10 @@ ORDER BY week
 
 _Alias of [date_trunc](#date_trunc)._
 
+## date_format
+
+_Alias of [to_char](#to_char)._
+
 ## date_part
 
 Returns the specified part of the date as an integer.
@@ -954,6 +960,10 @@ no matter when in the query plan the function executes.
 now()
 ```
 
+##### Aliases
+
+- [current_timestamp](#current_timestamp)
+
 {{< expand-wrapper >}}
 {{% expand "View `now` query example" %}}
 
@@ -992,6 +1002,10 @@ to_char(expression, format)
   Can be a constant, column, or function that results in a date, time, timestamp or duration.
 - **format**: [Rust Chrono format string](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
   to use to convert the expression.
+
+##### Aliases
+
+- [date_format](#date_format)
 
 {{< expand-wrapper >}}
 {{% expand "View `to_char` query example" %}}

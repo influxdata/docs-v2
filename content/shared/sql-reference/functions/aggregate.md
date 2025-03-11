@@ -12,11 +12,14 @@ aggregate value.
   - [bool_or](#bool_or)
   - [count](#count)
   - [first_value](#first_value)
+  - [grouping](#grouping)
   - [last_value](#last_value)
   - [max](#max)
   - [mean](#mean)
   - [median](#median)
   - [min](#min)
+  - [nth_value](#nth_value)
+  - [string_agg](#string_agg)
   - [sum](#sum)
 - [Statistical aggregate functions](#statistical-aggregate-functions)
   - [corr](#corr)
@@ -37,7 +40,9 @@ aggregate value.
   - [stddev_samp](#stddev_samp)
   - [var](#var)
   - [var_pop](#var_pop)
+  - [var_population](#var_population)
   - [var_samp](#var_samp)
+  - [var_sample](#var_sample)
 - [Approximate aggregate functions](#approximate-aggregate-functions)
   - [approx_distinct](#approx_distinct)
   - [approx_median](#approx_median)
@@ -57,11 +62,14 @@ aggregate value.
 - [bool_or](#bool_or)
 - [count](#count)
 - [first_value](#first_value)
+- [grouping](#grouping)
 - [last_value](#last_value)
 - [max](#max)
 - [mean](#mean)
 - [median](#median)
 - [min](#min)
+- [nth_value](#nth_value)
+- [string_agg](#string_agg)
 - [sum](#sum)
 
 ### array_agg
@@ -69,9 +77,8 @@ aggregate value.
 Returns an array created from the expression elements.
 
 > [!Note]
-> `array_agg` returns a `LIST` arrow type which is not supported by InfluxDB.
-> To use with InfluxDB, use bracket notation to reference the index of an element
-> in the returned array. Arrays are 1-indexed.
+> `array_agg` returns a `LIST` arrow type. Use bracket notation to reference the
+> index of an element in the returned array. Arrays are 1-indexed.
 
 ```sql
 array_agg(expression)
@@ -85,8 +92,7 @@ array_agg(expression)
 {{< expand-wrapper >}}
 {{% expand "View `array_agg` query example" %}}
 
-_The following example uses the sample data set provided in the 
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -124,18 +130,22 @@ avg(expression)
 {{< expand-wrapper >}}
 {{% expand "View `avg` query example" %}}
 
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/version/reference/sample-data/#noaa-bay-area-weather-data)._
+
 ```sql
 SELECT 
   location,
-  avg(water_level) AS water_level_avg
-FROM h2o_feet
+  avg(precip) AS avg_precip
+FROM weather
 GROUP BY location
 ```
 
-| location     |    water_level_avg |
-| :----------- | -----------------: |
-| coyote_creek |  5.359142420303919 |
-| santa_monica | 3.5307120942458843 |
+| location      |           avg_precip |
+| :------------ | -------------------: |
+| Concord       | 0.027120658135283374 |
+| Hayward       |  0.03708029197080292 |
+| San Francisco |  0.03750912408759125 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -397,6 +407,45 @@ GROUP BY location
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+### grouping
+
+Returns 1 if the data is aggregated across the specified column, or 0 if it is
+not aggregated in the result set.
+
+```sql
+grouping(expression)
+```
+
+##### Arguments
+
+- **expression**: Expression to evaluate whether data is aggregated across the
+  specified column. Can be a constant, column, or function.
+
+{{< expand-wrapper >}}
+{{% expand "View `grouping` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/version/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  avg(temp_max) AS avg_max_temp,
+  grouping(location) AS grouping
+FROM weather
+GROUP BY GROUPING SETS ((location), ())
+```
+
+| location      |      avg_max_temp | grouping |
+| :------------ | ----------------: | -------: |
+| Concord       | 75.54379562043796 |        0 |
+| Hayward       | 69.12043795620438 |        0 |
+| San Francisco | 67.59945255474453 |        0 |
+|               | 70.75456204379562 |        1 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### last_value
 
 Returns the last element in an aggregation group according to the specified ordering.
@@ -453,18 +502,22 @@ _To return both the maximum value and its associated timestamp, use
 {{< expand-wrapper >}}
 {{% expand "View `max` query example" %}}
 
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/version/reference/sample-data/#noaa-bay-area-weather-data)._
+
 ```sql
 SELECT 
   location,
-  max(water_level) AS water_level_max
-FROM h2o_feet
+  max(precip) AS max_precip
+FROM weather
 GROUP BY location
 ```
 
-| location     | water_level_max |
-| :----------- | --------------: |
-| santa_monica |           7.205 |
-| coyote_creek |           9.964 |
+| location      | max_precip |
+| :------------ | ---------: |
+| Concord       |       4.53 |
+| Hayward       |       4.34 |
+| San Francisco |       4.02 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -489,18 +542,22 @@ median(expression)
 {{< expand-wrapper >}}
 {{% expand "View `median` query example" %}}
 
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/version/reference/sample-data/#noaa-bay-area-weather-data)._
+
 ```sql
 SELECT 
   location,
-  median(water_level) AS water_level_max
-FROM h2o_feet
+  median(temp_avg) AS median_temp_avg
+FROM weather
 GROUP BY location
 ```
 
-| location     | water_level_median |
-| :----------- | -----------------: |
-| coyote_creek |             5.4645 |
-| santa_monica |              3.471 |
+| location      | median_temp_avg |
+| :------------ | --------------: |
+| Concord       |            61.0 |
+| Hayward       |            59.0 |
+| San Francisco |            58.0 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -524,18 +581,103 @@ _To return both the minimum value and its associated timestamp, use
 {{< expand-wrapper >}}
 {{% expand "View `min` query example" %}}
 
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/version/reference/sample-data/#noaa-bay-area-weather-data)._
+
 ```sql
 SELECT 
   location,
-  min(water_level) AS water_level_min
-FROM h2o_feet
+  min(temp_min) AS min_temp_min
+FROM weather
 GROUP BY location
 ```
 
-| location     | water_level_min |
-| :----------- | --------------: |
-| coyote_creek |           -0.61 |
-| santa_monica |          -0.243 |
+| location      | min_temp_min |
+| :------------ | -----------: |
+| Concord       |         28.0 |
+| Hayward       |         32.0 |
+| San Francisco |         35.0 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### nth_value
+
+Returns the nth value in a group of values.
+
+```sql
+nth_value(expression, n [ORDER BY order_expression_1, ... order_expression_n])
+```
+
+##### arguments
+
+- **expression**: The column or expression to retrieve the nth value from.
+- **n**: The position (nth) of the value to retrieve, based on the ordering.
+- **order_expression_1, ... order_expression_n**: Expressions to order by.
+  Can be a column or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `nth_value` query example" %}}
+
+_The following example uses the {{< influxdb3/home-sample-link >}}._
+
+```sql
+SELECT
+  room,
+  nth_value(temp, 3 ORDER BY time) AS "3rd_temp"
+FROM
+  home
+GROUP BY
+  room
+```
+
+| room        | 3rd_temp |
+| :---------- | -------: |
+| Living Room |     21.8 |
+| Kitchen     |     22.7 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### string_agg
+
+Concatenates the values of string expressions and places separator values between them.
+
+```sql
+string_agg(expression, delimiter)
+```
+
+##### Arguments
+
+- **expression**: The string expression to concatenate.
+  Can be a column or any valid string expression.
+- **delimiter**: A literal string to use as a separator between the concatenated
+  values.
+
+{{< expand-wrapper >}}
+{{% expand "View `string_agg` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/version/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT
+  location,
+  string_agg(temp_avg::STRING, ', ') AS string_agg
+FROM 
+  weather
+WHERE
+  time > '2020-01-01T00:00:00Z'
+  AND time < '2020-01-05T00:00:00Z'
+GROUP BY
+  location
+```
+
+| location      | string_agg       |
+| :------------ | :--------------- |
+| San Francisco | 54.0, 52.0, 54.0 |
+| Hayward       | 51.0, 50.0, 51.0 |
+| Concord       | 53.0, 49.0, 51.0 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -556,18 +698,22 @@ sum(expression)
 {{< expand-wrapper >}}
 {{% expand "View `sum` query example" %}}
 
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/version/reference/sample-data/#noaa-bay-area-weather-data)._
+
 ```sql
 SELECT 
   location,
-  sum(water_level) AS water_level_sum
-FROM h2o_feet
+  sum(precip) AS total_precip
+FROM weather
 GROUP BY location
 ```
 
-| location     |    water_level_sum |
-| :----------- | -----------------: |
-| santa_monica |    27024.070369358 |
-| coyote_creek | 40750.918963991004 |
+| location      |       total_precip |
+| :------------ | -----------------: |
+| Concord       | 29.670000000000012 |
+| Hayward       |              40.64 |
+| San Francisco | 41.110000000000014 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -593,7 +739,9 @@ GROUP BY location
 - [stddev_samp](#stddev_samp)
 - [var](#var)
 - [var_pop](#var_pop)
+- [var_population](#var_population)
 - [var_samp](#var_samp)
+- [var_sample](#var_sample)
 
 ### corr
 
@@ -611,8 +759,7 @@ corr(expression1, expression2)
 {{< expand-wrapper >}}
 {{% expand "View `corr` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -646,8 +793,7 @@ covar(expression1, expression2)
 {{< expand-wrapper >}}
 {{% expand "View `covar` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -681,8 +827,7 @@ covar_pop(expression1, expression2)
 {{< expand-wrapper >}}
 {{% expand "View `covar_pop` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -716,8 +861,7 @@ covar_samp(expression1, expression2)
 {{< expand-wrapper >}}
 {{% expand "View `covar_samp` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -1099,8 +1243,7 @@ stddev(expression)
 {{< expand-wrapper >}}
 {{% expand "View `stddev` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -1134,8 +1277,7 @@ stddev_pop(expression)
 {{< expand-wrapper >}}
 {{% expand "View `stddev_pop` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -1169,8 +1311,7 @@ stddev_samp(expression)
 {{< expand-wrapper >}}
 {{% expand "View `stddev_samp` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -1204,8 +1345,7 @@ var(expression)
 {{< expand-wrapper >}}
 {{% expand "View `var` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -1236,11 +1376,14 @@ var_pop(expression)
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
 
+##### Aliases
+
+- var_population
+
 {{< expand-wrapper >}}
 {{% expand "View `var_pop` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -1258,6 +1401,10 @@ GROUP BY room
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+### var_population
+
+_Alias of [var_pop](#var_pop)._
+
 ### var_samp
 
 Returns the statistical sample variance of a set of numbers.
@@ -1271,11 +1418,14 @@ var_samp(expression)
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
 
+##### Aliases
+
+- var_sample
+
 {{< expand-wrapper >}}
 {{% expand "View `var_samp` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -1292,6 +1442,10 @@ GROUP BY room
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+### var_sample
+
+_Alias of [var_samp](#var_samp)._
 
 ## Approximate aggregate functions
 
@@ -1317,8 +1471,7 @@ approx_distinct(expression)
 {{< expand-wrapper >}}
 {{% expand "View `approx_distinct` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -1353,8 +1506,7 @@ approx_median(expression)
 {{< expand-wrapper >}}
 {{% expand "View `approx_median` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -1394,8 +1546,7 @@ approx_percentile_cont(expression, percentile, centroids)
 {{< expand-wrapper >}}
 {{% expand "View `approx_percentile_cont` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -1433,8 +1584,7 @@ approx_percentile_cont_with_weight(expression, weight, percentile)
 {{< expand-wrapper >}}
 {{% expand "View `approx_percentile_cont_with_weight` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
