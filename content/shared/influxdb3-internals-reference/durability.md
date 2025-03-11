@@ -1,6 +1,6 @@
 ## How Data Flows Through InfluxDB 3
 
-When data is written to InfluxDB 3, it progresses through multiple stages to ensure durability, optimize performance, and enable efficient querying. Configuration options at each stage affect system behavior, balancing reliability and resource usage.
+When data is written to {{% product-name %}}, it progresses through multiple stages to ensure durability, optimize performance, and enable efficient querying. Configuration options at each stage affect system behavior, balancing reliability and resource usage.
 
 ### Write Path Overview
 
