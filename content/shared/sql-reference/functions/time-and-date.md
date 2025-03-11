@@ -399,7 +399,7 @@ date_bin_wallclock(interval, expression[, origin_timestamp])
   >
   > #### Avoid bins in time zone discontinuities
   >
-  > [Time zone shifts](#time-zone-shifts) result in *discontinuities*–breaks
+  > [Time zone shifts](#time-zone-shifts) result in _discontinuities_–breaks
   > in the continuity of time intervals (losing an hour or gaining an hour)–that
   > can result in unexpected timestamps when using `date_bin_wallclock`.
   > Avoid using an `interval` and `origin_timestamp` combination that results in a
@@ -538,7 +538,7 @@ date_bin_wallclock_gapfill(interval, expression[, origin_timestamp])
   >
   > #### Avoid bins in time zone discontinuities
   >
-  > [Time zone shifts](#time-zone-shifts) result in *discontinuities*–breaks
+  > [Time zone shifts](#time-zone-shifts) result in _discontinuities_–breaks
   > in the continuity of time intervals (losing an hour or gaining an hour)–that
   > can result in unexpected timestamps when using `date_bin_wallclock_gapfill`.
   > Avoid using an `interval` and `origin_timestamp` combination that results in a
