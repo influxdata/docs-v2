@@ -1,5 +1,5 @@
 ---
-title: InfluxDB 3 Internals
+title: {{% product-name %}} Internals
 description: >
   Learn about InfluxDB 3 internal systems and mechanisms.
 menu:
