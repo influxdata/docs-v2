@@ -1,7 +1,7 @@
 ---
 title: {{% product-name %}} Internals
 description: >
-  Learn about InfluxDB 3 internal systems and mechanisms.
+  Learn about {{% product-name %}} internal systems and mechanisms.
 menu:
   influxdb3_core:
     name: InfluxDB3 internals
