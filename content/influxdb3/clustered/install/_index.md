@@ -42,9 +42,10 @@ installing InfluxDB Clustered.
 >
 > To deploy InfluxDB Clustered in an air-gapped environment (without internet access),
 > use one of the following approaches:
-> - **Recommended**: Directly using `kubit local apply`
+>
+> - **Recommended**: Directly use `kubit local apply`
 > - Helm (includes the kubit operator)
-> - Directly using the kubit operator
+> - Directly use the kubit operator
 > 
 > For more information, see [Choose the right deployment tool for your environment](/influxdb3/clustered/install/set-up-cluster/configure-cluster/#choose-the-right-deployment-tool-for-your-environment)
 
