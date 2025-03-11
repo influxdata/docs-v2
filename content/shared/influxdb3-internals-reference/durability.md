@@ -6,7 +6,7 @@ When data is written to InfluxDB 3, it progresses through multiple stages to ens
 
 When data is written to InfluxDB 3, it progresses through multiple stages to ensure durability, optimize performance, and enable efficient querying. Configuration options at each stage affect system behavior, balancing reliability and resource usage.
 
-1. **Write validation**: InfluxDB validates incoming data and rejects invalid points with an HTTP 400 error.
+1. [Write validation](#write-validation)
 
 2. **Memory buffer**: Valid data is stored in an in-memory buffer before being persisted.
 
