@@ -70,14 +70,13 @@ properties in your `AppInstance` resource:
 - Router
 - Garbage collector
 
-{{% note %}}
-#### Scale your Catalog and Object store
-
-Your InfluxDB [Catalog](/influxdb3/clustered/reference/internals/storage-engine/#catalog)
-and [Object store](/influxdb3/clustered/reference/internals/storage-engine/#object-store)
-are managed outside of your `AppInstance` resource. Scaling mechanisms for these
-components depend on the technology and underlying provider used for each.
-{{% /note %}}
+> [!Note]
+> #### Scale your Catalog and Object store
+> 
+> Your InfluxDB [Catalog](/influxdb3/clustered/reference/internals/storage-engine/#catalog)
+> and [Object store](/influxdb3/clustered/reference/internals/storage-engine/#object-store)
+> are managed outside of your `AppInstance` resource. Scaling mechanisms for these
+> components depend on the technology and underlying provider used for each.
 
 {{< tabs-wrapper >}}
 {{% tabs "small" %}}
@@ -316,11 +315,10 @@ replicas per component:
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-{{% note %}}
-Applying resource limits to pods is optional, but provides better resource
-isolation and protects against pods using more resources than intended. For
-information, see [Kubernetes resource requests and limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits).
-{{% /note %}}
+> [!Note]
+> Applying resource limits to pods is optional, but provides better resource
+> isolation and protects against pods using more resources than intended. For
+> information, see [Kubernetes resource requests and limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits).
 
 ##### Related Kubernetes documentation
 
@@ -332,12 +330,11 @@ information, see [Kubernetes resource requests and limits](https://kubernetes.io
 To horizontally scale a component in your InfluxDB cluster, increase or decrease
 the number of replicas for the component and [apply the change](#apply-your-changes).
 
-{{% warn %}}
-#### Only use the AppInstance to scale component replicas
-
-Only use the `AppInstance` resource to scale component replicas.
-Manually scaling replicas may cause errors.
-{{% /warn %}}
+> [!Warning]
+> #### Only use the AppInstance to scale component replicas
+> 
+> Only use the `AppInstance` resource to scale component replicas.
+> Manually scaling replicas may cause errors.
 
 For example--to horizontally scale your
 [Ingester](/influxdb3/clustered/reference/internals/storage-engine/#ingester):

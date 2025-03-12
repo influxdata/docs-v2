@@ -32,19 +32,18 @@ and may cause `kubectl` to fail if you do not have those permissions in your clu
 If you do not have the necessary permissions, you can
 [use the `kubit` CLI to manually install the package in your cluster](?t=kubit#kubectl-kubit-helm).
 
-{{% note %}}
-**If you meet any of the following criteria,
-[install and use the `kubit` CLI](?t=kubit#kubectl-kubit-helm)
-on your local machine. This allows you to act as the operator would and deploy
-your cluster, but from your terminal.**
-
-- You do not have permissions to install a CRD.
-- You do not have permissions to install the operator in the `kubit` namespace.
-- You do not have permissions to create cluster-wide role-based access
-  control (RBAC).
-- You want to preview the generated YAML.
-- You do not want to run the operator in your Kubernetes cluster.
-  {{% /note %}}
+> [!Note]
+> **If you meet any of the following criteria,
+> [install and use the `kubit` CLI](?t=kubit#kubectl-kubit-helm)
+> on your local machine. This allows you to act as the operator would and deploy
+> your cluster, but from your terminal.**
+> 
+> - You do not have permissions to install a CRD.
+> - You do not have permissions to install the operator in the `kubit` namespace.
+> - You do not have permissions to create cluster-wide role-based access
+>   control (RBAC).
+> - You want to preview the generated YAML.
+> - You do not want to run the operator in your Kubernetes cluster.
 
 You can also use [Helm](https://helm.sh/) and the
 [InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered)
@@ -130,14 +129,13 @@ for tool dependencies, meaning the required versions are tracked by `kubit`.
 Kubernetes deployments take some time to complete. To check on the status of a
 deployment, use the `kubectl get` command:
 
-{{% note %}}
-The following example uses the [`yq` command-line YAML parser](https://github.com/mikefarah/yq)
-to parse and format the YAML output.
-You can also specify the output as `json` and use the
-[`jq` command-line JSON parser](https://jqlang.github.io/jq/) to parse and
-format the JSON output.
-Installing and using either of these utilities is optional.
-{{% /note %}}
+> [!Note]
+> The following example uses the [`yq` command-line YAML parser](https://github.com/mikefarah/yq)
+> to parse and format the YAML output.
+> You can also specify the output as `json` and use the
+> [`jq` command-line JSON parser](https://jqlang.github.io/jq/) to parse and
+> format the JSON output.
+> Installing and using either of these utilities is optional.
 
 ```sh
 kubectl get \

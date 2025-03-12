@@ -49,15 +49,14 @@ list_code_example: |
 
 [Apache Arrow Python bindings](https://arrow.apache.org/docs/python/index.html) integrate with Python scripts and applications to query data stored in InfluxDB.
 
-{{% note %}}
-#### Use InfluxDB 3 client libraries
-
-We recommend using the [`influxdb3-python` Python client library](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/) for integrating InfluxDB 3 with your Python application code.
-
-[InfluxDB 3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
-and provide convenient methods for [writing](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
-Client libraries can query using SQL or InfluxQL.
-{{% /note %}}
+> [!Note]
+> #### Use InfluxDB 3 client libraries
+> 
+> We recommend using the [`influxdb3-python` Python client library](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/) for integrating InfluxDB 3 with your Python application code.
+> 
+> [InfluxDB 3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
+> and provide convenient methods for [writing](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
+> Client libraries can query using SQL or InfluxQL.
 
 The following examples show how to use the `pyarrow.flight` and `pandas` Python modules to query and format data stored in an {{% product-name %}} database:
 

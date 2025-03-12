@@ -59,28 +59,26 @@ into a specified number of "buckets."
 Each of these can be used as part of the partition template.
 Be sure to follow [partitioning best practices](/influxdb3/clustered/admin/custom-partitions/best-practices/).
 
-{{% note %}}
-#### Always provide a time format when using custom partitioning
+> [!Note]
+> #### Always provide a time format when using custom partitioning
+> 
+> If defining a custom partition template for your database with any of the
+> `--template-*` flags, always include the `--template-timeformat` flag with a
+> time format to use in your partition template.
+> Otherwise, InfluxDB omits time from the partition template and won't compact partitions.
 
-If defining a custom partition template for your database with any of the
-`--template-*` flags, always include the `--template-timeformat` flag with a
-time format to use in your partition template.
-Otherwise, InfluxDB omits time from the partition template and won't compact partitions.
-{{% /note %}}
-
-{{% warn %}}
-#### Cannot reuse deleted database names
-
-You cannot reuse the name of a deleted database when creating a new database.
-If you try to reuse the name, the API response status code
-is `400` and the `message` field contains the following:
-
-```text
-'iox_proxy.app.CreateDatabase failed to create database: \
-rpc error: code = AlreadyExists desc = A namespace with the
-name `<DATABASE_NAME>` already exists'
-```
-{{% /warn %}}
+> [!Warning]
+> #### Cannot reuse deleted database names
+> 
+> You cannot reuse the name of a deleted database when creating a new database.
+> If you try to reuse the name, the API response status code
+> is `400` and the `message` field contains the following:
+> 
+> ```text
+> 'iox_proxy.app.CreateDatabase failed to create database: \
+> rpc error: code = AlreadyExists desc = A namespace with the
+> name `<DATABASE_NAME>` already exists'
+> ```
 
 ## Usage
 

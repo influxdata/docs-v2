@@ -29,17 +29,16 @@ to list manually-created management tokens.
 influxctl management list --format json
 ```
 
-{{% note %}}
-#### Management token strings are not retrievable
-
-The actual management token string is not printed and is only returned when
-creating the token.
-
-#### Revoked tokens are included in output
-
-Revoked tokens still appear when listing management tokens, but they are no
-longer valid for any operations.
-{{% /note %}}
+> [!Note]
+> #### Management token strings are not retrievable
+> 
+> The actual management token string is not printed and is only returned when
+> creating the token.
+> 
+> #### Revoked tokens are included in output
+> 
+> Revoked tokens still appear when listing management tokens, but they are no
+> longer valid for any operations.
 
 ### Output formats
 

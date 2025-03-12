@@ -51,13 +51,12 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{< product-name >}} database
 - {{% code-placeholder-key %}}`TOKEN ID`{{% /code-placeholder-key %}}: ID of the token to update
 
-{{% note %}}
-#### Existing permissions are replaced on update
-
-When updating token permissions, the existing permissions are replaced by the
-new permissions specified in the update command.
-To retain existing permissions, include them in the update command.
-{{% /note %}}
+> [!Note]
+> #### Existing permissions are replaced on update
+> 
+> When updating token permissions, the existing permissions are replaced by the
+> new permissions specified in the update command.
+> To retain existing permissions, include them in the update command.
 
 ### Examples
 

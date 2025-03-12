@@ -55,12 +55,11 @@ you need is in place.
     4.  Enter a description for the API token and click **{{< icon "check" >}} {{% caps %}}Save{{% /caps %}}**.
     5.  Copy the generated token and store it for safe keeping.
 
-    {{% note %}}
-We recommend using a password manager or a secret store to securely store
-sensitive tokens.
-    {{% /note %}}
+    > [!Note]
+    > We recommend using a password manager or a secret store to securely store
+    > sensitive tokens.
 
-3. **Configure authentication credentials**.
+3.  **Configure authentication credentials**.
 <span id="configure-authentication-credentials"></span>
 
     As you go through this tutorial, interactions with InfluxDB {{< current-version >}}
@@ -68,10 +67,9 @@ sensitive tokens.
     There are different methods for providing these credentials depending on
     which client you use to interact with InfluxDB.
 
-    {{% note %}}
-When configuring your token, if you [created an all access token](#create-an-all-access-api-token),
-use that token to interact with InfluxDB. Otherwise, use your operator token.
-    {{% /note %}}
+    > [!Note]
+    > When configuring your token, if you [created an all access token](#create-an-all-access-api-token),
+    > use that token to interact with InfluxDB. Otherwise, use your operator token.
 
     {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -192,12 +190,11 @@ Use the following `influx` CLI flags to provide required credentials to commands
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-{{% note %}}
-All `influx` CLI examples in this getting started tutorial assume your InfluxDB
-**host**, **organization**, and **token** are provided by either the
-[active `influx` CLI configuration](/influxdb3/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials)
-or by environment variables.
-{{% /note %}}
+> [!Note]
+> All `influx` CLI examples in this getting started tutorial assume your InfluxDB
+> **host**, **organization**, and **token** are provided by either the
+> [active `influx` CLI configuration](/influxdb3/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials)
+> or by environment variables.
 
 <!------------------------------ END CLI CONTENT ------------------------------>
 {{% /tab-content %}}
@@ -324,10 +321,10 @@ Keep the following in mind when using API clients and client libraries:
   [{{% product-name %}} region URL](/influxdb3/cloud-serverless/reference/regions/)
   without `https://`.
 
-{{% note %}}
-All API, cURL, and client library examples in this getting started tutorial assume your InfluxDB
-**host**, **organization**, **url**, and **token** are provided by environment variables.
-{{% /note %}}
+> [!Note]
+> All API, cURL, and client library examples in this getting started tutorial assume your InfluxDB
+> **host**, **organization**, **url**, and **token** are provided by environment variables.
+
 <!------------------------------ END API CONTENT ------------------------------>
 {{% /tab-content %}}
     {{< /tabs-wrapper >}} 

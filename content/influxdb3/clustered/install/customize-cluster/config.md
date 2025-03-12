@@ -99,12 +99,11 @@ components:
 For more information, see
 [Manage environment variables in your InfluxDB Cluster](/influxdb3/clustered/admin/env-vars/).
 
-{{% note %}}
-#### Configurable settings
-
-For information about what settings are configurable and their associated
-environment variables, [contact InfluxData Support](https://support.influxdata.com).
-{{% /note %}}
+> [!Note]
+> #### Configurable settings
+> 
+> For information about what settings are configurable and their associated
+> environment variables, [contact InfluxData Support](https://support.influxdata.com).
 
 <!-- 
 

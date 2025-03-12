@@ -48,10 +48,9 @@ An InfluxQL query that aggregates data includes the following clauses:
   a specified range.
 - `GROUP BY`: Group data by tag values and time intervals.
 
-{{% note %}}
-For simplicity, the term _"aggregate"_ in this guide refers to applying
-both aggregate and selector functions to a dataset.
-{{% /note %}}
+> [!Note]
+> For simplicity, the term _"aggregate"_ in this guide refers to applying
+> both aggregate and selector functions to a dataset.
 
 Learn how to apply aggregate operations to your queried data:
 
@@ -101,15 +100,14 @@ SELECT TOP(co, 3) from home
   - [Downsample data by applying interval-based aggregates](#downsample-data-by-applying-interval-based-aggregates)
 - [Query rows based on aggregate values](#query-rows-based-on-aggregate-values)
 
-{{% note %}}
-#### Sample data
-
-The following examples use the sample data written in the
-[Get started home sensor data](/influxdb3/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
-To run the example queries and return results,
-[write the sample data](/influxdb3/cloud-dedicated/reference/sample-data/#write-home-sensor-data-to-influxdb)
-to your {{% product-name %}} database before running the example queries.
-{{% /note %}}
+> [!Note]
+> #### Sample data
+> 
+> The following examples use the sample data written in the
+> [Get started home sensor data](/influxdb3/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+> To run the example queries and return results,
+> [write the sample data](/influxdb3/cloud-dedicated/reference/sample-data/#write-home-sensor-data-to-influxdb)
+> to your {{% product-name %}} database before running the example queries.
 
 ### Perform an ungrouped aggregation
 

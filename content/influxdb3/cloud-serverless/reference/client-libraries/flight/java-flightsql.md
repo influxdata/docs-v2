@@ -40,15 +40,14 @@ list_code_example: |
 
 [Apache Arrow Flight SQL for Java](https://arrow.apache.org/docs/java/reference/org/apache/arrow/flight/sql/package-summary.html) integrates with Java applications to query and retrieve data from Flight database servers using RPC and SQL.
 
-{{% note %}}
-#### Use InfluxDB 3 client libraries
-
-We recommend using the [`influxdb3-java` Java client library](/influxdb3/cloud-serverless/reference/client-libraries/v3/java/) for integrating InfluxDB 3 with your Java application code.
-
-[InfluxDB 3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
-and provide convenient methods for [writing](/influxdb3/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/cloud-serverless/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
-Client libraries can query using SQL or InfluxQL.
-{{% /note %}}
+> [!Note]
+> #### Use InfluxDB 3 client libraries
+> 
+> We recommend using the [`influxdb3-java` Java client library](/influxdb3/cloud-serverless/reference/client-libraries/v3/java/) for integrating InfluxDB 3 with your Java application code.
+> 
+> [InfluxDB 3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
+> and provide convenient methods for [writing](/influxdb3/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/cloud-serverless/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
+> Client libraries can query using SQL or InfluxQL.
 
 <!-- TOC -->
 

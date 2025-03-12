@@ -117,9 +117,8 @@ documentation:
 - [Write multiple data points in one request](/influxdb3/clustered/write-data/best-practices/optimize-writes/#write-multiple-data-points-in-one-request)
 - [Pre-process data before writing](/influxdb3/clustered/write-data/best-practices/optimize-writes/#pre-process-data-before-writing)
 
-{{% note %}}
-[Telegraf](#telegraf) and [InfluxDB client libraries](#influxdb-client-libraries)
-leverage many of these optimizations by default.
-{{% /note %}}
+> [!Note]
+> [Telegraf](#telegraf) and [InfluxDB client libraries](#influxdb-client-libraries)
+> leverage many of these optimizations by default.
 
 {{< page-nav prev="/influxdb3/clustered/install/optimize-cluster/design-schema" prevText="Design your schema" next="/influxdb3/clustered/install/optimize-cluster/simulate-load/" nextText="Simulate load" >}}
