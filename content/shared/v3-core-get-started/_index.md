@@ -47,7 +47,7 @@ This guide covers InfluxDB 3 Core (the open source release), including the follo
 
 * [Install and startup](#install-and-startup)
 * [Data Model](#data-model)
-* [Write data to the database](#write-data)
+* [Write data](#write-data)
 * [Query the database](#query-the-database)
 * [Last values cache](#last-values-cache)
 * [Distinct values cache](#distinct-values-cache)
@@ -251,7 +251,7 @@ Subsequent requests can add new fields on-the-fly, but can't add new tags.
 
 {{% product-name %}} is optimized for recent data, but accepts writes from any time period. It persists that data in Parquet files for access by third-party systems for longer term historical analysis and queries. If you require longer historical queries with a compactor that optimizes data organization, consider using [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
 
-The database provides three write API endpoints that respond to HTTP `POST` requests:
+{{% product-name %}} provides three write API endpoints that respond to HTTP `POST` requests:
 
 #### /api/v3/write_lp endpoint
 
@@ -422,7 +422,7 @@ To learn more about a subcommand, use the `-h, --help` flag:
 influxdb3 create -h
 ```
 
-### Query a database
+### Query the database
 
 InfluxDB 3 now supports native SQL for querying, in addition to InfluxQL, an
 SQL-like language customized for time series queries.
@@ -764,7 +764,7 @@ To test a plugin, do the following:
 
 1. Create a _plugin directory_--for example, `/path/to/.influxdb/plugins`
 2. [Start the InfluxDB server](#start-influxdb) and include the `--plugin-dir <PATH>` option.
-3. Save the [preceding example code](#example-python-plugin) to a plugin file inside of the plugin directory. If you haven't yet written data to the table in the example, comment out the lines where it queries.
+3. Save the [preceding example code](#example-python-plugin-for-wal-flush) to a plugin file inside of the plugin directory. If you haven't yet written data to the table in the example, comment out the lines where it queries.
 4. To run the test, enter the following command with the following options:
 
    - `--lp` or  `--file`: The line protocol to test
