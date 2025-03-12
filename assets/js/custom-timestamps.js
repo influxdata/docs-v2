@@ -130,7 +130,7 @@ function updateTimestamps (newStartDate, seedTimes=defaultTimes) {
   ];
 
   $(updateBlockElWhitelist.join()).each(function () {
-    var wrapper = $(this)[0];
+    const wrapper = $(this)[0];
 
     times.forEach(function (x) {
       const oldDatePart = datePart(x.rfc3339.replace(/T.*$/, ''));
@@ -148,7 +148,7 @@ function updateTimestamps (newStartDate, seedTimes=defaultTimes) {
   });
 
   $('span.custom-timestamps').each(function () {
-    var wrapper = $(this)[0];
+    const wrapper = $(this)[0];
 
     times.forEach(function (x) {
       const oldDatePart = datePart(x.rfc3339.replace(/T.*$/, ''));

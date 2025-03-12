@@ -63,9 +63,9 @@ tags:
   - description: |
       Use one of the following schemes to authenticate to the InfluxDB API:
 
-      - [Token authentication](#section/Authentication/TokenAuthentication)
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      - #section/Authentication/TokenAuthentication
+      - #section/Authentication/BasicAuthentication
+      - #section/Authentication/QuerystringAuthentication
       <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication
     x-traitTag: true
@@ -241,7 +241,7 @@ tags:
       using **InfluxQL** and retrieve data in **CSV** or **JSON** format.
       - _Flight + gRPC_ clients can query using **SQL** or **InfluxQL** and retrieve data in **Arrow** format.
 
-      #### Related guides
+      x-influxdata-related-content:
 
       - [Get started querying InfluxDB](/influxdb3/cloud-serverless/get-started/query/)
       - [Execute queries](/influxdb3/cloud-serverless/query-data/execute-queries/)
@@ -1267,9 +1267,7 @@ paths:
         Labels are also capable of grouping across different resources--for example,
         you can apply a label named `air_sensor` to a bucket and a task to quickly
         organize resources.
-
-        #### Related guides
-
+      x-influxdata-related-content:
         - Use the [`/api/v2/labels` InfluxDB API endpoint](#tag/Labels) to retrieve and manage labels.
         - [Manage buckets](/influxdb3/cloud-serverless/admin/buckets/)
       operationId: GetBucketsIDLabels
@@ -1331,9 +1329,7 @@ paths:
         - Before adding a label to a bucket, you must create the label if you
           haven't already. To create a label with the InfluxDB API, send a `POST`
           request to the [`/api/v2/labels` endpoint](#operation/PostLabels)).
-
-        #### Related guides
-
+      x-influxdata-related-content:
         - Use the [`/api/v2/labels` InfluxDB API endpoint](#tag/Labels) to retrieve and manage labels.
         - [Manage labels in the InfluxDB UI](/influxdb3/cloud-serverless/visualize-data/labels/)
       operationId: PostBucketsIDLabels
@@ -1681,10 +1677,8 @@ paths:
 
         *`INFLUX_ORG_ID`* is the ID of the organization that you want to retrieve a
         list of owners for.
-
-        #### Related endpoints
-
-        - [Authorizations](#tag/Authorizations-(API-tokens))
+      x-influxdata-related-endpoints:
+        - null
       operationId: GetBucketsIDOwners
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1910,10 +1904,8 @@ paths:
 
         By default, buckets have an _implicit_ schema-type (`"schemaType": "implicit"`)
         that conforms to your data.
-
-        #### Related guides
-
-        - [Using bucket schemas](https://www.influxdata.com/blog/new-bucket-schema-option-protect-from-unwanted-schema-changes/)
+      x-influxdata-related-content:
+        - https://www.influxdata.com/blog/new-bucket-schema-option-protect-from-unwanted-schema-changes/
       operationId: getMeasurementSchemas
       parameters:
         - description: |

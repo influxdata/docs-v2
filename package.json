@@ -10,7 +10,7 @@
   "devDependencies": {
     "@eslint/js": "^9.18.0",
     "@evilmartians/lefthook": "^1.7.1",
-    "@vvago/vale": "^3.4.2",
+    "@vvago/vale": "^3.9.1",
     "autoprefixer": ">=10.2.5",
     "cypress": "^14.0.1",
     "eslint": "^9.18.0",
@@ -30,7 +30,9 @@
     "lefthook": "^1.10.10",
     "markdown-link": "^0.1.1",
     "mermaid": "^11.4.1",
-    "vanillajs-datepicker": "^1.3.4"
+    "vanillajs-datepicker": "^1.3.4",
+    "hugo-extended": "^0.134.2",
+    "rapidoc": "^9.3.6"
   },
   "scripts": {
     "e2e:chrome": "npx cypress run --browser chrome",
@@ -40,7 +42,8 @@
     "e2e:api-docs": "export cypress_test_subjects=\"http://localhost:1313/influxdb3/core/api/,http://localhost:1313/influxdb3/enterprise/api/,http://localhost:1313/influxdb3/cloud-dedicated/api/,http://localhost:1313/influxdb3/cloud-dedicated/api/v1/,http://localhost:1313/influxdb/cloud-dedicated/api/v1/,http://localhost:1313/influxdb/cloud-dedicated/api/management/,http://localhost:1313/influxdb3/cloud-dedicated/api/management/\"; npx cypress run --spec cypress/e2e/article-links.cy.js",
     "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && lefthook run pre-push",
     "pre-commit": "lefthook run pre-commit",
-    "test-content": "docker compose --profile test up"
+    "test-content": "docker compose --profile test up",
+    "build-apirefs": "node api-build-scripts/index.mjs"
   },
   "main": "index.js",
   "module": "main.js",

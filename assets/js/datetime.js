@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var date = new Date()
 var currentTimestamp = date.toISOString().replace(/^(.*)(\.\d+)(Z)/, '$1$3') // 2023-01-01T12:34:56Z

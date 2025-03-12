@@ -1,0 +1,14 @@
+- name: Using the InfluxDB HTTP API
+  tags:
+    - Quick start
+    - API compatibility
+    - Authentication
+    - Headers
+    - Pagination
+    - Response codes
+    - System information endpoints
+- name: All endpoints
+  tags:
+    - Ping
+    - Query
+    - Write

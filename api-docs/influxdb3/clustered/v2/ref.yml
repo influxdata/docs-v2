@@ -65,11 +65,10 @@ tags:
   - description: |
       Use one of the following schemes to authenticate to the InfluxDB API:
 
-      - [Bearer authentication](#section/Authentication/BearerAuthentication)
-      - [Token authentication](#section/Authentication/TokenAuthentication)
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
-      <!-- ReDoc-Inject: <security-definitions> -->
+      - #section/Authentication/BearerAuthentication
+      - #section/Authentication/TokenAuthentication
+      - #section/Authentication/BasicAuthentication
+      - #section/Authentication/QuerystringAuthentication
     name: Authentication
     x-traitTag: true
   - description: |
@@ -110,7 +109,7 @@ tags:
       - The `/api/v2/query` endpoint can't query InfluxDB 3 Clustered.
       - _Flight + gRPC_ clients can query using **SQL** or **InfluxQL** and retrieve data in **Arrow** format.
 
-      #### Related guides
+      x-influxdata-related-content:
 
       - [Get started querying InfluxDB](/influxdb3/clustered/get-started/query/)
       - [Execute queries](/influxdb3/clustered/query-data/execute-queries/)

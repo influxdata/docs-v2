@@ -36,7 +36,6 @@
 {{ $uiText := $scratch.Get "uiText" }}
 {{ $uiStorageDescription := $scratch.Get "uiStorageDescription" }}
 {{ $altLink := cond (eq ($scratch.Get "link") "") (print "/influxdb/" $altVersion "/") ($scratch.Get "link") }}
-
 <div id="v3-wayfinding-modal">
   <div class="wayfinding-wrapper">
     <div class="wayfinding-content">

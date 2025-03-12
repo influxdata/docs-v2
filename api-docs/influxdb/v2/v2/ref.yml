@@ -24,9 +24,9 @@ tags:
   - description: |
       Use one of the following schemes to authenticate to the InfluxDB API:
 
-      - [Token authentication](#section/Authentication/TokenAuthentication)
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      - #section/Authentication/TokenAuthentication
+      - #section/Authentication/BasicAuthentication
+      - #section/Authentication/QuerystringAuthentication
       <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication
     x-traitTag: true
@@ -117,8 +117,8 @@ tags:
       For more information about **pprof profile** and **trace** reports,
       see the following resources:
 
-      - [Google pprof tool](https://github.com/google/pprof)
-      - [Golang diagnostics](https://go.dev/doc/diagnostics)
+      - https://github.com/google/pprof
+      - https://go.dev/doc/diagnostics
     name: Debug
   - description: |
       Delete data from an InfluxDB bucket.
@@ -1410,9 +1410,7 @@ paths:
         Labels are also capable of grouping across different resources--for example,
         you can apply a label named `air_sensor` to a bucket and a task to quickly
         organize resources.
-
-        #### Related guides
-
+      x-influxdata-related-content:
         - Use the [`/api/v2/labels` InfluxDB API endpoint](#tag/Labels) to retrieve and manage labels.
         - [Manage labels in the InfluxDB UI](/influxdb/v2/visualize-data/labels/)
       operationId: GetBucketsIDLabels
@@ -1474,9 +1472,7 @@ paths:
         - Before adding a label to a bucket, you must create the label if you
           haven't already. To create a label with the InfluxDB API, send a `POST`
           request to the [`/api/v2/labels` endpoint](#operation/PostLabels)).
-
-        #### Related guides
-
+      x-influxdata-related-content:
         - Use the [`/api/v2/labels` InfluxDB API endpoint](#tag/Labels) to retrieve and manage labels.
         - [Manage labels in the InfluxDB UI](/influxdb/v2/visualize-data/labels/)
       operationId: PostBucketsIDLabels
@@ -6194,10 +6190,8 @@ paths:
         - `write-orgs INFLUX_ORG_ID`
 
         *`INFLUX_ORG_ID`* is the ID of the organization that you want to add an owner for.
-
-        #### Related endpoints
-
-        - [Authorizations](#tag/Authorizations-(API-tokens))
+      x-influxdata-related-endpoints:
+        - null
       operationId: PostOrgsIDOwners
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6284,9 +6278,8 @@ paths:
 
         *`INFLUX_ORG_ID`* is the ID of the organization that you want to
         remove an owner from.
-
-        #### Related endpoints
-        - [Authorizations](#tag/Authorizations-(API-tokens))
+      x-influxdata-related-endpoints:
+        - null
       operationId: DeleteOrgsIDOwnersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -7310,7 +7303,7 @@ paths:
 
         #### Related Guides
 
-        - [List of all Flux functions](https://docs.influxdata.com/flux/v0.x/stdlib/all-functions/)
+        - https://docs.influxdata.com/flux/v0.x/stdlib/all-functions/
       operationId: GetQuerySuggestions
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -7963,7 +7956,7 @@ paths:
 
         #### Related Guides
 
-        - [List of all Flux functions](https://docs.influxdata.com/flux/v0.x/stdlib/all-functions/)
+        - https://docs.influxdata.com/flux/v0.x/stdlib/all-functions/
       operationId: GetQuerySuggestionsName
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -9051,10 +9044,8 @@ paths:
           the organization.
         - In InfluxDB OSS, a user session inherits all the user's permissions for all
           the organizations that the user belongs to.
-
-        #### Related endpoints
-
-        - [Signout](#tag/Signout)
+      x-influxdata-related-endpoints:
+        - null
       operationId: PostSignin
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -9128,10 +9119,8 @@ paths:
 
         To learn more about cookies in HTTP requests, see
         [Mozilla Developer Network (MDN) Web Docs, HTTP cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies).
-
-        #### Related endpoints
-
-        - [Signin](#tag/Signin)
+      x-influxdata-related-endpoints:
+        - null
       operationId: PostSignout
       parameters:
         - $ref: '#/components/parameters/TraceSpan'

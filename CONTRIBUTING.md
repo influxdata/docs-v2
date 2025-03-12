@@ -341,7 +341,7 @@ Push your changes up to your forked repository, then [create a new pull request]
 
 Most docs-v2 documentation content uses [Markdown](https://en.wikipedia.org/wiki/Markdown).
 
-_Some parts of the documentation, such as `./api-docs`, contain Markdown within YAML and rely on additional tooling._
+_Some parts of the documentation, such as `./api-build-scripts`, contain Markdown within YAML and rely on additional tooling._
 
 ### Semantic line feeds
 
@@ -1762,7 +1762,7 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
    ```
 
 7. Copy the InfluxDB `swagger.yml` specific to the new version into the
-   `/api-docs/v<version-number>/` directory.
+   `/api-build-scripts/v<version-number>/` directory.
 
 8. Commit the changes and push the new branch to GitHub.
 
@@ -1777,4 +1777,4 @@ InfluxData uses [Redoc](https://github.com/Redocly/redoc) to generate the full
 InfluxDB API documentation when documentation is deployed.
 Redoc generates HTML documentation using the InfluxDB `swagger.yml`.
 For more information about generating InfluxDB API documentation, see the
-[API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).
+[API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-build-scripts#readme).

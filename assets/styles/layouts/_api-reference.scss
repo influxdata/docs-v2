@@ -1,0 +1,58 @@
+// Description: This file contains the styles to override Rapidoc and apply
+// specific styles for API reference pages.
+@import "tools/color-palette";
+@import "tools/fonts";
+
+// Fonts
+$proxima: 'Proxima Nova', sans-serif;
+$code: 'IBM Plex Mono', monospace;;
+
+// Font weights
+$medium: 500;
+$bold: 700;
+
+.hide {
+  display: none !important;
+}
+
+#api-path {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  min-height: 100vh;
+  height: 100%;
+}
+
+rapi-doc {
+  font-family: $proxima;
+  $code: 'IBM Plex Mono', monospace;
+
+  padding-top: 1rem;
+
+  /* targets the server div */
+  &::part(section-servers) { 
+    margin:0 24px 0 24px;
+    border-radius: 5px;
+
+    /* targets the server label */
+    label { 
+      font-family: $code;
+    }
+  }
+
+   /* targets API endpoints */
+  &::part(section-endpoint) { 
+    margin:0 24px 0 24px;
+    border-radius: 5px;
+
+    /* targets the server label */
+    label { 
+      font-family: $code;
+    }
+  } 
+
+  /* targets selected server label */
+  // rapi-doc::part(label-selected-server) { 
+  // color: #fff;
+  // }
+}
