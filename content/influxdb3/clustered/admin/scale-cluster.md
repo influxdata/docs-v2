@@ -466,19 +466,29 @@ helm upgrade \
 
 ### Router
 
-The Router can be scaled both [vertically](#vertical-scaling) and
+The [Router](/influxdb3/clustered/reference/internals/storage-engine/#router) can be scaled both [vertically](#vertical-scaling) and
 [horizontally](#horizontal-scaling).
-Horizontal scaling increases write throughput and is typically the most
+
+- **Recommended**: Horizontal scaling increases write throughput and is typically the most
 effective scaling strategy for the Router.
-Vertical scaling (specifically increased CPU) improves the Router's ability to
+- Vertical scaling (specifically increased CPU) improves the Router's ability to
 parse incoming line protocol with lower latency.
+
+#### Router latency
+
+Latency of the Router’s write endpoint is directly impacted by:
+
+- Ingester latency--the router calls the Ingester during a client write request
+- Catalog latency during schema validation
 
 ### Ingester
 
-The Ingester can be scaled both [vertically](#vertical-scaling) and
+The [Ingester](/influxdb3/clustered/reference/internals/storage-engine/#ingester) can be scaled both [vertically](#vertical-scaling) and
 [horizontally](#horizontal-scaling).
-Vertical scaling increases write throughput and is typically the most effective
-scaling strategy for the Ingester.
+
+- **Recommended**: Vertical scaling is typically the most effective scaling strategy for the Ingester.
+Compared to horizontal scaling, vertical scaling not only increases write throughput but also lessens query, catalog, and compaction overheads as well as Object store costs.
+- Horizontal scaling can help distribute write load but comes with additional coordination overhead.
 
 #### Ingester storage volume
 
@@ -541,50 +551,62 @@ ingesterStorage:
 
 ### Querier
 
-The Querier can be scaled both [vertically](#vertical-scaling) and
+The [Querier](/influxdb3/clustered/reference/internals/storage-engine/#querier) can be scaled both [vertically](#vertical-scaling) and
 [horizontally](#horizontal-scaling).
-Horizontal scaling increases query throughput to handle more concurrent queries.
-Vertical scaling improves the Querier’s ability to process computationally
-intensive queries.
+
+- **Recommended**: [Vertical scaling](#vertical-scaling) improves the Querier's ability to process concurrent or computationally 
+intensive queries, and increases the effective cache capacity.
+- Horizontal scaling increases query throughput to handle more concurrent queries. 
+Consider horizontal scaling if vertical scaling doesn't adequately address
+concurrency demands or reaches the hardware limits of your underlying nodes.
 
 ### Compactor
 
-The Compactor can be scaled both [vertically](#vertical-scaling) and
-[horizontally](#horizontal-scaling).
-Because compaction is a compute-heavy process, vertical scaling (especially
-increasing the available CPU) is the most effective scaling strategy for the
-Compactor. Horizontal scaling increases compaction throughput, but not as
+- **Recommended**: Maintain **1 Compactor pod** and use [vertical scaling](#vertical-scaling) (especially
+increasing the available CPU) for the Compactor.
+- Because compaction is a compute-heavy process, horizontal scaling increases compaction throughput, but not as
 efficiently as vertical scaling.
 
 ### Garbage collector
 
-The Garbage collector is not designed for distributed load and should _not_ be
-scaled horizontally. It is a lightweight process that typically doesn't require
-significant system resources. [Vertical scaling](#vertical-scaling) should only
-be considered if you observe consistently high CPU usage or if the container
+The [Garbage collector](/influxdb3/clustered/reference/internals/storage-engine/#garbage-collector) is a lightweight process that typically doesn't require
+significant system resources. 
+
+- Don't horizontally scale the Garbage collector; it isn't designed for distributed load.
+- Consider [vertical scaling](#vertical-scaling) only if you observe consistently high CPU usage or if the container
 regularly runs out of memory.
 
 ### Catalog store
 
-The Catalog store is a PostgreSQL-compatible database that persistently stores metadata. 
-Scaling strategies depend on your chosen PostgreSQL implementation.
-All support [vertical scaling](#vertical-scaling), and most support
-[horizontal scaling](#horizontal-scaling) for redundancy and failover.
+The [Catalog store](/influxdb3/clustered/reference/internals/storage-engine/#catalog-store) is a PostgreSQL-compatible database that stores critical metadata for your InfluxDB cluster.
+An underprovisioned Catalog store can cause write outages and system-wide performance issues.
+
+- Scaling strategies depend on your specific PostgreSQL implementation
+- All PostgreSQL implementations support [vertical scaling](#vertical-scaling)
+- Most implementations support [horizontal scaling](#horizontal-scaling) for improved redundancy and failover
+
 
 ### Catalog service
 
-The Catalog service should maintain exactly 
-3 replicas for optimal redundancy.
-Additional replicas are discouraged; favor vertical scaling instead if performance improvements are needed.
+The [Catalog service](/influxdb3/clustered/reference/internals/storage-engine/#catalog-service) (iox-shared-catalog statefulset) caches 
+and manages access to the Catalog store.
+
+- **Recommended**: Maintain **exactly 3 replicas** of the Catalog service for optimal redundancy. Additional replicas are discouraged.
+- If performance improvements are needed, use [vertical scaling](#vertical-scaling).
 
 > [!Note]
+> #### Managing Catalog components
+> 
 > The [Catalog service](/influxdb3/clustered/reference/internals/storage-engine/#catalog-service) is managed through the
 > `AppInstance` resource, while the [Catalog store](/influxdb3/clustered/reference/internals/storage-engine/#catalog-store) 
 > is managed separately according to your PostgreSQL implementation.
 
 ### Object store
 
-Scaling strategies available for the Object store depend on the underlying
-object storage services used to run the object store. Most support
+The [Object store](/influxdb3/clustered/reference/internals/storage-engine/#object-store)
+contains time series data in Parquet format.
+
+Scaling strategies depend on the underlying object storage services used.
+Most services support
 [horizontal scaling](#horizontal-scaling) for redundancy, failover, and
 increased capacity.

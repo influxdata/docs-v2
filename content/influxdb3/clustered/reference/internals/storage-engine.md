@@ -50,8 +50,13 @@ queries, and is optimized to reduce storage cost.
 
 The Router (also known as the Ingest Router) parses incoming line
 protocol and then routes it to [Ingesters](#ingester).
-To ensure write durability, the Router replicates data to two or more of the
-available Ingesters.
+The Router processes incoming write requests through the following steps:
+
+- Queries the [Catalog](#catalog) to determine persistence locations and verify schema compatibility
+- Validates syntax and schema compatibility for each data point in the request,
+and either accepts or [rejects points](/influxdb3/clustered/write-data/troubleshoot/#troubleshoot-rejected-points)
+- Returns a [response](/influxdb3/clustered/write-data/troubleshoot/) to the client
+- Replicates data to two or more available Ingesters for write durability
 
 ### Ingester
 
@@ -59,11 +64,6 @@ The Ingester processes line protocol submitted in write requests and persists
 time series data to the [Object store](#object-store).
 In this process, the Ingester does the following:
 
-- Queries the [Catalog](#catalog) to identify where data should be persisted and
-  to ensure the schema of the line protocol is compatible with the
-  [schema](/influxdb3/clustered/reference/glossary/#schema) of persisted data.
-- Accepts or [rejects](/influxdb3/clustered/write-data/troubleshoot/#troubleshoot-rejected-points)
-  points in the write request and generates a [response](/influxdb3/clustered/write-data/troubleshoot/).
 - Processes line protocol and persists time series data to the
   [Object store](#object-store) in Apache Parquet format. Each Parquet file
   represents a _partition_--a logical grouping of data.
@@ -93,11 +93,12 @@ At query time, the querier:
 3.  Queries the [Catalog service](#catalog-service) to retrieve [Catalog store](#catalog-store)
     information about partitions in the [Object store](#object-store)
     that contain the queried data.
-4.  Reads partition Parquet files that contain the queried data and scans each
+4.  Retrieves any needed Parquet files (not already cached) from the Object store.
+5.  Reads partition Parquet files that contain the queried data and scans each
     row to filter data that matches predicates in the query plan.
-5.  Performs any additional operations (for example: deduplicating, merging, and sorting)
-    specified in the query plan.
-6.  Returns the query result to the client.
+6.  Performs any additional operations (for example: deduplicating, merging, and sorting)
+    specified in the query plan. 
+7.  Returns the query result to the client.
 
 ### Catalog
 
@@ -105,6 +106,8 @@ InfluxDB's catalog system consists of two distinct components: the [Catalog stor
 and the [Catalog service](#catalog-service).
 
 > [!Note]
+> #### Managing Catalog components
+> 
 > The Catalog service is managed through the `AppInstance` resource, while the Catalog store 
 > is managed separately according to your PostgreSQL implementation.
 
@@ -127,10 +130,10 @@ and manages access to the Catalog store.
 ### Object store
 
 The Object store contains time series data in [Apache Parquet](https://parquet.apache.org/) format.
-Each Parquet file represents a partition.
-By default, InfluxDB partitions tables by day, but you can
-[customize the partitioning strategy](/influxdb3/clustered/admin/custom-partitions/).
 Data in each Parquet file is sorted, encoded, and compressed.
+A partition may contain multiple parquet files which are subject to compaction.
+By default, InfluxDB partitions tables by day, but you can
+[customize the partitioning strategy](/influxdb3/clustered/admin/custom-partitions/)
 
 ### Compactor
 
