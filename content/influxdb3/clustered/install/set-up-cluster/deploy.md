@@ -22,48 +22,32 @@ following tools:
 - **kubit**: A Kubernetes controller that can render and apply jsonnet
   templates based on the [kubecfg](https://github.com/kubecfg/kubecfg) jsonnet
   tooling and framework
+- **helm**: Uses the [InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered), which includes the kubit operator.
 
-InfluxDB Clustered uses an `AppInstance` Kubernetes custom resource (CR) to
-configure and deploy your InfluxDB Cluster.
-Installing a `CustomResourceDefinition` (CRD) requires cluster-wide permissions
-and may cause `kubectl` to fail if you do not have those permissions in your cluster.
+To compare these tools and deployment methods, see [Choose the right deployment tool for your environment](/influxdb3/clustered/install/set-up-cluster/configure-cluster/#choose-the-right-deployment-tool-for-your-environment).
 
-`kubectl` uses your local credentials to install the `AppInstance` CRD.
-If you do not have the necessary permissions, you can
-[use the `kubit` CLI to manually install the package in your cluster](?t=kubit#kubectl-kubit-helm).
+## Prerequisites
 
-> [!Note]
-> **If you meet any of the following criteria,
-> [install and use the `kubit` CLI](?t=kubit#kubectl-kubit-helm)
-> on your local machine. This allows you to act as the operator would and deploy
-> your cluster, but from your terminal.**
-> 
-> - You do not have permissions to install a CRD.
-> - You do not have permissions to install the operator in the `kubit` namespace.
-> - You do not have permissions to create cluster-wide role-based access
->   control (RBAC).
-> - You want to preview the generated YAML.
-> - You do not want to run the operator in your Kubernetes cluster.
-
-You can also use [Helm](https://helm.sh/) and the
-[InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered)
-to deploy your InfluxDB cluster.
+If you haven't already set up and configured your cluster, see how to
+[install InfluxDB Clustered](/influxdb3/clustered/install/). 
 
 <!-- Hidden anchor for links to the kubectl/kubit/helm tabs -->
-
 <span id="kubectl-kubit-helm"></span>
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [kubectl](#)
-[kubit](#)
-[Helm](#)
+[kubit CLI](#)
+[helm](#)
 {{% /tabs %}}
 {{% tab-content %}}
-
 <!------------------------------- BEGIN kubectl ------------------------------->
+- [`kubectl` standard deployment (with internet access)](#kubectl-standard-deployment-with-internet-access)
+- [`kubectl` air-gapped deployment](#kubectl-air-gapped-deployment)
 
-Use the `kubectl apply` command to apply your custom-configured `myinfluxdb.yml`
+## kubectl standard deployment (with internet access)
+
+Use the `kubectl apply` command to apply your [custom-configured `myinfluxdb.yml`](/influxdb3/clustered/install/set-up-cluster/configure-cluster/directly/)
 and deploy your InfluxDB cluster:
 
 ```sh
@@ -72,55 +56,150 @@ kubectl apply \
   --namespace influxdb
 ```
 
+> [!Note]
+> Due to the additional complexity and maintenance requirements, using `kubectl apply` isn't
+> recommended for air-gapped environments.
+> Instead, consider using the [`kubit` CLI approach](#kubit-cli), which is specifically designed for air-gapped deployments.
+
 <!-------------------------------- END kubectl -------------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!-------------------------------- BEGIN kubit CLI -------------------------------->
+## Standard and air-gapped deployments
+
+_This approach avoids the need for installing the kubit operator in the cluster,
+making it ideal for air-gapped clusters._
+
+> [!Important]
+> For air-gapped deployment, ensure you have [configured access to a private registry for InfluxDB images](/influxdb3/clustered/install/set-up-cluster/configure-cluster/directly/#configure-access-to-the-influxDB-container-registry).
+
+1. On a machine with internet access, download the [`kubit` CLI](https://github.com/kubecfg/kubit#cli-tool)--for example:
+
+   ```bash
+   curl -L -o kubit https://github.com/kubecfg/kubit/archive/refs/tags/v0.0.20.tar.gz
+   chmod +x kubit
+   ```
+
+   Replace {{% code-placeholder-key %}}`v0.0.20`{{% /code-placeholder-key%}} with the [latest release version](https://github.com/kubecfg/kubit/releases/latest).
+
+2. If deploying InfluxDB in an air-gapped environment (without internet access),
+    transfer the binary to your air-gapped environment.
+
+3. Use the `kubit local apply` command to process your [custom-configured `myinfluxdb.yml`](/influxdb3/clustered/install/set-up-cluster/configure-cluster/directly/) locally
+   and apply the resulting resources to your cluster:
+
+   ```bash
+   # Point to Docker credentials that have access to your registry
+   # (public registry for standard deployments or private registry for air-gapped)
+   DOCKER_CONFIG=/path/to/credentials kubit local apply myinfluxdb.yml
+   ```
+
+   If your local system doesn't have required tools installed, use Docker mode:
+
+   ```bash
+   # For Linux or macOS
+   DOCKER_CONFIG=/path/to/credentials kubit local apply --docker myinfluxdb.yml
+   ```
+
+The `kubit local apply` command processes your AppInstance resource locally and
+applies the resulting Kubernetes resources directly to your cluster.
+
+<!------------------------------- END kubit CLI ------------------------------->
 
 {{% /tab-content %}}
 {{% tab-content %}}
-
-<!-------------------------------- BEGIN kubit -------------------------------->
-
-1.  [Install the `kubit` CLI](https://github.com/kubecfg/kubit#cli-tool)
-    and related tools on your local machine.
-
-2.  Use the `kubit local apply` command to apply your custom-configured
-    `myinfluxdb.yml` and deploy your InfluxDB Cluster.
-    Set the `DOCKER_CONFIG` environment variable to the directory path of
-    your InfluxDB Clustered pull secret credentials provided by InfluxData.
-
-    ```sh
-    DOCKER_CONFIG=/path/to/pullsecrets kubit local apply myinfuxdb.yml
-    ```
-
-**NOTE:** By default, `kubit` will use tools that are installed on your local system.
-You can specify the `--docker` flag to opt-in to using containers instead. This will pull images
-for tool dependencies, meaning the required versions are tracked by `kubit`.
-
-<!--------------------------------- END kubit --------------------------------->
-
-{{% /tab-content %}}
-{{% tab-content %}}
-
 <!-------------------------------- BEGIN Helm --------------------------------->
+- [Helm standard deployment (with internet access)](#helm-standard-deployment-with-internet-access)
+- [Helm air-gapped deployment](#helm-air-gapped-deployment)
 
-1.  Add the InfluxData Helm chart repository:
+## Helm standard deployment (with internet access)
 
-    ```bash
-    helm repo add influxdata https://helm.influxdata.com/
-    ```
+1. Add the InfluxData Helm chart repository:
 
-2.  Deploy your Helm chart using your modified local `values.yaml`:
+   ```bash
+   helm repo add influxdata https://helm.influxdata.com/
+   ```
 
-    ```bash
-    helm upgrade \
-      --install \
-      influxdb \
-      influxdata/influxdb3-clustered \
-      -f ./values.yml \
-      --namespace influxdb
-    ```
+2. Update your Helm repositories to ensure you have the latest charts:
+
+   ```bash
+   helm repo update
+   ```
+
+3. Deploy the InfluxDB Clustered Helm chart with your [customized `values.yaml`](/influxdb3/clustered/install/set-up-cluster/configure-cluster/use-helm/#create-a-valuesyaml-file):
+
+   ```bash
+   helm install influxdb influxdata/influxdb3-clustered \
+     -f values.yaml \
+     --namespace influxdb \
+     --create-namespace
+   ```
+
+If you need to update your deployment after making changes to your `values.yaml`, use the `helm upgrade` command:
+
+```bash
+helm upgrade influxdb influxdata/influxdb3-clustered \
+  -f values.yaml \
+  --namespace influxdb
+```
+
+## Helm air-gapped deployment
+
+> [!Important]
+> For air-gapped deployment, ensure you have [configured access to a private registry for InfluxDB images and the kubit operator](/influxdb3/clustered/install/set-up-cluster/configure-cluster/use-helm/#configure-access-to-the-influxDB-container-registry).
+
+1. On a machine with internet access, download the Helm chart:
+
+   ```bash
+   # Add the InfluxData repository
+   helm repo add influxdata https://helm.influxdata.com/
+   
+   # Update the repositories
+   helm repo update
+   
+   # Download the chart as a tarball
+   helm pull influxdata/influxdb3-clustered --version X.Y.Z
+   ```
+   
+   Replace `X.Y.Z` with the specific chart version you want to use.
+
+2. Transfer the chart tarball to your air-gapped environment using your secure file transfer method.
+
+3. In your air-gapped environment, install the chart from the local tarball and values from your [customized `values.yaml`](/influxdb3/clustered/install/set-up-cluster/configure-cluster/use-helm/#create-a-valuesyaml-file):
+
+   ```bash
+   helm install influxdb ./influxdb3-clustered-X.Y.Z.tgz \
+     -f values.yaml \
+     --namespace influxdb \
+     --create-namespace
+   ```
+
+4. Verify the deployment:
+
+   ```bash
+   kubectl get pods -n influxdb
+   ```
+
+If you need to update your deployment after making changes to your `values.yaml`, use the `helm upgrade` command:
+
+```bash
+helm upgrade influxdb ./influxdb3-clustered-X.Y.Z.tgz \
+  -f values.yaml \
+  --namespace influxdb
+```
+
+> [!Note]
+> #### kubit's role in air-gapped environments
+>
+> When deploying with Helm in an air-gapped environment:
+>
+> 1. **Helm deploys the kubit operator** - The Helm chart includes the kubit operator, which needs its images mirrored to your private registry
+> 2. **Operator requires access to all InfluxDB images** - The kubit operator deploys the actual InfluxDB components using images from your private registry
+> 3. **Registry override is essential** - You must set the `images.registryOverride` and configure the kubit operator images correctly in the values file
+>
+> This is why you need to [mirror InfluxDB images and kubit operator images](/influxdb3/clustered/install/set-up-cluster/configure-cluster/use-helm/#mirror-influxdb-images) for air-gapped deployments.
 
 <!--------------------------------- END Helm ---------------------------------->
-
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
@@ -201,5 +280,25 @@ influxdb      global-router-86cf6b869b-56skm            3/3     Running     1 (6
 influxdb      iox-shared-querier-7f5998b9b-fpt62        4/4     Running     1 (62s ago)    90s
 influxdb      kubit-apply-influxdb-g6qpx                0/1     Completed   0              8s
 ```
+
+## Troubleshoot deploying InfluxDB Clustered
+
+### Common issues
+
+1. **Image pull errors**
+   - Check that registry override and image pull secrets are properly configured
+   - For air-gapped: Verify all images are mirrored and `registryOverride` is correctly set
+
+2. **Missing kubit binary**
+   - Ensure you've transferred the correct version of kubit for your platform
+   - Verify the binary has executable permissions
+
+3. **Kubit operator failures in air-gapped environments**
+
+   - Ensure you've properly mirrored all kubit operator images and configured their references in your values file.
+
+4. **PostgreSQL connectivity issues**
+   - Verify network connectivity to your PostgreSQL database
+   - Check that database credentials are correct in your configuration
 
 {{< page-nav prev="/influxdb3/clustered/install/set-up-cluster/licensing/" prevText="Install your license" next="/influxdb3/clustered/install/set-up-cluster/test-cluster/" nextText="Test your cluster" >}}
