@@ -14,7 +14,7 @@ Provide the following:
 - {{< product-name >}} authorization token
 
   > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
+  > While in beta, {{< product-name >}} does not require an authorization token.
 
 {{% code-placeholders "DATABASE_NAME" %}}
 ```sh

@@ -23,7 +23,7 @@ Provide the following with your request:
   - **Authorization:** `Bearer AUTH_TOKEN`
 
     > [!Note]
-    > While in alpha, {{< product-name >}} does not require an authorization
+    > While in beta, {{< product-name >}} does not require an authorization
     > token. You can either omit this header or include it with an arbitrary
     > token string.
 

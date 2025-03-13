@@ -215,7 +215,7 @@ a database connection.
     - **`?token`**: InfluxDB authorization token
       
       > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization token.
+      > While in beta, {{< product-name >}} does not require an authorization token.
 
     {{< code-callout "&lt;(domain|port|database-name|token)&gt;" >}}
 {{< code-callout "localhost|8181|example-database|example-token" >}}

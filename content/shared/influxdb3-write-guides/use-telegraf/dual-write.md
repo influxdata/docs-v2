@@ -15,7 +15,7 @@ The following example configures Telegraf for dual writing to {{% product-name %
     in your Telegraf configuration file to reference each environment variable.
 
     > [!Note]
-    > While in alpha, {{< product-name >}} does not require an authorization token.
+    > While in beta, {{< product-name >}} does not require an authorization token.
     > For the `token` option, provide an arbitrary, non-empty token string.
 
 

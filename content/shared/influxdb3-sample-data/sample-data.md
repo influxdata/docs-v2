@@ -221,7 +221,7 @@ Replace the following in the sample script:
   your {{< product-name >}} authorization token
   
   > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
+  > While in beta, {{< product-name >}} does not require an authorization token.
   > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
   > you can provide an arbitrary token string.
 
@@ -374,7 +374,7 @@ Replace the following in the sample script:
   your {{< product-name >}} authorization token
   
   > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
+  > While in beta, {{< product-name >}} does not require an authorization token.
   > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
   > you can provide an arbitrary token string.
 
@@ -481,7 +481,7 @@ Replace the following in the sample script:
   your {{< product-name >}} authorization token
   
   > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
+  > While in beta, {{< product-name >}} does not require an authorization token.
   > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
   > you can provide an arbitrary token string.
 
@@ -578,7 +578,7 @@ Replace the following in the sample script:
   your {{< product-name >}} authorization token
   
   > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
+  > While in beta, {{< product-name >}} does not require an authorization token.
   > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
   > you can provide an arbitrary token string.
 
@@ -677,7 +677,7 @@ Replace the following in the sample script:
   your {{< product-name >}} authorization token
   
   > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
+  > While in beta, {{< product-name >}} does not require an authorization token.
   > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
   > you can provide an arbitrary token string.
 
