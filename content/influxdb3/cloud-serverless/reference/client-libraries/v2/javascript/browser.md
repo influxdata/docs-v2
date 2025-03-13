@@ -39,10 +39,10 @@ This library supports both front-end and server-side environments and provides t
 This guide presumes some familiarity with JavaScript, browser environments, and InfluxDB.
 If you're just getting started with InfluxDB, see [Get started with InfluxDB](/influxdb/v2/get-started/).
 
-{{% warn %}}
-### Tokens in production applications
-{{% api/browser-token-warning %}}
-{{% /warn %}}
+> [!Warning]
+> ### Tokens in production applications
+>
+> {{% api/browser-token-warning %}}
 
 * [Before you begin](#before-you-begin)
 * [Use with module bundlers](#use-with-module-bundlers)

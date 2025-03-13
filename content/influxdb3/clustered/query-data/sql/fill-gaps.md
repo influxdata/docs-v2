@@ -44,10 +44,9 @@ gaps with interpolated values or by carrying forward the last available observat
     - **interpolate**: fills null values by interpolating values between non-null values.
     - **locf**: fills null values by carrying the last observed value forward.
     
-    {{% note %}}
-The expression passed to `interpolate` or `locf` must use an
-[aggregate function](/influxdb3/clustered/reference/sql/functions/aggregate/).
-    {{% /note %}}
+    > [!Note]
+    > The expression passed to `interpolate` or `locf` must use an
+    > [aggregate function](/influxdb3/clustered/reference/sql/functions/aggregate/).
 
 3.  Include a `WHERE` clause that sets upper and lower time bounds.
     For example:

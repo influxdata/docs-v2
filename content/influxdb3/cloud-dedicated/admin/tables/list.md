@@ -29,9 +29,8 @@ Use the [`SHOW TABLES` SQL statement](/influxdb3/cloud-dedicated/query-data/sql/
 or the [`SHOW MEASUREMENTS` InfluxQL statement](/influxdb3/cloud-dedicated/query-data/influxql/explore-schema/#list-measurements-in-a-database)
 to list tables in a database.
 
-{{% note %}}
-With {{< product-name >}}, tables and measurements are synonymous.
-{{% /note %}}
+> [!Note]
+> With {{< product-name >}}, tables and measurements are synonymous.
 
 ###### SQL
 
@@ -49,10 +48,6 @@ SHOW MEASUREMENTS
 
 To list tables using the `influxctl` CLI, use the `influxctl query` command to pass
 the `SHOW TABLES` SQL statement.
-
-{{% note %}}
-The `influxctl query` command only supports SQL queries; not InfluxQL.
-{{% /note %}}
 
 Provide the following with your command:
 

@@ -16,12 +16,11 @@ InfluxDB namespace.
 You can use the admin token with the [`influxctl` CLI](/influxdb3/clustered/reference/cli/influxctl/)
 in lieu of configuring and using an OAuth2 identity provider.
 
-{{% warn %}}
-#### Do not use in production
-
-This feature is for development and testing purposes only and should not be used
-in a production InfluxDB cluster.
-{{% /warn %}}
+> [!Warning]
+> #### Do not use in production
+> 
+> This feature is for development and testing purposes only and should not be used
+> in a production InfluxDB cluster.
 
 ## Configure influxctl to use the admin token
 
@@ -102,7 +101,6 @@ In the examples above, replace the following:
 - {{% code-placeholder-key %}}`KEY_GEN_JOB`{{% /code-placeholder-key %}}:
   The name of the key-gen job pod.
 
-{{% note %}}
-To create a new admin token after revoking the existing one, rerun the
-`create-admin-token` job.
-{{% /note %}}
+> [!Note]
+> To create a new admin token after revoking the existing one, rerun the
+> `create-admin-token` job.

@@ -31,16 +31,15 @@ related:
 Use the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/)
 or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/) to create a database in your {{< product-name omit=" Clustered" >}} cluster.
 
-{{% warn %}}
-
-#### Deleting a database cannot be undone
-
-Once a database is deleted, data stored in that database cannot be recovered.
-
-#### Cannot reuse database names
-
-After a database is deleted, you cannot reuse the same name for a new database.
-{{% /warn %}}
+> [!Warning]
+> 
+> #### Deleting a database cannot be undone
+> 
+> Once a database is deleted, data stored in that database cannot be recovered.
+> 
+> #### Cannot reuse database names
+> 
+> After a database is deleted, you cannot reuse the same name for a new database.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
