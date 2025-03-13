@@ -52,7 +52,6 @@ This guide covers InfluxDB 3 Core (the open source release), including the follo
 * [Last values cache](#last-values-cache)
 * [Distinct values cache](#distinct-values-cache)
 * [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
-* [Diskless architecture](#diskless-architecture)
 
 ### Install and startup
 
@@ -69,7 +68,6 @@ This guide covers InfluxDB 3 Core (the open source release), including the follo
 To get started quickly, download and run the install script--for example, using [curl](https://curl.se/download.html):
 
 <!--pytest.mark.skip-->
-
 ```bash
 curl -O https://www.influxdata.com/d/install_influxdb3.sh \
 && sh install_influxdb3.sh
@@ -109,7 +107,6 @@ is available for x86_64 (AMD64) and ARM64 architectures.
 Pull the image:
 
 <!--pytest.mark.skip-->
-
 ```bash
 docker pull quay.io/influxdb/influxdb3-core:latest
 ```
@@ -131,7 +128,6 @@ influxdb3 --version
 If your system doesn't locate `influxdb3`, then `source` the configuration file (for example, .bashrc, .zshrc) for your shell--for example:
 
 <!--pytest.mark.skip-->
-
 ```zsh
 source ~/.zshrc
 ```
@@ -147,6 +143,13 @@ and provide the following:
   Google Cloud Storage (`google`), and Azure Blob Storage (`azure`).
 - `--node-id`: A string identifier that determines the server's storage path
   within the configured storage location, and, in a multi-node setup, is used to reference the node.
+
+> [!Note]
+> #### Diskless architecture
+>
+> InfluxDB 3 supports a diskless architecture that can operate with object
+> storage alone, eliminating the need for locally attached disks.
+> {{% product-name %}} can also work with only local disk storage when needed. 
 
 The following examples show how to start InfluxDB 3 with different object store configurations:
 
@@ -249,9 +252,14 @@ InfluxDB is a schema-on-write database. You can start writing data and InfluxDB 
 After a schema is created, InfluxDB validates future write requests against it before accepting the data.
 Subsequent requests can add new fields on-the-fly, but can't add new tags.
 
-{{% product-name %}} is optimized for recent data, but accepts writes from any time period. It persists that data in Parquet files for access by third-party systems for longer term historical analysis and queries. If you require longer historical queries with a compactor that optimizes data organization, consider using [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
+> [!Note]
+> #### Core is optimized for recent data
+>
+> {{% product-name %}} is optimized for recent data but accepts writes from any time period.
+> The system persists data to Parquet files for historical analysis with [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/) or third-party tools.
+> For extended historical queries and optimized data organization, consider using [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
 
-The database provides three write API endpoints that respond to HTTP `POST` requests:
+{{% product-name %}} provides three write API endpoints that respond to HTTP `POST` requests:
 
 #### /api/v3/write_lp endpoint
 
@@ -368,39 +376,43 @@ The response is the following:
 InfluxDB rejects all points in the batch.
 The response is an HTTP error (`400`) status, and the response body contains `parsing failed for write_lp endpoint` and details about the problem line.
 
-#### Data durability
+### Data flow
 
-When you write data to InfluxDB, InfluxDB ingests the data and writes it to WAL files, created once per second, and to an in-memory queryable buffer.
-Later, InfluxDB snapshots the WAL and persists the data into object storage as Parquet files.
-For more information, see [diskless architecture](#diskless-architecture).
+The figure below shows how written data flows through the database.
 
-> [!Note]
-> ##### Write requests return after WAL flush
->
-> By default, InfluxDB acknowledges writes after flushing the WAL file to the Object store (occurring every second). For high throughput, you can send multiple concurrent write requests.
->
-> To reduce the latency of writes, use the [`no_sync` write option](#no-sync-write-option), which acknowledges writes _before_ WAL persistence completes.
+{{< img-hd src="/img/influxdb/influxdb-3-write-path.png" alt="Write Path for InfluxDB 3 Core & Enterprise" />}}
 
-##### No sync write option
+1. **Incoming writes**: The system validates incoming data and stores it in the write buffer (in memory). If [`no_sync=true`](#no-sync-write-option), the server sends a response to acknowledge the write.
+2. **WAL flush**: Every second (default), the system flushes the write buffer to the Write-Ahead Log (WAL) for persistence in the Object store. If [`no_sync=false`](#no-sync-write-option) (default), the server sends a response to acknowledge the write.
+3. **Query availability**: After WAL persistence completes, data moves to the queryable buffer where it becomes available for queries. By default, the server keeps up to 900 WAL files (15 minutes of data) buffered.
+4. **Long-term storage in Parquet**: Every ten minutes (default), the system persists the oldest data from the queryable buffer to the Object store in Parquet format. InfluxDB keeps the remaining data (the most recent 5 minutes) in memory.
+5. **In-memory cache**: InfluxDB puts Parquet files into an in-memory cache so that queries against the most recently persisted data don't have to go to object storage.
 
-The `no_sync` write option reduces latency by acknowledging write requests before WAL persistence completes. When set to `true`, InfluxDB validates the data, writes the data to the WAL, and then immediately confirms the write, without waiting for persistence to the Object store.
+#### Write responses
+
+By default, InfluxDB acknowledges writes after flushing the WAL file to the Object store (occurring every second).
+For high write throughput, you can send multiple concurrent write requests.
+
+#### Use no_sync for immediate write responses
+
+To reduce the latency of writes, use the `no_sync` write option, which acknowledges writes _before_ WAL persistence completes.
+When `no_sync=true`, InfluxDB validates the data, writes the data to the WAL, and then immediately responds to the client, without waiting for persistence to the Object store.
 
 Using `no_sync=true` is best when prioritizing high-throughput writes over absolute durability. 
 
 - Default behavior (`no_sync=false`): Waits for data to be written to the Object store before acknowledging the write. Reduces the risk of data loss, but increases the latency of the response.
 - With `no_sync=true`: Reduces write latency, but increases the risk of data loss in case of a crash before WAL persistence. 
 
-###### Immediate write using the HTTP API
+##### Immediate write using the HTTP API
 
 The `no_sync` parameter controls when writes are acknowledged--for example:
-
 
 ```sh
 curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=true" \
   --data-raw "home,room=Sunroom temp=96"
 ```
 
-###### Immediate write using the influxdb3 CLI
+##### Immediate write using the influxdb3 CLI
 
 The `no_sync` CLI option controls when writes are acknowledged--for example:
 
@@ -422,7 +434,7 @@ To learn more about a subcommand, use the `-h, --help` flag:
 influxdb3 create -h
 ```
 
-### Query a database
+### Query data
 
 InfluxDB 3 now supports native SQL for querying, in addition to InfluxQL, an
 SQL-like language customized for time series queries.
@@ -825,15 +837,4 @@ influxdb3 enable trigger --database mydb trigger1
 
 For more information, see [Python plugins and the Processing engine](/influxdb3/version/plugins/).
 
-### Diskless architecture
 
-InfluxDB 3 is able to operate using only object storage with no locally attached disk.
-While it can use only a disk with no dependencies, the ability to operate without one is a new capability with this release. The figure below illustrates the write path for data landing in the database.
-
-{{< img-hd src="/img/influxdb/influxdb-3-write-path.png" alt="Write Path for InfluxDB 3 Core & Enterprise" />}}
-
-As write requests come in to the server, they are parsed, validated, and put into an in-memory WAL buffer. This buffer is flushed every second by default (can be changed through configuration), which will create a WAL file. Once the data is flushed to disk, it is put into a queryable in-memory buffer and then a response is sent back to the client that the write was successful. That data will now show up in queries to the server.
-
-InfluxDB periodically snapshots the WAL to persist the oldest data in the queryable buffer, allowing the server to remove old WAL files. By default, the server will keep up to 900 WAL files buffered up (15 minutes of data) and attempt to persist the oldest 10 minutes, keeping the most recent 5 minutes around.
-
-When the data is persisted out of the queryable buffer it is put into the configured object store as Parquet files. Those files are also put into an in-memory cache so that queries against the most recently persisted data do not have to go to object storage.
