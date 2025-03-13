@@ -16,6 +16,10 @@ function SetInfo(data) {
           }
           if(data.hasOwnProperty('summary')) {
             info.summary = data.summary;
+          } else {
+            // Remove summary if not provided.
+            // info.summary isn't a valid OpenAPI 3.0 property, but it's used by Redocly.
+            info['summary'] = undefined;
           }
           if(data.hasOwnProperty('description')) {
              info.description = data.description;
@@ -23,6 +27,9 @@ function SetInfo(data) {
           if(data.hasOwnProperty('license')) {
              info.license = data.license;
           }
+          if(data.hasOwnProperty('contact')) {
+            info.contact = data.contact;
+         } 
 	      }
       }
     }

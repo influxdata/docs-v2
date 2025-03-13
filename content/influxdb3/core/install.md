@@ -42,9 +42,10 @@ Use the InfluxDB 3 quick install script to install {{< product-name >}} on
 
 1.  Use the following command to download and install the appropriate
     {{< product-name >}} package on your local machine:
-
+    <!--pytest.mark.skip-->
     ```bash
-    curl -O https://www.influxdata.com/d/install_influxdb3.sh && sh install_influxdb3.sh
+    curl -O https://www.influxdata.com/d/install_influxdb3.sh \
+    && sh install_influxdb3.sh
     ```
 
 2.  Verify that installation completed successfully:
@@ -71,6 +72,7 @@ source ~/.bashrc
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+<!--pytest.mark.skip-->
 ```bash
 source ~/.zshrc
 ```
@@ -93,17 +95,9 @@ source ~/.zshrc
   •
   [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-gnu.tar.gz.sha256)
 
-- [InfluxDB 3 Core • Linux (x86) • MUSL](https://download.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-musl.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_x86_64-unknown-linux-musl.tar.gz.sha256)
-
 - [InfluxDB 3 Core • Linux (ARM) • GNU](https://download.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-gnu.tar.gz)
   •
   [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-gnu.tar.gz.sha256)
-
-- [InfluxDB 3 Core • Linux (ARM) • MUSL](https://download.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-musl.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-core_aarch64-unknown-linux-musl.tar.gz)
 
 <!--------------------------------- END LINUX --------------------------------->
 
@@ -139,9 +133,77 @@ source ~/.zshrc
 
 Use the `influxdb3-core` Docker image to deploy {{< product-name >}} in a
 Docker container.
+The image is available for x86_64 (AMD64) and ARM64 architectures.
 
+### Use Docker CLI
+
+<!--pytest.mark.skip-->
 ```bash
 docker pull quay.io/influxdb/influxdb3-core:latest
 ```
+
+Docker automatically pulls the appropriate image for your system architecture.
+
+You can also explicitly specify the architecture by using platform-specific tags:
+
+```bash
+# For x86_64/AMD64
+docker pull \
+--platform linux/amd64 \
+quay.io/influxdb/influxdb3-core:latest
+```
+
+```bash
+# For ARM64
+docker pull \
+--platform linux/arm64 \
+quay.io/influxdb/influxdb3-core:latest
+```
+> [!Note]
+> The {{% product-name %}} Docker image exposes port `8181`, the `influxdb3` server default for HTTP connections.
+> To map the exposed port to a different port when running a container, see the Docker guide for [Publishing and exposing ports](https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/).
+
+### Use Docker Compose
+
+1. Open `compose.yaml` for editing and add a `services` entry for {{% product-name %}}--for example:
+
+   ```yaml
+   # compose.yaml
+   services
+     influxdb3-core:
+       container_name: influxdb3-core
+       image: quay.io/influxdb/influxdb3-{{% product-key %}}:latest
+       ports:
+         - 9999:9999
+       command:
+         - serve
+         - --node-id=node0
+         - --log-filter=debug
+         - --object-store=file
+         - --data-dir=/var/lib/influxdb3
+   ```
+
+2. Use the Docker Compose CLI to start the server.
+
+   Optional: to make sure you have the latest version of the image before you
+   start the server, run `docker compose pull`.
+
+   <!--pytest.mark.skip-->
+   ```bash
+   docker compose pull && docker compose run influxdb3-core
+   ```
+
+> [!Note]
+> #### Stopping an InfluxDB 3 container
+>
+> To stop a running InfluxDB 3 container, find and terminate the process--for example:
+>
+> <!--pytest.mark.skip-->
+> ```bash
+> ps -ef | grep influxdb3
+> kill -9 <PROCESS_ID>
+> ```
+>
+> Currently, a bug prevents using `Ctrl-c` in the terminal to stop an InfluxDB 3 container.
 
 {{< page-nav next="/influxdb3/core/get-started/" nextText="Get started with InfluxDB 3 Core" >}}

@@ -119,7 +119,7 @@ Records that evaluate to _null_ or `false` are not included in the output tables
 
 URL of the InfluxDB instance to query.
 
-See [InfluxDB OSS URLs](/influxdb/latest/reference/urls/)
+See [InfluxDB OSS URLs](/influxdb/v2/reference/urls/)
 or [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/).
 
 ### org
@@ -130,7 +130,7 @@ Organization name.
 
 ### token
 
-InfluxDB [API token](/influxdb/latest/security/tokens/).
+InfluxDB [API token](/influxdb/v2/security/tokens/).
 
 
 

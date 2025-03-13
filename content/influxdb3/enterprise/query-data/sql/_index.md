@@ -2,7 +2,7 @@
 title: Query data with SQL
 seotitle: Query data with SQL
 description: >
-  Learn to query data stored in {{< product-name >}} using SQL.
+  Learn to query data in {{< product-name >}} using SQL.
 menu:
   influxdb3_enterprise:
     name: Query with SQL

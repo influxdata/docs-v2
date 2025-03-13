@@ -3,14 +3,18 @@ info:
   title: InfluxDB Cloud API Service
   version: 2.x
   description: |
-    The InfluxDB v2 HTTP API provides a programmatic interface for all interactions with InfluxDB v2. Access the InfluxDB API using `/api/v2/` and InfluxDB v1-compatible endpoints.
+    The InfluxDB v2 HTTP API provides a programmatic interface for all interactions with InfluxDB v2.
+    Access the InfluxDB API using `/api/v2/` and InfluxDB v1-compatible endpoints.
 
     This documentation is generated from the
     [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-  summary: The InfluxDB v2 HTTP API provides a programmatic interface for all interactions with InfluxDB v2.
+  contact:
+    name: InfluxData
+    url: https://www.influxdata.com
+    email: support@influxdata.com
 servers:
   - url: https://{baseurl}
     description: InfluxDB Cloud API URL
@@ -97,8 +101,8 @@ tags:
   - name: Dashboards
   - name: Data I/O endpoints
   - description: |
-      The InfluxDB 1.x data model includes [databases](/influxdb/v1.8/concepts/glossary/#database)
-      and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp).
+      The InfluxDB 1.x data model includes [databases](/influxdb/cloud/reference/glossary/#database)
+      and [retention policies](/influxdb/cloud/reference/glossary/#retention-policy-rp).
       InfluxDB 2.x replaces databases and retention policies with buckets.
       To support InfluxDB 1.x query and write patterns in InfluxDB 2.x,
       databases and retention policies are mapped to buckets using the
@@ -410,7 +414,7 @@ paths:
             Specifies an authorization by its `token` property value
             and returns the authorization.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Doesn't support this parameter. InfluxDB OSS ignores the `token=` parameter,
               applies other parameters, and then returns the result.
@@ -437,11 +441,11 @@ paths:
             token used in the request has `read-user` permission for the users (`userID` property value)
             in those authorizations.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - **Warning**: The response body contains authorizations with their
               [API token](/influxdb/cloud/reference/glossary/#token) values in clear text.
-            - If the request uses an  _[operator token](/influxdb/latest/security/tokens/#operator-token)_,
+            - If the request uses an  _[operator token](/influxdb/v2/security/tokens/#operator-token)_,
               InfluxDB OSS returns authorizations for all organizations in the instance.
         '400':
           $ref: '#/components/responses/GeneralServerError'
@@ -593,11 +597,11 @@ paths:
         Use this endpoint to retrieve information about an API token, including
         the token's permissions and the user that the token is scoped to.
 
-        #### InfluxDB OSS
+        #### InfluxDB OSS v2
 
         - InfluxDB OSS returns
           [API token](/influxdb/cloud/reference/glossary/#token) values in authorizations.
-        - If the request uses an _[operator token](/influxdb/latest/security/tokens/#operator-token)_,
+        - If the request uses an _[operator token](/influxdb/v2/security/tokens/#operator-token)_,
           InfluxDB OSS returns authorizations for all organizations in the instance.
 
         #### Related guides
@@ -710,7 +714,7 @@ paths:
         If no query parameters are passed, InfluxDB returns all buckets up to the
         default `limit`.
 
-        #### InfluxDB OSS
+        #### InfluxDB OSS v2
 
         - If you use an _[operator token](/influxdb/cloud/security/tokens/#operator-token)_
           to authenticate your request, InfluxDB retrieves resources for _all
@@ -742,7 +746,7 @@ paths:
             - Doesn't use the `org` parameter or `orgID` parameter.
             - Lists buckets for the organization associated with the authorization (API token).
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Lists buckets for the specified organization.
           in: query
@@ -757,7 +761,7 @@ paths:
             - Doesn't use the `org` parameter or `orgID` parameter.
             - Lists buckets for the organization associated with the authorization (API token).
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Requires either the `org` parameter or `orgID` parameter.
             - Lists buckets for the specified organization.
@@ -842,7 +846,7 @@ paths:
         [retention period](/influxdb/cloud/reference/glossary/#retention-period)
         is 30 days.
 
-        #### InfluxDB OSS
+        #### InfluxDB OSS v2
 
         - A single InfluxDB OSS instance supports active writes or queries for
         approximately 20 buckets across all organizations at a given time.
@@ -985,7 +989,7 @@ paths:
           2. Returns an HTTP `204` status code if queued; _error_ otherwise.
           3. Handles the delete asynchronously.
 
-        #### InfluxDB OSS
+        #### InfluxDB OSS v2
 
         - Validates the request, handles the delete synchronously,
         and then responds with success or failure.
@@ -1016,7 +1020,7 @@ paths:
             #### InfluxDB Cloud
               - The bucket is queued for deletion.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
               - The bucket is deleted.
         '400':
           content:
@@ -1153,7 +1157,7 @@ paths:
         - Requires the `retentionRules` property in the request body. If you don't
         provide `retentionRules`, InfluxDB responds with an HTTP `403` status code.
 
-        #### InfluxDB OSS
+        #### InfluxDB OSS v2
 
         - Doesn't require `retentionRules`.
 
@@ -3452,7 +3456,7 @@ paths:
           schema:
             type: string
         - description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp).
+            A [retention policy](/influxdb/cloud/reference/glossary/#retention-policy-rp).
             Specifies the 1.x retention policy to filter on.
           in: query
           name: rp
@@ -3857,7 +3861,7 @@ paths:
         Because writes and deletes are asynchronous, your change might not yet be readable
         when you receive the response.
 
-        #### InfluxDB OSS
+        #### InfluxDB OSS v2
 
         - Validates the request, handles the delete synchronously,
           and then responds with success or failure.
@@ -3891,7 +3895,7 @@ paths:
             - Deletes data from the bucket in the organization
               associated with the authorization (API token).
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Requires either the `org` parameter or the `orgID` parameter.
             - Deletes data from the bucket in the specified organization.
@@ -3919,7 +3923,7 @@ paths:
             - Deletes data from the bucket in the organization
               associated with the authorization (API token).
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Requires either the `org` parameter or the `orgID` parameter.
             - Deletes data from the bucket in the specified organization.
@@ -3973,7 +3977,7 @@ paths:
             Because writes are asynchronous, data might not yet be written
             when you receive the response.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Deleted the data.
         '400':
@@ -3991,7 +3995,7 @@ paths:
             Bad request.
             The response body contains detail about the error.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Returns this error if the `org` parameter or `orgID` parameter doesn't match an organization.
         '401':
@@ -4031,16 +4035,12 @@ paths:
 
         1. Use [token authentication](#section/Authentication/TokenAuthentication) or a [user session](#tag/Signin) with this endpoint to retrieve
            feature flags and their values.
-        2. Follow the instructions to [enable, disable, or override values for feature flags](/influxdb/cloud/reference/config-options/#feature-flags).
+        2. Follow the instructions to enable, disable, or override values for feature flags.
         3. **Optional**: To confirm that your change is applied, do one of the following:
 
            - Send a request to this endpoint to retrieve the current feature flag values.
            - Send a request to the [`GET /api/v2/config` endpoint](#operation/GetConfig) to retrieve the
              current runtime server configuration.
-
-        #### Related guides
-
-        - [InfluxDB configuration options](/influxdb/cloud/reference/config-options/)
       operationId: GetFlags
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -4262,7 +4262,7 @@ paths:
         #### Related guides
 
         - [InfluxDB Cloud - Change your password](/influxdb/cloud/account-management/change-password/)
-        - [InfluxDB OSS - Change your password](/influxdb/latest/users/change-password/)
+        - [InfluxDB OSS - Change your password](/influxdb/v2/users/change-password/)
       operationId: PutMePassword
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -4298,7 +4298,7 @@ paths:
 
             - Doesn't let you manage user passwords through the API; always responds with this status.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Doesn't understand a value passed in the request.
         '401':
@@ -5111,7 +5111,7 @@ paths:
           2. Returns an HTTP `204` status code if queued; _error_ otherwise.
           3. Handles the delete asynchronously.
 
-        #### InfluxDB OSS
+        #### InfluxDB OSS v2
 
         - Validates the request, handles the delete synchronously,
         and then responds with success or failure.
@@ -5141,7 +5141,7 @@ paths:
             #### InfluxDB Cloud
               - The organization is queued for deletion.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
               - The organization is deleted.
         '400':
           $ref: '#/components/responses/BadRequestError'
@@ -6076,7 +6076,7 @@ paths:
             - Doesn't use the `org` parameter or `orgID` parameter.
             - Queries the bucket in the organization associated with the authorization (API token).
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Requires either the `org` parameter or `orgID` parameter.
             - Queries the bucket in the specified organization.
@@ -6092,7 +6092,7 @@ paths:
             - Doesn't use the `org` parameter or `orgID` parameter.
             - Queries the bucket in the organization associated with the authorization (API token).
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Requires either the `org` parameter or `orgID` parameter.
             - Queries the bucket in the specified organization.
@@ -6156,7 +6156,7 @@ paths:
             Bad request.
             The response body contains detail about the error.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Returns this error if the `org` parameter or `orgID` parameter doesn't match an organization.
         '401':
@@ -6172,7 +6172,7 @@ paths:
                 [global limit](/influxdb/cloud/account-management/limits/#global-limits)
               - returns `Retry-After` header that describes when to try the write again.
 
-            #### InfluxDB OSS:
+            #### InfluxDB OSS v2:
               - doesn't return this error.
           headers:
             Retry-After:
@@ -8508,7 +8508,7 @@ paths:
             Bad request.
             The response body contains detail about the error.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Returns this error if an incorrect value is passed in the `org` parameter or `orgID` parameter.
         '401':
@@ -9857,7 +9857,7 @@ paths:
 
               - Always returns this error; doesn't support cancelling tasks.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
               - Doesn't return this error.
         '500':
@@ -11184,7 +11184,7 @@ paths:
         #### Related guides
 
         - [InfluxDB Cloud - Change your password](/influxdb/cloud/account-management/change-password/)
-        - [InfluxDB OSS - Change your password](/influxdb/latest/users/change-password/)
+        - [InfluxDB OSS - Change your password](/influxdb/v2/users/change-password/)
       operationId: PostUsersIDPassword
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -11222,7 +11222,7 @@ paths:
 
             - Doesn't allow you to manage passwords through the API; always responds with this status.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Doesn't understand a value passed in the request.
         default:
@@ -11259,7 +11259,7 @@ paths:
         #### Related guides
 
         - [InfluxDB Cloud - Change your password](/influxdb/cloud/account-management/change-password/)
-        - [InfluxDB OSS - Change your password](/influxdb/latest/users/change-password/)
+        - [InfluxDB OSS - Change your password](/influxdb/v2/users/change-password/)
       operationId: PutUsersIDPassword
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -11297,7 +11297,7 @@ paths:
 
             - Doesn't allow you to manage passwords through the API; always responds with this status.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Doesn't understand a value passed in the request.
         default:
@@ -11600,7 +11600,7 @@ paths:
           Because writes and deletes are asynchronous, your change might not yet be readable
           when you receive the response.
 
-        #### InfluxDB OSS
+        #### InfluxDB OSS v2
 
         - Validates the request and handles the write synchronously.
         - If all points were written successfully, responds with HTTP `2xx` status code;
@@ -11671,7 +11671,7 @@ paths:
               - Returns only `application/json` for format and limit errors.
               - Returns only `text/html` for some quota limit errors.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
               - Returns only `application/json` for format and limit errors.
 
@@ -11695,7 +11695,7 @@ paths:
             - Writes data to the bucket in the organization
               associated with the authorization (API token).
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Requires either the `org` parameter or the `orgID` parameter.
             - If you pass both `orgID` and `org`, they must both be valid.
@@ -11715,7 +11715,7 @@ paths:
             - Writes data to the bucket in the organization
               associated with the authorization (API token).
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Requires either the `org` parameter or the `orgID` parameter.
             - If you pass both `orgID` and `org`, they must both be valid.
@@ -11772,7 +11772,7 @@ paths:
             - Validated and queued the request.
             - Handles the write asynchronously - the write might not have completed yet.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Successfully wrote all points in the batch.
 
@@ -11807,7 +11807,7 @@ paths:
 
             - Returns this error for bucket schema conflicts.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Returns this error if the `org` parameter or `orgID` parameter doesn't match an organization.
         '401':
@@ -11848,7 +11848,7 @@ paths:
              - Returns this error if the payload exceeds the 50MB size limit.
              - Returns `Content-Type: text/html` for this error.
 
-            #### InfluxDB OSS:
+            #### InfluxDB OSS v2:
 
              - Returns this error only if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
              - Returns `Content-Type: application/json` for this error.
@@ -11866,7 +11866,7 @@ paths:
               Rates (data-in (writes), queries (reads), and deletes) accrue within a fixed five-minute window.
               Once a rate limit is exceeded, InfluxDB returns an error response until the current five-minute window resets.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
               - Doesn't return this error.
           headers:
@@ -12186,7 +12186,7 @@ paths:
         - description: |
             The database to query data from.
             This is mapped to an InfluxDB [bucket](/influxdb/cloud/reference/glossary/#bucket).
-            For more information, see [Database and retention policy mapping](/influxdb/cloud/api/influxdb-1x/dbrp/).
+            For more information, see [Database and retention policy mapping](/influxdb/cloud/api-guide/influxdb-1x/dbrp/).
           in: query
           name: db
           required: true
@@ -12195,7 +12195,7 @@ paths:
         - description: |
             The retention policy to query data from.
             This is mapped to an InfluxDB [bucket](/influxdb/cloud/reference/glossary/#bucket).
-            For more information, see [Database and retention policy mapping](/influxdb/cloud/api/influxdb-1x/dbrp/).
+            For more information, see [Database and retention policy mapping](/influxdb/cloud/api-guide/influxdb-1x/dbrp/).
           in: query
           name: rp
           schema:
@@ -12208,7 +12208,7 @@ paths:
             type: string
         - description: |
             A unix timestamp precision.
-            Formats timestamps as [unix (epoch) timestamps](/influxdb/cloud/reference/glossary/#unix-timestamp) the specified precision
+            Formats timestamps as [unix (epoch) timestamps](/influxdb/cloud/reference/glossary/#unix-timestamp) with the specified precision
             instead of [RFC3339 timestamps](/influxdb/cloud/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
           in: query
           name: epoch
@@ -12271,7 +12271,7 @@ paths:
                 [global limit](/influxdb/cloud/account-management/limits/#global-limits)
               - returns `Retry-After` header that describes when to try the write again.
 
-            #### InfluxDB OSS:
+            #### InfluxDB OSS v2:
               - doesn't return this error.
           headers:
             Retry-After:
@@ -12550,7 +12550,7 @@ components:
         Bad request.
         The response body contains detail about the error.
 
-        #### InfluxDB OSS
+        #### InfluxDB OSS v2
 
         - Returns this error if an incorrect value is passed in the `org` parameter or `orgID` parameter.
     GeneralServerError:
@@ -13448,7 +13448,7 @@ components:
           type: string
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb/cloud/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
         virtual:
@@ -13491,7 +13491,7 @@ components:
           type: string
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb/cloud/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
       required:
@@ -13515,7 +13515,7 @@ components:
           type: boolean
         retention_policy:
           description: |
-            A [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name.
+            A [retention policy](/influxdb/cloud/reference/glossary/#retention-policy-rp) name.
             Identifies the InfluxDB v1 retention policy mapping.
           type: string
     DBRPs:
@@ -14600,9 +14600,9 @@ components:
       properties:
         results:
           description: |
-              A resultset object that contains the `statement_id` and the `series` array.
+            A resultset object that contains the `statement_id` and the `series` array.
 
-              Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
+            Except for `statement_id`, all properties are optional and omitted if empty. If a property is not present, it is assumed to be `null`.
           items:
             properties:
               error:
@@ -14651,12 +14651,12 @@ components:
                 type: integer
             type: object
           oneOf:
-          - required:
-            - statement_id
-            - error
-          - required:
-            - statement_id
-            - series
+            - required:
+                - statement_id
+                - error
+            - required:
+                - statement_id
+                - series
           type: array
       type: object
     IntegerLiteral:
@@ -15997,7 +15997,7 @@ components:
 
             - Doesn't use `shardGroupDurationsSeconds`.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Default value depends on the [bucket retention period](/influxdb/cloud/reference/internals/shards/#shard-group-duration).
 
@@ -16130,7 +16130,7 @@ components:
             If you need compatibility with InfluxDB 1.x, specify a value for the `rp` property;
             otherwise, see the `retentionRules` property.
 
-            [Retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
+            [Retention policy](/influxdb/cloud/reference/glossary/#retention-policy-rp)
             is an InfluxDB 1.x concept.
             The InfluxDB 2.x and Cloud equivalent is
             [retention period](/influxdb/cloud/reference/glossary/#retention-period).
@@ -16147,7 +16147,7 @@ components:
             - Use `explicit` to enforce column names, tags, fields, and data types for
             your data.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Doesn't support `explicit` bucket schemas.
       required:
@@ -16440,7 +16440,7 @@ components:
 
             - Does not use `shardGroupDurationsSeconds`.
 
-            #### InfluxDB OSS
+            #### InfluxDB OSS v2
 
             - Default value depends on the
             [bucket retention period](/influxdb/cloud/reference/internals/shards/#shard-group-duration).
@@ -16463,7 +16463,7 @@ components:
 
         - `retentionRules` is required.
 
-        #### InfluxDB OSS
+        #### InfluxDB OSS v2
 
         - `retentionRules` isn't required.
       items:
@@ -19156,9 +19156,6 @@ x-tagGroups:
       - Headers
       - Pagination
       - Response codes
-      - Data I/O endpoints
-      - Security and access endpoints
-      - System information endpoints
   - name: All endpoints
     tags:
       - Authorizations (API tokens)

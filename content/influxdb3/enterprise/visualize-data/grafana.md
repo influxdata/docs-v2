@@ -3,7 +3,7 @@ title: Use Grafana to visualize data
 list_title: Grafana
 description: >
   Install and run [Grafana](https://grafana.com/) to query and visualize data
-  stored in InfluxDB 3 Enterprise.
+  from {{< product-name >}}.
 weight: 101
 menu:
   influxdb3_enterprise:

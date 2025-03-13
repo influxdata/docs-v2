@@ -1,6 +1,5 @@
 ---
 title: Upgrade InfluxDB Clustered
-seotitle:
 description: >
   Use Kubernetes to upgrade your InfluxDB Clustered version.
 menu:
@@ -16,9 +15,15 @@ related:
 ---
 
 Use Kubernetes to upgrade your InfluxDB Clustered version.
+The upgrade is carried out using in-place updates, ensuring minimal downtime.
 InfluxDB Clustered versioning is defined in the `AppInstance`
 `CustomResourceDefinition` (CRD) in your
 [`myinfluxdb.yml`](/influxdb3/clustered/install/set-up-cluster/configure-cluster/).
+
+> [!Important]
+> InfluxDB Clustered does not support downgrading.
+> If you encounter an issue after upgrading,
+> [contact InfluxData support](mailto:support@influxdata.com).
 
 - [Version format](#version-format)
 - [Upgrade your InfluxDB Clustered version](#upgrade-your-influxdb-clustered-version)

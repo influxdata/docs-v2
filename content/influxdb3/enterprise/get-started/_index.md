@@ -9,9 +9,12 @@ menu:
   influxdb3_enterprise:
     name: Get started
 weight: 3
+related:
+  - /influxdb3/enterprise/admin/query-system-data/
 source: /shared/v3-enterprise-get-started/_index.md
 ---
 
 <!-- 
-The content of this page is at /shared/v3-enterprise-get-started/_index.md
+The content of this page is at
+// SOURCE content/shared/v3-core-get-started/_index.md
 -->

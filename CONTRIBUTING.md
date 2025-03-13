@@ -45,17 +45,21 @@ To install dependencies listed in package.json:
 3. Run `yarn` to install dependencies (including Hugo).
 4. Install the Yarn package manager and run `yarn` to install project dependencies.
 
-`package.json` contains dependencies for linting and running Git hooks.
+`package.json` contains dependencies used in `/assets/js` JavaScript code and
+dev dependencies used in pre-commit hooks for linting, syntax-checking, and testing.
 
-- **[husky](https://github.com/typicode/husky)**: manages Git hooks, including the pre-commit hook for linting and testing
-- **[lint-staged](https://github.com/lint-staged/lint-staged)**: passes staged files to commands
-- **[prettier](https://prettier.io/docs/en/)**: formats code, including Markdown, according to style rules for consistency
+Dev dependencies include:
+
+- [Lefthook](https://github.com/evilmartians/lefthook): configures and
+manages pre-commit hooks for linting and testing Markdown content.
+- [prettier](https://prettier.io/docs/en/): formats code, including Markdown, according to style rules for consistency
+- [Cypress]: e2e testing for UI elements and URLs in content
 
 ### Install Docker
 
-Install [Docker](https://docs.docker.com/get-docker/) for your system.
-
 docs-v2 includes Docker configurations (`compose.yaml` and Dockerfiles) for running the Vale style linter and tests for code blocks (Shell, Bash, and Python) in Markdown files.
+
+Install [Docker](https://docs.docker.com/get-docker/) for your system.
 
 #### Build the test dependency image
 
@@ -65,12 +69,23 @@ The tests defined in `compose.yaml` use the dependencies and execution
 environment from this image.
 
 ```bash
-docker build -t influxdata:docs-pytest -f Dockerfile.pytest .
+docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .
 ```
 
 ### Run the documentation locally (optional)
 
 To run the documentation locally, follow the instructions provided in the README.
+
+### Install Visual Studio Code extensions
+
+If you use Microsoft Visual Studio (VS) Code, you can install extensions
+to help you navigate, check, and edit files.
+
+docs-v2 contains a `./.vscode/settings.json` that configures the following extensions:
+
+- Comment Anchors: recognizes tags (for example, `//SOURCE`) and makes links and filepaths clickable in comments.
+- Vale: shows linter errors and suggestions in the editor.
+- YAML Schemas: validates frontmatter attributes.
 
 ### Make your changes
 
@@ -80,15 +95,16 @@ Make your suggested changes being sure to follow the [style and formatting guide
 
 ### Automatic pre-commit checks
 
-docs-v2 uses Husky to manage Git hook scripts.
-When you try to commit your changes (for example, `git commit`), Git runs
-scripts configured in `.husky/pre-commit`, including linting and tests for your **staged** files.
+docs-v2 uses Lefthook to manage Git hooks, such as pre-commit hooks that lint Markdown and test code blocks.
+When you try to commit changes (`git commit`), Git runs
+the commands configured in `lefthook.yml` which pass your **staged** files to Vale,
+Prettier, Cypress (for UI tests and link-checking), and Pytest (for testing Python and shell code in code blocks).
 
 ### Skip pre-commit hooks
 
 **We strongly recommend running linting and tests**, but you can skip them
 (and avoid installing dependencies)
-by including the `HUSKY=0` environment variable or the `--no-verify` flag with
+by including the `LEFTHOOK=0` environment variable or the `--no-verify` flag with
 your commit--for example:
 
 ```sh
@@ -96,12 +112,13 @@ git commit -m "<COMMIT_MESSAGE>" --no-verify
 ```
 
 ```sh
-HUSKY=0 git commit
+LEFTHOOK=0 git commit
 ```
 
-For more options, see the [Husky documentation](https://typicode.github.io/husky/how-to.html#skipping-git-hooks).
-
 ### Set up test scripts and credentials
+
+Tests for code blocks require your InfluxDB credentials and other typical
+InfluxDB configuration.
 
 To set up your docs-v2 instance to run tests locally, do the following:
 
@@ -118,91 +135,38 @@ To set up your docs-v2 instance to run tests locally, do the following:
 Cloud Dedicated instance for testing in most cases. To avoid conflicts when
      running tests, create separate Cloud Dedicated and Clustered databases.
 
-3. **Create .env.test**: Copy the `./test/env.test.example` file into each
+1. **Create .env.test**: Copy the `./test/env.test.example` file into each
     product directory to test and rename the file as `.env.test`--for example:
    
    ```sh
    ./content/influxdb/cloud-dedicated/.env.test
    ```
    
-4. Inside each product's `.env.test` file, assign your InfluxDB credentials to
-   environment variables.
+2. Inside each product's `.env.test` file, assign your InfluxDB credentials to
+   environment variables:
 
-   In addition to the usual `INFLUX_` environment variables, in your
-   `cloud-dedicated/.env.test` and `clustered/.env.test` files define the
+   - Include the usual `INFLUX_` environment variables
+   - In
+   `cloud-dedicated/.env.test` and `clustered/.env.test` files, also define the
    following variables:
 
-   - `ACCOUNT_ID`, `CLUSTER_ID`: You can find these values in your `influxctl`
-     `config.toml` configuration file.
-   - `MANAGEMENT_TOKEN`: Use the `influxctl management create` command to generate
-     a long-lived management token to authenticate Management API requests
+     - `ACCOUNT_ID`, `CLUSTER_ID`: You can find these values in your `influxctl`
+       `config.toml` configuration file.
+     - `MANAGEMENT_TOKEN`: Use the `influxctl management create` command to generate
+       a long-lived management token to authenticate Management API requests
 
-   For the full list of variables you'll need to include, see the substitution
-   patterns in `./test/src/prepare-content.sh`.
+   See the substitution
+   patterns in `./test/src/prepare-content.sh` for the full list of variables you may need to define in your `.env.test` files.
 
-   **Warning**: The database you configure in `.env.test` and any written data may
-be deleted during test runs.
-
-   **Warning**: To prevent accidentally adding credentials to the docs-v2 repo,
-Git is configured to ignore `.env*` files. Don't add your `.env.test` files to Git.
-Consider backing them up on your local machine in case of accidental deletion.
-
-5. For influxctl commands to run in tests, move or copy your `config.toml` file
+3. For influxctl commands to run in tests, move or copy your `config.toml` file
    to the `./test` directory.
 
-### Pre-commit linting and testing
-
-When you try to commit your changes using `git commit` or your editor,
-the project automatically runs pre-commit checks for spelling, punctuation,
-and style on your staged files.
-
-`.husky/pre-commit` script runs Git pre-commit hook commands, including 
-[`lint-staged`](https://github.com/lint-staged/lint-staged).
-
-The `.lintstagedrc.mjs` lint-staged configuration maps product-specific glob
-patterns to lint and test commands and passes a product-specific
-`.env.test` file to a test runner Docker container.
-The container then loads the `.env` file into the container's environment variables.
-
-To test or troubleshoot testing and linting scripts and configurations before
-committing, choose from the following:
-
-- To run pre-commit scripts without actually committing, append `exit 1` to the
-`.husky/pre-commit` script--for example:
-
-  ```sh
-  ./test/src/monitor-tests.sh start
-  npx lint-staged --relative
-  ./test/src/monitor-tests.sh kill
-  exit 1
-  ```
-
-  And then run `git commit`.
-
-  The `exit 1` status fails the commit, even if all the tasks succeed.
-
-- Use `yarn` to run one of the lint or test scripts configured in
-  `package.json`--for example:
-  
-  ```sh
-  yarn run test
-  ```
-
-- Run `lint-staged` directly and specify options:
-
-  ```sh
-  npx lint-staged --relative --verbose
-  ```
-
-The pre-commit linting configuration checks for _error-level_ problems.
-An error-level rule violation fails the commit and you must do one of the following before you can commit your changes:
-
-- fix the reported problem in the content
-
-- edit the linter rules to permanently allow the content.
-  See **Configure style rules**.
-
-- temporarily override the hook (using `git commit --no-verify`)
+> [!Warning]
+> 
+> - The database you configure in `.env.test` and any written data may
+be deleted during test runs.
+> - Don't add your `.env.test` files to Git. To prevent accidentally adding credentials to the docs-v2 repo,
+Git is configured to ignore `.env*` files. Consider backing them up on your local machine in case of accidental deletion.
 
 #### Test shell and python code blocks
 
@@ -249,7 +213,7 @@ You probably don't want to display this syntax in the docs, which unfortunately
 means you'd need to include the test block separately from the displayed code
 block.
 To hide it from users, wrap the code block inside an HTML comment.
-Pytest-codeblocks will still collect and run the code block.
+pytest-codeblocks will still collect and run the code block.
 
 ##### Mark tests to skip 
 
@@ -544,6 +508,25 @@ Insert note markdown content here.
 {{% warn %}}
 Insert warning markdown content here.
 {{% /warn %}}
+```
+
+### Product data
+
+Display the full product name and version name for the current page--for example:
+
+- InfluxDB 3 Core
+- InfluxDB 3 Cloud Dedicated
+
+```md
+{{% product-name %}}
+```
+
+Display the short version name (part of the key used in `products.yml`) from the current page URL--for example: 
+
+- `/influxdb3/core` returns `core`
+
+```md
+{{% product-key %}}
 ```
 
 ### Enterprise Content

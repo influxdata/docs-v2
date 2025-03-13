@@ -29,7 +29,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `prometheus.histogramQuantile()` calculates a quantile on a set of Prometheus histogram values.
 
-This function supports [Prometheus metric parsing formats](/influxdb/latest/reference/prometheus-metrics/)
+This function supports [Prometheus metric parsing formats](/influxdb/v2/reference/prometheus-metrics/)
 used by `prometheus.scrape()`, the Telegraf `promtheus` input plugin, and
 InfluxDB scrapers available in InfluxDB OSS.
 
@@ -53,7 +53,7 @@ Quantile to compute. Must be a float value between 0.0 and 1.0.
 
 ### metricVersion
 
-[Prometheus metric parsing format](/influxdb/latest/reference/prometheus-metrics/)
+[Prometheus metric parsing format](/influxdb/v2/reference/prometheus-metrics/)
 used to parse queried Prometheus data.
 Available versions are `1` and `2`.
 Default is `2`.

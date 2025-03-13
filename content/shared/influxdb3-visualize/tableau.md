@@ -1,6 +1,6 @@
 
 Use [Tableau](https://www.tableau.com/) to query and visualize time series data
-stored in {{< product-name >}}. Tableau supports multiple SQL dialects.
+from {{< product-name >}}. Tableau supports multiple SQL dialects.
 
 > Tableau is a visual analytics platform transforming the way we use data to
 > solve problems—empowering people and organizations to make the most of their data.

@@ -10,19 +10,47 @@ menu:
 weight: 201
 ---
 
-{{% note %}}
-## Checkpoint releases {.checkpoint}
-
-Some InfluxDB Clustered releases are checkpoint releases that introduce a
-breaking change to an InfluxDB component.
-When [upgrading InfluxDB Clustered](/influxdb3/clustered/admin/upgrade/),
-**always upgrade to each checkpoint release first, before proceeding to newer versions**.
-
-Checkpoint releases are only made when absolutely necessary and are clearly
-identified below with the <span class="cf-icon Shield pink"></span> icon.
-{{% /note %}}
+> [!Note]
+> ## Checkpoint releases {.checkpoint}
+> 
+> Some InfluxDB Clustered releases are checkpoint releases that introduce a
+> breaking change to an InfluxDB component.
+> When [upgrading InfluxDB Clustered](/influxdb3/clustered/admin/upgrade/),
+> **always upgrade to each checkpoint release first, before proceeding to newer versions**.
+> 
+> Checkpoint releases are only made when absolutely necessary and are clearly
+> identified below with the <span class="cf-icon Shield pink"></span> icon.
 
 {{< release-toc >}}
+
+---
+
+## 20250212-1570743 {date="2025-02-12"}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250212-1570743
+```
+
+### Bug Fixes
+
+This release fixes a bug in the 20241217-1494922 release where the default 
+Prometheus CPU limit was set to an integer instead of a string.
+
+### Changes
+
+#### Deployment
+
+- Expose the Prometheus `retention` period to let users set a custom
+  retention period for Prometheus metrics.
+
+#### Database Engine
+
+- Upgrade DataFusion
+- Add the ability to restore a cluster from a Catalog snapshot.
 
 ---
 
@@ -114,7 +142,7 @@ spec:
 
 #### AppInstance image override bug fix
 
-In [20240925-1257864](#20240925-1257864), the AppInstance image override was
+In 20240925-1257864, the AppInstance image override was
 broken with the introduction of strict always-on license enforcement.
 This release fixes that bug.
 
@@ -123,50 +151,19 @@ Clustered in air-gapped environments where the deployment model involves
 overriding the default image repository to point to images copied to an
 air-gapped registry.
 
-This release is an alternative to [20240925-1257864](#20240925-1257864) for
+This release is an alternative to 20240925-1257864 for
 customers who depend on this image override feature.
 
 #### Upgrade bug fix
 
-[20240925-1257864](#20240925-1257864) introduced a schema migration bug that
+20240925-1257864 introduced a schema migration bug that
 caused an `init` container in the `account` Pods to hang indefinitely.
 This would only affect InfluxDB Clustered during an upgrade; not a fresh install.
+The 20240925-1257864 release has been removed from the release notes, but
+relevant updates are included as part of this 20241024-1354148 release.
 
 For customers who experience this bug when attempting to upgrade to
-[20240925-1257864](#20240925-1257864), upgrade to this 20241024-1354148 instead.
-
-### Changes
-
-#### Deployment
-
-- Enable overriding the default CPU and memory resource requests and limits for
-  the Garbage collector and Catalog services.
-- Remove the Gateway service and implement the newly introduced Core service.
-- Fix logic related to applying default resource limits for IOx components.
-- Support [`ResourceQuota`s](https://kubernetes.io/docs/concepts/policy/resource-quotas/)
-  with the `enableDefaultResourceLimits` feature flag. This causes resource
-  limits to be applied even to containers that don't normally have limits
-  applied.
-
----
-
-## 20240925-1257864 {date="2024-09-25" .checkpoint}
-
-{{% warn %}}
-This release has a number of bugs in it which make it unsuitable for customer use.
-If you are currently running this version, please upgrade to
-[20241024-1354148](#20241024-1354148).
-{{% /warn %}}
-
-### Quickstart
-
-```yaml
-spec:
-  package:
-    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:202409XX-XXXXXXX
-```
-
-### Highlights
+20240925-1257864, upgrade to this 20241024-1354148 instead.
 
 #### Default to partial write semantics
 
@@ -256,6 +253,14 @@ The installation of the Prometheus operator should be handled externally.
 
 #### Deployment
 
+- Enable overriding the default CPU and memory resource requests and limits for
+  the Garbage collector and Catalog services.
+- Remove the Gateway service and implement the newly introduced Core service.
+- Fix logic related to applying default resource limits for IOx components.
+- Support [`ResourceQuota`s](https://kubernetes.io/docs/concepts/policy/resource-quotas/)
+  with the `enableDefaultResourceLimits` feature flag. This causes resource
+  limits to be applied even to containers that don't normally have limits
+  applied.
 - Introduces the `nodeAffinity` and CPU/Memory requests setting for "granite"
   components. Previously, these settings were only available for core IOx
   components.
@@ -323,10 +328,9 @@ validation error when omitted.
 When the `admin` section is omitted, the `admin-token` `Secret` can be used
 instead to get started quickly.
 
-{{% note %}}
-We still highly recommend OAuth for production; however, this lets you run an
-InfluxDB Cluster with out having to integrate with an identity provider.**
-{{% /note %}}
+> [!Note]
+> We recommend OAuth for production; however, the `admin-token` lets you run an
+> InfluxDB Cluster without having to integrate with an identity provider.**
 
 ### Upgrade notes
 
@@ -651,11 +655,10 @@ Kubernetes scheduler's default behavior. For further details, please consult the
 - Fix gRPC reflection to only include services served by a particular listening
   port.
   
-  {{% note %}}
-  `arrow.flight.protocol.FlightService` is known to be missing in the
-  `iox-shared-querier`'s reflection service even though `iox-shared-querier`
-  does run that gRPC service.
-  {{% /note %}}
+  > [!Note]
+  > `arrow.flight.protocol.FlightService` is known to be missing in the
+  > `iox-shared-querier`'s reflection service even though `iox-shared-querier`
+  > does run that gRPC service.
 
 ---
 
@@ -860,10 +863,9 @@ spec:
 
 ### Highlights
 
-{{% warn %}}
-**This release fixes a regression in the database engine that was introduced in
-[20231115-746129](#20231115-746129).**
-{{% /warn %}}
+> ![Important]
+> **This release fixes a regression in the database engine that was introduced in
+> [20231115-746129](#20231115-746129).**
 
 ### Changes
 
