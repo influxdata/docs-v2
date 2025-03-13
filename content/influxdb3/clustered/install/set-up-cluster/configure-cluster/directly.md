@@ -128,7 +128,7 @@ In both scenarios, you need a valid _pull secret_.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[Public registry (non-air-gapped)](#)
+[Public registry](#)
 [Private registry (air-gapped)](#)
 {{% /tabs %}}
 
@@ -136,7 +136,7 @@ In both scenarios, you need a valid _pull secret_.
 
 <!--------------------------- BEGIN Public Registry --------------------------->
 
-#### Public registry (non-air-gapped)
+#### Public registry
 
 To pull from the InfluxData registry, you need to create a Kubernetes secret in the target namespace.
 
@@ -161,40 +161,34 @@ If you change the name of the secret, you must also change the value of the
 {{% /tab-content %}}
 {{% tab-content %}}
 
-<!--------------------------- BEGIN Private Registry -------------------------->
+<!--------------------------- BEGIN PRIVATE REGISTRY (AIR-GAPPED) -------------------------->
 
 #### Private registry (air-gapped)
 
 If your Kubernetes cluster can't use a public network to download container images
-from the InfluxData container registry, do the following:
+from the InfluxData container registry, follow these steps to copy images and
+configure the AppInstance for a private registry:
 
-1.  Copy the images from the InfluxData registry to your own private registry.
-2.  Configure your `AppInstance` resource with a reference to your private
-    registry name.
-3.  Provide credentials to your private registry.
+1. [Copy the images to your private registry](#copy-the-images-to-your-private-registry)
+2. [Configure your AppInstance](#configure-your-appinstance)
 
-##### Copy the images
+##### Copy the images to your private registry
 
-We recommend using [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane)
-to copy images into your private registry.
+Use `crane` to copy images from the InfluxData registry to your own private registry.
 
-1.  [Install crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
-    for your system.
-2.  Use the following command to create a container registry secret file and
-    retrieve the necessary secrets:
+1. [Install crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
+   for your system.
+2. Create a container registry secret file and verify access:
 
 {{% code-placeholders "PACKAGE_VERSION" %}}
 
-<!-- pytest.mark.skip -->
-
 ```bash
-mkdir /tmp/influxdbsecret
+mkdir -p /tmp/influxdbsecret
 cp influxdb-docker-config.json /tmp/influxdbsecret/config.json
 DOCKER_CONFIG=/tmp/influxdbsecret \
   crane manifest \
   us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:PACKAGE_VERSION
 ```
-
 {{% /code-placeholders %}}
 
 ---
@@ -244,8 +238,8 @@ manifest and the output is similar to the following error:
 Error: fetching manifest us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:<package-version>: GET https://us-docker.pkg.dev/v2/token?scope=repository%3Ainfluxdb2-artifacts%2Fclustered%2Finfluxdb%3Apull&service=: DENIED: Permission "artifactregistry.repositories.downloadArtifacts" denied on resource "projects/influxdb2-artifacts/locations/us/repositories/clustered" (or it may not exist)
 ```
 
-The list of images that you need to copy is included in the package metadata.
-You can obtain it with any standard OCI image inspection tool--for example:
+3. Extract the list of InfluxDB images from the package metadata:
+You can use any standard OCI image inspection tool--for example:
 
 {{% code-placeholders "PACKAGE_VERSION" %}}
 
@@ -269,7 +263,7 @@ us-docker.pkg.dev/influxdb2-artifacts/iox/iox@sha256:b59d80add235f29b806badf7410
 ...
 ```
 
-Use `crane` to copy the images to your private registry:
+4. Use `crane` to copy the images to your private registry:
 
 {{% code-placeholders "REGISTRY_HOSTNAME" %}}
 
@@ -289,49 +283,50 @@ with the hostname of your private registry--for example:
 myregistry.mydomain.io
 ```
 
-
 ##### Configure your AppInstance
 
-Set the `spec.package.spec.images.registryOverride` field in your
-`myinfluxdb.yml` to the location of your private registry--for example:
+Configure your `AppInstance` resource with a reference to your private registry name.
 
-{{% code-placeholders "REGISTRY_HOSTNAME" %}}
+In your `myinfluxdb.yml`:
 
-```yml
+1. Set `spec.package.spec.images.registryOverride` to the location of your private registry.
+2. If your private container registry requires pull secrets to access images, set `spec.imagePullSecrets.name` to the pull secret name.
+
+{{% expand-wrapper %}}
+{{% expand "View `myinfluxdb.yml` AppInstance configuration" %}}
+{{% code-placeholders "REGISTRY_HOSTNAME | PULL_SECRET_NAME" %}}
+```yaml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
-# ...
+metadata:
+  name: influxdb
+  namespace: influxdb
 spec:
   package:
     spec:
       images:
         registryOverride: REGISTRY_HOSTNAME
-```
-
-{{% /code-placeholders %}}
-
-
-##### Provide credentials to your private registry
-
-If your private container registry requires pull secrets to access images, you
-can create the required kubernetes secrets, and then configure them in your
-AppInstance resource--for example:
-
-{{% code-placeholders "PULL_SECRET_NAME" %}}
-
-```yml
-apiVersion: kubecfg.dev/v1alpha1
-kind: AppInstance
-# ...
-spec:
+  # Configure connection to PostgreSQL database
+  values:
+    global:
+      catalog:
+        dsn: "postgres://username:password@postgres-host:5432/influxdb?sslmode=require"
+    # Configure S3-compatible object storage
+    objectStorage:
+      bucket: "influxdb-bucket"
+      endpoint: "https://s3-endpoint"
+      accessKeyId: "ACCESS_KEY"
+      secretAccessKey: "SECRET_KEY"
+      region: "region"
+  # Configure image pull secrets if needed
   imagePullSecrets:
     - name: PULL_SECRET_NAME
 ```
-
 {{% /code-placeholders %}}
+{{% /expand %}}
+{{% /expand-wrapper %}}
 
-
-<!---------------------------- END Private Registry --------------------------->
+<!---------------------------- END Private Registry (AIR-GAPPED) --------------------------->
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

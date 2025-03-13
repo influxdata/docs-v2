@@ -203,19 +203,18 @@ Error: fetching manifest us-docker.pkg.dev/influxdb2-artifacts/clustered/influxd
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[Public registry (non-air-gapped)](#)
+[Public registry](#)
 [Private registry (air-gapped)](#)
 {{% /tabs %}}
 
 {{% tab-content %}}
-
 <!--------------------------- BEGIN Public Registry --------------------------->
 
-#### Public registry (non-air-gapped)
+#### Public registry
 
 To pull from the InfluxData registry, you need to create a Kubernetes secret in the target namespace.
 
-```sh
+```bash
 kubectl create secret docker-registry gar-docker-secret \
   --from-file=.dockerconfigjson=influxdb-docker-config.json \
   --namespace influxdb
@@ -232,78 +231,96 @@ If you change the name of this secret, you must also change the value of the
 `imagePullSecrets.name` field in your `values.yaml`.
 
 <!---------------------------- END Public Registry ---------------------------->
-
 {{% /tab-content %}}
 {{% tab-content %}}
-
 <!--------------------------- BEGIN Private Registry -------------------------->
 
 #### Private registry (air-gapped)
 
-If your Kubernetes cluster can't use a public network to download container images
-from our container registry, do the following:
+For air-gapped environments, you need to:
 
-1.  Copy the images from the InfluxDB registry to your own private registry.
-2.  Configure your `AppInstance` resource with a reference to your private
-    registry name.
-3.  Provide credentials to your private registry.
+1. [Set up Docker configuration](#set-up-docker-configuration)
+2. [Mirror InfluxDB images](#mirror-influxdb-images)
+3. [Mirror kubit operator images](#mirror-kubit-operator-images)
+4. [Configure registry access in values.yaml](#configure-registry-access-in-valuesyaml)
 
-The list of images that you need to copy is included in the package metadata.
-You can obtain it with any standard OCI image inspection tool. For example:
+##### Set up Docker configuration
 
-{{% code-placeholders "PACKAGE_VERSION" %}}
+Create a directory to store your Docker configuration:
 
-```sh
-DOCKER_CONFIG=/tmp/influxdbsecret \
-crane config \
-  us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:PACKAGE_VERSION \
-  | jq -r '.metadata["oci.image.list"].images[]' \
-  > /tmp/images.txt
+```bash
+mkdir -p /tmp/influxdbsecret
+cp influxdb-docker-config.json /tmp/influxdbsecret/config.json
 ```
 
-{{% /code-placeholders %}}
+##### Mirror InfluxDB images
 
-The output is a list of image names, similar to the following:
+Use `crane` to copy images from the InfluxData registry to your own private registry:
 
+1. [Install crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation) on your system.
+
+2. Extract the list of InfluxDB images:
+
+   ```bash
+   DOCKER_CONFIG=/tmp/influxdbsecret \
+     crane config \
+     us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:PACKAGE_VERSION \
+     | jq -r '.metadata["oci.image.list"].images[]' \
+     > /tmp/influx-images.txt
+   ```
+
+   Replace {{% code-placeholder-key %}}`PACKAGE_VERSION`{{% /code-placeholder-key %}} with your InfluxDB Clustered package version.
+
+3. Copy the images to your private registry:
+
+   ```bash
+   cat /tmp/influx-images.txt | xargs -I% crane cp % REGISTRY_HOSTNAME/%
+   ```
+
+   Replace {{% code-placeholder-key %}}`REGISTRY_HOSTNAME`{{% /code-placeholder-key %}} with your private registry hostname (e.g., `myregistry.mydomain.io`).
+
+##### Mirror kubit operator images
+
+In addition to the InfluxDB images, copy the kubit operator images:
+
+```bash
+# Create a list of kubit-related images
+cat > /tmp/kubit-images.txt << EOF
+ghcr.io/kubecfg/kubit:v0.0.20
+ghcr.io/kubecfg/kubecfg/kubecfg:latest
+bitnami/kubectl:1.27.5
+registry.k8s.io/kubectl:v1.28.0
+EOF
+
+# Copy kubit images to your private registry
+cat /tmp/kubit-images.txt | xargs -I% crane cp % YOUR_PRIVATE_REGISTRY/%
 ```
-us-docker.pkg.dev/influxdb2-artifacts/idpe/idpe-cd-ioxauth@sha256:5f015a7f28a816df706b66d59cb9d6f087d24614f485610619f0e3a808a73864
-us-docker.pkg.dev/influxdb2-artifacts/iox/iox@sha256:b59d80add235f29b806badf7410239a3176bc77cf2dc335a1b07ab68615b870c
-...
-```
 
-Use `crane` to copy the images to your private registry:
+##### Configure registry access in values.yaml
+
+Configure your `values.yaml` to use your private registry:
 
 {{% code-placeholders "REGISTRY_HOSTNAME" %}}
-
-```sh
-</tmp/images.txt xargs -I% crane cp % REGISTRY_HOSTNAME/%
-```
-
-{{% /code-placeholders %}}
-
----
-
-Replace {{% code-placeholder-key %}}`REGISTRY_HOSTNAME`{{% /code-placeholder-key %}}
-with the hostname of your private registry--for example:
-
-```text
-myregistry.mydomain.io
-```
-
----
-
-Set the
-`images.registryOverride` field in your `values.yaml` to the location of your
-private registry--for example:
-
-{{% code-placeholders "REGISTRY_HOSTNAME" %}}
-
-```yml
+```yaml
+# Configure registry override for all images
 images:
   registryOverride: REGISTRY_HOSTNAME
-```
 
+# Configure kubit operator images
+kubit:
+  controller:
+    image: REGISTRY_HOSTNAME/ghcr.io/kubecfg/kubit:v0.0.20
+  apply_step_image: REGISTRY_HOSTNAME/bitnami/kubectl:1.27.5
+  render_step_image: REGISTRY_HOSTNAME/registry.k8s.io/kubectl:v1.28.0
+  kubecfg_image: REGISTRY_HOSTNAME/ghcr.io/kubecfg/kubecfg/kubecfg:latest
+
+# Configure image pull secrets if needed
+imagePullSecrets:
+  - name: your-registry-pull-secret
+```
 {{% /code-placeholders %}}
+
+Replace {{% code-placeholder-key %}}`REGISTRY_HOSTNAME`{{% /code-placeholder-key %}} with your private registry hostname.
 
 <!---------------------------- END Private Registry --------------------------->
 
@@ -683,4 +700,114 @@ Replace the following:
 
 ---
 
-{{< page-nav prev="/influxdb3/clustered/install/secure-cluster/auth/" prevText="Set up authentication" next="/influxdb3/clustered/install/set-up-cluster/licensing" nextText="Install your license" tab="Helm" >}}
+### Deploy your cluster
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Standard deployment](#)
+[Air-gapped deployment](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
+
+<!--------------------------- BEGIN Standard Deployment --------------------------->
+
+#### Standard deployment (with internet access)
+
+1. Add the InfluxData Helm chart repository:
+
+   ```bash
+   helm repo add influxdata https://helm.influxdata.com/
+   ```
+
+2. Update your Helm repositories to ensure you have the latest charts:
+
+   ```bash
+   helm repo update
+   ```
+
+3. Deploy the InfluxDB Clustered Helm chart with your custom values:
+
+   ```bash
+   helm install influxdb influxdata/influxdb3-clustered \
+     -f values.yaml \
+     --namespace influxdb \
+     --create-namespace
+   ```
+
+4. Verify the deployment:
+
+   ```bash
+   kubectl get pods -n influxdb
+   ```
+
+If you need to update your deployment after making changes to your `values.yaml`:
+
+```bash
+helm upgrade influxdb influxdata/influxdb3-clustered \
+  -f values.yaml \
+  --namespace influxdb
+```
+
+<!---------------------------- END Standard Deployment ---------------------------->
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+<!--------------------------- BEGIN Air-gapped Deployment -------------------------->
+
+#### Air-gapped deployment
+
+1. In your air-gapped environment, install the chart from the local tarball that you transferred:
+
+   ```bash
+   helm install influxdb ./influxdb3-clustered-X.Y.Z.tgz \
+     -f values.yaml \
+     --namespace influxdb \
+     --create-namespace
+   ```
+
+   Replace `X.Y.Z` with the specific chart version you downloaded.
+
+2. Verify the deployment:
+
+   ```bash
+   kubectl get pods -n influxdb
+   ```
+
+If you need to update your deployment after making changes to your `values.yaml`:
+
+```bash
+helm upgrade influxdb ./influxdb3-clustered-X.Y.Z.tgz \
+  -f values.yaml \
+  --namespace influxdb
+```
+
+{{% note %}}
+#### Understanding kubit's role in air-gapped environments
+
+When deploying with Helm in an air-gapped environment:
+
+1. **Helm deploys the kubit operator** - The Helm chart includes the kubit operator, which needs its images mirrored to your private registry
+2. **Operator requires access to all InfluxDB images** - The kubit operator deploys the actual InfluxDB components using images from your private registry
+3. **Registry override is essential** - You must set the `images.registryOverride` and configure the kubit operator images correctly in the values file
+
+This is why mirroring both the InfluxDB images and the kubit operator images is necessary for air-gapped deployments.
+{{% /note %}}
+
+<!---------------------------- END Air-gapped Deployment --------------------------->
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+## Troubleshooting
+
+### Common issues
+
+1. **Image pull errors**
+   
+   ```
+   Error: failed to create labeled resources: failed to create resources: failed to create resources: 
+   Internal error occurred: failed to create pod sandbox: rpc error: code = Unknown 
+   desc = failed to pull image "us-docker.pkg.dev/...": failed to pull and unpack image "...": 
+   failed to resolve reference "...": failed to do request: ... i/o timeout
