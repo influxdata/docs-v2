@@ -6,7 +6,7 @@
   "license": "MIT",
   "resolutions": {
     "serialize-javascript": "^6.0.2"
-  }, 
+  },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
     "@evilmartians/lefthook": "^1.7.1",
@@ -35,9 +35,9 @@
   "scripts": {
     "e2e:chrome": "npx cypress run --browser chrome",
     "e2e:o": "npx cypress open",
-    "e2e:o:links": "export cypress_test_subjects=\"http://localhost:1313/influxdb3/core/,http://localhost:1313/influxdb3/enterprise/\"; npx cypress open cypress/e2e/article-links.cy.js",
-    "e2e:links": "export cypress_test_subjects=\"http://localhost:1313/influxdb3/core/,http://localhost:1313/influxdb3/enterprise/\"; npx cypress run --spec cypress/e2e/article-links.cy.js",
-    "e2e:api-docs": "export cypress_test_subjects=\"http://localhost:1313/influxdb3/core/api/,http://localhost:1313/influxdb3/enterprise/api/,http://localhost:1313/influxdb3/cloud-dedicated/api/,http://localhost:1313/influxdb3/cloud-dedicated/api/v1/,http://localhost:1313/influxdb/cloud-dedicated/api/v1/,http://localhost:1313/influxdb/cloud-dedicated/api/management/,http://localhost:1313/influxdb3/cloud-dedicated/api/management/\"; npx cypress run --spec cypress/e2e/article-links.cy.js",
+    "e2e:o:links": "export cypress_test_subjects=\"http://localhost:1313/influxdb3/core/,http://localhost:1313/influxdb3/enterprise/\"; npx cypress open cypress/e2e/content/article-links.cy.js",
+    "e2e:links": "export cypress_test_subjects=\"http://localhost:1313/influxdb3/core/,http://localhost:1313/influxdb3/enterprise/\"; npx cypress run --spec cypress/e2e/content/article-links.cy.js",
+    "e2e:api-docs": "export cypress_test_subjects=\"http://localhost:1313/influxdb3/core/api/,http://localhost:1313/influxdb3/enterprise/api/,http://localhost:1313/influxdb3/cloud-dedicated/api/,http://localhost:1313/influxdb3/cloud-dedicated/api/v1/,http://localhost:1313/influxdb/cloud-dedicated/api/v1/,http://localhost:1313/influxdb/cloud-dedicated/api/management/,http://localhost:1313/influxdb3/cloud-dedicated/api/management/\"; npx cypress run --spec cypress/e2e/content/article-links.cy.js",
     "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && lefthook run pre-push",
     "pre-commit": "lefthook run pre-commit",
     "test-content": "docker compose --profile test up"
