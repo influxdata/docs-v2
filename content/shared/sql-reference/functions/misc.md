@@ -5,6 +5,7 @@ for performing a variety of operations:
 - [arrow_typeof](#arrow_typeof)
 - [interpolate](#interpolate)
 - [locf](#locf)
+- [version](#version)
 <!-- - [struct](#struct) -->
 
 ## arrow_cast
@@ -232,3 +233,11 @@ struct('A', 'B', 3, 4)
 {{% /expand %}}
 {{< /expand-wrapper >}}
 -->
+
+## version
+
+Returns the version of DataFusion.
+
+```sql
+version()
+```

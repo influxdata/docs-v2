@@ -26,17 +26,16 @@ However, for automation purposes, you can manually create management tokens that
 authenticate directly with your InfluxDB cluster and do not require human
 interaction with your identity provider.
 
-{{% warn %}}
-#### For automation use cases only
-
-The tools outlined below are meant for automation use cases and should not be
-used to circumvent your identity provider. **Take great care when manually creating
-and using management tokens**.
-
-{{< product-name >}} requires that at least one user associated with your cluster 
-and authorized through your OAuth2 identity provider to manually create a
-management token.
-{{% /warn %}}
+> [!Warning]
+> #### For automation use cases only
+> 
+> The tools outlined below are meant for automation use cases and should not be
+> used to circumvent your identity provider. **Take great care when manually creating
+> and using management tokens**.
+> 
+> {{< product-name >}} requires that at least one user associated with your cluster 
+> and authorized through your OAuth2 identity provider to manually create a
+> management token.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 2.  Use the [`influxctl management create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/management/create/)
@@ -65,10 +64,9 @@ Replace the following:
 
 Once created, the command returns the management token string.
 
-{{% note %}}
-#### Store secure tokens in a secret store
-
-Management token strings are returned _only_ on token creation.
-We recommend storing database tokens in a **secure secret store**.
-For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
-{{% /note %}}
+> [!Note]
+> #### Store secure tokens in a secret store
+> 
+> Management token strings are returned _only_ on token creation.
+> We recommend storing database tokens in a **secure secret store**.
+> For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/> telegraf/tree/master/plugins/secretstores/os).

@@ -21,14 +21,13 @@ Provide line protocol in one of the following ways:
 - a path to a file that contains line protocol
 - as a single dash (`-`) to read line protocol from stdin
 
-{{% note %}}
-#### Important to note
-
-- This command supports only one write request per execution, but does support
-  multiple lines of line protocol and will batch data based on the `--batch-size`.
-- This command is not meant to be a full, feature-rich write tool.
-  It's meant for debug, triage, and initial exploration.
-{{% /note %}}
+> [!Note]
+> #### Important to note
+> 
+> - This command supports only one write request per execution, but does support
+>   multiple lines of line protocol and will batch data based on the `--batch-size`.
+> - This command is not meant to be a full, feature-rich write tool.
+>   It's meant for debug, triage, and initial exploration.
 
 ### InfluxDB connection configuration
 

@@ -53,10 +53,9 @@ mem,host=host1 used_percent=63.40 1577836820000000000
 mem,host=host2 used_percent=73.77 1577836820000000000
 ```
 
-{{% note %}}
-To test the CSV to line protocol conversion process, use the `influx write dryrun`
-command to print the resulting line protocol to stdout rather than write to InfluxDB.
-{{% /note %}}
+> [!Note]
+> To test the CSV to line protocol conversion process, use the `influx write dryrun`
+> command to print the resulting line protocol to stdout rather than write to InfluxDB.
 
 - [CSV Annotations](#csv-annotations)
 - [Inject annotation headers](#inject-annotation-headers)
@@ -207,10 +206,9 @@ influx write -b example-bucket \
   --format csv
 ```
 
-{{% note %}}
-The `influx write` command assumes all input files are line protocol unless they
-include the `.csv` extension or you declare the `csv`.
-{{% /note %}}
+> [!Note]
+> The `influx write` command assumes all input files are line protocol unless they
+> include the `.csv` extension or you declare the `csv`.
 
 ## Specify CSV character encoding
 
@@ -238,9 +236,8 @@ influx write -b example-bucket \
   --skipRowOnError
 ```
 
-{{% warn %}}
-Skipped rows are ignored and are not written to InfluxDB.
-{{% /warn %}}
+> [!Warning]
+> Skipped rows are ignored and are not written to InfluxDB.
 
 Use the `--errors-file` flag to record errors to a file.
 The error file identifies all rows that cannot be imported and includes error messages for debugging.
@@ -407,11 +404,10 @@ If your CSV data contains numeric values that use a non-default fraction separat
 or contain group separators, [define your numeric format](/influxdb3/cloud-serverless/reference/syntax/annotated-csv/extended/#double)
 in the `double`, `long`, and `unsignedLong` datatype annotations.
 
-{{% note %}}
-If your **numeric format separators** include a comma (`,`), wrap the column annotation in double
-quotes (`""`) to prevent the comma from being parsed as a column separator or delimiter.
-You can also [define a custom column separator](/influxdb3/cloud-serverless/reference/syntax/annotated-csv/extended/#define-custom-column-separator).
-{{% /note %}}
+> [!Note]
+> If your **numeric format separators** include a comma (`,`), wrap the column annotation in double
+> quotes (`""`) to prevent the comma from being parsed as a column separator or delimiter.
+> You can also [define a custom column separator](/influxdb3/cloud-serverless/reference/syntax/annotated-csv/extended/#define-custom-column-separator).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

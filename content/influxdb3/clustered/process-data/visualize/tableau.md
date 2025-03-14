@@ -30,13 +30,12 @@ stored in {{< product-name >}}. Tableau supports multiple SQL dialects.
 >
 > {{% cite %}}[tableau.com](https://www.tableau.com/why-tableau/what-is-tableau){{% /cite %}}
 
-{{% note %}}
-#### Tableau Desktop
-
-These instructions are for **Tableau Desktop**.
-Tableau Cloud and other Tableau products have not been tested, but may support
-connecting to {{< product-name >}} through the **Flight SQL JDBC driver**.
-{{% /note %}}
+> [!Note]
+> #### Tableau Desktop
+> 
+> These instructions are for **Tableau Desktop**.
+> Tableau Cloud and other Tableau products have not been tested, but may support
+> connecting to {{< product-name >}} through the **Flight SQL JDBC driver**.
 
 ## Install Tableau Desktop
 
@@ -79,9 +78,11 @@ To query {{< product-name >}} from Tableau, use the **Flight SQL protocol** and 
       - **Port**: `443`
       - **Query parameters**:
         - **useSystemTrustStore**: `false`
-            {{% note %}}
-Setting `useSystemTrustStore=false` is only necessary on macOS and doesn't actually affect the security of the connection to Tableau.
-            {{% /note %}}
+            
+            > [!Note]
+            > Setting `useSystemTrustStore=false` is only necessary on macOS and
+            > doesn't actually affect the security of the connection to Tableau.
+
         - **database**: InfluxDB database name to query
     
       _See an [example connection URL](#example-connection-url)._

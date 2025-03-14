@@ -15,16 +15,15 @@ For example, if you often query data related to a
 specific ID, partitioning by the tag that stores the ID helps the InfluxDB
 query engine to more quickly identify what partitions contain the relevant data.
 
-{{% note %}}
-
-#### Use tag buckets for high-cardinality tags
-
-Partitioning using distinct values of tags with many (10K+) unique values can
-actually hurt query performance as partitions are created for each unique tag value.
-Instead, use [tag buckets](/influxdb/version/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
-to partition by high-cardinality tags.
-This method of partitioning groups tag values into "buckets" and partitions by bucket.
-{{% /note %}}
+> [!Note]
+> 
+> #### Use tag buckets for high-cardinality tags
+> 
+> Partitioning using distinct values of tags with many (10K+) unique values can
+> actually hurt query performance as partitions are created for each unique tag value.
+> Instead, use [tag buckets](/influxdb/version/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
+> to partition by high-cardinality tags.
+> This method of partitioning groups tag values into "buckets" and partitions by bucket.
 
 ## Only partition by tags that _always_ have a value
 

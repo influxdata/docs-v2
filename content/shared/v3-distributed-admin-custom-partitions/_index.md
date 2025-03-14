@@ -43,10 +43,9 @@ Using custom partitioning may increase the load on other parts of the
 [InfluxDB 3 storage engine](/influxdb/version/reference/internals/storage-engine/),
 but you can scale each part individually to address the added load.
 
-{{% note %}}
-_The weight of these disadvantages depends upon the cardinality of
- tags and the specificity of time intervals used for partitioning._
-{{% /note %}}
+> [!Note]
+> _The weight of these disadvantages depends upon the cardinality of
+>  tags and the specificity of time intervals used for partitioning._
 
 - **Increased load on the [Ingester](/influxdb/version/reference/internals/storage-engine/#ingester)**
   as it groups data into smaller partitions and files.

@@ -10,12 +10,12 @@ updated_in: CLI v2.4.0
 metadata: [influx CLI 2.0.0+, InfluxDB OSS only]
 ---
 
-{{% note %}}
-#### Available with InfluxDB OSS 2.x only
-The `influx org members add` command adds members to organizations in **InfluxDB OSS 2.x**,
-but cannot add organization members to **InfluxDB Cloud Serverless**.
-For information about inviting users into your InfluxDB Cloud Serverless organization,
-see [Manage users](/influxdb3/cloud-serverless/admin/organizations/users/).
-{{% /note %}}
+> [!Note]
+> #### Available with InfluxDB OSS 2.x only
+>
+> The `influx org members add` command adds members to organizations in **InfluxDB OSS 2.x**,
+> but cannot add organization members to **InfluxDB Cloud Serverless**.
+> For information about inviting users into your InfluxDB Cloud Serverless organization,
+> see [Manage users](/influxdb3/cloud-serverless/admin/organizations/users/).
 
 {{< duplicate-oss >}}

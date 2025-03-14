@@ -15,9 +15,8 @@ influxdb3/cloud-dedicated/tags: [tables]
 Manage tables in your {{< product-name omit=" Clustered" >}} cluster.
 A table is a collection of related data stored in table format.
 
-{{% note %}}
-In previous versions of InfluxDB and in the context of InfluxQL, tables are
-known as "measurements."
-{{% /note %}}
+> [!Note]
+> In previous versions of InfluxDB and in the context of InfluxQL, tables are
+> known as "measurements."
 
 {{< children hlevel="h2" >}}

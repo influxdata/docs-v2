@@ -31,14 +31,13 @@ with InfluxQL.
 The examples below use **cURL** to send HTTP requests to the InfluxDB v1 HTTP API,
 but you can use any HTTP client.
 
-{{% warn %}}
-#### InfluxQL feature support
-
-InfluxQL is being rearchitected to work with the InfluxDB 3 storage engine.
-This process is ongoing and some InfluxQL features are still being implemented.
-For information about the current implementation status of InfluxQL features,
-see [InfluxQL feature support](/influxdb3/clustered/reference/influxql/feature-support/).
-{{% /warn %}}
+> [!Warning]
+> #### InfluxQL feature support
+> 
+> InfluxQL is being rearchitected to work with the InfluxDB 3 storage engine.
+> This process is ongoing and some InfluxQL features are still being implemented.
+> For information about the current implementation status of InfluxQL features,
+> see [InfluxQL feature support](/influxdb3/clustered/reference/influxql/feature-support/).
 
 Use the v1 `/query` endpoint and the `GET` request method to query data with InfluxQL:
 
@@ -69,16 +68,16 @@ Replace the following configuration values:
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
   a [database token](/influxdb3/clustered/admin/tokens/#database-tokens) with _read_ access to the specified database.
 
-{{% note %}}
-#### Authenticate with username and password
-
-If using basic authentication or query string authentication (username and password)
-to interact with the v1 HTTP query API, provide the following credentials:
-
-- **username**: an arbitrary string _({{< product-name >}} ignores the username)_
-- **password**: a [database token](/influxdb3/clustered/admin/tokens/#database-tokens) with _read_ access to the specified database.
-
-{{< code-tabs-wrapper >}}
+> [!Note]
+> #### Authenticate with username and password
+> 
+> If using basic authentication or query string authentication (username and password)
+> to interact with the v1 HTTP query API, provide the following credentials:
+> 
+> - **username**: an arbitrary string _({{< product-name >}} ignores the username)_
+> - **password**: a [database token](/influxdb3/clustered/admin/tokens/#database-tokens) with _read_ access to the specified database.
+> 
+> {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Basic Auth](#)
 [Query String Auth](#)
@@ -108,7 +107,6 @@ curl --get https://{{< influxdb/host >}}/query \
 {{% /code-tab-content %}}
 
 {{< /code-tabs-wrapper >}}
-{{% /note %}}
 
 ## Return results as JSON or CSV
 

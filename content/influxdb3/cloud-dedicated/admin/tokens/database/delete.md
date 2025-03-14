@@ -118,15 +118,14 @@ Replace the following:
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-{{% warn %}}
-#### Deleting a token is immediate and cannot be undone
-
-Deleting a database token is a destructive action that takes place immediately
-and cannot be undone.
-
-#### Rotate deleted tokens
-
-After deleting a database token, any clients using the deleted token need to be
-updated with a new database token to continue to interact with your InfluxDB
-Cloud Dedicated cluster.
-{{% /warn %}}
+> [!Warning]
+> #### Deleting a token is immediate and cannot be undone
+> 
+> Deleting a database token is a destructive action that takes place immediately
+> and cannot be undone.
+> 
+> #### Rotate deleted tokens
+> 
+> After deleting a database token, any clients using the deleted token need to be
+> updated with a new database token to continue to interact with your InfluxDB
+> Cloud Dedicated cluster.

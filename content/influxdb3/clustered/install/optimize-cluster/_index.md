@@ -21,10 +21,9 @@ The goal of this phase of the installation process is to simulate a
 production-like workload against your InfluxDB cluster and make changes to
 optimize your cluster for your workload.
 
-{{% note %}}
-Depending on your requirements, this phase is likely to take the longest of all
-the installation phases.
-{{% /note %}}
+> [!Note]
+> Depending on your requirements, this phase is likely to take the longest of all
+> the installation phases.
 
 ## Identify performance requirements {note="Recommended"}
 

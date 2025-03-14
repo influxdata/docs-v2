@@ -27,14 +27,12 @@ Default: `table`.
 If a new database token doesn't immediately work (you receive a `401 Unauthorized` error) for querying or writing, wait and then try again.
 - Token strings are viewable _only_ on token creation.
 
-{{% note %}}
-
-#### Store secure tokens in a secret store
-
-Token strings are viewable _only_ on token creation and aren't stored by InfluxDB.
-We recommend storing database tokens in a **secure secret store**.
-
-{{% /note %}}
+> [!Note]
+> 
+> #### Store secure tokens in a secret store
+> 
+> Token strings are viewable _only_ on token creation and aren't stored by InfluxDB.
+> We recommend storing database tokens in a **secure secret store**.
 
 ## Usage
 

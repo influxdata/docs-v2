@@ -59,15 +59,14 @@ An SQL query result set includes columns listed in the query's `SELECT` statemen
 - [Query points based on field values](#query-points-based-on-field-values)
 - [Alias queried fields and tags](#alias-queried-fields-and-tags)
 
-{{% note %}}
-#### Sample data
-
-The following examples use the sample data written in the
-[Get started writing data guide](/influxdb3/cloud-dedicated/get-started/write/).
-To run the example queries and return results,
-[write the sample data](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb)
-to your {{% product-name %}} database before running the example queries.
-{{% /note %}}
+> [!Note]
+> #### Sample data
+> 
+> The following examples use the sample data written in the
+> [Get started writing data guide](/influxdb3/cloud-dedicated/get-started/write/).
+> To run the example queries and return results,
+> [write the sample data](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb)
+> to your {{% product-name %}} database before running the example queries.
 
 ### Query data within time boundaries
 
@@ -139,13 +138,12 @@ To query data using a time zone offset, use the
 [`AT TIME ZONE` operator](/influxdb3/cloud-dedicated/reference/sql/operators/other/#at-time-zone)
 to apply a time zone offset to timestamps in the `WHERE` clause.
 
-{{% note %}}
-Timestamp types in InfluxDB always represent a UTC time. `AT TIME ZONE` returns
-a UTC timestamp adjusted for the offset of the specified time zone.
-Timestamps in the `time` column are not updated.
-If you need to display the timestamps in your current timezone, this should be handled
-client-side.
-{{% /note %}}
+> [!Note]
+> Timestamp types in InfluxDB always represent a UTC time. `AT TIME ZONE` returns
+> a UTC timestamp adjusted for the offset of the specified time zone.
+> Timestamps in the `time` column are not updated.
+> If you need to display the timestamps in your current timezone, this should be handled
+> client-side.
 
 {{% influxdb/custom-timestamps %}}
 ```sql
@@ -166,10 +164,9 @@ WHERE
 To query data without time boundaries, do not include any time-based predicates
 in your `WHERE` clause.
 
-{{% warn %}}
-Querying data _without time bounds_ can return an unexpected amount of data.
-The query may take a long time to complete and results may be truncated.
-{{% /warn %}}
+> [!Warning]
+> Querying data _without time bounds_ can return an unexpected amount of data.
+> The query may take a long time to complete and results may be truncated.
 
 ```sql
 SELECT * FROM home

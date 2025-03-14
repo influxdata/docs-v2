@@ -33,10 +33,9 @@ a protocol for interacting with SQL databases using the Arrow in-memory format a
 It leverages the performance of [Apache Arrow](https://arrow.apache.org/) with
 the simplicity of SQL.
 
-{{% note %}}
-The examples in this section of the tutorial query the [**get-started** bucket](/influxdb3/cloud-serverless/get-started/setup/) for data written in the
-[Get started writing data](/influxdb3/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb) section.
-{{% /note %}}
+> [!Note]
+> The examples in this section of the tutorial query the [**get-started** bucket](/influxdb3/cloud-serverless/get-started/setup/) for data written in the
+> [Get started writing data](/influxdb3/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb) section.
 
 ## Tools to execute queries
 
@@ -53,23 +52,20 @@ The examples in this section of the tutorial query the [**get-started** bucket](
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb3/cloud-serverless/query-data/execute-queries/influxdb-v1-api/)
 - [Chronograf](/chronograf/v1/)
 
-{{% warn %}}
-
-#### Avoid using /api/v2/query
-
-Avoid using the `/api/v2/query` API endpoint and associated tooling, such as the `influx query` CLI command and InfluxDB v2 client libraries, with {{% product-name %}}.
-
-{{% /warn %}}
+> [!Warning]
+> 
+> #### Avoid using /api/v2/query
+> 
+> Avoid using the `/api/v2/query` API endpoint and associated tooling, such as the `influx query` CLI command and > InfluxDB v2 client libraries, with {{% product-name %}}.
 
 ## SQL query basics
 
 The {{% product-name %}} SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
 query engine which provides an SQL syntax similar to PostgreSQL.
 
-{{% note %}}
-This is a brief introduction to writing SQL queries for InfluxDB.
-For more in-depth details, see [Query data with SQL](/influxdb3/cloud-serverless/query-data/sql/).
-{{% /note %}}
+> [!Note]
+> This is a brief introduction to writing SQL queries for InfluxDB.
+> For more in-depth details, see [Query data with SQL](/influxdb3/cloud-serverless/query-data/sql/).
 
 InfluxDB SQL queries most commonly include the following clauses:
 
@@ -182,14 +178,12 @@ Get started with one of the following tools for querying data stored in an {{% p
 - **influx3 data CLI**: Send queries from your terminal command-line.
 - **Grafana**: Use the [FlightSQL Data Source plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/), to query, connect, and visualize data.
 
-{{% warn %}}
-
-#### Avoid using /api/v2/query
-
-Avoid using the `/api/v2/query` API endpoint in {{% product-name %}} and associated tooling, such as the `influx query` CLI command and InfluxDB v2 client libraries.
-You can't use SQL or InfluxQL with these tools.
-
-{{% /warn %}}
+> [!Warning]
+> 
+> #### Avoid using /api/v2/query
+> 
+> Avoid using the `/api/v2/query` API endpoint in {{% product-name %}} and associated tooling, such as the `influx > query` CLI command and InfluxDB v2 client libraries.
+> You can't use SQL or InfluxQL with these tools.
 
 For this example, use the following query to select all the data written to the
 **get-started** bucket between
@@ -209,11 +203,10 @@ WHERE
 ```
 {{% /influxdb/custom-timestamps %}}
 
-{{% note %}}
-Some examples in this getting started tutorial assume your InfluxDB
-credentials (**URL**, **organization**, and **token**) are provided by
-[environment variables](/influxdb3/cloud-serverless/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
-{{% /note %}}
+> [!Note]
+> Some examples in this getting started tutorial assume your InfluxDB
+> credentials (**URL**, **organization**, and **token**) are provided by
+> [environment variables](/influxdb3/cloud-serverless/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

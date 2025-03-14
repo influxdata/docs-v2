@@ -4,9 +4,54 @@ regular expression [syntax](https://docs.rs/regex/latest/regex/#syntax)
 (excluding some features such as look-around and back-references) and supports
 the following regular expression functions:
 
+- [regexp_count](#regexp_count)
 - [regexp_like](#regexp_like)
 - [regexp_match](#regexp_match)
 - [regexp_replace](#regexp_replace)
+
+## regexp_count
+
+Returns the number of matches that a regular expression has in a string.
+
+```sql
+regexp_count(str, regexp[, start, flags])
+```
+
+##### Arguments
+
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of operators.
+- **regexp**: Regular expression to operate on.
+  Can be a constant, column, or function, and any combination of operators.
+- **start**: Optional start position (the first position is 1) to search for the regular expression.
+  Can be a constant, column, or function.
+- **flags**: Optional regular expression flags that control the behavior of the
+  regular expression. The following flags are supported:
+  - **i**: (insensitive) Ignore case when matching.
+  - **m**: (multi-line) `^` and `$` match the beginning and end of a line, respectively.
+  - **s**: (single-line) `.` matches newline (`\n`).
+  - **R**: (CRLF) When multi-line mode is enabled, `\r\n` is used to delimit lines.
+  - **U**: (ungreedy) Swap the meaning of `x*` and `x*?`.
+
+{{< expand-wrapper >}}
+{{% expand "View `regexp_count` query example" %}}
+
+_The following example uses the {{< influxdb3/home-sample-link >}}._
+
+```sql
+SELECT DISTINCT
+  room,
+  regexp_count(room::STRING, '[Ro]', 1, 'i') AS regexp_count
+FROM home
+```
+
+| room        | regexp_count |
+| :---------- | -----------: |
+| Kitchen     |            0 |
+| Living Room |            3 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## regexp_like
 
@@ -34,8 +79,7 @@ regexp_like(str, regexp[, flags])
 {{< expand-wrapper >}}
 {{% expand "View `regexp_like` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -73,11 +117,10 @@ regexp_match(str, regexp, flags)
 {{< expand-wrapper >}}
 {{% expand "View `regexp_match` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 > [!Note]
-> `regexp_match` returns a _list_ Arrow type, which is not supported by InfluxDB.
+> `regexp_match` returns a _list_ Arrow type.
 > Use _bracket notation_ to reference a value in the list.
 > Lists use 1-based indexing.
 
@@ -120,8 +163,7 @@ regexp_replace(str, regexp, replacement, flags)
 {{< expand-wrapper >}}
 {{% expand "View `regexp_replace` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT

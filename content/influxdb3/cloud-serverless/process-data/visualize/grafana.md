@@ -56,14 +56,13 @@ The InfluxDB data source plugin is included in the Grafana core distribution.
 Use the plugin to query and visualize data stored in {{< product-name >}} with
 both InfluxQL and SQL. 
 
-{{% note %}}
-#### Grafana 10.3+
-
-The instructions below are for **Grafana 10.3+** which introduced the newest
-version of the InfluxDB core plugin.
-The updated plugin includes **SQL support** for InfluxDB 3-based products such
-as {{< product-name >}}.
-{{% /note %}}
+> [!Note]
+> #### Grafana 10.3+
+> 
+> The instructions below are for **Grafana 10.3+** which introduced the newest
+> version of the InfluxDB core plugin.
+> The updated plugin includes **SQL support** for InfluxDB 3-based products such
+> as {{< product-name >}}.
 
 ## Create an InfluxDB data source
 
@@ -113,13 +112,12 @@ When creating an InfluxDB data source that uses SQL to query data:
 
 When creating an InfluxDB data source that uses InfluxQL to query data:
 
-{{% note %}}
-#### Map databases and retention policies to buckets
-
-To query {{% product-name %}} with InfluxQL, first map database and retention policy
-(DBRP) combinations to your InfluxDB Cloud buckets. For more information, see
-[Map databases and retention policies to buckets](/influxdb3/cloud-serverless/query-data/influxql/dbrp/).
-{{% /note %}}
+> [!Note]
+> #### Map databases and retention policies to buckets
+> 
+> To query {{% product-name %}} with InfluxQL, first map database and retention policy
+> (DBRP) combinations to your InfluxDB Cloud buckets. For more information, see
+> [Map databases and retention policies to buckets](/influxdb3/cloud-serverless/query-data/influxql/dbrp/).
 
 1.  Under **HTTP**:
 
@@ -164,10 +162,9 @@ use Grafana to build, run, and inspect queries against your InfluxDB bucket.
 {{% tab-content %}}
 <!--------------------------------- BEGIN SQL --------------------------------->
 
-{{% note %}}
-{{% sql/sql-schema-intro %}}
-To learn more, see [Query Data](/influxdb3/cloud-serverless/query-data/sql/).
-{{% /note %}}
+> [!Note]
+> {{% sql/sql-schema-intro %}}
+> To learn more, see [Query Data](/influxdb3/cloud-serverless/query-data/sql/).
 
 1. Click **Explore**.
 2. In the dropdown, select the saved InfluxDB data source to query.

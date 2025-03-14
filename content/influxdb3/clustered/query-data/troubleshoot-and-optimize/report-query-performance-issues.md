@@ -41,10 +41,9 @@ Use these guidelines to work with InfluxData engineers to troubleshoot and resol
     - [Collect compaction information for the table](#collect-compaction-information-for-the-table)
     - [Collect partition information for multiple tables](#collect-partition-information-for-multiple-tables)
 
-{{% note %}}
-Please note that this document may change from one support engagement to the
-next as our process and tooling improves.
-{{% /note %}}
+> [!Note]
+> Please note that this document may change from one support engagement to the
+> next as our process and tooling improves.
 
 ### Send InfluxData output artifacts
 
@@ -83,14 +82,13 @@ including the following:
   Clustered product
   - If so, describe the network-level topology of your setup
 
-{{% note %}}
-#### If possible, provide a synthetic dataset
-
-If you can reproduce the performance issue with a synthetic dataset, and your
-process and environment are well-documented, InfluxData engineers _may_
-be able to reproduce the issue, shorten the feedback cycle, and resolve the
-issue sooner.
-{{% /note %}}
+> [!Note]
+> #### If possible, provide a synthetic dataset
+> 
+> If you can reproduce the performance issue with a synthetic dataset, and your
+> process and environment are well-documented, InfluxData engineers _may_
+> be able to reproduce the issue, shorten the feedback cycle, and resolve the
+> issue sooner.
 
 ### Document your data schema
 

@@ -10,12 +10,11 @@ weight: 301
 draft: true
 ---
 
-{{% warn %}}
-#### InfluxData internal use only
-
-This command is for InfluxData internal use only and won't work when run by
-a user account.
-{{% /warn %}}
+> [!Warning]
+> #### InfluxData internal use only
+> 
+> This command is for InfluxData internal use only and won't work when run by
+> a user account.
 
 The `influxctl user invite` command invites a user to an {{< product-name >}}
 account.

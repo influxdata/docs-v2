@@ -50,6 +50,37 @@ pre-commit:
       run: '.ci/vale/vale.sh
         --config=content/influxdb/v2/.vale.ini
         --minAlertLevel=error {staged_files}'
+
+    # Link checking for InfluxDB v2
+    v2-links:
+      tags: test,links,v2
+      glob: "content/influxdb/v2/**/*.{md,html}"
+      run: 'node cypress/support/map-files-to-urls.mjs {staged_files}'
+    
+    # Link checking for InfluxDB v3 core
+    v3-core-links:
+      tags: test,links,v3
+      glob: "content/influxdb3/core/**/*.{md,html}"
+      run: 'node cypress/support/map-files-to-urls.mjs {staged_files}'
+    
+    # Link checking for InfluxDB v3 enterprise
+    v3-enterprise-links:
+      tags: test,links,v3
+      glob: "content/influxdb3/enterprise/**/*.{md,html}"
+      run: 'node cypress/support/map-files-to-urls.mjs {staged_files}'
+    
+    # Link checking for Cloud products
+    cloud-links:
+      tags: test,links,cloud
+      glob: "content/influxdb/{cloud,cloud-dedicated,cloud-serverless}/**/*.{md,html}"
+      run: 'node cypress/support/map-files-to-urls.mjs {staged_files}'
+    
+    # Link checking for Telegraf
+    telegraf-links:
+      tags: test,links
+      glob: "content/telegraf/**/*.{md,html}"
+      run: 'node cypress/support/map-files-to-urls.mjs {staged_files}'
+
     cloud-pytest:
       glob: content/influxdb/cloud/**/*.md
       tags: test,codeblocks,v2

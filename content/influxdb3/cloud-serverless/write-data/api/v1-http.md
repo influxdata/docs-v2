@@ -123,9 +123,8 @@ The following tools work with the {{% product-name %}} `/write` endpoint:
 If you have existing v1 workloads that use Telegraf,
 you can use the [InfluxDB v1.x `influxdb` Telegraf output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) to write data.
 
-{{% note %}}
-See how to [use Telegraf and the v2 API](/influxdb3/cloud-serverless/write-data/use-telegraf/) for new workloads that don't already use the v1 API.
-{{% /note %}}
+> [!Note]
+> See how to [use Telegraf and the v2 API](/influxdb3/cloud-serverless/write-data/use-telegraf/) for new workloads that don't already use the v1 API.
 
 The following table shows `outputs.influxdb` plugin parameters and values for writing to the {{% product-name %}} v1 API:
 
@@ -169,9 +168,8 @@ For more plugin options, see [`influxdb`](https://github.com/influxdata/telegraf
 
 To test InfluxDB v1 API writes interactively from the command line, use common HTTP clients such as cURL and Postman.
 
-{{% note %}}
-For production use cases, use tools such as [client libraries](#client-libraries) that construct line protocol for you and provide batch writing options.
-{{% /note %}}
+> [!Note]
+> For production use cases, use tools such as [client libraries](#client-libraries) that construct line protocol for you and provide batch writing options.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}

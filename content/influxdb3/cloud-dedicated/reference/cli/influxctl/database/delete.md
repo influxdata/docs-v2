@@ -21,16 +21,15 @@ Cloud Dedicated cluster.
 influxctl database delete [command options] [--force] <DATABASE_NAME> [<DATABASE_NAME_N>...]
 ```
 
-{{% warn %}}
-#### Cannot be undone
-
-Deleting a database is a destructive action that cannot be undone.
-
-#### Cannot reuse deleted database names
-
-After deleting a database, you cannot reuse the name of the deleted database
-when creating a new database.
-{{% /warn %}}
+> [!Warning]
+> #### Cannot be undone
+> 
+> Deleting a database is a destructive action that cannot be undone.
+> 
+> #### Cannot reuse deleted database names
+> 
+> After deleting a database, you cannot reuse the name of the deleted database
+> when creating a new database.
 
 ## Arguments
 

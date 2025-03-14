@@ -13,10 +13,9 @@ An SQL query that aggregates data includes the following clauses:
 - `GROUP BY`: Group data that have the same values for specified columns and
   expressions (for example, an aggregate function result).
 
-{{% note %}}
-For simplicity, the verb, **"aggregate,"** in this guide refers to applying
-both aggregate and selector functions to a dataset.
-{{% /note %}}
+> [!Note]
+> For simplicity, the verb, **"aggregate,"** in this guide refers to applying
+> both aggregate and selector functions to a dataset.
 
 Learn how to apply aggregate operations to your queried data:
 

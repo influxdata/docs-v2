@@ -31,12 +31,9 @@ Resource configuration for your cluster includes the following:
   - **`example-customer.yml`**: Configuration for your InfluxDB cluster that includes
     information about [prerequisites](/influxdb3/clustered/install/set-up-cluster/prerequisites/).
 
-    {{% note %}}
-
-The following sections refer to a `myinfluxdb.yml` file that you copy from
-`example-customer.yml` and edit for your InfluxDB cluster.
-
-    {{% /note %}}
+    > [!Note]
+    > The following sections refer to a `myinfluxdb.yml` file that you copy from
+    > `example-customer.yml` and edit for your InfluxDB cluster.
 
 ## Configuration data
 
@@ -74,13 +71,12 @@ The `AppInstance` resource contains key information, such as:
 - Hostname of your cluster's InfluxDB API
 - Parameters to connect to [external prerequisites](/influxdb3/clustered/install/set-up-cluster/prerequisites/)
 
-{{% note %}}
-#### Update your namespace if using a namespace other than influxdb
-
-If you use a namespace name other than `influxdb`, update the
-`metadata.namespace` property in your `myinfluxdb.yml` to use your custom
-namespace name.
-{{% /note %}}
+> [!Note]
+> #### Update your namespace if using a namespace other than influxdb
+> 
+> If you use a namespace name other than `influxdb`, update the
+> `metadata.namespace` property in your `myinfluxdb.yml` to use your custom
+> namespace name.
 
 ## Configure your cluster
 
@@ -99,17 +95,16 @@ specific to your InfluxDB cluster. For example, `myinfluxdb.yml`.
 cp example-customer.yml myinfluxdb.yml
 ```
 
-{{% note %}}
-
-#### Use VS Code to edit your configuration file
-
-We recommend using [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
-to edit your `myinfluxdb.yml` configuration file due to its JSON Schema support,
-including autocompletion and validation features that help when 
-editing your InfluxDB configuration. InfluxData provides an
-`app-instance-schema.json` JSON schema file that VS Code can use to validate
-your configuration settings.
-{{% /note %}}
+> [!Note]
+> 
+> #### Use VS Code to edit your configuration file
+> 
+> We recommend using [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
+> to edit your `myinfluxdb.yml` configuration file due to its JSON Schema support,
+> including autocompletion and validation features that help when 
+> editing your InfluxDB configuration. InfluxData provides an
+> `app-instance-schema.json` JSON schema file that VS Code can use to validate
+> your configuration settings.
 
 ### Configure access to the InfluxDB container registry
 
@@ -128,7 +123,7 @@ In both scenarios, you need a valid _pull secret_.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[Public registry (non-air-gapped)](#)
+[Public registry](#)
 [Private registry (air-gapped)](#)
 {{% /tabs %}}
 
@@ -136,7 +131,7 @@ In both scenarios, you need a valid _pull secret_.
 
 <!--------------------------- BEGIN Public Registry --------------------------->
 
-#### Public registry (non-air-gapped)
+#### Public registry
 
 To pull from the InfluxData registry, you need to create a Kubernetes secret in the target namespace.
 
@@ -161,40 +156,34 @@ If you change the name of the secret, you must also change the value of the
 {{% /tab-content %}}
 {{% tab-content %}}
 
-<!--------------------------- BEGIN Private Registry -------------------------->
+<!--------------------------- BEGIN PRIVATE REGISTRY (AIR-GAPPED) -------------------------->
 
 #### Private registry (air-gapped)
 
 If your Kubernetes cluster can't use a public network to download container images
-from the InfluxData container registry, do the following:
+from the InfluxData container registry, follow these steps to copy images and
+configure the AppInstance for a private registry:
 
-1.  Copy the images from the InfluxData registry to your own private registry.
-2.  Configure your `AppInstance` resource with a reference to your private
-    registry name.
-3.  Provide credentials to your private registry.
+1. [Copy the images to your private registry](#copy-the-images-to-your-private-registry)
+2. [Configure your AppInstance](#configure-your-appinstance)
 
-##### Copy the images
+##### Copy the images to your private registry
 
-We recommend using [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane)
-to copy images into your private registry.
+Use `crane` to copy images from the InfluxData registry to your own private registry.
 
-1.  [Install crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
-    for your system.
-2.  Use the following command to create a container registry secret file and
-    retrieve the necessary secrets:
+1. [Install crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
+   for your system.
+2. Create a container registry secret file and verify access:
 
 {{% code-placeholders "PACKAGE_VERSION" %}}
 
-<!-- pytest.mark.skip -->
-
 ```bash
-mkdir /tmp/influxdbsecret
+mkdir -p /tmp/influxdbsecret
 cp influxdb-docker-config.json /tmp/influxdbsecret/config.json
 DOCKER_CONFIG=/tmp/influxdbsecret \
   crane manifest \
   us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:PACKAGE_VERSION
 ```
-
 {{% /code-placeholders %}}
 
 ---
@@ -244,8 +233,8 @@ manifest and the output is similar to the following error:
 Error: fetching manifest us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:<package-version>: GET https://us-docker.pkg.dev/v2/token?scope=repository%3Ainfluxdb2-artifacts%2Fclustered%2Finfluxdb%3Apull&service=: DENIED: Permission "artifactregistry.repositories.downloadArtifacts" denied on resource "projects/influxdb2-artifacts/locations/us/repositories/clustered" (or it may not exist)
 ```
 
-The list of images that you need to copy is included in the package metadata.
-You can obtain it with any standard OCI image inspection tool--for example:
+3. Extract the list of InfluxDB images from the package metadata:
+You can use any standard OCI image inspection tool--for example:
 
 {{% code-placeholders "PACKAGE_VERSION" %}}
 
@@ -269,7 +258,7 @@ us-docker.pkg.dev/influxdb2-artifacts/iox/iox@sha256:b59d80add235f29b806badf7410
 ...
 ```
 
-Use `crane` to copy the images to your private registry:
+4. Use `crane` to copy the images to your private registry:
 
 {{% code-placeholders "REGISTRY_HOSTNAME" %}}
 
@@ -289,49 +278,50 @@ with the hostname of your private registry--for example:
 myregistry.mydomain.io
 ```
 
-
 ##### Configure your AppInstance
 
-Set the `spec.package.spec.images.registryOverride` field in your
-`myinfluxdb.yml` to the location of your private registry--for example:
+Configure your `AppInstance` resource with a reference to your private registry name.
 
-{{% code-placeholders "REGISTRY_HOSTNAME" %}}
+In your `myinfluxdb.yml`:
 
-```yml
+1. Set `spec.package.spec.images.registryOverride` to the location of your private registry.
+2. If your private container registry requires pull secrets to access images, set `spec.imagePullSecrets.name` to the pull secret name.
+
+{{% expand-wrapper %}}
+{{% expand "View `myinfluxdb.yml` AppInstance configuration" %}}
+{{% code-placeholders "REGISTRY_HOSTNAME | PULL_SECRET_NAME" %}}
+```yaml
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
-# ...
+metadata:
+  name: influxdb
+  namespace: influxdb
 spec:
   package:
     spec:
       images:
         registryOverride: REGISTRY_HOSTNAME
-```
-
-{{% /code-placeholders %}}
-
-
-##### Provide credentials to your private registry
-
-If your private container registry requires pull secrets to access images, you
-can create the required kubernetes secrets, and then configure them in your
-AppInstance resource--for example:
-
-{{% code-placeholders "PULL_SECRET_NAME" %}}
-
-```yml
-apiVersion: kubecfg.dev/v1alpha1
-kind: AppInstance
-# ...
-spec:
+  # Configure connection to PostgreSQL database
+  values:
+    global:
+      catalog:
+        dsn: "postgres://username:password@postgres-host:5432/influxdb?sslmode=require"
+    # Configure S3-compatible object storage
+    objectStorage:
+      bucket: "influxdb-bucket"
+      endpoint: "https://s3-endpoint"
+      accessKeyId: "ACCESS_KEY"
+      secretAccessKey: "SECRET_KEY"
+      region: "region"
+  # Configure image pull secrets if needed
   imagePullSecrets:
     - name: PULL_SECRET_NAME
 ```
-
 {{% /code-placeholders %}}
+{{% /expand %}}
+{{% /expand-wrapper %}}
 
-
-<!---------------------------- END Private Registry --------------------------->
+<!---------------------------- END Private Registry (AIR-GAPPED) --------------------------->
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
@@ -361,25 +351,23 @@ To configure ingress, provide values for the following fields in your
   requests for all listed hostnames. This can be useful if you want to have
   distinct paths for your internal and external traffic._
 
-  {{% note %}}
-You are responsible for configuring and managing DNS. Options include:
-
-- Manually managing DNS records
-- Using [external-dns](https://github.com/kubernetes-sigs/external-dns) to
-  synchronize exposed Kubernetes services and ingresses with DNS providers.
-  {{% /note %}}
+  > [!Note]
+  > You are responsible for configuring and managing DNS. Options include:
+  > 
+  > - Manually managing DNS records
+  > - Using [external-dns](https://github.com/kubernetes-sigs/external-dns) to
+  >   synchronize exposed Kubernetes services and ingresses with DNS providers.
 
 - **`spec.package.spec.ingress.tlsSecretName`: TLS certificate secret name**
 
   (Optional): Provide the name of the secret that contains your TLS certificate
   and key. The examples in this guide use the name `ingress-tls`.
 
-  {{% note %}}
-Writing to and querying data from InfluxDB does not require TLS.
-For simplicity, you can wait to enable TLS before moving into production.
-For more information, see Phase 4 of the InfluxDB Clustered installation
-process, [Secure your cluster](/influxdb3/clustered/install/secure-cluster/).
-  {{% /note %}}
+  > [!Note]
+  > Writing to and querying data from InfluxDB does not require TLS.
+  > For simplicity, you can wait to enable TLS before moving into production.
+  > For more information, see Phase 4 of the InfluxDB Clustered installation
+  > process, [Secure your cluster](/influxdb3/clustered/install/secure-cluster/).
 
 {{% code-callout "ingress-tls|cluster-host\.com" "green" %}}
 
@@ -602,10 +590,9 @@ metadata about your time series data.
 To connect your InfluxDB cluster to your PostgreSQL-compatible database,
 provide values for the following fields in your `myinfluxdb.yml` configuration file:
 
-{{% note %}}
-We recommend storing sensitive credentials, such as your PostgreSQL-compatible DSN,
-as secrets in your Kubernetes cluster.
-{{% /note %}}
+> [!Note]
+> We recommend storing sensitive credentials, such as your PostgreSQL-compatible DSN,
+> as secrets in your Kubernetes cluster.
 
 - `spec.package.spec.catalog.dsn.valueFrom.secretKeyRef`
   - `.name`: Secret name
@@ -643,22 +630,24 @@ Replace the following:
 
 ---
 
-{{% warn %}}
-##### Percent-encode special symbols in PostgreSQL DSNs
-
-Percent-encode special symbols in PostgreSQL DSNs to ensure
-{{% product-name %}} parses them correctly.
-Consider this when using DSNs with auto-generated passwords that include special
-symbols for added security.
-
-If a DSN contains special characters that aren't percent-encoded,
-you might encounter an error similar to the following:
-
-```txt
-Catalog DSN error: A catalog error occurred: unhandled external error: error with configuration: invalid port number
-```
-
-{{< expand-wrapper >}}
+> [!Warning]
+> ##### Percent-encode special symbols in PostgreSQL DSNs
+> 
+> Percent-encode special symbols in PostgreSQL DSNs to ensure
+> {{% product-name %}} parses them correctly.
+> Consider this when using DSNs with auto-generated passwords that include special
+> symbols for added security.
+> 
+> If a DSN contains special characters that aren't percent-encoded,
+> you might encounter an error similar to the following:
+> 
+> ```txt
+> Catalog DSN error: A catalog error occurred: unhandled external error: error with configuration: invalid port > number
+> ```
+> 
+> For more information, see the [PostgreSQL Connection URI docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS).
+>
+> {{< expand-wrapper >}}
 {{% expand "View percent-encoded DSN example" %}}
 To use the following DSN containing special characters:
 
@@ -679,25 +668,18 @@ postgresql://postgres:meow%23meow@my-fancy.cloud-database.party:5432/postgres
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-For more information, see the [PostgreSQL Connection URI
-docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS).
-{{% /warn %}}
-
-{{% note %}}
-
-##### PostgreSQL instances without TLS or SSL
-
-If your PostgreSQL-compatible instance runs without TLS or SSL, you must include
-the `sslmode=disable` parameter in the DSN. For example:
-
-{{% code-callout "sslmode=disable" %}}
-
+> [!Note]
+> 
+> ##### PostgreSQL instances without TLS or SSL
+> 
+> If your PostgreSQL-compatible instance runs without TLS or SSL, you must include
+> the `sslmode=disable` parameter in the DSN. For example:
+> 
+> {{% code-callout "sslmode=disable" %}}
 ```
 postgres://username:passw0rd@mydomain:5432/influxdb?sslmode=disable
 ```
-
 {{% /code-callout %}}
-{{% /note %}}
 
 #### Configure local storage for ingesters
 

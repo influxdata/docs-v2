@@ -167,11 +167,10 @@ to an {{% product-name %}} database.
 To learn more about available tools and options, see
 [Write data](/influxdb3/cloud-dedicated/write-data/).
 
-{{% note %}}
-Some examples in this getting started tutorial assume your InfluxDB
-credentials (**URL**, **organization**, and **token**) are provided by
-[environment variables](/influxdb3/cloud-dedicated/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
-{{% /note %}}
+> [!Note]
+> Some examples in this getting started tutorial assume your InfluxDB
+> credentials (**URL**, **organization**, and **token**) are provided by
+> [environment variables](/influxdb3/cloud-dedicated/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
 
 {{< tabs-wrapper >}}
 
@@ -411,13 +410,10 @@ learn more, see how to
 Write data with your existing workloads that already use the InfluxDB v1
 `/write` API endpoint.
 
-{{% note %}}
-
-If migrating data from InfluxDB 1.x, see the
-[Migrate data from InfluxDB 1.x to InfluxDB {{% product-name %}}](/influxdb3/cloud-dedicated/guides/migrate-data/migrate-1x-to-cloud-dedicated/)
-guide.
-
-{{% /note %}}
+> [!Note]
+> If migrating data from InfluxDB 1.x, see the
+> [Migrate data from InfluxDB 1.x to InfluxDB {{% product-name %}}](/influxdb3/cloud-dedicated/guides/migrate-data/migrate-1x-to-cloud-dedicated/)
+> guide.
 
 To write data to InfluxDB using the
 [InfluxDB v1 HTTP API](/influxdb3/cloud-dedicated/reference/api/), send a request
@@ -440,14 +436,13 @@ Include the following with your request:
     (default is `ns`)
 - **Request body**: Line protocol as plain text
 
-{{% note %}}
-With the {{% product-name %}}
-[v1 API `/write` endpoint](/influxdb3/cloud-dedicated/api/#operation/PostLegacyWrite),
-`Authorization: Bearer` and `Authorization: Token` are equivalent and you can
-use either scheme to pass a database token in your request. For more information
-about HTTP API token schemes, see how to
-[authenticate API requests](/influxdb3/cloud-dedicated/guides/api-compatibility/v1/).
-{{% /note %}}
+> [!Note]
+> With the {{% product-name %}}
+> [v1 API `/write` endpoint](/influxdb3/cloud-dedicated/api/#operation/PostLegacyWrite),
+> `Authorization: Bearer` and `Authorization: Token` are equivalent and you can
+> use either scheme to pass a database token in your request. For more information
+> about HTTP API token schemes, see how to
+> [authenticate API requests](/influxdb3/cloud-dedicated/guides/api-compatibility/v1/).
 
 The following example uses cURL and the InfluxDB v1 API to write line protocol
 to InfluxDB:
@@ -552,14 +547,13 @@ Include the following with your request:
 - **Request body**: Line protocol as plain text
 <!-- vale InfluxDataDocs.v3Schema = YES -->
 
-{{% note %}}
-The {{% product-name %}} v2 API `/api/v2/write` endpoint supports
-`Bearer` and `Token` authorization schemes and you can use either scheme to pass
-a database token in your request.
-For more information about HTTP API token
-schemes, see how to
-[authenticate API requests](/influxdb3/cloud-dedicated/guides/api-compatibility/v2/).
-{{% /note %}}
+> [!Note]
+> The {{% product-name %}} v2 API `/api/v2/write` endpoint supports
+> `Bearer` and `Token` authorization schemes and you can use either scheme to pass
+> a database token in your request.
+> For more information about HTTP API token
+> schemes, see how to
+> [authenticate API requests](/influxdb3/cloud-dedicated/guides/api-compatibility/v2/).
 
 The following example uses cURL and the InfluxDB v2 API to write line protocol
 to InfluxDB:

@@ -14,12 +14,11 @@ related:
 metadata: [influx CLI 2.0.0+]
 ---
 
-{{% warn %}}
-#### Not supported in InfluxDB Cloud Serverless
-
-While this command is included in the `influx` CLI {{< latest-cli >}}, this
-functionality is not available in InfluxDB Cloud Serverless organizations
-powered by the InfluxDB 3 storage engine.
-{{% /warn %}}
+> [!Warning]
+> #### Not supported in InfluxDB Cloud Serverless
+> 
+> While this command is included in the `influx` CLI {{< latest-cli >}}, this
+> functionality is not available in InfluxDB Cloud Serverless organizations
+> powered by the InfluxDB 3 storage engine.
 
 {{< duplicate-oss >}}

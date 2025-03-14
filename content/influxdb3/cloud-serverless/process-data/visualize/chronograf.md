@@ -45,16 +45,15 @@ If you haven't already, [download and install Chronograf](/chronograf/v1/introdu
     - **Default Retention Policy:** Default [retention policy](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp)
       _**(leave blank)**_
 
-        {{% note %}}
-#### DBRPs map to InfluxDB buckets
-
-In {{% product-name %}}, database and retention-policy (DBRP) combinations
-are mapped to buckets using the `database-name/retention-policy` naming convention
-or using manually created DBRP mappings.
-**DBRP mappings are required to query InfluxDB Cloud using InfluxQL.**
-
-For information, see [Create DBRP mappings](/influxdb3/cloud-serverless/query-data/influxql/dbrp/).
-      {{% /note %}}
+        > [!Note]
+        > #### DBRPs map to InfluxDB buckets
+        > 
+        > In {{% product-name %}}, database and retention-policy (DBRP) combinations
+        > are mapped to buckets using the `database-name/retention-policy` naming convention
+        > or using manually created DBRP mappings.
+        > **DBRP mappings are required to query InfluxDB Cloud using InfluxQL.**
+        > 
+        > For information, see [Create DBRP mappings](/influxdb3/cloud-serverless/query-data/influxql/dbrp/).
 
 3. Click **Add Connection**.
 4. Select the dashboards you would like to create, and then click **Next**.
@@ -71,27 +70,26 @@ For information, see [Create DBRP mappings](/influxdb3/cloud-serverless/query-da
 1. In Chronograf, click **{{< icon "graph" "v2" >}} Explore** in the left navigation bar.
 2. Build and submit InfluxQL queries.
 
-{{% note %}}
-#### Schema information is not available
-
-{{% product-name %}} currently offers limited support of InfluxQL metaqueries, so
-schema information may not be available in the Data Explorer.
-This limits the Data Explorer's query building functionality and requires you to
-build queries manually using
-[fully-qualified measurements](/influxdb3/cloud-serverless/reference/influxql/select/#fully-qualified-measurement)
-in the `FROM` clause. For example:
-
-```sql
--- Fully-qualified measurement
-SELECT * FROM "db-name"."rp-name"."measurement-name"
-
--- Fully-qualified measurement shorthand (use the default retention policy)
-SELECT * FROM "db-name".."measurement-name"
-```
-
-For more information about available InfluxQL functionality, see
-[InfluxQL feature support](/influxdb3/cloud-serverless/reference/influxql/feature-support/).
-{{% /note %}}
+> [!Note]
+> #### Schema information is not available
+> 
+> {{% product-name %}} currently offers limited support of InfluxQL metaqueries, so
+> schema information may not be available in the Data Explorer.
+> This limits the Data Explorer's query building functionality and requires you to
+> build queries manually using
+> [fully-qualified measurements](/influxdb3/cloud-serverless/reference/influxql/select/#fully-qualified-measurement)
+> in the `FROM` clause. For example:
+> 
+> ```sql
+> -- Fully-qualified measurement
+> SELECT * FROM "db-name"."rp-name"."measurement-name"
+> 
+> -- Fully-qualified measurement shorthand (use the default retention policy)
+> SELECT * FROM "db-name".."measurement-name"
+> ```
+> 
+> For more information about available InfluxQL functionality, see
+> [InfluxQL feature support](/influxdb3/cloud-serverless/reference/influxql/feature-support/).
 
 ## Important notes
 

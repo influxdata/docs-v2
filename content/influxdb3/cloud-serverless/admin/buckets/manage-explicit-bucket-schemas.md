@@ -16,12 +16,11 @@ alt_links:
   cloud: /influxdb/cloud/admin/buckets/bucket-schema/
 ---
 
-{{% warn %}}
-#### Don't use explicit schemas with InfluxDB 3
-
-Don't use **explicit bucket schemas** with InfluxDB 3.
-The sections on this page provide help for managing and troubleshooting `explicit` buckets you may already have.
-{{% /warn %}}
+> [!Warning]
+> #### Don't use explicit schemas with InfluxDB 3
+> 
+> Don't use **explicit bucket schemas** with InfluxDB 3.
+> The sections on this page provide help for managing and troubleshooting `explicit` buckets you may already have.
 
 In InfluxDB 2.x, buckets with the `explicit` schema-type use
 explicit bucket schemas to ensure measurements have specific columns and data types and to prevent non-conforming writes.

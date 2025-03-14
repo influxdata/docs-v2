@@ -40,9 +40,8 @@ to a table, you must manually create the table before you write any data to it.
     - The name of the database to create the table in
     - The name of the table to create
 
-    {{% note %}}
-_{{< product-name >}} supports up to 7 total tags or tag buckets in the partition template._
-    {{% /note %}}
+    > [!Note]
+    > _{{< product-name >}} supports up to 7 total tags or tag buckets in the partition template._
 
 {{% code-placeholders "(DATABASE|TABLE)_NAME" %}}
 ```sh
@@ -71,9 +70,8 @@ If no template flags are provided, the table uses the partition template of the
 target database.
 For more information, see [Manage data partitioning](/influxdb3/clustered/admin/custom-partitions/).
 
-{{% warn %}}
-#### Partition templates can only be applied on create
-
-You can only apply a partition template when creating a table.
-There is no way to update a partition template on an existing table.
-{{% /warn %}}
+> [!Warning]
+> #### Partition templates can only be applied on create
+> 
+> You can only apply a partition template when creating a table.
+> There is no way to update a partition template on an existing table.
