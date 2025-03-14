@@ -9,12 +9,11 @@ weight: 301
 draft: true
 ---
 
-{{% warn %}}
-#### InfluxData internal use only
-
-This command is for InfluxData internal use only and won't work when run by
-a user account.
-{{% /warn %}}
+> [!Warning]
+> #### InfluxData internal use only
+> 
+> This command is for InfluxData internal use only and won't work when run by
+> a user account.
 
 The `influxctl user delete` command deletes a user from your {{< product-name >}}
 account.
@@ -25,12 +24,11 @@ account.
 influxctl user delete <USER_ID>
 ```
 
-{{% warn %}}
-#### Deleting a user is immediate and cannot be undone
-
-Deleting a user is a destructive action that takes place immediately
-and cannot be undone.
-{{% /warn %}}
+> [!Warning]
+> #### Deleting a user is immediate and cannot be undone
+> 
+> Deleting a user is a destructive action that takes place immediately
+> and cannot be undone.
 
 ## Arguments
 

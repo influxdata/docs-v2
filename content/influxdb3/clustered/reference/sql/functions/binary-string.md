@@ -1,0 +1,19 @@
+---
+title: SQL binary string functions
+list_title: Binary string functions
+description: >
+  Use binary string functions to encode and decode binary string values in
+  SQL queries.
+menu:
+  influxdb3_clustered:
+    name: Binary string
+    parent: sql-functions    
+weight: 308
+
+source: /content/shared/sql-reference/functions/binary-string.md
+---
+
+<!-- 
+The content of this page is at
+// SOURCE /content/shared/sql-reference/functions/binary-string.md
+-->

@@ -131,10 +131,9 @@ use Grafana to build, run, and inspect queries against {{< product-name >}}.
 {{% tab-content %}}
 <!--------------------------------- BEGIN SQL --------------------------------->
 
-{{% note %}}
-{{% sql/sql-schema-intro %}}
-To learn more, see [Query Data](/influxdb3/version/query-data/sql/).
-{{% /note %}}
+> [!Note]
+> {{% sql/sql-schema-intro %}}
+> To learn more, see [Query Data](/influxdb3/version/query-data/sql/).
 
 1. Click **Explore**.
 2. In the dropdown, select the saved InfluxDB data source to query.

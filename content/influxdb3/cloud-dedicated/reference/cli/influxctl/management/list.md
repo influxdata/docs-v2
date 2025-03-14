@@ -15,17 +15,16 @@ The `influxctl management list` command lists all management tokens used to
 perform administrative tasks in an {{< product-name omit=" Clustered" >}} cluster.
 It returns the token description and other relevant information.
 
-{{% note %}}
-#### Management token strings are not retrievable
-
-The actual management token string is not printed and is only returned when
-creating the token.
-
-#### Revoked tokens are included in output
-
-Revoked tokens still appear when listing management tokens, but they are no
-longer valid for any operations.
-{{% /note %}}
+> [!Note]
+> #### Management token strings are not retrievable
+> 
+> The actual management token string is not printed and is only returned when
+> creating the token.
+> 
+> #### Revoked tokens are included in output
+> 
+> Revoked tokens still appear when listing management tokens, but they are no
+> longer valid for any operations.
 
 The `--format` flag lets you print the output in other formats.
 The `json` format is available for programmatic parsing by other tooling.

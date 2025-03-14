@@ -34,12 +34,11 @@ The following diagram illustrates how data is passed between processes as it is 
 
 {{< html-diagram/quix-downsample-pipeline >}}
 
-{{% note %}}
-It is usually more efficient to write raw data directly to Kafka rather than
-writing raw data to InfluxDB first (essentially starting the Quix Streams
-pipeline with the "raw-data" topic). However, this guide assumes that you
-already have raw data in InfluxDB that you want to downsample.
-{{% /note %}}
+> [!Note]
+> It is usually more efficient to write raw data directly to Kafka rather than
+> writing raw data to InfluxDB first (essentially starting the Quix Streams
+> pipeline with the "raw-data" topic). However, this guide assumes that you
+> already have raw data in InfluxDB that you want to downsample.
 
 ---
 
@@ -141,9 +140,8 @@ downsamples it, and then sends it to an output topic that is used to write back 
 
 The results are streamed to the Kafka topic, `downsampled-data`.
 
-{{% note %}}
-Note: "sdf" stands for "Streaming Dataframe".
-{{% /note %}}
+> [!Note]
+> "sdf" stands for "Streaming Dataframe".
 
 You can find the full code for this process in the
 [Quix GitHub repository](https://github.com/quixio/template-influxdbv3-downsampling/blob/dev/Downsampler/main.py).

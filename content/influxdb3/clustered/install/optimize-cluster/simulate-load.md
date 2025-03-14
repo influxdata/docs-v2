@@ -14,9 +14,8 @@ writes data to your InfluxDB cluster. This process helps to ensure that your
 schema works as designed and that both your cluster's scale and configuration
 are able to meet your cluster's write requirements.
 
-{{% warn %}}
-We do not recommend writing production data to your InfluxDB cluster at this point.
-{{% /warn %}}
+> [!Warning]
+> We do not recommend writing production data to your InfluxDB cluster at this point.
 
 ## Load testing tools
 

@@ -13,10 +13,10 @@ related:
   - /influxdb3/cloud-serverless/write-data/delete-data/
   - /influxdb3/cloud-serverless/reference/cli/influx/delete/
 ---
-{{% warn %}}
-#### InfluxDB Cloud Serverless does not support data deletion
 
-InfluxDB Cloud Serverless does not currently support deleting data.
-This command is only supported when used with **InfluxDB OSS v2** and
-**InfluxDB Cloud (TSM)**.
-{{% /warn %}}
+> [!Warning]
+> #### InfluxDB Cloud Serverless does not support data deletion
+> 
+> InfluxDB Cloud Serverless does not currently support deleting data.
+> This command is only supported when used with **InfluxDB OSS v2** and
+> **InfluxDB Cloud (TSM)**.

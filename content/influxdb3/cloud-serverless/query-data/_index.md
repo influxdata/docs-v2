@@ -14,13 +14,11 @@ aliases:
 
 Learn to query data stored in InfluxDB.
 
-{{% note %}}
-
-#### Choose the query method for your workload
-
-- For new query workloads, use one of the many available [Flight clients](/influxdb3/cloud-serverless/tags/flight-client/) and SQL or InfluxQL.
-- [Use the HTTP API `/query` endpoint and InfluxQL](/influxdb3/cloud-serverless/query-data/execute-queries/v1-http/) when you bring existing v1 query workloads to {{% product-name %}}.
-
-{{% /note %}}
+> [!Note]
+> 
+> #### Choose the query method for your workload
+> 
+> - For new query workloads, use one of the many available [Flight clients](/influxdb3/cloud-serverless/tags/flight-client/) and SQL or InfluxQL.
+> - [Use the HTTP API `/query` endpoint and InfluxQL](/influxdb3/cloud-serverless/query-data/execute-queries/v1-http/) when you bring existing v1 query workloads to {{% product-name %}}.
 
 {{< children >}}

@@ -5,6 +5,12 @@ functions for conditionally handling _null_ values:
 - [ifnull](#ifnull)
 - [nullif](#nullif)
 - [nvl](#nvl)
+- [nvl2](#nvl2)
+
+<!-- Will come with next DataFusion upgrade
+- [greatest](#greatest)
+- [least](#least)
+-->
 
 ## coalesce
 
@@ -50,9 +56,83 @@ FROM
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+<!--
+## greatest
+
+Returns the greatest value in a list of expressions.
+Returns _null_ if all expressions are _null_.
+
+```sql
+greatest(expression1[, ..., expression_n])
+```
+
+##### Arguments
+
+- **expression1, expression_n**: Expressions to compare and return the greatest value.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+  Pass as many expression arguments as necessary.
+
+{{< expand-wrapper >}}
+{{% expand "View `greatest` query example" %}}
+
+_The following example uses the
+[Random numbers sample dataset](/influxdb/version/reference/sample-data/#random-numbers-sample-data)._
+
+```sql
+SELECT greatest(a, b) AS greatest FROM numbers LIMIT 4
+```
+
+| time                |            greatest |
+| ------------------- | ------------------: |
+| 2023-01-01T00:02:00 |  -0.482943221384294 |
+| 2023-01-01T00:03:00 | -0.0729732928756677 |
+| 2023-01-01T00:04:00 |    1.77857552719844 |
+| 2023-01-01T00:05:00 |   0.741147445214238 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+-->
+
 ## ifnull
 
 _Alias of [nvl](#nvl)._
+
+<!--
+## least
+
+Returns the least value in a list of expressions.
+Returns _null_ if all expressions are _null_.
+
+```sql
+least(expression1[, ..., expression_n])
+```
+
+##### Arguments
+
+- **expression1, expression_n**: Expressions to compare and return the least value.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+  Pass as many expression arguments as necessary.
+
+{{< expand-wrapper >}}
+{{% expand "View `least` query example" %}}
+
+_The following example uses the
+[Random numbers sample dataset](/influxdb/version/reference/sample-data/#random-numbers-sample-data)._
+
+```sql
+SELECT least(a, b) AS least FROM numbers LIMIT 4
+```
+
+| time                |              least |
+| ------------------- | -----------------: |
+| 2023-01-01T00:02:00 | -0.921037167720451 |
+| 2023-01-01T00:03:00 |  -0.73880754843378 |
+| 2023-01-01T00:04:00 | -0.905980032168252 |
+| 2023-01-01T00:05:00 | -0.891164752631417 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+-->
 
 ## nullif
 
@@ -127,6 +207,48 @@ FROM
 | foo   | foo |
 | bar   | bar |
 |       | baz |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## nvl2
+
+Returns _expression2_ if _expression1_ is **not** _null_; otherwise it returns _expression3_.
+
+```sql
+nvl2(expression1, expression2, expression3)
+```
+
+##### Arguments
+
+- **expression1**: First expression to test for _null_.
+  Can be a constant, column, or function, and any combination of operators.
+- **expression2**: Second expression to return if _expression1_ is not _null_.
+  Can be a constant, column, or function, and any combination of operators.
+- **expression3**: Expression to return if _expression1_ is _null_.
+  Can be a constant, column, or function, and any combination of operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `nvl2` query example" %}}
+
+```sql
+SELECT
+  val1,
+  val2,
+  val3,
+  nvl2(val1, val2, val3) AS nvl2
+FROM
+  (values ('foo', 'bar', 'baz'),
+          (NULL, 'bar', 'baz'),
+          (NULL, NULL, 'baz'),
+  ) data(val1, val2, val3)
+```
+
+| val1 | val2 | val3 | nvl2 |
+| :--: | :--: | :--: | :--: |
+| foo  | bar  | baz  | bar  |
+|      | bar  | baz  | baz  |
+|      |      | baz  | baz  |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

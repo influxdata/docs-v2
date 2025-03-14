@@ -32,13 +32,12 @@ The `/query` endpoint provides compatibility for InfluxDB 1.x workloads that you
 _Before you can use the v1 query API,
 [databases and retention policies must be mapped to buckets](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets)._
 
-{{% note %}}
-#### Flight queries don't use DBRP mappings
-
-When using Flight RPC or Flight SQL to query InfluxDB, specify the **bucket name**.
-Flight queries don't use DBRP mappings.
-See how to [get started querying with Flight and SQL or InfluxQL](/influxdb3/cloud-serverless/get-started/query/).
-{{% /note %}}
+> [!Note]
+> #### Flight queries don't use DBRP mappings
+> 
+> When using Flight RPC or Flight SQL to query InfluxDB, specify the **bucket name**.
+> Flight queries don't use DBRP mappings.
+> See how to [get started querying with Flight and SQL or InfluxQL](/influxdb3/cloud-serverless/get-started/query/).
 
 - [Query the v1 /query endpoint](#query-the-v1-query-endpoint)
   - [Parameters](#parameters)
@@ -71,9 +70,8 @@ Parameter   | Allowed in   | Ignored | Value
 `q`         | Query string | Honored | [InfluxQL](/influxdb3/cloud-serverless/query-data/influxql/)
 [`Authorization` header or `u` and `p`](#authorization)  | | | [Token](#authorization)
 
-{{% note %}}
-When bringing v1 API workloads to {{% product-name %}}, you'll need to adjust request parameters in your client configuration or code.
-{{% /note %}}
+> [!Note]
+> When bringing v1 API workloads to {{% product-name %}}, you'll need to adjust request parameters in your client configuration or code.
 
 #### Timestamp precision
 

@@ -232,11 +232,8 @@ Response body messages may differ across {{% product-name %}} v1 API, v2 API, In
 
 Before you can write data using the InfluxDB v1 `/write` endpoint or query data using the v1 `/query` endpoint, the bucket must be mapped to a [database retention policy (DBRP)](/influxdb3/cloud-serverless/admin/dbrps/) combination.
 
-{{% note %}}
-
-To query using Flight with InfluxQL or SQL, you don't need to map DBRPs to buckets.
-
-{{% /note %}}
+> [!Note]
+> To query using Flight with InfluxQL or SQL, you don't need to map DBRPs to buckets.
 
 In InfluxDB 1.x, data is stored in [databases](/influxdb3/cloud-serverless/reference/glossary/#database)
 and [retention policies](/influxdb3/cloud-serverless/reference/glossary/#retention-period).
@@ -267,11 +264,10 @@ Managing DBRP mappings requires a [token](/influxdb3/cloud-serverless/admin/toke
 - **read dbrp**: to list DBRP mappings
 - **write bucket**: to automatically create a bucket for a DBRP mapping when using the v1 write API
 
-{{% note %}}
-#### Permission required to create mapped buckets
-If you use the v1 write API to write to a database (`db`) and retention policy (`rp`) combination that doesn't exist, InfluxDB tries to create a new bucket using the specified parameter values.
-If the token doesn't have permission to create a bucket, then the write request fails with an authorization error.
-{{% /note %}}
+> [!Note]
+> #### Permission required to create mapped buckets
+> If you use the v1 write API to write to a database (`db`) and retention policy (`rp`) combination that doesn't exist, InfluxDB tries to create a new bucket using the specified parameter values.
+> If the token doesn't have permission to create a bucket, then the write request fails with an authorization error.
 
 ### Default DBRP
 
@@ -308,9 +304,8 @@ DATABASE_NAME/RETENTION_POLICY_NAME
 | telegraf         | autogen                  | telegraf/autogen          |
 | webmetrics       | 1w-downsampled           | webmetrics/1w-downsampled |
 
-{{% note %}}
-  To avoid having to add configuration parameters to each CLI command, [set up an active InfluxDB configuration](/influxdb3/cloud-serverless/reference/cli/influx/config/set/).
-{{% /note %}}
+> [!Note]
+> To avoid having to add configuration parameters to each CLI command, [set up an active InfluxDB configuration](/influxdb3/cloud-serverless/reference/cli/influx/config/set/).
 
 ### Manage DBRPs
 
@@ -319,13 +314,12 @@ DATABASE_NAME/RETENTION_POLICY_NAME
 To create DBRP mappings, use the `influx` CLI or the
 InfluxDB HTTP API.
 
-{{% note %}}
-#### A DBRP combination can only be mapped to a single bucket
-
-Each unique DBRP combination can only be mapped to a single bucket.
-If you map a DBRP combination that is already mapped to another bucket,
-it overwrites the existing DBRP mapping.
-{{% /note %}}
+> [!Note]
+> #### A DBRP combination can only be mapped to a single bucket
+> 
+> Each unique DBRP combination can only be mapped to a single bucket.
+> If you map a DBRP combination that is already mapped to another bucket,
+> it overwrites the existing DBRP mapping.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

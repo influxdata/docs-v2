@@ -14,10 +14,9 @@ Three types of template parts exist:
   to partition data by. The smallest unit of time included in the time part
   template is the interval used to partition data.
 
-{{% note %}}
-A partition template must include 1 [time part](#time-part-templates)
-and can include up to 7 total [tag](#tag-part-templates) and [tag bucket](#tag-bucket-part-templates) parts.
-{{% /note %}}
+> [!Note]
+> A partition template must include 1 [time part](#time-part-templates)
+> and can include up to 7 total [tag](#tag-part-templates) and [tag bucket](#tag-bucket-part-templates) parts.
 
 <!-- TOC -->
 - [Restrictions](#restrictions)
@@ -91,10 +90,9 @@ each partition.
 
 **Supported number of tag buckets**: 1-1,000
 
-{{% note %}}
-Tag buckets should be used to partition by high cardinality tags or tags with an
-unknown number of distinct values.
-{{% /note %}}
+> [!Note]
+> Tag buckets should be used to partition by high cardinality tags or tags with an
+> unknown number of distinct values.
 
 A partition template may include a given tag key only once in template parts 
 that operate on tags (tag value and tag bucket)--for example:

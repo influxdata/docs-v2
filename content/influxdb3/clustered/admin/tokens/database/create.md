@@ -62,17 +62,15 @@ The output is the token ID and the token string.
 If a new database token doesn't immediately work (you receive a `401 Unauthorized` error) for querying or writing, wait and then try again.
 - Token strings are viewable _only_ on token creation.
 
-{{% note %}}
-
-#### Store secure tokens in a secret store
-
-Token strings are viewable _only_ on token creation and aren't stored by InfluxDB.
-We recommend storing database tokens in a **secure secret store**.
-For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
-
-If you lose a token, [delete the token from InfluxDB](/influxdb3/clustered/admin/tokens/database/delete/) and create a new one.
-
-{{% /note %}}
+> [!Note]
+> 
+> #### Store secure tokens in a secret store
+> 
+> Token strings are viewable _only_ on token creation and aren't stored by InfluxDB.
+> We recommend storing database tokens in a **secure secret store**.
+> For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
+> 
+> If you lose a token, [delete the token from InfluxDB](/influxdb3/clustered/admin/tokens/database/delete/) and create a new one.
 
 ## Output format
 

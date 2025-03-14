@@ -54,12 +54,11 @@ installation procedure, is referred to as the _target_ namespace.
 For simplicity, we assume this namespace is `influxdb`, however
 you may use any name you like.
 
-{{% note %}}
-#### Set namespaceOverride if using a namespace other than influxdb
-
-If you use a namespace name other than `influxdb`, update the `namespaceOverride`
-field in your `values.yaml` to use your custom namespace name.
-{{% /note %}}
+> [!Note]
+> #### Set namespaceOverride if using a namespace other than influxdb
+> 
+> If you use a namespace name other than `influxdb`, update the `namespaceOverride`
+> field in your `values.yaml` to use your custom namespace name.
 
 ### AppInstance resource
 
@@ -86,15 +85,14 @@ which simplifies the installation and management of the InfluxDB Clustered packa
 It manages the application of the jsonnet templates used to install, manage, and
 update an InfluxDB cluster.
 
-{{% note %}}
-If you already installed the `kubecfg kubit` operator separately when
-[setting up prerequisites](/influxdb3/clustered/install/set-up-cluster/prerequisites/#install-the-kubecfg-kubit-operator)
-for your cluster, in your `values.yaml`, set `skipOperator` to `true`.
-
-```yaml
-skipOperator: true
-```
-{{% /note %}}
+> [!Note]
+> If you already installed the `kubecfg kubit` operator separately when
+> [setting up prerequisites](/influxdb3/clustered/install/set-up-cluster/prerequisites/#install-the-kubecfg-kubit-operator)
+> for your cluster, in your `values.yaml`, set `skipOperator` to `true`.
+> 
+> ```yaml
+> skipOperator: true
+> ```
 
 ## Configure your cluster
 
@@ -203,19 +201,18 @@ Error: fetching manifest us-docker.pkg.dev/influxdb2-artifacts/clustered/influxd
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[Public registry (non-air-gapped)](#)
+[Public registry](#)
 [Private registry (air-gapped)](#)
 {{% /tabs %}}
 
 {{% tab-content %}}
-
 <!--------------------------- BEGIN Public Registry --------------------------->
 
-#### Public registry (non-air-gapped)
+#### Public registry
 
 To pull from the InfluxData registry, you need to create a Kubernetes secret in the target namespace.
 
-```sh
+```bash
 kubectl create secret docker-registry gar-docker-secret \
   --from-file=.dockerconfigjson=influxdb-docker-config.json \
   --namespace influxdb
@@ -232,78 +229,96 @@ If you change the name of this secret, you must also change the value of the
 `imagePullSecrets.name` field in your `values.yaml`.
 
 <!---------------------------- END Public Registry ---------------------------->
-
 {{% /tab-content %}}
 {{% tab-content %}}
-
 <!--------------------------- BEGIN Private Registry -------------------------->
 
 #### Private registry (air-gapped)
 
-If your Kubernetes cluster can't use a public network to download container images
-from our container registry, do the following:
+For air-gapped environments, you need to:
 
-1.  Copy the images from the InfluxDB registry to your own private registry.
-2.  Configure your `AppInstance` resource with a reference to your private
-    registry name.
-3.  Provide credentials to your private registry.
+1. [Set up Docker configuration](#set-up-docker-configuration)
+2. [Mirror InfluxDB images](#mirror-influxdb-images)
+3. [Mirror kubit operator images](#mirror-kubit-operator-images)
+4. [Configure registry access in values.yaml](#configure-registry-access-in-valuesyaml)
 
-The list of images that you need to copy is included in the package metadata.
-You can obtain it with any standard OCI image inspection tool. For example:
+##### Set up Docker configuration
 
-{{% code-placeholders "PACKAGE_VERSION" %}}
+Create a directory to store your Docker configuration:
 
-```sh
-DOCKER_CONFIG=/tmp/influxdbsecret \
-crane config \
-  us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:PACKAGE_VERSION \
-  | jq -r '.metadata["oci.image.list"].images[]' \
-  > /tmp/images.txt
+```bash
+mkdir -p /tmp/influxdbsecret
+cp influxdb-docker-config.json /tmp/influxdbsecret/config.json
 ```
 
-{{% /code-placeholders %}}
+##### Mirror InfluxDB images
 
-The output is a list of image names, similar to the following:
+Use `crane` to copy images from the InfluxData registry to your own private registry:
 
+1. [Install crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation) on your system.
+
+2. Extract the list of InfluxDB images:
+
+   ```bash
+   DOCKER_CONFIG=/tmp/influxdbsecret \
+     crane config \
+     us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:PACKAGE_VERSION \
+     | jq -r '.metadata["oci.image.list"].images[]' \
+     > /tmp/influx-images.txt
+   ```
+
+   Replace {{% code-placeholder-key %}}`PACKAGE_VERSION`{{% /code-placeholder-key %}} with your InfluxDB Clustered package version.
+
+3. Copy the images to your private registry:
+
+   ```bash
+   cat /tmp/influx-images.txt | xargs -I% crane cp % REGISTRY_HOSTNAME/%
+   ```
+
+   Replace {{% code-placeholder-key %}}`REGISTRY_HOSTNAME`{{% /code-placeholder-key %}} with your private registry hostname (e.g., `myregistry.mydomain.io`).
+
+##### Mirror kubit operator images
+
+In addition to the InfluxDB images, copy the kubit operator images:
+
+```bash
+# Create a list of kubit-related images
+cat > /tmp/kubit-images.txt << EOF
+ghcr.io/kubecfg/kubit:v0.0.20
+ghcr.io/kubecfg/kubecfg/kubecfg:latest
+bitnami/kubectl:1.27.5
+registry.k8s.io/kubectl:v1.28.0
+EOF
+
+# Copy kubit images to your private registry
+cat /tmp/kubit-images.txt | xargs -I% crane cp % YOUR_PRIVATE_REGISTRY/%
 ```
-us-docker.pkg.dev/influxdb2-artifacts/idpe/idpe-cd-ioxauth@sha256:5f015a7f28a816df706b66d59cb9d6f087d24614f485610619f0e3a808a73864
-us-docker.pkg.dev/influxdb2-artifacts/iox/iox@sha256:b59d80add235f29b806badf7410239a3176bc77cf2dc335a1b07ab68615b870c
-...
-```
 
-Use `crane` to copy the images to your private registry:
+##### Configure registry access in values.yaml
+
+Configure your `values.yaml` to use your private registry:
 
 {{% code-placeholders "REGISTRY_HOSTNAME" %}}
-
-```sh
-</tmp/images.txt xargs -I% crane cp % REGISTRY_HOSTNAME/%
-```
-
-{{% /code-placeholders %}}
-
----
-
-Replace {{% code-placeholder-key %}}`REGISTRY_HOSTNAME`{{% /code-placeholder-key %}}
-with the hostname of your private registry--for example:
-
-```text
-myregistry.mydomain.io
-```
-
----
-
-Set the
-`images.registryOverride` field in your `values.yaml` to the location of your
-private registry--for example:
-
-{{% code-placeholders "REGISTRY_HOSTNAME" %}}
-
-```yml
+```yaml
+# Configure registry override for all images
 images:
   registryOverride: REGISTRY_HOSTNAME
-```
 
+# Configure kubit operator images
+kubit:
+  controller:
+    image: REGISTRY_HOSTNAME/ghcr.io/kubecfg/kubit:v0.0.20
+  apply_step_image: REGISTRY_HOSTNAME/bitnami/kubectl:1.27.5
+  render_step_image: REGISTRY_HOSTNAME/registry.k8s.io/kubectl:v1.28.0
+  kubecfg_image: REGISTRY_HOSTNAME/ghcr.io/kubecfg/kubecfg/kubecfg:latest
+
+# Configure image pull secrets if needed
+imagePullSecrets:
+  - name: your-registry-pull-secret
+```
 {{% /code-placeholders %}}
+
+Replace {{% code-placeholder-key %}}`REGISTRY_HOSTNAME`{{% /code-placeholder-key %}} with your private registry hostname.
 
 <!---------------------------- END Private Registry --------------------------->
 
@@ -334,13 +349,12 @@ To configure ingress, provide values for the following fields in your
   requests for all listed hostnames. This can be useful if you want to have
   distinct paths for your internal and external traffic._
 
-  {{% note %}}
-You are responsible for configuring and managing DNS. Options include:
-
-- Manually managing DNS records
-- Using [external-dns](https://github.com/kubernetes-sigs/external-dns) to
-  synchronize exposed Kubernetes services and ingresses with DNS providers.
-  {{% /note %}}
+  > [!Note]
+  > You are responsible for configuring and managing DNS. Options include:
+  > 
+  > - Manually managing DNS records
+  > - Using [external-dns](https://github.com/kubernetes-sigs/external-dns) to
+  >   synchronize exposed Kubernetes services and ingresses with DNS providers.
 
 - **`ingress.tlsSecretName`: TLS certificate secret name**
 
@@ -350,12 +364,11 @@ You are responsible for configuring and managing DNS. Options include:
   _The `tlsSecretName` field is optional. You may want to use it if you already
   have a TLS certificate for your DNS name._
 
-  {{% note %}}
-Writing to and querying data from InfluxDB does not require TLS.
-For simplicity, you can wait to enable TLS before moving into production.
-For more information, see Phase 4 of the InfluxDB Clustered installation
-process, [Secure your cluster](/influxdb3/clustered/install/secure-cluster/).
-  {{% /note %}}
+  > [!Note]
+  > Writing to and querying data from InfluxDB does not require TLS.
+  > For simplicity, you can wait to enable TLS before moving into production.
+  > For more information, see Phase 4 of the InfluxDB Clustered installation
+  > process, [Secure your cluster](/influxdb3/clustered/install/secure-cluster/).
 
  {{% code-callout "ingress-tls|cluster-host\.com" "green" %}}
 
@@ -555,10 +568,9 @@ metadata about your time series data.
 To connect your InfluxDB cluster to your PostgreSQL-compatible database,
 provide values for the following fields in your `values.yaml`:
 
-{{% note %}}
-We recommend storing sensitive credentials, such as your PostgreSQL-compatible DSN,
-as secrets in your Kubernetes cluster.
-{{% /note %}}
+> [!Note]
+> We recommend storing sensitive credentials, such as your PostgreSQL-compatible DSN,
+> as secrets in your Kubernetes cluster.
 
 - `catalog.dsn`
   - `SecretName`: Secret name
@@ -590,22 +602,25 @@ Replace the following:
 
 ---
 
-{{% warn %}}
-##### Percent-encode special symbols in PostgreSQL DSNs
-
-Special symbols in PostgreSQL DSNs should be percent-encoded to ensure they
-are parsed correctly by InfluxDB Clustered. This is important to consider when
-using DSNs containing auto-generated passwords which may include special
-symbols to make passwords more secure.
-
-A DSN with special characters that are not percent-encoded result in an error
-similar to:
-
-```txt
-Catalog DSN error: A catalog error occurred: unhandled external error: error with configuration: invalid port number
-```
-
-{{< expand-wrapper >}}
+> [!Warning]
+>
+> ##### Percent-encode special symbols in PostgreSQL DSNs
+> 
+> Special symbols in PostgreSQL DSNs should be percent-encoded to ensure they
+> are parsed correctly by InfluxDB Clustered. This is important to consider when
+> using DSNs containing auto-generated passwords which may include special
+> symbols to make passwords more secure.
+> 
+> A DSN with special characters that are not percent-encoded result in an error
+> similar to:
+> 
+> ```txt
+> Catalog DSN error: A catalog error occurred: unhandled external error: error with configuration: invalid port number
+> ```
+> 
+> For more information, see the [PostgreSQL Connection URI docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS).
+>
+> {{< expand-wrapper >}}
 {{% expand "View percent-encoded DSN example" %}}
 To use the following DSN containing special characters:
 
@@ -626,25 +641,18 @@ postgresql://postgres:meow%23meow@my-fancy.cloud-database.party:5432/postgres
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-For more information, see the [PostgreSQL Connection URI
-docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS).
-{{% /warn %}}
-
-{{% note %}}
-
-##### PostgreSQL instances without TLS or SSL
-
-If your PostgreSQL-compatible instance runs without TLS or SSL, you must include
-the `sslmode=disable` parameter in the DSN. For example:
-
-{{% code-callout "sslmode=disable" %}}
-
+> [!Note]
+> 
+> ##### PostgreSQL instances without TLS or SSL
+> 
+> If your PostgreSQL-compatible instance runs without TLS or SSL, you must include
+> the `sslmode=disable` parameter in the DSN. For example:
+> 
+> {{% code-callout "sslmode=disable" %}}
 ```
 postgres://username:passw0rd@mydomain:5432/influxdb?sslmode=disable
 ```
-
 {{% /code-callout %}}
-{{% /note %}}
 
 #### Configure local storage for ingesters
 
@@ -683,4 +691,114 @@ Replace the following:
 
 ---
 
-{{< page-nav prev="/influxdb3/clustered/install/secure-cluster/auth/" prevText="Set up authentication" next="/influxdb3/clustered/install/set-up-cluster/licensing" nextText="Install your license" tab="Helm" >}}
+### Deploy your cluster
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Standard deployment](#)
+[Air-gapped deployment](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
+
+<!--------------------------- BEGIN Standard Deployment --------------------------->
+
+#### Standard deployment (with internet access)
+
+1. Add the InfluxData Helm chart repository:
+
+   ```bash
+   helm repo add influxdata https://helm.influxdata.com/
+   ```
+
+2. Update your Helm repositories to ensure you have the latest charts:
+
+   ```bash
+   helm repo update
+   ```
+
+3. Deploy the InfluxDB Clustered Helm chart with your custom values:
+
+   ```bash
+   helm install influxdb influxdata/influxdb3-clustered \
+     -f values.yaml \
+     --namespace influxdb \
+     --create-namespace
+   ```
+
+4. Verify the deployment:
+
+   ```bash
+   kubectl get pods -n influxdb
+   ```
+
+If you need to update your deployment after making changes to your `values.yaml`:
+
+```bash
+helm upgrade influxdb influxdata/influxdb3-clustered \
+  -f values.yaml \
+  --namespace influxdb
+```
+
+<!---------------------------- END Standard Deployment ---------------------------->
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+<!--------------------------- BEGIN Air-gapped Deployment -------------------------->
+
+#### Air-gapped deployment
+
+1. In your air-gapped environment, install the chart from the local tarball that you transferred:
+
+   ```bash
+   helm install influxdb ./influxdb3-clustered-X.Y.Z.tgz \
+     -f values.yaml \
+     --namespace influxdb \
+     --create-namespace
+   ```
+
+   Replace `X.Y.Z` with the specific chart version you downloaded.
+
+2. Verify the deployment:
+
+   ```bash
+   kubectl get pods -n influxdb
+   ```
+
+If you need to update your deployment after making changes to your `values.yaml`:
+
+```bash
+helm upgrade influxdb ./influxdb3-clustered-X.Y.Z.tgz \
+  -f values.yaml \
+  --namespace influxdb
+```
+
+{{% note %}}
+#### Understanding kubit's role in air-gapped environments
+
+When deploying with Helm in an air-gapped environment:
+
+1. **Helm deploys the kubit operator** - The Helm chart includes the kubit operator, which needs its images mirrored to your private registry
+2. **Operator requires access to all InfluxDB images** - The kubit operator deploys the actual InfluxDB components using images from your private registry
+3. **Registry override is essential** - You must set the `images.registryOverride` and configure the kubit operator images correctly in the values file
+
+This is why mirroring both the InfluxDB images and the kubit operator images is necessary for air-gapped deployments.
+{{% /note %}}
+
+<!---------------------------- END Air-gapped Deployment --------------------------->
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+## Troubleshooting
+
+### Common issues
+
+1. **Image pull errors**
+   
+   ```
+   Error: failed to create labeled resources: failed to create resources: failed to create resources: 
+   Internal error occurred: failed to create pod sandbox: rpc error: code = Unknown 
+   desc = failed to pull image "us-docker.pkg.dev/...": failed to pull and unpack image "...": 
+   failed to resolve reference "...": failed to do request: ... i/o timeout

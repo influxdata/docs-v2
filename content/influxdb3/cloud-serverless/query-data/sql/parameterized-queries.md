@@ -42,12 +42,11 @@ Parameterized queries:
 - help prevent injection attacks, which can occur if input is executed as code
 - help make queries more reusable
 
-{{% note %}}
-#### Prevent injection attacks
-
-For more information on security and query parameterization,
-see the [OWASP SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html#defense-option-1-prepared-statements-with-parameterized-queries).
-{{% /note %}}
+> [!Note]
+> #### Prevent injection attacks
+> 
+> For more information on security and query parameterization,
+> see the [OWASP SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html#defense-option-1-prepared-statements-with-parameterized-queries).
 
 In InfluxDB 3, a parameterized query is an InfluxQL or SQL query that contains one or more named parameter placeholders–variables that represent input data.
 
@@ -62,17 +61,15 @@ In InfluxDB 3, a parameterized query is an InfluxQL or SQL query that contains o
 - [Client support for parameterized queries](#client-support-for-parameterized-queries)
 - [Not supported](#not-supported)
 
-{{% note %}}
-
-#### Parameters only supported in `WHERE` expressions
-
-InfluxDB 3 supports parameters in `WHERE` clause **predicate expressions**.
-Parameter values must be one of the [allowed parameter data types](#parameter-data-types).
-
-If you use parameters in other expressions or clauses,
-such as function arguments, `SELECT`, or `GROUP BY`, then your query might not work as you expect.
-
-{{% /note %}}
+> [!Note]
+> 
+> #### Parameters only supported in `WHERE` expressions
+> 
+> InfluxDB 3 supports parameters in `WHERE` clause **predicate expressions**.
+> Parameter values must be one of the [allowed parameter data types](#parameter-data-types).
+> 
+> If you use parameters in other expressions or clauses,
+> such as function arguments, `SELECT`, or `GROUP BY`, then your query might not work as you expect.
 
 ## Use parameters in `WHERE` expressions
 
@@ -162,15 +159,14 @@ If you use parameters for the following, your query might not work as you expect
 
 ## Parameterize an SQL query
 
-{{% note %}}
-#### Sample data
-
-The following examples use the
-[Get started home sensor data](/influxdb3/cloud-serverless/reference/sample-data/#get-started-home-sensor-data).
-To run the example queries and return results,
-[write the sample data](/influxdb3/cloud-serverless/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
-to your {{% product-name %}} bucket before running the example queries.
-{{% /note %}}
+> [!Note]
+> #### Sample data
+> 
+> The following examples use the
+> [Get started home sensor data](/influxdb3/cloud-serverless/reference/sample-data/#get-started-home-sensor-data).
+> To run the example queries and return results,
+> [write the sample data](/influxdb3/cloud-serverless/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
+> to your {{% product-name %}} bucket before running the example queries.
 
 To use a parameterized query, do the following:
 
@@ -220,15 +216,14 @@ AND room = 'Kitchen'
 
 ## Execute parameterized SQL queries
 
-{{% note %}}
-#### Sample data
-
-The following examples use the
-[Get started home sensor data](/influxdb3/cloud-serverless/reference/sample-data/#get-started-home-sensor-data).
-To run the example queries and return results,
-[write the sample data](/influxdb3/cloud-serverless/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
-to your {{% product-name %}} bucket before running the example queries.
-{{% /note %}}
+> [!Note]
+> #### Sample data
+> 
+> The following examples use the
+> [Get started home sensor data](/influxdb3/cloud-serverless/reference/sample-data/#get-started-home-sensor-data).
+> To run the example queries and return results,
+> [write the sample data](/influxdb3/cloud-serverless/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
+> to your {{% product-name %}} bucket before running the example queries.
 
 ### Use InfluxDB Flight RPC clients
 

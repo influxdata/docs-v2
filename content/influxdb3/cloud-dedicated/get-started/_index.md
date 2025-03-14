@@ -64,16 +64,15 @@ Tables contain multiple tags and fields.
     - **Timestamp**: Timestamp associated with the data. When stored on disk and
       queried, all data is ordered by time. A timestamp is never null.
 
-{{% note %}}
-
-#### What about buckets and measurements?
-
-If coming from InfluxDB Cloud Serverless or InfluxDB powered by the TSM storage
-engine, you're likely familiar with the concepts _bucket_ and _measurement_.
-_Bucket_ in TSM or InfluxDB Cloud Serverless is synonymous with _database_ in
-{{% product-name %}}. _Measurement_ in TSM or InfluxDB Cloud Serverless is
-synonymous with _table_ in {{% product-name %}}.
-{{% /note %}}
+> [!Note]
+> 
+> #### What about buckets and measurements?
+> 
+> If coming from InfluxDB Cloud Serverless or InfluxDB powered by the TSM storage
+> engine, you're likely familiar with the concepts _bucket_ and _measurement_.
+> _Bucket_ in TSM or InfluxDB Cloud Serverless is synonymous with _database_ in
+> {{% product-name %}}. _Measurement_ in TSM or InfluxDB Cloud Serverless is
+> synonymous with _table_ in {{% product-name %}}.
 
 ### Schema on write
 
@@ -123,10 +122,9 @@ The following table compares tools that you can use to interact with
 {{< req type="key" text="Covered in this tutorial" color="magenta" >}}
 {{< /caption >}}
 
-{{% warn %}}
-Avoid using the `influx` CLI with {{% product-name %}}. While it
-may coincidentally work, it isn't supported.
-{{% /warn %}}
+> [!Warning]
+> Avoid using the `influx` CLI with {{% product-name %}}. While it
+> may coincidentally work, it isn't supported.
 
 ### `influxctl` CLI
 

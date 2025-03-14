@@ -6,9 +6,10 @@ operating on string values:
 - [btrim](#btrim)
 - [char_length](#char_length)
 - [character_length](#character_length)
+- [chr](#chr)
 - [concat](#concat)
 - [concat_ws](#concat_ws)
-- [chr](#chr)
+- [contains](#contains)
 - [ends_with](#ends_with)
 - [find_in_set](#find_in_set)
 - [initcap](#initcap)
@@ -19,7 +20,6 @@ operating on string values:
 - [lower](#lower)
 - [lpad](#lpad)
 - [ltrim](#ltrim)
-- [md5](#md5)
 - [octet_length](#octet_length)
 - [overlay](#overlay)
 - [position](#position)
@@ -34,6 +34,8 @@ operating on string values:
 - [strpos](#strpos)
 - [substr](#substr)
 - [substr_index](#substr_index)
+- [substring](#substring)
+- [substring_index](#substring_index)
 - [to_hex](#to_hex)
 - [translate](#translate)
 - [trim](#trim)
@@ -64,8 +66,7 @@ ascii(str)
 {{< expand-wrapper >}}
 {{% expand "View `ascii` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -106,8 +107,7 @@ bit_length(str)
 {{< expand-wrapper >}}
 {{% expand "View `bit_length` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -151,8 +151,7 @@ btrim(str[, trim_str])
 {{< expand-wrapper >}}
 {{% expand "View `btrim` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -177,6 +176,47 @@ _Alias of [length](#length)._
 
 _Alias of [length](#length)._
 
+## chr
+
+Returns the character with the specified ASCII or Unicode code value.
+
+```
+chr(expression)
+```
+
+#### Arguments
+
+- **expression**: Expression containing the ASCII or Unicode code value to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic or
+  string operators.
+
+##### Related functions
+
+[ascii](#ascii)
+
+{{< expand-wrapper >}}
+{{% expand "View `chr` query example" %}}
+
+```sql
+SELECT
+  ascii,
+  chr(ascii) AS chr
+FROM
+  (values (112),
+          (75),
+          (214)
+  ) data(ascii)
+```
+
+| ascii | chr |
+| :---- | :-: |
+| 112   |  p  |
+| 75    |  K  |
+| 214   |  Ö  |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ## concat
 
 Concatenates multiple strings together.
@@ -198,8 +238,7 @@ concat(str[, ..., str_n])
 {{< expand-wrapper >}}
 {{% expand "View `concat` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -244,8 +283,7 @@ concat_ws(separator, str[, ..., str_n])
 {{< expand-wrapper >}}
 {{% expand "View `concat_ws` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT
@@ -267,46 +305,19 @@ LIMIT 3
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-## chr
+## contains
 
-Returns the character with the specified ASCII or Unicode code value.
-
-```
-chr(expression)
-```
-
-#### Arguments
-
-- **expression**: Expression containing the ASCII or Unicode code value to operate on.
-  Can be a constant, column, or function, and any combination of arithmetic or
-  string operators.
-
-##### Related functions
-
-[ascii](#ascii)
-
-{{< expand-wrapper >}}
-{{% expand "View `chr` query example" %}}
+Returns true if a string contains a search string (case-sensitive).
 
 ```sql
-SELECT
-  ascii,
-  chr(ascii) AS chr
-FROM
-  (values (112),
-          (75),
-          (214)
-  ) data(ascii)
+contains(str, search_str)
 ```
 
-| ascii | chr |
-| :---- | :-: |
-| 112   |  p  |
-| 75    |  K  |
-| 214   |  Ö  |
+##### Arguments
 
-{{% /expand %}}
-{{< /expand-wrapper >}}
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of operators.
+- **search_str**: The string to search for in _str_.
 
 ## ends_with
 
@@ -486,8 +497,7 @@ left(str, n)
 {{< expand-wrapper >}}
 {{% expand "View `left` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -534,8 +544,7 @@ length(str)
 {{< expand-wrapper >}}
 {{% expand "View `length` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -612,8 +621,7 @@ lower(str)
 {{< expand-wrapper >}}
 {{% expand "View `lower` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -654,8 +662,7 @@ lpad(str, n[, padding_str])
 {{< expand-wrapper >}}
 {{% expand "View `lpad` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -714,40 +721,6 @@ FROM
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-## md5
-
-Computes an MD5 128-bit checksum for a string expression.
-
-```sql
-md5(str)
-```
-
-##### Arguments
-
-- **expression**: String expression to operate on.
-  Can be a constant, column, or function, and any combination of string operators.
-
-{{< expand-wrapper >}}
-{{% expand "View `md5` query example" %}}
-
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
-
-```sql
-SELECT DISTINCT
-  room,
-  md5(room) AS md5
-FROM home
-```
-
-| room        | md5                              |
-| :---------- | :------------------------------- |
-| Kitchen     | 33fa00a66f2edf0d1c5697a9f8693ba8 |
-| Living Room | f45b0e6aec165544faccaf2cad820542 |
-
-{{% /expand %}}
-{{< /expand-wrapper >}}
-
 ## octet_length
 
 Returns the length of a string in bytes.
@@ -773,8 +746,7 @@ octet_length(str)
 {{< expand-wrapper >}}
 {{% expand "View `octet_length` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -929,8 +901,7 @@ replace(str, substr, replacement)
 {{< expand-wrapper >}}
 {{% expand "View `replace` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -963,8 +934,7 @@ reverse(str)
 {{< expand-wrapper >}}
 {{% expand "View `reverse` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -1002,8 +972,7 @@ right(str, n)
 {{< expand-wrapper >}}
 {{% expand "View `right` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -1044,8 +1013,7 @@ rpad(str, n[, padding_str])
 {{< expand-wrapper >}}
 {{% expand "View `rpad` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -1160,8 +1128,7 @@ starts_with(str, substr)
 {{< expand-wrapper >}}
 {{% expand "View `starts_with` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -1202,8 +1169,7 @@ strpos(str, substr)
 {{< expand-wrapper >}}
 {{% expand "View `strpos` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -1241,8 +1207,7 @@ substr(str, start_pos[, length])
 {{< expand-wrapper >}}
 {{% expand "View `substr` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -1306,6 +1271,14 @@ FROM
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## substring
+
+_Alias of [substr](#substr)._
+
+## substring_index
+
+_Alias of [substr_index](#substr_index)._
+
 ## translate
 
 Translates characters in a string to specified translation characters.
@@ -1323,8 +1296,7 @@ translate(str, chars, translation)
 {{< expand-wrapper >}}
 {{% expand "View `translate` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -1440,8 +1412,7 @@ upper(str)
 {{< expand-wrapper >}}
 {{% expand "View `upper` query example" %}}
 
-_The following example uses the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+_The following example uses the {{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT DISTINCT
@@ -1470,7 +1441,7 @@ uuid()
 {{% expand "View `uuid` query example" %}}
 
 _The following example uses the sample data set provided in the
-[Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
+{{< influxdb3/home-sample-link >}}._
 
 ```sql
 SELECT

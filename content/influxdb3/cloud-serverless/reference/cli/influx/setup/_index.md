@@ -17,11 +17,10 @@ updated_in: CLI v2.0.3
 canonical: /influxdb/v2/reference/cli/influx/setup/
 ---
 
-{{% note %}}
-#### Works with InfluxDB OSS 2.x
-
-The `influx setup` command initiates the setup process for **InfluxDB OSS 2.x** instances.
-The command does not work with **InfluxDB Cloud**.
-{{% /note %}}
+> [!Note]
+> #### Works with InfluxDB OSS 2.x
+> 
+> The `influx setup` command initiates the setup process for **InfluxDB OSS 2.x** instances.
+> The command does not work with **InfluxDB Cloud**.
 
 {{< duplicate-oss >}}

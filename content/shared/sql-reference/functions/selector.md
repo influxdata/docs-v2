@@ -72,16 +72,25 @@ selector_min(expression, timestamp)
 {{< expand-wrapper >}}
 {{% expand "View `selector_min` query example" %}}
 
+_The following example uses the
+[NOAA Bay Area weather sample data](/influxdb3/version/reference/sample-data/#noaa-bay-area-weather-data)._
+
 ```sql
-SELECT 
-  selector_min(water_level, time)['time'] AS time,
-  selector_min(water_level, time)['value'] AS water_level
-FROM h2o_feet
+SELECT
+  location,
+  selector_min(temp_min, time)['time'] AS time,
+  selector_min(temp_min, time)['value'] AS min_temp
+FROM
+  weather
+GROUP BY
+  location
 ```
 
-| time                 | water_level |
-| :------------------- | ----------: |
-| 2019-08-28T14:30:00Z |       -0.61 |
+| location      | time                | min_temp |
++---------------+---------------------+----------+
+| Concord       | 2022-01-02T00:00:00 | 28.0     |
+| Hayward       | 2021-01-26T00:00:00 | 32.0     |
+| San Francisco | 2022-01-02T00:00:00 | 35.0     |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -105,16 +114,25 @@ selector_max(expression, timestamp)
 {{< expand-wrapper >}}
 {{% expand "View `selector_max` query example" %}}
 
+_The following example uses the
+[NOAA Bay Area weather sample data](/influxdb3/version/reference/sample-data/#noaa-bay-area-weather-data)._
+
 ```sql
-SELECT 
-  selector_max(water_level, time)['time'] AS time,
-  selector_max(water_level, time)['value'] AS water_level
-FROM h2o_feet
+SELECT
+  location,
+  selector_max(temp_max, time)['time'] AS time,
+  selector_max(temp_max, time)['value'] AS max_temp
+FROM
+  weather
+GROUP BY
+  location
 ```
 
-| time                 | water_level |
-| :------------------- | ----------: |
-| 2019-08-28T07:24:00Z |       9.964 |
+| location      | time                | max_temp |
+| :------------ | :------------------ | -------: |
+| Concord       | 2020-09-07T00:00:00 |    112.0 |
+| Hayward       | 2022-09-06T00:00:00 |    107.0 |
+| San Francisco | 2020-09-06T00:00:00 |    102.0 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -138,16 +156,25 @@ selector_first(expression, timestamp)
 {{< expand-wrapper >}}
 {{% expand "View `selector_first` query example" %}}
 
+_The following example uses the
+[NOAA Bay Area weather sample data](/influxdb3/version/reference/sample-data/#noaa-bay-area-weather-data)._
+
 ```sql
-SELECT 
-  selector_first(water_level, time)['time'] AS time,
-  selector_first(water_level, time)['value'] AS water_level
-FROM h2o_feet
+SELECT
+  location,
+  selector_first(precip, time)['time'] AS time,
+  selector_first(precip, time)['value'] AS first_precip
+FROM
+  (SELECT * FROM weather WHERE precip > 0)
+GROUP BY
+  location
 ```
 
-| time                 | water_level |
-| :------------------- | ----------: |
-| 2019-08-28T07:24:00Z |       9.964 |
+| location      | time                | first_precip |
+| :------------ | :------------------ | -----------: |
+| Concord       | 2020-01-08T00:00:00 |         0.01 |
+| Hayward       | 2020-01-09T00:00:00 |         0.17 |
+| San Francisco | 2020-01-07T00:00:00 |         0.03 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -171,16 +198,25 @@ selector_last(expression, timestamp)
 {{< expand-wrapper >}}
 {{% expand "View `selector_last` query example" %}}
 
+_The following example uses the
+[NOAA Bay Area weather sample data](/influxdb3/version/reference/sample-data/#noaa-bay-area-weather-data)._
+
 ```sql
-SELECT 
-  selector_last(water_level, time)['time'] AS time,
-  selector_last(water_level, time)['value'] AS water_level
-FROM h2o_feet
+SELECT
+  location,
+  selector_last(precip, time)['time'] AS time,
+  selector_last(precip, time)['value'] AS last_precip
+FROM
+  (SELECT * FROM weather WHERE precip > 0)
+GROUP BY
+  location
 ```
 
-| time                 | water_level |
-| :------------------- | ----------: |
-| 2019-09-17T21:42:00Z |       4.938 |
+| location      | time                | last_precip |
+| :------------ | :------------------ | ----------: |
+| Concord       | 2022-12-31T00:00:00 |        3.04 |
+| Hayward       | 2022-12-31T00:00:00 |        4.34 |
+| San Francisco | 2022-12-31T00:00:00 |        3.67 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

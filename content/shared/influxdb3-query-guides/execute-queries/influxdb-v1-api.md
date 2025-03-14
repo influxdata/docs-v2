@@ -5,14 +5,13 @@ with InfluxQL.
 The examples below use **cURL** to send HTTP requests to the InfluxDB v1 HTTP API,
 but you can use any HTTP client.
 
-{{% warn %}}
-#### InfluxQL feature support
-
-InfluxQL is being rearchitected to work with the InfluxDB 3 storage engine.
-This process is ongoing and some InfluxQL features are still being implemented.
-For information about the current implementation status of InfluxQL features,
-see [InfluxQL feature support](/influxdb3/version/reference/influxql/feature-support/).
-{{% /warn %}}
+> [!Warning]
+> #### InfluxQL feature support
+> 
+> InfluxQL is being rearchitected to work with the InfluxDB 3 storage engine.
+> This process is ongoing and some InfluxQL features are still being implemented.
+> For information about the current implementation status of InfluxQL features,
+> see [InfluxQL feature support](/influxdb3/version/reference/influxql/feature-support/).
 
 Use the v1 `/query` endpoint and the `GET` request method to query data with InfluxQL:
 

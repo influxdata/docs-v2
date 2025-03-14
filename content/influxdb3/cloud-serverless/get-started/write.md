@@ -152,11 +152,10 @@ to an {{% product-name %}} bucket.
 
 To learn more about available tools and options, see [Write data](/influxdb3/cloud-serverless/write-data/).
 
-{{% note %}}
-Some examples in this getting started tutorial assume your InfluxDB
-credentials (**URL**, **organization**, and **token**) are provided by
-[environment variables](/influxdb3/cloud-serverless/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
-{{% /note %}}
+> [!Note]
+> Some examples in this getting started tutorial assume your InfluxDB
+> credentials (**URL**, **organization**, and **token**) are provided by
+> [environment variables](/influxdb3/cloud-serverless/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -399,14 +398,11 @@ To learn more, see how to [use Telegraf to write data](/influxdb3/cloud-serverle
 Write data with your existing workloads that already use the InfluxDB v1 `/write`
 API endpoint.
 
-{{% note %}}
-
-If migrating data from InfluxDB 1.x, see the
-[Migrate data from InfluxDB 1.x to InfluxDB
-{{% product-name %}}](/influxdb3/cloud-serverless/guides/migrate-data/migrate-1x-to-serverless/)
-guide.
-
-{{% /note %}}
+> [!Note]
+> If migrating data from InfluxDB 1.x, see the
+> [Migrate data from InfluxDB 1.x to InfluxDB
+> {{% product-name %}}](/influxdb3/cloud-serverless/guides/migrate-data/migrate-1x-to-serverless/)
+> guide.
 
 To write data to InfluxDB using the
 [InfluxDB v1 HTTP API](/influxdb3/cloud-serverless/reference/api/), send a request

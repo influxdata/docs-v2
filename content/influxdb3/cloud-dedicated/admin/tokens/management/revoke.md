@@ -44,9 +44,8 @@ influxctl management revoke --force TOKEN_ID
 Replace {{% code-placeholder-key %}}`TOKEN_ID`{{% /code-placeholder-key %}} with
 the ID of the token you want to revoke.
 
-{{% note %}}
-#### Revoked tokens are included when listing management tokens
-
-Revoked tokens still appear when listing management tokens, but they are no
-longer valid for any operations.
-{{% /note %}}
+> [!Note]
+> #### Revoked tokens are included when listing management tokens
+> 
+> Revoked tokens still appear when listing management tokens, but they are no
+> longer valid for any operations.

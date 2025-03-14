@@ -6,25 +6,23 @@ are working as intended.
 - [Query partition information from system tables](#query-partition-information-from-system-tables)
 - [Partition-related queries](#partition-related-queries)
 
-{{% warn %}}
-#### Querying system tables may impact overall cluster performance
-
-Partition information is stored in InfluxDB 3 system tables.
-Querying system tables may impact the overall write and query performance of
-your {{< product-name omit=" Clustered" >}} cluster.
-
-<!--------------- UPDATE THE DATE BELOW AS EXAMPLES ARE UPDATED --------------->
-
-#### System tables are subject to change
-
-System tables are not part of InfluxDB's stable API and may change with new releases.
-The provided schema information and query examples are valid as of **September 24, 2024**.
-If you detect a schema change or a non-functioning query example, please
-[submit an issue](https://github.com/influxdata/docs-v2/issues/new/choose).
-
-<!--------------- UPDATE THE DATE ABOVE AS EXAMPLES ARE UPDATED --------------->
-
-{{% /warn %}}
+> [!Warning]
+> #### Querying system tables may impact overall cluster performance
+> 
+> Partition information is stored in InfluxDB 3 system tables.
+> Querying system tables may impact the overall write and query performance of
+> your {{< product-name omit=" Clustered" >}} cluster.
+> 
+> <!--------------- UPDATE THE DATE BELOW AS EXAMPLES ARE UPDATED --------------->
+> 
+> #### System tables are subject to change
+> 
+> System tables are not part of InfluxDB's stable API and may change with new releases.
+> The provided schema information and query examples are valid as of **September 24, 2024**.
+> If you detect a schema change or a non-functioning query example, please
+> [submit an issue](https://github.com/influxdata/docs-v2/issues/new/choose).
+> 
+> <!--------------- UPDATE THE DATE ABOVE AS EXAMPLES ARE UPDATED --------------->
 
 ## Query partition information from system tables
 
@@ -105,11 +103,10 @@ SELECT * FROM system.tables WHERE table_name = 'TABLE_NAME'
 | :--------- | :----------------------------------------------------------------------------------------- |
 | weather    | `{"parts":[{"timeFormat":"%Y-%m-%d"},{"bucket":{"tagName":"location","numBuckets":250}}]}` |
 
-{{% note %}}
-If a table doesn't include a partition template in the output of this command,
-the table uses the default (1 day) partition strategy and doesn't partition
-by tags or tag buckets.
-{{% /note %}}
+> [!Note]
+> If a table doesn't include a partition template in the output of this command,
+> the table uses the default (1 day) partition strategy and doesn't partition
+> by tags or tag buckets.
 
 ### View all partitions for a table
 

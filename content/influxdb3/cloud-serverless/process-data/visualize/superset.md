@@ -50,11 +50,10 @@ stored in an InfluxDB Cloud Serverless bucket.
 We recommend using **Docker and docker-compose** to run Superset.
 To set up Superset to run in Docker containers with Flight SQL, follow these steps:
 
-{{% warn %}}
-**Superset** is not officially supported on Windows. For more information about running Superset with
-Windows and Docker, see the
-[Superset documentation](https://superset.apache.org/docs/installation/installing-superset-using-docker-compose#1-install-a-docker-engine-and-docker-compose).
-{{% /warn %}}
+> [!Warning]
+> **Superset** is not officially supported on Windows. For more information about running Superset with
+> Windows and Docker, see the
+> [Superset documentation](https://superset.apache.org/docs/installation/installing-superset-using-docker-compose#1-install-a-docker-engine-and-docker-compose).
 
 1.  Follow the instructions to download and install Docker and docker-compose for your system:
 
@@ -117,10 +116,9 @@ pip3 install flightsql-dbapi
     [Flight SQL](https://arrow.apache.org/docs/format/FlightSql.html).
     Later, you'll add `flightsql-dbapi` to Superset's Docker configuration.
 
-    {{% warn %}}
-The `flightsql-dbapi` library is experimental and under active development.
-The APIs it provides could change at any time.
-    {{% /warn %}}
+    > [!Warning]
+    > The `flightsql-dbapi` library is experimental and under active development.
+    > The APIs it provides could change at any time.
 
 4.  Use Git to clone the Apache Superset repository:
 

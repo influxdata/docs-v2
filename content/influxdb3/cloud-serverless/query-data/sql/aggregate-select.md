@@ -49,10 +49,9 @@ An SQL query that aggregates data includes the following clauses:
   a time range, contains specific tag values, or contains a field value outside a specified range.
 - `GROUP BY`: Group data that have the same values for specified columns and expressions (for example, an aggregate function result).
 
-{{% note %}}
-For simplicity, the term **"aggregate"** in this guide refers to applying
-both aggregate and selector functions to a dataset.
-{{% /note %}}
+> [!Note]
+> For simplicity, the term **"aggregate"** in this guide refers to applying
+> both aggregate and selector functions to a dataset.
 
 Learn how to apply aggregate operations to your queried data:
 
@@ -132,15 +131,14 @@ GROUP BY room
   - [Downsample data by applying interval-based aggregates](#downsample-data-by-applying-interval-based-aggregates)
 - [Query rows based on aggregate values](#query-rows-based-on-aggregate-values)
 
-{{% note %}}
-#### Sample data
-
-The following examples use the sample data written in the
-[Get started writing data guide](/influxdb3/cloud-serverless/get-started/write/).
-To run the example queries and return results,
-[write the sample data](/influxdb3/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb)
-to your InfluxDB Cloud Serverless bucket before running the example queries.
-{{% /note %}}
+> [!Note]
+> #### Sample data
+> 
+> The following examples use the sample data written in the
+> [Get started writing data guide](/influxdb3/cloud-serverless/get-started/write/).
+> To run the example queries and return results,
+> [write the sample data](/influxdb3/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb)
+> to your InfluxDB Cloud Serverless bucket before running the example queries.
 
 ### Perform an ungrouped aggregation
 
@@ -279,25 +277,24 @@ ORDER BY room, 1
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-{{% note %}}
-#### GROUP BY time
-
-In the `GROUP BY` clause, the name "time" always refers to the `time` column in the source table.
-If you want to reference a calculated time column by name, use an alias different from "time"--for example:
-
-```sql
-SELECT
-  DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z')
-  AS _time,
-  room,
-  selector_max(temp, time)['value'] AS 'max temp',
-  selector_min(temp, time)['value'] AS 'min temp',
-  avg(temp) AS 'average temp'
-FROM home
-GROUP BY _time, room
-ORDER BY room, _time
-```
-{{% /note %}}
+> [!Note]
+> #### GROUP BY time
+> 
+> In the `GROUP BY` clause, the name "time" always refers to the `time` column in the source table.
+> If you want to reference a calculated time column by name, use an alias different from "time"--for example:
+> 
+> ```sql
+> SELECT
+>   DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z')
+>   AS _time,
+>   room,
+>   selector_max(temp, time)['value'] AS 'max temp',
+>   selector_min(temp, time)['value'] AS 'min temp',
+>   avg(temp) AS 'average temp'
+> FROM home
+> GROUP BY _time, room
+> ORDER BY room, _time
+> ```
 
 ### Query rows based on aggregate values
 

@@ -139,12 +139,11 @@ are character sequences reserved for specific functionality in the InfluxQL synt
 It is possible to use a keyword as an identifier, but the identifier must be
 wrapped in double quotes (`""`).
 
-{{% note %}}
-While wrapping identifiers that are InfluxQL keywords in double quotes is an
-acceptable workaround, for simplicity, you should avoid using
-[InfluxQL keywords](/influxdb3/version/reference/influxql/#keywords)
-as identifiers.
-{{% /note %}}
+> [!Note]
+> While wrapping identifiers that are InfluxQL keywords in double quotes is an
+> acceptable workaround, for simplicity, you should avoid using
+> [InfluxQL keywords](/influxdb3/version/reference/influxql/#keywords)
+> as identifiers.
 
 ```sql
 SELECT duration FROM runs
