@@ -23,5 +23,6 @@
     <a class="btn github-link" href="{{ if .link }}{{ .link }}{{ else }}https://github.com/influxdata/telegraf/blob/release-{{ $latestTelegrafVersion }}/plugins/{{ $type }}s/{{ .id }}/README.md{{ end }}" target="_blank">
       <span class="icon-github"></span> <span class="hide">View</span>
     </a>
+    <div>{{ .Site.GetPage "/telegraf/v1/input-plugins/apache/_index.md" }}</div>
   </div>
 {{ end }}
