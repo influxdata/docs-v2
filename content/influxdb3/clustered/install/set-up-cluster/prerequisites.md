@@ -45,9 +45,8 @@ cluster.
 
 Follow instructions to install `kubectl` on your local machine:
 
-{{% note %}}
-InfluxDB Clustered Kubernetes deployments require `kubectl` 1.27 or higher.
-{{% /note %}}
+> [!Note]
+> InfluxDB Clustered Kubernetes deployments require `kubectl` 1.27 or higher.
 
 - [Install kubectl on Linux](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 - [Install kubectl on macOS](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/)
@@ -100,7 +99,7 @@ following sizing for {{% product-name %}} components:
 {{% tab-content %}}
 <!--------------------------------- BEGIN AWS --------------------------------->
 
-- **Catalog (PostgreSQL-compatible database) (x1):**
+- **Catalog store (PostgreSQL-compatible database) (x1):**
   - _[See below](#postgresql-compatible-database-requirements)_
 - **Ingesters and Routers (x3):**
   - EC2 m6i.2xlarge (8 CPU, 32 GB RAM)
@@ -117,7 +116,7 @@ following sizing for {{% product-name %}} components:
 {{% tab-content %}}
 <!--------------------------------- BEGIN GCP --------------------------------->
 
-- **Catalog (PostgreSQL-compatible database) (x1):**
+- **Catalog store (PostgreSQL-compatible database) (x1):**
   - _[See below](#postgresql-compatible-database-requirements)_
 - **Ingesters and Routers (x3):**
   - GCE c2-standard-8 (8 CPU, 32 GB RAM)
@@ -134,7 +133,7 @@ following sizing for {{% product-name %}} components:
 {{% tab-content %}}
 <!-------------------------------- BEGIN Azure -------------------------------->
 
-- **Catalog (PostgreSQL-compatible database) (x1):**
+- **Catalog store (PostgreSQL-compatible database) (x1):**
   - _[See below](#postgresql-compatible-database-requirements)_
 - **Ingesters and Routers (x3):**
   - Standard_D8s_v3 (8 CPU, 32 GB RAM)
@@ -151,7 +150,7 @@ following sizing for {{% product-name %}} components:
 {{% tab-content %}}
 <!------------------------------- BEGIN ON-PREM ------------------------------->
 
-- **Catalog (PostgreSQL-compatible database) (x1):**
+- **Catalog store (PostgreSQL-compatible database) (x1):**
   - CPU: 4-8 cores
   - RAM: 16-32 GB
 - **Ingesters and Routers (x3):**
@@ -182,13 +181,12 @@ simplifies the installation and management of the InfluxDB Clustered package.
 It manages the application of the jsonnet templates used to install, manage, and
 update an InfluxDB cluster.
 
-{{% note %}}
-#### The InfluxDB Clustered Helm chart includes the kubit operator
-
-If using the [InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered)
-to deploy your InfluxDB cluster, you do not need to install the kubit operator
-separately. The Helm chart installs the kubit operator.
-{{% /note %}}
+> [!Note]
+> #### The InfluxDB Clustered Helm chart includes the kubit operator
+> 
+> If using the [InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered)
+> to deploy your InfluxDB cluster, you do not need to install the kubit operator
+> separately. The Helm chart installs the kubit operator.
 
 Use `kubectl` to install the [kubecfg kubit](https://github.com/kubecfg/kubit)
 operator **v0.0.18 or later**.
@@ -234,24 +232,23 @@ that work with InfluxDB Clustered. Other S3-compatible object stores should work
 as well.
 {{% /caption %}}
 
-{{% note %}}
-#### Object storage recommendations
-
-We **strongly** recommend the following:
-
-- ##### Enable object versioning
-
-  Enable object versioning in your object store.
-  Refer to your object storage provider's documentation for information about
-  enabling object versioning.
-
-- ##### Run the object store in a separate namespace or outside of Kubernetes
-
-  Run the Object store in a separate namespace from InfluxDB or external to
-  Kubernetes entirely. Doing so makes management of the InfluxDB cluster easier
-  and helps to prevent accidental data loss. While deploying everything in the
-  same namespace is possible, we do not recommend it for production environments.
-{{% /note %}}
+> [!Important]
+> #### Object storage recommendations
+> 
+> We **strongly** recommend the following:
+> 
+> - ##### Enable object versioning
+> 
+>   Enable object versioning in your object store.
+>   Refer to your object storage provider's documentation for information about
+>   enabling object versioning.
+> 
+> - ##### Run the object store in a separate namespace or outside of Kubernetes
+> 
+>   Run the Object store in a separate namespace from InfluxDB or external to
+>   Kubernetes entirely. Doing so makes management of the InfluxDB cluster easier
+>   and helps to prevent accidental data loss. While deploying everything in the
+>   same namespace is possible, we do not recommend it for production environments.
 
 #### Configure object storage permissions
 
@@ -357,10 +354,9 @@ Replace the following:
 
 {{< /expand-wrapper >}}
 
-{{% note %}}
-To configure permissions with MinIO, use the
-[example AWS access policy](#view-example-aws-s3-access-policy).
-{{% /note %}}
+> [!Note]
+> To configure permissions with MinIO, use the
+> [example AWS access policy](#view-example-aws-s3-access-policy).
 
 ### Set up your PostgreSQL-compatible database
 
@@ -380,15 +376,14 @@ PostgreSQL-compatible database.
   applications, ensure that your PostgreSQL-compatible instance is dedicated
   exclusively to InfluxDB.
 
-{{% note %}}
-We **strongly** recommended running the PostgreSQL-compatible database
-in a separate namespace from InfluxDB or external to Kubernetes entirely.
-Doing so makes management of the InfluxDB cluster easier and helps to prevent
-accidental data loss.
-
-While deploying everything in the same namespace is possible, we do not
-recommend it for production environments.
-{{% /note %}}
+> [!Note]
+> We **strongly** recommended running the PostgreSQL-compatible database
+> in a separate namespace from InfluxDB or external to Kubernetes entirely.
+> Doing so makes management of the InfluxDB cluster easier and helps to prevent
+> accidental data loss.
+> 
+> While deploying everything in the same namespace is possible, we do not
+> recommend it for production environments.
 
 ### Set up local or attached storage
 

@@ -124,8 +124,7 @@ helm upgrade \
 {{% /code-tab-content %}}
   {{< /code-tabs-wrapper >}}
 
-{{% note %}}
-After you complete step 1 above, the removed user no longer has administrative
-access to your InfluxDB cluster.
-However, you should still remove them from your `AppInstance` resource.
-{{% /note %}}
+> [!Note]
+> After you complete step 1 above, the removed user no longer has administrative
+> access to your InfluxDB cluster.
+> However, you should still remove them from your `AppInstance` resource.

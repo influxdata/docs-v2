@@ -24,13 +24,12 @@ Provide the query in one of the following ways:
 - a path to a file that contains the query
 - as a single dash (`-`) to read the query from stdin
 
-{{% note %}}
-#### Important to note
-
-- This command supports only one query per execution.
-- This command is not meant to be a full, feature-rich query tool.
-  It's meant for debug, triage, and basic data exploration.
-{{% /note %}}
+> [!Note]
+> #### Important to note
+> 
+> - This command supports only one query per execution.
+> - This command is not meant to be a full, feature-rich query tool.
+>   It's meant for debug, triage, and basic data exploration.
 
 ### InfluxDB connection configuration
 
@@ -410,15 +409,13 @@ influxctl query "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z'"
 
 ### Query data from InfluxDB 3 system tables
 
-{{% note %}}
-You must use **SQL** to query InfluxDB 3 system tables.
-{{% /note %}}
+> [!Note]
+> You must use **SQL** to query InfluxDB 3 system tables.
 
-{{% warn %}}
-Querying system tables can impact the overall performance of your
-{{< product-name omit=" Clustered" >}} cluster. System tables are not part of
-InfluxDB's stable API and are subject to change.
-{{% /warn %}}
+> [!Warning]
+> Querying system tables can impact the overall performance of your
+> {{< product-name omit=" Clustered" >}} cluster. System tables are not part of
+> InfluxDB's stable API and are subject to change.
 
 {{% code-placeholders "DATABASE_(TOKEN|NAME)|TABLE_NAME" %}}
 

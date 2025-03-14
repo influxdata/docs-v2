@@ -101,26 +101,24 @@ properly. For example:
   new secret to InfluxData support for updating in the InfluxData-managed Auth0
   service.
 
-  {{% note %}}
-  #### Keep client secrets secure
-
-  InfluxData provides a secure method for transmitting sensitive secrets such as
-  an OIDC client secret. Never send your client secret to InfluxData using an
-  insecure method.
-  {{% /note %}}
+  > [!Important]
+  > #### Keep client secrets secure
+  > 
+  > InfluxData provides a secure method for transmitting sensitive secrets such as
+  > an OIDC client secret. Never send your client secret to InfluxData using an
+  > insecure method.
 
 - **You're using SAML and your identity provider certificate is rotated**:
   Provide the new certificate to InfluxData support for updating in the
   InfluxData-managed Auth0 service.
 
-  {{% note %}}
-  #### SAML certificate rotation
-
-  Some identity providers that support SAML are known to rotate certificates often.
-  Each time the certificate is rotated, you must provide the updated certificate
-  to InfluxData support. Consider this when selecting an identity provider and
-  protocol to use.
-  {{% /note %}}
+  > [!Important]
+  > #### SAML certificate rotation
+  > 
+  > Some identity providers that support SAML are known to rotate certificates often.
+  > Each time the certificate is rotated, you must provide the updated certificate
+  > to InfluxData support. Consider this when selecting an identity provider and
+  > protocol to use.
 
 ## Troubleshooting
 

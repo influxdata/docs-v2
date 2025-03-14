@@ -55,9 +55,11 @@ the **Flight SQL JDBC driver**.
       - **Port**: `443`
       - **Query parameters**:
         - **useSystemTrustStore**: `false`
-            {{% note %}}
-Setting `useSystemTrustStore=false` is only necessary on macOS and doesn't actually affect the security of the connection to Tableau.
-            {{% /note %}}
+
+          > [!Note]
+          > Setting `useSystemTrustStore=false` is only necessary on macOS and
+          > doesn't actually affect the security of the connection to Tableau.
+        
         - **database**: InfluxDB database name to query
     
       _See an [example connection URL](#example-connection-url)._

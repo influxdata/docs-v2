@@ -189,28 +189,24 @@ InfluxDB 3 provides the following protocols for executing a query:
   To learn how to query {{% product-name %}} using Flight and SQL, see the [Get started](/influxdb3/cloud-serverless/get-started/) tutorial.
 - InfluxDB v1 API `/query` request that contains an InfluxQL query.
 
-{{% note %}}
+> [!Note]
+> 
+> #### Tools to execute queries
+> 
+> {{% product-name %}} supports many different tools for querying data, including:
+> 
+> - [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
+> - [InfluxDB 3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/)
+> - [Flight clients](/influxdb3/cloud-serverless/reference/client-libraries/flight/)
+> - [Superset](/influxdb3/cloud-serverless/query-data/sql/execute-queries/superset/)
+> - [Grafana](/influxdb3/cloud-serverless/query-data/sql/execute-queries/grafana/)
+> - [InfluxQL with InfluxDB v1 HTTP API](/influxdb3/cloud-serverless/primers/api/v1/#query-using-the-v1-api)
+> - [Chronograf](/chronograf/v1/)
 
-#### Tools to execute queries
-
-{{% product-name %}} supports many different tools for querying data, including:
-
-- [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
-- [InfluxDB 3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/)
-- [Flight clients](/influxdb3/cloud-serverless/reference/client-libraries/flight/)
-- [Superset](/influxdb3/cloud-serverless/query-data/sql/execute-queries/superset/)
-- [Grafana](/influxdb3/cloud-serverless/query-data/sql/execute-queries/grafana/)
-- [InfluxQL with InfluxDB v1 HTTP API](/influxdb3/cloud-serverless/primers/api/v1/#query-using-the-v1-api)
-- [Chronograf](/chronograf/v1/)
-
-{{% /note %}}
-
-{{% warn %}}
-
-#### Avoid using /api/v2/query
-
-Avoid using the `/api/v2/query` API endpoint in {{% product-name %}} and associated tooling, such as the `influx query` CLI command and InfluxDB v2 client libraries.
-You can't use SQL or InfluxQL with these tools.
-
-{{% /warn %}}
-
+> [!Warning]
+>
+> #### Avoid using /api/v2/query
+> 
+> Avoid using the `/api/v2/query` API endpoint in {{% product-name %}} and
+> associated tooling, such as the `influx query` CLI command and InfluxDB v2
+> client libraries. You can't use SQL or InfluxQL with these tools.

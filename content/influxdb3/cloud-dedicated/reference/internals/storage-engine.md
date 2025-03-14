@@ -191,13 +191,10 @@ runs out of memory.
 The following scaling strategies can be applied to components of the InfluxDB 3
 storage architecture.
 
-{{% note %}}
-
-<!-- Cloud Dedicated-specific -->
-
-For information about scaling your {{< product-name >}} infrastructure,
-[contact InfluxData support](https://support.influxdata.com).
-{{% /note %}}
+> [!Note]
+> 
+> For information about scaling your {{< product-name >}} infrastructure,
+> [contact InfluxData support](https://support.influxdata.com).
 
 ### Vertical scaling
 
