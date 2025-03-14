@@ -190,4 +190,4 @@ Replace the following:
   your {{< product-name >}} authorization token
 
   > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
+  > While in beta, {{< product-name >}} does not require an authorization token.
