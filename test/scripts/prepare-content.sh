@@ -98,8 +98,7 @@ function substitute_placeholders {
       s|NUMBER_OF_DAYS|365|g;
       s|@path/to/line-protocol.txt|data/home-sensor-data.lp|g;
       s|/path/to/custom/assets-dir|/app/custom-assets|g;
-      s|/path/to/TEMPLATE_FILE.yml|/root/influxdb-templates/TEMPLATE_FILE.yml|g;
-      s|/path/to/TEMPLATE_FILE.json|/root/influxdb-templates/TEMPLATE_FILE.json|g;
+      s|/path/to/templates/|/root/influxdb/templates/|g;
       ' $file
 
       # v2-specific replacements.
