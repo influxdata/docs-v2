@@ -633,11 +633,10 @@ To leverage the LVC, call it using the `last_cache()` function in your query--fo
 influxdb3 query --database=servers "SELECT * FROM last_cache('cpu', 'cpuCache') WHERE host = 'Bravo;"
 ```
 
-{{% note %}}
-#### Only works with SQL
-
-The Last values cache only works with SQL, not InfluxQL; SQL is the default language.
-{{% /note %}}
+> [!Note]
+> #### Only works with SQL
+> 
+> The Last values cache only works with SQL, not InfluxQL; SQL is the default language.
 
 #### Deleting a Last values cache
 

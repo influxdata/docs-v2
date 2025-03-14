@@ -81,14 +81,12 @@ identified at [oci.influxdata.com](https://oci.influxdata.com).
 **When upgrading, always upgrade to each checkpoint release first, before proceeding
 to newer versions.**
 
-{{% warn %}}
-
-#### Upgrade to checkpoint releases first
-
-Upgrading past a checkpoint release without first upgrading to it may result
-in corrupt or lost data.
-
-{{% /warn %}}
+> [!Warning]
+> 
+> #### Upgrade to checkpoint releases first
+> 
+> Upgrading past a checkpoint release without first upgrading to it may result
+> in corrupt or lost data.
 
 {{< expand-wrapper >}}
 {{% expand "View checkpoint release upgrade example" %}}

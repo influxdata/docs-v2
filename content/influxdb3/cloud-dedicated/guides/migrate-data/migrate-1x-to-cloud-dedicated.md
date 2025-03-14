@@ -202,11 +202,10 @@ The migration process uses the following tools:
     - `-end` flag with an RFC3339 timestamp that defines the latest time to export.
       Default is `2262-04-11T16:47:16-07:00`.
 
-    {{% note %}}
-We recommend exporting each database and retention policy combination separately
-to easily write the exported data into corresponding InfluxDB Cloud Dedicated
-databases.
-    {{% /note %}}
+    > [!Note]
+    > We recommend exporting each database and retention policy combination separately
+    > to easily write the exported data into corresponding InfluxDB Cloud Dedicated
+    > databases.
 
     ##### Export all data in a database and retention policy to a file
 
@@ -305,15 +304,14 @@ influx_inspect export \
 
 2. Create InfluxDB Cloud Dedicated databases for each InfluxDB 1.x database and retention policy combination.
 
-    {{% note %}}
-**If coming from InfluxDB v1**, the concepts of databases and retention policies
-have been combined into a single concept--database. Retention policies are no
-longer part of the InfluxDB data model. However, InfluxDB Cloud Dedicated does
-support InfluxQL, which requires databases and retention policies.
-See [InfluxQL DBRP naming convention](/influxdb3/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention).
-
-**If coming from InfluxDB v2 or InfluxDB Cloud**, _database_ and _bucket_ are synonymous.
-    {{% /note %}}
+    > [!Note]
+    > **If coming from InfluxDB v1**, the concepts of databases and retention policies
+    > have been combined into a single concept--database. Retention policies are no
+    > longer part of the InfluxDB data model. However, InfluxDB Cloud Dedicated does
+    > support InfluxQL, which requires databases and retention policies.
+    > See [InfluxQL DBRP naming convention](/influxdb3/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention).
+    > 
+    > **If coming from InfluxDB v2 or InfluxDB Cloud**, _database_ and _bucket_ are synonymous.
 
     {{< expand-wrapper >}}
 {{% expand "View example 1.x databases and retention policies as InfluxDB Cloud Dedicated databases" %}}
@@ -384,11 +382,10 @@ You would create the following InfluxDB {{< current-version >}} databases:
     
     Write each export file to the target database.
 
-    {{% warn %}}
-  #### v2.x influx CLI not supported
-
-  Don't use the `influx` CLI with InfluxDB Cloud Dedicated.
-  While it may coincidentally work, it isn't officially supported.
-
-  For help finding the best workflow for your situation, [contact Support](https://support.influxdata.com/).
-    {{% /warn %}}
+    > [!Warning]
+    > #### v2.x influx CLI not supported
+    > 
+    > Don't use the `influx` CLI with InfluxDB Cloud Dedicated.
+    > While it may coincidentally work, it isn't officially supported.
+    > 
+    > For help finding the best workflow for your situation, [contact Support](https://support.influxdata.com/).

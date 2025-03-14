@@ -33,30 +33,28 @@ You can query the cluster system tables for information about your cluster.
   - [Storage usage](#storage-usage)
   - [Compaction](#compaction)
 
-{{% warn %}}
-#### May impact cluster performance
-
-Querying InfluxDB 3 system tables may impact write and query
-performance of your {{< product-name omit=" Clustered" >}} cluster.
-Use filters to [optimize queries to reduce impact to your cluster](#optimize-queries-to-reduce-impact-to-your-cluster).
-
-<!--------------- UPDATE THE DATE BELOW AS EXAMPLES ARE UPDATED --------------->
-
-#### System tables are subject to change
-
-System tables are not part of InfluxDB's stable API and may change with new releases.
-The provided schema information and query examples are valid as of **September 18, 2024**.
-If you detect a schema change or a non-functioning query example, please
-[submit an issue](https://github.com/influxdata/docs-v2/issues/new/choose).
-
-<!--------------- UPDATE THE DATE ABOVE AS EXAMPLES ARE UPDATED --------------->
-{{% /warn %}}
+> [!Warning]
+> #### May impact cluster performance
+> 
+> Querying InfluxDB 3 system tables may impact write and query
+> performance of your {{< product-name omit=" Clustered" >}} cluster.
+> Use filters to [optimize queries to reduce impact to your cluster](#optimize-queries-to-reduce-impact-to-your-cluster).
+> 
+> <!--------------- UPDATE THE DATE BELOW AS EXAMPLES ARE UPDATED --------------->
+> 
+> #### System tables are subject to change
+> 
+> System tables are not part of InfluxDB's stable API and may change with new releases.
+> The provided schema information and query examples are valid as of **September 18, 2024**.
+> If you detect a schema change or a non-functioning query example, please
+> [submit an issue](https://github.com/influxdata/docs-v2/issues/new/choose).
+> 
+> <!--------------- UPDATE THE DATE ABOVE AS EXAMPLES ARE UPDATED --------------->
 
 ## Query system tables
 
-{{% note %}}
-Querying system tables with `influxctl` requires **`influxctl` v2.8.0 or newer**.
-{{% /note %}}
+> [!Note]
+> Querying system tables with `influxctl` requires **`influxctl` v2.8.0 or newer**.
 
 Use the [`influxctl query` command](/influxdb3/clustered/reference/cli/influxctl/query/)
 and SQL to query system tables.
@@ -268,9 +266,8 @@ Use the `AND`, `OR`, or `IN` keywords to combine filters in your query.
 
 ## System tables
 
-{{% warn %}}
-_System tables are [subject to change](#system-tables-are-subject-to-change)._
-{{% /warn %}}
+> [!Warning]
+> _System tables are [subject to change](#system-tables-are-subject-to-change)._
 
 ### Understanding system table data distribution
 
@@ -333,11 +330,10 @@ The `system.queries` table contains the following columns:
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-{{% note %}}
-_When listing measurements (tables) available within a namespace,
-some clients and query tools may include the `queries` table in the list of
-namespace tables._
-{{% /note %}}
+> [!Note]
+> _When listing measurements (tables) available within a namespace,
+> some clients and query tools may include the `queries` table in the list of
+> namespace tables._
 
 ### system.tables
 
@@ -400,14 +396,13 @@ The `system.compactor` table contains the following columns:
 
 ## System query examples
 
-{{% warn %}}
-#### May impact cluster performance
-
-Querying InfluxDB 3 system tables may impact write and query
-performance of your {{< product-name omit=" Clustered" >}} cluster.
-
-The examples in this section include `WHERE` filters to [optimize queries and reduce impact to your cluster](#optimize-queries-to-reduce-impact-to-your-cluster).
-{{% /warn %}}
+> [!Warning]
+> #### May impact cluster performance
+> 
+> Querying InfluxDB 3 system tables may impact write and query
+> performance of your {{< product-name omit=" Clustered" >}} cluster.
+> 
+> The examples in this section include `WHERE` filters to [optimize queries and reduce impact to your cluster](#optimize-queries-to-reduce-impact-to-your-cluster).
 
 - [Query logs](#query-logs)
   - [View all stored query logs](#view-all-stored-query-logs)

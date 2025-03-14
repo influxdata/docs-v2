@@ -101,9 +101,8 @@ to create a database in your {{< product-name omit=" Clustered" >}} cluster.
      the time interval to partition by. Default is `%Y-%m-%d`.
     - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
 
-    {{% note %}}
-_{{< product-name >}} supports up to 7 total tags or tag buckets in the partition template._
-    {{% /note %}}
+    > [!Note]
+    >  _{{< product-name >}} supports up to 7 total tags or tag buckets in the partition template._
 
 <!--Skip tests for database create and delete: namespaces aren't reusable-->
 <!--pytest.mark.skip-->
@@ -232,9 +231,8 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
     the time interval to partition by. Default is `%Y-%m-%d`.
    - Database name _(see [Database naming restrictions](#database-naming-restrictions))_.
 
-    {{% note %}}
-_{{< product-name >}} supports up to 7 total tags or tag buckets in the partition template._
-    {{% /note %}}
+    > [!Note]
+    > _{{< product-name >}} supports up to 7 total tags or tag buckets in the partition template._
 
 The following example shows how to use the Management API to create a database with custom partitioning:
 
@@ -343,13 +341,12 @@ For more information, see [Manage data partitioning](/influxdb3/cloud-dedicated/
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-{{% warn %}}
-
-#### Partition templates can only be applied on create
-
-You can only apply a partition template when creating a database.
-You can't update a partition template on an existing database.
-{{% /warn %}}
+> [!Warning]
+> 
+> #### Partition templates can only be applied on create
+> 
+> You can only apply a partition template when creating a database.
+> You can't update a partition template on an existing database.
 
 ### Database naming restrictions
 

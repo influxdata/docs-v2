@@ -27,15 +27,12 @@ Default: `table`.
 If a new database token doesn't immediately work (you receive a `401 Unauthorized` error) for querying or writing, wait and then try again.
 - Token strings are viewable _only_ on token creation.
 
-{{% note %}}
-
-#### Store secure tokens in a secret store
-
-Token strings are viewable _only_ on token creation and aren't stored by InfluxDB.
-We recommend storing database tokens in a **secure secret store**.
-
-{{% /note %}}
-
+> [!Note]
+>
+> #### Store secure tokens in a secret store
+> 
+> Token strings are viewable _only_ on token creation and aren't stored by InfluxDB.
+> We recommend storing database tokens in a **secure secret store**.
 
 ## Usage
 
@@ -65,14 +62,12 @@ influxctl token create \
 _Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/influxctl/#global-flags)._
 {{% /caption %}}
 
-{{% note %}}
-
-#### Using a new token
-
-InfluxDB might take some time to synchronize new tokens.
-If a new database token doesn't immediately work for querying or writing, wait a few seconds and try again.
-
-{{% /note %}}
+> [!Note]
+> 
+> #### Using a new token
+> 
+> InfluxDB might take some time to synchronize new tokens.
+> If a new database token doesn't immediately work for querying or writing, wait a few seconds and try again.
 
 ## Examples
 

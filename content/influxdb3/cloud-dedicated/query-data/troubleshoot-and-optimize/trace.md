@@ -23,14 +23,13 @@ When you enable trace logging for a query, InfluxDB propagates your _trace ID_ t
 InfluxData Support can then use the trace ID that you provide to filter, collate, and analyze log information for the query run.
 The tracing system follows the [OpenTelemetry traces](https://opentelemetry.io/docs/concepts/signals/traces/) model for providing observability into a request.
 
-{{% warn %}}
-
-#### Avoid unnecessary tracing
-
-Only enable tracing for a query when you need to request troubleshooting help from InfluxDB Support.
-To manage resources, InfluxDB has an upper limit for the number of trace requests.
-Too many traces can cause InfluxDB to evict log information.
-{{% /warn %}}
+> [!Warning]
+> 
+> #### Avoid unnecessary tracing
+> 
+> Only enable tracing for a query when you need to request troubleshooting help from InfluxDB Support.
+> To manage resources, InfluxDB has an upper limit for the number of trace requests.
+> Too many traces can cause InfluxDB to evict log information.
 
 To enable tracing for a query, include the `influx-trace-id` header in your query request.
 
@@ -238,9 +237,8 @@ Replace the following:
   a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   with sufficient permissions to the specified database
 
-{{% note %}}
-Store or log your query trace ID to ensure you can provide it to InfluxData Support for troubleshooting.
-{{% /note %}}
+> [!Note]
+> Store or log your query trace ID to ensure you can provide it to InfluxData Support for troubleshooting.
 
 After you run your query with tracing enabled, do the following:
 

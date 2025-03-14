@@ -35,13 +35,12 @@ Management tokens allow clients, such as the
 [`influxctl` CLI](/influxdb3/clustered/reference/cli/influxctl/),
 to perform administrative actions.
 
-{{% note %}}
-#### Store secure tokens in a secret store
-
-Token strings are returned _only_ on token creation.
-We recommend storing database tokens in a **secure secret store**.
-For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
-{{% /note %}}
+> [!Note]
+> #### Store secure tokens in a secret store
+> 
+> Token strings are returned _only_ on token creation.
+> We recommend storing database tokens in a **secure secret store**.
+> For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
 
 ---
 

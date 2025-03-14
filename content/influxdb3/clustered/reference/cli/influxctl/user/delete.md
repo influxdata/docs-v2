@@ -18,12 +18,11 @@ account.
 influxctl user delete <USER_ID>
 ```
 
-{{% warn %}}
-#### Deleting a user is immediate and cannot be undone
-
-Deleting a user is a destructive action that takes place immediately
-and cannot be undone.
-{{% /warn %}}
+> [!Warning]
+> #### Deleting a user is immediate and cannot be undone
+> 
+> Deleting a user is a destructive action that takes place immediately
+> and cannot be undone.
 
 ## Arguments
 

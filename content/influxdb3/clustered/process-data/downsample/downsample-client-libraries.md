@@ -262,10 +262,9 @@ data_frame = table.to_pandas()
     - **data_frame_tag_columns**: List of [tag](/influxdb3/clustered/reference/glossary/#tag)
       columns 
       
-    {{% note %}}
-Columns not listed in the **data_frame_tag_columns** or **data_frame_timestamp_column**
-arguments are written to InfluxDB as [fields](/influxdb3/clustered/reference/glossary/#field).
-    {{% /note %}}
+    > [!Note]
+    > Columns not listed in the **data_frame_tag_columns** or **data_frame_timestamp_column**
+    > arguments are written to InfluxDB as [fields](/influxdb3/clustered/reference/glossary/#field).
 
 ```py
 # ...

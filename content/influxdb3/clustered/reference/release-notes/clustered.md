@@ -556,9 +556,9 @@ spec:
   under `observability.serviceMonitor`
   - The feature flag is now deprecated, and will be removed in a future release.
 
-  {{% warn %}}
-  Using this setting will delete and recreate the existing serviceMonitor resource that was provided by the feature flag.
-  {{% /warn %}}
+  > [!Warning]
+  > Using this setting will delete and recreate the existing serviceMonitor
+  > resource that was provided by the feature flag.
 
 #### Deployment
 

@@ -48,11 +48,10 @@ Use the following environment variables to tune the garbage collector:
 These values tune how aggressive the garbage collector can be. A shorter duration
 value means that files can be removed at a faster pace.
 
-{{% warn %}}
-To ensure there is a grace period before files and references are removed, the
-minimum garbage collector (GC) object store and Parquet file cutoff time is
-three hours (`3h`).
-{{% /warn %}}
+> [!Warning]
+> To ensure there is a grace period before files and references are removed, the
+> minimum garbage collector (GC) object store and Parquet file cutoff time is
+> three hours (`3h`).
 
 We recommend setting these options to a value aligned to your organization's
 backup and recovery strategy.
@@ -161,9 +160,8 @@ This will likely result in higher operational costs as the Catalog store maintai
 more references to associated Parquet files and the Parquet files persist for
 longer in the Object store.
 
-{{% note %}}
-If possible, we recommend using object versioning.
-{{% /note %}}
+> [!Note]
+> If possible, we recommend using object versioning.
 
 The following example sets the garbage collector cutoffs to `100d`:
 

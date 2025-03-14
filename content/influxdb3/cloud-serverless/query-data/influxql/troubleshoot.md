@@ -11,10 +11,9 @@ weight: 230
 
 Learn how to troubleshoot and fix common InfluxQL errors.
 
-{{% note %}}
-**Disclaimer:** This document does not contain an exhaustive list of all
-possible InfluxQL errors.
-{{% /note %}}
+> [!Note]
+> **Disclaimer:** This document does not contain an exhaustive list of all
+> possible InfluxQL errors.
 
 - [error: database name required](#error-database-name-required)
 - [error parsing query: found ..., expected identifier at ...](#error-parsing-query-found--expected-identifier-at-)
@@ -148,12 +147,11 @@ are character sequences reserved for specific functionality in the InfluxQL synt
 It is possible to use a keyword as an identifier, but the identifier must be
 wrapped in double quotes (`""`).
 
-{{% note %}}
-While wrapping identifiers that are InfluxQL keywords in double quotes is an
-acceptable workaround, for simplicity, you should avoid using
-[InfluxQL keywords](/influxdb3/cloud-serverless/reference/influxql/#keywords)
-as identifiers.
-{{% /note %}}
+> [!Note]
+> While wrapping identifiers that are InfluxQL keywords in double quotes is an
+> acceptable workaround, for simplicity, you should avoid using
+> [InfluxQL keywords](/influxdb3/cloud-serverless/reference/influxql/#keywords)
+> as identifiers.
 
 ```sql
 SELECT duration FROM runs

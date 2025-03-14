@@ -49,12 +49,11 @@ Replace the following in your command:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb3/clustered/admin/databases/)
 
-{{% warn %}}
-#### Database names can't be updated
-
-The `influxctl database update` command uses the database name to identify which
-database to apply updates to. The database name itself can't be updated.
-{{% /warn %}}
+> [!Warning]
+> #### Database names can't be updated
+> 
+> The `influxctl database update` command uses the database name to identify which
+> database to apply updates to. The database name itself can't be updated.
 
 ## Database attributes
 

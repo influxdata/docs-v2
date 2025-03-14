@@ -61,9 +61,8 @@ The `influxdb3-python` Python client library wraps the Apache Arrow `pyarrow.fli
 in a convenient InfluxDB 3 interface for executing SQL and InfluxQL queries, requesting
 server metadata, and retrieving data from {{% product-name %}} using the Flight protocol with gRPC.
 
-{{% note %}}
-Code samples in this page use the [Get started home sensor sample data](/influxdb3/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
-{{% /note %}}
+> [!Note]
+> Code samples in this page use the [Get started home sensor sample data](/influxdb3/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
 
 - [Installation](#installation)
 - [Importing the module](#importing-the-module)
