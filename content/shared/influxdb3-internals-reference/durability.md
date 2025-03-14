@@ -4,18 +4,19 @@ When data is written to {{% product-name %}}, it progresses through multiple sta
 
 ### Write Path Overview
 
+{{% product-name %}} processes data through several stages to ensure durability, query performance, and efficient storage. Below is a high-level overview of these stages:
 
 1. [Write validation](#write-validation)
 
-2. **Memory buffer**: Valid data is stored in an in-memory buffer before being persisted.
+2. [Memory buffer](#memory-buffer) 
 
-3. **Write-Ahead Log (WAL) persistence**: Data is flushed from memory to the WAL every second (default), ensuring durability.
+3. [Write-Ahead Log (WAL) persistence](#wal-persistence)
 
-4. **Queryable buffer**: Persisted data becomes queryable once moved from the WAL to an in-memory buffer.
+4. [Queryable buffer](#query-availability) 
 
-5. **Parquet storage**: Every ten minutes (default), InfluxDB writes data from the queryable buffer to object storage in Parquet format.
+5. [Parquet storage](#parquet-storage) 
 
-6. **In-memory cache**: Frequently queried Parquet files are cached in memory to improve performance.
+6. [In-memory cache](#in-memory-cache) 
 
 
 ##### Write Validation
