@@ -45,8 +45,8 @@
     - /
   title: InfluxDB 3 Core and Enterprise are now in Beta
   slug: |
-    InfluxDB 3 Core and Enterprise are now available for beta testing, licensed
-    under MIT or Apache 2 licensing.
+    InfluxDB 3 Core and Enterprise are now available for beta testing, available
+    under MIT or Apache 2 license.
   message: |
     InfluxDB 3 Core is a high-speed, recent-data engine that collects and
     processes data in real-time, while persisting it to local disk or object
