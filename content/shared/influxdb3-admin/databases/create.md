@@ -7,7 +7,7 @@ Provide the following:
 - {{< product-name >}} authorization token
 
   > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
+  > While in beta, {{< product-name >}} does not require an authorization token.
 
 <!--Allow fail for database create and delete: namespaces aren't reusable-->
 <!--pytest.mark.skip-->

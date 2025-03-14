@@ -51,7 +51,7 @@ After setting up {{< product-name >}} and your project, you should have the foll
   - Authorization token
 
     > [!Note]
-    > While in alpha, {{< product-name >}} does not require an authorization token.
+    > While in beta, {{< product-name >}} does not require an authorization token.
 
   - {{% product-name %}} URL
 
