@@ -77,8 +77,8 @@ including the following:
 - CPU and memory resources set on each type of InfluxDB pod
 - The number of pods in each InfluxDB StatefulSet and Deployment
 - The type of object store used and how it is hosted
-- How the Catalog (PostgreSQL-compatible database) is hosted
-- Indicate if either the Object store or the Catalog is shared by more than one InfluxDB
+- How the Catalog store (PostgreSQL-compatible database) is hosted
+- Indicate if either the Object store or the Catalog store is shared by more than one InfluxDB
   Clustered product
   - If so, describe the network-level topology of your setup
 
