@@ -138,7 +138,7 @@ Replace the following:
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
   > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
+  > While in beta, {{< product-name >}} does not require an authorization token.
   > You can either omit the `Authorization` header or you can provide an
   > arbitrary token string.
 
@@ -224,7 +224,7 @@ EOF
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
       > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization token.
+      > While in beta, {{< product-name >}} does not require an authorization token.
       > For the `token` option, provide an empty or arbitrary token string.
 
 2.  To test the input and processor, enter the following command:
@@ -337,7 +337,7 @@ EOF
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
       > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization token.
+      > While in beta, {{< product-name >}} does not require an authorization token.
       > For the `token` option, provide an empty or arbitrary token string.
 
 3.  To test the input and processor, enter the following command:
@@ -439,7 +439,7 @@ table, tag set, and timestamp), and then merges points in each series:
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
       > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization token.
+      > While in beta, {{< product-name >}} does not require an authorization token.
       > For the `token` option, provide an empty or arbitrary token string.
 
 3.  To test the input and aggregator, enter the following command:
@@ -542,7 +542,7 @@ field values, and then write the data to InfluxDB:
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
       > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization token.
+      > While in beta, {{< product-name >}} does not require an authorization token.
       > For the `token` option, provide an empty or arbitrary token string.
 
 3.  To test the input and processor, enter the following command:
@@ -781,7 +781,7 @@ EOF
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
       > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization token.
+      > While in beta, {{< product-name >}} does not require an authorization token.
       > For the `token` option, provide an empty or arbitrary token string.
 
 5.  To test the input and processor, enter the following command:
