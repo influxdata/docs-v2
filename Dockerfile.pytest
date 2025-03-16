@@ -10,6 +10,15 @@ RUN echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influ
 
 RUN echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | tee /etc/apt/sources.list.d/influxdata.list
 
+# Vault is used for testing InfluxDB 2.0 Secrets
+# Fetch vault package information from HashiCorp repository
+ADD https://apt.releases.hashicorp.com/gpg /tmp/hashicorp.gpg
+RUN apt-get update && apt-get install -y lsb-release && \
+    cat /tmp/hashicorp.gpg | gpg --dearmor > /usr/share/keyrings/hashicorp-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+    tee /etc/apt/sources.list.d/hashicorp.list
+
+
 # Install depedencies for clients and tests.
 # - InfluxData clients to use in tests.
 # - apt-utils for verification tools
@@ -32,6 +41,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   python3-venv \
   rsync \
   telegraf \
+  vault \
   wget \
   yq
 
@@ -55,6 +65,7 @@ WORKDIR /app
 
 RUN mkdir -p /app/log && chmod +w /app/log
 RUN mkdir -p /app/assets && chmod +w /app/assets
+RUN mkdir -p /root/influxdb/templates && chmod +rw /root/influxdb/templates
 
 # Some Python test dependencies (pytest-dotenv and pytest-codeblocks) aren't
 # available as packages in apt-cache, so use pip to download dependencies in a # separate step and use Docker's caching.
@@ -78,6 +89,7 @@ RUN echo '#!/bin/bash' > /usr/local/bin/xdg-open \
     && chmod +x /usr/local/bin/xdg-open
 
 RUN service influxdb start
+RUN vault server -dev > ~/.vault-server-log 2>&1 &
 
 # Copy test scripts and make them executable.
 COPY --chmod=755 ./test/scripts/parse_yaml.sh /usr/local/bin/parse_yaml
