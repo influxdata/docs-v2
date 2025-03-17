@@ -41,6 +41,4 @@
   - Ingest, query, compaction, and processing engine can now all be set individually per node. 
 
 
-_See also: [Getting Started with Core](/influxdb3/core/)._
-_See also: [Getting Started with Enterprise](/influxdb3/enterprise/)._
 
