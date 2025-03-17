@@ -84,25 +84,31 @@ function getPreferences() {
 
 
 const defaultUrls = {};
-Object.entries(pageParams.influxdb_urls).forEach(([product, {providers}]) => {
-  defaultUrls[product] = providers.filter(provider => provider.name === 'Default')[0]?.regions[0]?.url;
-});
+// Guard against pageParams being null/undefined and safely access nested properties
+if (pageParams && pageParams.influxdb_urls) {
+  Object.entries(pageParams.influxdb_urls).forEach(([product, {providers}]) => {
+    // Use optional chaining and nullish coalescing to safely access properties
+    const defaultProvider = providers?.filter(provider => provider?.name === 'Default')[0];
+    const defaultRegion = defaultProvider?.regions?.[0];
+    defaultUrls[product] = defaultRegion?.url || '';
+  });
+}
 
 export const DEFAULT_STORAGE_URLS = {
-  oss: defaultUrls.oss,
-  cloud: defaultUrls.cloud,
-  serverless: defaultUrls.serverless,
-  core: defaultUrls.core,
-  enterprise: defaultUrls.enterprise,
-  dedicated: defaultUrls.cloud_dedicated,
-  clustered: defaultUrls.clustered,
-  prev_oss: defaultUrls.oss,
-  prev_cloud: defaultUrls.cloud,
-  prev_core: defaultUrls.core,
-  prev_enterprise: defaultUrls.enterprise,
-  prev_serverless: defaultUrls.serverless,
-  prev_dedicated: defaultUrls.cloud_dedicated,
-  prev_clustered: defaultUrls.clustered,
+  oss: defaultUrls.oss || '',
+  cloud: defaultUrls.cloud || '',
+  serverless: defaultUrls.serverless || '',
+  core: defaultUrls.core || '',
+  enterprise: defaultUrls.enterprise || '',
+  dedicated: defaultUrls.cloud_dedicated || '',
+  clustered: defaultUrls.clustered || '',
+  prev_oss: defaultUrls.oss || '',
+  prev_cloud: defaultUrls.cloud || '',
+  prev_core: defaultUrls.core || '',
+  prev_enterprise: defaultUrls.enterprise || '',
+  prev_serverless: defaultUrls.serverless || '',
+  prev_dedicated: defaultUrls.cloud_dedicated || '',
+  prev_clustered: defaultUrls.clustered || '',
   custom: '',
 };
 
