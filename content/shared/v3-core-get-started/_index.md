@@ -156,14 +156,14 @@ The following examples show how to start InfluxDB 3 with different object store 
 ```bash
 # Memory object store
 # Stores data in RAM; doesn't persist data
-influxdb3 serve --node-id=local01 --object-store=memory
+influxdb3 serve --node-id=host01 --object-store=memory
 ```
 
 ```bash
 # Filesystem object store
 # Provide the filesystem directory
 influxdb3 serve \
-  --node-id=local01 \
+  --node-id=host01 \
   --object-store=file \
   --data-dir ~/.influxdb3
 ```
@@ -195,10 +195,8 @@ docker run -it \
 ```bash
 # S3 object store (default is the us-east-1 region)
 # Specify the Object store type and associated options
-
-```bash
 influxdb3 serve \
-  --node-id=local01 \
+  --node-id=host01 \
   --object-store=s3 \
   --bucket=BUCKET \
   --aws-access-key=AWS_ACCESS_KEY \
@@ -209,16 +207,21 @@ influxdb3 serve \
 # Minio or other open source object store
 # (using the AWS S3 API with additional parameters)
 # Specify the object store type and associated options
-
-```bash
-influxdb3 serve --node-id=local01 --object-store=s3 --bucket=BUCKET \
+influxdb3 serve \
+  --node-id=host01 \
+  --object-store=s3 \
+  --bucket=BUCKET \
   --aws-access-key=AWS_ACCESS_KEY \
   --aws-secret-access-key=AWS_SECRET_ACCESS_KEY \
   --aws-endpoint=ENDPOINT \
   --aws-allow-http
 ```
 
-_For more information about server options, run `influxdb3 serve --help`._
+For more information about server options, use the CLI help:
+
+```bash
+influxdb3 serve --help
+```
 
 > [!Important]
 > #### Stopping the Docker container
@@ -407,7 +410,7 @@ Using `no_sync=true` is best when prioritizing high-throughput writes over absol
 
 The `no_sync` parameter controls when writes are acknowledged--for example:
 
-```sh
+```bash
 curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=true" \
   --data-raw "home,room=Sunroom temp=96"
 ```
@@ -416,7 +419,7 @@ curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=tr
 
 The `no_sync` CLI option controls when writes are acknowledged--for example:
 
-```sh
+```bash
 influxdb3 write --bucket=mydb --org=my_org --token=my-token --no-sync
 ```
 
@@ -430,7 +433,7 @@ influxdb3 create database mydb
 
 To learn more about a subcommand, use the `-h, --help` flag:
 
-```
+```bash
 influxdb3 create -h
 ```
 
@@ -462,7 +465,7 @@ The `query` subcommand includes options to help ensure that the right database i
 
 #### Example: query `“SHOW TABLES”` on the `servers` database:
 
-```
+```console
 $ influxdb3 query --database=servers "SHOW TABLES"
 +---------------+--------------------+--------------+------------+
 | table_catalog | table_schema       | table_name   | table_type |
@@ -478,7 +481,7 @@ $ influxdb3 query --database=servers "SHOW TABLES"
 
 #### Example: query the `cpu` table, limiting to 10 rows:
 
-```
+```console
 $ influxdb3 query --database=servers "SELECT DISTINCT usage_percent, time FROM cpu LIMIT 10"
 +---------------+---------------------+
 | usage_percent | time                |
@@ -496,7 +499,7 @@ $ influxdb3 query --database=servers "SELECT DISTINCT usage_percent, time FROM c
 +---------------+---------------------+
 ```
 
-### Querying using the CLI for InfluxQL
+### Query using the CLI for InfluxQL
 
 [InfluxQL](/influxdb3/version/reference/influxql/) is an SQL-like language developed by InfluxData with specific features tailored for leveraging and working with InfluxDB. It’s compatible with all versions of InfluxDB, making it a good choice for interoperability across different InfluxDB installations.
 
@@ -540,13 +543,13 @@ We recommend installing the required packages in a Python virtual environment fo
 
 To get started, install the `influxdb3-python` package.
 
-```
+```bash
 pip install influxdb3-python
 ```
 
 From here, you can connect to your database with the client library using just the **host** and **database name:
 
-```py
+```python
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
@@ -558,7 +561,7 @@ client = InfluxDBClient3(
 The following example shows how to query using SQL, and then
 use PyArrow to explore the schema and process results:
 
-```py
+```python
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
@@ -591,27 +594,16 @@ For more information about the Python client library, see the [`influxdb3-python
 ### Last values cache
 
 {{% product-name %}} supports a **last-n values cache** which stores the last N values in a series or column hierarchy in memory. This gives the database the ability to answer these kinds of queries in under 10 milliseconds.
-You can use the `influxdb3` CLI to create a last value cache.
+You can use the `influxdb3` CLI to [create a last value cache](/influxdb3/version/reference/cli/influxdb3/create/last_cache/).
 
-```
-Usage: $ influxdb3 create last_cache [OPTIONS] -d <DATABASE_NAME> -t <TABLE> [CACHE_NAME]
-
-Options:
-  -h, --host <HOST_URL>                URL of the running {{% product-name %}} server [env: INFLUXDB3_HOST_URL=] 
-  -d, --database <DATABASE_NAME>       The database to run the query against [env: INFLUXDB3_DATABASE_NAME=]
-      --token <AUTH_TOKEN>             The token for authentication [env: INFLUXDB3_AUTH_TOKEN=]
-  -t, --table <TABLE>                  The table for which the cache is created
-      --key-columns <KEY_COLUMNS>      Columns used as keys in the cache
-      --value-columns <VALUE_COLUMNS>  Columns to store as values in the cache
-      --count <COUNT>                  Number of entries per unique key:column 
-      --ttl <TTL>                      The time-to-live for entries (seconds)
-      --help                           Print help information
-
+```bash
+influxdb3 create last_cache \
+  -d <DATABASE_NAME> \
+  -t <TABLE> \
+  [CACHE_NAME]
 ```
 
-You can create a last values cache per time series, but be mindful of high cardinality tables that could take excessive memory.
-
-An example of creating this cache in use:
+Consider the following `cpu` sample table:
 
 | host | application | time | usage\_percent | status |
 | ----- | ----- | ----- | ----- | ----- |
@@ -621,16 +613,27 @@ An example of creating this cache in use:
 | Bravo | database | 2024-12-11T10:01:00 | 80.5 | OK |
 | Alpha | webserver | 2024-12-11T10:02:00 | 25.3 | Warn |
 
+The following command creates a last value cache named `cpuCache`:
+
 ```bash
-influxdb3 create last_cache --database=servers --table=cpu --key-columns=host,application --value-columns=usage_percent,status --count=5 cpuCache
+influxdb3 create last_cache \
+  --database=servers \
+  --table=cpu \
+  --key-columns=host,application \
+  --value-columns=usage_percent,status \
+  --count=5 cpuCache
 ```
 
-#### Query a Last values cache
+_You can create a last values cache per time series, but be mindful of high cardinality tables that could take excessive memory._
 
-To leverage the LVC, call it using the `last_cache()` function in your query--for example:
+#### Query a last values cache
+
+To use the LVC, call it using the `last_cache()` function in your query--for example:
 
 ```bash
-influxdb3 query --database=servers "SELECT * FROM last_cache('cpu', 'cpuCache') WHERE host = 'Bravo;"
+influxdb3 query \
+  --database=servers \
+  "SELECT * FROM last_cache('cpu', 'cpuCache') WHERE host = 'Bravo';"
 ```
 
 > [!Note]
@@ -638,25 +641,20 @@ influxdb3 query --database=servers "SELECT * FROM last_cache('cpu', 'cpuCache') 
 > 
 > The Last values cache only works with SQL, not InfluxQL; SQL is the default language.
 
-#### Deleting a Last values cache
+#### Delete a Last values cache
 
-To remove a Last values cache, use the following command:
+Use the `influxdb3` CLI to [delete a last values cache](/influxdb3/version/reference/cli/influxdb3/delete/last_cache/)
 
 ```bash
-influxdb3 delete last_cache [OPTIONS] -d <DATABASE_NAME> -t <TABLE> --cache-name <CACHE_NAME>
-
-Options:
-  -h, --host <HOST_URL>          Host URL of the running InfluxDB 3 server
-  -d, --database <DATABASE_NAME> The database to run the query against          
-      --token <AUTH_TOKEN>       The token for authentication   
-  -t, --table <TABLE>            The table for which the cache is being deleted
-  -n, --cache-name <CACHE_NAME>  The name of the cache being deleted
-      --help                     Print help information
+influxdb3 delete last_cache \
+  -d <DATABASE_NAME> \
+  -t <TABLE> \
+  --cache-name <CACHE_NAME>
 ```
 
 ### Distinct values cache
 
-Similar to the Last values cache, the database can cache in RAM the distinct values for a single column in a table or a heirarchy of columns. This is useful for fast metadata lookups, which can return in under 30 milliseconds. Many of the options are similar to the last value cache. See the CLI output for more information:
+Similar to the Last values cache, the database can cache in RAM the distinct values for a single column in a table or a hierarchy of columns. This is useful for fast metadata lookups, which can return in under 30 milliseconds. Many of the options are similar to the last value cache. See the CLI output for more information:
 
 ```bash
 influxdb3 create distinct_cache -h
@@ -784,7 +782,7 @@ To test a plugin, do the following:
    ```bash
    influxdb3 test wal_plugin \
      --lp <INPUT_LINE_PROTOCOL> \
-     --input-arguments "arg1=foo,arg2=bar"
+     --input-arguments "arg1=foo,arg2=bar" \
      --database <DATABASE_NAME> \
      <PLUGIN_FILENAME> 
    ```
@@ -833,7 +831,3 @@ enable the trigger and have it run the plugin as you write data:
 ```bash
 influxdb3 enable trigger --database mydb trigger1 
 ```
-
-For more information, see [Python plugins and the Processing engine](/influxdb3/version/plugins/).
-
-

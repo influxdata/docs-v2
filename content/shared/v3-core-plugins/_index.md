@@ -42,7 +42,10 @@ To enable the Processing engine, start the {{% product-name %}} server with the
 If the directory doesn’t exist, the server creates it. 
 
 ```bash
-influxdb3 serve --node-id node0 --object-store [OBJECT STORE TYPE] --plugin-dir /path/to/plugins
+influxdb3 serve \
+--node-id node0 \
+--object-store [OBJECT STORE TYPE]\
+ --plugin-dir /path/to/plugins
 ```
 
 ## Shared API
@@ -466,3 +469,158 @@ To run the plugin, you send an HTTP request to `<HOST>/api/v3/engine/my-plugin`.
 Because all On Request plugins for a server share the same `<host>/api/v3/engine/` base URL,
 the trigger-spec you define must be unique across all plugins configured for a server,
 regardless of which database they are associated with.
+
+
+## In-memory cache
+
+The Processing engine provides a powerful in-memory cache system that enables plugins to persist and retrieve data between executions. This cache system is essential for maintaining state, tracking metrics over time, and optimizing performance when working with external data sources.
+
+### Key Benefits
+
+-  **State persistence**: Maintain counters, timestamps, and other state variables across plugin executions.
+-   **Performance and cost optimization**: Store frequently used data to avoid expensive recalculations. Minimize external API calls by caching responses and avoiding rate limits.
+-  **Data enrichment**: Cache lookup tables, API responses, or reference data to enrich data efficiently.
+
+### Cache API
+
+The cache API is accessible via the `cache` property on the `influxdb3_local` object provided to all plugin types:
+
+```python 
+# Basic usage pattern  
+influxdb3_local.cache.METHOD(PARAMETERS)
+```
+
+
+| Method | Parameters | Returns | Description |
+|--------|------------|---------|-------------|
+| `put` | `key` (str): The key to store the value under<br>`value` (Any): Any Python object to cache<br>`ttl` (Optional[float], default=None): Time in seconds before expiration<br>`use_global` (bool, default=False): If True, uses global namespace | None | Stores a value in the cache with an optional time-to-live |
+| `get` | `key` (str): The key to retrieve<br>`default` (Any, default=None): Value to return if key not found<br>`use_global` (bool, default=False): If True, uses global namespace | Any | Retrieves a value from the cache or returns default if not found |
+| `delete` | `key` (str): The key to delete<br>`use_global` (bool, default=False): If True, uses global namespace | bool | Deletes a value from the cache. Returns True if deleted, False if not found |
+
+### Cache Namespaces
+
+The cache system offers two distinct namespaces, providing flexibility for different use cases:
+
+| Namespace | Scope | Best For |
+| --- | --- | --- |
+| **Trigger-specific** (default) | Isolated to a single trigger | Plugin state, counters, timestamps specific to one plugin |
+| **Global** | Shared across all triggers | Configuration, lookup tables, service states that should be available to all plugins |
+
+### Using the In-memory cache
+
+The following examples show how to use the cache API in plugins:
+
+```python
+# Store values in the trigger-specific namespace
+influxdb3_local.cache.put("last_processed_time", time.time())
+influxdb3_local.cache.put("error_count", 0)
+influxdb3_local.cache.put("processed_records", {"total": 0, "errors": 0})
+
+# Store values with expiration
+influxdb3_local.cache.put("temp_data", {"value": 42}, ttl=300)  # Expires in 5 minutes
+influxdb3_local.cache.put("auth_token", "t0k3n", ttl=3600)     # Expires in 1 hour
+
+# Store values in the global namespace
+influxdb3_local.cache.put("app_config", {"version": "1.0.2"}, use_global=True)
+influxdb3_local.cache.put("global_counter", 0, use_global=True)
+
+# Retrieve values
+last_time = influxdb3_local.cache.get("last_processed_time")
+auth = influxdb3_local.cache.get("auth_token")
+config = influxdb3_local.cache.get("app_config", use_global=True)
+
+# Provide defaults for missing keys
+missing = influxdb3_local.cache.get("missing_key", default="Not found")
+count = influxdb3_local.cache.get("visit_count", default=0)
+
+# Delete cached values
+influxdb3_local.cache.delete("temp_data")
+influxdb3_local.cache.delete("app_config", use_global=True)
+```
+
+#### Example: maintaining state between executions
+
+The following example shows a WAL plugin that uses the cache to maintain a counter across executions:
+
+```python
+
+def process_writes(influxdb3_local, table_batches, args=None):
+    # Get the current counter value or default to 0
+    counter = influxdb3_local.cache.get("execution_counter", default=0)
+    
+    # Increment the counter
+    counter += 1
+    
+    # Store the updated counter back in the cache
+    influxdb3_local.cache.put("execution_counter", counter)
+    
+    influxdb3_local.info(f"This plugin has been executed {counter} times")
+    
+    # Process writes normally...
+```
+
+#### Example: sharing configuration across triggers
+
+One benefit of using a global namespace is being more responsive to changing conditions. This example demonstrates using the global namespace to share configuration, so a scheduled call can check thresholds placed by prior trigger calls, without making a query to the DB itself:
+
+```python
+def process_scheduled_call(influxdb3_local, time, args=None):
+    # Check if we have cached configuration
+    config = influxdb3_local.cache.get("alert_config", use_global=True)
+    
+    if not config:
+        # Load configuration from database
+        results = influxdb3_local.query("SELECT * FROM system.alert_config")
+        
+        # Transform query results into config object
+        config = {row["name"]: row["value"] for row in results}
+        
+        # Cache the configuration with a 5-minute TTL
+        influxdb3_local.cache.put("alert_config", config, ttl=300, use_global=True)
+        influxdb3_local.info("Loaded fresh configuration from database")
+    else:
+        influxdb3_local.info("Using cached configuration")
+    
+    # Use the configuration
+    threshold = float(config.get("cpu_threshold", "90.0"))
+    # ...
+```
+
+The cache is designed to support stateful operations while maintaining isolation between different triggers. Use the trigger-specific namespace for most operations and the global namespace only when data sharing across triggers is necessary.
+
+### Best practices
+
+- [Use TTL appropriately](#use-ttl-appropriately)
+- [Cache computation results](#cache-computation-results)
+- [Warm the cache](#warm-the-cache)
+- [Consider cache limitations](#consider-cache-limitations)
+
+#### Use TTL appropriately
+Set realistic expiration times based on how frequently data changes.
+
+```python
+# Cache external API responses for 5 minutes  
+influxdb3_local.cache.put("weather_data", api_response, ttl=300)
+```
+
+#### Cache computation results
+Store the results of expensive calculations that need to be utilized frequently.
+```python
+# Cache aggregated statistics  
+influxdb3_local.cache.put("daily_stats", calculate_statistics(data), ttl=3600)
+```
+
+#### Warm the cache
+For critical data, prime the cache at startup. This can be especially useful for global namespace data where multiple triggers need the data.
+
+```python
+# Check if cache needs to be initialized  
+if not influxdb3_local.cache.get("lookup_table"):   
+    influxdb3_local.cache.put("lookup_table", load_lookup_data())
+```
+
+## Consider cache limitations
+
+- **Memory Usage**: Since cache contents are stored in memory, monitor your memory usage when caching large datasets.
+- **Server Restarts**: Because the cache is cleared when the server restarts, design your plugins to handle cache initialization (as noted above).
+- **Concurrency**: Be cautious of accessing inaccurate or out-of-date data when multiple trigger instances might simultaneously update the same cache key.

@@ -69,7 +69,7 @@ the **Flight SQL JDBC driver**.
     - **Password**: _Leave empty_
 
       > [!Note]
-      > While in alpha, {{< product-name >}} does not require authorization tokens.
+      > While in beta, {{< product-name >}} does not require authorization tokens.
 
     - **Properties File**: _Leave empty_
 

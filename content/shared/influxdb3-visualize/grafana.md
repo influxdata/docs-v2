@@ -71,7 +71,7 @@ When creating an InfluxDB data source that uses SQL to query data:
     - **Token**: Provide an arbitrary string.
 
       > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization token.
+      > While in beta, {{< product-name >}} does not require an authorization token.
 
     - **Insecure Connection**: If _not_ using HTTPS, enable this option.
 
@@ -102,7 +102,7 @@ When creating an InfluxDB data source that uses InfluxQL to query data:
     - **Password**: Provide an arbitrary string.
 
       > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization
+      > While in beta, {{< product-name >}} does not require an authorization
       > token, but the **Password** field does require a value.
 
     - **HTTP Method**: Choose one of the available HTTP request methods to use when querying data:

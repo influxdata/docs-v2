@@ -50,7 +50,7 @@ Replace the following:
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
   > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
+  > While in beta, {{< product-name >}} does not require an authorization token.
   > For the `token` option, provide an arbitrary, non-empty token string.
 
 _See how to [Configure Telegraf to write to {{% product-name %}}](/influxdb3/version/write-data/use-telegraf/configure/)._

@@ -9,7 +9,7 @@ Provide the following:
   - {{< product-name >}} authorization token with the `-t`, `--token` option
 
   > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
+  > While in beta, {{< product-name >}} does not require an authorization token.
 
 ```sh
 influxdb3 show databases
