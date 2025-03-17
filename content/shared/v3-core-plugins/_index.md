@@ -1,15 +1,15 @@
 
-Use the {{% product-name %}} Processing Engine to run code and perform tasks
+Use the {{% product-name %}} Processing engine to run code and perform tasks
 for different database events.
 
-{{% product-name %}} provides the InfluxDB 3 Processing Engine, an embedded Python VM that can dynamically load and trigger Python plugins
+{{% product-name %}} provides the InfluxDB 3 Processing engine, an embedded Python VM that can dynamically load and trigger Python plugins
 in response to events in your database.
 
 ## Key Concepts
 
 ### Plugins
 
-A Processing Engine _plugin_ is Python code you provide to run tasks, such as
+A Processing engine _plugin_ is Python code you provide to run tasks, such as
 downsampling data, monitoring, creating alerts, or calling external services.
 
 > [!Note]
@@ -25,7 +25,7 @@ A _trigger_ is an InfluxDB 3 resource you create to associate a database
 event (for example, a WAL flush) with the plugin that should run.
 When an event occurs, the trigger passes configuration details, optional arguments, and event data to the plugin.
 
-The Processing Engine provides four types of triggers--each type corresponds to
+The Processing engine provides four types of triggers--each type corresponds to
 an event type with event-specific configuration to let you handle events with targeted logic.
 
 - **WAL Flush**: Triggered when the write-ahead log (WAL) is flushed to the object store (default is every second).
@@ -35,14 +35,17 @@ an event type with event-specific configuration to let you handle events with ta
 - **Parquet Persistence (coming soon)**: Triggered when InfluxDB 3 persists data to object storage Parquet files.
 -->
 
-### Activate the Processing Engine
+### Activate the Processing engine
 
-To enable the Processing Engine, start the {{% product-name %}} server with the
+To enable the Processing engine, start the {{% product-name %}} server with the
 `--plugin-dir` option and a path to your plugins directory.
 If the directory doesn’t exist, the server creates it. 
 
 ```bash
-influxdb3 serve --node-id node0 --object-store [OBJECT STORE TYPE] --plugin-dir /path/to/plugins
+influxdb3 serve \
+--node-id node0 \
+--object-store [OBJECT STORE TYPE]\
+ --plugin-dir /path/to/plugins
 ```
 
 ## Shared API
@@ -234,7 +237,7 @@ influx create trigger --run-asynchronously
 #### Configure error handling
 #### Configure error behavior for plugins
 
-The Processing Engine logs all plugin errors to stdout and the `system.processing_engine_logs` system table.
+The Processing engine logs all plugin errors to stdout and the `system.processing_engine_logs` system table.
 
 To  configure additional error handling for a trigger, use the `--error-behavior` flag:
 
@@ -470,13 +473,13 @@ regardless of which database they are associated with.
 
 ## In-memory cache
 
-The Processing Engine provides a powerful in-memory cache system that enables plugins to persist and retrieve data between executions. This cache system is essential for maintaining state, tracking metrics over time, and optimizing performance when working with external data sources.
+The Processing engine provides a powerful in-memory cache system that enables plugins to persist and retrieve data between executions. This cache system is essential for maintaining state, tracking metrics over time, and optimizing performance when working with external data sources.
 
 ### Key Benefits
 
--   **State persistence**: Maintain counters, timestamps, and other state variables across plugin executions.
+-  **State persistence**: Maintain counters, timestamps, and other state variables across plugin executions.
 -   **Performance and cost optimization**: Store frequently used data to avoid expensive recalculations. Minimize external API calls by caching responses and avoiding rate limits.
--   **Data Enrichment**: Cache lookup tables, API responses, or reference data to enrich data efficiently.
+-  **Data enrichment**: Cache lookup tables, API responses, or reference data to enrich data efficiently.
 
 ### Cache API
 
@@ -503,7 +506,7 @@ The cache system offers two distinct namespaces, providing flexibility for diffe
 | **Trigger-specific** (default) | Isolated to a single trigger | Plugin state, counters, timestamps specific to one plugin |
 | **Global** | Shared across all triggers | Configuration, lookup tables, service states that should be available to all plugins |
 
-### Using the In-Memory Cache
+### Using the In-memory cache
 
 The following examples show how to use the cache API in plugins:
 
@@ -535,9 +538,9 @@ influxdb3_local.cache.delete("temp_data")
 influxdb3_local.cache.delete("app_config", use_global=True)
 ```
 
-#### Example: Maintaining State Between Executions
+#### Example: maintaining state between executions
 
-This example shows a WAL plugin that uses the cache to maintain a counter across executions:
+The following example shows a WAL plugin that uses the cache to maintain a counter across executions:
 
 ```python
 
@@ -556,7 +559,7 @@ def process_writes(influxdb3_local, table_batches, args=None):
     # Process writes normally...
 ```
 
-#### Example: Sharing Configuration Across Triggers
+#### Example: sharing configuration across triggers
 
 One benefit of using a global namespace is being more responsive to changing conditions. This example demonstrates using the global namespace to share configuration, so a scheduled call can check thresholds placed by prior trigger calls, without making a query to the DB itself:
 
@@ -585,9 +588,14 @@ def process_scheduled_call(influxdb3_local, time, args=None):
 
 The cache is designed to support stateful operations while maintaining isolation between different triggers. Use the trigger-specific namespace for most operations and the global namespace only when data sharing across triggers is necessary.
 
-### Best Practices
+### Best practices
 
-#### Use TTL Appropriately
+- [Use TTL appropriately](#use-ttl-appropriately)
+- [Cache computation results](#cache-computation-results)
+- [Warm the cache](#warm-the-cache)
+- [Consider cache limitations](#consider-cache-limitations)
+
+#### Use TTL appropriately
 Set realistic expiration times based on how frequently data changes.
 
 ```python
@@ -595,15 +603,15 @@ Set realistic expiration times based on how frequently data changes.
 influxdb3_local.cache.put("weather_data", api_response, ttl=300)
 ```
 
-#### Cache Computation Results
+#### Cache computation results
 Store the results of expensive calculations that need to be utilized frequently.
 ```python
 # Cache aggregated statistics  
 influxdb3_local.cache.put("daily_stats", calculate_statistics(data), ttl=3600)
 ```
 
-#### Implement Cache Warm-Up
-Prime the cache at startup for critical data. This can be especially useful for global namespace data where multiple triggers will need this data.
+#### Warm the cache
+For critical data, prime the cache at startup. This can be especially useful for global namespace data where multiple triggers need the data.
 
 ```python
 # Check if cache needs to be initialized  
@@ -611,8 +619,8 @@ if not influxdb3_local.cache.get("lookup_table"):
     influxdb3_local.cache.put("lookup_table", load_lookup_data())
 ```
 
-#### Cache Limitations
+## Consider cache limitations
 
--   **Memory Usage**: Since cache contents are stored in memory, monitor your memory usage when caching large datasets.
--   **Server Restarts**: The cache is cleared when the server restarts, so it's recommended you design your plugins to handle cache initialization (as noted above).
--   **Concurrency**: Be cautious when multiple trigger instances might update the same cache key simultaneously to prevent inaccurate or out-of-date data access.
+- **Memory Usage**: Since cache contents are stored in memory, monitor your memory usage when caching large datasets.
+- **Server Restarts**: Because the cache is cleared when the server restarts, design your plugins to handle cache initialization (as noted above).
+- **Concurrency**: Be cautious of accessing inaccurate or out-of-date data when multiple trigger instances might simultaneously update the same cache key.
