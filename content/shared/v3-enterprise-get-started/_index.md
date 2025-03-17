@@ -147,14 +147,15 @@ The following examples show how to start InfluxDB 3 with different object store 
 ```bash
 # Memory object store
 # Stores data in RAM; doesn't persist data
-influxdb3 serve --node-id=local01 --object-store=memory
+influxdb3 serve --node-id=host01 --cluster-id=cluster01 --object-store=memory
 ```
 
 ```bash
 # Filesystem object store
 # Provide the filesystem directory
 influxdb3 serve \
-  --node-id=local01 \
+  --node-id=host01 \
+  --cluster-id=cluster01 \
   --object-store=file \
   --data-dir ~/.influxdb3
 ```
@@ -178,6 +179,7 @@ docker run -it \
  -v /path/on/host:/path/in/container \
  quay.io/influxdb/influxdb3-enterprise:latest serve \
  --node-id my_host \
+ --cluster-id my_cluster \
  --object-store file \
  --data-dir /path/in/container
 ```
@@ -188,7 +190,8 @@ docker run -it \
 
 ```bash
 influxdb3 serve \
-  --node-id=local01 \
+  --node-id=host01 \
+  --cluster-id=cluster01 \
   --object-store=s3 \
   --bucket=BUCKET \
   --aws-access-key=AWS_ACCESS_KEY \
@@ -201,7 +204,11 @@ influxdb3 serve \
 # Specify the object store type and associated options
 
 ```bash
-influxdb3 serve --node-id=local01 --object-store=s3 --bucket=BUCKET \
+influxdb3 serve \
+--node-id=host01 \
+--cluster-id=cluster01 \
+--object-store=s3 \
+--bucket=BUCKET \
   --aws-access-key=AWS_ACCESS_KEY \
   --aws-secret-access-key=AWS_SECRET_ACCESS_KEY \
   --aws-endpoint=ENDPOINT \
@@ -844,23 +851,18 @@ In a basic HA setup:
 > Compacted data is meant for a single writer, and many readers.
 
 The following examples show how to configure and start two nodes
-for a basic HA setup.
-The example commands pass the following options:
-
-- `--read-from-node-ids`: makes the node a _read replica_, which checks the Object store for data arriving from other nodes
-- `--compactor-id`: activates the Compactor for a node. Only one node can run compaction
-- `--run-compactions`: ensures the Compactor runs the compaction process
+for a basic HA setup. _Node 1_ is configured as the compactor (`--mode` includes `compact`).
 
 ```bash
 ## NODE 1
 
 # Example variables
 # node-id: 'host01'
+# cluster-id: 'cluster01'
 # bucket: 'influxdb-3-enterprise-storage'
-# compactor-id: 'c01'
 
 
-influxdb3 serve --node-id=host01 --read-from-node-ids=host02 --compactor-id=c01 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://{{< influxdb/host >}} --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY> 
+influxdb3 serve --node-id=host01 --cluster-id=cluster01 --mode=ingest,query,compact --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://{{< influxdb/host >}} --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY> 
 ```
 
 ```
@@ -868,51 +870,52 @@ influxdb3 serve --node-id=host01 --read-from-node-ids=host02 --compactor-id=c01 
 
 # Example variables
 # node-id: 'host02'
+# cluster-id: 'cluster01'
 # bucket: 'influxdb-3-enterprise-storage'
 
-influxdb3 serve --node-id=host02 --read-from-node-ids=host01 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8282
+influxdb3 serve --node-id=host02 --cluster-id=cluster01 --mode=ingest,query --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8282
 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY> 
 ```
 
-After the nodes have started, querying either node returns data for both nodes, and `NODE 1` runs compaction.
-To add nodes to this setup, start more read replicas:
-
-```bash
-influxdb3 serve --read-from-node-ids=host01,host02 [...OPTIONS]
-```
+After the nodes have started, querying either node returns data for both nodes, and _NODE 1_ runs compaction.
+To add nodes to this setup, start more read replicas with the same cluster ID:
 
 > [!Note]
 > To run this setup for testing, you can start nodes in separate terminals and pass a different `--http-bind` value for each--for example:
 > 
 > ```bash
 > # In terminal 1
-> influxdb3 serve --node-id=host01 --http-bind=http://{{< influxdb/host >}} [...OPTIONS]
+> influxdb3 serve --node-id=host01 \
+> --cluster-id=cluster01 \
+> --http-bind=http://{{< influxdb/host >}} [...OPTIONS]
 > ```
 >
 > ```bash
 > # In terminal 2
-> influxdb3 serve --node-id=host01 --http-bind=http://{{< influxdb/host >}} [...OPTIONS]
+> influxdb3 serve --node-id=host01 \
+> --cluster-id=cluster01 \
+> --http-bind=http://{{< influxdb/host >}} [...OPTIONS]
 
 ### High availability with a dedicated Compactor
 
 Data compaction in InfluxDB 3 is one of the more computationally expensive operations.
-To ensure that your read-write node doesn’t slow down due to compaction work, set up a compactor-only node for consistent and high performance across all nodes.
+To ensure that your read-write nodes don't slow down due to compaction work, set up a compactor-only node for consistent and high performance across all nodes.
 
 {{< img-hd src="/img/influxdb/influxdb-3-enterprise-dedicated-compactor.png" alt="Dedicated Compactor setup" />}}
 
 The following examples show how to set up HA with a dedicated Compactor node:
 
-1. Start two read-write nodes as read replicas, similar to the previous example,
-   and pass the `--compactor-id` option with a dedicated compactor ID (which you'll configure in the next step).
+1. Start two read-write nodes as read replicas, similar to the previous example.
 
    ```
    ## NODE 1 — Writer/Reader Node #1
 
    # Example variables
    # node-id: 'host01'
+   # cluster-id: 'cluster01'
    # bucket: 'influxdb-3-enterprise-storage'
 
-   influxdb3 serve --node-id=host01 --compactor-id=c01 --read-from-node-ids=host02 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://{{< influxdb/host >}} --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   influxdb3 serve --node-id=host01 --cluster-id=cluster01 --mode=ingest,query --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://{{< influxdb/host >}} --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
    ```bash
@@ -920,17 +923,13 @@ The following examples show how to set up HA with a dedicated Compactor node:
 
    # Example variables
    # node-id: 'host02'
+   # cluster-id: 'cluster01'
    # bucket: 'influxdb-3-enterprise-storage'
 
-   influxdb3 serve --node-id=host02 --compactor-id=c01 --read-from-node-ids=host01 --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8282 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   influxdb3 serve --node-id=host02 --cluster-id=cluster01 --mode=ingest,query --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8282 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
-2. Start the dedicated compactor node, which uses the following options:
-
-   - `--mode=compactor`: Ensures the node **only** runs compaction.
-   - `--compaction-hosts`: Specifies a comma-delimited list of hosts to run compaction for.
-  
-  _**Don't include the replicas (`--read-from-node-ids`) parameter because this node doesn't replicate data._
+2. Start the dedicated compactor node, with the `--mode=compact` option. This ensures the node **only** runs compaction.
 
    ```bash
 
@@ -938,10 +937,10 @@ The following examples show how to set up HA with a dedicated Compactor node:
 
    # Example variables
    # node-id: 'host03'
+   # cluster-id: 'cluster01'
    # bucket: 'influxdb-3-enterprise-storage'
-   # compactor-id: 'c01'
 
-   influxdb3 serve --node-id=host03 --mode=compactor --compactor-id=c01 --compaction-hosts=host01,host02 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   influxdb3 serve --node-id=host03 --cluster-id=cluster01 --mode=compact --object-store=s3 --bucket=influxdb-3-enterprise-storage --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
 ### High availability with read replicas and a dedicated Compactor
@@ -950,18 +949,18 @@ For a very robust and effective setup for managing time-series data, you can run
 
 {{< img-hd src="/img/influxdb/influxdb-3-enterprise-workload-isolation.png" alt="Workload Isolation Setup" />}}
 
-1. Start writer nodes for ingest. Enterprise doesn’t designate a write-only mode, so assign them **`read_write`** mode.
-   To achieve the benefits of workload isolation, you'll send _only write requests_ to these read-write nodes. Later, you'll configure the _read-only_ nodes.
+1. Start ingest nodes by assigning them the **`ingest`** mode.
+   To achieve the benefits of workload isolation, you'll send _only write requests_ to these ingest nodes. Later, you'll configure the _read-only_ nodes.
 
-   ```
+   ```bash
    ## NODE 1 — Writer Node #1
 
    # Example variables
    # node-id: 'host01'
+   # cluster-id: 'cluster01'
    # bucket: 'influxdb-3-enterprise-storage'
 
-   influxdb3 serve --node-id=host01 --mode=read_write --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://{{< influxdb/host >}} --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
-
+   influxdb3 serve --node-id=host01 --cluster-id=cluster01 --mode=ingest --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://{{< influxdb/host >}} --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
 <!-- The following examples use different ports for different nodes. Don't use the influxdb/host shortcode below. -->
@@ -971,47 +970,45 @@ For a very robust and effective setup for managing time-series data, you can run
 
    # Example variables
    # node-id: 'host02'
+   # cluster-id: 'cluster01'
    # bucket: 'influxdb-3-enterprise-storage'
 
-   Usage: $ influxdb3 serve --node-id=host02 --mode=read_write --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8282 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   Usage: $ influxdb3 serve --node-id=host02 --cluster-id=cluster01 --mode=ingest --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8282 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
-2. Start the dedicated Compactor node (`--mode=compactor`) and ensure it runs compactions on the specified `compaction-hosts`.
+2. Start the dedicated Compactor node with `--mode=compact`.
 
-   ```
+   ```bash
    ## NODE 3 — Compactor Node
 
    # Example variables
    # node-id: 'host03'
+   # cluster-id: 'cluster01'
    # bucket: 'influxdb-3-enterprise-storage'
 
-   influxdb3 serve --node-id=host03 --mode=compactor --compaction-hosts=host01,host02 --run-compactions --object-store=s3 --bucket=influxdb-3-enterprise-storage --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   influxdb3 serve --node-id=host03 --cluster-id=cluster01 --mode=compact --object-store=s3 --bucket=influxdb-3-enterprise-storage --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
-3. Finally, start the query nodes as _read-only_.
-   Include the following options: 
-   
-   - `--mode=read`: Sets the node to _read-only_
-   - `--read-from-node-ids=host01,host02`: A comma-demlimited list of host IDs to read data from
+3. Finally, start the query nodes as _read-only_ with `--mode=query`.
 
    ```bash
    ## NODE 4 — Read Node #1
 
    # Example variables
    # node-id: 'host04'
+   # cluster-id: 'cluster01'
    # bucket: 'influxdb-3-enterprise-storage'
 
-   influxdb3 serve --node-id=host04 --mode=read --object-store=s3 --read-from-node-ids=host01,host02 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8383 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   influxdb3 serve --node-id=host04 --cluster-id=cluster01 --mode=query --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8383 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
-   ```
+   ```bash
    ## NODE 5 — Read Node #2
 
    # Example variables
    # node-id: 'host05'
-   # bucket: 'influxdb-3-enterprise-storage'
 
-   influxdb3 serve --node-id=host05 --mode=read --object-store=s3 --read-from-node-ids=host01,host02 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8484 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+   influxdb3 serve --node-id=host05 --cluster-id=cluster01 --mode=query --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8484 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
 Congratulations, you have a robust setup to workload isolation using {{% product-name %}}.

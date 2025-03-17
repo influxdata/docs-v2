@@ -156,14 +156,14 @@ The following examples show how to start InfluxDB 3 with different object store 
 ```bash
 # Memory object store
 # Stores data in RAM; doesn't persist data
-influxdb3 serve --node-id=local01 --object-store=memory
+influxdb3 serve --node-id=host01 --object-store=memory
 ```
 
 ```bash
 # Filesystem object store
 # Provide the filesystem directory
 influxdb3 serve \
-  --node-id=local01 \
+  --node-id=host01 \
   --object-store=file \
   --data-dir ~/.influxdb3
 ```
@@ -198,7 +198,7 @@ docker run -it \
 
 ```bash
 influxdb3 serve \
-  --node-id=local01 \
+  --node-id=host01 \
   --object-store=s3 \
   --bucket=BUCKET \
   --aws-access-key=AWS_ACCESS_KEY \
@@ -211,7 +211,7 @@ influxdb3 serve \
 # Specify the object store type and associated options
 
 ```bash
-influxdb3 serve --node-id=local01 --object-store=s3 --bucket=BUCKET \
+influxdb3 serve --node-id=host01 --object-store=s3 --bucket=BUCKET \
   --aws-access-key=AWS_ACCESS_KEY \
   --aws-secret-access-key=AWS_SECRET_ACCESS_KEY \
   --aws-endpoint=ENDPOINT \
