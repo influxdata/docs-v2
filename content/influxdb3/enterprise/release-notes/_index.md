@@ -6,6 +6,8 @@ menu:
   influxdb3_enterprise:
     name: Release Notes
 weight: 21
+related:
+  - /influxdb/enterprise/get-started/
 source: /shared/v3-core-enterprise-release-notes/_index.md
 ---
 
