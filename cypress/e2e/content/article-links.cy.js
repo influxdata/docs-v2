@@ -64,7 +64,10 @@ describe('Article links', () => {
       // Test internal links (including anchor links)
       cy.get('article a[href^="/"]').each(($a) => {
         const href = $a.attr('href');
-        testLink(href);
+        // Skip links that contain "kapa.ai"
+        if (!href.includes('kapa.ai')) {
+          testLink(href);
+        }
       });
     });
 
