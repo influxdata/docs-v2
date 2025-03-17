@@ -10564,13 +10564,12 @@ paths:
         template and generates the resource diff, but doesn’t make any
         changes to your instance.
 
+        **Important**: InfluxDB Cloud doesn't support all template features. We recommend using InfluxDB OSS v2 if you need full template support.
+
         #### Custom values for templates
 
-        - Some templates may contain [environment references](/influxdb/cloud/influxdb-templates/create/#include-user-definable-resource-names) for custom metadata.
-          To provide custom values for environment references, pass the _`envRefs`_
-          property in the request body.
-          For more information and examples, see how to
-          [define environment references](/influxdb/cloud/influxdb-templates/use/#define-environment-references).
+        - **Not supported**: InfluxDB Cloud doesn't
+        support environment reference substitution in templates. Variable names you define in templates aren't replaced by user-defined values.
 
         - Some templates may contain queries that use
           [secrets](/influxdb/cloud/security/secrets/).
@@ -10778,67 +10777,6 @@ paths:
                   "remotes": [
                     {
                       "url": "https://raw.githubusercontent.com/influxdata/community-templates/master/fortnite/fn-template.yml"
-                    }
-                  ]
-                }
-            EOF
-        - label: 'cURL: Apply template objects with environment references'
-          lang: Shell
-          source: |
-            curl --request POST "http://localhost:8086/api/v2/templates/apply" \
-              --header "Authorization: Token INFLUX_API_TOKEN" \
-              --data @- << EOF
-              { "orgID": "INFLUX_ORG_ID",
-                "envRefs": {
-                  "linux-cpu-label": "MY_CPU_LABEL",
-                  "docker-bucket": "MY_DOCKER_BUCKET",
-                  "docker-spec-1": "MY_DOCKER_SPEC"
-                },
-                "templates": [
-                  { "contents": [{
-                      "apiVersion": "influxdata.com/v2alpha1",
-                      "kind": "Label",
-                      "metadata": {
-                        "name": {
-                          "envRef": {
-                            "key": "linux-cpu-label"
-                          }
-                        }
-                      },
-                      "spec": {
-                        "color": "#326BBA",
-                        "name": "inputs.cpu"
-                      }
-                    }]
-                  },
-                  "templates": [
-                    { "contents": [{
-                        "apiVersion": "influxdata.com/v2alpha1",
-                        "kind": "Label",
-                        "metadata": {
-                          "name": {
-                            "envRef": {
-                              "key": "linux-cpu-label"
-                            }
-                          }
-                        },
-                        "spec": {
-                          "color": "#326BBA",
-                          "name": "inputs.cpu"
-                        }
-                      }]
-                    },
-                    { "contents": [{
-                        "apiVersion": "influxdata.com/v2alpha1",
-                        "kind": "Bucket",
-                        "metadata": {
-                          "name": {
-                            "envRef": {
-                              "key": "docker-bucket"
-                            }
-                          }
-                        }
-                      }]
                     }
                   ]
                 }
@@ -17707,26 +17645,10 @@ components:
               - type: number
               - type: boolean
           description: |
-            An object with key-value pairs that map to **environment references** in templates.
+            - **Not supported**: InfluxDB Cloud doesn't
+            support environment reference substitution in templates. Variable names you define in templates aren't replaced by user-defined values.
 
-            Environment references in templates are `envRef` objects with an `envRef.key`
-            property.
-            To substitute a custom environment reference value when applying templates,
-            pass `envRefs` with the `envRef.key` and the value.
-
-            When you apply a template, InfluxDB replaces `envRef` objects in the template
-            with the values that you provide in the `envRefs` parameter.
-            For more examples, see how to [define environment references](/influxdb/cloud/influxdb-templates/use/#define-environment-references).
-
-            The following template fields may use environment references:
-
-              - `metadata.name`
-              - `spec.endpointName`
-              - `spec.associations.name`
-
-            For more information about including environment references in template fields, see how to
-            [include user-definable resource names](/influxdb/cloud/influxdb-templates/create/#include-user-definable-resource-names).
-          type: object
+            **Important**: InfluxDB Cloud doesn't support all template features. We recommend using InfluxDB OSS v2 if you need full template support.
         orgID:
           description: |
             Organization ID.
