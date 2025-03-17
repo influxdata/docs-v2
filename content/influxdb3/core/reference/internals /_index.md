@@ -1,5 +1,5 @@
 ---
-title: InfluxDB 3 Core Internals
+title: InfluxDB 3 Core internals
 description: >
   Learn about InfluxDb 3 Core internal systems and mechanisms.
 menu:
