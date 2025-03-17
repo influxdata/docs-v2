@@ -18,7 +18,11 @@ import { context as PRODUCT_CONTEXT, referrerHost } from './page-context.js';
 import { delay } from './helpers.js';
 import { toggleModal } from './modals.js';
 
-export const CLOUD_URLS = Object.values(pageParams.influxdb_urls.cloud.providers).flatMap((provider) => provider.regions?.map((region) => region.url));
+let CLOUD_URLS = [];
+if (pageParams && pageParams.influxdb_urls) {
+  CLOUD_URLS = Object.values(pageParams.influxdb_urls.cloud.providers).flatMap((provider) => provider.regions?.map((region) => region.url));
+}
+export { CLOUD_URLS };
 
 export function InfluxDBUrl() {
   const UNIQUE_URL_PRODUCTS = ['dedicated', 'clustered'];
@@ -577,7 +581,7 @@ export function InfluxDBUrl() {
       removeCustomUrl();
       hideValidationMessage();
       $(
-        `input[name="influxdb-${PRODUCT_CONTEXT}-url"][value="${DEFAULT_URLS[PRODUCT_CONTEXT]}"]`
+        `input[name="influxdb-${PRODUCT_CONTEXT}-url"][value="${DEFAULT_STORAGE_URLS[PRODUCT_CONTEXT]}"]`
       ).trigger('click');
     }
   }
