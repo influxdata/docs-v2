@@ -1,16 +1,17 @@
 ---
-title: InfluxDB 3 Enterprise Release Notes
+title: InfluxDB 3 Enterprise release notes
 description: >
   Changes and updates to InfluxDB 3 Enterprise
 menu:
   influxdb3_enterprise:
+    parent: Reference
     name: Release Notes
-weight: 21
+weight: 210
 related:
-  - /influxdb/enterprise/get-started/
+  - /influxdb3/enterprise/get-started/
 source: /shared/v3-core-enterprise-release-notes/_index.md
 ---
 
 <!--
-The content of this file is located at /shared/v3-core-enterprise-release-notes/_index.md
+//SOURCE content/shared/v3-core-enterprise-release-notes/_index.md
 -->
