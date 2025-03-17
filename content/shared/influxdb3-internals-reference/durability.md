@@ -21,7 +21,7 @@ When data is written to {{% product-name %}}, it progresses through multiple sta
 
 ##### Write Validation
 
-- Process: InfluxDB validates incoming data before accepting it into the system.
+- Process: The Ingest Router receives the write request and validates incoming data before accepting it into the system.
      
 - Impact: Prevents malformed or unsupported data from entering the database.
 
