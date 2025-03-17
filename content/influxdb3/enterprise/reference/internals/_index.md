@@ -1,5 +1,5 @@
 ---
-title: InfluxDB 3 Enterprise Internals
+title: InfluxDB 3 Enterprise internals
 description: >
   Learn about InfluxDB 3 Enterprise internal systems and mechanisms.
 menu:
