@@ -68,7 +68,7 @@ function initialize() {
   // Trigger copy failure state lifecycle
 
   $('.copy-code').click(function () {
-    let text = $(this).closest('.code-controls').prev('pre')[0].innerText;
+    let text = $(this).closest('.code-controls').prevAll('pre:has(code)')[0].innerText;
 
     const copyContent = async () => {
       try {
@@ -90,7 +90,7 @@ Disable scrolling on the body.
 Disable user selection on everything but the fullscreen codeblock.
 */
   $('.fullscreen-toggle').click(function () {
-    var code = $(this).closest('.code-controls').prev('pre').clone();
+    var code = $(this).closest('.code-controls').prevAll('pre:has(code)').clone();
 
     $('#fullscreen-code-placeholder').replaceWith(code[0]);
     $('body').css('overflow', 'hidden');
