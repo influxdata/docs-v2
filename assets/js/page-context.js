@@ -3,31 +3,37 @@
  */
 import { products, influxdb_urls } from '@params';
 
+const safeProducts = products || {};
+const safeUrls = influxdb_urls || {};
+
 function getCurrentProductData() {
   const path = window.location.pathname;
   const mappings = [
-    { pattern: /\/influxdb\/cloud\//, product: products.cloud, urls: influxdb_urls.influxdb_cloud },
-    { pattern: /\/influxdb3\/core/, product: products.influxdb3_core, urls: influxdb_urls.core },
-    { pattern: /\/influxdb3\/enterprise/, product: products.influxdb3_enterprise, urls: influxdb_urls.enterprise },
-    { pattern: /\/influxdb3\/cloud-serverless/, product: products.influxdb3_cloud_serverless, urls: influxdb_urls.cloud },
-    { pattern: /\/influxdb3\/cloud-dedicated/, product: products.influxdb3_cloud_dedicated, urls: influxdb_urls.dedicated },
-    { pattern: /\/influxdb3\/clustered/, product: products.influxdb3_clustered, urls: influxdb_urls.clustered },
-    { pattern: /\/enterprise_v1\//, product: products.enterprise_influxdb, urls: influxdb_urls.oss },
-    { pattern: /\/influxdb.*v1\//, product: products.influxdb, urls: influxdb_urls.oss },
-    { pattern: /\/influxdb.*v2\//, product: products.influxdb, urls: influxdb_urls.oss },
-    { pattern: /\/kapacitor\//, product: products.kapacitor, urls: influxdb_urls.oss },
-    { pattern: /\/telegraf\//, product: products.telegraf, urls: influxdb_urls.oss },
-    { pattern: /\/chronograf\//, product: products.chronograf, urls: influxdb_urls.oss },
-    { pattern: /\/flux\//, product: products.flux, urls: influxdb_urls.oss },
+    { pattern: /\/influxdb\/cloud\//, product: safeProducts.cloud, urls: safeUrls.influxdb_cloud },
+    { pattern: /\/influxdb3\/core/, product: safeProducts.influxdb3_core, urls: safeUrls.core },
+    { pattern: /\/influxdb3\/enterprise/, product: safeProducts.influxdb3_enterprise, urls: safeUrls.enterprise },
+    { pattern: /\/influxdb3\/cloud-serverless/, product: safeProducts.influxdb3_cloud_serverless, urls: safeUrls.cloud },
+    { pattern: /\/influxdb3\/cloud-dedicated/, product: safeProducts.influxdb3_cloud_dedicated, urls: safeUrls.dedicated },
+    { pattern: /\/influxdb3\/clustered/, product: safeProducts.influxdb3_clustered, urls: safeUrls.clustered },
+    { pattern: /\/enterprise_v1\//, product: safeProducts.enterprise_influxdb, urls: safeUrls.oss },
+    { pattern: /\/influxdb.*v1\//, product: safeProducts.influxdb, urls: safeUrls.oss },
+    { pattern: /\/influxdb.*v2\//, product: safeProducts.influxdb, urls: safeUrls.oss },
+    { pattern: /\/kapacitor\//, product: safeProducts.kapacitor, urls: safeUrls.oss },
+    { pattern: /\/telegraf\//, product: safeProducts.telegraf, urls: safeUrls.oss },
+    { pattern: /\/chronograf\//, product: safeProducts.chronograf, urls: safeUrls.oss },
+    { pattern: /\/flux\//, product: safeProducts.flux, urls: safeUrls.oss },
   ];
 
   for (const { pattern, product, urls } of mappings) {
     if (pattern.test(path)) {
-      return { product, urls };
+      return { 
+        product: product || 'unknown', 
+        urls: urls || {} 
+      };
     }
   }
 
-  return 'other';
+  return { product: 'other', urls: {} };
 }
 
 // Return the page context (cloud, serverless, oss/enterprise, dedicated, clustered, other)
