@@ -647,11 +647,66 @@ influxdb3 delete last_cache \
 
 ### Distinct values cache
 
-Similar to the Last values cache, the database can cache in RAM the distinct values for a single column in a table or a heirarchy of columns. This is useful for fast metadata lookups, which can return in under 30 milliseconds. Many of the options are similar to the last value cache. See the CLI output for more information:
+Similar to the Last values cache, the database can cache in RAM the distinct values for a single column in a table or a hierarchy of columns. This is useful for fast metadata lookups, which can return in under 30 milliseconds. Many of the options are similar to the last value cache. 
+
+You can use the `influxdb3` CLI to [create a distinct values cache](/influxdb3/version/reference/cli/influxdb3/create/distinct_cache/).
 
 ```bash
-influxdb3 create distinct_cache -h
+influxdb3 create distinct_cache \
+  -d <DATABASE_NAME> \
+  -t <TABLE> \
+  --columns <COLUMNS> \
+  [CACHE_NAME]
 ```
+
+Consider the following `cpu` sample table:
+
+| host | application | time | usage\_percent | status |
+| ----- | ----- | ----- | ----- | ----- |
+| Bravo | database | 2024-12-11T10:00:00 | 55.2 | OK |
+| Charlie | cache | 2024-12-11T10:00:00 | 65.4 | OK |
+| Bravo | database | 2024-12-11T10:01:00 | 70.1 | Warn |
+| Bravo | database | 2024-12-11T10:01:00 | 80.5 | OK |
+| Alpha | webserver | 2024-12-11T10:02:00 | 25.3 | Warn |
+
+The following command creates a distinct values cache named `cpuDistinctCache`:
+
+```bash
+influxdb3 create distinct_cache \
+  --database=servers \
+  --table=cpu \
+  --columns=host,application \
+  cpuDistinctCache
+```
+
+#### Query a distinct values cache
+
+To use the distinct values cache, call it using the `distinct_cache()` function in your query--for example:
+
+```bash
+influxdb3 query \
+  --database=servers \
+  "SELECT * FROM distinct_cache('cpu', 'cpuDistinctCache')"
+```
+
+> [!Note]
+> #### Only works with SQL
+> 
+> The Distinct values cache only works with SQL, not InfluxQL; SQL is the default language.
+
+
+
+#### Delete a distinct values cache
+
+Use the `influxdb3` CLI to [delete a distinct values cache](/influxdb3/version/reference/cli/influxdb3/delete/distinct_cache/)
+
+```bash
+influxdb3 delete distinct_cache \
+  -d <DATABASE_NAME> \
+  -t <TABLE> \
+  --cache-name <CACHE_NAME>
+```
+
 
 ### Python plugins and the Processing engine
 
