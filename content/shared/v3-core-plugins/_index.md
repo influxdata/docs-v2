@@ -468,14 +468,14 @@ the trigger-spec you define must be unique across all plugins configured for a s
 regardless of which database they are associated with.
 
 
-## In-Memory Cache
+## In-memory cache
 
 The Processing Engine provides a powerful in-memory cache system that enables plugins to persist and retrieve data between executions. This cache system is essential for maintaining state, tracking metrics over time, and optimizing performance when working with external data sources.
 
 ### Key Benefits
 
--   **State Persistence**: Maintain counters, timestamps, and other state variables across plugin executions.
--   **Performance and Cost Optimization**: Store frequently used data to avoid expensive recalculations, and minimize external API calls by caching responses and avoiding rate limits.
+-   **State persistence**: Maintain counters, timestamps, and other state variables across plugin executions.
+-   **Performance and cost optimization**: Store frequently used data to avoid expensive recalculations. Minimize external API calls by caching responses and avoiding rate limits.
 -   **Data Enrichment**: Cache lookup tables, API responses, or reference data to enrich data efficiently.
 
 ### Cache API
@@ -607,7 +607,7 @@ Prime the cache at startup for critical data. This can be especially useful for 
 
 ```python
 # Check if cache needs to be initialized  
-if  not influxdb3_local.cache.get("lookup_table"):   
+if not influxdb3_local.cache.get("lookup_table"):   
     influxdb3_local.cache.put("lookup_table", load_lookup_data())
 ```
 
