@@ -4,7 +4,7 @@ When data is written to {{% product-name %}}, it progresses through multiple sta
 
 ### Write Path Overview
 
-{{% product-name %}} processes data through several stages to ensure durability, query performance, and efficient storage. Below is a high-level overview of these stages:
+{{% product-name %}} processes data through the following stages to ensure durability, query performance, and efficient storage:
 
 1. [Write validation](#write-validation)
 
