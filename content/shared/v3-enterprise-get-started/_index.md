@@ -204,7 +204,11 @@ influxdb3 serve \
 # Specify the object store type and associated options
 
 ```bash
-influxdb3 serve --node-id=host01 --cluster-id=cluster01 --object-store=s3 --bucket=BUCKET \
+influxdb3 serve \
+--node-id=host01 \
+--cluster-id=cluster01 \
+--object-store=s3 \
+--bucket=BUCKET \
   --aws-access-key=AWS_ACCESS_KEY \
   --aws-secret-access-key=AWS_SECRET_ACCESS_KEY \
   --aws-endpoint=ENDPOINT \
@@ -847,7 +851,7 @@ In a basic HA setup:
 > Compacted data is meant for a single writer, and many readers.
 
 The following examples show how to configure and start two nodes
-for a basic HA setup. Node 1 is configured as the compactor as it's also passed the `compact` mode.
+for a basic HA setup. _Node 1_ is configured as the compactor (`--mode` includes `compact`).
 
 ```bash
 ## NODE 1
@@ -873,7 +877,7 @@ influxdb3 serve --node-id=host02 --cluster-id=cluster01 --mode=ingest,query --ob
 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY> 
 ```
 
-After the nodes have started, querying either node returns data for both nodes, and `NODE 1` runs compaction.
+After the nodes have started, querying either node returns data for both nodes, and _NODE 1_ runs compaction.
 To add nodes to this setup, start more read replicas with the same cluster ID:
 
 > [!Note]
@@ -881,12 +885,16 @@ To add nodes to this setup, start more read replicas with the same cluster ID:
 > 
 > ```bash
 > # In terminal 1
-> influxdb3 serve --node-id=host01 --cluster-id=cluster01 --http-bind=http://{{< influxdb/host >}} [...OPTIONS]
+> influxdb3 serve --node-id=host01 \
+> --cluster-id=cluster01 \
+> --http-bind=http://{{< influxdb/host >}} [...OPTIONS]
 > ```
 >
 > ```bash
 > # In terminal 2
-> influxdb3 serve --node-id=host01 --cluster-id=cluster01 --http-bind=http://{{< influxdb/host >}} [...OPTIONS]
+> influxdb3 serve --node-id=host01 \
+> --cluster-id=cluster01 \
+> --http-bind=http://{{< influxdb/host >}} [...OPTIONS]
 
 ### High availability with a dedicated Compactor
 
@@ -944,7 +952,7 @@ For a very robust and effective setup for managing time-series data, you can run
 1. Start ingest nodes by assigning them the **`ingest`** mode.
    To achieve the benefits of workload isolation, you'll send _only write requests_ to these ingest nodes. Later, you'll configure the _read-only_ nodes.
 
-   ```
+   ```bash
    ## NODE 1 — Writer Node #1
 
    # Example variables
@@ -970,7 +978,7 @@ For a very robust and effective setup for managing time-series data, you can run
 
 2. Start the dedicated Compactor node with `--mode=compact`.
 
-   ```
+   ```bash
    ## NODE 3 — Compactor Node
 
    # Example variables
@@ -983,7 +991,7 @@ For a very robust and effective setup for managing time-series data, you can run
 
 3. Finally, start the query nodes as _read-only_ with `--mode=query`.
 
-   ```
+   ```bash
    ## NODE 4 — Read Node #1
 
    # Example variables
@@ -994,7 +1002,7 @@ For a very robust and effective setup for managing time-series data, you can run
    influxdb3 serve --node-id=host04 --cluster-id=cluster01 --mode=query --object-store=s3 --bucket=influxdb-3-enterprise-storage --http-bind=http://localhost:8383 --aws-access-key-id=<AWS_ACCESS_KEY_ID> --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
    ```
 
-   ```
+   ```bash
    ## NODE 5 — Read Node #2
 
    # Example variables
