@@ -33,7 +33,7 @@
 - Added a new `show` system subcommand to display system tables with different options via SQL (default limit: 100)
 - Clearer table creation error messages
 
-##### Bug Fixes
+##### Bug fixes
 - If a database was created and the service was killed before any data was written, the database would not be retained
 - A last cache with specific "value" columns could not be queried
 - Running CTRL-C no longer stopped an InfluxDB process, due to a Python trigger
