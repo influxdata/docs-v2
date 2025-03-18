@@ -1,10 +1,10 @@
-## How Data Flows Through InfluxDB 3
+## How data flows through InfluxDB 3
 
 When data is written to {{% product-name %}}, it progresses through multiple stages to ensure durability, optimize performance, and enable efficient querying. Configuration options at each stage affect system behavior, balancing reliability and resource usage.
 
 ### Write Path Overview
 
-{{% product-name %}} processes data through the following stages to ensure durability, query performance, and efficient storage:
+{{% product-name %}} processes data through several stages to ensure durability, query performance, and efficient storage. Below is a high-level overview of these stages:
 
 1. [Write validation](#write-validation)
 
@@ -21,7 +21,7 @@ When data is written to {{% product-name %}}, it progresses through multiple sta
 
 ##### Write Validation
 
-- Process: The Ingest Router receives the write request and validates incoming data before accepting it into the system.
+- Process: InfluxDB validates incoming data before accepting it into the system.
      
 - Impact: Prevents malformed or unsupported data from entering the database.
 
@@ -35,7 +35,7 @@ When data is written to {{% product-name %}}, it progresses through multiple sta
 
 ##### WAL Persistence
 
-- Process: The write buffer is flushed to the WAL every second (default).
+- Process: The system flushes the write buffer to the WAL every second (default).
 
 - Impact: Ensures durability by persisting data to object storage.
 
@@ -43,7 +43,7 @@ When data is written to {{% product-name %}}, it progresses through multiple sta
 
 ##### Query Availability
 
-- Process: After WAL persistence, data moves to the queryable buffer.
+- Process: The system moves data to the queryable buffer after WAL persistence.
 
 - Impact: Enables fast queries on recent data.
 
