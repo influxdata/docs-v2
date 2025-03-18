@@ -68,10 +68,13 @@ When creating an InfluxDB data source that uses SQL to query data:
 2.  Under **InfluxDB Details**:
 
     - **Database**: Provide a default database name to query.
-    - **Token**: Provide an arbitrary string.
+    - **Token**: Provide an arbitrary, non-empty string.
 
       > [!Note]
       > While in beta, {{< product-name >}} does not require an authorization token.
+      > However, if you included a `--token` option or defined the
+      > `INFLUXDB3_AUTH_TOKEN` environment variable when starting your
+      > {{< product-name >}} server, provide that token.
 
     - **Insecure Connection**: If _not_ using HTTPS, enable this option.
 
