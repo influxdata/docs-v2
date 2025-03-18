@@ -40,7 +40,7 @@
 - A previous build had broken JSON queries for RecordBatches
 - There was an issue with the distinct cache that caused panics
 
-#### Command Parameter Changes
+#### Command parameter changes
 
 Multiple parameters and modes for the `serve` command have been consolidated for simplicity:
 
