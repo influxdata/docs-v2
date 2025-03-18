@@ -53,7 +53,7 @@ Multiple parameters and modes for the `serve` command have been consolidated for
 #### Features
 
 ##### Cluster Management
-- Nodes are now associated with *clusters*, simplifying compaction, read replication, and processing
+- Nodes are now associated with _clusters_, simplifying compaction, read replication, and processing
 - Node specs are now available for simpler management of cache creations
 
 ##### Mode Types
