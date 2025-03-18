@@ -28,7 +28,7 @@
 - Snapshots are now persisted in parallel, improving performance by running jobs simultaneously, rather than sequentially
 - Write to logs from within the Processing Engine
 
-##### DB and CLI Improvements
+##### Database and CLI improvements
 - You can now specify the precision on your timestamps for writes using the `--precision` flag. Includes nano/micro/milli/seconds (ns/us/ms/s)
 - Added a new `show` system subcommand to display system tables with different options via SQL (default limit: 100)
 - Clearer table creation error messages
