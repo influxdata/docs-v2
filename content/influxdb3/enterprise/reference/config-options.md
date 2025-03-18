@@ -54,6 +54,7 @@ influxdb3 serve
   - [object-store](#object-store)
   - [data-dir](#data-dir)
   - [node-id](#node-id)
+  - [cluster-id](#cluster-id)
   - [mode](#mode)
   - [license-email](#license-email)
   - [query-file-limit](#query-file-limit)
@@ -112,7 +113,6 @@ influxdb3 serve
 - [Memory](#memory)
   - [ram-pool-data-bytes](#ram-pool-data-bytes)
   - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
-  - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
   - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 - [Write-Ahead Log (WAL)](#write-ahead-log-wal)
   - [wal-flush-interval](#wal-flush-interval)
@@ -123,9 +123,6 @@ influxdb3 serve
   - [read-from-node-ids](#read-from-node-ids)
   - [replication-interval](#replication-interval)
 - [Compaction](#compaction)
-  - [compactor-id](#compactor-id)
-  - [compact-from-node-ids](#compact-from-node-ids)
-  - [run-compactions](#run-compactions)
   - [compaction-row-limit](#compaction-row-limit)
   - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
   - [compaction-gen2-duration](#compaction-gen2-duration)
@@ -133,7 +130,7 @@ influxdb3 serve
   - [gen1-duration](#gen1-duration)
 - [Caching](#caching)
   - [preemptive-cache-age](#preemptive-cache-age)
-  - [parquet-mem-cache-size-mb](#parquet-mem-cache-size-mb)
+  - [parquet-mem-cache-size](#parquet-mem-cache-size)
   - [parquet-mem-cache-prune-percentage](#parquet-mem-cache-prune-percentage)
   - [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
   - [disable-parquet-mem-cache](#disable-parquet-mem-cache)
@@ -153,6 +150,7 @@ influxdb3 serve
 - [bucket](#bucket)
 - [data-dir](#data-dir)
 - [node-id](#node-id)
+- [cluster-id](#cluster-id)
 - [mode](#mode)
 - [license-email](#license-email)
 - [query-file-limit](#query-file-limit)
@@ -162,12 +160,12 @@ influxdb3 serve
 Specifies which object storage to use to store Parquet files.
 This option supports the following values:
 
-- `memory` _(default)_
-- `memory-throttled`
-- `file`
-- `s3`
-- `google`
-- `azure`
+- `memory` _(default)_: Effectively no object persistence
+- `memory-throttled`: Like `memory` but with latency and throughput that somewhat resembles a cloud object store
+- `file`: Stores objects in the local filesystem (must also set `--data-dir`)
+- `s3`: Amazon S3 (must also set `--bucket`, `--aws-access-key-id`, `--aws-secret-access-key`, and possibly `--aws-default-region`)
+- `google`: Google Cloud Storage (must also set `--bucket` and `--google-service-account`)
+- `azure`: Microsoft Azure blob storage (must also set `--bucket`, `--azure-storage-account`, and `--azure-storage-access-key`)
 
 | influxdb3 serve option | Environment variable     |
 | :--------------------- | :----------------------- |
@@ -197,17 +195,30 @@ configuration--for example, the same bucket.
 
 ---
 
+#### cluster-id
+
+Specifies the cluster identifier that prefixes the object store path for the Enterprise Catalog. 
+This value must be different than the [`--node-id`](#node-id) value.
+
+| influxdb3 serve option | Environment variable               |
+| :--------------------- | :--------------------------------- |
+| `--cluster-id`         | `INFLUXDB3_ENTERPRISE_CLUSTER_ID`  |
+
+---
+
 #### mode
 
 Sets the mode to start the server in.
 
 This option supports the following values:
 
-- `read`
-- `read_write` _(default)_
-- `compactor`
+- `all` _(default)_
+- `ingest`
+- `query`
+- `compact`
+- `process`
 
-**Default:** `read_write`
+**Default:** `all`
 
 | influxdb3 serve option | Environment variable        |
 | :--------------------- | :-------------------------- |
@@ -844,9 +855,11 @@ Specifies the size of the RAM cache used to store data, in bytes.
 
 #### exec-mem-pool-bytes
 
-Specifies the size of the memory pool used during query execution, in bytes.
+Specifies the size of memory pool used during query execution.
+Can be given as absolute value in bytes or as a percentage of the total available memory--for
+example: `8000000000` or `10%`).
 
-**Default:** `8589934592`
+**Default:** `20%`
 
 | influxdb3 serve option  | Environment variable            |
 | :---------------------- | :------------------------------ |
@@ -854,26 +867,13 @@ Specifies the size of the memory pool used during query execution, in bytes.
 
 ---
 
-#### buffer-mem-limit-mb
-
-Specifies the size limit of the buffered data in MB. If this limit is exceeded,
-the server forces a snapshot.
-
-**Default:** `5000`
-
-| influxdb3 serve option  | Environment variable            |
-| :---------------------- | :------------------------------ |
-| `--buffer-mem-limit-mb` | `INFLUXDB3_BUFFER_MEM_LIMIT_MB` |
-
----
-
 #### force-snapshot-mem-threshold
+<span id="buffer-mem-limit-mb" />
 
 Specifies the threshold for the internal memory buffer. Supports either a
-percentage (portion of available memory)of or absolute value
-(total bytes)--for example: `70%` or `100000`.
+percentage (portion of available memory) or absolute value in MB--for example: `70%` or `1000`.
 
-**Default:** `70%`
+**Default:** `50%`
 
 | influxdb3 serve option           | Environment variable                     |
 | :------------------------------- | :--------------------------------------- |
@@ -972,49 +972,15 @@ Defines the interval at which each replica specified in the
 
 ### Compaction
 
-- [compactor-id](#compactor-id)
-- [compact-from-node-ids](#compact-from-node-ids)
-- [run-compactions](#run-compactions)
 - [compaction-row-limit](#compaction-row-limit)
 - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
 - [compaction-gen2-duration](#compaction-gen2-duration)
 - [compaction-multipliers](#compaction-multipliers)
+- [compaction-cleanup-wait](#compaction-cleanup-wait)
 - [gen1-duration](#gen1-duration)
 
-#### compactor-id
 
-Specifies the prefix in the object store where all compacted data is written.
-Provide this option only if this server should handle compaction for its own
-write buffer and any replicas it manages.
 
-| influxdb3 serve option | Environment variable                |
-| :--------------------- | :---------------------------------- |
-| `--compactor-id`       | `INFLUXDB3_ENTERPRISE_COMPACTOR_ID` |
-
----
-
-#### compact-from-node-ids
-
-Defines a comma-separated list of writer identifier prefixes from which data is
-compacted.
-
-| influxdb3 serve option      | Environment variable                           |
-| :-------------------------- | :--------------------------------------------- |
-| `--compact-from-node-ids` | `INFLUXDB3_ENTERPRISE_COMPACT_FROM_WRITER_IDS` |
-
----
-
-#### run-compactions
-
-Indicates that the server should run compactions. Only a single server should
-run compactions for a given `compactor-id`. This option is only applicable if a
-`compactor-id` is set.
-
-| influxdb3 serve option | Environment variable                   |
-| :--------------------- | :------------------------------------- |
-| `--run-compactions`    | `INFLUXDB3_ENTERPRISE_RUN_COMPACTIONS` |
-
----
 
 #### compaction-row-limit
 
@@ -1070,6 +1036,19 @@ compaction levels. The first element specifies the duration of the first level
 
 ---
 
+#### compaction-cleanup-wait
+
+Specifies the amount of time that the compactor waits after finishing a compaction run
+to delete files marked as needing deletion during that compaction run.
+
+**Default:** `10m`
+
+| influxdb3 serve option      | Environment variable                           |
+| :-------------------------- | :--------------------------------------------- |
+| `--compaction-cleanup-wait` | `INFLUXDB3_ENTERPRISE_COMPACTION_CLEANUP_WAIT` |
+
+---
+
 #### gen1-duration
 
 Specifies the duration that Parquet files are arranged into. Data timestamps
@@ -1088,7 +1067,7 @@ compactor can merge into larger generations.
 ### Caching
 
 - [preemptive-cache-age](#preemptive-cache-age)
-- [parquet-mem-cache-size-mb](#parquet-mem-cache-size-mb)
+- [parquet-mem-cache-size](#parquet-mem-cache-size)
 - [parquet-mem-cache-prune-percentage](#parquet-mem-cache-prune-percentage)
 - [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
 - [disable-parquet-mem-cache](#disable-parquet-mem-cache)
@@ -1108,17 +1087,16 @@ Specifies the interval to prefetch into the Parquet cache during compaction.
 
 ---
 
-#### parquet-mem-cache-size-mb
+#### parquet-mem-cache-size
+<span id="parquet-mem-cache-size-mb" />
 
-Defines the size of the in-memory Parquet cache in megabytes (MB).
+Specifies the size of the in-memory Parquet cache in megabytes or percentage of total available memory.
 
-**Default:** `1000`
+**Default:** `20%`
 
-| influxdb3 serve option        | Environment variable                  |
-| :---------------------------- | :------------------------------------ |
-| `--parquet-mem-cache-size-mb` | `INFLUXDB3_PARQUET_MEM_CACHE_SIZE_MB` |
-
----
+| influxdb3 serve option      | Environment variable                |
+| :-------------------------- | :---------------------------------- |
+| `--parquet-mem-cache-size`  | `INFLUXDB3_PARQUET_MEM_CACHE_SIZE`  |
 
 #### parquet-mem-cache-prune-percentage
 
@@ -1225,7 +1203,13 @@ engine uses.
 
 Specifies the Python package manager that the processing engine uses.
 
-**Default:** `10s`
+This option supports the following values:
+
+- `discover` _(default)_: Automatically discover available package manager
+- `pip`: Use pip package manager
+- `uv`: Use uv package manager
+
+**Default:** `discover`
 
 | influxdb3 serve option | Environment variable |
 | :--------------------- | :------------------- |
