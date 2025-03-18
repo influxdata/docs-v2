@@ -1,5 +1,5 @@
 > [!Note]
-> **InfluxDB Core and Enterprise relationship**
+> #### InfluxDB Core and Enterprise relationship
 >
 > InfluxDB 3 Enterprise is a superset of InfluxDB 3 Core.
 > All updates to Core are automatically included in Enterprise.
