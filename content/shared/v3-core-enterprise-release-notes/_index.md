@@ -56,7 +56,7 @@ Multiple parameters and modes for the `serve` command have been consolidated for
 - Nodes are now associated with _clusters_, simplifying compaction, read replication, and processing
 - Node specs are now available for simpler management of cache creations
 
-##### Mode Types
+#### Mode types
 
 - Set `ingest`, `query`, `compact`, and `process` individually per node
 
