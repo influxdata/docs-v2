@@ -27,7 +27,8 @@ environment variables.
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --node-id my-host \
+  --node-id NODE_ID \
+  --cluster-id my-cluster-01 \
   --log-filter info \
   --max-http-request-size 20971520 \
   --aws-allow-http
@@ -202,7 +203,7 @@ This value must be different than the [`--node-id`](#node-id) value.
 
 | influxdb3 serve option | Environment variable               |
 | :--------------------- | :--------------------------------- |
-| `--cluster-id`         | `INFLUXDB3_ENTERPRISE_CLUSTER_ID`  |
+| `--cluster-id`         | `INFLUXDB3_ENTERPRISE_my-cluster-01`  |
 
 ---
 
