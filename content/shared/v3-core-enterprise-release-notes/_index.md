@@ -16,7 +16,7 @@
 - Parquet files are now cached on the query path, improving performance
 - Query buffer is incrementally cleared when snapshotting, lowering memory spikes
 
-##### Processing Engine Improvements
+##### Processing engine improvements
 - New Trigger Types:
   - *Scheduled*: Run Python plugins on custom, time-defined basis
   - *Request*: Call Python plugins via HTTP requests
