@@ -11,7 +11,7 @@
 ### Core
 #### Features
 
-##### Query and Storage Enhancements
+##### Query and storage enhancements
 - New ability to stream response data for CSV and JSON queries, similar to how JSONL streaming works
 - Parquet files are now cached on the query path, improving performance
 - Query buffer is incrementally cleared when snapshotting, lowering memory spikes
