@@ -51,7 +51,7 @@ Multiple parameters and modes for the `serve` command have been consolidated for
 
 ### Enterprise features
 
-##### Cluster management
+#### Cluster management
 - Nodes are now associated with _clusters_, simplifying compaction, read replication, and processing
 - Node specs are now available for simpler management of cache creations
 
