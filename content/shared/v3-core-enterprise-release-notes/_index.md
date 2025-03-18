@@ -49,8 +49,7 @@ Multiple parameters and modes for the `serve` command have been consolidated for
 | `--writer-id`<br>`--host-id` | `--node-id` |
 | `--mode=read`<br>`--mode=read_write` | `--mode=query`<br>`--mode=ingest`|
 
-### Enterprise
-#### Features
+### Enterprise features
 
 ##### Cluster management
 - Nodes are now associated with _clusters_, simplifying compaction, read replication, and processing
@@ -60,7 +59,7 @@ Multiple parameters and modes for the `serve` command have been consolidated for
 
 - Set `ingest`, `query`, `compact`, and `process` individually per node
 
-#### Command Parameter Changes
+### Enterprise parameter changes
 
 For Enterprise, additional parameters for the `serve` command have been consolidated for simplicity:
 
