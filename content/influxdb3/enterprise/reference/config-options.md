@@ -871,8 +871,7 @@ example: `8000000000` or `10%`).
 <span id="buffer-mem-limit-mb" />
 
 Specifies the threshold for the internal memory buffer. Supports either a
-percentage (portion of available memory) or absolute value in MB
-(total bytes)--for example: `70%` or `1000 MB`.
+percentage (portion of available memory) or absolute value in MB--for example: `70%` or `1000`.
 
 **Default:** `50%`
 
@@ -980,26 +979,8 @@ Defines the interval at which each replica specified in the
 - [compaction-cleanup-wait](#compaction-cleanup-wait)
 - [gen1-duration](#gen1-duration)
 
-#### compactor-id
 
-> [!Important]
-> This option has been superseded by using `--mode compact`. See the [mode](#mode) section for details.
 
----
-
-#### compact-from-node-ids
-
-> [!Important]
-> This option has been superseded by using `--mode compact`. See the [mode](#mode) section for details.
-
----
-
-#### run-compactions
-
-> [!Important]
-> This option has been superseded by using `--mode compact`. See the [mode](#mode) section for details.
-
----
 
 #### compaction-row-limit
 
