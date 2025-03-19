@@ -21,7 +21,14 @@ The `influxdb3 serve` command starts the {{< product-name >}} server.
 influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 ```
 
-`--node-id` is a unique string that identifies your InfluxDB server instance
+## Required parameters
+
+- **node-id**: A unique identifier for your server instance. Must be unique for any hosts sharing the same object store.
+- **object-store**: Determines where time series data is stored. _Default is `memory`_.
+- **data-dir**: Path for local file storage (required when using `--object-store file`).
+
+> [!NOTE]
+> `--node-id` supports alphanumeric strings with optional hyphens.
 
 ## Options
 
@@ -104,12 +111,6 @@ influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 You can use environment variables to define most `influxdb3 serve` options.
 For more information, see
 [Configuration options](/influxdb3/enterprise/reference/config-options/).
-
-## Key Requirements
-
-- **node-id**: Must be unique for any hosts sharing the same object store configuration
-- **object-store**: Determines where time series data is stored
-- **data-dir**: Specifies the path for local file storage, required with `--object-store file`
 
 ## Examples
 

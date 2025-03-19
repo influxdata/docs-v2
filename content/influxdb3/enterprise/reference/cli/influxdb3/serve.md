@@ -23,20 +23,14 @@ influxdb3 serve [OPTIONS] \
   --cluster-id <CLUSTER_IDENTIFIER_PREFIX>
 ```
 
-#### Required parameters
+## Required parameters
 
-- `--node-id`: a unique string that identifies your {{< product-name >}} server instance.
-- `--cluster-id`: a unique string that identifies your {{< product-name >}} cluster.
-  The `--cluster-id` value must be different from any `--node-id` values in your
-  cluster--for example:
+- **node-id**: A unique identifier for your server instance. Must be unique for any hosts sharing the same object store.
+- **cluster-id**: A unique identifier for your cluster. Must be different from any node-id in your cluster.
+- **object-store**: Determines where time series data is stored. _Default is `memory`_.
+- **data-dir**: Path for local file storage (required when using `--object-store file`).
 
-  <!--pytest.mark.skip-->
-
-  ```bash
-  influxdb3 serve --node-id influxdb-server-1 --cluster-id sensors-cluster
-  ```
-
-> [!Note]
+> [!NOTE]
 > `--node-id` and `--cluster-id` support alphanumeric strings with optional hyphens.
 
 ## Options
@@ -130,13 +124,6 @@ influxdb3 serve [OPTIONS] \
 You can use environment variables to define most `influxdb3 serve` options.
 For more information, see
 [Configuration options](/influxdb3/enterprise/reference/config-options/).
-
-## Key Requirements
-
-- **node-id**: Must be unique for any hosts sharing the same object store configuration
-- **cluster-id**: Must be unique and different from any node-id in your cluster
-- **object-store**: Determines where time series data is stored
-- **data-dir**: Specifies the path for local file storage, required with `--object-store file`
 
 ## Examples
 
