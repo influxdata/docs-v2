@@ -92,9 +92,9 @@ WHERE timestamp > '2025-01-01';
 
 ## Interfaces for using Iceberg integration
 
-- **CLI**: `Influx CTL` enables users to trigger snapshot exports.
-- **API**: Provides REST endpoints to manage and configure snapshots.
-- **SQL (Snowflake)**: Query Iceberg tables using standard SQL.
+- [Use the CLI to trigger snapshot exports](#use-the-CLI-to-trigger-snapshot-exports)
+- [Use the API to manage and configure snapshots](#use-the-api-to-manage-and-configure-snapshots)
+- [Use SQL in Snowflake to query Iceberg tables](#use-sql-in-snowflake-to-query-iceberg-tables)
 
 ## CLI and API reference
 
