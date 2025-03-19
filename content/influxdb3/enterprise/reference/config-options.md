@@ -213,11 +213,13 @@ Sets the mode to start the server in.
 
 This option supports the following values:
 
-- `all` _(default)_
-- `ingest`
-- `query`
-- `compact`
-- `process`
+- `all` _(default)_: Enables all server modes
+- `ingest`: Enables only data ingest capabilities
+- `query`: Enables only query capabilities
+- `compact`: Enables only compaction processes
+- `process`: Enables only data processing capabilities
+
+You can specify multiple modes using a comma-delimited list (for example, `ingest,query`).
 
 **Default:** `all`
 
@@ -979,9 +981,6 @@ Defines the interval at which each replica specified in the
 - [compaction-multipliers](#compaction-multipliers)
 - [compaction-cleanup-wait](#compaction-cleanup-wait)
 - [gen1-duration](#gen1-duration)
-
-
-
 
 #### compaction-row-limit
 

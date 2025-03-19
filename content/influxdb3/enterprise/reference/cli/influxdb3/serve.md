@@ -7,6 +7,8 @@ menu:
     parent: influxdb3
     name: influxdb3 serve
 weight: 300
+related:
+  - /influxdb3/enterprise/reference/config-options/
 ---
 
 The `influxdb3 serve` command starts the {{< product-name >}} server.
@@ -20,6 +22,14 @@ influxdb3 serve [OPTIONS] \
  --node-id <NODE_IDENTIFIER_PREFIX> \
  --cluster-id <CLUSTER_IDENTIFIER_PREFIX>
 ```
+
+Required parameters:
+
+- `--node-id`: a unique string that identifies your InfluxDB server instance
+- `--cluster-id`: a unique string that identifies your InfluxDB cluster
+- The `--cluster-id` value must be different from any `--node-id` values in your cluster
+- Example format: `--node-id influx-server-1 --cluster-id sensors-cluster`
+- Both identifiers should be alphanumeric strings with optional hyphens
 
 ## Options
 
@@ -113,6 +123,13 @@ You can use environment variables to define most `influxdb3 serve` options.
 For more information, see
 [Configuration options](/influxdb3/enterprise/reference/config-options/).
 
+## Key Requirements
+
+- **node-id**: Must be unique for any hosts sharing the same object store configuration
+- **cluster-id**: Must be unique and different from any node-id in your cluster
+- **object-store**: Determines where time series data is stored
+- **data-dir**: Specifies the path for local file storage, required with `--object-store file`
+
 ## Examples
 
 - [Run the InfluxDB 3 server](#run-the-influxdb-3-server)
@@ -193,3 +210,17 @@ LOG_FILTER=debug influxdb3 serve \
 ```
 
 {{% /code-placeholders %}}
+
+
+## Troubleshooting
+
+### Common Issues
+
+- **Error: "cluster-id cannot match any node-id in the cluster"**  
+  Ensure your `--cluster-id` value is different from all `--node-id` values in your cluster.
+
+- **Error: "Failed to connect to object store"**  
+  Verify your `--object-store` setting and ensure all required parameters for that storage type are provided.
+
+- **Permission errors when using S3, Google Cloud, or Azure storage**  
+  Check that your authentication credentials are correct and have sufficient permissions.

@@ -20,6 +20,7 @@ The `influxdb3 serve` command starts the {{< product-name >}} server.
 ```bash
 influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 ```
+`--node-id` is a unique string that identifies your InfluxDB server instance
 
 ## Options
 
@@ -101,7 +102,13 @@ influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 
 You can use environment variables to define most `influxdb3 serve` options.
 For more information, see
-[Configuration options](/influxdb3/core/reference/config-options/).
+[Configuration options](/influxdb3/enterprise/reference/config-options/).
+
+## Key Requirements
+
+- **node-id**: Must be unique for any hosts sharing the same object store configuration
+- **object-store**: Determines where time series data is stored
+- **data-dir**: Specifies the path for local file storage, required with `--object-store file`
 
 ## Examples
 
@@ -150,3 +157,14 @@ LOG_FILTER=debug influxdb3 serve \
 ```
 
 {{% /code-placeholders %}}
+
+
+## Troubleshooting
+
+### Common Issues
+
+- **Error: "Failed to connect to object store"**  
+  Verify your `--object-store` setting and ensure all required parameters for that storage type are provided.
+
+- **Permission errors when using S3, Google Cloud, or Azure storage**  
+  Check that your authentication credentials are correct and have sufficient permissions.
