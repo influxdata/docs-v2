@@ -137,16 +137,5 @@ influxctl export --namespace foo --table bar
 - **Performance**: Query performance may vary based on data size and query complexity.
 - **Feature support**: Some advanced features of InfluxDB may not be fully supported in Snowflake through Iceberg integration.
 
-## Next steps
-
-- Enhance REST Catalog support.
-- Optimize AWS S3 access control and security.
-- Improve Grafana dashboards and alerting.
-- Expand compatibility testing with other Iceberg engines.
-
-## References
-
-- **InfluxDB Iceberg Exporter**: [GitHub Repository](https://github.com/influxdata/influxdb_iox/tree/main/iceberg_exporter)
-- **Snowflake Iceberg Tables**: [Snowflake Documentation](https://docs.snowflake.com/en/user-guide/tables-iceberg)
 
 
