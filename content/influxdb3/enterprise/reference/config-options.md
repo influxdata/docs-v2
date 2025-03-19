@@ -27,7 +27,8 @@ environment variables.
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --node-id my-host \
+  --node-id NODE_ID \
+  --cluster-id my-cluster-01 \
   --log-filter info \
   --max-http-request-size 20971520 \
   --aws-allow-http
@@ -202,7 +203,7 @@ This value must be different than the [`--node-id`](#node-id) value.
 
 | influxdb3 serve option | Environment variable               |
 | :--------------------- | :--------------------------------- |
-| `--cluster-id`         | `INFLUXDB3_ENTERPRISE_CLUSTER_ID`  |
+| `--cluster-id`         | `INFLUXDB3_ENTERPRISE_my-cluster-01`  |
 
 ---
 
@@ -212,11 +213,13 @@ Sets the mode to start the server in.
 
 This option supports the following values:
 
-- `all` _(default)_
-- `ingest`
-- `query`
-- `compact`
-- `process`
+- `all` _(default)_: Enables all server modes
+- `ingest`: Enables only data ingest capabilities
+- `query`: Enables only query capabilities
+- `compact`: Enables only compaction processes
+- `process`: Enables only data processing capabilities
+
+You can specify multiple modes using a comma-delimited list (for example, `ingest,query`).
 
 **Default:** `all`
 
@@ -978,9 +981,6 @@ Defines the interval at which each replica specified in the
 - [compaction-multipliers](#compaction-multipliers)
 - [compaction-cleanup-wait](#compaction-cleanup-wait)
 - [gen1-duration](#gen1-duration)
-
-
-
 
 #### compaction-row-limit
 

@@ -21,10 +21,20 @@ The `influxdb3 serve` command starts the {{< product-name >}} server.
 influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 ```
 
+## Required parameters
+
+- **node-id**: A unique identifier for your server instance. Must be unique for any hosts sharing the same object store.
+- **object-store**: Determines where time series data is stored. _Default is `memory`_.
+- **data-dir**: Path for local file storage (required when using `--object-store file`).
+
+> [!NOTE]
+> `--node-id` supports alphanumeric strings with optional hyphens.
+
 ## Options
 
 | Option           |                                                      | Description                                                                                                               |
 | :--------------- | :--------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
+| {{< req "\*" >}} | `--node-id`                                          | _See [configuration options](/influxdb3/core/reference/config-options/#node-id)_                                          |
 |                  | `--object-store`                                     | _See [configuration options](/influxdb3/core/reference/config-options/#object-store)_                                     |
 |                  | `--bucket`                                           | _See [configuration options](/influxdb3/core/reference/config-options/#bucket)_                                           |
 |                  | `--data-dir`                                         | _See [configuration options](/influxdb3/core/reference/config-options/#data-dir)_                                         |
@@ -80,9 +90,7 @@ influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 |                  | `--wal-max-write-buffer-size`                        | _See [configuration options](/influxdb3/core/reference/config-options/#wal-max-write-buffer-size)_                        |
 |                  | `--snapshotted-wal-files-to-keep`                    | _See [configuration options](/influxdb3/core/reference/config-options/#snapshotted-wal-files-to-keep)_                    |
 |                  | `--query-log-size`                                   | _See [configuration options](/influxdb3/core/reference/config-options/#query-log-size)_                                   |
-|                  | `--buffer-mem-limit-mb`                              | _See [configuration options](/influxdb3/core/reference/config-options/#buffer-mem-limit-mb)_                              |
-| {{< req "\*" >}} | `--node-id`                                          | _See [configuration options](/influxdb3/core/reference/config-options/#node-id)_                                          |
-|                  | `--parquet-mem-cache-size-mb`                        | _See [configuration options](/influxdb3/core/reference/config-options/#parquet-mem-cache-size-mb)_                        |
+|                  | `--parquet-mem-cache-size`                        | _See [configuration options](/influxdb3/core/reference/config-options/#parquet-mem-cache-size)_                        |
 |                  | `--parquet-mem-cache-prune-percentage`               | _See [configuration options](/influxdb3/core/reference/config-options/#parquet-mem-cache-prune-percentage)_               |
 |                  | `--parquet-mem-cache-prune-interval`                 | _See [configuration options](/influxdb3/core/reference/config-options/#parquet-mem-cache-prune-interval)_                 |
 |                  | `--disable-parquet-mem-cache`                        | _See [configuration options](/influxdb3/core/reference/config-options/#disable-parquet-mem-cache)_                        |
@@ -102,7 +110,7 @@ influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 
 You can use environment variables to define most `influxdb3 serve` options.
 For more information, see
-[Configuration options](/influxdb3/core/reference/config-options/).
+[Configuration options](/influxdb3/enterprise/reference/config-options/).
 
 ## Examples
 
@@ -111,10 +119,10 @@ For more information, see
 - [Run InfluxDB 3 with debug logging using LOG_FILTER](#run-influxdb-3-with-debug-logging-using-log_filter)
 
 In the examples below, replace
-{{% code-placeholder-key %}}`MY_HOST_ID`{{% /code-placeholder-key %}}:
-with a unique identifier for your {{< product-name >}} server.
+{{% code-placeholder-key %}}`my-host-01`{{% /code-placeholder-key %}}:
+with a unique string that identifies your {{< product-name >}} server.
 
-{{% code-placeholders "MY_HOST_ID" %}}
+{{% code-placeholders "my-host-01" %}}
 
 ### Run the InfluxDB 3 server
 
@@ -124,7 +132,7 @@ with a unique identifier for your {{< product-name >}} server.
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --node-id MY_HOST_ID
+  --node-id my-host-01
 ```
 
 ### Run the InfluxDB 3 server with extra verbose logging
@@ -136,7 +144,7 @@ influxdb3 serve \
   --verbose \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --node-id MY_HOST_ID
+  --node-id my-host-01
 ```
 
 ### Run InfluxDB 3 with debug logging using LOG_FILTER
@@ -147,7 +155,18 @@ influxdb3 serve \
 LOG_FILTER=debug influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --node-id MY_HOST_ID
+  --node-id my-host-01
 ```
 
 {{% /code-placeholders %}}
+
+
+## Troubleshooting
+
+### Common Issues
+
+- **Error: "Failed to connect to object store"**  
+  Verify your `--object-store` setting and ensure all required parameters for that storage type are provided.
+
+- **Permission errors when using S3, Google Cloud, or Azure storage**  
+  Check that your authentication credentials are correct and have sufficient permissions.

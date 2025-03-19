@@ -27,7 +27,7 @@ environment variables.
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --node-id my-host \
+  --node-id NODE_ID \
   --log-filter info \
   --max-http-request-size 20971520 \
   --aws-allow-http
