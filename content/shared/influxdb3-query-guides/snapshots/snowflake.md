@@ -1,4 +1,4 @@
-# Integrating InfluxDB with Snowflake Using Apache Iceberg
+# Integrate with Snowflake using Apache Iceberg
 
 
 Export time-series data snapshots from InfluxDB into Apache Iceberg format.
