@@ -98,7 +98,7 @@ WHERE timestamp > '2025-01-01';
 
 ## CLI and API reference
 
-### CLI commands
+### Use the CLI to trigger snapshot exports
 
 #### Example: Enable Iceberg feature and export a snapshot
 
