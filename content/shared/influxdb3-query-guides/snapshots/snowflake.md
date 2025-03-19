@@ -18,7 +18,6 @@ Before you begin, ensure you have the following:
 - Access to an **external object store** (such as AWS S3).
 - Familiarity with **Apache Iceberg** and **Snowflake**.
 
-## Step-by-step guide
 
 ### Step 1: Configure external storage
 
