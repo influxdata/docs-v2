@@ -19,7 +19,7 @@ Before you begin, ensure you have the following:
 - Familiarity with **Apache Iceberg** and **Snowflake**.
 
 
-### Step 1: Configure external storage
+## Step 1: Configure external storage
 
 Set up an external storage location (such as AWS S3) to store Iceberg table data and metadata.
 
