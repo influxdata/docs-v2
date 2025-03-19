@@ -111,7 +111,9 @@ influxctl enable-iceberg
 influxctl export --namespace foo --table bar
 ```
 
-### API endpoints
+### Use the API to manage and configure snapshots
+
+Use the {{% product-name %}} HTTP API to export snapshots and check status.
 
 #### Example: Export a snapshot
 
