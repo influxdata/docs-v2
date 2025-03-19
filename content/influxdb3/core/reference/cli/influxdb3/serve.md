@@ -20,6 +20,7 @@ The `influxdb3 serve` command starts the {{< product-name >}} server.
 ```bash
 influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 ```
+
 `--node-id` is a unique string that identifies your InfluxDB server instance
 
 ## Options

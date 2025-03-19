@@ -19,17 +19,25 @@ The `influxdb3 serve` command starts the {{< product-name >}} server.
 
 ```bash
 influxdb3 serve [OPTIONS] \
- --node-id <NODE_IDENTIFIER_PREFIX> \
- --cluster-id <CLUSTER_IDENTIFIER_PREFIX>
+  --node-id <NODE_IDENTIFIER_PREFIX> \
+  --cluster-id <CLUSTER_IDENTIFIER_PREFIX>
 ```
 
-Required parameters:
+#### Required parameters
 
-- `--node-id`: a unique string that identifies your InfluxDB server instance
-- `--cluster-id`: a unique string that identifies your InfluxDB cluster
-- The `--cluster-id` value must be different from any `--node-id` values in your cluster
-- Example format: `--node-id influx-server-1 --cluster-id sensors-cluster`
-- Both identifiers should be alphanumeric strings with optional hyphens
+- `--node-id`: a unique string that identifies your {{< product-name >}} server instance.
+- `--cluster-id`: a unique string that identifies your {{< product-name >}} cluster.
+  The `--cluster-id` value must be different from any `--node-id` values in your
+  cluster--for example:
+
+  <!--pytest.mark.skip-->
+
+  ```bash
+  influxdb3 serve --node-id influxdb-server-1 --cluster-id sensors-cluster
+  ```
+
+> [!Note]
+> `--node-id` and `--cluster-id` support alphanumeric strings with optional hyphens.
 
 ## Options
 
