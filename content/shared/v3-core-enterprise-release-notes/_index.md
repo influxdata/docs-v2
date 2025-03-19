@@ -42,12 +42,11 @@
 
 #### Parameter changes
 
-Multiple parameters and modes for the `serve` command have been consolidated for simplicity:
+For Core and Enterprise, there are parameter changes for simplicity:
 
 | Old Parameter | New Parameter |
 |---------------|---------------|
 | `--writer-id`<br>`--host-id` | `--node-id` |
-| `--mode=read`<br>`--mode=read_write` | `--mode=query`<br>`--mode=ingest`|
 
 ### Enterprise features
 
