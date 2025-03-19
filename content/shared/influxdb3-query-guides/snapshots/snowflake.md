@@ -1,7 +1,8 @@
 # Integrating InfluxDB with Snowflake Using Apache Iceberg
 
 
-Snapshots for Snowflake enable users to export time-series data from InfluxDB into a structured format using Apache Iceberg. This integration facilitates efficient data sharing between InfluxDB and Snowflake without the need for complex ETL processes.
+Export time-series data snapshots from InfluxDB into Apache Iceberg format.
+Integrate data with Snowflake and other Iceberg-compatible tools without the need for complex ETL processes.
 
 ### Key Benefits
 
