@@ -96,8 +96,6 @@ WHERE timestamp > '2025-01-01';
 - [Use the API to manage and configure snapshots](#use-the-api-to-manage-and-configure-snapshots)
 - [Use SQL in Snowflake to query Iceberg tables](#use-sql-in-snowflake-to-query-iceberg-tables)
 
-## CLI and API reference
-
 ### Use the CLI to trigger snapshot exports
 
 #### Example: Enable Iceberg feature and export a snapshot
