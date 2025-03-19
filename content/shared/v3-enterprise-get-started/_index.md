@@ -196,7 +196,7 @@ influxdb3 serve \
   --cluster-id=cluster01 \
   --object-store=s3 \
   --bucket=BUCKET \
-  --aws-access-key=AWS_ACCESS_KEY \
+  --aws-access-key-id=AWS_ACCESS_KEY_ID \
   --aws-secret-access-key=AWS_SECRET_ACCESS_KEY
 ```
 
@@ -210,7 +210,7 @@ influxdb3 serve \
   --cluster-id=cluster01 \
   --object-store=s3 \
   --bucket=BUCKET \
-  --aws-access-key=AWS_ACCESS_KEY \
+  --aws-access-key-id=AWS_ACCESS_KEY_ID \
   --aws-secret-access-key=AWS_SECRET_ACCESS_KEY \
   --aws-endpoint=ENDPOINT \
   --aws-allow-http
