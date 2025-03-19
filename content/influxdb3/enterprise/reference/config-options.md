@@ -857,7 +857,8 @@ Specifies the size of the RAM cache used to store data, in bytes.
 #### exec-mem-pool-bytes
 
 Specifies the size of memory pool used during query execution.
-Can be given as absolute value in bytes or as a percentage of the total available memory (for example: `10%`).
+Can be given as absolute value in bytes or as a percentage of the total available memory--for
+example: `8000000000` or `10%`).
 
 **Default:** `20%`
 
@@ -871,8 +872,7 @@ Can be given as absolute value in bytes or as a percentage of the total availabl
 <span id="buffer-mem-limit-mb" />
 
 Specifies the threshold for the internal memory buffer. Supports either a
-percentage (portion of available memory) or absolute value in MB
-(total bytes)--for example: `70%` or `1000 MB`.
+percentage (portion of available memory) or absolute value in MB--for example: `70%` or `1000`.
 
 **Default:** `50%`
 
@@ -980,26 +980,8 @@ Defines the interval at which each replica specified in the
 - [compaction-cleanup-wait](#compaction-cleanup-wait)
 - [gen1-duration](#gen1-duration)
 
-#### compactor-id
 
-> [!Important]
-> This option has been superseded by using `--mode compact`. See the [mode](#mode) section for details.
 
----
-
-#### compact-from-node-ids
-
-> [!Important]
-> This option has been superseded by using `--mode compact`. See the [mode](#mode) section for details.
-
----
-
-#### run-compactions
-
-> [!Important]
-> This option has been superseded by using `--mode compact`. See the [mode](#mode) section for details.
-
----
 
 #### compaction-row-limit
 
@@ -1223,6 +1205,7 @@ engine uses.
 Specifies the Python package manager that the processing engine uses.
 
 This option supports the following values:
+
 - `discover` _(default)_: Automatically discover available package manager
 - `pip`: Use pip package manager
 - `uv`: Use uv package manager
