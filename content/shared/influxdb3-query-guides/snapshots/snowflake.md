@@ -23,7 +23,7 @@ Before you begin, ensure you have the following:
 
 Set up an external storage location (such as AWS S3) to store Iceberg table data and metadata.
 
-#### Example: Configure an S3 stage in Snowflake
+### Example: Configure an S3 stage in Snowflake
 
 ```sql
 CREATE STAGE my_s3_stage 
