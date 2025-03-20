@@ -46,7 +46,7 @@ CREATE CATALOG INTEGRATION my_catalog_integration
   ENABLED = TRUE;
 ```
 
-For more details, refer to the [Snowflake documentation](https://docs.snowflake.com/en/user-guide/tables-iceberg-configure-catalog-integration).
+For more information, refer to the [Snowflake documentation](https://docs.snowflake.com/en/user-guide/tables-iceberg-configure-catalog-integration).
 
 ### Step 3: Export InfluxDB data to Iceberg format
 
