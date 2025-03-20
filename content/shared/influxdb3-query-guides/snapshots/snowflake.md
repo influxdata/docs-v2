@@ -48,7 +48,7 @@ CREATE CATALOG INTEGRATION my_catalog_integration
 
 For more information, refer to the [Snowflake documentation](https://docs.snowflake.com/en/user-guide/tables-iceberg-configure-catalog-integration).
 
-### Step 3: Export InfluxDB data to Iceberg format
+## Step 3: Export InfluxDB data to Iceberg format
 
 Use InfluxDB's Iceberg Exporter to convert and export your time-series data into the Iceberg table format.
 
