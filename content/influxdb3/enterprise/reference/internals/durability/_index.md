@@ -8,7 +8,7 @@ menu:
     parent: Enterprise internals
     name: Data durability
 weight: 200
-source: /content/shared/influxdb3-internals-reference/durability.md
+source: /shared/influxdb3-internals-reference/durability.md
 ---
 
 <!--

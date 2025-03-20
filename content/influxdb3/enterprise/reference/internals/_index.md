@@ -7,7 +7,7 @@ menu:
     name: Enterprise internals
     parent: Reference
 weight: 107
-source: /content/shared/influxdb3-internals-reference/_index.md
+source: /shared/influxdb3-internals-reference/_index.md
 ---
 
 <!--
