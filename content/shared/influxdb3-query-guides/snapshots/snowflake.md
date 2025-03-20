@@ -33,7 +33,7 @@ STORAGE_INTEGRATION=my_storage_integration;
 
 For more details, refer to the [Snowflake documentation](https://docs.snowflake.com/en/user-guide/tables-iceberg-configure-catalog-integration-object-storage).
 
-### Step 2: Set up a catalog integration in Snowflake
+## Step 2: Set up a catalog integration in Snowflake
 
 Set up a catalog integration in Snowflake to manage and load Iceberg tables efficiently.
 
