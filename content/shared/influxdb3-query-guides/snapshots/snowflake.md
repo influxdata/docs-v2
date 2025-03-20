@@ -52,7 +52,7 @@ For more information, refer to the [Snowflake documentation](https://docs.snowfl
 
 Use the InfluxData's Iceberg exporter to convert and export your time-series data from your {{% product-name omit="Clustered" %}} cluster into the Iceberg table format.
 
-#### Example: Export data using the Iceberg Exporter
+### Example: Export data using the Iceberg exporter
 
 ```sh
 # Clone the Iceberg exporter repository
