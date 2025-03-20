@@ -379,7 +379,7 @@ The response is the following:
 InfluxDB rejects all points in the batch.
 The response is an HTTP error (`400`) status, and the response body contains `parsing failed for write_lp endpoint` and details about the problem line.
 
-For more information on data durability see [Data Durability](/influxdb3/version/reference/internals/durability/).
+For more information about the ingest path and data flow, see [Data durability](/influxdb3/version/reference/internals/durability/).
 
 #### Write responses
 
