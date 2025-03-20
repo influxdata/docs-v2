@@ -37,7 +37,7 @@ For more details, refer to the [Snowflake documentation](https://docs.snowflake.
 
 Set up a catalog integration in Snowflake to manage and load Iceberg tables efficiently.
 
-#### Example: Create a catalog integration in Snowflake
+### Example: Create a catalog integration in Snowflake
 
 ```sql
 CREATE CATALOG INTEGRATION my_catalog_integration
