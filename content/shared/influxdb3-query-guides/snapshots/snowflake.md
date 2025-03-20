@@ -79,7 +79,7 @@ CREATE ICEBERG TABLE my_iceberg_table
 
 Ensure that `EXTERNAL_VOLUME` and `METADATA_FILE_PATH` point to your external storage and metadata file.
 
-### Step 5: Query the Iceberg table from Snowflake
+## Step 5: Query the Iceberg table from Snowflake
 
 Once the Iceberg table is set up, you can query it using standard SQL in Snowflake.
 
