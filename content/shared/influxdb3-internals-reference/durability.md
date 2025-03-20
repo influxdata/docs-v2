@@ -9,11 +9,11 @@ As written data moves through {{% product-name %}}, it follows a structured path
 {{< img-hd src="/img/influxdb3/influxdb3-core-enterprise-ingest-path-flow.png" alt="Ingest path and data flow for InfluxDB 3 Core & Enterprise" />}}
 <span class="caption">Figure: Write request, response, and ingest flow for InfluxDB 3 Core and Enterprise</span>
 
-1. [Write validation and memory buffer](#1-write-validation-and-memory-buffer)
-2. [Write-ahead log (WAL) persistence](#2-write-ahead-log-wal-persistence)
-3. [Query availability](#3-query-availability)
-4. [Parquet storage](#4-parquet-storage)
-5. [In-memory cache](#5-in-memory-cache)
+1. [Write validation and memory buffer](#write-validation-and-memory-buffer)
+2. [Write-ahead log (WAL) persistence](#write-ahead-log-wal-persistence)
+3. [Query availability](#query-availability)
+4. [Parquet storage](#parquet-storage)
+5. [In-memory cache](#in-memory-cache)
 
 ### Write validation and memory buffer
 
