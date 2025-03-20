@@ -1638,10 +1638,46 @@ components:
         trigger_name:
           type: string
         trigger_specification:
-          type: string
+          type: object
+          description: |
+            The trigger specification for the plugin.
+            A trigger can have one of the following specifications.
+
+            For
+
+            - Duration schedule triggers, specify the `every` field and a duration object. Supports duration schedules up to 1 year.
+            - Cron schedule triggers, specify the `schedule` field and a cron expression object.
+            - Request triggers, specify the `request_path` field and the endpoint name to use.
+            - Single-table write (WAL flush) triggers, specify the `single_table_wal_write` field and the table name to filter by.
+            - All table write (WAL flush) triggers, specify `all_tables_wal_write`.
+          properties:
+            every:
+              type: object
+              properties:
+                duration:
+                  type: object
+                  properties:
+                    secs:
+                      type: integer
+                    nanos:
+                      type: integer
+            schedule:
+              type: string
+            request:
+              type: string
+            table:
+              type: string
+          example:
+            {"every": {"duration": {"secs": 10, "nanos": 0}}}
         trigger_arguments:
           type: object
+          description: |
+            Use this field to pass additional `key:value` arguments to a plugin.
           additionalProperties: true
+        trigger_settings:
+          type: object
+          example: 
+            { "run_async": true, "error_behavior": "log" }
         disabled:
           type: boolean
       required:
