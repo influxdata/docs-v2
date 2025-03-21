@@ -52,7 +52,7 @@ CREATE CATALOG INTEGRATION my_catalog_integration
 
 For more information, refer to the [Snowflake documentation](https://docs.snowflake.com/en/user-guide/tables-iceberg-configure-catalog-integration).
 
-## Export InfluxDB data to Iceberg format
+### Export InfluxDB time series data to Iceberg format
 
 Use InfluxData's Iceberg exporter to convert and export your time-series data from your {{% product-name omit="Clustered" %}} cluster to the Iceberg table format.
 
