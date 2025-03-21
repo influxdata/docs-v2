@@ -1,6 +1,5 @@
 # Integrate with Snowflake using Apache Iceberg
 
-
 Export time-series data snapshots from InfluxDB into Apache Iceberg format.
 Integrate data with Snowflake and other Iceberg-compatible tools without the need for complex ETL processes.
 
@@ -60,17 +59,17 @@ For more information, refer to the [Snowflake documentation](https://docs.snowfl
 
 ## Export InfluxDB data to Iceberg format
 
-Use InfluxData's Iceberg exporter to convert and export your time-series data from your {{% product-name omit="Clustered" %}} cluster into the Iceberg table format.
+Use InfluxData's Iceberg exporter to convert and export your time-series data from your {{% product-name omit="Clustered" %}} cluster to the Iceberg table format.
 
 ### Example: Export data using Iceberg exporter
 
-This example assumes:
-- You have followed the example for [writing and querying data in the IOx README](https://github.com/influxdata/influxdb_iox/blob/main/README.md#write-and-read-data)
-- You've configured compaction to trigger more quickly with these environment variables:
+This example assumes the following:
 
+- You have followed the example for [writing and querying data in the IOx README](https://github.com/influxdata/influxdb_iox/blob/main/README.md#write-and-read-data).
+- You've configured compaction to trigger more quickly with these environment variables:
   - `INFLUXDB_IOX_COMPACTION_MIN_NUM_L0_FILES_TO_COMPACT=1`
   - `INFLUXDB_IOX_COMPACTION_MIN_NUM_L1_FILES_TO_COMPACT=1`
-- You have a `config.json`
+- You have a `config.json`.
 
 #### Example `config.json`
 
@@ -84,6 +83,7 @@ This example assumes:
     ]
 }
 ```
+
 #### Running the export command
 
 ```console
@@ -95,11 +95,12 @@ $ influxdb_iox iceberg export \
   --sink-data-dir /tmp/iceberg \
   --export-config-path config.json
 ```
+
 The export command outputs an absolute path to an Iceberg metadata file:
 
 `/tmp/iceberg/company_sensors/cpu/metadata/v1.metadata.json
 `
-#### Example: Querying the exported metadata using duckdb
+#### Example: Querying the exported metadata using DuckDB
 
 ```console
 $ duckdb
@@ -113,6 +114,8 @@ D SELECT * FROM iceberg_scan('/tmp/iceberg/metadata/v1.metadata.json') LIMIT 1;
 │ 1 rows                                                                                                                                   13 columns (9 shown) │
 └───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
+
+Next, create an Iceberg table in Snowflake.
 
 ### Create an Iceberg table in Snowflake
 
@@ -151,10 +154,10 @@ WHERE timestamp > '2025-01-01';
 
 ```sh
 # Enable Iceberg feature
-influxctl enable-iceberg
+$ influxctl enable-iceberg
 
 # Export a snapshot
-influxctl export --namespace foo --table bar
+$ influxctl export --namespace foo --table bar
 ```
 
 ### Use the API to manage and configure snapshots
