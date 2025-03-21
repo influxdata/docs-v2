@@ -10,6 +10,16 @@ Integrate data with Snowflake and other Iceberg-compatible tools without the nee
 - **Cost-effective storage**: Optimize data retention and minimize storage costs.
 - **Supports AI and ML workloads**: Enhance machine learning applications by making time-series data accessible in Snowflake.
 
+## Implementation steps
+
+Follow these steps to integrate InfluxDB 3 with Snowflake using Apache Iceberg:
+
+1. [Configure external storage](#configure-external-storage)
+2. [Set up a catalog integration in Snowflake](#set-up-a-catalog-integration-in-snowflake)
+3. [Export InfluxDB data to Iceberg format](#export-influxdb-data-to-iceberg-format)
+4. [Create an Iceberg table in Snowflake](#create-an-iceberg-table-in-snowflake)
+5. [Query your data in Snowflake](#query-your-data-in-snowflake)
+
 ## Prerequisites
 
 Before you begin, ensure you have the following:
