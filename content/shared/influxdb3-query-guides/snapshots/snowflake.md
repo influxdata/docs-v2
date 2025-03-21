@@ -166,6 +166,8 @@ Use the {{% product-name %}} HTTP API to export snapshots and check status.
 
 #### Example: Export a snapshot
 
+This example demonstrates how to export a snapshot of your data from InfluxDB to an Iceberg table using the HTTP API.
+
 - **Method**: `POST`
 - **Endpoint**: `/snapshots/export`
 - **Request body**:
@@ -176,17 +178,21 @@ Use the {{% product-name %}} HTTP API to export snapshots and check status.
   "table": "bar"
 }
 ```
+The `POST` request to the `/snapshots/export` endpoint triggers the export of data from the specified namespace and table in InfluxDB to an Iceberg table. The request body specifies the namespace (`foo`) and the table (`bar`) to be exported.
 
 #### Example: Check snapshot status
+
+This example shows how to check the status of an ongoing or completed snapshot export using the HTTP API.
 
 - **Method**: `GET`
 - **Endpoint**: `/snapshots/status`
 
+In this example, the GET request to the /snapshots/status endpoint retrieves the status of the snapshot export. This can be used to monitor the progress of the export or verify its completion.
+
 ## Considerations and limitations
+
+When exporting data from InfluxDB to an Iceberg table, keep the following considerations and limitations in mind:
 
 - **Data consistency**: Ensure that the exported data in the Iceberg table is consistent with the source data in InfluxDB.
 - **Performance**: Query performance may vary based on data size and query complexity.
 - **Feature support**: Some advanced features of InfluxDB may not be fully supported in Snowflake through Iceberg integration.
-
-
-
