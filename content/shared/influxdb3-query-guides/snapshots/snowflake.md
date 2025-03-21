@@ -94,22 +94,6 @@ The export command outputs an absolute path to an Iceberg metadata file:
 
 `/tmp/iceberg/company_sensors/cpu/metadata/v1.metadata.json
 `
-#### Example: Querying the exported metadata using DuckDB
-
-```console
-$ duckdb
-D SELECT * FROM iceberg_scan('/tmp/iceberg/metadata/v1.metadata.json') LIMIT 1;
-┌───────────┬──────────────────────┬─────────────────────┬─────────────┬───┬────────────┬───────────────┬─────────────┬────────────────────┬────────────────────┐
-│    cpu    │         host         │        time         │ usage_guest │ … │ usage_nice │ usage_softirq │ usage_steal │    usage_system    │     usage_user     │
-│  varchar  │       varchar        │      timestamp      │   double    │   │   double   │    double     │   double    │       double       │       double       │
-├───────────┼──────────────────────┼─────────────────────┼─────────────┼───┼────────────┼───────────────┼─────────────┼────────────────────┼────────────────────┤
-│ cpu-total │ Andrews-MBP.hsd1.m…  │ 2020-06-11 16:52:00 │         0.0 │ … │        0.0 │           0.0 │         0.0 │ 1.1173184357541899 │ 0.9435133457479826 │
-├───────────┴──────────────────────┴─────────────────────┴─────────────┴───┴────────────┴───────────────┴─────────────┴────────────────────┴────────────────────┤
-│ 1 rows                                                                                                                                   13 columns (9 shown) │
-└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-```
-
-Next, create an Iceberg table in Snowflake.
 
 ### Create an Iceberg table in Snowflake
 
