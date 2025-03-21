@@ -62,18 +62,57 @@ For more information, refer to the [Snowflake documentation](https://docs.snowfl
 
 Use InfluxData's Iceberg exporter to convert and export your time-series data from your {{% product-name omit="Clustered" %}} cluster into the Iceberg table format.
 
-### Example: Export data using the Iceberg exporter
+### Example: Export data using Iceberg exporter
 
-```sh
-# Clone the Iceberg exporter repository
-git clone https://github.com/influxdata/influxdb_iox.git
-cd influxdb_iox/iceberg_exporter
+This example assumes:
+- You have followed the example for [writing and querying data in the IOx README](https://github.com/influxdata/influxdb_iox/blob/main/README.md#write-and-read-data)
+- You've configured compaction to trigger more quickly with these environment variables:
+
+  - `INFLUXDB_IOX_COMPACTION_MIN_NUM_L0_FILES_TO_COMPACT=1`
+  - `INFLUXDB_IOX_COMPACTION_MIN_NUM_L1_FILES_TO_COMPACT=1`
+- You have a `config.json`
+
+#### Example `config.json`
+
+```json
+{
+    "exports": [
+        {
+            "namespace": "company_sensors",
+            "table_name": "cpu"
+        }
+    ]
+}
 ```
+#### Running the export command
 
-- Configure the exporter with your InfluxDB data source and target Iceberg table location.
-- Run the exporter to generate Iceberg-compatible Parquet files.
+```console
+$ influxdb_iox iceberg export \
+  --catalog-dsn postgresql://postgres@localhost:5432/postgres \
+  --source-object-store file 
+  --source-data-dir ~/.influxdb_iox/object_store \
+  --sink-object-store file \
+  --sink-data-dir /tmp/iceberg \
+  --export-config-path config.json
+```
+The export command outputs an absolute path to an Iceberg metadata file:
 
-For more details, refer to the [Iceberg Exporter README](https://github.com/influxdata/influxdb_iox/tree/main/iceberg_exporter).
+`/tmp/iceberg/company_sensors/cpu/metadata/v1.metadata.json
+`
+#### Example: Querying the exported metadata using duckdb
+
+```console
+$ duckdb
+D SELECT * FROM iceberg_scan('/tmp/iceberg/metadata/v1.metadata.json') LIMIT 1;
+┌───────────┬──────────────────────┬─────────────────────┬─────────────┬───┬────────────┬───────────────┬─────────────┬────────────────────┬────────────────────┐
+│    cpu    │         host         │        time         │ usage_guest │ … │ usage_nice │ usage_softirq │ usage_steal │    usage_system    │     usage_user     │
+│  varchar  │       varchar        │      timestamp      │   double    │   │   double   │    double     │   double    │       double       │       double       │
+├───────────┼──────────────────────┼─────────────────────┼─────────────┼───┼────────────┼───────────────┼─────────────┼────────────────────┼────────────────────┤
+│ cpu-total │ Andrews-MBP.hsd1.m…  │ 2020-06-11 16:52:00 │         0.0 │ … │        0.0 │           0.0 │         0.0 │ 1.1173184357541899 │ 0.9435133457479826 │
+├───────────┴──────────────────────┴─────────────────────┴─────────────┴───┴────────────┴───────────────┴─────────────┴────────────────────┴────────────────────┤
+│ 1 rows                                                                                                                                   13 columns (9 shown) │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
 
 ### Create an Iceberg table in Snowflake
 
