@@ -59,7 +59,7 @@ GitHub Copilot should help document InfluxData products by creating clear, accur
 - Follow Google Developer Documentation style guidelines
 - For API references, follow YouTube Data API style
 - Use semantic line feeds (one sentence per line)
-- Use only h2-h6 headings in content (h1 comes from frontmatter)
+- Use only h2-h6 headings in content (h1 comes from frontmatter title properties)
 - Use sentence case for headings
 - Use GitHub callout syntax
 - Image naming: `project/version-context-description.png`

@@ -8,9 +8,10 @@ menu:
     parent: influxdb3 create
     name: influxdb3 create trigger
 weight: 400
+alias: /influxdb3/core/cli/influxdb3/create/plugin/
 source: /shared/influxdb3-cli/create/trigger.md
 ---
 
 <!--
-The content of this file is at content/shared/influxdb3-cli/create/trigger.md
+//SOURCE - content/shared/influxdb3-cli/create/trigger.md
 -->
