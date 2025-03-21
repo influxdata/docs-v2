@@ -14,4 +14,11 @@
     },
     "vale.valeCLI.config": "${workspaceFolder}/.vale.ini",
     "vale.valeCLI.minAlertLevel": "warning",
+    "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+    "github.copilot.chat.codeGeneration.instructionFiles": [
+        {
+            "path": "${workspaceFolder}/.github/copilot-instructions.md",
+            "enabled": true
+        }
+    ],
 }
