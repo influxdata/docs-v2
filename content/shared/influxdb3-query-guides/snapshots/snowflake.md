@@ -78,7 +78,7 @@ This example assumes the following:
 }
 ```
 
-#### Running the export command
+### Run the export command
 
 ```console
 $ influxdb_iox iceberg export \
