@@ -60,7 +60,6 @@ Use the InfluxDB Iceberg exporter to convert and export your time-series data fr
 
 This example assumes the following:
 
-- You have followed the example for [writing and querying data in the IOx README](https://github.com/influxdata/influxdb_iox/blob/main/README.md#write-and-read-data).
 - You've configured compaction to trigger more quickly with these environment variables:
   - `INFLUXDB_IOX_COMPACTION_MIN_NUM_L0_FILES_TO_COMPACT=1`
   - `INFLUXDB_IOX_COMPACTION_MIN_NUM_L1_FILES_TO_COMPACT=1`
