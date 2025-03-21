@@ -113,7 +113,7 @@ Ensure that `EXTERNAL_VOLUME` and `METADATA_FILE_PATH` point to your external st
 
 Once the Iceberg table is set up, you can query it using standard SQL in Snowflake.
 
-### Example: Query the Iceberg table
+#### Example: Query the Iceberg table
 
 ```sql
 SELECT * FROM my_iceberg_table
