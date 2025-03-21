@@ -1,6 +1,6 @@
 
-Export time-series data snapshots from InfluxDB into Apache Iceberg format.
-Integrate data with Snowflake and other Iceberg-compatible tools without the need for complex ETL processes.
+Integrate {{< product-name >}} with Snowflake and other Iceberg-compatible tools without the need for complex ETL processes.
+Export time series data snapshots from InfluxDB into Apache Iceberg format and query it from Snowflake.
 
 ### Key Benefits
 
