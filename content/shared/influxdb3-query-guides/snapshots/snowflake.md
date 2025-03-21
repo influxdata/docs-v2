@@ -6,7 +6,7 @@ Integrate data with Snowflake and other Iceberg-compatible tools without the nee
 
 ### Key Benefits
 
-- **Efficient data access**: Query InfluxDB data directly from Snowflake.
+- **Efficient data access**: Query your data directly from Snowflake.
 - **Cost-effective storage**: Optimize data retention and minimize storage costs.
 - **Supports AI and ML workloads**: Enhance machine learning applications by making time-series data accessible in Snowflake.
 
