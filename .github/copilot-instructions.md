@@ -6,6 +6,7 @@ GitHub Copilot should help document InfluxData products by creating clear, accur
 
 ## Documentation Structure
 
+- **Product version data**: `/data/products.yml`
 - **Products**:
   - InfluxDB OSS 1.x
     - Documentation source path: `/content/influxdb/v1`
