@@ -19,7 +19,7 @@ Before you begin, ensure you have the following:
 - Familiarity with **Apache Iceberg** and **Snowflake**.
 
 
-## Step 1: Configure external storage
+## Configure external storage
 
 Set up an external storage location (such as AWS S3) to store Iceberg table data and metadata.
 
@@ -33,7 +33,7 @@ STORAGE_INTEGRATION=my_storage_integration;
 
 For more details, refer to the [Snowflake documentation](https://docs.snowflake.com/en/user-guide/tables-iceberg-configure-catalog-integration-object-storage).
 
-## Step 2: Set up a catalog integration in Snowflake
+## Set up a catalog integration in Snowflake
 
 Set up a catalog integration in Snowflake to manage and load Iceberg tables efficiently.
 
@@ -48,7 +48,7 @@ CREATE CATALOG INTEGRATION my_catalog_integration
 
 For more information, refer to the [Snowflake documentation](https://docs.snowflake.com/en/user-guide/tables-iceberg-configure-catalog-integration).
 
-## Step 3: Export InfluxDB data to Iceberg format
+## Export InfluxDB data to Iceberg format
 
 Use InfluxData's Iceberg exporter to convert and export your time-series data from your {{% product-name omit="Clustered" %}} cluster into the Iceberg table format.
 
@@ -65,7 +65,7 @@ cd influxdb_iox/iceberg_exporter
 
 For more details, refer to the [Iceberg Exporter README](https://github.com/influxdata/influxdb_iox/tree/main/iceberg_exporter).
 
-### Step 4: Create an Iceberg table in Snowflake
+### Create an Iceberg table in Snowflake
 
 After exporting the data, create an Iceberg table in Snowflake.
 
@@ -79,7 +79,7 @@ CREATE ICEBERG TABLE my_iceberg_table
 
 Ensure that `EXTERNAL_VOLUME` and `METADATA_FILE_PATH` point to your external storage and metadata file.
 
-## Step 5: Query the Iceberg table from Snowflake
+## Query the Iceberg table from Snowflake
 
 Once the Iceberg table is set up, you can query it using standard SQL in Snowflake.
 
