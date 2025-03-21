@@ -37,11 +37,11 @@ CREATE STAGE my_s3_stage
 URL='s3://my-bucket/'
 STORAGE_INTEGRATION=my_storage_integration;
 
-## Set up a catalog integration in Snowflake
+### Set up a catalog integration in Snowflake
 
 Set up a catalog integration in Snowflake to manage and load Iceberg tables efficiently.
 
-### Example: Create a catalog integration in Snowflake
+#### Example: Create a catalog integration in Snowflake
 
 ```sql
 CREATE CATALOG INTEGRATION my_catalog_integration
