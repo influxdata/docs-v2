@@ -182,12 +182,12 @@ The `POST` request to the `/snapshots/export` endpoint triggers the export of da
 
 #### Example: Check snapshot status
 
-This example shows how to check the status of an ongoing or completed snapshot export using the HTTP API.
+This example shows how to check the status of an ongoing or completed snapshot export using the HTTP API. 
 
 - **Method**: `GET`
 - **Endpoint**: `/snapshots/status`
 
-In this example, the GET request to the /snapshots/status endpoint retrieves the status of the snapshot export. This can be used to monitor the progress of the export or verify its completion.
+The `GET` request to the `/snapshots/status` endpoint retrieves the status of the snapshot export. This can be used to monitor the progress of the export or verify its completion.
 
 ## Considerations and limitations
 
