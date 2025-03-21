@@ -25,19 +25,17 @@ Before you begin, ensure you have the following:
 5. [Query your data in Snowflake](#query-your-data-in-snowflake)
 
 
-## Configure external storage
+### Create a Snowflake external stage
 
-Set up an external storage location (such as AWS S3) to store Iceberg table data and metadata.
+Use the `CREATE STAGE` Snowflake SQL command to set up an external storage location
+(such as AWS S3) to store Iceberg table data and metadata--for example:
 
-### Example: Configure an S3 stage in Snowflake
+#### Example: Configure an S3 stage in Snowflake
 
 ```sql
 CREATE STAGE my_s3_stage 
 URL='s3://my-bucket/'
 STORAGE_INTEGRATION=my_storage_integration;
-```
-
-For more details, refer to the [Snowflake documentation](https://docs.snowflake.com/en/user-guide/tables-iceberg-configure-catalog-integration-object-storage).
 
 ## Set up a catalog integration in Snowflake
 
