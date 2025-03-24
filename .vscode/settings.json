@@ -1,24 +1,54 @@
 {
-    "commentAnchors.tags.anchors": 
-      { "SOURCE": {
-        "scope": "file",
-        "behavior": "link",
-        "iconColor": "#FF0000",
-        "highlightColor": "#FF0000",
-        "style": "bold"
-      }},
-    "commentAnchors.workspace.matchFiles": "**/*.{md,ini,json,yaml,yml}",
-    "commentAnchors.workspace.enabled": true,
-    "yaml.schemas": {
-        "./.frontmatter-schema.json": "${workspaceFolder}/content/**/*.md"
-    },
-    "vale.valeCLI.config": "${workspaceFolder}/.vale.ini",
-    "vale.valeCLI.minAlertLevel": "warning",
-    "github.copilot.chat.codeGeneration.useInstructionFiles": true,
-    "github.copilot.chat.codeGeneration.instructionFiles": [
-        {
-            "path": "${workspaceFolder}/.github/copilot-instructions.md",
-            "enabled": true
-        }
-    ],
+  // Basic GitHub Copilot settings
+  "github.copilot.enable": true,
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.inlineSuggest.enable": true,
+  "github.copilot.advanced.indentationMode": "indentToMatchContext",
+  
+  // GitHub Copilot Chat settings
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+  "github.copilot.chat.codeGeneration.instructionFiles": [
+      {
+          "path": "${workspaceFolder}/.github/copilot-instructions.md",
+          "enabled": true
+      }
+  ],
+  
+  // Comment Anchors extension settings
+  "commentAnchors.tags.anchors": { 
+      "SOURCE": {
+          "scope": "file",
+          "behavior": "link",
+          "iconColor": "#FF0000",
+          "highlightColor": "#FF0000",
+          "style": "bold"
+      }
+  },
+  "commentAnchors.workspace.matchFiles": "**/*.{md,ini,json,yaml,yml}",
+  "commentAnchors.workspace.enabled": true,
+  
+  // YAML schema settings
+  "yaml.schemas": {
+      "./.frontmatter-schema.json": "${workspaceFolder}/content/**/*.md"
+  },
+  
+  // Vale settings
+  "vale.valeCLI.config": "${workspaceFolder}/.vale.ini",
+  "vale.valeCLI.minAlertLevel": "warning",
+  
+  // Markdown settings (helpful for documentation)
+  "markdown.validate.enabled": true,
+  "[markdown]": {
+      "editor.wordWrap": "on",
+      "editor.quickSuggestions": {
+          "comments": "off",
+          "strings": "off",
+          "other": "off"
+      }
+  },
+  
+  // File associations
+  "files.associations": {
+      "*.md": "markdown"
+  }
 }
