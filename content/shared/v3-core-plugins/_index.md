@@ -573,6 +573,48 @@ influxdb3_local.cache.put("execution_count", counter)
 influxdb3_local.info(f"This plugin has run {counter} times")
 ```
 
+#### Best practices for in-memory caching
+
+- [Use the trigger-specific namespace](#use-the-trigger-specific-namespace)
+- [Use TTL appropriately](#use-ttl-appropriately)
+- [Cache computation results](#cache-computation-results)
+- [Warm the cache](#warm-the-cache)
+- [Consider cache limitations](#consider-cache-limitations)
+
+##### Use the trigger-specific namespace
+
+The cache is designed to support stateful operations while maintaining isolation between different triggers. Use the trigger-specific namespace for most operations and the global namespace only when data sharing across triggers is necessary.
+
+##### Use TTL appropriately
+Set realistic expiration times based on how frequently data changes.
+
+```python
+# Cache external API responses for 5 minutes  
+influxdb3_local.cache.put("weather_data", api_response, ttl=300)
+```
+
+##### Cache computation results
+Store the results of expensive calculations that need to be utilized frequently.
+```python
+# Cache aggregated statistics  
+influxdb3_local.cache.put("daily_stats", calculate_statistics(data), ttl=3600)
+```
+
+##### Warm the cache
+For critical data, prime the cache at startup. This can be especially useful for global namespace data where multiple triggers need the data.
+
+```python
+# Check if cache needs to be initialized  
+if not influxdb3_local.cache.get("lookup_table"):   
+    influxdb3_local.cache.put("lookup_table", load_lookup_data())
+```
+
+##### Consider cache limitations
+
+- **Memory Usage**: Since cache contents are stored in memory, monitor your memory usage when caching large datasets.
+- **Server Restarts**: Because the cache is cleared when the server restarts, design your plugins to handle cache initialization (as noted above).
+- **Concurrency**: Be cautious of accessing inaccurate or out-of-date data when multiple trigger instances might simultaneously update the same cache key.
+
 ## Install Python dependencies
 
 If your plugin needs additional Python packages, use the `influxdb3 install` command:
