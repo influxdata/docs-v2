@@ -1,38 +1,36 @@
 ### InfluxDB 3 Core and Enterprise API examples
 
 ```bash
-// curl "http://localhost:9191/api/v3/configure/processing_engine_trigger" \
-// --json '{
-//   "db": "sensors",
-//   "plugin_filename": "sensors_sched.py",
-//   "trigger_name": "sensors_sched_1",
-//   "trigger_settings": { "run_async": false, "error_behavior": "log" },
-//   "trigger_specification": {"every": {"duration": {"secs": 10, "nanos": 0}}},
-//   "disabled": false
-// }'
+curl "http://localhost:9191/api/v3/configure/processing_engine_trigger" \
+--json '{
+   "db": "sensors",
+   "plugin_filename": "sensors_sched.py",
+   "trigger_name": "sensors_sched_1",
+   "trigger_settings": { "run_async": false, "error_behavior": "log" },
+   "trigger_specification": {"every": {"duration": {"secs": 10, "nanos": 0}}},
+   "disabled": false
+ }'
 
 
-// curl "http://localhost:9191/api/v3/configure/processing_engine_trigger" \
-// --json '{
-//   "db": "sensors",
-//   "plugin_filename": "sensors_sched.py",
-//   "trigger_name": "sensors_sched_3",
-//   "trigger_settings": { "run_async": false, "error_behavior": "log" },
-//   "trigger_specification": {"schedule": ["0 0 * * *"]},
-//   "disabled": false
-// }'
+curl "http://localhost:9191/api/v3/configure/processing_engine_trigger" \
+--json '{
+  "db": "sensors",
+   "plugin_filename": "sensors_sched.py",
+   "trigger_name": "sensors_sched_3",
+   "trigger_settings": { "run_async": false, "error_behavior": "log" },
+   "trigger_specification": {"schedule": ["0 0 * * *"]},
+   "disabled": false
+ }'
 
-//curl "http://localhost:9191/api/v3/configure/processing_engine_trigger" \
-//--json '
-
-{
+curl "http://localhost:9191/api/v3/configure/processing_engine_trigger" \
+--json '{
   "db": "sensors",
   "plugin_filename": "sensors_sched.py",
   "trigger_name": "sensors_sched_3",
   "trigger_settings": { "run_async": false, "error_behavior": "log" },
   "trigger_specification": {"schedule": "cron:0 0 * * *"},
   "disabled": false
-}
+}'
 
 curl "http://localhost:9191/api/v3/configure/processing_engine_trigger" \
 --json ' {
@@ -44,28 +42,30 @@ curl "http://localhost:9191/api/v3/configure/processing_engine_trigger" \
   "disabled": false
 }'
 
-// influxdb3 create trigger --host http://localhost:9191 --database sensors --trigger-spec "every:10s" --plugin-filename "sensors_sched.py" sensors_sched_2
+influxdb3 create trigger --host http://localhost:9191 --database sensors --trigger-spec "every:10s" --plugin-filename "sensors_sched.py" sensors_sched_2
 
-
-// influxdb3 write --host http://localhost:9191 --database sensors "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1742198400
-// home,room=Kitchen temp=21.0,hum=35.9,co=0i 1742198400
-// home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1742202000
-// home,room=Kitchen temp=23.0,hum=36.2,co=0i 1742202000
-// home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1742205600
-// home,room=Kitchen temp=22.7,hum=36.1,co=0i 1742205600
-// home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1742209200
-// home,room=Kitchen temp=22.4,hum=36.0,co=0i 1742209200
-// home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1742212800
-// home,room=Kitchen temp=22.5,hum=36.0,co=0i 1742212800
-// home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1742216400
-// home,room=Kitchen temp=22.8,hum=36.5,co=1i 1742216400"
+influxdb3 write --host http://localhost:9191 --database sensors "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1742198400
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1742198400
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1742202000
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1742202000
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1742205600
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1742205600
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1742209200
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1742209200
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1742212800
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1742212800
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1742216400
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1742216400"
 ```
 
 ## Use the processing engine to retrieve and write pull request data from GitHub
 
 1. Install [InfluxDB 3 Core](/influxdb3/core/) or [InfluxDB 3 Enterprise](/influxdb3/enterprise/) for your system.
+2. _Optional_: install additional tools that might help test and explore API requests:
+   - cURL
+   - jq 
 
-2. Start the server with the following command:
+3. Start the server with the following command:
 ```bash
 # Start the server with the specified node ID, mode, cluster ID, host, database, and plugin directory
 # The --mode flag specifies the server mode (ingest, query, compact, or all)
@@ -76,7 +76,7 @@ curl "http://localhost:9191/api/v3/configure/processing_engine_trigger" \
 influxdb3 serve --node-id rw01 --mode ingest,query --cluster-id docsaichat --http-bind localhost:9191 --plugin-dir ~/influxdb3-plugins/aichat --object-store file --data-dir ~/.influxdb3-data --log-filter debug
 ```
 
-3. If you haven't already, create a database to store the data:
+4. If you haven't already, create a database to store the data:
 
    ```bash
    influxdb3 create database --host http://localhost:9191 aichat
@@ -314,6 +314,12 @@ And it returns a JSON response similar to the following:
   ]
 }
 ````
+
+2. Install Python dependencies for your plugin:
+
+   ```bash
+   influxdb3 install package
+   ```
 
 > [!Note]
 > #### Test your plugin
