@@ -5,9 +5,14 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list features exclusive to Enterprise.
 
+## v3.0.0-0.beta.2 {date="2025-03-24"}
+**Core**: revision 033e1176d8c322b763b4aefb24686121b1b24f7c\
+**Enterprise**: revision e530fcd498c593cffec2b56d4f5194afc717d898
 
-## v0.1.0 Beta {date="2025-03-17"}
+This update brings several backend performance improvements to both Core and Enterprise in preparation for additional new features over the next several weeks! 
 
+
+## v3.0.0-0.beta.1 {date="2025-03-17"}
 ### Core
 #### Features
 
