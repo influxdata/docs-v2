@@ -16,8 +16,6 @@ Export time series data snapshots into Apache Iceberg format and query directly 
 Before you begin, ensure you have the following:
 
 - **{{< product-name >}} Cloud Dedicated plan** or compatible environment
-- **Snowflake account** with appropriate permissions
-- **External object store** (AWS S3, Azure Blob Storage, or GCP)
 
 ## Request Iceberg integration
 
