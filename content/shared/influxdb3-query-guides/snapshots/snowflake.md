@@ -53,14 +53,11 @@ For more information, refer to the [Snowflake documentation](https://docs.snowfl
 
 ### Export InfluxDB time series data to Iceberg format
 
-Use the InfluxDB Iceberg exporter to convert and export your time-series data from your {{% product-name omit="Clustered" %}} cluster to the Iceberg table format.
-For more information, refer to the [Snowflake documentation](https://docs.snowflake.com/en/user-guide/tables-iceberg-configure-catalog-integration).
-
-### Export InfluxDB time series data to Iceberg format
-
 > **Note**: Before exporting InfluxDB time series data to Iceberg format, ensure that the relevant InfluxDB tables are properly set up. Please reach out to your support engineers to configure the tables that need to be exported.
 
 Use the InfluxDB Iceberg exporter to convert and export your time-series data from your {{% product-name omit="Clustered" %}} cluster to the Iceberg table format.
+For more information, refer to the [Snowflake documentation](https://docs.snowflake.com/en/user-guide/tables-iceberg-configure-catalog-integration).
+
 #### Creating a configuration file
 
 Before running the export command, you need to create a configuration file that specifies which tables to export:
