@@ -17,11 +17,10 @@ Before you begin, ensure you have the following:
 
 ## Integrate InfluxDB 3 with Snowflake
 
-1. [Configure external storage](#configure-external-storage)
-2. [Set up a catalog integration in Snowflake](#set-up-a-catalog-integration-in-snowflake)
-3. [Export InfluxDB data to Iceberg format](#export-influxdb-data-to-iceberg-format)
-4. [Create an Iceberg table in Snowflake](#create-an-iceberg-table-in-snowflake)
-5. [Query your data in Snowflake](#query-your-data-in-snowflake)
+1. [Create a Snowflake external stage](#create-a-snowflake-external-stage)
+2. [Export InfluxDB time series data to Iceberg format](#export-influxdb-time-series-data-to-iceberg-format)
+3. [Create an Iceberg table in Snowflake](#create-an-iceberg-table-in-snowflake)
+4. [Query the Iceberg table from Snowflake](#query-the-iceberg-table-from-snowflake)
 
 
 ### Create a Snowflake external stage
@@ -36,7 +35,7 @@ CREATE STAGE my_s3_stage
 URL='s3://my-bucket/'
 STORAGE_INTEGRATION=my_storage_integration;
 
-### Set up a catalog integration in Snowflake
+### Set up a catalog integration in Snowflake {#set-up-a-catalog-integration-in-snowflake}
 
 Set up a catalog integration in Snowflake to manage and load Iceberg tables efficiently.
 
@@ -79,7 +78,7 @@ This configuration file tells the exporter which InfluxDB tables to convert to I
 
 After configuring the export settings in the `config.json` file, the system automatically handles the export process. The export generates an Iceberg metadata file that you'll reference when creating your Iceberg table in Snowflake.
 
-### Create an Iceberg table in Snowflake
+### Create an Iceberg table in Snowflake 
 
 After the export process is complete, you can work with your InfluxData support engineer to create an Iceberg table in Snowflake that references your exported data. If you do not have access to a support engineer, refer to the Snowflake documentation or consult your database administrator for assistance. Here's what happens during this step:
 
