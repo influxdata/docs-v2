@@ -81,7 +81,13 @@ After configuring the export settings in the `config.json` file, the system auto
 
 ### Create an Iceberg table in Snowflake
 
+After the export process is complete, you can work with your InfluxData support engineer to create an Iceberg table in Snowflake that references your exported data. If you do not have access to a support engineer, refer to the Snowflake documentation or consult your database administrator for assistance. Here's what happens during this step:
+
 After the export process is complete, you'll work with your InfluxData support engineer to create an Iceberg table in Snowflake that references your exported data. Here's what happens during this step:
+
+> **⚠️ Important**: **Tables created through this integration are read-only.**  
+> **You cannot write directly to these tables using Snowflake or any other engine.**  
+> They serve as an analytics interface to your InfluxDB data.
 
 1. Your support engineer will provide you with the location of the Iceberg metadata file generated during the export process.
 
