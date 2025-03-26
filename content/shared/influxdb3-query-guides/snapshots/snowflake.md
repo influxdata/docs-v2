@@ -1,11 +1,11 @@
-# Snowflake Integration
+# Snowflake integration
 
-Integrate {{< product-name >}} with Snowflake and other Iceberg-compatible tools without the need for complex ETL processes.
-Export time series data snapshots from InfluxDB into Apache Iceberg format and query it from Snowflake.
+Integrate {{< product-name >}} with Snowflake without complex ETL processes.
+Export time series data snapshots into Apache Iceberg format and query directly from Snowflake.
 
 > **Note**: Contact [InfluxData sales](https://www.influxdata.com/contact-sales/) to enable this capability for your organization.
 
-### Key Benefits
+## Key benefits
 
 - **Efficient data access**: Query your data directly from Snowflake.
 - **Cost-effective storage**: Optimize data retention and minimize storage costs.
@@ -15,11 +15,11 @@ Export time series data snapshots from InfluxDB into Apache Iceberg format and q
 
 Before you begin, ensure you have the following:
 
-- **InfluxDB Cloud Dedicated plan** or compatible environment
+- **{{< product-name >}} Cloud Dedicated plan** or compatible environment
 - **Snowflake account** with appropriate permissions
 - **External object store** (AWS S3, Azure Blob Storage, or GCP)
 
-## Request Iceberg Integration
+## Request Iceberg integration
 
 1. Contact [InfluxData sales](https://www.influxdata.com/contact-sales/) to request Iceberg integration.
 
