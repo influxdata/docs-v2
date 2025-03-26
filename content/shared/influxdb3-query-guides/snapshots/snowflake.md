@@ -15,9 +15,22 @@ Export time series data snapshots from InfluxDB into Apache Iceberg format and q
 
 Before you begin, ensure you have the following:
 
-- A **Snowflake account** with necessary permissions.
-- Access to an **external object store** (such as AWS S3).
-- Familiarity with **Apache Iceberg** and **Snowflake**.
+- **InfluxDB Cloud Dedicated plan** or compatible environment
+- **Snowflake account** with appropriate permissions
+- **External object store** (AWS S3, Azure Blob Storage, or GCP)
+
+## Request Iceberg Integration
+
+1. Contact [InfluxData sales](https://www.influxdata.com/contact-sales/) to request Iceberg integration.
+
+2. Be prepared to provide:
+   - Your organization ID
+   - Customer name
+   - Cloud provider and region
+   - External storage details (bucket name, region, permissions)
+   - Technical contact information
+
+> **Note**: Iceberg integration is a premium feature that requires setup by the InfluxData team.
 
 ## Integrate InfluxDB 3 with Snowflake
 
@@ -42,7 +55,7 @@ STORAGE_INTEGRATION=my_storage_integration;
 
 ### Set up a catalog integration in Snowflake 
 
-Set up a catalog integration in Snowflake to manage and load Iceberg tables efficiently.
+Your support engineer will help you set up a catalog integration in Snowflake to manage and load Iceberg tables efficiently.
 
 #### Example: Create a catalog integration in Snowflake
 
@@ -59,7 +72,58 @@ For more information, refer to the [Snowflake documentation](https://docs.snowfl
 
 > **Note**: Before exporting InfluxDB time series data to Iceberg format, ensure that the relevant InfluxDB tables are properly set up. Please reach out to your support engineers to configure the tables that need to be exported.
 
-Use the InfluxDB Iceberg exporter to convert and export your time-series data from your {{% product-name omit="Clustered" %}} cluster to the Iceberg table format.
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[CLI](#tab-cli)
+[API](#tab-api)
+{{% /tabs %}}
+
+{{% tab-content %}}
+{{% tab-pane id="tab-cli" %}}
+
+#### Using the CLI
+
+Use the `influxctl` command to export InfluxDB time-series data to Iceberg format:
+
+```sh
+influxctl snapshot export --namespace foo --table bar
+```
+
+{{% /tab-pane %}}
+{{% tab-pane id="tab-api" %}}
+
+#### Using the API
+
+Use the {{% product-name %}} HTTP API to export snapshots and check status.
+
+##### Example: Export a snapshot
+
+This example demonstrates how to export a snapshot of your data from InfluxDB to an Iceberg table using the HTTP API.
+
+- **Method**: `POST`
+- **Endpoint**: `/snapshots/export`
+- **Request body**:
+  
+```json
+{
+  "namespace": "foo",
+  "table": "bar"
+}
+```
+The `POST` request to the `/snapshots/export` endpoint triggers the export of data from the specified namespace and table in InfluxDB to an Iceberg table. The request body specifies the namespace (`foo`) and the table (`bar`) to be exported.
+
+##### Example: Check snapshot status
+
+This example shows how to check the status of an ongoing or completed snapshot export using the HTTP API. 
+
+- **Method**: `GET`
+- **Endpoint**: `/snapshots/status`
+
+The `GET` request to the `/snapshots/status` endpoint retrieves the status of the snapshot export. This can be used to monitor the progress of the export or verify its completion.
+
+{{% /tab-pane %}}
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 #### Creating a configuration file
 
@@ -117,35 +181,6 @@ Once the Iceberg table is set up, you can query it using standard SQL in Snowfla
 SELECT * FROM my_iceberg_table
 WHERE timestamp > '2025-01-01';
 ```
-
-### Use the API to manage and configure snapshots
-
-Use the {{% product-name %}} HTTP API to export snapshots and check status.
-
-#### Example: Export a snapshot
-
-This example demonstrates how to export a snapshot of your data from InfluxDB to an Iceberg table using the HTTP API.
-
-- **Method**: `POST`
-- **Endpoint**: `/snapshots/export`
-- **Request body**:
-  
-```json
-{
-  "namespace": "foo",
-  "table": "bar"
-}
-```
-The `POST` request to the `/snapshots/export` endpoint triggers the export of data from the specified namespace and table in InfluxDB to an Iceberg table. The request body specifies the namespace (`foo`) and the table (`bar`) to be exported.
-
-#### Example: Check snapshot status
-
-This example shows how to check the status of an ongoing or completed snapshot export using the HTTP API. 
-
-- **Method**: `GET`
-- **Endpoint**: `/snapshots/status`
-
-The `GET` request to the `/snapshots/status` endpoint retrieves the status of the snapshot export. This can be used to monitor the progress of the export or verify its completion.
 
 ## Considerations and limitations
 
