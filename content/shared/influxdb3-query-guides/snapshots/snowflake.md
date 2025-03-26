@@ -70,6 +70,14 @@ For more information, refer to the [Snowflake documentation](https://docs.snowfl
 
 > **Note**: Before exporting InfluxDB time series data to Iceberg format, ensure that the relevant InfluxDB tables are properly set up. Please reach out to your support engineers to configure the tables that need to be exported.
 
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[CLI](#tab-cli)
+[API](#tab-api)
+{{% /tabs %}}
+
+{{% tab-content %}}
+{{% tab-pane id="tab-cli" %}}
 #### Using the CLI
 
 Use the `influxctl` command to export InfluxDB time-series data to Iceberg format:
@@ -77,7 +85,8 @@ Use the `influxctl` command to export InfluxDB time-series data to Iceberg forma
 ```sh
 influxctl snapshot export --namespace foo --table bar
 ```
-
+{{% /tab-pane %}}
+{{% tab-pane id="tab-api" %}}
 #### Using the API
 
 Use the {{% product-name %}} HTTP API to export snapshots and check status.
@@ -106,7 +115,6 @@ This example shows how to check the status of an ongoing or completed snapshot e
 - **Endpoint**: `/snapshots/status`
 
 The `GET` request to the `/snapshots/status` endpoint retrieves the status of the snapshot export. This can be used to monitor the progress of the export or verify its completion.
-
 {{% /tab-pane %}}
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
