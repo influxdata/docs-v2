@@ -1,5 +1,9 @@
+# Snowflake Integration
+
 Integrate {{< product-name >}} with Snowflake and other Iceberg-compatible tools without the need for complex ETL processes.
 Export time series data snapshots from InfluxDB into Apache Iceberg format and query it from Snowflake.
+
+> **Note**: Contact [InfluxData sales](https://www.influxdata.com/contact-sales/) to enable this capability for your organization.
 
 ### Key Benefits
 
@@ -17,16 +21,16 @@ Before you begin, ensure you have the following:
 
 ## Integrate InfluxDB 3 with Snowflake
 
+Once you've contacted sales and enabled Iceberg integration, your InfluxData support engineers will help you with the following steps:
+
 1. [Create a Snowflake external stage](#create-a-snowflake-external-stage)
 2. [Export InfluxDB time series data to Iceberg format](#export-influxdb-time-series-data-to-iceberg-format)
 3. [Create an Iceberg table in Snowflake](#create-an-iceberg-table-in-snowflake)
 4. [Query the Iceberg table from Snowflake](#query-the-iceberg-table-from-snowflake)
 
-
 ### Create a Snowflake external stage
 
-Use the `CREATE STAGE` Snowflake SQL command to set up an external storage location
-(such as AWS S3) to store Iceberg table data and metadata--for example:
+Your support engineer will guide you through setting up a Snowflake external stage using the `CREATE STAGE` Snowflake SQL command. This establishes an external storage location (such as AWS S3) to store Iceberg table data and metadata.
 
 #### Example: Configure an S3 stage in Snowflake
 
@@ -34,8 +38,9 @@ Use the `CREATE STAGE` Snowflake SQL command to set up an external storage locat
 CREATE STAGE my_s3_stage 
 URL='s3://my-bucket/'
 STORAGE_INTEGRATION=my_storage_integration;
+```
 
-### Set up a catalog integration in Snowflake {#set-up-a-catalog-integration-in-snowflake}
+### Set up a catalog integration in Snowflake 
 
 Set up a catalog integration in Snowflake to manage and load Iceberg tables efficiently.
 
@@ -84,7 +89,7 @@ After the export process is complete, you can work with your InfluxData support 
 
 After the export process is complete, you'll work with your InfluxData support engineer to create an Iceberg table in Snowflake that references your exported data. Here's what happens during this step:
 
-> **⚠️ Important**: **Tables created through this integration are read-only.**  
+> **Note**: **Tables created through this integration are read-only.**  
 > **You cannot write directly to these tables using Snowflake or any other engine.**  
 > They serve as an analytics interface to your InfluxDB data.
 
