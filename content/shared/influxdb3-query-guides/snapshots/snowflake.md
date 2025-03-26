@@ -55,13 +55,12 @@ For more information, refer to the [Snowflake documentation](https://docs.snowfl
 
 Use the InfluxDB Iceberg exporter to convert and export your time-series data from your {{% product-name omit="Clustered" %}} cluster to the Iceberg table format.
 
-#### Example: Export data using Iceberg exporter
+#### Creating a configuration file
 
-This example assumes the following:
+Before running the export command, you need to create a configuration file that specifies which tables to export:
 
-- You have a `config.json`.
-
-#### Example `config.json`
+1. Create a file named `config.json` in your working directory
+2. Add the following JSON content, adjusting the namespace and table names to match your data:
 
 ```json
 {
@@ -73,6 +72,8 @@ This example assumes the following:
     ]
 }
 ```
+
+This configuration file tells the exporter which InfluxDB tables to convert to Iceberg format. You can list multiple tables by adding more objects to the exports array.
 
 After configuring the export settings in the `config.json` file, the system automatically handles the export process. The export generates an Iceberg metadata file at a location similar to:
 
