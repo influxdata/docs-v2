@@ -1,4 +1,3 @@
-
 Integrate {{< product-name >}} with Snowflake and other Iceberg-compatible tools without the need for complex ETL processes.
 Export time series data snapshots from InfluxDB into Apache Iceberg format and query it from Snowflake.
 
@@ -60,9 +59,6 @@ Use the InfluxDB Iceberg exporter to convert and export your time-series data fr
 
 This example assumes the following:
 
-- You've configured compaction to trigger more quickly with these environment variables:
-  - `INFLUXDB_IOX_COMPACTION_MIN_NUM_L0_FILES_TO_COMPACT=1`
-  - `INFLUXDB_IOX_COMPACTION_MIN_NUM_L1_FILES_TO_COMPACT=1`
 - You have a `config.json`.
 
 #### Example `config.json`
@@ -78,22 +74,11 @@ This example assumes the following:
 }
 ```
 
-### Run the export command
+After configuring the export settings in the `config.json` file, the system automatically handles the export process. The export generates an Iceberg metadata file at a location similar to:
 
-```console
-$ influxdb_iox iceberg export \
-  --catalog-dsn postgresql://postgres@localhost:5432/postgres \
-  --source-object-store file 
-  --source-data-dir ~/.influxdb_iox/object_store \
-  --sink-object-store file \
-  --sink-data-dir /tmp/iceberg \
-  --export-config-path config.json
-```
+`/tmp/iceberg/company_sensors/cpu/metadata/v1.metadata.json`
 
-The export command outputs an absolute path to an Iceberg metadata file:
-
-`/tmp/iceberg/company_sensors/cpu/metadata/v1.metadata.json
-`
+This metadata file is what you'll reference when creating your Iceberg table in Snowflake.
 
 ### Create an Iceberg table in Snowflake
 
