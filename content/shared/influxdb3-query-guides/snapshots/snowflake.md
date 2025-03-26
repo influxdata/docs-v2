@@ -70,15 +70,6 @@ For more information, refer to the [Snowflake documentation](https://docs.snowfl
 
 > **Note**: Before exporting InfluxDB time series data to Iceberg format, ensure that the relevant InfluxDB tables are properly set up. Please reach out to your support engineers to configure the tables that need to be exported.
 
-{{< tabs-wrapper >}}
-{{% tabs %}}
-[CLI](#tab-cli)
-[API](#tab-api)
-{{% /tabs %}}
-
-{{% tab-content %}}
-{{% tab-pane id="tab-cli" %}}
-
 #### Using the CLI
 
 Use the `influxctl` command to export InfluxDB time-series data to Iceberg format:
@@ -86,9 +77,6 @@ Use the `influxctl` command to export InfluxDB time-series data to Iceberg forma
 ```sh
 influxctl snapshot export --namespace foo --table bar
 ```
-
-{{% /tab-pane %}}
-{{% tab-pane id="tab-api" %}}
 
 #### Using the API
 
