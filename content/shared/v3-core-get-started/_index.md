@@ -156,15 +156,17 @@ The following examples show how to start InfluxDB 3 with different object store 
 ```bash
 # Memory object store
 # Stores data in RAM; doesn't persist data
-influxdb3 serve --node-id=host01 --object-store=memory
+influxdb3 serve \
+--node-id host01 \
+--object-store memory
 ```
 
 ```bash
 # Filesystem object store
 # Provide the filesystem directory
 influxdb3 serve \
-  --node-id=host01 \
-  --object-store=file \
+  --node-id host01 \
+  --object-store file \
   --data-dir ~/.influxdb3
 ```
 
@@ -196,11 +198,11 @@ docker run -it \
 # S3 object store (default is the us-east-1 region)
 # Specify the Object store type and associated options
 influxdb3 serve \
-  --node-id=host01 \
-  --object-store=s3 \
-  --bucket=BUCKET \
-  --aws-access-key=AWS_ACCESS_KEY \
-  --aws-secret-access-key=AWS_SECRET_ACCESS_KEY
+  --node-id host01 \
+  --object-store s3 \
+  --bucket BUCKET \
+  --aws-access-key AWS_ACCESS_KEY_ID \
+  --aws-secret-access-key AWS_SECRET_ACCESS_KEY
 ```
 
 ```bash
@@ -208,12 +210,12 @@ influxdb3 serve \
 # (using the AWS S3 API with additional parameters)
 # Specify the object store type and associated options
 influxdb3 serve \
-  --node-id=host01 \
-  --object-store=s3 \
-  --bucket=BUCKET \
-  --aws-access-key=AWS_ACCESS_KEY \
-  --aws-secret-access-key=AWS_SECRET_ACCESS_KEY \
-  --aws-endpoint=ENDPOINT \
+  --node-id host01 \
+  --object-store s3 \
+  --bucket BUCKET \
+  --aws-access-key-id AWS_ACCESS_KEY_ID \
+  --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
+  --aws-endpoint ENDPOINT \
   --aws-allow-http
 ```
 
@@ -314,7 +316,7 @@ cpu,host=Alpha,region=us-west,application=webserver val=6i,usage_percent=25.3,st
 If you save the preceding line protocol to a file (for example, `server_data`), then you can use the `influxdb3` CLI to write the data--for example:
 
 ```bash
-influxdb3 write --database=mydb --file=server_data
+influxdb3 write --database mydb --file server_data
 ```
 
 ##### Example: write data using the /api/v3 HTTP API
@@ -379,17 +381,7 @@ The response is the following:
 InfluxDB rejects all points in the batch.
 The response is an HTTP error (`400`) status, and the response body contains `parsing failed for write_lp endpoint` and details about the problem line.
 
-### Data flow
-
-The figure below shows how written data flows through the database.
-
-{{< img-hd src="/img/influxdb/influxdb-3-write-path.png" alt="Write Path for InfluxDB 3 Core & Enterprise" />}}
-
-1. **Incoming writes**: The system validates incoming data and stores it in the write buffer (in memory). If [`no_sync=true`](#no-sync-write-option), the server sends a response to acknowledge the write.
-2. **WAL flush**: Every second (default), the system flushes the write buffer to the Write-Ahead Log (WAL) for persistence in the Object store. If [`no_sync=false`](#no-sync-write-option) (default), the server sends a response to acknowledge the write.
-3. **Query availability**: After WAL persistence completes, data moves to the queryable buffer where it becomes available for queries. By default, the server keeps up to 900 WAL files (15 minutes of data) buffered.
-4. **Long-term storage in Parquet**: Every ten minutes (default), the system persists the oldest data from the queryable buffer to the Object store in Parquet format. InfluxDB keeps the remaining data (the most recent 5 minutes) in memory.
-5. **In-memory cache**: InfluxDB puts Parquet files into an in-memory cache so that queries against the most recently persisted data don't have to go to object storage.
+For more information about the ingest path and data flow, see [Data durability](/influxdb3/version/reference/internals/durability/).
 
 #### Write responses
 
@@ -420,7 +412,11 @@ curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=tr
 The `no_sync` CLI option controls when writes are acknowledged--for example:
 
 ```bash
-influxdb3 write --bucket=mydb --org=my_org --token=my-token --no-sync
+influxdb3 write \
+  --bucket mydb \
+  --org my_org \
+  --token my-token \
+  --no-sync
 ```
 
 ### Create a database or table
@@ -466,7 +462,7 @@ The `query` subcommand includes options to help ensure that the right database i
 #### Example: query `“SHOW TABLES”` on the `servers` database:
 
 ```console
-$ influxdb3 query --database=servers "SHOW TABLES"
+$ influxdb3 query --database servers "SHOW TABLES"
 +---------------+--------------------+--------------+------------+
 | table_catalog | table_schema       | table_name   | table_type |
 +---------------+--------------------+--------------+------------+
@@ -482,7 +478,7 @@ $ influxdb3 query --database=servers "SHOW TABLES"
 #### Example: query the `cpu` table, limiting to 10 rows:
 
 ```console
-$ influxdb3 query --database=servers "SELECT DISTINCT usage_percent, time FROM cpu LIMIT 10"
+$ influxdb3 query --database servers "SELECT DISTINCT usage_percent, time FROM cpu LIMIT 10"
 +---------------+---------------------+
 | usage_percent | time                |
 +---------------+---------------------+
@@ -506,7 +502,10 @@ $ influxdb3 query --database=servers "SELECT DISTINCT usage_percent, time FROM c
 To query using InfluxQL, enter the `influxdb3 query` subcommand and specify `influxql` in the language option--for example:
 
 ```bash
-influxdb3 query --database=servers --language=influxql "SELECT DISTINCT usage_percent FROM cpu WHERE time >= now() - 1d"
+influxdb3 query \
+  --database servers \
+  --language influxql \
+  "SELECT DISTINCT usage_percent FROM cpu WHERE time >= now() - 1d"
 ```
 
 ### Query using the API
@@ -617,11 +616,11 @@ The following command creates a last value cache named `cpuCache`:
 
 ```bash
 influxdb3 create last_cache \
-  --database=servers \
-  --table=cpu \
-  --key-columns=host,application \
-  --value-columns=usage_percent,status \
-  --count=5 cpuCache
+  --database servers \
+  --table cpu \
+  --key-columns host,application \
+  --value-columns usage_percent,status \
+  --count 5 cpuCache
 ```
 
 _You can create a last values cache per time series, but be mindful of high cardinality tables that could take excessive memory._
@@ -632,7 +631,7 @@ To use the LVC, call it using the `last_cache()` function in your query--for exa
 
 ```bash
 influxdb3 query \
-  --database=servers \
+  --database servers \
   "SELECT * FROM last_cache('cpu', 'cpuCache') WHERE host = 'Bravo';"
 ```
 
@@ -647,8 +646,8 @@ Use the `influxdb3` CLI to [delete a last values cache](/influxdb3/version/refer
 
 ```bash
 influxdb3 delete last_cache \
-  -d <DATABASE_NAME> \
-  -t <TABLE> \
+  --database <DATABASE_NAME> \
+  --table <TABLE> \
   --cache-name <CACHE_NAME>
 ```
 
@@ -660,8 +659,8 @@ You can use the `influxdb3` CLI to [create a distinct values cache](/influxdb3/v
 
 ```bash
 influxdb3 create distinct_cache \
-  -d <DATABASE_NAME> \
-  -t <TABLE> \
+  --database <DATABASE_NAME> \
+  --table <TABLE> \
   --columns <COLUMNS> \
   [CACHE_NAME]
 ```
@@ -680,9 +679,9 @@ The following command creates a distinct values cache named `cpuDistinctCache`:
 
 ```bash
 influxdb3 create distinct_cache \
-  --database=servers \
-  --table=cpu \
-  --columns=host,application \
+  --database servers \
+  --table cpu \
+  --columns host,application \
   cpuDistinctCache
 ```
 
@@ -692,16 +691,14 @@ To use the distinct values cache, call it using the `distinct_cache()` function 
 
 ```bash
 influxdb3 query \
-  --database=servers \
+  --database servers \
   "SELECT * FROM distinct_cache('cpu', 'cpuDistinctCache')"
 ```
 
 > [!Note]
 > #### Only works with SQL
 > 
-> The Distinct cache only works with SQL, not InfluxQL; SQL is the default language.
-
-
+> The distinct cache only works with SQL, not InfluxQL; SQL is the default language.
 
 #### Delete a distinct values cache
 
@@ -709,8 +706,8 @@ Use the `influxdb3` CLI to [delete a distinct values cache](/influxdb3/version/r
 
 ```bash
 influxdb3 delete distinct_cache \
-  -d <DATABASE_NAME> \
-  -t <TABLE> \
+  --database <DATABASE_NAME> \
+  --table <TABLE> \
   --cache-name <CACHE_NAME>
 ```
 
@@ -736,12 +733,12 @@ InfluxDB 3 provides the following types of triggers, each with specific trigger-
 
 - **On WAL flush**: Sends a batch of written data (for a specific table or all tables) to a plugin (by default, every second).
 - **On Schedule**: Executes a plugin on a user-configured schedule (using a crontab or a duration); useful for data collection and deadman monitoring.
-- **On Request**: Binds a plugin to a custom HTTP API endpoint at `/api/v3/engine/<ENDPOINT>`.
+- **On Request**: Binds a plugin to a custom HTTP API endpoint at `/api/v3/engine/<ENDPOINT_PATH>`.
   The plugin receives the HTTP request headers and content, and can then parse, process, and send the data into the database or to third-party services.
 
 ### Test, create, and trigger plugin code
 
-##### Example: Python plugin for WAL flush
+##### Example: Python plugin for WAL rows 
 
 ```python
 # This is the basic structure for Python plugin code that runs in the
@@ -827,7 +824,7 @@ To test a plugin, do the following:
 
 1. Create a _plugin directory_--for example, `/path/to/.influxdb/plugins`
 2. [Start the InfluxDB server](#start-influxdb) and include the `--plugin-dir <PATH>` option.
-3. Save the [preceding example code](#example-python-plugin) to a plugin file inside of the plugin directory. If you haven't yet written data to the table in the example, comment out the lines where it queries.
+3. Save the [example plugin code](#example-python-plugin-for-wal-flush) to a plugin file inside of the plugin directory. If you haven't yet written data to the table in the example, comment out the lines where it queries.
 4. To run the test, enter the following command with the following options:
 
    - `--lp` or  `--file`: The line protocol to test
@@ -863,9 +860,9 @@ trigger:
 #   - A Python plugin file named `test.py`
 # Test a plugin
 influxdb3 test wal_plugin \
-  --lp="my_measure,tag1=asdf f1=1.0 123" \
-  -d mydb \
-  --input-arguments="arg1=hello,arg2=world" \
+  --lp "my_measure,tag1=asdf f1=1.0 123" \
+  --database mydb \
+  --input-arguments "arg1=hello,arg2=world" \
   test.py
 ```
 
@@ -873,9 +870,9 @@ influxdb3 test wal_plugin \
 # Create a trigger that runs the plugin
 influxdb3 create trigger \
   -d mydb \
-  --plugin=test_plugin \
-  --trigger-spec="table:foo" \
-  --trigger-arguments="arg1=hello,arg2=world" \
+  --plugin test_plugin \
+  --trigger-spec "table:foo" \
+  --trigger-arguments "arg1=hello,arg2=world" \
   trigger1
 ```
 
@@ -885,3 +882,5 @@ enable the trigger and have it run the plugin as you write data:
 ```bash
 influxdb3 enable trigger --database mydb trigger1 
 ```
+
+For more information, see [Python plugins and the Processing engine](/influxdb3/version/plugins/).
