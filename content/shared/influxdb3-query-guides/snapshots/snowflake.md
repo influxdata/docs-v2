@@ -108,24 +108,6 @@ SELECT * FROM my_iceberg_table
 WHERE timestamp > '2025-01-01';
 ```
 
-## Interfaces for using Iceberg integration
-
-- [Use the CLI to trigger snapshot exports](#use-the-CLI-to-trigger-snapshot-exports)
-- [Use the API to manage and configure snapshots](#use-the-api-to-manage-and-configure-snapshots)
-- [Use SQL in Snowflake to query Iceberg tables](#use-sql-in-snowflake-to-query-iceberg-tables)
-
-### Use the CLI to trigger snapshot exports
-
-#### Example: Enable Iceberg feature and export a snapshot
-
-```sh
-# Enable Iceberg feature
-$ influxctl enable-iceberg
-
-# Export a snapshot
-$ influxctl export --namespace foo --table bar
-```
-
 ### Use the API to manage and configure snapshots
 
 Use the {{% product-name %}} HTTP API to export snapshots and check status.
