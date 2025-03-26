@@ -81,9 +81,11 @@ After configuring the export settings in the `config.json` file, the system auto
 
 ### Create an Iceberg table in Snowflake
 
-After exporting the data, create an Iceberg table in Snowflake.
+After the export process is complete, you'll work with your InfluxData support engineer to create an Iceberg table in Snowflake that references your exported data. Here's what happens during this step:
 
-#### Example: Create an Iceberg table in Snowflake
+1. Your support engineer will provide you with the location of the Iceberg metadata file generated during the export process.
+
+2. Using this information, you or your database administrator will execute a SQL command in Snowflake similar to:
 
 ```sql
 CREATE ICEBERG TABLE my_iceberg_table
@@ -91,7 +93,9 @@ CREATE ICEBERG TABLE my_iceberg_table
   METADATA_FILE_PATH = 's3://my-bucket/path/to/metadata.json';
 ```
 
-Ensure that `EXTERNAL_VOLUME` and `METADATA_FILE_PATH` point to your external storage and metadata file.
+3. Your support engineer will help ensure the EXTERNAL_VOLUME and METADATA_FILE_PATH parameters correctly point to your external storage and metadata file.
+
+This creates a table in Snowflake that reads directly from the Iceberg-formatted data exported from your InfluxDB instance.
 
 ### Query the Iceberg table from Snowflake
 
