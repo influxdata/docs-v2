@@ -38,7 +38,7 @@ Before you begin, ensure you have an [{{< product-name >}} account](/influxdb3/c
 
 ### Setup Snowflake and configure your cluster 
 
-Iceberg integration for {{% product-name %}} requires setup by the InfluxData team.
+The {{% product-name %}} Iceberg integration requires setup by the InfluxData team.
 After you have contacted sales and enabled Iceberg integration, you'll specify which
 tables you want to make available for exporting.
 InfluxData support engineers will help you with the integration steps, which include:
@@ -60,7 +60,7 @@ After the setup is complete, you can export data snapshots to Iceberg format and
 
 ## Export data to Iceberg format
 
-Use the `influxctl` CLI command or the HTTP API to export snapshots to Iceberg format.
+Use the `influxctl` CLI or the HTTP API to export snapshots to Iceberg format.
 
 > [!Important]
 > Before you can export data to Iceberg format, the InfluxData Support Team needs
