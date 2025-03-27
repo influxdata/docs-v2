@@ -17,7 +17,7 @@ The `--read-database` and `--write-database` flags support the `*` wildcard
 which grants read or write permissions to all databases. Enclose wildcards in
 single or double quotes--for example: `'*'` or `"*"`.
 
-The `--expires-at` flag specifies the data and time a token should expire.
+The `--expires-at` flag specifies the date and time a token should expire.
 Provide an [RFC3339 timestamp](/influxdb3/cloud-dedicated/reference/glossary/#rfc3339-timestamp).
 
 > [!Important]
