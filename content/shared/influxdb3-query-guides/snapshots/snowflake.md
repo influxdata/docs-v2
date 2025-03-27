@@ -10,7 +10,7 @@ Export time series data snapshots into Apache Iceberg format and query directly 
 > [!Note]
 > #### Contact sales to enable the InfluxDB Iceberg integration
 >  
-> Iceberg integration is a premium feature that requires setup by the InfluxData team.
+> The InfluxDB Iceberg integration is a premium feature.
 > [Contact InfluxData Sales](https://www.influxdata.com/contact-sales/) to enable this capability for your account.
 
 - [Prerequisite](#prerequisite)
