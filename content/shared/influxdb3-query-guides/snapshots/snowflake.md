@@ -8,7 +8,7 @@ Export time series data snapshots into Apache Iceberg format and query directly 
 - **Supports AI and ML workloads**: Enhance machine learning applications by making time-series data accessible in Snowflake.
 
 > [!Note]
-> #### Contact sales to enable Iceberg integration
+> #### Contact sales to enable the InfluxDB Iceberg integration
 >  
 > Iceberg integration is a premium feature that requires setup by the InfluxData team.
 > [Contact InfluxData Sales](https://www.influxdata.com/contact-sales/) to enable this capability for your account.
