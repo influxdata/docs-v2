@@ -109,23 +109,23 @@ The output is the token ID and the token string.
 <!------------------------------- BEGIN cURL ---------------------------------->
 _This example uses [cURL](https://curl.se/) to send a Management HTTP API request, but you can use any HTTP client._
 
-1. If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
-2. In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
+1.  If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
+2.  In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
-   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" method="post" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/CreateDatabaseToken" %}}
+    {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" method="post" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/CreateDatabaseToken" %}}
 
-   In the URL, provide the following credentials:
+    In the URL, provide the following credentials:
 
-   - `ACCOUNT_ID`: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
-   - `CLUSTER_ID`: The ID of the [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+    - `ACCOUNT_ID`: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+    - `CLUSTER_ID`: The ID of the [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
 
-   Provide the following request headers:
+    Provide the following request headers:
 
-   - `Accept: application/json` to ensure the response body is JSON content
-   - `Content-Type: application/json` to indicate the request body is JSON content
-   - `Authorization: Bearer` and a [Management API token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
+    - `Accept: application/json` to ensure the response body is JSON content
+    - `Content-Type: application/json` to indicate the request body is JSON content
+    - `Authorization: Bearer` and a [Management API token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
 
-   In the request body, provide the following parameters:
+    In the request body, provide the following parameters:
 
     - `permissions`: an array of token [permissions](/influxdb3/cloud-dedicated/api/management/#operation/CreateDatabaseToken) (read or write) objects:
       - `"action"`: Specify `read` or `write` permission to the database.
