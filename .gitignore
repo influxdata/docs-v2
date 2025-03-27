@@ -1,5 +1,6 @@
 .DS_Store
 *~
+external
 public
 .*.swp
 node_modules
@@ -16,3 +17,6 @@ node_modules
 **/config.toml
 package-lock.json
 tmp
+content/telegraf/v1/input-plugins
+content/telegraf/v1/output-plugins
+
