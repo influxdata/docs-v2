@@ -64,7 +64,7 @@ Use the `influxctl` CLI command or the HTTP API to export snapshots to Iceberg f
 
 > [!Important]
 > Before you can export data to Iceberg format, the InfluxData Support Team needs
-> to have set up your tables for exporting.
+> to set up your tables for exporting.
 > For more information, [contact the InfluxData Sales team]({{< cta-link >}}).
 
 {{< tabs-wrapper >}}
