@@ -35,6 +35,22 @@ influxdb3 serve \
   --object-store [OBJECT_STORE_TYPE] \
   --plugin-dir /path/to/plugins
 ```
+Replace `/path/to/plugins` with the directory where you want to store your Python plugin files. All plugin files must be located in this directory or its subdirectories.
+
+### Configure distributed environments
+
+If you're running multiple InfluxDB instances (distributed deployment):
+
+1. Decide where plugins should run
+- Data processing plugins run on ingestor nodes
+- HTTP-triggered plugins run on nodes handling API requests
+- Scheduled plugins can run on any configured node
+2. Enable plugins on selected instances
+3. Maintain identical plugin files across all instances where plugins run
+ - Use shared storage or file synchronization tools to keep plugins consistent
+
+> [Note] A single node can serve multiple roles (ingestor, querier, compactor), 
+> so configure the plugin directory based on where you want plugins to execute.
 
 ## Add a Processing engine plugin
 
@@ -630,3 +646,12 @@ docker exec -it CONTAINER_NAME influxdb3 install package pandas
 ```
 
 This creates a Python virtual environment in your plugins directory with the specified packages installed.
+
+### Connect Grafana to your InfluxDB instance
+
+When configuring Grafana to connect to InfluxDB 3 Enterprise:
+
+- **URL**: Use a querier URL or any node that serves queries
+- **Node roles**: In distributed deployments, a single node can serve multiple roles (ingest, queries, compaction)
+
+Example URL format: `https://querier.your-influxdb.com:8086`
