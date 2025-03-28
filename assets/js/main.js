@@ -49,7 +49,7 @@ import ThemeSwitch from './theme-switch.js';
 // import CustomTimestamps from './custom-timestamps.js';
 // import Diagram from './Diagram.js';
 // import FluxGroupKeysExample from './FluxGroupKeysExample.js';
-// import FluxInfluxDBVersionsModal from './flux-influxdb-versions.js';
+import FluxInfluxDBVersionsTrigger from './flux-influxdb-versions.js';
 // import PageFeedback from './page-feedback.js';
 // import SearchInput from './SearchInput.js';
 // import Sidebar from './Sidebar.js';
@@ -100,6 +100,10 @@ document.addEventListener('DOMContentLoaded', function () {
       case 'custom-time-trigger':
         CustomTimeTrigger({ component });
         window.influxdatadocs[componentName] = CustomTimeTrigger;
+        break;
+      case 'flux-influxdb-versions-trigger':
+        FluxInfluxDBVersionsTrigger({ component });
+        window.influxdatadocs[componentName] = FluxInfluxDBVersionsTrigger;
         break;
       case 'search-button':
         SearchButton({ component });
