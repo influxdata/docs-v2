@@ -10,7 +10,7 @@
     {{ $productName }} {{ .Page.Params.introduced }}{{ if .Page.Params.deprecated }}{{ print " – " .Page.Params.deprecated }}{{ else if .Page.Params.removed }}{{ print " – " .Page.Params.removed }}{{ else }}+{{ end }}
   </li>
   {{ if $inStdlib }}
-  <li class="flux-influxdb"><a onclick="openFluxVersionModal()">View InfluxDB support</a></li>
+  <li class="flux-influxdb" data-component="flux-influxdb-versions-trigger"><a data-action="open">View InfluxDB support</a></li>
   {{ end }}
 </ul>
 {{ end }}

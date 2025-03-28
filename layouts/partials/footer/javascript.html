@@ -7,10 +7,9 @@
 {{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
 {{ $dateTime := resources.Get "js/datetime.js" }}
 {{ $homepageInteractions := resources.Get "js/home-interactions.js" }}
-{{ $fluxInfluxDBVersions := resources.Get "/js/flux-influxdb-versions.js" }}
 {{ $codePlaceholders := resources.Get "/js/code-placeholders.js" }}
 {{ $releaseTOC := resources.Get "/js/release-toc.js" }}
-{{ $footerjs := slice $versionSelector $searchInteractions $listFilters $featureCallouts $keybindings $homepageInteractions $fluxInfluxDBVersions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $footerjs := slice $versionSelector $searchInteractions $listFilters $featureCallouts $keybindings $homepageInteractions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 {{ $fluxGroupKeyjs := $fluxGroupKeys | resources.Fingerprint }}
 {{ $dateTimejs := $dateTime | resources.Fingerprint }}
 {{ $codePlaceholdersjs := $codePlaceholders | resources.Fingerprint }}
