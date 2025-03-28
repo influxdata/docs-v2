@@ -40,6 +40,7 @@ Where /path/to/plugins is the directory containing your Python plugin files.
 ### Configure distributed environments
 
 If you're running multiple InfluxDB instances (distributed deployment):
+
 1. Decide where plugins should run
 - Data processing plugins run on ingestor nodes
 - HTTP-triggered plugins run on nodes handling API requests
