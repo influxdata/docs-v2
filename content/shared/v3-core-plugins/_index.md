@@ -30,7 +30,10 @@ Learn how to create, configure, run, and extend Python plugins that execute when
 To enable the Processing engine, start your InfluxDB server with the `--plugin-dir` option:
 
 ```bash
-influxd --plugin-dir /path/to/plugins
+influxdb3 serve \
+  --node-id node0 \
+  --object-store [OBJECT_STORE_TYPE] \
+  --plugin-dir /path/to/plugins
 ```
 Where /path/to/plugins is the directory containing your Python plugin files.
 
@@ -48,7 +51,7 @@ influxd --plugin-dir /path/to/plugins --ingest-only
 ```
 3. Maintain identical plugin files across all instances where plugins run
  - Use shared storage or file synchronization tools to keep plugins consistent
- 
+
 > [Note] A single node can serve multiple roles (ingestor, querier, compactor), 
 > so configure the plugin directory based on where you want plugins to execute.
 
