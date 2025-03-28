@@ -209,5 +209,4 @@ To learn more about the InfluxDB write protocol,
 check out the guide on [Writing Data](/influxdb/v1/guides/writing_data/).
 To further explore the query language,
 check out the guide on [Querying Data](/influxdb/v1/guides/querying_data/).
-For more information on InfluxDB concepts, check out the [Key Concepts]
-(/influxdb/v1/concepts/key_concepts/) page.
+For more information on InfluxDB concepts, check out the [Key Concepts](/influxdb/v1/concepts/key_concepts/) page.
