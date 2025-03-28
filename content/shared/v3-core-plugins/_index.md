@@ -36,6 +36,16 @@ influxdb3 serve \
   --plugin-dir /path/to/plugins
 ```
 
+### Set up the Processing engine in a distributed environment
+
+In a multi-instance InfluxDB 3 Enterprise deployment:
+
+- Configure the `--plugin-dir` option on **all ingestor nodes** where you want plugins to process incoming data
+- Querier nodes do not require the `--plugin-dir` option unless you're using HTTP-triggered plugins
+- Compactor nodes do not need the `--plugin-dir` option
+
+Each ingestor node should point to its own plugin directory that contains identical plugin files.
+
 ## Add a Processing engine plugin
 
 A plugin is a Python file that contains a specific function signature that corresponds to a trigger type.
