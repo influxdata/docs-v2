@@ -45,10 +45,6 @@ If you're running multiple InfluxDB instances (distributed deployment):
 - HTTP-triggered plugins run on nodes handling API requests
 - Scheduled plugins can run on any configured node
 2. Enable plugins on selected instances
-
-```bash
-influxd --plugin-dir /path/to/plugins --ingest-only
-```
 3. Maintain identical plugin files across all instances where plugins run
  - Use shared storage or file synchronization tools to keep plugins consistent
 
