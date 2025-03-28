@@ -38,19 +38,17 @@ Where /path/to/plugins is the directory containing your Python plugin files.
 
 If you're running multiple InfluxDB instances (distributed deployment):
 1. Decide where plugins should run
-    - Data processing plugins run on ingestor nodes
-    - HTTP-triggered plugins run on nodes handling API requests
-    - Scheduled plugins can run on any configured node
+- Data processing plugins run on ingestor nodes
+- HTTP-triggered plugins run on nodes handling API requests
+- Scheduled plugins can run on any configured node
 2. Enable plugins on selected instances
 
 ```bash
 influxd --plugin-dir /path/to/plugins --ingest-only
 ```
 3. Maintain identical plugin files across all instances where plugins run
-    - Use shared storage or file synchronization tools to keep plugins consistent
-    - All nodes must have the same plugin files with identical content
-
-
+ - Use shared storage or file synchronization tools to keep plugins consistent
+ 
 > [Note] A single node can serve multiple roles (ingestor, querier, compactor), 
 > so configure the plugin directory based on where you want plugins to execute.
 
