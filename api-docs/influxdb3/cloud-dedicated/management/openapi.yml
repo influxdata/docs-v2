@@ -7,10 +7,10 @@ info:
 
     This documentation is generated from the
     InfluxDB OpenAPI specification.
+  version: ''
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-  version: ''
   contact:
     name: InfluxData
     url: https://www.influxdata.com
@@ -942,6 +942,10 @@ paths:
                       $ref: '#/components/schemas/DatabaseTokenPermissions'
                     createdAt:
                       $ref: '#/components/schemas/DatabaseTokenCreatedAt'
+                    expiresAt:
+                      $ref: '#/components/schemas/DatabaseTokenExpiresAt'
+                    revokedAt:
+                      $ref: '#/components/schemas/DatabaseTokenRevokedAt'
                   required:
                     - accountId
                     - clusterId
@@ -1045,6 +1049,8 @@ paths:
                   $ref: '#/components/schemas/DatabaseTokenDescription'
                 permissions:
                   $ref: '#/components/schemas/DatabaseTokenPermissions'
+                expiresAt:
+                  $ref: '#/components/schemas/DatabaseTokenExpiresAt'
               required:
                 - description
             examples:
@@ -1094,6 +1100,10 @@ paths:
                     $ref: '#/components/schemas/DatabaseTokenCreatedAt'
                   accessToken:
                     $ref: '#/components/schemas/DatabaseTokenAccessToken'
+                  expiresAt:
+                    $ref: '#/components/schemas/DatabaseTokenExpiresAt'
+                  revokedAt:
+                    $ref: '#/components/schemas/DatabaseTokenRevokedAt'
                 required:
                   - accountId
                   - clusterId
@@ -1229,6 +1239,10 @@ paths:
                     $ref: '#/components/schemas/DatabaseTokenPermissions'
                   createdAt:
                     $ref: '#/components/schemas/DatabaseTokenCreatedAt'
+                  expiresAt:
+                    $ref: '#/components/schemas/DatabaseTokenExpiresAt'
+                  revokedAt:
+                    $ref: '#/components/schemas/DatabaseTokenRevokedAt'
                 required:
                   - accountId
                   - clusterId
@@ -1385,6 +1399,10 @@ paths:
                     $ref: '#/components/schemas/DatabaseTokenPermissions'
                   createdAt:
                     $ref: '#/components/schemas/DatabaseTokenCreatedAt'
+                  expiresAt:
+                    $ref: '#/components/schemas/DatabaseTokenExpiresAt'
+                  revokedAt:
+                    $ref: '#/components/schemas/DatabaseTokenRevokedAt'
                 required:
                   - accountId
                   - clusterId
@@ -1834,6 +1852,18 @@ components:
       examples:
         - '2023-12-21T17:32:28.000Z'
         - '2024-03-02T04:20:19.000Z'
+    DatabaseTokenExpiresAt:
+      description: |
+        The date and time that the database token expires, if applicable
+
+        Uses RFC3339 format
+      $ref: '#/components/schemas/DateTimeRfc3339'
+    DatabaseTokenRevokedAt:
+      description: |
+        The date and time that the database token was revoked, if applicable
+
+        Uses RFC3339 format
+      $ref: '#/components/schemas/DateTimeRfc3339'
     DatabaseTokenAccessToken:
       description: |
         The access token that can be used to authenticate query and write requests to the cluster
