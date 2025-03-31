@@ -31,7 +31,7 @@ tags:
   - name: Authentication
     x-traitTag: true
     description: |
-      The InfluxDB Management API endpoints require the following credentials:
+      With InfluxDB 3 Cloud Dedicated, the InfluxDB Management API endpoints require the following credentials:
 
       - `ACCOUNT_ID`: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to. To view account ID and cluster ID, [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
       - `CLUSTER_ID`: The ID of the [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage. To view account ID and cluster ID, [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
