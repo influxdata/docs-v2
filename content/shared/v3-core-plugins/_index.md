@@ -649,7 +649,7 @@ This creates a Python virtual environment in your plugins directory with the spe
 
 ### Connect Grafana to your InfluxDB instance
 
-When configuring Grafana to connect to InfluxDB 3 Enterprise:
+When configuring Grafana to connect to an InfluxDB 3 Enterprise instance:
 
 - **URL**: Use a querier URL or any node that serves queries
 - **Node roles**: In distributed deployments, a single node can serve multiple roles (ingest, queries, compaction)
