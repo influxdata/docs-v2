@@ -1,0 +1,15 @@
+  - name: {{ .Name }}
+    id: {{ .ID }}
+    description: |
+{{ .Description }}
+    introduced: {{ .Introduced }}
+{{- with .Deprecated }}
+    deprecated: {{ . }}
+{{- end }}
+{{- with .Removal }}
+    removal: {{ . }}
+{{- end }}
+{{ with .OS }}
+    os_support: {{ . }}
+{{- end }}
+    tags: [{{ .Tags | join ", " }}]
