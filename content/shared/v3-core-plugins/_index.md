@@ -35,6 +35,7 @@ influxdb3 serve \
   --object-store [OBJECT_STORE_TYPE] \
   --plugin-dir /path/to/plugins
 ```
+
 Replace `/path/to/plugins` with the directory where you want to store your Python plugin files. All plugin files must be located in this directory or its subdirectories.
 
 ### Configure distributed environments
