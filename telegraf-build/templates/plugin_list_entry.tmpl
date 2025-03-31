@@ -9,4 +9,7 @@
 {{- with .Removal }}
     removal: {{ . }}
 {{- end }}
+{{ with .OS }}
+    os_support: {{ . }}
+{{- end }}
     tags: [{{ .Tags | join ", " }}]

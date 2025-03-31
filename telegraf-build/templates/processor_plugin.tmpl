@@ -5,9 +5,14 @@ menu:
     parent: processor_plugins_reference
     name: {{.Name}}
     identifier: processor-{{.ID}}
-tags: [{{.Name}}, "processor-plugins", "configuration"]
+tags: [{{.Name}}, "processor-plugins", "configuration"{{range .Tags}}, "{{.}}"{{end}}]
+{{if .Introduced}}introduced: "{{.Introduced}}"{{end}}
+{{if .Deprecated}}deprecated: "{{.Deprecated}}"{{end}}
+{{if .Removal}}removal: "{{.Removal}}"{{end}}
+{{if .OS}}os_support: "{{.OS}}"{{end}}
 related:
   - /telegraf/v1/configure_plugins/
+  - {{.URL}}, {{.Name}} Plugin Source
 ---
 
 {{.Readme}}

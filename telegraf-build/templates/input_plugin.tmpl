@@ -5,9 +5,14 @@ menu:
     parent: input_plugins_reference
     name: {{.Name}}
     identifier: input-{{.ID}}
-tags: [{{.Name}}, "input-plugins", "configuration"]
+tags: [{{.Name}}, "input-plugins", "configuration"{{range .Tags}}, "{{.}}"{{end}}]
+{{if .Introduced}}introduced: "{{.Introduced}}"{{end}}
+{{if .Deprecated}}deprecated: "{{.Deprecated}}"{{end}}
+{{if .Removal}}removal: "{{.Removal}}"{{end}}
+{{if .OS}}os_support: "{{.OS}}"{{end}}
 related:
   - /telegraf/v1/configure_plugins/
+  - {{.URL}}, {{.Name}} Plugin Source
 ---
 
 {{.Readme}}

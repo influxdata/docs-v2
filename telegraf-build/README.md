@@ -68,14 +68,32 @@ To test manually run the build process on your local system
 4. To generate the documentation, run the `telegraf-internal/telegraf_release/bin/docs` binary and include the Telegraf release tag to build--for example:
 
   ```bash
-  # From ~/Documents/github
-  telegraf-internal/telegraf_release/bin/docs v1.33.0
+  # Change to `telegraf-build` in your local docs-v2 repo.
+  cd ~/Documents/github/docs-v2/telegraf-build
+   # Run the `docs` binary to generate the documentation.
+  ~/Documents/github/telegraf-internal/telegraf_release/bin/docs v1.33.0
   ```
 
-  Currently, the binary uses the templates in `telegraf-internal/telegraf_release/docs/templates/`, however we expect to permanently move them to `docs-v2/telegraf-build/templates` soon.
+  You can skip steps for local testing:
+
+  ```bash
+   ~/Documents/github/telegraf-internal/telegraf_release/bin/docs -skip changelog,pull-request v1.33.0
+   ```
+
+  The binary looks for `.tmpl` template files in `./templates` `telegraf-internal/telegraf_release/docs/templates/`, however we expect to permanently move them to `docs-v2/telegraf-build/templates` soon.
 
   The `docs` binary:
     a. Clones the `docs-v2` repo and the `telegraf` repo and checks out the specified Telegraf release tag.
     b. Commits the changes to the local `docs-v2` repo and creates a PR for the changes.
 
-5. To test the templates and preview the changes on your local machine, review the generated files in the newly cloned `docs-v2/content/telegraf` or copy them into your existing local `docs-v2` repo (but, _don't_ commit them to version control).
+5. To test the templates and preview the changes on your local machine, change to `telegraf-build/repos/docs-v2`, install dependencies, and start Hugo:
+
+   ```bash
+   cd ~/Documents/github/docs-v2/telegraf-build/repos/docs-v2
+   # Install dependencies
+   yarn install
+   # Start Hugo server
+   npx hugo serve
+   ```
+
+   Alternatively, copy the generated files your existing local `docs-v2` repo (but, _don't_ commit them to version control).
