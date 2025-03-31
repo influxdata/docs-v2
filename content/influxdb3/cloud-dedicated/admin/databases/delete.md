@@ -29,17 +29,14 @@ related:
 ---
 
 Use the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/)
-or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/) to create a database in your {{< product-name omit=" Clustered" >}} cluster.
+or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
+to delete a database from your {{< product-name omit=" Clustered" >}} cluster.
 
 > [!Warning]
 > 
 > #### Deleting a database cannot be undone
 > 
 > Once a database is deleted, data stored in that database cannot be recovered.
-> 
-> #### Cannot reuse database names
-> 
-> After a database is deleted, you cannot reuse the same name for a new database.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -50,13 +47,15 @@ or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/) to crea
 
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->
 
-1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
+1.  If you haven't already,
+    [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) 
+    for your cluster.
 
-2. In your terminal, run the `influxctl database delete` command and provide the following:
+2.  In your terminal, run the `influxctl database delete` command and provide the following:
 
-    - Name of the database to delete
+    - The name of the database to delete
 
-3. Confirm that you want to delete the database.
+3.  Confirm that you want to delete the database.
 
 {{% code-placeholders "DATABASE_NAME" %}}
 
@@ -73,23 +72,26 @@ influxctl database delete DATABASE_NAME
 
 _This example uses [cURL](https://curl.se/) to send a Management HTTP API request, but you can use any HTTP client._
 
-1. If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
-2. In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
+1.  If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
+2.  In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
-   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/DATABASE_NAME" method="delete" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/DeleteClusterDatabase" %}}
+    {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/DATABASE_NAME" method="delete" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/DeleteClusterDatabase" %}}
 
-   In the URL, provide the following:
+    In the URL, provide the following:
 
-   - `ACCOUNT_ID`: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
-   - `CLUSTER_ID`: The ID of the [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
-   - `DATABASE_NAME`: The name of the [database](/influxdb3/cloud-dedicated/admin/databases/) that you want to delete _(see how to [list databases](/influxdb3/cloud-dedicated/admin/databases/list/))_.
+    - `ACCOUNT_ID`: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) 
+      that the cluster belongs to _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+    - `CLUSTER_ID`: The ID of the [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) 
+      that you want to manage _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+    - `DATABASE_NAME`: The name of the [database](/influxdb3/cloud-dedicated/admin/databases/)
+      that you want to delete _(see how to [list databases](/influxdb3/cloud-dedicated/admin/databases/list/))_.
 
-   Provide the following request headers:
+    Provide the following request headers:
 
-   - `Accept: application/json` to ensure the response body is JSON content
-   - `Authorization: Bearer` and a [Management API token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
+    - `Accept: application/json` to ensure the response body is JSON content
+    - `Authorization: Bearer` and a [Management API token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
 
-   Specify the `DELETE` request method.
+    Specify the `DELETE` request method.
 
 The following example shows how to use the Management API to delete a database:
 

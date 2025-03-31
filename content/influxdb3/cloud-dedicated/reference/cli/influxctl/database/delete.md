@@ -9,8 +9,8 @@ menu:
 weight: 301
 ---
 
-The `influxctl database delete` command deletes a database from an InfluxDB
-Cloud Dedicated cluster.
+The `influxctl database delete` command deletes a database from an 
+{{< product-name omit=" Clustered" >}} cluster.
 
 ## Usage
 
@@ -25,11 +25,6 @@ influxctl database delete [command options] [--force] <DATABASE_NAME> [<DATABASE
 > #### Cannot be undone
 > 
 > Deleting a database is a destructive action that cannot be undone.
-> 
-> #### Cannot reuse deleted database names
-> 
-> After deleting a database, you cannot reuse the name of the deleted database
-> when creating a new database.
 
 ## Arguments
 
