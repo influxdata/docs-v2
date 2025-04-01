@@ -28,18 +28,18 @@ InfluxDB {{< current-version >}} supports deleting data by the following:
 - time range
 - measurement (`_measurement`)
 - tag
-- {{% cloud-only %}}field (`_field`){{% /cloud-only %}}
+- {{% show-in "cloud,cloud-serverless" %}}field (`_field`){{% /show-in %}}
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 {{% warn %}}
 #### Cannot delete data by field
 InfluxDB {{< current-version >}} does not support deleting data **by field**.
 {{% /warn %}}
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 In InfluxDB Cloud, writes and deletes are asynchronous and eventually consistent.
 Once InfluxDB validates your request and queues the delete,
@@ -48,14 +48,14 @@ To ensure that InfluxDB handles writes and deletes in the order you request them
 Once InfluxDB executes a queued delete, the deleted data is no longer queryable,
 but will remain on disk until the compaction service runs.
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 Once a delete request completes successfully, the deleted data is no longer queryable,
 but will remain on disk until the compaction service runs.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ## Delete data using the influx CLI
 
@@ -80,7 +80,7 @@ deletes all data in the specified bucket with timestamps between the specified `
 
 - [Delete points in a specific measurement with a specific tag value](#delete-points-in-a-specific-measurement-with-a-specific-tag-value)
 - [Delete all points in a specified time range](#delete-all-points-in-a-specified-time-range)
-- {{% cloud-only %}}[Delete points for a specific field in a specified time range](#delete-points-for-a-specific-field-in-a-specified-time-range){{% /cloud-only %}}
+- {{% show-in "cloud,cloud-serverless" %}}[Delete points for a specific field in a specified time range](#delete-points-for-a-specific-field-in-a-specified-time-range){{% /show-in %}}
 
 ##### Delete points in a specific measurement with a specific tag value
 ```sh
@@ -97,7 +97,7 @@ influx delete --bucket example-bucket \
   --stop 2020-11-14T00:00:00Z
 ```
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ##### Delete points for a specific field in a specified time range
 ```sh
@@ -107,7 +107,7 @@ influx delete --bucket example-bucket \
   --predicate '_field="example-field"'
 ```
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Delete data using the API
 Use the InfluxDB API [`/api/v2/delete` endpoint](/influxdb/v2/api/#operation/PostDelete)
@@ -139,7 +139,7 @@ deletes all data in the specified bucket with timestamps between the specified `
 
 - [Delete points in a specific measurement with a specific tag value](#delete-points-in-a-specific-measurement-with-a-specific-tag-value-1)
 - [Delete all points in a specified time range](#delete-all-points-in-a-specified-time-range-1)
-- {{% cloud-only %}}[Delete points for a specific field in a specified time range](#delete-points-for-a-specific-field-in-a-specified-time-range-1){{% /cloud-only %}}
+- {{% show-in "cloud,cloud-serverless" %}}[Delete points for a specific field in a specified time range](#delete-points-for-a-specific-field-in-a-specified-time-range-1){{% /show-in %}}
 
 ##### Delete points in a specific measurement with a specific tag value
 ```sh
@@ -164,7 +164,7 @@ curl --request POST http://localhost:8086/api/v2/delete?org=example-org&bucket=e
   }'
 ```
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ##### Delete points for a specific field in a specified time range
 ```sh
@@ -178,7 +178,7 @@ curl --request POST http://localhost:8086/api/v2/delete?org=example-org&bucket=e
   }'
 ```
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 _For more information, see the [`/api/v2/delete` endpoint documentation](/influxdb/v2/api/#operation/PostDelete)._
 

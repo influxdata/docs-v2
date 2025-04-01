@@ -9,7 +9,7 @@ menu:
     parent: write-best-practices
 ---
 
-If reads and writes to InfluxDB have started to slow down, high [series cardinality](/influxdb/v2/reference/glossary/#series-cardinality) (too many series) may be causing memory issues. {{% cloud-only %}}Cardinality can also cause writes to fail if it exceeds your [plan’s adjustable service quota](/influxdb/cloud/account-management/limits/).{{% /cloud-only %}}
+If reads and writes to InfluxDB have started to slow down, high [series cardinality](/influxdb/v2/reference/glossary/#series-cardinality) (too many series) may be causing memory issues. {{% show-in "cloud,cloud-serverless" %}}Cardinality can also cause writes to fail if it exceeds your [plan’s adjustable service quota](/influxdb/cloud/account-management/limits/).{{% /show-in %}}
 
 Take steps to understand and resolve high series cardinality.
 
@@ -19,21 +19,21 @@ Take steps to understand and resolve high series cardinality.
 
 ## Learn the causes of high series cardinality
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
   InfluxDB indexes the following data elements to speed up reads:
   - [measurement](/influxdb/v2/reference/glossary/#measurement)
   - [tags](/influxdb/v2/reference/glossary/#tag)
 
-{{% /oss-only %}}
-{{% cloud-only %}}
+{{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
   InfluxDB indexes the following data elements to speed up reads:
   - [measurement](/influxdb/v2/reference/glossary/#measurement)
   - [tags](/influxdb/v2/reference/glossary/#tag)
   - [field keys](/influxdb/cloud/reference/glossary/#field-key)
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 Each unique set of indexed data elements forms a [series key](/influxdb/v2/reference/glossary/#series-key).
 [Tags](/influxdb/v2/reference/glossary/#tag) containing highly variable information like unique IDs, hashes, and random strings lead to a large number of [series](/influxdb/v2/reference/glossary/#series), also known as high [series cardinality](/influxdb/v2/reference/glossary/#series-cardinality).

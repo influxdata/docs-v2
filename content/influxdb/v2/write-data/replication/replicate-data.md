@@ -22,9 +22,9 @@ Replicate data from InfluxDB OSS to InfluxDB Cloud, InfluxDB OSS, or InfluxDB En
 
 - [Configure a replication stream](#configure-a-replication-stream)
 - [Replicate downsampled or processed data](#replicate-downsampled-or-processed-data)
-{{% oss-only %}}
+{{% show-in "v2" %}}
 - [View replication service metrics](#view-influxdb-oss-replication-service-metrics)
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ## Configure a replication stream
 
@@ -46,18 +46,18 @@ remote connection values accordingly.
 
 <!--------------------------------- BEGIN CLI --------------------------------->
 
-1. In your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS instance, use
+1. In your {{% show-in "v2" %}}local{{% /show-in %}} InfluxDB OSS instance, use
     the `influx remote create` command to create a remote connection to replicate data to.
 
     **Provide the following:**   
 
     - Remote connection name    
-    - {{% oss-only %}}Remote InfluxDB instance URL{{% /oss-only %}}
-    - {{% oss-only %}}Remote InfluxDB API token _(API token must have write access to the target bucket)_{{% /oss-only %}}
-    - {{% oss-only %}}Remote InfluxDB organization ID{{% /oss-only %}}
-    - {{% cloud-only %}}[InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /cloud-only %}}
-    - {{% cloud-only %}}InfluxDB Cloud API token _(API token must have write access to the target bucket)_{{% /cloud-only %}}
-    - {{% cloud-only %}}InfluxDB Cloud organization ID{{% /cloud-only %}}
+    - {{% show-in "v2" %}}Remote InfluxDB instance URL{{% /show-in %}}
+    - {{% show-in "v2" %}}Remote InfluxDB API token _(API token must have write access to the target bucket)_{{% /show-in %}}
+    - {{% show-in "v2" %}}Remote InfluxDB organization ID{{% /show-in %}}
+    - {{% show-in "cloud,cloud-serverless" %}}[InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /show-in %}}
+    - {{% show-in "cloud,cloud-serverless" %}}InfluxDB Cloud API token _(API token must have write access to the target bucket)_{{% /show-in %}}
+    - {{% show-in "cloud,cloud-serverless" %}}InfluxDB Cloud organization ID{{% /show-in %}}
 
     ```sh
     influx remote create \
@@ -69,18 +69,18 @@ remote connection values accordingly.
 
     If you already have remote InfluxDB connections configured, you can use an existing connection. To view existing connections, run `influx remote list`.
 
-2. In your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS instance, use the
+2. In your {{% show-in "v2" %}}local{{% /show-in %}} InfluxDB OSS instance, use the
     `influx replication create` command to create a replication stream.
     
     **Provide the following:**    
 
     - Replication stream name
-    - {{% oss-only %}}Remote connection ID{{% /oss-only %}}
-    - {{% oss-only %}}Local bucket ID to replicate writes from{{% /oss-only %}}
-    - {{% oss-only %}}Remote bucket name or ID to replicate writes to. If replicating to **InfluxDB Enterprise**, use the `db-name/rp-name` bucket name syntax.{{% /oss-only %}}
-    - {{% cloud-only %}}Remote connection ID{{% /cloud-only %}}
-    - {{% cloud-only %}}InfluxDB OSS bucket ID to replicate writes from{{% /cloud-only %}}
-    - {{% cloud-only %}}InfluxDB Cloud bucket ID to replicate writes to{{% /cloud-only %}}
+    - {{% show-in "v2" %}}Remote connection ID{{% /show-in %}}
+    - {{% show-in "v2" %}}Local bucket ID to replicate writes from{{% /show-in %}}
+    - {{% show-in "v2" %}}Remote bucket name or ID to replicate writes to. If replicating to **InfluxDB Enterprise**, use the `db-name/rp-name` bucket name syntax.{{% /show-in %}}
+    - {{% show-in "cloud,cloud-serverless" %}}Remote connection ID{{% /show-in %}}
+    - {{% show-in "cloud,cloud-serverless" %}}InfluxDB OSS bucket ID to replicate writes from{{% /show-in %}}
+    - {{% show-in "cloud,cloud-serverless" %}}InfluxDB Cloud bucket ID to replicate writes to{{% /show-in %}}
 
 
     ```sh
@@ -91,9 +91,9 @@ remote connection values accordingly.
       --remote-bucket REMOTE_INFLUX_BUCKET_NAME
     ```
 
-Once a replication stream is created, InfluxDB {{% oss-only %}}OSS{{% /oss-only %}}
-will replicate all writes to the specified bucket to the {{% oss-only %}}remote {{% /oss-only %}}
-InfluxDB {{% cloud-only %}}Cloud {{% /cloud-only %}}bucket.
+Once a replication stream is created, InfluxDB {{% show-in "v2" %}}OSS{{% /show-in %}}
+will replicate all writes to the specified bucket to the {{% show-in "v2" %}}remote {{% /show-in %}}
+InfluxDB {{% show-in "cloud,cloud-serverless" %}}Cloud {{% /show-in %}}bucket.
 Use the `influx replication list` command to view information such as the current queue size,
 max queue size, and latest status code.
 
@@ -104,7 +104,7 @@ max queue size, and latest status code.
 
 <!--------------------------------- BEGIN API --------------------------------->
 
-1.  Send a `POST` request to your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS  `/api/v2/remotes` endpoint to create a remote connection to replicate data to.
+1.  Send a `POST` request to your {{% show-in "v2" %}}local{{% /show-in %}} InfluxDB OSS  `/api/v2/remotes` endpoint to create a remote connection to replicate data to.
 
     {{< keep-url >}}
     {{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="POST" api-ref="/influxdb/v2/api/#operation/PostRemoteConnection" >}}
@@ -113,20 +113,20 @@ max queue size, and latest status code.
 
     - **Request method:** `POST`
     - **Headers:**
-      - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2/admin/tokens/)
+      - **Authorization:** `Token` scheme with your {{% show-in "v2" %}}local{{% /show-in %}} InfluxDB OSS [API token](/influxdb/v2/admin/tokens/)
       - **Content-type:** `application/json`
     - **Request body:** JSON object with the following fields:  
       {{< req type="key" >}}
       - {{< req "\*" >}} **allowInsecureTLS:** All insecure TLS connections
       - **description:** Remote description
       - {{< req "\*" >}} **name:** Remote connection name
-      - {{< req "\*" >}} **orgID:** {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS organization ID
-      - {{% oss-only %}}{{< req "\*" >}} **remoteAPIToken:** Remote InfluxDB API token _(API token must have write access to the target bucket)_{{% /oss-only %}}
-      - {{% oss-only %}}{{< req "\*" >}} **remoteOrgID:** Remote InfluxDB organization ID{{% /oss-only %}}
-      - {{% oss-only %}}{{< req "\*" >}} **remoteURL:** Remote InfluxDB instance URL{{% /oss-only %}}
-      - {{% cloud-only %}}{{< req "\*" >}} **remoteAPIToken:** InfluxDB Cloud API token _(API token must have write access to the target bucket)_{{% /cloud-only %}}
-      - {{% cloud-only %}}{{< req "\*" >}} **remoteOrgID:** InfluxDB Cloud organization ID{{% /cloud-only %}}
-      - {{% cloud-only %}}{{< req "\*" >}} **remoteURL:** [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /cloud-only %}}
+      - {{< req "\*" >}} **orgID:** {{% show-in "v2" %}}local{{% /show-in %}} InfluxDB OSS organization ID
+      - {{% show-in "v2" %}}{{< req "\*" >}} **remoteAPIToken:** Remote InfluxDB API token _(API token must have write access to the target bucket)_{{% /show-in %}}
+      - {{% show-in "v2" %}}{{< req "\*" >}} **remoteOrgID:** Remote InfluxDB organization ID{{% /show-in %}}
+      - {{% show-in "v2" %}}{{< req "\*" >}} **remoteURL:** Remote InfluxDB instance URL{{% /show-in %}}
+      - {{% show-in "cloud,cloud-serverless" %}}{{< req "\*" >}} **remoteAPIToken:** InfluxDB Cloud API token _(API token must have write access to the target bucket)_{{% /show-in %}}
+      - {{% show-in "cloud,cloud-serverless" %}}{{< req "\*" >}} **remoteOrgID:** InfluxDB Cloud organization ID{{% /show-in %}}
+      - {{% show-in "cloud,cloud-serverless" %}}{{< req "\*" >}} **remoteURL:** [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /show-in %}}
 
     {{< keep-url >}}
     ```sh
@@ -154,9 +154,9 @@ max queue size, and latest status code.
 
     - **Request method:** `GET`
     - **Headers:**
-      - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2/admin/tokens/)
+      - **Authorization:** `Token` scheme with your {{% show-in "v2" %}}local{{% /show-in %}} InfluxDB OSS [API token](/influxdb/v2/admin/tokens/)
     - **Query parameters:**
-      - **orgID:** {{% oss-only %}}Local{{% /oss-only %}} InfluxDB OSS organization ID
+      - **orgID:** {{% show-in "v2" %}}Local{{% /show-in %}} InfluxDB OSS organization ID
 
     {{< keep-url >}}
     ```sh
@@ -165,7 +165,7 @@ max queue size, and latest status code.
       --header 'Authorization: Token INFLUX_OSS_TOKEN' \
     ```
 
-2.  Send a `POST` request to your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS 
+2.  Send a `POST` request to your {{% show-in "v2" %}}local{{% /show-in %}} InfluxDB OSS 
     `/api/v2/replications` endpoint to create a replication stream.
 
     {{< keep-url >}}
@@ -175,25 +175,25 @@ max queue size, and latest status code.
 
     - **Request method:** `POST`
     - **Headers:**
-      - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2/admin/tokens/)
+      - **Authorization:** `Token` scheme with your {{% show-in "v2" %}}local{{% /show-in %}} InfluxDB OSS [API token](/influxdb/v2/admin/tokens/)
       - **Content-type:** `application/json`
     - **Request body:** JSON object with the following fields:
       {{< req type="key" >}}
       - **dropNonRetryableData:** Drop data when a non-retryable error is encountered.
-      - {{< req "\*" >}} **localBucketID:** {{% oss-only %}}Local{{% /oss-only %}} InfluxDB OSS bucket ID to replicate writes from.
+      - {{< req "\*" >}} **localBucketID:** {{% show-in "v2" %}}Local{{% /show-in %}} InfluxDB OSS bucket ID to replicate writes from.
       - {{< req "\*" >}} **maxAgeSeconds:** Maximum age of data in seconds before it is dropped (default is `604800`, must be greater than or equal to `0`).
       - {{< req "\*" >}} **maxQueueSizeBytes:** Maximum replication queue size in bytes (default is `67108860`, must be greater than or equal to `33554430`).
       - {{< req "\*" >}} **name:** Replication stream name.
-      - {{< req "\*" >}} **orgID:** {{% oss-only %}}Local{{% /oss-only %}} InfluxDB OSS organization ID.
-      - {{% oss-only %}}{{< req "\*" >}} **remoteBucketID:** Remote bucket ID to replicate writes to.{{% /oss-only %}}
-      - {{% oss-only %}}{{< req "\*" >}} **remoteBucketName:** Remote bucket name to replicate writes to. If replicating to **InfluxDB Enterprise**, use the `db-name/rp-name` bucket name syntax.{{% / oss-only %}}
-      - {{% cloud-only %}}{{< req "\*" >}} **remoteBucketID:** InfluxDB Cloud bucket ID to replicate writes to.{{% /cloud-only %}}
-      - {{% cloud-only %}}{{< req "\*" >}} **remoteBucketName:** InfluxDB Cloud bucket name to replicate writes to.{{% / cloud-only %}}
+      - {{< req "\*" >}} **orgID:** {{% show-in "v2" %}}Local{{% /show-in %}} InfluxDB OSS organization ID.
+      - {{% show-in "v2" %}}{{< req "\*" >}} **remoteBucketID:** Remote bucket ID to replicate writes to.{{% /show-in %}}
+      - {{% show-in "v2" %}}{{< req "\*" >}} **remoteBucketName:** Remote bucket name to replicate writes to. If replicating to **InfluxDB Enterprise**, use the `db-name/rp-name` bucket name syntax.{{% /show-in %}}
+      - {{% show-in "cloud,cloud-serverless" %}}{{< req "\*" >}} **remoteBucketID:** InfluxDB Cloud bucket ID to replicate writes to.{{% /show-in %}}
+      - {{% show-in "cloud,cloud-serverless" %}}{{< req "\*" >}} **remoteBucketName:** InfluxDB Cloud bucket name to replicate writes to.{{% /show-in %}}
       - {{< req "\*" >}} **remoteID:** Remote connection ID
 
     {{% note %}}
 `remoteBucketID` and `remoteBucketName` are mutually exclusive.
-{{% oss-only %}}If replicating to **InfluxDB Enterprise**, use `remoteBucketName` with the `db-name/rp-name` bucket name syntax.{{% /oss-only %}}
+{{% show-in "v2" %}}If replicating to **InfluxDB Enterprise**, use `remoteBucketName` with the `db-name/rp-name` bucket name syntax.{{% /show-in %}}
     {{% /note %}}
 
 {{< keep-url >}}
@@ -212,12 +212,12 @@ curl --request POST http://localhost:8086/api/v2/replications \
   }'
 ```
 
-Once a replication stream is created, InfluxDB {{% oss-only %}}OSS{{% /oss-only %}}
-will replicate all writes from the specified local bucket to the {{% oss-only %}}remote {{% /oss-only %}}
-InfluxDB {{% cloud-only %}}Cloud {{% /cloud-only %}}bucket.
+Once a replication stream is created, InfluxDB {{% show-in "v2" %}}OSS{{% /show-in %}}
+will replicate all writes from the specified local bucket to the {{% show-in "v2" %}}remote {{% /show-in %}}
+InfluxDB {{% show-in "cloud,cloud-serverless" %}}Cloud {{% /show-in %}}bucket.
 To get
 information such as the current queue size, max queue size, and latest status
-code for each replication stream, send a `GET` request to your {{% oss-only %}}local{{% /oss-only %}} InfluxDB  OSS `/api/v2/replications` endpoint.
+code for each replication stream, send a `GET` request to your {{% show-in "v2" %}}local{{% /show-in %}} InfluxDB  OSS `/api/v2/replications` endpoint.
 
 {{< keep-url >}}
 {{< api-endpoint endpoint="localhost:8086/api/v2/replications" method="GET" api-ref="/influxdb/v2/api/#operation/GetReplications" >}}
@@ -226,9 +226,9 @@ Include the following in your request:
 
 - **Request method:** `GET`
 - **Headers:**
-  - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2/admin/tokens/)
+  - **Authorization:** `Token` scheme with your {{% show-in "v2" %}}local{{% /show-in %}} InfluxDB OSS [API token](/influxdb/v2/admin/tokens/)
 - **Query parameters:**
-  - **orgID:** {{% oss-only %}}Local{{% /oss-only %}} InfluxDB OSS organization ID
+  - **orgID:** {{% show-in "v2" %}}Local{{% /show-in %}} InfluxDB OSS organization ID
 
 {{< keep-url >}}
 ```sh
@@ -253,7 +253,7 @@ curl --request GET \
 {{% /note %}}
 
 ## Replicate downsampled or processed data
-In some cases, you may not want to write raw, high-precision data to a remote InfluxDB {{% cloud-only %}}Cloud {{% /cloud-only %}} instance. To replicate only downsampled or processed data:
+In some cases, you may not want to write raw, high-precision data to a remote InfluxDB {{% show-in "cloud,cloud-serverless" %}}Cloud {{% /show-in %}} instance. To replicate only downsampled or processed data:
 
 1. Create a bucket in your InfluxDB OSS instance to store downsampled or processed data in.
 2. Create an InfluxDB task that downsamples or processes data and stores it in the new bucket. For example:
@@ -280,7 +280,7 @@ In some cases, you may not want to write raw, high-precision data to a remote In
         |> to(bucket: "example-downsampled-bucket")
     ```
 
-3. [Create a replication stream](#configure-a-replication-stream) to replicate data from the downsampled bucket to the remote InfluxDB {{% cloud-only %}}Cloud {{% /cloud-only %}}instance.
+3. [Create a replication stream](#configure-a-replication-stream) to replicate data from the downsampled bucket to the remote InfluxDB {{% show-in "cloud,cloud-serverless" %}}Cloud {{% /show-in %}}instance.
 
 ## View InfluxDB OSS replication service metrics
 

@@ -10,9 +10,9 @@ weight: 9
 
 ##### Account management {href="account-management-1"}
 - [How do I reset my password?](#how-do-i-reset-my-password)
-- {{% cloud-only %}}[How do I switch between InfluxDB Cloud accounts?](#how-do-i-switch-between-influxdb-cloud-accounts){{% /cloud-only %}}
+- {{% show-in "cloud,cloud-serverless" %}}[How do I switch between InfluxDB Cloud accounts?](#how-do-i-switch-between-influxdb-cloud-accounts){{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ##### Billing and usage {href="billing-and-usage-1"}
 - [How do I manage payment methods?](#how-do-i-manage-payment-methods)
@@ -20,39 +20,39 @@ weight: 9
 - [How do I view data my data usage?](#how-do-i-view-data-my-data-usage)
 - [How do I increase my organization's rate limits and quotas?](#how-do-i-increase-my-organizations-rate-limits-and-quotas)
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ##### InfluxDB Cloud service health {href="influxdb-cloud-service-health-1"}
 - [Where can I see the current status of InfluxDB Cloud?](#where-can-i-see-the-current-status-of-influxdb-cloud)
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 ##### InfluxDB service health {href="influxdb-service-health-1"}
 - [Where can I see the current status of my InfluxDB instance?](#where-can-i-see-the-current-status-of-my-influxdb-instance)
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ##### Security {href="security-1"}
 - [What different types of API tokens exist?](#what-different-types-of-api-tokens-exist)
 - [Can I use InfluxDB with authentication disabled?](#can-i-use-influxdb-with-authentication-disabled)
-- {{% cloud-only %}}[Can you change the permission level of members in your organization?](#can-you-change-the-permission-level-of-members-in-your-organization){{% /cloud-only %}}
+- {{% show-in "cloud,cloud-serverless" %}}[Can you change the permission level of members in your organization?](#can-you-change-the-permission-level-of-members-in-your-organization){{% /show-in %}}
 
 ##### Administration {href="administration-1"}
-- {{% oss-only %}}[How can I identify my InfluxDB version?](#how-can-i-identify-my-influxdb-version){{% /oss-only %}}
+- {{% show-in "v2" %}}[How can I identify my InfluxDB version?](#how-can-i-identify-my-influxdb-version){{% /show-in %}}
 - [How can I identify the version of Flux I'm using in InfluxDB?](#how-can-i-identify-the-version-of-flux-im-using-in-influxdb)
-- {{% oss-only %}}[Where can I find InfluxDB logs?](#where-can-i-find-influxdb-logs){{% /oss-only %}}
-- {{% oss-only %}}[What is the relationship between shard group durations and retention periods?](#what-is-the-relationship-between-shard-group-durations-and-retention-periods){{% /oss-only %}}
+- {{% show-in "v2" %}}[Where can I find InfluxDB logs?](#where-can-i-find-influxdb-logs){{% /show-in %}}
+- {{% show-in "v2" %}}[What is the relationship between shard group durations and retention periods?](#what-is-the-relationship-between-shard-group-durations-and-retention-periods){{% /show-in %}}
 - [Why isn't data dropped after I update a bucket's retention period?](#why-isnt-data-dropped-after-i-update-a-buckets-retention-period)
 
 ##### Data types {href="data-types-1"}
 - [What are the minimum and maximum integers that InfluxDB can store?](#what-are-the-minimum-and-maximum-integers-that-influxdb-can-store)
 - [What are the minimum and maximum timestamps that InfluxDB can store?](#what-are-the-minimum-and-maximum-timestamps-that-influxdb-can-store)
 - [Can I change a field's data type?](#can-i-change-a-fields-data-type)
-- {{% oss-only %}}[How does InfluxDB handle field type discrepancies across shards?](#how-does-influxdb-handle-field-type-discrepancies-across-shards){{% /oss-only %}}
+- {{% show-in "v2" %}}[How does InfluxDB handle field type discrepancies across shards?](#how-does-influxdb-handle-field-type-discrepancies-across-shards){{% /show-in %}}
 
 ##### Writing data {href="writing-data"}
 - [How do I write integer and unsigned integer field values?](#how-do-i-write-integer-and-unsigned-integer-field-values)
@@ -60,15 +60,15 @@ weight: 9
 - [What newline character does the InfluxDB write API require?](#what-newline-character-does-the-influxdb-write-api-require)
 - [When should I single quote and when should I double quote when writing data?](#when-should-i-single-quote-and-when-should-i-double-quote-when-writing-data)
 - [Does the precision of the timestamp matter?](#does-the-precision-of-the-timestamp-matter)
-- {{% oss-only %}}[What are the configuration recommendations and schema guidelines for writing sparse, historical data?](#what-are-the-configuration-recommendations-and-schema-guidelines-for-writing-sparse-historical-data){{% /oss-only %}}
+- {{% show-in "v2" %}}[What are the configuration recommendations and schema guidelines for writing sparse, historical data?](#what-are-the-configuration-recommendations-and-schema-guidelines-for-writing-sparse-historical-data){{% /show-in %}}
 
 ##### Querying data {href="querying-data-1"}
 - [Flux](#flux)
     - [How do I structure fields as columns (like InfluxQL)?](#how-do-i-structure-fields-as-columns-like-influxql)
     - [How can I derive a state from multiple field values?](#how-can-i-derive-a-state-from-multiple-field-values)
 - [InfluxQL](#influxql)
-    - {{% cloud-only %}}[How do I use InfluxQL with InfluxDB Cloud?](#how-do-i-use-influxql-with-influxdb-cloud){{% /cloud-only %}}
-    - {{% oss-only %}}[How do I use InfluxQL with InfluxDB v2.x?](#how-do-i-use-influxql-with-influxdb-v2x){{% /oss-only %}}
+    - {{% show-in "cloud,cloud-serverless" %}}[How do I use InfluxQL with InfluxDB Cloud?](#how-do-i-use-influxql-with-influxdb-cloud){{% /show-in %}}
+    - {{% show-in "v2" %}}[How do I use InfluxQL with InfluxDB v2.x?](#how-do-i-use-influxql-with-influxdb-v2x){{% /show-in %}}
     - [How do I perform mathematical operations in an InfluxQL function?](#how-do-i-perform-mathematical-operations-in-an-influxql-function)
     - [Why does my query return epoch 0 as the timestamp?](#why-does-my-query-return-epoch-0-as-the-timestamp)
     - [Which InfluxQL functions support nesting?](#which-influxql-functions-support-nesting)
@@ -84,7 +84,7 @@ weight: 9
     - [How do I query data across measurements?](#how-do-i-query-data-across-measurements)
     - [Does the order timestamps in a query matter?](#does-the-order-timestamps-in-a-query-matter)
     - [How do I query data by a tag with a null value?](#how-do-i-query-data-by-a-tag-with-a-null-value)
-- {{% cloud-only %}}[Why am I getting the error, "total duration of queries in the last 30s exceeds limit of 25m0s"?](#why-am-i-getting-the-error-total-duration-of-queries-in-the-last-30s-exceeds-limit-of-25m0s){{% /cloud-only %}}
+- {{% show-in "cloud,cloud-serverless" %}}[Why am I getting the error, "total duration of queries in the last 30s exceeds limit of 25m0s"?](#why-am-i-getting-the-error-total-duration-of-queries-in-the-last-30s-exceeds-limit-of-25m0s){{% /show-in %}}
 
 ##### Deleting data {href="deleting-data"}
 - [Can I delete a field?](#can-i-delete-a-field)
@@ -98,7 +98,7 @@ weight: 9
 ##### Series and series cardinality {href="series-and-series-cardinality-1"}
 - [What is series cardinality?](#what-is-series-cardinality)
 - [Why does series cardinality matter?](#why-does-series-cardinality-matter)
-- {{% oss-only %}}[How do I remove series from the index?](#how-do-i-remove-series-from-the-index){{% /oss-only %}}
+- {{% show-in "v2" %}}[How do I remove series from the index?](#how-do-i-remove-series-from-the-index){{% /show-in %}}
 
 ---
 
@@ -106,15 +106,15 @@ weight: 9
 
 #### How do I reset my password?
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 Use the **Forgot Password** link on the InfluxDB Cloud login page to update your
 password. For more information, see
 [Change your password](/influxdb/cloud/account-management/change-password/).
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 Use the [`influx` CLI](/influxdb/v2/reference/cli/influx/) and the
 [`influx user password` command](/influxdb/v2/reference/cli/influx/user/password/)
@@ -122,9 +122,9 @@ command to update a user's password.
 For more information, see
 [Change your password](/influxdb/v2/admin/users/change-password/).
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 #### How do I switch between InfluxDB Cloud accounts?
 Use the **Switch Accounts** functionality in your InfluxDB Cloud account settings
@@ -161,11 +161,11 @@ in the InfluxDB Cloud user interface. For more information, see
 - If using a **Usage-Based** or **Annual** Plan, [contact InfluxData support](https://support.influxdata.com/s/contactsupport)
   and request rate limit and quota adjustments.
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ---
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ## InfluxDB Cloud service health
 
@@ -174,9 +174,9 @@ InfluxDB Cloud regions and underlying services are monitored at all times.
 To see the current status of InfluxDB Cloud, view the [InfluxDB Cloud status page](https://status.influxdata.com).
 To receive outage alerts and updates, subscribe to our status page.
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 ## InfluxDB service health
 
@@ -213,7 +213,7 @@ InfluxDB {{< current-version >}} provides different ways to monitor its status:
 
   For more information, see [Monitor InfluxDB OSS using a template](/influxdb/v2/monitor-alert/templates/monitor/)
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ---
 
@@ -222,10 +222,10 @@ InfluxDB {{< current-version >}} provides different ways to monitor its status:
 #### What different types of API tokens exist?
 InfluxDB {{< current-version >}} supports the following token types:
 
-- {{% oss-only %}}Operator tokens{{% /oss-only %}}
+- {{% show-in "v2" %}}Operator tokens{{% /show-in %}}
 - All Access tokens
-- {{% cloud-only %}}Custom tokens{{% /cloud-only %}}
-- {{% oss-only %}}Read/Write tokens{{% /oss-only %}}
+- {{% show-in "cloud,cloud-serverless" %}}Custom tokens{{% /show-in %}}
+- {{% show-in "v2" %}}Read/Write tokens{{% /show-in %}}
 
 For more information about each token type, see [Manage API tokens](/influxdb/v2/admin/tokens/).
 
@@ -233,20 +233,20 @@ For more information about each token type, see [Manage API tokens](/influxdb/v2
 InfluxDB {{< current-version >}} enforces security best practices by requiring
 API requests to be authenticated. Authentication cannot be disabled.
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 #### Can you change the permission level of members in your organization?
 InfluxDB Cloud has only one permission level for users: Owner.
 With Owner permissions, a user can delete resources and other users from your organization.
 Take care when inviting a user.
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ---
 
 ## Administration
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 #### How can I identify my InfluxDB version?
 
@@ -277,7 +277,7 @@ Use one of the following methods to identify the version of InfluxDB OSS you're 
     {{< latest-patch >}}
     ```
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 #### How can I identify the version of Flux I'm using in InfluxDB?
 For information about what versions of Flux are packaged with official InfluxDB
@@ -295,7 +295,7 @@ array.from(rows: [{version: runtime.version()}])
 
 For more information, see [Query the Flux version](/influxdb/cloud/query-data/flux/flux-version/).
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 #### Where can I find InfluxDB logs?
 All InfluxDB logs are output by the `influxd` service.
@@ -320,16 +320,16 @@ period and the time interval of a shard group:
 
 For more information, see [InfluxDB Shards and shard groups](/influxdb/v2/reference/internals/shards/).
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 #### Why isn't data dropped after I update a bucket's retention period?
 Below are reasons why data may not be dropped immediately after updating
 the retention period of a bucket:
 
-- **The retention enforcement service runs {{% cloud-only %}}hourly{{% /cloud-only %}}{{% oss-only %}}every 30 minutes (by default){{% /oss-only %}}**.
+- **The retention enforcement service runs {{% show-in "cloud,cloud-serverless" %}}hourly{{% /show-in %}}{{% show-in "v2" %}}every 30 minutes (by default){{% /show-in %}}**.
   You may need to wait for the next retention enforcement cycle to run.
 
-- {{% oss-only %}}
+- {{% show-in "v2" %}}
 
   **InfluxDB drops shard groups, not individual points**.
   Shard groups cover a specific time interval assigned to the shard group on creation.
@@ -341,15 +341,15 @@ the retention period of a bucket:
   the retention service will not drop old shard group until its assigned
   interval is fully expired.
 
-  {{% /oss-only %}}
+  {{% /show-in %}}
 
 For more information, see [Data retention](/influxdb/v2/reference/internals/data-retention/).
 
-<!-- {{% cloud-only %}}
+<!-- {{% show-in "cloud,cloud-serverless" %}}
 
 #### How do I get a backup of my data?
 
-{{% /cloud-only %}} -->
+{{% /show-in %}} -->
 
 ---
 
@@ -548,7 +548,7 @@ writing data to InfluxDB. However, if too coarse, you risk writing points from
 the same series with the same timestamp, which would be treated as
 [duplicate points](/influxdb/v2/write-data/best-practices/duplicate-points/).
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 #### What are the configuration recommendations and schema guidelines for writing sparse, historical data?
 
@@ -567,7 +567,7 @@ For sparse historical data, we recommend:
   Temporarily lowering the `storage-cache-snapshot-write-cold-duration` setting
   to `10s` while you write the historical data makes the process more efficient.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ---
 
@@ -660,17 +660,17 @@ from(bucket: "example-bucket")
 
 ### InfluxQL
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 #### How do I use InfluxQL with InfluxDB Cloud?
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 #### How do I use InfluxQL with InfluxDB v2.x?
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 Using InfluxQL with InfluxDB {{< current-version >}} is made possible by the
 [1.x compatibility API](/influxdb/v2/reference/api/influxdb-1x/) which replicates
@@ -966,7 +966,7 @@ In your `WHERE` clause, specify an empty or null tag value with `''`. For exampl
 SELECT * FROM "vases" WHERE priceless=''
 ```
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 #### Why am I getting the error, "total duration of queries in the last 30s exceeds limit of 25m0s"?
 
@@ -988,7 +988,7 @@ The following resources may help:
 If you are encountering this error due to the number of concurrent queries,
 try delaying or staggering queries so they don't all run at the same time.
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ---
 
@@ -996,13 +996,13 @@ try delaying or staggering queries so they don't all run at the same time.
 
 #### Can I delete a field?
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 No. InfluxDB {{< current-version >}} does not support deleting data by field.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 Yes. InfluxDB Cloud supports deleting data by field.
 Use the `_field` label in your [delete predicate](/influxdb/v2/reference/syntax/delete-predicate/)
@@ -1012,7 +1012,7 @@ to identify the field to delete.
 _field == "example-field"
 ```
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 #### Can I delete a measurement?
 
@@ -1035,8 +1035,8 @@ for each measurement.
 
 It is not necessary to verify delete operations once they have been submitted to the queue.
 The `/api/v2/delete` endpoint returns a 204 response when the delete request has been added to the queue.
-{{% cloud-only %}}Because the delete queue executes asynchronously, there isn't a way to accurately
-predict when the delete operation will be performed at the storage layer.{{% /cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}Because the delete queue executes asynchronously, there isn't a way to accurately
+predict when the delete operation will be performed at the storage layer.{{% /show-in %}}
 
 If you wish to verify a delete has occurred, try to query the deleted data.
 If the query returns results, the data has not been fully deleted.
@@ -1065,22 +1065,22 @@ the time the run was scheduled to execute.
 
 [Series cardinality](/influxdb/v2/reference/glossary/#series-cardinality) is
 the total number of unique
-{{% cloud-only %}}**measurement**, **tag set**, and **field key** combinations{{% /cloud-only %}}
-{{% oss-only %}}**measurement** and **tag set** combinations{{% /oss-only %}}
+{{% show-in "cloud,cloud-serverless" %}}**measurement**, **tag set**, and **field key** combinations{{% /show-in %}}
+{{% show-in "v2" %}}**measurement** and **tag set** combinations{{% /show-in %}}
 (series) stored on disk and indexed in memory.
 
 #### Why does series cardinality matter?
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 InfluxDB maintains an in-memory index of every [series](/influxdb/v2/reference/glossary/#series)\.
 As the number of unique series grows, so does the memory usage.
 High series cardinality can force the host operating system to kill the InfluxDB
 process with an out of memory (OOM) exception.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 InfluxDB maintains an in-memory index of every [series](/influxdb/v2/reference/glossary/#series).
 As the number of unique series grows, it can negatively affect query performance.
@@ -1088,7 +1088,7 @@ Each InfluxDB Cloud organization has a series cardinality limit to prevent
 runaway cardinality. For information about adjusting cardinality limits, see
 [How do I increase my organization’s rate limits and quotas?](#how-do-i-increase-my-organizations-rate-limits-and-quotas).
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 Use [`influxdb.cardinality()`](/flux/v0/stdlib/influxdata/influxdb/cardinality/) in Flux
 or [`SHOW SERIES CARDINALITY`](/influxdb/v1/query_language/spec/#show-series-cardinality)
@@ -1096,7 +1096,7 @@ in InfluxQL to measure the series cardinality in a bucket.
 See [Resolve high series cardinality](/influxdb/v2/write-data/best-practices/resolve-high-cardinality/)
 for information about reducing series cardinality.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 #### How do I remove series from the index?
 
@@ -1108,4 +1108,4 @@ To remove a series from an index:
 2.  Use the [`influxd inspect build-tsi` tool](/influxdb/v2/reference/cli/influxd/inspect/build-tsi/)
     to rebuild your index.
 
-{{% /oss-only %}}
+{{% /show-in %}}

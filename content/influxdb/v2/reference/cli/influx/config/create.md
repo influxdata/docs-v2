@@ -51,7 +51,7 @@ Include `username:password` to ensure a session is automatically authenticated. 
 
 - [Create a connection configuration and set it active](#create-a-connection-configuration-and-set-it-active)
 - [Create a connection configuration without setting it active](#create-a-connection-configuration-without-setting-it-active)
-- {{% oss-only %}}[Create a connection configuration that uses a username and password](#create-a-connection-configuration-that-uses-a-username-and-password){{% /oss-only %}}
+- {{% show-in "v2" %}}[Create a connection configuration that uses a username and password](#create-a-connection-configuration-that-uses-a-username-and-password){{% /show-in %}}
 
 #### Create a connection configuration and set it active
 ```sh
@@ -71,7 +71,7 @@ influx config create \
   -o example-org
 ```
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 #### Create a connection configuration that uses a username and password
 
@@ -94,4 +94,4 @@ influx config create \
   -o example-org
 ```
 
-{{% /oss-only %}}
+{{% /show-in %}}

@@ -141,8 +141,8 @@ Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute Flux q
 <!--------------------------- BEGIN FLUX UI CONTENT --------------------------->
 
 1.  Visit
-    {{% oss-only %}}[localhost:8086](http://localhost:8086){{% /oss-only %}}
-    {{% cloud-only %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /cloud-only %}}
+    {{% show-in "v2" %}}[localhost:8086](http://localhost:8086){{% /show-in %}}
+    {{% show-in "cloud,cloud-serverless" %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /show-in %}}
     in a browser to log in and access the InfluxDB UI.
 
 2.  In the left navigation bar, click **Data Explorer**.

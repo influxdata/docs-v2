@@ -71,7 +71,7 @@ influx auth create [flags]
 
 {{< cli/influx-creds-note >}}
 
-- [Create an All Access API token](#create-an-all-access-api-token) {{% oss-only %}} or [Create an Operator API token](#create-an-operator-api-token){{% /oss-only %}}
+- [Create an All Access API token](#create-an-all-access-api-token) {{% show-in "v2" %}} or [Create an Operator API token](#create-an-operator-api-token){{% /show-in %}}
 - [Create an API token with specified read and write permissions](#create-an-api-token-with-specified-read-and-write-permissions)
 - [Create a token with read and write access to specific buckets](#create-an-api-token-with-read-and-write-access-to-specific-buckets)
 - [Create a read-only API token](#create-a-read-only-api-token)
@@ -85,7 +85,7 @@ influx auth create \
   --all-access 
 ```
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 ### Create an Operator API token
 
@@ -95,7 +95,7 @@ Create an [Operator token](/influxdb/v2/admin/tokens/#operator-token) to grant p
 influx auth create \
   --operator
 ```
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ### Create an API token with specified read and write permissions
 

@@ -509,14 +509,14 @@ Related entries: [aggregator plugin](#aggregator-plugin), [collection interval](
 An entity comprising data on a server (or virtual server in cloud computing).
 <!-- An instance in an InfluxDB Enterprise cluster may scale across multiple servers or nodes in a network. -->
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 ### instance owner
 
 A type of admin role for a user.
 Instance owners have read/write permissions for all resources within the instance.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ### integer
 
@@ -592,7 +592,7 @@ See [line protocol](/influxdb/v2/reference/syntax/line-protocol/).
 The part of InfluxDB's structure that describes the data stored in the associated fields.
 Measurements are strings.
 
-{{% cloud-only %}}With **InfluxDB 3**, a time series measurement equates to a relational database table with fields, tags, and timestamp as columns.{{% /cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}With **InfluxDB 3**, a time series measurement equates to a relational database table with fields, tags, and timestamp as columns.{{% /show-in %}}
 
 Related entries: [field](#field), [series](#series), [table](#table)
 
@@ -758,7 +758,7 @@ If you write a point to a series with a timestamp that matches an existing point
 
 Related entries: [measurement](#measurement), [tag set](#tag-set), [field set](#field-set), [timestamp](#timestamp)
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ### primary key
 
@@ -766,7 +766,7 @@ With the InfluxDB 3 storage engine, the primary key is the list of columns
 used to uniquely identify each row in a table.
 Rows are uniquely identified by their timestamp and tag set.
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ### precision
 
@@ -915,7 +915,7 @@ Related entries: [aggregate](#aggregate), [function](#function), [transformation
 ### series
 
 A  collection of timestamps and field values that share a common series key
-({{% cloud-only %}}measurement, tag set, and field key{{% /cloud-only %}}{{% oss-only %}}measurement and tag set{{% /oss-only %}}).
+({{% show-in "cloud,cloud-serverless" %}}measurement, tag set, and field key{{% /show-in %}}{{% show-in "v2" %}}measurement and tag set{{% /show-in %}}).
 
 Related entries: [field set](#field-set), [measurement](#measurement), [series key](#series-key), <!-- [retention policy](/#retention-policy-rp), --> [tag set](#tag-set)
 
@@ -1074,12 +1074,12 @@ InfluxDB uses Transmission Control Protocol (TCP) port 8086 for client-server co
 
 ### table
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 Flux processes a series of tables for a specified time series.
 These tables in sequence result in a stream of data.
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}With **InfluxDB 3**, a time series measurement equates to a relational database table with fields, tags, and timestamp as columns.{{% /cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}With **InfluxDB 3**, a time series measurement equates to a relational database table with fields, tags, and timestamp as columns.{{% /show-in %}}
 
 Related entries: [measurement](#measurement)
 
@@ -1162,19 +1162,19 @@ Related entries: [point](#point), [precision](#precision), [RFC3339 timestamp](#
 Tokens (or API tokens) verify user and organization permissions in InfluxDB.
 There are different types of API tokens:
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 - **Operator token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**. _InfluxDB Cloud does not support Operator tokens._
 - **All Access token:** grants full read and write access to all resources in an organization.
 - **Read/Write token:** grants read or write access to specific resources in an organization.
 
-{{% /oss-only %}}
-{{% cloud-only %}}
+{{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 - **All Access token:** grants full read and write access to all resources in an organization.
 - **Read/Write token:** grants read or write access to specific resources in an organization.
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 Related entries: [Create a token](/influxdb/v2/admin/tokens/create-token/).
 

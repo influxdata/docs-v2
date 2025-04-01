@@ -30,21 +30,21 @@ You can think of an InfluxDB notebook as a collection of sequential data process
 
 The following options appear at the top of each notebook.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 ### Preview/Run mode
 
 - Select **Preview** (or press **Control+Enter**) to display results of each cell without writing data. Helps to verify that cells return expected results before writing data.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ### Run
 
 Select {{< caps >}}Run{{< /caps >}} (or press **Control+Enter**) to display results of each cell and write data to the selected bucket.
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ### Save Notebook (appears before first save)
 
@@ -62,14 +62,14 @@ Click the timezone drop-down list to select a timezone to use for the notebook. 
 
 Select from the options in the dropdown list or select **Custom Time Range** to enter a custom time range with precision up to nanoseconds, and then click **{{< caps >}}Apply Time Range{{< /caps >}}**.
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ### Share notebook
 
 To generate a URL for the notebook, click the **{{< icon "share" >}}** icon.
 For more detail, see how to [share a notebook](/influxdb/cloud/tools/notebooks/manage-notebooks/#share-a-notebook).
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Notebook cell types
 

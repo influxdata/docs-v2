@@ -48,8 +48,8 @@ In InfluxDB {{< current-version >}}, database/retention-policy (DBRP) combinatio
 are mapped to buckets using the `database-name/retention-policy` naming convention.
 **DBRP mappings are required to query InfluxDB {{< current-version >}} using InfluxQL.**
 
-For information, see [DBRP mapping](/influxdb/v2/reference/api/influxdb-1x/dbrp/){{% oss-only %}}.{{% /oss-only %}}
-{{% cloud-only %}}and [Create DBRP mappings](/influxdb/v2/query-data/influxql/dbrp/#create-dbrp-mappings).{{% /cloud-only %}}
+For information, see [DBRP mapping](/influxdb/v2/reference/api/influxdb-1x/dbrp/){{% show-in "v2" %}}.{{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}and [Create DBRP mappings](/influxdb/v2/query-data/influxql/dbrp/#create-dbrp-mappings).{{% /show-in %}}
       {{% /note %}}
 
 3. Click **Add Connection**.

@@ -55,14 +55,14 @@ that matches your tag name needs to be escaped. Keywords are case-insensitive.
 _**except**_ the following:
 
 - `_time`
-- {{% oss-only %}}`_field`{{% /oss-only %}}
+- {{% show-in "v2" %}}`_field`{{% /show-in %}}
 - `_value`
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 _InfluxDB {{< current-version >}} does not support deleting data **by field**._
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 {{% /warn %}}
 
@@ -83,7 +83,7 @@ Comparison operators compare left and right operands and return `true` or `false
 ## Delete predicate examples
 
 - [Delete points by measurement](#delete-points-by-measurement)
-- {{% cloud-only %}}[Delete points by field](#delete-points-by-field){{% /cloud-only %}}
+- {{% show-in "cloud,cloud-serverless" %}}[Delete points by field](#delete-points-by-field){{% /show-in %}}
 - [Delete points by tag set](#delete-points-by-tag-set)
 
 ### Delete points by measurement
@@ -93,7 +93,7 @@ The following will delete points in the `sensorData` measurement:
 _measurement="sensorData"
 ```
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ### Delete points by field
 The following will delete points with the `temperature` field:
@@ -102,7 +102,7 @@ The following will delete points with the `temperature` field:
 _field="temperature"
 ```
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ### Delete points by tag set
 The following will delete points from the `prod-1.4` host in the `us-west` region:
@@ -118,5 +118,5 @@ The delete predicate syntax has the following limitations.
 - Delete predicates do not support the `OR` logical operator.
 - Delete predicates only support equality (`=`), not inequality (`!=`).
 - Delete predicates can use any column or tag **except** `_time`
-  {{% oss-only %}}, `_field`, {{% /oss-only %}}or `_value`.
+  {{% show-in "v2" %}}, `_field`, {{% /show-in %}}or `_value`.
 

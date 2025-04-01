@@ -25,7 +25,7 @@ are parsed and written to InfluxDB in one of two formats, depending on the scrap
 - [Metric version 2](#metric-version-2)
 
 #### Scraping tools and parsing format
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 | Scraping tool                                                                              |                               InfluxDB Metric version |
 | :----------------------------------------------------------------------------------------- | ----------------------------------------------------: |
@@ -33,15 +33,15 @@ are parsed and written to InfluxDB in one of two formats, depending on the scrap
 | [InfluxDB scraper](/influxdb/v2/write-data/no-code/scrape-data/)                         |                                                     1 |
 | Flux [`prometheus.scrape()`](/flux/v0/stdlib/experimental/prometheus/scrape/) |                                                     2 |
 
-{{% /oss-only %}}
-{{% cloud-only %}}
+{{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 | Scraping tool                                                                              |                               InfluxDB Metric version |
 | :----------------------------------------------------------------------------------------- | ----------------------------------------------------: |
 | [Telegraf Prometheus plugin](/telegraf/v1/plugins/#input-prometheus)         | _Determined by `metric_version` configuration option_ |
 | Flux [`prometheus.scrape()`](/flux/v0/stdlib/experimental/prometheus/scrape/) |                                                     2 |
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Metric version 1
 

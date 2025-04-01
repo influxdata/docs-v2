@@ -20,27 +20,27 @@ related:
 influxdb/v2/tags: [prometheus, scraper]
 ---
 
-Use [Telegraf](/telegraf/v1/){{% oss-only %}}, [InfluxDB scrapers](/influxdb/v2/write-data/no-code/scrape-data/),{{% /oss-only %}}
+Use [Telegraf](/telegraf/v1/){{% show-in "v2" %}}, [InfluxDB scrapers](/influxdb/v2/write-data/no-code/scrape-data/),{{% /show-in %}}
 or the [`prometheus.scrape` Flux function](/flux/v0/stdlib/experimental/prometheus/scrape/)
 to scrape Prometheus-formatted metrics from an HTTP-accessible endpoint and store them in InfluxDB.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 - [Use Telegraf](#use-telegraf)
 - [Use an InfluxDB scraper](#use-an-influxdb-scraper)
 - [Use prometheus.scrape()](#use-prometheusscrape)
 
-{{% /oss-only %}}
-{{% cloud-only %}}
+{{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 - [Use Telegraf](#use-telegraf)
 - [Use prometheus.scrape()](#use-prometheusscrape)
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Use Telegraf
 To use Telegraf to scrape Prometheus-formatted metrics from an HTTP-accessible
-endpoint and write them to InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}, follow these steps:
+endpoint and write them to InfluxDB{{% show-in "cloud,cloud-serverless" %}} Cloud{{% /show-in %}}, follow these steps:
 
 1. Add the [Prometheus input plugin](/telegraf/v1/plugins/#input-prometheus) to your Telegraf configuration file.
     1. Set the `urls` to scrape metrics from.
@@ -49,7 +49,7 @@ endpoint and write them to InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}, 
       _(version `2` is recommended)_.
 2. Add the [InfluxDB v2 output plugin](/telegraf/v1/plugins/#output-influxdb_v2)
    to your Telegraf configuration file and configure it to write to
-   InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}.
+   InfluxDB{{% show-in "cloud,cloud-serverless" %}} Cloud{{% /show-in %}}.
   
 ##### Example telegraf.conf
 ```toml
@@ -70,7 +70,7 @@ endpoint and write them to InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}, 
 # ...
 ```
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 ## Use an InfluxDB scraper
 InfluxDB scrapers automatically scrape Prometheus-formatted metrics from an 
@@ -78,16 +78,16 @@ HTTP-accessible endpoint at a regular interval.
 For information about setting up an InfluxDB scraper, see
 [Scrape data using InfluxDB scrapers](/influxdb/v2/write-data/no-code/scrape-data/).
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ## Use prometheus.scrape()
 To use the [`prometheus.scrape()` Flux function](/flux/v0/stdlib/experimental/prometheus/scrape/)
 to scrape Prometheus-formatted metrics from an HTTP-accessible endpoint and write
-them to InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}, do the following in your Flux script:
+them to InfluxDB{{% show-in "cloud,cloud-serverless" %}} Cloud{{% /show-in %}}, do the following in your Flux script:
 
 1. Import the [`experimental/prometheus` package](/flux/v0/stdlib/experimental/prometheus/).
 2. Use `prometheus.scrape()` and provide the URL to scrape metrics from.
-3. Use [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/) and specify the  InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}} bucket to write
+3. Use [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/) and specify the  InfluxDB{{% show-in "cloud,cloud-serverless" %}} Cloud{{% /show-in %}} bucket to write
   the scraped metrics to.
 
 ##### Example Flux script

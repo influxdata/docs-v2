@@ -18,7 +18,7 @@ To query InfluxDB {{< current-version >}} with InfluxQL, the specified DBRP
 combination must be mapped to a bucket.
 
 - [Automatic DBRP mapping](#automatic-dbrp-mapping)
-- {{% oss-only %}}[Virtual DBRP mappings](#virtual-dbrp-mappings){{% /oss-only %}}
+- {{% show-in "v2" %}}[Virtual DBRP mappings](#virtual-dbrp-mappings){{% /show-in %}}
 - [Create DBRP mappings](#create-dbrp-mappings)
 - [List DBRP mappings](#list-dbrp-mappings)
 - [Update a DBRP mapping](#update-a-dbrp-mapping)
@@ -30,13 +30,13 @@ InfluxDB {{< current-version >}} will automatically create DBRP mappings for you
 during the following operations:
 
 - Writing to the [`/write` v1 compatibility endpoint](/influxdb/v2/reference/api/influxdb-1x/write/)
-- {{% cloud-only %}}[Upgrading from InfluxDB 1.x to InfluxDB Cloud](/influxdb/v2/upgrade/v1-to-cloud/){{% /cloud-only %}}
-- {{% oss-only %}}[Upgrading from InfluxDB 1.x to {{< current-version noSpan=true >}}](/influxdb/v2/upgrade/v1-to-v2/){{% /oss-only %}}
-- {{% oss-only %}}Creating a bucket ([virtual DBRPs](#virtual-dbrp-mappings)){{% /oss-only %}}
+- {{% show-in "cloud,cloud-serverless" %}}[Upgrading from InfluxDB 1.x to InfluxDB Cloud](/influxdb/v2/upgrade/v1-to-cloud/){{% /show-in %}}
+- {{% show-in "v2" %}}[Upgrading from InfluxDB 1.x to {{< current-version noSpan=true >}}](/influxdb/v2/upgrade/v1-to-v2/){{% /show-in %}}
+- {{% show-in "v2" %}}Creating a bucket ([virtual DBRPs](#virtual-dbrp-mappings)){{% /show-in %}}
 
 For more information, see [Database and retention policy mapping](/influxdb/v2/reference/api/influxdb-1x/dbrp/).
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 ## Virtual DBRP mappings
 
@@ -51,7 +51,7 @@ To override a virtual DBRP mapping, [create an explicit mapping](#create-dbrp-ma
 For information about how virtual DBRP mappings are created, see
 [Database and retention policy mapping – When creating a bucket](/influxdb/v2/reference/api/influxdb-1x/dbrp/#when-creating-a-bucket).
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ## Create DBRP mappings
 
@@ -212,14 +212,14 @@ curl --request GET \
 Use the [`influx` CLI](/influxdb/v2/reference/cli/influx/) or the
 [InfluxDB API](/influxdb/v2/reference/api/) to update a DBRP mapping.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 {{% note %}}
 Virtual DBRP mappings cannot be updated.
 To override a virtual DBRP mapping, [create an explicit mapping](#create-dbrp-mappings).
 {{% /note %}}
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -287,13 +287,13 @@ curl --request PATCH \
 Use the [`influx` CLI](/influxdb/v2/reference/cli/influx/) or the
 [InfluxDB API](/influxdb/v2/reference/api/) to delete a DBRP mapping.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 {{% note %}}
 Virtual DBRP mappings cannot be deleted.
 {{% /note %}}
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

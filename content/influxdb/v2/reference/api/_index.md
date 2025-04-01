@@ -26,7 +26,7 @@ for {{% product-name %}}
 
 <a class="btn" href="/influxdb/v2/api/">InfluxDB {{< current-version >}} API</a>
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 #### View InfluxDB API documentation locally
 
@@ -35,7 +35,7 @@ the API specific to your version of InfluxDB.
 To view the API documentation locally, [start InfluxDB](/influxdb/v2/get-started/#start-influxdb)
 and visit the `/docs` endpoint in a browser ([localhost:8086/docs](http://localhost:8086/docs)).
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ## InfluxDB v1 Compatibility API reference documentation
 

@@ -36,13 +36,13 @@ The Raspberry Pi template includes the following:
     For more information, see [influx apply](/influxdb/v2/reference/cli/influx/apply/).
 2.  [Install Telegraf](/telegraf/v1/introduction/installation/) on
     your Raspberry Pi and ensure your Raspberry Pi has network access to the
-    [InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} API](/influxdb/v2/reference/api/).
+    [InfluxDB {{% show-in "cloud,cloud-serverless" %}}Cloud{{% /show-in %}} API](/influxdb/v2/reference/api/).
 3. Add the following environment variables to your Telegraf environment:
 
-    - `INFLUX_HOST`: {{% oss-only %}}Your [InfluxDB URL](/influxdb/v2/reference/urls/){{% /oss-only %}}
-      {{% cloud-only %}}Your [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /cloud-only %}}
-    - `INFLUX_TOKEN`: Your [InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} API token](/influxdb/v2/admin/tokens/)
-    - `INFLUX_ORG`: Your InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} organization name.
+    - `INFLUX_HOST`: {{% show-in "v2" %}}Your [InfluxDB URL](/influxdb/v2/reference/urls/){{% /show-in %}}
+      {{% show-in "cloud,cloud-serverless" %}}Your [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /show-in %}}
+    - `INFLUX_TOKEN`: Your [InfluxDB {{% show-in "cloud,cloud-serverless" %}}Cloud{{% /show-in %}} API token](/influxdb/v2/admin/tokens/)
+    - `INFLUX_ORG`: Your InfluxDB {{% show-in "cloud,cloud-serverless" %}}Cloud{{% /show-in %}} organization name.
     
     ```sh
     export INFLUX_HOST=http://localhost:8086

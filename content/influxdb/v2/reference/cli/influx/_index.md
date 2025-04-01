@@ -17,7 +17,7 @@ related:
 The `influx` command line interface (CLI) includes commands to manage many aspects of InfluxDB,
 including buckets, organizations, users, tasks, etc.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 {{% note %}}
 #### InfluxDB OSS v2 and influx CLI versions
@@ -26,7 +26,7 @@ from InfluxDB.
 InfluxDB and `influx` CLI versions may differ, but compatibility is noted for each command.
 {{% /note %}}
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 <!-- TOC -->
 
@@ -75,7 +75,7 @@ Do one of the following:
 brew install influxdb-cli
 ```
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 {{% note %}}
 If you used Homebrew to install **InfluxDB {{< current-version >}}**, the `influxdb-cli`
@@ -88,7 +88,7 @@ brew list | grep influxdb-cli
 ```
 {{% /note %}}
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ### Manually download and install
 

@@ -16,24 +16,24 @@ related:
 ---
 Learn how to avoid unexpected results and recover from errors when writing to InfluxDB.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 - [Handle `write` and `delete` responses](#handle-write-and-delete-responses)
 - [Troubleshoot failures](#troubleshoot-failures)
   
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 - [Handle `write` and `delete` responses](#handle-write-and-delete-responses)
 - [Troubleshoot failures](#troubleshoot-failures)
 - [Troubleshoot rejected points](#troubleshoot-rejected-points)
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Handle `write` and `delete` responses
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 In InfluxDB Cloud, writes and deletes are asynchronous and eventually consistent.
 Once InfluxDB validates your request and [queues](/influxdb/cloud/reference/internals/durability/#backup-on-write) the write or delete, it sends a _success_ response (HTTP `204` status code) as an acknowledgement.
@@ -43,21 +43,21 @@ Because writes are asynchronous, keep the following in mind:
 - Data might not yet be queryable when you receive _success_ (HTTP `204` status code).
 - InfluxDB may still reject points after you receive _success_ (HTTP `204` status code).
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 If InfluxDB OSS successfully writes all the request data to the bucket, InfluxDB returns _success_ (HTTP `204` status code).
 The first rejected point in a batch causes InfluxDB to reject the entire batch and respond with an [HTTP error status](#review-http-status-codes).
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ### Review HTTP status codes
 
 InfluxDB uses conventional HTTP status codes to indicate the success or failure of a request.
 Write requests return the following status codes:
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 | HTTP response code              | Message                                                                 | Description    |
 | :-------------------------------| :---------------------------------------------------------------        | :------------- |
@@ -70,9 +70,9 @@ Write requests return the following status codes:
 | `500 "Internal server error"`   |                                                                         | Default status for an error |
 | `503 “Service unavailable“` | Series cardinality exceeds your plan's service quota                        | If **series cardinality** exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) |
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 - `204` **Success**: All request data was written to the bucket.
 - `400` **Bad request**: The [line protocol](/influxdb/v2/reference/syntax/line-protocol/) data in the request was malformed.
@@ -86,12 +86,12 @@ Write requests return the following status codes:
 - `500` **Internal server error**: Default HTTP status for an error.
 - `503` **Service unavailable**: Server is temporarily unavailable to accept writes. The `Retry-After` header describes when to try the write again.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 The `message` property of the response body may contain additional details about the error.
 If some of your data did not write to the bucket, see how to [troubleshoot rejected points](#troubleshoot-rejected-points).
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ### Troubleshoot partial writes
 
@@ -100,11 +100,11 @@ For example, a partial write may occur when InfluxDB writes all points that conf
 To check for writes that fail asynchronously, create a [task](/influxdb/cloud/process-data/manage-tasks/) to [check the _monitoring bucket for rejected points](#review-rejected-points).
 To resolve partial writes and rejected points, see [troubleshoot failures](#troubleshoot-failures).
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Troubleshoot failures
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 If you notice data is missing in your bucket, do the following:
 
@@ -114,9 +114,9 @@ If you notice data is missing in your bucket, do the following:
 - Verify the timestamps match the [precision parameter](/influxdb/v2/write-data/#timestamp-precision).
 - Minimize payload size and network errors by [optimizing writes](/influxdb/v2/write-data/best-practices/optimize-writes/).
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 If you notice data is missing in your bucket, do the following:
 
 - Check the `message` property in the response body for details about the error--for example, `partial write error` indicates [rejected points](#troubleshoot-rejected-points).
@@ -125,11 +125,11 @@ If you notice data is missing in your bucket, do the following:
 - Verify the data types match the [series](/influxdb/cloud/reference/key-concepts/data-elements/#series) or [bucket schema](/influxdb/cloud/admin/buckets/bucket-schema/). See how to resolve [explicit schema rejections](#resolve-explicit-schema-rejections).
 - Verify the timestamps match the [precision parameter](/influxdb/cloud/write-data/#timestamp-precision).
 - Minimize payload size and network errors by [optimizing writes](/influxdb/cloud/write-data/best-practices/optimize-writes/).
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Troubleshoot rejected points
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 InfluxDB rejects points for the following reasons:
 
@@ -138,9 +138,9 @@ InfluxDB rejects points for the following reasons:
 
 Check for [field type](/influxdb/v2/reference/key-concepts/data-elements/#field-value) differences between the missing data point and other points that have the same [series](/influxdb/v2/reference/key-concepts/data-elements/#series)--for example, did you attempt to write `string` data to an `int` field?
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 InfluxDB may have rejected points even if the HTTP request returned "Success".
 InfluxDB logs rejected data points and associated errors to your organization's `_monitoring` bucket.
@@ -321,4 +321,4 @@ InfluxDB logs the following `rejected_points` entry to the `_monitoring` bucket:
 |:------------------|:-------|:-------|:-------------------|:--------------|:---------|:------------|:----------------------------------|:---------|
 | rejected_points   | count  | 1      | a7d5558b880a93da   | temperature   | String   | airSensors  | field type mismatch with schema   | Float    |
 
-{{% /cloud-only %}}
+{{% /show-in %}}

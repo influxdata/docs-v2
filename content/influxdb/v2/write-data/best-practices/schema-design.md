@@ -59,12 +59,12 @@ waterQualitySensor,sensorId=W0101,station=Harbor pH=6.1,temperature=16.103 14725
 Store data in [tag values](/influxdb/v2/reference/glossary/#tag-value) or [field values](/influxdb/v2/reference/glossary/#field-value), not in [tag keys](/influxdb/v2/reference/glossary/#tag-key), [field keys](/influxdb/v2/reference/glossary/#field-key), or [measurements](/influxdb/v2/reference/glossary/#measurement). If you design your schema to store data in tag and field values,
 your queries will be easier to write and more efficient.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 In addition, you'll keep cardinality low by not creating measurements and keys as you write data.
 To learn more about the performance impact of high series cardinality, see how to [resolve high cardinality](/influxdb/v2/write-data/best-practices/resolve-high-cardinality/).
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 #### Compare schemas
 
@@ -145,13 +145,13 @@ If you use non-alphanumeric characters in keys, then you'll have to use [bracket
 Avoid using the same name for a [tag key](/influxdb/v2/reference/glossary/#tag-key) and a [field key](/influxdb/v2/reference/glossary/#field-key) within the same schema.
 Your query results may be unpredictable if you have a tag and a field with the same name.
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 {{% note %}}
 Use [explicit bucket schemas]() to enforce unique tag and field keys within a schema.
 {{% /note %}}
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Use tags and fields
 

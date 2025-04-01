@@ -287,7 +287,7 @@ influx apply -o ORG_NAME \
 
 ### Define environment references
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 Some templates include [environment references](/influxdb/v2/tools/influxdb-templates/create/#include-user-definable-resource-names) that let you provide custom resource names.
 The `influx apply` command prompts you to provide a value for each environment
@@ -316,9 +316,9 @@ influx apply -o ORG_NAME -f /path/to/templates/TEMPLATE_FILE.yml \
   --env-ref=label-name-2=Label2
 ```
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 > [!Warning]
 >
@@ -326,7 +326,7 @@ influx apply -o ORG_NAME -f /path/to/templates/TEMPLATE_FILE.yml \
 >  
 > This feature is not supported by InfluxDB Cloud.
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ### Include a secret when installing a template
 Some templates use [secrets](/influxdb/v2/admin/secrets/) in queries.

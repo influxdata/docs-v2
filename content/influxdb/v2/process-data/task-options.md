@@ -13,7 +13,7 @@ influxdb/v2/tags: [tasks, flux]
 ---
 
 Task options define specific information about a task.
-They are set in a Flux script {{% cloud-only %}}, in the InfluxDB API, {{% /cloud-only %}} or in the InfluxDB user interface (UI).
+They are set in a Flux script {{% show-in "cloud,cloud-serverless" %}}, in the InfluxDB API, {{% /show-in %}} or in the InfluxDB user interface (UI).
 The following task options are available:
 
 - [name](#name)
@@ -40,7 +40,7 @@ option task = {
 }
 ```
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 In a `/api/v2/tasks` request body with `scriptID`:
 
 ```json
@@ -52,7 +52,7 @@ In a `/api/v2/tasks` request body with `scriptID`:
 ```
 
 Replace `SCRIPT_ID` with the ID of your InfluxDB invokable script.
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## every
 
@@ -75,7 +75,7 @@ option task = {
 }
 ```
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 In a `/api/v2/tasks` request body with `scriptID`:
 
 ```json
@@ -86,7 +86,7 @@ In a `/api/v2/tasks` request body with `scriptID`:
 }
 ```
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 {{% note %}}
 In the InfluxDB UI, use the **Interval** field to set this option.
@@ -109,7 +109,7 @@ option task = {
 }
 ```
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 In a `/api/v2/tasks` request body with `scriptID`:
 
 ```json
@@ -120,7 +120,7 @@ In a `/api/v2/tasks` request body with `scriptID`:
 }
 ```
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## offset
 
@@ -141,7 +141,7 @@ option task = {
 }
 ```
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 In a `/api/v2/tasks` request body with `scriptID`:
 
@@ -153,4 +153,4 @@ In a `/api/v2/tasks` request body with `scriptID`:
 }
 ```
 
-{{% /cloud-only %}}
+{{% /show-in %}}

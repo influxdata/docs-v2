@@ -58,7 +58,7 @@ The InfluxDB UI provides a form for defining task options.
 {{% /note %}}
 
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ### Task options for invokable scripts
 
@@ -77,7 +77,7 @@ When you create or update the task, pass task options as properties in the reque
 
 To learn more about creating tasks that run invokable scripts, see how to [create a task that references a script](/influxdb/cloud/process-data/manage-tasks/create-task/#create-a-task-that-references-a-script).
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Retrieve and filter data
 
@@ -86,7 +86,7 @@ of data from a data source
 and then filter the data based on time or column values:
 
 1. [`from()`](/flux/v0/stdlib/influxdata/influxdb/from/):
-   queries data from InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}}.
+   queries data from InfluxDB {{% show-in "cloud,cloud-serverless" %}}Cloud{{% /show-in %}}.
 2. [`range()`](/flux/v0/stdlib/universe/range/): defines the time
    range to return data from.
 3. [`filter()`](/flux/v0/stdlib/universe/filter/): filters
@@ -154,7 +154,7 @@ executes 5 minutes after the hour, but queries data from the original one-hour i
 
 _See [Common tasks](/influxdb/v2/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ### Process data with invokable scripts
 
@@ -192,7 +192,7 @@ The following sample request body defines a task with the script ID and options:
 
 To create a script and a task that use parameters, see how to [create a task to run an invokable script](/influxdb/cloud/process-data/manage-tasks/create-task/).
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Define a destination
 
@@ -235,7 +235,7 @@ from(bucket: "example-bucket")
     |> to(bucket: "example-downsampled")
 ```
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ## Full example task with invokable script
 
@@ -270,7 +270,7 @@ schedule the script:
 }
 ```
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 To learn more about InfluxDB tasks and how they work, watch the following video:
 

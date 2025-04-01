@@ -28,7 +28,7 @@ databases and retention policies are mapped to buckets using the
 The DBRP mapping service uses the **database** and **retention policy** specified in
 [1.x compatibility API](/influxdb/v2/reference/api/influxdb-1x/) requests to route operations to a bucket.
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 {{% note %}}
 To query data in InfluxQL that was written using the `api/v2/write` API,
@@ -36,7 +36,7 @@ you must **manually create a DBRP mapping** to map a bucket to a database and re
 For more information, see [Create DBRP mappings](/influxdb/v2/query-data/influxql/dbrp/#create-dbrp-mappings).
 {{% /note %}}
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ### Default retention policies
 
@@ -46,7 +46,7 @@ the default retention policy for the specified database.
 Use the `influx` CLI or the InfluxDB API to set a retention policy as the
 default retention policy for a database.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 ### When creating a bucket
 
@@ -63,20 +63,20 @@ Virtual DBRP mappings are those that are created on your behalf.
   mapping uses the bucket name as the database and `autogen` as the retention
   policy. The `autogen` retention policy is set as the default retention policy.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ### When writing data
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 When writing data using the
 [`/write` compatibility endpoint](/influxdb/v2/reference/api/influxdb-1x/write/),
 the DBRP mapping service uses the database and retention policy specified
 in the request to write the data to the appropriate bucket.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 When writing data using the
 [`/write` compatibility endpoint](/influxdb/v2/reference/api/influxdb-1x/write/),
@@ -91,11 +91,11 @@ the DBRP mapping service checks for a bucket mapped to the database and retentio
       database retention policy is used, a DBRP mapping is added to the bucket,
       and data is written to the bucket.
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ### When querying data
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 When querying data from InfluxDB {{< current-version >}}
 using the [`/query` compatibility endpoint](/influxdb/v2/reference/api/influxdb-1x/query/),
@@ -103,9 +103,9 @@ the DBRP mapping service uses the database and retention policy specified in the
 request to query data from the appropriate bucket.
 If no retention policy is specified, the database's default retention policy is used.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 When querying data from InfluxDB {{< current-version >}}
 using the [`/query` compatibility endpoint](/influxdb/v2/reference/api/influxdb-1x/query/),
@@ -118,7 +118,7 @@ the DBRP mapping service checks for the specified database and retention policy
 
 _For more information on the DBRP mapping API, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2/api/#tag/DBRPs)._
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 {{% note %}}
 #### A DBRP combination can only be mapped to a single bucket

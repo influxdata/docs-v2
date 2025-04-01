@@ -31,14 +31,14 @@ the visualization dropdown.
 ###### Data
 - **X Column**: Select a column to display on the x-axis.
 - **Y Column**: Select a column to display on the y-axis.
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 - **Adaptive Zoom**: Enable this option to zoom in on graphs for a more granular view. Zooming in dynamically updates the window period to re-query the data.
   {{% warn %}}
   If you've hard-coded the window period, we don't recommend enabling this option.
   {{% /warn %}}
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ###### Options
 - **Time Format**: Select the time format. Options include:

@@ -75,7 +75,7 @@ Use the following authentication schemes with clients that support the InfluxDB 
 
 #### Manage credentials
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 Username and password schemes require the following credentials:
 - **username**: 1.x username (this is separate from the UI login username)
@@ -92,15 +92,15 @@ For more information, see how to create and manage
 [1.x-compatible authorizations](/influxdb/v2/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
 when manually upgrading from InfluxDB v1 to v2.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 - **username**: InfluxDB Cloud username
   (Use the email address you signed up with as your username--for example, `exampleuser@influxdata.com`.)
 - **password**: InfluxDB Cloud [API token](/influxdb/cloud/admin/tokens/)
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 #### Basic authentication
 
@@ -111,28 +111,28 @@ password credentials to InfluxDB.
 
 ##### Syntax
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 ```http
 Authorization: Basic INFLUX_USERNAME:INFLUX_PASSWORD_OR_TOKEN
 ```
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ```http
 Authorization: Basic exampleuser@influxdata.com:INFLUX_API_TOKEN
 ```
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ##### Example
 
 {{% code-placeholders "INFLUX_(USERNAME|PASSWORD_OR_TOKEN|API_TOKEN)|exampleuser@influxdata.com" %}}
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -154,10 +154,10 @@ Authorization: Basic exampleuser@influxdata.com:INFLUX_API_TOKEN
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -184,7 +184,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`exampleuser@influxdata.com`{{% /code-placeholder-key %}}: the email address that you signed up with
 - {{% code-placeholder-key %}}`INFLUX_API_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token)
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 #### Query string authentication
 Use InfluxDB 1.x API parameters to provide credentials through the query string.
@@ -198,27 +198,27 @@ Use InfluxDB 1.x API parameters to provide credentials through the query string.
 
 ##### Syntax
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 ```http
  /query/?u=INFLUX_USERNAME&p=INFLUX_PASSWORD_OR_TOKEN
  /write/?u=INFLUX_USERNAME&p=INFLUX_PASSWORD_OR_TOKEN
  ```
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ```http
 /query/?u=INFLUX_USERNAME&p=INFLUX_API_TOKEN
 /write/?u=INFLUX_USERNAME&p=INFLUX_API_TOKEN
 ```
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ##### Example
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [curl](#curl)
@@ -243,9 +243,9 @@ Replace the following:
 - {{% code-placeholder-key %}}`INFLUX_USERNAME`{{% /code-placeholder-key %}}: [InfluxDB 1.x username](#manage-credentials)
 - {{% code-placeholder-key %}}`INFLUX_PASSWORD_OR_TOKEN`{{% /code-placeholder-key %}}: [InfluxDB 1.x password or InfluxDB API token](#manage-credentials)
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -274,7 +274,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`exampleuser@influxdata.com`{{% /code-placeholder-key %}}: the email address that you signed up with
 - {{% code-placeholder-key %}}`INFLUX_API_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token)
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ##### InfluxQL support
 

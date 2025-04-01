@@ -135,7 +135,7 @@ Good [schema design](/influxdb/v2/write-data/best-practices/schema-design) can p
 
 Now that you're familiar with measurements, field sets, and tag sets, it's time to discuss series keys and series.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 In {{% product-name %}} OSS (TSM), a [series key](/influxdb/v2/reference/glossary/#series-key) is a unique combination of measurement and tag set.
 
@@ -157,8 +157,8 @@ the sample data contains the following series key and corresponding series:
     - 2019-08-18T00:06:00Z 28
 {{% /filesystem-diagram %}}
 
-{{% /oss-only %}}
-{{% cloud-only %}}
+{{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 In {{% product-name %}} Cloud (TSM), a [series key](/influxdb/cloud/reference/glossary/#series-key) is a unique combination of measurement, tag set, and field key.
 
@@ -180,7 +180,7 @@ the sample data contains the following series key and corresponding series:
     - 2019-08-18T00:06:00Z 28
 {{% /filesystem-diagram %}}
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 Understanding the concept of a series is essential when [designing your schema](/influxdb/v2/write-data/best-practices/schema-design/) and working with your data in InfluxDB.
 

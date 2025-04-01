@@ -44,16 +44,16 @@ To create a new notebook, do the following:
 6. To define your data source query, do one of the following:
    - If your notebook uses a **Query Builder** cell, select your bucket and any additional filters for your query.
    - If your notebook uses a **Flux Script** cell, enter or paste a [Flux script](/influxdb/v2/query-data/flux/).
-7. {{% oss-only %}}
+7. {{% show-in "v2" %}}
 
     Select and click **Preview** (or press **CTRL + Enter**) under the notebook title.
     InfluxDB displays query results in **Validate the Data** and **Visualize the Result** *without writing data or
     running actions*.
 
-    {{% /oss-only %}}
+    {{% /show-in %}}
 8. (Optional) Change your visualization settings with the drop-down menu and the {{< icon "gear" >}} **Configure** button at the top of the **Visualize the Result** cell.
 9. (Optional) Toggle the **Presentation** switch to display visualization cells and hide all other cells.
-10. (Optional) Configure notebook actions {{% oss-only %}}(**Alert**, **Task**, or **Output to Bucket**){{% /oss-only %}}{{% cloud-only %}}(**Alert** or **Task**){{% /cloud-only %}}.
+10. (Optional) Configure notebook actions {{% show-in "v2" %}}(**Alert**, **Task**, or **Output to Bucket**){{% /show-in %}}{{% show-in "cloud,cloud-serverless" %}}(**Alert** or **Task**){{% /show-in %}}.
 11. (Optional) To run your notebook actions, select and click **Run** under the notebook title.
 12. (Optional) To add a new cell, follow the steps for one of the cell types:
 
@@ -96,7 +96,7 @@ To add a data source cell, do the following:
 1. Click {{< icon "notebook-add-cell" >}}.
 2. Select **{{< caps >}}Flux Script{{< /caps >}}** or **{{< caps >}}Query Builder{{< /caps >}}** as your input, and then select or enter the bucket to pull data from.
 3. Select filters to narrow your data.
-4. Select {{% oss-only %}}**Preview** (**CTRL + Enter**) or {{% /oss-only %}}**Run** in the upper left drop-down list.
+4. Select {{% show-in "v2" %}}**Preview** (**CTRL + Enter**) or {{% /show-in %}}**Run** in the upper left drop-down list.
 
 ## Add a validation cell
 
@@ -126,19 +126,19 @@ For detail on available visualization types and how to use them, see [Visualizat
 ## Add an action cell
 
 Add an [action cell](/influxdb/v2/tools/notebooks/overview/#action) to create an [alert](/influxdb/v2/monitor-alert/)
-{{% cloud-only %}}or{{% /cloud-only %}}{{% oss-only %}},{{% /oss-only %}} process data with a [task](/influxdb/v2/process-data/manage-tasks/)
-{{% oss-only %}}, or output data to a bucket{{% /oss-only %}}.
+{{% show-in "cloud,cloud-serverless" %}}or{{% /show-in %}}{{% show-in "v2" %}},{{% /show-in %}} process data with a [task](/influxdb/v2/process-data/manage-tasks/)
+{{% show-in "v2" %}}, or output data to a bucket{{% /show-in %}}.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 {{% warn %}}
 If your cell contains a custom script that uses any output function to write data to InfluxDB (for example: the `to()` function) or sends data to a third-party service, clicking Preview will write data.
 {{% /warn %}}
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 - [Add an Alert cell](#add-an-alert-cell)
-- {{% oss-only %}}[Add an Output to Bucket cell](#add-an-output-to-bucket-cell){{% /oss-only %}}
+- {{% show-in "v2" %}}[Add an Output to Bucket cell](#add-an-output-to-bucket-cell){{% /show-in %}}
 - [Add a Task cell](#add-a-task-cell)
 
 ### Add an Alert cell
@@ -158,7 +158,7 @@ To add an [alert](/influxdb/v2/monitor-alert/) to your notebook, do the followin
 5. Click **{{< caps >}}Test Alert{{< /caps >}}** to send a test message to your configured **Endpoint**. The test will not schedule the new alert.
 6. Click **{{< icon "export" >}} {{< caps >}}Export Alert Task{{< /caps >}}** to create your alert.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 ### Add an Output to Bucket cell
 
@@ -170,7 +170,7 @@ To write **Data Source** results to a bucket, do the following:
 4. Click **Preview** to view the query result in validation cells.
 5. Select and click **Run** in the upper left to write the query result to the bucket.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ### Add a Task cell
 

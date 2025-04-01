@@ -49,7 +49,7 @@ The IoT Starter example app assumes the following prerequisites:
 #### Use restricted tokens for production apps
 
 For a production application, create and use a
-{{% cloud-only %}}custom{{% /cloud-only %}}{{% oss-only %}}read-write{{% /oss-only %}}
+{{% show-in "cloud,cloud-serverless" %}}custom{{% /show-in %}}{{% show-in "v2" %}}read-write{{% /show-in %}}
 token with minimal permissions and only use it with a single client or application.
 
 {{% /note %}}

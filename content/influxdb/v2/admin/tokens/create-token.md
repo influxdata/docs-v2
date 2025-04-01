@@ -40,23 +40,23 @@ To follow best practices for secure API token generation and retrieval, InfluxDB
 
 To manage InfluxDB API Tokens in the InfluxDB UI, navigate to the **API Tokens** management page.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 In the navigation menu on the left, select **Data (Load Data)** > **API Tokens**.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 In the navigation menu on the left, select **Load Data** > **API Tokens**.
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 {{< nav-icon "load-data" >}}
 
 ## Create a token in the InfluxDB UI
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 1. From the [API Tokens management page](#manage-tokens-in-the-influxdb-ui),
 click **{{< icon "plus" >}} Generate** and select a token type
@@ -67,10 +67,10 @@ click **{{< icon "plus" >}} Generate** and select a token type
     - Search for and select buckets to write to in the **Write** pane.
 4. Click **Save**.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ### Create an All Access token
 
@@ -100,7 +100,7 @@ find the token you want to clone and click the **{{< icon "settings" >}}** icon 
 3. When InfluxDB UI displays the created token, click **{{< caps >}}Copy to Clipboard{{< /caps >}}**. This is your only chance to access and copy the token value from InfluxDB.
 4. (Optional) Store the API token value in a secure password vault.
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Create a token using the influx CLI
 
@@ -125,7 +125,7 @@ influx auth create \
   --all-access
 ```
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 #### Create an operator token
 
@@ -142,7 +142,7 @@ To [view or create an operator token](/influxdb/v2/admin/tokens/create-token/) w
 
 To create a new operator token without using an existing one, see how to use the [`influxd recovery auth`](/influxdb/v2/reference/cli/influxd/recovery/auth/) CLI.
 {{% /note %}}
-{{% /oss-only %}}
+{{% /show-in %}}
 
 #### Create a token with specified permissions
 
@@ -191,7 +191,7 @@ Include the following in your request:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
-| API token with the [`write: authorizations`](/influxdb/v2/api/#operation/PostAuthorizations) permission  | Use the `Authorization` header and the {{% oss-only %}}`Bearer` or {{% /oss-only %}}`Token` scheme. |
+| API token with the [`write: authorizations`](/influxdb/v2/api/#operation/PostAuthorizations) permission  | Use the `Authorization` header and the {{% show-in "v2" %}}`Bearer` or {{% /show-in %}}`Token` scheme. |
 | Organization         | Pass as `orgID` in the request body.
 | Permissions list     | Pass as a `permissions` array in the request body.
 

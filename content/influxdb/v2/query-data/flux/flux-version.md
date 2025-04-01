@@ -112,7 +112,7 @@ use the [`/api/v2/query` endpoint](/influxdb/v2/api/#tag/Query).
 {{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/query" api-ref="/influxdb/v2/api/#operation/PostQuery" >}}
 Provide the following:
 
-- InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} host
+- InfluxDB {{% show-in "cloud,cloud-serverless" %}}Cloud{{% /show-in %}} host
 - InfluxDB organization name or ID as a query parameter
 - `Authorization` header with the `Token` scheme and your API token
 - `Accept: application/csv` header

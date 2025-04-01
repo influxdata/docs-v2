@@ -159,13 +159,13 @@ This release includes three new features and bug fixes.
 
 This release makes it easier to create API tokens with the `influx` CLI, adds support for viewing more than 20 buckets using `influx bucket list`, and adds a shorthand flag for bucket (`-b`) to `influx delete`.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 #### Create an Operator token in the influx CLI
 
 Add the ability to use the `influx` CLI to [create an Operator token](/influxdb/v2/admin/tokens/#operator-token) with read and write permissions to all resources in all organizations available in InfluxDB. (Note, this is the same permissions generated for the initial token created by `influx setup` or `influxd upgrade`.)
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 #### Create an All Access token in the influx CLI
 

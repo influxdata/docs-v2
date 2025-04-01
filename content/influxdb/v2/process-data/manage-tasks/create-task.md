@@ -128,7 +128,7 @@ option task = {
 
 ## Create a task using the InfluxDB API
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/v2/api/#operation/PostTasks) to create a task.
 
@@ -161,9 +161,9 @@ curl --request POST 'http://localhost:8086/api/v2/tasks' \
 }'
 ```
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 An InfluxDB Cloud task can run either an [invokable script](/influxdb/cloud/api-guide/api-invokable-scripts/) or raw Flux stored in the task.
 
@@ -302,4 +302,4 @@ Replace the following:
 - **`INFLUX_ORG`**: your InfluxDB organization name
 - **`INFLUX_ORG_ID`**: your InfluxDB organization ID
 
-{{% /cloud-only %}}
+{{% /show-in %}}

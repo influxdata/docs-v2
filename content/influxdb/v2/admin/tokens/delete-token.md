@@ -22,7 +22,7 @@ have access to your InfluxDB instance.
 
 ## Delete tokens in the InfluxDB UI
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **API Tokens**.
 
@@ -32,9 +32,9 @@ have access to your InfluxDB instance.
 3. Click the **{{< icon "delete" >}}** icon located far right of the token description.
 3. Click **Delete** to delete the token.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 1. In the navigation menu on the left, select **Load Data** > **API Tokens**.
 
@@ -44,7 +44,7 @@ have access to your InfluxDB instance.
 3. Click the **{{< icon "delete" >}}** icon located far right of the token description.
 4. Click **{{< caps >}}Confirm{{< /caps >}}** to delete the token.
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Delete a token using the influx CLI
 

@@ -17,17 +17,17 @@ related:
 ---
 
 Use the `influx` CLI to interact with and manage your
-InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} instance.
+InfluxDB {{% show-in "cloud,cloud-serverless" %}}Cloud{{% /show-in %}} instance.
 Write and query data, generate InfluxDB templates, export data, and more.
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 {{% note %}}
 The [`influx` CLI](/influxdb/v2/reference/cli/influx) is packaged and versioned
 separately from the InfluxDB server (`influxd`).
 {{% /note %}}
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 - [Install the influx CLI](#install-the-influx-cli)
 - [Set up the influx CLI](#set-up-the-influx-cli)
@@ -58,7 +58,7 @@ Do one of the following:
 brew install influxdb-cli
 ```
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 {{% note %}}
 If you used Homebrew to install **InfluxDB {{< current-version >}}**, the `influxdb-cli`
@@ -72,7 +72,7 @@ brew list | grep influxdb-cli
 ```
 {{% /note %}}
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ### Manually download and install
 
@@ -280,7 +280,7 @@ For more information about managing CLI configurations, see the
 
 For instructions on how to create API tokens, see [Create a token](/influxdb/v2/admin/tokens/create-token/).
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 #### Authenticate with a username and password
 
@@ -311,7 +311,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`ORG`{{% /code-placeholder-key %}}: [your organization name](/influxdb/v2/admin/organizations/).
 - {{% code-placeholder-key %}}`USERNAME:PASSWORD`{{% /code-placeholder-key %}}: your UI username and password combination.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
 ### Enable shell completion (Optional)
 

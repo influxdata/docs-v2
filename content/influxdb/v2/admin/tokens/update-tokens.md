@@ -32,7 +32,7 @@ using the InfluxDB user interface (UI).
 
 ## Enable or disable a token in the InfluxDB UI
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **API Tokens**.
 
@@ -40,9 +40,9 @@ using the InfluxDB user interface (UI).
 
 2. Click the **{{< icon "toggle" >}} Status** toggle.
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 1. In the navigation menu on the left, select **Load Data** > **API Tokens**.
 
@@ -52,7 +52,7 @@ using the InfluxDB user interface (UI).
 3. Click the token description.
 4. Click the **{{< icon "toggle-blue" >}} Status** toggle.
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Enable a token using the influx CLI
 

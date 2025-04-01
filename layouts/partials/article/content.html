@@ -8,9 +8,9 @@
   {{ $linkRegex := print (replaceRE `[0-9]` "" $product) "(?:[0-9])*" "/version" }}
   {{ readFile .Params.source | replaceRE $linkRegex (print $product "/" $version) | .RenderString | safeHTML }}
 {{ else if $influxdbOSSv2 }}
-  {{ .Content | replaceRE `(?Us)(<li>\s*<(?:div|span) class=\'cloud\-only\'>.*<\/(?:div|span)><\!\-\- close \-\-\>\s*</li>)` "" | replaceRE `(?Us)(<(?:div|span) class=\'cloud\-only\'>.*<\/(?:div|span)><\!\-\- close \-\-\>)` "" | safeHTML}}
+  {{ .Content | safeHTML}}
 {{ else if $influxdbCloud }}
-  {{ .Content | replaceRE `(?Us)(<li>\s*<(?:div|span) class=\'oss\-only\'>.*<\/(?:div|span)><\!\-\- close \-\-\>\s*</li>)` "" | replaceRE `(?Us)(<(?:div|span) class=\'oss\-only\'>.*<\/(?:div|span)><\!\-\- close \-\-\>)` "" | safeHTML}}
+  {{ .Content | safeHTML}}
 {{ else }}
   {{ .Content }}
 {{ end }}

@@ -14,7 +14,7 @@ related:
 
 To send notifications about changes in your data, start by creating a notification endpoint to a third-party service. After creating notification endpoints, [create notification rules](/influxdb/v2/monitor-alert/notification-rules/create) to send alerts to third-party services on [check statuses](/influxdb/v2/monitor-alert/checks/create).
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 #### Endpoints available in InfluxDB Cloud
 The following endpoints are available for the InfluxDB Cloud Free Plan and Usage-based Plan:
@@ -25,7 +25,7 @@ The following endpoints are available for the InfluxDB Cloud Free Plan and Usage
 | **PagerDuty** |                          | **{{< icon "check" >}}**     |
 | **HTTP**      |                          | **{{< icon "check" >}}**     |
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Create a notification endpoint
 
@@ -36,7 +36,7 @@ The following endpoints are available for the InfluxDB Cloud Free Plan and Usage
 2.  Select **{{< caps >}}Notification Endpoints{{< /caps >}}**.
 3.  Click **{{< caps >}}{{< icon "plus" >}} Create{{< /caps >}}**.
 4.  From the **Destination** drop-down list, select a destination endpoint to send notifications to.
-    {{% cloud-only %}}_See [available endpoints](#endpoints-available-in-influxdb-cloud)._{{% /cloud-only %}}
+    {{% show-in "cloud,cloud-serverless" %}}_See [available endpoints](#endpoints-available-in-influxdb-cloud)._{{% /show-in %}}
 5.  In the **Name** and **Description** fields, enter a name and description for the endpoint.
 6.  Enter information to connect to the endpoint:
 

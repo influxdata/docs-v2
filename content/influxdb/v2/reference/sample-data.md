@@ -173,7 +173,7 @@ Static datasets are fixed datasets from a specific past time range.
 - [Machine production sample data](#machine-production-sample-data)
 - [NOAA water sample data](#noaa-water-sample-data)
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 {{% note %}}
 #### Static sample data and bucket retention periods
@@ -194,7 +194,7 @@ sample.data(set: "birdMigration")
 
 {{% /note %}}
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ---
 
