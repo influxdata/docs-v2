@@ -4,4 +4,4 @@
 {{- $hideInString := .Get 0 |  default $defaultHideInString }}
 {{- $hideInList := split $hideInString "," -}}
 {{- $hide := in $hideInList $productVersion -}}
-{{ if $hide }}{{ .Inner }}{{ end }}
+{{ if $hide }}{{ else }}{{ .Inner }}{{ end }}
