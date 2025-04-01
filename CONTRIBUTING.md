@@ -367,6 +367,7 @@ append: # Append markdown content to an article (especially powerful with cascad
   content: # Content to append to article
 metadata: [] # List of metadata messages to include under the page h1
 updated_in: # Product and version the referenced feature was updated in (displayed as a unique metadata)
+source: # Specify a file to pull page content from (typically in /content/shared/)
 ```
 
 ### Title usage
@@ -494,6 +495,15 @@ cascade:
 those frontmatter keys. Frontmatter defined on the page overrides frontmatter
 "cascaded" from a parent.
 
+## Use shared content in a page
+
+Use the `source` frontmatter to specify a shared file to use to populate the
+page content. Shared files are typically stored in the `/content/shared` directory.
+
+When building shared content, use the `show-in` and `hide-in` shortcodes to show
+or hide blocks of content based on the current InfluxDB product/version.
+For more information, see [show-in](#show-in) and [hide-in](#hide-in).
+
 ## Shortcodes
 
 ### Notes and warnings
@@ -529,16 +539,6 @@ Display the short version name (part of the key used in `products.yml`) from the
 {{% product-key %}}
 ```
 
-### Enterprise Content
-
-For sections content that relate specifically to InfluxDB Enterprise, use the `{{% enterprise %}}` shortcode.
-
-```md
-{{% enterprise %}}
-Insert enterprise-specific markdown content here.
-{{% /enterprise %}}
-```
-
 #### Enterprise name
 
 The name used to refer to InfluxData's enterprise offering is subject to change.
@@ -563,76 +563,6 @@ InfluxDB Enterprise.
 
 ```
 Find more info [here][{{< enterprise-link >}}]
-```
-
-### InfluxDB Cloud Content
-
-For sections of content that relate specifically to InfluxDB Cloud, use the `{{% cloud %}}` shortcode.
-
-```md
-{{% cloud %}}
-Insert cloud-specific markdown content here.
-{{% /cloud %}}
-```
-
-#### InfluxDB Cloud name
-
-The name used to refer to InfluxData's cloud offering is subject to change.
-To facilitate easy updates in the future, use the `cloud-name` short-code when
-referencing the cloud product.
-This shortcode accepts a `"short"` parameter which uses the "short-name".
-
-```
-This is content that references {{< cloud-name >}}.
-This is content that references {{< cloud-name "short" >}}.
-```
-
-Product names are stored in `data/products.yml`.
-
-#### InfluxDB Cloud link
-
-References to InfluxDB Cloud are often accompanied with a link to a page where
-visitors can get more information.
-This link is subject to change.
-Use the `cloud-link` shortcode when including links to more information about
-InfluxDB Cloud.
-
-```
-Find more info [here][{{< cloud-link >}}]
-```
-
-### Latest links
-
-Each of the InfluxData projects have different "latest" versions.
-Use the `{{< latest >}}` shortcode to populate link paths with the latest version
-for the specified project.
-
-```md
-[Link to latest Telegraf](/{{< latest "telegraf" >}}/path/to/doc/)
-```
-
-To constrain the latest link to a major version, include a second argument with
-the major version:
-
-```md
-[Link to latest InfluxDB 1.x](/{{< latest "influxdb" "v1" >}}/path/to/doc/)]
-```
-
-`{{< latest "telegraf" >}}` is replaced with `telegraf/v1.15` (or whatever the latest version is).
-`{{< latest "influxdb" "v1" >}}` is replaced with `influxdb/v1.8` (or whatever the latest v1.x version is).
-
-Use the following for project names:
-
-- influxdb
-- telegraf
-- chronograf
-- kapacitor
-- enterprise_influxdb
-
-**Note**: Include a leading slash before the latest shortcode and a trailing slash after in all link paths:
-
-```md
-/{{< latest "telegraf" >}}/
 ```
 
 ### Latest patch version
@@ -1501,7 +1431,53 @@ This is necessary to get the first sentence/paragraph to render correctly.
     {{% /cloud-only %}}
 ```
 
-#### All-Caps
+### Show or hide content blocks in shared content
+
+The `source` frontmatter lets you source page content from another file and is
+used to share content across InfluxDB products. Within the shared content, you
+can use the `show-in` and `hide-in` shortcodes to conditionally show or hide
+content blocks based on the InfluxDB "version." Valid "versions" include:
+
+- v2
+- cloud
+- cloud-serverless
+- cloud-dedicated
+- clustered
+- core
+- enterprise
+
+#### show-in
+
+The `show-in` shortcode accepts a comma-delimited string of InfluxDB "versions"
+to show the content block in. The version is the second level of the page
+path--for example: `/influxdb/<version>/...`.
+
+```md
+{{% show-in "core,enterprise" %}}
+
+This content will appear in pages in the InfluxDB 3 Core and InfluxDB 3 Enterprise
+documentation, but not any other InfluxDB documentation this content is shared in.
+
+{{% /show-in %}}
+```
+
+#### hide-in
+
+The `hide-in` shortcode accepts a comma-delimited string of InfluxDB "versions"
+to hide the content block in. The version is the second level of the page
+path--for example: `/influxdb/<version>/...`.
+
+```md
+{{% hide-in "core,enterprise" %}}
+
+This content will not appear in pages in the InfluxDB 3 Core and InfluxDB 3
+Enterprise documentation, but will in all other InfluxDB documentation this
+content is shared in.
+
+{{% /hide-in %}}
+```
+
+### All-Caps
 
 Clockface v3 introduces many buttons with text formatted as all-caps.
 Use the `{{< caps >}}` shortcode to format text to match those buttons.
@@ -1510,7 +1486,7 @@ Use the `{{< caps >}}` shortcode to format text to match those buttons.
 Click {{< caps >}}Add Data{{< /caps >}}
 ```
 
-#### Code callouts
+### Code callouts
 
 Use the `{{< code-callout >}}` shortcode to highlight and emphasize a specific
 piece of code (for example, a variable, placeholder, or value) in a code block.
@@ -1527,7 +1503,7 @@ http://localhost:8086/orgs/03a2bbf46249a000/...
 {{< /code-callout >}}
 ````
 
-#### InfluxDB University banners
+### InfluxDB University banners
 
 Use the `{{< influxdbu >}}` shortcode to add an InfluxDB University banner that
 points to the InfluxDB University site or a specific course.
@@ -1546,7 +1522,7 @@ the content of the banner.
 the course" link="https://university.influxdata.com/" >}}
 ```
 
-##### Course templates
+#### Course templates
 
 Use one of the following course templates:
 
@@ -1554,7 +1530,7 @@ Use one of the following course templates:
 - telegraf-102
 - flux-103
 
-##### Custom banner content
+#### Custom banner content
 
 Use the following shortcode parameters to customize the content of the InfluxDB
 University banner:
@@ -1650,80 +1626,17 @@ Supported argument values:
 
 - oss
 - cloud
-- cloud-tsm
 - cloud-serverless
-- serverless
 - cloud-dedicated
-- dedicated
 - clustered
+- core
+- enterprise
 
 ```
-{{< host/influxdb >}}
+{{< influxdb/host >}}
 
-{{< host/influxdb "serverless" >}}
+{{< influxdb/host "serverless" >}}
 ```
-
-## New Versions of InfluxDB
-
-Version bumps occur regularly in the documentation.
-Each minor version has its own directory with unique content.
-Patch versions within a minor version are updated in place.
-
-To add a new minor version, go through the steps below.
-_This example assumes v2.0 is the most recent version and v2.1 is the new version._
-
-1. Ensure your `master` branch is up to date:
-
-   ```sh
-   git checkout master
-   git pull
-   ```
-
-2. Create a new branch for the new minor version:
-
-   ```sh
-   git checkout -b influxdb-2.1
-   ```
-
-3. Duplicate the most recent version's content directory:
-
-   ```sh
-   # From the root of the project
-   cp content/influxdb/v2.0 content/influxdb/v2.1
-   ```
-
-4. Find and replace all instances of the old version number with the new version
-   **(only within the new version directory)**.
-   Be sure to find and replace both the following forms of the version number:
-
-   ```
-   v2.0 -> v2.1
-   v2_0 -> v2_1
-   ```
-
-5. Add the new product and version tag taxonomy to the `config.toml` in the root of the project.
-
-   ```toml
-   [taxonomies]
-     "influxdb/v2.0/tag" = "influxdb/v2.0/tags"
-     "influxdb/v2.1/tag" = "influxdb/v2.1/tags"
-   ```
-
-6. Update the `latest_version` in `data/products.yml`:
-
-   ```yaml
-   latest_version: v2.1
-   ```
-
-7. Copy the InfluxDB `swagger.yml` specific to the new version into the
-   `/api-docs/v<version-number>/` directory.
-
-8. Commit the changes and push the new branch to GitHub.
-
-These changes lay the foundation for the new version.
-All other changes specific to the new version should be merged into this branch.
-Once the necessary changes are in place and the new version is released,
-merge the new branch into `master`.
 
 ## InfluxDB API documentation
 
