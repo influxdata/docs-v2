@@ -1435,7 +1435,7 @@ This is necessary to get the first sentence/paragraph to render correctly.
 
 The `source` frontmatter lets you source page content from another file and is
 used to share content across InfluxDB products. Within the shared content, you
-can use the `show-in` and `hide-in` shortcodes to conditional show or hide
+can use the `show-in` and `hide-in` shortcodes to conditionally show or hide
 content blocks based on the InfluxDB "version." Valid "versions" include:
 
 - v2
@@ -1470,7 +1470,7 @@ path--for example: `/influxdb/<version>/...`.
 ```md
 {{% hide-in "core,enterprise" %}}
 
-This content will NOTE appear in pages in the InfluxDB 3 Core and InfluxDB 3
+This content will not appear in pages in the InfluxDB 3 Core and InfluxDB 3
 Enterprise documentation, but will in all other InfluxDB documentation this
 content is shared in.
 
