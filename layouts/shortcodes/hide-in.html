@@ -1,7 +1,7 @@
 {{- $productPathData := split .Page.RelPermalink "/" -}}
 {{- $productVersion := index $productPathData 2 -}}
-{{- $defaultExcludeFromString := "v2,cloud,cloud-serverless,cloud-dedicated,clustered,core,enterprise" -}}
-{{- $excludeFromString := .Get 0 |  default $defaultExcludeFromString }}
-{{- $excludeFromList := split $excludeFromString "," -}}
-{{- $exclude := in $excludeFromList $productVersion -}}
-{{ if $exclude }}{{ .Inner }}{{ end }}
+{{- $defaultHideInString := "v2,cloud,cloud-serverless,cloud-dedicated,clustered,core,enterprise" -}}
+{{- $hideInString := .Get 0 |  default $defaultHideInString }}
+{{- $hideInList := split $hideInString "," -}}
+{{- $hide := in $hideInList $productVersion -}}
+{{ if $hide }}{{ .Inner }}{{ end }}
