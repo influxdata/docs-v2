@@ -205,6 +205,6 @@ quay.io/influxdb/influxdb3-{{< product-key >}}:latest
 > kill -9 <PROCESS_ID>
 > ```
 >
-> Currently, a bug prevents using `Ctrl-c` in the terminal to stop an InfluxDB 3 container.
+> Currently, a bug prevents using {{< keybind all="Ctrl+c" >}} in the terminal to stop an InfluxDB 3 container.
 
 {{< page-nav next="/influxdb3/enterprise/get-started/" nextText="Get started with InfluxDB 3 Enterprise" >}}
