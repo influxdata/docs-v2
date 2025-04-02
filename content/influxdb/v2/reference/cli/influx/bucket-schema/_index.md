@@ -14,12 +14,11 @@ cascade:
     - /influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
     - /influxdb/v2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
   metadata: [influx CLI 2.1.0+, InfluxDB Cloud only]
-  prepend:
-    block: cloud
-    content: |
-      #### Works with InfluxDB Cloud bucket schemas
-      `influx bucket-schema` and its subcommands work with [InfluxDB Cloud bucket schemas](/influxdb/cloud/admin/buckets/bucket-schema).
-      This feature is not available in InfluxDB OSS v2.3.
+  prepend: |
+    > [!Note]
+    > #### Works with InfluxDB Cloud bucket schemas
+    > `influx bucket-schema` and its subcommands work with [InfluxDB Cloud bucket schemas](/influxdb/cloud/admin/buckets/bucket-schema).
+    > This feature is not available in InfluxDB OSS v2.3.
 source: /shared/influxdb-v2/reference/cli/influx/bucket-schema/_index.md
 ---
 
