@@ -21,6 +21,8 @@ cascade:
       but do not manage users in **InfluxDB Cloud**.
       Use the InfluxDB Cloud UI to manage account information.
 canonical: /influxdb/v2/reference/cli/influx/user/
+source: /shared/influxdb-v2/reference/cli/influx/user/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/user/_index.md-->

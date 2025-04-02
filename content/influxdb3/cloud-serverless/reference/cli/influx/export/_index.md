@@ -18,6 +18,8 @@ cascade:
       While this command is included in the `influx` CLI , this
       functionality is not available in InfluxDB Cloud Serverless organizations
       powered by the InfluxDB 3 storage engine.
+source: /shared/influxdb-v2/reference/cli/influx/export/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/export/_index.md-->

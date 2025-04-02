@@ -13,6 +13,8 @@ menu:
     parent: Notebooks
 aliases:
   - /influxdb/cloud/notebooks/downsample/
+source: /shared/influxdb-v2/tools/notebooks/downsample.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/notebooks/downsample.md-->

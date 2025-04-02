@@ -7,6 +7,8 @@ menu:
     parent: influx user
 weight: 201
 canonical: /influxdb/v2/reference/cli/influx/user/delete/
+source: /shared/influxdb-v2/reference/cli/influx/user/delete.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/user/delete.md-->

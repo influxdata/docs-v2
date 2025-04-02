@@ -17,6 +17,8 @@ prepend:
     - [Get started with Flux](/flux/v0.x/get-started/)
     - [Query data with Flux](/influxdb/cloud/query-data/flux/)
     - [Migrate continuous queries to Flux tasks](/influxdb/cloud/upgrade/v1-to-cloud/migrate-cqs/)
+source: /shared/influxdb-v2/reference/cli/influx/transpile/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/transpile/_index.md-->

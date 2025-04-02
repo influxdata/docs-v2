@@ -16,6 +16,8 @@ related:
   - /influxdb/cloud/reference/cli/influx/template/
   - /influxdb/cloud/reference/cli/influx/template/validate/
   - /influxdb/cloud/api/
+source: /shared/influxdb-v2/tools/influxdb-templates/use.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/influxdb-templates/use.md-->

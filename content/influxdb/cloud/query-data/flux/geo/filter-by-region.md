@@ -17,6 +17,8 @@ list_code_example: |
   sampleGeoData
       |> geo.filterRows(region: {lat: 30.04, lon: 31.23, radius: 200.0}, strict: true)
   ```
+source: /shared/influxdb-v2/query-data/flux/geo/filter-by-region.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/geo/filter-by-region.md-->

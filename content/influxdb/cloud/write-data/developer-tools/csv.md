@@ -17,6 +17,8 @@ alt_links:
   cloud-serverless: /influxdb3/cloud-serverless/write-data/csv/
   cloud-dedicated: /influxdb3/cloud-dedicated/write-data/csv/
   clustered: /influxdb3/clustered/write-data/csv/
+source: /shared/influxdb-v2/write-data/developer-tools/csv.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/write-data/developer-tools/csv.md-->

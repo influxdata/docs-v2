@@ -7,6 +7,8 @@ menu:
     name: Query in the Flux REPL
     parent: Execute queries
 influxdb/cloud/tags: [query]
+source: /shared/influxdb-v2/query-data/execute-queries/flux-repl.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/execute-queries/flux-repl.md-->
