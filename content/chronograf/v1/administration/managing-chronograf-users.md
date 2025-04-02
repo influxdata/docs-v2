@@ -33,12 +33,10 @@ menu:
 
 ## Manage Chronograf users and roles
 
-{{% note %}}
-**Note:** Support for organizations and user roles is available in Chronograf 1.4 or later.
-First, OAuth 2.0 authentication must be configured (if it is, you'll see the
-Chronograf Admin tab on the Admin menu).
-For more information, see [Managing security](/chronograf/v1/administration/managing-security/).
-{{% /note %}}
+> [!Note]
+> **Note:** Support for organizations and user roles is available in Chronograf 1.4 or later.  
+> First, OAuth 2.0 authentication must be configured (if it is, you'll see the Chronograf Admin tab on the Admin menu).  
+> For more information, see [Managing security](/chronograf/v1/administration/managing-security/).
 
 Chronograf includes four organization-bound user roles and one cross-organization SuperAdmin permission. In an organization, admins (with the `admin` role) or users with SuperAdmin permission can create, update, and assign roles to a user or remove a role assignment.
 
@@ -58,13 +56,11 @@ Each of these roles, described in detail below, have different capabilities for 
 
 Chronograf uses InfluxDB and Kapacitor connections to manage user access control to InfluxDB and Kapacitor resources within Chronograf. The permissions of the InfluxDB and Kapacitor user specified within such a connection determine the capabilities for any Chronograf user with access (i.e., viewers, editors, and administrators) to that connection. Administrators include either an admin (`admin` role) or a user of any role with SuperAdmin permission.
 
-{{% note %}}
-**Note:** Chronograf users are entirely separate from InfluxDB and Kapacitor users.
-The Chronograf user and authentication system applies to the Chronograf user interface.
-InfluxDB and Kapacitor users and their permissions are managed separately.
-[Chronograf connections](/chronograf/v1/administration/creating-connections/)
-determine which InfluxDB or Kapacitor users to use when when connecting to each service.
-{{% /note %}}
+> [!Note]
+> Chronograf users are entirely separate from InfluxDB and Kapacitor users.  
+> The Chronograf user and authentication system applies to the Chronograf user interface.  
+> InfluxDB and Kapacitor users and their permissions are managed separately.  
+> [Chronograf connections](/chronograf/v1/administration/creating-connections/) determine which InfluxDB or Kapacitor users to use when connecting to each service.
 
 #### Chronograf-owned resources
 

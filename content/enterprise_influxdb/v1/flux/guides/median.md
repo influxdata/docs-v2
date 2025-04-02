@@ -96,9 +96,8 @@ Output tables consist of a single row containing the calculated median.
 {{% /flex-content %}}
 {{< /flex >}}
 
-{{% note %}}
-The examples below use the [example data variable](/enterprise_influxdb/v1/flux/guides/#example-data-variable).
-{{% /note %}}
+> [!NOTE]
+> The examples below use the [example data variable](/enterprise_influxdb/v1/flux/guides/#example-data-variable).
 
 ## Find the value that represents the median
 Use the default method, `"estimate_tdigest"`, to return all rows in a table that

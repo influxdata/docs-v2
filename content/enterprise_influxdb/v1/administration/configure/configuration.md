@@ -178,6 +178,5 @@ which can be useful in cases where you are running the InfluxDB
 along with other processes on the same machine
 and want to ensure that the database doesn't negatively affect those processes.
 
-{{% note %}}
-_**Note:**_ Setting `GOMAXPROCS=1` eliminates all parallelization.
-{{% /note %}}
+> [!Note]
+> **Note:** Setting `GOMAXPROCS=1` eliminates all parallelization.

@@ -17,11 +17,10 @@ Connections to InfluxDB and Kapacitor can be configured through the Chronograf u
 - [Manage Kapacitor connections using the Chronograf UI](#manage-kapacitor-connections-using-the-chronograf-ui)
 - [Manage Kapacitor connections using .kap files](#manage-kapacitor-connections-using-kap-files)
 
-{{% note %}}
-**Note:** Connection details are stored in Chronograf’s internal database `chronograf-v1.db`.
-You may administer the internal database when [restoring a Chronograf database](/chronograf/v1/administration/restoring-chronograf-db/)
-or when [migrating a Chronograf configuration from BoltDB to etcd](/chronograf/v1/administration/migrate-to-high-availability/).
-{{% /note %}}
+> [!NOTE]
+> **Note:** Connection details are stored in Chronograf’s internal database `chronograf-v1.db`.
+> You may administer the internal database when [restoring a Chronograf database](/chronograf/v1/administration/restoring-chronograf-db/)
+> or when [migrating a Chronograf configuration from BoltDB to etcd](/chronograf/v1/administration/migrate-to-high-availability/).
 
 ## Manage InfluxDB connections using the Chronograf UI
 
@@ -73,12 +72,12 @@ To create an InfluxDB connection in the Chronograf UI:
   _**(leave blank)**_
 - **Default connection**: use this connection as the default connection for data exploration and dashboards
 
-{{% note %}}
-For more information about connecting Chronograf to an InfluxDB Cloud or OSS 2.x instance, see:
+> [!NOTE]
+> For more information about connecting Chronograf to an InfluxDB Cloud or OSS 2.x instance, see:
+>
+> - [Use Chronograf with InfluxDB Cloud](/influxdb/cloud/tools/chronograf/)
+> - [Use Chronograf with InfluxDB OSS 2.x](/influxdb/v2/tools/chronograf/)
 
-- [Use Chronograf with InfluxDB Cloud](/influxdb/cloud/tools/chronograf/)
-- [Use Chronograf with InfluxDB OSS 2.x](/influxdb/v2/tools/chronograf/)
-{{% /note %}}
     {{% /tab-content %}}
     {{< /tabs-wrapper >}}
 
@@ -126,11 +125,10 @@ The location of `.src` files is defined by the [`--resources-path`](/chronograf/
 command line option, which is, by default, the same as the [`--canned-path`](/chronograf/v1/administration/config-options/#canned-path-c).
 A `.src` file contains the details for a single InfluxDB connection.
 
-{{% note %}}
-**Only InfluxDB 1.x connections are configurable in a `.src` file.**
-Configure InfluxDB 2.x and Cloud connections with [CLI flags](/chronograf/v1/administration/config-options/#influxdb-connection-options)
-or in the [Chronograf UI](#manage-influxdb-connections-using-the-chronograf-ui).
-{{% /note %}}
+> [!NOTE]
+> **Only InfluxDB 1.x connections are configurable in a `.src` file.**
+> Configure InfluxDB 2.x and Cloud connections with [CLI flags](/chronograf/v1/administration/config-options/#influxdb-connection-options)
+> or in the [Chronograf UI](#manage-influxdb-connections-using-the-chronograf-ui).
 
 Create a new file named `example.src` (the filename is arbitrary) and place it at Chronograf's `resource-path`.
 All `.src` files should contain the following:

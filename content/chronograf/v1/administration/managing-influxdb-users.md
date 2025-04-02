@@ -13,16 +13,14 @@ menu:
 
 The **Chronograf Admin** provides InfluxDB user management for InfluxDB OSS and InfluxDB Enterprise users.
 
-{{% note %}}
-***Note:*** For details on Chronograf user authentication and management, see [Managing security](/chronograf/v1/administration/managing-security/).
-{{% /note %}}
+> [!Note]
+> **Note:** For details on Chronograf user authentication and management, see [Managing security](/chronograf/v1/administration/managing-security/).
 
-{{% note %}}
-#### Disabled administrative features
-If connected to **InfluxDB OSS v2.x** or **InfluxDB Cloud**, all InfluxDB administrative
-features are disabled in Chronograf. Use the InfluxDB OSS v2.x or InfluxDB Cloud user
-interfaces, CLIs, or APIs to complete administrative tasks.
-{{% /note %}}
+> [!Note]
+> #### Disabled administrative features
+> If connected to **InfluxDB OSS v2.x** or **InfluxDB Cloud**, all InfluxDB administrative
+> features are disabled in Chronograf. Use the InfluxDB OSS v2.x or InfluxDB Cloud user
+> interfaces, CLIs, or APIs to complete administrative tasks.
 
 **On this page:**
 
@@ -35,10 +33,9 @@ interfaces, CLIs, or APIs to complete administrative tasks.
 Follow the steps below to enable authentication.
 The steps are the same for InfluxDB OSS instances and InfluxDB Enterprise clusters.
 
-{{% note %}}
-_**InfluxDB Enterprise clusters:**_
-Repeat the first three steps for each data node in a cluster.
-{{% /note %}}
+> [!Note]
+> _**InfluxDB Enterprise clusters:**_  
+> Repeat the first three steps for each data node in a cluster.
 
 ### Step 1: Enable authentication.
 
@@ -105,40 +102,38 @@ On the **Chronograf Admin** page:
 InfluxDB users are either admin users or non-admin users.
 See InfluxDB's [authentication and authorization](/influxdb/v1/administration/authentication_and_authorization/#user-types-and-privileges) documentation for more information about those user types.
 
-{{% note %}}
-Chronograf currently does not support assigning InfluxDB database `READ`or `WRITE` access to non-admin users.
-
-As a workaround, grant `READ`, `WRITE`, or `ALL` (`READ` and `WRITE`) permissions to non-admin users with the following curl commands, replacing anything inside `< >` with your own values:
-
-#### Grant `READ` permission:
-```sh
-curl --request POST "http://<InfluxDB-IP>:8086/query?u=<username>&p=<password>" \
-  --data-urlencode "q=GRANT READ ON <database-name> TO <non-admin-username>"
-```
-
-#### Grant `WRITE` permission:
-```sh
-curl --request POST "http://<InfluxDB-IP>:8086/query?u=<username>&p=<password>" \
-  --data-urlencode "q=GRANT WRITE ON <database-name> TO <non-admin-username>"
-```
-
-#### Grant `ALL` permission:
-```sh
-curl --request POST "http://<InfluxDB-IP>:8086/query?u=<username>&p=<password>" \
-  --data-urlencode "q=GRANT ALL ON <database-name> TO <non-admin-username>"
-```
-
-In all cases, a successful `GRANT` query returns a blank result:
-
-```sh
-{"results":[{"statement_id":0}]}  # <--- Success!
-```
-
-Remove `READ`, `WRITE`, or `ALL` permissions from non-admin users by replacing `GRANT` with `REVOKE` in the curl commands above.
-{{% /note %}}
+> [!Note]
+> Chronograf currently does not support assigning InfluxDB database `READ` or `WRITE` access to non-admin users.
+>
+> As a workaround, grant `READ`, `WRITE`, or `ALL` (`READ` and `WRITE`) permissions to non-admin users with the following curl commands, replacing anything inside `< >` with your own values:
+>
+> #### Grant `READ` permission:
+> ```sh
+> curl --request POST "http://<InfluxDB-IP>:8086/query?u=<username>&p=<password>" \
+>   --data-urlencode "q=GRANT READ ON <database-name> TO <non-admin-username>"
+> ```
+>
+> #### Grant `WRITE` permission:
+> ```sh
+> curl --request POST "http://<InfluxDB-IP>:8086/query?u=<username>&p=<password>" \
+>   --data-urlencode "q=GRANT WRITE ON <database-name> TO <non-admin-username>"
+> ```
+>
+> #### Grant `ALL` permission:
+> ```sh
+> curl --request POST "http://<InfluxDB-IP>:8086/query?u=<username>&p=<password>" \
+>   --data-urlencode "q=GRANT ALL ON <database-name> TO <non-admin-username>"
+> ```
+>
+> In all cases, a successful `GRANT` query returns a blank result:
+>
+> ```sh
+> {"results":[{"statement_id":0}]}  # <--- Success!
+> ```
+>
+> Remove `READ`, `WRITE`, or `ALL` permissions from non-admin users by replacing `GRANT` with `REVOKE` in the curl commands above.
 
 ## InfluxDB Enterprise user management using the UI
-
 
 To create, manage, and delete users, click **Admin {{< icon "crown" >}}** in the left navigation bar. 
 

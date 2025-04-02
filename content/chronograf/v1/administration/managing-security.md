@@ -22,11 +22,10 @@ To enhance security, configure Chronograf to authenticate and authorize with [OA
 
 ## Configure Chronograf to authenticate with OAuth 2.0
 
-{{% note %}}
-After configuring OAuth 2.0, the Chronograf Admin tab becomes visible.
-You can then set up [multiple organizations](/chronograf/v1/administration/managing-organizations/)
-and [users](/chronograf/v1/administration/managing-influxdb-users/).
-{{% /note %}}
+> [!NOTE]
+> After configuring OAuth 2.0, the Chronograf Admin tab becomes visible.  
+> You can then set up [multiple organizations](/chronograf/v1/administration/managing-organizations/)  
+> and [users](/chronograf/v1/administration/managing-influxdb-users/).
 
 Configure Chronograf to use an OAuth 2.0 provider and JWT (JSON Web Token) to authenticate users and enable role-based access controls.
 
@@ -98,9 +97,8 @@ Configuration steps for the following supported authentication providers are pro
 * [Bitbucket](#configure-bitbucket-authentication)
 * [Configure Chronograf to use any OAuth 2.0 provider](#configure-chronograf-to-use-any-oauth-20-provider)
 
-{{% note %}}
-If you haven't already, you must first [generate a token secret](#generate-a-token-secret) before proceeding.
-{{% /note %}}
+> [!NOTE]
+> If you haven't already, you must first [generate a token secret](#generate-a-token-secret) before proceeding.
 
 ---
 
@@ -469,9 +467,8 @@ JWKS_URL="https://example.com/adfs/discovery/keys"
 TOKEN_SECRET="ZNh2N9toMwUVQxTVEe2ZnnMtgkh3xqKZ"
 ```
 
-{{% note %}}
-Do not use special characters for the `GENERIC_CLIENT_ID` as AD FS may split strings at the special character, resulting in an identifier mismatch.
-{{% /note %}}
+> [!NOTE]
+> Do not use special characters for the `GENERIC_CLIENT_ID` as AD FS may split strings at the special character, resulting in an identifier mismatch.
 
 {{% note %}}
 #### Troubleshoot OAuth errors
@@ -541,9 +538,8 @@ Chronograf includes command line and environment variable options for configurin
 Use of the TLS cryptographic protocol provides server authentication, data confidentiality, and data integrity.
 When configured, users can use HTTPS to securely communicate with your Chronograf applications.
 
-{{% note %}}
-HTTPS helps prevent nefarious agents stealing the JWT and using it to spoof a valid user against the server.
-{{% /note %}}
+> [!NOTE]
+> HTTPS helps prevent nefarious agents stealing the JWT and using it to spoof a valid user against the server.
 
 ### Configure TLS for Chronograf
 
@@ -607,9 +603,8 @@ docker run \
 ### Test with self-signed certificates
 To test your setup, you can use a self-signed certificate.
 
-{{% warn %}}
-Don't use self-signed certificates in production environments.
-{{% /warn %}}
+> [!WARNING]
+> Don't use self-signed certificates in production environments.
 
 
 To create a certificate and key in one file with OpenSSL:

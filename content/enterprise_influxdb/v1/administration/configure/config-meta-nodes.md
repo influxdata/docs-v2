@@ -93,11 +93,11 @@ and data nodes.
 The file contains the JSON-formatted license, and must be readable by the `influxdb` user.
 Each server in the cluster independently verifies its license.
 
-{{% warn %}}
-The `license-key` and `license-path` settings are mutually exclusive and one must remain set to the empty string.
-{{% /warn %}}
+> [!Warning]
+> The `license-key` and `license-path` settings are mutually exclusive and one must remain set to the empty string.
 
-> **Note:** You must restart meta nodes to update your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1/administration/renew-license/).
+> [!Note]
+> You must restart meta nodes to update your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1/administration/renew-license/).
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_PATH`
 

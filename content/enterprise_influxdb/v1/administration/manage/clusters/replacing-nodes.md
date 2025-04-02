@@ -49,9 +49,8 @@ have options that facilitate the use of TLS.
 
 To manage your cluster over TLS, pass the `-bind-tls` flag with any `influxd-ctl` command.
 
-{{% note %}}
-If using a self-signed certificate, pass the `-k` flag to skip certificate verification.
-{{% /note %}}
+> [!Note]
+> If using a self-signed certificate, pass the `-k` flag to skip certificate verification.
 
 ```bash
 # Syntax
@@ -152,9 +151,8 @@ Log into any of your meta nodes and run the following:
 curl -s localhost:8091/status | jq
 ```
 
-{{% note %}}
-Piping the command into `jq` is optional, but does make the JSON output easier to read.
-{{% /note %}}
+> [!Note]
+> Piping the command into `jq` is optional, but does make the JSON output easier to read.
 
 The output will include information about the current meta node, the leader of the meta cluster, and a list of "peers" in the meta cluster.
 
@@ -194,9 +192,8 @@ influxd-ctl remove-meta <meta-node-tcp-bind-address>
 influxd-ctl remove-meta enterprise-meta-02:8091
 ```
 
-{{% note %}}
-Only use `remove-meta` if you want to permanently remove a meta node from a cluster.
-{{% /note %}}
+> [!Note]
+> Only use `remove-meta` if you want to permanently remove a meta node from a cluster.
 
 {{% note %}}
 **For unresponsive or unrecoverable meta nodes:**

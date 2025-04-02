@@ -18,14 +18,12 @@ When configured with a signed certificate, HTTPS over TLS can also verify the au
 
 This pages outlines how to set up HTTPS with InfluxDB Enterprise using either a signed or self-signed certificate.
 
-{{% warn %}}
-InfluxData **strongly recommends** enabling HTTPS, especially if you plan on sending requests to InfluxDB Enterprise over a network.
-{{% /warn %}}
+> [!Warning]
+> InfluxData **strongly recommends** enabling HTTPS, especially if you plan on sending requests to InfluxDB Enterprise over a network.
 
-{{% note %}}
-These steps have been tested on Debian-based Linux distributions.
-Specific steps may vary on other operating systems.
-{{% /note %}}
+> [!Note]
+> These steps have been tested on Debian-based Linux distributions.  
+> Specific steps may vary on other operating systems.
 
 ## Requirements
 

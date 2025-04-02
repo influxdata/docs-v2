@@ -51,11 +51,10 @@ Chronograf offers a UI for [Kapacitor](https://github.com/influxdata/kapacitor),
 
 ### Multi-organization and multi-user support
 
-{{% note %}}
-**Note:** To use this feature, OAuth 2.0 authentication must be configured.
-Once configured, the Chronograf Admin tab on the Admin menu is visible.
-For details, see [Managing Chronograf security](/chronograf/v1/administration/managing-security/).
-{{% /note %}}
+> [!Note]
+> **Note:** To use this feature, OAuth 2.0 authentication must be configured.  
+> Once configured, the Chronograf Admin tab on the Admin menu is visible.  
+> For details, see [Managing Chronograf security](/chronograf/v1/administration/managing-security/).
 
 * Create organizations and assign users to those organizations
 * Restrict access to administrative functions

@@ -26,9 +26,8 @@ the user credentials specified in the query parameters take precedence.
 The following examples demonstrate queries with [admin user](#admin-users) permissions.
 To learn about different users types, permissions, and how to manage users, see [authorization](#authorization).
 
-{{% note %}}
-InfluxDB Enterprise redacts passwords in log output when you enable authentication.
-{{% /note %}}
+> [!Note]
+> InfluxDB Enterprise redacts passwords in log output when you enable authentication.
 
 #### Authenticate with basic authentication
 ```bash

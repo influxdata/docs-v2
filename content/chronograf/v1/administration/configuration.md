@@ -50,9 +50,8 @@ TOKEN_SECRET=MySup3rS3cretT0k3n
 LOG_LEVEL=info
 ```
 
-{{% note %}}
-**Note:** `/etc/default/chronograf` is only created when installing the `.deb or `.rpm` package.
-{{% /note %}}
+> [!NOTE]
+> **Note:** `/etc/default/chronograf` is only created when installing the `.deb` or `.rpm` package.
 
 ## Set up security, organizations, and users
 

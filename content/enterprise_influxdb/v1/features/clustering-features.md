@@ -147,6 +147,5 @@ Best practices when using an active-passive node setup:
 
 For more information, see how to [add a passive node to a cluster](/enterprise_influxdb/v1/tools/influxd-ctl/add-data/#add-a-passive-data-node-to-a-cluster).
 
-{{% note %}}
-**Note:**  This feature is experimental and available only in InfluxDB Enterprise.
-{{% /note %}}
+> [!NOTE]
+> **Note:** This feature is experimental and available only in InfluxDB Enterprise.

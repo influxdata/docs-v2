@@ -20,26 +20,24 @@ menu:
 
 ## About Chronograf organizations
 
-{{% note %}}
-**Note:** Support for organizations and user roles is available in Chronograf 1.4 or later.
-First, OAuth 2.0 authentication must be configured (if it is, you'll see the Chronograf Admin tab on the Admin menu).
-For more information, see [managing security](/chronograf/v1/administration/managing-security/).
-{{% /note %}}
+> [!NOTE]
+> Support for organizations and user roles is available in Chronograf 1.4 or later.
+> First, OAuth 2.0 authentication must be configured (if it is, you'll see the Chronograf Admin tab on the Admin menu).
+> For more information, see [managing security](/chronograf/v1/administration/managing-security/).
 
 For information about the new user roles and SuperAdmin permission, see [Managing Chronograf users](/chronograf/v1/administration/managing-chronograf-users/).
 
 A Chronograf organization is a collection of Chronograf users who share common Chronograf-owned resources, including dashboards, InfluxDB connections, and Kapacitor connections. Organizations can be used to represent companies, functional units, projects, or teams. Chronograf users can be members of multiple organizations.
 
-{{% note %}}
-**Note:** Only users with SuperAdmin permission can manage organizations. Admins, editors, viewers, and members cannot manage organizations unless they have SuperAdmin permission.
-{{% /note %}}
+> [!NOTE]
+> Only users with SuperAdmin permission can manage organizations. Admins,
+> editors, viewers, and members cannot manage organizations unless they have SuperAdmin permission.
 
 ## Use the default organization
 
-{{% note %}}
-**Note:** The default organization can be used to support Chronograf as configured in versions earlier than 1.4.
-Upon upgrading, any Chronograf resources that existed prior to 1.4 automatically become owned by the Default organization.
-{{% /note %}}
+> [!NOTE]
+> **Note:** The default organization can be used to support Chronograf as configured in versions earlier than 1.4.
+> Upon upgrading, any Chronograf resources that existed prior to 1.4 automatically become owned by the Default organization.
 
 Upon installation, the default organization is ready for use and allows Chronograf to be used as-is.
 

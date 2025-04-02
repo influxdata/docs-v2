@@ -12,8 +12,8 @@ If you're upgrading from Chronograf 1.3.x, first install {{< latest-patch versio
 
 If you're upgrading from Chronograf 1.4 or later, [download and install](https://www.influxdata.com/downloads/) the most recent version of Chronograf, and then restart Chronograf.
 
-{{% note %}}
-Installing a new version of Chronograf automatically clears the localStorage settings.
-{{% /note %}}
+> [!Note]
+> Installing a new version of Chronograf automatically clears the localStorage settings.
+
 
 After upgrading, see [Getting Started](/chronograf/v1/introduction/getting-started/) to get up and running.

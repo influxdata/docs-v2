@@ -24,9 +24,8 @@ or every 10 seconds if the score hasn't changed.
 
 ### Setup
 
-{{% note %}}
-**Note:** Copies of the code snippets used here can be found in the [scores](https://github.com/influxdata/kapacitor/tree/master/examples/scores) example in Kapacitor project on GitHub.
-{{% /note %}}
+> [!NOTE]
+> **Note:** Copies of the code snippets used here can be found in the [scores](https://github.com/influxdata/kapacitor/tree/master/examples/scores) example in Kapacitor project on GitHub.
 
 First, we need to configure Kapacitor to receive the stream of scores.
 In this example, the scores update too frequently to store all of the score data in a InfluxDB database, so the score data will be semt directly to Kapacitor.

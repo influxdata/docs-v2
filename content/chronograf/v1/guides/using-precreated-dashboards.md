@@ -14,9 +14,8 @@ menu:
 
 Pre-created dashboards are delivered with Chronograf depending on which Telegraf input plugins you have enabled and are available from the Host List page. These dashboards, which are built in and not editable, include cells with data visualizations for metrics that are relevant to data sources you are likely to be using.
 
-{{% note %}}
-Note that these pre-created dashboards cannot be cloned or customized. They appear only  as part of the Host List view and are associated with metrics gathered from a single host. Dashboard templates are also available and deliver a solid starting point for customizing your own unique dashboards based on the Telegraf plugins enabled and operate across one or more hosts. For details, see [Dashboard templates](/chronograf/v1/guides/create-a-dashboard/#dashboard-templates).
-{{% /note %}}
+> [!Note]
+> Note that these pre-created dashboards cannot be cloned or customized. They appear only as part of the Host List view and are associated with metrics gathered from a single host. Dashboard templates are also available and deliver a solid starting point for customizing your own unique dashboards based on the Telegraf plugins enabled and operate across one or more hosts. For details, see [Dashboard templates](/chronograf/v1/guides/create-a-dashboard/#dashboard-templates).
 
 ## Requirements
 

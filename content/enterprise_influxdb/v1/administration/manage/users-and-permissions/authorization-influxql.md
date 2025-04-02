@@ -198,9 +198,8 @@ CLI examples:
 > REVOKE WRITE ON "NOAA_water_database" FROM "todd"
 ```
 
-{{% note %}}
-If a user with `ALL` privileges has `WRITE` privileges revoked, they are left with `READ` privileges, and vice versa.
-{{% /note %}}
+> [!Note]
+> If a user with `ALL` privileges has `WRITE` privileges revoked, they are left with `READ` privileges, and vice versa.
 
 ##### `SHOW` a user's database privileges
 

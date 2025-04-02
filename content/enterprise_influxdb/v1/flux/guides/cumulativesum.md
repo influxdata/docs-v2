@@ -40,9 +40,8 @@ to calculate a running total of values.
 {{% /flex-content %}}
 {{< /flex >}}
 
-{{% note %}}
-The examples below use the [example data variable](/enterprise_influxdb/v1/flux/guides/#example-data-variable).
-{{% /note %}}
+> [!Note]
+> The examples below use the [example data variable](/enterprise_influxdb/v1/flux/guides/#example-data-variable).
 
 ##### Calculate the running total of values
 ```js

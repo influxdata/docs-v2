@@ -125,9 +125,8 @@ data
 per `unit` for time intervals defined by `every`.
 Negative values are replaced with _null_.
 
-{{% note %}}
-`aggregate.rate()` does not support `nonNegative: false`.
-{{% /note %}}
+> [!Note]
+> `aggregate.rate()` does not support `nonNegative: false`.
 
 {{< flex >}}
 {{% flex-content %}}

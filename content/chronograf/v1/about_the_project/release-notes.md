@@ -137,8 +137,8 @@ Improved pagination and performance of the UI when you have large numbers of TIC
 
 ## v1.9.3 {date="2022-02-02"}
 
-{{% note %}} **NOTE:** We did not release version 1.9.2 due to a bug that impacted communication between the browser’s main thread and background workers.  This bug has been fixed in the 1.9.3 release.
-{{% /note %}}
+> [!NOTE]
+> **NOTE:** We did not release version 1.9.2 due to a bug that impacted communication between the browser’s main thread and background workers. This bug has been fixed in the 1.9.3 release.
 
 ### Features
 - Add ability to rename TICKscripts.
@@ -178,9 +178,10 @@ Improved pagination and performance of the UI when you have large numbers of TIC
   Previously, name variables were ignored and this led to confusion.
 - TICKscripts created from templates are now visible in a read-only mode from within Chronograf.
   In addition, TICKscripts created from templates will _not_ appear in the Alert Rule section of the UI.
-  {{% note %}}
-This requires Kapacitor 1.6.2, which now provides information about the template used to create the underlying TICKscript.
-  {{% /note %}}
+
+  > [!NOTE]
+  > This requires Kapacitor 1.6.2, which now provides information about the template used to create the underlying TICKscript.
+  
 - Pagination of more than 500 Flux tasks was broken. This has now been addressed.
 
 #### Browser support
@@ -204,18 +205,17 @@ This requires Kapacitor 1.6.2, which now provides information about the template
 
 ## v1.9.0 {date="2021-06-25"}
 
-{{% warn %}}
-### Breaking Changes
-
-#### OAuth PKCE
-Add [OAuth PKCE (RFC7636)](https://oauth.net/2/pkce/) to OAuth integrations in Chronograf. 
-PKCE mitigates the threat of the authorization code being intercepted during the OAuth token exchange.
-Google, Azure, Octa, Auth0, Gitlab, and others already support OAuth PKCE.
-Enabling PKCE should have no effect on integrations with services that don't
-support it yet (such as Github or Bitbucket).
-To disable PKCE, set the `OAUTH_NO_PKCE` environment variable to `=`true` or
-include the `--oauth-no-pkce` flag when starting `chronograf`.
-{{% /warn %}}
+> [!WARNING]
+> ### Breaking Changes
+>
+> #### OAuth PKCE
+> Add [OAuth PKCE (RFC7636)](https://oauth.net/2/pkce/) to OAuth integrations in Chronograf. 
+> PKCE mitigates the threat of the authorization code being intercepted during the OAuth token exchange.
+> Google, Azure, Octa, Auth0, Gitlab, and others already support OAuth PKCE.
+> Enabling PKCE should have no effect on integrations with services that don't
+> support it yet (such as Github or Bitbucket).
+> To disable PKCE, set the `OAUTH_NO_PKCE` environment variable to `true` or
+> include the `--oauth-no-pkce` flag when starting `chronograf`.
 
 ### Features
 - Support data migrations to ETCD over HTTPS.
@@ -355,12 +355,11 @@ USE "db_name"; DELETE FROM "measurement_name" WHERE "tag" = 'value' AND time < '
 
 ### v.1.8.7 {date="2020-10-06"}
 
-{{% warn %}}
-This release includes breaking changes:
-TLS1.2 is now the default minimum required TLS version. If you have clients that require older TLS versions, use one of the following when starting Chronograf:
-  - The `--tls-min-version=1.1` option
-  - The `TLS_MIN_VERSION=1.1` environment variable
-{{% /warn %}}
+> [!WARNING]
+> This release includes breaking changes:
+> TLS1.2 is now the default minimum required TLS version. If you have clients that require older TLS versions, use one of the following when starting Chronograf:
+> - The `--tls-min-version=1.1` option
+> - The `TLS_MIN_VERSION=1.1` environment variable
 
 ### Features
 - Allow to configure HTTP basic access authentication.
@@ -442,11 +441,9 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 
 ## v1.8.1 {date="2020-04-06"}
 
-{{% warn %}}
-**Warning:** Critical bug that impacted table rendering was introduced in 1.8.1.
-**Do not install this release**, install [v1.8.2](#v182), which includes the
-features and bug fixes below.
-{{% /warn %}}
+> [!WARNING]
+> **Warning:** Critical bug that impacted table rendering was introduced in 1.8.1.  
+> **Do not install this release**, install [v1.8.2](#v182), which includes the features and bug fixes below.
 
 ### Features
 
@@ -1409,7 +1406,6 @@ In versions 1.3.1+, installing a new version of Chronograf automatically clears 
   * Change the default global time range to past 1 hour
   * Add the Source Indicator icon to the Configuration and Admin pages
 
-
-{{% note %}}
-See Chronograf's [CHANGELOG](https://github.com/influxdata/chronograf/blob/master/CHANGELOG.md) on GitHub for information about the 1.2.0-beta releases.
-{{% /note %}}
+> [!NOTE]
+> See Chronograf's [CHANGELOG](https://github.com/influxdata/chronograf/blob/master/CHANGELOG.md)
+> on GitHub for information about the 1.2.0-beta releases.

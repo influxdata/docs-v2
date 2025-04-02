@@ -109,9 +109,8 @@ If calculating the `0.5` quantile or 50th percentile:
 {{% /flex-content %}}
 {{< /flex >}}
 
-{{% note %}}
-The examples below use the [example data variable](/enterprise_influxdb/v1/flux/guides/#example-data-variable).
-{{% /note %}}
+> [!NOTE]
+> The examples below use the [example data variable](/enterprise_influxdb/v1/flux/guides/#example-data-variable).
 
 ## Find the value representing the 99th percentile
 Use the default method, `"estimate_tdigest"`, to return all rows in a table that

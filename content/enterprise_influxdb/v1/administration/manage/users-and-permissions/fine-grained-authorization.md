@@ -270,9 +270,8 @@ curl -s --location-trusted -XPOST "http://localhost:8091/role" \
   }'
 ```
 
-{{% note %}}
-Deleting a role does not delete users assigned to the role.
-{{% /note %}}
+> [!Note]
+> Deleting a role does not delete users assigned to the role.
 
 ## Manage restrictions
 Restrictions restrict either or both read and write permissions on InfluxDB assets.

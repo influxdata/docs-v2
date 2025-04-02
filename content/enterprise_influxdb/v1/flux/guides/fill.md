@@ -41,9 +41,8 @@ _(see [influxdata/flux#2428](https://github.com/influxdata/flux/issues/2428))_.
 ## Fill with the previous value
 To fill _null_ values with the previous **non-null** value, set the `usePrevious` parameter to `true`.
 
-{{% note %}}
-Values remain _null_ if there is no previous non-null value in the table.
-{{% /note %}}
+> [!Note]
+> Values remain _null_ if there is no previous non-null value in the table.
 
 ```js
 data
