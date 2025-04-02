@@ -50,8 +50,10 @@ If you're running multiple InfluxDB instances (distributed deployment):
 3. Maintain identical plugin files across all instances where plugins run
  - Use shared storage or file synchronization tools to keep plugins consistent
 
-> [Note] A single node can serve multiple roles (ingestor, querier, compactor), 
-> so configure the plugin directory based on where you want plugins to execute.
+> [!Note]
+> #### Provide plugins to nodes that run them
+>
+> Configure your plugin directory on the same system as the nodes that run the triggers and plugins.
 
 ## Add a Processing engine plugin
 
