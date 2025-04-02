@@ -11,7 +11,7 @@ InfluxDB {{< current-version >}} supports deleting data by the following:
 - time range
 - measurement (`_measurement`)
 - tag
-- {{% show-in "cloud,cloud-serverless" %}}field (`_field`){{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}- field (`_field`){{% /show-in %}}
 
 {{% show-in "v2" %}}
 
@@ -63,7 +63,9 @@ deletes all data in the specified bucket with timestamps between the specified `
 
 - [Delete points in a specific measurement with a specific tag value](#delete-points-in-a-specific-measurement-with-a-specific-tag-value)
 - [Delete all points in a specified time range](#delete-all-points-in-a-specified-time-range)
-- {{% show-in "cloud,cloud-serverless" %}}[Delete points for a specific field in a specified time range](#delete-points-for-a-specific-field-in-a-specified-time-range){{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}
+- [Delete points for a specific field in a specified time range](#delete-points-for-a-specific-field-in-a-specified-time-range)
+{{% /show-in %}}
 
 ##### Delete points in a specific measurement with a specific tag value
 ```sh
@@ -122,7 +124,9 @@ deletes all data in the specified bucket with timestamps between the specified `
 
 - [Delete points in a specific measurement with a specific tag value](#delete-points-in-a-specific-measurement-with-a-specific-tag-value-1)
 - [Delete all points in a specified time range](#delete-all-points-in-a-specified-time-range-1)
-- {{% show-in "cloud,cloud-serverless" %}}[Delete points for a specific field in a specified time range](#delete-points-for-a-specific-field-in-a-specified-time-range-1){{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}
+- [Delete points for a specific field in a specified time range](#delete-points-for-a-specific-field-in-a-specified-time-range-1)
+{{% /show-in %}}
 
 ##### Delete points in a specific measurement with a specific tag value
 ```sh

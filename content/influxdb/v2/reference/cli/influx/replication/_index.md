@@ -11,25 +11,8 @@ cascade:
   related:
     - /influxdb/v2/reference/cli/influx/remote
     - /influxdb/v2/write-data/replication/replicate-data/
+source: /shared/influxdb-v2/reference/cli/influx/replication/_index.md
 ---
 
-The `influx replication` command and its subcommands manage InfluxDB Edge Data Replication.
-
-## Usage
-```
-influx replication [command options] [arguments...]
-```
-
-## Subcommands
-| Subcommand                                                       | Description                              |
-| :--------------------------------------------------------------- | :--------------------------------------- |
-| [create](/influxdb/v2/reference/cli/influx/replication/create) | Create a new replication stream          |
-| [delete](/influxdb/v2/reference/cli/influx/replication/delete) | Delete a replication stream              |
-| [list](/influxdb/v2/reference/cli/influx/replication/list)     | List all replication streams and metrics |
-| [update](/influxdb/v2/reference/cli/influx/replication/update) | Update a replication stream              |
-
-## Flags
-| Flag |          | Description                        |
-| :--- | :------- | :--------------------------------- |
-| `-h` | `--help` | Help for the `replication` command |
-
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/replication/_index.md -->

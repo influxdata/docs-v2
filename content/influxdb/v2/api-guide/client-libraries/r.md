@@ -11,10 +11,8 @@ menu:
     params:
       url: https://github.com/influxdata/influxdb-client-r
 weight: 201
+source: /shared/influxdb-v2/api-guide/client-libraries/r.md
 ---
 
-R is a programming language and software environment for statistical analysis, reporting, and graphical representation primarily used in data science. 
-
-The documentation for this client library is available on GitHub.  
-
-<a href="https://github.com/influxdata/influxdb-client-r" target="_blank" class="btn github">R InfluxDB client</a>
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/r.md -->

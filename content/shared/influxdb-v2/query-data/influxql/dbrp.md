@@ -6,7 +6,7 @@ To query InfluxDB {{< current-version >}} with InfluxQL, the specified DBRP
 combination must be mapped to a bucket.
 
 - [Automatic DBRP mapping](#automatic-dbrp-mapping)
-- {{% show-in "v2" %}}[Virtual DBRP mappings](#virtual-dbrp-mappings){{% /show-in %}}
+{{% show-in "v2" %}}- [Virtual DBRP mappings](#virtual-dbrp-mappings){{% /show-in %}}
 - [Create DBRP mappings](#create-dbrp-mappings)
 - [List DBRP mappings](#list-dbrp-mappings)
 - [Update a DBRP mapping](#update-a-dbrp-mapping)
@@ -18,9 +18,9 @@ InfluxDB {{< current-version >}} will automatically create DBRP mappings for you
 during the following operations:
 
 - Writing to the [`/write` v1 compatibility endpoint](/influxdb/v2/reference/api/influxdb-1x/write/)
-- {{% show-in "cloud,cloud-serverless" %}}[Upgrading from InfluxDB 1.x to InfluxDB Cloud](/influxdb/v2/upgrade/v1-to-cloud/){{% /show-in %}}
-- {{% show-in "v2" %}}[Upgrading from InfluxDB 1.x to {{< current-version noSpan=true >}}](/influxdb/v2/upgrade/v1-to-v2/){{% /show-in %}}
-- {{% show-in "v2" %}}Creating a bucket ([virtual DBRPs](#virtual-dbrp-mappings)){{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}- [Upgrading from InfluxDB 1.x to InfluxDB Cloud](/influxdb/v2/upgrade/v1-to-cloud/){{% /show-in %}}
+{{% show-in "v2" %}}- [Upgrading from InfluxDB 1.x to {{< current-version noSpan=true >}}](/influxdb/v2/upgrade/v1-to-v2/){{% /show-in %}}
+{{% show-in "v2" %}}- Creating a bucket ([virtual DBRPs](#virtual-dbrp-mappings)){{% /show-in %}}
 
 For more information, see [Database and retention policy mapping](/influxdb/v2/reference/api/influxdb-1x/dbrp/).
 
