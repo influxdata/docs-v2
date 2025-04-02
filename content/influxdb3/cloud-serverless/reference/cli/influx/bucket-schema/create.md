@@ -6,6 +6,8 @@ menu:
     name: influx bucket-schema create
     parent: influx bucket-schema
 weight: 201
+source: /shared/influxdb-v2/reference/cli/influx/bucket-schema/create.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/bucket-schema/create.md-->

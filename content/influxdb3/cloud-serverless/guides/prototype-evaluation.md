@@ -6,7 +6,7 @@ description: >
   Learn about important differences between Cloud Serverless and Cloud Dedicated and
   best practices for building an application prototype on Cloud Serverless.
 menu:
-  influxdb_cloud_serverless:
+  influxdb3_cloud_serverless:
     name: Prototype your app
     parent: Guides
 weight: 104

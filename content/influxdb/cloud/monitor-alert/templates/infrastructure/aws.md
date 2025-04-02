@@ -7,6 +7,8 @@ menu:
     parent: Monitor infrastructure
     name: AWS CloudWatch
 weight: 201
+source: /shared/influxdb-v2/monitor-alert/templates/infrastructure/aws.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/monitor-alert/templates/infrastructure/aws.md-->

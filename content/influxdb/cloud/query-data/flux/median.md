@@ -16,6 +16,8 @@ related:
   - /flux/v0/stdlib/universe/median/
   - /flux/v0/stdlib/universe/quantile/
 list_query_example: median
+source: /shared/influxdb-v2/query-data/flux/median.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/median.md-->

@@ -10,6 +10,8 @@ menu:
   influxdb_cloud:
     name: Histogram
     parent: Visualization types
+source: /shared/influxdb-v2/visualize-data/visualization-types/histogram.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/visualize-data/visualization-types/histogram.md-->

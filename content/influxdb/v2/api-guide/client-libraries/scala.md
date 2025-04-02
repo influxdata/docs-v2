@@ -11,10 +11,8 @@ menu:
     params:
       url: https://github.com/influxdata/influxdb-client-java/tree/master/client-scala
 weight: 201
+source: /shared/influxdb-v2/api-guide/client-libraries/scala.md
 ---
 
-Scala is a general-purpose programming language that supports both object-oriented and functional programming.
-
-The documentation for this client library is available on GitHub.  
-
-<a href="https://github.com/influxdata/influxdb-client-java/tree/master/client-scala" target="_blank" class="btn github">Scala InfluxDB client</a>
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/scala.md -->

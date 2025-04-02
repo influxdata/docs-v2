@@ -6,6 +6,8 @@ menu:
     name: influx scripts retrieve
     parent: influx scripts
 weight: 201
+source: /shared/influxdb-v2/reference/cli/influx/scripts/retrieve.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/scripts/retrieve.md-->

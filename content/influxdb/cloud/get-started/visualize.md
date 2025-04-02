@@ -17,6 +17,8 @@ related:
   - /influxdb/cloud/visualize-data/visualization-types/
   - /influxdb/cloud/tools/chronograf/
   - /influxdb/cloud/tools/grafana/
+source: /shared/influxdb-v2/get-started/visualize.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/get-started/visualize.md-->

@@ -9,6 +9,8 @@ menu:
 weight: 203
 aliases:
   - /influxdb/cloud/security/tokens/update-tokens/
+source: /shared/influxdb-v2/admin/tokens/update-tokens.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/admin/tokens/update-tokens.md-->

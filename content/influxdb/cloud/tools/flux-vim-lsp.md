@@ -8,6 +8,8 @@ menu:
     name: Flux LSP with Vim
     parent: Tools & integrations
 weight: 119
+source: /shared/influxdb-v2/tools/flux-vim-lsp.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/flux-vim-lsp.md-->

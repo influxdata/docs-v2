@@ -18,6 +18,8 @@ related:
   - /flux/v0/join-data/time/
   - /flux/v0/stdlib/join/
 list_query_example: join-new
+source: /shared/influxdb-v2/query-data/flux/join.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/join.md-->
