@@ -5,8 +5,28 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list features exclusive to Enterprise.
 
+## v3.0.0-0.beta.3 {date="2025-04-01"}
+**Core**: revision f881c5844bec93a85242f26357a1ef3ebf419dd3
+**Enterprise**: revision 6bef9e700a59c0973b0cefdc6baf11583933e262
+### Core
+#### General Improvements
+- InfluxDB 3 now supports graceful shutdowns when sending the interrupt signal to the service.
+
+#### Bug fixes
+- Empty batches in JSON format results are now handled properly
+- The Processing Engine now properly extracts data from DictionaryArrays
+
+### Enterprise
+##### Multi-node improvements
+- Query nodes now automatically detect new ingest nodes
+
+#### Bug fixes
+- Several fixes for compaction planning and processing 
+- The Processing Engine now properly extracts data from DictionaryArrays
+
+
 ## v3.0.0-0.beta.2 {date="2025-03-24"}
-**Core**: revision 033e1176d8c322b763b4aefb24686121b1b24f7c\
+**Core**: revision 033e1176d8c322b763b4aefb24686121b1b24f7c
 **Enterprise**: revision e530fcd498c593cffec2b56d4f5194afc717d898
 
 This update brings several backend performance improvements to both Core and Enterprise in preparation for additional new features over the next several weeks! 
