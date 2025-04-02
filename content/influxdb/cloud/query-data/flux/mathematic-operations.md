@@ -18,6 +18,8 @@ related:
   - /flux/v0/function-types#type-conversions, Flux type-conversion functions
   - /influxdb/cloud/query-data/flux/calculate-percentages/
 list_query_example: map_math
+source: /shared/influxdb-v2/query-data/flux/mathematic-operations.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/mathematic-operations.md-->

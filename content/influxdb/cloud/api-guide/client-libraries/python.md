@@ -14,6 +14,8 @@ aliases:
   - /influxdb/cloud/reference/api/client-libraries/python-cl-guide/
   - /influxdb/cloud/tools/client-libraries/python/
 weight: 201
+source: /shared/influxdb-v2/api-guide/client-libraries/python.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/python.md-->

@@ -19,6 +19,8 @@ list_code_example: |
   
   array.from(rows: [{version: runtime.version()}])
   ```
+source: /shared/influxdb-v2/query-data/flux/flux-version.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/flux-version.md-->

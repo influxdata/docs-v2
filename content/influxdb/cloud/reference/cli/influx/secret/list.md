@@ -6,6 +6,8 @@ menu:
     name: influx secret list
     parent: influx secret
 weight: 101
+source: /shared/influxdb-v2/reference/cli/influx/secret/list.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/secret/list.md-->

@@ -8,6 +8,8 @@ menu:
   influxdb_cloud:
     name: Edge data replication
     parent: Write data
+source: /shared/influxdb-v2/write-data/replication/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/write-data/replication/_index.md-->

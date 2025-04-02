@@ -14,9 +14,8 @@ menu:
     name: Client libraries
     parent: Develop with the API
 influxdb/v2/tags: [client libraries]
+source: /shared/influxdb-v2/api-guide/client-libraries/_index.md
 ---
 
-InfluxDB client libraries are language-specific packages that integrate with the InfluxDB v2 API.
-The following **InfluxDB v2** client libraries are available:
-
-{{< children type="list" >}}
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/_index.md -->

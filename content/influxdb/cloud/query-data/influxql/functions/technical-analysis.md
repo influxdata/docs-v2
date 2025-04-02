@@ -8,6 +8,8 @@ menu:
     name: Technical analysis
     parent: InfluxQL functions
 weight: 205
+source: /shared/influxdb-v2/query-data/influxql/functions/technical-analysis.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/influxql/functions/technical-analysis.md-->

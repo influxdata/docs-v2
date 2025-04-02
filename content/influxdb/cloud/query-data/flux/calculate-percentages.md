@@ -16,6 +16,8 @@ related:
   - /flux/v0/stdlib/universe/pivot
   - /flux/v0/stdlib/universe/join
 list_query_example: percentages
+source: /shared/influxdb-v2/query-data/flux/calculate-percentages.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/calculate-percentages.md-->
