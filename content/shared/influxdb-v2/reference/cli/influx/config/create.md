@@ -1,13 +1,3 @@
----
-title: influx config create
-description: The `influx config create` command creates a InfluxDB connection configuration.
-menu:
-  influxdb_v2:
-    name: influx config create
-    parent: influx config
-weight: 201
-updated_in: CLI 2.5.0
----
 
 The `influx config create` command creates a InfluxDB connection configuration
 and stores it in a local file:

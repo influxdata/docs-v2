@@ -1,16 +1,3 @@
----
-title: Create a token
-seotitle: Create an API token in InfluxDB
-description: Create an API token in InfluxDB using the InfluxDB UI, the `influx` CLI, or the InfluxDB API.
-menu:
-  influxdb_v2:
-    name: Create a token
-    parent: Manage tokens
-weight: 201
-aliases:
-  - /influxdb/v2/users/tokens/create-token/
-  - /influxdb/v2/security/tokens/create-token/
----
 
 Create API tokens using the InfluxDB user interface (UI), the `influx`
 command line interface (CLI), or the InfluxDB API.

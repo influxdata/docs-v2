@@ -1,16 +1,3 @@
----
-title: Delete checks
-seotitle: Delete monitoring checks in InfluxDB
-description: >
-  Delete checks in the InfluxDB UI.
-menu:
-  influxdb_v2:
-    parent: Manage checks
-weight: 204
-related:
-  - /influxdb/v2/monitor-alert/notification-rules/
-  - /influxdb/v2/monitor-alert/notification-endpoints/
----
 
 If you no longer need a check, use the InfluxDB user interface (UI) to delete it.
 

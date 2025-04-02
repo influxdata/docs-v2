@@ -1,20 +1,3 @@
----
-title: Monitor InfluxDB OSS using a template
-description: >
-  Monitor your InfluxDB OSS instance using InfluxDB Cloud and
-  a pre-built InfluxDB template.
-menu:
-  influxdb_v2:
-    parent: Monitor with templates
-    name: Monitor InfluxDB OSS
-weight: 102
-influxdb/v2/tags: [templates, monitor]
-aliases:
-  - /influxdb/v2/influxdb-templates/monitor/
-related:
-  - /influxdb/v2/reference/cli/influx/apply/
-  - /influxdb/v2/reference/cli/influx/template/
----
 
 Use [InfluxDB Cloud](/influxdb/cloud/), the [InfluxDB Open Source (OSS) Metrics template](https://github.com/influxdata/community-templates/tree/master/influxdb2_oss_metrics),
 and [Telegraf](/telegraf/v1/) to monitor one or more InfluxDB OSS instances.

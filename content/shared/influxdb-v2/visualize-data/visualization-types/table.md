@@ -1,16 +1,3 @@
----
-title: Table visualization
-list_title: Table
-list_image: /img/influxdb/2-0-visualizations-table-example.png
-description: >
-  The Table option displays the results of queries in a tabular view, which is
-  sometimes easier to analyze than graph views of data.
-weight: 202
-menu:
-  influxdb_v2:
-    name: Table
-    parent: Visualization types
----
 
 The **Table** option displays the results of queries in a tabular view, which is
 sometimes easier to analyze than graph views of data.

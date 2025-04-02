@@ -1,16 +1,3 @@
----
-title: Update a token
-seotitle: Update API tokens in InfluxDB
-description: Update API tokens' descriptions in InfluxDB using the InfluxDB UI.
-menu:
-  influxdb_v2:
-    name: Update a token
-    parent: Manage tokens
-weight: 203
-aliases:
-  - /influxdb/v2/users/tokens/update-tokens
-  - /influxdb/v2/security/tokens/update-tokens/
----
 
 Update an API token's description and status.
 using the InfluxDB user interface (UI).

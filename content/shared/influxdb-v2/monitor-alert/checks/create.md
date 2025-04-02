@@ -1,16 +1,3 @@
----
-title: Create checks
-seotitle: Create monitoring checks in InfluxDB
-description: >
-  Create a check in the InfluxDB UI.
-menu:
-  influxdb_v2:
-    parent: Manage checks
-weight: 201
-related:
-  - /influxdb/v2/monitor-alert/notification-rules/
-  - /influxdb/v2/monitor-alert/notification-endpoints/
----
 
 Create a check in the InfluxDB user interface (UI).
 Checks query data and apply a status to each point based on specified conditions.

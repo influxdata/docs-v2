@@ -1,14 +1,3 @@
----
-title: InfluxDB design principles
-description: >
-  Principles and tradeoffs related to InfluxDB design.
-weight: 104
-menu:
-  influxdb_v2:
-    parent: Key concepts
-    name: Design principles
-influxdb/v2/tags: [key concepts, design principles]
----
 
 InfluxDB implements optimal design principles for time series data. Some of these design principles may have associated tradeoffs in performance.
 

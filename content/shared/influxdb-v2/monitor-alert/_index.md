@@ -1,15 +1,3 @@
----
-title: Monitor data and send alerts
-seotitle: Monitor data and send alerts
-description: >
-  Monitor your time series data and send alerts by creating checks, notification
-  rules, and notification endpoints. Or use community templates to monitor supported environments.
-menu:
-  influxdb_v2:
-    name: Monitor & alert
-weight: 7
-influxdb/v2/tags: [monitor, alert, checks, notification, endpoints]
----
 
 Monitor your time series data and send alerts by creating checks, notification
 rules, and notification endpoints. Or use [community templates to monitor](/influxdb/v2/monitor-alert/templates/) supported environments.

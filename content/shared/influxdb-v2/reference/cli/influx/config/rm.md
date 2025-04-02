@@ -1,14 +1,3 @@
----
-title: influx config rm
-description: The `influx config rm` command removes an InfluxDB connection configuration.
-menu:
-  influxdb_v2:
-    name: influx config rm
-    parent: influx config
-weight: 201
-aliases:
-  - /influxdb/v2/reference/cli/influx/config/delete/
----
 
 The `influx config rm` command removes an InfluxDB connection configuration
 from the `configs` file (by default, stored at `~/.influxdbv2/configs`).

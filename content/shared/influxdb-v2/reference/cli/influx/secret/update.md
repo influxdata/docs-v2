@@ -1,13 +1,3 @@
----
-title: influx secret update
-description: The `influx secret update` command adds and updates secrets.
-menu:
-  influxdb_v2:
-    name: influx secret update
-    parent: influx secret
-weight: 101
-influxdb/v2/tags: [secrets]
----
 
 The `influx secret update` command adds and updates secrets.
 Provide the secret key with the `-k` or `--key` flag.

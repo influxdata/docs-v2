@@ -1,20 +1,3 @@
----
-title: Run a task
-seotitle: Run an InfluxDB task
-description: >
-  Run a data processing task using the InfluxDB UI or the `influx` CLI.
-menu:
-  influxdb_v2:
-    name: Run a task
-    parent: Manage tasks
-weight: 203
-related:
-  - /influxdb/v2/reference/cli/influx/task/run
-  - /influxdb/v2/reference/cli/influx/task/run/retry
-  - /influxdb/v2/reference/cli/influx/task/retry-failed
-  - /influxdb/v2/api/#operation/PostTasksIDRuns
-  - /influxdb/v2/api/#operation/PostTasksIDRunsIDRetry
----
 
 InfluxDB data processing tasks generally run in defined intervals or at a specific time,
 however, you can manually run a task from the InfluxDB user interface (UI),

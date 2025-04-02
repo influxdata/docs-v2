@@ -1,14 +1,3 @@
----
-title: Explore your schema using InfluxQL
-description: >
-  Learn to use InfluxQL to explore the schema of your time series data.
-menu:
-  influxdb_v2:
-    name: Explore your schema
-    parent: Query with InfluxQL
-    identifier: explore-schema-influxql
-weight: 202
----
 
 Use InfluxQL to explore the schema of your time series data.
 Use the following InfluxQL commands to explore your schema:

@@ -1,17 +1,3 @@
----
-title: Subqueries
-description: >
-  Use a `subquery` to apply a query as a condition in the enclosing query.
-menu:
-  influxdb_v2:
-    name: Subqueries
-    parent: Explore data
-weight: 310
-list_code_example: |
-  ```sql
-  SELECT_clause FROM ( SELECT_statement ) [...]
-  ```
----
 
 A subquery is a query that is nested in the `FROM` clause of another query. Use a subquery to apply a query as a condition in the enclosing query. Subqueries offer functionality similar to nested functions and the SQL [`HAVING` clause](https://en.wikipedia.org/wiki/Having_%28SQL%29). 
 

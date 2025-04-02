@@ -1,13 +1,3 @@
----
-title: View InfluxQL functions
-description: >
-  Aggregate, select, transform, and predict data with InfluxQL functions.
-menu:
-  influxdb_v2:
-    name: InfluxQL functions
-    parent: Query with InfluxQL
-weight: 203
----
 
 Use InfluxQL functions to aggregate, select, transform, analyze, and predict data.
 

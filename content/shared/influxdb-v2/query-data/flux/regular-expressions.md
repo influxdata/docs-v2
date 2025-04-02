@@ -1,20 +1,3 @@
----
-title: Use regular expressions in Flux
-list_title: Regular expressions
-description: This guide walks through using regular expressions in evaluation logic in Flux functions.
-influxdb/v2/tags: [regex]
-menu:
-  influxdb_v2:
-    name: Regular expressions
-    parent: Query with Flux
-weight: 220
-aliases:
-  - /influxdb/v2/query-data/guides/regular-expressions/
-related:
-  - /influxdb/v2/query-data/flux/query-fields/
-  - /flux/v0/stdlib/regexp/
-list_query_example: regular_expressions
----
 
 Regular expressions (regexes) are incredibly powerful when matching patterns in large collections of data.
 With Flux, regular expressions are primarily used for evaluation logic in predicate functions for things

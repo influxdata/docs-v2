@@ -1,15 +1,3 @@
----
-title: Common queries
-seotitle: Common queries with Flux
-description: >
-  This collection of articles walks through common use cases for Flux queries.
-influxdb/v2/tags: [queries]
-menu:
-  influxdb_v2:
-    name: Common queries
-    parent: Query data
-weight: 104
----
 
 The following articles walk through common queries using the
 [NOAA water database data](/influxdb/v2/reference/sample-data/#noaa-water-sample-data).

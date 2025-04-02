@@ -1,16 +1,3 @@
----
-title: Flux vs InfluxQL
-description: >
-  Flux is an alternative to InfluxQL and other SQL-like query languages for querying and analyzing data.
-  Learn about what's possible with Flux and how Flux compares to InfluxQL.
-aliases:
-  - /influxdb/v2/reference/flux/flux-vs-influxql/
-menu:
-  influxdb_v2:
-    name: Flux vs InfluxQL
-    parent: flux-syntax
-    weight: 105
----
 
 Flux is an alternative to [InfluxQL](/influxdb/v2/query-data/influxql/)
 and other SQL-like query languages for querying and analyzing data.

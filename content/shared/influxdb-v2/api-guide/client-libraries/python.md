@@ -1,20 +1,3 @@
----
-title: Python client library
-seotitle: Use the InfluxDB Python client library
-list_title: Python
-description: >
-  Use the InfluxDB Python client library to interact with InfluxDB.
-menu:
-  influxdb_v2:
-    name: Python
-    parent: Client libraries
-influxdb/v2/tags: [client libraries, python]
-aliases:
-  - /influxdb/v2/reference/api/client-libraries/python/
-  - /influxdb/v2/reference/api/client-libraries/python-cl-guide/
-  - /influxdb/v2/tools/client-libraries/python/
-weight: 201
----
 
 Use the [InfluxDB Python client library](https://github.com/influxdata/influxdb-client-python) to integrate InfluxDB into Python scripts and applications.
 

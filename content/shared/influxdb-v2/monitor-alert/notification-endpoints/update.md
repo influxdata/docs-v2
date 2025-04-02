@@ -1,16 +1,3 @@
----
-title: Update notification endpoints
-description: >
-  Update notification endpoints in the InfluxDB UI.
-menu:
-  influxdb_v2:
-    name: Update endpoints
-    parent: Manage notification endpoints
-weight: 203
-related:
-  - /influxdb/v2/monitor-alert/checks/
-  - /influxdb/v2/monitor-alert/notification-rules/
----
 
 Complete the following steps to update notification endpoint details.
 To update the notification endpoint selected for a notification rule, see [update notification rules](/influxdb/v2/monitor-alert/notification-rules/update/).

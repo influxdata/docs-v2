@@ -1,16 +1,3 @@
----
-title: Update checks
-seotitle: Update monitoring checks in InfluxDB
-description: >
-  Update, rename, enable or disable checks in the InfluxDB UI.
-menu:
-  influxdb_v2:
-    parent: Manage checks
-weight: 203
-related:
-  - /influxdb/v2/monitor-alert/notification-rules/
-  - /influxdb/v2/monitor-alert/notification-endpoints/
----
 
 Update checks in the InfluxDB user interface (UI).
 Common updates include:

@@ -1,16 +1,3 @@
----
-title: API Quick Start
-seotitle: Use the InfluxDB API
-description: Interact with InfluxDB using a rich API for writing and querying data and more.
-weight: 3
-menu:
-  influxdb_v2:
-    name: Quick start
-    parent: Develop with the API
-aliases:
-  - /influxdb/v2/tools/api/
-influxdb/cloud/tags: [api]
----
 
 InfluxDB offers a rich API and [client libraries](/influxdb/v2/api-guide/client-libraries) ready to integrate with your application. Use popular tools like Curl and [Postman](/influxdb/v2/api-guide/postman) for rapidly testing API requests.
 

@@ -1,16 +1,3 @@
----
-title: Delete notification endpoints
-description: >
-   Delete a notification endpoint in the InfluxDB UI.
-menu:
-  influxdb_v2:
-    name: Delete endpoints
-    parent: Manage notification endpoints
-weight: 204
-related:
-  - /influxdb/v2/monitor-alert/checks/
-  - /influxdb/v2/monitor-alert/notification-rules/
----
 
 If notifications are no longer sent to an endpoint, complete the steps below to
 delete the endpoint, and then [update notification rules](/influxdb/v2/monitor-alert/notification-rules/update)

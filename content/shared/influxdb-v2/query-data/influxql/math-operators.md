@@ -1,14 +1,3 @@
----
-title: InfluxQL mathematical operators
-descriptions: >
-  Use InfluxQL mathematical operators to perform mathematical operations in queries.
-menu:
-  influxdb_v2:
-    name: Mathematical operators
-    parent: Query with InfluxQL
-    identifier: influxql-mathematical-operators
-weight: 209
----
 
 Use InfluxQL mathematical operators to perform mathematical operations in queries.
 Mathematical operators follow the [standard order of operations](https://golang.org/ref/spec#Operator_precedence).

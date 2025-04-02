@@ -1,13 +1,3 @@
----
-title: Monitor HAProxy
-description: >
-  Use the [HAProxy for InfluxDB v2 template](https://github.com/influxdata/community-templates/tree/master/haproxy) to monitor your HAProxy instance.
-menu:
-  influxdb_v2:
-    parent: Monitor networks
-    name: HAproxy
-weight: 201
----
 
 Use the [HAProxy for InfluxDB v2 template](https://github.com/influxdata/community-templates/tree/master/haproxy) to monitor your HAProxy instances. First, [apply the template](#apply-the-template), and then [view incoming data](#view-incoming-data).
 This template uses the [HAProxy input plugin](/telegraf/v1/plugins//#haproxy) to collect metrics stored in an HAProxy instance and display these metrics in a dashboard.

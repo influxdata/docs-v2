@@ -1,14 +1,3 @@
----
-title: influx org list
-description: The `influx org list` lists and searches for organizations in InfluxDB.
-menu:
-  influxdb_v2:
-    name: influx org list
-    parent: influx org
-weight: 201
-aliases:
-  - /influxdb/v2/reference/influx/org/find
----
 
 The `influx org list` lists and searches for organizations in InfluxDB.
 

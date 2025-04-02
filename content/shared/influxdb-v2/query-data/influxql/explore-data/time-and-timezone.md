@@ -1,18 +1,3 @@
----
-title: Time and timezone queries
-list_title: Time and timezone queries
-description: >
-  Explore InfluxQL features used specifically for working with time. Use the `tz` (timezone) clause to return the UTC offset for the specified timezone.
-menu:
-  influxdb_v2:
-    name: Time and timezone
-    parent: Explore data
-weight: 308
-list_code_example: |
-  ```sql
-  SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause] tz('<time_zone>')
-  ```
----
 
 InfluxQL is designed for working with time series data and includes features specifically for working with time.
 You can review the following ways to work with time and timestamps in your InfluxQL queries:

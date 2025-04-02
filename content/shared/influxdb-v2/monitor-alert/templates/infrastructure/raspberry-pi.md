@@ -1,13 +1,3 @@
----
-title: Monitor Raspberry Pi
-description: >
-  Use the Raspberry Pi system template to monitor your Raspberry Pi 4 or 400 Linux system. 
-menu:
-  influxdb_v2:
-    parent: Monitor infrastructure
-    name: Raspberry Pi
-weight: 201
----
 
 Use the [Raspberry Pi Monitoring template](https://github.com/influxdata/community-templates/tree/master/raspberry-pi)
 to monitor your Raspberry Pi 4 or 400 Linux system.

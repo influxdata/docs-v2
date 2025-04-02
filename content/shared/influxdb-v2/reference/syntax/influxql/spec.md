@@ -1,14 +1,3 @@
----
-title: Influx Query Language (InfluxQL) 2.x specification
-description: Reference (spec) for Influx Query Language (InfluxQL) 2.x.
-menu:
-  influxdb_v2:
-    name: InfluxQL 2.x specification
-    parent: influxql-syntax
-aliases:
- - /influxdb/v2/query_languages/spec/
-weight: 103
----
 
 InfluxQL is a SQL-like query language used to interact with InfluxDB and work with your times series data.
 

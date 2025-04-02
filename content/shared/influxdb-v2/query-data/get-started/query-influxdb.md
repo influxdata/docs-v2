@@ -1,19 +1,3 @@
----
-title: Query InfluxDB with Flux
-description: Learn the basics of using Flux to query data from InfluxDB.
-influxdb/v2/tags: [query, flux]
-menu:
-  influxdb_v2:
-    name: Query InfluxDB
-    parent: Get started with Flux
-weight: 201
-related:
-  - /flux/v0/get-started/query-basics/
-  - /influxdb/v2/query-data/flux/
-  - /flux/v0/stdlib/influxdata/influxdb/from
-  - /flux/v0/stdlib/universe/range
-  - /flux/v0/stdlib/universe/filter
----
 
 This guide walks through the basics of using Flux to query data from InfluxDB.
 Every Flux query needs the following:

@@ -1,14 +1,3 @@
----
-title: InfluxQL selector functions
-list_title: Selector functions
-description: >
-  Select data with InfluxQL selector functions.
-menu:
-  influxdb_v2:
-    name: Selectors
-    parent: InfluxQL functions
-weight: 205
----
 
 Use selector functions to assess, select, and return values in your data.
 Selector functions return one or more rows with the selected values from each InfluxQL group.

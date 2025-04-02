@@ -1,13 +1,3 @@
----
-title: Monitor Windows
-description: >
-  Use the [Windows System Monitoring template](https://github.com/influxdata/community-templates/tree/master/windows_system) to monitor your Windows system.
-menu:
-  influxdb_v2:
-    parent: Monitor infrastructure
-    name: Windows
-weight: 207
----
 
 Use the [Windows System Monitoring template](https://github.com/influxdata/community-templates/tree/master/windows_system) to monitor your Windows system. First, [apply the template](#apply-the-template), and then [view incoming data](#view-incoming-data).
 

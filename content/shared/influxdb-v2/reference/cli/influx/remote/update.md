@@ -1,15 +1,3 @@
----
-title: influx remote update
-description: Update remote InfluxDB connections used for for replicating data.
-menu:
-  influxdb_v2:
-    name: influx remote update
-    parent: influx remote
-weight: 102
-influxdb/v2/tags: [write, replication]
-related:
-  - /influxdb/v2/reference/cli/influx/replication
----
 
 
 > [!Important]

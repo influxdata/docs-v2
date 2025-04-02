@@ -1,14 +1,3 @@
----
-title: Use multiple fields in a calculation
-description: >
-  Query multiple fields, pivot results, and use multiple field values to
-  calculate new values in query results.
-influxdb/v2/tags: [queries]
-menu:
-  influxdb_v2:
-    parent: Common queries
-weight: 103
----
 
 To use values from multiple fields in a mathematic calculation, complete the following steps:
 

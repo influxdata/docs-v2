@@ -1,15 +1,3 @@
----
-title: Update notification rules
-description: >
-  Update notification rules to update the notification message or change the schedule or conditions.
-weight: 203
-menu:
-  influxdb_v2:
-    parent: Manage notification rules
-related:
-  - /influxdb/v2/monitor-alert/checks/
-  - /influxdb/v2/monitor-alert/notification-endpoints/
----
 
 Update notification rules to update the notification message or change the schedule or conditions.
 

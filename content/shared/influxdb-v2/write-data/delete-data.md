@@ -1,20 +1,3 @@
----
-title: Delete data
-list_title: Delete data
-description: >
-  Use the `influx` CLI or the InfluxDB API `/api/v2/delete` endpoint to delete
-  data from an InfluxDB bucket.
-menu:
-  influxdb_v2:
-    name: Delete data
-    parent: Write data
-weight: 107
-influxdb/v2/tags: [delete]
-related:
-  - /influxdb/v2/reference/syntax/delete-predicate/
-  - /influxdb/v2/reference/cli/influx/delete/
-  - /influxdb/v2/admin/buckets/delete-bucket/
----
 
 Use the [`influx` CLI](/influxdb/v2/reference/cli/influx/) or the InfluxDB API
 [`/api/v2/delete`](/influxdb/v2/api/#operation/PostDelete) endpoint to delete

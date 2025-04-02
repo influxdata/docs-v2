@@ -1,12 +1,3 @@
----
-title: Frequently asked questions
-description: Find answers to common questions related to InfluxDB OSS.
-menu:
-  influxdb_v2:
-    name: Frequently asked questions
-    parent: Reference
-weight: 9
----
 
 ##### Account management {href="account-management-1"}
 - [How do I reset my password?](#how-do-i-reset-my-password)

@@ -1,14 +1,3 @@
----
-title: Create custom checks
-seotitle: Custom checks
-description: >
-  Create custom checks with a Flux task.
-menu:
-  influxdb_v2:
-    parent: Monitor & alert
-weight: 201
-influxdb/v2/tags: [alerts, checks, tasks, Flux]
----
 
 In the UI, you can create two kinds of [checks](/influxdb/v2/reference/glossary/#check):
 [`threshold`](/influxdb/v2/monitor-alert/checks/create/#threshold-check) and

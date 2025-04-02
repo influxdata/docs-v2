@@ -1,14 +1,3 @@
----
-title: Band visualization
-list_title: Band
-list_image: /img/influxdb/2-0-visualizations-Band-example.png
-description:
-weight: 201
-menu:
-  influxdb_v2:
-    name: Band
-    parent: Visualization types
----
 
 The **Band** visualization displays the upper and lower boundaries for groups of data over time. Boundaries are determined by applying aggregate functions to your data for a specified window period, and then setting the aggregate functions for a specified upper, main, or lower boundary.
 

@@ -1,20 +1,3 @@
----
-title: Create a Telegraf configuration
-description: >
-  Use the InfluxDB UI or the [`influx` CLI](/influxdb/v2/reference/cli/influx/)
-  to create an Telegraf configuration.
-weight: 101
-menu:
-  influxdb_v2:
-    name: Create a config
-    parent: Telegraf configurations
-aliases:
-  - /influxdb/v2/telegraf-configs/create/
-related:
-  - /influxdb/v2/write-data/no-code/use-telegraf/manual-config/
-  - /influxdb/v2/write-data/no-code/use-telegraf/auto-config/
-  - /influxdb/v2/tools/telegraf-configs/update/
----
 Telegraf has an extensive list of plugins for many different technologies and use cases.
 Not all plugins are available through the InfluxDB UI, but you can
 [create and upload custom Telegraf configurations](#create-a-custom-telegraf-configuration)

@@ -1,13 +1,3 @@
----
-title: Query with the InfluxDB API
-description: Query InfluxDB with the InfluxDB API. Discover how to query data in InfluxDB 2.1 using the InfluxDB API.
-weight: 202
-menu:
-  influxdb_v2:
-    name: Query with the InfluxDB API
-    parent: Execute queries
-influxdb/v2/tags: [query]
----
 
 The [InfluxDB v2 API](/influxdb/v2/reference/api) provides a programmatic interface for all interactions with InfluxDB.
 To query InfluxDB {{< current-version >}}, do one of the following:

@@ -1,15 +1,3 @@
----
-title: Manage DBRP mappings
-seotitle: Manage database and retention policy mappings
-description: >
-  Create and manage database and retention policy (DBRP) mappings to use
-  InfluxQL to query InfluxDB buckets.
-menu:
-  influxdb_v2:
-    parent: Query with InfluxQL
-weight: 201
-influxdb/v2/tags: [influxql, dbrp]
----
 
 InfluxQL requires a database and retention policy (DBRP) combination in order to query data.
 In InfluxDB {{< current-version >}}, databases and retention policies have been

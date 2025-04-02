@@ -1,13 +1,3 @@
----
-title: Resolve high series cardinality
-description: >
-  Reduce high series cardinality in InfluxDB. If reads and writes to InfluxDB have started to slow down, you may have high cardinality. Find the source of high cardinality and adjust your schema to resolve high cardinality issues.
-menu:
-  influxdb_v2:
-    name: Resolve high cardinality
-    weight: 202
-    parent: write-best-practices
----
 
 If reads and writes to InfluxDB have started to slow down, high [series cardinality](/influxdb/v2/reference/glossary/#series-cardinality) (too many series) may be causing memory issues. {{% show-in "cloud,cloud-serverless" %}}Cardinality can also cause writes to fail if it exceeds your [plan’s adjustable service quota](/influxdb/cloud/account-management/limits/).{{% /show-in %}}
 

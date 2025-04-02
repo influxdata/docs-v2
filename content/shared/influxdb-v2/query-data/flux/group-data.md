@@ -1,22 +1,3 @@
----
-title: Group data in InfluxDB with Flux
-list_title: Group
-description: >
-  Use `group()` to group data with common values in specific columns.
-influxdb/v2/tags: [group]
-menu:
-  influxdb_v2:
-    name: Group
-    parent: Query with Flux
-weight: 202
-aliases:
-  - /influxdb/v2/query-data/guides/group-data/
-  - /influxdb/v2/query-data/flux/grouping-data/
-related:
-  - /flux/v0/stdlib/universe/group
-  - /flux/v0/stdlib/experimental/group
-list_query_example: group
----
 
 With Flux, you can group data by any column in your queried data set.
 "Grouping" partitions data into tables in which each row shares a common value for specified columns.

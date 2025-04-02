@@ -1,15 +1,3 @@
----
-title: Delete a bucket
-seotitle: Delete a bucket from InfluxDB
-description: Delete a bucket from InfluxDB using the InfluxDB UI or the influx CLI
-menu:
-  influxdb_v2:
-    name: Delete a bucket
-    parent: Manage buckets
-weight: 203
-aliases:
-  - /influxdb/v2/organizations/buckets/delete-bucket/
----
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
 to delete a bucket.

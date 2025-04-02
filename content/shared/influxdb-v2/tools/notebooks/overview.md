@@ -1,16 +1,3 @@
----
-title: Overview of notebooks
-description: >
-  Learn about the building blocks of a notebook.
-weight: 101
-influxdb/v2/tags: [notebooks]
-menu:
-  influxdb_v2:
-    name: Overview of notebooks
-    parent: Notebooks
-aliases:
-  - /influxdb/v2/notebooks/overview/
----
 
 Learn how notebooks can help to streamline and simplify your day-to-day business processes.
 

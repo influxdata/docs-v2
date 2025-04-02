@@ -1,18 +1,4 @@
----
-title: Python client library starter
-seotitle: Use Python client library to build a sample application
-list_title: Python
-description: >
-  Build an application that writes, queries, and manages devices with the InfluxDB
-  client library for Python.
-weight: 3
-menu:
-  influxdb_v2:
-    identifier: client-library-starter-py
-    name: Python
-    parent: Client library tutorials
-influxdb/v2/tags: [api, python]
----
+<!-- Shortcode -->
 
 {{% api/iot-starter-intro %}}
 - How to use the InfluxData UI libraries to format data and create visualizations.

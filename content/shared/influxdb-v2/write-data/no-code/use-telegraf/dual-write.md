@@ -1,11 +1,3 @@
----
-title: Dual write to InfluxDB OSS and InfluxDB Cloud
-description: Write data to both OSS and Cloud simultaneously.
-menu:
-  influxdb_v2:
-    parent: Telegraf (agent)
-weight: 201
----
 
 If you want to back up your data in two places, or if you're migrating from OSS to Cloud, you may want to set up dual write.
 

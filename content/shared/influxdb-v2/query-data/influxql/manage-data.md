@@ -1,14 +1,3 @@
----
-title: Manage your data using InfluxQL
-description: >
-  Use InfluxQL data management commands to write and delete data.
-menu:
-  influxdb_v2:
-    name: Manage your data
-    parent: Query with InfluxQL
-    identifier: manage-database
-weight: 204
----
 
 Use the following data management commands to write and delete data with InfluxQL:
 

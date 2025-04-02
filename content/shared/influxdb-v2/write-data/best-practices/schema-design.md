@@ -1,16 +1,3 @@
----
-title: InfluxDB schema design
-description: >
-  Design your schema for simpler and more performant queries.
-menu:
-  influxdb_v2:
-    name: Schema design
-    weight: 201
-    parent: write-best-practices
-related:
-  - /influxdb/v2/reference/key-concepts/data-elements/
-  - /resources/videos/data-model-building-blocks/
----
 
 Design your [schema](/influxdb/v2/reference/key-concepts/data-elements/) for simpler and more performant queries.
 Follow design guidelines to make your schema easy to query.

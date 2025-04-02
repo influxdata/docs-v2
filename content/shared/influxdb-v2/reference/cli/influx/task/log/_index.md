@@ -1,15 +1,3 @@
----
-title: influx task log
-description: >
-  The `influx task log` and its subcommand, `list`, output log information
-  related to a task.
-menu:
-  influxdb_v2:
-    name: influx task log
-    parent: influx task
-weight: 201
-influxdb/v2/tags: [logs]
----
 
 The `influx task log` command and its subcommand `list` output log information related to a task.
 

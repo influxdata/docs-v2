@@ -1,14 +1,3 @@
----
-title: influx template validate
-description: >
-  The `influx template validate` command validates the provided InfluxDB template.
-menu:
-  influxdb_v2:
-    parent: influx template
-weight: 201
-aliases:
-  - /influxdb/v2/reference/cli/influx/pkg/validate/
----
 
 The `influx template validate` command validates the provided InfluxDB template.
 

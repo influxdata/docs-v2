@@ -1,12 +1,3 @@
----
-title: influx auth delete
-description: The `influx auth delete` command deletes an API token from InfluxDB.
-menu:
-  influxdb_v2:
-    name: influx auth delete
-    parent: influx auth
-weight: 201
----
 
 The `influx auth delete` command deletes an API token from InfluxDB.
 

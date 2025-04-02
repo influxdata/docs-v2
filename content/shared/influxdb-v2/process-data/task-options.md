@@ -1,16 +1,3 @@
----
-title: Task configuration options
-seotitle: InfluxDB task configuration options
-description: >
-  Task options define specific information about a task such as its name,
-  the schedule on which it runs, execution delays, and others.
-menu:
-  influxdb_v2:
-    name: Task options
-    parent: Process data
-weight: 105
-influxdb/v2/tags: [tasks, flux]
----
 
 Task options define specific information about a task.
 They are set in a Flux script {{% show-in "cloud,cloud-serverless" %}}, in the InfluxDB API, {{% /show-in %}} or in the InfluxDB user interface (UI).

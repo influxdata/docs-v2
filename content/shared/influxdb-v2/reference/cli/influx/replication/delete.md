@@ -1,13 +1,3 @@
----
-title: influx replication delete
-description: Delete an InfluxDB replication stream.
-menu:
-  influxdb_v2:
-    name: influx replication delete
-    parent: influx replication
-weight: 102
-influxdb/v2/tags: [write, replication]
----
 
 > [!Important]
 > Replication remotes and replication streams can only be configured for InfluxDB OSS.

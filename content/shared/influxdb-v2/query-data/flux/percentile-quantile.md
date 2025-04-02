@@ -1,21 +1,3 @@
----
-title: Find percentile and quantile values
-seotitle: Query percentile and quantile values in Flux
-list_title: Percentile & quantile
-description: >
-  Use the `quantile()` function to return all values within the `q` quantile or
-  percentile of input data.
-weight: 210
-menu:
-  influxdb_v2:
-    parent: Query with Flux
-    name: Percentile & quantile
-influxdb/v2/tags: [query, percentile, quantile]
-related:
-  - /influxdb/v2/query-data/flux/query-median/
-  - /flux/v0/stdlib/universe/quantile/
-list_query_example: quantile
----
 
 Use the [`quantile()` function](/flux/v0/stdlib/universe/quantile/)
 to return a value representing the `q` quantile or percentile of input data.

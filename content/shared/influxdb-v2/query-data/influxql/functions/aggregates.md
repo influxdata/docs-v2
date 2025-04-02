@@ -1,14 +1,3 @@
----
-title: InfluxQL aggregate functions
-list_title: Aggregate functions
-description: >
-  Aggregate data with InfluxQL aggregate functions.
-menu:
-  influxdb_v2:
-    name: Aggregates
-    parent: InfluxQL functions
-weight: 205
----
 
 Use aggregate functions to assess, aggregate, and return values in your data.
 Aggregate functions return one row containing the aggregate values from each InfluxQL group.

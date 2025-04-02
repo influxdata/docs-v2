@@ -1,18 +1,3 @@
----
-title: Heatmap visualization
-list_title: Heatmap
-list_image: /img/influxdb/2-0-visualizations-heatmap-example.png
-description: >
-  A Heatmap displays the distribution of data on an x and y axes where color
-  represents different concentrations of data points.
-weight: 202
-menu:
-  influxdb_v2:
-    name: Heatmap
-    parent: Visualization types
-related:
-  - /influxdb/v2/visualize-data/visualization-types/scatter
----
 
 A **Heatmap** displays the distribution of data on an x and y axes where color
 represents different concentrations of data points.

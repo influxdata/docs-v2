@@ -1,16 +1,3 @@
----
-title: Delete a task
-seotitle: Delete a task for processing data in InfluxDB
-description: >
-  Delete a task from InfluxDB using the InfluxDB UI or the `influx` CLI.
-menu:
-  influxdb_v2:
-    name: Delete a task
-    parent: Manage tasks
-weight: 206
-related:
-  - /influxdb/v2/reference/cli/influx/task/delete
----
 
 ## Delete a task in the InfluxDB UI
 1. In the navigation menu on the left, select **Tasks**.

@@ -1,13 +1,3 @@
----
-title: influx replication create
-description: Create a new InfluxDB replication stream.
-menu:
-  influxdb_v2:
-    name: influx replication create
-    parent: influx replication
-weight: 101
-influxdb/v2/tags: [write]
----
 
 > [!Important]
 > Replication remotes and replication streams can only be configured for InfluxDB OSS.

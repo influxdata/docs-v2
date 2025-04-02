@@ -1,15 +1,3 @@
----
-title: Send alert email
-description: >
-  Send an alert email.
-menu:
-  influxdb_v2:
-    parent: Monitor & alert
-weight: 104
-influxdb/v2/tags: [alert, email, notifications, check]
-related:
-  - /influxdb/v2/monitor-alert/checks/
----
 
 Send an alert email using a third-party service, such as [SendGrid](https://sendgrid.com/), [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/), [Mailjet](https://www.mailjet.com/), or [Mailgun](https://www.mailgun.com/). To send an alert email, complete the following steps:
 

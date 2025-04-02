@@ -1,17 +1,3 @@
----
-title: Normalize data with notebooks
-description: >
-  Learn how to create a notebook that normalizes or cleans data to make it
-  easier to work with.
-weight: 105
-influxdb/v2/tags: [notebooks]
-menu:
-  influxdb_v2:
-    name: Normalize data
-    parent: Notebooks
-aliases:
-  - /influxdb/v2/notebooks/clean-data/
----
 
 Learn how to create a notebook that normalizes data.
 Data normalization is the process of modifying or cleaning data to make it easier to

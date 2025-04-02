@@ -1,23 +1,3 @@
----
-title: Calculate percentages with Flux
-list_title: Calculate percentages
-description: >
-  Use [`pivot()` or `join()`](/influxdb/v2/query-data/flux/mathematic-operations/#pivot-vs-join)
-  and the `map()` function to align operand values into rows and calculate a percentage.
-menu:
-  influxdb_v2:
-    name: Calculate percentages
-    parent: Query with Flux
-weight: 209
-aliases:
- - /influxdb/v2/query-data/guides/calculate-percentages/
-related:
-  - /influxdb/v2/query-data/flux/mathematic-operations
-  - /flux/v0/stdlib/universe/map
-  - /flux/v0/stdlib/universe/pivot
-  - /flux/v0/stdlib/universe/join
-list_query_example: percentages
----
 
 Calculating percentages from queried data is a common use case for time series data.
 To calculate a percentage in Flux, operands must be in each row.

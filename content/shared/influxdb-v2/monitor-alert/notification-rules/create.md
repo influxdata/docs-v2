@@ -1,15 +1,3 @@
----
-title: Create notification rules
-description: >
-  Create notification rules to send alerts on your time series data.
-weight: 201
-menu:
-  influxdb_v2:
-    parent: Manage notification rules
-related:
-  - /influxdb/v2/monitor-alert/checks/
-  - /influxdb/v2/monitor-alert/notification-endpoints/
----
 
 Once you've set up checks and notification endpoints, create notification rules to alert you.
 _For details, see [Manage checks](/influxdb/v2/monitor-alert/checks/) and

@@ -1,14 +1,3 @@
----
-title: Optimize Flux queries
-description: >
-  Optimize your Flux queries to reduce their memory and compute (CPU) requirements.
-weight: 104
-menu:
-  influxdb_v2:
-    name: Optimize queries
-    parent: Query data
-influxdb/v2/tags: [query]
----
 
 Optimize your Flux queries to reduce their memory and compute (CPU) requirements.
 

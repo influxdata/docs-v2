@@ -1,17 +1,3 @@
----
-title: Ruby client library
-seotitle: Use the InfluxDB Ruby client library
-list_title: Ruby
-description: Use the InfluxDB Ruby client library to interact with InfluxDB.
-external_url: https://github.com/influxdata/influxdb-client-ruby
-menu:
-  influxdb_v2:
-    name: Ruby
-    parent: Client libraries
-    params:
-      url: https://github.com/influxdata/influxdb-client-ruby
-weight: 201
----
 
 Ruby is a highly flexible, open-source, object-oriented programming language.
 
