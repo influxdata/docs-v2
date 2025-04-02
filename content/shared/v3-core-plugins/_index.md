@@ -42,10 +42,11 @@ Replace `/path/to/plugins` with the directory where you want to store your Pytho
 
 If you're running multiple InfluxDB instances (distributed deployment):
 
-1. Decide where plugins should run
-- Data processing plugins run on ingestor nodes
-- HTTP-triggered plugins run on nodes handling API requests
-- Scheduled plugins can run on any configured node
+1. Decide where plugins should run:
+
+    - Data processing plugins, such as WAL plugins, run on ingestor nodes
+    - HTTP-triggered plugins run on nodes handling API requests
+    - Scheduled plugins can run on any configured node
 2. Enable plugins on selected instances
 3. Maintain identical plugin files across all instances where plugins run
  - Use shared storage or file synchronization tools to keep plugins consistent
