@@ -40,26 +40,32 @@ and then writes the downsampled data to an InfluxDB bucket.
           to apply to each window.
           For this example, use `mean`.
 
-    3.  {{% show-in "cloud,cloud-serverless" %}} Use [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/)
-        to write the downsampled data back to an InfluxDB bucket.{{% /show-in %}}
+    {{% show-in "cloud,cloud-serverless" %}}
+    3.   Use [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/)
+        to write the downsampled data back to an InfluxDB bucket.
+    {{% /show-in %}}
     
-        ```js
-        __PREVIOUS_RESULT__
-            |> aggregateWindow(every: 10m, fn: mean)
-            |> to(bucket: "example-bucket")
-        ```
+    ```js
+    __PREVIOUS_RESULT__
+        |> aggregateWindow(every: 10m, fn: mean)
+        |> to(bucket: "example-bucket")
+    ```
 
-7.  {{% show-in "v2" %}}Click {{% icon "notebook-add-cell" %}} after your
+{{% show-in "v2" %}}
+7.  Click {{% icon "notebook-add-cell" %}} after your
     **Flux Script** cell to add a new cell and select
     **{{% caps %}}Output to Bucket{{% /caps %}}**.
     Select a bucket from the **{{% icon "bucket" %}} Choose a bucket**
-    drop-down list.{{% /show-in %}}
+    drop-down list.
+{{% /show-in %}}
     
 8.  _(Optional)_ Click {{% icon "notebook-add-cell" %}} and select **Note** to
     add a note to describe your notebook, for example, 
     "Downsample Coinbase bitcoin prices into hourly averages."
-9.  {{% show-in "v2" %}}Click **Preview** in the upper left to verify that your
-    notebook runs and displays the output.{{% /show-in %}}
+{{% show-in "v2" %}}
+9.  Click **Preview** in the upper left to verify that your
+    notebook runs and displays the output.
+{{% /show-in %}}
 10. Click **Run** to run the notebook and write the downsampled data to your bucket.
 
 ## Continuously run a notebook

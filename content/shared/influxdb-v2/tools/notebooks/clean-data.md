@@ -74,19 +74,22 @@ the normalized data to a bucket.
             |> to(bucket: "example-bucket")
         ```
 
-4.  {{% show-in "v2" %}}Click {{% icon "notebook-add-cell" %}} after your **Flux Script** cell to 
+{{% show-in "v2" %}}
+4.  Click {{% icon "notebook-add-cell" %}} after your **Flux Script** cell to 
     add a new cell and select **{{% caps %}}Output to Bucket{{% /caps %}}**.
     Select a bucket from the **{{% icon "bucket" %}} Choose a bucket**
     drop-down list.
-    {{% /show-in %}}
+{{% /show-in %}}
     
 5.  _(Optional)_ Click {{% icon "notebook-add-cell" %}} and select **Note** to
     add a cell containing notes about what this notebook does. For example, the
     cell might say, "This notebook converts decimal degree wind direction values
     to cardinal directions."
-6.  {{% show-in "v2" %}}Click **Preview** in the upper left to verify that your
-    notebook runs and previews the output.{{% /show-in %}}
-6.  Click **Run** to run the notebook and write the normalized data to your bucket.
+{{% show-in "v2" %}}
+6.  Click **Preview** in the upper left to verify that your
+    notebook runs and previews the output.
+{{% /show-in %}}
+7.  Click **Run** to run the notebook and write the normalized data to your bucket.
 
 ## Continuously run a notebook
 To continuously run your notebook, export the notebook as a task:

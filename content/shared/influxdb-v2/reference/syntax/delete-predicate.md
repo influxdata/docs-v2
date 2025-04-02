@@ -40,7 +40,7 @@ that matches your tag name needs to be escaped. Keywords are case-insensitive.
 _**except**_ the following:
 
 - `_time`
-- {{% show-in "v2" %}}`_field`{{% /show-in %}}
+{{% show-in "v2" %}}- `_field`{{% /show-in %}}
 - `_value`
 
 {{% show-in "v2" %}}
@@ -68,7 +68,7 @@ Comparison operators compare left and right operands and return `true` or `false
 ## Delete predicate examples
 
 - [Delete points by measurement](#delete-points-by-measurement)
-- {{% show-in "cloud,cloud-serverless" %}}[Delete points by field](#delete-points-by-field){{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}- [Delete points by field](#delete-points-by-field){{% /show-in %}}
 - [Delete points by tag set](#delete-points-by-tag-set)
 
 ### Delete points by measurement

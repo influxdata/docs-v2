@@ -37,12 +37,12 @@ remote connection values accordingly.
     **Provide the following:**   
 
     - Remote connection name    
-    - {{% show-in "v2" %}}Remote InfluxDB instance URL{{% /show-in %}}
-    - {{% show-in "v2" %}}Remote InfluxDB API token _(API token must have write access to the target bucket)_{{% /show-in %}}
-    - {{% show-in "v2" %}}Remote InfluxDB organization ID{{% /show-in %}}
-    - {{% show-in "cloud,cloud-serverless" %}}[InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /show-in %}}
-    - {{% show-in "cloud,cloud-serverless" %}}InfluxDB Cloud API token _(API token must have write access to the target bucket)_{{% /show-in %}}
-    - {{% show-in "cloud,cloud-serverless" %}}InfluxDB Cloud organization ID{{% /show-in %}}
+    {{% show-in "v2" %}}- Remote InfluxDB instance URL{{% /show-in %}}
+    {{% show-in "v2" %}}- Remote InfluxDB API token _(API token must have write access to the target bucket)_{{% /show-in %}}
+    {{% show-in "v2" %}}- Remote InfluxDB organization ID{{% /show-in %}}
+    {{% show-in "cloud,cloud-serverless" %}}- [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /show-in %}}
+    {{% show-in "cloud,cloud-serverless" %}}- InfluxDB Cloud API token _(API token must have write access to the target bucket)_{{% /show-in %}}
+    {{% show-in "cloud,cloud-serverless" %}}- InfluxDB Cloud organization ID{{% /show-in %}}
 
     ```sh
     influx remote create \
@@ -60,12 +60,12 @@ remote connection values accordingly.
     **Provide the following:**    
 
     - Replication stream name
-    - {{% show-in "v2" %}}Remote connection ID{{% /show-in %}}
-    - {{% show-in "v2" %}}Local bucket ID to replicate writes from{{% /show-in %}}
-    - {{% show-in "v2" %}}Remote bucket name or ID to replicate writes to. If replicating to **InfluxDB Enterprise**, use the `db-name/rp-name` bucket name syntax.{{% /show-in %}}
-    - {{% show-in "cloud,cloud-serverless" %}}Remote connection ID{{% /show-in %}}
-    - {{% show-in "cloud,cloud-serverless" %}}InfluxDB OSS bucket ID to replicate writes from{{% /show-in %}}
-    - {{% show-in "cloud,cloud-serverless" %}}InfluxDB Cloud bucket ID to replicate writes to{{% /show-in %}}
+    {{% show-in "v2" %}}- Remote connection ID{{% /show-in %}}
+    {{% show-in "v2" %}}- Local bucket ID to replicate writes from{{% /show-in %}}
+    {{% show-in "v2" %}}- Remote bucket name or ID to replicate writes to. If replicating to **InfluxDB Enterprise**, use the `db-name/rp-name` bucket name syntax.{{% /show-in %}}
+    {{% show-in "cloud,cloud-serverless" %}}- Remote connection ID{{% /show-in %}}
+    {{% show-in "cloud,cloud-serverless" %}}- InfluxDB OSS bucket ID to replicate writes from{{% /show-in %}}
+    {{% show-in "cloud,cloud-serverless" %}}- InfluxDB Cloud bucket ID to replicate writes to{{% /show-in %}}
 
 
     ```sh
@@ -106,12 +106,12 @@ max queue size, and latest status code.
       - **description:** Remote description
       - {{< req "\*" >}} **name:** Remote connection name
       - {{< req "\*" >}} **orgID:** {{% show-in "v2" %}}local{{% /show-in %}} InfluxDB OSS organization ID
-      - {{% show-in "v2" %}}{{< req "\*" >}} **remoteAPIToken:** Remote InfluxDB API token _(API token must have write access to the target bucket)_{{% /show-in %}}
-      - {{% show-in "v2" %}}{{< req "\*" >}} **remoteOrgID:** Remote InfluxDB organization ID{{% /show-in %}}
-      - {{% show-in "v2" %}}{{< req "\*" >}} **remoteURL:** Remote InfluxDB instance URL{{% /show-in %}}
-      - {{% show-in "cloud,cloud-serverless" %}}{{< req "\*" >}} **remoteAPIToken:** InfluxDB Cloud API token _(API token must have write access to the target bucket)_{{% /show-in %}}
-      - {{% show-in "cloud,cloud-serverless" %}}{{< req "\*" >}} **remoteOrgID:** InfluxDB Cloud organization ID{{% /show-in %}}
-      - {{% show-in "cloud,cloud-serverless" %}}{{< req "\*" >}} **remoteURL:** [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /show-in %}}
+      {{% show-in "v2" %}}- {{< req "\*" >}} **remoteAPIToken:** Remote InfluxDB API token _(API token must have write access to the target bucket)_{{% /show-in %}}
+      {{% show-in "v2" %}}- {{< req "\*" >}} **remoteOrgID:** Remote InfluxDB organization ID{{% /show-in %}}
+      {{% show-in "v2" %}}- {{< req "\*" >}} **remoteURL:** Remote InfluxDB instance URL{{% /show-in %}}
+      {{% show-in "cloud,cloud-serverless" %}}- {{< req "\*" >}} **remoteAPIToken:** InfluxDB Cloud API token _(API token must have write access to the target bucket)_{{% /show-in %}}
+      {{% show-in "cloud,cloud-serverless" %}}- {{< req "\*" >}} **remoteOrgID:** InfluxDB Cloud organization ID{{% /show-in %}}
+      {{% show-in "cloud,cloud-serverless" %}}- {{< req "\*" >}} **remoteURL:** [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /show-in %}}
 
     {{< keep-url >}}
     ```sh
@@ -170,10 +170,10 @@ max queue size, and latest status code.
       - {{< req "\*" >}} **maxQueueSizeBytes:** Maximum replication queue size in bytes (default is `67108860`, must be greater than or equal to `33554430`).
       - {{< req "\*" >}} **name:** Replication stream name.
       - {{< req "\*" >}} **orgID:** {{% show-in "v2" %}}Local{{% /show-in %}} InfluxDB OSS organization ID.
-      - {{% show-in "v2" %}}{{< req "\*" >}} **remoteBucketID:** Remote bucket ID to replicate writes to.{{% /show-in %}}
-      - {{% show-in "v2" %}}{{< req "\*" >}} **remoteBucketName:** Remote bucket name to replicate writes to. If replicating to **InfluxDB Enterprise**, use the `db-name/rp-name` bucket name syntax.{{% /show-in %}}
-      - {{% show-in "cloud,cloud-serverless" %}}{{< req "\*" >}} **remoteBucketID:** InfluxDB Cloud bucket ID to replicate writes to.{{% /show-in %}}
-      - {{% show-in "cloud,cloud-serverless" %}}{{< req "\*" >}} **remoteBucketName:** InfluxDB Cloud bucket name to replicate writes to.{{% /show-in %}}
+      {{% show-in "v2" %}}- {{< req "\*" >}} **remoteBucketID:** Remote bucket ID to replicate writes to.{{% /show-in %}}
+      {{% show-in "v2" %}}- {{< req "\*" >}} **remoteBucketName:** Remote bucket name to replicate writes to. If replicating to **InfluxDB Enterprise**, use the `db-name/rp-name` bucket name syntax.{{% /show-in %}}
+      {{% show-in "cloud,cloud-serverless" %}}- {{< req "\*" >}} **remoteBucketID:** InfluxDB Cloud bucket ID to replicate writes to.{{% /show-in %}}
+      {{% show-in "cloud,cloud-serverless" %}}- {{< req "\*" >}} **remoteBucketName:** InfluxDB Cloud bucket name to replicate writes to.{{% /show-in %}}
       - {{< req "\*" >}} **remoteID:** Remote connection ID
 
     {{% note %}}

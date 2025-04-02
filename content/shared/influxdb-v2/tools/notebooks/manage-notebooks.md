@@ -2,8 +2,8 @@
 Manage your notebooks in the UI:
 
 - [View or update a notebook](#view-or-update-notebooks)
-- {{% show-in "cloud,cloud-serverless" %}}[Share a notebook](#share-a-notebook){{% /show-in %}}
-- {{% show-in "cloud,cloud-serverless" %}}[Unshare a notebook](#unshare-a-notebook){{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}- [Share a notebook](#share-a-notebook){{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}- [Unshare a notebook](#unshare-a-notebook){{% /show-in %}}
 - [Delete a notebook](#delete-a-notebook)
 
 ## View or update notebooks

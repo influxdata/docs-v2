@@ -1,7 +1,7 @@
 
 ##### Account management {href="account-management-1"}
 - [How do I reset my password?](#how-do-i-reset-my-password)
-- {{% show-in "cloud,cloud-serverless" %}}[How do I switch between InfluxDB Cloud accounts?](#how-do-i-switch-between-influxdb-cloud-accounts){{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}- [How do I switch between InfluxDB Cloud accounts?](#how-do-i-switch-between-influxdb-cloud-accounts){{% /show-in %}}
 
 {{% show-in "cloud,cloud-serverless" %}}
 
@@ -30,20 +30,20 @@
 ##### Security {href="security-1"}
 - [What different types of API tokens exist?](#what-different-types-of-api-tokens-exist)
 - [Can I use InfluxDB with authentication disabled?](#can-i-use-influxdb-with-authentication-disabled)
-- {{% show-in "cloud,cloud-serverless" %}}[Can you change the permission level of members in your organization?](#can-you-change-the-permission-level-of-members-in-your-organization){{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}- [Can you change the permission level of members in your organization?](#can-you-change-the-permission-level-of-members-in-your-organization){{% /show-in %}}
 
 ##### Administration {href="administration-1"}
-- {{% show-in "v2" %}}[How can I identify my InfluxDB version?](#how-can-i-identify-my-influxdb-version){{% /show-in %}}
+{{% show-in "v2" %}}- [How can I identify my InfluxDB version?](#how-can-i-identify-my-influxdb-version){{% /show-in %}}
 - [How can I identify the version of Flux I'm using in InfluxDB?](#how-can-i-identify-the-version-of-flux-im-using-in-influxdb)
-- {{% show-in "v2" %}}[Where can I find InfluxDB logs?](#where-can-i-find-influxdb-logs){{% /show-in %}}
-- {{% show-in "v2" %}}[What is the relationship between shard group durations and retention periods?](#what-is-the-relationship-between-shard-group-durations-and-retention-periods){{% /show-in %}}
+{{% show-in "v2" %}}- [Where can I find InfluxDB logs?](#where-can-i-find-influxdb-logs){{% /show-in %}}
+{{% show-in "v2" %}}- [What is the relationship between shard group durations and retention periods?](#what-is-the-relationship-between-shard-group-durations-and-retention-periods){{% /show-in %}}
 - [Why isn't data dropped after I update a bucket's retention period?](#why-isnt-data-dropped-after-i-update-a-buckets-retention-period)
 
 ##### Data types {href="data-types-1"}
 - [What are the minimum and maximum integers that InfluxDB can store?](#what-are-the-minimum-and-maximum-integers-that-influxdb-can-store)
 - [What are the minimum and maximum timestamps that InfluxDB can store?](#what-are-the-minimum-and-maximum-timestamps-that-influxdb-can-store)
 - [Can I change a field's data type?](#can-i-change-a-fields-data-type)
-- {{% show-in "v2" %}}[How does InfluxDB handle field type discrepancies across shards?](#how-does-influxdb-handle-field-type-discrepancies-across-shards){{% /show-in %}}
+{{% show-in "v2" %}}- [How does InfluxDB handle field type discrepancies across shards?](#how-does-influxdb-handle-field-type-discrepancies-across-shards){{% /show-in %}}
 
 ##### Writing data {href="writing-data"}
 - [How do I write integer and unsigned integer field values?](#how-do-i-write-integer-and-unsigned-integer-field-values)
@@ -51,15 +51,15 @@
 - [What newline character does the InfluxDB write API require?](#what-newline-character-does-the-influxdb-write-api-require)
 - [When should I single quote and when should I double quote when writing data?](#when-should-i-single-quote-and-when-should-i-double-quote-when-writing-data)
 - [Does the precision of the timestamp matter?](#does-the-precision-of-the-timestamp-matter)
-- {{% show-in "v2" %}}[What are the configuration recommendations and schema guidelines for writing sparse, historical data?](#what-are-the-configuration-recommendations-and-schema-guidelines-for-writing-sparse-historical-data){{% /show-in %}}
+{{% show-in "v2" %}}- [What are the configuration recommendations and schema guidelines for writing sparse, historical data?](#what-are-the-configuration-recommendations-and-schema-guidelines-for-writing-sparse-historical-data){{% /show-in %}}
 
 ##### Querying data {href="querying-data-1"}
 - [Flux](#flux)
     - [How do I structure fields as columns (like InfluxQL)?](#how-do-i-structure-fields-as-columns-like-influxql)
     - [How can I derive a state from multiple field values?](#how-can-i-derive-a-state-from-multiple-field-values)
 - [InfluxQL](#influxql)
-    - {{% show-in "cloud,cloud-serverless" %}}[How do I use InfluxQL with InfluxDB Cloud?](#how-do-i-use-influxql-with-influxdb-cloud){{% /show-in %}}
-    - {{% show-in "v2" %}}[How do I use InfluxQL with InfluxDB v2.x?](#how-do-i-use-influxql-with-influxdb-v2x){{% /show-in %}}
+    {{% show-in "cloud,cloud-serverless" %}}- [How do I use InfluxQL with InfluxDB Cloud?](#how-do-i-use-influxql-with-influxdb-cloud){{% /show-in %}}
+    {{% show-in "v2" %}}- [How do I use InfluxQL with InfluxDB v2.x?](#how-do-i-use-influxql-with-influxdb-v2x){{% /show-in %}}
     - [How do I perform mathematical operations in an InfluxQL function?](#how-do-i-perform-mathematical-operations-in-an-influxql-function)
     - [Why does my query return epoch 0 as the timestamp?](#why-does-my-query-return-epoch-0-as-the-timestamp)
     - [Which InfluxQL functions support nesting?](#which-influxql-functions-support-nesting)
@@ -75,7 +75,7 @@
     - [How do I query data across measurements?](#how-do-i-query-data-across-measurements)
     - [Does the order timestamps in a query matter?](#does-the-order-timestamps-in-a-query-matter)
     - [How do I query data by a tag with a null value?](#how-do-i-query-data-by-a-tag-with-a-null-value)
-- {{% show-in "cloud,cloud-serverless" %}}[Why am I getting the error, "total duration of queries in the last 30s exceeds limit of 25m0s"?](#why-am-i-getting-the-error-total-duration-of-queries-in-the-last-30s-exceeds-limit-of-25m0s){{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}- [Why am I getting the error, "total duration of queries in the last 30s exceeds limit of 25m0s"?](#why-am-i-getting-the-error-total-duration-of-queries-in-the-last-30s-exceeds-limit-of-25m0s){{% /show-in %}}
 
 ##### Deleting data {href="deleting-data"}
 - [Can I delete a field?](#can-i-delete-a-field)
@@ -89,7 +89,7 @@
 ##### Series and series cardinality {href="series-and-series-cardinality-1"}
 - [What is series cardinality?](#what-is-series-cardinality)
 - [Why does series cardinality matter?](#why-does-series-cardinality-matter)
-- {{% show-in "v2" %}}[How do I remove series from the index?](#how-do-i-remove-series-from-the-index){{% /show-in %}}
+{{% show-in "v2" %}}- [How do I remove series from the index?](#how-do-i-remove-series-from-the-index){{% /show-in %}}
 
 ---
 
@@ -213,10 +213,10 @@ InfluxDB {{< current-version >}} provides different ways to monitor its status:
 #### What different types of API tokens exist?
 InfluxDB {{< current-version >}} supports the following token types:
 
-- {{% show-in "v2" %}}Operator tokens{{% /show-in %}}
+{{% show-in "v2" %}}- Operator tokens{{% /show-in %}}
 - All Access tokens
-- {{% show-in "cloud,cloud-serverless" %}}Custom tokens{{% /show-in %}}
-- {{% show-in "v2" %}}Read/Write tokens{{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}- Custom tokens{{% /show-in %}}
+{{% show-in "v2" %}}- Read/Write tokens{{% /show-in %}}
 
 For more information about each token type, see [Manage API tokens](/influxdb/v2/admin/tokens/).
 
@@ -320,7 +320,7 @@ the retention period of a bucket:
 - **The retention enforcement service runs {{% show-in "cloud,cloud-serverless" %}}hourly{{% /show-in %}}{{% show-in "v2" %}}every 30 minutes (by default){{% /show-in %}}**.
   You may need to wait for the next retention enforcement cycle to run.
 
-- {{% show-in "v2" %}}
+{{% show-in "v2" %}}- 
 
   **InfluxDB drops shard groups, not individual points**.
   Shard groups cover a specific time interval assigned to the shard group on creation.
@@ -336,7 +336,7 @@ the retention period of a bucket:
 
 For more information, see [Data retention](/influxdb/v2/reference/internals/data-retention/).
 
-<!-- {{% show-in "cloud,cloud-serverless" %}}
+<!-{{% show-in "cloud,cloud-serverless" %}}- 
 
 #### How do I get a backup of my data?
 

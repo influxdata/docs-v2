@@ -37,7 +37,7 @@ influx v1 shell
 
 The `influx v1 shell` command requires the following to connect to InfluxDB:
 
-- {{% show-in "v2" %}}[InfluxDB host](/influxdb/v2/reference/urls/){{% /show-in %}}
+{{% show-in "v2" %}}- [InfluxDB host](/influxdb/v2/reference/urls/){{% /show-in %}}
   {{% show-in "cloud,cloud-serverless" %}}[InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /show-in %}}
 - [Organization name or ID](/influxdb/v2/admin/organizations/view-orgs/)
 - [API token](/influxdb/v2/admin/tokens/)

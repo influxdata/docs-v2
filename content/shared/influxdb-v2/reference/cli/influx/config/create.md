@@ -41,7 +41,7 @@ Include `username:password` to ensure a session is automatically authenticated. 
 
 - [Create a connection configuration and set it active](#create-a-connection-configuration-and-set-it-active)
 - [Create a connection configuration without setting it active](#create-a-connection-configuration-without-setting-it-active)
-- {{% show-in "v2" %}}[Create a connection configuration that uses a username and password](#create-a-connection-configuration-that-uses-a-username-and-password){{% /show-in %}}
+{{% show-in "v2" %}}- [Create a connection configuration that uses a username and password](#create-a-connection-configuration-that-uses-a-username-and-password){{% /show-in %}}
 
 #### Create a connection configuration and set it active
 ```sh
