@@ -9,20 +9,18 @@
 **Core**: revision f881c5844bec93a85242f26357a1ef3ebf419dd3
 **Enterprise**: revision 6bef9e700a59c0973b0cefdc6baf11583933e262
 ### Core
-#### Features
-##### General Improvements
+#### General Improvements
 - InfluxDB 3 now supports graceful shutdowns when sending the interrupt signal to the service.
 
-##### Bug fixes
+#### Bug fixes
 - Empty batches in JSON format results are now handled properly
 - The Processing Engine now properly extracts data from DictionaryArrays
 
 ### Enterprise
-#### Features
 ##### Multi-node improvements
 - Query nodes now automatically detect new ingest nodes
 
-##### Bug fixes
+#### Bug fixes
 - Several fixes for compaction planning and processing 
 - The Processing Engine now properly extracts data from DictionaryArrays
 
