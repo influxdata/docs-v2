@@ -10,6 +10,8 @@ menu:
 weight: 201
 related:
   - /influxdb/cloud/reference/cli/influx/task/create
+source: /shared/influxdb-v2/process-data/manage-tasks/create-task.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/process-data/manage-tasks/create-task.md-->

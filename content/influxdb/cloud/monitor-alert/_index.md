@@ -9,6 +9,8 @@ menu:
     name: Monitor & alert
 weight: 6
 influxdb/cloud/tags: [monitor, alert, checks, notification, endpoints]
+source: /shared/influxdb-v2/monitor-alert/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/monitor-alert/_index.md-->

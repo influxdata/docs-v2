@@ -13,6 +13,8 @@ related:
   - /flux/v0/stdlib/influxdata/influxdb/from
   - /flux/v0/stdlib/universe/range
   - /flux/v0/stdlib/universe/filter
+source: /shared/influxdb-v2/query-data/get-started/query-influxdb.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/get-started/query-influxdb.md-->

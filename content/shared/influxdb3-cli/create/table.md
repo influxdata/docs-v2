@@ -18,14 +18,14 @@ influxdb3 create table [OPTIONS] \
 
 ## Options
 
-| Option |                 | Description                                                                              |
-| :----- | :-------------- | :--------------------------------------------------------------------------------------- |
-| `-H`   | `--host`        | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
-| `-d`   | `--database`    | _({{< req >}})_ Name of the database to operate on                                       |
-|        | `--token`       | Authentication token                                                                     |
-|        | `--tags`        | _({{< req >}})_ Space-separated list of tag columns to include in the table              |
-|        | `--fields`      | Space-separated list of field columns to include in the table                            |
-| `-h`   | `--help`        | Print help information                                                                   |
+| Option |              | Description                                                                              |
+| :----- | :----------- | :--------------------------------------------------------------------------------------- |
+| `-H`   | `--host`     | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
+| `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
+|        | `--token`    | Authentication token                                                                     |
+|        | `--tags`     | _({{< req >}})_ Comma-separated list of tag columns to include in the table              |
+|        | `--fields`   | Comma-separated list of field columns and their types to include in the table            |
+| `-h`   | `--help`     | Print help information                                                                   |
 
 > [!Important]
 >
@@ -62,8 +62,8 @@ In the examples below, replace the following:
 
 ```bash
 influxdb3 create table \
-  --tags tag1 tag2 tag3 \
-  --database DATABASE_NAME
+  --tags tag1,tag2,tag3 \
+  --database DATABASE_NAME \
   TABLE_NAME
 ```
 
@@ -73,9 +73,9 @@ influxdb3 create table \
 
 ```bash
 influxdb3 create table \
-  --tags room sensor_id \
-  --fields temp:float64 hum:float64 co:int64 \
-  --database DATABASE_NAME
+  --tags room,sensor_id \
+  --fields temp:float64,hum:float64,co:int64 \
+  --database DATABASE_NAME \
   TABLE_NAME
 ```
 

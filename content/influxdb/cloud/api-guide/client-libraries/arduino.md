@@ -12,6 +12,8 @@ menu:
     params:
       url: https://github.com/tobiasschuerg/InfluxDB-Client-for-Arduino
 weight: 201
+source: /shared/influxdb-v2/api-guide/client-libraries/arduino.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/arduino.md-->

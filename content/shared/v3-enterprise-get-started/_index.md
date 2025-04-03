@@ -148,18 +148,18 @@ The following examples show how to start InfluxDB 3 with different object store 
 # Memory object store
 # Stores data in RAM; doesn't persist data
 influxdb3 serve \
---node-id=host01 \
---cluster-id=cluster01 \
---object-store=memory
+--node-id host01 \
+--cluster-id cluster01 \
+--object-store memory
 ```
 
 ```bash
 # Filesystem object store
 # Provide the filesystem directory
 influxdb3 serve \
-  --node-id=host01 \
-  --cluster-id=cluster01 \
-  --object-store=file \
+  --node-id host01 \
+  --cluster-id cluster01 \
+  --object-store file \
   --data-dir ~/.influxdb3
 ```
 
@@ -192,12 +192,12 @@ docker run -it \
 # Specify the Object store type and associated options
 
 influxdb3 serve \
-  --node-id=host01 \
-  --cluster-id=cluster01 \
-  --object-store=s3 \
-  --bucket=BUCKET \
-  --aws-access-key-id=AWS_ACCESS_KEY_ID \
-  --aws-secret-access-key=AWS_SECRET_ACCESS_KEY
+  --node-id host01 \
+  --cluster-id cluster01 \
+  --object-store s3 \
+  --bucket BUCKET \
+  --aws-access-key-id AWS_ACCESS_KEY_ID \
+  --aws-secret-access-key AWS_SECRET_ACCESS_KEY
 ```
 
 ```bash
@@ -206,13 +206,13 @@ influxdb3 serve \
 # Specify the object store type and associated options
 
 influxdb3 serve \
-  --node-id=host01 \
-  --cluster-id=cluster01 \
-  --object-store=s3 \
-  --bucket=BUCKET \
-  --aws-access-key-id=AWS_ACCESS_KEY_ID \
-  --aws-secret-access-key=AWS_SECRET_ACCESS_KEY \
-  --aws-endpoint=ENDPOINT \
+   host01 \
+  --cluster-id cluster01 \
+  --object-store s3 \
+  --bucket BUCKET \
+  --aws-access-key-id AWS_ACCESS_KEY_ID \
+  --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
+  --aws-endpoint ENDPOINT \
   --aws-allow-http
 ```
 
@@ -313,7 +313,7 @@ cpu,host=Alpha,region=us-west,application=webserver val=6i,usage_percent=25.3,st
 If you save the preceding line protocol to a file (for example, `server_data`), then you can use the `influxdb3` CLI to write the data--for example:
 
 ```bash
-influxdb3 write --database=mydb --file=server_data
+influxdb3 write --database mydb --file server_data
 ```
 
 ##### Example: write data using the /api/v3 HTTP API
@@ -419,7 +419,11 @@ curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=tr
 The `no_sync` CLI option controls when writes are acknowledged--for example:
 
 ```bash
-influxdb3 write --bucket=mydb --org=my_org --token=my-token --no-sync
+influxdb3 write \
+  --bucket mydb \
+  --org my_org \
+  --token my-token \
+  --no-sync
 ```
 
 ### Create a database or table
@@ -459,7 +463,7 @@ The `query` subcommand includes options to help ensure that the right database i
 #### Example: query `“SHOW TABLES”` on the `servers` database:
 
 ```console
-$ influxdb3 query --database=servers "SHOW TABLES"
+$ influxdb3 query --database servers "SHOW TABLES"
 +---------------+--------------------+--------------+------------+
 | table_catalog | table_schema       | table_name   | table_type |
 +---------------+--------------------+--------------+------------+
@@ -475,7 +479,7 @@ $ influxdb3 query --database=servers "SHOW TABLES"
 #### Example: query the `cpu` table, limiting to 10 rows:
 
 ```console
-$ influxdb3 query --database=servers "SELECT DISTINCT usage_percent, time FROM cpu LIMIT 10"
+$ influxdb3 query --database servers "SELECT DISTINCT usage_percent, time FROM cpu LIMIT 10"
 +---------------+---------------------+
 | usage_percent | time                |
 +---------------+---------------------+
@@ -499,7 +503,10 @@ $ influxdb3 query --database=servers "SELECT DISTINCT usage_percent, time FROM c
 To query using InfluxQL, enter the `influxdb3 query` subcommand and specify `influxql` in the language option--for example:
 
 ```bash
-influxdb3 query --database=servers --language=influxql "SELECT DISTINCT usage_percent FROM cpu WHERE time >= now() - 1d"
+influxdb3 query \
+  --database servers \
+  --language influxql \
+  "SELECT DISTINCT usage_percent FROM cpu WHERE time >= now() - 1d"
 ```
 
 ### Query using the API
@@ -610,11 +617,11 @@ The following command creates a last value cache named `cpuCache`:
 
 ```bash
 influxdb3 create last_cache \
-  --database=servers \
-  --table=cpu \
-  --key-columns=host,application \
-  --value-columns=usage_percent,status \
-  --count=5 cpuCache
+  --database servers \
+  --table cpu \
+  --key-columns host,application \
+  --value-columns usage_percent,status \
+  --count 5 cpuCache
 ```
 
 _You can create a last values cache per time series, but be mindful of high cardinality tables that could take excessive memory._
@@ -625,7 +632,7 @@ To use the LVC, call it using the `last_cache()` function in your query--for exa
 
 ```bash
 influxdb3 query \
-  --database=servers \
+  --database servers \
   "SELECT * FROM last_cache('cpu', 'cpuCache') WHERE host = 'Bravo';"
 ```
 
@@ -640,8 +647,8 @@ Use the `influxdb3` CLI to [delete a last values cache](/influxdb3/version/refer
 
 ```bash
 influxdb3 delete last_cache \
-  -d <DATABASE_NAME> \
-  -t <TABLE> \
+  --database <DATABASE_NAME> \
+  --table <TABLE> \
   --cache-name <CACHE_NAME>
 ```
 
@@ -653,8 +660,8 @@ You can use the `influxdb3` CLI to [create a distinct values cache](/influxdb3/v
 
 ```bash
 influxdb3 create distinct_cache \
-  -d <DATABASE_NAME> \
-  -t <TABLE> \
+  --database <DATABASE_NAME> \
+  --table <TABLE> \
   --columns <COLUMNS> \
   [CACHE_NAME]
 ```
@@ -673,9 +680,9 @@ The following command creates a distinct values cache named `cpuDistinctCache`:
 
 ```bash
 influxdb3 create distinct_cache \
-  --database=servers \
-  --table=cpu \
-  --columns=host,application \
+  --database servers \
+  --table cpu \
+  --columns host,application \
   cpuDistinctCache
 ```
 
@@ -685,16 +692,14 @@ To use the distinct values cache, call it using the `distinct_cache()` function 
 
 ```bash
 influxdb3 query \
-  --database=servers \
+  --database servers \
   "SELECT * FROM distinct_cache('cpu', 'cpuDistinctCache')"
 ```
 
 > [!Note]
 > #### Only works with SQL
 > 
-> The Distinct values cache only works with SQL, not InfluxQL; SQL is the default language.
-
-
+> The distinct cache only works with SQL, not InfluxQL; SQL is the default language.
 
 #### Delete a distinct values cache
 
@@ -702,11 +707,10 @@ Use the `influxdb3` CLI to [delete a distinct values cache](/influxdb3/version/r
 
 ```bash
 influxdb3 delete distinct_cache \
-  -d <DATABASE_NAME> \
-  -t <TABLE> \
+  --database <DATABASE_NAME> \
+  --table <TABLE> \
   --cache-name <CACHE_NAME>
 ```
-
 
 ### Python plugins and the Processing engine
 
@@ -735,7 +739,7 @@ InfluxDB 3 provides the following types of triggers, each with specific trigger-
 
 ### Test, create, and trigger plugin code
 
-##### Example: Python plugin for WAL flush
+##### Example: Python plugin for WAL rows 
 
 ```python
 # This is the basic structure for Python plugin code that runs in the
@@ -821,7 +825,7 @@ To test a plugin, do the following:
 
 1. Create a _plugin directory_--for example, `/path/to/.influxdb/plugins`
 2. [Start the InfluxDB server](#start-influxdb) and include the `--plugin-dir <PATH>` option.
-3. Save the [preceding example code](#example-python-plugin) to a plugin file inside of the plugin directory. If you haven't yet written data to the table in the example, comment out the lines where it queries.
+3. Save the [example plugin code](#example-python-plugin-for-wal-flush) to a plugin file inside of the plugin directory. If you haven't yet written data to the table in the example, comment out the lines where it queries.
 4. To run the test, enter the following command with the following options:
 
    - `--lp` or  `--file`: The line protocol to test
@@ -857,9 +861,9 @@ trigger:
 #   - A Python plugin file named `test.py`
 # Test a plugin
 influxdb3 test wal_plugin \
-  --lp="my_measure,tag1=asdf f1=1.0 123" \
-  -d mydb \
-  --input-arguments="arg1=hello,arg2=world" \
+  --lp "my_measure,tag1=asdf f1=1.0 123" \
+  --database mydb \
+  --input-arguments "arg1=hello,arg2=world" \
   test.py
 ```
 
@@ -867,9 +871,9 @@ influxdb3 test wal_plugin \
 # Create a trigger that runs the plugin
 influxdb3 create trigger \
   -d mydb \
-  --plugin=test_plugin \
-  --trigger-spec="table:foo" \
-  --trigger-arguments="arg1=hello,arg2=world" \
+  --plugin test_plugin \
+  --trigger-spec "table:foo" \
+  --trigger-arguments "arg1=hello,arg2=world" \
   trigger1
 ```
 
@@ -919,16 +923,15 @@ for a basic HA setup.
 # cluster-id: 'cluster01'
 # bucket: 'influxdb-3-enterprise-storage'
 
-
 influxdb3 serve \
-  --node-id=host01 \
-  --cluster-id=cluster01 \
-  --mode=ingest,query,compact \
-  --object-store=s3 \
-  --bucket=influxdb-3-enterprise-storage \
-  --http-bind=http://{{< influxdb/host >}} \
-  --aws-access-key-id=<AWS_ACCESS_KEY_ID> \
-  --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+  --node-id host01 \
+  --cluster-id cluster01 \
+  --mode ingest,query,compact \
+  --object-store s3 \
+  --bucket influxdb-3-enterprise-storage \
+  --http-bind {{< influxdb/host >}} \
+  --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+  --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
 
 ```bash
 ## NODE 2
@@ -938,37 +941,19 @@ influxdb3 serve \
 # cluster-id: 'cluster01'
 # bucket: 'influxdb-3-enterprise-storage'
 
-
 influxdb3 serve \
-  --node-id=host02 \
-  --cluster-id=cluster01 \
-  --mode=ingest,query \
-  --object-store=s3 \
-  --bucket=influxdb-3-enterprise-storage \
-  --http-bind=http://localhost:8282 \
-  --aws-access-key-id=<AWS_ACCESS_KEY_ID> \
-  --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+  --node-id host02 \
+  --cluster-id cluster01 \
+  --mode ingest,query \
+  --object-store s3 \
+  --bucket influxdb-3-enterprise-storage \
+  --http-bind localhost:8282 \
+  --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+  --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
 ```
 
 After the nodes have started, querying either node returns data for both nodes, and _NODE 1_ runs compaction.
-To add nodes to this setup, start more read replicas with the same cluster ID:
-
-> [!Note]
-> To run this setup for testing, you can start nodes in separate terminals and pass a different `--http-bind` value for each--for example:
-> 
-> ```bash
-> # In terminal 1
-> influxdb3 serve --node-id=host01 \
->   --cluster-id=cluster01 \
->   --http-bind=http://{{< influxdb/host >}} [...OPTIONS]
-> ```
->
-> ```bash
-> # In terminal 2
-> influxdb3 serve \
->   --node-id=host01 \
->   --cluster-id=cluster01 \
->   --http-bind=http://{{< influxdb/host >}} [...OPTIONS]
+To add nodes to this setup, start more read replicas with the same cluster ID.
 
 ### High availability with a dedicated Compactor
 
@@ -977,7 +962,7 @@ To ensure that your read-write nodes don't slow down due to compaction work, set
 
 {{< img-hd src="/img/influxdb/influxdb-3-enterprise-dedicated-compactor.png" alt="Dedicated Compactor setup" />}}
 
-The following examples show how to set up HA with a dedicated Compactor node:
+The following examples show how to set up high availability with a dedicated Compactor node:
 
 1. Start two read-write nodes as read replicas, similar to the previous example.
 
@@ -990,14 +975,14 @@ The following examples show how to set up HA with a dedicated Compactor node:
    # bucket: 'influxdb-3-enterprise-storage'
 
    influxdb3 serve \
-     --node-id=host01 \
-     --cluster-id=cluster01 \
-     --mode=ingest,query \
-     --object-store=s3 \
-     --bucket=influxdb-3-enterprise-storage \
-     --http-bind=http://{{< influxdb/host >}} \
-     --aws-access-key-id=<AWS_ACCESS_KEY_ID> \
-     --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+     --node-id host01 \
+     --cluster-id cluster01 \
+     --mode ingest,query \
+     --object-store s3 \
+     --bucket influxdb-3-enterprise-storage \
+     --http-bind {{< influxdb/host >}} \
+     --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
    ```
 
    ```bash
@@ -1009,14 +994,14 @@ The following examples show how to set up HA with a dedicated Compactor node:
    # bucket: 'influxdb-3-enterprise-storage'
 
    influxdb3 serve \
-     --node-id=host02 \
-     --cluster-id=cluster01 \
-     --mode=ingest,query \
-     --object-store=s3 \
-     --bucket=influxdb-3-enterprise-storage \
-     --http-bind=http://localhost:8282 \
-     --aws-access-key-id=<AWS_ACCESS_KEY_ID> \
-     --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+     --node-id host02 \
+     --cluster-id cluster01 \
+     --mode ingest,query \
+     --object-store s3 \
+     --bucket influxdb-3-enterprise-storage \
+     --http-bind localhost:8282 \
+     --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
    ```
 
 2. Start the dedicated compactor node with the `--mode=compact` option to ensure the node **only** runs compaction.
@@ -1030,13 +1015,13 @@ The following examples show how to set up HA with a dedicated Compactor node:
    # bucket: 'influxdb-3-enterprise-storage'
 
    influxdb3 serve \
-     --node-id=host03 \
-     --cluster-id=cluster01 \
-     --mode=compact \
-     --object-store=s3 \
-     --bucket=influxdb-3-enterprise-storage \
-     --aws-access-key-id=<AWS_ACCESS_KEY_ID> \
-     --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+     --node-id host03 \
+     --cluster-id cluster01 \
+     --mode compact \
+     --object-store s3 \
+     --bucket influxdb-3-enterprise-storage \
+     --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
    ```
 
 ### High availability with read replicas and a dedicated Compactor
@@ -1057,14 +1042,14 @@ For a robust and effective setup for managing time-series data, you can run inge
    # bucket: 'influxdb-3-enterprise-storage'
 
    influxdb3 serve \
-     --node-id=host01 \
-     --cluster-id=cluster01 \
-     --mode=ingest \
-     --object-store=s3 \
-     --bucket=influxdb-3-enterprise-storage \
-     --http-bind=http://{{< influxdb/host >}} \
-     --aws-access-key-id=<AWS_ACCESS_KEY_ID> \
-     --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+     --node-id host01 \
+     --cluster-id cluster01 \
+     --mode ingest \
+     --object-store s3 \
+     --bucket influxdb-3-enterprise-storage \
+     -- http-bind {{< influxdb/host >}} \
+     --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
    ```
 
 <!-- The following examples use different ports for different nodes. Don't use the influxdb/host shortcode below. -->
@@ -1078,17 +1063,17 @@ For a robust and effective setup for managing time-series data, you can run inge
    # bucket: 'influxdb-3-enterprise-storage'
 
    influxdb3 serve \
-     --node-id=host02 \
-     --cluster-id=cluster01 \
-     --mode=ingest \
-     --object-store=s3 \
-     --bucket=influxdb-3-enterprise-storage \
-     --http-bind=http://localhost:8282 \
-     --aws-access-key-id=<AWS_ACCESS_KEY_ID> \
-     --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+     --node-id host02 \
+     --cluster-id cluster01 \
+     --mode ingest \
+     --object-store s3 \
+     --bucket influxdb-3-enterprise-storage \
+     --http-bind localhost:8282 \
+     --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
    ```
 
-2. Start the dedicated Compactor node with `--mode=compact`.
+2. Start the dedicated Compactor node with ` compact`.
 
    ```bash
    ## NODE 3 — Compactor Node
@@ -1099,16 +1084,16 @@ For a robust and effective setup for managing time-series data, you can run inge
    # bucket: 'influxdb-3-enterprise-storage'
 
    influxdb3 serve \
-    --node-id=host03 \
-    --cluster-id=cluster01 \
-    --mode=compact \
-    --object-store=s3 \
-    --bucket=influxdb-3-enterprise-storage \
-    --aws-access-key-id=<AWS_ACCESS_KEY_ID> \
-    --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+    --node-id host03 \
+    --cluster-id cluster01 \
+    --mode compact \
+    --object-store s3 \
+    --bucket influxdb-3-enterprise-storage \
+    --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     <AWS_SECRET_ACCESS_KEY>
    ```
 
-3. Finally, start the query nodes as _read-only_ with `--mode=query`.
+3. Finally, start the query nodes as _read-only_ with `--mode query`.
 
    ```bash
    ## NODE 4 — Read Node #1
@@ -1119,14 +1104,14 @@ For a robust and effective setup for managing time-series data, you can run inge
    # bucket: 'influxdb-3-enterprise-storage'
 
    influxdb3 serve \
-     --node-id=host04 \
-     --cluster-id=cluster01 \
-     --mode=query \
-     --object-store=s3 \
-     --bucket=influxdb-3-enterprise-storage \
-     --http-bind=http://localhost:8383 \
-     --aws-access-key-id=<AWS_ACCESS_KEY_ID> \
-     --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+     --node-id host04 \
+     --cluster-id cluster01 \
+     --mode query \
+     --object-store s3 \
+     --bucket influxdb-3-enterprise-storage \
+     -- http-bind localhost:8383 \
+     --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
    ```
 
    ```bash
@@ -1138,14 +1123,14 @@ For a robust and effective setup for managing time-series data, you can run inge
    # bucket: 'influxdb-3-enterprise-storage'
 
    influxdb3 serve \
-    --node-id=host05 \
-    --cluster-id=cluster01 \
-    --mode=query \
-    --object-store=s3 \
-    --bucket=influxdb-3-enterprise-storage \
-    --http-bind=http://localhost:8484 \
-    --aws-access-key-id=<AWS_ACCESS_KEY_ID> \
-    --aws-secret-access-key=<AWS_SECRET_ACCESS_KEY>
+    --node-id host05 \
+    --cluster-id cluster01 \
+    --mode query \
+    --object-store s3 \
+    --bucket influxdb-3-enterprise-storage \
+    -- http-bind localhost:8484 \
+    --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     <AWS_SECRET_ACCESS_KEY>
    ```
 
 Congratulations, you have a robust setup for workload isolation using {{% product-name %}}.
@@ -1167,7 +1152,7 @@ You can use the default port `8181` for any write or query, without changing any
 ```bash
 # Example variables on a query
 # HTTP-bound Port: 8585
-influxdb3 query --host=http://localhost:8585 -d <DATABASE> "<QUERY>" 
+influxdb3 query  http://localhost:8585 --database <DATABASE> "<QUERY>" 
 ```
 
 ### File index settings
@@ -1182,9 +1167,9 @@ This feature is only available in Enterprise and is not available in Core.
 # HTTP-bound Port: 8585
 
 influxdb3 create file_index \
-  --host=http://localhost:8585 \
-  -d <DATABASE> \
-  -t <TABLE> \
+  --host http://localhost:8585 \
+  --database <DATABASE> \
+  --table <TABLE> \
   <COLUMNS>
 ```
 
@@ -1192,7 +1177,7 @@ influxdb3 create file_index \
 
 ```bash
 influxdb3 delete file_index \
-  --host=http://localhost:8585 \
-  -d <DATABASE> \
-  -t <TABLE>
+  --host http://localhost:8585 \
+  --database <DATABASE> \
+  --table <TABLE> \
 ```

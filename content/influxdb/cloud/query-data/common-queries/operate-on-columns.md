@@ -12,6 +12,8 @@ menu:
     name: Operate on columns
     parent: Common queries
 weight: 100  
+source: /shared/influxdb-v2/query-data/common-queries/operate-on-columns.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/common-queries/operate-on-columns.md-->

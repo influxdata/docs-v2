@@ -13,6 +13,8 @@ cascade:
     - /influxdb/cloud/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
     - /influxdb/cloud/api-guide/api-invokable-scripts/
   metadata: [influx CLI 2.4.0+, InfluxDB Cloud only]
+source: /shared/influxdb-v2/reference/cli/influx/scripts/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/scripts/_index.md-->

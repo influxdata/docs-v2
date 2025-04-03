@@ -13,6 +13,8 @@ weight: 201
 aliases:
   - /influxdb/cloud/reference/api/client-libraries/go/
   - /influxdb/cloud/tools/client-libraries/go/
+source: /shared/influxdb-v2/api-guide/client-libraries/go.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/go.md-->

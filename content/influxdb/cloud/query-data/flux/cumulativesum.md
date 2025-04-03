@@ -13,6 +13,8 @@ influxdb/cloud/tags: [query, cumulative sum]
 related:
   - /flux/v0/stdlib/universe/cumulativesum/
 list_query_example: cumulative_sum
+source: /shared/influxdb-v2/query-data/flux/cumulativesum.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/cumulativesum.md-->

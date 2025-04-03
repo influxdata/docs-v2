@@ -11,6 +11,8 @@ weight: 203
 related:
   - /influxdb/cloud/reference/cli/influx/task/run
   - /influxdb/cloud/reference/cli/influx/task/retry
+source: /shared/influxdb-v2/process-data/manage-tasks/run-task.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/process-data/manage-tasks/run-task.md-->

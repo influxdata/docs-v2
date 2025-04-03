@@ -10,6 +10,8 @@ weight: 203
 related:
   - /influxdb/cloud/monitor-alert/checks/
   - /influxdb/cloud/monitor-alert/notification-rules/
+source: /shared/influxdb-v2/monitor-alert/notification-endpoints/update.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/monitor-alert/notification-endpoints/update.md-->
