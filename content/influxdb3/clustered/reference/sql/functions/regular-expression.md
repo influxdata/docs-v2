@@ -10,7 +10,7 @@ menu:
 weight: 308
 influxdb3/clustered/tags: [regular expressions, sql]
 
-source: /content/shared/sql-reference/functions/regular-expression.md
+source: /shared/sql-reference/functions/regular-expression.md
 ---
 
 <!-- 

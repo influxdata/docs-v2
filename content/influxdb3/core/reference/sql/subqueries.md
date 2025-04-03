@@ -14,7 +14,7 @@ related:
   - /influxdb3/core/reference/sql/where/
   - /influxdb3/core/reference/sql/having/
 
-source: /content/shared/sql-reference/subqueries.md
+source: /shared/sql-reference/subqueries.md
 ---
 
 <!-- 
