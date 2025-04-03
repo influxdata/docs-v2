@@ -59,3 +59,9 @@ The Processing engine implements specialized memory handling:
 - **Error handling**: Configurable behaviors (log, retry, or disable)
 - **Execution tracking**: Monitoring of plugin performance
 - **State persistence**: Cache management across server restarts
+
+## Extension capabilities
+
+- **Package management**: Custom Python dependency installation
+- **Plugin distribution**: Git-based plugin sharing
+- **Shared API**: Consistent interface for database operations
