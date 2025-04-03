@@ -46,3 +46,16 @@ The Processing engine implements specialized memory handling:
 - **Execution isolation**: Each plugin runs in its own context
 - **Cache system**: Maintains state between executions
 - **Resource limits**: Controls memory usage and execution time
+
+## Performance characteristics
+
+- **Low latency**: Sub-millisecond trigger activation
+- **Efficient access**: Direct database access without network overhead
+- **Controlled resources**: Configurable memory and CPU limits
+- **Execution policies**: Synchronous or asynchronous processing options
+
+## Reliability features
+
+- **Error handling**: Configurable behaviors (log, retry, or disable)
+- **Execution tracking**: Monitoring of plugin performance
+- **State persistence**: Cache management across server restarts
