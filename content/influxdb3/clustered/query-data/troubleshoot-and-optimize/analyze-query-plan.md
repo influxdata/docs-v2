@@ -5,7 +5,7 @@ description: >
   understand how a query is executed and find performance bottlenecks.
 weight: 401
 menu:
-  influxdb_clustered:
+  influxdb3_clustered:
     name: Analyze a query plan
     parent: Troubleshoot and optimize queries
 influxdb/clustered/tags: [query, sql, influxql, observability, query plan]

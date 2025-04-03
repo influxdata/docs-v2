@@ -10,7 +10,7 @@ weight: 201
 related:
   - /influxdb3/cloud-dedicated/reference/sql/subqueries/
 
-source: /content/shared/sql-reference/select.md
+source: /shared/sql-reference/select.md
 ---
 
 <!-- 

@@ -7,6 +7,8 @@ menu:
     parent: influx bucket
 weight: 201
 updated_in: CLI v2.2.0
+source: /shared/influxdb-v2/reference/cli/influx/bucket/list.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/bucket/list.md-->

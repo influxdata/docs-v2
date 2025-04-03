@@ -20,6 +20,8 @@ list_code_example: |
   ```js
   if color == "green" then "008000" else "ffffff"
   ```
+source: /shared/influxdb-v2/query-data/flux/conditional-logic.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/conditional-logic.md-->

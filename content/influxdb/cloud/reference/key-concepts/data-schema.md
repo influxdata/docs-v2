@@ -10,6 +10,8 @@ menu:
     parent: Key concepts
     name: Data schema
 influxdb/cloud/tags: [key concepts]
+source: /shared/influxdb-v2/reference/key-concepts/data-schema.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/key-concepts/data-schema.md-->

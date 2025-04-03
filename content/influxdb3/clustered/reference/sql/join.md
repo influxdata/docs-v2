@@ -8,7 +8,7 @@ menu:
     parent: SQL reference
 weight: 202
 
-source: /content/shared/sql-reference/join.md
+source: /shared/sql-reference/join.md
 ---
 
 <!-- 

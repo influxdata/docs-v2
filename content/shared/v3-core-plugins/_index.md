@@ -82,7 +82,7 @@ You can copy example plugins from the [influxdb3_plugins repository](https://git
 git clone https://github.com/influxdata/influxdb3_plugins.git
 
 # Copy example plugins to your plugin directory
-cp -r influxdb3_plugins/examples/write/* /path/to/plugins/
+cp -r influxdb3_plugins/examples/wal_plugin/* /path/to/plugins/
 ```
 
 #### Directly from GitHub

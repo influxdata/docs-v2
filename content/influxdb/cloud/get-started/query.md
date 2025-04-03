@@ -14,6 +14,8 @@ weight: 102
 metadata: [3 / 5]
 related:
   - /influxdb/cloud/query-data/
+source: /shared/influxdb-v2/get-started/query.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/get-started/query.md-->

@@ -112,9 +112,9 @@ telegraf:
   menu_category: other
   list_order: 6
   versions: [v1]
-  latest: v1.33
+  latest: v1.34
   latest_patches:
-    v1: 1.33.0
+    v1: 1.34.1
   ai_sample_questions:
     - How do I install and configure Telegraf?
     - How do I write a custom Telegraf plugin?

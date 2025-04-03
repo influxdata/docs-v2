@@ -17,6 +17,8 @@ related:
   - /flux/v0/stdlib/universe/sort
   - /flux/v0/stdlib/universe/limit
 list_query_example: sort_limit
+source: /shared/influxdb-v2/query-data/flux/sort-limit.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/sort-limit.md-->

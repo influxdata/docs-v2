@@ -14,6 +14,8 @@ related:
   - /flux/v0/stdlib/universe/histogram
   - /flux/v0/prometheus/metric-types/histogram/, Work with Prometheus histograms in Flux
 list_query_example: histogram
+source: /shared/influxdb-v2/query-data/flux/histograms.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/histograms.md-->

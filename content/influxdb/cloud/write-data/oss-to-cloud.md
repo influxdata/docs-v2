@@ -9,6 +9,8 @@ menu:
     parent: Write data
 weight: 105
 influxdb/cloud/tags: [write]
+source: /shared/influxdb-v2/write-data/oss-to-cloud.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/write-data/oss-to-cloud.md-->

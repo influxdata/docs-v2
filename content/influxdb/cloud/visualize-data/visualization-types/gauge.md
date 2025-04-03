@@ -9,6 +9,8 @@ menu:
   influxdb_cloud:
     name: Gauge
     parent: Visualization types
+source: /shared/influxdb-v2/visualize-data/visualization-types/gauge.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/visualize-data/visualization-types/gauge.md-->

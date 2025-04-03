@@ -11,6 +11,8 @@ menu:
     parent: Visualization types
 related:
   - /influxdb/cloud/visualize-data/visualization-types/heatmap
+source: /shared/influxdb-v2/visualize-data/visualization-types/scatter.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/visualize-data/visualization-types/scatter.md-->

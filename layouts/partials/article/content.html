@@ -1,16 +1,10 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $version := index $productPathData 1 }}
-{{ $influxdbOSSv2 := and (eq $product "influxdb") (in $version "v2") }}
-{{ $influxdbCloud := and (in $product "influxdb") (in (slice "cloud" "cloud-serverless") $version) }}
 
 {{ if .Params.source }}
   {{ $linkRegex := print (replaceRE `[0-9]` "" $product) "(?:[0-9])*" "/version" }}
   {{ readFile .Params.source | replaceRE $linkRegex (print $product "/" $version) | .RenderString | safeHTML }}
-{{ else if $influxdbOSSv2 }}
-  {{ .Content | replaceRE `(?Us)(<li>\s*<(?:div|span) class=\'cloud\-only\'>.*<\/(?:div|span)><\!\-\- close \-\-\>\s*</li>)` "" | replaceRE `(?Us)(<(?:div|span) class=\'cloud\-only\'>.*<\/(?:div|span)><\!\-\- close \-\-\>)` "" | safeHTML}}
-{{ else if $influxdbCloud }}
-  {{ .Content | replaceRE `(?Us)(<li>\s*<(?:div|span) class=\'oss\-only\'>.*<\/(?:div|span)><\!\-\- close \-\-\>\s*</li>)` "" | replaceRE `(?Us)(<(?:div|span) class=\'oss\-only\'>.*<\/(?:div|span)><\!\-\- close \-\-\>)` "" | safeHTML}}
 {{ else }}
   {{ .Content }}
 {{ end }}

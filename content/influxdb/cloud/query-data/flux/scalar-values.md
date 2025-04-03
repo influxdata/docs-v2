@@ -21,6 +21,8 @@ list_code_example: |
       return _record._value
   }
   ```
+source: /shared/influxdb-v2/query-data/flux/scalar-values.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/scalar-values.md-->

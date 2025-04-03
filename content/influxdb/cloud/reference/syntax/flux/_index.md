@@ -10,6 +10,8 @@ menu:
     identifier: flux-syntax
 weight: 101
 influxdb/cloud/tags: [syntax, flux]
+source: /shared/influxdb-v2/reference/syntax/flux/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/syntax/flux/_index.md-->
