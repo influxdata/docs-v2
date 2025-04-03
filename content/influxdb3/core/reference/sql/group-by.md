@@ -8,7 +8,7 @@ menu:
     parent: SQL reference
 weight: 203
 
-source: /content/shared/sql-reference/group-by.md
+source: /shared/sql-reference/group-by.md
 ---
 
 <!-- 

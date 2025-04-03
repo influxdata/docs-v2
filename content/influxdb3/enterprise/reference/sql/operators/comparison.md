@@ -26,7 +26,7 @@ list_code_example: |
   |          `!~`          | Does not match a regular expression                      | `'abc' !~ 'd.*'`           |
   |         `!~*`          | Does not match a regular expression _(case-insensitive)_ | `'Abc' !~* 'a.*'`          |
 
-source: /content/shared/sql-reference/operators/comparison.md
+source: /shared/sql-reference/operators/comparison.md
 ---
 
 <!-- 

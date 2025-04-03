@@ -12,7 +12,7 @@ weight: 200
 related:
   - /influxdb3/core/query-data/sql/cast-types/
 
-source: /content/shared/sql-reference/data-types.md
+source: /shared/sql-reference/data-types.md
 ---
 
 <!-- 
