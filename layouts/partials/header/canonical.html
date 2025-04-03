@@ -1,5 +1,5 @@
 {{ $scratch := newScratch }}
-{{ $baseURL := replaceRE `\/$` "" .Site.BaseURL }}`
+{{ $baseURL := replaceRE `\/$` "" .Site.BaseURL }}
 
 <!-- Set the current page as the default canonical URL -->
 {{ $scratch.Set "canonicalURL" (print $baseURL .RelPermalink) }}
