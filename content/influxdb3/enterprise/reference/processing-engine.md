@@ -8,7 +8,7 @@ menu:
     parent: Reference
 weight: 101
 influxdb3/core/tags: [plugin, database, python]
-source: /shared/v3-processing-engine.md
+source: /shared/influxdb3-processing-engine.md
 ---
 
 <!--
