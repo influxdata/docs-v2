@@ -6,10 +6,10 @@ The `influx v1 shell` subcommand starts an InfluxQL shell (REPL).
 
 InfluxQL queries require a database and retention policy to query data.
 In InfluxDB {{% current-version %}}, databases and retention policies have been
-combined and replaced with [buckets](/influxdb/v2/reference/glossary/#bucket).
+combined and replaced with [buckets](/influxdb/version/reference/glossary/#bucket).
 To use the InfluxQL to query an InfluxDB {{% current-version %}} bucket, first
 map your DBRP combinations to an appropriate bucket. For more information, see
-[Query data with InfluxQL](/influxdb/v2/query-data/influxql/).
+[Query data with InfluxQL](/influxdb/version/query-data/influxql/).
 
 {{% /note %}}
 

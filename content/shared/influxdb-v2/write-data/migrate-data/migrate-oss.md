@@ -11,16 +11,16 @@ InfluxDB bucket.
 > Consider exporting your data in time-based batches to limit the file size
 > of exported line protocol to match your InfluxDB Cloud organization's limits.
 
-1.  [Find the InfluxDB OSS bucket ID](/influxdb/v2/organizations/buckets/view-buckets/)
+1.  [Find the InfluxDB OSS bucket ID](/influxdb/version/organizations/buckets/view-buckets/)
     that contains data you want to migrate.
 2.  Use the `influxd inspect export-lp` command to export data in your bucket as
-    [line protocol](/influxdb/v2/reference/syntax/line-protocol/).
+    [line protocol](/influxdb/version/reference/syntax/line-protocol/).
     Provide the following:
 
     - **bucket ID**: ({{< req >}}) ID of the bucket to migrate.
     - **engine path**: ({{< req >}}) Path to the TSM storage files on disk.
-      The default engine path [depends on your operating system](/influxdb/v2/reference/internals/file-system-layout/#file-system-layout),
-      If using a [custom engine-path](/influxdb/v2/reference/config-options/#engine-path)
+      The default engine path [depends on your operating system](/influxdb/version/reference/internals/file-system-layout/#file-system-layout),
+      If using a [custom engine-path](/influxdb/version/reference/config-options/#engine-path)
       provide your custom path.
     - **output path**: ({{< req >}}) File path to output line protocol to.
     - **start time**: Earliest time to export.
@@ -46,7 +46,7 @@ InfluxDB bucket.
 
     - Write line protocol in the **InfluxDB UI**:
         - [InfluxDB Cloud UI](/influxdb/cloud/write-data/no-code/load-data/#load-csv-or-line-protocol-in-ui)
-        - [InfluxDB OSS {{< current-version >}} UI](/influxdb/v2/write-data/no-code/load-data/#load-csv-or-line-protocol-in-ui)
-    - [Write line protocol using the `influx write` command](/influxdb/v2/reference/cli/influx/write/)
-    - [Write line protocol using the InfluxDB API](/influxdb/v2/write-data/developer-tools/api/)
+        - [InfluxDB OSS {{< current-version >}} UI](/influxdb/version/write-data/no-code/load-data/#load-csv-or-line-protocol-in-ui)
+    - [Write line protocol using the `influx write` command](/influxdb/version/reference/cli/influx/write/)
+    - [Write line protocol using the InfluxDB API](/influxdb/version/write-data/developer-tools/api/)
     - [Bulk ingest data (InfluxDB Cloud)](/influxdb/cloud/write-data/bulk-ingest-cloud/)

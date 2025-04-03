@@ -46,7 +46,7 @@ Submitting a batch of points using a single HTTP request to the write endpoints 
 InfluxData typically recommends batch sizes of 5,000-10,000 points.
 In some use cases, performance may improve with significantly smaller or larger batches.
 
-Related entries: [line protocol](/influxdb/v2/reference/syntax/line-protocol/), [point](#point)
+Related entries: [line protocol](/influxdb/version/reference/syntax/line-protocol/), [point](#point)
 
 ### batch size
 
@@ -86,7 +86,7 @@ Related entries: [implicit block](#implicit-block), [explicit block](#explicit-b
 
 A data type with two possible values: true or false.
 By convention, you can express `true` as the integer `1` and false as the integer `0` (zero).
-In [annotated CSV](/influxdb/v2/reference/syntax/annotated-csv/), columns that contain
+In [annotated CSV](/influxdb/version/reference/syntax/annotated-csv/), columns that contain
 boolean values are annotated with the `boolean` datatype.
 
 ### bucket
@@ -122,7 +122,7 @@ monitor.check(
 
 This check gives rows with a `_value` greater than 90.0 a crit `_level`; rows greater than 80.0 get a warn `_level`, and so on.
 
-Learn how to [create a check](/influxdb/v2/monitor-alert/checks/create/).
+Learn how to [create a check](/influxdb/version/monitor-alert/checks/create/).
 
 Related entries: [check status](#check-status), [notification rule](#notification-rule), [notification endpoint](#notification-endpoint)
 
@@ -142,7 +142,7 @@ Each record consists of one or more fields, separated by commas.
 CSV file format is not fully standardized.
 
 InfluxData uses annotated CSV (comma-separated values) format to encode HTTP responses and results returned to the Flux csv.from() function.
-For more detail, see [Annotated CSV](/influxdb/v2/reference/syntax/annotated-csv/).
+For more detail, see [Annotated CSV](/influxdb/version/reference/syntax/annotated-csv/).
 
 <!-- enterprise
 ### cardinality
@@ -268,18 +268,18 @@ InfluxDB supports the following data types:
 
 For more information about different data types, see:
 
-- [annotated CSV](/influxdb/v2/reference/syntax/annotated-csv/)
+- [annotated CSV](/influxdb/version/reference/syntax/annotated-csv/)
 - [extended annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/extended/#datatype)
-- [line protocol](/influxdb/v2/reference/syntax/line-protocol/#data-types-and-format)
+- [line protocol](/influxdb/version/reference/syntax/line-protocol/#data-types-and-format)
 - [InfluxQL](/influxdb/v1/query_language/spec/#literals)
-- [Flux](/influxdb/v2/reference/flux/language/types/)
-- [InfluxDB](/influxdb/v2/reference/syntax/line-protocol/#data-types-and-format)
+- [Flux](/influxdb/version/reference/flux/language/types/)
+- [InfluxDB](/influxdb/version/reference/syntax/line-protocol/#data-types-and-format)
 
 #### database
 
 In InfluxDB 1.x, a database represented a logical container for users, retention
 policies, continuous queries, and time series data.
-The InfluxDB 2.x equivalent of this concept is an InfluxDB [bucket](/influxdb/v2/reference/glossary/#bucket).
+The InfluxDB 2.x equivalent of this concept is an InfluxDB [bucket](/influxdb/version/reference/glossary/#bucket).
 
 Related entries: [continuous query](#continuous-query-cq), [retention policy](#retention-policy-rp), [user](#user)
 
@@ -368,7 +368,7 @@ Related entries: [block](#block)
 
 A real number written with a decimal point dividing the integer and fractional parts (`1.0`, `3.14`, `-20.1`).
 InfluxDB supports 64-bit float values.
-In [annotated CSV](/influxdb/v2/reference/syntax/annotated-csv/), columns that contain
+In [annotated CSV](/influxdb/version/reference/syntax/annotated-csv/), columns that contain
 float values are annotated with the `double` datatype.
 
 ### flush interval
@@ -511,7 +511,7 @@ Instance owners have read/write permissions for all resources within the instanc
 
 A whole number that is positive, negative, or zero (`0`, `-5`, `143`).
 InfluxDB supports 64-bit integers (minimum: `-9223372036854775808`, maximum: `9223372036854775807`).
-In [annotated CSV](/influxdb/v2/reference/syntax/annotated-csv/), columns that contain
+In [annotated CSV](/influxdb/version/reference/syntax/annotated-csv/), columns that contain
 integers are annotated with the `long` datatype.
 
 Related entries: [unsigned integer](#unsigned-integer)
@@ -572,7 +572,7 @@ The InfluxDB {{< current-version >}} user interface (UI) can be used to view log
 ### Line protocol (LP)
 
 The text based format for writing points to InfluxDB.
-See [line protocol](/influxdb/v2/reference/syntax/line-protocol/).
+See [line protocol](/influxdb/version/reference/syntax/line-protocol/).
 
 ## M
 
@@ -647,7 +647,7 @@ Related entries: [server](#server)
 ### notification endpoint
 
  The notification endpoint specifies the Slack or PagerDuty endpoint to send a notification and contains configuration details for connecting to the endpoint.
-Learn how to [create a notification endpoint](/influxdb/v2/monitor-alert/notification-endpoints/create).
+Learn how to [create a notification endpoint](/influxdb/version/monitor-alert/notification-endpoints/create).
 
 Related entries: [check](#check), [notification rule](#notification-rule)
 
@@ -657,7 +657,7 @@ A notification rule specifies a status level (and tags) to alert on, the notific
 If conditions are met, the notification rule sends a message to the [notification endpoint](#notification-endpoint) and stores a receipt in a notification measurement in the `_monitoring` bucket.
 For example, a notification rule may specify a message to send to a Slack endpoint when a status level is critical (`crit`).
 
-Learn how to [create a notification rule](/influxdb/v2/monitor-alert/notification-rules/create).
+Learn how to [create a notification rule](/influxdb/version/monitor-alert/notification-rules/create).
 
 Related entries: [check](#check), [notification endpoint](#notification-endpoint)
 
@@ -792,7 +792,7 @@ based on one or more [predicate expressions](#predicate-expression).
 A set of predetermined rules.
 A process can refer to instructions being executed by the computer processor or refer to the act of manipulating data.
 
-In Flux, you can process data with [InfluxDB tasks](/influxdb/v2/process-data/get-started/).
+In Flux, you can process data with [InfluxDB tasks](/influxdb/version/process-data/get-started/).
 
 ### processor plugin
 
@@ -812,14 +812,14 @@ Collect data from any accessible endpoint that provides data in the [Prometheus 
 
 A Flux script that returns time series data, including [tags](#tag) and [timestamps](#timestamp).
 
-See [Query data in InfluxDB](/influxdb/v2/query-data/).
+See [Query data in InfluxDB](/influxdb/version/query-data/).
 
 ## R
 
 ### REPL
 
 A Read-Eval-Print Loop (REPL) is an interactive programming environment where you type a command and immediately see the result.
-See [Flux REPL](/influxdb/v2/tools/flux-repl/) for information on building and using the REPL.
+See [Flux REPL](/influxdb/version/tools/flux-repl/) for information on building and using the REPL.
 
 ### record
 
@@ -988,7 +988,7 @@ A shard consists of one or more [TSM files](#tsm-time-structured-merge-tree) on 
 All points in a series in a given shard group are stored in the same shard (TSM file) on disk.
 A shard belongs to a single [shard group](#shard-group).
 
-For more information, see [Shards and shard groups (OSS)](/influxdb/v2/reference/internals/shards/).
+For more information, see [Shards and shard groups (OSS)](/influxdb/version/reference/internals/shards/).
 
 Related entries: [series](#series), [shard group duration](#shard-group-duration),
 [shard group](#shard-group), [tsm](#tsm-time-structured-merge-tree)
@@ -1000,7 +1000,7 @@ Every bucket with data has at least one shard group.
 A shard group contains all shards with data for the time interval covered by the shard group.
 The interval spanned by each shard group is the [shard group duration](#shard-group-duration).
 
-For more information, see [Shards and shard groups (OSS)](/influxdb/v2/reference/internals/shards/).
+For more information, see [Shards and shard groups (OSS)](/influxdb/version/reference/internals/shards/).
 
 Related entries: [bucket](#bucket), [retention period](#retention-period),
 [series](#series), [shard](#shard), [shard group duration](#shard-group-duration)
@@ -1011,8 +1011,8 @@ The duration of time or interval that each [shard group](#shard-group) covers. S
 
 For more information, see:
 
-- [Shards and shard groups (OSS)](/influxdb/v2/reference/internals/shards/)
-- [Manage buckets](/influxdb/v2/admin/buckets/)
+- [Shards and shard groups (OSS)](/influxdb/version/reference/internals/shards/)
+- [Manage buckets](/influxdb/version/admin/buckets/)
 
 <!-- See [Retention Policy management](/influxdb/v1/query_language/manage-database/#retention-policy-management) for more information.
 
@@ -1040,7 +1040,7 @@ Related entries: [bin](#bin)
 ### step-plot
 
 A data visualization that displays time series data in a staircase graph.
-Generate a step-plot using the step [interpolation option for line graphs](/influxdb/v2/visualize-data/visualization-types/graph/#options).
+Generate a step-plot using the step [interpolation option for line graphs](/influxdb/version/visualize-data/visualization-types/graph/#options).
 
 ### stream
 
@@ -1050,7 +1050,7 @@ A stream includes a series of tables over a sequence of time intervals.
 ### string
 
 A data type used to represent text.
-In [annotated CSV](/influxdb/v2/reference/syntax/annotated-csv/), columns that contain
+In [annotated CSV](/influxdb/version/reference/syntax/annotated-csv/), columns that contain
 string values are annotated with the `string` datatype.
 
 ## T
@@ -1109,7 +1109,7 @@ Related entries: [tag](#tag), [tag key](#tag-key), [tag set](#tag-set)
 
 A scheduled Flux query that runs periodically and may store results in a specified measurement.
 Examples include downsampling and batch jobs.
-For more information, see [Process Data with InfluxDB tasks](/influxdb/v2/process-data/).
+For more information, see [Process Data with InfluxDB tasks](/influxdb/version/process-data/).
 
 Related entries: [function](#function)
 
@@ -1121,7 +1121,7 @@ A new feature released to gather feedback from customers and the InfluxDB commun
 
 A plugin-driven agent that collects, processes, aggregates, and writes metrics.
 
-Related entries: [Automatically configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/auto-config/), [Manually configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/manual-config/), [Telegraf plugins](/telegraf/v1/plugins//), [Use Telegraf to collect data](/influxdb/v2/write-data/no-code/use-telegraf/), [View a Telegraf configuration](/influxdb/v2/tools/telegraf-configs/view/)
+Related entries: [Automatically configure Telegraf](/influxdb/version/write-data/no-code/use-telegraf/auto-config/), [Manually configure Telegraf](/influxdb/version/write-data/no-code/use-telegraf/manual-config/), [Telegraf plugins](/telegraf/v1/plugins//), [Use Telegraf to collect data](/influxdb/version/write-data/no-code/use-telegraf/), [View a Telegraf configuration](/influxdb/version/tools/telegraf-configs/view/)
 
 ### time (data type)
 
@@ -1141,8 +1141,8 @@ Irregular time series data changes at non-constant intervals.
 The date and time associated with a point.
 In InfluxDB, a timestamp is a nanosecond-scale [unix timestamp](#unix-timestamp) in UTC.
 
-To specify time when writing data, see [Elements of line protocol](/influxdb/v2/reference/syntax/line-protocol/#elements-of-line-protocol).
-To specify time when querying data, see [Query InfluxDB with Flux](/influxdb/v2/query-data/get-started/query-influxdb/#2-specify-a-time-range).
+To specify time when writing data, see [Elements of line protocol](/influxdb/version/reference/syntax/line-protocol/#elements-of-line-protocol).
+To specify time when querying data, see [Query InfluxDB with Flux](/influxdb/version/query-data/get-started/query-influxdb/#2-specify-a-time-range).
 
 Related entries: [point](#point), [precision](#precision), [RFC3339 timestamp](#rfc3339-timestamp), [unix timestamp](#unix-timestamp),
 
@@ -1165,13 +1165,13 @@ There are different types of API tokens:
 
 {{% /show-in %}}
 
-Related entries: [Create a token](/influxdb/v2/admin/tokens/create-token/).
+Related entries: [Create a token](/influxdb/version/admin/tokens/create-token/).
 
 ### tracing
 
 By default, tracing is disabled in InfluxDB OSS.
 To enable tracing or set other InfluxDB OSS configuration options,
-see [InfluxDB OSS configuration options](/influxdb/v2/reference/config-options/).
+see [InfluxDB OSS configuration options](/influxdb/version/reference/config-options/).
 
 ### transformation
 
@@ -1213,7 +1213,7 @@ An implicit block that encompasses all Flux source text in a universe block.
 ### unix timestamp
 
 Counts time since **Unix Epoch (1970-01-01T00:00:00Z UTC)** in specified units ([precision](#precision)).
-Specify timestamp precision when [writing data to InfluxDB](/influxdb/v2/write-data/).
+Specify timestamp precision when [writing data to InfluxDB](/influxdb/version/write-data/).
 InfluxDB supports the following unix timestamp precisions:
 
 | Precision | Description  | Example               |
@@ -1230,7 +1230,7 @@ Related entries: [timestamp](#timestamp), [RFC3339 timestamp](#rfc3339-timestamp
 ### unsigned integer
 A whole number that is positive or zero (`0`, `143`). Also known as a "uinteger."
 InfluxDB supports 64-bit unsigned integers (minimum: `0`, maximum: `18446744073709551615`).
-In [annotated CSV](/influxdb/v2/reference/syntax/annotated-csv/), columns that contain
+In [annotated CSV](/influxdb/version/reference/syntax/annotated-csv/), columns that contain
 integers are annotated with the `unsignedLong` datatype.
 
 Related entries: [integer](#integer)
@@ -1284,4 +1284,4 @@ Related entries: [tsm](#tsm-time-structured-merge-tree)
 ### windowing
 
 Grouping data based on specified time intervals.
-For information about how to window in Flux, see [Window and aggregate data with Flux](/influxdb/v2/query-data/flux/window-aggregate/).
+For information about how to window in Flux, see [Window and aggregate data with Flux](/influxdb/version/query-data/flux/window-aggregate/).

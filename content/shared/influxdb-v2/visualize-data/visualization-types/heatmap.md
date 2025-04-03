@@ -99,7 +99,7 @@ between column values.
 ## Important notes
 
 ### Differences between a heatmap and a scatter plot
-Heatmaps and [Scatter plots](/influxdb/v2/visualize-data/visualization-types/scatter/)
+Heatmaps and [Scatter plots](/influxdb/version/visualize-data/visualization-types/scatter/)
 both visualize the distribution of data points on X and Y axes.
 However, in certain cases, heatmaps provide better visibility into point density.
 

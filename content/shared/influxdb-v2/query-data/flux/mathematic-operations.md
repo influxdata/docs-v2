@@ -7,7 +7,7 @@ to "map" over data and transform values using mathematic operations.
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/flux/v0/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/version/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ##### Basic mathematic operations
 ```js
@@ -22,7 +22,7 @@ If you're just getting started with Flux queries, check out the following:
 3
 ```
 
-<p style="font-size:.85rem;font-style:italic;margin-top:-2rem;">See <a href="/influxdb/v2/tools/flux-repl/">Flux Read-Eval-Print Loop (REPL)</a>.</p>
+<p style="font-size:.85rem;font-style:italic;margin-top:-2rem;">See <a href="/influxdb/version/tools/flux-repl/">Flux Read-Eval-Print Loop (REPL)</a>.</p>
 
 {{% note %}}
 #### Operands must be the same type
@@ -53,7 +53,7 @@ For example:
 {{% /note %}}
 
 ## Custom mathematic functions
-Flux lets you [create custom functions](/influxdb/v2/query-data/flux/custom-functions) that use mathematic operations.
+Flux lets you [create custom functions](/influxdb/version/query-data/flux/custom-functions) that use mathematic operations.
 View the examples below.
 
 ###### Custom multiplication function
@@ -75,7 +75,7 @@ percent(sample: 20.0, total: 80.0)
 ### Transform values in a data stream
 To transform multiple values in an input stream, your function needs to:
 
-- [Handle piped-forward data](/influxdb/v2/query-data/flux/custom-functions/#use-piped-forward-data-in-a-custom-function).
+- [Handle piped-forward data](/influxdb/version/query-data/flux/custom-functions/#use-piped-forward-data-in-a-custom-function).
 - Each operand necessary for the calculation exists in each row _(see [Pivot vs join](#pivot-vs-join) below)_.
 - Use the [`map()` function](/flux/v0/stdlib/universe/map) to iterate over each row.
 
@@ -140,7 +140,7 @@ To calculate a percentage, use simple division, then multiply the result by 100.
 25.0
 ```
 
-_For an in-depth look at calculating percentages, see [Calculate percentages](/influxdb/v2/query-data/flux/calculate-percentages)._
+_For an in-depth look at calculating percentages, see [Calculate percentages](/influxdb/version/query-data/flux/calculate-percentages)._
 
 ## Pivot vs join
 To query and use values in mathematical operations in Flux, operand values must

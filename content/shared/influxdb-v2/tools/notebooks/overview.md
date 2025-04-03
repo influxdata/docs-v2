@@ -1,7 +1,7 @@
 
 Learn how notebooks can help to streamline and simplify your day-to-day business processes.
 
-See an overview of [notebook concepts](/influxdb/v2/tools/notebooks/overview/#notebook-concepts), [notebook controls](/influxdb/v2/tools/notebooks/overview/#notebook-controls), and [notebook cell types](/influxdb/v2/tools/notebooks/overview/#notebook-cell-types) also know as the basic building blocks of a notebook.
+See an overview of [notebook concepts](/influxdb/version/tools/notebooks/overview/#notebook-concepts), [notebook controls](/influxdb/version/tools/notebooks/overview/#notebook-controls), and [notebook cell types](/influxdb/version/tools/notebooks/overview/#notebook-cell-types) also know as the basic building blocks of a notebook.
 
 ## Notebook concepts
 
@@ -72,7 +72,7 @@ At least one data source (input) cell is required in a notebook for other cells 
 - **{{< caps >}}Query Builder{{< /caps >}}**: Build a query with the Flux query builder.
 - **{{< caps >}}Flux Script{{< /caps >}}**: Enter a raw Flux script.
 
-  Data source cells work like the **Query Builder** or **Script Editor** in Data Explorer. For more information, see how to [query data with Flux and the Data Explorer](/influxdb/v2/query-data/execute-queries/data-explorer/#query-data-with-flux-and-the-data-explorer).
+  Data source cells work like the **Query Builder** or **Script Editor** in Data Explorer. For more information, see how to [query data with Flux and the Data Explorer](/influxdb/version/query-data/execute-queries/data-explorer/#query-data-with-flux-and-the-data-explorer).
 
 ### Visualization
 
@@ -82,5 +82,5 @@ At least one data source (input) cell is required in a notebook for other cells 
 
 ### Action
 
-- **{{< caps >}}Alert{{< /caps >}}**: Set up alerts. See how to [monitor data and send alerts](/influxdb/v2/monitor-alert/).
-- **{{< caps >}}Tasks{{< /caps >}}**: Use the notebook to set up and export a task. See how to [manage tasks in InfluxDB](/influxdb/v2/process-data/manage-tasks/).
+- **{{< caps >}}Alert{{< /caps >}}**: Set up alerts. See how to [monitor data and send alerts](/influxdb/version/monitor-alert/).
+- **{{< caps >}}Tasks{{< /caps >}}**: Use the notebook to set up and export a task. See how to [manage tasks in InfluxDB](/influxdb/version/process-data/manage-tasks/).

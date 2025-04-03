@@ -1,9 +1,9 @@
 
-The [InfluxDB v2 API](/influxdb/v2/reference/api) provides a programmatic interface for all interactions with InfluxDB.
+The [InfluxDB v2 API](/influxdb/version/reference/api) provides a programmatic interface for all interactions with InfluxDB.
 To query InfluxDB {{< current-version >}}, do one of the following:
 
-- Send a Flux query request to the [`/api/v2/query`](/influxdb/v2/api/#operation/PostQueryAnalyze) endpoint.
-- Send an InfluxQL query request to the [/query 1.x compatibility API](/influxdb/v2/reference/api/influxdb-1x/query/).
+- Send a Flux query request to the [`/api/v2/query`](/influxdb/version/api/#operation/PostQueryAnalyze) endpoint.
+- Send an InfluxQL query request to the [/query 1.x compatibility API](/influxdb/version/reference/api/influxdb-1x/query/).
 
 In your request, set the following:
 
@@ -98,4 +98,4 @@ curl --request -G http://localhost:8086/query?orgID=INFLUX_ORG_ID&database=MyDB&
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-InfluxDB returns the query results in [annotated CSV](/influxdb/v2/reference/syntax/annotated-csv/).
+InfluxDB returns the query results in [annotated CSV](/influxdb/version/reference/syntax/annotated-csv/).

@@ -1,6 +1,6 @@
 
 The `influx v1 auth set-password` command sets a password for an existing
-authorization in the [InfluxDB 1.x compatibility API](/influxdb/v2/reference/api/influxdb-1x/).
+authorization in the [InfluxDB 1.x compatibility API](/influxdb/version/reference/api/influxdb-1x/).
 
 ## Usage
 ```

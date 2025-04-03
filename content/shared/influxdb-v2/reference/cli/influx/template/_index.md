@@ -11,7 +11,7 @@ influx template [command]
 ## Subcommands
 | Subcommand                                                        | Description         |
 |:----------                                                        |:-----------         |
-| [validate](/influxdb/v2/reference/cli/influx/template/validate) | Validate a template |
+| [validate](/influxdb/version/reference/cli/influx/template/validate) | Validate a template |
 
 ## Flags
 | Flag |                           | Description                                                        | Input Type  | {{< cli/mapped >}}   |

@@ -1,6 +1,6 @@
 
 The `influx v1 auth create` command creates a legacy authorization with the
-[InfluxDB 1.x compatibility API](/influxdb/v2/reference/api/influxdb-1x/).
+[InfluxDB 1.x compatibility API](/influxdb/version/reference/api/influxdb-1x/).
 
 ## Usage
 ```

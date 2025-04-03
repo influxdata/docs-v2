@@ -1,5 +1,5 @@
 
-Now that you know the [basics of querying data from InfluxDB](/influxdb/v2/get-started/query/),
+Now that you know the [basics of querying data from InfluxDB](/influxdb/version/get-started/query/),
 let's go beyond a basic query and begin to process the queried data.
 "Processing" data could mean transforming, aggregating, downsampling, or alerting
 on data. This tutorial covers the following data processing use cases:
@@ -102,7 +102,7 @@ from(bucket: "get-started")
 {{% expand "Perform mathematical operations" %}}
 
 `map()` lets your perform mathematical operations on your data.
-For example, using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
+For example, using the [data written in "Get started writing to InfluxDB"](/influxdb/version/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field to return room temperatures in °C.
 2.  Use `map()` to iterate over each row and convert the °C temperatures in the
@@ -183,7 +183,7 @@ from(bucket: "get-started")
 {{% expand "Conditionally assign a state" %}}
 
 Within a `map()` function, you can use [conditional expressions](/flux/v0/spec/expressions/#conditional-expressions) (if/then/else) to conditionally assign values.
-For example, using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
+For example, using the [data written in "Get started writing to InfluxDB"](/influxdb/version/get-started/write/#view-the-written-data):
 
 1.  Query the `co` field to return carbon monoxide parts per million (ppm) readings in each room.
 2.  Use `map()` to iterate over each row, evaluate the value in the `_value`
@@ -278,7 +278,7 @@ For this example to actually send messages to Slack, you need to
 [set up a Slack app that can send and receive messages](https://api.slack.com/messaging/sending).
 {{% /note %}}
 
-For example, using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
+For example, using the [data written in "Get started writing to InfluxDB"](/influxdb/version/get-started/write/#view-the-written-data):
 
 1.  Import the [`slack` package](/flux/v0/stdlib/slack/).
 2.  Query the `co` field to return carbon monoxide parts per million (ppm) readings in each room.
@@ -384,7 +384,7 @@ With the results above, you would receive the following messages in Slack:
 > Carbon monoxide is at dangerous levels in the Living Room: 17 ppm.  
 
 {{% note %}}
-You can also use the [InfluxDB checks and notifications system](/influxdb/v2/monitor-alert/)
+You can also use the [InfluxDB checks and notifications system](/influxdb/version/monitor-alert/)
 as a user interface for configuring checks and alerting on data.
 {{% /note %}}
 
@@ -421,7 +421,7 @@ This grouping is important as you [aggregate data](#aggregate-or-select-specific
 {{< expand-wrapper >}}
 {{% expand "Group data by specific columns" %}}
 
-Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/version/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` and `hum` fields.
 2.  Use `group()` to group by only the `_field` column.
@@ -520,7 +520,7 @@ and all the rows with the `hum` field will be in another.
 
 {{% expand "Ungroup data" %}}
 
-Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/version/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` and `hum` fields.
 2.  Use `group()` without any parameters to "ungroup" data or group by no columns.
@@ -645,7 +645,7 @@ and return a single row for each input table with the aggregate value of that ta
 
 {{% expand "Calculate the average temperature for each room" %}}
 
-Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/version/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field. By default, `from()` returns the data grouped by
     `_measurement`, `room` and `_field`, so each table represents a room.
@@ -713,7 +713,7 @@ from(bucket: "get-started")
 
 {{% expand "Calculate the overall average temperature of all rooms" %}}
 
-Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/version/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field.
 2.  Use `group()` to **ungroup** the data into a single table. By default,
@@ -780,7 +780,7 @@ into `mean()`.
 
 {{% expand "Count the number of points reported per room across all fields" %}}
 
-Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/version/get-started/write/#view-the-written-data):
 
 1.  Query all fields by simply filtering by the `home` measurement.
 2.  The fields in the `home` measurement are different types.
@@ -844,7 +844,7 @@ one or more columns from each input table and retain all columns and their value
 
 {{% expand "Return the first temperature from each room" %}}
 
-Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/version/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field.
 2.  Use [`first()`](/flux/v0/stdlib/universe/first/) to return the
@@ -912,7 +912,7 @@ from(bucket: "get-started")
 
 {{% expand "Return the last temperature from each room" %}}
 
-Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/version/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field.
 2.  Use [`last()`](/flux/v0/stdlib/universe/last/) to return the
@@ -980,7 +980,7 @@ from(bucket: "get-started")
 
 {{% expand "Return the maximum temperature from each room" %}}
 
-Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/version/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field.
 2.  Use [`max()`](/flux/v0/stdlib/universe/max/) to return the row
@@ -1142,7 +1142,7 @@ optimizes long-term data storage. Simply put, downsampling reduces the number of
 points returned by a query without losing the general trends in the data.
 
 _For more information about downsampling data, see
-[Downsample data](/influxdb/v2/process-data/common-tasks/downsample-data/)._
+[Downsample data](/influxdb/version/process-data/common-tasks/downsample-data/)._
 
 The most common way to downsample data is by time intervals or "windows."
 For example, you may want to query the last hour of data and return the average
@@ -1231,13 +1231,13 @@ from(bucket: "get-started")
 
 ## Automate processing with InfluxDB tasks
 
-[InfluxDB tasks](/influxdb/v2/process-data/get-started/) are scheduled queries
+[InfluxDB tasks](/influxdb/version/process-data/get-started/) are scheduled queries
 that can perform any of the data processing operations described above.
 Generally tasks then use the [`to()` function](/flux/v0/stdlib/influxdata/influxdb/to/)
 to write the processed result back to InfluxDB.
 
 _For more information about creating and configuring tasks, see
-[Get started with InfluxDB tasks](/influxdb/v2/process-data/get-started/)._
+[Get started with InfluxDB tasks](/influxdb/version/process-data/get-started/)._
 
 #### Example downsampling task
 
@@ -1252,4 +1252,4 @@ from(bucket: "get-started-downsampled")
     |> filter(fn: (r) => r._measurement == "home")
     |> aggregateWindow(every: 2h, fn: mean)
 ```
-{{< page-nav prev="/influxdb/v2/get-started/query/" next="/influxdb/v2/get-started/visualize/" keepTab=true >}}
+{{< page-nav prev="/influxdb/version/get-started/query/" next="/influxdb/version/get-started/visualize/" keepTab=true >}}

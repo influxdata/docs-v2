@@ -9,7 +9,7 @@ data stored in InfluxDB.
 - [List tag values](#list-tag-values)
 
 {{% warn %}}
-Functions in the `schema` package are not supported in the [Flux REPL](/influxdb/v2/tools/repl/).
+Functions in the `schema` package are not supported in the [Flux REPL](/influxdb/version/tools/repl/).
 {{% /warn %}}
 
 ## List buckets

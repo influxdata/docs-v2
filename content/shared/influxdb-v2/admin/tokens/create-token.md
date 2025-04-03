@@ -91,9 +91,9 @@ find the token you want to clone and click the **{{< icon "settings" >}}** icon 
 
 ## Create a token using the influx CLI
 
-Use the [`influx auth create` command](/influxdb/v2/reference/cli/influx/auth/create) to create a token.
+Use the [`influx auth create` command](/influxdb/version/reference/cli/influx/auth/create) to create a token.
 Include flags with the command to grant specific permissions to the token.
-See the [available flags](/influxdb/v2/reference/cli/influx/auth/create#flags).
+See the [available flags](/influxdb/version/reference/cli/influx/auth/create#flags).
 Only tokens with the `write: authorizations` permission can create tokens.
 
 ```sh
@@ -125,9 +125,9 @@ influx auth create \
 ```
 
 {{% note %}}
-To [view or create an operator token](/influxdb/v2/admin/tokens/create-token/) with the InfluxDB UI, `api/v2` API, or `influx` CLI after the setup process is completed, you must use an existing operator token.
+To [view or create an operator token](/influxdb/version/admin/tokens/create-token/) with the InfluxDB UI, `api/v2` API, or `influx` CLI after the setup process is completed, you must use an existing operator token.
 
-To create a new operator token without using an existing one, see how to use the [`influxd recovery auth`](/influxdb/v2/reference/cli/influxd/recovery/auth/) CLI.
+To create a new operator token without using an existing one, see how to use the [`influxd recovery auth`](/influxdb/version/reference/cli/influxd/recovery/auth/) CLI.
 {{% /note %}}
 {{% /show-in %}}
 
@@ -166,19 +166,19 @@ influx auth create       \
   --write-users
 ```
 
-See the [`influx auth create` documentation](/influxdb/v2/reference/cli/influx/auth/create) for information about other available flags.
+See the [`influx auth create` documentation](/influxdb/version/reference/cli/influx/auth/create) for information about other available flags.
 
 ## Create a token using the InfluxDB API
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to create a token.
 
-{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/authorizations" api-ref="/influxdb/v2/api/#operation/PostAuthorizations" >}}
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/authorizations" api-ref="/influxdb/version/api/#operation/PostAuthorizations" >}}
 
 Include the following in your request:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
-| API token with the [`write: authorizations`](/influxdb/v2/api/#operation/PostAuthorizations) permission  | Use the `Authorization` header and the {{% show-in "v2" %}}`Bearer` or {{% /show-in %}}`Token` scheme. |
+| API token with the [`write: authorizations`](/influxdb/version/api/#operation/PostAuthorizations) permission  | Use the `Authorization` header and the {{% show-in "v2" %}}`Bearer` or {{% /show-in %}}`Token` scheme. |
 | Organization         | Pass as `orgID` in the request body.
 | Permissions list     | Pass as a `permissions` array in the request body.
 
@@ -196,5 +196,5 @@ body.
 ```
 
 See the
-[`POST /api/v2/authorizations` documentation](/influxdb/v2/api/#operation/PostAuthorizations)
+[`POST /api/v2/authorizations` documentation](/influxdb/version/api/#operation/PostAuthorizations)
 for more information about options.

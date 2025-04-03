@@ -1,7 +1,7 @@
 
 The InfluxDB `/api/v2/query` API returns query results in annotated CSV format.
 You can also write data to InfluxDB using annotated CSV and the `influx write` command,
-or [upload a CSV file](/influxdb/v2/write-data/no-code/load-data/)
+or [upload a CSV file](/influxdb/version/write-data/no-code/load-data/)
 in the InfluxDB UI.
 
 CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/).
@@ -104,7 +104,7 @@ Subsequent columns contain annotation values as shown in the table below.
 Some tools might use or require a comma (`,`) to separate the annotation name from values in an annotation row.
 
 {{% note %}}
-To encode a table with its [group key](/influxdb/v2/reference/glossary/#group-key),
+To encode a table with its [group key](/influxdb/version/reference/glossary/#group-key),
 the `datatype`, `group`, and `default` annotations must be included.
 If a table has no rows, the `default` annotation provides the group key values.
 {{% /note %}}
@@ -127,7 +127,7 @@ If a table has no rows, the `default` annotation provides the group key values.
 
 The `datatype` annotation accepts [data types](#data-types) and **line protocol elements**.
 Line protocol elements identify how columns are converted into line protocol when using the
-[`influx write` command](/influxdb/v2/reference/cli/influx/write/) to write annotated CSV to InfluxDB.
+[`influx write` command](/influxdb/version/reference/cli/influx/write/) to write annotated CSV to InfluxDB.
 
 | Line protocol element | Description                                                     |
 |:--------------------- |:-----------                                                     |
@@ -144,7 +144,7 @@ Columns with [data types](#data-types) (other than `dateTime`) in the
 Columns without a specified data type default to `field` when converted to line protocol
 and **column values are left unmodified** in line protocol.
 _See an example [below](#example-of-mixing-data-types-line-protocol-elements) and
-[line protocol data types and format](/influxdb/v2/reference/syntax/line-protocol/#data-types-and-format)._
+[line protocol data types and format](/influxdb/version/reference/syntax/line-protocol/#data-types-and-format)._
 
 ### Time columns
 

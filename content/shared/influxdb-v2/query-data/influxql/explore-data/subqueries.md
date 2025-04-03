@@ -17,7 +17,7 @@ SELECT_clause FROM ( SELECT_statement ) [...]
 
 InfluxDB **performs the subquery first** and the main query second.
 
-The main query surrounds the subquery and requires at least the [`SELECT` clause](/influxdb/v2/query-data/influxql/explore-data/select/) and the [`FROM` clause](/influxdb/v2/query-data/influxql/explore-data/select/#from-clause).
+The main query surrounds the subquery and requires at least the [`SELECT` clause](/influxdb/version/query-data/influxql/explore-data/select/) and the [`FROM` clause](/influxdb/version/query-data/influxql/explore-data/select/#from-clause).
 The main query supports all clauses listed in InfluxQL 2.x documentation.
 
 The subquery appears in the main query's `FROM` clause, and it requires surrounding parentheses.
@@ -146,7 +146,7 @@ Name: pet_daycare
 
 
 Next, InfluxDB performs the main query and calculates the average of those differences.
-Notice that the main query specifies `difference` as the field key in the [`MEAN()`](/influxdb/v2/query-data/influxql/functions/aggregates/#mean) function.
+Notice that the main query specifies `difference` as the field key in the [`MEAN()`](/influxdb/version/query-data/influxql/functions/aggregates/#mean) function.
 
 {{% /expand %}}
 
@@ -253,7 +253,7 @@ tags: location=santa_monica
 
 
 Next, InfluxDB performs the main query and calculates the sum of the `water_level_derivative` values for each tag value of `location`.
-Notice that the main query specifies `water_level_derivative`, not `water_level` or `derivative`, as the field key in the [`SUM()`](/influxdb/v2/query-data/influxql/functions/aggregates/#sum) function.
+Notice that the main query specifies `water_level_derivative`, not `water_level` or `derivative`, as the field key in the [`SUM()`](/influxdb/version/query-data/influxql/functions/aggregates/#sum) function.
 
 {{% /expand %}}
 
@@ -271,7 +271,7 @@ SELECT_clause FROM ( SELECT_clause FROM ( SELECT_statement ) [...] ) [...]
                          Subquery 1          Subquery 2
 ```
 
-InfluxQL does not support multiple [`SELECT` statements](/influxdb/v2/query-data/influxql/explore-data/select/) per subquery:
+InfluxQL does not support multiple [`SELECT` statements](/influxdb/version/query-data/influxql/explore-data/select/) per subquery:
 
 ```sql
 SELECT_clause FROM (SELECT_statement; SELECT_statement) [...]

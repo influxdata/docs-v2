@@ -13,11 +13,11 @@ influx auth [command]
 ## Subcommands
 | Subcommand                                                    | Description                     |
 |:----------                                                    |:-----------                     |
-| [active](/influxdb/v2/reference/cli/influx/auth/active)     | Activate API token   |
-| [create](/influxdb/v2/reference/cli/influx/auth/create)     | Create API token     |
-| [delete](/influxdb/v2/reference/cli/influx/auth/delete)     | Delete API token     |
-| [list](/influxdb/v2/reference/cli/influx/auth/list)         | List API tokens      |
-| [inactive](/influxdb/v2/reference/cli/influx/auth/inactive) | Inactivate API token |
+| [active](/influxdb/version/reference/cli/influx/auth/active)     | Activate API token   |
+| [create](/influxdb/version/reference/cli/influx/auth/create)     | Create API token     |
+| [delete](/influxdb/version/reference/cli/influx/auth/delete)     | Delete API token     |
+| [list](/influxdb/version/reference/cli/influx/auth/list)         | List API tokens      |
+| [inactive](/influxdb/version/reference/cli/influx/auth/inactive) | Inactivate API token |
 
 ## Flags
 | Flag |          | Description                 |

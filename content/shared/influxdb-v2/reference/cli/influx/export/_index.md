@@ -1,7 +1,7 @@
 
 The `influx export` command exports existing resources as an InfluxDB template.
 _For detailed examples of exporting InfluxDB templates, see
-[Create an InfluxDB template](/influxdb/v2/tools/influxdb-templates/create/)._
+[Create an InfluxDB template](/influxdb/version/tools/influxdb-templates/create/)._
 
 ## Usage
 
@@ -14,8 +14,8 @@ influx export [command]
 
 | Subcommand                                                 | Description                                                |
 |:----------                                                 |:-----------                                                |
-| [all](/influxdb/v2/reference/cli/influx/export/all/)     | Export all resources in an organization as a template      |
-| [stack](/influxdb/v2/reference/cli/influx/export/stack/) | Export all resources associated with a stack as a template |
+| [all](/influxdb/version/reference/cli/influx/export/all/)     | Export all resources in an organization as a template      |
+| [stack](/influxdb/version/reference/cli/influx/export/stack/) | Export all resources associated with a stack as a template |
 
 ## Flags
 

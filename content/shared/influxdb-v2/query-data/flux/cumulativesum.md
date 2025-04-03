@@ -27,7 +27,7 @@ to calculate a running total of values.
 {{< /flex >}}
 
 {{% note %}}
-The examples below use the [example data variable](/influxdb/v2/query-data/flux/#example-data-variable).
+The examples below use the [example data variable](/influxdb/version/query-data/flux/#example-data-variable).
 {{% /note %}}
 
 ##### Calculate the running total of values
@@ -40,7 +40,7 @@ data
 [`aggregateWindow()`](/flux/v0/stdlib/universe/aggregatewindow/)
 segments data into windows of time, aggregates data in each window into a single
 point, then removes the time-based segmentation.
-It is primarily used to [downsample data](/influxdb/v2/process-data/common-tasks/downsample-data/).
+It is primarily used to [downsample data](/influxdb/version/process-data/common-tasks/downsample-data/).
 
 `aggregateWindow()` expects an aggregate function that returns a single row for each time window.
 To use `cumulativeSum()` with `aggregateWindow`, use `sum` in `aggregateWindow()`,

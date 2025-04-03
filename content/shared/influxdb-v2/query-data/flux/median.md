@@ -83,7 +83,7 @@ Output tables consist of a single row containing the calculated median.
 {{< /flex >}}
 
 {{% note %}}
-The examples below use the [example data variable](/influxdb/v2/query-data/flux/#example-data-variable).
+The examples below use the [example data variable](/influxdb/version/query-data/flux/#example-data-variable).
 {{% /note %}}
 
 ## Find the value that represents the median
@@ -117,7 +117,7 @@ data
 [`aggregateWindow()`](/flux/v0/stdlib/universe/aggregatewindow/)
 segments data into windows of time, aggregates data in each window into a single
 point, and then removes the time-based segmentation.
-It is primarily used to [downsample data](/influxdb/v2/process-data/common-tasks/downsample-data/).
+It is primarily used to [downsample data](/influxdb/version/process-data/common-tasks/downsample-data/).
 
 To specify the [median calculation method](#select-a-method-for-calculating-the-median) in `aggregateWindow()`, use the
 [full function syntax](/flux/v0/stdlib/universe/aggregatewindow/#specify-parameters-of-the-aggregate-function):

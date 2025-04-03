@@ -17,10 +17,10 @@ influx remote [command options] [arguments...]
 
 |  Subcommand                                                 |  Description                           |
 |:--------------------------------------------------------------|--------------------------------------|
-| [`create`](/influxdb/v2/reference/cli/influx/remote/create) | Create a new remote connection       |
-| [`delete`](/influxdb/v2/reference/cli/influx/remote/delete) | Delete a remote connection |
-| [`list`](/influxdb/v2/reference/cli/influx/remote/list)     | List remote connections          |
-| [`update`](/influxdb/v2/reference/cli/influx/remote/update) | Update a remote connection |
+| [`create`](/influxdb/version/reference/cli/influx/remote/create) | Create a new remote connection       |
+| [`delete`](/influxdb/version/reference/cli/influx/remote/delete) | Delete a remote connection |
+| [`list`](/influxdb/version/reference/cli/influx/remote/list)     | List remote connections          |
+| [`update`](/influxdb/version/reference/cli/influx/remote/update) | Update a remote connection |
 
 ## Flags
 | Flag |          | Description                   |

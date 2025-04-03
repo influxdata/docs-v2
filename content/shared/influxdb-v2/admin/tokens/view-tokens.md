@@ -47,7 +47,7 @@ We recommend the following for managing your tokens:
 
 ## View tokens using the influx CLI
 
-Use the [`influx auth list` command](/influxdb/v2/reference/cli/influx/auth/list)
+Use the [`influx auth list` command](/influxdb/version/reference/cli/influx/auth/list)
 to view tokens.
 
 ```sh
@@ -55,20 +55,20 @@ influx auth list
 ```
 
 Filtering options such as filtering by authorization ID, username, or user ID are available.
-See the [`influx auth list` documentation](/influxdb/v2/reference/cli/influx/auth/list)
+See the [`influx auth list` documentation](/influxdb/version/reference/cli/influx/auth/list)
 for information about other available flags.
 
 ## View tokens using the InfluxDB API
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to view tokens and permissions.
 
-{{< api-endpoint method="GET" endpoint="/api/v2/authorizations" api-ref="/influxdb/v2/api/#operation/GetAuthorizations" >}}
+{{< api-endpoint method="GET" endpoint="/api/v2/authorizations" api-ref="/influxdb/version/api/#operation/GetAuthorizations" >}}
 
 Include the following in your request:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
-| API token with the [`read: authorizations`](/influxdb/v2/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header.                   |
+| API token with the [`read: authorizations`](/influxdb/version/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header.                   |
 
 ```sh
 {{% get-shared-text "api/v2.0/auth/oss/tokens-view.sh" %}}
@@ -78,7 +78,7 @@ Include the following in your request:
 
 To view a specific authorization and token, include the authorization ID in the URL path.
 
-{{% api-endpoint method="GET" endpoint="/api/v2/authorizations/{authID}" api-ref="/influxdb/v2/api/#operation/GetAuthorizationsID" %}}
+{{% api-endpoint method="GET" endpoint="/api/v2/authorizations/{authID}" api-ref="/influxdb/version/api/#operation/GetAuthorizationsID" %}}
 
 ### Filter the token list
 
@@ -91,9 +91,9 @@ To filter tokens by user, include `userID` as a query parameter in your request.
 
 {{% show-in "v2" %}}
 
-[***Operator tokens***](/influxdb/v2/admin/tokens/#operator-token) have access to all organizations' authorizations.
+[***Operator tokens***](/influxdb/version/admin/tokens/#operator-token) have access to all organizations' authorizations.
 To filter authorizations by organization when using an operator token, include an `org` or `orgID` query parameter in your request.
 
 {{% /show-in %}}
 
-See the [`/authorizations` endpoint documentation](/influxdb/v2/api/#tag/Authorizations-(API-tokens)) for more information about available parameters.
+See the [`/authorizations` endpoint documentation](/influxdb/version/api/#tag/Authorizations-(API-tokens)) for more information about available parameters.

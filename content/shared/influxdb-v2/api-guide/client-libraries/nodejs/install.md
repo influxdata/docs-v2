@@ -5,7 +5,7 @@
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/).
 
 2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/v2/reference/urls/).
+   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/version/reference/urls/).
 
 3. Create a directory for your new Node.js project, and then change to the
    directory--for example, enter the following command into your terminal:
@@ -69,7 +69,7 @@ Add both as dependencies of your project.
 
 ## Next steps
 
-Once you've installed the JavaScript client library, you're ready to [write data](/influxdb/v2/api-guide/client-libraries/nodejs/write/) to InfluxDB or [get started](#get-started-with-examples) with other examples from the client library.
+Once you've installed the JavaScript client library, you're ready to [write data](/influxdb/version/api-guide/client-libraries/nodejs/write/) to InfluxDB or [get started](#get-started-with-examples) with other examples from the client library.
 
 ## Get started with examples
 
@@ -78,7 +78,7 @@ The client examples include an [`env`](https://github.com/influxdata/influxdb-cl
 The examples use these properties to interact with the InfluxDB API.
 {{% /note %}}
 
-1. Set environment variables or update `env.mjs` with your InfluxDB [bucket](/influxdb/v2/admin/buckets/), [organization](/influxdb/v2/admin/organizations/), [token](/influxdb/v2/admin/tokens/), and [URL](/influxdb/v2/reference/urls/).
+1. Set environment variables or update `env.mjs` with your InfluxDB [bucket](/influxdb/version/admin/buckets/), [organization](/influxdb/version/admin/organizations/), [token](/influxdb/version/admin/tokens/), and [URL](/influxdb/version/reference/urls/).
 
    ```sh
    export INFLUX_URL=http://localhost:8086

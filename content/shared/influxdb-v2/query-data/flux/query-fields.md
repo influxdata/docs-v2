@@ -5,8 +5,8 @@ to query data based on fields, tags, or any other column value.
 clause in InfluxQL and other SQL-like query languages.
 
 ## The filter() function
-`filter()` has an `fn` parameter that expects a [predicate function](/influxdb/v2/reference/glossary/#predicate-function),
-an anonymous function comprised of one or more [predicate expressions](/influxdb/v2/reference/glossary/#predicate-expression).
+`filter()` has an `fn` parameter that expects a [predicate function](/influxdb/version/reference/glossary/#predicate-function),
+an anonymous function comprised of one or more [predicate expressions](/influxdb/version/reference/glossary/#predicate-expression).
 The predicate function evaluates each input row.
 Rows that evaluate to `true` are **included** in the output data.
 Rows that evaluate to `false` are **excluded** from the output data.
@@ -40,7 +40,7 @@ The combination of [`from()`](/flux/v0/stdlib/influxdata/influxdb/from),
 [`range()`](/flux/v0/stdlib/universe/range),
 and `filter()` represent the most basic Flux query:
 
-1. Use `from()` to define your [bucket](/influxdb/v2/reference/glossary/#bucket).
+1. Use `from()` to define your [bucket](/influxdb/version/reference/glossary/#bucket).
 2. Use `range()` to limit query results by time.
 3. Use `filter()` to identify what rows of data to output.
 

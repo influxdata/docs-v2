@@ -11,9 +11,9 @@ influx telegrafs [command]
 ## Subcommands
 | Subcommand                                                     | Description                     |
 |:----------                                                     |:-----------                     |
-| [create](/influxdb/v2/reference/cli/influx/telegrafs/create) | Create a Telegraf configuration |
-| [rm](/influxdb/v2/reference/cli/influx/telegrafs/rm)         | Remove a Telegraf configuration |
-| [update](/influxdb/v2/reference/cli/influx/telegrafs/update) | Update a Telegraf configuration |
+| [create](/influxdb/version/reference/cli/influx/telegrafs/create) | Create a Telegraf configuration |
+| [rm](/influxdb/version/reference/cli/influx/telegrafs/rm)         | Remove a Telegraf configuration |
+| [update](/influxdb/version/reference/cli/influx/telegrafs/update) | Update a Telegraf configuration |
 
 ## Flags
 | Flag |                   | Description                                                           | Input type | {{< cli/mapped >}}    |

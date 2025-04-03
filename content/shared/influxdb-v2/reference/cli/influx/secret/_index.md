@@ -1,5 +1,5 @@
 
-The `influx secret` command manages [secrets](/influxdb/v2/reference/glossary/#secret).
+The `influx secret` command manages [secrets](/influxdb/version/reference/glossary/#secret).
 
 ## Usage
 ```
@@ -10,9 +10,9 @@ influx secret [subcommand]
 ## Subcommands
 | Subcommand                                                   | Description            |
 |:----------                                                   |:-----------            |
-| [delete](/influxdb/v2/reference/cli/influx/secret/delete/) | Delete a secret        |
-| [list](/influxdb/v2/reference/cli/influx/secret/list/)     | List secrets           |
-| [update](/influxdb/v2/reference/cli/influx/secret/update/) | Add or update a secret |
+| [delete](/influxdb/version/reference/cli/influx/secret/delete/) | Delete a secret        |
+| [list](/influxdb/version/reference/cli/influx/secret/list/)     | List secrets           |
+| [update](/influxdb/version/reference/cli/influx/secret/update/) | Add or update a secret |
 
 ## Flags
 | Flag |          | Description                   |

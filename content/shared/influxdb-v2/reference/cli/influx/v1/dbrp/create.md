@@ -1,5 +1,5 @@
 
-The `influx v1 dbrp create` command creates a DBRP mapping with the [InfluxDB 1.x compatibility API](/influxdb/v2/reference/api/influxdb-1x/).
+The `influx v1 dbrp create` command creates a DBRP mapping with the [InfluxDB 1.x compatibility API](/influxdb/version/reference/api/influxdb-1x/).
 
 ## Usage
 ```

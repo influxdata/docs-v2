@@ -2,12 +2,12 @@
 The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
 InfluxDB 1.x client libraries and third-party integrations like [Grafana](https://grafana.com) and others.
 
-<a class="btn" href="/influxdb/v2/api/v1-compatibility/">View full v1 compatibility API documentation</a>
+<a class="btn" href="/influxdb/version/api/v1-compatibility/">View full v1 compatibility API documentation</a>
 
 ## Authentication
 
 InfluxDB 1.x compatibility endpoints require all query and write requests to be authenticated with an
-[API token](/influxdb/v2/admin/tokens/) or 1.x-compatible
+[API token](/influxdb/version/admin/tokens/) or 1.x-compatible
 credentials.
 
 * [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
@@ -16,7 +16,7 @@ credentials.
 ### Authenticate with the Token scheme
 Token authentication requires the following credential:
 
-- **token**: InfluxDB [API token](/influxdb/v2/admin/tokens/)
+- **token**: InfluxDB [API token](/influxdb/version/admin/tokens/)
 
 Use the `Authorization` header with the `Token` scheme to provide your token to InfluxDB.
 The `Token` scheme is the word `Token`, a space, and your token (all case-sensitive).
@@ -67,12 +67,12 @@ Username and password schemes require the following credentials:
 {{% note %}}
 #### Password or Token
 
-If you have [set a password](/influxdb/v2/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations) for the 1.x-compatible username, provide the 1.x-compatible password.
-If you haven't set a password for the 1.x-compatible username, provide the InfluxDB [authentication token](/influxdb/v2/admin/tokens/) as the password.
+If you have [set a password](/influxdb/version/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations) for the 1.x-compatible username, provide the 1.x-compatible password.
+If you haven't set a password for the 1.x-compatible username, provide the InfluxDB [authentication token](/influxdb/version/admin/tokens/) as the password.
 {{% /note %}}
 
 For more information, see how to create and manage
-[1.x-compatible authorizations](/influxdb/v2/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
+[1.x-compatible authorizations](/influxdb/version/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
 when manually upgrading from InfluxDB v1 to v2.
 
 {{% /show-in %}}

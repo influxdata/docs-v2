@@ -28,10 +28,10 @@ If you haven't already, [create an InfluxDB Cloud account](https://www.influxdat
 
 The IoT Starter example app assumes the following prerequisites:
 
-- An InfluxDB [org ID](/influxdb/v2/admin/organizations/view-orgs/)
-- An [API token](/influxdb/v2/admin/tokens/create-token/) (for example, an **All Access token**) that has read and write permissions for the buckets
-- A [bucket](/influxdb/v2/admin/buckets/create-bucket/#create-a-bucket-using-the-influxdb-api) named `iot_center` for storing time series data from devices
-- A [bucket](/influxdb/v2/admin/buckets/create-bucket/#create-a-bucket-using-the-influxdb-api) named `iot_center_devices` for storing device metadata and API token IDs
+- An InfluxDB [org ID](/influxdb/version/admin/organizations/view-orgs/)
+- An [API token](/influxdb/version/admin/tokens/create-token/) (for example, an **All Access token**) that has read and write permissions for the buckets
+- A [bucket](/influxdb/version/admin/buckets/create-bucket/#create-a-bucket-using-the-influxdb-api) named `iot_center` for storing time series data from devices
+- A [bucket](/influxdb/version/admin/buckets/create-bucket/#create-a-bucket-using-the-influxdb-api) named `iot_center_devices` for storing device metadata and API token IDs
 
 ## Introducing IoT Starter
 
@@ -178,7 +178,7 @@ In this application, a _registered device_ is a point that contains your device 
 The API token and authorization permissions allow the device to query and write to `INFLUX_BUCKET`.
 In this section, you add the API endpoint that handles requests from the UI, creates an authorization in InfluxDB,
 and writes the registered device to the `INFLUX_BUCKET_AUTH` bucket.
-To learn more about API tokens and authorizations, see [Manage API tokens](/influxdb/v2/admin/tokens/)
+To learn more about API tokens and authorizations, see [Manage API tokens](/influxdb/version/admin/tokens/)
 
 The application API uses the following `/api/v2` InfluxDB API endpoints:
 
@@ -255,7 +255,7 @@ the `/api/v2/buckets` InfluxDB API endpoint.
 - Description: `IoTCenterDevice: DEVICE_ID`.
 - List of permissions to the bucket.
 
-To learn more about API tokens and authorizations, see [Manage API tokens](/influxdb/v2/admin/tokens/).
+To learn more about API tokens and authorizations, see [Manage API tokens](/influxdb/version/admin/tokens/).
 
 Next, [write the device authorization to a bucket](#write-the-device-authorization-to-a-bucket).
 
@@ -318,7 +318,7 @@ Next, [create the API to list devices](#create-the-api-to-list-devices).
 
 Add the `/api/devices` API endpoint that retrieves, processes, and lists registered devices.
 
-1. Create a Flux query that gets the last row of each [series](/influxdb/v2/reference/glossary#series) that contains a `deviceauth` measurement.
+1. Create a Flux query that gets the last row of each [series](/influxdb/version/reference/glossary#series) that contains a `deviceauth` measurement.
    The example query below returns rows that contain the `key` field (authorization ID) and excludes rows that contain a `token` field (to avoid exposing tokens to the UI).
 
    ```js

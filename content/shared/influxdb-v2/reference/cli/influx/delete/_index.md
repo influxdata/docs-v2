@@ -1,7 +1,7 @@
 
-The `influx delete` command deletes [points](/influxdb/v2/reference/glossary/#point)
+The `influx delete` command deletes [points](/influxdb/version/reference/glossary/#point)
 from an InfluxDB bucket in a specified time range.
-Select points to delete within the specified time range using [delete predicate syntax](/influxdb/v2/reference/syntax/delete-predicate).
+Select points to delete within the specified time range using [delete predicate syntax](/influxdb/version/reference/syntax/delete-predicate).
 
 {{% warn %}}
 #### Deleting data without a delete predicate
@@ -31,7 +31,7 @@ InfluxDB {{< current-version >}} does not support deleting data **by field**.
 |      | `--http-debug`    | Inspect communication with InfluxDB servers.                                                              | string     |                       |
 | `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                                                    | string     | `INFLUX_ORG`          |
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                                                         | string     | `INFLUX_ORG_ID`       |
-| `-p` | `--predicate`     | InfluxQL-like predicate string (see [Delete predicate](/influxdb/v2/reference/syntax/delete-predicate)) | string     |                       |
+| `-p` | `--predicate`     | InfluxQL-like predicate string (see [Delete predicate](/influxdb/version/reference/syntax/delete-predicate)) | string     |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                                                         |            | `INFLUX_SKIP_VERIFY`  |
 |      | `--start`         | ({{< req >}}) Start time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                  | string     |                       |
 |      | `--stop`          | ({{< req >}}) Stop time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                   | string     |                       |

@@ -1,8 +1,8 @@
 
 Use the `WHERE` clause to filter data based on
-[fields](/influxdb/v2/reference/glossary/#field),
-[tags](/influxdb/v2/reference/glossary/#tag), and/or
-[timestamps](/influxdb/v2/reference/glossary/#timestamp).
+[fields](/influxdb/version/reference/glossary/#field),
+[tags](/influxdb/version/reference/glossary/#tag), and/or
+[timestamps](/influxdb/version/reference/glossary/#timestamp).
 
 - [Syntax](#syntax)
 - [Examples](#examples)
@@ -30,7 +30,7 @@ SELECT * FROM "mydb" WHERE time = '2020-07-31T20:07:00Z' OR time = '2020-07-31T2
 field_key <operator> ['string' | boolean | float | integer]
 ```
 
-The `WHERE` clause supports comparisons against string, boolean, float, and integer [field values](/influxdb/v2/reference/glossary/#field-value).
+The `WHERE` clause supports comparisons against string, boolean, float, and integer [field values](/influxdb/version/reference/glossary/#field-value).
 
 Single quote string field values in the `WHERE` clause.
 Queries with unquoted string field values or double quoted string field values will not return any data and, in most cases,
@@ -48,7 +48,7 @@ Queries with unquoted string field values or double quoted string field values w
 | `<`      | less than                |
 | `<=`     | less than or equal to    |
 
-InfluxQL also supports [Regular Expressions](/influxdb/v2/query-data/influxql/explore-data/regular-expressions/).
+InfluxQL also supports [Regular Expressions](/influxdb/version/query-data/influxql/explore-data/regular-expressions/).
 
 #### Tags
 
@@ -56,7 +56,7 @@ InfluxQL also supports [Regular Expressions](/influxdb/v2/query-data/influxql/ex
 tag_key <operator> ['tag_value']
 ```
 
-Single quote [tag values](/influxdb/v2/reference/glossary/#tag-value) in
+Single quote [tag values](/influxdb/version/reference/glossary/#tag-value) in
 the `WHERE` clause.
 Queries with unquoted tag values or double quoted tag values will not return
 any data and, in most cases,
@@ -72,11 +72,11 @@ any data and, in most cases,
 
 #### Timestamps
 
-For most `SELECT` statements, the default time range is between [`1677-09-21 00:12:43.145224194` and `2262-04-11T23:47:16.854775806Z` UTC](/influxdb/v2/reference/faq/#what-are-the-minimum-and-maximum-integers-that-influxdb-can-store).
-For `SELECT` statements with a [`GROUP BY time()` clause](/influxdb/v2/query-data/influxql/explore-data/group-by/), the default time
-range is between `1677-09-21 00:12:43.145224194` UTC and [`now()`](/influxdb/v2/reference/glossary/#now).
+For most `SELECT` statements, the default time range is between [`1677-09-21 00:12:43.145224194` and `2262-04-11T23:47:16.854775806Z` UTC](/influxdb/version/reference/faq/#what-are-the-minimum-and-maximum-integers-that-influxdb-can-store).
+For `SELECT` statements with a [`GROUP BY time()` clause](/influxdb/version/query-data/influxql/explore-data/group-by/), the default time
+range is between `1677-09-21 00:12:43.145224194` UTC and [`now()`](/influxdb/version/reference/glossary/#now).
 
-See [Time Syntax](/influxdb/v2/query-data/influxql/explore-data/time-and-timezone/#time-syntax) for information on how to specify alternative time ranges in the `WHERE` clause.
+See [Time Syntax](/influxdb/version/query-data/influxql/explore-data/time-and-timezone/#time-syntax) for information on how to specify alternative time ranges in the `WHERE` clause.
 
 ### Examples
 
@@ -153,7 +153,7 @@ Name: h2o_feet
 The query returns data from the `h2o_feet` measurement with field values of
 `water_level` plus two that are greater than 11.9. Note that InfluxDB follows the standard order of operations.
 
-See [Mathematical operators](/influxdb/v2/query-data/influxql/math-operators/)
+See [Mathematical operators](/influxdb/version/query-data/influxql/math-operators/)
 for more on supported operators.
 
 {{% /expand %}}
@@ -186,7 +186,7 @@ time                   water_level
 2019-09-18T21:42:00Z   4.938 -->
 
 The query returns data from the `h2o_feet` measurement where the
-[tag key](/influxdb/v2/reference/glossary/#tag-key) `location` is set to `santa_monica`.
+[tag key](/influxdb/version/reference/glossary/#tag-key) `location` is set to `santa_monica`.
 InfluxQL requires single quotes around tag values in the `WHERE` clause.
 
 {{% /expand %}}
@@ -225,8 +225,8 @@ separating logic with parentheses.
 SELECT * FROM "h2o_feet" WHERE time > now() - 7d
 ```
 
-The query returns data from the `h2o_feet` measurement with [timestamps](/influxdb/v2/reference/glossary/#timestamp)
-within the past seven days. See [Time Syntax](/influxdb/v2/query-data/influxql/explore-data/time-and-timezone/#time-syntax) for more in-depth information on supported time syntax in the `WHERE` clause.
+The query returns data from the `h2o_feet` measurement with [timestamps](/influxdb/version/reference/glossary/#timestamp)
+within the past seven days. See [Time Syntax](/influxdb/version/query-data/influxql/explore-data/time-and-timezone/#time-syntax) for more in-depth information on supported time syntax in the `WHERE` clause.
 
 ### Common issues with the `WHERE` clause
 

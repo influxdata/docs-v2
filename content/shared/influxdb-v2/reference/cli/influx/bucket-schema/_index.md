@@ -13,9 +13,9 @@ influx bucket-schema [command]
 
 | Subcommand                                                         | Description            |
 | :----------------------------------------------------------------- | :--------------------- |
-| [create](/influxdb/v2/reference/cli/influx/bucket-schema/create) | Create a bucket schema |
-| [list](/influxdb/v2/reference/cli/influx/bucket-schema/list)     | List bucket schemas    |
-| [update](/influxdb/v2/reference/cli/influx/bucket-schema/update) | Update a bucket schema |
+| [create](/influxdb/version/reference/cli/influx/bucket-schema/create) | Create a bucket schema |
+| [list](/influxdb/version/reference/cli/influx/bucket-schema/list)     | List bucket schemas    |
+| [update](/influxdb/version/reference/cli/influx/bucket-schema/update) | Update a bucket schema |
 
 ## Flags
 

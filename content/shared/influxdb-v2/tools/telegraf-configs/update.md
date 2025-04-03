@@ -1,5 +1,5 @@
 
-Use the InfluxDB user interface (UI) or the [`influx` CLI](/influxdb/v2/reference/cli/influx/)
+Use the InfluxDB user interface (UI) or the [`influx` CLI](/influxdb/version/reference/cli/influx/)
 to update InfluxDB Telegraf configurations.
 
 To update a Telegraf configuration, do one of the following:
@@ -55,7 +55,7 @@ Telegraf doesn't detect changes to remote configurations. If you edit a remote c
 
 ## Use the influx CLI
 
-Use the [`influx telegrafs update` command](/influxdb/v2/reference/cli/influx/telegrafs/update/)
+Use the [`influx telegrafs update` command](/influxdb/version/reference/cli/influx/telegrafs/update/)
 to update an existing InfluxDB Telegraf configuration name, description, or settings
 from a Telegraf configuration file on your local machine.
 

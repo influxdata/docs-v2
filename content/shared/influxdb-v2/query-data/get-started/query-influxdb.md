@@ -114,4 +114,4 @@ You have now queried data from InfluxDB using Flux.
 The query shown here is a basic example.
 Flux queries can be extended in many ways to form powerful scripts.
 
-{{< page-nav prev="/influxdb/v2/query-data/get-started/" next="/influxdb/v2/query-data/get-started/transform-data/" >}}
+{{< page-nav prev="/influxdb/version/query-data/get-started/" next="/influxdb/version/query-data/get-started/transform-data/" >}}

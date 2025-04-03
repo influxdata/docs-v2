@@ -54,7 +54,7 @@
 
 ### Bug fixes
 
-- When using [`influx task create`](/influxdb/v2/reference/cli/influx/task/create/)
+- When using [`influx task create`](/influxdb/version/reference/cli/influx/task/create/)
   to create a new task, only override the `every` task option defined in the Flux
   script when the `-e`,`--every` flag is provided.
 - Properly clear the terminal when exiting an InfluxQL shell.
@@ -70,7 +70,7 @@
 
 ### Features
 
-- Add the `--username-password` flag to [influx config set](/influxdb/v2/reference/cli/influx/config/set/). Include `username:password` after this flag to ensure a session is automatically authenticated for the config. Include `username` (without password) to prompt for a password before creating the session.
+- Add the `--username-password` flag to [influx config set](/influxdb/version/reference/cli/influx/config/set/). Include `username:password` after this flag to ensure a session is automatically authenticated for the config. Include `username` (without password) to prompt for a password before creating the session.
 
 ### Maintenance
 
@@ -79,7 +79,7 @@
 
 ### Bug fixes
 
-- Fix to allow [influx auth create](/influxdb/v2/reference/cli/influx/auth/create/) to successfully create an API token without error.
+- Fix to allow [influx auth create](/influxdb/version/reference/cli/influx/auth/create/) to successfully create an API token without error.
 - Fix stack error typo.
 - Fix an error where `stdin` could not be used to create tasks.
 - Update `data_type` to `dataType` to ensure CSV files are successfully uploaded.
@@ -92,11 +92,11 @@
 ### Features
 
 - Set membership type to member or owner with
-  [`influx org members add`](/influxdb/v2/reference/cli/influx/org/members/add/).
-- Add the [InfluxQL Shell (REPL)](/influxdb/v2/reference/cli/influx/v1/shell/).
+  [`influx org members add`](/influxdb/version/reference/cli/influx/org/members/add/).
+- Add the [InfluxQL Shell (REPL)](/influxdb/version/reference/cli/influx/v1/shell/).
 - **(InfluxDB Cloud only)** Manage [InfluxDB Cloud Invokable Scripts](/influxdb/cloud/api-guide/api-invokable-scripts/)
-  with [`influx scripts`](/influxdb/v2/reference/cli/influx/scripts/). 
-- **(InfluxDB OSS only)** Add [username and password support](/influxdb/v2/reference/cli/influx/config/create/#create-a-connection-configuration-that-uses-a-username-and-password)
+  with [`influx scripts`](/influxdb/version/reference/cli/influx/scripts/). 
+- **(InfluxDB OSS only)** Add [username and password support](/influxdb/version/reference/cli/influx/config/create/#create-a-connection-configuration-that-uses-a-username-and-password)
   to `influx` CLI connection configurations as alternative to API tokens when using the CLI.
 
 ### Maintenance
@@ -114,8 +114,8 @@
 
 ### Features
 
-- Add [`influx remote`](/influxdb/v2/reference/cli/influx/remote/) command.
-- Add [`influx replication`](/influxdb/v2/reference/cli/influx/replication/) command.
+- Add [`influx remote`](/influxdb/version/reference/cli/influx/remote/) command.
+- Add [`influx replication`](/influxdb/version/reference/cli/influx/replication/) command.
 - Enhanced error messaging for InfluxDB and OSS specific commands.
 - Add `api/v2/config` endpoint to display the runtime configuration (for example, when you run `influxd print-config`). This endpoint lets you review runtime configuration while the instance is live.
 
@@ -154,7 +154,7 @@ This release makes it easier to create API tokens with the `influx` CLI, adds su
 
 #### Create an Operator token in the influx CLI
 
-Add the ability to use the `influx` CLI to [create an Operator token](/influxdb/v2/admin/tokens/#operator-token) with read and write permissions to all resources in all organizations available in InfluxDB. (Note, this is the same permissions generated for the initial token created by `influx setup` or `influxd upgrade`.)
+Add the ability to use the `influx` CLI to [create an Operator token](/influxdb/version/admin/tokens/#operator-token) with read and write permissions to all resources in all organizations available in InfluxDB. (Note, this is the same permissions generated for the initial token created by `influx setup` or `influxd upgrade`.)
 
 {{% /show-in %}}
 
@@ -232,7 +232,7 @@ The command now uses lowerCamelCase consistently for all objects keys, matching 
 - (InfluxDB Cloud only) Add [`buck
 - (InfluxDB OSS only) Updates to `backup` and `restore`:
   - Reimplement [`backup`](/influxdb/cloud/reference/cli/influx/backup/) to support downloading embedded SQL store from InfluxDB 2.0 or later.
-  - Add [`--compression`](/influxdb/v2/reference/cli/influx/backup/) flag to support gzip compression of downloaded files.
+  - Add [`--compression`](/influxdb/version/reference/cli/influx/backup/) flag to support gzip compression of downloaded files.
   - Reimplement `restore` to support uploading embedded SQL store from InfluxDB v2.1.x.
 - (InfluxDB OSS only) Add [`--password`](/influxdb/cloud/reference/cli/influx/user/password/) flag to `user password` command to allow bypassing interactive prompt.
 

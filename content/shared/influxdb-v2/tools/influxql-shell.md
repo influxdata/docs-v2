@@ -12,21 +12,21 @@ Use the InfluxQL interactive shell to execute InfluxQL queries with InfluxDB.
 
 InfluxQL queries require a database and retention policy to query data.
 In InfluxDB {{% current-version %}}, databases and retention policies have been
-combined and replaced with [buckets](/influxdb/v2/reference/glossary/#bucket).
+combined and replaced with [buckets](/influxdb/version/reference/glossary/#bucket).
 To use the InfluxQL to query an InfluxDB {{% current-version %}} bucket, first
 map your DBRP combinations to an appropriate bucket.
 
 For information about creating DBRP mappings, see
-[Query data with InfluxQL](/influxdb/v2/query-data/influxql/).
+[Query data with InfluxQL](/influxdb/version/query-data/influxql/).
 
 ## Download and install the influx CLI
 
 The InfluxQL REPL is included in the **`influx` CLI (2&period;4+)**.
-[Download and install the `influx` CLI](/influxdb/v2/tools/influx-cli/#install-the-influx-cli).
+[Download and install the `influx` CLI](/influxdb/version/tools/influx-cli/#install-the-influx-cli).
 
 ## Start the InfluxQL shell
 
-Use the [`influx v1 shell` command](/influxdb/v2/reference/cli/influx/v1/shell/)
+Use the [`influx v1 shell` command](/influxdb/version/reference/cli/influx/v1/shell/)
 to start an InfluxQL shell session.
 
 ```sh
@@ -37,10 +37,10 @@ influx v1 shell
 
 The `influx v1 shell` command requires the following to connect to InfluxDB:
 
-{{% show-in "v2" %}}- [InfluxDB host](/influxdb/v2/reference/urls/){{% /show-in %}}
+{{% show-in "v2" %}}- [InfluxDB host](/influxdb/version/reference/urls/){{% /show-in %}}
   {{% show-in "cloud,cloud-serverless" %}}[InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /show-in %}}
-- [Organization name or ID](/influxdb/v2/admin/organizations/view-orgs/)
-- [API token](/influxdb/v2/admin/tokens/)
+- [Organization name or ID](/influxdb/version/admin/organizations/view-orgs/)
+- [API token](/influxdb/version/admin/tokens/)
 
 Use one of the following methods to provide these credentials to the `influx v1 shell` command:
 
@@ -76,7 +76,7 @@ Use CLI configs to provide required credentials to the `influx v1 shell` command
 
 All `influx` commands use credentials provided by the active CLI config.
 For more information about managing CLI configs, see the
-[`influx config` documentation](/influxdb/v2/reference/cli/influx/config/).
+[`influx config` documentation](/influxdb/version/reference/cli/influx/config/).
 
 <!------------------------------- END CLI config ------------------------------>
 {{% /tab-content %}}
@@ -121,7 +121,7 @@ influx v1 shell
 
 Within the InfluxQL shell, execute any InfluxQL query supported by InfluxDB {{< current-version >}}.
 For information about what queries are supported see
-[InfluxQL support in InfluxDB {{< current-version >}}](/influxdb/v2/query-data/influxql/#influxql-support).
+[InfluxQL support in InfluxDB {{< current-version >}}](/influxdb/version/query-data/influxql/#influxql-support).
 
 View the [InfluxQL documentation (1.11)](/influxdb/v1/query_language/)
 for in-depth documentation about the query language.

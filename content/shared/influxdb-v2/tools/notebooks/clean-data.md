@@ -4,7 +4,7 @@ Data normalization is the process of modifying or cleaning data to make it easie
 work with. Examples include adjusting numeric values to a uniform scale and modifying strings.
 
 Walk through the following example to create a notebook that queries
-[NOAA NDBC sample data](/influxdb/v2/reference/sample-data/#noaa-ndbc-data),
+[NOAA NDBC sample data](/influxdb/version/reference/sample-data/#noaa-ndbc-data),
 normalizes degree-based wind directions to cardinal directions, and then writes
 the normalized data to a bucket.
 
@@ -13,7 +13,7 @@ the normalized data to a bucket.
 > **Note**: Using sample data counts towards your total InfluxDB Cloud usage.
 {{< /show-in >}}
 
-1.  [Create a new notebook](/influxdb/v2/tools/notebooks/create-notebook/).
+1.  [Create a new notebook](/influxdb/version/tools/notebooks/create-notebook/).
 2.  In the **Build a Query** cell:
 
     1.  In the **FROM** column under **{{% caps %}}Sample{{% /caps %}}**,
@@ -39,7 +39,7 @@ the normalized data to a bucket.
     4.  Use [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/)
         to write the normalized data back to InfluxDB.
         Specify an existing bucket to write to or
-        [create a new bucket](/influxdb/v2/admin/buckets/create-bucket/).
+        [create a new bucket](/influxdb/version/admin/buckets/create-bucket/).
 
         ```js
         import "array"

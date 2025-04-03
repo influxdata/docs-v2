@@ -1,5 +1,5 @@
 
-Use the [`influx query` command](/influxdb/v2/reference/cli/influx/query) to query data in InfluxDB using Flux.
+Use the [`influx query` command](/influxdb/version/reference/cli/influx/query) to query data in InfluxDB using Flux.
 Pass Flux queries to the command as either a file or via stdin.
 
 ###### Run a query from a file

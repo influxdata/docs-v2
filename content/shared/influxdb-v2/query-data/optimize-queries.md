@@ -78,7 +78,7 @@ to the underlying data source, so data returned by the
 previous function loads into memory.
 This often results in a significant performance hit.
 
-For example, the following query uses [dashboard variables](/influxdb/v2/visualize-data/variables/)
+For example, the following query uses [dashboard variables](/influxdb/version/visualize-data/variables/)
 and string concatenation to define a region to filter by.
 Because `filter()` uses string concatenation inline, it can't push its operation
 to the underlying data source and loads all data returned from `range()` into memory.
@@ -153,10 +153,10 @@ data
 ## Balance time range and data precision
 To ensure queries are performant, balance the time range and the precision of your data.
 For example, if you query data stored every second and request six months worth of data,
-results would include ≈15.5 million points per series.  Depending on the number of series returned after `filter()`([cardinality](/influxdb/v2/reference/glossary/#series-cardinality)), this can quickly become many billions of points.
+results would include ≈15.5 million points per series.  Depending on the number of series returned after `filter()`([cardinality](/influxdb/version/reference/glossary/#series-cardinality)), this can quickly become many billions of points.
 Flux must store these points in memory to generate a response. Use [pushdowns](#pushdown-functions-and-function-combinations) to optimize how many points are stored in memory.
 
-To query data over large periods of time, create a task to [downsample data](/influxdb/v2/process-data/common-tasks/downsample-data/), and then query the downsampled data instead.
+To query data over large periods of time, create a task to [downsample data](/influxdb/version/process-data/common-tasks/downsample-data/), and then query the downsampled data instead.
 
 ## Measure query performance with Flux profilers
 Use the [Flux Profiler package](/flux/v0/stdlib/profiler/)

@@ -5,7 +5,7 @@ Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influ
 * Bundled UMD 
 
 This guide presumes some familiarity with JavaScript, browser environments, and InfluxDB.
-If you're just getting started with InfluxDB, see [Get started with InfluxDB](/influxdb/v2/get-started/).
+If you're just getting started with InfluxDB, see [Get started with InfluxDB](/influxdb/version/get-started/).
 
 {{% warn %}}
 ### Tokens in production applications
@@ -22,12 +22,12 @@ If you're just getting started with InfluxDB, see [Get started with InfluxDB](/i
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/) to serve your front-end app.
 
 2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/v2/reference/urls/).
+   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/version/reference/urls/).
 
 ## Use with module bundlers
 
 If you use a module bundler like Webpack or Parcel, install `@influxdata/influxdb-client-browser`.
-For more information and examples, see [Node.js](/influxdb/v2/api-guide/client-libraries/nodejs/).  
+For more information and examples, see [Node.js](/influxdb/version/api-guide/client-libraries/nodejs/).  
 
 ## Use bundled distributions with browsers and module loaders 
 
@@ -72,7 +72,7 @@ For more information and examples, see [Node.js](/influxdb/v2/api-guide/client-l
    {{% /code-tab-content %}}
    {{< /code-tabs-wrapper >}}
 
-After you've imported the client library, you're ready to [write data](/influxdb/v2/api-guide/client-libraries/nodejs/write/?t=nodejs) to InfluxDB.
+After you've imported the client library, you're ready to [write data](/influxdb/version/api-guide/client-libraries/nodejs/write/?t=nodejs) to InfluxDB.
 
 ## Get started with the example app
 
@@ -85,7 +85,7 @@ This library includes an example browser app that queries from and writes to you
     cd examples
     ```
 
-3. Update `./env_browser.js` with your InfluxDB [url](/influxdb/v2/reference/urls/), [bucket](/influxdb/v2/admin/buckets/), [organization](/influxdb/v2/admin/organizations/), and [token](/influxdb/v2/admin/tokens/)
+3. Update `./env_browser.js` with your InfluxDB [url](/influxdb/version/reference/urls/), [bucket](/influxdb/version/admin/buckets/), [organization](/influxdb/version/admin/organizations/), and [token](/influxdb/version/admin/tokens/)
 
 4. Run the following command to start the application at [http://localhost:3001/examples/index.html]()
 

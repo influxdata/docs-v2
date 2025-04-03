@@ -1,10 +1,10 @@
 <!-- Shortcode -->
 
 {{% note %}}
-This example uses [NOAA water sample data](/influxdb/v2/reference/sample-data/#noaa-water-sample-data).
+This example uses [NOAA water sample data](/influxdb/version/reference/sample-data/#noaa-water-sample-data).
 {{% /note %}}
 
-This example compares the value from the latest point to an average value stored in another bucket. This is useful when using the average value to calculate a [threshold check](/influxdb/v2/monitor-alert/checks/create/#threshold-check).
+This example compares the value from the latest point to an average value stored in another bucket. This is useful when using the average value to calculate a [threshold check](/influxdb/version/monitor-alert/checks/create/#threshold-check).
 
 The following query:
 

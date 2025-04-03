@@ -32,7 +32,7 @@ influx task retry-failed [flags]
 
 {{% note %}}
 #### Required permissions
-Use an [{{% show-in "v2" %}}**Operator** or{{% /show-in %}} **All Access** token](/influxdb/v2/admin/tokens/) to retry failed tasks.
+Use an [{{% show-in "v2" %}}**Operator** or{{% /show-in %}} **All Access** token](/influxdb/version/admin/tokens/) to retry failed tasks.
 {{% /note %}}
 
 - [Retry failed task runs for a specific task ID](#retry-failed-task-runs-for-a-specific-task-id)

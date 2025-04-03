@@ -1,6 +1,6 @@
 
 If notifications are no longer sent to an endpoint, complete the steps below to
-delete the endpoint, and then [update notification rules](/influxdb/v2/monitor-alert/notification-rules/update)
+delete the endpoint, and then [update notification rules](/influxdb/version/monitor-alert/notification-rules/update)
 with a new notification endpoint as needed.
 
 ## Delete a notification endpoint

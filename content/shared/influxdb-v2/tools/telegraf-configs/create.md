@@ -3,7 +3,7 @@ Not all plugins are available through the InfluxDB UI, but you can
 [create and upload custom Telegraf configurations](#create-a-custom-telegraf-configuration)
 to include any of the available [Telegraf plugins](/telegraf/v1/plugins/).
 
-Use the InfluxDB user interface (UI) or the [`influx` CLI](/influxdb/v2/reference/cli/influx/)
+Use the InfluxDB user interface (UI) or the [`influx` CLI](/influxdb/version/reference/cli/influx/)
 to create a Telegraf configuration.
 
 To create a Telegraf configuration, do one of the following:
@@ -15,10 +15,10 @@ To create a Telegraf configuration, do one of the following:
 ## Use the InfluxDB UI
 Use the InfluxDB UI to automatically generate and store new Telegraf configurations in InfluxDB.
 Creating the configuration in the UI lets you select from a list of available technologies and generates a Telegraf configuration to collect metrics from those technologies.
-For more information, see [Automatically configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/auto-config/).
+For more information, see [Automatically configure Telegraf](/influxdb/version/write-data/no-code/use-telegraf/auto-config/).
 
 ## Use the influx CLI
-Use the [`influx telegrafs create` command](/influxdb/v2/reference/cli/influx/telegrafs/create/)
+Use the [`influx telegrafs create` command](/influxdb/version/reference/cli/influx/telegrafs/create/)
 to upload a Telegraf configuration file from your local machine and create a new Telegraf
 configuration in InfluxDB.
 
@@ -50,7 +50,7 @@ influx telegrafs create \
 ## Create a custom Telegraf configuration
 
 1. Create a custom Telegraf configuration file that includes the `outputs.influxdb_v2`
-   output plugin. _See [Manually configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/manual-config/)_
+   output plugin. _See [Manually configure Telegraf](/influxdb/version/write-data/no-code/use-telegraf/manual-config/)_
    for more information.
 2. Add and customize [Telegraf plugins](/telegraf/v1/plugins/) and save your changes.
 3. [Use the `influx telegrafs create` command](#use-the-influx-cli) to upload your

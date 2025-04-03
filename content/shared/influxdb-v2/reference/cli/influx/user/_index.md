@@ -10,11 +10,11 @@ influx user [command]
 ## Subcommands
 | Subcommand                                                    | Description              |
 |:----------                                                    |:-----------              |
-| [create](/influxdb/v2/reference/cli/influx/user/create)     | Create a user            |
-| [delete](/influxdb/v2/reference/cli/influx/user/delete)     | Delete a user            |
-| [list](/influxdb/v2/reference/cli/influx/user/list)         | List users               |
-| [password](/influxdb/v2/reference/cli/influx/user/password) | Update a user's password |
-| [update](/influxdb/v2/reference/cli/influx/user/update)     | Update a user            |
+| [create](/influxdb/version/reference/cli/influx/user/create)     | Create a user            |
+| [delete](/influxdb/version/reference/cli/influx/user/delete)     | Delete a user            |
+| [list](/influxdb/version/reference/cli/influx/user/list)         | List users               |
+| [password](/influxdb/version/reference/cli/influx/user/password) | Update a user's password |
+| [update](/influxdb/version/reference/cli/influx/user/update)     | Update a user            |
 
 ## Flags
 | Flag |          | Description                 |

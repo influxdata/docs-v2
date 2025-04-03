@@ -50,7 +50,7 @@ To view **Mosaic** controls, click **{{< icon "gear" >}} Customize** next to the
 - **Colorize Rows**: Select to display legend rows in colors.
 
 ## Example query
-The following query uses the [NOAA water sample data](/influxdb/v2/reference/sample-data/#noaa-water-sample-data)
+The following query uses the [NOAA water sample data](/influxdb/version/reference/sample-data/#noaa-water-sample-data)
 to display changes in water levels over time.
 Use `level description` as the **Fill Column** in the [visualization controls](#data).
 

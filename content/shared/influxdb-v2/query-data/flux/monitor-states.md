@@ -8,7 +8,7 @@ Flux helps you monitor states in your metrics and events:
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/flux/v0/get-started/) for a conceptual overview of Flux.
-- [Execute queries](/influxdb/v2/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/version/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Find how long a state persists
 
@@ -122,13 +122,13 @@ from(bucket: "servers")
 
 <!--## Detect state changes
 
-Detect state changes with the `monitor.stateChanges()` function. To use the `monitor.stateChanges()` function, set up a **check** to query data (stored in the `_monitoring` bucket > `statuses` measurement > `_level` column; see [Monitor data and send alerts](/influxdb/v2/monitor-alert/) for more detail.
+Detect state changes with the `monitor.stateChanges()` function. To use the `monitor.stateChanges()` function, set up a **check** to query data (stored in the `_monitoring` bucket > `statuses` measurement > `_level` column; see [Monitor data and send alerts](/influxdb/version/monitor-alert/) for more detail.
 
 1. In the InfluxDB user interface, click the **Monitoring and Alerting** icon from the sidebar.
 
     {{< nav-icon "alerts" >}}
 
-2. If you haven't already, [create a check](/influxdb/v2/monitor-alert/checks/create/) that stores statuses (`CRIT`, `WARN`, `INFO`, `OK` or `ANY`) in the `_level` column. <!-- specify how to do this with monitor.check() function or in UI, with check threshold or deadman?
+2. If you haven't already, [create a check](/influxdb/version/monitor-alert/checks/create/) that stores statuses (`CRIT`, `WARN`, `INFO`, `OK` or `ANY`) in the `_level` column. <!-- specify how to do this with monitor.check() function or in UI, with check threshold or deadman?
 3. Import the InfluxDB `monitor` package.
 4. In your query, the specify the check. <!--can users specify a Flux query with the `monitoring` bucket and _level field without specifying the check? does importing the monitor package create the `monitoring` bucket?
 5. Use the `monitor.stateChanges()` function and include the following information:

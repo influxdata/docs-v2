@@ -1,5 +1,5 @@
 
-Use [Telegraf](/telegraf/v1/){{% show-in "v2" %}}, [InfluxDB scrapers](/influxdb/v2/write-data/no-code/scrape-data/),{{% /show-in %}}
+Use [Telegraf](/telegraf/v1/){{% show-in "v2" %}}, [InfluxDB scrapers](/influxdb/version/write-data/no-code/scrape-data/),{{% /show-in %}}
 or the [`prometheus.scrape` Flux function](/flux/v0/stdlib/experimental/prometheus/scrape/)
 to scrape Prometheus-formatted metrics from an HTTP-accessible endpoint and store them in InfluxDB.
 
@@ -24,7 +24,7 @@ endpoint and write them to InfluxDB{{% show-in "cloud,cloud-serverless" %}} Clou
 1. Add the [Prometheus input plugin](/telegraf/v1/plugins/#input-prometheus) to your Telegraf configuration file.
     1. Set the `urls` to scrape metrics from.
     2. Set the `metric_version` configuration option to specify which
-      [metric parsing version](/influxdb/v2/reference/prometheus-metrics/) to use
+      [metric parsing version](/influxdb/version/reference/prometheus-metrics/) to use
       _(version `2` is recommended)_.
 2. Add the [InfluxDB v2 output plugin](/telegraf/v1/plugins/#output-influxdb_v2)
    to your Telegraf configuration file and configure it to write to
@@ -55,7 +55,7 @@ endpoint and write them to InfluxDB{{% show-in "cloud,cloud-serverless" %}} Clou
 InfluxDB scrapers automatically scrape Prometheus-formatted metrics from an 
 HTTP-accessible endpoint at a regular interval.
 For information about setting up an InfluxDB scraper, see
-[Scrape data using InfluxDB scrapers](/influxdb/v2/write-data/no-code/scrape-data/).
+[Scrape data using InfluxDB scrapers](/influxdb/version/write-data/no-code/scrape-data/).
 
 {{% /show-in %}}
 
@@ -78,7 +78,7 @@ prometheus.scrape(url: "http://example.com/metrics")
 ```
 
 4. (Optional) To scrape Prometheus metrics at regular intervals using Flux, add your Flux
-scraping script as an [InfluxDB task](/influxdb/v2/process-data/).
+scraping script as an [InfluxDB task](/influxdb/version/process-data/).
 
 _For information about scraping Prometheus-formatted metrics with `prometheus.scrape()`,
 see [Scrape Prometheus metrics with Flux](/flux/v0/prometheus/scrape-prometheus/)._

@@ -9,12 +9,12 @@ influx scripts [command]
 ### Subcommands
 | Subcommand                                                       | Description     |
 |:----------                                                       |:-----------     |
-| [create](/influxdb/v2/reference/cli/influx/scripts/create)     | Create script   |
-| [delete](/influxdb/v2/reference/cli/influx/scripts/delete)     | Delete script   |
-| [invoke](/influxdb/v2/reference/cli/influx/scripts/invoke)     | Invoke script   |
-| [list](/influxdb/v2/reference/cli/influx/scripts/list)         | List scripts    |
-| [retrieve](/influxdb/v2/reference/cli/influx/scripts/retrieve) | Retrieve script |
-| [update](/influxdb/v2/reference/cli/influx/scripts/update)     | Update script   |
+| [create](/influxdb/version/reference/cli/influx/scripts/create)     | Create script   |
+| [delete](/influxdb/version/reference/cli/influx/scripts/delete)     | Delete script   |
+| [invoke](/influxdb/version/reference/cli/influx/scripts/invoke)     | Invoke script   |
+| [list](/influxdb/version/reference/cli/influx/scripts/list)         | List scripts    |
+| [retrieve](/influxdb/version/reference/cli/influx/scripts/retrieve) | Retrieve script |
+| [update](/influxdb/version/reference/cli/influx/scripts/update)     | Update script   |
 
 ### Flags
 | Flag |          | Description                    |

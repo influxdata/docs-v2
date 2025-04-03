@@ -42,7 +42,7 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
    - Enter a specific client library to search for in the **Search data writing methods** field.
    - Scroll down to browse available client libraries.
 3. Click the client library to load data from.
-4. Under **Code Sample Options**, you'll see a list of your InfluxDB [tokens](/influxdb/v2/reference/glossary/#token) and [buckets](/influxdb/v2/reference/glossary/#bucket). Select both an API token and a bucket to write your data to. The selected API token and bucket are automatically added to scripts on the page that you can use to initialize a client and write data.
+4. Under **Code Sample Options**, you'll see a list of your InfluxDB [tokens](/influxdb/version/reference/glossary/#token) and [buckets](/influxdb/version/reference/glossary/#bucket). Select both an API token and a bucket to write your data to. The selected API token and bucket are automatically added to scripts on the page that you can use to initialize a client and write data.
 5. Click the **Copy to Clipboard** buttons under a script to easily paste the script into your terminal or save the script to reuse for automation.
 6. Run the scripts on the page to do the following as needed:
    - Install the package, libraries, or client

@@ -9,7 +9,7 @@ The JavaScript client library includes the following convenient features for wri
 
 ### Before you begin
 
-- [Install the client library and other dependencies](/influxdb/v2/api-guide/client-libraries/nodejs/install/).
+- [Install the client library and other dependencies](/influxdb/version/api-guide/client-libraries/nodejs/install/).
 ### Write data with the client library
 
 1. Instantiate an `InfluxDB` client. Provide your InfluxDB URL and API token.
@@ -33,15 +33,15 @@ The JavaScript client library includes the following convenient features for wri
    - *`YOUR_ORG`*: InfluxDB organization ID
    - *`YOUR_BUCKET`*: InfluxDB bucket name
 
-3. To apply one or more [tags](/influxdb/v2/reference/glossary/#tag) to all points, use the `useDefaultTags()` method.
+3. To apply one or more [tags](/influxdb/version/reference/glossary/#tag) to all points, use the `useDefaultTags()` method.
    Provide tags as an object of key/value pairs.
 
     ```js
     writeApi.useDefaultTags({region: 'west'})
     ```
 
-4. Use the `Point()` constructor to create a [point](/influxdb/v2/reference/glossary/#point).
-   1. Call the constructor and provide a [measurement](/influxdb/v2/reference/glossary/#measurement).
+4. Use the `Point()` constructor to create a [point](/influxdb/version/reference/glossary/#point).
+   1. Call the constructor and provide a [measurement](/influxdb/version/reference/glossary/#measurement).
    2. To add one or more tags, chain the `tag()` method to the constructor.
       Provide a `name` and `value`.
    3. To add a field of type `float`, chain the `floatField()` method to the constructor.

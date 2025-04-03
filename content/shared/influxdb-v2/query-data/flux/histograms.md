@@ -5,7 +5,7 @@ This guide walks through using Flux's `histogram()` function to transform your d
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/flux/v0/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/version/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## histogram() function
 
@@ -51,12 +51,12 @@ logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinity: true)
 ```
 
 ## Histogram visualization
-The [Histogram visualization type](/influxdb/v2/visualize-data/visualization-types/histogram/)
+The [Histogram visualization type](/influxdb/version/visualize-data/visualization-types/histogram/)
 automatically converts query results into a binned and segmented histogram.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-histogram-example.png" alt="Histogram visualization" />}}
 
-Use the [Histogram visualization controls](/influxdb/v2/visualize-data/visualization-types/histogram/#histogram-controls)
+Use the [Histogram visualization controls](/influxdb/version/visualize-data/visualization-types/histogram/#histogram-controls)
 to specify the number of bins and define groups in bins.
 
 ### Histogram visualization data structure
