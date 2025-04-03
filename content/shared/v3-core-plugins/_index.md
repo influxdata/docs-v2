@@ -654,6 +654,7 @@ docker exec -it CONTAINER_NAME influxdb3 install package pandas
 
 This creates a Python virtual environment in your plugins directory with the specified packages installed.
 
+{{% show-in "enterprise" %}}
 ### Connect Grafana to your InfluxDB instance
 
 When configuring Grafana to connect to an InfluxDB 3 Enterprise instance:
@@ -661,3 +662,4 @@ When configuring Grafana to connect to an InfluxDB 3 Enterprise instance:
 - **URL**: Use a querier URL or any node that serves queries
 
 Example URL format: `https://querier.your-influxdb.com:8086`
+{{% /show-in %}}
