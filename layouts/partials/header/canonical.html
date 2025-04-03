@@ -9,8 +9,8 @@
   {{ $scratch.Set "canonicalURL" (print $baseURL .Page.Params.canonical) }}
 
 <!--
-Set canonical URL using pages with the same shared source. This prioritizes
-InfluxDB versions in the following order:
+Set canonical URL from pages with the same shared source. Select one page from
+those that share the same source using the following product priority order:
 
 1. enterprise
 2. core
