@@ -30,3 +30,19 @@ Triggers connect database events to your Python code:
 - **Data write triggers**: Execute when data is written to specific tables
 - **Scheduled triggers**: Run at intervals or according to cron expressions
 - **HTTP triggers**: Respond to HTTP requests to custom endpoints
+
+### Plugin registry
+
+The registry manages all Python code available to the Processing engine:
+
+- Indexes plugins by filename and location
+- Tracks which plugins are used by which triggers
+- Manages plugin versioning and dependencies
+
+### Memory management
+
+The Processing engine implements specialized memory handling:
+
+- **Execution isolation**: Each plugin runs in its own context
+- **Cache system**: Maintains state between executions
+- **Resource limits**: Controls memory usage and execution time
