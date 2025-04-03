@@ -12,10 +12,10 @@ and stores it in a local file:
 | Docker (Quay.io)             | `/root/.influxdbv2/configs`         |
 | Kubernetes                   | `/etc/influxdb2/configs`            |
 
-To view CLI connection configurations after creating them, use [influx config list](/influxdb/v2/reference/cli/influx/config/list/).
+To view CLI connection configurations after creating them, use [influx config list](/influxdb/version/reference/cli/influx/config/list/).
 
 {{% note %}}
-**Note:** If you create multiple connection configurations (for example, separate admin and user configurations), use [`influx config <config-name>`](/influxdb/v2/reference/cli/influx/config/) to switch to the configuration you want to use.
+**Note:** If you create multiple connection configurations (for example, separate admin and user configurations), use [`influx config <config-name>`](/influxdb/version/reference/cli/influx/config/) to switch to the configuration you want to use.
 {{% /note %}}
 
 ## Usage
@@ -69,7 +69,7 @@ The **`influx` CLI 2&period;4.0+** lets you create connection configurations
 that authenticate with **InfluxDB OSS 2&period;4+** using the username and
 password combination that you would use to log into the InfluxDB user interface (UI).
 The CLI retrieves a session cookie and stores it, unencrypted, in your
-[configs path](/influxdb/v2/reference/internals/file-system-layout/#configs-path).
+[configs path](/influxdb/version/reference/internals/file-system-layout/#configs-path).
 
 Use the `--username-password`, `-p` option to provide your username and password
 using the `<username>:<password>` syntax.

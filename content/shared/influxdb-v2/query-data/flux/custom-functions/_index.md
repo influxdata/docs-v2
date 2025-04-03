@@ -122,7 +122,7 @@ from(bucket: "example-bucket")
 
 ## Define functions with scoped variables
 To create custom functions with variables scoped to the function, place your
-function operations and variables inside of a [block (`{}`)](/influxdb/v2/reference/flux/language/blocks/)
+function operations and variables inside of a [block (`{}`)](/influxdb/version/reference/flux/language/blocks/)
 and use a `return` statement to return a specific variable.
 
 ```js

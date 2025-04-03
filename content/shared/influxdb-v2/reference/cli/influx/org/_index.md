@@ -13,11 +13,11 @@ influx org [command]
 ## Subcommands
 | Subcommand                                                 | Description                      |
 |:----------                                                 |:-----------                      |
-| [create](/influxdb/v2/reference/cli/influx/org/create)   | Create an organization           |
-| [delete](/influxdb/v2/reference/cli/influx/org/delete)   | Delete an organization           |
-| [list](/influxdb/v2/reference/cli/influx/org/list)       | List organizations               |
-| [members](/influxdb/v2/reference/cli/influx/org/members) | Organization membership commands |
-| [update](/influxdb/v2/reference/cli/influx/org/update)   | Update an organization           |
+| [create](/influxdb/version/reference/cli/influx/org/create)   | Create an organization           |
+| [delete](/influxdb/version/reference/cli/influx/org/delete)   | Delete an organization           |
+| [list](/influxdb/version/reference/cli/influx/org/list)       | List organizations               |
+| [members](/influxdb/version/reference/cli/influx/org/members) | Organization membership commands |
+| [update](/influxdb/version/reference/cli/influx/org/update)   | Update an organization           |
 
 ## Flags
 | Flag |          | Description                |

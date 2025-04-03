@@ -6,7 +6,7 @@ Use the following common queries to operate on columns:
 - [Calculate a new column](#calculate-a-new-column)
 
 {{% note %}}
-These examples use [NOAA water sample data](/influxdb/v2/reference/sample-data/#noaa-water-sample-data).
+These examples use [NOAA water sample data](/influxdb/version/reference/sample-data/#noaa-water-sample-data).
 {{% /note %}}
 
 ## Find and count unique values in a column

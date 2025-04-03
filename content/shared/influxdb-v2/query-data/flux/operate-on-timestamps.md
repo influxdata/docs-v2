@@ -12,7 +12,7 @@ Use Flux to process and operate on timestamps to suit your needs.
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/flux/v0/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/version/query-data/execute-queries/) to discover a variety of ways to run your queries.
 {{% /note %}}
 
 
@@ -23,8 +23,8 @@ If you're just getting started with Flux queries, check out the following:
 
 ### Unix nanosecond to RFC3339
 Use the [`time()` function](/flux/v0/stdlib/universe/time/)
-to convert a [Unix **nanosecond** timestamp](/influxdb/v2/reference/glossary/#unix-timestamp)
-to an [RFC3339 timestamp](/influxdb/v2/reference/glossary/#rfc3339-timestamp).
+to convert a [Unix **nanosecond** timestamp](/influxdb/version/reference/glossary/#unix-timestamp)
+to an [RFC3339 timestamp](/influxdb/version/reference/glossary/#rfc3339-timestamp).
 
 ```js
 time(v: 1568808000000000000)

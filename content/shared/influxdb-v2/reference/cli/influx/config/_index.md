@@ -39,10 +39,10 @@ influx config local-config
 ## Subcommands
 | Subcommand                                                   | Description                              |
 |:----                                                         |:-----------                              |
-| [create](/influxdb/v2/reference/cli/influx/config/create/) | Create a connection configuration        |
-| [list](/influxdb/v2/reference/cli/influx/config/list/)     | List connection configurations           |
-| [delete](/influxdb/v2/reference/cli/influx/config/rm/)     | Delete a connection configuration        |
-| [set](/influxdb/v2/reference/cli/influx/config/set/)       | Set or update a connection configuration |
+| [create](/influxdb/version/reference/cli/influx/config/create/) | Create a connection configuration        |
+| [list](/influxdb/version/reference/cli/influx/config/list/)     | List connection configurations           |
+| [delete](/influxdb/version/reference/cli/influx/config/rm/)     | Delete a connection configuration        |
+| [set](/influxdb/version/reference/cli/influx/config/set/)       | Set or update a connection configuration |
 
 ## Flags
 | Flag |          | Description                   |

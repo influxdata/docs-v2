@@ -1,5 +1,5 @@
 
-If reads and writes to InfluxDB have started to slow down, high [series cardinality](/influxdb/v2/reference/glossary/#series-cardinality) (too many series) may be causing memory issues. {{% show-in "cloud,cloud-serverless" %}}Cardinality can also cause writes to fail if it exceeds your [plan’s adjustable service quota](/influxdb/cloud/account-management/limits/).{{% /show-in %}}
+If reads and writes to InfluxDB have started to slow down, high [series cardinality](/influxdb/version/reference/glossary/#series-cardinality) (too many series) may be causing memory issues. {{% show-in "cloud,cloud-serverless" %}}Cardinality can also cause writes to fail if it exceeds your [plan’s adjustable service quota](/influxdb/cloud/account-management/limits/).{{% /show-in %}}
 
 Take steps to understand and resolve high series cardinality.
 
@@ -12,29 +12,29 @@ Take steps to understand and resolve high series cardinality.
 {{% show-in "v2" %}}
 
   InfluxDB indexes the following data elements to speed up reads:
-  - [measurement](/influxdb/v2/reference/glossary/#measurement)
-  - [tags](/influxdb/v2/reference/glossary/#tag)
+  - [measurement](/influxdb/version/reference/glossary/#measurement)
+  - [tags](/influxdb/version/reference/glossary/#tag)
 
 {{% /show-in %}}
 {{% show-in "cloud,cloud-serverless" %}}
 
   InfluxDB indexes the following data elements to speed up reads:
-  - [measurement](/influxdb/v2/reference/glossary/#measurement)
-  - [tags](/influxdb/v2/reference/glossary/#tag)
+  - [measurement](/influxdb/version/reference/glossary/#measurement)
+  - [tags](/influxdb/version/reference/glossary/#tag)
   - [field keys](/influxdb/cloud/reference/glossary/#field-key)
 
 {{% /show-in %}}
 
-Each unique set of indexed data elements forms a [series key](/influxdb/v2/reference/glossary/#series-key).
-[Tags](/influxdb/v2/reference/glossary/#tag) containing highly variable information like unique IDs, hashes, and random strings lead to a large number of [series](/influxdb/v2/reference/glossary/#series), also known as high [series cardinality](/influxdb/v2/reference/glossary/#series-cardinality).
+Each unique set of indexed data elements forms a [series key](/influxdb/version/reference/glossary/#series-key).
+[Tags](/influxdb/version/reference/glossary/#tag) containing highly variable information like unique IDs, hashes, and random strings lead to a large number of [series](/influxdb/version/reference/glossary/#series), also known as high [series cardinality](/influxdb/version/reference/glossary/#series-cardinality).
 High series cardinality is a primary driver of high memory usage for many database workloads.
 
 ## Measure series cardinality
 
 Use the following to measure series cardinality of your buckets:
-- [`influxdb.cardinality()`](/flux/v0/stdlib/influxdata/influxdb/cardinality): Flux function that returns the number of unique [series keys](/influxdb/v2/reference/glossary/#series) in your data.
+- [`influxdb.cardinality()`](/flux/v0/stdlib/influxdata/influxdb/cardinality): Flux function that returns the number of unique [series keys](/influxdb/version/reference/glossary/#series) in your data.
 
-- [`SHOW SERIES CARDINALITY`](/influxdb/v1/query_language/spec/#show-series-cardinality): InfluxQL command that returns the number of unique [series keys](/influxdb/v2/reference/glossary/#series) in your data.
+- [`SHOW SERIES CARDINALITY`](/influxdb/v1/query_language/spec/#show-series-cardinality): InfluxQL command that returns the number of unique [series keys](/influxdb/version/reference/glossary/#series) in your data.
 
 ## Resolve high cardinality
 
@@ -115,9 +115,9 @@ These queries should help identify the sources of high cardinality in each of yo
 ## Improve your schema
 
 To minimize cardinality in the future, design your schema for easy and performant querying.
-Review [best practices for schema design](/influxdb/v2/write-data/best-practices/schema-design/).
+Review [best practices for schema design](/influxdb/version/write-data/best-practices/schema-design/).
 
 ## Delete data to reduce high cardinality
 
 Consider whether you need the data that is causing high cardinality.
-If you no longer need this data, you can [delete the whole bucket](/influxdb/v2/admin/buckets/delete-bucket/) or [delete a range of data](/influxdb/v2/write-data/delete-data/).
+If you no longer need this data, you can [delete the whole bucket](/influxdb/version/admin/buckets/delete-bucket/) or [delete a range of data](/influxdb/version/write-data/delete-data/).

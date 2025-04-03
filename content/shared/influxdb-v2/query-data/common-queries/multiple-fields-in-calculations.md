@@ -47,7 +47,7 @@ to align multiple fields by time.
 {{% note %}}
 To correctly pivot on `_time`, points for each field must have identical timestamps.
 If timestamps are irregular or do not align perfectly, see
-[Normalize irregular timestamps](/influxdb/v2/query-data/flux/manipulate-timestamps/#normalize-irregular-timestamps).
+[Normalize irregular timestamps](/influxdb/version/query-data/flux/manipulate-timestamps/#normalize-irregular-timestamps).
 {{% /note %}}
 
 ```js

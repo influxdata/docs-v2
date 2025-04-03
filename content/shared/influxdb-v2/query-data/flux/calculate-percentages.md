@@ -8,7 +8,7 @@ Use `map()` to re-map values in the row and calculate a percentage.
 1. Use [`from()`](/flux/v0/stdlib/influxdata/influxdb/from/),
    [`range()`](/flux/v0/stdlib/universe/range/) and
    [`filter()`](/flux/v0/stdlib/universe/filter/) to query operands.
-2. Use [`pivot()` or `join()`](/influxdb/v2/query-data/flux/mathematic-operations/#pivot-vs-join)
+2. Use [`pivot()` or `join()`](/influxdb/version/query-data/flux/mathematic-operations/#pivot-vs-join)
    to align operand values into rows.
 3. Use [`map()`](/flux/v0/stdlib/universe/map/)
    to divide the numerator operand value by the denominator operand value and multiply by 100.
@@ -16,7 +16,7 @@ Use `map()` to re-map values in the row and calculate a percentage.
 {{% note %}}
 The following examples use `pivot()` to align operands into rows because
 `pivot()` works in most cases and is more performant than `join()`.
-_See [Pivot vs join](/influxdb/v2/query-data/flux/mathematic-operations/#pivot-vs-join)._
+_See [Pivot vs join](/influxdb/version/query-data/flux/mathematic-operations/#pivot-vs-join)._
 {{% /note %}}
 
 ```js
@@ -151,7 +151,7 @@ from(bucket: "example-bucket")
 
 #### Calculate percentages using multiple measurements
 
-1. Ensure measurements are in the same [bucket](/influxdb/v2/reference/glossary/#bucket).
+1. Ensure measurements are in the same [bucket](/influxdb/version/reference/glossary/#bucket).
 2. Use `filter()` to include data from both measurements.
 3. Use `group()` to ungroup data and return a single table.
 4. Use `pivot()` to pivot fields into columns.

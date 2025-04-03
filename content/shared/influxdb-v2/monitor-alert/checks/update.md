@@ -18,7 +18,7 @@ To update checks, select **Alerts > Alerts** in the navigation menu on the left.
 2. To edit the check query, click **{{< caps >}}1. Define Query{{< /caps >}}** at the top of the check builder window.
 3. To edit the check logic, click **{{< caps >}}2. Configure Check{{< /caps >}}** at the top of the check builder window.
 
-_For details about using the check builder, see [Create checks](/influxdb/v2/monitor-alert/checks/create/)._
+_For details about using the check builder, see [Create checks](/influxdb/version/monitor-alert/checks/create/)._
 
 ## Enable or disable a check
 Click the {{< icon "toggle" >}} toggle next to a check to enable or disable it.

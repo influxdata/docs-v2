@@ -1,5 +1,5 @@
 
-The [Flux](/influxdb/v2/reference/flux) `sql` package provides functions for working with SQL data sources.
+The [Flux](/influxdb/version/reference/flux) `sql` package provides functions for working with SQL data sources.
 [`sql.from()`](/flux/v0/stdlib/sql/from/) lets you query SQL data sources
 like [PostgreSQL](https://www.postgresql.org/), [MySQL](https://www.mysql.com/),
 [Snowflake](https://www.snowflake.com/), [SQLite](https://www.sqlite.org/index.html),
@@ -16,7 +16,7 @@ and use the results with InfluxDB dashboards, tasks, and other operations.
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/flux/v0/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/version/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Query a SQL data source
 To query a SQL data source:
@@ -164,7 +164,7 @@ join(tables: {metric: sensorMetrics, info: sensorInfo}, on: ["sensor_id"])
 ```
 
 ## Use SQL results to populate dashboard variables
-Use `sql.from()` to [create dashboard variables](/influxdb/v2/visualize-data/variables/create-variable/)
+Use `sql.from()` to [create dashboard variables](/influxdb/version/visualize-data/variables/create-variable/)
 from SQL query results.
 The following example uses the [air sensor sample data](#sample-sensor-data) below to
 create a variable that lets you select the location of a sensor.
@@ -188,13 +188,13 @@ Use the variable to manipulate queries in your dashboards.
 ---
 
 ## Use secrets to store SQL database credentials
-If your SQL database requires authentication, use [InfluxDB secrets](/influxdb/v2/admin/secrets/)
+If your SQL database requires authentication, use [InfluxDB secrets](/influxdb/version/admin/secrets/)
 to store and populate connection credentials.
 By default, InfluxDB base64-encodes and stores secrets in its internal key-value store, BoltDB.
-For added security, [store secrets in Vault](/influxdb/v2/admin/secrets/use-vault/).
+For added security, [store secrets in Vault](/influxdb/version/admin/secrets/use-vault/).
 
 ### Store your database credentials as secrets
-Use the [InfluxDB API](/influxdb/v2/reference/api/) or the [`influx` CLI](/influxdb/v2/reference/cli/influx/secret/)
+Use the [InfluxDB API](/influxdb/version/reference/api/) or the [`influx` CLI](/influxdb/version/reference/cli/influx/secret/)
 to store your database credentials as secrets.
 
 {{< tabs-wrapper >}}
@@ -216,8 +216,8 @@ curl --request PATCH http://localhost:8086/api/v2/orgs/<org-id>/secrets \
 
 **To store secrets, you need:**
 
-- [your organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)  
-- [your API token](/influxdb/v2/admin/tokens/view-tokens/)
+- [your organization ID](/influxdb/version/admin/organizations/view-orgs/#view-your-organization-id)  
+- [your API token](/influxdb/version/admin/tokens/view-tokens/)
 {{% /tab-content %}}
 {{% tab-content %}}
 ```sh
@@ -286,8 +286,8 @@ Sample sensor information is stored in PostgreSQL.
 
 #### Download sample air sensor data
 
-1.  [Create a bucket](/influxdb/v2/admin/buckets/create-bucket/) to store the data.
-2.  [Create an InfluxDB task](/influxdb/v2/process-data/manage-tasks/create-task/)
+1.  [Create a bucket](/influxdb/version/admin/buckets/create-bucket/) to store the data.
+2.  [Create an InfluxDB task](/influxdb/version/process-data/manage-tasks/create-task/)
     and use the [`sample.data()` function](/flux/v0/stdlib/influxdata/influxdb/sample/data/)
     to download sample air sensor data every 15 minutes.
     Write the downloaded sample data to your new bucket:
@@ -301,7 +301,7 @@ Sample sensor information is stored in PostgreSQL.
         |> to(org: "example-org", bucket: "example-bucket")
     ```
 
-3.  [Query your target bucket](/influxdb/v2/query-data/execute-queries/) after
+3.  [Query your target bucket](/influxdb/version/query-data/execute-queries/) after
     the first task run to ensure the sample data is writing successfully.
 
     ```js
@@ -346,4 +346,4 @@ Download and import the Air Sensors dashboard to visualize the generated data:
 
 <a class="btn github" href="https://raw.githubusercontent.com/influxdata/influxdb2-sample-data/master/air-sensor-data/air-sensors-dashboard.json" target="_blank">View Air Sensors dashboard JSON</a>
 
-_For information about importing a dashboard, see [Create a dashboard](/influxdb/v2/visualize-data/dashboards/create-dashboard)._
+_For information about importing a dashboard, see [Create a dashboard](/influxdb/version/visualize-data/dashboards/create-dashboard)._

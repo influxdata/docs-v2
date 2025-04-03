@@ -19,9 +19,9 @@ Find Influx Query Language (InfluxQL) definitions and details, including:
 
 To learn more about InfluxQL, browse the following topics:
 
-- [Explore your data with InfluxQL](/influxdb/v2/query-data/influxql/explore-data/)
-- [Explore your schema with InfluxQL](/influxdb/v2/query-data/influxql/explore-schema/)
-- [Query engine internals](/influxdb/v2/reference/syntax/influxql/internals/)
+- [Explore your data with InfluxQL](/influxdb/version/query-data/influxql/explore-data/)
+- [Explore your schema with InfluxQL](/influxdb/version/query-data/influxql/explore-schema/)
+- [Query engine internals](/influxdb/version/reference/syntax/influxql/internals/)
 
 ## Notation
 
@@ -73,7 +73,7 @@ digit               = "0" … "9" .
 
 ### Identifiers
 
-Identifiers are tokens which refer to [database](/influxdb/v2/reference/glossary/#database) names, [retention policy](/influxdb/v2/reference/glossary/#retention-policy-rp) names, [user](/influxdb/v2/reference/glossary/#user) names, [measurement](/influxdb/v2/reference/glossary/#measurement) names, [tag keys](/influxdb/v2/reference/glossary/#tag-key), and [field keys](/influxdb/v2/reference/glossary/#field-key).
+Identifiers are tokens which refer to [database](/influxdb/version/reference/glossary/#database) names, [retention policy](/influxdb/version/reference/glossary/#retention-policy-rp) names, [user](/influxdb/version/reference/glossary/#user) names, [measurement](/influxdb/version/reference/glossary/#measurement) names, [tag keys](/influxdb/version/reference/glossary/#tag-key), and [field keys](/influxdb/version/reference/glossary/#field-key).
 
 The rules:
 
@@ -118,21 +118,21 @@ WRITE
 ```
 
 If you use an InfluxQL keywords as an
-[identifier](/influxdb/v2/reference/glossary/#identifier) you will need to
+[identifier](/influxdb/version/reference/glossary/#identifier) you will need to
 double quote that identifier in every query.
 
 The keyword `time` is a special case.
 `time` can be a
 database name,
-[measurement](/influxdb/v2/reference/glossary/#measurement) name,
-[retention policy](/influxdb/v2/reference/glossary/#retention-policy-rp) name,
-[subscription](/influxdb/v2/reference/glossary/#subscription) name, and
-[user](/influxdb/v2/reference/glossary/#user) name.
+[measurement](/influxdb/version/reference/glossary/#measurement) name,
+[retention policy](/influxdb/version/reference/glossary/#retention-policy-rp) name,
+[subscription](/influxdb/version/reference/glossary/#subscription) name, and
+[user](/influxdb/version/reference/glossary/#user) name.
 In those cases, `time` does not require double quotes in queries.
-`time` cannot be a [field key](/influxdb/v2/reference/glossary/#field-key) or
-[tag key](/influxdb/v2/reference/glossary/#tag-key);
+`time` cannot be a [field key](/influxdb/version/reference/glossary/#field-key) or
+[tag key](/influxdb/version/reference/glossary/#tag-key);
 InfluxDB rejects writes with `time` as a field key or tag key and returns an error.
-See [Frequently Asked Questions](/influxdb/v2/reference/faq/) for more information.
+See [Frequently Asked Questions](/influxdb/version/reference/faq/) for more information.
 
 ### Literals
 
@@ -217,12 +217,12 @@ regex_lit           = "/" { unicode_char } "/" .
 
 {{% note %}}
 **NOTE:** InfluxQL supports using regular expressions when specifying:
-* [field keys](/influxdb/v2/reference/glossary/#field-key) and [tag keys](/influxdb/v2/reference/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v2/query-data/influxql/explore-data/select/)
-* [measurements](/influxdb/v2/reference/glossary/#measurement) in the [`FROM` clause](/influxdb/v2/query-data/influxql/explore-data/select/#from-clause)
-* [tag values](/influxdb/v2/reference/glossary/#tag-value) and string [field values](/influxdb/v2/reference/glossary/#field-value) in the [`WHERE` clause](/influxdb/v2/query-data/influxql/explore-data/where/)
-* [tag keys](/influxdb/v2/reference/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v2/query-data/influxql/explore-data/group-by/)
+* [field keys](/influxdb/version/reference/glossary/#field-key) and [tag keys](/influxdb/version/reference/glossary/#tag-key) in the [`SELECT` clause](/influxdb/version/query-data/influxql/explore-data/select/)
+* [measurements](/influxdb/version/reference/glossary/#measurement) in the [`FROM` clause](/influxdb/version/query-data/influxql/explore-data/select/#from-clause)
+* [tag values](/influxdb/version/reference/glossary/#tag-value) and string [field values](/influxdb/version/reference/glossary/#field-value) in the [`WHERE` clause](/influxdb/version/query-data/influxql/explore-data/where/)
+* [tag keys](/influxdb/version/reference/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/version/query-data/influxql/explore-data/group-by/)
 
-Currently, InfluxQL does not support using regular expressions to match non-string field values in the `WHERE` clause, [databases](/influxdb/v2/reference/glossary/#database), and [retention polices](/influxdb/v2/reference/glossary/#retention-policy-rp).
+Currently, InfluxQL does not support using regular expressions to match non-string field values in the `WHERE` clause, [databases](/influxdb/version/reference/glossary/#database), and [retention polices](/influxdb/version/reference/glossary/#retention-policy-rp).
 {{% /note %}}
 
 ## Queries
@@ -411,7 +411,7 @@ EXPLAIN ANALYZE separates storage block types, and reports the total number of b
 | `boolean`  | 1-bit, LSB encoded                    |
 | `string`   | UTF-8 string                          |
 
-For more information about storage blocks, see [TSM files](/influxdb/v2/reference/internals/storage-engine/#time-structured-merge-tree-tsm).
+For more information about storage blocks, see [TSM files](/influxdb/version/reference/internals/storage-engine/#time-structured-merge-tree-tsm).
 
 ### SELECT
 
@@ -540,9 +540,9 @@ SHOW SERIES EXACT CARDINALITY" [ on_clause ] [ from_clause ]
 SHOW SERIES EXACT CARDINALITY ON mydb
 ```
 
-- [Series cardinality](/influxdb/v2/reference/glossary/#series-cardinality) is the major factor that affects RAM requirements. For more information, see:
+- [Series cardinality](/influxdb/version/reference/glossary/#series-cardinality) is the major factor that affects RAM requirements. For more information, see:
 
-- [Don't have too many series](/influxdb/v2/reference/faq/#why-does-series-cardinality-matter).  As the number of unique series grows, so does the memory usage. High series cardinality can force the host operating system to kill the InfluxDB process with an out of memory (OOM) exception.
+- [Don't have too many series](/influxdb/version/reference/faq/#why-does-series-cardinality-matter).  As the number of unique series grows, so does the memory usage. High series cardinality can force the host operating system to kill the InfluxDB process with an out of memory (OOM) exception.
 
 {{% note %}}
 **NOTE:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.

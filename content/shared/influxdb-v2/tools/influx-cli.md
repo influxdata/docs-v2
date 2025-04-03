@@ -6,7 +6,7 @@ Write and query data, generate InfluxDB templates, export data, and more.
 {{% show-in "v2" %}}
 
 {{% note %}}
-The [`influx` CLI](/influxdb/v2/reference/cli/influx) is packaged and versioned
+The [`influx` CLI](/influxdb/version/reference/cli/influx) is packaged and versioned
 separately from the InfluxDB server (`influxd`).
 {{% /note %}}
 
@@ -238,7 +238,7 @@ with each command, store them in an `influx` CLI configuration (config).
 `influx` commands that require these credentials automatically retrieve these
 credentials from the active config.
 
-Use the [`influx config create` command](/influxdb/v2/reference/cli/influx/config/create/)
+Use the [`influx config create` command](/influxdb/version/reference/cli/influx/config/create/)
 to create an `influx` CLI config and set it as active:
 
 
@@ -255,13 +255,13 @@ influx config create --config-name CONFIG_NAME \
 Replace the following:
 
 - {{% code-placeholder-key %}}`CONFIG_NAME`{{% /code-placeholder-key %}}: Connection configuration name.
-- {{% code-placeholder-key %}}`ORG_NAME`{{% /code-placeholder-key %}}: your InfluxDB [organization](/influxdb/v2/admin/organizations/).
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your [API token](/influxdb/v2/admin/tokens/).
+- {{% code-placeholder-key %}}`ORG_NAME`{{% /code-placeholder-key %}}: your InfluxDB [organization](/influxdb/version/admin/organizations/).
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your [API token](/influxdb/version/admin/tokens/).
 
 For more information about managing CLI configurations, see the
-[`influx config` documentation](/influxdb/v2/reference/cli/influx/config/).
+[`influx config` documentation](/influxdb/version/reference/cli/influx/config/).
 
-For instructions on how to create API tokens, see [Create a token](/influxdb/v2/admin/tokens/create-token/).
+For instructions on how to create API tokens, see [Create a token](/influxdb/version/admin/tokens/create-token/).
 
 {{% show-in "v2" %}}
 
@@ -271,7 +271,7 @@ The **`influx` CLI 2&period;4.0+** lets you create connection configurations
 that authenticate with **InfluxDB OSS 2&period;4+** using the username and
 password combination that you would use to log into the InfluxDB user interface (UI).
 The CLI retrieves a session cookie and stores it, unencrypted, in your
-[configs path](/influxdb/v2/reference/internals/file-system-layout/#configs-path).
+[configs path](/influxdb/version/reference/internals/file-system-layout/#configs-path).
 
 Use the `--username-password`, `-p` option to provide your username and password
 using the `<username>:<password>` syntax.
@@ -291,7 +291,7 @@ influx config create \
 Replace the following:
 
 - {{% code-placeholder-key %}}`CONFIG_NAME`{{% /code-placeholder-key %}}: Connection configuration name.
-- {{% code-placeholder-key %}}`ORG`{{% /code-placeholder-key %}}: [your organization name](/influxdb/v2/admin/organizations/).
+- {{% code-placeholder-key %}}`ORG`{{% /code-placeholder-key %}}: [your organization name](/influxdb/version/admin/organizations/).
 - {{% code-placeholder-key %}}`USERNAME:PASSWORD`{{% /code-placeholder-key %}}: your UI username and password combination.
 
 {{% /show-in %}}
@@ -299,8 +299,8 @@ Replace the following:
 ### Enable shell completion (Optional)
 
 To install `influx` shell completion scripts, see
-[`influx completion`](/influxdb/v2/reference/cli/influx/completion/#install-completion-scripts).
+[`influx completion`](/influxdb/version/reference/cli/influx/completion/#install-completion-scripts).
 
 ## Use influx CLI commands
 _For information about `influx` CLI commands, see the
-[`influx` CLI reference documentation](/influxdb/v2/reference/cli/influx/)._
+[`influx` CLI reference documentation](/influxdb/version/reference/cli/influx/)._

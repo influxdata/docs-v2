@@ -2,9 +2,9 @@
 The `influx write dryrun` command prints write output to stdout instead of writing
 to InfluxDB. Use this command to test writing data.
 
-Supports [line protocol](/influxdb/v2/reference/syntax/line-protocol),
-[annotated CSV](/influxdb/v2/reference/syntax/annotated-csv), and
-[extended annotated CSV](/influxdb/v2/reference/syntax/annotated-csv/extended).
+Supports [line protocol](/influxdb/version/reference/syntax/line-protocol),
+[annotated CSV](/influxdb/version/reference/syntax/annotated-csv), and
+[extended annotated CSV](/influxdb/version/reference/syntax/annotated-csv/extended).
 Output is always **line protocol**.
 
 ## Usage

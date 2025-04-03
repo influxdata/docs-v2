@@ -9,10 +9,10 @@ influx replication [command options] [arguments...]
 ## Subcommands
 | Subcommand                                                       | Description                              |
 | :--------------------------------------------------------------- | :--------------------------------------- |
-| [create](/influxdb/v2/reference/cli/influx/replication/create) | Create a new replication stream          |
-| [delete](/influxdb/v2/reference/cli/influx/replication/delete) | Delete a replication stream              |
-| [list](/influxdb/v2/reference/cli/influx/replication/list)     | List all replication streams and metrics |
-| [update](/influxdb/v2/reference/cli/influx/replication/update) | Update a replication stream              |
+| [create](/influxdb/version/reference/cli/influx/replication/create) | Create a new replication stream          |
+| [delete](/influxdb/version/reference/cli/influx/replication/delete) | Delete a replication stream              |
+| [list](/influxdb/version/reference/cli/influx/replication/list)     | List all replication streams and metrics |
+| [update](/influxdb/version/reference/cli/influx/replication/update) | Update a replication stream              |
 
 ## Flags
 | Flag |          | Description                        |

@@ -11,8 +11,8 @@ influx stacks [command]
 ## Subcommands
 | Subcommand                                                   | Description        |
 |:-------                                                      |:-----------        |
-| [init](/influxdb/v2/reference/cli/influx/stacks/init/)     | Initialize a stack |
-| [remove](/influxdb/v2/reference/cli/influx/stacks/remove/) | Remove a stack     |
+| [init](/influxdb/version/reference/cli/influx/stacks/init/)     | Initialize a stack |
+| [remove](/influxdb/version/reference/cli/influx/stacks/remove/) | Remove a stack     |
 
 ## Flags
 | Flag |                   | Description                                                           | Input type  | {{< cli/mapped >}}    |

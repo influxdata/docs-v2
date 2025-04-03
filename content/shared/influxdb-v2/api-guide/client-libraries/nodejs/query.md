@@ -5,7 +5,7 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
 
 ## Before you begin
 
-- [Install the client library and other dependencies](/influxdb/v2/api-guide/client-libraries/nodejs/install/).
+- [Install the client library and other dependencies](/influxdb/version/api-guide/client-libraries/nodejs/install/).
 
 ## Query InfluxDB
 
@@ -45,7 +45,7 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
 
 4. Use the `queryRows()` method of the query client to query InfluxDB.
    `queryRows()` takes a Flux query and an [RxJS **Observer**](http://reactivex.io/rxjs/manual/overview.html#observer) object.
-   The client returns [table](/influxdb/v2/reference/syntax/annotated-csv/#tables) metadata and rows as an  [RxJS **Observable**](http://reactivex.io/rxjs/manual/overview.html#observable).
+   The client returns [table](/influxdb/version/reference/syntax/annotated-csv/#tables) metadata and rows as an  [RxJS **Observable**](http://reactivex.io/rxjs/manual/overview.html#observable).
    `queryRows()` subscribes your observer to the observable.
    Finally, the observer logs the rows from the response to the terminal.
 

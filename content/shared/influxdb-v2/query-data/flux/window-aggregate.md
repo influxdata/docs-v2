@@ -7,7 +7,7 @@ how data is shaped in the process.
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/flux/v0/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/version/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 {{% note %}}
 The following example is an in-depth walk-through of the steps required to window and aggregate data.

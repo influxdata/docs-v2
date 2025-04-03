@@ -8,8 +8,8 @@ sample data** from the last hour, downsamples the data into ten minute summaries
 and then writes the downsampled data to an InfluxDB bucket.
 
 1.  If you do not have an existing bucket to write the downsampled data to,
-    [create a new bucket](/influxdb/v2/admin/buckets/create-bucket/).
-2.  [Create a new notebook](/influxdb/v2/tools/notebooks/create-notebook/).
+    [create a new bucket](/influxdb/version/admin/buckets/create-bucket/).
+2.  [Create a new notebook](/influxdb/version/tools/notebooks/create-notebook/).
 3.  Select **Past 1h** from the time range drop-down list at the top of your notebook.
 4.  In the **Build a Query** cell:
 

@@ -1,12 +1,12 @@
 
 InfluxDB uses an InfluxQL-like predicate syntax to determine what data
-[points](/influxdb/v2/reference/glossary/#point) to delete.
-InfluxDB uses the delete predicate to evaluate the [series keys](/influxdb/v2/reference/glossary/#series-key)
+[points](/influxdb/version/reference/glossary/#point) to delete.
+InfluxDB uses the delete predicate to evaluate the [series keys](/influxdb/version/reference/glossary/#series-key)
 of points in the time range specified in the delete request.
 Points with series keys that evaluate to `true` for the given predicate are deleted.
 Points with series keys that evaluate to `false` are preserved.
 
-A delete predicate is comprised of one or more [predicate expressions](/influxdb/v2/reference/glossary/#predicate-expression).
+A delete predicate is comprised of one or more [predicate expressions](/influxdb/version/reference/glossary/#predicate-expression).
 The left operand of the predicate expression is the column name.
 The right operand is the column value.
 Operands are compared using [comparison operators](#comparison-operators).
@@ -22,7 +22,7 @@ key1="value1" AND key2="value"
 If your predicate contains keywords or strings with special characters, wrap each in escaped
 quotes to ensure the predicate string is parsed correctly.
 
-Because delete predicates follow [InfluxQL](/influxdb/v2/reference/syntax/influxql) syntax, [any InfluxQL keyword](/influxdb/v2/reference/syntax/influxql/spec/#keywords)
+Because delete predicates follow [InfluxQL](/influxdb/version/reference/syntax/influxql) syntax, [any InfluxQL keyword](/influxdb/version/reference/syntax/influxql/spec/#keywords)
 that matches your tag name needs to be escaped. Keywords are case-insensitive.
 
 ```js

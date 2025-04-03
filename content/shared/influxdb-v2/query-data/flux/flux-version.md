@@ -42,8 +42,8 @@ To return the version of Flux installed with InfluxDB using the InfluxDB UI:
 3.  Enable the **View Raw Data {{< icon "toggle" >}}** toggle or select one of the
     following visualization types:
 
-    - [Single Stat](/influxdb/v2/visualize-data/visualization-types/single-stat/)
-    - [Table](/influxdb/v2/visualize-data/visualization-types/table/)
+    - [Single Stat](/influxdb/version/visualize-data/visualization-types/single-stat/)
+    - [Table](/influxdb/version/visualize-data/visualization-types/table/)
 
 4.  Enter and run the following query:
 
@@ -62,7 +62,7 @@ use the `influx query` command. Provide the following:
 
 - InfluxDB **host**, **organization**, and **API token**  
   _(the example below assumes that a
-  [CLI configuration](/influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials)
+  [CLI configuration](/influxdb/version/reference/cli/influx/#provide-required-authentication-credentials)
   is set up and active)_
 - Query to execute
 
@@ -85,9 +85,9 @@ Table: keys: []
 {{% tab-content %}}
 
 To return the version of Flux installed with InfluxDB using the InfluxDB API,
-use the [`/api/v2/query` endpoint](/influxdb/v2/api/#tag/Query).
+use the [`/api/v2/query` endpoint](/influxdb/version/api/#tag/Query).
 
-{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/query" api-ref="/influxdb/v2/api/#operation/PostQuery" >}}
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/query" api-ref="/influxdb/version/api/#operation/PostQuery" >}}
 Provide the following:
 
 - InfluxDB {{% show-in "cloud,cloud-serverless" %}}Cloud{{% /show-in %}} host
@@ -118,7 +118,7 @@ curl --request POST \
 
 {{% warn %}}
 #### Flux version in the Flux REPL
-When you run `runtime.version()` in the [Flux REPL](/influxdb/v2/tools/flux-repl/),
+When you run `runtime.version()` in the [Flux REPL](/influxdb/version/tools/flux-repl/),
 the function returns the version of Flux the REPL was built with, not the version
 of Flux installed in the instance of InfluxDB you're querying.
 {{% /warn %}}

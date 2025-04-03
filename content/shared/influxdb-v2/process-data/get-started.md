@@ -27,11 +27,11 @@ The following example shows how to set task options in a Flux script:
 option task = {name: "downsample_5m_precision", every: 1h, offset: 0m}
 ```
 
-_See [Task configuration options](/influxdb/v2/process-data/task-options) for detailed information
+_See [Task configuration options](/influxdb/version/process-data/task-options) for detailed information
 about each option._
 
 _Note that InfluxDB doesn't guarantee that a task will run at the scheduled time.
-See [View task run logs for a task](/influxdb/v2/process-data/manage-tasks/task-run-history)
+See [View task run logs for a task](/influxdb/version/process-data/manage-tasks/task-run-history)
 for detailed information on task service-level agreements (SLAs)._
 
 {{% note %}}
@@ -133,7 +133,7 @@ A task that runs at one hour intervals (`every: 1h`) with an offset of five minu
 executes 5 minutes after the hour, but queries data from the original one-hour interval.
 {{% /note %}}
 
-_See [Common tasks](/influxdb/v2/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
+_See [Common tasks](/influxdb/version/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
 
 {{% show-in "cloud,cloud-serverless" %}}
 

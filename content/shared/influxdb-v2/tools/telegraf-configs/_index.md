@@ -16,7 +16,7 @@ the configuration from an InfluxDB HTTP(S) endpoint.
     ```
 
 {{% note %}}
-_[Setup instructions](/influxdb/v2/tools/telegraf-configs/view/#view-setup-instructions) for
+_[Setup instructions](/influxdb/version/tools/telegraf-configs/view/#view-setup-instructions) for
 each Telegraf configuration are provided in the InfluxDB UI._
 {{% /note %}}
 

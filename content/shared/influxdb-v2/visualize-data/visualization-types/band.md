@@ -11,7 +11,7 @@ To see bands (boundaries) in the **Band Plot** visualization, you must set up tw
 
     {{< nav-icon "data-explorer" >}}
 
-2. Enter your query (see [Explore data with Flux and the Data Explorer](/influxdb/v2/visualize-data/explore-metrics/#explore-data-with-flux-and-the-data-explorer)). You must include the aggregate functions used to determine the Band Plot visualization boundaries in your query.
+2. Enter your query (see [Explore data with Flux and the Data Explorer](/influxdb/version/visualize-data/explore-metrics/#explore-data-with-flux-and-the-data-explorer)). You must include the aggregate functions used to determine the Band Plot visualization boundaries in your query.
 3. Select the **Band Plot** option from the visualization dropdown in the upper left, and then click **Customize**.
 4. Under **Data**, select the following:
    - For **X Column** and **Y Column**, select the columns to display for the x- and y- axes.

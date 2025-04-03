@@ -1,5 +1,5 @@
 
-Design your [schema](/influxdb/v2/reference/key-concepts/data-elements/) for simpler and more performant queries.
+Design your [schema](/influxdb/version/reference/key-concepts/data-elements/) for simpler and more performant queries.
 Follow design guidelines to make your schema easy to query.
 Learn how these guidelines lead to more performant queries.
 
@@ -12,13 +12,13 @@ Learn how these guidelines lead to more performant queries.
 
 {{% note %}}
 
-Good schema design can prevent high series cardinality, resulting in better performing queries. If you notice data reads and writes slowing down or want to learn how cardinality affects performance, see how to [resolve high cardinality](/influxdb/v2/write-data/best-practices/resolve-high-cardinality/).
+Good schema design can prevent high series cardinality, resulting in better performing queries. If you notice data reads and writes slowing down or want to learn how cardinality affects performance, see how to [resolve high cardinality](/influxdb/version/write-data/best-practices/resolve-high-cardinality/).
 
 {{% /note %}}
 
 ## Design to query
 
-The schemas below demonstrate [measurements](/influxdb/v2/reference/glossary/#measurement), [tag keys](/influxdb/v2/reference/glossary/#tag-key), and [field keys](/influxdb/v2/reference/glossary/#field-key) that are easy to query.
+The schemas below demonstrate [measurements](/influxdb/version/reference/glossary/#measurement), [tag keys](/influxdb/version/reference/glossary/#tag-key), and [field keys](/influxdb/version/reference/glossary/#field-key) that are easy to query.
 
 | measurement          | tag key   | tag key | field key |  field key  |
 |----------------------|-----------|---------|-----------|-------------|
@@ -43,13 +43,13 @@ waterQualitySensor,sensorId=W0101,station=Harbor pH=6.1,temperature=16.103 14725
 
 ### Keep measurements and keys simple
 
-Store data in [tag values](/influxdb/v2/reference/glossary/#tag-value) or [field values](/influxdb/v2/reference/glossary/#field-value), not in [tag keys](/influxdb/v2/reference/glossary/#tag-key), [field keys](/influxdb/v2/reference/glossary/#field-key), or [measurements](/influxdb/v2/reference/glossary/#measurement). If you design your schema to store data in tag and field values,
+Store data in [tag values](/influxdb/version/reference/glossary/#tag-value) or [field values](/influxdb/version/reference/glossary/#field-value), not in [tag keys](/influxdb/version/reference/glossary/#tag-key), [field keys](/influxdb/version/reference/glossary/#field-key), or [measurements](/influxdb/version/reference/glossary/#measurement). If you design your schema to store data in tag and field values,
 your queries will be easier to write and more efficient.
 
 {{% show-in "v2" %}}
 
 In addition, you'll keep cardinality low by not creating measurements and keys as you write data.
-To learn more about the performance impact of high series cardinality, see how to [resolve high cardinality](/influxdb/v2/write-data/best-practices/resolve-high-cardinality/).
+To learn more about the performance impact of high series cardinality, see how to [resolve high cardinality](/influxdb/version/write-data/best-practices/resolve-high-cardinality/).
 
 {{% /show-in %}}
 
@@ -129,7 +129,7 @@ If you use non-alphanumeric characters in keys, then you'll have to use [bracket
 
 ##### Avoid duplicate names for tags and fields
 
-Avoid using the same name for a [tag key](/influxdb/v2/reference/glossary/#tag-key) and a [field key](/influxdb/v2/reference/glossary/#field-key) within the same schema.
+Avoid using the same name for a [tag key](/influxdb/version/reference/glossary/#tag-key) and a [field key](/influxdb/version/reference/glossary/#field-key) within the same schema.
 Your query results may be unpredictable if you have a tag and a field with the same name.
 
 {{% show-in "cloud,cloud-serverless" %}}
@@ -142,23 +142,23 @@ Use [explicit bucket schemas]() to enforce unique tag and field keys within a sc
 
 ## Use tags and fields
 
-[Tag values](/influxdb/v2/reference/glossary/#tag-value) are indexed and [field values](/influxdb/v2/reference/glossary/#field-value) aren't.
+[Tag values](/influxdb/version/reference/glossary/#tag-value) are indexed and [field values](/influxdb/version/reference/glossary/#field-value) aren't.
 This means that querying tags is more performant than querying fields.
 Your queries should guide what you store in tags and what you store in fields.
 
 ### Use fields for unique and numeric data
 
 - Store unique or frequently changing values as field values.
-- Store numeric values as field values. ([Tags](/influxdb/v2/reference/glossary/#tag-value) only store strings).
+- Store numeric values as field values. ([Tags](/influxdb/version/reference/glossary/#tag-value) only store strings).
 
 ### Use tags to improve query performance
 
 - Store values as tag values if they can be reasonably indexed.
-- Store values as [tag values](/influxdb/v2/reference/glossary/#tag-value) if the values are used in [filter()](/flux/v0/universe/filter/) or [group()](/flux/v0/universe/group/) functions.
+- Store values as [tag values](/influxdb/version/reference/glossary/#tag-value) if the values are used in [filter()](/flux/v0/universe/filter/) or [group()](/flux/v0/universe/group/) functions.
 - Store values as tag values if the values are shared across multiple data points, i.e. metadata about the field.
 
 Because InfluxDB indexes tags, the query engine doesn't need to scan every record in a bucket to locate a tag value.
-For example, consider a bucket that stores data about thousands of users. With `userId` stored in a [field](/influxdb/v2/reference/glossary/#field), a query for user `abcde` requires InfluxDB to scan `userId` in every row.
+For example, consider a bucket that stores data about thousands of users. With `userId` stored in a [field](/influxdb/version/reference/glossary/#field), a query for user `abcde` requires InfluxDB to scan `userId` in every row.
 
 ```js
 from(bucket: "example-bucket")

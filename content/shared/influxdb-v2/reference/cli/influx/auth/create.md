@@ -2,7 +2,7 @@
 The `influx auth create` command creates an API token in InfluxDB.
 
 {{% warn %}}
-**Issue resolved**: Using influx CLI 2.4 prevented you from creating an **all-access** or **operator** token using the `influx auth create` command. This issue is resolved in the influx 2.5 CLI release. Please [upgrade to the latest version](/influxdb/v2/tools/influx-cli/) of the influx cli.
+**Issue resolved**: Using influx CLI 2.4 prevented you from creating an **all-access** or **operator** token using the `influx auth create` command. This issue is resolved in the influx 2.5 CLI release. Please [upgrade to the latest version](/influxdb/version/tools/influx-cli/) of the influx cli.
 {{% /warn %}}
 
 ## Usage
@@ -79,7 +79,7 @@ influx auth create \
 
 ### Create an Operator API token
 
-Create an [Operator token](/influxdb/v2/admin/tokens/#operator-token) to grant permissions to all resources in all organizations.
+Create an [Operator token](/influxdb/version/admin/tokens/#operator-token) to grant permissions to all resources in all organizations.
 
 ```sh
 influx auth create \

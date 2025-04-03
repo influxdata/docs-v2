@@ -40,7 +40,7 @@ influx replication create [command options] [arguments...]
 
 ### Create a replication stream
 
-1. [Create a remote connection](/influxdb/v2/reference/cli/influx/remote/create/), if you haven't already.
+1. [Create a remote connection](/influxdb/version/reference/cli/influx/remote/create/), if you haven't already.
 2. Use `influx remote list` to get the ID for the remote you want to replicate data to.
    ```sh
    $ influx remote list

@@ -1,6 +1,6 @@
 
 The following articles walk through common queries using the
-[NOAA water database data](/influxdb/v2/reference/sample-data/#noaa-water-sample-data).
+[NOAA water database data](/influxdb/version/reference/sample-data/#noaa-water-sample-data).
 
 {{< children >}}
 

@@ -6,7 +6,7 @@ to group data into tracks or routes.
 - [Group data into tracks or routes](#group-data-by-track-or-route)
 
 {{% note %}}
-For example results, use the [bird migration sample data](/influxdb/v2/reference/sample-data/#bird-migration-sample-data)
+For example results, use the [bird migration sample data](/influxdb/version/reference/sample-data/#bird-migration-sample-data)
 to populate the `sampleGeoData` variable in the queries below.
 {{% /note %}}
 
@@ -19,7 +19,7 @@ Areas are determined by [S2 grid cells](https://s2geometry.io/devguide/s2cell_hi
 - Specify the [S2 cell level](https://s2geometry.io/resources/s2cell_statistics)
   to use when calculating geographic areas with the `level` parameter.
 
-The following example uses the [sample bird migration data](/influxdb/v2/query-data/flux/geo/#sample-data)
+The following example uses the [sample bird migration data](/influxdb/version/query-data/flux/geo/#sample-data)
 to query data points within 200km of Cairo, Egypt and group them by geographic area:
 
 ```js
@@ -38,7 +38,7 @@ Data must contain a unique identifier for each track. For example: `id` or `tid`
 - Specify columns that uniquely identify each track or route with the `groupBy` parameter.
 - Specify which columns to sort by with the `sortBy` parameter. Default is `["_time"]`.
 
-The following example uses the [sample bird migration data](/influxdb/v2/query-data/flux/geo/#sample-data)
+The following example uses the [sample bird migration data](/influxdb/version/query-data/flux/geo/#sample-data)
 to query data points within 200km of Cairo, Egypt and group them into routes unique
 to each bird:
 

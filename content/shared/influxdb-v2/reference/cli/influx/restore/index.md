@@ -8,13 +8,13 @@ After `restore` completes, the temporary data is deleted.
 If the restore process fails, InfluxDB preserves the data in the temporary location.
 
 _For information about recovering from a failed restore process, see
-[Restore data](/influxdb/v2/admin/backup-restore/restore/#recover-from-a-failed-restore)._
+[Restore data](/influxdb/version/admin/backup-restore/restore/#recover-from-a-failed-restore)._
 
 {{% note %}}
 #### Cannot restore to existing buckets
 The `influx restore` command cannot restore data to existing buckets.
 Use the `--new-bucket` flag to create a bucket with a new name and restore data into it.
-To restore data and retain bucket names, [delete existing buckets](/influxdb/v2/admin/buckets/delete-bucket/)
+To restore data and retain bucket names, [delete existing buckets](/influxdb/version/admin/buckets/delete-bucket/)
 and then begin the restore process.
 {{% /note %}}
 

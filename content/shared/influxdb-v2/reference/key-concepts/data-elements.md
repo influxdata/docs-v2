@@ -32,7 +32,7 @@ _Hover over highlighted terms to get acquainted with InfluxDB terminology and la
 
 ## Timestamp
 
-All data stored in InfluxDB has a `_time` column that stores timestamps. On disk, timestamps are stored in epoch nanosecond format. InfluxDB formats timestamps show the date and time in [RFC3339](/influxdb/v2/reference/glossary/#rfc3339-timestamp) UTC associated with data. Timestamp precision is important when you write data.
+All data stored in InfluxDB has a `_time` column that stores timestamps. On disk, timestamps are stored in epoch nanosecond format. InfluxDB formats timestamps show the date and time in [RFC3339](/influxdb/version/reference/glossary/#rfc3339-timestamp) UTC associated with data. Timestamp precision is important when you write data.
 
 ## Measurement
 
@@ -69,7 +69,7 @@ Fields are required in InfluxDB data and are not indexed.
 Queries that filter field values must scan all field values to match query conditions.
 As a result, queries on tags are more performant than queries on fields.
 
-See how to [use tags and fields](/influxdb/v2/write-data/best-practices/schema-design/#use-tags-and-fields) to make your schema easier to query.
+See how to [use tags and fields](/influxdb/version/write-data/best-practices/schema-design/#use-tags-and-fields) to make your schema easier to query.
 
 {{% /note %}}
 
@@ -81,13 +81,13 @@ Tags include tag keys and tag values that are stored as strings and metadata.
 ### Tag key
 
 The tag keys in the sample data are `location` and `scientist`.
-_For information about tag key requirements, see [Line protocol – Tag set](/influxdb/v2/reference/syntax/line-protocol/#tag-set)._
+_For information about tag key requirements, see [Line protocol – Tag set](/influxdb/version/reference/syntax/line-protocol/#tag-set)._
 
 ### Tag value
 
 The tag key `location` has two tag values: `klamath` and `portland`.
 The tag key `scientist` also has two tag values: `anderson` and `mullen`.
-_For information about tag value requirements, see [Line protocol – Tag set](/influxdb/v2/reference/syntax/line-protocol/#tag-set)._
+_For information about tag value requirements, see [Line protocol – Tag set](/influxdb/version/reference/syntax/line-protocol/#tag-set)._
 
 ### Tag set
 
@@ -107,14 +107,14 @@ location = portland, scientist = mullen
 Tags are optional.
 You don't need tags in your data structure, but it's typically a good idea to include them.
 Because InfluxDB indexes tags, the query engine doesn’t need to scan every record in a bucket to locate a tag value.
-See how to [use tags to improve query performance](/influxdb/v2/write-data/best-practices/schema-design/#use-tags-to-improve-query-performance).
+See how to [use tags to improve query performance](/influxdb/version/write-data/best-practices/schema-design/#use-tags-to-improve-query-performance).
 
 {{% /note %}}
 
 ### Why your schema matters
 
 How you structure measurements, fields, and tags in your data can make queries easier to write and more performant.
-Good [schema design](/influxdb/v2/write-data/best-practices/schema-design) can prevent [high series cardinality](/influxdb/v2/write-data/best-practices/resolve-high-cardinality/), resulting in better performing queries.
+Good [schema design](/influxdb/version/write-data/best-practices/schema-design) can prevent [high series cardinality](/influxdb/version/write-data/best-practices/resolve-high-cardinality/), resulting in better performing queries.
 
 ## Series
 
@@ -122,7 +122,7 @@ Now that you're familiar with measurements, field sets, and tag sets, it's time 
 
 {{% show-in "v2" %}}
 
-In {{% product-name %}} OSS (TSM), a [series key](/influxdb/v2/reference/glossary/#series-key) is a unique combination of measurement and tag set.
+In {{% product-name %}} OSS (TSM), a [series key](/influxdb/version/reference/glossary/#series-key) is a unique combination of measurement and tag set.
 
 For example, the [sample data](#sample-data) includes two unique series keys:
 
@@ -167,7 +167,7 @@ the sample data contains the following series key and corresponding series:
 
 {{% /show-in %}}
 
-Understanding the concept of a series is essential when [designing your schema](/influxdb/v2/write-data/best-practices/schema-design/) and working with your data in InfluxDB.
+Understanding the concept of a series is essential when [designing your schema](/influxdb/version/write-data/best-practices/schema-design/) and working with your data in InfluxDB.
 
 ## Point
 
@@ -177,13 +177,13 @@ A **point** includes the series key, a field value, and a timestamp--for example
 
 ## Bucket
 
-All InfluxDB data is stored in a bucket. A **bucket** combines the concept of a database and a retention period (the duration of time that each data point persists). A bucket belongs to an organization. For more information about buckets, see [Manage buckets](/influxdb/v2/admin/buckets/).
+All InfluxDB data is stored in a bucket. A **bucket** combines the concept of a database and a retention period (the duration of time that each data point persists). A bucket belongs to an organization. For more information about buckets, see [Manage buckets](/influxdb/version/admin/buckets/).
 
 ## Organization
 
-An InfluxDB **organization** is a workspace for a group of [users](/influxdb/v2/admin/users/). All [dashboards](/influxdb/v2/visualize-data/dashboards/), [tasks](/influxdb/v2/process-data/), buckets, and users belong to an organization. For more information about organizations, see [Manage organizations](/influxdb/v2/admin/organizations/).
+An InfluxDB **organization** is a workspace for a group of [users](/influxdb/version/admin/users/). All [dashboards](/influxdb/version/visualize-data/dashboards/), [tasks](/influxdb/version/process-data/), buckets, and users belong to an organization. For more information about organizations, see [Manage organizations](/influxdb/version/admin/organizations/).
 
-If you're new to using InfluxDB, see how to [get started](/influxdb/v2/get-started) writing and querying data.
+If you're new to using InfluxDB, see how to [get started](/influxdb/version/get-started) writing and querying data.
 
 For an overview of how these elements interconnect within InfluxDB's data model, watch the following video:
 

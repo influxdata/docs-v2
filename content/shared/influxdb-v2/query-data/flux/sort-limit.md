@@ -7,7 +7,7 @@ to limit the number of records in output tables to a fixed number, `n`.
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/flux/v0/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/version/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ##### Example sorting system uptime
 
