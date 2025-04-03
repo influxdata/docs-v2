@@ -38,22 +38,26 @@ influxdb3 serve \
 
 Replace `/path/to/plugins` with the directory where you want to store your Python plugin files. All plugin files must be located in this directory or its subdirectories.
 
+{{% show-in "core,enterprise" %}}
+
 ### Configure distributed environments
 
 If you're running multiple InfluxDB instances (distributed deployment):
 
-1. Decide where plugins should run:
-
-    - Data processing plugins, such as WAL plugins, run on ingestor nodes
-    - HTTP-triggered plugins run on nodes handling API requests
-    - Scheduled plugins can run on any configured node
+1. Decide where plugins should run
+   - Data processing plugins, such as WAL plugins, run on ingestor nodes
+   - HTTP-triggered plugins run on nodes handling API requests
+   - Scheduled plugins can run on any configured node
 2. Enable plugins on selected instances
-3. Maintain identical plugin files across all instances where plugins run. Use shared storage or file synchronization tools to keep plugins consistent
+3. Maintain identical plugin files across all instances where plugins run
+   - Use shared storage or file synchronization tools to keep plugins consistent
 
 > [!Note]
 > #### Provide plugins to nodes that run them
 >
 > Configure your plugin directory on the same system as the nodes that run the triggers and plugins.
+
+{{% /show-in %}}
 
 ## Add a Processing engine plugin
 
