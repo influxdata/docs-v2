@@ -19,7 +19,7 @@ Ensure you have:
 - Python installed if you're writing your own plugin
 - Basic knowledge of the InfluxDB CLI
 
-Learn how to create, configure, run, and extend Python plugins that execute when specific events occur.
+Once you have all the prerequisites in place, follow these steps to implement the Processing engine for your data automation needs.
 
 1. [Set up the Processing engine](#set-up-the-processing-engine)
 2. [Add a Processing engine plugin](#add-a-processing-engine-plugin)
