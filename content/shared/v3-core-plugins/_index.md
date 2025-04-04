@@ -1,20 +1,23 @@
 # Get Started with the Processing Engine and Plugins 
 
-Use the Processing Engine in InfluxDB 3 to extend database functionality with custom Python code directly in your {{% product-name %}}. The Processing Engine runs Python plugins in response to database events like data writes, scheduled tasks, or HTTP requests. This guide walks you through setting up the engine, writing your first plugin, and triggering it.
+Extend InfluxDB 3 with custom Python code that responds to database events. The Processing Engine lets you automate workflows, transform data, and create API endpoints directly within your {{% product-name %}}.
 
-The Processing engine is an embedded Python VM that runs inside your InfluxDB 3 database and lets you:
+## What is the Processing Engine?
 
-- Process data as it's written to the database
-- Run code on a schedule
-- Create API endpoints that execute Python code
-- Maintain state between executions with an in-memory cache
+The Processing Engine is an embedded Python virtual machine that runs inside your InfluxDB 3 database. It executes Python code in response to:
 
-Learn how to create, configure, run, and extend Python plugins that execute when specific events occur.
+- **Data writes** - Process and transform data as it enters the database
+- **Scheduled events** - Run code at specific intervals or times
+- **HTTP requests** - Create custom API endpoints that execute your code
+
+The engine maintains state between executions using an in-memory cache, allowing you to build stateful applications directly in your database.
+
+This guide shows you how to set up the Processing Engine, create your first plugin, and configure triggers that execute your code when specific events occur.
 
 ## Before you begin
 
 Ensure you have: 
-- A working influxDB 3 Core instance
+- A working InfluxDB 3 Core instance
 - Access to command line
 - Python installed if you're writing your own plugin
 - Basic knowledge of the InfluxDB CLI
@@ -23,7 +26,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
 
 1. [Set up the Processing engine](#set-up-the-processing-engine)
 2. [Add a Processing engine plugin](#add-a-processing-engine-plugin)
-   - [Get example plugins](#get-example-plugins)
+   - [Clone and use an example plugin](#Clone-and-use-an-example-plugin)
    - [Create a plugin](#create-a-plugin)
 3. [Create a trigger to run a plugin](#create-a-trigger-to-run-a-plugin)
    - [Create a trigger for data writes](#create-a-trigger-for-data-writes)
@@ -38,7 +41,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
 
 ## Set up the Processing engine
 
-To enable the Processing engine, start your InfluxDB server with the `--plugin-dir` option:
+To enable the Processing engine, start your InfluxDB server with the `--plugin-dir` flag to specify where your plugin files are stored.
 
 ```bash
 influxdb3 serve \
@@ -47,35 +50,43 @@ influxdb3 serve \
   --plugin-dir /path/to/plugins
 ```
 
+Replace: 
+- `<NODE_ID>` with a unique identifier for your instance
+- `<OBJECT_STORE_TYPE>` with the type of object store (e.g., file, memory, s3)
+- /absolute/path/to/plugins with the path to your plugin directory
+
+The plugin directory must exist before you start InfluxDB.
+
 ## Add a Processing engine plugin
 
-A plugin is a Python file that contains a specific function signature that corresponds to a trigger type.
-Plugins:
+A plugin is a Python file that contains a specific function signature that corresponds to a trigger type. InfluxData maintains a repository of contributed plugins that you can use as-is or as a starting point for your own plugin.
+
+### Clone and use an example plugin
+
+1. Clone the repo:
+```bash
+git clone https://github.com/influxdata/influxdb3_plugins.git
+```
+You can find example plugins to use here: [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins). 
+
+2. Copy a plugin into your configured plugin directory
+```bash
+cp influxdb3_plugins/examples/<plugin_name> /path/to/plugins/
+```
+3. Restart InfluxDB if it's already running.
+
+Plugins have various functions such as: 
 
 - Receive plugin-specific arguments (such as written data, call time, or an HTTP request)
 - Can receive keyword arguments (as `args`) from _trigger arguments_
 - Can access the `influxdb3_local` shared API for writing, querying, and managing state
 
-Get started using example plugins or create your own:
-
-- [Get example plugins](#get-example-plugins)
+If you would like to create your own plugin you can follow:
 - [Create a plugin](#create-a-plugin)
-
-### Get example plugins
-
-InfluxData maintains a repository of contributed plugins that you can use as-is or as a starting point for your own plugin.
 
 #### From local files
 
 You can copy example plugins from the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) to your local plugin directory:
-
-```bash
-# Clone the repository
-git clone https://github.com/influxdata/influxdb3_plugins.git
-
-# Copy example plugins to your plugin directory
-cp -r influxdb3_plugins/examples/wal_plugin/* /path/to/plugins/
-```
 
 #### Directly from GitHub
 
