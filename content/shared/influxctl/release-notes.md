@@ -19,20 +19,20 @@
 
 ### Dependency updates
 
-- Update `github.com/apache/arrow-go/v18` from 18.1.0 to 18.2.0
-- Update `github.com/go-git/go-git/v5` from 5.13.1 to 5.14.0
-- Update `github.com/golang-jwt/jwt/v5` from 5.2.1 to 5.2.2
-- Update `github.com/jedib0t/go-pretty/v6` from 6.6.5 to 6.6.7
-- Update `github.com/urfave/cli/v2` from 2.27.5 to 2.27.6
-- Update `golang.org/x/mod` from 0.22.0 to 0.36.0
-- Update `golang.org/x/oauth2` from 0.25.0 to 0.28.0
-- Update `google.golang.org/grpc` from 1.69.4 to 1.71.0
-- Update `google.golang.org/protobuf` from 1.36.3 to 1.36.6
-- Address `goreleaser` deprecation warnings
-- Update `golangci-lint` to v2
-- Update Apache Arrow from v16 to v18
-- Update Go to 1.24.1 (#459)
-- Switch to updated `browser` fork
+- Update `github.com/apache/arrow-go/v18` from 18.1.0 to 18.2.0.
+- Update `github.com/go-git/go-git/v5` from 5.13.1 to 5.14.0.
+- Update `github.com/golang-jwt/jwt/v5` from 5.2.1 to 5.2.2.
+- Update `github.com/jedib0t/go-pretty/v6` from 6.6.5 to 6.6.7.
+- Update `github.com/urfave/cli/v2` from 2.27.5 to 2.27.6.
+- Update `golang.org/x/mod` from 0.22.0 to 0.36.0.
+- Update `golang.org/x/oauth2` from 0.25.0 to 0.28.0.
+- Update `google.golang.org/grpc` from 1.69.4 to 1.71.0.
+- Update `google.golang.org/protobuf` from 1.36.3 to 1.36.6.
+- Address `goreleaser` deprecation warnings.
+- Update `golangci-lint` to v2.
+- Update Apache Arrow from v16 to v18.
+- Update Go to 1.24.1.
+- Switch to updated `browser` fork.
 
 ---
 
