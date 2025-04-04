@@ -78,6 +78,10 @@ to create a token that grants access to databases in your {{% product-name omit=
       permissions to all databases. Enclose wildcards in single or double
       quotes--for example: `'*'` or `"*"`.
 
+    - _Optional_: the `--expires-at` flag with an RFC3339 date string that defines the
+      token expiration date and time--for example, `{{< datetime/current-date offset=1 >}}`.
+      If an expiration isn't set, the token does not expire until revoked.
+      
     - Token description
 
 {{% code-placeholders "DATABASE_NAME|TOKEN_DESCRIPTION|RFC3339_TIMESTAMP" %}}
