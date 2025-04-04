@@ -7,10 +7,9 @@
   revoked tokens in the command output:
   - [`influxctl token list`](/influxdb3/version/reference/cli/influxctl/token/list/)
   - [`influxctl token get`](/influxdb3/version/reference/cli/influxctl/token/get/)
-- Add `--expires-at` flag to the following commands to set management and
-  database token expirations:
-  - [`influxctl management create`](/influxdb3/version/reference/cli/influxctl/management/create/)
-  - [`influxctl token create`](/influxdb3/version/reference/cli/influxctl/token/create/)
+- Add `--expires-at` flag to the
+  [`influxctl token create`](/influxdb3/version/reference/cli/influxctl/token/create/)
+  command to set a database token expiration.
 
 ### Bug fixes
 
