@@ -73,3 +73,5 @@ Extend and customize the Processing engine through several built-in mechanisms:
 - **Package management**: Custom Python dependency installation
 - **Plugin distribution**: Git-based plugin sharing
 - **Shared API**: Consistent interface for database operations
+
+For a step-by-step guide to setting up and using the Processing engine, see the [Getting started with plugins](/influxdb3/core/plugins/) documentation.
