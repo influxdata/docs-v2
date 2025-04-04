@@ -140,7 +140,7 @@ home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000'
     influxdb3 write \
       --database DATABASE_NAME \
       --token AUTH_TOKEN \
-      ./home.lp
+      --file ./home.lp
     ```
 
 {{% /code-placeholders %}}
