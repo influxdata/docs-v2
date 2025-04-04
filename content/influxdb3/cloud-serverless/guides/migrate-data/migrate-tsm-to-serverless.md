@@ -6,7 +6,7 @@ description: >
   time-based batches and write the queried data to an InfluxDB 3 bucket in your
   InfluxDB Cloud Serverless organization.
 menu:
-  influxdb_cloud_serverless:
+  influxdb3_cloud_serverless:
     name: Migrate from TSM to Serverless
     parent: Migrate data
 weight: 102

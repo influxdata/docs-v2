@@ -9,6 +9,8 @@ menu:
 weight: 301
 related:
   - /flux/v0/stdlib/universe/reduce/
+source: /shared/influxdb-v2/query-data/flux/custom-functions/custom-aggregate.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/custom-functions/custom-aggregate.md-->

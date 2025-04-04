@@ -5,7 +5,7 @@ description: >
   InfluxDB Cloud Serverless organization, export the data as line protocol and
   write the exported data to an bucket in your InfluxDB Cloud Serverless organization.
 menu:
-  influxdb_cloud_serverless:
+  influxdb3_cloud_serverless:
     name: Migrate from 1.x to Serverless
     parent: Migrate data
 weight: 103

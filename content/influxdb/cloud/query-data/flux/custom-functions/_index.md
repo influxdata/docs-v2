@@ -16,6 +16,8 @@ list_code_example: |
   data
       |> multByX(x: 2.0)
   ```
+source: /shared/influxdb-v2/query-data/flux/custom-functions/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/custom-functions/_index.md-->

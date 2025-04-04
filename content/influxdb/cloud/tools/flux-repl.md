@@ -11,6 +11,8 @@ menu:
 weight: 111
 aliases:
   - /influxdb/cloud/tools/repl/
+source: /shared/influxdb-v2/tools/flux-repl.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/flux-repl.md-->

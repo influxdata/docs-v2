@@ -13,6 +13,8 @@ aliases:
   - /influxdb/cloud/tools/clis/
 related:
   - /influxdb/cloud/reference/cli/influx/
+source: /shared/influxdb-v2/tools/influx-cli.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/influx-cli.md-->

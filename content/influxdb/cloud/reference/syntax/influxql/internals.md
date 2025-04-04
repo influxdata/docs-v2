@@ -6,6 +6,8 @@ menu:
     name: InfluxQL internals
     parent: influxql-syntax
 weight: 106
+source: /shared/influxdb-v2/reference/syntax/influxql/internals.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/syntax/influxql/internals.md-->
