@@ -1,5 +1,6 @@
-Use the InfluxDB 3 Processing engine to run Python code directly in your
-{{% product-name %}} database to automatically process data and respond to database events.
+# Get Started with the Processing Engine and Plugins 
+
+Use the Processing Engine in InfluxDB 3 to extend database functionality with custom Python code directly in your {{% product-name %}}. The Processing Engine runs Python plugins in response to database events like data writes, scheduled tasks, or HTTP requests. This guide walks you through setting up the engine, writing your first plugin, and triggering it.
 
 The Processing engine is an embedded Python VM that runs inside your InfluxDB 3 database and lets you:
 
@@ -7,6 +8,16 @@ The Processing engine is an embedded Python VM that runs inside your InfluxDB 3 
 - Run code on a schedule
 - Create API endpoints that execute Python code
 - Maintain state between executions with an in-memory cache
+
+Learn how to create, configure, run, and extend Python plugins that execute when specific events occur.
+
+## Before you begin
+
+Ensure you have: 
+- A working influxDB 3 Core instance
+- Access to command line
+- Python installed if you're writing your own plugin
+- Basic knowledge of the InfluxDB CLI
 
 Learn how to create, configure, run, and extend Python plugins that execute when specific events occur.
 
