@@ -206,7 +206,7 @@ influxdb3 serve \
 # Specify the object store type and associated options
 
 influxdb3 serve \
-   host01 \
+  --node-id host01 \
   --cluster-id cluster01 \
   --object-store s3 \
   --bucket BUCKET \
