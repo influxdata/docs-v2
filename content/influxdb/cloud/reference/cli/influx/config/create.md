@@ -6,6 +6,8 @@ menu:
     name: influx config create
     parent: influx config
 weight: 201
+source: /shared/influxdb-v2/reference/cli/influx/config/create.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/config/create.md-->

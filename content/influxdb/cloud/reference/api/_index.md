@@ -10,6 +10,8 @@ menu:
     name: InfluxDB HTTP API
 weight: 3
 influxdb/cloud/tags: [api]
+source: /shared/influxdb-v2/reference/api/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/api/_index.md-->

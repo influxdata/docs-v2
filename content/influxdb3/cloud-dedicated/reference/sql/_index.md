@@ -10,7 +10,7 @@ weight: 101
 related:
   - /influxdb3/cloud-dedicated/reference/internals/arrow-flightsql/
 
-source: /content/shared/sql-reference/_index.md
+source: /shared/sql-reference/_index.md
 ---
 
 <!-- 

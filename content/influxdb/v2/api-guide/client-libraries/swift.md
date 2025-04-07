@@ -11,10 +11,8 @@ menu:
     params:
       url: https://github.com/influxdata/influxdb-client-swift
 weight: 201
+source: /shared/influxdb-v2/api-guide/client-libraries/swift.md
 ---
 
-Swift is a programming language created by Apple for building applications across multiple Apple platforms.
-
-The documentation for this client library is available on GitHub.  
-
-<a href="https://github.com/influxdata/influxdb-client-swift" target="_blank" class="btn github">Swift InfluxDB client</a>
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/swift.md -->

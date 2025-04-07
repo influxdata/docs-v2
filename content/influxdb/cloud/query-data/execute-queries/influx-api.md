@@ -7,6 +7,8 @@ menu:
     name: Query with the InfluxDB API
     parent: Execute queries
 influxdb/cloud/tags: [query]
+source: /shared/influxdb-v2/query-data/execute-queries/influx-api.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/execute-queries/influx-api.md-->

@@ -9,6 +9,8 @@ menu:
 related:
   - /influxdb/cloud/monitor-alert/checks/
   - /influxdb/cloud/monitor-alert/notification-endpoints/
+source: /shared/influxdb-v2/monitor-alert/notification-rules/view.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/monitor-alert/notification-rules/view.md-->

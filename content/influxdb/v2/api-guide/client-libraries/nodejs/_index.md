@@ -12,12 +12,9 @@ influxdb/v2/tags: [client libraries, JavaScript]
 weight: 201
 aliases:
   - /influxdb/v2/reference/api/client-libraries/nodejs/
-  - /influxdb/v2/reference/api/client-libraries/js/  
+  - /influxdb/v2/reference/api/client-libraries/js/
+source: /shared/influxdb-v2/api-guide/client-libraries/nodejs/_index.md
 ---
 
-Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) to integrate InfluxDB into your Node.js application.
-In this guide, you'll start a Node.js project from scratch and code some simple API operations.
-
-{{< children >}}
-
-{{% api/v2dot0/nodejs/learn-more %}}
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/nodejs/_index.md -->

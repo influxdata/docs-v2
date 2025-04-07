@@ -14,6 +14,8 @@ menu:
     name: Client libraries
     parent: Develop with the API
 influxdb/cloud/tags: [client libraries]
+source: /shared/influxdb-v2/api-guide/client-libraries/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/_index.md-->

@@ -12,6 +12,8 @@ influxdb/cloud/tags: [csv, syntax]
 related:
   - /influxdb/cloud/reference/flux/stdlib/csv/from/
   - /influxdb/cloud/reference/syntax/annotated-csv/extended/
+source: /shared/influxdb-v2/reference/syntax/annotated-csv/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/syntax/annotated-csv/_index.md-->

@@ -16,6 +16,8 @@ related:
   - /flux/v0/stdlib/universe/movingaverage/
   - /flux/v0/stdlib/universe/timedmovingaverage/
 list_query_example: moving_average
+source: /shared/influxdb-v2/query-data/flux/moving-average.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/moving-average.md-->

@@ -7,6 +7,8 @@ menu:
     parent: influx replication
 weight: 101
 influxdb3/cloud-serverless/tags: [write]
+source: /shared/influxdb-v2/reference/cli/influx/replication/create.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/replication/create.md-->

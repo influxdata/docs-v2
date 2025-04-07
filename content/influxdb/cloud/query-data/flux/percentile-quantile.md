@@ -15,6 +15,8 @@ related:
   - /influxdb/cloud/query-data/flux/query-median/
   - /flux/v0/stdlib/universe/quantile/
 list_query_example: quantile
+source: /shared/influxdb-v2/query-data/flux/percentile-quantile.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/percentile-quantile.md-->

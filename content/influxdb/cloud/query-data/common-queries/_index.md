@@ -9,6 +9,8 @@ menu:
     name: Common queries
     parent: Query data
 weight: 104
+source: /shared/influxdb-v2/query-data/common-queries/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/common-queries/_index.md-->
