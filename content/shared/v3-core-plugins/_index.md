@@ -29,9 +29,9 @@ Once you have all the prerequisites in place, follow these steps to implement th
    - [Use example plugins](#use-example-plugins)
    - [Create a custom plugin](#create-a-custom-plugin)
 3. [Create a trigger to run a plugin](#create-a-trigger-to-run-a-plugin)
-   - [Create a trigger for data writes](#create-a-trigger-for-data-writes)
-   - [Create a trigger for scheduled events](#create-a-trigger-for-scheduled-events)
-   - [Create a trigger for HTTP requests](#create-a-trigger-for-http-requests)
+   - [Understand trigger types](#understand-trigger-types)
+   - [Create a trigger](#create-a-trigger)
+   - [Choose a trigger specification](#choose-a-trigger-specification)
    - [Use community plugins from GitHub](#use-community-plugins-from-github)
    - [Pass arguments to plugins](#pass-arguments-to-plugins)
    - [Control trigger execution](#control-trigger-execution)
@@ -173,7 +173,7 @@ def process_scheduled_call(influxdb3_local, call_time, args=None):
         influxdb3_local.warn("No recent metrics found")
 ```
 
-##### Option C: Create an HTTP requests plugin
+##### Option C: Create an HTTP request plugin
 
 HTTP request plugins respond to API calls. They're excellent for:
 
@@ -211,17 +211,36 @@ A trigger connects your plugin to a specific database event.
 The plugin function signature in your plugin file determines which _trigger specification_
 you can choose for configuring and activating your plugin.
 
-Create a trigger with the `influxdb3 create trigger` command.
+After setting up your plugin, you need to connect it to specific database events using triggers. 
+
+### Understand trigger types
+
+| Plugin Type | Trigger Specification | When Plugin Runs |
+|------------|----------------------|-----------------|
+| Data write | `table:<TABLE_NAME>` or `all_tables` | When data is written to tables |
+| Scheduled | `every:<DURATION>` or `cron:<EXPRESSION>` | At specified time intervals |
+| HTTP request | `path:<ENDPOINT_PATH>` | When HTTP requests are received |
+
+### Create a trigger
+
+Use the `influxdb3 create trigger` command with the appropriate trigger specification:
+
+```bash
+influxdb3 create trigger \
+  --trigger-spec "<SPECIFICATION>" \
+  --plugin-filename "<PLUGIN_FILE>" \
+  --database <DATABASE_NAME> \
+  <TRIGGER_NAME>
+ ``` 
 
 > [!Note]
 > When specifying a local plugin file, the `--plugin-filename` parameter
 > _is relative to_ the `--plugin-dir` configured for the server.
 > You don't need to provide an absolute path.
 
-### Create a trigger for data writes
+### Choose a trigger specification
 
-Use the `table:<TABLE_NAME>` or the `all_tables` trigger specification to configure
-and run a [plugin for data write events](#for-data-write-events)--for example:
+#### Option A: For data write events
 
 ```bash
 # Trigger on writes to a specific table
@@ -245,10 +264,7 @@ to the Write-Ahead Log (WAL) in the Object store (default is every second).
 
 The plugin receives the written data and table information.
 
-### Create a trigger for scheduled events
-
-Use the `every:<DURATION>` or the `cron:<CRONTAB_EXPRESSION>` trigger specification
-to configure and run a [plugin for scheduled events](#for-scheduled-events)--for example:
+#### Option B: For scheduled events 
 
 ```bash
 # Run every 5 minutes
@@ -268,9 +284,7 @@ influxdb3 create trigger \
 
 The plugin receives the scheduled call time.
 
-### Create a trigger for HTTP requests
-
-[For an HTTP request plugin], use the `path:<ENDPOINT_PATH>` trigger specification to configure and enable a [plugin for HTTP requests](#for-http-requests)--for example:
+#### Option C: For HTTP requests
 
 ```bash
 # Create an endpoint at /api/v3/engine/webhook
@@ -290,6 +304,7 @@ curl http://{{% influxdb/host %}}/api/v3/engine/webhook
 
 The plugin receives the HTTP request object with methods, headers, and body.
 
+-----[Pick up here]-------
 ### Use community plugins from GitHub
 
 You can reference plugins directly from the GitHub repository by using the `gh:` prefix:
