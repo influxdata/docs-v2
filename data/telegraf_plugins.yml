@@ -86,15 +86,15 @@ input:
   - name: Apache HTTP Server
     id: apache
     description: |
-        The Apache HTTP Server input plugin collects server performance information
-        using the `mod_status` module of the Apache HTTP Server.
+      The Apache HTTP Server input plugin collects server performance information
+      using the `mod_status` module of the Apache HTTP Server.
 
-        Typically, the `mod_status` module is configured to expose a page at the
-        `/server-status?auto` location of the Apache server.
-        The [ExtendedStatus](https://httpd.apache.org/docs/2.4/mod/core.html#extendedstatus)
-        option must be enabled in order to collect all available fields.
-        For information about how to configure your server reference, see the
-        [module documentation](https://httpd.apache.org/docs/2.4/mod/mod_status.html#enable).
+      Typically, the `mod_status` module is configured to expose a page at the
+      `/server-status?auto` location of the Apache server.
+      The [ExtendedStatus](https://httpd.apache.org/docs/2.4/mod/core.html#extendedstatus)
+      option must be enabled in order to collect all available fields.
+      For information about how to configure your server reference, see the
+      [module documentation](https://httpd.apache.org/docs/2.4/mod/mod_status.html#enable).
     introduced: 1.8.0
     tags: [linux, macos, windows, servers, web]
 
@@ -184,7 +184,7 @@ input:
     description: |
       The CloudWatch Metric Streams plugin is a service input plugin that listens for metrics sent via HTTP and performs the required processing for metric streams from AWS.
     introduced: 1.24.0
-    tags: [linux, macos, windows, aws]
+    tags: [linux, macos, windows, cloud, aws, streams]
 
   - name: Azure Monitor
     id: azure_monitor
@@ -484,7 +484,7 @@ input:
   - name: Event Hub Consumer
     id: eventhub_consumer
     description: |
-     The Event Hub Consumer input plugin provides a consumer for use with Azure Event Hubs and Azure IoT Hub.
+      The Event Hub Consumer input plugin provides a consumer for use with Azure Event Hubs and Azure IoT Hub.
     introduced: 1.14.0
     tags: [linux, macos, windows, iot]
 
@@ -559,6 +559,15 @@ input:
       To use this input plugin, sign up to use the [Fireboard REST API](https://docs.fireboard.io/reference/restapi.html).
     introduced: 1.12.0
     tags: [linux, macos, windows, cloud, Io]
+
+  - name: Firehose
+    id: firehose
+    description: |
+      The Firehose input plugin listens for metrics sent via HTTP from [AWS Data Firehose](https://aws.amazon.com/firehose/)
+      in one of the supported input data formats.
+      The plugin strictly follows the Firehose request-response schema.
+    introduced: 1.34.0
+    tags: [linux, macos, windows, aws, cloud, streams]
 
   - name: Fluentd
     id: fluentd
@@ -716,11 +725,10 @@ input:
   - name: Hue Bridge
     id: huebridge
     description: |
-      This plugin gathers smart home statistics from [Hue Bridge](https://www.philips-hue.com/en-us/p/hue-bridge/046677458478#overview) devices.
-    introduced: 1.23.0
-    link: https://github.com/hdecarne-github/huebridge-telegraf-plugin/blob/main/README.md
-    external: true
-    tags: [iot, external]
+      The Hue Bridge input plugin gathers status from [Hue Bridge](https://www.philips-hue.com/) devices using the
+      [CLIP API](https://developers.meethue.com/develop/hue-api-v2/) device interface.
+    introduced: 1.34.0
+    tags: [iot]
 
   - name: Huge Pages
     id: hugepages
@@ -1360,7 +1368,7 @@ input:
   - name: NGINX Stream STS
     id: nginx_sts
     description: |
-        The NGINX Plus API input plugin gathers NGINX status using external virtual host traffic status.
+      The NGINX Plus API input plugin gathers NGINX status using external virtual host traffic status.
     introduced: 1.15.0
     tags: [linux, macos, windows, servers, web]
 
@@ -1387,6 +1395,14 @@ input:
     introduced: 1.0.0
     tags: [linux, macos, windows, web, servers]
 
+  - name: NSDP
+    id: nsdp
+    description: |
+      The NSDP plugin gathers metrics from devices via
+      [Netgear Switch Discovery Protocol (NSDP)](https://en.wikipedia.org/wiki/Netgear_Switch_Discovery_Protocol) for all available switches and ports.
+    introduced: 1.34.0
+    tags: [linux, macos, windows, networking, systems]
+
   - name: NSQ
     id: nsq
     description: |
@@ -1409,15 +1425,6 @@ input:
       `/proc/net/snmp`, and `/proc/net/snmp6` files.
     introduced: 0.13.1
     tags: [linux, macos, windows, networking, systems]
-
-  - name: NSDP
-    id: nsdp
-    description: |
-      The NSDP input plugin gathers switch network statistics.
-    introduced: 1.24.0
-    link: https://github.com/hdecarne-github/nsdp-telegraf-plugin/blob/master/README.md
-    tags: [linux, macos, windows, networking, systems, external]
-    external: true
 
   - name: NTPq
     id: ntpq
@@ -2357,7 +2364,7 @@ output:
   - name: Execd
     id: execd
     description: |
-        The Execd output plugin runs an external program as a daemon.
+      The Execd output plugin runs an external program as a daemon.
     introduced: 1.15.0
     tags: [linux, macos, windows, systems]
 

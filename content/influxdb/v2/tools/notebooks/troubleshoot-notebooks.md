@@ -9,8 +9,8 @@ menu:
     parent: Notebooks
 aliases:
   - /influxdb/v2/notebooks/troubleshoot-notebooks/
+source: /shared/influxdb-v2/tools/notebooks/troubleshoot-notebooks.md
 ---
 
-### No measurements appear in my bucket even though there's data in it.
-
-Try changing the time range. You might have measurements prior to the time range you  selected. For example, if the selected time range is `Past 1h` and the last write happened 16 hours ago, you'd need to change the time range to `Past 24h` (or more) to see your data.
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/tools/notebooks/troubleshoot-notebooks.md -->

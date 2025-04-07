@@ -11,6 +11,8 @@ weight: 102
 influxdb3/cloud-dedicated/tags: [write, line protocol, syntax]
 related:
   - /influxdb3/cloud-dedicated/write-data/
+source: /shared/v3-line-protocol.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/v3-line-protocol.md-->

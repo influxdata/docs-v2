@@ -22,7 +22,7 @@ list_code_example: |
   |   `NOT`   | Negates the subsequent expression.                                         |
   |   `OR`    | Returns true if any operand is true. Otherwise, returns false.             |
 
-source: /content/shared/sql-reference/operators/logical.md
+source: /shared/sql-reference/operators/logical.md
 ---
 
 <!-- 

@@ -8,7 +8,7 @@ menu:
     parent: SQL reference
 weight: 206
 
-source: /content/shared/sql-reference/limit.md
+source: /shared/sql-reference/limit.md
 ---
 
 <!-- 

@@ -9,14 +9,8 @@ menu:
     name: Common queries
     parent: Query data
 weight: 104
+source: /shared/influxdb-v2/query-data/common-queries/_index.md
 ---
 
-The following articles walk through common queries using the
-[NOAA water database data](/influxdb/v2/reference/sample-data/#noaa-water-sample-data).
-
-{{< children >}}
-
-{{% note %}}
-This list will continue to grow.
-If you have suggestions, please [submit them to the InfluxData Community](https://community.influxdata.com/c/influxdb2).
-{{% /note %}}
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/query-data/common-queries/_index.md -->
