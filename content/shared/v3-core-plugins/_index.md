@@ -26,7 +26,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
 
 1. [Set up the Processing engine](#set-up-the-processing-engine)
 2. [Add a Processing engine plugin](#add-a-processing-engine-plugin)
-   - [Clone and use an example plugin](#Clone-and-use-an-example-plugin)
+   - [Use example plugins](#use-example-plugins)
    - [Create a plugin](#create-a-plugin)
 3. [Create a trigger to run a plugin](#create-a-trigger-to-run-a-plugin)
    - [Create a trigger for data writes](#create-a-trigger-for-data-writes)
@@ -61,39 +61,39 @@ The plugin directory must exist before you start InfluxDB.
 
 A plugin is a Python file that contains a specific function signature that corresponds to a trigger type. InfluxData maintains a repository of contributed plugins that you can use as-is or as a starting point for your own plugin.
 
-### Clone and use an example plugin
+You have two main options for adding plugins to your InfluxDB instance:
 
-1. Clone the repo:
+1. [Use example plugins](#use-example-plugins) - Quickest way to get started
+2. [Create your own plugin](#create-a-plugin) - For custom functionality
+
+### Use example plugins
+
+The InfluxData team maintains a repository of example plugins you can use immediately:
+
+1. **Browse available plugins**: Visit the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) to find examples for:
+   - **Data transformation**: Process and transform incoming data
+   - **Alerting**: Send notifications based on data thresholds
+   - **Aggregation**: Calculate statistics on time series data
+   - **Integration**: Connect to external services and APIs
+   - **System monitoring**: Track resource usage and health metrics
+
+2. **Choose how to access plugins**:
+
+**Option A: Copy plugins to your local directory**
+   
 ```bash
+# Clone the repository
 git clone https://github.com/influxdata/influxdb3_plugins.git
+   
+# Copy a plugin to your configured plugin directory
+cp influxdb3_plugins/examples/schedule/system_metrics/system_metrics.py /path/to/plugins/
 ```
-You can find example plugins to use here: [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins). 
 
-2. Copy a plugin into your configured plugin directory
-```bash
-cp influxdb3_plugins/examples/<plugin_name> /path/to/plugins/
-```
-3. Restart InfluxDB if it's already running.
-
-Plugins have various functions such as: 
-
-- Receive plugin-specific arguments (such as written data, call time, or an HTTP request)
-- Can receive keyword arguments (as `args`) from _trigger arguments_
-- Can access the `influxdb3_local` shared API for writing, querying, and managing state
-
-If you would like to create your own plugin you can follow:
-- [Create a plugin](#create-a-plugin)
-
-#### From local files
-
-You can copy example plugins from the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) to your local plugin directory:
-
-#### Directly from GitHub
+**Option B: Use plugins directly from GitHub**
 
 You can use plugins directly from GitHub without downloading them first by using the `gh:` prefix in the plugin filename:
-
+    
 ```bash
-# Use a plugin directly from GitHub
 influxdb3 create trigger \
     --trigger-spec "every:1m" \
     --plugin-filename "gh:examples/schedule/system_metrics/system_metrics.py" \
@@ -101,19 +101,11 @@ influxdb3 create trigger \
     system_metrics
 ```
 
-> [!Note]
-> #### Find and contribute plugins
->
-> The plugins repository includes examples for various use cases:
-> 
-> - **Data transformation**: Process and transform incoming data
-> - **Alerting**: Send notifications based on data thresholds
-> - **Aggregation**: Calculate statistics on time series data
-> - **Integration**: Connect to external services and APIs
-> - **System monitoring**: Track resource usage and health metrics
->
-> Visit [influxdata/influxdb3_plugins](https://github.com/influxdata/influxdb3_plugins)
-> to browse available plugins or contribute your own.
+Plugins have various functions such as: 
+
+- Receive plugin-specific arguments (such as written data, call time, or an HTTP request)
+- Can receive keyword arguments (as `args`) from _trigger arguments_
+- Can access the `influxdb3_local` shared API for writing, querying, and managing state
 
 ### Create a plugin
 
