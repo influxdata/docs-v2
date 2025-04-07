@@ -27,7 +27,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
 1. [Set up the Processing engine](#set-up-the-processing-engine)
 2. [Add a Processing engine plugin](#add-a-processing-engine-plugin)
    - [Use example plugins](#use-example-plugins)
-   - [Create a plugin](#create-a-plugin)
+   - [Create a custom plugin](#create-a-custom-plugin)
 3. [Create a trigger to run a plugin](#create-a-trigger-to-run-a-plugin)
    - [Create a trigger for data writes](#create-a-trigger-for-data-writes)
    - [Create a trigger for scheduled events](#create-a-trigger-for-scheduled-events)
@@ -64,7 +64,7 @@ A plugin is a Python file that contains a specific function signature that corre
 You have two main options for adding plugins to your InfluxDB instance:
 
 1. [Use example plugins](#use-example-plugins) - Quickest way to get started
-2. [Create your own plugin](#create-a-plugin) - For custom functionality
+2. [Create a custom plugin](#create-a-custom-plugin) - For custom functionality
 
 ### Use example plugins
 
@@ -107,12 +107,32 @@ Plugins have various functions such as:
 - Can receive keyword arguments (as `args`) from _trigger arguments_
 - Can access the `influxdb3_local` shared API for writing, querying, and managing state
 
-### Create a plugin
+### Create a custom plugin
+
+When you need custom functionality, you can create your own plugin be doing the following:
+
+#### Step 1: Choose your plugin type
+
+First, determine which type of plugin you need based on your automation goals:
+
+| Plugin Type | Best For | Trigger Type |
+|-------------|----------|-------------|
+| **Data write** | Processing data as it arrives | `table:` or `all_tables` |
+| **Scheduled** | Running code at specific times | `every:` or `cron:` |
+| **HTTP request** | Creating API endpoints | `path:` |
+
+#### Step 2: Create your plugin file
 
 1. Create a `.py` file in your plugins directory
-2. Define a function with one of the following signatures:
+2. Add the appropriate function signature based on your chosen plugin type
+3. Implement your processing logic inside the function
 
-#### For data write events
+##### Option A: Create a data write plugin
+
+Data write plugins process incoming data as it's written to the database. They're ideal for:
+- Data transformation and enrichment
+- Alerting on incoming values
+- Creating derived metrics
 
 ```python
 def process_writes(influxdb3_local, table_batches, args=None):
@@ -131,7 +151,13 @@ def process_writes(influxdb3_local, table_batches, args=None):
         influxdb3_local.write(line)
 ```
 
-#### For scheduled events
+##### Option B: Create a scheduled plugin
+
+Scheduled plugins run at specific intervals or times. They're perfect for:
+
+- Periodic data aggregation
+- Report generation
+- System health checks
 
 ```python
 def process_scheduled_call(influxdb3_local, call_time, args=None):
@@ -147,7 +173,13 @@ def process_scheduled_call(influxdb3_local, call_time, args=None):
         influxdb3_local.warn("No recent metrics found")
 ```
 
-#### For HTTP requests
+##### Option C: Create an HTTP requests plugin
+
+HTTP request plugins respond to API calls. They're excellent for:
+
+- Creating custom API endpoints
+- Web hooks for external integrations
+- User interfaces for data interaction
 
 ```python
 def process_request(influxdb3_local, query_parameters, request_headers, request_body, args=None):
@@ -166,7 +198,12 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
     return {"status": "success", "message": "Request processed"}
 ```
 
-After adding your plugin, you can [install Python dependencies](#install-python-dependencies) or learn how to [extend plugins with API features and state management](#extend-plugins-with-api-features-and-state-management).
+#### Step 3: Next Steps
+
+After adding your plugin:
+- You can [install Python dependencies](#install-python-dependencies) 
+- Learn how to [extend plugins with API features and state management](#extend-plugins-with-api-features-and-state-management)
+- Create a trigger to connect your plugin to database events
 
 ## Create a trigger to run a plugin
 
