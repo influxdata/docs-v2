@@ -10,6 +10,8 @@ menu:
 weight: 204
 related:
   - /influxdb/cloud/reference/cli/influx/task/update
+source: /shared/influxdb-v2/process-data/manage-tasks/update-task.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/process-data/manage-tasks/update-task.md-->

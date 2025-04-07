@@ -9,7 +9,7 @@ menu:
     parent: SQL reference
 weight: 206
 
-source: /content/shared/sql-reference/union.md
+source: /shared/sql-reference/union.md
 ---
 
 <!-- 

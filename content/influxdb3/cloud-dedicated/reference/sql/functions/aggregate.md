@@ -11,7 +11,7 @@ weight: 301
 related:
   - /influxdb3/cloud-dedicated/query-data/sql/aggregate-select/
 
-source: /content/shared/sql-reference/functions/aggregate.md
+source: /shared/sql-reference/functions/aggregate.md
 ---
 
 <!-- 

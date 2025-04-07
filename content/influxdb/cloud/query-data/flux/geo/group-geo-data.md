@@ -19,6 +19,8 @@ list_code_example: |
       |> geo.groupByArea(newColumn: "geoArea", level: 5)
       |> geo.asTracks(groupBy: ["id"],orderBy: ["_time"])
   ```
+source: /shared/influxdb-v2/query-data/flux/geo/group-geo-data.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/geo/group-geo-data.md-->

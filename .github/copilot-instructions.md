@@ -8,29 +8,32 @@ GitHub Copilot should help document InfluxData products by creating clear, accur
 
 - **Product version data**: `/data/products.yml`
 - **Products**:
+  - InfluxDB 3 Core
+    - Documentation source path: `/content/influxdb3/core`
+    - Code repositories: https://github.com/influxdata/influxdb, https://github.com/influxdata/influxdb3_core
+  - InfluxDB 3 Enterprise
+    - Documentation source path: `/content/influxdb3/enterprise`
+    - Code repositories: https://github.com/influxdata/influxdb, https://github.com/influxdata/influxdb3_enterprise
+  - InfluxDB Cloud Dedicated
+    - Documentation source path: `/content/influxdb3/cloud-dedicated`
+    - Code repository: https://github.com/influxdata/influxdb
+  - InfluxDB Cloud Serverless
+    - Documentation source path: `/content/influxdb3/cloud-serverless`
+    - Code repository: https://github.com/influxdata/idpe
+  - InfluxDB Cloud v2 (TSM)
+    - Documentation source path: `/content/influxdb/cloud`
+    - Code repository: https://github.com/influxdata/idpe
+  - InfluxDB Clustered
+    - Documentation source path: `/content/influxdb3/clustered`
+    - Code repository: https://github.com/influxdata/influxdb
+  - InfluxDB Enterprise v1 (1.x)
+    - Documentation source path: `/content/influxdb/enterprise_influxdb`
+    - Code repository: https://github.com/influxdata/influxdb
   - InfluxDB OSS 1.x
     - Documentation source path: `/content/influxdb/v1`
     - Code repository: https://github.com/influxdata/influxdb
   - InfluxDB OSS 2.x
     - Documentation source path: `/content/influxdb/v2`
-    - Code repository: https://github.com/influxdata/influxdb
-  - InfluxDB 3 Core
-    - Documentation source path: `/content/influxdb3/core`
-    - Code repositories: https://github.com/influxdata/influxdb, https://github.com/influxdata/influxdb3_core
-  - InfluxDB Enterprise v1 (1.x)
-    - Documentation source path: `/content/influxdb/enterprise_influxdb`
-    - Code repository: https://github.com/influxdata/influxdb
-  - InfluxDB Cloud v2 (TSM)
-    - Documentation source path: `/content/influxdb/cloud`
-    - Code repository: https://github.com/influxdata/idpe
-  - InfluxDB 3 Cloud Dedicated
-    - Documentation source path: `/content/influxdb3/cloud-dedicated`
-    - Code repository: https://github.com/influxdata/influxdb
-  - InfluxDB 3 Cloud Serverless
-    - Documentation source path: `/content/influxdb3/cloud-serverless`
-    - Code repository: https://github.com/influxdata/idpe
-  - InfluxDB 3 Clustered
-    - Documentation source path: `/content/influxdb3/clustered`
     - Code repository: https://github.com/influxdata/influxdb
   - Telegraf
     - Documentation source path: `/content/telegraf/v1`

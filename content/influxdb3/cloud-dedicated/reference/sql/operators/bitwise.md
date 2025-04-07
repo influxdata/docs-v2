@@ -17,7 +17,7 @@ list_code_example: |
   |   `>>`   | Bitwise shift right | `5 >> 3` |    `0` |
   |   `<<`   | Bitwise shift left  | `5 << 3` |   `40` |
 
-source: /content/shared/sql-reference/operators/bitwise.md
+source: /shared/sql-reference/operators/bitwise.md
 ---
 
 <!-- 

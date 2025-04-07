@@ -11,7 +11,7 @@ weight: 302
 related:
   - /influxdb3/enterprise/query-data/sql/aggregate-select/
 
-source: /content/shared/sql-reference/functions/selector.md
+source: /shared/sql-reference/functions/selector.md
 ---
 
 <!-- 

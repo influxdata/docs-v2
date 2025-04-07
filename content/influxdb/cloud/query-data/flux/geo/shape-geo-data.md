@@ -29,6 +29,8 @@ list_code_example: |
       )
       |> map(fn: (r) => ({r with s2_cell_id: geo.s2CellIDToken(point: {lon: r.lon, lat: r.lat}, level: 10)}))
   ```
+source: /shared/influxdb-v2/query-data/flux/geo/shape-geo-data.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/geo/shape-geo-data.md-->

@@ -8,6 +8,8 @@ menu:
     name: Explore data
     parent: Query with InfluxQL
 weight: 202
+source: /shared/influxdb-v2/query-data/influxql/explore-data/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/influxql/explore-data/_index.md-->

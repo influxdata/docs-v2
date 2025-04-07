@@ -63,8 +63,8 @@ The following are important definitions to understand when using InfluxDB:
 
 - **Point**: Single data record identified by its _measurement, tag keys, tag values, field key, and timestamp_.
 - **Series**: A group of points with the same
-  {{% oss-only %}}_measurement, tag keys, and tag values_.{{% /oss-only %}}
-  {{% cloud-only %}}_measurement, tag keys and values, and field key_.{{% /cloud-only %}}
+  {{% show-in "v2" %}}_measurement, tag keys, and tag values_.{{% /show-in %}}
+  {{% show-in "cloud,cloud-serverless" %}}_measurement, tag keys and values, and field key_.{{% /show-in %}}
 
 ##### Example InfluxDB query results
 
@@ -82,13 +82,13 @@ InfluxDB {{< current-version >}}. Examples are provided for each of the followin
 ### InfluxDB user interface (UI)
 
 The InfluxDB UI provides a web-based visual interface for interacting with and managing InfluxDB.
-{{% oss-only %}}The UI is packaged with InfluxDB and runs as part of the InfluxDB service. To access the UI, with InfluxDB running, visit [localhost:8086](http://localhost:8086) in your browser.{{% /oss-only %}}
-{{% cloud-only %}}To access the InfluxDB Cloud UI, [log into your InfluxDB Cloud account](https://cloud2.influxdata.com).{{% /cloud-only %}}
+{{% show-in "v2" %}}The UI is packaged with InfluxDB and runs as part of the InfluxDB service. To access the UI, with InfluxDB running, visit [localhost:8086](http://localhost:8086) in your browser.{{% /show-in %}}
+{{% show-in "cloud,cloud-serverless" %}}To access the InfluxDB Cloud UI, [log into your InfluxDB Cloud account](https://cloud2.influxdata.com).{{% /show-in %}}
 
 ### `influx` CLI
 
 The `influx` CLI lets you interact with and manage InfluxDB {{< current-version >}} from a command line.
-{{% oss-only %}}The CLI is packaged separately from InfluxDB and must be downloaded and installed separately.{{% /oss-only %}}
+{{% show-in "v2" %}}The CLI is packaged separately from InfluxDB and must be downloaded and installed separately.{{% /show-in %}}
 For detailed CLI installation instructions, see
 [Use the influx CLI](/influxdb/v2/tools/influx-cli/).
 

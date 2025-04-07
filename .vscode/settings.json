@@ -21,4 +21,7 @@
             "enabled": true
         }
     ],
+    "cSpell.words": [
+      "influxctl"
+    ],
 }
