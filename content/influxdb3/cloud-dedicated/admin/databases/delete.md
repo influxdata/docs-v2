@@ -37,6 +37,13 @@ to delete a database from your {{< product-name omit=" Clustered" >}} cluster.
 > #### Deleting a database cannot be undone
 > 
 > Once a database is deleted, data stored in that database cannot be recovered.
+>
+> #### Wait before writing to a new database with the same name
+>
+> After deleting a database from your {{% product-name omit=" Clustered" %}}
+> cluster, you can reuse the name to create a new database, but **wait two to
+> three minutes** after deleting the previous database before writing to the new
+> database to allow write caches to clear.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

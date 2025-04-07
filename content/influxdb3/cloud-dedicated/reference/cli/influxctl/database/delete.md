@@ -25,6 +25,13 @@ influxctl database delete [command options] [--force] <DATABASE_NAME> [<DATABASE
 > #### Cannot be undone
 > 
 > Deleting a database is a destructive action that cannot be undone.
+>
+> #### Wait before writing to a new database with the same name
+>
+> After deleting a database from your {{% product-name omit=" Clustered" %}}
+> cluster, you can reuse the name to create a new database, but **wait two to
+> three minutes** after deleting the previous database before writing to the new
+> database to allow write caches to clear.
 
 ## Arguments
 

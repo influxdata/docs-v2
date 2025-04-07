@@ -68,6 +68,14 @@ Be sure to follow [partitioning best practices](/influxdb3/cloud-dedicated/admin
 > time format to use in your partition template.
 > Otherwise, InfluxDB omits time from the partition template and won't compact partitions.
 
+> [!Warning]
+> #### Wait before writing to a new database with the same name as a deleted database
+>
+> After deleting a database from your {{% product-name omit=" Clustered" %}}
+> cluster, you can reuse the name to create a new database, but **wait two to
+> three minutes** after deleting the previous database before writing to the new
+> database to allow write caches to clear.
+
 ## Usage
 
 <!--Skip tests for database create and delete: namespaces aren't reusable-->
