@@ -6,7 +6,7 @@ The Processing engine is an embedded Python virtual machine that runs inside an 
 
 ### Architecture
 
-The Processing engine runs Python code directly within the InfluxDB process. This design provides high performance and direct access to database resources.
+The Processing engine runs Python code directly within a {{% product-name %}} server process. This design provides high performance and direct access to database resources.
 
 - **Embedded execution**: Code runs in the same process space as the database
 - **Direct data access**: Zero-copy access to data where possible
