@@ -9,7 +9,7 @@ The Processing engine is an embedded Python virtual machine that runs inside an 
 The Processing engine runs Python code directly within a {{% product-name %}} server process. This design provides high performance and direct access to database resources.
 
 - **Embedded execution**: Code runs in the same process space as the database server
-- **Direct data access**: Zero-copy access to data where possible
+- **Direct data access**: Zero-copy access to data
 - **Event-driven**: Responds to database writes, scheduled events, and HTTP requests
 - **Isolated contexts**: Maintains separation between different plugin executions
 
