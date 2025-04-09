@@ -20,7 +20,7 @@ When events occur in the database, the Processing engine handles them through a 
 1. A **trigger** activates when a specific event occurs
 2. The engine loads the associated **plugin** (Python code)
 3. The plugin receives relevant **context and data**
-4. The code processes the data and can write results back
+4. The code can process received data, query data, call third party tools, and write data to the database (for example, downsampled data) and caches.
 5. Execution completes and the engine returns to waiting state
 
 ## Key components
