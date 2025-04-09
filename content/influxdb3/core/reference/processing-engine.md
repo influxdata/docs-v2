@@ -1,7 +1,7 @@
 ---
 title: Processing engine reference
 description: >
-  Use the InfluxDB 3 Processing engine to run Python code directly in your InfluxDB 3 Core database to automatically process data and respond to database events.
+  The InfluxDB 3 Processing engine is an embedded Python virtual machine that runs inside the InfluxDB database. It executes Python code in response to database events without requiring external application servers or middleware.
 menu:
   influxdb3_core:
     name: Processing engine
