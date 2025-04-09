@@ -63,8 +63,8 @@ A plugin is a Python file that contains a specific function signature that corre
 
 You have two main options for adding plugins to your InfluxDB instance:
 
-1. [Use example plugins](#use-example-plugins) - Quickest way to get started
-2. [Create a custom plugin](#create-a-custom-plugin) - For custom functionality
+- [Use example plugins](#use-example-plugins) - Quickest way to get started
+- [Create a custom plugin](#create-a-custom-plugin) - For custom functionality
 
 ### Use example plugins
 
@@ -109,7 +109,7 @@ Plugins have various functions such as:
 
 ### Create a custom plugin
 
-When you need custom functionality, you can create your own plugin be doing the following:
+When you need custom functionality, you can create your own plugin by doing the following:
 
 #### Step 1: Choose your plugin type
 
@@ -410,15 +410,14 @@ This approach:
 - Simplifies updates and maintenance
 - Reduces local storage requirements
 
-### Step 2: Configure your tiggers
+### Step 2: Configure your triggers
 
 #### Pass configuration arguments
 
-provide runtine configuration to your plugins:
-
-# Pass threshold and email settings to a plugin
+Provide runtine configuration to your plugins:
 
 ```bash
+# Pass threshold and email settings to a plugin
 influxdb3 create trigger \
   --trigger-spec "every:1h" \
   --plugin-filename "threshold_check.py" \
@@ -439,7 +438,7 @@ def process_scheduled_call(influxdb3_local, call_time, args=None):
 ```
 #### Set execution mode
 
-Choose between synchronous (default) or asynchronous excution:
+Choose between synchronous (default) or asynchronous execution:
 
 ```bash
 # Allow multiple trigger instances to run simultaneously
