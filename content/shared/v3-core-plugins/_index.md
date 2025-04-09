@@ -410,6 +410,66 @@ This approach:
 - Simplifies updates and maintenance
 - Reduces local storage requirements
 
+### Step 2: Configure your tiggers
+
+#### Pass configuration arguments
+
+provide runtine configuration to your plugins:
+
+# Pass threshold and email settings to a plugin
+
+```bash
+influxdb3 create trigger \
+  --trigger-spec "every:1h" \
+  --plugin-filename "threshold_check.py" \
+  --trigger-arguments threshold=90,notify_email=admin@example.com \
+  --database my_database \
+  threshold_monitor
+```
+Your plugin accesses these values through the `args` parameter:
+
+```python
+def process_scheduled_call(influxdb3_local, call_time, args=None):
+    if args and "threshold" in args:
+        threshold = float(args["threshold"])
+        email = args.get("notify_email", "default@example.com")
+        
+        # Use the arguments in your logic
+        influxdb3_local.info(f"Checking threshold {threshold}, will notify {email}")
+```
+#### Set execution mode
+
+Choose between synchronous (default) or asynchronous excution:
+
+```bash
+# Allow multiple trigger instances to run simultaneously
+influxdb3 create trigger \
+  --trigger-spec "table:metrics" \
+  --plugin-filename "heavy_process.py" \
+  --run-asynchronous \
+  --database my_database \
+  async_processor
+```
+
+Use asynchronous execution when:
+
+- Processing might take longer than the trigger interval
+- Multiple events need to be handled simultaneously
+- Performance is more important than sequential execution
+
+#### Configure error handling
+
+Control how your trigger responds to errors:
+```bash
+# Automatically retry on error
+influxdb3 create trigger \
+  --trigger-spec "table:important_data" \
+  --plugin-filename "critical_process.py" \
+  --error-behavior retry \
+  --database my_database \
+  critical_processor
+```
+
 ## Install Python dependencies
 
 If your plugin needs additional Python packages, use the `influxdb3 install` command:
