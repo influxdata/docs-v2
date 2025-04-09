@@ -1,13 +1,3 @@
-> [!Note] 
-> InfluxDB 3 Core is purpose-built for real-time data monitoring and recent data.
-> InfluxDB 3 Enterprise builds on top of Core with support for historical data
-> querying, high availability, read replicas, and more.
-> Enterprise will soon unlock
-> enhanced security, row-level deletions, an administration UI, and more.
-> Learn more about [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
-
-## Get started with {{% product-name %}}
-
 InfluxDB is a database built to collect, process, transform, and store event and time series data, and is ideal for use cases that require real-time ingest and fast query response times to build user interfaces, monitoring, and automation solutions.
 
 Common use cases include:
@@ -47,8 +37,9 @@ This guide covers InfluxDB 3 Core (the open source release), including the follo
 
 * [Install and startup](#install-and-startup)
 * [Data Model](#data-model)
-* [Write data to the database](#write-data)
-* [Query the database](#query-the-database)
+* [Tools to use](#tools-to-use)
+* [Write data](#write-data)
+* [Query data](#query-data)
 * [Last values cache](#last-values-cache)
 * [Distinct values cache](#distinct-values-cache)
 * [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
@@ -251,6 +242,32 @@ This is the sort order used for all Parquet files that get created. When you cre
 
 Tags should hold unique identifying information like `sensor_id`, or `building_id` or `trace_id`. All other data should be kept in fields. You will be able to add fast last N value and distinct value lookups later for any column, whether it is a field or a tag.
 
+### Tools to use
+
+The following table compares tools that you can use to interact with {{% product-name %}}.
+This tutorial covers many of the recommended tools.
+
+| Tool                                                                                              |      Administration      |          Write           |          Query           |
+| :------------------------------------------------------------------------------------------------ | :----------------------: | :----------------------: | :----------------------: |
+| [Chronograf](/chronograf/v1/)                                                                     |            -             |            -             | **{{< icon "check" >}}** |
+| <span style="opacity:.5;">`influx` CLI</span>                                                     |            -             |            -             |            -             |
+| [`influxdb3` CLI](#influxdb3-cli){{< req text="\* " color="magenta" >}}                           | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| <span style="opacity:.5;">`influxctl` CLI</span>                                                  |            -             |            -             |            -             |
+| [InfluxDB HTTP API](#influxdb-http-api){{< req text="\* " color="magenta" >}}                     | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| <span style="opacity:.5;">InfluxDB user interface</span>                                          |            -             |            -             |            -             |
+| [InfluxDB 3 client libraries](/influxdb3/version/reference/client-libraries/v3/)                  |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [InfluxDB v2 client libraries](/influxdb3/version/reference/client-libraries/v2/)                 |            -             | **{{< icon "check" >}}** |            -             |
+| [InfluxDB v1 client libraries](/influxdb3/version/reference/client-libraries/v1/)                 |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [InfluxDB 3 Processing engine](#python-plugins-and-the-processing-engine){{< req text="\* " color="magenta" >}}                              |                          | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [Telegraf](/telegraf/v1/)                                                                         |            -             | **{{< icon "check" >}}** |            -             |
+| **Third-party tools**                                                                             |                          |                          |                          |
+| Flight SQL clients                                                                                |            -             |            -             | **{{< icon "check" >}}** |
+| [Grafana](/influxdb3/version/visualize-data/grafana/)                                             |            -             |            -             | **{{< icon "check" >}}** |
+
+{{< caption >}}
+{{< req type="key" text="Covered in this guide" color="magenta" >}}
+{{< /caption >}}
+
 ### Write data
 
 InfluxDB is a schema-on-write database. You can start writing data and InfluxDB creates the logical database, tables, and their schemas on the fly.
@@ -264,35 +281,9 @@ Subsequent requests can add new fields on-the-fly, but can't add new tags.
 > The system persists data to Parquet files for historical analysis with [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/) or third-party tools.
 > For extended historical queries and optimized data organization, consider using [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
 
-{{% product-name %}} provides three write API endpoints that respond to HTTP `POST` requests:
+#### Write data in line protocol syntax
 
-#### /api/v3/write_lp endpoint
-
-{{% product-name %}} adds the `/api/v3/write_lp` endpoint.
-
-{{<api-endpoint endpoint="/api/v3/write_lp?db=mydb&precision=nanosecond&accept_partial=true" method="post" >}}
-
-This endpoint accepts the same line protocol syntax as previous versions,
-and supports the `?accept_partial=<BOOLEAN>` parameter, which
-lets you accept or reject partial writes (default is `true`).
-
-#### /api/v2/write InfluxDB v2 compatibility endpoint
-
-Provides backwards compatibility with clients that can write data to InfluxDB OSS v2.x and Cloud 2 (TSM).
-{{<api-endpoint endpoint="/api/v2/write?bucket=mydb&precision=ns" method="post" >}}
-
-#### /write InfluxDB v1 compatibility endpoint
-
-Provides backwards compatibility for clients that can write data to InfluxDB v1.x
-{{<api-endpoint endpoint="/write?db=mydb&precision=ns" method="post" >}}
-
-Keep in mind that these compatibility APIs differ from the v1 and v2 APIs in previous versions in the following ways:
-
-- Tags in a table (measurement) are _immutable_
-- A tag and a field can't have the same name within a table.
-
-#### Write line protocol
-
+{{% product-name %}} accepts data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) syntax.
 The following code block is an example of time series data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) syntax:
 
 - `cpu`: the table name.
@@ -300,7 +291,7 @@ The following code block is an example of time series data in [line protocol](/i
 - `val`, `usage_percent`, `status`: the fields. A field set is a comma-separated list of key/value pairs.
 - timestamp: If you don't specify a timestamp, InfluxData uses the time when data is written.
   The default precision is a nanosecond epoch.
-  To specify a different precision, pass the `precision` query parameter.
+  To specify a different precision, pass the `precision` parameter in your CLI command or API request.
 
 ```
 cpu,host=Alpha,region=us-west,application=webserver val=1i,usage_percent=20.5,status="OK"
@@ -311,37 +302,82 @@ cpu,host=Bravo,region=us-central,application=database val=5i,usage_percent=80.5,
 cpu,host=Alpha,region=us-west,application=webserver val=6i,usage_percent=25.3,status="Warn"
 ```
 
+### Write data using the CLI
+
+To quickly get started writing data, you can use the `influxdb3` CLI.
+For batching and higher-volume write workloads, we recommend using the [HTTP API](#write-data-using-the-http-api).
+
 ##### Example: write data using the influxdb3 CLI
 
 If you save the preceding line protocol to a file (for example, `server_data`), then you can use the `influxdb3` CLI to write the data--for example:
 
 ```bash
-influxdb3 write --database mydb --file server_data
+influxdb3 write \
+  --database mydb \
+  --file server_data \
+  --precision ns 
+  --accept-partial \
 ```
+
+### Write data using the HTTP API
+
+{{% product-name %}} provides three write API endpoints that respond to HTTP `POST` requests.
+The `/api/v3/write_lp` endpoint is the recommended endpoint for writing data and
+provides additional options for controlling write behavior.
+
+If you need to write data using InfluxDB v1.x or v2.x tools, use the compatibility API endpoints.
+
+{{% tabs-wrapper %}}
+{{% tabs %}}
+[/api/v3/write_lp](#)
+[v2 compatibility](#)
+[v1 compatibility](#)
+{{% /tabs %}}
+{{% tab-content %}}
+<!------------ BEGIN /api/v3/write_lp -------------->
+{{% product-name %}} adds the `/api/v3/write_lp` endpoint.
+
+{{<api-endpoint endpoint="/api/v3/write_lp?db=mydb&precision=nanosecond&accept_partial=true&no_sync=false" method="post" >}}
+
+This endpoint accepts the same line protocol syntax as previous versions,
+and supports the following parameters:
+
+- `?accept_partial=<BOOLEAN>`: Accept or reject partial writes (default is `true`).
+- `?no_sync=<BOOLEAN>`: Control when writes are acknowledged:
+  - `no_sync=true`: Acknowledge writes before WAL persistence completes.
+  - `no_sync=false`: Acknowledges writes after WAL persistence completes (default).
+- `?precision=<PRECISION>`: Specify the precision of the timestamp. The default is nanosecond precision.
+
+For more information about the parameters, see [Write data](/influxdb3/core/write-data/).
+
 
 ##### Example: write data using the /api/v3 HTTP API
 
 The following examples show how to write data using `curl` and the `/api/3/write_lp` HTTP endpoint.
-To show the difference between accepting and rejecting partial writes, line `2` in the example contains a `string` value for a `float` field (`temp=hi`).
+To show the difference between accepting and rejecting partial writes, line `2` in the example contains a `string` value (`"hi"`) for a `float` field (`temp`).
 
 ###### Partial write of line protocol occurred
 
-With `accept_partial=true`:
+With `accept_partial=true` (default):
+
+```bash
+curl -v "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=auto" \
+  --data-raw 'home,room=Sunroom temp=96
+home,room=Sunroom temp="hi"'
+```
+
+The response is the following:
 
 ```
-* upload completely sent off: 59 bytes
 < HTTP/1.1 400 Bad Request
-< transfer-encoding: chunked
-< date: Wed, 15 Jan 2025 19:35:36 GMT
-< 
-* Connection #0 to host localhost left intact
+...
 {
   "error": "partial write of line protocol occurred",
   "data": [
     {
-      "original_line": "dquote> home,room=Sunroom temp=hi",
+      "original_line": "home,room=Sunroom temp=hi",
       "line_number": 2,
-      "error_message": "No fields were provided"
+      "error_message": "invalid column type for column 'temp', expected iox::column_type::field::float, got iox::column_type::field::string"
     }
   ]
 }
@@ -356,24 +392,21 @@ With `accept_partial=false`:
 
 ```bash
 curl -v "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
-  --data-raw "home,room=Sunroom temp=96
-home,room=Sunroom temp=hi"
+  --data-raw 'home,room=Sunroom temp=96
+home,room=Sunroom temp="hi"'
 ```
 
 The response is the following:
 
 ```
 < HTTP/1.1 400 Bad Request
-< transfer-encoding: chunked
-< date: Wed, 15 Jan 2025 19:28:27 GMT
-< 
-* Connection #0 to host localhost left intact
+...
 {
   "error": "parsing failed for write_lp endpoint",
   "data": {
     "original_line": "home,room=Sunroom temp=hi",
     "line_number": 2,
-    "error_message": "No fields were provided"
+    "error_message": "invalid column type for column 'temp', expected iox::column_type::field::float, got iox::column_type::field::string"
   }
 }
 ```
@@ -382,6 +415,42 @@ InfluxDB rejects all points in the batch.
 The response is an HTTP error (`400`) status, and the response body contains `parsing failed for write_lp endpoint` and details about the problem line.
 
 For more information about the ingest path and data flow, see [Data durability](/influxdb3/version/reference/internals/durability/).
+<!------------ END /api/v3/write_lp -------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------ BEGIN /api/v2/write -------------->
+The `/api/v2/write` InfluxDB v2 compatibility endpoint provides backwards compatibility with clients that can write data to InfluxDB OSS v2.x and Cloud 2 (TSM).
+
+{{<api-endpoint endpoint="/api/v2/write?bucket=mydb&precision=ns" method="post" >}}
+<!------------ END /api/v2/write -------------->
+{{% /tab-content %}}
+
+{{% tab-content %}}
+<!------------ BEGIN /write (v1) ---------------->
+The `/write` InfluxDB v1 compatibility endpoint provides backwards compatibility for clients that can write data to InfluxDB v1.x.
+
+{{<api-endpoint endpoint="/write?db=mydb&precision=ns" method="post" >}}
+
+<!------------ END /write (v1) ---------------->
+{{% /tab-content %}}
+{{% /tabs-wrapper %}}
+
+#### Write data using InfluxDB client libraries
+
+InfluxData provides supported InfluxDB 3 client libraries that you can integrate with your code
+to construct data as time series points, and then write them as line protocol to an {{% product-name %}} database.
+For more information, see how to [use InfluxDB client libraries to write data](/influxdb3/version/write-data/api-client-libraries/).
+
+{{% product-name %}} supports the InfluxDB v2.x and v1.x compatibility APIs for
+writing data with tools such as InfluxDB v2 and v1 client libraries and Telegraf.
+
+> [!Note]
+> #### Compatibility APIs differ from native APIs
+> 
+> Keep in mind that the compatibility APIs differ from the v1 and v2 APIs in previous versions in the following ways:
+>
+> - Tags in a table (measurement) are _immutable_
+> - A tag and a field can't have the same name within a table.
 
 #### Write responses
 
@@ -403,7 +472,7 @@ Using `no_sync=true` is best when prioritizing high-throughput writes over absol
 The `no_sync` parameter controls when writes are acknowledged--for example:
 
 ```bash
-curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=true" \
+curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=auto&no_sync=true" \
   --data-raw "home,room=Sunroom temp=96"
 ```
 
