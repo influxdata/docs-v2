@@ -29,7 +29,7 @@ When events occur in the database, the Processing engine handles them through a 
 
 Triggers connect database events to Python code execution based on specific conditions:
 
-- **Data write triggers**: Execute when data is written to specific tables
+- **Data write triggers**: Execute on WAL flush events, when data is written to the object store, for a specific table or all tables in a database 
 - **Scheduled triggers**: Run at intervals or according to cron expressions
 - **HTTP triggers**: Respond to HTTP requests to custom endpoints
 
