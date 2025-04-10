@@ -1,5 +1,128 @@
+  Use the `/api/v3/write_lp` HTTP API endpoint and InfluxDB v3 API clients to write points as line protocol data to {{% product-name %}}.
 
-Use InfluxDB 3 client libraries to construct data as time series points, and
+- [Use the /api/v3/write\_lp endpoint](#use-the-apiv3write_lp-endpoint)
+  - [Example: write data using the /api/v3 HTTP API](#example-write-data-using-the-apiv3-http-api)
+  - [Write responses](#write-responses)
+  - [Use no\_sync for immediate write responses](#use-no_sync-for-immediate-write-responses)
+- [Use API client libraries](#use-api-client-libraries)
+  - [Construct line protocol](#construct-line-protocol)
+  - [Set up your project](#set-up-your-project)
+
+## Use the /api/v3/write_lp endpoint
+
+{{% product-name %}} adds the `/api/v3/write_lp` endpoint.
+
+{{<api-endpoint endpoint="/api/v3/write_lp?db=mydb&precision=nanosecond&accept_partial=true&no_sync=false" method="post" >}}
+
+This endpoint accepts the same line protocol syntax as [previous versions](/influxdb3/version/write-data/compatibility-apis/),
+and supports the following parameters:
+
+- `?accept_partial=<BOOLEAN>`: Accept or reject partial writes (default is `true`).
+- `?no_sync=<BOOLEAN>`: Control when writes are acknowledged:
+  - `no_sync=true`: Acknowledge writes before WAL persistence completes.
+  - `no_sync=false`: Acknowledges writes after WAL persistence completes (default).
+- `?precision=<PRECISION>`: Specify the precision of the timestamp. The default is nanosecond precision.
+
+For more information about the parameters, see [Write data](/influxdb3/version/write-data/).
+
+InfluxData provides supported InfluxDB 3 client libraries that you can integrate with your code
+to construct data as time series points, and then write them as line protocol to an {{% product-name %}} database.
+For more information, see how to [use InfluxDB client libraries to write data](/influxdb3/version/write-data/client-libraries/).
+
+### Example: write data using the /api/v3 HTTP API
+
+The following examples show how to write data using `curl` and the `/api/3/write_lp` HTTP endpoint.
+To show the difference between accepting and rejecting partial writes, line `2` in the example contains a string value (`"hi"`) for a float field (`temp`).
+
+#### Partial write of line protocol occurred
+
+With `accept_partial=true` (default):
+
+```bash
+curl -v "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=auto" \
+  --data-raw 'home,room=Sunroom temp=96
+home,room=Sunroom temp="hi"'
+```
+
+The response is the following:
+
+```
+< HTTP/1.1 400 Bad Request
+...
+{
+  "error": "partial write of line protocol occurred",
+  "data": [
+    {
+      "original_line": "home,room=Sunroom temp=hi",
+      "line_number": 2,
+      "error_message": "invalid column type for column 'temp', expected iox::column_type::field::float, got iox::column_type::field::string"
+    }
+  ]
+}
+```
+
+Line `1` is written and queryable.
+Line `2` is rejected.
+The response is an HTTP error (`400`) status, and the response body contains the error message `partial write of line protocol occurred` with details about the problem line. 
+
+#### Parsing failed for write_lp endpoint
+
+With `accept_partial=false`:
+
+```bash
+curl -v "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
+  --data-raw 'home,room=Sunroom temp=96
+home,room=Sunroom temp="hi"'
+```
+
+The response is the following:
+
+```
+< HTTP/1.1 400 Bad Request
+...
+{
+  "error": "parsing failed for write_lp endpoint",
+  "data": {
+    "original_line": "home,room=Sunroom temp=hi",
+    "line_number": 2,
+    "error_message": "invalid column type for column 'temp', expected iox::column_type::field::float, got iox::column_type::field::string"
+  }
+}
+```
+
+InfluxDB rejects all points in the batch.
+The response is an HTTP error (`400`) status, and the response body contains `parsing failed for write_lp endpoint` and details about the problem line.
+
+For more information about the ingest path and data flow, see [Data durability](/influxdb3/version/reference/internals/durability/).
+
+### Write responses
+
+By default, InfluxDB acknowledges writes after flushing the WAL file to the Object store (occurring every second).
+For high write throughput, you can send multiple concurrent write requests.
+
+### Use no_sync for immediate write responses
+
+To reduce the latency of writes, use the `no_sync` write option, which acknowledges writes _before_ WAL persistence completes.
+When `no_sync=true`, InfluxDB validates the data, writes the data to the WAL, and then immediately responds to the client, without waiting for persistence to the Object store.
+
+Using `no_sync=true` is best when prioritizing high-throughput writes over absolute durability. 
+
+- Default behavior (`no_sync=false`): Waits for data to be written to the Object store before acknowledging the write. Reduces the risk of data loss, but increases the latency of the response.
+- With `no_sync=true`: Reduces write latency, but increases the risk of data loss in case of a crash before WAL persistence. 
+
+#### Immediate write using the HTTP API
+
+The `no_sync` parameter controls when writes are acknowledged--for example:
+
+```bash
+curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=true" \
+  --data-raw "home,room=Sunroom temp=96"
+```
+
+## Use API client libraries
+
+Use InfluxDB 3 client libraries that integrate with your code to construct data
+as time series points, and
 then write them as line protocol to an {{% product-name %}} database.
 
 - [Construct line protocol](#construct-line-protocol)
@@ -7,7 +130,7 @@ then write them as line protocol to an {{% product-name %}} database.
 - [Set up your project](#set-up-your-project)
 - [Construct points and write line protocol](#construct-points-and-write-line-protocol)
 
-## Construct line protocol
+### Construct line protocol
 
 With a [basic understanding of line protocol](/influxdb3/version/write-data/#line-protocol),
 you can construct line protocol data and write it to {{% product-name %}}.
@@ -18,7 +141,7 @@ Client library `write` methods let you provide data as raw line protocol or as
 program creates the data you write to InfluxDB, use the client library `Point`
 interface to take advantage of type safety in your program.
 
-### Example home schema
+#### Example home schema
 
 Consider a use case where you collect data from sensors in your home. Each
 sensor collects temperature, humidity, and carbon monoxide readings.
@@ -41,7 +164,7 @@ To collect this data, use the following schema:
 The following example shows how to construct and write points that follow the
 `home` schema.
 
-## Set up your project
+### Set up your project
 
 After setting up {{< product-name >}} and your project, you should have the following:
 
@@ -179,7 +302,7 @@ The following steps set up a Python project using the
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-## Construct points and write line protocol
+#### Construct points and write line protocol
 
 Client libraries provide one or more `Point` constructor methods. Some libraries
 support language-native data structures, such as Go's `struct`, for creating
@@ -197,7 +320,7 @@ points.
 
 1. Create a file for your module--for example: `main.go`.
 
-1. In `main.go`, enter the following sample code:
+2. In `main.go`, enter the following sample code:
 
    ```go
    package main
@@ -274,7 +397,7 @@ points.
    }
    ```
 
-1. To run the module and write the data to your {{% product-name %}} database,
+3. To run the module and write the data to your {{% product-name %}} database,
    enter the following command in your terminal:
 
    <!-- pytest.mark.skip -->
@@ -285,13 +408,14 @@ points.
 
 <!-- END GO SAMPLE -->
 
-{{% /tab-content %}} {{% tab-content %}}
+{{% /tab-content %}}
+{{% tab-content %}}
 
 <!-- BEGIN NODE.JS SETUP SAMPLE -->
 
 1. Create a file for your module--for example: `write-points.js`.
 
-1. In `write-points.js`, enter the following sample code:
+2. In `write-points.js`, enter the following sample code:
 
    ```js
    // write-points.js
@@ -349,7 +473,7 @@ points.
    writePoints();
    ```
 
-1. To run the module and write the data to your {{\< product-name >}} database,
+3. To run the module and write the data to your {{\< product-name >}} database,
    enter the following command in your terminal:
 
    <!-- pytest.mark.skip -->
@@ -360,13 +484,14 @@ points.
 
    <!-- END NODE.JS SAMPLE -->
 
-   {{% /tab-content %}} {{% tab-content %}}
+   {{% /tab-content %}}
+   {{% tab-content %}}
 
    <!-- BEGIN PYTHON SETUP SAMPLE -->
 
 1. Create a file for your module--for example: `write-points.py`.
 
-1. In `write-points.py`, enter the following sample code to write data in
+2. In `write-points.py`, enter the following sample code to write data in
    batching mode:
 
    ```python
@@ -424,7 +549,7 @@ points.
          client.write(points, write_precision='s')
    ```
 
-1. To run the module and write the data to your {{< product-name >}} database,
+3. To run the module and write the data to your {{< product-name >}} database,
    enter the following command in your terminal:
 
    <!-- pytest.mark.skip -->
