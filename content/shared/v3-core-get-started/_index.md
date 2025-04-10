@@ -216,23 +216,6 @@ For more information about server options, use the CLI help:
 influxdb3 serve --help
 ```
 
-> [!Important]
-> #### Stopping the Docker container
->
-> Currently, a bug prevents using `Ctrl-c` to stop an InfluxDB 3 container.
-> Use the `docker kill` command to stop the container:
-> 
-> 1. Enter the following command to find the container ID:
->    <!--pytest.mark.skip-->
->    ```bash
->    docker ps -a
->    ```
-> 2. Enter the command to stop the container:
->    <!--pytest.mark.skip-->
->    ```bash
->    docker kill <CONTAINER_ID>
->    ``` 
-
 ### Data model
 
 The database server contains logical databases, which have tables, which have columns. Compared to previous versions of InfluxDB you can think of a database as a `bucket` in v2 or as a `db/retention_policy` in v1. A `table` is equivalent to a `measurement`, which has columns that can be of type `tag` (a string dictionary), `int64`, `float64`, `uint64`, `bool`, or `string` and finally every table has a `time` column that is a nanosecond precision timestamp.

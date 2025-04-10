@@ -221,23 +221,6 @@ For more information about server options, use the CLI help:
 influxdb3 serve --help
 ```
 
-> [!Important]
-> #### Stopping the Docker container
->
-> Currently, a bug prevents using `Ctrl-c` to stop an InfluxDB 3 container.
-> Use the `docker kill` command to stop the container:
-> 
-> 1. Enter the following command to find the container ID:
->    <!--pytest.mark.skip-->
->    ```bash
->    docker ps -a
->    ```
-> 2. Enter the command to stop the container:
->    <!--pytest.mark.skip-->
->    ```bash
->    docker kill <CONTAINER_ID>
->    ``` 
-
 #### Licensing
 
 When starting {{% product-name %}} for the first time, it prompts you to enter an email address for verification. You will receive an email with a verification link.
