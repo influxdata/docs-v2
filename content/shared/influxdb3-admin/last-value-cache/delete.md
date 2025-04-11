@@ -15,7 +15,7 @@ to delete a Last Value Cache (LVC). Provide the following:
 
 {{% code-placeholders "(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN" %}}
 ```bash
-influxdb3 create last_cache \
+influxdb3 delete last_cache \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   --table TABLE_NAME \
@@ -26,13 +26,12 @@ influxdb3 create last_cache \
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  the name of the database that the LVC you want to delete is associate with
+  the name of the database that the LVC you want to delete is associated with
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
   your {{< product-name >}} authentication token with write access to the
   specified database
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}:
-  the name of the table that the LVC you want to delete is associate with
-- {{% code-placeholder-key %}}`LVC_NAME`{{% /code-placeholder-key %}}:
+  the name of the table that the LVC you want to delete is associated with
   the name of the LVC to delete
 
 > [!Caution]
