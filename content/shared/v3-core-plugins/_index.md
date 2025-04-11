@@ -45,7 +45,6 @@ Replace `/path/to/plugins` with the directory where you want to store your Pytho
 If you're running multiple {{% product-name %}} instances (distributed deployment):
 
 1. Decide where plugins should run
-{{% show-in "enterprise" %}}
    - Data processing plugins, such as WAL plugins, run on ingestor nodes
    - HTTP-triggered plugins run on nodes handling API requests
    - Scheduled plugins can run on any configured node
