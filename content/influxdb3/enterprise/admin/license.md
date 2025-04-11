@@ -36,7 +36,7 @@ All other {{< product-name >}} features are available to all licenses.
 ## CPU limit
 
 Each {{< product-name >}} license limits the number of CPUs InfluxDB can use.
-The CPU limit is per cluster, not per machine. A cluster may consists of
+The CPU limit is per cluster, not per machine. A cluster may consist of
 multiple nodes that share the available CPU limit.
 
 For example, you can purchase a 32 CPU Full license and set up an
