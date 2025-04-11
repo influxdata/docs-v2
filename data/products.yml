@@ -48,7 +48,7 @@ influxdb3_cloud_dedicated:
   list_order: 3
   latest: cloud-dedicated
   link: "https://www.influxdata.com/contact-sales-form/"
-  latest_cli: 2.9.9
+  latest_cli: 2.10.0
   placeholder_host: cluster-id.a.influxdb.io
   ai_sample_questions:
     - How do I migrate from InfluxDB v1 to InfluxDB Cloud Dedicated?
