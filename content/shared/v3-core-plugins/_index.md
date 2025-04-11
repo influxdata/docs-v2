@@ -42,7 +42,7 @@ Replace `/path/to/plugins` with the directory where you want to store your Pytho
 
 ### Configure distributed environments
 
-If you're running multiple InfluxDB instances (distributed deployment):
+If you're running multiple {{% product-name %}} instances (distributed deployment):
 
 1. Decide where plugins should run
 {{% show-in "enterprise" %}}
