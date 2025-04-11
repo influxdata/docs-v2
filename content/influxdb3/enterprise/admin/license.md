@@ -3,7 +3,6 @@ title: Manage your InfluxDB 3 Enterprise license
 description: >
   {{< product-name >}} licenses authorize the use of the {{< product-name >}}
   software. Learn how licenses work, how to activate and renew licenses, and more.
-software and apply to a single cluster.
 menu:
   influxdb3_enterprise:
     name: Manage your license
