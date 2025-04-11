@@ -14,7 +14,12 @@ An LVC is associated with a table, which can have multiple LVCs.
 - [Important things to know about the Last Value Cache](#important-things-to-know-about-the-last-value-cache)
   - [High cardinality key columns](#high-cardinality-key-columns)
   - [Value count](#value-count)
+  {{% show-in "core" %}}
   - [Last Value Caches are flushed when the server stops](#last-value-caches-are-flushed-when-the-server-stops)
+  {{% /show-in %}}
+  {{% show-in "enterprise" %}}
+  - [Last Value Caches are rebuilt on restart](#last-value-caches-are-rebuilt-on-restart)
+  {{% /show-in %}}
   - [Defining value columns](#defining-value-columns)
 
 Consider a dataset with the following schema (similar to the
@@ -81,7 +86,12 @@ maintain it. Consider the following:
 
 - [High cardinality key columns](#high-cardinality-key-columns)
 - [Value count](#value-count)
+{{% show-in "core" %}}
 - [Last Value Caches are flushed when the server stops](#last-value-caches-are-flushed-when-the-server-stops)
+{{% /show-in %}}
+{{% show-in "enterprise" %}}
+- [Last Value Caches are rebuilt on restart](#last-value-caches-are-rebuilt-on-restart)
+{{% /show-in %}}
 - [Defining value columns](#defining-value-columns)
 
 ### High cardinality key columns
@@ -122,12 +132,22 @@ values, use the following equation:
 key_column_cardinality × count = number_of_rows
 ```
 
+{{% show-in "core" %}}
 ### Last Value Caches are flushed when the server stops
 
 Because the LVC is an in-memory cache, the cache is flushed any time the server 
 stops. After a server restart, InfluxDB only writes new values to the LVC when 
 you write data, so there may be a period of time when some values are 
 unavailable in the LVC.
+{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+### Last Value Caches are rebuilt on restart
+
+Because the LVC is an in-memory cache, the cache is flushed any time the server 
+stops. After a server restarts, {{< product-name >}} uses persisted data to
+rebuild the LVC.
+{{% /show-in %}}
 
 ### Defining value columns
 
