@@ -84,8 +84,7 @@ email address. The server auto-generates and stores your license.
     > This information is provided in the output of the {{< product-name >}}
     > server if you try to start the server without a valid license.
 
-    The InfluxData Sales or Support team will provide you with a Commercial
-    license file.
+    InfluxData will provide you with a Commercial license file.
 
 2.  Provide the following when starting the {{< product-name >}} server:
 
