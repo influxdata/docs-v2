@@ -138,8 +138,6 @@ and provide the following:
 - `--node-id`: A string identifier that distinguishes individual server instances within the cluster.
   This forms the final part of the storage path: `<CONFIGURED_PATH>/<NODE_ID>`.
   In a multi-node setup, this ID is used to reference specific nodes.
-- _Optional_ `--without-auth`: Disables authentication and authorization (admin token) for the server.
-  If not specified, authentication is enabled by default.
 
 > [!Note]
 > #### Diskless architecture

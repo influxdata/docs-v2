@@ -136,7 +136,6 @@ and provide the following:
   for your object store configuration.
 - `--cluster-id`: A string identifier that determines part of the storage path hierarchy. All nodes within the same cluster share this identifier. The storage path follows the pattern `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`. In a multi-node setup, this ID is used to reference the entire cluster.
 - `--node-id`: A string identifier that distinguishes individual server instances within the cluster. This forms the final part of the storage path: `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`. In a multi-node setup, this ID is used to reference specific nodes.
-- _Optional_ `--without-auth`: Disables authentication and authorization (admin token and database tokens) for the server. If not specified, authentication is enabled by default.
 
 > [!Note]
 > The combined path structure `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>` ensures proper organization of data in your object store, allowing for clean separation between clusters and individual nodes.
@@ -231,7 +230,7 @@ influxdb3 serve --help
 When starting {{% product-name %}} for the first time, it prompts you to enter an email address for verification. You will receive an email with a verification link.
 Upon verification, the license creation, retrieval, and application are automated.
 
-_During the alpha period, licenses are valid until May 7, 2025._
+_During the beta period, licenses are valid until May 7, 2025._
 
 ### Data model
 
