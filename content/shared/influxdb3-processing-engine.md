@@ -18,10 +18,16 @@ The Processing engine runs Python code directly within a {{% product-name %}} se
 
 When events occur in the database, the Processing engine handles them through a consistent sequence:
 
-1. A **trigger** activates when a specific event occurs
-2. The engine loads the associated **plugin** (Python code)
-3. The plugin receives relevant **context and data**
-4. The code can process received data, query data, call third party tools, and write data to the database (for example, downsampled data) and caches.
+1. A **trigger** activates the plugin based on one of three event types:
+   - Data writes to specific tables or all tables
+   - Scheduled events (time-based or cron expressions)
+   - HTTP requests to configured endpoints
+2. The engine loads the associated **plugin** specified in the trigger configuration
+3. The plugin receives context data specific to the trigger type:
+   - Write triggers: the written data and table information
+   - Schedule triggers: the scheduled call time
+   - HTTP triggers: the request object with methods, headers, and body
+4. The plugin processes the received data, can query the database, call external tools, and write results back
 5. Execution completes and the engine returns to waiting state
 
 ## Key components
