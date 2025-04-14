@@ -6,7 +6,7 @@ menu:
   influxdb3_core:
     name: Extended Plugins
 weight: 4
-influxdb3/enterprise/tags: [processing engine, plugins, API, python]
+influxdb3/core/tags: [processing engine, plugins, API, python]
 source: /shared/v3-core-plugins/extended-plugin-api.md
 ---
 
