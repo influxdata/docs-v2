@@ -12,7 +12,7 @@ Last Value Cache (LVC).
 - **table_name**: _({{< req >}})_ The name of the table the LVC is associated with
   formatted as a string literal.
 - **cache_name**: The name of the LVC to query formatted as a string literal.
-  This only required if there is more than one LVC associated with the specified
+  This argument is only required if there is more than one LVC associated with the specified
   table.
 
 ```sql

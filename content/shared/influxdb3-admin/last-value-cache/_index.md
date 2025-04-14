@@ -39,7 +39,7 @@ Consider a dataset with the following schema (similar to the
     - temp (float)  
     - hum (float)  
 
-If you  cache the last value for each field per room and wall, the LVC looks
+If you cache the last value for each field per room and wall, the LVC looks
 similar to this:
 
 {{% influxdb/custom-timestamps %}}
@@ -51,7 +51,7 @@ similar to this:
 | Living Room | south |  16 | 36.3 | 22.1 | 2022-01-01T20:00:00Z |
 
 If you cache the last four values of each field per room and wall, the LVC looks
-similar to:
+similar to the following:
 
 | room        | wall  |  co |  hum | temp | time                |
 | :---------- | :---- | --: | ---: | ---: | :------------------ |
@@ -81,7 +81,7 @@ similar to:
 
 ## Important things to know about the Last Value Cache
 
-LVCs are stored in memory; the larger the cache, the more memory it requires to
+LVCs are stored in memory; the larger the cache, the more memory your InfluxDB 3 node requires to
 maintain it. Consider the following:
 
 - [High cardinality key columns](#high-cardinality-key-columns)
@@ -103,12 +103,12 @@ storing the LVC and can affect LVC query performance. We recommend the
 following:
 
 - Only use tags important to your query workload as key columns in the LVC. 
-  Caching tags or fields as key columns unnecessarily results in higher 
+  Caching unnecessary tags or fields as key columns results in higher 
   cardinality without any benefit.
 - Avoid including high-cardinality key columns in your LVC.
 - Don’t include multiple high-cardinality key columns in your LVC.
 
-For a general idea of total key column cardinality in an LVC, you can use the 
+To estimate total key column cardinality in an LVC, use the 
 following equation:
 
 ```txt
@@ -136,7 +136,7 @@ key_column_cardinality × count = number_of_rows
 ### Last Value Caches are flushed when the server stops
 
 Because the LVC is an in-memory cache, the cache is flushed any time the server 
-stops. After a server restart, InfluxDB only writes new values to the LVC when 
+stops. After a server restart, {{% product-name %}} only writes new values to the LVC when 
 you write data, so there may be a period of time when some values are 
 unavailable in the LVC.
 {{% /show-in %}}
@@ -152,7 +152,7 @@ rebuild the LVC.
 ### Defining value columns
 
 When creating an LVC, if you include the `--value-columns` options to specify 
-which fields to cache as value columns. Any new fields added in the future will 
+which fields to cache as value columns, any new fields added in the future will 
 not be added to the cache.
 
 However, if you omit the `--value-columns` option, all columns other than those
