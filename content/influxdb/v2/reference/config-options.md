@@ -1385,7 +1385,7 @@ overwrite-pid-file = true
 ---
 
 ### pid-file
-Write PID file to specified path. File is removed when InfluxDB is stopped.
+Write the PID file to the specified path and remove it when InfluxDB stops.
 
 **Default:** ``
 
