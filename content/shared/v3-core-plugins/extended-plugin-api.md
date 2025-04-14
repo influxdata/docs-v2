@@ -4,9 +4,13 @@ The Processing engine includes API capabilities that allow your plugins to
 interact with InfluxDB data and maintain state between executions.
 These features let you build more sophisticated plugins that can transform, analyze, and respond to data.
 
-### Use the shared API
+The plugin API lets you:
+- Write and query data directly from your python code
+- Track information between plugin executions with the in-memory cache
+- Log messages for monitoring and debugging
+- Build data processing workflows
 
-All plugins have access to the shared API to interact with the database.
+Let's explore how to use these fatures in your pligins. 
 
 #### Write data
 
@@ -262,6 +266,7 @@ influxdb3_local.info(f"This plugin has run {counter} times")
 The cache is designed to support stateful operations while maintaining isolation between different triggers. Use the trigger-specific namespace for most operations and the global namespace only when data sharing across triggers is necessary.
 
 ##### Use TTL appropriately
+
 Set realistic expiration times based on how frequently data changes.
 
 ```python
@@ -270,6 +275,7 @@ influxdb3_local.cache.put("weather_data", api_response, ttl=300)
 ```
 
 ##### Cache computation results
+
 Store the results of expensive calculations that need to be utilized frequently.
 ```python
 # Cache aggregated statistics  
@@ -277,6 +283,7 @@ influxdb3_local.cache.put("daily_stats", calculate_statistics(data), ttl=3600)
 ```
 
 ##### Warm the cache
+
 For critical data, prime the cache at startup. This can be especially useful for global namespace data where multiple triggers need the data.
 
 ```python
