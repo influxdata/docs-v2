@@ -132,8 +132,14 @@ and provide the following:
   InfluxDB supports the following: local file system (`file`), `memory`,
   S3 (and compatible services like Ceph or Minio) (`s3`),
   Google Cloud Storage (`google`), and Azure Blob Storage (`azure`).
-- `--node-id`: A string identifier that determines the server's storage path
-  within the configured storage location, and, in a multi-node setup, is used to reference the node.
+  The default is `file`.
+  Depending on the object store type, you may need to provide additional options
+  for your object store configuration.
+- `--node-id`: A string identifier that distinguishes individual server instances within the cluster.
+  This forms the final part of the storage path: `<CONFIGURED_PATH>/<NODE_ID>`.
+  In a multi-node setup, this ID is used to reference specific nodes.
+- _Optional_ `--without-auth`: Disables authentication and authorization (admin token) for the server.
+  If not specified, authentication is enabled by default.
 
 > [!Note]
 > #### Diskless architecture
@@ -176,7 +182,6 @@ To run the [Docker image](/influxdb3/core/install/#docker-image) and persist dat
 # Filesystem object store with Docker 
 # Create a mount
 # Provide the mount path
-
 docker run -it \
  -v /path/on/host:/path/in/container \
  quay.io/influxdb/influxdb3-core:latest serve \
