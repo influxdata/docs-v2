@@ -60,25 +60,25 @@ The Processing engine implements specialized memory handling to ensure stability
 
 The Processing engine is designed for high-performance operation with minimal overhead:
 
-- **Low latency**: Sub-millisecond trigger activation
-- **Efficient access**: Direct database access without network overhead
-- **Controlled resources**: Configurable memory and CPU limits
-- **Execution policies**: Synchronous or asynchronous processing options
+- **Low latency**: Activates triggers in sub-millisecond time
+- **Efficient access**: Accesses database directly without network overhead
+- **Controlled resources**: Limits memory and CPU usage through configuration
+- **Execution policies**: Offers synchronous or asynchronous processing options
 
 ## Reliability features
 
 The Processing engine includes multiple features to ensure consistent and dependable execution:
 
-- **Error handling**: Configurable behaviors (log, retry, or disable)
-- **Execution tracking**: Monitoring of plugin performance
-- **State persistence**: Cache management across server restarts
+- **Error handling**: Configures behaviors for failure scenarios (log, retry, or disable)
+- **Execution tracking**: Tracks plugin performance and resource usage
+- **State persistence**: Persists cache state across server restarts
 
 ## Extension capabilities
 
 Extend and customize the Processing engine through several built-in mechanisms:
 
-- **Package management**: Custom Python dependency installation
-- **Plugin distribution**: Git-based plugin sharing
-- **Shared API**: Consistent interface for database operations
+- **Package management**: Installs custom Python dependencies
+- **Plugin distribution**: Distributes plugins via Git repositories
+- **Shared API**: Provides consistent interface for database operations
 
 For a step-by-step guide to setting up and using the Processing engine, see the [Getting started with plugins](/influxdb3/core/plugins/) documentation.
