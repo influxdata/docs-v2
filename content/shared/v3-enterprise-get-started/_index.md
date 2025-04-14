@@ -131,8 +131,14 @@ and provide the following:
   InfluxDB supports the following: local file system (`file`), `memory`,
   S3 (and compatible services like Ceph or Minio) (`s3`),
   Google Cloud Storage (`google`), and Azure Blob Storage (`azure`).
-- `--node-id`: A string identifier that determines the server's storage path
-  within the configured storage location, and, in a multi-node setup, is used to reference the node.
+  The default is `file`.
+  Depending on the object store type, you may need to provide additional options
+  for your object store configuration.
+- `--cluster-id`: A string identifier that determines part of the storage path hierarchy. All nodes within the same cluster share this identifier. The storage path follows the pattern `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`. In a multi-node setup, this ID is used to reference the entire cluster.
+- `--node-id`: A string identifier that distinguishes individual server instances within the cluster. This forms the final part of the storage path: `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`. In a multi-node setup, this ID is used to reference specific nodes.
+
+> [!Note]
+> The combined path structure `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>` ensures proper organization of data in your object store, allowing for clean separation between clusters and individual nodes.
 
 > [!Note]
 > #### Diskless architecture
@@ -189,7 +195,6 @@ docker run -it \
 ```bash
 # S3 object store (default is the us-east-1 region)
 # Specify the Object store type and associated options
-
 influxdb3 serve \
   --node-id host01 \
   --cluster-id cluster01 \
@@ -203,7 +208,6 @@ influxdb3 serve \
 # Minio or other open source object store
 # (using the AWS S3 API with additional parameters)
 # Specify the object store type and associated options
-
 influxdb3 serve \
   --node-id host01 \
   --cluster-id cluster01 \
@@ -226,7 +230,7 @@ influxdb3 serve --help
 When starting {{% product-name %}} for the first time, it prompts you to enter an email address for verification. You will receive an email with a verification link.
 Upon verification, the license creation, retrieval, and application are automated.
 
-_During the alpha period, licenses are valid until May 7, 2025._
+_During the beta period, licenses are valid until May 7, 2025._
 
 ### Data model
 
