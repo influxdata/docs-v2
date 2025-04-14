@@ -1,17 +1,15 @@
 # Processing engine
 
-The Processing engine is an embedded Python virtual machine that runs inside the InfluxDB database. It executes Python code in response to database events without requiring external application servers or middleware.
+The Processing engine is an embedded Python virtual machine that runs inside an {{% product-name %}} database server. It executes Python code in response to triggers and database events without requiring external application servers or middleware.
 
 ## How it works
 
 ### Architecture
 
-The Processing engine runs Python code directly within the InfluxDB process. This design provides high performance and direct access to database resources.
+The Processing engine runs Python code directly within a {{% product-name %}} server process. This design provides high performance and direct access to database resources.
 
-**Key architectural features** of the Processing engine include:
-
-- **Embedded execution**: Code runs in the same process space as the database
-- **Direct data access**: Zero-copy access to data where possible
+- **Embedded execution**: Code runs in the same process space as the database server
+- **Direct data access**: Zero-copy access to data
 - **Event-driven**: Responds to database writes, scheduled events, and HTTP requests
 - **Isolated contexts**: Maintains separation between different plugin executions
 
@@ -22,7 +20,7 @@ When events occur in the database, the Processing engine handles them through a 
 1. A **trigger** activates when a specific event occurs
 2. The engine loads the associated **plugin** (Python code)
 3. The plugin receives relevant **context and data**
-4. The code processes the data and can write results back
+4. The code can process received data, query data, call third party tools, and write data to the database (for example, downsampled data) and caches.
 5. Execution completes and the engine returns to waiting state
 
 ## Key components
@@ -31,7 +29,7 @@ When events occur in the database, the Processing engine handles them through a 
 
 Triggers connect database events to Python code execution based on specific conditions:
 
-- **Data write triggers**: Execute when data is written to specific tables
+- **Data write triggers**: Execute on WAL flush events, when data is written to the object store, for a specific table or all tables in a database 
 - **Scheduled triggers**: Run at intervals or according to cron expressions
 - **HTTP triggers**: Respond to HTTP requests to custom endpoints
 
