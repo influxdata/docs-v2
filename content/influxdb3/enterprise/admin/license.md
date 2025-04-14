@@ -141,7 +141,7 @@ To renew an {{< product-name >}} Commercial license, contact
 
 When your {{< product-name >}} license expires, the following occurs:
 
-- Writes requests continue to be accepted and processed.
+- Write requests continue to be accepted and processed.
 - Compactions continue to optimize persisted data.
 - Query requests return an error.
 - If the {{< product-name >}} server stops, it will not restart without a valid,
