@@ -8,7 +8,7 @@ to create a Last Value Cache (LVC). Provide the following:
 - **Token** (`--token`): _({{< req >}})_ Your {{< product-name >}}
   authentication token with write access to the specified table.
   You can also use the `INFLUXDB3_AUTH_TOKEN` environment variable to specify
-  the database.
+  the token.
 - **Table** (`-t`, `--table`): _({{< req >}})_ The name of the table to
   associate the LVC with.
 {{% show-in "enterprise" %}}
