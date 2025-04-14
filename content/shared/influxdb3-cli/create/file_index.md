@@ -7,7 +7,10 @@ database or table.
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create file_index [OPTIONS] --database <DATABASE_NAME> <COLUMNS>...
+influxdb3 create file_index [OPTIONS] \
+  --database <DATABASE_NAME> \
+  --token <AUTH_TOKEN> \
+  <COLUMNS>...
 ```
 
 ## Arguments
@@ -20,7 +23,7 @@ influxdb3 create file_index [OPTIONS] --database <DATABASE_NAME> <COLUMNS>...
 | :----- | :----------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`     | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 | `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
-|        | `--token`    | Authentication token                                                                     |
+|        | `--token`    | _({{< req >}})_ Authentication token                                                      |
 | `-t`   | `--table`    | Table to apply the file index too                                                        |
 | `-h`   | `--help`     | Print help information                                                                   |
   
@@ -43,10 +46,12 @@ In the examples below, replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Database name
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: 
+  Authentication token
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
   Table name
 
-{{% code-placeholders "(DATABASE|TABLE)_NAME" %}}
+{{% code-placeholders "(DATABASE|TABLE)_NAME|AUTH_TOKEN" %}}
 
 ### Create a new file index for a database
 
@@ -55,6 +60,7 @@ In the examples below, replace the following:
 ```bash
 influxdb3 create file_index \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   column1 column2 column3
 ```
 
@@ -65,6 +71,7 @@ influxdb3 create file_index \
 ```bash
 influxdb3 create file_index \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   --table TABLE_NAME \
   column1 column2 column3
 ```

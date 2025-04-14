@@ -18,13 +18,13 @@ influxdb3 delete distinct_cache [OPTIONS] \
 
 ## Options
 
-| Option |                     | Description                                                                                                                                                             |
-| :----- | :------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `-H`   | `--host`            | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                                                |
-| `-d`   | `--database`        | _({{< req >}})_ Name of the database to operate on                                                                                                                      |
-|        | `--token`           | Authentication token                                                                                                                                                    |
-| `-t`   | `--table`           | _({{< req >}})_ Table to delete the cache for                                                                                                                           |
-| `-h`   | `--help`            | Print help information                                                                                                                                                  |
+| Option |              | Description                                                                              |
+| :----- | :----------- | :--------------------------------------------------------------------------------------- |
+| `-H`   | `--host`     | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
+| `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
+|        | `--token`    | _({{< req >}})_ Authentication token                                                     |
+| `-t`   | `--table`    | _({{< req >}})_ Table to delete the cache for                                            |
+| `-h`   | `--help`     | Print help information                                                                   |
 
 ### Option environment variables
 
@@ -40,13 +40,14 @@ You can use the following environment variables to set command options:
 
 ### Delete a distinct value cache
 
-{{% code-placeholders "(DATABASE|TABLE|CACHE)_NAME" %}}
+{{% code-placeholders "(DATABASE|TABLE|CACHE)_NAME|AUTH_TOKEN" %}}
 
 <!--pytest.mark.skip-->
 
 ```bash
 influxdb3 delete distinct_cache \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   --table TABLE_NAME \
   CACHE_NAME
 ```
@@ -57,6 +58,8 @@ In the example above, replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Database name
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: 
+  Authentication token
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
   Table name
 - {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: 

@@ -19,7 +19,7 @@ influxdb3 enable trigger [OPTIONS] --database <DATABASE_NAME> <TRIGGER_NAME>
 | :----- | :----------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`     | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 | `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
-|        | `--token`    | Authentication token                                                                     |
+|        | `--token`    | _({{< req >}})_ Authentication token                                                     |
 | `-h`   | `--help`     | Print help information                                                                   |
 
 ### Option environment variables

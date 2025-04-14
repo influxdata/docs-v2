@@ -11,10 +11,10 @@ influxdb3 enable <SUBCOMMAND>
 
 ## Subcommands
 
-| Subcommand                                                               | Description                                    |
-| :----------------------------------------------------------------------- | :--------------------------------------------- |
+| Subcommand                                                            | Description                                    |
+| :-------------------------------------------------------------------- | :--------------------------------------------- |
 | [trigger](/influxdb3/version/reference/cli/influxdb3/enable/trigger/) | Enable a trigger to enable plugin execution    |
-| help                                                                     | Print command help or the help of a subcommand |
+| help                                                                  | Print command help or the help of a subcommand |
 
 ## Options
 

@@ -9,6 +9,7 @@ The `influxdb3 create table` command creates a table in a database.
 influxdb3 create table [OPTIONS] \
   --tags [<TAGS>...] \
   --database <DATABASE_NAME> \
+  --token <AUTH_TOKEN> \
   <TABLE_NAME>
 ```
 
@@ -22,7 +23,7 @@ influxdb3 create table [OPTIONS] \
 | :----- | :----------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`     | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 | `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
-|        | `--token`    | Authentication token                                                                     |
+|        | `--token`    | _({{< req >}})_ Authentication token                                                     |
 |        | `--tags`     | _({{< req >}})_ Comma-separated list of tag columns to include in the table              |
 |        | `--fields`   | Comma-separated list of field columns and their types to include in the table            |
 | `-h`   | `--help`     | Print help information                                                                   |
@@ -53,6 +54,8 @@ In the examples below, replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Database name
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: 
+  Authentication token
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
   Table name
 
@@ -64,6 +67,7 @@ In the examples below, replace the following:
 influxdb3 create table \
   --tags tag1,tag2,tag3 \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   TABLE_NAME
 ```
 
@@ -76,6 +80,7 @@ influxdb3 create table \
   --tags room,sensor_id \
   --fields temp:float64,hum:float64,co:int64 \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   TABLE_NAME
 ```
 

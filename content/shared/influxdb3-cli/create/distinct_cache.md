@@ -8,6 +8,7 @@ The `influxdb3 create distinct_cache` command creates a new distinct value cache
 ```bash
 influxdb3 create distinct_cache [OPTIONS] \
   --database <DATABASE_NAME> \
+  --token <AUTH_TOKEN>
   --table <TABLE> \
   --columns <COLUMNS> \
   [CACHE_NAME]
@@ -24,7 +25,7 @@ influxdb3 create distinct_cache [OPTIONS] \
 | :----- | :------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `-H`   | `--host`            | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                                                |
 | `-d`   | `--database`        | _({{< req >}})_ Name of the database to operate on                                                                                                                      |
-|        | `--token`           | Authentication token                                                                                                                                                    |
+|        | `--token`           | _({{< req >}})_ Authentication token                                                                                                                                    |
 | `-t`   | `--table`           | _({{< req >}})_ Table to create the cache for                                                                                                                           |
 |        | `--columns`         | _({{< req >}})_ Comma-separated list of columns to cache distinct values for--for example: `col1,col2,col3` (see [Metadata cache hierarchy](#metadata-cache-hierarchy)) |
 |        | `--max-cardinality` | Maximum number of distinct value combinations to hold in the cache                                                                                                      |

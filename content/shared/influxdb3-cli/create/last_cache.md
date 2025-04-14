@@ -20,7 +20,7 @@ influxdb3 create last_cache [OPTIONS] --database <DATABASE_NAME> --table <TABLE>
 | :----- | :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `-H`   | `--host`          | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                                              |
 | `-d`   | `--database`      | _({{< req >}})_ Name of the database to operate on                                                                                                                    |
-|        | `--token`         | Authentication token                                                                                                                                                  |
+|        | `--token`         | _({{< req >}})_ Authentication token                                                                                                                                  |
 | `-t`   | `--table`         | _({{< req >}})_ Table to create the cache for                                                                                                                         |
 |        | `--key-columns`   | Comma-separated list of columns to use as keys in the cache--for example: `foo,bar,baz`                                                                               |
 |        | `--value-columns` | Comma-separated list of columns to store as values in the cache--for example: `foo,bar,baz`                                                                           |
