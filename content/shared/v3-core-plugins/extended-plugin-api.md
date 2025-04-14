@@ -12,9 +12,13 @@ The plugin API lets you:
 
 Let's explore how to use these fatures in your pligins. 
 
+### Getting started with the shared API
+
+Every plugin automatically has access to the shared API through the influxdb3_local object. You don't need to import any libraries - this API is available as soon as your plugin runs.
+
 #### Write data
 
-Use the `LineBuilder` API to create line protocol data:
+To write data into your database use the `LineBuilder` API to create line protocol data:
 
 ```python
 # Create a line protocol entry
@@ -27,7 +31,7 @@ line.time_ns(1627680000000000000)
 influxdb3_local.write(line)
 ```
 
-Writes are buffered while the plugin runs and are flushed when the plugin completes. 
+Your writes are buffered while the plugin runs and are flushed when the plugin completes. 
 
 {{% expand-wrapper %}}
 {{% expand "View the `LineBuilder` Python implementation" %}}
@@ -150,7 +154,7 @@ class LineBuilder:
 
 #### Query data
 
-Execute SQL queries and get results:
+Your plugins can execute SQL queries and process the results directly:
 
 ```python
 # Simple query
@@ -161,7 +165,9 @@ params = {"table": "metrics", "threshold": 90}
 results = influxdb3_local.query("SELECT * FROM $table WHERE value > $threshold", params)
 ```
 
-The shared API `query` function returns results as a `List` of `Dict[String, Any]`, where the key is the column name and the value is the column value. 
+Query results come back as a `List` of `Dict[String, Any]`, where each dictionary represents a row with column names as keys and column values as values. This makes it easy to process the results in your plugin code.
+
+
 
 #### Log information
 
