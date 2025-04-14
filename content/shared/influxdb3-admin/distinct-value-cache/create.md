@@ -87,7 +87,7 @@ Replace the following:
   a comma-delimited list of columns to cache distinct values for--for example:
   `country,county,city`
 - {{% code-placeholder-key %}}`MAX_CARDINALITY`{{% /code-placeholder-key %}}:
-  the number of last values to cache per series--for example: `10000`
+  the maximum number of distinct value combinations to cache--for example: `10000`
 - {{% code-placeholder-key %}}`MAX_AGE`{{% /code-placeholder-key %}}:
   the maximum age of distinct values to keep in the cache in
   [humantime](https://docs.rs/humantime/latest/humantime/fn.parse_duration.html)
@@ -105,4 +105,4 @@ Replace the following:
 >
 > The DVC is stored in memory, so it's important to consider the size and
 > persistence of the cache. For more information, see
-> [Important things to know about the Distinct Value Cache](/influxdb3/version/admin/last-value-cache/#important-things-to-know-about-the-last-value-cache).
+> [Important things to know about the Distinct Value Cache](/influxdb3/version/admin/distinct-value-cache/#important-things-to-know-about-the-distinct-value-cache).
