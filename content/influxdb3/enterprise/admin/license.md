@@ -69,7 +69,7 @@ the license depends on the license type:
 ### Activate a Trial or At-Home license
 
 When starting the {{< product-name >}} server, it will ask you what type of
-license you would like to use. Select `trial` or `at-home` and provide your
+license you would like to use. Select `trial` or `home` and provide your
 email address. The server auto-generates and stores your license.
 
 ### Activate a Commercial license
