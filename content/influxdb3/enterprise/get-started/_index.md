@@ -18,5 +18,5 @@ source: /shared/v3-enterprise-get-started/_index.md
 
 <!-- 
 The content of this page is at
-// SOURCE content/shared/v3-enterprise-get-started/_index.md_index.md
+// SOURCE content/shared/v3-enterprise-get-started/_index.md
 -->
