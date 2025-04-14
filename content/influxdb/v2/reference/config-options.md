@@ -1336,7 +1336,7 @@ no-tasks = true
 ---
 
 ### overwrite-pid-file
-Overwrite PID file specified with [pid-file](#pid-file) if already present instead of exiting with an error.
+Overwrite the PID file specified by [pid-file](#pid-file) if it exists, instead of exiting with an error.
 
 **Default:** `false`
 
