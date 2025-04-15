@@ -35,14 +35,15 @@ For more information, see how to [get started with Enterprise](/influxdb3/enterp
 
 This guide covers InfluxDB 3 Core (the open source release), including the following topics:
 
-* [Install and startup](#install-and-startup)
-* [Data Model](#data-model)
-* [Tools to use](#tools-to-use)
-* [Write data](#write-data)
-* [Query data](#query-data)
-* [Last values cache](#last-values-cache)
-* [Distinct values cache](#distinct-values-cache)
-* [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
+- [Install and startup](#install-and-startup)
+- [Authentication and authorization](#authentication-and-authorization)
+- [Data Model](#data-model)
+- [Tools to use](#tools-to-use)
+- [Write data](#write-data)
+- [Query data](#query-data)
+- [Last values cache](#last-values-cache)
+- [Distinct values cache](#distinct-values-cache)
+- [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
 
 ### Install and startup
 
