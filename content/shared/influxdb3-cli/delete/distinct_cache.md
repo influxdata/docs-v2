@@ -25,6 +25,7 @@ influxdb3 delete distinct_cache [OPTIONS] \
 |        | `--token`    | _({{< req >}})_ Authentication token                                                     |
 | `-t`   | `--table`    | _({{< req >}})_ Table to delete the cache for                                            |
 | `-h`   | `--help`     | Print help information                                                                   |
+|        | `--help-all` | Print detailed help information                                                          |
 
 ### Option environment variables
 

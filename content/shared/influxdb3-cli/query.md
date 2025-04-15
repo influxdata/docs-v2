@@ -34,6 +34,7 @@ influxdb3 query [OPTIONS] --database <DATABASE_NAME> [QUERY]...
 | `-o`   | `--output`   | Output query results to the specified file                                               |
 | `-f`   | `--file`     | A file that contains the query to execute                                                |
 | `-h`   | `--help`     | Print help information                                                                   |
+|        | `--help-all` | Print detailed help information                                                          |
 
 ### Option environment variables
 

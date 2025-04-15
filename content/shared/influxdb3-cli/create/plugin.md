@@ -29,6 +29,7 @@ influxdb3 create plugin [OPTIONS] \
 |        | `--entry-point` | _({{< req >}})_ Entry point function name for the plugin                                 |
 |        | `--plugin-type` | Type of trigger the plugin processes (default is `wal_rows`)                             |
 | `-h`   | `--help`        | Print help information                                                                   |
+|        | `--help-all`    | Print detailed help information                                                          |
 
 ### Option environment variables
 

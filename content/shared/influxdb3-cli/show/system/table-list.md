@@ -11,10 +11,11 @@ influxdb3 show system --database <DATABASE_NAME> table-list [OPTIONS]
 
 ## Options
 
-| Option |            | Description                                                                                    |
-| :----- | :--------- | :--------------------------------------------------------------------------------------------- |
-|        | `--format` | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet`)                      |
-| `-h`   | `--help`   | Print help information                                                                         |
+| Option |              | Description                                                                |
+| :----- | :----------- | :------------------------------------------------------------------------- |
+|        | `--format`   | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet`) |
+| `-h`   | `--help`     | Print help information                                                     |
+|        | `--help-all` | Print detailed help information                                            |
 
 ## Examples
 

@@ -22,6 +22,7 @@ influxdb3 delete last_cache [OPTIONS] --database <DATABASE_NAME> --table <TABLE>
 |        | `--token`    | _({{< req >}})_ Authentication token                                                     |
 | `-t`   | `--table`    | _({{< req >}})_ Table to delete the cache from                                           |
 | `-h`   | `--help`     | Print help information                                                                   |
+|        | `--help-all` | Print detailed help information                                                          |
 
 ### Option environment variables
 

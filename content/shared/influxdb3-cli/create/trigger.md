@@ -30,6 +30,7 @@ influxdb3 create trigger [OPTIONS] \
 |        | `--trigger-spec` | Trigger specification--for example `table:<TABLE_NAME>` or `all_tables`                  |
 |        | `--disabled`     | Create the trigger in disabled state                                                     |
 | `-h`   | `--help`         | Print help information                                                                   |
+|        | `--help-all`     | Print detailed help information                                                          |
 
 ### Option environment variables
 

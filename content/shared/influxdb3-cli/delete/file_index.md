@@ -19,6 +19,7 @@ influxdb3 delete file_index [OPTIONS] --database <DATABASE_NAME>
 |        | `--token`    | _({{< req >}})_ Authentication token                                                     |
 | `-t`   | `--table`    | Table to delete the file index from                                                      |
 | `-h`   | `--help`     | Print help information                                                                   |
+|        | `--help-all` | Print detailed help information                                                          |
   
 ### Option environment variables
 

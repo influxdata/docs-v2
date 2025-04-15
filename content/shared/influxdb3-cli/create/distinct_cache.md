@@ -31,6 +31,7 @@ influxdb3 create distinct_cache [OPTIONS] \
 |        | `--max-cardinality` | Maximum number of distinct value combinations to hold in the cache                                                                                                      |
 |        | `--max-age`         | Maximum age of an entry in the cache entered as a human-readable duration--for example: `30d`, `24h`                                                                    |
 | `-h`   | `--help`            | Print help information                                                                                                                                                  |
+|        | `--help-all`        | Print detailed help information                                                                                                                                         |
 
 > [!Important]
 >

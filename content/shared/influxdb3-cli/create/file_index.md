@@ -23,9 +23,10 @@ influxdb3 create file_index [OPTIONS] \
 | :----- | :----------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`     | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 | `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
-|        | `--token`    | _({{< req >}})_ Authentication token                                                      |
+|        | `--token`    | _({{< req >}})_ Authentication token                                                     |
 | `-t`   | `--table`    | Table to apply the file index too                                                        |
 | `-h`   | `--help`     | Print help information                                                                   |
+|        | `--help-all` | Print detailed help information                                                          |
   
 ### Option environment variables
 

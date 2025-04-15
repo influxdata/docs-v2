@@ -22,6 +22,7 @@ influxdb3 delete trigger [OPTIONS] --database <DATABASE_NAME> <TRIGGER_NAME>
 |        | `--token`    | _({{< req >}})_ Authentication token                                                     |
 |        | `--force`    | Force delete even if the trigger is active                                               |
 | `-h`   | `--help`     | Print help information                                                                   |
+|        | `--help-all` | Print detailed help information                                                          |
 
 ### Option environment variables
 

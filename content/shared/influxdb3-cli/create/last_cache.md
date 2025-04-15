@@ -27,6 +27,7 @@ influxdb3 create last_cache [OPTIONS] --database <DATABASE_NAME> --table <TABLE>
 |        | `--count`         | Number of entries per unique key column combination to store in the cache                                                                                             |
 |        | `--ttl`           | Cache entries' time-to-live (TTL) in [Humantime form](https://docs.rs/humantime/latest/humantime/fn.parse_duration.html)--for example: `10s`, `1min 30sec`, `3 hours` |
 | `-h`   | `--help`          | Print help information                                                                                                                                                |
+|        | `--help-all`      | Print detailed help information                                                                                                                                       |
 
 ### Option environment variables
 

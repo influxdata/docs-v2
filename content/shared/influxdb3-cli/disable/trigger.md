@@ -21,6 +21,7 @@ influxdb3 disable trigger [OPTIONS] --database <DATABASE_NAME> <TRIGGER_NAME>
 | `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
 |        | `--token`    | _({{< req >}})_ Authentication token                                                     |
 | `-h`   | `--help`     | Print help information                                                                   |
+|        | `--help-all` | Print detailed help information                                                          |
 
 ### Option environment variables
 

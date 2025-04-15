@@ -32,6 +32,7 @@ influxdb3 write [OPTIONS] --database <DATABASE_NAME> [LINE_PROTOCOL]...
 | `-f`   | `--file`           | A file that contains line protocol to write                                              |
 |        | `--accept-partial` | Accept partial writes                                                                    |
 | `-h`   | `--help`           | Print help information                                                                   |
+|        | `--help-all`       | Print detailed help information                                                          |
 
 ### Option environment variables
 

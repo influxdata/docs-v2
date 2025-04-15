@@ -15,11 +15,11 @@ influxdb3 show databases [OPTIONS]
 | Option |                  | Description                                                                              |
 | :----- | :--------------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`         | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
-| `-d`   | `--database`     | _({{< req >}})_ Name of the database to operate on                                       |
 |        | `--token`        | _({{< req >}})_ Authentication token                                                     |
 |        | `--show-deleted` | Include databases marked as deleted in the output                                        |
 |        | `--format`       | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet`)               |
 | `-h`   | `--help`         | Print help information                                                                   |
+|        | `--help-all`     | Print detailed help information                                                          |
 
 ### Option environment variables
 

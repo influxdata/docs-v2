@@ -25,6 +25,7 @@ influxdb3 test wal_plugin [OPTIONS] --database <DATABASE_NAME> <PLUGIN_NAME>
 |        | `--file`            | Line protocol file to use as input                                                       |
 |        | `--input-arguments` | Map of string key-value pairs as to use as plugin input arguments                        |
 | `-h`   | `--help`            | Print help information                                                                   |
+|        | `--help-all`        | Print detailed help information                                                          |
 
 
 ### Option environment variables
