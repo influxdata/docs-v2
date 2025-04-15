@@ -28,7 +28,7 @@ When events occur in the database, the Processing engine handles them through a 
    - Schedule triggers: the scheduled call time
    - HTTP triggers: the request object with methods, headers, and body
    The plugin also receives any keyword arguments that you pass as `trigger-arguments`.
-4. The plugin processes the received data, can query the database, call external tools, and write results back
+4. When the plugin runs, it can process the received data and arguments, access the shared API through `influxdb3_local` for writing, querying, and caching data, and integrate with external systems.
 5. Execution completes and the engine returns to waiting state
 
 ## Key components
