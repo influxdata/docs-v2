@@ -48,7 +48,7 @@ Database tokens allow for reading and writing data in your {{< product-name omit
 System tokens allow for reading system information and metrics for your server.
 
 After you
-[create an _admin token_](/influxdb3/enterprise/admin/token/admin/create/), you
+[create an _admin token_](/influxdb3/enterprise/admin/tokens/admin/create/), you
 can use the token string to authenticate `influxdb3` commands and HTTP API requests
 for managing database and system tokens.
 
@@ -81,14 +81,18 @@ In your terminal, run the `influxdb3 create token` command and provide the follo
 - `--permission` flag to create a token with permissions
 - `--name` flag with a unique description of the token
 - _Options_, for example:
-  -  `--expiry` option with the token expiration time as a [duration](/influxdb3/enterprise/reference/glossary/#duration).
+  -  `--expiry` option with the token expiration time as a duration.
       If an expiration isn't set, the token does not expire until revoked.
 - Token permissions (read and write) in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
-  - db:DATABASE1,DATABASE2:read,write
-    - `db:`: The `db` resource type, which specifies the token is for a database.
-    - `DATABASE1,DATABASE2`: The names of the databases to grant permissions to.
-      The resource names part supports the `*` wildcard, which grants read or write permissions to all databases.
-    - `read,write`: The permissions to grant to the token.
+
+  ```
+  db:DATABASE1,DATABASE2:read,write
+  ```
+
+  - `db:`: The `db` resource type, which specifies the token is for a database.
+  - `DATABASE1,DATABASE2`: The names of the databases to grant permissions to.
+    The resource names part supports the `*` wildcard, which grants read or write permissions to all databases.
+  - `read,write`: The permissions to grant to the token.
 
 {{% code-placeholders "DATABASE1|DATABASE2|1y" %}}
 
@@ -108,7 +112,7 @@ Replace the following:
   your {{% product-name %}} [database](/influxdb3/enterprise/admin/databases/)
 - {{% code-placeholder-key %}}`1y`{{% /code-placeholder-key %}}:
   the token expiration time as a
-  [duration](/influxdb3/enterprise/reference/glossary/#duration).
+  duration.
 
 The output is the token string in plain text.
 
@@ -413,10 +417,14 @@ In your terminal, run the `influxdb3 create token` command and provide the follo
   - `--permission` flag to create a token with permissions
   - `--name` flag with a unique description of the token
   - _Options_, for example:
-    -  `--expiry` option with the token expiration time as a [duration](/influxdb3/enterprise/reference/glossary/#duration).
+    -  `--expiry` option with the token expiration time as a duration.
      If an expiration isn't set, the token does not expire until revoked.
   - Token permissions in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
-    - system:health:read
+
+    ```
+    system:health:read
+    ``` 
+
     - `system:`: The `system` resource type, which specifies the token is for system information.
     - `health`: The specific system resource to grant permissions to.
     - `read`: The permission to grant to the token (system tokens are always read-only).
@@ -437,7 +445,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`1y`{{% /code-placeholder-key %}}:
   the token expiration time as a
-  [duration](/influxdb3/enterprise/reference/glossary/#duration).
+  duration.
 
 The output is the token string in plain text.
 
@@ -506,7 +514,7 @@ token string in plain text.
 
 The `influxdb3 create token` command supports the `--format json` option.
 By default, the command outputs the token string.
-For [token details](/influxdb3/enterprise/api/management/#operation/CreateDatabaseToken) and easier programmatic access to the command output, include `--format json`
+For easier programmatic access to the command output, include `--format json`
 with your command to format the output as JSON.
 
 The `/api/v3/configure/token` endpoint outputs JSON format in the response body.
