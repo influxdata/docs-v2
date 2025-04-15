@@ -55,6 +55,27 @@ Replace:
 - `<OBJECT_STORE_TYPE>` with the type of object store (e.g., file, memory, s3)
 - /absolute/path/to/plugins with the path to your plugin directory
 
+Replace `/path/to/plugins` with the directory where you want to store your Python plugin files. All plugin files must be located in this directory or its subdirectories.
+
+### Configure distributed environments
+
+If you're running multiple {{% product-name %}} instances (distributed deployment):
+
+1. Decide where plugins should run
+   - Data processing plugins, such as WAL plugins, run on ingester nodes
+   - HTTP-triggered plugins run on nodes handling API requests
+   - Scheduled plugins can run on any configured node
+2. Enable plugins on selected instances
+3. Maintain identical plugin files across all instances where plugins run
+   - Use shared storage or file synchronization tools to keep plugins consistent
+
+> [!Note]
+> #### Provide plugins to nodes that run them
+>
+> Configure your plugin directory on the same system as the nodes that run the triggers and plugins.
+
+## Add a Processing engine plugin
+
 The plugin directory must exist before you start InfluxDB.
 
 ## Add a Processing engine plugin
@@ -484,3 +505,13 @@ docker exec -it CONTAINER_NAME influxdb3 install package pandas
 ```
 
 This creates a Python virtual environment in your plugins directory with the specified packages installed.
+
+{{% show-in "enterprise" %}}
+### Connect Grafana to your InfluxDB instance
+
+When configuring Grafana to connect to an InfluxDB 3 Enterprise instance:
+
+- **URL**: Use a querier URL or any node that serves queries
+
+Example URL format: `https://querier.your-influxdb.com:8086`
+{{% /show-in %}}
