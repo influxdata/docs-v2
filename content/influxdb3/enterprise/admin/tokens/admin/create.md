@@ -13,6 +13,7 @@ list_code_example: |
   ##### CLI
   ```bash
   influxdb3 create token --admin 
+  ```
 alt_links:
   cloud-dedicated: /influxdb3/cloud-dedicated/admin/tokens/create-token/
   cloud-serverless: /influxdb3/cloud-serverless/admin/tokens/create-token/
