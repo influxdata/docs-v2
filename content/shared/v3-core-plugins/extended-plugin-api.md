@@ -9,8 +9,7 @@ The plugin API lets you:
 - Log messages for monitoring and debugging
 - Build data processing workflows
 
-Let's explore how to use these fatures in your pligins. 
-
+Let's explore how to use these features in your plugins. 
 ### Getting started with the shared API
 
 Every plugin has access to the shared API through the `influxdb3_local` object. You don't need to import any libraries. This API is available as soon as your plugin runs.
