@@ -103,7 +103,7 @@ docker pull quay.io/influxdb/influxdb3-enterprise:latest
 
 ##### InfluxDB 3 Explorer -- Query Interface
 
-You can additionally download the new InfluxDB 3 Explorer query interface using Docker. Pull the image:
+You can additionally download the new InfluxDB 3 Explorer query interface using Docker. Explorer is currently in beta. Pull the image:
 ```bash
 docker pull quay.io/influxdb/influxdb3-explorer:latest
 ```
@@ -653,7 +653,7 @@ print(table.group_by('cpu').aggregate([('time_system', 'mean')]))
 For more information about the Python client library, see the [`influxdb3-python` repository](https://github.com/InfluxCommunity/influxdb3-python) in GitHub.
 
 
-### Query using InfluxDB 3 Explorer
+### Query using InfluxDB 3 Explorer (Beta)
 You can use the InfluxDB 3 Explorer query interface by downloading the Docker image.
 
 ```bash
