@@ -25,6 +25,7 @@ influxdb3 create file_index [OPTIONS] \
 | `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
 |        | `--token`    | _({{< req >}})_ Authentication token                                                     |
 | `-t`   | `--table`    | Table to apply the file index too                                                        |
+|        | `--tls-ca`   | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 | `-h`   | `--help`     | Print help information                                                                   |
 |        | `--help-all` | Print detailed help information                                                          |
   

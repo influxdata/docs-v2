@@ -26,6 +26,7 @@ influxdb3 create last_cache [OPTIONS] --database <DATABASE_NAME> --table <TABLE>
 |        | `--value-columns` | Comma-separated list of columns to store as values in the cache--for example: `foo,bar,baz`                                                                           |
 |        | `--count`         | Number of entries per unique key column combination to store in the cache                                                                                             |
 |        | `--ttl`           | Cache entries' time-to-live (TTL) in [Humantime form](https://docs.rs/humantime/latest/humantime/fn.parse_duration.html)--for example: `10s`, `1min 30sec`, `3 hours` |
+|        | `--tls-ca`        | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                                                  |
 | `-h`   | `--help`          | Print help information                                                                                                                                                |
 |        | `--help-all`      | Print detailed help information                                                                                                                                       |
 

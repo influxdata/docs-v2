@@ -11,10 +11,10 @@ influxdb3 test <SUBCOMMAND>
 
 ## Subcommands
 
-| Subcommand                                                                   | Description                                    |
-| :--------------------------------------------------------------------------- | :--------------------------------------------- |
+| Subcommand                                                                | Description                                    |
+| :------------------------------------------------------------------------ | :--------------------------------------------- |
 | [wal_plugin](/influxdb3/version/reference/cli/influxdb3/test/wal_plugin/) | Test a write-ahead log (WAL) plugin            |
-| help                                                                         | Print command help or the help of a subcommand |
+| help                                                                      | Print command help or the help of a subcommand |
 
 ## Options
 

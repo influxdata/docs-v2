@@ -30,6 +30,7 @@ influxdb3 create distinct_cache [OPTIONS] \
 |        | `--columns`         | _({{< req >}})_ Comma-separated list of columns to cache distinct values for--for example: `col1,col2,col3` (see [Metadata cache hierarchy](#metadata-cache-hierarchy)) |
 |        | `--max-cardinality` | Maximum number of distinct value combinations to hold in the cache                                                                                                      |
 |        | `--max-age`         | Maximum age of an entry in the cache entered as a human-readable duration--for example: `30d`, `24h`                                                                    |
+|        | `--tls-ca`          | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                                                    |
 | `-h`   | `--help`            | Print help information                                                                                                                                                  |
 |        | `--help-all`        | Print detailed help information                                                                                                                                         |
 

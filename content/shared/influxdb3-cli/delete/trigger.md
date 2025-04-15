@@ -21,6 +21,7 @@ influxdb3 delete trigger [OPTIONS] --database <DATABASE_NAME> <TRIGGER_NAME>
 | `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
 |        | `--token`    | _({{< req >}})_ Authentication token                                                     |
 |        | `--force`    | Force delete even if the trigger is active                                               |
+|        | `--tls-ca`   | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 | `-h`   | `--help`     | Print help information                                                                   |
 |        | `--help-all` | Print detailed help information                                                          |
 

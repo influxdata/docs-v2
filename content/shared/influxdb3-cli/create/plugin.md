@@ -28,6 +28,7 @@ influxdb3 create plugin [OPTIONS] \
 |        | `--filename`    | _({{< req >}})_ Name of the plugin Python file in the plugin directory                   |
 |        | `--entry-point` | _({{< req >}})_ Entry point function name for the plugin                                 |
 |        | `--plugin-type` | Type of trigger the plugin processes (default is `wal_rows`)                             |
+|        | `--tls-ca`      | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 | `-h`   | `--help`        | Print help information                                                                   |
 |        | `--help-all`    | Print detailed help information                                                          |
 

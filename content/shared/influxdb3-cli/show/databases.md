@@ -18,6 +18,7 @@ influxdb3 show databases [OPTIONS]
 |        | `--token`        | _({{< req >}})_ Authentication token                                                     |
 |        | `--show-deleted` | Include databases marked as deleted in the output                                        |
 |        | `--format`       | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet`)               |
+|        | `--tls-ca`       | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 | `-h`   | `--help`         | Print help information                                                                   |
 |        | `--help-all`     | Print detailed help information                                                          |
 

@@ -31,6 +31,7 @@ influxdb3 write [OPTIONS] --database <DATABASE_NAME> [LINE_PROTOCOL]...
 |        | `--token`          | _({{< req >}})_ Authentication token                                                     |
 | `-f`   | `--file`           | A file that contains line protocol to write                                              |
 |        | `--accept-partial` | Accept partial writes                                                                    |
+|        | `--tls-ca`         | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 | `-h`   | `--help`           | Print help information                                                                   |
 |        | `--help-all`       | Print detailed help information                                                          |
 

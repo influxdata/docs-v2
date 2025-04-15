@@ -29,6 +29,7 @@ influxdb3 create trigger [OPTIONS] \
 |        | `--plugin`       | Plugin to execute when the trigger fires                                                 |
 |        | `--trigger-spec` | Trigger specification--for example `table:<TABLE_NAME>` or `all_tables`                  |
 |        | `--disabled`     | Create the trigger in disabled state                                                     |
+|        | `--tls-ca`       | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 | `-h`   | `--help`         | Print help information                                                                   |
 |        | `--help-all`     | Print detailed help information                                                          |
 

@@ -33,6 +33,7 @@ influxdb3 query [OPTIONS] --database <DATABASE_NAME> [QUERY]...
 |        | `--format`   | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, `parquet`)                  |
 | `-o`   | `--output`   | Output query results to the specified file                                               |
 | `-f`   | `--file`     | A file that contains the query to execute                                                |
+|        | `--tls-ca`   | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 | `-h`   | `--help`     | Print help information                                                                   |
 |        | `--help-all` | Print detailed help information                                                          |
 
