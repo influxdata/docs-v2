@@ -514,7 +514,7 @@ token string in plain text.
 
 The `influxdb3 create token` command supports the `--format json` option.
 By default, the command outputs the token string.
-For  easier programmatic access to the command output, include `--format json`
+For easier programmatic access to the command output, include `--format json`
 with your command to format the output as JSON.
 
 The `/api/v3/configure/token` endpoint outputs JSON format in the response body.
