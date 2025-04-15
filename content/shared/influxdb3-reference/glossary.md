@@ -726,10 +726,6 @@ database, allowing plugins to react to specific triggers without requiring exter
 Related entries:
 [plugin](#plugin),
 [trigger](#trigger)
-
-
-
-
 ### processor plugin
 
 Telegraf processor plugins transform, decorate, and filter metrics collected by
