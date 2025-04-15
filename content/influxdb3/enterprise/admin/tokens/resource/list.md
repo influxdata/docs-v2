@@ -1,11 +1,11 @@
 ---
-title: List database tokens
+title: List resource tokens
 description: >
   Use the `influxdb3 show tokens` command
-  to list database tokens in your InfluxDB 3 Enterprise instance.
+  to list resource tokens in your InfluxDB 3 Enterprise instance.
 menu:
   influxdb3_enterprise:
-    parent: Database tokens
+    parent: Resource tokens
 weight: 202
 list_code_example: |
   ##### CLI
@@ -14,23 +14,14 @@ list_code_example: |
     --token ADMIN_TOKEN
     --host http://{{< influxdb/host >}}
   ```
-
-  ##### API
-  ```bash
-  curl \
-    --location "http://{{< influxdb/host >}}/api/v3/configure/tokens" \
-    --header "Accept: application/json" \
-    --header "Authorization: Bearer ADMIN_TOKEN"
-  ```
-
 aliases:
   - /influxdb3/enterprise/admin/tokens/list/
 related:
   - /influxdb3/enterprise/reference/cli/influxdb3/token/list/
   - /influxdb3/enterprise/reference/api/
-source: /shared/influxdb3-admin/tokens/database/list.md
+source: /shared/influxdb3-admin/tokens/admin/list.md
 ---
 
 <!-- The content for this page is at
-// file://content/shared/influxdb3-admin/tokens/database/list.md
+// SOURCE content/shared/influxdb3-admin/tokens/admin/list.md
 -->
