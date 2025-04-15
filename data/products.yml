@@ -88,8 +88,8 @@ influxdb:
   latest_cli:
     v2: 2.7.5
   ai_sample_questions:
-    - How do I write and query data with InfluxDB v2 OSS? 
-    - How can I migrate from InfluxDB v2 OSS to InfluxDB 3 Core? 
+    - How do I write and query data with InfluxDB v2 OSS?
+    - How can I migrate from InfluxDB v2 OSS to InfluxDB 3 Core?
     - How do I manage auth tokens in InfluxDB v2 OSS?
 
 influxdb_cloud:
@@ -102,8 +102,8 @@ influxdb_cloud:
   latest: cloud
   placeholder_host: cloud2.influxdata.com
   ai_sample_questions:
-    - How do I write and query data with InfluxDB Cloud 2? 
-    - How is Cloud 2 different from Cloud Serverless? 
+    - How do I write and query data with InfluxDB Cloud 2?
+    - How is Cloud 2 different from Cloud Serverless?
     - How do I manage auth tokens in InfluxDB Cloud 2?
 
 telegraf:
@@ -128,7 +128,7 @@ chronograf:
   versions: [v1]
   latest: v1.10
   latest_patches:
-    v1: 1.10.6
+    v1: 1.10.7
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?
@@ -158,7 +158,7 @@ enterprise_influxdb:
   latest_patches:
     v1: 1.11.8
   ai_sample_questions:
-  - How can I configure my InfluxDB v1 Enterprise server? 
+  - How can I configure my InfluxDB v1 Enterprise server?
   - How do I replicate data between InfluxDB v1 Enterprise and OSS?
   - How do I query data stored in InfluxDB v1?
 
