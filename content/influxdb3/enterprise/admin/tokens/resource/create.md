@@ -21,6 +21,7 @@ list_code_example: |
   ```
 
   ##### HTTP API
+  ```bash
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
     --header 'Accept: application/json' \
     --header 'Content-Type: application/json' \
