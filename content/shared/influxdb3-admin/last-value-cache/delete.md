@@ -5,8 +5,8 @@ to delete a Last Value Cache (LVC). Provide the following:
 - **Database** (`-d`, `--database`): _({{< req >}})_ The name of the database
   that the LVC you want to delete is associated with. You can also use the
   `INFLUXDB3_DATABASE_NAME` environment variable to specify the database.
-- **Token** (`--token`): _({{< req >}})_ Your {{< product-name >}} admin
-  authentication token.
+- **Token** (`--token`): _({{< req >}})_ Your {{< product-name >}}
+  {{% show-in "enterprise" %}}admin {{% /show-in %}}authentication token.
   You can also use the `INFLUXDB3_AUTH_TOKEN` environment variable to specify
   the database.
 - **Table** (`-t`, `--table`): _({{< req >}})_ The name of the table that the
@@ -28,8 +28,8 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of the database that the LVC you want to delete is associated with
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your {{< product-name >}} authentication token with write access to the
-  specified database
+  your {{< product-name >}} {{% show-in "enterprise" %}}admin {{% /show-in %}}
+  authentication token
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}:
   the name of the table that the LVC you want to delete is associated with
 - {{% code-placeholder-key %}}`LVC`{{% /code-placeholder-key %}}:

@@ -65,4 +65,5 @@ In the examples above, replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of the database to query system data from
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your {{< product-name >}} admin authentication token
+  your {{< product-name >}} {{% show-in "enterprise" %}}admin {{% /show-in %}}
+  authentication token
