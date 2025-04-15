@@ -234,19 +234,19 @@ _During the beta period, licenses are valid until May 7, 2025._
 
 ### Authentication and authorization
 
-{{% product-name %}} uses token-based authentication and authorization which is enabled by default when you start the server.
-With authentication enabled, you must provide an _admin token_ or _database token_ to access the server.
-
-- **admin token**: Grants access to all CLI actions and API endpoints.
-_ **database token**: Scoped to a specific database and grant access to write and query data in that database.
-  Creating a database token requires an admin token.
-
 After you have [started the server](#start-influxdb), you can create and manage tokens using the `influxdb3` CLI or the HTTP API.
+{{% product-name %}} uses token-based authentication and authorization which is enabled by default when you start the server.
+With authentication enabled, you must provide a token to access server actions.
+{{% product-name %}} supports the following types of tokens:
 
-When you create a token InfluxDB 3 returns a token string in clear text
-that you can use to authenticate CLI commands (using ) and API requests.
+- **admin token**: Grants access to all CLI actions and API endpoints. A server can have one admin token.
+- **resource tokens**: Fine-grained permissions tokens that grant read and write access to specific resources (databases and system information endpoints) on the server.
 
+  - Database tokens are scoped to a specific database and grant access to write and query data in that database. You can create multiple resource tokens for different databases
+  - System tokens grant read access to system information and metrics for the server
 
+When you create a token, InfluxDB 3 returns a token string in clear text
+that you use to authenticate CLI commands and API requests.
 Securely store your token, as you won't be able to retrieve it later.
 
 To have the `influxdb3` CLI use your admin token automatically, assign it to the
@@ -264,24 +264,16 @@ To have the `influxdb3` CLI use your admin token automatically, assign it to the
 To create an admin token, use the `influxdb3 create token` subcommand and pass the `--admin` flag--for example:
 
 ```bash
- influxdb3 create token --admin \
+influxdb3 create token --admin \
  --host http://{{< influxdb/host >}}
 ```
 
 The command returns a token string that you can use to authenticate CLI commands and API requests.
 Securely store your token, as you won't be able to retrieve it later.
 
-To have the `influxdb3` CLI use your admin token automatically, assign it to the
-`INFLUXDB3_AUTH_TOKEN` environment variable.
-
 After you have created an admin token, you can use it to create database tokens and system tokens.
 
-> [!Important]
->
-> #### Securely store your tokens
->
-> For security, InfluxDB only lets you view tokens when you create them.
-> InfluxDB 3 stores a hash of the token in the catalog, so you can't retrieve the token after it is created.
+For more information, see how to [Manage admin tokens](/influxdb3/version/admin/tokens/admin/).
 
 #### Create a database token
 
@@ -293,8 +285,8 @@ To create a database token, use the `influxdb3 create token` subcommand and pass
   -  `--expiry` option with the token expiration time as a [duration](/influxdb3/enterprise/reference/glossary/#duration).
      If an expiration isn't set, the token does not expire until revoked.
   - `--token` option with the admin token to use for authentication
-- Token permissions (read and write) in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
-  - db:mydb:read,write
+- Token permissions as a string literal in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
+  - `"db:mydb:read,write"`
     - `db:`: The `db` resource type, which specifies the token is for a database.
     - `mydb`: The name of the database to grant permissions to. This part supports the `*` wildcard, which grants permissions to all databases.
     - `read,write`: The permissions to grant to the token.
@@ -332,23 +324,39 @@ To create a system token, use the `influxdb3 create token` subcommand and pass t
      If an expiration isn't set, the token does not expire until revoked.
   - `--token` option with the admin token to use for authentication
   - `--host` option with the server host
-- Token permissions (read) in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
-  - system:*:read
-    - `db:`: The `db` resource type, which specifies the token is for a database.
-    - `mydb`: The name of the database to grant permissions to. This part supports the `*` wildcard, which grants permissions to all databases.
-    - `read,write`: The permissions to grant to the token.
+- Token permissions as a string literal in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
+  - `"system:health:read"` or `"system:*:read"`
+    - `system:`: The `system` resource type, which specifies the token is for a database.
+    - `health`: The system resource (endpoint) to grant permissions to. This part supports the `*` wildcard, which grants permissions to all databases.
+    - `read`: Grant read permission to system information resources.
 
+The following example shows how to create a system token that expires in 1 year and has read permissions for all system endpoints on the server:
 
+```bash
+influxdb3 create token \
+  --permission \
+  --expiry 1y \
+  --token ADMIN_TOKEN \
+  --host http://{{< influxdb/host >}} \
+  --name "rw all system endpoints" \
+  "system:*:read"
+```
+
+For more information, see how to [Manage resource tokens](/influxdb3/version/admin/tokens/resource/).
 
 #### Use tokens to authorize CLI commands and API requests
 
 - To authenticate `influxdb3` CLI commands, use the `--token` option or assign your
   token to the `INFLUXDB3_AUTH_TOKEN` environment variable for `influxdb3` to use it automatically.
-- To authenticate HTTP API requests, include `Bearer <TOKEN>` in the `Authorization` header--for example:
+- To authenticate HTTP API requests, include `Bearer <TOKEN>` in the `Authorization` header value--for example:
   
   ```bash
-  curl \
-  "http://{{< influxdb/host >}}/api/v3/query_sql?db=mydb" \
+  curl "http://{{< influxdb/host >}}/health" \
+    --header "Authorization: Bearer SYSTEM_TOKEN"
+  ```
+
+  In your request, replace
+  {{% code-placeholder-key %}}`SYSTEM_TOKEN`{{% /code-placeholder-key %}} with the system token you created earlier.
 
 ### Data model
 
