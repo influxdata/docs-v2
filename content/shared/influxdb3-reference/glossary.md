@@ -122,14 +122,19 @@ With the InfluxDB 3 storage engine, high series cardinality _does not_ affect pe
 ### cluster
 
 A collection of servers or processes that work together as a single unit.
-An InfluxDB Cloud Dedicated cluster is a collection of InfluxDB servers dedicated
+An InfluxDB cluster is a collection of InfluxDB servers dedicated
 to the workload of a single customer.
 
 ### collect
 
-Collect and write time series data to InfluxDB using line protocol, Telegraf,
-the InfluxDB v1 and v2 HTTP APIs, v1 and v2 `influx` command line interface (CLI),
-and InfluxDB client libraries.
+Collect and write time series data to InfluxDB using line protocol and any of the following tools:
+
+- Telegraf
+- the InfluxDB v1, v2, or v3 HTTP APIs
+- `influxdb3` command line interface (CLI) for InfluxDB 3 Core and Enterprise
+- InfluxDB 3 Processing engine with the `LineBuilder` and `influxdb3_local` shared API.
+- v1 or v2 `influx` command line interface (CLI)
+- InfluxDB v1, v2, or v3 client libraries
 
 ### collection interval
 
@@ -143,7 +148,7 @@ Related entries:
 
 Collection jitter prevents every input plugin from collecting metrics simultaneously,
 which can have a measurable effect on the system.
-For each collection interval, every Telegraf input plugin will sleep for a random
+For each collection interval, every Telegraf input plugin sleeps for a random
 time between zero and the collection jitter before collecting the metrics.
 
 Related entries:
@@ -179,11 +184,11 @@ A background process that runs without user input.
 
 ### dashboard
 
-A collection of data visualizations used to query and display data.
-Some versions of InfluxDB include a built-in dashboarding tool for time series data.
-Tools such as [Grafana](https://grafana.com), [Apache Superset](https://superset.apache.org/),
-[Tableau](https://www.tableau.com/) specialize in data visualization and dashboards
-for various data sources, including time series data stored in InfluxDB.
+A collection of data visualizations, charts, and panels organized in a single view to monitor and analyze time series data. Dashboards provide at-a-glance visualization of metrics and allow users to track trends, spot anomalies, and understand relationships between different data points over time.
+Some versions of InfluxDB include built-in dashboarding features.
+InfluxDB can integrate with third-party visualization and dashboard tools, such as 
+[Grafana](https://grafana.com), [Apache Superset](https://superset.apache.org/),
+[Tableau](https://www.tableau.com/).
 
 <!-- ### Data Explorer
 
@@ -726,6 +731,7 @@ database, allowing plugins to react to specific triggers without requiring exter
 Related entries:
 [plugin](#plugin),
 [trigger](#trigger)
+
 ### processor plugin
 
 Telegraf processor plugins transform, decorate, and filter metrics collected by
@@ -1065,18 +1071,19 @@ Related entries:
 Tokens provide authorization to perform specific actions in InfluxDB.
 
 {{% show-in "cloud-serverless" %}}
-{{< product-name >}} uses **API tokens** to authorize read and write access to resources and data.
+{{< product-name >}} uses _API tokens_ to authorize read and write access to resources and data.
 {{% /show-in %}}
 
 {{% show-in "cloud-dedicated,clustered" %}}
-There are different types of API tokens:
+{{< product-name >}} supports different types of authorization tokens:
 - **Database token:** Grants read and write access to a database.
 - **Management token:** A short-lived token that grants clients administrative
   access to your {{< product-name >}} cluster.
 {{% /show-in %}}
 
 {{% show-in "core,enterprise" %}}
-There are different types of API tokens:
+{{< product-name >}} supports different types of authorization tokens:
+
 - **Admin token:** A token that grants full access to InfluxDB 3 server actions.
 - **Resource token:** Tokens that grant read and write access to server resources,
   such as databases and system information.
@@ -1099,10 +1106,13 @@ Related entries: [aggregate](#aggregate), [function](#function), [selector](#sel
 
 ### trigger
 
-An InfluxDB 3 resource that connects a [plugin](#plugin) to an event that runs the plugin.
-Events include data ingestion, time intervals or schedules, and HTTP requests.
-Triggers activate plugins and can provide configuration parameters to the plugin.
-The plugin function signature in a plugin file determines which trigger specification you can use for configuring and activating the plugin.
+With InfluxDB 3 Core and Enterprise, a Processing engine trigger connects a
+Processing engine plugin to a specific type of event.
+A trigger has:
+
+- a  _trigger specification_ that defines the event (data ingestion, a time interval or schedule, or an HTTP request) that runs the plugin.
+- a plugin file that contains the code to run when the trigger fires.
+- optional configuration parameters that are passed to the plugin.
 
 Related entries:
 [plugin](#plugin),
