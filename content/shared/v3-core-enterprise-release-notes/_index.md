@@ -6,17 +6,23 @@
 > The Enterprise sections below only list features exclusive to Enterprise.
 
 ## v3.0.0-0 {date="2025-04-14"}
+
 ### Core
+
 #### General Updates
+
 - Performance and reliability improvements.
 
 ### Enterprise
+
 #### Token Support
+
 - Authorization is now turned on by default.
 - Token support for database level permissions are now available.
 - Token support for system level queries are now available.
 
 #### General Updates
+
 - You can now use Commercial, Trial, and At-Home licenses.
 
 
