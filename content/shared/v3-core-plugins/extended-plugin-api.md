@@ -4,7 +4,7 @@ These features let you build plugins that can transform, analyze, and respond to
 
 The plugin API lets you:
 
-- Write and query data directly from your python code
+- Write and query data directly from your Python code
 - Track information between plugin executions with the in-memory cache
 - Log messages for monitoring and debugging
 - Build data processing workflows
