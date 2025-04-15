@@ -25,12 +25,13 @@ system tables.
 
 ## Options
 
-| Option |                  | Description                                                                              |
-| :----- | :--------------- | :--------------------------------------------------------------------------------------- |
-| `-H`   | `--host`         | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
-| `-d`   | `--database`     | _({{< req >}})_ Name of the database to operate on                                       |
-|        | `--token`        | Authentication token                                                                     |
-| `-h`   | `--help`         | Print help information                                                                   |
+| Option |              | Description                                                                              |
+| :----- | :----------- | :--------------------------------------------------------------------------------------- |
+| `-H`   | `--host`     | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
+| `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
+|        | `--token`    | Authentication token                                                                     |
+| `-h`   | `--help`     | Print help information                                                                   |
+|        | `--help-all` | Print detailed help information                                                          |
 
 ### Option environment variables
 

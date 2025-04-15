@@ -43,7 +43,7 @@ security:
 tags:
   - name: Authentication
     description: |
-      During the initial Alpha phase, InfluxDB 3 Core does not require authentication.
+      During the Beta phase, InfluxDB 3 Core does not require authentication.
     x-traitTag: true
   - name: Compatibility endpoints
     description: |

@@ -1,5 +1,3 @@
-## Get started with {{% product-name %}}
-
 InfluxDB is a database built to collect, process, transform, and store event and time series data, and is ideal for use cases that require real-time ingest and fast query response times to build user interfaces, monitoring, and automation solutions.
 
 Common use cases include:
@@ -35,14 +33,16 @@ The Enterprise version adds the following features to Core:
 
 This guide covers Enterprise as well as InfluxDB 3 Core, including the following topics:
 
-* [Install and startup](#install-and-startup)
-* [Data Model](#data-model)
-* [Write data to the database](#write-data)
-* [Query the database](#query-the-database)
-* [Last values cache](#last-values-cache)
-* [Distinct values cache](#distinct-values-cache)
-* [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
-* [Multi-server setups](#multi-server-setup)
+- [Install and startup](#install-and-startup)
+- [Authentication and authorization](#authentication-and-authorization)
+- [Data Model](#data-model)
+- [Tools to use](#tools-to-use)
+- [Write data](#write-data)
+- [Query data](#query-data)
+- [Last values cache](#last-values-cache)
+- [Distinct values cache](#distinct-values-cache)
+- [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
+- [Multi-server setups](#multi-server-setup)
 
 ### Install and startup
 
@@ -102,6 +102,15 @@ Pull the image:
 docker pull quay.io/influxdb/influxdb3-enterprise:latest
 ```
 
+##### InfluxDB 3 Explorer -- Query Interface (beta)
+
+You can download the new InfluxDB 3 Explorer query interface using Docker.
+Explorer is currently in beta. Pull the image:
+
+```bash
+docker pull quay.io/influxdb/influxdb3-explorer:latest
+```
+
 <!--------------- END DOCKER -------------->
 {{% /tab-content %}}
 {{% /tabs-wrapper %}}
@@ -132,8 +141,14 @@ and provide the following:
   InfluxDB supports the following: local file system (`file`), `memory`,
   S3 (and compatible services like Ceph or Minio) (`s3`),
   Google Cloud Storage (`google`), and Azure Blob Storage (`azure`).
-- `--node-id`: A string identifier that determines the server's storage path
-  within the configured storage location, and, in a multi-node setup, is used to reference the node.
+  The default is `file`.
+  Depending on the object store type, you may need to provide additional options
+  for your object store configuration.
+- `--cluster-id`: A string identifier that determines part of the storage path hierarchy. All nodes within the same cluster share this identifier. The storage path follows the pattern `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`. In a multi-node setup, this ID is used to reference the entire cluster.
+- `--node-id`: A string identifier that distinguishes individual server instances within the cluster. This forms the final part of the storage path: `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`. In a multi-node setup, this ID is used to reference specific nodes.
+
+> [!Note]
+> The combined path structure `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>` ensures proper organization of data in your object store, allowing for clean separation between clusters and individual nodes.
 
 > [!Note]
 > #### Diskless architecture
@@ -190,7 +205,6 @@ docker run -it \
 ```bash
 # S3 object store (default is the us-east-1 region)
 # Specify the Object store type and associated options
-
 influxdb3 serve \
   --node-id host01 \
   --cluster-id cluster01 \
@@ -204,9 +218,8 @@ influxdb3 serve \
 # Minio or other open source object store
 # (using the AWS S3 API with additional parameters)
 # Specify the object store type and associated options
-
 influxdb3 serve \
-   host01 \
+  --node-id host01 \
   --cluster-id cluster01 \
   --object-store s3 \
   --bucket BUCKET \
@@ -222,29 +235,144 @@ For more information about server options, use the CLI help:
 influxdb3 serve --help
 ```
 
-> [!Important]
-> #### Stopping the Docker container
->
-> Currently, a bug prevents using `Ctrl-c` to stop an InfluxDB 3 container.
-> Use the `docker kill` command to stop the container:
-> 
-> 1. Enter the following command to find the container ID:
->    <!--pytest.mark.skip-->
->    ```bash
->    docker ps -a
->    ```
-> 2. Enter the command to stop the container:
->    <!--pytest.mark.skip-->
->    ```bash
->    docker kill <CONTAINER_ID>
->    ``` 
-
 #### Licensing
 
 When starting {{% product-name %}} for the first time, it prompts you to enter an email address for verification. You will receive an email with a verification link.
 Upon verification, the license creation, retrieval, and application are automated.
 
-_During the alpha period, licenses are valid until May 7, 2025._
+_During the beta period, licenses are valid until May 7, 2025._
+
+### Authentication and authorization
+
+After you have [started the server](#start-influxdb), you can create and manage tokens using the `influxdb3` CLI or the HTTP API.
+{{% product-name %}} uses token-based authentication and authorization which is enabled by default when you start the server.
+With authentication enabled, you must provide a token to access server actions.
+{{% product-name %}} supports the following types of tokens:
+
+- **admin token**: Grants access to all CLI actions and API endpoints. A server can have one admin token.
+- **resource tokens**: Fine-grained permissions tokens that grant read and write access to specific resources (databases and system information endpoints) on the server.
+
+  - A database token grants access to write and query data in a
+    database
+  - A system token grants read access to system information endpoints and
+    metrics for the server
+
+InfluxDB 3 supports the `*` resource name wildcard to grant permissions to all
+resources of a specific type.
+You can create multiple resource tokens for different resources.
+
+When you create a token, InfluxDB 3 returns a token string in plain text
+that you use to authenticate CLI commands and API requests.
+Securely store your token, as you won't be able to retrieve it later.
+
+To have the `influxdb3` CLI use your admin token automatically, assign it to the
+`INFLUXDB3_AUTH_TOKEN` environment variable.
+
+> [!Important]
+>
+> #### Securely store your tokens
+>
+> For security, InfluxDB only lets you view tokens when you create them.
+> InfluxDB 3 stores a hash of the token in the catalog, so you can't retrieve the token after it is created.
+
+#### Create an admin token
+
+To create an admin token, use the `influxdb3 create token --admin` subcommand--for example:
+
+```bash
+influxdb3 create token --admin \
+ --host http://{{< influxdb/host >}}
+```
+
+The command returns a token string that you can use to authenticate CLI commands and API requests.
+Securely store your token, as you won't be able to retrieve it later.
+
+After you have created an admin token, you can use it to create database tokens and system tokens.
+
+For more information, see how to [Manage admin tokens](/influxdb3/version/admin/tokens/admin/).
+
+#### Create a database token
+
+To create a database token, use the `influxdb3 create token` subcommand and pass the following:
+
+- `--permission`: Create a token with permissions
+- `--name`: A unique description of the token
+- _Options_, for example:
+  -  `--expiry` option with the token expiration time as a [duration](/influxdb3/enterprise/reference/glossary/#duration).
+     If an expiration isn't set, the token does not expire until revoked.
+  - `--token` option with the admin token to use for authentication
+- Token permissions as a string literal in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
+  - `"db:mydb:read,write"`
+    - `db:`: The `db` resource type, which specifies the token is for a database.
+    - `mydb`: The name of the database to grant permissions to. This part supports the `*` wildcard, which grants permissions to all databases.
+    - `read,write`: The permissions to grant to the token.
+
+The following example shows how to create a database token that expires in 90 days and has read and write permissions for all databases on the server:
+
+{{% code-placeholders "ADMIN_TOKEN" %}}
+```bash
+influxdb3 create token \
+  --permission \
+  --expiry 90d \
+  --token ADMIN_TOKEN \
+  --host http://{{< influxdb/host >}} \
+  --name "rw all databases" \
+  "db:*:read,write"
+```
+{{% /code-placeholders %}}
+
+In your command, replace {{% code-placeholder-key %}} `ADMIN_TOKEN`{{% /code-placeholder-key %}}
+with the admin token you created earlier.
+
+#### Create a system token
+
+A _system token_ grants read access to system information and metrics for the server, including the following HTTP API endpoints:
+
+- `/health`
+- `/metrics`
+- `/ping`
+
+To create a system token, use the `influxdb3 create token` subcommand and pass the following:
+- `--permission`: Create a token with permissions
+- `--name`: A unique description of the token
+- _Options_, for example:
+  - `--expiry` option with the token expiration time as a [duration](/influxdb3/enterprise/reference/glossary/#duration).
+     If an expiration isn't set, the token does not expire until revoked.
+  - `--token` option with the admin token to use for authentication
+  - `--host` option with the server host
+- Token permissions as a string literal in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
+  - `"system:health:read"` or `"system:*:read"`
+    - `system:`: The `system` resource type, which specifies the token is for a database.
+    - `health`: The system resource (endpoint) to grant permissions to. This part supports the `*` wildcard, which grants permissions to all databases.
+    - `read`: Grant read permission to system information resources.
+
+The following example shows how to create a system token that expires in 1 year and has read permissions for all system endpoints on the server:
+
+```bash
+influxdb3 create token \
+  --permission \
+  --expiry 1y \
+  --token ADMIN_TOKEN \
+  --host http://{{< influxdb/host >}} \
+  --name "rw all system endpoints" \
+  "system:*:read"
+```
+
+For more information, see how to [Manage resource tokens](/influxdb3/version/admin/tokens/resource/).
+
+#### Use tokens to authorize CLI commands and API requests
+
+- To authenticate `influxdb3` CLI commands, use the `--token` option or assign your
+  token to the `INFLUXDB3_AUTH_TOKEN` environment variable for `influxdb3` to use it automatically.
+- To authenticate HTTP API requests, include `Bearer <TOKEN>` in the `Authorization` header value--for example:
+  
+  ```bash
+  curl "http://{{< influxdb/host >}}/health" \
+    --header "Authorization: Bearer SYSTEM_TOKEN"
+  ```
+
+  In your request, replace
+  {{% code-placeholder-key %}}`SYSTEM_TOKEN`{{% /code-placeholder-key %}} with the system token you created earlier.
 
 ### Data model
 
@@ -255,49 +383,49 @@ This is the sort order used for all Parquet files that get created. When you cre
 
 Tags should hold unique identifying information like `sensor_id`, or `building_id` or `trace_id`. All other data should be kept in fields. You will be able to add fast last N value and distinct value lookups later for any column, whether it is a field or a tag.
 
+### Tools to use
+
+The following table compares tools that you can use to interact with {{% product-name %}}.
+This tutorial covers many of the recommended tools.
+
+| Tool                                                                                              |      Administration      |          Write           |          Query           |
+| :------------------------------------------------------------------------------------------------ | :----------------------: | :----------------------: | :----------------------: |
+| [Chronograf](/chronograf/v1/)                                                                     |            -             |            -             | **{{< icon "check" >}}** |
+| <span style="opacity:.5;">`influx` CLI</span>                                                     |            -             |            -             |            -             |
+| [`influxdb3` CLI](#influxdb3-cli){{< req text="\* " color="magenta" >}}                           | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| <span style="opacity:.5;">`influxctl` CLI</span>                                                  |            -             |            -             |            -             |
+| [InfluxDB HTTP API](#influxdb-http-api){{< req text="\* " color="magenta" >}}                     | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| <span style="opacity:.5;">InfluxDB user interface</span>                                          |            -             |            -             |            -             |
+| [InfluxDB 3 client libraries](/influxdb3/version/reference/client-libraries/v3/)                  |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [InfluxDB v2 client libraries](/influxdb3/version/reference/client-libraries/v2/)                 |            -             | **{{< icon "check" >}}** |            -             |
+| [InfluxDB v1 client libraries](/influxdb3/version/reference/client-libraries/v1/)                 |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [InfluxDB 3 Processing engine](#python-plugins-and-the-processing-engine){{< req text="\* " color="magenta" >}}                              |                          | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [Telegraf](/telegraf/v1/)                                                                         |            -             | **{{< icon "check" >}}** |            -             |
+| **Third-party tools**                                                                             |                          |                          |                          |
+| Flight SQL clients                                                                                |            -             |            -             | **{{< icon "check" >}}** |
+| [Grafana](/influxdb3/version/visualize-data/grafana/)                                             |            -             |            -             | **{{< icon "check" >}}** |
+
+{{< caption >}}
+{{< req type="key" text="Covered in this guide" color="magenta" >}}
+{{< /caption >}}
+
 ### Write data
 
 InfluxDB is a schema-on-write database. You can start writing data and InfluxDB creates the logical database, tables, and their schemas on the fly.
 After a schema is created, InfluxDB validates future write requests against it before accepting the data.
 Subsequent requests can add new fields on-the-fly, but can't add new tags.
 
-{{% product-name %}} provides three write API endpoints that respond to HTTP `POST` requests:
+#### Write data in line protocol syntax
 
-#### /api/v3/write_lp endpoint
-
-{{% product-name %}} adds the `/api/v3/write_lp` endpoint.
-
-{{<api-endpoint endpoint="/api/v3/write_lp?db=mydb&precision=nanosecond&accept_partial=true" method="post" >}}
-
-This endpoint accepts the same line protocol syntax as previous versions,
-and supports the `?accept_partial=<BOOLEAN>` parameter, which
-lets you accept or reject partial writes (default is `true`).
-
-#### /api/v2/write InfluxDB v2 compatibility endpoint
-
-Provides backwards compatibility with clients that can write data to InfluxDB OSS v2.x and Cloud 2 (TSM).
-{{<api-endpoint endpoint="/api/v2/write?bucket=mydb&precision=ns" method="post" >}}
-
-#### /write InfluxDB v1 compatibility endpoint
-
-Provides backwards compatibility for clients that can write data to InfluxDB v1.x
-{{<api-endpoint endpoint="/write?db=mydb&precision=ns" method="post" >}}
-
-Keep in mind that these compatibility APIs differ from the v1 and v2 APIs in previous versions in the following ways:
-
-- Tags in a table (measurement) are _immutable_
-- A tag and a field can't have the same name within a table.
-
-#### Write line protocol
-
-The following code block is an example of time series data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) syntax:
+{{% product-name %}} accepts data in [line protocol](/influxdb3/version/reference/syntax/line-protocol/) syntax.
+The following code block is an example of time series data in [line protocol](/influxdb3/version/reference/syntax/line-protocol/) syntax:
 
 - `cpu`: the table name.
 - `host`, `region`, `applications`: the tags. A tag set is an ordered, comma-separated list of key/value pairs where the values are strings.
 - `val`, `usage_percent`, `status`: the fields. A field set is a comma-separated list of key/value pairs.
 - timestamp: If you don't specify a timestamp, InfluxData uses the time when data is written.
   The default precision is a nanosecond epoch.
-  To specify a different precision, pass the `precision` query parameter.
+  To specify a different precision, pass the `precision` parameter in your CLI command or API request.
 
 ```
 cpu,host=Alpha,region=us-west,application=webserver val=1i,usage_percent=20.5,status="OK"
@@ -308,37 +436,82 @@ cpu,host=Bravo,region=us-central,application=database val=5i,usage_percent=80.5,
 cpu,host=Alpha,region=us-west,application=webserver val=6i,usage_percent=25.3,status="Warn"
 ```
 
+### Write data using the CLI
+
+To quickly get started writing data, you can use the `influxdb3` CLI.
+For batching and higher-volume write workloads, we recommend using the [HTTP API](#write-data-using-the-http-api).
+
 ##### Example: write data using the influxdb3 CLI
 
 If you save the preceding line protocol to a file (for example, `server_data`), then you can use the `influxdb3` CLI to write the data--for example:
 
 ```bash
-influxdb3 write --database mydb --file server_data
+influxdb3 write \
+  --database mydb \
+  --file server_data \
+  --precision ns 
+  --accept-partial \
 ```
+
+### Write data using the HTTP API
+
+{{% product-name %}} provides three write API endpoints that respond to HTTP `POST` requests.
+The `/api/v3/write_lp` endpoint is the recommended endpoint for writing data and
+provides additional options for controlling write behavior.
+
+If you need to write data using InfluxDB v1.x or v2.x tools, use the compatibility API endpoints.
+
+{{% tabs-wrapper %}}
+{{% tabs %}}
+[/api/v3/write_lp](#)
+[v2 compatibility](#)
+[v1 compatibility](#)
+{{% /tabs %}}
+{{% tab-content %}}
+<!------------ BEGIN /api/v3/write_lp -------------->
+{{% product-name %}} adds the `/api/v3/write_lp` endpoint.
+
+{{<api-endpoint endpoint="/api/v3/write_lp?db=mydb&precision=nanosecond&accept_partial=true&no_sync=false" method="post" >}}
+
+This endpoint accepts the same line protocol syntax as previous versions,
+and supports the following parameters:
+
+- `?accept_partial=<BOOLEAN>`: Accept or reject partial writes (default is `true`).
+- `?no_sync=<BOOLEAN>`: Control when writes are acknowledged:
+  - `no_sync=true`: Acknowledge writes before WAL persistence completes.
+  - `no_sync=false`: Acknowledges writes after WAL persistence completes (default).
+- `?precision=<PRECISION>`: Specify the precision of the timestamp. The default is nanosecond precision.
+
+For more information about the parameters, see [Write data](/influxdb3/core/write-data/).
+
 
 ##### Example: write data using the /api/v3 HTTP API
 
 The following examples show how to write data using `curl` and the `/api/3/write_lp` HTTP endpoint.
-To show the difference between accepting and rejecting partial writes, line `2` in the example contains a `string` value for a `float` field (`temp=hi`).
+To show the difference between accepting and rejecting partial writes, line `2` in the example contains a `string` value (`"hi"`) for a `float` field (`temp`).
 
 ###### Partial write of line protocol occurred
 
-With `accept_partial=true`:
+With `accept_partial=true` (default):
+
+```bash
+curl -v "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=auto" \
+  --data-raw 'home,room=Sunroom temp=96
+home,room=Sunroom temp="hi"'
+```
+
+The response is the following:
 
 ```
-* upload completely sent off: 59 bytes
 < HTTP/1.1 400 Bad Request
-< transfer-encoding: chunked
-< date: Wed, 15 Jan 2025 19:35:36 GMT
-< 
-* Connection #0 to host localhost left intact
+...
 {
   "error": "partial write of line protocol occurred",
   "data": [
     {
-      "original_line": "dquote> home,room=Sunroom temp=hi",
+      "original_line": "home,room=Sunroom temp=hi",
       "line_number": 2,
-      "error_message": "No fields were provided"
+      "error_message": "invalid column type for column 'temp', expected iox::column_type::field::float, got iox::column_type::field::string"
     }
   ]
 }
@@ -353,24 +526,21 @@ With `accept_partial=false`:
 
 ```bash
 curl -v "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
-  --data-raw "home,room=Sunroom temp=96
-home,room=Sunroom temp=hi"
+  --data-raw 'home,room=Sunroom temp=96
+home,room=Sunroom temp="hi"'
 ```
 
 The response is the following:
 
 ```
 < HTTP/1.1 400 Bad Request
-< transfer-encoding: chunked
-< date: Wed, 15 Jan 2025 19:28:27 GMT
-< 
-* Connection #0 to host localhost left intact
+...
 {
   "error": "parsing failed for write_lp endpoint",
   "data": {
     "original_line": "home,room=Sunroom temp=hi",
     "line_number": 2,
-    "error_message": "No fields were provided"
+    "error_message": "invalid column type for column 'temp', expected iox::column_type::field::float, got iox::column_type::field::string"
   }
 }
 ```
@@ -378,17 +548,43 @@ The response is the following:
 InfluxDB rejects all points in the batch.
 The response is an HTTP error (`400`) status, and the response body contains `parsing failed for write_lp endpoint` and details about the problem line.
 
-### Data flow
+For more information about the ingest path and data flow, see [Data durability](/influxdb3/version/reference/internals/durability/).
+<!------------ END /api/v3/write_lp -------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------ BEGIN /api/v2/write -------------->
+The `/api/v2/write` InfluxDB v2 compatibility endpoint provides backwards compatibility with clients that can write data to InfluxDB OSS v2.x and Cloud 2 (TSM).
 
-The figure below shows how written data flows through the database.
+{{<api-endpoint endpoint="/api/v2/write?bucket=mydb&precision=ns" method="post" >}}
+<!------------ END /api/v2/write -------------->
+{{% /tab-content %}}
 
-{{< img-hd src="/img/influxdb/influxdb-3-write-path.png" alt="Write Path for InfluxDB 3 Core & Enterprise" />}}
+{{% tab-content %}}
+<!------------ BEGIN /write (v1) ---------------->
+The `/write` InfluxDB v1 compatibility endpoint provides backwards compatibility for clients that can write data to InfluxDB v1.x.
 
-1. **Incoming writes**: The system validates incoming data and stores it in the write buffer (in memory). If [`no_sync=true`](#no-sync-write-option), the server sends a response to acknowledge the write.
-2. **WAL flush**: Every second (default), the system flushes the write buffer to the Write-Ahead Log (WAL) for persistence in the Object store. If [`no_sync=false`](#no-sync-write-option) (default), the server sends a response to acknowledge the write.
-3. **Query availability**: After WAL persistence completes, data moves to the queryable buffer where it becomes available for queries. By default, the server keeps up to 900 WAL files (15 minutes of data) buffered.
-4. **Long-term storage in Parquet**: Every ten minutes (default), the system persists the oldest data from the queryable buffer to the Object store in Parquet format. InfluxDB keeps the remaining data (the most recent 5 minutes) in memory.
-5. **In-memory cache**: InfluxDB puts Parquet files into an in-memory cache so that queries against the most recently persisted data don't have to go to object storage.
+{{<api-endpoint endpoint="/write?db=mydb&precision=ns" method="post" >}}
+
+<!------------ END /write (v1) ---------------->
+{{% /tab-content %}}
+{{% /tabs-wrapper %}}
+
+#### Write data using InfluxDB client libraries
+
+InfluxData provides supported InfluxDB 3 client libraries that you can integrate with your code
+to construct data as time series points, and then write them as line protocol to an {{% product-name %}} database.
+For more information, see how to [use InfluxDB client libraries to write data](/influxdb3/version/write-data/api-client-libraries/).
+
+{{% product-name %}} supports the InfluxDB v2.x and v1.x compatibility APIs for
+writing data with tools such as InfluxDB v2 and v1 client libraries and Telegraf.
+
+> [!Note]
+> #### Compatibility APIs differ from native APIs
+> 
+> Keep in mind that the compatibility APIs differ from the v1 and v2 APIs in previous versions in the following ways:
+>
+> - Tags in a table (measurement) are _immutable_
+> - A tag and a field can't have the same name within a table.
 
 #### Write responses
 
@@ -410,7 +606,7 @@ Using `no_sync=true` is best when prioritizing high-throughput writes over absol
 The `no_sync` parameter controls when writes are acknowledged--for example:
 
 ```bash
-curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&no_sync=true" \
+curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=auto&no_sync=true" \
   --data-raw "home,room=Sunroom temp=96"
 ```
 
@@ -590,6 +786,27 @@ print(table.group_by('cpu').aggregate([('time_system', 'mean')]))
 ```
 
 For more information about the Python client library, see the [`influxdb3-python` repository](https://github.com/InfluxCommunity/influxdb3-python) in GitHub.
+
+
+### Query using InfluxDB 3 Explorer (Beta)
+
+You can use the InfluxDB 3 Explorer query interface by downloading the Docker image.
+
+```bash
+docker pull quay.io/influxdb/influxdb3-explorer:latest
+```
+
+Run the interface using:
+
+```bash
+docker run --name influxdb3-explorer -p 8086:8888 quay.io/influxdb/influxdb3-explorer:latest
+```
+
+With the default settings above, you can access the UI at http://localhost:8086.
+Set your expected database connection details on the Settings page.
+From there, you can query data, browser your database schema, and do basic
+visualization of your time series data.
+
 
 ### Last values cache
 

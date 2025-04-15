@@ -14,6 +14,8 @@ related:
   - /influxdb/cloud/query-data/influxql/
   - /influxdb/v2/tools/influxql-shell/
 metadata: [influx CLI 2.4.0+, InfluxDB Cloud]
+source: /shared/influxdb-v2/reference/cli/influx/v1/shell.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/v1/shell.md-->

@@ -12,6 +12,8 @@ list_code_example: |
   ```sql
   SELECT_clause FROM_clause WHERE <conditional_expression> [(AND|OR) <conditional_expression> [...]]
   ```
+source: /shared/influxdb-v2/query-data/influxql/explore-data/where.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/influxql/explore-data/where.md-->

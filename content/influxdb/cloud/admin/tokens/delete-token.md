@@ -9,6 +9,8 @@ menu:
 weight: 204
 aliases:
   - /influxdb/cloud/security/tokens/delete-token/
+source: /shared/influxdb-v2/admin/tokens/delete-token.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/admin/tokens/delete-token.md-->

@@ -30,7 +30,7 @@ The `/query` compatibility endpoint uses the **database** and **retention policy
 specified in the query request to map the request to an InfluxDB bucket.
 For more information, see [Database and retention policy mapping](/influxdb/v2/reference/api/influxdb-1x/dbrp).
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 {{% note %}}
 If you have an existing bucket that doesn't follow the **database/retention-policy** naming convention,
@@ -38,7 +38,7 @@ you **must** [manually create a database and retention policy mapping](/influxdb
 to query that bucket with the `/query` compatibility API.
 {{% /note %}}
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Authentication
 
@@ -98,7 +98,7 @@ The following precisions are available:
 
 ##### Query using basic authentication
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -120,9 +120,9 @@ The following precisions are available:
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -145,7 +145,7 @@ The following precisions are available:
 {{< /code-tabs-wrapper >}}
 
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ##### Query a non-default retention policy
 

@@ -12,11 +12,13 @@ influxdb3 show system --database <DATABASE_NAME> summary [OPTIONS]
 
 ## Options
 
-| Option |            | Description                                                                                    |
-| :----- | :--------- | :--------------------------------------------------------------------------------------------- |
-| `-l`   | `--limit`  | Maximum number of entries from each table to display (default is `10`, `0` indicates no limit) |
-|        | `--format` | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet`)                      |
-| `-h`   | `--help`   | Print help information                                                                         |
+| Option |              | Description                                                                                    |
+| :----- | :----------- | :--------------------------------------------------------------------------------------------- |
+| `-l`   | `--limit`    | Maximum number of entries from each table to display (default is `10`, `0` indicates no limit) |
+|        | `--format`   | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet`)                     |
+|        | `--tls-ca`   | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
+| `-h`   | `--help`     | Print help information                                                                         |
+|        | `--help-all` | Print detailed help information                                                                |
 
 ## Examples
 

@@ -319,7 +319,7 @@ curl --get "https://{{< influxdb/host >}}/query" \
 
 ### Gather system information
 
-> [!Warn]
+> [!Warning]
 >
 > #### May impact cluster performance
 >

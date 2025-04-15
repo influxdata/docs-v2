@@ -5,7 +5,7 @@ description: >
   Manage buckets in InfluxDB Cloud Serverless using the InfluxDB UI, influx CLI,
   or InfluxDB HTTP API.
 menu:
-  influxdb_cloud_serverless:
+  influxdb3_cloud_serverless:
     name: Manage buckets
     parent: Administer InfluxDB Cloud
 weight: 105

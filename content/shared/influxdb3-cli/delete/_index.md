@@ -24,6 +24,7 @@ influxdb3 delete <SUBCOMMAND>
 
 ## Options
 
-| Option |          | Description            |
-| :----- | :------- | :--------------------- |
-| `-h`   | `--help` | Print help information |
+| Option |              | Description                     |
+| :----- | :----------- | :------------------------------ |
+| `-h`   | `--help`     | Print help information          |
+|        | `--help-all` | Print detailed help information |

@@ -15,6 +15,8 @@ related:
   - /influxdb/cloud/reference/syntax/line-protocol/
   - /influxdb/cloud/reference/syntax/annotated-csv/
   - /influxdb/cloud/reference/syntax/annotated-csv/extended/
+source: /shared/influxdb-v2/reference/cli/influx/write/dryrun.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/write/dryrun.md-->
