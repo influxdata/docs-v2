@@ -243,8 +243,14 @@ With authentication enabled, you must provide a token to access server actions.
 - **admin token**: Grants access to all CLI actions and API endpoints. A server can have one admin token.
 - **resource tokens**: Fine-grained permissions tokens that grant read and write access to specific resources (databases and system information endpoints) on the server.
 
-  - Database tokens are scoped to a specific database and grant access to write and query data in that database. You can create multiple resource tokens for different databases
-  - System tokens grant read access to system information and metrics for the server
+  - A database token grants access to write and query data in a
+    database
+  - A system token grants read access to system information endpoints and
+    metrics for the server
+
+InfluxDB 3 supports the `*` resource name wildcard to grant permissions to all
+resources of a specific type.
+You can create multiple resource tokens for different resources.
 
 When you create a token, InfluxDB 3 returns a token string in plain text
 that you use to authenticate CLI commands and API requests.
