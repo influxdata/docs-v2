@@ -1,13 +1,3 @@
----
-title: Glossary
-description: >
-  Terms related to InfluxData products and platforms.
-weight: 109
-menu:
-  influxdb3_cloud_dedicated:
-    parent: Reference
-influxdb3/cloud-dedicated/tags: [glossary]
----
 
 [A](#a) | [B](#b) | [C](#c) | [D](#d) | [E](#e) | [F](#f) | [G](#g) | [H](#h) | [I](#i) | [J](#j) | [K](#k) | [L](#l) | [M](#m) | [N](#n) | [O](#o) | [P](#p) | [Q](#q) | [R](#r) | [S](#s) | [T](#t) | [U](#u) | [V](#v) | [W](#w) | <span style="opacity:.35;font-weight:500">X</span> | <span style="opacity:.35;font-weight:500">Y</span> | <span style="opacity:.35;font-weight:500">Z</span>
 
@@ -47,7 +37,7 @@ Related entries:
 
 A function that returns an aggregated value across a set of points.
 For a list of available aggregation functions,
-see [SQL aggregate functions](/influxdb3/cloud-dedicated/reference/sql/functions/aggregate/).
+see [SQL aggregate functions](/influxdb3/version/reference/sql/functions/aggregate/).
 
 <!-- TODO: Add a link to InfluxQL aggregate functions -->
 
@@ -105,7 +95,10 @@ By convention, you can express `true` as the integer `1` and false as the intege
 
 "Bucket" is the term used in InfluxDB 2.x and _InfluxDB Cloud Serverless_ to refer
 to a named location where time series data is stored.
-Bucket is synonymous with "database" when using InfluxDB Cloud Dedicated.
+
+{{% hide-in "serverless" %}}
+Bucket is synonymous with "database" when using {{< product-name >}}.
+{{% /hide-in %}}
 
 Related entries:
 [database](#database)
@@ -186,10 +179,11 @@ A background process that runs without user input.
 
 ### dashboard
 
-A collection of data visualizations used to query and display time series data.
-There a many tools designed specifically to create dashboards including
-[Grafana](https://grafana.com), [Apache Superset](https://superset.apache.org/),
-[Tableau](https://www.tableau.com/), and others.
+A collection of data visualizations used to query and display data.
+Some versions of InfluxDB include a built-in dashboarding tool for time series data.
+Tools such as [Grafana](https://grafana.com), [Apache Superset](https://superset.apache.org/),
+[Tableau](https://www.tableau.com/) specialize in data visualization and dashboards
+for various data sources, including time series data stored in InfluxDB.
 
 <!-- ### Data Explorer
 
@@ -201,8 +195,14 @@ delete variables and functions manually or using the Script Editor. -->
 A data model organizes elements of data and standardizes how they relate to one
 another and to properties of the real world entities.
 
+{{% show-in "cloud-dedicated,clustered,cloud-serverless" %}}
 For information about the InfluxDB data model, see
-[InfluxDB data organization](/influxdb3/cloud-dedicated/get-started/#data-organization)
+[InfluxDB data organization](/influxdb3/version/get-started/#data-organization)
+{{% /show-in %}}
+
+{{% show-in "core,enterprise" %}}
+For more information, see the [{{< product-name >}} data model](/influxdb3/version/get-started/#data-model)
+{{% /show-in %}}
 
 ### data service
 
@@ -231,9 +231,9 @@ InfluxDB supports the following data types:
 
 For more information about different data types, see:
 
-- [line protocol](/influxdb/v2/reference/syntax/line-protocol/#data-types-and-format)
-- [InfluxQL](/influxdb/v1/query_language/spec/#literals)
-- [InfluxDB](/influxdb/v2/reference/syntax/line-protocol/#data-types-and-format)
+- [line protocol](/influxdb3/version/reference/syntax/line-protocol/#data-types-and-format)
+- [InfluxQL](/influxdb3/version/reference/influxql/#literals)
+- [SQL](/influxdb3/version/reference/sql/data-types/#sql-and-arrow-data-types)
 
 #### database
 
@@ -370,10 +370,11 @@ Related entries:
 
 A function is an operation that performs a specific task.
 Functions take input, operate on that input, and then return output.
-For a complete list of available SQL functions, see
-[SQL functions](/influxdb3/cloud-dedicated/reference/sql/functions/).
 
-<!-- TODO: Add a link to InfluxQL aggregate functions -->
+For complete lists of available query language functions, see:
+
+- [InfluxQL functions](/influxdb3/version/reference/influxql/functions/)
+- [SQL functions](/influxdb3/version/reference/sql/functions/).
 
 Related entries:
 [aggregate](#aggregate),
@@ -415,7 +416,7 @@ Related entries:
 
 [`influxctl`](/influxdb3/cloud-dedicated/reference/cli/influxctl/) is a CLI that
 performs [administrative tasks](/influxdb3/cloud-dedicated/admin/) for an
-InfluxDB Cloud dedicated cluster.
+InfluxDB Cloud Dedicated cluster.
 
 ### influxd
 
@@ -427,6 +428,13 @@ and other required processes.
 An open source time series database (TSDB) developed by InfluxData, optimized for fast, high-availability storage and retrieval of
 time series data in fields such as operations monitoring, application metrics,
 Internet of Things sensor data, and real-time analytics.
+
+### influxdb3
+
+`influxdb3` is:
+
+- the InfluxDB 3 Core and Enterprise daemon that runs the InfluxDB 3 server
+- the InfluxDB 3 CLI that interacts with the server for InfluxDB 3 Core and Enterprise
 
 ### InfluxQL
 
@@ -448,7 +456,6 @@ Related entries:
 ### instance
 
 An entity comprising data on a server (or virtual server in cloud computing).
-<!-- An instance in an InfluxDB Enterprise cluster may scale across multiple servers or nodes in a network. -->
 
 ### integer
 
@@ -499,14 +506,14 @@ you can't use `SELECT` (an SQL keyword) as a variable name in an SQL query.
 
 See keyword lists:
 
-- [SQL keywords](/influxdb3/cloud-dedicated/reference/sql/#keywords)
-- [InfluxQL keywords](/influxdb3/cloud-dedicated/reference/influxql/#keywords)
+- [SQL keywords](/influxdb3/version/reference/sql/#keywords)
+- [InfluxQL keywords](/influxdb3/version/reference/influxql/#keywords)
 
 ## L
 
 ### literal
 
-A literal is value in an expression, a number, character, string, function, record, or array.
+A literal is a value in an expression, a number, character, string, function, record, or array.
 Literal values are interpreted as defined.
 
 ### load balancing
@@ -530,7 +537,7 @@ database crashes or other errors occur.
 ### line protocol (LP)
 
 The text based format for writing points to InfluxDB.
-See [line protocol](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/).
+See [line protocol](/influxdb3/version/reference/syntax/line-protocol/).
 
 ## M
 
@@ -601,7 +608,10 @@ Related entries:
 
 An InfluxDB v2 concept that describes workspace for a group of users.
 All InfluxDB v2 dashboards, tasks, buckets, members, and so on, belong to an organization.
-Organizations are not part of InfluxDB Cloud Dedicated.
+
+{{% hide-in "cloud-serverless" %}}
+Organizations are not part of {{< product-name >}}.
+{{% /hide-in %}}
 
 ### owner
 
@@ -639,6 +649,17 @@ Method for passing information from one process to another.
 For example, an output parameter from one process is input to another process.
 Information passed through a pipe is retained until the receiving process reads the information.
 
+### plugin
+
+A Python file with a specific function signature that corresponds to a
+[trigger](#trigger) type.
+Plugins run in the [Processing engine](#processing-engine) to process data,
+respond to database events, and connect to external systems.
+
+Related entries:
+[Processing engine](#processing-engine),
+[trigger](#trigger)
+
 ### point
 
 Single data record identified by its _measurement_, _tag keys_, _tag values_,
@@ -657,7 +678,7 @@ Related entries:
 
 ### primary key
 
-With the InfluxDB IOx storage engine, the primary key is the list of columns
+With the InfluxDB 3 storage engine, the primary key is the list of columns
 used to uniquely identify each row in a table.
 Rows are uniquely identified by their timestamp and tag set.
 A row's primary key tag set does not include tags with null values.
@@ -694,6 +715,21 @@ A set of predetermined rules.
 A process can refer to instructions being executed by the computer processor or
 refer to the act of manipulating data.
 
+### Processing engine
+
+The Processing engine is a Python virtual machine (VM) embedded within
+InfluxDB 3 Core and Enterprise for automatically processing data and responding
+to database events. It executes Python plugins in response to events defined by
+triggers. The Processing engine runs Python code directly in your
+database, allowing plugins to react to specific triggers without requiring external services.
+
+Related entries:
+[plugin](#plugin),
+[trigger](#trigger)
+
+
+
+
 ### processor plugin
 
 Telegraf processor plugins transform, decorate, and filter metrics collected by
@@ -715,7 +751,7 @@ A simple text-based format for exposing metrics and ingesting them into Promethe
 A request for information.
 An InfluxDB query returns time series data.
 
-See [Query data in InfluxDB](/influxdb3/cloud-dedicated/query-data/).
+See [Query data in InfluxDB](/influxdb3/version/query-data/).
 
 ### query plan
 
@@ -724,7 +760,9 @@ A _logical plan_ is a high level representation of a query and doesn't consider 
 A _physical plan_ represents the query execution plan and data flow through plan nodes that read (_scan_), deduplicate, merge, filter, and sort data.
 A physical plan is optimized for the cluster configuration and data organization.
 
-See [Query plans](/influxdb3/cloud-dedicated/reference/internals/query-plans/).
+{{% show-in "cloud-dedicated,clustered" %}}
+For more information, see [Query plans](/influxdb3/version/reference/internals/query-plans/).
+{{% /show-in %}}
 
 ## R
 
@@ -828,7 +866,7 @@ to, such as API keys, passwords, or certificates.
 ### selector
 
 A function that returns a single point from the range of specified points.
-See [SQL selector functions](/influxdb3/cloud-dedicated/reference/sql/functions/selector/)
+See [SQL selector functions](/influxdb3/version/reference/sql/functions/selector/)
 for a complete list of available SQL selector functions.
 
 Related entries:
@@ -936,7 +974,9 @@ of columns and data types.
 Each row in the table represents a specific record or instance of the data, and
 each column represents a specific attribute or property of the data.
 
-In InfluxDB Cloud Dedicated, a table represents a measurement.
+{{% show-in "cloud-dedicated,clustered,core,enterprise" %}}
+In {{< product-name >}}, a table represents a measurement.
+{{% /show-in %}}
 
 Related entries:
 [column](#column),
@@ -995,7 +1035,7 @@ A plugin-driven agent that collects, processes, aggregates, and writes metrics.
 
 Related entries:
 [Telegraf plugins](/telegraf/v1/plugins/),
-[Use Telegraf to collect data](/influxdb3/cloud-dedicated/write-data/use-telegraf/),
+[Use Telegraf to collect data](/influxdb3/version/write-data/use-telegraf/),
 
 ### time (data type)
 
@@ -1017,7 +1057,7 @@ The date and time associated with a point.
 Time in InfluxDB is in UTC.
 
 To specify time when writing data, see
-[Elements of line protocol](/influxdb3/cloud-dedicated/reference/syntax/line-protocol/#elements-of-line-protocol).
+[Elements of line protocol](/influxdb3/version/reference/syntax/line-protocol/#elements-of-line-protocol).
 
 Related entries:
 [point](#point),
@@ -1027,22 +1067,50 @@ Related entries:
 ### token
 
 Tokens provide authorization to perform specific actions in InfluxDB.
-There are different types of API tokens:
 
+{{% show-in "cloud-serverless" %}}
+{{< product-name >}} uses **API tokens** to authorize read and write access to resources and data.
+{{% /show-in %}}
+
+{{% show-in "cloud-dedicated,clustered" %}}
+There are different types of API tokens:
 - **Database token:** Grants read and write access to a database.
 - **Management token:** A short-lived token that grants clients administrative
-  access to your InfluxDB Cloud Dedicated cluster.
+  access to your {{< product-name >}} cluster.
+{{% /show-in %}}
 
-Related entries:
-[Manage token](/influxdb3/cloud-dedicated/admin/tokens/)
+{{% show-in "core,enterprise" %}}
+There are different types of API tokens:
+- **Admin token:** A token that grants full access to InfluxDB 3 server actions.
+- **Resource token:** Tokens that grant read and write access to server resources,
+  such as databases and system information.
+  Database tokens allow for reading and writing data in your {{< product-name omit="Clustered" >}} instance.
+  System tokens allow for reading system information and metrics for your server.
+{{% /show-in %}}
+
+For more information, see [Manage tokens](/influxdb3/version/admin/tokens/).
 
 ### transformation
 
-Data transformation refers to the process of converting or modifying input data from one format, value, or structure to another.
+Data transformation refers to the process of converting or modifying input data
+from one format, value, or structure to another.
 
-InfluxQL [transformation functions](/influxdb3/cloud-dedicated/reference/influxql/functions/transformations/) modify and return values in each row of queried data, but do not return an aggregated value across those rows.
+InfluxQL [transformation functions](/influxdb3/version/reference/influxql/functions/transformations/)
+modify and return values in each row of queried data, but do not return an
+aggregated value across those rows.
 
 Related entries: [aggregate](#aggregate), [function](#function), [selector](#selector)
+
+### trigger
+
+An InfluxDB 3 resource that connects a [plugin](#plugin) to an event that runs the plugin.
+Events include data ingestion, time intervals or schedules, and HTTP requests.
+Triggers activate plugins and can provide configuration parameters to the plugin.
+The plugin function signature in a plugin file determines which trigger specification you can use for configuring and activating the plugin.
+
+Related entries:
+[plugin](#plugin),
+[Processing engine](#processing-engine)
 
 ### TSM (Time Structured Merge tree)
 
@@ -1072,7 +1140,7 @@ The Unix epoch is `1970-01-01T00:00:00Z`.
 ### unix timestamp
 
 Counts time since **Unix Epoch (1970-01-01T00:00:00Z UTC)** in specified units ([precision](#precision)).
-Specify timestamp precision when [writing data to InfluxDB](/influxdb3/cloud-dedicated/write-data/).
+Specify timestamp precision when [writing data to InfluxDB](/influxdb3/version/write-data/).
 InfluxDB supports the following unix timestamp precisions:
 
 | Precision | Description  | Example               |
@@ -1098,7 +1166,7 @@ Related entries:
 
 ### user
 
-InfluxDB users are granted permission to access to InfluxDB.
+InfluxDB users are granted permission to access InfluxDB.
 
 ## V
 
