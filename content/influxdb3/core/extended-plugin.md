@@ -12,5 +12,5 @@ source: /shared/v3-core-plugins/extended-plugin-api.md
 ---
 
 <!-- 
-//SOURCE - content/shared/v3-core-plugins/extended-plugin-api.md
+// SOURCE content/shared/v3-core-plugins/extended-plugin-api.md
 -->
