@@ -1,5 +1,5 @@
 The Processing engine includes API capabilities that allow your plugins to
-interact with InfluxDB data and maintain state between executions.
+interact with your data and maintain state between executions.
 These features let you build plugins that can transform, analyze, and respond to data.
 
 The plugin API lets you:
