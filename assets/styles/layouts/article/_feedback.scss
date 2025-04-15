@@ -15,27 +15,48 @@
   padding-right: 2rem;
 
   ul {
-    display: flex;
-    flex-wrap: wrap;
     margin-bottom: 1.25rem;
     padding: 0;
     list-style: none;
 
-    li {display: inline-block}
-
     a {
-      margin-right: 1.5rem;
       color: $article-heading;
+      font-weight: $medium;
+      position: relative;
+
+      &::after {
+        content: "\e90a";
+        font-family: 'icomoon-v4';
+        font-weight: bold;
+        font-size: 1.3rem;
+        display: inline-block;
+        position: absolute;
+        @include gradient($grad-burningDusk);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        right: 0;
+        transform: translateX(.25rem);
+        opacity: 0;
+        transition: transform .2s, opacity .2s;
+      }
 
       &:hover {
-        color: $article-link;
-        border-radius: calc($radius * 1.5);
+        &::after {transform: translateX(1.5rem); opacity: 1;}
+      }
+
+      &.discord:before {
+        content: url('/svgs/discord.svg');
+        display: inline-block;
+        height: 1.1rem;
+        width: 1.25rem;
+        vertical-align: top;
+        margin: 2px .65rem 0 0;
       }
 
       &.community:before {
         content: "\e900";
         color: $article-heading;
-        margin: 0 .5rem 0 -.25rem;
+        margin-right: .75rem;
         font-size: 1.2rem;
         font-family: 'icomoon-v2';
         vertical-align: middle;
@@ -46,7 +67,16 @@
         height: 1.1rem;
         width: 1.1rem;
         vertical-align: text-top;
-        margin-right: .5rem;
+        margin-right: .8rem;
+      }
+
+      &.reddit:before {
+        content: url('/svgs/reddit.svg');
+        display: inline-block;
+        height: 1.1rem;
+        width: 1.2rem;
+        vertical-align: top;
+        margin: 2px .75rem 0 0;
       }
     }
   }

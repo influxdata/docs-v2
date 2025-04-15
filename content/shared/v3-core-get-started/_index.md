@@ -35,14 +35,15 @@ For more information, see how to [get started with Enterprise](/influxdb3/enterp
 
 This guide covers InfluxDB 3 Core (the open source release), including the following topics:
 
-* [Install and startup](#install-and-startup)
-* [Data Model](#data-model)
-* [Tools to use](#tools-to-use)
-* [Write data](#write-data)
-* [Query data](#query-data)
-* [Last values cache](#last-values-cache)
-* [Distinct values cache](#distinct-values-cache)
-* [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
+- [Install and startup](#install-and-startup)
+- [Authentication and authorization](#authentication-and-authorization)
+- [Data Model](#data-model)
+- [Tools to use](#tools-to-use)
+- [Write data](#write-data)
+- [Query data](#query-data)
+- [Last values cache](#last-values-cache)
+- [Distinct values cache](#distinct-values-cache)
+- [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
 
 ### Install and startup
 
@@ -228,6 +229,40 @@ For more information about server options, use the CLI help:
 influxdb3 serve --help
 ```
 
+### Authentication and authorization
+
+After you have [started the server](#start-influxdb), you can create and manage tokens using the `influxdb3` CLI or the HTTP API.
+{{% product-name %}} uses token-based authentication and authorization which is enabled by default when you start the server.
+With authentication enabled, you must provide a token to access server actions.
+An {{% product-name %}} instance can have one _admin token_, which grants access to all CLI actions and API endpoints.
+
+When you create a token, InfluxDB 3 returns a token string in plain text
+that you use to authenticate CLI commands and API requests.
+Securely store your token, as you won't be able to retrieve it later.
+
+To have the `influxdb3` CLI use your admin token automatically, assign it to the
+`INFLUXDB3_AUTH_TOKEN` environment variable.
+
+> [!Important]
+>
+> #### Securely store your tokens
+>
+> For security, InfluxDB only lets you view tokens when you create them.
+> InfluxDB 3 stores a hash of the token in the catalog, so you can't retrieve the token after it is created.
+
+#### Create an admin token
+
+To create an admin token, use the `influxdb3 create token --admin` subcommand--for example:
+
+```bash
+influxdb3 create token --admin \
+ --host http://{{< influxdb/host >}}
+```
+
+The command returns a token string that you can use to authenticate CLI commands and API requests.
+Securely store your token, as you won't be able to retrieve it later.
+
+For more information, see how to [Manage admin tokens](/influxdb3/version/admin/tokens/admin/).
 ### Data model
 
 The database server contains logical databases, which have tables, which have columns. Compared to previous versions of InfluxDB you can think of a database as a `bucket` in v2 or as a `db/retention_policy` in v1. A `table` is equivalent to a `measurement`, which has columns that can be of type `tag` (a string dictionary), `int64`, `float64`, `uint64`, `bool`, or `string` and finally every table has a `time` column that is a nanosecond precision timestamp.
