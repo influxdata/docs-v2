@@ -51,6 +51,8 @@ After you
 can use the token string to authenticate `influxdb3` commands and HTTP API requests
 for managing database and system tokens.
 
+The HTTP API examples in this guide use [cURL](https://curl.se/) to send an API request, but you can use any HTTP client._
+
 > [!Note]
 > #### Store secure tokens in a secret store
 > 
@@ -75,17 +77,17 @@ your {{% product-name %}} instance.
 
 In your terminal, run the `influxdb3 create token` command and provide the following:
 
-    - `--permission` flag to create a token with permissions
-    - `--name` flag with a unique description of the token
-    - _Options_, for example:
-      -  `--expiry` option with the token expiration time as a [duration](/influxdb3/enterprise/reference/glossary/#duration).
-         If an expiration isn't set, the token does not expire until revoked.
-    - Token permissions (read and write) in the Permission in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
-      - db:DATABASE1,DATABASE2:read,write
-        - `db:`: The `db` resource type, which specifies the token is for a database.
-        - `DATABASE1,DATABASE2`: The names of the databases to grant permissions to.
-          The resource names part supports the `*` wildcard, which grants read or write permissions to all databases.
-        - `read,write`: The permissions to grant to the token.
+- `--permission` flag to create a token with permissions
+- `--name` flag with a unique description of the token
+- _Options_, for example:
+  -  `--expiry` option with the token expiration time as a [duration](/influxdb3/enterprise/reference/glossary/#duration).
+      If an expiration isn't set, the token does not expire until revoked.
+- Token permissions (read and write) in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
+  - db:DATABASE1,DATABASE2:read,write
+    - `db:`: The `db` resource type, which specifies the token is for a database.
+    - `DATABASE1,DATABASE2`: The names of the databases to grant permissions to.
+      The resource names part supports the `*` wildcard, which grants read or write permissions to all databases.
+    - `read,write`: The permissions to grant to the token.
 
 {{% code-placeholders "DATABASE1|DATABASE2|1y" %}}
 
@@ -113,29 +115,27 @@ The output is the token string in plain text.
 {{% /tab-content %}}
 {{% tab-content %}}
 <!------------------------------- BEGIN cURL ---------------------------------->
-_This example uses [cURL](https://curl.se/) to send an HTTP API request, but you can use any HTTP client._
 
-1.  If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
-2.  In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
+Send a request to the following {{% product-name %}} endpoint:
 
-    {{% api-endpoint endpoint="http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" method="post" %}}
+{{% api-endpoint endpoint="http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" method="post" %}}
 
-    Provide the following request headers:
+Provide the following request headers:
 
-    - `Accept: application/json` to ensure the response body is JSON content
-    - `Content-Type: application/json` to indicate the request body is JSON content
-    - `Authorization: Bearer` and the [admin token](/influxdb3/enterprise/admin/tokens/admin/)
-      for your instance to authorize the request
+- `Accept: application/json` to ensure the response body is JSON content
+- `Content-Type: application/json` to indicate the request body is JSON content
+- `Authorization: Bearer` and the [admin token](/influxdb3/enterprise/admin/tokens/admin/)
+  for your instance to authorize the request
 
-    In the request body, provide the following parameters:
+In the request body, provide the following parameters:
 
-    - `token_name`: a description of the token, unique within the instance
-    - `resource_type`: the resource type for the token, which is always `db`
-    - `resource_identifier`: an array of database names to grant permissions to
-      - The resource identifier field supports the `*` wildcard, which grants read or write
-        permissions to all databases.
-    - `permissions`: an array of token permission actions (`"read"`, `"write"`) for the database
-    - `expiry_secs`: Specify the token expiration time in seconds.
+- `token_name`: a description of the token, unique within the instance
+- `resource_type`: the resource type for the token, which is always `db`
+- `resource_identifier`: an array of database names to grant permissions to
+  - The resource identifier field supports the `*` wildcard, which grants read or write
+    permissions to all databases.
+- `permissions`: an array of token permission actions (`"read"`, `"write"`) for the database
+- `expiry_secs`: Specify the token expiration time in seconds.
 
 The following example shows how to use the HTTP API to create a database token:
 
@@ -444,29 +444,26 @@ The output is the token string in plain text.
 {{% /tab-content %}}
 {{% tab-content %}}
 <!------------------------------- BEGIN cURL ---------------------------------->
-_This example uses [cURL](https://curl.se/) to send an HTTP API request, but you can use any HTTP client._
+Send a request to the following {{% product-name %}} endpoint:
 
-1.  If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
-2.  In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
+{{% api-endpoint endpoint="http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" method="post" %}}
 
-  {{% api-endpoint endpoint="http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" method="post" %}}
+Provide the following request headers:
 
-  Provide the following request headers:
+- `Accept: application/json` to ensure the response body is JSON content
+- `Content-Type: application/json` to indicate the request body is JSON content
+- `Authorization: Bearer` and the [admin token](/influxdb3/enterprise/admin/tokens/admin/)
+  for your instance to authorize the request
 
-  - `Accept: application/json` to ensure the response body is JSON content
-  - `Content-Type: application/json` to indicate the request body is JSON content
-  - `Authorization: Bearer` and the [admin token](/influxdb3/enterprise/admin/tokens/admin/)
-    for your instance to authorize the request
+In the request body, provide the following parameters:
 
-  In the request body, provide the following parameters:
-
-  - `token_name`: a description of the token, unique within the instance
-  - `resource_type`: the resource type for the token, which is `system` for system tokens
-  - `resource_identifier`: an array of system resource names to grant permissions to
-    - The resource identifier field supports the `*` wildcard, which grants read or write
-      permissions to all system information resources.
-  - `permissions`: an array of token permission actions (only `"read"` for system tokens)
-  - `expiry_secs`: Specify the token expiration time in seconds.
+- `token_name`: a description of the token, unique within the instance
+- `resource_type`: the resource type for the token, which is `system` for system tokens
+- `resource_identifier`: an array of system resource names to grant permissions to
+  - The resource identifier field supports the `*` wildcard, which grants read or write
+    permissions to all system information resources.
+- `permissions`: an array of token permission actions (only `"read"` for system tokens)
+- `expiry_secs`: Specify the token expiration time in seconds.
 
 The following example shows how to use the HTTP API to create a system token:
 
