@@ -2,7 +2,7 @@
 title: Create a database token
 description: >
   Use the [`influxctl token create` command](/influxdb3/clustered/reference/cli/influxctl/token/create/)
-  to create a database token for reading and writing data in your InfluxDB cluster.
+  to create a [database token](/influxdb3/clustered/admin/tokens/database/) for reading and writing data in your InfluxDB cluster.
   Provide a token description and permissions for databases.
 menu:
   influxdb3_clustered:
