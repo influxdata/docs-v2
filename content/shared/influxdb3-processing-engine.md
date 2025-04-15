@@ -12,7 +12,7 @@ The Processing engine runs Python code directly within a {{% product-name %}} se
 - **Direct data access**: Zero-copy access to data
 - **Event-driven**: Responds to database writes, scheduled events, and HTTP requests
 - **Isolated contexts**: Maintains separation between different plugin executions
-- **Cache integration**: Access to system caches including Last values  and Distinct values 
+- **Cache integration**: Access to system caches, such as Last Value Cache  and Distinct Value Cache 
 
 ### Event processing flow
 
