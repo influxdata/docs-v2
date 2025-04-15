@@ -38,7 +38,6 @@ list_code_example: |
 alt_links:
   cloud-dedicated: /influxdb3/enterprise/admin/tokens/create-token/
   cloud-serverless: /influxdb3/cloud-serverless/admin/tokens/create-token/
-source: /shared/influxdb3-admin/tokens/database/create.md
 ---
 
 Use the [`influxdb3 create token --permission` command](/influxdb3/enterprise/reference/cli/influxdb3/create/token/)
