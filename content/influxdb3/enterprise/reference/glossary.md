@@ -2,11 +2,11 @@
 title: Glossary
 description: >
   Terms related to InfluxData products and platforms.
-weight: 180
+weight: 109
 menu:
-  influxdb3_clustered:
+  influxdb3_enterprise:
     parent: Reference
-influxdb3/clustered/tags: [glossary]
+influxdb3/enterprise/tags: [glossary]
 source: /shared/influxdb3-reference/glossary.md
 ---
 
