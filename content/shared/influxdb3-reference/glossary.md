@@ -246,7 +246,7 @@ A named location where time series data is stored.
 
 In InfluxDB 1.x, a database represented a logical container for users, retention
 policies, continuous queries, and time series data.
-In InfluxDB 2.x, the equivalent of this concept is an InfluxDB [bucket](#bucket).
+In InfluxDB 2.x and InfluxDB Cloud Serverless, the equivalent of this concept is an InfluxDB [bucket](#bucket).
 
 Related entries:
 [bucket](#bucket),
@@ -658,7 +658,7 @@ Information passed through a pipe is retained until the receiving process reads 
 
 A Python file with a specific function signature that corresponds to a
 [trigger](#trigger) type.
-Plugins run in the [Processing engine](#processing-engine) to process data,
+Plugins run in the InfluxDB 3 [Processing engine](#processing-engine) to process data,
 respond to database events, and connect to external systems.
 
 Related entries:
@@ -786,12 +786,16 @@ Field type conflicts are a common cause of rejected points.
 ### retention period
 
 The [duration](#duration) of time that a database retains data.
+
 InfluxDB drops points with timestamps older than their database's retention period
 relative to [now](#now).
 The minimum retention period is **one hour**.
 
+In InfluxDB Cloud Serverless, _bucket_ is synonymous with database.
+
 Related entries:
 [bucket](#bucket)
+[database](#database)
 
 ### retention policy (RP)
 
@@ -804,6 +808,8 @@ and tag set define a series.
 In {{< product-name >}}, the equivalent is [retention period](#retention-period),
 however retention periods are not part of the data model.
 The retention period describes the data persistence behavior of a database.
+
+In InfluxDB Cloud Serverless, _bucket_ is synonymous with database.
 
 Related entries:
 [retention period](#retention-period),
@@ -849,11 +855,18 @@ Related entries:
 ### schema
 
 How data is organized in InfluxDB.
+{{% hide-in "cloud-serverless" %}}
 The fundamentals of the InfluxDB schema are databases, measurements,
 tag keys, tag values, and field keys.
+{{% /hide-in %}}
+{{% show-in "cloud-serverless" %}}
+The fundamentals of the {{% product-name %}} schema are buckets, measurements (or _tables_),
+tag keys, tag values, and field keys.
+{{% /show-in %}}
 
 Related entries:
 [bucket](#bucket),
+[database](#database),
 [field key](#field-key),
 [measurement](#measurement),
 [series](#series),
@@ -888,7 +901,8 @@ Related entries:
 
 ### series cardinality
 
-The number of unique measurement (table), tag set, and field key combinations in an InfluxDB database.
+The number of unique measurement, tag set, and field key combinations in an
+{{% product-name %}} database.
 
 For example, assume that an InfluxDB database has one measurement.
 The single measurement has two tag keys: `email` and `status`.
@@ -921,6 +935,10 @@ The series cardinality would remain unchanged at 6, as `firstname` is already sc
 | marv@influxdata.com  | finish | marvin    |
 | cliff@influxdata.com | start  | clifford  |
 | cliff@influxdata.com | finish | clifford  |
+
+{{% show-in "cloud-serverless" %}}
+In InfluxDB Cloud Serverless, _bucket_ is synonymous with database.
+{{% /show-in %}}
 
 Related entries:
 [field key](#field-key),
