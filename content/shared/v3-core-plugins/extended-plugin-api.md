@@ -1,10 +1,9 @@
-## Extend plugins with API features and state management
-
 The Processing engine includes API capabilities that allow your plugins to
 interact with InfluxDB data and maintain state between executions.
-These features let you build more sophisticated plugins that can transform, analyze, and respond to data.
+These features let you build plugins that can transform, analyze, and respond to data.
 
 The plugin API lets you:
+
 - Write and query data directly from your python code
 - Track information between plugin executions with the in-memory cache
 - Log messages for monitoring and debugging
@@ -14,7 +13,7 @@ Let's explore how to use these fatures in your pligins.
 
 ### Getting started with the shared API
 
-Every plugin automatically has access to the shared API through the influxdb3_local object. You don't need to import any libraries - this API is available as soon as your plugin runs.
+Every plugin has access to the shared API through the `influxdb3_local` object. You don't need to import any libraries. This API is available as soon as your plugin runs.
 
 #### Write data
 
@@ -154,7 +153,7 @@ class LineBuilder:
 
 #### Query data
 
-Your plugins can execute SQL queries and process the results directly:
+Your plugins can execute SQL queries and process results directly:
 
 ```python
 # Simple query
@@ -167,14 +166,10 @@ results = influxdb3_local.query("SELECT * FROM $table WHERE value > $threshold",
 
 Query results come back as a `List` of `Dict[String, Any]`, where each dictionary represents a row with column names as keys and column values as values. This makes it easy to process the results in your plugin code.
 
-
-
 #### Log information
 
 The shared API `info`, `warn`, and `error` functions accept multiple arguments,
-convert them to strings, and log them as a space-separated message to the database log,
-which is output in the server logs and captured in system tables that you can
-query using SQL.
+convert them to strings, and log them as a space-separated message to the database log.
 
 Add logging to track plugin execution:
 
@@ -187,17 +182,19 @@ influxdb3_local.error("Failed to connect to external API")
 obj_to_log = {"records": 157, "errors": 3}
 influxdb3_local.info("Processing complete", obj_to_log)
 ```
+All log messages appear in the server logs and are stored in system tables that you can query using SQL.
 
-#### Use the in-memory cache
+#### Maintaining state with the in-memory cache
 
 The Processing engine provides an in-memory cache system that enables plugins to persist and retrieve data between executions.
 
-Use the shared API `cache` property to access the cache API.
+You can access the cache through the `cache` property of the shared API:
 
 ```python 
 # Basic usage pattern  
 influxdb3_local.cache.METHOD(PARAMETERS)
 ```
+Here are the available methods: 
 
 | Method | Parameters | Returns | Description |
 |--------|------------|---------|-------------|
@@ -205,7 +202,7 @@ influxdb3_local.cache.METHOD(PARAMETERS)
 | `get` | `key` (str): The key to retrieve<br>`default` (Any, default=None): Value to return if key not found<br>`use_global` (bool, default=False): If True, uses global namespace | Any | Retrieves a value from the cache or returns default if not found |
 | `delete` | `key` (str): The key to delete<br>`use_global` (bool, default=False): If True, uses global namespace | bool | Deletes a value from the cache. Returns True if deleted, False if not found |
 
-##### Cache namespaces
+##### Understanding cache namespaces
 
 The cache system offers two distinct namespaces:
 
@@ -213,6 +210,9 @@ The cache system offers two distinct namespaces:
 | --- | --- | --- |
 | **Trigger-specific** (default) | Isolated to a single trigger | Plugin state, counters, timestamps specific to one plugin |
 | **Global** | Shared across all triggers | Configuration, lookup tables, service states that should be available to all plugins |
+
+### Common cache operations
+Here are some examples of how to use the cache in your plugins
 
 ##### Store and retrieve cached data
 
@@ -243,8 +243,9 @@ influxdb3_local.cache.put("config", {"version": "1.0"}, use_global=True)
 # Retrieve from the global namespace
 config = influxdb3_local.cache.get("config", use_global=True)
 ```
+#### Building a counter
 
-##### Track state between executions
+You can track how many times a plugin has run:
 
 ```python
 # Get current counter or default to 0
@@ -261,6 +262,8 @@ influxdb3_local.info(f"This plugin has run {counter} times")
 
 #### Best practices for in-memory caching
 
+To get the most out of the in-memory cache, follow these guidlines:
+
 - [Use the trigger-specific namespace](#use-the-trigger-specific-namespace)
 - [Use TTL appropriately](#use-ttl-appropriately)
 - [Cache computation results](#cache-computation-results)
@@ -273,7 +276,7 @@ The cache is designed to support stateful operations while maintaining isolation
 
 ##### Use TTL appropriately
 
-Set realistic expiration times based on how frequently data changes.
+Set realistic expiration times based on how frequently data changes:
 
 ```python
 # Cache external API responses for 5 minutes  
@@ -282,7 +285,8 @@ influxdb3_local.cache.put("weather_data", api_response, ttl=300)
 
 ##### Cache computation results
 
-Store the results of expensive calculations that need to be utilized frequently.
+Store the results of expensive calculations that need to be utilized frequently:
+
 ```python
 # Cache aggregated statistics  
 influxdb3_local.cache.put("daily_stats", calculate_statistics(data), ttl=3600)
@@ -290,7 +294,7 @@ influxdb3_local.cache.put("daily_stats", calculate_statistics(data), ttl=3600)
 
 ##### Warm the cache
 
-For critical data, prime the cache at startup. This can be especially useful for global namespace data where multiple triggers need the data.
+For critical data, prime the cache at startup. This can be especially useful for global namespace data where multiple triggers need the data:
 
 ```python
 # Check if cache needs to be initialized  
@@ -303,3 +307,14 @@ if not influxdb3_local.cache.get("lookup_table"):
 - **Memory Usage**: Since cache contents are stored in memory, monitor your memory usage when caching large datasets.
 - **Server Restarts**: Because the cache is cleared when the server restarts, design your plugins to handle cache initialization (as noted above).
 - **Concurrency**: Be cautious of accessing inaccurate or out-of-date data when multiple trigger instances might simultaneously update the same cache key.
+
+### Next Steps
+
+Now that you understand the Extended Plugin API, you're ready to build data processing workflows that can transform, analyze, and respond to your time series data.
+
+Try combining these features to create plugins that:
+
+- Process incoming data and write transformed results
+- Maintain state between executions using the cache
+- Log detailed information about their operation
+- Share configuration through the global cache
