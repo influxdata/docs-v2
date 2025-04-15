@@ -246,7 +246,7 @@ With authentication enabled, you must provide a token to access server actions.
   - Database tokens are scoped to a specific database and grant access to write and query data in that database. You can create multiple resource tokens for different databases
   - System tokens grant read access to system information and metrics for the server
 
-When you create a token, InfluxDB 3 returns a token string in clear text
+When you create a token, InfluxDB 3 returns a token string in plain text
 that you use to authenticate CLI commands and API requests.
 Securely store your token, as you won't be able to retrieve it later.
 
@@ -262,7 +262,7 @@ To have the `influxdb3` CLI use your admin token automatically, assign it to the
 
 #### Create an admin token
 
-To create an admin token, use the `influxdb3 create token` subcommand and pass the `--admin` flag--for example:
+To create an admin token, use the `influxdb3 create token --admin` subcommand--for example:
 
 ```bash
 influxdb3 create token --admin \
