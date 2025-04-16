@@ -26,6 +26,11 @@ alt_links:
 - Add [`aggressive-points-per-block` configuration option](/influxdb/v1/administration/config/#aggressive-points-per-block)
   to prevent TSM files from not getting fully compacted.
 - Improve error handling.
+- InfluxQL updates:
+  - Delete series by retention policy.
+  - Allow retention policies to discard writes that fall within their range, but
+    outside of [`FUTURE LIMIT`](/influxdb/v1/query_language/manage-database/#future-limit)
+    and [`PAST LIMIT`](/influxdb/v1/query_language/manage-database/#past-limit).
 
 ## Bug fixes
 
@@ -42,6 +47,7 @@ alt_links:
 - Update Go to 1.23.5.
 - Upgrade Flux to v0.196.1.
 - Upgrade InfluxQL to v1.4.1.
+- Various other dependency updates.
 
 ---
 

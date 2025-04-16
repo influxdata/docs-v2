@@ -36,6 +36,11 @@ menu:
   - [`[meta].raft-portal-auth-required`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#raft-portal-auth-required)
   - [`[meta].raft-dialer-auth-required`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#raft-dialer-auth-required)
 - Improve error handling.
+- InfluxQL updates:
+  - Delete series by retention policy.
+  - Allow retention policies to discard writes that fall within their range, but
+    outside of [`FUTURE LIMIT`](/enterprise_influxdb/v1/query_language/manage-database/#future-limit)
+    and [`PAST LIMIT`](/enterprise_influxdb/v1/query_language/manage-database/#past-limit).
 
 ## Bug fixes
 
