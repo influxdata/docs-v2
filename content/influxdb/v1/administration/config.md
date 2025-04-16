@@ -55,40 +55,54 @@ Configuration settings that specify a duration support the following duration un
 - `d` _(days)_
 - `w` _(weeks)_
 
->**Note:** Configuration file settings are documented here for the latest official release - the [sample configuration file on GitHub](https://github.com/influxdb/influxdb/blob/1.8/etc/config.sample.toml) might be slightly newer.
+> [!Note]
+> Configuration file settings are documented here for the latest official release.
+> The [sample configuration file on GitHub](https://github.com/influxdb/influxdb/blob/1.8/etc/config.sample.toml)
+> might be slightly newer.
 
 ## Environment variables
 
-All of the configuration settings in the configuration file can be specified either in the configuration file or in an environment variable.
+All of the configuration settings in the configuration file can be specified
+either in the configuration file or in an environment variable.
 The environment variable overrides the equivalent option in the configuration
-file.
-If a configuration option is not specified in either the configuration file or in an environment variable, InfluxDB uses its internal default configuration.
+file. If a configuration option is not specified in either the configuration
+file or in an environment variable, InfluxDB uses its internal default configuration.
 
-> ***Note:*** If an environment variable has already been set, the equivalent configuration setting in the configuration file is ignored.
+> [!Note]
+> If an environment variable has already been set, the equivalent configuration
+> setting in the configuration file is ignored.
 
 ### InfluxDB environment variables (`INFLUXDB_*`)
 
-The InfluxDB environment variables are documented below with the corresponding configuration file settings. All of the InfluxDB-specific environment variables are prefixed with `INFLUXDB_`.
-
+The InfluxDB environment variables are documented below with the corresponding
+configuration file settings. All of the InfluxDB-specific environment variables
+are prefixed with `INFLUXDB_`.
 
 ### `GOMAXPROCS` environment variable
 
-> ***Note:*** The GOMAXPROCS environment variable cannot be set using the InfluxDB configuration file settings, like other environment variables.
+> [!Note]
+> The GOMAXPROCS environment variable cannot be set using the InfluxDB
+> configuration file settings, like other environment variables.
 
+The `GOMAXPROCS` [Go language environment variable](https://golang.org/pkg/runtime/#hdr-Environment_Variables)
+can be used to set the maximum number of CPUs that can execute simultaneously.
 
-The `GOMAXPROCS` [Go language environment variable](https://golang.org/pkg/runtime/#hdr-Environment_Variables) can be used to set the maximum number of CPUs that can execute simultaneously.
+The default value of `GOMAXPROCS` is the number of CPUs (whatever your operating
+system considers to be a CPU) that are visible to the program *on startup.*
+For a 32-core machine, the `GOMAXPROCS` value would be `32`.
+You can override this value to be less than the maximum value, which can be
+useful in cases where you are running the InfluxDB along with other processes on
+the same machine and want to ensure that the database doesn't completely starve
+those processes.
 
-
-The default value of `GOMAXPROCS` is the number of CPUs (whatever your operating system considers to be a CPU) that are visible to the program *on startup.* For a 32-core machine, the `GOMAXPROCS` value would be `32`.
-You can override this value to be less than the maximum value, which can be useful in cases where you are running the InfluxDB along with other processes on the same machine and want to ensure that the database doesn't completely starve those processes.
-
-> ***Note:***
+> [!Note]
 > Setting `GOMAXPROCS=1` will eliminate all parallelization.
-
 
 ## Using the configuration file
 
-The InfluxDB system has internal defaults for all of the settings in the configuration file. To view the default configuration settings, use the `influxd config` command.
+The InfluxDB system has internal defaults for all of the settings in the
+configuration file. To view the default configuration settings, use the 
+`influxd config` command.
 
 The local InfluxDB configuration file is located here:
 
@@ -96,27 +110,30 @@ The local InfluxDB configuration file is located here:
 - **macOS**: `/usr/local/etc/influxdb.conf`
 - **Windows**: _Same directory as `influxd.exe`_
 
-Settings that are commented out are set to the internal system defaults. Uncommented settings override the internal defaults.
-Note that the local configuration file does not need to include every configuration setting.
+Settings that are commented out are set to the internal system defaults.
+Uncommented settings override the internal defaults.
+Note that the local configuration file does not need to include every
+configuration setting.
 
 There are two ways to launch InfluxDB with your configuration file:
 
-* Point the process to the configuration file by using the `-config`
+- Point the process to the configuration file by using the `-config`
   option. For example:
 
-    ```bash
-    influxd -config /etc/influxdb/influxdb.conf
-    ```
-* Set the environment variable `INFLUXDB_CONFIG_PATH` to the path of your
+  ```bash
+  influxd -config /etc/influxdb/influxdb.conf
+  ```
+
+- Set the environment variable `INFLUXDB_CONFIG_PATH` to the path of your
   configuration file and start the process.
   For example:
 
-    ```
-    echo $INFLUXDB_CONFIG_PATH
-    /etc/influxdb/influxdb.conf
+  ```bash
+  echo $INFLUXDB_CONFIG_PATH
+  /etc/influxdb/influxdb.conf
 
-    influxd
-    ```
+  influxd
+  ```
 
 InfluxDB first checks for the `-config` option and then for the environment
 variable.
@@ -124,7 +141,7 @@ variable.
 
 ## Configuration settings
 
-> **Note:**
+> [!Note]
 > To set or override settings in a config section that allows multiple
 > configurations (any section with `[[double_brackets]]` in the header supports
 > multiple configurations), the desired configuration must be specified by ordinal
@@ -133,24 +150,25 @@ variable.
 > prefix the configuration setting name in the environment variable with the
 > relevant position number (in this case: `0`):
 >
-    INFLUXDB_GRAPHITE_0_BATCH_PENDING
-    INFLUXDB_GRAPHITE_0_BATCH_SIZE
-    INFLUXDB_GRAPHITE_0_BATCH_TIMEOUT
-    INFLUXDB_GRAPHITE_0_BIND_ADDRESS
-    INFLUXDB_GRAPHITE_0_CONSISTENCY_LEVEL
-    INFLUXDB_GRAPHITE_0_DATABASE
-    INFLUXDB_GRAPHITE_0_ENABLED
-    INFLUXDB_GRAPHITE_0_PROTOCOL
-    INFLUXDB_GRAPHITE_0_RETENTION_POLICY
-    INFLUXDB_GRAPHITE_0_SEPARATOR
-    INFLUXDB_GRAPHITE_0_TAGS
-    INFLUXDB_GRAPHITE_0_TEMPLATES
-    INFLUXDB_GRAPHITE_0_UDP_READ_BUFFER
+> ```txt
+> INFLUXDB_GRAPHITE_0_BATCH_PENDING
+> INFLUXDB_GRAPHITE_0_BATCH_SIZE
+> INFLUXDB_GRAPHITE_0_BATCH_TIMEOUT
+> INFLUXDB_GRAPHITE_0_BIND_ADDRESS
+> INFLUXDB_GRAPHITE_0_CONSISTENCY_LEVEL
+> INFLUXDB_GRAPHITE_0_DATABASE
+> INFLUXDB_GRAPHITE_0_ENABLED
+> INFLUXDB_GRAPHITE_0_PROTOCOL
+> INFLUXDB_GRAPHITE_0_RETENTION_POLICY
+> INFLUXDB_GRAPHITE_0_SEPARATOR
+> INFLUXDB_GRAPHITE_0_TAGS
+> INFLUXDB_GRAPHITE_0_TEMPLATES
+> INFLUXDB_GRAPHITE_0_UDP_READ_BUFFER
+> ```
 >
->For the Nth Graphite configuration in the configuration file, the relevant
->environment variables would be of the form `INFLUXDB_GRAPHITE_(N-1)_BATCH_PENDING`.
->For each section of the configuration file the numbering restarts at zero.
-
+> For the Nth Graphite configuration in the configuration file, the relevant
+> environment variables would be of the form `INFLUXDB_GRAPHITE_(N-1)_BATCH_PENDING`.
+> For each section of the configuration file the numbering restarts at zero.
 
 ## Global settings
 

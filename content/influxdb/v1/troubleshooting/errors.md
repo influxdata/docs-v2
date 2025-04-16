@@ -398,11 +398,15 @@ This error occurs when the Docker container cannot read files on the host machin
 
 #### Make host machine files readable to Docker
 
-  1. Create a directory, and then copy files to import into InfluxDB to this directory.
-  2. When you launch the Docker container, mount the new directory on the InfluxDB container by running the following command:
+1.  Create a directory, and then copy files to import into InfluxDB to this directory.
+2.  When you launch the Docker container, mount the new directory on the InfluxDB container by running the following command:
 
-        docker run -v /dir/path/on/host:/dir/path/in/container
+    ```bash
+    docker run -v /dir/path/on/host:/dir/path/in/container
+    ```
 
-  3. Verify the Docker container can read host machine files by running the following command:
+3. Verify the Docker container can read host machine files by running the following command:
 
-        influx -import -path=/path/in/container
+    ```bash
+    influx -import -path=/path/in/container
+    ```

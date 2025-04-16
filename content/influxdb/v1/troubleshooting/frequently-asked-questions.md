@@ -623,9 +623,9 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
 
 #### Example
 
-1. [Launch `influx`](/influxdb/v1/tools/shell/#launch-influx).
+1.  [Launch `influx`](/influxdb/v1/tools/shell/#launch-influx).
 
-2. Write the following points to create both a field and tag key with the same name `leaves`:
+2.  Write the following points to create both a field and tag key with the same name `leaves`:
 
     ```bash
     # create the `leaves` tag key
@@ -635,7 +635,7 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
     INSERT grape leaves=5
     ```
 
-3. If you view both keys, you'll notice that neither key includes `_1`:
+3.  If you view both keys, you'll notice that neither key includes `_1`:
 
     ```bash
     # show the `leaves` tag key
@@ -655,7 +655,7 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
     leaves     float
     ```
 
-4. If you query the `grape` measurement, you'll see the `leaves` tag key has an appended `_1`:
+4.  If you query the `grape` measurement, you'll see the `leaves` tag key has an appended `_1`:
 
     ```bash
     # query the `grape` measurement
@@ -668,7 +668,7 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
     1574128238044155000 5.00
     ```
 
-5. To query a duplicate key name, you **must drop** `_1` **and include** `::tag` or `::field` after the key:
+5.  To query a duplicate key name, you **must drop** `_1` **and include** `::tag` or `::field` after the key:
 
     ```bash
     # query duplicate keys using the correct syntax
@@ -693,9 +693,9 @@ the allotted memory.
 
 #### Remove a duplicate key
 
-1. [Launch `influx`](/influxdb/v1/tools/shell/#launch-influx).
+1.  [Launch `influx`](/influxdb/v1/tools/shell/#launch-influx).
 
-2. Use the following queries to remove a duplicate key.
+2.  Use the following queries to remove a duplicate key.
 
     ```sql
 
@@ -1093,39 +1093,39 @@ time                      az        hostname   val_1   val_2
 
 To store both points:
 
-* Introduce an arbitrary new tag to enforce uniqueness.
+- Introduce an arbitrary new tag to enforce uniqueness.
 
-    Old point: `cpu_load,hostname=server02,az=us_west,uniq=1 val_1=24.5,val_2=7 1234567890000000`
+  Old point: `cpu_load,hostname=server02,az=us_west,uniq=1 val_1=24.5,val_2=7 1234567890000000`
 
-    New point: `cpu_load,hostname=server02,az=us_west,uniq=2 val_1=5.24 1234567890000000`
+  New point: `cpu_load,hostname=server02,az=us_west,uniq=2 val_1=5.24 1234567890000000`
 
-    After writing the new point to InfluxDB:
+  After writing the new point to InfluxDB:
 
-```sql
-> SELECT * FROM "cpu_load" WHERE time = 1234567890000000
-name: cpu_load
---------------
-time                      az        hostname   uniq   val_1   val_2
-1970-01-15T06:56:07.89Z   us_west   server02   1      24.5    7
-1970-01-15T06:56:07.89Z   us_west   server02   2      5.24
-```
+  ```sql
+  > SELECT * FROM "cpu_load" WHERE time = 1234567890000000
+  name: cpu_load
+  --------------
+  time                      az        hostname   uniq   val_1   val_2
+  1970-01-15T06:56:07.89Z   us_west   server02   1      24.5    7
+  1970-01-15T06:56:07.89Z   us_west   server02   2      5.24
+  ```
 
-* Increment the timestamp by a nanosecond.
+- Increment the timestamp by a nanosecond.
 
-    Old point: `cpu_load,hostname=server02,az=us_west val_1=24.5,val_2=7 1234567890000000`
+  Old point: `cpu_load,hostname=server02,az=us_west val_1=24.5,val_2=7 1234567890000000`
 
-    New point: `cpu_load,hostname=server02,az=us_west val_1=5.24 1234567890000001`
+  New point: `cpu_load,hostname=server02,az=us_west val_1=5.24 1234567890000001`
 
-    After writing the new point to InfluxDB:
+  After writing the new point to InfluxDB:
 
-```sql
-> SELECT * FROM "cpu_load" WHERE time >= 1234567890000000 and time <= 1234567890000001
-name: cpu_load
---------------
-time                             az        hostname   val_1   val_2
-1970-01-15T06:56:07.89Z          us_west   server02   24.5    7
-1970-01-15T06:56:07.890000001Z   us_west   server02   5.24
-```
+  ```sql
+  > SELECT * FROM "cpu_load" WHERE time >= 1234567890000000 and time <= 1234567890000001
+  name: cpu_load
+  --------------
+  time                             az        hostname   val_1   val_2
+  1970-01-15T06:56:07.89Z          us_west   server02   24.5    7
+  1970-01-15T06:56:07.890000001Z   us_west   server02   5.24
+  ```
 
 ## What newline character does the InfluxDB API require?
 

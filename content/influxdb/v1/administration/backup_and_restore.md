@@ -666,7 +666,7 @@ from(bucket: "example-tmp-db/autogen")
     For more information, see
     [How does InfluxDB handle duplicate points?](/influxdb/v1/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points)
 
-3. Use InfluxQL to delete the temporary database.
+3.  Use InfluxQL to delete the temporary database.
 
     ```sql
     DROP DATABASE "example-tmp-db"

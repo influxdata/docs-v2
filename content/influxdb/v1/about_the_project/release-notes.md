@@ -326,19 +326,19 @@ features, performance improvements, and bug fixes below.
 
 This release updates support for the Flux language and queries. To learn about Flux design principles and see how to get started with Flux, see [Introduction to Flux](/influxdb/v1/flux/).
 
-* Use the new [`influx -type=flux`](/influxdb/v1/tools/influx-cli/#flags) option to enable the Flux REPL shell for creating Flux queries.
+- Use the new [`influx -type=flux`](/influxdb/v1/tools/influx-cli/#flags) option to enable the Flux REPL shell for creating Flux queries.
 
-* Flux v0.65 includes the following capabilities:
-    - Join data residing in multiple measurements, buckets, or data sources
-    - Perform mathematical operations using data gathered across measurements/buckets
-    - Manipulate Strings through an extensive library of string related functions
-    - Shape data through `pivot()` and other functions
-    - Group based on any data column: tags, fields, etc.
-    - Window and aggregate based on calendar months, years
-    - Join data across Influx and non-Influx sources
-    - Cast booleans to integers
-    - Query geo-temporal data (experimental)
-    - Many additional functions for working with data
+- Flux v0.65 includes the following capabilities:
+  - Join data residing in multiple measurements, buckets, or data sources
+  - Perform mathematical operations using data gathered across measurements/buckets
+  - Manipulate Strings through an extensive library of string related functions
+  - Shape data through `pivot()` and other functions
+  - Group based on any data column: tags, fields, etc.
+  - Window and aggregate based on calendar months, years
+  - Join data across Influx and non-Influx sources
+  - Cast booleans to integers
+  - Query geo-temporal data (experimental)
+  - Many additional functions for working with data
 
   > We're evaluating the need for Flux query management controls equivalent to existing InfluxQL [query management controls](/influxdb/v1/troubleshooting/query_management/#configuration-settings-for-query-management) based on your feedback. Please join the discussion on [InfluxCommunity](https://community.influxdata.com/), [Slack](https://influxcommunity.slack.com/), or [GitHub](https://github.com/influxdata/flux). InfluxDB Enterprise customers, please contact <support@influxdata.com>.
 
