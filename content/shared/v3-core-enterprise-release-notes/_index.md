@@ -1,11 +1,37 @@
 > [!Note]
-> #### InfluxDB Core and Enterprise relationship
+> #### InfluxDB 3 Core and Enterprise relationship
 >
 > InfluxDB 3 Enterprise is a superset of InfluxDB 3 Core.
 > All updates to Core are automatically included in Enterprise.
-> The Enterprise sections below only list features exclusive to Enterprise.
+> The Enterprise sections below only list updates exclusive to Enterprise.
 
-## v3.0.0-0 {date="2025-04-14"}
+## v3.0.1 {date="2025-04-14"}
+**Core**: revision d7c071e0c4959beebc7a1a433daf8916abd51214
+
+**Enterprise**: revision bb8a7ae59603bc2ab43be076be80957e4ee5faa5
+
+### Core
+
+#### Updates
+- Catalog limits for databases, tables, and columns are now configurable
+    - Use new `serve` options: `--num-datbase-limit`, `--num-table-limit`, and `--num-columns-per-table-limit`.
+- TLS CA can now be set with an environment variable: `INFLUXDB3_TLS_CA`
+ - Other general performance improvements
+
+#### Fixes
+- The `--tags` argument is now optional, and additionally now requires at least one tag _if_ specified
+
+### Enterprise
+
+#### Updates
+ - Improvements to licensing prompts for clarity
+ - Other general performance improvements
+
+#### Fixes
+ - A **Home** license thread count log errors cleared up
+
+
+## v3.0.0 {date="2025-04-14"}
 
 ### Core
 
@@ -28,7 +54,9 @@
 
 ## v3.0.0-0.beta.3 {date="2025-04-01"}
 **Core**: revision f881c5844bec93a85242f26357a1ef3ebf419dd3
+
 **Enterprise**: revision 6bef9e700a59c0973b0cefdc6baf11583933e262
+
 ### Core
 #### General Improvements
 - InfluxDB 3 now supports graceful shutdowns when sending the interrupt signal to the service.
@@ -48,6 +76,7 @@
 
 ## v3.0.0-0.beta.2 {date="2025-03-24"}
 **Core**: revision 033e1176d8c322b763b4aefb24686121b1b24f7c
+
 **Enterprise**: revision e530fcd498c593cffec2b56d4f5194afc717d898
 
 This update brings several backend performance improvements to both Core and Enterprise in preparation for additional new features over the next several weeks! 
