@@ -8,7 +8,7 @@
 ## v3.0.1 {date="2025-04-14"}
 **Core**: revision d7c071e0c4959beebc7a1a433daf8916abd51214
 
-**Enterprise**: revision bb8a7ae59603bc2ab43be076be80957e4ee5faa5
+**Enterprise**: revision 96e4aad870b44709e149160d523b4319ea91b54c
 
 ### Core
 
@@ -16,7 +16,7 @@
 - Catalog limits for databases, tables, and columns are now configurable
     - Use new `serve` options: `--num-datbase-limit`, `--num-table-limit`, and `--num-columns-per-table-limit`.
 - TLS CA can now be set with an environment variable: `INFLUXDB3_TLS_CA`
- - Other general performance improvements
+- Other general performance improvements
 
 #### Fixes
 - The `--tags` argument is now optional, and additionally now requires at least one tag _if_ specified
