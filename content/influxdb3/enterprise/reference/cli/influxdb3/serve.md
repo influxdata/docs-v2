@@ -59,6 +59,7 @@ influxdb3 serve [OPTIONS] \
 |                  | `--object-store-max-retries`                         | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store-max-retries)_                         |
 |                  | `--object-store-retry-timeout`                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store-retry-timeout)_                       |
 | `-h`             | `--help`                                             | Print help information                                                                                                          |
+|                  | `--help-all`                                         | Print detailed help information                                                                                                 |
 |                  | `--object-store-cache-endpoint`                      | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store-cache-endpoint)_                      |
 |                  | `--log-filter`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#log-filter)_                                       |
 | `-v`             | `--verbose`                                          | Enable verbose output                                                                                                           |

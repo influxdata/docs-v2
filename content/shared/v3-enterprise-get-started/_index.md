@@ -33,15 +33,16 @@ The Enterprise version adds the following features to Core:
 
 This guide covers Enterprise as well as InfluxDB 3 Core, including the following topics:
 
-* [Install and startup](#install-and-startup)
-* [Data Model](#data-model)
-* [Tools to use](#tools-to-use)
-* [Write data](#write-data)
-* [Query data](#query-data)
-* [Last values cache](#last-values-cache)
-* [Distinct values cache](#distinct-values-cache)
-* [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
-* [Multi-server setups](#multi-server-setup)
+- [Install and startup](#install-and-startup)
+- [Authentication and authorization](#authentication-and-authorization)
+- [Data Model](#data-model)
+- [Tools to use](#tools-to-use)
+- [Write data](#write-data)
+- [Query data](#query-data)
+- [Last values cache](#last-values-cache)
+- [Distinct values cache](#distinct-values-cache)
+- [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
+- [Multi-server setups](#multi-server-setup)
 
 ### Install and startup
 
@@ -99,6 +100,15 @@ Pull the image:
 <!--pytest.mark.skip-->
 ```bash
 docker pull quay.io/influxdb/influxdb3-enterprise:latest
+```
+
+##### InfluxDB 3 Explorer -- Query Interface (beta)
+
+You can download the new InfluxDB 3 Explorer query interface using Docker.
+Explorer is currently in beta. Pull the image:
+
+```bash
+docker pull quay.io/influxdb/influxdb3-explorer:latest
 ```
 
 <!--------------- END DOCKER -------------->
@@ -231,6 +241,138 @@ When starting {{% product-name %}} for the first time, it prompts you to enter a
 Upon verification, the license creation, retrieval, and application are automated.
 
 _During the beta period, licenses are valid until May 7, 2025._
+
+### Authentication and authorization
+
+After you have [started the server](#start-influxdb), you can create and manage tokens using the `influxdb3` CLI or the HTTP API.
+{{% product-name %}} uses token-based authentication and authorization which is enabled by default when you start the server.
+With authentication enabled, you must provide a token to access server actions.
+{{% product-name %}} supports the following types of tokens:
+
+- **admin token**: Grants access to all CLI actions and API endpoints. A server can have one admin token.
+- **resource tokens**: Fine-grained permissions tokens that grant read and write access to specific resources (databases and system information endpoints) on the server.
+
+  - A database token grants access to write and query data in a
+    database
+  - A system token grants read access to system information endpoints and
+    metrics for the server
+
+InfluxDB 3 supports the `*` resource name wildcard to grant permissions to all
+resources of a specific type.
+You can create multiple resource tokens for different resources.
+
+When you create a token, InfluxDB 3 returns a token string in plain text
+that you use to authenticate CLI commands and API requests.
+Securely store your token, as you won't be able to retrieve it later.
+
+To have the `influxdb3` CLI use your admin token automatically, assign it to the
+`INFLUXDB3_AUTH_TOKEN` environment variable.
+
+> [!Important]
+>
+> #### Securely store your tokens
+>
+> For security, InfluxDB only lets you view tokens when you create them.
+> InfluxDB 3 stores a hash of the token in the catalog, so you can't retrieve the token after it is created.
+
+#### Create an admin token
+
+To create an admin token, use the `influxdb3 create token --admin` subcommand--for example:
+
+```bash
+influxdb3 create token --admin \
+ --host http://{{< influxdb/host >}}
+```
+
+The command returns a token string that you can use to authenticate CLI commands and API requests.
+Securely store your token, as you won't be able to retrieve it later.
+
+After you have created an admin token, you can use it to create database tokens and system tokens.
+
+For more information, see how to [Manage admin tokens](/influxdb3/version/admin/tokens/admin/).
+
+#### Create a database token
+
+To create a database token, use the `influxdb3 create token` subcommand and pass the following:
+
+- `--permission`: Create a token with permissions
+- `--name`: A unique description of the token
+- _Options_, for example:
+  -  `--expiry` option with the token expiration time as a [duration](/influxdb3/enterprise/reference/glossary/#duration).
+     If an expiration isn't set, the token does not expire until revoked.
+  - `--token` option with the admin token to use for authentication
+- Token permissions as a string literal in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
+  - `"db:mydb:read,write"`
+    - `db:`: The `db` resource type, which specifies the token is for a database.
+    - `mydb`: The name of the database to grant permissions to. This part supports the `*` wildcard, which grants permissions to all databases.
+    - `read,write`: The permissions to grant to the token.
+
+The following example shows how to create a database token that expires in 90 days and has read and write permissions for all databases on the server:
+
+{{% code-placeholders "ADMIN_TOKEN" %}}
+```bash
+influxdb3 create token \
+  --permission \
+  --expiry 90d \
+  --token ADMIN_TOKEN \
+  --host http://{{< influxdb/host >}} \
+  --name "rw all databases" \
+  "db:*:read,write"
+```
+{{% /code-placeholders %}}
+
+In your command, replace {{% code-placeholder-key %}} `ADMIN_TOKEN`{{% /code-placeholder-key %}}
+with the admin token you created earlier.
+
+#### Create a system token
+
+A _system token_ grants read access to system information and metrics for the server, including the following HTTP API endpoints:
+
+- `/health`
+- `/metrics`
+- `/ping`
+
+To create a system token, use the `influxdb3 create token` subcommand and pass the following:
+- `--permission`: Create a token with permissions
+- `--name`: A unique description of the token
+- _Options_, for example:
+  - `--expiry` option with the token expiration time as a [duration](/influxdb3/enterprise/reference/glossary/#duration).
+     If an expiration isn't set, the token does not expire until revoked.
+  - `--token` option with the admin token to use for authentication
+  - `--host` option with the server host
+- Token permissions as a string literal in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
+  - `"system:health:read"` or `"system:*:read"`
+    - `system:`: The `system` resource type, which specifies the token is for a database.
+    - `health`: The system resource (endpoint) to grant permissions to. This part supports the `*` wildcard, which grants permissions to all databases.
+    - `read`: Grant read permission to system information resources.
+
+The following example shows how to create a system token that expires in 1 year and has read permissions for all system endpoints on the server:
+
+```bash
+influxdb3 create token \
+  --permission \
+  --expiry 1y \
+  --token ADMIN_TOKEN \
+  --host http://{{< influxdb/host >}} \
+  --name "rw all system endpoints" \
+  "system:*:read"
+```
+
+For more information, see how to [Manage resource tokens](/influxdb3/version/admin/tokens/resource/).
+
+#### Use tokens to authorize CLI commands and API requests
+
+- To authenticate `influxdb3` CLI commands, use the `--token` option or assign your
+  token to the `INFLUXDB3_AUTH_TOKEN` environment variable for `influxdb3` to use it automatically.
+- To authenticate HTTP API requests, include `Bearer <TOKEN>` in the `Authorization` header value--for example:
+  
+  ```bash
+  curl "http://{{< influxdb/host >}}/health" \
+    --header "Authorization: Bearer SYSTEM_TOKEN"
+  ```
+
+  In your request, replace
+  {{% code-placeholder-key %}}`SYSTEM_TOKEN`{{% /code-placeholder-key %}} with the system token you created earlier.
 
 ### Data model
 
@@ -644,6 +786,27 @@ print(table.group_by('cpu').aggregate([('time_system', 'mean')]))
 ```
 
 For more information about the Python client library, see the [`influxdb3-python` repository](https://github.com/InfluxCommunity/influxdb3-python) in GitHub.
+
+
+### Query using InfluxDB 3 Explorer (Beta)
+
+You can use the InfluxDB 3 Explorer query interface by downloading the Docker image.
+
+```bash
+docker pull quay.io/influxdb/influxdb3-explorer:latest
+```
+
+Run the interface using:
+
+```bash
+docker run --name influxdb3-explorer -p 8086:8888 quay.io/influxdb/influxdb3-explorer:latest
+```
+
+With the default settings above, you can access the UI at http://localhost:8086.
+Set your expected database connection details on the Settings page.
+From there, you can query data, browser your database schema, and do basic
+visualization of your time series data.
+
 
 ### Last values cache
 
