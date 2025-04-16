@@ -405,7 +405,7 @@ This error occurs when the Docker container cannot read files on the host machin
     docker run -v /dir/path/on/host:/dir/path/in/container
     ```
 
-3. Verify the Docker container can read host machine files by running the following command:
+3.  Verify the Docker container can read host machine files by running the following command:
 
     ```bash
     influx -import -path=/path/in/container
