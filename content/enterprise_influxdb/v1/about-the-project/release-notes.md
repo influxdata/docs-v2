@@ -11,7 +11,50 @@ menu:
 
 ## v1.12.0 {date="2025-04-15"}
 
+## Features
 
+- Add additional log output when using
+  [`influx_inspect buildtsi`](/enterprise_influxdb/v1/tools/influx_inspect/#buildtsi) to
+  rebuild the TSI index.
+- Use [`influx_inspect export`](/enterprise_influxdb/v1/tools/influx_inspect/#export) with
+  [`-tsmfile` option](/enterprise_influxdb/v1/tools/influx_inspect/#--tsmfile-tsm_file-) to
+  export a single TSM file.
+- Add `-m` flag to the [`influxd-ctl show-shards` command](/enterprise_influxdb/v1/tools/influxd-ctl/show-shards/)
+  to output inconsistent shards.
+- Allow the specification of a write window for retention policies.
+- Add `fluxQueryRespBytes` metric to the `/debug/vars` metrics endpoint.
+- Log whenever meta gossip times exceed expiration.
+- Add [`query-log-path` configuration option](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#query-log-path)
+  to data nodes.
+- Add [`aggressive-points-per-block` configuration option](/influxdb/v1/administration/config/#aggressive-points-per-block)
+  to prevent TSM files from not getting fully compacted.
+- Log TLS configuration settings on startup.
+- Check for TLS certificate and private key permissions.
+- Add a warning if the TLS certificate is expired.
+- Add authentication to the Raft portal and add the following related _data_
+  node configuration options:
+  - [`[meta].raft-portal-auth-required`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#raft-portal-auth-required)
+  - [`[meta].raft-dialer-auth-required`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#raft-dialer-auth-required)
+- Improve error handling.
+
+## Bug fixes
+
+- Log rejected writes to subscriptions.
+- Update `xxhash` and avoid `stringtoslicebyte` in the cache.
+- Prevent a panic when a shard group has no shards.
+- Fix file handle leaks in `Compactor.write`.
+- Ensure fields in memory match the fields on disk.
+- Ensure temporary files are removed after failed compactions.
+- Do not panic on invalid multiple subqueries.
+- Update the `/shard-status` API to return the correct result and use a
+  consistent "idleness" definition for shards.
+
+## Other
+
+- Update Go to 1.23.5.
+- Upgrade Flux to v0.196.1.
+- Upgrade InfluxQL to v1.4.1.
+- Various other dependency updates.
 
 ---
 
@@ -26,6 +69,10 @@ InfluxDB Enterprise builds are available. For more information, see
 {{% /note %}}
 
 ## v1.11.8 {date="2024-11-15"}
+
+### Features
+
+- Add a startup logger to InfluxDB Enterprise data nodes.
 
 ### Bug Fixes
 
