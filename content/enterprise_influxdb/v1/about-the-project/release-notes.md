@@ -9,6 +9,12 @@ menu:
     parent: About the project
 ---
 
+## v1.12.0 {date="2025-04-15"}
+
+
+
+---
+
 {{% note %}}
 #### InfluxDB Enterprise and FIPS-compliance
 
@@ -27,6 +33,8 @@ InfluxDB Enterprise builds are available. For more information, see
   API](/enterprise_influxdb/v1/tools/api/#apiv2delete-http-endpoint) before
   string comparisons (e.g. to allow special characters in measurement names).
 - Enable SHA256 for FIPS RPMs.
+
+---
 
 ## v1.11.7 {date="2024-09-19"}
 

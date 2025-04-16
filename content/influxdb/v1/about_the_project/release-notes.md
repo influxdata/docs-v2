@@ -12,6 +12,39 @@ alt_links:
   v2: /influxdb/v2/reference/release-notes/influxdb/
 ---
 
+## v1.12.0 {date="2025-04-15"}
+
+## Features
+
+- Add additional log output when using
+  [`influx_inspect buildtsi`](/influxdb/v1/tools/influx_inspect/#buildtsi) to
+  rebuild the TSI index.
+- Use [`influx_inspect export`](/influxdb/v1/tools/influx_inspect/#export) with
+  [`-tsmfile` option](/influxdb/v1/tools/influx_inspect/#--tsmfile-tsm_file-) to
+  export a single TSM file.
+- Add `fluxQueryRespBytes` metric to the `/debug/vars` metrics endpoint.
+- Add [`aggressive-points-per-block` configuration option](/influxdb/v1/administration/config/#aggressive-points-per-block)
+  to prevent TSM files from not getting fully compacted.
+- Improve error handling.
+
+## Bug fixes
+
+- Log rejected writes to subscriptions.
+- Update `xxhash` and avoid `stringtoslicebyte` in the cache.
+- Prevent a panic when a shard group has no shards.
+- Fix file handle leaks in `Compactor.write`.
+- Ensure fields in memory match the fields on disk.
+- Ensure temporary files are removed after failed compactions.
+- Do not panic on invalid multiple subqueries.
+
+## Other
+
+- Update Go to 1.23.5.
+- Upgrade Flux to v0.196.1.
+- Upgrade InfluxQL to v1.4.1.
+
+---
+
 ## v1.11.8 {date="2024-11-15"}
 
 ### Bug Fixes
@@ -19,6 +52,8 @@ alt_links:
 - Strip double quotes from measurement names in the [`/api/v2/delete`
   compatibility API](/influxdb/v1/tools/api/#apiv2delete-http-endpoint) before
   string comparisons (e.g. to allow special characters in measurement names).
+
+---
 
 ## v1.11.7 {date="2024-10-10"}
 

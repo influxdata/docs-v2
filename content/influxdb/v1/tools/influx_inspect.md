@@ -360,8 +360,8 @@ If a user writes points with timestamps set by the client, then multiple points 
 
 ### `export`
 
-Exports all TSM files in InfluxDB line protocol data format.
-This output file can be imported using the
+Exports all TSM files or a single TSM file in InfluxDB line protocol data format.
+The output file can be imported using the
 [influx](/influxdb/v1/tools/shell/#import-data-from-a-file-with-import) command.
 
 #### Syntax
@@ -416,6 +416,7 @@ YYYY-MM-DDTHH:MM:SS+07:00
 > **Note:** With offsets, avoid replacing the + or - sign with a Z. It may cause an error or print Z (ISO 8601 behavior) instead of the time zone offset.
 
 ##### [ `-lponly` ]
+
 Output data in line protocol format only.
 Does not output data definition language (DDL) statements (such as `CREATE DATABASE`)
 or DML context metadata (such as `# CONTEXT-DATABASE`).
@@ -443,6 +444,11 @@ Default value is `$HOME/.influxdb/wal`.
 See the [file system layout](/influxdb/v1/concepts/file-system-layout/#file-system-layout)
 for InfluxDB on your system.
 
+##### [ `-tsmfile <tsm_file>` ]
+
+Path to a single tsm file to export. This requires both `-database` and
+`-retention` to be specified.
+
 #### Examples
 
 ##### Export all databases and compress the output
@@ -455,6 +461,15 @@ influx_inspect export -compress
 
 ```bash
 influx_inspect export -database DATABASE_NAME -retention RETENTION_POLICY 
+```
+
+##### Export data from a single TSM file
+
+```bash
+influx_inspect export \
+  -database DATABASE_NAME \
+  -retention RETENTION_POLICY \
+  -tsmfile TSM_FILE_NAME
 ```
 
 ##### Output file
