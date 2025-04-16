@@ -498,7 +498,7 @@ For more information about the ingest path and data flow, see [Data durability](
 {{% /tab-content %}}
 {{% tab-content %}}
 <!------------ BEGIN /api/v2/write -------------->
-The `/api/v2/write` InfluxDB v2 compatibility endpoint provides backwards compatibility with clients (such as[Telegraf's InfluxDB v2 output plugin](/telegraf/v1/plugins/#output-influxdb_v2) and [InfluxDB v2 API client libraries](/influxdb3/version/reference/client-libraries/v2/)) that can write data to InfluxDB OSS v2.x and Cloud 2 (TSM).
+The `/api/v2/write` InfluxDB v2 compatibility endpoint provides backwards compatibility with clients (such as [Telegraf's InfluxDB v2 output plugin](/telegraf/v1/plugins/#output-influxdb_v2) and [InfluxDB v2 API client libraries](/influxdb3/version/reference/client-libraries/v2/)) that can write data to InfluxDB OSS v2.x and Cloud 2 (TSM).
 
 {{<api-endpoint endpoint="/api/v2/write?bucket=mydb&precision=ns" method="post" >}}
 <!------------ END /api/v2/write -------------->
