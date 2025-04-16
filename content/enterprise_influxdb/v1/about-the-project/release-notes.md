@@ -636,7 +636,7 @@ in that there is no corresponding InfluxDB OSS release.
 
 ### Features
 - Upgrade to Go 1.15.10.
-- Support user-defined *node labels*.
+- Support user-defined _node labels_.
   Node labels let you assign arbitrary key-value pairs to meta and data nodes in a cluster.
   For instance, an operator might want to label nodes with the availability zone in which they're located.
 - Improve performance of `SHOW SERIES CARDINALITY` and `SHOW SERIES CARDINALITY from <measurement>` InfluxQL queries.
@@ -1144,8 +1144,10 @@ Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/relea
 
 ## v1.5.0 {date="2018-03-06"}
 
-> ***Note:*** This release builds off of the 1.5 release of InfluxDB OSS. Please see the [InfluxDB OSS release
-> notes](/influxdb/v1/about_the_project/release-notes/) for more information about the InfluxDB OSS release.
+> [!Note]
+> This release builds off of the 1.5 release of InfluxDB OSS.
+> Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/)
+> for more information about the InfluxDB OSS release.
 
 For highlights of the InfluxDB 1.5 release, see [What's new in InfluxDB 1.5](/influxdb/v1/about_the_project/whats_new/).
 
