@@ -22,7 +22,7 @@ When events occur in the database, the Processing engine handles them through a 
    - Data writes to specific tables or all tables
    - Scheduled events (time-based or cron expressions)
    - HTTP requests to configured endpoints
-2. The engine loads the associated **plugin** specified in the trigger configuration
+2. The engine loads the associated plugin specified in the trigger configuration
 3. The plugin receives context data specific to the trigger type:
    - Write triggers: the written data and table information
    - Schedule triggers: the scheduled call time
