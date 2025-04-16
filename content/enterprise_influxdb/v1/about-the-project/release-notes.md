@@ -764,11 +764,15 @@ For details on changes incorporated from the InfluxDB OSS release, see
 
 ### Features
 
-#### **Back up meta data only**
+#### Back up meta data only
 
-- Add option to back up **meta data only** (users, roles, databases, continuous queries, and retention policies) using the new `-strategy` flag and `only meta` option: `influx ctl backup -strategy only meta </your-backup-directory>`.
+- Add option to back up **meta data only** (users, roles, databases, continuous
+  queries, and retention policies) using the new `-strategy` flag and `only meta`
+  option: `influx ctl backup -strategy only meta </your-backup-directory>`.
 
-    > **Note:** To restore a meta data backup, use the `restore -full` command and specify your backup manifest: `influxd-ctl restore -full </backup-directory/backup.manifest>`.
+  > [!Note]
+  > To restore a meta data backup, use the `restore -full` command and specify
+  > your backup manifest: `influxd-ctl restore -full </backup-directory/backup.manifest>`.
 
 For more information, see [Perform a metastore only backup](/enterprise_influxdb/v1/administration/backup-and-restore/#perform-a-metastore-only-backup).
 
@@ -1015,7 +1019,10 @@ The following summarizes the expected settings for proper configuration of JWT a
 `""`.
   - A long pass phrase is recommended for better security.
 
->**Note:** To provide encrypted internode communication, you must enable HTTPS. Although the JWT signature is encrypted, the the payload of a JWT token is encoded, but is not encrypted.
+> [!Note]
+> To provide encrypted internode communication, you must enable HTTPS. Although
+> the JWT signature is encrypted, the the payload of a JWT token is encoded, but
+> is not encrypted.
 
 ### Bug fixes
 
