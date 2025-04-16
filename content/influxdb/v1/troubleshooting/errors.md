@@ -47,7 +47,7 @@ By default `max-series-per-database` is set to one million.
 Changing the setting to `0` allows an unlimited number of series per database.
 
 **Resources:**
-[Database Configuration](/influxdb/v1/administration/config/#max-series-per-database-1000000)
+[Database Configuration](/influxdb/v1/administration/config/#max-series-per-database)
 
 ## `error parsing query: found < >, expected identifier at line < >, char < >`
 
@@ -326,7 +326,7 @@ The maximum valid timestamp is `9223372036854775806` or `2262-04-11T23:47:16.854
 
 The `cache maximum memory size exceeded` error occurs when the cached
 memory size increases beyond the
-[`cache-max-memory-size` setting](/influxdb/v1/administration/config/#cache-max-memory-size-1g)
+[`cache-max-memory-size` setting](/influxdb/v1/administration/config/#cache-max-memory-size)
 in the configuration file.
 
 By default, `cache-max-memory-size` is set to 512mb.

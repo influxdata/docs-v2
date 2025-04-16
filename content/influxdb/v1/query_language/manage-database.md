@@ -87,7 +87,7 @@ If you attempt to create a database that already exists, InfluxDB does nothing a
 ```
 
 The query creates a database called `NOAA_water_database`.
-[By default](/influxdb/v1/administration/config/#retention-autocreate-true), InfluxDB also creates the `autogen` retention policy and associates it with the `NOAA_water_database`.
+[By default](/influxdb/v1/administration/config/#retention-autocreate), InfluxDB also creates the `autogen` retention policy and associates it with the `NOAA_water_database`.
 
 ##### Create a database with a specific retention policy
 

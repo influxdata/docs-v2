@@ -164,7 +164,7 @@ an RP every 30 minutes.
 You may need to wait for the next RP check for InfluxDB to drop data that are
 outside the RP's new `DURATION` setting.
 The 30 minute interval is
-[configurable](/influxdb/v1/administration/config/#check-interval-30m0s).
+[configurable](/influxdb/v1/administration/config/#check-interval).
 
 Second, altering both the `DURATION` and `SHARD DURATION` of an RP can result in
 unexpected data retention.
@@ -1255,6 +1255,6 @@ The default shard group duration is one week and if your data cover several hund
 Having an extremely high number of shards is inefficient for InfluxDB.
 Increase the shard group duration for your data’s retention policy with the [`ALTER RETENTION POLICY` query](/influxdb/v1/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy).
 
-Second, temporarily lowering the [`cache-snapshot-write-cold-duration` configuration setting](/influxdb/v1/administration/config/#cache-snapshot-write-cold-duration-10m).
+Second, temporarily lowering the [`cache-snapshot-write-cold-duration` configuration setting](/influxdb/v1/administration/config/#cache-snapshot-write-cold-duration).
 If you’re writing a lot of historical data, the default setting (`10m`) can cause the system to hold all of your data in cache for every shard.
 Temporarily lowering the `cache-snapshot-write-cold-duration` setting to `10s` while you write the historical data makes the process more efficient.

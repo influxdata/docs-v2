@@ -72,17 +72,17 @@ All official build packages are for 64-bit architectures.
     and [`influx_inspect merge-schema`](/influxdb/v1/tools/influx_inspect/#merge-schema)
     commands to check for type conflicts between shards.
 - **New configuration options:**
-  - Add [`total-buffer-bytes`](/influxdb/v1/administration/config/#total-buffer-bytes--0)
+  - Add [`total-buffer-bytes`](/influxdb/v1/administration/config/#total-buffer-bytes)
     configuration option to set the total number of bytes to allocate to
     subscription buffers.
-  - Add [`termination-query-log`](/influxdb/v1/administration/config/#termination-query-log--false)
+  - Add [`termination-query-log`](/influxdb/v1/administration/config/#termination-query-log)
     configuration option to enable dumping running queries to log on `SIGTERM`.
-  - Add [`max-concurrent-deletes`](/influxdb/v1/administration/config/#max-concurrent-deletes--1)
+  - Add [`max-concurrent-deletes`](/influxdb/v1/administration/config/#max-concurrent-deletes)
     configuration option to set delete concurrency.
   - Add [Flux query configuration settings](/influxdb/v1/administration/config/#flux-query-management-settings).
-  - Add [`compact-series-file`](/influxdb/v1/administration/config/#compact-series-file--false)
+  - Add [`compact-series-file`](/influxdb/v1/administration/config/#compact-series-file)
     configuration option to enable or disable series file compaction on startup.
-  - Add [`prom-read-auth-enabled` configuration option](/influxdb/v1/administration/config/#prom-read-auth-enabled--false)
+  - Add [`prom-read-auth-enabled` configuration option](/influxdb/v1/administration/config/#prom-read-auth-enabled)
     to authenticate Prometheus remote read.
 - **Flux improvements:**
   - Upgrade Flux to v0.194.5.
@@ -243,7 +243,7 @@ This release is for InfluxDB Enterprise 1.8.6 customers only. No OSS-specific ch
 
 ### Bug fixes
 
-- Update meta queries (for example, SHOW TAG VALUES, SHOW TAG KEYS, SHOW SERIES CARDINALITY, SHOW MEASUREMENT CARDINALITY, and SHOW MEASUREMENTS) to check the query context when possible to respect timeout values set in the [`query-timeout` configuration parameter](/influxdb/v1/administration/config/#query-timeout--0s). Note, meta queries will check the context less frequently than regular queries, which use iterators, because meta queries return data in batches.
+- Update meta queries (for example, SHOW TAG VALUES, SHOW TAG KEYS, SHOW SERIES CARDINALITY, SHOW MEASUREMENT CARDINALITY, and SHOW MEASUREMENTS) to check the query context when possible to respect timeout values set in the [`query-timeout` configuration parameter](/influxdb/v1/administration/config/#query-timeout). Note, meta queries will check the context less frequently than regular queries, which use iterators, because meta queries return data in batches.
 -  Previously, successful writes were incorrectly incrementing the `WriteErr` statistics. Now, successful writes correctly increment the `writeOK` statistics.
 - Correct JSON marshalling error format.
 - Previously, a GROUP BY query with an offset that caused an interval to cross a daylight savings change inserted an extra output row off by one hour. Now, the correct GROUP BY interval start time is set before the time zone offset is calculated.
@@ -564,7 +564,7 @@ Chunked query was added into the Go client v2 interface. If you compiled against
 
 Support for the Flux language and queries has been added in this release. To begin exploring Flux 0.7 (technical preview):
 
-* Enable Flux using the new configuration setting [`[http] flux-enabled = true`](/influxdb/v1/administration/config/#flux-enabled-false).
+* Enable Flux using the new configuration setting [`[http] flux-enabled = true`](/influxdb/v1/administration/config/#flux-enabled).
 * Use the new [`influx -type=flux`](/influxdb/v1/tools/shell/#type) option to enable the Flux REPL shell for creating Flux queries.
 * Read about Flux and the Flux language, enabling Flux, or jump into the getting started and other guides.
 
@@ -1101,7 +1101,7 @@ With TSI, the number of series should be unbounded by the memory on the server h
 See Paul Dix's blogpost [Path to 1 Billion Time Series: InfluxDB High Cardinality Indexing Ready for Testing](https://www.influxdata.com/path-1-billion-time-series-influxdb-high-cardinality-indexing-ready-testing/) for additional information.
 
 TSI is disabled by default in version 1.3.
-To enable TSI, uncomment the [`index-version` setting](/influxdb/v1/administration/config#index-version-inmem) and set it to `tsi1`.
+To enable TSI, uncomment the [`index-version` setting](/influxdb/v1/administration/config#index-version) and set it to `tsi1`.
 The `index-version` setting is in the `[data]` section of the configuration file.
 Next, restart your InfluxDB instance.
 
@@ -1250,14 +1250,14 @@ The following new configuration options are available.
 
 #### `[http]` Section
 
-* [`max-row-limit`](/influxdb/v1/administration/config#max-row-limit-0) now defaults to `0`.
+* [`max-row-limit`](/influxdb/v1/administration/config#max-row-limit) now defaults to `0`.
   In versions 1.0 and 1.1, the default setting was `10000`, but due to a bug, the value in use in versions 1.0 and 1.1 was effectively `0`.
   In versions 1.2.0 through 1.2.1, we fixed that bug, but the fix caused a breaking change for Grafana and Kapacitor users; users who had not set `max-row-limit` to `0` experienced truncated/partial data due to the `10000` row limit.
   In version 1.2.2, we've changed the default `max-row-limit` setting to `0` to match the behavior in versions 1.0 and 1.1.
 
 ### Bug fixes
 
-- Change the default [`max-row-limit`](/influxdb/v1/administration/config#max-row-limit-0) setting from `10000` to `0` to prevent the absence of data in Grafana or Kapacitor.
+- Change the default [`max-row-limit`](/influxdb/v1/administration/config#max-row-limit) setting from `10000` to `0` to prevent the absence of data in Grafana or Kapacitor.
 
 ## v1.2.1 {date="2017-03-08"}
 
