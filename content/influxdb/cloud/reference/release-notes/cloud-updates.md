@@ -14,6 +14,14 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+## April 2025
+
+### Flux VS Code extension no longer maintained 
+
+`vsflux` is no longer available in the Visual Studio Marketplace.
+The `vsflux` Visual Studio Code extension and the `flux-lsp` Flux Language Server Protocol plugin are no longer maintained.
+Their repositories have been archived and are no longer receiving updates.
+
 ## October 2022
 
 ### Custom data retention periods 

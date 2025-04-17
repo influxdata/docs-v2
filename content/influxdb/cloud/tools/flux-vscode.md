@@ -11,6 +11,7 @@ menu:
     name: Flux VS Code extension
     parent: Tools & integrations
 source: /shared/influxdb-v2/tools/flux-vscode.md
+draft: true
 ---
 
 <!-- The content of this file is at 
