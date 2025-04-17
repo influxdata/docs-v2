@@ -5,7 +5,7 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
-## v3.0.1 {date="2025-04-14"}
+## v3.0.1 {date="2025-04-16"}
 **Core**: revision d7c071e0c4959beebc7a1a433daf8916abd51214
 
 **Enterprise**: revision 96e4aad870b44709e149160d523b4319ea91b54c
