@@ -14,7 +14,7 @@
 
 #### Updates
 - Catalog limits for databases, tables, and columns are now configurable
-   - Use new `serve` options: `--num-datbase-limit`, `--num-table-limit`, and `--num-columns-per-table-limit`.
+  - Use new `serve` options: `--num-datbase-limit`, `--num-table-limit`, and `--num-columns-per-table-limit`.
 - TLS CA can now be set with an environment variable: `INFLUXDB3_TLS_CA`
 - Other general performance improvements
 
