@@ -449,6 +449,16 @@ The duration at which to compact all TSM and TSI files in a shard if it has not 
 
 Environment variable: `INFLUXDB_DATA_COMPACT_FULL_WRITE_COLD_DURATION`
 
+#### aggressive-points-per-block {metadata="v1.12.0+"}
+
+Default is `10000`.
+
+The number of points per block to use during aggressive compaction. There are 
+certain cases where TSM files do not get fully compacted. This adjusts an 
+internal parameter to help ensure these files do get fully compacted.
+
+Environment variable: `INFLUXDB_DATA_AGGRESSIVE_POINTS_PER_BLOCK`
+
 #### index-version
 
 Default is `"inmem"`.
