@@ -1372,7 +1372,7 @@ The life cycle of a query looks like this:
    tree (AST). This is the code representation of the query itself.
 
 2. The AST is passed to the `QueryExecutor` which directs queries to the
-   appropriate handlers. For example, queries related to meta data are executed
+   appropriate handlers. For example, queries related to metadata are executed
    by the meta service and `SELECT` statements are executed by the shards
    themselves.
 
