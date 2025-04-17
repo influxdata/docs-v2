@@ -170,7 +170,7 @@ quay.io/influxdb/influxdb3-{{< product-key >}}:latest
 
    ```yaml
    # compose.yaml
-   services
+   services:
      influxdb3-{{< product-key >}}:
        container_name: influxdb3-{{< product-key >}}
        image: quay.io/influxdb/influxdb3-{{< product-key >}}:latest
