@@ -9,7 +9,7 @@ menu:
   influxdb3_core:
     name: Query system data 
     parent: Administer InfluxDB
-weight: 3
+weight: 110
 influxdb3/core/tags: [query, api, system information, schemas]
 related:
   - /influxdb3/core/query-data/sql/

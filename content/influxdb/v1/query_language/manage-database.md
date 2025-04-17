@@ -62,17 +62,22 @@ Creates a new database.
 #### Syntax
 
 ```sql
-CREATE DATABASE <database_name> [WITH [DURATION <duration>] [REPLICATION <n>] [SHARD DURATION <duration>] [NAME <retention-policy-name>]]
+CREATE DATABASE <database_name> [WITH [DURATION <duration>] [REPLICATION <n>] [SHARD DURATION <duration>] [PAST LIMIT <duration>] [FUTURE LIMIT <duration>] [NAME <retention-policy-name>]]
 ```
 
 #### Description of syntax
 
 `CREATE DATABASE` requires a database [name](/influxdb/v1/troubleshooting/frequently-asked-questions/#what-words-and-characters-should-i-avoid-when-writing-data-to-influxdb).
 
-The `WITH`, `DURATION`, `REPLICATION`, `SHARD DURATION`, and `NAME` clauses are optional and create a single [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp) associated with the created database.
-If you do not specify one of the clauses after `WITH`, the relevant behavior defaults to the `autogen` retention policy settings.
+The `WITH`, `DURATION`, `REPLICATION`, `SHARD DURATION`, `PAST LIMIT`,
+`FUTURE LIMIT, and `NAME` clauses are optional and create a single
+[retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp)
+associated with the created database.
+If you do not specify one of the clauses after `WITH`, the relevant behavior
+defaults to the `autogen` retention policy settings.
 The created retention policy automatically serves as the database's default retention policy.
-For more information about those clauses, see [Retention Policy Management](/influxdb/v1/query_language/manage-database/#retention-policy-management).
+For more information about those clauses, see
+[Retention Policy Management](/influxdb/v1/query_language/manage-database/#retention-policy-management).
 
 A successful `CREATE DATABASE` query returns an empty result.
 If you attempt to create a database that already exists, InfluxDB does nothing and does not return an error.
@@ -87,7 +92,7 @@ If you attempt to create a database that already exists, InfluxDB does nothing a
 ```
 
 The query creates a database called `NOAA_water_database`.
-[By default](/influxdb/v1/administration/config/#retention-autocreate-true), InfluxDB also creates the `autogen` retention policy and associates it with the `NOAA_water_database`.
+[By default](/influxdb/v1/administration/config/#retention-autocreate), InfluxDB also creates the `autogen` retention policy and associates it with the `NOAA_water_database`.
 
 ##### Create a database with a specific retention policy
 
@@ -122,21 +127,25 @@ The `DROP SERIES` query deletes all points from a [series](/influxdb/v1/concepts
 and it drops the series from the index.
 
 The query takes the following form, where you must specify either the `FROM` clause or the `WHERE` clause:
+
 ```sql
 DROP SERIES FROM <measurement_name[,measurement_name]> WHERE <tag_key>='<tag_value>'
 ```
 
 Drop all series from a single measurement:
+
 ```sql
 > DROP SERIES FROM "h2o_feet"
 ```
 
 Drop series with a specific tag pair from a single measurement:
+
 ```sql
 > DROP SERIES FROM "h2o_feet" WHERE "location" = 'santa_monica'
 ```
 
 Drop all points in the series that have a specific tag pair from all measurements in the database:
+
 ```sql
 > DROP SERIES WHERE "location" = 'santa_monica'
 ```
@@ -152,27 +161,31 @@ Unlike
 
 You must include either the `FROM` clause, the `WHERE` clause, or both:
 
-```
+```sql
 DELETE FROM <measurement_name> WHERE [<tag_key>='<tag_value>'] | [<time interval>]
 ```
 
 Delete all data associated with the measurement `h2o_feet`:
-```
+
+```sql
 > DELETE FROM "h2o_feet"
 ```
 
 Delete all data associated with the measurement `h2o_quality` and where the tag `randtag` equals `3`:
-```
+
+```sql
 > DELETE FROM "h2o_quality" WHERE "randtag" = '3'
 ```
 
 Delete all data in the database that occur before January 01, 2020:
-```
+
+```sql
 > DELETE WHERE time < '2020-01-01'
 ```
 
 Delete all data associated with the measurement `h2o_feet` in retention policy `one_day`:
-```
+
+```sql
 > DELETE FROM "one_day"."h2o_feet"
 ```
 
@@ -181,12 +194,16 @@ A successful `DELETE` query returns an empty result.
 Things to note about `DELETE`:
 
 * `DELETE` supports
-[regular expressions](/influxdb/v1/query_language/explore-data/#regular-expressions)
-in the `FROM` clause when specifying measurement names and in the `WHERE` clause
-when specifying tag values. It *does not* support regular expressions for the retention policy in the `FROM` clause.
-`DELETE` requires that you define *one* retention policy in the `FROM` clause.
-* `DELETE` does not support [fields](/influxdb/v1/concepts/glossary/#field) in the `WHERE` clause.
-* If you need to delete points in the future, you must specify that time period as `DELETE SERIES` runs for `time < now()` by default. [Syntax](https://github.com/influxdata/influxdb/issues/8007)
+  [regular expressions](/enterprise_influxdb/v1/query_language/explore-data/#regular-expressions)
+  in the `FROM` clause when specifying measurement names and in the `WHERE` clause
+  when specifying tag values. It *does not* support regular expressions for the
+  retention policy in the `FROM` clause.
+  If deleting a series in a retention policy, `DELETE` requires that you define
+  *only one* retention policy in the `FROM` clause.
+* `DELETE` does not support [fields](/influxdb/v1/concepts/glossary/#field) in
+  the `WHERE` clause.
+* If you need to delete points in the future, you must specify that time period
+  as `DELETE SERIES` runs for `time < now()` by default.
 
 ### Delete measurements with DROP MEASUREMENT
 
@@ -240,8 +257,9 @@ You may disable its auto-creation in the [configuration file](/influxdb/v1/admin
 ### Create retention policies with CREATE RETENTION POLICY
 
 #### Syntax
-```
-CREATE RETENTION POLICY <retention_policy_name> ON <database_name> DURATION <duration> REPLICATION <n> [SHARD DURATION <duration>] [DEFAULT]
+
+```sql
+CREATE RETENTION POLICY <retention_policy_name> ON <database_name> DURATION <duration> REPLICATION <n> [SHARD DURATION <duration>] [PAST LIMIT <duration>] [FUTURE LIMIT <duration>] [DEFAULT]
 ```
 
 #### Description of syntax
@@ -288,6 +306,28 @@ If the `CREATE RETENTION POLICY` query attempts to set the `SHARD GROUP DURATION
 See
 [Shard group duration management](/influxdb/v1/concepts/schema_and_data_layout/#shard-group-duration-management)
 for recommended configurations.
+
+##### `PAST LIMIT`
+
+The `PAST LIMIT` clause defines a time boundary before and relative to _now_
+in which points written to the retention policy are accepted. If a point has a
+timestamp before the specified boundary, the point is rejected and the write
+request returns a partial write error.
+
+For example, if a write request tries to write data to a retention policy with a
+`PAST LIMIT 6h` and there are points in the request with timestamps older than
+6 hours, those points are rejected.
+
+##### `FUTURE LIMIT`
+
+The `FUTURE LIMIT` clause defines a time boundary after and relative to _now_
+in which points written to the retention policy are accepted. If a point has a
+timestamp after the specified boundary, the point is rejected and the write
+request returns a partial write error.
+
+For example, if a write request tries to write data to a retention policy with a
+`FUTURE LIMIT 6h` and there are points in the request with future timestamps 
+greater than 6 hours from now, those points are rejected.
 
 ##### `DEFAULT`
 
