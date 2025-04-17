@@ -21,7 +21,7 @@ HTTP, HTTPS, or UDP in [line protocol](/influxdb/v1/write_protocols/line_protoco
 the InfluxDB subscriber service creates multiple "writers" ([goroutines](https://golangbot.com/goroutines/))
 which send writes to the subscription endpoints.
 
-_The number of writer goroutines is defined by the [`write-concurrency`](/influxdb/v1/administration/config#write-concurrency-40) configuration._
+_The number of writer goroutines is defined by the [`write-concurrency`](/influxdb/v1/administration/config#write-concurrency) configuration._
 
 As writes occur in InfluxDB, each subscription writer sends the written data to the
 specified subscription endpoints.
