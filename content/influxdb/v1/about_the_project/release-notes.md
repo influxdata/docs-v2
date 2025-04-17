@@ -12,6 +12,45 @@ alt_links:
   v2: /influxdb/v2/reference/release-notes/influxdb/
 ---
 
+## v1.12.0 {date="2025-04-15"}
+
+## Features
+
+- Add additional log output when using
+  [`influx_inspect buildtsi`](/influxdb/v1/tools/influx_inspect/#buildtsi) to
+  rebuild the TSI index.
+- Use [`influx_inspect export`](/influxdb/v1/tools/influx_inspect/#export) with
+  [`-tsmfile` option](/influxdb/v1/tools/influx_inspect/#--tsmfile-tsm_file-) to
+  export a single TSM file.
+- Add `fluxQueryRespBytes` metric to the `/debug/vars` metrics endpoint.
+- Add [`aggressive-points-per-block` configuration option](/influxdb/v1/administration/config/#aggressive-points-per-block)
+  to prevent TSM files from not getting fully compacted.
+- Improve error handling.
+- InfluxQL updates:
+  - Delete series by retention policy.
+  - Allow retention policies to discard writes that fall within their range, but
+    outside of [`FUTURE LIMIT`](/influxdb/v1/query_language/manage-database/#future-limit)
+    and [`PAST LIMIT`](/influxdb/v1/query_language/manage-database/#past-limit).
+
+## Bug fixes
+
+- Log rejected writes to subscriptions.
+- Update `xxhash` and avoid `stringtoslicebyte` in the cache.
+- Prevent a panic when a shard group has no shards.
+- Fix file handle leaks in `Compactor.write`.
+- Ensure fields in memory match the fields on disk.
+- Ensure temporary files are removed after failed compactions.
+- Do not panic on invalid multiple subqueries.
+
+## Other
+
+- Update Go to 1.23.5.
+- Upgrade Flux to v0.196.1.
+- Upgrade InfluxQL to v1.4.1.
+- Various other dependency updates.
+
+---
+
 ## v1.11.8 {date="2024-11-15"}
 
 ### Bug Fixes
@@ -19,6 +58,8 @@ alt_links:
 - Strip double quotes from measurement names in the [`/api/v2/delete`
   compatibility API](/influxdb/v1/tools/api/#apiv2delete-http-endpoint) before
   string comparisons (e.g. to allow special characters in measurement names).
+
+---
 
 ## v1.11.7 {date="2024-10-10"}
 
@@ -72,17 +113,17 @@ All official build packages are for 64-bit architectures.
     and [`influx_inspect merge-schema`](/influxdb/v1/tools/influx_inspect/#merge-schema)
     commands to check for type conflicts between shards.
 - **New configuration options:**
-  - Add [`total-buffer-bytes`](/influxdb/v1/administration/config/#total-buffer-bytes--0)
+  - Add [`total-buffer-bytes`](/influxdb/v1/administration/config/#total-buffer-bytes)
     configuration option to set the total number of bytes to allocate to
     subscription buffers.
-  - Add [`termination-query-log`](/influxdb/v1/administration/config/#termination-query-log--false)
+  - Add [`termination-query-log`](/influxdb/v1/administration/config/#termination-query-log)
     configuration option to enable dumping running queries to log on `SIGTERM`.
-  - Add [`max-concurrent-deletes`](/influxdb/v1/administration/config/#max-concurrent-deletes--1)
+  - Add [`max-concurrent-deletes`](/influxdb/v1/administration/config/#max-concurrent-deletes)
     configuration option to set delete concurrency.
   - Add [Flux query configuration settings](/influxdb/v1/administration/config/#flux-query-management-settings).
-  - Add [`compact-series-file`](/influxdb/v1/administration/config/#compact-series-file--false)
+  - Add [`compact-series-file`](/influxdb/v1/administration/config/#compact-series-file)
     configuration option to enable or disable series file compaction on startup.
-  - Add [`prom-read-auth-enabled` configuration option](/influxdb/v1/administration/config/#prom-read-auth-enabled--false)
+  - Add [`prom-read-auth-enabled` configuration option](/influxdb/v1/administration/config/#prom-read-auth-enabled)
     to authenticate Prometheus remote read.
 - **Flux improvements:**
   - Upgrade Flux to v0.194.5.
@@ -243,7 +284,7 @@ This release is for InfluxDB Enterprise 1.8.6 customers only. No OSS-specific ch
 
 ### Bug fixes
 
-- Update meta queries (for example, SHOW TAG VALUES, SHOW TAG KEYS, SHOW SERIES CARDINALITY, SHOW MEASUREMENT CARDINALITY, and SHOW MEASUREMENTS) to check the query context when possible to respect timeout values set in the [`query-timeout` configuration parameter](/influxdb/v1/administration/config/#query-timeout--0s). Note, meta queries will check the context less frequently than regular queries, which use iterators, because meta queries return data in batches.
+- Update meta queries (for example, SHOW TAG VALUES, SHOW TAG KEYS, SHOW SERIES CARDINALITY, SHOW MEASUREMENT CARDINALITY, and SHOW MEASUREMENTS) to check the query context when possible to respect timeout values set in the [`query-timeout` configuration parameter](/influxdb/v1/administration/config/#query-timeout). Note, meta queries will check the context less frequently than regular queries, which use iterators, because meta queries return data in batches.
 -  Previously, successful writes were incorrectly incrementing the `WriteErr` statistics. Now, successful writes correctly increment the `writeOK` statistics.
 - Correct JSON marshalling error format.
 - Previously, a GROUP BY query with an offset that caused an interval to cross a daylight savings change inserted an extra output row off by one hour. Now, the correct GROUP BY interval start time is set before the time zone offset is calculated.
@@ -326,19 +367,19 @@ features, performance improvements, and bug fixes below.
 
 This release updates support for the Flux language and queries. To learn about Flux design principles and see how to get started with Flux, see [Introduction to Flux](/influxdb/v1/flux/).
 
-* Use the new [`influx -type=flux`](/influxdb/v1/tools/influx-cli/#flags) option to enable the Flux REPL shell for creating Flux queries.
+- Use the new [`influx -type=flux`](/influxdb/v1/tools/influx-cli/#flags) option to enable the Flux REPL shell for creating Flux queries.
 
-* Flux v0.65 includes the following capabilities:
-    - Join data residing in multiple measurements, buckets, or data sources
-    - Perform mathematical operations using data gathered across measurements/buckets
-    - Manipulate Strings through an extensive library of string related functions
-    - Shape data through `pivot()` and other functions
-    - Group based on any data column: tags, fields, etc.
-    - Window and aggregate based on calendar months, years
-    - Join data across Influx and non-Influx sources
-    - Cast booleans to integers
-    - Query geo-temporal data (experimental)
-    - Many additional functions for working with data
+- Flux v0.65 includes the following capabilities:
+  - Join data residing in multiple measurements, buckets, or data sources
+  - Perform mathematical operations using data gathered across measurements/buckets
+  - Manipulate Strings through an extensive library of string related functions
+  - Shape data through `pivot()` and other functions
+  - Group based on any data column: tags, fields, etc.
+  - Window and aggregate based on calendar months, years
+  - Join data across Influx and non-Influx sources
+  - Cast booleans to integers
+  - Query geo-temporal data (experimental)
+  - Many additional functions for working with data
 
   > We're evaluating the need for Flux query management controls equivalent to existing InfluxQL [query management controls](/influxdb/v1/troubleshooting/query_management/#configuration-settings-for-query-management) based on your feedback. Please join the discussion on [InfluxCommunity](https://community.influxdata.com/), [Slack](https://influxcommunity.slack.com/), or [GitHub](https://github.com/influxdata/flux). InfluxDB Enterprise customers, please contact <support@influxdata.com>.
 
@@ -564,7 +605,7 @@ Chunked query was added into the Go client v2 interface. If you compiled against
 
 Support for the Flux language and queries has been added in this release. To begin exploring Flux 0.7 (technical preview):
 
-* Enable Flux using the new configuration setting [`[http] flux-enabled = true`](/influxdb/v1/administration/config/#flux-enabled-false).
+* Enable Flux using the new configuration setting [`[http] flux-enabled = true`](/influxdb/v1/administration/config/#flux-enabled).
 * Use the new [`influx -type=flux`](/influxdb/v1/tools/shell/#type) option to enable the Flux REPL shell for creating Flux queries.
 * Read about Flux and the Flux language, enabling Flux, or jump into the getting started and other guides.
 
@@ -1101,7 +1142,7 @@ With TSI, the number of series should be unbounded by the memory on the server h
 See Paul Dix's blogpost [Path to 1 Billion Time Series: InfluxDB High Cardinality Indexing Ready for Testing](https://www.influxdata.com/path-1-billion-time-series-influxdb-high-cardinality-indexing-ready-testing/) for additional information.
 
 TSI is disabled by default in version 1.3.
-To enable TSI, uncomment the [`index-version` setting](/influxdb/v1/administration/config#index-version-inmem) and set it to `tsi1`.
+To enable TSI, uncomment the [`index-version` setting](/influxdb/v1/administration/config#index-version) and set it to `tsi1`.
 The `index-version` setting is in the `[data]` section of the configuration file.
 Next, restart your InfluxDB instance.
 
@@ -1250,14 +1291,14 @@ The following new configuration options are available.
 
 #### `[http]` Section
 
-* [`max-row-limit`](/influxdb/v1/administration/config#max-row-limit-0) now defaults to `0`.
+* [`max-row-limit`](/influxdb/v1/administration/config#max-row-limit) now defaults to `0`.
   In versions 1.0 and 1.1, the default setting was `10000`, but due to a bug, the value in use in versions 1.0 and 1.1 was effectively `0`.
   In versions 1.2.0 through 1.2.1, we fixed that bug, but the fix caused a breaking change for Grafana and Kapacitor users; users who had not set `max-row-limit` to `0` experienced truncated/partial data due to the `10000` row limit.
   In version 1.2.2, we've changed the default `max-row-limit` setting to `0` to match the behavior in versions 1.0 and 1.1.
 
 ### Bug fixes
 
-- Change the default [`max-row-limit`](/influxdb/v1/administration/config#max-row-limit-0) setting from `10000` to `0` to prevent the absence of data in Grafana or Kapacitor.
+- Change the default [`max-row-limit`](/influxdb/v1/administration/config#max-row-limit) setting from `10000` to `0` to prevent the absence of data in Grafana or Kapacitor.
 
 ## v1.2.1 {date="2017-03-08"}
 
