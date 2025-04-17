@@ -14,7 +14,7 @@
 
 #### Updates
 - Catalog limits for databases, tables, and columns are now configurable
-    - Use new `serve` options: `--num-datbase-limit`, `--num-table-limit`, and `--num-columns-per-table-limit`.
+   - Use new `serve` options: `--num-datbase-limit`, `--num-table-limit`, and `--num-columns-per-table-limit`.
 - TLS CA can now be set with an environment variable: `INFLUXDB3_TLS_CA`
 - Other general performance improvements
 
@@ -93,8 +93,8 @@ This update brings several backend performance improvements to both Core and Ent
 
 ##### Processing engine improvements
 - New Trigger Types:
-  - *Scheduled*: Run Python plugins on custom, time-defined basis
-  - *Request*: Call Python plugins via HTTP requests
+  - _Scheduled_: Run Python plugins on custom, time-defined basis
+  - _Request_: Call Python plugins via HTTP requests
 - New in-memory cache for storing data temporarily; cached data can be stored for a single trigger or across all triggers
 - Integration with virtual environments and install packages:
   - Specify Python virtual environment via CLI or `VIRTUAL_ENV` variable
