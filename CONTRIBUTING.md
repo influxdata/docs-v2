@@ -1633,6 +1633,31 @@ Supported argument values:
 {{< influxdb/host "serverless" >}}
 ```
 
+### User-populated placeholders
+
+Use the `code-placeholders` shortcode to format placeholders
+as text fields that users can populate with their own values.
+The shortcode takes a regular expression for matching placeholder names.
+Use the `code-placeholder-key` shortcode to format the placeholder names in 
+text that describes the placeholder--for example:
+
+```
+{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
+```sh
+curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
+  --header "Authorization: Token API_TOKEN" \
+  --data-binary @path/to/line-protocol.txt
+```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME` and `RETENTION_POLICY`{{% /code-placeholder-key %}}: the [database and retention policy mapping (DBRP)](/influxdb/v2/reference/api/influxdb-1x/dbrp/) for the InfluxDB v2 bucket that you want to write to
+- {{% code-placeholder-key %}}`USERNAME`{{% /code-placeholder-key %}}: your [InfluxDB 1.x username](/influxdb/v2/reference/api/influxdb-1x/#manage-credentials)
+- {{% code-placeholder-key %}}`PASSWORD_OR_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB 1.x password or InfluxDB API token](/influxdb/v2/reference/api/influxdb-1x/#manage-credentials)
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB API token](/influxdb/v2/admin/tokens/)
+```
+
 ## InfluxDB API documentation
 
 InfluxData uses [Redoc](https://github.com/Redocly/redoc) to generate the full
