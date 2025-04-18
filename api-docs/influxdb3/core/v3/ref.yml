@@ -43,7 +43,16 @@ security:
 tags:
   - name: Authentication
     description: |
-      During the Beta phase, InfluxDB 3 Core does not require authentication.
+      Authenticate to the InfluxDB 3 API using a bearer token.
+
+      The InfluxDB 3 API uses tokens for authentication.
+      To authenticate, include the `Authorization` header in your request with the value `Bearer <token>`.
+      The token must be a valid InfluxDB 3 API token with the required permissions for the requested operation.
+
+      #### Related guides
+
+      - [Manage tokens](/influxdb3/core/admin/tokens/)
+      - [Authentication and authorization](/influxdb3/core/reference/authentication/).
     x-traitTag: true
   - name: Compatibility endpoints
     description: |
@@ -1280,6 +1289,29 @@ paths:
           description: Processing failure.
       tags:
         - Processing engine
+  /api/v3/configure/token/admin/regenerate:
+    post:
+      operationId: PostRegenerateAdminToken
+      summary: Regenerate admin token
+      description: |
+        Regenerates an admin token and revokes the previous token with the same name.
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      parameters: []
+      responses:
+        '201':
+          description: Success. The admin token has been regenerated.
+          content:
+            application/json:
+              schema:
+                type: object
+                example: 
+                  {"id":0,"name":"_admin","token":"apiv3_00xx0Xx0xx00XX0x0","hash":"00xx0Xx0xx00XX0x0","created_at":"2025-04-18T14:02:45.331Z","expiry":null} 
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags: 
+        - Authentication
+        - Tokens
 components:
   parameters:
     AcceptQueryHeader:
