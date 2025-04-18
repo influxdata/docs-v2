@@ -91,13 +91,13 @@ source ~/.zshrc
 
 <!-------------------------------- BEGIN LINUX -------------------------------->
 
-- [{{< product-name >}} • Linux (x86) • GNU](https://download.influxdata.com/influxdb/snapshots/influxdb3-{{< product-key >}}_x86_64-unknown-linux-gnu.tar.gz)
+- [{{< product-name >}} • Linux (AMD64, x86_64) • GNU](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_amd64.tar.gz)
   •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-{{< product-key >}}_x86_64-unknown-linux-gnu.tar.gz.sha256)
+  [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_amd64.tar.gz.sha256)
 
-- [{{< product-name >}} • Linux (ARM) • GNU](https://download.influxdata.com/influxdb/snapshots/influxdb3-{{< product-key >}}_aarch64-unknown-linux-gnu.tar.gz)
+- [{{< product-name >}} • Linux (ARM64, AArch64) • GNU](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_arm64.tar.gz)
   •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-{{< product-key >}}_aarch64-unknown-linux-gnu.tar.gz.sha256)
+  [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_arm64.tar.gz.sha256)
 
 <!--------------------------------- END LINUX --------------------------------->
 
@@ -106,9 +106,9 @@ source ~/.zshrc
 
 <!-------------------------------- BEGIN MACOS -------------------------------->
 
-- [{{< product-name >}} • macOS (Silicon)](https://download.influxdata.com/influxdb/snapshots/influxdb3-{{< product-key >}}_aarch64-apple-darwin.tar.gz)
+- [{{< product-name >}} • macOS (Silicon, ARM64)](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_darwin_arm64.tar.gz)
   •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-{{< product-key >}}_aarch64-apple-darwin.tar.gz.sha256)
+  [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_darwin_arm64.tar.gz.sha256)
 
 > [!Note]
 > macOS Intel builds are coming soon.
@@ -120,9 +120,9 @@ source ~/.zshrc
 
 <!------------------------------- BEGIN WINDOWS ------------------------------->
 
-- [{{< product-name >}} • Windows (x86)](https://dl.influxdata.com/influxdb/snapshots/influxdb3-{{< product-key >}}_x86_64-pc-windows-gnu.tar.gz)
+- [{{< product-name >}} • Windows (AMD64, x86_64)](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}-windows_amd64.zip)
   •
-  [sha256](https://dl.influxdata.com/influxdb/snapshots/influxdb3-{{< product-key >}}_x86_64-pc-windows-gnu.tar.gz.sha256)
+  [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}-windows_amd64.zip.sha256)
 
 <!-------------------------------- END WINDOWS -------------------------------->
 
