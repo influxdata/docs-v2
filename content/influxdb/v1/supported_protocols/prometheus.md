@@ -89,7 +89,7 @@ made to match the InfluxDB data structure:
 * Prometheus labels become InfluxDB tags.
 * All `# HELP` and `# TYPE` lines are ignored.
 * [v1.8.6 and later] Prometheus remote write endpoint drops unsupported Prometheus values (`NaN`,`-Inf`, and `+Inf`) rather than reject the entire batch.
-  * If [write trace logging is enabled (`[http] write-tracing = true`)](/influxdb/v1/administration/config/#write-tracing-false), then summaries of dropped values are logged.
+  * If [write trace logging is enabled (`[http] write-tracing = true`)](/influxdb/v1/administration/config/#write-tracing), then summaries of dropped values are logged.
   * If a batch of values contains values that are subsequently dropped, HTTP status code `204` is returned.
 
 ### Example: Parse Prometheus to InfluxDB
