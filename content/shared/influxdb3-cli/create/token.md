@@ -6,7 +6,7 @@ The `influxdb3 create token` command creates a new authentication token.
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create token <COMMAND>
+influxdb3 create token <SUBCOMMAND>
 ```
 
 ## Options
