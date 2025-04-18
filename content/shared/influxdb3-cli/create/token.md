@@ -13,7 +13,7 @@ influxdb3 create token <SUBCOMMAND>
 
 | Option |          | Description            |
 | :----- | :------- | :--------------------- |
-|        |`-- admin`| Create an admin token  |
+|        |`--admin`| Create an admin token  |
 | `-h`   | `--help` | Print help information |
 
 ## Examples
