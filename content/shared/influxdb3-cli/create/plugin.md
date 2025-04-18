@@ -39,4 +39,27 @@ You can use the following environment variables to set command options:
 | `INFLUXDB3_DATABASE_NAME` | `--database` |
 | `INFLUXDB3_AUTH_TOKEN`    | `--token`    |
 
-<!-- TODO: GET EXAMPLES -->
+## Examples
+
+### Create a plugin
+
+{{% code-placeholders "(DATABASE|PLUGIN)_NAME (FILENAME|FUNCTION_NAME)" %}}
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create plugin \
+  --database DATABASE_NAME \
+  --filename FILENAME.py \
+  --entry-point FUNCTION_NAME \
+  PLUGIN_NAME
+```
+
+{{% /code-placeholders %}}
+
+In the example above, replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Database name
+- {{% code-placeholder-key %}}`FILENAME.py`{{% /code-placeholder-key %}}: Name of the plugin Python file (must be in the plugin directory)
+- {{% code-placeholder-key %}}`FUNCTION_NAME`{{% /code-placeholder-key %}}: Name of the function in the Python file to use as the entry point
+- {{% code-placeholder-key %}}`PLUGIN_NAME`{{% /code-placeholder-key %}}: Name for the new plugin
