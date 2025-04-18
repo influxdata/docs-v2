@@ -30,7 +30,7 @@
 - Other general performance improvements
 
 #### Fixes
-- A **Home** license thread count log errors cleared up
+- **Home** license thread count log errors
 
 
 ## v3.0.0 {date="2025-04-14"}

@@ -164,7 +164,7 @@ an RP every 30 minutes.
 You may need to wait for the next RP check for InfluxDB to drop data that are
 outside the RP's new `DURATION` setting.
 The 30 minute interval is
-[configurable](/influxdb/v1/administration/config/#check-interval-30m0s).
+[configurable](/influxdb/v1/administration/config/#check-interval).
 
 Second, altering both the `DURATION` and `SHARD DURATION` of an RP can result in
 unexpected data retention.
@@ -623,9 +623,9 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
 
 #### Example
 
-1. [Launch `influx`](/influxdb/v1/tools/shell/#launch-influx).
+1.  [Launch `influx`](/influxdb/v1/tools/shell/#launch-influx).
 
-2. Write the following points to create both a field and tag key with the same name `leaves`:
+2.  Write the following points to create both a field and tag key with the same name `leaves`:
 
     ```bash
     # create the `leaves` tag key
@@ -635,7 +635,7 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
     INSERT grape leaves=5
     ```
 
-3. If you view both keys, you'll notice that neither key includes `_1`:
+3.  If you view both keys, you'll notice that neither key includes `_1`:
 
     ```bash
     # show the `leaves` tag key
@@ -655,7 +655,7 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
     leaves     float
     ```
 
-4. If you query the `grape` measurement, you'll see the `leaves` tag key has an appended `_1`:
+4.  If you query the `grape` measurement, you'll see the `leaves` tag key has an appended `_1`:
 
     ```bash
     # query the `grape` measurement
@@ -668,7 +668,7 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
     1574128238044155000 5.00
     ```
 
-5. To query a duplicate key name, you **must drop** `_1` **and include** `::tag` or `::field` after the key:
+5.  To query a duplicate key name, you **must drop** `_1` **and include** `::tag` or `::field` after the key:
 
     ```bash
     # query duplicate keys using the correct syntax
@@ -693,9 +693,9 @@ the allotted memory.
 
 #### Remove a duplicate key
 
-1. [Launch `influx`](/influxdb/v1/tools/shell/#launch-influx).
+1.  [Launch `influx`](/influxdb/v1/tools/shell/#launch-influx).
 
-2. Use the following queries to remove a duplicate key.
+2.  Use the following queries to remove a duplicate key.
 
     ```sql
 
@@ -1093,39 +1093,39 @@ time                      az        hostname   val_1   val_2
 
 To store both points:
 
-* Introduce an arbitrary new tag to enforce uniqueness.
+- Introduce an arbitrary new tag to enforce uniqueness.
 
-    Old point: `cpu_load,hostname=server02,az=us_west,uniq=1 val_1=24.5,val_2=7 1234567890000000`
+  Old point: `cpu_load,hostname=server02,az=us_west,uniq=1 val_1=24.5,val_2=7 1234567890000000`
 
-    New point: `cpu_load,hostname=server02,az=us_west,uniq=2 val_1=5.24 1234567890000000`
+  New point: `cpu_load,hostname=server02,az=us_west,uniq=2 val_1=5.24 1234567890000000`
 
-    After writing the new point to InfluxDB:
+  After writing the new point to InfluxDB:
 
-```sql
-> SELECT * FROM "cpu_load" WHERE time = 1234567890000000
-name: cpu_load
---------------
-time                      az        hostname   uniq   val_1   val_2
-1970-01-15T06:56:07.89Z   us_west   server02   1      24.5    7
-1970-01-15T06:56:07.89Z   us_west   server02   2      5.24
-```
+  ```sql
+  > SELECT * FROM "cpu_load" WHERE time = 1234567890000000
+  name: cpu_load
+  --------------
+  time                      az        hostname   uniq   val_1   val_2
+  1970-01-15T06:56:07.89Z   us_west   server02   1      24.5    7
+  1970-01-15T06:56:07.89Z   us_west   server02   2      5.24
+  ```
 
-* Increment the timestamp by a nanosecond.
+- Increment the timestamp by a nanosecond.
 
-    Old point: `cpu_load,hostname=server02,az=us_west val_1=24.5,val_2=7 1234567890000000`
+  Old point: `cpu_load,hostname=server02,az=us_west val_1=24.5,val_2=7 1234567890000000`
 
-    New point: `cpu_load,hostname=server02,az=us_west val_1=5.24 1234567890000001`
+  New point: `cpu_load,hostname=server02,az=us_west val_1=5.24 1234567890000001`
 
-    After writing the new point to InfluxDB:
+  After writing the new point to InfluxDB:
 
-```sql
-> SELECT * FROM "cpu_load" WHERE time >= 1234567890000000 and time <= 1234567890000001
-name: cpu_load
---------------
-time                             az        hostname   val_1   val_2
-1970-01-15T06:56:07.89Z          us_west   server02   24.5    7
-1970-01-15T06:56:07.890000001Z   us_west   server02   5.24
-```
+  ```sql
+  > SELECT * FROM "cpu_load" WHERE time >= 1234567890000000 and time <= 1234567890000001
+  name: cpu_load
+  --------------
+  time                             az        hostname   val_1   val_2
+  1970-01-15T06:56:07.89Z          us_west   server02   24.5    7
+  1970-01-15T06:56:07.890000001Z   us_west   server02   5.24
+  ```
 
 ## What newline character does the InfluxDB API require?
 
@@ -1207,27 +1207,29 @@ To keep regular expressions and quoting simple, avoid using the following charac
 
 ## When should I single quote and when should I double quote when writing data?
 
-* Avoid single quoting and double quoting identifiers when writing data via the line protocol; see the examples below for how writing identifiers with quotes can complicate queries.
-Identifiers are database names, retention policy names, user names, measurement names, tag keys, and field keys.
+- Avoid single quoting and double quoting identifiers when writing data via the
+  line protocol; see the examples below for how writing identifiers with quotes
+  can complicate queries. Identifiers are database names, retention policy
+  names, user names, measurement names, tag keys, and field keys.
 
-	Write with a double-quoted measurement: `INSERT "bikes" bikes_available=3`
-	Applicable query: `SELECT * FROM "\"bikes\""`
+  Write with a double-quoted measurement: `INSERT "bikes" bikes_available=3`
+  Applicable query: `SELECT * FROM "\"bikes\""`
 
-	Write with a single-quoted measurement: `INSERT 'bikes' bikes_available=3`
-	Applicable query: `SELECT * FROM "\'bikes\'"`
+  Write with a single-quoted measurement: `INSERT 'bikes' bikes_available=3`
+  Applicable query: `SELECT * FROM "\'bikes\'"`
 
-	Write with an unquoted measurement: `INSERT bikes bikes_available=3`
-	Applicable query: `SELECT * FROM "bikes"`
+  Write with an unquoted measurement: `INSERT bikes bikes_available=3`
+  Applicable query: `SELECT * FROM "bikes"`
 
-* Double quote field values that are strings.
+- Double quote field values that are strings.
 
-	Write: `INSERT bikes happiness="level 2"`
-	Applicable query: `SELECT * FROM "bikes" WHERE "happiness"='level 2'`
+  Write: `INSERT bikes happiness="level 2"`
+  Applicable query: `SELECT * FROM "bikes" WHERE "happiness"='level 2'`
 
-* Special characters should be escaped with a backslash and not placed in quotes.
+- Special characters should be escaped with a backslash and not placed in quotes.
 
-	Write: `INSERT wacky va\"ue=4`
-	Applicable query: `SELECT "va\"ue" FROM "wacky"`
+  Write: `INSERT wacky va\"ue=4`
+  Applicable query: `SELECT "va\"ue" FROM "wacky"`
 
 For more information , see [Line protocol](/influxdb/v1/write_protocols/).
 
@@ -1255,6 +1257,6 @@ The default shard group duration is one week and if your data cover several hund
 Having an extremely high number of shards is inefficient for InfluxDB.
 Increase the shard group duration for your data’s retention policy with the [`ALTER RETENTION POLICY` query](/influxdb/v1/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy).
 
-Second, temporarily lowering the [`cache-snapshot-write-cold-duration` configuration setting](/influxdb/v1/administration/config/#cache-snapshot-write-cold-duration-10m).
+Second, temporarily lowering the [`cache-snapshot-write-cold-duration` configuration setting](/influxdb/v1/administration/config/#cache-snapshot-write-cold-duration).
 If you’re writing a lot of historical data, the default setting (`10m`) can cause the system to hold all of your data in cache for every shard.
 Temporarily lowering the `cache-snapshot-write-cold-duration` setting to `10s` while you write the historical data makes the process more efficient.
