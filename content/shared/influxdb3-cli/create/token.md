@@ -6,11 +6,24 @@ The `influxdb3 create token` command creates a new authentication token.
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create token
+influxdb3 create token <COMMAND>
 ```
 
 ## Options
 
 | Option |          | Description            |
 | :----- | :------- | :--------------------- |
+|        |`-- admin`| Create an admin token  |
 | `-h`   | `--help` | Print help information |
+
+## Examples
+
+### Create an admin token
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create token --admin
+```
+
+This creates an admin token with full access to the system.
