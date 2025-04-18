@@ -27,7 +27,7 @@ When events occur in the database, the Processing engine handles them through a 
    - Write triggers: the written data and table information
    - Schedule triggers: the scheduled call time
    - HTTP triggers: the request object with methods, headers, and body
-4. The plugin processes the received data, can query the database, call external tools, and write results back
+4. The plugin processes the received data, can query the database, call external tools, and write and cache data in the database
 5. Execution completes and the engine returns to waiting state
 
 ## Key components
