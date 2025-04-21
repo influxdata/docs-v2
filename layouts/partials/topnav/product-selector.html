@@ -36,8 +36,8 @@ Identify products by their product path. Dictionary schema:
   {{ $productAltLinkKey := index (index $.productInfo .productPath) 1 }}
   {{ $isCurrentProduct := in $.context.RelPermalink .productPath }}
   {{ $link := cond .useRootProductLink (print "/" .productPath "/") (cond (isset .altLinks $productAltLinkKey) (index .altLinks $productAltLinkKey) (cond $defaultAltProductPageExists $defaultAltProductPage.RelPermalink (print "/" .productPath "/"))) }}
-  {{ $isBeta := in (slice "influxdb3/core" "influxdb3/enterprise") .productPath }}
-  <a href='{{ $link }}' {{ if $isCurrentProduct }}class="active"{{ end }}>{{ index (index $.productInfo .productPath) 0 }}{{ if $isBeta }} <span class="state">beta</span>{{ end }}</a>
+  {{ $isNew := in (slice "influxdb3/core" "influxdb3/enterprise") .productPath }}
+  <a href='{{ $link }}' {{ if $isCurrentProduct }}class="active"{{ end }}>{{ index (index $.productInfo .productPath) 0 }}{{ if $isNew }} <span class="state">New</span>{{ end }}</a>
 {{ end }}
 
 {{ $templateDefaults := dict "context" . "productInfo" $productInfo "altLinks" $altLinks "pageRoot" $pageRoot "useRootProductLink" $useRootProductLink }}

@@ -170,7 +170,7 @@ quay.io/influxdb/influxdb3-{{< product-key >}}:latest
 
    ```yaml
    # compose.yaml
-   services
+   services:
      influxdb3-{{< product-key >}}:
        container_name: influxdb3-{{< product-key >}}
        image: quay.io/influxdb/influxdb3-{{< product-key >}}:latest
@@ -179,7 +179,6 @@ quay.io/influxdb/influxdb3-{{< product-key >}}:latest
        command:
          - serve
          - --node-id=node0
-         - --log-filter=debug
          - --object-store=file
          - --data-dir=/var/lib/influxdb3
    ```
