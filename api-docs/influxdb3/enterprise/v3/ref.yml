@@ -166,7 +166,7 @@ tags:
             --header "Authorization: Bearer ADMIN_TOKEN"
          ```
 
-      3. [Write data](#section/Compatibility-endpoints/Write-data) to InfluxDB.
+      3. [Write data](#operation/PostWriteLP) to InfluxDB.
 
          ```bash
          curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto"
@@ -177,7 +177,7 @@ tags:
 
          If all data is written, the response is `204 No Content`.
 
-      4. [Query data](#section/Compatibility-endpoints/Query-data) from InfluxDB.
+      4. [Query data](#operation/GetExecuteQuerySQL) from InfluxDB.
 
          ```bash
          curl -G "http://localhost:8181/api/v3/query_sql" \
