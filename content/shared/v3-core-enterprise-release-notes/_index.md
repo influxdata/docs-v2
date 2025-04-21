@@ -13,10 +13,6 @@
 ### Core
 
 #### Updates
-- Catalog limits for databases, tables, and columns are now configurable using `influxdb3 serve` options:
-  - `--num-database-limit`
-  - `--num-table-limit`
-  - `--num-columns-per-table-limit`
 - TLS CA can now be set with an environment variable: `INFLUXDB3_TLS_CA`
 - Other general performance improvements
 
@@ -26,11 +22,15 @@
 ### Enterprise
 
 #### Updates
- - Improvements to licensing prompts for clarity
- - Other general performance improvements
+- Catalog limits for databases, tables, and columns are now configurable using `influxdb3 serve` options:
+  - `--num-database-limit`
+  - `--num-table-limit`
+  - `--num-columns-per-table-limit`
+- Improvements to licensing prompts for clarity
+- Other general performance improvements
 
 #### Fixes
- - **Home** license thread count log errors
+- **Home** license thread count log errors
 
 
 ## v3.0.0 {date="2025-04-14"}
