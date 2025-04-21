@@ -82,7 +82,7 @@ GitHub Copilot should help document InfluxData products by creating clear, accur
     product_version:
   weight: # Page order (1-99, 101-199, etc.)
   ```
-
+- Follow the shortcode documentation in `CONTRIBUTING.md`
 - Use provided shortcodes correctly:
   - Notes/warnings: `{{% note %}}`, `{{% warn %}}`
   - Product-specific: `{{% enterprise %}}`, `{{% cloud %}}`
@@ -126,6 +126,7 @@ Table: keys: [_start, _stop, _field, _measurement]
 
 ## API Documentation
 
+- `/api-docs` contains OpenAPI spec files used for API reference documentation
 - Follow OpenAPI specification patterns
 - Match REST API examples to current implementation
 - Include complete request/response examples
