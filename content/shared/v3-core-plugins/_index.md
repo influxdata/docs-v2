@@ -241,12 +241,12 @@ The plugin receives the scheduled call time.
 
 ### Create a trigger for HTTP requests
 
-[For an HTTP request plugin], use the `path:<ENDPOINT_PATH>` trigger specification to configure and enable a [plugin for HTTP requests](#for-http-requests)--for example:
+For an [HTTP request plugin](#for-http-requests), use the `request:<ENDPOINT_PATH>` trigger specification to configure and enable a [plugin for HTTP requests](#for-http-requests)--for example:
 
 ```bash
 # Create an endpoint at /api/v3/engine/webhook
 influxdb3 create trigger \
-  --trigger-spec "path:webhook" \
+  --trigger-spec "request:webhook" \
   --plugin-filename "webhook_handler.py" \
   --database my_database \
   webhook_processor
@@ -337,7 +337,7 @@ influxdb3 create trigger \
 
 # Disable the trigger on error
 influxdb3 create trigger \
-  --trigger-spec "path:webhook" \
+  --trigger-spec "request:webhook" \
   --plugin-filename "webhook_handler.py" \
   --error-behavior disable \
   --database my_database \
