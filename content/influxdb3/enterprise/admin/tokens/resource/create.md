@@ -3,7 +3,7 @@ title: Create a resource token
 description: >
   Use the [`influxdb3 create token --permission` command](/influxdb3/enterprise/reference/cli/influxdb3/create/token/)
   or the [HTTP API](/influxdb3/enterprise/api/v3/)
-  to create tokens that grant access to resources such as databases and system information.
+  to create fine-grained permissions tokens that grant access to resources such as databases and system information.
   Database tokens allow for reading and writing data in your {{< product-name omit="Clustered" >}} instance.
   System tokens allow for reading system information and metrics for your server.
 menu:
@@ -43,7 +43,7 @@ alt_links:
 
 Use the [`influxdb3 create token --permission` command](/influxdb3/enterprise/reference/cli/influxdb3/create/token/)
 or the [`/api/v3/configure/token` HTTP API endpoint](/influxdb3/enterprise/api/v3/)
-to create tokens that grant access to resources such as databases and system information.
+to create fine-grained permissions tokens that grant access to resources such as databases and system information.
 Database tokens allow for reading and writing data in your {{< product-name omit="Clustered" >}} instance.
 System tokens allow for reading system information and metrics for your server.
 
@@ -73,15 +73,14 @@ The HTTP API examples in this guide use [cURL](https://curl.se/) to send an API 
 <!------------------------------- BEGIN INFLUXDB3 ----------------------------->
 
 Use the [`influxdb3 create token` command](/influxdb3/enterprise/reference/cli/influxdb3/create/token/)
-to create a database token with permissions for reading and writing data in
+to create a database token with fine-grained permissions for reading and writing data in
 your {{% product-name %}} instance.
 
-In your terminal, run the `influxdb3 create token` command and provide the following:
+In your terminal, run the `influxdb3 create token --permission` command and provide the following:
 
-- `--permission` flag to create a token with permissions
-- `--name` flag with a unique description of the token
+- `--name`: A unique name for the token
 - _Options_, for example:
-  -  `--expiry` option with the token expiration time as a duration.
+  -  `--expiry`: The token expiration time as a duration.
       If an expiration isn't set, the token does not expire until revoked.
 - Token permissions (read and write) in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
 
@@ -89,10 +88,10 @@ In your terminal, run the `influxdb3 create token` command and provide the follo
   db:DATABASE1,DATABASE2:read,write
   ```
 
-  - `db:`: The `db` resource type, which specifies the token is for a database.
-  - `DATABASE1,DATABASE2`: The names of the databases to grant permissions to.
+  - `db:`: The `db` resource type, which specifies the token is for a database
+  - `DATABASE1,DATABASE2`: A comma-separated list of database names to grant permissions to.
     The resource names part supports the `*` wildcard, which grants read or write permissions to all databases.
-  - `read,write`: The permissions to grant to the token.
+  - `read,write`: A comma-separated list of permissions to grant to the token.
 
 {{% code-placeholders "DATABASE1|DATABASE2|1y" %}}
 
@@ -412,12 +411,12 @@ Use the [`influxdb3 create token` command](/influxdb3/enterprise/reference/cli/i
 to create a system token with permissions for reading system information from
 your {{% product-name %}} instance.
 
-In your terminal, run the `influxdb3 create token` command and provide the following:
+In your terminal, run the `influxdb3 create token --permission` command and provide the following:
 
-  - `--permission` flag to create a token with permissions
-  - `--name` flag with a unique description of the token
+  
+  - `--name`: A unique name for the token
   - _Options_, for example:
-    -  `--expiry` option with the token expiration time as a duration.
+    -  `--expiry`: The token expiration time as a duration.
      If an expiration isn't set, the token does not expire until revoked.
   - Token permissions in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
 
