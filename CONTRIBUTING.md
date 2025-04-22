@@ -1126,6 +1126,28 @@ The following table shows which children types use which frontmatter properties:
 | `list_code_example`  |    ✓     |      |           |
 | `list_query_example` |    ✓     |      |           |
 
+### Authentication token link
+
+Use the `{{% token-link "<descriptor>" "<link_append>%}}` shortcode to
+automatically generate links to token management documentation. The shortcode
+accepts two _optional_ arguments:
+
+- **descriptor**: An optional token descriptor
+- **link_append**: An optional path to append to the token management link path,
+  `/<product>/<version>/admin/tokens/`.
+
+```md
+{{% token-link "database" "resource/" }}
+
+<!-- Renders as -->
+[database token](/influxdb3/enterprise/admin/tokens/resource/)
+```
+
+InfluxDB 3 Enterprise and InfluxDB 3 Core support different kinds of tokens.
+The shortcode has a blacklist of token descriptors for each that will prevent
+unsupported descriptors from appearing in the rendered output based on the 
+current product.
+
 ### Inline icons
 
 The `icon` shortcode allows you to inject icons in paragraph text.
