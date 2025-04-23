@@ -13,8 +13,8 @@ The Processing engine runs Python code directly within a {{% product-name %}} se
 values 
 
 > [!Note]
-> **Runtime environment**: Plugin executions run in the same Python process, and changes can affect other plugins. Plugins are not
-> fully isolated from each other.
+> The Processing engine runs all plugins in the same Python process. Changes made by one plugin can affect other plugins, 
+> as the system does not fully isolate changes from each other. 
 
 ### Event processing flow
 
