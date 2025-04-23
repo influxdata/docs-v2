@@ -7,10 +7,12 @@
 {{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
 {{ $dateTime := resources.Get "js/datetime.js" }}
 {{ $homepageInteractions := resources.Get "js/home-interactions.js" }}
+{{ $codePlaceholders := resources.Get "/js/code-placeholders.js" }}
 {{ $releaseTOC := resources.Get "/js/release-toc.js" }}
 {{ $footerjs := slice $versionSelector $searchInteractions $listFilters $featureCallouts $keybindings $homepageInteractions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 {{ $fluxGroupKeyjs := $fluxGroupKeys | resources.Fingerprint }}
 {{ $dateTimejs := $dateTime | resources.Fingerprint }}
+{{ $codePlaceholdersjs := $codePlaceholders | resources.Fingerprint }}
 {{ $releaseTOCjs := $releaseTOC | resources.Fingerprint }}
 
 <!-- Load cloudUrls array -->
@@ -46,6 +48,11 @@
 {{ if or (.Page.HasShortcode "datetime/current-time") (.Page.HasShortcode "datetime/current-timestamp")
 (.Page.HasShortcode "datetime/current-date") (.Page.HasShortcode "datetime/enterprise-eol-date") }}
 <script type="text/javascript" src="{{ $dateTimejs.RelPermalink }}"></script>
+{{ end }}
+
+<!-- Load code placeholders js when code-placeholders shortcode is present -->
+{{ if .Page.HasShortcode "code-placeholders" }}
+<script type="text/javascript" src="{{ $codePlaceholdersjs.RelPermalink }}"></script>
 {{ end }}
 
 <!-- Load code release-toc js when release-toc shortcode is present -->
