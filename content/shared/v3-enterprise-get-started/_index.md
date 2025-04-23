@@ -286,18 +286,16 @@ To create an admin token, use the `influxdb3 create token --admin` subcommand--f
 influxdb3 create token --admin \
  --host http://{{< influxdb/host >}}
 ```
+```bash
+# With Docker -- In a new terminal, run:
+docker exec -it CONTAINER_NAME influxdb3 create token --admin
+```
 
 The command returns a token string that you can use to authenticate CLI commands and API requests.
 
 After you have created an admin token, you can use it to create database tokens and system tokens.
 
 For more information, see how to [Manage admin tokens](/influxdb3/version/admin/tokens/admin/).
-
-> [!Note]
-> ##### Create a token interactively in Docker
-> 
-> If you're running Docker, you'll need to run commands in the container's shell. You can do this by
-> running `docker exec -it CONTAINER_NAME influxdb3 create token --admin` in a new tab.
 
 #### Create a database token
 
