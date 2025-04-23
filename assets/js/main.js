@@ -39,6 +39,7 @@ import * as v3Wayfinding from './v3-wayfinding.js';
  * The JavaScript is ideally a single-purpose module that exports a single default function to initialize the component and handle any component interactions.
  */
 import AskAITrigger from './ask-ai-trigger.js';
+import CodePlaceholder from './code-placeholders.js';
 import { CustomTimeTrigger } from './custom-timestamps.js';
 import { SearchButton } from './search-button.js';
 import { SidebarToggle } from './sidebar-toggle.js';
@@ -96,6 +97,10 @@ document.addEventListener('DOMContentLoaded', function () {
       case 'ask-ai-trigger':
         AskAITrigger({ component });
         window.influxdatadocs[componentName] = AskAITrigger;
+        break;
+      case 'code-placeholder':
+        CodePlaceholder({ component });
+        window.influxdatadocs[componentName] = CodePlaceholder;
         break;
       case 'custom-time-trigger':
         CustomTimeTrigger({ component });
