@@ -21,18 +21,18 @@ The InfluxDB file structure includes of the following:
 
 ### Data directory
 Directory path where InfluxDB stores time series data (TSM files).
-To customize this path, use the [`[data].dir`](/influxdb/v1/administration/config/#dir-1)
+To customize this path, use the [`[data].dir`](/influxdb/v1/administration/config/#dir--varlibinfluxdbdata)
 configuration option.
 
 ### WAL directory
 Directory path where InfluxDB stores Write Ahead Log (WAL) files.
-To customize this path, use the [`[data].wal-dir`](/influxdb/v1/administration/config/#wal-dir)
+To customize this path, use the [`[data].wal-dir`](/influxdb/v1/administration/config/#wal-dir--varlibinfluxdbwal)
 configuration option.
 
 ### Metastore directory
 Directory path of the InfluxDB metastore, which stores information about users,
 databases, retention policies, shards, and continuous queries.
-To customize this path, use the [`[meta].dir`](/influxdb/v1/administration/config/#dir)
+To customize this path, use the [`[meta].dir`](/influxdb/v1/administration/config/#dir--varlibinfluxdbmeta)
 configuration option.
 
 ## InfluxDB configuration files
