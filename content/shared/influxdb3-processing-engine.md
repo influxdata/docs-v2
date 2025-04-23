@@ -1,5 +1,3 @@
-# Processing engine
-
 The Processing engine is an embedded Python virtual machine that runs inside an {{% product-name %}} database server. It executes Python code in response to triggers and database events without requiring external application servers or middleware.
 
 ## How it works
