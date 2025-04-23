@@ -91,14 +91,14 @@ Download and install the {{% product-name %}} [Windows (AMD64, x86_64) binary](h
 {{% tab-content %}}
 <!--------------- BEGIN DOCKER -------------->
 
-The [`influxdb3-enterprise` image](https://quay.io/repository/influxdb/influxdb3-enterprise?tab=tags&tag=latest)
+The [`influxdb:3-enterprise` image](https://hub.docker.com/layers/library/influxdb/3-enterprise/images/sha256-0d28918743655df58d3fe191b43f31903941bb382ab6dffe4ce0f377196f9222)
 is available for x86_64 (AMD64) and ARM64 architectures.
 
 Pull the image:
 
 <!--pytest.mark.skip-->
 ```bash
-docker pull quay.io/influxdb/influxdb3-enterprise:latest
+docker pull influxdb:3-enterprise
 ```
 
 ##### InfluxDB 3 Explorer -- Query Interface (beta)
@@ -194,7 +194,7 @@ To run the [Docker image](/influxdb3/enterprise/install/#docker-image) and persi
 # Provide the mount path
 docker run -it \
  -v /path/on/host:/path/in/container \
- quay.io/influxdb/influxdb3-enterprise:latest serve \
+ influxdb:3-enterprise influxdb3 serve \
  --node-id my_host \
  --cluster-id my_cluster \
  --object-store file \
