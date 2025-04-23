@@ -11,7 +11,12 @@ The Processing engine runs Python code directly within a {{% product-name %}} se
 - **Embedded execution**: Code runs in the same process space as the database server
 - **Direct data access**: Zero-copy access to data
 - **Event-driven**: Responds to database writes, scheduled events, and HTTP requests
-- **Cache integration**: Access to system caches including Last values  and Distinct values 
+- **Cache integration**: Access to system caches including Last values  and Distinct 
+values 
+
+> [!Note]
+> **Runtime environment**: Plugin executions run in the same Python process, and changes can affect other plugins. Plugins are not
+> fully isolated from each other.
 
 ### Event processing flow
 
