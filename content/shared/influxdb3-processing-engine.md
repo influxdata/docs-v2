@@ -18,7 +18,7 @@ The Processing engine runs Python code directly within a {{% product-name %}} se
 
 When events occur in the database, the Processing engine handles them through a consistent sequence:
 
-1. A **trigger** activates the plugin based on one of three event types:
+1. A **trigger** specific to one of the event types activates its plugin. The event types include:
    - Data writes to specific tables or all tables
    - Scheduled events (time-based or cron expressions)
    - HTTP requests to configured endpoints
