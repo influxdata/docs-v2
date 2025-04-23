@@ -236,7 +236,7 @@ influxdb3 serve --help
 
 #### Licensing
 
-On first start of a new instance, you'll be prompted to select a license type.
+When first starting a new instance, InfluxDB prompts you to select a license type.
 
 InfluxDB 3 Enterprise licenses authorize the use of the InfluxDB 3 Enterprise software and apply to a single cluster. Licenses are primarily based on the number of CPUs InfluxDB can use, but there are other limitations depending on the license type. The following InfluxDB 3 Enterprise license types are available:
 
