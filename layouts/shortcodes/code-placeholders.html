@@ -1,6 +1,6 @@
 {{- $regex := .Get 0 -}}
 {{- $color := .Get 1 | default "magenta" -}}
-{{- $elReplace := print "<div class='code-placeholder-wrapper'><var title='Edit $0' class='code-placeholder " $color "' data-code-var='$0' data-code-var-value='$0'>$0<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>" -}}
+{{- $elReplace := print "<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit $0' class='code-placeholder " $color "' data-code-var='$0' data-code-var-value='$0' data-code-var-escaped=\"$0\">$0<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>" -}}
 {{- $code := .Inner | markdownify -}}
 {{- $codePlaceholders := replaceRE $regex $elReplace $code -}}
 {{ $codePlaceholders | safeHTML }}
