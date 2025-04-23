@@ -17,7 +17,7 @@ values
 
 ### Event processing flow
 
-When events occur in the database, the Processing engine handles them through a consistent sequence:
+When specific events occur in the database, the Processing engine handles them through a consistent sequence:
 
 1. A **trigger** specific to one of the event types activates its plugin. The event types include:
    - Data writes to specific tables or all tables
