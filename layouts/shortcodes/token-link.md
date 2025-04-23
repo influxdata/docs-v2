@@ -7,7 +7,7 @@
 {{- $link := print "/" $product "/" $version "/admin/tokens/" -}}
 {{- $renderedLink := print $link $linkAppend -}}
 {{- $hasDescriptor := ne $descriptor "" -}}
-{{- $coreDescriptorBlacklist := slice "resource" "database" -}}
+{{- $coreDescriptorBlacklist := slice "resource" "database" "system" -}}
 {{- $enterpriseDescriptorBlacklist := slice "operator" -}}
 {{- $s.Set "showDescriptor" $hasDescriptor -}}
 {{- if (eq $version "core") -}}
