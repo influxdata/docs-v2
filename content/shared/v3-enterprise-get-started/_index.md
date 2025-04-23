@@ -91,7 +91,7 @@ Download and install the {{% product-name %}} [Windows (AMD64, x86_64) binary](h
 {{% tab-content %}}
 <!--------------- BEGIN DOCKER -------------->
 
-The [`influxdb:3-enterprise` image](https://hub.docker.com/layers/library/influxdb/3-enterprise/images/sha256-0d28918743655df58d3fe191b43f31903941bb382ab6dffe4ce0f377196f9222)
+The [`influxdb:3-enterprise` image](https://hub.docker.com/_/influxdb/tags?tag=3-core&name=3-enterprise)
 is available for x86_64 (AMD64) and ARM64 architectures.
 
 Pull the image:
@@ -236,10 +236,15 @@ influxdb3 serve --help
 
 #### Licensing
 
-When starting {{% product-name %}} for the first time, it prompts you to enter an email address for verification. You will receive an email with a verification link.
-Upon verification, the license creation, retrieval, and application are automated.
+On first start of a new instance, you'll be prompted to select a license type.
 
-_During the beta period, licenses are valid until May 7, 2025._
+InfluxDB 3 Enterprise licenses authorize the use of the InfluxDB 3 Enterprise software and apply to a single cluster. Licenses are primarily based on the number of CPUs InfluxDB can use, but there are other limitations depending on the license type. The following InfluxDB 3 Enterprise license types are available:
+
+- **Trial**: 30-day trial license with full access to InfluxDB 3 Enterprise capabilities.
+- **At-Home**: For at-home hobbyist use with limited access to InfluxDB 3 Enterprise capabilities.
+- **Commercial**: Commercial license with full access to InfluxDB 3 Enterprise capabilities.
+
+You can learn more on managing your InfluxDB 3 Enterprise license on the [Manage your license](https://docs.influxdata.com/influxdb3/enterprise/admin/license/)page.
 
 ### Authentication and authorization
 
@@ -287,6 +292,12 @@ The command returns a token string that you can use to authenticate CLI commands
 After you have created an admin token, you can use it to create database tokens and system tokens.
 
 For more information, see how to [Manage admin tokens](/influxdb3/version/admin/tokens/admin/).
+
+> [!Note]
+> ##### Create a token interactively in Docker
+> 
+> If you're running Docker, you'll need to run commands in the container's shell. You can do this by
+> running `docker exec -it CONTAINER_NAME influxdb3 create token --admin` in a new tab.
 
 #### Create a database token
 

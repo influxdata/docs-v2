@@ -92,7 +92,7 @@ Download and install the {{% product-name %}} [Windows (AMD64, x86_64) binary](h
 {{% tab-content %}}
 <!--------------- BEGIN DOCKER -------------->
 
-The [`influxdb:3-core` image](https://hub.docker.com/layers/library/influxdb/3-core/images/sha256-a61fa624c8fcb7881a7798f699870be404245fac0505b5c1512ca7fe54a1ef76)
+The [`influxdb:3-core` image](https://hub.docker.com/_/influxdb/tags?tag=3-core&name=3-core)
 is available for x86_64 (AMD64) and ARM64 architectures.
 
 Pull the image:
@@ -260,6 +260,12 @@ influxdb3 create token --admin \
 The command returns a token string that you can use to authenticate CLI commands and API requests.
 
 For more information, see how to [Manage admin tokens](/influxdb3/version/admin/tokens/admin/).
+
+> [!Note]
+> ##### Create a token interactively in Docker
+> 
+> If you're running Docker, you'll need to run commands in the container's shell. You can do this by
+> running `docker exec -it CONTAINER_NAME influxdb3 create token --admin` in a new tab.
 
 ### Data model
 
