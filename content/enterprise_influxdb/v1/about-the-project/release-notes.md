@@ -9,60 +9,6 @@ menu:
     parent: About the project
 ---
 
-## v1.12.0 {date="2025-04-15"}
-
-## Features
-
-- Add additional log output when using
-  [`influx_inspect buildtsi`](/enterprise_influxdb/v1/tools/influx_inspect/#buildtsi) to
-  rebuild the TSI index.
-- Use [`influx_inspect export`](/enterprise_influxdb/v1/tools/influx_inspect/#export) with
-  [`-tsmfile` option](/enterprise_influxdb/v1/tools/influx_inspect/#--tsmfile-tsm_file-) to
-  export a single TSM file.
-- Add `-m` flag to the [`influxd-ctl show-shards` command](/enterprise_influxdb/v1/tools/influxd-ctl/show-shards/)
-  to output inconsistent shards.
-- Allow the specification of a write window for retention policies.
-- Add `fluxQueryRespBytes` metric to the `/debug/vars` metrics endpoint.
-- Log whenever meta gossip times exceed expiration.
-- Add [`query-log-path` configuration option](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#query-log-path)
-  to data nodes.
-- Add [`aggressive-points-per-block` configuration option](/influxdb/v1/administration/config/#aggressive-points-per-block)
-  to prevent TSM files from not getting fully compacted.
-- Log TLS configuration settings on startup.
-- Check for TLS certificate and private key permissions.
-- Add a warning if the TLS certificate is expired.
-- Add authentication to the Raft portal and add the following related _data_
-  node configuration options:
-  - [`[meta].raft-portal-auth-required`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#raft-portal-auth-required)
-  - [`[meta].raft-dialer-auth-required`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#raft-dialer-auth-required)
-- Improve error handling.
-- InfluxQL updates:
-  - Delete series by retention policy.
-  - Allow retention policies to discard writes that fall within their range, but
-    outside of [`FUTURE LIMIT`](/enterprise_influxdb/v1/query_language/manage-database/#future-limit)
-    and [`PAST LIMIT`](/enterprise_influxdb/v1/query_language/manage-database/#past-limit).
-
-## Bug fixes
-
-- Log rejected writes to subscriptions.
-- Update `xxhash` and avoid `stringtoslicebyte` in the cache.
-- Prevent a panic when a shard group has no shards.
-- Fix file handle leaks in `Compactor.write`.
-- Ensure fields in memory match the fields on disk.
-- Ensure temporary files are removed after failed compactions.
-- Do not panic on invalid multiple subqueries.
-- Update the `/shard-status` API to return the correct result and use a
-  consistent "idleness" definition for shards.
-
-## Other
-
-- Update Go to 1.23.5.
-- Upgrade Flux to v0.196.1.
-- Upgrade InfluxQL to v1.4.1.
-- Various other dependency updates.
-
----
-
 {{% note %}}
 #### InfluxDB Enterprise and FIPS-compliance
 
@@ -75,18 +21,12 @@ InfluxDB Enterprise builds are available. For more information, see
 
 ## v1.11.8 {date="2024-11-15"}
 
-### Features
-
-- Add a startup logger to InfluxDB Enterprise data nodes.
-
 ### Bug Fixes
 
 - Strip double quotes from measurement names in the [`/api/v2/delete` compatibility
   API](/enterprise_influxdb/v1/tools/api/#apiv2delete-http-endpoint) before
   string comparisons (e.g. to allow special characters in measurement names).
 - Enable SHA256 for FIPS RPMs.
-
----
 
 ## v1.11.7 {date="2024-09-19"}
 
@@ -641,7 +581,7 @@ in that there is no corresponding InfluxDB OSS release.
 
 ### Features
 - Upgrade to Go 1.15.10.
-- Support user-defined _node labels_.
+- Support user-defined *node labels*.
   Node labels let you assign arbitrary key-value pairs to meta and data nodes in a cluster.
   For instance, an operator might want to label nodes with the availability zone in which they're located.
 - Improve performance of `SHOW SERIES CARDINALITY` and `SHOW SERIES CARDINALITY from <measurement>` InfluxQL queries.
@@ -816,15 +756,11 @@ For details on changes incorporated from the InfluxDB OSS release, see
 
 ### Features
 
-#### Back up meta data only
+#### **Back up meta data only**
 
-- Add option to back up **meta data only** (users, roles, databases, continuous
-  queries, and retention policies) using the new `-strategy` flag and `only meta`
-  option: `influx ctl backup -strategy only meta </your-backup-directory>`.
+- Add option to back up **meta data only** (users, roles, databases, continuous queries, and retention policies) using the new `-strategy` flag and `only meta` option: `influx ctl backup -strategy only meta </your-backup-directory>`.
 
-  > [!Note]
-  > To restore a meta data backup, use the `restore -full` command and specify
-  > your backup manifest: `influxd-ctl restore -full </backup-directory/backup.manifest>`.
+    > **Note:** To restore a meta data backup, use the `restore -full` command and specify your backup manifest: `influxd-ctl restore -full </backup-directory/backup.manifest>`.
 
 For more information, see [Perform a metastore only backup](/enterprise_influxdb/v1/administration/backup-and-restore/#perform-a-metastore-only-backup).
 
@@ -1071,10 +1007,7 @@ The following summarizes the expected settings for proper configuration of JWT a
 `""`.
   - A long pass phrase is recommended for better security.
 
-> [!Note]
-> To provide encrypted internode communication, you must enable HTTPS. Although
-> the JWT signature is encrypted, the the payload of a JWT token is encoded, but
-> is not encrypted.
+>**Note:** To provide encrypted internode communication, you must enable HTTPS. Although the JWT signature is encrypted, the the payload of a JWT token is encoded, but is not encrypted.
 
 ### Bug fixes
 
@@ -1149,10 +1082,8 @@ Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/relea
 
 ## v1.5.0 {date="2018-03-06"}
 
-> [!Note]
-> This release builds off of the 1.5 release of InfluxDB OSS.
-> Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/)
-> for more information about the InfluxDB OSS release.
+> ***Note:*** This release builds off of the 1.5 release of InfluxDB OSS. Please see the [InfluxDB OSS release
+> notes](/influxdb/v1/about_the_project/release-notes/) for more information about the InfluxDB OSS release.
 
 For highlights of the InfluxDB 1.5 release, see [What's new in InfluxDB 1.5](/influxdb/v1/about_the_project/whats_new/).
 

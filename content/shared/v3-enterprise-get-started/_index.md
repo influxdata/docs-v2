@@ -262,17 +262,16 @@ You can create multiple resource tokens for different resources.
 
 When you create a token, InfluxDB 3 returns a token string in plain text
 that you use to authenticate CLI commands and API requests.
-Securely store your token, as you won't be able to retrieve it later.
 
 To have the `influxdb3` CLI use your admin token automatically, assign it to the
 `INFLUXDB3_AUTH_TOKEN` environment variable.
 
 > [!Important]
+> #### Securely store your token
 >
-> #### Securely store your tokens
->
-> For security, InfluxDB only lets you view tokens when you create them.
-> InfluxDB 3 stores a hash of the token in the catalog, so you can't retrieve the token after it is created.
+> InfluxDB lets you view the token string only when you create the token.
+> Store your token in a secure location, as you cannot retrieve it from the database later.
+> InfluxDB 3 stores only the token's hash and metadata in the catalog.
 
 #### Create an admin token
 
@@ -284,7 +283,6 @@ influxdb3 create token --admin \
 ```
 
 The command returns a token string that you can use to authenticate CLI commands and API requests.
-Securely store your token, as you won't be able to retrieve it later.
 
 After you have created an admin token, you can use it to create database tokens and system tokens.
 
@@ -294,17 +292,17 @@ For more information, see how to [Manage admin tokens](/influxdb3/version/admin/
 
 To create a database token, use the `influxdb3 create token` subcommand and pass the following:
 
-- `--permission`: Create a token with permissions
-- `--name`: A unique description of the token
+- `--permission`: Create a token with fine-grained permissions
+- `--name`: A unique name for the token
 - _Options_, for example:
   -  `--expiry` option with the token expiration time as a [duration](/influxdb3/enterprise/reference/glossary/#duration).
      If an expiration isn't set, the token does not expire until revoked.
   - `--token` option with the admin token to use for authentication
 - Token permissions as a string literal in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
   - `"db:mydb:read,write"`
-    - `db:`: The `db` resource type, which specifies the token is for a database.
+    - `db:`: The `db` resource type, which specifies the token is for a database
     - `mydb`: The name of the database to grant permissions to. This part supports the `*` wildcard, which grants permissions to all databases.
-    - `read,write`: The permissions to grant to the token.
+    - `read,write`: A comma-separated list of permissions to grant to the token.
 
 The following example shows how to create a database token that expires in 90 days and has read and write permissions for all databases on the server:
 
@@ -332,8 +330,8 @@ A _system token_ grants read access to system information and metrics for the se
 - `/ping`
 
 To create a system token, use the `influxdb3 create token` subcommand and pass the following:
-- `--permission`: Create a token with permissions
-- `--name`: A unique description of the token
+- `--permission`: Create a token with fine-grained permissions
+- `--name`: A unique name for the token
 - _Options_, for example:
   - `--expiry` option with the token expiration time as a [duration](/influxdb3/enterprise/reference/glossary/#duration).
      If an expiration isn't set, the token does not expire until revoked.

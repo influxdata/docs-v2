@@ -122,15 +122,15 @@ ALL           ALTER         ANY           AS            ASC           BEGIN
 BY            CREATE        CONTINUOUS    DATABASE      DATABASES     DEFAULT
 DELETE        DESC          DESTINATIONS  DIAGNOSTICS   DISTINCT      DROP
 DURATION      END           EVERY         EXPLAIN       FIELD         FOR
-FROM          FUTURE        GRANT         GRANTS        GROUP         GROUPS
-IN            INF           INSERT        INTO          KEY           KEYS
-KILL          LIMIT         SHOW          MEASUREMENT   MEASUREMENTS  NAME
-OFFSET        ON            ORDER         PASSWORD      PAST          POLICY
-POLICIES      PRIVILEGES    QUERIES       QUERY         READ          REPLICATION
-RESAMPLE      RETENTION     REVOKE        SELECT        SERIES        SET
-SHARD         SHARDS        SLIMIT        SOFFSET       STATS         SUBSCRIPTION
-SUBSCRIPTIONS TAG           TO            USER          USERS         VALUES
-WHERE         WITH          WRITE
+FROM          GRANT         GRANTS        GROUP         GROUPS        IN
+INF           INSERT        INTO          KEY           KEYS          KILL
+LIMIT         SHOW          MEASUREMENT   MEASUREMENTS  NAME          OFFSET
+ON            ORDER         PASSWORD      POLICY        POLICIES      PRIVILEGES
+QUERIES       QUERY         READ          REPLICATION   RESAMPLE      RETENTION
+REVOKE        SELECT        SERIES        SET           SHARD         SHARDS
+SLIMIT        SOFFSET       STATS         SUBSCRIPTION  SUBSCRIPTIONS TAG
+TO            USER          USERS         VALUES        WHERE         WITH
+WRITE
 ```
 
 If you use an InfluxQL keywords as an
@@ -380,14 +380,12 @@ create_database_stmt = "CREATE DATABASE" db_name
                            [ retention_policy_duration ]
                            [ retention_policy_replication ]
                            [ retention_policy_shard_group_duration ]
-                           [ retention_past_limit ]
-                           [ retention_future_limit ]
                            [ retention_policy_name ]
                        ] .
 ```
 
-> [!Warning]
-> Replication factors do not serve a purpose with single node instances.
+{{% warn %}} Replication factors do not serve a purpose with single node instances.
+{{% /warn %}}
 
 #### Examples
 
@@ -395,17 +393,11 @@ create_database_stmt = "CREATE DATABASE" db_name
 -- Create a database called foo
 CREATE DATABASE "foo"
 
--- Create a database called bar with a new DEFAULT retention policy and specify
--- the duration, replication, shard group duration, and name of that retention policy
+-- Create a database called bar with a new DEFAULT retention policy and specify the duration, replication, shard group duration, and name of that retention policy
 CREATE DATABASE "bar" WITH DURATION 1d REPLICATION 1 SHARD DURATION 30m NAME "myrp"
 
--- Create a database called mydb with a new DEFAULT retention policy and specify
--- the name of that retention policy
+-- Create a database called mydb with a new DEFAULT retention policy and specify the name of that retention policy
 CREATE DATABASE "mydb" WITH NAME "myrp"
-
--- Create a database called bar with a new retention policy named "myrp", and
--- specify the duration, past and future limits, and name of that retention policy
-CREATE DATABASE "bar" WITH DURATION 1d PAST LIMIT 6h FUTURE LIMIT 6h NAME "myrp"
 ```
 
 ### CREATE RETENTION POLICY
@@ -415,13 +407,11 @@ create_retention_policy_stmt = "CREATE RETENTION POLICY" policy_name on_clause
                                retention_policy_duration
                                retention_policy_replication
                                [ retention_policy_shard_group_duration ]
-                               [ retention_past_limit ]
-                               [ retention_future_limit ]
                                [ "DEFAULT" ] .
 ```
 
-> [!Warning]
-> Replication factors do not serve a purpose with single node instances.
+{{% warn %}} Replication factors do not serve a purpose with single node instances.
+{{% /warn %}}
 
 #### Examples
 
@@ -434,9 +424,6 @@ CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 DEFA
 
 -- Create a retention policy and specify the shard group duration.
 CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 SHARD DURATION 30m
-
--- Create a retention policy and specify past and future limits.
-CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 12h PAST LIMIT 6h FUTURE LIMIT 6h
 ```
 
 ### CREATE SUBSCRIPTION
