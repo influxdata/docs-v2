@@ -349,8 +349,9 @@ To create a system token, use the `influxdb3 create token` subcommand and pass t
 - Token permissions as a string literal in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
   - `"system:health:read"` or `"system:*:read"`
     - `system:`: The `system` resource type, which specifies the token is for a database.
-    - `health`: The system resource (endpoint) to grant permissions to. This part supports the `*` wildcard, which grants permissions to all databases.
-    - `read`: Grant read permission to system information resources.
+    - `health`: The list of system resources (endpoints) to grant permissions to.
+      This part supports the `*` wildcard, which grants permissions to all endpoints.
+    - `read`: The list of permissions to grant. _Only `read` is supported for system resources._
 
 The following example shows how to create a system token that expires in 1 year and has read permissions for all system endpoints on the server:
 
