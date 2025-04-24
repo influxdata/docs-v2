@@ -82,4 +82,4 @@ Extend and customize the Processing engine through several built-in mechanisms:
 - **Plugin distribution**: Distributes plugins via Git repositories
 - **Shared API**: Provides consistent interface for database operations
 
-For a step-by-step guide to setting up and using the Processing engine, see the [Getting started with plugins](/influxdb3/core/plugins/) documentation.
+For a step-by-step guide to setting up and using the Processing engine, see the [Getting started with plugins](/influxdb3/version/plugins/) documentation.
