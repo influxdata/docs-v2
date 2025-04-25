@@ -8,9 +8,9 @@ menu:
     parent: Processing engine and Python plugins
 weight: 4
 influxdb3/enterprise/tags: [processing engine, plugins, API, python]
-source: /shared/v3-core-plugins/extended-plugin-api.md
+source: /shared/extended-plugin-api.md
 ---
 
 <!-- 
-// SOURCE content/shared/v3-core-plugins/extended-plugin-api.md
+// SOURCE content/shared/extended-plugin-api.md
 -->
