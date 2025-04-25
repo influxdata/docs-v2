@@ -261,7 +261,7 @@ influxdb3_local.info(f"This plugin has run {counter} times")
 
 #### Best practices for in-memory caching
 
-To get the most out of the in-memory cache, follow these guidlines:
+To get the most out of the in-memory cache, follow these guidelines:
 
 - [Use the trigger-specific namespace](#use-the-trigger-specific-namespace)
 - [Use TTL appropriately](#use-ttl-appropriately)
