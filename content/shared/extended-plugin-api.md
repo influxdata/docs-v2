@@ -182,7 +182,7 @@ influxdb3_local.info("Processing complete", obj_to_log)
 ```
 All log messages appear in the server logs and are stored in system tables that you can query using SQL.
 
-#### Maintaining state with the in-memory cache
+#### Maintain state with the in-memory cache
 
 The Processing engine provides an in-memory cache system that enables plugins to persist and retrieve data between executions.
 
