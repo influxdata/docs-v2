@@ -1,5 +1,4 @@
-
-The `influxdb3 show databases` command lists databases in your
+The `influxdb3 show tokens` command lists authentication tokens in your
 {{< product-name >}} server.
 
 ## Usage
@@ -7,7 +6,7 @@ The `influxdb3 show databases` command lists databases in your
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 show databases [OPTIONS]
+influxdb3 show tokens [OPTIONS]
 ```
 
 ## Options
@@ -16,8 +15,8 @@ influxdb3 show databases [OPTIONS]
 | :----- | :--------------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`         | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 |        | `--token`        | _({{< req >}})_ Authentication token                                                     |
-|        | `--show-deleted` | Include databases marked as deleted in the output                                        |
 |        | `--format`       | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet`)               |
+|        | `--output`       | Path where to save output when using the `parquet` format                                |
 |        | `--tls-ca`       | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 | `-h`   | `--help`         | Print help information                                                                   |
 |        | `--help-all`     | Print detailed help information                                                          |
@@ -26,50 +25,50 @@ influxdb3 show databases [OPTIONS]
 
 You can use the following environment variables to set command options:
 
-| Environment Variable      | Option       |
-| :------------------------ | :----------- |
-| `INFLUXDB3_HOST_URL`      | `--host`     |
-| `INFLUXDB3_DATABASE_NAME` | `--database` |
-| `INFLUXDB3_AUTH_TOKEN`    | `--token`    |
+| Environment Variable   | Option    |
+| :-------------------- | :-------- |
+| `INFLUXDB3_HOST_URL`  | `--host`  |
+| `INFLUXDB3_AUTH_TOKEN`| `--token` |
 
 ## Examples
 
-- [List all databases](#list-all-databases)
-- [List all databases, including deleted databases](#list-all-databases-including-deleted-databases)
-- [List databases in JSON-formatted output](#list-databases-in-json-formatted-output)
+- [List all tokens](#list-all-tokens)
+- [List tokens in different output formats](#list-tokens-in-different-output-formats)
+- [Output tokens to a Parquet file](#output-tokens-to-a-parquet-file)
 
-### List all databases
-
-<!--pytest.mark.skip-->
-
-```bash
-influxdb3 show databases
-```
-
-### List all databases, including deleted databases
+### List all tokens
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 show databases --show-deleted
+influxdb3 show tokens
 ```
 
-### List databases in JSON-formatted output
+### List tokens in different output formats
+
+You can specify the output format using the `--format` option:
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 show databases --format json
+# JSON format
+influxdb3 show tokens --format json
+
+# JSON Lines format
+influxdb3 show tokens --format jsonl
+
+# CSV format
+influxdb3 show tokens --format csv
 ```
 
-### List databases in Parquet-formatted output
+### Output tokens to a Parquet file
 
 [Parquet](https://parquet.apache.org/) is a binary format.
 Use the `--output` option to specify the file where you want to save the Parquet data.
 
 <!--pytest.mark.skip-->
 ```bash
-influxdb3 show databases 
+influxdb3 show tokens \
   --format parquet \
-  --output /Users/me/databases.parquet
+  --output /Users/me/tokens.parquet
 ```
