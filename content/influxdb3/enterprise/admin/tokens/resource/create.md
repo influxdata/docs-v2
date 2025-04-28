@@ -80,10 +80,6 @@ your {{% product-name %}} instance.
 In your terminal, enter `influxdb3 create token` and provide the following:
 
 - `--permission`: Token permissions (read, write) in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
-- `--name`: A unique name for the token
-- _Options_, for example:
-  -  `--expiry`: The token expiration time as a duration.
-      If an expiration isn't set, the token does not expire until revoked.
 
   ```
   db:DATABASE1,DATABASE2:read,write
@@ -93,7 +89,10 @@ In your terminal, enter `influxdb3 create token` and provide the following:
   - `DATABASE1,DATABASE2`: A comma-separated list of database names to grant permissions to.
     The resource names part supports the `*` wildcard, which grants read or write permissions to all databases.
   - `read,write`: A comma-separated list of permissions to grant to the token.
-
+- `--name`: A unique name for the token
+- _Options_, for example:
+  -  `--expiry`: The token expiration time as a duration.
+      If an expiration isn't set, the token does not expire until revoked.
 {{% code-placeholders "Read-write on DATABASE1, DATABASE2|DATABASE1,DATABASE2|1y|read,write" %}}
 ```bash
 influxdb3 create token \
