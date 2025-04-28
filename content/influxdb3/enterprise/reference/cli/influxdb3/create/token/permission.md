@@ -5,7 +5,7 @@ description: >
   with fine-grained access permissions for specific resources in {{< product-name >}}.
 menu:
   influxdb3_enterprise:
-    parent: influxdb3
+    parent: influxdb3 create token
     name: influxdb3 create token --permission
 weight: 300
 ---
