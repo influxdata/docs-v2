@@ -182,8 +182,7 @@ influxdb3_local.error("Failed to connect to external API")
 obj_to_log = {"records": 157, "errors": 3}
 influxdb3_local.info("Processing complete", obj_to_log)
 ```
-All log messages are written to the server logs and stored in [system tables](/influxdb3/core/reference/cli/influxdb3/show/system/summary/), where you can query then using SQL. 
-
+All log messages are written to the server logs and stored in [system tables](/influxdb3/core/reference/cli/influxdb3/show/system/summary/), where you can query them using SQL. 
 ### Maintain state with in-memory cache
 
 The Processing engine provides an in-memory cache system that enables plugins to persist and retrieve data between executions.
