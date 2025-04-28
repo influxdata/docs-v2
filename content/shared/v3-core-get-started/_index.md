@@ -733,6 +733,7 @@ For more information about the Python client library, see the [`influxdb3-python
 
 
 ### Query using InfluxDB 3 Explorer (Beta)
+
 You can use the InfluxDB 3 Explorer query interface by downloading the Docker image.
 
 ```bash

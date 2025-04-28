@@ -308,7 +308,7 @@ The plugin receives the scheduled call time.
 ```bash
 # Create an endpoint at /api/v3/engine/webhook
 influxdb3 create trigger \
-  --trigger-spec "path:webhook" \
+  --trigger-spec "request:webhook" \
   --plugin-filename "webhook_handler.py" \
   --database my_database \
   webhook_processor
@@ -399,7 +399,7 @@ influxdb3 create trigger \
 
 # Disable the trigger on error
 influxdb3 create trigger \
-  --trigger-spec "path:webhook" \
+  --trigger-spec "request:webhook" \
   --plugin-filename "webhook_handler.py" \
   --error-behavior disable \
   --database my_database \
