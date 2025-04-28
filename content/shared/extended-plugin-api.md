@@ -4,14 +4,16 @@ These features let you build plugins that can transform, analyze, and respond to
 
 The plugin API lets you:
 
-- Write and query data directly from your Python code
-- Track information between plugin executions with the in-memory cache
-- Log messages for monitoring and debugging
-- Build data processing workflows
+- [Write and query data](#write-and-query-data)
+- [Log messages for monitoring and debugging](#log-messages-for-monitoring-and-debugging)
+- [Maintain state with in-memory cache](#maintain-state-with-in-memory-cache)
+- [Guidelines for in-memory caching](#guidelines-for-in-memory-caching)
 
 ### Get started with the shared API
 
 Every plugin has access to the shared API through the `influxdb3_local` object. You don't need to import any libraries to use the API. It's available as soon as your plugin runs.
+
+### Write and query data
 
 #### Write data
 
@@ -164,7 +166,7 @@ results = influxdb3_local.query("SELECT * FROM $table WHERE value > $threshold",
 
 Query results are a `List` of `Dict[String, Any]`, where each dictionary represents a row with column names as keys and column values as values.
 
-#### Log information
+### Log messages for monitoring and debugging
 
 The shared API `info`, `warn`, and `error` functions accept multiple arguments,
 convert them to strings, and log them as a space-separated message to the database log.
@@ -182,7 +184,7 @@ influxdb3_local.info("Processing complete", obj_to_log)
 ```
 All log messages appear in the server logs and are stored in system tables that you can query using SQL.
 
-#### Maintain state with the in-memory cache
+### Maintain state with in-memory cache
 
 The Processing engine provides an in-memory cache system that enables plugins to persist and retrieve data between executions.
 
@@ -259,7 +261,7 @@ influxdb3_local.cache.put("execution_count", counter)
 influxdb3_local.info(f"This plugin has run {counter} times")
 ```
 
-#### Best practices for in-memory caching
+### Guidelines for in-memory caching
 
 To get the most out of the in-memory cache, follow these guidelines:
 
