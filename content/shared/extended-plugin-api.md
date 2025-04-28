@@ -309,11 +309,4 @@ if not influxdb3_local.cache.get("lookup_table"):
 
 ### Next Steps
 
-Now that you understand the Extended Plugin API, you're ready to build data processing workflows that can transform, analyze, and respond to your time series data.
-
-Try combining these features to create plugins that:
-
-- Process incoming data and write transformed results
-- Maintain state between executions using the cache
-- Log detailed information about their operation
-- Share configuration through the global cache
+With an understanding of the InfluxDB 3 Shared Plugin API, you're ready to build data processing workflows that can transform, analyze, and respond to your time series data or extend example plugins from the [plugin repo]() on GitHub.
