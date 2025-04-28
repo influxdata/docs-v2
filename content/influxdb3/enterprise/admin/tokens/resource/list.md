@@ -4,7 +4,7 @@ description: >
   Use the `influxdb3` CLI or the HTTP API to list resource tokens with fine-grained
   access permissions in your {{% product-name %}} instance. 
   Use the  `influxdb3 show tokens` command to list all tokens or use SQL to query token
-  metadata directly from the `SYSTEM.TOKENS` table.
+  metadata directly from the `system.tokens` table.
 menu:
   influxdb3_enterprise:
     parent: Resource tokens
@@ -20,7 +20,7 @@ list_code_example: |
   curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
-  --data-urlencode "q=SELECT * FROM SYSTEM.TOKENS WHERE permissions NOT LIKE '\*%'" \
+  --data-urlencode "q=SELECT * FROM system.tokens WHERE permissions NOT LIKE '\*%'" \
   --header 'Accept: application/json' \
   --header "Authorization: Bearer AUTH_TOKEN" 
   ```
@@ -32,7 +32,7 @@ related:
 Use the `influxdb3` CLI or the HTTP API to list resource tokens with fine-grained
 access permissions in your {{% product-name %}} instance. 
 Use the  `influxdb3 show tokens` command to list all tokens or use SQL to query token
-metadata directly from the `SYSTEM.TOKENS` table.
+metadata directly from the `system.tokens` table.
 
 Resource tokens have fine-grained permissions for InfluxDB 3 resources, such
 as databases and system tables.
@@ -73,7 +73,7 @@ To filter tokens and retrieve specific details using SQL, query the `system.toke
 ```bash
 influxdb3 query \
   --db _internal \
-  "SELECT name, permissions FROM SYSTEM.TOKENS WHERE permissions  NOT LIKE '\*%'"
+  "SELECT name, permissions FROM system.tokens WHERE permissions  NOT LIKE '\*%'"
 ```
 <!---------------------------END CLI------------------------------------------->
 {{% /code-tab-content %}}
@@ -84,7 +84,7 @@ influxdb3 query \
 curl -G \
 "http://{{< influxdb/host >}}/api/v3/query_sql" \
 --data-urlencode "db=_internal" \
---data-urlencode "q=SELECT * FROM SYSTEM.TOKENS WHERE permissions NOT LIKE '\*%'" \
+--data-urlencode "q=SELECT * FROM system.tokens WHERE permissions NOT LIKE '\*%'" \
 --header 'Accept: application/json' \
 --header "Authorization: Bearer AUTH_TOKEN" 
 ```
@@ -128,7 +128,7 @@ influxdb3 show tokens \
 curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
-  --data-urlencode "q=SELECT * FROM SYSTEM.TOKENS" \
+  --data-urlencode "q=SELECT * FROM system.tokens" \
   --data-urlencode "format=csv" \
   --header 'Accept: text/csv' \
   --header "Authorization: Bearer AUTH_TOKEN"
@@ -167,7 +167,7 @@ influxdb3 show tokens \
 curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
-  --data-urlencode "q=SELECT * FROM SYSTEM.TOKENS" \
+  --data-urlencode "q=SELECT * FROM system.tokens" \
   --data-urlencode "format=parquet" \
   --header "Accept: application/parquet" \
   --header "Authorization: Bearer AUTH_TOKEN" \
@@ -196,7 +196,7 @@ Use `grep` to filter for resource (non-admin) tokens:
 <!---------------------------BEGIN CLI----------------------------------------->
 
 ```bash
-influxdb3 show tokens --format pretty | grep -v "*:*:*"
+influxdb3 show tokens --format pretty | grep -v '*:*:*'
 ```
 <!---------------------------END CLI------------------------------------------->
 {{% /code-tab-content %}}
@@ -207,7 +207,7 @@ influxdb3 show tokens --format pretty | grep -v "*:*:*"
 curl -G \
   "http://localhost:8181/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
-  --data-urlencode "q=SELECT * FROM SYSTEM.TOKENS" \
+  --data-urlencode "q=SELECT * FROM system.tokens" \
   --data-urlencode "format=jsonl" \
   --header 'Accept: application/json' \
   --header "Authorization: Bearer AUTH_TOKEN" |
@@ -240,7 +240,7 @@ jq '.[] | select(.permissions | startswith("system:")) | {name: .name, permissio
 curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
-  --data-urlencode "q=SELECT * FROM SYSTEM.TOKENS" \
+  --data-urlencode "q=SELECT * FROM system.tokens" \
   --data-urlencode "format=json" \
   --header "Accept: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" |

@@ -6,7 +6,7 @@ data and resources in your InfluxDB 3 instance.
 
 > [!NOTE]
 > Token metadata includes the hashed token string.
-> InfluxDB 3 does not store the token string.
+> InfluxDB 3 does not store the raw token string.
 
 In the following examples, replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}} with your InfluxDB {{% token-link "admin" %}}
 {{% show-in "enterprise" %}} or a token with read permission on the `_internal` system database`{{% /show-in %}}.
@@ -38,7 +38,7 @@ To filter tokens and retrieve specific details using SQL, query the `system.toke
 influxdb3 query \
   --database _internal \
   --format csv \
-  "SELECT name, permissions FROM SYSTEM.TOKENS WHERE permissions = '*:*:*'"
+  "SELECT name, permissions FROM system.tokens WHERE permissions = '*:*:*'"
 ```
 <!---------------------------END CLI------------------------------------------->
 {{% /code-tab-content %}}
@@ -48,7 +48,7 @@ influxdb3 query \
 curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
-  --data-urlencode "q=SELECT name, permissions FROM SYSTEM.TOKENS WHERE permissions = '*:*:*'" \
+  --data-urlencode "q=SELECT name, permissions FROM system.tokens WHERE permissions = '*:*:*'" \
   --data-urlencode "format=csv" \
   --header 'Accept: text/csv' \
   --header "Authorization: Bearer AUTH_TOKEN"
@@ -71,7 +71,7 @@ curl -G \
 ```bash
 influxdb3 query \
   --db _internal \
-  "SELECT name, permissions FROM SYSTEM.TOKENS WHERE created_at > '2025-01-01 00:00:00'"
+  "SELECT name, permissions FROM system.tokens WHERE created_at > '2025-01-01 00:00:00'"
 ```
 <!---------------------------END CLI------------------------------------------->
 {{% /code-tab-content %}}
@@ -81,7 +81,7 @@ influxdb3 query \
 curl -G \
 "http://{{< influxdb/host >}}/api/v3/query_sql" \
 --data-urlencode "db=_internal" \
---data-urlencode "q=SELECT name, permissions FROM SYSTEM.TOKENS WHERE created_at > '2025-01-01 00:00:00'" \
+--data-urlencode "q=SELECT name, permissions FROM system.tokens WHERE created_at > '2025-01-01 00:00:00'" \
 --header "Accept: application/json" \
 --header "Authorization: Bearer AUTH_TOKEN" 
 ```
@@ -123,7 +123,7 @@ influxdb3 show tokens \
 curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
-  --data-urlencode "q=SELECT * FROM SYSTEM.TOKENS" \
+  --data-urlencode "q=SELECT * FROM system.tokens" \
   --data-urlencode "format=csv" \
   --header 'Accept: text/csv' \
   --header "Authorization: Bearer AUTH_TOKEN"
@@ -162,7 +162,7 @@ influxdb3 show tokens \
 curl -G \
 "http://{{< influxdb/host >}}/api/v3/query_sql" \
 --data-urlencode "db=_internal" \
---data-urlencode "q=SELECT * FROM SYSTEM.TOKENS" \
+--data-urlencode "q=SELECT * FROM system.tokens" \
 --data-urlencode "format=parquet" \
 --header "Accept: application/parquet" \
 --header "Authorization: Bearer AUTH_TOKEN" \
@@ -201,7 +201,7 @@ grep _admin
 curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
-  --data-urlencode "q=SELECT * FROM SYSTEM.TOKENS" \
+  --data-urlencode "q=SELECT * FROM system.tokens" \
   --data-urlencode "format=pretty" \
   --header "Accept: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" |
@@ -232,7 +232,7 @@ jq '.[] | {name: .name, permissions: .permissions}'
 curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
-  --data-urlencode "q=SELECT name, created_at FROM SYSTEM.TOKENS WHERE permissions = '*:*:*' AND created_at > '2025-01-01 00:00:00'" \
+  --data-urlencode "q=SELECT name, created_at FROM system.tokens WHERE permissions = '*:*:*' AND created_at > '2025-01-01 00:00:00'" \
   --data-urlencode "format=json" \
   --header "Accept: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" |

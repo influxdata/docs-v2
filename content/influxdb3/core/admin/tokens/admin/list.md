@@ -19,7 +19,7 @@ list_code_example: |
   curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
-  --data-urlencode "q=SELECT * FROM SYSTEM.TOKENS WHERE permissions = '*:*:*'" \
+  --data-urlencode "q=SELECT * FROM system.tokens WHERE permissions = '*:*:*'" \
   --header 'Accept: application/json' \
   --header "Authorization: Bearer AUTH_TOKEN"
   ```

@@ -3,7 +3,7 @@ title: List admin tokens
 description: >
   Use the `influxdb3` CLI or the `/api/v3` HTTP API
   to list admin tokens for your {{< product-name >}} instance.
-  Use the  `influxdb3 show tokens` command to list all tokens or use SQL to query token metadata directly from the `SYSTEM.TOKENS` table.
+  Use the  `influxdb3 show tokens` command to list all tokens or use SQL to query token metadata directly from the `system.tokens` table.
 menu:
   influxdb3_enterprise:
     parent: Admin tokens
@@ -19,7 +19,7 @@ list_code_example: |
   curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
-  --data-urlencode "q=SELECT * FROM SYSTEM.TOKENS WHERE permissions = '*:*:*'" \
+  --data-urlencode "q=SELECT * FROM system.tokens WHERE permissions = '*:*:*'" \
   --header 'Accept: application/json' \
   --header "Authorization: Bearer AUTH_TOKEN"
   ```

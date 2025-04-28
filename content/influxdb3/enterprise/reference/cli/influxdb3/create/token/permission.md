@@ -33,9 +33,9 @@ influxdb3 create token --permission <PERMISSION> --name <NAME> [OPTIONS]
 | | `--token <AUTH_TOKEN>` | The {{% token-link "enterprise" "admin" %}} [env: INFLUXDB3_AUTH_TOKEN=] |
 | | `--expiry <DURATION>` | The token expiration time as a duration (for example, 1h, 7d, 1y). If not set, the token does not expire until revoked |
 | | `--tls-ca <CA_CERT>` | An optional arg to use a custom CA for testing with self-signed certs [env: INFLUXDB3_TLS_CA=] |
-| | `--format <FORMAT>` | Output format for token, supports just json or text [possible values: json, text] |
+| | `--format <FORMAT>` | Output format (`json` or `text` _(default)_) |
 | `-h` | `--help` | Print help information |
-| | `--help-all` | Print more detailed help information |
+| | `--help-all` | Print detailed help information |
 
 ## Permission Format
 
