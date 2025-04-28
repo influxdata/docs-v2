@@ -192,7 +192,8 @@ You can access the cache through the `cache` property of the shared API:
 # Basic usage pattern  
 influxdb3_local.cache.METHOD(PARAMETERS)
 ```
-Here are the available methods: 
+
+`cache` provides the following methods to retrieve and manage cached values: 
 
 | Method | Parameters | Returns | Description |
 |--------|------------|---------|-------------|
