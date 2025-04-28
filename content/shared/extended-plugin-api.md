@@ -1,4 +1,4 @@
-The Processing engine includes API capabilities that allow your plugins to
+The Processing engine includes an API that allows your plugins to
 interact with your data and maintain state between executions.
 These features let you build plugins that can transform, analyze, and respond to data.
 
