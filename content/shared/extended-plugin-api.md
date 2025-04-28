@@ -1,5 +1,5 @@
 The Processing engine includes an API that allows your plugins to
-interact with your data and maintain state between executions.
+interact with your data, build and write data in line protocol format, and maintain state between executions.
 These features let you build plugins that can transform, analyze, and respond to data.
 
 The plugin API lets you:
