@@ -11,7 +11,7 @@ The plugin API lets you:
 
 ### Get started with the shared API
 
-Every plugin has access to the shared API through the `influxdb3_local` object. You don't need to import any libraries. This API is available as soon as your plugin runs.
+Every plugin has access to the shared API through the `influxdb3_local` object. You don't need to import any libraries to use the API. It's available as soon as your plugin runs.
 
 #### Write data
 
