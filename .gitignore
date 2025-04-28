@@ -12,6 +12,7 @@ node_modules
 !api-docs/**/.config.yml
 /api-docs/redoc-static.html*
 /cypress/screenshots/*
+/influxdb3cli-build-scripts/content
 .vscode/*
 .idea
 **/config.toml
