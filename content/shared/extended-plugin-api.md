@@ -162,7 +162,7 @@ params = {"table": "metrics", "threshold": 90}
 results = influxdb3_local.query("SELECT * FROM $table WHERE value > $threshold", params)
 ```
 
-Query results come back as a `List` of `Dict[String, Any]`, where each dictionary represents a row with column names as keys and column values as values. This makes it easy to process the results in your plugin code.
+Query results are a `List` of `Dict[String, Any]`, where each dictionary represents a row with column names as keys and column values as values.
 
 #### Log information
 
