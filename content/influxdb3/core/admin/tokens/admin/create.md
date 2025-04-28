@@ -14,6 +14,12 @@ list_code_example: |
   ```bash
   influxdb3 create token --admin
   ```
+  #### HTTP API
+  ```bash
+  curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin" \
+    --header 'Accept: application/json' \
+    --header 'Content-Type: application/json'
+  ```
 alt_links:
   cloud-dedicated: /influxdb3/cloud-dedicated/admin/tokens/create-token/
   cloud-serverless: /influxdb3/cloud-serverless/admin/tokens/create-token/

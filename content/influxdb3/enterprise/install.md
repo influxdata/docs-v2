@@ -131,7 +131,7 @@ source ~/.zshrc
 
 ## Docker image
 
-Use the `influxdb3-{{< product-key >}}` Docker image to deploy {{< product-name >}} in a
+Use the `influxdb:3-{{< product-key >}}` Docker image to deploy {{< product-name >}} in a
 Docker container.
 The image is available for x86_64 (AMD64) and ARM64 architectures.
 
@@ -139,7 +139,7 @@ The image is available for x86_64 (AMD64) and ARM64 architectures.
 
 <!--pytest.mark.skip-->
 ```bash
-docker pull quay.io/influxdb/influxdb3-{{< product-key >}}:latest
+docker pull influxdb:3-{{< product-key >}}
 ```
 
 Docker automatically pulls the appropriate image for your system architecture.
@@ -150,14 +150,14 @@ To specify the system architecture, use platform-specific tags--for example:
 # For x86_64/AMD64
 docker pull \
 --platform linux/amd64 \
-quay.io/influxdb/influxdb3-{{< product-key >}}:latest
+influxdb:3-{{< product-key >}}
 ```
 
 ```bash
 # For ARM64
 docker pull \
 --platform linux/arm64 \
-quay.io/influxdb/influxdb3-{{< product-key >}}:latest
+influxdb:3-{{< product-key >}}
 ```
 
 > [!Note]
@@ -173,10 +173,11 @@ quay.io/influxdb/influxdb3-{{< product-key >}}:latest
    services:
      influxdb3-{{< product-key >}}:
        container_name: influxdb3-{{< product-key >}}
-       image: quay.io/influxdb/influxdb3-{{< product-key >}}:latest
+       image: influxdb:3-{{< product-key >}}
        ports:
          - 9999:9999
        command:
+         - influxdb3
          - serve
          - --node-id=node0
          - --cluster-id=cluster0

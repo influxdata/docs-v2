@@ -92,14 +92,14 @@ Download and install the {{% product-name %}} [Windows (AMD64, x86_64) binary](h
 {{% tab-content %}}
 <!--------------- BEGIN DOCKER -------------->
 
-The [`influxdb3-core` image](https://quay.io/repository/influxdb/influxdb3-core?tab=tags&tag=latest)
+The [`influxdb:3-core` image](https://hub.docker.com/_/influxdb/tags?tag=3-core&name=3-core)
 is available for x86_64 (AMD64) and ARM64 architectures.
 
 Pull the image:
 
 <!--pytest.mark.skip-->
 ```bash
-docker pull quay.io/influxdb/influxdb3-core:latest
+docker pull influxdb:3-core
 ```
 
 ##### InfluxDB 3 Explorer -- Query Interface (Beta)
@@ -191,7 +191,7 @@ To run the [Docker image](/influxdb3/core/install/#docker-image) and persist dat
 # Provide the mount path
 docker run -it \
  -v /path/on/host:/path/in/container \
- quay.io/influxdb/influxdb3-core:latest serve \
+ influxdb:3-core influxdb3 serve \
  --node-id my_host \
  --object-store file \
  --data-dir /path/in/container
@@ -237,17 +237,16 @@ An {{% product-name %}} instance can have one _admin token_, which grants access
 
 When you create a token, InfluxDB 3 returns a token string in plain text
 that you use to authenticate CLI commands and API requests.
-Securely store your token, as you won't be able to retrieve it later.
 
 To have the `influxdb3` CLI use your admin token automatically, assign it to the
 `INFLUXDB3_AUTH_TOKEN` environment variable.
 
 > [!Important]
+> #### Securely store your token
 >
-> #### Securely store your tokens
->
-> For security, InfluxDB only lets you view tokens when you create them.
-> InfluxDB 3 stores a hash of the token in the catalog, so you can't retrieve the token after it is created.
+> InfluxDB lets you view the token string only when you create the token.
+> Store your token in a secure location, as you cannot retrieve it from the database later.
+> InfluxDB 3 stores only the token's hash and metadata in the catalog.
 
 #### Create an admin token
 
@@ -257,11 +256,15 @@ To create an admin token, use the `influxdb3 create token --admin` subcommand--f
 influxdb3 create token --admin \
  --host http://{{< influxdb/host >}}
 ```
+```bash
+# With Docker -- In a new terminal, run:
+docker exec -it CONTAINER_NAME influxdb3 create token --admin
+```
 
 The command returns a token string that you can use to authenticate CLI commands and API requests.
-Securely store your token, as you won't be able to retrieve it later.
 
 For more information, see how to [Manage admin tokens](/influxdb3/version/admin/tokens/admin/).
+
 ### Data model
 
 The database server contains logical databases, which have tables, which have columns. Compared to previous versions of InfluxDB you can think of a database as a `bucket` in v2 or as a `db/retention_policy` in v1. A `table` is equivalent to a `measurement`, which has columns that can be of type `tag` (a string dictionary), `int64`, `float64`, `uint64`, `bool`, or `string` and finally every table has a `time` column that is a nanosecond precision timestamp.
