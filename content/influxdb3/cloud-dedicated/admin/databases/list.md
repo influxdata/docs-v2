@@ -1,7 +1,7 @@
 ---
 title: List databases
 description: >
-  Use the [`influxctl database list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/list/)
+  Use the Admin UI, the [`influxctl database list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/list/), or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
   to list databases in your InfluxDB Cloud Dedicated cluster.
 menu:
   influxdb3_cloud_dedicated:
@@ -25,14 +25,56 @@ related:
   - /influxdb3/cloud-dedicated/reference/api/
 ---
 
-Use the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/create/)
-or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/) to create a database in your {{< product-name omit=" Clustered" >}} cluster.
+Use the Admin UI, the [`influxctl database list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/list/),
+or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/) to list databases in your {{< product-name omit=" Clustered" >}} cluster.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
+[Admin UI](#)
 [influxctl](#)
 [Management API](#)
 {{% /tabs %}}
+{{% tab-content %}}
+## Access the Cloud Dedicated Admin UI
+
+1. To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+
+   <pre>
+   <a href="https://console.influxdata.com">https://console.influxdata.com</a>
+   </pre>
+
+2. Use the credentials provided by InfluxData to log into the Admin UI.
+   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+
+   After you log in, the Account Management portal displays [account information](/influxdb3/cloud-dedicated/admin/account/)
+   and lists all clusters associated with your account.
+3. You can **Search** for clusters by name or ID to filter the list and use the sort button and column headers to sort the list. 
+4. Click the cluster row to view the list of databases associated with the cluster.
+
+The database list displays the following database details:
+
+- Name
+- Database ID
+- Max tables
+- Max columns per table
+- Retention period
+
+You can **Search** for databases by name or ID to filter the list and use the sort button and column headers to sort the list. 
+
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-list-databases.png" alt="List databases" />}} 
+
+### Database management tools
+
+The options button (3 vertical dots) to the right of any database provides additional tools:
+
+- **Copy Database ID**: Copy the database ID to your clipboard
+- **Set Retention Period**: Set the retention period for the database
+- **Delete Database**: Delete the database
+
+### Manage database tables 
+
+To view database details and manage database tables, click the database row in the list.
+{{% /tab-content %}}
 {{% tab-content %}}
 
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->

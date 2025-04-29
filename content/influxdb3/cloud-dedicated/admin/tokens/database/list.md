@@ -1,7 +1,7 @@
 ---
 title: List database tokens
 description: >
-  Use the [`influxctl token list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/list/)
+  Use the Admin UI, the [`influxctl token list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/list/),
   or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
   to list database tokens in your InfluxDB Cloud Dedicated cluster.
 menu:
@@ -35,7 +35,7 @@ related:
   - /influxdb3/cloud-dedicated/reference/api/
 ---
 
-Use the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/)
+Use the Admin UI, the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/),
 or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
 to list database tokens in your {{< product-name omit=" Clustered" >}} cluster.
 
@@ -46,9 +46,48 @@ to list database tokens in your {{< product-name omit=" Clustered" >}} cluster.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
+[Admin UI](#admin-ui-list-tokens)
 [influxctl](#)
 [Management API](#)
 {{% /tabs %}}
+{{% tab-content %}}
+<!------------------------------- BEGIN ADMIN UI ------------------------------->
+
+The InfluxDB Cloud Dedicated administrative UI includes a portal for creating and managing database tokens.
+
+Administrators can use this portal to:
+
+- View token details
+- Add read and write permissions for specific databases to a token
+- Edit a token's existing read and write permissions for a database
+- Create a database token
+- Revoke a database token
+
+1.  To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+
+    <pre>
+    <a href="https://{{< influxdb/host >}}/">https://{{< influxdb/host >}}</a>
+    </pre>
+
+2.  Use the credentials provided by InfluxData to log into the Admin UI.
+    If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+3.  After you log in, the Account Management screen displays [account information](/influxdb3/cloud-dedicated/admin/account/)
+    and the list of clusters associated with your account.
+4. Click the cluster row that you want to manage tokens for. You can **Search** clusters by name or ID to filter the list and use the sort button and column headers to sort the list. 
+5.  Click the **Database Tokens** button in the upper right corner of the Cluster screen.
+
+The Database Tokens portal lists all database tokens associated with the cluster
+and provides the following information about each token:
+
+- Token ID
+- Description
+- Databases
+- Status (Active or Revoked)
+- Created At date
+- Expires At date
+
+You can **Search** tokens by description or ID to filter the list and use the sort button and column headers to sort the list.
+{{% /tab-content %}}
 {{% tab-content %}}
 
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->
