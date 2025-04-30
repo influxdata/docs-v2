@@ -361,7 +361,7 @@ influxdb3 create token \
   --expiry 1y \
   --token ADMIN_TOKEN \
   --host http://{{< influxdb/host >}} \
-  --name "rw all system endpoints" \
+  --name "all system endpoints" \
   "system:*:read"
 ```
 
