@@ -3,6 +3,6 @@
 {{- $limit := .Get 0 | default "database" -}}
 {{- $modifier := .Get 1 | default 0 -}}
 {{- $coreLimits := dict "database" 5 "table" 2000 "column" 500 -}}
-{{- $enterpriseLimits := dict "database" 100 "table" 4000 "column" 500 -}}
+{{- $enterpriseLimits := dict "database" 100 "table" 10000 "column" 500 -}}
 {{- $productLimits := cond (eq $product "core") $coreLimits $enterpriseLimits -}}
 {{ add (index $productLimits $limit) $modifier }}

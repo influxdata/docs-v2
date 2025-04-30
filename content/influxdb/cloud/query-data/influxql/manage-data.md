@@ -8,6 +8,8 @@ menu:
     parent: Query with InfluxQL
     identifier: manage-database
 weight: 204
+source: /shared/influxdb-v2/query-data/influxql/manage-data.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/influxql/manage-data.md-->

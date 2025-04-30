@@ -20,8 +20,10 @@ influxdb3 show system --database <DATABASE_NAME> table [OPTIONS] <SYSTEM_TABLE>
 | `-l`   | `--limit`    | Maximum number of tables entries to display (default is `10`, `0` indicates no limit) |
 | `-o`   | `--order-by` | Order by the specified columns                                                        |
 | `-s`   | `--select`   | Select specific columns from the system table                                         |
-|        | `--format`   | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet`)             |
+|        | `--format`   | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet`)            |
+|        | `--tls-ca`   | Path to a custom TLS certificate authority (for testing or self-signed certificates)  |
 | `-h`   | `--help`     | Print help information                                                                |
+|        | `--help-all` | Print detailed help information                                                       |
 
 ## Examples
 

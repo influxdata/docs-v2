@@ -106,7 +106,6 @@ influxdb3 serve
 - [HTTP](#http)
   - [max-http-request-size](#max-http-request-size)
   - [http-bind](#http-bind)
-  - [bearer-token](#bearer-token)
 - [Memory](#memory)
   - [ram-pool-data-bytes](#ram-pool-data-bytes)
   - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
@@ -753,7 +752,6 @@ Provides custom configuration to DataFusion as a comma-separated list of
 
 - [max-http-request-size](#max-http-request-size)
 - [http-bind](#http-bind)
-- [bearer-token](#bearer-token)
 
 #### max-http-request-size
 
@@ -776,16 +774,6 @@ Defines the address on which InfluxDB serves HTTP API requests.
 | influxdb3 serve option | Environment variable       |
 | :--------------------- | :------------------------- |
 | `--http-bind`          | `INFLUXDB3_HTTP_BIND_ADDR` |
-
----
-
-#### bearer-token
-
-Specifies the bearer token to be set for requests.
-
-| influxdb3 serve option | Environment variable     |
-| :--------------------- | :----------------------- |
-| `--bearer-token`       | `INFLUXDB3_BEARER_TOKEN` |
 
 ---
 

@@ -8,23 +8,8 @@ menu:
     name: influx task run
     parent: influx task
 weight: 201
+source: /shared/influxdb-v2/reference/cli/influx/task/run/_index.md
 ---
 
-The `influx task run` command and its subcommand `list` output information related to runs of a task.
-
-## Usage
-```
-influx task run [flags]
-influx task run [command]
-```
-
-## Subcommands
-| Subcommand                                         | Description          |
-|:----------                                         |:-----------          |
-| [list](/influxdb/v2/reference/cli/influx/task/run/list)   | List runs for a task |
-| [retry](/influxdb/v2/reference/cli/influx/task/run/retry) | Retry a task         |
-
-## Flags
-| Flag |          | Description                |
-|:---- |:---      |:-----------                |
-| `-h` | `--help` | Help for the `run` command |
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/task/run/_index.md -->

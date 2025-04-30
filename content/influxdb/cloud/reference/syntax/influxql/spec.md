@@ -8,6 +8,8 @@ menu:
 aliases:
   - /influxdb/cloud/query_languages/spec/
 weight: 103
+source: /shared/influxdb-v2/reference/syntax/influxql/spec.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/syntax/influxql/spec.md-->

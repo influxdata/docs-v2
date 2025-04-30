@@ -12,6 +12,8 @@ menu:
     name: Python
     parent: Client library tutorials
 influxdb/cloud/tags: [api, python]
+source: /shared/influxdb-v2/api-guide/tutorials/python.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/tutorials/python.md-->

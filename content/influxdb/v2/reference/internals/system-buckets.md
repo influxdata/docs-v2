@@ -70,7 +70,7 @@ The `_monitoring` system bucket stores InfluxDB data used to
         - **\_source_timestamp:** original timestamp of the queried data
         - **\_status_timestamp:** timestamp when the status (`_level`) was evaluated
         - _other fields inherited from queried data_
-- {{% cloud-only %}}
+- {{% show-in "cloud,cloud-serverless" %}}
 
   **rejected_points** _(measurement)_
   
@@ -85,7 +85,7 @@ The `_monitoring` system bucket stores InfluxDB data used to
     - **_field:** `count` (for data type and schema conflicts) or `error` (for parsing errors)
     - **_value:** `1` if `_field: "count"` or error details if `_field: "error"`
     - **timestamp:** time the rejected point was logged
-  {{% /cloud-only %}}
+  {{% /show-in %}}
 
 
 ## \_tasks system bucket

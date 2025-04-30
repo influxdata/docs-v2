@@ -6,6 +6,8 @@ menu:
   influxdb_cloud:
     parent: Release notes
     name: influx CLI 
+source: /shared/influxdb-v2/reference/release-notes/influx-cli.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/release-notes/influx-cli.md-->

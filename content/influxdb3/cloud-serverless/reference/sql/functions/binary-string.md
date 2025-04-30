@@ -10,7 +10,7 @@ menu:
     parent: sql-functions    
 weight: 308
 
-source: /content/shared/sql-reference/functions/binary-string.md
+source: /shared/sql-reference/functions/binary-string.md
 ---
 
 <!-- 

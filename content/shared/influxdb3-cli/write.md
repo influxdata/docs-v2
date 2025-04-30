@@ -28,10 +28,12 @@ influxdb3 write [OPTIONS] --database <DATABASE_NAME> [LINE_PROTOCOL]...
 | :----- | :----------------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`           | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 | `-d`   | `--database`       | _({{< req >}})_ Name of the database to operate on                                       |
-|        | `--token`          | Authentication token                                                                     |
+|        | `--token`          | _({{< req >}})_ Authentication token                                                     |
 | `-f`   | `--file`           | A file that contains line protocol to write                                              |
 |        | `--accept-partial` | Accept partial writes                                                                    |
+|        | `--tls-ca`         | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 | `-h`   | `--help`           | Print help information                                                                   |
+|        | `--help-all`       | Print detailed help information                                                          |
 
 ### Option environment variables
 
@@ -48,11 +50,14 @@ You can use the following environment variables to set command options:
 - [Write line protocol to your InfluxDB 3 server](#write-line-protocol-to-your-influxdb-3-server)
 - [Write line protocol and accept partial writes](#write-line-protocol-and-accept-partial-writes)
 
-In the examples below, replace
-{{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-with the name of the database to query.
+In the examples below, replace the following:
 
-{{% code-placeholders "DATABASE_NAME" %}}
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
+  the name of the database to query
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: 
+  Authentication token
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 
 ### Write line protocol to your InfluxDB 3 server
 
@@ -67,7 +72,9 @@ with the name of the database to query.
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 write --database DATABASE_NAME \
+influxdb3 write \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000'
 ```
 {{% /influxdb/custom-timestamps %}}
@@ -76,14 +83,19 @@ influxdb3 write --database DATABASE_NAME \
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 write --database DATABASE_NAME --file ./data.lp
+influxdb3 write \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --file ./data.lp
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
 ```bash
-cat ./data.lp | influxdb3 write --database DATABASE_NAME
+cat ./data.lp | influxdb3 write \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -104,6 +116,7 @@ cat ./data.lp | influxdb3 write --database DATABASE_NAME
 influxdb3 write \
   --accept-partial \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000'
 ```
 {{% /influxdb/custom-timestamps %}}
@@ -115,6 +128,7 @@ influxdb3 write \
 influxdb3 write \
   --accept-partial \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   --file ./data.lp
 ```
 {{% /code-tab-content %}}
@@ -125,6 +139,7 @@ influxdb3 write \
 cat ./data.lp | influxdb3 write \
   --accept-partial \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

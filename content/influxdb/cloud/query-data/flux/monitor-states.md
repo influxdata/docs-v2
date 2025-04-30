@@ -11,6 +11,8 @@ weight: 220
 related:
   - /flux/v0/stdlib/universe/stateduration/
   - /flux/v0/stdlib/universe/statecount/
+source: /shared/influxdb-v2/query-data/flux/monitor-states.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/monitor-states.md-->

@@ -39,7 +39,7 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 | Option |                                       | Description                                                                                       |
 | :----- | :------------------------------------ | :------------------------------------------------------------------------------------------------ |
 |        | `--num-threads`                       | Maximum number of IO runtime threads to use                                                       |
-|        | `--io-runtime-type`                   | IO tokio runtime type (`current-thread`, `multi-thread` _(default)_, or `multi-thread-alt`)             |
+|        | `--io-runtime-type`                   | IO tokio runtime type (`current-thread`, `multi-thread` _(default)_, or `multi-thread-alt`)       |
 |        | `--io-runtime-disable-lifo-slot`      | Disable LIFO slot of IO runtime                                                                   |
 |        | `--io-runtime-event-interval`         | Number of scheduler ticks after which the IOtokio runtime scheduler will poll for external events |
 |        | `--io-runtime-global-queue-interval`  | Number of scheduler ticks after which the IO runtime scheduler will poll the global task queue    |
@@ -48,6 +48,7 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 |        | `--io-runtime-thread-keep-alive`      | Custom timeout for a thread in the blocking pool of the tokio IO runtime                          |
 |        | `--io-runtime-thread-priority`        | Set thread priority tokio IO runtime workers                                                      |
 | `-h`   | `--help`                              | Print help information                                                                            |
+|        | `--help-all`                          | Print detailed help information                                                                   |
 | `-V`   | `--version`                           | Print version                                                                                     |
 
 ### Option environment variables

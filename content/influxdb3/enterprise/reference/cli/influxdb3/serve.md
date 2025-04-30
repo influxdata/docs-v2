@@ -59,6 +59,7 @@ influxdb3 serve [OPTIONS] \
 |                  | `--object-store-max-retries`                         | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store-max-retries)_                         |
 |                  | `--object-store-retry-timeout`                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store-retry-timeout)_                       |
 | `-h`             | `--help`                                             | Print help information                                                                                                          |
+|                  | `--help-all`                                         | Print detailed help information                                                                                                 |
 |                  | `--object-store-cache-endpoint`                      | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store-cache-endpoint)_                      |
 |                  | `--log-filter`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#log-filter)_                                       |
 | `-v`             | `--verbose`                                          | Enable verbose output                                                                                                           |
@@ -88,7 +89,6 @@ influxdb3 serve [OPTIONS] \
 |                  | `--http-bind`                                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#http-bind)_                                        |
 |                  | `--ram-pool-data-bytes`                              | _See [configuration options](/influxdb3/enterprise/reference/config-options/#ram-pool-data-bytes)_                              |
 |                  | `--exec-mem-pool-bytes`                              | _See [configuration options](/influxdb3/enterprise/reference/config-options/#exec-mem-pool-bytes)_                              |
-|                  | `--bearer-token`                                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#bearer-token)_                                     |
 |                  | `--gen1-duration`                                    | _See [configuration options](/influxdb3/enterprise/reference/config-options/#gen1-duration)_                                    |
 |                  | `--wal-flush-interval`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wal-flush-interval)_                               |
 |                  | `--wal-snapshot-size`                                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wal-snapshot-size)_                                |

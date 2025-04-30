@@ -7,13 +7,8 @@ menu:
     name: Query in the Flux REPL
     parent: Execute queries
 influxdb/v2/tags: [query]
+source: /shared/influxdb-v2/query-data/execute-queries/flux-repl.md
 ---
 
-The [Flux REPL](/influxdb/v2/tools/flux-repl/) starts an interactive
-Read-Eval-Print Loop (REPL) where you can write and execute Flux queries.
-
-```sh
-./flux repl
-```
-
-For more information, see [Use the Flux REPL](/influxdb/v2/tools/flux-repl/).
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/query-data/execute-queries/flux-repl.md -->

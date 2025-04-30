@@ -8,6 +8,8 @@ menu:
   influxdb_cloud:
     parent: Common queries
 weight: 204
+source: /shared/influxdb-v2/query-data/common-queries/multiple-fields-in-calculations.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/common-queries/multiple-fields-in-calculations.md-->

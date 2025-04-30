@@ -10,6 +10,8 @@ weight: 102
 influxdb3/cloud-serverless/tags: [write, line protocol, syntax]
 related:
   - /influxdb3/cloud-serverless/write-data/
+source: /shared/influxdb-v2/reference/syntax/line-protocol.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/syntax/line-protocol.md-->
