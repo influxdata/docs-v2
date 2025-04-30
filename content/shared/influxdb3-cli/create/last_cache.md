@@ -62,5 +62,5 @@ In the example above, replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Database name
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: Table name
 - {{% code-placeholder-key %}}`TAG_COLUMN`{{% /code-placeholder-key %}}: Column to use as a tag key for the cache
-- {{% code-placeholder-key %}}`FIELD_COLUM`N{{% /code-placeholder-key %}}: Column to cache the last value from
+- {{% code-placeholder-key %}}`FIELD_COLUMN`{{% /code-placeholder-key %}}: Column to cache the last value from
 - {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: Name for the new last value cache
