@@ -36,6 +36,28 @@ influxdb3 serve \
   --plugin-dir /path/to/plugins
 ```
 
+Replace `/path/to/plugins` with the directory where you want to store your Python plugin files. All plugin files must be located in this directory or its subdirectories.
+
+
+
+### Configure distributed environments
+
+If you're running multiple {{% product-name %}} instances (distributed deployment):
+
+1. Decide where plugins should run
+   - Data processing plugins, such as WAL plugins, run on ingester nodes
+   - HTTP-triggered plugins run on nodes handling API requests
+   - Scheduled plugins can run on any configured node
+2. Enable plugins on selected instances
+3. Maintain identical plugin files across all instances where plugins run
+   - Use shared storage or file synchronization tools to keep plugins consistent
+
+> [!Note]
+> #### Provide plugins to nodes that run them
+>
+> Configure your plugin directory on the same system as the nodes that run the triggers and plugins.
+
+
 ## Add a Processing engine plugin
 
 A plugin is a Python file that contains a specific function signature that corresponds to a trigger type.
@@ -219,12 +241,12 @@ The plugin receives the scheduled call time.
 
 ### Create a trigger for HTTP requests
 
-[For an HTTP request plugin], use the `path:<ENDPOINT_PATH>` trigger specification to configure and enable a [plugin for HTTP requests](#for-http-requests)--for example:
+For an [HTTP request plugin](#for-http-requests), use the `request:<ENDPOINT_PATH>` trigger specification to configure and enable a [plugin for HTTP requests](#for-http-requests)--for example:
 
 ```bash
 # Create an endpoint at /api/v3/engine/webhook
 influxdb3 create trigger \
-  --trigger-spec "path:webhook" \
+  --trigger-spec "request:webhook" \
   --plugin-filename "webhook_handler.py" \
   --database my_database \
   webhook_processor
@@ -315,7 +337,7 @@ influxdb3 create trigger \
 
 # Disable the trigger on error
 influxdb3 create trigger \
-  --trigger-spec "path:webhook" \
+  --trigger-spec "request:webhook" \
   --plugin-filename "webhook_handler.py" \
   --error-behavior disable \
   --database my_database \
@@ -630,3 +652,13 @@ docker exec -it CONTAINER_NAME influxdb3 install package pandas
 ```
 
 This creates a Python virtual environment in your plugins directory with the specified packages installed.
+
+{{% show-in "enterprise" %}}
+### Connect Grafana to your InfluxDB instance
+
+When configuring Grafana to connect to an InfluxDB 3 Enterprise instance:
+
+- **URL**: Use a querier URL or any node that serves queries
+
+Example URL format: `https://querier.your-influxdb.com:8086`
+{{% /show-in %}}

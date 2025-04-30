@@ -6,6 +6,7 @@ influxdb3_core:
   versions: [core]
   list_order: 2
   latest: core
+  latest_patch: 3.0.1
   placeholder_host: localhost:8181
   ai_sample_questions:
     - How do I install and run InfluxDB 3 Core?
@@ -20,6 +21,7 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
+  latest_patch: 3.0.1
   placeholder_host: localhost:8181
   ai_sample_questions:
     - How do I install and run InfluxDB 3 Enterprise?
@@ -48,7 +50,7 @@ influxdb3_cloud_dedicated:
   list_order: 3
   latest: cloud-dedicated
   link: "https://www.influxdata.com/contact-sales-form/"
-  latest_cli: 2.9.9
+  latest_cli: 2.10.0
   placeholder_host: cluster-id.a.influxdb.io
   ai_sample_questions:
     - How do I migrate from InfluxDB v1 to InfluxDB Cloud Dedicated?
@@ -82,14 +84,13 @@ influxdb:
     - v1
   latest: v2.7
   latest_patches:
-    v3: 3.0.0alpha
     v2: 2.7.11
     v1: 1.11.8
   latest_cli:
     v2: 2.7.5
   ai_sample_questions:
-    - How do I write and query data with InfluxDB v2 OSS? 
-    - How can I migrate from InfluxDB v2 OSS to InfluxDB 3 Core? 
+    - How do I write and query data with InfluxDB v2 OSS?
+    - How can I migrate from InfluxDB v2 OSS to InfluxDB 3 Core?
     - How do I manage auth tokens in InfluxDB v2 OSS?
 
 influxdb_cloud:
@@ -102,8 +103,8 @@ influxdb_cloud:
   latest: cloud
   placeholder_host: cloud2.influxdata.com
   ai_sample_questions:
-    - How do I write and query data with InfluxDB Cloud 2? 
-    - How is Cloud 2 different from Cloud Serverless? 
+    - How do I write and query data with InfluxDB Cloud 2?
+    - How is Cloud 2 different from Cloud Serverless?
     - How do I manage auth tokens in InfluxDB Cloud 2?
 
 telegraf:
@@ -112,9 +113,9 @@ telegraf:
   menu_category: other
   list_order: 6
   versions: [v1]
-  latest: v1.33
+  latest: v1.34
   latest_patches:
-    v1: 1.33.0
+    v1: 1.34.1
   ai_sample_questions:
     - How do I install and configure Telegraf?
     - How do I write a custom Telegraf plugin?
@@ -128,7 +129,7 @@ chronograf:
   versions: [v1]
   latest: v1.10
   latest_patches:
-    v1: 1.10.6
+    v1: 1.10.7
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?
@@ -158,7 +159,7 @@ enterprise_influxdb:
   latest_patches:
     v1: 1.11.8
   ai_sample_questions:
-  - How can I configure my InfluxDB v1 Enterprise server? 
+  - How can I configure my InfluxDB v1 Enterprise server?
   - How do I replicate data between InfluxDB v1 Enterprise and OSS?
   - How do I query data stored in InfluxDB v1?
 

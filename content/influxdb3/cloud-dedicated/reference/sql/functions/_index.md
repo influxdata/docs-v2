@@ -10,7 +10,7 @@ menu:
     identifier: sql-functions
 weight: 220
 
-source: /content/shared/sql-reference/functions/_index.md
+source: /shared/sql-reference/functions/_index.md
 ---
 
 <!-- 

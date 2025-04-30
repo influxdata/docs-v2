@@ -7,6 +7,8 @@ menu:
     parent: influx replication
 weight: 102
 influxdb/cloud/tags: [write, replication]
+source: /shared/influxdb-v2/reference/cli/influx/replication/delete.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/replication/delete.md-->

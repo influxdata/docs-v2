@@ -9,12 +9,20 @@ The `influxdb3 create token` command creates a new authentication token.
 influxdb3 create token <SUBCOMMAND>
 ```
 
+## Commands
+
+| Command | Description                                                                 |
+| :----- | :----------- | :------------------------------ |
+| `--admin` | Create an admin token for the {{< product-name >}} server. |
+{{% show-in "enterprise" %}}| [`--permission`](/influxdb3/enterprise/reference/cli/influxdb3/create/token/permission/) | Create a resource token with fine-grained access permissions. |{{% /show-in %}}
+
 ## Options
 
 | Option |          | Description            |
 | :----- | :------- | :--------------------- |
 |        |`--admin`| Create an admin token  |
 | `-h`   | `--help` | Print help information |
+
 
 ## Examples
 
@@ -25,5 +33,3 @@ influxdb3 create token <SUBCOMMAND>
 ```bash
 influxdb3 create token --admin
 ```
-
-This creates an admin token with full access to the system.

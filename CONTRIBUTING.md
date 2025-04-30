@@ -455,15 +455,11 @@ v2: /influxdb/v2.0/get-started/
 Use the `prepend` and `append` frontmatter to add content to the top or bottom of a page.
 Each has the following fields:
 
-- **block:** _(Optional)_ block style to wrap content in (note, warn, cloud, or enterprise)
-- **content:** _**(Required)**_ markdown content to add.
-
 ```yaml
-append:
-  block: note
-  content: |
-    #### This is example markdown content
-    This is just an example note block that gets appended to the article.
+append: |
+  > [!Note]
+  > #### This is example markdown content
+  > This is just an example note block that gets appended to the article.
 ```
 
 Use this frontmatter with [cascade](#cascade) to add the same content to
@@ -471,11 +467,10 @@ all children pages as well.
 
 ```yaml
 cascade:
-  append:
-    block: note
-    content: |
-      #### This is example markdown content
-      This is just an example note block that gets appended to the article.
+  append: |
+    > [!Note]
+    > #### This is example markdown content
+    > This is just an example note block that gets appended to the article.
 ```
 
 ### Cascade
@@ -582,14 +577,14 @@ Easier to maintain being you update the version number in the `data/products.yml
 
 ### Latest influx CLI version
 
-Use the `{{< latest-cli >}}` shortcode to add the latest version of the `influx`
+Use the `{{< latest-patch cli=true >}}` shortcode to add the latest version of the `influx`
 CLI supported by the minor version of InfluxDB.
 By default, this shortcode parses the minor version from the URL.
 To specify a specific minor version, use the `version` argument.
 Maintain CLI version numbers in the `data/products.yml` file instead of updating individual links and code examples.
 
 ```md
-{{< latest-cli >}}
+{{< latest-patch cli=true >}}
 
 {{< latest-cli version="2.1" >}}
 ```
@@ -1131,6 +1126,28 @@ The following table shows which children types use which frontmatter properties:
 | `list_code_example`  |    ✓     |      |           |
 | `list_query_example` |    ✓     |      |           |
 
+### Authentication token link
+
+Use the `{{% token-link "<descriptor>" "<link_append>%}}` shortcode to
+automatically generate links to token management documentation. The shortcode
+accepts two _optional_ arguments:
+
+- **descriptor**: An optional token descriptor
+- **link_append**: An optional path to append to the token management link path,
+  `/<product>/<version>/admin/tokens/`.
+
+```md
+{{% token-link "database" "resource/" }}
+
+<!-- Renders as -->
+[database token](/influxdb3/enterprise/admin/tokens/resource/)
+```
+
+InfluxDB 3 Enterprise and InfluxDB 3 Core support different kinds of tokens.
+The shortcode has a blacklist of token descriptors for each that will prevent
+unsupported descriptors from appearing in the rendered output based on the 
+current product.
+
 ### Inline icons
 
 The `icon` shortcode allows you to inject icons in paragraph text.
@@ -1636,6 +1653,31 @@ Supported argument values:
 {{< influxdb/host >}}
 
 {{< influxdb/host "serverless" >}}
+```
+
+### User-populated placeholders
+
+Use the `code-placeholders` shortcode to format placeholders
+as text fields that users can populate with their own values.
+The shortcode takes a regular expression for matching placeholder names.
+Use the `code-placeholder-key` shortcode to format the placeholder names in 
+text that describes the placeholder--for example:
+
+```
+{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
+```sh
+curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
+  --header "Authorization: Token API_TOKEN" \
+  --data-binary @path/to/line-protocol.txt
+```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME` and `RETENTION_POLICY`{{% /code-placeholder-key %}}: the [database and retention policy mapping (DBRP)](/influxdb/v2/reference/api/influxdb-1x/dbrp/) for the InfluxDB v2 bucket that you want to write to
+- {{% code-placeholder-key %}}`USERNAME`{{% /code-placeholder-key %}}: your [InfluxDB 1.x username](/influxdb/v2/reference/api/influxdb-1x/#manage-credentials)
+- {{% code-placeholder-key %}}`PASSWORD_OR_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB 1.x password or InfluxDB API token](/influxdb/v2/reference/api/influxdb-1x/#manage-credentials)
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB API token](/influxdb/v2/admin/tokens/)
 ```
 
 ## InfluxDB API documentation

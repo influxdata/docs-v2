@@ -11,6 +11,12 @@ node_modules
 /content/influxdb*/**/api/**/*.html
 !api-docs/**/.config.yml
 /api-docs/redoc-static.html*
+/telegraf-build
+!telegraf-build/templates
+!telegraf-build/scripts
+!telegraf-build/README.md
+/cypress/screenshots/*
+/influxdb3cli-build-scripts/content
 .vscode/*
 .idea
 **/config.toml

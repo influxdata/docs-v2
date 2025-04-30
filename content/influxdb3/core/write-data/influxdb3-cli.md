@@ -8,7 +8,7 @@ menu:
     name: Use the influxdb3 CLI
     parent: Write data
     identifier: write-influxdb3
-weight: 101
+weight: 105
 related:
   - /influxdb3/core/reference/cli/influxdb3/write/
   - /influxdb3/core/reference/syntax/line-protocol/

@@ -1,13 +1,64 @@
 > [!Note]
-> #### InfluxDB Core and Enterprise relationship
+> #### InfluxDB 3 Core and Enterprise relationship
 >
 > InfluxDB 3 Enterprise is a superset of InfluxDB 3 Core.
 > All updates to Core are automatically included in Enterprise.
-> The Enterprise sections below only list features exclusive to Enterprise.
+> The Enterprise sections below only list updates exclusive to Enterprise.
+
+## v3.0.1 {date="2025-04-16"}
+**Core**: revision d7c071e0c4959beebc7a1a433daf8916abd51214
+
+**Enterprise**: revision 96e4aad870b44709e149160d523b4319ea91b54c
+
+### Core
+
+#### Updates
+- TLS CA can now be set with an environment variable: `INFLUXDB3_TLS_CA`
+- Other general performance improvements
+
+#### Fixes
+- The `--tags` argument is now optional for creating a table, and additionally now requires at least one tag _if_ specified
+
+### Enterprise
+
+#### Updates
+- Catalog limits for databases, tables, and columns are now configurable using `influxdb3 serve` options:
+  - `--num-database-limit`
+  - `--num-table-limit`
+  - `--num-columns-per-table-limit`
+- Improvements to licensing prompts for clarity
+- Other general performance improvements
+
+#### Fixes
+- **Home** license thread count log errors
+
+
+## v3.0.0 {date="2025-04-14"}
+
+### Core
+
+#### General Updates
+
+- Performance and reliability improvements.
+
+### Enterprise
+
+#### Token Support
+
+- Authorization is now turned on by default.
+- Token support for database level permissions are now available.
+- Token support for system level queries are now available.
+
+#### General Updates
+
+- You can now use Commercial, Trial, and At-Home licenses.
+
 
 ## v3.0.0-0.beta.3 {date="2025-04-01"}
 **Core**: revision f881c5844bec93a85242f26357a1ef3ebf419dd3
+
 **Enterprise**: revision 6bef9e700a59c0973b0cefdc6baf11583933e262
+
 ### Core
 #### General Improvements
 - InfluxDB 3 now supports graceful shutdowns when sending the interrupt signal to the service.
@@ -27,6 +78,7 @@
 
 ## v3.0.0-0.beta.2 {date="2025-03-24"}
 **Core**: revision 033e1176d8c322b763b4aefb24686121b1b24f7c
+
 **Enterprise**: revision e530fcd498c593cffec2b56d4f5194afc717d898
 
 This update brings several backend performance improvements to both Core and Enterprise in preparation for additional new features over the next several weeks! 
@@ -43,8 +95,8 @@ This update brings several backend performance improvements to both Core and Ent
 
 ##### Processing engine improvements
 - New Trigger Types:
-  - *Scheduled*: Run Python plugins on custom, time-defined basis
-  - *Request*: Call Python plugins via HTTP requests
+  - _Scheduled_: Run Python plugins on custom, time-defined basis
+  - _Request_: Call Python plugins via HTTP requests
 - New in-memory cache for storing data temporarily; cached data can be stored for a single trigger or across all triggers
 - Integration with virtual environments and install packages:
   - Specify Python virtual environment via CLI or `VIRTUAL_ENV` variable

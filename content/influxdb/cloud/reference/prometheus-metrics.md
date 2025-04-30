@@ -15,6 +15,8 @@ related:
   - /flux/v0/prometheus/, Work with Prometheus in Flux
   - /telegraf/v1/input-prometheus, Telegraf Prometheus input plugin
   - /flux/v0/stdlib/experimental/prometheus/scrape/
+source: /shared/influxdb-v2/reference/prometheus-metrics.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/prometheus-metrics.md-->

@@ -3,7 +3,7 @@ title: Create a database token
 description: >
   Use the [`influxctl token create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/create/)
   or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
-  to [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) for reading and writing data in your InfluxDB Cloud Dedicated cluster.
+  to create a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) for reading and writing data in your InfluxDB Cloud Dedicated cluster.
   Provide a token description and permissions for databases.
 menu:
   influxdb3_cloud_dedicated:
@@ -16,6 +16,7 @@ list_code_example: |
     --read-database DATABASE1_NAME \
     --read-database DATABASE2_NAME \
     --write-database DATABASE2_NAME \
+    --expires-at 2030-01-01T00:00:00Z \
     "Read-only on DATABASE1_NAME, Read/write on DATABASE2_NAME"
   ```
 
@@ -37,7 +38,9 @@ list_code_example: |
           "action": "read",
           "resource": "DATABASE_NAME"
         }
-      ]
+      ],
+      "expirationType": "datetime",
+      "expiresAt": "2030-01-01T00:00:00Z"
     }'
   ```
 aliases:
@@ -60,6 +63,7 @@ or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/) to crea
 {{% tab-content %}}
 
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->
+
 Use the [`influxctl token create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/create/)
 to create a token that grants access to databases in your {{% product-name omit=" Clustered" %}} cluster.
 
@@ -74,22 +78,31 @@ to create a token that grants access to databases in your {{% product-name omit=
       permissions to all databases. Enclose wildcards in single or double
       quotes--for example: `'*'` or `"*"`.
 
+    - _Optional_: the `--expires-at` flag with an RFC3339 date string that defines the
+      token expiration date and time--for example, `{{< datetime/current-date offset=1 >}}`.
+      If an expiration isn't set, the token does not expire until revoked.
+      
     - Token description
 
-{{% code-placeholders "DATABASE_NAME|TOKEN_DESCRIPTION" %}}
+{{% code-placeholders "DATABASE_NAME|TOKEN_DESCRIPTION|RFC3339_TIMESTAMP" %}}
 
 ```sh
 influxctl token create \
   --read-database DATABASE_NAME \
   --write-database DATABASE_NAME \
-    "Read/write token for DATABASE_NAME"
+  --expires-at RFC3339_TIMESTAMP \
+  "Read/write token for DATABASE_NAME"
 ```
 
 {{% /code-placeholders %}}
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
+  your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`RFC3339_TIMESTAMP`{{% /code-placeholder-key %}}:
+  the token expiration date and time in
+  [RFC3339 format](/influxdb3/cloud-dedicated/reference/glossary/#rfc3339-timestamp).
 
 The output is the token ID and the token string.
 **This is the only time the token string is available in plain text.**
@@ -100,28 +113,34 @@ The output is the token ID and the token string.
 <!------------------------------- BEGIN cURL ---------------------------------->
 _This example uses [cURL](https://curl.se/) to send a Management HTTP API request, but you can use any HTTP client._
 
-1. If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
-2. In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
+1.  If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
+2.  In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
-   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" method="post" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/CreateDatabaseToken" %}}
+    {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" method="post" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/CreateDatabaseToken" %}}
 
-   In the URL, provide the following credentials:
+    In the URL, provide the following credentials:
 
-   - `ACCOUNT_ID`: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
-   - `CLUSTER_ID`: The ID of the [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+    - `ACCOUNT_ID`: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+    - `CLUSTER_ID`: The ID of the [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage _(see how to [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
 
-   Provide the following request headers:
+    Provide the following request headers:
 
-   - `Accept: application/json` to ensure the response body is JSON content
-   - `Content-Type: application/json` to indicate the request body is JSON content
-   - `Authorization: Bearer` and a [Management API token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
+    - `Accept: application/json` to ensure the response body is JSON content
+    - `Content-Type: application/json` to indicate the request body is JSON content
+    - `Authorization: Bearer` and a [Management API token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
 
-   In the request body, provide the following parameters:
+    In the request body, provide the following parameters:
 
     - `permissions`: an array of token [permissions](/influxdb3/cloud-dedicated/api/management/#operation/CreateDatabaseToken) (read or write) objects:
       - `"action"`: Specify `read` or `write` permission to the database.
       - `"resource"`: Specify the database name.
     - `description`: Provide a description of the token.
+    - `expirationType`: Specify `datetime` or `noExpiration` token expiration type.
+    - `expiresAt`: Specify the token expiration date and time in
+      [RFC3339 format](/influxdb3/cloud-dedicated/reference/glossary/#rfc3339-timestamp).
+
+      > [!Note]
+      > `expiresAt` is only required when `expirationType` is `datetime`.
 
 The following example shows how to use the Management API to create a database token:
 
@@ -144,7 +163,9 @@ curl \
          "action": "read",
          "resource": "DATABASE_NAME"
        }
-     ]
+     ],
+      "expirationType": "datetime",
+      "expiresAt": "2030-01-01T00:00:00Z"
    }'
 ```
 
@@ -195,6 +216,7 @@ The Management API outputs JSON format in the response body.
 - [Create a token with read-only access to a database](#create-a-token-with-read-only-access-to-a-database)
 - [Create a token with read-only access to multiple databases](#create-a-token-with-read-only-access-to-multiple-databases)
 - [Create a token with mixed permissions to multiple databases](#create-a-token-with-mixed-permissions-to-multiple-databases)
+- [Create a token that expires in seven days](#create-a-token-that-expires-in-seven-days)
 
 In the examples below, replace the following:
 
@@ -241,7 +263,8 @@ curl \
          "action": "read",
          "resource": "DATABASE_NAME"
        }
-     ]
+     ],
+     "expirationType": "noExpiration"
    }'
 ```
 
@@ -435,3 +458,124 @@ curl \
 {{% /code-placeholders %}}
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+### Create a token that expires in seven days
+
+{{< tabs-wrapper >}}
+{{% tabs "small" %}}
+[Linux](#)
+[macOS](#)
+{{% /tabs %}}
+{{% tab-content %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[influxctl](#)
+[Management API](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
+{{% code-placeholders "DATABASE_NAME" %}}
+
+<!-- pytest.mark.skip -->
+
+```bash
+influxctl token create \
+  --read-database DATABASE_NAME \
+  --write-database DATABASE_NAME \
+  --expires-at $(date -d "+7 days" +"%Y-%m-%dT%H:%M:%S%z") \
+  "Read/write token for DATABASE_NAME with 7d expiration"
+```
+
+{{% /code-placeholders %}}
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "DATABASE_NAME" %}}
+
+```sh
+curl \
+   --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" \
+   --header "Accept: application/json" \
+   --header 'Content-Type: application/json' \
+   --header "Authorization: Bearer MANAGEMENT_TOKEN" \
+   --data "{
+     \"description\": \"Read/write token for DATABASE_NAME\",
+     \"permissions\": [
+       {
+         \"action\": \"write\",
+         \"resource\": \"DATABASE_NAME\"
+       },
+       {
+         \"action\": \"read\",
+         \"resource\": \"DATABASE_NAME\"
+       }
+     ],
+     \"expirationType\": \"datetime\",
+     \"expiresAt:\" \"$(date -d "+7 days" +"%Y-%m-%dT%H:%M:%S%z")\"
+   }"
+```
+
+{{% /code-placeholders %}}
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[influxctl](#)
+[Management API](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
+{{% code-placeholders "DATABASE_NAME" %}}
+
+<!-- pytest.mark.skip -->
+
+```bash
+influxctl token create \
+  --read-database DATABASE_NAME \
+  --write-database DATABASE_NAME \
+  --expires-at $(gdate -d "+7 days" +"%Y-%m-%dT%H:%M:%S%z") \
+  "Read/write token for DATABASE_NAME with 7d expiration"
+```
+
+{{% /code-placeholders %}}
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "DATABASE_NAME" %}}
+
+```sh
+curl \
+   --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" \
+   --header "Accept: application/json" \
+   --header 'Content-Type: application/json' \
+   --header "Authorization: Bearer MANAGEMENT_TOKEN" \
+   --data "{
+     \"description\": \"Read/write token for DATABASE_NAME\",
+     \"permissions\": [
+       {
+         \"action\": \"write\",
+         \"resource\": \"DATABASE_NAME\"
+       },
+       {
+         \"action\": \"read\",
+         \"resource\": \"DATABASE_NAME\"
+       }
+     ],
+     \"expirationType\": \"datetime\",
+     \"expiresAt:\" \"$(gdate -d "+7 days" +"%Y-%m-%dT%H:%M:%S%z")\"
+   }"
+```
+
+{{% /code-placeholders %}}
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}

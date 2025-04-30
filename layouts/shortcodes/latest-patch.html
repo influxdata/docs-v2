@@ -1,28 +1,28 @@
-{{- $scratch := newScratch -}}
 {{- $cli := .Get "cli" | default false }}
-{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- $parsedProduct := index $productPathData 0 | default "influxdb" -}}
-{{- $parsedVersion := index $productPathData 1 -}}
+{{- $productPathData := split .Page.RelPermalink "/" -}}
+{{- $parsedProduct := index $productPathData 1 | default "influxdb" -}}
+{{- $parsedVersion := index $productPathData 2 -}}
 {{- $productArg := .Get "product" | default "" -}}
 {{- $versionArg := .Get "version" | default "" -}}
-{{- $minorVersionOffset := .Get "minorVersionOffset" | default 0 -}}
 {{- $product := cond (gt (len $productArg) 0) $productArg $parsedProduct -}}
 {{- $latestVersion := replaceRE `\..*$` "" (index (index .Site.Data.products $product) "latest") -}}
-{{- $versionNoOffset := cond (gt (len $versionArg) 0) $versionArg (cond (ne $product $parsedProduct) $latestVersion $parsedVersion) -}}
-{{- $version := replaceRE `\d+$` (add (int (index (findRE `\d+$` $versionNoOffset) 0)) $minorVersionOffset) $versionNoOffset  -}}
+{{- $version := cond (gt (len $versionArg) 0) $versionArg $parsedVersion  -}}
 {{- $patchVersions := index (index .Site.Data.products $product) "latest_patches" -}}
 {{- $cliVersions := index .Site.Data.products.influxdb "latest_cli" -}}
+{{- $isInfluxDB3 := eq $product "influxdb3" -}}
 {{- if $cli }}
   {{- if eq $version "cloud" -}}
-    {{- $scratch.Set "patchVersion" (index $cliVersions $latestVersion) -}}
+    {{- .Store.Set "patchVersion" (index $cliVersions $latestVersion) -}}
   {{- else -}}
-    {{- $scratch.Set "patchVersion" (index $cliVersions $version) -}}
+    {{- .Store.Set "patchVersion" (index $cliVersions $version) -}}
   {{- end -}}
 {{- else -}}
   {{- if eq $version "cloud" -}}
-    {{- $scratch.Set "patchVersion" (index $patchVersions $latestVersion) -}}
+    {{- .Store.Set "patchVersion" (index $patchVersions $latestVersion) -}}
+  {{- else if $isInfluxDB3 -}}
+    {{- .Store.Set "patchVersion" (index .Site.Data.products (print $product "_" $version)).latest_patch -}}
   {{- else -}}
-    {{- $scratch.Set "patchVersion" (index $patchVersions $version) -}}
+    {{- .Store.Set "patchVersion" (index $patchVersions $version) -}}
   {{- end -}}
 {{- end -}}
-{{- $scratch.Get "patchVersion" -}}
+{{- .Store.Get "patchVersion" -}}

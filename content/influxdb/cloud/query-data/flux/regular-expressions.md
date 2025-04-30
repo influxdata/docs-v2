@@ -12,6 +12,8 @@ related:
   - /influxdb/cloud/query-data/flux/query-fields/
   - /flux/v0/stdlib/regexp/
 list_query_example: regular_expressions
+source: /shared/influxdb-v2/query-data/flux/regular-expressions.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/regular-expressions.md-->
