@@ -10,7 +10,6 @@ processing engine.
 influxdb3 create trigger [OPTIONS] \
   --database <DATABASE_NAME> \
   --token <AUTH_TOKEN> \
-  --plugin <PLUGIN_NAME> \
   --trigger-spec <TRIGGER_SPECIFICATION> \
   <TRIGGER_NAME>
 ```
@@ -26,7 +25,6 @@ influxdb3 create trigger [OPTIONS] \
 | `-H`   | `--host`         | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 | `-d`   | `--database`     | _({{< req >}})_ Name of the database to operate on                                       |
 |        | `--token`        | _({{< req >}})_ Authentication token                                                     |
-|        | `--plugin`       | Plugin to execute when the trigger fires                                                 |
 |        | `--trigger-spec` | Trigger specification--for example `table:<TABLE_NAME>` or `all_tables`                  |
 |        | `--disabled`     | Create the trigger in disabled state                                                     |
 |        | `--tls-ca`       | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
