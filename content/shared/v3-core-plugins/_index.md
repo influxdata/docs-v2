@@ -3,7 +3,8 @@ The Processing Engine lets you automate workflows, transform data, and create AP
 
 ## What is the Processing Engine?
 
-The Processing Engine is an embedded Python virtual machine that runs inside your InfluxDB 3 database. It executes Python code in response to:
+The Processing Engine is an embedded Python virtual machine that runs inside your {{% product-name %}} database.
+You configure Processing Engine _triggers_ to run your Python _plugin_ code in response to:
 
 - **Data writes** - Process and transform data as it enters the database
 - **Scheduled events** - Run code at specific intervals or times
