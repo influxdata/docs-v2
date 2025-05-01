@@ -43,7 +43,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
 ## Set up the Processing engine
 
 To enable the Processing engine, start your {{% product-name %}} server with the `--plugin-dir` flag to specify where your plugin files are stored.
-
+{{% code-placeholders "NODE_ID|OBJECT_STORE_TYPE|/PATH/TO/PLUGINS" %}}
 ```bash
 influxdb3 serve \
   --node-id node0 \
