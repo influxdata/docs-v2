@@ -95,11 +95,11 @@ influxdb3 create last_cache \
   my_temp_cache
 ```
 
-<!--pytest.mark.skip-->
-
 ## Create a last value cache with multiple keys and values
 
 This example shows how to configure a more complex cache:
+
+<!--pytest.mark.skip-->
 
 ```bash
 influxdb3 create last_cache \

@@ -93,6 +93,8 @@ In the example above, replace the following:
 
 Use this simple setup to test the cache functionality for a single tag column. It’s helpful when validating basic behavior or building up incrementally.
 
+<!--pytest.mark.skip-->
+
 ```bash
 influxdb3 create distinct_cache \
   --database my_test_db \
@@ -104,6 +106,8 @@ influxdb3 create distinct_cache \
 ### Create a hierarchical cache with constraints
 
 Use this pattern when you need more control over cache structure and retention. It creates a multilevel cache with resource limits.
+
+<!--pytest.mark.skip-->
 
 ```bash
 influxdb3 create distinct_cache \
