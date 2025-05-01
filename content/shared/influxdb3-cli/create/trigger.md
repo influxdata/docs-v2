@@ -88,7 +88,7 @@ This is useful when you want a trigger to apply to any table in the database, re
 
 ### Create a disabled trigger
 
-Use this command to create a trigger in a disabled state. You can enable the trigger later using the update trigger command.
+Use this command to create a trigger in a disabled state. 
 
 <!--pytest.mark.skip-->
 
