@@ -88,7 +88,7 @@ Use this example to create a simple cache for a single key and value column:
 
 ```bash
 influxdb3 create last_cache \
-  --database my_test_db \
+  --database DATABASE_NAME \
   --table my_sensor_table \
   --key-columns room \
   --value-columns temp \
@@ -103,7 +103,7 @@ This example shows how to configure a more complex cache:
 
 ```bash
 influxdb3 create last_cache \
-  --database my_test_db \
+  --database DATABASE_NAME \
   --table my_sensor_table \
   --key-columns room,sensor_id \
   --value-columns temp,hum \

@@ -47,6 +47,6 @@ influxdb3 create database \
 
 > [!Tip] 
 > Set the token as an environment variable to simplify repeated commands:
->    ```bash 
->    export INFLUXDB3_AUTH_TOKEN=YOUR_ADMIN_TOKEN
->    ```
+> ```bash 
+> export INFLUXDB3_AUTH_TOKEN=YOUR_ADMIN_TOKEN
+> ```
