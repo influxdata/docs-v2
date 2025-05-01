@@ -41,4 +41,65 @@ You can use the following environment variables to set command options:
 | `INFLUXDB3_DATABASE_NAME` | `--database` |
 | `INFLUXDB3_AUTH_TOKEN`    | `--token`    |
 
-<!-- TODO: GET EXAMPLES -->
+## Examples
+
+The following examples show how to use the `influxdb3 create trigger` command to create triggers in different scenarios.
+
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Database name
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
+Authentication token
+- {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}:
+Name of the trigger to create
+- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}:
+Name of the table to trigger on
+
+{{% code-placeholders "(DATABASE|TRIGGER)_NAME|AUTH_TOKEN|TABLE_NAME" %}}
+
+### Create a trigger for a specific table
+
+Use this command to create a trigger that processes data from a specific table.
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create trigger \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --trigger-spec table:TABLE_NAME \
+  TRIGGER_NAME
+```
+
+### Create a trigger for all tables
+
+Use this command to create a trigger that applies to all tables in the specified database.
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create trigger \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --trigger-spec all_tables \
+  TRIGGER_NAME
+```
+
+This is useful when you want a trigger to apply to any table in the database, regardless of name.
+
+### Create a disabled trigger
+
+Use this command to create a trigger in a disabled state. You can enable the trigger later using the update trigger command.
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create trigger \
+  --disabled \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --trigger-spec table:TABLE_NAME \
+  TRIGGER_NAME
+```
+Creating a trigger in a disabled state prevents it from running immediately. You can enable it later when you're ready to activate it.
+
+{{% /code-placeholders %}}
