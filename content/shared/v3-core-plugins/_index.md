@@ -10,7 +10,8 @@ You configure Processing Engine _triggers_ to run your Python _plugin_ code in r
 - **Scheduled events** - Run code at specific intervals or times
 - **HTTP requests** - Create custom API endpoints that execute your code
 
-The engine maintains state between executions using an in-memory cache, allowing you to build stateful applications directly in your database.
+You can use the Processing Engine in-memory cache to store and manage state between plugin executions, allowing you to 
+build stateful applications directly in your database.
 
 This guide shows you how to set up the Processing Engine, create your first plugin, and configure triggers that execute your code when specific events occur.
 
