@@ -42,7 +42,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
 
 ## Set up the Processing engine
 
-To enable the Processing engine, start your InfluxDB server with the `--plugin-dir` flag to specify where your plugin files are stored.
+To enable the Processing engine, start your {{% product-name %}} server with the `--plugin-dir` flag to specify where your plugin files are stored.
 
 ```bash
 influxdb3 serve \
