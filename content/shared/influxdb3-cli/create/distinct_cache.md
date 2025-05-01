@@ -77,7 +77,7 @@ In the example above, replace the following:
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
   Table name
 - {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: 
-  Name of the distinct value cache to delete
+  Name of the distinct value cache to create
 - {{% code-placeholder-key %}}`COLUMN_NAME`{{% /code-placeholder-key %}}: Column to cache distinct values from
 
 
