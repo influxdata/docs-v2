@@ -121,7 +121,7 @@ influxdb3 create distinct_cache \
 
 {{% /code-placeholders %}}
 
-## Common pitfals
+## Common pitfalls
 
 - `--column` is not valid—must use `--columns`
 - Tokens must be included explicitly unless set via `INFLUXDB3_AUTH_TOKEN`
