@@ -86,4 +86,21 @@ influxdb3 create table \
   TABLE_NAME
 ```
 
+### Verification
+
+Use the following command to confirm that your table was created:
+
+```bash
+influxdb3 query \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  "SHOW TABLES"
+```
+
+If successful, you’ll see a list of tables in the specified database, including the new one.
+
+>[!Note]
+> The `SHOW TABLES SQL` query must be run using the influxdb3 query CLI.
+> HTTP requests to /api/v3/query are not supported in local or OSS builds of {{< product-name >}}.
+
 {{% /code-placeholders %}}

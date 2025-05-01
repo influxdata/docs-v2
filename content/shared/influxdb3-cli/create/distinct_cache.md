@@ -1,4 +1,3 @@
-
 The `influxdb3 create distinct_cache` command creates a new distinct value cache.
 
 ## Usage
@@ -52,11 +51,23 @@ You can use the following environment variables to set command options:
 | `INFLUXDB3_DATABASE_NAME` | `--database` |
 | `INFLUXDB3_AUTH_TOKEN`    | `--token`    |
 
+
+## Prerequisites
+Before creating a distinct value cache, you must:
+
+- Create a [database](/influxdb3/version/reference/cli/influxdb3/create/database/).
+
+- Create a [table](/influxdb3/version/reference/cli/influxdb3/create/table/) with the columns you want to cache.
+
+- Have a valid authentication token.
+
 ## Examples
 
-### Create a distinct value cache
-
 {{% code-placeholders "(DATABASE|TABLE|COLUMN|CACHE)_NAME" %}}
+
+### Generix syntax
+
+Use this as a template to adapt the command to your environment. 
 
 <!--pytest.mark.skip-->
 
@@ -68,8 +79,6 @@ influxdb3 create distinct_cache \
   CACHE_NAME
 ```
 
-{{% /code-placeholders %}}
-
 In the example above, replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
@@ -80,5 +89,37 @@ In the example above, replace the following:
   Name of the distinct value cache to create
 - {{% code-placeholder-key %}}`COLUMN_NAME`{{% /code-placeholder-key %}}: Column to cache distinct values from
 
+### Create a distinct value cache for one column
 
+Use this simple setup to test the cache functionality for a single tag column. It’s helpful when validating basic behavior or building up incrementally.
+
+```bash
+influxdb3 create distinct_cache \
+  --database my_test_db \
+  --table my_sensor_table \
+  --columns room \
+  my_room_cache
+```
+
+### Create a hierarchical cache with constraints
+
+Use this pattern when you need more control over cache structure and retention. It creates a multilevel cache with resource limits.
+
+```bash
+influxdb3 create distinct_cache \
+  --database my_test_db \
+  --table my_sensor_table \
+  --columns room,sensor_id \
+  --max-cardinality 1000 \
+  --max-age 30d \
+  my_sensor_distinct_cache
+```
+
+{{% /code-placeholders %}}
+
+## Common pitfals
+
+- `--column` is not valid—must use `--columns`
+- Tokens must be included explicitly unless set via `INFLUXDB3_AUTH_TOKEN`
+- Table and column names must already exist or be recognized by the engine
 
