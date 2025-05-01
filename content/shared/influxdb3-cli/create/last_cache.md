@@ -47,7 +47,7 @@ You can use the following environment variables to set command options:
 
 Before creating a last value cache, you must:
 
-Before creating a distinct value cache, you must:
+Before creating a last value cache, you must:
 
 1. Create a [database](/influxdb3/version/reference/cli/influxdb3/create/database/).
 
