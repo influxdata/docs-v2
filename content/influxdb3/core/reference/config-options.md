@@ -107,7 +107,6 @@ influxdb3 serve
   - [max-http-request-size](#max-http-request-size)
   - [http-bind](#http-bind)
 - [Memory](#memory)
-  - [ram-pool-data-bytes](#ram-pool-data-bytes)
   - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
   - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
   - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
@@ -779,22 +778,9 @@ Defines the address on which InfluxDB serves HTTP API requests.
 
 ### Memory
 
-- [ram-pool-data-bytes](#ram-pool-data-bytes)
 - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
 - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
 - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
-
-#### ram-pool-data-bytes
-
-Specifies the size of the RAM cache used to store data, in bytes.
-
-**Default:** `1073741824`
-
-| influxdb3 serve option  | Environment variable            |
-| :---------------------- | :------------------------------ |
-| `--ram-pool-data-bytes` | `INFLUXDB3_RAM_POOL_DATA_BYTES` |
-
----
 
 #### exec-mem-pool-bytes
 

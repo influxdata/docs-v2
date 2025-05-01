@@ -82,7 +82,6 @@ influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 |                  | `--datafusion-config`                                | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-config)_                                |
 |                  | `--max-http-request-size`                            | _See [configuration options](/influxdb3/core/reference/config-options/#max-http-request-size)_                            |
 |                  | `--http-bind`                                        | _See [configuration options](/influxdb3/core/reference/config-options/#http-bind)_                                        |
-|                  | `--ram-pool-data-bytes`                              | _See [configuration options](/influxdb3/core/reference/config-options/#ram-pool-data-bytes)_                              |
 |                  | `--exec-mem-pool-bytes`                              | _See [configuration options](/influxdb3/core/reference/config-options/#exec-mem-pool-bytes)_                              |
 |                  | `--gen1-duration`                                    | _See [configuration options](/influxdb3/core/reference/config-options/#gen1-duration)_                                    |
 |                  | `--wal-flush-interval`                               | _See [configuration options](/influxdb3/core/reference/config-options/#wal-flush-interval)_                               |
