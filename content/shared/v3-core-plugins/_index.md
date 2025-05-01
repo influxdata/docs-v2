@@ -1,4 +1,5 @@
-Extend InfluxDB 3 with custom Python code that responds to database events. The Processing Engine lets you automate workflows, transform data, and create API endpoints directly within your {{% product-name %}}.
+Extend InfluxDB 3 with custom Python code that you can trigger on write, on a schedule, or on demand.
+The Processing Engine lets you automate workflows, transform data, and create API endpoints directly within your {{% product-name %}}.
 
 ## What is the Processing Engine?
 
