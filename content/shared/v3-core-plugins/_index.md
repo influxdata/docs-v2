@@ -81,7 +81,7 @@ The plugin directory must exist before you start InfluxDB.
 
 ## Add a Processing engine plugin
 
-A plugin is a Python file that contains a specific function signature that corresponds to a trigger type. InfluxData maintains a repository of contributed plugins that you can use as-is or as a starting point for your own plugin.
+A plugin is a Python file that contains a specific function signature that corresponds to a type of trigger (a _trigger spec_).
 
 You have two main options for adding plugins to your InfluxDB instance:
 
