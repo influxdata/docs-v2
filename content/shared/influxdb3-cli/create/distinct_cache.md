@@ -65,7 +65,7 @@ Before creating a distinct value cache, you must:
 
 {{% code-placeholders "(DATABASE|TABLE|COLUMN|CACHE)_NAME" %}}
 
-### Generix syntax
+### Generic syntax
 
 Use this as a template to adapt the command to your environment. 
 
