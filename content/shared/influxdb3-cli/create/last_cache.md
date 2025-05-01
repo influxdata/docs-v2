@@ -6,7 +6,10 @@ The `influxdb3 create last_cache` command creates a new last value cache.
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create last_cache [OPTIONS] --database <DATABASE_NAME> --table <TABLE> [CACHE_NAME]
+influxdb3 create last_cache [OPTIONS] \
+  --database <DATABASE_NAME> \
+  --table <TABLE_NAME> \
+  [CACHE_NAME]
 ```
 
 ## Arguments
@@ -40,9 +43,21 @@ You can use the following environment variables to set command options:
 | `INFLUXDB3_DATABASE_NAME` | `--database` |
 | `INFLUXDB3_AUTH_TOKEN`    | `--token`    |
 
+## Prerequisites
+
+Before creating a last value cache, you must:
+
+Before creating a distinct value cache, you must:
+
+1. Create a [database](/influxdb3/version/reference/cli/influxdb3/create/database/).
+
+2. Create a [table](/influxdb3/version/reference/cli/influxdb3/create/table/) with the columns you want to cache.
+
+3. Have a valid authentication token.
+
 ## Examples
 
-### Create a last value cache
+### Generic syntax
 
 {{% code-placeholders "(DATABASE|TABLE|CACHE)_NAME (TAG_COLUMN|FIELD_COLUMN)" %}}
 
@@ -57,8 +72,6 @@ influxdb3 create last_cache \
   CACHE_NAME
 ```
 
-{{% /code-placeholders %}}
-
 In the example above, replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Database name
@@ -66,3 +79,43 @@ In the example above, replace the following:
 - {{% code-placeholder-key %}}`TAG_COLUMN`{{% /code-placeholder-key %}}: Column to use as the key in the cache
 - {{% code-placeholder-key %}}`FIELD_COLUMN`{{% /code-placeholder-key %}}: Column to store as the value in the cache
 - {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: Optional name for the last value cache
+
+## Create a basic last value cache for one column
+
+Use this example to create a simple cache for a single key and value column:
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create last_cache \
+  --database my_test_db \
+  --table my_sensor_table \
+  --key-columns room \
+  --value-columns temp \
+  my_temp_cache
+```
+
+<!--pytest.mark.skip-->
+
+## Create a last value cache with multiple keys and values
+
+This example shows how to configure a more complex cache:
+
+```bash
+influxdb3 create last_cache \
+  --database my_test_db \
+  --table my_sensor_table \
+  --key-columns room,sensor_id \
+  --value-columns temp,hum \
+  --count 10 \
+  --ttl 1h \
+  my_sensor_cache
+```
+
+{{% /code-placeholders %}}
+
+## Common pitfalls
+
+- All specified key and value columns must exist in the table schema.
+- Tokens must be passed with `--token` unless set via environment variable.
+- If not specified, default values are used for `--count` and `--ttl`.

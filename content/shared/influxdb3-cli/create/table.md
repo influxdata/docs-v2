@@ -90,6 +90,8 @@ influxdb3 create table \
 
 Use the following command to confirm that your table was created:
 
+<!--pytest.mark.skip-->
+
 ```bash
 influxdb3 query \
   --database DATABASE_NAME \
@@ -97,7 +99,28 @@ influxdb3 query \
   "SHOW TABLES"
 ```
 
-If successful, you’ll see a list of tables in the specified database, including the new one.
+If successful, you’ll see a list of tables in the specified database, including the new one. The expected output should look similar to:
+
+<!--pytest.mark.skip-->
+
+```bash
++---------------+--------------------+----------------------------+------------+
+| table_catalog | table_schema       | table_name                 | table_type |
++---------------+--------------------+----------------------------+------------+
+| public        | iox                | my_sensor_table            | BASE TABLE |
+| public        | system             | distinct_caches            | BASE TABLE |
+| public        | system             | last_caches                | BASE TABLE |
+| public        | system             | parquet_files              | BASE TABLE |
+| public        | system             | processing_engine_logs     | BASE TABLE |
+| public        | system             | processing_engine_triggers | BASE TABLE |
+| public        | system             | queries                    | BASE TABLE |
+| public        | information_schema | tables                     | VIEW       |
+| public        | information_schema | views                      | VIEW       |
+| public        | information_schema | columns                    | VIEW       |
+| public        | information_schema | df_settings                | VIEW       |
+| public        | information_schema | schemata                   | VIEW       |
++---------------+--------------------+----------------------------+------------+
+```
 
 >[!Note]
 > The `SHOW TABLES SQL` query must be run using the influxdb3 query CLI.

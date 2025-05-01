@@ -55,11 +55,11 @@ You can use the following environment variables to set command options:
 ## Prerequisites
 Before creating a distinct value cache, you must:
 
-- Create a [database](/influxdb3/version/reference/cli/influxdb3/create/database/).
+1. Create a [database](/influxdb3/version/reference/cli/influxdb3/create/database/).
 
-- Create a [table](/influxdb3/version/reference/cli/influxdb3/create/table/) with the columns you want to cache.
+2. Create a [table](/influxdb3/version/reference/cli/influxdb3/create/table/) with the columns you want to cache.
 
-- Have a valid authentication token.
+3. Have a valid authentication token.
 
 ## Examples
 
