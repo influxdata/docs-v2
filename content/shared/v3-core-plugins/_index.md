@@ -233,7 +233,7 @@ A trigger connects your plugin to a specific database event.
 The plugin function signature in your plugin file determines which _trigger specification_
 you can choose for configuring and activating your plugin.
 
-After setting up your plugin, you need to connect it to specific database events using triggers. 
+After setting up your plugin, configure a trigger to run it for a specific event. 
 
 ### Understand trigger types
 
