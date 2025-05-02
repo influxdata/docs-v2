@@ -10,7 +10,7 @@ The plugin API lets you:
 - [Maintain state with in-memory cache](#maintain-state-with-in-memory-cache)
 - [Guidelines for in-memory caching](#guidelines-for-in-memory-caching)
 
-### Get started with the shared API
+## Get started with the shared API
 
 Every plugin has access to the shared API through the `influxdb3_local` object. You don't need to import any libraries to use the API. It's available as soon as your plugin runs.
 
