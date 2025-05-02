@@ -25,6 +25,7 @@ environment variables.
 
 ```sh
 influxdb3 serve \
+  --license-email example@email.com \
   --object-store file \
   --data-dir ~/.influxdb3 \
   --node-id NODE_ID \
@@ -39,6 +40,7 @@ influxdb3 serve \
 <!--pytest.mark.skip-->
 
 ```sh
+export INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=example@email.com
 export INFLUXDB3_OBJECT_STORE=file
 export INFLUXDB3_DB_DIR=~/.influxdb3
 export INFLUXDB3_WRITER_IDENTIFIER_PREFIX=my-host
@@ -52,12 +54,13 @@ influxdb3 serve
 ## Server configuration options
 
 - [General](#general)
-  - [object-store](#object-store)
-  - [data-dir](#data-dir)
-  - [node-id](#node-id)
   - [cluster-id](#cluster-id)
-  - [mode](#mode)
+  - [data-dir](#data-dir)
   - [license-email](#license-email)
+  - [license-file](#license-file)
+  - [mode](#mode)
+  - [node-id](#node-id)
+  - [object-store](#object-store)
   - [query-file-limit](#query-file-limit)
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
@@ -145,30 +148,23 @@ influxdb3 serve
 
 ### General
 
-- [object-store](#object-store)
-- [bucket](#bucket)
-- [data-dir](#data-dir)
-- [node-id](#node-id)
 - [cluster-id](#cluster-id)
-- [mode](#mode)
+- [data-dir](#data-dir)
 - [license-email](#license-email)
+- [license-file](#license-file)
+- [mode](#mode)
+- [node-id](#node-id)
+- [object-store](#object-store)
 - [query-file-limit](#query-file-limit)
 
-#### object-store
+#### cluster-id
 
-Specifies which object storage to use to store Parquet files.
-This option supports the following values:
+Specifies the cluster identifier that prefixes the object store path for the Enterprise Catalog. 
+This value must be different than the [`--node-id`](#node-id) value.
 
-- `memory` _(default)_: Effectively no object persistence
-- `memory-throttled`: Like `memory` but with latency and throughput that somewhat resembles a cloud object store
-- `file`: Stores objects in the local filesystem (must also set `--data-dir`)
-- `s3`: Amazon S3 (must also set `--bucket`, `--aws-access-key-id`, `--aws-secret-access-key`, and possibly `--aws-default-region`)
-- `google`: Google Cloud Storage (must also set `--bucket` and `--google-service-account`)
-- `azure`: Microsoft Azure blob storage (must also set `--bucket`, `--azure-storage-account`, and `--azure-storage-access-key`)
-
-| influxdb3 serve option | Environment variable     |
-| :--------------------- | :----------------------- |
-| `--object-store`       | `INFLUXDB3_OBJECT_STORE` |
+| influxdb3 serve option | Environment variable               |
+| :--------------------- | :--------------------------------- |
+| `--cluster-id`         | `INFLUXDB3_ENTERPRISE_my-cluster-01`  |
 
 ---
 
@@ -182,26 +178,27 @@ Defines the location {{< product-name >}} uses to store files locally.
 
 ---
 
-#### node-id
+#### license-email
 
-Specifies the node identifier used as a prefix in all object store file paths.
-This should be unique for any hosts sharing the same object store
-configuration--for example, the same bucket.
+Specifies the email address to associate with your {{< product-name >}} license
+and automatically responds to the interactive email prompt when the server starts.
+This option is mutually exclusive with [license-file](#license-file).
 
-| influxdb3 serve option | Environment variable               |
-| :--------------------- | :--------------------------------- |
-| `--node-id`            | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` |
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-email`      | `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` |
 
 ---
 
-#### cluster-id
+#### license-file
 
-Specifies the cluster identifier that prefixes the object store path for the Enterprise Catalog. 
-This value must be different than the [`--node-id`](#node-id) value.
+Specifies the path to a license file for {{< product-name >}}. When provided, the license
+file's contents are used instead of requesting a new license.
+This option is mutually exclusive with [license-email](#license-email).
 
-| influxdb3 serve option | Environment variable               |
-| :--------------------- | :--------------------------------- |
-| `--cluster-id`         | `INFLUXDB3_ENTERPRISE_my-cluster-01`  |
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-file`       | `INFLUXDB3_ENTERPRISE_LICENSE_FILE`  |
 
 ---
 
@@ -227,14 +224,33 @@ You can specify multiple modes using a comma-delimited list (for example, `inges
 
 ---
 
-#### license-email
+#### node-id
 
-Specifies the email address to associate with your {{< product-name >}} license
-and automatically responds to the interactive email prompt when the server starts.
+Specifies the node identifier used as a prefix in all object store file paths.
+This should be unique for any hosts sharing the same object store
+configuration--for example, the same bucket.
 
-| influxdb3 serve option | Environment variable                 |
-| :--------------------- | :----------------------------------- |
-| `--license-email`      | `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` |
+| influxdb3 serve option | Environment variable               |
+| :--------------------- | :--------------------------------- |
+| `--node-id`            | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` |
+
+---
+
+#### object-store
+
+Specifies which object storage to use to store Parquet files.
+This option supports the following values:
+
+- `memory` _(default)_: Effectively no object persistence
+- `memory-throttled`: Like `memory` but with latency and throughput that somewhat resembles a cloud object store
+- `file`: Stores objects in the local filesystem (must also set `--data-dir`)
+- `s3`: Amazon S3 (must also set `--bucket`, `--aws-access-key-id`, `--aws-secret-access-key`, and possibly `--aws-default-region`)
+- `google`: Google Cloud Storage (must also set `--bucket` and `--google-service-account`)
+- `azure`: Microsoft Azure blob storage (must also set `--bucket`, `--azure-storage-account`, and `--azure-storage-access-key`)
+
+| influxdb3 serve option | Environment variable     |
+| :--------------------- | :----------------------- |
+| `--object-store`       | `INFLUXDB3_OBJECT_STORE` |
 
 ---
 

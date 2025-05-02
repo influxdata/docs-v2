@@ -13,13 +13,24 @@ weight: 101
 {{< product-name >}} licenses authorize the use of the {{< product-name >}}
 software and apply to a single cluster. Licenses are primarily based on the
 number of CPUs InfluxDB can use, but there are other limitations depending on
-the license type. The following {{< product-name >}} license types are available:
+the license type.
+
+- [License feature comparison](#license-feature-comparison)
+- [CPU limit](#cpu-limit)
+  - [CPU accounting](#cpu-accounting)
+- [Activate a license](#activate-a-license)
+  - [Activate a Trial or At-Home license](#activate-a-trial-or-at-home-license)
+  - [Activate a Commercial license](#activate-a-commercial-license)
+- [Renew a license](#renew-a-license)
+- [Expiration behavior](#expiration-behavior)
+
+## License feature comparison
+
+The following {{< product-name >}} license types are available:
 
 - **Trial**: 30-day trial license with full access to {{< product-name >}} capabilities.
 - **At-Home**: For at-home hobbyist use with limited access to {{< product-name >}} capabilities.
 - **Commercial**: Commercial license with full access to {{< product-name >}} capabilities.
-
-#### License feature comparison
 
 | Features       |           Trial           | At-Home |        Commercial         |
 | :------------- | :-----------------------: | :-----: | :-----------------------: |
@@ -86,17 +97,19 @@ email address. The server auto-generates and stores your license.
 
     InfluxData will provide you with a Commercial license file.
 
-2.  Provide the following when starting the {{< product-name >}} server:
+2.  Provide ONE of the following authentication methods when starting the {{< product-name >}} server:
 
     - **License email**: The email address associated with your Commercial license.
       
       Use either the `--license-email` option or set the
       `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable.
 
-    - **License file**: The file path of the provided Commercial license file.
+    - **License file**: The file path of the Commercial license file you received in the previous step.
       
       Use either the `--license-file` option or set the
       `INFLUXDB3_ENTERPRISE_LICENSE_FILE` environment variable.
+
+#### Example: Start the {{< product-name >}} server with your license email:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -108,11 +121,10 @@ email address. The server auto-generates and stores your license.
 <!-- pytest.mark.skip -->
 ```bash
 influxdb3 serve \
-  --cluster-id cluster01 \
-  --node-id node01 \
-  --license-email example@email.com \
-  --license-file /path/to/license-file.jwt \
-  # ...
+--cluster-id cluster01 \
+--node-id node01 \
+--license-email example@email.com \
+# ...
 ```
 <!------------------------- END INFLUXDB3 CLI OPTIONS ------------------------->
 {{% /code-tab-content %}}
@@ -121,12 +133,45 @@ influxdb3 serve \
 <!-- pytest.mark.skip -->
 ```bash
 INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=example@email.com
+
+influxdb3 serve \
+--cluster-id cluster01 \
+--node-id node01 \
+# ...
+```
+<!------------------------- END ENVIRONMENT VARIABLES ------------------------->
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+#### Example: Start the {{< product-name >}} server with your license file:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[influxdb3 options](#)
+[Environment variables](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+<!------------------------ BEGIN INFLUXDB3 CLI OPTIONS ------------------------>
+<!-- pytest.mark.skip -->
+```bash
+influxdb3 serve \
+--cluster-id cluster01 \
+--node-id node01 \
+--license-file /path/to/license-file.jwt \
+# ...
+```
+<!------------------------- END INFLUXDB3 CLI OPTIONS ------------------------->
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!------------------------ BEGIN ENVIRONMENT VARIABLES ------------------------>
+<!-- pytest.mark.skip -->
+```bash
 INFLUXDB3_ENTERPRISE_LICENSE_FILE=/path/to/license-file.jwt
 
 influxdb3 serve \
-  --cluster-id cluster01 \
-  --node-id node01 \
-  # ...
+--cluster-id cluster01 \
+--node-id node01 \
+# ...
 ```
 <!------------------------- END ENVIRONMENT VARIABLES ------------------------->
 {{% /code-tab-content %}}
