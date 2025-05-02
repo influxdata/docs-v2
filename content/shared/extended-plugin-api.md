@@ -30,7 +30,7 @@ line.time_ns(1627680000000000000)
 influxdb3_local.write(line)
 ```
 
-Your writes are buffered while the plugin runs and are flushed when the plugin completes. 
+InfluxDB 3 buffers your writes while the plugin runs and flushes them when the plugin completes. 
 
 {{% expand-wrapper %}}
 {{% expand "View the `LineBuilder` Python implementation" %}}
