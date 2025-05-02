@@ -51,12 +51,11 @@ influxdb3 serve \
   --plugin-dir /path/to/plugins
 ```
 
-Replace: 
-- `<NODE_ID>` with a unique identifier for your instance
-- `<OBJECT_STORE_TYPE>` with the type of object store (e.g., file, memory, s3)
-- /absolute/path/to/plugins with the path to your plugin directory
-
-Replace `/path/to/plugins` with the directory where you want to store your Python plugin files. All plugin files must be located in this directory or its subdirectories.
+{{% /code-placeholders %}}
+Replace the following: 
+- {{% code-placeholder-key %}}`NODE_ID`{{% /code-placeholder-key %}}: a unique identifier for your instance
+- {{% code-placeholder-key %}}`OBJECT_STORE_TYPE`{{% /code-placeholder-key %}}: the type of object store (for example: `file` or `s3`)
+- {{% code-placeholder-key %}}`/PATH/TO/PLUGINS`{{% /code-placeholder-key %}}: the absolute path to the directory where you want to store your Python plugin files. _All plugin files must be located in this directory or its subdirectories.
 
 ### Configure distributed environments
 
@@ -145,9 +144,9 @@ First, determine which type of plugin you need based on your automation goals:
 
 #### Create your plugin file
 
-1. Create a `.py` file in your plugins directory
-2. Add the appropriate function signature based on your chosen plugin type
-3. Implement your processing logic inside the function
+- Create a `.py` file in your plugins directory
+- Add the appropriate function signature based on your chosen plugin type
+- Implement your processing logic inside the function
 
 ##### Option A: Create a data write plugin
 
