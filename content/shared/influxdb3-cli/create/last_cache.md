@@ -49,11 +49,9 @@ Before creating a last value cache, you must:
 
 Before creating a distinct value cache, you must:
 
-1. Create a [database](/influxdb3/version/reference/cli/influxdb3/create/database/).
-
-2. Create a [table](/influxdb3/version/reference/cli/influxdb3/create/table/) with the columns you want to cache.
-
-3. Have a valid authentication token.
+- Create a [database](/influxdb3/version/reference/cli/influxdb3/create/database/).
+- Create a [table](/influxdb3/version/reference/cli/influxdb3/create/table/) with the columns you want to cache.
+- Have a valid authentication token.
 
 ## Examples
 
