@@ -212,7 +212,12 @@ The cache system offers two distinct namespaces:
 | **Global** | Shared across all triggers | Configuration, lookup tables, service states that should be available to all plugins |
 
 ### Common cache operations
-Here are some examples of how to use the cache in your plugins
+- [Store and retrieve cached data](#store-and-retrieve-cached-data)
+- [Store cached data with expiration](#store-cached-data-with-expiration)
+- [Share data across plugins](#share-data-across-plugins)
+- [Build a counter](#build-a-counter)
+
+#### Store and retrieve cached data
 
 ##### Store and retrieve cached data
 
