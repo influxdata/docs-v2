@@ -46,12 +46,13 @@ To enable the Processing engine, start your {{% product-name %}} server with the
 {{% code-placeholders "NODE_ID|OBJECT_STORE_TYPE|/PATH/TO/PLUGINS" %}}
 ```bash
 influxdb3 serve \
-  --node-id node0 \
+  --NODE_ID node0 \
   --object-store [OBJECT_STORE_TYPE] \
-  --plugin-dir /path/to/plugins
+  --plugin-dir /PATH/TO/PLUGINS
 ```
 
 {{% /code-placeholders %}}
+
 Replace the following: 
 - {{% code-placeholder-key %}}`NODE_ID`{{% /code-placeholder-key %}}: a unique identifier for your instance
 - {{% code-placeholder-key %}}`OBJECT_STORE_TYPE`{{% /code-placeholder-key %}}: the type of object store (for example: `file` or `s3`)
@@ -131,6 +132,10 @@ Plugins have various functions such as:
 ### Create a custom plugin
 
 When you need custom functionality, you can create your own plugin by doing the following:
+
+- [Choose your plugin type](#choose-your-plugin-type)
+- [Create your plugin file](#create-your-plugin-file)
+- [Next Steps after creating a plugin](#next-steps-after-creating-a-plugin)
 
 #### Choose your plugin type
 
@@ -219,7 +224,7 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
     return {"status": "success", "message": "Request processed"}
 ```
 
-#### Next Steps
+#### Next Steps after creating a plugin
 
 After adding your plugin:
 - You can [install Python dependencies](#install-python-dependencies) 
