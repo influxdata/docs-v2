@@ -25,7 +25,7 @@
 - Catalog limits for databases, tables, and columns are now configurable using `influxdb3 serve` options:
   - `--num-database-limit`
   - `--num-table-limit`
-  - `--num-columns-per-table-limit`
+  - `--num-total-columns-per-table-limit`
 - Improvements to licensing prompts for clarity
 - Other general performance improvements
 
