@@ -58,8 +58,23 @@
     "test:links:api-docs": "export cypress_base_url=\"http://localhost:1315\" cypress_test_subjects=\"/influxdb3/core/api/,/influxdb3/enterprise/api/,/influxdb3/cloud-dedicated/api/,/influxdb3/cloud-dedicated/api/v1/,/influxdb/cloud-dedicated/api/v1/,/influxdb/cloud-dedicated/api/management/,/influxdb3/cloud-dedicated/api/management/\"; npx cypress run --spec cypress/e2e/content/article-links.cy.js",
     "test:shortcode-examples": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\" content/example.md"
   },
-  "main": "index.js",
-  "module": "main.js",
+  "main": "assets/js/main.js",
+  "module": "assets/js/main.js",
+  "exports": {
+    ".": {
+      "import": "./assets/js/main.js",
+      "require": "./assets/js/main.js"
+    }
+  },
+  "type": "module",
+  "browserslist": [
+    "last 2 versions",
+    "not dead",
+    "not IE 11"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "directories": {
     "test": "test"
   },
