@@ -8,6 +8,8 @@ menu:
     name: Manage your license
     parent: Administer InfluxDB
 weight: 101
+related:
+  - /influxdb3/enterprise/reference/cli/influxdb3/serve/
 ---
 
 {{< product-name >}} licenses authorize the use of the {{< product-name >}}
@@ -180,6 +182,9 @@ influxdb3 serve \
 <!------------------------- END ENVIRONMENT VARIABLES ------------------------->
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+For more information about `influxdb3 serve` options, see the
+[CLI reference](/influxdb3/enterprise/reference/cli/influxdb3/serve/).
 
 ## Renew a license
 
