@@ -4,7 +4,8 @@ These features let you build plugins that can transform, analyze, and respond to
 
 The plugin API lets you:
 
-- [Write and query data](#write-and-query-data)
+- [Write data](#write-data)
+- [Query data](#query-data)
 - [Log messages for monitoring and debugging](#log-messages-for-monitoring-and-debugging)
 - [Maintain state with in-memory cache](#maintain-state-with-in-memory-cache)
 - [Guidelines for in-memory caching](#guidelines-for-in-memory-caching)
