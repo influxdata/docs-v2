@@ -133,7 +133,7 @@ Plugins have various functions such as:
 
 When you need custom functionality, you can create your own plugin by doing the following:
 
-#### Step 1: Choose your plugin type
+#### Choose your plugin type
 
 First, determine which type of plugin you need based on your automation goals:
 
@@ -143,7 +143,7 @@ First, determine which type of plugin you need based on your automation goals:
 | **Scheduled** | Running code at specific times | `every:` or `cron:` |
 | **HTTP request** | Creating API endpoints | `path:` |
 
-#### Step 2: Create your plugin file
+#### Create your plugin file
 
 1. Create a `.py` file in your plugins directory
 2. Add the appropriate function signature based on your chosen plugin type
@@ -220,7 +220,7 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
     return {"status": "success", "message": "Request processed"}
 ```
 
-#### Step 3: Next Steps
+#### Next Steps
 
 After adding your plugin:
 - You can [install Python dependencies](#install-python-dependencies) 
@@ -413,7 +413,7 @@ influxdb3 create trigger \
 
 After creating basic triggers, you can enhance your plugins with these advanced features:
 
-### Step 1: Access community plugins from GitHub
+### Access community plugins from GitHub
 
 Skip downloading plugins by referencing them directly from GitHub:
 
@@ -432,7 +432,7 @@ This approach:
 - Simplifies updates and maintenance
 - Reduces local storage requirements
 
-### Step 2: Configure your triggers
+### Configure your triggers
 
 #### Pass configuration arguments
 
