@@ -201,4 +201,4 @@ Manually-created management tokens authenticate directly with your InfluxDB
 cluster and don't require human interaction with your identity provider.
   <!-- - Infrastructure management -->
 
-{{< page-nav next="/influxdb/clustered/get-started/setup/" >}}
+{{< page-nav next="/influxdb3/cloud-dedicated/get-started/setup/" >}}
