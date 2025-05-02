@@ -247,6 +247,8 @@ After setting up your plugin, configure a trigger to run it for a specific event
 
 Use the `influxdb3 create trigger` command with the appropriate trigger specification:
 
+{{% code-placeholders "SPECIFICATION|PLUGIN_FILE|DATABASE_NAME|TRIGGER_NAME" %}}
+
 ```bash
 influxdb3 create trigger \
   --trigger-spec "<SPECIFICATION>" \
@@ -254,6 +256,13 @@ influxdb3 create trigger \
   --database <DATABASE_NAME> \
   <TRIGGER_NAME>
  ``` 
+
+{{% /code-placeholders %}}
+
+- {{% code-placeholder-key %}}`SPECIFICATION`{{% /code-placeholder-key %}}: Trigger specification
+- {{% code-placeholder-key %}}`PLUGIN_FILE`{{% /code-placeholder-key %}}: Plugin filename relative to your configured plugin directory
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Name of the database
+- {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}: Name of the new trigger
 
 > [!Note]
 > When specifying a local plugin file, the `--plugin-filename` parameter
