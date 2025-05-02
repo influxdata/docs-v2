@@ -77,10 +77,6 @@ If you're running multiple {{% product-name %}} instances (distributed deploymen
 
 ## Add a Processing engine plugin
 
-The plugin directory must exist before you start InfluxDB.
-
-## Add a Processing engine plugin
-
 A plugin is a Python file that contains a specific function signature that corresponds to a type of trigger (a _trigger spec_).
 
 You have two main options for adding plugins to your InfluxDB instance:
