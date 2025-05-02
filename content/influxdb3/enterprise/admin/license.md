@@ -109,6 +109,10 @@ email address. The server auto-generates and stores your license.
       Use either the `--license-file` option or set the
       `INFLUXDB3_ENTERPRISE_LICENSE_FILE` environment variable.
 
+> [!Note]
+> License file and license email are mutually exclusive.
+> When starting the server, only use one or the other.
+
 #### Example: Start the {{< product-name >}} server with your license email:
 
 {{< code-tabs-wrapper >}}
