@@ -8,18 +8,31 @@ menu:
     name: Manage your license
     parent: Administer InfluxDB
 weight: 101
+related:
+  - /influxdb3/enterprise/reference/cli/influxdb3/serve/
 ---
 
 {{< product-name >}} licenses authorize the use of the {{< product-name >}}
 software and apply to a single cluster. Licenses are primarily based on the
 number of CPUs InfluxDB can use, but there are other limitations depending on
-the license type. The following {{< product-name >}} license types are available:
+the license type.
+
+- [License feature comparison](#license-feature-comparison)
+- [CPU limit](#cpu-limit)
+  - [CPU accounting](#cpu-accounting)
+- [Activate a license](#activate-a-license)
+  - [Activate a trial or at-home license](#activate-a-trial-or-at-home-license)
+  - [Activate a commercial license](#activate-a-commercial-license)
+- [Renew a license](#renew-a-license)
+- [Expiration behavior](#expiration-behavior)
+
+## License feature comparison
+
+The following {{< product-name >}} license types are available:
 
 - **Trial**: 30-day trial license with full access to {{< product-name >}} capabilities.
 - **At-Home**: For at-home hobbyist use with limited access to {{< product-name >}} capabilities.
 - **Commercial**: Commercial license with full access to {{< product-name >}} capabilities.
-
-#### License feature comparison
 
 | Features       |           Trial           | At-Home |        Commercial         |
 | :------------- | :-----------------------: | :-----: | :-----------------------: |
@@ -63,16 +76,40 @@ physical and virtual CPU cores.
 Each {{< product-name >}} license must be activated, but the process of activating
 the license depends on the license type:
 
-- [Activate a Trial or At-Home license](#activate-a-trial-or-at-home-license)
-- [Activate a Commercial license](#activate-a-commercial-license)
+- [Activate a trial or at-home license](#activate-a-trial-or-at-home-license)
+- [Activate a commercial license](#activate-a-commercial-license)
 
-### Activate a Trial or At-Home license
+### Activate a trial or at-home license
 
-When starting the {{< product-name >}} server, it will ask you what type of
-license you would like to use. Select `trial` or `home` and provide your
-email address. The server auto-generates and stores your license.
+When starting the {{< product-name >}} server, it asks what type of
+license you would like to use.
+Select `trial` or `home` and provide your
+email address.
+The server auto-generates and stores your license.
 
-### Activate a Commercial license
+The license file is a JWT file that contains the license information.
+
+#### Use an existing trial or at-home license
+
+When you activate a trial or at-home license, InfluxDB registers your email
+address with the license server.
+To use your existing license--for example, if you deleted your license
+file--provide your email address using one of the following methods:
+
+- Use the [`--license-email`](/influxdb3/enterprise/reference/cli/influxdb3/serve/) option with the `influxdb3 serve` command
+- Set the `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable
+
+InfluxDB validates your email address with the license server and uses your
+existing license if it's still valid.
+
+<!-- Not relevant until we know trial or home users can use license-file for 
+     air-gapped installations
+> [!Note]
+> License file and license email are mutually exclusive.
+> When starting the server, only use one or the other.
+-->
+
+### Activate a commercial license
 
 1.  [Contact InfluxData Sales](https://influxdata.com/contact-sales/) to obtain
     an {{< product-name >}} Commercial license. Provide the following:
@@ -84,19 +121,39 @@ email address. The server auto-generates and stores your license.
     > This information is provided in the output of the {{< product-name >}}
     > server if you try to start the server without a valid license.
 
-    InfluxData will provide you with a Commercial license file.
+    InfluxData will provide you with a commercial license file.
+    The license file is a JWT file that contains the license information.
 
-2.  Provide the following when starting the {{< product-name >}} server:
+2.  When starting the {{< product-name >}} server, provide the license file
+    path using one of the following methods:
+    
+    - Use the the [`--license-file`](/influxdb3/enterprise/reference/config-options/#license-file)
+      option with the `influxdb3 serve` command
+    - Set the `INFLUXDB3_ENTERPRISE_LICENSE_FILE` environment variable.
 
-    - **License email**: The email address associated with your Commercial license.
-      
-      Use either the `--license-email` option or set the
-      `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable.
+### License detection
 
-    - **License file**: The file path of the provided Commercial license file.
-      
-      Use either the `--license-file` option or set the
-      `INFLUXDB3_ENTERPRISE_LICENSE_FILE` environment variable.
+{{% product-name %}} checks for a license file in the following order:
+
+1.  The license file path provided with the [`--license-file`](/influxdb3/enterprise/reference/config-options/#license-file) option
+2.  The license file path provided with the `INFLUXDB3_ENTERPRISE_LICENSE_FILE`
+    environment variable
+3.  The default license path:
+
+    ```  
+    /<OBJECT_STORE>/<CLUSTER_ID>/commercial_license
+    ```
+4. A trial or at-home license stored in the default location
+
+   ```
+   /<OBJECT_STORE>/<CLUSTER_ID>/trial_or_home_license
+   ```
+5. The license email provided with the [`--license-email`](/influxdb3/enterprise/reference/config-options/#license-email) option
+6. The license email provided with the `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL`
+    environment variable
+7. If no license is found, the server won't start 
+
+#### Example: Start the {{< product-name >}} server with your license email:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -108,11 +165,10 @@ email address. The server auto-generates and stores your license.
 <!-- pytest.mark.skip -->
 ```bash
 influxdb3 serve \
-  --cluster-id cluster01 \
-  --node-id node01 \
-  --license-email example@email.com \
-  --license-file /path/to/license-file.jwt \
-  # ...
+--cluster-id cluster01 \
+--node-id node01 \
+--license-email example@email.com \
+# ...
 ```
 <!------------------------- END INFLUXDB3 CLI OPTIONS ------------------------->
 {{% /code-tab-content %}}
@@ -121,16 +177,52 @@ influxdb3 serve \
 <!-- pytest.mark.skip -->
 ```bash
 INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=example@email.com
-INFLUXDB3_ENTERPRISE_LICENSE_FILE=/path/to/license-file.jwt
 
 influxdb3 serve \
-  --cluster-id cluster01 \
-  --node-id node01 \
-  # ...
+--cluster-id cluster01 \
+--node-id node01 \
+# ...
 ```
 <!------------------------- END ENVIRONMENT VARIABLES ------------------------->
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+#### Example: Start the {{< product-name >}} server with your license file:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[influxdb3 options](#)
+[Environment variables](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+<!------------------------ BEGIN INFLUXDB3 CLI OPTIONS ------------------------>
+<!-- pytest.mark.skip -->
+```bash
+influxdb3 serve \
+--cluster-id cluster01 \
+--node-id node01 \
+--license-file /path/to/license-file.jwt \
+# ...
+```
+<!------------------------- END INFLUXDB3 CLI OPTIONS ------------------------->
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!------------------------ BEGIN ENVIRONMENT VARIABLES ------------------------>
+<!-- pytest.mark.skip -->
+```bash
+INFLUXDB3_ENTERPRISE_LICENSE_FILE=/path/to/license-file.jwt
+
+influxdb3 serve \
+--cluster-id cluster01 \
+--node-id node01 \
+# ...
+```
+<!------------------------- END ENVIRONMENT VARIABLES ------------------------->
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+For more information about `influxdb3 serve` options, see the
+[CLI reference](/influxdb3/enterprise/reference/cli/influxdb3/serve/).
 
 ## Renew a license
 
