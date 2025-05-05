@@ -289,7 +289,7 @@ influxctl query \
 > #### Query using stored credentials
 > 
 > Optionally, you can configure `database` and `token` query credentials in your `influxctl`
-> [connection profile](/influxdb/clustered/reference/cli/influxctl/#create-a-configuration-file).
+> [connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#create-a-configuration-file).
 > 
 > The `--database` and `--token` command line flags override credentials in your
 > configuration file.
