@@ -21,8 +21,8 @@ the license type.
 - [CPU limit](#cpu-limit)
   - [CPU accounting](#cpu-accounting)
 - [Activate a license](#activate-a-license)
-  - [Activate a Trial or At-Home license](#activate-a-trial-or-at-home-license)
-  - [Activate a Commercial license](#activate-a-commercial-license)
+  - [Activate a trial or at-home license](#activate-a-trial-or-at-home-license)
+  - [Activate a commercial license](#activate-a-commercial-license)
 - [Renew a license](#renew-a-license)
 - [Expiration behavior](#expiration-behavior)
 
@@ -87,6 +87,8 @@ Select `trial` or `home` and provide your
 email address.
 The server auto-generates and stores your license.
 
+The license file is a JWT file that contains the license information.
+
 #### Use an existing trial or at-home license
 
 When you activate a trial or at-home license, InfluxDB registers your email
@@ -107,7 +109,7 @@ existing license if it's still valid.
 > When starting the server, only use one or the other.
 -->
 
-### Activate a Commercial license
+### Activate a commercial license
 
 1.  [Contact InfluxData Sales](https://influxdata.com/contact-sales/) to obtain
     an {{< product-name >}} Commercial license. Provide the following:
@@ -119,7 +121,7 @@ existing license if it's still valid.
     > This information is provided in the output of the {{< product-name >}}
     > server if you try to start the server without a valid license.
 
-    InfluxData will provide you with a Commercial license file.
+    InfluxData will provide you with a commercial license file.
     The license file is a JWT file that contains the license information.
 
 2.  When starting the {{< product-name >}} server, provide the license file
