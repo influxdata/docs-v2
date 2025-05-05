@@ -487,7 +487,7 @@ influxdb3 create trigger \
   critical_processor
 ```
 
-## Install Python dependencies
+### Install Python dependencies
 
 If your plugin needs additional Python packages, use the `influxdb3 install` command:
 
