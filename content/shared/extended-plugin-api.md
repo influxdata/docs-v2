@@ -13,7 +13,6 @@ The plugin API lets you:
   - [Share Data Across Plugins](#share-data-across-plugins)
   - [Build a Counter](#building-a-counter)
 - [Guidelines for in-memory caching](#guidelines-for-in-memory-caching)
-  - [Guidelines for In-Memory Caching](#guidelines-for-in-memory-caching)
   - [Consider Cache Limitations](#consider-cache-limitations)
 
 ## Get started with the shared API
