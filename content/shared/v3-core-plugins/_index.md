@@ -30,12 +30,12 @@ Once you have all the prerequisites in place, follow these steps to implement th
    - [Understand trigger types](#understand-trigger-types)
    - [Create a trigger](#create-a-trigger)
    - [Choose a trigger specification](#choose-a-trigger-specification)
-   - [Use community plugins from GitHub](#use-community-plugins-from-github)
+4. [Advanced trigger configuration](#advanced-trigger-configuration)
+   - [Access community plugins from GitHub](#access-community-plugins-from-github)
    - [Pass arguments to plugins](#pass-arguments-to-plugins)
    - [Control trigger execution](#control-trigger-execution)
    - [Configure error handling for a trigger](#configure-error-handling-for-a-trigger)
-- [Extend plugins with API features and state management](#extend-plugins-with-api-features-and-state-management)
-- [Install Python dependencies](#install-python-dependencies)
+   - [Install Python dependencies](#install-python-dependencies)
 
 ## Set up the Processing Engine
 
