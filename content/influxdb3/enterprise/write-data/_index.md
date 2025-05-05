@@ -1,5 +1,5 @@
 ---
-title: Write data to {{% product-name %}}
+title: Write data to {{< product-name >}}
 list_title: Write data
 description: >
   Collect and write time series data to {{% product-name %}}.

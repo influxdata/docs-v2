@@ -159,7 +159,8 @@ This option supports the following values:
 
 #### data-dir
 
-Defines the location {{< product-name >}} uses to store files locally.
+For the `file` object store, defines the location {{< product-name >}} uses to store files locally.
+Required when using the `file` [object store](#object-store).
 
 | influxdb3 serve option | Environment variable |
 | :--------------------- | :------------------- |
