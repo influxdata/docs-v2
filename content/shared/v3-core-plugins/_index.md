@@ -41,20 +41,22 @@ Once you have all the prerequisites in place, follow these steps to implement th
 
 To enable the Processing Engine, start your {{% product-name %}} server with the `--plugin-dir` flag to specify where your plugin files are stored.
 
-{{% code-placeholders "NODE_ID|OBJECT_STORE_TYPE|/PATH/TO/PLUGINS" %}}
+{{% code-placeholders "NODE_ID|OBJECT_STORE_TYPE|PLUGIN_DIR" %}}
+
 ```bash
 influxdb3 serve \
-  --NODE_ID node0 \
-  --object-store [OBJECT_STORE_TYPE] \
-  --plugin-dir /PATH/TO/PLUGINS
+  --NODE_ID NODE_ID \
+  --object-store OBJECT_STORE_TYPE \
+  --plugin-dir PLUGIN_DIR
 ```
 
 {{% /code-placeholders %}}
 
-Replace the following: 
-- {{% code-placeholder-key %}}`NODE_ID`{{% /code-placeholder-key %}}: a unique identifier for your instance
-- {{% code-placeholder-key %}}`OBJECT_STORE_TYPE`{{% /code-placeholder-key %}}: the type of object store (for example: `file` or `s3`)
-- {{% code-placeholder-key %}}`/PATH/TO/PLUGINS`{{% /code-placeholder-key %}}: the absolute path to the directory where you want to store your Python plugin files. _All plugin files must be located in this directory or its subdirectories.
+In the example above, replace the following:
+
+- {{% code-placeholder-key %}}`NODE_ID`{{% /code-placeholder-key %}}: Unique identifier for your instance
+- {{% code-placeholder-key %}}`OBJECT_STORE_TYPE`{{% /code-placeholder-key %}}: Type of object store (for example, file or s3)
+- {{% code-placeholder-key %}}`PLUGIN_DIR`{{% /code-placeholder-key %}}: Absolute path to the directory where plugin files are stored. Store all plugin files in this directory or its subdirectories.
 
 ### Configure distributed environments
 
@@ -247,13 +249,15 @@ Use the `influxdb3 create trigger` command with the appropriate trigger specific
 
 ```bash
 influxdb3 create trigger \
-  --trigger-spec "SPECIFICATION" \
-  --plugin-filename "PLUGIN_FILE" \
+  --trigger-spec SPECIFICATION \
+  --plugin-filename PLUGIN_FILE \
   --database DATABASE_NAME \
   TRIGGER_NAME
  ``` 
 
 {{% /code-placeholders %}}
+
+In the example above, replace the following:
 
 - {{% code-placeholder-key %}}`SPECIFICATION`{{% /code-placeholder-key %}}: Trigger specification
 - {{% code-placeholder-key %}}`PLUGIN_FILE`{{% /code-placeholder-key %}}: Plugin filename relative to your configured plugin directory
