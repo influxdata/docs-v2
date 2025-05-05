@@ -76,14 +76,36 @@ physical and virtual CPU cores.
 Each {{< product-name >}} license must be activated, but the process of activating
 the license depends on the license type:
 
-- [Activate a Trial or At-Home license](#activate-a-trial-or-at-home-license)
-- [Activate a Commercial license](#activate-a-commercial-license)
+- [Activate a trial or at-home license](#activate-a-trial-or-at-home-license)
+- [Activate a commercial license](#activate-a-commercial-license)
 
-### Activate a Trial or At-Home license
+### Activate a trial or at-home license
 
-When starting the {{< product-name >}} server, it will ask you what type of
-license you would like to use. Select `trial` or `home` and provide your
-email address. The server auto-generates and stores your license.
+When starting the {{< product-name >}} server, it asks what type of
+license you would like to use.
+Select `trial` or `home` and provide your
+email address.
+The server auto-generates and stores your license.
+
+#### Use an existing trial or at-home license
+
+When you activate a trial or at-home license, InfluxDB registers your email
+address with the license server.
+To use your existing license--for example, if you deleted your license
+file--provide your email address using one of the following methods:
+
+- Use the [`--license-email`](/influxdb3/enterprise/reference/cli/influxdb3/serve/) option with the `influxdb3 serve` command
+- Set the `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable
+
+InfluxDB validates your email address with the license server and uses your
+existing license if it's still valid.
+
+<!-- Not relevant until we know trial or home users can use license-file for 
+     air-gapped installations
+> [!Note]
+> License file and license email are mutually exclusive.
+> When starting the server, only use one or the other.
+-->
 
 ### Activate a Commercial license
 
@@ -98,22 +120,36 @@ email address. The server auto-generates and stores your license.
     > server if you try to start the server without a valid license.
 
     InfluxData will provide you with a Commercial license file.
+    The license file is a JWT file that contains the license information.
 
-2.  Provide ONE of the following authentication methods when starting the {{< product-name >}} server:
+2.  When starting the {{< product-name >}} server, provide the license file
+    path using one of the following methods:
+    
+    - Use the the [`--license-file`](/influxdb3/enterprise/reference/config-options/#license-file)
+      option with the `influxdb3 serve` command
+    - Set the `INFLUXDB3_ENTERPRISE_LICENSE_FILE` environment variable.
 
-    - **License email**: The email address associated with your Commercial license.
-      
-      Use either the `--license-email` option or set the
-      `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable.
+### License detection
 
-    - **License file**: The file path of the Commercial license file you received in the previous step.
-      
-      Use either the `--license-file` option or set the
-      `INFLUXDB3_ENTERPRISE_LICENSE_FILE` environment variable.
+{{% product-name %}} checks for a license file in the following order:
 
-> [!Note]
-> License file and license email are mutually exclusive.
-> When starting the server, only use one or the other.
+1.  The license file path provided with the [`--license-file`](/influxdb3/enterprise/reference/config-options/#license-file) option
+2.  The license file path provided with the `INFLUXDB3_ENTERPRISE_LICENSE_FILE`
+    environment variable
+3.  The default license path:
+
+    ```  
+    /<OBJECT_STORE>/<CLUSTER_ID>/commercial_license
+    ```
+4. A trial or at-home license stored in the default location
+
+   ```
+   /<OBJECT_STORE>/<CLUSTER_ID>/trial_or_home_license
+   ```
+5. The license email provided with the [`--license-email`](/influxdb3/enterprise/reference/config-options/#license-email) option
+6. The license email provided with the `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL`
+    environment variable
+7. If no license is found, the server won't start 
 
 #### Example: Start the {{< product-name >}} server with your license email:
 
