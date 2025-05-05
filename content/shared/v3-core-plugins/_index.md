@@ -1,17 +1,14 @@
-Extend InfluxDB 3 with custom Python code that you can trigger on write, on a schedule, or on demand.
-The Processing Engine lets you automate workflows, transform data, and create API endpoints directly within your {{% product-name %}}.
+Extend InfluxDB 3 with custom Python code that you can trigger on write, on a schedule, or on demand. The Processing Engine lets you automate workflows, transform data, and create API endpoints directly within your {{% product-name %}}.
 
 ## What is the Processing Engine?
 
-The Processing Engine is an embedded Python virtual machine that runs inside your {{% product-name %}} database.
-You configure Processing Engine _triggers_ to run your Python _plugin_ code in response to:
+The Processing Engine is an embedded Python virtual machine that runs inside your {{% product-name %}} database. You configure Processing Engine _triggers_ to run your Python _plugin_ code in response to:
 
 - **Data writes** - Process and transform data as it enters the database
 - **Scheduled events** - Run code at specific intervals or times
 - **HTTP requests** - Create custom API endpoints that execute your code
 
-You can use the Processing Engine in-memory cache to store and manage state between plugin executions, allowing you to 
-build stateful applications directly in your database.
+You can use the Processing Engine in-memory cache to store and manage state between plugin executions, allowing you to build stateful applications directly in your database.
 
 This guide shows you how to set up the Processing Engine, create your first plugin, and configure triggers that execute your code when specific events occur.
 
@@ -23,10 +20,10 @@ Ensure you have:
 - Python installed if you're writing your own plugin
 - Basic knowledge of the InfluxDB CLI
 
-Once you have all the prerequisites in place, follow these steps to implement the Processing engine for your data automation needs.
+Once you have all the prerequisites in place, follow these steps to implement the Processing Engine for your data automation needs.
 
-1. [Set up the Processing engine](#set-up-the-processing-engine)
-2. [Add a Processing engine plugin](#add-a-processing-engine-plugin)
+1. [Set up the Processing Engine](#set-up-the-processing-engine)
+2. [Add a Processing Engine plugin](#add-a-processing-engine-plugin)
    - [Use example plugins](#use-example-plugins)
    - [Create a custom plugin](#create-a-custom-plugin)
 3. [Create a trigger to run a plugin](#create-a-trigger-to-run-a-plugin)
@@ -40,9 +37,10 @@ Once you have all the prerequisites in place, follow these steps to implement th
 - [Extend plugins with API features and state management](#extend-plugins-with-api-features-and-state-management)
 - [Install Python dependencies](#install-python-dependencies)
 
-## Set up the Processing engine
+## Set up the Processing Engine
 
-To enable the Processing engine, start your {{% product-name %}} server with the `--plugin-dir` flag to specify where your plugin files are stored.
+To enable the Processing Engine, start your {{% product-name %}} server with the `--plugin-dir` flag to specify where your plugin files are stored.
+
 {{% code-placeholders "NODE_ID|OBJECT_STORE_TYPE|/PATH/TO/PLUGINS" %}}
 ```bash
 influxdb3 serve \
@@ -75,7 +73,7 @@ If you're running multiple {{% product-name %}} instances (distributed deploymen
 >
 > Configure your plugin directory on the same system as the nodes that run the triggers and plugins.
 
-## Add a Processing engine plugin
+## Add a Processing Engine plugin
 
 A plugin is a Python file that contains a specific function signature that corresponds to a type of trigger (a _trigger spec_).
 
@@ -251,10 +249,10 @@ Use the `influxdb3 create trigger` command with the appropriate trigger specific
 
 ```bash
 influxdb3 create trigger \
-  --trigger-spec "<SPECIFICATION>" \
-  --plugin-filename "<PLUGIN_FILE>" \
-  --database <DATABASE_NAME> \
-  <TRIGGER_NAME>
+  --trigger-spec "SPECIFICATION" \
+  --plugin-filename "PLUGIN_FILE" \
+  --database DATABASE_NAME \
+  TRIGGER_NAME
  ``` 
 
 {{% /code-placeholders %}}
@@ -517,6 +515,7 @@ docker exec -it CONTAINER_NAME influxdb3 install package pandas
 This creates a Python virtual environment in your plugins directory with the specified packages installed.
 
 {{% show-in "enterprise" %}}
+
 ### Connect Grafana to your InfluxDB instance
 
 When configuring Grafana to connect to an InfluxDB 3 Enterprise instance:

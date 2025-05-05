@@ -14,7 +14,6 @@ The plugin API lets you:
 
 Every plugin has access to the shared API through the `influxdb3_local` object. You don't need to import any libraries to use the API. It's available as soon as your plugin runs.
 
-
 #### Write data
 
 To write data into your database use the `LineBuilder` API to create line protocol data:
@@ -182,7 +181,8 @@ influxdb3_local.error("Failed to connect to external API")
 obj_to_log = {"records": 157, "errors": 3}
 influxdb3_local.info("Processing complete", obj_to_log)
 ```
-All log messages are written to the server logs and stored in [system tables](/influxdb3/core/reference/cli/influxdb3/show/system/summary/), where you can query them using SQL. 
+The system writes all log messages to the server logs and stores them in [system tables](/influxdb3/core/reference/cli/influxdb3/show/system/summary/), where you can query them using SQL.
+
 ### Maintain state with in-memory cache
 
 The Processing engine provides an in-memory cache system that enables plugins to persist and retrieve data between executions.
@@ -216,8 +216,6 @@ The cache system offers two distinct namespaces:
 - [Store cached data with expiration](#store-cached-data-with-expiration)
 - [Share data across plugins](#share-data-across-plugins)
 - [Build a counter](#build-a-counter)
-
-#### Store and retrieve cached data
 
 ##### Store and retrieve cached data
 
@@ -315,7 +313,6 @@ if not influxdb3_local.cache.get("lookup_table"):
 
 ### Next Steps
 
- 
 With an understanding of the InfluxDB 3 Shared Plugin API, you're ready to build data processing workflows that can transform, ana
 lyze, and respond to your time series data.
 To find example plugins you can extend, visit the [plugin repo](https://github.com/influxdata/influxdb3_plugins) on GitHub.
