@@ -275,7 +275,7 @@ To get the most out of the in-memory cache, follow these guidelines:
 
 ##### Use the trigger-specific namespace
 
-The cache is designed to support stateful operations while maintaining isolation between different triggers. Use the trigger-specific namespace for most operations and the global namespace only when data sharing across triggers is necessary.
+The Processing engine provides a cache that supports stateful operations while maintaining isolation between different triggers. Use the trigger-specific namespace for most operations and the global namespace only when data sharing across triggers is necessary.
 
 ##### Use TTL appropriately
 
@@ -288,7 +288,7 @@ influxdb3_local.cache.put("weather_data", api_response, ttl=300)
 
 ##### Cache computation results
 
-Store the results of expensive calculations that need to be utilized frequently:
+Store the results of expensive calculations that you frequently utilize:
 
 ```python
 # Cache aggregated statistics  
@@ -307,12 +307,11 @@ if not influxdb3_local.cache.get("lookup_table"):
 
 ##### Consider cache limitations
 
-- **Memory Usage**: Since cache contents are stored in memory, monitor your memory usage when caching large datasets.
-- **Server Restarts**: Because the cache is cleared when the server restarts, design your plugins to handle cache initialization (as noted above).
+- **Memory Usage**: Since the system stores cache contents in memory, monitor your memory usage when caching large datasets.
+- **Server Restarts**: Because the server clears the cache on restart, design your plugins to handle cache initialization (as noted above).
 - **Concurrency**: Be cautious of accessing inaccurate or out-of-date data when multiple trigger instances might simultaneously update the same cache key.
 
 ### Next Steps
 
-With an understanding of the InfluxDB 3 Shared Plugin API, you're ready to build data processing workflows that can transform, ana
-lyze, and respond to your time series data.
+With an understanding of the InfluxDB 3 Shared Plugin API, you're ready to build data processing workflows that can transform, analyze, and respond to your time series data.
 To find example plugins you can extend, visit the [plugin repo](https://github.com/influxdata/influxdb3_plugins) on GitHub.
