@@ -87,6 +87,7 @@ You have two main options for adding plugins to your InfluxDB instance:
 The InfluxData team maintains a repository of example plugins you can use immediately:
 
 1. **Browse available plugins**: Visit the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) to find examples for:
+
    - **Data transformation**: Process and transform incoming data
    - **Alerting**: Send notifications based on data thresholds
    - **Aggregation**: Calculate statistics on time series data
@@ -150,6 +151,7 @@ First, determine which type of plugin you need based on your automation goals:
 ##### Option A: Create a data write plugin
 
 Data write plugins process incoming data as it's written to the database. They're ideal for:
+
 - Data transformation and enrichment
 - Alerting on incoming values
 - Creating derived metrics
@@ -227,11 +229,7 @@ After adding your plugin:
 
 ## Create a trigger to run a plugin
 
-A trigger connects your plugin to a specific database event.
-The plugin function signature in your plugin file determines which _trigger specification_
-you can choose for configuring and activating your plugin.
-
-After setting up your plugin, configure a trigger to run it for a specific event. 
+A trigger connects your plugin to a specific database event. The plugin function signature in your plugin file determines which _trigger specification_. You can choose for configuring and activating your plugin. After setting up your plugin, configure a trigger to run it for a specific event. 
 
 ### Understand trigger types
 
@@ -288,8 +286,7 @@ influxdb3 create trigger \
   all_data_processor
 ```
 
-The trigger runs when the database flushes ingested data for the specified tables
-to the Write-Ahead Log (WAL) in the Object store (default is every second).
+The trigger runs when the database flushes ingested data for the specified tables to the Write-Ahead Log (WAL) in the Object store (default is every second).
 
 The plugin receives the written data and table information.
 
@@ -333,22 +330,10 @@ curl http://{{% influxdb/host %}}/api/v3/engine/webhook
 
 The plugin receives the HTTP request object with methods, headers, and body.
 
-### Use community plugins from GitHub
-
-You can reference plugins directly from the GitHub repository by using the `gh:` prefix:
-
-```bash
-# Create a trigger using a plugin from GitHub
-influxdb3 create trigger \
-  --trigger-spec "every:1m" \
-  --plugin-filename "gh:examples/schedule/system_metrics/system_metrics.py" \
-  --database my_database \
-  system_metrics
-```
-
 ### Pass arguments to plugins
 
 Use trigger arguments to pass configuration from a trigger to the plugin it runs. You can use this for:
+
 - Threshold values for monitoring
 - Connection properties for external services
 - Configuration settings for plugin behavior
