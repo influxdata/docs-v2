@@ -4,6 +4,8 @@
 
 # InfluxDB 2.0 Documentation
 
+[![Ask DocBot](https://img.shields.io/badge/Chat-Ask%20DocBot-blue)](https://chatgpt.com/g/g-8fYXsvolo-doc-the-influxdata-technical-writer)
+
 This repository contains the InfluxDB 2.x documentation published at [docs.influxdata.com](https://docs.influxdata.com).
 
 ## Contributing
