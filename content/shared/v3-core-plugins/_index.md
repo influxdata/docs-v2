@@ -229,7 +229,7 @@ After adding your plugin:
 - Learn how to [extend plugins with API features and state management](#extend-plugins-with-api-features-and-state-management)
 - Create a trigger to connect your plugin to database events
 
-## Create a trigger to run a plugin
+A trigger connects your plugin to a specific event.
 
 A trigger connects your plugin to a specific database event. The plugin function signature in your plugin file determines which _trigger specification_. You can choose for configuring and activating your plugin. After setting up your plugin, configure a trigger to run it for a specific event. 
 
