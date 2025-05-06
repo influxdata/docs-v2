@@ -99,7 +99,7 @@ The InfluxData team maintains a repository of example plugins you can use immedi
 2. Copy a plugin or retrieve it directly from the repository:
 
 **Option A: Copy plugins to your local directory**
-   
+2. Copy a plugin or retrieve it directly from the repository:
 ```bash
 # Clone the repository
 git clone https://github.com/influxdata/influxdb3_plugins.git
