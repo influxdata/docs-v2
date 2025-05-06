@@ -8,12 +8,12 @@ The plugin API lets you:
 - [Query data](#query-data)
 - [Log messages for monitoring and debugging](#log-messages-for-monitoring-and-debugging)
 - [Maintain state with in-memory cache](#maintain-state-with-in-memory-cache)
-  - [Store and Retrieve Cached Data](#store-and-retrieve-cached-data)
-  - [Use TTL Appropriately](#use-ttl-appropriately)
-  - [Share Data Across Plugins](#share-data-across-plugins)
-  - [Build a Counter](#building-a-counter)
+  - [Store and retrieve cached data](#store-and-retrieve-cached-data)
+  - [Use TTL appropriately](#use-ttl-appropriately)
+  - [Share data Across plugins](#share-data-across-plugins)
+  - [Build a counter](#building-a-counter)
 - [Guidelines for in-memory caching](#guidelines-for-in-memory-caching)
-  - [Consider Cache Limitations](#consider-cache-limitations)
+  - [Consider cache limitations](#consider-cache-limitations)
 
 ## Get started with the shared API
 
