@@ -149,7 +149,7 @@ First, determine which type of plugin you need based on your automation goals:
 - Create a `.py` file in your plugins directory
 - Add the appropriate function signature based on your chosen plugin type
 - Implement your processing logic inside the function
-
+##### Create a data write plugin
 ##### Option A: Create a data write plugin
 
 Data write plugins process incoming data as it's written to the database. They're ideal for:
