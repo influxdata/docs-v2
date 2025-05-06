@@ -7,7 +7,7 @@ The plugin API lets you:
 - [Write data](#write-data)
 - [Query data](#query-data)
 - [Log messages for monitoring and debugging](#log-messages-for-monitoring-and-debugging)
-- [Maintain state with in-memory cache](#maintain-state-with-in-memory-cache)
+- [Maintain state with the in-memory cache](#maintain-state-with-in-memory-cache)
   - [Store and retrieve cached data](#store-and-retrieve-cached-data)
   - [Use TTL appropriately](#use-ttl-appropriately)
   - [Share data Across plugins](#share-data-across-plugins)
