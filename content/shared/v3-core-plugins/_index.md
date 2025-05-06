@@ -96,7 +96,7 @@ The InfluxData team maintains a repository of example plugins you can use immedi
    - **Integration**: Connect to external services and APIs
    - **System monitoring**: Track resource usage and health metrics
 
-2. **Choose how to access plugins**:
+2. Copy a plugin or retrieve it directly from the repository:
 
 **Option A: Copy plugins to your local directory**
    
