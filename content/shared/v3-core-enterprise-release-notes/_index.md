@@ -46,7 +46,6 @@
 - Prevent the Home license server from crashing on restart.  
 - Enforce the `--num-cores` thread allocation limit.  
 
-
 ## v3.0.1 {date="2025-04-16"}
 **Core**: revision d7c071e0c4959beebc7a1a433daf8916abd51214
 
