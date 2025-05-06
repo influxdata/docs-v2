@@ -5,6 +5,44 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.0.2 {date="2025-05-01"}
+**Core**: revision d80d6cd60049c7b266794a48c97b1b6438ac5da9
+
+**Enterprise**: revision e9d7e03c2290d0c3e44d26e3eeb60aaf12099f29
+
+### Core
+
+#### Security Updates
+- Ability to generate testing TLS certificates on the fly now added. 
+- TLS CA can now be set with an environment variable: `INFLUXDB3_TLS_CA`
+- Additionally added the ability to set a minimum TLS version for enhanced security. 
+- Added support for CORS requests from browsers. 
+
+#### General Updates
+- Support added for `--format json` option in token creation command output. 
+- Removed Last Values Cache size limitation for better performance and increased flexibility.
+- Other general performance improvements
+
+#### Fixes
+- Fixed counting bug in distinct cache. 
+- Fixed issue where distinct cache incorrectly handled rows with null values.
+- Fixed handling of `group by` tag columns with escape quotes.
+- Ensured consistent sorting of `iox` table schema for SHOW TABLES command. 
+
+### Enterprise
+
+#### Updates
+- Added command and system table to show nodes in cluster. 
+- Enable multiple permissions custom argument matches. 
+- Other general performance improvements
+
+#### Fixes
+- Fixed object store initialization to only occur once. 
+- Fixed Home license server crash on restart. 
+- Added protection to prevent allocation of more total threads than specified by `--num-cores`.
+
+
+
 ## v3.0.1 {date="2025-04-16"}
 **Core**: revision d7c071e0c4959beebc7a1a433daf8916abd51214
 
