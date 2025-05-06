@@ -189,7 +189,7 @@ influxdb3_local.info("Processing complete", obj_to_log)
 
 The system writes all log messages to the server logs and stores them in [system tables](/influxdb3/version/reference/cli/influxdb3/show/system/summary/), where you can query them using SQL.
 
-## Maintain state with in-memory cache
+## Maintain state with the in-memory cache
 
 The Processing engine provides an in-memory cache system that enables plugins to persist and retrieve data between executions.
 
