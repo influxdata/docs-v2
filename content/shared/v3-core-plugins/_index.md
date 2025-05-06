@@ -143,7 +143,7 @@ When you need custom functionality, you can create your own plugin by doing the 
 - [Choose your plugin type](#choose-your-plugin-type)
 - [Create your plugin file](#create-your-plugin-file)
 - [Next Steps after creating a plugin](#next-steps-after-creating-a-plugin)
-
+#### Choose your plugin type
 #### Choose your plugin type
 
 First, determine which type of plugin you need based on your automation goals:
