@@ -232,7 +232,8 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
     return {"status": "success", "message": "Request processed"}
 ```
 
-#### Next Steps after creating a plugin
+After adding your plugin:
+
 
 After adding your plugin:
 - You can [install Python dependencies](#install-python-dependencies) 
