@@ -37,7 +37,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
    - [Configure error handling for a trigger](#configure-error-handling-for-a-trigger)
    - [Install Python dependencies](#install-python-dependencies)
 
-## Set up the Processing Engine
+## Activate the Processing Engine
 
 To enable the Processing Engine, start your {{% product-name %}} server with the `--plugin-dir` flag to specify where your plugin files are stored.
 
