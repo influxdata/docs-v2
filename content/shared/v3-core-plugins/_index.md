@@ -436,7 +436,7 @@ Provide runtine configuration to your plugins:
 
 ```bash
 # Pass threshold and email settings to a plugin
-influxdb3 create trigger \
+Provide runtime configuration to your plugins:
   --trigger-spec "every:1h" \
   --plugin-filename "threshold_check.py" \
   --trigger-arguments threshold=90,notify_email=admin@example.com \
