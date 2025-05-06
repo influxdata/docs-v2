@@ -45,7 +45,7 @@ To enable the Processing Engine, start your {{% product-name %}} server with the
 
 ```bash
 influxdb3 serve \
-  --NODE_ID NODE_ID \
+  --NODE_ID \
   --object-store OBJECT_STORE_TYPE \
   --plugin-dir PLUGIN_DIR
 ```
@@ -98,8 +98,15 @@ The InfluxData team maintains a repository of example plugins you can use immedi
 
 2. Copy a plugin or retrieve it directly from the repository:
 
-**Option A: Copy plugins to your local directory**
-2. Copy a plugin or retrieve it directly from the repository:
+{{< code-tabs-wrapper >}}
+
+{{% code-tabs %}}
+[Copy locally](#)
+[Fetch via gh:](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}  
+
 ```bash
 # Clone the repository
 git clone https://github.com/influxdata/influxdb3_plugins.git
@@ -107,18 +114,21 @@ git clone https://github.com/influxdata/influxdb3_plugins.git
 # Copy a plugin to your configured plugin directory
 cp influxdb3_plugins/examples/schedule/system_metrics/system_metrics.py /path/to/plugins/
 ```
+{{% /code-tab-content %}}
 
-**Option B: Use plugins directly from GitHub**
-
-You can use plugins directly from GitHub without downloading them first by using the `gh:` prefix in the plugin filename:
+{{% code-tab-content %}}
     
 ```bash
+# You can use plugins directly from GitHub without downloading them first by using the `gh:` prefix in the plugin filename:
 influxdb3 create trigger \
     --trigger-spec "every:1m" \
     --plugin-filename "gh:examples/schedule/system_metrics/system_metrics.py" \
     --database my_database \
     system_metrics
 ```
+{{% /code-tab-content %}}
+
+{{< /code-tabs-wrapper >}}
 
 Plugins have various functions such as: 
 
