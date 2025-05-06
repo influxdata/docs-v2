@@ -294,7 +294,7 @@ The trigger runs when the database flushes ingested data for the specified table
 
 The plugin receives the written data and table information.
 
-#### Option B: For scheduled events 
+#### For scheduled events 
 
 ```bash
 # Run every 5 minutes
