@@ -314,7 +314,7 @@ influxdb3 create trigger \
 
 The plugin receives the scheduled call time.
 
-#### Option C: For HTTP requests
+#### For HTTP requests
 
 ```bash
 # Create an endpoint at /api/v3/engine/webhook
