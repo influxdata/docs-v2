@@ -12,35 +12,39 @@
 
 ### Core
 
-#### Security Updates
-- Ability to generate testing TLS certificates on the fly now added. 
-- TLS CA can now be set with an environment variable: `INFLUXDB3_TLS_CA`
-- Additionally added the ability to set a minimum TLS version for enhanced security. 
-- Added support for CORS requests from browsers. 
+#### Security updates
 
-#### General Updates
-- Support added for `--format json` option in token creation command output. 
-- Removed Last Values Cache size limitation for better performance and increased flexibility.
-- Other general performance improvements
+- Generate testing TLS certificates on the fly.  
+- Set the TLS CA via the INFLUXDB3_TLS_CA environment variable.  
+- Enforce a minimum TLS version for enhanced security.  
+- Allow CORS requests from browsers.  
+
+#### General updates
+
+- Support the `--format json` option in the token creation output.  
+- Remove the Last Values Cache size limitation to improve performance and flexibility.  
+- Incorporate additional performance improvements.  
 
 #### Fixes
-- Fixed counting bug in distinct cache. 
-- Fixed issue where distinct cache incorrectly handled rows with null values.
-- Fixed handling of `group by` tag columns with escape quotes.
-- Ensured consistent sorting of `iox` table schema for SHOW TABLES command. 
+
+- Fix a counting bug in the distinct cache.  
+- Fix how the distinct cache handles rows with null values.  
+- Fix handling of `group by` tag columns that use escape quotes.  
+- Sort the IOx table schema consistently in the `SHOW TABLES` command.  
 
 ### Enterprise
 
 #### Updates
-- Added command and system table to show nodes in cluster. 
-- Enable multiple permissions custom argument matches. 
-- Other general performance improvements
+
+- Introduce a command and system table to list cluster nodes.  
+- Support multiple custom permission argument matches.  
+- Improve overall performance.  
 
 #### Fixes
-- Fixed object store initialization to only occur once. 
-- Fixed Home license server crash on restart. 
-- Added protection to prevent allocation of more total threads than specified by `--num-cores`.
 
+- Initialize the object store only once.  
+- Prevent the Home license server from crashing on restart.  
+- Enforce the `--num-cores` thread allocation limit.  
 
 
 ## v3.0.1 {date="2025-04-16"}
