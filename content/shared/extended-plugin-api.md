@@ -186,7 +186,8 @@ influxdb3_local.error("Failed to connect to external API")
 obj_to_log = {"records": 157, "errors": 3}
 influxdb3_local.info("Processing complete", obj_to_log)
 ```
-The system writes all log messages to the server logs and stores them in [system tables](/influxdb3/core/reference/cli/influxdb3/show/system/summary/), where you can query them using SQL.
+
+The system writes all log messages to the server logs and stores them in [system tables](/influxdb3/version/reference/cli/influxdb3/show/system/summary/), where you can query them using SQL.
 
 ## Maintain state with in-memory cache
 
