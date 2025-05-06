@@ -173,7 +173,7 @@ def process_writes(influxdb3_local, table_batches, args=None):
         line.tag("source_table", table_name)
         line.int64_field("row_count", len(rows))
         influxdb3_local.write(line)
-```
+##### Create a scheduled plugin
 
 ##### Option B: Create a scheduled plugin
 
