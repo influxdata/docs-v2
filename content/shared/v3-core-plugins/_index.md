@@ -88,7 +88,7 @@ You have two main options for adding plugins to your InfluxDB instance:
 
 The InfluxData team maintains a repository of example plugins you can use immediately:
 
-1. **Browse available plugins**: Visit the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) to find examples for:
+1. Browse available plugins: Visit the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) to find examples for:
 
    - **Data transformation**: Process and transform incoming data
    - **Alerting**: Send notifications based on data thresholds
