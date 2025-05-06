@@ -230,7 +230,7 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
     
     # Return a response (automatically converted to JSON)
     return {"status": "success", "message": "Request processed"}
-```
+#### Next steps
 
 After adding your plugin:
 
