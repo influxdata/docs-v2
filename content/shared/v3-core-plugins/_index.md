@@ -282,7 +282,7 @@ In the example above, replace the following:
 
 ### Choose a trigger specification
 
-#### Option A: For data write events
+#### For data write events
 
 ```bash
 # Trigger on writes to a specific table
