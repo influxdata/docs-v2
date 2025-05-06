@@ -282,7 +282,7 @@ To get the most out of the in-memory cache, follow these guidelines:
 
 ### Use the trigger-specific namespace
 
-The Processing engine provides a cache that supports stateful operations while maintaining isolation between different triggers. Use the trigger-specific namespace for most operations and the global namespace only when data sharing across triggers is necessary.
+The Processing engine provides a cache that supports stateful operations while maintaining isolation between different triggers. Use the trigger-specific namespace for most operations and the global namespace only when you need to share data across triggers.
 
 ### Use TTL appropriately
 
