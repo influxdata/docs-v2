@@ -205,7 +205,7 @@ def process_scheduled_call(influxdb3_local, call_time, args=None):
         influxdb3_local.info(f"Found {len(results)} recent metrics")
     else:
         influxdb3_local.warn("No recent metrics found")
-```
+##### Create an HTTP request plugin
 
 ##### Option C: Create an HTTP request plugin
 
