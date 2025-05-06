@@ -153,7 +153,7 @@ First, determine which type of plugin you need based on your automation goals:
 | **Data write** | Processing data as it arrives | `table:` or `all_tables` |
 | **Scheduled** | Running code at specific times | `every:` or `cron:` |
 | **HTTP request** | Creating API endpoints | `path:` |
-
+#### Create your plugin file
 #### Create your plugin file
 
 - Create a `.py` file in your plugins directory
