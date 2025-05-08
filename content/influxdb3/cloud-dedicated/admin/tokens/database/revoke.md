@@ -3,7 +3,7 @@ title: Revoke a database token
 description: >
   Use the Admin UI, the [`influxctl token revoke` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/revoke/),
   or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
-  to revoke a database token associated with your {{% product-name omit-" Clustered" %}}
+  to revoke a database token associated with your {{% product-name omit=" Clustered" %}}
   cluster and remove all permissions associated with the token.
   Provide the ID of the database token you want to revoke.
 menu:
