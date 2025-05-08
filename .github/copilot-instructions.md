@@ -103,11 +103,13 @@ GitHub Copilot should help document InfluxData products by creating clear, accur
     product_version:
   weight: # Page order (1-99, 101-199, etc.)
   ```
-- Follow the shortcode documentation in `CONTRIBUTING.md`
+- Follow the shortcode examples in `content/example.md` and the documentation
+  for docs-v2 contributors in `CONTRIBUTING.md`
 - Use provided shortcodes correctly:
   - Notes/warnings: `{{% note %}}`, `{{% warn %}}`
   - Product-specific: `{{% enterprise %}}`, `{{% cloud %}}`
   - Tabbed content: `{{< tabs-wrapper >}}`, `{{% tabs %}}`, `{{% tab-content %}}`
+  - Tabbed content for code examples (without additional text): `{{< code-tabs-wrapper >}}`, `{{% code-tabs %}}`, `{{% code-tab-content %}}`
   - Version links: `{{< latest >}}`, `{{< latest-patch >}}`
   - API endpoints: `{{< api-endpoint >}}`
   - Required elements: `{{< req >}}`
