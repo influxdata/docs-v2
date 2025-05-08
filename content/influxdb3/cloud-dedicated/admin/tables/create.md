@@ -1,7 +1,7 @@
 ---
 title: Create a table
 description: >
-  Use the [`influxctl table create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/create/)
+  Use the Admin UI or the [`influxctl table create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/create/)
   to create a new table in a specified database your InfluxDB cluster.
   Provide the database name and a table name.
 menu:
@@ -17,7 +17,7 @@ related:
   - /influxdb3/cloud-dedicated/admin/custom-partitions/
 ---
 
-Use the [`influxctl table create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/create/)
+Use the Admin UI or the [`influxctl table create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/create/)
 to create a table in a specified database in your
 {{< product-name omit=" Clustered" >}} cluster.
 
