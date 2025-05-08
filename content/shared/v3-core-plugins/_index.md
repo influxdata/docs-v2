@@ -1,16 +1,16 @@
-Extend InfluxDB 3 with custom Python code that you can trigger on write, on a schedule, or on demand. The Processing Engine lets you automate workflows, transform data, and create API endpoints directly within your {{% product-name %}}.
+Use the Processing Engine in {{% product-name %}} to extend your database with custom Python code. Trigger your code on write, on a schedule, or on demand to automate workflows, transform data, and create API endpoints. 
 
 ## What is the Processing Engine?
 
-The Processing Engine is an embedded Python virtual machine that runs inside your {{% product-name %}} database. You configure Processing Engine _triggers_ to run your Python _plugin_ code in response to:
+The Processing Engine is an embedded Python virtual machine that runs inside your {{% product-name %}} database. You configure  _triggers_ to run your Python _plugin_ code in response to:
 
 - **Data writes** - Process and transform data as it enters the database
-- **Scheduled events** - Run code at specific intervals or times
-- **HTTP requests** - Create custom API endpoints that execute your code
+- **Scheduled events** - Run code at defined intervals or specific times
+- **HTTP requests** - Expose custom API endpoints that execute your code
 
-You can use the Processing Engine in-memory cache to store and manage state between plugin executions, allowing you to build stateful applications directly in your database.
+You can use the Processing Engine's in-memory cache to manage state between executions and build stateful applications directly in your database.
 
-This guide shows you how to set up the Processing Engine, create your first plugin, and configure triggers that execute your code when specific events occur.
+This guide walks you through setting up the Processing Engine, creating your first plugin, and configuring triggers that execute your code on specific events.
 
 ## Before you begin
 
@@ -39,7 +39,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
 
 ## Activate the Processing Engine
 
-To enable the Processing Engine, start your {{% product-name %}} server with the `--plugin-dir` flag to specify where your plugin files are stored.
+To activate the Processing Engine, start your {{% product-name %}} server with the `--plugin-dir` flag. This flag tells InfluxDB where to load your plugin files. 
 
 {{% code-placeholders "NODE_ID|OBJECT_STORE_TYPE|PLUGIN_DIR" %}}
 
@@ -60,13 +60,13 @@ In the example above, replace the following:
 
 ### Configure distributed environments
 
-If you're running multiple {{% product-name %}} instances (distributed deployment):
+When running {{% product-name %}} in a distributed setup, follow these steps to configure the Processing Engine:
 
-1. Decide where plugins should run
+1. Decide where each plugin should run
    - Data processing plugins, such as WAL plugins, run on ingester nodes
    - HTTP-triggered plugins run on nodes handling API requests
    - Scheduled plugins can run on any configured node
-2. Enable plugins on selected instances
+2. Enable plugins on the correct instance
 3. Maintain identical plugin files across all instances where plugins run
    - Use shared storage or file synchronization tools to keep plugins consistent
 
@@ -77,18 +77,22 @@ If you're running multiple {{% product-name %}} instances (distributed deploymen
 
 ## Add a Processing Engine plugin
 
-A plugin is a Python file that contains a specific function signature that corresponds to a type of trigger (a _trigger spec_).
+A plugin is a Python file that defines a specific function signature matching a type of trigger (_trigger spec_). When the specified event occurs, InfluxDB runs the plugin.
+
+### Choose a plugin strategy
 
 You have two main options for adding plugins to your InfluxDB instance:
 
-- [Use example plugins](#use-example-plugins) - Quickest way to get started
-- [Create a custom plugin](#create-a-custom-plugin) - For custom functionality
+- [Use example plugins](#use-example-plugins) - Quickly get started with prebuilt plugins
+- [Create a custom plugin](#create-a-custom-plugin) - Build your own for specialized use cases
 
 ### Use example plugins
 
-The InfluxData team maintains a repository of example plugins you can use immediately:
+InfluxData provides a public repository of example plugins that you can use immediately. 
 
-1. Browse available plugins: Visit the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) to find examples for:
+#### Browse plugin examples
+
+Visit the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) to find examples for:
 
    - **Data transformation**: Process and transform incoming data
    - **Alerting**: Send notifications based on data thresholds
@@ -96,7 +100,9 @@ The InfluxData team maintains a repository of example plugins you can use immedi
    - **Integration**: Connect to external services and APIs
    - **System monitoring**: Track resource usage and health metrics
 
-2. Copy a plugin or retrieve it directly from the repository:
+#### Add example plugins
+
+You can either copy a plugin or retrieve it directly from the repository:
 
 {{< code-tabs-wrapper >}}
 
@@ -126,6 +132,7 @@ influxdb3 create trigger \
     --database my_database \
     system_metrics
 ```
+
 {{% /code-tab-content %}}
 
 {{< /code-tabs-wrapper >}}
@@ -133,8 +140,8 @@ influxdb3 create trigger \
 Plugins have various functions such as: 
 
 - Receive plugin-specific arguments (such as written data, call time, or an HTTP request)
-- Can receive keyword arguments (as `args`) from _trigger arguments_
-- Can access the `influxdb3_local` shared API for writing, querying, and managing state
+- Access keyword arguments (as `args`) passed from _trigger arguments_ configurations
+- Access the `influxdb3_local` shared API to write data, query data, and managing state between executions
 
 ### Create a custom plugin
 
@@ -143,7 +150,7 @@ When you need custom functionality, you can create your own plugin by doing the 
 - [Choose your plugin type](#choose-your-plugin-type)
 - [Create your plugin file](#create-your-plugin-file)
 - [Next Steps after creating a plugin](#next-steps-after-creating-a-plugin)
-#### Choose your plugin type
+
 #### Choose your plugin type
 
 First, determine which type of plugin you need based on your automation goals:
@@ -153,13 +160,15 @@ First, determine which type of plugin you need based on your automation goals:
 | **Data write** | Processing data as it arrives | `table:` or `all_tables` |
 | **Scheduled** | Running code at specific times | `every:` or `cron:` |
 | **HTTP request** | Creating API endpoints | `path:` |
-#### Create your plugin file
+
 #### Create your plugin file
 
 - Create a `.py` file in your plugins directory
 - Add the appropriate function signature based on your chosen plugin type
 - Implement your processing logic inside the function
-##### Create a data write plugin
+
+#### Create a data write plugin
+
 ##### Option A: Create a data write plugin
 
 Data write plugins process incoming data as it's written to the database. They're ideal for:
@@ -183,7 +192,9 @@ def process_writes(influxdb3_local, table_batches, args=None):
         line.tag("source_table", table_name)
         line.int64_field("row_count", len(rows))
         influxdb3_local.write(line)
-##### Create a scheduled plugin
+```
+
+#### Create a scheduled plugin
 
 ##### Option B: Create a scheduled plugin
 
@@ -205,7 +216,9 @@ def process_scheduled_call(influxdb3_local, call_time, args=None):
         influxdb3_local.info(f"Found {len(results)} recent metrics")
     else:
         influxdb3_local.warn("No recent metrics found")
-##### Create an HTTP request plugin
+```
+
+#### Create an HTTP request plugin
 
 ##### Option C: Create an HTTP request plugin
 
@@ -230,10 +243,9 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
     
     # Return a response (automatically converted to JSON)
     return {"status": "success", "message": "Request processed"}
+```
+
 #### Next steps
-
-After adding your plugin:
-
 
 After adding your plugin:
 - You can [install Python dependencies](#install-python-dependencies) 
@@ -454,6 +466,7 @@ Provide runtime configuration to your plugins:
   --database my_database \
   threshold_monitor
 ```
+
 Your plugin accesses these values through the `args` parameter:
 
 ```python
@@ -465,6 +478,7 @@ def process_scheduled_call(influxdb3_local, call_time, args=None):
         # Use the arguments in your logic
         influxdb3_local.info(f"Checking threshold {threshold}, will notify {email}")
 ```
+
 #### Set execution mode
 
 Choose between synchronous (default) or asynchronous execution:
