@@ -259,7 +259,7 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
 After writing your plugin:
 
 - [Create a trigger](#use-the-create-trigger-command) to connect your plugin to database events
-- You can [install Python dependencies](#install-python-dependencies) 
+- [Install any Python dependencies](#install-python-dependencies) your plugin requires
 - Learn how to [extend plugins with API](/influxdb3/shared/v3-core-plugins/)
 
 ## Set up a trigger
