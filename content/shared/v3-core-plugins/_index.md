@@ -180,7 +180,7 @@ Choose a plugin type based on your automation goals:
 - Add the appropriate function signature based on your chosen plugin type
 - Write your processing logic inside the function
 
-After writing your plugin, [create a trigger](#Use-the-create-trigger-command) to connect it to a database event and define when it runs.
+After writing your plugin, [create a trigger](#use-the-create-trigger-command) to connect it to a database event and define when it runs.
 
 #### Create a data write plugin
 
