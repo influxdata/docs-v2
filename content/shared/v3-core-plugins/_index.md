@@ -144,7 +144,7 @@ Plugins have various functions such as:
 - Access keyword arguments (as `args`) passed from _trigger arguments_ configurations
 - Access the `influxdb3_local` shared API to write data, query data, and managing state between executions
 
-For details on available functions, arguments, and how plugins interact with InfluxDB, see the [Extended Plugin API documentation](/influxdb3/shared/v3-core-plugins/). 
+For more information about available functions, arguments, and how plugins interact with InfluxDB, see the [Extended Plugin API documentation](/influxdb3/shared/v3-core-plugins/). 
 
 ### Create a custom plugin
 
