@@ -260,7 +260,7 @@ After writing your plugin:
 
 - [Create a trigger](#use-the-create-trigger-command) to connect your plugin to database events
 - [Install any Python dependencies](#install-python-dependencies) your plugin requires
-- Learn how to [extend plugins with API](/influxdb3/shared/v3-core-plugins/)
+- Learn how to [extend plugins with the API](/influxdb3/version/extend-plugin/)
 
 ## Set up a trigger
 
