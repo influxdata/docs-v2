@@ -67,7 +67,7 @@ You can create a database with an optional retention period and custom partition
 3. In the cluster list, find and click the cluster you want to create a database in. You
    can sort on column headers or use the **Search** field to find a specific cluster.
 
-4. Click the **New Database** button in the upper right corner of the cluster details page. 
+4. Click the **New Database** button above the database list. 
    The **Create Database** dialog displays.
 
    <img src="/img/influxdb3/cloud-dedicated-admin-ui-create-database.png" alt="Create database dialog" /> 

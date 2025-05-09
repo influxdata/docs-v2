@@ -800,7 +800,7 @@ paths:
       operationId: CreateClusterDatabaseTable
       summary: Create a database table
       description: |
-        Create a database table in a database. The database must already exist. With InfluxDB Cloud Dedicated, tables and measurements are synonymous.
+        Create a table. The database must already exist. With InfluxDB Cloud Dedicated, tables and measurements are synonymous.
 
         Typically, tables are created automatically on write using the measurement name
         specified in line protocol written to InfluxDB.
