@@ -125,7 +125,8 @@ cp influxdb3_plugins/examples/schedule/system_metrics/system_metrics.py /path/to
 {{% code-tab-content %}}
     
 ```bash
-# You can use plugins directly from GitHub without downloading them first by using the `gh:` prefix in the plugin filename:
+# To retrieve and use a plugin directly from GitHub,
+#  use the `gh:` prefix in the plugin filename:
 influxdb3 create trigger \
     --trigger-spec "every:1m" \
     --plugin-filename "gh:examples/schedule/system_metrics/system_metrics.py" \
