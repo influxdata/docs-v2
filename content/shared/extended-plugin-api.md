@@ -10,7 +10,7 @@ The plugin API lets you:
 - [Maintain state with the in-memory cache](#maintain-state-with-in-memory-cache)
   - [Store and retrieve cached data](#store-and-retrieve-cached-data)
   - [Use TTL appropriately](#use-ttl-appropriately)
-  - [Share data Across plugins](#share-data-across-plugins)
+  - [Share data across plugins](#share-data-across-plugins)
   - [Build a counter](#building-a-counter)
 - [Guidelines for in-memory caching](#guidelines-for-in-memory-caching)
   - [Consider cache limitations](#consider-cache-limitations)
