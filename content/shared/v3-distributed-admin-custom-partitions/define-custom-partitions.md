@@ -47,6 +47,11 @@ The following command flags identify
 - `--template-timeformat`: A [Rust strftime date and time](/influxdb/version/admin/custom-partitions/partition-templates/#time-part-templates)
   string that specifies the time part in the partition template and determines
   the time interval to partition by.
+     Use one of the following:
+     
+     - `%Y-%m-%d` (daily)
+     - `%Y-%m` (monthly)
+     - `%Y` (annually)
 - `--template-tag`: An [InfluxDB tag](/influxdb/version/reference/glossary/#tag)
   to use in the partition template.
 - `--template-tag-bucket`: An [InfluxDB tag](/influxdb/version/reference/glossary/#tag)

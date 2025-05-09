@@ -157,6 +157,11 @@ If a table doesn't have a custom partition template, it inherits the database's 
    - `--template-timeformat`: A [Rust strftime date and time](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#time-part-templates)
      string that specifies the time part in the partition template and determines
      the time interval to partition by.
+     Use one of the following:
+     
+     - `%Y-%m-%d` (daily)
+     - `%Y-%m` (monthly)
+     - `%Y` (annually)
    - `--template-tag`: An [InfluxDB tag]
      to use in the partition template.
    - `--template-tag-bucket`: An [InfluxDB tag](/influxdb3/cloud-dedicated/reference/glossary/#tag)

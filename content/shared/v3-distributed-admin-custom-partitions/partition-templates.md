@@ -41,6 +41,11 @@ When creating a partition template:
    - With `influxctl`, always include `--template-timeformat` with a valid format
    - Without a time part, InfluxDB won't compact partitions, impacting performance
    - If you include more than one time part, InfluxDB uses the smallest unit of time
+   - Use one of the following Rust strftime date and time strings:
+     
+      - `%Y-%m-%d` (daily)
+      - `%Y-%m` (monthly)
+      - `%Y` (annually)
 
 2. **Tag and tag bucket limitations**
    - Include up to seven [tag](#tag-part-templates) and [tag bucket](#tag-bucket-part-templates) parts
