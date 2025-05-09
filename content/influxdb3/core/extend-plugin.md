@@ -4,7 +4,7 @@ description: |
   The Processing engine includes an API that allows your plugins to interact with your data, build and write line protocol, and maintain state between executions.
 menu:
   influxdb3_core:
-    name: Extended plugins
+    name: Extend plugins
     parent: Processing engine and Python plugins
 weight: 4
 influxdb3/core/tags: [processing engine, plugins, API, python]
