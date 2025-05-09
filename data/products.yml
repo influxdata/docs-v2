@@ -49,7 +49,7 @@ influxdb3_cloud_dedicated:
   versions: [cloud-dedicated]
   list_order: 3
   latest: cloud-dedicated
-  link: "https://www.influxdata.com/contact-sales-form/"
+  link: "https://www.influxdata.com/contact-sales-cloud-dedicated/"
   latest_cli: 2.10.0
   placeholder_host: cluster-id.a.influxdb.io
   ai_sample_questions:
@@ -65,7 +65,7 @@ influxdb3_clustered:
   versions: [clustered]
   list_order: 3
   latest: clustered
-  link: "https://www.influxdata.com/contact-sales-influxdb-clustered"
+  link: "https://www.influxdata.com/contact-sales-influxdb-clustered/"
   placeholder_host: cluster-host.com
   ai_sample_questions:
     - How do I use a Helm chart to configure Clustered?
