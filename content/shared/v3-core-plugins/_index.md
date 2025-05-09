@@ -184,7 +184,7 @@ After writing your plugin, [create a trigger](#use-the-create-trigger-command) t
 
 #### Create a data write plugin
 
-Use a data write plugin to process data as it's written to the database. Ideal use cases:
+Use a data write plugin to process data as it's written to the database. Ideal use cases include:
 
 - Data transformation and enrichment
 - Alerting on incoming values
