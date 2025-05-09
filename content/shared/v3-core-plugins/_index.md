@@ -154,7 +154,7 @@ To build custom functionality, you can create your own Processing Engine plugin.
 
 Before you begin, make sure:
 
-- The Processing Engine is enabled on your InfluxDB 3 Core instance.
+- The Processing Engine is enabled on your {{% product-name %}} instance.
 - You’ve configured the `--plugin-dir` where plugin files are stored.
 - You have access to that plugin directory.
 
