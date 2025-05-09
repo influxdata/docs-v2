@@ -1,6 +1,4 @@
-The Processing engine includes an API that allows your plugins to
-interact with your data, build and write data in line protocol format, and maintain state between executions.
-These features let you build plugins that can transform, analyze, and respond to data.
+The Processing Engine includes a shared API that your plugins can use to interact with data, write new records in line protocol format, and maintain state between executions. These capabilities let you build plugins that transform, analyze, and respond to time series data as it flows through your database.
 
 The plugin API lets you:
 
@@ -17,11 +15,11 @@ The plugin API lets you:
 
 ## Get started with the shared API
 
-Every plugin has access to the shared API through the `influxdb3_local` object. You don't need to import any libraries to use the API. It's available as soon as your plugin runs.
+Each plugin automatically has access to the shared API through the `influxdb3_local` object. You don’t need to import any libraries. The API becomes available as soon as your plugin runs.
 
 ## Write data
 
-To write data into your database use the `LineBuilder` API to create line protocol data:
+To write data into your database, use the `LineBuilder` API to create line protocol data:
 
 ```python
 # Create a line protocol entry
@@ -168,14 +166,13 @@ params = {"table": "metrics", "threshold": 90}
 results = influxdb3_local.query("SELECT * FROM $table WHERE value > $threshold", params)
 ```
 
-Query results are a `List` of `Dict[String, Any]`, where each dictionary represents a row with column names as keys and column values as values.
+Query results are a `List` of `Dict[String, Any]`, where each dictionary represents a row. Column names are keys, and column values are the corresponding values.
 
 ## Log messages for monitoring and debugging
 
-The shared API `info`, `warn`, and `error` functions accept multiple arguments,
-convert them to strings, and log them as a space-separated message to the database log.
+Use the shared API's `info`, `warn`, and `error` functions to log messages from your plugin. Each function accepts one or more arguments, converts them to strings, and logs them as a space-separated message.
 
-Add logging to track plugin execution:
+Add logging to monitor plugin execution and assist with debugging:
 
 ```python
 influxdb3_local.info("Starting data processing")
@@ -191,9 +188,9 @@ The system writes all log messages to the server logs and stores them in [system
 
 ## Maintain state with the in-memory cache
 
-The Processing engine provides an in-memory cache system that enables plugins to persist and retrieve data between executions.
+The Processing Engine provides an in-memory cache that enables your plugins to persist and retrieve data between executions.
 
-You can access the cache through the `cache` property of the shared API:
+Access the cache using the `cache` property of the shared API:
 
 ```python 
 # Basic usage pattern  
@@ -218,6 +215,7 @@ The cache system offers two distinct namespaces:
 | **Global** | Shared across all triggers | Configuration, lookup tables, service states that should be available to all plugins |
 
 ### Common cache operations
+
 - [Store and retrieve cached data](#store-and-retrieve-cached-data)
 - [Store cached data with expiration](#store-cached-data-with-expiration)
 - [Share data across plugins](#share-data-across-plugins)
@@ -282,11 +280,11 @@ To get the most out of the in-memory cache, follow these guidelines:
 
 ### Use the trigger-specific namespace
 
-The Processing engine provides a cache that supports stateful operations while maintaining isolation between different triggers. Use the trigger-specific namespace for most operations and the global namespace only when you need to share data across triggers.
+The Processing Engine provides a cache that supports stateful operations while maintaining isolation between different triggers. For most use cases, use the trigger-specific namespace to keep plugin state isolated. Use the global namespace only when you need to share data across triggers.
 
 ### Use TTL appropriately
 
-Set realistic expiration times based on how frequently data changes:
+Set appropriate expiration times based on how frequently your data changes:
 
 ```python
 # Cache external API responses for 5 minutes  
@@ -320,5 +318,6 @@ if not influxdb3_local.cache.get("lookup_table"):
 
 ## Next Steps
 
-With an understanding of the InfluxDB 3 Shared Plugin API, you're ready to build data processing workflows that can transform, analyze, and respond to your time series data.
-To find example plugins you can extend, visit the [plugin repo](https://github.com/influxdata/influxdb3_plugins) on GitHub.
+With an understanding of the InfluxDB 3 Shared Plugin API, you can start building data workflows that transform, analyze, and respond to your time series data.
+
+To find example plugins you can extend, visit the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) on GitHub.
