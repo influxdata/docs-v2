@@ -26,10 +26,10 @@ Once you have all the prerequisites in place, follow these steps to implement th
 2. [Add a Processing Engine plugin](#add-a-processing-engine-plugin)
    - [Use example plugins](#use-example-plugins)
    - [Create a custom plugin](#create-a-custom-plugin)
-3. [Create a trigger to run a plugin](#create-a-trigger-to-run-a-plugin)
+3. [Set up a trigger](#set-up-a-trigger)
    - [Understand trigger types](#understand-trigger-types)
-   - [Create a trigger](#create-a-trigger)
-   - [Choose a trigger specification](#choose-a-trigger-specification)
+   - [Use the create trigger command](#use-the-create-trigger-command)
+   - [Trigger specification examples](#trigger-specification-examples)
 4. [Advanced trigger configuration](#advanced-trigger-configuration)
    - [Access community plugins from GitHub](#access-community-plugins-from-github)
    - [Pass arguments to plugins](#pass-arguments-to-plugins)
@@ -37,7 +37,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
    - [Configure error handling for a trigger](#configure-error-handling-for-a-trigger)
    - [Install Python dependencies](#install-python-dependencies)
 
-## Activate the Processing Engine
+## Set up the Processing Engine
 
 To activate the Processing Engine, start your {{% product-name %}} server with the `--plugin-dir` flag. This flag tells InfluxDB where to load your plugin files. 
 
@@ -77,7 +77,7 @@ When running {{% product-name %}} in a distributed setup, follow these steps to 
 
 ## Add a Processing Engine plugin
 
-A plugin is a Python file that defines a specific function signature matching a type of trigger (_trigger spec_). When the specified event occurs, InfluxDB runs the plugin.
+A plugin is a Python script that defines a specific function signature for a trigger (_trigger spec_). When the specified event occurs, InfluxDB runs the plugin.
 
 ### Choose a plugin strategy
 
@@ -143,17 +143,29 @@ Plugins have various functions such as:
 - Access keyword arguments (as `args`) passed from _trigger arguments_ configurations
 - Access the `influxdb3_local` shared API to write data, query data, and managing state between executions
 
+For details on available functions, arguments, and how plugins interact with InfluxDB, see the [Extended Plugin API documentation](/influxdb3/shared/v3-core-plugins/). 
+
 ### Create a custom plugin
 
-When you need custom functionality, you can create your own plugin by doing the following:
+To build custom functionality, you can create your own Processing Engine plugin. 
+
+#### Prerequisites
+
+Before you begin, make sure:
+
+- The Processing Engine is enabled on your InfluxDB 3 Core instance.
+- You’ve configured the `--plugin-dir` where plugin files are stored.
+- You have access to that plugin directory.
+
+#### Steps to create a plugin:
 
 - [Choose your plugin type](#choose-your-plugin-type)
 - [Create your plugin file](#create-your-plugin-file)
-- [Next Steps after creating a plugin](#next-steps-after-creating-a-plugin)
+- [Next Steps](#next-steps)
 
 #### Choose your plugin type
 
-First, determine which type of plugin you need based on your automation goals:
+Choose a plugin type based on your automation goals:
 
 | Plugin Type | Best For | Trigger Type |
 |-------------|----------|-------------|
@@ -165,13 +177,13 @@ First, determine which type of plugin you need based on your automation goals:
 
 - Create a `.py` file in your plugins directory
 - Add the appropriate function signature based on your chosen plugin type
-- Implement your processing logic inside the function
+- Write your processing logic inside the function
+
+After writing your plugin, [create a trigger](#Use-the-create-trigger-command) to connect it to a database event and define when it runs.
 
 #### Create a data write plugin
 
-##### Option A: Create a data write plugin
-
-Data write plugins process incoming data as it's written to the database. They're ideal for:
+Use a data write plugin to process data as it's written to the database. Ideal use cases:
 
 - Data transformation and enrichment
 - Alerting on incoming values
@@ -196,9 +208,7 @@ def process_writes(influxdb3_local, table_batches, args=None):
 
 #### Create a scheduled plugin
 
-##### Option B: Create a scheduled plugin
-
-Scheduled plugins run at specific intervals or times. They can be used for:
+Scheduled plugins run at defined intervals. Use them for:
 
 - Periodic data aggregation
 - Report generation
@@ -220,12 +230,10 @@ def process_scheduled_call(influxdb3_local, call_time, args=None):
 
 #### Create an HTTP request plugin
 
-##### Option C: Create an HTTP request plugin
-
-HTTP request plugins respond to API calls. They can be used for:
+HTTP request plugins respond to API calls. Use them for:
 
 - Creating custom API endpoints
-- Web hooks for external integrations
+- Webhooks for external integrations
 - User interfaces for data interaction
 
 ```python
@@ -247,14 +255,13 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
 
 #### Next steps
 
-After adding your plugin:
+After writing your plugin:
+
+- [Create a trigger](#use-the-create-trigger-command) to connect your plugin to database events
 - You can [install Python dependencies](#install-python-dependencies) 
-- Learn how to [extend plugins with API features and state management](#extend-plugins-with-api-features-and-state-management)
-- Create a trigger to connect your plugin to database events
+- Learn how to [extend plugins with API](/influxdb3/shared/v3-core-plugins/)
 
-A trigger connects your plugin to a specific event.
-
-A trigger connects your plugin to a specific database event. The plugin function signature in your plugin file determines which _trigger specification_. You can choose for configuring and activating your plugin. After setting up your plugin, configure a trigger to run it for a specific event. 
+## Set up a trigger
 
 ### Understand trigger types
 
@@ -264,7 +271,7 @@ A trigger connects your plugin to a specific database event. The plugin function
 | Scheduled | `every:<DURATION>` or `cron:<EXPRESSION>` | At specified time intervals |
 | HTTP request | `path:<ENDPOINT_PATH>` | When HTTP requests are received |
 
-### Create a trigger
+### Use the create trigger command
 
 Use the `influxdb3 create trigger` command with the appropriate trigger specification:
 
@@ -292,9 +299,9 @@ In the example above, replace the following:
 > _is relative to_ the `--plugin-dir` configured for the server.
 > You don't need to provide an absolute path.
 
-### Choose a trigger specification
+### Trigger specification examples
 
-#### For data write events
+#### Data write example
 
 ```bash
 # Trigger on writes to a specific table
@@ -317,7 +324,7 @@ The trigger runs when the database flushes ingested data for the specified table
 
 The plugin receives the written data and table information.
 
-#### For scheduled events 
+#### Scheduled events example
 
 ```bash
 # Run every 5 minutes
@@ -337,7 +344,7 @@ influxdb3 create trigger \
 
 The plugin receives the scheduled call time.
 
-#### For HTTP requests
+#### HTTP requests example
 
 ```bash
 # Create an endpoint at /api/v3/engine/webhook
