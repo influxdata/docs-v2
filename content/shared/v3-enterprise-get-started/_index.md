@@ -282,14 +282,39 @@ To have the `influxdb3` CLI use your admin token automatically, assign it to the
 
 To create an admin token, use the `influxdb3 create token --admin` subcommand--for example:
 
+{{% code-placeholders "INFLUXDB_HOST|CONTAINER_NAME" %}}
+
+{{< code-tabs-wrapper >}}
+
+{{% code-tabs %}}
+[CLI](#)
+[Docker](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
 ```bash
 influxdb3 create token --admin \
- --host http://{{< influxdb/host >}}
+  --host http://INFLUXDB_HOST
 ```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+
 ```bash
-# With Docker -- In a new terminal, run:
+# With Docker — in a new terminal:
 docker exec -it CONTAINER_NAME influxdb3 create token --admin
 ```
+
+{{% /code-tab-content %}}
+
+{{< /code-tabs-wrapper >}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`INFLUXDB_HOST`{{% /code-placeholder-key %}}: Host address of your InfluxDB 3 server (for example, `localhost:8181`)
+- {{% code-placeholder-key %}}`CONTAINER_NAME`{{% /code-placeholder-key %}}: Name of your running Docker container
+
+{{% /code-placeholders %}}
 
 The command returns a token string that you can use to authenticate CLI commands and API requests.
 
@@ -327,8 +352,7 @@ influxdb3 create token \
 ```
 {{% /code-placeholders %}}
 
-In your command, replace {{% code-placeholder-key %}} `ADMIN_TOKEN`{{% /code-placeholder-key %}}
-with the admin token you created earlier.
+In your command, replace {{% code-placeholder-key %}} `ADMIN_TOKEN`{{% /code-placeholder-key %}} with the admin token you created earlier.
 
 #### Create a system token
 
@@ -355,6 +379,8 @@ To create a system token, use the `influxdb3 create token` subcommand and pass t
 
 The following example shows how to create a system token that expires in 1 year and has read permissions for all system endpoints on the server:
 
+{{% code-placeholders "ADMIN_TOKEN" %}}
+
 ```bash
 influxdb3 create token \
   --permission \
@@ -364,6 +390,9 @@ influxdb3 create token \
   --name "all system endpoints" \
   "system:*:read"
 ```
+{{% /code-placeholders %}}
+
+In your command, replace {{% code-placeholder-key %}} `ADMIN_TOKEN`{{% /code-placeholder-key %}} with the admin token you created earlier.
 
 For more information, see how to [Manage resource tokens](/influxdb3/version/admin/tokens/resource/).
 
