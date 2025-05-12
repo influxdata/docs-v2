@@ -2,7 +2,7 @@
 {{- $currentVersion := index $productPathData 1 -}}
 {{- $show := .Get "show" | default 12 -}}
 
-<div id="release-toc" class="{{ $currentVersion }}">
+<div id="release-toc" class="{{ $currentVersion }}" data-component="release-toc">
   <ul id="release-list" style="height: calc({{ $show }} * 1.885rem);" show="{{ $show }}">
     <!-- PLACEHOLDER FOR JS-GENERATED LIST ITEMS -->
   </ul>
