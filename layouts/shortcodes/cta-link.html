@@ -2,6 +2,6 @@
 {{- $product := index $productPathData 0 -}}
 {{- $version := index $productPathData 1 -}}
 {{- $isInfluxDBOSS := and (eq $product "influxdb") (gt (len (findRE `^v[0-9]` $version)) 0)}}
-{{- $productKey := cond (and (eq $product "influxdb") (not $isInfluxDBOSS)) (print "influxdb_" (replaceRE "-" "_" $version)) $product -}}
+{{- $productKey := cond (and (in $product "influxdb") (not $isInfluxDBOSS)) (print $product "_" (replaceRE "-" "_" $version)) $product -}}
 {{- $productData := index $.Site.Data.products $productKey -}}
 {{ $productData.link }}
