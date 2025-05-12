@@ -309,12 +309,12 @@ docker exec -it CONTAINER_NAME influxdb3 create token --admin
 
 {{< /code-tabs-wrapper >}}
 
+{{% /code-placeholders %}}
+
 Replace the following:
 
 - {{% code-placeholder-key %}}`INFLUXDB_HOST`{{% /code-placeholder-key %}}: Host address of your InfluxDB 3 server (for example, `localhost:8181`)
 - {{% code-placeholder-key %}}`CONTAINER_NAME`{{% /code-placeholder-key %}}: Name of your running Docker container
-
-{{% /code-placeholders %}}
 
 The command returns a token string that you can use to authenticate CLI commands and API requests.
 
@@ -341,6 +341,7 @@ To create a database token, use the `influxdb3 create token` subcommand and pass
 The following example shows how to create a database token that expires in 90 days and has read and write permissions for all databases on the server:
 
 {{% code-placeholders "ADMIN_TOKEN" %}}
+
 ```bash
 influxdb3 create token \
   --permission \
@@ -401,14 +402,18 @@ For more information, see how to [Manage resource tokens](/influxdb3/version/adm
 - To authenticate `influxdb3` CLI commands, use the `--token` option or assign your
   token to the `INFLUXDB3_AUTH_TOKEN` environment variable for `influxdb3` to use it automatically.
 - To authenticate HTTP API requests, include `Bearer <TOKEN>` in the `Authorization` header value--for example:
-  
+
+{{% code-placeholders "SYSTEM_TOKEN" %}}
+
   ```bash
   curl "http://{{< influxdb/host >}}/health" \
     --header "Authorization: Bearer SYSTEM_TOKEN"
   ```
+{{% /code-placeholders %}}
 
-  In your request, replace
-  {{% code-placeholder-key %}}`SYSTEM_TOKEN`{{% /code-placeholder-key %}} with the system token you created earlier.
+Replace the following:
+
+In your command, replace {{% code-placeholder-key %}}`SYSTEM_TOKEN`{{% /code-placeholder-key %}}: System token that grants access to system endpoints (`/health`, `/metrics`, etc.)
 
 ### Data model
 
