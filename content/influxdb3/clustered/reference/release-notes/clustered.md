@@ -34,16 +34,18 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250508-1719206
 ```
-### Bug Fixes
 
 ### Changes
 
 #### Deployment
-- The V0 REST API is now exposed for Granite.
+
+- Expose the v0 REST API for the management and authorization service (Granite).
 
 #### Database Engine
-- Database names can now be reused after deletion.
-- Database tokens can now have expiration dates set and be revoked.
+
+- Reuse database names after deletion.
+- Create database tokens with expiration dates.
+- Revoke database tokens rather than deleting them.
 
 ---
 
