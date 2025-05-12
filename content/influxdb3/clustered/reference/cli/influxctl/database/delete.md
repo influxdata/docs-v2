@@ -2,7 +2,7 @@
 title: influxctl database delete
 description: >
   The `influxctl database delete` command deletes a database from an 
-  {{< product-name omit=" Clustered" >}} cluster.
+  {{% product-name omit=" Clustered" %}} cluster.
 menu:
   influxdb3_clustered:
     parent: influxctl database
