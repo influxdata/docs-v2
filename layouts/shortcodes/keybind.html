@@ -5,4 +5,4 @@
 {{- $mac := .Get "mac" | default $default -}}
 {{- $win := .Get "win" | default $default -}}
 {{- $linux := .Get "linux" | default $default -}}
-<span class="keybinding" data-osx="{{ $mac }}" data-win="{{ $win }}" data-linux="{{ $linux }}"><code>{{ $default }}</code></span>
+<span class="keybinding" data-osx="{{ $mac }}" data-win="{{ $win }}" data-linux="{{ $linux }}" data-component="keybinding"><code>{{ $default }}</code></span>

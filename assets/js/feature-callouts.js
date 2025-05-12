@@ -6,33 +6,29 @@
   assets/js/cookies.js.
 */
 
+import $ from 'jquery';
+import * as LocalStorageAPI from './local-storage.js';
+
 // Get notification ID
-function getCalloutID (el) {
+function getCalloutID(el) {
   return $(el).attr('id');
 }
 
 // Hide a callout and update the cookie with the viewed callout
-function hideCallout (calloutID) {
-  if (!window.LocalStorageAPI.notificationIsRead(calloutID)) {
-    window.LocalStorageAPI.setNotificationAsRead(calloutID, 'callout');
+function hideCallout(calloutID) {
+  if (!LocalStorageAPI.notificationIsRead(calloutID)) {
+    LocalStorageAPI.setNotificationAsRead(calloutID, 'callout');
     $(`#${calloutID}`).fadeOut(200);
   }
 }
 
 // Show the url feature callouts on page load
-$(document).ready(function () {
-  $('.feature-callout').each(function () {
-    const calloutID = getCalloutID($(this));
+export default function FeatureCallout({ component }) {
+  const calloutID = getCalloutID($(component));
 
-    if (!window.LocalStorageAPI.notificationIsRead(calloutID, 'callout')) {
-      $(`#${calloutID}.feature-callout`)
-        .fadeIn(300)
-        .removeClass('start-position');
-    }
-  });
-});
-
-// Hide the InfluxDB URL selector callout
-// $('button.url-trigger, #influxdb-url-selector .close').click(function () {
-//   hideCallout('influxdb-url-selector');
-// });
+  if (LocalStorageAPI.notificationIsRead(calloutID, 'callout')) {
+    $(`#${calloutID}.feature-callout`)
+      .fadeIn(300)
+      .removeClass('start-position');
+  }
+}
