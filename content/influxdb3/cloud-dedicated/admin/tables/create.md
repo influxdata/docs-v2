@@ -181,9 +181,9 @@ If a table doesn't have a custom partition template, it inherits the database's 
 8. Provide the following:
 
    - **Custom partition template time format**: The time part for partitioning data (yearly, monthly, or daily).
-   - _Optional_: **Custom partition template tag parts**: The tag parts for partitioning data.
-   - _Optional_: **Custom partition template tag bucket parts**: The tag bucket parts for partitioning data.
-9. _Optional_: To add more parts to the partition template, click the **Add Tag** button.
+   - _Optional_: **Custom partition template tag parts**: The [tag parts](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-part-templates) for partitioning data.
+   - _Optional_: **Custom partition template tag bucket parts**: The [tag bucket parts](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-bucket-part-templates) for partitioning data.
+9. _Optional_: To add more parts to the partition template, click the **Add Tag** button. For more information, see [Partition template requirements and guidelines](#partition-template-requirements-and-guidelines).
 10. Click the **Create Table** button to create the table.
    The new table displays in the list of tables for the cluster.
 {{% /tab-content %}}
