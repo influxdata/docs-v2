@@ -11,17 +11,14 @@ function getPlatform() {
   }
 }
 
-const platform = getPlatform()
-
-function addOSClass(osClass) {
-  $('.keybinding').addClass(osClass)
+function addOSClass(osClass, { $component }) {
+  $component.addClass(osClass)
 }
 
-function updateKeyBindings() {
-  $('.keybinding').each(function() {
-    var osx = $(this).data("osx")
-    var linux = $(this).data("linux")
-    var win = $(this).data("win")
+function updateKeyBindings({ $component }) {
+    var osx = $component.data("osx")
+    var linux = $component.data("linux")
+    var win = $component.data("win")
 
     if (platform === "other") {
       if (win != linux) {
@@ -30,12 +27,16 @@ function updateKeyBindings() {
         var keybind = '<code>' + linux + '</code> for Linux and Windows and <code class="osx">' + osx + '</code> for macOS';
       }
     } else {
-      var keybind = '<code>' + $(this).data(platform) + '</code>'
+      var keybind = '<code>' + $component.data(platform) + '</code>'
     }
 
-    $(this).html(keybind)
-  })
+    $component.html(keybind)
 }
 
-addOSClass(platform)
-updateKeyBindings()
+export default function KeyBinding({ component }) {
+  // Initialize keybindings
+  const platform = getPlatform();
+  const $component = $(component);
+  addOSClass(platform, { $component });
+  updateKeyBindings({ $component });
+}

@@ -1,14 +1,6 @@
-{{ $jquery := resources.Get "js/jquery-3.5.0.min.js" }}
-{{ $versionSelector := resources.Get "js/version-selector.js" }}
-{{ $searchInteractions := resources.Get "js/search-interactions.js" }}
-{{ $listFilters := resources.Get "js/list-filters.js" }}
-{{ $featureCallouts := resources.Get "js/feature-callouts.js" }}
-{{ $keybindings := resources.Get "js/keybindings.js" }}
 {{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
 {{ $dateTime := resources.Get "js/datetime.js" }}
-{{ $homepageInteractions := resources.Get "js/home-interactions.js" }}
 {{ $releaseTOC := resources.Get "/js/release-toc.js" }}
-{{ $footerjs := slice $jquery $versionSelector $searchInteractions $listFilters $featureCallouts $keybindings $homepageInteractions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 {{ $fluxGroupKeyjs := $fluxGroupKeys | resources.Fingerprint }}
 {{ $dateTimejs := $dateTime | resources.Fingerprint }}
 {{ $releaseTOCjs := $releaseTOC | resources.Fingerprint }}
@@ -21,6 +13,7 @@
     {{ end -}}
   ]
 </script>
+
 
 {{ if .Page.HasShortcode "diagram" }}
 <!-- Load mermaid.js for diagrams -->
@@ -52,6 +45,3 @@
 {{ if .Page.HasShortcode "release-toc" }}
 <script type="text/javascript" src="{{ $releaseTOCjs.RelPermalink }}"></script>
 {{ end }}
-
-<!-- Load footer.js -->
-<script type="text/javascript" src="{{ $footerjs.RelPermalink }}"></script>
