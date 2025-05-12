@@ -12,7 +12,7 @@
 {{ end -}}
 {{ $products := .Site.Data.products }}
 {{ $influxdb_urls := .Site.Data.influxdb_urls }}
-<!-- Build main.js -->
+<!-- Build index.js -->
 {{ with resources.Get "js/index.js" }}
   {{ $opts := dict
     "minify" hugo.IsProduction
@@ -23,10 +23,10 @@
   {{ with . | js.Build $opts }}
     {{ if hugo.IsProduction }}
       {{ with . | fingerprint }}
-        <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+        <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
       {{ end }}
     {{ else }}
-      <script src="{{ .RelPermalink }}"></script>
+      <script defer src="{{ .RelPermalink }}"></script>
     {{ end }}
   {{ end }}
 {{ end }}
