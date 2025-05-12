@@ -1,4 +1,4 @@
-var tablesElement = $("#flux-group-keys-demo #grouped-tables")
+import $ from 'jquery';
 
 // Sample data
 let data = [
@@ -26,6 +26,18 @@ let data = [
 
 // Default group key
 let groupKey = ["_measurement", "loc", "sensorID", "_field"]
+
+export default function FluxGroupKeysDemo({ component }) {
+  $(".column-list label").click(function () {
+    toggleCheckbox($(this))
+    groupKey = getChecked();
+    groupData();
+    buildGroupExample();
+  });
+
+  // Group and render tables on load
+  groupData();
+}
 
 // Build a table group (group key and table) using an array of objects
 function buildTable(inputData) {
@@ -91,6 +103,7 @@ function buildTable(inputData) {
 
 // Clear and rebuild all HTML tables
 function buildTables(data) {
+  let tablesElement = $("#flux-group-keys-demo #grouped-tables");
   existingTables = tablesElement[0]
   while (existingTables.firstChild) {
     existingTables.removeChild(existingTables.firstChild);
@@ -124,10 +137,9 @@ function groupData() {
   buildTables(groupedData);
 }
 
-// Get selected column names
-var checkboxes = $("input[type=checkbox]");
-
 function getChecked() {
+  // Get selected column names
+  var checkboxes = $("input[type=checkbox]");
   var checked = [];
   for (var i = 0; i < checkboxes.length; i++) {
     var checkbox = checkboxes[i];
@@ -145,13 +157,3 @@ function buildGroupExample() {
   var columnCollection = getChecked().map(i => '<span class=\"s2\">"' + i + '"</span>').join(", ")
   $("pre#group-by-example")[0].innerHTML = "data\n  <span class='nx'>|></span> group(columns<span class='nx'>:</span> [" + columnCollection + "])";
 }
-
-$(".column-list label").click(function () {
-  toggleCheckbox($(this))
-  groupKey = getChecked();
-  groupData();
-  buildGroupExample();
-});
-
-// Group and render tables on load
-groupData()
