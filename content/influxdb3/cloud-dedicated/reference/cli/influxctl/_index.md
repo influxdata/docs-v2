@@ -9,18 +9,28 @@ menu:
     name: influxctl
     parent: CLIs
 weight: 101
+aliases:
+  - /influxdb3/cloud-dedicated/reference/cli/
 influxdb3/cloud-dedicated/tags: [cli]
 ---
 
 The `influxctl` command line interface (CLI) writes to, queries, and performs
-administrative tasks in an {{< product-name omit=" Clustered" >}} cluster.
+administrative tasks in an {{< product-name omit=" Clustered" >}} cluster and
+provides a scriptable way to manage your {{% product-name %}} resources.
 
+- [Key features](#key-features)
 - [Usage](#usage)
 - [Commands](#commands)
 - [Global flags](#global-flags)
 - [Download and install influxctl](#download-and-install-influxctl)
 - [Configure connection profiles](#configure-connection-profiles)
 - [Authentication](#authentication)
+
+## Key features
+
+- Authentication via environment variables or config file
+- JSON output for scripting and automation
+- Can be integrated into CI/CD pipelines
 
 ## Usage
 

@@ -25,6 +25,7 @@ environment variables.
 
 ```sh
 influxdb3 serve \
+  --license-email example@email.com \
   --object-store file \
   --data-dir ~/.influxdb3 \
   --node-id NODE_ID \
@@ -39,6 +40,7 @@ influxdb3 serve \
 <!--pytest.mark.skip-->
 
 ```sh
+export INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=example@email.com
 export INFLUXDB3_OBJECT_STORE=file
 export INFLUXDB3_DB_DIR=~/.influxdb3
 export INFLUXDB3_WRITER_IDENTIFIER_PREFIX=my-host
@@ -52,12 +54,13 @@ influxdb3 serve
 ## Server configuration options
 
 - [General](#general)
-  - [object-store](#object-store)
-  - [data-dir](#data-dir)
-  - [node-id](#node-id)
   - [cluster-id](#cluster-id)
-  - [mode](#mode)
+  - [data-dir](#data-dir)
   - [license-email](#license-email)
+  - [license-file](#license-file)
+  - [mode](#mode)
+  - [node-id](#node-id)
+  - [object-store](#object-store)
   - [query-file-limit](#query-file-limit)
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
@@ -111,7 +114,6 @@ influxdb3 serve
   - [max-http-request-size](#max-http-request-size)
   - [http-bind](#http-bind)
 - [Memory](#memory)
-  - [ram-pool-data-bytes](#ram-pool-data-bytes)
   - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
   - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 - [Write-Ahead Log (WAL)](#write-ahead-log-wal)
@@ -146,54 +148,14 @@ influxdb3 serve
 
 ### General
 
-- [object-store](#object-store)
-- [bucket](#bucket)
-- [data-dir](#data-dir)
-- [node-id](#node-id)
 - [cluster-id](#cluster-id)
-- [mode](#mode)
+- [data-dir](#data-dir)
 - [license-email](#license-email)
+- [license-file](#license-file)
+- [mode](#mode)
+- [node-id](#node-id)
+- [object-store](#object-store)
 - [query-file-limit](#query-file-limit)
-
-#### object-store
-
-Specifies which object storage to use to store Parquet files.
-This option supports the following values:
-
-- `memory` _(default)_: Effectively no object persistence
-- `memory-throttled`: Like `memory` but with latency and throughput that somewhat resembles a cloud object store
-- `file`: Stores objects in the local filesystem (must also set `--data-dir`)
-- `s3`: Amazon S3 (must also set `--bucket`, `--aws-access-key-id`, `--aws-secret-access-key`, and possibly `--aws-default-region`)
-- `google`: Google Cloud Storage (must also set `--bucket` and `--google-service-account`)
-- `azure`: Microsoft Azure blob storage (must also set `--bucket`, `--azure-storage-account`, and `--azure-storage-access-key`)
-
-| influxdb3 serve option | Environment variable     |
-| :--------------------- | :----------------------- |
-| `--object-store`       | `INFLUXDB3_OBJECT_STORE` |
-
----
-
-#### data-dir
-
-Defines the location {{< product-name >}} uses to store files locally.
-
-| influxdb3 serve option | Environment variable |
-| :--------------------- | :------------------- |
-| `--data-dir`           | `INFLUXDB3_DB_DIR`   |
-
----
-
-#### node-id
-
-Specifies the node identifier used as a prefix in all object store file paths.
-This should be unique for any hosts sharing the same object store
-configuration--for example, the same bucket.
-
-| influxdb3 serve option | Environment variable               |
-| :--------------------- | :--------------------------------- |
-| `--node-id`            | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` |
-
----
 
 #### cluster-id
 
@@ -203,6 +165,41 @@ This value must be different than the [`--node-id`](#node-id) value.
 | influxdb3 serve option | Environment variable               |
 | :--------------------- | :--------------------------------- |
 | `--cluster-id`         | `INFLUXDB3_ENTERPRISE_my-cluster-01`  |
+
+---
+
+#### data-dir
+
+For the `file` object store, defines the location {{< product-name >}} uses to store files locally.
+Required when using the `file` [object store](#object-store).
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--data-dir`           | `INFLUXDB3_DB_DIR`   |
+
+---
+
+#### license-email
+
+Specifies the email address to associate with your {{< product-name >}} license
+and automatically responds to the interactive email prompt when the server starts.
+This option is mutually exclusive with [license-file](#license-file).
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-email`      | `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` |
+
+---
+
+#### license-file
+
+Specifies the path to a license file for {{< product-name >}}. When provided, the license
+file's contents are used instead of requesting a new license.
+This option is mutually exclusive with [license-email](#license-email).
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-file`       | `INFLUXDB3_ENTERPRISE_LICENSE_FILE`  |
 
 ---
 
@@ -228,14 +225,33 @@ You can specify multiple modes using a comma-delimited list (for example, `inges
 
 ---
 
-#### license-email
+#### node-id
 
-Specifies the email address to associate with your {{< product-name >}} license
-and automatically responds to the interactive email prompt when the server starts.
+Specifies the node identifier used as a prefix in all object store file paths.
+This should be unique for any hosts sharing the same object store
+configuration--for example, the same bucket.
 
-| influxdb3 serve option | Environment variable                 |
-| :--------------------- | :----------------------------------- |
-| `--license-email`      | `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` |
+| influxdb3 serve option | Environment variable               |
+| :--------------------- | :--------------------------------- |
+| `--node-id`            | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` |
+
+---
+
+#### object-store
+
+Specifies which object storage to use to store Parquet files.
+This option supports the following values:
+
+- `memory` _(default)_: Effectively no object persistence
+- `memory-throttled`: Like `memory` but with latency and throughput that somewhat resembles a cloud object store
+- `file`: Stores objects in the local filesystem (must also set `--data-dir`)
+- `s3`: Amazon S3 (must also set `--bucket`, `--aws-access-key-id`, `--aws-secret-access-key`, and possibly `--aws-default-region`)
+- `google`: Google Cloud Storage (must also set `--bucket` and `--google-service-account`)
+- `azure`: Microsoft Azure blob storage (must also set `--bucket`, `--azure-storage-account`, and `--azure-storage-access-key`)
+
+| influxdb3 serve option | Environment variable     |
+| :--------------------- | :----------------------- |
+| `--object-store`       | `INFLUXDB3_OBJECT_STORE` |
 
 ---
 
@@ -827,22 +843,9 @@ Defines the address on which InfluxDB serves HTTP API requests.
 
 ### Memory
 
-- [ram-pool-data-bytes](#ram-pool-data-bytes)
 - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
 - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
 - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
-
-#### ram-pool-data-bytes
-
-Specifies the size of the RAM cache used to store data, in bytes.
-
-**Default:** `1073741824`
-
-| influxdb3 serve option  | Environment variable            |
-| :---------------------- | :------------------------------ |
-| `--ram-pool-data-bytes` | `INFLUXDB3_RAM_POOL_DATA_BYTES` |
-
----
 
 #### exec-mem-pool-bytes
 

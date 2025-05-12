@@ -61,3 +61,15 @@ influxdb3 show databases --show-deleted
 ```bash
 influxdb3 show databases --format json
 ```
+
+### List databases in Parquet-formatted output
+
+[Parquet](https://parquet.apache.org/) is a binary format.
+Use the `--output` option to specify the file where you want to save the Parquet data.
+
+<!--pytest.mark.skip-->
+```bash
+influxdb3 show databases 
+  --format parquet \
+  --output /Users/me/databases.parquet
+```

@@ -301,10 +301,11 @@ services:
     working_dir: /app
   influxdb3-core:
     container_name: influxdb3-core
-    image: quay.io/influxdb/influxdb3-core:latest
+    image: influxdb:3-core
     ports:
       - 8181:8181
     command:
+      - influxdb3
       - serve
       - --node-id=sensors_node0
       - --log-filter=debug

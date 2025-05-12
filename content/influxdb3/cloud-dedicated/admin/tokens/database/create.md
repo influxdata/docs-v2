@@ -1,7 +1,7 @@
 ---
 title: Create a database token
 description: >
-  Use the [`influxctl token create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/create/)
+  Use the Admin UI, the [`influxctl token create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/create/),
   or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
   to create a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) for reading and writing data in your InfluxDB Cloud Dedicated cluster.
   Provide a token description and permissions for databases.
@@ -52,16 +52,49 @@ related:
   - /influxdb3/cloud-dedicated/reference/api/
 ---
 
-Use the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/)
+Use the Admin UI, the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/),
 or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/) to create a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) with permissions for reading and writing data in your {{< product-name omit=" Clustered" >}} cluster.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
+[Admin UI](#)
 [influxctl](#)
 [Management API](#)
 {{% /tabs %}}
 {{% tab-content %}}
+<!------------------------------- BEGIN ADMIN UI ------------------------------->
 
+The InfluxDB Cloud Dedicated administrative UI includes a portal for creating and managing database tokens.
+
+1.  To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+
+    <pre>
+    <a href="https://{{< influxdb/host >}}/">https://{{< influxdb/host >}}</a>
+    </pre>
+
+2.  Use the credentials provided by InfluxData to log into the Admin UI.
+    If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+3.  After you log in, the Account Management portal displays [account information](/influxdb3/cloud-dedicated/admin/account/)
+    and the list of clusters associated with your account.
+4. Find the cluster that you want to create a database token for. You can **Search** clusters by name or ID to filter the list and use the sort button and column headers to sort the list. 
+5.  Click the row for the cluster.
+6.  Click the **Database Tokens** button in the upper right corner of the Cluster screen.
+7.  In the Database Tokens portal, click the **New Database Token** button. 
+   The **Create Database Token** dialog displays.
+
+   {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-create-database-token.png" alt="Create database token dialog" />}}
+
+8. Add a token description.
+   The description is used to identify the token in the list of tokens. 
+9. To create a token that expires, enable the **Expiration** toggle,
+    and then select the expiration date and time.
+10. Set the token permissions:
+    - Select the database or **All Databases** for the permission
+    - Use the **Read** and **Write** buttons under **Actions** to toggle these permissions on or off for the selected database.
+11. Click the **Create Token** button. The dialog displays the **Token secret** string and the description you provided.
+
+{{% /tab-content %}}
+{{% tab-content %}}
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->
 
 Use the [`influxctl token create` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/create/)
