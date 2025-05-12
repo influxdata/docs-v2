@@ -1,10 +1,3 @@
-{{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
-{{ $dateTime := resources.Get "js/datetime.js" }}
-{{ $releaseTOC := resources.Get "/js/release-toc.js" }}
-{{ $fluxGroupKeyjs := $fluxGroupKeys | resources.Fingerprint }}
-{{ $dateTimejs := $dateTime | resources.Fingerprint }}
-{{ $releaseTOCjs := $releaseTOC | resources.Fingerprint }}
-
 <!-- Load cloudUrls array -->
 <script type="text/javascript">
   cloudUrls = [
@@ -13,35 +6,3 @@
     {{ end -}}
   ]
 </script>
-
-
-{{ if .Page.HasShortcode "diagram" }}
-<!-- Load mermaid.js for diagrams -->
-<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-<script>
-  mermaid.initialize({
-    startOnLoad: true,
-
-    themeVariables: {
-      fontFamily: "Proxima Nova",
-      fontSize: '18px',
-    }
-  })
-</script>
-{{ end }}
-
-<!-- Load group key demo JS if when the group key demo shortcode is present -->
-{{ if .Page.HasShortcode "flux/group-key-demo" }}
-<script type="text/javascript" src="{{ $fluxGroupKeyjs.RelPermalink }}"></script>
-{{ end }}
-
-<!-- Load datetime js if when datetime shortcodes are present -->
-{{ if or (.Page.HasShortcode "datetime/current-time") (.Page.HasShortcode "datetime/current-timestamp")
-(.Page.HasShortcode "datetime/current-date") (.Page.HasShortcode "datetime/enterprise-eol-date") }}
-<script type="text/javascript" src="{{ $dateTimejs.RelPermalink }}"></script>
-{{ end }}
-
-<!-- Load code release-toc js when release-toc shortcode is present -->
-{{ if .Page.HasShortcode "release-toc" }}
-<script type="text/javascript" src="{{ $releaseTOCjs.RelPermalink }}"></script>
-{{ end }}
