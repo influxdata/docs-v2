@@ -43,7 +43,7 @@ Identify products by their product path. Dictionary schema:
 
 {{ $templateDefaults := dict "context" . "productInfo" $productInfo "altLinks" $altLinks "pageRoot" $pageRoot "useRootProductLink" $useRootProductLink }}
 
-<div class="product-list">
+<div class="product-list" data-component="product-selector">
   <div id="product-dropdown">
     <p class="selected">{{ index (index $productInfo $pageRoot) 0 | default "Select product" }}</p>
   </div>
