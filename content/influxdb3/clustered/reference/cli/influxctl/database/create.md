@@ -68,17 +68,12 @@ Be sure to follow [partitioning best practices](/influxdb3/clustered/admin/custo
 > Otherwise, InfluxDB omits time from the partition template and won't compact partitions.
 
 > [!Warning]
-> #### Cannot reuse deleted database names
-> 
-> You cannot reuse the name of a deleted database when creating a new database.
-> If you try to reuse the name, the API response status code
-> is `400` and the `message` field contains the following:
-> 
-> ```text
-> 'iox_proxy.app.CreateDatabase failed to create database: \
-> rpc error: code = AlreadyExists desc = A namespace with the
-> name `<DATABASE_NAME>` already exists'
-> ```
+> #### Wait before writing to a new database with the same name as a deleted database
+>
+> After deleting a database from your {{% product-name omit=" Clustered" %}}
+> cluster, you can reuse the name to create a new database, but **wait two to
+> three minutes** after deleting the previous database before writing to the new
+> database to allow write caches to clear.
 
 ## Usage
 
