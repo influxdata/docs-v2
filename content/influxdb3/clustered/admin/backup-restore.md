@@ -55,7 +55,12 @@ snapshot. When a snapshot is restored to the Catalog store, the Compactor
 A _soft delete_ refers to when, on compaction, the Compactor sets a `deleted_at`
 timestamp on the Parquet file entry in the Catalog.
 The Parquet file is no
-longer queryable, but remains intact in the object store. 
+longer queryable, but remains intact in the object store.
+
+> [!Note]
+> Soft deletes are a mechanism of the {{% product-name %}} Catalog, not of the
+> underlying object storage provider. Soft deletes do not modify objects in the
+> object store; only Catalog entries that reference objects in the object store.
 
 ## Hard delete
 
