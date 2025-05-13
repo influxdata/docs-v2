@@ -1,4 +1,6 @@
-The `influxdb3 create distinct_cache` command creates a new distinct value cache.
+The `influxdb3 create distinct_cache` command creates a new distinct value cache for a specific table and column set in your {{< product-name >}} instance.
+
+Use this command to configure a cache that tracks unique values in specified columns. You must provide the database, token, table, and columns. Optionally, you can specify a name for the cache.
 
 ## Usage
 
@@ -15,10 +17,12 @@ influxdb3 create distinct_cache [OPTIONS] \
 
 ## Arguments
 
-- **CACHE_NAME**: _(Optional)_ Name for the cache.
-  If not provided, the command automatically generates a name.
 
-## Options
+### `CACHE_NAME` (optional)
+
+A name to assign to the cache. If omitted, the CLI generates a name automatically.
+
+## Options 
 
 | Option |                     | Description                                                                                                                                                             |
 | :----- | :------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -53,21 +57,35 @@ You can use the following environment variables to set command options:
 
 
 ## Prerequisites
-Before creating a distinct value cache, you must:
 
-1. Create a [database](/influxdb3/version/reference/cli/influxdb3/create/database/).
+Before creating a distinct value cache, make sure you:
 
-2. Create a [table](/influxdb3/version/reference/cli/influxdb3/create/table/) with the columns you want to cache.
+1. [Create a database](/influxdb3/version/reference/cli/influxdb3/create/database/)
 
-3. Have a valid authentication token.
+2. [Create a table](/influxdb3/version/reference/cli/influxdb3/create/table/) that includes the columns you want to cache
+
+3. Have a valid authentication token
 
 ## Examples
 
+Before running the following commands, replace the placeholder values with your own:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
+  Database name
+- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
+  Table name
+- {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: 
+  Name of the distinct value cache to create
+- {{% code-placeholder-key %}}`COLUMN_NAME`{{% /code-placeholder-key %}}: Column to 
+cache distinct values from
+
+You can also set environment variables (such as `INFLUXDB3_AUTH_TOKEN`) instead of passing options inline.
+
 {{% code-placeholders "(DATABASE|TABLE|COLUMN|CACHE)_NAME" %}}
 
-### Generic syntax
+### Create a distinct cache for one column
 
-Use this as a template to adapt the command to your environment. 
+Track unique values from a single column. This setup is useful for testing or simple use cases.
 
 <!--pytest.mark.skip-->
 
@@ -79,33 +97,9 @@ influxdb3 create distinct_cache \
   CACHE_NAME
 ```
 
-In the example above, replace the following:
-
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  Database name
-- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
-  Table name
-- {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: 
-  Name of the distinct value cache to create
-- {{% code-placeholder-key %}}`COLUMN_NAME`{{% /code-placeholder-key %}}: Column to cache distinct values from
-
-### Create a distinct value cache for one column
-
-Use this simple setup to test the cache functionality for a single tag column. It’s helpful when validating basic behavior or building up incrementally.
-
-<!--pytest.mark.skip-->
-
-```bash
-influxdb3 create distinct_cache \
-  --database my_test_db \
-  --table my_sensor_table \
-  --columns room \
-  my_room_cache
-```
-
 ### Create a hierarchical cache with constraints
 
-Use this pattern when you need more control over cache structure and retention. It creates a multilevel cache with resource limits.
+Create a distinct value cache for multiple columns. This configuration tracks unique combinations of `room` and `sensor_id`, and sets limits on the number of entries and their maximum age.
 
 <!--pytest.mark.skip-->
 
