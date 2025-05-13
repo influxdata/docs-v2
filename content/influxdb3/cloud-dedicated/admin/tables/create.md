@@ -71,13 +71,18 @@ and managing tables.
    can sort on column headers or use the **Search** field to find a specific cluster.
 4. In the database list, find and click the database you want to create a table in. You
    can sort on column headers or use the **Search** field to find a specific database.
-4. Click the **New Table** button above the table list. 
+5. Click the **New Table** button above the table list. 
    The **Create table** dialog displays.
-5. In the **Create table** dialog, provide a **Table name**.
-6. Toggle **Use default partitioning** to **On**
-7. Click the **Create Table** button.
-{{% /tab-content %}}
 
+   {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-create-table-default.png" alt="Create table dialog" />}}
+
+6. In the **Create table** dialog, provide a **Table name**.
+7. Leave **Use custom partitioning** set to **Off**.
+   By default, the table inherits the database's partition template.
+   If no custom partition template is applied to the database, the table inherits the default partitioning of `%Y-%m-%d` (daily).
+8. Click the **Create Table** button.
+
+{{% /tab-content %}}
 {{% tab-content %}}
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->
 1. If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
@@ -95,8 +100,8 @@ influxctl table create \
 Replace:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the database to create the table in
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the name for your new table
-{{% /tab-content %}}
 
+{{% /tab-content %}}
 {{% tab-content %}}
 <!------------------------------- BEGIN MANAGEMENT API ------------------------------>
 _This example uses [cURL](https://curl.se/) to send a Management HTTP API request, but you can use any HTTP client._
@@ -123,11 +128,12 @@ curl \
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the account ID for the cluster
-- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the cluster ID
-- {{% code-placeholder-key %}}`MANAGEMENT_TOKEN`{{% /code-placeholder-key %}}: a valid management token
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the database to create the table in
+- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the [account](/influxdb3/cloud-dedicated/admin/account/) ID for the cluster _(list details via the [Admin UI](/influxdb3/cloud-dedicated/admin/clusters/list/) or [CLI](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the [cluster](/influxdb3/cloud-dedicated/admin/clusters/) ID _(list details via the [Admin UI](/influxdb3/cloud-dedicated/admin/clusters/list/) or [CLI](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+- {{% code-placeholder-key %}}`MANAGEMENT_TOKEN`{{% /code-placeholder-key %}}: a valid [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/cloud-dedicated/admin/databases/) to create the table in
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the name for your new table
+
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
@@ -161,21 +167,26 @@ If a table doesn't have a custom partition template, it inherits the database's 
    can sort on column headers or use the **Search** field to find a specific cluster.
 4. In the database list, find and click the database you want to create a table in. You
    can sort on column headers or use the **Search** field to find a specific database.
-4. Click the **New Table** button above the table list. 
+5. Click the **New Table** button above the table list. 
    The **Create table** dialog displays.
-    <img src="/img/influxdb3/cloud-dedicated-admin-ui-create-table.png" alt="Create table dialog" />
-5. In the **Create table** dialog, provide a **Table name**.
-6. Make sure the **Use default partitioning** toggle is set to **Off**
-7. Provide the following:
 
-   - **Custom partition template time format**: The time part for partitioning data.
-   - _Optional_: **Custom partition template tag parts**: The tag parts for partitioning data.
-   - _Optional_: **Custom partition template tag bucket parts**: The tag bucket parts for partitioning data.
-8. _Optional_: To add more parts to the partition template, click the **Add Tag** button.
-9. Click the **Create Table** button to create the table.
+   {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-create-table-default.png" alt="Create table dialog" />}}
+
+6. In the **Create table** dialog, provide a **Table name**.
+7. Toggle **Use custom partitioning** to **On**.
+   The **Custom partition template** section displays.
+
+   {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-create-table-custom-partitioning.png" alt="Create table dialog with custom partitioning" />}}
+
+8. Provide the following:
+
+   - **Custom partition template time format**: The time part for partitioning data (yearly, monthly, or daily).
+   - _Optional_: **Custom partition template tag parts**: The [tag parts](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-part-templates) for partitioning data.
+   - _Optional_: **Custom partition template tag bucket parts**: The [tag bucket parts](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-bucket-part-templates) for partitioning data.
+9. _Optional_: To add more parts to the partition template, click the **Add Tag** button. For more information, see [Partition template requirements and guidelines](#partition-template-requirements-and-guidelines).
+10. Click the **Create Table** button to create the table.
    The new table displays in the list of tables for the cluster.
 {{% /tab-content %}}
-
 {{% tab-content %}}
 <!------------------------------- BEGIN INFLUXCTL CUSTOM ----------------------------->
 1. If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/get-started/setup/#download-install-and-configure-the-influxctl-cli).
@@ -220,7 +231,6 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/cloud-dedicated/admin/databases/) to create the table in
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the name you want for the new table 
 {{% /tab-content %}}
-
 {{% tab-content %}}
 <!------------------------------- BEGIN MANAGEMENT API CUSTOM ------------------------------>
 _This example uses [cURL](https://curl.se/) to send a Management HTTP API request, but you can use any HTTP client._
