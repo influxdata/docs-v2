@@ -1,5 +1,6 @@
+The `influxdb3 create database` command creates a new database in your {{< product-name >}} instance.
 
-The `influxdb3 create database` command creates a new database.
+Use this command to add a database by specifying a name. Provide a database name and, optionally, specify connection settings and authentication credentials using flags or environment variables.
 
 ## Usage
 
@@ -11,11 +12,16 @@ influxdb3 create database [OPTIONS] <DATABASE_NAME>
 
 ## Arguments
 
-- **DATABASE_NAME**: The name of the database to create.
-  Valid database names are alphanumeric and start with a letter or number.
-  Dashes (`-`) and underscores (`_`) are allowed.
+
+### `DATABASE_NAME` (required)
+
+The name of the database to create. Database names must follow these rules:
+
+- Must start with a letter or number
+- Can include letters, numbers, dashes (-), and underscores (_)
+- Must be alphanumeric overall
   
-  Environment variable: `INFLUXDB3_DATABASE_NAME`
+You can also set the database name using the `INFLUXDB3_DATABASE_NAME` environment variable.
 
 ## Options
 
@@ -29,7 +35,7 @@ influxdb3 create database [OPTIONS] <DATABASE_NAME>
 
 ### Option environment variables
 
-You can use the following environment variables to set command options:
+Use the following environment variables instead of providing CLI options directly:
 
 | Environment Variable      | Option       |
 | :------------------------ | :----------- |
@@ -38,10 +44,7 @@ You can use the following environment variables to set command options:
 
 ## Examples
 
-- [Create a new database](#create-a-new-database)
-- [Create a new database while specifying the token inline](#create-a-new-database-while-specifying-the-token-inline)
-
-In the examples below, replace the following:
+Use the following examples to create a database. Replace the placeholders with your actual values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Database name
@@ -50,7 +53,9 @@ In the examples below, replace the following:
 
 {{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 
-### Create a new database
+### Create a database (default)
+
+Creates a database using default connection settings and the active authentication context.
 
 <!--pytest.mark.skip-->
 
@@ -58,7 +63,9 @@ In the examples below, replace the following:
 influxdb3 create database DATABASE_NAME
 ```
 
-### Create a new database while specifying the token inline
+### Create a database with an authentication token
+
+Creates a database and explicitly passes an authentication token.
 
 <!--pytest.mark.skip-->
 
