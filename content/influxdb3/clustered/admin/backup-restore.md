@@ -224,6 +224,15 @@ written on or around the beginning of the next hour.
 Use the following process to restore your InfluxDB cluster to a recovery point
 using Catalog store snapshots:
 
+> [!Warning]
+> 
+> #### Use the same InfluxDB Clustered version used to generate the snapshot
+>
+> When restoring an InfluxDB cluster to a recovery point, use the same version
+> of InfluxDB Clustered used to generate the Catalog store snapshot.
+> You may need to [downgrade to a previous version](/influxdb3/clustered/admin/upgrade/)
+> before restoring.
+
 1.  **Install prerequisites:**  
 
     - `kubectl` CLI for managing your Kubernetes deployment.  
