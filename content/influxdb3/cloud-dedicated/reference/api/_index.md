@@ -9,7 +9,7 @@ menu:
   influxdb3_cloud_dedicated:
     parent: Reference
     name: InfluxDB HTTP API
-weight: 104
+weight: 105
 influxdb3/cloud-dedicated/tags: [api]
 ---
 

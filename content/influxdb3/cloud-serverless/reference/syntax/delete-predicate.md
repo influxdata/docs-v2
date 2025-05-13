@@ -5,7 +5,7 @@ description: >
   InfluxDB uses an InfluxQL-like predicate syntax to determine what data points to delete.
 menu:
   influxdb3_cloud_serverless:
-    parent: Syntax
+    parent: Other syntaxes
     name: Delete predicate
 weight: 104
 influxdb3/cloud-serverless/tags: [syntax, delete]

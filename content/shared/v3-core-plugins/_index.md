@@ -15,7 +15,7 @@ This guide walks you through setting up the Processing Engine, creating your fir
 ## Before you begin
 
 Ensure you have: 
-- A working InfluxDB 3 Core instance
+- A working {{% product-name %}} instance
 - Access to command line
 - Python installed if you're writing your own plugin
 - Basic knowledge of the InfluxDB CLI
@@ -144,7 +144,7 @@ Plugins have various functions such as:
 - Access keyword arguments (as `args`) passed from _trigger arguments_ configurations
 - Access the `influxdb3_local` shared API to write data, query data, and managing state between executions
 
-For more information about available functions, arguments, and how plugins interact with InfluxDB, see the [Extended Plugin API documentation](/influxdb3/shared/v3-core-plugins/). 
+For more information about available functions, arguments, and how plugins interact with InfluxDB, see how to [Extend plugins](/influxdb3/version/extend-plugin/). 
 
 ### Create a custom plugin
 
