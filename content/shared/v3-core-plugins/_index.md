@@ -15,7 +15,7 @@ This guide walks you through setting up the Processing Engine, creating your fir
 ## Before you begin
 
 Ensure you have: 
-- A working InfluxDB 3 Core instance
+- A working {{% product-name %}} instance
 - Access to command line
 - Python installed if you're writing your own plugin
 - Basic knowledge of the InfluxDB CLI
