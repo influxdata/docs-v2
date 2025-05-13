@@ -1,0 +1,17 @@
+# config.testing.toml
+# This configuration inherits from the base config and overrides draft settings
+
+# Import base configuration
+imports: ["hugo.yml"]
+
+# Override draft settings
+buildDrafts: true
+
+# Exclude shared content files from being processed as standalone pages
+ignoreFiles:
+  - "content/shared/.*"
+
+# Ignore specific warning logs
+ignoreLogs:
+  - warning-goldmark-raw-html
+  - "calling IsSet with unsupported type \"invalid\""

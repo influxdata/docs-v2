@@ -2,7 +2,10 @@
 {{ $product := index $productPathData 0 }}
 {{ $version := index $productPathData 1 | default "0"}}
 {{ $productKey := cond (eq $product "influxdb3") (print "influxdb3_" (replaceRE "-" "_" $version)) $product }}
-{{ $productName := cond (isset (index .Site.Data.products $productKey) "altname") (index .Site.Data.products $productKey).altname (index .Site.Data.products $productKey).name }}
+{{ $productName := $product }}
+{{ with (index .Site.Data.products $productKey) }}
+  {{ $productName = default .name .altname }}
+{{ end }}
 
 {{ $stableVersion := (replaceRE `\.[0-9x]+$` "" (index .Site.Data.products $product).latest) }}
 {{ $stableVersionURL := replaceRE `v[1-3]` $stableVersion .RelPermalink }}

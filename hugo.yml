@@ -55,6 +55,12 @@ outputFormats:
     baseName: pages
     isPlainText: true
 
+# Define content handling rules
+contentManagement:
+  # Explicitly mark shared content as non-renderable
+  ignoreFiles:
+    - "content/shared/.*"
+
 build:
   # Ensure Hugo correctly processes JavaScript modules
   jsConfig:

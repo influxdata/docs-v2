@@ -1,10 +1,12 @@
-const { defineConfig } = require('cypress');
-const process = require('process');
+import { defineConfig } from 'cypress';
+import { cwd as _cwd } from 'process';
+import * as fs from 'fs';
+import * as yaml from 'js-yaml';
 
-module.exports = defineConfig({
+export default defineConfig({
   e2e: {
     // Automatically prefix cy.visit() and cy.request() commands with a baseUrl.
-    baseUrl: 'http://localhost:1313',
+    baseUrl: 'http://localhost:1315',
     defaultCommandTimeout: 10000,
     pageLoadTimeout: 30000,
     responseTimeout: 30000,
@@ -22,24 +24,75 @@ module.exports = defineConfig({
           return launchOptions;
         }
       });
+      
       on('task', {
         // Fetch the product list configured in /data/products.yml
         getData(filename) {
           return new Promise((resolve, reject) => {
-            const yq = require('js-yaml');
-            const fs = require('fs');
-            const cwd = process.cwd();
+            const cwd = _cwd();
             try {
               resolve(
-                yq.load(fs.readFileSync(`${cwd}/data/${filename}.yml`, 'utf8'))
+                yaml.load(fs.readFileSync(`${cwd}/data/${filename}.yml`, 'utf8'))
               );
             } catch (e) {
               reject(e);
             }
           });
         },
+        
+        // Log task for broken links reporting
+        log(message) {
+          if (typeof message === 'object') {
+            if (message.type === 'error') {
+              console.error(`\x1b[31m${message.message}\x1b[0m`); // Red
+            } else if (message.type === 'warning') {
+              console.warn(`\x1b[33m${message.message}\x1b[0m`);  // Yellow
+            } else if (message.type === 'success') {
+              console.log(`\x1b[32m${message.message}\x1b[0m`);   // Green
+            } else if (message.type === 'divider') {
+              console.log(`\x1b[90m${message.message}\x1b[0m`);   // Gray
+            } else {
+              console.log(message.message || message);
+            }
+          } else {
+            console.log(message);
+          }
+          return null;
+        },
+        
+        // Add a task for writing to files
+        writeFile({ path, content }) {
+          try {
+            fs.writeFileSync(path, content);
+            return true;
+          } catch (error) {
+            console.error(`Error writing to file ${path}: ${error.message}`);
+            return { error: error.message };
+          }
+        },
+        
+        // Add a task for reading files
+        readFile(path) {
+          try {
+            return fs.existsSync(path) ? fs.readFileSync(path, 'utf8') : null;
+          } catch (error) {
+            console.error(`Error reading file ${path}: ${error.message}`);
+            return { error: error.message };
+          }
+        }
       });
-      return config;
+      
+      // Load plugins file using dynamic import for ESM compatibility
+      return import('./cypress/plugins/index.js').then(module => {
+        return module.default(on, config);
+      });
     },
+    specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
+    supportFile: 'cypress/support/e2e.js',
+    viewportWidth: 1280,
+    viewportHeight: 720
   },
+  env: {
+    test_subjects: ''
+  }
 });
