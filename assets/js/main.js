@@ -34,6 +34,7 @@ import AskAITrigger from './ask-ai-trigger.js';
 import CodePlaceholder from './code-placeholders.js';
 import { CustomTimeTrigger } from './custom-timestamps.js';
 import Diagram from './components/diagram.js';
+import DocSearch from './components/doc-search.js';
 import FeatureCallout from './feature-callouts.js';
 import FluxGroupKeysDemo from './flux-group-keys.js';
 import FluxInfluxDBVersionsTrigger from './flux-influxdb-versions.js';
@@ -62,6 +63,7 @@ const componentRegistry = {
   'code-placeholder': CodePlaceholder,
   'custom-time-trigger': CustomTimeTrigger,
   'diagram': Diagram,
+  'doc-search': DocSearch,
   'feature-callout': FeatureCallout,
   'flux-group-keys-demo': FluxGroupKeysDemo,
   'flux-influxdb-versions-trigger': FluxInfluxDBVersionsTrigger,
