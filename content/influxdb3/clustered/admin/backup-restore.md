@@ -273,7 +273,8 @@ using Catalog store snapshots:
         metadata:
           name: influxdb
           namespace: influxdb
-        pause: true
+        spec:
+          pause: true
         # ...
         ```
 
@@ -331,7 +332,8 @@ using Catalog store snapshots:
         metadata:
           name: influxdb
           namespace: influxdb
-        pause: false
+        spec:
+          pause: false
         # ...
         ```
 
@@ -348,8 +350,6 @@ using Catalog store snapshots:
 Your InfluxDB cluster is now restored to the recovery point.
 When the Garbage Collector runs, it identifies what Parquet files are not
 associated with the recovery point and [soft deletes](#soft-delete) them.
-
-
 
 ## Resources
 
