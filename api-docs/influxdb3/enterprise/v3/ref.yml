@@ -157,7 +157,7 @@ tags:
       1. [Create an admin token](#section/Authentication) for the InfluxDB 3 Enterprise API.
 
          ```bash
-         curl -X POST "http://localhost:8181/api/v3/enterprise/configure/token/admin"
+         curl -X POST "http://localhost:8181/api/v3/configure/token/admin"
          ```
       2. [Check the status](#section/Server-information) of the InfluxDB server.
 
