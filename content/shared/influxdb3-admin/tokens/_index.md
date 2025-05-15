@@ -3,8 +3,7 @@ Manage tokens to authenticate and authorize access to resources and data in your
 ## Provide your token
 
 Before running CLI commands or making HTTP API requests, you must provide a valid token to authenticate.
-
-Use one of the following methods to provide your token:
+The mechanism for providing your token depends on the client you use to interact with {{% product-name %}}--for example:
 
 {{< code-tabs-wrapper >}}
 
