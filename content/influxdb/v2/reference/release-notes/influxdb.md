@@ -18,7 +18,10 @@ weight: 101
 
 ### Maintenance
 
-- Improved startup logging with an "are we there yet" counter.
+- Improved startup logging with an "are we there yet" counter for the number and percentage of shards opened.
+- Update Go to 1.23.9.
+- Update Flux to v0.196.1.
+- Refresh dependencies to address security vulnerabilities and improve stability.
 
 
 ## v2.7.11 {date="2024-12-02"}
