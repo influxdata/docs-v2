@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "axios": "^1.7.4",
+    "gray-matter": "^4.0.3",
     "jquery": "^3.7.1",
     "js-cookie": "^3.0.5",
     "js-yaml": "^4.1.0",
@@ -33,16 +34,48 @@
     "vanillajs-datepicker": "^1.3.4"
   },
   "scripts": {
-    "e2e:chrome": "npx cypress run --browser chrome",
-    "e2e:o": "npx cypress open",
-    "e2e:o:links": "node cypress/support/map-files-to-urls.mjs content/influxdb3/core/get-started/_index.md --debug",
-    "e2e:api-docs": "export cypress_test_subjects=\"http://localhost:1313/influxdb3/core/api/,http://localhost:1313/influxdb3/enterprise/api/,http://localhost:1313/influxdb3/cloud-dedicated/api/,http://localhost:1313/influxdb3/cloud-dedicated/api/v1/,http://localhost:1313/influxdb/cloud-dedicated/api/v1/,http://localhost:1313/influxdb/cloud-dedicated/api/management/,http://localhost:1313/influxdb3/cloud-dedicated/api/management/\"; npx cypress run --spec cypress/e2e/article-links.cy.js",
-    "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && lefthook run pre-push",
+    "build:pytest:image":"docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .",
+     "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && lefthook run pre-push",
     "pre-commit": "lefthook run pre-commit",
-    "test-content": "docker compose --profile test up"
+    "test": "echo \"Run 'yarn test:e2e', 'yarn test:links', 'yarn test:codeblocks:all' or a specific test command. e2e and links test commands can take a glob of file paths to test. Some commands run automatically during the git pre-commit and pre-push hooks.\" && exit 0",
+    "test:codeblocks": "echo \"Run a specific codeblocks test command\" && exit 0",
+    "test:codeblocks:all": "docker compose --profile test up",
+    "test:codeblocks:cloud": "docker compose run --rm --name cloud-pytest cloud-pytest",
+    "test:codeblocks:cloud-dedicated": "./test/scripts/monitor-tests.sh start cloud-dedicated-pytest && docker compose run --name cloud-dedicated-pytest cloud-dedicated-pytest",
+    "test:codeblocks:cloud-serverless": "docker compose run --rm --name cloud-serverless-pytest cloud-serverless-pytest",
+    "test:codeblocks:clustered": "./test/scripts/monitor-tests.sh start clustered-pytest && docker compose run --name clustered-pytest clustered-pytest",
+    "test:codeblocks:telegraf": "docker compose run --rm --name telegraf-pytest telegraf-pytest",
+    "test:codeblocks:v2": "docker compose run --rm --name v2-pytest v2-pytest",
+    "test:codeblocks:stop-monitors": "./test/scripts/monitor-tests.sh stop cloud-dedicated-pytest && ./test/scripts/monitor-tests.sh stop clustered-pytest",
+    "test:e2e": "node cypress/support/run-e2e-specs.js",
+    "test:links": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\"",
+    "test:links:v1": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\" content/influxdb/{v1,enterprise_influxdb}/**/*.{md,html}",
+    "test:links:v2": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\" content/influxdb/{cloud,v2}/**/*.{md,html}",
+    "test:links:v3": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\" content/influxdb3/**/*.{md,html}",
+    "test:links:chronograf": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\" content/chronograf/**/*.{md,html}",
+    "test:links:kapacitor": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\" content/kapacitor/**/*.{md,html}",
+    "test:links:telegraf": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\" content/telegraf/**/*.{md,html}",
+    "test:links:shared": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\" content/shared/**/*.{md,html}",
+    "test:links:api-docs": "export cypress_base_url=\"http://localhost:1315\" cypress_test_subjects=\"/influxdb3/core/api/,/influxdb3/enterprise/api/,/influxdb3/cloud-dedicated/api/,/influxdb3/cloud-dedicated/api/v1/,/influxdb/cloud-dedicated/api/v1/,/influxdb/cloud-dedicated/api/management/,/influxdb3/cloud-dedicated/api/management/\"; npx cypress run --spec cypress/e2e/content/article-links.cy.js",
+    "test:shortcode-examples": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\" content/example.md"
   },
-  "main": "index.js",
-  "module": "main.js",
+  "main": "assets/js/main.js",
+  "module": "assets/js/main.js",
+  "exports": {
+    ".": {
+      "import": "./assets/js/main.js",
+      "require": "./assets/js/main.js"
+    }
+  },
+  "type": "module",
+  "browserslist": [
+    "last 2 versions",
+    "not dead",
+    "not IE 11"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "directories": {
     "test": "test"
   },
