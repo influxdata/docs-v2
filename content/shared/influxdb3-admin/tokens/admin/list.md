@@ -8,44 +8,11 @@ data and resources in your InfluxDB 3 instance.
 > Token metadata includes the hashed token string.
 > InfluxDB 3 does not store the raw token string.
 
-## Prerequisites
-
-Before running the following examples, obtain a valid InfluxDB {{% token-link "admin" %}}.  
-
-{{% show-in "enterprise" %}}Alternatively, use a token with read access to the `_internal` system database.{{% /show-in %}}
-
-Use one of the following methods to provide your token:
-
-{{% code-placeholders "your-token" %}}
-
-{{< code-tabs-wrapper >}}
-
-{{% code-tabs %}}
-[CLI](#cli-auth)
-[HTTP API](#http-api-auth)
-{{% /code-tabs %}}
-
-{{% code-tab-content %}}
-```bash
-# Set your InfluxDB 3 token as an environment variable
-export INFLUXDB3_AUTH_TOKEN=your-token
-```
-{{% /code-tab-content %}}
-
-{{% code-tab-content %}}
-
-```bash
-# Add your token to the HTTP Authorization header
---header "Authorization: Bearer your-token"
-```
-
-{{% /code-tab-content %}}
-
-{{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
-
-Replace `your-token` with your actual InfluxDB 3 token.
+> [!Important]
+> #### Required permissions
+>
+> Listing admin tokens requires a valid InfluxDB {{% token-link "admin" %}}{{% show-in "enterprise" %}} or a token with read access to the `_internal` system database{{% /show-in %}}.
+> For more information about providing a token, see <LINK_TO_NEW_TOKEN_CONTENT>.
 
 
 ## List all tokens
