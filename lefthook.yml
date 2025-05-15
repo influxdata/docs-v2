@@ -88,9 +88,9 @@ pre-push:
           --filter label=tag=influxdata-docs
           --filter status=exited | xargs docker rm)
           || true'
-    rebuild-test-images:
+    build-pytest-image:
       tags: test
-      run: docker compose build pytest-codeblocks 
+      run: yarn build:pytest:image
     # Test code blocks in markdown files
     cloud-pytest:
       glob: content/influxdb/cloud/**/*.md
@@ -133,16 +133,3 @@ pre-push:
       env:
         SERVICE: v2-pytest
       run: yarn test:codeblocks:v2 '{staged_files}'
-
-build:
-  commands:
-    prune-legacy-containers:
-      priority: 1
-      tags: test 
-      run: '(docker container ls --format "{{.ID}}"
-          --filter label=tag=influxdata-docs
-          --filter status=exited | xargs docker rm)
-          || true'
-    rebuild-test-images:
-      tags: test
-      run: docker compose build pytest-codeblocks
