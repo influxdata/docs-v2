@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb3_cloud_dedicated:
     parent: Reference 
-weight: 6
+weight: 105
 ---
 
 The Administrative (Admin) UI for {{% product-name %}} is a browser-based, no-code way to manage your {{% product-name %}} environment and perform administrative tasks, such as creating and managing clusters, databases, and tokens.

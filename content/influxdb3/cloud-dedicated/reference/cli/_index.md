@@ -10,10 +10,8 @@ menu:
     parent: Reference
     name: CLIs
 weight: 104
-draft: true
+# draft: true
 ---
-
-
 
 The following command line interfaces (CLIs) are available:
 
