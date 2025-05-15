@@ -8,7 +8,13 @@ data and resources in your InfluxDB 3 instance.
 > Token metadata includes the hashed token string.
 > InfluxDB 3 does not store the raw token string.
 
-To run the following examples, you must set the `INFLUXDB3_AUTH_TOKEN` environment variable with a valid InfluxDB {{% token-link "admin" %}}. {{% show-in "enterprise" %}}Alternatively use a token with read permission on the `_internal` system database.{{% /show-in %}} Use one of the following methods to set or include your token:
+## Prerequisites
+
+Before running the following examples, obtain a valid InfluxDB {{% token-link "admin" %}}.  
+
+{{% show-in "enterprise" %}}Alternatively, use a token with read access to the `_internal` system database.{{% /show-in %}}
+
+Use one of the following methods to provide your token:
 
 {{% code-placeholders "your-token" %}}
 
