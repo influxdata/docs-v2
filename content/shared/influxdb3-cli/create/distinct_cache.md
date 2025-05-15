@@ -17,8 +17,7 @@ influxdb3 create distinct_cache [OPTIONS] \
 
 ## Arguments
 
-
-### `CACHE_NAME` (optional)
+ **`CACHE_NAME`** (optional)
 
 A name to assign to the cache. If omitted, the CLI generates a name automatically.
 
