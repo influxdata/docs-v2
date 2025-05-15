@@ -14,7 +14,7 @@ weight: 101
 
 - Add a `--pid-file` option to write a PID file to the specified location on startup. InfluxDB removes the PID file on shutdown.
 - Add a `--storage-wal-flush-on-shutdown` option to flush the WAL on database shutdown to ensure all data is written to disk.
-- Improve logging for dropped points, providing more detailed error messages for partial writes.
+- Improve response error messages for dropped points, adding details including database, retention policy, and which bound was violated for partial writes.
 
 ### Maintenance
 
