@@ -51,7 +51,7 @@ Use the following command to return the image Kubernetes uses to build your
 InfluxDB cluster:
 
 ```sh
-kubectl get appinstances.kubecfg.dev influxdb -o jsonpath='{.spec.package.image}'
+kubectl get appinstances.kubecfg.dev influxdb -n influxdb -o jsonpath='{.spec.package.image}'
 ```
 
 The package version number is at the end of the returned string (after `influxdb:`):
