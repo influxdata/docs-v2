@@ -1,5 +1,5 @@
 
-The `influxdb3 create table` command creates a table in a database.
+The `influxdb3 create table` command creates a new table in a specified database. Tables must include at least one tag column and can optionally include field columns with defined data types.
 
 ## Usage
 
@@ -39,7 +39,7 @@ influxdb3 create table [OPTIONS] \
 
 ### Option environment variables
 
-You can use the following environment variables to set command options:
+You can use the following environment variables to set options instead of passing them via CLI flags:
 
 | Environment Variable      | Option       |
 | :------------------------ | :----------- |
@@ -49,10 +49,7 @@ You can use the following environment variables to set command options:
 
 ## Examples
 
-- [Create a table](#create-a-table)
-- [Create a table with tag and field columns](#create-a-table-with-tag-and-field-columns)
-
-In the examples below, replace the following:
+In the following examples, replace each placeholder with your actual values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Database name
@@ -61,9 +58,11 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
   Table name
 
-{{% code-placeholders "(DATABASE|TABLE)_NAME" %}}
+{{% code-placeholders "DATABASE_NAME|TABLE_NAME|AUTH_TOKEN" %}}
 
-### Create a table
+### Create a table with only tag columns
+
+<!--pytest.mark.skip-->
 
 ```bash
 influxdb3 create table \
@@ -88,7 +87,7 @@ influxdb3 create table \
 
 ### Verification
 
-Use the following command to confirm that your table was created:
+Use the `SHOW TABLES` query to verify that the table was created successfully:
 
 <!--pytest.mark.skip-->
 
@@ -98,8 +97,7 @@ influxdb3 query \
   --token AUTH_TOKEN \
   "SHOW TABLES"
 ```
-
-If successful, you’ll see a list of tables in the specified database, including the new one. The expected output should look similar to:
+Example output:
 
 <!--pytest.mark.skip-->
 
@@ -111,14 +109,6 @@ If successful, you’ll see a list of tables in the specified database, includin
 | public        | system             | distinct_caches            | BASE TABLE |
 | public        | system             | last_caches                | BASE TABLE |
 | public        | system             | parquet_files              | BASE TABLE |
-| public        | system             | processing_engine_logs     | BASE TABLE |
-| public        | system             | processing_engine_triggers | BASE TABLE |
-| public        | system             | queries                    | BASE TABLE |
-| public        | information_schema | tables                     | VIEW       |
-| public        | information_schema | views                      | VIEW       |
-| public        | information_schema | columns                    | VIEW       |
-| public        | information_schema | df_settings                | VIEW       |
-| public        | information_schema | schemata                   | VIEW       |
 +---------------+--------------------+----------------------------+------------+
 ```
 

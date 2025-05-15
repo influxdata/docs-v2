@@ -1,21 +1,23 @@
-
-The `influxdb3 create last_cache` command creates a new last value cache.
+The `influxdb3 create last_cache` command creates a last value cache, which stores the most recent values for specified columns in a table. Use this to efficiently retrieve the latest values based on key column combinations.
 
 ## Usage
+
+{{% code-placeholders "DATABASE_NAME|TABLE_NAME|AUTH_TOKEN|CACHE_NAME" %}}
 
 <!--pytest.mark.skip-->
 
 ```bash
 influxdb3 create last_cache [OPTIONS] \
-  --database <DATABASE_NAME> \
-  --table <TABLE_NAME> \
-  [CACHE_NAME]
+  --database DATABASE_NAME \
+  --table TABLE_NAME \
+  --token AUTH_TOKEN \
+  CACHE_NAME
 ```
+{{% /code-placeholders %}}
 
 ## Arguments
 
-- **CACHE_NAME**: _(Optional)_ Name for the cache.
-  If not provided, the command automatically generates a name.
+- **CACHE_NAME**: _(Optional)_ Name for the cache. If omitted, InfluxDB automatically generates one.
 
 ## Options
 
@@ -35,7 +37,7 @@ influxdb3 create last_cache [OPTIONS] \
 
 ### Option environment variables
 
-You can use the following environment variables to set command options:
+You can use the following environment variables as substitutes for CLI options:
 
 | Environment Variable      | Option       |
 | :------------------------ | :----------- |
@@ -45,9 +47,7 @@ You can use the following environment variables to set command options:
 
 ## Prerequisites
 
-Before creating a last value cache, you must:
-
-Before creating a last value cache, you must:
+Before creating a last value cache, ensure you’ve done the following:
 
 - Create a [database](/influxdb3/version/reference/cli/influxdb3/create/database/).
 - Create a [table](/influxdb3/version/reference/cli/influxdb3/create/table/) with the columns you want to cache.
@@ -55,32 +55,11 @@ Before creating a last value cache, you must:
 
 ## Examples
 
-### Generic syntax
+A last value cache stores the most recent values from specified columns in a table.
 
-{{% code-placeholders "(DATABASE|TABLE|CACHE)_NAME (TAG_COLUMN|FIELD_COLUMN)" %}}
+### Create a basic last value cache for one column
 
-<!--pytest.mark.skip-->
-
-```bash
-influxdb3 create last_cache \
-  --database DATABASE_NAME \
-  --table TABLE_NAME \
-  --key-columns TAG_COLUMN \
-  --value-columns FIELD_COLUMN \
-  CACHE_NAME
-```
-
-In the example above, replace the following:
-
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Database name
-- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: Table name
-- {{% code-placeholder-key %}}`TAG_COLUMN`{{% /code-placeholder-key %}}: Column to use as the key in the cache
-- {{% code-placeholder-key %}}`FIELD_COLUMN`{{% /code-placeholder-key %}}: Column to store as the value in the cache
-- {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: Optional name for the last value cache
-
-## Create a basic last value cache for one column
-
-Use this example to create a simple cache for a single key and value column:
+Use this example to track the most recent value for a single key—ideal for monitoring scenarios like room temperature:
 
 <!--pytest.mark.skip-->
 
@@ -88,14 +67,20 @@ Use this example to create a simple cache for a single key and value column:
 influxdb3 create last_cache \
   --database DATABASE_NAME \
   --table my_sensor_table \
+  --token AUTH_TOKEN \
   --key-columns room \
   --value-columns temp \
   my_temp_cache
 ```
 
-## Create a last value cache with multiple keys and values
+### Create a last value cache with multiple keys and values
 
-This example shows how to configure a more complex cache:
+This example demonstrates how to:
+
+- Use multiple columns as a composite key
+- Track several values per key combination
+- Set a cache entry limit with `--count`
+- Configure automatic expiry with `--ttl`
 
 <!--pytest.mark.skip-->
 
@@ -103,6 +88,7 @@ This example shows how to configure a more complex cache:
 influxdb3 create last_cache \
   --database DATABASE_NAME \
   --table my_sensor_table \
+  --token AUTH_TOKEN \
   --key-columns room,sensor_id \
   --value-columns temp,hum \
   --count 10 \
@@ -110,9 +96,7 @@ influxdb3 create last_cache \
   my_sensor_cache
 ```
 
-{{% /code-placeholders %}}
-
-## Common pitfalls
+## Usage notes 
 
 - All specified key and value columns must exist in the table schema.
 - Tokens must be passed with `--token` unless set via environment variable.

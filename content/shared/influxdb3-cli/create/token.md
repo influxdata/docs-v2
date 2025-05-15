@@ -37,15 +37,23 @@ This returns a token string. You can use it to authenticate future requests by s
 
 ### Use the token to create a database
 
+{{% code-placeholders "YOUR_ADMIN_TOKEN|DATABASE_NAME" %}}
+
 <!--pytest.mark.skip-->
 
 ```bash
 influxdb3 create database \
   --token YOUR_ADMIN_TOKEN \
-  my_new_database
+  DATABASE_NAME
 ```
+{{% /code-placeholders %}}
 
-> [!Tip] 
+Replace the following:
+
+- {{% code-placeholder-key %}}`YOUR_ADMIN_TOKEN`{{% /code-placeholder-key %}}: Your InfluxDB admin token
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Name for your new database
+
+> [!Note] 
 > Set the token as an environment variable to simplify repeated commands:
 > ```bash 
 > export INFLUXDB3_AUTH_TOKEN=YOUR_ADMIN_TOKEN
