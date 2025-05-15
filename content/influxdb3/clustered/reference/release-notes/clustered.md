@@ -25,6 +25,30 @@ weight: 201
 
 ---
 
+## 20250508-1719206 {date="2025-05-08"}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250508-1719206
+```
+
+### Changes
+
+#### Deployment
+
+- Expose the v0 REST API for the management and authorization service (Granite).
+
+#### Database Engine
+
+- Reuse database names after deletion.
+- Create database tokens with expiration dates.
+- Revoke database tokens rather than deleting them.
+
+---
+
 ## 20250212-1570743 {date="2025-02-12"}
 
 ### Quickstart
