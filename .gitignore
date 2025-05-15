@@ -16,6 +16,8 @@ node_modules
 !telegraf-build/scripts
 !telegraf-build/README.md
 /cypress/screenshots/*
+/cypress/videos/*
+test-results.xml
 /influxdb3cli-build-scripts/content
 .vscode/*
 .idea
