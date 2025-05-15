@@ -1351,7 +1351,7 @@ paths:
       tags:
         - Authentication
         - Token
-  /api/v3/configure/enterprise/token/admin:
+  /api/v3/configure/token/admin:
     post:
       operationId: PostCreateAdminToken
       summary: Create admin token
@@ -1374,7 +1374,7 @@ paths:
       tags:
         - Authentication
         - Token
-  /api/v3/configure/enterprise/token/admin/regenerate:
+  /api/v3/configure/token/admin/regenerate:
     post:
       operationId: PostRegenerateAdminToken
       summary: Regenerate admin token
