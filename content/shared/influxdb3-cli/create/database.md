@@ -13,7 +13,7 @@ influxdb3 create database [OPTIONS] <DATABASE_NAME>
 ## Arguments
 
 
-### `DATABASE_NAME` (required)
+**`DATABASE_NAME`** (required)
 
 The name of the database to create. Database names must follow these rules:
 
