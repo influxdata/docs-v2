@@ -1358,8 +1358,6 @@ paths:
       description: |
         Creates an admin token.
         An admin token is a special type of token that has full access to all resources in the system.
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
       responses:
         '201':
           description: |
@@ -1380,8 +1378,6 @@ paths:
       summary: Regenerate admin token
       description: |
         Regenerates an admin token and revokes the previous token with the same name.
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
       parameters: []
       responses:
         '201':
