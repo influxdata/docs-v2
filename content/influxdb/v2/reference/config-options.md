@@ -2747,7 +2747,6 @@ storage-validate-keys = true
 ### storage-wal-flush-on-shutdown
 Flush the WAL on shutdown.
 
-
 **Default:** `false`
 
 | influxd flag                    | Environment variable                  | Configuration key             |
@@ -2797,6 +2796,7 @@ storage-wal-flush-on-shutdown = true
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
 ---
 
 ### storage-wal-fsync-delay
