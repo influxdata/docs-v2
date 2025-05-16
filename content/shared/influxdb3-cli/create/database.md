@@ -59,7 +59,8 @@ influxdb3 create database DATABASE_NAME
 
 ### Create a database with an authentication token
 
-Creates a database and explicitly passes an authentication token.
+Creates a database using the specified arguments.
+Flags override their associated environment variables.
 
 <!--pytest.mark.skip-->
 
