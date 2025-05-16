@@ -43,7 +43,7 @@ This returns a token string. You can use it to authenticate future requests by s
 
 ```bash
 influxdb3 create database \
-  --token YOUR_ADMIN_TOKEN \
+  --token ADMIN_TOKEN \
   DATABASE_NAME
 ```
 {{% /code-placeholders %}}
