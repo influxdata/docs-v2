@@ -50,7 +50,7 @@ influxdb3 create database \
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`YOUR_ADMIN_TOKEN`{{% /code-placeholder-key %}}: Your InfluxDB admin token
+- {{% code-placeholder-key %}}`ADMIN_TOKEN`{{% /code-placeholder-key %}}: Your InfluxDB admin token
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Name for your new database
 
 > [!Note] 
