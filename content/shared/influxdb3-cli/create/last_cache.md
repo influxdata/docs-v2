@@ -59,7 +59,7 @@ A last value cache stores the most recent values from specified columns in a tab
 
 ### Create a basic last value cache for one column
 
-Use this example to track the most recent value for a single key—ideal for monitoring scenarios like room temperature:
+The following example shows how to track the most recent value for a single key (the last temperature for each room):
 
 <!--pytest.mark.skip-->
 
