@@ -253,7 +253,7 @@ async function main() {
 
       // Use the startHugoServer function from hugo-server.js
       hugoProc = await startHugoServer({
-        configFile: 'hugo.testing.yml',
+        configFile: 'config/testing/config.yml',
         port: HUGO_PORT,
         buildDrafts: true,
         noHTTPCache: true,
