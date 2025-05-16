@@ -1,6 +1,6 @@
 The `influxdb3 create database` command creates a new database in your {{< product-name >}} instance.
 
-Use this command to add a database by specifying a name. Provide a database name and, optionally, specify connection settings and authentication credentials using flags or environment variables.
+Provide a database name and, optionally, specify connection settings and authentication credentials using flags or environment variables.
 
 ## Usage
 
