@@ -112,7 +112,7 @@ Example output:
 ```
 
 >[!Note]
-> The `SHOW TABLES SQL` query must be run using the influxdb3 query CLI.
+> - `SHOW TABLES` is an SQL query. It isn't supported in InfluxQL.
 > HTTP requests to /api/v3/query are not supported in local or OSS builds of {{< product-name >}}.
 
 {{% /code-placeholders %}}
