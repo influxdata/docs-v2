@@ -100,6 +100,7 @@ influxdb3 create trigger \
   --trigger-spec table:TABLE_NAME \
   TRIGGER_NAME
 ```
+
 Creating a trigger in a disabled state prevents it from running immediately. You can enable it later when you're ready to activate it.
 
 {{% /code-placeholders %}}
