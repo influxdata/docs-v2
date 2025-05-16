@@ -13,7 +13,7 @@ This is a paragraph. Lorem ipsum dolor ({{< icon "trash" "v2" >}}) sit amet, con
 
 [Ref link][foo]
 
-[foo]: https://docs.influxadata.com
+[foo]: https://docs.influxdata.com
 
 This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 
