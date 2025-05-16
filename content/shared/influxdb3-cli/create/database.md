@@ -29,7 +29,7 @@ You can also set the database name using the `INFLUXDB3_DATABASE_NAME` environme
 
 ### Option environment variables
 
-Use the following environment variables instead of providing CLI options directly:
+You can use the following environment variables instead of providing CLI options directly:
 
 | Environment Variable      | Option       |
 | :------------------------ | :----------- |
