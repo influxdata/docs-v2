@@ -49,7 +49,7 @@ Use the following examples to create a database. Replace the placeholders with y
 
 ### Create a database (default)
 
-Creates a database using default connection settings and the active authentication context.
+Creates a database using settings from environment variables and defaults.
 
 <!--pytest.mark.skip-->
 
