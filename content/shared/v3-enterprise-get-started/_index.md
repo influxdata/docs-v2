@@ -282,34 +282,34 @@ To have the `influxdb3` CLI use your admin token automatically, assign it to the
 
 To create an admin token, use the `influxdb3 create token --admin` subcommand--for example:
 
-{{% code-placeholders "INFLUXDB_HOST|CONTAINER_NAME" %}}
-
 {{< code-tabs-wrapper >}}
 
 {{% code-tabs %}}
 [CLI](#)
 [Docker](#)
 {{% /code-tabs %}}
-
 {{% code-tab-content %}}
+
 ```bash
 influxdb3 create token --admin \
   --host http://INFLUXDB_HOST
 ```
-{{% /code-tab-content %}}
 
+{{% /code-tab-content %}}
 {{% code-tab-content %}}
 
+{{% code-placeholders "CONTAINER_NAME" %}}
 ```bash
 # With Docker — in a new terminal:
 docker exec -it CONTAINER_NAME influxdb3 create token --admin
 ```
+{{% /code-placeholders %}}
+
+Replace {{% code-placeholder-key %}}`CONTAINER_NAME`{{% /code-placeholder-key %}} with the name of your running Docker container.
 
 {{% /code-tab-content %}}
 
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
