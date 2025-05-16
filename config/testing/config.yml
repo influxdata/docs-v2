@@ -1,8 +1,7 @@
-# config.testing.toml
-# This configuration inherits from the base config and overrides draft settings
+baseURL: 'http://localhost:1315/'
 
-# Import base configuration
-imports: ["hugo.yml"]
+server:
+  port: 1315
 
 # Override settings for testing
 buildFuture: true

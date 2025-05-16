@@ -28,7 +28,7 @@ export async function isPortInUse(port) {
 /**
  * Start the Hugo server with the specified options
  * @param {Object} options - Configuration options for Hugo
- * @param {string} options.configFile - Path to Hugo config file (e.g., 'hugo.testing.yml')
+ * @param {string} options.configFile - Path to Hugo config file (e.g., 'config/testing/config.yml')
  * @param {number} options.port - Port number for Hugo server
  * @param {boolean} options.buildDrafts - Whether to build draft content
  * @param {boolean} options.noHTTPCache - Whether to disable HTTP caching
@@ -36,7 +36,7 @@ export async function isPortInUse(port) {
  * @returns {Promise<Object>} Child process object
  */
 export async function startHugoServer({
-  configFile = 'hugo.testing.yml',
+  configFile = 'config/testing/config.yml',
   port = HUGO_PORT,
   buildDrafts = true,
   noHTTPCache = true,
