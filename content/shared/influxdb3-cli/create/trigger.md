@@ -58,7 +58,7 @@ Name of the table to trigger on
 
 ### Create a trigger for a specific table
 
-Use this command to create a trigger that processes data from a specific table.
+Create a trigger that processes data from a specific table.
 
 <!--pytest.mark.skip-->
 
