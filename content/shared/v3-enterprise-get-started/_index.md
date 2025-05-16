@@ -311,11 +311,6 @@ Replace {{% code-placeholder-key %}}`CONTAINER_NAME`{{% /code-placeholder-key %}
 
 {{< /code-tabs-wrapper >}}
 
-Replace the following:
-
-- {{% code-placeholder-key %}}`INFLUXDB_HOST`{{% /code-placeholder-key %}}: Host address of your InfluxDB 3 server (for example, `localhost:8181`)
-- {{% code-placeholder-key %}}`CONTAINER_NAME`{{% /code-placeholder-key %}}: Name of your running Docker container
-
 The command returns a token string that you can use to authenticate CLI commands and API requests.
 
 After you have created an admin token, you can use it to create database tokens and system tokens.
