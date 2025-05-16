@@ -114,7 +114,7 @@ influxdb3 create distinct_cache \
 
 ## Common pitfalls
 
-- `--column` is not valid—must use `--columns`
+- `--column` is not valid. Use `--columns`.
 - Tokens must be included explicitly unless set via `INFLUXDB3_AUTH_TOKEN`
 - Table and column names must already exist or be recognized by the engine
 
