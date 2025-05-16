@@ -2,13 +2,13 @@
 title: Extend plugins
 description: Use API features and state management in your custom Processing Engine plugins.
 menu:
-  influxdb3_enterprise:
-    name: API Extended plugin
-    identifier: extend-plugins-enterprise
+  influxdb3_core:
+    name: API Extended plugins
+    identifier: extend-plugins-core
     parent: Processing Engine
+    identifier: extend-plugins-core
     weight: 20
-influxdb3/enterprise/tags: [processing engine, plugins, API, python]
-source: /shared/extended-plugin-api.md
+influxdb3/core/tags: [processing engine, plugins, API, python]
 ---
 
 <!-- 
