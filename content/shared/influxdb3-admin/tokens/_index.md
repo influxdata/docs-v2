@@ -10,7 +10,6 @@ The mechanism for providing your token depends on the client you use to interact
 {{% tabs %}}
 [influxdb3 CLI](#influxdb3-cli-auth)
 [cURL](#curl-auth)
-[Python (requests)](#python-auth-requests)
 {{% /tabs %}}
 
 {{% tab-content %}}
@@ -49,42 +48,16 @@ Replace `YOUR_TOKEN` with your authorization token.
 {{% tab-content %}}
 
 {{% code-placeholders "AUTH_TOKEN" %}}
-
 ```bash
 # Add your token to the HTTP Authorization header
 curl "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data-urlencode "db=example-db" \
   --data-urlencode "q=SELECT * FROM 'example-table' WHERE time > now() - INTERVAL '10 minutes'"
-
-{{% /tab-content %}}
-
-{{% tab-content %}}
-
-Use Python with the `requests` library to send an authenticated query:
-
-{{% code-placeholders "YOUR_TOKEN" %}}
-
-```python
-import requests
-
-url = "http://localhost:8181/api/v3/query_sql"
-headers = {
-    "Authorization": "Bearer YOUR_TOKEN",
-    "Content-Type": "application/json"
-}
-data = {
-    "db": "example-db",
-    "sql": "SELECT * FROM 'example-table' WHERE time > now() - INTERVAL '10 minutes'"
-}
-
-response = requests.post(url, json=data, headers=headers)
-print(response.json())
 ```
-
 {{% /code-placeholders %}}
 
-Replace `YOUR_TOKEN` with your InfluxDB 3 token.
+Replace `AUTH_TOKEN` with your actual InfluxDB 3 token.
 
 {{% /tab-content %}}
 
