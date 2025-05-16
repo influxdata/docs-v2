@@ -113,6 +113,5 @@ Example output:
 
 >[!Note]
 > - `SHOW TABLES` is an SQL query. It isn't supported in InfluxQL.
-> HTTP requests to /api/v3/query are not supported in local or OSS builds of {{< product-name >}}.
 
 {{% /code-placeholders %}}
