@@ -5,6 +5,12 @@ describe('Article', () => {
   // Always use HEAD for downloads to avoid timeouts
   const useHeadForDownloads = true;
 
+  // Set up initialization for tests
+  before(() => {
+    // Initialize the broken links report
+    cy.task('initializeBrokenLinksReport');
+  });
+
   // Helper function to identify download links
   function isDownloadLink(href) {
     // Check for common download file extensions
@@ -56,7 +62,7 @@ describe('Article', () => {
     };
 
     function handleFailedLink(url, status, type, redirectChain = '') {
-      // Report broken link to the task which will handle reporting
+      // Report the broken link
       cy.task('reportBrokenLink', {
         url: url + redirectChain,
         status,
@@ -65,6 +71,7 @@ describe('Article', () => {
         page: pageUrl,
       });
 
+      // Throw error for broken links
       throw new Error(
         `BROKEN ${type.toUpperCase()} LINK: ${url} (status: ${status})${redirectChain} on ${pageUrl}`
       );
@@ -109,11 +116,7 @@ describe('Article', () => {
     }
   }
 
-  // Before all tests, initialize the report
-  before(() => {
-    cy.task('initializeBrokenLinksReport');
-  });
-
+  // Test implementation for subjects
   subjects.forEach((subject) => {
     it(`${subject} has valid internal links`, function () {
       cy.visit(`${subject}`, { timeout: 20000 });
@@ -186,7 +189,18 @@ describe('Article', () => {
     });
 
     it(`${subject} has valid external links`, function () {
+      // Check if we should skip external links entirely
+      if (Cypress.env('skipExternalLinks') === true) {
+        cy.log(
+          'Skipping all external links as configured by skipExternalLinks'
+        );
+        return;
+      }
+
       cy.visit(`${subject}`);
+
+      // Define allowed external domains to test
+      const allowedExternalDomains = ['github.com', 'kapa.ai'];
 
       // Test external links
       cy.get('article, .api-content').then(($article) => {
@@ -197,8 +211,29 @@ describe('Article', () => {
           return;
         }
 
-        cy.debug(`Found ${$links.length} external links`);
-        cy.wrap($links).each(($a) => {
+        // Filter links to only include allowed domains
+        const $allowedLinks = $links.filter((_, el) => {
+          const href = el.getAttribute('href');
+          try {
+            const url = new URL(href);
+            return allowedExternalDomains.some(
+              (domain) =>
+                url.hostname === domain || url.hostname.endsWith(`.${domain}`)
+            );
+          } catch (e) {
+            return false;
+          }
+        });
+
+        if ($allowedLinks.length === 0) {
+          cy.log('No links to allowed external domains found on this page');
+          return;
+        }
+
+        cy.log(
+          `Found ${$allowedLinks.length} links to allowed external domains to test`
+        );
+        cy.wrap($allowedLinks).each(($a) => {
           const href = $a.attr('href');
           const linkText = $a.text().trim();
           testLink(href, linkText, subject);

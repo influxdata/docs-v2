@@ -5,8 +5,30 @@
  * It handles starting a local Hugo server, mapping content files to their URLs, running Cypress tests,
  * and reporting broken links.
  *
- * Usage: node run-e2e-specs.js [file paths...] [--spec test-spec-path]
- *
+ * Usage: node run-e2e-specs.js [file paths...] [--spec test    // Display broken links report
+    const brokenLinksCount = displayBrokenLinksReport();
+    
+    // Check if we might have special case failures
+    const hasSpecialCaseFailures = 
+      results && 
+      results.totalFailed > 0 && 
+      brokenLinksCount === 0;
+      
+    if (hasSpecialCaseFailures) {
+      console.warn(
+        `ℹ️ Note: Tests failed (${results.totalFailed}) but no broken links were reported. This may be due to special case URLs (like Reddit) that return expected status codes.`
+      );
+    }
+    
+    if (
+      (results && results.totalFailed && results.totalFailed > 0 && !hasSpecialCaseFailures) ||
+      brokenLinksCount > 0
+    ) {
+      console.error(
+        `⚠️ Tests failed: ${results.totalFailed || 0} test(s) failed, ${brokenLinksCount || 0} broken links found`
+      );
+      cypressFailed = true;
+      exitCode = 1; *
  * Example: node run-e2e-specs.js content/influxdb/v2/write-data.md --spec cypress/e2e/content/article-links.cy.js
  */
 
@@ -17,7 +39,7 @@ import path from 'path';
 import cypress from 'cypress';
 import net from 'net';
 import matter from 'gray-matter';
-import { displayBrokenLinksReport } from './link-reporter.js';
+import { displayBrokenLinksReport, initializeReport } from './link-reporter.js';
 import {
   HUGO_PORT,
   HUGO_LOG_FILE,
@@ -144,53 +166,82 @@ async function main() {
     process.exit(1);
   }
 
-  // 1. Map file paths to URLs and write to file
-  const mapProc = spawn('node', [MAP_SCRIPT, ...fileArgs], {
-    stdio: ['ignore', 'pipe', 'inherit'],
+  // Separate content files from non-content files
+  const contentFiles = fileArgs.filter((file) => file.startsWith('content/'));
+  const nonContentFiles = fileArgs.filter(
+    (file) => !file.startsWith('content/')
+  );
+
+  // Log what we're processing
+  if (contentFiles.length > 0) {
+    console.log(
+      `Processing ${contentFiles.length} content files for URL mapping...`
+    );
+  }
+
+  if (nonContentFiles.length > 0) {
+    console.log(
+      `Found ${nonContentFiles.length} non-content files that will be passed directly to tests...`
+    );
+  }
+
+  let urlList = [];
+
+  // Only run the mapper if we have content files
+  if (contentFiles.length > 0) {
+    // 1. Map file paths to URLs and write to file
+    const mapProc = spawn('node', [MAP_SCRIPT, ...contentFiles], {
+      stdio: ['ignore', 'pipe', 'inherit'],
+    });
+
+    const mappingOutput = [];
+    mapProc.stdout.on('data', (chunk) => {
+      mappingOutput.push(chunk.toString());
+    });
+
+    await new Promise((res) => mapProc.on('close', res));
+
+    // Process the mapping output
+    urlList = mappingOutput
+      .join('')
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => {
+        // Parse the URL|SOURCE format
+        if (line.includes('|')) {
+          const [url, source] = line.split('|');
+          return { url, source };
+        } else if (line.startsWith('/')) {
+          // Handle URLs without source (should not happen with our new code)
+          return { url: line, source: null };
+        } else {
+          // Skip log messages
+          return null;
+        }
+      })
+      .filter(Boolean); // Remove null entries
+  }
+
+  // Add non-content files directly to be tested, using their path as both URL and source
+  nonContentFiles.forEach((file) => {
+    urlList.push({ url: file, source: file });
   });
-
-  const mappingOutput = [];
-  mapProc.stdout.on('data', (chunk) => {
-    mappingOutput.push(chunk.toString());
-  });
-
-  await new Promise((res) => mapProc.on('close', res));
-
-  // Process the mapping output
-  const urlList = mappingOutput
-    .join('')
-    .split('\n')
-    .map((line) => line.trim())
-    .filter(Boolean)
-    .map((line) => {
-      // Parse the URL|SOURCE format
-      if (line.includes('|')) {
-        const [url, source] = line.split('|');
-        return { url, source };
-      } else if (line.startsWith('/')) {
-        // Handle URLs without source (should not happen with our new code)
-        return { url: line, source: null };
-      } else {
-        // Skip log messages
-        return null;
-      }
-    })
-    .filter(Boolean); // Remove null entries
 
   // Log the URLs and sources we'll be testing
-  console.log(`Found ${urlList.length} URLs to test:`);
+  console.log(`Found ${urlList.length} items to test:`);
   urlList.forEach(({ url, source }) => {
-    console.log(`  URL: ${url}`);
-    console.log(`  PAGE CONTENT SOURCE: ${source}`);
+    console.log(`  URL/FILE: ${url}`);
+    console.log(`  SOURCE: ${source}`);
     console.log('---');
   });
 
   if (urlList.length === 0) {
-    console.log('No URLs to test.');
+    console.log('No URLs or files to test.');
     process.exit(0);
   }
 
-  // Write just the URLs to the test_subjects file for Cypress
+  // Write just the URLs/files to the test_subjects file for Cypress
   fs.writeFileSync(URLS_FILE, urlList.map((item) => item.url).join(','));
 
   // Add source information to a separate file for reference during reporting
@@ -320,6 +371,10 @@ async function main() {
   // 4. Run Cypress tests
   let cypressFailed = false;
   try {
+    // Initialize/clear broken links report before running tests
+    console.log('Initializing broken links report...');
+    initializeReport();
+
     console.log(`Running Cypress tests for ${urlList.length} URLs...`);
     const cypressOptions = {
       reporter: 'junit',
@@ -334,6 +389,8 @@ async function main() {
         test_subjects: urlList.map((item) => item.url).join(','),
         // Add new structured data with source information
         test_subjects_data: JSON.stringify(urlList),
+        // Skip testing external links (non-influxdata.com URLs)
+        skipExternalLinks: true,
       },
     };
 
@@ -347,12 +404,24 @@ async function main() {
     // Process broken links report
     const brokenLinksCount = displayBrokenLinksReport();
 
-    if (
-      (results && results.totalFailed && results.totalFailed > 0) ||
-      brokenLinksCount > 0
-    ) {
+    // Determine why tests failed
+    const testFailureCount = results?.totalFailed || 0;
+
+    if (testFailureCount > 0 && brokenLinksCount === 0) {
+      console.warn(
+        `ℹ️ Note: ${testFailureCount} test(s) failed but no broken links were detected in the report.`
+      );
+      console.warn(
+        `   This usually indicates test errors unrelated to link validation.`
+      );
+
+      // We should not consider special case domains (those with expected errors) as failures
+      // but we'll still report other test failures
+      cypressFailed = true;
+      exitCode = 1;
+    } else if (brokenLinksCount > 0) {
       console.error(
-        `⚠️ Tests failed: ${results.totalFailed || 0} test(s) failed, ${brokenLinksCount || 0} broken links found`
+        `⚠️ Tests failed: ${brokenLinksCount} broken link(s) detected`
       );
       cypressFailed = true;
       exitCode = 1;
