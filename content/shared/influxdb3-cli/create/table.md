@@ -60,7 +60,7 @@ In the following examples, replace each placeholder with your actual values:
 
 {{% code-placeholders "DATABASE_NAME|TABLE_NAME|AUTH_TOKEN" %}}
 
-### Create a table with only tag columns
+### Create an empty table
 
 <!--pytest.mark.skip-->
 
