@@ -62,7 +62,7 @@ function showHelp {
 subcommand=$1
 
 case "$subcommand" in
-  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-v2|cloud-v2|v2|v1-compat|core-v3|enterprise-v3|all)
+  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-management|clustered-v2|cloud-v2|v2|v1-compat|core-v3|enterprise-v3|all)
     product=$1
     shift
 
@@ -187,6 +187,22 @@ function updateCloudServerlessV2 {
   postProcess $outFile 'influxdb3/cloud-serverless/.config.yml' v2@2
 }
 
+function updateClusteredManagement {
+  outFile="influxdb3/clustered/management/openapi.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "Using existing $outFile"
+  else
+    # Clone influxdata/granite and fetch the latest openapi.yaml file.
+    echo "Fetching the latest openapi.yaml file from influxdata/granite"
+    tmp_dir=$(mktemp -d)
+    git clone --depth 1 --branch main https://github.com/influxdata/granite.git "$tmp_dir"
+    cp "$tmp_dir/openapi.yaml" "$outFile"
+    rm -rf "$tmp_dir"
+  fi
+  postProcess $outFile 'influxdb3/clustered/.config.yml' management@0
+}
+
 function updateClusteredV2 {
   outFile="influxdb3/clustered/v2/ref.yml"
   if [[ -z "$baseUrl" ]];
@@ -278,6 +294,9 @@ then
 elif [ "$product" = "cloud-serverless-v2" ];
 then
   updateCloudServerlessV2
+elif [ "$product" = "clustered-management" ];
+then
+  updateClusteredManagement
 elif [ "$product" = "clustered-v2" ];
 then
   updateClusteredV2
@@ -305,6 +324,6 @@ then
   updateOSSV2
   updateV1Compat
 else
-  echo "Provide a product argument: cloud-v2, cloud-serverless-v2, cloud-dedicated-v2, cloud-dedicated-management, clustered-v2, core-v3, enterprise-v3, v2, v1-compat, or all."
+  echo "Provide a product argument: cloud-v2, cloud-serverless-v2, cloud-dedicated-v2, cloud-dedicated-management, clustered-management, clustered-v2, core-v3, enterprise-v3, v2, v1-compat, or all."
   showHelp
 fi
