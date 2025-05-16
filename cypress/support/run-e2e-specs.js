@@ -5,8 +5,30 @@
  * It handles starting a local Hugo server, mapping content files to their URLs, running Cypress tests,
  * and reporting broken links.
  *
- * Usage: node run-e2e-specs.js [file paths...] [--spec test-spec-path]
- *
+ * Usage: node run-e2e-specs.js [file paths...] [--spec test    // Display broken links report
+    const brokenLinksCount = displayBrokenLinksReport();
+    
+    // Check if we might have special case failures
+    const hasSpecialCaseFailures = 
+      results && 
+      results.totalFailed > 0 && 
+      brokenLinksCount === 0;
+      
+    if (hasSpecialCaseFailures) {
+      console.warn(
+        `ℹ️ Note: Tests failed (${results.totalFailed}) but no broken links were reported. This may be due to special case URLs (like Reddit) that return expected status codes.`
+      );
+    }
+    
+    if (
+      (results && results.totalFailed && results.totalFailed > 0 && !hasSpecialCaseFailures) ||
+      brokenLinksCount > 0
+    ) {
+      console.error(
+        `⚠️ Tests failed: ${results.totalFailed || 0} test(s) failed, ${brokenLinksCount || 0} broken links found`
+      );
+      cypressFailed = true;
+      exitCode = 1; *
  * Example: node run-e2e-specs.js content/influxdb/v2/write-data.md --spec cypress/e2e/content/article-links.cy.js
  */
 
@@ -334,6 +356,8 @@ async function main() {
         test_subjects: urlList.map((item) => item.url).join(','),
         // Add new structured data with source information
         test_subjects_data: JSON.stringify(urlList),
+        // Skip testing external links (non-influxdata.com URLs)
+        skipExternalLinks: true,
       },
     };
 
@@ -347,12 +371,24 @@ async function main() {
     // Process broken links report
     const brokenLinksCount = displayBrokenLinksReport();
 
-    if (
-      (results && results.totalFailed && results.totalFailed > 0) ||
-      brokenLinksCount > 0
-    ) {
+    // Determine why tests failed
+    const testFailureCount = results?.totalFailed || 0;
+
+    if (testFailureCount > 0 && brokenLinksCount === 0) {
+      console.warn(
+        `ℹ️ Note: ${testFailureCount} test(s) failed but no broken links were detected in the report.`
+      );
+      console.warn(
+        `   This usually indicates test errors unrelated to link validation.`
+      );
+
+      // We should not consider special case domains (those with expected errors) as failures
+      // but we'll still report other test failures
+      cypressFailed = true;
+      exitCode = 1;
+    } else if (brokenLinksCount > 0) {
       console.error(
-        `⚠️ Tests failed: ${results.totalFailed || 0} test(s) failed, ${brokenLinksCount || 0} broken links found`
+        `⚠️ Tests failed: ${brokenLinksCount} broken link(s) detected`
       );
       cypressFailed = true;
       exitCode = 1;

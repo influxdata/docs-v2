@@ -5,6 +5,7 @@
 import fs from 'fs';
 
 export const BROKEN_LINKS_FILE = '/tmp/broken_links_report.json';
+export const FIRST_BROKEN_LINK_FILE = '/tmp/first_broken_link.json';
 const SOURCES_FILE = '/tmp/test_subjects_sources.json';
 
 /**
@@ -18,7 +19,29 @@ export function readBrokenLinksReport() {
 
   try {
     const fileContent = fs.readFileSync(BROKEN_LINKS_FILE, 'utf8');
-    return fileContent && fileContent !== '[]' ? JSON.parse(fileContent) : [];
+
+    // Check if the file is empty or contains only an empty array
+    if (!fileContent || fileContent.trim() === '' || fileContent === '[]') {
+      return [];
+    }
+
+    // Try to parse the JSON content
+    try {
+      const parsedContent = JSON.parse(fileContent);
+
+      // Ensure the parsed content is an array
+      if (!Array.isArray(parsedContent)) {
+        console.error('Broken links report is not an array');
+        return [];
+      }
+
+      return parsedContent;
+    } catch (parseErr) {
+      console.error(
+        `Error parsing broken links report JSON: ${parseErr.message}`
+      );
+      return [];
+    }
   } catch (err) {
     console.error(`Error reading broken links report: ${err.message}`);
     return [];
@@ -57,9 +80,27 @@ export function displayBrokenLinksReport(brokenLinksReport = null) {
     brokenLinksReport = readBrokenLinksReport();
   }
 
-  if (!brokenLinksReport || brokenLinksReport.length === 0) {
-    console.log('✅ No broken links detected');
+  // Check both the report and first broken link file to determine if we have broken links
+  const firstBrokenLink = readFirstBrokenLink();
+
+  // Only report "no broken links" if both checks pass
+  if (
+    (!brokenLinksReport || brokenLinksReport.length === 0) &&
+    !firstBrokenLink
+  ) {
+    console.log('✅ No broken links detected in the validation report');
     return 0;
+  }
+
+  // Special case: check if the single broken link file could be missing from the report
+  if (
+    firstBrokenLink &&
+    (!brokenLinksReport || brokenLinksReport.length === 0)
+  ) {
+    console.error(
+      '\n⚠️ Warning: First broken link record exists but no links in the report.'
+    );
+    console.error('This could indicate a reporting issue.');
   }
 
   // Load sources mapping
@@ -69,6 +110,21 @@ export function displayBrokenLinksReport(brokenLinksReport = null) {
   console.error('\n\n' + '='.repeat(80));
   console.error(' 🚨 BROKEN LINKS DETECTED 🚨 ');
   console.error('='.repeat(80));
+
+  // Show first failing link if available
+  if (firstBrokenLink) {
+    console.error('\n🔴 FIRST FAILING LINK:');
+    console.error(`  URL: ${firstBrokenLink.url}`);
+    console.error(`  Status: ${firstBrokenLink.status}`);
+    console.error(`  Type: ${firstBrokenLink.type}`);
+    console.error(`  Page: ${firstBrokenLink.page}`);
+    if (firstBrokenLink.linkText) {
+      console.error(
+        `  Link text: "${firstBrokenLink.linkText.substring(0, 50)}${firstBrokenLink.linkText.length > 50 ? '...' : ''}"`
+      );
+    }
+    console.error('-'.repeat(40));
+  }
 
   let totalBrokenLinks = 0;
 
@@ -106,12 +162,51 @@ export function displayBrokenLinksReport(brokenLinksReport = null) {
 }
 
 /**
- * Initialize the broken links report file
+ * Reads the first broken link info from the file system
+ * @returns {Object|null} First broken link data or null if not found
+ */
+export function readFirstBrokenLink() {
+  if (!fs.existsSync(FIRST_BROKEN_LINK_FILE)) {
+    return null;
+  }
+
+  try {
+    const fileContent = fs.readFileSync(FIRST_BROKEN_LINK_FILE, 'utf8');
+
+    // Check if the file is empty or contains whitespace only
+    if (!fileContent || fileContent.trim() === '') {
+      return null;
+    }
+
+    // Try to parse the JSON content
+    try {
+      return JSON.parse(fileContent);
+    } catch (parseErr) {
+      console.error(
+        `Error parsing first broken link JSON: ${parseErr.message}`
+      );
+      return null;
+    }
+  } catch (err) {
+    console.error(`Error reading first broken link: ${err.message}`);
+    return null;
+  }
+}
+
+/**
+ * Initialize the broken links report files
  * @returns {boolean} True if initialization was successful
  */
 export function initializeReport() {
   try {
+    // Create an empty array for the broken links report
     fs.writeFileSync(BROKEN_LINKS_FILE, '[]', 'utf8');
+
+    // Reset the first broken link file by creating an empty file
+    // Using empty string as a clear indicator that no broken link has been recorded yet
+    fs.writeFileSync(FIRST_BROKEN_LINK_FILE, '', 'utf8');
+
+    console.debug('🔄 Initialized broken links reporting system');
     return true;
   } catch (err) {
     console.error(`Error initializing broken links report: ${err.message}`);

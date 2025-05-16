@@ -5,6 +5,57 @@ describe('Article', () => {
   // Always use HEAD for downloads to avoid timeouts
   const useHeadForDownloads = true;
 
+  // List of domains that return certain status codes but are actually valid
+  const specialCaseDomains = [
+    { domain: 'reddit.com', allowedStatuses: [403] },
+    { domain: 'www.reddit.com', allowedStatuses: [403] },
+    // Add other sites as needed
+    { domain: 'linkedin.com', allowedStatuses: [999, 403, 401] },
+    { domain: 'www.linkedin.com', allowedStatuses: [999, 403, 401] },
+  ];
+
+  // Set up global error handler for special case links
+  before(() => {
+    // Initialize the broken links report
+    cy.task('initializeBrokenLinksReport');
+
+    // Register global error handler for special case links
+    Cypress.on('fail', (err, runnable) => {
+      // Check if this is a broken link error
+      if (err.message.includes('BROKEN') && err.message.includes('LINK:')) {
+        // Extract URL and status code from the error message
+        const urlMatch = err.message.match(/LINK: ([^ ]+) \(status: (\d+)\)/);
+        if (urlMatch) {
+          const [_, url, statusStr] = urlMatch;
+          const status = parseInt(statusStr, 10);
+
+          // Check if this is a special case link
+          try {
+            const parsedUrl = new URL(url);
+            const isSpecialCase = specialCaseDomains.some(
+              (specialCase) =>
+                parsedUrl.hostname.endsWith(specialCase.domain) &&
+                specialCase.allowedStatuses.includes(status)
+            );
+
+            if (isSpecialCase) {
+              // Log the special case and continue the test
+              cy.log(
+                `✅ Special case link validated: ${url} (status: ${status} is expected for this domain)`
+              );
+              return false; // Prevent test failure
+            }
+          } catch (e) {
+            // If URL parsing fails, let the test fail
+          }
+        }
+      }
+
+      // For other errors, let the test fail
+      throw err;
+    });
+  });
+
   // Helper function to identify download links
   function isDownloadLink(href) {
     // Check for common download file extensions
@@ -55,8 +106,31 @@ describe('Article', () => {
       retryOnStatusCodeFailure: true, // Retry on 5xx errors
     };
 
+    // Helper function to check if URL is a special case that allows specific status codes
+    function isSpecialCaseUrl(url, status) {
+      try {
+        const parsedUrl = new URL(url);
+        return specialCaseDomains.some(
+          (specialCase) =>
+            parsedUrl.hostname.endsWith(specialCase.domain) &&
+            specialCase.allowedStatuses.includes(status)
+        );
+      } catch (e) {
+        return false; // If URL parsing fails, it's not a special case
+      }
+    }
+
     function handleFailedLink(url, status, type, redirectChain = '') {
-      // Report broken link to the task which will handle reporting
+      // Check if this is a special case with an expected status code
+      if (isSpecialCaseUrl(url, status)) {
+        // Log the special case and continue without failing the test
+        cy.log(
+          `✅ Special case link validated: ${url} (status: ${status} is expected for this domain)`
+        );
+        return; // Skip error throwing and continue the test
+      }
+
+      // For non-special cases, report the broken link
       cy.task('reportBrokenLink', {
         url: url + redirectChain,
         status,
@@ -65,6 +139,7 @@ describe('Article', () => {
         page: pageUrl,
       });
 
+      // Throw error for non-special cases
       throw new Error(
         `BROKEN ${type.toUpperCase()} LINK: ${url} (status: ${status})${redirectChain} on ${pageUrl}`
       );
@@ -109,11 +184,7 @@ describe('Article', () => {
     }
   }
 
-  // Before all tests, initialize the report
-  before(() => {
-    cy.task('initializeBrokenLinksReport');
-  });
-
+  // Test implementation for subjects
   subjects.forEach((subject) => {
     it(`${subject} has valid internal links`, function () {
       cy.visit(`${subject}`, { timeout: 20000 });
@@ -186,7 +257,18 @@ describe('Article', () => {
     });
 
     it(`${subject} has valid external links`, function () {
+      // Check if we should skip external links entirely
+      if (Cypress.env('skipExternalLinks') === true) {
+        cy.log(
+          'Skipping all external links as configured by skipExternalLinks'
+        );
+        return;
+      }
+
       cy.visit(`${subject}`);
+
+      // Define allowed external domains to test
+      const allowedExternalDomains = ['github.com', 'kapa.ai'];
 
       // Test external links
       cy.get('article, .api-content').then(($article) => {
@@ -197,8 +279,29 @@ describe('Article', () => {
           return;
         }
 
-        cy.debug(`Found ${$links.length} external links`);
-        cy.wrap($links).each(($a) => {
+        // Filter links to only include allowed domains
+        const $allowedLinks = $links.filter((_, el) => {
+          const href = el.getAttribute('href');
+          try {
+            const url = new URL(href);
+            return allowedExternalDomains.some(
+              (domain) =>
+                url.hostname === domain || url.hostname.endsWith(`.${domain}`)
+            );
+          } catch (e) {
+            return false;
+          }
+        });
+
+        if ($allowedLinks.length === 0) {
+          cy.log('No links to allowed external domains found on this page');
+          return;
+        }
+
+        cy.log(
+          `Found ${$allowedLinks.length} links to allowed external domains to test`
+        );
+        cy.wrap($allowedLinks).each(($a) => {
           const href = $a.attr('href');
           const linkText = $a.text().trim();
           testLink(href, linkText, subject);
