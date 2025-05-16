@@ -72,7 +72,7 @@ influxdb3 create trigger \
 
 ### Create a trigger for all tables
 
-Use this command to create a trigger that applies to all tables in the specified database.
+Create a trigger that applies to all tables in the specified database.
 
 <!--pytest.mark.skip-->
 
