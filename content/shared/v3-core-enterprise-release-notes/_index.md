@@ -5,6 +5,28 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.0.3 {date="2025-05-16"}
+**Core**: revision 384c457ef5f0d5ca4981b22855e411d8cac2688e
+
+**Enterprise**: revision 34f4d28295132b9efafebf654e9f6decd1a13caf
+
+### Core
+
+#### Fixes
+
+- Prevent operator token, `_admin`, from being deleted.  
+
+### Enterprise
+
+#### Fixes
+
+- Fix object store info digest that is output during onboarding. 
+- Fix issues with false positive catalog error on shutdown.
+- Fix licensing validation issues.
+- Other fixes and performance improvements.
+
+
+
 ## v3.0.2 {date="2025-05-01"}
 **Core**: revision d80d6cd60049c7b266794a48c97b1b6438ac5da9
 
