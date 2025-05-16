@@ -75,7 +75,7 @@ influxdb3 create last_cache \
 
 ### Create a last value cache with multiple keys and values
 
-This example demonstrates how to:
+The following example shows how to:
 
 - Use multiple columns as a composite key
 - Track several values per key combination
