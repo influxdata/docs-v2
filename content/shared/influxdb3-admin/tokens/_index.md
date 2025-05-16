@@ -51,15 +51,10 @@ Replace `YOUR_TOKEN` with your authorization token.
 
 ```bash
 # Add your token to the HTTP Authorization header
-curl "http://localhost:8181/api/v3/query_sql" \
+curl "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data-urlencode "db=example-db" \
   --data-urlencode "q=SELECT * FROM 'example-table' WHERE time > now() - INTERVAL '10 minutes'"
-```
-
-{{% /code-placeholders %}}
-
-Replace `your-token` with your actual InfluxDB 3 token.
 
 {{% /tab-content %}}
 
