@@ -101,9 +101,8 @@ influxdb3 query \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   "SHOW TABLES"
-Example output:
 
-<!--pytest.mark.skip-->
+Example output:
 
 ```bash
 +---------------+--------------------+----------------------------+------------+
