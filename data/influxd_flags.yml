@@ -161,6 +161,9 @@
 - flag: "--storage-validate-keys"
   added: 2.0
 
+- flag: "--storage-wal-flush-on-shutdown"
+  added: 2.7
+
 - flag: "--storage-wal-fsync-delay"
   added: 2.0
 
