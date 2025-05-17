@@ -98,6 +98,6 @@ influxdb3 create last_cache \
 
 ## Usage notes 
 
-- All specified key and value columns must exist in the table schema.
-- Tokens must be passed with `--token` unless set via environment variable.
-- If not specified, default values are used for `--count` and `--ttl`.
+- Define the table schema to include all specified key and value columns.
+- Pass tokens using `--token`, unless you've set one through an environment variable.
+- Specify `--count` and `--ttl` to override the defaults; otherwise, the system uses default values.

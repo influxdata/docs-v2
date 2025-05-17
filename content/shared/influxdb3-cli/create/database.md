@@ -38,8 +38,9 @@ You can use the following environment variables instead of providing CLI options
 
 ## Examples
 
-Use the following examples to create a database. Replace the placeholders with your actual values:
+The following examples show how to create a database.
 
+In your commands replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Database name
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: 
