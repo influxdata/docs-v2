@@ -1,5 +1,10 @@
 
-The `influxdb3 create table` command creates a table in a database.
+The `influxdb3 create table` command creates a new table in a specified database. Tables must include at least one tag column and can optionally include field columns with defined data types.
+
+>[!Note]
+>InfluxDB automatically creates tables when you write line protocol data. Use this command 
+>only if you need to define a custom schema or apply a custom partition template before 
+>writing data.
 
 ## Usage
 
@@ -30,7 +35,7 @@ influxdb3 create table [OPTIONS] \
 | `-h`   | `--help`     | Print help information                                                                   |
 |        | `--help-all` | Print detailed help information                                                          |
 
-> [!Important]
+>[!Important]
 >
 > #### Tag and field naming requirements
 > 
@@ -39,7 +44,7 @@ influxdb3 create table [OPTIONS] \
 
 ### Option environment variables
 
-You can use the following environment variables to set command options:
+You can use the following environment variables to set options instead of passing them via CLI flags:
 
 | Environment Variable      | Option       |
 | :------------------------ | :----------- |
@@ -49,10 +54,7 @@ You can use the following environment variables to set command options:
 
 ## Examples
 
-- [Create a table](#create-a-table)
-- [Create a table with tag and field columns](#create-a-table-with-tag-and-field-columns)
-
-In the examples below, replace the following:
+In the following examples, replace each placeholder with your actual values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Database name
@@ -61,9 +63,11 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
   Table name
 
-{{% code-placeholders "(DATABASE|TABLE)_NAME" %}}
+{{% code-placeholders "DATABASE_NAME|TABLE_NAME|AUTH_TOKEN" %}}
 
-### Create a table
+### Create an empty table
+
+<!--pytest.mark.skip-->
 
 ```bash
 influxdb3 create table \
@@ -85,5 +89,32 @@ influxdb3 create table \
   --token AUTH_TOKEN \
   TABLE_NAME
 ```
+
+### Verification
+
+Use the `SHOW TABLES` query to verify that the table was created successfully:
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 query \
+  --database my_test_db \
+  --token AUTH_TOKEN \
+  "SHOW TABLES"
+
+Example output:
+
++---------------+--------------------+----------------------------+------------+
+| table_catalog | table_schema       | table_name                 | table_type |
++---------------+--------------------+----------------------------+------------+
+| public        | iox                | my_sensor_table            | BASE TABLE |
+| public        | system             | distinct_caches            | BASE TABLE |
+| public        | system             | last_caches                | BASE TABLE |
+| public        | system             | parquet_files              | BASE TABLE |
++---------------+--------------------+----------------------------+------------+
+```
+
+>[!Note]
+> - `SHOW TABLES` is an SQL query. It isn't supported in InfluxQL.
 
 {{% /code-placeholders %}}

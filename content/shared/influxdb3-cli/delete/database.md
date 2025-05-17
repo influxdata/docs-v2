@@ -11,7 +11,7 @@ influxdb3 delete database [OPTIONS] <DATABASE_NAME>
 
 ## Arguments
 
-- **DATABASE_NAME**: The name of the database to delete.
+- **DATABASE_NAME**: The name of the database to delete. Valid database names are alphanumeric and start with a letter or number. Dashes (`-`) and underscores (`_`) are allowed.
   
   Environment variable: `INFLUXDB3_DATABASE_NAME`
 
