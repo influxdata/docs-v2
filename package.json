@@ -41,8 +41,23 @@
     "pre-commit": "lefthook run pre-commit",
     "test-content": "docker compose --profile test up"
   },
-  "main": "index.js",
-  "module": "main.js",
+  "main": "assets/js/main.js",
+  "module": "assets/js/main.js",
+  "exports": {
+    ".": {
+      "import": "./assets/js/main.js",
+      "require": "./assets/js/main.js"
+    }
+  },
+  "type": "module",
+  "browserslist": [
+    "last 2 versions",
+    "not dead",
+    "not IE 11"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "directories": {
     "test": "test"
   },

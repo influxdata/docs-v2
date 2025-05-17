@@ -7,14 +7,14 @@ export default function ThemeSwitch({ component }) {
   component.querySelectorAll(`.theme-switch-light`).forEach((button) => {
     button.addEventListener('click', function(event) {
       event.preventDefault();
-      Theme({ style: 'light-theme' });
+      Theme({component, style: 'light-theme' });
     });
   });
 
   component.querySelectorAll(`.theme-switch-dark`).forEach((button) => {
     button.addEventListener('click', function(event) {
       event.preventDefault();
-      Theme({ style: 'dark-theme' });
+      Theme({component, style: 'dark-theme' });
     });
   });
 }
