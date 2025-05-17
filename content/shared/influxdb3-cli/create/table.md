@@ -1,7 +1,7 @@
 
 The `influxdb3 create table` command creates a new table in a specified database. Tables must include at least one tag column and can optionally include field columns with defined data types.
 
-> [!Note]
+>[!Note]
 >InfluxDB automatically creates tables when you write line protocol data. Use this command 
 >only if you need to define a custom schema or apply a custom partition template before 
 >writing data.
@@ -35,7 +35,7 @@ influxdb3 create table [OPTIONS] \
 | `-h`   | `--help`     | Print help information                                                                   |
 |        | `--help-all` | Print detailed help information                                                          |
 
-> [!Important]
+>[!Important]
 >
 > #### Tag and field naming requirements
 > 
