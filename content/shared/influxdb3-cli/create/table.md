@@ -98,13 +98,12 @@ Use the `SHOW TABLES` query to verify that the table was created successfully:
 
 ```bash
 influxdb3 query \
-  --database DATABASE_NAME \
+  --database my_test_db \
   --token AUTH_TOKEN \
   "SHOW TABLES"
 
 Example output:
 
-```bash
 +---------------+--------------------+----------------------------+------------+
 | table_catalog | table_schema       | table_name                 | table_type |
 +---------------+--------------------+----------------------------+------------+
