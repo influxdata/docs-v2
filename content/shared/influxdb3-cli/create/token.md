@@ -36,7 +36,7 @@ influxdb3 create token <SUBCOMMAND>
 influxdb3 create token --admin
 ```
 
-The output is the raw token string you can use it to authenticate future CLI commands and API requests.
+The output is the raw token string you can use to authenticate future CLI commands and API requests.
 For CLI commands, use the `--token` option or the `INFLUXDB3_AUTH_TOKEN` environment variable to pass the token string.
 
 ### Use the token to create a database
