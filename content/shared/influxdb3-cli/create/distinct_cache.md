@@ -68,7 +68,7 @@ Before creating a distinct value cache, make sure you:
 Before running the following commands, replace the placeholder values with your own:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  Database name
+  The database name
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
   Table name
 - {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: 
