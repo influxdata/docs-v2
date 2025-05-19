@@ -14,12 +14,18 @@
     "autoprefixer": ">=10.2.5",
     "cypress": "^14.0.1",
     "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsdoc": "^50.6.17",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "globals": "^15.14.0",
     "hugo-extended": ">=0.101.0",
     "postcss": ">=8.4.31",
     "postcss-cli": ">=9.1.0",
     "prettier": "^3.2.5",
     "prettier-plugin-sql": "^0.18.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.1",
     "winston": "^3.16.0"
   },
   "dependencies": {
@@ -34,8 +40,8 @@
     "vanillajs-datepicker": "^1.3.4"
   },
   "scripts": {
-    "build:pytest:image":"docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .",
-     "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && lefthook run pre-push",
+    "build:pytest:image": "docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .",
+    "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && lefthook run pre-push",
     "pre-commit": "lefthook run pre-commit",
     "test": "echo \"Run 'yarn test:e2e', 'yarn test:links', 'yarn test:codeblocks:all' or a specific test command. e2e and links test commands can take a glob of file paths to test. Some commands run automatically during the git pre-commit and pre-push hooks.\" && exit 0",
     "test:codeblocks": "echo \"Run a specific codeblocks test command\" && exit 0",
@@ -61,12 +67,6 @@
   },
   "main": "assets/js/main.js",
   "module": "assets/js/main.js",
-  "exports": {
-    ".": {
-      "import": "./assets/js/main.js",
-      "require": "./assets/js/main.js"
-    }
-  },
   "type": "module",
   "browserslist": [
     "last 2 versions",
