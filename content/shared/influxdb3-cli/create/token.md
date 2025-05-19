@@ -58,7 +58,8 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Name for your new database
 
 > [!Note] 
-> Set the token as an environment variable to simplify repeated commands:
+> Set the token as an environment variable to simplify repeated CLI commands:
+>
 > ```bash 
 > export INFLUXDB3_AUTH_TOKEN=YOUR_ADMIN_TOKEN
 > ```
