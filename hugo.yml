@@ -54,3 +54,16 @@ outputFormats:
     mediaType: application/json
     baseName: pages
     isPlainText: true
+
+build:
+  # Ensure Hugo correctly processes JavaScript modules
+  jsConfig:
+    nodeEnv: "development"
+
+module:
+  mounts:
+    - source: assets
+      target: assets
+    
+    - source: node_modules
+      target: assets/node_modules
