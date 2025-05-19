@@ -115,6 +115,6 @@ Example output:
 ```
 
 >[!Note]
-> - `SHOW TABLES` is an SQL query. It isn't supported in InfluxQL.
+> `SHOW TABLES` is an SQL query. It isn't supported in InfluxQL.
 
 {{% /code-placeholders %}}
