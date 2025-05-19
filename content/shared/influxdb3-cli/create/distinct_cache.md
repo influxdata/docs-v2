@@ -96,7 +96,7 @@ influxdb3 create distinct_cache \
 
 ### Create a hierarchical cache with constraints
 
-Create a distinct value cache for multiple columns. This configuration tracks unique combinations of `room` and `sensor_id`, and sets limits on the number of entries and their maximum age.
+Create a distinct value cache for multiple columns. The following example tracks unique combinations of `room` and `sensor_id`, and sets limits on the number of entries and their maximum age.
 
 <!--pytest.mark.skip-->
 
