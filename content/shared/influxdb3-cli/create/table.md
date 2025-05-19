@@ -61,7 +61,7 @@ In the following examples, replace each placeholder with your actual values:
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: 
   Authentication token
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
-  Table name
+  A name for the new table
 
 {{% code-placeholders "DATABASE_NAME|TABLE_NAME|AUTH_TOKEN" %}}
 
