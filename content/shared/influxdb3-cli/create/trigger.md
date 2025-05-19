@@ -10,7 +10,6 @@ processing engine.
 influxdb3 create trigger [OPTIONS] \
   --database <DATABASE_NAME> \
   --token <AUTH_TOKEN> \
-  --plugin <PLUGIN_NAME> \
   --trigger-spec <TRIGGER_SPECIFICATION> \
   <TRIGGER_NAME>
 ```
@@ -26,7 +25,6 @@ influxdb3 create trigger [OPTIONS] \
 | `-H`   | `--host`         | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 | `-d`   | `--database`     | _({{< req >}})_ Name of the database to operate on                                       |
 |        | `--token`        | _({{< req >}})_ Authentication token                                                     |
-|        | `--plugin`       | Plugin to execute when the trigger fires                                                 |
 |        | `--trigger-spec` | Trigger specification--for example `table:<TABLE_NAME>` or `all_tables`                  |
 |        | `--disabled`     | Create the trigger in disabled state                                                     |
 |        | `--tls-ca`       | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
@@ -43,4 +41,66 @@ You can use the following environment variables to set command options:
 | `INFLUXDB3_DATABASE_NAME` | `--database` |
 | `INFLUXDB3_AUTH_TOKEN`    | `--token`    |
 
-<!-- TODO: GET EXAMPLES -->
+## Examples
+
+The following examples show how to use the `influxdb3 create trigger` command to create triggers in different scenarios.
+
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Database name
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
+Authentication token
+- {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}:
+Name of the trigger to create
+- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}:
+Name of the table to trigger on
+
+{{% code-placeholders "(DATABASE|TRIGGER)_NAME|AUTH_TOKEN|TABLE_NAME" %}}
+
+### Create a trigger for a specific table
+
+Create a trigger that processes data from a specific table.
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create trigger \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --trigger-spec table:TABLE_NAME \
+  TRIGGER_NAME
+```
+
+### Create a trigger for all tables
+
+Create a trigger that applies to all tables in the specified database.
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create trigger \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --trigger-spec all_tables \
+  TRIGGER_NAME
+```
+
+This is useful when you want a trigger to apply to any table in the database, regardless of name.
+
+### Create a disabled trigger
+
+Create a trigger in a disabled state. 
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create trigger \
+  --disabled \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --trigger-spec table:TABLE_NAME \
+  TRIGGER_NAME
+```
+
+Creating a trigger in a disabled state prevents it from running immediately. You can enable it later when you're ready to activate it.
+
+{{% /code-placeholders %}}
