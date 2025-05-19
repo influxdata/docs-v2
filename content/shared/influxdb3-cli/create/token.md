@@ -1,7 +1,7 @@
 The `influxdb3 create token` command creates a new authentication token. This returns the raw token string. Use it to authenticate future CLI commands and API requests.
 
->[!Important]
->InfluxDB displays the raw token string only once. Be sure to copy and securely store it.
+> [!Important]
+> InfluxDB displays the raw token string only once. Be sure to copy and securely store it.
 
 ## Usage
 
