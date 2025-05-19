@@ -73,7 +73,7 @@ Before running the following commands, replace the placeholder values with your 
   The name of the table to cache values from
 - {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: 
   The name of the distinct value cache to create
-- {{% code-placeholder-key %}}`COLUMN_NAME`{{% /code-placeholder-key %}}: Column to 
+- {{% code-placeholder-key %}}`COLUMN_NAME`{{% /code-placeholder-key %}}: The column to 
 cache distinct values from
 
 You can also set environment variables (such as `INFLUXDB3_AUTH_TOKEN`) instead of passing options inline.
