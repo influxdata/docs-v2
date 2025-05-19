@@ -70,7 +70,7 @@ Before running the following commands, replace the placeholder values with your 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   The database name
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
-  Table name
+  The name of the table to cache values from
 - {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: 
   Name of the distinct value cache to create
 - {{% code-placeholder-key %}}`COLUMN_NAME`{{% /code-placeholder-key %}}: Column to 
