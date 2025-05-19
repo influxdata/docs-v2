@@ -1,5 +1,5 @@
 plugins:
-  - './../openapi/plugins/docs-plugin.js'
+  - './../openapi/plugins/docs-plugin.cjs'
 extends:
   - recommended
   - docs/all
