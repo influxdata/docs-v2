@@ -8,13 +8,17 @@ menu:
 weight: 101
 ---
 
-## v2.7.12 {date="2025-05-15"}
+## v2.7.12 {date="2025-05-20"}
 
 ### Features
 
 - Add a `--pid-file` option to write a PID file to the specified location on startup. InfluxDB removes the PID file on shutdown.
 - Add a `--storage-wal-flush-on-shutdown` option to flush the WAL on database shutdown to ensure all data is written to disk.
 - Improve response error messages for dropped points, adding details including database, retention policy, and which bound was violated for partial writes.
+
+### Bug Fixes
+
+- Fix a locking issue in `TagValueIterator` that could cause reads and writes in buckets to block. [PR #26414](https://github.com/influxdata/influxdb/pull/26414)
 
 ### Maintenance
 
@@ -23,6 +27,7 @@ weight: 101
 - Update Flux to v0.196.1.
 - Refresh dependencies to address security vulnerabilities and improve stability.
 
+---
 
 ## v2.7.11 {date="2024-12-02"}
 
