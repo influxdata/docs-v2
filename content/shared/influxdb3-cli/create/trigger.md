@@ -10,6 +10,7 @@ processing engine.
 influxdb3 create trigger [OPTIONS] \
   --database <DATABASE_NAME> \
   --token <AUTH_TOKEN> \
+  --plugin-filename <PLUGIN_FILENAME> \
   --trigger-spec <TRIGGER_SPECIFICATION> \
   <TRIGGER_NAME>
 ```
@@ -20,16 +21,21 @@ influxdb3 create trigger [OPTIONS] \
 
 ## Options
 
-| Option |                  | Description                                                                              |
-| :----- | :--------------- | :--------------------------------------------------------------------------------------- |
-| `-H`   | `--host`         | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
-| `-d`   | `--database`     | _({{< req >}})_ Name of the database to operate on                                       |
-|        | `--token`        | _({{< req >}})_ Authentication token                                                     |
-|        | `--trigger-spec` | Trigger specification--for example `table:<TABLE_NAME>` or `all_tables`                  |
-|        | `--disabled`     | Create the trigger in disabled state                                                     |
-|        | `--tls-ca`       | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
-| `-h`   | `--help`         | Print help information                                                                   |
-|        | `--help-all`     | Print detailed help information                                                          |
+| Option |                     | Description                                                                                              |
+| :----- | :------------------ | :------------------------------------------------------------------------------------------------------- |
+| `-H`   | `--host`            | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                 |
+| `-d`   | `--database`        | _({{< req >}})_ Name of the database to operate on                                                       |
+|        | `--token`           | _({{< req >}})_ Authentication token                                                                     |
+|        | `--plugin-filename` | _({{< req >}})_ Name of the file, stored in the server's `plugin-dir`, that contains the Python plugin code to run     | 
+|        | `--trigger-spec`    | Trigger specification--for example `table:<TABLE_NAME>` or `all_tables`                                  |
+|        | `--disabled`        | Create the trigger in disabled state                                                                     |
+|        | `--tls-ca`          | Path to a custom TLS certificate authority (for testing or self-signed certificates)                     |
+| `-h`   | `--help`            | Print help information                                                                                   |
+|        | `--help-all`        | Print detailed help information                                                                          |
+
+If you want to use a plugin from the [Plugin Library](https://github.com/influxdata/influxdb3_plugins) repo, use the url path with `gh:` specified as the prefix.
+For example, to use the [System Metrics](https://github.com/influxdata/influxdb3_plugins/blob/main/examples/schedule/system_metrics/system_metrics.py) plugin, the plugin filename is `gh:examples/schedule/system_metrics/system_metrics.py`.
+
 
 ### Option environment variables
 
@@ -47,8 +53,8 @@ The following examples show how to use the `influxdb3 create trigger` command to
 
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Database name
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-Authentication token
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: Authentication token
+- {{% code-placeholder-key %}}`PLUGIN_FILENAME`{{% /code-placeholder-key %}}: Python plugin filename
 - {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}:
 Name of the trigger to create
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}:
@@ -66,6 +72,7 @@ Create a trigger that processes data from a specific table.
 influxdb3 create trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
+  --plugin-filename PLUGIN_FILENAME \
   --trigger-spec table:TABLE_NAME \
   TRIGGER_NAME
 ```
@@ -80,6 +87,7 @@ Create a trigger that applies to all tables in the specified database.
 influxdb3 create trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
+  --plugin-filename <PLUGIN_FILENAME> \
   --trigger-spec all_tables \
   TRIGGER_NAME
 ```
@@ -97,6 +105,7 @@ influxdb3 create trigger \
   --disabled \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
+  --plugin-filename <PLUGIN_FILENAME> \
   --trigger-spec table:TABLE_NAME \
   TRIGGER_NAME
 ```
