@@ -26,7 +26,7 @@ influxdb3 create trigger [OPTIONS] \
 | `-H`   | `--host`            | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                 |
 | `-d`   | `--database`        | _({{< req >}})_ Name of the database to operate on                                                       |
 |        | `--token`           | _({{< req >}})_ Authentication token                                                                     |
-|        | `--plugin-filename` | _({{< req >}})_ Python file name of the file on the server's plugin-dir containing the plugin code.      | 
+|        | `--plugin-filename` | _({{< req >}})_ Name of the file, stored in the server's `plugin-dir`, that contains the Python plugin code to run     | 
 |        | `--trigger-spec`    | Trigger specification--for example `table:<TABLE_NAME>` or `all_tables`                                  |
 |        | `--disabled`        | Create the trigger in disabled state                                                                     |
 |        | `--tls-ca`          | Path to a custom TLS certificate authority (for testing or self-signed certificates)                     |
