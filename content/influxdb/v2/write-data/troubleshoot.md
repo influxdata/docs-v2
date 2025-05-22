@@ -16,6 +16,6 @@ related:
 source: /shared/influxdb-v2/write-data/troubleshoot.md
 ---
 
-<!-- The content for this file is located at
+<!-- The content of this file is at
 // SOURCE content/shared/influxdb-v2/write-data/troubleshoot.md
 -->
