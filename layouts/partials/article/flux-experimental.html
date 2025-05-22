@@ -13,7 +13,7 @@
       </div>
     {{ else if eq .Kind "section" }}
       <div class="important block">
-        {{ $packageTitle := cond (isset .Params "list_title") $.Params.list_title .Title }}
+        {{ $packageTitle := default .Title .Params.list_title }}
         {{ $packageName := replaceRE `^(.*)( package)` "<code>$1</code>$2" $packageTitle }}
         <p>
           The {{ $packageName | safeHTML }} is experimental and <a href="{{ $expRiskURL }}">subject to change at any time</a>.

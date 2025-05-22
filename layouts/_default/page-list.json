@@ -8,49 +8,49 @@
   {{- if $index -}},{{- end }}
   {
     "name": {{ .Name | jsonify }},
-    "url": {{ absURL (cond (isset .Params "url") .Params.url .URL) | jsonify }},
+    "url": {{ absURL (default .URL .Params.url) | jsonify }},
     "children": [
       {{- range $index, $entry := .Children -}}
         {{- if $index -}},{{- end }}
         {
           "name": {{ .Name | jsonify }},
-          "url": {{ absURL (cond (isset .Params "url") .Params.url .URL) | jsonify }},
+          "url": {{ absURL (default .URL .Params.url) | jsonify }},
           "children": [
             {{- range $index, $entry := .Children -}}
             {{- if $index -}},{{- end }}
             {
               "name": {{ .Name | jsonify }},
-              "url": {{ absURL (cond (isset .Params "url") .Params.url .URL) | jsonify }},
+              "url": {{ absURL (default .URL .Params.url) | jsonify }},
               "children": [
                 {{- range $index, $entry := .Children -}}
                 {{- if $index -}},{{- end }}
                 {
                   "name": {{ .Name | jsonify }},
-                  "url": {{ absURL (cond (isset .Params "url") .Params.url .URL) | jsonify }},
+                  "url": {{ absURL (default .URL .Params.url) | jsonify }},
                   "children": [
                     {{- range $index, $entry := .Children -}}
                     {{- if $index -}},{{- end }}
                     {
                       "name": {{ .Name | jsonify }},
-                      "url": {{ absURL (cond (isset .Params "url") .Params.url .URL) | jsonify }},
+                      "url": {{ absURL (default .URL .Params.url) | jsonify }},
                       "children": [
                         {{- range $index, $entry := .Children -}}
                         {{- if $index -}},{{- end }}
                         {
                           "name": {{ .Name | jsonify }},
-                          "url": {{ absURL (cond (isset .Params "url") .Params.url .URL) | jsonify }},
+                          "url": {{ absURL (default .URL .Params.url) | jsonify }},
                           "children": [
                             {{- range $index, $entry := .Children -}}
                             {{- if $index -}},{{- end }}
                             {
                               "name": {{ .Name | jsonify }},
-                              "url": {{ absURL (cond (isset .Params "url") .Params.url .URL) | jsonify }},
+                              "url": {{ absURL (default .URL .Params.url) | jsonify }},
                               "children": [
                                 {{- range $index, $entry := .Children -}}
                                 {{- if $index -}},{{- end }}
                                 {
                                   "name": {{ .Name | jsonify }},
-                                  "url": {{ absURL (cond (isset .Params "url") .Params.url .URL) | jsonify }},
+                                  "url": {{ absURL (default .URL .Params.url) | jsonify }},
                                   "children": [
                                     {{ range .Children }}
                                     {{ end }}
