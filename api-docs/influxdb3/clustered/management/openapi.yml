@@ -1,12 +1,12 @@
 openapi: 3.1.0
 info:
-  title: InfluxDB 3 Cloud Dedicated Management API
+  title: InfluxDB 3 Clustered Management API
   description: |
-    The Management API for InfluxDB 3 Cloud Dedicated provides a programmatic interface for managing a Cloud Dedicated cluster.
+    The Management API for InfluxDB 3 Clustered provides a programmatic interface for managing an InfluxDB 3 cluster.
     The Management API lets you integrate functions such as creating and managing databases, permissions, and tokens into your workflow or application.
 
     This documentation is generated from the
-    InfluxDB OpenAPI specification.
+    InfluxDB 3 Management API OpenAPI specification.
   version: ''
   license:
     name: MIT
@@ -17,13 +17,13 @@ info:
     email: support@influxdata.com
 servers:
   - url: https://{baseurl}/api/v0
-    description: InfluxDB 3 Cloud Dedicated Management API URL
+    description: InfluxDB 3 Clustered Management API URL
     variables:
       baseurl:
         enum:
           - console.influxdata.com
         default: console.influxdata.com
-        description: InfluxDB 3 Cloud Dedicated Console URL
+        description: InfluxDB 3 Clustered Console URL
 security:
   - bearerAuthManagementToken: []
     bearerAuthJwt: []
@@ -31,16 +31,13 @@ tags:
   - name: Authentication
     x-traitTag: true
     description: |
-      With InfluxDB 3 Cloud Dedicated, the InfluxDB Management API endpoints require the following credentials:
+      With InfluxDB 3 Clustered, InfluxDB Management API endpoints require the following credential:
 
-      - `ACCOUNT_ID`: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to. To view account ID and cluster ID, [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
-      - `CLUSTER_ID`: The ID of the [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage. To view account ID and cluster ID, [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
-      - `Authorization MANAGEMENT_TOKEN`: the `Authorization` HTTP header with a [management token](/influxdb3/cloud-dedicated/admin/tokens/management/).
+      - `Authorization MANAGEMENT_TOKEN`: the `Authorization` HTTP header with a [management token](/influxdb3/clustered/admin/tokens/management/).
 
-        See how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/).
+        See how to [create a management token](/influxdb3/clustered/admin/tokens/management/).
 
         By default, management tokens in InfluxDB 3 are short-lived tokens issued by an OAuth2 identity provider that grant a specific user administrative access to your InfluxDB cluster. However, for automation purposes, you can manually create management tokens that authenticate directly with your InfluxDB cluster and do not require human interaction with your identity provider.
-        <!-- ReDoc-Inject: <security-definitions> -->
   - name: Database tokens
     description: Manage database read/write tokens for a cluster
   - name: Databases
@@ -57,7 +54,7 @@ tags:
        # Note the leading space in the command below to keep secrets out of the shell history
        #
        # ```
-       #  MANAGEMENT_TOKEN=<MANAGEMENT_TOKEN> ACCOUNT_ID=<ACCOUNT_ID> CLUSTER_ID=<CLUSTER_ID> ./scripts/test_http_api_v0_endpoints.sh
+       #  MANAGEMENT_TOKEN=<MANAGEMENT_TOKEN> ./scripts/test_http_api_v0_endpoints.sh
        # ```
 
        # Env var validation
@@ -69,29 +66,13 @@ tags:
            exit 1
        fi
 
-       if [ -z "${ACCOUNT_ID}" ]; then
-         echo "
-       [Error]: ❌
-         \$ACCOUNT_ID env var is required.
-           "
-           exit 1
-       fi
-
-       if [ -z "${CLUSTER_ID}" ]; then
-         echo "
-       [Error]: ❌
-         \$CLUSTER_ID env var is required.
-           "
-           exit 1
-       fi
-
-      HOST="https://console.influxdata.com"
+      HOST="https://cluster-host.com"
 
        # Database request functions
        list_databases () {
          local response=$( \
            curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
+             --location "$HOST/api/v0/databases" \
              --header "Accept: application/json" \
              --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
          )
@@ -102,7 +83,7 @@ tags:
          local databaseName=$1
          local response=$( \
            curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
+             --location "$HOST/api/v0/databases" \
              --header "Accept: application/json" \
              --header 'Content-Type: application/json' \
              --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
@@ -133,7 +114,7 @@ tags:
          local databaseName=$1
          local response=$( \
            curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases/$databaseName" \
+             --location "$HOST/api/v0/databases/$databaseName" \
              --request PATCH \
              --header "Accept: application/json" \
              --header 'Content-Type: application/json' \
@@ -151,7 +132,7 @@ tags:
          local databaseName=$1
          local response=$( \
            curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases/$databaseName" \
+             --location "$HOST/api/v0/databases/$databaseName" \
              --request DELETE \
              --header "Accept: application/json" \
              --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
@@ -163,7 +144,7 @@ tags:
        list_tokens () {
          local response=$( \
            curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens" \
+             --location "$HOST/api/v0/tokens" \
              --header "Accept: application/json" \
              --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
          )
@@ -173,7 +154,7 @@ tags:
        create_token () {
          local response=$( \
            curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens" \
+             --location "$HOST/api/v0/tokens" \
              --header "Accept: application/json" \
              --header 'Content-Type: application/json' \
              --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
@@ -198,7 +179,7 @@ tags:
          local token_id=$1
          local response=$( \
            curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
+             --location "$HOST/api/v0/tokens/$tokenId" \
              --header "Accept: application/json" \
              --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
          )
@@ -209,7 +190,7 @@ tags:
          local token_id=$1
          local response=$( \
            curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
+             --location "$HOST/api/v0/tokens/$tokenId" \
              --request PATCH \
              --header "Accept: application/json" \
              --header 'Content-Type: application/json' \
@@ -231,7 +212,7 @@ tags:
          local token_id=$1
          local response=$( \
            curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
+             --location "$HOST/api/v0/tokens/$tokenId" \
              --request DELETE \
              --header "Accept: application/json" \
              --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
@@ -294,23 +275,10 @@ tags:
   - name: Tables
     description: Manage tables in a database
 paths:
-  /accounts/{accountId}/clusters/{clusterId}/databases:
+  /databases:
     get:
       operationId: GetClusterDatabases
       summary: Get all databases for a cluster
-      parameters:
-        - name: accountId
-          in: path
-          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to get the [databases](/influxdb3/cloud-dedicated/admin/databases/) for
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
-        - name: clusterId
-          in: path
-          description: The ID of the cluster to get the [databases](/influxdb3/cloud-dedicated/admin/databases/) for
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
       responses:
         '200':
           description: The cluster databases were successfully retrieved
@@ -321,12 +289,6 @@ paths:
                 items:
                   type: object
                   properties:
-                    accountId:
-                      description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database belongs to
-                      $ref: '#/components/schemas/UuidV4'
-                    clusterId:
-                      description: The ID of the cluster that the database belongs to
-                      $ref: '#/components/schemas/UuidV4'
                     name:
                       $ref: '#/components/schemas/ClusterDatabaseName'
                     maxTables:
@@ -338,22 +300,16 @@ paths:
                     partitionTemplate:
                       $ref: '#/components/schemas/ClusterDatabasePartitionTemplate'
                   required:
-                    - accountId
-                    - clusterId
                     - name
                     - maxTables
                     - maxColumnsPerTable
                     - retentionPeriod
               example:
-                - accountId: 11111111-1111-4111-8111-111111111111
-                  clusterId: 33333333-3333-4333-8333-333333333333
-                  name: DatabaseOne
+                - name: DatabaseOne
                   maxTables: 500
                   maxColumnsPerTable: 200
                   retentionPeriod: 0
-                - accountId: 11111111-1111-4111-8111-111111111111
-                  clusterId: 33333333-3333-4333-8333-333333333333
-                  name: DatabaseTwo
+                - name: DatabaseTwo
                   maxTables: 100
                   maxColumnsPerTable: 50
                   retentionPeriod: 300000000000
@@ -382,12 +338,12 @@ paths:
         - label: ''
           lang: Shell
           source: |
-            HOST="https://console.influxdata.com"
+            HOST="https://cluster-host.com"
 
             list_databases () {
               local response=$( \
                 curl \
-                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
+                  --location "$HOST/api/v0/databases" \
                   --header "Accept: application/json" \
                   --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
               )
@@ -398,41 +354,8 @@ paths:
     post:
       operationId: CreateClusterDatabase
       summary: Create a database
-      description: |
-        Create a database for a cluster.
-
-        The database name must be unique within the cluster.
-
-        **Default maximum number of columns**: 250
-        **Default maximum number of tables**: 500
-
-        The retention period is specified in nanoseconds. For example, to set a retention period of 1 hour, use `3600000000000`.
-
-        InfluxDB Cloud Dedicated lets you define a [custom partitioning](/influxdb3/cloud-dedicated/admin/custom-partitions/) strategy for each database and table.
-        A _partition_ is a logical grouping of data stored in [Apache Parquet](https://parquet.apache.org/).
-        By default, data is partitioned by day,
-        but, depending on your schema and workload, customizing the partitioning
-        strategy can improve query performance.
-
-        To use custom partitioning, you define a [partition template](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/).
-        If a table doesn't have a custom partition template, it inherits the database's template.
-        The partition template is set at the time of database creation and cannot be changed later.
-        For more information, see [Custom partitions](/influxdb3/cloud-dedicated/admin/custom-partitions/).
       tags:
         - Databases
-      parameters:
-        - name: accountId
-          in: path
-          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database for
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
-        - name: clusterId
-          in: path
-          description: The ID of the cluster to create the database for
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
       requestBody:
         required: true
         content:
@@ -483,12 +406,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  accountId:
-                    description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database belongs to
-                    $ref: '#/components/schemas/UuidV4'
-                  clusterId:
-                    description: The ID of the cluster that the database belongs to
-                    $ref: '#/components/schemas/UuidV4'
                   name:
                     $ref: '#/components/schemas/ClusterDatabaseName'
                   maxTables:
@@ -500,8 +417,6 @@ paths:
                   partitionTemplate:
                     $ref: '#/components/schemas/ClusterDatabasePartitionTemplate'
                 required:
-                  - accountId
-                  - clusterId
                   - name
                   - maxTables
                   - maxColumnsPerTable
@@ -510,8 +425,6 @@ paths:
                 requiredFieldsOnly:
                   summary: Required Fields Only
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     name: DatabaseOne
                     maxTables: 500
                     maxColumnsPerTable: 200
@@ -519,8 +432,6 @@ paths:
                 allFields:
                   summary: All Fields
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     name: DatabaseTwo
                     maxTables: 100
                     maxColumnsPerTable: 50
@@ -552,13 +463,13 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            HOST="https://console.influxdata.com"
+            HOST="https://cluster-host.com"
 
             create_database () {
               local databaseName=$1
               local response=$( \
                 curl \
-                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
+                  --location "$HOST/api/v0/databases" \
                   --header "Accept: application/json" \
                   --header 'Content-Type: application/json' \
                   --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
@@ -584,25 +495,13 @@ paths:
               )
               echo "$response"
             }
-  /accounts/{accountId}/clusters/{clusterId}/databases/{databaseName}:
+  /databases/{databaseName}:
     patch:
       operationId: UpdateClusterDatabase
       summary: Update a database
       tags:
         - Databases
       parameters:
-        - name: accountId
-          in: path
-          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database belongs to
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
-        - name: clusterId
-          in: path
-          description: The ID of the cluster that the database belongs to
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
         - name: databaseName
           in: path
           description: The name of the database to update
@@ -650,12 +549,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  accountId:
-                    description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database belongs to
-                    $ref: '#/components/schemas/UuidV4'
-                  clusterId:
-                    description: The ID of the cluster that the database belongs to
-                    $ref: '#/components/schemas/UuidV4'
                   name:
                     $ref: '#/components/schemas/ClusterDatabaseName'
                   maxTables:
@@ -665,8 +558,6 @@ paths:
                   retentionPeriod:
                     $ref: '#/components/schemas/ClusterDatabaseRetentionPeriod'
                 required:
-                  - accountId
-                  - clusterId
                   - maxTables
                   - maxColumnsPerTable
                   - retentionPeriod
@@ -675,8 +566,6 @@ paths:
                 allFields:
                   summary: Update All Fields
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     name: DatabaseOne
                     maxTables: 300
                     maxColumnsPerTable: 150
@@ -684,8 +573,6 @@ paths:
                 maxTablesOnly:
                   summary: Update Max Tables Only
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     name: DatabaseOne
                     maxTables: 300
                     maxColumnsPerTable: 200
@@ -693,8 +580,6 @@ paths:
                 maxColumnsPerTableOnly:
                   summary: Update Max Columns Per Table Only
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     name: DatabaseOne
                     maxTables: 500
                     maxColumnsPerTable: 150
@@ -702,8 +587,6 @@ paths:
                 retentionPeriodOnly:
                   summary: Update Retention Period Only
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     name: DatabaseOne
                     maxTables: 500
                     maxColumnsPerTable: 200
@@ -722,13 +605,13 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            HOST="https://console.influxdata.com"
+            HOST="https://cluster-host.com"
 
             update_database () {
               local databaseName=$1
               local response=$( \
                 curl \
-                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases/$databaseName" \
+                  --location "$HOST/api/v0/databases/$databaseName" \
                   --request PATCH \
                   --header "Accept: application/json" \
                   --header 'Content-Type: application/json' \
@@ -747,18 +630,6 @@ paths:
       tags:
         - Databases
       parameters:
-        - name: accountId
-          in: path
-          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database belongs to
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
-        - name: clusterId
-          in: path
-          description: The ID of the cluster that the database belongs to
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
         - name: databaseName
           in: path
           description: The name of the database to delete
@@ -783,50 +654,26 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            HOST="https://console.influxdata.com"
+            HOST="https://cluster-host.com"
 
             delete_database () {
               local databaseName=$1
               local response=$( \
                 curl \
-                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases/$databaseName" \
+                  --location "$HOST/api/v0/databases/$databaseName" \
                   --request DELETE \
                   --header "Accept: application/json" \
                   --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
               )
               echo "$response"
             }
-  /accounts/{accountId}/clusters/{clusterId}/databases/{databaseName}/tables:
+  /databases/{databaseName}/tables:
     post:
       operationId: CreateClusterDatabaseTable
       summary: Create a database table
-      description: |
-        Create a table. The database must already exist. With InfluxDB Cloud Dedicated, tables and measurements are synonymous.
-
-        Typically, tables are created automatically on write using the measurement name
-        specified in line protocol written to InfluxDB.
-        However, to apply a [custom partition template](/influxdb3/cloud-dedicated/admin/custom-partitions/)
-        to a table, you must manually [create the table with custom partitioning](/influxdb3/cloud-dedicated/admin/tables/#create-a-table-with-custom-partitioning) before you write any data to it.
-
-        Partitioning defaults to `%Y-%m-%d` (daily). 
-        When a partition template is applied to a database, it becomes the default template
-        for all tables in that database, but can be overridden when creating a
-        table.
       tags:
         - Tables
       parameters:
-        - name: accountId
-          in: path
-          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the database table for
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
-        - name: clusterId
-          in: path
-          description: The ID of the cluster to create the database table for
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
         - name: databaseName
           in: path
           description: The name of the database to create the database table for
@@ -874,12 +721,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  accountId:
-                    description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database table belongs to
-                    $ref: '#/components/schemas/UuidV4'
-                  clusterId:
-                    description: The ID of the cluster that the database table belongs to
-                    $ref: '#/components/schemas/UuidV4'
                   databaseName:
                     description: The name of the database that the database table belongs to
                     $ref: '#/components/schemas/ClusterDatabaseName'
@@ -889,23 +730,17 @@ paths:
                   partitionTemplate:
                     $ref: '#/components/schemas/ClusterDatabasePartitionTemplate'
                 required:
-                  - accountId
-                  - clusterId
                   - databaseName
                   - name
               examples:
                 requiredFieldsOnly:
                   summary: Required Fields Only
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     databaseName: DatabaseOne
                     name: TableOne
                 allFields:
                   summary: All Fields
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     databaseName: DatabaseOne
                     name: TableTwo
                     partitionTemplate:
@@ -931,25 +766,12 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  /accounts/{accountId}/clusters/{clusterId}/tokens:
+  /tokens:
     get:
       operationId: GetDatabaseTokens
       summary: Get all database tokens for a cluster
       tags:
         - Database tokens
-      parameters:
-        - name: accountId
-          in: path
-          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to get the [database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/) for
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
-        - name: clusterId
-          in: path
-          description: The ID of the cluster to get the [database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/) for
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
       responses:
         '200':
           description: The database tokens were successfully retrieved
@@ -960,12 +782,6 @@ paths:
                 items:
                   type: object
                   properties:
-                    accountId:
-                      description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) belongs to
-                      $ref: '#/components/schemas/UuidV4'
-                    clusterId:
-                      description: The ID of the cluster that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) belongs to
-                      $ref: '#/components/schemas/UuidV4'
                     id:
                       description: The ID of the database token
                       $ref: '#/components/schemas/UuidV4'
@@ -980,16 +796,12 @@ paths:
                     revokedAt:
                       $ref: '#/components/schemas/DatabaseTokenRevokedAt'
                   required:
-                    - accountId
-                    - clusterId
                     - id
                     - description
                     - permissions
                     - createdAt
               example:
-                - accountId: 11111111-1111-4111-8111-111111111111
-                  clusterId: 33333333-3333-4333-8333-333333333333
-                  id: 55555555-5555-4555-8555-555555555555
+                - id: 55555555-5555-4555-8555-555555555555
                   description: Limited Access Token
                   permissions:
                     - action: read
@@ -997,17 +809,13 @@ paths:
                     - action: write
                       resource: DatabaseTwo
                   createdAt: '2023-12-21T17:32:28.000Z'
-                - accountId: 11111111-1111-4111-8111-111111111111
-                  clusterId: 33333333-3333-4333-8333-333333333333
-                  id: 66666666-6666-4666-8666-666666666666
+                - id: 66666666-6666-4666-8666-666666666666
                   description: Full Access Token
                   permissions:
                     - action: write
                       resource: '*'
                   createdAt: '2024-03-02T04:20:19.000Z'
-                - accountId: 11111111-1111-4111-8111-111111111111
-                  clusterId: 33333333-3333-4333-8333-333333333333
-                  id: 77777777-7777-4777-8777-777777777777
+                - id: 77777777-7777-4777-8777-777777777777
                   description: No Access Token
                   permissions: []
                   createdAt: '2024-03-02T04:20:19.000Z'
@@ -1025,12 +833,12 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            HOST="https://console.influxdata.com"
+            HOST="https://cluster-host.com"
 
             list_tokens () {
               local response=$( \
                 curl \
-                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens" \
+                  --location "$HOST/api/v0/tokens" \
                   --header "Accept: application/json" \
                   --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
               )
@@ -1042,7 +850,7 @@ paths:
       tags:
         - Database tokens
       description: |
-        Create a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) for a cluster.
+        Create a [database token](/influxdb3/clustered/admin/tokens/database/) for a cluster.
 
         The token returned on the `accessToken` property in the response can be used to authenticate query and write requests to the cluster.
 
@@ -1057,20 +865,7 @@ paths:
         We recommend storing database tokens in a **secure secret store**.
         For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
 
-        If you lose a token, [delete the token from InfluxDB](/influxdb3/cloud-dedicated/admin/tokens/database/delete/) and create a new one.
-      parameters:
-        - name: accountId
-          in: path
-          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) to create the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) for
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
-        - name: clusterId
-          in: path
-          description: The ID of the cluster to create the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) for
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
+        If you lose a token, [delete the token from InfluxDB](/influxdb3/clustered/admin/tokens/database/delete/) and create a new one.
       requestBody:
         required: true
         content:
@@ -1116,12 +911,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  accountId:
-                    description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) belongs to
-                    $ref: '#/components/schemas/UuidV4'
-                  clusterId:
-                    description: The ID of the cluster that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) belongs to
-                    $ref: '#/components/schemas/UuidV4'
                   id:
                     description: The ID of the database token
                     $ref: '#/components/schemas/UuidV4'
@@ -1138,8 +927,6 @@ paths:
                   revokedAt:
                     $ref: '#/components/schemas/DatabaseTokenRevokedAt'
                 required:
-                  - accountId
-                  - clusterId
                   - id
                   - description
                   - permissions
@@ -1149,8 +936,6 @@ paths:
                 limitedAccessToken:
                   summary: Limited Access Token
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     id: 55555555-5555-4555-8555-555555555555
                     description: Limited Access Token
                     permissions:
@@ -1163,8 +948,6 @@ paths:
                 fullAccessToken:
                   summary: Full Access Token
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     id: 66666666-6666-4666-8666-666666666666
                     description: Full Access Token
                     permissions:
@@ -1175,8 +958,6 @@ paths:
                 noAccessToken:
                   summary: No Access Token
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     id: 66666666-6666-4666-8666-666666666666
                     description: No Access Token
                     permissions: []
@@ -1198,13 +979,13 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            HOST="https://console.influxdata.com"
+            HOST="https://cluster-host.com"
 
             create_token () {
               local description=$1
               local response=$( \
                 curl \
-                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens" \
+                  --location "$HOST/api/v0/tokens" \
                   --header "Accept: application/json" \
                   --header 'Content-Type: application/json' \
                   --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
@@ -1224,36 +1005,16 @@ paths:
               )
               echo "$response"
             }
-  /accounts/{accountId}/clusters/{clusterId}/tokens/{tokenId}:
+  /tokens/{tokenId}:
     get:
       operationId: GetDatabaseToken
       summary: Get a database token
-      description: |
-        Retrieve metadata details for a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/).
-
-        #### Store secure tokens in a secret store
-
-        We recommend storing database tokens in a **secure secret store**.
-
-        Token strings are viewable _only_ on token creation and aren't stored by InfluxDB; you can't recover a lost token.
       tags:
         - Database tokens
       parameters:
-        - name: accountId
-          in: path
-          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) belongs to
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
-        - name: clusterId
-          in: path
-          description: The ID of the cluster that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) belongs to
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
         - name: tokenId
           in: path
-          description: The ID of the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) to get
+          description: The ID of the [database token](/influxdb3/clustered/admin/tokens/database/) to get
           required: true
           schema:
             $ref: '#/components/schemas/UuidV4'
@@ -1265,12 +1026,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  accountId:
-                    description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) belongs to
-                    $ref: '#/components/schemas/UuidV4'
-                  clusterId:
-                    description: The ID of the cluster that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) belongs to
-                    $ref: '#/components/schemas/UuidV4'
                   id:
                     description: The ID of the database token
                     $ref: '#/components/schemas/UuidV4'
@@ -1285,8 +1040,6 @@ paths:
                   revokedAt:
                     $ref: '#/components/schemas/DatabaseTokenRevokedAt'
                 required:
-                  - accountId
-                  - clusterId
                   - id
                   - description
                   - permissions
@@ -1295,8 +1048,6 @@ paths:
                 limitedAccessToken:
                   summary: Limited Access Token
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     id: 55555555-5555-4555-8555-555555555555
                     description: Limited Access Token
                     permissions:
@@ -1308,8 +1059,6 @@ paths:
                 fullAccessToken:
                   summary: Full Access Token
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     id: 66666666-6666-4666-8666-666666666666
                     description: Full Access Token
                     permissions:
@@ -1319,8 +1068,6 @@ paths:
                 noAccessToken:
                   summary: No Access Token
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     id: 77777777-7777-4777-8777-777777777777
                     description: No Access Token
                     permissions: []
@@ -1339,13 +1086,13 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            HOST="https://console.influxdata.com"
+            HOST="https://cluster-host.com"
 
             get_token () {
               local tokenId=$1
               local response=$( \
                 curl \
-                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
+                  --location "$HOST/api/v0/tokens/$tokenId" \
                   --header "Accept: application/json" \
                   --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
               )
@@ -1354,26 +1101,13 @@ paths:
     patch:
       operationId: UpdateDatabaseToken
       summary: Update a database token
-      description: |
-        Update the description and permissions of a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/).
       tags:
         - Database tokens
       parameters:
-        - name: accountId
-          in: path
-          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) belongs to
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
-        - name: clusterId
-          in: path
-          description: The ID of the cluster that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) belongs to
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
         - name: tokenId
           in: path
-          description: The ID of the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) to update
+          description: The ID of the [database token](/influxdb3/clustered/admin/tokens/database/) to update
+          required: true
           schema:
             $ref: '#/components/schemas/UuidV4'
       requestBody:
@@ -1426,12 +1160,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  accountId:
-                    description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) belongs to
-                    $ref: '#/components/schemas/UuidV4'
-                  clusterId:
-                    description: The ID of the cluster that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) belongs to
-                    $ref: '#/components/schemas/UuidV4'
                   id:
                     description: The ID of the database token
                     $ref: '#/components/schemas/UuidV4'
@@ -1446,8 +1174,6 @@ paths:
                   revokedAt:
                     $ref: '#/components/schemas/DatabaseTokenRevokedAt'
                 required:
-                  - accountId
-                  - clusterId
                   - id
                   - description
                   - permissions
@@ -1456,8 +1182,6 @@ paths:
                 allFields:
                   summary: Update All Fields
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     id: 55555555-5555-4555-8555-555555555555
                     description: Updated Limited Access Token
                     permissions:
@@ -1471,8 +1195,6 @@ paths:
                 descriptionOnly:
                   summary: Update Description Only
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     id: 55555555-5555-4555-8555-555555555555
                     description: Updated Limited Access Token
                     permissions:
@@ -1484,8 +1206,6 @@ paths:
                 permissionsOnly:
                   summary: Update Permissions Only
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     id: 55555555-5555-4555-8555-555555555555
                     description: Limited Access Token
                     permissions:
@@ -1499,8 +1219,6 @@ paths:
                 removeAllPermissions:
                   summary: Remove All Permissions
                   value:
-                    accountId: 11111111-1111-4111-8111-111111111111
-                    clusterId: 33333333-3333-4333-8333-333333333333
                     id: 55555555-5555-4555-8555-555555555555
                     description: Limited Access Token
                     permissions: []
@@ -1521,13 +1239,13 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            HOST="https://console.influxdata.com"
+            HOST="https://cluster-host.com"
 
             update_token () {
               local tokenId=$1
               local response=$( \
                 curl \
-                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
+                  --location "$HOST/api/v0/tokens/$tokenId" \
                   --request PATCH \
                   --header "Accept: application/json" \
                   --header 'Content-Type: application/json' \
@@ -1558,21 +1276,9 @@ paths:
       tags:
         - Database tokens
       parameters:
-        - name: accountId
-          in: path
-          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) belongs to
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
-        - name: clusterId
-          in: path
-          description: The ID of the cluster that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) belongs to
-          required: true
-          schema:
-            $ref: '#/components/schemas/UuidV4'
         - name: tokenId
           in: path
-          description: The ID of the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) to delete
+          description: The ID of the [database token](/influxdb3/clustered/admin/tokens/database/) to delete
           required: true
           schema:
             $ref: '#/components/schemas/UuidV4'
@@ -1594,13 +1300,13 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            HOST="https://console.influxdata.com"
+            HOST="https://cluster-host.com"
 
             delete_token () {
               local tokenId=$1
               local response=$( \
                 curl \
-                  --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
+                  --location "$HOST/api/v0/tokens/$tokenId" \
                   --request DELETE \
                   --header "Accept: application/json" \
                   --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
@@ -1653,7 +1359,7 @@ components:
       minLength: 1
     ClusterDatabaseRetentionPeriod:
       description: |
-        The retention period of the [cluster database](/influxdb3/cloud-dedicated/admin/databases/) in nanoseconds, if applicable
+        The retention period of the [cluster database](/influxdb3/clustered/admin/databases/) in nanoseconds, if applicable
 
         If the retention period is not set or is set to 0, the database will have infinite retention
       type: integer
@@ -1683,11 +1389,11 @@ components:
       minimum: 1
     ClusterDatabasePartitionTemplate:
       description: |
-        A template for [partitioning](/influxdb3/cloud-dedicated/admin/custom-partitions/) a cluster database.
+        A template for [partitioning](/influxdb3/clustered/admin/custom-partitions/) a cluster database.
 
-        Each partition template part is evaluated in sequence.
-        The outputs from each part are concatenated with the
-        `|` delimiter to form the final partition key.
+        Each template part is evaluated in sequence, concatinating the final
+        partition key from the output of each part, delimited by the partition
+        key delimiter `|`.
 
         For example, using the partition template below:
 
@@ -1727,7 +1433,7 @@ components:
           * `time=2023-01-01, a=<long string>`                   -> `2023|<long string>#|!|!`
           * `time=2023-01-01, c=<long string>`                   -> `2023|!|!|<bucket ID for untruncated long string>`
 
-        When using the default [partitioning](/influxdb3/cloud-dedicated/admin/custom-partitions/) template (YYYY-MM-DD) there is no
+        When using the default [partitioning](/influxdb3/clustered/admin/custom-partitions/) template (YYYY-MM-DD) there is no
         encoding necessary, as the derived partition key contains a single part, and
         no reserved characters. [`TemplatePart::Bucket`] parts by definition will
         always be within the part length limit and contain no restricted characters
@@ -1829,7 +1535,7 @@ components:
             tagName: c
             numberOfBuckets: 10
     ClusterDatabaseTableName:
-      description: The name of the [cluster database](/influxdb3/cloud-dedicated/admin/databases/) table
+      description: The name of the [cluster database](/influxdb3/clustered/admin/databases/) table
       type: string
       examples:
         - TableOne
@@ -1842,15 +1548,15 @@ components:
         - Limited Access Token
         - Full Access Token
     DatabaseTokenResourceAllDatabases:
-      description: A resource value for a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) permission that refers to all databases
+      description: A resource value for a [database token](/influxdb3/clustered/admin/tokens/database/) permission that refers to all databases
       type: string
       enum:
         - '*'
     DatabaseTokenPermissionAction:
-      description: The action the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) permission allows
+      description: The action the [database token](/influxdb3/clustered/admin/tokens/database/) permission allows
       type: string
     DatabaseTokenPermissionResource:
-      description: The resource the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) permission applies to
+      description: The resource the [database token](/influxdb3/clustered/admin/tokens/database/) permission applies to
       anyOf:
         - $ref: '#/components/schemas/ClusterDatabaseName'
         - $ref: '#/components/schemas/DatabaseTokenResourceAllDatabases'
@@ -1874,7 +1580,7 @@ components:
         - action: write
           resource: '*'
     DatabaseTokenPermissions:
-      description: The list of permissions the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) allows
+      description: The list of permissions the [database token](/influxdb3/clustered/admin/tokens/database/) allows
       type: array
       items:
         $ref: '#/components/schemas/DatabaseTokenPermission'
@@ -1887,7 +1593,7 @@ components:
             resource: '*'
     DatabaseTokenCreatedAt:
       description: |
-        The date and time that the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) was created
+        The date and time that the [database token](/influxdb3/clustered/admin/tokens/database/) was created
 
         Uses RFC3339 format
       $ref: '#/components/schemas/DateTimeRfc3339'
