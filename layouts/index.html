@@ -6,6 +6,13 @@
 {{ $kapacitorVersion := replaceRE "v" "" .Site.Data.products.kapacitor.latest }}
 {{ $fluxVersion := replaceRE "v" "" .Site.Data.products.flux.latest }}
 
+<!--
+  Show the page if:
+  - This is a regular page (not test-only) OR
+  - This is a test-only page BUT we're currently in the testing environment
+-->
+{{ if or (not .Params.test_only) (and .Params.test_only (in site.Params.environment (slice "testing" "development"))) }}
+
 {{ partial "header.html" . }}
 {{ partial "topnav.html" . }}
 
@@ -264,3 +271,9 @@
   </div>
 </div>
 {{ partial "footer.html" . }}
+{{ else }}
+  <!-- Return 404 or empty template for test_only content in production -->
+  {{ if eq .Params.test_only true }}
+    {{ template "404.html" . }}
+  {{ end }}
+{{ end }}

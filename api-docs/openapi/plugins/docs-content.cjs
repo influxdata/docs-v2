@@ -1,5 +1,5 @@
 const path = require('path');
-const { toJSON } = require('./helpers/content-helper');
+const { toJSON } = require('./helpers/content-helper.cjs');
 
 function getVersioned(filename) {
   const apiDocsRoot=path.resolve(process.env.API_DOCS_ROOT_PATH || process.cwd());
