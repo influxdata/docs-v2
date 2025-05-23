@@ -3,34 +3,118 @@ import $ from 'jquery';
 // Sample data
 let data = [
   [
-    { _time: "2021-01-01T00:00:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "temp", _value: 110.3 },
-    { _time: "2021-01-01T00:01:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "temp", _value: 112.5 },
-    { _time: "2021-01-01T00:02:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "temp", _value: 111.9 }
+    {
+      _time: '2021-01-01T00:00:00Z',
+      _measurement: 'example',
+      loc: 'rm1',
+      sensorID: 'A123',
+      _field: 'temp',
+      _value: 110.3,
+    },
+    {
+      _time: '2021-01-01T00:01:00Z',
+      _measurement: 'example',
+      loc: 'rm1',
+      sensorID: 'A123',
+      _field: 'temp',
+      _value: 112.5,
+    },
+    {
+      _time: '2021-01-01T00:02:00Z',
+      _measurement: 'example',
+      loc: 'rm1',
+      sensorID: 'A123',
+      _field: 'temp',
+      _value: 111.9,
+    },
   ],
   [
-    { _time: "2021-01-01T00:00:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "hum", _value: 73.4 },
-    { _time: "2021-01-01T00:01:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "hum", _value: 73.7 },
-    { _time: "2021-01-01T00:02:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "hum", _value: 75.1 }
+    {
+      _time: '2021-01-01T00:00:00Z',
+      _measurement: 'example',
+      loc: 'rm1',
+      sensorID: 'A123',
+      _field: 'hum',
+      _value: 73.4,
+    },
+    {
+      _time: '2021-01-01T00:01:00Z',
+      _measurement: 'example',
+      loc: 'rm1',
+      sensorID: 'A123',
+      _field: 'hum',
+      _value: 73.7,
+    },
+    {
+      _time: '2021-01-01T00:02:00Z',
+      _measurement: 'example',
+      loc: 'rm1',
+      sensorID: 'A123',
+      _field: 'hum',
+      _value: 75.1,
+    },
   ],
   [
-    { _time: "2021-01-01T00:00:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "temp", _value: 108.2 },
-    { _time: "2021-01-01T00:01:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "temp", _value: 108.5 },
-    { _time: "2021-01-01T00:02:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "temp", _value: 109.6 }
+    {
+      _time: '2021-01-01T00:00:00Z',
+      _measurement: 'example',
+      loc: 'rm2',
+      sensorID: 'B456',
+      _field: 'temp',
+      _value: 108.2,
+    },
+    {
+      _time: '2021-01-01T00:01:00Z',
+      _measurement: 'example',
+      loc: 'rm2',
+      sensorID: 'B456',
+      _field: 'temp',
+      _value: 108.5,
+    },
+    {
+      _time: '2021-01-01T00:02:00Z',
+      _measurement: 'example',
+      loc: 'rm2',
+      sensorID: 'B456',
+      _field: 'temp',
+      _value: 109.6,
+    },
   ],
   [
-    { _time: "2021-01-01T00:00:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "hum", _value: 71.8 },
-    { _time: "2021-01-01T00:01:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "hum", _value: 72.3 },
-    { _time: "2021-01-01T00:02:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "hum", _value: 72.1 }
-  ]
-]
+    {
+      _time: '2021-01-01T00:00:00Z',
+      _measurement: 'example',
+      loc: 'rm2',
+      sensorID: 'B456',
+      _field: 'hum',
+      _value: 71.8,
+    },
+    {
+      _time: '2021-01-01T00:01:00Z',
+      _measurement: 'example',
+      loc: 'rm2',
+      sensorID: 'B456',
+      _field: 'hum',
+      _value: 72.3,
+    },
+    {
+      _time: '2021-01-01T00:02:00Z',
+      _measurement: 'example',
+      loc: 'rm2',
+      sensorID: 'B456',
+      _field: 'hum',
+      _value: 72.1,
+    },
+  ],
+];
 
 // Default group key
-let groupKey = ["_measurement", "loc", "sensorID", "_field"]
+let groupKey = ['_measurement', 'loc', 'sensorID', '_field'];
 
 export default function FluxGroupKeysDemo({ component }) {
-  $(".column-list label").click(function () {
-    toggleCheckbox($(this))
-    groupKey = getChecked();
+  $('.column-list label').click(function () {
+    toggleCheckbox($(this));
+    groupKey = getChecked(component);
     groupData();
     buildGroupExample();
   });
@@ -41,21 +125,24 @@ export default function FluxGroupKeysDemo({ component }) {
 
 // Build a table group (group key and table) using an array of objects
 function buildTable(inputData) {
-
   // Build the group key string
   function wrapString(column, value) {
-    var stringColumns = ["_measurement", "loc", "sensorID", "_field"]
+    var stringColumns = ['_measurement', 'loc', 'sensorID', '_field'];
     if (stringColumns.includes(column)) {
-      return '"' + value + '"'
+      return '"' + value + '"';
     } else {
-      return value
+      return value;
     }
   }
-  var groupKeyString = "Group key instance = [" + (groupKey.map(column => column + ": " + wrapString(column, (inputData[0])[column]))  ).join(", ") + "]";
-  var groupKeyLabel = document.createElement("p");
-  groupKeyLabel.className = "table-group-key"
-  groupKeyLabel.innerHTML = groupKeyString
-
+  var groupKeyString =
+    'Group key instance = [' +
+    groupKey
+      .map((column) => column + ': ' + wrapString(column, inputData[0][column]))
+      .join(', ') +
+    ']';
+  var groupKeyLabel = document.createElement('p');
+  groupKeyLabel.className = 'table-group-key';
+  groupKeyLabel.innerHTML = groupKeyString;
 
   // Extract column headers
   var columns = [];
@@ -66,57 +153,57 @@ function buildTable(inputData) {
       }
     }
   }
-  
+
   // Create the table element
-  var table = document.createElement("table");
-  
+  var table = document.createElement('table');
+
   // Create the table header
   for (let i = 0; i < columns.length; i++) {
     var header = table.createTHead();
-    var th = document.createElement("th");
+    var th = document.createElement('th');
     th.innerHTML = columns[i];
     if (groupKey.includes(columns[i])) {
-      th.className = "grouped-by";
+      th.className = 'grouped-by';
     }
     header.appendChild(th);
   }
 
   // Add inputData to the HTML table
   for (let i = 0; i < inputData.length; i++) {
-    tr = table.insertRow(-1);
+    let tr = table.insertRow(-1);
     for (let j = 0; j < columns.length; j++) {
       var td = tr.insertCell(-1);
       td.innerHTML = inputData[i][columns[j]];
       // Highlight the value if column is part of the group key
       if (groupKey.includes(columns[j])) {
-        td.className = "grouped-by";
+        td.className = 'grouped-by';
       }
     }
   }
 
   // Create a table group with group key and table
-  var tableGroup = document.createElement("div");
-  tableGroup.innerHTML += groupKeyLabel.outerHTML + table.outerHTML
+  var tableGroup = document.createElement('div');
+  tableGroup.innerHTML += groupKeyLabel.outerHTML + table.outerHTML;
 
-  return tableGroup
+  return tableGroup;
 }
 
 // Clear and rebuild all HTML tables
 function buildTables(data) {
-  let tablesElement = $("#flux-group-keys-demo #grouped-tables");
-  existingTables = tablesElement[0]
+  let tablesElement = $('#flux-group-keys-demo #grouped-tables');
+  let existingTables = tablesElement[0];
   while (existingTables.firstChild) {
     existingTables.removeChild(existingTables.firstChild);
   }
   for (let i = 0; i < data.length; i++) {
-    var table = buildTable(data[i])
+    var table = buildTable(data[i]);
     tablesElement.append(table);
   }
 }
 
 // Group data based on the group key and output new tables
 function groupData() {
-  let groupedData = data.flat()
+  let groupedData = data.flat();
 
   function groupBy(array, f) {
     var groups = {};
@@ -127,19 +214,19 @@ function groupData() {
     });
     return Object.keys(groups).map(function (group) {
       return groups[group];
-    })
+    });
   }
 
   groupedData = groupBy(groupedData, function (r) {
-    return groupKey.map(v => r[v]);
+    return groupKey.map((v) => r[v]);
   });
 
   buildTables(groupedData);
 }
 
-function getChecked() {
+function getChecked(component) {
   // Get selected column names
-  var checkboxes = $("input[type=checkbox]");
+  var checkboxes = $(component).find('input[type=checkbox]');
   var checked = [];
   for (var i = 0; i < checkboxes.length; i++) {
     var checkbox = checkboxes[i];
@@ -154,6 +241,11 @@ function toggleCheckbox(element) {
 
 // Build example group function
 function buildGroupExample() {
-  var columnCollection = getChecked().map(i => '<span class=\"s2\">"' + i + '"</span>').join(", ")
-  $("pre#group-by-example")[0].innerHTML = "data\n  <span class='nx'>|></span> group(columns<span class='nx'>:</span> [" + columnCollection + "])";
+  var columnCollection = getChecked()
+    .map((i) => '<span class=\"s2\">"' + i + '"</span>')
+    .join(', ');
+  $('pre#group-by-example')[0].innerHTML =
+    "data\n  <span class='nx'>|></span> group(columns<span class='nx'>:</span> [" +
+    columnCollection +
+    '])';
 }
