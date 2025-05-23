@@ -37,17 +37,17 @@ In your request, set the following:
 The following example shows how to use cURL to send a Flux query to InfluxDB {{< current-version >}}:
 
 {{% code-placeholders "ORG_ID|API_TOKEN|BUCKET_NAME" %}}
-```bash
+
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Without compression](#)
 [With compression](#)
 {{% /code-tabs %}}
-
 {{% code-tab-content %}}
 ```bash
-curl --request POST \
-  http://localhost:8086/api/v2/query?orgID=ORG_ID  \
+curl \
+  --request POST \
+  http://{{< influxdb/host >}}/api/v2/query?orgID=ORG_ID  \
   --header 'Authorization: Token API_TOKEN' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/vnd.flux' \
@@ -57,11 +57,11 @@ curl --request POST \
         |> aggregateWindow(every: 1h, fn: mean)'
 ```
 {{% /code-tab-content %}}
-
 {{% code-tab-content %}}
 ```bash
-curl --request POST \
-  http://localhost:8086/api/v2/query?orgID=ORG_ID \
+curl \
+  --request POST \
+  http://{{< influxdb/host >}}/api/v2/query?orgID=ORG_ID \
   --header 'Authorization: Token API_TOKEN' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/vnd.flux' \
@@ -84,10 +84,11 @@ Replace the following with your values:
 
 ## Send an InfluxQL query request
 
-You can query InfluxDB {{< current-version >}} using the InfluxQL query language with the v1-compatible API.
-Send an InfluxQL query in an HTTP `GET` or `POST` request to the following endpoint:
+To query InfluxDB {{< current-version >}} using the [InfluxQL query language](/influxdb/v2/reference/syntax/influxql/), send a request to the v1-compatible API endpoint:
 
-{{% api-endpoint endpoint="/query" api-ref="/influxdb/v2/api/v2/#operation/GetLegacyQuery" %}}
+{{% api-endpoint method="GET" endpoint="/query" api-ref="/influxdb/v2/api/v2/#operation/GetLegacyQuery" %}}
+
+{{% api-endpoint method="POST" endpoint="/query" api-ref="/influxdb/v2/api/v2/#operation/PostQueryV1" %}}
 
 In your request, set the following:
 
@@ -95,18 +96,33 @@ In your request, set the following:
 - Headers:
   - `Accept: application/csv` or `Accept: application/json`
   - `Content-type: application/vnd.influxql`
-- Your InfluxQL query text in the request body or the `q` URL parameter
+- The database and retention policy mapped to the bucket you want to query
+- Your InfluxQL query text
 
 > [!Note]
 > If you have an existing bucket that doesn't follow the **database/retention-policy** naming convention,
 > you **must** [manually create a database and retention policy mapping](/influxdb/v2/query-data/influxql/dbrp/#create-dbrp-mappings)
 > to query that bucket with the `/query` compatibility API.
+> Use the `db` and `rp` query parameters to specify the database and retention policy
+> for the bucket you want to query.
+
+> [!Note]
+> #### Use gzip to compress a large query response
+> 
+> To compress the query response, set the `Accept-Encoding` header to `gzip`.
+> This saves network bandwidth, but increases server-side load.
+> 
+> We recommend only using gzip compression on responses that are larger than 1.4 KB.
+> If the response is smaller than 1.4 KB, gzip encoding will always return a 1.4 KB
+> response, despite the uncompressed response size.
+> 1500 bytes (~1.4 KB) is the maximum transmission unit (MTU) size for the public
+> network and is the largest packet size allowed at the network layer.
 
 #### InfluxQL - Example query request
 
-The following example shows how to use cURL to send an InfluxQL query to InfluxDB {{< current-version >}} using 1.x compatible authentication:
+The following example shows how to use cURL to send an InfluxQL query to InfluxDB {{< current-version >}} using v1-compatible authentication:
 
-{{% code-placeholders "API_TOKEN|BUCKET_NAME|RETENTION_POLICY_NAME" %}}
+{{% code-placeholders "API_TOKEN|BUCKET_NAME" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -115,22 +131,23 @@ The following example shows how to use cURL to send an InfluxQL query to InfluxD
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
+
 ```bash
 # 1.x compatible POST request using Basic authentication and InfluxQL
 curl --request POST \
- "http://localhost:8086/query?db=BUCKET_NAME&rp=RETENTION_POLICY&p=API_TOKEN&u=ignored" \
+  "http://{{< influxdb/host >}}/query?db=BUCKET_NAME&p=API_TOKEN&u=ignored" \
   --header "Content-type: application/vnd.influxql" \
-    --data "SELECT * FROM home WHERE time < now()"
+  --data "SELECT * FROM home WHERE time > now() - 1h"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```bash
 # 1.x compatible GET request using Basic authentication and InfluxQL
-curl --get "http://localhost:8086/query" \
+curl --get "http://{{< influxdb/host >}}/query" \
   --header "Accept: application/json" \
-  --data-urlencode "q=SELECT * FROM home WHERE time < now()" \
+  --data-urlencode "q=SELECT * FROM home WHERE time > now() - 1h" \
   --data-urlencode "db=BUCKET_NAME" \
-  --data-urlencode "rp=RETENTION_POLICY" \
   --data-urlencode "u=ignored" \
   --data-urlencode "p=API_TOKEN"
 ```
@@ -138,12 +155,13 @@ curl --get "http://localhost:8086/query" \
 {{< /code-tabs-wrapper >}}
 
 {{% /code-placeholders %}}
-Replace the following with your values:
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}} - your [token](/influxdb/version/admin/tokens/).
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}} - the name of the [bucket](/influxdb/version/admin/buckets/) to create.
-- {{% code-placeholder-key %}}`RETENTION_POLICY_NAME`{{% /code-placeholder-key %}} - the name of the 1.x retention policy to use for the query. 
 
-{{% code-placeholders "ORG_ID|API_TOKEN|BUCKET_NAME|RETENTION_POLICY_NAME" %}}
+Replace the following with your values:
+
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}} - your [token](/influxdb/version/admin/tokens/).
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}} - the name of the [bucket](/influxdb/version/admin/buckets/) to query.
+
+{{% code-placeholders "ORG_ID|API_TOKEN|BUCKET_NAME" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -153,11 +171,10 @@ Replace the following with your values:
 
 {{% code-tab-content %}}
 ```bash
-curl --get "http://localhost:8086/query" \
+curl --get "http://{{< influxdb/host >}}/query" \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/json' \
   --data-urlencode "db=BUCKET_NAME" \
-  --data-urlencode "rp=RETENTION_POLICY_NAME" \
   --data-urlencode "p=API_TOKEN" \
   --data-urlencode "u=ignored" \
   --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
@@ -166,16 +183,14 @@ curl --get "http://localhost:8086/query" \
 {{% code-tab-content %}}
 
 ```bash
-curl --get "http://localhost:8086/query" \
+curl --get "http://{{< influxdb/host >}}/query" \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/json' \
   --header 'Accept-Encoding: gzip' \
   --data-urlencode "db=BUCKET_NAME" \
-  --data-urlencode "rp=RETENTION_POLICY_NAME" \
   --data-urlencode "p=API_TOKEN" \
   --data-urlencode "u=ignored" \
   --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
-```
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -184,9 +199,7 @@ curl --get "http://localhost:8086/query" \
 
 Replace the following with your values:
 
-- {{% code-placeholder-key %}}`ORG_ID`{{% /code-placeholder-key %}} - the ID of the [organization](/influxdb/version/admin/organizations/) that owns the bucket.
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}} - your [token](/influxdb/version/admin/tokens/).
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}} - the name of the [bucket](/influxdb/version/admin/buckets/) to create.
-- {{% code-placeholder-key %}}`RETENTION_POLICY_NAME`{{% /code-placeholder-key %}} - the name of the 1.x retention policy to use for the query.
 
 InfluxDB returns the query results in [annotated CSV](/influxdb/version/reference/syntax/annotated-csv/).
