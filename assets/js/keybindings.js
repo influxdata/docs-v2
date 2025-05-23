@@ -1,4 +1,5 @@
 import { getPlatform } from './utils/user-agent-platform.js';
+import $ from 'jquery';
 
 /**
  * Adds OS-specific class to component
@@ -20,14 +21,19 @@ function updateKeyBindings({ $component, platform }) {
   const osx = $component.data('osx');
   const linux = $component.data('linux');
   const win = $component.data('win');
-  
+
   let keybind;
 
   if (platform === 'other') {
     if (win !== linux) {
-      keybind = `<code class="osx">${osx}</code> for macOS, <code>${linux}</code> for Linux, and <code>${win}</code> for Windows`;
+      keybind =
+        `<code class="osx">${osx}</code> for macOS, ` +
+        `<code>${linux}</code> for Linux, ` +
+        `and <code>${win}</code> for Windows`;
     } else {
-      keybind = `<code>${linux}</code> for Linux and Windows and <code class="osx">${osx}</code> for macOS`;
+      keybind =
+        `<code>${linux}</code> for Linux and Windows and ` +
+        `<code class="osx">${osx}</code> for macOS`;
     }
   } else {
     keybind = `<code>${$component.data(platform)}</code>`;
@@ -46,7 +52,7 @@ export default function KeyBinding({ component }) {
   // Initialize keybindings
   const platform = getPlatform();
   const $component = $(component);
-  
+
   addOSClass(platform, { $component });
   updateKeyBindings({ $component, platform });
 }
