@@ -7,7 +7,7 @@ InfluxDB 1.x client libraries and third-party integrations like [Grafana](https:
 ## Authentication
 
 InfluxDB 1.x compatibility endpoints require all query and write requests to be authenticated with an
-[API token](/influxdb/version/admin/tokens/) or 1.x-compatible
+[API token](/influxdb/version/admin/tokens/) or v1-compatible
 credentials.
 
 > [!Important]
@@ -72,12 +72,12 @@ Username and password schemes require the following credentials:
 {{% note %}}
 #### Password or Token
 
-If you have [set a password](/influxdb/version/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations) for the 1.x-compatible username, provide the 1.x-compatible password.
-If you haven't set a password for the 1.x-compatible username, provide the InfluxDB [authentication token](/influxdb/version/admin/tokens/) as the password.
+If you have [set a password](/influxdb/version/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations) for the v1-compatible username, provide the v1-compatible password.
+If you haven't set a password for the v1-compatible username, provide the InfluxDB [authentication token](/influxdb/version/admin/tokens/) as the password.
 {{% /note %}}
 
 For more information, see how to create and manage
-[1.x-compatible authorizations](/influxdb/version/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
+[v1-compatible authorizations](/influxdb/version/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
 when manually upgrading from InfluxDB v1 to v2.
 
 {{% /show-in %}}
