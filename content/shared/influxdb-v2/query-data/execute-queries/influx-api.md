@@ -106,18 +106,6 @@ In your request, set the following:
 > Use the `db` and `rp` query parameters to specify the database and retention policy
 > for the bucket you want to query.
 
-> [!Note]
-> #### Use gzip to compress a large query response
-> 
-> To compress the query response, set the `Accept-Encoding` header to `gzip`.
-> This saves network bandwidth, but increases server-side load.
-> 
-> We recommend only using gzip compression on responses that are larger than 1.4 KB.
-> If the response is smaller than 1.4 KB, gzip encoding will always return a 1.4 KB
-> response, despite the uncompressed response size.
-> 1500 bytes (~1.4 KB) is the maximum transmission unit (MTU) size for the public
-> network and is the largest packet size allowed at the network layer.
-
 #### InfluxQL - Example query request
 
 The following example shows how to use cURL to send an InfluxQL query to InfluxDB {{< current-version >}} using v1-compatible authentication:
