@@ -1,41 +1,58 @@
-// Dynamically update keybindings or hotkeys
-function getPlatform() {
-  if (/Mac/.test(navigator.platform)) {
-    return "osx"
-  } else if (/Win/.test(navigator.platform)) {
-    return "win"
-  } else if (/Linux/.test(navigator.platform)) {
-    return "linux"
-  } else {
-    return "other"
-  }
+import { getPlatform } from './utils/user-agent-platform.js';
+import $ from 'jquery';
+
+/**
+ * Adds OS-specific class to component
+ * @param {string} osClass - OS-specific class to add
+ * @param {Object} options - Component options
+ * @param {jQuery} options.$component - jQuery element reference
+ */
+function addOSClass(osClass, { $component }) {
+  $component.addClass(osClass);
 }
 
-const platform = getPlatform()
+/**
+ * Updates keybinding display based on detected platform
+ * @param {Object} options - Component options
+ * @param {jQuery} options.$component - jQuery element reference
+ * @param {string} options.platform - Detected platform
+ */
+function updateKeyBindings({ $component, platform }) {
+  const osx = $component.data('osx');
+  const linux = $component.data('linux');
+  const win = $component.data('win');
 
-function addOSClass(osClass) {
-  $('.keybinding').addClass(osClass)
-}
+  let keybind;
 
-function updateKeyBindings() {
-  $('.keybinding').each(function() {
-    var osx = $(this).data("osx")
-    var linux = $(this).data("linux")
-    var win = $(this).data("win")
-
-    if (platform === "other") {
-      if (win != linux) {
-        var keybind = '<code class="osx">' + osx + '</code> for macOS, <code>' + linux + '</code> for Linux, and <code>' + win + '</code> for Windows';
-      } else {
-        var keybind = '<code>' + linux + '</code> for Linux and Windows and <code class="osx">' + osx + '</code> for macOS';
-      }
+  if (platform === 'other') {
+    if (win !== linux) {
+      keybind =
+        `<code class="osx">${osx}</code> for macOS, ` +
+        `<code>${linux}</code> for Linux, ` +
+        `and <code>${win}</code> for Windows`;
     } else {
-      var keybind = '<code>' + $(this).data(platform) + '</code>'
+      keybind =
+        `<code>${linux}</code> for Linux and Windows and ` +
+        `<code class="osx">${osx}</code> for macOS`;
     }
+  } else {
+    keybind = `<code>${$component.data(platform)}</code>`;
+  }
 
-    $(this).html(keybind)
-  })
+  $component.html(keybind);
 }
 
-addOSClass(platform)
-updateKeyBindings()
+/**
+ * Initialize and render platform-specific keybindings
+ * @param {Object} options - Component options
+ * @param {HTMLElement} options.component - DOM element
+ * @returns {void}
+ */
+export default function KeyBinding({ component }) {
+  // Initialize keybindings
+  const platform = getPlatform();
+  const $component = $(component);
+
+  addOSClass(platform, { $component });
+  updateKeyBindings({ $component, platform });
+}

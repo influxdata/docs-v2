@@ -3,8 +3,8 @@ function countTag(tag) {
   return $(".visible[data-tags*='" + tag + "']").length
 }
 
-function getFilterCounts() {
-  $('#list-filters label').each(function() {
+function getFilterCounts($labels) {
+  $labels.each(function() {
     var tagName = $('input', this).attr('name').replace(/[\W/]+/, "-");
     var tagCount = countTag(tagName);
     $(this).attr('data-count', '(' + tagCount + ')');
@@ -16,35 +16,39 @@ function getFilterCounts() {
   })
 }
 
-// Get initial filter count on page load
-getFilterCounts()
+export default function ListFilters({ component }) {
+  const $labels = $(component).find('label');
+  const $inputs = $(component).find('input');
 
-$("#list-filters input").click(function() {
+  getFilterCounts($labels);
 
-  // List of tags to hide
-  var tagArray = $("#list-filters input:checkbox:checked").map(function(){
-      return $(this).attr('name').replace(/[\W]+/, "-");
-    }).get();
+  $inputs.click(function() {
 
-  // List of tags to restore
-  var restoreArray = $("#list-filters input:checkbox:not(:checked)").map(function(){
-      return $(this).attr('name').replace(/[\W]+/, "-");
-    }).get();
+    // List of tags to hide
+    var tagArray = $(component).find("input:checkbox:checked").map(function(){
+        return $(this).attr('name').replace(/[\W]+/, "-");
+      }).get();
 
-  // Actions for filter select
-  if ( $(this).is(':checked') ) {
-    $.each( tagArray, function( index, value ) {
-      $(".filter-item.visible:not([data-tags~='" + value + "'])").removeClass('visible').fadeOut()
-    })
-  } else {
-    $.each( restoreArray, function( index, value ) {
-      $(".filter-item:not(.visible)[data-tags~='" + value + "']").addClass('visible').fadeIn()
-    })
-    $.each( tagArray, function( index, value ) {
-      $(".filter-item.visible:not([data-tags~='" + value + "'])").removeClass('visible').hide()
-    })
-  }
+    // List of tags to restore
+    var restoreArray = $(component).find("input:checkbox:not(:checked)").map(function(){
+        return $(this).attr('name').replace(/[\W]+/, "-");
+      }).get();
 
-  // Refresh filter count
-  getFilterCounts()
-});
+    // Actions for filter select
+    if ( $(this).is(':checked') ) {
+      $.each( tagArray, function( index, value ) {
+        $(".filter-item.visible:not([data-tags~='" + value + "'])").removeClass('visible').fadeOut()
+      })
+    } else {
+      $.each( restoreArray, function( index, value ) {
+        $(".filter-item:not(.visible)[data-tags~='" + value + "']").addClass('visible').fadeIn()
+      })
+      $.each( tagArray, function( index, value ) {
+        $(".filter-item.visible:not([data-tags~='" + value + "'])").removeClass('visible').hide()
+      })
+    }
+
+    // Refresh filter count
+    getFilterCounts($labels);
+  });
+}

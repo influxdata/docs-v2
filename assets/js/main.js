@@ -3,15 +3,19 @@
 // If you need to pass parameters from the calling Hugo page, you can import them here like so:
 // import * as pageParams from '@params';
 
+// Import dependencies that we still need to load in the global scope
+import $ from 'jquery';
+
 /** Import modules that are not components.
  * TODO: Refactor these into single-purpose component modules.
  */
 import * as apiLibs from './api-libs.js';
 import * as codeControls from './code-controls.js';
 import * as contentInteractions from './content-interactions.js';
+import * as datetime from './datetime.js';
 import { delay } from './helpers.js';
 import { InfluxDBUrl } from './influxdb-url.js';
-import * as localStorage from './local-storage.js'; 
+import * as localStorage from './local-storage.js';
 import * as modals from './modals.js';
 import * as notifications from './notifications.js';
 import * as pageContext from './page-context.js';
@@ -29,8 +33,17 @@ import * as v3Wayfinding from './v3-wayfinding.js';
 import AskAITrigger from './ask-ai-trigger.js';
 import CodePlaceholder from './code-placeholders.js';
 import { CustomTimeTrigger } from './custom-timestamps.js';
+import Diagram from './components/diagram.js';
+import DocSearch from './components/doc-search.js';
+import FeatureCallout from './feature-callouts.js';
+import FluxGroupKeysDemo from './flux-group-keys.js';
 import FluxInfluxDBVersionsTrigger from './flux-influxdb-versions.js';
+import KeyBinding from './keybindings.js';
+import ListFilters from './list-filters.js';
+import ProductSelector from './version-selector.js';
+import ReleaseToc from './release-toc.js';
 import { SearchButton } from './search-button.js';
+import SidebarSearch from './components/sidebar-search.js';
 import { SidebarToggle } from './sidebar-toggle.js';
 import Theme from './theme.js';
 import ThemeSwitch from './theme-switch.js';
@@ -49,8 +62,17 @@ const componentRegistry = {
   'ask-ai-trigger': AskAITrigger,
   'code-placeholder': CodePlaceholder,
   'custom-time-trigger': CustomTimeTrigger,
+  'diagram': Diagram,
+  'doc-search': DocSearch,
+  'feature-callout': FeatureCallout,
+  'flux-group-keys-demo': FluxGroupKeysDemo,
   'flux-influxdb-versions-trigger': FluxInfluxDBVersionsTrigger,
+  'keybinding': KeyBinding,
+  'list-filters': ListFilters,
+  'product-selector': ProductSelector,
+  'release-toc': ReleaseToc,
   'search-button': SearchButton,
+  'sidebar-search': SidebarSearch,
   'sidebar-toggle': SidebarToggle,
   'theme': Theme,
   'theme-switch': ThemeSwitch
@@ -71,6 +93,11 @@ function initGlobals() {
   window.influxdatadocs.pageContext = pageContext;
   window.influxdatadocs.toggleModal = modals.toggleModal;
   window.influxdatadocs.componentRegistry = componentRegistry;
+  
+  // Re-export jQuery to global namespace for legacy scripts
+  if (typeof window.jQuery === 'undefined') {
+    window.jQuery = window.$ = $;
+  }
   
   return window.influxdatadocs;
 }
@@ -122,6 +149,7 @@ function initModules() {
   apiLibs.initialize();
   codeControls.initialize();
   contentInteractions.initialize();
+  datetime.initialize();
   InfluxDBUrl();
   notifications.initialize();
   pageFeedback.initialize();
