@@ -56,36 +56,18 @@ The output contains the new token string and InfluxDB deactivates the previous t
 <!----------------------------BEGIN HTTP API----------------------------------->
 Use the following HTTP API endpoint:
 
-{{% show-in "core" %}}
 {{% api-endpoint method="POST" endpoint="/api/v3/configure/token/admin/regenerate" api-ref="/influxdb3/version/api/v3/configure/token/admin/regenerate" %}}
-{{% /show-in %}}
-
-{{% show-in "enterprise" %}}
-{{% api-endpoint method="POST" endpoint="/api/v3/enterprise/configure/token/admin/regenerate" api-ref="/influxdb3/version/api/v3/enterprise/configure/token/admin" %}}
-{{% /show-in %}}
 
 In your request, send an `Authorization` header with your current admin token string 
 --for example:
 
-{{% show-in "core" %}}
 {{% code-placeholders "ADMIN_TOKEN" %}}
 ```bash
-curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin" \
+curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin/regenerate" \
   --header "Authorization: Bearer ADMIN_TOKEN" \
   --header "Accept: application/json"
 ```
 {{% /code-placeholders %}}
-{{% /show-in %}}
-
-{{% show-in "enterprise" %}}
-{{% code-placeholders "ADMIN_TOKEN" %}}
-```bash
-curl -X POST "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token/admin" \
-  --header "Authorization: Bearer ADMIN_TOKEN" \
-  --header "Accept: application/json"
-```
-{{% /code-placeholders %}}
-{{% /show-in %}}
 
 In your command, replace {{% code-placeholder-key %}}`ADMIN_TOKEN`{{% /code-placeholder-key %}} with the current token string.
 

@@ -19,4 +19,5 @@ source: /shared/influxdb-v2/write-data/troubleshoot.md
 ---
 
 <!-- The content of this file is at 
-// SOURCE content/shared/influxdb-v2/write-data/troubleshoot.md-->
+// SOURCE content/shared/influxdb-v2/write-data/troubleshoot.md
+-->

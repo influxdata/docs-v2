@@ -16,7 +16,7 @@ list_code_example: |
   ```
   #### HTTP API
   ```bash
-  curl -X POST "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token/admin" \
+  curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin" \
     --header 'Accept: application/json' \
     --header 'Content-Type: application/json'
   ```

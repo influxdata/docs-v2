@@ -218,11 +218,11 @@ tags:
       |:-----------:|:------------------------ |:--------------------- |
       | `200`       | Success                  |                       |
       | `204`       | Success. No content      | InfluxDB doesn't return data for the request. |
-      | `400`       | Bad request              | May indicate one of the following: <ul><li>Line protocol is malformed. The response body contains the first malformed line in the data and indicates what was expected. For partial writes, the number of points written and the number of points rejected are also included. For more information, check the `rejected_points` measurement in your `_monitoring` bucket.</li><li>`Authorization` header is missing or malformed or the API token doesn't have permission for the operation.</li></ul> |
+      | `400`       | Bad request              | May indicate one of the following:<ul><li>the request body is malformed</li><li>`Authorization` header is missing or malformed</li><li>the API token doesn't have permission for the operation.</li></ul> |
       | `401`       | Unauthorized             | May indicate one of the following: <ul><li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token doesn't have permission. For more information about token types and permissions, see [Manage API tokens](/influxdb/v2/security/tokens/)</li></ul> |
       | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |
       | `413`       | Request entity too large | Request payload exceeds the size limit. |
-      | `422`       | Unprocessable entity     | Request data is invalid. `code` and `message` in the response body provide details about the problem. |
+      | `422`       | Unprocessable entity     | Request data is invalid. The request was well-formed, but couldn't complete due to semantic errors--for example, some or all points in a write request were rejected due to a schema or retention policy violation. The response body provides details about the problem. For more information about rejected points, see how to [Troubleshoot issues writing data](/influxdb/v2/write-data/troubleshoot/)|
       | `429`       | Too many requests        | API token is temporarily over the request quota. The `Retry-After` header describes when to try the request again. |
       | `500`       | Internal server error    |                       |
       | `503`       | Service unavailable      | Server is temporarily unavailable to process the request. The `Retry-After` header describes when to try the request again. |
@@ -12752,6 +12752,12 @@ paths:
 
              - Returns this error only if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
              - Returns `Content-Type: application/json` for this error.
+        '422':
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/Error' 
+          description: The request was well-formed, but some or all the points were rejected due to semantic errors--for example, schema conflicts or retention policy violations. Error message contains details for one or more rejected points.
         '429':
           description: |
             Too many requests.
@@ -13190,6 +13196,14 @@ paths:
         - Legacy Query
   /write:
     post:
+      description: |-
+        Writes line protocol to the specified bucket.
+
+        This endpoint provides backward compatibility for InfluxDB 1.x write workloads using tools such as InfluxDB 1.x client libraries, the Telegraf `outputs.influxdb` output plugin, or third-party tools.
+
+        Use this endpoint to send data in [line protocol](https://docs.influxdata.com/influxdb/v2/reference/syntax/line-protocol/) format to InfluxDB.
+        Use query parameters to specify options for writing data.
+
       operationId: PostLegacyWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -13263,6 +13277,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/LineProtocolLengthError'
           description: Write has been rejected because the payload is too large. Error message returns max size supported. All data in body was rejected and not written.
+        '422':
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/Error' 
+          description: The request was well-formed, but some or all the points were rejected due to semantic errors--for example, schema conflicts or retention policy violations. Error message contains details for one or more rejected points.
         '429':
           description: Token is temporarily over quota. The Retry-After header describes when to try the write again.
           headers:

@@ -8,6 +8,27 @@ menu:
 weight: 101
 ---
 
+## v2.7.12 {date="2025-05-20"}
+
+### Features
+
+- Add a `--pid-file` option to write a PID file to the specified location on startup. InfluxDB removes the PID file on shutdown.
+- Add a `--storage-wal-flush-on-shutdown` option to flush the WAL on database shutdown to ensure all data is written to disk.
+- Improve response error messages for dropped points, adding details including database, retention policy, and which bound was violated for partial writes.
+
+### Bug Fixes
+
+- Fix a locking issue in `TagValueIterator` that could cause reads and writes in buckets to block. [PR #26414](https://github.com/influxdata/influxdb/pull/26414)
+
+### Maintenance
+
+- Improved startup logging with an "are we there yet" counter for the number and percentage of shards opened.
+- Update Go to 1.23.9.
+- Update Flux to v0.196.1.
+- Refresh dependencies to address security vulnerabilities and improve stability.
+
+---
+
 ## v2.7.11 {date="2024-12-02"}
 
 ### Features
@@ -606,7 +627,7 @@ to migrate InfluxDB key-value metadata schemas to earlier 2.x versions when nece
 #### Flux
 
 - Update to [Flux v0.139.0](/flux/v0/release-notes/#v01390).
-- Enable writing to remote hosts using the Flux [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/) and [`experimental.to()`](/flux/v0/v0.x/stdlib/experimental/to/) functions.
+- Enable writing to remote hosts using the Flux [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/) and [`experimental.to()`](/flux/v0/stdlib/experimental/to/) functions.
 - Flux now supports locations that dynamically modify time offsets based on your specified timezone. You can also specify fixed time offsets relative to UTC.
 - Perform [bitwise operations](/flux/v0/stdlib/experimental/bitwise/)
   on integers and unsigned integers.
@@ -673,24 +694,24 @@ New features include:
 
 - Add a new route `/api/v2/resources` that returns a list of known resources to the platform, including the following resource types. Makes it easier to update All Access tokens with current resources:
 
-   - `AuthorizationsResourceType`
-   - `BucketsResourceType`
-   - `ChecksResourceType`
-   - `DashboardsResourceType`
-   - `DBRPResourceType`
-   - `DocumentsResourceType`
-   - `LabelsResourceType`
-   - `NotificationEndpointResourceType`
-   - `NotificationRuleResourceType`
-   - `OrgsResourceType`
-   - `ScraperResourceType`
-   - `SecretsResourceType`
-   - `SourcesResourceType`
-   - `TasksResourceType`
-   - `TelegrafsResourceType`
-   - `UsersResourceType`
-   - `VariablesResourceType`
-   - `ViewsResourceType`
+  - `AuthorizationsResourceType`
+  - `BucketsResourceType`
+  - `ChecksResourceType`
+  - `DashboardsResourceType`
+  - `DBRPResourceType`
+  - `DocumentsResourceType`
+  - `LabelsResourceType`
+  - `NotificationEndpointResourceType`
+  - `NotificationRuleResourceType`
+  - `OrgsResourceType`
+  - `ScraperResourceType`
+  - `SecretsResourceType`
+  - `SourcesResourceType`
+  - `TasksResourceType`
+  - `TelegrafsResourceType`
+  - `UsersResourceType`
+  - `VariablesResourceType`
+  - `ViewsResourceType`
 
 #### Flux updates
 
@@ -992,10 +1013,10 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 - Fix timeout setup for `influxd` graceful shutdown.
 - Require user to set password during initial user onboarding.
 - Error message improvements:
-    - Remove duplication from task error messages.
-    - Improve error message shown when influx CLI can't find an `org` by name.
-    - Improve error message when opening BoltDB with unsupported file system options.
-    - Improve messages in DBRP API validation errors.
+  - Remove duplication from task error messages.
+  - Improve error message shown when influx CLI can't find an `org` by name.
+  - Improve error message when opening BoltDB with unsupported file system options.
+  - Improve messages in DBRP API validation errors.
 - `influxd upgrade` improvements:
   - Add confirmation step with file sizes before copying data files.
   - Prevent panic in `influxd upgrade` when v1 users exist but v1 config is missing.
@@ -1072,8 +1093,8 @@ Previously, the database retention policy (DBRP) mapping API did not match the s
 
 ### Features
 - Improvements to upgrade from 1.x to 2.x:
-    - Warning appears if auth is not enabled in 1.x (`auth-enabled = false`), which is not an option in 2.x. For details, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2/upgrade/v1-to-v2/).
-    - `upgrade` command now checks to see if continuous queries are running and automatically exports them to a local file.
+  - Warning appears if auth is not enabled in 1.x (`auth-enabled = false`), which is not an option in 2.x. For details, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2/upgrade/v1-to-v2/).
+  - `upgrade` command now checks to see if continuous queries are running and automatically exports them to a local file.
 - Upgrade to [Flux v0.95.0](/flux/v0/release-notes/#v0-95-0).
 - Upgrade `flux-lsp-browser` to v.0.5.23.
 - Manage database retention policy (DBRP) mappings via CLI. See [`influx v1 dbrp`](/influxdb/v2/reference/cli/influx/v1/dbrp/).
@@ -1117,8 +1138,8 @@ When there are multiple [DBRP mappings](/influxdb/v2/reference/api/influxdb-1x/d
 Highlights include:
 
 - Support for **upgrading to InfluxDB 2.0**:
-   - To upgrade **from InfluxDB 1.x**, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2/upgrade/v1-to-v2).
-   - To upgrade **from InfluxDB 2.0 beta 16 or earlier**, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0](/influxdb/v2/upgrade/v2-beta-to-v2).
+ - To upgrade **from InfluxDB 1.x**, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2/upgrade/v1-to-v2).
+ - To upgrade **from InfluxDB 2.0 beta 16 or earlier**, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0](/influxdb/v2/install/upgrade/v2-beta-to-v2/).
 - **Flux**, our powerful new functional data scripting language designed for querying, analyzing, and acting on data. This release includes [Flux v0.94.0](/flux/v0/release-notes/#v0940). If you're new to Flux, [check out how to get started with Flux](/influxdb/v2/query-data/get-started/). Next, delve deeper into the [Flux standard library](/flux/v0/stdlib//) reference docs and see how to [query with Flux](/influxdb/v2/query-data/flux/).
 - Support for [InfluxDB 1.x API compatibility](/influxdb/v2/reference/api/influxdb-1x/).
 - **Templates** and **stacks**. Discover how to [use community templates](/influxdb/v2/tools/influxdb-templates/use/) and how to [manage templates with stacks](/influxdb/v2/tools/influxdb-templates/stacks/).
@@ -1241,14 +1262,14 @@ If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/i
 {{% warn %}}
 #### Manual upgrade required
 
-To simplify the migration for existing users of InfluxDB 1.x, this release includes significant breaking changes that require a manual upgrade from all alpha and beta versions. For more information, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2/upgrade/v2-beta-to-v2/),
+To simplify the migration for existing users of InfluxDB 1.x, this release includes significant breaking changes that require a manual upgrade from all alpha and beta versions. For more information, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2/install/upgrade/v2-beta-to-v2/),
 {{% /warn %}}
 
 ### Breaking changes
 
 #### Manual upgrade
 
-- To continue using data from InfluxDB 2.0 beta 16 or earlier, you must move all existing data out of the `~/.influxdbv2` (or equivalent) path, including `influxd.bolt`. All existing dashboards, tasks, integrations, alerts, users, and tokens must be recreated. For information on how to migrate your data, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2/upgrade/v2-beta-to-v2/).
+- To continue using data from InfluxDB 2.0 beta 16 or earlier, you must move all existing data out of the `~/.influxdbv2` (or equivalent) path, including `influxd.bolt`. All existing dashboards, tasks, integrations, alerts, users, and tokens must be recreated. For information on how to migrate your data, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2/install/upgrade/v2-beta-to-v2/).
 
 #### Port update to 8086
 
@@ -2045,7 +2066,7 @@ _**This will remove all data from your InfluxDB v2.0 instance including time ser
 
 ###### Linux and macOS
 ```sh
-rm ~/.influxdbv2/influxd.bolt
+rm -f ~/.influxdbv2/influxd.bolt
 ```
 
 Once completed, `v2.0.0-alpha.6` can be started.
@@ -2079,7 +2100,7 @@ run the following command.
 
 ###### Linux and macOS
 ```sh
-rm -r ~/.influxdbv2/engine
+rm -rf ~/.influxdbv2/engine
 ```
 
 Once completed, InfluxDB v2.0.0-alpha.5 can be started.

@@ -164,13 +164,13 @@ gpg: key 7C3D57159FC2F927: public key "InfluxData Package Signing Key <support@i
    <!--test:setup
    ```sh
    curl --silent --location --output-dir ~/Downloads -O \
-   "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" \
+   "https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" \
    ```
    -->
 
    ```sh
    curl --silent --location \
-   https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz.asc \
+   https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz.asc \
    | gpg --verify - ~/Downloads/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz \
    2>&1 | grep 'InfluxData Package Signing Key <support@influxdata.com>'
    ```
@@ -239,12 +239,12 @@ brew install influxdb
 
 1. In your browser or your terminal, download the InfluxDB package.
 
-   <a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" download>InfluxDB v2 (macOS)</a>
+   <a class="btn download" href="https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" download>InfluxDB v2 (macOS)</a>
 
    ```sh
    # Download using cURL
    curl --location -O \
-   "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz"
+   "https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz"
    ```
 
 2. {{< req text="Recommended:" color="magenta" >}}: Verify the integrity of the download--for example, enter the
@@ -443,18 +443,18 @@ _If necessary, adjust the example file paths and utilities for your system._
 1. In your browser or your terminal, download the InfluxDB binary for your
    system architecture (AMD64 or ARM).
 
-   <a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz" download >InfluxDB v2 (amd64)</a>
-   <a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz" download >InfluxDB v2 (arm)</a>
+   <a class="btn download" href="https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz" download >InfluxDB v2 (amd64)</a>
+   <a class="btn download" href="https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz" download >InfluxDB v2 (arm)</a>
 
    <!--test:actual
    ```sh
    curl -s --location -O \
-   "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz"
+   "https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz"
    ```
 
    ```sh
    curl -s --location -O \
-   "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz"
+   "https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz"
    ```
    -->
 
@@ -463,7 +463,7 @@ _If necessary, adjust the example file paths and utilities for your system._
    ```sh
    # Use curl to download the amd64 binary.
    curl --location -O \
-   https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz
+   https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz
    ```
 
    <!--pytest.mark.skip-->
@@ -471,7 +471,7 @@ _If necessary, adjust the example file paths and utilities for your system._
    ```sh
    # Use curl to download the arm64 binary.
    curl --location -O \
-   https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz
+   https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz
    ```
 
 2. [Choose the InfluxData key-pair for your OS version](#choose-the-influxdata-key-pair-for-your-system).
@@ -505,7 +505,7 @@ _If necessary, adjust the example file paths and utilities for your system._
    | grep 'InfluxData Package Signing Key <support@influxdata.com>' \
    &&
    # Download and verify the binary's signature file
-   curl --silent --location "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz.asc" \
+   curl --silent --location "https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz.asc" \
    | gpg --verify - influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz \
    2>&1 | grep 'InfluxData Package Signing Key <support@influxdata.com>'
    ```
@@ -519,7 +519,7 @@ _If necessary, adjust the example file paths and utilities for your system._
    | grep 'InfluxData Package Signing Key <support@influxdata.com>' \
    &&
    # Download and verify the binary's signature file
-   curl --silent --location "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz.asc" \
+   curl --silent --location "https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz.asc" \
    | gpg --verify - influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz \
    2>&1 | grep 'InfluxData Package Signing Key <support@influxdata.com>'
    ```
@@ -618,7 +618,7 @@ chmod 0750 ~/.influxdbv2
 > 
 > _You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
 
-<a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows.zip" download >InfluxDB v2 (Windows)</a>
+<a class="btn download" href="https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}-windows.zip" download >InfluxDB v2 (Windows)</a>
 
 Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename the
 files if desired.

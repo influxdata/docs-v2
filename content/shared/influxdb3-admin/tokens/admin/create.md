@@ -35,7 +35,6 @@ across sessions, assign the token string to the `INFLUXDB3_AUTH_TOKEN` environme
 {{% tab-content %}}
 Use the following endpoint to create an admin token:
 
-{{% show-in "core" %}}
 {{% api-endpoint method="POST" endpoint="/api/v3/configure/token/admin" api-ref="/influxdb3/version/api/v3/#operation/PostCreateAdminToken" %}}
 
 ```bash
@@ -43,15 +42,5 @@ curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin" \
 --header 'Accept: application/json' \
 --header 'Content-Type: application/json'
 ```
-{{% /show-in %}}
-{{% show-in "enterprise" %}}
-{{% api-endpoint method="POST" endpoint="/api/v3/enterprise/configure/token/admin" api-ref="/influxdb3/version/api/v3/#operation/PostCreateAdminToken" %}}
-
-```bash
-curl -X POST "http://{{< influxdb/host >}}/api/v3/{{< product-key >}}/configure/token/admin" \
---header 'Accept: application/json' \
---header 'Content-Type: application/json'
-```
-{{% /show-in %}}
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

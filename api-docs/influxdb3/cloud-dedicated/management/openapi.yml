@@ -40,6 +40,7 @@ tags:
         See how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/).
 
         By default, management tokens in InfluxDB 3 are short-lived tokens issued by an OAuth2 identity provider that grant a specific user administrative access to your InfluxDB cluster. However, for automation purposes, you can manually create management tokens that authenticate directly with your InfluxDB cluster and do not require human interaction with your identity provider.
+        <!-- ReDoc-Inject: <security-definitions> -->
   - name: Database tokens
     description: Manage database read/write tokens for a cluster
   - name: Databases
