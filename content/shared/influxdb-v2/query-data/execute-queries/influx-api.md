@@ -80,7 +80,7 @@ Replace the following with your values:
 
 - {{% code-placeholder-key %}}`ORG_ID`{{% /code-placeholder-key %}} - the ID of the [organization](/influxdb/version/admin/organizations/) that owns the bucket.
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}} - your [token](/influxdb/version/admin/tokens/).
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}} - the name of the [bucket](/influxdb/version/admin/buckets/) to create.
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}} - the name of the [bucket](/influxdb/version/admin/buckets/) to query.
 
 ## Send an InfluxQL query request
 
