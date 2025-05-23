@@ -188,6 +188,6 @@ curl --get "http://{{< influxdb/host >}}/query" \
 Replace the following with your values:
 
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}} - your [token](/influxdb/version/admin/tokens/).
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}} - the name of the [bucket](/influxdb/version/admin/buckets/) to create.
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}} - the name of the [bucket](/influxdb/version/admin/buckets/) to query.
 
 InfluxDB returns the query results in [annotated CSV](/influxdb/version/reference/syntax/annotated-csv/).
