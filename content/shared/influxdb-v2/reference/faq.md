@@ -664,8 +664,8 @@ from(bucket: "example-bucket")
 {{% /show-in %}}
 
 Using InfluxQL with InfluxDB {{< current-version >}} is made possible by the
-[1.x compatibility API](/influxdb/version/reference/api/influxdb-1x/) which replicates
-the `/query` endpoint from InfluxDB 1.x. This allows all InfluxDB 1.x-compatible
+[v1 compatibility API](/influxdb/version/reference/api/influxdb-1x/) which replicates
+the `/query` endpoint from InfluxDB 1.x. This allows all InfluxDB v1-compatible
 clients to work with InfluxDB {{< current-version >}}. However, InfluxQL relies
 on a database and retention policy data model doesn't exist in InfluxDB
 {{< current-version >}}, but has been replaced by [buckets](/influxdb/version/reference/glossary/#bucket).

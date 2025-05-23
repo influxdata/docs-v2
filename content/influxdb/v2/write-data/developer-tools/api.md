@@ -26,7 +26,7 @@ The URL in the examples depends on the version and location of your InfluxDB {{<
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[Curl](#curl)
+[cURL](#curl)
 [Node.js](#nodejs)
 {{% /code-tabs %}}
 {{% code-tab-content %}}

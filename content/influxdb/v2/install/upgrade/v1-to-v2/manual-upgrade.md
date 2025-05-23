@@ -3,7 +3,7 @@ title: Manually upgrade from InfluxDB 1.x to 2.7
 list_title: Manually upgrade from 1.x to 2.7
 description: >
   To manually upgrade from InfluxDB 1.x to InfluxDB 2.7, migrate data, create
-  1.x-compatible authorizations, and create database and retention policy
+  v1-compatible authorizations, and create database and retention policy
   (DBRP) mappings.
 menu:
   influxdb_v2:

@@ -34,8 +34,8 @@ and visit the `/docs` endpoint in a browser ([localhost:8086/docs](http://localh
 
 ## InfluxDB v1 compatibility API documentation
 
-The InfluxDB v2 API includes [InfluxDB 1.x compatibility endpoints](/influxdb/v2/reference/api/influxdb-1x/)
+The InfluxDB v2 API includes [InfluxDB v1 compatibility endpoints and authentication](/influxdb/v2/api-guide/influxdb-1x/)
 that work with InfluxDB 1.x client libraries and third-party integrations like
 [Grafana](https://grafana.com) and others.
 
-<a class="btn" href="/influxdb/v2/api/v1-compatibility/">View full v1 compatibility API documentation</a>
+<a class="btn" href="/influxdb/v2/api/v2/#tag/Compatibility-endpoints">View full v1 compatibility API documentation</a>
