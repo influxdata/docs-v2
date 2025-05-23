@@ -12765,7 +12765,7 @@ paths:
           content:
             application/json:
               schema:
-               $ref: '#/components/schemas/Error' 
+                $ref: '#/components/schemas/Error'
           description: The request was well-formed, but some or all the points were rejected due to semantic errors--for example, schema conflicts or retention policy violations. Error message contains details for one or more rejected points.
         '429':
           description: |
@@ -13216,14 +13216,6 @@ paths:
                 $ref: '#/components/schemas/Error'
   /write:
     post:
-      description: |-
-        Writes line protocol to the specified bucket.
-
-        This endpoint provides backward compatibility for InfluxDB 1.x write workloads using tools such as InfluxDB 1.x client libraries, the Telegraf `outputs.influxdb` output plugin, or third-party tools.
-
-        Use this endpoint to send data in [line protocol](https://docs.influxdata.com/influxdb/v2/reference/syntax/line-protocol/) format to InfluxDB.
-        Use query parameters to specify options for writing data.
-
       operationId: PostLegacyWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -13301,7 +13293,7 @@ paths:
           content:
             application/json:
               schema:
-               $ref: '#/components/schemas/Error' 
+                $ref: '#/components/schemas/Error'
           description: The request was well-formed, but some or all the points were rejected due to semantic errors--for example, schema conflicts or retention policy violations. Error message contains details for one or more rejected points.
         '429':
           description: Token is temporarily over quota. The Retry-After header describes when to try the write again.
@@ -13327,7 +13319,11 @@ paths:
           description: Internal server error
       summary: Write data using a v1-compatible request
       description: |
-        Writes data in line protocol syntax to the specified bucket using a v1-compatible request.
+        Writes data in [line protocol](/influxdb/v2/reference/syntax/line-protocol/) syntax to the specified bucket using a v1-compatible request.
+
+        This endpoint provides backward compatibility for InfluxDB 1.x write workloads using tools such as InfluxDB 1.x client libraries, the Telegraf `outputs.influxdb` output plugin, or third-party tools.
+
+        Use query parameters to specify options for writing data.
 
         #### InfluxDB Cloud
 
