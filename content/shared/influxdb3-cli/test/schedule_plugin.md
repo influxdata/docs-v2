@@ -44,7 +44,7 @@ In the examples below, replace the following:
 
 {{% code-placeholders "DATABASE_NAME|AUTH_TOKEN|PLUGIN_FILENAME" %}}
 
-## Test a schedule plugin
+### Test a schedule plugin
 
 <!--pytest.mark.skip-->
 
@@ -55,3 +55,4 @@ influxdb3 test schedule_plugin \
   PLUGIN_FILENAME.py
 ```
 {{% /code-placeholders %}}
+
