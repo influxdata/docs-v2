@@ -52,7 +52,7 @@ tags:
       #### Related guides
 
       - [Manage tokens](/influxdb3/enterprise/admin/tokens/)
-      - [Authentication and authorization](/influxdb3/enterprise/reference/authentication/)
+      - [Authentication and authorization](/influxdb3/enterprise/reference/internals/authentication/)
     x-traitTag: true
   - name: Cache data
     description: |
@@ -1936,8 +1936,6 @@ components:
       scheme: bearer
       bearerFormat: JWT
       description: |
-        _During Alpha release, an API token is not required._
-
         A Bearer token for authentication.
 
         Provide the scheme and the API token in the `Authorization` header--for example:
