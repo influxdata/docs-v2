@@ -6,7 +6,7 @@ The [Python `flightsql-dbapi` Flight SQL DBAPI library](https://github.com/influ
 > We recommend using the [`influxdb3-python` Python client library](/influxdb3/version/reference/client-libraries/v3/python/) for integrating InfluxDB 3 with your Python application code.
 > 
 > [InfluxDB 3 client libraries](/influxdb3/version/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
-> and provide convenient methods for [writing](/influxdb3/version/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/version/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
+> and provide convenient methods for [writing](/influxdb3/version/write-data/api-client-libraries/), [querying](/influxdb3/version/query-data/execute-queries/), and processing data stored in {{% product-name %}}.
 > Client libraries can query using SQL or InfluxQL.
 
 ## Installation
@@ -32,7 +32,7 @@ from flightsql import FlightSQLClient
 ```
 
 - `flightsql.FlightSQLClient` class: an interface for [initializing
-a client](#initialization) and interacting with a Flight SQL server.
+a client](#initialize-a-client) and interacting with a Flight SQL server.
 
 ## API reference
 
@@ -41,11 +41,11 @@ a client](#initialization) and interacting with a Flight SQL server.
 - [Initialize a client](#initialize-a-client)
   - [Instance methods](#instance-methods)
   - [FlightSQLClient.execute](#flightsqlclientexecute)
-    - [Syntax {#execute-query-syntax}](#syntax-execute-query-syntax)
-    - [Example {#execute-query-example}](#example-execute-query-example)
+    - [Syntax](#execute-query-syntax)
+    - [Example](#execute-query-example)
   - [FlightSQLClient.do_get](#flightsqlclientdo_get)
-    - [Syntax {#retrieve-data-syntax}](#syntax-retrieve-data-syntax)
-    - [Example {#retrieve-data-example}](#example-retrieve-data-example)
+    - [Syntax](#retrieve-data-syntax)
+    - [Example](#retrieve-data-example)
 
 ## Class FlightSQLClient
 
