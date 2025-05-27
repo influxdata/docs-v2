@@ -240,8 +240,8 @@ function toggleCheckbox(element) {
 }
 
 // Build example group function
-function buildGroupExample() {
-  var columnCollection = getChecked()
+function buildGroupExample($component) {
+  var columnCollection = getChecked($component)
     .map((i) => '<span class=\"s2\">"' + i + '"</span>')
     .join(', ');
   $('pre#group-by-example')[0].innerHTML =
