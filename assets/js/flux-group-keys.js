@@ -116,7 +116,7 @@ export default function FluxGroupKeysDemo({ component }) {
     toggleCheckbox($(this));
     groupKey = getChecked(component);
     groupData();
-    buildGroupExample();
+    buildGroupExample(component);
   });
 
   // Group and render tables on load
@@ -240,8 +240,8 @@ function toggleCheckbox(element) {
 }
 
 // Build example group function
-function buildGroupExample($component) {
-  var columnCollection = getChecked($component)
+function buildGroupExample(component) {
+  var columnCollection = getChecked(component)
     .map((i) => '<span class=\"s2\">"' + i + '"</span>')
     .join(', ');
   $('pre#group-by-example')[0].innerHTML =
