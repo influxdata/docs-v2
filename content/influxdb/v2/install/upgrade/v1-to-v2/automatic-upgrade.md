@@ -328,6 +328,6 @@ which requires authentication.
 
 **For these external clients to work with InfluxDB {{< current-version >}}:**
 
-1.  [Manually create a 1.x-compatible authorization](/influxdb/v2/upgrade/v1-to-v2/manual-upgrade/#create-a-1x-compatible-authorization).
+1.  [Manually create a v1-compatible authorization](/influxdb/v2/upgrade/v1-to-v2/manual-upgrade/#create-a-1x-compatible-authorization).
 2.  Update the client configuration to use the username and password associated
-    with your 1.x-compatible authorization.
+    with your v1-compatible authorization.
