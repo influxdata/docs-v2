@@ -5,10 +5,13 @@
 pre-commit:
   parallel: true
   commands:
+    build-copilot-instructions:
+      glob: "CONTRIBUTING.md"
+      run: yarn build:copilot-instructions 
     # Report linting warnings and errors, don't output files to stdout
     lint-markdown:
       tags: lint
-      glob: 'content/*.md'
+      glob: "{CONTRIBUTING.md,content/*.md}"
       run: |
         docker compose run --rm --name remark-lint remark-lint '{staged_files}'
     cloud-lint:
