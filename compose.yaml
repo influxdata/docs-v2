@@ -449,6 +449,9 @@ services:
       - type: bind
         source: ./content
         target: /app/content
+      - type: bind
+        source: ./CONTRIBUTING.md
+        target: /app/CONTRIBUTING.md
 volumes:
   test-content:
   cloud-tmp:
