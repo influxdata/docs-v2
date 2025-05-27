@@ -29,7 +29,7 @@ function enterpriseEOLDate() {
     'December',
   ];
   var inTwoYears = date.setFullYear(date.getFullYear() + 2);
-  earliestEOL = new Date(inTwoYears);
+  let earliestEOL = new Date(inTwoYears);
   return `${monthNames[earliestEOL.getMonth()]} ${earliestEOL.getDate()}, ${earliestEOL.getFullYear()}`;
 }
 
