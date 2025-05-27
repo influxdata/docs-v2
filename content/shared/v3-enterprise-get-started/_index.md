@@ -44,6 +44,12 @@ This guide covers Enterprise as well as InfluxDB 3 Core, including the following
 - [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
 - [Multi-server setups](#multi-server-setup)
 
+> [!Tip]
+> #### Find support for {{% product-name %}}
+>
+> The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for {{% product-name %}}.
+> For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+
 ### Install and startup
 
 {{% product-name %}} runs on **Linux**, **macOS**, and **Windows**.

@@ -45,6 +45,12 @@ This guide covers InfluxDB 3 Core (the open source release), including the follo
 - [Distinct values cache](#distinct-values-cache)
 - [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
 
+> [!Tip]
+> #### Find support for {{% product-name %}}
+>
+> The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for {{% product-name %}}.
+> For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+
 ### Install and startup
 
 {{% product-name %}} runs on **Linux**, **macOS**, and **Windows**.

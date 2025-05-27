@@ -53,14 +53,11 @@
       To find support, use the following resources:
     </p>
     <ul>
-      {{ if eq $product "influxdb3" }}
-      <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank"><strong>InfluxDB Discord Server</strong> <em style="opacity:.5">(Preferred for InfluxDB 3 Core and Enterprise)</em></a></li>
-      <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
-      <li><a class="slack" href="https://influxdata.com/slack" target="_blank">InfluxDB Community Slack</a></li>
-      {{ else }}
-      <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
-      <li><a class="slack" href="https://influxdata.com/slack" target="_blank">InfluxDB Community Slack</a></li>
+      {{ if and (eq $product "influxdb3") (or (eq $version "core") (eq $version "enterprise")) }}
+        <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank"><strong>InfluxDB Discord Server</strong> <em style="opacity:.5">(Preferred for InfluxDB 3 Core and Enterprise)</em></a></li>
       {{ end }}
+      <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
+      <li><a class="slack" href="https://influxdata.com/slack" target="_blank">InfluxDB Community Slack</a></li>
       <li><a class="reddit" href="https://reddit.com/r/influxdb" target="_blank">InfluxDB Subreddit</a></li>
     </ul>
     {{ if not (in $supportBlacklist $product) }}
