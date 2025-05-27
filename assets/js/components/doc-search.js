@@ -2,6 +2,7 @@
  * DocSearch component for InfluxData documentation
  * Handles asynchronous loading and initialization of Algolia DocSearch
  */
+const debug = false; // Set to true for debugging output
 
 export default function DocSearch({ component }) {
   // Store configuration from component data attributes
@@ -26,7 +27,9 @@ export default function DocSearch({ component }) {
 
   // Load DocSearch asynchronously
   function loadDocSearch() {
-    console.log('Loading DocSearch script...');
+    if (debug) {
+      console.log('Loading DocSearch script...');
+    }
     const script = document.createElement('script');
     script.src =
       'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js';
@@ -37,7 +40,9 @@ export default function DocSearch({ component }) {
 
   // Initialize DocSearch after script loads
   function initializeDocSearch() {
-    console.log('Initializing DocSearch...');
+    if (debug) {
+      console.log('Initializing DocSearch...');
+    }
     const multiVersion = ['influxdb'];
 
     // Use object-based lookups instead of conditionals for version and product names
@@ -168,6 +173,8 @@ export default function DocSearch({ component }) {
   // Return cleanup function
   return function cleanup() {
     // Clean up any event listeners if needed
-    console.log('DocSearch component cleanup');
+    if (debug) {
+      console.log('DocSearch component cleanup');
+    }
   };
 }
