@@ -3,7 +3,8 @@ Use these tips to optimize performance and system overhead when writing data to
 {{< product-name >}}.
 
 - [Batch writes](#batch-writes)
-- [Sort tags by key](#sort-tags-by-key)
+{{% hide-in "enterprise,core" %}}- [Sort tags by key](#sort-tags-by-key){{% /hide-in %}}
+{{% show-in "enterprise,core" %}}- [On first write, sort tags by query priority](#on-first-write-sort-tags-by-query-priority){{% /show-in %}}
 - [Use the coarsest time precision possible](#use-the-coarsest-time-precision-possible)
 - [Use gzip compression](#use-gzip-compression)
   - [Enable gzip compression in Telegraf](#enable-gzip-compression-in-telegraf)
@@ -34,6 +35,8 @@ Write data in batches to minimize network overhead when writing data to InfluxDB
 > The optimal batch size is 10,000 lines of line protocol or 10 MBs, whichever
 > threshold is met first.
 
+{{% hide-in "enterprise,core" %}}
+
 ## Sort tags by key
 
 Before writing data points to InfluxDB, sort tags by key in lexicographic order.
@@ -48,6 +51,31 @@ measurement,tagC=therefore,tagE=am,tagA=i,tagD=i,tagB=think fieldKey=fieldValue 
 # Optimized line protocol example with tags sorted by key
 measurement,tagA=i,tagB=think,tagC=therefore,tagD=i,tagE=am fieldKey=fieldValue 1562020262
 ```
+
+{{% /hide-in %}}
+
+{{% show-in "enterprise,core" %}}
+
+## On first write, sort tags by query priority
+
+The first write to a table in {{% product-name %}} determines the physical column
+order in storage, and that order has a direct impact on query performance.
+Columns that appear earlier are typically faster to filter and access during
+query execution.
+
+Sort your tags by query priority when performing the initial write to a table.
+Place the most commonly queried tags first—those you frequently use in `WHERE`
+clauses or joins—followed by less frequently queried ones. For example, if most
+of your queries filter by `region` and then by `host`, structure your first
+write so that `region` comes before `host`.
+
+> [!Important]
+> Column order is determined on the first write and cannot be changed afterward.
+> Tags added after the first write are added last in the column sort order.
+> Plan your schema with your query workload in mind to ensure the best long-term
+> performance.
+
+{{% /show-in %}}
 
 ## Use the coarsest time precision possible
 
