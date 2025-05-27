@@ -3,7 +3,7 @@ var currentTimestamp = date.toISOString().replace(/^(.*)(\.\d+)(Z)/, '$1$3'); //
 var currentTime = date.toISOString().replace(/(^.*T)(.*)(Z)/, '$2') + '084216'; // 12:34:56.000084216
 
 function currentDate(offset = 0, trimTime = false) {
-  outputDate = new Date(date);
+  let outputDate = new Date(date);
   outputDate.setDate(outputDate.getDate() + offset);
 
   if (trimTime) {
