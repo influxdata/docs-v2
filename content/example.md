@@ -1352,3 +1352,21 @@ and all the rows with the `hum` field will be in another.
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
+
+## datetime/current-timestamp shortcode
+
+### Default usage 
+
+{{< datetime/current-timestamp >}}
+
+### Format YYYY-MM-DD HH:mm:ss
+
+{{< datetime/current-timestamp format="YYYY-MM-DD HH:mm:ss" >}}
+
+### Format with UTC timezone
+
+{{< datetime/current-timestamp format="YYYY-MM-DD HH:mm:ss" timezone="UTC" >}}
+
+### Format with America/New_York timezone
+
+{{< datetime/current-timestamp format="YYYY-MM-DD HH:mm:ss" timezone="America/New_York" >}}
