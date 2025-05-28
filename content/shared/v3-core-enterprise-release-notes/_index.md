@@ -39,19 +39,18 @@
 - Tokens can now be granted `CREATE` permission for creating databases
 
 #### Additional Updates
-- Last Value caches populate on creation and reload on restart
-- Distinct Value caches populate on creation and reload on restart
+- Last value caches populate on creation and reload on restart
+- Distinct value caches populate on creation and reload on restart
 - Other performance improvements
+- Replaces remaining "INFLUXDB_IOX" Dockerfile environment variables with the following:
+  - `ENV INFLUXDB3_OBJECT_STORE=file`
+  - `ENV INFLUXDB3_DB_DIR=/var/lib/influxdb3`
 
 #### Fixes
 - Improvements and fixes for license validations
 - False positive fixed for catalog error on shutdown
 - UX improvements for error and onboarding messages
 - Other general fixes and corrections
-
-
-
-
 
 ## v3.0.3 {date="2025-05-16"}
 **Core**: revision 384c457ef5f0d5ca4981b22855e411d8cac2688e

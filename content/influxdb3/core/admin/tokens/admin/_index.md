@@ -11,9 +11,9 @@ menu:
     name: Admin tokens
 weight: 101
 influxdb3/core/tags: [tokens]
-source: /shared/influxdb3-admin/tokens/_index.md
+source: /shared/influxdb3-admin/tokens/admin.md
 ---
 
 <!-- The content for this page is at
-// SOURCE content/shared/influxdb3-admin/tokens/_index.md
+// SOURCE content/shared/influxdb3-admin/tokens/admin.md
 --> 
