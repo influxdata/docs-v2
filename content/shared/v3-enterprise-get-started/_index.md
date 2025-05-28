@@ -362,12 +362,12 @@ The following example shows how to create a database token that expires in 90 da
 
 ```bash
 influxdb3 create token \
-  --permission \
+  --permission "db:*:read,write"\
   --expiry 90d \
   --token ADMIN_TOKEN \
   --host http://{{< influxdb/host >}} \
   --name "rw all databases" \
-  "db:*:read,write"
+  
 ```
 {{% /code-placeholders %}}
 
