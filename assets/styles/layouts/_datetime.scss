@@ -1,0 +1,18 @@
+/*
+  Datetime Components
+  ----------------------------------------------
+*/
+
+.current-timestamp,
+.current-date,
+.current-time,
+.enterprise-eol-date {
+  color: $current-timestamp-color;
+  display: inline-block;
+  font-family: $proxima;
+  white-space: nowrap;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
