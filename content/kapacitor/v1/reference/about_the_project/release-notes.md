@@ -11,10 +11,13 @@ aliases:
 
 ## v1.7.7 {date="2025-05-27"}
 
-{{% warn %}}
-Python2 UDFs Deprecated — Support for Python 2-based UDFs is deprecated as of Kapacitor 1.7.7 and will be removed in **Kapacitor 1.8.0**.
-Please update your UDFs to be Python 3-compatible before upgrading. This change is part of our effort to follow modern security best practices.
-{{% /warn %}}
+> [!Warning]
+> #### Python 2 UDFs deprecated
+>
+> Python 2-based UDFs are deprecated** as of Kapacitor 1.7.7 and will be removed in **Kapacitor 1.8.0**.
+>
+> Before upgrading, update your User-Defined Functions (UDFs) to be Python 3-compatible.
+> This required change aligns with modern security practices and ensures your custom functions will continue to work after upgrading.
 
 ### Dependency updates
 
