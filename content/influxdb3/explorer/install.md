@@ -16,12 +16,9 @@ Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
 - [Enable TLS/SSL (HTTPS)](#enable-tlsssl-https)
 - [Pre-configure InfluxDB connection settings](#pre-configure-influxdb-connection-settings)
 - [Run in admin or query mode](#run-in-admin-or-query-mode)
-  - [Run in Admin Mode](#run-in-admin-mode)
-  - [Run in Query Mode](#run-in-query-mode)
 - [Environment Variables](#environment-variables)
 - [Volume Reference](#volume-reference)
 - [Exposed Ports](#exposed-ports)
-  - [Custom port mapping](#custom-port-mapping)
 <!-- END TOC -->
 
 ## Run the InfluxDB 3 Explorer Docker container
@@ -44,7 +41,7 @@ Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
 
     | Directory  | Description                                                                                       | Permissions |
     | :--------- | :------------------------------------------------------------------------------------------------ | :---------: |
-    | `./db`     | Stores {{% product-name %}} application data                                                                  |     700     |
+    | `./db`     | Stores {{% product-name %}} application data                                                      |     700     |
     | `./config` | Stores [pre-configured InfluxDB connection settings](#pre-configure-influxdb-connection-settings) |     755     |
     | `./ssl`    | Stores TLS/SSL certificates _(Required when [using TLS/SSL](#enable-tlsssl-https))_               |     755     |
 
@@ -157,24 +154,16 @@ These settings will be used as defaults when the container starts.
 
 ---
 
-## Run in admin or query mode
+## Run in query or admin mode
 
 {{% product-name %}} has the following operational modes:
 
-- **Admin mode (default):** Full UI and API access for administrators
-- **Query mode:** Read-only UI and query interface
+- **Query mode (default):** Read-only UI and query interface
+- **Admin mode:** Full UI and API access for administrators
 
 You can control the operational mode using the `MODE` environment variable.
 
-### Run in Admin Mode {note="(default)"}
-
-```sh
-docker run -d \
-  -e MODE=admin \
-  ...
-```
-
-### Run in Query Mode
+### Run in query mode {note="(default)"}
 
 ```sh
 docker run -d \
@@ -182,7 +171,15 @@ docker run -d \
   ...
 ```
 
-If `MODE` is not set, the container defaults to admin mode.
+### Run in admin mode
+
+```sh
+docker run -d \
+  -e MODE=admin \
+  ...
+```
+
+If `MODE` is not set, the container defaults to query mode.
 
 ---
 
@@ -191,7 +188,7 @@ If `MODE` is not set, the container defaults to admin mode.
 | Variable       | Description                                      | Default              |
 |----------------|--------------------------------------------------|----------------------|
 | `DATABASE_URL` | Path to SQLite DB inside container               | `/db/sqlite.db`      |
-| `MODE`         | Set to `admin` or `query`                        | `admin`              |
+| `MODE`         | Set to `admin` or `query`                        | `query`              |
 
 ---
 
@@ -216,5 +213,5 @@ If `MODE` is not set, the container defaults to admin mode.
 
 ```sh
 # Map ports to custom host values
--p 8080:80 -p 8443:443
+-p 8888:80 -p 8443:443
 ```
