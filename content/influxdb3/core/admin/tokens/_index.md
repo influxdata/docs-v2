@@ -1,7 +1,7 @@
 ---
 title: Manage tokens
 description: >
-  Manage tokens to authenticate and authorize access to resources and data in an {{< product-name >}} instance.
+  Manage tokens to authenticate and authorize access to server actions, resources, and data in an {{< product-name >}} instance.
 menu:
   influxdb3_core:
     parent: Administer InfluxDB
@@ -11,4 +11,4 @@ source: /shared/influxdb3-admin/tokens/_index.md
 
 <!-- The content for this page is at
 // SOURCE content/shared/influxdb3-admin/tokens/_index.md
--->>
+-->
