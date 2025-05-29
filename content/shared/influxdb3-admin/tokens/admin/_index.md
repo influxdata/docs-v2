@@ -1,4 +1,5 @@
-<!-- -->  
+<!--
+-->
 Manage {{< product-name omit="Clustered" >}} admin tokens to authorize server actions, `influxdb3` CLI commands, and HTTP API endpoints for your {{< product-name omit="Clustered" >}} instance.
 Administrative (_admin_) tokens provide full system access and management capabilities for your {{< product-name omit="Clustered" >}} instance.
 {{% show-in "core" %}}
