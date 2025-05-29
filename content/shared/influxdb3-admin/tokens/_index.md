@@ -57,6 +57,7 @@ curl "http://{{< influxdb/host >}}/api/v3/query_sql" \
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
+
 Replace the following with your values:
 
 - {{% code-placeholder-key %}}`YOUR_AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link %}}
