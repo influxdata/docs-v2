@@ -11,8 +11,8 @@ weight: 10
 InfluxDB 3 Explorer is the user interface component of the InfluxDB 3 platform.
 It provides visual management of databases and tokens and an easy way to querying
 your time series data. Explorer is fully-featured for [InfluxDB 3 Core](/influxdb3/core/)
-and [Enterprise](/influxdb3/enterprise/), but can also be used to query
-[InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/),
+and [Enterprise](/influxdb3/enterprise/).  In a future release it will also be able to 
+be used to query [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/),
 [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/)
 and [InfluxDB Clustered](/influxdb3/clustered/).
 
