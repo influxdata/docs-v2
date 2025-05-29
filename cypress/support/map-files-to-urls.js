@@ -1,79 +1,139 @@
 #!/usr/bin/env node
 
-import { execSync } from 'child_process';
 import process from 'process';
+import fs from 'fs';
+import { execSync } from 'child_process';
+import matter from 'gray-matter';
 
 // Get file paths from command line arguments
-const filePaths = process.argv.slice(2);
+const filePaths = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
 
 // Parse options
-const debugMode = process.argv.includes('--debug');
+const debugMode = process.argv.includes('--debug'); // deprecated, no longer used
+const jsonMode = process.argv.includes('--json');
 
-// Filter for content files
-const contentFiles = filePaths.filter(file => 
-  file.startsWith('content/') && (file.endsWith('.md') || file.endsWith('.html'))
+// Separate shared content files and regular content files
+const sharedContentFiles = filePaths.filter(
+  (file) =>
+    file.startsWith('content/shared/') &&
+    (file.endsWith('.md') || file.endsWith('.html'))
 );
 
-if (contentFiles.length === 0) {
-  console.log('No content files to check.');
+const regularContentFiles = filePaths.filter(
+  (file) =>
+    file.startsWith('content/') &&
+    !file.startsWith('content/shared/') &&
+    (file.endsWith('.md') || file.endsWith('.html'))
+);
+
+// Find pages that reference shared content files in their frontmatter
+function findPagesReferencingSharedContent(sharedFilePath) {
+  try {
+    // Remove the leading "content/" to match how it would appear in frontmatter
+    const relativePath = sharedFilePath.replace(/^content\//, '');
+
+    // Use grep to find files that reference this shared content in frontmatter
+    // Look for source: <path> pattern in YAML frontmatter
+    const grepCmd = `grep -l "source: .*${relativePath}" --include="*.md" --include="*.html" -r content/`;
+
+    // Execute grep command and parse results
+    const result = execSync(grepCmd, { encoding: 'utf8' }).trim();
+
+    if (!result) {
+      return [];
+    }
+
+    return result.split('\n').filter(Boolean);
+  } catch (error) {
+    // grep returns non-zero exit code when no matches are found
+    if (error.status === 1) {
+      return [];
+    }
+    console.error(
+      `Error finding references to ${sharedFilePath}: ${error.message}`
+    );
+    return [];
+  }
+}
+
+/**
+ * Extract source from frontmatter or use the file path as source
+ * @param {string} filePath - Path to the file
+ * @returns {string} Source path
+ */
+function extractSourceFromFile(filePath) {
+  try {
+    if (fs.existsSync(filePath)) {
+      const fileContent = fs.readFileSync(filePath, 'utf8');
+      const { data } = matter(fileContent);
+
+      // If source is specified in frontmatter, return it
+      if (data.source) {
+        if (data.source.startsWith('/shared')) {
+          return 'content' + data.source;
+        }
+        return data.source;
+      }
+    }
+
+    // If no source in frontmatter or can't read file, use the file path itself
+    return filePath;
+  } catch (error) {
+    console.error(`Error extracting source from ${filePath}: ${error.message}`);
+    return filePath;
+  }
+}
+
+// Process shared content files to find pages that reference them
+let pagesToTest = [...regularContentFiles];
+
+if (sharedContentFiles.length > 0) {
+  console.log(
+    `Processing ${sharedContentFiles.length} shared content files...`
+  );
+
+  for (const sharedFile of sharedContentFiles) {
+    const referencingPages = findPagesReferencingSharedContent(sharedFile);
+
+    if (referencingPages.length > 0) {
+      console.log(
+        `Found ${referencingPages.length} pages referencing ${sharedFile}`
+      );
+      // Add referencing pages to the list of pages to test (avoid duplicates)
+      pagesToTest = [...new Set([...pagesToTest, ...referencingPages])];
+    } else {
+      console.log(`No pages found referencing ${sharedFile}`);
+    }
+  }
+}
+
+if (pagesToTest.length === 0) {
+  console.log('No content files to map.');
   process.exit(0);
 }
 
-// Map file paths to URL paths
-function mapFilePathToUrl(filePath) {
-  // Remove content/ prefix
+// Map file paths to URL paths and source information
+function mapFilePathToUrlAndSource(filePath) {
+  // Map to URL
   let url = filePath.replace(/^content/, '');
-  
-  // Handle _index files (both .html and .md)
   url = url.replace(/\/_index\.(html|md)$/, '/');
-  
-  // Handle regular .md files
   url = url.replace(/\.md$/, '/');
-  
-  // Handle regular .html files
   url = url.replace(/\.html$/, '/');
-  
-  // Ensure URL starts with a slash
   if (!url.startsWith('/')) {
     url = '/' + url;
   }
-  
-  return url;
+
+  // Extract source
+  const source = extractSourceFromFile(filePath);
+
+  return { url, source };
 }
 
-const urls = contentFiles.map(mapFilePathToUrl);
-const urlList = urls.join(',');
+const mappedFiles = pagesToTest.map(mapFilePathToUrlAndSource);
 
-console.log(`Testing links in URLs: ${urlList}`);
-
-// Create environment object with the cypress_test_subjects variable
-const envVars = {
-  ...process.env,
-  cypress_test_subjects: urlList,
-  NODE_OPTIONS: '--max-http-header-size=80000 --max-old-space-size=4096'
-};
-
-// Run Cypress tests with the mapped URLs
-try {
-  // Choose run mode based on debug flag
-  if (debugMode) {
-    // For debug mode, set the environment variable and open Cypress
-    // The user will need to manually select the test file
-    console.log('Opening Cypress in debug mode.');
-    console.log('Please select the "article-links.cy.js" test file when Cypress opens.');
-    
-    execSync('npx cypress open --e2e', {
-      stdio: 'inherit',
-      env: envVars
-    });
-  } else {
-    // For normal mode, run the test automatically
-    execSync(`npx cypress run --spec "cypress/e2e/content/article-links.cy.js"`, {
-      stdio: 'inherit',
-      env: envVars
-    });
-  }
-} catch (error) {
-  console.error('Link check failed:', error);
-  process.exit(1);
+if (jsonMode) {
+  console.log(JSON.stringify(mappedFiles, null, 2));
+} else {
+  // Print URL and source info in a format that's easy to parse
+  mappedFiles.forEach((item) => console.log(`${item.url}|${item.source}`));
 }

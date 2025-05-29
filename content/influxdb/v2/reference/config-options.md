@@ -2744,6 +2744,61 @@ storage-validate-keys = true
 
 ---
 
+### storage-wal-flush-on-shutdown
+Flush the WAL on shutdown.
+
+**Default:** `false`
+
+| influxd flag                    | Environment variable                  | Configuration key             |
+| :------------------------------ | :------------------------------------ | :---------------------------- |
+| `--storage-wal-flush-on-shutdown` | `INFLUXD_STORAGE_WAL_FLUSH_ON_SHUTDOWN` | `storage-wal-flush-on-shutdown` |
+
+If set, `influxd` flushes or snapshots all WALs prior to completing shutdown--`influxd` performs cache snapshots on shutdown, which
+results in the WAL files being written to TSM files and then deleted.
+
+This is useful in upgrade and downgrade scenarios to prevent WAL format
+compatibility issues.
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --storage-wal-flush-on-shutdown
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_WAL_FLUSH_ON_SHUTDOWN=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-wal-flush-on-shutdown: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-wal-flush-on-shutdown = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-wal-flush-on-shutdown": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 ### storage-wal-fsync-delay
 Duration a write will wait before fsyncing.
 A duration greater than `0` batches multiple fsync calls.

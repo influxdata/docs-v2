@@ -1,0 +1,20 @@
+baseURL: 'http://localhost:1315/'
+
+server:
+  port: 1315
+
+# Override settings for testing
+buildFuture: true
+
+# Configure what content is built in testing env
+params:
+  environment: testing
+  buildTestContent: true
+  
+# Keep your shared content exclusions
+ignoreFiles:
+  - "content/shared/.*"
+
+# Ignore specific warning logs
+ignoreLogs:
+  - warning-goldmark-raw-html

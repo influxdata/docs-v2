@@ -1,5 +1,6 @@
+The `influxdb3 create distinct_cache` command creates a new distinct value cache for a specific table and column set in your {{< product-name >}} instance.
 
-The `influxdb3 create distinct_cache` command creates a new distinct value cache.
+Use this command to configure a cache that tracks unique values in specified columns. You must provide the database, token, table, and columns. Optionally, you can specify a name for the cache.
 
 ## Usage
 
@@ -16,10 +17,9 @@ influxdb3 create distinct_cache [OPTIONS] \
 
 ## Arguments
 
-- **CACHE_NAME**: _(Optional)_ Name for the cache.
-  If not provided, the command automatically generates a name.
+- **`CACHE_NAME`**: _(Optional)_ A name to assign to the cache. If omitted, the CLI generates a name automatically.
 
-## Options
+## Options 
 
 | Option |                     | Description                                                                                                                                                             |
 | :----- | :------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -52,4 +52,69 @@ You can use the following environment variables to set command options:
 | `INFLUXDB3_DATABASE_NAME` | `--database` |
 | `INFLUXDB3_AUTH_TOKEN`    | `--token`    |
 
-<!-- TODO: GET EXAMPLES -->
+
+## Prerequisites
+
+Before creating a distinct value cache, make sure you:
+
+1. [Create a database](/influxdb3/version/reference/cli/influxdb3/create/database/)
+
+2. [Create a table](/influxdb3/version/reference/cli/influxdb3/create/table/) that includes the columns you want to cache
+
+3. Have a valid authentication token
+
+## Examples
+
+Before running the following commands, replace the placeholder values with your own:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
+  The database name
+- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
+  The name of the table to cache values from
+- {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: 
+  The name of the distinct value cache to create
+- {{% code-placeholder-key %}}`COLUMN_NAME`{{% /code-placeholder-key %}}: The column to 
+cache distinct values from
+
+You can also set environment variables (such as `INFLUXDB3_AUTH_TOKEN`) instead of passing options inline.
+
+{{% code-placeholders "(DATABASE|TABLE|COLUMN|CACHE)_NAME" %}}
+
+### Create a distinct cache for one column
+
+Track unique values from a single column. This setup is useful for testing or simple use cases.
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create distinct_cache \
+  --database DATABASE_NAME \
+  --table TABLE_NAME \
+  --column COLUMN_NAME \
+  CACHE_NAME
+```
+
+### Create a hierarchical cache with constraints
+
+Create a distinct value cache for multiple columns. The following example tracks unique combinations of `room` and `sensor_id`, and sets limits on the number of entries and their maximum age.
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create distinct_cache \
+  --database my_test_db \
+  --table my_sensor_table \
+  --columns room,sensor_id \
+  --max-cardinality 1000 \
+  --max-age 30d \
+  my_sensor_distinct_cache
+```
+
+{{% /code-placeholders %}}
+
+## Common pitfalls
+
+- `--column` is not valid. Use `--columns`.
+- Tokens must be included explicitly unless set via `INFLUXDB3_AUTH_TOKEN`
+- Table and column names must already exist or be recognized by the engine
+

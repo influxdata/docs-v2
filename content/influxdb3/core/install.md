@@ -175,7 +175,7 @@ influxdb:3-{{< product-key >}}
        container_name: influxdb3-{{< product-key >}}
        image: influxdb:3-{{< product-key >}}
        ports:
-         - 9999:9999
+         - 8181:8181
        command:
          - influxdb3
          - serve

@@ -9,6 +9,7 @@ for simpler and more performant queries.
   - [Do not use duplicate names for tags and fields](#do-not-use-duplicate-names-for-tags-and-fields)
   - [Maximum number of columns per table](#maximum-number-of-columns-per-table)
 - [Design for performance](#design-for-performance)
+  {{% show-in "enterprise,core" %}}- [Sort tags by query priority](#sort-tags-by-query-priority){{% /show-in %}}
   - [Avoid wide schemas](#avoid-wide-schemas)
   - [Avoid sparse schemas](#avoid-sparse-schemas)
   - [Table schemas should be homogenous](#table-schemas-should-be-homogenous)
@@ -135,10 +136,34 @@ the performance of queries against that table.
 
 The following guidelines help to optimize query performance:
 
+{{% show-in "enterprise,core" %}}- [Sort tags by query priority](#sort-tags-by-query-priority){{% /show-in %}}
 - [Avoid wide schemas](#avoid-wide-schemas)
 - [Avoid sparse schemas](#avoid-sparse-schemas)
 - [Table schemas should be homogenous](#table-schemas-should-be-homogenous)
 - [Use the best data type for your data](#use-the-best-data-type-for-your-data)
+
+{{% show-in "enterprise,core" %}}
+
+### Sort tags by query priority
+
+The first write to a table in {{% product-name %}} determines the physical column
+order in storage, and that order has a direct impact on query performance.
+Columns that appear earlier are typically faster to filter and access during
+query execution.
+
+Sort your tags by query priority when performing the initial write to a table.
+Place the most commonly queried tags first—those you frequently use in `WHERE`
+clauses or joins—followed by less frequently queried ones. For example, if most
+of your queries filter by `region` and then by `host`, structure your first
+write so that `region` comes before `host`.
+
+> [!Important]
+> Column order is determined on the first write and cannot be changed afterward.
+> Tags added after the first write are added last in the column sort order.
+> Plan your schema with your query workload in mind to ensure the best long-term
+> performance.
+
+{{% /show-in %}}
 
 ### Avoid wide schemas
 

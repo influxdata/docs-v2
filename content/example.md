@@ -6,14 +6,14 @@ related:
   - /influxdb/v2/write-data/
   - /influxdb/v2/write-data/quick-start
   - https://influxdata.com, This is an external link
-draft: true
+test_only: true  # Custom parameter to indicate test-only content
 ---
 
 This is a paragraph. Lorem ipsum dolor ({{< icon "trash" "v2" >}}) sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
 
 [Ref link][foo]
 
-[foo]: https://docs.influxadata.com
+[foo]: https://docs.influxdata.com
 
 This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 

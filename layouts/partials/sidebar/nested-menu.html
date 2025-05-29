@@ -4,37 +4,37 @@
 {{ range $menu }}
   <li class="nav-category {{ if eq $page.RelPermalink .URL }}active{{end}}">
     {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-    <a href='{{ cond (isset .Params "url") .Params.url .URL }}'>{{ .Name }}</a>
+    <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
     {{ if .HasChildren }}
       <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
       {{ range .Children }}
         <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
           {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-          <a href='{{ cond (isset .Params "url") .Params.url .URL }}'>{{ .Name }}</a>
+          <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
           {{ if .HasChildren }}
             <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
             {{ range .Children }}
               <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
                 {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-                <a href='{{ cond (isset .Params "url") .Params.url .URL }}'>{{ .Name }}</a>
+                <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
                 {{ if .HasChildren }}
                   <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
                   {{ range .Children }}
                     <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
                       {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-                      <a href='{{ cond (isset .Params "url") .Params.url .URL }}'>{{ .Name }}</a>
+                      <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
                       {{ if .HasChildren }}
                         <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
                         {{ range .Children }}
                           <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
                             {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-                            <a href='{{ cond (isset .Params "url") .Params.url .URL }}'>{{ .Name }}</a>
+                            <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
                             {{ if .HasChildren }}
                               <ul class="children {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}">
                               {{ range .Children }}
                                 <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
                                   {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-                                  <a href='{{ cond (isset .Params "url") .Params.url .URL }}'>{{ .Name }}</a>
+                                  <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
 
                                   <!-- Begin nested block -->
                                   {{ if .HasChildren }}
@@ -42,7 +42,7 @@
                                     {{ range .Children }}
                                       <li class="nav-item {{ if eq $page.RelPermalink .URL }}active{{end}}">
                                         {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-                                        <a href='{{ cond (isset .Params "url") .Params.url .URL }}'>{{ .Name }}</a>
+                                        <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
                                         <!-- To add more nested layers, copy the nested block and paste it here -->
                                       </li>
                                     {{ end }}

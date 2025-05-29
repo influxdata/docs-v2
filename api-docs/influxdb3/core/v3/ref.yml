@@ -52,7 +52,7 @@ tags:
       #### Related guides
 
       - [Manage tokens](/influxdb3/core/admin/tokens/)
-      - [Authentication and authorization](/influxdb3/core/reference/authentication/)
+      - [Authentication and authorization](/influxdb3/core/reference/internals/authentication/)
     x-traitTag: true
   - name: Cache data
     description: |

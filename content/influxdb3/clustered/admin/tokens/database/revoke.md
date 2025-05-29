@@ -19,7 +19,7 @@ aliases:
 ---
 
 Use the [`influxctl token revoke` command](/influxdb3/clustered/reference/cli/influxctl/token/revoke/)
-to revoke a database token from your InfluxDB cluster and disable
+to revoke a database token from your {{< product-name omit=" Clustered" >}} cluster and disable
 all permissions associated with the token.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/clustered/reference/cli/influxctl/#download-and-install-influxctl).
