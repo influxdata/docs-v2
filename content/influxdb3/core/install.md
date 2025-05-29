@@ -12,7 +12,7 @@ alt_links:
 
 - [System Requirements](#system-requirements)
 - [Quick install](#quick-install)
-- [Download {{< product-name >}} binaries](#download-influxdb-3-{{< product-key >}}-binaries)
+- [Download {{% product-name %}} binaries](#download-influxdb-3-{{< product-key >}}-binaries)
 - [Docker image](#docker-image)
 
 ## System Requirements
@@ -79,7 +79,7 @@ source ~/.zshrc
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-## Download {{< product-name >}} binaries
+## Download {{% product-name %}} binaries
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

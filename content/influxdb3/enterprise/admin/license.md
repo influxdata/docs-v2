@@ -153,7 +153,7 @@ existing license if it's still valid.
     environment variable
 7. If no license is found, the server won't start 
 
-#### Example: Start the {{< product-name >}} server with your license email:
+#### Example: Start the {{% product-name %}} server with your license email:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -187,7 +187,7 @@ influxdb3 serve \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-#### Example: Start the {{< product-name >}} server with your license file:
+#### Example: Start the {{% product-name %}} server with your license file:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}

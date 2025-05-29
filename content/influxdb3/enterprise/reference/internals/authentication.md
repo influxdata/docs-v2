@@ -14,5 +14,5 @@ source: /shared/influxdb3-internals-reference/authentication.md
 ---
 
 <!-- The content for this page is at
-// SOURCE /content/shared/influxdb3-internals-reference/authentication.md
-// -->
+// SOURCE content/shared/influxdb3-internals-reference/authentication.md
+-->
