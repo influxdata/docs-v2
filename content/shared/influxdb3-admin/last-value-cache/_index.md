@@ -10,8 +10,6 @@ what fields to cache, what tags to use to identify each series, and the
 number of values to cache for each unique series.
 An LVC is associated with a table, which can have multiple LVCs.
 
-Caches import historical data when first created and reload data on restart.
-
 {{< children type="anchored-list" >}}
 - [Important things to know about the Last Value Cache](#important-things-to-know-about-the-last-value-cache)
   - [High cardinality key columns](#high-cardinality-key-columns)
@@ -83,11 +81,17 @@ similar to the following:
 LVCs are stored in memory; the larger the cache, the more memory your InfluxDB 3 node requires to
 maintain it. Consider the following:
 
+- [Cache data loading](#cache-data-loading)
 - [High cardinality key columns](#high-cardinality-key-columns)
 - [Value count](#value-count)
 {{% show-in "core" %}}
 - [Last Value Caches are flushed when the server stops](#last-value-caches-are-flushed-when-the-server-stops)
-{{% /show-in %}}lue-columns)
+{{% /show-in %}}
+
+## Cache data loading
+
+On cache creation, {{% product-name %}} loads historical data into the cache.
+On restart, the server automatically reloads cache data.
 
 ### High cardinality key columns
 
