@@ -522,11 +522,12 @@ influxdb3 create trigger \
 
 ### Install Python dependencies
 
-If your plugin needs additional Python packages, use the `influxdb3 install` command:
+If your plugin requires additional Python packages, install them using the CLI:
 
 ```bash
 # Install a package directly
 influxdb3 install package pandas
+
 ```
 
 ```bash
@@ -538,11 +539,38 @@ This creates a Python virtual environment in your plugins directory with the spe
 
 {{% show-in "enterprise" %}}
 
-### Connect Grafana to your InfluxDB instance
+## Distributed cluster considerations
 
-When configuring Grafana to connect to an InfluxDB 3 Enterprise instance:
+When you deploy {{% product-name %}} in a multi-node environment, configure each node based on its role and the plugins it runs.
 
-- **URL**: Use a querier URL or any node that serves queries
+### Match plugin types to the correct node
 
-Example URL format: `https://querier.your-influxdb.com:8086`
+Each plugin must run on a node that supports its trigger type:
+
+| Plugin type        | Trigger spec             | Runs on                     |
+|--------------------|--------------------------|-----------------------------|
+| Data write         | `table:` or `all_tables` | Ingester nodes              |
+| Scheduled          | `every:` or `cron:`      | Any node with scheduler     |
+| HTTP request       | `path:`                  | Nodes that serve API traffic|
+
+For example:
+- Run write-ahead log (WAL) plugins on ingester nodes.
+- Run scheduled plugins on any node configured to execute them.
+- Run HTTP-triggered plugins on querier nodes or any node that handles HTTP endpoints.
+
+Place all plugin files in the `--plugin-dir` directory configured for each node.
+
+> [!Note]
+> Triggers fail if the plugin file isn’t available on the node where it runs.
+
+### Route third-party clients to querier nodes
+
+External tools—such as Grafana, custom dashboards, or REST clients—must connect to querier nodes in your InfluxDB Enterprise deployment.
+
+#### Examples:
+
+- **Grafana**: When adding InfluxDB 3 as a Grafana data source, use a querier node URL, such as:
+https://querier.example.com:8086
+- **REST clients**: Applications using POST /api/v3/query/sql or similar endpoints must target a querier node.
+
 {{% /show-in %}}
