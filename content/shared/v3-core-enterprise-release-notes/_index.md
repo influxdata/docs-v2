@@ -5,6 +5,54 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.1.0 {date="2025-05-29"}
+**Core**: revision 482dd8aac580c04f37e8713a8fffae89ae8bc264
+
+**Enterprise**: revision 2cb23cf32b67f9f0d0803e31b356813a1a151b00
+
+### Core
+
+#### Token and Security Updates
+- Named admin tokens can now be created, with configurable expirations
+- `health`, `ping`, and `metrics` endpoints can now be opted out of authorization
+- `Basic $TOKEN` is now supported for all APIs
+- Additional info available when creating a new token
+- Additional info available when starting InfuxDB using `--without-auth`
+
+#### Additional Updates
+- New catalog metrics available for count operations
+- New object store metrics available for transfer latencies and transfer sizes
+- New query duration metrics available for Last Value caches
+- `/ping` API now contains versioning headers
+- Other performance improvements
+
+#### Fixes
+- New tags are now backfilled with NULL instead of empty strings
+- Bitcode deserialization error fixed
+- Series key metadata not persisting to Parquet is now fixed
+- Other general fixes and corrections
+
+### Enterprise
+
+#### Token and Security Updates
+- Resource tokens now use resource names in `show tokens`
+- Tokens can now be granted `CREATE` permission for creating databases
+
+#### Additional Updates
+- Last Value caches populate on creation and reload on restart
+- Distinct Value caches populate on creation and reload on restart
+- Other performance improvements
+
+#### Fixes
+- Improvements and fixes for license validations
+- False positive fixed for catalog error on shutdown
+- UX improvements for error and onboarding messages
+- Other general fixes and corrections
+
+
+
+
+
 ## v3.0.3 {date="2025-05-16"}
 **Core**: revision 384c457ef5f0d5ca4981b22855e411d8cac2688e
 
