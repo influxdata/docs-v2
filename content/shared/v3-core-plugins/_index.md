@@ -522,7 +522,8 @@ influxdb3 create trigger \
 
 ### Install Python dependencies
 
-Use the Processing Engine’s embedded Python environment to install any required third-party packages (for example, `pandas`, `requests`, or `numpy`).
+Use the `influxdb3 install package` command to add third-party libraries (like `pandas`, `requests`, or `influxdb3-python`) to your plugin environment.  
+This installs packages into the Processing Engine’s embedded Python environment to ensure compatibility with your InfluxDB instance.
 
 {{% code-placeholders "CONTAINER_NAME|PACKAGE_NAME" %}}
 
@@ -554,10 +555,17 @@ docker exec -it CONTAINER_NAME influxdb3 install package pandas
 
 {{< /code-tabs-wrapper >}}
 
+These examples install the specified Python package (for example, pandas) into the Processing Engine’s embedded virtual environment.
+
+- Use the CLI command when running InfluxDB directly on your system.
+- Use the Docker variant if you're running InfluxDB in a containerized environment.
+
 > [!Note]
-> Don’t use `python -m venv` or your system Python to install packages for Processing Engine plugins.
-> The Processing Engine includes its own embedded Python environment. Always use the `influxdb3 install package` 
-> command to ensure packages are installed in the correct environment.
+> If you create a custom virtual environment, use the Python interpreter bundled with InfluxDB 3—not system Python.
+> Creating a virtual environment with system Python (for example, using `python -m venv`) can lead to runtime errors and plugin failures.
+> 
+>F or details, see the [Process Engine README](https://github.com/influxdata/influxdb/blob/main/README_processing_engine.md#official-builds) 
+> for advanced setup instructions.
 
 {{% /code-placeholders %}}
 
