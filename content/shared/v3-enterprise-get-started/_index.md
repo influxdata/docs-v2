@@ -951,7 +951,7 @@ _You can create a last values cache per time series, but be mindful of high card
 
 #### Query a last values cache
 
-To query data from the LVC, use the [`last_cache()`](influxdb3/version/reference/sql/functions/cache/#last_cache) function in your query--for example:
+To query data from the LVC, use the [`last_cache()`](/influxdb3/version/reference/sql/functions/cache/#last_cache) function in your query--for example:
 
 ```bash
 influxdb3 query \
