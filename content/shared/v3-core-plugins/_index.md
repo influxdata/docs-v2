@@ -596,7 +596,7 @@ External tools—such as Grafana, custom dashboards, or REST clients—must conn
 #### Examples:
 
 - **Grafana**: When adding InfluxDB 3 as a Grafana data source, use a querier node URL, such as:
-https://querier.example.com:8086
-- **REST clients**: Applications using POST /api/v3/query/sql or similar endpoints must target a querier node.
+`https://querier.example.com:8086`
+- **REST clients**: Applications using `POST /api/v3/query/sql` or similar endpoints must target a querier node.
 
 {{% /show-in %}}
