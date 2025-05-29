@@ -3,8 +3,7 @@ title: Regenerate an operator admin token
 description: >
   Use the [`influxdb3 create token --admin` command](/influxdb3/enterprise/reference/cli/influxdb3/create/token/)
   or the [HTTP API](/influxdb3/enterprise/api/v3/)
-  to regenerate an [admin token](/influxdb3/enterprise/admin/tokens/admin/) for your {{< product-name omit="Clustered" >}} instance.
-  An operator token grants access to all actions on the server.
+  to regenerate an [operator token](/influxdb3/enterprise/admin/tokens/admin/) for your {{< product-name omit="Clustered" >}} instance.
   Regenerating an admin token deactivates the previous token.
 menu:
   influxdb3_enterprise:

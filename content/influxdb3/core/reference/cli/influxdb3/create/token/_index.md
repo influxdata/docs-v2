@@ -5,7 +5,7 @@ description: >
 menu:
   influxdb3_core:
     parent: influxdb3 create
-    name: influxdb3 create token
+    name: influxdb3 create token 
 weight: 400
 source: /shared/influxdb3-cli/create/token/_index.md
 ---

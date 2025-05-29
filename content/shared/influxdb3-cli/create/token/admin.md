@@ -1,5 +1,5 @@
 
-Create a new operator or named admin token.
+Create an operator token or named admin token.
 
 ## Usage
 
@@ -17,13 +17,17 @@ influxdb3 create token --admin [OPTIONS]
 | `--host <host>` | The host URL of the running InfluxDB 3 server [env: `INFLUXDB3_HOST_URL=`] [default: `http://127.0.0.1:8181`] |
 | `--token <token>` | An existing admin token for the InfluxDB 3 server |
 | `--tls-ca <tls-ca>` | An optional arg to use a custom ca for useful for testing with self signed certs |
-| `--format <FORMAT>` | Output format for token, supports just json or text [possible values: json, text] |
+| `--format <FORMAT>` | Output format for token [possible values: `json`, `text`] |
 | `-h`, `--help` | Print help information |
 | `--help-all` | Print more detailed help information |
 
 ## Examples
 
 ### Create an operator token
+
+The operator token is a special token that has full administrative privileges on the InfluxDB server and doesn't expire.
+The first admin token you create becomes the operator token for the instance.
+You can create an operator token using the `--admin` flag without any additional options.
 
 <!--pytest.mark.skip-->
 
