@@ -32,4 +32,5 @@ docker run --detach \
   quay.io/influxdb/influxdb3-explorer:latest
 ```
 
-[Get started with InfluxDB 3 Explorer](/explorer/v1/get-started/)
+<a class="btn" href="/influxdb3/explorer/install/">Install and run InfluxDB 3 Explorer</a>  
+<a class="btn" href="/influxdb3/explorer/get-started/">Get started with InfluxDB 3 Explorer</a>
