@@ -13,8 +13,8 @@ influxdb3 create token --admin [OPTIONS]
 |:-------|:------------|
 | `--regenerate` | Regenerates the operator token. Requires `--token` and the current operator token |
 | `--name <NAME>` | Name of the token |
-| `--expiry <EXPIRY>` | Expires in `duration`, e.g 10d for 10 days 1y for 1 year |
-| `--host <host>` | The host URL of the running InfluxDB 3 server [env: INFLUXDB3_HOST_URL=] [default: http://127.0.0.1:8181] |
+| `--expiry <EXPIRY>` | Expires in `duration`--for example, 10d for 10 days 1y for 1 year |
+| `--host <host>` | The host URL of the running InfluxDB 3 server [env: `INFLUXDB3_HOST_URL=`] [default: `http://127.0.0.1:8181`] |
 | `--token <token>` | An existing admin token for the InfluxDB 3 server |
 | `--tls-ca <tls-ca>` | An optional arg to use a custom ca for useful for testing with self signed certs |
 | `--format <FORMAT>` | Output format for token, supports just json or text [possible values: json, text] |
