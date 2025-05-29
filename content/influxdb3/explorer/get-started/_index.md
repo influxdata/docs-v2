@@ -2,9 +2,8 @@
 title: Get started using InfluxDB 3 Explorer
 description: Follow steps to get started using InfluxDB 3 Explorer.
 menu:
-  explorer_v1:
+  influxdb3_explorer:
     name: Get started
-    parent: InfluxDB 3 Explorer
     weight: 30
 ---
 

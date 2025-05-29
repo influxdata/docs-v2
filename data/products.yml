@@ -27,6 +27,20 @@ influxdb3_enterprise:
     - How do I install and run InfluxDB 3 Enterprise?
     - Help me write a plugin for the Python Processing engine?
     - How do I start a read replica node with InfluxDB 3 Enterprise?
+  
+influxdb3_explorer:
+  name: InfluxDB 3 Explorer
+  altname: Explorer
+  namespace: influxdb3_explorer
+  menu_category: tools
+  list_order: 1
+  latest: explorer
+  latest_patch: 1.0.0
+  placeholder_host: localhost:8888
+  ai_sample_questions:
+    - How do I query data using InfluxDB 3 Explorer?
+    - How do I use InfluxDB 3 Explorer to visualize data?
+    - How do I install InfluxDB 3 Explorer?
 
 influxdb3_cloud_serverless:
   name: InfluxDB Cloud Serverless

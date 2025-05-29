@@ -3,7 +3,7 @@ title: InfluxDB 3 Explorer documentation
 description: >
   InfluxDB 3 Explorer is a standalone web-based interface for interacting with InfluxDB 3 Core and Enterprise. Visualize, query, and manage your time series data efficiently.
 menu:
-  explorer_v1:
+  influxdb3_explorer:
     name: InfluxDB 3 Explorer
 weight: 1
 aliases:
