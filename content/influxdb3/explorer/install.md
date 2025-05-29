@@ -8,7 +8,6 @@ menu:
 weight: 2
 ---
 
-
 Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
 
 <!-- BEGIN TOC -->
@@ -74,7 +73,7 @@ Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
     - Any of the available [environment variables](#environment-variables) 
 
     ```bash
-    docker run -d \
+    docker run --detach \
       --name influxdb3-explorer \
       --publish 8888:80 \
       --publish 8889:8888 \
@@ -82,7 +81,7 @@ Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
       --volume $(pwd)/db:/db:rw \
       --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
       --env MODE=admin \
-      influxdb3-explorer
+      quay.io/influxdb/influxdb3-explorer:latest
     ```
 
 5.  **Access the {{% product-name %}} user interface (UI) at <http://localhost:8888>**.

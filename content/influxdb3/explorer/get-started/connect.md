@@ -5,7 +5,8 @@ description:
 menu:
   influxdb3_explorer:
     parent: Get started
-weight: 10
+weight: 101
+draft: true
 ---
 
 Use InfluxDB 3 Explorer to connect to an InfluxDB 3 server.
