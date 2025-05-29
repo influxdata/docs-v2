@@ -4,7 +4,7 @@ description: Follow steps to get started using InfluxDB 3 Explorer.
 menu:
   influxdb3_explorer:
     name: Get started
-    weight: 30
+weight: 3
 ---
 
 Follow steps to get started using InfluxDB 3 Explorer.

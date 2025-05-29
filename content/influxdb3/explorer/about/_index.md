@@ -5,7 +5,7 @@ description: >
 menu:
   influxdb3_explorer:
     name: About Explorer
-    weight: 10
+weight: 10
 ---
 
 InfluxDB 3 Explorer is the user interface component of the InfluxDB 3 platform.
