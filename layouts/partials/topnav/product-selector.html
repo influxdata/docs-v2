@@ -24,10 +24,11 @@ Identify products by their product path. Dictionary schema:
 {{ $telegraf := dict "telegraf/v1" (slice "Telegraf" "telegraf") }}
 {{ $chronograf := dict "chronograf/v1" (slice "Chronograf" "chronograf") }}
 {{ $kapacitor := dict "kapacitor/v1" (slice "Kapacitor" "kapacitor") }}
+{{ $explorer := dict "explorer/v3" (slice "Explorer" "explorer") }}
 {{ $flux := dict "flux/v0" (slice "Flux" "flux") }}
 {{ $enterpriseInfluxdb := dict "enterprise_influxdb/v1" (slice "InfluxDB Enterprise" "enterprise_v1") }}
 
-{{ $productInfo := merge $influxdbOSSv1 $influxdbOSSv2 $influxdbCloud $influxdb3Core $influxdb3Enterprise $influxdb3CloudServerless $influxdb3CloudDedicated $influxdb3Clustered $telegraf $chronograf $kapacitor $flux $enterpriseInfluxdb }}
+{{ $productInfo := merge $influxdbOSSv1 $influxdbOSSv2 $influxdbCloud $influxdb3Core $influxdb3Enterprise $influxdb3CloudServerless $influxdb3CloudDedicated $influxdb3Clustered $telegraf $chronograf $kapacitor $explorer $flux $enterpriseInfluxdb }}
 
 {{ define "productLink" }}
   {{ $defaultAltProductPage := $.context.GetPage ((replaceRE .pageRoot .productPath $.context.Page.RelPermalink) | replaceRE `\/$` "") }}
@@ -80,6 +81,7 @@ Identify products by their product path. Dictionary schema:
         <li>{{ template "productLink" (merge (dict "productPath" "telegraf/v1") $templateDefaults) }}</li>
         <li>{{ template "productLink" (merge (dict "productPath" "chronograf/v1") $templateDefaults) }}</li>
         <li>{{ template "productLink" (merge (dict "productPath" "kapacitor/v1") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "explorer/v3") $templateDefaults) }}</li>
       </ul>
     </div>
   </div>
