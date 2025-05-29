@@ -1,6 +1,5 @@
 
-The `influxdb3 test schedule_plugin` command tests a schedule plugin.  
-Use this command to verify plugin behavior without creating a trigger.
+The `influxdb3 test schedule_plugin` command tests a schedule plugin. Use this command to verify plugin behavior without creating a trigger.
 
 ## Usage
 
@@ -11,7 +10,7 @@ influxdb3 test schedule_plugin [OPTIONS] --database <DATABASE_NAME> <FILENAME>
 ```
 ## Arguments
 
-- **FileName**: Path to the local plugin file (usually ends in `.py`)
+- **PLUGIN_NAME**: Path to the plugin file on the server. Use the full relative path, such as `<plugin-dir>/<plugin-file-name>.py`.
 
 ## Options
 
@@ -40,9 +39,12 @@ In the examples below, replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Your target database
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: Your authentication token
-- {{% code-placeholder-key %}}`PLUGIN_FILENAME`{{% /code-placeholder-key %}}: Plugin filename (with path)
+- {{% code-placeholder-key %}}`PLUGIN_DIR`{{% /code-placeholder-key %}}: 
+  Plugin directory name
+- {{% code-placeholder-key %}}`PLUGIN_NAME`{{% /code-placeholder-key %}}: 
+  Plugin file name
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN|PLUGIN_FILENAME" %}}
+{{% code-placeholders "(DATABASE|PLUGIN)_(NAME|DIR)|AUTH_TOKEN" %}}
 
 ### Test a schedule plugin
 
@@ -52,7 +54,7 @@ In the examples below, replace the following:
 influxdb3 test schedule_plugin \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
-  PLUGIN_FILENAME.py
+  PLUGIN_DIR/PLUGIN_NAME.py
 ```
-{{% /code-placeholders %}}
 
+{{% /code-placeholders %}}
