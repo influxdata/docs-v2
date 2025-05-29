@@ -537,7 +537,7 @@ This installs packages into the Processing Engine’s embedded Python environmen
 {{% code-tab-content %}}
 
 ```bash
-# Install a package directly
+# Use the CLI to install a Python package
 influxdb3 install package pandas
 
 ```
@@ -547,7 +547,7 @@ influxdb3 install package pandas
 {{% code-tab-content %}}
 
 ```bash
-# With Docker
+# Use the CLI to install a Python package in a Docker container
 docker exec -it CONTAINER_NAME influxdb3 install package pandas
 ```
 
