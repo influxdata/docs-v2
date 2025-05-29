@@ -145,7 +145,7 @@ You can predefine InfluxDB connection settings using a `config.json` file.
     Include the following option when running your Docker container:
 
     ```sh
-    --volumne $(pwd)/config:/app-root/config:ro
+    --volume $(pwd)/config:/app-root/config:ro
     ```
 
 {{% /code-placeholders %}}
