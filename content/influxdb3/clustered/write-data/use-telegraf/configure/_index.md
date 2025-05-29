@@ -112,7 +112,7 @@ For {{% product-name %}}, set this to an empty string (`""`).
 The name of the {{% product-name %}} database to write data to.
 
 > [!Note]
-> ##### Write to InfluxDB v1.x and {{< product-name >}}
+> ##### Write to InfluxDB v1.x and {{% product-name %}}
 > 
 > If a Telegraf agent is already writing to an InfluxDB v1.x database,
 > enabling the InfluxDB v2 output plugin will write data to both v1.x and your {{< product-name omit="Clustered" >}} cluster.
