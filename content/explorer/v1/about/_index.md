@@ -3,7 +3,8 @@ title: About the InfluxDB 3 Explorer project
 description: Learn about Explorer, the user interface and query tool for InfluxDB 3.
 menu:
   explorer_v1:
-    name: About the project
+    name: About Explorer
+    parent: InfluxDB 3 Explorer
     weight: 10
 ---
 Explorer is the user interface compononent of the InfluxDB 3 platform. It makes visual management of databases and tokens straightforward, while also being an easy way to get started querying. It is fully featured for Core and Enterprise, while bringing query support for InfluxDB Cloud Serverless and InfluxDB Clustered.
