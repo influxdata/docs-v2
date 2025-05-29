@@ -39,7 +39,7 @@ Each Telegraf configuration must **have at least one input plugin and one output
 Telegraf input plugins retrieve metrics from different sources.
 Telegraf output plugins write those metrics to a destination.
 
-Use the [`outputs.influxdb_v2`](/telegraf/v1/plugins/#output-influxdb_v2) plugin to write metrics collected by Telegraf to {{< product-name >}}.
+Use the [`outputs.influxdb_v2`](/telegraf/v1/plugins/#output-influxdb_v2) plugin to write metrics collected by Telegraf to {{% product-name %}}.
 
 ```toml
 # ...
