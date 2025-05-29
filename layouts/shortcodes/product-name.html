@@ -11,6 +11,8 @@
   {{- $scratch.Set "productData" .Site.Data.products.influxdb3_core -}}
 {{- else if eq $currentProduct "enterprise" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb3_enterprise -}}
+{{- else if eq $currentProduct "explorer" -}}
+  {{- $scratch.Set "productData" .Site.Data.products.influxdb3_explorer -}}
 {{- else if eq $currentProduct "cloud-serverless" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb3_cloud_serverless -}}
 {{- else if eq $currentProduct "cloud-dedicated" -}}
