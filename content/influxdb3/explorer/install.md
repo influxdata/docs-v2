@@ -166,7 +166,7 @@ You can control the operational mode using the `MODE` environment variable.
 
 ```sh
 docker run -d \
-  -e MODE=query \
+  --env MODE=query \
   ...
 ```
 
@@ -174,7 +174,7 @@ docker run -d \
 
 ```sh
 docker run -d \
-  -e MODE=admin \
+  --env MODE=admin \
   ...
 ```
 
@@ -212,5 +212,5 @@ If `MODE` is not set, the container defaults to query mode.
 
 ```sh
 # Map ports to custom host values
--p 8888:80 -p 8443:443
+--publish 8888:80 --publish 8443:443
 ```
