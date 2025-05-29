@@ -536,7 +536,7 @@ Use the Processing Engine’s embedded Python environment to install any require
 {{% code-tab-content %}}
 
 ```bash
-# Install a package directly
+# Use the CLI to install a Python package
 influxdb3 install package pandas
 
 ```
