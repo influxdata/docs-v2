@@ -6,10 +6,6 @@ menu:
   influxdb3_explorer:
     name: InfluxDB 3 Explorer
 weight: 1
-aliases:
-  - /explorer/
-  - /explorer/v3/
-  - /influxdb/v3/explorer/
 ---
 
 InfluxDB 3 Explorer is the standalone web application designed for visualizing, querying, and managing your data stored in InfluxDB 3 Core and Enterprise.
@@ -28,11 +24,13 @@ Use InfluxDB 3 Explorer for:
 Run the Docker image to start InfluxDB 3 Explorer:
 
 ```sh
-docker run -d \
-  -p 8888:80 \
-  -p 8889:8888 \
-  explorer:latest \
-  --MODE=admin
+docker run --detach \
+  --name influxdb3-explorer \
+  --publish 8888:80 \
+  --publish 8889:8888 \
+  --env MODE=admin \
+  quay.io/influxdb/influxdb3-explorer:latest
 ```
 
-[Get started with InfluxDB 3 Explorer](/explorer/v1/get-started/)
+<a class="btn" href="/influxdb3/explorer/install/">Install and run InfluxDB 3 Explorer</a>  
+<a class="btn" href="/influxdb3/explorer/get-started/">Get started with InfluxDB 3 Explorer</a>
