@@ -546,7 +546,7 @@ influxdb3 install package pandas
 {{% code-tab-content %}}
 
 ```bash
-# With Docker
+# Use the CLI to install a Python package in a Docker container
 docker exec -it CONTAINER_NAME influxdb3 install package pandas
 ```
 
