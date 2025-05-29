@@ -894,7 +894,7 @@ docker pull quay.io/influxdb/influxdb3-explorer:latest
 Run the interface using:
 
 ```bash
-docker run --name influxdb3-explorer -p 8086:8888 quay.io/influxdb/influxdb3-explorer:latest
+docker run -p 8086:80 -p 8087:8888 quay.io/influxdb/influxdb3-explorer:latest --mode=normal
 ```
 
 With the default settings above, you can access the UI at http://localhost:8086.
