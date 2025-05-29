@@ -193,9 +193,8 @@ To start your InfluxDB instance, use the `influxdb3 serve` command and provide t
 - `--cluster-id`: A string identifier that determines part of the storage path hierarchy. All nodes within the same cluster share this identifier. The storage path follows the pattern `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`. In a multi-node setup, this ID is used to reference the entire cluster.
 {{% /show-in %}}
 {{% show-in "core" %}}
-- `--node-id`: A string identifier that distinguishes individual server instances within the cluster.
+- `--node-id`: A string identifier that distinguishes individual server instances.
   This forms the final part of the storage path: `<CONFIGURED_PATH>/<NODE_ID>`.
-  In a multi-node setup, this ID is used to reference specific nodes.
 {{% /show-in %}}
 
 The following examples show how to start {{% product-name %}} with different object store configurations.
