@@ -118,10 +118,10 @@
           line-height: 1.5rem;
           color: rgba($article-text, .7);
         }
-      }
 
-      &[state] {
-        .product-info h3::after {
+        h3[state] {
+          &::after {
+          content: attr(state);
           margin-left: .5rem;
           font-size: 1rem;
           padding: .25em .5em .25em .4em;
@@ -131,16 +131,8 @@
           font-style: italic;
           vertical-align: middle;
         }
-      }
 
-      &[state="new"] {
-        .product-info h3::after { content: "New"; }
-      }
-      &[state="beta"] {
-        .product-info h3::after { content: "beta";}
-      }
-      &[state="alpha"] {
-        .product-info h3::after { content: "alpha";}
+        }
       }
 
       ul.product-links {
