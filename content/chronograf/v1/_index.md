@@ -8,10 +8,6 @@ menu:
   chronograf_v1:
     name: Chronograf v1.10
 weight: 1
-aliases:
-  - /explorer/
-  - /explorer/v1/
-  - /influxdb/v3/explorer/
 ---
 
 Chronograf is InfluxData's open source web application.
