@@ -10,6 +10,8 @@ what fields to cache, what tags to use to identify each series, and the
 number of values to cache for each unique series.
 An LVC is associated with a table, which can have multiple LVCs.
 
+Caches import historical data when first created and reload data on restart.
+
 {{< children type="anchored-list" >}}
 - [Important things to know about the Last Value Cache](#important-things-to-know-about-the-last-value-cache)
   - [High cardinality key columns](#high-cardinality-key-columns)

@@ -162,7 +162,6 @@ The following examples show how to start {{% product-name %}} with different obj
 > storage alone, eliminating the need for locally attached disks.
 > {{% product-name %}} can also work with only local disk storage when needed. 
 
-
 ##### Filesystem object store
 
 Store data in a specified directory on the local filesystem.
@@ -183,7 +182,6 @@ To run the [Docker image](/influxdb3/version/install/#docker-image) and persist 
 
 - `-v /path/on/host:/path/in/container`: Mounts a directory from your filesystem to the container
 - `--object-store file --data-dir /path/in/container`: Uses the mount for server storage
-
 
 <!--pytest.mark.skip-->
 ```bash
@@ -247,7 +245,7 @@ influxdb3 serve \
 --object-store memory
 ```
 
-For more information about server options, use the CLI help or view the [InfluxDB 3 CLI reference](/influxdb3/version/reference/cli/serve/):
+For more information about server options, use the CLI help or view the [InfluxDB 3 CLI reference](/influxdb3/version/reference/cli/influxdb3/serve/):
 
 ```bash
 influxdb3 serve --help
@@ -255,30 +253,15 @@ influxdb3 serve --help
 
 ### Authentication and authorization
 
-After you have [started the server](#start-influxdb), you can create and manage tokens using the `influxdb3` CLI or the HTTP API.
-{{% product-name %}} uses token-based authentication and authorization which is enabled by default when you start the server.
+{{% product-name %}} uses token-based authentication and authorization, which is enabled by default when you start the server.
+
 With authentication enabled, you must provide a token with `influxdb3` CLI commands and HTTP API requests.
-An {{% product-name %}} instance can have one _admin token_, which grants access to all CLI actions and API endpoints.
 
-When you create a token, InfluxDB 3 returns a token string in plain text
-that you use to authenticate CLI commands and API requests.
+#### Create an operator token
 
-To have the `influxdb3` CLI use your admin token automatically, assign it to the
-`INFLUXDB3_AUTH_TOKEN` environment variable.
-
-> [!Important]
-> #### Securely store your token
->
-> InfluxDB lets you view the token string only when you create the token.
-> Store your token in a secure location, as you cannot retrieve it from the database later.
-> InfluxDB 3 stores only the token's hash and metadata in the catalog.
-
-#### Create an admin token
-
-To create an admin token, use the `influxdb3 create token --admin` subcommand--for example:
+After you start the server, create your first admin token (the operator token):
 
 {{< code-tabs-wrapper >}}
-
 {{% code-tabs %}}
 [CLI](#)
 [Docker](#)
@@ -286,8 +269,7 @@ To create an admin token, use the `influxdb3 create token --admin` subcommand--f
 {{% code-tab-content %}}
 
 ```bash
-influxdb3 create token --admin \
-  --host http://INFLUXDB_HOST
+influxdb3 create token --admin
 ```
 
 {{% /code-tab-content %}}
@@ -303,58 +285,63 @@ docker exec -it CONTAINER_NAME influxdb3 create token --admin
 Replace {{% code-placeholder-key %}}`CONTAINER_NAME`{{% /code-placeholder-key %}} with the name of your running Docker container.
 
 {{% /code-tab-content %}}
-
 {{< /code-tabs-wrapper >}}
 
-The command returns a token string that you can use to authenticate CLI commands and API requests.
-Store your token in a secure location, as you cannot retrieve it from the database later.
+The command returns a token string for authenticating CLI commands and API requests.
 
-For more information about tokens, see how to [Manage admin tokens](/influxdb3/version/admin/tokens/admin/).
+> [!Important]
+> **Store your token securely**
+> 
+> InfluxDB displays the token string only when you create it.
+> Store your token securely—you cannot retrieve it from the database later.
 
-#### Use tokens to authorize CLI commands and API requests
+#### Set your token for authentication
 
-With authentication enabled (the default), {{% product-name %}} requires a
-token for all `influxdb3` CLI commands and HTTP API requests.
-
-In the following examples, replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}} with your {{% token-link "admin" %}} string.
+Use one of the following methods to authenticate requests.
+In your commands, replace {{% code-placeholder-key %}}`YOUR_AUTH_TOKEN`{{% /code-placeholder-key %}} with your token string (for example, the [operator token](#create-an-operator-token) from the previous step).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[CLI](#cli-use-a-token)
-[HTTP API](#api-use-a-token)
+[Environment variable (recommended)](#)
+[Command option](#)
 {{% /tabs %}}
 {{% tab-content %}}
-For `influxdb3` to use your token automatically, assign it your
-  token to the `INFLUXDB3_AUTH_TOKEN` environment variable:
 
-{{% code-placeholders "AUTH_TOKEN" %}}
+Set the `INFLUXDB3_AUTH_TOKEN` environment variable to have the CLI use your token  automatically:
+
+{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
 ```bash
-# Set the environment variable for future CLI commands
-export INFLUXDB3_AUTH_TOKEN=AUTH_TOKEN
+export INFLUXDB3_AUTH_TOKEN=YOUR_AUTH_TOKEN
 ```
 {{% /code-placeholders %}}
 
-Or to authenticate a single `influxdb3` CLI command and override `$INFLUXDB3_AUTH_TOKEN`, include the `--token` option:
+{{% /tab-content %}}
+{{% tab-content %}}
 
-{{% code-placeholders "AUTH_TOKEN" %}}
+Include the `--token` option with CLI commands:
+
+{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
 ```bash
-# Use the --token option for a single command
 influxdb3 show databases --token AUTH_TOKEN
 ```
 {{% /code-placeholders %}}
+
 {{% /tab-content %}}
-{{% tab-content %}}
-To authenticate HTTP API requests, include `Bearer <TOKEN>` in the `Authorization` header value:
+{{< /tabs-wrapper >}}
+
+For HTTP API requests, include your token in the `Authorization` header:
 
 {{% code-placeholders "AUTH_TOKEN" %}}
 ```bash
-# Include the token in the Authorization HTTP request header
 curl "http://{{< influxdb/host >}}/api/v3/configure/database" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 {{% /code-placeholders %}}
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
+
+#### Learn more about token management
+
+- [Manage admin tokens](/influxdb3/version/admin/tokens/admin/) - Create, list, and delete admin tokens
+- [Token types and permissions](/influxdb3/version/admin/tokens/) - Understanding operator and named admin tokens
 
 ### Data model
 
@@ -372,17 +359,17 @@ This tutorial covers many of the recommended tools.
 
 | Tool                                                                                              |      Administration      |          Write           |          Query           |
 | :------------------------------------------------------------------------------------------------ | :----------------------: | :----------------------: | :----------------------: |
-| [Chronograf](/chronograf/v1/)                                                                     |            -             |            -             | **{{< icon "check" >}}** |
-| <span style="opacity:.5;">`influx` CLI</span>                                                     |            -             |            -             |            -             |
-| [`influxdb3` CLI](#influxdb3-cli){{< req text="\* " color="magenta" >}}                           | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
-| <span style="opacity:.5;">`influxctl` CLI</span>                                                  |            -             |            -             |            -             |
-| [InfluxDB HTTP API](#influxdb-http-api){{< req text="\* " color="magenta" >}}                     | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
-| <span style="opacity:.5;">InfluxDB user interface</span>                                          |            -             |            -             |            -             |
+| `influxdb3` CLI{{< req text="\* " color="magenta" >}}                           | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| InfluxDB HTTP API {{< req text="\* " color="magenta" >}}                     | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [InfluxDB 3 client libraries](/influxdb3/version/reference/client-libraries/v3/)                  |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [InfluxDB v2 client libraries](/influxdb3/version/reference/client-libraries/v2/)                 |            -             | **{{< icon "check" >}}** |            -             |
 | [InfluxDB v1 client libraries](/influxdb3/version/reference/client-libraries/v1/)                 |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [InfluxDB 3 Processing engine](#python-plugins-and-the-processing-engine){{< req text="\* " color="magenta" >}}                              |                          | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [Telegraf](/telegraf/v1/)                                                                         |            -             | **{{< icon "check" >}}** |            -             |
+| [Chronograf](/chronograf/v1/)                                                                     |            -             |            -             |            -             |
+| <span style="opacity:.5;">`influx` CLI</span>                                                     |            -             |            -             |            -             |
+| <span style="opacity:.5;">`influxctl` CLI</span>                                                  |            -             |            -             |            -             |
+| <span style="opacity:.5;">InfluxDB v2.x user interface</span>                                     |            -             |            -             |            -             |
 | **Third-party tools**                                                                             |                          |                          |                          |
 | Flight SQL clients                                                                                |            -             |            -             | **{{< icon "check" >}}** |
 | [Grafana](/influxdb3/version/visualize-data/grafana/)                                             |            -             |            -             | **{{< icon "check" >}}** |
@@ -656,7 +643,7 @@ Replace the following placeholders with your values:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to create
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: the {{% token-link "admin" %}} for your {{% product-name %}} server
 
-To learn more about a subcommand, use the `-h, --help` flag or view the [InfluxDB 3 CLI reference](/influxdb3/version/reference/cli/create/):
+To learn more about a subcommand, use the `-h, --help` flag or view the [InfluxDB 3 CLI reference](/influxdb3/version/reference/cli/influxdb3/create):
 
 ```bash
 influxdb3 create -h
@@ -1153,7 +1140,7 @@ To test a plugin, do the following:
 
 1. Create a _plugin directory_--for example, `/path/to/.influxdb/plugins`
 2. [Start the InfluxDB server](#start-influxdb) and include the `--plugin-dir <PATH>` option.
-3. Save the [example plugin code](#example-python-plugin-for-wal-flush) to a plugin file inside of the plugin directory. If you haven't yet written data to the table in the example, comment out the lines where it queries.
+3. Save the [example plugin code](#example-python-plugin-for-wal-rows) to a plugin file inside of the plugin directory. If you haven't yet written data to the table in the example, comment out the lines where it queries.
 4. To run the test, enter the following command with the following options:
 
    - `--lp` or  `--file`: The line protocol to test

@@ -109,12 +109,9 @@ Replace the following:
 - {{% code-placeholder-key %}}`LVC_NAME`{{% /code-placeholder-key %}}:
   a unique name for the LVC
 
-> [!Note]
-> #### Values are cached on write
->
-> Values are cached on write. When you create a cache, it will not cache
-> previously written points, only newly written points.
->
+The cache imports the distinct values from the table and starts caching them.
+
+> [!Important]
 > #### LVC size and persistence
 >
 > The LVC is stored in memory, so it's important to consider the size and persistence
