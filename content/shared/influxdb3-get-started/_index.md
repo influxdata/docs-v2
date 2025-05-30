@@ -231,8 +231,8 @@ influxdb3 serve \
 {{% /show-in %}}
 {{% show-in "core" %}}
 ```bash
-# Filesystem object store
-# Provide the filesystem directory
+# File system object store
+# Provide the file system directory
 influxdb3 serve \
   --node-id host01 \
   --object-store file \
