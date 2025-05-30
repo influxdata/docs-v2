@@ -5,7 +5,7 @@
 {{ $fluxSupported := slice "influxdb" "enterprise_influxdb" }}
 {{ $influxdbFluxSupport := slice "v1" "v2" "cloud" }}
 {{ $includeFlux := and (in $fluxSupported $product) (in $influxdbFluxSupport $version) }}
-{{ $includeResources := not (in (slice "cloud-serverless" "cloud-dedicated" "clustered" "core" "enterprise") $version) }}
+{{ $includeResources := not (in (slice "cloud-serverless" "cloud-dedicated" "clustered" "core" "enterprise" "explorer") $version) }}
 
 <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
@@ -27,6 +27,8 @@ docsearch({
         return 'Core';
       } else if (version === 'enterprise') {
         return 'Enterprise';
+      } else if (version === 'explorer') {
+        return 'Explorer';
       } else if (version === 'cloud-serverless') {
         return 'Cloud Serverless';
       } else if (version === 'cloud-dedicated') {
