@@ -20,11 +20,11 @@ InfluxDB is optimized for scenarios where near real-time data monitoring is esse
 
 Core's feature highlights include:
 
-* Diskless architecture with object storage support (or local disk with no dependencies)
-* Fast query response times (under 10ms for last-value queries, or 30ms for distinct metadata)
-* Embedded Python VM for plugins and triggers
-* Parquet file persistence
-* Compatibility with InfluxDB 1.x and 2.x write APIs
+- Diskless architecture with object storage support (or local disk with no dependencies)
+- Fast query response times (under 10ms for last-value queries, or 30ms for distinct metadata)
+- Embedded Python VM for plugins and triggers
+- Parquet file persistence
+- Compatibility with InfluxDB 1.x and 2.x write APIs
 
 {{% show-in "core" %}}
 [Get started with Core](/influxdb3/version/get-started/)
