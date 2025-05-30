@@ -32,12 +32,12 @@ Core's feature highlights include:
 
 The Enterprise version adds the following features to Core:
 
-* Historical query capability and single series indexing
-* High availability
-* Read replicas
-* Enhanced security (coming soon)
-* Row-level delete support (coming soon)
-* Integrated admin UI (coming soon)
+- Historical query capability and single series indexing
+- High availability
+- Read replicas
+- Enhanced security (coming soon)
+- Row-level delete support (coming soon)
+- Integrated admin UI (coming soon)
 
 {{% show-in "core" %}}
 For more information, see how to [get started with Enterprise](/influxdb3/enterprise/get-started/).
