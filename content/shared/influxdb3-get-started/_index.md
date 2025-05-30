@@ -242,7 +242,7 @@ influxdb3 serve \
 
 To run the [Docker image](/influxdb3/version/install/#docker-image) and persist data to the file system, mount a volume for the object store-for example, pass the following options:
 
-- `-v /path/on/host:/path/in/container`: Mounts a directory from your filesystem to the container
+- `-v /path/on/host:/path/in/container`: Mounts a directory from your file system to the container
 - `--object-store file --data-dir /path/in/container`: Uses the mount for server storage
 
 
