@@ -83,8 +83,8 @@ Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
       --volume $(pwd)/config:/app-root/config:ro \
       --volume $(pwd)/db:/db:rw \
       --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
-      --env MODE=admin \
-      quay.io/influxdb/influxdb3-explorer:latest
+      quay.io/influxdb/influxdb3-explorer:latest \
+      --mode=admin
     ```
 
 5.  **Access the {{% product-name %}} user interface (UI) at <http://localhost:8888>**.
@@ -163,34 +163,37 @@ These settings will be used as defaults when the container starts.
 - **Query mode (default):** Read-only UI and query interface
 - **Admin mode:** Full UI and API access for administrators
 
-You can control the operational mode using the `MODE` environment variable.
+You can control the operational mode using the `--mode=` option in your
+`docker run` command (after the image name).
 
 ### Run in query mode {note="(default)"}
 
 ```sh
-docker run -d \
-  --env MODE=query \
+docker run \
   ...
+  --mode=query
 ```
 
 ### Run in admin mode
 
 ```sh
-docker run -d \
-  --env MODE=admin \
+docker run \
   ...
+  --mode=admin
 ```
 
-If `MODE` is not set, the container defaults to query mode.
+If `--mode` is not set, the container defaults to query mode.
 
 ---
 
 ## Environment Variables
 
+Use the following environment variables to customize {{% product-name %}} settings
+in your container.
+
 | Variable       | Description                                      | Default              |
 |----------------|--------------------------------------------------|----------------------|
 | `DATABASE_URL` | Path to SQLite DB inside container               | `/db/sqlite.db`      |
-| `MODE`         | Set to `admin` or `query`                        | `query`              |
 
 ---
 

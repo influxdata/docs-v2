@@ -28,8 +28,8 @@ docker run --detach \
   --name influxdb3-explorer \
   --publish 8888:80 \
   --publish 8889:8888 \
-  --env MODE=admin \
-  quay.io/influxdb/influxdb3-explorer:latest
+  quay.io/influxdb/influxdb3-explorer:latest \
+  --mode=admin
 ```
 
 <a class="btn" href="/influxdb3/explorer/install/">Install and run InfluxDB 3 Explorer</a>  
