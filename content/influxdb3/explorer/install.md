@@ -14,10 +14,13 @@ Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
 - [Run the InfluxDB 3 Explorer Docker container](#run-the-influxdb-3-explorer-docker-container)
 - [Enable TLS/SSL (HTTPS)](#enable-tlsssl-https)
 - [Pre-configure InfluxDB connection settings](#pre-configure-influxdb-connection-settings)
-- [Run in admin or query mode](#run-in-admin-or-query-mode)
+- [Run in query or admin mode](#run-in-query-or-admin-mode)
+  - [Run in query mode](#run-in-query-mode)
+  - [Run in admin mode](#run-in-admin-mode)
 - [Environment Variables](#environment-variables)
 - [Volume Reference](#volume-reference)
 - [Exposed Ports](#exposed-ports)
+  - [Custom port mapping](#custom-port-mapping)
 <!-- END TOC -->
 
 ## Run the InfluxDB 3 Explorer Docker container

@@ -165,17 +165,6 @@ If your system doesn't locate `influxdb3`, then `source` the configuration file 
 source ~/.zshrc
 ```
 
-> [!Tip]
-> #### Run the InfluxDB 3 Explorer query interface (beta)
-> 
-> InfluxDB 3 Explorer (currently in beta) is the user interface component of the InfluxDB 3 platform.
-> It provides visual management of databases and tokens and an easy way to query your time series data.
-> 
-> Use Docker to download and run InfluxDB 3 Explorer:
-> 
-> ```bash
-> docker pull quay.io/influxdb/influxdb3-explorer:latest
-> ```
 
 #### Start InfluxDB
 
@@ -373,6 +362,15 @@ For more information about server options, use the CLI help or view the [InfluxD
 ```bash
 influxdb3 serve --help
 ```
+
+> [!Tip]
+> #### Run the InfluxDB 3 Explorer query interface (beta)
+> 
+> InfluxDB 3 Explorer (currently in beta) is the web-based query and 
+> administrative interface for InfluxDB 3.
+> It provides visual management of databases and tokens and an easy way to query your time series data.
+> 
+> For more information, see the [InfluxDB 3 Explorer documentation](/influxdb3/explorer/).
 
 {{% show-in "enterprise" %}}
 #### Licensing
@@ -1012,32 +1010,12 @@ print(table.group_by('cpu').aggregate([('time_system', 'mean')]))
 
 For more information about the Python client library, see the [`influxdb3-python` repository](https://github.com/InfluxCommunity/influxdb3-python) in GitHub.
 
-
 ### Query using InfluxDB 3 Explorer (Beta)
 
-You can use the InfluxDB 3 Explorer query interface by downloading the Docker image.
-
-```bash
-docker pull quay.io/influxdb/influxdb3-explorer:latest
-```
-
-Run the interface using:
-
-{{% show-in "enterprise" %}}
-```bash
-docker run -p 8086:80 -p 8087:8888 quay.io/influxdb/influxdb3-explorer:latest --mode=normal
-```
-{{% /show-in %}}
-{{% show-in "core" %}}
-```bash
-docker run --name influxdb3-explorer -p 8086:8888 quay.io/influxdb/influxdb3-explorer:latest
-```
-{{% /show-in %}}
-
-With the default settings above, you can access the UI at http://localhost:8086.
-Set your expected database connection details on the Settings page.
-From there, you can query data, browser your database schema, and do basic
-visualization of your time series data.
+You can use the InfluxDB 3 Explorer web-based interface to query and visualize data,
+and administer your {{% product-name %}} instance.
+For more information, see how to [install InfluxDB 3 Explorer (Beta)](/influxdb3/explorer/install/) using Docker
+and get started querying your data.
 
 ### Last values cache
 
