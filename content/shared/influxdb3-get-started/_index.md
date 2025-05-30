@@ -249,7 +249,7 @@ To run the [Docker image](/influxdb3/version/install/#docker-image) and persist 
 {{% show-in "enterprise" %}}
 <!--pytest.mark.skip-->
 ```bash
-# Filesystem object store with Docker 
+# File system object store with Docker 
 # Create a mount
 # Provide the mount path
 docker run -it \
