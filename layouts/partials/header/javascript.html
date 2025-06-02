@@ -12,21 +12,60 @@
 {{ end -}}
 {{ $products := .Site.Data.products }}
 {{ $influxdb_urls := .Site.Data.influxdb_urls }}
-<!-- Build index.js -->
-{{ with resources.Get "js/main.js" }}
-  {{ $opts := dict
-    "minify" hugo.IsProduction
-    "sourceMap" (cond hugo.IsProduction "" "external")
-    "targetPath" "js/main.js"
-    "params" (dict "product" $product "currentVersion" $currentVersion "isServer" hugo.IsServer "products" $products "influxdb_urls" $influxdb_urls "cloudUrls" $cloudUrls)
-  }}
-  {{ with . | js.Build $opts }}
-    {{ if hugo.IsProduction }}
-      {{ with . | fingerprint }}
-        <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
-      {{ end }}
-    {{ else }}
+
+{{ $isDevelopmentOrTesting := or (eq .Site.Params.environment "development") (eq .Site.Params.environment "testing") (eq (getenv "HUGO_ENV") "development") (eq (getenv "HUGO_ENV") "testing") (not hugo.IsProduction) }}
+
+{{ if $isDevelopmentOrTesting }}
+  {{/* Load individual JS files for debugging */}}
+  {{ $sharedParams := dict "product" $product "currentVersion" $currentVersion "isServer" hugo.IsServer "products" $products "influxdb_urls" $influxdb_urls "cloudUrls" $cloudUrls }}
+  
+  {{/* Load main.js first to ensure proper initialization */}}
+  {{ with resources.Get "js/main.js" }}
+    {{ $opts := dict
+      "minify" false
+      "sourceMap" "inline"
+      "targetPath" "js/main.js"
+      "params" $sharedParams
+    }}
+    {{ with . | js.Build $opts }}
       <script defer src="{{ .RelPermalink }}"></script>
+    {{ end }}
+  {{ end }}
+  
+  {{/* Load other individual JS files for debugging */}}
+  {{ range $file := (readDir "assets/js") }}
+    {{ if and (strings.HasSuffix $file.Name ".js") (ne $file.Name "main.js") }}
+      {{ $jsPath := printf "js/%s" $file.Name }}
+      {{ with resources.Get $jsPath }}
+        {{ $opts := dict
+          "minify" false
+          "sourceMap" "inline"
+          "targetPath" $jsPath
+          "params" $sharedParams
+        }}
+        {{ with . | js.Build $opts }}
+          <script defer src="{{ .RelPermalink }}"></script>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ else }}
+  {{/* Non-development environment: Bundle everything */}}
+  {{ with resources.Get "js/main.js" }}
+    {{ $opts := dict
+      "minify" hugo.IsProduction
+      "sourceMap" (cond hugo.IsProduction "" "external")
+      "targetPath" "js/main.js"
+      "params" (dict "product" $product "currentVersion" $currentVersion "isServer" hugo.IsServer "products" $products "influxdb_urls" $influxdb_urls "cloudUrls" $cloudUrls)
+    }}
+    {{ with . | js.Build $opts }}
+      {{ if hugo.IsProduction }}
+        {{ with . | fingerprint }}
+          <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+        {{ end }}
+      {{ else }}
+        <script defer src="{{ .RelPermalink }}"></script>
+      {{ end }}
     {{ end }}
   {{ end }}
 {{ end }}

@@ -1,16 +1,36 @@
 baseURL: 'http://localhost:1315/'
+languageCode: en-us
+title: InfluxDB Documentation
 
-server:
-  port: 1315
+# Git history information for lastMod-type functionality
+enableGitInfo: true
+
+# Syntax Highlighting
+pygmentsCodefences: true
+pygmentsUseClasses: true
+
+# Preserve case in article tags
+preserveTaxonomyNames: true
+
+# Generate a robots.txt
+enableRobotsTXT: true
 
 # Override settings for testing
 buildFuture: true
 
 # Configure what content is built in testing env
 params:
+  env: testing
   environment: testing
   buildTestContent: true
-  
+
+# Server configuration for testing
+server:
+  port: 1315
+  baseURL: 'http://localhost:1315/'
+  watchChanges: true
+  disableLiveReload: false
+
 # Keep your shared content exclusions
 ignoreFiles:
   - "content/shared/.*"
@@ -18,3 +38,74 @@ ignoreFiles:
 # Ignore specific warning logs
 ignoreLogs:
   - warning-goldmark-raw-html
+
+# Markdown rendering options
+blackfriday:
+  hrefTargetBlank: true
+  smartDashes: false
+
+# Copy taxonomies from main config
+taxonomies:
+  influxdb/v2/tag: influxdb/v2/tags
+  influxdb/cloud/tag: influxdb/cloud/tags
+  influxdb3/cloud-serverless/tag: influxdb/cloud-serverless/tags
+  influxdb3/cloud-dedicated/tag: influxdb/cloud-dedicated/tags
+  influxdb3/clustered/tag: influxdb3/clustered/tags
+  influxdb3/core/tag: influxdb3/core/tags
+  influxdb3/enterprise/tag: influxdb3/enterprise/tags
+  flux/v0/tag: flux/v0/tags
+
+# Markup configuration
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+    extensions:
+      linkify: false
+    parser:
+      attribute:
+        block: true
+
+# Privacy settings
+privacy:
+  googleAnalytics:
+    anonymizeIP: false
+    disable: false
+    respectDoNotTrack: true
+    useSessionStorage: false
+  youtube:
+    disable: false
+    privacyEnhanced: true
+
+# Output formats
+outputFormats:
+  json:
+    mediaType: application/json
+    baseName: pages
+    isPlainText: true
+
+# Asset processing for testing (disable minification)
+build:
+  writeStats: true
+  useResourceCacheWhen: "fallback"
+  buildOptions:
+    sourcemap: "inline"
+    target: "es2020"
+
+# Disable minification for testing
+minify:
+  disableJS: true
+  disableCSS: true
+  disableHTML: true
+  minifyOutput: false
+
+# Asset processing configuration
+assetDir: "assets"
+
+# Module mounts
+module:
+  mounts:
+    - source: assets
+      target: assets
+    - source: node_modules
+      target: assets/node_modules
