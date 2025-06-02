@@ -12,7 +12,6 @@ InfluxDB 3 Explorer is the standalone web application designed for visualizing, 
 Explorer provides an intuitive interface for interacting with your time series data, streamlining database operations and enhancing data insights.
 
 > [!Important]
-> [!IMPORTANT]
 > #### InfluxDB 3 Core or Enterprise v3.1.0 or later required
 >
 > InfluxDB 3 Explorer is compatible with the following:
