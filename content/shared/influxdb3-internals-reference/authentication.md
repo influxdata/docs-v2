@@ -1,7 +1,7 @@
 <!--
 -->
 {{% product-name %}} uses an Attribute-Based Access Control (ABAC) model to
-manage permissions.
+manage permissions and supports multiple token types for different authentication scenarios.
 
 {{% show-in "enterprise" %}}
 This model allows for fine-grained control over access to resources and actions
@@ -39,5 +39,10 @@ The ABAC model includes the following components:
   {{% /show-in %}}
 
 - **Resource**: The objects that can be accessed or manipulated.
-  In {{% product-name %}}, resources include databases and system information endpoints.
   Resources have attributes such as identifier and name.
+  In {{% product-name %}}, resources include databases and system information endpoints.
+  {{% show-in "enterprise" %}}
+  - Database tokens provide access to specific databases for actions like writing and querying data.
+  - System tokens provide access to system-level resources, such as API endpoints for server runtime statistics and health.
+    Access controls for system information API endpoints help prevent information leaks and attacks (such as DoS).
+  {{% /show-in %}}

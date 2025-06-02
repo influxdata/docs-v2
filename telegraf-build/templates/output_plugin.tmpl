@@ -6,10 +6,14 @@ menu:
     name: {{.Name}}
     identifier: output-{{.ID}}
 tags: [{{.Name}}, "output-plugins", "configuration"{{range .Tags}}, "{{.}}"{{end}}]
-{{if .Introduced}}introduced: "{{.Introduced}}"{{end}}
-{{if .Deprecated}}deprecated: "{{.Deprecated}}"{{end}}
-{{if .Removal}}removal: "{{.Removal}}"{{end}}
-{{if .OS}}os_support: "{{.OS}}"{{end}}
+introduced: "{{.Introduced}}"
+{{- with .Deprecated}}
+deprecated: {{.}}
+{{- end}}
+{{- with .Removal}}
+removal: {{.}}
+{{- end}}
+os_support: "{{.OSTags | join ", "}}"
 related:
   - /telegraf/v1/configure_plugins/
   - {{.URL}}, {{.Name}} Plugin Source

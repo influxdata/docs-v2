@@ -81,11 +81,17 @@ similar to the following:
 LVCs are stored in memory; the larger the cache, the more memory your InfluxDB 3 node requires to
 maintain it. Consider the following:
 
+- [Cache data loading](#cache-data-loading)
 - [High cardinality key columns](#high-cardinality-key-columns)
 - [Value count](#value-count)
 {{% show-in "core" %}}
 - [Last Value Caches are flushed when the server stops](#last-value-caches-are-flushed-when-the-server-stops)
-{{% /show-in %}}lue-columns)
+{{% /show-in %}}
+
+## Cache data loading
+
+On cache creation, {{% product-name %}} loads historical data into the cache.
+On restart, the server automatically reloads cache data.
 
 ### High cardinality key columns
 
