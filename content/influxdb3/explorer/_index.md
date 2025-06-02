@@ -12,9 +12,13 @@ InfluxDB 3 Explorer is the standalone web application designed for visualizing, 
 Explorer provides an intuitive interface for interacting with your time series data, streamlining database operations and enhancing data insights.
 
 > [!Important]
-> **InfluxDB >3.1.0 Required** \
-> To use InfluxDB 3 Explorer, you must be using Core or Enterprise version *3.1.0* or higher. \
-> Download the latest version for [**Core**](https://docs.influxdata.com/influxdb3/enterprise/install/) and [**Enterprise**](https://docs.influxdata.com/influxdb3/enterprise/install/) today! 
+> [!IMPORTANT]
+> #### InfluxDB 3 Core or Enterprise v3.1.0 or later required
+>
+> InfluxDB 3 Explorer is compatible with the following:
+>
+> - [InfluxDB 3 Core v3.1.0 or later](/influxdb3/core/install/)
+> - [InfluxDB 3 Enterprise v3.1.0 or later](/influxdb3/enterprise/install/)
 
 ## Key features
 
