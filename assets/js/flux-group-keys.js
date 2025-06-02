@@ -155,7 +155,7 @@ function buildTable(inputData) {
   }
 
   // Create the table element
-  var table = document.createElement('table');
+  const table = document.createElement('table');
 
   // Create the table header
   for (let i = 0; i < columns.length; i++) {
