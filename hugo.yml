@@ -56,14 +56,25 @@ outputFormats:
     isPlainText: true
 
 build:
-  # Ensure Hugo correctly processes JavaScript modules
-  jsConfig:
-    nodeEnv: "development"
+  # Configure JavaScript build settings for ES6 modules
+  writeStats: true
+  useResourceCacheWhen: "fallback"
+
+# Asset processing configuration
+assetDir: "assets"
 
 module:
   mounts:
     - source: assets
       target: assets
-    
     - source: node_modules
       target: assets/node_modules
+
+# Ensure proper JavaScript processing in development
+minify:
+  disableJS: true
+  minifyOutput: false
+
+# Development settings
+params:
+  env: development
