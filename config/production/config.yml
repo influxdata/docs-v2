@@ -1,0 +1,25 @@
+# Production overrides for CI/CD builds
+baseURL: 'https://docs.influxdata.com/'
+
+# Production environment parameters
+params:
+  env: production
+  environment: production
+
+# Enable minification for production
+minify:
+  disableJS: false
+  disableCSS: false
+  disableHTML: false
+  minifyOutput: true
+
+# Production asset processing
+build:
+  writeStats: false
+  useResourceCacheWhen: "always"
+  buildOptions:
+    sourcemap: false
+    target: "es2015"
+
+# Disable development server settings
+server: {}
