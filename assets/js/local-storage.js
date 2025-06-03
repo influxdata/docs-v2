@@ -87,7 +87,7 @@ const defaultUrls = {};
 // Guard against pageParams being null/undefined and safely access nested properties
 if (pageParams && pageParams.influxdb_urls) {
   Object.entries(pageParams.influxdb_urls).forEach(([product, {providers}]) => {
-  defaultUrls[product] = providers.filter(provider => provider.name === 'Default')[0]?.regions[0]?.url;
+  defaultUrls[product] = providers.filter(provider => provider.name === 'Default')[0]?.regions[0]?.url || 'https://cloud2.influxdata.com';
   });
 }
 
