@@ -49,6 +49,7 @@ privacy:
   youtube:
     disable: false
     privacyEnhanced: true
+
 outputFormats:
   json:
     mediaType: application/json
@@ -57,13 +58,8 @@ outputFormats:
 
 # Asset processing configuration for development
 build:
-  writeStats: true
+  writeStats: false 
   useResourceCacheWhen: "fallback"
-  # Enable source maps for debugging
-  buildOptions:
-    sourcemap: "inline"
-    target: "es2020"
-  # Disable asset bundling in development
   noJSConfigInAssets: false
 
 # Asset processing configuration
@@ -82,14 +78,17 @@ params:
   environment: development
 
 # Configure the server for development
-# Specify the port for development to avoid conflicts with testing
 server:
   port: 1313
   baseURL: 'http://localhost:1313/'
   watchChanges: true
   disableLiveReload: false
 
-# Disable minification and bundling for development
+# Ignore specific warning logs
+ignoreLogs:
+  - warning-goldmark-raw-html
+
+# Disable minification for development
 minify:
   disableJS: true
   disableCSS: true

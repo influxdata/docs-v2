@@ -15,29 +15,6 @@ preserveTaxonomyNames: true
 # Generate a robots.txt
 enableRobotsTXT: true
 
-# Override settings for testing
-buildFuture: true
-
-# Configure what content is built in testing env
-params:
-  env: testing
-  environment: testing
-  buildTestContent: true
-
-# Server configuration for testing
-server:
-  port: 1315
-  baseURL: 'http://localhost:1315/'
-  watchChanges: true
-  disableLiveReload: false
-
-# Keep your shared content exclusions
-ignoreFiles:
-  - "content/shared/.*"
-
-# Ignore specific warning logs
-ignoreLogs:
-  - warning-goldmark-raw-html
 
 # Markdown rendering options
 blackfriday:
@@ -55,7 +32,6 @@ taxonomies:
   influxdb3/enterprise/tag: influxdb3/enterprise/tags
   flux/v0/tag: flux/v0/tags
 
-# Markup configuration
 markup:
   goldmark:
     renderer:
@@ -66,7 +42,6 @@ markup:
       attribute:
         block: true
 
-# Privacy settings
 privacy:
   googleAnalytics:
     anonymizeIP: false
@@ -77,7 +52,6 @@ privacy:
     disable: false
     privacyEnhanced: true
 
-# Output formats
 outputFormats:
   json:
     mediaType: application/json
@@ -86,11 +60,43 @@ outputFormats:
 
 # Asset processing for testing (disable minification)
 build:
-  writeStats: true
+  writeStats: false
   useResourceCacheWhen: "fallback"
-  buildOptions:
-    sourcemap: "inline"
-    target: "es2020"
+  noJSConfigInAssets: false
+
+# Asset processing configuration
+assetDir: "assets"
+
+module:
+  mounts:
+    - source: assets
+      target: assets
+    - source: node_modules
+      target: assets/node_modules
+
+# Override settings for testing
+buildFuture: true
+
+# Configure what content is built in testing env
+params:
+  env: testing
+  environment: testing
+  buildTestContent: true
+
+# Configure the server for testing
+server:
+  port: 1315
+  baseURL: 'http://localhost:1315/'
+  watchChanges: true
+  disableLiveReload: false
+
+# Keep your shared content exclusions
+ignoreFiles:
+  - "content/shared/.*"
+
+# Ignore specific warning logs
+ignoreLogs:
+  - warning-goldmark-raw-html
 
 # Disable minification for testing
 minify:
@@ -98,14 +104,3 @@ minify:
   disableCSS: true
   disableHTML: true
   minifyOutput: false
-
-# Asset processing configuration
-assetDir: "assets"
-
-# Module mounts
-module:
-  mounts:
-    - source: assets
-      target: assets
-    - source: node_modules
-      target: assets/node_modules

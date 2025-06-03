@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Docs (console-based)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:1313",
+      "webRoot": "${workspaceFolder}",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "sourceMaps": false,
+      "trace": true,
+      "smartStep": false
+    }
+  ]
+}
