@@ -1,6 +1,12 @@
+// Memoize the mermaid module import
+let mermaidPromise = null;
+
 export default function Diagram({ component }) {
-  // Import mermaid.js module
-  import('mermaid').then(({ default: mermaid }) => {
+  // Import mermaid.js module (memoized)
+  if (!mermaidPromise) {
+    mermaidPromise = import('mermaid');
+  }
+  mermaidPromise.then(({ default: mermaid }) => {
     // Configure mermaid with InfluxData theming
     mermaid.initialize({
       startOnLoad: false, // We'll manually call run()
