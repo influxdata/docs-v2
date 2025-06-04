@@ -22,7 +22,7 @@ We recommend the following design guidelines for most use cases:
 
 Your queries should guide what data you store in [tags](/influxdb/v1/concepts/glossary/#tag) and what you store in [fields](/influxdb/v1/concepts/glossary/#field) :
 
-- Store commonly queried and grouping ([`group()`](/flux/v0.x/stdlib/universe/group) or [`GROUP BY`](/influxdb/v1/query_language/explore-data/#group-by-tags)) metadata in tags.
+- Store commonly queried and grouping ([`group()`](/flux/v0/stdlib/universe/group) or [`GROUP BY`](/influxdb/v1/query_language/explore-data/#group-by-tags)) metadata in tags.
 - Store data in fields if each data point contains a different value.
 - Store numeric values as fields ([tag values](/influxdb/v1/concepts/glossary/#tag-value) only support string values).
 

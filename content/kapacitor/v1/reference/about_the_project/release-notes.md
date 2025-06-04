@@ -121,7 +121,7 @@ aliases:
 ### Bug fixes
 
 - Update the `Kafka` client to fix a bug regarding write latency.
-- Update to [Flux v0.171.0](/flux/v0.x/release-notes/#v01710) to fix "interface {} is nil, not string" issue.
+- Update to [Flux v0.171.0](/flux/v0/release-notes/#v01710) to fix "interface {} is nil, not string" issue.
 
 ---
 
