@@ -9,9 +9,9 @@ weight: 105
 ---
 
 ## Send data in JSON body with `http.post()`
-Use the [reduce()](/flux/v0.x/stdlib/universe/reduce/) function to create a JSON object to include as the body with `http.post()`. 
+Use the [reduce()](/flux/v0/stdlib/universe/reduce/) function to create a JSON object to include as the body with `http.post()`. 
 
-1. Import both the [array](/flux/v0.x/stdlib/array/) package to query data and construct table(s), and the [http package](/flux/v0.x/stdlib/http/) to transfer JSON over http.
+1. Import both the [array](/flux/v0/stdlib/array/) package to query data and construct table(s), and the [http package](/flux/v0/stdlib/http/) to transfer JSON over http.
 2. Use `array.from()` to query data and construct a table. Or, use another method [to query data with Flux](/influxdb/v2/query-data/flux/). 
 3. Use the `reduce()` function to construct a JSON object, and then use `yield()` to store the output of reduce. This table looks like: 
 
@@ -19,7 +19,7 @@ Use the [reduce()](/flux/v0.x/stdlib/universe/reduce/) function to create a JSON
     | :-------------------- | :----------------------------- |
     | example-field:["3"4"1 | {example-tag-key:["bar"bar"bar |
 
-4. Use the [map()](/flux/v0.x/stdlib/universe/map/) function to combine the two components together into a JSON object, and then use a second `yield()` function to store this object as `final JSON`. This table looks like:
+4. Use the [map()](/flux/v0/stdlib/universe/map/) function to combine the two components together into a JSON object, and then use a second `yield()` function to store this object as `final JSON`. This table looks like:
 
     | field                 | tag                            | final                                                     |
     | :-------------------- | :----------------------------- | :-------------------------------------------------------  |

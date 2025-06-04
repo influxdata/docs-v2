@@ -1,7 +1,7 @@
 ---
 title: Flux Data Structure
 description: >
-  [Flux](/flux/v0.x/) is the native data language for the InfluxDB platform. Here, Scott Anderson discusses the 'stream of tables' concept, and how that relates to Flux's data structure.
+  [Flux](/flux/v0/) is the native data language for the InfluxDB platform. Here, Scott Anderson discusses the 'stream of tables' concept, and how that relates to Flux's data structure.
 menu:
   resources:
     parent: Videos
