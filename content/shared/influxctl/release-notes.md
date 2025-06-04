@@ -1,3 +1,22 @@
+## v2.10.1 {date="2025-05-30"}
+
+### Features
+
+- Implement `clustered generate` subcommand.
+- Support setting the management token an using environment variable.
+- Support setting profile name using an environment variable.
+
+### Dependency updates
+
+- Update `github.com/apache/arrow-go/v18` from 18.2.0 to 18.3.0.
+- Update `github.com/containerd/containerd` from 1.7.12 to 1.7.27.
+- Update `github.com/go-git/go-git/v5` from 5.15.0 to 5.16.0.
+- Update `golang.org/x/oauth2` from 0.29.0 to 0.30.0.
+- Update `google.golang.org/grpc` from 1.71.1 to 1.72.1.
+- Update `helm.sh/helm/v3` from 3.14.2 to 3.17.3.
+
+---
+
 ## v2.10.0 {date="2025-04-04"}
 
 ### Features
