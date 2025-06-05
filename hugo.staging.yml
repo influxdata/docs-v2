@@ -17,26 +17,7 @@ enableRobotsTXT: true
 
 # Custom staging params
 params:
-  env: staging
   environment: staging
-server:
-  disableLiveReload: true
-
-# Staging uses the same asset processing as production
-# Enable minification for staging
-minify:
-  disableJS: false
-  disableCSS: false
-  disableHTML: false
-  minifyOutput: true
-
-# Staging asset processing
-build:
-  writeStats: false
-  useResourceCacheWhen: "always"
-  buildOptions:
-    sourcemap: false
-    target: "es2015"
 
 # Markdown rendering options
 blackfriday:

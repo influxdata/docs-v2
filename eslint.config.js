@@ -106,33 +106,6 @@ export default [
     files: ['assets/js/**/*.js'],
     rules: {
       // Rules specific to JavaScript in Hugo assets
-      // Prevent imports from debug-helpers.js
-      'no-restricted-imports': [
-        'error',
-        {
-          paths: [
-            {
-              name: './utils/debug-helpers.js',
-              message:
-                'Remove debugging functions before committing. Debug helpers should not be used in production code.',
-            },
-            {
-              name: '/utils/debug-helpers.js',
-              message:
-                'Remove debugging functions before committing. Debug helpers should not be used in production code.',
-            },
-          ],
-        },
-      ],
-      // Prevent use of debug functions in production code
-      'no-restricted-syntax': [
-        'error',
-        {
-          selector: 'CallExpression[callee.name=/^debug(Log|Break|Inspect)$/]',
-          message:
-            'Remove debugging functions before committing. Debug helpers should not be used in production code.',
-        },
-      ],
     },
   },
   {

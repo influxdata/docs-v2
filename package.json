@@ -66,6 +66,8 @@
     "test:links:api-docs": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\" /influxdb3/core/api/,/influxdb3/enterprise/api/,/influxdb3/cloud-dedicated/api/,/influxdb3/cloud-dedicated/api/v1/,/influxdb/cloud-dedicated/api/v1/,/influxdb/cloud-dedicated/api/management/,/influxdb3/cloud-dedicated/api/management/",
     "test:shortcode-examples": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\" content/example.md"
   },
+  "main": "assets/js/main.js",
+  "module": "assets/js/main.js",
   "type": "module",
   "browserslist": [
     "last 2 versions",

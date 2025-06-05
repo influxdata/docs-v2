@@ -5,104 +5,28 @@
 <!-- Get site data -->
 <!-- Load cloudUrls array -->
 {{ $cloudUrls := slice }}
-{{- range .Site.Data.influxdb_urls.cloud.providers }}
-  {{- range .regions }}
-    {{ $cloudUrls = $cloudUrls | append (safeHTML .url) }}
+{{- range.Site.Data.influxdb_urls.cloud.providers }}
+  {{- range.regions }}
+    {{ $cloudUrls = $cloudUrls | append "{{ safeHTML .url }}" }}
   {{ end -}}
 {{ end -}}
 {{ $products := .Site.Data.products }}
 {{ $influxdb_urls := .Site.Data.influxdb_urls }}
-
-{{ $isDevelopmentOrTesting := or (eq .Site.Params.environment "development") (eq .Site.Params.environment "testing") (eq (getenv "HUGO_ENV") "development") (eq (getenv "HUGO_ENV") "testing") (not hugo.IsProduction) }}
-
-{{ if $isDevelopmentOrTesting }}
-  {{/* Load individual JS files for debugging with ESM format */}}
-  {{ $sharedParams := dict "product" $product "currentVersion" $currentVersion "isServer" hugo.IsServer "products" $products "influxdb_urls" $influxdb_urls "cloudUrls" $cloudUrls }}
-  
-  {{/* Load main.js first to ensure proper initialization */}}
-  {{ $mainJS := resources.Get "js/main.js" }}
-  {{ if $mainJS }}
-    {{ $opts := dict
-      "sourceMap" "external"
-      "sourcesContent" true
-      "targetPath" "js/main.js"
-      "format" "esm"
-      "bundle" false
-      "minify" false
-      "target" "es2017"
-      "write" true
-      "params" $sharedParams
-    }}
-    {{ $processed := $mainJS | js.Build $opts }}
-    {{ if $processed }}
-      <script type="module" src="{{ $processed.RelPermalink }}"></script>
-    {{ end }}
-  {{ end }}
-  
-  {{/* Load other individual JS files for debugging with error handling */}}
-  {{ $jsDir := "assets/js" }}
-  {{ if fileExists $jsDir }}
-    {{ range $file := (readDir $jsDir) }}
-      {{ if and (strings.HasSuffix $file.Name ".js") (ne $file.Name "main.js") }}
-        {{ $jsPath := printf "js/%s" $file.Name }}
-        {{ $jsRes := resources.Get $jsPath }}
-        {{ with $jsRes }}
-          {{ $opts := dict
-            "sourceMap" ""
-            "targetPath" $jsPath
-            "format" "esm"
-            "bundle" false
-            "minify" false
-            "target" "es2015"
-            "write" true
-            "params" $sharedParams
-          }}
-          {{ $out := . | js.Build $opts }}
-          
-          {{/* Add descriptive debug comments at the beginning of each file */}}
-          {{ $debugHeader := printf "// DEBUG MODE: %s\n// Original file: assets/js/%s\n\n" $file.Name $file.Name }}
-          {{ $modifiedContent := printf "%s%s" $debugHeader $out.Content }}
-          {{ $out = resources.FromString $jsPath $modifiedContent }}
-
-          <script type="module" src="{{ $out.RelPermalink }}"></script>
-        {{ end }}
+<!-- Build main.js -->
+{{ with resources.Get "js/index.js" }}
+  {{ $opts := dict
+    "minify" hugo.IsProduction
+    "sourceMap" (cond hugo.IsProduction "" "external")
+    "targetPath" "js/main.js"
+    "params" (dict "product" $product "currentVersion" $currentVersion "isServer" hugo.IsServer "products" $products "influxdb_urls" $influxdb_urls "cloudUrls" $cloudUrls)
+  }}
+  {{ with . | js.Build $opts }}
+    {{ if hugo.IsProduction }}
+      {{ with . | fingerprint }}
+        <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
       {{ end }}
-    {{ end }}
-  {{ end }}
-{{ else }}
-  {{/* Production environment: Use IIFE for better compatibility */}}
-  {{ $mainJS := resources.Get "js/main.js" }}
-  {{ if $mainJS }}
-    {{ $sharedParams := dict "product" $product "currentVersion" $currentVersion "isServer" hugo.IsServer "products" $products "influxdb_urls" $influxdb_urls "cloudUrls" $cloudUrls }}
-    
-    {{ $opts := dict
-      "minify" hugo.IsProduction
-      "sourceMap" ""
-      "targetPath" "js/main.js"
-      "params" $sharedParams
-      "format" "iife"
-      "target" "es2019"
-      "splitting" false
-      "external" (slice "*")
-      "define" (dict
-        "process.env.NODE_ENV" "\"production\""
-      )
-    }}
-    
-    {{ $processed := "" }}
-    {{ with $mainJS }}
-      {{ $processed = . | js.Build $opts }}
-    {{ end }}
-    
-    {{ if $processed }}
-      {{ if hugo.IsProduction }}
-        {{ $fingerprinted := $processed | fingerprint }}
-        {{ if $fingerprinted }}
-          <script defer src="{{ $fingerprinted.RelPermalink }}" integrity="{{ $fingerprinted.Data.Integrity }}" crossorigin="anonymous"></script>
-        {{ end }}
-      {{ else }}
-        <script defer src="{{ $processed.RelPermalink }}"></script>
-      {{ end }}
+    {{ else }}
+      <script src="{{ .RelPermalink }}"></script>
     {{ end }}
   {{ end }}
 {{ end }}

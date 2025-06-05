@@ -1667,7 +1667,7 @@ The shortcode takes a regular expression for matching placeholder names.
 Use the `code-placeholder-key` shortcode to format the placeholder names in 
 text that describes the placeholder--for example:
 
-```markdown
+```
 {{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
 ```sh
 curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
@@ -1691,64 +1691,3 @@ InfluxDB API documentation when documentation is deployed.
 Redoc generates HTML documentation using the InfluxDB `swagger.yml`.
 For more information about generating InfluxDB API documentation, see the
 [API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).
-
-## JavaScript in the documentation UI
-
-The InfluxData documentation UI uses JavaScript with ES6+ syntax and
-`assets/js/main.js` as the entry point to import modules from
-`assets/js`.
-Only `assets/js/main.js` should be imported in HTML files.
-
-`assets/js/main.js` registers components and initializes them on page load.
-
-If you're adding UI functionality that requires JavaScript, follow these steps:
-
-1. In your HTML file, add a `data-component` attribute to the element that
-   should be initialized by your JavaScript code. For example:
-
-   ```html
-   <div data-component="my-component"></div>
-   ``` 
-
-2. Following the component pattern, create a single-purpose JavaScript module
-   (`assets/js/components/my-component.js`)
-   that exports a single function that receives the component element and initializes it.
-3. In `assets/js/main.js`, import the module and register the component to ensure
-   the component is initialized on page load. 
-
-### Debugging JavaScript
-
-To debug JavaScript code used in the InfluxData documentation UI:
-
-1. In your JavaScript module, import debug helpers from `assets/js/utils/debug-helpers.js`.
-   These helpers provide breakpoints and console logging as a workaround for
-   Hugo's lack of source map support in the asset pipeline.
-2. Insert debug statements by calling the helper functions in your code--for example:
-   
-   ```js
-   import { debugLog, debugBreak, debugInspect } from './utils/debug-helpers.js';
-
-   const data = debugInspect(someData, 'Data');
-   debugLog('Processing data', 'myFunction');
-
-   function processData() {
-     // Add a breakpoint that works with DevTools
-     debugBreak();
-     
-     // Your existing code...
-   }
-   ```
-
-3. Start Hugo in development mode--for example:
-
-   ```bash
-   yarn hugo server
-   ```
-
-4. In VS Code, go to Run > Start Debugging, and select the "Debug Docs (console-based)" configuration.
-
-Your system uses the configuration in `launch.json` to launch the site in Chrome
-and attach the debugger to the Developer Tools console.
-
-Make sure to remove the debug statements before merging your changes.
-The debug helpers are designed to be used in development and should not be used in production.
