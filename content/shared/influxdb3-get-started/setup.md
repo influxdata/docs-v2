@@ -283,7 +283,6 @@ influxdb3 serve \
   --aws-allow-http
 ```
 {{% /show-in %}}
-
 {{% show-in "core" %}}
 ```bash
 # S3 object store (default is the us-east-1 region)
@@ -363,8 +362,6 @@ InfluxDB 3 Enterprise licenses:
 - **Trial**: 30-day trial license with full access to InfluxDB 3 Enterprise capabilities.
 - **At-Home**: For at-home hobbyist use with limited access to InfluxDB 3 Enterprise capabilities.
 - **Commercial**: Commercial license with full access to InfluxDB 3 Enterprise capabilities.
-
-You can obtain a license key from the [InfluxData pricing page](https://www.influxdata.com/pricing/).
 
 ### Start InfluxDB 3 Enterprise with your license
 

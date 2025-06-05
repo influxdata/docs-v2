@@ -1,16 +1,12 @@
-<!-- ALLOW SHORTCODE -->
+### Write data
 
-{{% product-name %}} is designed for high write-throughput and uses an efficient,
-human-readable write syntax called _[line protocol](#line-protocol)_. InfluxDB
-is a schema-on-write database, meaning you can start writing data and InfluxDB
-creates the logical database, tables, and their schemas automatically, without
-any required intervention. Once InfluxDB creates the schema, it validates future
-write requests against the schema before accepting new data.
-Both new tags and fields can be added later as your schema changes.
+InfluxDB is a schema-on-write database. You can start writing data and InfluxDB creates the logical database, tables, and their schemas on the fly.
+After a schema is created, InfluxDB validates future write requests against it before accepting the data.
+Subsequent requests can add new fields on-the-fly, but can't add new tags.
 
 {{% show-in "core" %}}
 > [!Note]
-> #### InfluxDB 3 Core is optimized for recent data
+> #### Core is optimized for recent data
 >
 > {{% product-name %}} is optimized for recent data but accepts writes from any time period.
 > The system persists data to Parquet files for historical analysis with [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/) or third-party tools.

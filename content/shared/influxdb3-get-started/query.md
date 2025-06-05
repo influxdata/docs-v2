@@ -1,299 +1,89 @@
-<!-- COMMENT TO ALLOW STARTING WITH SHORTCODE -->
-{{% product-name %}} supports both native SQL and InfluxQL for querying data. InfluxQL is
-an SQL-like query language designed for InfluxDB v1 and customized for time
-series queries.
+### Query data
+
+InfluxDB 3 supports native SQL for querying, in addition to InfluxQL, an
+SQL-like language customized for time series queries.
 
 {{% show-in "core" %}}
 {{< product-name >}} limits
-query time ranges to approximately 72 hours (both recent and historical) to
-ensure query performance. For more information about the 72-hour limitation, see
-the [update on InfluxDB 3 Core’s 72-hour limitation](https://www.influxdata.com/blog/influxdb3-open-source-public-alpha-jan-27/).
+query time ranges to 72 hours (both recent and historical) to ensure query performance.
+For more information about the 72-hour limitation, see the
+[update on InfluxDB 3 Core’s 72-hour limitation](https://www.influxdata.com/blog/influxdb3-open-source-public-alpha-jan-27/).
 {{% /show-in %}}
 
 > [!Note]
-> Flux, the language introduced in InfluxDB v2, is **not** supported in InfluxDB 3.
+> Flux, the language introduced in InfluxDB 2.0, is **not** supported in InfluxDB 3.
 
-<!-- TOC -->
+The quickest way to get started querying is to use the `influxdb3` CLI (which uses the Flight SQL API over HTTP2).
 
-- [Query data with the influxdb3 CLI](#query-data-with-the-influxdb3-cli)
-  - [Example queries](#example-queries)
-- [Other tools for executing queries](#other-tools-for-executing-queries)
-- [SQL vs InfluxQL](#sql-vs-influxql)
-  - [SQL](#sql)
-  - [InfluxQL](#influxql)
-- [Optimize queries](#optimize-queries)
-  - [Last values cache](#last-values-cache)
-  - [Distinct values cache](#distinct-values-cache)
- {{% show-in "enterprise" %}}- [File indexes](#file-indexes){{% /show-in %}}
+The `query` subcommand includes options to help ensure that the right database is queried with the correct permissions. Only the `--database` option is required, but depending on your specific setup, you may need to pass other options, such as host, port, and token.
 
-<!-- /TOC -->
+| Option | Description | Required |
+|---------|-------------|--------------|
+| `--host` | The host URL of the server [default: `http://127.0.0.1:8181`] to query | No |
+| `--database` | The name of the database to operate on | Yes |
+| `--token` | The authentication token for the {{% product-name %}} server | No |
+| `--language` | The query language of the provided query string [default: `sql`] [possible values: `sql`, `influxql`] | No  |
+| `--format` | The format in which to output the query [default: `pretty`] [possible values: `pretty`, `json`, `jsonl`, `csv`, `parquet`] | No |
+| `--output` | The path to output data to | No |
 
-## Query data with the influxdb3 CLI
+#### Example: query `“SHOW TABLES”` on the `servers` database:
 
-To get started querying data in {{% product-name %}}, use the
-[`influxdb3 query` command](/influxdb3/version/reference/cli/influxdb3/query/)
-and provide the following:
+```console
+$ influxdb3 query --database servers "SHOW TABLES"
++---------------+--------------------+--------------+------------+
+| table_catalog | table_schema       | table_name   | table_type |
++---------------+--------------------+--------------+------------+
+| public        | iox                | cpu          | BASE TABLE |
+| public        | information_schema | tables       | VIEW       |
+| public        | information_schema | views        | VIEW       |
+| public        | information_schema | columns      | VIEW       |
+| public        | information_schema | df_settings  | VIEW       |
+| public        | information_schema | schemata     | VIEW       |
++---------------+--------------------+--------------+------------+
+```
 
-- `-H`, `--host`: The host URL of the server _(default is `http://127.0.0.1:8181`)_
-- `-d`, `--database`: _({{% req %}})_ The name of the database to query
-- `-l`, `--language`: The query language of the provided query string
-  - `sql` _(default)_
-  - `influxql`
-- SQL or InfluxQL query as a string
+#### Example: query the `cpu` table, limiting to 10 rows:
 
-> [!Important]
-> If the `INFLUXDB3_AUTH_TOKEN` environment variable defined in
-> [Set up {{% product-name %}}](/influxdb3/version/get-started/setup/#set-your-token-for-authorization)
-> is no longer set, reset the environment variable or provide your token using
-> the `-t, --token` option in your command.
+```console
+$ influxdb3 query --database servers "SELECT DISTINCT usage_percent, time FROM cpu LIMIT 10"
++---------------+---------------------+
+| usage_percent | time                |
++---------------+---------------------+
+| 63.4          | 2024-02-21T19:25:00 |
+| 25.3          | 2024-02-21T19:06:40 |
+| 26.5          | 2024-02-21T19:31:40 |
+| 70.1          | 2024-02-21T19:03:20 |
+| 83.7          | 2024-02-21T19:30:00 |
+| 55.2          | 2024-02-21T19:00:00 |
+| 80.5          | 2024-02-21T19:05:00 |
+| 60.2          | 2024-02-21T19:33:20 |
+| 20.5          | 2024-02-21T18:58:20 |
+| 85.2          | 2024-02-21T19:28:20 |
++---------------+---------------------+
+```
 
-To query the home sensor sample data you wrote in
-[Write data to {{% product-name %}}](/influxdb3/version/get-started/write/#write-data-using-the-cli),
-run the following command:
+### Query using the CLI for InfluxQL
+
+[InfluxQL](/influxdb3/version/reference/influxql/) is an SQL-like language developed by InfluxData with specific features tailored for leveraging and working with InfluxDB. It’s compatible with all versions of InfluxDB, making it a good choice for interoperability across different InfluxDB installations.
+
+To query using InfluxQL, enter the `influxdb3 query` subcommand and specify `influxql` in the language option--for example:
 
 {{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[SQL](#)
-[InfluxQL](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-<!-- pytest.mark.skip -->
 ```bash
 influxdb3 query \
   --database DATABASE_NAME \
-  "SELECT * FROM home ORDER BY time"
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-<!-- pytest.mark.skip -->
-```bash
-influxdb3 query \
-  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   --language influxql \
-  "SELECT * FROM home"
+  "SELECT DISTINCT usage_percent FROM cpu WHERE time >= now() - 1d"
 ```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
 {{% /code-placeholders %}}
 
-_Replace {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}
-with the name of the database to query._
+Replace the following placeholders with your values:
 
-To query from a specific time range, use the `WHERE` clause to designate the
-boundaries of your time range.
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to query 
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to query the specified database{{% /show-in %}}
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[SQL](#)
-[InfluxQL](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-<!-- pytest.mark.skip -->
-```bash
-influxdb3 query \
-  --database DATABASE_NAME \
-  "SELECT * FROM home WHERE time >= now() - INTERVAL '7 days' ORDER BY time"
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-<!-- pytest.mark.skip -->
-```bash
-influxdb3 query \
-  --database DATABASE_NAME \
-  --language influxql \
-  "SELECT * FROM home WHERE time >= now() - 7d"
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
-
-### Example queries
-
-{{< expand-wrapper >}}
-{{% expand "List tables in a database" %}}
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[SQL](#)
-[InfluxQL](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```sql
-SHOW TABLES
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```sql
-SHOW MEASUREMENTS
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-{{% /expand %}}
-{{% expand "Return the average temperature of all rooms" %}}
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[SQL](#)
-[InfluxQL](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```sql
-SELECT avg(temp) AS avg_temp FROM home
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```sql
-SELECT MEAN(temp) AS avg_temp FROM home
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-{{% /expand %}}
-{{% expand "Return the average temperature of the kitchen" %}}
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[SQL](#)
-[InfluxQL](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```sql
-SELECT avg(temp) AS avg_temp FROM home WHERE room = 'Kitchen'
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```sql
-SELECT MEAN(temp) AS avg_temp FROM home WHERE room = 'Kitchen'
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-{{% /expand %}}
-{{% expand "Query data from an absolute time range" %}}
-
-{{% influxdb/custom-timestamps %}}
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[SQL](#)
-[InfluxQL](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```sql
-SELECT
-  *
-FROM
-  home
-WHERE
-  time >= '2022-01-01T12:00:00Z'
-  AND time <= '2022-01-01T18:00:00Z'
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```sql
-SELECT
-  *
-FROM
-  home
-WHERE
-  time >= '2022-01-01T12:00:00Z'
-  AND time <= '2022-01-01T18:00:00Z'
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-{{% /influxdb/custom-timestamps %}}
-
-{{% /expand %}}
-{{% expand "Query data from a relative time range" %}}
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[SQL](#)
-[InfluxQL](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```sql
-SELECT
-  *
-FROM
-  home
-WHERE
-  time >= now() - INTERVAL '7 days'
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```sql
-SELECT
-  *
-FROM
-  home
-WHERE
-  time >= now() - 7d
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-{{% /expand %}}
-{{% expand "Calculate average humidity in 3-hour windows per room" %}}
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[SQL](#)
-[InfluxQL](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```sql
-SELECT
-  date_bin(INTERVAL '3 hours', time) AS time,
-  room,
-  avg(hum) AS avg_hum
-FROM
-  home
-GROUP BY
-  1,
-  room
-ORDER BY
-  room,
-  1
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```sql
-SELECT
-  MEAN(hum) AS avg_hum
-FROM
-  home
-WHERE
-  time >= '2022-01-01T08:00:00Z'
-  AND time <= '2022-01-01T20:00:00Z'
-GROUP BY
-  time(3h),
-  room
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-{{% /expand %}}
-{{< /expand-wrapper >}}
-
-## Other tools for executing queries
-
-Other tools are available for querying data in {{% product-name %}}, including
-the following:
-
-{{< expand-wrapper >}}
-{{% expand "Query using the API" %}}
-#### Query using the API
+### Query using the API
 
 InfluxDB 3 supports Flight (gRPC) APIs and an HTTP API.
 To query your database using the HTTP API, send a request to the `/api/v3/query_sql` or `/api/v3/query_influxql` endpoints.
@@ -337,11 +127,7 @@ Replace the following placeholders with your values:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to query 
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to query the specified database{{% /show-in %}}
 
-{{% /expand %}}
-
-{{% expand "Query using the Python client" %}}
-
-#### Query using the Python client
+### Query using the Python client
 
 Use the InfluxDB 3 Python library to interact with the database and integrate with your application.
 We recommend installing the required packages in a Python virtual environment for your specific project.
