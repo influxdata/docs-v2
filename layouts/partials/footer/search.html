@@ -7,15 +7,84 @@
 {{ $includeFlux := and (in $fluxSupported $product) (in $influxdbFluxSupport $version) }}
 {{ $includeResources := not (in (slice "cloud-serverless" "cloud-dedicated" "clustered" "core" "enterprise" "explorer") $version) }}
 
-<!-- DocSearch Component Container -->
-<div 
-  data-component="doc-search"
-  data-api-key="501434b53a46a92a7931aecc7c9672e2"
-  data-app-id="WHM9UWMP6M"
-  data-index-name="influxdata"
-  data-input-selector="#algolia-search-input"
-  data-search-tag="{{ $product }}-{{ $version }}"
-  data-include-flux="{{ $includeFlux }}"
-  data-include-resources="{{ $includeResources }}"
-  data-debug="{{ if hugo.IsProduction }}false{{ else }}true{{ end }}"
-></div>
+<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+var multiVersion = ['influxdb']
+docsearch({
+  apiKey: '501434b53a46a92a7931aecc7c9672e2',
+  appId: 'WHM9UWMP6M',
+  indexName: 'influxdata',
+  inputSelector: '#algolia-search-input',
+  // Set debug to true if you want to inspect the dropdown
+  debug: true,
+  transformData: function (hits) {
+    function fmtVersion (version, productKey) {
+      if (version == null) {
+        return '';
+      } else if (version === 'cloud') {
+        return 'Cloud (TSM)';
+      } else if (version === 'core') {
+        return 'Core';
+      } else if (version === 'enterprise') {
+        return 'Enterprise';
+      } else if (version === 'explorer') {
+        return 'Explorer';
+      } else if (version === 'cloud-serverless') {
+        return 'Cloud Serverless';
+      } else if (version === 'cloud-dedicated') {
+        return 'Cloud Dedicated';
+      } else if (version === 'clustered') {
+        return 'Clustered';
+      } else if (multiVersion.includes(productKey)) {
+        return version;
+      } else {
+        return '';
+      }
+    };
+    productNames = {
+      influxdb: 'InfluxDB',
+      influxdb3: 'InfluxDB 3',
+      enterprise_influxdb: 'InfluxDB Enterprise',
+      flux: 'Flux',
+      telegraf: 'Telegraf',
+      chronograf: 'Chronograf',
+      kapacitor: 'Kapacitor',
+      platform: 'InfluxData Platform',
+      resources: 'Additional Resources',
+    };
+    hits.map(hit => {
+      pathData = new URL(hit.url).pathname.split('/').filter(n => n);
+      product = productNames[pathData[0]];
+      version = fmtVersion(pathData[1], pathData[0]);
+
+      hit.product = product;
+      hit.version = version;
+      hit.hierarchy.lvl0 =
+        hit.hierarchy.lvl0 +
+        ` <span class=\"search-product-version\">${product} ${version}</span>`;
+      hit._highlightResult.hierarchy.lvl0.value =
+        hit._highlightResult.hierarchy.lvl0.value +
+        ` <span class=\"search-product-version\">${product} ${version}</span>`;
+    });
+    return hits;
+  },
+  algoliaOptions: {
+    hitsPerPage: 10,
+    'facetFilters': [
+      {{ if or (eq $product "platform") (eq $product "resources") (le (len $productPathData) 1) }}
+        'latest:true'
+      {{ else if $includeFlux }}
+        ['searchTag: {{ $product }}-{{ $version }}', 'flux:true', 'resources:{{ $includeResources }}']
+      {{ else }}
+        ['searchTag: {{ $product }}-{{ $version }}', 'resources:{{ $includeResources }}']
+      {{ end }}
+    ]
+  },
+  autocompleteOptions: {
+    templates: {
+      header: '<div class="search-all-content"><a href="https:\/\/support.influxdata.com" target="_blank">Search all InfluxData content <span class="icon-arrow-up-right"></span></a>',
+      empty: '<div class="search-no-results"><p>Not finding what you\'re looking for?</p> <a href="https:\/\/support.influxdata.com" target="_blank">Search all InfluxData content <span class="icon-arrow-up-right"></span></a></div>'
+    }
+  }
+});
+</script>

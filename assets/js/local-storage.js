@@ -82,16 +82,13 @@ function getPreferences() {
 //////////// MANAGE INFLUXDATA DOCS URLS IN LOCAL STORAGE //////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+
 const defaultUrls = {};
 // Guard against pageParams being null/undefined and safely access nested properties
 if (pageParams && pageParams.influxdb_urls) {
-  Object.entries(pageParams.influxdb_urls).forEach(
-    ([product, { providers }]) => {
-      defaultUrls[product] =
-        providers.filter((provider) => provider.name === 'Default')[0]
-          ?.regions[0]?.url || 'https://cloud2.influxdata.com';
-    }
-  );
+  Object.entries(pageParams.influxdb_urls).forEach(([product, {providers}]) => {
+  defaultUrls[product] = providers.filter(provider => provider.name === 'Default')[0]?.regions[0]?.url;
+  });
 }
 
 export const DEFAULT_STORAGE_URLS = {
@@ -180,10 +177,7 @@ const defaultNotificationsObj = {
 function getNotifications() {
   // Initialize notifications data if it doesn't already exist
   if (localStorage.getItem(notificationStorageKey) === null) {
-    initializeStorageItem(
-      'notifications',
-      JSON.stringify(defaultNotificationsObj)
-    );
+    initializeStorageItem('notifications', JSON.stringify(defaultNotificationsObj));
   }
 
   // Retrieve and parse the notifications data as JSON
@@ -227,10 +221,7 @@ function setNotificationAsRead(notificationID, notificationType) {
   readNotifications.push(notificationID);
   notificationsObj[notificationType + 's'] = readNotifications;
 
-  localStorage.setItem(
-    notificationStorageKey,
-    JSON.stringify(notificationsObj)
-  );
+  localStorage.setItem(notificationStorageKey, JSON.stringify(notificationsObj));
 }
 
 // Export functions as a module and make the file backwards compatible for non-module environments until all remaining dependent scripts are ported to modules

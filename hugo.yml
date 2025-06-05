@@ -49,48 +49,21 @@ privacy:
   youtube:
     disable: false
     privacyEnhanced: true
-
 outputFormats:
   json:
     mediaType: application/json
     baseName: pages
     isPlainText: true
 
-# Asset processing configuration for development
 build:
-  writeStats: false 
-  useResourceCacheWhen: "fallback"
-  noJSConfigInAssets: false
-
-# Asset processing configuration
-assetDir: "assets"
+  # Ensure Hugo correctly processes JavaScript modules
+  jsConfig:
+    nodeEnv: "development"
 
 module:
   mounts:
     - source: assets
       target: assets
+    
     - source: node_modules
       target: assets/node_modules
-
-# Development settings
-params:
-  env: development
-  environment: development
-
-# Configure the server for development
-server:
-  port: 1313
-  baseURL: 'http://localhost:1313/'
-  watchChanges: true
-  disableLiveReload: false
-
-# Ignore specific warning logs
-ignoreLogs:
-  - warning-goldmark-raw-html
-
-# Disable minification for development
-minify:
-  disableJS: true
-  disableCSS: true
-  disableHTML: true
-  minifyOutput: false
