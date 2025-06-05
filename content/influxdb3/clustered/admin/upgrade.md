@@ -66,8 +66,8 @@ us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:PACKAGE_VERSION
 
 ### Identify the version to upgrade to
 
-All available InfluxDB Clustered package versions are provided at
-[oci.influxdata.com](https://oci.influxdata.com).
+All available InfluxDB Clustered package versions are provided in the
+[InfluxDB Clustered release notes](/influxdb3/clustered/reference/release-notes/clustered/).
 Find the package version you want to upgrade to and copy the version number.
 
 
@@ -76,7 +76,7 @@ Find the package version you want to upgrade to and copy the version number.
 Some InfluxDB Clustered releases are _checkpoint releases_ that introduce a
 breaking change to an InfluxDB component.
 Checkpoint releases are only made when absolutely necessary and are clearly
-identified at [oci.influxdata.com](https://oci.influxdata.com).
+identified in the [InfluxDB Clustered release notes](/influxdb3/clustered/reference/release-notes/clustered/).
 
 **When upgrading, always upgrade to each checkpoint release first, before proceeding
 to newer versions.**
