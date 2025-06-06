@@ -11,4 +11,5 @@ source: /shared/influxdb-v2/query-data/execute-queries/influx-api.md
 ---
 
 <!-- The content for this file is located at
-// SOURCE content/shared/influxdb-v2/query-data/execute-queries/influx-api.md -->
+// SOURCE content/shared/influxdb-v2/query-data/execute-queries/influx-api.md
+-->

@@ -6,5 +6,6 @@
     - Headers
     - Pagination
     - Response codes
+    - Compatibility endpoints
 - name: All endpoints
   tags: []

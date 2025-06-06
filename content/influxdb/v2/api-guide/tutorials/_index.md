@@ -12,4 +12,5 @@ source: /shared/influxdb-v2/api-guide/tutorials/_index.md
 ---
 
 <!-- The content for this file is located at
-// SOURCE content/shared/influxdb-v2/api-guide/tutorials/_index.md -->
+// SOURCE content/shared/influxdb-v2/api-guide/tutorials/_index.md
+-->
