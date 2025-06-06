@@ -5,6 +5,116 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.1.0 {date="2025-05-29"}
+**Core**: revision 482dd8aac580c04f37e8713a8fffae89ae8bc264
+
+**Enterprise**: revision 2cb23cf32b67f9f0d0803e31b356813a1a151b00
+
+### Core
+
+#### Token and Security Updates
+- Named admin tokens can now be created, with configurable expirations
+- `health`, `ping`, and `metrics` endpoints can now be opted out of authorization
+- `Basic $TOKEN` is now supported for all APIs
+- Additional info available when creating a new token
+- Additional info available when starting InfuxDB using `--without-auth`
+
+#### Additional Updates
+- New catalog metrics available for count operations
+- New object store metrics available for transfer latencies and transfer sizes
+- New query duration metrics available for Last Value caches
+- `/ping` API now contains versioning headers
+- Other performance improvements
+
+#### Fixes
+- New tags are now backfilled with NULL instead of empty strings
+- Bitcode deserialization error fixed
+- Series key metadata not persisting to Parquet is now fixed
+- Other general fixes and corrections
+
+### Enterprise
+
+#### Token and Security Updates
+- Resource tokens now use resource names in `show tokens`
+- Tokens can now be granted `CREATE` permission for creating databases
+
+#### Additional Updates
+- Last value caches populate on creation and reload on restart
+- Distinct value caches populate on creation and reload on restart
+- Other performance improvements
+- Replaces remaining "INFLUXDB_IOX" Dockerfile environment variables with the following:
+  - `ENV INFLUXDB3_OBJECT_STORE=file`
+  - `ENV INFLUXDB3_DB_DIR=/var/lib/influxdb3`
+
+#### Fixes
+- Improvements and fixes for license validations
+- False positive fixed for catalog error on shutdown
+- UX improvements for error and onboarding messages
+- Other general fixes and corrections
+
+## v3.0.3 {date="2025-05-16"}
+**Core**: revision 384c457ef5f0d5ca4981b22855e411d8cac2688e
+
+**Enterprise**: revision 34f4d28295132b9efafebf654e9f6decd1a13caf
+
+### Core
+
+#### Fixes
+
+- Prevent operator token, `_admin`, from being deleted.  
+
+### Enterprise
+
+#### Fixes
+
+- Fix object store info digest that is output during onboarding. 
+- Fix issues with false positive catalog error on shutdown.
+- Fix licensing validation issues.
+- Other fixes and performance improvements.
+
+
+
+## v3.0.2 {date="2025-05-01"}
+**Core**: revision d80d6cd60049c7b266794a48c97b1b6438ac5da9
+
+**Enterprise**: revision e9d7e03c2290d0c3e44d26e3eeb60aaf12099f29
+
+### Core
+
+#### Security updates
+
+- Generate testing TLS certificates on the fly.  
+- Set the TLS CA via the INFLUXDB3_TLS_CA environment variable.  
+- Enforce a minimum TLS version for enhanced security.  
+- Allow CORS requests from browsers.  
+
+#### General updates
+
+- Support the `--format json` option in the token creation output.  
+- Remove the Last Values Cache size limitation to improve performance and flexibility.  
+- Incorporate additional performance improvements.  
+
+#### Fixes
+
+- Fix a counting bug in the distinct cache.  
+- Fix how the distinct cache handles rows with null values.  
+- Fix handling of `group by` tag columns that use escape quotes.  
+- Sort the IOx table schema consistently in the `SHOW TABLES` command.  
+
+### Enterprise
+
+#### Updates
+
+- Introduce a command and system table to list cluster nodes.  
+- Support multiple custom permission argument matches.  
+- Improve overall performance.  
+
+#### Fixes
+
+- Initialize the object store only once.  
+- Prevent the Home license server from crashing on restart.  
+- Enforce the `--num-cores` thread allocation limit.  
+
 ## v3.0.1 {date="2025-04-16"}
 **Core**: revision d7c071e0c4959beebc7a1a433daf8916abd51214
 

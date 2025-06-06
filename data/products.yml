@@ -1,12 +1,12 @@
 influxdb3_core:
   name: InfluxDB 3 Core
   altname: InfluxDB 3 Core
-  namespace: influxdb
+  namespace: influxdb3
   menu_category: self-managed
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.0.1
+  latest_patch: 3.1.0
   placeholder_host: localhost:8181
   ai_sample_questions:
     - How do I install and run InfluxDB 3 Core?
@@ -16,17 +16,31 @@ influxdb3_core:
 influxdb3_enterprise:
   name: InfluxDB 3 Enterprise
   altname: InfluxDB 3 Enterprise
-  namespace: influxdb
+  namespace: influxdb3
   menu_category: self-managed
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.0.1
+  latest_patch: 3.1.0
   placeholder_host: localhost:8181
   ai_sample_questions:
     - How do I install and run InfluxDB 3 Enterprise?
     - Help me write a plugin for the Python Processing engine?
     - How do I start a read replica node with InfluxDB 3 Enterprise?
+  
+influxdb3_explorer:
+  name: InfluxDB 3 Explorer
+  altname: Explorer
+  namespace: influxdb3_explorer
+  menu_category: tools
+  list_order: 1
+  latest: explorer
+  latest_patch: 1.0.0
+  placeholder_host: localhost:8888
+  ai_sample_questions:
+    - How do I query data using InfluxDB 3 Explorer?
+    - How do I use InfluxDB 3 Explorer to visualize data?
+    - How do I install InfluxDB 3 Explorer?
 
 influxdb3_cloud_serverless:
   name: InfluxDB Cloud Serverless
@@ -49,8 +63,8 @@ influxdb3_cloud_dedicated:
   versions: [cloud-dedicated]
   list_order: 3
   latest: cloud-dedicated
-  link: "https://www.influxdata.com/contact-sales-form/"
-  latest_cli: 2.10.0
+  link: "https://www.influxdata.com/contact-sales-cloud-dedicated/"
+  latest_cli: 2.10.1
   placeholder_host: cluster-id.a.influxdb.io
   ai_sample_questions:
     - How do I migrate from InfluxDB v1 to InfluxDB Cloud Dedicated?
@@ -65,7 +79,7 @@ influxdb3_clustered:
   versions: [clustered]
   list_order: 3
   latest: clustered
-  link: "https://www.influxdata.com/contact-sales-influxdb-clustered"
+  link: "https://www.influxdata.com/contact-sales-influxdb-clustered/"
   placeholder_host: cluster-host.com
   ai_sample_questions:
     - How do I use a Helm chart to configure Clustered?
@@ -76,6 +90,7 @@ influxdb:
   name: InfluxDB
   altname: InfluxDB OSS
   namespace: influxdb
+  succeeded_by: influxdb3_core
   menu_category: self-managed
   list_order: 1
   placeholder_host: localhost:8086
@@ -84,7 +99,7 @@ influxdb:
     - v1
   latest: v2.7
   latest_patches:
-    v2: 2.7.11
+    v2: 2.7.12
     v1: 1.11.8
   latest_cli:
     v2: 2.7.5
@@ -106,6 +121,20 @@ influxdb_cloud:
     - How do I write and query data with InfluxDB Cloud 2?
     - How is Cloud 2 different from Cloud Serverless?
     - How do I manage auth tokens in InfluxDB Cloud 2?
+
+explorer:
+  name: InfluxDB 3 Explorer
+  namespace: explorer
+  menu_category: other
+  list_order: 4
+  versions: [v1]
+  latest: v1.0
+  latest_patches:
+    v1: 1.0.0
+  ai_sample_questions:
+    - How do I use InfluxDB 3 Explorer to visualize data?
+    - How do I create a dashboard in InfluxDB 3 Explorer?
+    - How do I query data using InfluxDB 3 Explorer?
 
 telegraf:
   name: Telegraf
@@ -143,7 +172,7 @@ kapacitor:
   versions: [v1]
   latest: v1.7
   latest_patches:
-    v1: 1.7.6
+    v1: 1.7.7
   ai_sample_questions:
     - How do I configure Kapacitor for InfluxDB v1?
     - How do I write a custom Kapacitor task?

@@ -40,6 +40,7 @@ tags:
         See how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/).
 
         By default, management tokens in InfluxDB 3 are short-lived tokens issued by an OAuth2 identity provider that grant a specific user administrative access to your InfluxDB cluster. However, for automation purposes, you can manually create management tokens that authenticate directly with your InfluxDB cluster and do not require human interaction with your identity provider.
+        <!-- ReDoc-Inject: <security-definitions> -->
   - name: Database tokens
     description: Manage database read/write tokens for a cluster
   - name: Databases
@@ -397,6 +398,26 @@ paths:
     post:
       operationId: CreateClusterDatabase
       summary: Create a database
+      description: |
+        Create a database for a cluster.
+
+        The database name must be unique within the cluster.
+
+        **Default maximum number of columns**: 250
+        **Default maximum number of tables**: 500
+
+        The retention period is specified in nanoseconds. For example, to set a retention period of 1 hour, use `3600000000000`.
+
+        InfluxDB Cloud Dedicated lets you define a [custom partitioning](/influxdb3/cloud-dedicated/admin/custom-partitions/) strategy for each database and table.
+        A _partition_ is a logical grouping of data stored in [Apache Parquet](https://parquet.apache.org/).
+        By default, data is partitioned by day,
+        but, depending on your schema and workload, customizing the partitioning
+        strategy can improve query performance.
+
+        To use custom partitioning, you define a [partition template](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/).
+        If a table doesn't have a custom partition template, it inherits the database's template.
+        The partition template is set at the time of database creation and cannot be changed later.
+        For more information, see [Custom partitions](/influxdb3/cloud-dedicated/admin/custom-partitions/).
       tags:
         - Databases
       parameters:
@@ -779,6 +800,18 @@ paths:
     post:
       operationId: CreateClusterDatabaseTable
       summary: Create a database table
+      description: |
+        Create a table. The database must already exist. With InfluxDB Cloud Dedicated, tables and measurements are synonymous.
+
+        Typically, tables are created automatically on write using the measurement name
+        specified in line protocol written to InfluxDB.
+        However, to apply a [custom partition template](/influxdb3/cloud-dedicated/admin/custom-partitions/)
+        to a table, you must manually [create the table with custom partitioning](/influxdb3/cloud-dedicated/admin/tables/#create-a-table-with-custom-partitioning) before you write any data to it.
+
+        Partitioning defaults to `%Y-%m-%d` (daily). 
+        When a partition template is applied to a database, it becomes the default template
+        for all tables in that database, but can be overridden when creating a
+        table.
       tags:
         - Tables
       parameters:
@@ -1185,6 +1218,14 @@ paths:
     get:
       operationId: GetDatabaseToken
       summary: Get a database token
+      description: |
+        Retrieve metadata details for a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/).
+
+        #### Store secure tokens in a secret store
+
+        We recommend storing database tokens in a **secure secret store**.
+
+        Token strings are viewable _only_ on token creation and aren't stored by InfluxDB; you can't recover a lost token.
       tags:
         - Database tokens
       parameters:
@@ -1299,6 +1340,8 @@ paths:
     patch:
       operationId: UpdateDatabaseToken
       summary: Update a database token
+      description: |
+        Update the description and permissions of a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/).
       tags:
         - Database tokens
       parameters:
@@ -1317,7 +1360,6 @@ paths:
         - name: tokenId
           in: path
           description: The ID of the [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) to update
-          required: true
           schema:
             $ref: '#/components/schemas/UuidV4'
       requestBody:
@@ -1625,9 +1667,9 @@ components:
       description: |
         A template for [partitioning](/influxdb3/cloud-dedicated/admin/custom-partitions/) a cluster database.
 
-        Each template part is evaluated in sequence, concatinating the final
-        partition key from the output of each part, delimited by the partition
-        key delimiter `|`.
+        Each partition template part is evaluated in sequence.
+        The outputs from each part are concatenated with the
+        `|` delimiter to form the final partition key.
 
         For example, using the partition template below:
 

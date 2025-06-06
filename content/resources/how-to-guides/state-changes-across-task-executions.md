@@ -17,7 +17,7 @@ It's common to use [InfluxDB tasks](/influxdb/cloud/process-data/) to evaluate a
 Explicitly assign levels to your data based on thresholds.
 
 ### Solution Advantages
-This is the easiest solution to understand if you have never written a task with the [`monitor` package](/flux/v0.x/stdlib/influxdata/influxdb/monitor/). 
+This is the easiest solution to understand if you have never written a task with the [`monitor` package](/flux/v0/stdlib/influxdata/influxdb/monitor/). 
 
 ### Solution Disadvantages
 You have to explicitly define your thresholds, which potentially requires more code.
@@ -36,9 +36,9 @@ Create a task where you:
 
 ### Solution Explained
 1. Import packages and define task options and secrets. Import the following packages:
-  - [Flux Telegram package](/flux/v0.x/stdlib/contrib/sranka/telegram/): This package 
-  - [Flux InfluxDB secrets package](/flux/v0.x/stdlib/influxdata/influxdb/secrets/): This package contains the [secrets.get()](/flux/v0.x/stdlib/influxdata/influxdb/secrets/get/) function which allows you to retrieve secrets from the InfluxDB secret store. Learn how to [manage secrets](/influxdb/v2/admin/secrets/) in InfluxDB to use this package.    
-  - [Flux InfluxDB monitoring package](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/monitor/): This package contains functions and tools for monitoring your data.  
+  - [Flux Telegram package](/flux/v0/stdlib/contrib/sranka/telegram/): This package 
+  - [Flux InfluxDB secrets package](/flux/v0/stdlib/influxdata/influxdb/secrets/): This package contains the [secrets.get()](/flux/v0/stdlib/influxdata/influxdb/secrets/get/) function which allows you to retrieve secrets from the InfluxDB secret store. Learn how to [manage secrets](/influxdb/v2/admin/secrets/) in InfluxDB to use this package.    
+  - [Flux InfluxDB monitoring package](https://docs.influxdata.com/flux/v0/stdlib/influxdata/influxdb/monitor/): This package contains functions and tools for monitoring your data.  
   
 
     ```js
@@ -88,7 +88,7 @@ Create a task where you:
     | example-measurement | example-tag-value | example-field |   50.0 | crit   | 2022-01-01T00:01:00Z |
 
 
-4. Write “states” back to InfluxDB. You can write the data to a new measurement or to a new bucket. To write the data to a new measurement, use [`set()`](/flux/v0.x/stdlib/universe/set/) to update the value of the `_measurement` column in your “states” data. 
+4. Write “states” back to InfluxDB. You can write the data to a new measurement or to a new bucket. To write the data to a new measurement, use [`set()`](/flux/v0/stdlib/universe/set/) to update the value of the `_measurement` column in your “states” data. 
 
     ```js
     states
@@ -115,7 +115,7 @@ Create a task where you:
     | :------------------ | :---------------- | :------------ | -----: | :----- | :------------------- |
     | example-measurement | example-tag-value | example-field |   55.0 | crit   | 2021-12-31T23:59:00Z |
 
-6. Union “states” and “last_state_previous_task”. Store this data in a variable “unioned_states”. Use [`sort()`](/flux/v0.x/stdlib/universe/sort/) to ensure rows are ordered by time.
+6. Union “states” and “last_state_previous_task”. Store this data in a variable “unioned_states”. Use [`sort()`](/flux/v0/stdlib/universe/sort/) to ensure rows are ordered by time.
 
     ```js
     unioned_states =
@@ -131,7 +131,7 @@ Create a task where you:
     | example-measurement | example-tag-value | example-field |   30.0 | ok     | 2022-01-01T00:00:00Z |
     | example-measurement | example-tag-value | example-field |   50.0 | crit   | 2022-01-01T00:01:00Z |
 
-7. Use [`monitor.stateChangesOnly()`](/flux/v0.x/stdlib/influxdata/influxdb/monitor/statechangesonly/) to return only rows where the state changed in “unioned_states”. Store this data in a variable, “state_changes”.
+7. Use [`monitor.stateChangesOnly()`](/flux/v0/stdlib/influxdata/influxdb/monitor/statechangesonly/) to return only rows where the state changed in “unioned_states”. Store this data in a variable, “state_changes”.
 
     ```js
     state_changes =

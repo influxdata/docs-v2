@@ -1,7 +1,7 @@
 ---
 title: List clusters
 description: >
-  Use the [`influxctl cluster list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/cluster/list/)
+  Use the Admin UI or the [`influxctl cluster list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/cluster/list/)
   to view information about InfluxDB Cloud Dedicated clusters associated with your account ID.
 menu:
   influxdb3_cloud_dedicated:
@@ -15,10 +15,45 @@ aliases:
   - /influxdb3/cloud-dedicated/admin/clusters/list/
 ---
 
-Use the [`influxctl cluster list` CLI command](/influxdb3/cloud-dedicated/reference/cli/influxctl/list/)
-view information about all {{< product-name omit=" Clustered" >}} clusters associated with your account ID.
+Use the Admin UI or the [`influxctl cluster list` CLI command](/influxdb3/cloud-dedicated/reference/cli/influxctl/list/)
+to view information about all {{< product-name omit=" Clustered" >}} clusters associated with your account ID.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Admin UI](#)
+[influxctl](#)
+{{% /tabs %}}
+{{% tab-content %}}
+## Access the Cloud Dedicated Admin UI
+
+1. To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+
+   <pre>
+   <a href="https://console.influxdata.com">https://console.influxdata.com</a>
+   </pre>
+
+2. Use the credentials provided by InfluxData to log into the Admin UI.
+   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+
+   After you log in, the Account Management portal displays [account information](/influxdb3/cloud-dedicated/admin/account/)
+   and lists all clusters associated with your account.
+3. You can **Search** clusters by name or ID to filter the list and use the sort button and column headers to sort the list. 
+
+### View cluster details
+
+The cluster list displays the following cluster details:
+
+- Cluster ID and name
+- Status (ready, provisioning, etc.)
+- Size (standard or custom)
+- URL endpoint
+{{% /tab-content %}}
+{{% tab-content %}}
+
+## Use the CLI
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure a connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
+
 2.  Run `influxctl cluster list` with the following:
 
     - _Optional_: [Output format](#output-formats)
@@ -69,3 +104,6 @@ The output is a JSON array of cluster objects that include additional fields suc
   }
 ]
 ```
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+

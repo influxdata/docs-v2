@@ -1,7 +1,7 @@
 ---
 title: Delete a database
 description: >
-  Use the [`influxctl database delete` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/delete/)
+  Use the Admin UI, the [`influxctl database delete` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/delete/),
   or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
   to delete a database from your InfluxDB Cloud Dedicated cluster.
   Provide the name of the database you want to delete.
@@ -28,7 +28,7 @@ related:
   - /influxdb3/cloud-dedicated/reference/api/
 ---
 
-Use the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/)
+Use the Admin UI, the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/),
 or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
 to delete a database from your {{< product-name omit=" Clustered" >}} cluster.
 
@@ -47,9 +47,32 @@ to delete a database from your {{< product-name omit=" Clustered" >}} cluster.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
+[Admin UI](#)
 [influxctl](#)
 [Management API](#)
 {{% /tabs %}}
+{{% tab-content %}}
+<!------------------------------- BEGIN ADMIN UI ------------------------------>
+The InfluxDB Cloud Dedicated administrative UI includes a portal for
+managing databases.
+
+1. To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+
+   <pre>
+   <a href="https://console.influxdata.com">https://console.influxdata.com</a>
+   </pre>
+2. Use the credentials provided by InfluxData to log into the Admin UI.
+   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+3. In the cluster list, find the cluster you want to create a database in. You
+   can sort on column headers or use the **Search** field to find a specific cluster.
+4.  Click the options button (three vertical dots) to the right of the token you want to revoke.
+    The options menu displays.
+5.  In the options menu, click **Delete Database**. The **Delete Database** dialog displays. 
+6.  In the **Delete Database** dialog, check the box to confirm that you "understand the risk of this action".
+7.  Click the **Delete Database** button to delete the database.
+
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-delete-database.png" alt="Create database dialog" />}} 
+{{% /tab-content %}}
 {{% tab-content %}}
 
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->

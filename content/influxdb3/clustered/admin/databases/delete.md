@@ -22,9 +22,9 @@ to delete a database from your InfluxDB cluster.
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/clustered/reference/cli/influxctl/#download-and-install-influxctl).
 2.  Run the `influxctl database delete` command and provide the following:
 
-    - Name of the database to delete
+    - The name of the database to delete
 
-3. Confirm that you want to delete the database.
+3.  Confirm that you want to delete the database.
 
 {{% code-placeholders "DATABASE_NAME" %}}
 ```sh
@@ -37,9 +37,12 @@ influxctl database delete DATABASE_NAME
 > 
 > Once a database is deleted, data stored in that database cannot be recovered.
 > 
-> #### Cannot reuse database names
-> 
-> After a database is deleted, you cannot reuse the same name for a new database.
+> #### Wait before writing to a new database with the same name
+>
+> After deleting a database from your {{% product-name omit=" Clustered" %}}
+> cluster, you can reuse the name to create a new database, but **wait two to
+> three minutes** after deleting the previous database before writing to the new
+> database to allow write caches to clear.
 > 
 > #### Never directly modify the Catalog
 > 

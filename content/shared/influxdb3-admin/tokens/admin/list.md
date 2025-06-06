@@ -8,8 +8,11 @@ data and resources in your InfluxDB 3 instance.
 > Token metadata includes the hashed token string.
 > InfluxDB 3 does not store the raw token string.
 
-In the following examples, replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}} with your InfluxDB {{% token-link "admin" %}}
-{{% show-in "enterprise" %}} or a token with read permission on the `_internal` system database`{{% /show-in %}}.
+> [!Important]
+> #### Required permissions
+>
+> Listing admin tokens requires a valid InfluxDB {{% token-link "admin" %}}{{% show-in "enterprise" %}} or a token with read access to the `_internal` system database{{% /show-in %}}.
+> For more information, see how to [provide your token](/influxdb3/version/admin/tokens/#provide-your-token).
 
 ## List all tokens
 

@@ -55,7 +55,12 @@ snapshot. When a snapshot is restored to the Catalog store, the Compactor
 A _soft delete_ refers to when, on compaction, the Compactor sets a `deleted_at`
 timestamp on the Parquet file entry in the Catalog.
 The Parquet file is no
-longer queryable, but remains intact in the object store. 
+longer queryable, but remains intact in the object store.
+
+> [!Note]
+> Soft deletes are a mechanism of the {{% product-name %}} Catalog, not of the
+> underlying object storage provider. Soft deletes do not modify objects in the
+> object store; only Catalog entries that reference objects in the object store.
 
 ## Hard delete
 
@@ -219,6 +224,15 @@ written on or around the beginning of the next hour.
 Use the following process to restore your InfluxDB cluster to a recovery point
 using Catalog store snapshots:
 
+> [!Warning]
+> 
+> #### Use the same InfluxDB Clustered version used to generate the snapshot
+>
+> When restoring an InfluxDB cluster to a recovery point, use the same version
+> of InfluxDB Clustered used to generate the Catalog store snapshot.
+> You may need to [downgrade to a previous version](/influxdb3/clustered/admin/upgrade/)
+> before restoring.
+
 1.  **Install prerequisites:**  
 
     - `kubectl` CLI for managing your Kubernetes deployment.  
@@ -273,7 +287,8 @@ using Catalog store snapshots:
         metadata:
           name: influxdb
           namespace: influxdb
-        pause: true
+        spec:
+          pause: true
         # ...
         ```
 
@@ -331,7 +346,8 @@ using Catalog store snapshots:
         metadata:
           name: influxdb
           namespace: influxdb
-        pause: false
+        spec:
+          pause: false
         # ...
         ```
 
@@ -348,8 +364,6 @@ using Catalog store snapshots:
 Your InfluxDB cluster is now restored to the recovery point.
 When the Garbage Collector runs, it identifies what Parquet files are not
 associated with the recovery point and [soft deletes](#soft-delete) them.
-
-
 
 ## Resources
 

@@ -103,7 +103,7 @@ influxdb3 -h
 influxdb3 --help
 ```
 
-### Run the {{< product-name >}} server with extra verbose logging
+### Run the {{% product-name %}} server with extra verbose logging
 
 <!--pytest.mark.skip-->
 
@@ -114,7 +114,7 @@ influxdb3 serve -v \
   --node-id my-host-01
 ```
 
-### Run {{< product-name >}} with debug logging using LOG_FILTER
+### Run {{% product-name %}} with debug logging using LOG_FILTER
 
 <!--pytest.mark.skip-->
 

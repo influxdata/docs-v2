@@ -17,9 +17,6 @@ An LVC is associated with a table, which can have multiple LVCs.
   {{% show-in "core" %}}
   - [Last Value Caches are flushed when the server stops](#last-value-caches-are-flushed-when-the-server-stops)
   {{% /show-in %}}
-  {{% show-in "enterprise" %}}
-  - [Last Value Caches are rebuilt on restart](#last-value-caches-are-rebuilt-on-restart)
-  {{% /show-in %}}
   - [Defining value columns](#defining-value-columns)
 
 Consider a dataset with the following schema (similar to the
@@ -84,15 +81,17 @@ similar to the following:
 LVCs are stored in memory; the larger the cache, the more memory your InfluxDB 3 node requires to
 maintain it. Consider the following:
 
+- [Cache data loading](#cache-data-loading)
 - [High cardinality key columns](#high-cardinality-key-columns)
 - [Value count](#value-count)
 {{% show-in "core" %}}
 - [Last Value Caches are flushed when the server stops](#last-value-caches-are-flushed-when-the-server-stops)
 {{% /show-in %}}
-{{% show-in "enterprise" %}}
-- [Last Value Caches are rebuilt on restart](#last-value-caches-are-rebuilt-on-restart)
-{{% /show-in %}}
-- [Defining value columns](#defining-value-columns)
+
+## Cache data loading
+
+On cache creation, {{% product-name %}} loads historical data into the cache.
+On restart, the server automatically reloads cache data.
 
 ### High cardinality key columns
 
@@ -139,14 +138,6 @@ Because the LVC is an in-memory cache, the cache is flushed any time the server
 stops. After a server restart, {{% product-name %}} only writes new values to the LVC when 
 you write data, so there may be a period of time when some values are 
 unavailable in the LVC.
-{{% /show-in %}}
-
-{{% show-in "enterprise" %}}
-### Last Value Caches are rebuilt on restart
-
-Because the LVC is an in-memory cache, the cache is flushed any time the server 
-stops. After a server restarts, {{< product-name >}} uses persisted data to
-rebuild the LVC.
 {{% /show-in %}}
 
 ### Defining value columns

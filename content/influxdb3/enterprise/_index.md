@@ -9,9 +9,10 @@ menu:
   influxdb3_enterprise:
     name: InfluxDB 3 Enterprise
 weight: 1
-source: /shared/v3-enterprise-get-started/_index.md
+source: /shared/influxdb3/_index.md
 ---
 
 <!-- 
-The content of this page is at /shared/v3-enterprise-get-started/_index.md
+The content of this page is at
+//SOURCE - content/shared/influxdb3/_index.md
 -->

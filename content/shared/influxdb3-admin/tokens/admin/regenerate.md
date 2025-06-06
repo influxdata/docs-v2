@@ -1,54 +1,45 @@
-Use the `influxdb3` CLI or the HTTP API to regenerate an admin token.
+Use the `influxdb3` CLI or the HTTP API to regenerate the operator (`_admin`) token for your {{% product-name %}} instance.
 Regenerate a token to rotate it as part of your security practices or if you suspect
 the token has been compromised.
 
-{{< show-in "enterprise" >}}
-Regenerating an admin token deactivates the previous token,
+Regenerating the operator token deactivates the previous token,
 stores the SHA512 hash and metadata of the new token, and returns the new token string.
-{{< /show-in >}}
-{{< show-in "core" >}}
-Regenerating the admin token deactivates the previous token, updates the `_admin` token
-SHA512 hash and metadata, and returns the new token string.
-{{< /show-in >}}
-
-An admin token grants access to all actions on the server.
 
 ## Prerequisite
 
-To regenerate a token, you need the current token string.
+To regenerate an operator token, you need the current token string.
 
-## Use the CLI or HTTP API to regenerate an admin token
+## Use the CLI or HTTP API to regenerate the operator token
 
 > [!Important]
-> #### Securely store your token
->
-> InfluxDB lets you view the token string only when you create the token.
-> Store your token in a secure location, as you cannot retrieve it from the database later.
-> InfluxDB 3 stores only the token's hash and metadata in the catalog.
+> #### Regenerating the operator token
+> Regenerating the operator token invalidates the previous token.
+> Make sure to update any applications or scripts that use the operator token.
+
+To regenerate the operator token, use the [`influxdb3 serve create token` command] with the `--admin` and `--regenerate` flags:
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[CLI](#cli-regenerate-admin-token)
-[HTTP API](#http-api-regenerate-admin-token)
+[CLI](#cli-regenerate)
+[HTTP API](#http-api-regenerate)
 {{% /tabs %}}
 {{% tab-content %}}
 <!---------------------------------BEGIN CLI----------------------------------->
 Use the `--regenerate` flag with the
-`influxdb3 create token --admin` subcommand--for example:
+[`influxdb3 create token --admin`](/influxdb3/version/reference/cli/influxdb3/create/token/) subcommand--for example:
 
-{{% code-placeholders "ADMIN_TOKEN" %}}
+{{% code-placeholders "OPERATOR_TOKEN" %}}
 ```bash
 influxdb3 create token --admin \
-  --token ADMIN_TOKEN \
   --regenerate
+  OPERATOR_TOKEN
 ```
 {{% /code-placeholders %}}
 
 In your command,
-replace {{% code-placeholder-key %}}`ADMIN_TOKEN`{{% /code-placeholder-key %}}
-with the current token string.
+replace {{% code-placeholder-key %}}`OPERATOR_TOKEN`{{% /code-placeholder-key %}}
+with the current operator (`_admin`) token string.
 
-The CLI asks for confirmation before regenerating the token.
 The output contains the new token string and InfluxDB deactivates the previous token string. 
 <!----------------------------END CLI------------------------------------------>
 {{% /tab-content %}}
@@ -56,40 +47,33 @@ The output contains the new token string and InfluxDB deactivates the previous t
 <!----------------------------BEGIN HTTP API----------------------------------->
 Use the following HTTP API endpoint:
 
-{{% show-in "core" %}}
 {{% api-endpoint method="POST" endpoint="/api/v3/configure/token/admin/regenerate" api-ref="/influxdb3/version/api/v3/configure/token/admin/regenerate" %}}
-{{% /show-in %}}
 
-{{% show-in "enterprise" %}}
-{{% api-endpoint method="POST" endpoint="/api/v3/enterprise/configure/token/admin/regenerate" api-ref="/influxdb3/version/api/v3/enterprise/configure/token/admin" %}}
-{{% /show-in %}}
-
-In your request, send an `Authorization` header with your current admin token string 
+In your request, send an `Authorization` header with your current operator token string 
 --for example:
 
-{{% show-in "core" %}}
-{{% code-placeholders "ADMIN_TOKEN" %}}
+{{% code-placeholders "OPERATOR_TOKEN" %}}
 ```bash
-curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin" \
-  --header "Authorization: Bearer ADMIN_TOKEN" \
+curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin/regenerate" \
+  --header "Authorization: Bearer OPERATOR_TOKEN" \
   --header "Accept: application/json"
 ```
 {{% /code-placeholders %}}
-{{% /show-in %}}
 
-{{% show-in "enterprise" %}}
-{{% code-placeholders "ADMIN_TOKEN" %}}
-```bash
-curl -X POST "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token/admin" \
-  --header "Authorization: Bearer ADMIN_TOKEN" \
-  --header "Accept: application/json"
-```
-{{% /code-placeholders %}}
-{{% /show-in %}}
+In your command, replace {{% code-placeholder-key %}}`OPERATOR_TOKEN`{{% /code-placeholder-key %}} with the current token string.
 
-In your command, replace {{% code-placeholder-key %}}`ADMIN_TOKEN`{{% /code-placeholder-key %}} with the current token string.
-
-The output contains the new token string and InfluxDB deactivates the previous token string. 
+The response body contains the new operator token string in plain text, and InfluxDB deactivates the previous token string.
 <!------------------------END HTTP API ---------------------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
+
+To use the token as the default for later commands, and to persist the token
+across sessions, assign the token string to the `INFLUXDB3_AUTH_TOKEN` environment variable.
+
+## Important considerations
+
+- Regenerating the operator token invalidates the previous token.
+- If you lose the operator token, there is no recovery mechanism.
+- `--regenerate` only works for the operator token. You can't use the `--regenerate` flag with the `influxdb3 create token --admin` command to regenerate a named admin token.
+- Ensure that you update any applications or scripts that use the operator token with the new token string.
+- Always store your operator token securely and consider implementing proper secret management practices.

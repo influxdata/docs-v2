@@ -52,7 +52,7 @@ tags:
       #### Related guides
 
       - [Manage tokens](/influxdb3/enterprise/admin/tokens/)
-      - [Authentication and authorization](/influxdb3/enterprise/reference/authentication/)
+      - [Authentication and authorization](/influxdb3/enterprise/reference/internals/authentication/)
     x-traitTag: true
   - name: Cache data
     description: |
@@ -157,7 +157,7 @@ tags:
       1. [Create an admin token](#section/Authentication) for the InfluxDB 3 Enterprise API.
 
          ```bash
-         curl -X POST "http://localhost:8181/api/v3/enterprise/configure/token/admin"
+         curl -X POST "http://localhost:8181/api/v3/configure/token/admin"
          ```
       2. [Check the status](#section/Server-information) of the InfluxDB server.
 
@@ -1351,15 +1351,13 @@ paths:
       tags:
         - Authentication
         - Token
-  /api/v3/configure/enterprise/token/admin:
+  /api/v3/configure/token/admin:
     post:
       operationId: PostCreateAdminToken
       summary: Create admin token
       description: |
         Creates an admin token.
         An admin token is a special type of token that has full access to all resources in the system.
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
       responses:
         '201':
           description: |
@@ -1374,14 +1372,12 @@ paths:
       tags:
         - Authentication
         - Token
-  /api/v3/configure/enterprise/token/admin/regenerate:
+  /api/v3/configure/token/admin/regenerate:
     post:
       operationId: PostRegenerateAdminToken
       summary: Regenerate admin token
       description: |
         Regenerates an admin token and revokes the previous token with the same name.
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
       parameters: []
       responses:
         '201':
@@ -1940,8 +1936,6 @@ components:
       scheme: bearer
       bearerFormat: JWT
       description: |
-        _During Alpha release, an API token is not required._
-
         A Bearer token for authentication.
 
         Provide the scheme and the API token in the `Authorization` header--for example:

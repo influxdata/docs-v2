@@ -1,13 +1,3 @@
-<!-- START COMPONENT AND JS BUNDLING REFACTOR
-  Eventually, all site-specific JavaScript and external JS
-  dependencies will be bundled in main.js
--->
-<!-- Legacy: keep jquery here until component refactor is for scripts in footer.bundle.js that still require it. -->
-{{ $jquery := resources.Get "js/jquery-3.5.0.min.js" }}
-{{ $headerjs := slice $jquery | resources.Concat "js/header.bundle.js" | resources.Fingerprint }}
-
-<script type="text/javascript" src="{{ $headerjs.RelPermalink }}"></script>
-
 <!-- $productPathData here is buggy - it might not return the current page path due to the context in which .RelPermalink is called -->
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
@@ -23,7 +13,7 @@
 {{ $products := .Site.Data.products }}
 {{ $influxdb_urls := .Site.Data.influxdb_urls }}
 <!-- Build main.js -->
-{{ with resources.Get "js/main.js" }}
+{{ with resources.Get "js/index.js" }}
   {{ $opts := dict
     "minify" hugo.IsProduction
     "sourceMap" (cond hugo.IsProduction "" "external")

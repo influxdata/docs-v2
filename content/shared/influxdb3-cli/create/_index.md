@@ -18,7 +18,6 @@ influxdb3 create <SUBCOMMAND>
 | [file_index](/influxdb3/version/reference/cli/influxdb3/create/file_index/)         | Create a new file index for a database or table |
 | [last_cache](/influxdb3/version/reference/cli/influxdb3/create/last_cache/)         | Create a new last value cache                   |
 | [distinct_cache](/influxdb3/version/reference/cli/influxdb3/create/distinct_cache/) | Create a new distinct value cache               |
-| [plugin](/influxdb3/version/reference/cli/influxdb3/create/plugin/)                 | Create a new processing engine plugin           |
 | [table](/influxdb3/version/reference/cli/influxdb3/create/table/)                   | Create a new table in a database                |
 | [token](/influxdb3/version/reference/cli/influxdb3/create/token/)                   | Create a new authentication token               |
 | [trigger](/influxdb3/version/reference/cli/influxdb3/create/trigger/)               | Create a new trigger for the processing engine  |
