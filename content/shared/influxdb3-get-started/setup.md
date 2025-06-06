@@ -1,25 +1,22 @@
-### Install and startup
+## Install {{% product-name %}}
 
 {{% product-name %}} runs on **Linux**, **macOS**, and **Windows**.
-
-{{% show-in "enterprise" %}}
-{{% tabs-wrapper %}}
-{{% tabs %}}
-[Linux or macOS](#linux-or-macos)
-[Windows](#windows)
-[Docker](#docker)
-{{% /tabs %}}
-{{% tab-content %}}
-<!--------------- BEGIN LINUX AND MACOS -------------->
-To get started quickly, download and run the install script--for example, using [curl](https://curl.se/download.html):
+If using **Linux** or **macOS**, you can download and use the {{% product-name %}}
+quick installer using [curl](https://curl.se/download.html):
 
 <!--pytest.mark.skip-->
 ```bash
 curl -O https://www.influxdata.com/d/install_influxdb3.sh \
-&& sh install_influxdb3.sh enterprise
+&& sh install_influxdb3.sh {{% show-in "enterprise" %}}enterprise{{% /show-in %}}
 ```
 
-Or, download and install [build artifacts](/influxdb3/enterprise/install/#download-influxdb-3-enterprise-binaries):
+For detailed installation instructions, including for Windows and Docker,
+see [Install {{% product-name %}}](/influxdb3/version/install/).
+
+You can also download and install [{{% product-name %}} build artifacts](/influxdb3/enterprise/install/#download-influxdb-3-enterprise-binaries) directly:
+
+{{< expand-wrapper >}}
+{{% expand "Linux binaries" %}}
 
 - [Linux | AMD64 (x86_64) | GNU](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_amd64.tar.gz)
   •
@@ -27,6 +24,10 @@ Or, download and install [build artifacts](/influxdb3/enterprise/install/#downlo
 - [Linux | ARM64 (AArch64) | GNU](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_arm64.tar.gz)
   •
   [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_arm64.tar.gz.sha256)
+
+{{% /expand %}}
+{{% expand "macOS binaries" %}}
+
 - [macOS | Silicon (ARM64)](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_darwin_arm64.tar.gz)
   •
   [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_darwin_arm64.tar.gz.sha256)
@@ -34,17 +35,15 @@ Or, download and install [build artifacts](/influxdb3/enterprise/install/#downlo
 > [!Note]
 > macOS Intel builds are coming soon.
 
-<!--------------- END LINUX AND MACOS -------------->
-{{% /tab-content %}}
-{{% tab-content %}}
-<!--------------- BEGIN WINDOWS -------------->
-Download and install the {{% product-name %}} [Windows (AMD64, x86_64) binary](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}-windows_amd64.zip)
+{{% /expand %}}
+{{% expand "Windows binaries" %}}
+
+- [Windows (AMD64, x86_64) binary](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}-windows_amd64.zip)
  •
 [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}-windows_amd64.zip.sha256)
-<!--------------- END WINDOWS -------------->
-{{% /tab-content %}}
-{{% tab-content %}}
-<!--------------- BEGIN DOCKER -------------->
+
+{{% /expand %}}
+{{% expand "Docker image" %}}
 
 The [`influxdb:3-enterprise` image](https://hub.docker.com/_/influxdb/tags?tag=3-core&name=3-enterprise)
 is available for x86_64 (AMD64) and ARM64 architectures.
@@ -55,74 +54,13 @@ Pull the image:
 ```bash
 docker pull influxdb:3-enterprise
 ```
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
-<!--------------- END DOCKER -------------->
-{{% /tab-content %}}
-{{% /tabs-wrapper %}}
-{{% /show-in %}}
+### Verify the installation
 
-{{% show-in "core" %}}
-{{% tabs-wrapper %}}
-{{% tabs %}}
-[Linux or macOS](#linux-or-macos)
-[Windows](#windows)
-[Docker](#docker)
-{{% /tabs %}}
-{{% tab-content %}}
-<!--------------- BEGIN LINUX AND MACOS -------------->
-To get started quickly, download and run the install script--for example, using [curl](https://curl.se/download.html):
-
-<!--pytest.mark.skip-->
-```bash
-curl -O https://www.influxdata.com/d/install_influxdb3.sh \
-&& sh install_influxdb3.sh
-```
-Or, download and install [build artifacts](/influxdb3/core/install/#download-influxdb-3-core-binaries):
-
-- [Linux | AMD64 (x86_64) | GNU](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_amd64.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_amd64.tar.gz.sha256)
-- [Linux | ARM64 (AArch64) | GNU](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_arm64.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_arm64.tar.gz.sha256)
-- [macOS | Silicon (ARM64)](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_darwin_arm64.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_darwin_arm64.tar.gz.sha256)
-
-> [!Note]
-> macOS Intel builds are coming soon.
-
-<!--------------- END LINUX AND MACOS -------------->
-{{% /tab-content %}}
-{{% tab-content %}}
-<!--------------- BEGIN WINDOWS -------------->
-Download and install the {{% product-name %}} [Windows (AMD64, x86_64) binary](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}-windows_amd64.zip)
- •
-[sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}-windows_amd64.zip.sha256)
-<!--------------- END WINDOWS -------------->
-{{% /tab-content %}}
-{{% tab-content %}}
-<!--------------- BEGIN DOCKER -------------->
-The [`influxdb:3-core` image](https://hub.docker.com/_/influxdb/tags?tag=3-core&name=3-core)
-is available for x86_64 (AMD64) and ARM64 architectures.
-
-Pull the image:
-
-<!--pytest.mark.skip-->
-```bash
-docker pull influxdb:3-core
-```
-
-<!--------------- END DOCKER -------------->
-{{% /tab-content %}}
-{{% /tabs-wrapper %}}
-{{% /show-in %}}
-
-_Build artifacts and images update with every merge into the {{% product-name %}} `main` branch._
-
-#### Verify the install
-
-After you have installed {{% product-name %}}, enter the following command to verify that it completed successfully:
+After installing {{% product-name %}}, enter the following command to verify
+that it installed successfully:
 
 ```bash
 influxdb3 --version
@@ -135,10 +73,11 @@ If your system doesn't locate `influxdb3`, then `source` the configuration file 
 source ~/.zshrc
 ```
 
+## Start InfluxDB
 
-#### Start InfluxDB
-
-To start your InfluxDB instance, use the `influxdb3 serve` command and provide the following:
+Use the [`influxdb3 serve` command](/influxdb3/version/reference/cli/influxdb3/serve/)
+to start {{% product-name %}}.
+Provide the following:
 
 - `--object-store`: Specifies the type of object store to use.
   InfluxDB supports the following: local file system (`file`), `memory`,

@@ -3,8 +3,8 @@ title: Use a multi-server setup
 seotitle: Use a multi-server InfluxDB 3 Enterprise setup
 menu:
   influxdb3_enterprise:
-    - name: Multi-server
-    - parent: Get started
+    name: Multi-server
+    parent: Get started
 weight: 4
 influxdb3/enterprise/tags: [cluster, multi-node, multi-server]
 ---

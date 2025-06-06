@@ -66,10 +66,19 @@ This tutorial covers many of the recommended tools.
 {{< /caption >}}
 
 
+{{< show-in "core" >}}
+{{< page-nav next="/influxdb3/core/get-started/setup/" nextText="Set up InfluxDB 3 Core" >}}
+{{< /show-in >}}
 
+{{< show-in "enterprise" >}}
+{{< page-nav next="/influxdb3/enterprise/get-started/setup/" nextText="Set up InfluxDB 3 Enterprise" >}}
+{{< /show-in >}}
 
-
-
+<!-- 
+TO-DOs
+  - Move this to it's own management section
+  - Learn exactly how file indexes work
+  - Add this content to optimizing queries
 
 ### File index settings
 
@@ -108,3 +117,5 @@ Replace the following placeholders with your values:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to create the file index in
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the name of the table to create the file index in
 - {{% code-placeholder-key %}}`COLUMNS`{{% /code-placeholder-key %}}: a comma-separated list of columns to index on, for example, `host,application`
+-->
+
