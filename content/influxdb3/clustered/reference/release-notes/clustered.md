@@ -35,6 +35,13 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250508-1719206
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20250508-1719206.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
+
 ### Changes
 
 #### Deployment
@@ -58,6 +65,13 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250212-1570743
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20250212-1570743.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
 
 ### Bug Fixes
 
@@ -88,6 +102,13 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241217-1494922
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20241217-1494922.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
+
 ### Bug Fixes
 
 This fixes a bug present in release [20241024-1354148](#20241024-1354148), in
@@ -112,7 +133,7 @@ DSN before connecting.
 ---
 
 
-## 20241024-1354148  {date="2024-10-24" .checkpoint}
+## 20241024-1354148 {date="2024-10-24" .checkpoint}
 
 ### Quickstart
 
@@ -121,6 +142,13 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241022-1346953
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20241024-1354148.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
 
 ### Known Bugs
 
@@ -318,6 +346,13 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240819-1176644
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20240819-1176644.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
+
 ### Highlights
 
 #### `admin` section is no longer required
@@ -396,6 +431,13 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240717-1117630
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20240717-1117630.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
 
 ### Highlights
 
@@ -508,6 +550,13 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240605-1035562
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20240605-1035562.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
+
 ### Highlights
 
 Multiple improvements to compaction, pruning, and performance of concurrent queries.
@@ -574,6 +623,13 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240430-976585
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20240430-976585.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
+
 ### Highlights
 
 - Added configuration settings for an optional Prometheus `ServiceMonitor`
@@ -604,6 +660,13 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240418-955990
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20240418-955990.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
 
 ### Highlights
 
@@ -644,6 +707,13 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240325-920726
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20240326-922145.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
 
 ### Highlights
 
@@ -696,6 +766,13 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240227-883344
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20240227-883344.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
+
 ### Changes
 
 #### Deployment
@@ -723,6 +800,13 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240214-863513
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20240214-863513.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
 
 ### Highlights
 
@@ -782,6 +866,13 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240111-824437
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20240111-824437.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
 
 ### Highlights
 
@@ -845,6 +936,13 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231213-791734
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20231213-791734.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
+
 ### Highlights
 
 #### Labels/annotations
@@ -885,6 +983,13 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231117-750011
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20231117-750011.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
+
 ### Highlights
 
 > ![Important]
@@ -909,6 +1014,13 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231115-746129
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20231115-746129.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
 
 ### Highlights
 
@@ -1022,6 +1134,13 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231024-711448
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20231024-711448.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
+
 ### Highlights
 
 #### Additional `AppInstance` parameters
@@ -1082,6 +1201,13 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231004-666907
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20231004-666907.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
 
 ### Highlights
 
@@ -1150,6 +1276,13 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230922-650371
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20230922-650371.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
+
 ### Highlights
 
 #### Configuration simplification
@@ -1202,6 +1335,13 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230915-630658
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20230915-630658.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
+
 ### Highlights
 
 #### Persistent volume fixes
@@ -1227,6 +1367,13 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230914-628600
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20230914-628600.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
 
 ### Highlights
 
@@ -1262,6 +1409,13 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230912-619813
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20230912-619813.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
 
 ### Highlights
 
@@ -1333,6 +1487,13 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230911-604209
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20230911-604209.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
+
 ### Highlights
 
 This release contains a breaking change to the monitoring subsystem that
@@ -1382,6 +1543,13 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230908-600131
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20230908-600131.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
+
 ### Highlights
 
 #### Default storage class
@@ -1408,6 +1576,13 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230907-597343
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json]()
+- [example-customer.yml]()
+- [20230907-597343.tar.gz]()
+- [InfluxDB Clustered README EULA July 2024.txt]()
 
 ### Upgrade Notes
 
