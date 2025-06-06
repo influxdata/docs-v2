@@ -469,7 +469,7 @@ service kapacitor restart
 ```
 
 Check the logs (`/var/log/kapacitor/` or `journalctl -f -n 256 -u kapacitor.service`) to make sure you see a
-*Listening for signals* line and that no errors occurred.  If you
+_Listening for signals_ line and that no errors occurred.  If you
 don't see the line, it's because the UDF process is hung and not
 responding. It should be killed after a timeout, so give it a moment
 to stop properly. Once stopped, you can fix any errors and try again.
