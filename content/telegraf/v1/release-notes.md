@@ -11,7 +11,7 @@ menu:
     weight: 60
 ---
 
-## v1.34.1 [2025-03-24]
+## v1.34.1 {date="2025-03-24"}
 
 ### Bugfixes
 
@@ -40,7 +40,7 @@ menu:
 - [#16653](https://github.com/influxdata/telegraf/pull/16653) `deps` Bump k8s.io/api from 0.32.1 to 0.32.3
 - [#16659](https://github.com/influxdata/telegraf/pull/16659) `deps` Bump tj-actions/changed-files from v45 to v46.0.1
 
-## v1.34.0 [2025-03-10]
+## v1.34.0 {date="2025-03-10"}
 
 ### New Plugins
 
@@ -94,7 +94,7 @@ menu:
 - [#16575](https://github.com/influxdata/telegraf/pull/16575) `deps` Bump github.com/tidwall/wal from 1.1.7 to 1.1.8
 - [#16578](https://github.com/influxdata/telegraf/pull/16578) `deps` Bump super-linter/super-linter from 7.2.1 to 7.3.0
 
-## v1.33.3 [2025-02-25]
+## v1.33.3 {date="2025-02-25"}
 
 ### Important Changes
 
@@ -128,7 +128,7 @@ menu:
 - [#16504](https://github.com/influxdata/telegraf/pull/16504) `deps` Bump golang.org/x/net from 0.34.0 to 0.35.0
 - [#16512](https://github.com/influxdata/telegraf/pull/16512) `deps` Bump golangci-lint from v1.63.4 to v1.64.5
 
-## v1.33.2 [2025-02-10]
+## v1.33.2 {date="2025-02-10"}
 
 ### Important Changes
 
@@ -177,7 +177,7 @@ menu:
 - [#16482](https://github.com/influxdata/telegraf/pull/16482) `deps` Update Apache arrow from 0.0-20240716144821-cf5d7c7ec3cf to 18.1.0
 - [#16423](https://github.com/influxdata/telegraf/pull/16423) `deps` Update ClickHouse SQL driver from 1.5.4 to to 2.30.1
 
-## v1.33.1 [2025-01-10]
+## v1.33.1 {date="2025-01-10"}
 
 ### Important Changes
 
