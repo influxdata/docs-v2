@@ -550,7 +550,7 @@ Ensure that the task is enabled:
 kapacitor enable print_temps
 ```
 
-And then...
+And then list the tasks:
 
 ```bash
 kapacitor list tasks
@@ -686,7 +686,7 @@ fake data so that we can easily iterate on the task:
 ```sh
 # Start the recording in the background
 kapacitor record stream -task print_temps -duration 24h -no-wait
-# Grab the ID and store it in a var
+# Copy the ID and store it in a variable
 kapacitor list recordings
 ID                                   Type    Status    Size      Date
 7bd3ced5-5e95-4a67-a0e1-f00860b1af47 stream  running   0 B       04 May 16 11:34 MDT
