@@ -168,11 +168,11 @@ Before you begin, make sure:
 
 Choose a plugin type based on your automation goals:
 
-| Plugin Type | Best For | Trigger Type |
-|-------------|----------|-------------|
-| **Data write** | Processing data as it arrives | `table:` or `all_tables` |
-| **Scheduled** | Running code at specific times | `every:` or `cron:` |
-| **HTTP request** | Creating API endpoints | `path:` |
+| Plugin Type      | Best For                                    | Trigger Type             |
+| ---------------- | ------------------------------------------- | ------------------------ |
+| **Data write**   | Processing data as it arrives               | `table:` or `all_tables` |
+| **Scheduled**    | Running code at specific intervals or times | `every:` or `cron:`      |
+| **HTTP request** | Running code on demand via API endpoints    | `path:`                  |
 
 #### Create your plugin file
 
@@ -336,8 +336,9 @@ influxdb3 create trigger \
   regular_check
 
 # Run on a cron schedule (8am daily)
+# Supports extended cron format with seconds
 influxdb3 create trigger \
-  --trigger-spec "cron:0 8 * * *" \
+  --trigger-spec "cron:0 0 8 * * *" \
   --plugin-filename "daily_report.py" \
   --database my_database \
   daily_report
