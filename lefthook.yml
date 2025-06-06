@@ -31,7 +31,7 @@ pre-commit:
     cloud-serverless-lint:
       tags: lint,v3
       glob:
-        - 'content/influxdb/cloud-serverless/*.md'
+        - 'content/influxdb3/cloud-serverless/*.md'
         - 'content/shared/*.md'
       run: '.ci/vale/vale.sh
         --config=content/influxdb3/cloud-serverless/.vale.ini
