@@ -55,7 +55,7 @@ In the examples below, replace the following:
 influxdb3 test schedule_plugin \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
-  PLUGIN_DIR/PLUGIN_NAME.py
+  PLUGIN_DIR/FILENAME.py
 ```
 
 {{% /code-placeholders %}}
