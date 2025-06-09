@@ -602,7 +602,7 @@ Place all plugin files in the `--plugin-dir` directory configured for each node.
 
 External tools—such as Grafana, custom dashboards, or REST clients—must connect to querier nodes in your InfluxDB Enterprise deployment.
 
-#### Examples:
+#### Examples
 
 - **Grafana**: When adding InfluxDB 3 as a Grafana data source, use a querier node URL, such as:
 `https://querier.example.com:8086`
