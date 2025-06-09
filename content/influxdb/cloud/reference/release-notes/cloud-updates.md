@@ -188,7 +188,7 @@ Now, you can add the following buckets with sample data to your notebooks:
 
 ### Add ability to share notebooks
 
-Add ability to [share a notebook](/influxdb/cloud/tools/notebooks/manage-notebooks/#share-a-notebook) in the the InfluxDB Cloud notebook UI.
+Add ability to [share a notebook](/influxdb/cloud/tools/notebooks/manage-notebooks/#share-a-notebook) in the InfluxDB Cloud notebook UI.
 
 ## October 2021
 
@@ -209,7 +209,7 @@ Refresh the look and feel of InfluxDB Cloud UI. The updated icons, fonts, and la
 
 ### Flux update
 
-Upgrade to [Flux v0.139](/flux/v0.x/release-notes/).
+Upgrade to [Flux v0.139](/flux/v0/release-notes/).
 
 ### Telegraf configuration UI
 
@@ -347,7 +347,7 @@ Install and customize any [InfluxDB community template](https://github.com/influ
 
 ## Features
 - **InfluxDB OSS 2.0 alpha-17** –
-  _See the [alpha-17 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha17) for details._
+  _See the [alpha-17 release notes](/influxdb/v2/reference/release-notes/influxdb/#v200-alpha17) for details._
 - Alerts and Notifications to Slack (Free Plan), PagerDuty and HTTP (Usage-based Plan).
 - Rate limiting on cardinality for Free Plan.
 - Billing notifications.
@@ -359,7 +359,7 @@ Install and customize any [InfluxDB community template](https://github.com/influ
 ### Features
 
 - **InfluxDB OSS 2.0 alpha-15** –
-  _See the [alpha-9 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha15) for details._
+  _See the [alpha-9 release notes](/influxdb/v2/reference/release-notes/influxdb/#v200-alpha15) for details._
 - Usage-based Plan.
 - Adjusted Free Plan rate limits.
 - Timezone selection in the user interface.
@@ -386,7 +386,7 @@ Install and customize any [InfluxDB community template](https://github.com/influ
 ### Features
 
 - **InfluxDB OSS 2.0 alpha-9** –
-  _See the [alpha-9 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha9) for details._
+  _See the [alpha-9 release notes](/influxdb/v2/reference/release-notes/influxdb/#v200-alpha9) for details._
 
 ### Bug fixes
 
@@ -403,7 +403,7 @@ Install and customize any [InfluxDB community template](https://github.com/influ
 ### Features
 
 - **InfluxDB OSS 2.0 alpha-7** –
-  _See the [alpha-7 release notes](/influxdb/v2%2E0/reference/release-notes/influxdb/#v200-alpha7) for details._
+  _See the [alpha-7 release notes](/influxdb/v2/reference/release-notes/influxdb/#v200-alpha7) for details._
 
 ### Bug fixes
 

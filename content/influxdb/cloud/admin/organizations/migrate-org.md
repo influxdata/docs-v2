@@ -40,7 +40,7 @@ To replicate the state of an organization:
 ### Write data with Flux
 Perform a query to return all specified data.
 Write results directly to a bucket in the new organization with the Flux
-[`to()` function](/flux/v0.x/stdlib/influxdata/influxdb/to/).
+[`to()` function](/flux/v0/stdlib/influxdata/influxdb/to/).
 
 {{% note %}}
 If writes are prevented by rate limiting,

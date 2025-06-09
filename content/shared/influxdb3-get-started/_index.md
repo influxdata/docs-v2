@@ -1,39 +1,13 @@
-InfluxDB is a database built to collect, process, transform, and store event and time series data, and is ideal for use cases that require real-time ingest and fast query response times to build user interfaces, monitoring, and automation solutions.
 
-Common use cases include:
-
-- Monitoring sensor data
-- Server monitoring
-- Application performance monitoring
-- Network monitoring
-- Financial market and trading analytics
-- Behavioral analytics
-
-InfluxDB is optimized for scenarios where near real-time data monitoring is essential and queries need to return quickly to support user experiences such as dashboards and interactive user interfaces.
-
-{{% product-name %}} is the InfluxDB 3 open source release.
-Core's feature highlights include:
-
-* Diskless architecture with object storage support (or local disk with no dependencies)
-* Fast query response times (under 10ms for last-value queries, or 30ms for distinct metadata)
-* Embedded Python VM for plugins and triggers
-* Parquet file persistence
-* Compatibility with InfluxDB 1.x and 2.x write APIs
-
-The Enterprise version adds the following features to Core:
-
-* Historical query capability and single series indexing
-* High availability
-* Read replicas
-* Enhanced security (coming soon)
-* Row-level delete support (coming soon)
-* Integrated admin UI (coming soon)
-
-For more information, see how to [get started with Enterprise](/influxdb3/enterprise/get-started/).
 
 ### What's in this guide
 
+{{% show-in "enterprise" %}}
+This guide covers Enterprise as well as InfluxDB 3 Core, including the following topics:
+{{% /show-in %}}
+{{% show-in "core" %}}
 This guide covers InfluxDB 3 Core (the open source release), including the following topics:
+{{% /show-in %}}
 
 - [Install and startup](#install-and-startup)
 - [Authentication and authorization](#authentication-and-authorization)
@@ -44,6 +18,9 @@ This guide covers InfluxDB 3 Core (the open source release), including the follo
 - [Last values cache](#last-values-cache)
 - [Distinct values cache](#distinct-values-cache)
 - [Python plugins and the processing engine](#python-plugins-and-the-processing-engine)
+{{% show-in "enterprise" %}}
+- [Multi-server setups](#multi-server-setup)
+{{% /show-in %}}
 
 > [!Tip]
 > #### Find support for {{% product-name %}}
@@ -55,6 +32,7 @@ This guide covers InfluxDB 3 Core (the open source release), including the follo
 
 {{% product-name %}} runs on **Linux**, **macOS**, and **Windows**.
 
+{{% show-in "enterprise" %}}
 {{% tabs-wrapper %}}
 {{% tabs %}}
 [Linux or macOS](#linux-or-macos)
@@ -68,10 +46,10 @@ To get started quickly, download and run the install script--for example, using 
 <!--pytest.mark.skip-->
 ```bash
 curl -O https://www.influxdata.com/d/install_influxdb3.sh \
-&& sh install_influxdb3.sh
+&& sh install_influxdb3.sh enterprise
 ```
 
-Or, download and install [build artifacts](/influxdb3/core/install/#download-influxdb-3-core-binaries):
+Or, download and install [build artifacts](/influxdb3/enterprise/install/#download-influxdb-3-enterprise-binaries):
 
 - [Linux | AMD64 (x86_64) | GNU](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_amd64.tar.gz)
   •
@@ -98,6 +76,63 @@ Download and install the {{% product-name %}} [Windows (AMD64, x86_64) binary](h
 {{% tab-content %}}
 <!--------------- BEGIN DOCKER -------------->
 
+The [`influxdb:3-enterprise` image](https://hub.docker.com/_/influxdb/tags?tag=3-core&name=3-enterprise)
+is available for x86_64 (AMD64) and ARM64 architectures.
+
+Pull the image:
+
+<!--pytest.mark.skip-->
+```bash
+docker pull influxdb:3-enterprise
+```
+
+<!--------------- END DOCKER -------------->
+{{% /tab-content %}}
+{{% /tabs-wrapper %}}
+{{% /show-in %}}
+
+{{% show-in "core" %}}
+{{% tabs-wrapper %}}
+{{% tabs %}}
+[Linux or macOS](#linux-or-macos)
+[Windows](#windows)
+[Docker](#docker)
+{{% /tabs %}}
+{{% tab-content %}}
+<!--------------- BEGIN LINUX AND MACOS -------------->
+To get started quickly, download and run the install script--for example, using [curl](https://curl.se/download.html):
+
+<!--pytest.mark.skip-->
+```bash
+curl -O https://www.influxdata.com/d/install_influxdb3.sh \
+&& sh install_influxdb3.sh
+```
+Or, download and install [build artifacts](/influxdb3/core/install/#download-influxdb-3-core-binaries):
+
+- [Linux | AMD64 (x86_64) | GNU](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_amd64.tar.gz)
+  •
+  [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_amd64.tar.gz.sha256)
+- [Linux | ARM64 (AArch64) | GNU](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_arm64.tar.gz)
+  •
+  [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_arm64.tar.gz.sha256)
+- [macOS | Silicon (ARM64)](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_darwin_arm64.tar.gz)
+  •
+  [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_darwin_arm64.tar.gz.sha256)
+
+> [!Note]
+> macOS Intel builds are coming soon.
+
+<!--------------- END LINUX AND MACOS -------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!--------------- BEGIN WINDOWS -------------->
+Download and install the {{% product-name %}} [Windows (AMD64, x86_64) binary](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}-windows_amd64.zip)
+ •
+[sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}-windows_amd64.zip.sha256)
+<!--------------- END WINDOWS -------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!--------------- BEGIN DOCKER -------------->
 The [`influxdb:3-core` image](https://hub.docker.com/_/influxdb/tags?tag=3-core&name=3-core)
 is available for x86_64 (AMD64) and ARM64 architectures.
 
@@ -108,18 +143,10 @@ Pull the image:
 docker pull influxdb:3-core
 ```
 
-##### InfluxDB 3 Explorer -- Query Interface (Beta)
-
-You can download the new InfluxDB 3 Explorer query interface using Docker.
-Explorer is currently in beta. Pull the image:
-
-```bash
-docker pull quay.io/influxdb/influxdb3-explorer:latest
-```
-
 <!--------------- END DOCKER -------------->
 {{% /tab-content %}}
 {{% /tabs-wrapper %}}
+{{% /show-in %}}
 
 _Build artifacts and images update with every merge into the {{% product-name %}} `main` branch._
 
@@ -138,20 +165,26 @@ If your system doesn't locate `influxdb3`, then `source` the configuration file 
 source ~/.zshrc
 ```
 
+
 #### Start InfluxDB
 
 To start your InfluxDB instance, use the `influxdb3 serve` command and provide the following:
 
-`--object-store`: Specifies the type of object store to use.
+- `--object-store`: Specifies the type of object store to use.
   InfluxDB supports the following: local file system (`file`), `memory`,
   S3 (and compatible services like Ceph or Minio) (`s3`),
   Google Cloud Storage (`google`), and Azure Blob Storage (`azure`).
   The default is `file`.
   Depending on the object store type, you may need to provide additional options
   for your object store configuration.
-- `--node-id`: A string identifier that distinguishes individual server instances within the cluster.
+{{% show-in "enterprise" %}}
+- `--node-id`: A string identifier that distinguishes individual server instances within the cluster. This forms the final part of the storage path: `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`. In a multi-node setup, this ID is used to reference specific nodes.
+- `--cluster-id`: A string identifier that determines part of the storage path hierarchy. All nodes within the same cluster share this identifier. The storage path follows the pattern `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`. In a multi-node setup, this ID is used to reference the entire cluster.
+{{% /show-in %}}
+{{% show-in "core" %}}
+- `--node-id`: A string identifier that distinguishes individual server instances.
   This forms the final part of the storage path: `<CONFIGURED_PATH>/<NODE_ID>`.
-  In a multi-node setup, this ID is used to reference specific nodes.
+{{% /show-in %}}
 
 The following examples show how to start {{% product-name %}} with different object store configurations.
 
@@ -162,6 +195,11 @@ The following examples show how to start {{% product-name %}} with different obj
 > storage alone, eliminating the need for locally attached disks.
 > {{% product-name %}} can also work with only local disk storage when needed. 
 
+{{% show-in "enterprise" %}}
+> [!Note]
+> The combined path structure `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>` ensures proper organization of data in your object store, allowing for clean separation between clusters and individual nodes.
+{{% /show-in %}}
+
 ##### Filesystem object store
 
 Store data in a specified directory on the local filesystem.
@@ -169,23 +207,53 @@ This is the default object store type.
 
 Replace the following with your values:
 
+{{% show-in "enterprise" %}}
 ```bash
 # Filesystem object store
 # Provide the filesystem directory
 influxdb3 serve \
   --node-id host01 \
+  --cluster-id cluster01 \
   --object-store file \
   --data-dir ~/.influxdb3
 ```
+{{% /show-in %}}
+{{% show-in "core" %}}
+```bash
+# File system object store
+# Provide the file system directory
+influxdb3 serve \
+  --node-id host01 \
+  --object-store file \
+  --data-dir ~/.influxdb3
+```
+{{% /show-in %}}
 
-To run the [Docker image](/influxdb3/version/install/#docker-image) and persist data to the filesystem, mount a volume for the object store-for example, pass the following options:
+To run the [Docker image](/influxdb3/version/install/#docker-image) and persist data to the file system, mount a volume for the object store-for example, pass the following options:
 
-- `-v /path/on/host:/path/in/container`: Mounts a directory from your filesystem to the container
+- `-v /path/on/host:/path/in/container`: Mounts a directory from your file system to the container
 - `--object-store file --data-dir /path/in/container`: Uses the mount for server storage
 
+
+{{% show-in "enterprise" %}}
 <!--pytest.mark.skip-->
 ```bash
-# Filesystem object store with Docker 
+# File system object store with Docker 
+# Create a mount
+# Provide the mount path
+docker run -it \
+ -v /path/on/host:/path/in/container \
+ influxdb:3-enterprise influxdb3 serve \
+ --node-id my_host \
+ --cluster-id my_cluster \
+ --object-store file \
+ --data-dir /path/in/container
+```
+{{% /show-in %}}
+{{% show-in "core" %}}
+<!--pytest.mark.skip-->
+```bash
+# File system object store with Docker 
 # Create a mount
 # Provide the mount path
 docker run -it \
@@ -195,6 +263,7 @@ docker run -it \
  --object-store file \
  --data-dir /path/in/container
 ```
+{{% /show-in %}}
 
 > [!Note]
 > 
@@ -207,6 +276,36 @@ Store data in an S3-compatible object store.
 This is useful for production deployments that require high availability and durability.
 Provide your bucket name and credentials to access the S3 object store.
 
+{{% show-in "enterprise" %}}
+```bash
+# S3 object store (default is the us-east-1 region)
+# Specify the object store type and associated options
+influxdb3 serve \
+  --node-id host01 \
+  --cluster-id cluster01 \
+  --object-store s3 \
+  --bucket OBJECT_STORE_BUCKET \
+  --aws-access-key AWS_ACCESS_KEY_ID \
+  --aws-secret-access-key AWS_SECRET_ACCESS_KEY
+```
+
+
+```bash
+# Minio or other open source object store
+# (using the AWS S3 API with additional parameters)
+# Specify the object store type and associated options
+influxdb3 serve \
+  --node-id host01 \
+  --cluster-id cluster01 \
+  --object-store s3 \
+  --bucket OBJECT_STORE_BUCKET \
+  --aws-access-key-id AWS_ACCESS_KEY_ID \
+  --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
+  --aws-endpoint ENDPOINT \
+  --aws-allow-http
+```
+{{% /show-in %}}
+{{% show-in "core" %}}
 ```bash
 # S3 object store (default is the us-east-1 region)
 # Specify the object store type and associated options
@@ -231,12 +330,24 @@ influxdb3 serve \
   --aws-endpoint ENDPOINT \
   --aws-allow-http
 ```
+{{% /show-in %}}
 
 #### Memory object store
 
 Store data in RAM without persisting it on shutdown.
 It's useful for rapid testing and development.
 
+{{% show-in "enterprise" %}}
+```bash
+# Memory object store
+# Stores data in RAM; doesn't persist data
+influxdb3 serve \
+--node-id host01 \
+--cluster-id cluster01 \
+--object-store memory
+```
+{{% /show-in %}}
+{{% show-in "core" %}}
 ```bash
 # Memory object store
 # Stores data in RAM; doesn't persist data
@@ -244,6 +355,7 @@ influxdb3 serve \
 --node-id host01 \
 --object-store memory
 ```
+{{% /show-in %}}
 
 For more information about server options, use the CLI help or view the [InfluxDB 3 CLI reference](/influxdb3/version/reference/cli/influxdb3/serve/):
 
@@ -251,15 +363,64 @@ For more information about server options, use the CLI help or view the [InfluxD
 influxdb3 serve --help
 ```
 
+> [!Tip]
+> #### Run the InfluxDB 3 Explorer query interface (beta)
+> 
+> InfluxDB 3 Explorer (currently in beta) is the web-based query and 
+> administrative interface for InfluxDB 3.
+> It provides visual management of databases and tokens and an easy way to query your time series data.
+> 
+> For more information, see the [InfluxDB 3 Explorer documentation](/influxdb3/explorer/).
+
+{{% show-in "enterprise" %}}
+#### Licensing
+
+When first starting a new instance, {{% product-name %}} prompts you to select a license type.
+
+InfluxDB 3 Enterprise licenses authorize the use of the InfluxDB 3 Enterprise software and apply to a single cluster. Licenses are primarily based on the number of CPUs InfluxDB can use, but there are other limitations depending on the license type. The following InfluxDB 3 Enterprise license types are available:
+
+- **Trial**: 30-day trial license with full access to InfluxDB 3 Enterprise capabilities.
+- **At-Home**: For at-home hobbyist use with limited access to InfluxDB 3 Enterprise capabilities.
+- **Commercial**: Commercial license with full access to InfluxDB 3 Enterprise capabilities.
+
+You can learn more on managing your InfluxDB 3 Enterprise license on the [Manage your license](https://docs.influxdata.com/influxdb3/enterprise/admin/license/)page.
+{{% /show-in %}}
+
 ### Authentication and authorization
 
 {{% product-name %}} uses token-based authentication and authorization, which is enabled by default when you start the server.
 
 With authentication enabled, you must provide a token with `influxdb3` CLI commands and HTTP API requests.
 
+{{% show-in "enterprise" %}}
+{{% product-name %}} supports the following types of tokens:
+
+- **admin token**: Grants access to all CLI actions and API endpoints. A server can have one admin token.
+- **resource tokens**: Tokens that grant read and write access to specific resources (databases and system information endpoints) on the server.
+
+  - A database token grants access to write and query data in a
+    database
+  - A system token grants read access to system information endpoints and
+    metrics for the server
+{{% /show-in %}}
+{{% show-in "core" %}}
+{{% product-name %}} supports _admin_ tokens, which grant access to all CLI actions and API endpoints. 
+{{% /show-in %}}
+
+For more information about tokens and authorization, see [Manage tokens](/influxdb3/version/admin/tokens/).
+
 #### Create an operator token
 
-After you start the server, create your first admin token (the operator token):
+After you start the server, create your first admin token.
+The first admin token you create is the _operator_ token for the server.
+
+Use the `influxdb3` CLI or the HTTP API to create your operator token.
+
+> [!Important]
+> **Store your token securely**
+> 
+> InfluxDB displays the token string only when you create it.
+> Store your token securely—you cannot retrieve it from the database later.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -288,17 +449,16 @@ Replace {{% code-placeholder-key %}}`CONTAINER_NAME`{{% /code-placeholder-key %}
 {{< /code-tabs-wrapper >}}
 
 The command returns a token string for authenticating CLI commands and API requests.
-
-> [!Important]
-> **Store your token securely**
-> 
-> InfluxDB displays the token string only when you create it.
-> Store your token securely—you cannot retrieve it from the database later.
+Store your token securely—you cannot retrieve it from the database later.
 
 #### Set your token for authentication
 
-Use one of the following methods to authenticate requests.
-In your commands, replace {{% code-placeholder-key %}}`YOUR_AUTH_TOKEN`{{% /code-placeholder-key %}} with your token string (for example, the [operator token](#create-an-operator-token) from the previous step).
+Use your operator token to authenticate server actions in {{% product-name %}},
+such as creating additional tokens, performing administrative tasks, and writing and querying data.
+
+Use one of the following methods to provide your token and authenticate `influxdb3` CLI commands.
+
+In your command, replace {{% code-placeholder-key %}}`YOUR_AUTH_TOKEN`{{% /code-placeholder-key %}} with your token string (for example, the [operator token](#create-an-operator-token) from the previous step).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -329,7 +489,7 @@ influxdb3 show databases --token AUTH_TOKEN
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-For HTTP API requests, include your token in the `Authorization` header:
+For HTTP API requests, include your token in the `Authorization` header--for example:
 
 {{% code-placeholders "AUTH_TOKEN" %}}
 ```bash
@@ -338,10 +498,13 @@ curl "http://{{< influxdb/host >}}/api/v3/configure/database" \
 ```
 {{% /code-placeholders %}}
 
-#### Learn more about token management
+#### Learn more about tokens and permissions
 
-- [Manage admin tokens](/influxdb3/version/admin/tokens/admin/) - Create, list, and delete admin tokens
-- [Token types and permissions](/influxdb3/version/admin/tokens/) - Understanding operator and named admin tokens
+- [Manage admin tokens](/influxdb3/version/admin/tokens/admin/) - Understand and manage operator and named admin tokens
+{{% show-in "enterprise" %}}
+- [Manage resource tokens](/influxdb3/version/admin/tokens/resource/) - Create, list, and delete resource tokens
+{{% /show-in %}}
+- [Authentication](/influxdb3/version/reference/internals/authentication/) - Understand authentication, authorizations, and permissions in {{% product-name %}}
 
 ### Data model
 
@@ -359,12 +522,13 @@ This tutorial covers many of the recommended tools.
 
 | Tool                                                                                              |      Administration      |          Write           |          Query           |
 | :------------------------------------------------------------------------------------------------ | :----------------------: | :----------------------: | :----------------------: |
-| `influxdb3` CLI{{< req text="\* " color="magenta" >}}                           | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
-| InfluxDB HTTP API {{< req text="\* " color="magenta" >}}                     | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| **`influxdb3` CLI** {{< req text="\* " color="magenta" >}}                           | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| **InfluxDB HTTP API** {{< req text="\* " color="magenta" >}}                     | **{{< icon "check" >}}** | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| **InfluxDB 3 Explorer** {{< req text="\* " color="magenta" >}}                           | **{{< icon "check" >}}** |            -               | **{{< icon "check" >}}** |
 | [InfluxDB 3 client libraries](/influxdb3/version/reference/client-libraries/v3/)                  |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [InfluxDB v2 client libraries](/influxdb3/version/reference/client-libraries/v2/)                 |            -             | **{{< icon "check" >}}** |            -             |
 | [InfluxDB v1 client libraries](/influxdb3/version/reference/client-libraries/v1/)                 |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
-| [InfluxDB 3 Processing engine](#python-plugins-and-the-processing-engine){{< req text="\* " color="magenta" >}}                              |                          | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [InfluxDB 3 processing engine](#python-plugins-and-the-processing-engine){{< req text="\* " color="magenta" >}}                              |                          | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [Telegraf](/telegraf/v1/)                                                                         |            -             | **{{< icon "check" >}}** |            -             |
 | [Chronograf](/chronograf/v1/)                                                                     |            -             |            -             |            -             |
 | <span style="opacity:.5;">`influx` CLI</span>                                                     |            -             |            -             |            -             |
@@ -384,17 +548,19 @@ InfluxDB is a schema-on-write database. You can start writing data and InfluxDB 
 After a schema is created, InfluxDB validates future write requests against it before accepting the data.
 Subsequent requests can add new fields on-the-fly, but can't add new tags.
 
+{{% show-in "core" %}}
 > [!Note]
 > #### Core is optimized for recent data
 >
 > {{% product-name %}} is optimized for recent data but accepts writes from any time period.
 > The system persists data to Parquet files for historical analysis with [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/) or third-party tools.
 > For extended historical queries and optimized data organization, consider using [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
+{{% /show-in %}}
 
 #### Write data in line protocol syntax
 
-{{% product-name %}} accepts data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) syntax.
-The following code block is an example of time series data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) syntax:
+{{% product-name %}} accepts data in [line protocol](/influxdb3/version/reference/syntax/line-protocol/) syntax.
+The following code block is an example of time series data in [line protocol](/influxdb3/version/reference/syntax/line-protocol/) syntax:
 
 - `cpu`: the table name.
 - `host`, `region`, `applications`: the tags. A tag set is an ordered, comma-separated list of key/value pairs where the values are strings.
@@ -654,10 +820,12 @@ influxdb3 create -h
 InfluxDB 3 supports native SQL for querying, in addition to InfluxQL, an
 SQL-like language customized for time series queries.
 
+{{% show-in "core" %}}
 {{< product-name >}} limits
 query time ranges to 72 hours (both recent and historical) to ensure query performance.
 For more information about the 72-hour limitation, see the
 [update on InfluxDB 3 Core’s 72-hour limitation](https://www.influxdata.com/blog/influxdb3-open-source-public-alpha-jan-27/).
+{{% /show-in %}}
 
 > [!Note]
 > Flux, the language introduced in InfluxDB 2.0, is **not** supported in InfluxDB 3.
@@ -842,29 +1010,17 @@ print(table.group_by('cpu').aggregate([('time_system', 'mean')]))
 
 For more information about the Python client library, see the [`influxdb3-python` repository](https://github.com/InfluxCommunity/influxdb3-python) in GitHub.
 
-
 ### Query using InfluxDB 3 Explorer (Beta)
 
-You can use the InfluxDB 3 Explorer query interface by downloading the Docker image.
-
-```bash
-docker pull quay.io/influxdb/influxdb3-explorer:latest
-```
-
-Run the interface using:
-
-```bash
-docker run --name influxdb3-explorer -p 8086:8888 quay.io/influxdb/influxdb3-explorer:latest
-```
-
-With the default settings above, you can access the UI at http://localhost:8086.
-Set your expected database connection details on the Settings page.
-From there, you can query data, browser your database schema, and do basic
-visualization of your time series data.
+You can use the InfluxDB 3 Explorer web-based interface to query and visualize data,
+and administer your {{% product-name %}} instance.
+For more information, see how to [install InfluxDB 3 Explorer (Beta)](/influxdb3/explorer/install/) using Docker
+and get started querying your data.
 
 ### Last values cache
 
 {{% product-name %}} supports a **last-n values cache** which stores the last N values in a series or column hierarchy in memory. This gives the database the ability to answer these kinds of queries in under 10 milliseconds.
+
 You can use the `influxdb3` CLI to [create a last value cache](/influxdb3/version/reference/cli/influxdb3/create/last_cache/).
 
 {{% code-placeholders "DATABASE_NAME|AUTH_TOKEN|TABLE_NAME|CACHE_NAME" %}}
@@ -1233,3 +1389,325 @@ influxdb3 enable trigger \
 ```
 
 For more information, see [Python plugins and the Processing engine](/influxdb3/version/plugins/).
+
+{{% show-in "enterprise" %}}
+### Multi-server setup
+
+{{% product-name %}} is built to support multi-node setups for high availability, read replicas, and flexible implementations depending on use case.  
+
+### High availability
+
+Enterprise is architecturally flexible, giving you options on how to configure multiple servers that work together for high availability (HA) and high performance.
+Built on top of the diskless engine and leveraging the Object store, an HA setup ensures that if a node fails, you can still continue reading from, and writing to, a secondary node.
+
+A two-node setup is the minimum for basic high availability, with both nodes having read-write permissions.
+
+{{< img-hd src="/img/influxdb/influxdb-3-enterprise-high-availability.png" alt="Basic high availability setup" />}}
+
+In a basic HA setup:
+
+- Two nodes both write data to the same Object store and both handle queries
+- Node 1 and Node 2 are _read replicas_ that read from each other’s Object store directories
+- One of the nodes is designated as the Compactor node
+
+> [!Note]
+> Only one node can be designated as the Compactor.
+> Compacted data is meant for a single writer, and many readers.
+
+The following examples show how to configure and start two nodes
+for a basic HA setup.
+
+- _Node 1_ is for compaction (passes `compact` in `--mode`)
+- _Node 2_ is for ingest and query
+
+```bash
+## NODE 1
+
+# Example variables
+# node-id: 'host01'
+# cluster-id: 'cluster01'
+# bucket: 'influxdb-3-enterprise-storage'
+
+influxdb3 serve \
+  --node-id host01 \
+  --cluster-id cluster01 \
+  --mode ingest,query,compact \
+  --object-store s3 \
+  --bucket influxdb-3-enterprise-storage \
+  --http-bind {{< influxdb/host >}} \
+  --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+  --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
+```
+
+```bash
+## NODE 2
+
+# Example variables
+# node-id: 'host02'
+# cluster-id: 'cluster01'
+# bucket: 'influxdb-3-enterprise-storage'
+
+influxdb3 serve \
+  --node-id host02 \
+  --cluster-id cluster01 \
+  --mode ingest,query \
+  --object-store s3 \
+  --bucket influxdb-3-enterprise-storage \
+  --http-bind localhost:8282 \
+  --aws-access-key-id AWS_ACCESS_KEY_ID \
+  --aws-secret-access-key AWS_SECRET_ACCESS_KEY
+```
+
+After the nodes have started, querying either node returns data for both nodes, and _NODE 1_ runs compaction.
+To add nodes to this setup, start more read replicas with the same cluster ID.
+
+### High availability with a dedicated Compactor
+
+Data compaction in InfluxDB 3 is one of the more computationally expensive operations.
+To ensure that your read-write nodes don't slow down due to compaction work, set up a compactor-only node for consistent and high performance across all nodes.
+
+{{< img-hd src="/img/influxdb/influxdb-3-enterprise-dedicated-compactor.png" alt="Dedicated Compactor setup" />}}
+
+The following examples show how to set up high availability with a dedicated Compactor node:
+
+1. Start two read-write nodes as read replicas, similar to the previous example.
+
+   ```bash
+   ## NODE 1 — Writer/Reader Node #1
+
+   # Example variables
+   # node-id: 'host01'
+   # cluster-id: 'cluster01'
+   # bucket: 'influxdb-3-enterprise-storage'
+
+   influxdb3 serve \
+     --node-id host01 \
+     --cluster-id cluster01 \
+     --mode ingest,query \
+     --object-store s3 \
+     --bucket influxdb-3-enterprise-storage \
+     --http-bind {{< influxdb/host >}} \
+     --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
+   ```
+
+   ```bash
+   ## NODE 2 — Writer/Reader Node #2
+
+   # Example variables
+   # node-id: 'host02'
+   # cluster-id: 'cluster01'
+   # bucket: 'influxdb-3-enterprise-storage'
+
+   influxdb3 serve \
+     --node-id host02 \
+     --cluster-id cluster01 \
+     --mode ingest,query \
+     --object-store s3 \
+     --bucket influxdb-3-enterprise-storage \
+     --http-bind localhost:8282 \
+     --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
+   ```
+
+2. Start the dedicated compactor node with the `--mode=compact` option to ensure the node **only** runs compaction.
+
+   ```bash
+   ## NODE 3 — Compactor Node
+
+   # Example variables
+   # node-id: 'host03'
+   # cluster-id: 'cluster01'
+   # bucket: 'influxdb-3-enterprise-storage'
+
+   influxdb3 serve \
+     --node-id host03 \
+     --cluster-id cluster01 \
+     --mode compact \
+     --object-store s3 \
+     --bucket influxdb-3-enterprise-storage \
+     --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
+   ```
+
+### High availability with read replicas and a dedicated Compactor
+
+For a robust and effective setup for managing time-series data, you can run ingest nodes alongside read-only nodes and a dedicated Compactor node.
+
+{{< img-hd src="/img/influxdb/influxdb-3-enterprise-workload-isolation.png" alt="Workload Isolation Setup" />}}
+
+1. Start ingest nodes by assigning them the **`ingest`** mode.
+   To achieve the benefits of workload isolation, you'll send _only write requests_ to these ingest nodes. Later, you'll configure the _read-only_ nodes.
+
+   ```bash
+   ## NODE 1 — Writer Node #1
+
+   # Example variables
+   # node-id: 'host01'
+   # cluster-id: 'cluster01'
+   # bucket: 'influxdb-3-enterprise-storage'
+
+   influxdb3 serve \
+     --node-id host01 \
+     --cluster-id cluster01 \
+     --mode ingest \
+     --object-store s3 \
+     --bucket influxdb-3-enterprise-storage \
+     --http-bind {{< influxdb/host >}} \
+     --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
+   ```
+
+<!-- The following examples use different ports for different nodes. Don't use the influxdb/host shortcode below. -->
+
+   ```bash
+   ## NODE 2 — Writer Node #2
+
+   # Example variables
+   # node-id: 'host02'
+   # cluster-id: 'cluster01'
+   # bucket: 'influxdb-3-enterprise-storage'
+
+   influxdb3 serve \
+     --node-id host02 \
+     --cluster-id cluster01 \
+     --mode ingest \
+     --object-store s3 \
+     --bucket influxdb-3-enterprise-storage \
+     --http-bind localhost:8282 \
+     --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
+   ```
+
+2. Start the dedicated Compactor node with ` compact`.
+
+   ```bash
+   ## NODE 3 — Compactor Node
+
+   # Example variables
+   # node-id: 'host03'
+   # cluster-id: 'cluster01'
+   # bucket: 'influxdb-3-enterprise-storage'
+
+   influxdb3 serve \
+    --node-id host03 \
+    --cluster-id cluster01 \
+    --mode compact \
+    --object-store s3 \
+    --bucket influxdb-3-enterprise-storage \
+    --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     <AWS_SECRET_ACCESS_KEY>
+   ```
+
+3. Finally, start the query nodes as _read-only_ with `--mode query`.
+
+   ```bash
+   ## NODE 4 — Read Node #1
+
+   # Example variables
+   # node-id: 'host04'
+   # cluster-id: 'cluster01'
+   # bucket: 'influxdb-3-enterprise-storage'
+
+   influxdb3 serve \
+     --node-id host04 \
+     --cluster-id cluster01 \
+     --mode query \
+     --object-store s3 \
+     --bucket influxdb-3-enterprise-storage \
+     --http-bind localhost:8383 \
+     --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
+   ```
+
+   ```bash
+   ## NODE 5 — Read Node #2
+
+   # Example variables
+   # node-id: 'host05'
+   # cluster-id: 'cluster01'
+   # bucket: 'influxdb-3-enterprise-storage'
+
+   influxdb3 serve \
+    --node-id host05 \
+    --cluster-id cluster01 \
+    --mode query \
+    --object-store s3 \
+    --bucket influxdb-3-enterprise-storage \
+    --http-bind localhost:8484 \
+    --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+     <AWS_SECRET_ACCESS_KEY>
+   ```
+
+Congratulations, you have a robust setup for workload isolation using {{% product-name %}}.
+
+### Writing and querying for multi-node setups
+
+You can use the default port `8181` for any write or query, without changing any of the commands.
+
+> [!Note]
+> #### Specify hosts for writes and queries
+>
+> To benefit from this multi-node, isolated architecture, specify hosts:
+> 
+> - In write requests, specify a host that you have designated as _write-only_.
+> - In query requests, specify a host that you have designated as _read-only_. 
+> 
+> When running multiple local instances for testing or separate nodes in production, specifying the host ensures writes and queries are routed to the correct instance.
+
+{{% code-placeholders "(http://localhost:8585)|AUTH_TOKEN|DATABASE_NAME|QUERY" %}}
+```bash
+# Example querying a specific host
+# HTTP-bound Port: 8585
+influxdb3 query \
+  --host http://localhost:8585
+  --token AUTH_TOKEN \
+  --database DATABASE_NAME "QUERY" 
+```
+{{% /code-placeholders %}}
+
+Replace the following placeholders with your values:
+
+- {{% code-placeholder-key %}}`http://localhost:8585`{{% /code-placeholder-key %}}: the host and port of the node to query
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to query the specified database{{% /show-in %}}
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to query
+- {{% code-placeholder-key %}}`QUERY`{{% /code-placeholder-key %}}: the SQL or InfluxQL query to run against the database
+
+### File index settings
+
+To accelerate performance on specific queries, you can define non-primary keys to index on, which helps improve performance for single-series queries.
+This feature is only available in {{% product-name %}} and is not available in Core.
+
+#### Create a file index
+
+{{% code-placeholders "AUTH_TOKEN|DATABASE|TABLE|COLUMNS" %}}
+
+```bash
+# Example variables on a query
+# HTTP-bound Port: 8585
+
+influxdb3 create file_index \
+  --host http://localhost:8585 \
+  --token AUTH_TOKEN \
+  --database DATABASE_NAME \
+  --table TABLE_NAME \
+  COLUMNS
+```
+
+#### Delete a file index
+
+```bash
+influxdb3 delete file_index \
+  --host http://localhost:8585 \
+  --database DATABASE_NAME \
+  --table TABLE_NAME \
+```
+{{% /code-placeholders %}}
+
+Replace the following placeholders with your values:
+
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to create the file index in
+- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the name of the table to create the file index in
+- {{% code-placeholder-key %}}`COLUMNS`{{% /code-placeholder-key %}}: a comma-separated list of columns to index on, for example, `host,application`
+{{% /show-in %}}

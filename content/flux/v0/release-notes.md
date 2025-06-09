@@ -433,7 +433,7 @@ representative of the Flux SPEC.
   details.
 - Add tagging support to Flux tests.
 - Add new function [`experimental.catch()`](/flux/v0/stdlib/experimental/catch/).
-- Add new function [`testing.shouldError()`](/flux/v0.x/stdlib/testing/shoulderror/).
+- Add new function [`testing.shouldError()`](/flux/v0/stdlib/testing/shoulderror/).
 
 ### Bug fixes
 

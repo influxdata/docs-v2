@@ -8,9 +8,7 @@
 
 {{ if .File }}
   {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/" .File.Path) }}
-  {{ if .Page.HasShortcode "duplicate-oss" }}
-    {{ .Scratch.Set "pageGithubLink" (replaceRE "/cloud/" "/v2/" (.Scratch.Get "pageGithubLink")) }}
-  {{ else if .Params.Source }}
+  {{ if .Params.Source }}
     {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content" .Params.source) }}
   {{ end }}
 {{ else }}
@@ -53,7 +51,7 @@
       To find support, use the following resources:
     </p>
     <ul>
-      {{ if and (eq $product "influxdb3") (or (eq $version "core") (eq $version "enterprise")) }}
+      {{ if and (eq $product "influxdb3") (or (eq $version "core") (eq $version "enterprise") (eq $version "explorer")) }}
         <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank"><strong>InfluxDB Discord Server</strong> <em style="opacity:.5">(Preferred)</em></a></li>
         <li><a class="slack" href="https://influxdata.com/slack" target="_blank">InfluxDB Community Slack</a></li>
       {{ else }}
