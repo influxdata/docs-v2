@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 ## Problem
-You may want to use the [`monitor` package](/flux/v0.x/stdlib/influxdata/influxdb/monitor/) and take advantage of functions like [monitor.stateChangesOnly()](/flux/v0.x/stdlib/influxdata/influxdb/monitor/statechangesonly/). However, `monitor.stateChangesOnly()` only allows you to monitor four states: "crit", "warn", "ok", and "info". What if you want to be able to assign and monitor state changes across custom states or more than four states?
+You may want to use the [`monitor` package](/flux/v0/stdlib/influxdata/influxdb/monitor/) and take advantage of functions like [monitor.stateChangesOnly()](/flux/v0/stdlib/influxdata/influxdb/monitor/statechangesonly/). However, `monitor.stateChangesOnly()` only allows you to monitor four states: "crit", "warn", "ok", and "info". What if you want to be able to assign and monitor state changes across custom states or more than four states?
 
 ## Solution 
 Define your own custom `stateChangesOnly()` function. Use the function from the source code here and alter it to accommodate more than four levels. Here we account for six different levels instead of just four.
@@ -42,7 +42,7 @@ stateChangesOnly = (tables=<-) => {
 }
 ```
 
-Construct some example data with [`array.from()`](/flux/v0.x/stdlib/array/from/) and map custom levels to it:
+Construct some example data with [`array.from()`](/flux/v0/stdlib/array/from/) and map custom levels to it:
 
 ```js
 array.from(

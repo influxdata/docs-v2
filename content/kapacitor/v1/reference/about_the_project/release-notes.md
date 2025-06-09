@@ -9,6 +9,22 @@ aliases:
   - /kapacitor/v1/about_the_project/releasenotes-changelog/
 ---
 
+## v1.7.7 {date="2025-05-27"}
+
+> [!Warning]
+> #### Python 2 UDFs deprecated
+>
+> Python 2-based UDFs are deprecated** as of Kapacitor 1.7.7 and will be removed in **Kapacitor 1.8.0**.
+>
+> In preparation for Kapacitor 1.8.0, update your User-Defined Functions (UDFs) to be Python 3-compatible.
+> This required change aligns with modern security practices and ensures your custom functions will continue to work after upgrading.
+
+### Dependency updates
+
+- Upgrade Go to 1.22.12.
+
+---
+
 ## v1.7.6 {date="2024-10-28"}
 
 ### Features
@@ -105,7 +121,7 @@ aliases:
 ### Bug fixes
 
 - Update the `Kafka` client to fix a bug regarding write latency.
-- Update to [Flux v0.171.0](/flux/v0.x/release-notes/#v01710) to fix "interface {} is nil, not string" issue.
+- Update to [Flux v0.171.0](/flux/v0/release-notes/#v01710) to fix "interface {} is nil, not string" issue.
 
 ---
 

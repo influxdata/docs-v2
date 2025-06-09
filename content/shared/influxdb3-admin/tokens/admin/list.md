@@ -12,8 +12,7 @@ data and resources in your InfluxDB 3 instance.
 > #### Required permissions
 >
 > Listing admin tokens requires a valid InfluxDB {{% token-link "admin" %}}{{% show-in "enterprise" %}} or a token with read access to the `_internal` system database{{% /show-in %}}.
-> For more information about providing a token, see [provide your token](/influxdb3/version/admin/tokens/#provide-your-token).
-
+> For more information, see how to [provide your token](/influxdb3/version/admin/tokens/#provide-your-token).
 
 ## List all tokens
 

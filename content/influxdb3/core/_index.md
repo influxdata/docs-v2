@@ -9,9 +9,10 @@ menu:
   influxdb3_core:
     name: InfluxDB 3 Core
 weight: 1
-source: /shared/v3-core-get-started/_index.md
+source: /shared/influxdb3/_index.md
 ---
 
 <!-- 
-The content of this page is at /shared/v3-core-get-started/_index.md
+The content of this page is at
+//SOURCE - content/shared/influxdb3/_index.md
 -->

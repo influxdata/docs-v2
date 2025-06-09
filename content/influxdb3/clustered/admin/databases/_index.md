@@ -52,7 +52,7 @@ never be removed by the retention enforcement service.
 You can customize [table (measurement) limits](#table-limit) and
 [table column limits](#column-limit) when you
 [create](#create-a-database) or
-[update a database](#update-a-database) in {{< product-name >}}.
+[update a database](#update-a-database) in {{% product-name %}}.
 
 ### Table limit
 
