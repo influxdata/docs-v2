@@ -45,7 +45,7 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`PLUGIN_NAME`{{% /code-placeholder-key %}}: 
   Plugin file name
 
-{{% code-placeholders "(DATABASE|PLUGIN)_(NAME|DIR)|AUTH_TOKEN" %}}
+{{% code-placeholders "(DATABASE|PLUGIN_DIR|FILENAME|AUTH_TOKEN" %}}
 
 ### Test a schedule plugin
 
