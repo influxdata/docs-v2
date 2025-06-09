@@ -78,7 +78,7 @@ influxdb3 test schedule_plugin \
   --schedule "0 0 * * * ?" \
   PLUGIN_DIR/FILENAME.py
 ```
-- `--input-arguments` accepts comma-separated key=value pairs.
-- `--schedule` expects a Quartz cron expression; e.g., "0 0 * * * ?" runs at the top of every hour.
+- Pass plugin parameters using `--input-arguments` as comma-separated key=value pairs.
+- Use `--schedule` to set the plugin’s execution time with a Quartz cron expression. For example, "0 0 * * * ?" runs the plugin at the start of every hour.
 
 {{% /code-placeholders %}}
