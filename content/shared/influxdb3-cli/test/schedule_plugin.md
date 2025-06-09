@@ -42,7 +42,7 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: Your authentication token
 - {{% code-placeholder-key %}}`PLUGIN_DIR`{{% /code-placeholder-key %}}: 
   Plugin directory name
-- {{% code-placeholder-key %}}`PLUGIN_NAME`{{% /code-placeholder-key %}}: 
+- {{% code-placeholder-key %}}`FILENAME`{{% /code-placeholder-key %}}: 
   Plugin file name
 
 {{% code-placeholders "(DATABASE|PLUGIN_DIR|FILENAME|AUTH_TOKEN" %}}
