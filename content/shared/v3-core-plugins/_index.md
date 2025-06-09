@@ -567,7 +567,6 @@ These examples install the specified Python package (for example, pandas) into t
 > Creating a virtual environment with system Python (for example, using `python -m venv`) can lead to runtime errors and plugin failures.
 > 
 >For more information, see the [processing engine README](https://github.com/influxdata/influxdb/blob/main/README_processing_engine.md#official-builds).
-> for advanced setup instructions.
 
 {{% /code-placeholders %}}
 
