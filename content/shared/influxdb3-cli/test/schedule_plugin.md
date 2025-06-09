@@ -11,7 +11,7 @@ influxdb3 test schedule_plugin [OPTIONS] --database <DATABASE_NAME> <FILENAME>
 
 ## Arguments
 
-- **PLUGIN_NAME**: Path to the plugin file on the server. Use the full relative path, such as `<plugin-dir>/<plugin-file-name>.py`.
+- **FILENAME**: the path to the plugin file. Use the full absolute path or the path relative to the current working directory, such as `<plugin-dir>/<plugin-file-name>.py`.
 
 ## Options
 
