@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 // Count tag elements
 function countTag(tag) {
   return $(".visible[data-tags*='" + tag + "']").length;
@@ -18,15 +20,20 @@ function getFilterCounts($labels) {
   });
 }
 
+/** TODO: Include the data source value in the as an additional attribute
+ * in the HTML and pass it into the component, which would let us use selectors
+ * for only the source items and let us have more than one
+ * list filter component per page without conflicts */
 export default function ListFilters({ component }) {
-  const $labels = $(component).find('label');
-  const $inputs = $(component).find('input');
+  const $component = $(component);
+  const $labels = $component.find('label');
+  const $inputs = $component.find('input');
 
   getFilterCounts($labels);
 
   $inputs.click(function () {
     // List of tags to hide
-    var tagArray = $(component)
+    var tagArray = $component
       .find('input:checkbox:checked')
       .map(function () {
         return $(this).attr('name').replace(/[\W]+/, '-');
@@ -34,7 +41,7 @@ export default function ListFilters({ component }) {
       .get();
 
     // List of tags to restore
-    var restoreArray = $(component)
+    var restoreArray = $component
       .find('input:checkbox:not(:checked)')
       .map(function () {
         return $(this).attr('name').replace(/[\W]+/, '-');
