@@ -8,6 +8,7 @@ The `influxdb3 test schedule_plugin` command tests a schedule plugin. Use this c
 ```bash
 influxdb3 test schedule_plugin [OPTIONS] --database <DATABASE_NAME> <FILENAME>
 ```
+
 ## Arguments
 
 - **PLUGIN_NAME**: Path to the plugin file on the server. Use the full relative path, such as `<plugin-dir>/<plugin-file-name>.py`.
