@@ -570,7 +570,7 @@ These examples install the specified Python package (for example, pandas) into t
 
 {{% /code-placeholders %}}
 
-This creates a Python virtual environment in your plugins directory with the specified packages installed.
+InfluxDB creates a Python virtual environment in your plugins directory with the specified packages installed.
 
 {{% show-in "enterprise" %}}
 
