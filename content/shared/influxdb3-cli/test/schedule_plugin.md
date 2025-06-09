@@ -41,7 +41,7 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Your target database
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: Your authentication token
 - {{% code-placeholder-key %}}`PLUGIN_DIR`{{% /code-placeholder-key %}}: 
-  Plugin directory name
+  the path to the plugin directory you provided when starting the server
 - {{% code-placeholder-key %}}`FILENAME`{{% /code-placeholder-key %}}: 
   Plugin file name
 
