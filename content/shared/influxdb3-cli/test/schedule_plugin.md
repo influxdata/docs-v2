@@ -65,15 +65,20 @@ influxdb3 test schedule_plugin \
 
 ### Test with input arguments and a custom cron schedule 
 
+You can pass input arguments to your plugin as key-value pairs and specify a custom cron schedule (using Quartz cron syntax with six fields):
+
 <!--pytest.mark.skip-->
 
 ```bash
 influxdb3 test schedule_plugin \
+  --host http://localhost:8182 \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
-  --input-arguments '{"threshold": "10", "unit": "seconds"}' \
-  --schedule "0 * * * *" \
+  --input-arguments threshold=10,unit=seconds \
+  --schedule "0 0 * * * ?" \
   PLUGIN_DIR/FILENAME.py
 ```
+- `--input-arguments` accepts comma-separated key=value pairs.
+- `--schedule` expects a Quartz cron expression; e.g., "0 0 * * * ?" runs at the top of every hour.
 
 {{% /code-placeholders %}}
