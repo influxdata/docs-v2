@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import { debugBreak } from './utils/debug-helpers.js';
 
 function initialize() {
   var codeBlockSelector = '.article--content pre';
