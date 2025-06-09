@@ -561,7 +561,9 @@ These examples install the specified Python package (for example, pandas) into t
 - Use the Docker variant if you're running InfluxDB in a containerized environment.
 
 > [!Note]
-> If you create a custom virtual environment, use the Python interpreter bundled with InfluxDB 3—not system Python.
+> #### Use bundled Python for plugins
+> When you start the server with the `--plugin-dir` option, InfluxDB 3 creates a Python virtual environment (`<PLUGIN_DIR>/venv`) for your plugins.
+> If you need to create a custom virtual environment, use the Python interpreter bundled with InfluxDB 3—not the system Python.
 > Creating a virtual environment with system Python (for example, using `python -m venv`) can lead to runtime errors and plugin failures.
 > 
 >F or details, see the [Process Engine README](https://github.com/influxdata/influxdb/blob/main/README_processing_engine.md#official-builds) 
