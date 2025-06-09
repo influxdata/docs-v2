@@ -41,7 +41,7 @@ jobs:
             - /home/circleci/bin
       - run:
           name: Hugo Build
-          command: npx hugo --config config/production/config.yml --logLevel info --minify --gc --destination workspace/public
+          command: yarn hugo --environment production --logLevel info --gc --destination workspace/public
       - persist_to_workspace:
           root: workspace
           paths:

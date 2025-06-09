@@ -1,4 +1,4 @@
-baseURL: 'http://localhost:1315/'
+baseURL: https://docs.influxdata.com/
 languageCode: en-us
 title: InfluxDB Documentation
 
@@ -15,13 +15,11 @@ preserveTaxonomyNames: true
 # Generate a robots.txt
 enableRobotsTXT: true
 
-
 # Markdown rendering options
 blackfriday:
   hrefTargetBlank: true
   smartDashes: false
 
-# Copy taxonomies from main config
 taxonomies:
   influxdb/v2/tag: influxdb/v2/tags
   influxdb/cloud/tag: influxdb/cloud/tags
@@ -58,8 +56,12 @@ outputFormats:
     baseName: pages
     isPlainText: true
 
-# Asset processing for testing (disable minification)
+# Asset processing configuration for development
 build:
+  # Ensure Hugo correctly processes JavaScript modules
+  jsConfig:
+    nodeEnv: "development"
+# Development asset processing
   writeStats: false
   useResourceCacheWhen: "fallback"
   noJSConfigInAssets: false
@@ -74,31 +76,23 @@ module:
     - source: node_modules
       target: assets/node_modules
 
-# Override settings for testing
-buildFuture: true
-
-# Configure what content is built in testing env
+# Environment parameters
 params:
-  env: testing
-  environment: testing
-  buildTestContent: true
+  env: development
+  environment: development
 
-# Configure the server for testing
+# Configure the server for development
 server:
-  port: 1315
-  baseURL: 'http://localhost:1315/'
+  port: 1313
+  baseURL: 'http://localhost:1313/'
   watchChanges: true
   disableLiveReload: false
-
-# Keep your shared content exclusions
-ignoreFiles:
-  - "content/shared/.*"
 
 # Ignore specific warning logs
 ignoreLogs:
   - warning-goldmark-raw-html
 
-# Disable minification for testing
+# Disable minification for development
 minify:
   disableJS: true
   disableCSS: true

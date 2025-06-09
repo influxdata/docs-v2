@@ -1,8 +1,5 @@
 // assets/js/main.js
 
-// If you need to pass parameters from the calling Hugo page, you can import them here like so:
-// import * as pageParams from '@params';
-
 // Import dependencies that we still need to load in the global scope
 import $ from 'jquery';
 
@@ -15,7 +12,7 @@ import * as contentInteractions from './content-interactions.js';
 import * as datetime from './datetime.js';
 import { delay } from './helpers.js';
 import { InfluxDBUrl } from './influxdb-url.js';
-import * as localStorage from './local-storage.js';
+import * as localStorage from './services/local-storage.js';
 import * as modals from './modals.js';
 import * as notifications from './notifications.js';
 import * as pageContext from './page-context.js';

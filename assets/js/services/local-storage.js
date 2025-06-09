@@ -10,7 +10,8 @@
     - messages: Messages (data/notifications.yaml) that have been seen (array)
     - callouts: Feature callouts that have been seen (array)
 */
-import * as pageParams from '@params';
+
+import { influxdbUrls } from './influxdb-urls.js';
 
 // Prefix for all InfluxData docs local storage
 const storagePrefix = 'influxdata_docs_';
@@ -83,16 +84,11 @@ function getPreferences() {
 ////////////////////////////////////////////////////////////////////////////////
 
 const defaultUrls = {};
-// Guard against pageParams being null/undefined and safely access nested properties
-if (pageParams && pageParams.influxdb_urls) {
-  Object.entries(pageParams.influxdb_urls).forEach(
-    ([product, { providers }]) => {
-      defaultUrls[product] =
-        providers.filter((provider) => provider.name === 'Default')[0]
-          ?.regions[0]?.url || 'https://cloud2.influxdata.com';
-    }
-  );
-}
+Object.entries(influxdbUrls).forEach(([product, { providers }]) => {
+  defaultUrls[product] =
+    providers.filter((provider) => provider.name === 'Default')[0]?.regions[0]
+      ?.url || 'https://cloud2.influxdata.com';
+});
 
 export const DEFAULT_STORAGE_URLS = {
   oss: defaultUrls.oss,

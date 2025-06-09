@@ -1,8 +1,9 @@
 import $ from 'jquery';
+import { debugBreak } from './utils/debug-helpers.js';
 
 function initialize() {
   var codeBlockSelector = '.article--content pre';
-  var codeBlocks = $(codeBlockSelector);
+  var $codeBlocks = $(codeBlockSelector);
 
   var appendHTML = `
 <div class="code-controls">
@@ -15,7 +16,7 @@ function initialize() {
 `;
 
   // Wrap all codeblocks with a new 'codeblock' div
-  $(codeBlocks).each(function () {
+  $codeBlocks.each(function () {
     $(this).wrap("<div class='codeblock'></div>");
   });
 
@@ -68,7 +69,9 @@ function initialize() {
   // Trigger copy failure state lifecycle
 
   $('.copy-code').click(function () {
-    let text = $(this).closest('.code-controls').prevAll('pre:has(code)')[0].innerText;
+    let text = $(this)
+      .closest('.code-controls')
+      .prevAll('pre:has(code)')[0].innerText;
 
     const copyContent = async () => {
       try {
@@ -90,7 +93,10 @@ Disable scrolling on the body.
 Disable user selection on everything but the fullscreen codeblock.
 */
   $('.fullscreen-toggle').click(function () {
-    var code = $(this).closest('.code-controls').prevAll('pre:has(code)').clone();
+    var code = $(this)
+      .closest('.code-controls')
+      .prevAll('pre:has(code)')
+      .clone();
 
     $('#fullscreen-code-placeholder').replaceWith(code[0]);
     $('body').css('overflow', 'hidden');

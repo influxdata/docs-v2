@@ -1730,11 +1730,30 @@ If you're adding UI functionality that requires JavaScript, follow these steps:
 
 ### Debugging JavaScript
 
-To debug JavaScript code used in the InfluxData documentation UI:
+To debug JavaScript code used in the InfluxData documentation UI, choose one of the following methods:
+
+- Use source maps and the Chrome DevTools debugger.
+- Use debug helpers that provide breakpoints and console logging as a workaround or alternative for using source maps and the Chrome DevTools debugger.
+
+#### Using source maps and Chrome DevTools debugger
+
+1. In VS Code, select Run > Start Debugging.
+2. Select the "Debug Docs (source maps)" configuration.
+3. Click the play button to start the debugger.
+5. Set breakpoints in the JavaScript source files--files in the
+   `assets/js/ns-hugo-imp:` namespace-- in the
+   VS Code editor or in the Chrome Developer Tools Sources panel:
+
+   - In the VS Code Debugger panel > "Loaded Scripts" section, find the
+     `assets/js/ns-hugo-imp:` namespace.
+   - In the Chrome Developer Tools Sources panel, expand
+     `js/ns-hugo-imp:/<YOUR_WORKSPACE_ROOT>/assets/js/`.
+
+#### Using debug helpers
 
 1. In your JavaScript module, import debug helpers from `assets/js/utils/debug-helpers.js`.
-   These helpers provide breakpoints and console logging as a workaround for
-   Hugo's lack of source map support in the asset pipeline.
+   These helpers provide breakpoints and console logging as a workaround or alternative for
+   using source maps and the Chrome DevTools debugger.
 2. Insert debug statements by calling the helper functions in your code--for example:
    
    ```js
@@ -1757,7 +1776,7 @@ To debug JavaScript code used in the InfluxData documentation UI:
    yarn hugo server
    ```
 
-4. In VS Code, go to Run > Start Debugging, and select the "Debug Docs (console-based)" configuration.
+4. In VS Code, go to Run > Start Debugging, and select the "Debug JS (debug-helpers)" configuration.
 
 Your system uses the configuration in `launch.json` to launch the site in Chrome
 and attach the debugger to the Developer Tools console.

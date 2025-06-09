@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Docs (console-based)",
+      "name": "Debug JS (debug-helpers)",
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:1313",
@@ -13,6 +13,35 @@
       "sourceMaps": false,
       "trace": true,
       "smartStep": false
-    }
+    },
+    {
+      "name": "Debug JS (source maps)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:1313",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "*": "${webRoot}/assets/js/*",
+        "main.js": "${webRoot}/assets/js/main.js",
+        "page-context.js": "${webRoot}/assets/js/page-context.js",
+        "ask-ai-trigger.js": "${webRoot}/assets/js/ask-ai-trigger.js",
+        "ask-ai.js": "${webRoot}/assets/js/ask-ai.js",
+        "utils/*": "${webRoot}/assets/js/utils/*",
+        "services/*": "${webRoot}/assets/js/services/*"
+      },
+      "skipFiles": [
+        "<node_internals>/**",
+        "node_modules/**",
+        "chrome-extension://**"
+      ],
+      "trace": true,
+      "smartStep": true,
+      "disableNetworkCache": true,
+      "userDataDir": "${workspaceFolder}/.vscode/chrome-user-data",
+      "runtimeArgs": [
+        "--disable-features=VizDisplayCompositor"
+      ]
+    },
   ]
 }

@@ -6,7 +6,7 @@
 */
 
 import $ from 'jquery';
-import * as LocalStorageAPI from './local-storage.js';
+import * as LocalStorageAPI from './services/local-storage.js';
 
 // Get notification ID
 function getCalloutID(el) {
