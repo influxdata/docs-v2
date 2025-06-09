@@ -564,7 +564,7 @@ These examples install the specified Python package (for example, pandas) into t
 > #### Use bundled Python for plugins
 > When you start the server with the `--plugin-dir` option, InfluxDB 3 creates a Python virtual environment (`<PLUGIN_DIR>/venv`) for your plugins.
 > If you need to create a custom virtual environment, use the Python interpreter bundled with InfluxDB 3—not the system Python.
-> Creating a virtual environment with system Python (for example, using `python -m venv`) can lead to runtime errors and plugin failures.
+> Creating a virtual environment with the system Python (for example, using `python -m venv`) can lead to runtime errors and plugin failures.
 > 
 >For more information, see the [processing engine README](https://github.com/influxdata/influxdb/blob/main/README_processing_engine.md#official-builds).
 
