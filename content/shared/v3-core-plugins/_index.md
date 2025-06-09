@@ -560,7 +560,7 @@ These examples install the specified Python package (for example, pandas) into t
 - Use the CLI command when running InfluxDB directly on your system.
 - Use the Docker variant if you're running InfluxDB in a containerized environment.
 
-> [!Note]
+> [!Important]
 > #### Use bundled Python for plugins
 > When you start the server with the `--plugin-dir` option, InfluxDB 3 creates a Python virtual environment (`<PLUGIN_DIR>/venv`) for your plugins.
 > If you need to create a custom virtual environment, use the Python interpreter bundled with InfluxDB 3—not the system Python.
