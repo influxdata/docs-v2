@@ -43,7 +43,7 @@ function enterpriseEOLDate() {
 function initialize() {
   $('span.current-timestamp').text(currentTimestamp);
   $('span.current-time').text(currentTime);
-  $('span.enterprise-eol-date').text(enterpriseEOLDate);
+  $('span.enterprise-eol-date').text(enterpriseEOLDate());
   $('span.current-date').each(function () {
     var dayOffset = parseInt($(this).attr('offset'));
     var trimTime = $(this).attr('trim-time') === 'true';
