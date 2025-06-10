@@ -146,15 +146,15 @@ tags:
     description: |
       Manage Processing engine triggers, test plugins, and send requests to trigger On Request plugins.
 
-      InfluxDB 3 Enterprise provides the InfluxDB 3 Processing engine, an embedded Python VM that can dynamically load and trigger Python plugins in response to events in your database.
+      InfluxDB 3 Enterprise provides the InfluxDB 3 processing engine, an embedded Python VM that can dynamically load and trigger Python plugins in response to events in your database.
       Use Processing engine plugins and triggers to run code and perform tasks for different database events.
 
-      To get started with the Processing engine, see the [Processing engine and Python plugins](/influxdb3/enterprise/processing-engine/) guide.
+      To get started with the processing engine, see the [Processing engine and Python plugins](/influxdb3/enterprise/processing-engine/) guide.
   - name: Query data
     description: Query data using SQL or InfluxQL
   - name: Quick start
     description: |
-      1. [Create an admin token](#section/Authentication) for the InfluxDB 3 Enterprise API.
+      1. [Create an admin token](#section/Authentication) to authorize API requests.
 
          ```bash
          curl -X POST "http://localhost:8181/api/v3/configure/token/admin"
@@ -385,12 +385,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/dbWriteParam'
         - $ref: '#/components/parameters/accept_partial'
-        - name: precision
-          in: query
-          required: true
-          schema:
-            $ref: '#/components/schemas/PrecisionWrite'
-          description: Precision of timestamps.
+        - $ref: '#/components/parameters/precisionParam'
         - name: no_sync
           in: query
           schema:
@@ -440,16 +435,8 @@ paths:
       description: Executes an SQL query to retrieve data from the specified database.
       parameters:
         - $ref: '#/components/parameters/db'
-        - name: q
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: format
-          in: query
-          required: false
-          schema:
-            type: string
+        - $ref: '#/components/parameters/querySqlParam'
+        - $ref: '#/components/parameters/format'
         - $ref: '#/components/parameters/AcceptQueryHeader'
         - $ref: '#/components/parameters/ContentType'
       responses:
@@ -1072,15 +1059,104 @@ paths:
     post:
       operationId: PostConfigureProcessingEngineTrigger
       summary: Create processing engine trigger
-      description: Creates a new processing engine trigger.
+      description: |
+        Creates a processing engine trigger with the specified plugin file and trigger specification.
+
+        ### Related guides
+
+        - [Processing engine and Python plugins](/influxdb3/enterprise/plugins/)
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ProcessingEngineTriggerRequest'
+            examples:
+              schedule_cron:
+                summary: Schedule trigger using cron
+                description: |
+                  In `"cron:CRON_EXPRESSION"`, `CRON_EXPRESSION` uses extended 6-field cron format.
+                  The cron expression `0 0 6 * * 1-5` means the trigger will run at 6:00 AM every weekday (Monday to Friday).
+                value:
+                  db: DATABASE_NAME
+                  plugin_filename: schedule.py
+                  trigger_name: schedule_cron_trigger
+                  trigger_specification: cron:0 0 6 * * 1-5
+              schedule_every:
+                summary: Schedule trigger using interval
+                description: |
+                  In `"every:DURATION"`, `DURATION` specifies the interval between trigger executions.
+                  The duration `1h` means the trigger will run every hour.
+                value:
+                  db: mydb
+                  plugin_filename: schedule.py
+                  trigger_name: schedule_every_trigger
+                  trigger_specification: every:1h
+              schedule_every_seconds:
+                summary: Schedule trigger using seconds interval
+                description: |
+                  Example of scheduling a trigger to run every 30 seconds.
+                value:
+                  db: mydb
+                  plugin_filename: schedule.py
+                  trigger_name: schedule_every_30s_trigger
+                  trigger_specification: every:30s
+              schedule_every_minutes:
+                summary: Schedule trigger using minutes interval
+                description: |
+                  Example of scheduling a trigger to run every 5 minutes.
+                value:
+                  db: mydb
+                  plugin_filename: schedule.py
+                  trigger_name: schedule_every_5m_trigger
+                  trigger_specification: every:5m
+              all_tables:
+                summary: All tables trigger example
+                description: |
+                  Trigger that fires on write events to any table in the database.
+                value:
+                  db: mydb
+                  plugin_filename: all_tables.py
+                  trigger_name: all_tables_trigger
+                  trigger_specification: all_tables
+              table_specific:
+                summary: Table-specific trigger example
+                description: |
+                  Trigger that fires on write events to a specific table.
+                value:
+                  db: mydb
+                  plugin_filename: table.py
+                  trigger_name: table_trigger
+                  trigger_specification: table:sensors
+              api_request:
+                summary: On-demand request trigger example
+                description: |
+                  Creates an HTTP endpoint `/api/v3/engine/hello-world` for manual invocation.
+                value:
+                  db: mydb
+                  plugin_filename: request.py
+                  trigger_name: hello_world_trigger
+                  trigger_specification: path:hello-world
+              cron_friday_afternoon:
+                summary: Cron trigger for Friday afternoons
+                description: |
+                  Example of a cron trigger that runs every Friday at 2:30 PM.
+                value:
+                  db: reports
+                  plugin_filename: weekly_report.py
+                  trigger_name: friday_report_trigger
+                  trigger_specification: cron:0 30 14 * * 5
+              cron_monthly:
+                summary: Cron trigger for monthly execution
+                description: |
+                  Example of a cron trigger that runs on the first day of every month at midnight.
+                value:
+                  db: monthly_data
+                  plugin_filename: monthly_cleanup.py
+                  trigger_name: monthly_cleanup_trigger
+                  trigger_specification: cron:0 0 0 1 * *
       responses:
-        '201':
+        '200':
           description: Success. Processing engine trigger created.
         '400':
           description: Bad request.
@@ -1157,7 +1233,7 @@ paths:
               $ref: '#/components/schemas/ProcessingEngineTriggerRequest'
       responses:
         '200':
-          description: Success. The processing engine trigger has been enabled.
+          description: Success. The processing engine trigger is enabled.
         '400':
           description: Bad request.
         '401':
@@ -1170,7 +1246,14 @@ paths:
     post:
       operationId: PostInstallPluginPackages
       summary: Install plugin packages
-      description: Installs packages for the plugin environment.
+      description: |
+        Installs the specified Python packages into the processing engine plugin environment.
+
+        This endpoint is synchronous and blocks until the packages are installed.
+
+        ### Related guides
+
+        - [Processing engine and Python plugins](/influxdb3/enterprise/plugins/)
       parameters:
         - $ref: '#/components/parameters/ContentType'
       requestBody:
@@ -1179,10 +1262,30 @@ paths:
           application/json:
             schema:
               type: object
-              additionalProperties: true
+              properties:
+                packages:
+                  type: array
+                  items:
+                    type: string
+                  description: |
+                    A list of Python package names to install.
+                    Can include version specifiers (e.g., "scipy==1.9.0").
+                  example:
+                    - influxdb3-python
+                    - scipy
+                    - pandas==1.5.0
+                    - requests
+              required:
+                - packages
+            example:
+              packages:
+                - influxdb3-python
+                - scipy
+                - pandas==1.5.0
+                - requests
       responses:
         '200':
-          description: Success. The packages have been installed.
+          description: Success. The packages are installed.
         '400':
           description: Bad request.
         '401':
@@ -1193,7 +1296,15 @@ paths:
     post:
       operationId: PostInstallPluginRequirements
       summary: Install plugin requirements
-      description: Installs requirements for the plugin environment.
+      description: |
+        Installs requirements from a requirements file (also known as a "pip requirements file") into the processing engine plugin environment.
+
+        This endpoint is synchronous and blocks until the requirements are installed.
+
+        ### Related
+
+        - [Processing engine and Python plugins](/influxdb3/enterprise/plugins/)
+        - [Python requirements file format](https://pip.pypa.io/en/stable/reference/requirements-file-format/)
       parameters:
         - $ref: '#/components/parameters/ContentType'
       requestBody:
@@ -1202,7 +1313,17 @@ paths:
           application/json:
             schema:
               type: object
-              additionalProperties: true
+              properties:
+                requirements_location:
+                  type: string
+                  description: |
+                    The path to the requirements file containing Python packages to install.
+                    Can be a relative path (relative to the plugin directory) or an absolute path.
+                  example: requirements.txt
+              required:
+                - requirements_location
+            example:
+              requirements_location: requirements.txt
       responses:
         '200':
           description: Success. The requirements have been installed.
@@ -1248,18 +1369,18 @@ paths:
     parameters:
       - name: plugin_path
         description: |
-          The path configured in the `trigger-spec` for the plugin.
+          The path configured in the request trigger specification "path:<plugin_path>"` for the plugin.
 
           For example, if you define a trigger with the following:
 
-          ```
-          trigger-spec: "request:hello-world"
+          ```json
+          trigger-spec: "path:hello-world"
           ```
 
           then, the HTTP API exposes the following plugin endpoint:
             
           ```
-          <INFLUXDB_HOST>/api/v3/engine/hello-world
+          <INFLUXDB3_HOST>/api/v3/engine/hello-world
           ```
         in: path
         required: true
@@ -1269,7 +1390,7 @@ paths:
       operationId: GetProcessingEnginePluginRequest
       summary: On Request processing engine plugin request
       description: |
-        Sends a request to invoke an _On Request_ processing engine plugin.
+        Executes the On Request processing engine plugin specified in `<plugin_path>`.
         The request can include request headers, query string parameters, and a request body, which InfluxDB passes to the plugin.
 
         An On Request plugin implements the following signature:
@@ -1296,7 +1417,7 @@ paths:
       operationId: PostProcessingEnginePluginRequest
       summary: On Request processing engine plugin request
       description: |
-        Sends a request to invoke an _On Request_ processing engine plugin.
+        Executes the On Request processing engine plugin specified in `<plugin_path>`.
         The request can include request headers, query string parameters, and a request body, which InfluxDB passes to the plugin.
 
         An On Request plugin implements the following signature:
@@ -1448,7 +1569,6 @@ components:
       schema:
         type: string
       description: |
-        The name of the database.
         The name of the database.
         InfluxDB creates the database if it doesn't already exist, and then
         writes all points in the batch to the database.
@@ -1804,15 +1924,69 @@ components:
           type: string
         plugin_filename:
           type: string
+          description: |
+            The path and filename of the plugin to execute--for example,
+            `schedule.py` or `endpoints/report.py`.
+            The path can be absolute or relative to the `--plugins-dir` directory configured when starting InfluxDB 3.
+
+            The plugin file must implement the trigger interface associated with the trigger's specification (`trigger_spec`).
         trigger_name:
           type: string
         trigger_specification:
           type: string
+          description: |
+            Specifies when and how the processing engine trigger should be invoked.
+
+            ## Supported trigger specifications:
+
+            ### Cron-based scheduling
+            Format: `cron:CRON_EXPRESSION`
+
+            Uses extended (6-field) cron format (second minute hour day_of_month month day_of_week):
+            ```
+            ┌───────────── second (0-59)
+            │ ┌───────────── minute (0-59)
+            │ │ ┌───────────── hour (0-23)
+            │ │ │ ┌───────────── day of month (1-31)
+            │ │ │ │ ┌───────────── month (1-12)
+            │ │ │ │ │ ┌───────────── day of week (0-6, Sunday=0)
+            │ │ │ │ │ │
+            * * * * * *
+            ```
+            Examples:
+            - `cron:0 0 6 * * 1-5` - Every weekday at 6:00 AM
+            - `cron:0 30 14 * * 5` - Every Friday at 2:30 PM
+            - `cron:0 0 0 1 * *` - First day of every month at midnight
+
+            ### Interval-based scheduling  
+            Format: `every:DURATION`
+
+            Supported durations: `s` (seconds), `m` (minutes), `h` (hours), `d` (days):
+            - `every:30s` - Every 30 seconds
+            - `every:5m` - Every 5 minutes
+            - `every:1h` - Every hour
+            - `every:1d` - Every day
+
+            ### Table-based triggers
+            - `all_tables` - Triggers on write events to any table in the database
+            - `table:TABLE_NAME` - Triggers on write events to a specific table
+
+            ### On-demand triggers
+            Format: `path:ENDPOINT_NAME`
+
+            Creates an HTTP endpoint `/api/v3/engine/ENDPOINT_NAME` for manual invocation:
+            - `path:hello-world` - Creates endpoint `/api/v3/engine/hello-world`
+            - `path:data-export` - Creates endpoint `/api/v3/engine/data-export`
+          pattern: ^(cron:[0-9 *,/-]+|every:[0-9]+[smhd]|all_tables|table:[a-zA-Z_][a-zA-Z0-9_]*|path:[a-zA-Z0-9_-]+)$
+          example: cron:0 0 6 * * 1-5
         trigger_arguments:
           type: object
           additionalProperties: true
+          description: Optional arguments passed to the plugin.
         disabled:
           type: boolean
+          default: false
+          description: Whether the trigger is disabled.
       required:
         - db
         - plugin_filename

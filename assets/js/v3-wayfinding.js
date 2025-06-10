@@ -1,6 +1,14 @@
 import { CLOUD_URLS } from './influxdb-url.js';
-import * as localStorage from './local-storage.js';
-import { context, host, hostname, path, protocol, referrer, referrerHost } from './page-context.js';
+import * as localStorage from './services/local-storage.js';
+import {
+  context,
+  host,
+  hostname,
+  path,
+  protocol,
+  referrer,
+  referrerHost,
+} from './page-context.js';
 
 /**
  * Builds a referrer whitelist array that includes the current page host and all
@@ -69,8 +77,6 @@ function setWayfindingInputState() {
 }
 
 function submitWayfindingData(engine, action) {
-
-
   // Build lp using page data and engine data
   const lp = `ioxwayfinding,host=${hostname},path=${path},referrer=${referrer},engine=${engine} action="${action}"`;
 
@@ -81,10 +87,7 @@ function submitWayfindingData(engine, action) {
     'https://j32dswat7l.execute-api.us-east-1.amazonaws.com/prod/wayfinding'
   );
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  xhr.setRequestHeader(
-    'Access-Control-Allow-Origin',
-    `${protocol}//${host}`
-  );
+  xhr.setRequestHeader('Access-Control-Allow-Origin', `${protocol}//${host}`);
   xhr.setRequestHeader('Content-Type', 'text/plain; charset=utf-8');
   xhr.setRequestHeader('Accept', 'application/json');
   xhr.send(lp);

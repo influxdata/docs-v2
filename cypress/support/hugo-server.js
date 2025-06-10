@@ -2,8 +2,10 @@ import { spawn } from 'child_process';
 import fs from 'fs';
 import http from 'http';
 import net from 'net';
+import process from 'process';
 
 // Hugo server constants
+export const HUGO_ENVIRONMENT = 'testing';
 export const HUGO_PORT = 1315;
 export const HUGO_LOG_FILE = '/tmp/hugo_server.log';
 
@@ -28,7 +30,8 @@ export async function isPortInUse(port) {
 /**
  * Start the Hugo server with the specified options
  * @param {Object} options - Configuration options for Hugo
- * @param {string} options.configFile - Path to Hugo config file (e.g., 'config/testing/config.yml')
+ * @param {string} options.configFile - Path to Hugo config file
+ * @param {string} options.environment - Environment to run Hugo in
  * @param {number} options.port - Port number for Hugo server
  * @param {boolean} options.buildDrafts - Whether to build draft content
  * @param {boolean} options.noHTTPCache - Whether to disable HTTP caching
@@ -36,9 +39,10 @@ export async function isPortInUse(port) {
  * @returns {Promise<Object>} Child process object
  */
 export async function startHugoServer({
-  configFile = 'config/testing/config.yml',
+  configFile = 'config/_default/hugo.yml',
   port = HUGO_PORT,
-  buildDrafts = true,
+  environment = 'testing',
+  buildDrafts = false,
   noHTTPCache = true,
   logFile = HUGO_LOG_FILE,
 } = {}) {
@@ -48,6 +52,8 @@ export async function startHugoServer({
   const hugoArgs = [
     'hugo',
     'server',
+    '--environment',
+    environment,
     '--config',
     configFile,
     '--port',
@@ -64,16 +70,16 @@ export async function startHugoServer({
 
   return new Promise((resolve, reject) => {
     try {
-      // Use npx to find and execute Hugo, which will work regardless of installation method
-      console.log(`Running Hugo with npx: npx ${hugoArgs.join(' ')}`);
-      const hugoProc = spawn('npx', hugoArgs, {
+      // Use yarn to find and execute Hugo, which will work regardless of installation method
+      console.log(`Running Hugo with yarn: yarn ${hugoArgs.join(' ')}`);
+      const hugoProc = spawn('yarn', hugoArgs, {
         stdio: ['ignore', 'pipe', 'pipe'],
         shell: true,
       });
 
       // Check if the process started successfully
       if (!hugoProc || !hugoProc.pid) {
-        return reject(new Error('Failed to start Hugo server via npx'));
+        return reject(new Error('Failed to start Hugo server via yarn'));
       }
 
       // Set up logging

@@ -1,6 +1,6 @@
 {{ $source := .Get 0 | default "telegraf"}}
 
-<div id="list-filters">
+<div id="list-filters" data-component="list-filters">
 
   {{ range ( index .Site.Data.list_filters $source) }}
   {{ $numValues := len .values }}
