@@ -1,0 +1,18 @@
+baseURL: https://test2.docs.influxdata.com/
+build:
+  writeStats: false
+  useResourceCacheWhen: "fallback"
+  buildOptions:
+    sourcemap: false
+    target: "es2015"
+minify:
+  disableJS: false
+  disableCSS: false
+  disableHTML: false
+  minifyOutput: true
+params:
+  env: staging
+  environment: staging
+server:
+  disableLiveReload: true
+  

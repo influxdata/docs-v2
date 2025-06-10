@@ -1,4 +1,4 @@
-import { getPreference, setPreference } from './local-storage.js';
+import { getPreference, setPreference } from './services/local-storage.js';
 
 const PROPS = {
   style_preference_name: 'theme',
@@ -6,19 +6,22 @@ const PROPS = {
   style_domain: 'docs.influxdata.com',
 };
 
-function getPreferredTheme () {
+function getPreferredTheme() {
   return `${getPreference(PROPS.style_preference_name)}-theme`;
 }
 
 function switchStyle({ styles_element, css_title }) {
   // Disable all other theme stylesheets
-  styles_element.querySelectorAll('link[rel*="stylesheet"][title*="theme"]')
-  .forEach(function (link) {
-    link.disabled = true;
-  });
+  styles_element
+    .querySelectorAll('link[rel*="stylesheet"][title*="theme"]')
+    .forEach(function (link) {
+      link.disabled = true;
+    });
 
   // Enable the stylesheet with the specified title
-  const link = styles_element.querySelector(`link[rel*="stylesheet"][title="${css_title}"]`);
+  const link = styles_element.querySelector(
+    `link[rel*="stylesheet"][title="${css_title}"]`
+  );
   link && (link.disabled = false);
 
   setPreference(PROPS.style_preference_name, css_title.replace(/-theme/, ''));
@@ -38,5 +41,4 @@ export default function Theme({ component, style }) {
   if (component.dataset?.themeCallback === 'setVisibility') {
     setVisibility(component);
   }
-
 }

@@ -407,15 +407,15 @@ if __name__ == '__main__':
     agent.handler = h
 
     # Anything printed to STDERR from a UDF process gets captured into the Kapacitor logs.
-    print >> sys.stderr, "Starting agent for TTestHandler"
+    print("Starting agent for TTestHandler", file=sys.stderr)
     agent.start()
     agent.wait()
-    print >> sys.stderr, "Agent finished"
+    print("Agent finished", file=sys.stderr)
 
 ```
 
 That was a lot, but now we are ready to configure Kapacitor to run our
-code.  Create a scratch dir for working through the rest of this
+code.  Make sure that `scipy` is installed (`$ pip3 install scipy`).  Create a scratch dir for working through the rest of this
 guide:
 
 ```bash
@@ -434,7 +434,7 @@ Add this snippet to your Kapacitor configuration file (typically located at `/et
 [udf.functions]
     [udf.functions.tTest]
         # Run python
-        prog = "/usr/bin/python2"
+        prog = "/usr/bin/python3"
         # Pass args to python
         # -u for unbuffered STDIN and STDOUT
         # and the path to the script
@@ -468,8 +468,8 @@ correctly:
 service kapacitor restart
 ```
 
-Check the logs (`/var/log/kapacitor/`) to make sure you see a
-*Listening for signals* line and that no errors occurred.  If you
+Check the logs (`/var/log/kapacitor/` or `journalctl -f -n 256 -u kapacitor.service`) to make sure you see a
+_Listening for signals_ line and that no errors occurred.  If you
 don't see the line, it's because the UDF process is hung and not
 responding. It should be killed after a timeout, so give it a moment
 to stop properly. Once stopped, you can fix any errors and try again.
@@ -544,6 +544,20 @@ the Kapacitor task:
 kapacitor define print_temps -tick print_temps.tick
 ```
 
+Ensure that the task is enabled:
+
+```bash
+kapacitor enable print_temps
+```
+
+And then list the tasks:
+
+```bash
+kapacitor list tasks
+ID          Type      Status    Executing Databases and Retention Policies
+print_temps stream    enabled   true      ["printer"."autogen"]
+```
+
 ### Generating test data
 
 To simulate our printer for testing, we will write a simple Python
@@ -557,7 +571,7 @@ to use real data for testing our TICKscript and UDF, but this is
 faster (and much cheaper than a 3D printer).
 
 ```python
-#!/usr/bin/python2
+#!/usr/bin/env python
 
 from numpy import random
 from datetime import timedelta, datetime
@@ -672,7 +686,11 @@ fake data so that we can easily iterate on the task:
 ```sh
 # Start the recording in the background
 kapacitor record stream -task print_temps -duration 24h -no-wait
-# Grab the ID from the output and store it in a var
+# List recordings to find the ID
+kapacitor list recordings
+ID                                   Type    Status    Size      Date
+7bd3ced5-5e95-4a67-a0e1-f00860b1af47 stream  running   0 B       04 May 16 11:34 MDT
+# Copy the ID and store it in a variable
 rid=7bd3ced5-5e95-4a67-a0e1-f00860b1af47
 # Run our python script to generate data
 chmod +x ./printer_data.py
