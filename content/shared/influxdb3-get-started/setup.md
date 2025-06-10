@@ -1,3 +1,13 @@
+<!--  -->
+- [Install {{% product-name %}}](#install-influxdb-3-{{% product-key %}})
+  - [Verify the installation](#verify-the-installation)
+- [Start InfluxDB](#start-influxdb)
+  - [{{% product-name %}} store examples](#influxdb-3-{{% product-key %}}-store-examples)
+- [Set up licensing](#set-up-licensing)
+- [Set up authorization](#set-up-authorization)
+  - [Create an operator token](#create-an-operator-token)
+  - [Set your token for authorization](#set-your-token-for-authorization)
+
 ## Install {{% product-name %}}
 
 {{% product-name %}} runs on **Linux**, **macOS**, and **Windows**.
@@ -80,15 +90,29 @@ to start {{% product-name %}}.
 Provide the following:
 
 - `--object-store`: Specifies the type of object store to use.
-  InfluxDB supports the following: local file system (`file`), `memory`,
-  S3 (and compatible services like Ceph or Minio) (`s3`),
-  Google Cloud Storage (`google`), and Azure Blob Storage (`azure`).
-  The default is `file`.
-  Depending on the object store type, you may need to provide additional options
-  for your object store configuration.
+  InfluxDB supports the following:
+  
+  - `file` _(default)_: local file system 
+  - `memory`: in memory _(no object persistence)_
+  - `memory-throttled`: like `memory` but with latency and throughput that
+    somewhat resembles a cloud-based object store
+  - `s3`: AWS S3 and S3-compatible services like Ceph or Minio
+  - `google`: Google Cloud Storage
+  - `azure`: Azure Blob Storage
+
+  > [!Note]  
+  > Depending on the object store type, you may need to provide additional
+  > options for your object store configuration.
+
 {{% show-in "enterprise" %}}
-- `--node-id`: A string identifier that distinguishes individual server instances within the cluster. This forms the final part of the storage path: `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`. In a multi-node setup, this ID is used to reference specific nodes.
-- `--cluster-id`: A string identifier that determines part of the storage path hierarchy. All nodes within the same cluster share this identifier. The storage path follows the pattern `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`. In a multi-node setup, this ID is used to reference the entire cluster.
+- `--node-id`: A string identifier that distinguishes individual server
+  instances within the cluster. This forms the final part of the storage path:
+  `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`.
+  In a multi-node setup, this ID is used to reference specific nodes.
+- `--cluster-id`: A string identifier that determines part of the storage path
+  hierarchy. All nodes within the same cluster share this identifier.
+  The storage path follows the pattern `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`.
+  In a multi-node setup, this ID is used to reference the entire cluster.
 {{% /show-in %}}
 {{% show-in "core" %}}
 - `--node-id`: A string identifier that distinguishes individual server instances.
@@ -103,13 +127,42 @@ The following examples show how to start {{% product-name %}} with different obj
 > InfluxDB 3 supports a diskless architecture that can operate with object
 > storage alone, eliminating the need for locally attached disks.
 > {{% product-name %}} can also work with only local disk storage when needed. 
+>
+> {{% show-in "enterprise" %}} 
+> The combined path structure `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>` ensures
+> proper organization of data in your object store, allowing for clean
+> separation between clusters and individual nodes.
+> {{% /show-in %}}
+
+For this getting started guide, use the `file` object store to persist data to
+your local disk.
 
 {{% show-in "enterprise" %}}
-> [!Note]
-> The combined path structure `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>` ensures proper organization of data in your object store, allowing for clean separation between clusters and individual nodes.
+```bash
+# File system object store
+# Provide the filesystem directory
+influxdb3 serve \
+  --node-id host01 \
+  --cluster-id cluster01 \
+  --object-store file \
+  --data-dir ~/.influxdb3
+```
+{{% /show-in %}}
+{{% show-in "core" %}}
+```bash
+# File system object store
+# Provide the file system directory
+influxdb3 serve \
+  --node-id host01 \
+  --object-store file \
+  --data-dir ~/.influxdb3
+```
 {{% /show-in %}}
 
-##### Filesystem object store
+### {{% product-name %}} store examples
+
+{{< expand-wrapper >}}
+{{% expand "File system object store" %}}
 
 Store data in a specified directory on the local filesystem.
 This is the default object store type.
@@ -138,10 +191,15 @@ influxdb3 serve \
 ```
 {{% /show-in %}}
 
-To run the [Docker image](/influxdb3/version/install/#docker-image) and persist data to the file system, mount a volume for the object store-for example, pass the following options:
+{{% /expand %}}
+{{% expand "Docker with a mounted file system object store" %}}
 
-- `-v /path/on/host:/path/in/container`: Mounts a directory from your file system to the container
-- `--object-store file --data-dir /path/in/container`: Uses the mount for server storage
+To run the [Docker image](/influxdb3/version/install/#docker-image) and persist
+data to the local file system, mount a volume for the object store--for example,
+provide the following options with your `docker run` command:
+
+- `--volume /path/on/host:/path/in/container`: Mounts a directory from your file system to the container
+- `--object-store file --data-dir /path/in/container`: Use the volume mount for object storage
 
 
 {{% show-in "enterprise" %}}
@@ -151,7 +209,7 @@ To run the [Docker image](/influxdb3/version/install/#docker-image) and persist 
 # Create a mount
 # Provide the mount path
 docker run -it \
- -v /path/on/host:/path/in/container \
+ --volume /path/on/host:/path/in/container \
  influxdb:3-enterprise influxdb3 serve \
  --node-id my_host \
  --cluster-id my_cluster \
@@ -166,7 +224,7 @@ docker run -it \
 # Create a mount
 # Provide the mount path
 docker run -it \
- -v /path/on/host:/path/in/container \
+ --volume /path/on/host:/path/in/container \
  influxdb:3-core influxdb3 serve \
  --node-id my_host \
  --object-store file \
@@ -176,10 +234,13 @@ docker run -it \
 
 > [!Note]
 > 
-> The {{% product-name %}} Docker image exposes port `8181`, the `influxdb3` server default for HTTP connections.
-> To map the exposed port to a different port when running a container, see the Docker guide for [Publishing and exposing ports](https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/).
+> The {{% product-name %}} Docker image exposes port `8181`, the `influxdb3`
+> server default for HTTP connections.
+> To map the exposed port to a different port when running a container, see the
+> Docker guide for [Publishing and exposing ports](https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/).
 
-##### S3 object store
+{{% /expand %}}
+{{% expand "S3 object storage" %}}
 
 Store data in an S3-compatible object store.
 This is useful for production deployments that require high availability and durability.
@@ -198,7 +259,6 @@ influxdb3 serve \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY
 ```
 
-
 ```bash
 # Minio or other open source object store
 # (using the AWS S3 API with additional parameters)
@@ -214,6 +274,7 @@ influxdb3 serve \
   --aws-allow-http
 ```
 {{% /show-in %}}
+
 {{% show-in "core" %}}
 ```bash
 # S3 object store (default is the us-east-1 region)
@@ -241,7 +302,8 @@ influxdb3 serve \
 ```
 {{% /show-in %}}
 
-#### Memory object store
+{{% /expand %}}
+{{% expand "Memory-based object store" %}}
 
 Store data in RAM without persisting it on shutdown.
 It's useful for rapid testing and development.
@@ -251,9 +313,9 @@ It's useful for rapid testing and development.
 # Memory object store
 # Stores data in RAM; doesn't persist data
 influxdb3 serve \
---node-id host01 \
---cluster-id cluster01 \
---object-store memory
+  --node-id host01 \
+  --cluster-id cluster01 \
+  --object-store memory
 ```
 {{% /show-in %}}
 {{% show-in "core" %}}
@@ -261,51 +323,62 @@ influxdb3 serve \
 # Memory object store
 # Stores data in RAM; doesn't persist data
 influxdb3 serve \
---node-id host01 \
---object-store memory
+  --node-id host01 \
+  --object-store memory
 ```
 {{% /show-in %}}
 
-For more information about server options, use the CLI help or view the [InfluxDB 3 CLI reference](/influxdb3/version/reference/cli/influxdb3/serve/):
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+For more information about server options, use the CLI help or view the
+[InfluxDB 3 CLI reference](/influxdb3/version/reference/cli/influxdb3/serve/):
 
 ```bash
 influxdb3 serve --help
 ```
 
-> [!Tip]
-> #### Run the InfluxDB 3 Explorer query interface (beta)
-> 
-> InfluxDB 3 Explorer (currently in beta) is the web-based query and 
-> administrative interface for InfluxDB 3.
-> It provides visual management of databases and tokens and an easy way to query your time series data.
-> 
-> For more information, see the [InfluxDB 3 Explorer documentation](/influxdb3/explorer/).
-
 {{% show-in "enterprise" %}}
-#### Licensing
+## Set up licensing
 
-When first starting a new instance, {{% product-name %}} prompts you to select a license type.
-
-InfluxDB 3 Enterprise licenses authorize the use of the InfluxDB 3 Enterprise software and apply to a single cluster. Licenses are primarily based on the number of CPUs InfluxDB can use, but there are other limitations depending on the license type. The following InfluxDB 3 Enterprise license types are available:
+When first starting a new instance, {{% product-name %}} prompts you to select a
+license type. InfluxDB 3 Enterprise licenses authorize the use of the
+InfluxDB 3 Enterprise software and apply to a single cluster. Licenses are
+primarily based on the number of CPUs InfluxDB can use, but there are other
+limitations depending on the license type. The following InfluxDB 3 Enterprise
+license types are available:
 
 - **Trial**: 30-day trial license with full access to InfluxDB 3 Enterprise capabilities.
 - **At-Home**: For at-home hobbyist use with limited access to InfluxDB 3 Enterprise capabilities.
 - **Commercial**: Commercial license with full access to InfluxDB 3 Enterprise capabilities.
 
-You can learn more on managing your InfluxDB 3 Enterprise license on the [Manage your license](https://docs.influxdata.com/influxdb3/enterprise/admin/license/)page.
+For more information, see [Manage your InfluxDB 3 Enterprise license](/influxdb3/enterprise/admin/license/).
 {{% /show-in %}}
 
-### Authentication and authorization
+> [!Tip]
+> #### Use the InfluxDB 3 Explorer query interface (beta)
+> 
+> The remainder of the getting started guide can be completed using
+> InfluxDB 3 Explorer (currently in beta), the web-based query and 
+> administrative interface for InfluxDB 3, but doesn't include instructions for
+> Explorer. Explorer provides visual management of databases and tokens and an
+> easy way to write and query your time series data.
+> 
+> For more information, see the [InfluxDB 3 Explorer documentation](/influxdb3/explorer/).
 
-{{% product-name %}} uses token-based authentication and authorization, which is enabled by default when you start the server.
+## Set up authorization
 
-With authentication enabled, you must provide a token with `influxdb3` CLI commands and HTTP API requests.
+{{% product-name %}} uses token-based authorization to authorize actions in the
+database. Authorization is enabled by default when you start the server.
+With authorization enabled, you must provide a token with `influxdb3` CLI
+commands and HTTP API requests.
 
 {{% show-in "enterprise" %}}
 {{% product-name %}} supports the following types of tokens:
 
-- **admin token**: Grants access to all CLI actions and API endpoints. A server can have one admin token.
-- **resource tokens**: Tokens that grant read and write access to specific resources (databases and system information endpoints) on the server.
+- **admin token**: Grants access to all CLI actions and API endpoints.
+- **resource tokens**: Tokens that grant read and write access to specific
+  resources (databases and system information endpoints) on the server.
 
   - A database token grants access to write and query data in a
     database
@@ -318,18 +391,13 @@ With authentication enabled, you must provide a token with `influxdb3` CLI comma
 
 For more information about tokens and authorization, see [Manage tokens](/influxdb3/version/admin/tokens/).
 
-#### Create an operator token
+### Create an operator token
 
 After you start the server, create your first admin token.
 The first admin token you create is the _operator_ token for the server.
 
-Use the `influxdb3` CLI or the HTTP API to create your operator token.
-
-> [!Important]
-> **Store your token securely**
-> 
-> InfluxDB displays the token string only when you create it.
-> Store your token securely—you cannot retrieve it from the database later.
+Use the [`influxdb3 create token` command](/influxdb3/version/reference/cli/influxdb3/create/token/)
+with the `--admin` option to create your operator token:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -358,12 +426,19 @@ Replace {{% code-placeholder-key %}}`CONTAINER_NAME`{{% /code-placeholder-key %}
 {{< /code-tabs-wrapper >}}
 
 The command returns a token string for authenticating CLI commands and API requests.
-Store your token securely—you cannot retrieve it from the database later.
 
-#### Set your token for authentication
+> [!Important]
+> #### Store your token securely
+> 
+> InfluxDB displays the token string only when you create it.
+> Store your token securely—you cannot retrieve it from the database later.
+
+### Set your token for authorization
 
 Use your operator token to authenticate server actions in {{% product-name %}},
-such as creating additional tokens, performing administrative tasks, and writing and querying data.
+such as {{% show-in "enterprise" %}}creating additional tokens, {{% /show-in %}}
+performing administrative tasks{{% show-in "enterprise" %}},{{% /show-in %}}
+and writing and querying data.
 
 Use one of the following methods to provide your token and authenticate `influxdb3` CLI commands.
 
@@ -391,7 +466,7 @@ Include the `--token` option with CLI commands:
 
 {{% code-placeholders "YOUR_AUTH_TOKEN" %}}
 ```bash
-influxdb3 show databases --token AUTH_TOKEN
+influxdb3 show databases --token YOUR_AUTH_TOKEN
 ```
 {{% /code-placeholders %}}
 
@@ -400,17 +475,27 @@ influxdb3 show databases --token AUTH_TOKEN
 
 For HTTP API requests, include your token in the `Authorization` header--for example:
 
-{{% code-placeholders "AUTH_TOKEN" %}}
+{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
 ```bash
 curl "http://{{< influxdb/host >}}/api/v3/configure/database" \
-  --header "Authorization: Bearer AUTH_TOKEN"
+  --header "Authorization: Bearer YOUR_AUTH_TOKEN"
 ```
 {{% /code-placeholders %}}
 
 #### Learn more about tokens and permissions
 
-- [Manage admin tokens](/influxdb3/version/admin/tokens/admin/) - Understand and manage operator and named admin tokens
+- [Manage admin tokens](/influxdb3/version/admin/tokens/admin/) - Understand and
+  manage operator and named admin tokens
 {{% show-in "enterprise" %}}
-- [Manage resource tokens](/influxdb3/version/admin/tokens/resource/) - Create, list, and delete resource tokens
+- [Manage resource tokens](/influxdb3/version/admin/tokens/resource/) - Create,
+  list, and delete resource tokens
 {{% /show-in %}}
-- [Authentication](/influxdb3/version/reference/internals/authentication/) - Understand authentication, authorizations, and permissions in {{% product-name %}}
+- [Authentication](/influxdb3/version/reference/internals/authentication/) -
+  Understand authentication, authorizations, and permissions in {{% product-name %}}
+
+{{% page-nav
+  prev="/influxdb3/version/get-started/"
+  prevText="Get started"
+  next="/influxdb3/version/get-started/write/"
+  nextText="Write data"
+%}}
