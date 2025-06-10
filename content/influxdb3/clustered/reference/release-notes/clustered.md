@@ -21,6 +21,34 @@ weight: 201
 > Checkpoint releases are only made when absolutely necessary and are clearly
 > identified below with the <span class="cf-icon Shield pink"></span> icon.
 
+{{< expand-wrapper >}}
+{{% expand "Download release artifacts manually" %}}
+
+To download a bundle of release artifacts for a specific version of
+InfluxDB Clustered, [install `crane`](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
+and run the following shell script:
+
+{{% code-placeholders "RELEASE_VERSION" %}}
+<!-- pytest.mark.skip -->
+```bash
+INFLUXDB_RELEASE="RELEASE_VERSION"
+IMAGE="us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:$INFLUXDB_RELEASE"
+DOCKER_CFG="/tmp/influxdbsecret"
+
+DIGEST=$(DOCKER_CONFIG="$DOCKER_CFG" crane manifest "$IMAGE" | jq -r '.layers[1].digest')
+
+DOCKER_CONFIG="$DOCKER_CFG" \
+crane blob "$IMAGE@$DIGEST" | tar -xvzf - -C ./
+```
+{{% /code-placeholders %}}
+
+Replace {{% code-placeholder-key %}}`RELEASE_VERSION`{{% /code-placeholder-key %}}
+with the InfluxDB Clustered release version you want to download artifacts for.
+Assets will be available in the created `influxdb-3.0-clustered` directory.
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 {{< release-toc >}}
 
 ---
