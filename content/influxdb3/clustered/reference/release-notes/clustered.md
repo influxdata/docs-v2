@@ -37,10 +37,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20250508-1719206.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250508-1719206/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20250508-1719206/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Changes
 
@@ -68,10 +67,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20250212-1570743.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250212-1570743/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20250212-1570743/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Bug Fixes
 
@@ -104,10 +102,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20241217-1494922.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20241217-1494922/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20241217-1494922/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Bug Fixes
 
@@ -145,10 +142,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20241024-1354148.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20241022-1346953/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20241022-1346953/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Known Bugs
 
@@ -348,10 +344,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20240819-1176644.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240819-1176644/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240819-1176644/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -434,10 +429,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20240717-1117630.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240717-1117630/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240717-1117630/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -552,10 +546,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20240605-1035562.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240605-1035562/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240605-1035562/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -625,10 +618,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20240430-976585.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240430-976585/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240430-976585/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -663,10 +655,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20240418-955990.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240418-955990/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240418-955990/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -710,10 +701,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20240326-922145.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240325-920726/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240325-920726/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -768,10 +758,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20240227-883344.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240227-883344/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240227-883344/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Changes
 
@@ -803,10 +792,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20240214-863513.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240214-863513/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240214-863513/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -869,10 +857,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20240111-824437.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240111-824437/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240111-824437/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -938,10 +925,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20231213-791734.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20231213-791734/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20231213-791734/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -985,10 +971,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20231117-750011.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20231117-750011/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20231117-750011/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -1017,10 +1002,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20231115-746129.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20231115-746129/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20231115-746129/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -1136,10 +1120,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20231024-711448.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20231024-711448/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20231024-711448/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -1204,10 +1187,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20231004-666907.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20231004-666907/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20231004-666907/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -1278,10 +1260,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20230922-650371.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20230922-650371/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20230922-650371/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -1337,10 +1318,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20230915-630658.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20230915-630658/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20230915-630658/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -1370,10 +1350,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20230914-628600.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20230914-628600/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20230914-628600/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -1412,10 +1391,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20230912-619813.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20230912-619813/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20230912-619813/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -1489,10 +1467,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20230911-604209.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20230911-604209/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20230911-604209/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -1545,10 +1522,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20230908-600131.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20230908-600131/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20230908-600131/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -1579,10 +1555,9 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json]()
-- [example-customer.yml]()
-- [20230907-597343.tar.gz]()
-- [InfluxDB Clustered README EULA July 2024.txt]()
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20230907-597343/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20230907-597343/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Upgrade Notes
 
