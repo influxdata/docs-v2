@@ -2,7 +2,7 @@
 ///////////////// Preferred Client Library programming language  ///////////////
 ////////////////////////////////////////////////////////////////////////////////
 import { activateTabs, updateBtnURLs } from './tabbed-content.js';
-import { getPreference, setPreference } from './local-storage.js';
+import { getPreference, setPreference } from './services/local-storage.js';
 
 function getVisitedApiLib() {
   const path = window.location.pathname.match(

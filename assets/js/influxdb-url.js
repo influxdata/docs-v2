@@ -3,7 +3,6 @@
 ///////////////////////// INFLUXDB URL PREFERENCE /////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 */
-import * as pageParams from '@params';
 import {
   DEFAULT_STORAGE_URLS,
   getPreference,
@@ -12,15 +11,18 @@ import {
   removeInfluxDBUrl,
   getInfluxDBUrl,
   getInfluxDBUrls,
-} from './local-storage.js';
+} from './services/local-storage.js';
 import $ from 'jquery';
 import { context as PRODUCT_CONTEXT, referrerHost } from './page-context.js';
+import { influxdbUrls } from './services/influxdb-urls.js';
 import { delay } from './helpers.js';
 import { toggleModal } from './modals.js';
 
 let CLOUD_URLS = [];
-if (pageParams && pageParams.influxdb_urls) {
-  CLOUD_URLS = Object.values(pageParams.influxdb_urls.cloud.providers).flatMap((provider) => provider.regions?.map((region) => region.url));
+if (influxdbUrls?.cloud) {
+  CLOUD_URLS = Object.values(influxdbUrls.cloud.providers).flatMap((provider) =>
+    provider.regions?.map((region) => region.url)
+  );
 }
 export { CLOUD_URLS };
 
@@ -28,7 +30,7 @@ export function InfluxDBUrl() {
   const UNIQUE_URL_PRODUCTS = ['dedicated', 'clustered'];
   const IS_UNIQUE_URL_PRODUCT = UNIQUE_URL_PRODUCTS.includes(PRODUCT_CONTEXT);
 
-   // Add actual cloud URLs as needed
+  // Add actual cloud URLs as needed
   const elementSelector = '.article--content pre:not(.preserve)';
 
   ///////////////////// Stored preference management ///////////////////////
@@ -118,11 +120,12 @@ export function InfluxDBUrl() {
     });
   }
 
- // Retrieve the currently selected URLs from the urls local storage object.
- function getUrls() {
-  const { cloud, oss, core, enterprise, serverless, dedicated, clustered } = getInfluxDBUrls();
-  return { oss, cloud, core, enterprise, serverless, dedicated, clustered };
-}
+  // Retrieve the currently selected URLs from the urls local storage object.
+  function getUrls() {
+    const { cloud, oss, core, enterprise, serverless, dedicated, clustered } =
+      getInfluxDBUrls();
+    return { oss, cloud, core, enterprise, serverless, dedicated, clustered };
+  }
 
   // Retrieve the previously selected URLs from the from the urls local storage object.
   // This is used to update URLs whenever you switch between browser tabs.
@@ -289,15 +292,17 @@ export function InfluxDBUrl() {
   }
 
   // Append the URL selector button to each codeblock containing a placeholder URL
-  function appendUrlSelector(urls={
-    cloud: '',
-    oss: '',
-    core: '',
-    enterprise: '',
-    serverless: '',
-    dedicated: '',
-    clustered: '',
-  }) {
+  function appendUrlSelector(
+    urls = {
+      cloud: '',
+      oss: '',
+      core: '',
+      enterprise: '',
+      serverless: '',
+      dedicated: '',
+      clustered: '',
+    }
+  ) {
     const appendToUrls = Object.values(urls);
 
     const getBtnText = (context) => {
@@ -315,7 +320,7 @@ export function InfluxDBUrl() {
       return contextText[context];
     };
 
-  appendToUrls.forEach(function (url) {
+    appendToUrls.forEach(function (url) {
       $(elementSelector).each(function () {
         var code = $(this).html();
         if (code.includes(url)) {
@@ -330,20 +335,32 @@ export function InfluxDBUrl() {
     });
   }
 
-////////////////////////////////////////////////////////////////////////////
-////////////////// Initialize InfluxDB URL interactions ////////////////////
-////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
+  ////////////////// Initialize InfluxDB URL interactions ////////////////////
+  ////////////////////////////////////////////////////////////////////////////
 
   // Add the preserve tag to code blocks that shouldn't be updated
   addPreserve();
-  const { cloud, oss, core, enterprise, serverless, dedicated, clustered } = DEFAULT_STORAGE_URLS;
+  const { cloud, oss, core, enterprise, serverless, dedicated, clustered } =
+    DEFAULT_STORAGE_URLS;
 
   // Append URL selector buttons to code blocks
-  appendUrlSelector({ cloud, oss, core, enterprise, serverless, dedicated, clustered });
+  appendUrlSelector({
+    cloud,
+    oss,
+    core,
+    enterprise,
+    serverless,
+    dedicated,
+    clustered,
+  });
 
   // Update URLs on load
 
-  updateUrls({ cloud, oss, core, enterprise, serverless, dedicated, clustered }, getUrls());
+  updateUrls(
+    { cloud, oss, core, enterprise, serverless, dedicated, clustered },
+    getUrls()
+  );
 
   // Set active radio button on page load
   setRadioButtons(getUrls());

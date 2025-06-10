@@ -1,0 +1,17 @@
+build:
+  writeStats: false
+  useResourceCacheWhen: "fallback"
+  buildOptions:
+    sourcemap: false 
+    target: "es2015"
+minify:
+  disableJS: false
+  disableCSS: false
+  disableHTML: false
+  minifyOutput: true
+params:
+  env: production
+  environment: production
+server: {
+  disableLiveReload: true
+}
