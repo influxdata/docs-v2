@@ -22,7 +22,10 @@ assets and store them in `static/downloads/clustered-release-artifacts/<RELEASE>
     1Password vault. Download the pull secret and store it in the
     `/tmp/influxdbsecret` directory on your local machine.
 
-2.  [Install `crane`](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation).
+2.  Install dependencies:
+    
+    - [Install `crane`](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation).
+    - [Install `jq`](https://jqlang.org/download/)
 
 3.  From the root of the docs project directory, run the following command to
     execute the script. Provide the release version as an argument to the

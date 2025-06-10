@@ -26,7 +26,7 @@ weight: 201
 
 To download a bundle of release artifacts for a specific version of
 InfluxDB Clustered, [install `crane`](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
-and run the following shell script:
+and [`jq`](https://jqlang.org/download/) and run the following shell script:
 
 {{% code-placeholders "RELEASE_VERSION" %}}
 <!-- pytest.mark.skip -->
