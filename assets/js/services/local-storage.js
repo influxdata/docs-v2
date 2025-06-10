@@ -10,7 +10,8 @@
     - messages: Messages (data/notifications.yaml) that have been seen (array)
     - callouts: Feature callouts that have been seen (array)
 */
-import * as pageParams from '@params';
+
+import { influxdbUrls } from './influxdb-urls.js';
 
 // Prefix for all InfluxData docs local storage
 const storagePrefix = 'influxdata_docs_';
@@ -82,14 +83,12 @@ function getPreferences() {
 //////////// MANAGE INFLUXDATA DOCS URLS IN LOCAL STORAGE //////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-
 const defaultUrls = {};
-// Guard against pageParams being null/undefined and safely access nested properties
-if (pageParams && pageParams.influxdb_urls) {
-  Object.entries(pageParams.influxdb_urls).forEach(([product, {providers}]) => {
-  defaultUrls[product] = providers.filter(provider => provider.name === 'Default')[0]?.regions[0]?.url;
-  });
-}
+Object.entries(influxdbUrls).forEach(([product, { providers }]) => {
+  defaultUrls[product] =
+    providers.filter((provider) => provider.name === 'Default')[0]?.regions[0]
+      ?.url || 'https://cloud2.influxdata.com';
+});
 
 export const DEFAULT_STORAGE_URLS = {
   oss: defaultUrls.oss,
@@ -177,7 +176,10 @@ const defaultNotificationsObj = {
 function getNotifications() {
   // Initialize notifications data if it doesn't already exist
   if (localStorage.getItem(notificationStorageKey) === null) {
-    initializeStorageItem('notifications', JSON.stringify(defaultNotificationsObj));
+    initializeStorageItem(
+      'notifications',
+      JSON.stringify(defaultNotificationsObj)
+    );
   }
 
   // Retrieve and parse the notifications data as JSON
@@ -221,7 +223,10 @@ function setNotificationAsRead(notificationID, notificationType) {
   readNotifications.push(notificationID);
   notificationsObj[notificationType + 's'] = readNotifications;
 
-  localStorage.setItem(notificationStorageKey, JSON.stringify(notificationsObj));
+  localStorage.setItem(
+    notificationStorageKey,
+    JSON.stringify(notificationsObj)
+  );
 }
 
 // Export functions as a module and make the file backwards compatible for non-module environments until all remaining dependent scripts are ported to modules

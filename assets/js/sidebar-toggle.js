@@ -3,7 +3,7 @@
 	http://www.thesitewizard.com/javascripts/change-style-sheets.shtml
 */
 
-import * as localStorage from './local-storage.js';
+import * as localStorage from './services/local-storage.js';
 
 // *** TO BE CUSTOMISED ***
 var sidebar_state_preference_name = 'sidebar_state';
