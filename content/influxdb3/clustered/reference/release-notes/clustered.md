@@ -25,8 +25,14 @@ weight: 201
 {{% expand "Download release artifacts manually" %}}
 
 To download a bundle of release artifacts for a specific version of
-InfluxDB Clustered, [install `crane`](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
-and [`jq`](https://jqlang.org/download/) and run the following shell script:
+InfluxDB Clustered:
+
+1.  [install `crane`](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
+    and [`jq`](https://jqlang.org/download/).
+2.  Ensure your InfluxData pull secret is in the `/tmp/influxdbsecret` directory
+    on your local machine. This secret was provided to you by InfluxData to
+    authorize the use of InfluxDB Clustered images.
+3.  Run the following shell script:
 
 {{% code-placeholders "RELEASE_VERSION" %}}
 <!-- pytest.mark.skip -->
@@ -42,9 +48,11 @@ crane blob "$IMAGE@$DIGEST" | tar -xvzf - -C ./
 ```
 {{% /code-placeholders %}}
 
-Replace {{% code-placeholder-key %}}`RELEASE_VERSION`{{% /code-placeholder-key %}}
-with the InfluxDB Clustered release version you want to download artifacts for.
-Assets will be available in the created `influxdb-3.0-clustered` directory.
+_Replace {{% code-placeholder-key %}}`RELEASE_VERSION`{{% /code-placeholder-key %}}
+with the InfluxDB Clustered release version you want to download artifacts for._
+
+The script creates an `influxdb-3.0-clustered` directory in the current working
+directory. This new directory contains artifacts associated with the specified release.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
