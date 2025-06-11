@@ -21,6 +21,42 @@ weight: 201
 > Checkpoint releases are only made when absolutely necessary and are clearly
 > identified below with the <span class="cf-icon Shield pink"></span> icon.
 
+{{< expand-wrapper >}}
+{{% expand "Download release artifacts manually" %}}
+
+To download a bundle of release artifacts for a specific version of
+InfluxDB Clustered:
+
+1.  [install `crane`](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
+    and [`jq`](https://jqlang.org/download/).
+2.  Ensure your InfluxData pull secret is in the `/tmp/influxdbsecret` directory
+    on your local machine. This secret was provided to you by InfluxData to
+    authorize the use of InfluxDB Clustered images.
+3.  Run the following shell script:
+
+{{% code-placeholders "RELEASE_VERSION" %}}
+<!-- pytest.mark.skip -->
+```bash
+INFLUXDB_RELEASE="RELEASE_VERSION"
+IMAGE="us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:$INFLUXDB_RELEASE"
+DOCKER_CFG="/tmp/influxdbsecret"
+
+DIGEST=$(DOCKER_CONFIG="$DOCKER_CFG" crane manifest "$IMAGE" | jq -r '.layers[1].digest')
+
+DOCKER_CONFIG="$DOCKER_CFG" \
+crane blob "$IMAGE@$DIGEST" | tar -xvzf - -C ./
+```
+{{% /code-placeholders %}}
+
+_Replace {{% code-placeholder-key %}}`RELEASE_VERSION`{{% /code-placeholder-key %}}
+with the InfluxDB Clustered release version you want to download artifacts for._
+
+The script creates an `influxdb-3.0-clustered` directory in the current working
+directory. This new directory contains artifacts associated with the specified release.
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 {{< release-toc >}}
 
 ---
@@ -34,6 +70,12 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250508-1719206
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250508-1719206/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20250508-1719206/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Changes
 
@@ -58,6 +100,12 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250212-1570743
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250212-1570743/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20250212-1570743/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Bug Fixes
 
@@ -88,6 +136,12 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241217-1494922
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20241217-1494922/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20241217-1494922/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
 ### Bug Fixes
 
 This fixes a bug present in release [20241024-1354148](#20241024-1354148), in
@@ -112,7 +166,7 @@ DSN before connecting.
 ---
 
 
-## 20241024-1354148  {date="2024-10-24" .checkpoint}
+## 20241024-1354148 {date="2024-10-24" .checkpoint}
 
 ### Quickstart
 
@@ -121,6 +175,12 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241022-1346953
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20241022-1346953/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20241022-1346953/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Known Bugs
 
@@ -318,6 +378,12 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240819-1176644
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240819-1176644/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240819-1176644/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
 ### Highlights
 
 #### `admin` section is no longer required
@@ -396,6 +462,12 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240717-1117630
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240717-1117630/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240717-1117630/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -508,6 +580,12 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240605-1035562
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240605-1035562/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240605-1035562/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
 ### Highlights
 
 Multiple improvements to compaction, pruning, and performance of concurrent queries.
@@ -574,6 +652,12 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240430-976585
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240430-976585/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240430-976585/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
 ### Highlights
 
 - Added configuration settings for an optional Prometheus `ServiceMonitor`
@@ -604,6 +688,12 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240418-955990
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240418-955990/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240418-955990/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -644,6 +734,12 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240325-920726
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240325-920726/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240325-920726/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -696,6 +792,12 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240227-883344
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240227-883344/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240227-883344/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
 ### Changes
 
 #### Deployment
@@ -723,6 +825,12 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240214-863513
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240214-863513/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240214-863513/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -782,6 +890,12 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240111-824437
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240111-824437/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240111-824437/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -845,6 +959,12 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231213-791734
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20231213-791734/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20231213-791734/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
 ### Highlights
 
 #### Labels/annotations
@@ -885,6 +1005,12 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231117-750011
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20231117-750011/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20231117-750011/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
 ### Highlights
 
 > ![Important]
@@ -909,6 +1035,12 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231115-746129
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20231115-746129/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20231115-746129/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -1022,6 +1154,12 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231024-711448
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20231024-711448/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20231024-711448/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
 ### Highlights
 
 #### Additional `AppInstance` parameters
@@ -1082,6 +1220,12 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231004-666907
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20231004-666907/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20231004-666907/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -1150,6 +1294,12 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230922-650371
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20230922-650371/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20230922-650371/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
 ### Highlights
 
 #### Configuration simplification
@@ -1202,6 +1352,12 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230915-630658
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20230915-630658/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20230915-630658/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
 ### Highlights
 
 #### Persistent volume fixes
@@ -1227,6 +1383,12 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230914-628600
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20230914-628600/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20230914-628600/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -1262,6 +1424,12 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230912-619813
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20230912-619813/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20230912-619813/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights
 
@@ -1333,6 +1501,12 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230911-604209
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20230911-604209/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20230911-604209/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
 ### Highlights
 
 This release contains a breaking change to the monitoring subsystem that
@@ -1382,6 +1556,12 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230908-600131
 ```
 
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20230908-600131/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20230908-600131/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
 ### Highlights
 
 #### Default storage class
@@ -1408,6 +1588,12 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230907-597343
 ```
+
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20230907-597343/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20230907-597343/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Upgrade Notes
 
