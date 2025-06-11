@@ -18,6 +18,7 @@ Identify products by their product path. Dictionary schema:
 {{ $influxdbCloud := dict "influxdb/cloud" (slice $.Site.Data.products.influxdb_cloud.name "cloud") }}
 {{ $influxdb3Core := dict "influxdb3/core" (slice $.Site.Data.products.influxdb3_core.name "core") }}
 {{ $influxdb3Enterprise := dict "influxdb3/enterprise" (slice $.Site.Data.products.influxdb3_enterprise.name "enterprise") }}
+{{ $influxdb3Explorer := dict "influxdb3/explorer" (slice $.Site.Data.products.influxdb3_explorer.name "explorer") }}
 {{ $influxdb3CloudServerless := dict "influxdb3/cloud-serverless" (slice $.Site.Data.products.influxdb3_cloud_serverless.name "cloud-serverless") }}
 {{ $influxdb3CloudDedicated := dict "influxdb3/cloud-dedicated" (slice $.Site.Data.products.influxdb3_cloud_dedicated.name "cloud-dedicated") }}
 {{ $influxdb3Clustered := dict "influxdb3/clustered" (slice $.Site.Data.products.influxdb3_clustered.name "clustered") }}
@@ -27,7 +28,7 @@ Identify products by their product path. Dictionary schema:
 {{ $flux := dict "flux/v0" (slice "Flux" "flux") }}
 {{ $enterpriseInfluxdb := dict "enterprise_influxdb/v1" (slice "InfluxDB Enterprise" "enterprise_v1") }}
 
-{{ $productInfo := merge $influxdbOSSv1 $influxdbOSSv2 $influxdbCloud $influxdb3Core $influxdb3Enterprise $influxdb3CloudServerless $influxdb3CloudDedicated $influxdb3Clustered $telegraf $chronograf $kapacitor $flux $enterpriseInfluxdb }}
+{{ $productInfo := merge $influxdbOSSv1 $influxdbOSSv2 $influxdbCloud $influxdb3Core $influxdb3Enterprise $influxdb3CloudServerless $influxdb3CloudDedicated $influxdb3Clustered $telegraf $chronograf $kapacitor $influxdb3Explorer $flux $enterpriseInfluxdb }}
 
 {{ define "productLink" }}
   {{ $defaultAltProductPage := $.context.GetPage ((replaceRE .pageRoot .productPath $.context.Page.RelPermalink) | replaceRE `\/$` "") }}
@@ -36,13 +37,13 @@ Identify products by their product path. Dictionary schema:
   {{ $productAltLinkKey := index (index $.productInfo .productPath) 1 }}
   {{ $isCurrentProduct := in $.context.RelPermalink .productPath }}
   {{ $link := cond .useRootProductLink (print "/" .productPath "/") (cond (isset .altLinks $productAltLinkKey) (index .altLinks $productAltLinkKey) (cond $defaultAltProductPageExists $defaultAltProductPage.RelPermalink (print "/" .productPath "/"))) }}
-  {{ $isNew := in (slice "influxdb3/core" "influxdb3/enterprise") .productPath }}
-  <a href='{{ $link }}' {{ if $isCurrentProduct }}class="active"{{ end }}>{{ index (index $.productInfo .productPath) 0 }}{{ if $isNew }} <span class="state">New</span>{{ end }}</a>
+  {{ $state := .state | default "" }}
+  <a href='{{ $link }}' {{ if $isCurrentProduct }}class="active"{{ end }}>{{ index (index $.productInfo .productPath) 0 }}{{ if ne $state ""}} <span class="state">{{ $state }}</span>{{ end }}</a>
 {{ end }}
 
 {{ $templateDefaults := dict "context" . "productInfo" $productInfo "altLinks" $altLinks "pageRoot" $pageRoot "useRootProductLink" $useRootProductLink }}
 
-<div class="product-list">
+<div class="product-list" data-component="product-selector">
   <div id="product-dropdown">
     <p class="selected">{{ index (index $productInfo $pageRoot) 0 | default "Select product" }}</p>
   </div>
@@ -50,13 +51,16 @@ Identify products by their product path. Dictionary schema:
     <div class="product-group">
       <div class="group-title"><p>InfluxDB 3</p></div>
       <ul class="item-list products" data-category="Self-managed">
-        <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/core") $templateDefaults) }}</li>
-        <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/enterprise") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/core" "state" "New") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/enterprise" "state" "New") $templateDefaults) }}</li>
         <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/clustered") $templateDefaults) }}</li>
       </ul>
       <ul class="item-list products" data-category="Fully-Managed">
         <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/cloud-serverless") $templateDefaults) }}</li>
         <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/cloud-dedicated") $templateDefaults) }}</li>
+      </ul>
+      <ul class="item-list products" data-category="Tools">
+        <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/explorer" "state" "beta") $templateDefaults) }}</li>
       </ul>
     </div>
     <div class="product-group">

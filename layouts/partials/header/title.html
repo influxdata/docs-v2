@@ -22,6 +22,8 @@
   {{ $scratch.Set "siteTitle" "InfluxDB 3 Core Documentation" }}
 {{ else if eq $currentVersion "enterprise"}}
   {{ $scratch.Set "siteTitle" "InfluxDB 3 Enterprise Documentation" }}
+{{ else if eq $currentVersion "explorer"}}
+  {{ $scratch.Set "siteTitle" "InfluxDB 3 Explorer Documentation" }}
 {{ else if eq $currentVersion "cloud-serverless"}}
   {{ $scratch.Set "siteTitle" "InfluxDB Cloud Serverless Documentation" }}
 {{ else if eq $currentVersion "cloud-dedicated"}}

@@ -9,8 +9,8 @@ menu:
     parent: Manage billing
     name: Adjustable quotas and limits
 related:
-  - /flux/v0.x/stdlib/experimental/usage/from/
-  - /flux/v0.x/stdlib/experimental/usage/limits/
+  - /flux/v0/stdlib/experimental/usage/from/
+  - /flux/v0/stdlib/experimental/usage/limits/
   - /influxdb3/cloud-serverless/write-data/best-practices/
 alt_links:
   cloud: /influxdb/cloud/account-management/limits/

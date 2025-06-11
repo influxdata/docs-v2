@@ -13,7 +13,7 @@ prepend: |
   > [Use InfluxQL to query InfluxDB](/influxdb/cloud/query-data/influxql/).
   > For information about manually converting InfluxQL queries to Flux, see:
   > 
-  > - [Get started with Flux](/flux/v0.x/get-started/)
+  > - [Get started with Flux](/flux/v0/get-started/)
   > - [Query data with Flux](/influxdb/cloud/query-data/flux/)
   > - [Migrate continuous queries to Flux tasks](/influxdb/cloud/upgrade/v1-to-cloud/migrate-cqs/)
 source: /shared/influxdb-v2/reference/cli/influx/transpile/_index.md
