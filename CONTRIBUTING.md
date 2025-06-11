@@ -1,6 +1,6 @@
 # Contributing to InfluxData Documentation
 
-## Sign the InfluxData CLA
+### Sign the InfluxData CLA
 
 The InfluxData Contributor License Agreement (CLA) is part of the legal framework
 for the open source ecosystem that protects both you and InfluxData.
@@ -28,8 +28,10 @@ For the linting and tests to run, you need to install Docker and Node.js
 dependencies.
 
 \_**Note:**
-We strongly recommend running linting and tests, but you can skip them
-(and avoid installing dependencies)
+The git pre-commit and pre-push hooks are configured to run linting and tests automatically
+when you commit or push changes.
+We strongly recommend letting them run, but you can skip them
+(and avoid installing related dependencies)
 by including the `--no-verify` flag with your commit--for example, enter the following command in your terminal:
 
 ```sh
@@ -51,7 +53,7 @@ dev dependencies used in pre-commit hooks for linting, syntax-checking, and test
 Dev dependencies include:
 
 - [Lefthook](https://github.com/evilmartians/lefthook): configures and
-manages pre-commit hooks for linting and testing Markdown content.
+manages git pre-commit and pre-push hooks for linting and testing Markdown content.
 - [prettier](https://prettier.io/docs/en/): formats code, including Markdown, according to style rules for consistency
 - [Cypress]: e2e testing for UI elements and URLs in content
 
@@ -93,9 +95,11 @@ Make your suggested changes being sure to follow the [style and formatting guide
 
 ## Lint and test your changes
 
+`package.json` contains scripts for running tests and linting.
+
 ### Automatic pre-commit checks
 
-docs-v2 uses Lefthook to manage Git hooks, such as pre-commit hooks that lint Markdown and test code blocks.
+docs-v2 uses Lefthook to manage Git hooks that run during pre-commit and pre-push. The hooks run the scripts defined in `package.json` to lint Markdown and test code blocks.
 When you try to commit changes (`git commit`), Git runs
 the commands configured in `lefthook.yml` which pass your **staged** files to Vale,
 Prettier, Cypress (for UI tests and link-checking), and Pytest (for testing Python and shell code in code blocks).

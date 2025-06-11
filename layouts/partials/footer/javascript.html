@@ -8,7 +8,7 @@
 {{ $dateTime := resources.Get "js/datetime.js" }}
 {{ $homepageInteractions := resources.Get "js/home-interactions.js" }}
 {{ $releaseTOC := resources.Get "/js/release-toc.js" }}
-{{ $footerjs := slice $versionSelector $searchInteractions $listFilters $featureCallouts $keybindings $homepageInteractions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $footerjs := slice $jquery $versionSelector $searchInteractions $listFilters $featureCallouts $keybindings $homepageInteractions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 {{ $fluxGroupKeyjs := $fluxGroupKeys | resources.Fingerprint }}
 {{ $dateTimejs := $dateTime | resources.Fingerprint }}
 {{ $releaseTOCjs := $releaseTOC | resources.Fingerprint }}

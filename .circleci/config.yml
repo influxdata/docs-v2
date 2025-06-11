@@ -31,10 +31,10 @@ jobs:
           command: cd api-docs && bash generate-api-docs.sh      
       - run:
           name: Inject Flux stdlib frontmatter
-          command: node ./flux-build-scripts/inject-flux-stdlib-frontmatter.js
+          command: node ./flux-build-scripts/inject-flux-stdlib-frontmatter.cjs
       - run:
           name: Update Flux/InfluxDB versions
-          command: node ./flux-build-scripts/update-flux-versions.js
+          command: node ./flux-build-scripts/update-flux-versions.cjs
       - save_cache:
           key: install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
           paths:

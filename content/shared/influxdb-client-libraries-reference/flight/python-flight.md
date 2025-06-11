@@ -6,21 +6,20 @@
 > We recommend using the [`influxdb3-python` Python client library](/influxdb3/version/reference/client-libraries/v3/python/) for integrating InfluxDB 3 with your Python application code.
 > 
 > [InfluxDB 3 client libraries](/influxdb3/version/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
-> and provide convenient methods for [writing](/influxdb3/version/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/version/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
+> and provide convenient methods for [writing](/influxdb3/version/write-data/api-client-libraries/), [querying](/influxdb3/version/query-data/execute-queries/), and processing data stored in {{% product-name %}}.
 > Client libraries can query using SQL or InfluxQL.
 
 The following examples show how to use the `pyarrow.flight` and `pandas` Python modules to query and format data stored in an {{% product-name %}} database:
 
-{{% code-tabs-wrapper %}}
+{{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [SQL](#sql-python)
 [InfluxQL](#influxql-python)
 {{% /code-tabs %}}
-
 {{% code-tab-content %}}
 <!-- BEGIN SQL -->
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```py
+```python
 # Using pyarrow>=12.0.0 FlightClient
 from pyarrow.flight import FlightClient, Ticket, FlightCallOptions 
 import json
@@ -62,7 +61,7 @@ print(data_frame.to_markdown())
 {{% code-tab-content %}}
 <!-- BEGIN INFLUXQL -->
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```py
+```python
 # Using pyarrow>=12.0.0 FlightClient
 from pyarrow.flight import FlightClient, Ticket, FlightCallOptions 
 import json
@@ -97,6 +96,7 @@ print(data_frame.to_markdown())
 {{% /code-placeholders %}}
 <!-- END INFLUXQL -->
 {{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 Replace the following:
 
@@ -104,5 +104,3 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
   a [database token](/influxdb3/version/admin/tokens/database/)
   with sufficient permissions to the specified database
-
-{{% /code-tabs-wrapper %}}

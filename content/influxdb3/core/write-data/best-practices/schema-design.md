@@ -16,5 +16,6 @@ source: /shared/influxdb3-write-guides/best-practices/schema-design.md
 ---
 
 <!--
-The content for this page is at content/shared/influxdb3-write-guides/best-practices/schema-design.md
+The content for this page is at
+//SOURCE content/shared/influxdb3-write-guides/best-practices/schema-design.md
 -->

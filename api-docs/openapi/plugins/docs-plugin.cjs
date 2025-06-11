@@ -1,14 +1,14 @@
-const {info, servers, tagGroups} = require('./docs-content');
-const ReportTags = require('./rules/report-tags');
-const ValidateServersUrl = require('./rules/validate-servers-url');
-const RemovePrivatePaths = require('./decorators/paths/remove-private-paths');
-const ReplaceShortcodes = require('./decorators/replace-shortcodes');
-const SetInfo = require('./decorators/set-info');
-const DeleteServers = require('./decorators/servers/delete-servers');
-const SetServers = require('./decorators/servers/set-servers');
-const SetTagGroups = require('./decorators/tags/set-tag-groups');
-const StripVersionPrefix = require('./decorators/paths/strip-version-prefix');
-const StripTrailingSlash = require('./decorators/paths/strip-trailing-slash');
+const {info, servers, tagGroups} = require('./docs-content.cjs');
+const ReportTags = require('./rules/report-tags.cjs');
+const ValidateServersUrl = require('./rules/validate-servers-url.cjs');
+const RemovePrivatePaths = require('./decorators/paths/remove-private-paths.cjs');
+const ReplaceShortcodes = require('./decorators/replace-shortcodes.cjs');
+const SetInfo = require('./decorators/set-info.cjs');
+const DeleteServers = require('./decorators/servers/delete-servers.cjs');
+const SetServers = require('./decorators/servers/set-servers.cjs');
+const SetTagGroups = require('./decorators/tags/set-tag-groups.cjs');
+const StripVersionPrefix = require('./decorators/paths/strip-version-prefix.cjs');
+const StripTrailingSlash = require('./decorators/paths/strip-trailing-slash.cjs');
 
 const id = 'docs';
 

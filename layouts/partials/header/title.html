@@ -35,10 +35,10 @@
 {{ else if eq $currentVersion nil}}
   {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " Documentation") }}
 {{ else }}
-  {{ if (isset (index .Site.Data.products $product) "altname" ) }}
-    {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).altname " Documentation") }}
+  {{ with (index .Site.Data.products $product).altname }}
+    {{ $scratch.Set "siteTitle" (print . " Documentation") }}
   {{ else }}
-    {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " Documentation") }}
+    {{ $scratch.Set "siteTitle" (print (index $.Site.Data.products $product).name " Documentation") }}
   {{ end }}
 {{ end }}
 

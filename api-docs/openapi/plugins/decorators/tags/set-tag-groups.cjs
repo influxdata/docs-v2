@@ -1,6 +1,6 @@
 module.exports = SetTagGroups;
 
-const { collect, getName, sortName, isPresent } = require('../../helpers/content-helper.js')
+const { collect, getName, sortName, isPresent } = require('../../helpers/content-helper.cjs')
 /**
  * Returns an object that defines handler functions for:
  * - Operation nodes

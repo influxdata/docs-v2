@@ -1,12 +1,12 @@
 influxdb3_core:
   name: InfluxDB 3 Core
   altname: InfluxDB 3 Core
-  namespace: influxdb
+  namespace: influxdb3
   menu_category: self-managed
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.0.1
+  latest_patch: 3.0.3
   placeholder_host: localhost:8181
   ai_sample_questions:
     - How do I install and run InfluxDB 3 Core?
@@ -16,12 +16,12 @@ influxdb3_core:
 influxdb3_enterprise:
   name: InfluxDB 3 Enterprise
   altname: InfluxDB 3 Enterprise
-  namespace: influxdb
+  namespace: influxdb3
   menu_category: self-managed
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.0.1
+  latest_patch: 3.0.3
   placeholder_host: localhost:8181
   ai_sample_questions:
     - How do I install and run InfluxDB 3 Enterprise?
@@ -76,6 +76,7 @@ influxdb:
   name: InfluxDB
   altname: InfluxDB OSS
   namespace: influxdb
+  succeeded_by: influxdb3_core
   menu_category: self-managed
   list_order: 1
   placeholder_host: localhost:8086
@@ -84,7 +85,7 @@ influxdb:
     - v1
   latest: v2.7
   latest_patches:
-    v2: 2.7.11
+    v2: 2.7.12
     v1: 1.11.8
   latest_cli:
     v2: 2.7.5
