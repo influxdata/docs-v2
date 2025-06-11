@@ -30,7 +30,7 @@ influxdb3 serve \
   --license-email example@email.com \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --log-filter info \
+  --log-filter info
 ```
 
 ##### Example environment variables
@@ -239,13 +239,21 @@ configuration--for example, the same bucket.
 #### node-id-from-env
 
 Specifies the node identifier used as a prefix in all object store file paths.
-Defines this node identified from the specificed environment variable; 
-this cannot be used with the `--node-id` option also specified.
+Takes the name of an environment variable as an argument and uses the value of that environment variable as the node identifier.
+This option cannot be used with the `--node-id` option.
 
 | influxdb3 serve option | Environment variable                 |
 | :--------------------- | :----------------------------------- |
 | `--node-id-from-env`   | `INFLUXDB3_NODE_IDENTIFIER_FROM_ENV` |
 
+##### Example using --node-id-from-env
+
+```bash
+export DATABASE_NODE=node0 && influxdb3 serve \
+  --node-id-from-env DATABASE_NODE \
+  --cluster-id cluster0 \
+  --object-store file \
+  --data-dir ~/.influxdb3/data
 ---
 
 #### object-store
@@ -278,7 +286,7 @@ The path to a key file for TLS to be enabled.
 
 #### tls-cert
 
-To a cert file for TLS to be enabled.
+The path to a cert file for TLS to be enabled.
 
 | influxdb3 serve option | Environment variable   |
 | :--------------------- | :--------------------- |
@@ -289,7 +297,8 @@ To a cert file for TLS to be enabled.
 #### tls-minimum-version
 
 The minimum version for TLS. 
-Valid values are `tls-1.2` or `tls-1.3`  default is tls-1.2
+Valid values are `tls-1.2` or `tls-1.3`.
+Default is `tls-1.2`.
 
 | influxdb3 serve option  | Environment variable     |
 | :---------------------- | :----------------------- |
@@ -299,8 +308,8 @@ Valid values are `tls-1.2` or `tls-1.3`  default is tls-1.2
 
 #### without-auth
 
-Starts the database with authentication disabled. All requests will be served without any 
-token or authentication required. 
+Disables authentication for all server actions (CLI commands and API requests).
+The server processes all requests without requiring tokens or authentication.
 
 ---
 
@@ -1121,10 +1130,19 @@ Sets the interval to check if the in-memory Parquet cache needs to be pruned.
 
 #### parquet-mem-cache-query-path-duration
 
-Specifies the duration to check if Parquet files pulled in query path
-require caching, expressed as a human-readable duration (starting from _now_)--for example: `5h`, `3d`.
+A [duration](/influxdb3/enterprise/reference/glossary/#duration) that specifies
+the time window for caching recent Parquet files in memory. Default is `5h`.
 
-**Default:** `5h`
+Only files containing data with a timestamp between `now` and `now - duration`
+are cached when accessed during queries--for example, with the default `5h` setting:
+
+- Current time: `2024-06-10 15:00:00`
+- Cache window: Last 5 hours (`2024-06-10 10:00:00` to now)
+
+If a query requests data from `2024-06-09` (old) and `2024-06-10 14:00` (recent):
+
+- **Cached**: Parquet files with data from `2024-06-10 14:00` (within 5-hour window)
+- **Not cached**: Parquet files with data from `2024-06-09` (outside 5-hour window)
 
 | influxdb3 serve option        | Environment variable                  |
 | :---------------------------- | :------------------------------------ |
@@ -1157,8 +1175,8 @@ expressed as a human-readable duration--for example: `20s`, `1m`, `1h`.
 
 #### last-value-cache-disable-from-history
 
-Disable populating the Last-N-Value cache from historical data.
-When disabled, the cache will still be populated with data from the WAL.
+Disables populating the last-N-value cache from historical data.
+If disabled, the cache is still populated with data from the write-ahead log (WAL).
 
 | influxdb3 serve option                    | Environment variable                              |
 | :---------------------------------------- | :------------------------------------------------ |
@@ -1181,8 +1199,8 @@ expressed as a human-readable duration--for example: `20s`, `1m`, `1h`.
 
 #### distinct-value-cache-disable-from-history
 
-Disable populating the Distinct Value cache from historical data.
-When disabled, the cache will still be populated with data from the WAL.
+Disables populating the distinct value cache from historical data.
+If disabled, the cache is still populated with data from the write-ahead log (WAL).
 
 | influxdb3 serve option                        | Environment variable                                  |
 | :-------------------------------------------- | :---------------------------------------------------- |
@@ -1192,7 +1210,7 @@ When disabled, the cache will still be populated with data from the WAL.
 #### query-file-limit
 
 Limits the number of Parquet files a query can access.
-If a query attempts to read more than this limit, InfluxDB returns an error.
+If a query attempts to read more than this limit, {{% product-name %}} returns an error.
 
 | influxdb3 serve option | Environment variable         |
 | :--------------------- | :--------------------------- |
