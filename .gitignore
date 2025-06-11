@@ -15,11 +15,13 @@ node_modules
 !telegraf-build/templates
 !telegraf-build/scripts
 !telegraf-build/README.md
+/cypress/downloads
 /cypress/screenshots/*
 /cypress/videos/*
 test-results.xml
 /influxdb3cli-build-scripts/content
 .vscode/*
+!.vscode/launch.json
 .idea
 **/config.toml
 package-lock.json

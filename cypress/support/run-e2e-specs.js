@@ -38,9 +38,10 @@ import fs from 'fs';
 import path from 'path';
 import cypress from 'cypress';
 import net from 'net';
-import matter from 'gray-matter';
+import { Buffer } from 'buffer';
 import { displayBrokenLinksReport, initializeReport } from './link-reporter.js';
 import {
+  HUGO_ENVIRONMENT,
   HUGO_PORT,
   HUGO_LOG_FILE,
   startHugoServer,
@@ -88,28 +89,6 @@ async function isPortInUse(port) {
       })
       .listen(port, '127.0.0.1');
   });
-}
-
-/**
- * Extract source information from frontmatter
- * @param {string} filePath - Path to the markdown file
- * @returns {string|null} Source information if present
- */
-function getSourceFromFrontmatter(filePath) {
-  if (!fs.existsSync(filePath)) {
-    return null;
-  }
-
-  try {
-    const fileContent = fs.readFileSync(filePath, 'utf8');
-    const { data } = matter(fileContent);
-    return data.source || null;
-  } catch (err) {
-    console.warn(
-      `Warning: Could not extract frontmatter from ${filePath}: ${err.message}`
-    );
-    return null;
-  }
 }
 
 /**
@@ -296,7 +275,7 @@ async function main() {
         });
 
         console.log('Hugo is available on the system');
-      } catch (checkErr) {
+      } catch {
         console.log(
           'Hugo not found on PATH, will use project-local Hugo via yarn'
         );
@@ -304,9 +283,8 @@ async function main() {
 
       // Use the startHugoServer function from hugo-server.js
       hugoProc = await startHugoServer({
-        configFile: 'config/testing/config.yml',
+        environment: HUGO_ENVIRONMENT,
         port: HUGO_PORT,
-        buildDrafts: true,
         noHTTPCache: true,
         logFile: HUGO_LOG_FILE,
       });
@@ -412,7 +390,7 @@ async function main() {
         `ℹ️ Note: ${testFailureCount} test(s) failed but no broken links were detected in the report.`
       );
       console.warn(
-        `   This usually indicates test errors unrelated to link validation.`
+        '   This usually indicates test errors unrelated to link validation.'
       );
 
       // We should not consider special case domains (those with expected errors) as failures

@@ -19,7 +19,7 @@
 <div class="home-content">
 
   <div class="section search">
-    <div class="sidebar--search">
+    <div class="sidebar--search" data-component="sidebar-search">
       <input  class="sidebar--search-field"
               id="algolia-search-input"
               type="text"
@@ -39,64 +39,87 @@
     <div id="influxdb3" class="product-group">      
       <h2>InfluxDB 3</h2>
       <p>The modern time series data engine built for high-speed, high-cardinality data, from the edge to the cloud.</p>
-      <div class="category-head">
-        <h4>Self-managed</h4>
-      </div>
-      <div class="products">
-        <div class="product new">
-          <div class="product-info">
-            <h3><a href="/influxdb3/core/">InfluxDB 3 Core</a></h3>
-            <p>The open source recent data engine optimized for time series and event data.</p>
+      <div class="categories">
+        <div class="category full">
+          <div class="category-head">
+            <h4>Self-managed</h4>
           </div>
-          <ul class="product-links">
-            <li><a href="/influxdb3/core/get-started/">Get started with InfluxDB 3 Core</a></li>
-            <li><a href="/influxdb3/core/">View documentation</a></li>
-          </ul>
+          <div class="products">
+            <div class="product">
+              <div class="product-info">
+                <h3 state="New"><a href="/influxdb3/core/">InfluxDB 3 Core</a></h3>
+                <p>The open source recent data engine optimized for time series and event data.</p>
+              </div>
+              <ul class="product-links">
+                <li><a href="/influxdb3/core/get-started/">Get started with InfluxDB 3 Core</a></li>
+                <li><a href="/influxdb3/core/">View documentation</a></li>
+              </ul>
+            </div>
+            <div class="product" >
+              <div class="product-info">
+                <h3 state="New"><a href="/influxdb3/enterprise/">InfluxDB 3 Enterprise</a></h3>
+                <p>The scalable data engine built for recent and historical time series and event data.</p>
+              </div>
+              <ul class="product-links">
+                <li><a href="/influxdb3/enterprise/get-started/">Get started with InfluxDB 3 Enterprise</a></li>
+                <li><a href="/influxdb3/enterprise/">View documentation</a></li>
+              </ul>
+            </div>
+            <div class="product">
+              <div class="product-info">
+                <h3><a href="/influxdb3/clustered/">InfluxDB Clustered</a></h3>
+                <p>The Kubernetes-enabled, highly-available InfluxDB 3 cluster built for high write and query workloads on your own infrastructure.</p>
+              </div>
+              <ul class="product-links">
+                <li><a href="/influxdb3/clustered/get-started/">Get started with InfluxDB Clustered</a></li>
+                <li><a href="/influxdb3/clustered/">View documentation</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="product new">
-          <div class="product-info">
-            <h3><a href="/influxdb3/enterprise/">InfluxDB 3 Enterprise</a></h3>
-            <p>The scalable data engine built for recent and historical time series and event data.</p>
+        <div class="category two-thirds">
+          <div class="category-head">
+            <h4>Fully-Managed</h4>
           </div>
-          <ul class="product-links">
-            <li><a href="/influxdb3/enterprise/get-started/">Get started with InfluxDB 3 Enterprise</a></li>
-            <li><a href="/influxdb3/enterprise/">View documentation</a></li>
-          </ul>
+          <div class="products">
+            <div class="product">
+              <div class="product-info">
+                <h3><a href="/influxdb3/cloud-serverless/">InfluxDB Cloud Serverless</a></h3>
+                <p>The fully-managed, multi-tenant InfluxDB 3 service deployed in the cloud.</p>
+              </div>
+              <ul class="product-links">
+                <li><a href="/influxdb3/cloud-serverless/get-started/">Get started with Cloud Serverless</a></li>
+                <li><a href="/influxdb3/cloud-serverless/">View documentation</a></li>
+              </ul>
+            </div>
+            <div class="product">
+              <div class="product-info">
+                <h3><a href="/influxdb3/cloud-dedicated/">InfluxDB Cloud Dedicated</a></h3>
+                <p>The fully-managed InfluxDB 3 cluster dedicated to your workload and deployed in the cloud.</p>
+              </div>
+              <ul class="product-links">
+                <li><a href="/influxdb3/cloud-dedicated/get-started/">Get started with Cloud Dedicated</a></li>
+                <li><a href="/influxdb3/cloud-dedicated/">View documentation</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="product">
-          <div class="product-info">
-            <h3><a href="/influxdb3/clustered/">InfluxDB Clustered</a></h3>
-            <p>The Kubernetes-enabled, highly-available InfluxDB 3 cluster built for high write and query workloads on your own infrastructure.</p>
+        <div class="category one-third">
+          <div class="category-head">
+            <h4>Tools</h4>
           </div>
-          <ul class="product-links">
-            <li><a href="/influxdb3/clustered/get-started/">Get started with InfluxDB Clustered</a></li>
-            <li><a href="/influxdb3/clustered/">View documentation</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="category-head">
-        <h4>Fully-Managed</h4>
-      </div>
-      <div class="products">
-        <div class="product">
-          <div class="product-info">
-            <h3><a href="/influxdb3/cloud-serverless/">InfluxDB Cloud Serverless</a></h3>
-            <p>The fully-managed, multi-tenant InfluxDB 3 service deployed in the cloud.</p>
+          <div class="products">
+            <div class="product">
+              <div class="product-info">
+                <h3 state="beta"><a href="/influxdb3/explorer/">InfluxDB 3 Explorer</a></h3>
+                <p>A standalone UI designed for visualizing, querying, and managing data in InfluxDB 3 Core and Enterprise.</p>
+              </div>
+              <ul class="product-links">
+                <li><a href="/influxdb3/explorer/get-started/">Get started with Explorer</a></li>
+                <li><a href="/influxdb3/explorer/">View documentation</a></li>
+              </ul>
+            </div>
           </div>
-          <ul class="product-links">
-            <li><a href="/influxdb3/cloud-serverless/get-started/">Get started with Cloud Serverless</a></li>
-            <li><a href="/influxdb3/cloud-serverless/">View documentation</a></li>
-          </ul>
-        </div>
-        <div class="product">
-          <div class="product-info">
-            <h3><a href="/influxdb3/cloud-dedicated/">InfluxDB Cloud Dedicated</a></h3>
-            <p>The fully-managed InfluxDB 3 cluster dedicated to your workload and deployed in the cloud.</p>
-          </div>
-          <ul class="product-links">
-            <li><a href="/influxdb3/cloud-dedicated/get-started/">Get started with Cloud Dedicated</a></li>
-            <li><a href="/influxdb3/cloud-dedicated/">View documentation</a></li>
-          </ul>
         </div>
       </div>
     </div>
