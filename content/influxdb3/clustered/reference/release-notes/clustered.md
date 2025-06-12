@@ -61,6 +61,51 @@ directory. This new directory contains artifacts associated with the specified r
 
 ---
 
+## 20250611-1751167 {date="2025-06-11"}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250611-1751167
+```
+
+#### Release artifacts
+
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250611-1751167/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20250611-1751167/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
+### Bug Fixes
+
+- Remove default CPU and memory limits for the Catalog service and Prometheus.
+- Add time formatting checks to reject invalid custom partitioning requests.
+
+### Changes
+
+#### Deployment
+
+- Add support for Prometheus v3 when using the observability feature.
+- Refresh dependencies to address security vulnerabilities and improve stability.
+
+#### Configuration
+
+- Change the default of `INFLUXDB_IOX_CREATE_CATALOG_BACKUP_INTERVAL` from `1h`
+  to `4h`.
+- Introduce the following environment variables to help in cases where the
+  object store is large enough that the the garbage collector cannot keep up
+  when cleaning obsolete objects:
+
+  - `INFLUXDB_IOX_GC_PRIMARY_OBJECTSTORE_PARTITIONS`
+  - `INFLUXDB_IOX_GC_SECONDARY_OBJECTSTORE_PARTITIONS`
+
+  > [!Note]
+  > Increasing these settings will add load to the object store and should not
+  > be modified unnecessarily.
+
+---
+
 ## 20250508-1719206 {date="2025-05-08"}
 
 ### Quickstart
