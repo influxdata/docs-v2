@@ -1,5 +1,6 @@
 ---
-title: Write data to InfluxDB 3 Enterprise
+title: Write data to {{% product-name %}}
+seotitle: Write data | Get started with {{% product-name %}}
 description: >
   ....
 menu:
@@ -9,9 +10,8 @@ menu:
     parent: Get started
 weight: 102
 related:
-  - /influxdb3/enterprise/install/
-  - /influxdb3/enterprise/admin/tokens/
-  - /influxdb3/enterprise/reference/config-options/
+  - /influxdb3/enterprise/write-data/
+  - /influxdb3/enterprise/reference/line-protocol/
 source: /shared/influxdb3-get-started/write.md
 ---
 

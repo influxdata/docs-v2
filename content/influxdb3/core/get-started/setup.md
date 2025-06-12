@@ -1,5 +1,6 @@
 ---
-title: Set up InfluxDB 3 Core
+title: Set up {{% product-name %}}
+seotitle: Set up InfluxDB | Get started with {{% product-name %}}
 description: >
   ....
 menu:

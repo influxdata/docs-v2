@@ -1,19 +1,20 @@
-### Query data
-
-InfluxDB 3 supports native SQL for querying, in addition to InfluxQL, an
-SQL-like language customized for time series queries.
+<!-- COMMENT TO ALLOW STARTING WITH SHORTCODE -->
+{{% product-name %}} supports both native SQL and InfluxQL for querying data. InfluxQL is
+an SQL-like query language designed for InfluxDB v1 and customized for time
+series queries.
 
 {{% show-in "core" %}}
 {{< product-name >}} limits
-query time ranges to 72 hours (both recent and historical) to ensure query performance.
-For more information about the 72-hour limitation, see the
-[update on InfluxDB 3 Core’s 72-hour limitation](https://www.influxdata.com/blog/influxdb3-open-source-public-alpha-jan-27/).
+query time ranges to approximately 72 hours (both recent and historical) to
+ensure query performance. For more information about the 72-hour limitation, see
+the [update on InfluxDB 3 Core’s 72-hour limitation](https://www.influxdata.com/blog/influxdb3-open-source-public-alpha-jan-27/).
 {{% /show-in %}}
 
 > [!Note]
-> Flux, the language introduced in InfluxDB 2.0, is **not** supported in InfluxDB 3.
+> Flux, the language introduced in InfluxDB v2, is **not** supported in InfluxDB 3.
 
-The quickest way to get started querying is to use the `influxdb3` CLI (which uses the Flight SQL API over HTTP2).
+The quickest way to get started querying is to use the `influxdb3` CLI
+(which uses the Flight SQL API over HTTP2).
 
 The `query` subcommand includes options to help ensure that the right database is queried with the correct permissions. Only the `--database` option is required, but depending on your specific setup, you may need to pass other options, such as host, port, and token.
 

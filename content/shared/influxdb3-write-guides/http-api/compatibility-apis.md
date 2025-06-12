@@ -15,14 +15,15 @@ to write points as line protocol data to {{% product-name %}}.
 
 ## InfluxDB v2 compatibility
 
-The `/api/v2/write` InfluxDB v2 compatibility endpoint provides backwards compatibility with clients that can write data to InfluxDB OSS v2.x and Cloud 2 (TSM).
+The `/api/v2/write` InfluxDB v2 compatibility endpoint provides backwards
+compatibility with clients that can write data to InfluxDB OSS v2.x and Cloud 2 (TSM).
 
-{{<api-endpoint endpoint="/api/v2/write?bucket=mydb&precision=ns" method="post" >}}
+{{<api-endpoint endpoint="/api/v2/write?bucket=mydb&precision=ns" method="post" api-ref="/influxdb3/version/api/v3/#operation/PostV1Write" >}}
 
 
 ## InfluxDB v1 compatibility
 
 The `/write` InfluxDB v1 compatibility endpoint provides backwards compatibility with clients that can write data to InfluxDB v1.x.
 
-{{<api-endpoint endpoint="/write?db=mydb&precision=ns" method="post" >}}
+{{<api-endpoint endpoint="/write?db=mydb&precision=ns" method="post" api-ref="/influxdb3/version/api/v3/#operation/PostV2Write" >}}
 
