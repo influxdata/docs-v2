@@ -61,20 +61,20 @@ directory. This new directory contains artifacts associated with the specified r
 
 ---
 
-## 20250613-17540107 {date="2025-06-11"}
+## 20250613-1754010 {date="2025-06-11"}
 
 ### Quickstart
 
 ```yaml
 spec:
   package:
-    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250613-17540107
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250613-1754010
 ```
 
 #### Release artifacts
 
-- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250613-17540107/app-instance-schema.json)
-- [example-customer.yml](/downloads/clustered-release-artifacts/20250613-17540107/example-customer.yml)
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250613-1754010/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20250613-1754010/example-customer.yml)
 - [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Bug Fixes
