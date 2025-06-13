@@ -81,6 +81,7 @@ spec:
 
 - Remove default CPU and memory limits for the Catalog service and Prometheus.
 - Add time formatting checks to reject invalid custom partitioning requests.
+- Ensure that an incorrect backup is not created when `pg_dump` errs during data snapshot backups.
 
 ### Changes
 
