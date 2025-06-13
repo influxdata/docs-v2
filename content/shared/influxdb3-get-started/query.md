@@ -13,19 +13,59 @@ the [update on InfluxDB 3 Core’s 72-hour limitation](https://www.influxdata.co
 > [!Note]
 > Flux, the language introduced in InfluxDB v2, is **not** supported in InfluxDB 3.
 
-The quickest way to get started querying is to use the `influxdb3` CLI
-(which uses the Flight SQL API over HTTP2).
+The quickly to get started querying, use the
+[`influxdb3 query` command](/influxdb3/version/reference/cli/influxdb3/query/)
+and provide the following:
 
-The `query` subcommand includes options to help ensure that the right database is queried with the correct permissions. Only the `--database` option is required, but depending on your specific setup, you may need to pass other options, such as host, port, and token.
+- `-H`, `--host`: The host URL of the server _(default is `http://127.0.0.1:8181`)_
+- `-d`, `--database`: _({{% req %}})_ The name of the database to query
+- `-l`, `--language`: The query language of the provided query string
+  - `sql` _(default)_
+  - `influxql`
+- SQL or InfluxQL query as a string
 
-| Option | Description | Required |
-|---------|-------------|--------------|
-| `--host` | The host URL of the server [default: `http://127.0.0.1:8181`] to query | No |
-| `--database` | The name of the database to operate on | Yes |
-| `--token` | The authentication token for the {{% product-name %}} server | No |
-| `--language` | The query language of the provided query string [default: `sql`] [possible values: `sql`, `influxql`] | No  |
-| `--format` | The format in which to output the query [default: `pretty`] [possible values: `pretty`, `json`, `jsonl`, `csv`, `parquet`] | No |
-| `--output` | The path to output data to | No |
+> [!Important]
+> If the `INFLUXDB3_AUTH_TOKEN` environment variable defined in
+> [Set up {{% product-name %}}](/influxdb3/version/get-started/setup/#set-your-token-for-authorization)
+> is no longer set, reset the environment variable or provide your token using
+> the `-t, --token` option in your command.
+
+To query the home sensor sample data you wrote in
+[Write data to {{% product-name %}}](/influxdb3/version/get-started/write/#write-data-using-the-cli),
+run the following command:
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+<!-- pytest.mark.skip -->
+```bash
+influxdb3 query \
+  --database DATABASE_NAME \
+  "SELECT * FROM home WHERE time >= now() - INTERVAL '7 days' ORDER BY time"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!-- pytest.mark.skip -->
+```bash
+influxdb3 query \
+  --database DATABASE_NAME \
+  --language influxql \
+  "SELECT * FROM home WHERE time >= now() - 7d"
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /code-placeholders %}}
+
+Replace {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}
+with the name of the database to query.
+
 
 #### Example: query `“SHOW TABLES”` on the `servers` database:
 
