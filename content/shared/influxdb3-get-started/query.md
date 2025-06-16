@@ -47,6 +47,41 @@ run the following command:
 ```bash
 influxdb3 query \
   --database DATABASE_NAME \
+  "SELECT * FROM home ORDER BY time"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!-- pytest.mark.skip -->
+```bash
+influxdb3 query \
+  --database DATABASE_NAME \
+  --language influxql \
+  "SELECT * FROM home"
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /code-placeholders %}}
+
+_Replace {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}
+with the name of the database to query._
+
+To query from a specific time range, use the `WHERE` clause to designate the
+boundaries of your time range.
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+<!-- pytest.mark.skip -->
+```bash
+influxdb3 query \
+  --database DATABASE_NAME \
   "SELECT * FROM home WHERE time >= now() - INTERVAL '7 days' ORDER BY time"
 ```
 {{% /code-tab-content %}}
@@ -63,66 +98,181 @@ influxdb3 query \
 
 {{% /code-placeholders %}}
 
-Replace {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}
-with the name of the database to query.
+## Example queries
 
+{{< expand-wrapper >}}
+{{% expand "List tables in a database" %}}
 
-#### Example: query `“SHOW TABLES”` on the `servers` database:
-
-```console
-$ influxdb3 query --database servers "SHOW TABLES"
-+---------------+--------------------+--------------+------------+
-| table_catalog | table_schema       | table_name   | table_type |
-+---------------+--------------------+--------------+------------+
-| public        | iox                | cpu          | BASE TABLE |
-| public        | information_schema | tables       | VIEW       |
-| public        | information_schema | views        | VIEW       |
-| public        | information_schema | columns      | VIEW       |
-| public        | information_schema | df_settings  | VIEW       |
-| public        | information_schema | schemata     | VIEW       |
-+---------------+--------------------+--------------+------------+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+SHOW TABLES
 ```
-
-#### Example: query the `cpu` table, limiting to 10 rows:
-
-```console
-$ influxdb3 query --database servers "SELECT DISTINCT usage_percent, time FROM cpu LIMIT 10"
-+---------------+---------------------+
-| usage_percent | time                |
-+---------------+---------------------+
-| 63.4          | 2024-02-21T19:25:00 |
-| 25.3          | 2024-02-21T19:06:40 |
-| 26.5          | 2024-02-21T19:31:40 |
-| 70.1          | 2024-02-21T19:03:20 |
-| 83.7          | 2024-02-21T19:30:00 |
-| 55.2          | 2024-02-21T19:00:00 |
-| 80.5          | 2024-02-21T19:05:00 |
-| 60.2          | 2024-02-21T19:33:20 |
-| 20.5          | 2024-02-21T18:58:20 |
-| 85.2          | 2024-02-21T19:28:20 |
-+---------------+---------------------+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+SHOW MEASUREMENTS
 ```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
-### Query using the CLI for InfluxQL
+{{% /expand %}}
+{{% expand "Return the average temperature of all rooms" %}}
 
-[InfluxQL](/influxdb3/version/reference/influxql/) is an SQL-like language developed by InfluxData with specific features tailored for leveraging and working with InfluxDB. It’s compatible with all versions of InfluxDB, making it a good choice for interoperability across different InfluxDB installations.
-
-To query using InfluxQL, enter the `influxdb3 query` subcommand and specify `influxql` in the language option--for example:
-
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-```bash
-influxdb3 query \
-  --database DATABASE_NAME \
-  --token <AUTH_TOKEN> \
-  --language influxql \
-  "SELECT DISTINCT usage_percent FROM cpu WHERE time >= now() - 1d"
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+SELECT avg(temp) AS avg_temp FROM home
 ```
-{{% /code-placeholders %}}
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+SELECT MEAN(temp) AS avg_temp FROM home
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
-Replace the following placeholders with your values:
+{{% /expand %}}
+{{% expand "Return the average temperature of the kitchen" %}}
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to query 
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to query the specified database{{% /show-in %}}
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+SELECT avg(temp) AS avg_temp FROM home WHERE room = 'Kitchen'
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+SELECT MEAN(temp) AS avg_temp FROM home WHERE room = 'Kitchen'
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /expand %}}
+{{% expand "Query data from an absolute time range" %}}
+
+{{% influxdb/custom-timestamps %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+SELECT
+  *
+FROM
+  home
+WHERE
+  time >= '2022-01-01T12:00:00Z'
+  AND time <= '2022-01-01T18:00:00Z'
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+SELECT
+  *
+FROM
+  home
+WHERE
+  time >= '2022-01-01T12:00:00Z'
+  AND time <= '2022-01-01T18:00:00Z'
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /expand %}}
+{{% expand "Query data from a relative time range" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+SELECT
+  *
+FROM
+  home
+WHERE
+  time >= now() - INTERVAL '7 days'
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+SELECT
+  *
+FROM
+  home
+WHERE
+  time >= now() - 7d
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /expand %}}
+{{% expand "Calculate average humidity in 3-hour windows per room" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+SELECT
+  date_bin(INTERVAL '3 hours', time) AS time,
+  room,
+  avg(hum) AS avg_hum
+FROM
+  home
+GROUP BY
+  1,
+  room
+ORDER BY
+  room,
+  1
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+SELECT
+  MEAN(hum) AS avg_hum
+FROM
+  home
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY
+  time(3h),
+  room
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+
+## SQL vs InfluxQL
+
+## LVC, DVC
 
 ### Query using the API
 
