@@ -28,7 +28,6 @@ This guide covers InfluxDB 3 Core (the open source release), including the follo
 > The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for {{% product-name %}}.
 > For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
 
-
 ### Data model
 
 The database server contains logical databases, which have tables, which have columns. Compared to previous versions of InfluxDB you can think of a database as a `bucket` in v2 or as a `db/retention_policy` in v1. A `table` is equivalent to a `measurement`, which has columns that can be of type `tag` (a string dictionary), `int64`, `float64`, `uint64`, `bool`, or `string` and finally every table has a `time` column that is a nanosecond precision timestamp.
