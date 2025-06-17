@@ -10,17 +10,38 @@ including the following:
 > The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for {{% product-name %}}.
 > For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
 
+## Data model
 
-### Data model
+The {{% product-name %}} server contains logical databases; databases contain
+tables; and tables are comprised of columns.
 
-The database server contains logical databases, which have tables, which have columns. Compared to previous versions of InfluxDB you can think of a database as a `bucket` in v2 or as a `db/retention_policy` in v1. A `table` is equivalent to a `measurement`, which has columns that can be of type `tag` (a string dictionary), `int64`, `float64`, `uint64`, `bool`, or `string` and finally every table has a `time` column that is a nanosecond precision timestamp.
+Compared to previous versions of InfluxDB, you can think of a database as an
+InfluxDB v2 `bucket` in v2 or an InfluxDB v1 `db/retention_policy`.
+A `table` is equivalent to an InfluxDB v1 and v2 `measurement`.
 
-In InfluxDB 3, every table has a primary key--the ordered set of tags and the time--for its data.
-This is the sort order used for all Parquet files that get created. When you create a table, either through an explicit call or by writing data into a table for the first time, it sets the primary key to the tags in the order they arrived. This is immutable. Although InfluxDB is still a _schema-on-write_ database, the tag column definitions for a table are immutable.
+Columns in a table represent time, tags, and fields. Columns can be one of the
+following types:
 
-Tags should hold unique identifying information like `sensor_id`, or `building_id` or `trace_id`. All other data should be kept in fields. You will be able to add fast last N value and distinct value lookups later for any column, whether it is a field or a tag.
+- String dictionary (tag)
+- `int64` (field)
+- `float64` (field)
+- `uint64` (field)
+- `bool` (field)
+- `string` (field)
+- `time` (time with nanosecond precision)
 
-### Tools to use
+In {{% product-name %}}, every table has a primary key--the ordered set of tags and the time--for its data.
+The primary key uniquely identifies each and determines the sort order for all
+Parquet files related to the table. When you create a table, either through an
+explicit call or by writing data into a table for the first time, it sets the
+primary key to the tags in the order they arrived. 
+Although InfluxDB is still a _schema-on-write_ database, the tag column
+definitions for a table are immutable.
+
+Tags should hold unique identifying information like `sensor_id`, `building_id`,
+or `trace_id`. All other data should be stored as fields.
+
+## Tools to use
 
 The following table compares tools that you can use to interact with {{% product-name %}}.
 This tutorial covers many of the recommended tools.
