@@ -13,7 +13,26 @@ For more information about the 72-hour limitation, see the
 > [!Note]
 > Flux, the language introduced in InfluxDB 2.0, is **not** supported in InfluxDB 3.
 
-The quickest way to get started querying is to use the `influxdb3` CLI (which uses the Flight SQL API over HTTP2).
+<!-- TOC -->
+
+- [Query data with the influxdb3 CLI](#query-data-with-the-influxdb3-cli)
+  - [Example queries](#example-queries)
+- [Other tools for executing queries](#other-tools-for-executing-queries)
+- [SQL vs InfluxQL](#sql-vs-influxql)
+  - [SQL](#sql)
+  - [InfluxQL](#influxql)
+- [Optimize queries](#optimize-queries)
+  - [Last values cache](#last-values-cache)
+  - [Distinct values cache](#distinct-values-cache)
+ {{% show-in "enterprise" %}}- [File indexes](#file-indexes){{% /show-in %}}
+
+<!-- /TOC -->
+
+## Query data with the influxdb3 CLI
+
+To get started querying data in {{% product-name %}}, use the
+[`influxdb3 query` command](/influxdb3/version/reference/cli/influxdb3/query/)
+and provide the following:
 
 The `query` subcommand includes options to help ensure that the right database is queried with the correct permissions. Only the `--database` option is required, but depending on your specific setup, you may need to pass other options, such as host, port, and token.
 
@@ -83,7 +102,217 @@ Replace the following placeholders with your values:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to query 
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to query the specified database{{% /show-in %}}
 
-### Query using the API
+To query from a specific time range, use the `WHERE` clause to designate the
+boundaries of your time range.
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+<!-- pytest.mark.skip -->
+```bash
+influxdb3 query \
+  --database DATABASE_NAME \
+  "SELECT * FROM home WHERE time >= now() - INTERVAL '7 days' ORDER BY time"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!-- pytest.mark.skip -->
+```bash
+influxdb3 query \
+  --database DATABASE_NAME \
+  --language influxql \
+  "SELECT * FROM home WHERE time >= now() - 7d"
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /code-placeholders %}}
+
+### Example queries
+
+{{< expand-wrapper >}}
+{{% expand "List tables in a database" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+SHOW TABLES
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+SHOW MEASUREMENTS
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /expand %}}
+{{% expand "Return the average temperature of all rooms" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+SELECT avg(temp) AS avg_temp FROM home
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+SELECT MEAN(temp) AS avg_temp FROM home
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /expand %}}
+{{% expand "Return the average temperature of the kitchen" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+SELECT avg(temp) AS avg_temp FROM home WHERE room = 'Kitchen'
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+SELECT MEAN(temp) AS avg_temp FROM home WHERE room = 'Kitchen'
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /expand %}}
+{{% expand "Query data from an absolute time range" %}}
+
+{{% influxdb/custom-timestamps %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+SELECT
+  *
+FROM
+  home
+WHERE
+  time >= '2022-01-01T12:00:00Z'
+  AND time <= '2022-01-01T18:00:00Z'
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+SELECT
+  *
+FROM
+  home
+WHERE
+  time >= '2022-01-01T12:00:00Z'
+  AND time <= '2022-01-01T18:00:00Z'
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /expand %}}
+{{% expand "Query data from a relative time range" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+SELECT
+  *
+FROM
+  home
+WHERE
+  time >= now() - INTERVAL '7 days'
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+SELECT
+  *
+FROM
+  home
+WHERE
+  time >= now() - 7d
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /expand %}}
+{{% expand "Calculate average humidity in 3-hour windows per room" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+SELECT
+  date_bin(INTERVAL '3 hours', time) AS time,
+  room,
+  avg(hum) AS avg_hum
+FROM
+  home
+GROUP BY
+  1,
+  room
+ORDER BY
+  room,
+  1
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+SELECT
+  MEAN(hum) AS avg_hum
+FROM
+  home
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY
+  time(3h),
+  room
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## Other tools for executing queries
+
+Other tools are available for querying data in {{% product-name %}}, including
+the following:
+
+{{< expand-wrapper >}}
+{{% expand "Query using the API" %}}
+#### Query using the API
 
 InfluxDB 3 supports Flight (gRPC) APIs and an HTTP API.
 To query your database using the HTTP API, send a request to the `/api/v3/query_sql` or `/api/v3/query_influxql` endpoints.
@@ -127,7 +356,11 @@ Replace the following placeholders with your values:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to query 
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to query the specified database{{% /show-in %}}
 
-### Query using the Python client
+{{% /expand %}}
+
+{{% expand "Query using the Python client" %}}
+
+#### Query using the Python client
 
 Use the InfluxDB 3 Python library to interact with the database and integrate with your application.
 We recommend installing the required packages in a Python virtual environment for your specific project.
