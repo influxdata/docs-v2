@@ -254,6 +254,8 @@ export DATABASE_NODE=node0 && influxdb3 serve \
   --cluster-id cluster0 \
   --object-store file \
   --data-dir ~/.influxdb3/data
+```
+
 ---
 
 #### object-store

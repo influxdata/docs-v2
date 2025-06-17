@@ -1,4 +1,5 @@
-<!--  -->
+<!-- TOC -->
+
 - [Install {{% product-name %}}](#install-influxdb-3-{{% product-key %}})
   - [Verify the installation](#verify-the-installation)
 - [Start InfluxDB](#start-influxdb)
@@ -7,6 +8,8 @@
 - [Set up authorization](#set-up-authorization)
   - [Create an operator token](#create-an-operator-token)
   - [Set your token for authorization](#set-your-token-for-authorization)
+
+<!-- /TOC -->
 
 ## Install {{% product-name %}}
 

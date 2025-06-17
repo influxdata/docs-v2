@@ -14,6 +14,7 @@ alt_links:
 - [Quick install](#quick-install)
 - [Download {{% product-name %}} binaries](#download-influxdb-3-{{< product-key >}}-binaries)
 - [Docker image](#docker-image)
+- [Create a multi-node cluster](#create-a-multi-node-cluster)
 
 ## System Requirements
 
@@ -207,5 +208,7 @@ influxdb:3-{{< product-key >}}
 > ```
 >
 > Currently, a bug prevents using {{< keybind all="Ctrl+c" >}} in the terminal to stop an InfluxDB 3 container.
+
+{{< children hlevel="h2" >}}
 
 {{< page-nav next="/influxdb3/enterprise/get-started/" nextText="Get started with InfluxDB 3 Enterprise" >}}

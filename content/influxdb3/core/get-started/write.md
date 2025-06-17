@@ -2,7 +2,8 @@
 title: Write data to {{% product-name %}}
 seotitle: Write data | Get started with {{% product-name %}}
 description: >
-  ....
+  Learn how to write time series data to {{% product-name %}} using the
+  `influxdb3` CLI and _line protocol_, an efficient, human-readable write syntax.
 menu:
   influxdb3_core:
     name: Write data

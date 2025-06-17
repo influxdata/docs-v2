@@ -17,7 +17,14 @@ Both new tags and fields can be added later as your schema changes.
 > For extended historical queries and optimized data organization, consider using [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
 {{% /show-in %}}
 
-<!-- TOC PLACEHOLDER -->
+<!-- TOC -->
+
+- [Line protocol](#line-protocol)
+- [Construct line protocol](#construct-line-protocol)
+- [Write data using the CLI](#write-data-using-the-cli)
+- [Other tools for writing data](#other-tools-for-writing-data)
+
+<!-- /TOC -->
 
 ## Line protocol
 
@@ -210,21 +217,20 @@ Replace the following placeholders with your values:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/version/admin/databases/) to write to.
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to write to the specified database{{% /show-in %}}
 
-> [!Note]
-> #### Other write methods
->
-> There are many ways to write data to your {{% product-name %}} database, including:
->
-> - [InfluxDB HTTP API](/influxdb3/version/write-data/http-api/): Recommended for
->   batching and higher-volume write workloads.
-> - [InfluxDB client libraries](/influxdb3/version/write-data/client-libraries/):
->   Client libraries that integrate with your code to construct data as time
->   series points and write the data as line protocol to your
->   {{% product-name %}} database.
-> - [Telegraf](/telegraf/v1/): A data collection agent with over 300 plugins for
->   collecting, processing, and writing data.
->
-> For more information, see [Write data to {{% product-name %}}](/influxdb3/version/write-data/).
+## Other tools for writing data
+
+There are many ways to write data to your {{% product-name %}} database, including:
+
+- [InfluxDB HTTP API](/influxdb3/version/write-data/http-api/): Recommended for
+  batching and higher-volume write workloads.
+- [InfluxDB client libraries](/influxdb3/version/write-data/client-libraries/):
+  Client libraries that integrate with your code to construct data as time
+  series points and write the data as line protocol to your
+  {{% product-name %}} database.
+- [Telegraf](/telegraf/v1/): A data collection agent with over 300 plugins for
+  collecting, processing, and writing data.
+
+For more information, see [Write data to {{% product-name %}}](/influxdb3/version/write-data/).
 
 {{% page-nav
   prev="/influxdb3/version/get-started/setup/"

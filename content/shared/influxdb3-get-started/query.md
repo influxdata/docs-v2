@@ -13,7 +13,24 @@ the [update on InfluxDB 3 Core’s 72-hour limitation](https://www.influxdata.co
 > [!Note]
 > Flux, the language introduced in InfluxDB v2, is **not** supported in InfluxDB 3.
 
-The quickly to get started querying, use the
+<!-- TOC -->
+
+- [Query data with the influxdb3 CLI](#query-data-with-the-influxdb3-cli)
+  - [Example queries](#example-queries)
+- [Other tools for executing queries](#other-tools-for-executing-queries)
+- [SQL vs InfluxQL](#sql-vs-influxql)
+  - [SQL](#sql)
+  - [InfluxQL](#influxql)
+- [Optimize queries](#optimize-queries)
+  - [Last values cache](#last-values-cache)
+  - [Distinct values cache](#distinct-values-cache)
+ {{% show-in "enterprise" %}}- [File indexes](#file-indexes){{% /show-in %}}
+
+<!-- /TOC -->
+
+## Query data with the influxdb3 CLI
+
+To get started querying data in {{% product-name %}}, use the
 [`influxdb3 query` command](/influxdb3/version/reference/cli/influxdb3/query/)
 and provide the following:
 
@@ -98,7 +115,7 @@ influxdb3 query \
 
 {{% /code-placeholders %}}
 
-## Example queries
+### Example queries
 
 {{< expand-wrapper >}}
 {{% expand "List tables in a database" %}}
@@ -269,12 +286,14 @@ GROUP BY
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## Other tools for executing queries
 
-## SQL vs InfluxQL
+Other tools are available for querying data in {{% product-name %}}, including
+the following:
 
-## LVC, DVC
-
-### Query using the API
+{{< expand-wrapper >}}
+{{% expand "Query using the API" %}}
+#### Query using the API
 
 InfluxDB 3 supports Flight (gRPC) APIs and an HTTP API.
 To query your database using the HTTP API, send a request to the `/api/v3/query_sql` or `/api/v3/query_influxql` endpoints.
@@ -318,7 +337,11 @@ Replace the following placeholders with your values:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to query 
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to query the specified database{{% /show-in %}}
 
-### Query using the Python client
+{{% /expand %}}
+
+{{% expand "Query using the Python client" %}}
+
+#### Query using the Python client
 
 Use the InfluxDB 3 Python library to interact with the database and integrate with your application.
 We recommend installing the required packages in a Python virtual environment for your specific project.
@@ -382,177 +405,99 @@ print(table.group_by('host').aggregate([]))
 print(table.group_by('cpu').aggregate([('time_system', 'mean')]))
 ```
 
-For more information about the Python client library, see the [`influxdb3-python` repository](https://github.com/InfluxCommunity/influxdb3-python) in GitHub.
+For more information about the Python client library, see the
+[`influxdb3-python` repository](https://github.com/InfluxCommunity/influxdb3-python)
+in GitHub.
 
-### Query using InfluxDB 3 Explorer (Beta)
+{{% /expand %}}
+
+{{% expand "Query using InfluxDB 3 Explorer" %}}
+
+#### Query using InfluxDB 3 Explorer
 
 You can use the InfluxDB 3 Explorer web-based interface to query and visualize data,
 and administer your {{% product-name %}} instance.
-For more information, see how to [install InfluxDB 3 Explorer (Beta)](/influxdb3/explorer/install/) using Docker
-and get started querying your data.
+For more information, see how to [install InfluxDB 3 Explorer](/influxdb3/explorer/install/)
+using Docker and get started querying your data.
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## SQL vs InfluxQL
+
+{{% product-name %}} supports two query languages--SQL and InfluxQL.
+While these two query languages are similar, there are important differences to
+consider.
+
+### SQL
+
+The InfluxDB 3 SQL implementation provides a full-featured SQL query engine
+powered by [Apache DataFusion](https://datafusion.apache.org/). InfluxDB extends
+DataFusion with additional time series-specific functionality and supports the
+complex SQL queries, including queries that use joins, unions, window functions,
+and more.
+
+- [SQL query guides](/influxdb3/version/query-data/sql/)
+- [SQL reference](/influxdb3/version/reference/sql/)
+- [Apache DataFusion SQL reference](https://datafusion.apache.org/user-guide/sql/index.html)
+
+### InfluxQL
+
+InfluxQL is a SQL-like query language built for InfluxDB v1 and supported in
+{{% product-name %}}. Its syntax and functionality is similar SQL, but specifically
+designed for querying time series data. InfluxQL does not offer the full range
+of query functionality that SQL does.
+
+If you are migrating from previous versions of InfluxDB, you can continue to use
+InfluxQL and the established InfluxQL-related APIs you have been using.
+
+- [InfluxQL query guides](/influxdb3/version/query-data/influxql/)
+- [InfluxQL reference](/influxdb3/version/reference/influxql/)
+- [InfluxQL feature support](/influxdb3/version/reference/influxql/feature-support/)
+
+## Optimize queries
+
+{{% product-name %}} provides the following optimization options to improve
+specific kinds of queries:
+
+- [Last values cache](#last-value-cache)
+- [Distinct values cache](#distinct-value-cache)
+{{% show-in "enterprise" %}}- [File indexes](#file-indexes){{% /show-in %}}
 
 ### Last values cache
 
-{{% product-name %}} supports a **last-n values cache** which stores the last N values in a series or column hierarchy in memory. This gives the database the ability to answer these kinds of queries in under 10 milliseconds.
+The {{% product-name %}} last values cache (LVC) stores the last N values in a
+series or column hierarchy in memory. This gives the database the ability to
+answer these kinds of queries in under 10 milliseconds.
+For information about configuring and using the LVC, see:
 
-You can use the `influxdb3` CLI to [create a last value cache](/influxdb3/version/reference/cli/influxdb3/create/last_cache/).
-
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN|TABLE_NAME|CACHE_NAME" %}}
-```bash
-influxdb3 create last_cache \
-  --token AUTH_TOKEN
-  --database DATABASE_NAME \
-  --table TABLE_NAME \
-  CACHE_NAME
-```
-{{% /code-placeholders %}}
-
-Replace the following placeholders with your values:
-
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to create the last values cache in
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
-- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the name of the table to create the last values cache in
-- {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: Optionally, a name for the new cache
-
-Consider the following `cpu` sample table:
-
-| host | application | time | usage\_percent | status |
-| ----- | ----- | ----- | ----- | ----- |
-| Bravo | database | 2024-12-11T10:00:00 | 55.2 | OK |
-| Charlie | cache | 2024-12-11T10:00:00 | 65.4 | OK |
-| Bravo | database | 2024-12-11T10:01:00 | 70.1 | Warn |
-| Bravo | database | 2024-12-11T10:01:00 | 80.5 | OK |
-| Alpha | webserver | 2024-12-11T10:02:00 | 25.3 | Warn |
-
-The following command creates a last value cache named `cpuCache`:
-
-```bash
-influxdb3 create last_cache \
-  --token apiv3_0xxx0o0XxXxx00Xxxx000xXXxoo0== \
-  --database servers \
-  --table cpu \
-  --key-columns host,application \
-  --value-columns usage_percent,status \
-  --count 5 cpuCache
-```
-
-_You can create a last values cache per time series, but be mindful of high cardinality tables that could take excessive memory._
-
-#### Query a last values cache
-
-To query data from the LVC, use the [`last_cache()`](/influxdb3/version/reference/sql/functions/cache/#last_cache) function in your query--for example:
-
-```bash
-influxdb3 query \
-  --token apiv3_0xxx0o0XxXxx00Xxxx000xXXxoo0== \
-  --database servers \
-  "SELECT * FROM last_cache('cpu', 'cpuCache') WHERE host = 'Bravo';"
-```
-
-> [!Note]
-> #### Only works with SQL
-> 
-> The last values cache only works with SQL, not InfluxQL; SQL is the default language.
-
-#### Delete a last values cache
-
-Use the `influxdb3` CLI to [delete a last values cache](/influxdb3/version/reference/cli/influxdb3/delete/last_cache/)
-
-{{% code-placeholders "DATABASE_NAME|TABLE_NAME|CACHE_NAME" %}}
-```bash
-influxdb3 delete last_cache \
-  --token AUTH_TOKEN \
-  --database DATABASE_NAME \
-  --table TABLE \
-  --cache-name CACHE_NAME
-```
-{{% /code-placeholders %}}
-
-Replace the following placeholders with your values:
-
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to delete the last values cache from
-- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the name of the table to delete the last values cache from
-- {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: the name of the last values cache to delete
+- [Manage a last values cache](/influxdb3/version/admin/last-value-cache/)
+- [Query the last values cache](/influxdb3/version/admin/last-value-cache/query/)
 
 ### Distinct values cache
 
-Similar to the [last values cache](#last-values-cache), the database can cache in RAM the distinct values for a single column in a table or a hierarchy of columns.
+The {{% product-name %}} distinct values cache (DVC) stores distinct values for
+specified columns in a series or column hierarchy in memory.
 This is useful for fast metadata lookups, which can return in under 30 milliseconds.
-Many of the options are similar to the last value cache.
+For information about configuring and using the DVC, see:
 
-You can use the `influxdb3` CLI to [create a distinct values cache](/influxdb3/version/reference/cli/influxdb3/create/distinct_cache/).
+- [Manage a distinct values cache](/influxdb3/version/admin/distinct-value-cache/)
+- [Query the distinct values cache](/influxdb3/version/admin/distinct-value-cache/query/)
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN|TABLE_NAME|CACHE_NAME" %}}
-```bash
-influxdb3 create distinct_cache \
-  --token AUTH_TOKEN \
-  --database DATABASE_NAME \
-  --table TABLE \
-  --columns COLUMNS \
-  CACHE_NAME
-```
-{{% /code-placeholders %}}
-Replace the following placeholders with your values:
+{{% show-in "enterprise" %}}
+### File indexes
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to create the last values cache in
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
-- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the name of the table to create the distinct values cache in
-- {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: Optionally, a name for the new cache
+{{% product-name %}} lets you customize how your data is indexed to help
+optimize query performance for your specific workload, especially workloads that
+include single-series queries. Define custom indexing strategies for databases
+or specific tables. For more information, see
+[Manage file indexes](/influxdb3/enterprise/admin/file-index/).
 
-Consider the following `cpu` sample table:
+{{% /show-in %}}
 
-| host | application | time | usage\_percent | status |
-| ----- | ----- | ----- | ----- | ----- |
-| Bravo | database | 2024-12-11T10:00:00 | 55.2 | OK |
-| Charlie | cache | 2024-12-11T10:00:00 | 65.4 | OK |
-| Bravo | database | 2024-12-11T10:01:00 | 70.1 | Warn |
-| Bravo | database | 2024-12-11T10:01:00 | 80.5 | OK |
-| Alpha | webserver | 2024-12-11T10:02:00 | 25.3 | Warn |
-
-The following command creates a distinct values cache named `cpuDistinctCache`:
-
-```bash
-influxdb3 create distinct_cache \
-  --token apiv3_0xxx0o0XxXxx00Xxxx000xXXxoo0== \
-  --database servers \
-  --table cpu \
-  --columns host,application \
-  cpuDistinctCache
-```
-
-#### Query a distinct values cache
-
-To query data from the distinct values cache, use the [`distinct_cache()`](/influxdb3/version/reference/sql/functions/cache/#distinct_cache) function in your query--for example:
-
-```bash
-influxdb3 query \
-  --token apiv3_0xxx0o0XxXxx00Xxxx000xXXxoo0== \
-  --database servers \
-  "SELECT * FROM distinct_cache('cpu', 'cpuDistinctCache')"
-```
-
-> [!Note]
-> #### Only works with SQL
-> 
-> The distinct cache only works with SQL, not InfluxQL; SQL is the default language.
-
-#### Delete a distinct values cache
-
-Use the `influxdb3` CLI to [delete a distinct values cache](/influxdb3/version/reference/cli/influxdb3/delete/distinct_cache/)
-
-{{% code-placeholders "DATABASE_NAME|TABLE_NAME|CACHE_NAME" %}}
-```bash
-influxdb3 delete distinct_cache \
-  --token AUTH_TOKEN \
-  --database DATABASE_NAME \
-  --table TABLE \
-  --cache-name CACHE_NAME
-```
-{{% /code-placeholders %}}
-
-Replace the following placeholders with your values:
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to delete the distinct values cache from
-- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the name of the table to delete the distinct values cache from
-- {{% code-placeholder-key %}}`CACHE_NAME`{{% /code-placeholder-key %}}: the name of the distinct values cache to delete
+{{% page-nav
+  prev="/influxdb3/version/get-started/write/"
+  prevText="Write data"
+  next="/influxdb3/version/get-started/processing-engine/"
+  nextText="Processing engine"
+%}}
