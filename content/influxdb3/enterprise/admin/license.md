@@ -167,7 +167,7 @@ existing license if it's still valid.
 influxdb3 serve \
 --cluster-id cluster01 \
 --node-id node01 \
---license-email example@email.com \
+--license-email=example@email.com \
 # ...
 ```
 <!------------------------- END INFLUXDB3 CLI OPTIONS ------------------------->
