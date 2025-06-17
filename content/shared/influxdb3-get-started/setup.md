@@ -26,6 +26,12 @@ curl -O https://www.influxdata.com/d/install_influxdb3.sh \
 For detailed installation instructions, including for Windows and Docker,
 see [Install {{% product-name %}}](/influxdb3/version/install/).
 
+{{% show-in "enterprise" %}}
+> [!Note]
+> For information about setting up a multi-node {{% product-name %}} cluster,
+> see [Create a multi-node cluster](/influxdb3/enterprise/install/multi-server/).
+{{% /show-in %}}
+
 You can also download and install [{{% product-name %}} build artifacts](/influxdb3/enterprise/install/#download-influxdb-3-enterprise-binaries) directly:
 
 {{< expand-wrapper >}}
