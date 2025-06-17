@@ -112,7 +112,7 @@ address using one of the following methods:
 - Set the `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable
 
 If the server finds a valid license file in your object store, it ignores the
-the license email option.
+license email option.
 
 See examples to [start the server with your license email](#start-the-server-with-your-license-email).
 
