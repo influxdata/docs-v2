@@ -1,16 +1,16 @@
 ---
-title: Extend plugins
-description: Use API features and state management in your custom Processing Engine plugins.
+title: Extend plugins with API features and state management
+description: |
+  The Processing engine includes an API that allows your plugins to interact with your data, build and write line protocol, and maintain state between executions.
 menu:
   influxdb3_core:
-    name: API Extended plugins
-    identifier: extend-plugins-core
-    parent: Processing Engine
-    identifier: extend-plugins-core
-    weight: 20
+    name: Extend plugins
+    parent: Processing engine and Python plugins
+weight: 4
 influxdb3/core/tags: [processing engine, plugins, API, python]
+source: /shared/processing-data/processing-data/extended-plugin-api.md
 ---
 
 <!-- 
-SOURCE content/shared/extended-plugin-api.md
+// SOURCE content/shared/processing-data/extended-plugin-api.md
 -->
