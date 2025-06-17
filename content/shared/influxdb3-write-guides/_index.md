@@ -15,8 +15,9 @@ to line protocol.
 > 
 > #### Choose the write endpoint for your workload
 > 
-> When creating new write workloads, use the HTTP API
-> [`/api/v3/write_lp` endpoint with client libraries](/influxdb3/version/write-data/api-client-libraries/).
+> When creating new write workloads, use the
+> [InfluxDB HTTP API `/api/v3/write_lp` endpoint](influxdb3/version/write-data/http-api/v3-write-lp/)
+> and [client libraries](/influxdb3/version/write-data/client-libraries/).
 >
 > When bringing existing v1 write workloads, use the {{% product-name %}}
 > HTTP API [`/write` endpoint](/influxdb3/core/api/v3/#operation/PostV1Write).

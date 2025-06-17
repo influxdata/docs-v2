@@ -9,8 +9,9 @@ to write line protocol data to {{< product-name >}}.
 > #### Use the API for batching and higher-volume writes
 >
 > The `influxdb3` CLI lets you quickly get started writing data to {{< product-name >}}.
-> For batching and higher-volume write workloads, use
-> [API client libraries](/influxdb3/version/write-data/api/#use-api-client-libraries)
+> For batching and higher-volume write workloads, use the
+> [InfluxDB HTTP API](/influxdb3/version/write-data/http-api),
+> [API client libraries](/influxdb3/version/write-data/client-libraries/)
 > or [Telegraf](/influxdb3/version/write-data/use-telegraf/).
 
 ## Construct line protocol
