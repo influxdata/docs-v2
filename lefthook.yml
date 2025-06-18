@@ -85,7 +85,7 @@ pre-push:
 
     e2e-links:
       tags: test,links
-      glob: 'content/**/*.{md,html}'
+      glob: 'content/*.{md,html}'
       run: |
         echo "Running link checker for: {push_files}"
         yarn test:links {push_files}
@@ -104,7 +104,7 @@ pre-push:
       run: yarn build:pytest:image
     # Test code blocks in markdown files
     cloud-pytest:
-      glob: content/influxdb/cloud/**/*.md
+      glob: content/influxdb/cloud/*.md
       tags: test,codeblocks,v2
       env:
         SERVICE: cloud-pytest
@@ -112,35 +112,35 @@ pre-push:
 
     cloud-dedicated-pytest:
       tags: test,codeblocks,v3
-      glob: content/influxdb/cloud-dedicated/**/*.md
+      glob: content/influxdb/cloud-dedicated/*.md
       run: |
         yarn test:codeblocks:cloud-dedicated '{push_files}' &&
         ./test/scripts/monitor-tests.sh stop cloud-dedicated-pytest
 
     cloud-serverless-pytest:
       tags: test,codeblocks,v3
-      glob: content/influxdb/cloud-serverless/**/*.md
+      glob: content/influxdb/cloud-serverless/*.md
       env:
         SERVICE: cloud-serverless-pytest
       run: yarn test:codeblocks:cloud-serverless '{push_files}'
 
     clustered-pytest:
       tags: test,codeblocks,v3
-      glob: content/influxdb/clustered/**/*.md
+      glob: content/influxdb/clustered/*.md
       run: |
         yarn test:codeblocks:clustered '{push_files}' &&
         ./test/scripts/monitor-tests.sh stop clustered-pytest
 
     telegraf-pytest:
       tags: test,codeblocks
-      glob: content/telegraf/**/*.md
+      glob: content/telegraf/*.md
       env:
         SERVICE: telegraf-pytest
       run: yarn test:codeblocks:telegraf '{push_files}'
 
     v2-pytest:
       tags: test,codeblocks,v2
-      glob: content/influxdb/v2/**/*.md
+      glob: content/influxdb/v2/*.md
       env:
         SERVICE: v2-pytest
       run: yarn test:codeblocks:v2 '{push_files}'

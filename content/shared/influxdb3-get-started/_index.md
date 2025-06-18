@@ -383,7 +383,7 @@ InfluxDB 3 Enterprise licenses authorize the use of the InfluxDB 3 Enterprise so
 - **At-Home**: For at-home hobbyist use with limited access to InfluxDB 3 Enterprise capabilities.
 - **Commercial**: Commercial license with full access to InfluxDB 3 Enterprise capabilities.
 
-You can learn more on managing your InfluxDB 3 Enterprise license on the [Manage your license](https://docs.influxdata.com/influxdb3/enterprise/admin/license/) page.
+For more information, see how to [Manage your license](/influxdb3/enterprise/admin/license/).
 {{% /show-in %}}
 
 ### Authentication and authorization
