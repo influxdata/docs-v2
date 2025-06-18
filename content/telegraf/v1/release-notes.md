@@ -22,7 +22,7 @@ This release removes the following deprecated plugin aliases:
 - `inputs.KNXListener` in [#17168](https://github.com/influxdata/telegraf/pull/17168)
 - `inputs.logparser` in [#17170](https://github.com/influxdata/telegraf/pull/17170)
 
-Furthermore, the following deprecated plugin options are removed:
+And removes the following deprecated plugin options:
 
 - `ssl_ca`, `ssl_cert` and `ssl_key` of common TLS settings in [#17119](https://github.com/influxdata/telegraf/pull/17119)
 - `url` of `inputs.amqp_consumer` in [#17149](https://github.com/influxdata/telegraf/pull/17149)
