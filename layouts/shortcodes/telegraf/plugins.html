@@ -6,9 +6,10 @@
 
 {{ range (index .Site.Data.telegraf_plugins $type ) }}
   {{ $pluginTags := delimit .tags " " }}
-  {{ $minorVer := replaceRE `\.[^.]*$` "" .introduced }}
-  
-  <div class="plugin-card filter-item visible{{ if eq $minorVer $latestTelegrafVersion }} new{{ end }}" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }} {{ if eq $minorVer $latestTelegrafVersion }}new{{ end }} {{ if .deprecated }}deprecated{{ end }} ">
+  {{ $osTags := delimit .os_support " " }}
+  {{ $minorVer := replaceRE `v([0-9]+\.[0-9]+)\.[0-9]+$` "$1" .introduced }}
+
+  <div class="plugin-card filter-item visible{{ if eq $minorVer $latestTelegrafVersion }} new{{ end }}" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }} {{ lower $osTags }} {{ if eq $minorVer $latestTelegrafVersion }}new{{ end }} {{ if .deprecated }}deprecated{{ end }} ">
     <div class="info">
       <h3 id="{{ $type }}-{{ .id }}">{{ .name }}</h3>
       {{ if in .tags "external"}}
