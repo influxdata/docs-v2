@@ -6,7 +6,7 @@ input:
       Console API [ActiveMQ](https://activemq.apache.org/) message broker
       daemon.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: Aerospike
     id: aerospike
@@ -32,7 +32,7 @@ input:
     introduced: v0.2.0
     deprecated: v1.30.0
     removal: v1.40.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Alibaba Cloud Monitor Service (Aliyun)
     id: aliyuncms
@@ -42,7 +42,7 @@ input:
       will use `Aliyun` instead of `Alibaba` as it's the default naming across
       the web console and docs.
     introduced: v1.19.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud]
   - name: AMD ROCm System Management Interface (SMI)
     id: amd_rocm_smi
@@ -55,7 +55,7 @@ input:
       > The [`rocm-smi` binary]() is required and needs to be installed on the
       > system.
     introduced: v1.20.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [hardware, system]
   - name: AMQP Consumer
     id: amqp_consumer
@@ -73,7 +73,7 @@ input:
       [RabbitMQ getting started
       guide](https://www.rabbitmq.com/getstarted.html).
     introduced: v1.3.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: Apache
     id: apache
@@ -89,7 +89,7 @@ input:
       about configuration of your server check the [module
       documentation](https://httpd.apache.org/docs/current/mod/mod_status.html).
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server, web]
   - name: APC UPSD
     id: apcupsd
@@ -99,7 +99,7 @@ input:
       protocol. To query a server, the daemon must be running and be
       accessible.
     introduced: v1.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [hardware, server]
   - name: Apache Aurora
     id: aurora
@@ -110,7 +110,7 @@ input:
       cluster](https://aurora.apache.org/documentation/latest/operations/monitoring)
       article.
     introduced: v1.7.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, server]
   - name: Azure Monitor
     id: azure_monitor
@@ -130,7 +130,7 @@ input:
       > sure you don't exceed this limit with the total number of metrics you
       > are in the configured interval.
     introduced: v1.25.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud]
   - name: Azure Queue Storage
     id: azure_storage_queue
@@ -139,7 +139,7 @@ input:
       Storage](https://learn.microsoft.com/en-us/azure/storage/queues) service,
       storing a large numbers of messages.
     introduced: v1.13.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud]
   - name: Bcache
     id: bcache
@@ -157,7 +157,7 @@ input:
       [Beanstalkd work queue](https://beanstalkd.github.io/) as reported by the
       `stats` and `stats-tube` server commands.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: Beat
     id: beat
@@ -166,7 +166,7 @@ input:
       [Beats](https://www.elastic.co/beats) instances. It is known to work with
       Filebeat and Kafkabeat.
     introduced: v1.18.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: BIND 9 Nameserver
     id: bind
@@ -187,7 +187,7 @@ input:
       writing, some distros still do not enable support for JSON statistics in
       their BIND packages.
     introduced: v1.11.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Bond
     id: bond
@@ -195,7 +195,7 @@ input:
       This plugin collects metrics for both the network bond interface as well
       as its slave interfaces using `/proc/net/bonding/*` files.
     introduced: v1.5.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Burrow
     id: burrow
@@ -206,7 +206,7 @@ input:
       API](https://github.com/linkedin/Burrow/wiki/HTTP-Endpoint). Burrow v1.x
       versions are supported.
     introduced: v1.7.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: Ceph Storage
     id: ceph
@@ -216,7 +216,7 @@ input:
       introduced in the v13.x Mimic release where data is sent to a socket (see
       [their documnetation](https://docs.ceph.com/en/latest/mgr/telegraf)).
     introduced: v0.13.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Control Group
     id: cgroup
@@ -247,7 +247,7 @@ input:
       gathered fields please check the [chronyc
       manual](https://chrony-project.org/doc/4.4/chronyc.html).
     introduced: v0.13.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Cisco Model-Driven Telemetry (MDT)
     id: cisco_telemetry_mdt
@@ -263,7 +263,7 @@ input:
       platforms. The TCP dialout transport is supported on IOS XR (32-bit and
       64-bit) 6.1.x and later.
     introduced: v1.11.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: ClickHouse
     id: clickhouse
@@ -273,7 +273,7 @@ input:
       Cloud will not see the Zookeeper metrics as they may not have permissions
       to query those tables.
     introduced: v1.14.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Google Cloud PubSub
     id: cloud_pubsub
@@ -283,7 +283,7 @@ input:
       using one of the supported [data
       formats](/telegraf/v1/data_formats/input).
     introduced: v1.10.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, messaging]
   - name: Google Cloud PubSub Push
     id: cloud_pubsub_push
@@ -301,7 +301,7 @@ input:
       signing certificate authority by including a list of allowed CA
       certificate file names in `tls_allowed_cacerts`.
     introduced: v1.10.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, messaging]
   - name: Amazon CloudWatch Statistics
     id: cloudwatch
@@ -309,7 +309,7 @@ input:
       This plugin will gather metric statistics from [Amazon
       CloudWatch](https://aws.amazon.com/cloudwatch).
     introduced: v0.12.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud]
   - name: Amazon CloudWatch Metric Streams
     id: cloudwatch_metric_streams
@@ -323,7 +323,7 @@ input:
       > Using this plugin can incure costs, see the _Metric Streams example_ in
       > [CloudWatch pricing](https://aws.amazon.com/cloudwatch/pricing).
     introduced: v1.24.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud]
   - name: Netfilter Conntrack
     id: conntrack
@@ -356,7 +356,7 @@ input:
       metrics](https://www.consul.io/docs/agent/telemetry.html) but Consul can
       report those statistics using the StatsD protocol if needed.
     introduced: v1.0.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Hashicorp Consul Agent
     id: consul_agent
@@ -366,7 +366,7 @@ input:
       may be present in every node and connect to the agent locally. Tested on
       Consul v1.10.
     introduced: v1.22.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Couchbase
     id: couchbase
@@ -376,7 +376,7 @@ input:
       Metrics are collected for each node, as well as detailed metrics for each
       bucket, for a given couchbase server.
     introduced: v0.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Apache CouchDB
     id: couchdb
@@ -386,14 +386,14 @@ input:
       [stats](http://docs.couchdb.org/en/1.6.1/api/server/common.html?highlight=stats#get--_stats)
       endpoint.
     introduced: v0.10.3
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: CPU
     id: cpu
     description: |
       This plugin gather metrics on the system's CPUs.
     introduced: v0.1.5
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Counter-Strike Global Offensive (CSGO)
     id: csgo
@@ -401,7 +401,7 @@ input:
       This plugin gather metrics from [Counter-Strike: Global
       Offensive](https://www.counter-strike.net/) servers.
     introduced: v1.18.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Bosch Rexroth ctrlX Data Layer
     id: ctrlx_datalayer
@@ -413,7 +413,7 @@ input:
       automation, building automation, robotics, IoT Gateways or as classical
       PLC.
     introduced: v1.27.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot, messaging]
   - name: Mesosphere Distributed Cloud OS
     id: dcos
@@ -427,7 +427,7 @@ input:
       > create a high number of series which, when unchecked, can cause high
       > load on your database!
     introduced: v1.5.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [containers]
   - name: Directory Monitor
     id: directory_monitor
@@ -443,7 +443,7 @@ input:
       > directory. If you absolutely must write files directly, they must be
       > guaranteed to finish writing before `directory_duration_threshold`.
     introduced: v1.18.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Disk
     id: disk
@@ -455,14 +455,14 @@ input:
       > _not_ `used / total` as the unix `df` command does it. See [wikipedia -
       > df](https://en.wikipedia.org/wiki/Df_(Unix)) for more details.
     introduced: v0.1.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: DiskIO
     id: diskio
     description: |
       This plugin gathers metrics about disk traffic and timing.
     introduced: v0.10.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Disque
     id: disque
@@ -471,7 +471,7 @@ input:
       [Disque](https://github.com/antirez/disque) instance, an experimental
       distributed, in-memory, message broker.
     introduced: v0.10.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: Device Mapper Cache
     id: dmcache
@@ -492,7 +492,7 @@ input:
       This plugin gathers information about DNS queries such as response time
       and result codes.
     introduced: v1.4.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, system]
   - name: Docker
     id: docker
@@ -505,7 +505,7 @@ input:
       > Please make sure Telegraf has sufficient permissions to access the
       > configured endpoint!
     introduced: v0.1.9
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [containers]
   - name: Docker Log
     id: docker_log
@@ -519,7 +519,7 @@ input:
       > `journald` logging driver. Please make sure Telegraf has sufficient
       > permissions to access the configured endpoint!
     introduced: v1.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [containers, logging]
   - name: Dovecot
     id: dovecot
@@ -538,7 +538,7 @@ input:
       > plugin](/telegraf/v1/plugins/#input-http) and `openmetrics` data format
       > for newer versions of Dovecot.
     introduced: v0.10.3
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Data Plane Development Kit (DPDK)
     id: dpdk
@@ -585,7 +585,7 @@ input:
       The amazon-ecs-agent (though it _is_ a container running on the host) is
       not present in the metadata/stats endpoints.
     introduced: v1.11.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud]
   - name: Elasticsearch
     id: elasticsearch
@@ -607,7 +607,7 @@ input:
       > possible by tagging high-level categories only and creating unique field
       > names of whatever statistics names are provided at the mid-low level.
     introduced: v0.1.5
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Elasticsearch Query
     id: elasticsearch_query
@@ -622,7 +622,7 @@ input:
       > This plugins supports Elasticsearch 5.x and 6.x but is known to break on
       > 7.x or higher.
     introduced: v1.20.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Ethtool
     id: ethtool
@@ -640,7 +640,7 @@ input:
       and [Azure IoT Hub](https://azure.microsoft.com/en-us/products/iot-hub)
       instances.
     introduced: v1.14.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot, messaging]
   - name: Exec
     id: exec
@@ -650,7 +650,7 @@ input:
       formats](/telegraf/v1/data_formats/input). This plugin can be used to
       poll for custom metrics from any source.
     introduced: v0.1.5
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Execd
     id: execd
@@ -669,7 +669,7 @@ input:
       log message` will create a `info` log line in your Telegraf logging
       output.
     introduced: v1.14.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Fail2ban
     id: fail2ban
@@ -683,7 +683,7 @@ input:
       > either allow Telegraf to run that command using `sudo` without a
       > password or by running telegraf as root (not recommended).
     introduced: v1.4.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, system]
   - name: Fibaro
     id: fibaro
@@ -693,7 +693,7 @@ input:
       (1) or false (0) for switches, percentage for dimmers, temperature, etc.
       Both _Home Center 2_ and _Home Center 3_ devices are supported.
     introduced: v1.7.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot]
   - name: File
     id: file
@@ -707,7 +707,7 @@ input:
       > If you wish to only process newly appended lines use the
       > [tail](/telegraf/v1/plugins/#input-tail) input plugin instead.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Filecount
     id: filecount
@@ -715,7 +715,7 @@ input:
       This plugin reports the number and total size of files in specified
       directories.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: File statistics
     id: filestat
@@ -723,7 +723,7 @@ input:
       This plugin gathers metrics about file existence, size, and other file
       statistics.
     introduced: v0.13.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Fireboard
     id: fireboard
@@ -736,7 +736,7 @@ input:
       > API](https://docs.fireboard.io/reference/restapi.html) in order to use
       > this plugin.
     introduced: v1.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot]
   - name: AWS Data Firehose
     id: firehose
@@ -747,7 +747,7 @@ input:
       follows the request-response schema as describe in the official
       [documentation](https://docs.aws.amazon.com/firehose/latest/dev/httpdeliveryrequestresponse.html).
     introduced: v1.34.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, messaging]
   - name: Fluentd
     id: fluentd
@@ -767,7 +767,7 @@ input:
       > documentation](https://docs.fluentd.org/configuration/config-file#common-plugin-parameter)
       > for details.
     introduced: v1.4.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Fritzbox
     id: fritzbox
@@ -776,7 +776,7 @@ input:
       devices (routers, repeaters, etc) using the device's
       [TR-064](https://avm.de/service/schnittstellen/) interface.
     introduced: v1.35.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot, network]
   - name: GitHub
     id: github
@@ -789,7 +789,7 @@ input:
       > plugin](/telegraf/v1/plugins/#input-webhooks) which can be used as an
       > alternative method for collecting repository information.
     introduced: v1.11.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: gNMI (gRPC Network Management Interface)
     id: gnmi
@@ -804,7 +804,7 @@ input:
       as produced by Cisco IOS XR (64-bit) version 6.5.1, Cisco NX-OS 9.3 and
       Cisco IOS XE 16.12 and later.
     introduced: v1.15.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Google Cloud Storage
     id: google_cloud_storage
@@ -813,7 +813,7 @@ input:
       Storage](https://cloud.google.com/storage) buckets in any of the
       supported [data formats](/telegraf/v1/data_formats/input).
     introduced: v1.25.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, datastore]
   - name: GrayLog
     id: graylog
@@ -832,7 +832,7 @@ input:
       > When specifying a `namespace` endpoint without an actual namespace, the
       > metrics array will be ignored.
     introduced: v1.0.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [logging]
   - name: HAProxy
     id: haproxy
@@ -840,7 +840,7 @@ input:
       This plugin gathers statistics of [HAProxy](http://www.haproxy.org/)
       servers using sockets or the HTTP protocol.
     introduced: v0.1.5
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, server]
   - name: HDDtemp
     id: hddtemp
@@ -862,7 +862,7 @@ input:
       > information or [sensors](/telegraf/v1/plugins/#input-sensors) plugins to
       > retrieve temperature data of your hard-drive.
     introduced: v1.0.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [hardware, system]
   - name: HTTP
     id: http
@@ -871,7 +871,7 @@ input:
       data in one of the supported [data
       formats](/telegraf/v1/data_formats/input).
     introduced: v1.6.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, server]
   - name: HTTP Listener v2
     id: http_listener_v2
@@ -884,7 +884,7 @@ input:
       > InfluxDB v2 it is recommended to use the [influxdb__listener]() or
       > [influxdb_v2_listener]() plugin instead.
     introduced: v1.9.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: HTTP Response
     id: http_response
@@ -892,7 +892,7 @@ input:
       This plugin generates metrics from HTTP responses including the status
       code and response statistics.
     introduced: v0.12.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: HueBridge
     id: huebridge
@@ -902,7 +902,7 @@ input:
       API](https://developers.meethue.com/develop/hue-api-v2/) interface of the
       devices.
     introduced: v1.34.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot]
   - name: Hugepages
     id: hugepages
@@ -922,7 +922,7 @@ input:
       [Icinga2 remote
       API](https://docs.icinga.com/icinga2/latest/doc/module/icinga2/chapter/icinga2-api).
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, server, system]
   - name: InfiniBand
     id: infiniband
@@ -952,7 +952,7 @@ input:
       > with[[inputs.prometheus]] urls = ["http://localhost:8086/metrics"]
       > metric_version = 1
     introduced: v0.2.5
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: InfluxDB Listener
     id: influxdb_listener
@@ -977,7 +977,7 @@ input:
       > but they are not relayed. The configuration of the output plugin
       > ultimately submits data to InfluxDB determines the destination database.
     introduced: v1.9.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: InfluxDB V2 Listener
     id: influxdb_v2_listener
@@ -991,7 +991,7 @@ input:
       can be set to one of `ns`, `us`, `ms`, `s`. All other parameters are
       ignored and defer to the output plugins configuration.
     introduced: v1.16.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Intel Baseband Accelerator
     id: intel_baseband
@@ -1095,7 +1095,7 @@ input:
       > [!NOTE]
       > Some metrics are aggregates across all instances of a plugin type.
     introduced: v1.2.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: Internet Speed Monitor
     id: internet_speed
@@ -1104,7 +1104,7 @@ input:
       download/upload speed, latency etc using the [speedtest.net
       service](https://www.speedtest.net/).
     introduced: v1.20.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Interrupts
     id: interrupts
@@ -1112,7 +1112,7 @@ input:
       This plugin gathers metrics about IRQs from interrupts
       (`/proc/interrupts`) and soft-interrupts (`/proc/softirqs`).
     introduced: v1.3.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: IPMI Sensor
     id: ipmi_sensor
@@ -1125,7 +1125,7 @@ input:
       > The `ipmitool` requires access to the IPMI device. Please check the
       > permission section for possible solutions.
     introduced: v0.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [hardware, system]
   - name: Ipset
     id: ipset
@@ -1179,7 +1179,7 @@ input:
       [Jenkins](https://www.jenkins.io/) instance. The plugin uses the Jenkins
       API and does not require a plugin on the server.
     introduced: v1.9.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: Jolokia2 Agent
     id: jolokia2_agent
@@ -1187,7 +1187,7 @@ input:
       This plugin reads JMX metrics from one or more [Jolokia
       agent](https://jolokia.org/agent/jvm.html) REST endpoints.
     introduced: v1.5.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, network]
   - name: Jolokia2 Proxy
     id: jolokia2_proxy
@@ -1196,7 +1196,7 @@ input:
       with a [Jolokia proxy](https://jolokia.org/features/proxy.html) REST
       endpoint.
     introduced: v1.5.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, network]
   - name: Juniper Telemetry
     id: jti_openconfig_telemetry
@@ -1206,7 +1206,7 @@ input:
       (JTI)](https://www.juniper.net/documentation/en_US/junos/topics/concept/junos-telemetry-interface-oveview.html)
       from configured from listed sensors.
     introduced: v1.7.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot, network]
   - name: Apache Kafka Consumer
     id: kafka_consumer
@@ -1218,7 +1218,7 @@ input:
       talking to the Kafka cluster so multiple instances of Telegraf can
       consume messages from the same topic in parallel.
     introduced: v0.2.3
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: Kapacitor
     id: kapacitor
@@ -1227,7 +1227,7 @@ input:
       Kapacitor](https://www.influxdata.com/time-series-platform/kapacitor/)
       instances.
     introduced: v1.3.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: Kernel
     id: kernel
@@ -1263,7 +1263,7 @@ input:
       > [!NOTE]
       > This plugin requires Kibana version 6.0+.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, server]
   - name: Kinesis Consumer
     id: kinesis_consumer
@@ -1272,7 +1272,7 @@ input:
       Kinesis](https://aws.amazon.com/kinesis/) data stream in one of the
       supported [data formats](/telegraf/v1/data_formats/input).
     introduced: v1.10.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot, messaging]
   - name: KNX
     id: knx_listener
@@ -1282,7 +1282,7 @@ input:
       Information about supported KNX datapoint-types can be found at the
       underlying [`knx-go` project]().
     introduced: v1.19.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot]
   - name: Kubernetes Inventory
     id: kube_inventory
@@ -1302,7 +1302,7 @@ input:
       > [filter](/telegraf/v1/configuration/#metric-filtering) the produced
       > metrics or configure your database to avoid cardinality issues!
     introduced: v1.10.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [containers]
   - name: Kubernetes
     id: kubernetes
@@ -1322,7 +1322,7 @@ input:
       > [filter](/telegraf/v1/configuration/#metric-filtering) the produced
       > metrics or configure your database to avoid cardinality issues!
     introduced: v1.1.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [containers]
   - name: Arista LANZ Consumer
     id: lanz
@@ -1338,7 +1338,7 @@ input:
       > [documentation](https://www.arista.com/en/um-eos/eos-section-44-3-configuring-lanz)
       > for more details.
     introduced: v1.14.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: LDAP
     id: ldap
@@ -1348,7 +1348,7 @@ input:
       [OpenLDAP](https://www.openldap.org/devel/admin/monitoringslapd.html) and
       [389ds](https://www.port389.org/) servers.
     introduced: v1.29.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, server]
   - name: LeoFS
     id: leofs
@@ -1360,7 +1360,7 @@ input:
       documentation](https://leo-project.net/leofs/docs/admin/system_admin/monitoring/)
       for details.
     introduced: v0.1.5
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, server]
   - name: Libvirt
     id: libvirt
@@ -1370,7 +1370,7 @@ input:
       gathered directly from the hypervisor on a host system, so Telegraf
       doesn't have to be installed and configured on a guest system.
     introduced: v1.25.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Linux CPU
     id: linux_cpu
@@ -1400,7 +1400,7 @@ input:
       > [!NOTE]
       > This plugin supports Logstash 5+.
     introduced: v1.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Lustre
     id: lustre2
@@ -1432,7 +1432,7 @@ input:
       This plugin gathers metrics from the [Mailchimp](https://mailchimp.com)
       service using the [Mailchimp API](https://developer.mailchimp.com/).
     introduced: v0.2.4
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, web]
   - name: MarkLogic
     id: marklogic
@@ -1440,7 +1440,7 @@ input:
       This plugin gathers health status metrics from one or more
       [MarkLogic](https://www.progress.com/marklogic) hosts.
     introduced: v1.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: MavLink
     id: mavlink
@@ -1461,7 +1461,7 @@ input:
       > metrics written to outputs, and/or the `filters` configuration parameter
       > to limit which Mavlink messages this plugin parses.
     introduced: v1.35.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot]
   - name: Mcrouter
     id: mcrouter
@@ -1471,7 +1471,7 @@ input:
       router, developed and maintained by Facebook, for scaling
       [memcached](http://memcached.org/) deployments.
     introduced: v1.7.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, network]
   - name: MD RAID Statistics
     id: mdstat
@@ -1495,7 +1495,7 @@ input:
       > For an explanation of the difference between *used* and *actual_used*
       > RAM, see [Linux ate my ram](http://www.linuxatemyram.com/).
     introduced: v0.1.5
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Memcached
     id: memcached
@@ -1503,7 +1503,7 @@ input:
       This plugin gathers statistics data from
       [Memcached](https://memcached.org/) instances.
     introduced: v0.1.2
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Apache Mesos
     id: mesos
@@ -1513,7 +1513,7 @@ input:
       check the [Mesos Observability
       Metrics](http://mesos.apache.org/documentation/latest/monitoring/) page.
     introduced: v0.10.3
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [containers]
   - name: Minecraft
     id: minecraft
@@ -1526,7 +1526,7 @@ input:
       > using a version earlier than 1.13, be aware that the values for some
       > criteria has changed and need to be modified.
     introduced: v1.4.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Mock Data
     id: mock
@@ -1536,7 +1536,7 @@ input:
       and tags. Those metrics are usefull during testing (e.g. processors) or
       if random data is required.
     introduced: v1.22.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [testing]
   - name: Modbus
     id: modbus
@@ -1545,7 +1545,7 @@ input:
       registers using e.g. Modbus TCP or serial interfaces with Modbus RTU or
       Modbus ASCII.
     introduced: v1.14.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot]
   - name: MongoDB
     id: mongodb
@@ -1558,7 +1558,7 @@ input:
       > Software Lifecycle
       > Schedules](https://www.mongodb.com/support-policy/lifecycles).
     introduced: v0.1.5
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Monit
     id: monit
@@ -1573,7 +1573,7 @@ input:
       > port](https://mmonit.com/monit/documentation/monit.html#TCP-PORT) in
       > Monit.
     introduced: v1.14.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: MQTT Consumer
     id: mqtt_consumer
@@ -1582,7 +1582,7 @@ input:
       brokers for the configured topics in one of the supported [data
       formats](/telegraf/v1/data_formats/input).
     introduced: v0.10.3
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: Multifile
     id: multifile
@@ -1595,7 +1595,7 @@ input:
       > To parse metrics from a single file you should use the
       > [file](/telegraf/v1/plugins/#input-file) input plugin instead.
     introduced: v1.10.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: MySQL
     id: mysql
@@ -1609,7 +1609,7 @@ input:
       > start](https://dev.mysql.com/doc/refman/8.0/en/performance-schema-quick-start.html)
       > for details.
     introduced: v0.1.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: NATS Server Monitoring
     id: nats
@@ -1618,7 +1618,7 @@ input:
       instance using its [monitoring
       endpoints](https://docs.nats.io/running-a-nats-service/nats_admin/monitoring).
     introduced: v1.6.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: NATS Consumer
     id: nats_consumer
@@ -1636,7 +1636,7 @@ input:
       file](https://docs.nats.io/using-nats/developer/connecting/nkey) (NATS
       2.0).
     introduced: v0.10.3
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: Neoom Beaam
     id: neoom_beaam
@@ -1648,7 +1648,7 @@ input:
       [developer instructions](https://neoom.com/developers) to create the
       token.
     introduced: v1.33.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot]
   - name: Neptune Apex
     id: neptune_apex
@@ -1657,14 +1657,14 @@ input:
       controller](https://www.neptunesystems.com) instances, allowing aquarium
       hobbyists to monitor and control their tanks based on various probes.
     introduced: v1.10.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot]
   - name: Network
     id: net
     description: |
       This plugin gathers metrics about network interface and protocol usage.
     introduced: v0.1.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Network Response
     id: net_response
@@ -1672,7 +1672,7 @@ input:
       This plugin tests UDP/TCP connection and produces metrics from the
       result, the response time and optionally verifies text in the response.
     introduced: v0.10.3
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Netflow
     id: netflow
@@ -1691,7 +1691,7 @@ input:
       Definitions for IPFIX are according to [IANA assignment
       document](https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-type).
     introduced: v1.25.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Network Connection Statistics
     id: netstat
@@ -1699,7 +1699,7 @@ input:
       This plugin collects statistics about TCP connection states and UDP
       socket counts.
     introduced: v0.2.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Network Filesystem
     id: nfsclient
@@ -1717,7 +1717,7 @@ input:
       > `/proc/self/mountstats`. This is a limitation of the metrics exposed by
       > the kernel, not by this plugin.
     introduced: v1.18.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, system]
   - name: Nginx
     id: nginx
@@ -1728,7 +1728,7 @@ input:
       see the Nginx
       [documentation](https://www.nginx.com/blog/whats-difference-nginx-foss-nginx-plus/).
     introduced: v0.1.5
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server, web]
   - name: Nginx Plus
     id: nginx_plus
@@ -1744,7 +1744,7 @@ input:
       Plus, see the Nginx
       [documentation](https://www.nginx.com/blog/whats-difference-nginx-foss-nginx-plus/).
     introduced: v1.5.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server, web]
   - name: Nginx Plus API
     id: nginx_plus_api
@@ -1760,7 +1760,7 @@ input:
       Plus, see the Nginx
       [documentation](https://www.nginx.com/blog/whats-difference-nginx-foss-nginx-plus/).
     introduced: v1.9.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server, web]
   - name: Nginx Stream Server Traffic
     id: nginx_sts
@@ -1774,7 +1774,7 @@ input:
       [module
       documentation](https://github.com/vozlt/nginx-module-sts#synopsis).
     introduced: v1.15.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server, web]
   - name: Nginx Upstream Check
     id: nginx_upstream_check
@@ -1785,7 +1785,7 @@ input:
       module periodically sends the configured requests to servers in the
       Nginx's upstream determining their availability.
     introduced: v1.10.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server, web]
   - name: Nginx Virtual Host Traffic
     id: nginx_vts
@@ -1799,7 +1799,7 @@ input:
       [module
       documentation](https://github.com/vozlt/nginx-module-vts#synopsis).
     introduced: v1.9.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server, web]
   - name: Hashicorp Nomad
     id: nomad
@@ -1808,7 +1808,7 @@ input:
       agent](https://www.nomadproject.io/) of the specified cluster. Telegraf
       may be present in every node and connect to the agent locally.
     introduced: v1.22.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: NLnet Labs Name Server Daemon
     id: nsd
@@ -1817,7 +1817,7 @@ input:
       Daemon](https://www.nlnetlabs.nl/projects/nsd/about), an authoritative
       DNS name server.
     introduced: v1.0.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Netgear Switch Discovery Protocol
     id: nsdp
@@ -1827,7 +1827,7 @@ input:
       Protocol](https://en.wikipedia.org/wiki/Netgear_Switch_Discovery_Protocol)
       for all available switches and ports.
     introduced: v1.34.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: NSQ
     id: nsq
@@ -1836,7 +1836,7 @@ input:
       distributed messaging platform instances using the [NSQD
       API](https://nsq.io/components/nsqd.html).
     introduced: v1.16.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: NSQ Consumer
     id: nsq_consumer
@@ -1845,7 +1845,7 @@ input:
       realtime distributed messaging platform brokers in one of the supported
       [data formats](/telegraf/v1/data_formats/input).
     introduced: v0.10.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: Kernel Network Statistics
     id: nstat
@@ -1853,7 +1853,7 @@ input:
       This plugin collects network metrics from `/proc/net/netstat`,
       `/proc/net/snmp` and `/proc/net/snmp6` files
     introduced: v0.13.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, system]
   - name: Network Time Protocol Query
     id: ntpq
@@ -1865,7 +1865,7 @@ input:
       > This plugin requires the `ntpq` executable to be installed on the
       > system.
     introduced: v0.11.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Nvidia System Management Interface (SMI)
     id: nvidia_smi
@@ -1879,7 +1879,7 @@ input:
       > This plugin requires the `nvidia-smi` binary to be installed on the
       > system.
     introduced: v1.7.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [hardware, system]
   - name: OPC UA Client Reader
     id: opcua
@@ -1888,7 +1888,7 @@ input:
       UA](https://opcfoundation.org/about/opc-technologies/opc-ua/) server by
       subscribing to the configured nodes.
     introduced: v1.16.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot]
   - name: OPC UA Client Listener
     id: opcua_listener
@@ -1897,7 +1897,7 @@ input:
       UA](https://opcfoundation.org/about/opc-technologies/opc-ua/) server by
       subscribing to nodes and events.
     introduced: v1.25.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot]
   - name: OpenLDAP
     id: openldap
@@ -1910,7 +1910,7 @@ input:
       > [!NOTE]
       > It is recommended to use the newer [`ldap` input plugin]() instead.
     introduced: v1.4.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, server]
   - name: OpenNTPD
     id: openntpd
@@ -1922,7 +1922,7 @@ input:
       > The `ntpctl` binary must be present on the system and executable by
       > Telegraf. The plugin supports using `sudo` for execution.
     introduced: v1.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, server]
   - name: OpenSearch Query
     id: opensearch_query
@@ -1936,7 +1936,7 @@ input:
       > This plugins is tested against OpenSearch 2.5.0 and 1.3.7 but newer
       > version should also work.
     introduced: v1.26.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: OpenSMTPD
     id: opensmtpd
@@ -1948,7 +1948,7 @@ input:
       > The `smtpctl` binary must be present on the system and executable by
       > Telegraf. The plugin supports using `sudo` for execution.
     introduced: v1.5.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, server]
   - name: OpenStack
     id: openstack
@@ -1962,7 +1962,7 @@ input:
       > filtering](/telegraf/v1/configuration/#modifiers) like `taginclude` and
       > `tagexclude` to reduce cardinality.
     introduced: v1.21.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, server]
   - name: OpenTelemetry
     id: opentelemetry
@@ -1971,7 +1971,7 @@ input:
       [OpenTelemetry](https://opentelemetry.io) clients and compatible agents
       via gRPC.
     introduced: v1.19.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [logging, messaging]
   - name: OpenWeatherMap
     id: openweathermap
@@ -1983,7 +1983,7 @@ input:
       > To use this plugin you will need an
       > [APP-ID](https://openweathermap.org/appid) to work.
     introduced: v1.11.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, web]
   - name: P4 Runtime
     id: p4runtime
@@ -2000,7 +2000,7 @@ input:
       > PkgInfo](https://p4.org/p4-spec/p4runtime/main/P4Runtime-Spec.html#sec-annotating-p4-code-with-pkginfo)
       > to modify your P4 program.
     introduced: v1.26.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, network]
   - name: Passenger
     id: passenger
@@ -2021,7 +2021,7 @@ input:
       > This plugin requires the `passenger-status` binary to be installed on
       > the system and to be executable by Telegraf.
     introduced: v0.10.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [web]
   - name: PF
     id: pf
@@ -2047,7 +2047,7 @@ input:
       > [!NOTE]
       > This plugin requires PgBouncer v1.5+.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server, web]
   - name: PHP-FPM
     id: phpfpm
@@ -2056,7 +2056,7 @@ input:
       Manager](https://www.php.net/manual/en/install.fpm.php) using either the
       HTTP status page or the fpm socket.
     introduced: v0.1.10
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server, web]
   - name: Ping
     id: ping
@@ -2068,7 +2068,7 @@ input:
       > When using the `exec` method the `ping` command must be available on the
       > systems and executable by Telegraf.
     introduced: v0.1.8
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Postfix
     id: postfix
@@ -2088,7 +2088,7 @@ input:
       metrics are lightweight and use Dynamic Management Views supplied by
       PostgreSQL.
     introduced: v0.10.3
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: PostgreSQL Extensible
     id: postgresql_extensible
@@ -2101,7 +2101,7 @@ input:
       > Please also check the more generic [sql input
       > plugin](/telegraf/v1/plugins/#input-sql).
     introduced: v0.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: PowerDNS
     id: powerdns
@@ -2112,7 +2112,7 @@ input:
       > [!NOTE]
       > This plugin will need access to the powerdns control socket.
     introduced: v0.10.2
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: PowerDNS Recursor
     id: powerdns_recursor
@@ -2125,7 +2125,7 @@ input:
       > Telegraf will need read and write access to the control socket and the
       > `socket_dir`.
     introduced: v1.11.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Processes
     id: processes
@@ -2148,7 +2148,7 @@ input:
       Processes can be filtered e.g. by regular expressions on the command, the
       user owning the process or the service that started the process.
     introduced: v0.2.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Prometheus
     id: prometheus
@@ -2158,7 +2158,7 @@ input:
       node-exporter instances. This plugin also supports various
       service-discovery methods.
     introduced: v0.1.5
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, server]
   - name: Proxmox
     id: proxmox
@@ -2166,7 +2166,7 @@ input:
       This plugin gathers metrics about containers and VMs running on a
       [Proxmox](https://www.proxmox.com) instance using the Proxmox API.
     introduced: v1.16.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Puppet Agent
     id: puppetagent
@@ -2174,7 +2174,7 @@ input:
       This plugin gathers metrics of a [Puppet agent](https://www.puppet.com/)
       by parsing variables from the local last-run-summary file.
     introduced: v0.2.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: RabbitMQ
     id: rabbitmq
@@ -2183,7 +2183,7 @@ input:
       servers via the [Management
       Plugin](https://www.rabbitmq.com/management.html).
     introduced: v0.1.5
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Radius
     id: radius
@@ -2192,7 +2192,7 @@ input:
       [Radius](https://datatracker.ietf.org/doc/html/rfc2865) authentication
       requests.
     introduced: v1.26.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Raindrops Middleware
     id: raindrops
@@ -2201,7 +2201,7 @@ input:
       middleware](http://raindrops.bogomips.org/Raindrops/Middleware.html)
       instances.
     introduced: v0.10.3
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: RAS Daemon
     id: ras
@@ -2226,7 +2226,7 @@ input:
       > [!NOTE]
       > This plugin requires RavenDB Server v5.2+.
     introduced: v1.18.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Redfish
     id: redfish
@@ -2234,14 +2234,14 @@ input:
       This plugin gathers metrics and status information of server hardware
       with enabled [DMTF's Redfish](https://redfish.dmtf.org/) support.
     introduced: v1.15.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Redis
     id: redis
     description: |
       This plugin gathers metrics from [Redis](https://redis.io/) servers.
     introduced: v0.1.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Redis Sentinel
     id: redis_sentinel
@@ -2250,7 +2250,7 @@ input:
       Sentinel](https://redis.io/docs/latest/operate/oss_and_stack/management/sentinel/)
       instances monitoring Redis servers and replicas.
     introduced: v1.22.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: RethinkDB
     id: rethinkdb
@@ -2258,14 +2258,14 @@ input:
       This plugin collects metrics from [RethinkDB](https://www.rethinkdb.com/)
       servers.
     introduced: v0.1.3
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Riak
     id: riak
     description: |
       This plugin gathers metrics from [Riak](https://riak.com/) instances.
     introduced: v0.10.4
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Riemann Listener
     id: riemann_listener
@@ -2273,14 +2273,14 @@ input:
       This service plugin listens for messages from
       [Riemann](https://riemann.io/) clients using the protocol buffer format.
     introduced: v1.17.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Siemens S7
     id: s7comm
     description: |
       This plugin reads metrics from Siemens PLCs via the S7 protocol.
     introduced: v1.28.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [hardware]
   - name: Salesforce
     id: salesforce
@@ -2291,7 +2291,7 @@ input:
       endpoint](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_limits.htm)
       of Salesforce's REST API.
     introduced: v1.4.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, server]
   - name: LM Sensors
     id: sensors
@@ -2321,7 +2321,7 @@ input:
       > [filter](/telegraf/v1/configuration/#metric-filtering) the produced
       > metrics or configure your database to avoid cardinality issues!
     introduced: v1.14.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Slab
     id: slab
@@ -2350,7 +2350,7 @@ input:
       > the `slurmrestd` daemon. For more information, check the
       > [documentation](https://slurm.schedmd.com/rest_quickstart.html#customization).
     introduced: v1.32.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: S.M.A.R.T.
     id: smart
@@ -2366,7 +2366,7 @@ input:
       > [`nvme-cli`]() packages to be installed on your system. The `smartctl`
       > and `nvme` commands must to be executable by Telegraf.
     introduced: v1.5.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [hardware, system]
   - name: smartctl JSON
     id: smartctl
@@ -2385,7 +2385,7 @@ input:
       > supporting JSON output. JSON output was added in v7.0 and improved in
       > subsequent releases
     introduced: v1.31.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [hardware, system]
   - name: SNMP
     id: snmp
@@ -2398,7 +2398,7 @@ input:
       > The path setting is shared between all instances of all SNMP plugin
       > types!
     introduced: v0.10.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [hardware, network]
   - name: SNMP Trap
     id: snmp_trap
@@ -2412,7 +2412,7 @@ input:
       > The path setting is shared between all instances of all SNMP plugin
       > types!
     introduced: v1.13.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [hardware, network]
   - name: Socket Listener
     id: socket_listener
@@ -2421,7 +2421,7 @@ input:
       Unixgram) and parses the packets received in one of the supported [data
       formats](/telegraf/v1/data_formats/input).
     introduced: v1.3.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Socket Statistics
     id: socketstat
@@ -2451,7 +2451,7 @@ input:
       > [!NOTE]
       > This plugin requires Apache Solr v3.5+.
     introduced: v1.5.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: SQL
     id: sql
@@ -2463,7 +2463,7 @@ input:
       [supported SQL drivers](../../../docs/SQL_DRIVERS_INPUT.md) for the
       `driver` name and options for the data-source-name (`dsn`) options.
     introduced: v1.19.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Microsoft SQL Server
     id: sqlserver
@@ -2480,7 +2480,7 @@ input:
       > Azure SQL Databases (Single), Azure SQL Managed Instances, Azure SQL
       > Elastic Pools and Azure Arc-enabled SQL Managed Instances.
     introduced: v0.10.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Stackdriver Google Cloud Monitoring
     id: stackdriver
@@ -2495,7 +2495,7 @@ input:
       > [chargeable](https://cloud.google.com/stackdriver/pricing#stackdriver_monitoring_services),
       > cost might incur.
     introduced: v1.10.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud]
   - name: StatsD
     id: statsd
@@ -2503,7 +2503,7 @@ input:
       This service plugin gathers metrics from a
       [Statsd](https://github.com/statsd/statsd) server.
     introduced: v0.2.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: Supervisor
     id: supervisor
@@ -2515,7 +2515,7 @@ input:
       > [!NOTE]
       > This plugin requires supervisor v3.3.2+.
     introduced: v1.24.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: Suricata
     id: suricata
@@ -2527,14 +2527,14 @@ input:
       to, and processes the incoming data to fit Telegraf's format. It can also
       report for triggered Suricata IDS/IPS alerts.
     introduced: v1.13.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, network]
   - name: Swap
     id: swap
     description: |
       This plugin collects metrics on the operating-system's swap memory.
     introduced: v1.7.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Synproxy
     id: synproxy
@@ -2559,7 +2559,7 @@ input:
       protocol](https://tools.ietf.org/html/rfc5424) or the [BSD syslog
       protocol](https://tools.ietf.org/html/rfc3164).
     introduced: v1.7.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [logging]
   - name: System Performance Statistics
     id: sysstat
@@ -2582,7 +2582,7 @@ input:
       the number of users logged in. It is similar to the unix `uptime`
       command.
     introduced: v0.1.6
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Systemd-Units
     id: systemd_units
@@ -2610,7 +2610,7 @@ input:
       to fully handle an authentication request, including all potential
       dependent calls (for example to AD servers, or other sources of truth).
     introduced: v1.28.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Tail
     id: tail
@@ -2621,7 +2621,7 @@ input:
       messages are expected to be in one of the supported [data
       formats](/telegraf/v1/data_formats/input).
     introduced: v1.1.2
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [logging]
   - name: Teamspeak
     id: teamspeak
@@ -2635,7 +2635,7 @@ input:
       > host to the `query_ip_allowlist.txt` file in the Teamspeak Server
       > directory.
     introduced: v1.5.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Temperature
     id: temp
@@ -2651,7 +2651,7 @@ input:
       Server](http://tengine.taobao.org) via the
       [reqstat](http://tengine.taobao.org/document/http_reqstat.html) module.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server, web]
   - name: Apache Tomcat
     id: tomcat
@@ -2662,7 +2662,7 @@ input:
       documentation](https://tomcat.apache.org/tomcat-9.0-doc/manager-howto.html#Server_Status)
       for details of these statistics.
     introduced: v1.4.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server, web]
   - name: Trig
     id: trig
@@ -2670,7 +2670,7 @@ input:
       This plugin is for demonstration purposes and inserts sine and cosine
       values as metrics.
     introduced: v0.3.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [testing]
   - name: Twemproxy
     id: twemproxy
@@ -2678,7 +2678,7 @@ input:
       This plugin gathers statistics from
       [Twemproxy](https://github.com/twitter/twemproxy) servers.
     introduced: v0.3.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: Unbound
     id: unbound
@@ -2686,7 +2686,7 @@ input:
       This plugin gathers stats from an [Unbound](https://www.unbound.net) DNS
       resolver.
     introduced: v1.5.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, server]
   - name: UPSD
     id: upsd
@@ -2695,7 +2695,7 @@ input:
       a [Network UPS Tools](https://networkupstools.org/) daemon using its NUT
       network protocol.
     introduced: v1.24.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [hardware, server]
   - name: uWSGI
     id: uwsgi
@@ -2704,7 +2704,7 @@ input:
       [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) using its [Stats
       Server](https://uwsgi-docs.readthedocs.io/en/latest/StatsServer.html).
     introduced: v1.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud]
   - name: Varnish
     id: varnish
@@ -2729,7 +2729,7 @@ input:
       > [!NOTE]
       > This plugin requires Vault v1.8.5+
     introduced: v1.22.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
   - name: VMware vSphere
     id: vsphere
@@ -2742,7 +2742,7 @@ input:
       > [!NOTE]
       > This plugin requires vSphere v7.0+.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [containers]
   - name: Webhooks
     id: webhooks
@@ -2750,7 +2750,7 @@ input:
       This service plugin provides an HTTP server and register for multiple
       webhook listeners.
     introduced: v1.0.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, web]
   - name: WHOIS
     id: whois
@@ -2762,7 +2762,7 @@ input:
       [IANA](https://www.iana.org/whois) or [ICANN](https://lookup.icann.org/)
       servers.
     introduced: v1.35.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, web]
   - name: Windows Eventlog
     id: win_eventlog
@@ -2820,7 +2820,7 @@ input:
       library](). The plugin reports gauge metrics for Wireguard interface
       device(s) and its peers.
     introduced: v1.14.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Wireless
     id: wireless
@@ -2842,7 +2842,7 @@ input:
       > support
       > [DTLS](https://en.wikipedia.org/wiki/Datagram_Transport_Layer_Security).
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Dell EMC XtremIO
     id: xtremio
@@ -2852,7 +2852,7 @@ input:
       instance using the [v3 Rest
       API](https://dl.dell.com/content/docu96624_xtremio-storage-array-x1-and-x2-cluster-types-with-xms-6-3-0-to-6-3-3-and-xios-4-0-15-to-4-0-31-and-6-0-0-to-6-3-3-restful-api-3-x-guide.pdf).
     introduced: v1.22.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: ZFS
     id: zfs
@@ -2876,7 +2876,7 @@ input:
       > [filter](/telegraf/v1/configuration/#metric-filtering) the produced
       > metrics or configure your database to avoid cardinality issues!
     introduced: v1.4.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud]
   - name: Apache Zookeeper
     id: zookeeper
@@ -2890,7 +2890,7 @@ input:
       > [prometheus plugin](/telegraf/v1/plugins/#input-prometheus) instead with
       > `http://<ip>:7000/metrics`.
     introduced: v0.2.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
 output:
   - name: Amon
@@ -2905,7 +2905,7 @@ output:
       > If point values being sent cannot be converted to a `float64`, the
       > metric is skipped.
     introduced: v0.2.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: AMQP
     id: amqp
@@ -2922,7 +2922,7 @@ output:
       [RabbitMQ getting started
       guide](https://www.rabbitmq.com/getstarted.html).
     introduced: v0.1.9
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: Azure Application Insights
     id: application_insights
@@ -2931,7 +2931,7 @@ output:
       Insights](https://azure.microsoft.com/en-us/services/application-insights/)
       service.
     introduced: v1.7.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, cloud]
   - name: Azure Data Explorer
     id: azure_data_explorer
@@ -2947,7 +2947,7 @@ output:
       Azure Data Explorer is a distributed, columnar store, purpose built for
       any type of logs, metrics and time series data.
     introduced: v1.20.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, datastore]
   - name: Azure Monitor
     id: azure_monitor
@@ -2969,7 +2969,7 @@ output:
       values are written as a summarized set that includes: min, max, sum,
       count. Tags are written as a dimension on each Azure Monitor metric.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, datastore]
   - name: Google BigQuery
     id: bigquery
@@ -2984,7 +2984,7 @@ output:
       > [chargeable](https://cloud.google.com/bigquery/pricing) and might incur
       > costs.
     introduced: v1.18.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, datastore]
   - name: Clarify
     id: clarify
@@ -2993,7 +2993,7 @@ output:
       plugin you will need to obtain a set of
       [credentials](https://docs.clarify.io/users/admin/integrations/credentials).
     introduced: v1.27.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, datastore]
   - name: Google Cloud PubSub
     id: cloud_pubsub
@@ -3002,7 +3002,7 @@ output:
       PubSub](https://cloud.google.com/pubsub) topic in one of the supported
       [data formats](/telegraf/v1/data_formats/output).
     introduced: v1.10.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, messaging]
   - name: Amazon CloudWatch
     id: cloudwatch
@@ -3010,7 +3010,7 @@ output:
       This plugin writes metrics to the [Amazon
       CloudWatch](https://aws.amazon.com/cloudwatch) service.
     introduced: v0.10.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud]
   - name: Amazon CloudWatch Logs
     id: cloudwatch_logs
@@ -3018,7 +3018,7 @@ output:
       This plugin writes log-metrics to the [Amazon
       CloudWatch](https://aws.amazon.com/cloudwatch) service.
     introduced: v1.19.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, logging]
   - name: CrateDB
     id: cratedb
@@ -3027,7 +3027,7 @@ output:
       [PostgreSQL
       protocol](https://crate.io/docs/crate/reference/protocols/postgres.html).
     introduced: v1.5.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, datastore]
   - name: Datadog
     id: datadog
@@ -3038,7 +3038,7 @@ output:
       [here](https://app.datadoghq.com/account/settings#api) for the account. >
       [!NOTE] This plugin supports the v1 API.
     introduced: v0.1.6
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, cloud, datastore]
   - name: Discard
     id: discard
@@ -3046,7 +3046,7 @@ output:
       This plugin discards all metrics written to it and is meant for testing
       purposes.
     introduced: v1.2.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [testing]
   - name: Dynatrace
     id: dynatrace
@@ -3069,7 +3069,7 @@ output:
       > documentation](https://docs.dynatrace.com/docs/shortlink/metric-ingestion-protocol)
       > for details on the types defined there.
     introduced: v1.16.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, datastore]
   - name: Elasticsearch
     id: elasticsearch
@@ -3079,7 +3079,7 @@ output:
       library](http://olivere.github.io/elastic/). The plugin supports
       Elasticsearch releases from v5.x up to v7.x.
     introduced: v0.1.5
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore, logging]
   - name: Azure Event Hubs
     id: event_hubs
@@ -3095,7 +3095,7 @@ output:
       partition key is specified the batches will be automatically
       load-balanced (round-robin) across all the Event Hub partitions.
     introduced: v1.21.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, datastore]
   - name: Executable
     id: exec
@@ -3112,7 +3112,7 @@ output:
       > [!TIP]
       > For better performance consider execd which runs continuously.
     introduced: v1.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Executable Daemon
     id: execd
@@ -3126,7 +3126,7 @@ output:
       All outputs of the executable to `stderr` will be logged in the Telegraf
       log. Telegraf minimum version: Telegraf 1.15.0
     introduced: v1.15.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: File
     id: file
@@ -3134,7 +3134,7 @@ output:
       This plugin writes metrics to one or more local files in one of the
       supported [data formats](/telegraf/v1/data_formats/output).
     introduced: v0.10.3
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
   - name: Graphite
     id: graphite
@@ -3145,7 +3145,7 @@ output:
       output see the [Graphite data
       format](/telegraf/v1/plugins/#serializer-graphite).
     introduced: v0.10.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Graylog
     id: graylog
@@ -3154,7 +3154,7 @@ output:
       using the [GELF data
       format](https://docs.graylog.org/en/3.1/pages/gelf.html#gelf-payload-specification).
     introduced: v1.0.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore, logging]
   - name: GroundWork
     id: groundwork
@@ -3165,7 +3165,7 @@ output:
       > [!IMPORTANT]
       > Plugin only supports GroundWork v8 or later.
     introduced: v1.21.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, messaging]
   - name: Health
     id: health
@@ -3177,7 +3177,7 @@ output:
       it will return a 503 response. The default state is healthy, one or more
       checks must fail in order for the resource to enter the failed state.
     introduced: v1.11.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: HTTP
     id: http
@@ -3186,7 +3186,7 @@ output:
       [data formats](/telegraf/v1/data_formats/output). For data formats
       supporting batching, metrics are sent in batches by default.
     introduced: v1.7.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: InfluxDB v1.x
     id: influxdb
@@ -3195,7 +3195,7 @@ output:
       v1.x](https://docs.influxdata.com/influxdb/v1) instance via HTTP or UDP
       protocol.
     introduced: v0.1.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: InfluxDB v2.x
     id: influxdb_v2
@@ -3203,7 +3203,7 @@ output:
       This plugin writes metrics to a [InfluxDB
       v2.x](https://docs.influxdata.com/influxdb/v2) instance via HTTP.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Inlong
     id: inlong
@@ -3211,7 +3211,7 @@ output:
       This plugin publishes metrics to an [Apache
       InLong](https://inlong.apache.org) instance.
     introduced: v1.35.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: Instrumental
     id: instrumental
@@ -3226,7 +3226,7 @@ output:
       `increment` type is only used if the metric comes in as a counter via the
       [statsd input plugin](/telegraf/v1/plugins/#input-statsd).
     introduced: v0.13.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: Apache IoTDB
     id: iotdb
@@ -3235,7 +3235,7 @@ output:
       instance, a database for the Internet of Things, supporting session
       connection and data insertion.
     introduced: v1.24.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Kafka
     id: kafka
@@ -3243,7 +3243,7 @@ output:
       This plugin writes metrics to a [Kafka Broker](http://kafka.apache.org)
       acting a Kafka Producer.
     introduced: v0.1.7
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: Amazon Kinesis
     id: kinesis
@@ -3256,7 +3256,7 @@ output:
       documentation](http://docs.aws.amazon.com/kinesis/latest/dev/key-concepts.html)
       for more details on the Kinesis architecture and concepts.
     introduced: v0.2.5
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, messaging]
   - name: Librato
     id: librato
@@ -3273,7 +3273,7 @@ output:
       > If the point value being sent cannot be converted to a `float64`, the
       > metric is skipped.
     introduced: v0.2.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, datastore]
   - name: Logz.io
     id: logzio
@@ -3281,7 +3281,7 @@ output:
       This plugin writes metrics to the [Logz.io](https://logz.io) service via
       HTTP.
     introduced: v1.17.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, datastore]
   - name: Grafana Loki
     id: loki
@@ -3294,7 +3294,7 @@ output:
       Logs within each stream are sorted by timestamp before being sent to
       Loki.
     introduced: v1.18.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [logging]
   - name: Microsoft Fabric
     id: microsoft_fabric
@@ -3303,7 +3303,7 @@ output:
       Fabric](https://learn.microsoft.com/en-us/fabric/real-time-analytics/overview)
       services.
     introduced: v1.35.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: MongoDB
     id: mongodb
@@ -3315,7 +3315,7 @@ output:
       > [!NOTE]
       > This plugin requires MongoDB v5 or later for time series collections.
     introduced: v1.21.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: MQTT Producer
     id: mqtt
@@ -3331,7 +3331,7 @@ output:
       > will return with `identifier rejected`. As a reference
       > `eclipse/paho.golang` sets the `keep_alive` to 30.
     introduced: v0.2.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: NATS
     id: nats
@@ -3340,7 +3340,7 @@ output:
       [NATS](https://nats.io) instances in one of the supported [data
       formats](/telegraf/v1/data_formats/output).
     introduced: v1.1.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: Nebius Cloud Monitoring
     id: nebius_cloud_monitoring
@@ -3348,7 +3348,7 @@ output:
       This plugin writes metrics to the [Nebuis Cloud
       Monitoring](https://nebius.com/il/services/monitoring) service.
     introduced: v1.27.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, datastore]
   - name: New Relic
     id: newrelic
@@ -3359,7 +3359,7 @@ output:
       To use this plugin you have to obtain an [Insights API
       Key](https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#user-api-key).
     introduced: v1.15.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: NSQ
     id: nsq
@@ -3368,7 +3368,7 @@ output:
       instance as a producer in one of the supported [data
       formats](/telegraf/v1/data_formats/output).
     introduced: v0.2.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: OpenSearch
     id: opensearch
@@ -3381,7 +3381,7 @@ output:
       > [!TIP]
       > Consider using the existing Elasticsearch plugin for 1.x.
     introduced: v1.29.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore, logging]
   - name: OpenTelemetry
     id: opentelemetry
@@ -3389,7 +3389,7 @@ output:
       This plugin writes metrics to [OpenTelemetry](https://opentelemetry.io)
       servers and agents via gRPC.
     introduced: v1.20.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [logging, messaging]
   - name: OpenTSDB
     id: opentsdb
@@ -3398,7 +3398,7 @@ output:
       instance using either the telnet or HTTP mode. Using the HTTP API is
       recommended since OpenTSDB 2.0.
     introduced: v0.1.9
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Parquet
     id: parquet
@@ -3416,7 +3416,7 @@ output:
       [querying
       parquet](https://www.influxdata.com/blog/querying-parquet-millisecond-latency/).
     introduced: v1.32.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: PostgreSQL
     id: postgresql
@@ -3425,7 +3425,7 @@ output:
       (or compatible) server managing the schema and automatically updating
       missing columns.
     introduced: v1.24.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Prometheus
     id: prometheus_client
@@ -3434,7 +3434,7 @@ output:
       exposes the written metrics on a `/metrics` endpoint by default. This
       endpoint can then be polled by a Prometheus server.
     introduced: v0.2.1
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: Quix
     id: quix
@@ -3444,7 +3444,7 @@ output:
       Please consult Quix's [official documentation](https://quix.io/docs/) for
       more details on the Quix platform architecture and concepts.
     introduced: v1.33.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, messaging]
   - name: Redis Time Series
     id: redistimeseries
@@ -3452,7 +3452,7 @@ output:
       This plugin writes metrics to a [Redis
       time-series](https://redis.io/timeseries) server.
     introduced: v1.0.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Remote File
     id: remotefile
@@ -3465,7 +3465,7 @@ output:
       - `s3`: [Amazon S3 storage providers](https://rclone.org/s3/)
       - `sftp`: [Secure File Transfer Protocol](https://rclone.org/sftp/)
     introduced: v1.32.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Riemann
     id: riemann
@@ -3473,7 +3473,7 @@ output:
       This plugin writes metric to the [Riemann](http://riemann.io) serice via
       TCP or UDP.
     introduced: v1.3.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Sensu Go
     id: sensu
@@ -3481,7 +3481,7 @@ output:
       This plugin writes metrics to [Sensu Go](https://sensu.io) via its HTTP
       events API.
     introduced: v1.18.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: SignalFx
     id: signalfx
@@ -3489,7 +3489,7 @@ output:
       This plugin writes metrics to
       [SignalFx](https://docs.signalfx.com/en/latest/).
     introduced: v1.18.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: Socket Writer
     id: socket_writer
@@ -3497,7 +3497,7 @@ output:
       This plugin writes metrics to a network service e.g. via UDP or TCP in
       one of the supported [data formats](/telegraf/v1/data_formats/output).
     introduced: v1.3.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, network]
   - name: SQL
     id: sql
@@ -3516,7 +3516,7 @@ output:
       drivers. See the driver-specific section for a list of supported drivers
       and details.
     introduced: v1.19.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: Google Cloud Monitoring
     id: stackdriver
@@ -3540,7 +3540,7 @@ output:
       `metric_type_prefix/[namespace_]name_key/kind`. If the global namespace
       is not set, it is omitted as well.
     introduced: v1.9.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, datastore]
   - name: ActiveMQ STOMP
     id: stomp
@@ -3551,7 +3551,7 @@ output:
       Metrics can be written in one of the supported [data
       formats](/telegraf/v1/data_formats/output).
     introduced: v1.24.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
   - name: Sumo Logic
     id: sumologic
@@ -3564,7 +3564,7 @@ output:
       - `carbon2` for Content-Type of `application/vnd.sumologic.carbon2`
       - `prometheus` for Content-Type of `application/vnd.sumologic.prometheus`
     introduced: v1.16.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [logging]
   - name: Syslog
     id: syslog
@@ -3583,7 +3583,7 @@ output:
       > of the RFC. Sending messages beyond these sizes may get dropped by a
       > strict receiver silently.
     introduced: v1.11.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [logging]
   - name: Amazon Timestream
     id: timestream
@@ -3591,7 +3591,7 @@ output:
       This plugin writes metrics to the [Amazon
       Timestream](https://aws.amazon.com/timestream) service.
     introduced: v1.16.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, datastore]
   - name: Warp10
     id: warp10
@@ -3599,7 +3599,7 @@ output:
       This plugin writes metrics to the [Warp 10](https://www.warp10.io)
       service.
     introduced: v1.14.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud, datastore]
   - name: Wavefront
     id: wavefront
@@ -3607,7 +3607,7 @@ output:
       This plugin writes metrics to a [Wavefront](https://www.wavefront.com)
       instance or a Wavefront Proxy instance over HTTP or HTTPS.
     introduced: v1.5.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, cloud]
   - name: Websocket
     id: websocket
@@ -3615,7 +3615,7 @@ output:
       This plugin writes metrics to a WebSocket endpoint in one of the
       supported [data formats](/telegraf/v1/data_formats/output).
     introduced: v1.19.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, web]
   - name: Yandex Cloud Monitoring
     id: yandex_cloud_monitoring
@@ -3623,7 +3623,7 @@ output:
       This plugin writes metrics to the [Yandex Cloud
       Monitoring](https://cloud.yandex.com/services/monitoring) service.
     introduced: v1.17.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [cloud]
   - name: Zabbix
     id: zabbix
@@ -3633,7 +3633,7 @@ output:
       It has been tested with versions v3.0, v4.0 and v6.0 but should work with
       newer versions of Zabbix as long as the protocol doesn't change.
     introduced: v1.30.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
 aggregator:
   - name: Basic Statistics
@@ -3643,7 +3643,7 @@ aggregator:
       minima, maxima, mean values, non-negative differences etc. for a set of
       metrics and emits these statistical values every `period`.
     introduced: v1.5.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [statistics]
   - name: Derivative
     id: derivative
@@ -3651,7 +3651,7 @@ aggregator:
       This plugin computes the derivative for all fields of the aggregated
       metrics.
     introduced: v1.18.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [math]
   - name: Final
     id: final
@@ -3673,7 +3673,7 @@ aggregator:
       > All emited metrics do have fields with `_final` appended to the
       > field-name by default.
     introduced: v1.11.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [sampling]
   - name: Histogram
     id: histogram
@@ -3691,7 +3691,7 @@ aggregator:
       > non-strictly increasing while Telegraf is running. This behavior can be
       > by setting the `reset` parameter.
     introduced: v1.4.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [statistics]
   - name: Merge
     id: merge
@@ -3703,7 +3703,7 @@ aggregator:
       Use this plugin when fields are split over multiple metrics, with the
       same measurement, tag set and timestamp.
     introduced: v1.13.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Minimum-Maximum
     id: minmax
@@ -3712,7 +3712,7 @@ aggregator:
       sees, emitting the aggrate every `period` seconds with field names
       suffixed by `_min` and `_max` respectively.
     introduced: v1.1.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [statistics]
   - name: Quantile
     id: quantile
@@ -3721,7 +3721,7 @@ aggregator:
       quantiles and emits the quantiles every `period`. Different aggregation
       algorithms are supported with varying accuracy and limitations.
     introduced: v1.18.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [statistics]
   - name: Starlark
     id: starlark
@@ -3753,7 +3753,7 @@ aggregator:
       [Starlark
       specification](https://github.com/google/starlark-go/blob/d1966c6b9fcd/doc/spec.md).
     introduced: v1.21.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Value Counter
     id: valuecounter
@@ -3774,7 +3774,7 @@ aggregator:
       > significant amounts of new fields and results in an increased memory
       > usage. Take care to only count fields with a limited set of values.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [statistics]
 processor:
   - name: AWS EC2 Metadata
@@ -3784,7 +3784,7 @@ processor:
       IMDS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
       to metrics associated with EC2 instances.
     introduced: v1.18.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [annotation, cloud]
   - name: Batch
     id: batch
@@ -3796,7 +3796,7 @@ processor:
 
       Metrics are distributed across batches using the round-robin scheme.
     introduced: v1.33.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [grouping]
   - name: Clone
     id: clone
@@ -3809,7 +3809,7 @@ processor:
       > [Metric filtering](/telegraf/v1/configuration/#metric-filtering) options
       > apply to both the clone and the original metric.
     introduced: v1.13.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Converter
     id: converter
@@ -3823,7 +3823,7 @@ processor:
       > uniquely identifiable. Fields with the same series key (measurement +
       > tags) will overwrite one another.
     introduced: v1.7.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Cumulative Sum
     id: cumulative_sum
@@ -3836,7 +3836,7 @@ processor:
       > Metrics within a series are accumulated in the **order of arrival** and
       > not in order of their timestamps!
     introduced: v1.35.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Date
     id: date
@@ -3844,7 +3844,7 @@ processor:
       This plugin adds the metric timestamp as a human readable tag. A common
       use is to add a tag that can be used to group by month or year.
     introduced: v1.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Dedup
     id: dedup
@@ -3853,7 +3853,7 @@ processor:
       the previous values. This plugin will store its state between runs if the
       `statefile` option in the agent config section is set.
     introduced: v1.14.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [filtering]
   - name: Defaults
     id: defaults
@@ -3861,7 +3861,7 @@ processor:
       This plugin allows to specify default values for fields and tags for
       cases where the tag or field does not exist or has an empty value.
     introduced: v1.15.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Enum
     id: enum
@@ -3871,7 +3871,7 @@ processor:
       into human-readable values or vice versa. Default mappings can be
       configured to be used for all remaining values.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Execd
     id: execd
@@ -3880,7 +3880,7 @@ processor:
       metrics in to the process's `stdin` and reads processed metrics from its
       `stdout`. Program output on `stderr` is logged.
     introduced: v1.15.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [general purpose]
   - name: Filepath
     id: filepath
@@ -3889,7 +3889,7 @@ processor:
       the last path element, for tag and field values. Values can be modified
       in place or stored in another key.
     introduced: v1.15.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Filter
     id: filter
@@ -3903,14 +3903,14 @@ processor:
       > The filtering is _not_ output specific, but will apply to the metrics
       > processed by this processor.
     introduced: v1.29.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [filtering]
   - name: Network Interface Name
     id: ifname
     description: |
       This plugin looks up network interface names using SNMP.
     introduced: v1.15.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [annotation]
   - name: Lookup
     id: lookup
@@ -3934,7 +3934,7 @@ processor:
       > The plugin only supports the addition of tags and thus all mapped
       > tag-values need to be strings!
     introduced: v1.15.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [annotation]
   - name: Noise
     id: noise
@@ -3944,7 +3944,7 @@ processor:
       and added to the value. The function type can be configured as _Laplace_,
       _Gaussian_ or _Uniform_.
     introduced: v1.22.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Override
     id: override
@@ -3958,7 +3958,7 @@ processor:
       > [Metric filtering](/telegraf/v1/configuration/#metric-filtering) options
       > apply to both the clone and the original metric.
     introduced: v1.6.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Parser
     id: parser
@@ -3967,7 +3967,7 @@ processor:
       format](/telegraf/v1/data_formats/input) and creates new metrics based on
       the resulting fields and tags.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Pivot
     id: pivot
@@ -3980,7 +3980,7 @@ processor:
       > To perform the reverse operation use the
       > [unpivot](/telegraf/v1/plugins/#processor-unpivot) processor.
     introduced: v1.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Port Name Lookup
     id: port_name
@@ -3989,7 +3989,7 @@ processor:
       port, either a number (e.g. `80`) for TCP ports or a port and protocol
       (e.g. `443/tcp`), to the registered service name.
     introduced: v1.15.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [annotation]
   - name: Printer
     id: printer
@@ -3997,7 +3997,7 @@ processor:
       This plugin prints every metric passing through it to the standard
       output.
     introduced: v1.1.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [testing]
   - name: Regex
     id: regex
@@ -4009,14 +4009,14 @@ processor:
       The regex processor **only operates on string fields**. It will not work
       on any other data types, like an integer or float.
     introduced: v1.7.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Rename
     id: rename
     description: |
       This plugin allows to rename measurements, fields and tags.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Reverse DNS
     id: reverse_dns
@@ -4024,7 +4024,7 @@ processor:
       This plugin does a reverse-dns lookup on tags or fields containing IPs
       and creates a tag or field containing the corresponding DNS name.
     introduced: v1.15.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [annotation]
   - name: S2 Geo
     id: s2geo
@@ -4034,7 +4034,7 @@ processor:
       S2 cell ID token of specified [cell
       level](https://s2geometry.io/resources/s2cell_statistics.html).
     introduced: v1.14.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [annotation]
   - name: Scale
     id: scale
@@ -4053,7 +4053,7 @@ processor:
       > Neither the input nor output values are clipped to their respective
       > ranges!
     introduced: v1.27.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: SNMP Lookup
     id: snmp_lookup
@@ -4061,7 +4061,7 @@ processor:
       This plugin looks up extra information via SNMP and adds it to the metric
       as tags.
     introduced: v1.30.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [annotation]
   - name: Split
     id: split
@@ -4077,7 +4077,7 @@ processor:
       > templates before putting into production *and* use metric filtering to
       > avoid data loss.
     introduced: v1.28.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Starlark
     id: starlark
@@ -4095,7 +4095,7 @@ processor:
       specification](https://github.com/google/starlark-go/blob/d1966c6b9fcd/doc/spec.md)**
       has details about the syntax and available functions.
     introduced: v1.15.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [general purpose]
   - name: Strings
     id: strings
@@ -4103,7 +4103,7 @@ processor:
       This plugin allows to manipulate strings in the measurement name, tag and
       field values using different functions.
     introduced: v1.8.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Tag Limit
     id: tag_limit
@@ -4117,7 +4117,7 @@ processor:
       high levels of cardinality are computationally and/or financially
       expensive.
     introduced: v1.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [filtering]
   - name: Template
     id: template
@@ -4132,7 +4132,7 @@ processor:
       syntax](https://golang.org/pkg/text/template/) and may contain [Sprig
       functions](http://masterminds.github.io/sprig/).
     introduced: v1.14.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Timestamp
     id: timestamp
@@ -4140,7 +4140,7 @@ processor:
       This plugin allows to parse fields containing timestamps into timestamps
       of other format.
     introduced: v1.31.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: TopK
     id: topk
@@ -4151,7 +4151,7 @@ processor:
       computing the aggregate functions for each group every period and
       outputting the top `K` groups.
     introduced: v1.7.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
   - name: Unpivot
     id: unpivot
@@ -4164,5 +4164,5 @@ processor:
       > To perform the reverse operation use the
       > [pivot](/telegraf/v1/plugins/#processor-pivot) processor.
     introduced: v1.12.0
-    os_support: [freebsd, linux, macos, windows]
+    os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
