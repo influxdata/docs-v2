@@ -56,9 +56,8 @@ And removes the following deprecated plugin options:
 - `trace` of `outputs.remotefile` in [#17173](https://github.com/influxdata/telegraf/pull/17173)
 - `host`, `port` and `string_to_number` of `outputs.wavefront` in [#17172](https://github.com/influxdata/telegraf/pull/17172)
 
-Replacements do exist, so please migrate your configuration in case you are
-still using one of those plugins or options. The `telegraf config migrate`
-command might be able to assist with the procedure.
+If you're using deprecated Telegraf plugins or options, migrate your configuration to use the available replacements.
+The `telegraf config migrate` command might be able to help with the migration.
 
 ### New Plugins
 
