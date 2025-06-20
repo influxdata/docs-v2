@@ -1,96 +1,25 @@
 <!-- TOC -->
-
-- [Install {{% product-name %}}](#install-influxdb-3-{{% product-key %}})
-  - [Verify the installation](#verify-the-installation)
+- [Prerequisites](#prerequisites)
 - [Start InfluxDB](#start-influxdb)
-  - [{{% product-name %}} store examples](#influxdb-3-{{% product-key %}}-store-examples)
+- [Configure for your object store](#configure-for-your-object-store)
+  - [Object store examples](#object-store-examples)
+{{% show-in "enterprise" %}}
 - [Set up licensing](#set-up-licensing)
+{{% /show-in %}}
 - [Set up authorization](#set-up-authorization)
   - [Create an operator token](#create-an-operator-token)
   - [Set your token for authorization](#set-your-token-for-authorization)
 
 <!-- /TOC -->
 
-## Install {{% product-name %}}
+## Prerequisites
 
-{{% product-name %}} runs on **Linux**, **macOS**, and **Windows**.
-If using **Linux** or **macOS**, you can download and use the {{% product-name %}}
-quick installer using [curl](https://curl.se/download.html):
+To get started, you'll need:
 
-<!--pytest.mark.skip-->
-```bash
-curl -O https://www.influxdata.com/d/install_influxdb3.sh \
-&& sh install_influxdb3.sh {{% show-in "enterprise" %}}enterprise{{% /show-in %}}
-```
-
-For detailed installation instructions, including for Windows and Docker,
-see [Install {{% product-name %}}](/influxdb3/version/install/).
-
-{{% show-in "enterprise" %}}
-> [!Note]
-> For information about setting up a multi-node {{% product-name %}} cluster,
-> see [Create a multi-node cluster](/influxdb3/enterprise/install/multi-server/).
-{{% /show-in %}}
-
-You can also download and install [{{% product-name %}} build artifacts](/influxdb3/enterprise/install/#download-influxdb-3-enterprise-binaries) directly:
-
-{{< expand-wrapper >}}
-{{% expand "Linux binaries" %}}
-
-- [Linux | AMD64 (x86_64) | GNU](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_amd64.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_amd64.tar.gz.sha256)
-- [Linux | ARM64 (AArch64) | GNU](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_arm64.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_linux_arm64.tar.gz.sha256)
-
-{{% /expand %}}
-{{% expand "macOS binaries" %}}
-
-- [macOS | Silicon (ARM64)](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_darwin_arm64.tar.gz)
-  •
-  [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}_darwin_arm64.tar.gz.sha256)
-
-> [!Note]
-> macOS Intel builds are coming soon.
-
-{{% /expand %}}
-{{% expand "Windows binaries" %}}
-
-- [Windows (AMD64, x86_64) binary](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}-windows_amd64.zip)
- •
-[sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}}-{{< latest-patch >}}-windows_amd64.zip.sha256)
-
-{{% /expand %}}
-{{% expand "Docker image" %}}
-
-The [`influxdb:3-enterprise` image](https://hub.docker.com/_/influxdb/tags?tag=3-core&name=3-enterprise)
-is available for x86_64 (AMD64) and ARM64 architectures.
-
-Pull the image:
-
-<!--pytest.mark.skip-->
-```bash
-docker pull influxdb:3-enterprise
-```
-{{% /expand %}}
-{{< /expand-wrapper >}}
-
-### Verify the installation
-
-After installing {{% product-name %}}, enter the following command to verify
-that it installed successfully:
-
-```bash
-influxdb3 --version
-```
-
-If your system doesn't locate `influxdb3`, then `source` the configuration file (for example, .bashrc, .zshrc) for your shell--for example:
-
-<!--pytest.mark.skip-->
-```zsh
-source ~/.zshrc
-```
+- **{{% product-name %}}**: [Install and verify the latest version](/influxdb3/version/install/) on your system.
+- If you want to persist data, have access to one of the following:
+  - S3-compatible object store and credentials
+  - A directory on your local disk where you can persist data
 
 ## Start InfluxDB
 
@@ -108,11 +37,10 @@ Provide the following:
   - `s3`: AWS S3 and S3-compatible services like Ceph or Minio
   - `google`: Google Cloud Storage
   - `azure`: Azure Blob Storage
-
-  > [!Note]  
-  > Depending on the object store type, you may need to provide additional
-  > options for your object store configuration.
-
+{{% show-in "core" %}}
+- `--node-id`: A string identifier that distinguishes individual server instances.
+  This forms the final part of the storage path: `<CONFIGURED_PATH>/<NODE_ID>`.
+{{% /show-in %}}
 {{% show-in "enterprise" %}}
 - `--node-id`: A string identifier that distinguishes individual server
   instances within the cluster. This forms the final part of the storage path:
@@ -123,12 +51,14 @@ Provide the following:
   The storage path follows the pattern `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`.
   In a multi-node setup, this ID is used to reference the entire cluster.
 {{% /show-in %}}
-{{% show-in "core" %}}
-- `--node-id`: A string identifier that distinguishes individual server instances.
-  This forms the final part of the storage path: `<CONFIGURED_PATH>/<NODE_ID>`.
-{{% /show-in %}}
 
-The following examples show how to start {{% product-name %}} with different object store configurations.
+### Configure for your object store
+
+Depending on the object store type, you may need to provide additional
+options, such as access credentials, for your object store configuration.
+
+The following examples show how to start {{% product-name %}} with different
+object store configurations.
 
 > [!Note]
 > #### Diskless architecture
@@ -143,32 +73,10 @@ The following examples show how to start {{% product-name %}} with different obj
 > separation between clusters and individual nodes.
 > {{% /show-in %}}
 
-For this getting started guide, use the `file` object store to persist data to
-your local disk.
+_For this getting started guide, use the `file` object store to persist data to
+your local disk._
 
-{{% show-in "enterprise" %}}
-```bash
-# File system object store
-# Provide the filesystem directory
-influxdb3 serve \
-  --node-id host01 \
-  --cluster-id cluster01 \
-  --object-store file \
-  --data-dir ~/.influxdb3
-```
-{{% /show-in %}}
-{{% show-in "core" %}}
-```bash
-# File system object store
-# Provide the file system directory
-influxdb3 serve \
-  --node-id host01 \
-  --object-store file \
-  --data-dir ~/.influxdb3
-```
-{{% /show-in %}}
-
-### {{% product-name %}} store examples
+### Object store examples
 
 {{< expand-wrapper >}}
 {{% expand "File system object store" %}}
@@ -210,7 +118,6 @@ provide the following options with your `docker run` command:
 - `--volume /path/on/host:/path/in/container`: Mounts a directory from your file system to the container
 - `--object-store file --data-dir /path/in/container`: Use the volume mount for object storage
 
-
 {{% show-in "enterprise" %}}
 <!--pytest.mark.skip-->
 ```bash
@@ -248,6 +155,88 @@ docker run -it \
 > To map the exposed port to a different port when running a container, see the
 > Docker guide for [Publishing and exposing ports](https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/).
 
+{{% /expand %}}
+{{% expand "Docker compose with a mounted file system object store" %}}
+{{% show-in "enterprise" %}}
+1. Open `compose.yaml` for editing and add a `services` entry for {{% product-name %}}.
+   --for example:
+   
+   ```yaml
+   # compose.yaml
+   services:
+     influxdb3-{{< product-key >}}:
+       container_name: influxdb3-{{< product-key >}}
+       image: influxdb:3-{{< product-key >}}
+       ports:
+         - 8181:8181 
+       command:
+         - influxdb3
+         - serve
+         - --node-id=node0
+         - --cluster-id=cluster0
+         - --object-store=file
+         - --data-dir=/var/lib/influxdb3
+         - --plugins-dir=/var/lib/influxdb3-plugins
+         - --license-email=EMAIL_ADDRESS
+   ```
+   _Replace `EMAIL_ADDRESS` with your email address to bypass the email prompt
+   when generating a trial or at-home license._
+{{% /show-in %}}
+{{% show-in "core" %}}
+1. Open `compose.yaml` for editing and add a `services` entry for {{% product-name %}}--for example:
+
+   ```yaml
+   # compose.yaml
+   services:
+     influxdb3-{{< product-key >}}:
+       container_name: influxdb3-{{< product-key >}}
+       image: influxdb:3-{{< product-key >}}
+       ports:
+         - 8181:8181
+       command:
+         - influxdb3
+         - serve
+         - --node-id=node0
+         - --object-store=file
+         - --data-dir=/var/lib/influxdb3
+         - --plugins-dir=/var/lib/influxdb3-plugins
+   ```
+{{% /show-in %}}
+
+2. Use the Docker Compose CLI to start the server.
+
+   Optional: to make sure you have the latest version of the image before you
+   start the server, run `docker compose pull`.
+
+   <!--pytest.mark.skip-->
+   ```bash
+   docker compose pull && docker compose run influxdb3-{{< product-key >}}
+   ```
+
+InfluxDB 3 starts in a container with host port `8181` mapped to container port
+`8181`, the `influxdb3` server default for HTTP connections.
+
+> [!Tip]
+> #### Custom port mapping
+>
+> To customize your `influxdb3` server hostname and port, specify the
+> [`--http-bind` option or the `INFLUXDB3_HTTP_BIND_ADDR` environment variable](/influxdb3/version/reference/config-options/#http-bind).
+>
+> For more information about mapping your container port to a specific host port, see the
+> Docker guide for [Publishing and exposing ports](https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/).
+
+> [!Note]
+> #### Stopping an InfluxDB 3 container
+>
+> To stop a running InfluxDB 3 container, find and terminate the process or container--for example:
+>
+> <!--pytest.mark.skip-->
+> ```bash
+> docker container ls --filter "name=influxdb3"
+> docker kill <CONTAINER_ID>
+> ```
+>
+> _Currently, a bug prevents using {{< keybind all="Ctrl+c" >}} in the terminal to stop an InfluxDB 3 container._
 {{% /expand %}}
 {{% expand "S3 object storage" %}}
 
@@ -349,79 +338,88 @@ influxdb3 serve --help
 {{% show-in "enterprise" %}}
 ## Set up licensing
 
-When starting a new {{% product-name %}} instance, you must provide a **valid license key** to enable Enterprise features such as clustering, plugin support, and multi-user authorization.
-
-InfluxDB 3 Enterprise licenses:
-
-- **Authorize** usage of InfluxDB 3 Enterprise software.
-- **Apply per cluster**, with limits based primarily on CPU cores.
-- **Vary by license type**, each offering different capabilities and restrictions.
-
-### Available license types:
+When you first start a new instance, {{% product-name %}} prompts you to select a
+license type. InfluxDB 3 Enterprise licenses authorize the use of the
+InfluxDB 3 Enterprise software and apply to a single cluster. Licenses are
+primarily based on the number of CPUs InfluxDB can use, but there are other
+limitations depending on the license type. The following InfluxDB 3 Enterprise
+license types are available:
 
 - **Trial**: 30-day trial license with full access to InfluxDB 3 Enterprise capabilities.
 - **At-Home**: For at-home hobbyist use with limited access to InfluxDB 3 Enterprise capabilities.
 - **Commercial**: Commercial license with full access to InfluxDB 3 Enterprise capabilities.
 
-### Start InfluxDB 3 Enterprise with your license
-
-Use the following `docker run` command to start an InfluxDB 3 Enterprise container using your email address to activate a trial or at-home license.
-
-{{% code-placeholders "YOUR_EMAIL_ADDRESS" %}}
-
-```bash
-docker run -d --name influxdb3-enterprise \
-  -v "$PWD/data:/var/lib/influxdb3" \
-  -v "$PWD/plugins:/plugins" \
-  -p 8181:8181 \
-  -e INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=YOUR_EMAIL_ADDRESS \
-  quay.io/influxdb/influxdb3-enterprise:latest \
-  serve \
-    --cluster-id cluster1 \
-    --node-id node1 \
-    --plugin-dir /plugins \
-    --object-store file \
-    --data-dir /var/lib/influxdb3
-```
-
-{{% /code-placeholders %}}
-
-- Replace `YOUR_EMAIL_ADDRESS` with the email you want to associate with the license.
-
-Once the Docker container is running, create an admin token to authenticate requests:
-
-{{% code-placeholders "YOUR_LICENSE_KEY" %}}
-
-```bash
-docker exec -it influxdb3-enterprise influxdb3 create token --admin
-```
-
-{{% /code-placeholders %}}
-
-Use the token to create a database:
-
-{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
-
-```bash
-docker exec -it influxdb3-enterprise \
-  influxdb3 create database example_db --token YOUR_AUTH_TOKEN
-```
-
-{{% /code-placeholders %}}
-
-> [!Note]
-> A valid license is required to use `create token` and other authorization features in {{% product-name %}}.
-
-For more information, see [Manage your InfluxDB 3 Enterprise license](/influxdb3/enterprise/admin/license/).
+> [!Important]
+> #### Trial and at-home licenses with Docker
+>
+> To generate a trial or home license for InfluxDB 3 in Docker, the first time
+> you start a new instance, provide your email address with the
+> `--license-email` option or the
+> `INFLUXDB3_LICENSE_EMAIL` environment variable to bypass the licensing
+> email prompt--for example:
+>
+> {{< code-tabs-wrapper >}}
+> {{% code-tabs %}}
+> [Docker CLI](#)
+> [Docker Compose file](#)
+> {{% /code-tabs %}}
+> {{% code-tab-content %}}
+> {{% code-placeholders "EMAIL_ADDRESS" %}}
+> ```bash
+> docker run -d --name influxdb3-enterprise \
+>   -v "$PWD/data:/var/lib/influxdb3" \
+>   -v "$PWD/plugins:/plugins" \
+>   -p 8181:8181 \
+>   quay.io/influxdb/influxdb3-enterprise:latest \
+>   serve \
+>     --cluster-id cluster1 \
+>     --node-id node1 \
+>     --plugin-dir /plugins \
+>     --object-store file \
+>     --data-dir /var/lib/influxdb3
+> ```
+> {{% /code-placeholders %}}
+> - Replace {{% code-placeholder-key %}}`EMAIL_ADDRESS`{{% /code-placeholder-key %}} with the email you want to associate with the license.
+> {{% /code-tab-content %}}
+> {{% code-tab-content %}}
+> {{% code-placeholders "EMAIL_ADDRESS" %}}
+> ```yaml
+> # compose.yaml
+> services:
+>   influxdb3-{{< product-key >}}:
+>     container_name: influxdb3-{{< product-key >}}
+>     image: influxdb:3-{{< product-key >}}
+>     ports:
+>       - 8181:8181
+>     command:
+>       - influxdb3
+>       - serve
+>       - --node-id=node0
+>       - --object-store=file
+>       - --data-dir=/var/lib/influxdb3
+>       - --plugins-dir=/var/lib/influxdb3-plugins
+      environment:
+>       - INFLUXDB3_LICENSE_EMAIL=${EMAIL_ADDRESS}
+> ```
+> {{% /code-placeholders %}}
+> {{% code-placeholder-key %}}`EMAIL_ADDRESS`{{% /code-placeholder-key %}} is
+> the email you want to associate with the license. This example shows how
+> to reference an email address set in your `.env` file.
+> {{% /code-tab-content %}}
+> {{< /code-tabs-wrapper >}}
+>
+> _Currently, if you use the prompt to enter your email address, a bug may
+> prevent the container from generating the license ._
+>
+> For more information, see [Manage your InfluxDB 3 Enterprise license](/influxdb3/enterprise/admin/license/).
 {{% /show-in %}}
 
 > [!Tip]
 > #### Use the InfluxDB 3 Explorer query interface (beta)
-> 
-> The remainder of the getting started guide can be completed using
-> InfluxDB 3 Explorer (currently in beta), the web-based query and 
-> administrative interface for InfluxDB 3, but doesn't include instructions for
-> Explorer. Explorer provides visual management of databases and tokens and an
+>
+> You can complete the remaining steps in this guide using InfluxDB 3 Explorer
+> (currently in beta), the web-based query and administrative interface for InfluxDB 3.
+> Explorer provides visual management of databases and tokens and an
 > easy way to write and query your time series data.
 > 
 > For more information, see the [InfluxDB 3 Explorer documentation](/influxdb3/explorer/).
@@ -512,7 +510,8 @@ In your command, replace {{% code-placeholder-key %}}`YOUR_AUTH_TOKEN`{{% /code-
 {{% /tabs %}}
 {{% tab-content %}}
 
-Set the `INFLUXDB3_AUTH_TOKEN` environment variable to have the CLI use your token  automatically:
+Set the `INFLUXDB3_AUTH_TOKEN` environment variable to have the CLI use your
+token automatically:
 
 {{% code-placeholders "YOUR_AUTH_TOKEN" %}}
 ```bash
@@ -570,7 +569,7 @@ curl "http://{{< influxdb/host >}}/api/v3/configure/database" \
 {{% /show-in %}}
 - [Authentication](/influxdb3/version/reference/internals/authentication/) -
   Understand authentication, authorizations, and permissions in {{% product-name %}}
-
+<!-- //TODO - Authenticate with compatibility APIs -->
 {{% page-nav
   prev="/influxdb3/version/get-started/"
   prevText="Get started"
