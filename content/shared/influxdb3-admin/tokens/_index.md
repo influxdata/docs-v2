@@ -95,7 +95,7 @@ curl "http://localhost:8181/write?db=DATABASE_NAME&u=admin&p=YOUR_AUTH_TOKEN" \
 Replace the following with your values:
 
 - {{% code-placeholder-key %}}`YOUR_AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link %}}
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/version/databases) you want to query
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/version/admin/databases) you want to query
 
 To use tokens with other clients for {{< product-name >}},
 see the client-specific documentation:
