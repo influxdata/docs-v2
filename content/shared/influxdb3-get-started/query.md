@@ -514,6 +514,6 @@ or specific tables. For more information, see
 {{% page-nav
   prev="/influxdb3/version/get-started/write/"
   prevText="Write data"
-  next="/influxdb3/version/get-started/processing-engine/"
+  next="/influxdb3/version/get-started/process/"
   nextText="Processing engine"
 %}}
