@@ -54,7 +54,7 @@ This tutorial covers many of the recommended tools.
 | [InfluxDB 3 client libraries](/influxdb3/version/reference/client-libraries/v3/)  |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [InfluxDB v2 client libraries](/influxdb3/version/reference/client-libraries/v2/) |            -             | **{{< icon "check" >}}** |            -             |
 | [InfluxDB v1 client libraries](/influxdb3/version/reference/client-libraries/v1/) |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
-| [InfluxDB 3 processing engine](#python-plugins-and-the-processing-engine)         |                          | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [InfluxDB 3 processing engine](/influxdb3/version/plugins/)         |                          | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [Telegraf](/telegraf/v1/)                                                         |            -             | **{{< icon "check" >}}** |            -             |
 | [Chronograf](/chronograf/v1/)                                                     |            -             |            -             |            -             |
 | <span style="opacity:.5;">`influx` CLI</span>                                     |            -             |            -             |            -             |

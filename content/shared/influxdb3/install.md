@@ -1,8 +1,10 @@
 <!-- Comment: This file is used to generate the InfluxDB 3 install page. -->
 - [System Requirements](#system-requirements)
-- [Quick install](#quick-install)
-- [Download {{% product-name %}} binaries](#download-influxdb-3-{{< product-key >}}-binaries)
-- [Docker image](#docker-image)
+- [Install](#install)
+  - [Quick install for Linux and macOS](#quick-install-for-linux-and-macos)
+  - [Download and install the latest build artifacts](#download-and-install-the-latest-build-artifacts)
+  - [Pull the Docker image](#pull-the-docker-image)
+  - [Verify the installation](#verify-the-installation)
 
 {{% show-in "enterprise" %}}
 > [!Note]
@@ -27,7 +29,7 @@ Azure Blob Storage, and Google Cloud Storage.
 You can also use many local object storage implementations that provide an
 S3-compatible API, such as [Minio](https://min.io/).
 
-## Install {{% product-name %}}
+## Install
 
 {{% product-name %}} runs on **Linux**, **macOS**, and **Windows**.
 

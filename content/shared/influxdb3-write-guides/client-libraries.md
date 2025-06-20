@@ -2,10 +2,11 @@ Use InfluxDB 3 client libraries that integrate with your code to construct data
 as time series points, and then write them as line protocol to an
 {{% product-name %}} database.
 
+- [Set up your project](#set-up-your-project)
+  - [Initialize a project directory](#initialize-a-project-directory)
+  - [Install the client library](#install-the-client-library)
 - [Construct line protocol](#construct-line-protocol)
   - [Example home schema](#example-home-schema)
-- [Set up your project](#set-up-your-project)
-- [Construct points and write line protocol](#construct-points-and-write-line-protocol)
 
 ## Set up your project
 
@@ -201,7 +202,7 @@ pip install influxdb3-python pandas
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-### Construct line protocol
+## Construct line protocol
 
 With a [basic understanding of line protocol](/influxdb3/version/write-data/#line-protocol),
 you can construct line protocol data and write it to {{% product-name %}}.
@@ -218,7 +219,7 @@ points.
 Examples in this guide show how to construct `Point` objects that follow the [example `home` schema](#example-home-schema),
 and then write the points as line protocol data to an {{% product-name %}} database.
 
-#### Example home schema
+### Example home schema
 
 Consider a use case where you collect data from sensors in your home. Each
 sensor collects temperature, humidity, and carbon monoxide readings.

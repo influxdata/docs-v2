@@ -225,7 +225,7 @@ Replace the following in the sample script:
 
 ## Home sensor actions data
 
-Includes hypothetical actions triggered by data in the [Get started home sensor data](#get-started-home-sensor-data)
+Includes hypothetical actions triggered by data in the [home sensor data](#home-sensor-data)
 and is a companion dataset to that sample dataset.
 To customize timestamps in the dataset, use the {{< icon "clock" >}} button in
 the lower right corner of the page.

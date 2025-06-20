@@ -476,8 +476,8 @@ InfluxQL and the established InfluxQL-related APIs you have been using.
 {{% product-name %}} provides the following optimization options to improve
 specific kinds of queries:
 
-- [Last values cache](#last-value-cache)
-- [Distinct values cache](#distinct-value-cache)
+- [Last values cache](#last-values-cache)
+- [Distinct values cache](#distinct-values-cache)
 {{% show-in "enterprise" %}}- [File indexes](#file-indexes){{% /show-in %}}
 
 ### Last values cache
