@@ -25,23 +25,32 @@ S3-compatible API, such as [Minio](https://min.io/).
 
 Before installing InfluxDB 3, complete the following:
 
-### Prepare a host data directory 
+### 1. Prepare a host data directory 
 
-When running InfluxDB 3 in Docker, mount a host directory to `/var/lib/influxdb3`  
-to persist your data and configuration across container restarts.
+When running InfluxDB 3 in Docker, mount a host directory to `/var/lib/influxdb3` to persist your data and configuration across container restarts.
 
-Create a directory and set appropriate permissions:
+> [!Note] 
+> Instead of using `/var/lib/influxdb3` directly on your host, use a local directory in your current working directory. 
+> This approach makes it easier to manage and access the files.
+
+#### Create the directory 
+
+Create a directory
 
 ```bash
 # Create a data directory in your working directory
 mkdir -p $PWD/influxdb3-data
 ```
 
+#### Set permissions
+
+Set the appropriate permissions so InfluxDB can write data to the directory:
+
 ```bash
 # Set permissions to allow InfluxDB to write data
 chmod 755 $PWD/influxdb3-data
 ```
-You’ll mount this directory when you start the container.
+You’ll mount this directory to `/var/lib/influxdb3` when you start the container.
 
 ## Quick install
 
@@ -183,14 +192,6 @@ influxdb:3-{{< product-key >}}
 > [!Note]
 > The {{% product-name %}} Docker image exposes port `8181`, the `influxdb3` server default for HTTP connections.
 > To map the exposed port to a different port when running a container, see the Docker guide for [Publishing and exposing ports](https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/).
-
-> [!TIP]
-> To persist data when running InfluxDB in a Docker container, mount a local directory to `/var/lib/influxdb3` and set secure permissions:
-> ```bash
-> mkdir -p /var/lib/influxdb3
-> chmod 700 /var/lib/influxdb3
-> ```
-> This ensures InfluxDB can write data and your data stays secure.
 
 ### Use Docker Compose
 
