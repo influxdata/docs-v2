@@ -73,7 +73,7 @@ with your `influxdb3 serve` command:
 {{% code-placeholders "AWS_(BUCKET_NAME|ACCESS_KEY_ID|SECRET_ACCESS_KEY)" %}}
 <!-- pytest.mark.skip -->
 ```bash
-influxdb3 server \
+influxdb3 serve \
   # ...
   --object-store s3 \
   --bucket AWS_BUCKET_NAME \
@@ -103,7 +103,7 @@ with your `influxdb3 serve` command:
 {{% code-placeholders "AZURE_(CONTAINER_NAME|STORAGE_ACCOUNT|STORAGE_ACCESS_KEY)" %}}
 <!-- pytest.mark.skip -->
 ```bash
-influxdb3 server \
+influxdb3 serve \
   # ...
   --object-store azure \
   --bucket AZURE_CONTAINER_NAME \
@@ -128,7 +128,7 @@ with your `influxdb3 serve` command:
 {{% code-placeholders "GOOGLE_(BUCKET_NAME|SERVICE_ACCOUNT)" %}}
 <!-- pytest.mark.skip -->
 ```bash
-influxdb3 server \
+influxdb3 serve \
   # ...
   --object-store google \
   --bucket GOOGLE_BUCKET_NAME \
@@ -163,7 +163,7 @@ Each node can run in one _or more_ of the following modes:
 #### Configure a node to only handle write requests
 <!-- pytest.mark.skip -->
 ```bash
-influxdb3 server \
+influxdb3 serve \
   # ...
   --mode ingest
 ```
@@ -171,7 +171,7 @@ influxdb3 server \
 #### Configure a node to only run the Compactor
 <!-- pytest.mark.skip -->
 ```bash
-influxdb3 server \
+influxdb3 serve \
   # ...
   --mode compact
 ```
@@ -179,7 +179,7 @@ influxdb3 server \
 #### Configure a handle query requests and run the processing engine
 <!-- pytest.mark.skip -->
 ```bash
-influxdb3 server \
+influxdb3 serve \
   # ...
   --mode query,process
 ```
