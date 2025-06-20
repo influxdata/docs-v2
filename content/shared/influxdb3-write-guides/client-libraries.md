@@ -14,7 +14,7 @@ Set up your {{< product-name >}} project and credentials
 to write data using the InfluxDB 3 client library for your programming language
 of choice.
 
-1. [Install {{< product-name >}}](/influxdb3/version/get-started/install/)
+1. [Install {{< product-name >}}](/influxdb3/version/install/)
 2. [Set up {{< product-name >}}](/influxdb3/version/get-started/setup/) 
 3. Create a project directory and store your
    {{< product-name >}} credentials as environment variables or in a project
