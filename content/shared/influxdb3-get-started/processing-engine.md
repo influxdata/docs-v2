@@ -257,4 +257,12 @@ influxdb3 enable trigger \
   trigger1 
 ```
 
-For more information, see [Python plugins and the Processing engine](/influxdb3/version/plugins/).
+## Next steps
+
+If you've completed this Get Started guide for {{% product-name %}},
+learn more about options and tools for:
+
+- [Writing data](/influxdb3/version/write-data/)
+- [Querying data](/influxdb3/version/query-data/)
+- [Processing data](/influxdb3/version/process-data/)
+- [Visualizing data](/influxdb3/version/visualize-data/)

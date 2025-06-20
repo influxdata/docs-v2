@@ -36,14 +36,11 @@ and provide the following:
 
 The `query` subcommand includes options to help ensure that the right database is queried with the correct permissions. Only the `--database` option is required, but depending on your specific setup, you may need to pass other options, such as host, port, and token.
 
-| Option | Description | Required |
-|---------|-------------|--------------|
-| `--host` | The host URL of the server [default: `http://127.0.0.1:8181`] to query | No |
-| `--database` | The name of the database to operate on | Yes |
-| `--token` | The authentication token for the {{% product-name %}} server | No |
-| `--language` | The query language of the provided query string [default: `sql`] [possible values: `sql`, `influxql`] | No  |
-| `--format` | The format in which to output the query [default: `pretty`] [possible values: `pretty`, `json`, `jsonl`, `csv`, `parquet`] | No |
-| `--output` | The path to output data to | No |
+> [!Important]
+> If the `INFLUXDB3_AUTH_TOKEN` environment variable defined in
+> [Set up {{% product-name %}}](/influxdb3/version/get-started/setup/#set-your-token-for-authorization)
+> isn't set in your environment, set it or provide your token using
+> the `-t, --token` option in your command.
 
 #### Example: query `“SHOW TABLES”` on the `servers` database:
 
