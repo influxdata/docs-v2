@@ -350,16 +350,70 @@ influxdb3 serve --help
 {{% show-in "enterprise" %}}
 ## Set up licensing
 
-When first starting a new instance, {{% product-name %}} prompts you to select a
-license type. InfluxDB 3 Enterprise licenses authorize the use of the
-InfluxDB 3 Enterprise software and apply to a single cluster. Licenses are
-primarily based on the number of CPUs InfluxDB can use, but there are other
-limitations depending on the license type. The following InfluxDB 3 Enterprise
-license types are available:
+When starting a new {{% product-name %}} instance, you must provide a **valid license key** to enable Enterprise features such as clustering, plugin support, and multi-user authorization.
+
+InfluxDB 3 Enterprise licenses:
+
+- **Authorize** usage of InfluxDB 3 Enterprise software.
+- **Apply per cluster**, with limits based primarily on CPU cores.
+- **Vary by license type**, each offering different capabilities and restrictions.
+
+### Available license types:
 
 - **Trial**: 30-day trial license with full access to InfluxDB 3 Enterprise capabilities.
 - **At-Home**: For at-home hobbyist use with limited access to InfluxDB 3 Enterprise capabilities.
 - **Commercial**: Commercial license with full access to InfluxDB 3 Enterprise capabilities.
+
+You can obtain a license key from the [InfluxData pricing page](https://www.influxdata.com/pricing/).
+
+### Start InfluxDB 3 Enterprise with your license
+
+To start InfluxDB 3 Enterprise in a Docker container, set the `INFLUX_LICENSE_KEY` environment variable:
+
+{{% code-placeholders "YOUR_LICENSE_KEY" %}}
+
+```bash
+docker run -d --name influxdb3-enterprise \
+  -v $PWD/data:/var/lib/influxdb3 \
+  -v $PWD/plugins:/plugins \
+  -p 8086:8086 \
+  -e INFLUX_LICENSE_KEY=YOUR_LICENSE_KEY \
+  influxdb:enterprise \
+  serve \
+    --cluster-id cluster1 \
+    --node-id node1 \
+    --plugin-dir /plugins \
+    --object-store file \
+    --data-dir /var/lib/influxdb3
+```
+
+{{% /code-placeholders %}}
+
+- Replace `YOUR_LICENSE_KEY` with your actual InfluxDB 3 Enterprise license key.
+
+Once the Docker container is running, create an admin token to authenticate requests:
+
+{{% code-placeholders "YOUR_LICENSE_KEY" %}}
+
+```bash
+docker exec -it influxdb3-enterprise influxdb3 create token --admin
+```
+
+{{% /code-placeholders %}}
+
+Use the token to create a database:
+
+{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
+
+```bash
+docker exec -it influxdb3-enterprise \
+  influxdb3 create database example_db --token YOUR_AUTH_TOKEN
+```
+
+{{% /code-placeholders %}}
+
+> [!Note]
+> A valid license is required to use `create token` and other authorization features in {{% product-name %}}.
 
 For more information, see [Manage your InfluxDB 3 Enterprise license](/influxdb3/enterprise/admin/license/).
 {{% /show-in %}}
