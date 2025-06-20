@@ -211,11 +211,8 @@ a database connection.
     
     **Query parameters**
 
-    - **`?database`**: URL-encoded InfluxDB database name
-    - **`?token`**: InfluxDB authorization token
-      
-      > [!Note]
-      > While in beta, {{< product-name >}} does not require an authorization token.
+    - **`?database`**: URL-encoded [database](/influxdb3/version/admin/databases/) name
+    - **`?token`**: {{< product-name >}} {{% token-link %}}
 
     {{< code-callout "&lt;(domain|port|database-name|token)&gt;" >}}
 {{< code-callout "localhost|8181|example-database|example-token" >}}

@@ -216,14 +216,9 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  the name of database to write to
+  the name of [database](/influxdb3/version/admin/databases/) to write to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your {{< product-name >}} authorization token
-  
-  > [!Note]
-  > While in beta, {{< product-name >}} does not require an authorization token.
-  > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
-  > you can provide an arbitrary token string.
+  your {{< product-name >}} {{% token-link %}} 
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -371,12 +366,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of database to write to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your {{< product-name >}} authorization token
-  
-  > [!Note]
-  > While in beta, {{< product-name >}} does not require an authorization token.
-  > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
-  > you can provide an arbitrary token string.
+  your {{< product-name >}} {{% token-link %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -478,12 +468,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of database to write to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your {{< product-name >}} authorization token
-  
-  > [!Note]
-  > While in beta, {{< product-name >}} does not require an authorization token.
-  > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
-  > you can provide an arbitrary token string.
+  your {{< product-name >}} {{% token-link %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -575,12 +560,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of database to write to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your {{< product-name >}} authorization token
-  
-  > [!Note]
-  > While in beta, {{< product-name >}} does not require an authorization token.
-  > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
-  > you can provide an arbitrary token string.
+  your {{< product-name >}} {{% token-link %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -674,12 +654,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of database to write to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your {{< product-name >}} authorization token
-  
-  > [!Note]
-  > While in beta, {{< product-name >}} does not require an authorization token.
-  > You can either omit the CLI `--token` option or the HTTP `Authorization` header or
-  > you can provide an arbitrary token string.
+  your {{< product-name >}} {{% token-link %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
