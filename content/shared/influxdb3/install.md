@@ -21,6 +21,37 @@ Azure Blob Storage, and Google Cloud Storage.
 You can also use many local object storage implementations that provide an
 S3-compatible API, such as [Minio](https://min.io/).
 
+## Prerequisites
+
+Before installing InfluxDB 3, complete the following:
+
+### 1. Prepare a host data directory 
+
+When running InfluxDB 3 in Docker, mount a host directory to `/var/lib/influxdb3` to persist your data and configuration across container restarts.
+
+> [!Note] 
+> Instead of using `/var/lib/influxdb3` directly on your host, use a local directory in your current working directory. 
+> This approach makes it easier to manage and access the files.
+
+#### Create the directory 
+
+Create a directory
+
+```bash
+# Create a data directory in your working directory
+mkdir -p $PWD/influxdb3-data
+```
+
+#### Set permissions
+
+Set the appropriate permissions so InfluxDB can write data to the directory:
+
+```bash
+# Set permissions to allow InfluxDB to write data
+chmod 755 $PWD/influxdb3-data
+```
+You’ll mount this directory to `/var/lib/influxdb3` when you start the container.
+
 ## Quick install
 
 Use the InfluxDB 3 quick install script to install {{< product-name >}} on
