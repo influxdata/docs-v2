@@ -184,6 +184,14 @@ influxdb:3-{{< product-key >}}
 > The {{% product-name %}} Docker image exposes port `8181`, the `influxdb3` server default for HTTP connections.
 > To map the exposed port to a different port when running a container, see the Docker guide for [Publishing and exposing ports](https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/).
 
+> [!TIP]
+> To persist data when running InfluxDB in a Docker container, mount a local directory to `/var/lib/influxdb3` and set secure permissions:
+> ```bash
+> mkdir -p /var/lib/influxdb3
+> chmod 700 /var/lib/influxdb3
+> ```
+> This ensures InfluxDB can write data and your data stays secure.
+
 ### Use Docker Compose
 
 {{% show-in "enterprise" %}}
