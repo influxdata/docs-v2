@@ -142,7 +142,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ## Write data using the CLI 
 
 To quickly get started writing data, use the
-[`influxdb3 write` command](/influxdb3/version/reference/clis/influxdb3/write/).
+[`influxdb3 write` command](/influxdb3/version/reference/cli/influxdb3/write/).
 Include the following:
 
 - `--database` option that identifies the target database
