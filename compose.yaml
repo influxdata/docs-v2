@@ -311,6 +311,31 @@ services:
       - --log-filter=debug
       - --object-store=file
       - --data-dir=/var/lib/influxdb3
+  influxdb3-enterprise:
+    container_name: influxdb3-enterprise
+    image: influxdb:3-enterprise
+    ports:
+      - 8181:8181
+    # Change the INFLUXDB3_LICENSE_EMAIL environment variable to your email address. You can also set it in a `.env` file in the same directory as this compose file. Docker Compose automatically loads the .env file.
+    # The license email option is only used the first time you run the container; you can't change the license email after the first run. 
+    # The server stores the license in the data directory in the object store and the license is associated with the cluster ID and email.
+    command:
+      - influxdb3
+      - serve
+      - --node-id=node0
+      - --cluster-id=cluster0
+      - --log-filter=debug
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3
+      - --plugin-dir=/var/lib/influxdb3/plugins
+      - --license-email=${INFLUXDB3_LICENSE_EMAIL}
+    volumes:
+      - type: bind 
+        source: docker/influxdb3/data
+        target: /var/lib/influxdb3
+      - type: bind 
+        source: docker/influxdb3/plugins
+        target: /var/lib/influxdb3-plugins
   telegraf-pytest:
     container_name: telegraf-pytest
     image: influxdata/docs-pytest

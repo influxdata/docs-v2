@@ -27,7 +27,7 @@ influxdb3_enterprise:
     - How do I install and run InfluxDB 3 Enterprise?
     - Help me write a plugin for the Python Processing engine?
     - How do I start a read replica node with InfluxDB 3 Enterprise?
-  
+
 influxdb3_explorer:
   name: InfluxDB 3 Explorer
   altname: Explorer
@@ -142,9 +142,9 @@ telegraf:
   menu_category: other
   list_order: 6
   versions: [v1]
-  latest: v1.34
+  latest: v1.35
   latest_patches:
-    v1: 1.34.1
+    v1: 1.35.0
   ai_sample_questions:
     - How do I install and configure Telegraf?
     - How do I write a custom Telegraf plugin?
