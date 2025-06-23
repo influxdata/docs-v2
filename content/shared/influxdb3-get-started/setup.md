@@ -368,17 +368,17 @@ You can obtain a license key from the [InfluxData pricing page](https://www.infl
 
 ### Start InfluxDB 3 Enterprise with your license
 
-To start InfluxDB 3 Enterprise in a Docker container, set the `INFLUX_LICENSE_KEY` environment variable:
+Use the following `docker run` command to start an InfluxDB 3 Enterprise container using your email address to activate a trial or at-home license.
 
-{{% code-placeholders "YOUR_LICENSE_KEY" %}}
+{{% code-placeholders "YOUR_EMAIL_ADDRESS" %}}
 
 ```bash
 docker run -d --name influxdb3-enterprise \
-  -v $PWD/data:/var/lib/influxdb3 \
-  -v $PWD/plugins:/plugins \
-  -p 8086:8086 \
-  -e INFLUX_LICENSE_KEY=YOUR_LICENSE_KEY \
-  influxdb:enterprise \
+  -v "$PWD/data:/var/lib/influxdb3" \
+  -v "$PWD/plugins:/plugins" \
+  -p 8181:8181 \
+  -e INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=YOUR_EMAIL_ADDRESS \
+  quay.io/influxdb/influxdb3-enterprise:latest \
   serve \
     --cluster-id cluster1 \
     --node-id node1 \
@@ -389,7 +389,7 @@ docker run -d --name influxdb3-enterprise \
 
 {{% /code-placeholders %}}
 
-- Replace `YOUR_LICENSE_KEY` with your actual InfluxDB 3 Enterprise license key.
+- Replace `YOUR_EMAIL_ADDRESS` with the email you want to associate with the license.
 
 Once the Docker container is running, create an admin token to authenticate requests:
 
