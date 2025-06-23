@@ -262,7 +262,7 @@ influxdb3 enable trigger \
 If you've completed this Get Started guide for {{% product-name %}},
 learn more about tools and options for:
 
-- [writing data](/influxdb3/version/write-data/)
-- [querying data](/influxdb3/version/query-data/)
-- [the processing engine and plugins](/influxdb3/version/plugins/)
-- [visualizing data](/influxdb3/version/visualize-data/)
+- [Writing data](/influxdb3/version/write-data/)
+- [Querying data](/influxdb3/version/query-data/)
+- [Processing data with plugins](/influxdb3/version/plugins/)
+- [Visualizing data](/influxdb3/version/visualize-data/)
