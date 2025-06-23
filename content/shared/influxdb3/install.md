@@ -39,7 +39,7 @@ mkdir -p $PWD/influxdb3-data
 
 #### Set permissions
 
-Set the appropriate permissions so InfluxDB can write data to the directory:
+Set the appropriate permissions for InfluxDB to write data to the directory:
 
 ```bash
 # Set permissions to allow InfluxDB to write data
