@@ -31,7 +31,6 @@ When running InfluxDB 3 in Docker, mount a host directory to `/var/lib/influxdb3
 
 #### Create the directory 
 
-Create a directory
 
 ```bash
 # Create a data directory in your working directory
