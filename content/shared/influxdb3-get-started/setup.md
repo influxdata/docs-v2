@@ -551,14 +551,6 @@ docker run --rm \
 ```
 {{% /code-placeholders %}}
 
-> [!Note]
-> Ensure that the database `example_db` exists in the running container.
-> To create it, run:
->
-> ```bash
-> docker exec -it influxdb3-core influxdb3 create database example_db --token YOUR_AUTH_TOKEN
-> ```
-
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
