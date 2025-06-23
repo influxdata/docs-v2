@@ -29,10 +29,6 @@ Before installing InfluxDB 3, complete the following:
 
 When running InfluxDB 3 in Docker, mount a host directory to `/var/lib/influxdb3` to persist your data and configuration across container restarts.
 
-> [!Note] 
-> Instead of using `/var/lib/influxdb3` directly on your host, use a local directory in your current working directory. 
-> This approach makes it easier to manage and access the files.
-
 #### Create the directory 
 
 Create a directory
