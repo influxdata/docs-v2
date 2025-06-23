@@ -34,5 +34,10 @@
         vertical-align: middle;
       }
     }
+
+    // Remove max-width when only one button is present
+    &:only-child {
+      max-width: none;
+    }
   }
 }

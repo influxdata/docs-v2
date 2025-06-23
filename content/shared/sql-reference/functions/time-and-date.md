@@ -209,6 +209,9 @@ date_bin_gapfill(interval, expression[, origin_timestamp])
   - hours
   - days
   - weeks
+
+<!-- https://github.com/influxdata/influxdb_iox/issues/9958 -->
+The following intervals are not currently supported:
   - months
   - years
   - century
