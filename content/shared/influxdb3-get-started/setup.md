@@ -474,7 +474,6 @@ In your command, replace {{% code-placeholder-key %}}`YOUR_AUTH_TOKEN`{{% /code-
 {{% tabs %}}
 [Environment variable (recommended)](#)
 [Command option](#)
-[Docker](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -495,23 +494,6 @@ Include the `--token` option with CLI commands:
 {{% code-placeholders "YOUR_AUTH_TOKEN" %}}
 ```bash
 influxdb3 show databases --token YOUR_AUTH_TOKEN
-```
-{{% /code-placeholders %}}
-
-{{% /tab-content %}}
-{{% tab-content %}}
-
-Run the CLI in a Docker container using the `INFLUXDB3_AUTH_TOKEN` environment variable:
-
-{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
-```bash
-docker run --rm \
-  -e INFLUXDB3_AUTH_TOKEN=YOUR_AUTH_TOKEN \
-  quay.io/influxdb/influxdb3:latest \
-  query \
-  --host http://host.docker.internal:8181 \
-  --database example_db \
-  "SHOW TABLES"
 ```
 {{% /code-placeholders %}}
 
