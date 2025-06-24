@@ -81,7 +81,7 @@ influxd-ctl backup /path/to/backup-dir
 ### Perform a full backup
 
 ```sh
-influxd-ctl backup -full /path/to/backup-dir
+influxd-ctl backup -strategy full /path/to/backup-dir
 ```
 
 ### Estimate the size of a backup
