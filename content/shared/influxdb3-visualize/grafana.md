@@ -69,13 +69,6 @@ When creating an InfluxDB data source that uses SQL to query data:
 
     - **Database**: Provide a default database name to query.
     - **Token**: Provide an arbitrary, non-empty string.
-
-      > [!Note]
-      > While in beta, {{< product-name >}} does not require an authorization token.
-      > However, if you included a `--token` option or defined the
-      > `INFLUXDB3_AUTH_TOKEN` environment variable when starting your
-      > {{< product-name >}} server, provide that token.
-
     - **Insecure Connection**: If _not_ using HTTPS, enable this option.
 
 3.  Click **Save & test**.
@@ -103,11 +96,6 @@ When creating an InfluxDB data source that uses InfluxQL to query data:
     - **User**: Provide an arbitrary string.
       _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
     - **Password**: Provide an arbitrary string.
-
-      > [!Note]
-      > While in beta, {{< product-name >}} does not require an authorization
-      > token, but the **Password** field does require a value.
-
     - **HTTP Method**: Choose one of the available HTTP request methods to use when querying data:
 
       - **POST** ({{< req text="Recommended" >}})
