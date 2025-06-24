@@ -320,7 +320,6 @@ The server processes all requests without requiring tokens or authentication.
 Optionally disable authz by passing in a comma separated list of resources. 
 Valid values are `health`, `ping`, and `metrics`.
 
-
 ---
 
 ### AWS

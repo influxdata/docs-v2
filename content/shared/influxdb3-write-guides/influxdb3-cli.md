@@ -64,7 +64,7 @@ Provide the following:
 
 - The [database](/influxdb3/version/admin/databases/) name using the
   `--database` option
-- Your {{< product-name >}} authorization token using the `-t`, `--token` option
+- Your {{< product-name >}} {{% token-link %}} using the `-t`, `--token` option
 - [Line protocol](#construct-line-protocol).
   Provide the line protocol in one of the following ways:
 
@@ -196,7 +196,4 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of the database to write to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your {{< product-name >}} authorization token
-
-  > [!Note]
-  > While in beta, {{< product-name >}} does not require an authorization token.
+  your {{< product-name >}} {{% token-link %}}

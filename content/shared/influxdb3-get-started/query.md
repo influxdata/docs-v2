@@ -44,7 +44,7 @@ and provide the following:
 > [!Important]
 > If the `INFLUXDB3_AUTH_TOKEN` environment variable defined in
 > [Set up {{% product-name %}}](/influxdb3/version/get-started/setup/#set-your-token-for-authorization)
-> is no longer set, reset the environment variable or provide your token using
+> isn't set in your environment, set it or provide your token using
 > the `-t, --token` option in your command.
 
 To query the home sensor sample data you wrote in
@@ -460,8 +460,8 @@ InfluxQL and the established InfluxQL-related APIs you have been using.
 {{% product-name %}} provides the following optimization options to improve
 specific kinds of queries:
 
-- [Last values cache](#last-value-cache)
-- [Distinct values cache](#distinct-value-cache)
+- [Last values cache](#last-values-cache)
+- [Distinct values cache](#distinct-values-cache)
 {{% show-in "enterprise" %}}- [File indexes](#file-indexes){{% /show-in %}}
 
 ### Last values cache
@@ -498,6 +498,6 @@ or specific tables. For more information, see
 {{% page-nav
   prev="/influxdb3/version/get-started/write/"
   prevText="Write data"
-  next="/influxdb3/version/get-started/processing-engine/"
+  next="/influxdb3/version/get-started/process/"
   nextText="Processing engine"
 %}}

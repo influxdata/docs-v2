@@ -250,8 +250,8 @@ spec:
 
 #### Release artifacts
 
-- [app-instance-schema.json](/downloads/clustered-release-artifacts/20241022-1346953/app-instance-schema.json)
-- [example-customer.yml](/downloads/clustered-release-artifacts/20241022-1346953/example-customer.yml)
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20241024-1354148/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20241024-1354148/example-customer.yml)
 - [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Known Bugs
@@ -804,13 +804,13 @@ version of `influxctl` prior to v2.8.0.
 ```yaml
 spec:
   package:
-    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240325-920726
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240326-922145
 ```
 
 #### Release artifacts
 
-- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240325-920726/app-instance-schema.json)
-- [example-customer.yml](/downloads/clustered-release-artifacts/20240325-920726/example-customer.yml)
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20240326-922145/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20240326-922145/example-customer.yml)
 - [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Highlights

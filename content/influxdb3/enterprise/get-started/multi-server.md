@@ -7,49 +7,88 @@ description: >
 menu:
   influxdb3_enterprise:
     name: Create a multi-node cluster
-    parent: Install InfluxDB 3 Enterprise
-weight: 101
+    parent: Get started
+    identifier: gs-multi-node-cluster 
+weight: 102
 influxdb3/enterprise/tags: [cluster, multi-node, multi-server]
 ---
 
-{{% product-name %}} supports flexible, multi-node configurations for high
-availability, performance, read replicas, and more to meet the specific needs
-of your use case.
-The {{% product-name %}} server can run in different _modes_ fulfil specific roles
-in your multi-node cluster.
-With the diskless architecture, all nodes in the cluster share the same common
-object store.
+Create a multi-node {{% product-name %}} cluster for high availability, performance, and workload isolation.
+Configure nodes with specific _modes_ (ingest, query, process, compact) to optimize for your use case.
+
+## Prerequisites
+
+- Shared object store
+- Network connectivity between nodes
+
+## Basic multi-node setup
+
+<!-- pytest.mark.skip -->
+```bash
+## NODE 1 compacts stored data
+
+# Example variables
+# node-id: 'host01'
+# cluster-id: 'cluster01'
+# bucket: 'influxdb-3-enterprise-storage'
+
+influxdb3 serve \
+  --node-id host01 \
+  --cluster-id cluster01 \
+  --mode ingest,query,compact \
+  --object-store s3 \
+  --bucket influxdb-3-enterprise-storage \
+  --http-bind {{< influxdb/host >}} \
+  --aws-access-key-id <AWS_ACCESS_KEY_ID> \
+  --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
+```
+
+<!-- pytest.mark.skip -->
+```bash
+## NODE 2 handles writes and queries 
+
+# Example variables
+# node-id: 'host02'
+# cluster-id: 'cluster01'
+# bucket: 'influxdb-3-enterprise-storage'
+
+influxdb3 serve \
+  --node-id host02 \
+  --cluster-id cluster01 \
+  --mode ingest,query \
+  --object-store s3 \
+  --bucket influxdb-3-enterprise-storage \
+  --http-bind localhost:8282 \
+  --aws-access-key-id AWS_ACCESS_KEY_ID \
+  --aws-secret-access-key AWS_SECRET_ACCESS_KEY
+```
+
+Learn how to set up a multi-node cluster for different use cases, including high availability, read replicas, processing data, and workload isolation.
 
 - [Create an object store](#create-an-object-store)
 - [Connect to your object store](#connect-to-your-object-store)
 - [Server modes](#server-modes)
-  - [Server mode examples](#server-mode-examples)
-    - [Configure a node to only handle write requests](#configure-a-node-to-only-handle-write-requests)
-    - [Configure a node to only run the Compactor](#configure-a-node-to-only-run-the-compactor)
-    - [Configure a handle query requests and run the processing engine](#configure-a-handle-query-requests-and-run-the-processing-engine)
-- [InfluxDB 3 Enterprise cluster configuration examples](#influxdb-3-enterprise-cluster-configuration-examples)
-  - [High availability cluster](#high-availability-cluster)
-  - [High availability with a dedicated Compactor](#high-availability-with-a-dedicated-compactor)
-  - [High availability with read replicas and a dedicated Compactor](#high-availability-with-read-replicas-and-a-dedicated-compactor)
+- [Cluster configuration examples](#cluster-configuration-examples)
 - [Writing and querying in multi-node clusters](#writing-and-querying-in-multi-node-clusters)
 
 ## Create an object store
 
-To run a mulit-node {{% product-name %}} cluster, nodes must connect to a
-common object store. Enterprise supports the following object stores:
+With the {{% product-name %}} diskless architecture, all data is stored in a common object store.
+In a multi-node cluster, you connect all nodes to the same object store.
+
+Enterprise supports the following object stores:
 
 - AWS S3 (or S3-compatible)
 - Azure Blob Storage
 - Google Cloud Storage
 
 > [!Note]
-> Refer to your object storage provider's documentation for information about
+> Refer to your object storage provider's documentation for 
 > setting up an object store.
 
 ## Connect to your object store
 
-Depending on your object storage provider, connect nodes in your cluster to the
-object store by including provider-specific options when starting each node.
+When starting your {{% product-name %}} node, include provider-specific options for connecting to your object store--for example:
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -73,7 +112,7 @@ with your `influxdb3 serve` command:
 {{% code-placeholders "AWS_(BUCKET_NAME|ACCESS_KEY_ID|SECRET_ACCESS_KEY)" %}}
 <!-- pytest.mark.skip -->
 ```bash
-influxdb3 server \
+influxdb3 serve \
   # ...
   --object-store s3 \
   --bucket AWS_BUCKET_NAME \
@@ -103,7 +142,7 @@ with your `influxdb3 serve` command:
 {{% code-placeholders "AZURE_(CONTAINER_NAME|STORAGE_ACCOUNT|STORAGE_ACCESS_KEY)" %}}
 <!-- pytest.mark.skip -->
 ```bash
-influxdb3 server \
+influxdb3 serve \
   # ...
   --object-store azure \
   --bucket AZURE_CONTAINER_NAME \
@@ -128,7 +167,7 @@ with your `influxdb3 serve` command:
 {{% code-placeholders "GOOGLE_(BUCKET_NAME|SERVICE_ACCOUNT)" %}}
 <!-- pytest.mark.skip -->
 ```bash
-influxdb3 server \
+influxdb3 serve \
   # ...
   --object-store google \
   --bucket GOOGLE_BUCKET_NAME \
@@ -163,7 +202,7 @@ Each node can run in one _or more_ of the following modes:
 #### Configure a node to only handle write requests
 <!-- pytest.mark.skip -->
 ```bash
-influxdb3 server \
+influxdb3 serve \
   # ...
   --mode ingest
 ```
@@ -171,23 +210,24 @@ influxdb3 server \
 #### Configure a node to only run the Compactor
 <!-- pytest.mark.skip -->
 ```bash
-influxdb3 server \
+influxdb3 serve \
   # ...
   --mode compact
 ```
 
-#### Configure a handle query requests and run the processing engine
+#### Configure a node to handle queries and run the processing engine 
 <!-- pytest.mark.skip -->
 ```bash
-influxdb3 server \
+influxdb3 serve \
   # ...
   --mode query,process
 ```
 
+## Cluster configuration examples
 
-## {{% product-name %}} cluster configuration examples
-
-<!-- Placeholder for links -->
+- [High availability cluster](#high-availability-cluster)
+- [High availability with a dedicated Compactor](#high-availability-with-a-dedicated-compactor)
+- [High availability with read replicas and a dedicated Compactor](#high-availability-with-read-replicas-and-a-dedicated-compactor)
 
 ### High availability cluster
 
@@ -479,3 +519,10 @@ Replace the following placeholders with your values:
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to query the specified database{{% /show-in %}}
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to query
 - {{% code-placeholder-key %}}`QUERY`{{% /code-placeholder-key %}}: the SQL or InfluxQL query to run against the database
+
+{{% page-nav
+  prev="/influxdb3/enterprise/get-started/setup/"
+  prevText="Set up InfluxDB"
+  next="/influxdb3/enterprise/get-started/write/"
+  nextText="Write data"
+%}}

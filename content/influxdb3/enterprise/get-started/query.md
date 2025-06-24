@@ -9,7 +9,7 @@ menu:
     name: Query data
     identifier: gs-query-data
     parent: Get started
-weight: 103
+weight: 104
 related:
   - /influxdb3/enterprise/query-data/
   - /influxdb3/enterprise/reference/sql/

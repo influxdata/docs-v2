@@ -101,7 +101,7 @@ The license file is a JWT file that contains the license information.
 > use one of the methods to [skip the email prompt](#skip-the-email-prompt). 
 > This ensures that the container can generate the license file after you
 > verify your email address.
-> See the [Docker Compose example](?t=Docker+compose#activate-a-trial-or-home-license-with-docker).
+> See the [Docker Compose example](?t=Docker+compose#start-with-license-email-and-compose).
 
 #### Skip the email prompt
 
@@ -186,7 +186,7 @@ existing license if it's still valid.
 {{% code-tabs %}}
 [influxdb3 options](#)
 [Environment variables](#)
-[Docker compose](#example-activate-trial-or-home-with-compose)
+[Docker compose](#start-with-license-email-and-compose)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!------------------------ BEGIN INFLUXDB3 CLI OPTIONS ------------------------>
@@ -215,6 +215,7 @@ influxdb3 serve \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!------------------------ BEGIN DOCKER COMPOSE ------------------------>
+{{% code-placeholders "${EMAIL_ADDRESS}" %}}
 ```yaml
 # compose.yaml
 name: data-crunching-stack
@@ -235,7 +236,8 @@ services:
       - --object-store=file
       - --data-dir=/var/lib/influxdb3
       - --plugin-dir=/var/lib/influxdb3/plugins
-      - --license-email=INFLUXDB3_LICENSE_EMAIL
+    environment:
+      - INFLUXDB3_LICENSE_EMAIL=${EMAIL_ADDRESS}
     volumes:
       - type: bind 
         source: ~/.influxdb3/data
@@ -244,6 +246,9 @@ services:
         source: ~/.influxdb3/plugins
         target: /var/lib/influxdb3/plugins
 ```
+{{% /code-placeholders %}}
+Replace {{% code-placeholder-key %}}`${EMAIL_ADDRESS}`{{% /code-placeholder-key %}} with your email address
+or a variable from your Compose `.env` file.
 <!------------------------- END DOCKER COMPOSE ------------------------->
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

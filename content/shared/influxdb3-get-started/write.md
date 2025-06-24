@@ -146,19 +146,20 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ## Write data using the CLI
 
 To quickly get started writing data, use the
-[`influxdb3 write` command](/influxdb3/version/reference/clis/influxdb3/write/).
+[`influxdb3 write` command](/influxdb3/version/reference/cli/influxdb3/write/).
 Include the following:
 
 - `--database` option that identifies the target database
 - `--token` option that specifies the token to use _(unless the `INFLUXDB3_AUTH_TOKEN`
   environment variable is already set)_
-- Quoted line protocol via standard input (stdin)
+- Quoted line protocol data via standard input (stdin)
 
 {{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 ```bash
 influxdb3 write \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
+  --precision s \
 'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
 home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
 home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
@@ -196,10 +197,10 @@ In the code samples, replace the following placeholders with your values:
   your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission
   to write to the specified database{{% /show-in %}}
 
-##### Write data from a file
+### Write data from a file
 
-Pass the `--file` option to write line protocol you have saved to a file--for example, save the
-[sample line protocol](#write-data-in-line-protocol-syntax) to a file named `server_data`
+To write line protocol you have saved to a file, pass the `--file` option--for example, save the
+[sample line protocol](#home-sensor-data-line-protocol) to a file named `sensor_data`
 and then enter the following command:
 
 {{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
@@ -207,9 +208,9 @@ and then enter the following command:
 influxdb3 write \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
-  --precision ns \ 
+  --precision s \ 
   --accept-partial \
-  --file path/to/server_data 
+  --file path/to/sensor_data 
 ```
 {{% /code-placeholders %}}
 
@@ -232,9 +233,20 @@ There are many ways to write data to your {{% product-name %}} database, includi
 
 For more information, see [Write data to {{% product-name %}}](/influxdb3/version/write-data/).
 
+{{% show-in "enterprise" %}}
+{{% page-nav
+  prev="/influxdb3/version/get-started/multi-server/"
+  prevText="Create a multi-node cluster"
+  next="/influxdb3/version/get-started/query/"
+  nextText="Query data"
+%}}
+{{% /show-in %}}
+
+{{% show-in "core" %}}
 {{% page-nav
   prev="/influxdb3/version/get-started/setup/"
   prevText="Set up InfluxDB"
   next="/influxdb3/version/get-started/query/"
   nextText="Query data"
 %}}
+{{% /show-in %}}
