@@ -1,10 +1,10 @@
 <!-- TOC -->
 - [Prerequisites](#prerequisites)
 - [Start InfluxDB](#start-influxdb)
-- [Configure for your object store](#configure-for-your-object-store)
   - [Object store examples](#object-store-examples)
 {{% show-in "enterprise" %}}
 - [Set up licensing](#set-up-licensing)
+  - [Available license types](#available-license-types)
 {{% /show-in %}}
 - [Set up authorization](#set-up-authorization)
   - [Create an operator token](#create-an-operator-token)
@@ -18,8 +18,8 @@ To get started, you'll need:
 
 - **{{% product-name %}}**: [Install and verify the latest version](/influxdb3/version/install/) on your system.
 - If you want to persist data, have access to one of the following:
+  - A directory on your local disk where you can persist data (used by examples in this guide)
   - S3-compatible object store and credentials
-  - A directory on your local disk where you can persist data
 
 ## Start InfluxDB
 
@@ -51,13 +51,6 @@ Provide the following:
   - `s3`: AWS S3 and S3-compatible services like Ceph or Minio
   - `google`: Google Cloud Storage
   - `azure`: Azure Blob Storage
-
-  > [!Note]  
-  > Examples in this getting started guide use the `file` object
-  > store to persist data to your local disk.
-
-The following examples show how to start {{% product-name %}} with different
-object store configurations.
 
 > [!Note]
 > #### Diskless architecture
@@ -97,7 +90,7 @@ influxdb3 serve \
 ```
 {{% /show-in %}}
 
-### {{% product-name %}} store examples
+### Object store examples
 
 {{< expand-wrapper >}}
 {{% expand "File system object store" %}}
@@ -198,10 +191,12 @@ docker run -it \
          - --object-store=file
          - --data-dir=/var/lib/influxdb3
          - --plugins-dir=/var/lib/influxdb3-plugins
-         - --license-email=EMAIL_ADDRESS
+       environment:
+         - INFLUXDB3_LICENSE_EMAIL=EMAIL_ADDRESS
    ```
    _Replace `EMAIL_ADDRESS` with your email address to bypass the email prompt
-   when generating a trial or at-home license._
+   when generating a trial or at-home license. For more information, see [Manage your
+   {{% product-name %}} license](/influxdb3/version/admin/license/)_.
 {{% /show-in %}}
 {{% show-in "core" %}}
 1. Open `compose.yaml` for editing and add a `services` entry for {{% product-name %}}--for example:
@@ -360,7 +355,6 @@ influxdb3 serve --help
 ## Set up licensing
 
 When you first start a new instance, {{% product-name %}} prompts you to select a
-
 license type.
 
 InfluxDB 3 Enterprise licenses:
@@ -369,7 +363,7 @@ InfluxDB 3 Enterprise licenses:
 - **Apply per cluster**, with limits based primarily on CPU cores.
 - **Vary by license type**, each offering different capabilities and restrictions.
 
-### Available license types:
+### Available license types
 
 - **Trial**: 30-day trial license with full access to InfluxDB 3 Enterprise capabilities.
 - **At-Home**: For at-home hobbyist use with limited access to InfluxDB 3 Enterprise capabilities.
@@ -378,40 +372,14 @@ InfluxDB 3 Enterprise licenses:
 > [!Important]
 > #### Trial and at-home licenses with Docker
 >
-> To generate a trial or home license for InfluxDB 3 in Docker, the first time
-> you start a new instance, provide your email address with the
-> `--license-email` option or the
-> `INFLUXDB3_LICENSE_EMAIL` environment variable to bypass the licensing
-> email prompt--for example, in a Docker Compose file:
+> To generate the trial or home license in Docker, bypass the email prompt.
+> The first time you start a new instance, provide your email address with the
+> `--license-email` option or the `INFLUXDB3_LICENSE_EMAIL` environment variable.
 >
-> {{% code-placeholders "EMAIL_ADDRESS" %}}
-> ```yaml
-> # compose.yaml
-> services:
->   influxdb3-{{< product-key >}}:
->     container_name: influxdb3-{{< product-key >}}
->     image: influxdb:3-{{< product-key >}}
->     ports:
->       - 8181:8181
->     command:
->       - influxdb3
->       - serve
->       - --node-id=node0
->       - --object-store=file
->       - --data-dir=/var/lib/influxdb3
->       - --plugins-dir=/var/lib/influxdb3-plugins
-      environment:
->       - INFLUXDB3_LICENSE_EMAIL=${EMAIL_ADDRESS}
-> ```
-> {{% /code-placeholders %}}
-> {{% code-placeholder-key %}}`EMAIL_ADDRESS`{{% /code-placeholder-key %}} is
-> the email you want to associate with the license. This example shows how
-> to reference a variable in your `.env` file.
->
-> _Currently, if you use the prompt to enter your email address, a bug may
+> _Currently, if you use Docker and enter your email address in the prompt, a bug may
 > prevent the container from generating the license ._
 >
-> For more information, see [Manage your InfluxDB 3 Enterprise license](/influxdb3/enterprise/admin/license/).
+> For more information, see [the Docker Compose example](/influxdb3/enterprise/admin/license/?t=Docker+compose#start-the-server-with-your-license-email).
 {{% /show-in %}}
 
 > [!Tip]

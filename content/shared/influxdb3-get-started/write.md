@@ -152,7 +152,7 @@ Include the following:
 - `--database` option that identifies the target database
 - `--token` option that specifies the token to use _(unless the `INFLUXDB3_AUTH_TOKEN`
   environment variable is already set)_
-- Quoted line protocol data via standard input (stdin) or a file
+- Quoted line protocol data via standard input (stdin)
 
 {{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 ```bash

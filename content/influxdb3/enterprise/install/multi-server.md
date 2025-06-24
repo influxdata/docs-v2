@@ -24,10 +24,7 @@ object store.
 - [Connect to your object store](#connect-to-your-object-store)
 - [Server modes](#server-modes)
   - [Server mode examples](#server-mode-examples)
-    - [Configure a node to only handle write requests](#configure-a-node-to-only-handle-write-requests)
-    - [Configure a node to only run the Compactor](#configure-a-node-to-only-run-the-compactor)
-    - [Configure a handle query requests and run the processing engine](#configure-a-handle-query-requests-and-run-the-processing-engine)
-- [InfluxDB 3 Enterprise cluster configuration examples](#influxdb-3-enterprise-cluster-configuration-examples)
+- [Cluster configuration examples](#cluster-configuration-examples)
   - [High availability cluster](#high-availability-cluster)
   - [High availability with a dedicated Compactor](#high-availability-with-a-dedicated-compactor)
   - [High availability with read replicas and a dedicated Compactor](#high-availability-with-read-replicas-and-a-dedicated-compactor)
@@ -184,8 +181,7 @@ influxdb3 serve \
   --mode query,process
 ```
 
-
-## {{% product-name %}} cluster configuration examples
+## Cluster configuration examples
 
 <!-- Placeholder for links -->
 

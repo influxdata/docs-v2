@@ -89,15 +89,13 @@ def process_writes(influxdb3_local, table_batches, args=None):
         influxdb3_local.info("arg1: " + args["arg1"])
 
     # here we're using arguments provided at the time the trigger was set up 
-    # to feed into paramters that we'll put into a query
+    # to feed into parameters that we'll put into a query
     query_params = {"room": "Kitchen"}
-    # here's an example of executing a parameterized query. Only SQL is supported. 
-    # It will query the database that the trigger is attached to by default. We'll 
-    # soon have support for querying other DBs.
-    query_result = influxdb3_local.query("SELECT * FROM home where room = '$host'", query_params)
-    # the result is a list of Dict that have the column name as key and value as 
-    # value. If you run the WAL test plugin with your plugin against a DB that 
-    # you've written data into, you'll be able to see some results
+    # The following example shows how to execute a parameterized query. Only SQL is supported. 
+    # It queries the database that the trigger is configured for.
+    query_result = influxdb3_local.query("SELECT * FROM home where room = '$room'", query_params)
+    # The result is a list of Dict that have the column name as key and value as 
+    # value.
     influxdb3_local.info("query result: " + str(query_result))
 
     # this is the data that is sent when the WAL is flushed of writes the server 
@@ -180,18 +178,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: the {{% token-link "admin" %}} for your {{% product-name %}} server
 - {{% code-placeholder-key %}}`PLUGIN_FILENAME`{{% /code-placeholder-key %}}: the name of the plugin file to test
 
-The command runs the plugin code with the test data, yields the data to the
-plugin code, and then responds with the plugin result.
-You can quickly see how the plugin behaves, what data it would have written to
-the database, and any errors.
-You can then edit your Python code in the plugins directory, and rerun the test.
-The server reloads the file for every request to the `test` API.
-
-With the plugin code inside the server plugin directory, and a successful test,
-you're ready to create a trigger for your server to run the plugin.
-
-##### Example: Test and run a plugin
-
+### Example: Test a plugin
 <!-- pytest.mark.skip -->
 ```bash
 # Test a plugin
@@ -206,6 +193,13 @@ influxdb3 test wal_plugin \
   --input-arguments "arg1=hello,arg2=world" \
   test.py
 ```
+
+The command runs the plugin code with the test data, yields the data to the
+plugin code, and then responds with the plugin result.
+You can quickly see how the plugin behaves, what data it would have written to
+the database, and any errors.
+You can then edit your Python code in the plugins directory, and rerun the test.
+The server reloads the file for every request to the `test` API.
 
 For more information, see [`influxdb3 test wal_plugin`](/influxdb3/version/reference/cli/influxdb3/test/wal_plugin/)
 or run `influxdb3 test wal_plugin -h`.
