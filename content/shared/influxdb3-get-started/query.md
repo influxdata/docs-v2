@@ -1,17 +1,17 @@
-### Query data
-
-InfluxDB 3 supports native SQL for querying, in addition to InfluxQL, an
-SQL-like language customized for time series queries.
+<!-- COMMENT TO ALLOW STARTING WITH SHORTCODE -->
+{{% product-name %}} supports both native SQL and InfluxQL for querying data. InfluxQL is
+an SQL-like query language designed for InfluxDB v1 and customized for time
+series queries.
 
 {{% show-in "core" %}}
 {{< product-name >}} limits
-query time ranges to 72 hours (both recent and historical) to ensure query performance.
-For more information about the 72-hour limitation, see the
-[update on InfluxDB 3 Core’s 72-hour limitation](https://www.influxdata.com/blog/influxdb3-open-source-public-alpha-jan-27/).
+query time ranges to approximately 72 hours (both recent and historical) to
+ensure query performance. For more information about the 72-hour limitation, see
+the [update on InfluxDB 3 Core’s 72-hour limitation](https://www.influxdata.com/blog/influxdb3-open-source-public-alpha-jan-27/).
 {{% /show-in %}}
 
 > [!Note]
-> Flux, the language introduced in InfluxDB 2.0, is **not** supported in InfluxDB 3.
+> Flux, the language introduced in InfluxDB v2, is **not** supported in InfluxDB 3.
 
 <!-- TOC -->
 
@@ -34,7 +34,12 @@ To get started querying data in {{% product-name %}}, use the
 [`influxdb3 query` command](/influxdb3/version/reference/cli/influxdb3/query/)
 and provide the following:
 
-The `query` subcommand includes options to help ensure that the right database is queried with the correct permissions. Only the `--database` option is required, but depending on your specific setup, you may need to pass other options, such as host, port, and token.
+- `-H`, `--host`: The host URL of the server _(default is `http://127.0.0.1:8181`)_
+- `-d`, `--database`: _({{% req %}})_ The name of the database to query
+- `-l`, `--language`: The query language of the provided query string
+  - `sql` _(default)_
+  - `influxql`
+- SQL or InfluxQL query as a string
 
 > [!Important]
 > If the `INFLUXDB3_AUTH_TOKEN` environment variable defined in
@@ -42,62 +47,41 @@ The `query` subcommand includes options to help ensure that the right database i
 > isn't set in your environment, set it or provide your token using
 > the `-t, --token` option in your command.
 
-#### Example: query `“SHOW TABLES”` on the `servers` database:
-
-```console
-$ influxdb3 query --database servers "SHOW TABLES"
-+---------------+--------------------+--------------+------------+
-| table_catalog | table_schema       | table_name   | table_type |
-+---------------+--------------------+--------------+------------+
-| public        | iox                | cpu          | BASE TABLE |
-| public        | information_schema | tables       | VIEW       |
-| public        | information_schema | views        | VIEW       |
-| public        | information_schema | columns      | VIEW       |
-| public        | information_schema | df_settings  | VIEW       |
-| public        | information_schema | schemata     | VIEW       |
-+---------------+--------------------+--------------+------------+
-```
-
-#### Example: query the `cpu` table, limiting to 10 rows:
-
-```console
-$ influxdb3 query --database servers "SELECT DISTINCT usage_percent, time FROM cpu LIMIT 10"
-+---------------+---------------------+
-| usage_percent | time                |
-+---------------+---------------------+
-| 63.4          | 2024-02-21T19:25:00 |
-| 25.3          | 2024-02-21T19:06:40 |
-| 26.5          | 2024-02-21T19:31:40 |
-| 70.1          | 2024-02-21T19:03:20 |
-| 83.7          | 2024-02-21T19:30:00 |
-| 55.2          | 2024-02-21T19:00:00 |
-| 80.5          | 2024-02-21T19:05:00 |
-| 60.2          | 2024-02-21T19:33:20 |
-| 20.5          | 2024-02-21T18:58:20 |
-| 85.2          | 2024-02-21T19:28:20 |
-+---------------+---------------------+
-```
-
-### Query using the CLI for InfluxQL
-
-[InfluxQL](/influxdb3/version/reference/influxql/) is an SQL-like language developed by InfluxData with specific features tailored for leveraging and working with InfluxDB. It’s compatible with all versions of InfluxDB, making it a good choice for interoperability across different InfluxDB installations.
-
-To query using InfluxQL, enter the `influxdb3 query` subcommand and specify `influxql` in the language option--for example:
+To query the home sensor sample data you wrote in
+[Write data to {{% product-name %}}](/influxdb3/version/get-started/write/#write-data-using-the-cli),
+run the following command:
 
 {{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+<!-- pytest.mark.skip -->
 ```bash
 influxdb3 query \
   --database DATABASE_NAME \
-  --token AUTH_TOKEN \
-  --language influxql \
-  "SELECT DISTINCT usage_percent FROM cpu WHERE time >= now() - 1d"
+  "SELECT * FROM home ORDER BY time"
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!-- pytest.mark.skip -->
+```bash
+influxdb3 query \
+  --database DATABASE_NAME \
+  --language influxql \
+  "SELECT * FROM home"
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
 {{% /code-placeholders %}}
 
-Replace the following placeholders with your values:
-
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to query 
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to query the specified database{{% /show-in %}}
+_Replace {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}
+with the name of the database to query._
 
 To query from a specific time range, use the `WHERE` clause to designate the
 boundaries of your time range.

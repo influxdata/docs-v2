@@ -27,20 +27,6 @@ Use the [`influxdb3 serve` command](/influxdb3/version/reference/cli/influxdb3/s
 to start {{% product-name %}}.
 Provide the following:
 
-- `--object-store`: Specifies the type of object store to use.
-  InfluxDB supports the following:
-  
-  - `file` _(default)_: local file system 
-  - `memory`: in memory _(no object persistence)_
-  - `memory-throttled`: like `memory` but with latency and throughput that
-    somewhat resembles a cloud-based object store
-  - `s3`: AWS S3 and S3-compatible services like Ceph or Minio
-  - `google`: Google Cloud Storage
-  - `azure`: Azure Blob Storage
-{{% show-in "core" %}}
-- `--node-id`: A string identifier that distinguishes individual server instances.
-  This forms the final part of the storage path: `<CONFIGURED_PATH>/<NODE_ID>`.
-{{% /show-in %}}
 {{% show-in "enterprise" %}}
 - `--node-id`: A string identifier that distinguishes individual server
   instances within the cluster. This forms the final part of the storage path:
@@ -51,11 +37,24 @@ Provide the following:
   The storage path follows the pattern `<CONFIGURED_PATH>/<CLUSTER_ID>/<NODE_ID>`.
   In a multi-node setup, this ID is used to reference the entire cluster.
 {{% /show-in %}}
+{{% show-in "core" %}}
+- `--node-id`: A string identifier that distinguishes individual server instances.
+  This forms the final part of the storage path: `<CONFIGURED_PATH>/<NODE_ID>`.
+{{% /show-in %}}
+- `--object-store`: Specifies the type of object store to use.
+  InfluxDB supports the following:
+  
+  - `file` _(default)_: local file system 
+  - `memory`: in memory _(no object persistence)_
+  - `memory-throttled`: like `memory` but with latency and throughput that
+    somewhat resembles a cloud-based object store
+  - `s3`: AWS S3 and S3-compatible services like Ceph or Minio
+  - `google`: Google Cloud Storage
+  - `azure`: Azure Blob Storage
 
-### Configure for your object store
-
-Depending on the object store type, you may need to provide additional
-options, such as access credentials, for your object store configuration.
+  > [!Note]  
+  > Examples in this getting started guide use the `file` object
+  > store to persist data to your local disk.
 
 The following examples show how to start {{% product-name %}} with different
 object store configurations.
@@ -73,10 +72,32 @@ object store configurations.
 > separation between clusters and individual nodes.
 > {{% /show-in %}}
 
-_For this getting started guide, use the `file` object store to persist data to
-your local disk._
+For this getting started guide, use the `file` object store to persist data to
+your local disk.
 
-### Object store examples
+{{% show-in "enterprise" %}}
+```bash
+# File system object store
+# Provide the filesystem directory
+influxdb3 serve \
+  --node-id host01 \
+  --cluster-id cluster01 \
+  --object-store file \
+  --data-dir ~/.influxdb3
+```
+{{% /show-in %}}
+{{% show-in "core" %}}
+```bash
+# File system object store
+# Provide the file system directory
+influxdb3 serve \
+  --node-id host01 \
+  --object-store file \
+  --data-dir ~/.influxdb3
+```
+{{% /show-in %}}
+
+### {{% product-name %}} store examples
 
 {{< expand-wrapper >}}
 {{% expand "File system object store" %}}
@@ -339,11 +360,16 @@ influxdb3 serve --help
 ## Set up licensing
 
 When you first start a new instance, {{% product-name %}} prompts you to select a
-license type. InfluxDB 3 Enterprise licenses authorize the use of the
-InfluxDB 3 Enterprise software and apply to a single cluster. Licenses are
-primarily based on the number of CPUs InfluxDB can use, but there are other
-limitations depending on the license type. The following InfluxDB 3 Enterprise
-license types are available:
+
+license type.
+
+InfluxDB 3 Enterprise licenses:
+
+- **Authorize** usage of InfluxDB 3 Enterprise software for a single cluster.
+- **Apply per cluster**, with limits based primarily on CPU cores.
+- **Vary by license type**, each offering different capabilities and restrictions.
+
+### Available license types:
 
 - **Trial**: 30-day trial license with full access to InfluxDB 3 Enterprise capabilities.
 - **At-Home**: For at-home hobbyist use with limited access to InfluxDB 3 Enterprise capabilities.
@@ -356,32 +382,8 @@ license types are available:
 > you start a new instance, provide your email address with the
 > `--license-email` option or the
 > `INFLUXDB3_LICENSE_EMAIL` environment variable to bypass the licensing
-> email prompt--for example:
+> email prompt--for example, in a Docker Compose file:
 >
-> {{< code-tabs-wrapper >}}
-> {{% code-tabs %}}
-> [Docker CLI](#)
-> [Docker Compose file](#)
-> {{% /code-tabs %}}
-> {{% code-tab-content %}}
-> {{% code-placeholders "EMAIL_ADDRESS" %}}
-> ```bash
-> docker run -d --name influxdb3-enterprise \
->   -v "$PWD/data:/var/lib/influxdb3" \
->   -v "$PWD/plugins:/plugins" \
->   -p 8181:8181 \
->   quay.io/influxdb/influxdb3-enterprise:latest \
->   serve \
->     --cluster-id cluster1 \
->     --node-id node1 \
->     --plugin-dir /plugins \
->     --object-store file \
->     --data-dir /var/lib/influxdb3
-> ```
-> {{% /code-placeholders %}}
-> - Replace {{% code-placeholder-key %}}`EMAIL_ADDRESS`{{% /code-placeholder-key %}} with the email you want to associate with the license.
-> {{% /code-tab-content %}}
-> {{% code-tab-content %}}
 > {{% code-placeholders "EMAIL_ADDRESS" %}}
 > ```yaml
 > # compose.yaml
@@ -404,9 +406,7 @@ license types are available:
 > {{% /code-placeholders %}}
 > {{% code-placeholder-key %}}`EMAIL_ADDRESS`{{% /code-placeholder-key %}} is
 > the email you want to associate with the license. This example shows how
-> to reference an email address set in your `.env` file.
-> {{% /code-tab-content %}}
-> {{< /code-tabs-wrapper >}}
+> to reference a variable in your `.env` file.
 >
 > _Currently, if you use the prompt to enter your email address, a bug may
 > prevent the container from generating the license ._

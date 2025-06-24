@@ -1,12 +1,16 @@
-### Write data
+<!-- ALLOW SHORTCODE -->
 
-InfluxDB is a schema-on-write database. You can start writing data and InfluxDB creates the logical database, tables, and their schemas on the fly.
-After a schema is created, InfluxDB validates future write requests against it before accepting the data.
-Subsequent requests can add new fields on-the-fly, but can't add new tags.
+{{% product-name %}} is designed for high write-throughput and uses an efficient,
+human-readable write syntax called _[line protocol](#line-protocol)_. InfluxDB
+is a schema-on-write database, meaning you can start writing data and InfluxDB
+creates the logical database, tables, and their schemas automatically, without
+any required intervention. Once InfluxDB creates the schema, it validates future
+write requests against the schema before accepting new data.
+Both new tags and fields can be added later as your schema changes.
 
 {{% show-in "core" %}}
 > [!Note]
-> #### Core is optimized for recent data
+> #### InfluxDB 3 Core is optimized for recent data
 >
 > {{% product-name %}} is optimized for recent data but accepts writes from any time period.
 > The system persists data to Parquet files for historical analysis with [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/) or third-party tools.
@@ -139,7 +143,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 
 {{% /influxdb/custom-timestamps %}}
 
-## Write data using the CLI 
+## Write data using the CLI
 
 To quickly get started writing data, use the
 [`influxdb3 write` command](/influxdb3/version/reference/cli/influxdb3/write/).
@@ -149,8 +153,6 @@ Include the following:
 - `--token` option that specifies the token to use _(unless the `INFLUXDB3_AUTH_TOKEN`
   environment variable is already set)_
 - Quoted line protocol data via standard input (stdin) or a file
-
-### Write data via standard input (stdin) 
 
 {{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 ```bash
@@ -197,7 +199,7 @@ In the code samples, replace the following placeholders with your values:
 
 ### Write data from a file
 
-Pass the `--file` option to write line protocol you have saved to a file--for example, save the
+To write line protocol you have saved to a file, pass the `--file` option--for example, save the
 [sample line protocol](#home-sensor-data-line-protocol) to a file named `sensor_data`
 and then enter the following command:
 
