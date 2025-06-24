@@ -9,7 +9,7 @@
 {{% show-in "enterprise" %}}
 > [!Note]
 > For information about setting up a multi-node {{% product-name %}} cluster,
-> see [Create a multi-node cluster](/influxdb3/enterprise/install/multi-server/).
+> see [Create a multi-node cluster](/influxdb3/enterprise/get-started/multi-server/) in the Get started guide.
 {{% /show-in %}}
 
 ## System Requirements
@@ -140,7 +140,7 @@ source ~/.zshrc
 {{% show-in "enterprise" %}}
 > [!Note]
 > For information about setting up a multi-node {{% product-name %}} cluster,
-> see [Create a multi-node cluster](/influxdb3/enterprise/install/multi-server/).
+> see [Create a multi-node cluster](/influxdb3/enterprise/get-started/multi-server/) in the Get started guide.
 {{% /show-in %}}
 
 {{% show-in "enterprise" %}}

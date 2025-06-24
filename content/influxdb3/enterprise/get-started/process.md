@@ -10,7 +10,7 @@ menu:
     name: Process data
     identifier: gs-process-data
     parent: Get started
-weight: 104
+weight: 105
 aliases:
   - /influxdb3/enterprise/get-started/process-data/
   - /influxdb3/enterprise/get-started/processing-engine/

@@ -9,7 +9,7 @@ menu:
     name: Write data
     identifier: gs-write-data
     parent: Get started
-weight: 102
+weight: 103
 related:
   - /influxdb3/enterprise/write-data/
   - /influxdb3/enterprise/reference/line-protocol/

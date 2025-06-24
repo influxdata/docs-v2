@@ -190,7 +190,7 @@ docker run -it \
          - --cluster-id=cluster0
          - --object-store=file
          - --data-dir=/var/lib/influxdb3
-         - --plugins-dir=/var/lib/influxdb3-plugins
+         - --plugin-dir=/var/lib/influxdb3-plugins
        environment:
          - INFLUXDB3_LICENSE_EMAIL=EMAIL_ADDRESS
    ```
@@ -215,7 +215,7 @@ docker run -it \
          - --node-id=node0
          - --object-store=file
          - --data-dir=/var/lib/influxdb3
-         - --plugins-dir=/var/lib/influxdb3-plugins
+         - --plugin-dir=/var/lib/influxdb3-plugins
    ```
 {{% /show-in %}}
 
@@ -520,9 +520,19 @@ curl "http://{{< influxdb/host >}}/api/v3/configure/database" \
 - [Authentication](/influxdb3/version/reference/internals/authentication/) -
   Understand authentication, authorizations, and permissions in {{% product-name %}}
 <!-- //TODO - Authenticate with compatibility APIs -->
+{{% show-in "core" %}}
 {{% page-nav
   prev="/influxdb3/version/get-started/"
   prevText="Get started"
   next="/influxdb3/version/get-started/write/"
   nextText="Write data"
 %}}
+{{% /show-in %}}
+{{% show-in "enterprise" %}}
+{{% page-nav
+  prev="/influxdb3/version/get-started/"
+  prevText="Get started"
+  next="/influxdb3/version/get-started/multi-server/"
+  nextText="Create a multi-node cluster"
+%}}
+{{% /show-in %}}

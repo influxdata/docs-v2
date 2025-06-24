@@ -233,9 +233,20 @@ There are many ways to write data to your {{% product-name %}} database, includi
 
 For more information, see [Write data to {{% product-name %}}](/influxdb3/version/write-data/).
 
+{{% show-in "enterprise" %}}
+{{% page-nav
+  prev="/influxdb3/version/get-started/multi-server/"
+  prevText="Create a multi-node cluster"
+  next="/influxdb3/version/get-started/query/"
+  nextText="Query data"
+%}}
+{{% /show-in %}}
+
+{{% show-in "core" %}}
 {{% page-nav
   prev="/influxdb3/version/get-started/setup/"
   prevText="Set up InfluxDB"
   next="/influxdb3/version/get-started/query/"
   nextText="Query data"
 %}}
+{{% /show-in %}}
