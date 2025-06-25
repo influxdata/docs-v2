@@ -95,12 +95,8 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of the database to write data to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your {{< product-name >}} authorization token.
+  your {{< product-name >}} {{% token-link %}}.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
-
-  > [!Note]
-  > While in beta, {{< product-name >}} does not require an authorization token.
-  > For the `token` option, provide an arbitrary, non-empty token string.
 
   > [!Tip]
   >

@@ -6,11 +6,11 @@ description: >
 menu:
   influxdb3_enterprise:
     name: Use v1 and v2 compatibility APIs
-    parent: Write data
-    identifier: write-compatibility-client-libs
-weight: 101
+    parent: write-http-api
+weight: 202
 aliases:
   - /influxdb3/enterprise/write-data/client-libraries/
+  - /influxdb3/enterprise/write-data/compatibility-apis/
 related:
   - /influxdb3/enterprise/reference/syntax/line-protocol/
   - /influxdb3/enterprise/get-started/write/
