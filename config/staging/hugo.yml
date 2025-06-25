@@ -13,6 +13,7 @@ minify:
 params:
   env: staging
   environment: staging
-server:
+server: {
   disableLiveReload: true
+}
   
