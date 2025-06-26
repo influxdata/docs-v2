@@ -39,7 +39,7 @@ For more information about InfluxDB tokens, see:
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [Admin Token](#)
-[Resource Token _(Enteprise only)_](#)
+[Resource Token _(Enterprise only)_](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
