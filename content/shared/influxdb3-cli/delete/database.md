@@ -17,13 +17,14 @@ influxdb3 delete database [OPTIONS] <DATABASE_NAME>
 
 ## Options
 
-| Option |              | Description                                                                              |
-| :----- | :----------- | :--------------------------------------------------------------------------------------- |
-| `-H`   | `--host`     | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
-|        | `--token`    | Authentication token                                                                     |
-|        | `--tls-ca`   | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
-| `-h`   | `--help`     | Print help information                                                                   |
-|        | `--help-all` | Print detailed help information                                                          |
+| Option |               | Description                                                                              |
+| :----- | :------------ | :--------------------------------------------------------------------------------------- |
+| `-H`   | `--host`      | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
+|        | `--hard-delete` | When to hard delete data (never/now/default/timestamp). Default behavior is a soft delete that allows recovery |
+|        | `--token`     | Authentication token                                                                     |
+|        | `--tls-ca`    | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
+| `-h`   | `--help`      | Print help information                                                                   |
+|        | `--help-all`  | Print detailed help information                                                          |
 
 ### Option environment variables
 
@@ -36,8 +37,8 @@ You can use the following environment variables to set command options:
 
 ## Examples
 
-- [Delete a database](#delete-a-new-database)
-- [Delete a database while specifying the token inline](#delete-a-new-database-while-specifying-the-token-inline)
+- [Delete a database](#delete-a-database)
+- [Delete a database while specifying the token inline](#delete-a-database-while-specifying-the-token-inline)
 
 In the examples below, replace the following:
 
@@ -62,6 +63,26 @@ influxdb3 delete database DATABASE_NAME
 
 ```bash
 influxdb3 delete database --token AUTH_TOKEN DATABASE_NAME
+```
+
+### Hard delete a database immediately
+
+Permanently delete a database and all its data immediately without the ability to recover.
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 delete database --hard-delete now DATABASE_NAME
+```
+
+### Hard delete a database at a specific time
+
+Schedule a database for permanent deletion at a specific timestamp.
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 delete database --hard-delete "2024-01-01T00:00:00Z" DATABASE_NAME
 ```
 
 {{% /code-placeholders %}}
