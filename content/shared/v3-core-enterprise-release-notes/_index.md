@@ -42,8 +42,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - **License management improvements**: 
   - New `influxdb3 show license` command to display current license information
 - **Table-level retention period support**: Add retention period support for individual tables in addition to database-level retention, providing granular data lifecycle management
-  - New CLI commands: `create table --retention-period` and `update table --retention-period`
-  - Set or clear table-specific retention policies independent of database settings
+  - New CLI command: `influxdb3 create table --retention-period`
 - **Compaction improvements**:
   - Address compactor restart issues for better reliability
   - Track compacted generation durations in catalog for monitoring
