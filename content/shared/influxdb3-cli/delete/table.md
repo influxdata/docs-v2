@@ -66,7 +66,7 @@ influxdb3 delete table \
 
 {{% /code-placeholders %}}
 
-In the examples above, replace the following:
+Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Database name
