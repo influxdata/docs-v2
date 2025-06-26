@@ -6,8 +6,8 @@
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
 ## v3.2.0 {date="2025-06-25"}
-**Core**: revision 1ca3168bee
 
+**Core**: revision 1ca3168bee  
 **Enterprise**: revision 1ca3168bee
 
 ### Core
