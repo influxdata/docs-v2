@@ -22,7 +22,7 @@ draft: true
 > and that the token used in the InfluxDB 3 server configuration is an
 > [admin token](/influxdb3/enterprise/admin/tokens/admin/).
 
-To use {{% product-name %}} to create a new databases in an InfluxDB 3 instance:
+To use {{% product-name %}} to create a new database in an InfluxDB 3 instance:
 
 1.  Navigate to **Manage Databases**.
 2.  Click **+ Create New**.
@@ -37,7 +37,7 @@ To use {{% product-name %}} to create a new databases in an InfluxDB 3 instance:
     Set the following:
 
     - **Retention Period**: The number of time units to retain data.
-    - **Unit**: The unit of time to use in the retention period definition .
+    - **Unit**: The unit of time to use in the retention period definition.
 
 5.  Click **{{< icon "check" >}} Create Database**.
 
