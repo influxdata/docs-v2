@@ -98,7 +98,7 @@ that returns data from the newly written sample data set.
     columns in that table.
 3.  Select each column you want to query.
     As you select columns in the Schema Browser, Explorer generates and updates
-    a SQL query in the _Query pane_.
+    an SQL query in the _Query pane_.
 4.  Use the time range dropdown menu above the Query pane to select a time range
     to query. You can select one of the predefined relative time ranges, or you
     can select _Custom Range_ to define an absolute time range to query.
