@@ -27,9 +27,9 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
 - [InfluxDB 3 Core](/influxdb3/core/)
 - [InfluxDB 3 Enterprise](/influxdb3/enterprise/)
 
-1. Navigate to **Configure** > **Servers**.
-2. Click **+ Connect Your First Server**.
-3. Provide the following InfluxDB 3 server information:
+1.  Navigate to **Configure** > **Servers**.
+2.  Click **+ Connect Your First Server**.
+3.  Provide the following InfluxDB 3 server information:
 
     - **Server name**: A name to identify the InfluxDB 3 server you're connecting to.
     - **Server URL**: The URL used to connect to your InfluxDB 3 server.
@@ -46,7 +46,7 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
       > tokens with limited permissions may not be able to use some Explorer
       > functionality.
 
-4. Click **Add Server**.
+4.  Click **Add Server**.
 
 InfluxDB 3 Explorer attempts to verify the connection. If successful, Explorer
 saves the server configuration and selects it as the active server.
@@ -91,18 +91,18 @@ the {{% product-name %}} OpenAI integration.
 For this getting started guide, use the Schema Browser to build a SQL query
 that returns data from the newly written sample data set.
 
-1. On the **Data Explorer** in the **Schema** column, select the database you
-   want to query from the database dropdown menu.
-   Once selected, all tables in the database appear.
-2. Click the name of the table you want to query to expand and view all the
-   columns in that table.
-3. Select each column you want to query.
-   As you select columns in the Schema Browser, Explorer generates and updates
-   a SQL query in the _Query pane_.
-4. Use the time range dropdown menu above the Query pane to select a time range
-   to query. You can select one of the predefined relative time ranges, or you
-   can select _Custom Range_ to define an absolute time range to query.
-5. With columns and a time range selected, click **Run Query**.
+1.  On the **Data Explorer** in the **Schema** column, select the database you
+    want to query from the database dropdown menu.
+    Once selected, all tables in the database appear.
+2.  Click the name of the table you want to query to expand and view all the
+    columns in that table.
+3.  Select each column you want to query.
+    As you select columns in the Schema Browser, Explorer generates and updates
+    a SQL query in the _Query pane_.
+4.  Use the time range dropdown menu above the Query pane to select a time range
+    to query. You can select one of the predefined relative time ranges, or you
+    can select _Custom Range_ to define an absolute time range to query.
+5.  With columns and a time range selected, click **Run Query**.
 
 {{% product-name %}} runs the query and returns the results in the _Results pane_.
 The Results pane provides three view options:
