@@ -43,7 +43,7 @@ To search for plugins in the Plugin library, submit a search term in the search 
         - **Frequency**: When to run the plugin using one of the following patterns:
           - `every:<duration>`: Run at specified intervals--for example:
             `every:15m`.
-          - `cron:<cron-experssion>`: Run on a cron schedule--for
+          - `cron:<cron-expression>`: Run on a cron schedule--for
             example: `cron:0 */12 * * *`.
       - **HTTP Endpoint**:
         - **API Endpoint**: The API endpoint name to use to trigger the plugin--for
@@ -69,6 +69,6 @@ To search for plugins in the Plugin library, submit a search term in the search 
 
 {{% product-name %}} also lets you do the following:
 
-- **Download Code**: Download the plugin code to view it or modify it for you own use.
+- **Download Code**: Download the plugin code to view it or modify it for your own use.
 - **Copy Install Command**: Copy the `influxdb3` CLI command you can use to
   manually install the plugin on your InfluxDB 3 server.
