@@ -14,6 +14,7 @@ influxdb3 show <SUBCOMMAND>
 | Subcommand                                                              | Description                                    |
 | :---------------------------------------------------------------------- | :--------------------------------------------- |
 | [databases](/influxdb3/version/reference/cli/influxdb3/show/databases/) | List database                                  |
+{{% show-in "enterprise" %}}| [license](/influxdb3/version/reference/cli/influxdb3/show/license/)     | Display license information                    |{{% /show-in %}}
 | [system](/influxdb3/version/reference/cli/influxdb3/show/system/)       | Display system table data                      |
 | [tokens](/influxdb3/version/reference/cli/influxdb3/show/tokens/)       | List authentication tokens                      |
 | help                                                                    | Print command help or the help of a subcommand |

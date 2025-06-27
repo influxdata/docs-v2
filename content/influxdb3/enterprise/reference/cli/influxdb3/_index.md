@@ -32,6 +32,7 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 | [serve](/influxdb3/enterprise/reference/cli/influxdb3/serve/)     | Run the {{% product-name %}} server |
 | [show](/influxdb3/enterprise/reference/cli/influxdb3/show/)       | List resources                      |
 | [test](/influxdb3/enterprise/reference/cli/influxdb3/test/)       | Test plugins                        |
+| [update](/influxdb3/enterprise/reference/cli/influxdb3/update/)   | Update resources                    |
 | [write](/influxdb3/enterprise/reference/cli/influxdb3/write/)     | Write to {{% product-name %}}       |
 
 ## Global options

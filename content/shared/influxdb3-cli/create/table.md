@@ -24,6 +24,7 @@ influxdb3 create table [OPTIONS] \
 
 ## Options
 
+{{% hide-in "enterprise" %}}
 | Option |              | Description                                                                              |
 | :----- | :----------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`     | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
@@ -34,6 +35,22 @@ influxdb3 create table [OPTIONS] \
 |        | `--tls-ca`   | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 | `-h`   | `--help`     | Print help information                                                                   |
 |        | `--help-all` | Print detailed help information                                                          |
+{{% /hide-in %}}
+
+<!-- Using the show-in shortcode for only the retention-period option breaks the formatting in Core -->
+{{% show-in "enterprise" %}}
+| Option |                      | Description                                                                                                                                      |
+| :----- | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-H`   | `--host`             | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                         |
+| `-d`   | `--database`         | _({{< req >}})_ Name of the database to operate on                                                                                               |
+|        | `--retention-period` | [Retention period](/influxdb3/version/reference/glossary/#retention-period) ([duration](/influxdb3/version/reference/glossary/#duration) value, for example: `30d`, `24h`, `1h`) for data in the table|
+|        | `--token`            | _({{< req >}})_ Authentication token                                                                                                             |
+|        | `--tags`             | _({{< req >}})_ Comma-separated list of tag columns to include in the table                                                                      |
+|        | `--fields`           | Comma-separated list of field columns and their types to include in the table                                                                    |
+|        | `--tls-ca`           | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                             |
+| `-h`   | `--help`             | Print help information                                                                                                                           |
+|        | `--help-all`         | Print detailed help information                                                                                                                  |
+{{% /show-in %}}
 
 > [!Important]
 >
@@ -90,6 +107,22 @@ influxdb3 create table \
   TABLE_NAME
 ```
 
+{{% show-in "enterprise" %}}
+### Create a table with a retention period
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create table \
+  --tags room,sensor_id \
+  --fields temp:float64,hum:float64 \
+  --retention-period 7d \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  TABLE_NAME
+```
+{{% /show-in %}}
+
 ### Verification
 
 Use the `SHOW TABLES` query to verify that the table was created successfully:
@@ -114,7 +147,7 @@ Example output:
 +---------------+--------------------+----------------------------+------------+
 ```
 
->[!Note]
+> [!Note]
 > `SHOW TABLES` is an SQL query. It isn't supported in InfluxQL.
 
 {{% /code-placeholders %}}

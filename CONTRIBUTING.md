@@ -363,6 +363,9 @@ list_query_example:# Code examples included with article descriptions in childre
   # References to examples in data/query_examples
 canonical: # Path to canonical page, overrides auto-gen'd canonical URL
 v2: # Path to v2 equivalent page
+alt_links: # Alternate pages in other products/versions for cross-product navigation
+  cloud-dedicated: /influxdb3/cloud-dedicated/path/to/page/
+  core: /influxdb3/core/path/to/page/
 prepend: # Prepend markdown content to an article (especially powerful with cascade)
   block: # (Optional) Wrap content in a block style (note, warn, cloud)
   content: # Content to prepend to article
@@ -453,6 +456,29 @@ add the following frontmatter to the 1.x page:
 ```yaml
 v2: /influxdb/v2.0/get-started/
 ```
+
+### Alternative links for cross-product navigation
+
+Use the `alt_links` frontmatter to specify equivalent pages in other InfluxDB products,
+for example, when a page exists at a different path in a different version or if
+the feature doesn't exist in that product.
+This enables the product switcher to navigate users to the corresponding page when they
+switch between products. If a page doesn't exist in another product (for example, an
+Enterprise-only feature), point to the nearest parent page if relevant.
+
+```yaml
+alt_links:
+  cloud-dedicated: /influxdb3/cloud-dedicated/admin/tokens/create-token/
+  cloud-serverless: /influxdb3/cloud-serverless/admin/tokens/create-token/
+  core: /influxdb3/core/reference/cli/influxdb3/update/  # Points to parent if exact page doesn't exist
+```
+
+Supported product keys for InfluxDB 3:
+- `core`
+- `enterprise`
+- `cloud-serverless`
+- `cloud-dedicated`
+- `clustered`
 
 ### Prepend and append content to a page
 
