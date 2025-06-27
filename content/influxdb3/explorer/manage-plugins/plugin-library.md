@@ -8,10 +8,6 @@ menu:
     name: Plugin Library
     parent: Manage InfluxDB plugins
 weight: 101
-related:
-  - /influxdb3/core/plugins/, InfluxDB 3 Core Processing engine plugins
-  - /influxdb3/enterprise/plugins/, InfluxDB 3 Enterprise Processing engine plugins
-metadata: [beta]
 ---
 
 The _InfluxDB Plugin Library_ is a collection of pre-built InfluxDB 3 plugins that
