@@ -16,7 +16,8 @@
 
 - **Hard delete for databases and tables**: Permanently delete databases and tables, enabling complete removal of data structures for compliance and storage management ([#26553](https://github.com/influxdata/influxdb/pull/26553))
 - **AWS credentials auto-reload**: Support dynamic reloading of ephemeral AWS credentials from files, improving security and reliability when using AWS services ([#26537](https://github.com/influxdata/influxdb/pull/26537))
-- **Database retention period support**: Add retention period support for databases via CLI commands (`create database` and `update database` commands) and HTTP APIs ([#26520](https://github.com/influxdata/influxdb/pull/26520))
+- **Database retention period support**: Add retention period support for databases via CLI commands (`create database` and `update database` commands) and HTTP APIs ([#26520](https://github.com/influxdata/influxdb/pull/26520)):
+  - New CLI command: `update database --retention-period`
 - **Configurable lookback duration**: Users can specify lookback duration for PersistedFiles buffer, providing better control over query performance ([#26528](https://github.com/influxdata/influxdb/pull/26528))
 - **WAL replay concurrency control**: Add concurrency limits for WAL (Write-Ahead Log) replay to improve startup performance and resource management ([#26483](https://github.com/influxdata/influxdb/pull/26483))
 - **Enhanced write path**: Separate write path executor with unbounded memory for improved write performance ([#26455](https://github.com/influxdata/influxdb/pull/26455))
@@ -42,7 +43,8 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - **License management improvements**: 
   - New `influxdb3 show license` command to display current license information
 - **Table-level retention period support**: Add retention period support for individual tables in addition to database-level retention, providing granular data lifecycle management
-  - New CLI command: `influxdb3 create table --retention-period`
+   - New CLI commands: `create table --retention-period` and `update table --retention-period`
+   - Set or clear table-specific retention policies independent of database settings
 - **Compaction improvements**:
   - Address compactor restart issues for better reliability
   - Track compacted generation durations in catalog for monitoring
