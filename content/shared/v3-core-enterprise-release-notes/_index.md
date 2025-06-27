@@ -5,6 +5,57 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.2.0 {date="2025-06-25"}
+
+**Core**: revision 1ca3168bee  
+**Enterprise**: revision 1ca3168bee
+
+### Core
+
+#### Features
+
+- **Hard delete for databases and tables**: Permanently delete databases and tables, enabling complete removal of data structures for compliance and storage management ([#26553](https://github.com/influxdata/influxdb/pull/26553))
+- **AWS credentials auto-reload**: Support dynamic reloading of ephemeral AWS credentials from files, improving security and reliability when using AWS services ([#26537](https://github.com/influxdata/influxdb/pull/26537))
+- **Database retention period support**: Add retention period support for databases via CLI commands (`create database` and `update database` commands) and HTTP APIs ([#26520](https://github.com/influxdata/influxdb/pull/26520)):
+  - New CLI command: `update database --retention-period`
+- **Configurable lookback duration**: Users can specify lookback duration for PersistedFiles buffer, providing better control over query performance ([#26528](https://github.com/influxdata/influxdb/pull/26528))
+- **WAL replay concurrency control**: Add concurrency limits for WAL (Write-Ahead Log) replay to improve startup performance and resource management ([#26483](https://github.com/influxdata/influxdb/pull/26483))
+- **Enhanced write path**: Separate write path executor with unbounded memory for improved write performance ([#26455](https://github.com/influxdata/influxdb/pull/26455))
+
+#### Bug Fixes
+
+- **WAL corruption handling**: Handle corrupt WAL files during replay without panic, improving data recovery and system resilience ([#26556](https://github.com/influxdata/influxdb/pull/26556))
+- **Database naming validation**: Disallow underscores in database names when created via API to ensure consistency ([#26507](https://github.com/influxdata/influxdb/pull/26507))
+- **Object store cleanup**: Automatic intermediate directory cleanup for file object store, preventing storage bloat ([#26480](https://github.com/influxdata/influxdb/pull/26480))
+
+#### Additional Updates
+
+- Track generation 1 duration in catalog for better performance monitoring ([#26508](https://github.com/influxdata/influxdb/pull/26508))
+- Add retention period support to the catalog ([#26479](https://github.com/influxdata/influxdb/pull/26479))
+- Update help text for improved user experience ([#26509](https://github.com/influxdata/influxdb/pull/26509))
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Features
+
+- **License management improvements**: 
+  - New `influxdb3 show license` command to display current license information
+- **Table-level retention period support**: Add retention period support for individual tables in addition to database-level retention, providing granular data lifecycle management
+   - New CLI commands: `create table --retention-period` and `update table --retention-period`
+   - Set or clear table-specific retention policies independent of database settings
+- **Compaction improvements**:
+  - Address compactor restart issues for better reliability
+  - Track compacted generation durations in catalog for monitoring
+  - Disable parquet cache for ingest mode to optimize memory usage
+
+#### Bug Fixes
+
+- **Query optimization**: Correctly partition query chunks into generations for improved performance
+- **Data integrity**: Don't delete generation 1 files as part of compaction process
+- **License handling**: Trim whitespace from license file contents after reading to prevent validation issues
+
 ## v3.1.0 {date="2025-05-29"}
 **Core**: revision 482dd8aac580c04f37e8713a8fffae89ae8bc264
 
