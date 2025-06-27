@@ -24,8 +24,8 @@ influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 ## Required parameters
 
 - **node-id**: A unique identifier for your server instance. Must be unique for any hosts sharing the same object store.
-- **object-store**: Determines where time series data is stored. _Default is `memory`_.
-- **data-dir**: Path for local file storage (required when using `--object-store file`).
+- **object-store**: Determines where time series data is stored.
+- Other object store parameters depending on the selected `object-store` type.
 
 > [!NOTE]
 > `--node-id` supports alphanumeric strings with optional hyphens.
