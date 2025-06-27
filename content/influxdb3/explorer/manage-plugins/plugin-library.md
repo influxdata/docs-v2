@@ -60,9 +60,9 @@ To search for plugins in the Plugin library, submit a search term in the search 
           wait for a response.
         - **Error Behavior**: Specify the action you want the plugin to take
           when it encounters an error:
-            - **Log**: Log the error to your InfluxDB server's logs.
-            - **Retry**: Retry the plugin execution.
-            - **Disable**: Disable the plugin.
+          - **Log**: Log the error to your InfluxDB server's logs.
+          - **Retry**: Retry the plugin execution.
+          - **Disable**: Disable the plugin.
 
       - **Arguments**: Specific arguments to pass to the Plugin.
         Plugins can have both required and optional arguments.
