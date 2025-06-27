@@ -67,8 +67,8 @@ To search for plugins in the Plugin library, submit a search term in the search 
 
 ### Other plugin installation options
 
-{{% product-name %}} also lets you doe the following:
+{{% product-name %}} also lets you do the following:
 
 - **Download Code**: Download the plugin code to view it or modify it for you own use.
-- **Copy Install Command** Copy the `influxdb3` CLI command you can use to
+- **Copy Install Command**: Copy the `influxdb3` CLI command you can use to
   manually install the plugin on your InfluxDB 3 server.
