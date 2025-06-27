@@ -12,7 +12,7 @@ influxdb3 update database [OPTIONS] --database <DATABASE_NAME>
 
 ## Arguments
 
-- **`DATABASE_NAME`**: (Required) The name of the database to update. Valid database names are alphanumeric and start with a letter or number. Dashes (-) and underscores (_) are allowed.
+- **`DATABASE_NAME`**: (Required) The name of the database to update.
   
 You can also set the database name using the `INFLUXDB3_DATABASE_NAME` environment variable.
 

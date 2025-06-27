@@ -12,9 +12,6 @@ weight: 300
 
 The `influxdb3 show license` command displays license information for your {{< product-name >}} instance.
 
-{{% show-in "enterprise" %}}
-This command is only available in InfluxDB 3 Enterprise.
-{{% /show-in %}}
 
 ## Usage
 

@@ -39,6 +39,8 @@ You can use the following environment variables to set command options:
 
 - [Delete a database](#delete-a-database)
 - [Delete a database while specifying the token inline](#delete-a-database-while-specifying-the-token-inline)
+- [Hard delete a database immediately](#hard-delete-a-database-immediately)
+- [Hard delete a database at a specific time](#hard-delete-a-database-at-a-specific-time)
 
 In the examples below, replace the following:
 
