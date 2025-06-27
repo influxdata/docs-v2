@@ -186,7 +186,7 @@ Limits the number of Parquet files a query can access.
 
 **Default:** `432`
 
-With the default `432` setting and the default [`gen1-duration`](#`gen1-duration`)
+With the default `432` setting and the default [`gen1-duration`](#gen1-duration)
 setting of 10 minutes, queries can access up to a 72 hours of data, but
 potentially less depending on whether all data for a given 10 minute block of
 time was ingested during the same period.
