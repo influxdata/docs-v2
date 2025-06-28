@@ -76,8 +76,8 @@ Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
     - Any of the available [environment variables](#environment-variables)
       
       > [!Note]
-      > To persist sessions across container restarts, explicitly set the
-      > [`SESSION_SECRET_KEY` environment variable](#session_secret_key).
+      > To persist sessions across container restarts, see the detailed instructions
+      > on setting the [`SESSION_SECRET_KEY` environment variable](#session_secret_key).
 
     ```bash
     docker run --detach \
@@ -275,14 +275,14 @@ Defines the path to the SSL private key file inside the container.
 Default is `/etc/nginx/ssl/key.pem`.
 
 {{< expand-wrapper >}}
-{{% expand "View `SSL_KET_PATH` example" %}}
+{{% expand "View `SSL_KEY_PATH` example" %}}
 <!-- pytest.mark.skip -->
 
 ```bash
 docker run --detach \
   # ...
   --volume $(pwd)/ssl:/custom/ssl:ro \
-  --env SSL_KET_PATH=/custom/ssl/key.pem \
+  --env SSL_KEY_PATH=/custom/ssl/key.pem \
   quay.io/influxdb/influxdb3-explorer:latest
 ```
 {{% /expand %}}
