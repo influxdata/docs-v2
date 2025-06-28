@@ -6,7 +6,7 @@ InfluxDB {{< current-version >}} uses [API tokens](/influxdb/version/admin/token
 The [1.x compatibility API](/influxdb/version/reference/api/influxdb-1x/) lets clients authenticate with InfluxDB {{< current-version >}} using the InfluxDB 1.x convention of username and password.
 
 {{% note %}}
-1.x-compatible authorizations are separate from the credentials used to log
+v1-compatible authorizations are separate from the credentials used to log
 into the InfluxDB user interface.
 {{% /note %}}
 

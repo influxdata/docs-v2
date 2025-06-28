@@ -191,7 +191,7 @@ InfluxQL requires single quotes around tag values in the `WHERE` clause.
 
 {{% /expand %}}
 
-{{% expand "Select data with specific field key-values and tag key-valuest" %}}
+{{% expand "Select data with specific field key-values and tag key-values" %}}
 
 ```sql
 SELECT "water_level" FROM "h2o_feet" WHERE "location" <> 'santa_monica' AND (water_level < -0.59 OR water_level > 9.95)

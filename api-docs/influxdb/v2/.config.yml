@@ -10,7 +10,5 @@ apis:
     root: v2/ref.yml
     x-influxdata-docs-aliases:
       - /influxdb/v2/api/
-  v1-compatibility@2:
-    root: v1-compatibility/swaggerV1Compat.yml
-    x-influxdata-docs-aliases:
+      - /influxdb/v2/api/v1-compatibility/
       - /influxdb/v2/api/v1/
