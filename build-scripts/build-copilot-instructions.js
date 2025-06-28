@@ -46,11 +46,11 @@ function buildContributingInstructions() {
 applyTo: "content/**/*.md, layouts/**/*.html"
 ---
 
-# GitHub Copilot Instructions for InfluxData Documentation
+# Contributing instructions for InfluxData Documentation
 
 ## Purpose and scope
 
-GitHub Copilot should help document InfluxData products
+Help document InfluxData products
 by creating clear, accurate technical content with proper
 code examples, frontmatter, shortcodes, and formatting.
 

@@ -1,13 +1,16 @@
-# GitHub Copilot Instructions for InfluxData Documentation
+# Instructions for InfluxData Documentation
 
 ## Purpose and scope
 
-GitHub Copilot should help document InfluxData products by creating clear, accurate technical content with proper code examples, frontmatter, and formatting.
+Help document InfluxData products by creating clear, accurate technical content with proper code examples, frontmatter, and formatting.
 
 ## Documentation structure
 
 - **Product version data**: `/data/products.yml`
-- **Products**:
+- **InfluxData products**:
+  - InfluxDB 3 Explorer
+    - Documentation source path: `/content/influxdb3/explorer`
+    - Published for the web: https://docs.influxdata.com/influxdb3/explorer/
   - InfluxDB 3 Core
     - Documentation source path: `/content/influxdb3/core`
     - Published for the web: https://docs.influxdata.com/influxdb3/core/
@@ -92,7 +95,8 @@ GitHub Copilot should help document InfluxData products by creating clear, accur
 
 ## Markdown and shortcodes
 
-- Include proper frontmatter for each page:
+- Include proper frontmatter for Markdown pages in `content/**/*.md` (except for
+  shared content files in `content/shared/`):
 
   ```yaml
   title: # Page title (h1)
@@ -180,3 +184,17 @@ Table: keys: [_start, _stop, _field, _measurement]
 ## Related repositories
 
 - **Internal documentation assistance requests**: https://github.com/influxdata/DAR/issues Documentation
+
+## Additional instruction files
+
+For specific workflows and content types, also refer to:
+
+- **InfluxDB 3 code placeholders**: `.github/instructions/influxdb3-code-placeholders.instructions.md` - Guidelines for placeholder formatting, descriptions, and shortcode usage in InfluxDB 3 documentation
+- **Contributing guidelines**: `.github/instructions/contributing.instructions.md` - Detailed style guidelines, shortcode usage, frontmatter requirements, and development workflows
+- **Content-specific instructions**: Check `.github/instructions/` directory for specialized guidelines covering specific documentation patterns and requirements
+
+## Integration with specialized instructions
+
+When working on InfluxDB 3 documentation (Core/Enterprise), prioritize the placeholder guidelines from `influxdb3-code-placeholders.instructions.md`.
+
+For general documentation structure, shortcodes, and development workflows, follow the comprehensive guidelines in `contributing.instructions.md`.
