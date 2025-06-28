@@ -36,8 +36,8 @@ criteria.
 
 When a trigger condition is met, InfluxDB 3 automatically runs the associated
 plugin code. This enables real-time data processing, enrichment, or alerting
-without manual intervention. You can enable, disable, or configure triggers for
-each plugin in the InfluxDB 3 Explorer UI.
+without manual intervention.
+Use the InfluxDB 3 Explorer UI to enable, disable, or configure triggers for each plugin.
 
 <!-- TOC -->
 
@@ -76,7 +76,7 @@ You can also use the **search bar** to filter by plugin name.
     - **If the plugin is currently running (enabled)**, click {{< icon "pause" >}} to disable the plugin.
     - **If the plugin is currently stopped (disabled)**, click the {{< icon "play" >}} button to enable the plugin.
 
-##  View Plugin Logs
+##  View plugin logs
 
 1. In the plugin list, locate the desired plugin.
 2. Click **Logs** to view the most recent logs output by the plugin.
