@@ -5,25 +5,35 @@ telegraf:
       - Output
       - Aggregator
       - Processor
-      - External
   - category: Plugin category
     values:
+      - Annotation
       - Applications
-      - Build & Deploy
       - Cloud
       - Containers
-      - Data Stores
+      - Datastore
+      - Filtering
+      - General Purpose
+      - Grouping
+      - Hardware
       - IoT
       - Logging
+      - Math
       - Messaging
-      - Networking
-      - Servers
-      - Systems
+      - Network
+      - Sampling
+      - Server
+      - Statistics
+      - System
+      - Testing
+      - Transformation
       - Web
   - category: Operating system
     values:
+      - FreeBSD
       - Linux
       - macOS
+      - Solaris
       - Windows
   - category: Status
     values:
