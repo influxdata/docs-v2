@@ -263,7 +263,7 @@ export DATABASE_NODE=node0 && influxdb3 serve \
 Specifies which object storage to use to store Parquet files.
 This option supports the following values:
 
-- `memory` _(default)_: Effectively no object persistence
+- `memory`: Effectively no object persistence
 - `memory-throttled`: Like `memory` but with latency and throughput that somewhat resembles a cloud object store
 - `file`: Stores objects in the local filesystem (must also set `--data-dir`)
 - `s3`: Amazon S3 (must also set `--bucket`, `--aws-access-key-id`, `--aws-secret-access-key`, and possibly `--aws-default-region`)

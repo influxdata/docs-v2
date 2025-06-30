@@ -44,13 +44,16 @@ Provide the following:
 - `--object-store`: Specifies the type of object store to use.
   InfluxDB supports the following:
   
-  - `file` _(default)_: local file system 
+  - `file`: local file system 
   - `memory`: in memory _(no object persistence)_
   - `memory-throttled`: like `memory` but with latency and throughput that
     somewhat resembles a cloud-based object store
   - `s3`: AWS S3 and S3-compatible services like Ceph or Minio
   - `google`: Google Cloud Storage
   - `azure`: Azure Blob Storage
+
+- Other object store parameters depending on the selected `object-store` type.
+  For example, if you use `s3`, you must provide the bucket name and credentials.
 
 > [!Note]
 > #### Diskless architecture

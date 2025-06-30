@@ -144,7 +144,7 @@ influxdb3 serve
 Specifies which object storage to use to store Parquet files.
 This option supports the following values:
 
-- `memory` _(default)_
+- `memory`
 - `memory-throttled`
 - `file`
 - `s3`
@@ -171,7 +171,7 @@ Required when using the `file` [object store](#object-store).
 #### node-id
 
 Specifies the node identifier used as a prefix in all object store file paths.
-This should be unique for any hosts sharing the same object store
+Use a unique node identifier for each host sharing the same object store
 configuration--for example, the same bucket.
 
 | influxdb3 serve option | Environment variable               |
@@ -186,7 +186,7 @@ Limits the number of Parquet files a query can access.
 
 **Default:** `432`
 
-With the default `432` setting and the default [`gen1-duration`](#`gen1-duration`)
+With the default `432` setting and the default [`gen1-duration`](#gen1-duration)
 setting of 10 minutes, queries can access up to a 72 hours of data, but
 potentially less depending on whether all data for a given 10 minute block of
 time was ingested during the same period.
