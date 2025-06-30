@@ -44,7 +44,7 @@ Use the InfluxDB 3 Explorer UI to enable, disable, or configure triggers for eac
 - [View installed plugins](#view-installed-plugins)
   - [Filter installed plugins](#filter-installed-plugins)
 - [Enable or disable a plugin](#enable-or-disable-a-plugin)
-- [ View Plugin Logs](#-view-plugin-logs)
+- [ View Plugin Logs](#view-plugin-logs)
 - [Delete a plugin](#delete-a-plugin)
 - [Use the Plugin Library](#use-the-plugin-library)
 
