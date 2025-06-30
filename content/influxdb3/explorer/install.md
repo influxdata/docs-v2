@@ -33,7 +33,7 @@ Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
 2.  **Pull the {{% product-name %}} Docker image**
 
     ```bash
-    docker pull quay.io/influxdb/influxdb3-explorer:latest
+    influxdata/influxdb3-ui:{{% latest-patch %}}
     ```
 
 3.  **Create local directories** _(optional)_
@@ -87,7 +87,7 @@ Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
       --volume $(pwd)/config:/app-root/config:ro \
       --volume $(pwd)/db:/db:rw \
       --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
-      quay.io/influxdb/influxdb3-explorer:latest \
+      influxdata/influxdb3-ui:{{% latest-patch %}} \
       --mode=admin
     ```
 
@@ -220,7 +220,7 @@ docker run --detach \
   # ...
   --volume $(pwd)/db:/custom/db-path:rw \
   --env DATABASE_URL=/custom/db-path/sqlite.db \
-  quay.io/influxdb/influxdb3-explorer:latest
+  influxdata/influxdb3-ui:{{% latest-patch %}}
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -238,7 +238,7 @@ uses a random 32-byte hex string as the session secret key.
 docker run --detach \
   # ...
   --env SESSION_SECRET_KEY=xxX0Xx000xX0XxxxX0Xx000xX0XxX00x \
-  quay.io/influxdb/influxdb3-explorer:latest
+  influxdata/influxdb3-ui:{{% latest-patch %}}
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -264,7 +264,7 @@ docker run --detach \
   # ...
   --volume $(pwd)/ssl:/custom/ssl:ro \
   --env SSL_CERT_PATH=/custom/ssl/cert.pem \
-  quay.io/influxdb/influxdb3-explorer:latest
+  influxdata/influxdb3-ui:{{% latest-patch %}}
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -283,7 +283,7 @@ docker run --detach \
   # ...
   --volume $(pwd)/ssl:/custom/ssl:ro \
   --env SSL_KEY_PATH=/custom/ssl/key.pem \
-  quay.io/influxdb/influxdb3-explorer:latest
+  influxdata/influxdb3-ui:{{% latest-patch %}}
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
