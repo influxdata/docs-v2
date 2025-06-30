@@ -1,19 +1,18 @@
-The `influxdb3 create database` command creates a new database in your {{< product-name >}} instance.
+The `influxdb3 update database` command updates an existing database in your {{< product-name >}} instance.
 
-Provide a database name and, optionally, specify connection settings and authentication credentials using flags or environment variables.
+Use this command to update a database's retention period.
 
 ## Usage
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create database [OPTIONS] <DATABASE_NAME>
+influxdb3 update database [OPTIONS] --database <DATABASE_NAME>
 ```
 
 ## Arguments
 
-
-- **`DATABASE_NAME`**: The name of the database to create. Valid database names are alphanumeric and start with a letter or number. Dashes (-) and underscores (_) are allowed.
+- **`DATABASE_NAME`**: (Required) The name of the database to update.
   
 You can also set the database name using the `INFLUXDB3_DATABASE_NAME` environment variable.
 
@@ -22,8 +21,9 @@ You can also set the database name using the `INFLUXDB3_DATABASE_NAME` environme
 | Option |                      | Description                                                                                                                                      |
 | :----- | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `-H`   | `--host`             | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                         |
-|        | `--retention-period` | Database [retention period](/influxdb3/version/reference/glossary/#retention-period) ([duration](/influxdb3/version/reference/glossary/#duration) value, for example: `30d`, `24h`, `1h`) |
+| `-d`   | `--database`         | The name of the database to update                                                                                                               |
 |        | `--token`            | Authentication token                                                                                                                             |
+| `-r`   | `--retention-period` | The retention period as a [duration](/influxdb3/version/reference/glossary/#duration) value (for example: `30d`, `24h`) or `none` to clear     |
 |        | `--tls-ca`           | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                             |
 | `-h`   | `--help`             | Print help information                                                                                                                           |
 |        | `--help-all`         | Print detailed help information                                                                                                                  |
@@ -35,11 +35,13 @@ You can use the following environment variables instead of providing CLI options
 | Environment Variable      | Option       |
 | :------------------------ | :----------- |
 | `INFLUXDB3_HOST_URL`      | `--host`     |
+| `INFLUXDB3_DATABASE_NAME` | `--database` |
 | `INFLUXDB3_AUTH_TOKEN`    | `--token`    |
+| `INFLUXDB3_TLS_CA`        | `--tls-ca`   |
 
 ## Examples
 
-The following examples show how to create a database.
+The following examples show how to update a database.
 
 In your commands replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
@@ -49,35 +51,34 @@ In your commands replace the following:
 
 {{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 
-### Create a database (default)
+### Update a database retention period
 
-Creates a database using settings from environment variables and defaults.
+Updates a database retention period to 30 days.
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create database DATABASE_NAME
+influxdb3 update database --retention-period 30d DATABASE_NAME
 ```
 
-### Create a database with an authentication token
+### Clear a database retention period
 
-Creates a database using the specified arguments.
-Flags override their associated environment variables.
+Removes the retention period from a database by setting it to `none`.
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create database --token AUTH_TOKEN DATABASE_NAME
+influxdb3 update database --retention-period none DATABASE_NAME
 ```
 
-### Create a database with a retention period
+### Update a database with authentication
 
-Creates a database with a specific retention period.
+Updates a database using an authentication token.
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 create database --retention-period 30d DATABASE_NAME
+influxdb3 update database --token AUTH_TOKEN --retention-period 7d DATABASE_NAME
 ```
 
 {{% /code-placeholders %}}

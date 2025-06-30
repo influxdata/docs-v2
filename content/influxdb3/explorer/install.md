@@ -73,7 +73,11 @@ Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
       - `$(pwd)/db:/db:rw`
       - `$(pwd)/config:/app-root/config:ro`
       - `$(pwd)/ssl:/etc/nginx/ssl:ro`
-    - Any of the available [environment variables](#environment-variables) 
+    - Any of the available [environment variables](#environment-variables)
+      
+      > [!Note]
+      > To persist sessions across container restarts, see the detailed instructions
+      > on setting the [`SESSION_SECRET_KEY` environment variable](#session_secret_key).
 
     ```bash
     docker run --detach \
@@ -113,6 +117,13 @@ To enable TLS/SSL, mount valid certificate and key files into the container:
 
 The nginx web server automatically uses certificate files when they are present
 in the mounted path.
+
+> [!Note]
+> You can use a custom location for certificate and key files.
+> Use the [`SSL_CERT_PATH`](#ssl_cert_path) and [`SSL_KEY_PATH`](#ssl_key_path)
+> environment variables to identify the custom location.
+> Also update the SSL directory volume mount path inside the container.
+
 
 ---
 
@@ -191,11 +202,91 @@ If `--mode` is not set, the container defaults to query mode.
 Use the following environment variables to customize {{% product-name %}} settings
 in your container.
 
-| Variable       | Description                                      | Default              |
-|----------------|--------------------------------------------------|----------------------|
-| `DATABASE_URL` | Path to SQLite DB inside container               | `/db/sqlite.db`      |
+- [DATABASE_URL](#database_url)
+- [SESSION_SECRET_KEY](#session_secret_key)
+- [SSL_CERT_PATH](#ssl_cert_path)
+- [SSL_KEY_PATH](#ssl_key_path)
 
----
+### DATABASE_URL
+
+Path to SQLite DB inside container. The default is `/db/sqlite.db`.
+
+{{< expand-wrapper >}}
+{{% expand "View `DATABASE_URL` example" %}}
+<!-- pytest.mark.skip -->
+
+```bash
+docker run --detach \
+  # ...
+  --volume $(pwd)/db:/custom/db-path:rw \
+  --env DATABASE_URL=/custom/db-path/sqlite.db \
+  quay.io/influxdb/influxdb3-explorer:latest
+```
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### SESSION_SECRET_KEY
+
+Specifies the secret key for session management. If none is provided, Explorer
+uses a random 32-byte hex string as the session secret key.
+
+{{< expand-wrapper >}}
+{{% expand "View `SESSION_SECRET_KEY` example" %}}
+<!-- pytest.mark.skip -->
+
+```bash
+docker run --detach \
+  # ...
+  --env SESSION_SECRET_KEY=xxX0Xx000xX0XxxxX0Xx000xX0XxX00x \
+  quay.io/influxdb/influxdb3-explorer:latest
+```
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+> [!Important]
+> #### Always set SESSION_SECRET_KEY in production
+>
+> When you restart the container, {{% product-name %}} generates a new key if
+> not explicitly set. For production use cases, always set the `SESSION_SECRET_KEY`
+> environment variable to persist sessions across restarts.
+
+### SSL_CERT_PATH
+
+Defines the path to the SSL certificate file inside the container.
+Default is `/etc/nginx/ssl/cert.pem`.
+
+{{< expand-wrapper >}}
+{{% expand "View `SSL_CERT_PATH` example" %}}
+<!-- pytest.mark.skip -->
+
+```bash
+docker run --detach \
+  # ...
+  --volume $(pwd)/ssl:/custom/ssl:ro \
+  --env SSL_CERT_PATH=/custom/ssl/cert.pem \
+  quay.io/influxdb/influxdb3-explorer:latest
+```
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### SSL_KEY_PATH
+
+Defines the path to the SSL private key file inside the container.
+Default is `/etc/nginx/ssl/key.pem`.
+
+{{< expand-wrapper >}}
+{{% expand "View `SSL_KEY_PATH` example" %}}
+<!-- pytest.mark.skip -->
+
+```bash
+docker run --detach \
+  # ...
+  --volume $(pwd)/ssl:/custom/ssl:ro \
+  --env SSL_KEY_PATH=/custom/ssl/key.pem \
+  quay.io/influxdb/influxdb3-explorer:latest
+```
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Volume Reference
 
@@ -204,8 +295,6 @@ in your container.
 | `/db`                | SQLite DB storage            | `./db`                     |
 | `/app-root/config`   | JSON config for defaults     | `./config`                 |
 | `/etc/nginx/ssl`     | SSL certs for HTTPS          | `./ssl`                    |
-
----
 
 ## Exposed Ports
 
