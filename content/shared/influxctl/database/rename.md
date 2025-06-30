@@ -1,5 +1,5 @@
 
-The `influxctl database rename` command renames a databases in an
+The `influxctl database rename` command renames a database in an
 {{% product-name omit=" Clustered" %}} cluster.
 This command does _not_ change the database ID, database properties, or the
 data stored in the database.
@@ -23,7 +23,7 @@ influxctl database rename [flags] <CURRENT_DB_NAME> <NEW_DB_NAME>
 
 | Argument            | Description                  |
 | :------------------ | :--------------------------- |
-| **CURRENT_DB_NAME** | Name current of the database |
+| **CURRENT_DB_NAME** | Current name of the database |
 | **NEW_DB_NAME**     | New name for the database    |
 
 ## Flags
