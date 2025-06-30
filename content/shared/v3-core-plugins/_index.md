@@ -23,25 +23,10 @@ Ensure you have:
 Once you have all the prerequisites in place, follow these steps to implement the Processing Engine for your data automation needs.
 
 - [Set up the Processing Engine](#set-up-the-processing-engine)
-  - [Configure distributed environments](#configure-distributed-environments)
 - [Add a Processing Engine plugin](#add-a-processing-engine-plugin)
-  - [Choose a plugin strategy](#choose-a-plugin-strategy)
-  - [Use example plugins](#use-example-plugins)
-  - [Create a custom plugin](#create-a-custom-plugin)
 - [Set up a trigger](#set-up-a-trigger)
-  - [Understand trigger types](#understand-trigger-types)
-  - [Use the create trigger command](#use-the-create-trigger-command)
-  - [Trigger specification examples](#trigger-specification-examples)
-  - [Pass arguments to plugins](#pass-arguments-to-plugins)
-  - [Control trigger execution](#control-trigger-execution)
-  - [Configure error handling for a trigger](#configure-error-handling-for-a-trigger)
 - [Advanced trigger configuration](#advanced-trigger-configuration)
-  - [Access community plugins from GitHub](#access-community-plugins-from-github)
-  - [Configure your triggers](#configure-your-triggers)
-  - [Install Python dependencies](#install-python-dependencies)
 - [Distributed cluster considerations](#distributed-cluster-considerations)
-  - [Match plugin types to the correct node](#match-plugin-types-to-the-correct-node)
-  - [Route third-party clients to querier nodes](#route-third-party-clients-to-querier-nodes)
 
 ## Set up the Processing Engine
 
@@ -239,7 +224,7 @@ def process_scheduled_call(influxdb3_local, call_time, args=None):
 
 #### Create an HTTP request plugin
 
-HTTP request plugins respond to API calls using [`request:`](#trigger-on-http-requests) trigger specifications{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "..."}}` (API){{% /show-in %}}. Use them for:
+HTTP request plugins respond to API calls using [`request:`](#trigger-on-http-requests) trigger specifications{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "..."}}` (HTTP API){{% /show-in %}}. Use them for:
 
 - Creating custom API endpoints
 - Webhooks for external integrations
@@ -278,7 +263,7 @@ After writing your plugin:
 |------------|----------------------|-----------------|
 | Data write | `table:<TABLE_NAME>` or `all_tables` | When data is written to tables |
 | Scheduled | `every:<DURATION>` or `cron:<EXPRESSION>` | At specified time intervals |
-| HTTP request | `request:<REQUEST_PATH>`{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "<REQUEST_PATH>"}}`{{% /show-in %}} | When HTTP requests are received |
+| HTTP request | `request:<REQUEST_PATH>`{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "<REQUEST_PATH>"}}` (HTTP API){{% /show-in %}} | When HTTP requests are received |
 
 ### Use the create trigger command
 
@@ -615,7 +600,7 @@ Each plugin must run on a node that supports its trigger type:
 |--------------------|--------------------------|-----------------------------|
 | Data write         | `table:` or `all_tables` | Ingester nodes              |
 | Scheduled          | `every:` or `cron:`      | Any node with scheduler     |
-| HTTP request       | `request:`{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "..."}}`{{% /show-in %}} | Nodes that serve API traffic|
+| HTTP request       | `request:`{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "..."}}` (HTTP API){{% /show-in %}} | Nodes that serve API traffic|
 
 {{% show-in "enterprise" %}}
 > [!Note]

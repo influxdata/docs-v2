@@ -162,7 +162,7 @@ affecting actual data. During a plugin test:
 
 To test a plugin:
 
-1.  Save the [example plugin code](#example-python-plugin-for-wal-rows) to a
+1.  Save the [example plugin code](#example-python-plugin-for-data-writes) to a
     plugin file inside of the plugin directory. If you haven't yet written data
     to the table in the example, comment out the lines where it queries.
 2.  To run the test, enter the following command with the following options:
