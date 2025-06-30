@@ -1239,7 +1239,8 @@ paths:
                   db: mydb
                   plugin_filename: request.py
                   trigger_name: hello_world_trigger
-                  trigger_specification: "request:hello-world"
+                  # trigger_specification: "request:hello-world" - For 3.2.1 (issue#6171)
+                  trigger_specification: '{"request_path": {"path": "hello-world"}}'
               cron_friday_afternoon:
                 summary: Cron trigger for Friday afternoons
                 description: |
@@ -1472,19 +1473,22 @@ paths:
     parameters:
       - name: request_path
         description: |
-          The path configured in the request trigger specification "request:<request_path>"` for the plugin.
+          The path configured in the request trigger specification for the plugin.
 
           For example, if you define a trigger with the following:
 
           ```json
-          trigger_specification: "request:hello-world"
+          trigger_specification: {"request_path": {"path": "hello-world"}}
           ```
-
+          
           then, the HTTP API exposes the following plugin endpoint:
             
           ```
           <INFLUXDB3_HOST>/api/v3/engine/hello-world
           ```
+
+          ***Note:*** Currently, due to a bug in InfluxDB 3 Enterprise, the request trigger specification is different from Core.
+
         in: path
         required: true
         schema:
@@ -2091,12 +2095,25 @@ components:
             - `table:TABLE_NAME` - Triggers on write events to a specific table
 
             ### On-demand triggers
-            Format: `request:REQUEST_PATH`
+            Format: `{"request_path": {"path": "REQUEST_PATH"}}`
 
             Creates an HTTP endpoint `/api/v3/engine/REQUEST_PATH` for manual invocation:
-            - `request:hello-world` - Creates endpoint `/api/v3/engine/hello-world`
-            - `request:data-export` - Creates endpoint `/api/v3/engine/data-export`
-          pattern: ^(cron:[0-9 *,/-]+|every:[0-9]+[smhd]|all_tables|table:[a-zA-Z_][a-zA-Z0-9_]*|request:[a-zA-Z0-9_-]+)$
+            - `{"request_path": {"path": "hello-world"}}` - Creates endpoint `/api/v3/engine/hello-world`
+            - `{"request_path": {"path": "data-export"}}` - Creates endpoint `/api/v3/engine/data-export`
+
+            ***Note:*** Currently, due to a bug in InfluxDB 3 Enterprise, the request trigger specification is different from Core. Use the JSON object format shown above.
+
+          oneOf:
+            - type: string
+              pattern: ^(cron:[0-9 *,/-]+|every:[0-9]+[smhd]|all_tables|table:[a-zA-Z_][a-zA-Z0-9_]*)$
+            - type: object
+              properties:
+                request_path:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+                      pattern: ^[a-zA-Z0-9_-]+$
           example: cron:0 0 6 * * 1-5
         trigger_arguments:
           type: object
