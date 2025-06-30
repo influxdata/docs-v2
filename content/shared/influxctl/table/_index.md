@@ -1,6 +1,6 @@
 
 The `influxctl table` command and its subcommands manage tables in an
-InfluxDB Cloud Dedicated cluster.
+{{% product-name omit=" Clustered" %}} cluster.
 
 ## Usage
 

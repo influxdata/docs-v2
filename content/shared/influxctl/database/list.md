@@ -1,5 +1,5 @@
 
-The `influxctl database list` command lists all databases in an InfluxDB Cloud
+The `influxctl database list` command lists all databases in an {{% product-name omit=" Clustered" %}}
 Dedicated cluster.
 
 The `--format` flag lets you print the output in other formats.

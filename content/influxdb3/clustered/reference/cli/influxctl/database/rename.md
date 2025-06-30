@@ -1,7 +1,7 @@
 ---
 title: influxctl database rename
 description: >
-  The `influxctl database rename` command renames a databases in an
+  The `influxctl database rename` command renames a database in an
   {{% product-name omit=" Clustered" %}} cluster.
 menu:
   influxdb3_clustered:

@@ -1,6 +1,6 @@
 
 The `influxctl database` command and its subcommands manage databases in an
-InfluxDB Cloud Dedicated cluster.
+{{% product-name omit=" Clustered" %}} cluster.
 
 ## Usage
 
