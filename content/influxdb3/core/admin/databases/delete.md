@@ -16,6 +16,7 @@ list_code_example: |
   {{% /code-placeholders %}}
 related:
   - /influxdb3/core/reference/cli/influxdb3/delete/database/
+  - /influxdb3/explorer/manage-databases/
 source: /shared/influxdb3-admin/databases/delete.md
 ---
 

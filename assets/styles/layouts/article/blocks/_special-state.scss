@@ -1,10 +1,10 @@
-.block.beta {
+.block.special-state {
   @include gradient($grad-burningDusk);
   padding: 4px;
   border: none;
   border-radius: 25px !important;
 
-  .beta-content {
+  .state-content {
     background: $article-bg;
     border-radius: 21px;
     padding: calc(1.65rem - 4px) calc(2rem - 4px) calc(.1rem + 4px) calc(2rem - 4px);
