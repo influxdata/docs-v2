@@ -23,23 +23,35 @@ engine [trigger](#trigger).
 ### Trigger
 
 When you create a trigger, you specify a [plugin](#plugin), a database, optional
-arguments, and a _trigger-spec_, which defines when the plugin is executed and
+arguments, and a trigger specification, which defines when the plugin is executed and
 what data it receives.
 
 #### Trigger types
 
 InfluxDB 3 provides the following types of triggers, each with specific
-trigger-specs:
+specifications:
 
-- **On WAL flush**: Sends a batch of written data (for a specific table or all
-  tables) to a plugin (by default, every second).
-- **On Schedule**: Executes a plugin on a user-configured schedule (using a
+- **Data write** (`table:` or `all_tables`): Sends a batch of written data (for a specific table or all
+  tables) to a plugin when the database flushes data to the Write-Ahead Log (by default, every second).
+- **Scheduled** (`every:` or `cron:`): Executes a plugin on a user-configured schedule (using a
   crontab or a duration). This trigger type is useful for data collection and
   deadman monitoring.
-- **On Request**: Binds a plugin to a custom HTTP API endpoint at
-  `/api/v3/engine/<ENDPOINT_PATH>`.
+- **HTTP request** (`request:`): Binds a plugin to a custom HTTP API endpoint at
+  `/api/v3/engine/<REQUEST_PATH>`.
   The plugin receives the HTTP request headers and content, and can parse,
   process, and send the data into the database or to third-party services.
+
+{{% show-in "enterprise" %}}
+> [!Warning]
+> #### Request trigger specification format differs between CLI and API
+> 
+> Due to a bug in InfluxDB 3 Enterprise, the request trigger specification format differs:
+> 
+> - **CLI**: `request:<REQUEST_PATH>` (same as Core CLI and API)
+> - **Enterprise API**: `{"request_path": {"path": "<REQUEST_PATH>"}}`
+> 
+> See the [API reference](/influxdb3/enterprise/api/#operation/PostConfigureProcessingEngineTrigger) for examples. Use `influxdb3 show summary` to verify the actual trigger specification.
+{{% /show-in %}}
 
 ## Activate the processing engine
 
@@ -64,10 +76,10 @@ to the current working directory of the `influxdb3` server.
 ## Create a plugin
 
 To create a plugin, write and store a Python file in your configured `PLUGIN_DIR`.
-The following example is a WAL flush plugin that processes data before it gets
+The following example is a data write plugin that processes data before it gets
 persisted to the object store.
 
-##### Example Python plugin for WAL rows 
+##### Example Python plugin for data writes 
 
 ```python
 # This is the basic structure for Python plugin code that runs in the
@@ -77,9 +89,9 @@ persisted to the object store.
 # allowing you to write generic code that uses variables such as monitoring
 # thresholds, environment variables, and host names.
 #
-# Use the following exact signature to define a function for the WAL flush
+# Use the following exact signature to define a function for the data write
 # trigger.
-# When you create a trigger for a WAL flush plugin, you specify the database
+# When you create a trigger for a data write plugin, you specify the database
 # and tables that the plugin receives written data from on every WAL flush
 # (default is once per second).
 def process_writes(influxdb3_local, table_batches, args=None):
@@ -98,9 +110,8 @@ def process_writes(influxdb3_local, table_batches, args=None):
     # value.
     influxdb3_local.info("query result: " + str(query_result))
 
-    # this is the data that is sent when the WAL is flushed of writes the server 
-    # received for the DB or table of interest. One batch for each table (will 
-    # only be one if triggered on a single table)
+    # this is the data that is sent when data is written to the database and flushed to the WAL. 
+    # One batch for each table (will only be one if triggered on a single table)
     for table_batch in table_batches:
         # here you can see that the table_name is available.
         influxdb3_local.info("table: " + table_batch["table_name"])

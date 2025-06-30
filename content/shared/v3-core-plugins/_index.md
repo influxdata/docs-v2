@@ -22,20 +22,26 @@ Ensure you have:
 
 Once you have all the prerequisites in place, follow these steps to implement the Processing Engine for your data automation needs.
 
-1. [Set up the Processing Engine](#set-up-the-processing-engine)
-2. [Add a Processing Engine plugin](#add-a-processing-engine-plugin)
-   - [Use example plugins](#use-example-plugins)
-   - [Create a custom plugin](#create-a-custom-plugin)
-3. [Set up a trigger](#set-up-a-trigger)
-   - [Understand trigger types](#understand-trigger-types)
-   - [Use the create trigger command](#use-the-create-trigger-command)
-   - [Trigger specification examples](#trigger-specification-examples)
-4. [Advanced trigger configuration](#advanced-trigger-configuration)
-   - [Access community plugins from GitHub](#access-community-plugins-from-github)
-   - [Pass arguments to plugins](#pass-arguments-to-plugins)
-   - [Control trigger execution](#control-trigger-execution)
-   - [Configure error handling for a trigger](#configure-error-handling-for-a-trigger)
-   - [Install Python dependencies](#install-python-dependencies)
+- [Set up the Processing Engine](#set-up-the-processing-engine)
+  - [Configure distributed environments](#configure-distributed-environments)
+- [Add a Processing Engine plugin](#add-a-processing-engine-plugin)
+  - [Choose a plugin strategy](#choose-a-plugin-strategy)
+  - [Use example plugins](#use-example-plugins)
+  - [Create a custom plugin](#create-a-custom-plugin)
+- [Set up a trigger](#set-up-a-trigger)
+  - [Understand trigger types](#understand-trigger-types)
+  - [Use the create trigger command](#use-the-create-trigger-command)
+  - [Trigger specification examples](#trigger-specification-examples)
+  - [Pass arguments to plugins](#pass-arguments-to-plugins)
+  - [Control trigger execution](#control-trigger-execution)
+  - [Configure error handling for a trigger](#configure-error-handling-for-a-trigger)
+- [Advanced trigger configuration](#advanced-trigger-configuration)
+  - [Access community plugins from GitHub](#access-community-plugins-from-github)
+  - [Configure your triggers](#configure-your-triggers)
+  - [Install Python dependencies](#install-python-dependencies)
+- [Distributed cluster considerations](#distributed-cluster-considerations)
+  - [Match plugin types to the correct node](#match-plugin-types-to-the-correct-node)
+  - [Route third-party clients to querier nodes](#route-third-party-clients-to-querier-nodes)
 
 ## Set up the Processing Engine
 
@@ -74,6 +80,8 @@ When running {{% product-name %}} in a distributed setup, follow these steps to 
 > #### Provide plugins to nodes that run them
 >
 > Configure your plugin directory on the same system as the nodes that run the triggers and plugins.
+
+For more information about configuring distributed environments, see the [Distributed cluster considerations](#distributed-cluster-considerations) section.
 
 ## Add a Processing Engine plugin
 
@@ -168,11 +176,11 @@ Before you begin, make sure:
 
 Choose a plugin type based on your automation goals:
 
-| Plugin Type      | Best For                                    | Trigger Type             |
-| ---------------- | ------------------------------------------- | ------------------------ |
-| **Data write**   | Processing data as it arrives               | `table:` or `all_tables` |
-| **Scheduled**    | Running code at specific intervals or times | `every:` or `cron:`      |
-| **HTTP request** | Running code on demand via API endpoints    | `path:`                  |
+| Plugin Type      | Best For                                    |
+| ---------------- | ------------------------------------------- |
+| **Data write**   | Processing data as it arrives               |
+| **Scheduled**    | Running code at specific intervals or times |
+| **HTTP request** | Running code on demand via API endpoints    |
 
 #### Create your plugin file
 
@@ -184,7 +192,7 @@ After writing your plugin, [create a trigger](#use-the-create-trigger-command) t
 
 #### Create a data write plugin
 
-Use a data write plugin to process data as it's written to the database. Ideal use cases include:
+Use a data write plugin to process data as it's written to the database. These plugins use [`table:` or `all_tables:`](#trigger-on-data-writes) trigger specifications. Ideal use cases include:
 
 - Data transformation and enrichment
 - Alerting on incoming values
@@ -209,7 +217,7 @@ def process_writes(influxdb3_local, table_batches, args=None):
 
 #### Create a scheduled plugin
 
-Scheduled plugins run at defined intervals. Use them for:
+Scheduled plugins run at defined intervals using [`every:` or `cron:`](#trigger-on-a-schedule) trigger specifications. Use them for:
 
 - Periodic data aggregation
 - Report generation
@@ -231,7 +239,7 @@ def process_scheduled_call(influxdb3_local, call_time, args=None):
 
 #### Create an HTTP request plugin
 
-HTTP request plugins respond to API calls. Use them for:
+HTTP request plugins respond to API calls using [`request:`](#trigger-on-http-requests) trigger specifications{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "..."}}` (API){{% /show-in %}}. Use them for:
 
 - Creating custom API endpoints
 - Webhooks for external integrations
@@ -270,7 +278,7 @@ After writing your plugin:
 |------------|----------------------|-----------------|
 | Data write | `table:<TABLE_NAME>` or `all_tables` | When data is written to tables |
 | Scheduled | `every:<DURATION>` or `cron:<EXPRESSION>` | At specified time intervals |
-| HTTP request | `path:<ENDPOINT_PATH>` | When HTTP requests are received |
+| HTTP request | `request:<REQUEST_PATH>`{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "<REQUEST_PATH>"}}`{{% /show-in %}} | When HTTP requests are received |
 
 ### Use the create trigger command
 
@@ -302,7 +310,7 @@ In the example above, replace the following:
 
 ### Trigger specification examples
 
-#### Data write example
+#### Trigger on data writes 
 
 ```bash
 # Trigger on writes to a specific table
@@ -325,13 +333,13 @@ The trigger runs when the database flushes ingested data for the specified table
 
 The plugin receives the written data and table information.
 
-#### Scheduled events example
+#### Trigger on a schedule 
 
 ```bash
 # Run every 5 minutes
 influxdb3 create trigger \
   --trigger-spec "every:5m" \
-  --plugin-filename "hourly_check.py" \
+  --plugin-filename "periodic_check.py" \
   --database my_database \
   regular_check
 
@@ -346,7 +354,7 @@ influxdb3 create trigger \
 
 The plugin receives the scheduled call time.
 
-#### HTTP requests example
+#### Trigger on HTTP requests
 
 ```bash
 # Create an endpoint at /api/v3/engine/webhook
@@ -357,7 +365,9 @@ influxdb3 create trigger \
   webhook_processor
 ```
 
-Access your endpoint available at `/api/v3/engine/<ENDPOINT_PATH>`.
+Access your endpoint at `/api/v3/engine/{REQUEST_PATH}` (in this example, `/api/v3/engine/webhook`).
+The trigger is enabled by default and runs when an HTTP request is received at the specified path.
+
 To run the plugin, send a `GET` or `POST` request to the endpoint--for example:
 
 ```bash
@@ -365,6 +375,24 @@ curl http://{{% influxdb/host %}}/api/v3/engine/webhook
 ```
 
 The plugin receives the HTTP request object with methods, headers, and body.
+
+To view triggers associated with a database, use the `influxdb3 show summary` command:
+
+```bash
+influxdb3 show summary --database my_database --token AUTH_TOKEN
+```
+
+{{% show-in "enterprise" %}}
+> [!Warning]
+> #### Request trigger specification format differs between CLI and API
+> 
+> Due to a bug in InfluxDB 3 Enterprise, the request trigger specification format differs:
+> 
+> - **CLI**: `request:<REQUEST_PATH>` (same as Core CLI and API)
+> - **Enterprise API**: `{"request_path": {"path": "<REQUEST_PATH>"}}`
+> 
+> See the [API reference](/influxdb3/enterprise/api/#operation/PostConfigureProcessingEngineTrigger) for examples. Use `influxdb3 show summary` to verify the actual trigger specification.
+{{% /show-in %}}
 
 ### Pass arguments to plugins
 
@@ -587,7 +615,19 @@ Each plugin must run on a node that supports its trigger type:
 |--------------------|--------------------------|-----------------------------|
 | Data write         | `table:` or `all_tables` | Ingester nodes              |
 | Scheduled          | `every:` or `cron:`      | Any node with scheduler     |
-| HTTP request       | `path:`                  | Nodes that serve API traffic|
+| HTTP request       | `request:`{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "..."}}`{{% /show-in %}} | Nodes that serve API traffic|
+
+{{% show-in "enterprise" %}}
+> [!Note]
+> #### Request trigger specification format differs between CLI and API
+> 
+> Due to a bug in InfluxDB 3 Enterprise, the request trigger specification format differs:
+> 
+> - **CLI**: `request:<REQUEST_PATH>` (same as Core CLI and API)
+> - **Enterprise API**: `{"request_path": {"path": "<REQUEST_PATH>"}}`
+> 
+> See the [API reference](/influxdb3/enterprise/api/#operation/PostConfigureProcessingEngineTrigger) for examples.
+{{% /show-in %}}
 
 For example:
 - Run write-ahead log (WAL) plugins on ingester nodes.

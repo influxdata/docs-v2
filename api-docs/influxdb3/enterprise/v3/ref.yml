@@ -1240,7 +1240,7 @@ paths:
                   plugin_filename: request.py
                   trigger_name: hello_world_trigger
                   # trigger_specification: "request:hello-world" - For 3.2.1 (issue#6171)
-                  trigger_specification: '{"request_path": {"path": "hello-world"}}'
+                  trigger_specification: {"request_path": {"path": "hello-world"}}
               cron_friday_afternoon:
                 summary: Cron trigger for Friday afternoons
                 description: |
@@ -2056,7 +2056,6 @@ components:
         trigger_name:
           type: string
         trigger_specification:
-          type: string
           description: |
             Specifies when and how the processing engine trigger should be invoked.
 
