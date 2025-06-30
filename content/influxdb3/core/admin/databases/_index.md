@@ -12,6 +12,7 @@ influxdb3/core/tags: [databases]
 related:
   - /influxdb3/core/write-data/best-practices/schema-design/
   - /influxdb3/core/reference/cli/influxdb3/
+  - /influxdb3/explorer/manage-databases/
 alt_links:
   cloud: /influxdb/cloud/admin/buckets/
   cloud_dedicated: /influxdb3/cloud-dedicated/admin/databases/

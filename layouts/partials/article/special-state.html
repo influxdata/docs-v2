@@ -8,19 +8,23 @@
 {{ $earlyAccessList := slice "influxdb3/explorer" }}
 
 {{ if in $earlyAccessList (print $product "/" $version )}}
-<div class="block beta">
-  <div class="beta-content">
-    <h4 id="public-beta">{{ $displayName }} is in Public Beta</h4>
+<div class="block special-state">
+  <div class="state-content">
+    <h4 id="influxdb3-explorer-ga">{{ $displayName }} is Generally Available</h4>
     <p>
-      {{ $displayName }} is in public beta and available for testing and feedback,
-      but is <strong>not meant for production use yet</strong>.
-      Both the product and this documentation are works in progress.
-      We welcome and encourage your input about your experience with the beta and 
+      {{ $displayName }} is generally available and is ready for production use.
+      We welcome and encourage your input about your experience with Explorer and 
       invite you to <strong>join our public channels</strong> for updates and to
       share feedback.
     </p>
+    <p>
+      <em>The {{ $displayName}} documentation is a work in progress, and we are actively
+      working to improve it. If you have any questions or suggestions, please
+      <a href="https://github.com/influxdata/docs-v2/issues/new?labels=InfluxDB%203%20Explorer">submit an issue</a>.
+      We welcome any and all contributions.</em>
+    </p>
     <div class="expand-wrapper">
-      <div class="expand" id="beta-feedback-channels">
+      <div class="expand" id="feedback-channels">
         <p class="expand-label">
           <span class="expand-toggle"></span><span>Join our public channels</span>
         </p>
