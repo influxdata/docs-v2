@@ -303,14 +303,7 @@ services:
     container_name: influxdb3-core
     image: influxdb:3-core
     ports:
-      - 8181:8181
-    volumes:
-      - type: bind 
-        source: test/influxdb3/core/data
-        target: /var/lib/influxdb3/data
-      - type: bind 
-        source: test/influxdb3/core/plugins
-        target: /var/lib/influxdb3-plugins
+      - 8282:8181
     command:
       - influxdb3
       - serve
@@ -319,6 +312,13 @@ services:
       - --object-store=file
       - --data-dir=/var/lib/influxdb3/data
       - --plugin-dir=/var/lib/influxdb3/plugins
+    volumes:
+      - type: bind 
+        source: test/.influxdb3/core/data
+        target: /var/lib/influxdb3/data
+      - type: bind 
+        source: test/.influxdb3/core/plugins
+        target: /var/lib/influxdb3/plugins
   influxdb3-enterprise:
     container_name: influxdb3-enterprise
     image: influxdb:3-enterprise
@@ -339,10 +339,10 @@ services:
       - --license-email=${INFLUXDB3_LICENSE_EMAIL}
     volumes:
       - type: bind 
-        source: test/influxdb3/enterprise/data
+        source: test/.influxdb3/enterprise/data
         target: /var/lib/influxdb3/data
       - type: bind 
-        source: test/influxdb3/enterprise/plugins
+        source: test/.influxdb3/enterprise/plugins
         target: /var/lib/influxdb3/plugins
   telegraf-pytest:
     container_name: telegraf-pytest
