@@ -169,9 +169,9 @@ kapacitor:
   menu_category: other
   list_order: 7
   versions: [v1]
-  latest: v1.7
+  latest: v1.8
   latest_patches:
-    v1: 1.7.7
+    v1: 1.8.0
   ai_sample_questions:
     - How do I configure Kapacitor for InfluxDB v1?
     - How do I write a custom Kapacitor task?
