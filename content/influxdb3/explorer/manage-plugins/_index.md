@@ -11,6 +11,7 @@ cascade:
     - /influxdb3/core/plugins/, InfluxDB 3 Core Processing engine plugins
     - /influxdb3/enterprise/plugins/, InfluxDB 3 Enterprise Processing engine plugins
 cascade:
+  draft: true
   prepend: |
     > [!Warning]
     > #### {{% product-name %}} plugin management is currently in beta
