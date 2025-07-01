@@ -40,14 +40,13 @@ Replace the following:
 
 When prompted, enter `y` to confirm the deletion.
 
-{{% note %}}
-#### Wait before reusing a deleted table name
-
-After deleting a table, wait a few minutes before attempting to create a new
-table with the same name to ensure the deletion process has fully completed.
-
-{{% product-name %}} creates tables implicitly using table names specified in
-line protocol written to the databases. To prevent the deleted table from being
-immediately recreated by incoming write requests, pause all write requests to
-the table before deleting it.
-{{% /note %}}
+> [!Note]
+> #### Wait before reusing a deleted table name
+> 
+> After deleting a table, wait a few minutes before attempting to create a new
+> table with the same name to ensure the deletion process has fully completed.
+> 
+> {{% product-name %}} creates tables implicitly using table names specified in
+> line protocol written to the databases. To prevent the deleted table from being
+> immediately recreated by incoming write requests, pause all write requests to
+> the table before deleting it.
