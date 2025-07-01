@@ -26,3 +26,7 @@ test-results.xml
 **/config.toml
 package-lock.json
 tmp
+
+# Context files for LLMs and AI tools 
+.context/*
+!.context/README.md
