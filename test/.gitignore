@@ -10,5 +10,6 @@ tmp
 .config*
 .env*
 **/.env.test
+.influxdb3
 .pytest_cache
 .test-run.txt
