@@ -391,7 +391,7 @@ input:
   - name: CPU
     id: cpu
     description: |
-      This plugin gather metrics on the system's CPUs.
+      This plugin gathers metrics about the system's CPUs.
     introduced: v0.1.5
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [system]
@@ -499,11 +499,11 @@ input:
     description: |
       This plugin uses the [Docker Engine
       API](https://docs.docker.com/engine/api) to gather metrics on running
-      docker containers.
+      Docker containers.
 
       > [!NOTE]
-      > Please make sure Telegraf has sufficient permissions to access the
-      > configured endpoint!
+      > Make sure Telegraf has sufficient permissions to access the
+      > configured endpoint.
     introduced: v0.1.9
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [containers]
@@ -512,12 +512,12 @@ input:
     description: |
       This plugin uses the [Docker Engine
       API](https://docs.docker.com/engine/api) to gather logs from running
-      docker containers.
+      Docker containers.
 
       > [!NOTE]
       > This plugin works only for containers with the `local` or `json-file` or
       > `journald` logging driver. Please make sure Telegraf has sufficient
-      > permissions to access the configured endpoint!
+      > permissions to access the configured endpoint.
     introduced: v1.12.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [containers, logging]
@@ -526,7 +526,7 @@ input:
     description: |
       This plugin uses the Dovecot [v2.1 stats
       protocol](https://doc.dovecot.org/configuration_manual/stats/old_statistics/#old-statistics)
-      to gather metrics on configured domains of
+      to gather metrics about configured domains of
       [Dovecot](https://www.dovecot.org/) servers. You can use this plugin on
       Dovecot up to and including version v2.3.x.
 
