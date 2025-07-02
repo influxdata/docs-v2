@@ -1,3 +1,35 @@
+## v2.10.2 {date="2025-06-30"}
+
+### Features
+
+- Add new table management commands:
+  - [`influxctl table list`](/influxdb3/version/reference/cli/influxctl/table/list/)
+  - [`influxctl table delete`](/influxdb3/version/reference/cli/influxctl/table/delete/)
+  - [`influxctl table iceberg`](/influxdb3/version/reference/cli/influxctl/table/iceberg/)
+  - [`influxctl table iceberg enable`](/influxdb3/version/reference/cli/influxctl/table/iceberg/enable/)
+  - [`influxctl table iceberg disable`](/influxdb3/version/reference/cli/influxctl/table/iceberg/disable/)
+- Add new database management commands:
+  - [`influxctl database rename`](/influxdb3/version/reference/cli/influxctl/database/rename/)
+  - [`influxctl database undelete`](/influxdb3/version/reference/cli/influxctl/database/undelete/)
+
+### Bug fixes
+
+- Ensure the `INFLUXCTL_PROFILE` environment variable overrides the default
+  connection profile file path.
+
+### Dependency updates
+
+- Update `github.com/apache/arrow-go/v18` from 18.3.0 to 18.3.1.
+- Update `github.com/go-git/go-git/v5` from 5.16.0 to 5.16.2.
+- Update `github.com/google/go-containerregistry` from 0.20.5 to 0.20.6.
+- Update `github.com/urfave/cli/v2` from 2.27.6 to 2.27.7.
+- Update `golang.org/x/mod` from 0.24.0 to 0.25.0.
+- Update `google.golang.org/grpc` from 1.72.1 to 1.73.0.
+- Update Go to 1.24.4.
+- Update protobuf files.
+
+---
+
 ## v2.10.1 {date="2025-05-30"}
 
 ### Features

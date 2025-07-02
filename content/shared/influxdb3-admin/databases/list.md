@@ -6,10 +6,7 @@ Provide the following:
   - _(Optional)_ [Output format](#output-formats) with the `--format` option
   - _(Optional)_ [Show deleted databases](list-deleted-databasese) with the
     `--show-deleted` option
-  - {{< product-name >}} authorization token with the `-t`, `--token` option
-
-  > [!Note]
-  > While in beta, {{< product-name >}} does not require an authorization token.
+  - {{< product-name >}} {{% token-link "admin" "admin" %}} with the `-t`, `--token` option
 
 ```sh
 influxdb3 show databases

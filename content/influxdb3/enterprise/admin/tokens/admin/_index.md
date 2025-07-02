@@ -10,6 +10,9 @@ menu:
     parent: Manage tokens
     name: Admin tokens
 weight: 101
+cascade:
+  related:
+    - /influxdb3/explorer/manage-tokens/
 influxdb3/enterprise/tags: [tokens]
 source: /shared/influxdb3-admin/tokens/admin/_index.md
 ---

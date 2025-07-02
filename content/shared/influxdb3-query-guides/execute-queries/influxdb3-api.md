@@ -35,7 +35,8 @@ Include the following parameters:
 The following example sends an HTTP `GET` request with a URL-encoded SQL query:
 
 ```bash
-curl -v "http://{{< influxdb/host >}}/api/v3/query_sql?db=servers&q=select+*+from+cpu+limit+5"
+curl "http://{{< influxdb/host >}}/api/v3/query_sql?db=servers&q=select+*+from+cpu+limit+5" \
+  --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
 ### Example: Query passing JSON parameters
@@ -44,7 +45,8 @@ The following example sends an HTTP `POST` request with parameters in a JSON pay
 
 ```bash
 curl http://{{< influxdb/host >}}/api/v3/query_sql \
-  --data '{"db": "server", "q": "select * from cpu limit 5"}'
+  --header "Authorization: Bearer AUTH_TOKEN" 
+  --json '{"db": "server", "q": "select * from cpu limit 5"}'
 ```
 
 ### Query system information
@@ -71,7 +73,8 @@ tables (`"table_schema":"iox"`), system tables, and information schema tables
 for a database:
 
 ```bash
-curl "http://{{< influxdb/host >}}/api/v3/query_sql?db=mydb&format=jsonl&q=show%20tables"
+curl "http://{{< influxdb/host >}}/api/v3/query_sql?db=mydb&format=jsonl&q=show%20tables" \
+  --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
 The response body contains the following JSONL:
@@ -117,7 +120,7 @@ that surround field names._
 
 ```bash
 curl "http://localhost:8181/api/v3/query_sql" \
-  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
   --json '{
     "db": "mydb",
     "q": "SELECT * FROM information_schema.columns WHERE table_schema = '"'iox'"' AND table_name = '"'system_swap'"'",
@@ -144,7 +147,7 @@ To view recently executed queries, query the `queries` system table:
 
 ```bash
 curl "http://localhost:8181/api/v3/query_sql" \
-  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
   --json '{
     "db": "mydb",
     "q": "SELECT * FROM system.queries LIMIT 2",
@@ -180,7 +183,8 @@ Include the following parameters:
 The following example sends an HTTP `GET` request with a URL-encoded InfluxQL query:
 
 ```bash
-curl -v "http://{{< influxdb/host >}}/api/v3/query_influxql?db=servers&q=select+*+from+cpu+limit+5"
+curl "http://{{< influxdb/host >}}/api/v3/query_influxql?db=servers&q=select+*+from+cpu+limit+5" \
+  --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
 ### Example: Query passing JSON parameters
@@ -189,5 +193,6 @@ The following example sends an HTTP `POST` request with parameters in a JSON pay
 
 ```bash
 curl http://{{< influxdb/host >}}/api/v3/query_influxql \
-  --data '{"db": "server", "q": "select * from cpu limit 5"}'
+  --header "Authorization: Bearer AUTH_TOKEN" \ 
+  --json '{"db": "server", "q": "select * from cpu limit 5"}'
 ```

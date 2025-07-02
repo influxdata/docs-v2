@@ -67,10 +67,6 @@ the **Flight SQL JDBC driver**.
     - **Dialect**: PostgreSQL
     - **Username**: _Leave empty_
     - **Password**: _Leave empty_
-
-      > [!Note]
-      > While in beta, {{< product-name >}} does not require authorization tokens.
-
     - **Properties File**: _Leave empty_
 
 4.  Click **Sign In**.
