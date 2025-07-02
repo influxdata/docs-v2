@@ -1,0 +1,43 @@
+<!-- This partial is no longer used but may be repurposed later for other InfluxDB products -->
+{{ $productPathData := split .RelPermalink "/" }}
+{{ $product := index $productPathData 1 }}
+{{ $version := index $productPathData 2 }}
+{{ $productKey := cond (eq $product "influxdb3") (print "influxdb3_" (replaceRE "-" "_" $version)) $product }}
+{{ $productData := index $.Site.Data.products $productKey }}
+{{ $displayName := $productData.name }}
+{{ $earlyAccessList := slice "influxdb3/explorer" }}
+
+{{ if in $earlyAccessList (print $product "/" $version )}}
+<div class="block special-state">
+  <div class="state-content">
+    <h4 id="influxdb3-explorer-ga">{{ $displayName }} is Generally Available</h4>
+    <p>
+      {{ $displayName }} is generally available and is ready for production use.
+      We welcome and encourage your input about your experience with Explorer and 
+      invite you to <strong>join our public channels</strong> for updates and to
+      share feedback.
+    </p>
+    <p>
+      <em>The {{ $displayName}} documentation is a work in progress, and we are actively
+      working to improve it. If you have any questions or suggestions, please
+      <a href="https://github.com/influxdata/docs-v2/issues/new?labels=InfluxDB%203%20Explorer">submit an issue</a>.
+      We welcome any and all contributions.</em>
+    </p>
+    <div class="expand-wrapper">
+      <div class="expand" id="feedback-channels">
+        <p class="expand-label">
+          <span class="expand-toggle"></span><span>Join our public channels</span>
+        </p>
+        <div class="expand-content" style="display: none;" >
+          <ul class="feedback-channels">
+            <li><a href="https://discord.gg/9zaNCW2PRT" target="_blank" class="discord">InfluxDB Discord Server <em style="opacity:.5">(Preferred)</em></a></li>
+            <li><a href="https://community.influxdata.com" target="_blank" class="community">InfluxData Community</a></li>
+            <li><a href="https://influxdata.com/slack" target="_blank" class="slack">InfluxDB Community Slack</a></li>
+            <li><a href="https://reddit.com/r/influxdb" target="_blank" class="reddit">InfluxDB Subreddit</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

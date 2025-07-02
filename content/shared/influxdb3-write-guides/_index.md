@@ -10,6 +10,23 @@ to line protocol.
 - [Write data to InfluxDB](#write-data-to-influxdb)
   {{< children type="anchored-list" >}}
 
+{{% show-in "core,enterprise" %}}
+> [!Note]
+> 
+> #### Choose the write endpoint for your workload
+> 
+> When creating new write workloads, use the
+> [InfluxDB HTTP API `/api/v3/write_lp` endpoint](influxdb3/version/write-data/http-api/v3-write-lp/)
+> and [client libraries](/influxdb3/version/write-data/client-libraries/).
+>
+> When bringing existing v1 write workloads, use the {{% product-name %}}
+> HTTP API [`/write` endpoint](/influxdb3/core/api/v3/#operation/PostV1Write).
+>
+> When bringing existing v2 write workloads, use the {{% product-name %}}
+> HTTP API [`/api/v2/write` endpoint]([/influxdb3/version/api/v3/#operation/PostV1Write](/influxdb3/version/api/v3/#operation/PostV2Write)).
+{{% /show-in %}}
+
+{{% hide-in "core,enterprise" %}}
 > [!Note]
 > 
 > #### Choose the write endpoint for your workload
@@ -18,6 +35,7 @@ to line protocol.
 > HTTP API [`/write` endpoint](/influxdb3/version/guides/api-compatibility/v1/).
 > When creating new write workloads, use the HTTP API
 > [`/api/v2/write` endpoint](/influxdb3/version/guides/api-compatibility/v2/).
+{{% /hide-in %}}
 
 ## Line protocol
 

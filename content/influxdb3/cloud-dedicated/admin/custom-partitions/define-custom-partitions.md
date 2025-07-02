@@ -14,5 +14,6 @@ source: /shared/v3-distributed-admin-custom-partitions/define-custom-partitions.
 ---
 
 <!-- 
-The content of this page is at /content/shared/v3-distributed-admin-custom-partitions/_define-custom-partitions.md
+The content of this page is at 
+//SOURCE - content/shared/v3-distributed-admin-custom-partitions/define-custom-partitions.md
 -->

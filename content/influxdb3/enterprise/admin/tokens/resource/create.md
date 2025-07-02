@@ -3,7 +3,7 @@ title: Create a resource token
 description: >
   Use the [`influxdb3 create token --permission` command](/influxdb3/enterprise/reference/cli/influxdb3/create/token/)
   or the [HTTP API](/influxdb3/enterprise/api/v3/)
-  to create tokens that grant access to resources such as databases and system information.
+  to create fine-grained permissions tokens that grant access to resources such as databases and system information.
   Database tokens allow for reading and writing data in your {{< product-name omit="Clustered" >}} instance.
   System tokens allow for reading system information and metrics for your server.
 menu:
@@ -13,19 +13,20 @@ weight: 201
 list_code_example: |
   ##### CLI
   ```bash
-  influxdb3 create token --permission \
-    --token ADMIN_TOKEN \
-    --expiry 1y \
+  influxdb3 create token \
+    --permission "db:DATABASE1,DATABASE2:read,write" \
     --name "Read-write on DATABASE1, DATABASE2" \
-    db:DATABASE1,DATABASE2:read,write
+    --token ADMIN_TOKEN \
+    --expiry 1y
   ```
 
   ##### HTTP API
   ```bash
+  curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
     --header 'Accept: application/json' \
     --header 'Content-Type: application/json' \
-    --header "Authorization: Bearer ADMIN_TOKEN" \
+    --header "Authorization: Bearer AUTH_TOKEN" \
     --data '{
       "token_name": "Read-write for DATABASE1, DATABASE2",
       "permissions": [{
@@ -41,9 +42,9 @@ alt_links:
   cloud-serverless: /influxdb3/cloud-serverless/admin/tokens/create-token/
 ---
 
-Use the [`influxdb3 create token --permission` command](/influxdb3/enterprise/reference/cli/influxdb3/create/token/)
-or the [`/api/v3/configure/token` HTTP API endpoint](/influxdb3/enterprise/api/v3/)
-to create tokens that grant access to resources such as databases and system information.
+Use the [`influxdb3 create token --permission` command](/influxdb3/enterprise/reference/cli/influxdb3/create/token/permission/)
+or the [`/api/v3/configure/token` HTTP API endpoint](/influxdb3/enterprise/api/v3/#operation/PostCreateResourceToken)
+to create fine-grained permissions tokens that grant access to resources such as databases and system information.
 Database tokens allow for reading and writing data in your {{< product-name omit="Clustered" >}} instance.
 System tokens allow for reading system information and metrics for your server.
 
@@ -52,7 +53,7 @@ After you
 can use the token string to authenticate `influxdb3` commands and HTTP API requests
 for managing database and system tokens.
 
-The HTTP API examples in this guide use [cURL](https://curl.se/) to send an API request, but you can use any HTTP client._
+_The HTTP API examples in this guide use [cURL](https://curl.se/) to send an API request, but you can use any HTTP client._
 
 > [!Note]
 > #### Store secure tokens in a secret store
@@ -65,54 +66,47 @@ The HTTP API examples in this guide use [cURL](https://curl.se/) to send an API 
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[influxdb3](#)
+[CLI](#)
 [HTTP API](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
 <!------------------------------- BEGIN INFLUXDB3 ----------------------------->
 
-Use the [`influxdb3 create token` command](/influxdb3/enterprise/reference/cli/influxdb3/create/token/)
-to create a database token with permissions for reading and writing data in
+Use the [`influxdb3 create token --permission` command](/influxdb3/enterprise/reference/cli/influxdb3/create/token/permission/)
+to create a database token with fine-grained permissions for reading and writing data in
 your {{% product-name %}} instance.
 
-In your terminal, run the `influxdb3 create token` command and provide the following:
+In your terminal, enter `influxdb3 create token` and provide the following:
 
-- `--permission` flag to create a token with permissions
-- `--name` flag with a unique description of the token
-- _Options_, for example:
-  -  `--expiry` option with the token expiration time as a duration.
-      If an expiration isn't set, the token does not expire until revoked.
-- Token permissions (read and write) in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
+- `--permission`: Token permissions (read, write) in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
 
   ```
   db:DATABASE1,DATABASE2:read,write
   ```
 
-  - `db:`: The `db` resource type, which specifies the token is for a database.
-  - `DATABASE1,DATABASE2`: The names of the databases to grant permissions to.
+  - `db:`: The `db` resource type, which specifies the token is for a database
+  - `DATABASE1,DATABASE2`: A comma-separated list of database names to grant permissions to.
     The resource names part supports the `*` wildcard, which grants read or write permissions to all databases.
-  - `read,write`: The permissions to grant to the token.
-
-{{% code-placeholders "DATABASE1|DATABASE2|1y" %}}
-
+  - `read,write`: A comma-separated list of permissions to grant to the token.
+- `--name`: A unique name for the token
+- _Options_, for example:
+  -  `--expiry`: The token expiration time as a duration.
+      If an expiration isn't set, the token does not expire until revoked.
+{{% code-placeholders "Read-write on DATABASE1, DATABASE2|DATABASE1,DATABASE2|1y|read,write" %}}
 ```bash
 influxdb3 create token \
---permission \
---expiry 1y \
---name "Read-write on DATABASE1, DATABASE2" \
-"db:DATABASE1,DATABASE2:read,write"
+  --permission "db:DATABASE1,DATABASE2:read,write" \
+  --name "Read-write on DATABASE1, DATABASE2" \
+  --expiry 1y
 ```
-
 {{% /code-placeholders %}}
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE1`{{% /code-placeholder-key %}}, {{% code-placeholder-key %}}`DATABASE2`{{% /code-placeholder-key %}}:
-  your {{% product-name %}} [database](/influxdb3/enterprise/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE1`{{% /code-placeholder-key %}}, {{% code-placeholder-key %}}`DATABASE2`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb3/enterprise/admin/databases/)
 - {{% code-placeholder-key %}}`1y`{{% /code-placeholder-key %}}:
-  the token expiration time as a
-  duration.
+  the token expiration time as a duration
 
 The output is the token string in plain text.
 
@@ -161,7 +155,6 @@ The following example shows how to use the HTTP API to create a database token:
      "expiry_secs": 300000
   }'
 ```
-
 {{% /code-placeholders %}}
 
 Replace the following in your request:
@@ -169,7 +162,7 @@ Replace the following in your request:
 - {{% code-placeholder-key %}}`DATABASE1`{{% /code-placeholder-key %}}, {{% code-placeholder-key %}}`DATABASE2`{{% /code-placeholder-key %}}:
   your {{% product-name %}} [database](/influxdb3/enterprise/admin/databases/)
 - {{% code-placeholder-key %}}`300000`{{% /code-placeholder-key %}}:
-  the token expiration time in seconds.
+  the token expiration time in seconds
 
 The response body contains token details, including the `token` field with the
 token string in plain text.
@@ -184,41 +177,36 @@ token string in plain text.
 - [Create a token with read and write access to all databases](#create-a-token-with-read-and-write-access-to-all-databases)
 - [Create a token with read-only access to a database](#create-a-token-with-read-only-access-to-a-database)
 - [Create a token with read-only access to multiple databases](#create-a-token-with-read-only-access-to-multiple-databases)
-- [Create a token with mixed permissions to multiple databases](#create-a-token-with-mixed-permissions-to-multiple-databases)
 - [Create a token that expires in seven days](#create-a-token-that-expires-in-seven-days)
 
 In the examples below, replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{< product-name >}} [database](/influxdb3/enterprise/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE2_NAME`{{% /code-placeholder-key %}}: your {{< product-name >}} [database](/influxdb3/enterprise/admin/databases/)
-- {{% code-placeholder-key %}}`ADMIN TOKEN`{{% /code-placeholder-key %}}: the [admin token](/influxdb3/enterprise/admin/tokens/admin/) for your {{% product-name %}} instance 
-{{% code-placeholders "DATABASE_NAME|DATABASE2_NAME|ADMIN_TOKEN" %}}
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: the {{% token-link "" "admin" %}} for your {{% product-name %}} instance 
 
 #### Create a token with read and write access to a database
 
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[influxdb3](#)
+[CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-
 ```bash
 influxdb3 create token \
-  --permission \
-  --name "Read/write token for DATABASE_NAME" \
-  db:DATABASE_NAME:read,write
+  --permission "db:DATABASE_NAME:read,write" \
+  --name "Read/write token for DATABASE_NAME"
 ```
-
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-
 ```bash
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
-  --header "Authorization: Bearer ADMIN_TOKEN" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
     "token_name": "Read/write token for DATABASE_NAME",
     "permissions": [{
@@ -228,35 +216,32 @@ curl \
     }]
   }'
 ```
-
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+{{% /code-placeholders %}}
 
 #### Create a token with read and write access to all databases
 
+{{% code-placeholders "AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[influxdb3](#)
+[CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-
 ```bash
 influxdb3 create token \
-  --permission \
-  --name "Read/write token for all databases" \
-  db:*:read,write
+  --permission "db:*:read,write" \
+  --name "Read/write token for all databases"
 ```
-
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-
 ```bash
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
-  --header "Authorization: Bearer ADMIN_TOKEN" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
     "token_name": "Read/write token for all databases",
     "permissions": [{
@@ -266,35 +251,32 @@ curl \
     }]
   }'
 ```
-
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+{{% /code-placeholders %}}
 
 #### Create a token with read-only access to a database
 
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[influxdb3](#)
+[CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-
 ```bash
 influxdb3 create token \
-  --permission \
-  --name "Read-only token for DATABASE_NAME" \
-  db:DATABASE_NAME:read
+  --permission "db:DATABASE_NAME:read" \
+  --name "Read-only token for DATABASE_NAME"
 ```
-
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-
 ```bash
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
-  --header "Authorization: Bearer ADMIN_TOKEN" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
     "token_name": "Read-only token for DATABASE_NAME",
     "permissions": [{
@@ -304,37 +286,34 @@ curl \
     }]
   }'
 ```
-
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+{{% /code-placeholders %}}
 
 #### Create a token with read-only access to multiple databases
 
+{{% code-placeholders "DATABASE_NAME|DATABASE2_NAME|AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[influxdb3](#)
+[CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-
 ```bash
 influxdb3 create token \
-  --permission \
-  --name "Read-only token for DATABASE_NAME and DATABASE2_NAME" \
-  db:DATABASE_NAME,DATABASE2_NAME:read
+  --permission "db:DATABASE_NAME,DATABASE2_NAME:read" \
+  --name "Read-only token for DATABASE_NAME, DATABASE2_NAME"
 ```
-
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-
 ```bash
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
-  --header "Authorization: Bearer ADMIN_TOKEN" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
-    "token_name": "Read-only token for DATABASE_NAME and DATABASE2_NAME",
+    "token_name": "Read-only token for DATABASE_NAME, DATABASE2_NAME",
     "permissions": [{
       "resource_type": "db",
       "resource_identifier": ["DATABASE_NAME","DATABASE2_NAME"],
@@ -342,36 +321,33 @@ curl \
     }]
   }'
 ```
-
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+{{% /code-placeholders %}}
 
 #### Create a token that expires in seven days
 
+{{% code-placeholders "DATABASE_NAME|7d|604800|AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[influxdb3](#)
+[CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-
 ```bash
 influxdb3 create token \
-  --permission \
-  --expiry 7d \
+  --permission "db:DATABASE_NAME:read,write" \
   --name "Read/write token for DATABASE_NAME with 7d expiration" \
-  db:DATABASE_NAME:read,write
+  --expiry 7d
 ```
-
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-
 ```bash
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
-  --header "Authorization: Bearer ADMIN_TOKEN" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
     "token_name": "Read/write token for DATABASE_NAME with 7d expiration",
     "permissions": [{
@@ -382,10 +358,8 @@ curl \
     "expiry_secs": 604800
   }'
 ```
-
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
 {{% /code-placeholders %}}
 
 ## Create a system token
@@ -401,7 +375,7 @@ You can create system tokens for the following system resources:
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[influxdb3](#)
+[CLI](#)
 [HTTP API](#)
 {{% /tabs %}}
 {{% tab-content %}}
@@ -412,12 +386,11 @@ Use the [`influxdb3 create token` command](/influxdb3/enterprise/reference/cli/i
 to create a system token with permissions for reading system information from
 your {{% product-name %}} instance.
 
-In your terminal, run the `influxdb3 create token` command and provide the following:
+In your terminal, run the `influxdb3 create token --permission` command and provide the following:
 
-  - `--permission` flag to create a token with permissions
-  - `--name` flag with a unique description of the token
+  - `--name`: A unique name for the token
   - _Options_, for example:
-    -  `--expiry` option with the token expiration time as a duration.
+    -  `--expiry`: The token expiration time as a duration.
      If an expiration isn't set, the token does not expire until revoked.
   - Token permissions in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
 
@@ -429,16 +402,13 @@ In your terminal, run the `influxdb3 create token` command and provide the follo
     - `health`: The specific system resource to grant permissions to.
     - `read`: The permission to grant to the token (system tokens are always read-only).
 
-{{% code-placeholders "1y" %}}
-
+{{% code-placeholders "System health token|1y" %}}
 ```bash
 influxdb3 create token \
---permission \
---expiry 1y \
---name "System health token" \
-"system:health:read"
+  --permission "system:health:read" \
+  --name "System health token" \
+  --expiry 1y
 ```
-
 {{% /code-placeholders %}}
 
 Replace the following:
@@ -476,14 +446,14 @@ In the request body, provide the following parameters:
 
 The following example shows how to use the HTTP API to create a system token:
 
-{{% code-placeholders "300000" %}}
+{{% code-placeholders "AUTH_TOKEN|System health token|300000" %}}
 
 ```bash
 curl \
 "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
 --header 'Accept: application/json' \
 --header 'Content-Type: application/json' \
---header "Authorization: Bearer ADMIN_TOKEN" \
+--header "Authorization: Bearer AUTH_TOKEN" \
 --data '{
   "token_name": "System health token",
   "permissions": [{
@@ -494,7 +464,6 @@ curl \
    "expiry_secs": 300000
 }'
 ```
-
 {{% /code-placeholders %}}
 
 Replace the following in your request:
@@ -508,7 +477,6 @@ token string in plain text.
 <!------------------------------- END cURL ------------------------------------>
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
-
 
 ## Output format
 

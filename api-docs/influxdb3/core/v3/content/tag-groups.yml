@@ -2,11 +2,14 @@
   tags:
     - Quick start
     - Authentication
+    - Cache data
     - Common parameters
     - Response codes
     - Compatibility endpoints
-    - Data I/O
-    - Databases
+    - Database
     - Processing engine
     - Server information
-    - Tables
+    - Table
+    - Token
+    - Query data
+    - Write data

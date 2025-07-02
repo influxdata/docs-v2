@@ -4,7 +4,7 @@ values of one or more columns in a table, improving the performance of
 queries that return distinct tag and field values. 
 
 The DVC is an in-memory cache that stores distinct values for specific columns
-in a table. When you create an DVC, you can specify what columns' distinct
+in a table. When you create a DVC, you can specify what columns' distinct
 values to cache, the maximum number of distinct value combinations to cache, and
 the maximum age of cached values. A DVC is associated with a table, which can
 have multiple DVCs.
@@ -14,9 +14,6 @@ have multiple DVCs.
   - [High cardinality limits](#high-cardinality-limits)
   {{% show-in "core" %}}
   - [Distinct Value Caches are flushed when the server stops](#distinct-value-caches-are-flushed-when-the-server-stops)
-  {{% /show-in %}}
-  {{% show-in "enterprise" %}}
-  - [Distinct Value Caches are rebuilt on restart](#distinct-value-caches-are-rebuilt-on-restart)
   {{% /show-in %}}
 
 Consider a dataset with the following schema:
@@ -71,13 +68,16 @@ similar to this:
 DVCs are stored in memory; the larger the cache, the more memory your InfluxDB 3
 node requires to maintain it. Consider the following:
 
+- [Cache data loading](#cache-data-loading)
 - [High cardinality limits](#high-cardinality-limits)
 {{% show-in "core" %}}
 - [Distinct Value Caches are flushed when the server stops](#distinct-value-caches-are-flushed-when-the-server-stops)
 {{% /show-in %}}
-{{% show-in "enterprise" %}}
-- [Distinct Value Caches are rebuilt on restart](#distinct-value-caches-are-rebuilt-on-restart)
-{{% /show-in %}}
+
+## Cache data loading
+
+On cache creation, {{% product-name %}} loads historical data into the cache.
+On restart, the server automatically reloads cache data.
 
 ### High cardinality limits
 
@@ -95,12 +95,4 @@ Because the DVC is an in-memory cache, the cache is flushed any time the server
 stops. After a server restart, {{% product-name %}} only writes new values to
 the DVC when you write data, so there may be a period of time when some values are 
 unavailable in the DVC.
-{{% /show-in %}}
-
-{{% show-in "enterprise" %}}
-### Distinct Value Caches are rebuilt on restart
-
-Because the DVC is an in-memory cache, the cache is flushed any time the server 
-stops. After a server restarts, {{< product-name >}} uses persisted data to
-rebuild the DVC.
 {{% /show-in %}}

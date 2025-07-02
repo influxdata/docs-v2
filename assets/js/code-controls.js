@@ -1,8 +1,9 @@
 import $ from 'jquery';
+import { context } from './page-context.js';
 
 function initialize() {
   var codeBlockSelector = '.article--content pre';
-  var codeBlocks = $(codeBlockSelector);
+  var $codeBlocks = $(codeBlockSelector);
 
   var appendHTML = `
 <div class="code-controls">
@@ -15,7 +16,7 @@ function initialize() {
 `;
 
   // Wrap all codeblocks with a new 'codeblock' div
-  $(codeBlocks).each(function () {
+  $codeBlocks.each(function () {
     $(this).wrap("<div class='codeblock'></div>");
   });
 
@@ -68,7 +69,94 @@ function initialize() {
   // Trigger copy failure state lifecycle
 
   $('.copy-code').click(function () {
-    let text = $(this).closest('.code-controls').prevAll('pre:has(code)')[0].innerText;
+    let codeElement = $(this)
+      .closest('.code-controls')
+      .prevAll('pre:has(code)')[0];
+
+    let text = codeElement.innerText;
+
+    // Extract additional code block information
+    const codeBlockInfo = extractCodeBlockInfo(codeElement);
+
+    // Add Google Analytics event tracking
+    const currentUrl = new URL(window.location.href);
+
+    // Determine which tracking parameter to add based on product context
+    switch (context) {
+      case 'cloud':
+        currentUrl.searchParams.set('dl', 'cloud');
+        break;
+      case 'core':
+        /** Track using the same value used by www.influxdata.com pages */
+        currentUrl.searchParams.set('dl', 'oss3');
+        break;
+      case 'enterprise':
+        /** Track using the same value used by www.influxdata.com pages */
+        currentUrl.searchParams.set('dl', 'enterprise');
+        break;
+      case 'serverless':
+        currentUrl.searchParams.set('dl', 'serverless');
+        break;
+      case 'dedicated':
+        currentUrl.searchParams.set('dl', 'dedicated');
+        break;
+      case 'clustered':
+        currentUrl.searchParams.set('dl', 'clustered');
+        break;
+      case 'oss/enterprise':
+        currentUrl.searchParams.set('dl', 'oss');
+        break;
+      case 'other':
+      default:
+        // No tracking parameter for other/unknown products
+        break;
+    }
+
+    // Add code block specific tracking parameters
+    if (codeBlockInfo.language) {
+      currentUrl.searchParams.set('code_lang', codeBlockInfo.language);
+    }
+    if (codeBlockInfo.lineCount) {
+      currentUrl.searchParams.set('code_lines', codeBlockInfo.lineCount);
+    }
+    if (codeBlockInfo.hasPlaceholders) {
+      currentUrl.searchParams.set('has_placeholders', 'true');
+    }
+    if (codeBlockInfo.blockType) {
+      currentUrl.searchParams.set('code_type', codeBlockInfo.blockType);
+    }
+    if (codeBlockInfo.sectionTitle) {
+      currentUrl.searchParams.set(
+        'section',
+        encodeURIComponent(codeBlockInfo.sectionTitle)
+      );
+    }
+    if (codeBlockInfo.firstLine) {
+      currentUrl.searchParams.set(
+        'first_line',
+        encodeURIComponent(codeBlockInfo.firstLine.substring(0, 100))
+      );
+    }
+
+    // Update browser history without triggering page reload
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, '', currentUrl.toString());
+    }
+
+    // Send custom Google Analytics event if gtag is available
+    if (typeof window.gtag !== 'undefined') {
+      window.gtag('event', 'code_copy', {
+        language: codeBlockInfo.language,
+        line_count: codeBlockInfo.lineCount,
+        has_placeholders: codeBlockInfo.hasPlaceholders,
+        dl: codeBlockInfo.dl || null,
+        section_title: codeBlockInfo.sectionTitle,
+        first_line: codeBlockInfo.firstLine
+          ? codeBlockInfo.firstLine.substring(0, 100)
+          : null,
+        product: context,
+      });
+    }
 
     const copyContent = async () => {
       try {
@@ -82,6 +170,71 @@ function initialize() {
     copyContent();
   });
 
+  /**
+   * Extract contextual information about a code block
+   * @param {HTMLElement} codeElement - The code block element
+   * @returns {Object} Information about the code block
+   */
+  function extractCodeBlockInfo(codeElement) {
+    const codeTag = codeElement.querySelector('code');
+    const info = {
+      language: null,
+      lineCount: 0,
+      hasPlaceholders: false,
+      blockType: 'code',
+      dl: null, // Download script type
+      sectionTitle: null,
+      firstLine: null,
+    };
+
+    // Extract language from class attribute
+    if (codeTag && codeTag.className) {
+      const langMatch = codeTag.className.match(
+        /language-(\w+)|hljs-(\w+)|(\w+)/
+      );
+      if (langMatch) {
+        info.language = langMatch[1] || langMatch[2] || langMatch[3];
+      }
+    }
+
+    // Count lines
+    const text = codeElement.innerText || '';
+    const lines = text.split('\n');
+    info.lineCount = lines.length;
+
+    // Get first non-empty line
+    info.firstLine = lines.find((line) => line.trim() !== '') || null;
+
+    // Check for placeholders (common patterns)
+    info.hasPlaceholders =
+      /\b[A-Z_]{2,}\b|\{\{[^}]+\}\}|\$\{[^}]+\}|<[^>]+>/.test(text);
+
+    // Determine if this is a download script
+    if (text.includes('https://www.influxdata.com/d/install_influxdb3.sh')) {
+      if (text.includes('install_influxdb3.sh enterprise')) {
+        info.dl = 'enterprise';
+      } else {
+        info.dl = 'oss3';
+      }
+    } else if (text.includes('docker pull influxdb:3-enterprise')) {
+      info.dl = 'enterprise';
+    } else if (text.includes('docker pull influxdb3-core')) {
+      info.dl = 'oss3';
+    }
+
+    // Find nearest section heading
+    let element = codeElement;
+    while (element && element !== document.body) {
+      element = element.previousElementSibling || element.parentElement;
+      if (element && element.tagName && /^H[1-6]$/.test(element.tagName)) {
+        info.sectionTitle = element.textContent.trim();
+        break;
+      }
+    }
+
+    return info;
+  }
+
   /////////////////////////////// FULL WINDOW CODE ///////////////////////////////
 
   /*
@@ -90,7 +243,10 @@ Disable scrolling on the body.
 Disable user selection on everything but the fullscreen codeblock.
 */
   $('.fullscreen-toggle').click(function () {
-    var code = $(this).closest('.code-controls').prevAll('pre:has(code)').clone();
+    var code = $(this)
+      .closest('.code-controls')
+      .prevAll('pre:has(code)')
+      .clone();
 
     $('#fullscreen-code-placeholder').replaceWith(code[0]);
     $('body').css('overflow', 'hidden');

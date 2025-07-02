@@ -68,7 +68,7 @@ to write the [home sensor sample data](#home-sensor-data-line-protocol) to your
 {{< product-name omit=" Clustered" >}} cluster.
 Provide the following:
 
-- The [database](/influxdb/clustered/admin/databases/) name using the
+- The [database](/influxdb3/cloud-dedicated/admin/databases/) name using the
   `--database` flag
 - A [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
   (with write permissions on the target database) using the `--token` flag

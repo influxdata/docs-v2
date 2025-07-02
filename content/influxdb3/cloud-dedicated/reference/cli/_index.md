@@ -10,10 +10,9 @@ menu:
     parent: Reference
     name: CLIs
 weight: 104
+# draft: true
 ---
 
-InfluxDB provides command line tools designed to manage and work with your
-InfluxDB Cloud Dedicated cluster from the command line.
 The following command line interfaces (CLIs) are available:
 
 {{< children >}}

@@ -6,14 +6,14 @@ related:
   - /influxdb/v2/write-data/
   - /influxdb/v2/write-data/quick-start
   - https://influxdata.com, This is an external link
-draft: true
+test_only: true  # Custom parameter to indicate test-only content
 ---
 
 This is a paragraph. Lorem ipsum dolor ({{< icon "trash" "v2" >}}) sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
 
 [Ref link][foo]
 
-[foo]: https://docs.influxadata.com
+[foo]: https://docs.influxdata.com
 
 This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 
@@ -1267,3 +1267,106 @@ This is small tab 2.4 content.
 {{% /tab-content %}}
 
 {{< /tabs-wrapper >}}
+
+## Group key demo
+
+Used to demonstrate Flux group keys
+
+{{< tabs-wrapper >}}
+{{% tabs "small" %}}
+[Input](#)
+[Output](#)
+<span class="tab-view-output">Click to view output</span>
+{{% /tabs %}}
+{{% tab-content %}}
+
+The following data is output from the last `filter()` and piped forward into `group()`:
+
+> [!Note]
+> `_start` and `_stop` columns have been omitted.
+
+{{% flux/group-key "[_measurement=home, room=Kitchen, _field=hum]" true %}}
+
+| _time                | _measurement | room        | _field | _value |
+| :------------------- | :----------- | :---------- | :----- | :----- |
+| 2022-01-01T08:00:00Z | home         | Kitchen     | hum    | 35.9   |
+| 2022-01-01T09:00:00Z | home         | Kitchen     | hum    | 36.2   |
+| 2022-01-01T10:00:00Z | home         | Kitchen     | hum    | 36.1   |
+
+{{% flux/group-key "[_measurement=home, room=Living Room, _field=hum]" true %}}
+
+| _time                | _measurement | room        | _field | _value |
+| :------------------- | :----------- | :---------- | :----- | :----- |
+| 2022-01-01T08:00:00Z | home         | Living Room | hum    | 35.9   |
+| 2022-01-01T09:00:00Z | home         | Living Room | hum    | 35.9   |
+| 2022-01-01T10:00:00Z | home         | Living Room | hum    | 36     |
+
+{{% flux/group-key "[_measurement=home, room=Kitchen, _field=temp]" true %}}
+
+| _time                | _measurement | room        | _field | _value |
+| :------------------- | :----------- | :---------- | :----- | :----- |
+| 2022-01-01T08:00:00Z | home         | Kitchen     | temp   | 21     |
+| 2022-01-01T09:00:00Z | home         | Kitchen     | temp   | 23     |
+| 2022-01-01T10:00:00Z | home         | Kitchen     | temp   | 22.7   |
+
+{{% flux/group-key "[_measurement=home, room=Living Room, _field=temp]" true %}}
+
+| _time                | _measurement | room        | _field | _value |
+| :------------------- | :----------- | :---------- | :----- | :----- |
+| 2022-01-01T08:00:00Z | home         | Living Room | temp   | 21.1   |
+| 2022-01-01T09:00:00Z | home         | Living Room | temp   | 21.4   |
+| 2022-01-01T10:00:00Z | home         | Living Room | temp   | 21.8   |
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+When grouped by `_field`, all rows with the `temp` field will be in one table
+and all the rows with the `hum` field will be in another.
+`_measurement` and `room` columns no longer affect how rows are grouped.
+
+{{% note %}}
+`_start` and `_stop` columns have been omitted.
+{{% /note %}}
+
+{{% flux/group-key "[_field=hum]" true %}}
+
+| _time                | _measurement | room        | _field | _value |
+| :------------------- | :----------- | :---------- | :----- | :----- |
+| 2022-01-01T08:00:00Z | home         | Kitchen     | hum    | 35.9   |
+| 2022-01-01T09:00:00Z | home         | Kitchen     | hum    | 36.2   |
+| 2022-01-01T10:00:00Z | home         | Kitchen     | hum    | 36.1   |
+| 2022-01-01T08:00:00Z | home         | Living Room | hum    | 35.9   |
+| 2022-01-01T09:00:00Z | home         | Living Room | hum    | 35.9   |
+| 2022-01-01T10:00:00Z | home         | Living Room | hum    | 36     |
+
+{{% flux/group-key "[_field=temp]" true %}}
+
+| _time                | _measurement | room        | _field | _value |
+| :------------------- | :----------- | :---------- | :----- | :----- |
+| 2022-01-01T08:00:00Z | home         | Kitchen     | temp   | 21     |
+| 2022-01-01T09:00:00Z | home         | Kitchen     | temp   | 23     |
+| 2022-01-01T10:00:00Z | home         | Kitchen     | temp   | 22.7   |
+| 2022-01-01T08:00:00Z | home         | Living Room | temp   | 21.1   |
+| 2022-01-01T09:00:00Z | home         | Living Room | temp   | 21.4   |
+| 2022-01-01T10:00:00Z | home         | Living Room | temp   | 21.8   |
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+## datetime/current-timestamp shortcode
+
+### Default usage 
+
+{{< datetime/current-timestamp >}}
+
+### Format YYYY-MM-DD HH:mm:ss
+
+{{< datetime/current-timestamp format="YYYY-MM-DD HH:mm:ss" >}}
+
+### Format with UTC timezone
+
+{{< datetime/current-timestamp format="YYYY-MM-DD HH:mm:ss" timezone="UTC" >}}
+
+### Format with America/New_York timezone
+
+{{< datetime/current-timestamp format="YYYY-MM-DD HH:mm:ss" timezone="America/New_York" >}}

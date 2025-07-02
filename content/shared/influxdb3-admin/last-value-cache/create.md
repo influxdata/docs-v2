@@ -60,7 +60,7 @@ influxdb3 create last_cache \
 
 {{% show-in "enterprise" %}}
 <!-------------------------- BEGIN ENTERPRISE EXAMPLE ------------------------->
-{{% code-placeholders "(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN|NODE_SPEC|(KEY|VALUE)_COLUMNS|COUNT|TTL" %}}
+{{% code-placeholders "(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN|NODE_LIST|(KEY|VALUE)_COLUMNS|COUNT|TTL" %}}
 
 <!--pytest.mark.skip-->
 
@@ -69,7 +69,7 @@ influxdb3 create last_cache \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   --table TABLE_NAME \
-  --node_spec NODE_SPEC \
+  --node-spec "nodes:NODE_LIST" \
   --key-columns KEY_COLUMNS \
   --value-columns VALUE_COLUMNS \
   --count COUNT \
@@ -90,7 +90,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}:
   the name of the table to associate the LVC with
 {{% show-in "enterprise" %}}
-- {{% code-placeholder-key %}}`NODE_SPEC`{{% /code-placeholder-key %}}:
+- {{% code-placeholder-key %}}`NODE_LIST`{{% /code-placeholder-key %}}:
   a comma-delimited list of node IDs to configure the LVC on--for example:
   `node-01,node-02`.
 {{% /show-in %}}
@@ -109,12 +109,9 @@ Replace the following:
 - {{% code-placeholder-key %}}`LVC_NAME`{{% /code-placeholder-key %}}:
   a unique name for the LVC
 
-> [!Note]
-> #### Values are cached on write
->
-> Values are cached on write. When you create a cache, it will not cache
-> previously written points, only newly written points.
->
+The cache imports the distinct values from the table and starts caching them.
+
+> [!Important]
 > #### LVC size and persistence
 >
 > The LVC is stored in memory, so it's important to consider the size and persistence

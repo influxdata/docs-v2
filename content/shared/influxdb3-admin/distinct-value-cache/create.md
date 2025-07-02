@@ -50,7 +50,7 @@ influxdb3 create distinct_cache \
 
 {{% show-in "enterprise" %}}
 <!-------------------------- BEGIN ENTERPRISE EXAMPLE ------------------------->
-{{% code-placeholders "(DATABASE|TABLE|DVC)_NAME|AUTH_TOKEN|NODE_SPEC|COLUMNS|MAX_(CARDINALITY|AGE)" %}}
+{{% code-placeholders "(DATABASE|TABLE|DVC)_NAME|AUTH_TOKEN|NODE_LIST|COLUMNS|MAX_(CARDINALITY|AGE)" %}}
 
 <!--pytest.mark.skip-->
 
@@ -59,7 +59,7 @@ influxdb3 create distinct_cache \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   --table TABLE_NAME \
-  --node_spec NODE_SPEC \
+  --node-spec "nodes:NODE_LIST" \
   --columns COLUMNS \
   --max-cardinality MAX_CARDINALITY \
   --max-age MAX_AGE \
@@ -79,7 +79,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}:
   the name of the table to associate the DVC with
 {{% show-in "enterprise" %}}
-- {{% code-placeholder-key %}}`NODE_SPEC`{{% /code-placeholder-key %}}:
+- {{% code-placeholder-key %}}`NODE_LIST`{{% /code-placeholder-key %}}:
   a comma-delimited list of node IDs to configure the DVC on--for example:
   `node-01,node-02`.
 {{% /show-in %}}
@@ -95,12 +95,10 @@ Replace the following:
 - {{% code-placeholder-key %}}`DVC_NAME`{{% /code-placeholder-key %}}:
   a unique name for the DVC
 
-> [!Note]
-> #### Values are cached on write
->
-> Values are cached on write. When you create a cache, it will not cache
-> previously written points, only newly written points.
->
+
+The cache imports the distinct values from the table and starts caching them.
+
+> [!Important]
 > #### DVC size and persistence
 >
 > The DVC is stored in memory, so it's important to consider the size and

@@ -32,6 +32,7 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 | [serve](/influxdb3/core/reference/cli/influxdb3/serve/)     | Run the {{% product-name %}} server |
 | [show](/influxdb3/core/reference/cli/influxdb3/show/)       | List resources                      |
 | [test](/influxdb3/core/reference/cli/influxdb3/test/)       | Test plugins                        |
+| [update](/influxdb3/core/reference/cli/influxdb3/update/)   | Update resources                    |
 | [write](/influxdb3/core/reference/cli/influxdb3/write/)     | Write to {{% product-name %}}       |
 
 ## Global options
@@ -103,7 +104,7 @@ influxdb3 -h
 influxdb3 --help
 ```
 
-### Run the {{< product-name >}} server with extra verbose logging
+### Run the {{% product-name %}} server with extra verbose logging
 
 <!--pytest.mark.skip-->
 
@@ -114,7 +115,7 @@ influxdb3 serve -v \
   --node-id my-host-01
 ```
 
-### Run {{< product-name >}} with debug logging using LOG_FILTER
+### Run {{% product-name %}} with debug logging using LOG_FILTER
 
 <!--pytest.mark.skip-->
 

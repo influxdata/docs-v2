@@ -17,7 +17,7 @@ prepend: |
   > [!Warning]
   > #### Not supported in InfluxDB Cloud Serverless
   > 
-  > While this command is included in the `influx` CLI {{< latest-cli >}}, this
+  > While this command is included in the `influx` CLI {{< latest-patch cli=true >}}, this
   > functionality is not available in InfluxDB Cloud Serverless organizations
   > powered by the InfluxDB 3 storage engine.
 source: /shared/influxdb-v2/reference/cli/influx/apply/_index.md

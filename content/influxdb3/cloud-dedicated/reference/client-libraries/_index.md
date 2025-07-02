@@ -4,7 +4,7 @@ description: >
   InfluxDB client libraries are language-specific tools that integrate with InfluxDB APIs.
   View the list of available client libraries.
 list_title: API client libraries
-weight: 105
+weight: 106
 aliases:
   - /influxdb3/cloud-dedicated/reference/api/client-libraries/
   - /influxdb3/cloud-dedicated/tools/client-libraries/

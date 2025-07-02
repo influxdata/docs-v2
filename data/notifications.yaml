@@ -40,26 +40,23 @@
   #   - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
   #   - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
-- id: influxdb3-ga
-  level: ga-announcement
+- id: influxdb3.2-explorer-ga
+  level: note
   scope:
     - /
-  title_tag: Now Generally Available
-  title: InfluxDB 3 Core and Enterprise
+  title: New in InfluxDB 3.2
   slug: |
-    Start fast. Scale faster.
+    Key enhancements in InfluxDB 3.2 and the InfluxDB 3 Explorer UI is now generally available.
 
-    <a class="btn" href="https://www.influxdata.com/blog/influxdb-3-OSS-GA/">Get the Updates</a>
+    <a class="btn" href="http://influxdata.com/blog/influxdb-3-2">See the Blog Post</a>
   message: |
-    InfluxDB 3 Core is an open source, high-speed, recent-data engine that collects 
-    and processes data in real-time and persists it to local disk or object storage. 
-    InfluxDB 3 Enterprise builds on Core’s foundation, adding high availability, 
-    read replicas, enhanced security, and data compaction for faster queries and
-    optimized storage. A free tier of InfluxDB 3 Enterprise is available for
-    non-commercial at-home or hobbyist use.
+    InfluxDB 3.2 is now available for both Core and Enterprise, bringing the
+    general availability of InfluxDB 3 Explorer, a new UI that simplifies how
+    you query, explore, and visualize data. On top of that, InfluxDB 3.2 includes
+    a wide range of performance improvements, feature updates, and bug fixes
+    including automated data retention and more.
 
     For more information, check out:
     
-    - [Announcement blog from Paul Dix](https://www.influxdata.com/blog/influxdb-3-OSS-GA/)
-    - [Get Started with InfluxDB 3 Core](https://docs.influxdata.com/influxdb3/core/get-started/)
-    - [Get Started with InfluxDB 3 Enterprise](https://docs.influxdata.com/influxdb3/enterprise/get-started/)
+    - [InfluxDB 3.2 blog from Paul Dix](http://influxdata.com/blog/influxdb-3-2)
+    - [Get Started with InfluxDB 3 Explorer](/influxdb3/explorer/get-started/)

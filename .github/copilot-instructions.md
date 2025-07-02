@@ -1,51 +1,67 @@
-# GitHub Copilot Instructions for InfluxData Documentation
+# Instructions for InfluxData Documentation
 
-## Purpose and Scope
+## Purpose and scope
 
-GitHub Copilot should help document InfluxData products by creating clear, accurate technical content with proper code examples, frontmatter, and formatting.
+Help document InfluxData products by creating clear, accurate technical content with proper code examples, frontmatter, and formatting.
 
-## Documentation Structure
+## Documentation structure
 
 - **Product version data**: `/data/products.yml`
-- **Products**:
+- **InfluxData products**:
+  - InfluxDB 3 Explorer
+    - Documentation source path: `/content/influxdb3/explorer`
+    - Published for the web: https://docs.influxdata.com/influxdb3/explorer/
   - InfluxDB 3 Core
     - Documentation source path: `/content/influxdb3/core`
+    - Published for the web: https://docs.influxdata.com/influxdb3/core/
     - Code repositories: https://github.com/influxdata/influxdb, https://github.com/influxdata/influxdb3_core
   - InfluxDB 3 Enterprise
     - Documentation source path: `/content/influxdb3/enterprise`
+    - Published for the web: https://docs.influxdata.com/influxdb3/enterprise/
     - Code repositories: https://github.com/influxdata/influxdb, https://github.com/influxdata/influxdb3_enterprise
   - InfluxDB Cloud Dedicated
     - Documentation source path: `/content/influxdb3/cloud-dedicated`
+    - Published for the web: https://docs.influxdata.com/influxdb3/cloud-dedicated/
     - Code repository: https://github.com/influxdata/influxdb
   - InfluxDB Cloud Serverless
     - Documentation source path: `/content/influxdb3/cloud-serverless`
+    - Published for the web: https://docs.influxdata.com/influxdb3/cloud-serverless/
     - Code repository: https://github.com/influxdata/idpe
   - InfluxDB Cloud v2 (TSM)
     - Documentation source path: `/content/influxdb/cloud`
+    - Published for the web: https://docs.influxdata.com/influxdb/cloud/
     - Code repository: https://github.com/influxdata/idpe
   - InfluxDB Clustered
     - Documentation source path: `/content/influxdb3/clustered`
+    - Published for the web: https://docs.influxdata.com/influxdb3/clustered/
     - Code repository: https://github.com/influxdata/influxdb
   - InfluxDB Enterprise v1 (1.x)
     - Documentation source path: `/content/influxdb/enterprise_influxdb`
+    - Published for the web: https://docs.influxdata.com/enterprise_influxdb/v1/
     - Code repository: https://github.com/influxdata/influxdb
   - InfluxDB OSS 1.x
     - Documentation source path: `/content/influxdb/v1`
+    - Published for the web: https://docs.influxdata.com/influxdb/v1/
     - Code repository: https://github.com/influxdata/influxdb
   - InfluxDB OSS 2.x
     - Documentation source path: `/content/influxdb/v2`
+    - Published for the web: https://docs.influxdata.com/influxdb/v2/
     - Code repository: https://github.com/influxdata/influxdb
   - Telegraf
     - Documentation source path: `/content/telegraf/v1`
+    - Published for the web: https://docs.influxdata.com/telegraf/v1/
     - Code repository: https://github.com/influxdata/telegraf
   - Kapacitor
     - Documentation source path: `/content/kapacitor/v1`
+    - Published for the web: https://docs.influxdata.com/kapacitor/v1/
     - Code repository: https://github.com/influxdata/kapacitor
   - Chronograf
     - Documentation source path: `/content/chronograf/v1`
+    - Published for the web: https://docs.influxdata.com/chronograf/v1/
     - Code repository: https://github.com/influxdata/chronograf
   - Flux
     - Documentation source path: `/content/flux/v0`
+    - Published for the web: https://docs.influxdata.com/flux/v0/
     - Code repository: https://github.com/influxdata/flux
 - **InfluxData-supported tools**:
   - InfluxDB API client libraries
@@ -57,11 +73,19 @@ GitHub Copilot should help document InfluxData products by creating clear, accur
 - **Repository**: https://github.com/influxdata/docs-v2
 - **Framework**: Hugo static site generator
 
-## Style Guidelines
+## Style guidelines
 
 - Follow Google Developer Documentation style guidelines
 - For API references, follow YouTube Data API style
 - Use semantic line feeds (one sentence per line)
+- Format code examples to fit within 80 characters
+- Command line examples:
+    - Should be formatted as code blocks
+    - Should use long options (e.g., `--option` instead of `-o`)
+- Use cURL for API examples
+    - Format to fit within 80 characters
+    - Should use `--data-urlencode` for query parameters
+    - Should use `--header` for headers
 - Use only h2-h6 headings in content (h1 comes from frontmatter title properties)
 - Use sentence case for headings
 - Use GitHub callout syntax
@@ -69,9 +93,10 @@ GitHub Copilot should help document InfluxData products by creating clear, accur
 - Use appropriate product names and versions consistently
 - Follow InfluxData vocabulary guidelines
 
-## Markdown and Shortcodes
+## Markdown and shortcodes
 
-- Include proper frontmatter for each page:
+- Include proper frontmatter for Markdown pages in `content/**/*.md` (except for
+  shared content files in `content/shared/`):
 
   ```yaml
   title: # Page title (h1)
@@ -82,18 +107,20 @@ GitHub Copilot should help document InfluxData products by creating clear, accur
     product_version:
   weight: # Page order (1-99, 101-199, etc.)
   ```
-
+- Follow the shortcode examples in `content/example.md` and the documentation
+  for docs-v2 contributors in `CONTRIBUTING.md`
 - Use provided shortcodes correctly:
   - Notes/warnings: `{{% note %}}`, `{{% warn %}}`
   - Product-specific: `{{% enterprise %}}`, `{{% cloud %}}`
   - Tabbed content: `{{< tabs-wrapper >}}`, `{{% tabs %}}`, `{{% tab-content %}}`
+  - Tabbed content for code examples (without additional text): `{{< code-tabs-wrapper >}}`, `{{% code-tabs %}}`, `{{% code-tab-content %}}`
   - Version links: `{{< latest >}}`, `{{< latest-patch >}}`
   - API endpoints: `{{< api-endpoint >}}`
   - Required elements: `{{< req >}}`
   - Navigation: `{{< page-nav >}}`
   - Diagrams: `{{< diagram >}}`, `{{< filesystem-diagram >}}`
 
-## Code Examples and Testing
+## Code examples and testing
 
 - Provide complete, working examples with proper testing annotations:
 
@@ -124,27 +151,50 @@ Table: keys: [_start, _stop, _field, _measurement]
 - Include necessary environment variables
 - Show proper credential handling for authenticated commands
 
-## API Documentation
+## API documentation
 
+- `/api-docs` contains OpenAPI spec files used for API reference documentation
 - Follow OpenAPI specification patterns
 - Match REST API examples to current implementation
 - Include complete request/response examples
 - Document required headers and authentication
 
-## Versioning and Product Differentiation
+## Versioning and product differentiation
 
 - Clearly distinguish between different InfluxDB versions (1.x, 2.x, 3.x)
 - Use correct terminology for each product variant
 - Apply appropriate UI descriptions and screenshots
 - Reference appropriate query language per version
 
-## Development Tools
+## Development tools
 
 - Vale.sh linter for style checking
+  - Configuration file: `.vale.ini` 
 - Docker for local development and testing
 - pytest and pytest-codeblocks for validating code examples
-- Pre-commit hooks for quality assurance
+- Use cypress for testing documentation UI and links
+- Prettier for code formatting
+- ESLint for JavaScript and TypeScript linting
+- Lefthook (NPM package) for managing pre-commit hooks for quality assurance
+
+## Code style
+
+- Use modern JavaScript (ES6+) syntax
 
 ## Related repositories
 
-- **Internal dcumentation assistance requests**: https://github.com/influxdata/DAR/issues
+- **Internal documentation assistance requests**: https://github.com/influxdata/DAR/issues Documentation
+
+## Additional instruction files
+
+For specific workflows and content types, also refer to:
+
+- **InfluxDB 3 code placeholders**: `.github/instructions/influxdb3-code-placeholders.instructions.md` - Guidelines for placeholder formatting, descriptions, and shortcode usage in InfluxDB 3 documentation
+- **Contributing guidelines**: `.github/instructions/contributing.instructions.md` - Detailed style guidelines, shortcode usage, frontmatter requirements, and development workflows
+- **Content-specific instructions**: Check `.github/instructions/` directory for specialized guidelines covering specific documentation patterns and requirements
+
+## Integration with specialized instructions
+
+When working on InfluxDB 3 documentation (Core/Enterprise), prioritize the placeholder guidelines from `influxdb3-code-placeholders.instructions.md`.
+
+For general documentation structure, shortcodes, and development workflows, follow the comprehensive guidelines in `contributing.instructions.md`.

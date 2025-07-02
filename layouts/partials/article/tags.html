@@ -2,9 +2,9 @@
 {{ $product := index $productPathData 0 }}
 {{ $version := index $productPathData 1 }}
 {{ $tagSet := print $product "/" $version "/tags" }}
-{{ if isset .Params $tagSet }}
+{{ with .Param $tagSet }}
   <div class="tags">
-    {{ range .Param $tagSet }}
+    {{ range . }}
       {{ $name := . }}
       {{ with $.Site.GetPage (printf "/%s/%s" $tagSet ($name | urlize)) }}
         <a class="tag btn" href="{{ .RelPermalink }}">{{ $name }}</a>

@@ -66,6 +66,23 @@ cloud:
         - name: East US (Virginia)
           location: Virginia, USA
           url: https://eastus-1.azure.cloud2.influxdata.com
+
+serverless:
+  product: InfluxDB Cloud
+  providers:
+    - name: Amazon Web Services
+      short_name: AWS
+      iox: true
+      regions:
+        - name: US East (Virginia)
+          location: Virginia, USA
+          url: https://us-east-1-1.aws.cloud2.influxdata.com
+          iox: true
+        - name: EU Frankfurt
+          location: Frankfurt, Germany
+          url: https://eu-central-1-1.aws.cloud2.influxdata.com
+          iox: true
+
 cloud_dedicated:
   providers:
     - name: Default

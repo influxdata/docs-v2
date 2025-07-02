@@ -34,7 +34,7 @@ list_code_example: |
     --database example-db \
     --token 00xoXX0xXXx0000XxxxXx0Xx0xx0 \
     --table home \
-    --node-spec node-01,node-02 \
+    --node-spec "nodes:node-01,node-02" \
     --columns country,county,city \
     --max-cardinality 10000 \
     --max-age 24h \

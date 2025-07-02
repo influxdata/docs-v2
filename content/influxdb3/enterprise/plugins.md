@@ -5,7 +5,7 @@ description: |
   code on different events in an {{< product-name >}} instance.
 menu:
   influxdb3_enterprise:
-    name: Processing Engine and Python plugins
+    name: Processing engine and Python plugins
 weight: 4
 influxdb3/enterprise/tags: [processing engine, python]
 related:

@@ -13,6 +13,7 @@ list_code_example: |
   ```
 related:
   - /influxdb3/enterprise/reference/cli/influxdb3/show/databases/
+  - /influxdb3/explorer/manage-databases/
 source: /shared/influxdb3-admin/databases/list.md
 ---
 

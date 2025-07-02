@@ -106,9 +106,7 @@ influxdb3 serve
 - [HTTP](#http)
   - [max-http-request-size](#max-http-request-size)
   - [http-bind](#http-bind)
-  - [bearer-token](#bearer-token)
 - [Memory](#memory)
-  - [ram-pool-data-bytes](#ram-pool-data-bytes)
   - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
   - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
   - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
@@ -146,7 +144,7 @@ influxdb3 serve
 Specifies which object storage to use to store Parquet files.
 This option supports the following values:
 
-- `memory` _(default)_
+- `memory`
 - `memory-throttled`
 - `file`
 - `s3`
@@ -161,7 +159,8 @@ This option supports the following values:
 
 #### data-dir
 
-Defines the location {{< product-name >}} uses to store files locally.
+For the `file` object store, defines the location {{< product-name >}} uses to store files locally.
+Required when using the `file` [object store](#object-store).
 
 | influxdb3 serve option | Environment variable |
 | :--------------------- | :------------------- |
@@ -172,7 +171,7 @@ Defines the location {{< product-name >}} uses to store files locally.
 #### node-id
 
 Specifies the node identifier used as a prefix in all object store file paths.
-This should be unique for any hosts sharing the same object store
+Use a unique node identifier for each host sharing the same object store
 configuration--for example, the same bucket.
 
 | influxdb3 serve option | Environment variable               |
@@ -187,7 +186,7 @@ Limits the number of Parquet files a query can access.
 
 **Default:** `432`
 
-With the default `432` setting and the default [`gen1-duration`](#`gen1-duration`)
+With the default `432` setting and the default [`gen1-duration`](#gen1-duration)
 setting of 10 minutes, queries can access up to a 72 hours of data, but
 potentially less depending on whether all data for a given 10 minute block of
 time was ingested during the same period.
@@ -753,7 +752,6 @@ Provides custom configuration to DataFusion as a comma-separated list of
 
 - [max-http-request-size](#max-http-request-size)
 - [http-bind](#http-bind)
-- [bearer-token](#bearer-token)
 
 #### max-http-request-size
 
@@ -779,34 +777,11 @@ Defines the address on which InfluxDB serves HTTP API requests.
 
 ---
 
-#### bearer-token
-
-Specifies the bearer token to be set for requests.
-
-| influxdb3 serve option | Environment variable     |
-| :--------------------- | :----------------------- |
-| `--bearer-token`       | `INFLUXDB3_BEARER_TOKEN` |
-
----
-
 ### Memory
 
-- [ram-pool-data-bytes](#ram-pool-data-bytes)
 - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
 - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
 - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
-
-#### ram-pool-data-bytes
-
-Specifies the size of the RAM cache used to store data, in bytes.
-
-**Default:** `1073741824`
-
-| influxdb3 serve option  | Environment variable            |
-| :---------------------- | :------------------------------ |
-| `--ram-pool-data-bytes` | `INFLUXDB3_RAM_POOL_DATA_BYTES` |
-
----
 
 #### exec-mem-pool-bytes
 

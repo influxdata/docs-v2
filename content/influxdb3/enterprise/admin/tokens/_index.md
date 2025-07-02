@@ -1,17 +1,16 @@
 ---
 title: Manage tokens
 description: >
-  InfluxDB 3 uses tokens to authenticate and authorize access to resources and data stored in your {{< product-name >}}.
-  Use the `influxdb3` CLI or `/api/v3` HTTP API to manage tokens
-  for your {{% product-name %}} instance.
+  Manage tokens to authenticate and authorize access to server actions, resources, and data in an {{< product-name >}} instance.
 menu:
   influxdb3_enterprise:
     parent: Administer InfluxDB
 weight: 202
+related:
+  - /influxdb3/explorer/manage-tokens/
+source: /shared/influxdb3-admin/tokens/_index.md
 ---
 
-InfluxDB 3 uses tokens to authenticate and authorize access to resources and data stored in your {{< product-name >}}.
-Use the `influxdb3` CLI or `/api/v3` HTTP API to manage tokens
-for your {{% product-name %}} instance.
-
-{{< children hlevel="h2" readmore=true hr=true >}}
+<!-- The content for this page is at
+// SOURCE content/shared/influxdb3-admin/tokens/_index.md
+-->>

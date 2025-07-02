@@ -11,8 +11,22 @@ node_modules
 /content/influxdb*/**/api/**/*.html
 !api-docs/**/.config.yml
 /api-docs/redoc-static.html*
+/telegraf-build
+!telegraf-build/templates
+!telegraf-build/scripts
+!telegraf-build/README.md
+/cypress/downloads/*
+/cypress/screenshots/*
+/cypress/videos/*
+test-results.xml
+/influxdb3cli-build-scripts/content
 .vscode/*
+!.vscode/launch.json
 .idea
 **/config.toml
 package-lock.json
 tmp
+
+# Context files for LLMs and AI tools 
+.context/*
+!.context/README.md

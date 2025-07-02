@@ -83,7 +83,7 @@ customSumProduct = (tables=<-) => tables
 
 #### Check if a statically defined record contains a key
 
-When you use the [record literal syntax](/flux/v0.x/data-types/composite/record/#record-syntax)
+When you use the [record literal syntax](/flux/v0/data-types/composite/record/#record-syntax)
 to statically define a record, Flux knows the record type and what keys to expect.
 
 - If the key exists in the static record, `exists` returns `true`.

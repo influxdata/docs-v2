@@ -24,8 +24,8 @@ influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 ## Required parameters
 
 - **node-id**: A unique identifier for your server instance. Must be unique for any hosts sharing the same object store.
-- **object-store**: Determines where time series data is stored. _Default is `memory`_.
-- **data-dir**: Path for local file storage (required when using `--object-store file`).
+- **object-store**: Determines where time series data is stored.
+- Other object store parameters depending on the selected `object-store` type.
 
 > [!NOTE]
 > `--node-id` supports alphanumeric strings with optional hyphens.
@@ -82,9 +82,7 @@ influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 |                  | `--datafusion-config`                                | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-config)_                                |
 |                  | `--max-http-request-size`                            | _See [configuration options](/influxdb3/core/reference/config-options/#max-http-request-size)_                            |
 |                  | `--http-bind`                                        | _See [configuration options](/influxdb3/core/reference/config-options/#http-bind)_                                        |
-|                  | `--ram-pool-data-bytes`                              | _See [configuration options](/influxdb3/core/reference/config-options/#ram-pool-data-bytes)_                              |
 |                  | `--exec-mem-pool-bytes`                              | _See [configuration options](/influxdb3/core/reference/config-options/#exec-mem-pool-bytes)_                              |
-|                  | `--bearer-token`                                     | _See [configuration options](/influxdb3/core/reference/config-options/#bearer-token)_                                     |
 |                  | `--gen1-duration`                                    | _See [configuration options](/influxdb3/core/reference/config-options/#gen1-duration)_                                    |
 |                  | `--wal-flush-interval`                               | _See [configuration options](/influxdb3/core/reference/config-options/#wal-flush-interval)_                               |
 |                  | `--wal-snapshot-size`                                | _See [configuration options](/influxdb3/core/reference/config-options/#wal-snapshot-size)_                                |
