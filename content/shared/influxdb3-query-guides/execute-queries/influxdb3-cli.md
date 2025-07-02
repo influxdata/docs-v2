@@ -4,12 +4,12 @@ to query data in {{< product-name >}} with SQL or InfluxQL.
 
 Provide the following with your command:
 
-<!-- - **Authorization token**: A [authorization token](/influxdb3/version/admin/tokens/#database-tokens)
-  with read permissions on the queried database.
+- **Authorization token**: Your {{< product-name >}} {{% token-link "admin" "admin" %}}
+  with read permissions on the database.
   Provide this using one of the following:
   
   - `--token` command option
-  - `INFLUXDB3_AUTH_TOKEN` environment variable -->
+  - `INFLUXDB3_AUTH_TOKEN` environment variable
 
 - **Database name**: The name of the database to query.
   Provide this using one of the following:
@@ -53,6 +53,7 @@ Provide the following with your command:
 
 ```bash
 influxdb3 query \
+  --token AUTH_TOKEN \
   --database DATABASE_NAME \
   "SELECT * FROM home"
 ```
@@ -62,6 +63,7 @@ influxdb3 query \
 
 ```bash
 influxdb3 query \
+  --token AUTH_TOKEN \
   --database DATABASE_NAME \
   --file ./query.sql
 ```
@@ -70,7 +72,7 @@ influxdb3 query \
 <!--pytest.mark.skip-->
 
 ```bash
-cat ./query.sql | influxdb3 query --database DATABASE_NAME
+cat ./query.sql | influxdb3 query --token AUTH_TOKEN --database DATABASE_NAME
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -94,6 +96,7 @@ cat ./query.sql | influxdb3 query --database DATABASE_NAME
 
 ```bash
 influxdb3 query \
+  --token AUTH_TOKEN \
   --language influxql \
   --database DATABASE_NAME \
   "SELECT * FROM home"
@@ -104,8 +107,8 @@ influxdb3 query \
 
 ```bash
 influxdb3 query \
+  --token AUTH_TOKEN \
   --language influxql \
-  --database DATABASE_NAME \
   --file ./query.influxql
 ```
 {{% /code-tab-content %}}
@@ -114,6 +117,7 @@ influxdb3 query \
 
 ```bash
 cat ./query.influxql | influxdb3 query \
+  --token AUTH_TOKEN \
   --language influxql \
   --database DATABASE_NAME
 ```
@@ -150,6 +154,7 @@ Use the `--format` flag to specify the output format:
 {{% influxdb/custom-timestamps %}}
 ```sh
 influxdb3 query \
+  --token AUTH_TOKEN \
   --database DATABASE_NAME \
   --format json \
   "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' LIMIT 5"
@@ -217,6 +222,7 @@ the `influxdb3 query` command:
 {{% influxdb/custom-timestamps %}}
 ```sh
 influxdb3 query \
+  --token AUTH_TOKEN \
   --database DATABASE_NAME \
   --format parquet \
   --output path/to/results.parquet \

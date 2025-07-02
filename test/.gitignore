@@ -2,6 +2,7 @@
 /Cargo.lock
 config.toml
 content
+influxdb3/**/data
 _*_pid
 node_modules
 shared
@@ -9,5 +10,6 @@ tmp
 .config*
 .env*
 **/.env.test
+.influxdb3
 .pytest_cache
 .test-run.txt

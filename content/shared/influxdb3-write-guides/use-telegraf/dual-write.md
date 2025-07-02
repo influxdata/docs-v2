@@ -5,7 +5,7 @@ to a separate instance or for migrating from other versions of InfluxDB to
 {{< product-name >}}.
 
 The following example configures Telegraf for dual writing to {{% product-name %}} and an InfluxDB v2 OSS instance.
-
+Specifically, it uses the following:
 
   - The [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2)
     twice--the first pointing to {{< product-name >}} and the other to an
@@ -13,11 +13,6 @@ The following example configures Telegraf for dual writing to {{% product-name %
   - Two different tokens--one for InfluxDB v2 OSS and one for {{< product-name >}}.
     Configure both tokens as environment variables and use string interpolation
     in your Telegraf configuration file to reference each environment variable.
-
-    > [!Note]
-    > While in beta, {{< product-name >}} does not require an authorization token.
-    > For the `token` option, provide an arbitrary, non-empty token string.
-
 
 ## Sample configuration
 

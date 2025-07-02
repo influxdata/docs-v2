@@ -28,7 +28,7 @@ Core's feature highlights include:
 - Compatibility with InfluxDB 1.x and 2.x write APIs
 
 {{% show-in "core" %}}
-[Get started with Core](/influxdb3/version/get-started/)
+<a href="/influxdb3/version/get-started/" class="btn">Get started with {{% product-name %}}</a>
 {{% /show-in %}}
 
 The Enterprise version adds the following features to Core:
@@ -41,5 +41,8 @@ The Enterprise version adds the following features to Core:
 - Integrated admin UI (coming soon)
 
 {{% show-in "core" %}}
-For more information, see how to [get started with Enterprise](/influxdb3/enterprise/get-started/).
+For more information, see how to [get started with InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/).
+{{% /show-in %}}
+{{% show-in "enterprise" %}}
+<a href="/influxdb3/version/get-started/" class="btn">Get started with {{% product-name %}}</a>
 {{% /show-in %}}

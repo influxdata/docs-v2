@@ -19,13 +19,14 @@ You can also set the database name using the `INFLUXDB3_DATABASE_NAME` environme
 
 ## Options
 
-| Option |              | Description                                                                              |
-| :----- | :----------- | :--------------------------------------------------------------------------------------- |
-| `-H`   | `--host`     | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
-|        | `--token`    | Authentication token                                                                     |
-|        | `--tls-ca`   | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
-| `-h`   | `--help`     | Print help information                                                                   |
-|        | `--help-all` | Print detailed help information                                                          |
+| Option |                      | Description                                                                                                                                      |
+| :----- | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-H`   | `--host`             | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                         |
+|        | `--retention-period` | Database [retention period](/influxdb3/version/reference/glossary/#retention-period) ([duration](/influxdb3/version/reference/glossary/#duration) value, for example: `30d`, `24h`, `1h`) |
+|        | `--token`            | Authentication token                                                                                                                             |
+|        | `--tls-ca`           | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                             |
+| `-h`   | `--help`             | Print help information                                                                                                                           |
+|        | `--help-all`         | Print detailed help information                                                                                                                  |
 
 ### Option environment variables
 
@@ -67,6 +68,16 @@ Flags override their associated environment variables.
 
 ```bash
 influxdb3 create database --token AUTH_TOKEN DATABASE_NAME
+```
+
+### Create a database with a retention period
+
+Creates a database with a specific retention period.
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create database --retention-period 30d DATABASE_NAME
 ```
 
 {{% /code-placeholders %}}
