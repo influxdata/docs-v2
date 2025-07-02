@@ -1,0 +1,142 @@
+name: Audit Documentation
+
+on:
+  workflow_dispatch:
+    inputs:
+      product:
+        description: 'Product to audit'
+        required: true
+        type: choice
+        options:
+          - core
+          - enterprise
+          - clustered
+          - cloud-dedicated
+          - all-monolith
+          - all-distributed
+      version:
+        description: 'Version to audit (use "local" for running containers)'
+        required: false
+        default: 'local'
+  
+  schedule:
+    # Run weekly on Mondays at 9 AM UTC
+    - cron: '0 9 * * 1'
+
+jobs:
+  audit-cli:
+    name: Audit CLI Documentation
+    runs-on: ubuntu-latest
+    if: contains(fromJSON('["core", "enterprise", "all-monolith"]'), github.event.inputs.product)
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Docker
+        if: github.event.inputs.version == 'local'
+        run: |
+          docker compose up -d influxdb3-core influxdb3-enterprise
+          sleep 10  # Wait for containers to be ready
+      
+      - name: Run CLI audit
+        run: |
+          PRODUCT="${{ github.event.inputs.product }}"
+          VERSION="${{ github.event.inputs.version }}"
+          
+          if [ "$PRODUCT" == "all-monolith" ]; then
+            ./helper-scripts/influxdb3-monolith/audit-cli-documentation.sh both $VERSION
+          else
+            ./helper-scripts/influxdb3-monolith/audit-cli-documentation.sh $PRODUCT $VERSION
+          fi
+      
+      - name: Upload CLI audit reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: cli-audit-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}
+          path: helper-scripts/output/cli-audit/
+          retention-days: 30
+      
+      - name: Create CLI audit issue
+        if: github.event_name == 'schedule' || github.event.inputs.create_issue == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const product = '${{ github.event.inputs.product }}';
+            const version = '${{ github.event.inputs.version }}';
+            
+            // Read audit report
+            const reportPath = `helper-scripts/output/cli-audit/documentation-audit-${product}-${version}.md`;
+            const report = fs.readFileSync(reportPath, 'utf8');
+            
+            // Create issue
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `CLI Documentation Audit - ${product} ${version}`,
+              body: report,
+              labels: ['documentation', 'cli-audit', product]
+            });
+
+  audit-api:
+    name: Audit API Documentation
+    runs-on: ubuntu-latest
+    if: contains(fromJSON('["clustered", "cloud-dedicated", "all-distributed"]'), github.event.inputs.product)
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run API audit
+        run: |
+          echo "API audit not yet implemented"
+          # TODO: Implement API documentation audit
+          # ./helper-scripts/influxdb3-distributed/audit-api-documentation.sh ${{ github.event.inputs.product }}
+      
+      - name: Upload API audit reports
+        if: false  # Enable when API audit is implemented
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-audit-${{ github.event.inputs.product }}
+          path: helper-scripts/output/api-audit/
+          retention-days: 30
+
+  summary:
+    name: Generate Summary Report
+    runs-on: ubuntu-latest
+    needs: [audit-cli, audit-api]
+    if: always()
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: audit-artifacts/
+      
+      - name: Generate summary
+        run: |
+          echo "# Documentation Audit Summary" > summary.md
+          echo "Date: $(date)" >> summary.md
+          echo "Product: ${{ github.event.inputs.product }}" >> summary.md
+          echo "Version: ${{ github.event.inputs.version }}" >> summary.md
+          echo "" >> summary.md
+          
+          # Add CLI audit results if available
+          if [ -d "audit-artifacts/cli-audit-*" ]; then
+            echo "## CLI Audit Results" >> summary.md
+            cat audit-artifacts/cli-audit-*/*.md >> summary.md
+          fi
+          
+          # Add API audit results if available
+          if [ -d "audit-artifacts/api-audit-*" ]; then
+            echo "## API Audit Results" >> summary.md
+            cat audit-artifacts/api-audit-*/*.md >> summary.md
+          fi
+      
+      - name: Upload summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-summary
+          path: summary.md
+          retention-days: 30
