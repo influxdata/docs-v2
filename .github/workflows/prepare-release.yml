@@ -1,0 +1,63 @@
+name: Prepare Documentation Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      product:
+        description: 'Product to release'
+        required: true
+        type: choice
+        options:
+          - core
+          - enterprise
+          - cloud-serverless
+          - cloud-dedicated
+      version:
+        description: 'Version number (e.g., 3.2.1)'
+        required: true
+      release_type:
+        description: 'Release type'
+        required: true
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+          - hotfix
+
+jobs:
+  prepare-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Create release branch
+        run: |
+          git checkout -b docs-release-v${{ inputs.version }}
+      
+      - name: Generate release notes
+        run: |
+          ./helper-scripts/common/generate-release-notes.sh \
+            --product ${{ inputs.product }} \
+            --version ${{ inputs.version }} \
+            --output content/influxdb3/${{ inputs.product }}/release-notes/v${{ inputs.version }}.md
+      
+      - name: Update product versions
+        run: |
+          # Script to update data/products.yml
+          ./helper-scripts/common/update-product-version.sh \
+            --product ${{ inputs.product }} \
+            --version ${{ inputs.version }}
+      
+      - name: Create release checklist issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const checklist = require('./.github/scripts/release-checklist.js');
+            await checklist.createIssue({
+              github,
+              context,
+              product: '${{ inputs.product }}',
+              version: '${{ inputs.version }}',
+              releaseType: '${{ inputs.release_type }}'
+            })

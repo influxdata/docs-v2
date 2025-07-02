@@ -41,7 +41,7 @@ done
 # Parse remaining arguments
 FROM_VERSION="${1:-v3.1.0}"
 TO_VERSION="${2:-v3.2.0}"
-PRIMARY_REPO="${3:-/Users/ja/Documents/github/influxdb}"
+PRIMARY_REPO="${3:-${HOME}/Documents/github/influxdb}"
 
 # Collect additional repositories (all arguments after the third)
 ADDITIONAL_REPOS=()
