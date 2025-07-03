@@ -365,6 +365,10 @@ the cluster._
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## Docker installation
+
+For Docker-based installations, see [Install and run InfluxDB v1 Enterprise with Docker](/enterprise_influxdb/v1/introduction/installation/docker/) for complete instructions on setting up meta nodes using Docker images.
+
 After your meta nodes are part of your cluster,
 [install data nodes](/enterprise_influxdb/v1/introduction/installation/data_node_installation/).
 
