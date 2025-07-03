@@ -327,7 +327,7 @@ influxdb  2706  0.2  7.0 571008 35376 ?        Sl   15:37   0:16 /usr/bin/influx
 ```
 
 If you do not see the expected output, the process is either not launching or is exiting prematurely.
-Check the [logs](/enterprise_influxdb/v1/administration/logs/)
+Check the [logs](/enterprise_influxdb/v1/administration/monitor/logs/)
 for error messages and verify the previous setup steps are complete.
 
 If you see the expected output, repeat for the remaining data nodes.
@@ -394,6 +394,10 @@ to the cluster.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+## Docker installation
+
+For Docker-based installations, see [Install and run InfluxDB v1 Enterprise with Docker](/enterprise_influxdb/v1/introduction/installation/docker/) for complete instructions on setting up data nodes using Docker images.
 
 ## Next steps
 

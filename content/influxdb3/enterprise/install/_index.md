@@ -11,4 +11,4 @@ alt_links:
   v1: /influxdb/v1/introduction/install/
 ---
 
-<!--SOURCE - content/shared/influxdb3/install.md -->
+<!-- SOURCE content/shared/influxdb3/install.md -->
