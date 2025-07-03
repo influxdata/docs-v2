@@ -22,7 +22,7 @@ each batch to an InfluxDB OSS bucket.
 
 ## Set up the migration
 
-1.  [Install and set up InfluxDB OSS](/influxdb/version/install/).
+1.  [Install and set up InfluxDB OSS](/influxdb/v2/install/).
 
 2.  **In InfluxDB Cloud**, [create an API token](/influxdb/cloud/admin/tokens/create-token/)
         with **read access** to the bucket you want to migrate.
