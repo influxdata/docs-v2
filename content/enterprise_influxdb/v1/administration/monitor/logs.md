@@ -120,13 +120,13 @@ You can view the file [here](https://github.com/influxdb/influxdb/blob/master/sc
 
 InfluxDB 1.5 introduces the option to log HTTP request traffic separately from the other InfluxDB log output. When HTTP request logging is enabled, the HTTP logs are intermingled by default with internal InfluxDB logging. By redirecting the HTTP request log entries to a separate file, both log files are easier to read, monitor, and debug.
 
-See [Redirecting HTTP request logging](/enterprise_influxdb/v1/administration/logs/#redirecting-http-access-logging) in the InfluxDB OSS documentation.
+For more information, see the [InfluxDB OSS v1 HTTP access logging documentation](/influxdb/v1/administration/logs/#http-access-logging).
 
 ## Structured logging
 
 With InfluxDB 1.5, structured logging is supported and enable machine-readable and more developer-friendly log output formats. The two new structured log formats, `logfmt` and `json`, provide easier filtering and searching with external tools and simplifies integration of InfluxDB logs  with Splunk, Papertrail, Elasticsearch, and other third party tools.
 
-See [Structured logging](/enterprise_influxdb/v1/administration/logs/#structured-logging) in the InfluxDB OSS documentation.
+For more information, see the [InfluxDB OSS v1 structured logging documentation](/influxdb/v1/administration/logs/#structured-logging).
 
 ## Tracing
 

@@ -1,19 +1,9 @@
 ---
 title: Get started with InfluxDB OSS
-description: Get started with InfluxDB OSS.
-# v2.0 alias below routes old external links here temporarily.
+description: Get started with InfluxDB OSS. Learn how to create databases, write data, and query your time series data.
 aliases:
   - /influxdb/v1/introduction/getting_started/
   - /influxdb/v1/introduction/getting-started/
-  - /influxdb/v2/introduction/getting-started/
-  - /influxdb/v2/introduction/getting-started/
-  - /influxdb/v2/introduction/getting_started/
-  - /influxdb/v2/introduction/getting_started/
-  - /influxdb/v2/introduction/getting_started/
-  - /influxdb/v2/introduction/getting_started/
-  - /influxdb/v2/introduction/getting_started/
-  - /influxdb/v2/introduction/getting-started/
-
 menu:
   influxdb_v1:
     name: Get started with InfluxDB
@@ -23,21 +13,29 @@ alt_links:
   v2: /influxdb/v2/get-started/
 ---
 
-With InfluxDB open source (OSS) [installed](/influxdb/v1/introduction/installation), you're ready to start doing some awesome things.
-In this section we'll use the `influx` [command line interface](/influxdb/v1/tools/shell/) (CLI), which is included in all
-InfluxDB packages and is a lightweight and simple way to interact with the database.
-The CLI communicates with InfluxDB directly by making requests to the InfluxDB API over port `8086` by default.
+With InfluxDB open source (OSS) [installed](/influxdb/v1/introduction/installation), you're ready to start working with time series data.
+This guide uses the `influx` [command line interface](/influxdb/v1/tools/shell/) (CLI), which is included with InfluxDB
+and provides direct access to the database.
+The CLI communicates with InfluxDB through the HTTP API on port `8086`.
 
-> **Note:** The database can also be used by making raw HTTP requests.
-See [Writing Data](/influxdb/v1/guides/writing_data/) and [Querying Data](/influxdb/v1/guides/querying_data/)
-for examples with the `curl` application.
+> [!Tip]
+> **Docker users**: Access the CLI from your container using:
+> ```bash
+> docker exec -it <container-name> influx
+> ```
+
+> [!Note]
+> #### Directly access the API 
+> You can also interact with InfluxDB using the HTTP API directly.
+> See [Writing Data](/influxdb/v1/guides/writing_data/) and [Querying Data](/influxdb/v1/guides/querying_data/)for examples using `curl`.
 
 ## Creating a database
 
-If you've installed InfluxDB locally, the `influx` command should be available via the command line.
-Executing `influx` will start the CLI and automatically connect to the local InfluxDB instance
-(assuming you have already started the server with `service influxdb start` or by running `influxd` directly).
-The output should look like this:
+After installing InfluxDB locally, the `influx` command is available from your terminal.
+Running `influx` starts the CLI and connects to your local InfluxDB instance
+(ensure InfluxDB is running with `service influxdb start` or `influxd`).
+To start the CLI and connect to the local InfluxDB instance, run the following command.
+The [`-precision` argument](/influxdb/v1/tools/shell/#influx-arguments) specifies the format and precision of any returned timestamps.
 
 ```bash
 $ influx -precision rfc3339
@@ -46,15 +44,12 @@ InfluxDB shell {{< latest-patch >}}
 >
 ```
 
-> **Notes:**
->
-* The InfluxDB API runs on port `8086` by default.
-Therefore, `influx` will connect to port `8086` and `localhost` by default.
-If you need to alter these defaults, run `influx --help`.
-* The [`-precision` argument](/influxdb/v1/tools/shell/#influx-arguments) specifies the format/precision of any returned timestamps.
-In the example above, `rfc3339` tells InfluxDB to return timestamps in [RFC3339 format](https://www.ietf.org/rfc/rfc3339.txt) (`YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ`).
+The `influx` CLI connects to port `localhost:8086` (the default).
+The timestamp precision `rfc3339` tells InfluxDB to return timestamps in [RFC3339 format](https://www.ietf.org/rfc/rfc3339.txt) (`YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ`).
 
-The command line is now ready to take input in the form of the Influx Query Language (a.k.a InfluxQL) statements.
+To view available options for customizing CLI connection parameters or other settings, run `influx --help` in your terminal.
+
+The command line is ready to take input in the form of the Influx Query Language (InfluxQL) statements.
 To exit the InfluxQL shell, type `exit` and hit return.
 
 A fresh install of InfluxDB has no databases (apart from the system `_internal`),
@@ -75,7 +70,6 @@ Throughout this guide, we'll use the database name `mydb`:
 > **Note:** After hitting enter, a new prompt appears and nothing else is displayed.
 In the CLI, this means the statement was executed and there were no errors to display.
 There will always be an error displayed if something went wrong.
-No news is good news!
 
 Now that the `mydb` database is created, we'll use the `SHOW DATABASES` statement
 to display all existing databases:
@@ -203,6 +197,30 @@ including support for Go-style regex. For example:
 --
 > SELECT * FROM "cpu_load_short" WHERE "value" > 0.9
 ```
+
+## Using the HTTP API
+
+You can also interact with InfluxDB using HTTP requests with tools like `curl`:
+
+### Create a database
+```bash
+curl -G http://localhost:8086/query --data-urlencode "q=CREATE DATABASE mydb"
+```
+
+### Write data
+```bash
+curl -i -XPOST 'http://localhost:8086/write?db=mydb' \
+  --data-binary 'cpu,host=serverA,region=us_west value=0.64'
+```
+
+### Query data
+```bash
+curl -G 'http://localhost:8086/query?pretty=true' \
+  --data-urlencode "db=mydb" \
+  --data-urlencode "q=SELECT * FROM cpu"
+```
+
+## Next steps
 
 This is all you need to know to write data into InfluxDB and query it back.
 To learn more about the InfluxDB write protocol,
