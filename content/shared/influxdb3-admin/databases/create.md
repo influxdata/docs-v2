@@ -4,10 +4,7 @@ to create a database in {{< product-name >}}.
 Provide the following:
 
 - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
-- {{< product-name >}} authorization token
-
-  > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
+- {{< product-name >}} {{% token-link "admin" "admin" %}} 
 
 <!--Allow fail for database create and delete: namespaces aren't reusable-->
 <!--pytest.mark.skip-->

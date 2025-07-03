@@ -17,6 +17,8 @@ related:
   - /flux/v0/stdlib/influxdata/influxdb/monitor/from/
   - /flux/v0/stdlib/influxdata/influxdb/monitor/logs/
   - /flux/v0/stdlib/influxdata/influxdb/monitor/notify/
+source: /shared/influxdb-v2/reference/internals/system-buckets.md
 ---
 
-{{% duplicate-oss %}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/internals/system-buckets.md-->

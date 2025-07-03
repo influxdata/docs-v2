@@ -37,11 +37,10 @@ The following visualization tools support querying InfluxDB with InfluxQL:
 - [Grafana](/influxdb3/cloud-dedicated/process-data/visualize/grafana/?t=InfluxQL)
 - [Chronograf](/influxdb3/cloud-dedicated/process-data/visualize/chronograf/)
 
-{{% warn %}}
-#### InfluxQL feature support
-
-InfluxQL is being rearchitected to work with the InfluxDB 3 storage engine.
-This process is ongoing and some InfluxQL features are still being implemented.
-For information about the current implementation status of InfluxQL features,
-see [InfluxQL feature support](/influxdb3/cloud-dedicated/reference/influxql/feature-support/).
-{{% /warn %}}
+> [!Warning]
+> #### InfluxQL feature support
+> 
+> InfluxQL is being rearchitected to work with the InfluxDB 3 storage engine.
+> This process is ongoing and some InfluxQL features are still being implemented.
+> For information about the current implementation status of InfluxQL features,
+> see [InfluxQL feature support](/influxdb3/cloud-dedicated/reference/influxql/feature-support/).

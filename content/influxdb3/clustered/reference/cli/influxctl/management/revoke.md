@@ -15,13 +15,12 @@ The `influxctl management revoke` command revokes management token access
 to your {{< product-name omit=" Clustered" >}} cluster.
 **This operation cannot be undone**.
 
-{{% note %}}
-#### Revoked tokens are included when listing tokens
-
-Revoked tokens still appear when
-[listing management tokens](/influxdb3/clustered/reference/cli/influxctl/management/list/),
-but they are no longer valid for any operations.
-{{% /note %}}
+> [!Note]
+> #### Revoked tokens are included when listing tokens
+> 
+> Revoked tokens still appear when
+> [listing management tokens](/influxdb3/clustered/reference/cli/influxctl/management/list/),
+> but they are no longer valid for any operations.
 
 ## Usage
 

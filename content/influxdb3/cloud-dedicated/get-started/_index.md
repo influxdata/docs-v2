@@ -17,6 +17,8 @@ provides nearly unlimited series cardinality,
 improved query performance, and interoperability with widely used data
 processing tools and platforms.
 
+<a class="btn" href="{{< cta-link >}}">Run an {{% product-name %}} proof of concept (PoC)</a>
+
 **Time series data** is a sequence of data points indexed in time order. Data
 points typically consist of successive measurements made from the same source
 and are used to track changes over time. Examples of time series data include:
@@ -64,16 +66,15 @@ Tables contain multiple tags and fields.
     - **Timestamp**: Timestamp associated with the data. When stored on disk and
       queried, all data is ordered by time. A timestamp is never null.
 
-{{% note %}}
-
-#### What about buckets and measurements?
-
-If coming from InfluxDB Cloud Serverless or InfluxDB powered by the TSM storage
-engine, you're likely familiar with the concepts _bucket_ and _measurement_.
-_Bucket_ in TSM or InfluxDB Cloud Serverless is synonymous with _database_ in
-{{% product-name %}}. _Measurement_ in TSM or InfluxDB Cloud Serverless is
-synonymous with _table_ in {{% product-name %}}.
-{{% /note %}}
+> [!Note]
+> 
+> #### What about buckets and measurements?
+> 
+> If coming from InfluxDB Cloud Serverless or InfluxDB powered by the TSM storage
+> engine, you're likely familiar with the concepts _bucket_ and _measurement_.
+> _Bucket_ in TSM or InfluxDB Cloud Serverless is synonymous with _database_ in
+> {{% product-name %}}. _Measurement_ in TSM or InfluxDB Cloud Serverless is
+> synonymous with _table_ in {{% product-name %}}.
 
 ### Schema on write
 
@@ -123,10 +124,9 @@ The following table compares tools that you can use to interact with
 {{< req type="key" text="Covered in this tutorial" color="magenta" >}}
 {{< /caption >}}
 
-{{% warn %}}
-Avoid using the `influx` CLI with {{% product-name %}}. While it
-may coincidentally work, it isn't supported.
-{{% /warn %}}
+> [!Warning]
+> Avoid using the `influx` CLI with {{% product-name %}}. While it
+> may coincidentally work, it isn't supported.
 
 ### `influxctl` CLI
 
@@ -203,4 +203,4 @@ Manually-created management tokens authenticate directly with your InfluxDB
 cluster and don't require human interaction with your identity provider.
   <!-- - Infrastructure management -->
 
-{{< page-nav next="/influxdb/clustered/get-started/setup/" >}}
+{{< page-nav next="/influxdb3/cloud-dedicated/get-started/setup/" >}}

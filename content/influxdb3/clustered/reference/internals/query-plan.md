@@ -5,7 +5,7 @@ description: >
   InfluxDB query plans include DataFusion and InfluxDB logical plan and execution plan nodes for scanning, deduplicating, filtering, merging, and sorting data.
 weight: 201
 menu:
-  influxdb_clustered:
+  influxdb3_clustered:
     name: Query plans
     parent: InfluxDB internals
 influxdb/clustered/tags: [query, sql, influxql]

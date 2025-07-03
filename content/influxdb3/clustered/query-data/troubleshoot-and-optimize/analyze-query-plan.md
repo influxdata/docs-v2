@@ -5,7 +5,7 @@ description: >
   understand how a query is executed and find performance bottlenecks.
 weight: 401
 menu:
-  influxdb_clustered:
+  influxdb3_clustered:
     name: Analyze a query plan
     parent: Troubleshoot and optimize queries
 influxdb/clustered/tags: [query, sql, influxql, observability, query plan]
@@ -422,9 +422,8 @@ The `plan` column for the row contains the physical plan.
 
 The following sections follow the steps to [read a query plan](#read-a-query-plan) and examine the physical plan nodes and their input and output.
 
-{{% note %}}
-To [read the execution flow of a query plan](#read-a-query-plan), always start from the innermost (leaf) nodes and read up toward the top outermost root node.
-{{% /note %}}
+> [!Note]
+> To [read the execution flow of a query plan](#read-a-query-plan), always start from the innermost (leaf) nodes and read up toward the top outermost root node.
 
 #### Physical plan leaf nodes
 
@@ -529,15 +528,14 @@ _By design, [`RecordBatchesExec`](#recordbatchesexec) data isn't sorted._
 
 In the example, the planner specifies that ParquetExec_A use the existing sort order `state ASC, city ASC, time ASC,` for output.
 
-{{% note %}}
-To view the sort order of your stored data, generate an `EXPLAIN` report for a `SELECT ALL` query--for example:
-
-```sql
-EXPLAIN SELECT * FROM TABLE_NAME WHERE time > now() - interval '1 hour'
-```
-
-Reduce the time range if the query returns too much data.
-{{% /note %}}
+> [!Note]
+> To view the sort order of your stored data, generate an `EXPLAIN` report for a `SELECT ALL` query--for example:
+> 
+> ```sql
+> EXPLAIN SELECT * FROM TABLE_NAME WHERE time > now() - interval '1 hour'
+> ```
+> 
+> Reduce the time range if the query returns too much data.
 
 ##### `predicate`
 
@@ -591,9 +589,8 @@ The `projection` list specifies the columns or expressions for the node to read 
 - `__chunk_order`: orders chunks and files for deduplication
 - `city, state, time`: the same columns specified in [`ParquetExec_A projection`](#projection-1)
 
-{{% note %}}
-The presence of `__chunk_order` in data scanning nodes indicates that data overlaps, and is possibly duplicated, among the nodes.
-{{% /note %}}
+> [!Note]
+> The presence of `__chunk_order` in data scanning nodes indicates that data overlaps, and is possibly duplicated, among the nodes.
 
 #### ParquetExec_B
 
@@ -615,9 +612,8 @@ ParquetExec:
 
 Because ParquetExec_B has overlaps, the `projection` and `output_ordering` expressions use the `__chunk_order` column used in [`RecordBatchesExec` `projection`](#projection-1).
 
-{{% note %}}
-The presence of `__chunk_order` in data scanning nodes indicates that data overlaps, and is possibly duplicated, among the nodes.
-{{% /note %}}
+> [!Note]
+> The presence of `__chunk_order` in data scanning nodes indicates that data overlaps, and is possibly duplicated, among the nodes.
 
 The remaining ParquetExec_B expressions are similar to those in [ParquetExec_A](#parquetexec_a).
 

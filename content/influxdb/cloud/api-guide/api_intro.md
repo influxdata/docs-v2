@@ -10,6 +10,8 @@ menu:
 aliases:
   - /influxdb/cloud/tools/api/
 influxdb/cloud/tags: [api]
+source: /shared/influxdb-v2/api-guide/api_intro.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/api_intro.md-->

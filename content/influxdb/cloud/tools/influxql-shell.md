@@ -10,6 +10,8 @@ weight: 112
 influxdb/cloud/tags: [InfluxQL]
 related:
   - /influxdb/cloud/reference/cli/influx/v1/shell/
+source: /shared/influxdb-v2/tools/influxql-shell.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/influxql-shell.md-->

@@ -19,13 +19,12 @@ Management tokens grant permission to perform administrative actions such as
 managing users, databases, and database tokens in your
 {{< product-name omit=" Clustered">}} cluster.
 
-{{% note %}}
-Management tokens do _not_ grant permissions to write or query time series data
-in your {{< product-name omit=" Clustered">}} cluster.
-
-To grant write or query permissions, use management tokens to create
-[database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/).
-{{% /note %}}
+> [!Note]
+> Management tokens do _not_ grant permissions to write or query time series data
+> in your {{< product-name omit=" Clustered">}} cluster.
+> 
+> To grant write or query permissions, use management tokens to create
+> [database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/).
 
 By default, management tokens are short-lived tokens issued by your identity
 provider for a [specific client session](/influxdb3/cloud-dedicated/reference/internals/security/#management-tokens-in-the-influxctl-cli) (for example, `influxctl`).
@@ -36,17 +35,16 @@ interaction with your identity provider.
 _Manually created management tokens provide full access to all account resources
 and aren't affected by [user groups](/influxdb3/cloud-dedicated/reference/internals/security/#user-groups)_.
 
-{{% warn %}}
-#### For automation use cases only
-
-The tools outlined below are meant for automation use cases and shouldn't be
-used to circumvent your identity provider or user group permissions.
-**Take great care when manually creating and using management tokens**.
-
-{{< product-name >}} requires at least one [Admin user](/influxdb3/cloud-dedicated/reference/internals/security/#admin-user-group) associated with your cluster 
-and authorized through your OAuth2 identity provider to manually create a
-management token.
-{{% /warn %}}
+> [!Warning]
+> #### For automation use cases only
+> 
+> The tools outlined below are meant for automation use cases and shouldn't be
+> used to circumvent your identity provider or user group permissions.
+> **Take great care when manually creating and using management tokens**.
+> 
+> {{< product-name >}} requires at least one [Admin user](/influxdb3/cloud-dedicated/reference/internals/security/#admin-user-group) associated with your cluster 
+> and authorized through your OAuth2 identity provider to manually create a
+> management token.
 
 {{< children type="anchored-list" >}}
 - [Use a management token](#use-a-management-token)

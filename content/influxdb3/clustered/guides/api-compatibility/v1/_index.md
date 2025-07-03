@@ -290,9 +290,8 @@ The following tools work with the {{% product-name %}} `/write` endpoint:
 If you have existing v1 workloads that use Telegraf,
 you can use the [InfluxDB v1.x `influxdb` Telegraf output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) to write data.
 
-{{% note %}}
-See how to [use Telegraf and the v2 API](/influxdb3/clustered/write-data/use-telegraf/) for new workloads that don't already use the v1 API.
-{{% /note %}}
+> [!Note]
+> See how to [use Telegraf and the v2 API](/influxdb3/clustered/write-data/use-telegraf/) for new workloads that don't already use the v1 API.
 
 The following table shows `outputs.influxdb` plugin parameters and values for writing to the {{% product-name %}} v1 API: 
 
@@ -438,19 +437,18 @@ Replace the following:
   To learn how to query {{% product-name %}} using Flight and SQL, see the [Get started](/influxdb3/clustered/get-started/) tutorial.
 - InfluxDB v1 API `/query` request that contains an InfluxQL query. Use this endpoint with {{% product-name %}} when you bring InfluxDB 1.x workloads that already use [InfluxQL](/influxdb3/clustered/reference/glossary/#influxql) and the v1 API `/query` endpoint.
 
-{{% note %}}
-#### Tools to execute queries
-
-{{% product-name %}} supports many different tools for querying data, including:
-
-- [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
-- [InfluxDB 3 client libraries](/influxdb3/clustered/reference/client-libraries/v3/)
-- [Flight clients](/influxdb3/clustered/reference/client-libraries/flight/)
-- [Superset](/influxdb3/clustered/query-data/sql/execute-queries/superset/)
-- [Grafana](/influxdb3/clustered/query-data/sql/execute-queries/grafana/)
-- [InfluxQL with InfluxDB v1 HTTP API](/influxdb3/clustered/query-data/execute-queries/influxdb-v1-api/)
-- [Chronograf](/chronograf/v1/)
-{{% /note %}}
+> [!Note]
+> #### Tools to execute queries
+> 
+> {{% product-name %}} supports many different tools for querying data, including:
+> 
+> - [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
+> - [InfluxDB 3 client libraries](/influxdb3/clustered/reference/client-libraries/v3/)
+> - [Flight clients](/influxdb3/clustered/reference/client-libraries/flight/)
+> - [Superset](/influxdb3/clustered/query-data/sql/execute-queries/superset/)
+> - [Grafana](/influxdb3/clustered/query-data/sql/execute-queries/grafana/)
+> - [InfluxQL with InfluxDB v1 HTTP API](/influxdb3/clustered/query-data/execute-queries/influxdb-v1-api/)
+> - [Chronograf](/chronograf/v1/)
 
 ### v1 API /query parameters
 
@@ -468,9 +466,8 @@ Parameter | Allowed in | Ignored | Value
 `p`                    | Query string | Honored                  | For [query string authentication](#query-string-authentication), a [database token](/influxdb3/clustered/get-started/setup/#create-a-database-token) with permission to write to the database
 `rp` | Query string | Honored, but discouraged | Retention policy
 
-{{% note %}}
-When bringing v1 API workloads to {{% product-name %}}, you'll need to adjust request parameters in your client configuration or code.
-{{% /note %}}
+> [!Note]
+> When bringing v1 API workloads to {{% product-name %}}, you'll need to adjust request parameters in your client configuration or code.
 
 #### Timestamp precision
 

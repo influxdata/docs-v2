@@ -1,7 +1,7 @@
 ---
 title: List management tokens
 description: >
-  Use the [`influxctl management list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/management/list/)
+  Use the Admin UI or the [`influxctl management list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/management/list/)
   to list manually-created management tokens.
 menu:
   influxdb3_cloud_dedicated:
@@ -17,8 +17,43 @@ list_code_example: |
   ```
 ---
 
-Use the [`influxctl management list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/management/list)
+Use the Admin UI or the [`influxctl management list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/management/list)
 to list manually-created management tokens.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Admin UI](#admin-ui)
+[influxctl](#influxctl)
+{{% /tabs %}}
+{{% tab-content %}}
+<!------------------------------BEGIN ADMIN UI------------------------------>
+The InfluxDB Cloud Dedicated administrative UI includes a portal for creating
+and managing management tokens.
+
+1. To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+
+   <pre>
+   <a href="https://console.influxdata.com">https://console.influxdata.com</a>
+   </pre>
+
+2. Use the credentials provided by InfluxData to log into the Admin UI.
+   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+
+3. To list management tokens, click the **Management Tokens** button in the upper right corner of the Account Management portal.
+
+The Management Tokens portal displays the following information about each token:
+
+- Status
+- Description
+- Token ID
+- Created date 
+- Expiration date 
+
+You can **Search** tokens by description or ID to filter the list and use the sort button and column headers to sort the list.
+
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------BEGIN INFLUXCTL ------------------------------>
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 2.  Run `influxctl management list` with the following:
@@ -29,18 +64,19 @@ to list manually-created management tokens.
 influxctl management list --format json
 ```
 
-{{% note %}}
-#### Management token strings are not retrievable
+> [!Note]
+> #### Management token strings are not retrievable
+> 
+> The actual management token string is not printed and is only returned when
+> creating the token.
+> 
+> #### Revoked tokens are included in output
+> 
+> Revoked tokens still appear when listing management tokens, but they are no
+> longer valid for any operations.
 
-The actual management token string is not printed and is only returned when
-creating the token.
-
-#### Revoked tokens are included in output
-
-Revoked tokens still appear when listing management tokens, but they are no
-longer valid for any operations.
-{{% /note %}}
-
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 ### Output formats
 
 The `influxctl management list` command supports two output formats: `table` and `json`.

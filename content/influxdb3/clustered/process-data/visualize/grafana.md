@@ -51,14 +51,13 @@ The InfluxDB data source plugin is included in the Grafana core distribution.
 Use the plugin to query and visualize data stored in {{< product-name >}} with
 both InfluxQL and SQL. 
 
-{{% note %}}
-#### Grafana 10.3+
-
-The instructions below are for **Grafana 10.3+** which introduced the newest
-version of the InfluxDB core plugin.
-The updated plugin includes **SQL support** for InfluxDB 3-based products such
-as {{< product-name >}}.
-{{% /note %}}
+> [!Note]
+> #### Grafana 10.3+
+> 
+> The instructions below are for **Grafana 10.3+** which introduced the newest
+> version of the InfluxDB core plugin.
+> The updated plugin includes **SQL support** for InfluxDB 3-based products such
+> as {{< product-name >}}.
 
 ## Create an InfluxDB data source
 
@@ -146,10 +145,9 @@ use Grafana to build, run, and inspect queries against your InfluxDB database.
 {{% tab-content %}}
 <!--------------------------------- BEGIN SQL --------------------------------->
 
-{{% note %}}
-{{% sql/sql-schema-intro %}}
-To learn more, see [Query Data](/influxdb3/clustered/query-data/sql/).
-{{% /note %}}
+> [!Note]
+> {{% sql/sql-schema-intro %}}
+> To learn more, see [Query Data](/influxdb3/clustered/query-data/sql/).
 
 1. Click **Explore**.
 2. In the dropdown, select the saved InfluxDB data source to query.

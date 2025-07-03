@@ -16,15 +16,14 @@ weight: 201
 
 [Apache Arrow for Go](https://pkg.go.dev/github.com/apache/arrow/go/v12) integrates with Go scripts and applications to query data stored in InfluxDB.
 
-{{% note %}}
-#### Use InfluxDB 3 client libraries
-
-We recommend using the [`influxdb3-go` Go client library](/influxdb3/cloud-dedicated/reference/client-libraries/v3/go/) for integrating InfluxDB 3 with your Go application code.
-
-[InfluxDB 3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
-and provide convenient methods for [writing](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
-Client libraries can query using SQL or InfluxQL.
-{{% /note %}}
+> [!Note]
+> #### Use InfluxDB 3 client libraries
+> 
+> We recommend using the [`influxdb3-go` Go client library](/influxdb3/cloud-dedicated/reference/client-libraries/v3/go/) for integrating InfluxDB 3 with your Go application code.
+> 
+> [InfluxDB 3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
+> and provide convenient methods for [writing](/influxdb3/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
+> Client libraries can query using SQL or InfluxQL.
 
 ## Flight SQL client
 

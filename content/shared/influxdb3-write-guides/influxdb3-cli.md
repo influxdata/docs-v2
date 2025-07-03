@@ -5,10 +5,19 @@ to write line protocol data to {{< product-name >}}.
 - [Construct line protocol](#construct-line-protocol)
 - [Write the line protocol to InfluxDB](#write-the-line-protocol-to-influxdb)
 
+> [!Note]
+> #### Use the API for batching and higher-volume writes
+>
+> The `influxdb3` CLI lets you quickly get started writing data to {{< product-name >}}.
+> For batching and higher-volume write workloads, use the
+> [InfluxDB HTTP API](/influxdb3/version/write-data/http-api),
+> [API client libraries](/influxdb3/version/write-data/client-libraries/)
+> or [Telegraf](/influxdb3/version/write-data/use-telegraf/).
+
 ## Construct line protocol
 
 With a [basic understanding of line protocol](/influxdb3/version/write-data/#line-protocol),
-you can now construct line protocol and write data to {{< product-name >}}.
+you can construct data in line protocol format and write it to {{< product-name >}}.
 Consider a use case where you collect data from sensors in your home.
 Each sensor collects temperature, humidity, and carbon monoxide readings.
 To collect this data, use the following schema:
@@ -22,7 +31,7 @@ To collect this data, use the following schema:
     - `co`: carbon monoxide in parts per million (integer)
   - **timestamp**: Unix timestamp in _second_ precision
 
-The following line protocol represent the schema described above:
+The following line protocol represents the schema described above:
 
 {{% influxdb/custom-timestamps %}}
 
@@ -55,7 +64,7 @@ Provide the following:
 
 - The [database](/influxdb3/version/admin/databases/) name using the
   `--database` option
-- Your {{< product-name >}} authorization token using the `-t`, `--token` option
+- Your {{< product-name >}} {{% token-link %}} using the `-t`, `--token` option
 - [Line protocol](#construct-line-protocol).
   Provide the line protocol in one of the following ways:
 
@@ -140,7 +149,7 @@ home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000'
     influxdb3 write \
       --database DATABASE_NAME \
       --token AUTH_TOKEN \
-      ./home.lp
+      --file ./home.lp
     ```
 
 {{% /code-placeholders %}}
@@ -187,7 +196,4 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of the database to write to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your {{< product-name >}} authorization token
-
-  > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
+  your {{< product-name >}} {{% token-link %}}

@@ -17,6 +17,8 @@ related:
   - /influxdb/cloud/write-data/best-practices/
   - /influxdb/cloud/reference/syntax/line-protocol/
   - /telegraf/v1/
+source: /shared/influxdb-v2/get-started/write.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/get-started/write.md-->

@@ -62,13 +62,13 @@ Updating your InfluxDB cluster is as simple as re-applying your app-instance wit
 
 The word safely here means being able to redeploy your cluster while still being able to use the tokens you’ve created, and being able to write/query to the database you’ve previously created.
 
-All of the important state in InfluxDB 3 lives in the Catalog (the Postgres equivalent database) and the Object Store (the S3 compatible store). These should be treated with the utmost care. 
+All of the important state in InfluxDB 3 lives in the Catalog store (the Postgres equivalent database) and the Object Store (the S3 compatible store). These should be treated with the utmost care. 
 
-If a full redeploy of your cluster needs to happen, the namespace containing the Influxdb instance can be deleted **_as long as your Catalog and Object Store are not in this namespace_**. Then, the influxdb AppInstance can be redeployed. It is possible the operator may need to be removed and reinstalled. In that case, deleting the namespace that the operator is deployed into and redeploying is acceptable.
+If a full redeploy of your cluster needs to happen, the namespace containing the Influxdb instance can be deleted **_as long as your Catalog store and Object Store are not in this namespace_**. Then, the influxdb AppInstance can be redeployed. It is possible the operator may need to be removed and reinstalled. In that case, deleting the namespace that the operator is deployed into and redeploying is acceptable.
 
 ### Backing up your data
 
-The Catalog and Object store contain all of the important state for InfluxDB 3. They should be the primary focus of backups. Following the industry standard best practices for your chosen Catalog implementation and Object Store implementation should provide sufficient backups.  In our Cloud products, we do daily backups of our Catalog, in addition to automatic snapshots, and we preserve our Object Store files for 100 days after they have been soft-deleted.
+The Catalog store and Object store contain all of the important state for InfluxDB 3. They should be the primary focus of backups. Following the industry standard best practices for your chosen Catalog store implementation and Object Store implementation should provide sufficient backups.  In our Cloud products, we do daily backups of our Catalog, in addition to automatic snapshots, and we preserve our Object Store files for 100 days after they have been soft-deleted.
 
 ### Recovering your data
 

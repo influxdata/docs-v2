@@ -13,6 +13,8 @@ alt_links:
   cloud-serverless: /influxdb3/cloud-serverless/admin/tokens/create-token
   cloud-dedicated: /influxdb3/cloud-dedicated/admin/tokens/database/create
   clustered: /influxdb3/clustered/admin/tokens/database/create
+source: /shared/influxdb-v2/admin/tokens/create-token.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/admin/tokens/create-token.md-->

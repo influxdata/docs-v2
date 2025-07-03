@@ -42,9 +42,8 @@ to create a database in your {{< product-name omit=" Clustered" >}} cluster.
       the time interval to partition by _(default is `%Y-%m-%d`)_
     - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
 
-    {{% note %}}
-_{{< product-name >}} supports up to 7 total tags or tag buckets in the partition template._
-    {{% /note %}}
+    > [!Note]
+    > _{{< product-name >}} supports up to 7 total tags or tag buckets in the partition template._
 
 <!--Allow fail for database create and delete: namespaces aren't reusable-->
 <!--pytest.mark.skip-->
@@ -230,9 +229,8 @@ Use the `--template-tag`, `--template-tag-bucket, and `--template-timeformat`
 flags to define partition template parts used to generate partition keys for the database.
 For more information, see [Manage data partitioning](/influxdb3/clustered/admin/custom-partitions/).
 
-{{% warn %}}
-#### Partition templates can only be applied on create
-
-You can only apply a partition template when creating a database.
-You can't update a partition template on an existing database.
-{{% /warn %}}
+> [!Warning]
+> #### Partition templates can only be applied on create
+> 
+> You can only apply a partition template when creating a database.
+> You can't update a partition template on an existing database.

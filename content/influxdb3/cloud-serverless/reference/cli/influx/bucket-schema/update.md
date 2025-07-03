@@ -6,6 +6,8 @@ menu:
     name: influx bucket-schema update
     parent: influx bucket-schema
 weight: 201
+source: /shared/influxdb-v2/reference/cli/influx/bucket-schema/update.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/bucket-schema/update.md-->

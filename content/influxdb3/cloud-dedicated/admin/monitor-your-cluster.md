@@ -14,12 +14,11 @@ InfluxData provides a Grafana operational dashboard that provides observability
 into your {{< product-name >}} cluster.
 Use the operational dashboard to monitor your cluster.
 
-{{% note %}}
-#### Not available for all clusters
-
-{{< product-name >}} operational dashboards are not available for all clusters.
-For questions about availability, [contact InfluxData support](https://support.influxdata.com).
-{{% /note %}}
+> [!Note]
+> #### Not available for all clusters
+> 
+> {{< product-name >}} operational dashboards are not available for all clusters.
+> For questions about availability, [contact InfluxData support](https://support.influxdata.com).
 
 - [Access your operational dashboard](#access-your-operational-dashboard)
 - [Dashboard sections and cells](#dashboard-sections-and-cells)

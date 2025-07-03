@@ -13,6 +13,8 @@ related:
   - /influxdb/v2/reference/cli/influx/apply/
   - /influxdb/v2/reference/cli/influx/template/
   - /influxdb/cloud/tools/influxdb-templates/monitor
+source: /shared/influxdb-v2/monitor-alert/templates/monitor.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/monitor-alert/templates/monitor.md-->

@@ -17,12 +17,11 @@ following:
 
 - Ingress to your cluster
 - Connection to your Object store
-- Connection to your Catalog (PostgreSQL-compatible) database
+- Connection to your Catalog store (PostgreSQL-compatible) database
 
-{{% note %}}
-If using self-signed certs,
-[provide a custom certificate authority (CA) bundle](#provide-a-custom-certificate-authority-bundle).
-{{% /note %}}
+> [!Note]
+> If using self-signed certs,
+> [provide a custom certificate authority (CA) bundle](#provide-a-custom-certificate-authority-bundle).
 
 - [Set up ingress TLS](#set-up-ingress-tls)
 - [Require HTTPS on the object store](#require-https-on-the-object-store)
@@ -88,9 +87,9 @@ for more details on how to annotate the `Ingress` resource produced by the
 InfluxDB installer operator. The operator lets you to add annotations
 (with `kubectl annotate`) and preserves them as it operates on resources.
 
-{{% note %}}
-If you choose to use cert-manager, it's your responsibility to install and configure it.
-{{% /note %}}
+> [!Note]
+> If you choose to use cert-manager, it's your responsibility to install and configure it.
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
@@ -177,8 +176,8 @@ objectStore:
 Refer to your PostreSQL-compatible database provider's documentation for
 installing TLS certificates and ensuring secure connections.
 
-If currently using an unsecure connection to your Catalog database, update your
-Catalog data source name (DSN) to **remove the `sslmode=disable` query parameter**:
+If currently using an unsecure connection to your Catalog store database, update your
+Catalog store data source name (DSN) to **remove the `sslmode=disable` query parameter**:
 
 {{% code-callout "\?sslmode=disable" "magenta delete" %}}
 ```txt
@@ -205,12 +204,11 @@ bundle** that contains your custom certificate authority chain.
     Your certificate authority administrator should provide you with a
     PEM-formatted bundle file.
     
-    {{% note %}}
-This PEM bundle file establishes a chain of trust for the
-external services that InfluxDB depends on.
-It's _not_ the certificate that InfluxDB uses to
-host its own TLS endpoints.
-    {{% /note %}}
+    > [!Note]
+    > This PEM bundle file establishes a chain of trust for the
+    > external services that InfluxDB depends on.
+    > It's _not_ the certificate that InfluxDB uses to
+    > host its own TLS endpoints.
 
     In the example, replace `/path/to/private_ca.pem` with the path to your PEM-formatted certificate bundle file:
 
@@ -220,18 +218,18 @@ host its own TLS endpoints.
     kubectl --namespace influxdb create configmap custom-ca --from-file=certs.pem=/path/to/private_ca.pem
     ```
 
-    {{% note %}}
-#### Bundle multiple certificates
-
-You can append multiple certificates into the same bundle.
-This approach helps when you need to include intermediate certificates or explicitly include leaf certificates.
-
-Include certificates in the bundle in the following order:
-
-1. Leaf certificates
-2. Intermediate certificates required by leaf certificates
-3. Root certificate
-    {{% /note %}}
+    > [!Note]
+    > #### Bundle multiple certificates
+    > 
+    > You can append multiple certificates into the same bundle.
+    > This approach helps when you need to include intermediate certificates or
+    > explicitly include leaf certificates.
+    > 
+    > Include certificates in the bundle in the following order:
+    > 
+    > 1. Leaf certificates
+    > 2. Intermediate certificates required by leaf certificates
+    > 3. Root certificate
 
 2.  Update your `AppInstance` resource to refer to the `custom-ca` config map.
 

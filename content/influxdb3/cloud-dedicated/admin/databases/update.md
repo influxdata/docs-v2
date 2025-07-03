@@ -1,7 +1,7 @@
 ---
 title: Update a database
 description: >
-  Use the [`influxctl database update` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/update/)
+  Use the Admin UI, the [`influxctl database update` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/update/),
   or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
   to update attributes for a database in your InfluxDB Cloud Dedicated cluster.
   Provide the database name and the attributes to update.
@@ -38,14 +38,36 @@ related:
   - /influxdb3/cloud-dedicated/reference/api/
 ---
 
-Use the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/create/)
+Use the Admin UI, the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/create/),
 or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/) to update attributes such as retention period, column limits, and table limits for a database in your {{< product-name omit=" Clustered" >}} cluster.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
+[Admin UI](#)
 [influxctl](#)
 [Management API](#)
 {{% /tabs %}}
+{{% tab-content %}}
+<!------------------------------- BEGIN ADMIN UI ------------------------------>
+The InfluxDB Cloud Dedicated administrative UI includes a portal for
+managing databases.
+
+1. To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+
+   <pre>
+   <a href="https://console.influxdata.com">https://console.influxdata.com</a>
+   </pre>
+2. Use the credentials provided by InfluxData to log into the Admin UI.
+   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+
+   After you log in, the Account Management portal displays [account information](/influxdb3/cloud-dedicated/admin/account/)
+   and lists all clusters associated with your account.
+3. Click a cluster row to view the list of databases associated with the cluster. You can **Search** for clusters by name or ID to filter the list and use the sort button and column headers to sort the list. 
+4. Find the database you want to update.
+   You can **Search** for databases by name or ID to filter the list and use the sort button and column headers to sort the list. 
+5. To set the retention period, click the options button (3 vertical dots) to the right of the database.
+6. In the options menu, click **Set Retention Period**.
+{{% /tab-content %}}
 {{% tab-content %}}
 
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->
@@ -79,12 +101,11 @@ Replace the following in your command:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 
-{{% warn %}}
-#### Database names can't be updated
-
-The `influxctl database update` command uses the database name to identify which
-database to apply updates to. The database name itself can't be updated.
-{{% /warn %}}
+> [!Warning]
+> #### Database names can't be updated
+> 
+> The `influxctl database update` command uses the database name to identify which
+> database to apply updates to. The database name itself can't be updated.
 
 ## Database attributes
 
@@ -217,20 +238,19 @@ The retention period value cannot be negative or contain whitespace.
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-{{% warn %}}
-
-#### Database names can't be updated
-
-The Management API `PATCH /api/v0/database` endpoint and
-the`influxctl database update` command use the database name to identify which
-database to apply updates to.
-The database name itself can't be updated.
-
-#### Partition templates can't be updated
-
-You can only apply a partition template when creating a database.
-You can't update a partition template on an existing database.
-{{% /warn %}}
+> [!Warning]
+> 
+> #### Database names can't be updated
+> 
+> The Management API `PATCH /api/v0/database` endpoint and
+> the`influxctl database update` command use the database name to identify which
+> database to apply updates to.
+> The database name itself can't be updated.
+> 
+> #### Partition templates can't be updated
+> 
+> You can only apply a partition template when creating a database.
+> You can't update a partition template on an existing database.
 
 ### Database naming restrictions
 

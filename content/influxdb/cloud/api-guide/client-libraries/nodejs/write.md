@@ -13,6 +13,8 @@ aliases:
   - /influxdb/cloud/reference/api/client-libraries/nodejs/write
 related:
   - /influxdb/cloud/write-data/troubleshoot/
+source: /shared/influxdb-v2/api-guide/client-libraries/nodejs/write.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/nodejs/write.md-->

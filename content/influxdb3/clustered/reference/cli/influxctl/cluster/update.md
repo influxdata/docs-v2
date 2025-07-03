@@ -11,11 +11,8 @@ draft: true
 
 The `influxctl cluster update` command updates an {{% product-name omit=" Clustered" %}} cluster.
 
-{{% warn %}}
-This command is not supported by InfluxDB Clustered.
-<!-- For information about create an InfluxDB Cluster, see
-[Install InfluxDB Clustered](/influxdb3/clustered/install/). -->
-{{% /warn %}}
+> [!Warning]
+> This command is not supported by InfluxDB Clustered.
 
 ## Usage
 

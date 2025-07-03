@@ -9,6 +9,8 @@ menu:
     name: Compare values from different buckets
     parent: Common queries
 weight: 104
+source: /shared/influxdb-v2/query-data/common-queries/compare-values.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/common-queries/compare-values.md-->

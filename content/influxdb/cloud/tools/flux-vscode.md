@@ -10,6 +10,9 @@ menu:
   influxdb_cloud:
     name: Flux VS Code extension
     parent: Tools & integrations
+source: /shared/influxdb-v2/tools/flux-vscode.md
+draft: true
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/flux-vscode.md-->

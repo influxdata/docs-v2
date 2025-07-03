@@ -9,15 +9,13 @@ menu:
 weight: 301
 ---
 
-{{% warn %}}
-
-#### Doesn't work with InfluxDB Clustered
-
-The `influxctl cluster list` command won't work with {{% product-name %}}.
-To retrieve cluster information, use the [`influxctl cluster get <CLUSTER_ID>`
-command](/influxdb3/clustered/reference/cli/influxctl/cluster/get/).
-
-{{% /warn %}}
+> [!Warning]
+> 
+> #### Doesn't work with InfluxDB Clustered
+> 
+> The `influxctl cluster list` command won't work with {{% product-name %}}.
+> To retrieve cluster information, use the [`influxctl cluster get <CLUSTER_ID>`
+> command](/influxdb3/clustered/reference/cli/influxctl/cluster/get/).
 
 The `influxctl cluster list` command returns information about all InfluxDB
 clusters associated with your account ID.

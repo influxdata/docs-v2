@@ -223,8 +223,8 @@ For more options and details, see the [`POST /api/v2/setup` API endpoint documen
 <!------------------------------ BEGIN UI CONTENT ----------------------------->
 
 1.  Visit
-    {{% oss-only %}}[localhost:8086](http://localhost:8086){{% /oss-only %}}
-    {{% cloud-only %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /cloud-only %}}
+    {{% show-in "v2" %}}[localhost:8086](http://localhost:8086){{% /show-in %}}
+    {{% show-in "cloud,cloud-serverless" %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /show-in %}}
     in a browser to log in and access the InfluxDB UI.
 
 2.  Navigate to **Load Data** > **API Tokens** using the left navigation bar.
@@ -564,8 +564,8 @@ Replace the following:
 <!------------------------------ BEGIN UI CONTENT ----------------------------->
 
 1.  Visit
-    {{% oss-only %}}[localhost:8086](http://localhost:8086){{% /oss-only %}}
-    {{% cloud-only %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /cloud-only %}}
+    {{% show-in "v2" %}}[localhost:8086](http://localhost:8086){{% /show-in %}}
+    {{% show-in "cloud,cloud-serverless" %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /show-in %}}
     in a browser to log in and access the InfluxDB UI.
 
 2.  Navigate to **Load Data** > **Buckets** using the left navigation bar.

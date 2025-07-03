@@ -920,15 +920,13 @@
   aliases:
     - /influxdb/v2/reference/flux/stdlib/experimental/mqtt/
     - /influxdb/cloud/reference/flux/stdlib/experimental/mqtt/
-  prepend:
-    block: warn
-    content: |
-      #### Only supported in InfluxDB Cloud (TSM)
-
-      The `experimental/mqtt` package only supported in InfluxDB Cloud (TSM).
-      It is still available to import in InfluxDB OSS and Enterprise, but
-      functions will not successfully publish to an MQTT broker.
-  exclude_from:
+  prepend: |
+    > [!Warning]
+    > #### Only supported in InfluxDB Cloud (TSM)
+    > 
+    > The `experimental/mqtt` package only supported in InfluxDB Cloud (TSM).
+    > It is still available to import in InfluxDB OSS and Enterprise, but
+    > functions will not successfully publish to an MQTT broker. exclude_from:
     nightly: true
     oss: ^*
     enterprise: ^*
@@ -937,28 +935,25 @@
   aliases:
     - /influxdb/v2/reference/flux/stdlib/experimental/mqtt/to/
     - /influxdb/cloud/reference/flux/stdlib/experimental/mqtt/to/
-  prepend:
-    block: warn
-    content: |
-      #### Only supported in InfluxDB Cloud (TSM)
-
-      The `experimental/mqtt` package only supported in InfluxDB Cloud (TSM).
-      It is still available to import in InfluxDB OSS and Enterprise, but
-      functions will not successfully publish to an MQTT broker.
-  exclude_from:
+  prepend: |
+    > [!Warning]
+    > #### Only supported in InfluxDB Cloud (TSM)
+    > 
+    > The `experimental/mqtt` package only supported in InfluxDB Cloud (TSM).
+    > It is still available to import in InfluxDB OSS and Enterprise, but
+    > functions will not successfully publish to an MQTT broker. exclude_from:
     nightly: true
     oss: ^*
     enterprise: ^*
 
 /flux/v0/stdlib/experimental/mqtt/publish.md: |
-  prepend:
-    block: warn
-    content: |
-      #### Only supported in InfluxDB Cloud (TSM)
-
-      The `experimental/mqtt` package only supported in InfluxDB Cloud (TSM).
-      It is still available to import in InfluxDB OSS and Enterprise, but
-      functions will not successfully publish to an MQTT broker.
+  prepend: |
+    > [!Warning]
+    > #### Only supported in InfluxDB Cloud (TSM)
+    > 
+    > The `experimental/mqtt` package only supported in InfluxDB Cloud (TSM).
+    > It is still available to import in InfluxDB OSS and Enterprise, but
+    > functions will not successfully publish to an MQTT broker.
   exclude_from:
     nightly: true
     oss: ^*
@@ -1081,14 +1076,13 @@
     - /influxdb/cloud/reference/flux/stdlib/http/post/
   related:
     - /flux/v0/stdlib/http/requests/post/
-  prepend:
-    block: note
-    content: |
-      #### requests.post()
-
-      The `http/requests` package provides a full-featured HTTP library.
-      We recommend using [`requests.post()`](/flux/v0/stdlib/http/requests/post/)
-      instead of `http.post()`.
+  prepend: |
+    > [!Note]
+    > #### requests.post()
+    > 
+    > The `http/requests` package provides a full-featured HTTP library.
+    > We recommend using [`requests.post()`](/flux/v0/stdlib/http/requests/post/)
+    > instead of `http.post()`.
 
 /flux/v0/stdlib/influxdata/influxdb/_index.md: |
   aliases:
@@ -1210,12 +1204,11 @@
     - /influxdb/v2/reference/flux/functions/influxdb-v1/
     - /influxdb/v2/reference/flux/stdlib/influxdb-schema/
     - /influxdb/cloud/reference/flux/stdlib/influxdb-schema/
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `schema` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `schema` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/schema/fieldkeys.md: |
   aliases:
@@ -1225,12 +1218,11 @@
   related:
     - /influxdb/v2/query-data/flux/explore-schema/
     - /influxdb/v1/query_language/explore-schema#show-field-keys, SHOW FIELD KEYS in InfluxQL
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `schema` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `schema` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/schema/fieldsascols.md: |
   aliases:
@@ -1240,12 +1232,11 @@
     - /influxdb/v2/reference/flux/functions/influxdb-schema/fieldsascols/
     - /influxdb/v2/reference/flux/stdlib/influxdb-schema/fieldsascols/
     - /influxdb/cloud/reference/flux/stdlib/influxdb-schema/fieldsascols/
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `schema` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `schema` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/schema/measurementfieldkeys.md: |
   aliases:
@@ -1255,12 +1246,11 @@
   related:
     - /influxdb/v2/query-data/flux/explore-schema/
     - /influxdb/v1/query_language/explore-schema#show-field-keys, SHOW FIELD KEYS in InfluxQL
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `schema` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `schema` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/schema/measurements.md: |
   aliases:
@@ -1270,12 +1260,11 @@
   related:
     - /influxdb/v2/query-data/flux/explore-schema/
     - /influxdb/v1/query_language/explore-schema#show-measurements, SHOW MEASUREMENTS in InfluxQL
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `schema` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `schema` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/schema/measurementtagkeys.md: |
   aliases:
@@ -1285,12 +1274,11 @@
   related:
     - /influxdb/v2/query-data/flux/explore-schema/
     - /influxdb/v1/query_language/explore-schema#show-tag-keys, SHOW TAG KEYS in InfluxQL
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `schema` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `schema` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/schema/measurementtagvalues.md: |
   aliases:
@@ -1300,12 +1288,11 @@
   related:
     - /influxdb/v2/query-data/flux/explore-schema/
     - /influxdb/v1/query_language/explore-schema#show-tag-values, SHOW TAG VALUES in InfluxQL
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `schema` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `schema` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/schema/tagkeys.md: |
   aliases:
@@ -1315,12 +1302,11 @@
   related:
     - /influxdb/v2/query-data/flux/explore-schema/
     - /influxdb/v1/query_language/explore-schema#show-tag-keys, SHOW TAG KEYS in InfluxQL
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `schema` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `schema` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/schema/tagvalues.md: |
   aliases:
@@ -1330,12 +1316,11 @@
   related:
     - /influxdb/v2/query-data/flux/explore-schema/
     - /influxdb/v1/query_language/explore-schema#show-tag-values, SHOW TAG VALUES in InfluxQL
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `schema` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `schema` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/secrets/_index.md: |
   aliases:
@@ -1377,12 +1362,11 @@
     - /influxdb/v2/reference/flux/functions/influxdb-v1/
     - /influxdb/v2/reference/flux/stdlib/influxdb-v1/
     - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `v1` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `v1` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/v1/databases.md: |
   aliases:
@@ -1394,12 +1378,11 @@
     cloud: true
     oss: ^2\.
     enterprise: ^2\.
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `v1` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `v1` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/v1/fieldkeys.md: |
   aliases:
@@ -1409,18 +1392,16 @@
   related:
     - /influxdb/v2/query-data/flux/explore-schema/
     - /influxdb/v1/query_language/explore-schema#show-field-keys, SHOW FIELD KEYS in InfluxQL
-  prepend:
-    block: warn
-    content: |
-      #### Deprecated
-      `v1.fieldKeys()` was deprecated in **Flux v0.88.0** in favor of
-      [`schema.fieldKeys()`](/flux/v0/stdlib/influxdata/influxdb/schema/fieldkeys/).
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `v1` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  prepend: |
+    > [!Warning]
+    > #### Deprecated
+    > `v1.fieldKeys()` was deprecated in **Flux v0.88.0** in favor of
+    > [`schema.fieldKeys()`](/flux/v0/stdlib/influxdata/influxdb/schema/fieldkeys/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `v1` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/v1/fieldsascols.md: |
   aliases:
@@ -1430,18 +1411,15 @@
     - /influxdb/v2/reference/flux/functions/influxdb-schema/fieldsascols/
     - /influxdb/v2/reference/flux/stdlib/influxdb-v1/fieldsascols/
     - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/fieldsascols/
-  append:
-    block: warn
-    content: |
-      #### Deprecated
-      `v1.fieldsAsCols()` was deprecated in **Flux v0.88.0** in favor of
-      [`schema.fieldsAsCols()`](/flux/v0/stdlib/influxdata/influxdb/schema/fieldsascols/).
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `v1` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  append: |
+    > [!Warning]
+    > #### Deprecated
+    > `v1.fieldsAsCols()` was deprecated in **Flux v0.88.0** in favor of
+    > [`schema.fieldsAsCols()`](/flux/v0/stdlib/influxdata/influxdb/schema/fieldsascols/).
+    >
+    > #### Not supported in the Flux REPL
+    > `v1` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/v1/measurementfieldkeys.md: |
   aliases:
@@ -1451,18 +1429,16 @@
   related:
     - /influxdb/v2/query-data/flux/explore-schema/
     - /influxdb/v1/query_language/explore-schema#show-field-keys, SHOW FIELD KEYS in InfluxQL
-  prepend:
-    block: warn
-    content: |
-      #### Deprecated
-      `v1.measurementFieldKeys()` was deprecated in **Flux v0.88.0** in favor of
-      [`schema.measurementFieldKeys()`](/flux/v0/stdlib/influxdata/influxdb/schema/measurementfieldkeys/).
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `v1` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  prepend: |
+    > [!Warning]
+    > #### Deprecated
+    > `v1.measurementFieldKeys()` was deprecated in **Flux v0.88.0** in favor of
+    > [`schema.measurementFieldKeys()`](/flux/v0/stdlib/influxdata/influxdb/schema/measurementfieldkeys/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `v1` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/v1/measurements.md: |
   aliases:
@@ -1472,18 +1448,16 @@
   related:
     - /influxdb/v2/query-data/flux/explore-schema/
     - /influxdb/v1/query_language/explore-schema#show-measurements, SHOW MEASUREMENTS in InfluxQL
-  prepend:
-    block: warn
-    content: |
-      #### Deprecated
-      `v1.measurements()` was deprecated in **Flux v0.88.0** in favor of
-      [`schema.measurements()`](/flux/v0/stdlib/influxdata/influxdb/schema/measurements/).
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `v1` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  prepend: |
+    > [!Warning]
+    > #### Deprecated
+    > `v1.measurements()` was deprecated in **Flux v0.88.0** in favor of
+    > [`schema.measurements()`](/flux/v0/stdlib/influxdata/influxdb/schema/measurements/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `v1` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/v1/measurementtagkeys.md: |
   aliases:
@@ -1493,18 +1467,16 @@
   related:
     - /influxdb/v2/query-data/flux/explore-schema/
     - /influxdb/v1/query_language/explore-schema#show-tag-keys, SHOW TAG KEYS in InfluxQL
-  prepend:
-    block: warn
-    content: |
-      #### Deprecated
-      `v1.measurementTagKeys()` was deprecated in **Flux v0.88.0** in favor of
-      [`schema.measurementTagKeys()`](/flux/v0/stdlib/influxdata/influxdb/schema/measurementtagkeys/).
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `v1` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  prepend: |
+    > [!Warning]
+    > #### Deprecated
+    > `v1.measurementTagKeys()` was deprecated in **Flux v0.88.0** in favor of
+    > [`schema.measurementTagKeys()`](/flux/v0/stdlib/influxdata/influxdb/schema/measurementtagkeys/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `v1` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/v1/measurementtagvalues.md: |
   aliases:
@@ -1514,18 +1486,16 @@
   related:
     - /influxdb/v2/query-data/flux/explore-schema/
     - /influxdb/v1/query_language/explore-schema#show-tag-values, SHOW TAG VALUES in InfluxQL
-  prepend:
-    block: warn
-    content: |
-      #### Deprecated
-      `v1.measurementTagValues()` was deprecated in **Flux v0.88.0** in favor of
-      [`schema.measurementTagValues()`](/flux/v0/stdlib/influxdata/influxdb/schema/measurementtagvalues/).
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `v1` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  prepend: |
+    > [!Warning]
+    > #### Deprecated
+    > `v1.measurementTagValues()` was deprecated in **Flux v0.88.0** in favor of
+    > [`schema.measurementTagValues()`](/flux/v0/stdlib/influxdata/influxdb/schema/measurementtagvalues/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `v1` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/v1/tagkeys.md: |
   aliases:
@@ -1535,18 +1505,16 @@
   related:
     - /influxdb/v2/query-data/flux/explore-schema/
     - /influxdb/v1/query_language/explore-schema#show-tag-keys, SHOW TAG KEYS in InfluxQL
-  prepend:
-    block: warn
-    content: |
-      #### Deprecated
-      `v1.tagkeys()` was deprecated in **Flux v0.88.0** in favor of
-      [`schema.tagkeys()`](/flux/v0/stdlib/influxdata/influxdb/schema/tagkeys/).
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `v1` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  prepend: |
+    > [!Warning]
+    > #### Deprecated
+    > `v1.tagkeys()` was deprecated in **Flux v0.88.0** in favor of
+    > [`schema.tagkeys()`](/flux/v0/stdlib/influxdata/influxdb/schema/tagkeys/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `v1` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/influxdata/influxdb/v1/tagvalues.md: |
   aliases:
@@ -1556,18 +1524,16 @@
   related:
     - /influxdb/v2/query-data/flux/explore-schema/
     - /influxdb/v1/query_language/explore-schema#show-tag-values, SHOW TAG VALUES in InfluxQL
-  prepend:
-    block: warn
-    content: |
-      #### Deprecated
-      `v1.tagValues()` was deprecated in **Flux v0.88.0** in favor of
-      [`schema.tagValues()`](/flux/v0/stdlib/influxdata/influxdb/schema/tagvalues/).
-  append:
-    block: warn
-    content: |
-      #### Not supported in the Flux REPL
-      `v1` functions can retrieve schema information when executed within
-      the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+  prepend: |
+    > [!Warning]
+    > #### Deprecated
+    > `v1.tagValues()` was deprecated in **Flux v0.88.0** in favor of
+    > [`schema.tagValues()`](/flux/v0/stdlib/influxdata/influxdb/schema/tagvalues/).
+  append: |
+    > [!Warning]
+    > #### Not supported in the Flux REPL
+    > `v1` functions can retrieve schema information when executed within
+    > the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
 /flux/v0/stdlib/internal/debug/null.md: |
   related:

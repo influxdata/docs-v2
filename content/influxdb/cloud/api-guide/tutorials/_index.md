@@ -8,6 +8,8 @@ menu:
     name: Client library tutorials
     parent: Develop with the API
 influxdb/cloud/tags: [api]
+source: /shared/influxdb-v2/api-guide/tutorials/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/tutorials/_index.md-->

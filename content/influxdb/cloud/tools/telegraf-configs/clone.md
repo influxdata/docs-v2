@@ -9,6 +9,8 @@ menu:
     parent: Telegraf configurations
 aliases:
   - /influxdb/cloud/telegraf-configs/clone/
+source: /shared/influxdb-v2/tools/telegraf-configs/clone.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/telegraf-configs/clone.md-->

@@ -25,12 +25,11 @@ InfluxDB 3 supports the following APIs and languages for querying data:
 - HTTP `/query` endpoint for InfluxDB v1 compatibility when you bring workloads and code from v1.x to v3.
   Use the `/query` endpoint with InfluxQL and tools such as Telegraf, HTTP clients, and InfluxDB v1 client libraries to query and retrieve data in JSON or CSV format.
 
-{{% warn %}}
-#### /api/v2/query endpoint can't query InfluxDB 3
-
-{{% product-name %}} doesn't support the InfluxDB v2 HTTP `/api/v2/query` endpoint and isn't optimized for the Flux query language.
-Use SQL or InfluxQL to query data stored in InfluxDB 3.
-{{% /warn %}}
+> [!Warning]
+> #### /api/v2/query endpoint can't query InfluxDB 3
+> 
+> {{% product-name %}} doesn't support the InfluxDB v2 HTTP `/api/v2/query` endpoint and isn't optimized for the Flux query language.
+> Use SQL or InfluxQL to query data stored in InfluxDB 3.
 
 Learn how to connect to InfluxDB and query your data using the following tools:
 

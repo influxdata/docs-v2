@@ -1,0 +1,1581 @@
+{
+   "additionalProperties": false,
+   "properties": {
+      "apiVersion": {
+         "type": "string"
+      },
+      "kind": {
+         "type": "string"
+      },
+      "metadata": {
+         "type": "object"
+      },
+      "spec": {
+         "additionalProperties": false,
+         "properties": {
+            "imagePullSecrets": {
+               "items": {
+                  "properties": {
+                     "name": {
+                        "type": "string"
+                     }
+                  },
+                  "required": [
+                     "name"
+                  ],
+                  "type": "object"
+               },
+               "type": "array"
+            },
+            "package": {
+               "properties": {
+                  "apiVersion": {
+                     "type": "string"
+                  },
+                  "image": {
+                     "type": "string"
+                  },
+                  "spec": {
+                     "additionalProperties": false,
+                     "properties": {
+                        "admin": {
+                           "additionalProperties": false,
+                           "properties": {
+                              "dsn": {
+                                 "additionalProperties": false,
+                                 "description": "The dsn for the postgres compatible database",
+                                 "properties": {
+                                    "value": {
+                                       "default": "",
+                                       "description": "Value",
+                                       "type": [
+                                          "string",
+                                          "null"
+                                       ]
+                                    },
+                                    "valueFrom": {
+                                       "additionalProperties": false,
+                                       "description": "Allows to source the value from configMaps or secrets",
+                                       "properties": {
+                                          "configMapKeyRef": {
+                                             "additionalProperties": false,
+                                             "description": "Selects a key from a ConfigMap.",
+                                             "properties": {
+                                                "key": {
+                                                   "description": "The key to select.",
+                                                   "type": "string"
+                                                },
+                                                "name": {
+                                                   "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                   "type": [
+                                                      "string",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "optional": {
+                                                   "default": false,
+                                                   "description": "Specify whether the ConfigMap or it's key must be defined",
+                                                   "type": [
+                                                      "boolean",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "required": [
+                                                "key",
+                                                "name"
+                                             ],
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          },
+                                          "secretKeyRef": {
+                                             "additionalProperties": false,
+                                             "description": "SecretKeySelector selects a key of a Secret.",
+                                             "properties": {
+                                                "key": {
+                                                   "description": "The key of the secret to select from.  Must be a valid secret key.",
+                                                   "type": "string"
+                                                },
+                                                "name": {
+                                                   "default": "",
+                                                   "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                   "type": [
+                                                      "string",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "optional": {
+                                                   "description": "Specify whether the Secret or it's key must be defined",
+                                                   "type": [
+                                                      "boolean",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "required": [
+                                                "key",
+                                                "name"
+                                             ],
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          }
+                                       },
+                                       "type": [
+                                          "object",
+                                          "null"
+                                       ]
+                                    }
+                                 },
+                                 "type": "object"
+                              },
+                              "identityProvider": {
+                                 "description": "The identity provider to be used e.g. \"keycloak\", \"auth0\", \"azure\"",
+                                 "type": "string"
+                              },
+                              "internalSigningKey": {
+                                 "description": "Internal JWT secrets",
+                                 "properties": {
+                                    "id": {
+                                       "additionalProperties": false,
+                                       "description": "random ID that uniquely identifies this keypair. Generally a UUID.",
+                                       "properties": {
+                                          "value": {
+                                             "default": "",
+                                             "description": "Value",
+                                             "type": [
+                                                "string",
+                                                "null"
+                                             ]
+                                          },
+                                          "valueFrom": {
+                                             "additionalProperties": false,
+                                             "description": "Allows to source the value from configMaps or secrets",
+                                             "properties": {
+                                                "configMapKeyRef": {
+                                                   "additionalProperties": false,
+                                                   "description": "Selects a key from a ConfigMap.",
+                                                   "properties": {
+                                                      "key": {
+                                                         "description": "The key to select.",
+                                                         "type": "string"
+                                                      },
+                                                      "name": {
+                                                         "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                         "type": [
+                                                            "string",
+                                                            "null"
+                                                         ]
+                                                      },
+                                                      "optional": {
+                                                         "default": false,
+                                                         "description": "Specify whether the ConfigMap or it's key must be defined",
+                                                         "type": [
+                                                            "boolean",
+                                                            "null"
+                                                         ]
+                                                      }
+                                                   },
+                                                   "required": [
+                                                      "key",
+                                                      "name"
+                                                   ],
+                                                   "type": [
+                                                      "object",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "secretKeyRef": {
+                                                   "additionalProperties": false,
+                                                   "description": "SecretKeySelector selects a key of a Secret.",
+                                                   "properties": {
+                                                      "key": {
+                                                         "description": "The key of the secret to select from.  Must be a valid secret key.",
+                                                         "type": "string"
+                                                      },
+                                                      "name": {
+                                                         "default": "",
+                                                         "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                         "type": [
+                                                            "string",
+                                                            "null"
+                                                         ]
+                                                      },
+                                                      "optional": {
+                                                         "description": "Specify whether the Secret or it's key must be defined",
+                                                         "type": [
+                                                            "boolean",
+                                                            "null"
+                                                         ]
+                                                      }
+                                                   },
+                                                   "required": [
+                                                      "key",
+                                                      "name"
+                                                   ],
+                                                   "type": [
+                                                      "object",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          }
+                                       },
+                                       "type": "object"
+                                    },
+                                    "privateKey": {
+                                       "additionalProperties": false,
+                                       "properties": {
+                                          "value": {
+                                             "default": "",
+                                             "description": "Value",
+                                             "type": [
+                                                "string",
+                                                "null"
+                                             ]
+                                          },
+                                          "valueFrom": {
+                                             "additionalProperties": false,
+                                             "description": "Allows to source the value from configMaps or secrets",
+                                             "properties": {
+                                                "configMapKeyRef": {
+                                                   "additionalProperties": false,
+                                                   "description": "Selects a key from a ConfigMap.",
+                                                   "properties": {
+                                                      "key": {
+                                                         "description": "The key to select.",
+                                                         "type": "string"
+                                                      },
+                                                      "name": {
+                                                         "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                         "type": [
+                                                            "string",
+                                                            "null"
+                                                         ]
+                                                      },
+                                                      "optional": {
+                                                         "default": false,
+                                                         "description": "Specify whether the ConfigMap or it's key must be defined",
+                                                         "type": [
+                                                            "boolean",
+                                                            "null"
+                                                         ]
+                                                      }
+                                                   },
+                                                   "required": [
+                                                      "key",
+                                                      "name"
+                                                   ],
+                                                   "type": [
+                                                      "object",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "secretKeyRef": {
+                                                   "additionalProperties": false,
+                                                   "description": "SecretKeySelector selects a key of a Secret.",
+                                                   "properties": {
+                                                      "key": {
+                                                         "description": "The key of the secret to select from.  Must be a valid secret key.",
+                                                         "type": "string"
+                                                      },
+                                                      "name": {
+                                                         "default": "",
+                                                         "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                         "type": [
+                                                            "string",
+                                                            "null"
+                                                         ]
+                                                      },
+                                                      "optional": {
+                                                         "description": "Specify whether the Secret or it's key must be defined",
+                                                         "type": [
+                                                            "boolean",
+                                                            "null"
+                                                         ]
+                                                      }
+                                                   },
+                                                   "required": [
+                                                      "key",
+                                                      "name"
+                                                   ],
+                                                   "type": [
+                                                      "object",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          }
+                                       },
+                                       "type": "object"
+                                    },
+                                    "publicKey": {
+                                       "additionalProperties": false,
+                                       "properties": {
+                                          "value": {
+                                             "default": "",
+                                             "description": "Value",
+                                             "type": [
+                                                "string",
+                                                "null"
+                                             ]
+                                          },
+                                          "valueFrom": {
+                                             "additionalProperties": false,
+                                             "description": "Allows to source the value from configMaps or secrets",
+                                             "properties": {
+                                                "configMapKeyRef": {
+                                                   "additionalProperties": false,
+                                                   "description": "Selects a key from a ConfigMap.",
+                                                   "properties": {
+                                                      "key": {
+                                                         "description": "The key to select.",
+                                                         "type": "string"
+                                                      },
+                                                      "name": {
+                                                         "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                         "type": [
+                                                            "string",
+                                                            "null"
+                                                         ]
+                                                      },
+                                                      "optional": {
+                                                         "default": false,
+                                                         "description": "Specify whether the ConfigMap or it's key must be defined",
+                                                         "type": [
+                                                            "boolean",
+                                                            "null"
+                                                         ]
+                                                      }
+                                                   },
+                                                   "required": [
+                                                      "key",
+                                                      "name"
+                                                   ],
+                                                   "type": [
+                                                      "object",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "secretKeyRef": {
+                                                   "additionalProperties": false,
+                                                   "description": "SecretKeySelector selects a key of a Secret.",
+                                                   "properties": {
+                                                      "key": {
+                                                         "description": "The key of the secret to select from.  Must be a valid secret key.",
+                                                         "type": "string"
+                                                      },
+                                                      "name": {
+                                                         "default": "",
+                                                         "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                         "type": [
+                                                            "string",
+                                                            "null"
+                                                         ]
+                                                      },
+                                                      "optional": {
+                                                         "description": "Specify whether the Secret or it's key must be defined",
+                                                         "type": [
+                                                            "boolean",
+                                                            "null"
+                                                         ]
+                                                      }
+                                                   },
+                                                   "required": [
+                                                      "key",
+                                                      "name"
+                                                   ],
+                                                   "type": [
+                                                      "object",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          }
+                                       },
+                                       "type": "object"
+                                    }
+                                 },
+                                 "required": [
+                                    "id",
+                                    "privateKey",
+                                    "publicKey"
+                                 ],
+                                 "type": "object"
+                              },
+                              "jwksEndpoint": {
+                                 "type": "string"
+                              },
+                              "users": {
+                                 "description": "The list of users to grant access to Clusterted via influxctl",
+                                 "item": {
+                                    "type": "object"
+                                 },
+                                 "type": "array"
+                              }
+                           },
+                           "required": [
+                              "users",
+                              "dsn",
+                              "identityProvider",
+                              "jwksEndpoint"
+                           ],
+                           "type": "object"
+                        },
+                        "catalog": {
+                           "additionalProperties": false,
+                           "properties": {
+                              "dsn": {
+                                 "additionalProperties": false,
+                                 "properties": {
+                                    "value": {
+                                       "default": "",
+                                       "description": "Value",
+                                       "type": [
+                                          "string",
+                                          "null"
+                                       ]
+                                    },
+                                    "valueFrom": {
+                                       "additionalProperties": false,
+                                       "description": "Allows to source the value from configMaps or secrets",
+                                       "properties": {
+                                          "configMapKeyRef": {
+                                             "additionalProperties": false,
+                                             "description": "Selects a key from a ConfigMap.",
+                                             "properties": {
+                                                "key": {
+                                                   "description": "The key to select.",
+                                                   "type": "string"
+                                                },
+                                                "name": {
+                                                   "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                   "type": [
+                                                      "string",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "optional": {
+                                                   "default": false,
+                                                   "description": "Specify whether the ConfigMap or it's key must be defined",
+                                                   "type": [
+                                                      "boolean",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "required": [
+                                                "key",
+                                                "name"
+                                             ],
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          },
+                                          "secretKeyRef": {
+                                             "additionalProperties": false,
+                                             "description": "SecretKeySelector selects a key of a Secret.",
+                                             "properties": {
+                                                "key": {
+                                                   "description": "The key of the secret to select from.  Must be a valid secret key.",
+                                                   "type": "string"
+                                                },
+                                                "name": {
+                                                   "default": "",
+                                                   "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                   "type": [
+                                                      "string",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "optional": {
+                                                   "description": "Specify whether the Secret or it's key must be defined",
+                                                   "type": [
+                                                      "boolean",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "required": [
+                                                "key",
+                                                "name"
+                                             ],
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          }
+                                       },
+                                       "type": [
+                                          "object",
+                                          "null"
+                                       ]
+                                    }
+                                 },
+                                 "type": "object"
+                              }
+                           },
+                           "type": "object"
+                        },
+                        "egress": {
+                           "additionalProperties": false,
+                           "properties": {
+                              "customCertificates": {
+                                 "additionalProperties": false,
+                                 "description": "Custom certificate or CA Bundle. Used to verify outbound connections performed by influxdb, such as OIDC servers,\npostgres databases, or object store API endpoints.\n\nEquivalent to the SSL_CERT_FILE env var used by OpenSSL.\n",
+                                 "properties": {
+                                    "valueFrom": {
+                                       "additionalProperties": false,
+                                       "description": "Allows to source the value from configMaps or secrets",
+                                       "properties": {
+                                          "configMapKeyRef": {
+                                             "additionalProperties": false,
+                                             "description": "Selects a key from a ConfigMap.",
+                                             "properties": {
+                                                "key": {
+                                                   "description": "The key to select.",
+                                                   "type": "string"
+                                                },
+                                                "name": {
+                                                   "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                   "type": [
+                                                      "string",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "optional": {
+                                                   "default": false,
+                                                   "description": "Specify whether the ConfigMap or it's key must be defined",
+                                                   "type": [
+                                                      "boolean",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "required": [
+                                                "key",
+                                                "name"
+                                             ],
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          }
+                                       },
+                                       "type": [
+                                          "object",
+                                          "null"
+                                       ]
+                                    }
+                                 },
+                                 "type": "object"
+                              }
+                           },
+                           "type": "object"
+                        },
+                        "featureFlags": {
+                           "description": "An array of feature flag names. Feature flags (aka feature gates) control features that\nhave not yet been releases. They can be experimental to various degree (alpha, beta, rc),\nplease refer to the feature flag documentation.\n",
+                           "type": "array"
+                        },
+                        "hostingEnvironment": {
+                           "additionalProperties": false,
+                           "description": "Environment or cloud-specific configuration elements which are utilised by InfluxDB Clustered.",
+                           "properties": {
+                              "aws": {
+                                 "additionalProperties": false,
+                                 "description": "AWS specific configuration values.",
+                                 "properties": {
+                                    "eksRoleArn": {
+                                       "default": "",
+                                       "description": "IAM role ARN to apply to the IOx ServiceAccount, used with EKS IRSA.",
+                                       "type": "string"
+                                    }
+                                 },
+                                 "type": "object"
+                              },
+                              "gke": {
+                                 "additionalProperties": false,
+                                 "properties": {
+                                    "workloadIdentity": {
+                                       "additionalProperties": false,
+                                       "description": "Authentication via GKE workload identity. This will annotate the relevant Kubernetes ServiceAccount objects.\nSee https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity for further details.\n",
+                                       "properties": {
+                                          "serviceAccountEmail": {
+                                             "description": "Google IAM Service Account email, this should be in the format NAME@PROJECT_ID.iam.gserviceaccount.com",
+                                             "type": "string"
+                                          }
+                                       },
+                                       "required": [
+                                          "serviceAccountEmail"
+                                       ],
+                                       "type": "object"
+                                    }
+                                 },
+                                 "type": "object"
+                              },
+                              "openshift": {
+                                 "additionalProperties": false,
+                                 "description": "OpenShift specific configuration values.",
+                                 "properties": { },
+                                 "type": "object"
+                              }
+                           },
+                           "type": "object"
+                        },
+                        "images": {
+                           "properties": {
+                              "overrides": {
+                                 "item": {
+                                    "description": "remaps an image matching naming predicates\n",
+                                    "properties": {
+                                       "name": {
+                                          "description": "naming predicate: the part of the image name that comes after the registry name, e.g.\nIf the image name is \"oci.influxdata.com/foo/bar:1234\", the name field matches \"foo/bar\"\n",
+                                          "type": "string"
+                                       },
+                                       "newFQIN": {
+                                          "description": "rewrite expression: when a naming predicate matches this image, rewrite the image reference\nusing this Fully Qualified Image Name. i.e. this replaces the whole registry/imagename:tag@digest\nparts of the input image reference.\n",
+                                          "type": "string"
+                                       }
+                                    },
+                                    "type": "object"
+                                 },
+                                 "type": "array"
+                              },
+                              "registryOverride": {
+                                 "default": "",
+                                 "type": "string"
+                              }
+                           },
+                           "type": "object"
+                        },
+                        "ingesterStorage": {
+                           "additionalProperties": false,
+                           "properties": {
+                              "storage": {
+                                 "type": "string"
+                              },
+                              "storageClassName": {
+                                 "default": "",
+                                 "type": "string"
+                              }
+                           },
+                           "required": [
+                              "storage"
+                           ],
+                           "type": "object"
+                        },
+                        "ingress": {
+                           "additionalProperties": false,
+                           "properties": {
+                              "grpc": {
+                                 "additionalProperties": false,
+                                 "properties": {
+                                    "className": {
+                                       "default": "",
+                                       "type": "string"
+                                    }
+                                 },
+                                 "type": "object"
+                              },
+                              "hosts": {
+                                 "minItems": 1,
+                                 "type": "array"
+                              },
+                              "http": {
+                                 "additionalProperties": false,
+                                 "properties": {
+                                    "className": {
+                                       "default": "",
+                                       "type": "string"
+                                    }
+                                 },
+                                 "type": "object"
+                              },
+                              "tlsSecretName": {
+                                 "default": "",
+                                 "type": "string"
+                              }
+                           },
+                           "type": "object"
+                        },
+                        "monitoringStorage": {
+                           "additionalProperties": false,
+                           "properties": {
+                              "storage": {
+                                 "type": "string"
+                              },
+                              "storageClassName": {
+                                 "default": "",
+                                 "type": "string"
+                              }
+                           },
+                           "required": [
+                              "storage"
+                           ],
+                           "type": "object"
+                        },
+                        "objectStore": {
+                           "additionalProperties": false,
+                           "description": "Configuration values for the backing object store for IOx",
+                           "oneOf": [
+                              {
+                                 "required": [
+                                    "bucket",
+                                    "region"
+                                 ]
+                              },
+                              {
+                                 "required": [
+                                    "s3",
+                                    "bucket"
+                                 ]
+                              },
+                              {
+                                 "required": [
+                                    "azure",
+                                    "bucket"
+                                 ]
+                              },
+                              {
+                                 "required": [
+                                    "google",
+                                    "bucket"
+                                 ]
+                              }
+                           ],
+                           "properties": {
+                              "accessKey": {
+                                 "additionalProperties": false,
+                                 "properties": {
+                                    "value": {
+                                       "default": "",
+                                       "description": "Value",
+                                       "type": [
+                                          "string",
+                                          "null"
+                                       ]
+                                    },
+                                    "valueFrom": {
+                                       "additionalProperties": false,
+                                       "description": "Allows to source the value from configMaps or secrets",
+                                       "properties": {
+                                          "configMapKeyRef": {
+                                             "additionalProperties": false,
+                                             "description": "Selects a key from a ConfigMap.",
+                                             "properties": {
+                                                "key": {
+                                                   "description": "The key to select.",
+                                                   "type": "string"
+                                                },
+                                                "name": {
+                                                   "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                   "type": [
+                                                      "string",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "optional": {
+                                                   "default": false,
+                                                   "description": "Specify whether the ConfigMap or it's key must be defined",
+                                                   "type": [
+                                                      "boolean",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "required": [
+                                                "key",
+                                                "name"
+                                             ],
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          },
+                                          "secretKeyRef": {
+                                             "additionalProperties": false,
+                                             "description": "SecretKeySelector selects a key of a Secret.",
+                                             "properties": {
+                                                "key": {
+                                                   "description": "The key of the secret to select from.  Must be a valid secret key.",
+                                                   "type": "string"
+                                                },
+                                                "name": {
+                                                   "default": "",
+                                                   "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                   "type": [
+                                                      "string",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "optional": {
+                                                   "description": "Specify whether the Secret or it's key must be defined",
+                                                   "type": [
+                                                      "boolean",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "required": [
+                                                "key",
+                                                "name"
+                                             ],
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          }
+                                       },
+                                       "type": [
+                                          "object",
+                                          "null"
+                                       ]
+                                    }
+                                 },
+                                 "type": "object"
+                              },
+                              "allowHttp": {
+                                 "default": "false",
+                                 "type": "string"
+                              },
+                              "azure": {
+                                 "additionalProperties": false,
+                                 "description": "Configuration which correlates directly to Azure Blob Storage.",
+                                 "properties": {
+                                    "accessKey": {
+                                       "additionalProperties": false,
+                                       "properties": {
+                                          "value": {
+                                             "default": "",
+                                             "description": "Value",
+                                             "type": [
+                                                "string",
+                                                "null"
+                                             ]
+                                          },
+                                          "valueFrom": {
+                                             "additionalProperties": false,
+                                             "description": "Allows to source the value from configMaps or secrets",
+                                             "properties": {
+                                                "configMapKeyRef": {
+                                                   "additionalProperties": false,
+                                                   "description": "Selects a key from a ConfigMap.",
+                                                   "properties": {
+                                                      "key": {
+                                                         "description": "The key to select.",
+                                                         "type": "string"
+                                                      },
+                                                      "name": {
+                                                         "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                         "type": [
+                                                            "string",
+                                                            "null"
+                                                         ]
+                                                      },
+                                                      "optional": {
+                                                         "default": false,
+                                                         "description": "Specify whether the ConfigMap or it's key must be defined",
+                                                         "type": [
+                                                            "boolean",
+                                                            "null"
+                                                         ]
+                                                      }
+                                                   },
+                                                   "required": [
+                                                      "key",
+                                                      "name"
+                                                   ],
+                                                   "type": [
+                                                      "object",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "secretKeyRef": {
+                                                   "additionalProperties": false,
+                                                   "description": "SecretKeySelector selects a key of a Secret.",
+                                                   "properties": {
+                                                      "key": {
+                                                         "description": "The key of the secret to select from.  Must be a valid secret key.",
+                                                         "type": "string"
+                                                      },
+                                                      "name": {
+                                                         "default": "",
+                                                         "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                         "type": [
+                                                            "string",
+                                                            "null"
+                                                         ]
+                                                      },
+                                                      "optional": {
+                                                         "description": "Specify whether the Secret or it's key must be defined",
+                                                         "type": [
+                                                            "boolean",
+                                                            "null"
+                                                         ]
+                                                      }
+                                                   },
+                                                   "required": [
+                                                      "key",
+                                                      "name"
+                                                   ],
+                                                   "type": [
+                                                      "object",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          }
+                                       },
+                                       "type": "object"
+                                    },
+                                    "account": {
+                                       "additionalProperties": false,
+                                       "properties": {
+                                          "value": {
+                                             "default": "",
+                                             "description": "Value",
+                                             "type": [
+                                                "string",
+                                                "null"
+                                             ]
+                                          },
+                                          "valueFrom": {
+                                             "additionalProperties": false,
+                                             "description": "Allows to source the value from configMaps or secrets",
+                                             "properties": {
+                                                "configMapKeyRef": {
+                                                   "additionalProperties": false,
+                                                   "description": "Selects a key from a ConfigMap.",
+                                                   "properties": {
+                                                      "key": {
+                                                         "description": "The key to select.",
+                                                         "type": "string"
+                                                      },
+                                                      "name": {
+                                                         "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                         "type": [
+                                                            "string",
+                                                            "null"
+                                                         ]
+                                                      },
+                                                      "optional": {
+                                                         "default": false,
+                                                         "description": "Specify whether the ConfigMap or it's key must be defined",
+                                                         "type": [
+                                                            "boolean",
+                                                            "null"
+                                                         ]
+                                                      }
+                                                   },
+                                                   "required": [
+                                                      "key",
+                                                      "name"
+                                                   ],
+                                                   "type": [
+                                                      "object",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "secretKeyRef": {
+                                                   "additionalProperties": false,
+                                                   "description": "SecretKeySelector selects a key of a Secret.",
+                                                   "properties": {
+                                                      "key": {
+                                                         "description": "The key of the secret to select from.  Must be a valid secret key.",
+                                                         "type": "string"
+                                                      },
+                                                      "name": {
+                                                         "default": "",
+                                                         "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                         "type": [
+                                                            "string",
+                                                            "null"
+                                                         ]
+                                                      },
+                                                      "optional": {
+                                                         "description": "Specify whether the Secret or it's key must be defined",
+                                                         "type": [
+                                                            "boolean",
+                                                            "null"
+                                                         ]
+                                                      }
+                                                   },
+                                                   "required": [
+                                                      "key",
+                                                      "name"
+                                                   ],
+                                                   "type": [
+                                                      "object",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          }
+                                       },
+                                       "type": "object"
+                                    }
+                                 },
+                                 "required": [
+                                    "accessKey",
+                                    "account"
+                                 ],
+                                 "type": "object"
+                              },
+                              "bucket": {
+                                 "type": "string"
+                              },
+                              "endpoint": {
+                                 "default": "",
+                                 "type": "string"
+                              },
+                              "google": {
+                                 "additionalProperties": false,
+                                 "description": "Configuration which correlates directly to Google Cloud Storage (GCS).",
+                                 "properties": {
+                                    "serviceAccountSecret": {
+                                       "additionalProperties": false,
+                                       "description": "Authentication via Google IAM Service Account credentials file.\nSee https://cloud.google.com/kubernetes-engine/docs/tutorials/authenticating-to-cloud-platform for further details.\n",
+                                       "properties": {
+                                          "mountPath": {
+                                             "default": "/secrets/gcp/iox.json",
+                                             "description": "Optional mount path for the IAM Service Account secret",
+                                             "type": "string"
+                                          },
+                                          "name": {
+                                             "description": "Kubernetes Secret name which contains the GCP IAM Service Account key file to mount into the required pods.",
+                                             "type": "string"
+                                          }
+                                       },
+                                       "required": [
+                                          "name"
+                                       ],
+                                       "type": "object"
+                                    }
+                                 },
+                                 "type": "object"
+                              },
+                              "region": {
+                                 "default": "",
+                                 "type": "string"
+                              },
+                              "s3": {
+                                 "additionalProperties": false,
+                                 "description": "Configuration for AWS S3 (compatible) object stores.",
+                                 "properties": {
+                                    "accessKey": {
+                                       "additionalProperties": false,
+                                       "properties": {
+                                          "value": {
+                                             "default": "",
+                                             "description": "Value",
+                                             "type": [
+                                                "string",
+                                                "null"
+                                             ]
+                                          },
+                                          "valueFrom": {
+                                             "additionalProperties": false,
+                                             "description": "Allows to source the value from configMaps or secrets",
+                                             "properties": {
+                                                "configMapKeyRef": {
+                                                   "additionalProperties": false,
+                                                   "description": "Selects a key from a ConfigMap.",
+                                                   "properties": {
+                                                      "key": {
+                                                         "description": "The key to select.",
+                                                         "type": "string"
+                                                      },
+                                                      "name": {
+                                                         "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                         "type": [
+                                                            "string",
+                                                            "null"
+                                                         ]
+                                                      },
+                                                      "optional": {
+                                                         "default": false,
+                                                         "description": "Specify whether the ConfigMap or it's key must be defined",
+                                                         "type": [
+                                                            "boolean",
+                                                            "null"
+                                                         ]
+                                                      }
+                                                   },
+                                                   "required": [
+                                                      "key",
+                                                      "name"
+                                                   ],
+                                                   "type": [
+                                                      "object",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "secretKeyRef": {
+                                                   "additionalProperties": false,
+                                                   "description": "SecretKeySelector selects a key of a Secret.",
+                                                   "properties": {
+                                                      "key": {
+                                                         "description": "The key of the secret to select from.  Must be a valid secret key.",
+                                                         "type": "string"
+                                                      },
+                                                      "name": {
+                                                         "default": "",
+                                                         "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                         "type": [
+                                                            "string",
+                                                            "null"
+                                                         ]
+                                                      },
+                                                      "optional": {
+                                                         "description": "Specify whether the Secret or it's key must be defined",
+                                                         "type": [
+                                                            "boolean",
+                                                            "null"
+                                                         ]
+                                                      }
+                                                   },
+                                                   "required": [
+                                                      "key",
+                                                      "name"
+                                                   ],
+                                                   "type": [
+                                                      "object",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          }
+                                       },
+                                       "type": "object"
+                                    },
+                                    "allowHttp": {
+                                       "type": "string"
+                                    },
+                                    "endpoint": {
+                                       "default": "",
+                                       "type": "string"
+                                    },
+                                    "region": {
+                                       "type": "string"
+                                    },
+                                    "secretKey": {
+                                       "additionalProperties": false,
+                                       "properties": {
+                                          "value": {
+                                             "default": "",
+                                             "description": "Value",
+                                             "type": [
+                                                "string",
+                                                "null"
+                                             ]
+                                          },
+                                          "valueFrom": {
+                                             "additionalProperties": false,
+                                             "description": "Allows to source the value from configMaps or secrets",
+                                             "properties": {
+                                                "configMapKeyRef": {
+                                                   "additionalProperties": false,
+                                                   "description": "Selects a key from a ConfigMap.",
+                                                   "properties": {
+                                                      "key": {
+                                                         "description": "The key to select.",
+                                                         "type": "string"
+                                                      },
+                                                      "name": {
+                                                         "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                         "type": [
+                                                            "string",
+                                                            "null"
+                                                         ]
+                                                      },
+                                                      "optional": {
+                                                         "default": false,
+                                                         "description": "Specify whether the ConfigMap or it's key must be defined",
+                                                         "type": [
+                                                            "boolean",
+                                                            "null"
+                                                         ]
+                                                      }
+                                                   },
+                                                   "required": [
+                                                      "key",
+                                                      "name"
+                                                   ],
+                                                   "type": [
+                                                      "object",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "secretKeyRef": {
+                                                   "additionalProperties": false,
+                                                   "description": "SecretKeySelector selects a key of a Secret.",
+                                                   "properties": {
+                                                      "key": {
+                                                         "description": "The key of the secret to select from.  Must be a valid secret key.",
+                                                         "type": "string"
+                                                      },
+                                                      "name": {
+                                                         "default": "",
+                                                         "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                         "type": [
+                                                            "string",
+                                                            "null"
+                                                         ]
+                                                      },
+                                                      "optional": {
+                                                         "description": "Specify whether the Secret or it's key must be defined",
+                                                         "type": [
+                                                            "boolean",
+                                                            "null"
+                                                         ]
+                                                      }
+                                                   },
+                                                   "required": [
+                                                      "key",
+                                                      "name"
+                                                   ],
+                                                   "type": [
+                                                      "object",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          }
+                                       },
+                                       "type": "object"
+                                    }
+                                 },
+                                 "required": [
+                                    "region",
+                                    "accessKey",
+                                    "secretKey"
+                                 ],
+                                 "type": "object"
+                              },
+                              "secretKey": {
+                                 "additionalProperties": false,
+                                 "properties": {
+                                    "value": {
+                                       "default": "",
+                                       "description": "Value",
+                                       "type": [
+                                          "string",
+                                          "null"
+                                       ]
+                                    },
+                                    "valueFrom": {
+                                       "additionalProperties": false,
+                                       "description": "Allows to source the value from configMaps or secrets",
+                                       "properties": {
+                                          "configMapKeyRef": {
+                                             "additionalProperties": false,
+                                             "description": "Selects a key from a ConfigMap.",
+                                             "properties": {
+                                                "key": {
+                                                   "description": "The key to select.",
+                                                   "type": "string"
+                                                },
+                                                "name": {
+                                                   "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                   "type": [
+                                                      "string",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "optional": {
+                                                   "default": false,
+                                                   "description": "Specify whether the ConfigMap or it's key must be defined",
+                                                   "type": [
+                                                      "boolean",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "required": [
+                                                "key",
+                                                "name"
+                                             ],
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          },
+                                          "secretKeyRef": {
+                                             "additionalProperties": false,
+                                             "description": "SecretKeySelector selects a key of a Secret.",
+                                             "properties": {
+                                                "key": {
+                                                   "description": "The key of the secret to select from.  Must be a valid secret key.",
+                                                   "type": "string"
+                                                },
+                                                "name": {
+                                                   "default": "",
+                                                   "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                                   "type": [
+                                                      "string",
+                                                      "null"
+                                                   ]
+                                                },
+                                                "optional": {
+                                                   "description": "Specify whether the Secret or it's key must be defined",
+                                                   "type": [
+                                                      "boolean",
+                                                      "null"
+                                                   ]
+                                                }
+                                             },
+                                             "required": [
+                                                "key",
+                                                "name"
+                                             ],
+                                             "type": [
+                                                "object",
+                                                "null"
+                                             ]
+                                          }
+                                       },
+                                       "type": [
+                                          "object",
+                                          "null"
+                                       ]
+                                    }
+                                 },
+                                 "type": "object"
+                              }
+                           },
+                           "type": "object"
+                        },
+                        "resources": {
+                           "additionalProperties": false,
+                           "properties": {
+                              "compactor": {
+                                 "additionalProperties": false,
+                                 "description": "See https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits",
+                                 "properties": {
+                                    "limits": {
+                                       "additionalProperties": false,
+                                       "description": "Limits describes the maximum amount of compute resources allowed.",
+                                       "properties": {
+                                          "cpu": {
+                                             "default": null,
+                                             "type": "string"
+                                          },
+                                          "memory": {
+                                             "default": null,
+                                             "type": "string"
+                                          }
+                                       },
+                                       "type": "object"
+                                    },
+                                    "requests": {
+                                       "additionalProperties": false,
+                                       "description": "Requests describes the minimum amount of compute resources required.",
+                                       "properties": {
+                                          "cpu": {
+                                             "default": "100m",
+                                             "type": "string"
+                                          },
+                                          "memory": {
+                                             "default": "100Mi",
+                                             "type": "string"
+                                          },
+                                          "replicas": {
+                                             "default": 1,
+                                             "type": "integer"
+                                          }
+                                       },
+                                       "type": "object"
+                                    }
+                                 },
+                                 "type": "object"
+                              },
+                              "ingester": {
+                                 "additionalProperties": false,
+                                 "description": "See https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits",
+                                 "properties": {
+                                    "limits": {
+                                       "additionalProperties": false,
+                                       "description": "Limits describes the maximum amount of compute resources allowed.",
+                                       "properties": {
+                                          "cpu": {
+                                             "default": null,
+                                             "type": "string"
+                                          },
+                                          "memory": {
+                                             "default": null,
+                                             "type": "string"
+                                          }
+                                       },
+                                       "type": "object"
+                                    },
+                                    "requests": {
+                                       "additionalProperties": false,
+                                       "description": "Requests describes the minimum amount of compute resources required.",
+                                       "properties": {
+                                          "cpu": {
+                                             "default": "100m",
+                                             "type": "string"
+                                          },
+                                          "memory": {
+                                             "default": "100Mi",
+                                             "type": "string"
+                                          },
+                                          "replicas": {
+                                             "default": 3,
+                                             "type": "integer"
+                                          }
+                                       },
+                                       "type": "object"
+                                    }
+                                 },
+                                 "type": "object"
+                              },
+                              "querier": {
+                                 "additionalProperties": false,
+                                 "description": "See https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits",
+                                 "properties": {
+                                    "limits": {
+                                       "additionalProperties": false,
+                                       "description": "Limits describes the maximum amount of compute resources allowed.",
+                                       "properties": {
+                                          "cpu": {
+                                             "default": null,
+                                             "type": "string"
+                                          },
+                                          "memory": {
+                                             "default": null,
+                                             "type": "string"
+                                          }
+                                       },
+                                       "type": "object"
+                                    },
+                                    "requests": {
+                                       "additionalProperties": false,
+                                       "description": "Requests describes the minimum amount of compute resources required.",
+                                       "properties": {
+                                          "cpu": {
+                                             "default": "100m",
+                                             "type": "string"
+                                          },
+                                          "memory": {
+                                             "default": "100Mi",
+                                             "type": "string"
+                                          },
+                                          "replicas": {
+                                             "default": 1,
+                                             "type": "integer"
+                                          }
+                                       },
+                                       "type": "object"
+                                    }
+                                 },
+                                 "type": "object"
+                              },
+                              "router": {
+                                 "additionalProperties": false,
+                                 "description": "See https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits",
+                                 "properties": {
+                                    "limits": {
+                                       "additionalProperties": false,
+                                       "description": "Limits describes the maximum amount of compute resources allowed.",
+                                       "properties": {
+                                          "cpu": {
+                                             "default": null,
+                                             "type": "string"
+                                          },
+                                          "memory": {
+                                             "default": null,
+                                             "type": "string"
+                                          }
+                                       },
+                                       "type": "object"
+                                    },
+                                    "requests": {
+                                       "additionalProperties": false,
+                                       "description": "Requests describes the minimum amount of compute resources required.",
+                                       "properties": {
+                                          "cpu": {
+                                             "default": "100m",
+                                             "type": "string"
+                                          },
+                                          "memory": {
+                                             "default": "100Mi",
+                                             "type": "string"
+                                          },
+                                          "replicas": {
+                                             "default": 3,
+                                             "type": "integer"
+                                          }
+                                       },
+                                       "type": "object"
+                                    }
+                                 },
+                                 "type": "object"
+                              }
+                           },
+                           "type": "object"
+                        }
+                     },
+                     "required": [
+                        "catalog",
+                        "objectStore",
+                        "ingesterStorage",
+                        "admin",
+                        "monitoringStorage"
+                     ],
+                     "type": "object"
+                  }
+               },
+               "required": [
+                  "image",
+                  "apiVersion"
+               ],
+               "type": "object"
+            },
+            "pause": {
+               "default": false,
+               "type": "boolean"
+            }
+         },
+         "type": "object"
+      },
+      "status": {
+         "additionalProperties": true,
+         "type": "object"
+      }
+   },
+   "type": "object"
+}
+

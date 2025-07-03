@@ -5,7 +5,7 @@ description: >
   Learn how to use observability tools to analyze query execution and view metrics.
 weight: 201
 menu:
-  influxdb_cloud_serverless:
+  influxdb3_cloud_serverless:
     name: Optimize queries
     parent: Troubleshoot and optimize queries
 influxdb3/cloud-serverless/tags: [query, performance, observability, errors, sql, influxql]

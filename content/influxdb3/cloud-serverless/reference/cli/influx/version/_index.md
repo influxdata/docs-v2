@@ -7,6 +7,8 @@ menu:
     parent: influx
 weight: 202
 metadata: [influx CLI 2.0.0+]
+source: /shared/influxdb-v2/reference/cli/influx/version/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/version/_index.md-->

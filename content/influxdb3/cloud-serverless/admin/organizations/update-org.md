@@ -14,10 +14,9 @@ weight: 103
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
 to update an organization.
 
-{{% note %}}
-If you change an organization name, be sure to update the organization connection
-credential in clients that connect to your {{< product-name >}} organization.
-{{% /note %}}
+> [!Note]
+> If you change an organization name, be sure to update the organization connection
+> credential in clients that connect to your {{< product-name >}} organization.
 
 ## Update an organization in the InfluxDB UI
 

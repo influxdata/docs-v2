@@ -13,6 +13,8 @@ influxdb/cloud/tags: [syntax, delete]
 related:
   - /influxdb/cloud/write-data/delete-data/
   - /influxdb/cloud/reference/cli/influx/delete/
+source: /shared/influxdb-v2/reference/syntax/delete-predicate.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/syntax/delete-predicate.md-->

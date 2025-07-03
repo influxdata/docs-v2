@@ -16,6 +16,8 @@ related:
   - /flux/v0/stdlib/universe/first/
   - /flux/v0/stdlib/universe/last/
 list_query_example: first_last
+source: /shared/influxdb-v2/query-data/flux/first-last.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/first-last.md-->

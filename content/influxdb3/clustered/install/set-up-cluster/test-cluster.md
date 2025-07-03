@@ -72,12 +72,11 @@ and authorize with your InfluxDB cluster.
     - {{% code-placeholder-key %}}`DIRECTORY_PATH`{{% /code-placeholder-key %}}:
       The directory path to your admin token file, `token.json`.
 
-    {{% note %}}
-To set your InfluxDB cluster host, click
-**{{< icon "cog" "v2" >}} Set InfluxDB cluster URL** below the codeblock above
-and provide your cluster's host. This will update your cluster's host in all
-code examples.
-    {{% /note %}}
+    > [!Note]
+    > To set your InfluxDB cluster host, click
+    > **{{< icon "cog" "v2" >}} Set InfluxDB cluster URL** below the codeblock above
+    > and provide your cluster's host. This will update your cluster's host in all
+    > code examples.
 
 2.  Make this configuration file available to `influxctl` in one of the following
     ways:
@@ -90,14 +89,13 @@ code examples.
       operating system. If your connection profile is in the default location,
       you do not need to include the `--config` flag with your `influxctl` commands.
 
-{{% note %}}
-#### Connection configuration examples 
-
-In the examples below, replace {{% code-placeholder-key %}}`CONFIG_PATH`{{% /code-placeholder-key %}}
-with the directory path to your connection configuration file. If you placed
-your configuration file in the default location for your operating system, remove
-`--config /CONFIG_PATH/config.toml` from the example commands before running them.
-{{% /note %}}
+> [!Note]
+> #### Connection configuration examples 
+> 
+> In the examples below, replace {{% code-placeholder-key %}}`CONFIG_PATH`{{% /code-placeholder-key %}}
+> with the directory path to your connection configuration file. If you placed
+> your configuration file in the default location for your operating system, remove
+> `--config /CONFIG_PATH/config.toml` from the example commands before running them.
 
 ## Create a new database
 

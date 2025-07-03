@@ -52,15 +52,14 @@ and want to upgrade to a licensed release, do the following:
     If using the InfluxDB Clustered Helm chart, update the `image.tag` property
     in your `values.yaml`to use a licensed release.
 
-    {{% warn %}}
-#### Upgrade to checkpoint releases first
-
-When upgrading InfluxDB Clustered, always upgrade to each
-[checkpoint release](/influxdb3/clustered/admin/upgrade/#checkpoint-releases)
-first, before proceeding to newer versions.
-Upgrading past a checkpoint release without first upgrading to it may result in
-corrupt or lost data.
-    {{% /warn %}}
+    > [!Warning]
+    > #### Upgrade to checkpoint releases first
+    > 
+    > When upgrading InfluxDB Clustered, always upgrade to each
+    > [checkpoint release](/influxdb3/clustered/admin/upgrade/#checkpoint-releases)
+    > first, before proceeding to newer versions.
+    > Upgrading past a checkpoint release without first upgrading to it may result in
+    > corrupt or lost data.
 
 {{% code-placeholders "PACKAGE_VERSION" %}}
 

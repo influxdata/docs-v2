@@ -1,36 +1,89 @@
 /** This module retrieves browser context information and site data for the
  * current page, version, and product.
  */
-import { products, influxdb_urls } from '@params';
+import { products } from './services/influxdata-products.js';
+import { influxdbUrls } from './services/influxdb-urls.js';
 
 function getCurrentProductData() {
   const path = window.location.pathname;
   const mappings = [
-    { pattern: /\/influxdb\/cloud\//, product: products.cloud, urls: influxdb_urls.influxdb_cloud },
-    { pattern: /\/influxdb3\/core/, product: products.influxdb3_core, urls: influxdb_urls.core },
-    { pattern: /\/influxdb3\/enterprise/, product: products.influxdb3_enterprise, urls: influxdb_urls.enterprise },
-    { pattern: /\/influxdb3\/cloud-serverless/, product: products.influxdb3_cloud_serverless, urls: influxdb_urls.cloud },
-    { pattern: /\/influxdb3\/cloud-dedicated/, product: products.influxdb3_cloud_dedicated, urls: influxdb_urls.dedicated },
-    { pattern: /\/influxdb3\/clustered/, product: products.influxdb3_clustered, urls: influxdb_urls.clustered },
-    { pattern: /\/enterprise_v1\//, product: products.enterprise_influxdb, urls: influxdb_urls.oss },
-    { pattern: /\/influxdb.*v1\//, product: products.influxdb, urls: influxdb_urls.oss },
-    { pattern: /\/influxdb.*v2\//, product: products.influxdb, urls: influxdb_urls.oss },
-    { pattern: /\/kapacitor\//, product: products.kapacitor, urls: influxdb_urls.oss },
-    { pattern: /\/telegraf\//, product: products.telegraf, urls: influxdb_urls.oss },
-    { pattern: /\/chronograf\//, product: products.chronograf, urls: influxdb_urls.oss },
-    { pattern: /\/flux\//, product: products.flux, urls: influxdb_urls.oss },
+    {
+      pattern: /\/influxdb\/cloud\//,
+      product: products.cloud,
+      urls: influxdbUrls.influxdb_cloud,
+    },
+    {
+      pattern: /\/influxdb3\/core/,
+      product: products.influxdb3_core,
+      urls: influxdbUrls.core,
+    },
+    {
+      pattern: /\/influxdb3\/enterprise/,
+      product: products.influxdb3_enterprise,
+      urls: influxdbUrls.enterprise,
+    },
+    {
+      pattern: /\/influxdb3\/cloud-serverless/,
+      product: products.influxdb3_cloud_serverless,
+      urls: influxdbUrls.cloud,
+    },
+    {
+      pattern: /\/influxdb3\/cloud-dedicated/,
+      product: products.influxdb3_cloud_dedicated,
+      urls: influxdbUrls.dedicated,
+    },
+    {
+      pattern: /\/influxdb3\/clustered/,
+      product: products.influxdb3_clustered,
+      urls: influxdbUrls.clustered,
+    },
+    {
+      pattern: /\/enterprise_v1\//,
+      product: products.enterprise_influxdb,
+      urls: influxdbUrls.oss,
+    },
+    {
+      pattern: /\/influxdb.*v1\//,
+      product: products.influxdb,
+      urls: influxdbUrls.oss,
+    },
+    {
+      pattern: /\/influxdb.*v2\//,
+      product: products.influxdb,
+      urls: influxdbUrls.oss,
+    },
+    {
+      pattern: /\/kapacitor\//,
+      product: products.kapacitor,
+      urls: influxdbUrls.oss,
+    },
+    {
+      pattern: /\/telegraf\//,
+      product: products.telegraf,
+      urls: influxdbUrls.oss,
+    },
+    {
+      pattern: /\/chronograf\//,
+      product: products.chronograf,
+      urls: influxdbUrls.oss,
+    },
+    { pattern: /\/flux\//, product: products.flux, urls: influxdbUrls.oss },
   ];
 
   for (const { pattern, product, urls } of mappings) {
     if (pattern.test(path)) {
-      return { product, urls };
+      return {
+        product: product || 'unknown',
+        urls: urls || {},
+      };
     }
   }
 
-  return 'other';
+  return { product: 'other', urls: {} };
 }
 
-// Return the page context (cloud, serverless, oss/enterprise, dedicated, clustered, other)
+// Return the page context
+// (cloud, serverless, oss/enterprise, dedicated, clustered, other)
 function getContext() {
   if (/\/influxdb\/cloud\//.test(window.location.pathname)) {
     return 'cloud';
@@ -72,8 +125,12 @@ const context = getContext(),
   protocol = location.protocol,
   referrer = document.referrer === '' ? 'direct' : document.referrer,
   referrerHost = getReferrerHost(),
-  // TODO: Verify this still does what we want since the addition of InfluxDB 3 naming and the Core and Enterprise versions.
-  version = (/^v\d/.test(pathArr[1]) || pathArr[1]?.includes('cloud') ? pathArr[1].replace(/^v/, '') : "n/a")
+  // TODO: Verify this works since the addition of InfluxDB 3 naming
+  // and the Core and Enterprise versions.
+  version =
+    /^v\d/.test(pathArr[1]) || pathArr[1]?.includes('cloud')
+      ? pathArr[1].replace(/^v/, '')
+      : 'n/a';
 
 export {
   context,

@@ -22,9 +22,8 @@ myTable,tag1=value1,tag2=value2 fieldKey="fieldValue" 1556813561098000000
 Lines separated by the newline character `\n` represent a single point
 in InfluxDB. Line protocol is whitespace-sensitive.
 
-{{% note %}}
-Line protocol does not support the newline character `\n` in tag or field values.
-{{% /note %}}
+> [!Note]
+> Line protocol does not support the newline character `\n` in tag or field values.
 
 ## Elements of line protocol
 
@@ -67,13 +66,12 @@ Field keys are subject to [naming restrictions](#naming-restrictions)._
 _**Key data type:** [String](#string)_  
 _**Value data type:** [Float](#float) | [Integer](#integer) | [UInteger](#uinteger) | [String](#string) | [Boolean](#boolean)_
 
-{{% note %}}
-_Always double quote string field values. More on quotes [below](#quotes)._
-
-```sh
-tableName fieldKey="field string value" 1556813561098000000
-```
-{{% /note %}}
+> [!Note]
+> _Always double quote string field values. More on quotes [below](#quotes)._
+> 
+> ```sh
+> tableName fieldKey="field string value" 1556813561098000000
+> ```
 
 ### Timestamp
 
@@ -84,14 +82,13 @@ If no timestamp is provided, InfluxDB uses the system time (UTC) of its host mac
 
 _**Data type:** [Unix timestamp](#unix-timestamp)_
 
-{{% note %}}
-#### Important notes about timestamps
-
-- To ensure a data point includes the time a metric is observed (not received by InfluxDB),
-  include the timestamp.
-- If your timestamps are not in nanoseconds, specify the precision of your timestamps
-  when writing the data to {{< product-name >}}.
-{{% /note %}}
+> [!Note]
+> #### Important notes about timestamps
+> 
+> - To ensure a data point includes the time a metric is observed (not received by InfluxDB),
+>   include the timestamp.
+> - If your timestamps are not in nanoseconds, specify the precision of your timestamps
+>   when writing the data to {{< product-name >}}.
 
 ### Whitespace
 
@@ -182,10 +179,9 @@ myTable fieldKey=TRUE
 myTable fieldKey=FALSE
 ```
 
-{{% note %}}
-Do not quote boolean field values.
-Quoted field values are interpreted as strings.
-{{% /note %}}
+> [!Note]
+> Do not quote boolean field values.
+> Quoted field values are interpreted as strings.
 
 ### Unix timestamp
 

@@ -8,6 +8,8 @@ menu:
     parent: influx v1 dbrp
 weight: 101
 influxdb/cloud/tags: [DBRP]
+source: /shared/influxdb-v2/reference/cli/influx/v1/dbrp/delete.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/v1/dbrp/delete.md-->

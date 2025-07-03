@@ -24,6 +24,7 @@ By default, InfluxDB uses the following network ports:
 
 - TCP port `8086` is available for client-server communication using the InfluxDB API.
 - TCP port `8088` is available for the RPC service to perform back up and restore operations.
+- TCP port `2003` is available for the Graphite protocol (when enabled).
 
 In addition to the ports above, InfluxDB also offers multiple plugins that may
 require [custom ports](/influxdb/v1/administration/ports/).
@@ -51,10 +52,11 @@ you may want to check out our
 [SLES & openSUSE](#)
 [FreeBSD/PC-BSD](#)
 [macOS](#)
+[Docker](#)
 {{% /tabs %}}
 {{% tab-content %}}
 For instructions on how to install the Debian package from a file,
-please see the
+see the
 [downloads page](https://influxdata.com/downloads/).
 
 Debian and Ubuntu users can install the latest stable version of InfluxDB using the
@@ -195,6 +197,28 @@ InfluxDB v{{< latest-patch version="1.8" >}} (git: unknown unknown)
 {{% /note %}}
 
 {{% /tab-content %}}
+
+{{% tab-content %}}
+
+Use Docker to run InfluxDB v1 in a container.
+
+For comprehensive Docker installation instructions, configuration options, and initialization features, see:
+
+**[Install and run with Docker ›](/influxdb/v1/introduction/install/docker/)**
+
+Quick start:
+
+```bash
+# Pull the latest InfluxDB v1.x image
+docker pull influxdb:{{< latest-patch version="1" >}}
+
+# Start InfluxDB with persistent storage
+docker run -p 8086:8086 \
+  -v $PWD/data:/var/lib/influxdb \
+  influxdb:{{< latest-patch version="1" >}}
+```
+
+{{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 ### Verify the authenticity of downloaded binary (optional)
@@ -273,6 +297,12 @@ For example:
 
 InfluxDB first checks for the `-config` option and then for the environment
 variable.
+
+### Configuring InfluxDB with Docker
+
+For detailed Docker configuration instructions including environment variables, configuration files, initialization options, and examples, see:
+
+**[Install and run with Docker ›](/influxdb/v1/introduction/install/docker/)**
 
 See the [Configuration](/influxdb/v1/administration/config/) documentation for more information.
 

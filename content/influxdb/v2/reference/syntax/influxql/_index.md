@@ -8,7 +8,8 @@ menu:
     name: InfluxQL
     identifier: influxql-syntax
 weight: 101
+source: /shared/influxdb-v2/reference/syntax/influxql/_index.md
 ---
 
-{{< children readmore=true hr=true >}}
-
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/reference/syntax/influxql/_index.md -->

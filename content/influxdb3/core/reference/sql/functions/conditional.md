@@ -9,7 +9,7 @@ menu:
     parent: sql-functions    
 weight: 306
 
-source: /content/shared/sql-reference/functions/conditional.md
+source: /shared/sql-reference/functions/conditional.md
 ---
 
 <!-- 

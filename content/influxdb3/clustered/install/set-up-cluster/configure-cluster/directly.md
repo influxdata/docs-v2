@@ -31,12 +31,9 @@ Resource configuration for your cluster includes the following:
   - **`example-customer.yml`**: Configuration for your InfluxDB cluster that includes
     information about [prerequisites](/influxdb3/clustered/install/set-up-cluster/prerequisites/).
 
-    {{% note %}}
-
-The following sections refer to a `myinfluxdb.yml` file that you copy from
-`example-customer.yml` and edit for your InfluxDB cluster.
-
-    {{% /note %}}
+    > [!Note]
+    > The following sections refer to a `myinfluxdb.yml` file that you copy from
+    > `example-customer.yml` and edit for your InfluxDB cluster.
 
 ## Configuration data
 
@@ -74,13 +71,12 @@ The `AppInstance` resource contains key information, such as:
 - Hostname of your cluster's InfluxDB API
 - Parameters to connect to [external prerequisites](/influxdb3/clustered/install/set-up-cluster/prerequisites/)
 
-{{% note %}}
-#### Update your namespace if using a namespace other than influxdb
-
-If you use a namespace name other than `influxdb`, update the
-`metadata.namespace` property in your `myinfluxdb.yml` to use your custom
-namespace name.
-{{% /note %}}
+> [!Note]
+> #### Update your namespace if using a namespace other than influxdb
+> 
+> If you use a namespace name other than `influxdb`, update the
+> `metadata.namespace` property in your `myinfluxdb.yml` to use your custom
+> namespace name.
 
 ## Configure your cluster
 
@@ -99,17 +95,16 @@ specific to your InfluxDB cluster. For example, `myinfluxdb.yml`.
 cp example-customer.yml myinfluxdb.yml
 ```
 
-{{% note %}}
-
-#### Use VS Code to edit your configuration file
-
-We recommend using [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
-to edit your `myinfluxdb.yml` configuration file due to its JSON Schema support,
-including autocompletion and validation features that help when 
-editing your InfluxDB configuration. InfluxData provides an
-`app-instance-schema.json` JSON schema file that VS Code can use to validate
-your configuration settings.
-{{% /note %}}
+> [!Note]
+> 
+> #### Use VS Code to edit your configuration file
+> 
+> We recommend using [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
+> to edit your `myinfluxdb.yml` configuration file due to its JSON Schema support,
+> including autocompletion and validation features that help when 
+> editing your InfluxDB configuration. InfluxData provides an
+> `app-instance-schema.json` JSON schema file that VS Code can use to validate
+> your configuration settings.
 
 ### Configure access to the InfluxDB container registry
 
@@ -356,25 +351,23 @@ To configure ingress, provide values for the following fields in your
   requests for all listed hostnames. This can be useful if you want to have
   distinct paths for your internal and external traffic._
 
-  {{% note %}}
-You are responsible for configuring and managing DNS. Options include:
-
-- Manually managing DNS records
-- Using [external-dns](https://github.com/kubernetes-sigs/external-dns) to
-  synchronize exposed Kubernetes services and ingresses with DNS providers.
-  {{% /note %}}
+  > [!Note]
+  > You are responsible for configuring and managing DNS. Options include:
+  > 
+  > - Manually managing DNS records
+  > - Using [external-dns](https://github.com/kubernetes-sigs/external-dns) to
+  >   synchronize exposed Kubernetes services and ingresses with DNS providers.
 
 - **`spec.package.spec.ingress.tlsSecretName`: TLS certificate secret name**
 
   (Optional): Provide the name of the secret that contains your TLS certificate
   and key. The examples in this guide use the name `ingress-tls`.
 
-  {{% note %}}
-Writing to and querying data from InfluxDB does not require TLS.
-For simplicity, you can wait to enable TLS before moving into production.
-For more information, see Phase 4 of the InfluxDB Clustered installation
-process, [Secure your cluster](/influxdb3/clustered/install/secure-cluster/).
-  {{% /note %}}
+  > [!Note]
+  > Writing to and querying data from InfluxDB does not require TLS.
+  > For simplicity, you can wait to enable TLS before moving into production.
+  > For more information, see Phase 4 of the InfluxDB Clustered installation
+  > process, [Secure your cluster](/influxdb3/clustered/install/secure-cluster/).
 
 {{% code-callout "ingress-tls|cluster-host\.com" "green" %}}
 
@@ -597,10 +590,9 @@ metadata about your time series data.
 To connect your InfluxDB cluster to your PostgreSQL-compatible database,
 provide values for the following fields in your `myinfluxdb.yml` configuration file:
 
-{{% note %}}
-We recommend storing sensitive credentials, such as your PostgreSQL-compatible DSN,
-as secrets in your Kubernetes cluster.
-{{% /note %}}
+> [!Note]
+> We recommend storing sensitive credentials, such as your PostgreSQL-compatible DSN,
+> as secrets in your Kubernetes cluster.
 
 - `spec.package.spec.catalog.dsn.valueFrom.secretKeyRef`
   - `.name`: Secret name
@@ -638,22 +630,24 @@ Replace the following:
 
 ---
 
-{{% warn %}}
-##### Percent-encode special symbols in PostgreSQL DSNs
-
-Percent-encode special symbols in PostgreSQL DSNs to ensure
-{{% product-name %}} parses them correctly.
-Consider this when using DSNs with auto-generated passwords that include special
-symbols for added security.
-
-If a DSN contains special characters that aren't percent-encoded,
-you might encounter an error similar to the following:
-
-```txt
-Catalog DSN error: A catalog error occurred: unhandled external error: error with configuration: invalid port number
-```
-
-{{< expand-wrapper >}}
+> [!Warning]
+> ##### Percent-encode special symbols in PostgreSQL DSNs
+> 
+> Percent-encode special symbols in PostgreSQL DSNs to ensure
+> {{% product-name %}} parses them correctly.
+> Consider this when using DSNs with auto-generated passwords that include special
+> symbols for added security.
+> 
+> If a DSN contains special characters that aren't percent-encoded,
+> you might encounter an error similar to the following:
+> 
+> ```txt
+> Catalog DSN error: A catalog error occurred: unhandled external error: error with configuration: invalid port > number
+> ```
+> 
+> For more information, see the [PostgreSQL Connection URI docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS).
+>
+> {{< expand-wrapper >}}
 {{% expand "View percent-encoded DSN example" %}}
 To use the following DSN containing special characters:
 
@@ -674,25 +668,18 @@ postgresql://postgres:meow%23meow@my-fancy.cloud-database.party:5432/postgres
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-For more information, see the [PostgreSQL Connection URI
-docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS).
-{{% /warn %}}
-
-{{% note %}}
-
-##### PostgreSQL instances without TLS or SSL
-
-If your PostgreSQL-compatible instance runs without TLS or SSL, you must include
-the `sslmode=disable` parameter in the DSN. For example:
-
-{{% code-callout "sslmode=disable" %}}
-
+> [!Note]
+> 
+> ##### PostgreSQL instances without TLS or SSL
+> 
+> If your PostgreSQL-compatible instance runs without TLS or SSL, you must include
+> the `sslmode=disable` parameter in the DSN. For example:
+> 
+> {{% code-callout "sslmode=disable" %}}
 ```
 postgres://username:passw0rd@mydomain:5432/influxdb?sslmode=disable
 ```
-
 {{% /code-callout %}}
-{{% /note %}}
 
 #### Configure local storage for ingesters
 

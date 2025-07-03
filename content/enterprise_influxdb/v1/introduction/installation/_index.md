@@ -11,6 +11,10 @@ menu:
     name: Install
     weight: 103
     parent: Introduction
+related:
+  - /enterprise_influxdb/v1/introduction/installation/docker/
+  - /enterprise_influxdb/v1/introduction/installation/single-server/
+  - /enterprise_influxdb/v1/introduction/installation/fips-compliant/
 ---
 
 Complete the following steps to install an InfluxDB Enterprise cluster in your own environment:
@@ -20,7 +24,3 @@ Complete the following steps to install an InfluxDB Enterprise cluster in your o
 3. [Install Chronograf](/enterprise_influxdb/v1/introduction/installation/chrono_install/)
 
 {{< influxdbu title="Installing InfluxDB Enterprise" summary="Learn about InfluxDB architecture and how to install InfluxDB Enterprise with step-by-step instructions." action="Take the course" link="https://university.influxdata.com/courses/installing-influxdb-enterprise-tutorial/" >}}
-
-#### Other installation options
-- [Install InfluxDB Enterprise on a single server](/enterprise_influxdb/v1/introduction/installation/single-server/)
-- [Federal Information Processing Standards (FIPS)-compliant InfluxDB Enterprise](/enterprise_influxdb/v1/introduction/installation/fips-compliant/)

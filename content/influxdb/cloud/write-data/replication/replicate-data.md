@@ -12,6 +12,8 @@ influxdb/cloud/tags: [write, replication]
 related:
   - /influxdb/cloud/reference/cli/influx/remote
   - /influxdb/cloud/reference/cli/influx/replication
+source: /shared/influxdb-v2/write-data/replication/replicate-data.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/write-data/replication/replicate-data.md-->

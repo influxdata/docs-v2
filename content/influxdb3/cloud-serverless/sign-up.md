@@ -27,9 +27,8 @@ Use it as much and as long as you like within the plan's rate-limits.
 [Limits](/influxdb3/cloud-serverless/admin/account/limits/) are designed to let
 you monitor 5-10 sensors, stacks or servers comfortably.
 
-{{% note %}}
-Users on the Free Plan are limited to one organization.
-{{% /note %}}
+> [!Note]
+> Users on the Free Plan are limited to one organization.
 
 ## Sign up
 
@@ -165,9 +164,8 @@ prefix the executable with `./` to run in place. If the binary is on your $PATH,
 sudo cp influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64/influx /usr/local/bin/
 ```
 
-{{% note %}}
-If you rename the binary, all references to `influx` in this documentation refer to the renamed binary.
-{{% /note %}}
+> [!Note]
+> If you rename the binary, all references to `influx` in this documentation refer to the renamed binary.
 
 #### Step 4: (macOS Catalina and newer) Authorize InfluxDB binaries
 
@@ -206,8 +204,8 @@ To see all available `influx` commands, type `influx -h` or check out [influx - 
 
 Click one of the following buttons to download and install the `influx` CLI appropriate for your chipset.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-cli >}}-linux-amd64.tar.gz" download >influx CLI (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-cli >}}-linux-arm64.tar.gz" download >influx CLI (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz" download >influx CLI (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz" download >influx CLI (arm)</a>
 
 #### Step 2: Unpackage the influx binary
 
@@ -215,7 +213,7 @@ Click one of the following buttons to download and install the `influx` CLI appr
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvfz influxdb2-client-{{< latest-cli >}}-linux-amd64.tar.gz
+tar xvfz influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
 ```
 
 #### Step 3: (Optional) Place the binary in your $PATH
@@ -227,12 +225,11 @@ prefix the executable with `./` to run in place. If the binary is on your $PATH,
 
 ```sh
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb2-client-{{< latest-cli >}}-linux-amd64/influx /usr/local/bin/
+sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64/influx /usr/local/bin/
 ```
 
-{{% note %}}
-If you rename the binary, all references to `influx` in this documentation refer to the renamed binary.
-{{% /note %}}
+> [!Note]
+> If you rename the binary, all references to `influx` in this documentation refer to the renamed binary.
 
 #### Step 4: Set up a configuration profile
 

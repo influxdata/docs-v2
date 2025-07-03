@@ -2,7 +2,10 @@
 {{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
 {{- $product := index $productPathData 0 -}}
 {{- $productVersion := index $productPathData 1 | default "v0" -}}
-{{- $defaultClockface := cond (isset (index .Site.Data.clockface $product) $productVersion)  (index (index .Site.Data.clockface $product) $productVersion) (index (index .Site.Data.clockface $product) "default") }}
+{{- $defaultClockface := "" -}}
+{{- with (index .Site.Data.clockface $product) -}}
+  {{- $defaultClockface = default (index . "default") (index . $productVersion) -}}
+{{- end -}}
 {{- $version := .Get 1 | default $defaultClockface -}}
 
 {{ if eq $version "v2" }}

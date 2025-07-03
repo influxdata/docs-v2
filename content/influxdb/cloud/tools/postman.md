@@ -12,6 +12,8 @@ influxdb/cloud/tags: [api, authentication]
 aliases:
   - /influxdb/cloud/reference/api/postman/
   - /influxdb/cloud/api-guide/postman/
+source: /shared/influxdb-v2/tools/postman.md
 ---
 
-{{% duplicate-oss %}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/postman.md-->

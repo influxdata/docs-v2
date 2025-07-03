@@ -11,6 +11,8 @@ list_code_example: |
   ```sql
   SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key]]
   ```
+source: /shared/influxdb-v2/query-data/influxql/explore-data/group-by.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/influxql/explore-data/group-by.md-->

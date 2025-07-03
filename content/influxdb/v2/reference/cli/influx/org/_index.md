@@ -12,29 +12,8 @@ cascade:
     - /influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
     - /influxdb/v2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
   metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
+source: /shared/influxdb-v2/reference/cli/influx/org/_index.md
 ---
 
-The `influx org` command and its subcommands manage organization information in InfluxDB.
-
-## Usage
-```
-influx org [flags]
-influx org [command]
-```
-
-#### Command aliases
-`org`, `organization`
-
-## Subcommands
-| Subcommand                                                 | Description                      |
-|:----------                                                 |:-----------                      |
-| [create](/influxdb/v2/reference/cli/influx/org/create)   | Create an organization           |
-| [delete](/influxdb/v2/reference/cli/influx/org/delete)   | Delete an organization           |
-| [list](/influxdb/v2/reference/cli/influx/org/list)       | List organizations               |
-| [members](/influxdb/v2/reference/cli/influx/org/members) | Organization membership commands |
-| [update](/influxdb/v2/reference/cli/influx/org/update)   | Update an organization           |
-
-## Flags
-| Flag |          | Description                |
-|:---- |:---      |:-----------                |
-| `-h` | `--help` | Help for the `org` command |
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/org/_index.md -->

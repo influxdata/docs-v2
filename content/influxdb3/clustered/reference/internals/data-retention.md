@@ -30,12 +30,11 @@ Retention periods can be as short as an hour or infinite.
 timestamps beyond the defined retention period (relative to now) are not queryable,
 but may still exist in storage until [fully deleted](#when-does-data-actually-get-deleted).
 
-{{% note %}}
-#### View database retention periods
-
-Use the [`influxctl database list` command](/influxdb3/clustered/reference/cli/influxctl/database/list/)
-to view your databases' retention periods.
-{{% /note %}}
+> [!Note]
+> #### View database retention periods
+> 
+> Use the [`influxctl database list` command](/influxdb3/clustered/reference/cli/influxctl/database/list/)
+> to view your databases' retention periods.
 
 ## When does data actually get deleted?
 

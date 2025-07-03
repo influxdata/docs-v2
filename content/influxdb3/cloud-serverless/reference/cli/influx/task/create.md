@@ -6,6 +6,8 @@ menu:
     name: influx task create
     parent: influx task
 weight: 201
+source: /shared/influxdb-v2/reference/cli/influx/task/create.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/task/create.md-->

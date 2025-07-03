@@ -12,9 +12,11 @@ weight: 100
 aliases:
   - /influxdb/cloud/reference/api/client-libraries/js/install
   - /influxdb/cloud/reference/api/client-libraries/nodejs/install
+source: /shared/influxdb-v2/api-guide/client-libraries/nodejs/install.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/nodejs/install.md-->
 
 {{% note %}}
 The URL in the examples depends on your [InfluxDB Cloud region](/influxdb/cloud/reference/regions/).

@@ -24,7 +24,7 @@ weight: 1
 > If your organization is using InfluxDB 3, you'll see
 > **InfluxDB Cloud Serverless** followed by the version number.
 
-> [!Warn]
+> [!Warning]
 > #### InfluxDB 3 and Flux
 > 
 > InfluxDB Cloud Serverless and other InfluxDB 3 products don't support Flux.

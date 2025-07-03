@@ -33,13 +33,12 @@ the InfluxDB Clustered software.
 
 ## Install your InfluxDB license
 
-{{% note %}}
-If setting up an InfluxDB Clustered deployment for the first time, first
-[set up the prerequisites](/influxdb3/clustered/install/set-up-cluster/licensing/) and
-[configure your cluster](/influxdb3/clustered/install/set-up-cluster/configure-cluster/).
-After your InfluxDB namespace is created and prepared, you can 
-install your license.
-{{% /note %}}
+> [!Note]
+> If setting up an InfluxDB Clustered deployment for the first time, first
+> [set up the prerequisites](/influxdb3/clustered/install/set-up-cluster/licensing/) and
+> [configure your cluster](/influxdb3/clustered/install/set-up-cluster/configure-cluster/).
+> After your InfluxDB namespace is created and prepared, you can 
+> install your license.
 
 1.  If you haven't already,
     [request an InfluxDB Clustered license](https://influxdata.com/contact-sales).

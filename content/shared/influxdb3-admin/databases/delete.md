@@ -11,10 +11,7 @@ to delete a database from {{< product-name >}}.
 Provide the following:
 
 - Name of the database to delete
-- {{< product-name >}} authorization token
-
-  > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
+- - {{< product-name >}} {{% token-link "admin" "admin" %}}
 
 {{% code-placeholders "DATABASE_NAME" %}}
 ```sh

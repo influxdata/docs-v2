@@ -9,6 +9,8 @@ menu:
 weight: 203
 aliases:
   - /influxdb/cloud/organizations/buckets/delete-bucket/
+source: /shared/influxdb-v2/admin/buckets/delete-bucket.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/admin/buckets/delete-bucket.md-->

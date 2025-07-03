@@ -22,6 +22,8 @@
   {{ $scratch.Set "siteTitle" "InfluxDB 3 Core Documentation" }}
 {{ else if eq $currentVersion "enterprise"}}
   {{ $scratch.Set "siteTitle" "InfluxDB 3 Enterprise Documentation" }}
+{{ else if eq $currentVersion "explorer"}}
+  {{ $scratch.Set "siteTitle" "InfluxDB 3 Explorer Documentation" }}
 {{ else if eq $currentVersion "cloud-serverless"}}
   {{ $scratch.Set "siteTitle" "InfluxDB Cloud Serverless Documentation" }}
 {{ else if eq $currentVersion "cloud-dedicated"}}
@@ -35,10 +37,10 @@
 {{ else if eq $currentVersion nil}}
   {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " Documentation") }}
 {{ else }}
-  {{ if (isset (index .Site.Data.products $product) "altname" ) }}
-    {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).altname " Documentation") }}
+  {{ with (index .Site.Data.products $product).altname }}
+    {{ $scratch.Set "siteTitle" (print . " Documentation") }}
   {{ else }}
-    {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " Documentation") }}
+    {{ $scratch.Set "siteTitle" (print (index $.Site.Data.products $product).name " Documentation") }}
   {{ end }}
 {{ end }}
 

@@ -10,6 +10,8 @@ menu:
 aliases:
   - /influxdb/cloud/migrate-data/migrate-oss/
 weight: 101
+source: /shared/influxdb-v2/write-data/migrate-data/migrate-oss.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/write-data/migrate-data/migrate-oss.md-->

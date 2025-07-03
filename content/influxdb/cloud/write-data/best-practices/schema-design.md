@@ -9,6 +9,8 @@ menu:
     parent: write-best-practices
 related:
   - /resources/videos/data-model-building-blocks/
+source: /shared/influxdb-v2/write-data/best-practices/schema-design.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/write-data/best-practices/schema-design.md-->

@@ -7,6 +7,8 @@ menu:
     parent: Monitor infrastructure
     name: Windows
 weight: 207
+source: /shared/influxdb-v2/monitor-alert/templates/infrastructure/windows.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/monitor-alert/templates/infrastructure/windows.md-->

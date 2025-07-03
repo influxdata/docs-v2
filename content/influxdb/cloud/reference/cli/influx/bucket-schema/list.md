@@ -8,6 +8,8 @@ menu:
 weight: 201
 related:
   - /influxdb/cloud/organizations/buckets/bucket-schema
+source: /shared/influxdb-v2/reference/cli/influx/bucket-schema/list.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/bucket-schema/list.md-->

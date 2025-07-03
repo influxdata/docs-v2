@@ -20,8 +20,10 @@ related:
   - /flux/v0/stdlib/date/truncate/
   - /flux/v0/stdlib/experimental/addduration/
   - /flux/v0/stdlib/experimental/subduration/
+source: /shared/influxdb-v2/query-data/flux/operate-on-timestamps.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/operate-on-timestamps.md-->
 
 

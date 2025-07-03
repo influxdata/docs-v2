@@ -14,15 +14,14 @@ related:
 
 Query data stored in InfluxDB and use tools like pandas to summarize the results schema and distribution.
 
-{{% note %}}
-#### Sample data
-
-The following examples use the sample data written in the
-[Get started writing data guide](/influxdb3/cloud-serverless/get-started/write/).
-To run the example queries and return results,
-[write the sample data](/influxdb3/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb)
-to your {{% product-name %}} bucket before running the example queries.
-{{% /note %}}
+> [!Note]
+> #### Sample data
+> 
+> The following examples use the sample data written in the
+> [Get started writing data guide](/influxdb3/cloud-serverless/get-started/write/).
+> To run the example queries and return results,
+> [write the sample data](/influxdb3/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb)
+> to your {{% product-name %}} bucket before running the example queries.
 
 ### View data information and statistics
 

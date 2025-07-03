@@ -16,6 +16,8 @@ influxdb/cloud/tags: [query, increase, counters]
 related:
   - /flux/v0/stdlib/universe/increase/
 list_query_example: increase
+source: /shared/influxdb-v2/query-data/flux/increase.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/increase.md-->

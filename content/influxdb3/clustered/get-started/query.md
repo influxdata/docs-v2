@@ -33,13 +33,12 @@ a protocol for interacting with SQL databases using the Arrow in-memory format a
 It leverages the performance of [Apache Arrow](https://arrow.apache.org/) with
 the simplicity of SQL.
 
-{{% note %}}
-The examples in this section of the tutorial query the
-[**get-started** database](/influxdb3/clustered/get-started/setup/#create-a-database)
-for data written in the
-[Get started writing data](/influxdb3/clustered/get-started/write/#write-line-protocol-to-influxdb)
-section.
-{{% /note %}}
+> [!Note]
+> The examples in this section of the tutorial query the
+> [**get-started** database](/influxdb3/clustered/get-started/setup/#create-a-database)
+> for data written in the
+> [Get started writing data](/influxdb3/clustered/get-started/write/#write-line-protocol-to-influxdb)
+> section.
 
 ## Tools to execute queries
 
@@ -55,23 +54,20 @@ section.
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb3/clustered/query-data/execute-queries/influxdb-v1-api/)
 - [Chronograf](/chronograf/v1/)
 
-{{% warn %}}
-
-#### /api/v2/query not supported
-
-The `/api/v2/query` API endpoint and associated tooling, such as the `influx` CLI and InfluxDB v2 client libraries, **aren’t** supported in {{% product-name %}}.
-
-{{% /warn %}}
+> [!Warning]
+> 
+> #### /api/v2/query not supported
+> 
+> The `/api/v2/query` API endpoint and associated tooling, such as the `influx` CLI and InfluxDB v2 client libraries, **aren’t** supported in {{% product-name %}}.
 
 ## SQL query basics
 
 The {{% product-name %}} SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
 query engine which provides an SQL syntax similar to PostgreSQL.
 
-{{% note %}}
-This is a brief introduction to writing SQL queries for InfluxDB.
-For more in-depth details, see [Query data with SQL](/influxdb3/clustered/query-data/sql/).
-{{% /note %}}
+> [!Note]
+> This is a brief introduction to writing SQL queries for InfluxDB.
+> For more in-depth details, see [Query data with SQL](/influxdb3/clustered/query-data/sql/).
 
 InfluxDB SQL queries most commonly include the following clauses:
 
@@ -242,11 +238,10 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719950400
 ```
 -->
 
-{{% note %}}
-Some examples in this getting started tutorial assume your InfluxDB
-credentials (**URL** and **token**) are provided by
-[environment variables](/influxdb3/clustered/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
-{{% /note %}}
+> [!Note]
+> Some examples in this getting started tutorial assume your InfluxDB
+> credentials (**URL** and **token**) are provided by
+> [environment variables](/influxdb3/clustered/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -290,15 +285,14 @@ influxctl query \
 {{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
-{{% note %}}
-#### Query using stored credentials
-
-Optionally, you can configure `database` and `token` query credentials in your `influxctl`
-[connection profile](/influxdb3/clustered/reference/cli/influxctl/#create-a-configuration-file).
-
-The `--database` and `--token` command line flags override credentials in your
-configuration file.
-{{% /note %}}
+> [!Note]
+> #### Query using stored credentials
+> 
+> Optionally, you can configure `database` and `token` query credentials in your `influxctl`
+> [connection profile](/influxdb3/clustered/reference/cli/influxctl/#create-a-configuration-file).
+> 
+> The `--database` and `--token` command line flags override credentials in your
+> configuration file.
 
 <!--------------------------- END influxctl CONTENT --------------------------->
 {{% /tab-content %}}

@@ -2,11 +2,47 @@
 {{ $product := index $productPathData 0 }}
 {{ $version := index $productPathData 1 | default "0"}}
 {{ $productKey := cond (eq $product "influxdb3") (print "influxdb3_" (replaceRE "-" "_" $version)) $product }}
-{{ $productName := cond (isset (index .Site.Data.products $productKey) "altname") (index .Site.Data.products $productKey).altname (index .Site.Data.products $productKey).name }}
 
-{{ $stableVersion := (replaceRE `\.[0-9x]+$` "" (index .Site.Data.products $product).latest) }}
-{{ $stableVersionURL := replaceRE `v[1-3]` $stableVersion .RelPermalink }}
-{{ $stableDefaultURL := print "/" $product "/" $stableVersion "/" }}
+<!-- Initialize version variables -->
+{{ $successorInfo := dict "exists" false }}
+{{ $productName := $product | humanize }}
+{{ $stableVersion := "" }}
+{{ $stableVersionURL := "" }}
+{{ $stableDefaultURL := "" }}
+
+<!-- Get current product name -->
+{{ if isset .Site.Data.products $productKey }}
+  {{ $productName = cond (isset (index .Site.Data.products $productKey) "altname") (index .Site.Data.products $productKey).altname (index .Site.Data.products $productKey).name }}
+{{ end }}
+
+<!-- Check for successor and get version information -->
+{{ if and (isset .Site.Data.products $productKey) (isset (index .Site.Data.products $productKey) "succeeded_by") }}
+  {{ $successorKey := (index .Site.Data.products $productKey).succeeded_by }}
+  
+  {{ if and $successorKey (isset .Site.Data.products $successorKey) }}
+    <!-- Successor exists and is valid -->
+    {{ $successorInfo = dict 
+      "exists" true
+      "key" $successorKey
+      "name" (cond (isset (index .Site.Data.products $successorKey) "altname") 
+              (index .Site.Data.products $successorKey).altname 
+              (index .Site.Data.products $successorKey).name)
+      "version" (replaceRE `\.[0-9x]+$` "" (index .Site.Data.products $successorKey).latest)
+      "namespace" (index .Site.Data.products $successorKey).namespace
+    }}
+    
+    <!-- Set stable version to successor version -->
+    {{ $stableVersion = $successorInfo.version }}
+    {{ $stableVersionURL = print "/" $successorInfo.namespace "/" $stableVersion "/" }}
+    {{ $stableDefaultURL = $stableVersionURL }}
+  {{ end }}
+{{ else if isset .Site.Data.products $product }}
+  <!-- No successor, use current product's latest version -->
+  {{ $stableVersion = (replaceRE `\.[0-9x]+$` "" (index .Site.Data.products $product).latest) }}
+  {{ $stableVersionURL = replaceRE `v[1-3]` $stableVersion .RelPermalink }}
+  {{ $stableDefaultURL = print "/" $product "/" $stableVersion "/" }}
+{{ end }}
+
 {{ $stableEquivalentURL := index .Page.Params.alt_links $stableVersion | default "does-not-exist" }}
 {{ $stableEquivalentPage := .GetPage (replaceRE `\/$` "" $stableEquivalentURL) }}
 {{ $stablePageExists := gt (len $stableEquivalentPage.Title) 0 }}
@@ -14,34 +50,32 @@
 {{ $isMultiVersion := in (print "/" $version) "/v" }}
 
 {{ if and (in $productWhiteList $product) $isMultiVersion }}
-  <!-- Check if the current version is less than the stable version -->
-  {{ if lt (int (replaceRE `[a-z]` "" $version)) (int (replaceRE `[a-z]` "" $stableVersion)) }}
+  {{ if $successorInfo.exists }}
+    <!-- Show callout for product with successor -->
     <div class="warn block old-version">
       <p>
         This page documents an earlier version of {{ $productName }}.
-        <a href="/{{ $product }}/{{ $stableVersion }}/">{{ $productName }} {{ $stableVersion }}</a> is the latest stable version.
-        <!-- Check if page exists in latest major version docs -->
-        {{ if gt (len (.GetPage ((replaceRE `v[1-3]` $stableVersion .RelPermalink) | replaceRE `\/$` "")).Title) 0 }}
-          <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.
-        <!-- Check if the stable equivalent page exists -->
-        {{ else if $stablePageExists }}
-          <span style="margin-right:.25rem">See the equivalent <strong>InfluxDB {{ $stableVersion }}</strong> documentation:</span> <a href="{{ $stableEquivalentPage.RelPermalink }}">{{ $stableEquivalentPage.Title | .RenderString }}</a>.
-        {{ else }}
-          See the <a href="{{ $stableDefaultURL }}">InfluxDB {{ $stableVersion }} documentation</a>.
-        {{ end }}
+        <a href="{{ $stableDefaultURL }}">{{ $successorInfo.name }}</a> is the latest stable version.
       </p>
     </div>
+  {{ else if $stableVersion }}
+    <!-- Show callout for product with newer version (no successor) -->
+    {{ if lt (int (replaceRE `[a-z]` "" $version)) (int (replaceRE `[a-z]` "" $stableVersion)) }}
+      <div class="warn block old-version">
+        <p>
+          This page documents an earlier version of {{ $productName }}.
+          <a href="/{{ $product }}/{{ $stableVersion }}/">{{ $productName }} {{ $stableVersion }}</a> is the latest stable version.
+          
+          <!-- Handle page navigation options -->
+          {{ if gt (len (.GetPage ((replaceRE `v[1-3]` $stableVersion .RelPermalink) | replaceRE `\/$` "")).Title) 0 }}
+            <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.
+          {{ else if $stablePageExists }}
+            <span style="margin-right:.25rem">See the equivalent <strong>{{ $productName }} {{ $stableVersion }}</strong> documentation:</span> <a href="{{ $stableEquivalentPage.RelPermalink }}">{{ $stableEquivalentPage.Title | .RenderString }}</a>.
+          {{ else }}
+            See the <a href="{{ $stableDefaultURL }}">{{ $productName }} {{ $stableVersion }} documentation</a>.
+          {{ end }}
+        </p>
+      </div>
+    {{ end }}
   {{ end }}
-{{ end }}
-
-{{ if and .Page.Params.v2 (eq (findRE `v[1-3]` $version) (findRE `v[1-3]` $stableVersion)) }}
-  <div class="note block old-version">
-    <p>
-      {{ if $stablePageExists }}
-        <span style="margin-right:.25rem">See the equivalent <strong>InfluxDB {{ $stableVersion }}</strong> documentation:</span> <a href="{{ $stableEquivalentPage.RelPermalink }}">{{ $stableEquivalentPage.Title | .RenderString }}</a>.
-      {{ else }}
-        See the <a href="{{ $stableEquivalentURL }}">equivalent InfluxDB {{ $stableVersion }} documentation</a>.
-      {{ end }}
-    </p>
-  </div>
 {{ end }}

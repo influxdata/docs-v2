@@ -20,6 +20,8 @@ cascade:
     - /influxdb/cloud/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
   metadata: [influx CLI 2.0.0+]
 updated_in: CLI v2.0.5
+source: /shared/influxdb-v2/reference/cli/influx/write/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/write/_index.md-->

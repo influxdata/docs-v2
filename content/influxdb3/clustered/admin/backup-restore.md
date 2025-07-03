@@ -12,21 +12,21 @@ weight: 105
 influxdb3/clustered/tags: [backup, restore]
 ---
 
-InfluxDB Clustered automatically stores snapshots of the InfluxDB Catalog that
+InfluxDB Clustered automatically stores snapshots of the InfluxDB Catalog store that
 you can use to restore your cluster to a previous state. The snapshotting
 functionality is optional and is disabled by default.
 Enable snapshots to ensure you can recover
 in case of emergency.
 
 With InfluxDB Clustered snapshots enabled, each hour, InfluxDB uses the `pg_dump`
-utility included with the InfluxDB Garbage Collector to export an SQL blob or
-“snapshot” from the InfluxDB Catalog and store it in the object store.
-The Catalog is a PostgreSQL-compatible relational database that stores metadata
+utility included with the InfluxDB Garbage collector to export an SQL blob or
+“snapshot” from the InfluxDB Catalog store to the Object store.
+The Catalog store is a PostgreSQL-compatible relational database that stores metadata
 for your time series data, such as schema data types, Parquet file locations, and more.
 
-The Catalog snapshots act as recovery points for your InfluxDB cluster that
-reference all Parquet files that existed in the object store at the time of the
-snapshot. When a snapshot is restored to the Catalog, the Compactor
+The Catalog store snapshots act as recovery points for your InfluxDB cluster that
+reference all Parquet files that existed in the Object store at the time of the
+snapshot. When a snapshot is restored to the Catalog store, the Compactor
 “[soft deletes](#soft-delete)” any Parquet files not listed in the snapshot.
 
 > [!Note]
@@ -34,7 +34,7 @@ snapshot. When a snapshot is restored to the Catalog, the Compactor
 > 
 > For example, if you have Parquet files A, B, C, and D, and you restore to a
 > snapshot that includes B and C, but not A and D, then A and D are soft-deleted, but remain in object
-> storage until they are no longer referenced in any Catalog snapshot.
+> storage until they are no longer referenced in any Catalog store snapshot.
 - [Soft delete](#soft-delete)
 - [Hard delete](#hard-delete)
 - [Recovery Point Objective (RPO)](#recovery-point-objective-rpo)
@@ -55,7 +55,12 @@ snapshot. When a snapshot is restored to the Catalog, the Compactor
 A _soft delete_ refers to when, on compaction, the Compactor sets a `deleted_at`
 timestamp on the Parquet file entry in the Catalog.
 The Parquet file is no
-longer queryable, but remains intact in the object store. 
+longer queryable, but remains intact in the object store.
+
+> [!Note]
+> Soft deletes are a mechanism of the {{% product-name %}} Catalog, not of the
+> underlying object storage provider. Soft deletes do not modify objects in the
+> object store; only Catalog entries that reference objects in the object store.
 
 ## Hard delete
 
@@ -75,8 +80,8 @@ The InfluxDB Clustered snapshot strategy RPO allows for the following maximum da
  ## Recovery Time Objective (RTO)
 
 RTO is the maximum amount of downtime allowed for an InfluxDB cluster after a failure.
-RTO varies depending on the size of your Catalog database, network speeds
-between the client machine and the Catalog database, cluster load, the status
+RTO varies depending on the size of your Catalog store, network speeds
+between the client machine and the Catalog store, cluster load, the status
 of your underlying hosting provider, and other factors.
 
 ## Data written just before a snapshot may not be present after restoring
@@ -94,14 +99,14 @@ present after restoring to that snapshot.
 ### Automate object synchronization to an external S3-compatible bucket
 
 Syncing objects to an external S3-compatible bucket ensures an up-to-date backup
-in case your object store becomes unavailable. Recovery point snapshots only
-back up the InfluxDB Catalog. If data referenced in a Catalog snapshot does not
-exist in the object store, the recovery process does not restore the missing data.
+in case your Object store becomes unavailable. Recovery point snapshots only
+back up the InfluxDB Catalog store. If data referenced in a Catalog store snapshot does not
+exist in the Object store, the recovery process does not restore the missing data.
 
 ### Enable short-term object versioning
 
 If your object storage provider supports it, consider enabling short-term
-object versioning on your object store--for example, 1-2 days to protect against errant writes or deleted objects.
+object versioning on your Object store--for example, 1-2 days to protect against errant writes or deleted objects.
 With object versioning enabled, as objects are updated, the object store
 retains distinct versions of each update that can be used to “rollback” newly
 written or updated Parquet files to previous versions.
@@ -140,7 +145,7 @@ spec:
 
 #### INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES
 
-Enable hourly Catalog snapshotting. The default is `'false'`. Set to `'true'`:
+Enable hourly Catalog store snapshotting. The default is `'false'`. Set to `'true'`:
 
 ```yaml
 INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: 'true'
@@ -217,22 +222,29 @@ written on or around the beginning of the next hour.
 ## Restore to a recovery point
 
 Use the following process to restore your InfluxDB cluster to a recovery point
-using Catalog snapshots:
+using Catalog store snapshots:
+
+> [!Warning]
+> 
+> #### Use the same InfluxDB Clustered version used to generate the snapshot
+>
+> When restoring an InfluxDB cluster to a recovery point, use the same version
+> of InfluxDB Clustered used to generate the Catalog store snapshot.
+> You may need to [downgrade to a previous version](/influxdb3/clustered/admin/upgrade/)
+> before restoring.
 
 1.  **Install prerequisites:**  
 
     - `kubectl` CLI for managing your Kubernetes deployment.  
-    - `psql` CLI to interact with the PostgreSQL-compatible Catalog database with
-      the appropriate Data Source Name (DSN) and connection credentials.  
-    - A client to interact with your InfluxDB cluster’s object store.
-      Supported clients depend on your object storage provider.
+    - `psql` CLI configured with your Data Source Name and credentials for interacting with the PostgreSQL-compatible Catalog store database.
+    - A client from your object storage provider for interacting with your InfluxDB cluster's Object store.
 
 2.  **Retrieve the recovery point snapshot from your object store.**
 
     InfluxDB Clustered stores hourly and daily snapshots in the
     `/catalog_backup_file_lists` path in object storage. Download the snapshot
-    that you would like to use as the recovery point. If your primary object
-    store is unavailable, download the snapshot from your replicated object store.
+    that you would like to use as the recovery point. If your primary Object
+    store is unavailable, download the snapshot from your replicated Object store.
 
     > [!Important]
     > When creating and storing a snapshot, the last artifact created is the
@@ -275,7 +287,8 @@ using Catalog snapshots:
         metadata:
           name: influxdb
           namespace: influxdb
-        pause: true
+        spec:
+          pause: true
         # ...
         ```
 
@@ -333,7 +346,8 @@ using Catalog snapshots:
         metadata:
           name: influxdb
           namespace: influxdb
-        pause: false
+        spec:
+          pause: false
         # ...
         ```
 
@@ -350,8 +364,6 @@ using Catalog snapshots:
 Your InfluxDB cluster is now restored to the recovery point.
 When the Garbage Collector runs, it identifies what Parquet files are not
 associated with the recovery point and [soft deletes](#soft-delete) them.
-
-
 
 ## Resources
 

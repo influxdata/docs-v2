@@ -1,0 +1,16 @@
+plugins:
+  - '../../openapi/plugins/docs-plugin.cjs'
+extends:
+  - recommended
+  - docs/all
+x-influxdata-product-name: InfluxDB 3 Enterprise 
+
+apis:
+  v3@3:
+    root: v3/ref.yml
+    x-influxdata-docs-aliases:
+      - /influxdb3/enterprise/api/
+      - /influxdb3/enterprise/api/v1/
+      - /influxdb3/enterprise/v2/
+      - /influxdb3/enterprise/v1-compatibility
+      - /influxdb3/enterprise/v2-compatibility

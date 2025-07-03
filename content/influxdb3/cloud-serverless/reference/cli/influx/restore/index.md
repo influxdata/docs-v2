@@ -11,14 +11,15 @@ related:
   - /influxdb3/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
 metadata: [influx CLI 2.0.0+]
 updated_in: CLI v2.0.7
+prepend: |
+  > [!Note]
+  > #### Works with InfluxDB OSS 2.x
+  > 
+  > The `influx restore` command works with **InfluxDB OSS 2.x**, but does not work with **InfluxDB Cloud**.
+  > For information about restoring data in InfluxDB Cloud, see
+  > [InfluxDB Cloud durability](/influxdb3/cloud-serverless/reference/internals/durability/).
+source: /shared/influxdb-v2/reference/cli/influx/restore/index.md
 ---
 
-{{% note %}}
-#### Works with InfluxDB OSS 2.x
-
-The `influx restore` command works with **InfluxDB OSS 2.x**, but does not work with **InfluxDB Cloud**.
-For information about restoring data in InfluxDB Cloud, see
-[InfluxDB Cloud durability](/influxdb3/cloud-serverless/reference/internals/durability/).
-{{% /note %}}
-
-{{< duplicate-oss >}}
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/restore/index.md -->

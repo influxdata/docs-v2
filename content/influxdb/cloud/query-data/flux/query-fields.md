@@ -20,6 +20,8 @@ list_code_example: |
       |> range(start: -1h)
       |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field" and r.tag == "example-tag")
   ```
+source: /shared/influxdb-v2/query-data/flux/query-fields.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/query-fields.md-->

@@ -11,7 +11,7 @@ weight: 205
 related:
   - /influxdb3/enterprise/reference/sql/subqueries/
 
-source: /content/shared/sql-reference/having.md
+source: /shared/sql-reference/having.md
 ---
 
 <!-- 

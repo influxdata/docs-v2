@@ -11,10 +11,8 @@ menu:
     params:
       url: https://github.com/influxdata/influxdb-client-java/tree/master/client-kotlin
 weight: 201
+source: /shared/influxdb-v2/api-guide/client-libraries/kotlin.md
 ---
 
-Kotlin is an open source programming language that runs on the Java Virtual Machine (JVM).
-
-The documentation for this client library is available on GitHub.  
-
-<a href="https://github.com/influxdata/influxdb-client-java/tree/master/client-kotlin" target="_blank" class="btn github">Kotlin InfluxDB client</a>
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/kotlin.md -->

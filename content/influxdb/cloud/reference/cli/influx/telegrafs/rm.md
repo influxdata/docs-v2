@@ -7,6 +7,8 @@ menu:
     name: influx telegrafs rm
     parent: influx telegrafs
 weight: 201
+source: /shared/influxdb-v2/reference/cli/influx/telegrafs/rm.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/telegrafs/rm.md-->

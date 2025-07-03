@@ -17,6 +17,8 @@ related:
   - /influxdb/cloud/process-data/get-started/
   - /flux/v0/get-started/
   - /flux/v0/stdlib/
+source: /shared/influxdb-v2/get-started/process.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/get-started/process.md-->

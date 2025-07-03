@@ -15,6 +15,9 @@ related:
   - /influxdb/cloud/reference/internals
   - /influxdb/cloud/reference/cli/influx/write
   - influxdb/cloud/account-management/limits
+source: /shared/influxdb-v2/write-data/troubleshoot.md
 ---
 
-{{% duplicate-oss %}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/write-data/troubleshoot.md
+-->

@@ -7,6 +7,8 @@ menu:
     name: influx auth active
     parent: influx auth
 weight: 201
+source: /shared/influxdb-v2/reference/cli/influx/auth/active.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/auth/active.md-->

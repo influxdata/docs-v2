@@ -15,6 +15,8 @@ related:
   - /flux/v0/stdlib/experimental/prometheus/scrape/
   - /flux/v0/prometheus/metric-types/
 influxdb/cloud/tags: [prometheus]
+source: /shared/influxdb-v2/write-data/developer-tools/scrape-prometheus-metrics.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/write-data/developer-tools/scrape-prometheus-metrics.md-->

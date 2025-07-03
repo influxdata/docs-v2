@@ -33,21 +33,19 @@ Use these tips to optimize performance and system overhead when writing data to 
   - [Avoid sending duplicate data](#avoid-sending-duplicate-data)
   - [Run custom preprocessing code](#run-custom-preprocessing-code)
 
-{{% note %}}
-The following tools write to InfluxDB and employ _most_ write optimizations by default:
-
-- [Telegraf](/influxdb3/cloud-dedicated/write-data/use-telegraf/)
-- [InfluxDB client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/)
-{{% /note %}}
+> [!Note]
+> The following tools write to InfluxDB and employ _most_ write optimizations by default:
+> 
+> - [Telegraf](/influxdb3/cloud-dedicated/write-data/use-telegraf/)
+> - [InfluxDB client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/)
 
 ## Batch writes
 
 Write data in batches to minimize network overhead when writing data to InfluxDB.
 
-{{% note %}}
-The optimal batch size is 10,000 lines of line protocol or 10 MBs,
-whichever threshold is met first.
-{{% /note %}}
+> [!Note]
+> The optimal batch size is 10,000 lines of line protocol or 10 MBs,
+> whichever threshold is met first.
 
 ## Sort tags by key
 

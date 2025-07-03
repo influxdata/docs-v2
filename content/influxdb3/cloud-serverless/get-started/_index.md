@@ -112,12 +112,9 @@ This tutorial covers many of the recommended tools.
 
 {{< req type="key" text="Covered in this tutorial" color="magenta" >}}
 
-{{% warn %}}
-
-The `influxctl` admin CLI isn't available for {{% product-name %}}.
-It only works with InfluxDB Cloud Dedicated and InfluxDB Clustered.
-
-{{% /warn %}}
+> [!Warning]
+> The `influxctl` admin CLI isn't available for {{% product-name %}}.
+> It only works with InfluxDB Cloud Dedicated and InfluxDB Clustered.
 
 ### InfluxDB user interface
 

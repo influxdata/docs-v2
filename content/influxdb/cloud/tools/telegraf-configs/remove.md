@@ -14,6 +14,8 @@ aliases:
   - /influxdb/cloud/telegraf-configs/remove/
 # alt_links:
 #   cloud-serverless: /influxdb3/cloud-serverless/write-data/use-telegraf/telegraf-configs/remove/
+source: /shared/influxdb-v2/tools/telegraf-configs/remove.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/telegraf-configs/remove.md-->

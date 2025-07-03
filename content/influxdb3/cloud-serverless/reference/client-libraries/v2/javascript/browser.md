@@ -16,17 +16,16 @@ aliases:
 related:
   - /influxdb3/cloud-serverless/reference/client-libraries/v2/javascript/nodejs/write/
   - /influxdb3/cloud-serverless/api-guide/client-libraries/nodejs/query/
-prepend:
-  block: warn
-  content: |
-    ### Use InfluxDB 3 clients
-
-    The `/api/v2/query` API endpoint and associated tooling, such as InfluxDB v2 client libraries and the `influx` CLI, **can't** query an {{% product-name omit=" Clustered" %}} cluster.
-
-    [InfluxDB 3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/) and [Flight SQL clients](/influxdb3/cloud-serverless/reference/client-libraries/) are available that integrate with your code to write and query data stored in {{% product-name %}}.
-
-    InfluxDB 3 supports many different tools for [**writing**](/influxdb3/cloud-serverless/write-data/) and [**querying**](/influxdb3/cloud-serverless/query-data/) data.
-    [**Compare tools you can use**](/influxdb3/cloud-serverless/get-started/#tools-to-use) to interact with {{% product-name %}}.
+prepend: |
+  > [!Warning]
+  > ### Use InfluxDB 3 clients
+  > 
+  > The `/api/v2/query` API endpoint and associated tooling, such as InfluxDB v2 client libraries and the `influx` CLI, **can't** query an {{% product-name omit=" Clustered" %}} cluster.
+  > 
+  > [InfluxDB 3 client libraries](/influxdb3/{{% product-key %}}/client-libraries/v3/) are available that integrate with your code to write and query data stored in {{% product-name %}}.
+  > 
+  > InfluxDB 3 supports many different tools for [**writing**](/influxdb3/cloud-serverless/write-data/) and [**querying**](/influxdb3/cloud-serverless/query-data/) data.
+  > [**Compare tools you can use**](/influxdb3/cloud-serverless/get-started/#tools-to-use) to interact with {{% product-name %}}.
 ---
 
 Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) in browsers and front-end clients to write data to an {{% product-name %}} bucket.
@@ -39,10 +38,10 @@ This library supports both front-end and server-side environments and provides t
 This guide presumes some familiarity with JavaScript, browser environments, and InfluxDB.
 If you're just getting started with InfluxDB, see [Get started with InfluxDB](/influxdb/v2/get-started/).
 
-{{% warn %}}
-### Tokens in production applications
-{{% api/browser-token-warning %}}
-{{% /warn %}}
+> [!Warning]
+> ### Tokens in production applications
+>
+> {{% api/browser-token-warning %}}
 
 * [Before you begin](#before-you-begin)
 * [Use with module bundlers](#use-with-module-bundlers)

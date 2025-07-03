@@ -7,19 +7,8 @@ menu:
     parent: influx
 weight: 202
 metadata: [influx CLI 2.0.0+]
+source: /shared/influxdb-v2/reference/cli/influx/version/_index.md
 ---
 
-The `influx version` command outputs the current version of the `influx`
-command line interface (CLI).
-
-## Usage
-
-```
-influx version [flags]
-```
-
-## Flags
-
-| Flag |          | Description                    |
-| :--- | :------- | :----------------------------- |
-| `-h` | `--help` | Help for the `version` command |
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/version/_index.md -->

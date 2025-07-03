@@ -11,6 +11,8 @@ weight: 201
 aliases:
   - /influxdb/cloud/reference/api/client-libraries/js/query
   - /influxdb/cloud/reference/api/client-libraries/nodejs/query
+source: /shared/influxdb-v2/api-guide/client-libraries/nodejs/query.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/nodejs/query.md-->

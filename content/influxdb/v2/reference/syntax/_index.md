@@ -9,11 +9,8 @@ menu:
     name: Syntax
     parent: Reference
 influxdb/v2/tags: [syntax]
+source: /shared/influxdb-v2/reference/syntax/_index.md
 ---
 
-InfluxDB uses a handful of languages and syntaxes to perform tasks such as
-writing, querying, processing, and deleting data.
-The following articles provide information about the different syntaxes used with
-InfluxDB and the contexts in which they're used:
-
-{{< children >}}
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/reference/syntax/_index.md -->

@@ -38,33 +38,58 @@
       />{{/unless}}
     {{{redocHead}}}
     <link rel="stylesheet" type="text/css" href="/api.css" />
-    <script type="text/javascript"
-      async="true"
-      src="https://widget.kapa.ai/kapa-widget.bundle.js"
-      data-website-id="a02bca75-1dd3-411e-95c0-79ee1139be4d"
-      data-project-name="InfluxDB"
-      data-project-color="#d30971"
-      data-project-logo="/img/influx-logo-cubo-white.png"
-      data-modal-disclaimer="This AI can access [documentation for InfluxDB, clients, and related tools](https://docs.influxdata.com). Information you submit is used in accordance with our [Privacy Policy](https://www.influxdata.com/legal/privacy-policy/)."
-      data-modal-example-questions="How do I write and query data with the {{title}}?, How do I use client libraries for the {{title}}?" data-button-height="65px" data-button-width="65px"
-      data-button-text="Ask AI" data-conversation-button-icons-only="true"
-      data-font-family="Proxima Nova, sans-serif"
-      data-modal-example-questions-col-span="8"
-      data-modal-full-screen-on-mobile="true"
-      data-modal-header-bg-color="#d30971"
-      data-modal-header-border-bottom="none" data-modal-header-padding=".5rem"
-      data-modal-header-text-color="#ffffff" data-modal-x-offset="0"
-      data-modal-y-offset="0" data-modal-with-overlay="false"
-      data-modal-inner-flex-direction="column"
-      data-modal-inner-justify-content="end" data-modal-inner-max-width="600px"
-      data-modal-inner-position-left="auto"
-      data-modal-inner-position-right="20px"
-      data-modal-inner-position-bottom="calc(2.5rem + 25px)"
-      data-modal-size="640px"
-      data-modal-title-color="#fff"
-      data-modal-title-font-size="1.25rem"
-      data-modal-lock-scroll="false" ></script>
-  </head>
+    <script>
+      // Load Kapa AI widget after DOM content is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+      const askAI = document.createElement('script');
+      askAI.type = 'text/javascript';
+      askAI.async = true;
+      askAI.src = 'https://widget.kapa.ai/kapa-widget.bundle.js';
+      
+      // Set all data attributes
+      askAI.setAttribute('data-website-id', 'a02bca75-1dd3-411e-95c0-79ee1139be4d');
+      askAI.setAttribute('data-project-name', 'InfluxDB');
+      askAI.setAttribute('data-project-color', '#d30971');
+      askAI.setAttribute('data-project-logo', '/img/influx-logo-cubo-white.png');
+      askAI.setAttribute('data-modal-disclaimer', 'This AI can access [documentation for InfluxDB, clients, and related tools](https://docs.influxdata.com). Information you submit is used in accordance with our [Privacy Policy](https://www.influxdata.com/legal/privacy-policy/).');
+      askAI.setAttribute('data-modal-example-questions', 'How do I write and query data with the {{title}}?, How do I use client libraries for the {{title}}?');
+      askAI.setAttribute('data-button-height', '65px');
+      askAI.setAttribute('data-button-width', '65px');
+      if (window.matchMedia('(max-width: 800px)').matches) {
+        // For mobile devices (smaller than 600px)
+        askAI.setAttribute('data-button-position-bottom', '130px');
+      } else {
+        // For larger screens
+        askAI.setAttribute('data-button-position-bottom', '20px');
+      }
+      askAI.setAttribute('data-button-text', 'Ask AI');
+      askAI.setAttribute('data-conversation-button-icons-only', 'true');
+      askAI.setAttribute('data-font-family', 'Proxima Nova, sans-serif');
+      askAI.setAttribute('data-modal-example-questions-col-span', '8');
+      askAI.setAttribute('data-modal-full-screen-on-mobile', 'true');
+      askAI.setAttribute('data-modal-header-bg-color', '#d30971');
+      askAI.setAttribute('data-modal-header-border-bottom', 'none');
+      askAI.setAttribute('data-modal-header-padding', '.5rem');
+      askAI.setAttribute('data-modal-header-text-color', '#ffffff');
+      askAI.setAttribute('data-modal-x-offset', '0');
+      askAI.setAttribute('data-modal-y-offset', '0');
+      askAI.setAttribute('data-modal-with-overlay', 'false');
+      askAI.setAttribute('data-modal-inner-flex-direction', 'column');
+      askAI.setAttribute('data-modal-inner-justify-content', 'end');
+      askAI.setAttribute('data-modal-inner-max-width', '600px');
+      askAI.setAttribute('data-modal-inner-position-left', 'auto');
+      askAI.setAttribute('data-modal-inner-position-right', '50px');
+      askAI.setAttribute('data-modal-inner-position-bottom', 'calc(2.5rem + 25px)');
+      askAI.setAttribute('data-modal-size', '640px');
+      askAI.setAttribute('data-modal-title-color', '#fff');
+      askAI.setAttribute('data-modal-title-font-size', '1.25rem');
+      askAI.setAttribute('data-modal-lock-scroll', 'false');
+      
+      // Add the script to the document head
+      document.head.appendChild(askAI);
+      });
+    </script>
+    </head>
 
   <body>
     {{! <script>

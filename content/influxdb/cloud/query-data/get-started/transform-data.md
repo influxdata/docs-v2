@@ -10,6 +10,8 @@ weight: 202
 related:
   - /flux/v0/stdlib/universe/aggregatewindow
   - /flux/v0/stdlib/universe/window
+source: /shared/influxdb-v2/query-data/get-started/transform-data.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/get-started/transform-data.md-->

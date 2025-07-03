@@ -153,6 +153,8 @@ To configure InfluxDB, use the following configuration options when starting the
 - [nats-max-payload-bytes](#nats-max-payload-bytes) <em style="opacity:.65">- (deprecated)</em>
 - [nats-port](#nats-port) <em style="opacity:.65">- (deprecated)</em>
 - [no-tasks](#no-tasks)
+- [overwrite-pid-file](#overwrite-pid-file)
+- [pid-file](#pid-file)
 - [pprof-disabled](#pprof-disabled)
 - [query-concurrency](#query-concurrency)
 - [query-initial-memory-bytes](#query-initial-memory-bytes)
@@ -1326,6 +1328,104 @@ no-tasks = true
 ```json
 {
   "no-tasks": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### overwrite-pid-file
+Overwrite the PID file specified by [pid-file](#pid-file) if it exists, instead of exiting with an error.
+
+**Default:** `false`
+
+| influxd flag           | Environment variable         | Configuration key    |
+| :--------------------- | :--------------------------- | :------------------- |
+| `--overwrite-pid-file` | `INFLUXD_OVERWRITE_PID_FILE` | `overwrite-pid-file` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --overwrite-pid-file
+```
+
+###### Environment variable
+```sh
+export INFLUXD_OVERWRITE_PID_FILE=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+overwrite-pid-file: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+overwrite-pid-file = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "overwrite-pid-file": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### pid-file
+Write the PID file to the specified path and remove it when InfluxDB stops.
+
+**Default:** ``
+
+| influxd flag | Environment variable | Configuration key |
+|------------- | :------------------- | :---------------- |
+| `--pid-file` | `INFLUXD_PID_FILE`   | `pid-file`        |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --pid-file /path/to/pid-file
+```
+
+###### Environment variable
+```sh
+export INFLUXD_PID_FILE=/path/to/pid-file
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+pid-file: /path/to/pid-file
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+pid-file = "/path/to/pid-file"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "pid-file": "/path/to/pid-file"
 }
 ```
 {{% /code-tab-content %}}
@@ -2637,6 +2737,61 @@ storage-validate-keys = true
 ```json
 {
   "storage-validate-keys": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-wal-flush-on-shutdown
+Flush the WAL on shutdown.
+
+**Default:** `false`
+
+| influxd flag                    | Environment variable                  | Configuration key             |
+| :------------------------------ | :------------------------------------ | :---------------------------- |
+| `--storage-wal-flush-on-shutdown` | `INFLUXD_STORAGE_WAL_FLUSH_ON_SHUTDOWN` | `storage-wal-flush-on-shutdown` |
+
+If set, `influxd` flushes or snapshots all WALs prior to completing shutdown--`influxd` performs cache snapshots on shutdown, which
+results in the WAL files being written to TSM files and then deleted.
+
+This is useful in upgrade and downgrade scenarios to prevent WAL format
+compatibility issues.
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --storage-wal-flush-on-shutdown
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_WAL_FLUSH_ON_SHUTDOWN=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-wal-flush-on-shutdown: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-wal-flush-on-shutdown = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-wal-flush-on-shutdown": true
 }
 ```
 {{% /code-tab-content %}}

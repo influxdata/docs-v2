@@ -54,12 +54,11 @@ installation procedure, is referred to as the _target_ namespace.
 For simplicity, we assume this namespace is `influxdb`, however
 you may use any name you like.
 
-{{% note %}}
-#### Set namespaceOverride if using a namespace other than influxdb
-
-If you use a namespace name other than `influxdb`, update the `namespaceOverride`
-field in your `values.yaml` to use your custom namespace name.
-{{% /note %}}
+> [!Note]
+> #### Set namespaceOverride if using a namespace other than influxdb
+> 
+> If you use a namespace name other than `influxdb`, update the `namespaceOverride`
+> field in your `values.yaml` to use your custom namespace name.
 
 ### AppInstance resource
 
@@ -86,15 +85,14 @@ which simplifies the installation and management of the InfluxDB Clustered packa
 It manages the application of the jsonnet templates used to install, manage, and
 update an InfluxDB cluster.
 
-{{% note %}}
-If you already installed the `kubecfg kubit` operator separately when
-[setting up prerequisites](/influxdb3/clustered/install/set-up-cluster/prerequisites/#install-the-kubecfg-kubit-operator)
-for your cluster, in your `values.yaml`, set `skipOperator` to `true`.
-
-```yaml
-skipOperator: true
-```
-{{% /note %}}
+> [!Note]
+> If you already installed the `kubecfg kubit` operator separately when
+> [setting up prerequisites](/influxdb3/clustered/install/set-up-cluster/prerequisites/#install-the-kubecfg-kubit-operator)
+> for your cluster, in your `values.yaml`, set `skipOperator` to `true`.
+> 
+> ```yaml
+> skipOperator: true
+> ```
 
 ## Configure your cluster
 
@@ -351,13 +349,12 @@ To configure ingress, provide values for the following fields in your
   requests for all listed hostnames. This can be useful if you want to have
   distinct paths for your internal and external traffic._
 
-  {{% note %}}
-You are responsible for configuring and managing DNS. Options include:
-
-- Manually managing DNS records
-- Using [external-dns](https://github.com/kubernetes-sigs/external-dns) to
-  synchronize exposed Kubernetes services and ingresses with DNS providers.
-  {{% /note %}}
+  > [!Note]
+  > You are responsible for configuring and managing DNS. Options include:
+  > 
+  > - Manually managing DNS records
+  > - Using [external-dns](https://github.com/kubernetes-sigs/external-dns) to
+  >   synchronize exposed Kubernetes services and ingresses with DNS providers.
 
 - **`ingress.tlsSecretName`: TLS certificate secret name**
 
@@ -367,12 +364,11 @@ You are responsible for configuring and managing DNS. Options include:
   _The `tlsSecretName` field is optional. You may want to use it if you already
   have a TLS certificate for your DNS name._
 
-  {{% note %}}
-Writing to and querying data from InfluxDB does not require TLS.
-For simplicity, you can wait to enable TLS before moving into production.
-For more information, see Phase 4 of the InfluxDB Clustered installation
-process, [Secure your cluster](/influxdb3/clustered/install/secure-cluster/).
-  {{% /note %}}
+  > [!Note]
+  > Writing to and querying data from InfluxDB does not require TLS.
+  > For simplicity, you can wait to enable TLS before moving into production.
+  > For more information, see Phase 4 of the InfluxDB Clustered installation
+  > process, [Secure your cluster](/influxdb3/clustered/install/secure-cluster/).
 
  {{% code-callout "ingress-tls|cluster-host\.com" "green" %}}
 
@@ -572,10 +568,9 @@ metadata about your time series data.
 To connect your InfluxDB cluster to your PostgreSQL-compatible database,
 provide values for the following fields in your `values.yaml`:
 
-{{% note %}}
-We recommend storing sensitive credentials, such as your PostgreSQL-compatible DSN,
-as secrets in your Kubernetes cluster.
-{{% /note %}}
+> [!Note]
+> We recommend storing sensitive credentials, such as your PostgreSQL-compatible DSN,
+> as secrets in your Kubernetes cluster.
 
 - `catalog.dsn`
   - `SecretName`: Secret name
@@ -607,22 +602,25 @@ Replace the following:
 
 ---
 
-{{% warn %}}
-##### Percent-encode special symbols in PostgreSQL DSNs
-
-Special symbols in PostgreSQL DSNs should be percent-encoded to ensure they
-are parsed correctly by InfluxDB Clustered. This is important to consider when
-using DSNs containing auto-generated passwords which may include special
-symbols to make passwords more secure.
-
-A DSN with special characters that are not percent-encoded result in an error
-similar to:
-
-```txt
-Catalog DSN error: A catalog error occurred: unhandled external error: error with configuration: invalid port number
-```
-
-{{< expand-wrapper >}}
+> [!Warning]
+>
+> ##### Percent-encode special symbols in PostgreSQL DSNs
+> 
+> Special symbols in PostgreSQL DSNs should be percent-encoded to ensure they
+> are parsed correctly by InfluxDB Clustered. This is important to consider when
+> using DSNs containing auto-generated passwords which may include special
+> symbols to make passwords more secure.
+> 
+> A DSN with special characters that are not percent-encoded result in an error
+> similar to:
+> 
+> ```txt
+> Catalog DSN error: A catalog error occurred: unhandled external error: error with configuration: invalid port number
+> ```
+> 
+> For more information, see the [PostgreSQL Connection URI docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS).
+>
+> {{< expand-wrapper >}}
 {{% expand "View percent-encoded DSN example" %}}
 To use the following DSN containing special characters:
 
@@ -643,25 +641,18 @@ postgresql://postgres:meow%23meow@my-fancy.cloud-database.party:5432/postgres
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-For more information, see the [PostgreSQL Connection URI
-docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS).
-{{% /warn %}}
-
-{{% note %}}
-
-##### PostgreSQL instances without TLS or SSL
-
-If your PostgreSQL-compatible instance runs without TLS or SSL, you must include
-the `sslmode=disable` parameter in the DSN. For example:
-
-{{% code-callout "sslmode=disable" %}}
-
+> [!Note]
+> 
+> ##### PostgreSQL instances without TLS or SSL
+> 
+> If your PostgreSQL-compatible instance runs without TLS or SSL, you must include
+> the `sslmode=disable` parameter in the DSN. For example:
+> 
+> {{% code-callout "sslmode=disable" %}}
 ```
 postgres://username:passw0rd@mydomain:5432/influxdb?sslmode=disable
 ```
-
 {{% /code-callout %}}
-{{% /note %}}
 
 #### Configure local storage for ingesters
 

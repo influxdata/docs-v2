@@ -11,6 +11,8 @@ list_code_example: |
   ```sql
   SELECT_clause FROM ( SELECT_statement ) [...]
   ```
+source: /shared/influxdb-v2/query-data/influxql/explore-data/subqueries.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/influxql/explore-data/subqueries.md-->

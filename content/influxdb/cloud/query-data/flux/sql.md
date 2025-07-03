@@ -24,6 +24,8 @@ list_code_example: |
       query: "SELECT * FROM example_table",
   )
   ```
+source: /shared/influxdb-v2/query-data/flux/sql.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/sql.md-->

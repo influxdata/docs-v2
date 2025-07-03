@@ -1,0 +1,22 @@
+---
+description: "Telegraf plugin for transforming metrics using {{.Name}}"
+menu:
+  telegraf_v1_ref:
+    parent: processor_plugins_reference
+    name: {{.Name}}
+    identifier: processor-{{.ID}}
+tags: [{{.Name}}, "processor-plugins", "configuration"{{range .Tags}}, "{{.}}"{{end}}]
+introduced: "{{.Introduced}}"
+{{- with .Deprecated}}
+deprecated: {{.}}
+{{- end}}
+{{- with .Removal}}
+removal: {{.}}
+{{- end}}
+os_support: "{{.OSTags | join ", "}}"
+related:
+  - /telegraf/v1/configure_plugins/
+  - {{.URL}}, {{.Name}} Plugin Source
+---
+
+{{.Readme}}

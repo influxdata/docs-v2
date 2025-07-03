@@ -25,13 +25,12 @@ influxctl token update \
   <TOKEN_ID>
 ```
 
-{{% note %}}
-#### Existing permissions are replaced on update
-
-When updating token permissions, the existing permissions are replaced by the
-new permissions specified in the update command.
-To retain existing permissions, include them in the update command.
-{{% /note %}}
+> [!Note]
+> #### Existing permissions are replaced on update
+> 
+> When updating token permissions, the existing permissions are replaced by the
+> new permissions specified in the update command.
+> To retain existing permissions, include them in the update command.
 
 ## Arguments
 

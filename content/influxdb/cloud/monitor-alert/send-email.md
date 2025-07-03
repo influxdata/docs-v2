@@ -9,6 +9,8 @@ weight: 104
 influxdb/cloud/tags: [alert, email, notifications, check]
 related:
   - /influxdb/cloud/monitor-alert/checks/
+source: /shared/influxdb-v2/monitor-alert/send-email.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/monitor-alert/send-email.md-->

@@ -164,10 +164,9 @@ in your `WHERE` clause.
 If a time range is not defined in the `WHERE` clause,
 the default time range is the Unix epoch (`1970-01-01T00:00:00Z`) to _now_.
 
-{{% warn %}}
-Querying data _without time bounds_ can return an unexpected amount of data.
-The query may take a long time to complete and results may be truncated.
-{{% /warn %}}
+> [!Warning]
+> Querying data _without time bounds_ can return an unexpected amount of data.
+> The query may take a long time to complete and results may be truncated.
 
 ```sql
 SELECT * FROM home
@@ -222,9 +221,8 @@ spaces or special characters)--for example:
 SELECT temp AS temperature, hum AS "humidity (%)" FROM home
 ```
 
-{{% note %}}
-When aliasing columns in **InfluxQL**, use the `AS` clause and an
-[identifier](/influxdb3/version/reference/influxql/#identifiers). When
-[aliasing columns in **SQL**](/influxdb3/version/query-data/sql/basic-query/#alias-queried-fields-and-tags),
-you can use the `AS` clause to define the alias, but it isn't necessary.
-{{% /note %}}
+> [!Note]
+> When aliasing columns in **InfluxQL**, use the `AS` clause and an
+> [identifier](/influxdb3/version/reference/influxql/#identifiers). When
+> [aliasing columns in **SQL**](/influxdb3/version/query-data/sql/basic-query/#alias-queried-fields-and-tags),
+> you can use the `AS` clause to define the alias, but it isn't necessary.

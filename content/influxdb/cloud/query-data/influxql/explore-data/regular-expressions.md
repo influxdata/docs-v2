@@ -13,6 +13,8 @@ list_code_example: |
   ```sql
   SELECT /<regular_expression_field_key>/ FROM /<regular_expression_measurement>/ WHERE [<tag_key> <operator> /<regular_expression_tag_value>/ | <field_key> <operator> /<regular_expression_field_value>/] GROUP BY /<regular_expression_tag_key>/
   ```
+source: /shared/influxdb-v2/query-data/influxql/explore-data/regular-expressions.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/influxql/explore-data/regular-expressions.md-->

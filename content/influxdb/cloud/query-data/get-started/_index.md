@@ -15,6 +15,8 @@ related:
   - /flux/v0/get-started/
   - /flux/v0/
   - /flux/v0/stdlib/
+source: /shared/influxdb-v2/query-data/get-started/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/get-started/_index.md-->

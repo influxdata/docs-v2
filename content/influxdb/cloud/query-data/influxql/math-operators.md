@@ -8,6 +8,8 @@ menu:
     parent: Query with InfluxQL
     identifier: influxql-mathematical-operators
 weight: 209
+source: /shared/influxdb-v2/query-data/influxql/math-operators.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/influxql/math-operators.md-->

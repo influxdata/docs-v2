@@ -18,6 +18,8 @@ related:
   - /influxdb/cloud/reference/syntax/line-protocol
 aliases:
   - /influxdb/cloud/reference/api/influxdb-1x/write/
+source: /shared/influxdb-v2/api-guide/influxdb-1x/write.md
 ---
 
-{{% duplicate-oss %}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/influxdb-1x/write.md-->

@@ -68,11 +68,7 @@ When creating an InfluxDB data source that uses SQL to query data:
 2.  Under **InfluxDB Details**:
 
     - **Database**: Provide a default database name to query.
-    - **Token**: Provide an arbitrary string.
-
-      > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization token.
-
+    - **Token**: Provide an arbitrary, non-empty string.
     - **Insecure Connection**: If _not_ using HTTPS, enable this option.
 
 3.  Click **Save & test**.
@@ -100,15 +96,10 @@ When creating an InfluxDB data source that uses InfluxQL to query data:
     - **User**: Provide an arbitrary string.
       _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
     - **Password**: Provide an arbitrary string.
-
-      > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization
-      > token, but the **Password** field does require a value.
-
     - **HTTP Method**: Choose one of the available HTTP request methods to use when querying data:
 
-        - **POST** ({{< req text="Recommended" >}})
-        - **GET**
+      - **POST** ({{< req text="Recommended" >}})
+      - **GET**
 
 3.  Click **Save & test**.
 
@@ -131,14 +122,14 @@ use Grafana to build, run, and inspect queries against {{< product-name >}}.
 {{% tab-content %}}
 <!--------------------------------- BEGIN SQL --------------------------------->
 
-{{% note %}}
-{{% sql/sql-schema-intro %}}
-To learn more, see [Query Data](/influxdb3/version/query-data/sql/).
-{{% /note %}}
+> [!Note]
+> {{% sql/sql-schema-intro %}}
+> To learn more, see [Query Data](/influxdb3/version/query-data/sql/).
 
-1. Click **Explore**.
-2. In the dropdown, select the saved InfluxDB data source to query.
-3. Use the SQL query form to build your query:
+1.  Click **Explore**.
+2.  In the dropdown, select the saved InfluxDB data source to query.
+3.  Use the SQL query form to build your query:
+
     - **Table**: Select the measurement to query.
     - **Column**: Select one or more fields and tags to return as columns in query results.
       
@@ -162,7 +153,8 @@ To learn more, see [Query Data](/influxdb3/version/query-data/sql/).
         You can sort by time and multiple fields or tags.
         To sort in descending order, select **DESC**.
 
-4. {{< req text="Recommended" color="green" >}}: Change format to **Time series**.
+4.  {{< req text="Recommended" color="green" >}}: Change format to **Time series**.
+
     - Use the **Format** dropdown to change the format of the query results.
       For example, to visualize the query results as a time series, select **Time series**.
 
@@ -173,9 +165,10 @@ To learn more, see [Query Data](/influxdb3/version/query-data/sql/).
 {{% tab-content %}}
 <!------------------------------- BEGIN INFLUXQL ------------------------------>
 
-1. Click **Explore**.
-2. In the dropdown, select the **InfluxDB** data source that you want to query.
-3. Use the InfluxQL query form to build your query:
+1.  Click **Explore**.
+2.  In the dropdown, select the **InfluxDB** data source that you want to query.
+3.  Use the InfluxQL query form to build your query:
+
     - **FROM**: Select the measurement that you want to query.
     - **WHERE**: To filter the query results, enter a conditional expression.
     - **SELECT**: Select fields to query and an aggregate function to apply to each.
@@ -184,6 +177,7 @@ To learn more, see [Query Data](/influxdb3/version/query-data/sql/).
     - **GROUP BY**: By default, Grafana groups data by time to downsample results
       and improve query performance.
       You can also add other tags to group by.
+      
 4. Click **Run query** to execute the query.
 
 <!-------------------------------- END INFLUXQL ------------------------------->

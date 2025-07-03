@@ -5,7 +5,7 @@ description: >
   InfluxDB Cloud Serverless organization, export the data as line protocol and
   write the exported data to an bucket in your InfluxDB Cloud Serverless organization.
 menu:
-  influxdb_cloud_serverless:
+  influxdb3_cloud_serverless:
     name: Migrate from 1.x to Serverless
     parent: Migrate data
 weight: 103
@@ -171,12 +171,12 @@ The migration process uses the following tools:
   Visit [cloud2.influxdata.com](https://cloud2.influxdata.com) to access the
   InfluxDB Cloud UI.
 
-{{% note %}}
-#### InfluxDB 1.x and 2.x CLIs are unique
-If both the **InfluxDB 1.x and 2.x `influx` CLIs** are installed in your `$PATH`,
-rename one of the the binaries to ensure you're executing commands with the
-correct CLI.
-{{% /note %}}
+> [!Note]
+> #### InfluxDB 1.x and 2.x CLIs are unique
+>
+> If both the **InfluxDB 1.x and 2.x `influx` CLIs** are installed in your `$PATH`,
+> rename one of the the binaries to ensure you're executing commands with the
+> correct CLI.
 
 ## Migrate data
 
@@ -212,11 +212,10 @@ correct CLI.
     - `-end` flag with an RFC3339 timestamp that defines the latest time to export.
       Default is `2262-04-11T16:47:16-07:00`.
 
-    {{% note %}}
-We recommend exporting each database and retention policy combination separately
-to easily write the exported data into corresponding InfluxDB {{< current-version >}}
-buckets.
-    {{% /note %}}
+    > [!Note]
+    > We recommend exporting each database and retention policy combination separately
+    > to easily write the exported data into corresponding InfluxDB {{< current-version >}}
+    > buckets.
 
     ##### Export all data in a database and retention policy to a file
     ```sh

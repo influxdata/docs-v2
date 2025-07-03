@@ -15,6 +15,8 @@ related:
   - /influxdb/cloud/reference/cli/influx/write/
   - /influxdb/cloud/reference/syntax/line-protocol/
   - /influxdb/cloud/reference/syntax/annotated-csv/
+source: /shared/influxdb-v2/reference/syntax/annotated-csv/extended.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/syntax/annotated-csv/extended.md-->

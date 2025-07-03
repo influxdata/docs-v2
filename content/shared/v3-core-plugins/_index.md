@@ -1,468 +1,637 @@
+Use the Processing Engine in {{% product-name %}} to extend your database with custom Python code. Trigger your code on write, on a schedule, or on demand to automate workflows, transform data, and create API endpoints. 
 
-Use the {{% product-name %}} Processing engine to run code and perform tasks
-for different database events.
+## What is the Processing Engine?
 
-{{% product-name %}} provides the InfluxDB 3 Processing engine, an embedded Python VM that can dynamically load and trigger Python plugins
-in response to events in your database.
+The Processing Engine is an embedded Python virtual machine that runs inside your {{% product-name %}} database. You configure  _triggers_ to run your Python _plugin_ code in response to:
 
-## Key Concepts
+- **Data writes** - Process and transform data as it enters the database
+- **Scheduled events** - Run code at defined intervals or specific times
+- **HTTP requests** - Expose custom API endpoints that execute your code
 
-### Plugins
+You can use the Processing Engine's in-memory cache to manage state between executions and build stateful applications directly in your database.
 
-A Processing engine _plugin_ is Python code you provide to run tasks, such as
-downsampling data, monitoring, creating alerts, or calling external services.
+This guide walks you through setting up the Processing Engine, creating your first plugin, and configuring triggers that execute your code on specific events.
 
-> [!Note]
-> #### Contribute and use community plugins
->
-> [influxdata/influxdb3_plugins](https://github.com/influxdata/influxdb3_plugins) is a public repository on GitHub where you can find
-> and contribute example plugins.
-> You can reference plugins from the repository directly within a trigger configuration.
+## Before you begin
 
-### Triggers
+Ensure you have: 
+- A working {{% product-name %}} instance
+- Access to command line
+- Python installed if you're writing your own plugin
+- Basic knowledge of the InfluxDB CLI
 
-A _trigger_ is an InfluxDB 3 resource you create to associate a database
-event (for example, a WAL flush) with the plugin that should run.
-When an event occurs, the trigger passes configuration details, optional arguments, and event data to the plugin.
+Once you have all the prerequisites in place, follow these steps to implement the Processing Engine for your data automation needs.
 
-The Processing engine provides four types of triggers--each type corresponds to
-an event type with event-specific configuration to let you handle events with targeted logic.
+- [Set up the Processing Engine](#set-up-the-processing-engine)
+- [Add a Processing Engine plugin](#add-a-processing-engine-plugin)
+- [Set up a trigger](#set-up-a-trigger)
+- [Advanced trigger configuration](#advanced-trigger-configuration)
+- [Distributed cluster considerations](#distributed-cluster-considerations)
 
-- **WAL Flush**: Triggered when the write-ahead log (WAL) is flushed to the object store (default is every second).
-- **Scheduled Tasks**: Triggered on a schedule you specify using cron syntax.
-- **On-request**: Triggered on a GET or POST request to the bound HTTP API endpoint at `/api/v3/engine/<CUSTOM_PATH>`.
-<!--
-- **Parquet Persistence (coming soon)**: Triggered when InfluxDB 3 persists data to object storage Parquet files.
--->
+## Set up the Processing Engine
 
-### Activate the Processing engine
+To activate the Processing Engine, start your {{% product-name %}} server with the `--plugin-dir` flag. This flag tells InfluxDB where to load your plugin files. 
 
-To enable the Processing engine, start the {{% product-name %}} server with the
-`--plugin-dir` option and a path to your plugins directory.
-If the directory doesn’t exist, the server creates it. 
+{{% code-placeholders "NODE_ID|OBJECT_STORE_TYPE|PLUGIN_DIR" %}}
 
 ```bash
-influxdb3 serve --node-id node0 --object-store [OBJECT STORE TYPE] --plugin-dir /path/to/plugins
+influxdb3 serve \
+  --NODE_ID \
+  --object-store OBJECT_STORE_TYPE \
+  --plugin-dir PLUGIN_DIR
 ```
 
-## Shared API
+{{% /code-placeholders %}}
 
-All plugin types provide the InfluxDB 3 _shared API_ for interacting with the database.
-The shared API provides access to the following:
+In the example above, replace the following:
 
-- `LineBuilder` to create Line Protocol lines for writing to the database
-- `query` to query data from any database
-- `info`, `warn`, and `error` to log messages to the database log, which is output in the server logs and captured in system tables queryable by SQL
+- {{% code-placeholder-key %}}`NODE_ID`{{% /code-placeholder-key %}}: Unique identifier for your instance
+- {{% code-placeholder-key %}}`OBJECT_STORE_TYPE`{{% /code-placeholder-key %}}: Type of object store (for example, file or s3)
+- {{% code-placeholder-key %}}`PLUGIN_DIR`{{% /code-placeholder-key %}}: Absolute path to the directory where plugin files are stored. Store all plugin files in this directory or its subdirectories.
 
-### LineBuilder
+### Configure distributed environments
 
-The `LineBuilder` is a simple API for building lines of Line Protocol to write into the database. Writes are buffered while the plugin runs and are flushed when the plugin completes. The `LineBuilder` API is available in all plugin types.
+When running {{% product-name %}} in a distributed setup, follow these steps to configure the Processing Engine:
 
-The following example shows how to use the `LineBuilder` API:
+1. Decide where each plugin should run
+   - Data processing plugins, such as WAL plugins, run on ingester nodes
+   - HTTP-triggered plugins run on nodes handling API requests
+   - Scheduled plugins can run on any configured node
+2. Enable plugins on the correct instance
+3. Maintain identical plugin files across all instances where plugins run
+   - Use shared storage or file synchronization tools to keep plugins consistent
+
+> [!Note]
+> #### Provide plugins to nodes that run them
+>
+> Configure your plugin directory on the same system as the nodes that run the triggers and plugins.
+
+For more information about configuring distributed environments, see the [Distributed cluster considerations](#distributed-cluster-considerations) section.
+
+## Add a Processing Engine plugin
+
+A plugin is a Python script that defines a specific function signature for a trigger (_trigger spec_). When the specified event occurs, InfluxDB runs the plugin.
+
+### Choose a plugin strategy
+
+You have two main options for adding plugins to your InfluxDB instance:
+
+- [Use example plugins](#use-example-plugins) - Quickly get started with prebuilt plugins
+- [Create a custom plugin](#create-a-custom-plugin) - Build your own for specialized use cases
+
+### Use example plugins
+
+InfluxData provides a public repository of example plugins that you can use immediately. 
+
+#### Browse plugin examples
+
+Visit the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) to find examples for:
+
+   - **Data transformation**: Process and transform incoming data
+   - **Alerting**: Send notifications based on data thresholds
+   - **Aggregation**: Calculate statistics on time series data
+   - **Integration**: Connect to external services and APIs
+   - **System monitoring**: Track resource usage and health metrics
+
+#### Add example plugins
+
+You can either copy a plugin or retrieve it directly from the repository:
+
+{{< code-tabs-wrapper >}}
+
+{{% code-tabs %}}
+[Copy locally](#)
+[Fetch via gh:](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}  
+
+```bash
+# Clone the repository
+git clone https://github.com/influxdata/influxdb3_plugins.git
+   
+# Copy a plugin to your configured plugin directory
+cp influxdb3_plugins/examples/schedule/system_metrics/system_metrics.py /path/to/plugins/
+```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+    
+```bash
+# To retrieve and use a plugin directly from GitHub,
+#  use the `gh:` prefix in the plugin filename:
+influxdb3 create trigger \
+    --trigger-spec "every:1m" \
+    --plugin-filename "gh:examples/schedule/system_metrics/system_metrics.py" \
+    --database my_database \
+    system_metrics
+```
+
+{{% /code-tab-content %}}
+
+{{< /code-tabs-wrapper >}}
+
+Plugins have various functions such as: 
+
+- Receive plugin-specific arguments (such as written data, call time, or an HTTP request)
+- Access keyword arguments (as `args`) passed from _trigger arguments_ configurations
+- Access the `influxdb3_local` shared API to write data, query data, and managing state between executions
+
+For more information about available functions, arguments, and how plugins interact with InfluxDB, see how to [Extend plugins](/influxdb3/version/extend-plugin/). 
+
+### Create a custom plugin
+
+To build custom functionality, you can create your own Processing Engine plugin. 
+
+#### Prerequisites
+
+Before you begin, make sure:
+
+- The Processing Engine is enabled on your {{% product-name %}} instance.
+- You’ve configured the `--plugin-dir` where plugin files are stored.
+- You have access to that plugin directory.
+
+#### Steps to create a plugin:
+
+- [Choose your plugin type](#choose-your-plugin-type)
+- [Create your plugin file](#create-your-plugin-file)
+- [Next Steps](#next-steps)
+
+#### Choose your plugin type
+
+Choose a plugin type based on your automation goals:
+
+| Plugin Type      | Best For                                    |
+| ---------------- | ------------------------------------------- |
+| **Data write**   | Processing data as it arrives               |
+| **Scheduled**    | Running code at specific intervals or times |
+| **HTTP request** | Running code on demand via API endpoints    |
+
+#### Create your plugin file
+
+- Create a `.py` file in your plugins directory
+- Add the appropriate function signature based on your chosen plugin type
+- Write your processing logic inside the function
+
+After writing your plugin, [create a trigger](#use-the-create-trigger-command) to connect it to a database event and define when it runs.
+
+#### Create a data write plugin
+
+Use a data write plugin to process data as it's written to the database. These plugins use [`table:` or `all_tables:`](#trigger-on-data-writes) trigger specifications. Ideal use cases include:
+
+- Data transformation and enrichment
+- Alerting on incoming values
+- Creating derived metrics
 
 ```python
-# Build line protocol incrementally
-line = LineBuilder("weather")
-line.tag("location", "us-midwest")
-line.float64_field("temperature", 82.5)
-line.time_ns(1627680000000000000)
-influxdb3_local.write(line)
-
-# Output line protocol as a string ("weather,location=us-midwest temperature=82.5 1627680000000000000")
-line_str = line.build()
+def process_writes(influxdb3_local, table_batches, args=None):
+    # Process data as it's written to the database
+    for table_batch in table_batches:
+        table_name = table_batch["table_name"]
+        rows = table_batch["rows"]
+        
+        # Log information about the write
+        influxdb3_local.info(f"Processing {len(rows)} rows from {table_name}")
+        
+        # Write derived data back to the database
+        line = LineBuilder("processed_data")
+        line.tag("source_table", table_name)
+        line.int64_field("row_count", len(rows))
+        influxdb3_local.write(line)
 ```
 
-Here is the Python implementation of the `LineBuilder` API:
+#### Create a scheduled plugin
+
+Scheduled plugins run at defined intervals using [`every:` or `cron:`](#trigger-on-a-schedule) trigger specifications. Use them for:
+
+- Periodic data aggregation
+- Report generation
+- System health checks
 
 ```python
-from typing import Optional
-from collections import OrderedDict
-
-class InfluxDBError(Exception):
-    """Base exception for InfluxDB-related errors"""
-    pass
-
-class InvalidMeasurementError(InfluxDBError):
-    """Raised when measurement name is invalid"""
-    pass
-
-class InvalidKeyError(InfluxDBError):
-    """Raised when a tag or field key is invalid"""
-    pass
-
-class InvalidLineError(InfluxDBError):
-    """Raised when a line protocol string is invalid"""
-    pass
-
-class LineBuilder:
-    def __init__(self, measurement: str):
-        if ' ' in measurement:
-            raise InvalidMeasurementError("Measurement name cannot contain spaces")
-        self.measurement = measurement
-        self.tags: OrderedDict[str, str] = OrderedDict()
-        self.fields: OrderedDict[str, str] = OrderedDict()
-        self._timestamp_ns: Optional[int] = None
-
-    def _validate_key(self, key: str, key_type: str) -> None:
-        """Validate that a key does not contain spaces, commas, or equals signs."""
-        if not key:
-            raise InvalidKeyError(f"{key_type} key cannot be empty")
-        if ' ' in key:
-            raise InvalidKeyError(f"{key_type} key '{key}' cannot contain spaces")
-        if ',' in key:
-            raise InvalidKeyError(f"{key_type} key '{key}' cannot contain commas")
-        if '=' in key:
-            raise InvalidKeyError(f"{key_type} key '{key}' cannot contain equals signs")
-
-    def tag(self, key: str, value: str) -> 'LineBuilder':
-        """Add a tag to the line protocol."""
-        self._validate_key(key, "tag")
-        self.tags[key] = str(value)
-        return self
-
-    def uint64_field(self, key: str, value: int) -> 'LineBuilder':
-        """Add an unsigned integer field to the line protocol."""
-        self._validate_key(key, "field")
-        if value < 0:
-            raise ValueError(f"uint64 field '{key}' cannot be negative")
-        self.fields[key] = f"{value}u"
-        return self
-
-    def int64_field(self, key: str, value: int) -> 'LineBuilder':
-        """Add an integer field to the line protocol."""
-        self._validate_key(key, "field")
-        self.fields[key] = f"{value}i"
-        return self
-
-    def float64_field(self, key: str, value: float) -> 'LineBuilder':
-        """Add a float field to the line protocol."""
-        self._validate_key(key, "field")
-        # Check if value has no decimal component
-        self.fields[key] = f"{int(value)}.0" if value % 1 == 0 else str(value)
-        return self
-
-    def string_field(self, key: str, value: str) -> 'LineBuilder':
-        """Add a string field to the line protocol."""
-        self._validate_key(key, "field")
-        # Escape quotes and backslashes in string values
-        escaped_value = value.replace('"', '\\"').replace('\\', '\\\\')
-        self.fields[key] = f'"{escaped_value}"'
-        return self
-
-    def bool_field(self, key: str, value: bool) -> 'LineBuilder':
-        """Add a boolean field to the line protocol."""
-        self._validate_key(key, "field")
-        self.fields[key] = 't' if value else 'f'
-        return self
-
-    def time_ns(self, timestamp_ns: int) -> 'LineBuilder':
-        """Set the timestamp in nanoseconds."""
-        self._timestamp_ns = timestamp_ns
-        return self
-
-    def build(self) -> str:
-        """Build the line protocol string."""
-        # Start with measurement name (escape commas only)
-        line = self.measurement.replace(',', '\\,')
-
-        # Add tags if present
-        if self.tags:
-            tags_str = ','.join(
-                f"{k}={v}" for k, v in self.tags.items()
-            )
-            line += f",{tags_str}"
-
-        # Add fields (required)
-        if not self.fields:
-            raise InvalidLineError(f"At least one field is required: {line}")
-
-        fields_str = ','.join(
-            f"{k}={v}" for k, v in self.fields.items()
-        )
-        line += f" {fields_str}"
-
-        # Add timestamp if present
-        if self._timestamp_ns is not None:
-            line += f" {self._timestamp_ns}"
-
-        return line
+def process_scheduled_call(influxdb3_local, call_time, args=None):
+    # Run code on a schedule
+    
+    # Query recent data
+    results = influxdb3_local.query("SELECT * FROM metrics WHERE time > now() - INTERVAL '1 hour'")
+    
+    # Process the results
+    if results:
+        influxdb3_local.info(f"Found {len(results)} recent metrics")
+    else:
+        influxdb3_local.warn("No recent metrics found")
 ```
 
-### Query
+#### Create an HTTP request plugin
 
-The shared API `query` function executes an SQL query with optional parameters (a [parameterized query](/influxdb3/version/query-data/sql/parameterized-queries/)) and returns results as a `List` of `Dict[String, Any]` where the key is the column name and the value is the column value.  The `query` function is available in all plugin types.
+HTTP request plugins respond to API calls using [`request:`](#trigger-on-http-requests) trigger specifications{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "..."}}` (HTTP API){{% /show-in %}}. Use them for:
 
-The following examples show how to use the `query` function:
+- Creating custom API endpoints
+- Webhooks for external integrations
+- User interfaces for data interaction
 
 ```python
-influxdb3_local.query("SELECT * from foo where bar = 'baz' and time > now() - INTERVAL '1 hour'")
-
-# Or using parameterized queries
-args = {"bar": "baz"}
-influxdb3_local.query("SELECT * from foo where bar = $bar and time > now() - INTERVAL '1 hour'", args)
+def process_request(influxdb3_local, query_parameters, request_headers, request_body, args=None):
+    # Handle HTTP requests to a custom endpoint
+    
+    # Log the request parameters
+    influxdb3_local.info(f"Received request with parameters: {query_parameters}")
+    
+    # Process the request body
+    if request_body:
+        import json
+        data = json.loads(request_body)
+        influxdb3_local.info(f"Request data: {data}")
+    
+    # Return a response (automatically converted to JSON)
+    return {"status": "success", "message": "Request processed"}
 ```
 
-### Logging
+#### Next steps
 
-The shared API `info`, `warn`, and `error` functions log messages to the database log, which is output in the server logs and captured in system tables queryable by SQL.
-The `info`, `warn`, and `error` functions are available in all plugin types. Each function accepts multiple arguments, converts them to strings, and logs them as a single, space-separated message.
+After writing your plugin:
 
-The following examples show how to use the `info`, `warn`, and `error` logging functions:
+- [Create a trigger](#use-the-create-trigger-command) to connect your plugin to database events
+- [Install any Python dependencies](#install-python-dependencies) your plugin requires
+- Learn how to [extend plugins with the API](/influxdb3/version/extend-plugin/)
+
+## Set up a trigger
+
+### Understand trigger types
+
+| Plugin Type | Trigger Specification | When Plugin Runs |
+|------------|----------------------|-----------------|
+| Data write | `table:<TABLE_NAME>` or `all_tables` | When data is written to tables |
+| Scheduled | `every:<DURATION>` or `cron:<EXPRESSION>` | At specified time intervals |
+| HTTP request | `request:<REQUEST_PATH>`{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "<REQUEST_PATH>"}}` (HTTP API){{% /show-in %}} | When HTTP requests are received |
+
+### Use the create trigger command
+
+Use the `influxdb3 create trigger` command with the appropriate trigger specification:
+
+{{% code-placeholders "SPECIFICATION|PLUGIN_FILE|DATABASE_NAME|TRIGGER_NAME" %}}
+
+```bash
+influxdb3 create trigger \
+  --trigger-spec SPECIFICATION \
+  --plugin-filename PLUGIN_FILE \
+  --database DATABASE_NAME \
+  TRIGGER_NAME
+ ``` 
+
+{{% /code-placeholders %}}
+
+In the example above, replace the following:
+
+- {{% code-placeholder-key %}}`SPECIFICATION`{{% /code-placeholder-key %}}: Trigger specification
+- {{% code-placeholder-key %}}`PLUGIN_FILE`{{% /code-placeholder-key %}}: Plugin filename relative to your configured plugin directory
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Name of the database
+- {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}: Name of the new trigger
+
+> [!Note]
+> When specifying a local plugin file, the `--plugin-filename` parameter
+> _is relative to_ the `--plugin-dir` configured for the server.
+> You don't need to provide an absolute path.
+
+### Trigger specification examples
+
+#### Trigger on data writes 
+
+```bash
+# Trigger on writes to a specific table
+# The plugin file must be in your configured plugin directory
+influxdb3 create trigger \
+  --trigger-spec "table:sensor_data" \
+  --plugin-filename "process_sensors.py" \
+  --database my_database \
+  sensor_processor
+
+# Trigger on writes to all tables
+influxdb3 create trigger \
+  --trigger-spec "all_tables" \
+  --plugin-filename "process_all_data.py" \
+  --database my_database \
+  all_data_processor
+```
+
+The trigger runs when the database flushes ingested data for the specified tables to the Write-Ahead Log (WAL) in the Object store (default is every second).
+
+The plugin receives the written data and table information.
+
+#### Trigger on a schedule 
+
+```bash
+# Run every 5 minutes
+influxdb3 create trigger \
+  --trigger-spec "every:5m" \
+  --plugin-filename "periodic_check.py" \
+  --database my_database \
+  regular_check
+
+# Run on a cron schedule (8am daily)
+# Supports extended cron format with seconds
+influxdb3 create trigger \
+  --trigger-spec "cron:0 0 8 * * *" \
+  --plugin-filename "daily_report.py" \
+  --database my_database \
+  daily_report
+```
+
+The plugin receives the scheduled call time.
+
+#### Trigger on HTTP requests
+
+```bash
+# Create an endpoint at /api/v3/engine/webhook
+influxdb3 create trigger \
+  --trigger-spec "request:webhook" \
+  --plugin-filename "webhook_handler.py" \
+  --database my_database \
+  webhook_processor
+```
+
+Access your endpoint at `/api/v3/engine/{REQUEST_PATH}` (in this example, `/api/v3/engine/webhook`).
+The trigger is enabled by default and runs when an HTTP request is received at the specified path.
+
+To run the plugin, send a `GET` or `POST` request to the endpoint--for example:
+
+```bash
+curl http://{{% influxdb/host %}}/api/v3/engine/webhook
+```
+
+The plugin receives the HTTP request object with methods, headers, and body.
+
+To view triggers associated with a database, use the `influxdb3 show summary` command:
+
+```bash
+influxdb3 show summary --database my_database --token AUTH_TOKEN
+```
+
+{{% show-in "enterprise" %}}
+> [!Warning]
+> #### Request trigger specification format differs between CLI and API
+> 
+> Due to a bug in InfluxDB 3 Enterprise, the request trigger specification format differs:
+> 
+> - **CLI**: `request:<REQUEST_PATH>` (same as Core CLI and API)
+> - **Enterprise API**: `{"request_path": {"path": "<REQUEST_PATH>"}}`
+> 
+> See the [API reference](/influxdb3/enterprise/api/#operation/PostConfigureProcessingEngineTrigger) for examples. Use `influxdb3 show summary` to verify the actual trigger specification.
+{{% /show-in %}}
+
+### Pass arguments to plugins
+
+Use trigger arguments to pass configuration from a trigger to the plugin it runs. You can use this for:
+
+- Threshold values for monitoring
+- Connection properties for external services
+- Configuration settings for plugin behavior
+
+```bash
+influxdb3 create trigger \
+  --trigger-spec "every:1h" \
+  --plugin-filename "threshold_check.py" \
+  --trigger-arguments threshold=90,notify_email=admin@example.com \
+  --database my_database \
+  threshold_monitor
+```
+
+The arguments are passed to the plugin as a `Dict[str, str]` where the key is the argument name and the value is the argument value:
 
 ```python
-influxdb3_local.info("This is an info message")
-influxdb3_local.warn("This is a warning message")
-influxdb3_local.error("This is an error message")
-
-# Log a message that contains a data object
-obj_to_log = {"hello": "world"}
-influxdb3_local.info("This is an info message with an object", obj_to_log)
+def process_scheduled_call(influxdb3_local, call_time, args=None):
+    if args and "threshold" in args:
+        threshold = float(args["threshold"])
+        email = args.get("notify_email", "default@example.com")
+        
+        # Use the arguments in your logic
+        influxdb3_local.info(f"Checking threshold {threshold}, will notify {email}")
 ```
 
-### Trigger Settings
-
-#### Control trigger execution
+### Control trigger execution
 
 By default, triggers run synchronously—each instance waits for previous instances to complete before executing.
 
 To allow multiple instances of the same trigger to run simultaneously, configure triggers to run asynchronously:
 
 ```bash
-# Create an asynchronous trigger
-influx create trigger --run-asynchronously
+# Allow multiple trigger instances to run simultaneously
+influxdb3 create trigger \
+  --trigger-spec "table:metrics" \
+  --plugin-filename "heavy_process.py" \
+  --run-asynchronous \
+  --database my_database \
+  async_processor
+```
+
+### Configure error handling for a trigger
+
+To configure error handling behavior for a trigger, use the `--error-behavior <ERROR_BEHAVIOR>` CLI option with one of the following values:
+
+- `log` (default): Log all plugin errors to stdout and the `system.processing_engine_logs` system table.
+- `retry`: Attempt to run the plugin again immediately after an error.
+- `disable`: Automatically disable the plugin when an error occurs (can be re-enabled later via CLI).
+
+```bash
+# Automatically retry on error
+influxdb3 create trigger \
+  --trigger-spec "table:important_data" \
+  --plugin-filename "critical_process.py" \
+  --error-behavior retry \
+  --database my_database \
+  critical_processor
+
+# Disable the trigger on error
+influxdb3 create trigger \
+  --trigger-spec "request:webhook" \
+  --plugin-filename "webhook_handler.py" \
+  --error-behavior disable \
+  --database my_database \
+  auto_disable_processor
+```
+
+## Advanced trigger configuration
+
+After creating basic triggers, you can enhance your plugins with these advanced features:
+
+### Access community plugins from GitHub
+
+Skip downloading plugins by referencing them directly from GitHub:
+
+```bash
+# Create a trigger using a plugin from GitHub
+influxdb3 create trigger \
+  --trigger-spec "every:1m" \
+  --plugin-filename "gh:examples/schedule/system_metrics/system_metrics.py" \
+  --database my_database \
+  system_metrics
+```
+
+This approach:
+
+- Ensures you're using the latest version
+- Simplifies updates and maintenance
+- Reduces local storage requirements
+
+### Configure your triggers
+
+#### Pass configuration arguments
+
+Provide runtine configuration to your plugins:
+
+```bash
+# Pass threshold and email settings to a plugin
+Provide runtime configuration to your plugins:
+  --trigger-spec "every:1h" \
+  --plugin-filename "threshold_check.py" \
+  --trigger-arguments threshold=90,notify_email=admin@example.com \
+  --database my_database \
+  threshold_monitor
+```
+
+Your plugin accesses these values through the `args` parameter:
+
+```python
+def process_scheduled_call(influxdb3_local, call_time, args=None):
+    if args and "threshold" in args:
+        threshold = float(args["threshold"])
+        email = args.get("notify_email", "default@example.com")
+        
+        # Use the arguments in your logic
+        influxdb3_local.info(f"Checking threshold {threshold}, will notify {email}")
+```
+
+#### Set execution mode
+
+Choose between synchronous (default) or asynchronous execution:
+
+```bash
+# Allow multiple trigger instances to run simultaneously
+influxdb3 create trigger \
+  --trigger-spec "table:metrics" \
+  --plugin-filename "heavy_process.py" \
+  --run-asynchronous \
+  --database my_database \
+  async_processor
+```
+
+Use asynchronous execution when:
+
+- Processing might take longer than the trigger interval
+- Multiple events need to be handled simultaneously
+- Performance is more important than sequential execution
 
 #### Configure error handling
-#### Configure error behavior for plugins
 
-The Processing engine logs all plugin errors to stdout and the `system.processing_engine_logs` system table.
-
-To  configure additional error handling for a trigger, use the `--error-behavior` flag:
-
-- `--error-behavior retry`: Attempt to run the plugin again immediately after an error
-- `--error-behavior disable`: Automatically disable the plugin when an error occurs (can be re-enabled later via CLI)
-
+Control how your trigger responds to errors:
 ```bash
-# Create a trigger that retries on error
-influx create trigger --error-behavior retry
-
-# Create a trigger that disables the plugin on error
-influx create trigger --error-behavior disable
-This behavior can be changed by specifying the "Error behavior", via the `--error-behavior` flag. Apart from the default `log`, you may set
-
-* `--error-behavior retry` will immediately retry the plugin trigger in the event of error.
-* `--error-behavior disable` will turn off the plugin as soon as an error occurs. You can enable it again using the CLI.
-
-### Trigger arguments
-
-A plugin can receive arguments from the trigger that runs it.
-You can use this to provide runtime configuration and drive behavior of a plugin—for example:
-
-- threshold values for monitoring
-- connection properties for connecting to third-party services
-
-To pass arguments to a plugin, specify trigger arguments in a comma-separated list
-of key-value pairs--for example, using the CLI:
-
-```bash
-influxdb3 create trigger
---trigger-arguments key1=val1,key2=val2
-```
-
-The arguments are passed to the plugin as a `Dict[str, str]` where the key is
-the argument name and the value is the argument value--for example:
-
-```python
-args = {
-    "key1": "value1",
-    "key2": "value2",
-}
-```
-
-The following example shows how to access and use an argument in a WAL plugin:
-
-```python
-def process_writes(influxdb3_local, table_batches, args=None):
-    if args and "threshold" in args:
-        threshold = int(args["threshold"])
-        influxdb3_local.info(f"Threshold is {threshold}")
-    else:
-        influxdb3_local.warn("No threshold provided")
-```
-
-The `args` parameter is optional. If a plugin doesn’t require arguments, you can omit it from the trigger definition.
-
-## Import plugin dependencies
-
-Use the `influxdb3 install` command to download and install Python packages that your plugin depends on.
-
-```bash
-influxdb3 install package <PACKAGE_NAME>
-```
-
-### Use `influxdb3 install` with Docker
-
-1. Start the server
-
-   ```bash
-   docker run \
-   --name CONTAINER_NAME \
-   -v /path/to/.influxdb3/data:/data \
-   -v /path/to/.influxdb3/plugins:/plugins \
-   quay.io/influxdb/influxdb3-{{< product-key >}}:latest \
-   serve --node-id=node0 \
-   --object-store=file \
-   --data-dir=/data \
-   --http-bind=localhost:8183 \
-   --plugin-dir=/plugins
-   ```
-
-2. Use `docker exec` to run the `influxdb3 install` command:
-   
-   ```bash
-   docker exec -it CONTAINER_NAME influxdb3 install package pandas
-   ```
-
-The result is an active Python virtual environment with the package installed in `<PLUGINS_DIR>/.venv`.
-You can specify additional options to install dependencies from a `requirements.txt` file or a custom virtual environment path.
-For more information, see the `influxdb3` CLI help:
-
-```bash
-influxdb3 install package --help
-```
-
-## Configure plugin triggers
-Triggers define when and how plugins execute in response to database events. Each trigger type corresponds to a specific event, allowing precise control over automation within {{% product-name %}}.
-
-### WAL flush trigger
-
-When a WAL flush plugin is triggered, the plugin receives a list of `table_batches` filtered by the trigger configuration (either _all tables_ in the database or a specific table).
-
-The following example shows a simple WAL flush plugin:
-
-```python
-def process_writes(influxdb3_local, table_batches, args=None):
-    for table_batch in table_batches:
-        # Skip the batch if table_name is write_reports
-        if table_batch["table_name"] == "write_reports":
-            continue
-
-        row_count = len(table_batch["rows"])
-
-        # Double the row count if table name matches args table_name
-        if args and "double_count_table" in args and table_batch["table_name"] == args["double_count_table"]:
-            row_count *= 2
-
-        # Use the LineBuilder API to write data
-        line = LineBuilder("write_reports")\
-            .tag("table_name", table_batch["table_name"])\
-            .int64_field("row_count", row_count)
-        influxdb3_local.write(line)
-
-    influxdb3_local.info("wal_plugin.py done")
-```
-
-#### WAL flush trigger configuration
-
-When you create a trigger, you associate it with a database and provide configuration specific to the trigger type.
-
-For a WAL flush trigger you specify a `trigger-spec`, which determines when the plugin is triggered (and what table data it receives):
-
-- `all-tables`: triggers the plugin on every write to the associated database
-- `table:<table_name>` triggers the plugin function only for writes to the specified table.
-
-The following example creates a WAL flush trigger for the `gh:examples/wal_plugin/wal_plugin.py` plugin. 
-
-```bash
+# Automatically retry on error
 influxdb3 create trigger \
-  --trigger-spec "table:TABLE_NAME" \
-  --plugin-filename "gh:examples/wal_plugin/wal_plugin.py" \
-  --database DATABASE_NAME TRIGGER_NAME
+  --trigger-spec "table:important_data" \
+  --plugin-filename "critical_process.py" \
+  --error-behavior retry \
+  --database my_database \
+  critical_processor
 ```
 
-The `gh:` prefix lets you fetch a plugin file directly from the [influxdata/influxdb3_plugins](https://github.com/influxdata/influxdb3_plugins) repository in GitHub.
-Without the prefix, the server looks for the file inside of the plugins directory.
+### Install Python dependencies
 
-To provide additional configuration to your plugin, pass a list of key-value pairs in the `--trigger-arguments` option and, in your plugin, use the `args` parameter to receive the arguments.
-For more information about trigger arguments, see the CLI help:
+Use the `influxdb3 install package` command to add third-party libraries (like `pandas`, `requests`, or `influxdb3-python`) to your plugin environment.  
+This installs packages into the Processing Engine’s embedded Python environment to ensure compatibility with your InfluxDB instance.
+
+{{% code-placeholders "CONTAINER_NAME|PACKAGE_NAME" %}}
+
+{{< code-tabs-wrapper >}}
+
+{{% code-tabs %}}
+[CLI](#)
+[Docker](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
 
 ```bash
-influxdb3 create trigger help
+# Use the CLI to install a Python package
+influxdb3 install package pandas
+
 ```
 
-### Schedule trigger
+{{% /code-tab-content %}}
 
-Schedule plugins run on a schedule specified in cron syntax. The plugin receives the local API, the time of the trigger, and any arguments passed in the trigger definition. Here's an example of a simple schedule plugin:
-
-```python
-# see if a table has been written to in the last 5 minutes
-def process_scheduled_call(influxdb3_local, time, args=None):
-    if args and "table_name" in args:
-        table_name = args["table_name"]
-        result = influxdb3_local.query(f"SELECT * FROM {table_name} WHERE time > now() - 'interval 5m'")
-        # write an error log if the result is empty
-        if not result:
-            influxdb3_local.error(f"No data in {table_name} in the last 5 minutes")
-    else:
-        influxdb3_local.error("No table_name provided for schedule plugin")
-```
-
-#### Schedule trigger configuration
-
-Schedule plugins are set with a `trigger-spec` of `schedule:<cron_expression>` or `every:<duration>`. The `args` parameter can be used to pass configuration to the plugin. For example, if we wanted to use the system-metrics example from the Github repo and have it collect every 10 seconds we could use the following trigger definition:
+{{% code-tab-content %}}
 
 ```bash
-influxdb3 create trigger \
-  --trigger-spec "every:10s" \
-  --plugin-filename "gh:examples/schedule/system_metrics/system_metrics.py" \
-  --database mydb system-metrics
+# Use the CLI to install a Python package in a Docker container
+docker exec -it CONTAINER_NAME influxdb3 install package pandas
 ```
 
-### On Request trigger
+{{% /code-tab-content %}}
 
-On Request plugins are triggered by a request to a custom HTTP API endpoint.
-The plugin receives the shared API, query parameters `Dict[str, str]`, request headers `Dict[str, str]`, the request body (as bytes), and any arguments passed in the trigger definition.
-On Request plugin responses follow conventions for [Flask responses](https://flask.palletsprojects.com/en/stable/quickstart/#about-responses).
+{{< /code-tabs-wrapper >}}
 
-#### Example: On Request plugin
+These examples install the specified Python package (for example, pandas) into the Processing Engine’s embedded virtual environment.
 
-```python
-import json
+- Use the CLI command when running InfluxDB directly on your system.
+- Use the Docker variant if you're running InfluxDB in a containerized environment.
 
-def process_request(influxdb3_local, query_parameters, request_headers, request_body, args=None):
-    for k, v in query_parameters.items():
-        influxdb3_local.info(f"query_parameters: {k}={v}")
-    for k, v in request_headers.items():
-        influxdb3_local.info(f"request_headers: {k}={v}")
+> [!Important]
+> #### Use bundled Python for plugins
+> When you start the server with the `--plugin-dir` option, InfluxDB 3 creates a Python virtual environment (`<PLUGIN_DIR>/venv`) for your plugins.
+> If you need to create a custom virtual environment, use the Python interpreter bundled with InfluxDB 3. Don't use the system Python.
+> Creating a virtual environment with the system Python (for example, using `python -m venv`) can lead to runtime errors and plugin failures.
+> 
+>For more information, see the [processing engine README](https://github.com/influxdata/influxdb/blob/main/README_processing_engine.md#official-builds).
 
-    request_data = json.loads(request_body)
+{{% /code-placeholders %}}
 
-    influxdb3_local.info("parsed JSON request body:", request_data)
+InfluxDB creates a Python virtual environment in your plugins directory with the specified packages installed.
 
-    # write the data to the database
-    line = LineBuilder("request_data").tag("tag1", "tag1_value").int64_field("field1", 1)
-    # get a string of the line to return as the body
-    line_str = line.build()
+{{% show-in "enterprise" %}}
 
-    influxdb3_local.write(line)
+## Distributed cluster considerations
 
-    return {"status": "ok", "line": line_str}
-```
+When you deploy {{% product-name %}} in a multi-node environment, configure each node based on its role and the plugins it runs.
 
-#### On Request trigger configuration
+### Match plugin types to the correct node
 
-To create a trigger for an On Request plugin, specify the `request:<ENDPOINT>` trigger-spec.
+Each plugin must run on a node that supports its trigger type:
 
-For example, the following command creates an HTTP API `/api/v3/engine/my-plugin` endpoint for the plugin file:
+| Plugin type        | Trigger spec             | Runs on                     |
+|--------------------|--------------------------|-----------------------------|
+| Data write         | `table:` or `all_tables` | Ingester nodes              |
+| Scheduled          | `every:` or `cron:`      | Any node with scheduler     |
+| HTTP request       | `request:`{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "..."}}` (HTTP API){{% /show-in %}} | Nodes that serve API traffic|
 
-```bash
-influxdb3 create trigger \
-  --trigger-spec "request:my-plugin" \
-  --plugin-filename "examples/my-on-request.py" \
-  --database mydb my-plugin
-```
+{{% show-in "enterprise" %}}
+> [!Note]
+> #### Request trigger specification format differs between CLI and API
+> 
+> Due to a bug in InfluxDB 3 Enterprise, the request trigger specification format differs:
+> 
+> - **CLI**: `request:<REQUEST_PATH>` (same as Core CLI and API)
+> - **Enterprise API**: `{"request_path": {"path": "<REQUEST_PATH>"}}`
+> 
+> See the [API reference](/influxdb3/enterprise/api/#operation/PostConfigureProcessingEngineTrigger) for examples.
+{{% /show-in %}}
 
-To run the plugin, you send an HTTP request to `<HOST>/api/v3/engine/my-plugin`.
+For example:
+- Run write-ahead log (WAL) plugins on ingester nodes.
+- Run scheduled plugins on any node configured to execute them.
+- Run HTTP-triggered plugins on querier nodes or any node that handles HTTP endpoints.
 
-Because all On Request plugins for a server share the same `<host>/api/v3/engine/` base URL,
-the trigger-spec you define must be unique across all plugins configured for a server,
-regardless of which database they are associated with.
+Place all plugin files in the `--plugin-dir` directory configured for each node.
+
+> [!Note]
+> Triggers fail if the plugin file isn’t available on the node where it runs.
+
+### Route third-party clients to querier nodes
+
+External tools—such as Grafana, custom dashboards, or REST clients—must connect to querier nodes in your InfluxDB Enterprise deployment.
+
+#### Examples
+
+- **Grafana**: When adding InfluxDB 3 as a Grafana data source, use a querier node URL, such as:
+`https://querier.example.com:8086`
+- **REST clients**: Applications using `POST /api/v3/query/sql` or similar endpoints must target a querier node.
+
+{{% /show-in %}}

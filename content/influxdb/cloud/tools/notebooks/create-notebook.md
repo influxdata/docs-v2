@@ -10,5 +10,8 @@ menu:
     parent: Notebooks
 aliases:
   - /influxdb/cloud/notebooks/create-notebook/
+source: /shared/influxdb-v2/tools/notebooks/create-notebook.md
 ---
-{{< duplicate-oss >}}
+
+<!-- The content of this file is at
+// SOURCE content/shared/influxdb-v2/tools/notebooks/create-notebook.md -->

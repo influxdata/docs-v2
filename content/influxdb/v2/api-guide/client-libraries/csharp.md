@@ -11,10 +11,8 @@ menu:
     params:
       url: https://github.com/influxdata/influxdb-client-csharp
 weight: 201
+source: /shared/influxdb-v2/api-guide/client-libraries/csharp.md
 ---
 
-C# is a general-purpose object-oriented programming language.
-
-The documentation for this client library is available on GitHub.  
-
-<a href="https://github.com/influxdata/influxdb-client-csharp" target="_blank" class="btn github">C# InfluxDB client</a>
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/csharp.md -->

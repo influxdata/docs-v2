@@ -38,6 +38,8 @@ list_code_example: |
   // List tag values
   schema.tagValues(bucket: "example-bucket", tag: "example-tag")
   ```
+source: /shared/influxdb-v2/query-data/flux/explore-schema.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/explore-schema.md-->

@@ -12,6 +12,8 @@ list_code_example: |
   ```sql
   SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] ORDER BY time DESC
   ```
+source: /shared/influxdb-v2/query-data/influxql/explore-data/order-by.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/influxql/explore-data/order-by.md-->

@@ -39,13 +39,12 @@ A user can belong to the following groups, each with predefined privileges:
   database tokens; members can't delete or create databases or management tokens.
 - **Auditor**: Read permission on all resources; auditors can't modify resources.
 
-{{% note %}}
-#### Existing users are Admin by default
-
-With the release of user groups for {{% product-name %}}, all existing users
-in your account are initially assigned to the Admin group, retaining full
-access to resources in your cluster.
-{{% /note %}}
+> [!Note]
+> #### Existing users are Admin by default
+> 
+> With the release of user groups for {{% product-name %}}, all existing users
+> in your account are initially assigned to the Admin group, retaining full
+> access to resources in your cluster.
 
 ## Manage users
 
@@ -83,10 +82,9 @@ With a valid password, the user can access cluster resources by interacting with
 [`influxctl`](/influxdb3/cloud-dedicated/reference/influxctl/) command line tool.
 The assigned user groups determine the user's access to resources.
 
-{{% note %}}
-#### Use database tokens to authorize data reads and writes
-
-In {{% product-name %}}, user groups control access for managing cluster resources.
-[Database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/) control access
-for reading and writing data in cluster databases.
-{{% /note %}}
+> [!Note]
+> #### Use database tokens to authorize data reads and writes
+> 
+> In {{% product-name %}}, user groups control access for managing cluster resources.
+> [Database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/) control access
+> for reading and writing data in cluster databases.

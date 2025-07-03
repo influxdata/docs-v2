@@ -9,6 +9,8 @@ menu:
 influxdb/cloud/tags: [query]
 related:
   - /influxdb/cloud/reference/cli/influx/query/
+source: /shared/influxdb-v2/query-data/execute-queries/influx-query.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/execute-queries/influx-query.md-->

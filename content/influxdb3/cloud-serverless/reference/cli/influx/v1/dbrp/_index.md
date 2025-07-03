@@ -10,6 +10,8 @@ weight: 101
 influxdb3/cloud-serverless/tags: [DBRP]
 cascade:
   metadata: [influx CLI 2.0.2+]
+source: /shared/influxdb-v2/reference/cli/influx/v1/dbrp/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/v1/dbrp/_index.md-->

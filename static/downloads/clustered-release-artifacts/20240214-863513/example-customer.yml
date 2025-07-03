@@ -1,0 +1,278 @@
+# yaml-language-server: $schema=app-instance-schema.json
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+metadata:
+  name: influxdb
+  namespace: influxdb
+spec:
+  # One or more secrets that are used to pull the images from an authenticated registry.
+  # This will either be the secret provided to you, if using our registry, or a secret for your own registry
+  # if self-hosting the images.
+  imagePullSecrets:
+    - name: <name of the secret>
+  package:
+    # The version of the clustered package that will be used.
+    # This determines the version of all of the individual components.
+    # When a new version of the product is released, this version should be updated and any
+    # new config options should be updated below.
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240214-863513
+    apiVersion: influxdata.com/v1alpha1
+    spec:
+      # # Provides a way to pass down hosting environment specific configuration, such as an role ARN when using EKS IRSA.
+      # # This section contains three multually-exclusive "blocks". Uncomment the block named after the hosting environment
+      # # you run: "aws", "openshift" or "gke".
+      # hostingEnvironment:
+      #   # # Uncomment this block if you're running in EKS.
+      #   # aws:
+      #   #   eksRoleArn: 'arn:aws:iam::111111111111:role/your-influxdb-clustered-role'
+      #   #
+      #   # # Uncomment this block if you're running inside OpenShift.
+      #   # # Note: there are currently no OpenShift-specific parameters. You have to pass an empty object
+      #   # #       as a marker that you're choosing OpenShift as hosting environment.
+      #   # openshift: {}
+      #   #
+      #   # # Uncomment this block if you're running in GKE:
+      #   # gke:
+      #   #   # Authenticate to Google Cloud services via workload identity, this
+      #   #   # annotates the 'iox' ServiceAccount with the role name you specify.
+      #   #   # NOTE: This setting just enables GKE specific authentication mechanism,
+      #   #   #       You still need to enable `spec.objectStore.google` below if you want to use GCS.
+      #   #   workloadIdentity:
+      #   #     # Google Service Account name to use for the workload identity.
+      #   #     serviceAccountEmail: <service-account>@<project-name>.iam.gserviceaccount.com
+      catalog:
+        # A postgresql style DSN that points at a postgresql compatible database.
+        # eg: postgres://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]
+        dsn:
+          valueFrom:
+            secretKeyRef:
+              name: <your secret name here>
+              key: <the key in the secret that contains the dsn>
+
+      # images:
+      #   # This can be used to override a specific image name with its FQIN
+      #   # (Fully Qualified Image Name) for testing. eg.
+      #   overrides:
+      #     - name: influxdb2-artifacts/iox/iox
+      #       newFQIN: mycompany/test-iox-build:aninformativetag
+      #
+      #   # Set this variable to the prefix of your internal registry. This will be prefixed to all expected images.
+      #   # eg. us-docker.pkg.dev/iox:latest => registry.mycompany.io/us-docker.pkg.dev/iox:latest
+      #   registryOverride: <the domain name portion of your registry (registry.mycompany.io in the example above)>
+
+      objectStore:
+        # Bucket that the parquet files will be stored in
+        bucket: <bucket name>
+
+        # Uncomment one of the following (s3, azure)
+        # to enable the configuration of your object store
+        s3:
+          # URL for S3 Compatible object store
+          endpoint: <S3 url>
+
+          # Set to true to allow communication over HTTP (instead of HTTPS)
+          allowHttp: "false"
+
+          # S3 Access Key
+          # This can also be provided as a valueFrom: secretKeyRef:
+          accessKey:
+            value: <your access key>
+
+          # S3 Secret Key
+          # This can also be provided as a valueFrom: secretKeyRef:
+          secretKey:
+            value: <your secret>
+
+          # This value is required for AWS S3, it may or may not be required for other providers.
+          region: <region>
+
+        # azure:
+        #   Azure Blob Storage Access Key
+        #   This can also be provided as a valueFrom: secretKeyRef:
+        #   accessKey:
+        #     value: <your access key>
+
+        #   Azure Blob Storage Account
+        #   This can also be provided as a valueFrom: secretKeyRef:
+        #   account:
+        #     value: <your access key>
+
+        # There are two main ways you can access a Google:
+        #
+        # a) GKE Workload Identity: configure workload identity in the top level `hostingEnvironment.gke` section.
+        # b) Explicit service account secret (JSON) file: use the `serviceAccountSecret` field here
+        #
+        # If you pick (a) you may not need to uncomment anything else in this section,
+        # but you still need to tell influxdb that you intend to use Google Cloud Storage.
+        # so you need to specify an empty object. Uncomment the following line:
+        #
+        # google: {}
+        #
+        #
+        # If you pick (b), uncomment the following block:
+        #
+        # google:
+        #   # If you're authenticating to Google Cloud service using a Service Account credentials file, as opposed
+        #   # as to use workload identity (see above) you need to provide a reference to a k8s secret containing the credentials file.
+        #   serviceAccountSecret:
+        #     # Kubernetes Secret name containing the credentials for a Google IAM Service Account.
+        #     name: <secret name>
+        #     # The key within the Secret containing the credentials.
+        #     key: <key name>
+
+      # Ingester pods have a volume attached.
+      ingesterStorage:
+        # (Optional) Set the storage class. This will differ based on the K8s environment and desired storage characteristics.
+        # If not set, the default storage class will be used.
+        # storageClassName: <storage-class>
+        # Set the storage size (minimum 2Gi recommended)
+        storage: <storage-size>
+
+      # Monitoring pods have a volume attached.
+      monitoringStorage:
+        # (Optional) Set the storage class. This will differ based on the K8s environment and desired storage characteristics.
+        # If not set, the default storage class will be used.
+        # storageClassName: <storage-class>
+        # Set the storage size (minimum 1Gi recommended)
+        storage: <storage-size>
+
+      # Uncomment the follow block if using our provided Ingress.
+      #
+      # We currently only support the ingress NGINX ingress controller: https://github.com/kubernetes/ingress-nginx
+      #
+      # ingress:
+      #   hosts:
+      #     # This is the host on which you will access Influxdb 3.0, for both reads and writes
+      #     - <influxdb-host>
+
+      #   (Optional)
+      #   The name of the Kubernetes Secret containing a TLS certificate, this should exist in the same namespace as the Clustered installation.
+      #   If you are using cert-manager, enter a name for the Secret it should create.
+      #   tlsSecretName: <secret-name>
+
+      #   http:
+      #     # Usually you have only one ingress controller installed in a given cluster.
+      #     # In case you have more than one, you have to specify the "class name" of the ingress controller you want to use
+      #     className: nginx
+
+      #   grpc:
+      #     # Usually you have only one ingress controller installed in a given cluster.
+      #     # In case you have more than one, you have to specify the "class name" of the ingress controller you want to use
+      #     className: nginx
+      #
+      #   Enables specifying which 'type' of Ingress to use, alongside whether to place additional annotations
+      #   onto those objects, this is useful for third party software in your environment, such as cert-manager.
+      #   template:
+      #     apiVersion: 'route.openshift.io/v1'
+      #     kind: 'Route'
+      #     metadata:
+      #       annotations:
+      #         'example-annotation': 'annotation-value'
+
+      # Enables specifying customizations for the various components in InfluxDB 3.0.
+      # components:
+      #   # One of "router", "ingester", "querier", "compactor"
+      # # router:
+      #   # template:
+      #     # nodeSelector:
+      #       # disktype: ssd
+      #     # tolerations:
+      #       #  - effect: NoSchedule
+      #       #    key: example
+      #       #    operator: Exists
+      #   # Common customizations for all components go in a pseudo-component called "common"
+      # # common:
+      #   # template:
+      #     # # Metadata contains custom annotations (and labels) to be added to a component. E.g.:
+      #     # metadata:
+      #     #   annotations:
+      #     #     telegraf.influxdata.com/class: "foo"
+
+      # Uncomment the following block to tune the various pods for their cpu/memory/replicas based on workload needs.
+      # Only uncomment the specific resources you want to change, anything uncommented will use the package default.
+      # (You can read more about k8s resources and limits in https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
+      #
+      # resources:
+      #   # The ingester handles data being written
+      #   ingester:
+      #     requests:
+      #       cpu: <cpu amount>
+      #       memory: <ram amount>
+      #       replicas: <num replicas> # The default for ingesters is 3 to increase availability
+      #
+      #     # optionally you can specify the resource limits which improves isolation.
+      #     # (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
+      #     # limits:
+      #     #   cpu: <cpu amount>
+      #     #   memory: <ram amount>
+
+      #   # The compactor reorganizes old data to improve query and storage efficiency.
+      #   compactor:
+      #     requests:
+      #       cpu: <cpu amount>
+      #       memory: <ram amount>
+      #       replicas: <num replicas> # the default is 1
+
+      #   # The querier handles querying data.
+      #   querier:
+      #     requests:
+      #       cpu: <cpu amount>
+      #       memory: <ram amount>
+      #       replicas: <num replicas> # the default is 1
+
+      #   # The router performs some api routing.
+      #   router:
+      #     requests:
+      #       cpu: <cpu amount>
+      #       memory: <ram amount>
+      #       replicas: <num replicas> # the default is 1
+
+      admin:
+        # The list of users to grant access to Clustered via influxctl
+        users:
+          # First name of user
+          - firstName: <first-name>
+            # Last name of user
+            lastName: <last-name>
+            # Email of user
+            email: <email>
+            # The ID that the configured Identity Provider uses for the user in oauth flows
+            id: <id>
+
+        # The dsn for the postgres compatible database (note this is the same as defined above)
+        dsn:
+          valueFrom:
+            secretKeyRef:
+              name: <secret name>
+              key: <dsn key>
+        # The identity provider to be used e.g. "keycloak", "auth0", "azure", etc
+        # Note for Azure Active Directory it must be exactly "azure"
+        identityProvider: <identity-provider>
+        # The JWKS endpoint provided by the Identity Provider
+        jwksEndpoint: <endpoint>
+
+      #  # This (optional) section controls how InfluxDB issues outbound requests to other services
+      #  egress:
+      #    # If you're using a custom CA you will need to specify the full custom CA bundle here.
+      #    #
+      #    # NOTE: the custom CA is currently only honoured for outbound requests used to obtain
+      #    # the JWT public keys from your identiy provider (see `jwksEndpoint`).
+      #    customCertificates:
+      #      valueFrom:
+      #        configMapKeyRef:
+      #          key: ca.pem
+      #          name: custom-ca
+
+      # We also include the ability to enable some features that are not yet ready for general availability
+      # or for which we don't yet have a proper place to turn on an optional feature in the configuration file.
+      # To turn on these you should include the name of the feature flag in the `featureFlag` array.
+      #
+      # featureFlags:
+      #  # Uncomment to install a Grafana deployment.
+      #  # Depends on one of the prometheus features being deployed.
+      #  # - grafana
+
+      #  # The following 2 flags should be uncommented for k8s API 1.21 support.
+      #  # Note that this is an experimental configuration.
+      #  # - noMinReadySeconds
+      #  # - noGrpcProbes

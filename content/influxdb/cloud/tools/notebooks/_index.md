@@ -10,6 +10,8 @@ menu:
 weight: 102
 aliases:
   - /influxdb/cloud/notebooks/
+source: /shared/influxdb-v2/tools/notebooks/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/notebooks/_index.md-->

@@ -200,20 +200,18 @@ to return all values for specific tags in a measurement.
 SHOW TAG VALUES FROM weather WITH KEY = location
 ```
 
-{{% note %}}
-
-#### Include a FROM clause
-
-We strongly recommend including a `FROM` clause with the `SHOW TAG VALUES`
-statement that specifies 1-50 tables to query.
-Without a `FROM` clause, the InfluxDB query engine must read data from all
-tables and return unique tag values from each.
-
-Depending on the number of tables in your database and the number of unique tag
-values in each table, excluding a `FROM` clause can result in poor query performance,
-query timeouts, or unnecessary resource allocation that may affect other queries.
-
-{{% /note %}}
+> [!Note]
+> 
+> #### Include a FROM clause
+> 
+> We strongly recommend including a `FROM` clause with the `SHOW TAG VALUES`
+> statement that specifies 1-50 tables to query.
+> Without a `FROM` clause, the InfluxDB query engine must read data from all
+> tables and return unique tag values from each.
+> 
+> Depending on the number of tables in your database and the number of unique tag
+> values in each table, excluding a `FROM` clause can result in poor query performance,
+> query timeouts, or unnecessary resource allocation that may affect other queries.
 
 {{< expand-wrapper >}}
 {{% expand "View example output" "5" %}}

@@ -10,6 +10,8 @@ menu:
   influxdb_cloud:
     parent: Reference
 weight: 7
+source: /shared/influxdb-v2/reference/sample-data.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/sample-data.md-->

@@ -1,62 +1,41 @@
 {{ $scratch := newScratch }}
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
-{{ $product := index $productPathData 0 | default "influxdb" }}
-{{ $minorVersions := (index .Site.Data.products $product).versions }}
-{{ $currentVersion := index $productPathData 1 }}
-{{ $latestVersion := (index .Site.Data.products $product).latest }}
-{{ $majorVersion := index (findRE `v[0-9]` $currentVersion) 0 }}
-
-{{ $scratch.Set "latestMinorVersion" "" }}
-{{ if eq $majorVersion "v1"}}
-  {{ $scratch.Set "latestMinorVersion" (index (last 1 (findRE `v1\.[0-9]{1,2}` (delimit $minorVersions " "))) 0) }}
-{{ else if eq $majorVersion "v2" }}
-  {{ $scratch.Set "latestMinorVersion" (index (last 1 (findRE `v2\.[0-9]{1,2}` (delimit $minorVersions " "))) 0) }}
-{{ end }}
-
-{{ $latestMinorVersion := $scratch.Get "latestMinorVersion" }}
 {{ $baseURL := replaceRE `\/$` "" .Site.BaseURL }}
 
+<!-- Set the current page as the default canonical URL -->
 {{ $scratch.Set "canonicalURL" (print $baseURL .RelPermalink) }}
 
-<!-- Override canonical URL with 'canonical' frontmatter, support latest shortcode -->
+<!-- Set canonical URL using 'canonical' frontmatter -->
 {{ if .Page.Params.canonical }}
-  <!-- Support the latest shortcode in canonical overrides -->
-  {{ if in .Page.Params.canonical "{{< latest" }}
+  {{ $scratch.Set "canonicalURL" (print $baseURL .Page.Params.canonical) }}
 
-    {{ $product := replaceRE `[ \"]` "" (index (findRE ` \"\w*\"` .Page.Params.canonical) 0) }}
-    {{ $majorVersion := replaceRE `[ \"]` "" (index (findRE ` \"\w*\"` .Page.Params.canonical) 1) }}
-    {{ $minorVersions := (index $.Site.Data.products $product).versions }}
+<!--
+Set canonical URL from pages with the same shared source. Select one page from
+those that share the same source using the following product priority order:
 
-    {{ $scratch.Set "latestVersion" (index $.Site.Data.products $product).latest }}
-    {{ if gt (len $majorVersion) 0 }}
-      {{ if eq $majorVersion "v1" }}
-        {{ $scratch.Set "latestVersion" (index (last 1 (findRE `v1\.[0-9]{1,2}` (delimit $minorVersions " "))) 0) }}
-      {{ else if eq $majorVersion "v2" }}
-        {{ $scratch.Set "latestVersion" (index (last 1 (findRE `v2\.[0-9]{1,2}` (delimit $minorVersions " "))) 0) }}
-      {{ end }}
-    {{ end }}
-
-    {{ $productLatestVersion := $scratch.Get "latestVersion" }}
-    {{ $replaceLatest := replaceRE `\{\{\< latest \".*\" \>\}\}` (print $product "/" $productLatestVersion) .Page.Params.canonical }}
-    {{ $scratch.Set "canonicalURL" (print $baseURL $replaceLatest) }}
-  {{ else }}
-    {{ $scratch.Set "canonicalURL" (print $baseURL .Page.Params.canonical) }}
-  {{ end }}
-<!-- InfluxDB OSS 2.0 vs Cloud canonical -->
-<!-- If corresponding cloud page exists and uses duplicate-oss shortcode, set cloud to canonical -->
-{{ else if and (eq $product "influxdb") (eq $currentVersion $latestVersion) }}
-  {{ $correspondingPage := replaceRE `v2\.[0-9]{1,2}` "cloud" (print .Page.File) }}
-  {{ if fileExists $correspondingPage }}
-    {{ if (.Site.GetPage $correspondingPage).HasShortcode "duplicate-oss" }}
-      {{ $scratch.Set "canonicalURL" (print $baseURL (.Site.GetPage $correspondingPage).RelPermalink) }}
-    {{ end }}
-  {{ end }}
-<!-- Find the latest version of the page if canonical is not set and version is not cloud -->
-{{ else if and (ge (len ($productPathData)) 2) (not (isset .Page.Params "canonical")) (ne $currentVersion "cloud") }}
-  {{ range ( index $.Site.Data.products $product ).versions }}
-    {{ $currentURL := $.Page.RelPermalink }}
-    {{ if gt (len ($.GetPage ((replaceRE $currentVersion . $currentURL) | replaceRE `\/$` "")).Title) 0 }}
-      {{ $scratch.Set "canonicalURL" (print $baseURL (replaceRE `v[0-9]\.[0-9]{1,2}` . $currentURL)) }}
+1. enterprise
+2. core
+3. cloud-dedicated
+4. clustered
+5. cloud-serverless
+6. v2
+7. cloud
+-->
+{{ else if .Page.Params.source }}
+  {{ $productPriority := slice
+    "/enterprise/"
+    "/core/"
+    "/cloud-dedicated/"
+    "/clustered/"
+    "/cloud-serverless/"
+    "/v2/"
+    "/cloud/"
+  }}
+  {{ range where (sort .Site.Pages "Section" "desc") "Params.source" "eq" .Page.Params.source }}
+    {{ $pagePath := .RelPermalink }}
+    {{ range $productPriority }}
+      {{ if in $pagePath . }}
+        {{ $scratch.Set "canonicalURL" (print $baseURL $pagePath) }}
+      {{ end }}         
     {{ end }}
   {{ end }}
 {{ end }}

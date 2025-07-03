@@ -27,10 +27,9 @@ Learn how to enable the plugin in new and
 existing Telegraf configurations,
 and then start Telegraf using the custom configuration file.
 
-{{% note %}}
-_View the [requirements](/influxdb3/clustered/write-data/use-telegraf#requirements)
-for using Telegraf with {{< product-name >}}._
-{{% /note %}}
+> [!Note]
+> _View the [requirements](/influxdb3/clustered/write-data/use-telegraf#requirements)
+> for using Telegraf with {{< product-name >}}._
 
 <!-- TOC -->
 
@@ -112,12 +111,11 @@ For {{% product-name %}}, set this to an empty string (`""`).
 
 The name of the {{% product-name %}} database to write data to.
 
-{{% note %}}
-##### Write to InfluxDB v1.x and {{< product-name >}}
-
-If a Telegraf agent is already writing to an InfluxDB v1.x database,
-enabling the InfluxDB v2 output plugin will write data to both v1.x and your {{< product-name omit="Clustered" >}} cluster.
-{{% /note %}}
+> [!Note]
+> ##### Write to InfluxDB v1.x and {{% product-name %}}
+> 
+> If a Telegraf agent is already writing to an InfluxDB v1.x database,
+> enabling the InfluxDB v2 output plugin will write data to both v1.x and your {{< product-name omit="Clustered" >}} cluster.
 
 ### Other Telegraf configuration options
 

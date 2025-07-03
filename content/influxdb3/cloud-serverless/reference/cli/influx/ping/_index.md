@@ -13,12 +13,13 @@ related:
   - /influxdb3/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb3/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
 metadata: [influx CLI 2.0.0+, InfluxDB OSS only]
+prepend: |
+  > [!Note]
+  > #### Works with InfluxDB OSS 2.x
+  > 
+  > The `influx ping` command works with **InfluxDB OSS 2.x**, but does not work with **InfluxDB Cloud**.
+source: /shared/influxdb-v2/reference/cli/influx/ping/_index.md
 ---
 
-{{% note %}}
-#### Works with InfluxDB OSS 2.x
-
-The `influx ping` command works with **InfluxDB OSS 2.x**, but does not work with **InfluxDB Cloud**.
-{{% /note %}}
-
-{{< duplicate-oss >}}
+<!-- The content for this page is at
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/ping/_index.md -->

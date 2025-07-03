@@ -17,6 +17,8 @@ related:
   - /flux/v0/function-types/#aggregates, Flux aggregate functions
   - /flux/v0/function-types/#selectors, Flux selector functions
 list_query_example: aggregate_window
+source: /shared/influxdb-v2/query-data/flux/window-aggregate.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/window-aggregate.md-->

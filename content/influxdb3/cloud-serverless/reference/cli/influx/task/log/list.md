@@ -6,6 +6,8 @@ menu:
     name: influx task log list
     parent: influx task log
 weight: 301
+source: /shared/influxdb-v2/reference/cli/influx/task/log/list.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/task/log/list.md-->

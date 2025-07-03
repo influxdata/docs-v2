@@ -10,6 +10,8 @@ menu:
 weight: 206
 related:
   - /influxdb/cloud/reference/cli/influx/task/delete
+source: /shared/influxdb-v2/process-data/manage-tasks/delete-task.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/process-data/manage-tasks/delete-task.md-->

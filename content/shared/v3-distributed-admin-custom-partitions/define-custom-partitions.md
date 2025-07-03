@@ -1,4 +1,4 @@
-Use the [`influxctl` CLI](/influxdb/version/reference/cli/influxctl/)
+Use the Admin UI, the [`influxctl` CLI](/influxdb/version/reference/cli/influxctl/), or the [Management HTTP API](/influxdb/version/api/management/)
 to define custom partition strategies when creating a database or table.
 By default, {{< product-name >}} partitions data by day.
 
@@ -12,55 +12,27 @@ table.
 
 - [Create a database with a custom partition template](#create-a-database-with-a-custom-partition-template)
 - [Create a table with a custom partition template](#create-a-table-with-a-custom-partition-template)
+- [Partition template requirements and guidelines](#partition-template-requirements-and-guidelines)
 - [Example partition templates](#example-partition-templates)
-
-{{% warn %}}
-
-#### Partition templates can only be applied on create
-
-You can only apply a partition template when creating a database or table.
-You can't update a partition template on an existing resource.
-{{% /warn %}}
-
-Use the following command flags to identify
-[partition template parts](/influxdb/version/admin/custom-partitions/partition-templates/#tag-part-templates):
-
-- `--template-tag`: An [InfluxDB tag](/influxdb/version/reference/glossary/#tag)
-  to use in the partition template.
-- `--template-tag-bucket`: An [InfluxDB tag](/influxdb/version/reference/glossary/#tag)
-  and number of "buckets" to group tag values into.
-  Provide the tag key and the number of buckets to bucket tag values into
-  separated by a comma: `tagKey,N`.
-- `--template-timeformat`: A [Rust strftime date and time](/influxdb/version/admin/custom-partitions/partition-templates/#time-part-templates)
-  string that specifies the time format in the partition template and determines
-  the time interval to partition by.
-
-{{% note %}}
-A partition template can include up to 7 total tag and tag bucket parts
-and only 1 time part.
-{{% /note %}}
-
-_View [partition template part restrictions](/influxdb/version/admin/custom-partitions/partition-templates/#restrictions)._
-
-{{% note %}}
-#### Always provide a time format when using custom partitioning
-
-When defining a custom partition template for your database or table using any
-of the `influxctl` `--template-*` flags, always include the `--template-timeformat`
-flag with a time format to use in your partition template.
-Otherwise, InfluxDB omits time from the partition template and won't compact partitions.
-{{% /note %}}
 
 ## Create a database with a custom partition template
 
-The following example creates a new `example-db` database and applies a partition
+The following examples show how to create a new `example-db` database and apply a partition
 template that partitions by distinct values of two tags (`room` and `sensor-type`),
 bucketed values of the `customerID` tag, and by day using the time format `%Y-%m-%d`:
 
-<!--Skip database create and delete tests: namespaces aren't reusable-->
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[influxctl](#)
+[Management API](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
+<!------------------------------- BEGIN INFLUXCTL ----------------------------->
+<!--Skip tests for database create and delete: namespaces aren't reusable-->
 <!--pytest.mark.skip-->
 
-```sh
+```bash
 influxctl database create \
   --template-tag room \
   --template-tag sensor-type \
@@ -69,33 +41,161 @@ influxctl database create \
   example-db
 ```
 
+The following command flags identify
+[partition template parts](/influxdb/version/admin/custom-partitions/partition-templates/#tag-part-templates):
+
+- `--template-timeformat`: A [Rust strftime date and time](/influxdb/version/admin/custom-partitions/partition-templates/#time-part-templates)
+  string that specifies the time part in the partition template and determines
+  the time interval to partition by.
+     Use one of the following:
+     
+     - `%Y-%m-%d` (daily)
+     - `%Y-%m` (monthly)
+     - `%Y` (annually)
+- `--template-tag`: An [InfluxDB tag](/influxdb/version/reference/glossary/#tag)
+  to use in the partition template.
+- `--template-tag-bucket`: An [InfluxDB tag](/influxdb/version/reference/glossary/#tag)
+  and number of "buckets" to group tag values into.
+  Provide the tag key and the number of buckets to bucket tag values into
+  separated by a comma: `tagKey,N`.
+
+<!-------------------------------- END INFLUXCTL ------------------------------>
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------- BEGIN cURL ---------------------------------->
+
+
+<!--Skip tests for database create and delete: namespaces aren't reusable-->
+<!--pytest.mark.skip-->
+{{% code-placeholders "ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
+```bash
+curl \
+  --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" \
+  --header "Authorization: Bearer MANAGEMENT_TOKEN" \
+  --json '{
+    "name": "example-db",
+    "maxTables": 500,
+    "maxColumnsPerTable": 250,
+    "retentionPeriod": 2592000000000,
+    "partitionTemplate": [
+      { "type": "tag", "value": "room" },
+      { "type": "tag", "value": "sensor-type" },
+      { "type": "bucket", "value": { "tagName": "customerID", "numberOfBuckets": 500 } },
+      { "type": "time", "value": "%Y-%m-%d" }
+    ]
+  }'
+```
+{{% /code-placeholders %}}
+
+Replace the following in your request:
+
+- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the [account](/influxdb3/cloud-dedicated/admin/account/) ID for the cluster _(list details via the [Admin UI](/influxdb3/cloud-dedicated/admin/clusters/list/) or [CLI](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the [cluster](/influxdb3/cloud-dedicated/admin/clusters/) ID _(list details via the [Admin UI](/influxdb3/cloud-dedicated/admin/clusters/list/) or [CLI](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+- {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a valid [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
+
+The `partitionTemplate` property in the request body
+is an array of JSON objects that identify the [partition template parts](/influxdb/version/admin/custom-partitions/partition-templates/#tag-part-templates).
+
+<!------------------------------- END cURL ------------------------------------>
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
 ## Create a table with a custom partition template
 
-The following example creates a new `example-table` table in the specified
-database and applies a partition template that partitions by distinct values of
+The following example creates a new `example-table` table in the `example-db` database and applies a partition template that partitions by distinct values of
 two tags (`room` and `sensor-type`), bucketed values of the `customerID` tag,
 and by month using the time format `%Y-%m`:
 
-<!--Skip database create and delete tests: namespaces aren't reusable-->
-<!--pytest.mark.skip-->
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Admin UI](#)
+[influxctl](#)
+[Management API](#)
+{{% /tabs %}}
+{{% tab-content %}}
+<!--------------------------------BEGIN ADMIN UI ------------------------------>
+The {{< product-name >}} Admin UI lets you apply a custom partition template when creating a table.
+1. To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
 
-{{% code-placeholders "DATABASE_NAME" %}}
+   <pre>
+   <a href="https://console.influxdata.com">https://console.influxdata.com</a>
+   </pre>
+2. In the cluster list, click the cluster you want to manage.
+3. Create the `example-db` database or click the row of an existing database.
+4. Click the **New Table** button above the table list.
 
-```sh
+In the **Create Table** dialog:
+
+1. Set **Table name** to `example-table`.
+2. If the **Use default partitioning** toggle is on, turn it off to enable custom partitioning.
+3. Under **Custom partition template time format**, set the time format to `%Y-%m`.
+4. Under **Custom partition template parts**:
+5. In the **Partition template part type** dropdown, click **Tag**, set **Tag name** to `room`.
+6. Click **Add Tag**.
+7. In the **Partition template part type** dropdown, click **Tag**, set **Tag name** to `sensor-type`.
+8. Click **Add Tag**.
+9. In the **Partition template part type** dropdown, click **Bucket**, set **Tag name** to `customerID` and **Buckets** to `500`.
+10. Click **Create Table** to apply the template.
+
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-create-custom-partitioned-table.png" alt="Create table dialog with custom partitioning example values" />}}
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------- BEGIN INFLUXCTL ----------------------------->
+```bash
 influxctl table create \
   --template-tag room \
   --template-tag sensor-type \
   --template-tag-bucket customerID,500 \
   --template-timeformat '%Y-%m' \
-  DATABASE_NAME \
+  example-db \
   example-table
 ```
 
+<!-------------------------------- END INFLUXCTL ------------------------------>
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------- BEGIN cURL ---------------------------------->
+
+{{% code-placeholders "ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
+```bash
+curl \
+  --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/example-db/tables" \
+  --request POST \
+  --header "Authorization: Bearer MANAGEMENT_TOKEN" \
+  --json '{
+    "name": "example-table",
+    "partitionTemplate": [
+      { "type": "tag", "value": "room" },
+      { "type": "tag", "value": "sensor-type" },
+      { "type": "bucket", "value": { "tagName": "customerID", "numberOfBuckets": 500 } },
+      { "type": "time", "value": "%Y-%m" }
+    ]
+  }'
+```
 {{% /code-placeholders %}}
 
-Replace the following in your command:
+Replace the following in your request:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb/version/admin/databases/)
+- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: the [account](/influxdb3/cloud-dedicated/admin/account/) ID for the cluster _(list details via the [Admin UI](/influxdb3/cloud-dedicated/admin/clusters/list/) or [CLI](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the [cluster](/influxdb3/cloud-dedicated/admin/clusters/) ID _(list details via the [Admin UI](/influxdb3/cloud-dedicated/admin/clusters/list/) or [CLI](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json))_.
+- {{% code-placeholder-key %}}`MANAGEMENT_TOKEN`{{% /code-placeholder-key %}}: a valid [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
+
+<!------------------------------- END cURL ------------------------------------>
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+## Partition template requirements and guidelines
+
+Always specify 1 time part in your template.
+A template has a maximum of 8 parts: 1 time part and up to 7 total tag and tag bucket parts.
+
+For more information about partition template requirements and restrictions, see [Partition templates](/influxdb/version/admin/custom-partitions/partition-templates/).
+
+> [!Warning]
+> #### Partition templates can only be applied on create
+>
+> You can only apply a partition template when creating a database.
+> You can't update a partition template on an existing database.
 
 <!--actual test
 
@@ -133,6 +233,9 @@ with a `2024-01-01T00:00:00Z` timestamp:
 ```text
 prod,line=A,station=weld1 temp=81.9,qty=36i 1704067200000000000
 ```
+
+The following tables show how the partition key is generated
+based on the partition template parts you provide.
 
 ##### Partitioning by distinct tag values
 

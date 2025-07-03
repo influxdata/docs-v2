@@ -9,13 +9,15 @@ menu:
 weight: 101
 influxdb/cloud/tags: [authorization]
 updated_in: CLI v2.0.3
+prepend: |
+  > [!Important]
+  >
+  > #### Not supported in InfluxDB Cloud
+  > **InfluxDB Cloud** does not support InfluxDB 1.x compatible authorizations.
+  > Using the `influx v1 auth set-password` command with InfluxDB Cloud will result in an error.
+  > To authenticate with InfluxDB Cloud, use [InfluxDB token authentication](/influxdb/cloud/admin/tokens/).
+source: /shared/influxdb-v2/reference/cli/influx/v1/auth/set-password.md
 ---
 
-> [!Important]
->
-> #### Not supported in InfluxDB Cloud
-> **InfluxDB Cloud** does not support InfluxDB 1.x compatible authorizations.
-> Using the `influx v1 auth set-password` command with InfluxDB Cloud will result in an error.
-> To authenticate with InfluxDB Cloud, use [InfluxDB token authentication](/influxdb/cloud/admin/tokens/).
-
-{{< duplicate-oss >}}
+<!-- The content for this page is at
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/v1/auth/set-password.md -->

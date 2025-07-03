@@ -20,6 +20,8 @@ list_code_example: |
   data
       |> filter(fn: (r) => exists r._value)
   ```
+source: /shared/influxdb-v2/query-data/flux/exists.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/exists.md-->

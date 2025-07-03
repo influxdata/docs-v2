@@ -9,6 +9,8 @@ alt_links:
   cloud-serverless: /influxdb3/cloud-serverless/write-data/use-telegraf/dual-write/
   cloud-dedicated: /influxdb3/cloud-dedicated/write-data/use-telegraf/dual-write/
   clustered: /influxdb3/clustered/write-data/use-telegraf/dual-write/
+source: /shared/influxdb-v2/write-data/no-code/use-telegraf/dual-write.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/write-data/no-code/use-telegraf/dual-write.md-->

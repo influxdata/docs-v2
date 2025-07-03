@@ -17,10 +17,9 @@ alt_links:
 Use the InfluxDB user interface (UI), the `influx` command line interface (CLI),
 or the InfluxDB HTTP API to update a bucket.
 
-{{% note %}}
-If you change a bucket name, be sure to update the bucket connection credential
-in clients that connect to your bucket.
-{{% /note %}}
+> [!Note]
+> If you change a bucket name, be sure to update the bucket connection credential
+> in clients that connect to your bucket.
 
 ## Update a bucket's name in the InfluxDB UI
 
@@ -45,10 +44,10 @@ in clients that connect to your bucket.
     - **{{< caps >}}Never{{< /caps >}}**: data in the bucket is retained indefinitely.
     - **{{< caps >}}Older Than{{< /caps >}}**: select a predefined retention period from the dropdown menu.
 
-    {{% note %}}
-Use the [`influx bucket update` command](#update-a-buckets-retention-period)
-or the [InfluxDB HTTP API `PATCH /api/v2/buckets` endpoint](/influxdb3/cloud-serverless/api/#operation/PatchBucketsID) to set a custom retention period.
-    {{% /note %}}
+    > [!Note]
+    > Use the [`influx bucket update` command](#update-a-buckets-retention-period)
+    > or the [InfluxDB HTTP API `PATCH /api/v2/buckets` endpoint](/influxdb3/cloud-serverless/api/#operation/PatchBucketsID) to set a custom retention period.
+
 5. Click **{{< caps >}}Save Changes{{< /caps >}}**.
 
 ## Update a bucket using the influx CLI
@@ -84,9 +83,8 @@ Valid retention period duration units:
 - days (`d`)
 - weeks (`w`)
 
-{{% note %}}
-The minimum retention period is **one hour**.
-{{% /note %}}
+> [!Note]
+> The minimum retention period is **one hour**.
 
 ```sh
 # Syntax

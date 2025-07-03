@@ -36,11 +36,10 @@ provider that [meets the requirements](#identity-provider-requirements) should w
 - [Keycloak](https://www.keycloak.org/)
 - [Auth0](https://auth0.com/)
 
-{{% note %}}
-Identity providers can be deployed with your InfluxDB cluster or run externally.
-If you choose to deploy your provider with your InfluxDB cluster, the process
-outlined below should be done _after_ your initial InfluxDB cluster deployment.
-{{% /note %}}
+> [!Note]
+> Identity providers can be deployed with your InfluxDB cluster or run externally.
+> If you choose to deploy your provider with your InfluxDB cluster, the process
+> outlined below should be done _after_ your initial InfluxDB cluster deployment.
 
 ## Identity provider requirements
 
@@ -633,10 +632,9 @@ Replace the following:
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-{{% note %}}
-For more information about managing users in your InfluxDB Cluster, see
-[Manage users](/influxdb3/clustered/admin/users/).
-{{% /note %}}
+> [!Note]
+> For more information about managing users in your InfluxDB Cluster, see
+> [Manage users](/influxdb3/clustered/admin/users/).
 
 ## Apply your configuration changes
 
@@ -761,16 +759,15 @@ The following examples show how to configure `influxctl` for various identity pr
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{% warn %}}
-### Refresh your admin token {note="Recommended"}
-
-In preparation for moving into production, we strongly recommend revoking your
-cluster's _admin_ token used to authorize with your cluster in the earlier phases
-of the InfluxDB Clustered installation process and generate a new admin token.
-
-For detailed instructions, see
-[Revoke an admin token](/influxdb3/clustered/admin/bypass-identity-provider/#revoke-an-admin-token).
-{{% /warn %}}
+> [!Warning]
+> ### Refresh your admin token {note="Recommended"}
+> 
+> In preparation for moving into production, we strongly recommend revoking your
+> cluster's _admin_ token used to authorize with your cluster in the earlier phases
+> of the InfluxDB Clustered installation process and generate a new admin token.
+> 
+> For detailed instructions, see
+> [Revoke an admin token](/influxdb3/clustered/admin/bypass-identity-provider/#revoke-an-admin-token).
 
 ## Test your authorization flow
 

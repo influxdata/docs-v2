@@ -9,8 +9,8 @@ menu:
     parent: Manage billing
     name: Adjustable quotas and limits
 related:
-  - /flux/v0.x/stdlib/experimental/usage/from/
-  - /flux/v0.x/stdlib/experimental/usage/limits/
+  - /flux/v0/stdlib/experimental/usage/from/
+  - /flux/v0/stdlib/experimental/usage/limits/
   - /influxdb3/cloud-serverless/write-data/best-practices/
 alt_links:
   cloud: /influxdb/cloud/account-management/limits/
@@ -23,10 +23,9 @@ aliases:
 InfluxDB Cloud Serverless applies (non-adjustable) global system limits and
 adjustable service quotas on a per organization basis.
 
-{{% warn %}}
-All __rates__ (data-in (writes), and queries (reads)) are accrued within a fixed five-minute window.
-Once a rate is exceeded, an error response is returned until the current five-minute window resets.
-{{% /warn %}}
+> [!Warning]
+> All __rates__ (data-in (writes), and queries (reads)) are accrued within a fixed five-minute window.
+> Once a rate is exceeded, an error response is returned until the current five-minute window resets.
 
 Review adjustable service quotas and global limits to plan for your bandwidth needs:
 
@@ -67,10 +66,9 @@ The v3 storage engine enforces the following storage-level limits:
 - **Maximum number of tables per database**: 500
 - **Maximum number of columns per table**: 200
 
-{{% note %}}
-Storage-level limits apply to Free Plan and Usage-Based Plan accounts.
-If you need higher storage-level limits, [contact InfluxData Sales](https://www.influxdata.com/contact-sales/).
-{{% /note %}}
+> [!Note]
+> Storage-level limits apply to Free Plan and Usage-Based Plan accounts.
+> If you need higher storage-level limits, [contact InfluxData Sales](https://www.influxdata.com/contact-sales/).
 
 ### Free Plan
 
@@ -86,9 +84,8 @@ If you need higher storage-level limits, [contact InfluxData Sales](https://www.
   - [Storage-level limits](#storage-level-limits)
   - 30 days of data retention (see [retention period](/influxdb3/cloud-serverless/reference/glossary/#retention-period))
 
-{{% note %}}
-To write historical data older than 30 days, retain data for more than 30 days, increase rate limits, or create additional organizations, upgrade to the Cloud [Usage-Based Plan](/influxdb3/cloud-serverless/admin/billing/pricing-plans/#usage-based-plan).
-{{% /note %}}
+> [!Note]
+> To write historical data older than 30 days, retain data for more than 30 days, increase rate limits, or create additional organizations, upgrade to the Cloud [Usage-Based Plan](/influxdb3/cloud-serverless/admin/billing/pricing-plans/#usage-based-plan).
 
 ### Usage-Based Plan
 
@@ -129,10 +126,10 @@ Limits include:
 - **Total task time**: 1500 seconds of _total_ task time every 30 seconds
 <!-- - **Delete request limit**: Rate of 300 every 5 minutes -->
 <!--   
-    {{% note %}}
-**Tip:**
-Combine delete predicate expressions (if possible) into a single request. InfluxDB limits delete requests by number of requests (not points per request).
-    {{% /note %}} -->
+    > [!Note]
+    > **Tip:**
+    > Combine delete predicate expressions (if possible) into a single request. InfluxDB limits delete requests by number of requests (not points per request).
+    -->
 
 ## Error messages when exceeding quotas or limits
 

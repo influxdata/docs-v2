@@ -2,32 +2,57 @@ Use partition templates to define the patterns used to generate partition keys.
 A partition key uniquely identifies a partition and is used to name the partition
 Parquet file in the [Object store](/influxdb/version/reference/internals/storage-engine/#object-store).
 
-A partition template consists of 1-8 _template parts_---dimensions to partition data by.
-Three types of template parts exist:
+A partition template defines how InfluxDB groups data into partitions by specifying 1-8 _template parts_.
+Each template part represents a dimension to partition data by.
 
-- **tag**: An [InfluxDB tag](/influxdb/version/reference/glossary/#tag)
-  to partition by.
-- **tag bucket**: An [InfluxDB tag](/influxdb/version/reference/glossary/#tag)
-  and number of "buckets" to group tag values into. Data is partitioned by the
-  tag bucket rather than each distinct tag value.
-- {{< req type="key" >}} **time**: A Rust strftime date and time string that specifies the time interval
-  to partition data by. The smallest unit of time included in the time part
-  template is the interval used to partition data.
-
-{{% note %}}
-A partition template must include 1 [time part](#time-part-templates)
-and can include up to 7 total [tag](#tag-part-templates) and [tag bucket](#tag-bucket-part-templates) parts.
-{{% /note %}}
-
-<!-- TOC -->
+- [Template part types](#template-part-types)
+- [Requirements and guidelines](#requirements-and-guidelines)
 - [Restrictions](#restrictions)
   - [Template part size limit](#template-part-size-limit)
+  - [Partition key size limit](#partition-key-size-limit)
   - [Reserved keywords](#reserved-keywords)
   - [Reserved Characters](#reserved-characters)
 - [Tag part templates](#tag-part-templates)
 - [Tag bucket part templates](#tag-bucket-part-templates)
 - [Time part templates](#time-part-templates)
-<!-- /TOC -->
+  - [Date specifiers](#date-specifiers)
+
+## Template part types
+
+InfluxDB supports three types of partition template parts:
+
+- **Tag part**: Partitions data by the unique values of an [InfluxDB tag](/influxdb/version/reference/glossary/#tag).
+  For example, using `region` as a tag part creates separate partitions for each region value (us-west, us-east, eu-central).
+
+- **Tag bucket part**: Partitions data by "buckets" of [InfluxDB tag](/influxdb/version/reference/glossary/#tag) values.
+  Instead of creating a partition for every unique tag value, tag values are hashed and grouped into a specified number of buckets.
+  Use this for high-cardinality tags or when the number of distinct values is unknown.
+
+- {{< req type="key" >}} **Time part**: Partitions data by time intervals using a Rust strftime date and time format string.
+  The smallest time unit in your format determines the granularity of time partitioning (yearly with `%Y`, 
+  monthly with `%Y-%m`, or daily with `%Y-%m-%d`).
+
+## Requirements and guidelines
+
+When creating a partition template:
+
+1. **Include exactly one time part**
+   - Always specify a [time part](#time-part-templates) in your template
+   - With `influxctl`, always include `--template-timeformat` with a valid format
+   - Without a time part, InfluxDB won't compact partitions, impacting performance
+   - If you include more than one time part, InfluxDB uses the smallest unit of time
+   - Use one of the following Rust strftime date and time strings:
+     
+      - `%Y-%m-%d` (daily)
+      - `%Y-%m` (monthly)
+      - `%Y` (annually)
+
+2. **Tag and tag bucket limitations**
+   - Include up to seven [tag](#tag-part-templates) and [tag bucket](#tag-bucket-part-templates) parts
+   - Don't use the same tag key in both a tag part and a tag bucket part--for example,
+     if your template uses `region` as a tag part, you cannot use `region` as a tag bucket part
+
+3. **Maximum template parts**: 8 total (1 time part + up to 7 tag and tag bucket parts)
 
 ## Restrictions
 
@@ -60,18 +85,17 @@ characters must be [percent encoded](https://developer.mozilla.org/en-US/docs/Gl
 
 ## Tag part templates
 
-Tag part templates consist of a _tag key_ to partition by.
+Tag part templates consist of a [_tag key_](/influxdb3/cloud-dedicated/reference/glossary/#tag) to partition by.
 Generated partition keys include the unique _tag value_ specific to each partition.
 
 A partition template may include a given tag key only once in template parts 
-that operate on tags (tag value and tag bucket)--for example:
-
-If a template partitions on unique values of `tag_A`, then
+that operate on tags (tag value and tag bucket)--for example,
+if a template partitions on unique values of `tag_A`, then
 you can't use `tag_A` as a tag bucket part.
 
 ## Tag bucket part templates
 
-Tag bucket part templates consist of a _tag key_ to partition by and the
+Tag bucket part templates consist of a [_tag key_](/influxdb3/cloud-dedicated/reference/glossary/#tag) to partition by and the
 _number of "buckets" to partition tag values into_--for example:
 
 ```
@@ -91,15 +115,13 @@ each partition.
 
 **Supported number of tag buckets**: 1-1,000
 
-{{% note %}}
-Tag buckets should be used to partition by high cardinality tags or tags with an
-unknown number of distinct values.
-{{% /note %}}
+> [!Note]
+> Tag buckets should be used to partition by high cardinality tags or tags with an
+> unknown number of distinct values.
 
 A partition template may include a given tag key only once in template parts 
-that operate on tags (tag value and tag bucket)--for example:
-
-If a template partitions on unique values of `tag_A`, then
+that operate on tags (tag value and tag bucket)--for example,
+if a template partitions on unique values of `tag_A`, then
 you can't use `tag_A` as a tag bucket part.
 
 ## Time part templates

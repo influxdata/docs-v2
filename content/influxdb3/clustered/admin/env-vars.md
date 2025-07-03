@@ -18,16 +18,15 @@ InfluxDB Clustered components support various environment variables.
 While many of these variables have default settings, you can customize them by
 setting your own values.
 
-{{% warn %}}
-#### Overriding default settings may affect overall cluster performance
-
-{{% product-name %}} components have complex interactions that can be affected
-when overriding default configuration settings.
-Changing these settings may impact overall cluster performance.
-Before making configuration changes using environment variables, consider
-consulting [InfluxData Support](https://support.influxdata.com/) to identify any
-potential unintended consequences.
-{{% /warn %}}
+> [!Warning]
+> #### Overriding default settings may affect overall cluster performance
+> 
+> {{% product-name %}} components have complex interactions that can be affected
+> when overriding default configuration settings.
+> Changing these settings may impact overall cluster performance.
+> Before making configuration changes using environment variables, consider
+> consulting [InfluxData Support](https://support.influxdata.com/) to identify any
+> potential unintended consequences.
 
 ## AppInstance component schema
 
@@ -172,21 +171,20 @@ helm upgrade \
 {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}
 
-{{% note %}}
-#### Update environment variables instead of removing them
-
-Most configuration settings that can be overridden by environment variables have
-default values that are used if the environment variable is unset. Removing
-environment variables from your `AppInstance` resource configuration will not
-remove those environment variables entirely; instead, they will revert to their
-default settings. To revert to the default settings, simply unset the
-environment variable or update the value in your `AppInstance` resource to the
-default value.
-
-In the preceding example, the `INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF` environment
-variable is set to `6h`. If you remove `INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF` from
-the `env` property, the cutoff reverts to its default setting of `30d`.
-{{% /note %}}
+> [!Note]
+> #### Update environment variables instead of removing them
+> 
+> Most configuration settings that can be overridden by environment variables have
+> default values that are used if the environment variable is unset. Removing
+> environment variables from your `AppInstance` resource configuration will not
+> remove those environment variables entirely; instead, they will revert to their
+> default settings. To revert to the default settings, simply unset the
+> environment variable or update the value in your `AppInstance` resource to the
+> default value.
+> 
+> In the preceding example, the `INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF` environment
+> variable is set to `6h`. If you remove `INFLUXDB_IOX_GC_OBJECTSTORE_CUTOFF` from
+> the `env` property, the cutoff reverts to its default setting of `30d`.
 
 {{< expand-wrapper >}}
 {{% expand "View example of environment variables in all components" %}}

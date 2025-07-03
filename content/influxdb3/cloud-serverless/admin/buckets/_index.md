@@ -5,7 +5,7 @@ description: >
   Manage buckets in InfluxDB Cloud Serverless using the InfluxDB UI, influx CLI,
   or InfluxDB HTTP API.
 menu:
-  influxdb_cloud_serverless:
+  influxdb3_cloud_serverless:
     name: Manage buckets
     parent: Administer InfluxDB Cloud
 weight: 105
@@ -25,18 +25,17 @@ All buckets have a [retention period](#retention-period), a duration of time tha
 InfluxDB drops all points with timestamps older than the bucket's retention period.
 A bucket belongs to an organization.
 
-{{% note %}}
-**If coming from InfluxDB v1**, the concepts of databases and retention policies
-have been combined into a single concept--_bucket_.
-Retention policies are no longer part of the InfluxDB data model.
-However, {{% product-name %}} does
-support InfluxQL and the InfluxDB v1 API `/write` and `/query` endpoints, which require databases and retention policies.
-See how to [map v1 databases and retention policies to buckets](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets).
-
-**If coming from InfluxDB v2 or InfluxDB Cloud**, _buckets_ are functionally equivalent.
-
-**If coming from InfluxDB Cloud Dedicated or InfluxDB Clustered**, _database_ and _bucket_ are synonymous.
-{{% /note %}}
+> [!Note]
+> **If coming from InfluxDB v1**, the concepts of databases and retention policies
+> have been combined into a single concept--_bucket_.
+> Retention policies are no longer part of the InfluxDB data model.
+> However, {{% product-name %}} does
+> support InfluxQL and the InfluxDB v1 API `/write` and `/query` endpoints, which require databases and retention policies.
+> See how to [map v1 databases and retention policies to buckets](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets).
+> 
+> **If coming from InfluxDB v2 or InfluxDB Cloud**, _buckets_ are functionally equivalent.
+> 
+> **If coming from InfluxDB Cloud Dedicated or InfluxDB Clustered**, _database_ and _bucket_ are synonymous.
 
 ## Retention period
 

@@ -9,7 +9,7 @@ menu:
     parent: SQL reference
 weight: 204
 
-source: /content/shared/sql-reference/order-by.md
+source: /shared/sql-reference/order-by.md
 ---
 
 <!-- 

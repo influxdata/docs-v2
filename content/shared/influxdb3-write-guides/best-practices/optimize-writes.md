@@ -3,7 +3,8 @@ Use these tips to optimize performance and system overhead when writing data to
 {{< product-name >}}.
 
 - [Batch writes](#batch-writes)
-- [Sort tags by key](#sort-tags-by-key)
+{{% hide-in "enterprise,core" %}}- [Sort tags by key](#sort-tags-by-key){{% /hide-in %}}
+{{% show-in "enterprise,core" %}}- [On first write, sort tags by query priority](#on-first-write-sort-tags-by-query-priority){{% /show-in %}}
 - [Use the coarsest time precision possible](#use-the-coarsest-time-precision-possible)
 - [Use gzip compression](#use-gzip-compression)
   - [Enable gzip compression in Telegraf](#enable-gzip-compression-in-telegraf)
@@ -34,6 +35,8 @@ Write data in batches to minimize network overhead when writing data to InfluxDB
 > The optimal batch size is 10,000 lines of line protocol or 10 MBs, whichever
 > threshold is met first.
 
+{{% hide-in "enterprise,core" %}}
+
 ## Sort tags by key
 
 Before writing data points to InfluxDB, sort tags by key in lexicographic order.
@@ -48,6 +51,31 @@ measurement,tagC=therefore,tagE=am,tagA=i,tagD=i,tagB=think fieldKey=fieldValue 
 # Optimized line protocol example with tags sorted by key
 measurement,tagA=i,tagB=think,tagC=therefore,tagD=i,tagE=am fieldKey=fieldValue 1562020262
 ```
+
+{{% /hide-in %}}
+
+{{% show-in "enterprise,core" %}}
+
+## On first write, sort tags by query priority
+
+The first write to a table in {{% product-name %}} determines the physical column
+order in storage, and that order has a direct impact on query performance.
+Columns that appear earlier are typically faster to filter and access during
+query execution.
+
+Sort your tags by query priority when performing the initial write to a table.
+Place the most commonly queried tags first—those you frequently use in `WHERE`
+clauses or joins—followed by less frequently queried ones. For example, if most
+of your queries filter by `region` and then by `host`, structure your first
+write so that `region` comes before `host`.
+
+> [!Important]
+> Column order is determined on the first write and cannot be changed afterward.
+> Tags added after the first write are added last in the column sort order.
+> Plan your schema with your query workload in mind to ensure the best long-term
+> performance.
+
+{{% /show-in %}}
 
 ## Use the coarsest time precision possible
 
@@ -134,13 +162,8 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of the database to write data to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your {{< product-name >}} authorization token.
+  your {{< product-name >}} {{% token-link %}}
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
-
-  > [!Note]
-  > While in alpha, {{< product-name >}} does not require an authorization token.
-  > You can either omit the `Authorization` header or you can provide an
-  > arbitrary token string.
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
@@ -220,12 +243,8 @@ EOF
     - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
       the name of the database to write data to
     - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-      your {{< product-name >}} authorization token.
+      your {{< product-name >}} {{% token-link %}}
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
-
-      > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization token.
-      > For the `token` option, provide an empty or arbitrary token string.
 
 2.  To test the input and processor, enter the following command:
 
@@ -333,12 +352,9 @@ EOF
     - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
       the name of the database to write data to
     - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-      your {{< product-name >}} authorization token.
+      your {{< product-name >}} {{% token-link %}}
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
-      > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization token.
-      > For the `token` option, provide an empty or arbitrary token string.
 
 3.  To test the input and processor, enter the following command:
 
@@ -435,12 +451,9 @@ table, tag set, and timestamp), and then merges points in each series:
     - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
       the name of the database to write data to
     - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-      your {{< product-name >}} authorization token.
+      your {{< product-name >}} {{% token-link %}}
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
-      > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization token.
-      > For the `token` option, provide an empty or arbitrary token string.
 
 3.  To test the input and aggregator, enter the following command:
 
@@ -538,12 +551,9 @@ field values, and then write the data to InfluxDB:
     - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
       the name of the database to write data to
     - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-      your {{< product-name >}} authorization token.
+      your {{< product-name >}} {{% token-link %}}
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
-      > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization token.
-      > For the `token` option, provide an empty or arbitrary token string.
 
 3.  To test the input and processor, enter the following command:
 
@@ -777,12 +787,9 @@ EOF
     - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
       the name of the database to write data to
     - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-      your {{< product-name >}} authorization token.
+      your {{< product-name >}} {{% token-link %}}
       _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
-      > [!Note]
-      > While in alpha, {{< product-name >}} does not require an authorization token.
-      > For the `token` option, provide an empty or arbitrary token string.
 
 5.  To test the input and processor, enter the following command:
 

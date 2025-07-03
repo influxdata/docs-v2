@@ -10,16 +10,8 @@ related:
   - /influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/v2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
+source: /shared/influxdb-v2/reference/cli/influx/help/_index.md
 ---
 
-The `influx help` command provides help for any command in the `influx` command line interface.
-
-## Usage
-```
-influx help [command] [flags]
-```
-
-## Flags
-| Flag |          | Description                 |
-|:---- |:---      |:-----------                 |
-| `-h` | `--help` | Help for the `help` command |
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/help/_index.md -->

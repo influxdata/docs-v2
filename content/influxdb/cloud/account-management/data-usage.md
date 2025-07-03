@@ -12,8 +12,8 @@ menu:
     parent: Account management
     name: View data usage
 related:
-  - /flux/v0.x/stdlib/experimental/usage/from/
-  - /flux/v0.x/stdlib/experimental/usage/limits/
+  - /flux/v0/stdlib/experimental/usage/from/
+  - /flux/v0/stdlib/experimental/usage/limits/
 alt_links:
   cloud-serverless: /influxdb3/cloud-serverless/admin/billing/data-usage/
 ---

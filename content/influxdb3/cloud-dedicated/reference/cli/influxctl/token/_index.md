@@ -20,14 +20,14 @@ influxctl token [subcommand] [flags]
 
 ## Subcommands
 
-| Subcommand                                                                | Description                   |
-| :------------------------------------------------------------------------ | :---------------------------- |
+| Subcommand                                                                 | Description                   |
+| :------------------------------------------------------------------------- | :---------------------------- |
 | [create](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/create/) | Create a database token       |
-| [delete](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/delete/) | Delete a database token       |
+| [revoke](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/revoke/) | Revoke a database token       |
 | [get](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/get/)       | Get information about a token |
 | [list](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/list/)     | List database tokens          |
 | [update](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/update/) | Update a database token       |
-| help, h                                                                   | Output command help           |
+| help, h                                                                    | Output command help           |
 
 ## Flags
 

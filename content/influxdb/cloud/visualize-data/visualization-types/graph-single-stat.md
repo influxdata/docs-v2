@@ -13,6 +13,8 @@ menu:
 related:
   - /influxdb/v2/visualize-data/visualization-types/graph
   - /influxdb/v2/visualize-data/visualization-types/single-stat
+source: /shared/influxdb-v2/visualize-data/visualization-types/graph-single-stat.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/visualize-data/visualization-types/graph-single-stat.md-->

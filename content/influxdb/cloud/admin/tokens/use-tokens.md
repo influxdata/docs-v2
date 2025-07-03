@@ -9,6 +9,8 @@ menu:
 weight: 204
 aliases:
   - /influxdb/cloud/security/tokens/use-tokens/
+source: /shared/influxdb-v2/admin/tokens/use-tokens.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/admin/tokens/use-tokens.md-->

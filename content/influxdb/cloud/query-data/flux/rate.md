@@ -19,6 +19,8 @@ related:
   - /flux/v0/stdlib/universe/derivative/
   - /flux/v0/stdlib/experimental/aggregate/rate/
 list_query_example: rate_of_change
+source: /shared/influxdb-v2/query-data/flux/rate.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/rate.md-->

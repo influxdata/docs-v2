@@ -9,8 +9,8 @@ menu:
     parent: Account management
     name: Adjustable quotas and limits
 related:
-  - /flux/v0.x/stdlib/experimental/usage/from/
-  - /flux/v0.x/stdlib/experimental/usage/limits/
+  - /flux/v0/stdlib/experimental/usage/from/
+  - /flux/v0/stdlib/experimental/usage/limits/
   - /influxdb/cloud/write-data/best-practices/resolve-high-cardinality/
 alt_links:
   cloud-serverless: /influxdb3/cloud-serverless/admin/billing/limits/
@@ -97,7 +97,7 @@ Combine delete predicate expressions (if possible) into a single request. Influx
 
 The {{< product-name >}} UI displays a notification message when service quotas or limits are exceeded. The error messages correspond with the relevant [API error responses](#api-error-responses).
 
-Errors can also be viewed in the [Usage page](/influxdb/cloud/account-management/data-usage/) under **Limit Events**, e.g. `event_type_limited_query`, `event_type_limited_write`,`event_type_limited_cardinality`, or `event_type_limited_delete_rate`.
+Errors can also be viewed in the [Usage page](/influxdb/cloud/account-management/data-usage/) under **Limit Events**, for example: `event_type_limited_query`, `event_type_limited_write`,`event_type_limited_cardinality`, or `event_type_limited_delete_rate`.
 
 ## API error responses
 

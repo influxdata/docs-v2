@@ -5,14 +5,13 @@ with InfluxQL.
 The examples below use **cURL** to send HTTP requests to the InfluxDB v1 HTTP API,
 but you can use any HTTP client.
 
-{{% warn %}}
-#### InfluxQL feature support
-
-InfluxQL is being rearchitected to work with the InfluxDB 3 storage engine.
-This process is ongoing and some InfluxQL features are still being implemented.
-For information about the current implementation status of InfluxQL features,
-see [InfluxQL feature support](/influxdb3/version/reference/influxql/feature-support/).
-{{% /warn %}}
+> [!Warning]
+> #### InfluxQL feature support
+> 
+> InfluxQL is being rearchitected to work with the InfluxDB 3 storage engine.
+> This process is ongoing and some InfluxQL features are still being implemented.
+> For information about the current implementation status of InfluxQL features,
+> see [InfluxQL feature support](/influxdb3/version/reference/influxql/feature-support/).
 
 Use the v1 `/query` endpoint and the `GET` request method to query data with InfluxQL:
 
@@ -22,12 +21,6 @@ Provide the following with your request:
 
 - **Headers:**
   - **Authorization:** `Bearer AUTH_TOKEN`
-
-    > [!Note]
-    > While in alpha, {{< product-name >}} does not require an authorization
-    > token. You can either omit this header or include it with an arbitrary
-    > token string.
-
 - **Query parameters:**
   - **db**: the database to query
   - **rp**: Optional: the retention policy to query
@@ -45,9 +38,9 @@ curl --get https://{{< influxdb/host >}}/query \
 Replace the following configuration values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  the name of the database to query
+  the name of the [database](/influxdb3/version/admin/databases/) to query
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your authorization token
+  your {{< product-name >}} {{% token-link %}}{{% show-in "enterprise" %}} with read access to the database{{% /show-in %}}
 
 ## Return results as JSON or CSV
 
@@ -58,7 +51,7 @@ with the `application/csv` or `text/csv` MIME type:
 {{% code-placeholders "(DATABASE|AUTH)_(NAME|TOKEN)" %}}
 ```sh
 curl --get https://{{< influxdb/host >}}/query \
-  --header "Authorization: BEARER AUTH_TOKEN" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Accept: application/csv" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"

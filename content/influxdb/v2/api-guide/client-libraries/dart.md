@@ -11,10 +11,8 @@ menu:
     params:
       url: https://github.com/influxdata/influxdb-client-dart
 weight: 201
+source: /shared/influxdb-v2/api-guide/client-libraries/dart.md
 ---
 
-Dart is a programming language created for quick application development for both web and mobile apps.
-
-The documentation for this client library is available on GitHub.  
-
-<a href="https://github.com/influxdata/influxdb-client-dart" target="_blank" class="btn github">Dart InfluxDB client</a>
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/dart.md -->

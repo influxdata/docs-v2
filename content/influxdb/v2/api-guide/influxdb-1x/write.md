@@ -29,7 +29,7 @@ to the `/write` endpoint.
 <span class="api post">POST</span> http://localhost:8086/write
 </pre>
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 {{% note %}}
 If you have an existing bucket that doesn't follow the `database/retention-policy` naming convention,
@@ -37,11 +37,11 @@ you _must_ [manually create a database and retention policy mapping](/influxdb/v
 to write data to that bucket with the `/write` compatibility API.
 {{% /note %}}
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Authentication
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 Use one of the following authentication methods:
 - **token authentication**
@@ -50,13 +50,13 @@ Use one of the following authentication methods:
 
 _For more information, see [Authentication](/influxdb/v2/reference/api/influxdb-1x/#authentication)._
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 {{% api/v1-compat/cloud/authentication %}}
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ## Request body
 Include your line protocol in the request body.
@@ -66,7 +66,7 @@ encode the line protocol.
 
 ## Query string parameters
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 ### u
 (Optional) The 1.x **username** to authenticate the request.
@@ -76,9 +76,9 @@ _See [query string authentication](/influxdb/v2/reference/api/influxdb-1x/#query
 (Optional) The 1.x **password** to authenticate the request.
 _See [query string authentication](/influxdb/v2/reference/api/influxdb-1x/#query-string-authentication)._
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 ### u
 (Optional) The InfluxDB Cloud **username** to authenticate the request.
@@ -88,7 +88,7 @@ _See [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#qu
 (Optional) The InfluxDB Cloud **API token** to authenticate the request.
 _See [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication)._
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ### db
 ({{< req >}}) The **database** to write data to.
@@ -134,7 +134,7 @@ influx setup \
 ```
 -->
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 {{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
 ```sh
@@ -144,9 +144,9 @@ curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
 ```
 {{% /code-placeholders %}}
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 {{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
 ```sh
 curl --request POST https://cloud2.influxdata.com/write?db=DATABASE_NAME \
@@ -155,7 +155,7 @@ curl --request POST https://cloud2.influxdata.com/write?db=DATABASE_NAME \
 ```
 {{% /code-placeholders %}}
 
-{{% /cloud-only %}}
+{{% /show-in %}}
 
 ##### Write data using token authentication
 
@@ -209,7 +209,7 @@ curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
 ```
 {{% /code-placeholders %}}
 
-{{% oss-only %}}
+{{% show-in "v2" %}}
 
 Replace the following:
 
@@ -218,9 +218,9 @@ Replace the following:
 - {{% code-placeholder-key %}}`PASSWORD_OR_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB 1.x password or InfluxDB API token](/influxdb/v2/reference/api/influxdb-1x/#manage-credentials)
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB API token](/influxdb/v2/admin/tokens/)
 
-{{% /oss-only %}}
+{{% /show-in %}}
 
-{{% cloud-only %}}
+{{% show-in "cloud,cloud-serverless" %}}
 
 Replace the following:
 
@@ -228,4 +228,4 @@ Replace the following:
 - {{% code-placeholder-key %}}}`exampleuser@influxdata.com`{{% /code-placeholder-key %}}: the email address that you signed up with
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB API token](/influxdb/v2/admin/tokens/)
 
-{{% /cloud-only %}}
+{{% /show-in %}}

@@ -12,6 +12,8 @@ influxdb3/cloud-serverless/tags: [write]
 related:
   - /influxdb3/cloud-serverless/write-data/
   - /influxdb3/cloud-serverless/reference/syntax/line-protocol/
+source: /shared/influxdb-v2/reference/cli/influx/write/dryrun.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/write/dryrun.md-->

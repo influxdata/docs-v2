@@ -12,6 +12,8 @@ menu:
 weight: 121
 related:
   - /chronograf/v1/
+source: /shared/influxdb-v2/tools/chronograf.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/chronograf.md-->

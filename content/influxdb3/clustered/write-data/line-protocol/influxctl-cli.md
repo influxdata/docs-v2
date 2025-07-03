@@ -26,7 +26,7 @@ to write line protocol data to {{< product-name >}}.
 ## Construct line protocol
 
 With a [basic understanding of line protocol](/influxdb3/clustered/write-data/line-protocol/),
-you can now construct line protocol and write data to InfluxDB.
+you can construct data in line protocol format and write it to InfluxDB.
 Consider a use case where you collect data from sensors in your home.
 Each sensor collects temperature, humidity, and carbon monoxide readings.
 To collect this data, use the following schema:
@@ -40,7 +40,7 @@ To collect this data, use the following schema:
     - `co`: carbon monoxide in parts per million (integer)
   - **timestamp**: Unix timestamp in _second_ precision
 
-The following line protocol represent the schema described above:
+The following line protocol represents the schema described above:
 
 ```text
 home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000

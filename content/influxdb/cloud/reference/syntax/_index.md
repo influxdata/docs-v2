@@ -9,6 +9,8 @@ menu:
     name: Syntax
     parent: Reference
 influxdb/cloud/tags: [syntax]
+source: /shared/influxdb-v2/reference/syntax/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/syntax/_index.md-->

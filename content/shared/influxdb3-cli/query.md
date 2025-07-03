@@ -28,12 +28,14 @@ influxdb3 query [OPTIONS] --database <DATABASE_NAME> [QUERY]...
 | :----- | :----------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`     | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 | `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
-|        | `--token`    | Authentication token                                                                     |
+|        | `--token`    | _({{< req >}})_ Authentication token                                                     |
 | `-l`   | `--language` | Query language of the query string (`sql` _(default)_ or `influxql`)                     |
 |        | `--format`   | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, `parquet`)                  |
 | `-o`   | `--output`   | Output query results to the specified file                                               |
 | `-f`   | `--file`     | A file that contains the query to execute                                                |
+|        | `--tls-ca`   | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 | `-h`   | `--help`     | Print help information                                                                   |
+|        | `--help-all` | Print detailed help information                                                          |
 
 ### Option environment variables
 
@@ -70,21 +72,29 @@ with the name of the database to query.
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 query --database DATABASE_NAME 'SELECT * FROM home'
+influxdb3 query \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  'SELECT * FROM home'
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 query --database DATABASE_NAME --file ./query.sql
+influxdb3 query \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --file ./query.sql
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
 ```bash
-cat ./query.sql | influxdb3 query --database DATABASE_NAME
+cat ./query.sql | influxdb3 query \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -104,6 +114,7 @@ cat ./query.sql | influxdb3 query --database DATABASE_NAME
 influxdb3 query \
   --language influxql \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   'SELECT * FROM home'
 ```
 {{% /code-tab-content %}}
@@ -114,6 +125,7 @@ influxdb3 query \
 influxdb3 query \
   --language influxql \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   --file ./query.influxql
 ```
 {{% /code-tab-content %}}
@@ -123,7 +135,8 @@ influxdb3 query \
 ```bash
 cat ./query.influxql | influxdb3 query \
   --language influxql \
-  --database DATABASE_NAME
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -143,6 +156,7 @@ cat ./query.influxql | influxdb3 query \
 influxdb3 query \
   --format json \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   'SELECT * FROM home'
 ```
 {{% /code-tab-content %}}
@@ -153,6 +167,7 @@ influxdb3 query \
 influxdb3 query \
   --format json \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   --file ./query.sql
 ```
 {{% /code-tab-content %}}
@@ -162,7 +177,8 @@ influxdb3 query \
 ```bash
 cat ./query.sql | influxdb3 query \
   --format json \
-  --database DATABASE_NAME
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -182,6 +198,7 @@ cat ./query.sql | influxdb3 query \
 influxdb3 query \
   --output /path/to/results.txt \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   'SELECT * FROM home'
 ```
 {{% /code-tab-content %}}
@@ -192,6 +209,7 @@ influxdb3 query \
 influxdb3 query \
   --output /path/to/results.txt \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   --file ./query.sql
 ```
 {{% /code-tab-content %}}
@@ -201,7 +219,8 @@ influxdb3 query \
 ```bash
 cat ./query.sql | influxdb3 query \
   --output /path/to/results.txt \
-  --database DATABASE_NAME
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

@@ -10,6 +10,8 @@ menu:
   influxdb_cloud:
     name: Table
     parent: Visualization types
+source: /shared/influxdb-v2/visualize-data/visualization-types/table.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/visualize-data/visualization-types/table.md-->

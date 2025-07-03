@@ -12,10 +12,9 @@ An InfluxQL query that aggregates data includes the following clauses:
   value outside specified thresholds.
 - `GROUP BY`: Group data by tag values and time intervals.
 
-{{% note %}}
-For simplicity, the term _"aggregate"_ in this guide refers to applying
-both aggregate and selector functions to a dataset.
-{{% /note %}}
+> [!Note]
+> For simplicity, the term _"aggregate"_ in this guide refers to applying
+> both aggregate and selector functions to a dataset.
 
 Learn how to apply aggregate operations to your queried data:
 

@@ -6,6 +6,7 @@
 #     - list of URL paths to show the notification on, no scope shows everywhere
 #   exclude:
 #     - list of URL paths to not show the notification on
+#   title_tag: (optional) Tag to include before the notification title
 #   title: Message title
 #   slug: (optional) Short notification summary
 #   message: |
@@ -39,25 +40,23 @@
   #   - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
   #   - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
-- id: influxdb3-alpha
+- id: influxdb3.2-explorer-ga
   level: note
   scope:
     - /
-  title: InfluxDB 3 Open Source Now in Public Alpha
-
+  title: New in InfluxDB 3.2
   slug: |
-    InfluxDB 3 Open Source is now available for alpha testing, licensed under MIT or Apache 2 licensing.
+    Key enhancements in InfluxDB 3.2 and the InfluxDB 3 Explorer UI is now generally available.
+
+    <a class="btn" href="http://influxdata.com/blog/influxdb-3-2">See the Blog Post</a>
   message: |
-    We are releasing two products as part of the alpha. 
+    InfluxDB 3.2 is now available for both Core and Enterprise, bringing the
+    general availability of InfluxDB 3 Explorer, a new UI that simplifies how
+    you query, explore, and visualize data. On top of that, InfluxDB 3.2 includes
+    a wide range of performance improvements, feature updates, and bug fixes
+    including automated data retention and more.
 
-    InfluxDB 3 Core, is our new open source product.
-    It is a recent-data engine for time series and event data.
-    InfluxDB 3 Enterprise is a commercial version that builds on Core’s
-    foundation, adding historical query capability, read replicas, high
-    availability, scalability, and fine-grained security.
-
-    For more information on how to get started, check out:
+    For more information, check out:
     
-    - [Announcement blog from InfluxData Founder & CTO Paul Dix](https://www.influxdata.com/blog/influxdb3-open-source-public-alpha)
-    - [Get Started with InfluxDB 3 Core](https://docs.influxdata.com/influxdb3/core/get-started/)
-    - [Get Started with InfluxDB 3 Enterprise](https://docs.influxdata.com/influxdb3/enterprise/get-started/)
+    - [InfluxDB 3.2 blog from Paul Dix](http://influxdata.com/blog/influxdb-3-2)
+    - [Get Started with InfluxDB 3 Explorer](/influxdb3/explorer/get-started/)

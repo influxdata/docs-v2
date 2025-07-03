@@ -151,15 +151,14 @@ data = () =>
 
 ## Set up the migration
 
-{{% note %}}
-The migration process requires two buckets in your source InfluxDB
-organization: one bucket to store the data you're migrating and a second bucket
-to store migration metadata.
-If you're using the [InfluxDB Cloud Free Plan](/influxdb/cloud/account-management/limits/#free-plan),
-and have more than one bucket to migrate, you will exceed your plan's bucket limit.
-To migrate more than one bucket, you need to [upgrade to the Usage-based plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)
-to complete the migration.
-{{% /note %}}
+> [!Note]
+> The migration process requires two buckets in your source InfluxDB
+> organization: one bucket to store the data you're migrating and a second bucket
+> to store migration metadata.
+> If you're using the [InfluxDB Cloud Free Plan](/influxdb/cloud/account-management/limits/#free-plan),
+> and have more than one bucket to migrate, you will exceed your plan's bucket limit.
+> To migrate more than one bucket, you need to [upgrade to the Usage-based plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)
+> to complete the migration.
 
 1.  **In the {{< product-name omit=" Clustered" >}} cluster you're migrating data _to_**:
 
@@ -181,9 +180,8 @@ to complete the migration.
     5.  _(Optional)_ Set up [migration monitoring](#monitor-the-migration-progress).
     6.  Save the task.
 
-        {{% note %}}
-Newly-created tasks are enabled by default, so the data migration begins when you save the task.
-        {{% /note %}}
+        > [!Note]
+        > Newly-created tasks are enabled by default, so the data migration begins when you save the task.
 
 **After the migration is complete**, each subsequent migration task execution
 will fail with the following error:
@@ -421,10 +419,9 @@ curl -so /dev/null --request POST \
   --write-out '%{size_download}'
 ```
 
-{{% note %}}
-You can also use other HTTP API tools like [Postman](https://www.postman.com/)
-that provide the size of the response body.
-{{% /note %}}
+> [!Note]
+> You can also use other HTTP API tools like [Postman](https://www.postman.com/)
+> that provide the size of the response body.
 
 Divide the output of this command by 1000000 to convert it to megabytes (MB).
 

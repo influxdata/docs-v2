@@ -12,6 +12,8 @@ weight: 101
 influxdb/cloud/tags: [cli]
 related:
   - /influxdb/cloud/tools/clis/
+source: /shared/influxdb-v2/reference/cli/influx/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/_index.md-->

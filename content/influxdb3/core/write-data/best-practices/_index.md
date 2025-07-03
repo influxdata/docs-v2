@@ -3,7 +3,7 @@ title: Best practices for writing data
 seotitle: Best practices for writing data to {{< product-name >}}
 description: >
   Learn about the recommendations and best practices for writing data to {{< product-name >}}.
-weight: 105
+weight: 205 
 menu:
   influxdb3_core:
     name: Best practices

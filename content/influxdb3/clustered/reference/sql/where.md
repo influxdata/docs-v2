@@ -11,7 +11,7 @@ weight: 202
 related:
   - /influxdb3/clustered/reference/sql/subqueries/
 
-source: /content/shared/sql-reference/where.md
+source: /shared/sql-reference/where.md
 ---
 
 <!-- 

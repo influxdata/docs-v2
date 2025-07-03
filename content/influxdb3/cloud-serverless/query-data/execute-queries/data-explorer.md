@@ -55,16 +55,15 @@ Choose between **visualization types** for your query.
 
 See [Query data](/influxdb3/cloud-serverless/query-data/sql/) to learn more about building SQL queries.
 
-{{% note %}}
+> [!Note]
+> 
+> #### Save your work
+> 
+> **Data Explorer** keeps your last change--for example, if you navigate to **Buckets**
+> or signout and then come back, you'll see your SQL query and selections in **Data Explorer**.
+> 
+> To store a query that you can retrieve and reuse, {{% caps %}}**Save**{{% /caps %}} your query as a *script*.
 
-#### Save your work
-
-**Data Explorer** keeps your last change--for example, if you navigate to **Buckets**
-or signout and then come back, you'll see your SQL query and selections in **Data Explorer**.
-
-To store a query that you can retrieve and reuse, {{% caps %}}**Save**{{% /caps %}} your query as a *script*.
-
-{{% /note %}}
 ## View SQL query results
 
 After you **Run** your query, Data Explorer displays the results.

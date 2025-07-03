@@ -17,13 +17,12 @@ related:
   - /influxdb3/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
 metadata: [influx CLI 2.0.0+]
 updated_in: CLI v2.0.5
-prepend:
-  block: warn
-  content: |
-    #### Command not supported
-
-    The `influx query` command and the InfluxDB `/api/v2/query` API endpoint it uses
-    don't work with {{% product-name %}}.
-
-    Use [SQL](/influxdb3/cloud-serverless/query-data/sql/execute-queries/) or [InfluxQL](/influxdb3/cloud-serverless/query-data/influxql/execute-queries/) tools to query a {{% product-name %}} bucket.
+prepend: |
+  > [!Warning]
+  > #### Command not supported
+  > 
+  > The `influx query` command and the InfluxDB `/api/v2/query` API endpoint it uses
+  > don't work with {{% product-name %}}.
+  > 
+  > Use [SQL](/influxdb3/cloud-serverless/query-data/sql/execute-queries/) or [InfluxQL](/influxdb3/cloud-serverless/query-data/influxql/execute-queries/) tools to query a {{% product-name %}} bucket.
 ---

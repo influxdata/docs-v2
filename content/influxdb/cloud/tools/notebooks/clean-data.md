@@ -11,6 +11,8 @@ menu:
     parent: Notebooks
 aliases:
   - /influxdb/cloud/notebooks/clean-data/
+source: /shared/influxdb-v2/tools/notebooks/clean-data.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/notebooks/clean-data.md-->

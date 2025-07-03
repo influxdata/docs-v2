@@ -53,10 +53,9 @@ cluster. You can edit the `AppInstance` resource directly or, if using the
 [InfluxDB Clustered Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-clustered)
 to manage your deployment, you can edit resource settings in your `values.yaml`.
 
-{{% note %}}
-_For specific scaling recommendations and guidelines, see
-[Scale your cluster](/influxdb3/clustered/admin/scale-cluster/)._
-{{% /note %}}
+> [!Note]
+> _For specific scaling recommendations and guidelines, see
+> [Scale your cluster](/influxdb3/clustered/admin/scale-cluster/)._
 
 With Kubernetes, you can define the minimum resources and the resource limits for each component.
 

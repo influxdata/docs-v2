@@ -19,11 +19,10 @@ By default, each user has full permissions on resources in your organization.
   - [Withdraw an invitation](#withdraw-an-invitation)
 - [Remove a user from your organization](#remove-a-user-from-your-organization)
 
-{{% note %}}
-If you have multiple users, we recommend creating a system account for administrative purposes.
-For example, if you have applications writing to InfluxDB, ensure the applications
-use the system account credentials.
-{{% /note %}}
+> [!Note]
+> If you have multiple users, we recommend creating a system account for administrative purposes.
+> For example, if you have applications writing to InfluxDB, ensure the applications
+> use the system account credentials.
 
 ## Members page
 
@@ -38,12 +37,11 @@ menu with your organization's name in the top navigation menu and select
 2.  Under **Add a new user to your organization**, enter the email address of
     the user to invite and select their role in your organization.
 
-    {{% note %}}
-#### Available roles
-Currently, InfluxDB Cloud has only one permission level for users: **Owner**.
-With Owner permissions, a user can delete resources and other users from your organization.
-Take care when inviting a user.
-{{% /note %}}
+    > [!Note]
+    > #### Available roles
+    > Currently, InfluxDB Cloud has only one permission level for users: **Owner**.
+    > With Owner permissions, a user can delete resources and other users from your organization.
+    > Take care when inviting a user.
 
     _Users must be invited one at a time._
 3.  Click **{{< icon "plus" >}} {{< caps >}}Add{{< /caps >}}**.
@@ -67,9 +65,8 @@ Accounts can have up to 50 pending invitations at one time.
 
 ## Remove a user from your organization
 
-{{% warn %}}
-For security purposes, once an InfluxDB user account is deleted, the user (and their token) cannot be reactivated.
-{{% /warn %}} 
+> [!Warning]
+> For security purposes, once an InfluxDB user account is deleted, the user (and their token) cannot be reactivated. 
 
 1.  Navigate to your organization's [Members page](#members-page).
 2.  Click the **{{< icon "delete" >}}** icon next to the user you want to remove.

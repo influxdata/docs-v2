@@ -18,6 +18,8 @@ list_code_example: |
       |> geo.filterRows(region: {lat: 30.04, lon: 31.23, radius: 200.0})
       |> geo.groupByArea(newColumn: "geoArea", level: 5)
   ```
+source: /shared/influxdb-v2/query-data/flux/geo/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/geo/_index.md-->

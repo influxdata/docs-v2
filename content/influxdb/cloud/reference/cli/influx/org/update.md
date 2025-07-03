@@ -6,6 +6,8 @@ menu:
     name: influx org update
     parent: influx org
 weight: 201
+source: /shared/influxdb-v2/reference/cli/influx/org/update.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/org/update.md-->

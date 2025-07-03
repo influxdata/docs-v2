@@ -9,6 +9,8 @@ weight: 101
 influxdb3/cloud-serverless/tags: [write, replication]
 related:
   - /influxdb3/cloud-serverless/reference/cli/influx/replication
+source: /shared/influxdb-v2/reference/cli/influx/remote/create.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/remote/create.md-->

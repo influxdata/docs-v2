@@ -22,19 +22,12 @@ resources available to each component.
 - [Scaling strategies](#scaling-strategies)
   - [Vertical scaling](#vertical-scaling)
   - [Horizontal scaling](#horizontal-scaling)
+- [Scale your cluster as a whole](#scale-your-cluster-as-a-whole)
 - [Scale components in your cluster](#scale-components-in-your-cluster)
   - [Horizontally scale a component](#horizontally-scale-a-component)
   - [Vertically scale a component](#vertically-scale-a-component)
   - [Apply your changes](#apply-your-changes)
-- [Scale your cluster as a whole](#scale-your-cluster-as-a-whole)
 - [Recommended scaling strategies per component](#recommended-scaling-strategies-per-component)
-  - [Ingester](#ingester)
-  - [Querier](#querier)
-  - [Router](#router)
-  - [Compactor](#compactor)
-  - [Garbage collector](#garbage-collector)
-  - [Catalog](#catalog)
-  - [Object store](#object-store)
 
 ## Scaling strategies
 
@@ -59,6 +52,14 @@ throughput a system can manage, but also provides additional redundancy and fail
 
 {{< html-diagram/scaling-strategy "horizontal" >}}
 
+## Scale your cluster as a whole
+
+Scaling your entire InfluxDB Cluster is done by scaling your Kubernetes cluster
+and is managed outside of InfluxDB. The process of scaling your entire Kubernetes
+cluster depends on your underlying Kubernetes provider. You can also use 
+[Kubernetes autoscaling](https://kubernetes.io/docs/concepts/cluster-administration/cluster-autoscaling/)
+to automatically scale your cluster as needed.
+
 ## Scale components in your cluster
 
 The following components of your InfluxDB cluster are scaled by modifying
@@ -69,15 +70,15 @@ properties in your `AppInstance` resource:
 - Compactor
 - Router
 - Garbage collector
+- Catalog service
 
-{{% note %}}
-#### Scale your Catalog and Object store
-
-Your InfluxDB [Catalog](/influxdb3/clustered/reference/internals/storage-engine/#catalog)
-and [Object store](/influxdb3/clustered/reference/internals/storage-engine/#object-store)
-are managed outside of your `AppInstance` resource. Scaling mechanisms for these
-components depend on the technology and underlying provider used for each.
-{{% /note %}}
+> [!Note]
+> #### Scale your Catalog and Object store
+> 
+> Your InfluxDB [Catalog](/influxdb3/clustered/reference/internals/storage-engine/#catalog)
+> and [Object store](/influxdb3/clustered/reference/internals/storage-engine/#object-store)
+> are managed outside of your `AppInstance` resource. Scaling mechanisms for these
+> components depend on the technology and underlying provider used for each.
 
 {{< tabs-wrapper >}}
 {{% tabs "small" %}}
@@ -316,11 +317,10 @@ replicas per component:
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-{{% note %}}
-Applying resource limits to pods is optional, but provides better resource
-isolation and protects against pods using more resources than intended. For
-information, see [Kubernetes resource requests and limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits).
-{{% /note %}}
+> [!Note]
+> Applying resource limits to pods is optional, but provides better resource
+> isolation and protects against pods using more resources than intended. For
+> information, see [Kubernetes resource requests and limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits).
 
 ##### Related Kubernetes documentation
 
@@ -332,12 +332,11 @@ information, see [Kubernetes resource requests and limits](https://kubernetes.io
 To horizontally scale a component in your InfluxDB cluster, increase or decrease
 the number of replicas for the component and [apply the change](#apply-your-changes).
 
-{{% warn %}}
-#### Only use the AppInstance to scale component replicas
-
-Only use the `AppInstance` resource to scale component replicas.
-Manually scaling replicas may cause errors.
-{{% /warn %}}
+> [!Warning]
+> #### Only use the AppInstance to scale component replicas
+> 
+> Only use the `AppInstance` resource to scale component replicas.
+> Manually scaling replicas may cause errors.
 
 For example--to horizontally scale your
 [Ingester](/influxdb3/clustered/reference/internals/storage-engine/#ingester):
@@ -451,14 +450,6 @@ helm upgrade \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-## Scale your cluster as a whole
-
-Scaling your entire InfluxDB Cluster is done by scaling your Kubernetes cluster
-and is managed outside of InfluxDB. The process of scaling your entire Kubernetes
-cluster depends on your underlying Kubernetes provider. You can also use 
-[Kubernetes autoscaling](https://kubernetes.io/docs/concepts/cluster-administration/cluster-autoscaling/)
-to automatically scale your cluster as needed.
-
 ## Recommended scaling strategies per component
 
 - [Router](#router)
@@ -466,24 +457,35 @@ to automatically scale your cluster as needed.
 - [Querier](#querier)
 - [Compactor](#compactor)
 - [Garbage collector](#garbage-collector)
-- [Catalog](#catalog)
+- [Catalog store](#catalog-store)
+- [Catalog service](#catalog-service)
 - [Object store](#object-store)
 
 ### Router
 
-The Router can be scaled both [vertically](#vertical-scaling) and
+The [Router](/influxdb3/clustered/reference/internals/storage-engine/#router) can be scaled both [vertically](#vertical-scaling) and
 [horizontally](#horizontal-scaling).
-Horizontal scaling increases write throughput and is typically the most
+
+- **Recommended**: Horizontal scaling increases write throughput and is typically the most
 effective scaling strategy for the Router.
-Vertical scaling (specifically increased CPU) improves the Router's ability to
+- Vertical scaling (specifically increased CPU) improves the Router's ability to
 parse incoming line protocol with lower latency.
+
+#### Router latency
+
+Latency of the Router’s write endpoint is directly impacted by:
+
+- Ingester latency--the router calls the Ingester during a client write request
+- Catalog latency during schema validation
 
 ### Ingester
 
-The Ingester can be scaled both [vertically](#vertical-scaling) and
+The [Ingester](/influxdb3/clustered/reference/internals/storage-engine/#ingester) can be scaled both [vertically](#vertical-scaling) and
 [horizontally](#horizontal-scaling).
-Vertical scaling increases write throughput and is typically the most effective
-scaling strategy for the Ingester.
+
+- **Recommended**: Vertical scaling is typically the most effective scaling strategy for the Ingester.
+Compared to horizontal scaling, vertical scaling not only increases write throughput but also lessens query, catalog, and compaction overheads as well as Object store costs.
+- Horizontal scaling can help distribute write load but comes with additional coordination overhead.
 
 #### Ingester storage volume
 
@@ -546,37 +548,62 @@ ingesterStorage:
 
 ### Querier
 
-The Querier can be scaled both [vertically](#vertical-scaling) and
+The [Querier](/influxdb3/clustered/reference/internals/storage-engine/#querier) can be scaled both [vertically](#vertical-scaling) and
 [horizontally](#horizontal-scaling).
-Horizontal scaling increases query throughput to handle more concurrent queries.
-Vertical scaling improves the Querier’s ability to process computationally
-intensive queries.
+
+- **Recommended**: [Vertical scaling](#vertical-scaling) improves the Querier's ability to process concurrent or computationally 
+intensive queries, and increases the effective cache capacity.
+- Horizontal scaling increases query throughput to handle more concurrent queries. 
+Consider horizontal scaling if vertical scaling doesn't adequately address
+concurrency demands or reaches the hardware limits of your underlying nodes.
 
 ### Compactor
 
-The Compactor can be scaled both [vertically](#vertical-scaling) and
-[horizontally](#horizontal-scaling).
-Because compaction is a compute-heavy process, vertical scaling (especially
-increasing the available CPU) is the most effective scaling strategy for the
-Compactor. Horizontal scaling increases compaction throughput, but not as
+- **Recommended**: Maintain **1 Compactor pod** and use [vertical scaling](#vertical-scaling) (especially
+increasing the available CPU) for the Compactor.
+- Because compaction is a compute-heavy process, horizontal scaling increases compaction throughput, but not as
 efficiently as vertical scaling.
 
 ### Garbage collector
 
-The Garbage collector can be scaled [vertically](#vertical-scaling). It is a
-light-weight process that typically doesn't require many system resources, but
-if you begin to see high resource consumption on the garbage collector, you can
-scale it vertically to address the added workload.
+The [Garbage collector](/influxdb3/clustered/reference/internals/storage-engine/#garbage-collector) is a lightweight process that typically doesn't require
+significant system resources. 
 
-### Catalog
+- Don't horizontally scale the Garbage collector; it isn't designed for distributed load.
+- Consider [vertical scaling](#vertical-scaling) only if you observe consistently high CPU usage or if the container
+regularly runs out of memory.
 
-Scaling strategies available for the Catalog depend on the PostgreSQL-compatible
-database used to run the catalog. All support [vertical scaling](#vertical-scaling).
-Most support [horizontal scaling](#horizontal-scaling) for redundancy and failover.
+### Catalog store
+
+The [Catalog store](/influxdb3/clustered/reference/internals/storage-engine/#catalog-store) is a PostgreSQL-compatible database that stores critical metadata for your InfluxDB cluster.
+An underprovisioned Catalog store can cause write outages and system-wide performance issues.
+
+- Scaling strategies depend on your specific PostgreSQL implementation
+- All PostgreSQL implementations support [vertical scaling](#vertical-scaling)
+- Most implementations support [horizontal scaling](#horizontal-scaling) for improved redundancy and failover
+
+
+### Catalog service
+
+The [Catalog service](/influxdb3/clustered/reference/internals/storage-engine/#catalog-service) (iox-shared-catalog statefulset) caches 
+and manages access to the Catalog store.
+
+- **Recommended**: Maintain **exactly 3 replicas** of the Catalog service for optimal redundancy. Additional replicas are discouraged.
+- If performance improvements are needed, use [vertical scaling](#vertical-scaling).
+
+> [!Note]
+> #### Managing Catalog components
+> 
+> The [Catalog service](/influxdb3/clustered/reference/internals/storage-engine/#catalog-service) is managed through the
+> `AppInstance` resource, while the [Catalog store](/influxdb3/clustered/reference/internals/storage-engine/#catalog-store) 
+> is managed separately according to your PostgreSQL implementation.
 
 ### Object store
 
-Scaling strategies available for the Object store depend on the underlying
-object storage services used to run the object store. Most support
+The [Object store](/influxdb3/clustered/reference/internals/storage-engine/#object-store)
+contains time series data in Parquet format.
+
+Scaling strategies depend on the underlying object storage services used.
+Most services support
 [horizontal scaling](#horizontal-scaling) for redundancy, failover, and
 increased capacity.

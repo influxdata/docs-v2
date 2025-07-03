@@ -284,15 +284,15 @@ SQL supports casting the following to a timestamp:
 - **Unsigned integers**: Parses the unsigned integer as a Unix nanosecond timestamp
   and returns the equivalent timestamp.
 
-{{% note %}}
-#### Cast Unix nanosecond timestamps to a timestamp type
-
-To cast a Unix nanosecond timestamp to a timestamp type, first cast the numeric
-value to an unsigned integer (`BIGINT UNSIGNED`) and then a timestamp.
-You can also use the [`to_timestamp_nanos`](/influxdb3/version/reference/sql/functions/time-and-date/#to_timestamp_nanos)
-function.
-
-{{< code-tabs-wrapper >}}
+> [!Note]
+> #### Cast Unix nanosecond timestamps to a timestamp type
+> 
+> To cast a Unix nanosecond timestamp to a timestamp type, first cast the numeric
+> value to an unsigned integer (`BIGINT UNSIGNED`) and then a timestamp.
+> You can also use the [`to_timestamp_nanos`](/influxdb3/version/reference/sql/functions/time-and-date/> #to_timestamp_nanos)
+> function.
+> 
+> {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [:: shorthand](#)
 [CAST()](#)
@@ -314,7 +314,6 @@ to_timestamp_nanos(1704067200000000000)
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /note %}}
 
 ### Timestamp functions
 

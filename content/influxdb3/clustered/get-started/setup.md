@@ -55,12 +55,9 @@ databases and tokens.
     | macOS            | `~/Library/Application Support/influxctl/config.toml` |
     | Windows          | `%APPDATA%\influxctl\config.toml`                     |
 
-    {{% note %}}
-
-If stored at a non-default location, include the `--config` flag with each
-`influxctl` command and provide the path to your profile configuration file.
-
-    {{% /note %}}
+    > [!Note]
+    > If stored at a non-default location, include the `--config` flag with each
+    > `influxctl` command and provide the path to your profile configuration file.
 
 1.  **Copy and paste the sample configuration profile code** into your `config.toml`:
 
@@ -101,15 +98,14 @@ to create a database. You can use an existing database or create a new one
 specifically for this getting started tutorial.
 _Examples in this getting started tutorial assume a database named `get-started`._
 
-{{% note %}}
-
-#### Authenticate with your cluster
-
-The first time you run an `influxctl` CLI command, you are directed
-to login to your **OAuth provider**. Once logged in, your OAuth provider issues
-a short-lived (1 hour) management token for the `influxctl` CLI that grants
-administrative access to your {{< product-name omit="Clustered" >}} cluster.
-{{% /note %}}
+> [!Note]
+> 
+> #### Authenticate with your cluster
+> 
+> The first time you run an `influxctl` CLI command, you are directed
+> to login to your **OAuth provider**. Once logged in, your OAuth provider issues
+> a short-lived (1 hour) management token for the `influxctl` CLI that grants
+> administrative access to your {{< product-name omit="Clustered" >}} cluster.
 
 Provide the following:
 
@@ -181,14 +177,13 @@ Store the token string in a safe place.
 You'll need it later.
 **This is the only time the token string is available in plain text.**
 
-{{% note %}}
-
-#### Store secure tokens in a secret store
-
-Token strings are returned _only_ on token creation.
-We recommend storing database tokens in a **secure secret store**.
-For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
-{{% /note %}}
+> [!Note]
+> 
+> #### Store secure tokens in a secret store
+> 
+> Token strings are returned _only_ on token creation.
+> We recommend storing database tokens in a **secure secret store**.
+> For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
 
 ## Configure authentication credentials
 

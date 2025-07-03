@@ -9,6 +9,8 @@ menu:
     parent: Notebooks
 aliases:
   - /influxdb/cloud/notebooks/manage-notebooks/
+source: /shared/influxdb-v2/tools/notebooks/manage-notebooks.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/notebooks/manage-notebooks.md-->

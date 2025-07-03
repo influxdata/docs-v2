@@ -12,6 +12,8 @@ aliases:
   - /influxdb/cloud/telegraf-configs/view/
 # alt_links: 
 #   cloud-serverless: /influxdb3/cloud-serverless/write-data/use-telegraf/telegraf-configs/view/
+source: /shared/influxdb-v2/tools/telegraf-configs/view.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/tools/telegraf-configs/view.md-->

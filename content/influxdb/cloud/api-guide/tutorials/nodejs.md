@@ -11,6 +11,8 @@ menu:
     name: JavaScript
     parent: Client library tutorials
 influxdb/cloud/tags: [api, javascript, nodejs]
+source: /shared/influxdb-v2/api-guide/tutorials/nodejs.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/tutorials/nodejs.md-->

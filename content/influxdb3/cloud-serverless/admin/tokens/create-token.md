@@ -14,21 +14,18 @@ alt_links:
 Create API tokens using the InfluxDB user interface (UI), the `influx`
 command line interface (CLI), or the InfluxDB API.
 
-{{% note %}}
-
-To follow best practices for secure API token generation and retrieval, InfluxDB enforces access restrictions on API tokens.
-
-- Tokens are visible to the user who created the token.
-- InfluxDB only allows access to the API token value immediately after the token is created.
-- You can't change access (**read/write**) permissions for an API token after it's created.
-- Tokens stop working when the user who created the token is deleted.
-
-**We recommend the following for managing your tokens:**
-
-- Create a generic user to create and manage tokens for writing data.
-- Store your tokens in a secure password vault for future access.
-
-{{% /note %}}
+> [!Note]
+> To follow best practices for secure API token generation and retrieval, InfluxDB enforces access restrictions on API tokens.
+> 
+> - Tokens are visible to the user who created the token.
+> - InfluxDB only allows access to the API token value immediately after the token is created.
+> - You can't change access (**read/write**) permissions for an API token after it's created.
+> - Tokens stop working when the user who created the token is deleted.
+> 
+> **We recommend the following for managing your tokens:**
+> 
+> - Create a generic user to create and manage tokens for writing data.
+> - Store your tokens in a secure password vault for future access.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

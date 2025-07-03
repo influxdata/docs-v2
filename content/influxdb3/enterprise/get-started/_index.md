@@ -11,10 +11,12 @@ menu:
 weight: 3
 related:
   - /influxdb3/enterprise/admin/query-system-data/
-source: /shared/v3-enterprise-get-started/_index.md
+  - /influxdb3/enterprise/write-data/
+  - /influxdb3/enterprise/query-data/
+source: /shared/influxdb3-get-started/_index.md
 ---
 
 <!-- 
 The content of this page is at
-// SOURCE content/shared/v3-core-get-started/_index.md
+// SOURCE content/shared/influxdb3-get-started/_index.md
 -->

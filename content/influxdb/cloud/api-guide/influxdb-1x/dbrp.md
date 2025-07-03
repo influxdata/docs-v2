@@ -15,6 +15,8 @@ related:
   - /influxdb/cloud/query-data/influxql/
 aliases:
   - /influxdb/cloud/reference/api/influxdb-1x/dbrp/
+source: /shared/influxdb-v2/api-guide/influxdb-1x/dbrp.md
 ---
 
-{{% duplicate-oss %}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/influxdb-1x/dbrp.md-->

@@ -14,6 +14,8 @@ related:
   - /flux/v0/stdlib/universe/group
   - /flux/v0/stdlib/experimental/group
 list_query_example: group
+source: /shared/influxdb-v2/query-data/flux/group-data.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/group-data.md-->

@@ -195,14 +195,12 @@ To test InfluxDB v2 API writes interactively, use the [`influx3` data CLI](https
 
 To setup and start using interactive clients, see the [Get started](/influxdb3/cloud-dedicated/get-started/) tutorial.
 
-{{% warn %}}
-
-#### influx CLI not supported
-
-Don't use the `influx` CLI with {{% product-name %}}.
-While it may coincidentally work, it isn't officially supported.
-
-{{% /warn %}}
+> [!Warning]
+> 
+> #### influx CLI not supported
+> 
+> Don't use the `influx` CLI with {{% product-name %}}.
+> While it may coincidentally work, it isn't officially supported.
 
 #### Client libraries
 
@@ -220,26 +218,22 @@ To setup and start using client libraries, see the [Get started](/influxdb3/clou
   To learn how to query {{% product-name %}} using Flight and SQL, see the [Get started](/influxdb3/cloud-dedicated/get-started/) tutorial.
 - InfluxDB v1 API `/query` request that contains an InfluxQL query.
 
-{{% note %}}
+> [!Note]
+> 
+> #### Tools to execute queries
+> 
+> {{% product-name %}} supports many different tools for querying data, including:
+> 
+> - [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
+> - [InfluxDB 3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/)
+> - [Flight clients](/influxdb3/cloud-dedicated/reference/client-libraries/flight/)
+> - [Superset](/influxdb3/cloud-dedicated/query-data/sql/execute-queries/superset/)
+> - [Grafana](/influxdb3/cloud-dedicated/query-data/sql/execute-queries/grafana/)
+> - [InfluxQL with InfluxDB v1 HTTP API](/influxdb3/cloud-dedicated/primers/api/v1/#query-using-the-v1-api)
+> - [Chronograf](/chronograf/v1/)
 
-#### Tools to execute queries
-
-{{% product-name %}} supports many different tools for querying data, including:
-
-- [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
-- [InfluxDB 3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/)
-- [Flight clients](/influxdb3/cloud-dedicated/reference/client-libraries/flight/)
-- [Superset](/influxdb3/cloud-dedicated/query-data/sql/execute-queries/superset/)
-- [Grafana](/influxdb3/cloud-dedicated/query-data/sql/execute-queries/grafana/)
-- [InfluxQL with InfluxDB v1 HTTP API](/influxdb3/cloud-dedicated/primers/api/v1/#query-using-the-v1-api)
-- [Chronograf](/chronograf/v1/)
-
-{{% /note %}}
-
-{{% warn %}}
-#### /api/v2/query not supported
-
-The `/api/v2/query` API endpoint and associated tooling, such as the `influx` CLI and InfluxDB v2 client libraries, **aren’t** supported in {{% product-name %}}.
-
-{{% /warn %}}
-
+> [!Warning]
+> #### /api/v2/query not supported
+> 
+> The `/api/v2/query` API endpoint and associated tooling, such as the `influx`
+> CLI and InfluxDB v2 client libraries, **aren’t** supported in {{% product-name %}}.

@@ -16,6 +16,8 @@ related:
   - /influxdb/cloud/process-data/manage-tasks/
   - /influxdb/cloud/process-data/manage-tasks/create-task/
   - /resources/videos/influxdb-tasks/
+source: /shared/influxdb-v2/process-data/get-started.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/process-data/get-started.md-->

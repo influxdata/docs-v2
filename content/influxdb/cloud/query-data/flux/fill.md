@@ -14,6 +14,8 @@ influxdb/cloud/tags: [query, fill]
 related:
   - /flux/v0/stdlib/universe/fill/
 list_query_example: fill_null
+source: /shared/influxdb-v2/query-data/flux/fill.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/flux/fill.md-->

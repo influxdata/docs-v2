@@ -14,6 +14,8 @@ aliases:
   - /influxdb/cloud/reference/api/client-libraries/js/
   - /influxdb/cloud/reference/api/client-libraries/nodejs/
   - /influxdb/cloud/tools/client-libraries/js/
+source: /shared/influxdb-v2/api-guide/client-libraries/nodejs/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/nodejs/_index.md-->

@@ -64,17 +64,16 @@ Tables contain multiple tags and fields.
       in UTC.
       A timestamp is never null.
 
-{{% note %}}
-
-#### What happened to buckets and measurements?
-
-If coming from InfluxDB Cloud Serverless or InfluxDB powered by the TSM storage engine, you're likely familiar
-with the concepts _bucket_ and _measurement_.
-_Bucket_ in TSM or InfluxDB Cloud Serverless is synonymous with
-_database_ in {{% product-name %}}.
-_Measurement_ in TSM or InfluxDB Cloud Serverless is synonymous with
-_table_ in {{% product-name %}}.
-{{% /note %}}
+> [!Note]
+> 
+> #### What happened to buckets and measurements?
+> 
+> If coming from InfluxDB Cloud Serverless or InfluxDB powered by the TSM storage engine, you're likely familiar
+> with the concepts _bucket_ and _measurement_.
+> _Bucket_ in TSM or InfluxDB Cloud Serverless is synonymous with
+> _database_ in {{% product-name %}}.
+> _Measurement_ in TSM or InfluxDB Cloud Serverless is synonymous with
+> _table_ in {{% product-name %}}.
 
 <!-- vale InfluxDataDocs.v3Schema = YES -->
 
@@ -104,11 +103,10 @@ question as you design your schema.
  to optimize performance.
 It doesn't index tag values or field values.
 
-{{% note %}}
-The InfluxDB 3 storage engine supports infinite tag value and series cardinality.
-Unlike InfluxDB backed by the TSM storage engine, **tag value**
-cardinality doesn't affect the overall performance of your database.
-{{% /note %}}
+> [!Note]
+> The InfluxDB 3 storage engine supports infinite tag value and series cardinality.
+> Unlike InfluxDB backed by the TSM storage engine, **tag value**
+> cardinality doesn't affect the overall performance of your database.
 
 ---
 

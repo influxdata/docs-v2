@@ -17,11 +17,10 @@ Management tokens authorize a user to perform administrative tasks on the
 InfluxDB instance such as creating and deleting databases, managing users, and
 other administrative tasks.
 
-{{% note %}}
-Management tokens do not provide access to databases or data in databases.
-Only _database tokens_ with "read" or "write" permissions can access data in
-databases.
-{{% /note %}}
+> [!Note]
+> Management tokens do not provide access to databases or data in databases.
+> Only _database tokens_ with "read" or "write" permissions can access data in
+> databases.
 
 The optional `--expires-at` flag defines the token expiration date and time.
 Provide an RFC3999 date string--for example: `{{< datetime/current-date offset=1 >}}`.
@@ -31,12 +30,11 @@ The `--format` flag lets you print the output in other formats.
 The `json` format is available for programmatic parsing by other tooling.
 Default: `table`.
 
-{{% note %}}
-#### Store secure tokens in a secret store
-
-Management token strings are returned _only_ on token creation.
-We recommend storing management tokens in a **secure secret store**.
-{{% /note %}}
+> [!Note]
+> #### Store secure tokens in a secret store
+> 
+> Management token strings are returned _only_ on token creation.
+> We recommend storing management tokens in a **secure secret store**.
 
 ## Usage
 

@@ -10,6 +10,8 @@ influxdb3/cloud-serverless/tags: [write, replication]
 cascade:
   related:
     - /influxdb3/cloud-serverless/reference/cli/influx/remote
+source: /shared/influxdb-v2/reference/cli/influx/replication/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/reference/cli/influx/replication/_index.md-->

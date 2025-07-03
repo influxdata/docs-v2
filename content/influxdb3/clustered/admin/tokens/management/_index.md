@@ -17,12 +17,11 @@ Management tokens grant permission to perform administrative actions such as
 managing users, databases, and database tokens in your
 {{< product-name omit=" Clustered">}} cluster.
 
-{{% note %}}
-Management tokens do _not_ grant permissions to write or query time series data
-in your {{< product-name omit=" Clustered">}} cluster.
-
-To grant write or query permissions, use management tokens to create [database tokens](/influxdb3/clustered/admin/tokens/database/).
-{{% /note %}}
+> [!Note]
+> Management tokens do _not_ grant permissions to write or query time series data
+> in your {{< product-name omit=" Clustered">}} cluster.
+> 
+> To grant write or query permissions, use management tokens to create [database tokens](/influxdb3/clustered/admin/tokens/database/).
 
 By default, management tokens are short-lived tokens issued by an OAuth
 provider that grant a specific user administrative access to your
@@ -31,16 +30,15 @@ However, for automation purposes, you can manually create management tokens that
 authenticate directly with your InfluxDB Cluster and do not require human
 interaction with your OAuth provider.
 
-{{% warn %}}
-#### For automation use cases only
-
-The tools outlined below are meant for automation use cases and should not be
-used to circumvent your OAuth provider. **Take great care when manually creating
-and using management tokens**.
-
-{{< product-name >}} requires at least one user associated with your cluster 
-and authorized through OAuth to manually create a management token.
-{{% /warn %}}
+> [!Warning]
+> #### For automation use cases only
+> 
+> The tools outlined below are meant for automation use cases and should not be
+> used to circumvent your OAuth provider. **Take great care when manually creating
+> and using management tokens**.
+> 
+> {{< product-name >}} requires at least one user associated with your cluster 
+> and authorized through OAuth to manually create a management token.
 
 {{< children type="anchored-list" >}}
 - [Use a management token](#use-a-management-token)

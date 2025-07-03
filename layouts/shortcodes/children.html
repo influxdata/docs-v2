@@ -18,9 +18,9 @@
 {{ if eq $type "articles" }}
 	<div class="children-links">
 		{{ range $pages.ByWeight }}
-			{{ $title := cond ( isset .Params "list_title" ) (.Params.list_title | .RenderString) (.Title | .RenderString) }}
-			{{ $url := cond ( isset .Params "external_url" ) .Params.external_url .RelPermalink }}
-			{{ $target := cond ( isset .Params "external_url" ) "_blank" "" }}
+			{{ $title := default .Title .Params.list_title | .RenderString }}
+			{{ $url := default .RelPermalink .Params.external_url }}
+			{{ $target := cond (ne .Params.external_url nil) "_blank" "" }}
 			{{ if eq $hlevel "h2"}} <h2 id="{{ anchorize $title }}"><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a></h2>
 			{{ else if eq $hlevel "h3"}} <h3 id="{{ anchorize $title }}"><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a></h3>
 			{{ else if eq $hlevel "h4"}} <h4 id="{{ anchorize $title }}"><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a></h4>
@@ -69,7 +69,7 @@
 				{{ end }}
 			{{ end }}
 
-			{{ if and (eq $readMore true) ( or (isset .Params "list_query_example") (isset .Params "list_code_example") ) }}
+			{{ if and (eq $readMore true) (or .Params.list_query_example .Params.list_code_example) }}
 				<p class="read-more"><a href="{{ $url }}" target="{{ $target }}">Read more <span class="icon-chevron-right"></span></a></p>
 			{{ end }}
 			{{ if eq $hr true }}
@@ -94,10 +94,10 @@
 	<div class="children-links">
 		<ul>
 		{{ range $pages.ByWeight }}
-			{{ $title := cond ( isset .Params "list_title" ) (.Params.list_title | .RenderString) (.Title | .RenderString) }}
-		  {{ $url := cond ( isset .Params "external_url" ) .Params.external_url .RelPermalink }}
-			{{ $target := cond ( isset .Params "external_url" ) "_blank" "" }}
-			{{ $note := cond ( isset .Params "list_note" ) (print "<span class='list-note'>" .Params.list_note "</span>") "" }}
+			{{ $title := default .Title .Params.list_title | .RenderString }}
+		  {{ $url := default .RelPermalink .Params.external_url }}
+			{{ $target := cond (ne .Params.external_url nil) "_blank" "" }}
+			{{ $note := cond (ne .Params.list_note nil) (print "<span class='list-note'>" .Params.list_note "</span>") "" }}
 			<li><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a> {{ $note | markdownify }}</li>
 		{{ end }}
 		</ul>
@@ -108,10 +108,10 @@
 	<div class="children-links">
 		<ol>
 		{{ range $pages.ByWeight }}
-			{{ $title := cond ( isset .Params "list_title" ) (.Params.list_title | .RenderString) (.Title | .RenderString)}}
-		  {{ $url := cond ( isset .Params "external_url" ) .Params.external_url .RelPermalink }}
-			{{ $target := cond ( isset .Params "external_url" ) "_blank" "" }}
-			{{ $note := cond ( isset .Params "list_note" ) (print "<span class='list-note'>" .Params.list_note "</span>") "" }}
+			{{ $title := default .Title .Params.list_title | .RenderString}}
+		  {{ $url := default .RelPermalink .Params.external_url }}
+			{{ $target := cond (ne .Params.external_url nil) "_blank" "" }}
+			{{ $note := cond (ne .Params.list_note nil) (print "<span class='list-note'>" .Params.list_note "</span>") "" }}
 			<li><a href="{{ $url }}" target="{{ $target }}">{{ $title }}</a> {{ $note | markdownify }}</li>
 		{{ end }}
 		</ol>
@@ -121,7 +121,7 @@
 
 	<ul class="children-list">
 	{{ range $pages.ByWeight }}
-		{{ $title := cond ( isset .Params "list_title" ) (.Params.list_title | .RenderString) (.Title | .RenderString) }}
+		{{ $title := default .Title .Params.list_title | .RenderString }}
 		<li><a href="#{{ anchorize $title }}">{{ $title }}</a></li>
 	{{ end }}
 	</ul>

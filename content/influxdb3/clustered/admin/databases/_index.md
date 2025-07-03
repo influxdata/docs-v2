@@ -24,17 +24,16 @@ alt_links:
 An InfluxDB database is a named location where time series data is stored.
 Each InfluxDB database has a [retention period](#retention-periods).
 
-{{% note %}}
-**If coming from InfluxDB v1**, the concepts of databases and retention policies
-have been combined into a single concept--database. Retention policies are no
-longer part of the InfluxDB data model.
-However, {{% product-name %}} does
-support InfluxQL, which requires databases and retention policies.
-See [InfluxQL DBRP naming convention](/influxdb3/clustered/admin/databases/create/#influxql-dbrp-naming-convention).
-
-**If coming from InfluxDB v2, InfluxDB Cloud (TSM), or InfluxDB Cloud Serverless**,
-_database_ and _bucket_ are synonymous.
-{{% /note %}}
+> [!Note]
+> **If coming from InfluxDB v1**, the concepts of databases and retention policies
+> have been combined into a single concept--database. Retention policies are no
+> longer part of the InfluxDB data model.
+> However, {{% product-name %}} does
+> support InfluxQL, which requires databases and retention policies.
+> See [InfluxQL DBRP naming convention](/influxdb3/clustered/admin/databases/create/#influxql-dbrp-naming-convention).
+> 
+> **If coming from InfluxDB v2, InfluxDB Cloud (TSM), or InfluxDB Cloud Serverless**,
+> _database_ and _bucket_ are synonymous.
 
 ## Retention periods
 
@@ -53,7 +52,7 @@ never be removed by the retention enforcement service.
 You can customize [table (measurement) limits](#table-limit) and
 [table column limits](#column-limit) when you
 [create](#create-a-database) or
-[update a database](#update-a-database) in {{< product-name >}}.
+[update a database](#update-a-database) in {{% product-name %}}.
 
 ### Table limit
 

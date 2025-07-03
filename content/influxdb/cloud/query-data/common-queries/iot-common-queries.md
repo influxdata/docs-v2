@@ -10,6 +10,8 @@ menu:
 weight: 205
 related: 
   - /resources/videos/iot-monitoring-with-influxdb/
+source: /shared/influxdb-v2/query-data/common-queries/iot-common-queries.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/common-queries/iot-common-queries.md-->

@@ -1,0 +1,13 @@
+  - name: {{ .Name }}
+    id: {{ .ID }}
+    description: |
+{{ .Description }}
+    introduced: {{ .Introduced }}
+{{- with .Deprecated }}
+    deprecated: {{ . }}
+{{- end }}
+{{- with .Removal }}
+    removal: {{ . }}
+{{- end }}
+    os_support: [{{ .OSTags | join ", " }}]
+    tags: [{{ .Tags | join ", " }}]

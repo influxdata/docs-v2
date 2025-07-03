@@ -31,18 +31,18 @@ The following links provide information about running Vault in both development 
 - [Start a Vault dev server](https://learn.hashicorp.com/vault/getting-started/dev-server)
 - [Deploy Vault](https://learn.hashicorp.com/vault/getting-started/deploy)
 
-{{% note %}}
-InfluxDB supports the [Vault KV Secrets Engine Version 2 API](https://www.vaultproject.io/api/secret/kv/kv-v2.html) only.
-When you create a secrets engine, enable the `kv-v2` version by running:
-
-```js
-vault secrets enable kv-v2
-```
-{{% /note %}}
+> [!Note]
+> InfluxDB supports the [Vault KV Secrets Engine Version 2 API](https://www.vaultproject.io/api/secret/kv/kv-v2.html) only.
+> When you create a secrets engine, enable the `kv-v2` version by running:
+>
+> ```js
+> vault secrets enable kv-v2
+> ```
 
 For this example, install Vault on your local machine and start a Vault dev server.
 
-```sh
+<!--pytest.mark.skip-->
+```bash
 vault server -dev
 ```
 
@@ -70,12 +70,23 @@ _Your Vault server configuration may require other Vault settings._
 ## Start InfluxDB
 
 Start the [`influxd` service](/influxdb/v2/reference/cli/influxd/) with the `--secret-store`
-option set to `vault` any other necessary flags.
+option set to `vault` and any other necessary flags--for example, enter the following
+command:
 
+<!--pytest.mark.skip-->
+<!--test:setup
+```bash
+service influxdb stop \
+&& service influxdb start --secret-store vault \
+  --vault-addr=http://127.0.0.1:8200 \
+  --vault-token=$VAULT_TOKEN 
+```
+-->
+<!--pytest.mark.skip-->
 ```bash
 influxd --secret-store vault \
   --vault-addr=http://127.0.0.1:8200 \
-  --vault-token=s.0X0XxXXx0xXxXXxxxXxXxX0x
+  --vault-token=$VAULT_TOKEN
 ```
 
 `influxd` includes the following Vault configuration options.
@@ -97,4 +108,4 @@ For more information, see [InfluxDB configuration options](/influxdb/v2/referenc
 ## Manage secrets through the InfluxDB API
 
 Use the InfluxDB `/org/{orgID}/secrets` API endpoint to add tokens to Vault.
-For details, see [Manage secrets](/influxdb/v2/admin/secrets/manage-secrets/).
+For details, see [Secrets](/influxdb/v2/admin/secrets/).

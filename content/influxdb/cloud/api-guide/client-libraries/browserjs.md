@@ -18,6 +18,8 @@ aliases:
 related:
   - /influxdb/cloud/api-guide/client-libraries/nodejs/write/ 
   - /influxdb/cloud/api-guide/client-libraries/nodejs/query/ 
+source: /shared/influxdb-v2/api-guide/client-libraries/browserjs.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/api-guide/client-libraries/browserjs.md-->

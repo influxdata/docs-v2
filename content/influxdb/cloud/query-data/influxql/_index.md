@@ -14,6 +14,8 @@ related:
   - /influxdb/cloud/reference/api/influxdb-1x/query
   - /influxdb/cloud/reference/api/influxdb-1x/dbrp
   - /influxdb/cloud/tools/influxql-shell/
+source: /shared/influxdb-v2/query-data/influxql/_index.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/influxql/_index.md-->

@@ -12,6 +12,8 @@ list_code_example: |
   ```sql
   SELECT <field_key>[,<field_key>,<tag_key>] FROM <measurement_name>[,<measurement_name>]
   ```
+source: /shared/influxdb-v2/query-data/influxql/explore-data/select.md
 ---
 
-{{< duplicate-oss >}}
+<!-- The content of this file is at 
+// SOURCE content/shared/influxdb-v2/query-data/influxql/explore-data/select.md-->
