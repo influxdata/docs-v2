@@ -5,9 +5,9 @@ This section guides you through the most commonly used API methods.
 
 For detailed documentation on the entire API, see the [InfluxDB v2 API Reference](/influxdb/version/reference/api/#influxdb-v2-api-documentation).
 
-{{% note %}}
-If you need to use InfluxDB {{< current-version >}} with **InfluxDB 1.x** API clients and integrations, see the [1.x compatibility API](/influxdb/version/reference/api/#influxdb-v1-compatibility-api-reference-documentation).
-{{% /note %}}
+> [!Tip]
+> #### Use {{< current-version >}} API with InfluxDB 1.x clients
+> If you need to use InfluxDB {{< current-version >}} with **InfluxDB 1.x** API clients and integrations, see the [1.x compatibility guide](/influxdb/version/reference/api/influxdb-1x/).
 
 ## Bootstrap your application
 
