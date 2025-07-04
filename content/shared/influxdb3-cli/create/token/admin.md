@@ -7,7 +7,7 @@ Create an operator token or named admin token.
 influxdb3 create token --admin [OPTIONS]
 ```
 
-## Options
+## Options {.no-shorthand}
 
 | Option | Description |
 |:-------|:------------|
