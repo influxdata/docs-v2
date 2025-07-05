@@ -18,19 +18,36 @@ on:
         description: 'Version to audit (use "local" for running containers)'
         required: false
         default: 'local'
+      create_issue:
+        description: 'Create GitHub issue with audit results'
+        required: false
+        type: boolean
+        default: false
   
   schedule:
     # Run weekly on Mondays at 9 AM UTC
+    # Note: This only runs API audits for distributed products
+    # CLI audits for core/enterprise run via the release workflow
     - cron: '0 9 * * 1'
 
 jobs:
   audit-cli:
     name: Audit CLI Documentation
     runs-on: ubuntu-latest
-    if: contains(fromJSON('["core", "enterprise", "all-monolith"]'), github.event.inputs.product)
+    # Only run for manual triggers, not scheduled runs (which are for distributed products)
+    if: github.event_name == 'workflow_dispatch' && contains(fromJSON('["core", "enterprise", "all-monolith"]'), github.event.inputs.product)
     
     steps:
       - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
       
       - name: Set up Docker
         if: github.event.inputs.version == 'local'
@@ -44,9 +61,9 @@ jobs:
           VERSION="${{ github.event.inputs.version }}"
           
           if [ "$PRODUCT" == "all-monolith" ]; then
-            ./helper-scripts/influxdb3-monolith/audit-cli-documentation.sh both $VERSION
+            node ./helper-scripts/influxdb3-monolith/audit-cli-documentation.js both $VERSION
           else
-            ./helper-scripts/influxdb3-monolith/audit-cli-documentation.sh $PRODUCT $VERSION
+            node ./helper-scripts/influxdb3-monolith/audit-cli-documentation.js $PRODUCT $VERSION
           fi
       
       - name: Upload CLI audit reports
@@ -62,11 +79,23 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const product = '${{ github.event.inputs.product }}';
-            const version = '${{ github.event.inputs.version }}';
+            let product = '${{ github.event.inputs.product }}';
+            let version = '${{ github.event.inputs.version }}';
+            
+            // Handle scheduled runs (no inputs)
+            if (github.event_name === 'schedule') {
+              product = 'both';
+              version = 'local';
+            }
             
             // Read audit report
             const reportPath = `helper-scripts/output/cli-audit/documentation-audit-${product}-${version}.md`;
+            
+            if (!fs.existsSync(reportPath)) {
+              console.log(`Audit report not found at ${reportPath}`);
+              return;
+            }
+            
             const report = fs.readFileSync(reportPath, 'utf8');
             
             // Create issue
@@ -75,7 +104,7 @@ jobs:
               repo: context.repo.repo,
               title: `CLI Documentation Audit - ${product} ${version}`,
               body: report,
-              labels: ['documentation', 'cli-audit', product]
+              labels: ['documentation', 'cli-audit', product === 'both' ? 'core-enterprise' : product]
             });
 
   audit-api:
