@@ -87,8 +87,8 @@ pre-push:
       tags: test,links
       glob: 'content/*.{md,html}'
       run: |
-        echo "Running link checker for: {push_files}"
-        yarn test:links {push_files}
+        echo "Running link checker for: {staged_files}"
+        yarn test:links {staged_files}
         exit $?
 
     # Manage Docker containers
