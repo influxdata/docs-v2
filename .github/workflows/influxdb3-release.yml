@@ -207,26 +207,29 @@ jobs:
             
             if (hasMissingOptions || hasExtraOptions) {
               // Create issue
+              const issueBody = [
+                '## CLI Documentation Audit Results',
+                '',
+                `The following documentation issues were found during the release of **${product} v${version}**:`,
+                '',
+                report,
+                '',
+                '### Action Items:',
+                '- [ ] Review and update documentation for commands with missing options',
+                '- [ ] Remove documentation for deprecated options',
+                '- [ ] Verify all examples work with the new version',
+                '- [ ] Update any version-specific content',
+                '',
+                '---',
+                '*This issue was automatically generated during the release process.*'
+              ].join('\n');
+              
               await github.rest.issues.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 title: `CLI Documentation Updates Needed - ${product} v${version}`,
-                body: `## CLI Documentation Audit Results
-                
-The following documentation issues were found during the release of **${product} v${version}**:
-
-${report}
-
-### Action Items:
-- [ ] Review and update documentation for commands with missing options
-- [ ] Remove documentation for deprecated options
-- [ ] Verify all examples work with the new version
-- [ ] Update any version-specific content
-
----
-*This issue was automatically generated during the release process.*`,
-                labels: ['documentation', 'cli-audit', 'release', product],
-                milestone: version // Assumes milestone exists for version
+                body: issueBody,
+                labels: ['documentation', 'cli-audit', 'release', product]
               });
               
               console.log('Created issue for CLI documentation updates');
