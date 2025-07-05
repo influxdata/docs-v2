@@ -78,9 +78,9 @@ pre-push:
         - assets/*.{js,mjs,css,scss}
         - layouts/*.html
         - content/example.md
-      files: /bin/ls content/example.md
       run: |
-        node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/article-links.cy.js"  {files}
+        echo "Running shortcode examples test due to changes in: {staged_files}"
+        node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/article-links.cy.js" content/example.md
         exit $?
 
     e2e-links:
