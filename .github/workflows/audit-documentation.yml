@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to audit (use "local" for running containers)'
+        description: 'Version to audit (must exist in git tags, e.g., v3.0.0 or "local" for dev containers)'
         required: false
         default: 'local'
       create_issue:

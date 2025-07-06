@@ -43,6 +43,30 @@ FROM_VERSION="${1:-v3.1.0}"
 TO_VERSION="${2:-v3.2.0}"
 PRIMARY_REPO="${3:-${HOME}/Documents/github/influxdb}"
 
+# Function to validate git tag
+validate_git_tag() {
+    local version="$1"
+    local repo_path="$2"
+    
+    if [ "$version" = "local" ]; then
+        return 0  # Special case for development
+    fi
+    
+    if [ ! -d "$repo_path" ]; then
+        echo -e "${RED}Error: Repository not found: $repo_path${NC}"
+        return 1
+    fi
+    
+    if ! git -C "$repo_path" tag --list | grep -q "^${version}$"; then
+        echo -e "${RED}Error: Version tag '$version' does not exist in repository $repo_path${NC}"
+        echo -e "${YELLOW}Available tags (most recent first):${NC}"
+        git -C "$repo_path" tag --list --sort=-version:refname | head -10 | sed 's/^/  /'
+        return 1
+    fi
+    
+    return 0
+}
+
 # Collect additional repositories (all arguments after the third)
 ADDITIONAL_REPOS=()
 shift 3 2>/dev/null || true
@@ -57,6 +81,19 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
+
+# Validate version tags
+echo -e "${YELLOW}Validating version tags...${NC}"
+if ! validate_git_tag "$FROM_VERSION" "$PRIMARY_REPO"; then
+    echo -e "${RED}From version validation failed${NC}"
+    exit 1
+fi
+
+if ! validate_git_tag "$TO_VERSION" "$PRIMARY_REPO"; then
+    echo -e "${RED}To version validation failed${NC}"
+    exit 1
+fi
+echo -e "${GREEN}✓ Version tags validated successfully${NC}\n"
 
 echo -e "${BLUE}Generating release notes for ${TO_VERSION}${NC}"
 echo -e "Primary Repository: ${PRIMARY_REPO}"

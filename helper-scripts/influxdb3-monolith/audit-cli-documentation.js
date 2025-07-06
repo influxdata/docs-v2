@@ -11,6 +11,7 @@ import { promises as fs } from 'fs';
 import { homedir } from 'os';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { validateVersionInputs, getRepositoryRoot } from '../common/validate-tags.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -942,6 +943,15 @@ async function main() {
       'Usage: node audit-cli-documentation.js [core|enterprise|both] [version]'
     );
     console.error('Example: node audit-cli-documentation.js core 3.2.0');
+    process.exit(1);
+  }
+
+  // Validate version tag
+  try {
+    const repoRoot = await getRepositoryRoot();
+    await validateVersionInputs(version, null, repoRoot);
+  } catch (error) {
+    console.error(`Version validation failed: ${error.message}`);
     process.exit(1);
   }
 

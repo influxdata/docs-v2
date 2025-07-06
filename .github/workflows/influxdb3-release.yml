@@ -14,11 +14,11 @@ on:
           - cloud-dedicated
           - cloud-serverless
       version:
-        description: 'Version being released (e.g., 3.0.0)'
+        description: 'Release tag name (must exist in git tags, e.g., v3.0.0 or "local" for dev)'
         required: true
         type: string
       previous_version:
-        description: 'Previous version for comparison (e.g., 2.9.0)'
+        description: 'Previous release tag name (must exist in git tags, e.g., v2.9.0)'
         required: true
         type: string
       dry_run:
