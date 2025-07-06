@@ -26,7 +26,9 @@ Once you have all the prerequisites in place, follow these steps to implement th
 - [Add a Processing Engine plugin](#add-a-processing-engine-plugin)
 - [Set up a trigger](#set-up-a-trigger)
 - [Advanced trigger configuration](#advanced-trigger-configuration)
+{{% show-in "enterprise" %}}
 - [Distributed cluster considerations](#distributed-cluster-considerations)
+{{% /show-in %}}
 
 ## Set up the Processing Engine
 
@@ -66,7 +68,9 @@ When running {{% product-name %}} in a distributed setup, follow these steps to 
 >
 > Configure your plugin directory on the same system as the nodes that run the triggers and plugins.
 
+{{% show-in "enterprise" %}}
 For more information about configuring distributed environments, see the [Distributed cluster considerations](#distributed-cluster-considerations) section.
+{{% /show-in %}}
 
 ## Add a Processing Engine plugin
 
@@ -224,7 +228,7 @@ def process_scheduled_call(influxdb3_local, call_time, args=None):
 
 #### Create an HTTP request plugin
 
-HTTP request plugins respond to API calls using [`request:`](#trigger-on-http-requests) trigger specifications{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "..."}}` (HTTP API){{% /show-in %}}. Use them for:
+HTTP request plugins respond to API calls using [`request:`](#trigger-on-http-requests) trigger specifications. Use them for:
 
 - Creating custom API endpoints
 - Webhooks for external integrations
@@ -263,7 +267,7 @@ After writing your plugin:
 |------------|----------------------|-----------------|
 | Data write | `table:<TABLE_NAME>` or `all_tables` | When data is written to tables |
 | Scheduled | `every:<DURATION>` or `cron:<EXPRESSION>` | At specified time intervals |
-| HTTP request | `request:<REQUEST_PATH>`{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "<REQUEST_PATH>"}}` (HTTP API){{% /show-in %}} | When HTTP requests are received |
+| HTTP request | `request:<REQUEST_PATH>` | When HTTP requests are received |
 
 ### Use the create trigger command
 
@@ -366,18 +370,6 @@ To view triggers associated with a database, use the `influxdb3 show summary` co
 ```bash
 influxdb3 show summary --database my_database --token AUTH_TOKEN
 ```
-
-{{% show-in "enterprise" %}}
-> [!Warning]
-> #### Request trigger specification format differs between CLI and API
-> 
-> Due to a bug in InfluxDB 3 Enterprise, the request trigger specification format differs:
-> 
-> - **CLI**: `request:<REQUEST_PATH>` (same as Core CLI and API)
-> - **Enterprise API**: `{"request_path": {"path": "<REQUEST_PATH>"}}`
-> 
-> See the [API reference](/influxdb3/enterprise/api/#operation/PostConfigureProcessingEngineTrigger) for examples. Use `influxdb3 show summary` to verify the actual trigger specification.
-{{% /show-in %}}
 
 ### Pass arguments to plugins
 
@@ -600,19 +592,7 @@ Each plugin must run on a node that supports its trigger type:
 |--------------------|--------------------------|-----------------------------|
 | Data write         | `table:` or `all_tables` | Ingester nodes              |
 | Scheduled          | `every:` or `cron:`      | Any node with scheduler     |
-| HTTP request       | `request:`{{% show-in "enterprise" %}} (CLI) or `{"request_path": {"path": "..."}}` (HTTP API){{% /show-in %}} | Nodes that serve API traffic|
-
-{{% show-in "enterprise" %}}
-> [!Note]
-> #### Request trigger specification format differs between CLI and API
-> 
-> Due to a bug in InfluxDB 3 Enterprise, the request trigger specification format differs:
-> 
-> - **CLI**: `request:<REQUEST_PATH>` (same as Core CLI and API)
-> - **Enterprise API**: `{"request_path": {"path": "<REQUEST_PATH>"}}`
-> 
-> See the [API reference](/influxdb3/enterprise/api/#operation/PostConfigureProcessingEngineTrigger) for examples.
-{{% /show-in %}}
+| HTTP request       | `request:`               | Nodes that serve API traffic|
 
 For example:
 - Run write-ahead log (WAL) plugins on ingester nodes.

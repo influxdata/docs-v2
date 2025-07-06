@@ -41,18 +41,6 @@ specifications:
   The plugin receives the HTTP request headers and content, and can parse,
   process, and send the data into the database or to third-party services.
 
-{{% show-in "enterprise" %}}
-> [!Warning]
-> #### Request trigger specification format differs between CLI and API
-> 
-> Due to a bug in InfluxDB 3 Enterprise, the request trigger specification format differs:
-> 
-> - **CLI**: `request:<REQUEST_PATH>` (same as Core CLI and API)
-> - **Enterprise API**: `{"request_path": {"path": "<REQUEST_PATH>"}}`
-> 
-> See the [API reference](/influxdb3/enterprise/api/#operation/PostConfigureProcessingEngineTrigger) for examples. Use `influxdb3 show summary` to verify the actual trigger specification.
-{{% /show-in %}}
-
 ## Activate the processing engine
 
 To activate the processing engine, include the `--plugin-dir <PLUGIN_DIR>` option

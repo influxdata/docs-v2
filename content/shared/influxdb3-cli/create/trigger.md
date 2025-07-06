@@ -113,15 +113,3 @@ influxdb3 create trigger \
 Creating a trigger in a disabled state prevents it from running immediately. You can enable it later when you're ready to activate it.
 
 {{% /code-placeholders %}}
-
-{{% show-in "enterprise" %}}
-> [!Warning]
-> #### Request trigger specification format differs between CLI and API
-> 
-> Due to a bug in InfluxDB 3 Enterprise, the request trigger specification format differs:
-> 
-> - **CLI**: `request:<REQUEST_PATH>` (same as Core CLI and API)
-> - **Enterprise API**: `{"request_path": {"path": "<REQUEST_PATH>"}}`
-> 
-> See the [API reference](/influxdb3/enterprise/api/#operation/PostConfigureProcessingEngineTrigger) for examples. Use `influxdb3 show summary` to verify the actual trigger specification.
-{{% /show-in %}}
