@@ -140,6 +140,283 @@ class ReleaseNotesGenerator {
     return match ? match[1] : null;
   }
 
+  // Configuration for enhancing commit messages
+  getEnhancementConfig() {
+    return {
+      // Keywords to detect different areas of the codebase
+      detectors: {
+        auth: ['auth', 'token', 'permission', 'credential', 'security'],
+        database: ['database', 'table', 'schema', 'catalog'],
+        query: ['query', 'sql', 'select', 'influxql'],
+        storage: ['storage', 'parquet', 'wal', 'object store'],
+        license: ['license', 'licensing'],
+        compaction: ['compact', 'compaction'],
+        cache: ['cache', 'caching', 'lru'],
+        metrics: ['metric', 'monitoring', 'telemetry'],
+        retention: ['retention', 'ttl', 'expire'],
+        api: ['api', 'endpoint', 'http', 'rest'],
+        cli: ['cli', 'command', 'cmd', 'flag'],
+      },
+
+      // Feature type mappings
+      featureTypes: {
+        feat: {
+          'auth+database': 'Enhanced database authorization',
+          auth: 'Authentication and security',
+          'database+retention': 'Database retention management',
+          database: 'Database management',
+          query: 'Query functionality',
+          'storage+compaction': 'Storage compaction',
+          storage: 'Storage engine',
+          license: 'License management',
+          cache: 'Caching system',
+          metrics: 'Monitoring and metrics',
+          cli: 'Command-line interface',
+          api: 'API functionality',
+        },
+        fix: {
+          auth: 'Authentication fix',
+          database: 'Database reliability',
+          query: 'Query processing',
+          storage: 'Storage integrity',
+          compaction: 'Compaction stability',
+          cache: 'Cache reliability',
+          license: 'License validation',
+          cli: 'CLI reliability',
+          api: 'API stability',
+          _default: 'Bug fix',
+        },
+        perf: {
+          query: 'Query performance',
+          storage: 'Storage performance',
+          compaction: 'Compaction performance',
+          cache: 'Cache performance',
+          _default: 'Performance improvement',
+        },
+      },
+
+      // Feature name extraction patterns
+      featurePatterns: {
+        'delete|deletion': 'Data deletion',
+        retention: 'Retention policies',
+        'token|auth': 'Authentication',
+        'database|db': 'Database management',
+        table: 'Table operations',
+        query: 'Query engine',
+        cache: 'Caching',
+        'metric|monitoring': 'Monitoring',
+        license: 'Licensing',
+        'compaction|compact': 'Storage compaction',
+        wal: 'Write-ahead logging',
+        parquet: 'Parquet storage',
+        api: 'API',
+        'cli|command': 'CLI',
+      },
+    };
+  }
+
+  // Detect areas based on keywords in the description
+  detectAreas(description, files = []) {
+    const config = this.getEnhancementConfig();
+    const lowerDesc = description.toLowerCase();
+    const detectedAreas = new Set();
+
+    // Check description for keywords
+    for (const [area, keywords] of Object.entries(config.detectors)) {
+      if (keywords.some((keyword) => lowerDesc.includes(keyword))) {
+        detectedAreas.add(area);
+      }
+    }
+
+    // Check files for patterns
+    const filePatterns = {
+      auth: ['auth/', 'security/', 'token/'],
+      database: ['database/', 'catalog/', 'schema/'],
+      query: ['query/', 'sql/', 'influxql/'],
+      storage: ['storage/', 'parquet/', 'wal/'],
+      api: ['api/', 'http/', 'rest/'],
+      cli: ['cli/', 'cmd/', 'command/'],
+      metrics: ['metrics/', 'telemetry/', 'monitoring/'],
+      cache: ['cache/', 'lru/'],
+    };
+
+    for (const [area, patterns] of Object.entries(filePatterns)) {
+      if (
+        files.some((file) => patterns.some((pattern) => file.includes(pattern)))
+      ) {
+        detectedAreas.add(area);
+      }
+    }
+
+    return Array.from(detectedAreas);
+  }
+
+  // Get enhancement label based on type and detected areas
+  getEnhancementLabel(type, areas) {
+    const config = this.getEnhancementConfig();
+    const typeConfig = config.featureTypes[type];
+
+    if (!typeConfig) {
+      return this.capitalizeFirst(type);
+    }
+
+    // Check for multi-area combinations first
+    if (areas.length > 1) {
+      const comboKey = areas.slice(0, 2).sort().join('+');
+      if (typeConfig[comboKey]) {
+        return typeConfig[comboKey];
+      }
+    }
+
+    // Check for single area match
+    if (areas.length > 0 && typeConfig[areas[0]]) {
+      return typeConfig[areas[0]];
+    }
+
+    // Return default if available
+    return typeConfig._default || this.capitalizeFirst(type);
+  }
+
+  // Extract feature name using patterns
+  extractFeatureName(description) {
+    const config = this.getEnhancementConfig();
+    const words = description.toLowerCase();
+
+    // Check each pattern
+    for (const [pattern, featureName] of Object.entries(
+      config.featurePatterns
+    )) {
+      const regex = new RegExp(`\\b(${pattern})\\b`, 'i');
+      if (regex.test(words)) {
+        return featureName;
+      }
+    }
+
+    // Default to extracting the first significant word
+    const significantWords = words
+      .split(' ')
+      .filter(
+        (w) =>
+          w.length > 3 &&
+          ![
+            'the',
+            'and',
+            'for',
+            'with',
+            'from',
+            'into',
+            'that',
+            'this',
+          ].includes(w)
+      );
+
+    return significantWords.length > 0
+      ? this.capitalizeFirst(significantWords[0])
+      : 'Feature';
+  }
+
+  // Get detailed information about a commit including files changed
+  getCommitDetails(repoPath, commitHash) {
+    try {
+      const output = execSync(
+        `git -C "${repoPath}" show --name-only --format="%s%n%b" ${commitHash}`,
+        { encoding: 'utf8' }
+      );
+
+      const lines = output.split('\n');
+      const subject = lines[0];
+      let bodyLines = [];
+      let fileLines = [];
+      let inBody = true;
+
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (line === '') continue;
+
+        // If we hit a file path, we're done with the body
+        if (line.includes('/') || line.includes('.')) {
+          inBody = false;
+        }
+
+        if (inBody) {
+          bodyLines.push(line);
+        } else {
+          fileLines.push(line);
+        }
+      }
+
+      return {
+        subject,
+        body: bodyLines.join('\n'),
+        files: fileLines,
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  // Enhance commit message with analysis of changes
+  enhanceCommitMessage(repoPath, commitMessage, prNumber) {
+    // Extract the basic semantic prefix
+    const semanticMatch = commitMessage.match(
+      /^(feat|fix|perf|refactor|style|test|docs|chore):\s*(.+)/
+    );
+    if (!semanticMatch) return commitMessage;
+
+    const [, type, description] = semanticMatch;
+
+    // Get commit hash if available
+    const hashMatch = commitMessage.match(/^([a-f0-9]+)\s+/);
+    const commitHash = hashMatch ? hashMatch[1] : null;
+
+    // Try to enhance based on the type and description
+    const enhanced = this.generateEnhancedDescription(
+      type,
+      description,
+      repoPath,
+      commitHash
+    );
+
+    // If we have a PR number, include it
+    if (prNumber) {
+      return `${enhanced} ([#${prNumber}](https://github.com/influxdata/influxdb/pull/${prNumber}))`;
+    }
+
+    return enhanced;
+  }
+
+  // Generate enhanced description based on commit type and analysis
+  generateEnhancedDescription(type, description, repoPath, commitHash) {
+    // Get additional context if commit hash is available
+    let files = [];
+    if (commitHash) {
+      const details = this.getCommitDetails(repoPath, commitHash);
+      if (details) {
+        files = details.files;
+      }
+    }
+
+    // Detect areas affected by this commit
+    const areas = this.detectAreas(description, files);
+
+    // Get the enhancement label
+    const label = this.getEnhancementLabel(type, areas);
+
+    // For features without detected areas, try to extract a feature name
+    if (type === 'feat' && areas.length === 0) {
+      const featureName = this.extractFeatureName(description);
+      return `**${featureName}**: ${this.capitalizeFirst(description)}`;
+    }
+
+    return `**${label}**: ${this.capitalizeFirst(description)}`;
+  }
+
+  // Capitalize first letter of a string
+  capitalizeFirst(str) {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   // Get release date
   getReleaseDate(repoPath) {
     try {
@@ -218,10 +495,22 @@ class ReleaseNotesGenerator {
       const featuresSubject = this.getCommitsFromRepo(
         repo.path,
         '^[a-f0-9]+ feat:'
-      ).map((line) => line.replace(/^[a-f0-9]* feat: /, `- [${repoLabel}] `));
+      ).map((line) => {
+        const prNumber = this.extractPrNumber(line);
+        const enhanced = this.enhanceCommitMessage(
+          repo.path,
+          line.replace(/^[a-f0-9]* /, ''),
+          prNumber
+        );
+        return `- [${repoLabel}] ${enhanced}`;
+      });
 
       const featuresBody = this.getCommitsWithBody(repo.path, 'feat:').map(
-        (line) => `- [${repoLabel}] ${line}`
+        (line) => {
+          const prNumber = this.extractPrNumber(line);
+          const enhanced = this.enhanceCommitMessage(repo.path, line, prNumber);
+          return `- [${repoLabel}] ${enhanced}`;
+        }
       );
 
       results.features.push(...featuresSubject, ...featuresBody);
@@ -230,10 +519,22 @@ class ReleaseNotesGenerator {
       const fixesSubject = this.getCommitsFromRepo(
         repo.path,
         '^[a-f0-9]+ fix:'
-      ).map((line) => line.replace(/^[a-f0-9]* fix: /, `- [${repoLabel}] `));
+      ).map((line) => {
+        const prNumber = this.extractPrNumber(line);
+        const enhanced = this.enhanceCommitMessage(
+          repo.path,
+          line.replace(/^[a-f0-9]* /, ''),
+          prNumber
+        );
+        return `- [${repoLabel}] ${enhanced}`;
+      });
 
       const fixesBody = this.getCommitsWithBody(repo.path, 'fix:').map(
-        (line) => `- [${repoLabel}] ${line}`
+        (line) => {
+          const prNumber = this.extractPrNumber(line);
+          const enhanced = this.enhanceCommitMessage(repo.path, line, prNumber);
+          return `- [${repoLabel}] ${enhanced}`;
+        }
       );
 
       results.fixes.push(...fixesSubject, ...fixesBody);
@@ -242,10 +543,22 @@ class ReleaseNotesGenerator {
       const perfSubject = this.getCommitsFromRepo(
         repo.path,
         '^[a-f0-9]+ perf:'
-      ).map((line) => line.replace(/^[a-f0-9]* perf: /, `- [${repoLabel}] `));
+      ).map((line) => {
+        const prNumber = this.extractPrNumber(line);
+        const enhanced = this.enhanceCommitMessage(
+          repo.path,
+          line.replace(/^[a-f0-9]* /, ''),
+          prNumber
+        );
+        return `- [${repoLabel}] ${enhanced}`;
+      });
 
       const perfBody = this.getCommitsWithBody(repo.path, 'perf:').map(
-        (line) => `- [${repoLabel}] ${line}`
+        (line) => {
+          const prNumber = this.extractPrNumber(line);
+          const enhanced = this.enhanceCommitMessage(repo.path, line, prNumber);
+          return `- [${repoLabel}] ${enhanced}`;
+        }
       );
 
       results.perf.push(...perfSubject, ...perfBody);
@@ -281,15 +594,8 @@ class ReleaseNotesGenerator {
 
     if (commits.features.length > 0) {
       commits.features.forEach((feature) => {
-        const pr = this.extractPrNumber(feature);
-        const cleanLine = feature.replace(/ \\(#\\d+\\)$/, '');
-        if (pr) {
-          lines.push(
-            `${cleanLine} ([#${pr}](https://github.com/influxdata/influxdb/pull/${pr}))`
-          );
-        } else {
-          lines.push(cleanLine);
-        }
+        // Enhanced messages already include PR links
+        lines.push(feature);
       });
     } else {
       lines.push('- No new features in this release');
@@ -301,15 +607,8 @@ class ReleaseNotesGenerator {
 
     if (commits.fixes.length > 0) {
       commits.fixes.forEach((fix) => {
-        const pr = this.extractPrNumber(fix);
-        const cleanLine = fix.replace(/ \\(#\\d+\\)$/, '');
-        if (pr) {
-          lines.push(
-            `${cleanLine} ([#${pr}](https://github.com/influxdata/influxdb/pull/${pr}))`
-          );
-        } else {
-          lines.push(cleanLine);
-        }
+        // Enhanced messages already include PR links
+        lines.push(fix);
       });
     } else {
       lines.push('- No bug fixes in this release');
@@ -339,15 +638,8 @@ class ReleaseNotesGenerator {
       lines.push('### Performance Improvements');
       lines.push('');
       commits.perf.forEach((perf) => {
-        const pr = this.extractPrNumber(perf);
-        const cleanLine = perf.replace(/ \\(#\\d+\\)$/, '');
-        if (pr) {
-          lines.push(
-            `${cleanLine} ([#${pr}](https://github.com/influxdata/influxdb/pull/${pr}))`
-          );
-        } else {
-          lines.push(cleanLine);
-        }
+        // Enhanced messages already include PR links
+        lines.push(perf);
       });
     }
 
@@ -441,15 +733,8 @@ class ReleaseNotesGenerator {
 
     if (coreCommits.features.length > 0) {
       coreCommits.features.forEach((feature) => {
-        const pr = this.extractPrNumber(feature);
-        const cleanLine = feature.replace(/ \\(#\\d+\\)$/, '');
-        if (pr) {
-          lines.push(
-            `${cleanLine} ([#${pr}](https://github.com/influxdata/influxdb/pull/${pr}))`
-          );
-        } else {
-          lines.push(cleanLine);
-        }
+        // Enhanced messages already include PR links
+        lines.push(feature);
       });
     } else {
       lines.push('- No new features in this release');
@@ -461,15 +746,8 @@ class ReleaseNotesGenerator {
 
     if (coreCommits.fixes.length > 0) {
       coreCommits.fixes.forEach((fix) => {
-        const pr = this.extractPrNumber(fix);
-        const cleanLine = fix.replace(/ \\(#\\d+\\)$/, '');
-        if (pr) {
-          lines.push(
-            `${cleanLine} ([#${pr}](https://github.com/influxdata/influxdb/pull/${pr}))`
-          );
-        } else {
-          lines.push(cleanLine);
-        }
+        // Enhanced messages already include PR links
+        lines.push(fix);
       });
     } else {
       lines.push('- No bug fixes in this release');
@@ -481,15 +759,8 @@ class ReleaseNotesGenerator {
       lines.push('#### Performance Improvements');
       lines.push('');
       coreCommits.perf.forEach((perf) => {
-        const pr = this.extractPrNumber(perf);
-        const cleanLine = perf.replace(/ \\(#\\d+\\)$/, '');
-        if (pr) {
-          lines.push(
-            `${cleanLine} ([#${pr}](https://github.com/influxdata/influxdb/pull/${pr}))`
-          );
-        } else {
-          lines.push(cleanLine);
-        }
+        // Enhanced messages already include PR links
+        lines.push(perf);
       });
     }
 
@@ -510,15 +781,8 @@ class ReleaseNotesGenerator {
       lines.push('#### Features');
       lines.push('');
       enterpriseCommits.features.forEach((feature) => {
-        const pr = this.extractPrNumber(feature);
-        const cleanLine = feature.replace(/ \\(#\\d+\\)$/, '');
-        if (pr) {
-          lines.push(
-            `${cleanLine} ([#${pr}](https://github.com/influxdata/influxdb/pull/${pr}))`
-          );
-        } else {
-          lines.push(cleanLine);
-        }
+        // Enhanced messages already include PR links
+        lines.push(feature);
       });
       lines.push('');
     }
@@ -529,15 +793,8 @@ class ReleaseNotesGenerator {
       lines.push('#### Bug Fixes');
       lines.push('');
       enterpriseCommits.fixes.forEach((fix) => {
-        const pr = this.extractPrNumber(fix);
-        const cleanLine = fix.replace(/ \\(#\\d+\\)$/, '');
-        if (pr) {
-          lines.push(
-            `${cleanLine} ([#${pr}](https://github.com/influxdata/influxdb/pull/${pr}))`
-          );
-        } else {
-          lines.push(cleanLine);
-        }
+        // Enhanced messages already include PR links
+        lines.push(fix);
       });
       lines.push('');
     }
@@ -548,15 +805,8 @@ class ReleaseNotesGenerator {
       lines.push('#### Performance Improvements');
       lines.push('');
       enterpriseCommits.perf.forEach((perf) => {
-        const pr = this.extractPrNumber(perf);
-        const cleanLine = perf.replace(/ \\(#\\d+\\)$/, '');
-        if (pr) {
-          lines.push(
-            `${cleanLine} ([#${pr}](https://github.com/influxdata/influxdb/pull/${pr}))`
-          );
-        } else {
-          lines.push(cleanLine);
-        }
+        // Enhanced messages already include PR links
+        lines.push(perf);
       });
       lines.push('');
     }
