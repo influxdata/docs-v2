@@ -11,15 +11,17 @@
 
 #### Features
 
-- Allow hard_deleted date of deleted schema to be updated
-- Include hard_deletion_date in `_internal`, `databases`, and `tables`
+- **Enhanced database lifecycle management**:
+  - Allow updating the hard deletion date for already-deleted databases and tables, providing flexibility in managing data retention and compliance requirements
+  - Include `hard_deletion_date` column in `_internal` system tables (`databases` and `tables`) for better visibility into data lifecycle and audit trails
 
 #### Bug Fixes
 
-- Add help text for the new update subcommand (#26569) ([#26569](https://github.com/influxdata/influxdb/pull/26569))
-- `--object-store` is explicitly marked required (#26575) ([#26575](https://github.com/influxdata/influxdb/pull/26575))
-- v1 query API should default to ns for CSV output (#26577) ([#26577](https://github.com/influxdata/influxdb/pull/26577))
-- Existing soft-deleted schema can be hard-deleted (#26574) ([#26574](https://github.com/influxdata/influxdb/pull/26574))
+- **CLI improvements**:
+  - Added help text for the new `update` subcommand for database and table update features ([#26569](https://github.com/influxdata/influxdb/pull/26569))
+  - `--object-store` and storage configuration parameters are required for the `serve` command ([#26575](https://github.com/influxdata/influxdb/pull/26575))
+- **Query processing**: Fixed V1-compatible `/query` HTTP API endpoint to correctly default to nanosecond precision (`ns`) for CSV output, ensuring backward compatibility with InfluxDB 1.x clients and preventing data precision loss ([#26577](https://github.com/influxdata/influxdb/pull/26577))
+- **Database reliability**: Fixed issue preventing hard deletion of soft-deleted databases and tables, enabling complete data removal for compliance and storage management needs ([#26574](https://github.com/influxdata/influxdb/pull/26574))
 
 ### Enterprise
 
@@ -27,11 +29,11 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 #### Features
 
-- Amend license info command
+- **License management improvements**: New `influxdb3 show license` command displays detailed license information including type, expiration date, and resource limits, making it easier to monitor license status and compliance
 
 #### Bug Fixes
 
-- Use string representation of TriggerSpecificationDefinition in API
+- **API stability**: Fixed HTTP API trigger specification to use the correct `"request:REQUEST_PATH"` syntax, ensuring proper request-based trigger configuration for processing engine workflows
 
 ## v3.2.0 {date="2025-06-25"}
 
