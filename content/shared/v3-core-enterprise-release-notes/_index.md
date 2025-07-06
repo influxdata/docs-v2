@@ -5,6 +5,34 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.2.1 {date="2025-07-03"}
+
+### Core
+
+#### Features
+
+- Allow hard_deleted date of deleted schema to be updated
+- Include hard_deletion_date in `_internal`, `databases`, and `tables`
+
+#### Bug Fixes
+
+- Add help text for the new update subcommand (#26569) ([#26569](https://github.com/influxdata/influxdb/pull/26569))
+- `--object-store` is explicitly marked required (#26575) ([#26575](https://github.com/influxdata/influxdb/pull/26575))
+- v1 query API should default to ns for CSV output (#26577) ([#26577](https://github.com/influxdata/influxdb/pull/26577))
+- Existing soft-deleted schema can be hard-deleted (#26574) ([#26574](https://github.com/influxdata/influxdb/pull/26574))
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Features
+
+- Amend license info command
+
+#### Bug Fixes
+
+- Use string representation of TriggerSpecificationDefinition in API
+
 ## v3.2.0 {date="2025-06-25"}
 
 **Core**: revision 1ca3168bee  
