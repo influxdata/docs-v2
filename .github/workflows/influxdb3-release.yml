@@ -28,9 +28,10 @@ on:
         default: true
 
 jobs:
-  generate-release-notes:
-    name: Generate Release Notes
+  generate-release-notes-core-enterprise:
+    name: Generate Release Notes (Core/Enterprise)
     runs-on: ubuntu-latest
+    if: contains(fromJSON('["core", "enterprise"]'), github.event.inputs.product)
     outputs:
       generated: ${{ steps.generate.outputs.generated }}
     
@@ -49,17 +50,117 @@ jobs:
       - name: Generate release notes
         id: generate
         run: |
-          echo "Generating release notes for ${{ github.event.inputs.product }} v${{ github.event.inputs.version }}"
+          echo "Generating Core/Enterprise release notes for ${{ github.event.inputs.product }} v${{ github.event.inputs.version }}"
           
-          # TODO: Call the actual generate-release-notes script when it exists
-          # node ./helper-scripts/influxdb3-monolith/generate-release-notes.js \
-          #   --product ${{ github.event.inputs.product }} \
-          #   --version ${{ github.event.inputs.version }} \
-          #   --previous ${{ github.event.inputs.previous_version }}
-          
-          # For now, create a placeholder
+          # Create output directory
           mkdir -p helper-scripts/output/release-notes
-          echo "# Release Notes for ${{ github.event.inputs.product }} v${{ github.event.inputs.version }}" > helper-scripts/output/release-notes/release-notes-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}.md
+          
+          # Note: This generates placeholder release notes since the actual repositories
+          # (influxdb and influxdb_pro) are not available in the GitHub Actions environment.
+          # To generate actual release notes, the script would need to be run locally with:
+          # node ./helper-scripts/common/generate-release-notes.js \
+          #   --format core-enterprise \
+          #   ${{ github.event.inputs.previous_version }} \
+          #   ${{ github.event.inputs.version }} \
+          #   /path/to/influxdb \
+          #   /path/to/influxdb_pro
+          
+          # Create structured placeholder that matches the expected format
+          cat > helper-scripts/output/release-notes/release-notes-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}.md << EOF
+          > [!Note]
+          > #### InfluxDB 3 Core and Enterprise relationship
+          >
+          > InfluxDB 3 Enterprise is a superset of InfluxDB 3 Core.
+          > All updates to Core are automatically included in Enterprise.
+          > The Enterprise sections below only list updates exclusive to Enterprise.
+          
+          ## ${{ github.event.inputs.version }} {date="$(date +'%Y-%m-%d')"}
+          
+          ### Core
+          
+          #### Features
+          
+          - TODO: Add Core features for ${{ github.event.inputs.product }} ${{ github.event.inputs.version }}
+          
+          #### Bug Fixes
+          
+          - TODO: Add Core bug fixes for ${{ github.event.inputs.product }} ${{ github.event.inputs.version }}
+          
+          ### Enterprise
+          
+          All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+          
+          #### Features
+          
+          - TODO: Add Enterprise-specific features for ${{ github.event.inputs.version }}
+          
+          #### Bug Fixes
+          
+          - TODO: Add Enterprise-specific bug fixes for ${{ github.event.inputs.version }}
+          EOF
+          
+          echo "generated=true" >> $GITHUB_OUTPUT
+      
+      - name: Upload release notes
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-notes-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}
+          path: helper-scripts/output/release-notes/
+          retention-days: 30
+
+  generate-release-notes-distributed:
+    name: Generate Release Notes (Distributed)
+    runs-on: ubuntu-latest
+    if: contains(fromJSON('["clustered", "cloud-dedicated", "cloud-serverless"]'), github.event.inputs.product)
+    outputs:
+      generated: ${{ steps.generate.outputs.generated }}
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Generate release notes
+        id: generate
+        run: |
+          echo "Generating distributed product release notes for ${{ github.event.inputs.product }} v${{ github.event.inputs.version }}"
+          
+          # Create output directory
+          mkdir -p helper-scripts/output/release-notes
+          
+          # Note: This generates placeholder release notes since the actual repositories
+          # for distributed products are not available in the GitHub Actions environment.
+          # To generate actual release notes, the script would need to be run locally with:
+          # node ./helper-scripts/common/generate-release-notes.js \
+          #   --format standard \
+          #   ${{ github.event.inputs.previous_version }} \
+          #   ${{ github.event.inputs.version }} \
+          #   /path/to/repository
+          
+          # Create structured placeholder for distributed products
+          cat > helper-scripts/output/release-notes/release-notes-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}.md << EOF
+          ## ${{ github.event.inputs.version }} {date="$(date +'%Y-%m-%d')"}
+          
+          ### Features
+          
+          - TODO: Add features for ${{ github.event.inputs.product }} ${{ github.event.inputs.version }}
+          
+          ### Bug Fixes
+          
+          - TODO: Add bug fixes for ${{ github.event.inputs.product }} ${{ github.event.inputs.version }}
+          
+          ### Performance Improvements
+          
+          - TODO: Add performance improvements for ${{ github.event.inputs.product }} ${{ github.event.inputs.version }}
+          EOF
+          
           echo "generated=true" >> $GITHUB_OUTPUT
       
       - name: Upload release notes
@@ -71,9 +172,9 @@ jobs:
 
   audit-cli-documentation:
     name: Audit CLI Documentation
-    needs: generate-release-notes
+    needs: generate-release-notes-core-enterprise
     runs-on: ubuntu-latest
-    if: needs.generate-release-notes.outputs.generated == 'true' && contains(fromJSON('["core", "enterprise"]'), github.event.inputs.product)
+    if: needs.generate-release-notes-core-enterprise.outputs.generated == 'true' && contains(fromJSON('["core", "enterprise"]'), github.event.inputs.product)
     
     steps:
       - uses: actions/checkout@v4
@@ -115,9 +216,9 @@ jobs:
 
   audit-distributed-documentation:
     name: Audit Distributed Products Documentation
-    needs: generate-release-notes
+    needs: generate-release-notes-distributed
     runs-on: ubuntu-latest
-    if: needs.generate-release-notes.outputs.generated == 'true' && contains(fromJSON('["clustered", "cloud-dedicated", "cloud-serverless"]'), github.event.inputs.product)
+    if: needs.generate-release-notes-distributed.outputs.generated == 'true' && contains(fromJSON('["clustered", "cloud-dedicated", "cloud-serverless"]'), github.event.inputs.product)
     
     steps:
       - uses: actions/checkout@v4
@@ -174,9 +275,9 @@ jobs:
 
   create-documentation-pr:
     name: Create Documentation PR
-    needs: [generate-release-notes, audit-cli-documentation, audit-distributed-documentation]
+    needs: [generate-release-notes-core-enterprise, generate-release-notes-distributed, audit-cli-documentation, audit-distributed-documentation]
     runs-on: ubuntu-latest
-    if: github.event.inputs.dry_run != 'true' && always() && needs.generate-release-notes.result == 'success'
+    if: github.event.inputs.dry_run != 'true' && always() && (needs.generate-release-notes-core-enterprise.result == 'success' || needs.generate-release-notes-distributed.result == 'success')
     
     steps:
       - uses: actions/checkout@v4
@@ -194,8 +295,56 @@ jobs:
       
       - name: Copy release notes to docs
         run: |
-          # TODO: Copy release notes to appropriate documentation location
-          echo "Release notes would be copied here"
+          # Download the generated release notes artifact
+          PRODUCT="${{ github.event.inputs.product }}"
+          VERSION="${{ github.event.inputs.version }}"
+          
+          # Determine the target documentation file based on product
+          case "$PRODUCT" in
+            "core"|"enterprise")
+              TARGET_FILE="content/shared/v3-core-enterprise-release-notes/_index.md"
+              SOURCE_FILE="artifacts/release-notes-${PRODUCT}-${VERSION}/release-notes-${PRODUCT}-${VERSION}.md"
+              ;;
+            "clustered")
+              TARGET_FILE="content/influxdb3/clustered/reference/release-notes/_index.md"
+              SOURCE_FILE="artifacts/release-notes-${PRODUCT}-${VERSION}/release-notes-${PRODUCT}-${VERSION}.md"
+              ;;
+            "cloud-dedicated")
+              TARGET_FILE="content/influxdb3/cloud-dedicated/reference/release-notes/_index.md"
+              SOURCE_FILE="artifacts/release-notes-${PRODUCT}-${VERSION}/release-notes-${PRODUCT}-${VERSION}.md"
+              ;;
+            "cloud-serverless")
+              TARGET_FILE="content/influxdb3/cloud-serverless/reference/release-notes/_index.md"
+              SOURCE_FILE="artifacts/release-notes-${PRODUCT}-${VERSION}/release-notes-${PRODUCT}-${VERSION}.md"
+              ;;
+            *)
+              echo "Unknown product: $PRODUCT"
+              exit 1
+              ;;
+          esac
+          
+          # Check if source file exists
+          if [ -f "$SOURCE_FILE" ]; then
+            echo "Copying release notes from $SOURCE_FILE to $TARGET_FILE"
+            
+            # For Core/Enterprise, prepend to existing file (new releases go at the top)
+            if [ "$PRODUCT" = "core" ] || [ "$PRODUCT" = "enterprise" ]; then
+              # Create temporary file with new content + existing content
+              cp "$SOURCE_FILE" temp_release_notes.md
+              echo "" >> temp_release_notes.md
+              cat "$TARGET_FILE" >> temp_release_notes.md
+              mv temp_release_notes.md "$TARGET_FILE"
+            else
+              # For other products, replace the file
+              cp "$SOURCE_FILE" "$TARGET_FILE"
+            fi
+            
+            echo "Release notes successfully copied to documentation"
+          else
+            echo "Warning: Release notes file not found at $SOURCE_FILE"
+            echo "Available files in artifacts:"
+            find artifacts/ -type f -name "*.md" || echo "No markdown files found"
+          fi
       
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
@@ -327,7 +476,7 @@ jobs:
 
   influxdb3-monolith-release-summary:
     name: Release Summary
-    needs: [generate-release-notes, audit-cli-documentation, audit-distributed-documentation, create-documentation-pr, create-audit-issue]
+    needs: [generate-release-notes-core-enterprise, generate-release-notes-distributed, audit-cli-documentation, audit-distributed-documentation, create-documentation-pr, create-audit-issue]
     runs-on: ubuntu-latest
     if: always()
     
@@ -346,7 +495,8 @@ jobs:
           echo "## Workflow Results" >> $GITHUB_STEP_SUMMARY
           echo "| Step | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| Generate Release Notes | ${{ needs.generate-release-notes.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Generate Release Notes (Core/Enterprise) | ${{ needs.generate-release-notes-core-enterprise.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Generate Release Notes (Distributed) | ${{ needs.generate-release-notes-distributed.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| CLI Documentation Audit | ${{ needs.audit-cli-documentation.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Distributed Documentation Audit | ${{ needs.audit-distributed-documentation.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Create Documentation PR | ${{ needs.create-documentation-pr.result }} |" >> $GITHUB_STEP_SUMMARY
