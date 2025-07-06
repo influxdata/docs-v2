@@ -261,8 +261,13 @@ for repo in "${ALL_REPOS[@]}"; do
     analyze_api_changes "$repo" "$repo_name"
 done
 
+# Set output directory and create if needed
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+OUTPUT_DIR="${SCRIPT_DIR}/../output/release-notes"
+mkdir -p "$OUTPUT_DIR"
+
 # Generate markdown output
-OUTPUT_FILE="release-notes-${TO_VERSION}.md"
+OUTPUT_FILE="$OUTPUT_DIR/release-notes-${TO_VERSION}.md"
 cat > "$OUTPUT_FILE" << EOF
 ## ${TO_VERSION} {date="${RELEASE_DATE}"}
 
@@ -389,3 +394,9 @@ EOF
 echo -e "\n${GREEN}Release notes generated in: ${OUTPUT_FILE}${NC}"
 echo -e "${YELLOW}Please review and edit the generated notes before adding to documentation.${NC}"
 echo -e "${BLUE}API changes have been automatically detected and included.${NC}"
+
+# If running in GitHub Actions, also output the relative path for artifact collection
+if [ -n "${GITHUB_WORKSPACE}" ] || [ -n "${GITHUB_ACTIONS}" ]; then
+    RELATIVE_PATH="${OUTPUT_FILE#${GITHUB_WORKSPACE}/}"
+    echo -e "\n${GREEN}Relative path for GitHub Actions: ${RELATIVE_PATH}${NC}"
+fi
