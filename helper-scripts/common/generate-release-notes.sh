@@ -121,6 +121,21 @@ get_commits_from_repo() {
     fi
 }
 
+# Function to get commits including merge commit bodies
+get_commits_with_body() {
+    local repo_path="$1"
+    local pattern="$2"
+    
+    if [ -d "$repo_path" ]; then
+        # Get full commit messages and extract lines matching the pattern
+        # Handle both direct commit format and bullet point format in merge commits (*, -)
+        git -C "$repo_path" log --format="%B" "${FROM_VERSION}..${TO_VERSION}" 2>/dev/null | \
+            grep -E "(^${pattern}|^\* ${pattern}|^- ${pattern})" | \
+            sed 's/^[[:space:]]*[\*-] //' | \
+            sed 's/^[[:space:]]*//' || true
+    fi
+}
+
 # Function to analyze API-related commits
 analyze_api_changes() {
     local repo_path="$1"
@@ -222,14 +237,18 @@ for repo in "${ALL_REPOS[@]}"; do
         repo_name=$(basename "$repo")
         echo -e "  Analyzing $repo_name..."
         
-        # Features
-        repo_features=$(get_commits_from_repo "$repo" "^[a-f0-9]+ feat:" | sed "s/^[a-f0-9]* feat: /- [$repo_name] /")
+        # Features - check both commit subjects and merge commit bodies
+        repo_features_subject=$(get_commits_from_repo "$repo" "^[a-f0-9]+ feat:" | sed "s/^[a-f0-9]* feat: /- [$repo_name] /")
+        repo_features_body=$(get_commits_with_body "$repo" "feat:" | sed "s/^feat: /- [$repo_name] /")
+        repo_features=$(printf "%s\n%s" "$repo_features_subject" "$repo_features_body" | grep -v "^$" || true)
         if [ -n "$repo_features" ]; then
             FEATURES="$FEATURES$repo_features"$'\n'
         fi
         
-        # Fixes
-        repo_fixes=$(get_commits_from_repo "$repo" "^[a-f0-9]+ fix:" | sed "s/^[a-f0-9]* fix: /- [$repo_name] /")
+        # Fixes - check both commit subjects and merge commit bodies  
+        repo_fixes_subject=$(get_commits_from_repo "$repo" "^[a-f0-9]+ fix:" | sed "s/^[a-f0-9]* fix: /- [$repo_name] /")
+        repo_fixes_body=$(get_commits_with_body "$repo" "fix:" | sed "s/^fix: /- [$repo_name] /")
+        repo_fixes=$(printf "%s\n%s" "$repo_fixes_subject" "$repo_fixes_body" | grep -v "^$" || true)
         if [ -n "$repo_fixes" ]; then
             FIXES="$FIXES$repo_fixes"$'\n'
         fi
@@ -240,8 +259,10 @@ for repo in "${ALL_REPOS[@]}"; do
             BREAKING="$BREAKING$repo_breaking"$'\n'
         fi
         
-        # Performance improvements
-        repo_perf=$(get_commits_from_repo "$repo" "^[a-f0-9]+ perf:" | sed "s/^[a-f0-9]* perf: /- [$repo_name] /")
+        # Performance improvements - check both commit subjects and merge commit bodies
+        repo_perf_subject=$(get_commits_from_repo "$repo" "^[a-f0-9]+ perf:" | sed "s/^[a-f0-9]* perf: /- [$repo_name] /")
+        repo_perf_body=$(get_commits_with_body "$repo" "perf:" | sed "s/^perf: /- [$repo_name] /")
+        repo_perf=$(printf "%s\n%s" "$repo_perf_subject" "$repo_perf_body" | grep -v "^$" || true)
         if [ -n "$repo_perf" ]; then
             PERF="$PERF$repo_perf"$'\n'
         fi
