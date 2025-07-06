@@ -26,7 +26,9 @@ Once you have all the prerequisites in place, follow these steps to implement th
 - [Add a Processing Engine plugin](#add-a-processing-engine-plugin)
 - [Set up a trigger](#set-up-a-trigger)
 - [Advanced trigger configuration](#advanced-trigger-configuration)
+{{% show-in "enterprise" %}}
 - [Distributed cluster considerations](#distributed-cluster-considerations)
+{{% /show-in %}}
 
 ## Set up the Processing Engine
 
@@ -66,7 +68,9 @@ When running {{% product-name %}} in a distributed setup, follow these steps to 
 >
 > Configure your plugin directory on the same system as the nodes that run the triggers and plugins.
 
+{{% show-in "enterprise" %}}
 For more information about configuring distributed environments, see the [Distributed cluster considerations](#distributed-cluster-considerations) section.
+{{% /show-in %}}
 
 ## Add a Processing Engine plugin
 
