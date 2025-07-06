@@ -6,11 +6,6 @@
  */
 
 import { spawn } from 'child_process';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 /**
  * Execute a command and return the output
@@ -37,7 +32,9 @@ function execCommand(command, args = [], cwd = process.cwd()) {
       if (code === 0) {
         resolve(stdout.trim());
       } else {
-        reject(new Error(`Command failed: ${command} ${args.join(' ')}\n${stderr}`));
+        reject(
+          new Error(`Command failed: ${command} ${args.join(' ')}\n${stderr}`)
+        );
       }
     });
   });
@@ -50,8 +47,12 @@ function execCommand(command, args = [], cwd = process.cwd()) {
  */
 async function getGitTags(repoPath = process.cwd()) {
   try {
-    const output = await execCommand('git', ['tag', '--list', '--sort=-version:refname'], repoPath);
-    return output ? output.split('\n').filter(tag => tag.trim()) : [];
+    const output = await execCommand(
+      'git',
+      ['tag', '--list', '--sort=-version:refname'],
+      repoPath
+    );
+    return output ? output.split('\n').filter((tag) => tag.trim()) : [];
   } catch (error) {
     throw new Error(`Failed to get git tags: ${error.message}`);
   }
@@ -76,12 +77,16 @@ async function isValidTag(version, repoPath = process.cwd()) {
  * Validate multiple version tags
  * @param {string[]} versions - Array of version strings to validate
  * @param {string} repoPath - Path to the git repository
- * @returns {Promise<{valid: boolean, errors: string[], availableTags: string[]}>}
+ * @returns {Promise<{
+ *   valid: boolean,
+ *   errors: string[],
+ *   availableTags: string[]
+ * }>} Validation result
  */
 async function validateTags(versions, repoPath = process.cwd()) {
   const errors = [];
   const availableTags = await getGitTags(repoPath);
-  
+
   for (const version of versions) {
     if (version && version !== 'local' && !availableTags.includes(version)) {
       errors.push(`Version '${version}' is not a valid git tag`);
@@ -91,7 +96,7 @@ async function validateTags(versions, repoPath = process.cwd()) {
   return {
     valid: errors.length === 0,
     errors,
-    availableTags: availableTags.slice(0, 10) // Return top 10 most recent tags
+    availableTags: availableTags.slice(0, 10), // Return top 10 most recent tags
   };
 }
 
@@ -101,26 +106,32 @@ async function validateTags(versions, repoPath = process.cwd()) {
  * @param {string} previousVersion - Previous version (optional)
  * @param {string} repoPath - Path to the git repository
  */
-async function validateVersionInputs(version, previousVersion = null, repoPath = process.cwd()) {
+async function validateVersionInputs(
+  version,
+  previousVersion = null,
+  repoPath = process.cwd()
+) {
   const versionsToCheck = [version];
   if (previousVersion) {
     versionsToCheck.push(previousVersion);
   }
 
   const validation = await validateTags(versionsToCheck, repoPath);
-  
+
   if (!validation.valid) {
     console.error('\n❌ Version validation failed:');
-    validation.errors.forEach(error => console.error(`  - ${error}`));
-    
+    validation.errors.forEach((error) => console.error(`  - ${error}`));
+
     if (validation.availableTags.length > 0) {
       console.error('\n📋 Available tags (most recent first):');
-      validation.availableTags.forEach(tag => console.error(`  - ${tag}`));
+      validation.availableTags.forEach((tag) => console.error(`  - ${tag}`));
     } else {
       console.error('\n📋 No git tags found in repository');
     }
-    
-    console.error('\n💡 Tip: Use "local" for development/testing with local containers');
+
+    console.error(
+      '\n💡 Tip: Use "local" for development/testing with local containers'
+    );
     process.exit(1);
   }
 
@@ -134,10 +145,16 @@ async function validateVersionInputs(version, previousVersion = null, repoPath =
  */
 async function getRepositoryRoot(startPath = process.cwd()) {
   try {
-    const output = await execCommand('git', ['rev-parse', '--show-toplevel'], startPath);
+    const output = await execCommand(
+      'git',
+      ['rev-parse', '--show-toplevel'],
+      startPath
+    );
     return output;
   } catch (error) {
-    throw new Error(`Not a git repository or git not available: ${error.message}`);
+    throw new Error(
+      `Not a git repository or git not available: ${error.message}`
+    );
   }
 }
 
@@ -146,24 +163,26 @@ export {
   isValidTag,
   validateTags,
   validateVersionInputs,
-  getRepositoryRoot
+  getRepositoryRoot,
 };
 
 // CLI usage when run directly
 if (import.meta.url === `file://${process.argv[1]}`) {
   const args = process.argv.slice(2);
-  
+
   if (args.length === 0) {
     console.log('Usage: node validate-tags.js <version> [previous-version]');
     console.log('Examples:');
     console.log('  node validate-tags.js v3.0.0');
     console.log('  node validate-tags.js v3.0.0 v2.9.0');
-    console.log('  node validate-tags.js local  # Special case for development');
+    console.log(
+      '  node validate-tags.js local  # Special case for development'
+    );
     process.exit(1);
   }
 
   const [version, previousVersion] = args;
-  
+
   try {
     const repoRoot = await getRepositoryRoot();
     await validateVersionInputs(version, previousVersion, repoRoot);

@@ -11,7 +11,10 @@ import { promises as fs } from 'fs';
 import { homedir } from 'os';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { validateVersionInputs, getRepositoryRoot } from '../common/validate-tags.js';
+import {
+  validateVersionInputs,
+  getRepositoryRoot,
+} from '../common/validate-tags.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -107,7 +110,7 @@ class CLIDocAuditor {
           coreToken = (await fs.readFile(this.coreTokenFile, 'utf8')).trim();
         }
       }
-    } catch (e) {
+    } catch {
       // Token file doesn't exist or can't be read
     }
 
@@ -120,7 +123,7 @@ class CLIDocAuditor {
           ).trim();
         }
       }
-    } catch (e) {
+    } catch {
       // Token file doesn't exist or can't be read
     }
 
@@ -683,9 +686,10 @@ Replace the following:
     if (missingCount === 0) {
       output += 'No missing documentation files detected.\n';
     } else {
-      output += `\n### Quick Actions\n\n`;
-      output += `Copy and paste these commands to create missing documentation:\n\n`;
-      output += `\`\`\`bash\n`;
+      output += '\n### Quick Actions\n\n';
+      output +=
+        'Copy and paste these commands to create missing documentation:\n\n';
+      output += '```bash\n';
       for (const doc of missingDocs) {
         const relativePatch = join(
           'helper-scripts/output/cli-audit/patches',
@@ -696,7 +700,7 @@ Replace the following:
         output += `mkdir -p $(dirname ${doc.file})\n`;
         output += `cp ${relativePatch} ${doc.file}\n\n`;
       }
-      output += `\`\`\`\n`;
+      output += '```\n';
     }
 
     output += '\n';

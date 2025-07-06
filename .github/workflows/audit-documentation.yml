@@ -12,10 +12,6 @@ on:
         required: false
         type: boolean
         default: false
-  
-  schedule:
-    # Run weekly on Mondays at 9 AM UTC for all audits
-    - cron: '0 9 * * 1'
 
 jobs:
   cli-3-core:
