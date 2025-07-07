@@ -95,6 +95,19 @@ export default [
     },
   },
 
+  // Configuration for Node.js helper scripts
+  {
+    files: ['helper-scripts/**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      // Node.js specific rules
+    },
+  },
+
   // Configuration for specific file patterns
   {
     files: ['**/*.js'],

@@ -58,6 +58,7 @@ tags:
       - [Manage API tokens](/influxdb/v2/security/tokens/)
       - [Assign a token to a specific user](/influxdb/v2/security/tokens/create-token/)
     name: Authorizations (API tokens)
+  - name: Authorizations (v1-compatible)
   - name: Backup
   - description: |
       Store your data in InfluxDB [buckets](/influxdb/v2/reference/glossary/#bucket).
@@ -88,6 +89,15 @@ tags:
       | `orgID`                  | 16-byte string        | The organization ID ([find your organization](/influxdb/v2/organizations/view-orgs/). |
     name: Common parameters
     x-traitTag: true
+  - name: Compatibility endpoints
+    description: |
+      InfluxDB v2 provides a v1-compatible API for backward compatibility with InfluxDB 1.x clients and integrations.
+
+      Use these endpoints with InfluxDB 1.x client libraries and third-party integrations such as Grafana, Telegraf, and other tools designed for InfluxDB 1.x. The compatibility layer maps InfluxDB 1.x concepts (databases, retention policies) to InfluxDB v2 resources (buckets, organizations) through database retention policy (DBRP) mappings.
+
+      - [Write data (v1-compatible)](#tag/Write-data-(v1-compatible))
+      - [Query data using InfluxQL (v1-compatible)](#tag/Query-data-(v1-compatible))
+      - [Manage v1-compatible users and permissions](#tag/Authorizations-(v1-compatible))
   - name: Config
   - name: Dashboards
   - name: Data I/O endpoints
@@ -99,7 +109,7 @@ tags:
       databases and retention policies are mapped to buckets using the
       database and retention policy (DBRP) mapping service.
       The DBRP mapping service uses the database and retention policy
-      specified in 1.x compatibility API requests to route operations to a bucket.
+      specified in v1 compatibility API requests to route operations to a bucket.
 
       ### Related guides
 
@@ -139,9 +149,6 @@ tags:
     x-traitTag: true
   - name: Health
   - name: Labels
-  - name: Legacy Authorizations
-  - name: Legacy Query
-  - name: Legacy Write
   - name: Metrics
   - name: NotificationEndpoints
   - name: NotificationRules
@@ -194,6 +201,7 @@ tags:
   - description: |
       Retrieve data, analyze queries, and get query suggestions.
     name: Query
+  - name: Query data (v1-compatible)
   - description: |
       See the [**API Quick Start**](/influxdb/v2/api-guide/api_intro/)
       to get up and running authenticating with tokens, writing to buckets, and querying data.
@@ -314,6 +322,7 @@ tags:
   - description: |
       Write time series data to [buckets](/influxdb/v2/reference/glossary/#bucket).
     name: Write
+  - name: Write data (v1-compatible)
 paths:
   /api/v2:
     get:
@@ -12756,7 +12765,7 @@ paths:
           content:
             application/json:
               schema:
-               $ref: '#/components/schemas/Error' 
+                $ref: '#/components/schemas/Error'
           description: The request was well-formed, but some or all the points were rejected due to semantic errors--for example, schema conflicts or retention policy violations. Error message contains details for one or more rejected points.
         '429':
           description: |
@@ -12869,7 +12878,7 @@ paths:
           description: Unexpected error
       summary: List all legacy authorizations
       tags:
-        - Legacy Authorizations
+        - Authorizations (v1-compatible)
     post:
       description: |
         Creates a legacy authorization and returns the legacy authorization.
@@ -12932,7 +12941,7 @@ paths:
           description: Unexpected error
       summary: Create a legacy authorization
       tags:
-        - Legacy Authorizations
+        - Authorizations (v1-compatible)
     servers:
       - url: /private
   /legacy/authorizations/{authID}:
@@ -12954,7 +12963,7 @@ paths:
           description: Unexpected error
       summary: Delete a legacy authorization
       tags:
-        - Legacy Authorizations
+        - Authorizations (v1-compatible)
     get:
       operationId: GetLegacyAuthorizationsID
       parameters:
@@ -12977,7 +12986,7 @@ paths:
           description: Unexpected error
       summary: Retrieve a legacy authorization
       tags:
-        - Legacy Authorizations
+        - Authorizations (v1-compatible)
     patch:
       operationId: PatchLegacyAuthorizationsID
       parameters:
@@ -13007,7 +13016,7 @@ paths:
           description: Unexpected error
       summary: Update a legacy authorization to be active or inactive
       tags:
-        - Legacy Authorizations
+        - Authorizations (v1-compatible)
     servers:
       - url: /private
   /legacy/authorizations/{authID}/password:
@@ -13040,94 +13049,29 @@ paths:
           description: Unexpected error
       summary: Set a legacy authorization password
       tags:
-        - Legacy Authorizations
+        - Authorizations (v1-compatible)
     servers:
       - url: /private
   /query:
     get:
-      description: Queries InfluxDB using InfluxQL.
+      summary: Execute InfluxQL query (v1-compatible)
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
+
+        This endpoint is compatible with InfluxDB 1.x client libraries and third-party integrations such as Grafana.
+        Use query parameters to specify the database and the InfluxQL query.
       operationId: GetLegacyQuery
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - in: header
-          name: Accept
-          schema:
-            default: application/json
-            description: |
-              Media type that the client can understand.
-
-              **Note**: With `application/csv`, query results include [**unix timestamps**](/influxdb/v2/reference/glossary/#unix-timestamp) instead of [RFC3339 timestamps](/influxdb/v2/reference/glossary/#rfc3339-timestamp).
-            enum:
-              - application/json
-              - application/csv
-              - text/csv
-              - application/x-msgpack
-            type: string
-        - description: The content encoding (usually a compression algorithm) that the client can understand.
-          in: header
-          name: Accept-Encoding
-          schema:
-            default: identity
-            description: The content coding. Use `gzip` for compressed data or `identity` for unmodified, uncompressed data.
-            enum:
-              - gzip
-              - identity
-            type: string
-        - in: header
-          name: Content-Type
-          schema:
-            enum:
-              - application/json
-            type: string
-        - description: The InfluxDB 1.x username to authenticate the request.
-          in: query
-          name: u
-          schema:
-            type: string
-        - description: The InfluxDB 1.x password to authenticate the request.
-          in: query
-          name: p
-          schema:
-            type: string
-        - description: |
-            The database to query data from.
-            This is mapped to an InfluxDB [bucket](/influxdb/v2/reference/glossary/#bucket).
-            For more information, see [Database and retention policy mapping](/influxdb/v2/api/influxdb-1x/dbrp/).
-          in: query
-          name: db
-          required: true
-          schema:
-            type: string
-        - description: |
-            The retention policy to query data from.
-            This is mapped to an InfluxDB [bucket](/influxdb/v2/reference/glossary/#bucket).
-            For more information, see [Database and retention policy mapping](/influxdb/v2/api/influxdb-1x/dbrp/).
-          in: query
-          name: rp
-          schema:
-            type: string
-        - description: The InfluxQL query to execute. To execute multiple queries, delimit queries with a semicolon (`;`).
-          in: query
-          name: q
-          required: true
-          schema:
-            type: string
-        - description: |
-            A unix timestamp precision.
-            Formats timestamps as [unix (epoch) timestamps](/influxdb/v2/reference/glossary/#unix-timestamp) with the specified precision
-            instead of [RFC3339 timestamps](/influxdb/v2/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
-          in: query
-          name: epoch
-          schema:
-            enum:
-              - ns
-              - u
-              - µ
-              - ms
-              - s
-              - m
-              - h
-            type: string
+        - $ref: '#/components/parameters/AuthV1Username'
+        - $ref: '#/components/parameters/AuthV1Password'
+        - $ref: '#/components/parameters/Accept'
+        - $ref: '#/components/parameters/AcceptEncoding'
+        - $ref: '#/components/parameters/Content-Type'
+        - $ref: '#/components/parameters/V1Database'
+        - $ref: '#/components/parameters/V1RetentionPolicy'
+        - $ref: '#/components/parameters/V1Epoch'
+        - $ref: '#/components/parameters/V1Query'
       responses:
         '200':
           content:
@@ -13191,19 +13135,87 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Error processing query
-      summary: Query with the 1.x compatibility API
       tags:
-        - Legacy Query
+        - Query data (v1-compatible)
+    post:
+      operationId: PostQueryV1
+      summary: Execute InfluxQL query (v1-compatible)
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
+
+        This endpoint is compatible with InfluxDB 1.x client libraries and third-party integrations such as Grafana.
+        Use query parameters to specify the database and the InfluxQL query.
+      tags:
+        - Query data (v1-compatible)
+      requestBody:
+        description: InfluxQL query to execute.
+        content:
+          text/plain:
+            schema:
+              type: string
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - $ref: '#/components/parameters/AuthV1Username'
+        - $ref: '#/components/parameters/AuthV1Password'
+        - $ref: '#/components/parameters/Accept'
+        - $ref: '#/components/parameters/AcceptEncoding'
+        - $ref: '#/components/parameters/Content-Type'
+        - $ref: '#/components/parameters/V1Database'
+        - $ref: '#/components/parameters/V1RetentionPolicy'
+        - $ref: '#/components/parameters/V1Epoch'
+      responses:
+        '200':
+          description: Query results
+          headers:
+            Content-Encoding:
+              description: The Content-Encoding entity header is used to compress the media-type.  When present, its value indicates which encodings were applied to the entity-body
+              schema:
+                type: string
+                description: Specifies that the response in the body is encoded with gzip or not encoded with identity.
+                default: identity
+                enum:
+                  - gzip
+                  - identity
+            Trace-Id:
+              description: The Trace-Id header reports the request's trace ID, if one was generated.
+              schema:
+                type: string
+                description: Specifies the request's trace ID.
+          content:
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/InfluxqlCsvResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfluxqlJsonResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/InfluxqlCsvResponse'
+              examples:
+                influxql-chunk_size_2:
+                  value: |
+                    {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag"],"values":[["2016-05-19T18:37:55Z",90,"1"],["2016-05-19T18:37:56Z",90,"1"]],"partial":true}],"partial":true}]}
+                    {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag"],"values":[["2016-05-19T18:37:57Z",90,"1"],["2016-05-19T18:37:58Z",90,"1"]]}]}]}
+            application/x-msgpack:
+              schema:
+                type: string
+                format: binary
+        '429':
+          description: Token is temporarily over quota. The Retry-After header describes when to try the read again.
+          headers:
+            Retry-After:
+              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
+              schema:
+                type: integer
+                format: int32
+        default:
+          description: Error processing query
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /write:
     post:
-      description: |-
-        Writes line protocol to the specified bucket.
-
-        This endpoint provides backward compatibility for InfluxDB 1.x write workloads using tools such as InfluxDB 1.x client libraries, the Telegraf `outputs.influxdb` output plugin, or third-party tools.
-
-        Use this endpoint to send data in [line protocol](https://docs.influxdata.com/influxdb/v2/reference/syntax/line-protocol/) format to InfluxDB.
-        Use query parameters to specify options for writing data.
-
       operationId: PostLegacyWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -13281,7 +13293,7 @@ paths:
           content:
             application/json:
               schema:
-               $ref: '#/components/schemas/Error' 
+                $ref: '#/components/schemas/Error'
           description: The request was well-formed, but some or all the points were rejected due to semantic errors--for example, schema conflicts or retention policy violations. Error message contains details for one or more rejected points.
         '429':
           description: Token is temporarily over quota. The Retry-After header describes when to try the write again.
@@ -13305,9 +13317,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Internal server error
-      summary: Write time series data into InfluxDB in a V1-compatible format
+      summary: Write data using a v1-compatible request
+      description: |
+        Writes data in [line protocol](/influxdb/v2/reference/syntax/line-protocol/) syntax to the specified bucket using a v1-compatible request.
+
+        This endpoint provides backward compatibility for InfluxDB 1.x write workloads using tools such as InfluxDB 1.x client libraries, the Telegraf `outputs.influxdb` output plugin, or third-party tools.
+
+        Use query parameters to specify options for writing data.
+
+        #### InfluxDB Cloud
+
+        - Validates and queues the request.
+        - Handles the write asynchronously - the write might not have completed yet.
+        - Returns a `Retry-After` header that describes when to try the write again.
+
+        #### InfluxDB OSS v2
+
+        - Validates the request and handles the write synchronously.
+        - If all points were written successfully, responds with HTTP `2xx` status code
+        - If any points were rejected, responds with HTTP `4xx` status code and details about the problem.
+
+        #### Related guides
+
+        - [Write data with the InfluxDB API](/influxdb/v2/write-data/developer-tools/api)
       tags:
-        - Legacy Write
+        - Write data (v1-compatible)
 components:
   examples:
     AuthorizationPostRequest:
@@ -13411,6 +13445,96 @@ components:
       name: Zap-Trace-Span
       required: false
       schema:
+        type: string
+    Accept:
+      in: header
+      name: Accept
+      schema:
+        default: application/json
+        description: |
+          Media type that the client can understand.
+
+          **Note**: With `application/csv`, query results include [**unix timestamps**](/influxdb/v2/reference/glossary/#unix-timestamp) instead of [RFC3339 timestamps](/influxdb/v2/reference/glossary/#rfc3339-timestamp).
+        enum:
+          - application/json
+          - application/csv
+          - text/csv
+          - application/x-msgpack
+        type: string
+    AcceptEncoding:
+      description: The content encoding (usually a compression algorithm) that the client can understand.
+      in: header
+      name: Accept-Encoding
+      schema:
+        default: identity
+        description: The content coding. Use `gzip` for compressed data or `identity` for unmodified, uncompressed data.
+        enum:
+          - gzip
+          - identity
+        type: string
+    Content-Type:
+      in: header
+      name: Content-Type
+      schema:
+        enum:
+          - application/json
+        type: string
+    AuthV1Username:
+      description: |
+        The InfluxDB 1.x username to authenticate the request.
+        If you provide an API token as the password, `u` is required, but can be any value.
+      in: query
+      name: u
+      schema:
+        type: string
+    AuthV1Password:
+      description: The InfluxDB 1.x password to authenticate the request.
+      in: query
+      name: p
+      schema:
+        type: string
+    V1Database:
+      description: |
+        The database to query data from.
+        This is mapped to an InfluxDB [bucket](/influxdb/v2/reference/glossary/#bucket).
+        For more information, see [Database and retention policy mapping](/influxdb/v2/api/influxdb-1x/dbrp/).
+      in: query
+      name: db
+      required: true
+      schema:
+        type: string
+    V1RetentionPolicy:
+      description: |
+        The retention policy to query data from.
+        This is mapped to an InfluxDB [bucket](/influxdb/v2/reference/glossary/#bucket).
+        For more information, see [Database and retention policy mapping](/influxdb/v2/api/influxdb-1x/dbrp/).
+      in: query
+      name: rp
+      schema:
+        type: string
+    V1Query:
+      description: The InfluxQL query to execute. To execute multiple queries, delimit queries with a semicolon (`;`).
+      in: query
+      name: q
+      required: true
+      schema:
+        type: string
+    V1Epoch:
+      description: |
+        A unix timestamp precision.
+        Formats timestamps as [unix (epoch) timestamps](/influxdb/v2/reference/glossary/#unix-timestamp) with the specified precision
+        instead of [RFC3339 timestamps](/influxdb/v2/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
+      in: query
+      name: epoch
+      schema:
+        enum:
+          - ns
+          - u
+          - µ
+          - ms
+          - s
+          - m
+          - h
         type: string
   responses:
     AuthorizationError:
@@ -20058,13 +20182,16 @@ x-tagGroups:
       - Headers
       - Pagination
       - Response codes
+      - Compatibility endpoints
   - name: All endpoints
     tags:
       - Authorizations (API tokens)
+      - Authorizations (v1-compatible)
       - Backup
       - Buckets
       - Cells
       - Checks
+      - Compatibility endpoints
       - Config
       - Dashboards
       - DBRPs
@@ -20072,15 +20199,13 @@ x-tagGroups:
       - Delete
       - Health
       - Labels
-      - Legacy Authorizations
-      - Legacy Query
-      - Legacy Write
       - Metrics
       - NotificationEndpoints
       - NotificationRules
       - Organizations
       - Ping
       - Query
+      - Query data (v1-compatible)
       - Ready
       - RemoteConnections
       - Replications
@@ -20102,3 +20227,4 @@ x-tagGroups:
       - Variables
       - Views
       - Write
+      - Write data (v1-compatible)

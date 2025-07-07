@@ -1,0 +1,503 @@
+name: InfluxDB 3 Release Documentation
+
+on:
+  workflow_dispatch:
+    inputs:
+      product:
+        description: 'Product being released'
+        required: true
+        type: choice
+        options:
+          - core
+          - enterprise
+          - clustered
+          - cloud-dedicated
+          - cloud-serverless
+      version:
+        description: 'Release tag name (must exist in git tags, e.g., v3.0.0 or "local" for dev)'
+        required: true
+        type: string
+      previous_version:
+        description: 'Previous release tag name (must exist in git tags, e.g., v2.9.0)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Dry run (do not create PRs or issues)'
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  generate-release-notes-core-enterprise:
+    name: Generate Release Notes (Core/Enterprise)
+    runs-on: ubuntu-latest
+    if: contains(fromJSON('["core", "enterprise"]'), github.event.inputs.product)
+    outputs:
+      generated: ${{ steps.generate.outputs.generated }}
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Generate release notes
+        id: generate
+        run: |
+          echo "Generating Core/Enterprise release notes for ${{ github.event.inputs.product }} v${{ github.event.inputs.version }}"
+          
+          # Create output directory
+          mkdir -p helper-scripts/output/release-notes
+          
+          # Note: This generates placeholder release notes since the actual repositories
+          # (influxdb and influxdb_pro) are not available in the GitHub Actions environment.
+          # To generate actual release notes, the script would need to be run locally with:
+          # node ./helper-scripts/common/generate-release-notes.js \
+          #   --config ./helper-scripts/common/config/influxdb3-core-enterprise.json \
+          #   ${{ github.event.inputs.previous_version }} \
+          #   ${{ github.event.inputs.version }}
+          
+          # Create structured placeholder that matches the expected format
+          cat > helper-scripts/output/release-notes/release-notes-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}.md << EOF
+          > [!Note]
+          > #### InfluxDB 3 Core and Enterprise relationship
+          >
+          > InfluxDB 3 Enterprise is a superset of InfluxDB 3 Core.
+          > All updates to Core are automatically included in Enterprise.
+          > The Enterprise sections below only list updates exclusive to Enterprise.
+          
+          ## ${{ github.event.inputs.version }} {date="$(date +'%Y-%m-%d')"}
+          
+          ### Core
+          
+          #### Features
+          
+          - TODO: Add Core features for ${{ github.event.inputs.product }} ${{ github.event.inputs.version }}
+          
+          #### Bug Fixes
+          
+          - TODO: Add Core bug fixes for ${{ github.event.inputs.product }} ${{ github.event.inputs.version }}
+          
+          ### Enterprise
+          
+          All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+          
+          #### Features
+          
+          - TODO: Add Enterprise-specific features for ${{ github.event.inputs.version }}
+          
+          #### Bug Fixes
+          
+          - TODO: Add Enterprise-specific bug fixes for ${{ github.event.inputs.version }}
+          EOF
+          
+          echo "generated=true" >> $GITHUB_OUTPUT
+      
+      - name: Upload release notes
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-notes-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}
+          path: helper-scripts/output/release-notes/
+          retention-days: 30
+
+  # generate-release-notes-distributed:
+  #   name: Generate Release Notes (Distributed)
+  #   runs-on: ubuntu-latest
+  #   if: contains(fromJSON('["clustered", "cloud-dedicated", "cloud-serverless"]'), github.event.inputs.product)
+  #   outputs:
+  #     generated: ${{ steps.generate.outputs.generated }}
+    
+  #   steps:
+  #     - uses: actions/checkout@v4
+      
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '18'
+  #         cache: 'yarn'
+      
+  #     - name: Install dependencies
+  #       run: yarn install --frozen-lockfile
+      
+  #     - name: Generate release notes
+  #       id: generate
+  #       run: |
+  #         echo "Generating distributed product release notes for ${{ github.event.inputs.product }} v${{ github.event.inputs.version }}"
+          
+  #         # Create output directory
+  #         mkdir -p helper-scripts/output/release-notes
+          
+  #         # Note: This generates placeholder release notes since the actual repositories
+  #         # for distributed products are not available in the GitHub Actions environment.
+  #         # To generate actual release notes, the script would need to be run locally with:
+  #         # node ./helper-scripts/common/generate-release-notes.js \
+  #         #   --config ./helper-scripts/common/config/influxdb3-clustered.json \
+  #         #   ${{ github.event.inputs.previous_version }} \
+  #         #   ${{ github.event.inputs.version }}
+          
+  #         # Create structured placeholder for distributed products
+  #         cat > helper-scripts/output/release-notes/release-notes-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}.md << EOF
+  #         ## ${{ github.event.inputs.version }} {date="$(date +'%Y-%m-%d')"}
+          
+  #         ### Features
+          
+  #         - TODO: Add features for ${{ github.event.inputs.product }} ${{ github.event.inputs.version }}
+          
+  #         ### Bug Fixes
+          
+  #         - TODO: Add bug fixes for ${{ github.event.inputs.product }} ${{ github.event.inputs.version }}
+          
+  #         ### Performance Improvements
+          
+  #         - TODO: Add performance improvements for ${{ github.event.inputs.product }} ${{ github.event.inputs.version }}
+  #         EOF
+          
+  #         echo "generated=true" >> $GITHUB_OUTPUT
+      
+  #     - name: Upload release notes
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: release-notes-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}
+  #         path: helper-scripts/output/release-notes/
+  #         retention-days: 30
+
+  audit-cli-documentation:
+    name: Audit CLI Documentation
+    needs: generate-release-notes-core-enterprise
+    runs-on: ubuntu-latest
+    if: needs.generate-release-notes-core-enterprise.outputs.generated == 'true' && contains(fromJSON('["core", "enterprise"]'), github.event.inputs.product)
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Pull Docker images for version
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          PRODUCT="${{ github.event.inputs.product }}"
+          
+          if [ "$PRODUCT" == "both" ]; then
+            docker pull influxdb:${VERSION}-core || true
+            docker pull influxdb:${VERSION}-enterprise || true
+          else
+            docker pull influxdb:${VERSION}-${PRODUCT} || true
+          fi
+      
+      - name: Run CLI audit
+        run: |
+          PRODUCT="${{ github.event.inputs.product }}"
+          VERSION="${{ github.event.inputs.version }}"
+          
+          node ./helper-scripts/influxdb3-monolith/audit-cli-documentation.js $PRODUCT $VERSION
+      
+      - name: Upload CLI audit reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: cli-audit-release-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}
+          path: helper-scripts/output/cli-audit/
+          retention-days: 90
+
+  # audit-distributed-documentation:
+  #   name: Audit Distributed Products Documentation
+  #   needs: generate-release-notes-distributed
+  #   runs-on: ubuntu-latest
+  #   if: needs.generate-release-notes-distributed.outputs.generated == 'true' && contains(fromJSON('["clustered", "cloud-dedicated", "cloud-serverless"]'), github.event.inputs.product)
+    
+  #   steps:
+  #     - uses: actions/checkout@v4
+      
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '18'
+  #         cache: 'yarn'
+      
+  #     - name: Install dependencies
+  #       run: yarn install --frozen-lockfile
+      
+  #     - name: Run distributed products audit
+  #       run: |
+  #         PRODUCT="${{ github.event.inputs.product }}"
+  #         VERSION="${{ github.event.inputs.version }}"
+          
+  #         echo "Auditing distributed product: $PRODUCT v$VERSION"
+  #         # TODO: Implement distributed products audit for release
+  #         # This would audit API docs, deployment guides, configuration references
+  #         # node ./helper-scripts/influxdb3-distributed/audit-documentation.js $PRODUCT $VERSION
+          
+  #         # For now, create placeholder report
+  #         mkdir -p helper-scripts/output/distributed-audit
+  #         cat > helper-scripts/output/distributed-audit/release-audit-$PRODUCT-$VERSION.md << 'EOF'
+  #         # Release Audit Report - Distributed Products
+          
+  #         **Product:** $PRODUCT
+  #         **Version:** $VERSION
+  #         **Date:** $(date)
+  #         **Status:** Placeholder - audit not yet implemented
+          
+  #         ## Areas to Audit
+  #         - API documentation completeness
+  #         - Deployment guide accuracy
+  #         - Configuration reference updates
+  #         - Integration guide updates
+  #         - Version-specific feature documentation
+          
+  #         ## TODO
+  #         - Implement API documentation audit
+  #         - Implement deployment guide audit  
+  #         - Implement configuration reference audit
+  #         - Implement integration guide audit
+  #         EOF
+      
+  #     - name: Upload distributed audit reports
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: distributed-audit-release-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}
+  #         path: helper-scripts/output/distributed-audit/
+  #         retention-days: 90
+
+  create-documentation-pr:
+    name: Create Documentation PR
+    needs: [generate-release-notes-core-enterprise, audit-cli-documentation]
+    runs-on: ubuntu-latest
+    if: github.event.inputs.dry_run != 'true' && always() && (needs.generate-release-notes-core-enterprise.result == 'success')
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+      
+      - name: Create release branch
+        run: |
+          BRANCH="release-docs-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}"
+          git checkout -b $BRANCH
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+      
+      - name: Copy release notes to docs
+        run: |
+          # Download the generated release notes artifact
+          PRODUCT="${{ github.event.inputs.product }}"
+          VERSION="${{ github.event.inputs.version }}"
+          
+          # Determine the target documentation file based on product
+          case "$PRODUCT" in
+            "core"|"enterprise")
+              TARGET_FILE="content/shared/v3-core-enterprise-release-notes/_index.md"
+              SOURCE_FILE="artifacts/release-notes-${PRODUCT}-${VERSION}/release-notes-${PRODUCT}-${VERSION}.md"
+              ;;
+            "clustered")
+              TARGET_FILE="content/influxdb3/clustered/reference/release-notes/_index.md"
+              SOURCE_FILE="artifacts/release-notes-${PRODUCT}-${VERSION}/release-notes-${PRODUCT}-${VERSION}.md"
+              ;;
+            "cloud-dedicated")
+              TARGET_FILE="content/influxdb3/cloud-dedicated/reference/release-notes/_index.md"
+              SOURCE_FILE="artifacts/release-notes-${PRODUCT}-${VERSION}/release-notes-${PRODUCT}-${VERSION}.md"
+              ;;
+            "cloud-serverless")
+              TARGET_FILE="content/influxdb3/cloud-serverless/reference/release-notes/_index.md"
+              SOURCE_FILE="artifacts/release-notes-${PRODUCT}-${VERSION}/release-notes-${PRODUCT}-${VERSION}.md"
+              ;;
+            *)
+              echo "Unknown product: $PRODUCT"
+              exit 1
+              ;;
+          esac
+          
+          # Check if source file exists
+          if [ -f "$SOURCE_FILE" ]; then
+            echo "Copying release notes from $SOURCE_FILE to $TARGET_FILE"
+            
+            # For Core/Enterprise, prepend to existing file (new releases go at the top)
+            if [ "$PRODUCT" = "core" ] || [ "$PRODUCT" = "enterprise" ]; then
+              # Create temporary file with new content + existing content
+              cp "$SOURCE_FILE" temp_release_notes.md
+              echo "" >> temp_release_notes.md
+              cat "$TARGET_FILE" >> temp_release_notes.md
+              mv temp_release_notes.md "$TARGET_FILE"
+            else
+              # For other products, replace the file
+              cp "$SOURCE_FILE" "$TARGET_FILE"
+            fi
+            
+            echo "Release notes successfully copied to documentation"
+          else
+            echo "Warning: Release notes file not found at $SOURCE_FILE"
+            echo "Available files in artifacts:"
+            find artifacts/ -type f -name "*.md" || echo "No markdown files found"
+          fi
+      
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.BRANCH }}
+          title: "docs: Release documentation for ${{ github.event.inputs.product }} v${{ github.event.inputs.version }}"
+          body: |
+            ## Release Documentation Update
+            
+            This PR contains documentation updates for **${{ github.event.inputs.product }} v${{ github.event.inputs.version }}**
+            
+            ### Included Updates:
+            - [ ] Release notes
+            - [ ] Version updates
+            - [ ] CLI documentation audit results
+            
+            ### Artifacts:
+            - [Release Notes](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - [CLI Audit Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            
+            ### Manual Review Needed:
+            Please review the CLI audit report for any missing or outdated documentation that needs to be updated.
+            
+            ---
+            *This PR was automatically generated by the release workflow.*
+          labels: |
+            documentation
+            release
+            ${{ github.event.inputs.product }}
+          draft: true
+
+  create-audit-issue:
+    name: Create Audit Issue
+    needs: [audit-cli-documentation]
+    runs-on: ubuntu-latest
+    if: github.event.inputs.dry_run != 'true' && always() && (needs.audit-cli-documentation.result == 'success')
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download audit reports
+        uses: actions/download-artifact@v4
+        with:
+          path: audit-reports/
+      
+      - name: Create issue from audit
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const product = '${{ github.event.inputs.product }}';
+            const version = '${{ github.event.inputs.version }}';
+            
+            let auditReports = [];
+            let hasIssues = false;
+            
+            // Check for CLI audit report
+            const cliAuditPath = `audit-reports/cli-audit-release-${product}-${version}`;
+            if (fs.existsSync(cliAuditPath)) {
+              const files = fs.readdirSync(cliAuditPath);
+              const cliAuditFile = files.find(f => f.includes('documentation-audit'));
+              if (cliAuditFile) {
+                const report = fs.readFileSync(path.join(cliAuditPath, cliAuditFile), 'utf8');
+                const hasMissingOptions = report.includes('⚠️ Missing from docs');
+                const hasExtraOptions = report.includes('ℹ️ Documented but not in CLI');
+                if (hasMissingOptions || hasExtraOptions) {
+                  auditReports.push({
+                    type: 'CLI',
+                    content: report
+                  });
+                  hasIssues = true;
+                }
+              }
+            }
+            
+            // Check for distributed audit report
+            const distributedAuditPath = `audit-reports/distributed-audit-release-${product}-${version}`;
+            if (fs.existsSync(distributedAuditPath)) {
+              const files = fs.readdirSync(distributedAuditPath);
+              const distributedAuditFile = files.find(f => f.includes('release-audit'));
+              if (distributedAuditFile) {
+                const report = fs.readFileSync(path.join(distributedAuditPath, distributedAuditFile), 'utf8');
+                // For now, always include distributed audit reports since they're placeholders
+                auditReports.push({
+                  type: 'Distributed Products',
+                  content: report
+                });
+                hasIssues = true;
+              }
+            }
+            
+            if (hasIssues && auditReports.length > 0) {
+              // Create comprehensive issue
+              const issueBody = [
+                '## Release Documentation Audit Results',
+                '',
+                `The following documentation issues were found during the release of **${product} v${version}**:`,
+                '',
+                ...auditReports.map(report => [
+                  `### ${report.type} Audit`,
+                  '',
+                  report.content,
+                  ''
+                ]).flat(),
+                '### Action Items:',
+                '- [ ] Review and update documentation for missing or outdated content',
+                '- [ ] Verify all examples work with the new version',
+                '- [ ] Update any version-specific content',
+                '- [ ] Remove documentation for deprecated features',
+                '',
+                '---',
+                '*This issue was automatically generated during the release process.*'
+              ].join('\n');
+              
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `Documentation Updates Needed - ${product} v${version}`,
+                body: issueBody,
+                labels: ['documentation', 'release', product, 'audit']
+              });
+              
+              console.log('Created issue for documentation updates');
+            } else {
+              console.log('No documentation issues found - skipping issue creation');
+            }
+
+  influxdb3-monolith-release-summary:
+    name: Release Summary
+    needs: [generate-release-notes-core-enterprise, audit-cli-documentation, create-documentation-pr, create-audit-issue]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Generate summary
+        run: |
+          echo "# Release Documentation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Release Information" >> $GITHUB_STEP_SUMMARY
+          echo "- **Product**: ${{ github.event.inputs.product }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: ${{ github.event.inputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Previous Version**: ${{ github.event.inputs.previous_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Dry Run**: ${{ github.event.inputs.dry_run }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          echo "## Workflow Results" >> $GITHUB_STEP_SUMMARY
+          echo "| Step | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Generate Release Notes (Core/Enterprise) | ${{ needs.generate-release-notes-core-enterprise.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| CLI Documentation Audit | ${{ needs.audit-cli-documentation.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Create Documentation PR | ${{ needs.create-documentation-pr.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Create Audit Issue | ${{ needs.create-audit-issue.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ github.event.inputs.dry_run }}" == "true" ]; then
+            echo "**Note**: This was a dry run. No PRs or issues were created." >> $GITHUB_STEP_SUMMARY
+          fi
