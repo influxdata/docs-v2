@@ -4,31 +4,49 @@ This directory contains scripts that are shared across all InfluxDB documentatio
 
 ## Scripts
 
-### generate-release-notes.sh
+### generate-release-notes.js
 
-Generates release notes by analyzing git commits between two versions across multiple repositories.
+JavaScript ESM script that generates release notes by analyzing git commits between two versions across multiple repositories. Supports flexible configuration for different InfluxDB products and output formats.
 
 **Usage:**
 ```bash
-./generate-release-notes.sh [options] <from_version> <to_version> <primary_repo> [additional_repos...]
+node generate-release-notes.js [options] <from_version> <to_version> [repo_paths...]
 ```
 
 **Options:**
+- `--config <file>` - Load configuration from JSON file (recommended)
+- `--format <type>` - Output format: 'integrated' or 'separated'
 - `--no-fetch` - Skip fetching latest commits from remote
 - `--pull` - Pull latest changes (use with caution)
+- `--no-pr-links` - Omit PR links from commit messages
 
-**Example:**
+**Examples:**
 ```bash
-# Generate release notes for v3.2.0
-./generate-release-notes.sh v3.1.0 v3.2.0 ~/repos/influxdb ~/repos/influxdb_iox
+# Using configuration file (recommended for InfluxDB 3 Core/Enterprise)
+node generate-release-notes.js --config config/influxdb3-core-enterprise.json v3.1.0 v3.2.0
+
+# Using configuration file for other products
+node generate-release-notes.js --config config/influxdb3-clustered.json v1.0.0 v1.1.0
+
+# Traditional command-line arguments
+node generate-release-notes.js v3.1.0 v3.2.0 ~/repos/influxdb ~/repos/influxdb_pro
 
 # Skip fetch for faster local testing
-./generate-release-notes.sh --no-fetch v3.1.0 v3.2.0 ~/repos/influxdb
+node generate-release-notes.js --no-fetch v3.1.0 v3.2.0 ~/repos/influxdb
 ```
 
+**Configuration Files:**
+- `config/influxdb3-core-enterprise.json` - InfluxDB 3 Core/Enterprise separated format
+- `config/influxdb3-clustered.json` - InfluxDB 3 Clustered integrated format
+- `config/influxdb-v2.json` - InfluxDB v2.x integrated format
+
 **Output:**
-- Creates `release-notes-<version>.md` in current directory
+- Creates `release-notes-<version>.md` in `../output/release-notes/`
+- Supports two formats:
+  - **Integrated**: All repositories' changes combined in unified sections
+  - **Separated**: Primary repository first, then secondary repositories (ideal for Core/Enterprise)
 - Includes sections for Features, Bug Fixes, Breaking Changes, Performance, and API changes
+- Automatically links to GitHub pull requests (configurable per repository)
 
 ### update-product-version.sh
 

@@ -32,17 +32,28 @@ helper-scripts/
 
 ## Common Scripts
 
-### `common/generate-release-notes.sh`
-Generates release notes by analyzing git commits across multiple repositories.
+### `common/generate-release-notes.js`
+JavaScript ESM script that generates release notes by analyzing git commits across multiple repositories. Supports flexible configuration for different InfluxDB products and output formats.
 
 **Usage:**
 ```bash
-./common/generate-release-notes.sh [--no-fetch] [--pull] <from_version> <to_version> <primary_repo_path> [additional_repo_paths...]
+node common/generate-release-notes.js [options] <from_version> <to_version> [repo_paths...]
 ```
 
-**Example:**
+**Options:**
+- `--config <file>` - Load configuration from JSON file
+- `--format <type>` - Output format: 'integrated' or 'separated'
+- `--no-fetch` - Skip fetching latest commits from remote
+- `--pull` - Pull latest changes (use with caution)
+- `--no-pr-links` - Omit PR links from commit messages
+
+**Examples:**
 ```bash
-./common/generate-release-notes.sh v3.1.0 v3.2.0 ~/repos/influxdb ~/repos/influxdb_iox
+# Using configuration file (recommended)
+node common/generate-release-notes.js --config common/config/influxdb3-core-enterprise.json v3.1.0 v3.2.0
+
+# Traditional command-line arguments
+node common/generate-release-notes.js v3.1.0 v3.2.0 ~/repos/influxdb ~/repos/influxdb_pro
 ```
 
 ### `common/update-product-version.sh`
@@ -92,7 +103,7 @@ output/
 These scripts are integrated with GitHub Actions workflows:
 
 - **Workflow**: `.github/workflows/prepare-release.yml`
-- **Uses**: `generate-release-notes.sh`, `update-product-version.sh`
+- **Uses**: `generate-release-notes.js`, `update-product-version.sh`
 
 ## Quick Start
 
@@ -110,10 +121,10 @@ These scripts are integrated with GitHub Actions workflows:
 3. **Run a script**
    ```bash
    # Generate release notes
-   ./common/generate-release-notes.sh v3.1.0 v3.2.0 ~/repos/influxdb
+   node common/generate-release-notes.js --config common/config/influxdb3-core-enterprise.json v3.1.0 v3.2.0
    
    # Audit CLI documentation
-   ./influxdb3-monolith/audit-cli-documentation.sh core local
+   node influxdb3-monolith/audit-cli-documentation.js core local
    ```
 
 ## Contributing
