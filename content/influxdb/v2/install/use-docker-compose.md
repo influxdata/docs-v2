@@ -13,6 +13,8 @@ related:
   - /influxdb/v2/reference/cli/influx/config/
   - /influxdb/v2/reference/cli/influx/
   - /influxdb/v2/admin/tokens/
+alt_links:
+  v1: /influxdb/v1/introduction/install/docker/
 ---
 
 Use Docker Compose to install and set up InfluxDB v2, the time series platform

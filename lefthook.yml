@@ -5,6 +5,10 @@
 pre-commit:
   parallel: true
   commands:
+    eslint-debug-check:
+      glob: "assets/js/*.js"
+      run: yarn eslint {staged_files}
+      fail_text: "Debug helpers found! Remove debug imports and calls before committing."
     build-copilot-instructions:
       glob: "CONTRIBUTING.md"
       run: yarn build:copilot-instructions 
@@ -86,6 +90,10 @@ pre-commit:
           { echo "⚠️  Prettier found formatting issues. Automatic formatting applied."
           git add {staged_files}
         }
+    lint-js:
+      glob: "assets/js/*.{js,ts}"
+      run: yarn eslint {staged_files}
+      fail_text: "JavaScript linting failed. Fix errors before committing."
 pre-push:
   commands:
     packages-audit:

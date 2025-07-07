@@ -922,9 +922,25 @@ paths:
       summary: Delete a database
       description: |
         Soft deletes a database.
-        The database is scheduled for deletion and unavailable for querying.  
+        The database is scheduled for deletion and unavailable for querying.
+        Use the `hard_delete_at` parameter to schedule a hard deletion.
       parameters:
         - $ref: '#/components/parameters/db'
+        - name: hard_delete_at
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: |
+            Schedule the database for hard deletion at the specified time.
+            If not provided, the database will be soft deleted.
+            Use ISO 8601 date-time format (for example, "2025-12-31T23:59:59Z").
+
+            #### Deleting a database cannot be undone
+            
+            Deleting a database is a destructive action.
+            Once a database is deleted, data stored in that database cannot be recovered.
       responses:
         '200':
           description: Success. Database deleted.
@@ -961,7 +977,13 @@ paths:
       summary: Delete a table
       description: |
         Soft deletes a table.
-        The table is scheduled for deletion and unavailable for querying.  
+        The table is scheduled for deletion and unavailable for querying.
+        Use the `hard_delete_at` parameter to schedule a hard deletion.
+
+        #### Deleting a table cannot be undone
+        
+        Deleting a table is a destructive action.
+        Once a table is deleted, data stored in that table cannot be recovered.
       parameters:
         - $ref: '#/components/parameters/db'
         - name: table
@@ -969,6 +991,16 @@ paths:
           required: true
           schema:
             type: string
+        - name: hard_delete_at
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: |
+            Schedule the table for hard deletion at the specified time.
+            If not provided, the table will be soft deleted.
+            Use ISO 8601 format (for example, "2025-12-31T23:59:59Z").
       responses:
         '200':
           description: Success (no content). The table has been deleted.
@@ -978,6 +1010,77 @@ paths:
           description: Table not found.
       tags:
         - Table
+    patch:
+      operationId: PatchConfigureTable
+      summary: Update a table
+      description: |
+        Updates table configuration, such as retention period.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTableRequest'
+      responses:
+        '200':
+          description: Success. The table has been updated.
+        '400':
+          description: Bad request.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Table not found.
+      tags:
+        - Table
+  /api/v3/configure/database/{db}:
+    patch:
+      operationId: PatchConfigureDatabase
+      summary: Update a database
+      description: |
+        Updates database configuration, such as retention period.
+      parameters:
+        - name: db
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the database to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDatabaseRequest'
+      responses:
+        '200':
+          description: Success. The database has been updated.
+        '400':
+          description: Bad request.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Database not found.
+      tags:
+        - Database
+  /api/v3/show/license:
+    get:
+      operationId: GetShowLicense
+      summary: Show license information
+      description: |
+        Retrieves information about the current InfluxDB 3 Enterprise license.
+      responses:
+        '200':
+          description: Success. The response body contains license information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Access denied.
+      tags:
+        - Server information
   /api/v3/configure/distinct_cache:
     post:
       operationId: PostConfigureDistinctCache
@@ -1136,7 +1239,7 @@ paths:
                   db: mydb
                   plugin_filename: request.py
                   trigger_name: hello_world_trigger
-                  trigger_specification: path:hello-world
+                  trigger_specification: request:hello-world
               cron_friday_afternoon:
                 summary: Cron trigger for Friday afternoons
                 description: |
@@ -1365,16 +1468,16 @@ paths:
           description: Plugin not enabled.
       tags:
         - Processing engine
-  /api/v3/engine/{plugin_path}:
+  /api/v3/engine/{request_path}:
     parameters:
-      - name: plugin_path
+      - name: request_path
         description: |
-          The path configured in the request trigger specification "path:<plugin_path>"` for the plugin.
+          The path configured in the request trigger specification for the plugin.
 
           For example, if you define a trigger with the following:
 
           ```json
-          trigger-spec: "path:hello-world"
+          trigger_specification: "request:hello-world"
           ```
 
           then, the HTTP API exposes the following plugin endpoint:
@@ -1390,7 +1493,7 @@ paths:
       operationId: GetProcessingEnginePluginRequest
       summary: On Request processing engine plugin request
       description: |
-        Executes the On Request processing engine plugin specified in `<plugin_path>`.
+        Executes the On Request processing engine plugin specified in the trigger's `plugin_filename`.
         The request can include request headers, query string parameters, and a request body, which InfluxDB passes to the plugin.
 
         An On Request plugin implements the following signature:
@@ -1417,7 +1520,7 @@ paths:
       operationId: PostProcessingEnginePluginRequest
       summary: On Request processing engine plugin request
       description: |
-        Executes the On Request processing engine plugin specified in `<plugin_path>`.
+        Executes the On Request processing engine plugin specified in the trigger's `plugin_filename`.
         The request can include request headers, query string parameters, and a request body, which InfluxDB passes to the plugin.
 
         An On Request plugin implements the following signature:
@@ -1812,6 +1915,16 @@ components:
       properties:
         db:
           type: string
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$|^[a-zA-Z0-9]$'
+          description: |-
+            The database name. Database names cannot contain underscores (_).
+            Names must start and end with alphanumeric characters and can contain hyphens (-) in the middle.
+        retention_period:
+          type: string
+          description: |-
+            The retention period for the database. Specifies how long data should be retained.
+            Use duration format (for example, "1d", "1h", "30m", "7d").
+          example: "7d"
       required:
         - db
     CreateTableRequest:
@@ -1843,6 +1956,12 @@ components:
             required:
               - name
               - type
+        retention_period:
+          type: string
+          description: |-
+            The retention period for the table. Specifies how long data in this table should be retained.
+            Use duration format (for example, "1d", "1h", "30m", "7d").
+          example: "30d"
       required:
         - db
         - table
@@ -1929,11 +2048,10 @@ components:
             `schedule.py` or `endpoints/report.py`.
             The path can be absolute or relative to the `--plugins-dir` directory configured when starting InfluxDB 3.
 
-            The plugin file must implement the trigger interface associated with the trigger's specification (`trigger_spec`).
+            The plugin file must implement the trigger interface associated with the trigger's specification.
         trigger_name:
           type: string
         trigger_specification:
-          type: string
           description: |
             Specifies when and how the processing engine trigger should be invoked.
 
@@ -1972,12 +2090,12 @@ components:
             - `table:TABLE_NAME` - Triggers on write events to a specific table
 
             ### On-demand triggers
-            Format: `path:ENDPOINT_NAME`
+            Format: `request:REQUEST_PATH`
 
-            Creates an HTTP endpoint `/api/v3/engine/ENDPOINT_NAME` for manual invocation:
-            - `path:hello-world` - Creates endpoint `/api/v3/engine/hello-world`
-            - `path:data-export` - Creates endpoint `/api/v3/engine/data-export`
-          pattern: ^(cron:[0-9 *,/-]+|every:[0-9]+[smhd]|all_tables|table:[a-zA-Z_][a-zA-Z0-9_]*|path:[a-zA-Z0-9_-]+)$
+            Creates an HTTP endpoint `/api/v3/engine/REQUEST_PATH` for manual invocation:
+            - `request:hello-world` - Creates endpoint `/api/v3/engine/hello-world`
+            - `request:data-export` - Creates endpoint `/api/v3/engine/data-export`
+          pattern: ^(cron:[0-9 *,/-]+|every:[0-9]+[smhd]|all_tables|table:[a-zA-Z_][a-zA-Z0-9_]*|request:[a-zA-Z0-9_-]+)$
           example: cron:0 0 6 * * 1-5
         trigger_arguments:
           type: object
@@ -2074,6 +2192,65 @@ components:
         - m
         - h
       type: string
+    UpdateDatabaseRequest:
+      type: object
+      properties:
+        retention_period:
+          type: string
+          description: |
+            The retention period for the database. Specifies how long data should be retained.
+            Use duration format (for example, "1d", "1h", "30m", "7d").
+          example: "7d"
+      description: Request schema for updating database configuration.
+    UpdateTableRequest:
+      type: object
+      properties:
+        db:
+          type: string
+          description: The name of the database containing the table.
+        table:
+          type: string
+          description: The name of the table to update.
+        retention_period:
+          type: string
+          description: |
+            The retention period for the table. Specifies how long data in this table should be retained.
+            Use duration format (for example, "1d", "1h", "30m", "7d").
+          example: "30d"
+      required:
+        - db
+        - table
+      description: Request schema for updating table configuration.
+    LicenseResponse:
+      type: object
+      properties:
+        license_type:
+          type: string
+          description: The type of license (for example, "enterprise", "trial").
+          example: "enterprise"
+        expires_at:
+          type: string
+          format: date-time
+          description: The expiration date of the license in ISO 8601 format.
+          example: "2025-12-31T23:59:59Z"
+        features:
+          type: array
+          items:
+            type: string
+          description: List of features enabled by the license.
+          example:
+            - "clustering"
+            - "processing_engine"
+            - "advanced_auth"
+        status:
+          type: string
+          enum:
+            - "active"
+            - "expired"
+            - "invalid"
+          description: The current status of the license.
+          example: "active"
+      description: Response schema for license information.
   responses:
     Unauthorized:
       description: Unauthorized access.

@@ -22,20 +22,13 @@ Ensure you have:
 
 Once you have all the prerequisites in place, follow these steps to implement the Processing Engine for your data automation needs.
 
-1. [Set up the Processing Engine](#set-up-the-processing-engine)
-2. [Add a Processing Engine plugin](#add-a-processing-engine-plugin)
-   - [Use example plugins](#use-example-plugins)
-   - [Create a custom plugin](#create-a-custom-plugin)
-3. [Set up a trigger](#set-up-a-trigger)
-   - [Understand trigger types](#understand-trigger-types)
-   - [Use the create trigger command](#use-the-create-trigger-command)
-   - [Trigger specification examples](#trigger-specification-examples)
-4. [Advanced trigger configuration](#advanced-trigger-configuration)
-   - [Access community plugins from GitHub](#access-community-plugins-from-github)
-   - [Pass arguments to plugins](#pass-arguments-to-plugins)
-   - [Control trigger execution](#control-trigger-execution)
-   - [Configure error handling for a trigger](#configure-error-handling-for-a-trigger)
-   - [Install Python dependencies](#install-python-dependencies)
+- [Set up the Processing Engine](#set-up-the-processing-engine)
+- [Add a Processing Engine plugin](#add-a-processing-engine-plugin)
+- [Set up a trigger](#set-up-a-trigger)
+- [Advanced trigger configuration](#advanced-trigger-configuration)
+{{% show-in "enterprise" %}}
+- [Distributed cluster considerations](#distributed-cluster-considerations)
+{{% /show-in %}}
 
 ## Set up the Processing Engine
 
@@ -74,6 +67,10 @@ When running {{% product-name %}} in a distributed setup, follow these steps to 
 > #### Provide plugins to nodes that run them
 >
 > Configure your plugin directory on the same system as the nodes that run the triggers and plugins.
+
+{{% show-in "enterprise" %}}
+For more information about configuring distributed environments, see the [Distributed cluster considerations](#distributed-cluster-considerations) section.
+{{% /show-in %}}
 
 ## Add a Processing Engine plugin
 
@@ -168,11 +165,11 @@ Before you begin, make sure:
 
 Choose a plugin type based on your automation goals:
 
-| Plugin Type      | Best For                                    | Trigger Type             |
-| ---------------- | ------------------------------------------- | ------------------------ |
-| **Data write**   | Processing data as it arrives               | `table:` or `all_tables` |
-| **Scheduled**    | Running code at specific intervals or times | `every:` or `cron:`      |
-| **HTTP request** | Running code on demand via API endpoints    | `path:`                  |
+| Plugin Type      | Best For                                    |
+| ---------------- | ------------------------------------------- |
+| **Data write**   | Processing data as it arrives               |
+| **Scheduled**    | Running code at specific intervals or times |
+| **HTTP request** | Running code on demand via API endpoints    |
 
 #### Create your plugin file
 
@@ -184,7 +181,7 @@ After writing your plugin, [create a trigger](#use-the-create-trigger-command) t
 
 #### Create a data write plugin
 
-Use a data write plugin to process data as it's written to the database. Ideal use cases include:
+Use a data write plugin to process data as it's written to the database. These plugins use [`table:` or `all_tables:`](#trigger-on-data-writes) trigger specifications. Ideal use cases include:
 
 - Data transformation and enrichment
 - Alerting on incoming values
@@ -209,7 +206,7 @@ def process_writes(influxdb3_local, table_batches, args=None):
 
 #### Create a scheduled plugin
 
-Scheduled plugins run at defined intervals. Use them for:
+Scheduled plugins run at defined intervals using [`every:` or `cron:`](#trigger-on-a-schedule) trigger specifications. Use them for:
 
 - Periodic data aggregation
 - Report generation
@@ -231,7 +228,7 @@ def process_scheduled_call(influxdb3_local, call_time, args=None):
 
 #### Create an HTTP request plugin
 
-HTTP request plugins respond to API calls. Use them for:
+HTTP request plugins respond to API calls using [`request:`](#trigger-on-http-requests) trigger specifications. Use them for:
 
 - Creating custom API endpoints
 - Webhooks for external integrations
@@ -270,7 +267,7 @@ After writing your plugin:
 |------------|----------------------|-----------------|
 | Data write | `table:<TABLE_NAME>` or `all_tables` | When data is written to tables |
 | Scheduled | `every:<DURATION>` or `cron:<EXPRESSION>` | At specified time intervals |
-| HTTP request | `path:<ENDPOINT_PATH>` | When HTTP requests are received |
+| HTTP request | `request:<REQUEST_PATH>` | When HTTP requests are received |
 
 ### Use the create trigger command
 
@@ -302,7 +299,7 @@ In the example above, replace the following:
 
 ### Trigger specification examples
 
-#### Data write example
+#### Trigger on data writes 
 
 ```bash
 # Trigger on writes to a specific table
@@ -325,13 +322,13 @@ The trigger runs when the database flushes ingested data for the specified table
 
 The plugin receives the written data and table information.
 
-#### Scheduled events example
+#### Trigger on a schedule 
 
 ```bash
 # Run every 5 minutes
 influxdb3 create trigger \
   --trigger-spec "every:5m" \
-  --plugin-filename "hourly_check.py" \
+  --plugin-filename "periodic_check.py" \
   --database my_database \
   regular_check
 
@@ -346,7 +343,7 @@ influxdb3 create trigger \
 
 The plugin receives the scheduled call time.
 
-#### HTTP requests example
+#### Trigger on HTTP requests
 
 ```bash
 # Create an endpoint at /api/v3/engine/webhook
@@ -357,7 +354,9 @@ influxdb3 create trigger \
   webhook_processor
 ```
 
-Access your endpoint available at `/api/v3/engine/<ENDPOINT_PATH>`.
+Access your endpoint at `/api/v3/engine/{REQUEST_PATH}` (in this example, `/api/v3/engine/webhook`).
+The trigger is enabled by default and runs when an HTTP request is received at the specified path.
+
 To run the plugin, send a `GET` or `POST` request to the endpoint--for example:
 
 ```bash
@@ -365,6 +364,12 @@ curl http://{{% influxdb/host %}}/api/v3/engine/webhook
 ```
 
 The plugin receives the HTTP request object with methods, headers, and body.
+
+To view triggers associated with a database, use the `influxdb3 show summary` command:
+
+```bash
+influxdb3 show summary --database my_database --token AUTH_TOKEN
+```
 
 ### Pass arguments to plugins
 
@@ -523,27 +528,90 @@ influxdb3 create trigger \
 
 ### Install Python dependencies
 
-If your plugin needs additional Python packages, use the `influxdb3 install` command:
+Use the `influxdb3 install package` command to add third-party libraries (like `pandas`, `requests`, or `influxdb3-python`) to your plugin environment.  
+This installs packages into the Processing Engine’s embedded Python environment to ensure compatibility with your InfluxDB instance.
+
+{{% code-placeholders "CONTAINER_NAME|PACKAGE_NAME" %}}
+
+{{< code-tabs-wrapper >}}
+
+{{% code-tabs %}}
+[CLI](#)
+[Docker](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
 
 ```bash
-# Install a package directly
+# Use the CLI to install a Python package
 influxdb3 install package pandas
+
 ```
 
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+
 ```bash
-# With Docker
+# Use the CLI to install a Python package in a Docker container
 docker exec -it CONTAINER_NAME influxdb3 install package pandas
 ```
 
-This creates a Python virtual environment in your plugins directory with the specified packages installed.
+{{% /code-tab-content %}}
+
+{{< /code-tabs-wrapper >}}
+
+These examples install the specified Python package (for example, pandas) into the Processing Engine’s embedded virtual environment.
+
+- Use the CLI command when running InfluxDB directly on your system.
+- Use the Docker variant if you're running InfluxDB in a containerized environment.
+
+> [!Important]
+> #### Use bundled Python for plugins
+> When you start the server with the `--plugin-dir` option, InfluxDB 3 creates a Python virtual environment (`<PLUGIN_DIR>/venv`) for your plugins.
+> If you need to create a custom virtual environment, use the Python interpreter bundled with InfluxDB 3. Don't use the system Python.
+> Creating a virtual environment with the system Python (for example, using `python -m venv`) can lead to runtime errors and plugin failures.
+> 
+>For more information, see the [processing engine README](https://github.com/influxdata/influxdb/blob/main/README_processing_engine.md#official-builds).
+
+{{% /code-placeholders %}}
+
+InfluxDB creates a Python virtual environment in your plugins directory with the specified packages installed.
 
 {{% show-in "enterprise" %}}
 
-### Connect Grafana to your InfluxDB instance
+## Distributed cluster considerations
 
-When configuring Grafana to connect to an InfluxDB 3 Enterprise instance:
+When you deploy {{% product-name %}} in a multi-node environment, configure each node based on its role and the plugins it runs.
 
-- **URL**: Use a querier URL or any node that serves queries
+### Match plugin types to the correct node
 
-Example URL format: `https://querier.your-influxdb.com:8086`
+Each plugin must run on a node that supports its trigger type:
+
+| Plugin type        | Trigger spec             | Runs on                     |
+|--------------------|--------------------------|-----------------------------|
+| Data write         | `table:` or `all_tables` | Ingester nodes              |
+| Scheduled          | `every:` or `cron:`      | Any node with scheduler     |
+| HTTP request       | `request:`               | Nodes that serve API traffic|
+
+For example:
+- Run write-ahead log (WAL) plugins on ingester nodes.
+- Run scheduled plugins on any node configured to execute them.
+- Run HTTP-triggered plugins on querier nodes or any node that handles HTTP endpoints.
+
+Place all plugin files in the `--plugin-dir` directory configured for each node.
+
+> [!Note]
+> Triggers fail if the plugin file isn’t available on the node where it runs.
+
+### Route third-party clients to querier nodes
+
+External tools—such as Grafana, custom dashboards, or REST clients—must connect to querier nodes in your InfluxDB Enterprise deployment.
+
+#### Examples
+
+- **Grafana**: When adding InfluxDB 3 as a Grafana data source, use a querier node URL, such as:
+`https://querier.example.com:8086`
+- **REST clients**: Applications using `POST /api/v3/query/sql` or similar endpoints must target a querier node.
+
 {{% /show-in %}}

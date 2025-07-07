@@ -475,7 +475,7 @@ sudo systemctl start influxdb
     ```
 
     If you do not see the expected output, the process is either not launching or is exiting prematurely.
-    Check the [logs](/enterprise_influxdb/v1/administration/logs/)
+    Check the [logs](/enterprise_influxdb/v1/administration/monitor/logs/)
     for error messages and verify the previous setup steps are complete.
 
 5. **Use `influxd-ctl` to add the data process to the InfluxDB Enterprise "cluster"**:
@@ -542,9 +542,7 @@ For Chronograf installation instructions, see
 [Install Chronograf](/chronograf/v1/introduction/installation/).
 
 ## Next steps
-- Add more users if necessary.
-  See [Manage users and permissions](/enterprise_influxdb/v1/administration/manage/users-and-permissions/)
-  for more information.
-- [Enable TLS](/enterprise_influxdb/v1/guides/enable-tls/).
-- [Write data with the InfluxDB API](/enterprise_influxdb/v1/guides/write_data/).
-- [Query data with the InfluxDB API](/enterprise_influxdb/v1/guides/query_data/).
+- For information about adding users, see [Manage users and permissions](/enterprise_influxdb/v1/administration/manage/users-and-permissions/)
+- [Enable TLS](/enterprise_influxdb/v1/guides/enable-tls/)
+- [Write data with the InfluxDB API](/enterprise_influxdb/v1/guides/write_data/)
+- [Query data with the InfluxDB API](/enterprise_influxdb/v1/guides/query_data/)

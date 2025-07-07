@@ -33,14 +33,14 @@ Run the Docker image to start InfluxDB 3 Explorer:
 
 ```sh
 # Pull the Docker image
-docker pull quay.io/influxdb/influxdb3-explorer:latest
+docker pull influxdata/influxdb3-ui:{{% latest-patch %}}
 
 # Run the Docker container
 docker run --detach \
   --name influxdb3-explorer \
   --publish 8888:80 \
   --publish 8889:8888 \
-  quay.io/influxdb/influxdb3-explorer:latest \
+  influxdata/influxdb3-ui:{{% latest-patch %}} \
   --mode=admin
 ```
 

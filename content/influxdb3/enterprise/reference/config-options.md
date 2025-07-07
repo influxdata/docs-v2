@@ -19,20 +19,18 @@ Pass configuration options to the `influxdb serve` server using either command
 options or environment variables. Command options take precedence over
 environment variables.
 
-##### Example influxdb3 serve command options
+##### Example `influxdb3 serve` command options
 
 <!--pytest.mark.skip-->
 
 ```sh
 influxdb3 serve \
+  --node-id node0 \
+  --cluster-id cluster0 \
   --license-email example@email.com \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --node-id NODE_ID \
-  --cluster-id my-cluster-01 \
-  --log-filter info \
-  --max-http-request-size 20971520 \
-  --aws-allow-http
+  --log-filter info
 ```
 
 ##### Example environment variables
@@ -43,10 +41,7 @@ influxdb3 serve \
 export INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=example@email.com
 export INFLUXDB3_OBJECT_STORE=file
 export INFLUXDB3_DB_DIR=~/.influxdb3
-export INFLUXDB3_WRITER_IDENTIFIER_PREFIX=my-host
 export LOG_FILTER=info
-export INFLUXDB3_MAX_HTTP_REQUEST_SIZE=20971520
-export AWS_ALLOW_HTTP=true
 
 influxdb3 serve
 ```
@@ -60,8 +55,13 @@ influxdb3 serve
   - [license-file](#license-file)
   - [mode](#mode)
   - [node-id](#node-id)
+  - [node-id-from-env](#node-id-from-env)
   - [object-store](#object-store)
-  - [query-file-limit](#query-file-limit)
+  - [tls-key](#tls-key)
+  - [tls-cert](#tls-cert)
+  - [tls-minimum-versions](#tls-minimum-version)
+  - [without-auth](#without-auth)
+  - [disable-authz](#disable-authz)
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
   - [aws-secret-access-key](#aws-secret-access-key)
@@ -121,9 +121,6 @@ influxdb3 serve
   - [wal-snapshot-size](#wal-snapshot-size)
   - [wal-max-write-buffer-size](#wal-max-write-buffer-size)
   - [snapshotted-wal-files-to-keep](#snapshotted-wal-files-to-keep)
-- [Replication](#replication)
-  - [read-from-node-ids](#read-from-node-ids)
-  - [replication-interval](#replication-interval)
 - [Compaction](#compaction)
   - [compaction-row-limit](#compaction-row-limit)
   - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
@@ -135,11 +132,14 @@ influxdb3 serve
   - [parquet-mem-cache-size](#parquet-mem-cache-size)
   - [parquet-mem-cache-prune-percentage](#parquet-mem-cache-prune-percentage)
   - [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
-  - [disable-parquet-mem-cache](#disable-parquet-mem-cache)
   - [parquet-mem-cache-query-path-duration](#parquet-mem-cache-query-path-duration)
+  - [disable-parquet-mem-cache](#disable-parquet-mem-cache)
   - [last-cache-eviction-interval](#last-cache-eviction-interval)
+  - [last-value-cache-disable-from-history](#last-value-cache-disable-from-history)
   - [distinct-cache-eviction-interval](#distinct-cache-eviction-interval)
-- [Processing engine](#processing-engine)
+  - [distinct-value-cache-disable-from-history](#distinct-value-cache-disable-from-history)
+  - [query-file-limit](#query-file-limit)
+- [Processing Engine](#processing-engine)
   - [plugin-dir](#plugin-dir)
   - [virtual-env-location](#virtual-env-location)
   - [package-manager](#package-manager)
@@ -164,7 +164,7 @@ This value must be different than the [`--node-id`](#node-id) value.
 
 | influxdb3 serve option | Environment variable               |
 | :--------------------- | :--------------------------------- |
-| `--cluster-id`         | `INFLUXDB3_ENTERPRISE_my-cluster-01`  |
+| `--cluster-id`         | `INFLUXDB3_ENTERPRISE_CLUSTER_ID`  |
 
 ---
 
@@ -235,6 +235,27 @@ configuration--for example, the same bucket.
 | :--------------------- | :--------------------------------- |
 | `--node-id`            | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` |
 
+
+#### node-id-from-env
+
+Specifies the node identifier used as a prefix in all object store file paths.
+Takes the name of an environment variable as an argument and uses the value of that environment variable as the node identifier.
+This option cannot be used with the `--node-id` option.
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--node-id-from-env`   | `INFLUXDB3_NODE_IDENTIFIER_FROM_ENV` |
+
+##### Example using --node-id-from-env
+
+```bash
+export DATABASE_NODE=node0 && influxdb3 serve \
+  --node-id-from-env DATABASE_NODE \
+  --cluster-id cluster0 \
+  --object-store file \
+  --data-dir ~/.influxdb3/data
+```
+
 ---
 
 #### object-store
@@ -242,7 +263,7 @@ configuration--for example, the same bucket.
 Specifies which object storage to use to store Parquet files.
 This option supports the following values:
 
-- `memory` _(default)_: Effectively no object persistence
+- `memory`: Effectively no object persistence
 - `memory-throttled`: Like `memory` but with latency and throughput that somewhat resembles a cloud object store
 - `file`: Stores objects in the local filesystem (must also set `--data-dir`)
 - `s3`: Amazon S3 (must also set `--bucket`, `--aws-access-key-id`, `--aws-secret-access-key`, and possibly `--aws-default-region`)
@@ -255,26 +276,49 @@ This option supports the following values:
 
 ---
 
-#### query-file-limit
+#### tls-key
 
-Limits the number of Parquet files a query can access.
-If a query attempts to read more than this limit, InfluxDB returns an error.
+The path to a key file for TLS to be enabled.
 
-**Default:** `432`
+| influxdb3 serve option | Environment variable   |
+| :--------------------- | :--------------------- |
+| `--tls-key`            | `INFLUXDB3_TLS_KEY`    |
 
-You can increase this limit to allow more files to be queried, but be aware of
-the following side-effects:
+---
 
-- Degraded query performance for queries that read more Parquet files
-- Increased memory usage
-- Your system potentially killing the `influxdb3` process due to Out-of-Memory
-  (OOM) errors
-- If using object storage to store data, many GET requests to access the data
-  (as many as 2 requests per file)
+#### tls-cert
 
-| influxdb3 serve option | Environment variable         |
-| :--------------------- | :--------------------------- |
-| `--query-file-limit`   | `INFLUXDB3_QUERY_FILE_LIMIT` |
+The path to a cert file for TLS to be enabled.
+
+| influxdb3 serve option | Environment variable   |
+| :--------------------- | :--------------------- |
+| `--tls-cert`           | `INFLUXDB3_TLS_CERT`   |
+
+---
+
+#### tls-minimum-version
+
+The minimum version for TLS. 
+Valid values are `tls-1.2` or `tls-1.3`.
+Default is `tls-1.2`.
+
+| influxdb3 serve option  | Environment variable     |
+| :---------------------- | :----------------------- |
+| `--tls-minimum-version` | `INFLUXDB3_TLS_MINIMUM_VERSION` |
+
+---
+
+#### without-auth
+
+Disables authentication for all server actions (CLI commands and API requests).
+The server processes all requests without requiring tokens or authentication.
+
+---
+
+#### disable-authz
+
+Optionally disable authz by passing in a comma separated list of resources. 
+Valid values are `health`, `ping`, and `metrics`.
 
 ---
 
@@ -935,35 +979,6 @@ they are deleted when the number of snapshotted WAL files exceeds this number.
 
 ---
 
-### Replication
-
-- [read-from-node-ids](#read-from-node-ids)
-- [replication-interval](#replication-interval)
-
-#### read-from-node-ids
-
-Specifies a comma-separated list of writer identifier prefixes (`node-id`s) to
-read WAL files from. [env: =]
-
-| influxdb3 serve option | Environment variable            |
-| :--------------------- | :------------------------------ |
-| `--read-from-node-ids`           | `INFLUXDB3_ENTERPRISE_READ_FROM_WRITER_IDS` |
-
----
-
-#### replication-interval
-
-Defines the interval at which each replica specified in the
-`read-from-node-ids` option is replicated.
-
-**Default:** `250ms`
-
-| influxdb3 serve option   | Environment variable                        |
-| :----------------------- | :------------------------------------------ |
-| `--replication-interval` | `INFLUXDB3_ENTERPRISE_REPLICATION_INTERVAL` |
-
----
-
 ### Compaction
 
 - [compaction-row-limit](#compaction-row-limit)
@@ -1114,6 +1129,28 @@ Sets the interval to check if the in-memory Parquet cache needs to be pruned.
 
 ---
 
+#### parquet-mem-cache-query-path-duration
+
+A [duration](/influxdb3/enterprise/reference/glossary/#duration) that specifies
+the time window for caching recent Parquet files in memory. Default is `5h`.
+
+Only files containing data with a timestamp between `now` and `now - duration`
+are cached when accessed during queries--for example, with the default `5h` setting:
+
+- Current time: `2024-06-10 15:00:00`
+- Cache window: Last 5 hours (`2024-06-10 10:00:00` to now)
+
+If a query requests data from `2024-06-09` (old) and `2024-06-10 14:00` (recent):
+
+- **Cached**: Parquet files with data from `2024-06-10 14:00` (within 5-hour window)
+- **Not cached**: Parquet files with data from `2024-06-09` (outside 5-hour window)
+
+| influxdb3 serve option        | Environment variable                  |
+| :---------------------------- | :------------------------------------ |
+| `--parquet-mem-cache-query-path-duration` | `INFLUXDB3_PARQUET_MEM_CACHE_QUERY_PATH_DURATION` |
+
+---
+
 #### disable-parquet-mem-cache
 
 Disables the in-memory Parquet cache. By default, the cache is enabled.
@@ -1121,19 +1158,6 @@ Disables the in-memory Parquet cache. By default, the cache is enabled.
 | influxdb3 serve option        | Environment variable                  |
 | :---------------------------- | :------------------------------------ |
 | `--disable-parquet-mem-cache` | `INFLUXDB3_DISABLE_PARQUET_MEM_CACHE` |
-
----
-
-#### parquet-mem-cache-query-path-duration
-
-Specifies the duration to check if Parquet files pulled in query path
-require caching, expressed as a human-readable duration (starting from _now_)--for example: `5h`, `3d`.
-
-**Default:** `5h`
-
-| influxdb3 serve option        | Environment variable                  |
-| :---------------------------- | :------------------------------------ |
-| `--parquet-mem-cache-query-path-duration` | `INFLUXDB3_PARQUET_MEM_CACHE_QUERY_PATH_DURATION` |
 
 ---
 
@@ -1150,6 +1174,17 @@ expressed as a human-readable duration--for example: `20s`, `1m`, `1h`.
 
 ---
 
+#### last-value-cache-disable-from-history
+
+Disables populating the last-N-value cache from historical data.
+If disabled, the cache is still populated with data from the write-ahead log (WAL).
+
+| influxdb3 serve option                    | Environment variable                              |
+| :---------------------------------------- | :------------------------------------------------ |
+| `--last-value-cache-disable-from-history` | `INFLUXDB3_LAST_VALUE_CACHE_DISABLE_FROM_HISTORY` |
+
+---
+
 #### distinct-cache-eviction-interval
 
 Specifies the interval to evict expired entries from the distinct value cache,
@@ -1163,7 +1198,28 @@ expressed as a human-readable duration--for example: `20s`, `1m`, `1h`.
 
 ---
 
-### Processing engine
+#### distinct-value-cache-disable-from-history
+
+Disables populating the distinct value cache from historical data.
+If disabled, the cache is still populated with data from the write-ahead log (WAL).
+
+| influxdb3 serve option                        | Environment variable                                  |
+| :-------------------------------------------- | :---------------------------------------------------- |
+| `--distinct-value-cache-disable-from-history` | `INFLUXDB3_DISTINCT_VALUE_CACHE_DISABLE_FROM_HISTORY` |
+---
+
+#### query-file-limit
+
+Limits the number of Parquet files a query can access.
+If a query attempts to read more than this limit, {{% product-name %}} returns an error.
+
+| influxdb3 serve option | Environment variable         |
+| :--------------------- | :--------------------------- |
+| `--query-file-limit`   | `INFLUXDB3_QUERY_FILE_LIMIT` |
+
+---
+
+### Processing Engine
 
 - [plugin-dir](#plugin-dir)
 - [virtual-env-location](#virtual-env-location)
@@ -1186,7 +1242,7 @@ engine uses.
 
 | influxdb3 serve option   | Environment variable   |
 | :----------------------- | :--------------------- |
-| `--virtual-env-location` | `VIRTUAL_ENV_LOCATION` |
+| `--virtual-env-location` | `VIRTUAL_ENV`          |
 
 ---
 
