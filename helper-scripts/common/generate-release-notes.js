@@ -19,14 +19,24 @@ const colors = {
 
 // Default configuration
 const DEFAULT_CONFIG = {
-  outputFormat: 'standard', // 'standard' or 'core-enterprise'
+  outputFormat: 'integrated', // 'integrated' or 'separated'
+  primaryRepo: null, // Index or name of primary repository (for separated format)
   repositories: [
     {
       name: 'primary',
       path: null, // Will be set from command line
       label: 'primary',
+      includePrLinks: true, // Default to include PR links
     },
   ],
+  // Template for separated format
+  separatedTemplate: {
+    header: null, // Optional header text/markdown
+    primaryLabel: 'Primary', // Label for primary section
+    secondaryLabel: 'Additional Changes', // Label for secondary section
+    secondaryIntro:
+      'All primary updates are included. Additional repository-specific features and fixes:', // Intro text for secondary
+  },
 };
 
 class ReleaseNotesGenerator {
@@ -35,6 +45,7 @@ class ReleaseNotesGenerator {
     this.toVersion = options.toVersion || 'v3.2.0';
     this.fetchCommits = options.fetchCommits !== false;
     this.pullCommits = options.pullCommits || false;
+    this.includePrLinks = options.includePrLinks !== false; // Default to true
     this.config = options.config || DEFAULT_CONFIG;
     this.outputDir =
       options.outputDir || join(__dirname, '..', 'output', 'release-notes');
@@ -356,7 +367,12 @@ class ReleaseNotesGenerator {
   }
 
   // Enhance commit message with analysis of changes
-  enhanceCommitMessage(repoPath, commitMessage, prNumber) {
+  enhanceCommitMessage(
+    repoPath,
+    commitMessage,
+    prNumber,
+    includePrLinks = null
+  ) {
     // Extract the basic semantic prefix
     const semanticMatch = commitMessage.match(
       /^(feat|fix|perf|refactor|style|test|docs|chore):\s*(.+)/
@@ -365,6 +381,9 @@ class ReleaseNotesGenerator {
 
     const [, type, description] = semanticMatch;
 
+    // Remove PR number from description if it's already there to avoid duplication
+    const cleanDescription = description.replace(/\s*\(#\d+\)$/g, '').trim();
+
     // Get commit hash if available
     const hashMatch = commitMessage.match(/^([a-f0-9]+)\s+/);
     const commitHash = hashMatch ? hashMatch[1] : null;
@@ -372,13 +391,17 @@ class ReleaseNotesGenerator {
     // Try to enhance based on the type and description
     const enhanced = this.generateEnhancedDescription(
       type,
-      description,
+      cleanDescription,
       repoPath,
       commitHash
     );
 
-    // If we have a PR number, include it
-    if (prNumber) {
+    // Use repository-specific setting if provided, otherwise use global setting
+    const shouldIncludePrLinks =
+      includePrLinks !== null ? includePrLinks : this.includePrLinks;
+
+    // If we have a PR number and should include PR links, include it
+    if (prNumber && shouldIncludePrLinks) {
       return `${enhanced} ([#${prNumber}](https://github.com/influxdata/influxdb/pull/${prNumber}))`;
     }
 
@@ -500,7 +523,8 @@ class ReleaseNotesGenerator {
         const enhanced = this.enhanceCommitMessage(
           repo.path,
           line.replace(/^[a-f0-9]* /, ''),
-          prNumber
+          prNumber,
+          repo.includePrLinks
         );
         return `- [${repoLabel}] ${enhanced}`;
       });
@@ -508,7 +532,12 @@ class ReleaseNotesGenerator {
       const featuresBody = this.getCommitsWithBody(repo.path, 'feat:').map(
         (line) => {
           const prNumber = this.extractPrNumber(line);
-          const enhanced = this.enhanceCommitMessage(repo.path, line, prNumber);
+          const enhanced = this.enhanceCommitMessage(
+            repo.path,
+            line,
+            prNumber,
+            repo.includePrLinks
+          );
           return `- [${repoLabel}] ${enhanced}`;
         }
       );
@@ -524,7 +553,8 @@ class ReleaseNotesGenerator {
         const enhanced = this.enhanceCommitMessage(
           repo.path,
           line.replace(/^[a-f0-9]* /, ''),
-          prNumber
+          prNumber,
+          repo.includePrLinks
         );
         return `- [${repoLabel}] ${enhanced}`;
       });
@@ -532,7 +562,12 @@ class ReleaseNotesGenerator {
       const fixesBody = this.getCommitsWithBody(repo.path, 'fix:').map(
         (line) => {
           const prNumber = this.extractPrNumber(line);
-          const enhanced = this.enhanceCommitMessage(repo.path, line, prNumber);
+          const enhanced = this.enhanceCommitMessage(
+            repo.path,
+            line,
+            prNumber,
+            repo.includePrLinks
+          );
           return `- [${repoLabel}] ${enhanced}`;
         }
       );
@@ -548,7 +583,8 @@ class ReleaseNotesGenerator {
         const enhanced = this.enhanceCommitMessage(
           repo.path,
           line.replace(/^[a-f0-9]* /, ''),
-          prNumber
+          prNumber,
+          repo.includePrLinks
         );
         return `- [${repoLabel}] ${enhanced}`;
       });
@@ -556,7 +592,12 @@ class ReleaseNotesGenerator {
       const perfBody = this.getCommitsWithBody(repo.path, 'perf:').map(
         (line) => {
           const prNumber = this.extractPrNumber(line);
-          const enhanced = this.enhanceCommitMessage(repo.path, line, prNumber);
+          const enhanced = this.enhanceCommitMessage(
+            repo.path,
+            line,
+            prNumber,
+            repo.includePrLinks
+          );
           return `- [${repoLabel}] ${enhanced}`;
         }
       );
@@ -583,8 +624,8 @@ class ReleaseNotesGenerator {
     return results;
   }
 
-  // Generate standard format release notes
-  generateStandardFormat(commits, releaseDate) {
+  // Generate integrated format release notes
+  generateIntegratedFormat(commits, releaseDate) {
     const lines = [];
 
     lines.push(`## ${this.toVersion} {date="${releaseDate}"}`);
@@ -622,7 +663,7 @@ class ReleaseNotesGenerator {
       commits.breaking.forEach((change) => {
         const pr = this.extractPrNumber(change);
         const cleanLine = change.replace(/ \\(#\\d+\\)$/, '');
-        if (pr) {
+        if (pr && this.includePrLinks) {
           lines.push(
             `${cleanLine} ([#${pr}](https://github.com/influxdata/influxdb/pull/${pr}))`
           );
@@ -651,7 +692,7 @@ class ReleaseNotesGenerator {
       commits.api.forEach((api) => {
         const pr = this.extractPrNumber(api);
         const cleanLine = api.replace(/ \\(#\\d+\\)$/, '');
-        if (pr) {
+        if (pr && this.includePrLinks) {
           lines.push(
             `${cleanLine} ([#${pr}](https://github.com/influxdata/influxdb/pull/${pr}))`
           );
@@ -681,59 +722,81 @@ class ReleaseNotesGenerator {
     return lines.join('\n');
   }
 
-  // Generate Core/Enterprise format release notes
-  generateCoreEnterpriseFormat(commits, releaseDate) {
+  // Generate separated format release notes
+  generateSeparatedFormat(commits, releaseDate) {
     const lines = [];
 
-    // Add template note
-    lines.push('> [!Note]');
-    lines.push('> #### InfluxDB 3 Core and Enterprise relationship');
-    lines.push('>');
-    lines.push('> InfluxDB 3 Enterprise is a superset of InfluxDB 3 Core.');
-    lines.push(
-      '> All updates to Core are automatically included in Enterprise.'
-    );
-    lines.push(
-      '> The Enterprise sections below only list updates exclusive to Enterprise.'
-    );
-    lines.push('');
+    // Add custom header if provided
+    if (this.config.separatedTemplate && this.config.separatedTemplate.header) {
+      lines.push(this.config.separatedTemplate.header);
+      lines.push('');
+    }
+
     lines.push(`## ${this.toVersion} {date="${releaseDate}"}`);
     lines.push('');
 
-    // Separate commits by repository
-    const coreCommits = {
-      features: commits.features
-        .filter((f) => f.includes('[influxdb]'))
-        .map((f) => f.replace('- [influxdb] ', '- ')),
-      fixes: commits.fixes
-        .filter((f) => f.includes('[influxdb]'))
-        .map((f) => f.replace('- [influxdb] ', '- ')),
-      perf: commits.perf
-        .filter((f) => f.includes('[influxdb]'))
-        .map((f) => f.replace('- [influxdb] ', '- ')),
+    // Determine primary repository
+    let primaryRepoLabel = null;
+    if (this.config.primaryRepo !== null) {
+      // Find primary repo by index or name
+      if (typeof this.config.primaryRepo === 'number') {
+        const primaryRepo = this.config.repositories[this.config.primaryRepo];
+        primaryRepoLabel = primaryRepo ? primaryRepo.label : null;
+      } else {
+        const primaryRepo = this.config.repositories.find(
+          (r) => r.name === this.config.primaryRepo
+        );
+        primaryRepoLabel = primaryRepo ? primaryRepo.label : null;
+      }
+    }
+
+    // If no primary specified, use the first repository
+    if (!primaryRepoLabel && this.config.repositories.length > 0) {
+      primaryRepoLabel = this.config.repositories[0].label;
+    }
+
+    // Separate commits by primary and secondary repositories
+    const primaryCommits = {
+      features: [],
+      fixes: [],
+      perf: [],
     };
 
-    const enterpriseCommits = {
-      features: commits.features
-        .filter((f) => f.includes('[influxdb_pro]'))
-        .map((f) => f.replace('- [influxdb_pro] ', '- ')),
-      fixes: commits.fixes
-        .filter((f) => f.includes('[influxdb_pro]'))
-        .map((f) => f.replace('- [influxdb_pro] ', '- ')),
-      perf: commits.perf
-        .filter((f) => f.includes('[influxdb_pro]'))
-        .map((f) => f.replace('- [influxdb_pro] ', '- ')),
+    const secondaryCommits = {
+      features: [],
+      fixes: [],
+      perf: [],
     };
 
-    // Core section
-    lines.push('### Core');
+    // Sort commits into primary and secondary
+    for (const type of ['features', 'fixes', 'perf']) {
+      commits[type].forEach((commit) => {
+        // Extract repository label from commit
+        const labelMatch = commit.match(/^- \[([^\]]+)\]/);
+        if (labelMatch) {
+          const repoLabel = labelMatch[1];
+          const cleanCommit = commit.replace(/^- \[[^\]]+\] /, '- ');
+
+          if (repoLabel === primaryRepoLabel) {
+            primaryCommits[type].push(cleanCommit);
+          } else {
+            // Keep the label for secondary commits
+            secondaryCommits[type].push(commit);
+          }
+        }
+      });
+    }
+
+    // Primary section
+    const primaryLabel =
+      this.config.separatedTemplate?.primaryLabel || 'Primary';
+    lines.push(`### ${primaryLabel}`);
     lines.push('');
     lines.push('#### Features');
     lines.push('');
 
-    if (coreCommits.features.length > 0) {
-      coreCommits.features.forEach((feature) => {
-        // Enhanced messages already include PR links
+    if (primaryCommits.features.length > 0) {
+      primaryCommits.features.forEach((feature) => {
         lines.push(feature);
       });
     } else {
@@ -744,81 +807,82 @@ class ReleaseNotesGenerator {
     lines.push('#### Bug Fixes');
     lines.push('');
 
-    if (coreCommits.fixes.length > 0) {
-      coreCommits.fixes.forEach((fix) => {
-        // Enhanced messages already include PR links
+    if (primaryCommits.fixes.length > 0) {
+      primaryCommits.fixes.forEach((fix) => {
         lines.push(fix);
       });
     } else {
       lines.push('- No bug fixes in this release');
     }
 
-    // Core performance improvements if any
-    if (coreCommits.perf.length > 0) {
+    // Primary performance improvements if any
+    if (primaryCommits.perf.length > 0) {
       lines.push('');
       lines.push('#### Performance Improvements');
       lines.push('');
-      coreCommits.perf.forEach((perf) => {
-        // Enhanced messages already include PR links
+      primaryCommits.perf.forEach((perf) => {
         lines.push(perf);
       });
     }
 
-    // Enterprise section
-    lines.push('');
-    lines.push('### Enterprise');
-    lines.push('');
-    lines.push(
-      'All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:'
-    );
-    lines.push('');
+    // Secondary section (only if there are secondary repositories)
+    const hasSecondaryChanges =
+      secondaryCommits.features.length > 0 ||
+      secondaryCommits.fixes.length > 0 ||
+      secondaryCommits.perf.length > 0;
 
-    let hasEnterpriseChanges = false;
+    if (this.config.repositories.length > 1) {
+      lines.push('');
+      const secondaryLabel =
+        this.config.separatedTemplate?.secondaryLabel || 'Additional Changes';
+      lines.push(`### ${secondaryLabel}`);
+      lines.push('');
 
-    // Enterprise features
-    if (enterpriseCommits.features.length > 0) {
-      hasEnterpriseChanges = true;
-      lines.push('#### Features');
+      const secondaryIntro =
+        this.config.separatedTemplate?.secondaryIntro ||
+        'All primary updates are included. Additional repository-specific features and fixes:';
+      lines.push(secondaryIntro);
       lines.push('');
-      enterpriseCommits.features.forEach((feature) => {
-        // Enhanced messages already include PR links
-        lines.push(feature);
-      });
-      lines.push('');
-    }
 
-    // Enterprise fixes
-    if (enterpriseCommits.fixes.length > 0) {
-      hasEnterpriseChanges = true;
-      lines.push('#### Bug Fixes');
-      lines.push('');
-      enterpriseCommits.fixes.forEach((fix) => {
-        // Enhanced messages already include PR links
-        lines.push(fix);
-      });
-      lines.push('');
-    }
+      // Secondary features
+      if (secondaryCommits.features.length > 0) {
+        lines.push('#### Features');
+        lines.push('');
+        secondaryCommits.features.forEach((feature) => {
+          lines.push(feature);
+        });
+        lines.push('');
+      }
 
-    // Enterprise performance improvements
-    if (enterpriseCommits.perf.length > 0) {
-      hasEnterpriseChanges = true;
-      lines.push('#### Performance Improvements');
-      lines.push('');
-      enterpriseCommits.perf.forEach((perf) => {
-        // Enhanced messages already include PR links
-        lines.push(perf);
-      });
-      lines.push('');
-    }
+      // Secondary fixes
+      if (secondaryCommits.fixes.length > 0) {
+        lines.push('#### Bug Fixes');
+        lines.push('');
+        secondaryCommits.fixes.forEach((fix) => {
+          lines.push(fix);
+        });
+        lines.push('');
+      }
 
-    // No Enterprise-specific changes message
-    if (!hasEnterpriseChanges) {
-      lines.push('#### No Enterprise-specific changes');
-      lines.push('');
-      lines.push(
-        'All changes in this release are included in Core and automatically available in Enterprise.'
-      );
-      lines.push('');
+      // Secondary performance improvements
+      if (secondaryCommits.perf.length > 0) {
+        lines.push('#### Performance Improvements');
+        lines.push('');
+        secondaryCommits.perf.forEach((perf) => {
+          lines.push(perf);
+        });
+        lines.push('');
+      }
+
+      // No secondary changes message
+      if (!hasSecondaryChanges) {
+        lines.push('#### No additional changes');
+        lines.push('');
+        lines.push(
+          'All changes in this release are included in the primary repository.'
+        );
+        lines.push('');
+      }
     }
 
     // Add common sections (breaking changes, API changes, etc.)
@@ -836,7 +900,7 @@ class ReleaseNotesGenerator {
       commits.breaking.forEach((change) => {
         const pr = this.extractPrNumber(change);
         const cleanLine = change.replace(/ \\(#\\d+\\)$/, '');
-        if (pr) {
+        if (pr && this.includePrLinks) {
           lines.push(
             `${cleanLine} ([#${pr}](https://github.com/influxdata/influxdb/pull/${pr}))`
           );
@@ -854,7 +918,7 @@ class ReleaseNotesGenerator {
       commits.api.forEach((api) => {
         const pr = this.extractPrNumber(api);
         const cleanLine = api.replace(/ \\(#\\d+\\)$/, '');
-        if (pr) {
+        if (pr && this.includePrLinks) {
           lines.push(
             `${cleanLine} ([#${pr}](https://github.com/influxdata/influxdb/pull/${pr}))`
           );
@@ -922,10 +986,10 @@ class ReleaseNotesGenerator {
 
     // Generate output based on format
     let content;
-    if (this.config.outputFormat === 'core-enterprise') {
-      content = this.generateCoreEnterpriseFormat(commits, releaseDate);
+    if (this.config.outputFormat === 'separated') {
+      content = this.generateSeparatedFormat(commits, releaseDate);
     } else {
-      content = this.generateStandardFormat(commits, releaseDate);
+      content = this.generateIntegratedFormat(commits, releaseDate);
     }
 
     // Ensure output directory exists
@@ -961,6 +1025,7 @@ function parseArgs() {
   const options = {
     fetchCommits: true,
     pullCommits: false,
+    includePrLinks: true,
     config: { ...DEFAULT_CONFIG },
   };
 
@@ -974,6 +1039,10 @@ function parseArgs() {
       case '--pull':
         options.pullCommits = true;
         options.fetchCommits = true;
+        i++;
+        break;
+      case '--no-pr-links':
+        options.includePrLinks = false;
         i++;
         break;
       case '--config':
@@ -995,7 +1064,7 @@ function parseArgs() {
       case '--format':
         if (i + 1 >= args.length) {
           console.error(
-            'Error: --format requires a format type (standard|core-enterprise)'
+            'Error: --format requires a format type (integrated|separated)'
           );
           process.exit(1);
         }
@@ -1039,22 +1108,16 @@ function parseArgs() {
   options.fromVersion = options.fromVersion || 'v3.1.0';
   options.toVersion = options.toVersion || 'v3.2.0';
 
-  // Detect Core/Enterprise format if influxdb and influxdb_pro are both present
-  if (
-    options.config.repositories.some((r) => r.name === 'influxdb') &&
-    options.config.repositories.some((r) => r.name === 'influxdb_pro')
-  ) {
-    options.config.outputFormat = 'core-enterprise';
-
-    // Set proper labels for Core/Enterprise
-    options.config.repositories.forEach((repo) => {
-      if (repo.name === 'influxdb') {
-        repo.label = 'influxdb';
-      } else if (repo.name === 'influxdb_pro') {
-        repo.label = 'influxdb_pro';
-      }
-    });
-  }
+  // Set default labels if not provided
+  options.config.repositories.forEach((repo, index) => {
+    if (!repo.label) {
+      repo.label = repo.name || `repo${index + 1}`;
+    }
+    // Set default includePrLinks if not specified
+    if (repo.includePrLinks === undefined) {
+      repo.includePrLinks = options.includePrLinks;
+    }
+  });
 
   return options;
 }
@@ -1066,8 +1129,9 @@ Usage: node generate-release-notes.js [options] <from_version> <to_version> <pri
 Options:
   --no-fetch              Skip fetching latest commits from remote
   --pull                  Pull latest changes (implies fetch) - use with caution
+  --no-pr-links           Omit PR links from commit messages (default: include links)
   --config <file>         Load configuration from JSON file
-  --format <type>         Output format: 'standard' or 'core-enterprise'
+  --format <type>         Output format: 'integrated' or 'separated'
   -h, --help              Show this help message
 
 Examples:
@@ -1075,23 +1139,32 @@ Examples:
   node generate-release-notes.js --no-fetch v3.1.0 v3.2.0 /path/to/influxdb
   node generate-release-notes.js --pull v3.1.0 v3.2.0 /path/to/influxdb /path/to/influxdb_pro
   node generate-release-notes.js --config config.json v3.1.0 v3.2.0
-  node generate-release-notes.js --format core-enterprise v3.1.0 v3.2.0 /path/to/influxdb /path/to/influxdb_pro
+  node generate-release-notes.js --format separated v3.1.0 v3.2.0 /path/to/influxdb /path/to/influxdb_pro
 
 Configuration file format (JSON):
 {
-  "outputFormat": "core-enterprise",
+  "outputFormat": "separated",
+  "primaryRepo": "influxdb",
   "repositories": [
     {
       "name": "influxdb",
       "path": "/path/to/influxdb",
-      "label": "Core"
+      "label": "Core",
+      "includePrLinks": true
     },
     {
       "name": "influxdb_pro", 
       "path": "/path/to/influxdb_pro",
-      "label": "Enterprise"
+      "label": "Enterprise",
+      "includePrLinks": false
     }
-  ]
+  ],
+  "separatedTemplate": {
+    "header": "> [!Note]\\n> #### InfluxDB 3 Core and Enterprise relationship\\n>\\n> InfluxDB 3 Enterprise is a superset of InfluxDB 3 Core.\\n> All updates to Core are automatically included in Enterprise.\\n> The Enterprise sections below only list updates exclusive to Enterprise.",
+    "primaryLabel": "Core",
+    "secondaryLabel": "Enterprise",
+    "secondaryIntro": "All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:"
+  }
 }
 `);
 }

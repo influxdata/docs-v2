@@ -1,0 +1,17 @@
+{
+  "outputFormat": "integrated",
+  "repositories": [
+    {
+      "name": "influxdb",
+      "path": "../influxdb",
+      "label": "influxdb",
+      "includePrLinks": true
+    },
+    {
+      "name": "plutonium",
+      "path": "https://github.com/influxdata/plutonium",
+      "label": "enterprise_v1",
+      "includePrLinks": false 
+    }
+  ]
+}
