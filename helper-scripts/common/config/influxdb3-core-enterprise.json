@@ -1,0 +1,25 @@
+{
+  "outputFormat": "separated",
+  "primaryRepo": "influxdb",
+  "repositories": [
+    {
+      "name": "influxdb",
+      "path": "../influxdb",
+      "label": "influxdb",
+      "includePrLinks": true
+    },
+    {
+      "name": "influxdb_pro",
+      "path": "../influxdb_pro",
+      "label": "influxdb_pro",
+      "includePrLinks": true  
+    }
+  ],
+  "separatedTemplate": {
+    "header": "> [!Note]\n> #### InfluxDB 3 Core and Enterprise relationship\n>\n> InfluxDB 3 Enterprise is a superset of InfluxDB 3 Core.\n> All updates to Core are automatically included in Enterprise.\n> The Enterprise sections below only list updates exclusive to Enterprise.",
+    "primaryLabel": "Core",
+    "secondaryLabel": "Enterprise",
+    "secondaryIntro": "All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:",
+    "comment": "If you plan to run .claude enhance-release-notes after this, you need to include PR links. For Enterprise, remove the links after running .claude enhance-release-notes."
+  }
+}

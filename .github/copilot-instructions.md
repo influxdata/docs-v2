@@ -73,6 +73,12 @@ Help document InfluxData products by creating clear, accurate technical content 
 - **Repository**: https://github.com/influxdata/docs-v2
 - **Framework**: Hugo static site generator
 
+## Abbreviations and shortcuts
+
+- `gdd`: Google Developer Documentation style
+- `3core`: InfluxDB 3 Core
+- `3ent`: InfluxDB 3 Enterprise
+
 ## Style guidelines
 
 - Follow Google Developer Documentation style guidelines
