@@ -9,7 +9,7 @@ description: >
 menu:
   influxdb3_enterprise:
     parent: Administer InfluxDB
-weight: 104
+weight: 105
 influxdb3/enterprise/tags: [cache]
 related:
   - /influxdb3/enterprise/reference/sql/functions/cache/#last_cache, last_cache SQL function
