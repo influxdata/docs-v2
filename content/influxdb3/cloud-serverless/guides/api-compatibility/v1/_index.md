@@ -17,6 +17,7 @@ related:
   - /influxdb3/cloud-serverless/write-data/api/v1-http/
   - /influxdb3/cloud-serverless/reference/api/
 list_code_example: |
+  <!-- pytest.mark.skip -->
   ```sh
   curl "https://{{< influxdb/host >}}/query" \
   --user "":"API_TOKEN" \
@@ -88,7 +89,7 @@ Encode the `[USERNAME]:DATABASE_TOKEN` credential using base64 encoding, and the
 
 The following example shows how to use cURL with the `Basic` authentication scheme and a [token](/influxdb3/cloud-serverless/admin/tokens/):
 
-{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
+{{% code-placeholders "DATABASE_NAME|API_TOKEN|RETENTION_POLICY" %}}
 ```sh
 #######################################
 # Use Basic authentication with a database token
@@ -101,6 +102,7 @@ curl "https://{{< influxdb/host >}}/query" \
   --data-urlencode "rp=RETENTION_POLICY" \
   --data-urlencode "q=SELECT * FROM MEASUREMENT"
 ```
+
 {{% /code-placeholders %}}
 
 Replace the following:
@@ -116,7 +118,7 @@ When authenticating requests, {{% product-name %}} checks that the `p` (_passwor
 
 ##### Syntax
 
-```sh
+```http
 https://{{< influxdb/host >}}/query/?u=any&p=API_TOKEN
 https://{{< influxdb/host >}}/write/?u=any&p=API_TOKEN
 ```
