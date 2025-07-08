@@ -2029,11 +2029,16 @@ components:
             ### Interval-based scheduling  
             Format: `every:DURATION`
 
-            Supported durations: `s` (seconds), `m` (minutes), `h` (hours), `d` (days):
+            Supported durations: `s` (seconds), `m` (minutes), `h` (hours), `d` (days), `w` (weeks), `M` (months), `y` (years):
             - `every:30s` - Every 30 seconds
             - `every:5m` - Every 5 minutes
             - `every:1h` - Every hour
             - `every:1d` - Every day
+            - `every:1w` - Every week
+            - `every:1M` - Every month
+            - `every:1y` - Every year
+            
+            **Maximum interval**: 1 year
 
             ### Table-based triggers
             - `all_tables` - Triggers on write events to any table in the database
