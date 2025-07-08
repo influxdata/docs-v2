@@ -122,7 +122,7 @@ When authenticating requests, {{% product-name %}} checks that the `p` (_passwor
 
 ##### Syntax
 
-```sh
+```http
 https://{{< influxdb/host >}}/query/?[u=any]&p=DATABASE_TOKEN
 https://{{< influxdb/host >}}/write/?[u=any]&p=DATABASE_TOKEN
 ```
