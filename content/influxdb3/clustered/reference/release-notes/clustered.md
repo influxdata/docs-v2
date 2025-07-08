@@ -72,8 +72,8 @@ spec:
 ```
 
 #### Release artifacts
-- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250618-1758428/app-instance-schema.json)
-- [example-customer.yml](/downloads/clustered-release-artifacts/20250618-1758428/example-customer.yml)
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250707-1777929/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20250707-1777929/example-customer.yml)
 - [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 
@@ -81,15 +81,15 @@ spec:
 
 #### Database rename and undelete
 
-Databases can now be renamed and undeleted with [influxctl v2.10.2](https://docs.influxdata.com/influxdb3/clustered/reference/release-notes/influxctl/#v2102) or later.
+Databases can now be renamed and undeleted with [influxctl v2.10.2](/influxdb3/clustered/reference/release-notes/influxctl/#v2102) or later.
 
 #### Table delete and list
 
-Tables can now be deleted and listed with [influxctl v2.10.2](https://docs.influxdata.com/influxdb3/clustered/reference/release-notes/influxctl/#v2102) or later.
+Tables can now be deleted and listed with [influxctl v2.10.2](/influxdb3/clustered/reference/release-notes/influxctl/#v2102) or later.
 
 #### Faster ingester recovery
 
-The persist queue workers now scale up when the queue is saturated, attempting to more quickly get through the backlog and restore write availability.
+Persist queue workers now scale up when the queue is saturated to allow ingesters to get through the backlog quickly and restore write availability.
 
 ### Changes
 
