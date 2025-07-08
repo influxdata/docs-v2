@@ -200,7 +200,7 @@ For added security, follow these steps to verify the signature of your InfluxDB 
 1.  Download and import InfluxData's public key:
 
     ```sh
-    curl -s https://repos.influxdata.com/influxdata-archive_compat.key | gpg --import
+    curl -s https://repos.influxdata.com/influxdata-archive.key | gpg --import
     ```
 
 2.  Download the signature file for the release by adding `.asc` to the download URL.
@@ -232,7 +232,7 @@ wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-meta-{{< latest
     The output from this command should include the following:
 
     ```sh
-    gpg: Good signature from "InfluxDB Packaging Service <support@influxdb.com>" [unknown]
+    gpg: Good signature from "InfluxData Package Signing Key <support@influxdata.com>" [unknown]
     ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
