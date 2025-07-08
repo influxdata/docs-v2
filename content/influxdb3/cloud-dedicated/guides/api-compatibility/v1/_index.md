@@ -113,7 +113,7 @@ scheme and a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-
 
 
 curl --get "https://{{< influxdb/host >}}/query" \
-  --user "":"DATABASE_TOKEN" \
+  --user "any:DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM MEASUREMENT"
 ```

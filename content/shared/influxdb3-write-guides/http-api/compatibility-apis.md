@@ -132,7 +132,7 @@ The following example shows how to use cURL with the `Basic` authentication sche
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```sh
 curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s" \
-  --user "":"DATABASE_TOKEN" \
+  --user "any:DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary 'home,room=kitchen temp=72 1641024000'
 ```
