@@ -63,12 +63,14 @@ tags:
     name: API compatibility
     x-traitTag: true
   - description: |
-      Use one of the following schemes to authenticate to the InfluxDB API:
+      Depending on your workflow, use one of the following schemes to authenticate to the InfluxDB 3 API:
 
-      - [Bearer authentication](#section/Authentication/BearerAuthentication)
-      - [Token authentication](#section/Authentication/TokenAuthentication)
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      | Authentication scheme | Works with |
+      |:-------------------|:-----------|
+      | [Bearer authentication](#section/Authentication/BearerAuthentication) | All endpoints |
+      | [Token authentication](#section/Authentication/TokenAuthentication) | v1, v2 endpoints |
+      | [Basic authentication](#section/Authentication/BasicAuthentication) | v1 endpoints |
+      | [Querystring authentication](#section/Authentication/QuerystringAuthentication) | v1 endpoints |
       <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication
     x-traitTag: true
@@ -1074,7 +1076,7 @@ components:
             Default is [`RFC3339` date/time format](/influxdb3/clustered/reference/glossary/#rfc3339-timestamp).
             To include nanoseconds in timestamps, use `RFC3339Nano`.
 
-            #### Example formatted date/time values
+            ### Example formatted date/time values
 
             | Format      | Value                       |
             |:------------|:----------------------------|
@@ -1955,12 +1957,15 @@ components:
       type: string
   securitySchemes:
     BasicAuthentication:
+      type: http
+      scheme: basic
       description: |
-        ### Basic authentication scheme
+        Use the `Authorization` header with the `Basic` scheme to authenticate v1 API requests.
 
-        Use the `Authorization` header with the `Basic` scheme to authenticate v1 API `/write` and `/query` requests.
-        When authenticating requests, InfluxDB 3 Clustered checks that the `password` part of the decoded credential is an authorized [database token](/influxdb3/clustered/admin/tokens/#database-tokens).
-        InfluxDB 3 Clustered ignores the `username` part of the decoded credential.
+        Works with v1 compatibility [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1Query) endpoints in InfluxDB 3.
+
+        When authenticating requests, InfluxDB 3 checks that the `password` part of the decoded credential is an authorized token
+        and ignores the `username` part of the decoded credential.
 
         ### Syntax
 
@@ -1968,61 +1973,57 @@ components:
         Authorization: Basic <base64-encoded [USERNAME]:DATABASE_TOKEN>
         ```
 
-        Replace the following:
-
-        - **`[USERNAME]`**: an optional string value (ignored by InfluxDB 3 Clustered).
-        - **`DATABASE_TOKEN`**: a [database token](/influxdb3/clustered/admin/tokens/#database-tokens).
-        - Encode the `[USERNAME]:DATABASE_TOKEN` credential using base64 encoding, and then append the encoded string to the `Authorization: Basic` header.
-
         ### Example
 
-        The following example shows how to use cURL with the `Basic` authentication scheme and a [database token](/influxdb3/clustered/admin/tokens/#database-tokens):
-
-        ```sh
-        #######################################
-        # Use Basic authentication with a database token
-        # to query the InfluxDB v1 HTTP API
-        #######################################
-        # Use the --user option with `--user username:DATABASE_TOKEN` syntax
-        #######################################
-
-        curl --get "http://cluster-id.a.influxdb.io/query" \
+        ```bash
+        curl "http://cluster-host.com/write?db=DATABASE_NAME&precision=s" \
           --user "":"DATABASE_TOKEN" \
-          --data-urlencode "db=DATABASE_NAME" \
-          --data-urlencode "q=SELECT * FROM MEASUREMENT"
+          --header "Content-type: text/plain; charset=utf-8" \
+          --data-binary 'home,room=kitchen temp=72 1641024000'
         ```
 
         Replace the following:
 
         - **`DATABASE_NAME`**: your InfluxDB 3 Clustered database
-        - **`DATABASE_TOKEN`**: a [database token](/influxdb3/clustered/admin/tokens/#database-tokens) with sufficient permissions to the database
-      scheme: basic
-      type: http
+        - **`DATABASE_TOKEN`**: a database token with sufficient permissions to the database
+
+        #### Related guides
+
+        - [Authenticate v1 API requests](/influxdb3/clustered/guides/api-compatibility/v1/)
+        - [Manage tokens](/influxdb3/clustered/admin/tokens/)
     QuerystringAuthentication:
       type: apiKey
       in: query
       name: u=&p=
       description: |
-        Use the Querystring authentication
-        scheme with InfluxDB 1.x API parameters to provide credentials through the query string.
+        Use InfluxDB 1.x API parameters to provide credentials through the query string for v1 API requests.
 
-        ### Query string authentication
+        Querystring authentication works with v1-compatible [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1Query) endpoints.
 
-        In the URL, pass the `p` query parameter to authenticate `/write` and `/query` requests.
-        When authenticating requests, InfluxDB 3 Clustered checks that `p` (_password_) is an authorized database token and ignores the `u` (_username_) parameter.
+        When authenticating requests, InfluxDB 3 checks that the `p` (_password_) query parameter is an authorized token
+        and ignores the `u` (_username_) query parameter.
 
         ### Syntax
 
         ```http
-        https://cluster-id.a.influxdb.io/query/?[u=any]&p=DATABASE_TOKEN
-        https://cluster-id.a.influxdb.io/write/?[u=any]&p=DATABASE_TOKEN
+        https://cluster-host.com/query/?[u=any]&p=DATABASE_TOKEN
+        https://cluster-host.com/write/?[u=any]&p=DATABASE_TOKEN
         ```
 
-        ### Example
+        ### Examples
 
-        The following example shows how to use cURL with query string authentication and a [database token](/influxdb3/clustered/admin/tokens/#database-tokens).
+        ```bash
+        curl "http://cluster-host.com/write?db=DATABASE_NAME&precision=s&p=DATABASE_TOKEN" \
+          --header "Content-type: text/plain; charset=utf-8" \
+          --data-binary 'home,room=kitchen temp=72 1641024000'
+        ```
 
-        ```sh
+        Replace the following:
+
+        - **`DATABASE_NAME`**: your InfluxDB 3 Clustered database
+        - **`DATABASE_TOKEN`**: a database token with sufficient permissions to the database
+
+        ```bash
         #######################################
         # Use an InfluxDB 1.x compatible username and password
         # to query the InfluxDB v1 HTTP API
@@ -2031,7 +2032,7 @@ components:
         #   ?p=DATABASE_TOKEN
         #######################################
 
-        curl --get "https://cluster-id.a.influxdb.io/query" \
+        curl --get "https://cluster-host.com/query" \
           --data-urlencode "p=DATABASE_TOKEN" \
           --data-urlencode "db=DATABASE_NAME" \
           --data-urlencode "q=SELECT * FROM MEASUREMENT"
@@ -2039,16 +2040,23 @@ components:
 
         Replace the following:
 
-        - **`DATABASE_NAME`**: your InfluxDB 3 Clustered database
-        - **`DATABASE_TOKEN`**: a [database token](/influxdb3/clustered/admin/tokens/#database-tokens) with sufficient permissions to the database
+        - **`DATABASE_NAME`**: the database to query
+        - **`DATABASE_TOKEN`**: a database token with sufficient permissions to the database
+
+        #### Related guides
+
+        - [Authenticate v1 API requests](/influxdb3/clustered/guides/api-compatibility/v1/)
+        - [Manage tokens](/influxdb3/clustered/admin/tokens/)
     BearerAuthentication:
       type: http
       scheme: bearer
       bearerFormat: JWT
       description: |
-        Use the OAuth Bearer authentication
-        scheme to authenticate to the InfluxDB API.
 
+        Use the OAuth Bearer authentication
+        scheme to provide an authorization token to InfluxDB 3.
+
+        Bearer authentication works with all endpoints.
 
         In your API requests, send an `Authorization` header.
         For the header value, provide the word `Bearer` followed by a space and a database token.
@@ -2057,29 +2065,20 @@ components:
         ### Syntax
 
         ```http
-        Authorization: Bearer INFLUX_TOKEN
+        Authorization: Bearer DATABASE_TOKEN
         ```
 
         ### Example
 
-        ```sh
-        ########################################################
-        # Use the Bearer token authentication scheme with /api/v2/write
-        # to write data.
-        ########################################################
-
-        curl --request post "https://cluster-id.a.influxdb.io/api/v2/write?bucket=DATABASE_NAME&precision=s" \
-          --header "Authorization: Bearer DATABASE_TOKEN" \
-          --data-binary 'home,room=kitchen temp=72 1463683075'
+        ```bash
+        curl http://cluster-host.com/api/v3/query_influxql \
+          --header "Authorization: Bearer DATABASE_TOKEN"
         ```
-
-        For examples and more information, see the following:
-          - [Authenticate API requests](/influxdb3/clustered/primers/api/v2/#authenticate-api-requests)
-          - [Manage tokens](/influxdb3/clustered/admin/tokens/)
     TokenAuthentication:
       description: |
-        Use the Token authentication
-        scheme to authenticate to the InfluxDB API.
+        Use InfluxDB v2 Token authentication to provide an authorization token to InfluxDB 3.
+
+        The v2 Token scheme works with v1 and v2 compatibility endpoints in InfluxDB 3.
 
         In your API requests, send an `Authorization` header.
         For the header value, provide the word `Token` followed by a space and a database token.
@@ -2088,7 +2087,7 @@ components:
         ### Syntax
 
         ```http
-        Authorization: Token INFLUX_API_TOKEN
+        Authorization: Token DATABASE_TOKEN
         ```
 
         ### Example
@@ -2099,14 +2098,13 @@ components:
         # to write data.
         ########################################################
 
-        curl --request post "https://cluster-id.a.influxdb.io/api/v2/write?bucket=DATABASE_NAME&precision=s" \
+        curl --request post "https://cluster-host.com/api/v2/write?bucket=DATABASE_NAME&precision=s" \
           --header "Authorization: Token DATABASE_TOKEN" \
           --data-binary 'home,room=kitchen temp=72 1463683075'
         ```
 
         ### Related guides
 
-        - [Authenticate API requests](/influxdb3/clustered/primers/api/v2/#authenticate-api-requests)
         - [Manage tokens](/influxdb3/clustered/admin/tokens/)
       in: header
       name: Authorization

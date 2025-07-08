@@ -214,12 +214,12 @@ Quick start:
 
 ```bash
 # Pull the latest InfluxDB v1.x image
-docker pull influxdb:{{< latest-patch version="1" >}}
+docker pull influxdb:{{< latest-patch >}}
 
 # Start InfluxDB with persistent storage
 docker run -p 8086:8086 \
   -v $PWD/data:/var/lib/influxdb \
-  influxdb:{{< latest-patch version="1" >}}
+  influxdb:{{< latest-patch >}}
 ```
 
 {{% /tab-content %}}

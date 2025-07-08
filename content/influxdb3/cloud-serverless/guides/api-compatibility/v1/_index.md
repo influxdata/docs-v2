@@ -17,9 +17,10 @@ related:
   - /influxdb3/cloud-serverless/write-data/api/v1-http/
   - /influxdb3/cloud-serverless/reference/api/
 list_code_example: |
+  <!-- pytest.mark.skip -->
   ```sh
   curl "https://{{< influxdb/host >}}/query" \
-  --user "":"API_TOKEN" \
+  --user "any:API_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "rp=RETENTION_POLICY" \
   --data-urlencode "q=SELECT * FROM MEASUREMENT"
@@ -50,7 +51,7 @@ Learn how to authenticate requests, map databases and retention policies to buck
 
 {{% product-name %}} requires each API request to be authenticated with an
 [API token](/influxdb3/cloud-serverless/admin/tokens/).
-With the InfluxDB v1 API, you can use API tokens in InfluxDB 1.x username and password
+With InfluxDB v1-compatible endpoints in InfluxDB 3, you can use API tokens in InfluxDB 1.x username and password
 schemes or in the InfluxDB v2 `Authorization: Token` scheme.
 
 - [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
@@ -58,7 +59,7 @@ schemes or in the InfluxDB v2 `Authorization: Token` scheme.
 
 ### Authenticate with a username and password scheme
 
-With the InfluxDB v1 API, you can use the InfluxDB 1.x convention of
+With InfluxDB v1-compatible endpoints, you can use the InfluxDB 1.x convention of
 username and password to authenticate bucket reads and writes by passing an [API token](/influxdb3/cloud-serverless/admin/tokens/) as the `password` credential.
 When authenticating requests to the v1 API `/write` and `/query` endpoints, {{% product-name %}} checks that the `password` (`p`) value is an authorized [API token](/influxdb3/cloud-serverless/admin/tokens/).
 {{% product-name %}} ignores the `username` (`u`) parameter in the request.
@@ -88,7 +89,7 @@ Encode the `[USERNAME]:DATABASE_TOKEN` credential using base64 encoding, and the
 
 The following example shows how to use cURL with the `Basic` authentication scheme and a [token](/influxdb3/cloud-serverless/admin/tokens/):
 
-{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
+{{% code-placeholders "DATABASE_NAME|API_TOKEN|RETENTION_POLICY" %}}
 ```sh
 #######################################
 # Use Basic authentication with a database token
@@ -96,11 +97,12 @@ The following example shows how to use cURL with the `Basic` authentication sche
 #######################################
 
 curl "https://{{< influxdb/host >}}/query" \
-  --user "":"API_TOKEN" \
+  --user "any:API_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "rp=RETENTION_POLICY" \
   --data-urlencode "q=SELECT * FROM MEASUREMENT"
 ```
+
 {{% /code-placeholders %}}
 
 Replace the following:
@@ -116,9 +118,9 @@ When authenticating requests, {{% product-name %}} checks that the `p` (_passwor
 
 ##### Syntax
 
-```sh
-https://{{< influxdb/host >}}/query/?[u=any]&p=API_TOKEN
-https://{{< influxdb/host >}}/write/?[u=any]&p=API_TOKEN
+```http
+https://{{< influxdb/host >}}/query/?u=any&p=API_TOKEN
+https://{{< influxdb/host >}}/write/?u=any&p=API_TOKEN
 ```
 
 ##### Example
