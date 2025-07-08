@@ -49,7 +49,7 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 |        | `--io-runtime-thread-keep-alive`      | Custom timeout for a thread in the blocking pool of the tokio IO runtime                          |
 |        | `--io-runtime-thread-priority`        | Set thread priority tokio IO runtime workers                                                      |
 | `-h`   | `--help`                              | Print help information                                                                            |
-|        | `--help-all`                          | Print detailed help information                                                                   |
+|        | `--help-all`                          | Print detailed help information including runtime configuration options                                                                   |
 | `-V`   | `--version`                           | Print version                                                                                     |
 
 ### Option environment variables
