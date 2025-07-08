@@ -13270,7 +13270,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LineProtocolError'
-          description: Line protocol poorly formed and no points were written.  Response can be used to determine the first malformed line in the body line-protocol. All data in body was rejected and not written.
+          description: Line protocol is poorly formed and no points were written.  Response can be used to determine the first malformed line in the body line-protocol.
         '401':
           content:
             application/json:
@@ -13282,7 +13282,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: No token was sent and they are required.
+          description: The request didn't provide an authorization token.
         '413':
           content:
             application/json:
@@ -13293,8 +13293,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-          description: The request was well-formed, but some or all the points were rejected due to semantic errors--for example, schema conflicts or retention policy violations. Error message contains details for one or more rejected points.
+               $ref: '#/components/schemas/Error' 
+          description: The request was well-formed, but some points were rejected due to semantic errors--for example, schema conflicts or retention policy violations. Error message contains details for one or more rejected points.
         '429':
           description: Token is temporarily over quota. The Retry-After header describes when to try the write again.
           headers:
@@ -14857,7 +14857,7 @@ components:
             Default is [`RFC3339` date/time format](/influxdb/v2/reference/glossary/#rfc3339-timestamp).
             To include nanoseconds in timestamps, use `RFC3339Nano`.
 
-            #### Example formatted date/time values
+            ### Example formatted date/time values
 
             | Format      | Value                       |
             |:------------|:----------------------------|

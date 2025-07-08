@@ -13731,7 +13731,7 @@ components:
             Default is [`RFC3339` date/time format](/influxdb/cloud/reference/glossary/#rfc3339-timestamp).
             To include nanoseconds in timestamps, use `RFC3339Nano`.
 
-            #### Example formatted date/time values
+            ### Example formatted date/time values
 
             | Format      | Value                       |
             |:------------|:----------------------------|
