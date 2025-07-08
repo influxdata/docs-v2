@@ -1728,7 +1728,7 @@ components:
       description: |
         Password for v1 compatibility authentication.
         For query string authentication, pass an admin token.
-        InfluxDB 3 checks that the `p` value is an auhtorized token.
+        InfluxDB 3 checks that the `p` value is an authorized token.
   requestBodies:
     lineProtocolRequestBody:
       required: true
