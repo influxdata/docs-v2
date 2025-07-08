@@ -68,8 +68,8 @@ curl "http://{{< influxdb/host >}}/api/v3/query_sql" \
 
 InfluxDB 3 provides compatibility with InfluxDB v1 and v2 APIs, allowing you to use the same authentication methods as in those versions.
 With InfluxDB v1-compatible endpoints in InfluxDB 3, you can use database tokens in InfluxDB 1.x username and password
-schemes, in the InfluxDB v2 `Authorization: Token` scheme, or in the OAuth `Authorization: Bearer` scheme.
-With the InfluxDB v2-compatible `/api/v2/write` endpoint, you can use database tokens in the InfluxDB v2 `Authorization: Token` scheme or in the OAuth `Authorization: Bearer` scheme.
+scheme.
+With the InfluxDB v2-compatible `/api/v2/write` endpoint, you can use tokens in the InfluxDB v2 `Authorization: Token` scheme or in the OAuth `Authorization: Bearer` scheme.
 
 The following examples show how to authenticate with the InfluxDB v1-compatible and v2-compatible APIs
 in InfluxDB 3:
