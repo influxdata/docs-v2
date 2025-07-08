@@ -97,7 +97,7 @@ The following example shows how to use cURL with the `Basic` authentication sche
 #######################################
 
 curl "https://{{< influxdb/host >}}/query" \
-  --user "":"API_TOKEN" \
+  --user ":API_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "rp=RETENTION_POLICY" \
   --data-urlencode "q=SELECT * FROM MEASUREMENT"
