@@ -39,20 +39,22 @@ servers:
         default: localhost:8181
         description: InfluxDB 3 Enterprise URL
 security:
-  - BearerAuth: []
+  - BearerAuthentication: []
+  - TokenAuthentication: []
+  - BasicAuthentication: []
+  - QuerystringAuthentication: []
 tags:
   - name: Authentication
     description: |
-      Authenticate to the InfluxDB 3 API using a bearer token.
+      Depending on your workflow, use one of the following schemes to authenticate to the InfluxDB 3 API:
 
-      The InfluxDB 3 API uses tokens for authentication.
-      To authenticate, include the `Authorization` header in your request with the value `Bearer <token>`.
-      The token must be a valid InfluxDB 3 admin token or a resource token with the required permissions for the requested operation.
-
-      #### Related guides
-
-      - [Manage tokens](/influxdb3/enterprise/admin/tokens/)
-      - [Authentication and authorization](/influxdb3/enterprise/reference/internals/authentication/)
+      | Authentication scheme | Works with |
+      |:-------------------|:-----------|
+      | [Bearer authentication](#section/Authentication/BearerAuthentication) | All endpoints |
+      | [Token authentication](#section/Authentication/TokenAuthentication) | v1, v2 endpoints |
+      | [Basic authentication](#section/Authentication/BasicAuthentication) | v1 endpoints |
+      | [Querystring authentication](#section/Authentication/QuerystringAuthentication) | v1 endpoints |
+      <!-- ReDoc-Inject: <security-definitions> -->
     x-traitTag: true
   - name: Cache data
     description: |
@@ -215,9 +217,40 @@ paths:
 
         Use this endpoint to send data in [line protocol](https://docs.influxdata.com/influxdb3/enterprise/reference/syntax/line-protocol/) format to InfluxDB.
         Use query parameters to specify options for writing data.
+
+        #### Related
+
+        - [Use compatibility APIs to write data](/influxdb3/enterprise/write-data/http-api/compatibility-apis/)
       parameters:
         - $ref: '#/components/parameters/dbWriteParam'
         - $ref: '#/components/parameters/compatibilityPrecisionParam'
+        - $ref: '#/components/parameters/v1UsernameParam'
+        - $ref: '#/components/parameters/v1PasswordParam'
+        - name: rp
+          in: query
+          required: false
+          schema:
+            type: string
+          description: |
+            Retention policy name. Honored but discouraged. InfluxDB 3 doesn't use retention policies.
+        - name: consistency
+          in: query
+          required: false
+          schema:
+            type: string
+          description: |
+            Write consistency level. Ignored by InfluxDB 3. Provided for compatibility with InfluxDB 1.x clients.
+        - name: Authorization
+          in: header
+          required: false
+          schema:
+            type: string
+          description: |
+            Authorization header for token-based authentication.
+            Supported schemes:
+            - `Bearer AUTH_TOKEN` - OAuth bearer token scheme
+            - `Token AUTH_TOKEN` - InfluxDB v2 token scheme
+            - `Basic <base64-encoded USERNAME:AUTH_TOKEN>` - Basic authentication (username is ignored)
         - name: Content-Type
           in: header
           description: |
@@ -290,6 +323,9 @@ paths:
       tags:
         - Compatibility endpoints
         - Write data
+      x-influxdata-guides:
+        - title: "Use compatibility APIs to write data"
+          href: "/influxdb3/enterprise/write-data/http-api/compatibility-apis/"
   /api/v2/write:
     post:
       operationId: PostV2Write
@@ -301,6 +337,10 @@ paths:
 
         Use this endpoint to send data in [line protocol](/influxdb3/enterprise/reference/syntax/line-protocol/) format to InfluxDB.
         Use query parameters to specify options for writing data.
+
+        #### Related
+
+        - [Use compatibility APIs to write data](/influxdb3/enterprise/write-data/http-api/compatibility-apis/)
       parameters:
         - name: Content-Type
           in: header
@@ -373,6 +413,9 @@ paths:
       tags:
         - Compatibility endpoints
         - Write data
+      x-influxdata-guides:
+        - title: "Use compatibility APIs to write data"
+          href: "/influxdb3/enterprise/write-data/http-api/compatibility-apis/"
   /api/v3/write_lp:
     post:
       operationId: PostWriteLP
@@ -614,6 +657,10 @@ paths:
 
         This endpoint is compatible with InfluxDB 1.x client libraries and third-party integrations such as Grafana.
         Use query parameters to specify the database and the InfluxQL query.
+
+        #### Related
+
+        - [Use the InfluxDB v1 HTTP query API and InfluxQL to query data](/influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/)
       parameters:
         - name: Accept
           in: header
@@ -672,6 +719,26 @@ paths:
           in: query
           schema:
             $ref: '#/components/schemas/EpochCompatibility'
+        - $ref: '#/components/parameters/v1UsernameParam'
+        - $ref: '#/components/parameters/v1PasswordParam'
+        - name: rp
+          in: query
+          required: false
+          schema:
+            type: string
+          description: |
+            Retention policy name. Honored but discouraged. InfluxDB 3 doesn't use retention policies.
+        - name: Authorization
+          in: header
+          required: false
+          schema:
+            type: string
+          description: |
+            Authorization header for token-based authentication.
+            Supported schemes:
+            - `Bearer AUTH_TOKEN` - OAuth bearer token scheme
+            - `Token AUTH_TOKEN` - InfluxDB v2 token scheme
+            - `Basic <base64-encoded USERNAME:AUTH_TOKEN>` - Basic authentication (username is ignored)
       responses:
         '200':
           description: |
@@ -712,10 +779,18 @@ paths:
       tags:
         - Query data
         - Compatibility endpoints
+      x-influxdata-guides:
+        - title: "Use the InfluxDB v1 HTTP query API and InfluxQL to query data"
+          href: "/influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/"
     post:
       operationId: PostExecuteV1Query
       summary: Execute InfluxQL query (v1-compatible)
-      description: Executes an InfluxQL query to retrieve data from the specified database.
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
+
+        #### Related
+
+        - [Use the InfluxDB v1 HTTP query API and InfluxQL to query data](/influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/)
       requestBody:
         content:
           application/json:
@@ -823,6 +898,9 @@ paths:
       tags:
         - Query data
         - Compatibility endpoints
+      x-influxdata-guides:
+        - title: "Use the InfluxDB v1 HTTP query API and InfluxQL to query data"
+          href: "/influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/"
   /health:
     get:
       operationId: GetHealth
@@ -1726,6 +1804,25 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/Format'
+    v1UsernameParam:
+      name: u
+      in: query
+      required: false
+      schema:
+        type: string
+      description: |
+        Username for v1 compatibility authentication.
+        When using Basic authentication or query string authentication, InfluxDB 3 ignores this parameter but allows any arbitrary string for compatibility with InfluxDB 1.x clients.
+    v1PasswordParam:
+      name: p
+      in: query
+      required: false
+      schema:
+        type: string
+      description: |
+        Password for v1 compatibility authentication.
+        For query string authentication, pass a database token with write permissions as this parameter.
+        InfluxDB 3 checks that the `p` value is an authorized token.
   requestBodies:
     lineProtocolRequestBody:
       required: true
@@ -2287,19 +2384,158 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorMessage'
   securitySchemes:
-    BearerAuth:
+    BasicAuthentication:
+      type: http
+      scheme: basic
+      description: |
+        Use the `Authorization` header with the `Basic` scheme to authenticate v1 API requests.
+
+        Works with v1 compatibility [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1Query) endpoints in InfluxDB 3.
+
+        When authenticating requests, InfluxDB 3 checks that the `password` part of the decoded credential is an authorized token
+        and ignores the `username` part of the decoded credential.
+
+        ### Syntax
+
+        ```http
+        Authorization: Basic <base64-encoded [USERNAME]:AUTH_TOKEN>
+        ```
+
+        ### Example
+
+        ```bash
+        curl "http://localhost:8181/write?db=DATABASE_NAME&precision=s" \
+          --user "":"AUTH_TOKEN" \
+          --header "Content-type: text/plain; charset=utf-8" \
+          --data-binary 'home,room=kitchen temp=72 1641024000'
+        ```
+
+        Replace the following:
+
+        - **`DATABASE_NAME`**: your InfluxDB 3 Enterprise database
+        - **`AUTH_TOKEN`**: an admin token or database token authorized for the database
+
+        #### Related guides
+
+        - [Authenticate v1 API requests](/influxdb3/enterprise/guides/api-compatibility/v1/)
+        - [Manage tokens](/influxdb3/enterprise/admin/tokens/)
+    QuerystringAuthentication:
+      type: apiKey
+      in: query
+      name: u=&p=
+      description: |
+        Use InfluxDB 1.x API parameters to provide credentials through the query string for v1 API requests.
+
+        Querystring authentication works with v1-compatible [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1Query) endpoints.
+
+        When authenticating requests, InfluxDB 3 checks that the `p` (_password_) query parameter is an authorized token
+        and ignores the `u` (_username_) query parameter.
+
+        ### Syntax
+
+        ```http
+        https://localhost:8181/query/?[u=any]&p=AUTH_TOKEN
+        https://localhost:8181/write/?[u=any]&p=AUTH_TOKEN
+        ```
+
+        ### Examples
+
+        ```bash
+        curl "http://localhost:8181/write?db=DATABASE_NAME&precision=s&p=AUTH_TOKEN" \
+          --header "Content-type: text/plain; charset=utf-8" \
+          --data-binary 'home,room=kitchen temp=72 1641024000'
+        ```
+
+        Replace the following:
+
+        - **`DATABASE_NAME`**: your InfluxDB 3 Enterprise database
+        - **`AUTH_TOKEN`**: an admin token or database token authorized for the database
+
+        ```bash
+        #######################################
+        # Use an InfluxDB 1.x compatible username and password
+        # to query the InfluxDB v1 HTTP API
+        #######################################
+        # Use authentication query parameters:
+        #   ?p=AUTH_TOKEN
+        #######################################
+
+        curl --get "http://localhost:8181/query" \
+          --data-urlencode "p=AUTH_TOKEN" \
+          --data-urlencode "db=DATABASE_NAME" \
+          --data-urlencode "q=SELECT * FROM MEASUREMENT"
+        ```
+
+        Replace the following:
+
+        - **`DATABASE_NAME`**: the database to query
+        - **`AUTH_TOKEN`**: a database token with sufficient permissions to the database
+
+        #### Related guides
+
+        - [Authenticate v1 API requests](/influxdb3/enterprise/guides/api-compatibility/v1/)
+        - [Manage tokens](/influxdb3/enterprise/admin/tokens/)
+    BearerAuthentication:
       type: http
       scheme: bearer
       bearerFormat: JWT
       description: |
-        A Bearer token for authentication.
 
-        Provide the scheme and the API token in the `Authorization` header--for example:
+        Use the OAuth Bearer authentication
+        scheme to provide an authorization token to InfluxDB 3.
+
+        Bearer authentication works with all endpoints.
+
+        In your API requests, send an `Authorization` header.
+        For the header value, provide the word `Bearer` followed by a space and a database token.
+
+        ### Syntax
+
+        ```http
+        Authorization: Bearer AUTH_TOKEN
+        ```
+
+        ### Example
 
         ```bash
         curl http://localhost:8181/api/v3/query_influxql \
-          --header "Authorization: Bearer API_TOKEN"
+          --header "Authorization: Bearer AUTH_TOKEN"
         ```
+    TokenAuthentication:
+      description: |
+        Use InfluxDB v2 Token authentication to provide an authorization token to InfluxDB 3.
+
+        The v2 Token scheme works with v1 and v2 compatibility endpoints in InfluxDB 3.
+
+        In your API requests, send an `Authorization` header.
+        For the header value, provide the word `Token` followed by a space and a database token.
+        The word `Token` is case-sensitive.
+
+        ### Syntax
+
+        ```http
+        Authorization: Token AUTH_TOKEN
+        ```
+
+        ### Example
+
+        ```sh
+        ########################################################
+        # Use the Token authentication scheme with /api/v2/write
+        # to write data.
+        ########################################################
+
+        curl --request post "http://localhost:8181/api/v2/write?bucket=DATABASE_NAME&precision=s" \
+          --header "Authorization: Token AUTH_TOKEN" \
+          --data-binary 'home,room=kitchen temp=72 1463683075'
+        ```
+
+        ### Related guides
+
+        - [Manage tokens](/influxdb3/enterprise/admin/tokens/)
+      in: header
+      name: Authorization
+      type: apiKey
 x-tagGroups:
   - name: Using the InfluxDB HTTP API
     tags:

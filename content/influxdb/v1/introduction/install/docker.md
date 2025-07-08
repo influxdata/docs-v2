@@ -27,7 +27,7 @@ This guide covers Docker installation, configuration, and initialization options
 ### Pull the InfluxDB v1.x image
 
 ```bash
-docker pull influxdb:{{< latest-patch version="1" >}}
+docker pull influxdb:{{< latest-patch >}}
 ```
 
 ### Start InfluxDB
@@ -37,7 +37,7 @@ Start a basic InfluxDB container with persistent storage:
 ```bash
 docker run -p 8086:8086 \
   -v $PWD/data:/var/lib/influxdb \
-  influxdb:{{< latest-patch version="1" >}}
+  influxdb:{{< latest-patch >}}
 ```
 
 InfluxDB is now running and available at http://localhost:8086.
@@ -54,7 +54,7 @@ docker run -p 8086:8086 \
   -e INFLUXDB_REPORTING_DISABLED=true \
   -e INFLUXDB_HTTP_AUTH_ENABLED=true \
   -e INFLUXDB_HTTP_LOG_ENABLED=true \
-  influxdb:{{< latest-patch version="1" >}}
+  influxdb:{{< latest-patch >}}
 ```
 
 ### Using a configuration file
@@ -62,7 +62,7 @@ docker run -p 8086:8086 \
 Generate a default configuration file:
 
 ```bash
-docker run --rm influxdb:{{< latest-patch version="1" >}} influxd config > influxdb.conf
+docker run --rm influxdb:{{< latest-patch >}} influxd config > influxdb.conf
 ```
 
 Start InfluxDB with your custom configuration:
@@ -71,7 +71,7 @@ Start InfluxDB with your custom configuration:
 docker run -p 8086:8086 \
   -v $PWD/influxdb.conf:/etc/influxdb/influxdb.conf:ro \
   -v $PWD/data:/var/lib/influxdb \
-  influxdb:{{< latest-patch version="1" >}}
+  influxdb:{{< latest-patch >}}
 ```
 
 ## Initialize InfluxDB
@@ -91,7 +91,7 @@ docker run -p 8086:8086 \
   -e INFLUXDB_HTTP_AUTH_ENABLED=true \
   -e INFLUXDB_ADMIN_USER=admin \
   -e INFLUXDB_ADMIN_PASSWORD=supersecretpassword \
-  influxdb:{{< latest-patch version="1" >}}
+  influxdb:{{< latest-patch >}}
 ```
 
 Environment variables for user creation:
@@ -128,7 +128,7 @@ Run with initialization scripts:
 docker run -p 8086:8086 \
   -v $PWD/data:/var/lib/influxdb \
   -v $PWD/init-scripts:/docker-entrypoint-initdb.d \
-  influxdb:{{< latest-patch version="1" >}}
+  influxdb:{{< latest-patch >}}
 ```
 
 Supported script types:
