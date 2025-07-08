@@ -111,7 +111,7 @@ InfluxDB Enterprise meta service download with `gpg`.
 1. Download and import InfluxData's public key:
 
     ```sh
-    curl -s https://repos.influxdata.com/influxdata-archive_compat.key | gpg --import
+    curl -s https://repos.influxdata.com/influxdata-archive.key | gpg --import
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
@@ -130,7 +130,7 @@ InfluxDB Enterprise meta service download with `gpg`.
     The output from this command should include the following:
 
     ```
-    gpg: Good signature from "InfluxDB Packaging Service <support@influxdb.com>" [unknown]
+    gpg: Good signature from "InfluxData Package Signing Key <support@influxdata.com>" [unknown]
     ```
 {{% /expand %}}
     {{< /expand-wrapper >}}
@@ -356,7 +356,7 @@ InfluxDB Enterprise data service download with `gpg`.
 1. Download and import InfluxData's public key:
 
     ```sh
-    curl -s https://repos.influxdata.com/influxdata-archive_compat.key | gpg --import
+    curl -s https://repos.influxdata.com/influxdata-archive.key | gpg --import
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
@@ -375,7 +375,7 @@ InfluxDB Enterprise data service download with `gpg`.
     The output from this command should include the following:
 
     ```
-    gpg: Good signature from "InfluxDB Packaging Service <support@influxdb.com>" [unknown]
+    gpg: Good signature from "InfluxData Package Signing Key <support@influxdata.com>" [unknown]
     ```
 {{% /expand %}}
     {{< /expand-wrapper >}}

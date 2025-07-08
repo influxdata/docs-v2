@@ -117,7 +117,7 @@ The following example:
 ##############################################################################
 
 curl --get "http://{{< influxdb/host >}}/query" \
-  --user "INFLUX_USERNAME":"INFLUX_PASSWORD_OR_TOKEN" \
+  --user "INFLUX_USERNAME:INFLUX_PASSWORD_OR_TOKEN" \
   --data-urlencode "db=BUCKET_NAME" \
   --data-urlencode "q=SELECT * FROM cpu_usage"
 ```
@@ -139,7 +139,7 @@ curl --get "http://{{< influxdb/host >}}/query" \
 curl \
   --request POST \
   "http://{{< influxdb/host >}}/query?db=DATABASE_NAME&rp=RETENTION_POLICY" \
-  --user "INFLUX_USERNAME":"INFLUX_PASSWORD_OR_TOKEN" \
+  --user "INFLUX_USERNAME:INFLUX_PASSWORD_OR_TOKEN" \
   --header "Content-type: application/vnd.influxql" \
   --data "SELECT * FROM cpu_usage WHERE time > now() - 1h"
 ```

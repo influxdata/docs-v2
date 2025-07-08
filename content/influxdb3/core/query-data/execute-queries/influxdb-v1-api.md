@@ -13,13 +13,13 @@ menu:
 influxdb3/core/tags: [query, influxql, python]
 metadata: [InfluxQL]
 related:
-  - /influxdb3/core/api-compatibility/v1/
+  - /influxdb3/core/write-data/http-api/compatibility-apis/
 aliases:
   - /influxdb3/core/query-data/influxql/execute-queries/influxdb-v1-api/
 list_code_example: |
   ```sh
   curl --get http://{{< influxdb/host >}}/query \
-    --header "Authorization: Token DATABASE_TOKEN" \
+    --header "Authorization: Token AUTH_TOKEN" \
     --data-urlencode "db=DATABASE_NAME" \
     --data-urlencode "q=SELECT * FROM home"
   ```

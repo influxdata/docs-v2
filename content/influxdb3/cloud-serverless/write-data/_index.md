@@ -9,7 +9,7 @@ menu:
     name: Write data
 influxdb3/cloud-serverless/tags: [write, line protocol]
 related:
-  - /influxdb3/cloud-serverless/api/#tag/Write, InfluxDB API /write endpoint
+  - /influxdb3/cloud-serverless/api/#tag/Write, InfluxDB v1 API /write endpoint
   - /influxdb3/cloud-serverless/reference/syntax/line-protocol
   - /influxdb3/cloud-serverless/reference/cli/influx/write
 ---

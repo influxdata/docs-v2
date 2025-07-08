@@ -71,19 +71,23 @@ For Ubuntu/Debian users, add the InfluxData repository with the following comman
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-# influxdata-archive_compat.key GPG Fingerprint: 9D539D90D3328DC7D6C8D3B9D8FF8E1F7DF8B07E
-wget -q https://repos.influxdata.com/influxdata-archive_compat.key
-echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
-echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
+# influxdata-archive.key GPG fingerprint:
+#   Primary key fingerprint: 24C9 75CB A61A 024E E1B6  3178 7C3D 5715 9FC2 F927
+#   Subkey fingerprint:      9D53 9D90 D332 8DC7 D6C8  D3B9 D8FF 8E1F 7DF8 B07E
+wget -q https://repos.influxdata.com/influxdata-archive.key
+echo '943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515 influxdata-archive.key' | sha256sum -c && cat influxdata-archive.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive.gpg > /dev/null
+echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
 ```
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
 ```sh
-# influxdata-archive_compat.key GPG Fingerprint: 9D539D90D3328DC7D6C8D3B9D8FF8E1F7DF8B07E
-curl -s https://repos.influxdata.com/influxdata-archive_compat.key > influxdata-archive_compat.key
-echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
-echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
+# influxdata-archive.key GPG fingerprint:
+#   Primary key fingerprint: 24C9 75CB A61A 024E E1B6  3178 7C3D 5715 9FC2 F927
+#   Subkey fingerprint:      9D53 9D90 D332 8DC7 D6C8  D3B9 D8FF 8E1F 7DF8 B07E
+wget -q https://repos.influxdata.com/influxdata-archive.key
+echo '943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515 influxdata-archive.key' | sha256sum -c && cat influxdata-archive.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive.gpg > /dev/null
+echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -118,7 +122,7 @@ name = InfluxDB Repository - RHEL \$releasever
 baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
 enabled = 1
 gpgcheck = 1
-gpgkey = https://repos.influxdata.com/influxdata-archive_compat.key
+gpgkey = https://repos.influxdata.com/influxdata-archive.key
 EOF
 ```
 
@@ -210,12 +214,12 @@ Quick start:
 
 ```bash
 # Pull the latest InfluxDB v1.x image
-docker pull influxdb:{{< latest-patch version="1" >}}
+docker pull influxdb:{{< latest-patch >}}
 
 # Start InfluxDB with persistent storage
 docker run -p 8086:8086 \
   -v $PWD/data:/var/lib/influxdb \
-  influxdb:{{< latest-patch version="1" >}}
+  influxdb:{{< latest-patch >}}
 ```
 
 {{% /tab-content %}}
@@ -231,7 +235,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 1. Download and import InfluxData's public key:
 
     ```
-    curl -s https://repos.influxdata.com/influxdata-archive_compat.key | gpg --import
+    curl -s https://repos.influxdata.com/influxdata-archive.key | gpg --import
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
@@ -250,7 +254,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
     The output from this command should include the following:
 
     ```
-    gpg: Good signature from "InfluxDB Packaging Service <support@influxdb.com>" [unknown]
+    gpg: Good signature from "InfluxData Package Signing Key <support@influxdata.com>" [unknown]
     ```
 
 
