@@ -13,7 +13,7 @@ menu:
 influxdb/v2/tags: [write, line protocol]
 related:
   - /influxdb/v2/write-data/no-code/use-telegraf/
-  - /influxdb/v2/api/#tag/Write, InfluxDB API /write endpoint
+  - /influxdb/v2/api/#tag/Write, InfluxDB v1 API /write endpoint
   - /influxdb/v2/reference/syntax/line-protocol
   - /influxdb/v2/reference/syntax/annotated-csv
   - /influxdb/v2/reference/cli/influx/write

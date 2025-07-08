@@ -54,22 +54,32 @@ The `Authorization: Bearer AUTH_TOKEN` scheme works with all HTTP API endpoints 
 
 The following examples use `curl` to show to authenticate to the HTTP API.
 
-
-{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
+{{% code-placeholders "AUTH_TOKEN" %}}
 ```bash
 # Add your token to the HTTP Authorization header
 curl "http://{{< influxdb/host >}}/api/v3/query_sql" \
-  --header "Authorization: Bearer YOUR_AUTH_TOKEN" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM 'DATABASE_NAME' WHERE time > now() - INTERVAL '10 minutes'"
 ```
+{{% /code-placeholders %}}
 
 ### Authenticate using v1 and v2 compatibility
+
+InfluxDB 3 provides compatibility with InfluxDB v1 and v2 APIs, allowing you to use the same authentication methods as in those versions.
+With InfluxDB v1-compatible endpoints in InfluxDB 3, you can use database tokens in InfluxDB 1.x username and password
+schemes, in the InfluxDB v2 `Authorization: Token` scheme, or in the OAuth `Authorization: Bearer` scheme.
+With the InfluxDB v2-compatible `/api/v2/write` endpoint, you can use database tokens in the InfluxDB v2 `Authorization: Token` scheme or in the OAuth `Authorization: Bearer` scheme.
+
+The following examples show how to authenticate with the InfluxDB v1-compatible and v2-compatible APIs
+in InfluxDB 3:
+
+{{% code-placeholders "AUTH_TOKEN" %}}
 
 ```bash
 # Token scheme with v2 /api/v2/write
 curl http://localhost:8181/api/v2/write\?bucket\=DATABASE_NAME \
-  --header "Authorization: Token YOUR_AUTH_TOKEN" \
+  --header "Authorization: Token AUTH_TOKEN" \
   --data-raw "home,room=Kitchen temp=23.5 1622547800"
 ```
 
@@ -78,14 +88,14 @@ curl http://localhost:8181/api/v2/write\?bucket\=DATABASE_NAME \
 # Username is ignored, but required for the request
 # Password is your auth token encoded in base64
 curl "http://localhost:8181/write?db=DATABASE_NAME" \
-  --user "admin:YOUR_AUTH_TOKEN" \
+  --user "any:AUTH_TOKEN" \
   --data-raw "home,room=Kitchen temp=23.5 1622547800"
 ```
 
 ```bash
 # URL auth parameters with v1 /write
 # Username is ignored, but required for the request
-curl "http://localhost:8181/write?db=DATABASE_NAME&u=admin&p=YOUR_AUTH_TOKEN" \
+curl "http://localhost:8181/write?db=DATABASE_NAME&u=any&p=AUTH_TOKEN" \
   --data-raw "home,room=Kitchen temp=23.5 1622547800"
 ```
 {{% /code-placeholders %}}
@@ -94,7 +104,7 @@ curl "http://localhost:8181/write?db=DATABASE_NAME&u=admin&p=YOUR_AUTH_TOKEN" \
 
 Replace the following with your values:
 
-- {{% code-placeholder-key %}}`YOUR_AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link %}}
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link %}}
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/version/admin/databases) you want to query
 
 To use tokens with other clients for {{< product-name >}},

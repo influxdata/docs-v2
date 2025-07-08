@@ -50,7 +50,7 @@ Learn how to authenticate requests, map databases and retention policies to buck
 
 {{% product-name %}} requires each API request to be authenticated with an
 [API token](/influxdb3/cloud-serverless/admin/tokens/).
-With the InfluxDB v1 API, you can use API tokens in InfluxDB 1.x username and password
+With InfluxDB v1-compatible endpoints in InfluxDB 3, you can use API tokens in InfluxDB 1.x username and password
 schemes or in the InfluxDB v2 `Authorization: Token` scheme.
 
 - [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
@@ -58,7 +58,7 @@ schemes or in the InfluxDB v2 `Authorization: Token` scheme.
 
 ### Authenticate with a username and password scheme
 
-With the InfluxDB v1 API, you can use the InfluxDB 1.x convention of
+With InfluxDB v1-compatible endpoints, you can use the InfluxDB 1.x convention of
 username and password to authenticate bucket reads and writes by passing an [API token](/influxdb3/cloud-serverless/admin/tokens/) as the `password` credential.
 When authenticating requests to the v1 API `/write` and `/query` endpoints, {{% product-name %}} checks that the `password` (`p`) value is an authorized [API token](/influxdb3/cloud-serverless/admin/tokens/).
 {{% product-name %}} ignores the `username` (`u`) parameter in the request.
@@ -117,8 +117,8 @@ When authenticating requests, {{% product-name %}} checks that the `p` (_passwor
 ##### Syntax
 
 ```sh
-https://{{< influxdb/host >}}/query/?[u=any]&p=API_TOKEN
-https://{{< influxdb/host >}}/write/?[u=any]&p=API_TOKEN
+https://{{< influxdb/host >}}/query/?u=any&p=API_TOKEN
+https://{{< influxdb/host >}}/write/?u=any&p=API_TOKEN
 ```
 
 ##### Example

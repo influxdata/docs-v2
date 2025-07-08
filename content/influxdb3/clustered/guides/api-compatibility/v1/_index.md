@@ -63,7 +63,7 @@ Learn how to authenticate requests, adjust request parameters for existing v1 wo
 
 {{% product-name %}} requires each API request to be authenticated with a
 [database token](/influxdb3/clustered/admin/tokens/#database-tokens).
-With the InfluxDB v1 API, you can use database tokens in InfluxDB 1.x username and password
+With InfluxDB v1-compatible endpoints in InfluxDB 3, you can use database tokens in InfluxDB 1.x username and password
 schemes, in the InfluxDB v2 `Authorization: Token` scheme, or in the OAuth `Authorization: Bearer` scheme.
 
 - [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
@@ -71,7 +71,7 @@ schemes, in the InfluxDB v2 `Authorization: Token` scheme, or in the OAuth `Auth
 
 ### Authenticate with a username and password scheme
 
-With the InfluxDB v1 API, you can use the InfluxDB 1.x convention of
+With InfluxDB v1-compatible endpoints, you can use the InfluxDB 1.x convention of
 username and password to authenticate database reads and writes by passing a [database token](/influxdb3/clustered/admin/tokens/#database-tokens) as the `password` credential.
 When authenticating requests to the v1 API `/write` and `/query` endpoints, {{% product-name %}} checks that the `password` (`p`) value is an authorized [database token](/influxdb3/clustered/admin/tokens/#database-tokens).
 {{% product-name %}} ignores the `username` (`u`) parameter in the request.

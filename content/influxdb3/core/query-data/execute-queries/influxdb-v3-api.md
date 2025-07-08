@@ -16,7 +16,7 @@ related:
 list_code_example: |
   ```sh
   curl --get http://{{< influxdb/host >}}/api/v3/query_sql \
-    --header "Authorization: Token DATABASE_TOKEN" \
+    --header "Authorization: Token AUTH_TOKEN" \
     --data-urlencode "db=DATABASE_NAME" \
     --data-urlencode "q=SELECT * FROM home"
   ```
