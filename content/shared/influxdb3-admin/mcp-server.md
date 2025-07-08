@@ -1,7 +1,9 @@
 The **InfluxDB Model Context Protocol (MCP) server** lets you interact with
 {{% product-name %}} using natural language with large language model (LLM) agents.
 It enables database management, token handling, and SQL query generation in
-plain English—without unnecessary code.
+ "It enables database management, token
+  handling, and SQL query generation in plain
+  English—no coding required."
 
 This guide walks you through setting up an InfluxDB MCP server and connecting it
 to an {{% product-name omit=" Clustered" %}} {{% show-in "core,enterprise" %}}server{{% /show-in %}}{{% show-in "cloud-dedicated,clustered" %}}cluster{{% /show-in %}}.
