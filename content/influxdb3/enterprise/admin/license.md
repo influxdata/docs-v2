@@ -154,7 +154,7 @@ existing license if it's still valid.
 2.  When starting the {{< product-name >}} server, provide the license file
     path using one of the following methods:
     
-    - Use the the [`--license-file`](/influxdb3/enterprise/reference/config-options/#license-file)
+    - Use the [`--license-file`](/influxdb3/enterprise/reference/config-options/#license-file)
       option with the `influxdb3 serve` command
     - Set the `INFLUXDB3_ENTERPRISE_LICENSE_FILE` environment variable.
 
@@ -225,8 +225,8 @@ services:
     image: influxdb:3-enterprise
     ports:
       - 8181:8181
-    # In the following command, replace INFLUXDB3_LICENSE_EMAIL with your email address.
-    # Alternatively, pass the `INFLUXDB3_LICENSE_EMAIL` environment variable or
+    # In the following command, replace INFLUXDB3_ENTERPRISE_LICENSE_EMAIL with your email address.
+    # Alternatively, pass the `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable or
     # store the email address in a compose CLI .env file.
     command:
       - influxdb3
@@ -234,16 +234,20 @@ services:
       - --node-id=node0
       - --cluster-id=cluster0
       - --object-store=file
-      - --data-dir=/var/lib/influxdb3
+      - --data-dir=/var/lib/influxdb3/data
       - --plugin-dir=/var/lib/influxdb3/plugins
     environment:
-      - INFLUXDB3_LICENSE_EMAIL=${EMAIL_ADDRESS}
+      - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=${EMAIL_ADDRESS}
     volumes:
-      - type: bind 
+      - type: bind
+        # Path to store data on your host system
         source: ~/.influxdb3/data
-        target: /var/lib/influxdb3
-      - type: bind 
+        # Path to store data in the container
+        target: /var/lib/influxdb3/data
+      - type: bind
+        # Path to store plugins on your host system
         source: ~/.influxdb3/plugins
+        # Path to store plugins in the container
         target: /var/lib/influxdb3/plugins
 ```
 {{% /code-placeholders %}}

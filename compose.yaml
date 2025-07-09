@@ -349,6 +349,7 @@ services:
       - --data-dir=/var/lib/influxdb3/data
       - --plugin-dir=/var/lib/influxdb3/plugins
     environment:
+      - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=${INFLUXDB3_ENTERPRISE_LICENSE_EMAIL}
       - INFLUXDB3_AUTH_TOKEN=/run/secrets/influxdb3-enterprise-admin-token
     volumes:
       - type: bind 
