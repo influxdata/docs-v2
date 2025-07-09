@@ -7,12 +7,18 @@ syntax as previous versions of InfluxDB, and supports the following:
 
 - `?accept_partial=<BOOLEAN>`: Accept or reject partial writes (default is `true`).
 - `?no_sync=<BOOLEAN>`: Control when writes are acknowledged:
-  - `no_sync=true`: Acknowledge writes before WAL persistence completes.
+  - `no_sync=true`: Acknowledges writes before WAL persistence completes.
   - `no_sync=false`: Acknowledges writes after WAL persistence completes (default).
 - `?precision=<PRECISION>`: Specify the precision of the timestamp.
-  The default is `ns` (nanosecond) precision.
-  You can also use `auto` to let InfluxDB automatically determine the timestamp
-  precision by identifying which precisions resolves most closely to _now_.
+  By default, {{% product-name %}} uses the timestamp magnitude to auto-detect the precision.
+  To avoid any ambiguity, you can specify the precision of timestamps in your data.
+  
+  The {{< product-name >}} `/api/v3/write_lp` API endpoint supports the following timestamp precisions:
+  
+  - `ns` (nanoseconds)
+  - `us` (microseconds)
+  - `ms` (milliseconds)
+  - `s` (seconds)
 
 ##### Request body
 
@@ -25,7 +31,7 @@ the {{< influxdb3/home-sample-link >}}, but you can use any HTTP client._
 
 {{% influxdb/custom-timestamps %}}
 ```bash
-curl -v "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=auto" \
+curl -v "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=s" \
   --data-raw "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1735545600
 home,room=Kitchen temp=21.0,hum=35.9,co=0i 1735545600
 home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1735549200
