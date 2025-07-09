@@ -31,6 +31,7 @@ influxdb3 write [OPTIONS] --database <DATABASE_NAME> [LINE_PROTOCOL]...
 |        | `--token`          | _({{< req >}})_ Authentication token                                                     |
 | `-f`   | `--file`           | A file that contains line protocol to write                                              |
 |        | `--accept-partial` | Accept partial writes                                                                    |
+|      | `--precision`  | Precision of data timestamps (`ns`, `us`, `ms`, or `s`) |                     |
 |        | `--tls-ca`         | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 | `-h`   | `--help`           | Print help information                                                                   |
 |        | `--help-all`       | Print detailed help information                                                          |
@@ -144,4 +145,22 @@ cat ./data.lp | influxdb3 write \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
+## Write line protocol with specific timestamp precision
+
+By default, in CLI and HTTP API write requests, {{% product-name %}} uses the timestamp magnitude to auto-detect the precision.
+To avoid any ambiguity, specify  the `--precision {ns|us|ms|s}` option:
+
+<!--pytest.mark.skip--> 
+
+```bash
+influxdb3 write \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --precision s \
+  'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+'
+```
 {{% /code-placeholders %}}

@@ -11,5 +11,5 @@ source: /shared/influxdb3-cli/write.md
 ---
 
 <!--
-The content of this file is at content/shared/influxdb3-cli/write.md
+//SOURCE - content/shared/influxdb3-cli/write.md
 -->
