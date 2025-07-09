@@ -133,7 +133,7 @@ data to the local file system, mount a volume for the object store--for example,
 provide the following options with your `docker run` command:
 
 - `--volume /path/on/host:/path/in/container`: Mounts a directory from your file system to the container
-- `--object-store file --data-dir /path/in/container`: Use the volume mount for object storage
+- `--object-store file --data-dir /path/in/container`: Uses the volume for object storage
 
 {{% show-in "enterprise" %}}
 <!--pytest.mark.skip-->
@@ -174,66 +174,81 @@ docker run -it \
 
 {{% /expand %}}
 {{% expand "Docker compose with a mounted file system object store" %}}
+Open `compose.yaml` for editing and add a `services` entry for
+   {{% product-name %}}--for example:
 {{% show-in "enterprise" %}}
-1. Open `compose.yaml` for editing and add a `services` entry for {{% product-name %}}.
-   --for example:
-   
-   ```yaml
-   # compose.yaml
-   services:
-     influxdb3-{{< product-key >}}:
-       container_name: influxdb3-{{< product-key >}}
-       image: influxdb:3-{{< product-key >}}
-       ports:
-         - 8181:8181 
-       command:
-         - influxdb3
-         - serve
-         - --node-id=node0
-         - --cluster-id=cluster0
-         - --object-store=file
-         - --data-dir=/var/lib/influxdb3
-         - --plugin-dir=/var/lib/influxdb3-plugins
-       environment:
-         - INFLUXDB3_LICENSE_EMAIL=EMAIL_ADDRESS
-   ```
-   _Replace `EMAIL_ADDRESS` with your email address to bypass the email prompt
+```yaml
+# compose.yaml
+services:
+  influxdb3-{{< product-key >}}:
+    image: influxdb:3-{{< product-key >}}
+    ports:
+      - 8181:8181 
+    command:
+      - influxdb3
+      - serve
+      - --node-id=node0
+      - --cluster-id=cluster0
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3/data
+      - --plugin-dir=/var/lib/influxdb3/plugins
+    environment:
+      - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=EMAIL_ADDRESS
+    volumes:
+      - type: bind
+        # Path to store data on your host system
+        source: ~/.influxdb3/data
+        # Path to store data in the container
+        target: /var/lib/influxdb3/data
+      - type: bind
+        # Path to store plugins on your host system
+        source: ~/.influxdb3/plugins
+        # Path to store plugins in the container
+        target: /var/lib/influxdb3/plugins
+```
+   Replace `EMAIL_ADDRESS` with your email address to bypass the email prompt
    when generating a trial or at-home license. For more information, see [Manage your
-   {{% product-name %}} license](/influxdb3/version/admin/license/)_.
+   {{% product-name %}} license](/influxdb3/version/admin/license/).
 {{% /show-in %}}
 {{% show-in "core" %}}
-1. Open `compose.yaml` for editing and add a `services` entry for {{% product-name %}}--for example:
-
-   ```yaml
-   # compose.yaml
-   services:
-     influxdb3-{{< product-key >}}:
-       container_name: influxdb3-{{< product-key >}}
-       image: influxdb:3-{{< product-key >}}
-       ports:
-         - 8181:8181
-       command:
-         - influxdb3
-         - serve
-         - --node-id=node0
-         - --object-store=file
-         - --data-dir=/var/lib/influxdb3
-         - --plugin-dir=/var/lib/influxdb3-plugins
-   ```
+```yaml
+# compose.yaml
+services:
+  influxdb3-{{< product-key >}}:
+    image: influxdb:3-{{< product-key >}}
+    ports:
+      - 8181:8181
+    command:
+      - influxdb3
+      - serve
+      - --node-id=node0
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3/data
+      - --plugin-dir=/var/lib/influxdb3/plugins
+    volumes:
+      - type: bind
+        # Path to store data on your host system
+        source: ~/.influxdb3/data
+        # Path to store data in the container
+        target: /var/lib/influxdb3/data
+      - type: bind
+        # Path to store plugins on your host system
+        source: ~/.influxdb3/plugins
+        # Path to store plugins in the container
+        target: /var/lib/influxdb3/plugins
+```
 {{% /show-in %}}
 
-2. Use the Docker Compose CLI to start the server.
+Use the Docker Compose CLI to start the server--for example:
 
-   Optional: to make sure you have the latest version of the image before you
-   start the server, run `docker compose pull`.
+<!--pytest.mark.skip-->
+```bash
+docker compose pull && docker compose up influxdb3-{{< product-key >}}
+```
 
-   <!--pytest.mark.skip-->
-   ```bash
-   docker compose pull && docker compose run influxdb3-{{< product-key >}}
-   ```
-
-InfluxDB 3 starts in a container with host port `8181` mapped to container port
-`8181`, the `influxdb3` server default for HTTP connections.
+The command pulls the latest {{% product-name %}} Docker image and starts
+`influxdb3` in a container with host port `8181` mapped to container port
+`8181`, the server default for HTTP connections.
 
 > [!Tip]
 > #### Custom port mapping
@@ -244,18 +259,6 @@ InfluxDB 3 starts in a container with host port `8181` mapped to container port
 > For more information about mapping your container port to a specific host port, see the
 > Docker guide for [Publishing and exposing ports](https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/).
 
-> [!Note]
-> #### Stopping an InfluxDB 3 container
->
-> To stop a running InfluxDB 3 container, find and terminate the process or container--for example:
->
-> <!--pytest.mark.skip-->
-> ```bash
-> docker container ls --filter "name=influxdb3"
-> docker kill <CONTAINER_ID>
-> ```
->
-> _Currently, a bug prevents using {{< keybind all="Ctrl+c" >}} in the terminal to stop an InfluxDB 3 container._
 {{% /expand %}}
 {{% expand "S3 object storage" %}}
 
@@ -377,7 +380,7 @@ InfluxDB 3 Enterprise licenses:
 >
 > To generate the trial or home license in Docker, bypass the email prompt.
 > The first time you start a new instance, provide your email address with the
-> `--license-email` option or the `INFLUXDB3_LICENSE_EMAIL` environment variable.
+> `--license-email` option or the `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable.
 >
 > _Currently, if you use Docker and enter your email address in the prompt, a bug may
 > prevent the container from generating the license ._
@@ -386,10 +389,10 @@ InfluxDB 3 Enterprise licenses:
 {{% /show-in %}}
 
 > [!Tip]
-> #### Use the InfluxDB 3 Explorer query interface (beta)
+> #### Use the InfluxDB 3 Explorer query interface
 >
-> You can complete the remaining steps in this guide using InfluxDB 3 Explorer
-> (currently in beta), the web-based query and administrative interface for InfluxDB 3.
+> You can complete the remaining steps in this guide using InfluxDB 3 Explorer,
+> the web-based query and administrative interface for InfluxDB 3.
 > Explorer provides visual management of databases and tokens and an
 > easy way to write and query your time series data.
 > 

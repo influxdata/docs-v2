@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb3_enterprise:
     parent: Administer InfluxDB
-weight: 106
+weight: 107
 influxdb3/enterprise/tags: [indexing]
 ---
 

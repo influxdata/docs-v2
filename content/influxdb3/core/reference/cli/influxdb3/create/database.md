@@ -11,5 +11,5 @@ source: /shared/influxdb3-cli/create/database.md
 ---
 
 <!-- 
-The content of this file is at content/shared/influxdb3-cli/create/database.md
+//SOURCE -  content/shared/influxdb3-cli/create/database.md
 -->

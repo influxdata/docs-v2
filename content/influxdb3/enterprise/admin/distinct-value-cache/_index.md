@@ -8,7 +8,7 @@ description: >
 menu:
   influxdb3_enterprise:
     parent: Administer InfluxDB
-weight: 105
+weight: 106
 influxdb3/enterprise/tags: [cache]
 related:
   - /influxdb3/enterprise/reference/sql/functions/cache/#distinct_cache, distinct_cache SQL function

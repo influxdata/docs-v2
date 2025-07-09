@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb3_core:
     parent: Administer InfluxDB
-weight: 103
+weight: 101
 influxdb3/core/tags: [databases]
 related:
   - /influxdb3/core/write-data/best-practices/schema-design/

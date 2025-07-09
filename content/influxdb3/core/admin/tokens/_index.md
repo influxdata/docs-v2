@@ -5,7 +5,7 @@ description: >
 menu:
   influxdb3_core:
     parent: Administer InfluxDB
-weight: 202
+weight: 102
 source: /shared/influxdb3-admin/tokens/_index.md
 ---
 

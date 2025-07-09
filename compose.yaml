@@ -22,7 +22,7 @@ services:
         RUN apk add --no-cache curl openssl
     command: hugo server --bind 0.0.0.0
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:1313/influxdb/cloud-dedicated/"]
+      test: ["CMD", "curl", "-f", "http://localhost:1313/influxdb3/cloud-dedicated/"]
       interval: 1m
       timeout: 10s
       retries: 2
@@ -106,9 +106,9 @@ services:
     command:
       # In the command, pass file paths to test.
       # The container preprocesses the files for testing and runs the tests.
-      - content/influxdb/cloud-dedicated/**/*.md
+      - content/influxdb3/cloud-dedicated/**/*.md
     environment:
-      - CONTENT_PATH=content/influxdb/cloud-dedicated
+      - CONTENT_PATH=content/influxdb3/cloud-dedicated
     profiles:
       - test
       - v3
@@ -125,12 +125,12 @@ services:
         source: ./test/shared
         target: /shared
       - type: bind
-        source: ./content/influxdb/cloud-dedicated/.env.test
+        source: ./content/influxdb3/cloud-dedicated/.env.test
         target: /app/.env.test
         read_only: true
-      # The following mount assumes your influxctl configuration file is located at ./content/influxdb/cloud-dedicated/config.toml.
+      # The following mount assumes your influxctl configuration file is located at ./content/influxdb3/cloud-dedicated/config.toml.
       - type: bind
-        source: ./content/influxdb/cloud-dedicated/config.toml
+        source: ./content/influxdb3/cloud-dedicated/config.toml
         target: /root/.config/influxctl/config.toml
         read_only: true
       # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
@@ -161,9 +161,9 @@ services:
     command:
       # In the command, pass file paths to test.
       # The container preprocesses the files for testing and runs the tests.
-      - content/influxdb/cloud-serverless/**/*.md
+      - content/influxdb3/cloud-serverless/**/*.md
     environment:
-      - CONTENT_PATH=content/influxdb/cloud-serverless
+      - CONTENT_PATH=content/influxdb3/cloud-serverless
     profiles:
       - test
       - v3
@@ -180,7 +180,7 @@ services:
         source: ./test/shared
         target: /shared
       - type: bind
-        source: ./content/influxdb/cloud-serverless/.env.test
+        source: ./content/influxdb3/cloud-serverless/.env.test
         target: /app/.env.test
         read_only: true
       # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
@@ -211,9 +211,9 @@ services:
     command:
       # In the command, pass file paths to test.
       # The container preprocesses the files for testing and runs the tests.
-      - content/influxdb/clustered/**/*.md
+      - content/influxdb3/clustered/**/*.md
     environment:
-      - CONTENT_PATH=content/influxdb/clustered
+      - CONTENT_PATH=content/influxdb3/clustered
     profiles:
       - test
       - v3
@@ -230,12 +230,12 @@ services:
         source: ./test/shared
         target: /shared
       - type: bind
-        source: ./content/influxdb/clustered/.env.test
+        source: ./content/influxdb3/clustered/.env.test
         target: /app/.env.test
         read_only: true
-      # The following mount assumes your influxctl configuration file is located at ./content/influxdb/clustered/config.toml.
+      # The following mount assumes your influxctl configuration file is located at ./content/influxdb3/clustered/config.toml.
       - type: bind
-        source: ./content/influxdb/clustered/config.toml
+        source: ./content/influxdb3/clustered/config.toml
         target: /root/.config/influxctl/config.toml
         read_only: true
       # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
@@ -349,6 +349,7 @@ services:
       - --data-dir=/var/lib/influxdb3/data
       - --plugin-dir=/var/lib/influxdb3/plugins
     environment:
+      - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=${INFLUXDB3_ENTERPRISE_LICENSE_EMAIL}
       - INFLUXDB3_AUTH_TOKEN=/run/secrets/influxdb3-enterprise-admin-token
     volumes:
       - type: bind 

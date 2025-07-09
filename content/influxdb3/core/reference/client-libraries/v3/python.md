@@ -22,7 +22,7 @@ list_code_example: |
   from influxdb_client_3 import InfluxDBClient3
 
   client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
-      database=f"DATABASE_NAME", token=f"DATABASE_TOKEN")  
+      database=f"DATABASE_NAME", token=f"AUTH_TOKEN")  
   ```
   -->
   <!--pytest-codeblocks:cont-->

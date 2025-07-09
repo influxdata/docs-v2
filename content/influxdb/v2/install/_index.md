@@ -43,14 +43,14 @@ with your OS version:_
 For newer releases (for example, Ubuntu 20.04 LTS and newer, Debian Buster
 and newer) that support subkey verification:
 
--  Private key file: [`influxdata-archive.key`](https://repos.influxdata.com/influxdata-archive.key)
--  Public key: `943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515`
+-  GPG key file: [`influxdata-archive.key`](https://repos.influxdata.com/influxdata-archive.key)
+-  Primary key fingerprint: `24C975CBA61A024EE1B631787C3D57159FC2F927`
 
 For older versions (for example, CentOS/RHEL 7, Ubuntu 18.04 LTS, or Debian
 Stretch) that don't support subkeys for verification:
 
--  Private key file: [`influxdata-archive_compat.key`](https://repos.influxdata.com/influxdata-archive_compat.key)
--  Public key: `393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c`
+-  GPG key file: [`influxdata-archive_compat.key`](https://repos.influxdata.com/influxdata-archive_compat.key)
+-  Signing key fingerprint: `9D539D90D3328DC7D6C8D3B9D8FF8E1F7DF8B07E`
 
 {{% /expand %}}
 
@@ -136,8 +136,7 @@ binary releases:
 {{% code-placeholders "https://repos.influxdata.com/influxdata-archive.key" %}}
 
 ```sh
-curl --silent --location \
- https://repos.influxdata.com/influxdata-archive.key \
+curl --silent --location https://repos.influxdata.com/influxdata-archive.key \
  | gpg --import - 2>&1 \
  | grep 'InfluxData Package Signing Key <support@influxdata.com>'
 ```
@@ -344,16 +343,16 @@ To install {{% product-name %}} on Linux, do one of the following:
 2. Run the command for your OS version to install the InfluxData key,
    add the InfluxData repository, and install `influxdb`.
 
-   _Before running the command, replace the checksum and key filename with the
+   _Before running the command, replace the fingerprint and key filename with the
    key-pair from the preceding step._
 
    ```bash
    # Ubuntu and Debian
    # Add the InfluxData key to verify downloads and add the repository
-   curl --silent --location -O \
-   https://repos.influxdata.com/influxdata-archive.key
-   echo "943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515  influxdata-archive.key" \
-   | sha256sum --check - && cat influxdata-archive.key \
+   curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
+   gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
+   | grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
+   && cat influxdata-archive.key \
    | gpg --dearmor \
    | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive.gpg > /dev/null \
    && echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' \
@@ -366,10 +365,10 @@ To install {{% product-name %}} on Linux, do one of the following:
    ```bash
    # RedHat and CentOS
    # Add the InfluxData key to verify downloads
-   curl --silent --location -O \
-   https://repos.influxdata.com/influxdata-archive.key \
-   && echo "943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515  influxdata-archive.key" \
-   | sha256sum --check - && cat influxdata-archive.key \
+   curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
+   gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
+   | grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
+   && cat influxdata-archive.key \
    | gpg --dearmor \
    | tee /etc/pki/rpm-gpg/RPM-GPG-KEY-influxdata > /dev/null
 

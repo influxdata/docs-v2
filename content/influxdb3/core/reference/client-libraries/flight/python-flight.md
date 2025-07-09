@@ -38,7 +38,7 @@ list_code_example: |
     "query_type": "sql"
   }))
 
-  token = (b"authorization", bytes(f"Bearer DATABASE_TOKEN".encode('utf-8')))
+  token = (b"authorization", bytes(f"Bearer AUTH_TOKEN".encode('utf-8')))
   options = FlightCallOptions(headers=[token])
   client = FlightClient(f"grpc+tls://{{< influxdb/host >}}:443")
 
