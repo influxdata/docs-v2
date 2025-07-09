@@ -20,9 +20,10 @@ influxdb3 create token <SUBCOMMAND>
 
 ## Options
 
-| Option |          | Description            |
-| :----- | :------- | :--------------------- |
-|        |`--admin`| Create an admin token  |
-| `-h`   | `--help` | Print help information |
+| Option |           | Description            |
+|:-------|:----------|:-----------------------|
+|        | `--admin` | Create an admin token  |
+| `-h`   | `--help`  | Print help information |
+|        | `--help-all`                       | Print detailed help information
 
 
