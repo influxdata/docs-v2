@@ -33,7 +33,7 @@ Use either **npm** or **Docker** to install the InfluxDB 3 MCP server:
 
 <!-- pytest.mark.skip -->
 ```bash
-npm install -g influxdb-mcp-server
+npm install -g influxdb3-mcp-server
 ```
 
 <!---------------------------------- END NPM ---------------------------------->
@@ -45,7 +45,7 @@ npm install -g influxdb-mcp-server
 
 <!-- pytest.mark.skip -->
 ```bash
-docker pull influxdata/influxdb-mcp-server:latest
+docker pull influxdata/influxdb3-mcp-server:latest
 ```
 
 <!------------------------------- END DOCKER -------------------------------->
@@ -63,9 +63,9 @@ Set the following variables to configure connectivity with your {{% product-name
 {{% code-placeholders "AUTH_TOKEN" %}}
 <!-- pytest.mark.skip -->
 ```bash
-export INFLUXDB_PRODUCT_TYPE={{% product-key %}}
-export INFLUXDB_URL=http://{{< influxdb/host >}}
-export INFLUXDB_TOKEN=AUTH_TOKEN
+export INFLUX_DB_PRODUCT_TYPE={{% product-key %}}
+export INFLUX_DB_INSTANCE_URL=http://{{< influxdb/host >}}
+export INFLUX_DB_TOKEN=AUTH_TOKEN
 ```
 {{% /code-placeholders %}}
 
@@ -90,11 +90,11 @@ determine what operations your LLM agents can perform.
 {{% code-placeholders "DEDICATED_(CLUSTER|ACCOUNT|DATABASE|MANAGEMENT)_(ID|TOKEN)" %}}
 <!-- pytest.mark.skip -->
 ```bash
-export INFLUXDB_PRODUCT_TYPE={{% product-key %}}
-export INFLUXDB_CLUSTER_ID=DEDICATED_CLUSTER_ID
-export INFLUXDB_ACCOUNT_ID=DEDICATED_ACCOUNT_ID
-export INFLUXDB_TOKEN=DEDICATED_DATABASE_TOKEN
-export INFLUXDB_MANAGEMENT_TOKEN=DEDICATED_MANAGEMENT_TOKEN
+export INFLUX_DB_PRODUCT_TYPE={{% product-key %}}
+export INFLUX_DB_CLUSTER_ID=DEDICATED_CLUSTER_ID
+export INFLUX_DB_ACCOUNT_ID=DEDICATED_ACCOUNT_ID
+export INFLUX_DB_TOKEN=DEDICATED_DATABASE_TOKEN
+export INFLUX_DB_MANAGEMENT_TOKEN=DEDICATED_MANAGEMENT_TOKEN
 ```
 {{% /code-placeholders %}}
 
@@ -115,7 +115,7 @@ Replace the following:
 > [!Note]
 > #### Optional tokens
 >
-> `INFLUXDB_TOKEN` and `INFLUXDB_MANAGEMENT_TOKEN` are both optional, but omitting
+> `INFLUX_DB_TOKEN` and `INFLUX_DB_MANAGEMENT_TOKEN` are both optional, but omitting
 > either limits the type of operations your LLM agents can perform on your
 > {{% product-name omit=" Clustered" %}} cluster.
 
@@ -143,7 +143,7 @@ do the following to start the server:
 
 <!-- pytest.mark.skip -->
 ```bash
-influxdb-mcp-server
+npx -y @modelcontextprotocol/server-influxdb
 ```
 
 <!---------------------------------- END NPM ---------------------------------->
@@ -156,26 +156,30 @@ influxdb-mcp-server
 <!-- pytest.mark.skip -->
 ```bash
 docker run --publish 8080:8080 \
-  --env INFLUXDB_URL=http://{{< influxdb/host >}} \
-  --env INFLUXDB_TOKEN=AUTH_TOKEN \
-  influxdata/influxdb-mcp-server:latest
+  --env INFLUX_DB_PRODUCT_TYPE \
+  --env INFLUX_DB_INSTANCE_URL \
+  --env INFLUX_DB_TOKEN \
+  influxdata/influxdb3-mcp-server:latest
 ```
 {{% /code-placeholders %}}
 {{% /show-in %}}
 
 {{% show-in "cloud-dedicated,clustered" %}}
-{{% code-placeholders "DEDICATED_(CLUSTER|ACCOUNT|DATABASE|MANAGEMENT)_(ID|TOKEN)" %}}
 <!-- pytest.mark.skip -->
 ```bash
 docker run --publish 8080:8080 \
-  --env INFLUXDB_CLUSTER_ID=DEDICATED_CLUSTER_ID \
-  --env INFLUXDB_ACCOUNT_ID=DEDICATED_ACCOUNT_ID \
-  --env INFLUXDB_TOKEN=DEDICATED_DATABASE_TOKEN \
-  --env INFLUXDB_MANAGEMENT_TOKEN=DEDICATED_MANAGEMENT_TOKEN \
-  influxdata/influxdb-mcp-server:latest
+  --env INFLUX_DB_PRODUCT_TYPE \
+  --env INFLUX_DB_CLUSTER_ID \
+  --env INFLUX_DB_ACCOUNT_ID \
+  --env INFLUX_DB_TOKEN \
+  --env INFLUX_DB_MANAGEMENT_TOKEN \
+  influxdata/influxdb3-mcp-server:latest
 ```
-{{% /code-placeholders %}}
 {{% /show-in %}}
+
+> [!Note]
+> These commands inherit the environment variable values already
+> [exported to the environment](#configure-the-mcp-server).
 
 <!------------------------------- END DOCKER -------------------------------->
 {{% /tab-content %}}
