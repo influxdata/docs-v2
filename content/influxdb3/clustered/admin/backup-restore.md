@@ -171,7 +171,7 @@ INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: 'true'
 
 After this duration of time, the Garbage Collector deletes _hourly_ snapshots,
 allowing the Garbage Collector to [hard-delete](#hard-delete) Parquet files from the object
-store and the Catalog.  The default is `30d`. The recommended range for snapshots is between
+store and the Catalog. The default is `30d`. The recommended range for snapshots is between
 `1d` and `30d`:
 
 ```yaml
@@ -300,7 +300,7 @@ using Catalog store snapshots:
         kubectl apply --filename myinfluxdb.yml --namespace influxdb
         ```
 
-5.  **Disable InfluxDB Clustered components**
+5.  **Disable all InfluxDB Clustered components _except the Catalog_**
 
     Use the `kubectl scale` command to scale InfluxDB Clustered components down
     to zero replicas:
@@ -313,17 +313,39 @@ using Catalog store snapshots:
     kubectl scale --namespace influxdb --replicas=0 deployment/iox-shared-querier
     kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-compactor
     kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-ingester
-    kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-catalog
     ```
 
     > [!Note]
+    > #### Take note of the number of replicas for each pod
+    >
+    > Take note of the number of replicas you have for each pod before scaling
+    > down to make it easier to bring the cluster back up to scale later in the
+    > restore process (step 8).
+    >
+    > #### Clusters under load may take longer to shut down
+    >
     > If the cluster is under load, some pods may take longer to shut down.
     > For example, Ingester pods must flush their Write-Ahead Logs (WAL) before
     > shutting down.
 
-    Verify that pods have been removed from your cluster.   
+    Verify that all non-Catalog pods have been removed from your cluster.
+    _Once removed_, proceed to the next step.
 
-6.  **Restore the SQL snapshot to the Catalog**
+6.  **Disable the Catalog**
+
+    _After all other pods are removed_, Use the `kubectl scale` command to scale
+    your InfluxDB Clustered Catalog down to zero replicas:
+
+    <!-- pytest.mark.skip -->
+
+    ```bash
+    kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-catalog
+    ```
+
+    Verify that the Catalog pod has been removed from your cluster.
+    _Once removed_, proceed to the next step.
+
+7.  **Restore the SQL snapshot to the Catalog**
 
     Use `psql` to restore the recovery point snapshot to your InfluxDB Catalog. For example:
 
@@ -334,11 +356,29 @@ using Catalog store snapshots:
     ```
 
     The exact `psql` command depends on your PostgreSQL-compatible database
-    provider, their authentication requirements, and the database’s DSN.   
+    provider, their authentication requirements, and the database’s DSN.
 
-7.  **Restart InfluxDB Clustered components**
+8.  **Scale InfluxDB Clustered components back up**
 
-    1.  In your `AppInstance` resource, set `pause` to `false` or remove the `pause`:   
+    Use the `kubectl scale` command to scale your InfluxDB Clustered components
+    back up to their original number of replicas. Perform the scaling operations
+    on components in reverse order--for example:
+
+    <!-- pytest.mark.skip -->
+
+    ```bash
+    kubectl scale --namespace influxdb --replicas=1 statefulset/iox-shared-catalog
+    kubectl scale --namespace influxdb --replicas=3 statefulset/iox-shared-ingester
+    kubectl scale --namespace influxdb --replicas=1 statefulset/iox-shared-compactor
+    kubectl scale --namespace influxdb --replicas=2 deployment/iox-shared-querier
+    kubectl scale --namespace influxdb --replicas=1 deployment/global-router
+    kubectl scale --namespace influxdb --replicas=1 deployment/global-gc
+    ```
+
+9.  **Restart the kubit operator**
+
+    1.  In your `AppInstance` resource, set `pause` to `false` or remove the
+        `pause` field:   
 
         ```yaml
         apiVersion: kubecfg.dev/v1alpha1
@@ -354,6 +394,8 @@ using Catalog store snapshots:
     2.  Apply the change to resume the `kubit` operator and scale InfluxDB
         Clustered components to the number of replicas defined for each in your
         `AppInstance` resource:
+
+        <!-- pytest.mark.skip -->
 
         ```bash
         kubectl apply --filename myinfluxdb.yml --namespace influxdb
