@@ -84,15 +84,17 @@ if your data isn't collected in nanoseconds, there is no need to write at that p
 For better performance, use the coarsest timestamp precision you can for your
 use case.
 
-By default, {{< product-name >}} attempts to auto-detect the precision of
-timestamps in line protocol by identifying what precision would be relatively
-close to "now." You can also specify your timestamp precision in your write
-request. {{< product-name >}} supports the following timestamp precisions:
+> [!Tip]
+> By default, in CLI and HTTP API write requests, {{% product-name %}} uses the timestamp magnitude to auto-detect the precision.
 
-- `ns` (nanoseconds)
-- `us` (microseconds)
-- `ms` (milliseconds)
-- `s` (seconds)
+To specify the precision of timestamps in your write
+request, pass the `precision` option.
+
+For more information, see the following:
+
+- [`/api/v3/write_lp` endpoint parameters](/influxdb3/version/write-data/http-api/v3-write-lp/)
+- [`/api/v2/write` v2 API endpoint parameters](/influxdb3/version/write-data/http-api/compatibility-apis/#v2-api-write-parameters)
+- [`/write` v1 API endpoint parameters](/influxdb3/version/write-data/http-api/compatibility-apis/#v1-api-write-parameters)
 
 ## Use gzip compression
 
