@@ -9,9 +9,9 @@ pre-commit:
       glob: "assets/js/*.js"
       run: yarn eslint {staged_files}
       fail_text: "Debug helpers found! Remove debug imports and calls before committing."
-    build-copilot-instructions:
+    build-agent-instructions:
       glob: "CONTRIBUTING.md"
-      run: yarn build:copilot-instructions 
+      run: yarn build:agent:instructions
     # Report linting warnings and errors, don't output files to stdout
     lint-markdown:
       tags: lint
