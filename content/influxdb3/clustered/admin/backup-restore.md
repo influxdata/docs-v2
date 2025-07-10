@@ -326,7 +326,7 @@ using Catalog store snapshots:
     >
     > Before scaling down, record the current number of replicas for each component
     > to restore them to the correct scale later. Use the following commands:
-    > For example, to get the number of replicas for each component:
+    > For example, to get the number of active replicas for each component:
     >
     > ```bash
     > echo "GC: $(kubectl get deployment global-gc -n influxdb -o jsonpath='{.spec.replicas}')"
