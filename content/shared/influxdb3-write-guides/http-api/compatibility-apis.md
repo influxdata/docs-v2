@@ -75,6 +75,10 @@ Parameter | Allowed in | Ignored | Value
 
 #### Timestamp precision {#timestamp-precision-v2}
 
+> [!Note]
+> By default, {{% product-name %}} uses the timestamp magnitude to auto-detect the precision.
+> To avoid any ambiguity, you can specify the precision of timestamps in your data.
+
 Use one of the following `precision` values in v2 API `/api/v2/write` requests:
 
 - `ns`: nanoseconds
@@ -223,6 +227,10 @@ Parameter | Allowed in | Ignored | Value
 {{% caption %}}{{% req " \*" %}} = {{% req "Required" %}}{{% /caption %}}
 
 #### Timestamp precision {#timestamp-precision-v1}
+
+> [!Note]
+> By default, {{% product-name %}} uses the timestamp magnitude to auto-detect the precision.
+> To avoid any ambiguity, you can specify the precision of timestamps in your data.
 
 Use one of the following `precision` values in v1 API `/write` requests:
 

@@ -9,9 +9,9 @@ pre-commit:
       glob: "assets/js/*.js"
       run: yarn eslint {staged_files}
       fail_text: "Debug helpers found! Remove debug imports and calls before committing."
-    build-copilot-instructions:
+    build-agent-instructions:
       glob: "CONTRIBUTING.md"
-      run: yarn build:copilot-instructions 
+      run: yarn build:agent:instructions
     # Report linting warnings and errors, don't output files to stdout
     lint-markdown:
       tags: lint
@@ -137,13 +137,13 @@ pre-push:
       tags: test,codeblocks,v2
       env:
         SERVICE: cloud-pytest
-      run: yarn test:codeblocks:cloud '{push_files}'
+      run: yarn test:codeblocks:cloud '{staged_files}'
 
     cloud-dedicated-pytest:
       tags: test,codeblocks,v3
       glob: content/influxdb3/cloud-dedicated/*.md
       run: |
-        yarn test:codeblocks:cloud-dedicated '{push_files}' &&
+        yarn test:codeblocks:cloud-dedicated '{staged_files}' &&
         ./test/scripts/monitor-tests.sh stop cloud-dedicated-pytest
 
     cloud-serverless-pytest:
@@ -151,13 +151,13 @@ pre-push:
       glob: content/influxdb3/cloud-serverless/*.md
       env:
         SERVICE: cloud-serverless-pytest
-      run: yarn test:codeblocks:cloud-serverless '{push_files}'
+      run: yarn test:codeblocks:cloud-serverless '{staged_files}'
 
     clustered-pytest:
       tags: test,codeblocks,v3
       glob: content/influxdb3/clustered/*.md
       run: |
-        yarn test:codeblocks:clustered '{push_files}' &&
+        yarn test:codeblocks:clustered '{staged_files}' &&
         ./test/scripts/monitor-tests.sh stop clustered-pytest
 
     telegraf-pytest:
@@ -165,11 +165,11 @@ pre-push:
       glob: content/telegraf/*.md
       env:
         SERVICE: telegraf-pytest
-      run: yarn test:codeblocks:telegraf '{push_files}'
+      run: yarn test:codeblocks:telegraf '{staged_files}'
 
     v2-pytest:
       tags: test,codeblocks,v2
       glob: content/influxdb/v2/*.md
       env:
         SERVICE: v2-pytest
-      run: yarn test:codeblocks:v2 '{push_files}'
+      run: yarn test:codeblocks:v2 '{staged_files}'

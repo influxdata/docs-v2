@@ -73,19 +73,8 @@ Provide the following:
   - from stdin
 
 > [!Note]
-> {{< product-name >}} auto-detects the timestamp precision by identifying which
-> precision results in timestamps relatively close to "now."
-
-<!--
-ADD THIS BACK WHEN THE precision FLAG IS ADDED
-
-- The timestamp precision as seconds (`s`) using the `--precision` option
-
-  > [!Note]
-  > If no precision is provided, {{< product-name >}} attempts to auto-detect
-  > the timestamp precision by identifying which precision results in timestamps
-  > relatively close to "now."
--->
+> By default, {{% product-name %}} uses the timestamp magnitude to auto-detect the precision.
+> To specify the precision of timestamps in your data, use the [`--precision {ns|us|ms|s}` option](/influxdb3/version/reference/cli/influxdb3/write/#options).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
