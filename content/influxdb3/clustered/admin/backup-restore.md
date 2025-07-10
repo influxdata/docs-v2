@@ -321,21 +321,20 @@ using Catalog store snapshots:
     > For example, Ingester pods must flush their Write-Ahead Logs (WAL) before
     > shutting down.
 
-    > [!Important]
-    > #### Take note of the number of replicas for each pod
-    >
-    > Before scaling down, record the current number of replicas for each component
-    > to restore them to the correct scale later. Use the following commands:
-    > For example, to get the number of active replicas for each component:
-    >
-    > ```bash
-    > echo "GC: $(kubectl get deployment global-gc -n influxdb -o jsonpath='{.spec.replicas}')"
-    > echo "Router: $(kubectl get deployment global-router -n influxdb -o jsonpath='{.spec.replicas}')"
-    > echo "Querier: $(kubectl get deployment iox-shared-querier -n influxdb -o jsonpath='{.spec.replicas}')"
-    > echo "Compactor: $(kubectl get statefulset iox-shared-compactor -n influxdb -o jsonpath='{.spec.replicas}')"
-    > echo "Ingester: $(kubectl get statefulset iox-shared-ingester -n influxdb -o jsonpath='{.spec.replicas}')"
-    > echo "Catalog: $(kubectl get statefulset iox-shared-catalog -n influxdb -o jsonpath='{.spec.replicas}')"
-    > ```
+    1. Before scaling down, record the current number of replicas for each component
+       to restore them to the correct scale later. 
+       {{< expand-wrapper >}}
+       {{% expand "Get the number of replicas for each pod" %}}
+  ```bash
+  echo "GC: $(kubectl get deployment global-gc -n influxdb -o jsonpath='{.spec.replicas}')"
+  echo "Router: $(kubectl get deployment global-router -n influxdb -o jsonpath='{.spec.replicas}')"
+  echo "Querier: $(kubectl get deployment iox-shared-querier -n influxdb -o jsonpath='{.spec.replicas}')"
+  echo "Compactor: $(kubectl get statefulset iox-shared-compactor -n influxdb -o jsonpath='{.spec.replicas}')"
+  echo "Ingester: $(kubectl get statefulset iox-shared-ingester -n influxdb -o jsonpath='{.spec.replicas}')"
+  echo "Catalog: $(kubectl get statefulset iox-shared-catalog -n influxdb -o jsonpath='{.spec.replicas}')"
+  ```
+       {{% /expand %}}
+       {{< /expand-wrapper >}}
 
     1. **Scale down non-critical components first**
 
@@ -427,7 +426,7 @@ using Catalog store snapshots:
     
     1. **Scale catalog and wait for readiness**
 
-       _Replace the number of replicas with the original values you noted when [scaling down](#take-note-of-the-number-of-replicas-for-each-pod)._
+       _Replace the number of replicas with the [original values](#get-the-number-of-replicas-for-each-pod) you noted when scaling down._
        <!-- pytest.mark.skip -->
        
        ```bash
@@ -439,7 +438,7 @@ using Catalog store snapshots:
        
     2. **Scale ingesters and wait for readiness**
 
-       _Replace the number of replicas with the original values you noted when [scaling down](#take-note-of-the-number-of-replicas-for-each-pod)._
+       _Replace the number of replicas with the [original values](#get-the-number-of-replicas-for-each-pod) you noted when scaling down._
        <!-- pytest.mark.skip -->
        
        ```bash
@@ -453,7 +452,7 @@ using Catalog store snapshots:
 
        After you have scaled the catalog and ingesters and verified they are stable, scale the remaining components.
 
-       _Replace the number of replicas with the original values you noted when [scaling down](#take-note-of-the-number-of-replicas-for-each-pod)._
+       _Replace the number of replicas with the [original values](#get-the-number-of-replicas-for-each-pod) you noted when scaling down._
        <!-- pytest.mark.skip -->
 
        ```bash
