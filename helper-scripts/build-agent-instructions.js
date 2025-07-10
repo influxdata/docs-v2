@@ -85,7 +85,7 @@ ${content}`;
       execSync(`git add "${instructionsPath}"`);
       console.log('✅ Added instructions file to git staging');
     }
-    
+
     // Also add any extracted files to git
     const extractedFiles = execSync(
       `git status --porcelain "${instructionsDir}/*.md"`
@@ -106,7 +106,8 @@ ${content}`;
 function optimizeContentForContext(content) {
   // Split content into sections based on agent:instruct tags
   const sections = [];
-  const tagRegex = /<!-- agent:instruct: (essential|condense|remove|extract\s+\S+) -->/g;
+  const tagRegex =
+    /<!-- agent:instruct: (essential|condense|remove|extract\s+\S+) -->/g;
 
   let lastIndex = 0;
   let matches = [...content.matchAll(tagRegex)];
@@ -254,22 +255,22 @@ function processExtractSection(content, filename) {
 
   const header = headerMatch[1];
   const sectionTitle = header.replace(/^#+\s+/, '');
-  
+
   // Write the section content to a separate file
   const instructionsDir = path.join(process.cwd(), '.github', 'instructions');
   const extractedFilePath = path.join(instructionsDir, filename);
-  
+
   // Add frontmatter to the extracted file
   const extractedContent = `---
 applyTo: "content/**/*.md, layouts/**/*.html"
 ---
 
 ${content}`;
-  
+
   fs.writeFileSync(extractedFilePath, extractedContent);
-  
+
   console.log(`✅ Extracted ${sectionTitle} to ${extractedFilePath}`);
-  
+
   // Create a placeholder that references the extracted file
   return `${header}\n\n_For the complete ${sectionTitle} reference, see ${filename}._\n\n`;
 }
