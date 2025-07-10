@@ -373,7 +373,7 @@ using Catalog store snapshots:
 
 6.  **Scale down catalog last**
 
-    _After all other pods are removed_, Use the `kubectl scale` command to scale
+    _After all other pods are removed_, use the `kubectl scale` command to scale
     your InfluxDB Clustered Catalog down to zero replicas:
 
     <!-- pytest.mark.skip -->
