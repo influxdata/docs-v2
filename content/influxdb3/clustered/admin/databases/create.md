@@ -161,6 +161,16 @@ Your database's table limit can be raised beyond the default limit of 500.
 InfluxData has production examples of clusters with 20,000+ active tables across
 multiple databases.
 
+> [!Warning]
+> #### Excessive table counts can impact performance and stability
+> 
+> High table counts, especially those concurrently receiving writes and queries,
+> can increase catalog overhead which can affect performance and stability.
+> What constitutes "excessive" depends on multiple factors such as query latency
+> requirements, write bandwidth, and cluster capacity to handle rapid backfills.
+> If you're considering more than doubling the default limit, test your
+> configuration thoroughly.
+
 Increasing your table limit affects your {{% product-name omit=" Clustered" %}}
 cluster in the following ways:
 
