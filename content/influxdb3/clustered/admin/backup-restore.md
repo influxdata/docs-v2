@@ -161,11 +161,16 @@ snapshots. The default is `'false'`. Set to `'true'`:
 INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: 'true'
 ```
 
+> [!Note]
+> #### Storage utilization and costs
+> 
+> Enabling this setting retains Parquet files referenced in snapshots, increasing
+> object storage utilization and costs. The longer you retain snapshots, the more
+> storage space and costs you incur.
+
 > [!Caution]
-> If set to `false` (the default) with snapshots enabled, the Garbage Collector does not check
-> to see if a Parquet file is associated with existing snapshots before removing
-> the Parquet file from the object store. This could result in deleting Parquet
-> files needed to restore the cluster to a recovery point.
+> If set to `false` (the default), the Garbage Collector may delete Parquet
+> files needed for snapshot restoration, making recovery points unusable.
 
 #### INFLUXDB_IOX_KEEP_HOURLY_CATALOG_BACKUP_FILE_LISTS
 
@@ -454,7 +459,7 @@ using Catalog store snapshots:
        ```bash
        kubectl scale --namespace influxdb --replicas=1 statefulset/iox-shared-compactor
        kubectl scale --namespace influxdb --replicas=2 deployment/iox-shared-querier
-       kubectl scale --namespace influxdb --replicas=1 deployment/global-router
+       kubectl scale --namespace influxdb --replicas=3 deployment/global-router
        kubectl scale --namespace influxdb --replicas=1 deployment/global-gc
        ```
 
