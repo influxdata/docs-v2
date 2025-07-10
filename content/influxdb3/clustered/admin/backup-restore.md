@@ -161,17 +161,22 @@ snapshots. The default is `'false'`. Set to `'true'`:
 INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: 'true'
 ```
 
+> [!Note]
+> #### Storage utilization and costs
+> 
+> Enabling this setting retains Parquet files referenced in snapshots, increasing
+> object storage utilization and costs. The longer you retain snapshots, the more
+> storage space and costs you incur.
+
 > [!Caution]
-> If set to `false` (the default) with snapshots enabled, the Garbage Collector does not check
-> to see if a Parquet file is associated with existing snapshots before removing
-> the Parquet file from the object store. This could result in deleting Parquet
-> files needed to restore the cluster to a recovery point.
+> If set to `false` (the default), the Garbage Collector may delete Parquet
+> files needed for snapshot restoration, making recovery points unusable.
 
 #### INFLUXDB_IOX_KEEP_HOURLY_CATALOG_BACKUP_FILE_LISTS
 
 After this duration of time, the Garbage Collector deletes _hourly_ snapshots,
 allowing the Garbage Collector to [hard-delete](#hard-delete) Parquet files from the object
-store and the Catalog.  The default is `30d`. The recommended range for snapshots is between
+store and the Catalog. The default is `30d`. The recommended range for snapshots is between
 `1d` and `30d`:
 
 ```yaml
@@ -300,32 +305,95 @@ using Catalog store snapshots:
         kubectl apply --filename myinfluxdb.yml --namespace influxdb
         ```
 
-5.  **Disable InfluxDB Clustered components**
+5.  **Disable all InfluxDB Clustered components _except the Catalog_**
 
-    Use the `kubectl scale` command to scale InfluxDB Clustered components down
-    to zero replicas:
-
-    <!-- pytest.mark.skip -->
-        
-    ```bash
-    kubectl scale --namespace influxdb --replicas=0 deployment/global-gc
-    kubectl scale --namespace influxdb --replicas=0 deployment/global-router
-    kubectl scale --namespace influxdb --replicas=0 deployment/iox-shared-querier
-    kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-compactor
-    kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-ingester
-    kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-catalog
-    ```
-
-    > [!Note]
+    > [!Important]
+    > #### Critical shutdown sequence
+    >
+    > You must scale down components in the correct order and wait for each group
+    > to fully shut down before proceeding. Scaling down the catalog before
+    > ingesters have finished shutting down can cause WAL contents to survive
+    > through the restore, leading to data inconsistency and undefined behavior.
+    >
+    > #### Clusters under load may take longer to shut down
+    >
     > If the cluster is under load, some pods may take longer to shut down.
     > For example, Ingester pods must flush their Write-Ahead Logs (WAL) before
     > shutting down.
 
-    Verify that pods have been removed from your cluster.   
+    1. Before scaling down, record the current number of replicas for each component
+       to restore them to the correct scale later. 
+       {{< expand-wrapper >}}
+       {{% expand "Get the number of replicas for each pod" %}}
+  ```bash
+  echo "GC: $(kubectl get deployment global-gc -n influxdb -o jsonpath='{.spec.replicas}')"
+  echo "Router: $(kubectl get deployment global-router -n influxdb -o jsonpath='{.spec.replicas}')"
+  echo "Querier: $(kubectl get deployment iox-shared-querier -n influxdb -o jsonpath='{.spec.replicas}')"
+  echo "Compactor: $(kubectl get statefulset iox-shared-compactor -n influxdb -o jsonpath='{.spec.replicas}')"
+  echo "Ingester: $(kubectl get statefulset iox-shared-ingester -n influxdb -o jsonpath='{.spec.replicas}')"
+  echo "Catalog: $(kubectl get statefulset iox-shared-catalog -n influxdb -o jsonpath='{.spec.replicas}')"
+  ```
+       {{% /expand %}}
+       {{< /expand-wrapper >}}
 
-6.  **Restore the SQL snapshot to the Catalog**
+    1. **Scale down non-critical components first**
 
-    Use `psql` to restore the recovery point snapshot to your InfluxDB Catalog. For example:
+       Use the `kubectl scale` command to scale these components down to zero replicas:
+
+       <!-- pytest.mark.skip -->
+           
+       ```bash
+       kubectl scale --namespace influxdb --replicas=0 deployment/global-gc
+       kubectl scale --namespace influxdb --replicas=0 deployment/global-router
+       kubectl scale --namespace influxdb --replicas=0 deployment/iox-shared-querier
+       kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-compactor
+       ```
+
+    2. **Scale down ingesters and wait for complete shutdown**
+
+       Scale down the ingesters and wait for all ingester pods to fully shut down:
+
+       <!-- pytest.mark.skip -->
+           
+       ```bash
+       kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-ingester
+       ```
+
+
+       Verify that all non-Catalog pods have been removed from your cluster.
+
+       <!-- pytest.mark.skip -->
+           
+       ```bash
+       kubectl get pods --namespace influxdb --selector=app=iox-shared-ingester
+       ```
+
+       _Once removed_, proceed to the next step.  
+
+6.  **Scale down catalog last**
+
+    _After all other pods are removed_, use the `kubectl scale` command to scale
+    your InfluxDB Clustered Catalog down to zero replicas:
+
+    <!-- pytest.mark.skip -->
+
+    ```bash
+    kubectl scale --namespace influxdb --replicas=0 statefulset/iox-shared-catalog
+    ```
+
+    Verify that the Catalog pod has been removed from your cluster:
+
+    <!-- pytest.mark.skip -->
+        
+    ```bash
+    kubectl get pods --namespace influxdb --selector=app=iox-shared-catalog
+    ```
+
+    _Once removed_, proceed to the next step.
+
+7.  **Restore the SQL snapshot to the Catalog**
+
+    Use `psql` to restore the recovery point snapshot to your InfluxDB Catalog--for example:
 
     <!-- pytest.mark.skip -->
 
@@ -334,11 +402,82 @@ using Catalog store snapshots:
     ```
 
     The exact `psql` command depends on your PostgreSQL-compatible database
-    provider, their authentication requirements, and the database’s DSN.   
+    provider, their authentication requirements, and the database’s DSN.
 
-7.  **Restart InfluxDB Clustered components**
+8.  **Scale InfluxDB Clustered components back up**
 
-    1.  In your `AppInstance` resource, set `pause` to `false` or remove the `pause`:   
+    > [!Important]
+    > **Critical startup sequence**
+    >
+    > When bringing services back online, start components in the correct order
+    > and wait for each critical component group to be fully ready before
+    > proceeding. This prevents temporary errors and ensures a clean startup.
+
+    Use the `kubectl scale` command to scale your InfluxDB Clustered components
+    back up to their original number of replicas. Perform the scaling operations
+    on components _in reverse order of shutdown_.
+
+    > [!Note]
+    > **Recommended startup sequence**
+    >
+    > For optimal cluster initialization and to prevent startup errors, wait for
+    > at least 2 catalog pods to be fully ready, then wait for at least 2 ingester
+    > pods to be fully ready before scaling up the remaining components.
+    
+    1. **Scale catalog and wait for readiness**
+
+       _Replace the number of replicas with the [original values](#get-the-number-of-replicas-for-each-pod) you noted when scaling down._
+       <!-- pytest.mark.skip -->
+       
+       ```bash
+       kubectl scale --namespace influxdb --replicas=3 statefulset/iox-shared-catalog
+       kubectl get pods --namespace influxdb --selector=app=iox-shared-catalog --watch
+       ```
+       
+       Wait until at least 2 catalog pods show `Running` status with `2/2` in the READY column.
+       
+    2. **Scale ingesters and wait for readiness**
+
+       _Replace the number of replicas with the [original values](#get-the-number-of-replicas-for-each-pod) you noted when scaling down._
+       <!-- pytest.mark.skip -->
+       
+       ```bash
+       kubectl scale --namespace influxdb --replicas=3 statefulset/iox-shared-ingester
+       kubectl get pods --namespace influxdb --selector=app=iox-shared-ingester --watch
+       ```
+       
+       Wait until at least 2 ingester pods show `Running` status and are ready.
+
+    3. **Scale remaining components**
+
+       After you have scaled the catalog and ingesters and verified they are stable, scale the remaining components.
+
+       _Replace the number of replicas with the [original values](#get-the-number-of-replicas-for-each-pod) you noted when scaling down._
+       <!-- pytest.mark.skip -->
+
+       ```bash
+       kubectl scale --namespace influxdb --replicas=1 statefulset/iox-shared-compactor
+       kubectl scale --namespace influxdb --replicas=2 deployment/iox-shared-querier
+       kubectl scale --namespace influxdb --replicas=3 deployment/global-router
+       kubectl scale --namespace influxdb --replicas=1 deployment/global-gc
+       ```
+
+9. **Verify the restore**
+
+    Verify that all InfluxDB Clustered pods are running:
+
+    <!-- pytest.mark.skip -->
+        
+    ```bash
+    kubectl get pods --namespace influxdb
+    ```
+
+    All pods should show `Running` status and be ready.
+
+10. **Restart the kubit operator**
+
+    1.  In your `AppInstance` resource, set `pause` to `false` or remove the
+        `pause` field:   
 
         ```yaml
         apiVersion: kubecfg.dev/v1alpha1
@@ -351,19 +490,26 @@ using Catalog store snapshots:
         # ...
         ```
 
-    2.  Apply the change to resume the `kubit` operator and scale InfluxDB
-        Clustered components to the number of replicas defined for each in your
-        `AppInstance` resource:
+    2.  Apply the change to resume the `kubit` operator:
+
+        <!-- pytest.mark.skip -->
 
         ```bash
         kubectl apply --filename myinfluxdb.yml --namespace influxdb
         ```
 
-    3.  Verify that InfluxDB Clustered pods start running again.
-
 Your InfluxDB cluster is now restored to the recovery point.
 When the Garbage Collector runs, it identifies what Parquet files are not
 associated with the recovery point and [soft deletes](#soft-delete) them.
+
+> [!Note]
+> **Post-restore verification**
+>
+> After the restore completes, monitor your cluster logs and verify that:
+> - All pods are running and ready
+> - No error messages related to WAL inconsistencies appear
+> - Write and query operations function correctly
+> - The Garbage Collector operates normally
 
 ## Resources
 
