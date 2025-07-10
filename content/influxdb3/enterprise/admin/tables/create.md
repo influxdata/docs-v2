@@ -10,11 +10,18 @@ menu:
 weight: 201
 list_code_example: |
   ```sh
+  # CLI
   influxdb3 create table \
     --tags tag1,tag2,tag3 \
     --database <DATABASE_NAME> \
     --token <AUTH_TOKEN> \
     <TABLE_NAME>
+
+  # HTTP API
+  curl -X POST "http://localhost:8181/api/v3/configure/table" \
+    --header "Authorization: Bearer <AUTH_TOKEN>" \
+    --header "Content-Type: application/json" \
+    --data '{"db": "<DATABASE_NAME>", "table": "<TABLE_NAME>", "tags": ["tag1", "tag2", "tag3"]}'
   ```
 related:
   - /influxdb3/enterprise/reference/cli/influxdb3/create/table/
