@@ -85,8 +85,17 @@ ${content}`;
       execSync(`git add "${instructionsPath}"`);
       console.log('✅ Added instructions file to git staging');
     }
+    
+    // Also add any extracted files to git
+    const extractedFiles = execSync(
+      `git status --porcelain "${instructionsDir}/*.md"`
+    ).toString();
+    if (extractedFiles.trim()) {
+      execSync(`git add "${instructionsDir}"/*.md`);
+      console.log('✅ Added extracted files to git staging');
+    }
   } catch (error) {
-    console.warn('⚠️  Could not add instructions file to git:', error.message);
+    console.warn('⚠️  Could not add files to git:', error.message);
   }
 }
 
@@ -97,7 +106,7 @@ ${content}`;
 function optimizeContentForContext(content) {
   // Split content into sections based on agent:instruct tags
   const sections = [];
-  const tagRegex = /<!-- agent:instruct: (essential|condense|remove) -->/g;
+  const tagRegex = /<!-- agent:instruct: (essential|condense|remove|extract\s+\S+) -->/g;
 
   let lastIndex = 0;
   let matches = [...content.matchAll(tagRegex)];
@@ -147,6 +156,14 @@ function optimizeContentForContext(content) {
         break;
       case 'remove':
         // Skip these sections entirely
+        break;
+      default:
+        if (section.type.startsWith('extract ')) {
+          const filename = section.type.substring(8); // Remove 'extract ' prefix
+          processedContent += processExtractSection(section.content, filename);
+        } else {
+          processedContent += processUntaggedSection(section.content);
+        }
         break;
       case 'untagged':
         processedContent += processUntaggedSection(section.content);
@@ -222,6 +239,39 @@ function condenseSection(content) {
     processedLines.join('\n') +
     '\n\n_See full CONTRIBUTING.md for complete details._\n\n'
   );
+}
+
+/**
+ * Process extract sections to create separate files and placeholders
+ */
+function processExtractSection(content, filename) {
+  // Remove the tag comment
+  content = content.replace(/<!-- agent:instruct: extract \S+ -->\n?/g, '');
+
+  // Extract section header
+  const headerMatch = content.match(/^(#+\s+.+)/m);
+  if (!headerMatch) return content;
+
+  const header = headerMatch[1];
+  const sectionTitle = header.replace(/^#+\s+/, '');
+  
+  // Write the section content to a separate file
+  const instructionsDir = path.join(process.cwd(), '.github', 'instructions');
+  const extractedFilePath = path.join(instructionsDir, filename);
+  
+  // Add frontmatter to the extracted file
+  const extractedContent = `---
+applyTo: "content/**/*.md, layouts/**/*.html"
+---
+
+${content}`;
+  
+  fs.writeFileSync(extractedFilePath, extractedContent);
+  
+  console.log(`✅ Extracted ${sectionTitle} to ${extractedFilePath}`);
+  
+  // Create a placeholder that references the extracted file
+  return `${header}\n\n_For the complete ${sectionTitle} reference, see ${filename}._\n\n`;
 }
 
 /**
