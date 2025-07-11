@@ -1,8 +1,8 @@
 ---
 title: Delete a table
 description: >
-  Use the [`influxdb3 delete table` command](/influxdb3/version/reference/cli/influxdb3/delete/table/)
-  or the [HTTP API](/influxdb3/version/api/v3/) to delete a table from a specified database in {{< product-name >}}.
+  Use the [`influxdb3 delete table` command](/influxdb3/core/reference/cli/influxdb3/delete/table/)
+  or the [HTTP API](/influxdb3/core/api/v3/) to delete a table from a specified database in {{< product-name >}}.
   Supports both soft delete and hard delete operations.
 menu:
   influxdb3_core:

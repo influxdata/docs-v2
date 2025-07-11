@@ -2,7 +2,7 @@ Use the [`influxdb3 create table` command](/influxdb3/version/reference/cli/infl
 or the [HTTP API](/influxdb3/version/api/v3/) to create a table in a specified database in {{< product-name >}}.
 
 With {{< product-name >}}, tables and measurements are synonymous.
-Typically, tables are created automatically on write using the measurement name
+Typically, tables are created automatically on write using the table name
 specified in line protocol written to InfluxDB.
 However, you can manually create tables to define a custom schema or apply custom settings before writing data.
 

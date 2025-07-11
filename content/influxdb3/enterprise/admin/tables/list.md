@@ -1,8 +1,8 @@
 ---
 title: List tables
 description: >
-  Use the [`influxdb3 query` command](/influxdb3/version/reference/cli/influxdb3/query/)
-  or the [HTTP API](/influxdb3/version/api/v3/) to list tables in a specified database in {{% product-name %}}.
+  Use the [`influxdb3 query` command](/influxdb3/enterprise/reference/cli/influxdb3/query/)
+  or the [HTTP API](/influxdb3/enterprise/api/v3/) to list tables in a specified database in {{% product-name %}}.
   Use SQL SHOW TABLES or InfluxQL SHOW MEASUREMENTS statements.
 menu:
   influxdb3_enterprise:
