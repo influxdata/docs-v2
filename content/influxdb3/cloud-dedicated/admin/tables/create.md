@@ -77,6 +77,7 @@ and managing tables.
    {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-create-table-default.png" alt="Create table dialog" />}}
 
 6. In the **Create table** dialog, provide a **Table name**.
+   For naming restrictions, see [Naming restrictions and conventions](/influxdb3/cloud-dedicated/reference/naming-restrictions/).
 7. Leave **Use custom partitioning** set to **Off**.
    By default, the table inherits the database's partition template.
    If no custom partition template is applied to the database, the table inherits the default partitioning of `%Y-%m-%d` (daily).
@@ -173,6 +174,7 @@ If a table doesn't have a custom partition template, it inherits the database's 
    {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-create-table-default.png" alt="Create table dialog" />}}
 
 6. In the **Create table** dialog, provide a **Table name**.
+   For naming restrictions, see [Naming restrictions and conventions](/influxdb3/cloud-dedicated/reference/naming-restrictions/).
 7. Toggle **Use custom partitioning** to **On**.
    The **Custom partition template** section displays.
 

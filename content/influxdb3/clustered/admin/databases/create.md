@@ -21,6 +21,7 @@ list_code_example: |
 related:
   - /influxdb3/clustered/reference/cli/influxctl/database/create/
   - /influxdb3/clustered/admin/custom-partitions/
+  - /influxdb3/clustered/reference/naming-restrictions/
 ---
 
 Use the [`influxctl database create` command](/influxdb3/clustered/reference/cli/influxctl/database/create/)
@@ -116,11 +117,39 @@ The retention period value cannot be negative or contain whitespace.
 
 Database names must adhere to the following naming restrictions:
 
-- Cannot contain whitespace, punctuation, or special characters.
-  Only alphanumeric, underscore (`_`), dash (`-`), and forward-slash
-  (`/`) characters are permitted.
-- Should not start with an underscore (`_`).
-- Maximum length of 64 characters.
+- **Length**: Maximum 64 characters
+- **Allowed characters**: Alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), dash (`-`), and forward-slash (`/`)
+- **Prohibited characters**: Cannot contain whitespace, punctuation, or other special characters
+- **Starting character**: Should start with a letter or number and should not start with underscore (`_`)
+- **Case sensitivity**: Database names are case-sensitive
+
+> [!Caution]
+> #### Underscore prefix reserved for system use
+>
+> Names starting with an underscore (`_`) may be reserved for InfluxDB system use.
+> While {{% product-name %}} might not explicitly reject these names, using them risks
+> conflicts with current or future system features and may result in
+> unexpected behavior or data loss.
+
+### Valid database name examples
+
+```text
+mydb
+sensor_data
+prod-metrics
+logs/application
+webserver123
+```
+
+### Invalid database name examples
+
+```text
+my database        # Contains whitespace
+sensor.data        # Contains period
+app@server         # Contains special character
+_internal          # Starts with underscore (reserved)
+very_long_database_name_that_exceeds_sixty_four_character_limit  # Too long
+```
 
 ## InfluxQL DBRP naming convention
 
