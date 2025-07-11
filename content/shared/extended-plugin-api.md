@@ -15,7 +15,9 @@ The plugin API lets you:
 
 ## Get started with the shared API
 
-Each plugin automatically has access to the shared API through the `influxdb3_local` object. You don’t need to import any libraries. The API becomes available as soon as your plugin runs.
+Each plugin automatically has access to the shared API through the `influxdb3_local` object. You don't need to import any libraries. The API becomes available as soon as your plugin runs.
+
+If your plugin requires third-party Python packages (like `pandas`, `requests`, or `influxdb3-python`), see [Manage plugin dependencies](/influxdb3/version/plugins/#manage-plugin-dependencies) for installation instructions.
 
 ## Write data
 
