@@ -18,7 +18,7 @@ However, you can manually create tables to define a custom schema or apply custo
 
    - _Required_: The name of the database to create the table in
    - _Required_: The name of the table to create (see [Table naming restrictions](#table-naming-restrictions))
-   - _Required_: Tag columns to include in the table
+   - _Required_: Tag columns to include in the table (must have at least one tag column)
    - _Optional_: Field columns and their data types to include in the table
    {{% show-in "enterprise" %}}
    - _Optional_: A retention period for the table
@@ -27,6 +27,14 @@ However, you can manually create tables to define a custom schema or apply custo
    > [!Note]
    > Tables must include at least one tag column.
    > Field columns are optional and can be added later when you write data.
+   
+   > [!Important]
+   > #### Tag order affects query performance
+   > When considering your schema and creating your table, order your tags by query priority. 
+   > Place the most commonly queried tags first.
+   > Columns that appear earlier are typically faster to filter and access during query execution.
+   > 
+   > For more information, see [Optimize writes](/influxdb3/version/write-data/best-practices/optimize-writes/#sort-tags-by-query-priority).
 
 {{% code-placeholders "DATABASE_NAME|TABLE_NAME|AUTH_TOKEN" %}}
 ```bash
