@@ -322,6 +322,53 @@ The trigger runs when the database flushes ingested data for the specified table
 
 The plugin receives the written data and table information.
 
+#### Trigger on data writes with table exclusion
+
+If you want to use a single trigger for all tables but exclude specific tables,
+you can use trigger arguments and your plugin code to filter out unwanted tables--for example:
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
+```bash
+influxdb3 create trigger \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --plugin-filename processor.py \
+  --trigger-spec "all_tables" \
+  --trigger-arguments "exclude_tables=temp_data,debug_info,system_logs" \
+  data_processor
+```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}DATABASE_NAME{{% /code-placeholder-key %}}: the name of the database
+- {{% code-placeholder-key %}}AUTH_TOKEN{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in
+"enterprise" %}} with write permissions on the specified database{{% /show-in %}}
+
+Then, in your plugin:
+
+```python
+# processor.py
+def on_write(self, database, table_name, batch):
+    # Get excluded tables from trigger arguments
+    excluded_tables = set(self.args.get('exclude_tables', '').split(','))
+
+    if table_name in excluded_tables:
+        return
+
+    # Process allowed tables
+    self.process_data(database, table_name, batch)
+```
+
+##### Recommendations
+
+- **Early return**: Check exclusions as early as possible in your plugin.
+- **Efficient lookups**: Use sets for O(1) lookup performance with large exclusion lists.
+- **Performance**: Log skipped tables for debugging but avoid excessive logging in production.
+- **Multiple triggers**: For few tables, consider creating separate table-specific
+  triggers instead of filtering within plugin code.
+  See HTTP API [Processing engine endpoints](/influxdb3/version/api/v3/#tag/Processing-engine) for managing triggers.
+
 #### Trigger on a schedule 
 
 ```bash
