@@ -7,7 +7,7 @@
   {{ range $menuContext }}
     <li class="nav-category {{ if eq $currentPage.RelPermalink .URL }}active{{end}}">
       {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-      <a href='{{ cond (isset .Params "url") .Params.url .URL }}'>{{ .Name }}</a>
+      <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
       {{ if .HasChildren }}
         <ul class="children {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
         {{ template "recursiveMenu" (dict "menu" .Children "currentPage" $currentPage) }}
