@@ -218,7 +218,7 @@ function initialize() {
       }
     } else if (text.includes('docker pull influxdb:3-enterprise')) {
       info.dl = 'enterprise';
-    } else if (text.includes('docker pull influxdb3-core')) {
+    } else if (text.includes('docker pull influxdb:3-core')) {
       info.dl = 'oss3';
     }
 
