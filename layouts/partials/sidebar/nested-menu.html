@@ -4,17 +4,19 @@
 {{ define "recursiveMenu" }}
   {{ $menuContext := .menu }}
   {{ $currentPage := .currentPage }}
+  {{ $depth := add .depth 1 }}
+  {{ $navClass := cond (gt $depth 1) "item" "category" }}
   {{ range $menuContext }}
-    <li class="nav-category {{ if eq $currentPage.RelPermalink .URL }}active{{end}}">
+    <li class="nav-{{ $navClass }} {{ if eq $currentPage.RelPermalink .URL }}active{{end}}">
       {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
       <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
       {{ if .HasChildren }}
         <ul class="children {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
-        {{ template "recursiveMenu" (dict "menu" .Children "currentPage" $currentPage) }}
+        {{ template "recursiveMenu" (dict "menu" .Children "currentPage" $currentPage "depth" $depth) }}
         </ul>
       {{ end }}
     </li>
   {{ end }}
 {{ end }}
 
-{{ template "recursiveMenu" (dict "menu" .menu "currentPage" .page) }}
+{{ template "recursiveMenu" (dict "menu" .menu "currentPage" .page "depth" 0) }}
