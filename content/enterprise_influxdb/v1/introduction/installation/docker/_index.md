@@ -11,6 +11,7 @@ related:
 alt_links:
   core: /influxdb3/core/get-started/setup/
   enterprise: /influxdb3/enterprise/get-started/setup/
+  v1: /influxdb/v1/introduction/install/docker/
   v2: /influxdb/v2/install/use-docker-compose/
 ---
 
