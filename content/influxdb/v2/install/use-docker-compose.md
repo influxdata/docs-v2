@@ -9,21 +9,31 @@ weight: 2
 influxdb/v2/tags: [install]
 related:
   - /influxdb/v2/install/
+  - /influxdb/v2/install/upgrade/v1-to-v2/docker/
   - /influxdb/v2/reference/cli/influx/auth/
   - /influxdb/v2/reference/cli/influx/config/
   - /influxdb/v2/reference/cli/influx/
   - /influxdb/v2/admin/tokens/
 alt_links:
   v1: /influxdb/v1/introduction/install/docker/
+  core: /influxdb3/core/get-started/setup/
+  enterprise: /influxdb3/enterprise/get-started/setup/
 ---
 
 Use Docker Compose to install and set up InfluxDB v2, the time series platform
-is purpose-built to collect, store, process and visualize metrics and events.
+purpose-built to collect, store, process and visualize metrics and events.
 
-When you use Docker Compose to create an InfluxDB container, you can use
-Compose [`secrets`](https://docs.docker.com/compose/use-secrets/) to control
-access to sensitive credentials such as username, password, and token and
-prevent leaking them in your `docker inspect` output.
+- [Set up using Docker Compose secrets](#set-up-using-docker-compose-secrets)
+  - [Run InfluxDB CLI commands in a container](#run-influxdb-cli-commands-in-a-container)
+  - [Manage files in mounted volumes](#manage-files-in-mounted-volumes)
+
+## Set up using Docker Compose secrets
+
+> [!Tip]
+> When you use Docker Compose to create an InfluxDB container, you can use
+> Compose [`secrets`](https://docs.docker.com/compose/use-secrets/) to control
+> access to sensitive credentials such as username, password, and token and
+> prevent leaking them in your `docker inspect` output.
 
 The `influxdb` Docker image provides the following environment
 variables to use with Compose `secrets`:
@@ -36,8 +46,6 @@ variables to use with Compose `secrets`:
   contains a token to use for your initial
   [Operator token](/influxdb/v2/admin/tokens/#operator-token).
   If you don't specify an initial token, InfluxDB generates one for you.
-
-## Set up using Docker Compose secrets
 
 Follow steps to set up and run InfluxDB using Docker Compose and `secrets`:
 
@@ -82,6 +90,8 @@ Follow steps to set up and run InfluxDB using Docker Compose and `secrets`:
      influxdb2-data:
      influxdb2-config:
     ```
+
+    _For more information about initialization environment variables, see the [upgrade guide](/influxdb/v2/install/upgrade/v1-to-v2/docker/)._
 
 3. For each secret in `compose.yaml`, create a file that contains the secret
    value--for example:
