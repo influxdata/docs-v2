@@ -16,11 +16,25 @@ related:
   - /influxdb/v1/administration/config/, Configure InfluxDB OSS v1
 alt_links:
   core: /influxdb3/core/install/
+  enterprise: /influxdb3/enterprise/install/
   v2: /influxdb/v2/install/use-docker-compose/
 ---
 
 Install and run InfluxDB OSS v1.x using Docker containers.
 This guide covers Docker installation, configuration, and initialization options.
+
+- [Install and run InfluxDB](#install-and-run-influxdb)
+  - [Pull the InfluxDB v1.x image](#pull-the-influxdb-v1x-image)
+  - [Start InfluxDB](#start-influxdb)
+- [Configure InfluxDB](#configure-influxdb)
+  - [Using environment variables](#using-environment-variables)
+  - [Using a configuration file](#using-a-configuration-file)
+- [Initialize InfluxDB](#initialize-influxdb)
+  - [Automatic initialization (for development)](#automatic-initialization-for-development)
+  - [Custom initialization scripts](#custom-initialization-scripts)
+- [Access the InfluxDB CLI](#access-the-influxdb-cli)
+- [Next steps](#next-steps)
+
 
 ## Install and run InfluxDB
 

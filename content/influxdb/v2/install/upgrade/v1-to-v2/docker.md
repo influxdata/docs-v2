@@ -17,18 +17,22 @@ Use the automated upgrade process built into the [InfluxDB 2.x Docker image](htt
 to update InfluxDB 1.x Docker deployments to InfluxDB 2.x.
 
 - [Upgrade requirements](#upgrade-requirements)
+  - [InfluxDB 2.x initialization credentials](#influxdb-2x-initialization-credentials)
+  - [File system mounts](#file-system-mounts)
+  - [Upgrade initialization mode](#upgrade-initialization-mode)
 - [Minimal upgrade](#minimal-upgrade)
-- [Upgrade with a custom InfluxDB 1.x configuration file](#upgrade-with-a-custom-influxdb-1-x-configuration-file)
+- [Upgrade with a custom InfluxDB 1.x configuration file](#upgrade-with-a-custom-influxdb-1x-configuration-file)
 - [Upgrade with custom paths](#upgrade-with-custom-paths)
 - [Use new InfluxDB tools](#use-new-influxdb-tools)
+  - [Migrate continuous queries to tasks](#migrate-continuous-queries-to-tasks)
+  - [Use the interactive InfluxQL shell](#use-the-interactive-influxql-shell)
 
-{{% note %}}
-#### Export continuous queries before upgrading
-The automated upgrade process **does not** migrate InfluxDB 1.x continuous queries (CQs)
-to InfluxDB 2.x tasks (the 2.x equivalent). Export all of your CQs before upgrading to InfluxDB 2.x.
-For information about exporting and migrating CQs to tasks, see
-[Migrate continuous queries to tasks](/influxdb/v2/upgrade/v1-to-v2/migrate-cqs/).
-{{% /note %}}
+> [!Note]
+> #### Export continuous queries before upgrading
+> The automated upgrade process **does not** migrate InfluxDB 1.x continuous queries (CQs)
+> to InfluxDB 2.x tasks (the 2.x equivalent). Export all of your CQs before upgrading to InfluxDB 2.x.
+> For information about exporting and migrating CQs to tasks, see
+> [Migrate continuous queries to tasks](/influxdb/v2/upgrade/v1-to-v2/migrate-cqs/).
 
 ## Upgrade requirements
 InfluxDB 2.x provides a 1.x compatibility API, but expects a different storage layout on disk.
@@ -253,21 +257,8 @@ docker run -p 8086:8086 \
 <!--------------------------- END USE 2.x DEFAULTS ---------------------------->
 {{< /tabs-wrapper >}}
 
-## Use new InfluxDB tools
 
-Once upgraded, use InfluxDB {{< current-version >}} tools to work with your time series data.
-
-- [Migrate continuous queries to tasks](#migrate-continuous-queries-to-tasks)
-- [Use the interactive InfluxQL shell](#use-the-interactive-influxql-shell)
-
-### Migrate continuous queries to tasks
-
-InfluxDB {{< current-version >}} replaces continuous queries with **tasks**.
-By default, the upgrade process writes all continuous queries to `~/continuous_queries.txt`.
-To convert continuous queries to InfluxDB tasks, see
-[Migrate continuous queries to tasks](/influxdb/v2/upgrade/v1-to-v2/migrate-cqs/).
-
-### Use the interactive InfluxQL shell
+## Use the interactive InfluxQL shell
 
 The InfluxDB {{< current-version >}} `influx` CLI includes an interactive **InfluxQL shell** for executing InfluxQL queries.
 The InfluxDB {{< current-version >}} Docker image includes the `influx` CLI.

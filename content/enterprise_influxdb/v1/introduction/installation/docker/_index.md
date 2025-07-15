@@ -8,6 +8,10 @@ menu:
     parent: Install
 related:
   - /enterprise_influxdb/v1/introduction/installation/docker/docker-troubleshooting/
+alt_links:
+  core: /influxdb3/core/get-started/setup/
+  enterprise: /influxdb3/enterprise/get-started/setup/
+  v2: /influxdb/v2/install/use-docker-compose/
 ---
 
 InfluxDB v1 Enterprise provides Docker images for both meta nodes and data nodes to simplify cluster deployment and management.
@@ -17,6 +21,14 @@ Using Docker allows you to quickly set up and run InfluxDB Enterprise clusters w
 > #### Enterprise license required
 > You must have a valid license to run InfluxDB Enterprise.
 > Contact <sales@influxdata.com> for licensing information or obtain a 14-day demo license via the [InfluxDB Enterprise portal](https://portal.influxdata.com/users/new).
+
+- [Docker image variants](#docker-image-variants)
+- [Requirements](#requirements)
+- [Set up an InfluxDB Enterprise cluster with Docker](#set-up-an-influxdb-enterprise-cluster-with-docker)
+- [Configuration options](#configuration-options)
+- [Exposing ports](#exposing-ports)
+- [Persistent data storage](#persistent-data-storage)
+- [Next steps](#next-steps)
 
 ## Docker image variants
 
@@ -35,15 +47,23 @@ InfluxDB Enterprise provides two specialized Docker images:
 
 ## Set up an InfluxDB Enterprise cluster with Docker
 
-### 1. Create a Docker network
+1. [Create a Docker network](#create-a-docker-network)
+2. [Start meta nodes](#start-meta-nodes)
+3. [Configure meta nodes to know each other](#configure-meta-nodes-to-know-each-other)
+4. [Start data nodes](#start-data-nodes)
+5. [Add data nodes to the cluster](#add-data-nodes-to-the-cluster)
+6. [Verify the cluster](#verify-the-cluster)
+7. [Stop and restart InfluxDB v1 Enterprise Containers](#stop-and-restart-influxdb-v1-enterprise-containers)
 
-Create a custom Docker network to allow communication between meta and data nodes:
+### Create a Docker network
 
-```bash
-docker network create influxdb
-```
+   Create a custom Docker network to allow communication between meta and data nodes:
 
-### 2. Start meta nodes
+   ```bash
+   docker network create influxdb
+   ```
+
+### Start meta nodes
 
 Start three meta nodes using the `influxdb:meta` image.
 Each meta node requires a unique hostname and the Enterprise license key:
@@ -74,7 +94,7 @@ docker run -d \
   influxdb:meta
 ```
 
-### 3. Configure meta nodes to know each other
+### Configure meta nodes to know each other
 
 From the first meta node, add the other meta nodes to the cluster:
 
@@ -88,7 +108,7 @@ docker exec influxdb-meta-0 \
   influxd-ctl add-meta influxdb-meta-2:8091
 ```
 
-### 4. Start data nodes
+### Start data nodes
 
 Start two or more data nodes using the `influxdb:data` image:
 
@@ -110,7 +130,7 @@ docker run -d \
   influxdb:data
 ```
 
-### 5. Add data nodes to the cluster
+### Add data nodes to the cluster
 
 From the first meta node, register each data node with the cluster:
 
@@ -124,7 +144,7 @@ docker exec influxdb-meta-0 \
   influxd-ctl add-data influxdb-data-1:8088
 ```
 
-### 6. Verify the cluster
+### Verify the cluster
 
 Check that all nodes are properly added to the cluster:
 
