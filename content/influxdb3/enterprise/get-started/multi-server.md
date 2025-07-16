@@ -58,7 +58,7 @@ influxdb3 serve \
   --mode ingest,query \
   --object-store s3 \
   --bucket influxdb-3-enterprise-storage \
-  --http-bind localhost:8282 \
+  --http-bind localhost:8181 \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY
 ```
@@ -287,7 +287,7 @@ influxdb3 serve \
   --mode ingest,query \
   --object-store s3 \
   --bucket influxdb-3-enterprise-storage \
-  --http-bind localhost:8282 \
+  --http-bind localhost:8181 \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY
 ```
@@ -344,7 +344,7 @@ The following examples sets up high availability with a dedicated Compactor node
       --mode ingest,query \
       --object-store s3 \
       --bucket influxdb-3-enterprise-storage \
-      --http-bind localhost:8282 \
+      --http-bind localhost:8181 \
       --aws-access-key-id <AWS_ACCESS_KEY_ID> \
       --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
     ```
@@ -416,7 +416,7 @@ ingest nodes alongside query nodes and a dedicated Compactor node.
       --mode ingest \
       --object-store s3 \
       --bucket influxdb-3-enterprise-storage \
-      --http-bind localhost:8282 \
+      --http-bind localhost:8181 \
       --aws-access-key-id <AWS_ACCESS_KEY_ID> \
       --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
     ```
@@ -460,7 +460,7 @@ ingest nodes alongside query nodes and a dedicated Compactor node.
       --mode query \
       --object-store s3 \
       --bucket influxdb-3-enterprise-storage \
-      --http-bind localhost:8383 \
+      --http-bind localhost:8181 \
       --aws-access-key-id <AWS_ACCESS_KEY_ID> \
       --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
     ```
@@ -479,7 +479,7 @@ ingest nodes alongside query nodes and a dedicated Compactor node.
       --mode query \
       --object-store s3 \
       --bucket influxdb-3-enterprise-storage \
-      --http-bind localhost:8484 \
+      --http-bind localhost:8181 \
       --aws-access-key-id <AWS_ACCESS_KEY_ID> \
       <AWS_SECRET_ACCESS_KEY>
     ```
