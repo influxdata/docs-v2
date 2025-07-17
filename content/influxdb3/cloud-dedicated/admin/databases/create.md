@@ -30,6 +30,7 @@ related:
   - /influxdb3/cloud-dedicated/reference/cli/influxctl/database/create/
   - /influxdb3/cloud-dedicated/admin/custom-partitions/
   - /influxdb3/cloud-dedicated/reference/api/
+  - /influxdb3/cloud-dedicated/reference/naming-restrictions/
 ---
 
 Use the Admin UI, the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/),
@@ -306,11 +307,42 @@ For example, `2592000000000` means 30 days. A value of `0` keeps data indefinite
 
 Database names must adhere to the following naming restrictions:
 
-- Cannot contain whitespace, punctuation, or special characters.
-  Only alphanumeric, underscore (`_`), dash (`-`), and forward-slash
-  (`/`) characters are permitted.
-- Should not start with an underscore (`_`).
-- Maximum length of 64 characters.
+- **Length**: Maximum 64 characters
+- **Allowed characters**: Alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), dash (`-`), and forward-slash (`/`)
+- **Prohibited characters**: Cannot contain whitespace, punctuation, or other special characters
+- **Starting character**: Should start with a letter or number and should not start with underscore (`_`)
+- **Case sensitivity**: Database names are case-sensitive
+
+> [!Caution]
+> #### Underscore prefix reserved for system use
+>
+> Names starting with an underscore (`_`) may be reserved for InfluxDB system use.
+> While {{% product-name %}} might not explicitly reject these names, using them risks
+> conflicts with current or future system features and may result in
+> unexpected behavior or data loss.
+
+#### Valid database name examples
+
+```text
+mydb
+sensor_data
+prod-metrics
+logs/application
+webserver123
+```
+
+#### Invalid database name examples
+
+```text
+my database        # Contains whitespace
+sensor.data        # Contains period
+app@server         # Contains special character
+_internal          # Starts with underscore (reserved)
+very_long_database_name_that_exceeds_sixty_four_character_limit  # Too long
+```
+
+For comprehensive information about naming restrictions for all InfluxDB identifiers, 
+see [Naming restrictions and conventions](/influxdb3/cloud-dedicated/reference/naming-restrictions/).
 
 ### InfluxQL DBRP naming convention
 
@@ -320,8 +352,11 @@ In {{% product-name %}}, databases and retention policies have been merged into
 _databases_, where databases have a retention period, but retention policies
 are no longer part of the data model.
 
+Because InfluxQL uses the 1.x data model, a database must be mapped to a v1
+database and retention policy (DBRP) to be queryable with InfluxQL.
+
 **When naming a database that you want to query with InfluxQL**, use the following
-naming convention:
+naming convention to automatically map v1 DBRP combinations to an {{% product-name %}} database:
 
 ```text
 database_name/retention_policy_name
@@ -353,6 +388,16 @@ Each measurement is represented by a table in a database.
 Your database's table limit can be raised beyond the default limit of 500.
 InfluxData has production examples of clusters with 20,000+ active tables across
 multiple databases.
+
+> [!Warning]
+> #### Excessive table counts can impact performance and stability
+> 
+> High table counts, especially those concurrently receiving writes and queries,
+> can increase catalog overhead which can affect performance and stability.
+> What constitutes "excessive" depends on multiple factors such as query latency
+> requirements, write bandwidth, and cluster capacity to handle rapid backfills.
+> If you're considering more than doubling the default limit, test your
+> configuration thoroughly.
 
 Increasing your table limit affects your {{% product-name omit=" Clustered" %}}
 cluster in the following ways:
