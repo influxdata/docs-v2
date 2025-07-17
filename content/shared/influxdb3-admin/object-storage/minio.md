@@ -1,5 +1,5 @@
 
-Use [MinIO](min.io) as the object store for your {{% product-name %}} instance.
+Use [MinIO](https://min.io) as the object store for your {{% product-name %}} instance.
 InfluxDB uses the MinIO S3-compatible API to interact with your MinIO server or
 cluster.
 
@@ -9,7 +9,7 @@ cluster.
 >
 > {{% cite %}}[MinIO GitHub repository](https://github.com/minio/minio?tab=readme-ov-file#readme){{% /cite %}}
 
-MinIO provides both a open source version ([MinIO Community Edition](https://min.io/open-source/download))
+MinIO provides both an open source version ([MinIO Community Edition](https://min.io/open-source/download))
 and an enterprise version ([MinIO AIStor](https://min.io/download)).
 While both can be used as your {{% product-name %}} object store,
 **this guide walks through using MinIO Community Edition**.
@@ -55,7 +55,7 @@ While both can be used as your {{% product-name %}} object store,
     - **Alias**: A unique name or identifier for this credential set
       ({{% code-placeholder-key %}}`ALIAS`{{% /code-placeholder-key %}})
     - **MinIO URL**: The URL of your MinIO server or cluster
-      ({{% code-placeholder-key %}}`https://locahost:9000`{{% /code-placeholder-key %}}
+      ({{% code-placeholder-key %}}`https://localhost:9000`{{% /code-placeholder-key %}}
       if running locally)
     - **Root username:** The root username you specified when setting up your
       MinIO server or cluster
@@ -83,8 +83,8 @@ While both can be used as your {{% product-name %}} object store,
 {{% tab-content %}}
 <!---------------------------- BEGIN MinIO Console ---------------------------->
 
-The MinIO Console is graphical user interface that lets you manage and browse
-buckets in your MinIO server or cluster. By default, the console served on port
+The MinIO Console is a graphical user interface that lets you manage and browse
+buckets in your MinIO server or cluster. By default, the console is served on port
 `9001`.
 
 If running MinIO on your local machine, visit <http://localhost:9001>
