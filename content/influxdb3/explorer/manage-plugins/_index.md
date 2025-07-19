@@ -79,6 +79,17 @@ You can also use the **search bar** to filter by plugin name.
 
 ## Edit a plugin
 
+1. In the plugin list, locate the desired plugin.
+2. Click **Edit**.
+3. Edit the plugins settings.
+4. Slick **Save**.
+
+> ![Note]
+> #### Editing a plugin removes and recreates the plugin
+>
+> When editing an InfluxDB 3 plugin, InfluxDB 3 Explorer removes and recreates
+> the plugin using the updated settings.
+
 ## Delete a plugin
 
 1. In the plugin list, locate the desired plugin.
