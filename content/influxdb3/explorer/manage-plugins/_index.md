@@ -10,14 +10,6 @@ cascade:
   related:
     - /influxdb3/core/plugins/, InfluxDB 3 Core Processing engine plugins
     - /influxdb3/enterprise/plugins/, InfluxDB 3 Enterprise Processing engine plugins
-cascade:
-  draft: true
-  prepend: |
-    > [!Warning]
-    > #### {{% product-name %}} plugin management is currently in beta
-    >
-    > The {{% product-name %}} plugin management tools and the Plugin Library are
-    > currently in **beta**.
 ---
 
 {{% product-name %}} lets you manage plugins in your InfluxDB 3 instance or cluster.
@@ -45,7 +37,8 @@ Use the InfluxDB 3 Explorer UI to enable, disable, or configure triggers for eac
 - [View installed plugins](#view-installed-plugins)
   - [Filter installed plugins](#filter-installed-plugins)
 - [Enable or disable a plugin](#enable-or-disable-a-plugin)
-- [ View Plugin Logs](#view-plugin-logs)
+- [View Plugin Logs](#view-plugin-logs)
+- [Edit a plugin](#edit-a-plugin)
 - [Delete a plugin](#delete-a-plugin)
 - [Use the Plugin Library](#use-the-plugin-library)
 
@@ -77,12 +70,14 @@ You can also use the **search bar** to filter by plugin name.
     - **If the plugin is currently running (enabled)**, click {{< icon "pause" >}} to disable the plugin.
     - **If the plugin is currently stopped (disabled)**, click the {{< icon "play" >}} button to enable the plugin.
 
-##  View plugin logs
+## View plugin logs
 
 1. In the plugin list, locate the desired plugin.
 2. Click **Logs** to view the most recent logs output by the plugin.
 3. To view more log entries, click **View More**.
 4. To export the logs, click **Export**.
+
+## Edit a plugin
 
 ## Delete a plugin
 
