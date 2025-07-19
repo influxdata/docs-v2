@@ -63,7 +63,7 @@
     </ul>
     {{ if not (in $supportBlacklist $product) }}
       <p><strong>Customers with an annual or support contract</strong> can <a href="https://support.influxdata.com/">contact InfluxData Support</a>.
-         <strong>Customers using a trial license</strong> can email trial@influxdata.com for assistance.</p>
+         {{ if eq $version "enterprise" }}<strong>Customers using a trial license</strong> can email <a href="mailto:trial@influxdata.com">trial@influxdata.com</a> for assistance.</p>{{ end }}
 
     {{ end }}
   </div>
