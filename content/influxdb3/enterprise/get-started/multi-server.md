@@ -19,7 +19,6 @@ Configure nodes with specific _modes_ (ingest, query, process, compact) to optim
 ## Prerequisites
 
 - Shared object store
-- Network connectivity between nodes
 
 ## Basic multi-node setup
 
