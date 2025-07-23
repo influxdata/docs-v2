@@ -129,7 +129,7 @@ explorer:
   list_order: 4
   versions: [v1]
   latest: explorer
-  latest_patch: 1.0.0
+  latest_patch: 1.1.0
   ai_sample_questions:
     - How do I use InfluxDB 3 Explorer to visualize data?
     - How do I create a dashboard in InfluxDB 3 Explorer?
