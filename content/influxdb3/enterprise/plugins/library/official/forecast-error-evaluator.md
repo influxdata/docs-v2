@@ -5,7 +5,7 @@ menu:
   influxdb3_enterprise:
     name: Forecast error evaluator
     parent: Official plugins
-weight: 3
+weight: 100
 influxdb3/enterprise/tags: [plugins, processing engine, python, forecasting, evaluation, analytics]
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/forecast_error_evaluator, Forecast error evaluator plugin on GitHub

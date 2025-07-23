@@ -80,16 +80,14 @@ A plugin is a Python script that defines a specific function signature for a tri
 
 You have two main options for adding plugins to your InfluxDB instance:
 
-- [Use example plugins](#use-example-plugins) - Quickly get started with prebuilt plugins
+- [Use example plugins](#use-example-plugins) - Get started with prebuilt plugins
 - [Create a custom plugin](#create-a-custom-plugin) - Build your own for specialized use cases
 
 ### Use example plugins
 
-InfluxData provides official plugins that you can use immediately in your Processing Engine setup.
+InfluxData maintains a repository of official and community plugins that you can use immediately in your Processing Engine setup.
 
-#### Browse plugin examples
-
-Visit the [plugin library](/influxdb3/version/plugins/library/) to find starter examples and official plugins for:
+Browse the [plugin library](/influxdb3/version/plugins/library/) to find examples and InfluxData official plugins for:
 
   - **Data transformation**: Process and transform incoming data
   - **Alerting**: Send notifications based on data thresholds
@@ -97,11 +95,11 @@ Visit the [plugin library](/influxdb3/version/plugins/library/) to find starter 
   - **Integration**: Connect to external services and APIs
   - **System monitoring**: Track resource usage and health metrics
 
-For more examples and community contributions, see the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) on GitHub.
+For community contributions, see the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) on GitHub.
 
 #### Add example plugins
 
-You have two options for using example plugins:
+You have two options for using plugins from the repository:
 
 ##### Option 1: Copy plugins locally
 

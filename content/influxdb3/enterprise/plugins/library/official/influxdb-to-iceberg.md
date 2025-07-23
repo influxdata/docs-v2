@@ -5,7 +5,7 @@ menu:
   influxdb3_enterprise:
     name: InfluxDB to Iceberg
     parent: Official plugins
-weight: 4
+weight: 100
 influxdb3/enterprise/tags: [plugins, processing engine, python, iceberg, export, data-lake]
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/influxdb_to_iceberg, InfluxDB to Iceberg plugin on GitHub

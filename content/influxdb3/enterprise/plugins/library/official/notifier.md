@@ -5,7 +5,7 @@ menu:
   influxdb3_enterprise:
     name: Notifier
     parent: Official plugins
-weight: 6
+weight: 100
 influxdb3/enterprise/tags: [plugins, processing engine, python, notifications, alerting, integration]
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/notifier, Notifier plugin on GitHub
