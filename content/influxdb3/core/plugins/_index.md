@@ -11,9 +11,9 @@ influxdb3/core/tags: [processing engine, python]
 related:
 - /influxdb3/core/reference/cli/influxdb3/test/wal_plugin/ 
 - /influxdb3/core/reference/cli/influxdb3/create/trigger/
-source: /shared/v3-core-plugins/_index.md
+source: /shared/influxdb3-plugins/_index.md
 ---
 
 <!-- 
-//SOURCE - content/shared/v3-core-plugins/_index.md
+//SOURCE - content/shared/influxdb3-plugins/_index.md
 -->
