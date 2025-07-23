@@ -5,7 +5,7 @@ menu:
   influxdb3_core:
     name: Stateless ADTK detector
     parent: Official plugins
-weight: 9
+weight: 100
 influxdb3/core/tags: [plugins, processing engine, python, anomaly-detection, adtk, stateless]
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/stateless_adtk_detector, Stateless ADTK detector plugin on GitHub

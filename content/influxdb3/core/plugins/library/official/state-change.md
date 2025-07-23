@@ -5,7 +5,7 @@ menu:
   influxdb3_core:
     name: State change
     parent: Official plugins
-weight: 8
+weight: 100
 influxdb3/core/tags: [plugins, processing engine, python, state-tracking, event-detection, monitoring]
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/state_change, State change plugin on GitHub

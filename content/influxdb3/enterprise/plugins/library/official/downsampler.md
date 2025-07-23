@@ -5,7 +5,7 @@ menu:
   influxdb3_enterprise:
     name: Downsampler
     parent: Official plugins
-weight: 2
+weight: 100
 influxdb3/enterprise/tags: [plugins, processing engine, python, downsampling, aggregation, performance]
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/downsampler, Downsampler plugin on GitHub

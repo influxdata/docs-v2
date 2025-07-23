@@ -5,7 +5,7 @@ menu:
   influxdb3_core:
     name: Prophet forecasting
     parent: Official plugins
-weight: 7
+weight: 100
 influxdb3/core/tags: [plugins, processing engine, python, forecasting, prophet, machine-learning]
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/prophet_forecasting, Prophet forecasting plugin on GitHub

@@ -5,7 +5,7 @@ menu:
   influxdb3_core:
     name: MAD anomaly detection
     parent: Official plugins
-weight: 5
+weight: 100
 influxdb3/core/tags: [plugins, processing engine, python, anomaly-detection, statistics, monitoring]
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/mad_check, MAD-based anomaly detection plugin on GitHub

@@ -5,7 +5,7 @@ menu:
   influxdb3_core:
     name: WAL plugin
     parent: Example plugins
-weight: 2
+weight: 100
 influxdb3/core/tags: [plugins, processing engine, python, wal, data-write]
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/examples/wal-plugin, WAL plugin on GitHub
