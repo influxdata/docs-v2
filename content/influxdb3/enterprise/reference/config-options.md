@@ -338,8 +338,8 @@ Valid values are `health`, `ping`, and `metrics`.
 Limits the total number of active databases.
 Default is {{% influxdb3/limit "database" %}}.
 
-| influxdb3 serve option  | Environment variable                      |
-| :---------------------- | :---------------------------------------- |
+| influxdb3 serve option | Environment variable                      |
+| :--------------------- | :---------------------------------------- |
 | `--num-database-limit` | `INFLUXDB3_ENTERPRISE_NUM_DATABASE_LIMIT` |
 
 ---
