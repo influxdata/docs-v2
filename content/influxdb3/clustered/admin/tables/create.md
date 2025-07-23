@@ -14,6 +14,7 @@ list_code_example: |
   ```
 related:
   - /influxdb3/clustered/reference/cli/influxctl/table/create/
+  - /influxdb3/clustered/reference/naming-restrictions/
   - /influxdb3/clustered/admin/custom-partitions/
 ---
 
@@ -38,7 +39,7 @@ to a table, you must manually create the table before you write any data to it.
       that specifies the time format in the partition template and determines
       the time interval to partition by _(default is `%Y-%m-%d`)_
     - The name of the database to create the table in
-    - The name of the table to create
+    - The name of the table to create (see [Table naming restrictions](#table-naming-restrictions))
 
     > [!Note]
     > _{{< product-name >}} supports up to 7 total tags or tag buckets in the partition template._
@@ -74,4 +75,22 @@ For more information, see [Manage data partitioning](/influxdb3/clustered/admin/
 > #### Partition templates can only be applied on create
 > 
 > You can only apply a partition template when creating a table.
-> There is no way to update a partition template on an existing table.
+> You can't update a partition template on an existing table.
+
+## Table naming restrictions
+
+Table names in {{< product-name >}} must adhere to the following naming restrictions:
+
+- **Allowed characters**: Alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), dash (`-`)
+- **Starting character**: Should start with a letter or number and should not start with underscore (`_`)
+- **Case sensitivity**: Table names are case-sensitive
+- **Quoting**: Use double quotes when names contain special characters or whitespace
+
+> [!Caution]
+> #### Underscore prefix reserved for system use
+>
+> Names starting with an underscore (`_`) may be reserved for InfluxDB system use.
+> While {{< product-name >}} might not explicitly reject these names, using them risks
+> conflicts with current or future system features and may result in
+> unexpected behavior or data loss.
+
