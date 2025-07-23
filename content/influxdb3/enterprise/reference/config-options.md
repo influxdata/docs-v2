@@ -62,9 +62,9 @@ influxdb3 serve
   - [tls-minimum-versions](#tls-minimum-version)
   - [without-auth](#without-auth)
   - [disable-authz](#disable-authz)
-  - num-database-limit
-  - num-table-limit
-  - num-total-columns-per-table-limit
+  - [num-database-limit](#num-database-limit)
+  - [num-table-limit](#num-table-limit)
+  - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit)
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
   - [aws-secret-access-key](#aws-secret-access-key)
