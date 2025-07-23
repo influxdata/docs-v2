@@ -85,17 +85,19 @@ You have two main options for adding plugins to your InfluxDB instance:
 
 ### Use example plugins
 
-InfluxData provides a public repository of example plugins that you can use immediately. 
+InfluxData provides official plugins that you can use immediately in your Processing Engine setup.
 
 #### Browse plugin examples
 
-Visit the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) to find examples for:
+Visit the [plugin library](/influxdb3/version/plugins/library/) to find starter examples and official plugins for:
 
-   - **Data transformation**: Process and transform incoming data
-   - **Alerting**: Send notifications based on data thresholds
-   - **Aggregation**: Calculate statistics on time series data
-   - **Integration**: Connect to external services and APIs
-   - **System monitoring**: Track resource usage and health metrics
+  - **Data transformation**: Process and transform incoming data
+  - **Alerting**: Send notifications based on data thresholds
+  - **Aggregation**: Calculate statistics on time series data
+  - **Integration**: Connect to external services and APIs
+  - **System monitoring**: Track resource usage and health metrics
+
+For more examples and community contributions, see the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) on GitHub.
 
 #### Add example plugins
 

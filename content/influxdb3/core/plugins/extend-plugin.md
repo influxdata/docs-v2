@@ -8,10 +8,14 @@ menu:
     parent: Processing engine and Python plugins
 weight: 4
 influxdb3/core/tags: [processing engine, plugins, API, python]
-source: /shared/extended-plugin-api.md
+aliases:
+- /influxdb3/core/extend-plugin/
+related:
+- /influxdb3/core/reference/cli/influxdb3/create/trigger/
+- /influxdb3/core/reference/cli/influxdb3/test/
+- /influxdb3/core/reference/processing-engine/
+source: /shared/influxdb3-plugins/extended-plugin-api.md
 ---
 
-<!-- 
-// SOURCE content/shared/extended-plugin-api.md
--->
+<!-- //SOURCE content/shared/influxdb3-plugins/extended-plugin-api.md -->
 
