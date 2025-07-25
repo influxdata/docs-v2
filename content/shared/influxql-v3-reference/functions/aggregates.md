@@ -6,23 +6,13 @@ _Examples use the sample data set provided in the
 
 - [COUNT()](#count)
 - [DISTINCT()](#distinct)
+- [INTEGRAL()](#integral)
 - [MEAN()](#mean)
 - [MEDIAN()](#median)
 - [MODE()](#mode)
 - [SPREAD()](#spread)
 - [STDDEV()](#stddev)
 - [SUM()](#sum)
-
-<!-- When implemented, place back in alphabetical order -->
-<!-- - [INTEGRAL()](#integral) -->
-
-> [!Important]
-> #### Missing InfluxQL functions
-> 
-> Some InfluxQL functions are in the process of being rearchitected to work with
-> the InfluxDB 3 storage engine. If a function you need is not here, check the
-> [InfluxQL feature support page](/influxdb/version/reference/influxql/feature-support/#function-support)
-> for more information.
 
 ## COUNT()
 
@@ -186,14 +176,14 @@ name: home
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-<!-- ## INTEGRAL()
+## INTEGRAL()
 
 Returns the area under the curve for queried [field values](/influxdb/version/reference/glossary/#field-value)
 and converts those results into the summed area per **unit** of time.
 
-> [!Note]
-> `INTEGRAL()` does not support [`fill()`](/influxdb/version/query-data/influxql/explore-data/group-by/> #group-by-time-intervals-and-fill).
-> `INTEGRAL()` supports int64 and float64 field value [data types](/influxdb/version/reference/glossary/#data-type).
+> [!Important]
+> - `INTEGRAL()` does not support [`fill()`](/influxdb/version/reference/influxql/group-by/#group-by-time-and-fill-gaps).
+> - `INTEGRAL()` supports int64 and float64 field value [data types](/influxdb/version/reference/glossary/#data-type).
 
 ```sql
 INTEGRAL(field_expression[, unit])
@@ -318,7 +308,7 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
 
 ## MEAN()
 
