@@ -1,10 +1,10 @@
 ---
-title: Use the v3 write API to write data
+title: Use the v3 write_lp API to write data
 description: >
   Use the `/api/v3/write_lp` HTTP API endpoint to write data to {{% product-name %}}.
 menu:
   influxdb3_core:
-    name: Use the v3 write API
+    name: Use the v3 write_lp API
     parent: write-http-api
 weight: 201
 related:
