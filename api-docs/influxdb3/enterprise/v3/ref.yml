@@ -429,11 +429,15 @@ paths:
         Use this endpoint to send data in [line protocol](/influxdb3/enterprise/reference/syntax/line-protocol/) format to InfluxDB.
         Use query parameters to specify options for writing data.
         
-        ## Features
+        #### Features
         
         - **Partial writes**: Use `accept_partial=true` to allow partial success when some lines in a batch fail
         - **Asynchronous writes**: Use `no_sync=true` to skip waiting for WAL synchronization, allowing faster response times but sacrificing durability guarantees  
         - **Flexible precision**: Automatic timestamp precision detection with `precision=auto` (default)
+
+        #### Related
+        
+        - [Use the InfluxDB v3 write_lp API to write data](/influxdb3/enterprise/write-data/http-api/v3-write-lp/)
       parameters:
         - $ref: '#/components/parameters/dbWriteParam'
         - $ref: '#/components/parameters/accept_partial'
