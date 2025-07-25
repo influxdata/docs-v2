@@ -1976,12 +1976,12 @@ components:
     QueryRequestObject:
       type: object
       properties:
-        database:
+        db:
           description: |
             The name of the database to query.
-            Required if the query (`query_str`) doesn't specify the database.
+            Required if the query (`q`) doesn't specify the database.
           type: string
-        query_str:
+        q:
           description: The query to execute.
           type: string
         format:
@@ -2000,11 +2000,11 @@ components:
           type: object
           additionalProperties: true
       required:
-        - database
-        - query_str
+        - db
+        - q
       example:
-        database: mydb
-        query_str: SELECT * FROM mytable
+        db: mydb
+        q: SELECT * FROM mytable
         format: json
         params: {}
     CreateDatabaseRequest:
