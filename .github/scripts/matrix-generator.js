@@ -6,7 +6,7 @@
 
 import { spawn } from 'child_process';
 import process from 'process';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'url'; // Used for main execution check at bottom of file
 
 // Product configuration mapping file paths to products
 const PRODUCT_MAPPING = {
