@@ -683,7 +683,7 @@ are `127.0.0.1:8088`.
 
 **To customize the TCP IP and port the backup and restore services use**,
 uncomment and update the
-[`bind-address` configuration setting](/influxdb/v1/administration/config#bind-address) 
+[`bind-address` configuration setting](/influxdb/v1/administration/config#rpc-bind-address) 
 at the root level of your InfluxDB configuration file (`influxdb.conf`).
 
 ```toml
