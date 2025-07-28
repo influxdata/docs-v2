@@ -393,6 +393,93 @@ async function main() {
         '   This usually indicates test errors unrelated to link validation.'
       );
 
+      // Provide detailed failure analysis
+      if (results) {
+        console.warn('📊 Detailed Test Results:');
+        console.warn(`   • Total Tests: ${results.totalTests || 0}`);
+        console.warn(`   • Tests Passed: ${results.totalPassed || 0}`);
+        console.warn(`   • Tests Failed: ${results.totalFailed || 0}`);
+        console.warn(`   • Tests Pending: ${results.totalPending || 0}`);
+        console.warn(`   • Tests Skipped: ${results.totalSkipped || 0}`);
+        console.warn(`   • Duration: ${results.totalDuration || '0'}ms`);
+
+        // Show run-level information
+        if (results.runs && results.runs.length > 0) {
+          console.warn(`   • Spec Files: ${results.runs.length}`);
+
+          // Show failures by spec file
+          const failedRuns = results.runs.filter(
+            (run) => run.stats?.failures > 0
+          );
+          if (failedRuns.length > 0) {
+            console.warn('📋 Failed Spec Files:');
+            failedRuns.forEach((run) => {
+              console.warn(
+                `   • ${run.spec?.relative || run.spec?.name || 'Unknown spec'}`
+              );
+              if (run.stats) {
+                console.warn(`     - Failures: ${run.stats.failures}`);
+                console.warn(`     - Duration: ${run.stats.duration || 0}ms`);
+              }
+
+              // Show test-level failures if available
+              if (run.tests) {
+                const failedTests = run.tests.filter(
+                  (test) => test.state === 'failed'
+                );
+                if (failedTests.length > 0) {
+                  console.warn(`     - Failed Tests:`);
+                  failedTests.forEach((test, idx) => {
+                    if (idx < 3) {
+                      // Limit to first 3 failed tests per spec
+                      console.warn(`       * ${test.title || 'Unnamed test'}`);
+                      if (test.err?.message) {
+                        // Truncate very long error messages
+                        const errorMsg =
+                          test.err.message.length > 200
+                            ? test.err.message.substring(0, 200) + '...'
+                            : test.err.message;
+                        console.warn(`         Error: ${errorMsg}`);
+                      }
+                    }
+                  });
+                  if (failedTests.length > 3) {
+                    console.warn(
+                      `       ... and ${failedTests.length - 3} more failed tests`
+                    );
+                  }
+                }
+              }
+            });
+          }
+        }
+
+        // Check for browser/system level issues
+        if (results.browserName) {
+          console.warn(
+            `   • Browser: ${results.browserName} ${results.browserVersion || ''}`
+          );
+        }
+
+        // Suggest common solutions
+        console.warn('💡 Common Causes & Solutions:');
+        console.warn(
+          '   • Page load timeouts: Check if Hugo server is responding properly'
+        );
+        console.warn(
+          '   • Network timeouts: Verify external link connectivity'
+        );
+        console.warn(
+          '   • Browser crashes: Check for memory or resource issues'
+        );
+        console.warn(
+          '   • Test logic errors: Review test assertions and selectors'
+        );
+        console.warn(
+          `   • Hugo server logs: Check ${HUGO_LOG_FILE} for errors`
+        );
+      }
+
       // We should not consider special case domains (those with expected errors) as failures
       // but we'll still report other test failures
       cypressFailed = true;
@@ -408,9 +495,52 @@ async function main() {
     }
   } catch (err) {
     console.error(`❌ Cypress execution error: ${err.message}`);
+
+    // Provide more detailed error information
+    if (err.stack) {
+      console.error('📋 Error Stack Trace:');
+      // Only show the first few lines of the stack trace to avoid overwhelming output
+      const stackLines = err.stack.split('\n').slice(0, 5);
+      stackLines.forEach((line) => console.error(`   ${line}`));
+      if (err.stack.split('\n').length > 5) {
+        console.error('   ... (truncated)');
+      }
+    }
+
+    // Check if error is related to common issues
+    const errorMsg = err.message.toLowerCase();
+    if (errorMsg.includes('timeout') || errorMsg.includes('timed out')) {
+      console.error('🕐 Timeout detected - possible causes:');
+      console.error(
+        '   • Hugo server not responding (check if it started properly)'
+      );
+      console.error('   • Network connectivity issues');
+      console.error('   • External links taking too long to respond');
+      console.error('   • Page load timeouts (heavy pages or slow rendering)');
+    } else if (
+      errorMsg.includes('connection') ||
+      errorMsg.includes('econnrefused')
+    ) {
+      console.error('🔌 Connection issues detected:');
+      console.error('   • Hugo server may not be running or accessible');
+      console.error(`   • Check if port ${HUGO_PORT} is available`);
+      console.error('   • Firewall or network restrictions');
+    } else if (errorMsg.includes('browser') || errorMsg.includes('chrome')) {
+      console.error('🌐 Browser issues detected:');
+      console.error(
+        '   • Chrome/browser may not be available in CI environment'
+      );
+      console.error('   • Browser crashed or failed to start');
+      console.error('   • Insufficient memory or resources');
+    }
+
     console.error(
-      `Check Hugo server logs at ${HUGO_LOG_FILE} for any server issues`
+      `📝 Hugo server logs: Check ${HUGO_LOG_FILE} for server issues`
     );
+    console.error('💡 Additional debugging steps:');
+    console.error('   • Verify Hugo server started successfully');
+    console.error('   • Check if test URLs are accessible manually');
+    console.error('   • Review Cypress screenshots/videos if available');
 
     // Still try to display broken links report if available
     displayBrokenLinksReport();
@@ -454,6 +584,21 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error(`Fatal error: ${err}`);
+  console.error(`💥 Fatal error during test execution: ${err.message || err}`);
+
+  if (err.stack) {
+    console.error('📋 Fatal Error Stack Trace:');
+    console.error(err.stack);
+  }
+
+  console.error(
+    '🔍 This error occurred in the main test runner flow, not within Cypress tests.'
+  );
+  console.error('💡 Common causes:');
+  console.error('   • File system permissions issues');
+  console.error('   • Missing dependencies or modules');
+  console.error('   • Hugo server startup failures');
+  console.error('   • Process management errors');
+
   process.exit(1);
 });
