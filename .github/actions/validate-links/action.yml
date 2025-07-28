@@ -37,30 +37,42 @@ runs:
           ${{ inputs.cache-key }}-
     
     - name: Run link validation
-      id: validate
-      run: |
-        echo "Testing files: ${{ inputs.files }}"
-        if [[ -n "${{ inputs.product-name }}" ]]; then
-          echo "Product: ${{ inputs.product-name }}"
-        fi
-        
-        if [[ "${{ inputs.cache-enabled }}" == "true" ]]; then
-          echo "📦 Cache enabled for this validation run"
-        fi
-        
-        # Run the validation
-        if node cypress/support/run-e2e-specs.js \
-            --spec "cypress/e2e/content/article-links.cy.js" \
-            ${{ inputs.files }}; then
-          echo "failed=false" >> $GITHUB_OUTPUT
-        else
-          echo "failed=true" >> $GITHUB_OUTPUT
-          exit 1
-        fi
       shell: bash
-      env:
-        CI: true
-        CACHE_ENABLED: ${{ inputs.cache-enabled }}
+      run: |
+        # Set CI-specific environment variables
+        export CI=true
+        export GITHUB_ACTIONS=true
+        export NODE_OPTIONS="--max-old-space-size=4096"
+        
+        # Add timeout to prevent hanging
+        timeout 30m node cypress/support/run-e2e-specs.js ${{ inputs.files }} \
+          --spec cypress/e2e/content/article-links.cy.js || {
+          exit_code=$?
+          echo "::error::Link validation failed with exit code $exit_code"
+          
+          # Check for specific error patterns
+          if [ -f hugo.log ]; then
+            echo "::group::Hugo Server Logs"
+            cat hugo.log
+            echo "::endgroup::"
+          fi
+          
+          if [ -f /tmp/broken_links_report.json ]; then
+            echo "::group::Broken Links Report"
+            cat /tmp/broken_links_report.json
+            echo "::endgroup::"
+          fi
+          
+          exit $exit_code
+        }
+        
+    - name: Upload logs on failure
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: validation-logs-${{ inputs.product-name }}
+        path: |
+          hugo.log
     
     - name: Upload broken links report
       if: failure()
