@@ -1,0 +1,70 @@
+name: 'Validate Links'
+description: 'Runs e2e browser-based link validation tests against Hugo site using Cypress'
+
+inputs:
+  files:
+    description: 'Space-separated list of files to validate'
+    required: true
+  product-name:
+    description: 'Product name for reporting (optional)'
+    required: false
+    default: ''
+  cache-enabled:
+    description: 'Enable link validation caching'
+    required: false
+    default: 'true'
+  cache-key:
+    description: 'Cache key prefix for this validation run'
+    required: false
+    default: 'link-validation'
+
+outputs:
+  failed:
+    description: 'Whether validation failed (true/false)'
+    value: ${{ steps.validate.outputs.failed }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Restore link validation cache
+      if: inputs.cache-enabled == 'true'
+      uses: actions/cache@v4
+      with:
+        path: .cache/link-validation
+        key: ${{ inputs.cache-key }}-${{ runner.os }}-${{ hashFiles('content/**/*.md', 'content/**/*.html') }}
+        restore-keys: |
+          ${{ inputs.cache-key }}-${{ runner.os }}-
+          ${{ inputs.cache-key }}-
+    
+    - name: Run link validation
+      id: validate
+      run: |
+        echo "Testing files: ${{ inputs.files }}"
+        if [[ -n "${{ inputs.product-name }}" ]]; then
+          echo "Product: ${{ inputs.product-name }}"
+        fi
+        
+        if [[ "${{ inputs.cache-enabled }}" == "true" ]]; then
+          echo "📦 Cache enabled for this validation run"
+        fi
+        
+        # Run the validation
+        if node cypress/support/run-e2e-specs.js \
+            --spec "cypress/e2e/content/article-links.cy.js" \
+            ${{ inputs.files }}; then
+          echo "failed=false" >> $GITHUB_OUTPUT
+        else
+          echo "failed=true" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+      shell: bash
+      env:
+        CI: true
+        CACHE_ENABLED: ${{ inputs.cache-enabled }}
+    
+    - name: Upload broken links report
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: broken-links-report${{ inputs.product-name && format('-{0}', inputs.product-name) || '' }}
+        path: /tmp/broken_links_report.json

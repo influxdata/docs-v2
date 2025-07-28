@@ -9,7 +9,7 @@ Ready to contribute? Here's the essential workflow:
 2. [Fork and clone](#fork-and-clone-influxdata-documentation-repository) this repository
 3. [Install dependencies](#development-environment-setup) (Node.js, Yarn, Docker)
 4. Make your changes following [style guidelines](#making-changes)
-5. [Test your changes](#testing--quality-assurance) (pre-commit and pre-push hooks run automatically)
+5. [Test your changes](TESTING.md) (pre-commit and pre-push hooks run automatically)
 6. [Submit a pull request](#submission-process)
 
 For detailed setup and reference information, see the sections below.
@@ -250,63 +250,28 @@ For more information about generating InfluxDB API documentation, see the
 
 ---
 
-<!-- agent:instruct: condense -->
 ## Testing & Quality Assurance
 
-### Pre-commit Hooks
+For comprehensive testing information, including code block testing, link validation, style linting, and advanced testing procedures, see **[TESTING.md](TESTING.md)**.
 
-docs-v2 uses Lefthook to manage Git hooks that run during pre-commit and pre-push. The hooks run the scripts defined in `package.json` to lint Markdown and test code blocks.
-When you try to commit changes (`git commit`), Git runs
-the commands configured in `lefthook.yml` which pass your **staged** files to Vale,
-Prettier, Cypress (for UI tests and link-checking), and Pytest (for testing Python and shell code in code blocks).
+### Quick Testing Reference
 
-#### Skip pre-commit hooks
+```bash
+# Test code blocks
+yarn test:codeblocks:all
 
-**We strongly recommend running linting and tests**, but you can skip them
-(and avoid installing dependencies)
-by including the `LEFTHOOK=0` environment variable or the `--no-verify` flag with
-your commit--for example:
+# Test links
+yarn test:links content/influxdb3/core/**/*.md
+
+# Run style linting
+docker compose run -T vale content/**/*.md
+```
+
+Pre-commit hooks run automatically when you commit changes, testing your staged files with Vale, Prettier, Cypress, and Pytest. To skip hooks if needed:
 
 ```sh
 git commit -m "<COMMIT_MESSAGE>" --no-verify
 ```
-
-```sh
-LEFTHOOK=0 git commit
-```
-
-### Code Block Testing Overview
-
-[pytest-codeblocks](https://github.com/nschloe/pytest-codeblocks/tree/main) extracts code from python and shell Markdown code blocks and executes assertions for the code.
-
-**Basic example:**
-
-```python
-print("Hello, world!")
-```
-
-<!--pytest-codeblocks:expected-output-->
-
-```
-Hello, world!
-```
-
-For detailed testing setup and configuration, see [Detailed Testing Setup](#detailed-testing-setup).
-
-### Style Linting (Vale)
-
-docs-v2 includes Vale writing style linter configurations to enforce documentation writing style rules, guidelines, branding, and vocabulary terms.
-
-**Basic usage:**
-
-```sh
-docker compose run -T vale --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=error content/influxdb/cloud-dedicated/write-data/**/*.md
-```
-
-**VS Code integration:**
-
-1. Install the [Vale VSCode](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) extension.
-2. In the extension settings, set the `Vale:Vale CLI:Path` value to `${workspaceFolder}/node_modules/.bin/vale`.
 
 ---
 
@@ -1720,132 +1685,6 @@ Replace the following:
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB API token](/influxdb/v2/admin/tokens/)
 ```
 
-<!-- agent:instruct: extract testing-setup.instructions.md -->
-### Detailed Testing Setup
-
-#### Set up test scripts and credentials
-
-Tests for code blocks require your InfluxDB credentials and other typical
-InfluxDB configuration.
-
-To set up your docs-v2 instance to run tests locally, do the following:
-
-1. **Set executable permissions on test scripts** in `./test/src`:
-
-   ```sh
-   chmod +x ./test/src/*.sh
-   ```
-
-2. **Create credentials for tests**:
-   
-   - Create databases, buckets, and tokens for the product(s) you're testing.
-   - If you don't have access to a Clustered instance, you can use your
-Cloud Dedicated instance for testing in most cases. To avoid conflicts when
-     running tests, create separate Cloud Dedicated and Clustered databases.
-
-1. **Create .env.test**: Copy the `./test/env.test.example` file into each
-    product directory to test and rename the file as `.env.test`--for example:
-   
-   ```sh
-   ./content/influxdb/cloud-dedicated/.env.test
-   ```
-   
-2. Inside each product's `.env.test` file, assign your InfluxDB credentials to
-   environment variables:
-
-   - Include the usual `INFLUX_` environment variables
-   - In
-   `cloud-dedicated/.env.test` and `clustered/.env.test` files, also define the
-   following variables:
-
-     - `ACCOUNT_ID`, `CLUSTER_ID`: You can find these values in your `influxctl`
-       `config.toml` configuration file.
-     - `MANAGEMENT_TOKEN`: Use the `influxctl management create` command to generate
-       a long-lived management token to authenticate Management API requests
-
-   See the substitution
-   patterns in `./test/src/prepare-content.sh` for the full list of variables you may need to define in your `.env.test` files.
-
-3. For influxctl commands to run in tests, move or copy your `config.toml` file
-   to the `./test` directory.
-
-> [!Warning]
-> 
-> - The database you configure in `.env.test` and any written data may
-be deleted during test runs.
-> - Don't add your `.env.test` files to Git. To prevent accidentally adding credentials to the docs-v2 repo,
-> Git is configured to ignore `.env*` files. Consider backing them up on your local machine in case of accidental deletion.
-
-#### Test shell and python code blocks
-
-[pytest-codeblocks](https://github.com/nschloe/pytest-codeblocks/tree/main) extracts code from python and shell Markdown code blocks and executes assertions for the code.
-If you don't assert a value (using a Python `assert` statement), `--codeblocks` considers a non-zero exit code to be a failure.
-
-**Note**: `pytest --codeblocks` uses Python's `subprocess.run()` to execute shell code.
-
-You can use this to test CLI and interpreter commands, regardless of programming
-language, as long as they return standard exit codes.
-
-To make the documented output of a code block testable, precede it with the
-`<!--pytest-codeblocks:expected-output-->` tag and **omit the code block language
-descriptor**--for example, in your Markdown file:
-
-##### Example markdown
-
-```python
-print("Hello, world!")
-```
-
-<!--pytest-codeblocks:expected-output-->
-
-The next code block is treated as an assertion.
-If successful, the output is the following:
-
-```
-Hello, world!
-```
-
-For commands, such as `influxctl` CLI commands, that require launching an
-OAuth URL in a browser, wrap the command in a subshell and redirect the output
-to `/shared/urls.txt` in the container--for example:
-
-```sh
-# Test the preceding command outside of the code block.
-# influxctl authentication requires TTY interaction--
-# output the auth URL to a file that the host can open.
-script -c "influxctl user list " \
- /dev/null > /shared/urls.txt
-```
-
-You probably don't want to display this syntax in the docs, which unfortunately
-means you'd need to include the test block separately from the displayed code
-block.
-To hide it from users, wrap the code block inside an HTML comment.
-pytest-codeblocks will still collect and run the code block.
-
-##### Mark tests to skip 
-
-pytest-codeblocks has features for skipping tests and marking blocks as failed.
-To learn more, see the pytest-codeblocks README and tests.
-
-#### Troubleshoot tests
-
-##### Pytest collected 0 items
-
-Potential reasons:
-
-- See the test discovery options in `pytest.ini`.
-- For Python code blocks, use the following delimiter:
-
-    ```python
-    # Codeblocks runs this block.
-    ```
-
-  `pytest --codeblocks` ignores code blocks that use the following:
-
-    ```py
-    # Codeblocks ignores this block.
-    ```
 
 <!-- agent:instruct: condense -->
 ### Advanced Configuration

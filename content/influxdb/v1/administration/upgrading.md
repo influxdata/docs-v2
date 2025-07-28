@@ -53,12 +53,12 @@ Run the `buildtsi` command using the user account that you are going to run the 
 
 Switch index types at any time by doing one of the following:
 
-- To switch from to `inmem` to `tsi1`, complete steps 3 and 4 above in [Upgrade to InfluxDB 1.11.x](#upgrade-to-influxdb-1-8-x).
-- To switch from to `tsi1` to `inmem`, change `tsi1` to `inmem` by completing steps 3a-3c and 4 above in [Upgrade to InfluxDB 1.11.x](#upgrade-to-influxdb-1-8-x).
+- To switch from to `inmem` to `tsi1`, complete steps 3 and 4 above in [Upgrade to InfluxDB 1.11.x](#upgrade-to-influxdb-111x).
+- To switch from to `tsi1` to `inmem`, change `tsi1` to `inmem` by completing steps 3a-3c and 4 above in [Upgrade to InfluxDB 1.11.x](#upgrade-to-influxdb-111x).
 
 ## Downgrade InfluxDB
 
-To downgrade to an earlier version, complete the procedures above in [Upgrade to InfluxDB 1.11.x](#upgrade-to-influxdb-1-8-x), replacing the version numbers with the version that you want to downgrade to.
+To downgrade to an earlier version, complete the procedures above in [Upgrade to InfluxDB 1.11.x](#upgrade-to-influxdb-111x), replacing the version numbers with the version that you want to downgrade to.
 After downloading the release, migrating your configuration settings, and enabling TSI or TSM, make sure to [rebuild your index](/influxdb/v1/administration/rebuild-tsi-index/).
 
 >**Note:** Some versions of InfluxDB may have breaking changes that impact your ability to upgrade and downgrade. For example, you cannot downgrade from InfluxDB 1.3 or later to an earlier version. Please review the applicable version of release notes to check for compatibility issues between releases.
