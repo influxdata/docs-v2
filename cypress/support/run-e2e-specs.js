@@ -125,11 +125,13 @@ async function main() {
       try {
         // Use SIGTERM first, then SIGKILL if needed
         hugoProc.kill('SIGTERM');
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
           if (!hugoProc.killed) {
             hugoProc.kill('SIGKILL');
           }
         }, 1000);
+        // Clear the timeout if the process exits cleanly
+        hugoProc.on('exit', () => clearTimeout(timeoutId));
       } catch (err) {
         console.error(`Error killing Hugo process: ${err.message}`);
       }
