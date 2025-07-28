@@ -94,7 +94,7 @@ function extractMarkdownLinks(content, filePath) {
     }
 
     // Bare URLs (basic detection, avoid false positives)
-    const bareUrlRegex = /(?:^|[\s\n])(https?:\/\/[^\s\)]+)/g;
+    const bareUrlRegex = /(?:^|[\s\n])(https?:\/\/[^\s\)\]\}]+)/g;
     while ((match = bareUrlRegex.exec(line)) !== null) {
       const url = match[1];
       const columnStart = match.index + match[0].length - url.length;

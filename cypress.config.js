@@ -236,6 +236,20 @@ export default defineConfig({
             }
           });
         },
+
+        filePathToUrl(filePath) {
+          return new Promise(async (resolve, reject) => {
+            try {
+              const { filePathToUrl } = await import(
+                './.github/scripts/utils/url-transformer.js'
+              );
+              resolve(filePathToUrl(filePath));
+            } catch (error) {
+              console.error(`URL transformation error: ${error.message}`);
+              reject(error);
+            }
+          });
+        },
       });
 
       // Load plugins file using dynamic import for ESM compatibility

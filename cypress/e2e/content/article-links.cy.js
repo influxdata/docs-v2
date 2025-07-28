@@ -1,17 +1,5 @@
 /// <reference types="cypress" />
 
-// URL transformation utility to avoid code duplication
-function filePathToUrl(filePath) {
-  let url = filePath.replace(/^content/, '');
-  url = url.replace(/\/_index\.(html|md)$/, '/');
-  url = url.replace(/\.md$/, '/');
-  url = url.replace(/\.html$/, '/');
-  if (!url.startsWith('/')) {
-    url = '/' + url;
-  }
-  return url;
-}
-
 describe('Article', () => {
   let subjects = Cypress.env('test_subjects').split(',');
   let validationStrategy = null;
@@ -50,15 +38,19 @@ describe('Article', () => {
 
       // Update subjects to only test files that need validation
       if (results.filesToValidate.length > 0) {
-        subjects = results.filesToValidate.map((file) => {
-          // Convert file path to URL format using shared utility
-          return filePathToUrl(file.filePath);
-        });
-
-        cy.log(`📊 Cache Analysis: ${results.cacheStats.hitRate}% hit rate`);
-        cy.log(
-          `🔄 Testing ${subjects.length} pages (${results.cacheStats.cacheHits} cached)`
+        // Convert file paths to URLs using shared utility via Cypress task
+        const urlPromises = results.filesToValidate.map((file) =>
+          cy.task('filePathToUrl', file.filePath)
         );
+
+        cy.wrap(Promise.all(urlPromises)).then((urls) => {
+          subjects = urls;
+
+          cy.log(`📊 Cache Analysis: ${results.cacheStats.hitRate}% hit rate`);
+          cy.log(
+            `🔄 Testing ${subjects.length} pages (${results.cacheStats.cacheHits} cached)`
+          );
+        });
       } else {
         // All files are cached, no validation needed
         subjects = [];

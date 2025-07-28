@@ -201,17 +201,17 @@ Examples:
 
   console.log('\n📈 Validation Analysis Results:');
   console.log('================================');
-  console.log(`Cache hit rate: ${results.cacheStats.hitRate}%`);
-  console.log(`Files to validate: ${results.filesToValidate.length}`);
+  console.log(`📊 Cache hit rate: ${results.cacheStats.hitRate}%`);
+  console.log(`📋 Files to validate: ${results.filesToValidate.length}`);
 
   if (results.filesToValidate.length > 0) {
-    console.log('\nFiles needing validation:');
+    console.log('\n📝 Files needing validation:');
     results.filesToValidate.forEach((file) => {
-      console.log(`  ${file.filePath} (${file.linkCount} links)`);
+      console.log(`   ${file.filePath} (${file.linkCount} links)`);
     });
 
     // Output files for Cypress to process
-    console.log('\n# Files for Cypress validation (one per line):');
+    console.log('\n🎯 Files for Cypress validation (one per line):');
     results.filesToValidate.forEach((file) => {
       console.log(file.filePath);
     });

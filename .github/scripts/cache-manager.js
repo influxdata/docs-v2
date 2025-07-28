@@ -65,14 +65,22 @@ class CacheManager {
   }
 
   async getFromGitHubCache(filePath, fileHash) {
-    // For GitHub Actions, we'll use the actions/cache action directly
-    // in the workflow, so this is a placeholder
+    // TODO: This method is a placeholder for GitHub Actions cache integration
+    // GitHub Actions cache is handled directly in the workflow via actions/cache
+    // This method should either be implemented or removed in future versions
+    console.warn(
+      '[PLACEHOLDER] getFromGitHubCache: Using placeholder implementation - always returns null'
+    );
     return null;
   }
 
   async setToGitHubCache(filePath, fileHash, results) {
-    // For GitHub Actions, we'll use the actions/cache action directly
-    // in the workflow, so this is a placeholder
+    // TODO: This method is a placeholder for GitHub Actions cache integration
+    // GitHub Actions cache is handled directly in the workflow via actions/cache
+    // This method should either be implemented or removed in future versions
+    console.warn(
+      '[PLACEHOLDER] setToGitHubCache: Using placeholder implementation - always returns true'
+    );
     return true;
   }
 
