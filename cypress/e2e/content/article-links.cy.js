@@ -29,34 +29,39 @@ describe('Article', () => {
     }
 
     // Run incremental validation analysis with source file paths
-    cy.task('runIncrementalValidation', sourceFilePaths).then((results) => {
-      validationStrategy = results.validationStrategy;
+    cy.task('runIncrementalValidation', sourceFilePaths)
+      .then((results) => {
+        validationStrategy = results.validationStrategy;
 
-      // Save cache statistics and validation strategy for reporting
-      cy.task('saveCacheStatistics', results.cacheStats);
-      cy.task('saveValidationStrategy', validationStrategy);
+        // Save cache statistics and validation strategy for reporting
+        cy.task('saveCacheStatistics', results.cacheStats);
+        cy.task('saveValidationStrategy', validationStrategy);
 
-      // Update subjects to only test files that need validation
-      if (results.filesToValidate.length > 0) {
-        // Convert file paths to URLs using shared utility via Cypress task
-        const urlPromises = results.filesToValidate.map((file) =>
-          cy.task('filePathToUrl', file.filePath)
-        );
-
-        cy.wrap(Promise.all(urlPromises)).then((urls) => {
-          subjects = urls;
-
-          cy.log(`📊 Cache Analysis: ${results.cacheStats.hitRate}% hit rate`);
-          cy.log(
-            `🔄 Testing ${subjects.length} pages (${results.cacheStats.cacheHits} cached)`
+        // Update subjects to only test files that need validation
+        if (results.filesToValidate.length > 0) {
+          // Convert file paths to URLs using shared utility via Cypress task
+          const urlPromises = results.filesToValidate.map((file) =>
+            cy.task('filePathToUrl', file.filePath)
           );
-        });
-      } else {
-        // All files are cached, no validation needed
-        subjects = [];
-        cy.log('✨ All files cached - skipping validation');
-      }
-    });
+
+          cy.wrap(Promise.all(urlPromises)).then((urls) => {
+            subjects = urls;
+
+            cy.log(`📊 Cache Analysis: ${results.cacheStats.hitRate}% hit rate`);
+            cy.log(
+              `🔄 Testing ${subjects.length} pages (${results.cacheStats.cacheHits} cached)`
+            );
+          });
+        } else {
+          // All files are cached, no validation needed
+          subjects = [];
+          cy.log('✨ All files cached - skipping validation');
+        }
+      })
+      .catch((error) => {
+        cy.log('❌ Error during incremental validation task: ' + error.message);
+        Cypress.fail('Incremental validation task failed. See logs for details.');
+      });
   });
 
   // Helper function to identify download links
