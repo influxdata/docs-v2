@@ -94,9 +94,13 @@ function extractMarkdownLinks(content, filePath) {
     }
 
     // Bare URLs (basic detection, avoid false positives)
-    const bareUrlRegex = /(?:^|[\s\n])(https?:\/\/[^\s\)\]\}]+)/g;
+    // Regex to match bare URLs in text
+    // - (?:^|[\s\n]): Match the start of the line or any whitespace character
+    // - (https?:\/\/): Match the protocol (http or https) followed by ://
+    // - [^\s\)\]\}]+: Match the rest of the URL, stopping at spaces or closing characters like ), ], or }
+    const bareUrlRegex = /(?<start>^|[\s\n])(?<url>https?:\/\/[^\s\)\]\}]+)/g;
     while ((match = bareUrlRegex.exec(line)) !== null) {
-      const url = match[1];
+      const url = match.groups.url;
       const columnStart = match.index + match[0].length - url.length;
 
       // Skip if this URL is already captured in a proper markdown link
