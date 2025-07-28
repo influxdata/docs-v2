@@ -20,8 +20,8 @@ will be included in the InfluxDB release notes.
 InfluxDB support for the Prometheus remote read and write API adds the following
 HTTP endpoints to InfluxDB:
 
-* `/api/v1/prom/read`
-* `/api/v1/prom/write`
+- `/api/v1/prom/read`
+- `/api/v1/prom/write`
 
 Additionally, there is a [`/metrics` endpoint](/influxdb/v1/administration/server_monitoring/#influxdb-metrics-http-endpoint) configured to produce default Go metrics in Prometheus metrics format.
 
@@ -40,8 +40,8 @@ CREATE DATABASE "prometheus"
 To enable the use of the Prometheus remote read and write APIs with InfluxDB, add URL
 values to the following settings in the [Prometheus configuration file](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#configuration-file):
 
-* [`remote_write`](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#%3Cremote_write%3E)
-* [`remote_read`](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#%3Cremote_read%3E)
+- [`remote_write`](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#%3Cremote_write%3E)
+- [`remote_read`](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#%3Cremote_read%3E)
 
 The URLs must be resolvable from your running Prometheus server and use the port
 on which InfluxDB is running (`8086` by default).
@@ -84,12 +84,12 @@ remote_read:
 As Prometheus data is brought into InfluxDB, the following transformations are
 made to match the InfluxDB data structure:
 
-* The Prometheus metric name becomes the InfluxDB [measurement](/influxdb/v1/concepts/key_concepts/#measurement) name.
-* The Prometheus sample (value) becomes an InfluxDB field using the `value` field key. It is always a float.
-* Prometheus labels become InfluxDB tags.
-* All `# HELP` and `# TYPE` lines are ignored.
-* [v1.8.6 and later] Prometheus remote write endpoint drops unsupported Prometheus values (`NaN`,`-Inf`, and `+Inf`) rather than reject the entire batch.
-  * If [write trace logging is enabled (`[http] write-tracing = true`)](/influxdb/v1/administration/config/#write-tracing-false), then summaries of dropped values are logged.
+- The Prometheus metric name becomes the InfluxDB [measurement](/influxdb/v1/concepts/key_concepts/#measurement) name.
+- The Prometheus sample (value) becomes an InfluxDB field using the `value` field key. It is always a float.
+- Prometheus labels become InfluxDB tags.
+- All `# HELP` and `# TYPE` lines are ignored.
+- [v1.8.6 and later] Prometheus remote write endpoint drops unsupported Prometheus values (`NaN`,`-Inf`, and `+Inf`) rather than reject the entire batch.
+  * If [write trace logging is enabled (`[http] write-tracing = true`)](/influxdb/v1/administration/config/#write-tracing), then summaries of dropped values are logged.
   * If a batch of values contains values that are subsequently dropped, HTTP status code `204` is returned.
 
 ### Example: Parse Prometheus to InfluxDB

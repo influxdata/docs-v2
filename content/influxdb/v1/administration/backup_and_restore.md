@@ -666,7 +666,7 @@ from(bucket: "example-tmp-db/autogen")
     For more information, see
     [How does InfluxDB handle duplicate points?](/influxdb/v1/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points)
 
-3. Use InfluxQL to delete the temporary database.
+3.  Use InfluxQL to delete the temporary database.
 
     ```sql
     DROP DATABASE "example-tmp-db"
@@ -683,7 +683,7 @@ are `127.0.0.1:8088`.
 
 **To customize the TCP IP and port the backup and restore services use**,
 uncomment and update the
-[`bind-address` configuration setting](/influxdb/v1/administration/config#bind-address-127-0-0-1-8088) 
+[`bind-address` configuration setting](/influxdb/v1/administration/config#rpc-bind-address) 
 at the root level of your InfluxDB configuration file (`influxdb.conf`).
 
 ```toml

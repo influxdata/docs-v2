@@ -12,9 +12,10 @@ alt_links:
 
 Influx Inspect is an InfluxDB disk utility that can be used to:
 
-* View detailed information about disk shards.
-* Export data from a shard to [InfluxDB line protocol](/influxdb/v1/concepts/glossary/#influxdb-line-protocol) that can be inserted back into the database.
-* Convert TSM index shards to TSI index shards.
+- View detailed information about disk shards.
+- Export data from a shard to [InfluxDB line protocol](/influxdb/v1/concepts/glossary/#influxdb-line-protocol)
+  that can be inserted back into the database.
+- Convert TSM index shards to TSI index shards.
 
 ## `influx_inspect` utility
 
@@ -52,7 +53,9 @@ Builds TSI (Time Series Index) disk-based shard index files and associated serie
 The index is written to a temporary location until complete and then moved to a permanent location.
 If an error occurs, then this operation will fall back to the original in-memory index.
 
-> ***Note:*** **For offline conversion only.**
+> [!Note]
+> #### For offline conversion only
+> 
 > When TSI is enabled, new shards use the TSI indexes.
 > Existing shards continue as TSM-based shards until
 > converted offline.
@@ -62,7 +65,9 @@ If an error occurs, then this operation will fall back to the original in-memory
 ```
 influx_inspect buildtsi -datadir <data_dir> -waldir <wal_dir> [ options ]
 ```
-> **Note:** Use the `buildtsi` command with the user account that you are going to run the database as,
+
+> [!Note]
+> Use the `buildtsi` command with the user account that you are going to run the database as,
 > or ensure that the permissions match after running the command.
 
 #### Options
@@ -73,9 +78,8 @@ Optional arguments are in brackets.
 
 The size of the batches written to the index. Default value is `10000`.
 
-{{% warn %}}
-**Warning:** Setting this value can have adverse effects on performance and heap size.
-{{% /warn %}}
+> [!Warning]
+> Setting this value can have adverse effects on performance and heap size.
 
 ##### `[ -compact-series-file ]`
 
@@ -123,7 +127,7 @@ Flag to enable output in verbose mode.
 
 ##### `-waldir <wal_dir>`
 
-The directory for the (WAL (Write Ahead Log)](/influxdb/v1/concepts/file-system-layout/#wal-directory) files.
+The directory for the [WAL (Write Ahead Log)](/influxdb/v1/concepts/file-system-layout/#wal-directory) files.
 
 Default value is `$HOME/.influxdb/wal`.
 See the [file system layout](/influxdb/v1/concepts/file-system-layout/#file-system-layout)
@@ -181,10 +185,9 @@ The filename where schema data should be written. Default is `schema.json`.
 Use `deletetsm -measurement` to delete a measurement in a raw TSM file (from specified shards).
 Use `deletetsm -sanitize` to remove all tag and field keys containing non-printable Unicode characters in a raw TSM file (from specified shards).
 
-{{% warn %}}
-**Warning:** Use the `deletetsm` command only when your InfluxDB instance is
-offline (`influxd` service is not running).
-{{% /warn %}}
+> [!Warning]
+> Use the `deletetsm` command only when your InfluxDB instance is
+> offline (`influxd` service is not running).
 
 #### Syntax
 
@@ -286,19 +289,19 @@ Filter data by tag value regular expression.
 
 ##### Specifying paths to the `_series` and `index` directories
 
-```
-$ influx_inspect dumptsi -series-file /path/to/db/_series /path/to/index
+```bash
+influx_inspect dumptsi -series-file /path/to/db/_series /path/to/index
 ```
 
 ##### Specifying paths to the `_series` directory and an `index` file
 
-```
-$ influx_inspect dumptsi -series-file /path/to/db/_series /path/to/index/file0
+```bash
+influx_inspect dumptsi -series-file /path/to/db/_series /path/to/index/file0
 ```
 ##### Specifying paths to the `_series` directory and multiple `index` files
 
-```
-$ influx_inspect dumptsi -series-file /path/to/db/_series /path/to/index/file0 /path/to/index/file1 ...
+```bash
+influx_inspect dumptsi -series-file /path/to/db/_series /path/to/index/file0 /path/to/index/file1 ...
 ```
 
 ### `dumptsm`
@@ -360,8 +363,8 @@ If a user writes points with timestamps set by the client, then multiple points 
 
 ### `export`
 
-Exports all TSM files in InfluxDB line protocol data format.
-This output file can be imported using the
+Exports all TSM files or a single TSM file in InfluxDB line protocol data format.
+The output file can be imported using the
 [influx](/influxdb/v1/tools/shell/#import-data-from-a-file-with-import) command.
 
 #### Syntax
@@ -413,9 +416,12 @@ YYYY-MM-DDTHH:MM:SS-08:00
 YYYY-MM-DDTHH:MM:SS+07:00
 ```
 
-> **Note:** With offsets, avoid replacing the + or - sign with a Z. It may cause an error or print Z (ISO 8601 behavior) instead of the time zone offset.
+> [!Note]
+> With offsets, avoid replacing the + or - sign with a Z. It may cause an error
+> or print Z (ISO 8601 behavior) instead of the time zone offset.
 
 ##### [ `-lponly` ]
+
 Output data in line protocol format only.
 Does not output data definition language (DDL) statements (such as `CREATE DATABASE`)
 or DML context metadata (such as `# CONTEXT-DATABASE`).
@@ -443,6 +449,11 @@ Default value is `$HOME/.influxdb/wal`.
 See the [file system layout](/influxdb/v1/concepts/file-system-layout/#file-system-layout)
 for InfluxDB on your system.
 
+##### [ `-tsmfile <tsm_file>` ]
+
+Path to a single tsm file to export. This requires both `-database` and
+`-retention` to be specified.
+
 #### Examples
 
 ##### Export all databases and compress the output
@@ -455,6 +466,15 @@ influx_inspect export -compress
 
 ```bash
 influx_inspect export -database DATABASE_NAME -retention RETENTION_POLICY 
+```
+
+##### Export data from a single TSM file
+
+```bash
+influx_inspect export \
+  -database DATABASE_NAME \
+  -retention RETENTION_POLICY \
+  -tsmfile TSM_FILE_NAME
 ```
 
 ##### Output file
@@ -650,11 +670,11 @@ influx_inspect report-disk -detailed ~/.influxdb/data/
 
 The report does the following:
 
-* Calculates the total exact series cardinality in the database.
-* Segments that cardinality by measurement, and emits those cardinality values.
-* Emits total exact cardinality for each shard in the database.
-* Segments for each shard the exact cardinality for each measurement in the shard.
-* Optionally limits the results in each shard to the "top n".
+- Calculates the total exact series cardinality in the database.
+- Segments that cardinality by measurement, and emits those cardinality values.
+- Emits total exact cardinality for each shard in the database.
+- Segments for each shard the exact cardinality for each measurement in the shard.
+- Optionally limits the results in each shard to the "top n".
 
 The `reporttsi` command is primarily useful when there has been a change in cardinality
 and it's not clear which measurement is responsible for this change, and further, _when_
@@ -769,7 +789,8 @@ Enables very verbose logging. Displays progress for every series key and time ra
 
 Enables very very verbose logging. Displays progress for every series key and time range in the tombstone files. Timestamps are displayed in [RFC3339 format](https://tools.ietf.org/html/rfc3339) with nanosecond precision.
 
-> **Note on verbose logging:** Higher verbosity levels override lower levels.
+> [!Note]
+> Higher verbosity levels override lower levels.
 
 ## Caveats
 

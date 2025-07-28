@@ -1220,29 +1220,31 @@ To keep regular expressions and quoting simple, avoid using the following charac
 
 ## When should I single quote and when should I double quote when writing data?
 
-* Avoid single quoting and double quoting identifiers when writing data via the line protocol; see the examples below for how writing identifiers with quotes can complicate queries.
-Identifiers are database names, retention policy names, user names, measurement names, tag keys, and field keys.
+- Avoid single quoting and double quoting identifiers when writing data via the
+  line protocol; see the examples below for how writing identifiers with quotes
+  can complicate queries. Identifiers are database names, retention policy
+  names, user names, measurement names, tag keys, and field keys.
 
-	Write with a double-quoted measurement: `INSERT "bikes" bikes_available=3`
-	Applicable query: `SELECT * FROM "\"bikes\""`
+  Write with a double-quoted measurement: `INSERT "bikes" bikes_available=3`
+  Applicable query: `SELECT * FROM "\"bikes\""`
 
-	Write with a single-quoted measurement: `INSERT 'bikes' bikes_available=3`
-	Applicable query: `SELECT * FROM "\'bikes\'"`
+  Write with a single-quoted measurement: `INSERT 'bikes' bikes_available=3`
+  Applicable query: `SELECT * FROM "\'bikes\'"`
 
-	Write with an unquoted measurement: `INSERT bikes bikes_available=3`
-	Applicable query: `SELECT * FROM "bikes"`
+  Write with an unquoted measurement: `INSERT bikes bikes_available=3`
+  Applicable query: `SELECT * FROM "bikes"`
 
-* Double quote field values that are strings.
+- Double quote field values that are strings.
 
-	Write: `INSERT bikes happiness="level 2"`
-	Applicable query: `SELECT * FROM "bikes" WHERE "happiness"='level 2'`
+  Write: `INSERT bikes happiness="level 2"`
+  Applicable query: `SELECT * FROM "bikes" WHERE "happiness"='level 2'`
 
-* Special characters should be escaped with a backslash and not placed in quotes.
+- Special characters should be escaped with a backslash and not placed in quotes--for example:
 
-	Write: `INSERT wacky va\"ue=4`
-	Applicable query: `SELECT "va\"ue" FROM "wacky"`
+  Write: `INSERT wacky va\"ue=4`
+  Applicable query: `SELECT "va\"ue" FROM "wacky"`
 
-For more information , see [Line protocol](/enterprise_influxdb/v1/write_protocols/).
+For more information , see [Line protocol](/influxdb/v1/write_protocols/).
 
 ## Does the precision of the timestamp matter?
 

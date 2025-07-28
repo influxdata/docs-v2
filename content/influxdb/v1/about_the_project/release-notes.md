@@ -12,6 +12,45 @@ alt_links:
   v2: /influxdb/v2/reference/release-notes/influxdb/
 ---
 
+## v1.12.1 {date="2025-06-26"}
+
+## Features
+
+- Add additional log output when using
+  [`influx_inspect buildtsi`](/influxdb/v1/tools/influx_inspect/#buildtsi) to
+  rebuild the TSI index.
+- Use [`influx_inspect export`](/influxdb/v1/tools/influx_inspect/#export) with
+  [`-tsmfile` option](/influxdb/v1/tools/influx_inspect/#--tsmfile-tsm_file-) to
+  export a single TSM file.
+- Add `fluxQueryRespBytes` metric to the `/debug/vars` metrics endpoint.
+- Add [`aggressive-points-per-block` configuration option](/influxdb/v1/administration/config/#aggressive-points-per-block)
+  to prevent TSM files from not getting fully compacted.
+- Improve error handling.
+- InfluxQL updates:
+  - Delete series by retention policy.
+  - Allow retention policies to discard writes that fall within their range, but
+    outside of [`FUTURE LIMIT`](/influxdb/v1/query_language/manage-database/#future-limit)
+    and [`PAST LIMIT`](/influxdb/v1/query_language/manage-database/#past-limit).
+
+## Bug fixes
+
+- Log rejected writes to subscriptions.
+- Update `xxhash` and avoid `stringtoslicebyte` in the cache.
+- Prevent a panic when a shard group has no shards.
+- Fix file handle leaks in `Compactor.write`.
+- Ensure fields in memory match the fields on disk.
+- Ensure temporary files are removed after failed compactions.
+- Do not panic on invalid multiple subqueries.
+
+## Other
+
+- Update Go to 1.23.5.
+- Upgrade Flux to v0.196.1.
+- Upgrade InfluxQL to v1.4.1.
+- Various other dependency updates.
+
+---
+
 ## v1.11.8 {date="2024-11-15"}
 
 ### Bug Fixes
@@ -19,6 +58,8 @@ alt_links:
 - Strip double quotes from measurement names in the [`/api/v2/delete`
   compatibility API](/influxdb/v1/tools/api/#apiv2delete-http-endpoint) before
   string comparisons (e.g. to allow special characters in measurement names).
+
+---
 
 ## v1.11.7 {date="2024-10-10"}
 
@@ -28,24 +69,23 @@ then back-ported to InfluxDB OSS v1. Many of these enhancements improve
 compatibility between InfluxDB v1 and InfluxDB 3 and help to ease the migration
 of InfluxDB v1 workloads to InfluxDB 3.
 
-{{% warn %}}
-#### Before upgrading to InfluxDB 1.11
-
-The last public release of InfluxDB v1 was v1.8.10. Upgrading from v1.8.10 to
-v1.11.7 is a large jump and should be done with care. Consider doing
-one or more of the the following before upgrading:
-
-- [Back up your data](/influxdb/v1/administration/backup_and_restore/)
-- Create a clone of your current InfluxDB using InfluxDB 1.11 with identical
-  configuration options. Dual-write to your current InfluxDB
-  instance and your new 1.11 instance. Test writing and querying data with
-  InfluxDB 1.11.
-
-#### No 32-bit builds
-
-InfluxData no longer provides builds of InfluxDB v1 for 32-bit architectures.
-All official build packages are for 64-bit architectures.
-{{% /warn %}}
+> [!Warning]
+> #### Before upgrading to InfluxDB 1.11
+> 
+> The last public release of InfluxDB v1 was v1.8.10. Upgrading from v1.8.10 to
+> v1.11.7 is a large jump and should be done with care. Consider doing
+> one or more of the the following before upgrading:
+> 
+> - [Back up your data](/influxdb/v1/administration/backup_and_restore/)
+> - Create a clone of your current InfluxDB using InfluxDB 1.11 with identical
+>   configuration options. Dual-write to your current InfluxDB
+>   instance and your new 1.11 instance. Test writing and querying data with
+>   InfluxDB 1.11.
+> 
+> #### No 32-bit builds
+> 
+> InfluxData no longer provides builds of InfluxDB v1 for 32-bit architectures.
+> All official build packages are for 64-bit architectures.
 
 ### Features
 
@@ -72,17 +112,17 @@ All official build packages are for 64-bit architectures.
     and [`influx_inspect merge-schema`](/influxdb/v1/tools/influx_inspect/#merge-schema)
     commands to check for type conflicts between shards.
 - **New configuration options:**
-  - Add [`total-buffer-bytes`](/influxdb/v1/administration/config/#total-buffer-bytes--0)
+  - Add [`total-buffer-bytes`](/influxdb/v1/administration/config/#total-buffer-bytes)
     configuration option to set the total number of bytes to allocate to
     subscription buffers.
-  - Add [`termination-query-log`](/influxdb/v1/administration/config/#termination-query-log--false)
+  - Add [`termination-query-log`](/influxdb/v1/administration/config/#termination-query-log)
     configuration option to enable dumping running queries to log on `SIGTERM`.
-  - Add [`max-concurrent-deletes`](/influxdb/v1/administration/config/#max-concurrent-deletes--1)
+  - Add [`max-concurrent-deletes`](/influxdb/v1/administration/config/#max-concurrent-deletes)
     configuration option to set delete concurrency.
   - Add [Flux query configuration settings](/influxdb/v1/administration/config/#flux-query-management-settings).
-  - Add [`compact-series-file`](/influxdb/v1/administration/config/#compact-series-file--false)
+  - Add [`compact-series-file`](/influxdb/v1/administration/config/#compact-series-file)
     configuration option to enable or disable series file compaction on startup.
-  - Add [`prom-read-auth-enabled` configuration option](/influxdb/v1/administration/config/#prom-read-auth-enabled--false)
+  - Add [`prom-read-auth-enabled` configuration option](/influxdb/v1/administration/config/#prom-read-auth-enabled)
     to authenticate Prometheus remote read.
 - **Flux improvements:**
   - Upgrade Flux to v0.194.5.
@@ -230,32 +270,53 @@ Due to encountering several issues with build dependencies in v.1.8.8, this vers
 
 ## v1.8.6 {date="2021-05-21"}
 
-This release is for InfluxDB Enterprise 1.8.6 customers only. No OSS-specific changes were made for InfluxDB 1.8.6--updates were made to the code base to support [InfluxDB Enterprise 1.8.6](/enterprise_influxdb/v1/about-the-project/release-notes/#v186).
+This release is for InfluxDB Enterprise 1.8.6 customers only. No OSS-specific
+changes were made for InfluxDB 1.8.6--updates were made to the code base to
+support [InfluxDB Enterprise 1.8.6](/enterprise_influxdb/v1/about-the-project/release-notes/#v186).
 
 ## v1.8.5 {date="2021-04-20"}
 
 ### Features
 
-- Add the ability to find which measurements or shards are contributing to disk size with the new [`influx_inspect report-disk`](/influxdb/v1/tools/influx_inspect/#report-disk) command. Useful for capacity planning and managing storage requirements.
-- Add support to [`influx_inspect export`](/influxdb/v1/tools/influx_inspect/#export) to write to standard out (`stdout`) by adding a hyphen after the [`-out`](/influxdb/v1/tools/influx_inspect/#--out-export_dir-or--out--) flag. Using this option writes to `stdout`, and sends error and status messages to standard error (`stderr`).
-- Update HTTP handler for `/query` to [log query text for POST requests](/influxdb/v1/administration/logs/#http-access-log-format).
-- Optimize shard lookups in groups containing only one shard. Thanks @StoneYunZhao!
+- Add the ability to find which measurements or shards are contributing to disk
+  size with the new [`influx_inspect report-disk`](/influxdb/v1/tools/influx_inspect/#report-disk)
+  command. Useful for capacity planning and managing storage requirements.
+- Add support to [`influx_inspect export`](/influxdb/v1/tools/influx_inspect/#export)
+  to write to standard out (`stdout`) by adding a hyphen after the
+  [`-out`](/influxdb/v1/tools/influx_inspect/#--out-export_dir-or--out--) flag.
+  Using this option writes to `stdout`, and sends error and status messages to
+  standard error (`stderr`).
+- Update HTTP handler for `/query` to
+  [log query text for POST requests](/influxdb/v1/administration/logs/#http-access-log-format).
+- Optimize shard lookups in groups containing only one shard.
 
 ### Bug fixes
 
-- Update meta queries (for example, SHOW TAG VALUES, SHOW TAG KEYS, SHOW SERIES CARDINALITY, SHOW MEASUREMENT CARDINALITY, and SHOW MEASUREMENTS) to check the query context when possible to respect timeout values set in the [`query-timeout` configuration parameter](/influxdb/v1/administration/config/#query-timeout--0s). Note, meta queries will check the context less frequently than regular queries, which use iterators, because meta queries return data in batches.
--  Previously, successful writes were incorrectly incrementing the `WriteErr` statistics. Now, successful writes correctly increment the `writeOK` statistics.
+- Update meta queries (for example, `SHOW TAG VALUES`, `SHOW TAG KEYS`,
+  `SHOW SERIES CARDINALITY`, `SHOW MEASUREMENT CARDINALITY`, and `SHOW MEASUREMENTS`)
+  to check the query context when possible to respect timeout values set in the
+  [`query-timeout` configuration parameter](/influxdb/v1/administration/config/#query-timeout).
+  Note, meta queries will check the context less frequently than regular queries,
+  which use iterators, because meta queries return data in batches.
+- Previously, successful writes were incorrectly incrementing the `WriteErr`
+  statistics. Now, successful writes correctly increment the `writeOK` statistics.
 - Correct JSON marshalling error format.
-- Previously, a GROUP BY query with an offset that caused an interval to cross a daylight savings change inserted an extra output row off by one hour. Now, the correct GROUP BY interval start time is set before the time zone offset is calculated.
+- Previously, a GROUP BY query with an offset that caused an interval to cross a
+  daylight savings change inserted an extra output row off by one hour. Now, the
+  correct GROUP BY interval start time is set before the time zone offset is calculated.
 - Improved error logging for TCP connection closures.
 - Fix `regexp` handling to comply with PromQL.
-- Previously, when a SELECT INTO query generated an unsupported value, for example, `+/- Inf`, the query failed silently. Now, an error occurs to notify that the value cannot be inserted.
+- Previously, when a SELECT INTO query generated an unsupported value, for
+  example, `+/- Inf`, the query failed silently. Now, an error occurs to notify
+  that the value cannot be inserted.
 - Resolve the "snapshot in progress" error that occurred during a backup.
 - Fix data race when accessing tombstone statistics (`TombstoneStat`).
 - Minimize lock contention when adding new fields or measurements.
-- Resolve a bug causing excess resource usage when an error occurs while reporting an earlier error.
+- Resolve a bug causing excess resource usage when an error occurs while
+reporting an earlier error.
 
 ## v1.8.4 {date="2021-02-01"}
+
 ### Features
 
 - Add `stat_total_allocated` to Flux logging.
@@ -294,11 +355,10 @@ This release is for InfluxDB Enterprise 1.8.6 customers only. No OSS-specific ch
 
 ## v1.8.1 {date="2020-07-14"}
 
-{{% warn %}}
-InfluxDB 1.8.1 introduced a bug that could potentially increase memory usage.
-**If you installed this release**, install [v1.8.2](#v182), which includes the
-features, performance improvements, and bug fixes below.
-{{% /warn %}}
+> [!Warning]
+> InfluxDB 1.8.1 introduced a bug that could potentially increase memory usage.
+> **If you installed this release**, install [v1.8.2](#v182), which includes the
+> features, performance improvements, and bug fixes below.
 
 ### Features
 
@@ -324,23 +384,32 @@ features, performance improvements, and bug fixes below.
 
 #### Flux v0.65 ready for production use
 
-This release updates support for the Flux language and queries. To learn about Flux design principles and see how to get started with Flux, see [Introduction to Flux](/influxdb/v1/flux/).
+This release updates support for the Flux language and queries. To learn about
+Flux design principles and see how to get started with Flux, see
+[Introduction to Flux](/influxdb/v1/flux/).
 
-* Use the new [`influx -type=flux`](/influxdb/v1/tools/influx-cli/#flags) option to enable the Flux REPL shell for creating Flux queries.
+- Use the new [`influx -type=flux`](/influxdb/v1/tools/influx-cli/#flags) option
+to enable the Flux REPL shell for creating Flux queries.
 
-* Flux v0.65 includes the following capabilities:
-    - Join data residing in multiple measurements, buckets, or data sources
-    - Perform mathematical operations using data gathered across measurements/buckets
-    - Manipulate Strings through an extensive library of string related functions
-    - Shape data through `pivot()` and other functions
-    - Group based on any data column: tags, fields, etc.
-    - Window and aggregate based on calendar months, years
-    - Join data across Influx and non-Influx sources
-    - Cast booleans to integers
-    - Query geo-temporal data (experimental)
-    - Many additional functions for working with data
+- Flux v0.65 includes the following capabilities:
+  - Join data residing in multiple measurements, buckets, or data sources
+  - Perform mathematical operations using data gathered across measurements/buckets
+  - Manipulate Strings through an extensive library of string related functions
+  - Shape data through `pivot()` and other functions
+  - Group based on any data column: tags, fields, etc.
+  - Window and aggregate based on calendar months, years
+  - Join data across Influx and non-Influx sources
+  - Cast booleans to integers
+  - Query geo-temporal data (experimental)
+  - Many additional functions for working with data
 
-  > We're evaluating the need for Flux query management controls equivalent to existing InfluxQL [query management controls](/influxdb/v1/troubleshooting/query_management/#configuration-settings-for-query-management) based on your feedback. Please join the discussion on [InfluxCommunity](https://community.influxdata.com/), [Slack](https://influxcommunity.slack.com/), or [GitHub](https://github.com/influxdata/flux). InfluxDB Enterprise customers, please contact <support@influxdata.com>.
+> [!Note]
+> We're evaluating the need for Flux query management controls equivalent to
+> existing InfluxQL [query management controls](/influxdb/v1/troubleshooting/query_management/#configuration-settings-for-query-management)
+> based on your feedback. Please join the discussion on
+> [InfluxCommunity](https://community.influxdata.com/),
+> [Slack](https://influxcommunity.slack.com/), or [GitHub](https://github.com/influxdata/flux).
+> InfluxDB Enterprise customers, please contact <support@influxdata.com>.
 
 #### Forward compatibility
 
@@ -516,41 +585,41 @@ If you have not installed this release, then install the 1.7.4 release.
 
 ### Bug fixes
 
-* Limit force-full and cold compaction size.
-* Add user authentication and authorization support for Flux HTTP requests.
-* Call `storage.Group` API to correctly map group mode.
-* Marked functions that always return floats as always returning floats.
-* Add support for optionally logging Flux queries.
-* Fix cardinality estimation error.
+- Limit force-full and cold compaction size.
+- Add user authentication and authorization support for Flux HTTP requests.
+- Call `storage.Group` API to correctly map group mode.
+- Marked functions that always return floats as always returning floats.
+- Add support for optionally logging Flux queries.
+- Fix cardinality estimation error.
 
 ## 1.7.2 {date="2018-12-11"}
 
 ### Bug fixes
 
-* Update to Flux 0.7.1.
-* Conflict-based concurrency resolution adds guards and an epoch-based system to
+- Update to Flux 0.7.1.
+- Conflict-based concurrency resolution adds guards and an epoch-based system to
    coordinate modifications when deletes happen against writes to the same points
    at the same time.
-* Skip and warn that series file should not be in a retention policy directory.
-* Checks if measurement was removed from index, and if it was, then cleans up out
+- Skip and warn that series file should not be in a retention policy directory.
+- Checks if measurement was removed from index, and if it was, then cleans up out
   of fields index. Also fix cleanup issue where only prefix was checked when
   matching measurements like "m1" and "m10".
-* Error message to user that databases must be run in non-mixed index mode
+- Error message to user that databases must be run in non-mixed index mode
  to allow deletes.
-* Update platform dependency to simplify Flux support in Enterprise.
-* Verify series file in presence of tombstones.
-* Fix `ApplyEnvOverrides` when a type that implements Unmarshaler is in a slice to
+- Update platform dependency to simplify Flux support in Enterprise.
+- Verify series file in presence of tombstones.
+- Fix `ApplyEnvOverrides` when a type that implements Unmarshaler is in a slice to
   not call `UnMarshaltext` when the environment variable is set to empty.
-* Drop NaN values when writing back points and fix the point writer to report the
+- Drop NaN values when writing back points and fix the point writer to report the
   number of points actually written and omits the ones that were dropped.
-* Query authorizer was not properly passed to subqueries so rejections did not
+- Query authorizer was not properly passed to subqueries so rejections did not
   happen when a subquery was the one reading the value. Max series limit was not propagated downward.
 
 ## 1.7.1 {date="2018-11-14"}
 
 ### Bug fixes
 
-* Simple8B `EncodeAll` incorrectly encodes entries: For a run of `1s`, if the 120th or 240th entry is not a `1`, the run will be incorrectly encoded as selector `0` (`240 1s`) or selector `1` (`120 1s`), resulting in a loss of data for the 120th or 240th value. Manifests itself as consuming significant CPU resources and as compactions running indefinitely.
+- Simple8B `EncodeAll` incorrectly encodes entries: For a run of `1s`, if the 120th or 240th entry is not a `1`, the run will be incorrectly encoded as selector `0` (`240 1s`) or selector `1` (`120 1s`), resulting in a loss of data for the 120th or 240th value. Manifests itself as consuming significant CPU resources and as compactions running indefinitely.
 
 ## 1.7.0 {date="2018-11-06"}
 
@@ -564,92 +633,93 @@ Chunked query was added into the Go client v2 interface. If you compiled against
 
 Support for the Flux language and queries has been added in this release. To begin exploring Flux 0.7 (technical preview):
 
-* Enable Flux using the new configuration setting [`[http] flux-enabled = true`](/influxdb/v1/administration/config/#flux-enabled-false).
-* Use the new [`influx -type=flux`](/influxdb/v1/tools/shell/#type) option to enable the Flux REPL shell for creating Flux queries.
-* Read about Flux and the Flux language, enabling Flux, or jump into the getting started and other guides.
+- Enable Flux using the new configuration setting
+  [`[http] flux-enabled = true`](/influxdb/v1/administration/config/#flux-enabled).
+- Use the new [`influx -type=flux`](/influxdb/v1/tools/shell/#type) option to enable the Flux REPL shell for creating Flux queries.
+- Read about Flux and the Flux language, enabling Flux, or jump into the getting started and other guides.
 
 #### Time Series Index (TSI) query performance and throughputs improvements
 
-* Faster index planning for queries against indexes with many series that share tag pairs.
-* Reduced index planning for queries that include previously queried tag pairs — the TSI
+- Faster index planning for queries against indexes with many series that share tag pairs.
+- Reduced index planning for queries that include previously queried tag pairs — the TSI
   index now caches partial index results for later reuse.
-* Performance improvements required a change in on-disk TSI format to be used.
-* **To take advantage of these improvements**:
-  * Rebuild your indexes or wait for a TSI compaction of your indexes,
+- Performance improvements required a change in on-disk TSI format to be used.
+- **To take advantage of these improvements**:
+  - Rebuild your indexes or wait for a TSI compaction of your indexes,
     at which point the new TSI format will be applied.
-  * Hot shards and new shards immediately use the new TSI format.
+  - Hot shards and new shards immediately use the new TSI format.
 
 #### Other features
 
-* Enable the storage service by default.
-* Ensure read service regular expressions get optimized.
-* Add chunked query into the Go client v2.
-* Add `access-log-status-filters` config setting to create an access log filter.
-* Compaction performance improvements for Time Series Index (TSI).
-* Add roaring bitmaps to TSI index files.
+- Enable the storage service by default.
+- Ensure read service regular expressions get optimized.
+- Add chunked query into the Go client v2.
+- Add `access-log-status-filters` config setting to create an access log filter.
+- Compaction performance improvements for Time Series Index (TSI).
+- Add roaring bitmaps to TSI index files.
 
 
 ### Bug fixes
 
-*	Missing `hardwareAddr` in `uuid` v1 generation.
-*	Fix the inherited interval for derivative and others.
-*	Fix subquery functionality when a function references a tag from the subquery.
-*	Strip tags from a subquery when the outer query does not group by that tag.
+-	Missing `hardwareAddr` in `uuid` v1 generation.
+-	Fix the inherited interval for derivative and others.
+-	Fix subquery functionality when a function references a tag from the subquery.
+-	Strip tags from a subquery when the outer query does not group by that tag.
 
 ## 1.6.6 {date="2019-02-28"}
 
 ### Bug fixes
 
-* Marked functions that always return floats as always returning floats.
-* Fix cardinality estimation error.
-* Update `tagKeyValue` mutex to write lock.
+- Marked functions that always return floats as always returning floats.
+- Fix cardinality estimation error.
+- Update `tagKeyValue` mutex to write lock.
 
 ## 1.6.5 {date="2019-01-10"}
 
 ### Features
 
-*	Reduce allocations in TSI `TagSets` implementation.
+-	Reduce allocations in TSI `TagSets` implementation.
 
 ### Bug fixes
 
-*	Fix panic in `IndexSet`.
-*	Pass the query authorizer to subqueries.
-*	Fix TSM1 panic on reader error.
-* Limit database and retention policy names to 255 characters.
-* Update Go runtime to 1.10.6.
+-	Fix panic in `IndexSet`.
+- Pass the query authorizer to subqueries.
+- Fix TSM1 panic on reader error.
+- Limit database and retention policy names to 255 characters.
+- Update Go runtime to 1.10.6.
 
 ## 1.6.4 {date="2018-10-16"}
 
 ### Features
 
-*	Set maximum cache size using `-max-cache-size` in `buildtsi` when building TSI index.
+- Set maximum cache size using `-max-cache-size` in `buildtsi` when building TSI index.
 
 ### Bug fixes
 
-*	Fix `tsi1` sketch locking.
-*	Fix subquery functionality when a function references a tag from the subquery.
-*	Strip tags from a subquery when the outer query does not group by that tag.
-*	Add `-series-file` flag to `dumptsi` command help.
-*	Cleanup failed TSM snapshots.
-*	Fix TSM1 panic on reader error.
-*	Fix series file tombstoning.
-*	Fixing the stream iterator to not ignore the error.
-*	Do not panic when a series ID iterator is nil.
-*	Fix append of possible nil iterator.
+- Fix `tsi1` sketch locking.
+- Fix subquery functionality when a function references a tag from the subquery.
+- Strip tags from a subquery when the outer query does not group by that tag.
+- Add `-series-file` flag to `dumptsi` command help.
+- Cleanup failed TSM snapshots.
+- Fix TSM1 panic on reader error.
+- Fix series file tombstoning.
+- Fixing the stream iterator to not ignore the error.
+- Do not panic when a series ID iterator is nil.
+- Fix append of possible nil iterator.
 
 ## 1.6.3 {date="2018-09-14"}
 
 ### Features
 
-*	Remove TSI1 HLL sketches from heap.
+- Remove TSI1 HLL sketches from heap.
 
 ### Bug fixes
 
-*	Fix the inherited interval for derivative and others.  The inherited interval from an outer query should not have caused
+- Fix the inherited interval for derivative and others.  The inherited interval from an outer query should not have caused
 an inner query to fail because inherited intervals are only implicitly passed to inner queries that support group
 by time functionality. Since an inner query with a derivative doesn't support grouping by time and the inner query itself
 doesn't specify a time, the outer query shouldn't have invalidated the inner query.
-*	Fix the derivative and others time ranges for aggregate data. The derivative function and others similar to it would
+- Fix the derivative and others time ranges for aggregate data. The derivative function and others similar to it would
 preload themselves with data so that the first interval would be the start of the time range. That meant reading data outside
 of the time range. One change to the shard mapper made in v1.4.0 caused the shard mapper to constrict queries to the
 intervals given to the shard mapper. This was correct because the shard mapper can only deal with times it has mapped,
@@ -662,138 +732,138 @@ but may be queried because of the above described functionality.
 
 ### Features
 
-*	Reduce allocations in TSI TagSets implementation.
+- Reduce allocations in TSI TagSets implementation.
 
 ### Bug fixes
 
-*	Ensure orphaned series cleaned up with shard drop.
+- Ensure orphaned series cleaned up with shard drop.
 
 ## 1.6.1 {date="2018-08-03"}
 
 ### Features
 
-*	Improve LogFile performance with bitset iterator.
-*	Add TSI index cardinality report to `influx_inspect`.
-*	Update to Go 1.10.
-*	Improve performance of `buildtsi` and TSI planning.
-*	Improve performance of read service for single measurements.
-*	Remove max concurrent compaction limit.
-*	Provide configurable TLS options.
-*	Add option to hint MADV_WILLNEED to kernel.
+- Improve LogFile performance with bitset iterator.
+- Add TSI index cardinality report to `influx_inspect`.
+- Update to Go 1.10.
+- Improve performance of `buildtsi` and TSI planning.
+- Improve performance of read service for single measurements.
+- Remove max concurrent compaction limit.
+- Provide configurable TLS options.
+- Add option to hint MADV_WILLNEED to kernel.
 
 ### Bug fixes
 
-*	Improve series segment recovery.
-*	Fix windows mmap on zero length file.
-*	Ensure Filter iterators executed as late as possible.
-*	Document UDP precision setting in config.
-*	Allow tag keys to contain underscores.
-*	Fix a panic when matching on a specific type of regular expression.
+- Improve series segment recovery.
+- Fix windows mmap on zero length file.
+- Ensure Filter iterators executed as late as possible.
+- Document UDP precision setting in config.
+- Allow tag keys to contain underscores.
+- Fix a panic when matching on a specific type of regular expression.
 
 ## 1.6.0 {date="2018-07-05"}
 
 ### Breaking changes
 
-*	If math is used with the same selector multiple times, it will now act as a selector
+- If math is used with the same selector multiple times, it will now act as a selector
 rather than an aggregate. See [#9563](https://github.com/influxdata/influxdb/pull/9563) for details.
-* For data received from Prometheus endpoints, every Prometheus measurement is now
+- For data received from Prometheus endpoints, every Prometheus measurement is now
 stored in its own InfluxDB measurement rather than storing everything in the `_` measurement
 using the Prometheus measurement name as the `__name__` label.
 
 ### Features
 
-*	Support proxy environment variables in the `influx` client.
-*	Implement basic trigonometry functions.
-*	Add ability to delete many series with predicate.
-*	Implement `floor`, `ceil`, and `round` functions.
-*   Add more math functions to InfluxQL.
-*	Allow customizing the unix socket group and permissions created by the server.
-*	Add `suppress-write-log` option to disable the write log when the log is enabled.
-*	Add additional technical analysis algorithms.
-*	Validate points on input.
-*	Log information about index version during startup.
-*	Add key sanitization to `deletetsm` command in `influx_inspect` utility.
-*	Optimize the `spread` function to process points iteratively instead of in batch.
-*	Allow math functions to be used in the condition.
-*	Add HTTP write throttle settings: `max-concurrent-write-limit`, `max-enqueued-write-limit`, and `enqueued-write-timeout`.
-*	Implement `SHOW STATS FOR indexes`.
-*	Add `dumptsmwal` command to `influx_inspect` utility.
-*	Improve the number of regex patterns that are optimized to static OR conditions.
+- Support proxy environment variables in the `influx` client.
+- Implement basic trigonometry functions.
+- Add ability to delete many series with predicate.
+- Implement `floor`, `ceil`, and `round` functions.
+- Add more math functions to InfluxQL.
+- Allow customizing the unix socket group and permissions created by the server.
+- Add `suppress-write-log` option to disable the write log when the log is enabled.
+- Add additional technical analysis algorithms.
+- Validate points on input.
+- Log information about index version during startup.
+- Add key sanitization to `deletetsm` command in `influx_inspect` utility.
+- Optimize the `spread` function to process points iteratively instead of in batch.
+- Allow math functions to be used in the condition.
+- Add HTTP write throttle settings: `max-concurrent-write-limit`, `max-enqueued-write-limit`, and `enqueued-write-timeout`.
+- Implement `SHOW STATS FOR indexes`.
+- Add `dumptsmwal` command to `influx_inspect` utility.
+- Improve the number of regex patterns that are optimized to static OR conditions.
 
 ### Bug fixes
 
-* Support setting the log level through the environment variable.
-* Fix panic when checking fieldsets.
-* Ensure correct number of tags parsed when commas used.
-* Fix data race in WAL.
-* Allow `SHOW SERIES` kill.
-* Revert "Use MADV_WILLNEED when loading TSM files".
-* Fix regression to allow now() to be used as the group by offset again.
-* Delete deleted shards in retention service.
-* Ignore index size in `Engine.DiskSize()`.
-* Enable casting values from a subquery.
-* Avoid a panic when using show diagnostics with text/csv.
-* Properly track the response bytes written for queries in all format types.
-* Remove error for series file when no shards exist.
-* Fix the validation for multiple nested distinct calls.
-* TSM: `TSMReader.Close` blocks until reads complete.
-* Return the correct auxiliary values for `top` and `bottom`.
-* Close TSMReaders from `FileStore.Close` after releasing FileStore mutex.
+- Support setting the log level through the environment variable.
+- Fix panic when checking fieldsets.
+- Ensure correct number of tags parsed when commas used.
+- Fix data race in WAL.
+- Allow `SHOW SERIES` kill.
+- Revert "Use MADV_WILLNEED when loading TSM files".
+- Fix regression to allow now() to be used as the group by offset again.
+- Delete deleted shards in retention service.
+- Ignore index size in `Engine.DiskSize()`.
+- Enable casting values from a subquery.
+- Avoid a panic when using show diagnostics with text/csv.
+- Properly track the response bytes written for queries in all format types.
+- Remove error for series file when no shards exist.
+- Fix the validation for multiple nested distinct calls.
+- TSM: `TSMReader.Close` blocks until reads complete.
+- Return the correct auxiliary values for `top` and `bottom`.
+- Close TSMReaders from `FileStore.Close` after releasing FileStore mutex.
 
 ## 1.5.5 {date="2018-12-19"}
 
 ### Features
 
-*	Reduce allocations in TSI `TagSets` implementation.
+- Reduce allocations in TSI `TagSets` implementation.
 
 ### Bug fixes
 
-*	Copy return value of `IndexSet.MeasurementNamesByExpr`.
-*	Ensure orphaned series cleaned up with shard drop.
-*	Fix the derivative and others time ranges for aggregate data.
-*	Fix the stream iterator to not ignore errors.
-*	Do not panic when a series ID iterator is `nil`.
-*	Fix panic in `IndexSet`.
-*	Pass the query authorizer to subqueries.
-*	Fix TSM1 panic on reader error.
+- Copy return value of `IndexSet.MeasurementNamesByExpr`.
+- Ensure orphaned series cleaned up with shard drop.
+- Fix the derivative and others time ranges for aggregate data.
+- Fix the stream iterator to not ignore errors.
+- Do not panic when a series ID iterator is `nil`.
+- Fix panic in `IndexSet`.
+- Pass the query authorizer to subqueries.
+- Fix TSM1 panic on reader error.
 
 ## 1.5.4 {date="2018-06-21"}
 
 ### Features
 
-* Add `influx_inspect deletetsm` command for bulk deletes of measurements in raw TSM files.
+- Add `influx_inspect deletetsm` command for bulk deletes of measurements in raw TSM files.
 
 ### Bug fixes
 
-* Fix panic in readTombstoneV4.
-* buildtsi: Do not escape measurement names.
+- Fix panic in readTombstoneV4.
+- buildtsi: Do not escape measurement names.
 
 ## 1.5.3 {date="2018-05-25"}
 
 ### Features
 
-* Add `[http] debug-pprof-enabled` configuration setting immediately on startup. Useful for debugging startup performance issues.
+- Add `[http] debug-pprof-enabled` configuration setting immediately on startup. Useful for debugging startup performance issues.
 
 ### Bug fixes
 
-* Fix the validation for multiple nested `DISTINCT` calls.
-* Return the correct auxiliary values for `TOP` and `BOTTOM`.
+- Fix the validation for multiple nested `DISTINCT` calls.
+- Return the correct auxiliary values for `TOP` and `BOTTOM`.
 
 ## 1.5.2 {date="2018-04-12"}
 
 ### Features
 
-* Check for root user when running `buildtsi`.
-* Adjustable TSI Compaction Threshold.
+- Check for root user when running `buildtsi`.
+- Adjustable TSI Compaction Threshold.
 
 ### Bug fixes
 
-* backport: check for failure case where backup directory has no manifest files.
-* Fix regression to allow `now()` to be used as the group by offset again.
-* Revert `Use MADV_WILLNEED when loading TSM files`.
-* Ignore index size in `Engine.DiskSize()`.
-* Fix `buildtsi` partition key.
-* Ensure that conditions are encoded correctly even if the AST is not properly formed.
+- backport: check for failure case where backup directory has no manifest files.
+- Fix regression to allow `now()` to be used as the group by offset again.
+- Revert `Use MADV_WILLNEED when loading TSM files`.
+- Ignore index size in `Engine.DiskSize()`.
+- Fix `buildtsi` partition key.
+- Ensure that conditions are encoded correctly even if the AST is not properly formed.
 
 ## 1.5.1 {date="2018-03-20"}
 
@@ -908,7 +978,7 @@ will find the shards refuse to open and will most likely see the following error
 
 #### `[collectd]` Section
 
-* `parse-multivalue-plugin` option was added with a default of `split`.  When set to `split`, multivalue plugin data (e.g. `df free:5000,used:1000`) will be split into separate measurements (e.g., `df_free, value=5000` and `df_used, value=1000`).  When set to `join`, multivalue plugin will be stored as a single multi-value measurement (e.g., `df, free=5000,used=1000`).
+- `parse-multivalue-plugin` option was added with a default of `split`.  When set to `split`, multivalue plugin data (e.g. `df free:5000,used:1000`) will be split into separate measurements (e.g., `df_free, value=5000` and `df_used, value=1000`).  When set to `join`, multivalue plugin will be stored as a single multi-value measurement (e.g., `df, free=5000,used=1000`).
 
 ### Features
 
@@ -1096,12 +1166,17 @@ Minor bug fixes were identified via Community and InfluxCloud.
 Version 1.3.0 marks the first official release of the new InfluxDB time series index (TSI) engine.
 
 The TSI engine is a significant technical advancement in InfluxDB.
-It offers a solution to the [time-structured merge tree](/influxdb/v1/concepts/storage_engine/) engine's [high series cardinality issue](/influxdb/v1/troubleshooting/frequently-asked-questions/#why-does-series-cardinality-matter).
-With TSI, the number of series should be unbounded by the memory on the server hardware and the number of existing series will have a negligible impact on database startup time.
-See Paul Dix's blogpost [Path to 1 Billion Time Series: InfluxDB High Cardinality Indexing Ready for Testing](https://www.influxdata.com/path-1-billion-time-series-influxdb-high-cardinality-indexing-ready-testing/) for additional information.
+It offers a solution to the [time-structured merge tree](/influxdb/v1/concepts/storage_engine/)
+engine's [high series cardinality issue](/influxdb/v1/troubleshooting/frequently-asked-questions/#why-does-series-cardinality-matter).
+With TSI, the number of series should be unbounded by the memory on the server
+hardware and the number of existing series will have a negligible impact on
+database startup time.
+See Paul Dix's blogpost [Path to 1 Billion Time Series: InfluxDB High Cardinality Indexing Ready for Testing](https://www.influxdata.com/path-1-billion-time-series-influxdb-high-cardinality-indexing-ready-testing/)
+for additional information.
 
 TSI is disabled by default in version 1.3.
-To enable TSI, uncomment the [`index-version` setting](/influxdb/v1/administration/config#index-version-inmem) and set it to `tsi1`.
+To enable TSI, uncomment the [`index-version` setting](/influxdb/v1/administration/config#index-version)
+and set it to `tsi1`.
 The `index-version` setting is in the `[data]` section of the configuration file.
 Next, restart your InfluxDB instance.
 
@@ -1125,8 +1200,8 @@ When enabled, each time a continuous query is completed, a number of details reg
 | `pointsWrittenOK` | number of points written to the target measurement |
 
 
-* `startTime` and `endTime` are UNIX timestamps, in nanoseconds.
-* The number of points written is also included in CQ log messages.
+- `startTime` and `endTime` are UNIX timestamps, in nanoseconds.
+- The number of points written is also included in CQ log messages.
 
 ### Removals
 
@@ -1134,20 +1209,20 @@ The admin UI is removed and unusable in this release. The `[admin]` configuratio
 
 ### Configuration Changes
 
-* The top-level config `bind-address` now defaults to `localhost:8088`.
+- The top-level config `bind-address` now defaults to `localhost:8088`.
   The previous default was just `:8088`, causing the backup and restore port to be bound on all available interfaces (i.e. including interfaces on the public internet).
 
 The following new configuration options are available.
 
 #### `[http]` Section
 
-* `max-body-size` was added with a default of 25,000,000, but can be disabled by setting it to 0.
+- `max-body-size` was added with a default of 25,000,000, but can be disabled by setting it to 0.
   Specifies the maximum size (in bytes) of a client request body. When a client sends data that exceeds
   the configured maximum size, a `413 Request Entity Too Large` HTTP response is returned.
 
 #### `[continuous_queries]` Section
 
-* `query-stats-enabled` was added with a default of `false`. When set to `true`, continuous query execution statistics are written to the default monitor store.
+- `query-stats-enabled` was added with a default of `false`. When set to `true`, continuous query execution statistics are written to the default monitor store.
 
 ### Features
 
@@ -1250,14 +1325,15 @@ The following new configuration options are available.
 
 #### `[http]` Section
 
-* [`max-row-limit`](/influxdb/v1/administration/config#max-row-limit-0) now defaults to `0`.
+- [`max-row-limit`](/influxdb/v1/administration/config#max-row-limit) now defaults to `0`.
   In versions 1.0 and 1.1, the default setting was `10000`, but due to a bug, the value in use in versions 1.0 and 1.1 was effectively `0`.
   In versions 1.2.0 through 1.2.1, we fixed that bug, but the fix caused a breaking change for Grafana and Kapacitor users; users who had not set `max-row-limit` to `0` experienced truncated/partial data due to the `10000` row limit.
   In version 1.2.2, we've changed the default `max-row-limit` setting to `0` to match the behavior in versions 1.0 and 1.1.
 
 ### Bug fixes
 
-- Change the default [`max-row-limit`](/influxdb/v1/administration/config#max-row-limit-0) setting from `10000` to `0` to prevent the absence of data in Grafana or Kapacitor.
+- Change the default [`max-row-limit`](/influxdb/v1/administration/config#max-row-limit)
+  setting from `10000` to `0` to prevent the absence of data in Grafana or Kapacitor.
 
 ## v1.2.1 {date="2017-03-08"}
 
@@ -1299,8 +1375,8 @@ The following new configuration options are available, if upgrading to `1.2.0` f
 
 #### `[[collectd]]` Section
 
-* `security-level` which defaults to `"none"`. This field also accepts `"sign"` and `"encrypt"` and enables different levels of transmission security for the collectd plugin.
-* `auth-file` which defaults to `"/etc/collectd/auth_file"`. Specifies where to locate the authentication file used to authenticate clients when using signed or encrypted mode.
+- `security-level` which defaults to `"none"`. This field also accepts `"sign"` and `"encrypt"` and enables different levels of transmission security for the collectd plugin.
+- `auth-file` which defaults to `"/etc/collectd/auth_file"`. Specifies where to locate the authentication file used to authenticate clients when using signed or encrypted mode.
 
 ### Deprecations
 
@@ -1410,14 +1486,14 @@ The following configuration changes may need to changed before upgrading to `1.1
 
 #### `[admin]` Section
 
-* `enabled` now default to false.  If you are currently using the admin interaface, you will need to change this value to `true` to re-enable it.  The admin interface is currently deprecated and will be removed in a subsequent release.
+- `enabled` now default to false.  If you are currently using the admin interaface, you will need to change this value to `true` to re-enable it.  The admin interface is currently deprecated and will be removed in a subsequent release.
 
 #### `[data]` Section
 
-* `max-values-per-tag` was added with a default of 100,000, but can be disabled by setting it to `0`.  Existing measurements with tags that exceed this limit will continue to load, but writes that would cause the tags cardinality to increase will be dropped and a `partial write` error will be returned to the caller.  This limit can be used to prevent high cardinality tag values from being written to a measurement.
-* `cache-max-memory-size` has been increased to from `524288000` to `1048576000`.  This setting is the maximum amount of RAM, in bytes, a shard cache can use before it rejects writes with an error.  Setting this value to `0` disables the limit.
-* `cache-snapshot-write-cold-duration` has been decreased from `1h` to `10m`.  This setting determines how long values will stay in the shard cache while the shard is cold for writes.
-* `compact-full-write-cold-duration` has been decreased from `24h` to `4h`.  The shorter duration allows cold shards to be compacted to an optimal state more quickly.
+- `max-values-per-tag` was added with a default of 100,000, but can be disabled by setting it to `0`.  Existing measurements with tags that exceed this limit will continue to load, but writes that would cause the tags cardinality to increase will be dropped and a `partial write` error will be returned to the caller.  This limit can be used to prevent high cardinality tag values from being written to a measurement.
+- `cache-max-memory-size` has been increased to from `524288000` to `1048576000`.  This setting is the maximum amount of RAM, in bytes, a shard cache can use before it rejects writes with an error.  Setting this value to `0` disables the limit.
+- `cache-snapshot-write-cold-duration` has been decreased from `1h` to `10m`.  This setting determines how long values will stay in the shard cache while the shard is cold for writes.
+- `compact-full-write-cold-duration` has been decreased from `24h` to `4h`.  The shorter duration allows cold shards to be compacted to an optimal state more quickly.
 
 ### Features
 
@@ -1517,12 +1593,12 @@ Initial release of InfluxDB.
 
 ### Breaking changes
 
-* `max-series-per-database` was added with a default of 1M but can be disabled by setting it to `0`. Existing databases with series that exceed this limit will continue to load but writes that would create new series will fail.
-* Config option `[cluster]` has been replaced with `[coordinator]`.
-* Support for config options `[collectd]` and `[opentsdb]` has been removed; use `[[collectd]]` and `[[opentsdb]]` instead.
-* Config option `data-logging-enabled` within the `[data]` section, has been renamed to `trace-logging-enabled`, and defaults to `false`.
-* The keywords `IF`, `EXISTS`, and `NOT` where removed for this release.  This means you no longer need to specify `IF NOT EXISTS` for `DROP DATABASE` or `IF EXISTS` for `CREATE DATABASE`.  If these are specified, a query parse error is returned.
-* The Shard `writePointsFail` stat has been renamed to `writePointsErr` for consistency with other stats.
+- `max-series-per-database` was added with a default of 1M but can be disabled by setting it to `0`. Existing databases with series that exceed this limit will continue to load but writes that would create new series will fail.
+- Config option `[cluster]` has been replaced with `[coordinator]`.
+- Support for config options `[collectd]` and `[opentsdb]` has been removed; use `[[collectd]]` and `[[opentsdb]]` instead.
+- Config option `data-logging-enabled` within the `[data]` section, has been renamed to `trace-logging-enabled`, and defaults to `false`.
+- The keywords `IF`, `EXISTS`, and `NOT` where removed for this release.  This means you no longer need to specify `IF NOT EXISTS` for `DROP DATABASE` or `IF EXISTS` for `CREATE DATABASE`.  If these are specified, a query parse error is returned.
+- The Shard `writePointsFail` stat has been renamed to `writePointsErr` for consistency with other stats.
 
 With this release the systemd configuration files for InfluxDB will use the system configured default for logging and will no longer write files to `/var/log/influxdb` by default. On most systems, the logs will be directed to the systemd journal and can be accessed by `journalctl -u influxdb.service`. Consult the systemd journald documentation for configuring journald.
 

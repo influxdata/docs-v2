@@ -12,9 +12,8 @@ menu:
 This page documents errors, their descriptions, and, where applicable,
 common resolutions.
 
-{{% warn %}}
-**Disclaimer:** This document does not contain an exhaustive list of all possible InfluxDB errors.
-{{% /warn %}}
+> [!Warning]
+> **Disclaimer:** This document does not contain an exhaustive list of all possible InfluxDB errors.
 
 ## `error: database name required`
 
@@ -47,7 +46,7 @@ By default `max-series-per-database` is set to one million.
 Changing the setting to `0` allows an unlimited number of series per database.
 
 **Resources:**
-[Database Configuration](/influxdb/v1/administration/config/#max-series-per-database-1000000)
+[Database Configuration](/influxdb/v1/administration/config/#max-series-per-database)
 
 ## `error parsing query: found < >, expected identifier at line < >, char < >`
 
@@ -326,7 +325,7 @@ The maximum valid timestamp is `9223372036854775806` or `2262-04-11T23:47:16.854
 
 The `cache maximum memory size exceeded` error occurs when the cached
 memory size increases beyond the
-[`cache-max-memory-size` setting](/influxdb/v1/administration/config/#cache-max-memory-size-1g)
+[`cache-max-memory-size` setting](/influxdb/v1/administration/config/#cache-max-memory-size)
 in the configuration file.
 
 By default, `cache-max-memory-size` is set to 512mb.
@@ -398,11 +397,15 @@ This error occurs when the Docker container cannot read files on the host machin
 
 #### Make host machine files readable to Docker
 
-  1. Create a directory, and then copy files to import into InfluxDB to this directory.
-  2. When you launch the Docker container, mount the new directory on the InfluxDB container by running the following command:
+1.  Create a directory, and then copy files to import into InfluxDB to this directory.
+2.  When you launch the Docker container, mount the new directory on the InfluxDB container by running the following command:
 
-        docker run -v /dir/path/on/host:/dir/path/in/container
+    ```bash
+    docker run -v /dir/path/on/host:/dir/path/in/container
+    ```
 
-  3. Verify the Docker container can read host machine files by running the following command:
+3.  Verify the Docker container can read host machine files by running the following command:
 
-        influx -import -path=/path/in/container
+    ```bash
+    influx -import -path=/path/in/container
+    ```

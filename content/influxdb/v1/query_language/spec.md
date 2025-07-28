@@ -8,35 +8,30 @@ menu:
     parent: InfluxQL
 aliases:
   - /influxdb/v2/query_language/spec/
-  - /influxdb/v2/query_language/spec/
-  - /influxdb/v2/query_language/spec/
-  - /influxdb/v2/query_language/spec/
-  - /influxdb/v2/query_language/spec/
-  - /influxdb/v2/query_language/spec/
 ---
 
 ## Introduction
 
 Find Influx Query Language (InfluxQL) definitions and details, including:
 
-* [Notation](/influxdb/v1/query_language/spec/#notation)
-* [Query representation](/influxdb/v1/query_language/spec/#query-representation)
-* [Identifiers](/influxdb/v1/query_language/spec/#identifiers)
-* [Keywords](/influxdb/v1/query_language/spec/#keywords)
-* [Literals](/influxdb/v1/query_language/spec/#literals)
-* [Queries](/influxdb/v1/query_language/spec/#queries)
-* [Statements](/influxdb/v1/query_language/spec/#statements)
-* [Clauses](/influxdb/v1/query_language/spec/#clauses)
-* [Expressions](/influxdb/v1/query_language/spec/#expressions)
-* [Other](/influxdb/v1/query_language/spec/#other)
-* [Query engine internals](/influxdb/v1/query_language/spec/#query-engine-internals)
+- [Notation](/influxdb/v1/query_language/spec/#notation)
+- [Query representation](/influxdb/v1/query_language/spec/#query-representation)
+- [Identifiers](/influxdb/v1/query_language/spec/#identifiers)
+- [Keywords](/influxdb/v1/query_language/spec/#keywords)
+- [Literals](/influxdb/v1/query_language/spec/#literals)
+- [Queries](/influxdb/v1/query_language/spec/#queries)
+- [Statements](/influxdb/v1/query_language/spec/#statements)
+- [Clauses](/influxdb/v1/query_language/spec/#clauses)
+- [Expressions](/influxdb/v1/query_language/spec/#expressions)
+- [Other](/influxdb/v1/query_language/spec/#other)
+- [Query engine internals](/influxdb/v1/query_language/spec/#query-engine-internals)
 
 To learn more about InfluxQL, browse the following topics:
 
-* [Explore your data with InfluxQL](/influxdb/v1/query_language/explore-data/)
-* [Explore your schema with InfluxQL](/influxdb/v1/query_language/explore-schema/)
-* [Database management](/influxdb/v1/query_language/manage-database/)
-* [Authentication and authorization](/influxdb/v1/administration/authentication_and_authorization/).
+- [Explore your data with InfluxQL](/influxdb/v1/query_language/explore-data/)
+- [Explore your schema with InfluxQL](/influxdb/v1/query_language/explore-schema/)
+- [Database management](/influxdb/v1/query_language/manage-database/)
+- [Authentication and authorization](/influxdb/v1/administration/authentication_and_authorization/).
 
 InfluxQL is a SQL-like query language for interacting with InfluxDB and providing features specific to storing and analyzing time series data.
 
@@ -123,15 +118,15 @@ ALL           ALTER         ANY           AS            ASC           BEGIN
 BY            CREATE        CONTINUOUS    DATABASE      DATABASES     DEFAULT
 DELETE        DESC          DESTINATIONS  DIAGNOSTICS   DISTINCT      DROP
 DURATION      END           EVERY         EXPLAIN       FIELD         FOR
-FROM          GRANT         GRANTS        GROUP         GROUPS        IN
-INF           INSERT        INTO          KEY           KEYS          KILL
-LIMIT         SHOW          MEASUREMENT   MEASUREMENTS  NAME          OFFSET
-ON            ORDER         PASSWORD      POLICY        POLICIES      PRIVILEGES
-QUERIES       QUERY         READ          REPLICATION   RESAMPLE      RETENTION
-REVOKE        SELECT        SERIES        SET           SHARD         SHARDS
-SLIMIT        SOFFSET       STATS         SUBSCRIPTION  SUBSCRIPTIONS TAG
-TO            USER          USERS         VALUES        WHERE         WITH
-WRITE
+FROM          FUTURE        GRANT         GRANTS        GROUP         GROUPS
+IN            INF           INSERT        INTO          KEY           KEYS
+KILL          LIMIT         SHOW          MEASUREMENT   MEASUREMENTS  NAME
+OFFSET        ON            ORDER         PASSWORD      PAST          POLICY
+POLICIES      PRIVILEGES    QUERIES       QUERY         READ          REPLICATION
+RESAMPLE      RETENTION     REVOKE        SELECT        SERIES        SET
+SHARD         SHARDS        SLIMIT        SOFFSET       STATS         SUBSCRIPTION
+SUBSCRIPTIONS TAG           TO            USER          USERS         VALUES
+WHERE         WITH          WRITE
 ```
 
 If you use an InfluxQL keywords as an
@@ -383,12 +378,14 @@ create_database_stmt = "CREATE DATABASE" db_name
                            [ retention_policy_duration ]
                            [ retention_policy_replication ]
                            [ retention_policy_shard_group_duration ]
+                           [ retention_past_limit ]
+                           [ retention_future_limit ]
                            [ retention_policy_name ]
                        ] .
 ```
 
-{{% warn %}} Replication factors do not serve a purpose with single node instances.
-{{% /warn %}}
+> [!Warning]
+> Replication factors do not serve a purpose with single node instances.
 
 #### Examples
 
@@ -396,11 +393,17 @@ create_database_stmt = "CREATE DATABASE" db_name
 -- Create a database called foo
 CREATE DATABASE "foo"
 
--- Create a database called bar with a new DEFAULT retention policy and specify the duration, replication, shard group duration, and name of that retention policy
+-- Create a database called bar with a new DEFAULT retention policy and specify
+-- the duration, replication, shard group duration, and name of that retention policy
 CREATE DATABASE "bar" WITH DURATION 1d REPLICATION 1 SHARD DURATION 30m NAME "myrp"
 
--- Create a database called mydb with a new DEFAULT retention policy and specify the name of that retention policy
+-- Create a database called mydb with a new DEFAULT retention policy and specify
+-- the name of that retention policy
 CREATE DATABASE "mydb" WITH NAME "myrp"
+
+-- Create a database called bar with a new retention policy named "myrp", and
+-- specify the duration, past and future limits, and name of that retention policy
+CREATE DATABASE "bar" WITH DURATION 1d PAST LIMIT 6h FUTURE LIMIT 6h NAME "myrp"
 ```
 
 ### CREATE RETENTION POLICY
@@ -410,11 +413,13 @@ create_retention_policy_stmt = "CREATE RETENTION POLICY" policy_name on_clause
                                retention_policy_duration
                                retention_policy_replication
                                [ retention_policy_shard_group_duration ]
+                               [ retention_past_limit ]
+                               [ retention_future_limit ]
                                [ "DEFAULT" ] .
 ```
 
-{{% warn %}} Replication factors do not serve a purpose with single node instances.
-{{% /warn %}}
+> [!Warning]
+> Replication factors do not serve a purpose with single node instances.
 
 #### Examples
 
@@ -427,6 +432,9 @@ CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 DEFA
 
 -- Create a retention policy and specify the shard group duration.
 CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 SHARD DURATION 30m
+
+-- Create a retention policy and specify past and future limits.
+CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 12h PAST LIMIT 6h FUTURE LIMIT 6h
 ```
 
 ### CREATE SUBSCRIPTION
@@ -1069,17 +1077,17 @@ show_stats_stmt = "SHOW STATS [ FOR '<component>' | 'indexes' ]"
 
 #### `SHOW STATS`
 
-* The `SHOW STATS` command does not list index memory usage -- use the [`SHOW STATS FOR 'indexes'`](#show-stats-for-indexes) command.
-* Statistics returned by `SHOW STATS` are stored in memory and reset to zero when the node is restarted, but `SHOW STATS` is triggered every 10 seconds to populate the `_internal` database.
+- The `SHOW STATS` command does not list index memory usage -- use the [`SHOW STATS FOR 'indexes'`](#show-stats-for-indexes) command.
+- Statistics returned by `SHOW STATS` are stored in memory and reset to zero when the node is restarted, but `SHOW STATS` is triggered every 10 seconds to populate the `_internal` database.
 
 #### `SHOW STATS FOR <component>`
 
-* For the specified component (\<component\>), the command returns available statistics.
-* For the `runtime` component, the command returns an overview of memory usage by the InfluxDB system, using the [Go runtime](https://golang.org/pkg/runtime/) package.
+- For the specified component (\<component\>), the command returns available statistics.
+- For the `runtime` component, the command returns an overview of memory usage by the InfluxDB system, using the [Go runtime](https://golang.org/pkg/runtime/) package.
 
 #### `SHOW STATS FOR 'indexes'`
 
-* Returns an estimate of memory use of all indexes. Index memory use is not reported with `SHOW STATS` because it is a potentially expensive operation.
+- Returns an estimate of memory use of all indexes. Index memory use is not reported with `SHOW STATS` because it is a potentially expensive operation.
 
 #### Example
 
@@ -1346,9 +1354,9 @@ var_ref          = measurement .
 
 Use comments with InfluxQL statements to describe your queries.
 
-* A single line comment begins with two hyphens (`--`) and ends where InfluxDB detects a line break.
+- A single line comment begins with two hyphens (`--`) and ends where InfluxDB detects a line break.
   This comment type cannot span several lines.
-* A multi-line comment begins with `/*` and ends with `*/`. This comment type can span several lines.
+- A multi-line comment begins with `/*` and ends with `*/`. This comment type can span several lines.
   Multi-line comments do not support nested multi-line comments.
 
 ## Query Engine Internals
@@ -1452,42 +1460,42 @@ iterator.
 
 There are many helper iterators that let us build queries:
 
-* Merge Iterator - This iterator combines one or more iterators into a single
+- Merge Iterator - This iterator combines one or more iterators into a single
   new iterator of the same type. This iterator guarantees that all points
   within a window will be output before starting the next window but does not
   provide ordering guarantees within the window. This allows for fast access
   for aggregate queries which do not need stronger sorting guarantees.
 
-* Sorted Merge Iterator - This iterator also combines one or more iterators
+- Sorted Merge Iterator - This iterator also combines one or more iterators
   into a new iterator of the same type. However, this iterator guarantees
   time ordering of every point. This makes it slower than the `MergeIterator`
   but this ordering guarantee is required for non-aggregate queries which
   return the raw data points.
 
-* Limit Iterator - This iterator limits the number of points per name/tag
+- Limit Iterator - This iterator limits the number of points per name/tag
   group. This is the implementation of the `LIMIT` & `OFFSET` syntax.
 
-* Fill Iterator - This iterator injects extra points if they are missing from
+- Fill Iterator - This iterator injects extra points if they are missing from
   the input iterator. It can provide `null` points, points with the previous
   value, or points with a specific value.
 
-* Buffered Iterator - This iterator provides the ability to "unread" a point
+- Buffered Iterator - This iterator provides the ability to "unread" a point
   back onto a buffer so it can be read again next time. This is used extensively
   to provide lookahead for windowing.
 
-* Reduce Iterator - This iterator calls a reduction function for each point in
+- Reduce Iterator - This iterator calls a reduction function for each point in
   a window. When the window is complete then all points for that window are
   output. This is used for simple aggregate functions such as `COUNT()`.
 
-* Reduce Slice Iterator - This iterator collects all points for a window first
+- Reduce Slice Iterator - This iterator collects all points for a window first
   and then passes them all to a reduction function at once. The results are
   returned from the iterator. This is used for aggregate functions such as
   `DERIVATIVE()`.
 
-* Transform Iterator - This iterator calls a transform function for each point
+- Transform Iterator - This iterator calls a transform function for each point
   from an input iterator. This is used for executing binary expressions.
 
-* Dedupe Iterator - This iterator only outputs unique points. It is resource
+- Dedupe Iterator - This iterator only outputs unique points. It is resource
   intensive so it is only used for small queries such as meta query statements.
 
 ### Call iterators

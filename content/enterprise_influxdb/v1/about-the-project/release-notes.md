@@ -9,17 +9,80 @@ menu:
     parent: About the project
 ---
 
-{{% note %}}
-#### InfluxDB Enterprise and FIPS-compliance
+## v1.12.1 {date="2025-06-26"}
 
-**InfluxDB Enterprise 1.11+** introduces builds that are compliant with 
-[Federal Information Processing Standards (FIPS)](https://www.nist.gov/standardsgov/compliance-faqs-federal-information-processing-standards-fips)
-and adhere to a strict set of security standards. Both standard and FIPS-compliant
-InfluxDB Enterprise builds are available. For more information, see
-[FIPS-compliant InfluxDB Enterprise builds](/enterprise_influxdb/v1/introduction/installation/fips-compliant/).
-{{% /note %}}
+> [!Important]
+> #### Upgrade meta nodes first
+>
+> When upgrading to InfluxDB Enterprise 1.12.1+, upgrade meta nodes before
+> upgrading data nodes.
+
+## Features
+
+- Add additional log output when using
+  [`influx_inspect buildtsi`](/enterprise_influxdb/v1/tools/influx_inspect/#buildtsi) to
+  rebuild the TSI index.
+- Use [`influx_inspect export`](/enterprise_influxdb/v1/tools/influx_inspect/#export) with
+  [`-tsmfile` option](/enterprise_influxdb/v1/tools/influx_inspect/#--tsmfile-tsm_file-) to
+  export a single TSM file.
+- Add `-m` flag to the [`influxd-ctl show-shards` command](/enterprise_influxdb/v1/tools/influxd-ctl/show-shards/)
+  to output inconsistent shards.
+- Allow the specification of a write window for retention policies.
+- Add `fluxQueryRespBytes` metric to the `/debug/vars` metrics endpoint.
+- Log whenever meta gossip times exceed expiration.
+- Add [`query-log-path` configuration option](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#query-log-path)
+  to data nodes.
+- Add [`aggressive-points-per-block` configuration option](/influxdb/v1/administration/config/#aggressive-points-per-block)
+  to prevent TSM files from not getting fully compacted.
+- Log TLS configuration settings on startup.
+- Check for TLS certificate and private key permissions.
+- Add a warning if the TLS certificate is expired.
+- Add authentication to the Raft portal and add the following related _data_
+  node configuration options:
+  - [`[meta].raft-portal-auth-required`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#raft-portal-auth-required)
+  - [`[meta].raft-dialer-auth-required`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#raft-dialer-auth-required)
+- Improve error handling.
+- InfluxQL updates:
+  - Delete series by retention policy.
+  - Allow retention policies to discard writes that fall within their range, but
+    outside of [`FUTURE LIMIT`](/enterprise_influxdb/v1/query_language/manage-database/#future-limit)
+    and [`PAST LIMIT`](/enterprise_influxdb/v1/query_language/manage-database/#past-limit).
+
+## Bug fixes
+
+- Log rejected writes to subscriptions.
+- Update `xxhash` and avoid `stringtoslicebyte` in the cache.
+- Prevent a panic when a shard group has no shards.
+- Fix file handle leaks in `Compactor.write`.
+- Ensure fields in memory match the fields on disk.
+- Ensure temporary files are removed after failed compactions.
+- Do not panic on invalid multiple subqueries.
+- Update the `/shard-status` API to return the correct result and use a
+  consistent "idleness" definition for shards.
+
+## Other
+
+- Update Go to 1.23.5.
+- Upgrade Flux to v0.196.1.
+- Upgrade InfluxQL to v1.4.1.
+- Various other dependency updates.
+
+---
+
+> [!Note]
+> #### InfluxDB Enterprise and FIPS-compliance
+>
+> **InfluxDB Enterprise 1.11+** introduces builds that are compliant with 
+> [Federal Information Processing Standards (FIPS)](https://www.nist.gov/standardsgov/compliance-faqs-federal-information-processing-standards-fips)
+> and adhere to a strict set of security standards. Both standard and FIPS-compliant
+> InfluxDB Enterprise builds are available. For more information, see
+> [FIPS-compliant InfluxDB Enterprise builds](/enterprise_influxdb/v1/introduction/installation/fips-compliant/).
 
 ## v1.11.8 {date="2024-11-15"}
+
+### Features
+
+- Add a startup logger to InfluxDB Enterprise data nodes.
 
 ### Bug Fixes
 
@@ -27,6 +90,8 @@ InfluxDB Enterprise builds are available. For more information, see
   API](/enterprise_influxdb/v1/tools/api/#apiv2delete-http-endpoint) before
   string comparisons (e.g. to allow special characters in measurement names).
 - Enable SHA256 for FIPS RPMs.
+
+---
 
 ## v1.11.7 {date="2024-09-19"}
 
@@ -79,14 +144,13 @@ InfluxDB Enterprise builds are available. For more information, see
 
 ## v1.11.5 {date="2024-02-14"}
 
-{{% note %}}
-#### Upgrading from InfluxDB Enterprise v1.11.3
-
-If upgrading from InfluxDB Enterprise v1.11.3+ to {{< latest-patch >}}, you can
-now configure whether or not InfluxDB compacts series files on startup using the
-[`compact-series-file` configuration option](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#compact-series-file)
-in your [InfluxDB Enterprise data node configuration file](/enterprise_influxdb/v1/administration/configure/config-data-nodes/).
-{{% /note %}}
+> [!Note]
+> #### Upgrading from InfluxDB Enterprise v1.11.3
+> 
+> If upgrading from InfluxDB Enterprise v1.11.3+ to {{< latest-patch >}}, you can
+> now configure whether or not InfluxDB compacts series files on startup using the
+> [`compact-series-file` configuration option](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#compact-series-file)
+> in your [InfluxDB Enterprise data node configuration file](/enterprise_influxdb/v1/administration/configure/config-data-nodes/).
 
 ### Bug Fixes
 
@@ -101,29 +165,28 @@ in your [InfluxDB Enterprise data node configuration file](/enterprise_influxdb/
 
 ## v1.11.4 {date="2023-12-14"}
 
-{{% note %}}
-#### Series file compaction
-
-With InfluxDB Enterprise v1.11.4+, InfluxDB can be configured to optionally
-[compact series files](/enterprise_influxdb/v1/tools/influx_inspect/#--compact-series-file-)
-before data nodes are started.
-Series files are stored in `_series` directories inside the
-[InfluxDB data directory](/enterprise_influxdb/v1/concepts/file-system-layout/#data-node-file-system-layout).
-Default: `/var/lib/data/<db-name>/_series`.
-
-To compact series files on startup, set the [`compact-series-file` configuration option](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#compact-series-file)
-to `true` in your [InfluxDB Enterprise data node configuration file](/enterprise_influxdb/v1/administration/configure/config-data-nodes/).
-
-- If any series files are corrupt, the `influx_inspect` or `influxd` processes on
-  the data node may fail to start. In both cases, delete the series file
-  directories before restarting the database. InfluxDB automatically
-  regenerates the necessary series directories and files when restarting.
-- To check if series files are corrupt before starting the database, run the
-  [`influx_inspect verify-seriesfile` command](/enterprise_influxdb/v1/tools/influx_inspect/#verify-seriesfile)
-  while the database is off-line.
-- If series files are large (20+ gigabytes), it may be faster to delete the
-  series file directories before starting the database.
-{{% /note %}}
+> [!Note]
+> #### Series file compaction
+> 
+> With InfluxDB Enterprise v1.11.4+, InfluxDB can be configured to optionally
+> [compact series files](/enterprise_influxdb/v1/tools/influx_inspect/#--compact-series-file-)
+> before data nodes are started.
+> Series files are stored in `_series` directories inside the
+> [InfluxDB data directory](/enterprise_influxdb/v1/concepts/file-system-layout/#data-node-file-system-layout).
+> Default: `/var/lib/data/<db-name>/_series`.
+> 
+> To compact series files on startup, set the [`compact-series-file` configuration option](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#compact-series-file)
+> to `true` in your [InfluxDB Enterprise data node configuration file](/enterprise_influxdb/v1/administration/configure/config-data-nodes/).
+>
+> - If any series files are corrupt, the `influx_inspect` or `influxd` processes on
+>   the data node may fail to start. In both cases, delete the series file
+>   directories before restarting the database. InfluxDB automatically
+>   regenerates the necessary series directories and files when restarting.
+> - To check if series files are corrupt before starting the database, run the
+>   [`influx_inspect verify-seriesfile` command](/enterprise_influxdb/v1/tools/influx_inspect/#verify-seriesfile)
+>   while the database is off-line.
+> - If series files are large (20+ gigabytes), it may be faster to delete the
+>   series file directories before starting the database.
 
 ### Bug Fixes
 
@@ -448,8 +511,10 @@ An edge case regression was introduced into this version that may cause a consta
 
 ## v1.9.6 {date="2022-02-16"}
 
-{{% note %}} InfluxDB Enterprise offerings are no longer available on AWS, Azure, and GCP marketplaces. Please [contact Sales](https://www.influxdata.com/contact-sales/) to request an license key to [install InfluxDB Enterprise in your own environment](/enterprise_influxdb/v1/introduction/installation/).
-{{% /note %}}
+> [!Note]
+> InfluxDB Enterprise offerings are no longer available on AWS, Azure, and GCP
+> marketplaces. Please [contact Sales](https://www.influxdata.com/contact-sales/)
+> to request an license key to [install InfluxDB Enterprise in your own environment](/enterprise_influxdb/v1/introduction/installation/).
 
 ### Features
 
@@ -495,10 +560,9 @@ An edge case regression was introduced into this version that may cause a consta
 
 ## v1.9.5 {date="2021-10-11"}
 
-{{% note %}}
-InfluxDB Enterprise 1.9.4 was not released.
-Changes below are included in InfluxDB Enterprise 1.9.5.
-{{% /note %}}
+> [!Note]
+> InfluxDB Enterprise 1.9.4 was not released.
+> Changes below are included in InfluxDB Enterprise 1.9.5.
 
 ### Features
 
@@ -581,7 +645,7 @@ in that there is no corresponding InfluxDB OSS release.
 
 ### Features
 - Upgrade to Go 1.15.10.
-- Support user-defined *node labels*.
+- Support user-defined _node labels_.
   Node labels let you assign arbitrary key-value pairs to meta and data nodes in a cluster.
   For instance, an operator might want to label nodes with the availability zone in which they're located.
 - Improve performance of `SHOW SERIES CARDINALITY` and `SHOW SERIES CARDINALITY from <measurement>` InfluxQL queries.
@@ -646,10 +710,9 @@ in that there is no corresponding InfluxDB OSS release.
   Instead, use [`inch`](https://github.com/influxdata/inch) 
   or [`influx-stress`](https://github.com/influxdata/influx-stress) (not to be confused with `influx_stress`).
 
-{{% note %}}
-**Note:** InfluxDB Enterprise 1.9.0 and 1.9.1 were not released.
-Bug fixes intended for 1.9.0 and 1.9.1 were rolled into InfluxDB Enterprise 1.9.2.
-{{% /note %}}
+> [!Note]
+> InfluxDB Enterprise 1.9.0 and 1.9.1 were not released.
+> Bug fixes intended for 1.9.0 and 1.9.1 were rolled into InfluxDB Enterprise 1.9.2.
 
 ---
 
@@ -756,11 +819,15 @@ For details on changes incorporated from the InfluxDB OSS release, see
 
 ### Features
 
-#### **Back up meta data only**
+#### Back up meta data only
 
-- Add option to back up **meta data only** (users, roles, databases, continuous queries, and retention policies) using the new `-strategy` flag and `only meta` option: `influx ctl backup -strategy only meta </your-backup-directory>`.
+- Add option to back up **meta data only** (users, roles, databases, continuous
+  queries, and retention policies) using the new `-strategy` flag and `only meta`
+  option: `influx ctl backup -strategy only meta </your-backup-directory>`.
 
-    > **Note:** To restore a meta data backup, use the `restore -full` command and specify your backup manifest: `influxd-ctl restore -full </backup-directory/backup.manifest>`.
+  > [!Note]
+  > To restore a meta data backup, use the `restore -full` command and specify
+  > your backup manifest: `influxd-ctl restore -full </backup-directory/backup.manifest>`.
 
 For more information, see [Perform a metastore only backup](/enterprise_influxdb/v1/administration/backup-and-restore/#perform-a-metastore-only-backup).
 
@@ -1007,7 +1074,10 @@ The following summarizes the expected settings for proper configuration of JWT a
 `""`.
   - A long pass phrase is recommended for better security.
 
->**Note:** To provide encrypted internode communication, you must enable HTTPS. Although the JWT signature is encrypted, the the payload of a JWT token is encoded, but is not encrypted.
+> [!Note]
+> To provide encrypted internode communication, you must enable HTTPS. Although
+> the JWT signature is encrypted, the the payload of a JWT token is encoded, but
+> is not encrypted.
 
 ### Bug fixes
 
