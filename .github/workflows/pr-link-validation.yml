@@ -1,0 +1,140 @@
+# PR Link Validation Workflow
+# Provides basic and parallel workflows
+# with smart strategy selection based on change volume
+name: PR Link Validation
+
+on:
+  pull_request:
+    paths:
+      - 'content/**/*.md'
+      - 'content/**/*.html'
+      - 'api-docs/**/*.yml'
+      - 'assets/**/*.js'
+      - 'layouts/**/*.html'
+
+jobs:
+  setup:
+    name: Setup and Strategy Detection
+    runs-on: ubuntu-latest
+    outputs:
+      strategy: ${{ steps.determine-strategy.outputs.strategy }}
+      has-changes: ${{ steps.determine-strategy.outputs.has-changes }}
+      matrix: ${{ steps.determine-strategy.outputs.matrix }}
+      all-files: ${{ steps.changed-files.outputs.all_changed_files }}
+      cache-hit-rate: ${{ steps.determine-strategy.outputs.cache-hit-rate }}
+      cache-hits: ${{ steps.determine-strategy.outputs.cache-hits }}
+      cache-misses: ${{ steps.determine-strategy.outputs.cache-misses }}
+      original-file-count: ${{ steps.determine-strategy.outputs.original-file-count }}
+      validation-file-count: ${{ steps.determine-strategy.outputs.validation-file-count }}
+      cache-message: ${{ steps.determine-strategy.outputs.message }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup docs environment
+        uses: ./.github/actions/setup-docs-env
+      
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v41
+        with:
+          files: |
+            content/**/*.md
+            content/**/*.html
+            api-docs/**/*.yml
+      
+      - name: Determine validation strategy
+        id: determine-strategy
+        run: |
+          if [[ "${{ steps.changed-files.outputs.any_changed }}" != "true" ]]; then
+            echo "No relevant files changed"
+            echo "strategy=none" >> $GITHUB_OUTPUT
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+            echo "matrix={\"include\":[]}" >> $GITHUB_OUTPUT
+            echo "cache-hit-rate=100" >> $GITHUB_OUTPUT
+            echo "cache-hits=0" >> $GITHUB_OUTPUT
+            echo "cache-misses=0" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Use our matrix generator with cache awareness
+          files="${{ steps.changed-files.outputs.all_changed_files }}"
+          
+          echo "🔍 Analyzing ${files} for cache-aware validation..."
+          
+          # Generate matrix and capture outputs
+          result=$(node .github/scripts/matrix-generator.js \
+            --min-files-parallel 10 \
+            --max-concurrent 5 \
+            --output-format github \
+            $files)
+          
+          # Parse all outputs from matrix generator
+          while IFS='=' read -r key value; do
+            case "$key" in
+              strategy|has-changes|cache-hit-rate|cache-hits|cache-misses|original-file-count|validation-file-count|message)
+                echo "$key=$value" >> $GITHUB_OUTPUT
+                ;;
+              matrix)
+                echo "matrix=$value" >> $GITHUB_OUTPUT
+                ;;
+            esac
+          done <<< "$result"
+          
+          # Extract values for logging
+          strategy=$(echo "$result" | grep "^strategy=" | cut -d'=' -f2)
+          cache_hit_rate=$(echo "$result" | grep "^cache-hit-rate=" | cut -d'=' -f2)
+          cache_message=$(echo "$result" | grep "^message=" | cut -d'=' -f2-)
+          
+          echo "📊 Selected strategy: $strategy"
+          if [[ -n "$cache_hit_rate" ]]; then
+            echo "📈 Cache hit rate: ${cache_hit_rate}%"
+          fi
+          if [[ -n "$cache_message" ]]; then
+            echo "$cache_message"
+          fi
+
+  validate:
+    name: ${{ matrix.name }}
+    needs: setup
+    if: needs.setup.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.setup.outputs.matrix) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup docs environment
+        uses: ./.github/actions/setup-docs-env
+      
+      - name: Validate links
+        uses: ./.github/actions/validate-links
+        with:
+          files: ${{ matrix.files || needs.setup.outputs.all-files }}
+          product-name: ${{ matrix.product }}
+          cache-enabled: ${{ matrix.cacheEnabled || 'true' }}
+          cache-key: link-validation-${{ github.event.pull_request.base.sha }}
+
+  report:
+    name: Report Results
+    needs: [setup, validate]
+    if: always() && needs.setup.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup docs environment
+        uses: ./.github/actions/setup-docs-env
+      
+      - name: Report broken links
+        uses: ./.github/actions/report-broken-links
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          max-links-per-file: 20

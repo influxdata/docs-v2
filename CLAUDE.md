@@ -21,6 +21,9 @@ See @.github/instructions/contributing.instructions.md for essential InfluxData
 documentation contributing guidelines, such as style and
 formatting, and commonly used shortcodes.
 
+See @TESTING.md for comprehensive testing information, including code block
+testing, link validation, style linting, and advanced testing procedures.
+
 See @.github/instructions/shortcodes-reference.instructions.md for detailed
 information about shortcodes used in this project.
 

@@ -18,7 +18,7 @@ Ready to contribute? Here's the essential workflow:
 2. [Fork and clone](#fork-and-clone-influxdata-documentation-repository) this repository
 3. [Install dependencies](#development-environment-setup) (Node.js, Yarn, Docker)
 4. Make your changes following [style guidelines](#making-changes)
-5. [Test your changes](#testing--quality-assurance) (pre-commit and pre-push hooks run automatically)
+5. [Test your changes](TESTING.md) (pre-commit and pre-push hooks run automatically)
 6. [Submit a pull request](#submission-process)
 
 For detailed setup and reference information, see the sections below.
@@ -169,33 +169,30 @@ For more information about generating InfluxDB API documentation, see the
 
 ---
 
-### Pre-commit Hooks
+## Testing & Quality Assurance
 
-docs-v2 uses Lefthook to manage Git hooks that run during pre-commit and pre-push. The hooks run the scripts defined in `package.json` to lint Markdown and test code blocks.
-When you try to commit changes (`git commit`), Git runs
+For comprehensive testing information, including code block testing, link validation, style linting, and advanced testing procedures, see **[TESTING.md](TESTING.md)**.
 
-#### Skip pre-commit hooks
+### Quick Testing Reference
 
+```bash
+# Test code blocks
+yarn test:codeblocks:all
+
+# Test links
+yarn test:links content/influxdb3/core/**/*.md
+
+# Run style linting
+docker compose run -T vale content/**/*.md
+```
+
+Pre-commit hooks run automatically when you commit changes, testing your staged files with Vale, Prettier, Cypress, and Pytest. To skip hooks if needed:
 
 ```sh
 git commit -m "<COMMIT_MESSAGE>" --no-verify
 ```
-# ... (see full CONTRIBUTING.md for complete example)
-```python
-print("Hello, world!")
-```
 
-# ... (see full CONTRIBUTING.md for complete example)
-```sh
-docker compose run -T vale --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=error content/influxdb/cloud-dedicated/write-data/**/*.md
-```
-
-
-1. Install the [Vale VSCode](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) extension.
-2. In the extension settings, set the `Vale:Vale CLI:Path` value to `${workspaceFolder}/node_modules/.bin/vale`.
-
-
-_See full CONTRIBUTING.md for complete details._
+---
 
 ### Commit Guidelines
 
@@ -228,10 +225,6 @@ _For the complete Complete Frontmatter Reference reference, see frontmatter-refe
 ### Complete Shortcodes Reference
 
 _For the complete Complete Shortcodes Reference reference, see shortcodes-reference.instructions.md._
-
-### Detailed Testing Setup
-
-_For the complete Detailed Testing Setup reference, see testing-setup.instructions.md._
 
 #### Vale style linting configuration
 

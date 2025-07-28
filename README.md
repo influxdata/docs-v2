@@ -11,6 +11,10 @@ This repository contains the InfluxDB 2.x documentation published at [docs.influ
 We welcome and encourage community contributions.
 For information about contributing to the InfluxData documentation, see [Contribution guidelines](CONTRIBUTING.md).
 
+## Testing
+
+For information about testing the documentation, including code block testing, link validation, and style linting, see [Testing guide](TESTING.md).
+
 ## Reporting a Vulnerability
 
 InfluxData takes security and our users' trust very seriously.

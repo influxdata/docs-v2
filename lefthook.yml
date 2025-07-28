@@ -111,13 +111,15 @@ pre-push:
         node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/article-links.cy.js" content/example.md
         exit $?
 
-    e2e-links:
-      tags: test,links
-      glob: 'content/*.{md,html}'
-      run: |
-        echo "Running link checker for: {staged_files}"
-        yarn test:links {staged_files}
-        exit $?
+    # Link validation runs in GitHub actions.
+    # You can still run it locally for development.
+    # e2e-links:
+      # tags: test,links
+      # glob: 'content/*.{md,html}'
+      # run: |
+        # echo "Running link checker for: {staged_files}"
+        # yarn test:links {staged_files}
+        # exit $?
 
     # Manage Docker containers
     prune-legacy-containers:
