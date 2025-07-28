@@ -45,7 +45,7 @@ runs:
         export NODE_OPTIONS="--max-old-space-size=4096"
         
         # Add timeout to prevent hanging
-        timeout 30m node cypress/support/run-e2e-specs.js ${{ inputs.files }} \
+        timeout ${{ inputs.timeout }} node cypress/support/run-e2e-specs.js ${{ inputs.files }} \
           --spec cypress/e2e/content/article-links.cy.js || {
           exit_code=$?
           echo "::error::Link validation failed with exit code $exit_code"
