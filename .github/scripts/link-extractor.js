@@ -10,6 +10,7 @@ import crypto from 'crypto';
 import matter from 'gray-matter';
 import path from 'path';
 import process from 'process';
+import { fileURLToPath } from 'url';
 
 /**
  * Extract links from markdown content
@@ -468,6 +469,6 @@ export {
 };
 
 // Run main function if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (fileURLToPath(import.meta.url) === process.argv[1]) {
   main();
 }

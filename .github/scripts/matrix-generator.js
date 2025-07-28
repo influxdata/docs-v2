@@ -6,6 +6,7 @@
 
 import { spawn } from 'child_process';
 import process from 'process';
+import { fileURLToPath } from 'url';
 
 // Product configuration mapping file paths to products
 const PRODUCT_MAPPING = {
@@ -377,7 +378,7 @@ Examples:
 }
 
 // Run CLI if this file is executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (fileURLToPath(import.meta.url) === process.argv[1]) {
   main().catch(console.error);
 }
 

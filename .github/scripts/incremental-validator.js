@@ -8,6 +8,7 @@
 import { extractLinksFromFile } from './link-extractor.js';
 import { CacheManager } from './cache-manager.js';
 import process from 'process';
+import { fileURLToPath } from 'url';
 
 /**
  * Incremental validator that only validates changed content
@@ -223,6 +224,6 @@ export default IncrementalValidator;
 export { IncrementalValidator };
 
 // Run CLI if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (fileURLToPath(import.meta.url) === process.argv[1]) {
   main().catch(console.error);
 }

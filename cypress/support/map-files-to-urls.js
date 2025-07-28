@@ -4,6 +4,7 @@ import process from 'process';
 import fs from 'fs';
 import { execSync } from 'child_process';
 import matter from 'gray-matter';
+import { filePathToUrl } from '../../.github/scripts/utils/url-transformer.js';
 
 // Get file paths from command line arguments
 const filePaths = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
@@ -114,14 +115,8 @@ if (pagesToTest.length === 0) {
 
 // Map file paths to URL paths and source information
 function mapFilePathToUrlAndSource(filePath) {
-  // Map to URL
-  let url = filePath.replace(/^content/, '');
-  url = url.replace(/\/_index\.(html|md)$/, '/');
-  url = url.replace(/\.md$/, '/');
-  url = url.replace(/\.html$/, '/');
-  if (!url.startsWith('/')) {
-    url = '/' + url;
-  }
+  // Map to URL using shared utility
+  const url = filePathToUrl(filePath);
 
   // Extract source
   const source = extractSourceFromFile(filePath);

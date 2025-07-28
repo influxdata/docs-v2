@@ -1,5 +1,17 @@
 /// <reference types="cypress" />
 
+// URL transformation utility to avoid code duplication
+function filePathToUrl(filePath) {
+  let url = filePath.replace(/^content/, '');
+  url = url.replace(/\/_index\.(html|md)$/, '/');
+  url = url.replace(/\.md$/, '/');
+  url = url.replace(/\.html$/, '/');
+  if (!url.startsWith('/')) {
+    url = '/' + url;
+  }
+  return url;
+}
+
 describe('Article', () => {
   let subjects = Cypress.env('test_subjects').split(',');
   let validationStrategy = null;
@@ -39,15 +51,8 @@ describe('Article', () => {
       // Update subjects to only test files that need validation
       if (results.filesToValidate.length > 0) {
         subjects = results.filesToValidate.map((file) => {
-          // Convert file path to URL format (same logic as map-files-to-urls.js)
-          let url = file.filePath.replace(/^content/, '');
-          url = url.replace(/\/_index\.(html|md)$/, '/');
-          url = url.replace(/\.md$/, '/');
-          url = url.replace(/\.html$/, '/');
-          if (!url.startsWith('/')) {
-            url = '/' + url;
-          }
-          return url;
+          // Convert file path to URL format using shared utility
+          return filePathToUrl(file.filePath);
         });
 
         cy.log(`📊 Cache Analysis: ${results.cacheStats.hitRate}% hit rate`);
