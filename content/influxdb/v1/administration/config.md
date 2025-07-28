@@ -72,7 +72,7 @@ file or in an environment variable, InfluxDB uses its internal default configura
 > If an environment variable has already been set, the equivalent configuration
 > setting in the configuration file is ignored.
 
-### InfluxDB environment variables (`INFLUXDB_*`)
+### InfluxDB environment variables (`INFLUXDB_*`) {#influxdb-environment-variables-influxdb}
 
 The InfluxDB environment variables are documented below with the corresponding
 configuration file settings. All of the InfluxDB-specific environment variables
@@ -899,8 +899,8 @@ permissions to access the following endpoints:
 - `/debug/vars`
 
 This setting has no effect if either 
-[`auth-enabled`](#auth-enabled-false) or 
-[`pprof-enabled`](#pprof-enabled-true) are set to `false`.
+[`auth-enabled`](#auth-enabled) or 
+[`pprof-enabled`](#pprof-enabled) are set to `false`.
 
 **Default**: `false`  
 **Environment variable**: `INFLUXDB_HTTP_PPROF_AUTH_ENABLED`
@@ -915,9 +915,8 @@ Useful for debugging startup performance issues.
 
 #### ping-auth-enabled
 
-Enables authentication on the `/ping`, `/metrics`, and deprecated `/status` 
-endpoints. This setting has no effect if 
-[`auth-enabled`](#auth-enabled-false) is set to `false`.
+Enables authentication on the `/ping`, `/metrics`, and deprecated `/status` endpoints.
+This setting has no effect if [`auth-enabled`](#auth-enabled) is set to `false`.
 
 **Default**: `false`  
 **Environment variable**: `INFLUXDB_HTTP_PING_AUTH_ENABLED`
@@ -925,7 +924,7 @@ endpoints. This setting has no effect if
 #### prom-read-auth-enabled
 
 Enables authentication on the Prometheus remote read API. This setting has no 
-effect if [`auth-enabled`](#auth-enabled-false) is set to `false`.
+effect if [`auth-enabled`](#auth-enabled) is set to `false`.
 
 **Default**: `false`  
 **Environment variable**: `INFLUXDB_HTTP_PROM_READ_AUTH_ENABLED`
