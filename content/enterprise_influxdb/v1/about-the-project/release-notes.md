@@ -11,6 +11,12 @@ menu:
 
 ## v1.12.1 {date="2025-06-26"}
 
+> [!Important]
+> #### Upgrade meta nodes first
+>
+> When upgrading to InfluxDB Enterprise 1.12.1+, upgrade meta nodes before
+> upgrading data nodes.
+
 ## Features
 
 - Add additional log output when using
