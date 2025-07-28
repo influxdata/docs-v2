@@ -626,7 +626,7 @@ async function main() {
               console.error(`Error force-killing Hugo: ${killErr.message}`);
             }
             process.exit(exitCode);
-          }, 3000); // Increased timeout for CI
+          }, HUGO_SHUTDOWN_TIMEOUT); // Configurable timeout for CI
 
           hugoProc.kill('SIGTERM');
 
