@@ -123,7 +123,15 @@ async function main() {
     console.log(`Performing cleanup before exit with code ${code}...`);
     if (hugoProc && hugoStarted) {
       try {
-        hugoProc.kill('SIGKILL'); // Use SIGKILL to ensure immediate termination
+        // Use SIGTERM first, then SIGKILL if needed
+        hugoProc.kill('SIGTERM');
+        const timeoutId = setTimeout(() => {
+          if (!hugoProc.killed) {
+            hugoProc.kill('SIGKILL');
+          }
+        }, 1000);
+        // Clear the timeout if the process exits cleanly
+        hugoProc.on('exit', () => clearTimeout(timeoutId));
       } catch (err) {
         console.error(`Error killing Hugo process: ${err.message}`);
       }
@@ -136,6 +144,10 @@ async function main() {
   process.on('SIGTERM', () => cleanupAndExit(1));
   process.on('uncaughtException', (err) => {
     console.error(`Uncaught exception: ${err.message}`);
+    cleanupAndExit(1);
+  });
+  process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
     cleanupAndExit(1);
   });
 
@@ -354,13 +366,24 @@ async function main() {
     initializeReport();
 
     console.log(`Running Cypress tests for ${urlList.length} URLs...`);
+    
+    // Add CI-specific configuration
+    const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+    
     const cypressOptions = {
       reporter: 'junit',
       browser: 'chrome',
       config: {
         baseUrl: `http://localhost:${HUGO_PORT}`,
-        video: true,
-        trashAssetsBeforeRuns: false, // Prevent trash errors
+        video: !isCI, // Disable video in CI to reduce resource usage
+        trashAssetsBeforeRuns: false,
+        // Add CI-specific timeouts
+        defaultCommandTimeout: isCI ? 15000 : 10000,
+        pageLoadTimeout: isCI ? 45000 : 30000,
+        responseTimeout: isCI ? 45000 : 30000,
+        // Reduce memory usage in CI
+        experimentalMemoryManagement: true,
+        numTestsKeptInMemory: isCI ? 1 : 5,
       },
       env: {
         // Pass URLs as a comma-separated string for backward compatibility
@@ -377,7 +400,27 @@ async function main() {
       cypressOptions.spec = specArgs.join(',');
     }
 
+    // Add error handling for Hugo process monitoring during Cypress execution
+    let hugoHealthCheckInterval;
+    if (hugoProc && hugoStarted) {
+      hugoHealthCheckInterval = setInterval(() => {
+        if (hugoProc.killed || hugoProc.exitCode !== null) {
+          console.error('❌ Hugo server died during Cypress execution');
+          if (hugoHealthCheckInterval) {
+            clearInterval(hugoHealthCheckInterval);
+          }
+          cypressFailed = true;
+          // Don't exit immediately, let Cypress finish gracefully
+        }
+      }, 5000);
+    }
+
     const results = await cypress.run(cypressOptions);
+
+    // Clear health check interval
+    if (hugoHealthCheckInterval) {
+      clearInterval(hugoHealthCheckInterval);
+    }
 
     // Process broken links report
     const brokenLinksCount = displayBrokenLinksReport();
@@ -496,6 +539,22 @@ async function main() {
   } catch (err) {
     console.error(`❌ Cypress execution error: ${err.message}`);
 
+    // Handle EPIPE errors specifically
+    if (err.code === 'EPIPE' || err.message.includes('EPIPE')) {
+      console.error('🔧 EPIPE Error Detected:');
+      console.error('   • This usually indicates the Hugo server process was terminated unexpectedly');
+      console.error('   • Common causes in CI:');
+      console.error('     - Memory constraints causing process termination');
+      console.error('     - CI runner timeout or resource limits');
+      console.error('     - Hugo server crash due to build errors');
+      console.error(`   • Check Hugo logs: ${HUGO_LOG_FILE}`);
+      
+      // Try to provide more context about Hugo server state
+      if (hugoProc) {
+        console.error(`   • Hugo process state: killed=${hugoProc.killed}, exitCode=${hugoProc.exitCode}`);
+      }
+    }
+
     // Provide more detailed error information
     if (err.stack) {
       console.error('📋 Error Stack Trace:');
@@ -552,28 +611,44 @@ async function main() {
     if (hugoProc && hugoStarted && typeof hugoProc.kill === 'function') {
       console.log(`Stopping Hugo server (fast shutdown: ${cypressFailed})...`);
 
-      if (cypressFailed) {
-        hugoProc.kill('SIGKILL');
-        console.log('Hugo server forcibly terminated');
-      } else {
-        const shutdownTimeout = setTimeout(() => {
-          console.error(
-            'Hugo server did not shut down gracefully, forcing termination'
-          );
+      try {
+        if (cypressFailed) {
+          // Fast shutdown for failed tests
           hugoProc.kill('SIGKILL');
-          process.exit(exitCode);
-        }, 2000);
+          console.log('Hugo server forcibly terminated');
+        } else {
+          // Graceful shutdown for successful tests
+          const shutdownTimeout = setTimeout(() => {
+            console.error(
+              'Hugo server did not shut down gracefully, forcing termination'
+            );
+            try {
+              hugoProc.kill('SIGKILL');
+            } catch (killErr) {
+              console.error(`Error force-killing Hugo: ${killErr.message}`);
+            }
+            process.exit(exitCode);
+          }, HUGO_SHUTDOWN_TIMEOUT); // Configurable timeout for CI
 
-        hugoProc.kill('SIGTERM');
+          hugoProc.kill('SIGTERM');
 
-        hugoProc.on('close', () => {
-          clearTimeout(shutdownTimeout);
-          console.log('Hugo server shut down successfully');
-          process.exit(exitCode);
-        });
+          hugoProc.on('close', () => {
+            clearTimeout(shutdownTimeout);
+            console.log('Hugo server shut down successfully');
+            process.exit(exitCode);
+          });
 
-        // Return to prevent immediate exit
-        return;
+          hugoProc.on('error', (err) => {
+            console.error(`Error during Hugo shutdown: ${err.message}`);
+            clearTimeout(shutdownTimeout);
+            process.exit(exitCode);
+          });
+
+          // Return to prevent immediate exit
+          return;
+        }
+      } catch (shutdownErr) {
+        console.error(`Error during Hugo server shutdown: ${shutdownErr.message}`);
       }
     } else if (hugoStarted) {
       console.log('Hugo process was started but is not available for cleanup');
