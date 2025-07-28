@@ -70,7 +70,7 @@ CREATE DATABASE <database_name> [WITH [DURATION <duration>] [REPLICATION <n>] [S
 `CREATE DATABASE` requires a database [name](/influxdb/v1/troubleshooting/frequently-asked-questions/#what-words-and-characters-should-i-avoid-when-writing-data-to-influxdb).
 
 The `WITH`, `DURATION`, `REPLICATION`, `SHARD DURATION`, `PAST LIMIT`,
-`FUTURE LIMIT, and `NAME` clauses are optional and create a single
+`FUTURE LIMIT`, and `NAME` clauses are optional and create a single
 [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp)
 associated with the created database.
 If you do not specify one of the clauses after `WITH`, the relevant behavior
