@@ -35,7 +35,7 @@ Depending on the volume of data to be protected and your application requirement
 >
 > Use the `backup` and `restore` utilities in
 > [InfluxDB Enterprise](/enterprise_influxdb/v1/administration/backup-and-restore/) and
-> [InfluxDB OSS (version 1.5 and later)](#backup-and-restore-utilities/) to:
+> [InfluxDB OSS (version 1.5 and later)](#backup-and-restore-utilities) to:
 >
 > - Restore InfluxDB Enterprise backup files to InfluxDB OSS instances.
 > - Back up InfluxDB OSS data that can be restored in InfluxDB Enterprise clusters.
@@ -398,9 +398,9 @@ Requirements and commands necessary to restore a backup depend on the
 - [Restore all databases](#restore-all-databases)
 - [Restore all data to a remote InfluxDB instance](#restore-all-data-to-a-remote-influxdb-instance)
 - [Restore a specific database](#restore-a-specific-database)
-- [Restore data from a database that already exists](#restore-data-from-a-database-that-already-exists)
+- [Restore data to a database that already exists](#restore-data-to-a-database-that-already-exists)
 - [Restore a specific retention policy](#restore-a-specific-retention-policy)
-- [Restore data from a retention policy that already exists](#restore-data-from-a-retention-policy-that-already-exists)
+- [Restore data to a retention policy that already exists](#restore-data-to-a-retention-policy-that-already-exists)
 - [Restore a specific shard](#restore-a-specific-shard)
 
 #### Restore all databases
