@@ -7,6 +7,8 @@ import fs from 'fs';
 export const BROKEN_LINKS_FILE = '/tmp/broken_links_report.json';
 export const FIRST_BROKEN_LINK_FILE = '/tmp/first_broken_link.json';
 const SOURCES_FILE = '/tmp/test_subjects_sources.json';
+const CACHE_STATS_FILE = '/tmp/cache_statistics.json';
+const VALIDATION_STRATEGY_FILE = '/tmp/validation_strategy.json';
 
 /**
  * Reads the broken links report from the file system
@@ -70,6 +72,65 @@ function readSourcesMapping() {
 }
 
 /**
+ * Read cache statistics from file
+ * @returns {Object|null} Cache statistics or null if not found
+ */
+function readCacheStats() {
+  try {
+    if (fs.existsSync(CACHE_STATS_FILE)) {
+      const content = fs.readFileSync(CACHE_STATS_FILE, 'utf8');
+      return JSON.parse(content);
+    }
+  } catch (err) {
+    console.warn(`Warning: Could not read cache stats: ${err.message}`);
+  }
+  return null;
+}
+
+/**
+ * Read validation strategy from file
+ * @returns {Object|null} Validation strategy or null if not found
+ */
+function readValidationStrategy() {
+  try {
+    if (fs.existsSync(VALIDATION_STRATEGY_FILE)) {
+      const content = fs.readFileSync(VALIDATION_STRATEGY_FILE, 'utf8');
+      return JSON.parse(content);
+    }
+  } catch (err) {
+    console.warn(`Warning: Could not read validation strategy: ${err.message}`);
+  }
+  return null;
+}
+
+/**
+ * Save cache statistics for reporting
+ * @param {Object} stats - Cache statistics to save
+ */
+export function saveCacheStats(stats) {
+  try {
+    fs.writeFileSync(CACHE_STATS_FILE, JSON.stringify(stats, null, 2));
+  } catch (err) {
+    console.warn(`Warning: Could not save cache stats: ${err.message}`);
+  }
+}
+
+/**
+ * Save validation strategy for reporting
+ * @param {Object} strategy - Validation strategy to save
+ */
+export function saveValidationStrategy(strategy) {
+  try {
+    fs.writeFileSync(
+      VALIDATION_STRATEGY_FILE,
+      JSON.stringify(strategy, null, 2)
+    );
+  } catch (err) {
+    console.warn(`Warning: Could not save validation strategy: ${err.message}`);
+  }
+}
+
+/**
  * Formats and displays the broken links report to the console
  * @param {Array} brokenLinksReport - The report data to display
  * @returns {number} The total number of broken links found
@@ -80,6 +141,26 @@ export function displayBrokenLinksReport(brokenLinksReport = null) {
     brokenLinksReport = readBrokenLinksReport();
   }
 
+  // Read cache statistics and validation strategy
+  const cacheStats = readCacheStats();
+  const validationStrategy = readValidationStrategy();
+
+  // Display cache performance first
+  if (cacheStats) {
+    console.log('\n📊 Cache Performance:');
+    console.log('=====================');
+    console.log(`Cache hit rate: ${cacheStats.hitRate}%`);
+    console.log(`Files cached: ${cacheStats.cacheHits}`);
+    console.log(`Files validated: ${cacheStats.cacheMisses}`);
+
+    if (validationStrategy) {
+      console.log(`Total files analyzed: ${validationStrategy.total}`);
+      console.log(
+        `Links needing validation: ${validationStrategy.newLinks.length}`
+      );
+    }
+  }
+
   // Check both the report and first broken link file to determine if we have broken links
   const firstBrokenLink = readFirstBrokenLink();
 
@@ -88,7 +169,7 @@ export function displayBrokenLinksReport(brokenLinksReport = null) {
     (!brokenLinksReport || brokenLinksReport.length === 0) &&
     !firstBrokenLink
   ) {
-    console.log('✅ No broken links detected in the validation report');
+    console.log('\n✅ No broken links detected in the validation report');
     return 0;
   }
 

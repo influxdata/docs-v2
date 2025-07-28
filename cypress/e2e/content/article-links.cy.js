@@ -1,7 +1,9 @@
 /// <reference types="cypress" />
 
 describe('Article', () => {
-  const subjects = Cypress.env('test_subjects').split(',');
+  let subjects = Cypress.env('test_subjects').split(',');
+  let validationStrategy = null;
+
   // Always use HEAD for downloads to avoid timeouts
   const useHeadForDownloads = true;
 
@@ -9,6 +11,55 @@ describe('Article', () => {
   before(() => {
     // Initialize the broken links report
     cy.task('initializeBrokenLinksReport');
+
+    // Get source file paths for incremental validation
+    const testSubjectsData = Cypress.env('test_subjects_data');
+    let sourceFilePaths = subjects; // fallback to subjects if no data available
+
+    if (testSubjectsData) {
+      try {
+        const urlToSourceData = JSON.parse(testSubjectsData);
+        // Extract source file paths from the structured data
+        sourceFilePaths = urlToSourceData.map((item) => item.source);
+      } catch (e) {
+        console.warn(
+          'Could not parse test_subjects_data, using subjects as fallback'
+        );
+      }
+    }
+
+    // Run incremental validation analysis with source file paths
+    cy.task('runIncrementalValidation', sourceFilePaths).then((results) => {
+      validationStrategy = results.validationStrategy;
+
+      // Save cache statistics and validation strategy for reporting
+      cy.task('saveCacheStatistics', results.cacheStats);
+      cy.task('saveValidationStrategy', validationStrategy);
+
+      // Update subjects to only test files that need validation
+      if (results.filesToValidate.length > 0) {
+        subjects = results.filesToValidate.map((file) => {
+          // Convert file path to URL format (same logic as map-files-to-urls.js)
+          let url = file.filePath.replace(/^content/, '');
+          url = url.replace(/\/_index\.(html|md)$/, '/');
+          url = url.replace(/\.md$/, '/');
+          url = url.replace(/\.html$/, '/');
+          if (!url.startsWith('/')) {
+            url = '/' + url;
+          }
+          return url;
+        });
+
+        cy.log(`📊 Cache Analysis: ${results.cacheStats.hitRate}% hit rate`);
+        cy.log(
+          `🔄 Testing ${subjects.length} pages (${results.cacheStats.cacheHits} cached)`
+        );
+      } else {
+        // All files are cached, no validation needed
+        subjects = [];
+        cy.log('✨ All files cached - skipping validation');
+      }
+    });
   });
 
   // Helper function to identify download links
