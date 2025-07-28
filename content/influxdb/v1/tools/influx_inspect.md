@@ -289,18 +289,18 @@ Filter data by tag value regular expression.
 
 ##### Specifying paths to the `_series` and `index` directories
 
-```
+```bash
 influx_inspect dumptsi -series-file /path/to/db/_series /path/to/index
 ```
 
 ##### Specifying paths to the `_series` directory and an `index` file
 
-```
+```bash
 influx_inspect dumptsi -series-file /path/to/db/_series /path/to/index/file0
 ```
 ##### Specifying paths to the `_series` directory and multiple `index` files
 
-```
+```bash
 influx_inspect dumptsi -series-file /path/to/db/_series /path/to/index/file0 /path/to/index/file1 ...
 ```
 

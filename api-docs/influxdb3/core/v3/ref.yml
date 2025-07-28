@@ -422,9 +422,22 @@ paths:
       summary: Write line protocol
       description: |
         Writes line protocol to the specified database.
+        
+        This is the native InfluxDB 3 Core write endpoint that provides enhanced control 
+        over write behavior with advanced parameters for high-performance and fault-tolerant operations.
 
         Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format to InfluxDB.
         Use query parameters to specify options for writing data.
+        
+        #### Features
+        
+        - **Partial writes**: Use `accept_partial=true` to allow partial success when some lines in a batch fail
+        - **Asynchronous writes**: Use `no_sync=true` to skip waiting for WAL synchronization, allowing faster response times but sacrificing durability guarantees  
+        - **Flexible precision**: Automatic timestamp precision detection with `precision=auto` (default)
+
+        #### Related
+        
+        - [Use the InfluxDB v3 write_lp API to write data](/influxdb3/core/write-data/http-api/v3-write-lp/)
       parameters:
         - $ref: '#/components/parameters/dbWriteParam'
         - $ref: '#/components/parameters/accept_partial'
@@ -469,6 +482,38 @@ paths:
           description: Request entity too large.
         '422':
           description: Unprocessable entity.
+      x-codeSamples:
+        - label: cURL - Basic write
+          lang: Shell
+          source: |
+            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors" \
+              --header "Authorization: Bearer DATABASE_TOKEN" \
+              --header "Content-Type: text/plain" \
+              --data-raw "cpu,host=server01 usage=85.2 1638360000000000000"
+        - label: cURL - Write with millisecond precision
+          lang: Shell
+          source: |
+            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&precision=ms" \
+              --header "Authorization: Bearer DATABASE_TOKEN" \
+              --header "Content-Type: text/plain" \
+              --data-raw "cpu,host=server01 usage=85.2 1638360000000"
+        - label: cURL - Asynchronous write with partial acceptance
+          lang: Shell
+          source: |
+            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&accept_partial=true&no_sync=true&precision=auto" \
+              --header "Authorization: Bearer DATABASE_TOKEN" \
+              --header "Content-Type: text/plain" \
+              --data-raw "cpu,host=server01 usage=85.2
+            memory,host=server01 used=4096"
+        - label: cURL - Multiple measurements with tags
+          lang: Shell
+          source: |
+            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&precision=ns" \
+              --header "Authorization: Bearer DATABASE_TOKEN" \
+              --header "Content-Type: text/plain" \
+              --data-raw "cpu,host=server01,region=us-west usage=85.2,load=0.75 1638360000000000000
+            memory,host=server01,region=us-west used=4096,free=12288 1638360000000000000
+            disk,host=server01,region=us-west,device=/dev/sda1 used=50.5,free=49.5 1638360000000000000"
       tags:
         - Write data
   /api/v3/query_sql:

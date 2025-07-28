@@ -1207,21 +1207,23 @@ To keep regular expressions and quoting simple, avoid using the following charac
 
 ## When should I single quote and when should I double quote when writing data?
 
-- Avoid single quoting and double quoting identifiers when writing data via the
+- Avoid single quoting and double quoting identifiers when writing data via
   line protocol; see the examples below for how writing identifiers with quotes
   can complicate queries. Identifiers are database names, retention policy
   names, user names, measurement names, tag keys, and field keys.
-
+  *Not recommended approaches (complicate queries):** 
   Write with a double-quoted measurement: `INSERT "bikes" bikes_available=3`
   Applicable query: `SELECT * FROM "\"bikes\""`
 
   Write with a single-quoted measurement: `INSERT 'bikes' bikes_available=3`
   Applicable query: `SELECT * FROM "\'bikes\'"`
 
+  **Recommended approach (simpler queries):**
+  
   Write with an unquoted measurement: `INSERT bikes bikes_available=3`
   Applicable query: `SELECT * FROM "bikes"`
 
-- Double quote field values that are strings.
+- Double quote field values that are strings--for example:
 
   Write: `INSERT bikes happiness="level 2"`
   Applicable query: `SELECT * FROM "bikes" WHERE "happiness"='level 2'`
