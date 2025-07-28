@@ -1226,7 +1226,7 @@ To keep regular expressions and quoting simple, avoid using the following charac
   Write: `INSERT bikes happiness="level 2"`
   Applicable query: `SELECT * FROM "bikes" WHERE "happiness"='level 2'`
 
-- Special characters should be escaped with a backslash and not placed in quotes.
+- Special characters should be escaped with a backslash and not placed in quotes--for example:
 
   Write: `INSERT wacky va\"ue=4`
   Applicable query: `SELECT "va\"ue" FROM "wacky"`
