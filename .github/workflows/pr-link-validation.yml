@@ -119,7 +119,7 @@ jobs:
           files: ${{ matrix.files || needs.setup.outputs.all-files }}
           product-name: ${{ matrix.product }}
           cache-enabled: ${{ matrix.cacheEnabled || 'true' }}
-          cache-key: link-validation-${{ github.event.pull_request.base.sha }}
+          cache-key: link-validation-${{ hashFiles(matrix.files || needs.setup.outputs.all-files) }}
 
   report:
     name: Report Results
