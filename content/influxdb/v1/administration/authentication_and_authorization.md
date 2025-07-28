@@ -15,40 +15,37 @@ alt_links:
 This document covers setting up and managing authentication and authorization in InfluxDB.
 
 - [Authentication](#authentication)
-  - [Set up Authentication](#set-up-authentication")
+  - [Set up Authentication](#set-up-authentication)
   - [Authenticate Requests](#authenticate-requests)
 - [Authorization](#authorization)
   - [User Types and Privileges](#user-types-and-privileges)
   - [User Management Commands](#user-management-commands)
 - [HTTP Errors](#authentication-and-authorization-http-errors)
 
-{{% note %}}
-Authentication and authorization should not be relied upon to prevent access and protect data from malicious actors.
-If additional security or compliance features are desired, InfluxDB should be run behind a third-party service. If InfluxDB is
-being deployed on a publicly accessible endpoint, we strongly recommend authentication be enabled. Otherwise the data will be
-publicly available to any unauthenticated user.
-{{% /note %}}
+> [!Note]
+> Authentication and authorization should not be relied upon to prevent access and protect data from malicious actors.
+> If additional security or compliance features are desired, InfluxDB should be run behind a third-party service. If InfluxDB is
+> being deployed on a publicly accessible endpoint, we strongly recommend authentication be enabled. Otherwise the data will be
+> publicly available to any unauthenticated user.
 
 ## Authentication
 
 The InfluxDB API and the [command line interface](/influxdb/v1/tools/shell/) (CLI), which connects to the database using the API, include simple, built-in authentication based on user credentials.
 When you enable authentication, InfluxDB only executes HTTP requests that are sent with valid credentials.
 
-{{% note %}}
-Authentication only occurs at the HTTP request scope.
-Plugins do not currently have the ability to authenticate requests and service
-endpoints (for example, Graphite, collectd, etc.) are not authenticated.
-{{% /note %}}
+> [!Note]
+> Authentication only occurs at the HTTP request scope.
+> Plugins do not currently have the ability to authenticate requests and service
+> endpoints (for example, Graphite, collectd, etc.) are not authenticated.
 
 ### Set up authentication
 
 1.  **Create at least one [admin user](#admin-users)**.
     See the [authorization section](#authorization) for how to create an admin user.
 
-    {{% note %}}
-If you enable authentication and have no users, InfluxDB will **not** enforce authentication
-and will only accept the [query](#user-management-commands) that creates a new admin user.
-    {{% /note %}}
+    > [!Note]
+    > If you enable authentication and have no users, InfluxDB will **not** enforce authentication
+    > and will only accept the [query](#user-management-commands) that creates a new admin user.
 
     InfluxDB will enforce authentication once there is an admin user.
 
@@ -70,10 +67,9 @@ and will only accept the [query](#user-management-commands) that creates a new a
       https-certificate = "/etc/ssl/influxdb.pem"
     ```
 
-    {{% note %}}
-If `pprof-enabled` is set to `true`, set `pprof-auth-enabled` and `ping-auth-enabled`
-to `true` to require authentication on profiling and ping endpoints.
-    {{% /note %}}
+    > [!Note]
+    > If `pprof-enabled` is set to `true`, set `pprof-auth-enabled` and `ping-auth-enabled`
+    > to `true` to require authentication on profiling and ping endpoints.
 
 3.  **Restart InfluxDB**.
     Once restarted, InfluxDB checks user credentials on every request and only
@@ -210,10 +206,8 @@ Use the ``Bearer`` authorization scheme:
 ```
 Authorization: Bearer <myToken>
 ```
-{{% note %}}
-Only unexpired tokens will successfully authenticate.
-Be sure your token has not expired.
-{{% /note %}}
+> [!Note]
+> Only unexpired tokens will successfully authenticate. Be sure your token has not expired.
 
 ###### Example query request with JWT authentication
 ```bash
@@ -312,21 +306,20 @@ CREATE USER admin WITH PASSWORD '<password>' WITH ALL PRIVILEGES
 CREATE USER <username> WITH PASSWORD '<password>' WITH ALL PRIVILEGES
 ```
 
-{{% note %}}
-Repeating the exact `CREATE USER` statement is idempotent.
-If any values change the database will return a duplicate user error.
-
-```sql
-> CREATE USER todd WITH PASSWORD '123456' WITH ALL PRIVILEGES
-> CREATE USER todd WITH PASSWORD '123456' WITH ALL PRIVILEGES
-> CREATE USER todd WITH PASSWORD '123' WITH ALL PRIVILEGES
-ERR: user already exists
-> CREATE USER todd WITH PASSWORD '123456'
-ERR: user already exists
-> CREATE USER todd WITH PASSWORD '123456' WITH ALL PRIVILEGES
->
-```
-{{% /note %}}
+> [!Note]
+> Repeating the exact `CREATE USER` statement is idempotent.
+> If any values change the database will return a duplicate user error.
+> 
+> ```sql
+> > CREATE USER todd WITH PASSWORD '123456' WITH ALL PRIVILEGES
+> > CREATE USER todd WITH PASSWORD '123456' WITH ALL PRIVILEGES
+> > CREATE USER todd WITH PASSWORD '123' WITH ALL PRIVILEGES
+> ERR: user already exists
+> > CREATE USER todd WITH PASSWORD '123456'
+> ERR: user already exists
+> > CREATE USER todd WITH PASSWORD '123456' WITH ALL PRIVILEGES
+> >
+> ```
 
 ##### `GRANT` administrative privileges to an existing user
 ```sql
@@ -370,28 +363,27 @@ CREATE USER <username> WITH PASSWORD '<password>'
 >
 ```
 
-{{% note %}}
-##### Important notes about providing user credentials
-- The user value must be wrapped in double quotes if it starts with a digit, is an InfluxQL keyword, contains a hyphen and or includes any special characters, for example: `!@#$%^&*()-`
-- The password [string](/influxdb/v1/query_language/spec/#strings) must be wrapped in single quotes.
-  Do not include the single quotes when authenticating requests.
-  We recommend avoiding the single quote (`'`) and backslash (`\`) characters in passwords.
-  For passwords that include these characters, escape the special character with a backslash (e.g. (`\'`) when creating the password and when submitting authentication requests.
-- Repeating the exact `CREATE USER` statement is idempotent. If any values change the database will return a duplicate user error. See GitHub Issue [#6890](https://github.com/influxdata/influxdb/pull/6890) for details.
-
-###### CLI example
-```sql
-> CREATE USER "todd" WITH PASSWORD '123456'
-> CREATE USER "todd" WITH PASSWORD '123456'
-> CREATE USER "todd" WITH PASSWORD '123'
-ERR: user already exists
-> CREATE USER "todd" WITH PASSWORD '123456'
-> CREATE USER "todd" WITH PASSWORD '123456' WITH ALL PRIVILEGES
-ERR: user already exists
-> CREATE USER "todd" WITH PASSWORD '123456'
->
-```
-{{% /note %}}
+> [!Important]
+> ##### Important notes about providing user credentials
+> - The user value must be wrapped in double quotes if it starts with a digit, is an InfluxQL keyword, contains a hyphen and or includes any special characters, for example: `!@#$%^&*()-`
+> - The password [string](/influxdb/v1/query_language/spec/#strings) must be wrapped in single quotes.
+>   Do not include the single quotes when authenticating requests.
+>   We recommend avoiding the single quote (`'`) and backslash (`\`) characters in passwords.
+>   For passwords that include these characters, escape the special character with a backslash (for example, (`\'`) when creating the password and when submitting authentication requests.
+> - Repeating the exact `CREATE USER` statement is idempotent. If any values change the database will return a duplicate user error. See GitHub Issue [#6890](https://github.com/influxdata/influxdb/pull/6890) for details.
+> 
+> ###### CLI example
+> ```sql
+> > CREATE USER "todd" WITH PASSWORD '123456'
+> > CREATE USER "todd" WITH PASSWORD '123456'
+> > CREATE USER "todd" WITH PASSWORD '123'
+> ERR: user already exists
+> > CREATE USER "todd" WITH PASSWORD '123456'
+> > CREATE USER "todd" WITH PASSWORD '123456' WITH ALL PRIVILEGES
+> ERR: user already exists
+> > CREATE USER "todd" WITH PASSWORD '123456'
+> >
+> ```
 
 
 ##### `GRANT` `READ`, `WRITE` or `ALL` database privileges to an existing user
@@ -472,13 +464,12 @@ CLI example:
 >
 ```
 
-{{% note %}}
-**Note:** The password [string](/influxdb/v1/query_language/spec/#strings) must be wrapped in single quotes.
-Do not include the single quotes when authenticating requests.
-
-We recommend avoiding the single quote (`'`) and backslash (`\`) characters in passwords
-For passwords that include these characters, escape the special character with a backslash (e.g. (`\'`) when creating the password and when submitting authentication requests.
-{{% /note %}}
+> [!Note]
+> The password [string](/influxdb/v1/query_language/spec/#strings) must be wrapped in single quotes.
+> Do not include the single quotes when authenticating requests.
+> 
+> We recommend avoiding the single quote (`'`) and backslash (`\`) characters in passwords
+> For passwords that include these characters, escape the special character with a backslash (for example, (`\'`) when creating the password and when submitting authentication requests.
 
 ##### `DROP` a user
 
