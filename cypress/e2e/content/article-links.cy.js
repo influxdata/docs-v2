@@ -76,9 +76,25 @@ describe('Article', () => {
         );
         cy.log('   Check that all files exist and are readable');
 
-        Cypress.fail(
-          `Incremental validation task failed: ${error.message}. Check logs for details.`
+        // Instead of failing completely, fall back to testing all provided subjects
+        cy.log(
+          '🔄 Falling back to test all provided subjects without cache optimization'
         );
+
+        // Reset validation strategy to indicate fallback mode
+        validationStrategy = {
+          fallback: true,
+          error: error.message,
+          unchanged: [],
+          changed: sourceFilePaths.map((filePath) => ({
+            filePath,
+            error: 'fallback',
+          })),
+          total: sourceFilePaths.length,
+        };
+
+        // Keep original subjects for testing (should come from test_subjects env var)
+        cy.log(`📋 Testing ${subjects.length} pages in fallback mode`);
       });
   });
 
@@ -194,8 +210,19 @@ describe('Article', () => {
     cy.log(`   • Test subjects count: ${subjects.length}`);
     cy.log(`   • Validation strategy: ${validationStrategy || 'Not set'}`);
 
-    if (subjects.length === 0) {
-      cy.log('⚠️ No test subjects found - this may indicate:');
+    // Check if we're in fallback mode due to cache system issues
+    if (validationStrategy && validationStrategy.fallback) {
+      cy.log('⚠️ Running in fallback mode due to cache system error');
+      cy.log(`   • Error: ${validationStrategy.error}`);
+      cy.log('   • All files will be tested without cache optimization');
+
+      // Ensure we have subjects to test in fallback mode
+      expect(subjects.length).to.be.greaterThan(
+        0,
+        'Should have test subjects in fallback mode'
+      );
+    } else if (subjects.length === 0) {
+      cy.log('⚠️ No test subjects found - analyzing cause:');
       cy.log('   • All files were cached and skipped');
       cy.log('   • No files matched the test criteria');
       cy.log('   • File mapping failed during setup');
@@ -203,11 +230,14 @@ describe('Article', () => {
       // Don't fail if this is expected (cache hit scenario)
       const testSubjectsData = Cypress.env('test_subjects_data');
       if (testSubjectsData) {
-        cy.log(
-          'ℹ️ Test subjects data is available, cache optimization likely active'
-        );
+        cy.log('✅ Cache optimization active - this is expected');
+        cy.log('ℹ️ Test subjects data is available, all files cached');
       } else {
         cy.log('❌ No test subjects data available - potential setup issue');
+        // Only fail if we have no data and no subjects - indicates a real problem
+        expect(testSubjectsData).to.not.be.empty(
+          'Should have test subjects data when no subjects to test'
+        );
       }
     } else {
       cy.log(`✅ Ready to test ${subjects.length} pages`);
@@ -216,6 +246,9 @@ describe('Article', () => {
         cy.log(`   ... and ${subjects.length - 5} more pages`);
       }
     }
+
+    // Always pass if we get to this point - the setup is valid
+    cy.log('✅ Test setup validation completed successfully');
   });
 
   subjects.forEach((subject) => {
