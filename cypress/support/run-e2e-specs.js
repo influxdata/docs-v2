@@ -44,6 +44,7 @@ import {
   HUGO_ENVIRONMENT,
   HUGO_PORT,
   HUGO_LOG_FILE,
+  HUGO_SHUTDOWN_TIMEOUT,
   startHugoServer,
   waitForHugoReady,
 } from './hugo-server.js';
