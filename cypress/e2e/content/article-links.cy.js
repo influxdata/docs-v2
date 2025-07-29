@@ -32,74 +32,80 @@ describe('Article', () => {
       }
     }
 
-    // Run incremental validation analysis with source file paths
-    cy.task('runIncrementalValidation', sourceFilePaths)
-      .then((results) => {
-        validationStrategy = results.validationStrategy;
+    // Only run incremental validation if we have source file paths
+    if (sourceFilePaths.length > 0) {
+      cy.log('🔄 Running incremental validation analysis...');
 
-        // Save cache statistics and validation strategy for reporting
-        cy.task('saveCacheStatistics', results.cacheStats);
-        cy.task('saveValidationStrategy', validationStrategy);
+      // Run incremental validation with proper error handling
+      cy.task('runIncrementalValidation', sourceFilePaths)
+        .then((results) => {
+          validationStrategy = results.validationStrategy;
 
-        // Update subjects to only test files that need validation
-        if (results.filesToValidate.length > 0) {
-          // Convert file paths to URLs using shared utility via Cypress task
-          const urlPromises = results.filesToValidate.map((file) =>
-            cy.task('filePathToUrl', file.filePath)
+          // Save cache statistics and validation strategy for reporting
+          cy.task('saveCacheStatistics', results.cacheStats);
+          cy.task('saveValidationStrategy', validationStrategy);
+
+          // Update subjects to only test files that need validation
+          if (results.filesToValidate.length > 0) {
+            // Convert file paths to URLs using shared utility via Cypress task
+            const urlPromises = results.filesToValidate.map((file) =>
+              cy.task('filePathToUrl', file.filePath)
+            );
+
+            cy.wrap(Promise.all(urlPromises)).then((urls) => {
+              subjects = urls;
+
+              cy.log(
+                `📊 Cache Analysis: ${results.cacheStats.hitRate}% hit rate`
+              );
+              cy.log(
+                `🔄 Testing ${subjects.length} pages (${results.cacheStats.cacheHits} cached)`
+              );
+            });
+          } else {
+            // All files are cached, no validation needed
+            subjects = [];
+            cy.log('✨ All files cached - skipping validation');
+            cy.log(
+              `📊 Cache hit rate: ${results.cacheStats.hitRate}% (${results.cacheStats.cacheHits}/${results.cacheStats.totalFiles} files cached)`
+            );
+          }
+        })
+        .catch((error) => {
+          cy.log('❌ Incremental validation failed: ' + error.message);
+          cy.log(
+            '🔄 Falling back to test all provided subjects without cache optimization'
           );
 
-          cy.wrap(Promise.all(urlPromises)).then((urls) => {
-            subjects = urls;
+          // Set fallback mode but don't fail the test
+          validationStrategy = {
+            fallback: true,
+            error: error.message,
+            unchanged: [],
+            changed: sourceFilePaths.map((filePath) => ({
+              filePath,
+              error: 'fallback',
+            })),
+            total: sourceFilePaths.length,
+          };
 
-            cy.log(
-              `📊 Cache Analysis: ${results.cacheStats.hitRate}% hit rate`
-            );
-            cy.log(
-              `🔄 Testing ${subjects.length} pages (${results.cacheStats.cacheHits} cached)`
-            );
-          });
-        } else {
-          // All files are cached, no validation needed
-          subjects = [];
-          cy.log('✨ All files cached - skipping validation');
-        }
-      })
-      .catch((error) => {
-        cy.log('❌ Error during incremental validation task: ' + error.message);
+          cy.log(`📋 Testing ${subjects.length} pages in fallback mode`);
+        });
+    } else {
+      cy.log('⚠️ No source file paths available, using all provided subjects');
 
-        // Provide more debugging information for validation failures
-        cy.log('🔍 Validation Error Details:');
-        cy.log(`   • Error Type: ${error.name || 'Unknown'}`);
-        cy.log(`   • Error Message: ${error.message}`);
-        if (error.stack) {
-          const stackLines = error.stack.split('\n').slice(0, 3);
-          cy.log(`   • Stack Trace: ${stackLines.join(' -> ')}`);
-        }
-        cy.log(
-          '💡 This error occurred during cache analysis or file validation setup'
-        );
-        cy.log('   Check that all files exist and are readable');
+      // Set a simple validation strategy when no source data is available
+      validationStrategy = {
+        noSourceData: true,
+        unchanged: [],
+        changed: [],
+        total: subjects.length,
+      };
 
-        // Instead of failing completely, fall back to testing all provided subjects
-        cy.log(
-          '🔄 Falling back to test all provided subjects without cache optimization'
-        );
-
-        // Reset validation strategy to indicate fallback mode
-        validationStrategy = {
-          fallback: true,
-          error: error.message,
-          unchanged: [],
-          changed: sourceFilePaths.map((filePath) => ({
-            filePath,
-            error: 'fallback',
-          })),
-          total: sourceFilePaths.length,
-        };
-
-        // Keep original subjects for testing (should come from test_subjects env var)
-        cy.log(`📋 Testing ${subjects.length} pages in fallback mode`);
-      });
+      cy.log(
+        `📋 Testing ${subjects.length} pages without incremental validation`
+      );
+    }
   });
 
   // Helper function to identify download links
@@ -230,23 +236,34 @@ describe('Article', () => {
         cy.log(`✅ Testing ${subjects.length} subjects in fallback mode`);
       }
     } else if (subjects.length === 0) {
-      cy.log('⚠️ No test subjects found - analyzing cause:');
-      cy.log('   • All files were cached and skipped');
-      cy.log('   • No files matched the test criteria');
-      cy.log('   • File mapping failed during setup');
+      cy.log('ℹ️ No test subjects to validate - analyzing reason:');
 
-      // Don't fail if this is expected (cache hit scenario)
+      // Check if this is due to cache optimization
       const testSubjectsData = Cypress.env('test_subjects_data');
       if (
         testSubjectsData &&
         testSubjectsData !== '[]' &&
         testSubjectsData !== ''
       ) {
-        cy.log('✅ Cache optimization active - this is expected');
-        cy.log('ℹ️ Test subjects data is available, all files cached');
+        cy.log('✅ Cache optimization is active - all files were cached');
+        try {
+          const urlToSourceData = JSON.parse(testSubjectsData);
+          cy.log(`📊 Files processed: ${urlToSourceData.length}`);
+          cy.log(
+            '💡 This means all links have been validated recently and are cached'
+          );
+          cy.log('🎯 No new validation needed - this is the expected outcome');
+        } catch (e) {
+          cy.log(
+            '✅ Cache optimization active (could not parse detailed data)'
+          );
+        }
       } else {
         cy.log('⚠️ No test subjects data available');
-        cy.log('   This may indicate no files were provided to test');
+        cy.log('   Possible reasons:');
+        cy.log('   • No files were provided to test');
+        cy.log('   • File mapping failed during setup');
+        cy.log('   • No files matched the test criteria');
         cy.log(
           '   This is not necessarily an error - may be expected for some runs'
         );
