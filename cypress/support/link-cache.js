@@ -98,8 +98,9 @@ export class LinkCacheManager {
       try {
         fs.unlinkSync(cacheFile);
         this.stats.cleanups++;
-      } catch {
-        // Ignore cleanup errors
+      } catch (cleanupError) {
+        // Ignoring cleanup errors as they are non-critical, but logging for visibility
+        console.warn(`Failed to clean up corrupted cache file: ${cleanupError.message}`);
       }
       this.stats.misses++;
       return null;
