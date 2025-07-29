@@ -7,6 +7,7 @@ describe('Article', () => {
         .filter((s) => s.trim() !== '')
     : [];
   let validationStrategy = null;
+  let shouldSkipAllTests = false; // Flag to skip tests when all files are cached
 
   // Always use HEAD for downloads to avoid timeouts
   const useHeadForDownloads = true;
@@ -15,97 +16,6 @@ describe('Article', () => {
   before(() => {
     // Initialize the broken links report
     cy.task('initializeBrokenLinksReport');
-
-    // Get source file paths for incremental validation
-    const testSubjectsData = Cypress.env('test_subjects_data');
-    let sourceFilePaths = subjects; // fallback to subjects if no data available
-
-    if (testSubjectsData) {
-      try {
-        const urlToSourceData = JSON.parse(testSubjectsData);
-        // Extract source file paths from the structured data
-        sourceFilePaths = urlToSourceData.map((item) => item.source);
-      } catch (e) {
-        console.warn(
-          'Could not parse test_subjects_data, using subjects as fallback'
-        );
-      }
-    }
-
-    // Only run incremental validation if we have source file paths
-    if (sourceFilePaths.length > 0) {
-      cy.log('🔄 Running incremental validation analysis...');
-
-      // Run incremental validation with proper error handling
-      cy.task('runIncrementalValidation', sourceFilePaths)
-        .then((results) => {
-          validationStrategy = results.validationStrategy;
-
-          // Save cache statistics and validation strategy for reporting
-          cy.task('saveCacheStatistics', results.cacheStats);
-          cy.task('saveValidationStrategy', validationStrategy);
-
-          // Update subjects to only test files that need validation
-          if (results.filesToValidate.length > 0) {
-            // Convert file paths to URLs using shared utility via Cypress task
-            const urlPromises = results.filesToValidate.map((file) =>
-              cy.task('filePathToUrl', file.filePath)
-            );
-
-            cy.wrap(Promise.all(urlPromises)).then((urls) => {
-              subjects = urls;
-
-              cy.log(
-                `📊 Cache Analysis: ${results.cacheStats.hitRate}% hit rate`
-              );
-              cy.log(
-                `🔄 Testing ${subjects.length} pages (${results.cacheStats.cacheHits} cached)`
-              );
-            });
-          } else {
-            // All files are cached, no validation needed
-            subjects = [];
-            cy.log('✨ All files cached - skipping validation');
-            cy.log(
-              `📊 Cache hit rate: ${results.cacheStats.hitRate}% (${results.cacheStats.cacheHits}/${results.cacheStats.totalFiles} files cached)`
-            );
-          }
-        })
-        .catch((error) => {
-          cy.log('❌ Incremental validation failed: ' + error.message);
-          cy.log(
-            '🔄 Falling back to test all provided subjects without cache optimization'
-          );
-
-          // Set fallback mode but don't fail the test
-          validationStrategy = {
-            fallback: true,
-            error: error.message,
-            unchanged: [],
-            changed: sourceFilePaths.map((filePath) => ({
-              filePath,
-              error: 'fallback',
-            })),
-            total: sourceFilePaths.length,
-          };
-
-          cy.log(`📋 Testing ${subjects.length} pages in fallback mode`);
-        });
-    } else {
-      cy.log('⚠️ No source file paths available, using all provided subjects');
-
-      // Set a simple validation strategy when no source data is available
-      validationStrategy = {
-        noSourceData: true,
-        unchanged: [],
-        changed: [],
-        total: subjects.length,
-      };
-
-      cy.log(
-        `📋 Testing ${subjects.length} pages without incremental validation`
-      );
-    }
   });
 
   // Helper function to identify download links
@@ -216,64 +126,103 @@ describe('Article', () => {
   // Test implementation for subjects
   // Add debugging information about test subjects
   it('Test Setup Validation', function () {
-    cy.log(`📋 Test Configuration:`);
-    cy.log(`   • Test subjects count: ${subjects.length}`);
-    cy.log(`   • Validation strategy: ${validationStrategy || 'Not set'}`);
+    cy.log(`📋 Initial Test Configuration:`);
+    cy.log(`   • Initial test subjects count: ${subjects.length}`);
 
-    // Check if we're in fallback mode due to cache system issues
-    if (validationStrategy && validationStrategy.fallback) {
-      cy.log('⚠️ Running in fallback mode due to cache system error');
-      cy.log(`   • Error: ${validationStrategy.error}`);
-      cy.log('   • All files will be tested without cache optimization');
+    // Get source file paths for incremental validation
+    const testSubjectsData = Cypress.env('test_subjects_data');
+    let sourceFilePaths = subjects; // fallback to subjects if no data available
 
-      // In fallback mode, if we have no subjects, that might be expected
-      if (subjects.length === 0) {
-        cy.log('ℹ️ No subjects to test in fallback mode');
+    if (testSubjectsData) {
+      try {
+        const urlToSourceData = JSON.parse(testSubjectsData);
+        // Extract source file paths from the structured data
+        sourceFilePaths = urlToSourceData.map((item) => item.source);
+        cy.log(`   • Source files to analyze: ${sourceFilePaths.length}`);
+      } catch (e) {
         cy.log(
-          '   This indicates no test subjects were provided to the runner'
+          '⚠️ Could not parse test_subjects_data, using subjects as fallback'
         );
-      } else {
-        cy.log(`✅ Testing ${subjects.length} subjects in fallback mode`);
+        sourceFilePaths = subjects;
       }
-    } else if (subjects.length === 0) {
-      cy.log('ℹ️ No test subjects to validate - analyzing reason:');
+    }
 
-      // Check if this is due to cache optimization
-      const testSubjectsData = Cypress.env('test_subjects_data');
-      if (
-        testSubjectsData &&
-        testSubjectsData !== '[]' &&
-        testSubjectsData !== ''
-      ) {
-        cy.log('✅ Cache optimization is active - all files were cached');
-        try {
-          const urlToSourceData = JSON.parse(testSubjectsData);
-          cy.log(`📊 Files processed: ${urlToSourceData.length}`);
+    // Only run incremental validation if we have source file paths
+    if (sourceFilePaths.length > 0) {
+      cy.log('🔄 Running incremental validation analysis...');
+      cy.log(
+        `   • Analyzing ${sourceFilePaths.length} files: ${sourceFilePaths.join(', ')}`
+      );
+
+      // Run incremental validation with proper error handling
+      cy.task('runIncrementalValidation', sourceFilePaths).then((results) => {
+        if (!results) {
+          cy.log('⚠️ No results returned from incremental validation');
           cy.log(
-            '💡 This means all links have been validated recently and are cached'
+            '🔄 Falling back to test all provided subjects without cache optimization'
+          );
+          return;
+        }
+
+        // Check if results have expected structure
+        if (!results.validationStrategy || !results.cacheStats) {
+          cy.log('⚠️ Incremental validation results missing expected fields');
+          cy.log(`   • Results: ${JSON.stringify(results)}`);
+          cy.log(
+            '🔄 Falling back to test all provided subjects without cache optimization'
+          );
+          return;
+        }
+
+        validationStrategy = results.validationStrategy;
+
+        // Save cache statistics and validation strategy for reporting
+        cy.task('saveCacheStatistics', results.cacheStats);
+        cy.task('saveValidationStrategy', validationStrategy);
+
+        // Update subjects to only test files that need validation
+        if (results.filesToValidate && results.filesToValidate.length > 0) {
+          // Convert file paths to URLs using shared utility via Cypress task
+          const urlPromises = results.filesToValidate.map((file) =>
+            cy.task('filePathToUrl', file.filePath)
+          );
+
+          cy.wrap(Promise.all(urlPromises)).then((urls) => {
+            subjects = urls;
+
+            cy.log(
+              `📊 Cache Analysis: ${results.cacheStats.hitRate}% hit rate`
+            );
+            cy.log(
+              `🔄 Testing ${subjects.length} pages (${results.cacheStats.cacheHits} cached)`
+            );
+            cy.log('✅ Incremental validation completed - ready to test');
+          });
+        } else {
+          // All files are cached, no validation needed
+          shouldSkipAllTests = true; // Set flag to skip all tests
+          cy.log('✨ All files cached - will skip all validation tests');
+          cy.log(
+            `📊 Cache hit rate: ${results.cacheStats.hitRate}% (${results.cacheStats.cacheHits}/${results.cacheStats.totalFiles} files cached)`
           );
           cy.log('🎯 No new validation needed - this is the expected outcome');
-        } catch (e) {
-          cy.log(
-            '✅ Cache optimization active (could not parse detailed data)'
-          );
+          cy.log('⏭️  All link validation tests will be skipped');
         }
-      } else {
-        cy.log('⚠️ No test subjects data available');
-        cy.log('   Possible reasons:');
-        cy.log('   • No files were provided to test');
-        cy.log('   • File mapping failed during setup');
-        cy.log('   • No files matched the test criteria');
-        cy.log(
-          '   This is not necessarily an error - may be expected for some runs'
-        );
-      }
+      });
     } else {
-      cy.log(`✅ Ready to test ${subjects.length} pages`);
-      subjects.slice(0, 5).forEach((subject) => cy.log(`   • ${subject}`));
-      if (subjects.length > 5) {
-        cy.log(`   ... and ${subjects.length - 5} more pages`);
-      }
+      cy.log('⚠️ No source file paths available, using all provided subjects');
+
+      // Set a simple validation strategy when no source data is available
+      validationStrategy = {
+        noSourceData: true,
+        unchanged: [],
+        changed: [],
+        total: subjects.length,
+      };
+
+      cy.log(
+        `📋 Testing ${subjects.length} pages without incremental validation`
+      );
     }
 
     // Check for truly problematic scenarios
@@ -303,67 +252,55 @@ describe('Article', () => {
 
   subjects.forEach((subject) => {
     it(`${subject} has valid internal links`, function () {
+      // Skip test if all files are cached
+      if (shouldSkipAllTests) {
+        cy.log('✅ All files cached - skipping internal links test');
+        this.skip();
+        return;
+      }
+
       // Add error handling for page visit failures
-      cy.visit(`${subject}`, { timeout: 20000 })
-        .then(() => {
-          cy.log(`✅ Successfully loaded page: ${subject}`);
-        })
-        .catch((error) => {
-          cy.log(`❌ Failed to load page: ${subject}`);
-          cy.log(`   • Error: ${error.message}`);
-          cy.log('💡 This could indicate:');
-          cy.log('   • Hugo server not running or crashed');
-          cy.log('   • Invalid URL or routing issue');
-          cy.log('   • Network connectivity problems');
-          throw error; // Re-throw to fail the test properly
-        });
+      cy.visit(`${subject}`, { timeout: 20000 }).then(() => {
+        cy.log(`✅ Successfully loaded page: ${subject}`);
+      });
 
       // Test internal links
-      cy.get('article, .api-content')
-        .then(($article) => {
-          // Find links without failing the test if none are found
-          const $links = $article.find('a[href^="/"]');
-          if ($links.length === 0) {
-            cy.log('No internal links found on this page');
-            return;
+      cy.get('article, .api-content').then(($article) => {
+        // Find links without failing the test if none are found
+        const $links = $article.find('a[href^="/"]');
+        if ($links.length === 0) {
+          cy.log('No internal links found on this page');
+          return;
+        }
+
+        cy.log(`🔍 Testing ${$links.length} internal links on ${subject}`);
+
+        // Now test each link
+        cy.wrap($links).each(($a) => {
+          const href = $a.attr('href');
+          const linkText = $a.text().trim();
+
+          try {
+            testLink(href, linkText, subject);
+          } catch (error) {
+            cy.log(`❌ Error testing link ${href}: ${error.message}`);
+            throw error; // Re-throw to fail the test
           }
-
-          cy.log(`🔍 Testing ${$links.length} internal links on ${subject}`);
-
-          // Now test each link
-          cy.wrap($links).each(($a) => {
-            const href = $a.attr('href');
-            const linkText = $a.text().trim();
-
-            try {
-              testLink(href, linkText, subject);
-            } catch (error) {
-              cy.log(`❌ Error testing link ${href}: ${error.message}`);
-              throw error; // Re-throw to fail the test
-            }
-          });
-        })
-        .catch((error) => {
-          cy.log(`❌ Error finding article content on ${subject}`);
-          cy.log(`   • Error: ${error.message}`);
-          cy.log('💡 This could indicate:');
-          cy.log('   • Page structure changed (missing article/.api-content)');
-          cy.log('   • Page failed to render properly');
-          cy.log('   • JavaScript errors preventing DOM updates');
-          throw error;
         });
+      });
     });
 
     it(`${subject} has valid anchor links`, function () {
-      cy.visit(`${subject}`)
-        .then(() => {
-          cy.log(`✅ Successfully loaded page for anchor testing: ${subject}`);
-        })
-        .catch((error) => {
-          cy.log(`❌ Failed to load page for anchor testing: ${subject}`);
-          cy.log(`   • Error: ${error.message}`);
-          throw error;
-        });
+      // Skip test if all files are cached
+      if (shouldSkipAllTests) {
+        cy.log('✅ All files cached - skipping anchor links test');
+        this.skip();
+        return;
+      }
+
+      cy.visit(`${subject}`).then(() => {
+        cy.log(`✅ Successfully loaded page for anchor testing: ${subject}`);
+      });
 
       // Define selectors for anchor links to ignore, such as behavior triggers
       const ignoreLinks = ['.tabs a[href^="#"]', '.code-tabs a[href^="#"]'];
@@ -414,6 +351,13 @@ describe('Article', () => {
     });
 
     it(`${subject} has valid external links`, function () {
+      // Skip test if all files are cached
+      if (shouldSkipAllTests) {
+        cy.log('✅ All files cached - skipping external links test');
+        this.skip();
+        return;
+      }
+
       // Check if we should skip external links entirely
       if (Cypress.env('skipExternalLinks') === true) {
         cy.log(
@@ -422,82 +366,62 @@ describe('Article', () => {
         return;
       }
 
-      cy.visit(`${subject}`)
-        .then(() => {
-          cy.log(
-            `✅ Successfully loaded page for external link testing: ${subject}`
-          );
-        })
-        .catch((error) => {
-          cy.log(
-            `❌ Failed to load page for external link testing: ${subject}`
-          );
-          cy.log(`   • Error: ${error.message}`);
-          throw error;
-        });
+      cy.visit(`${subject}`).then(() => {
+        cy.log(
+          `✅ Successfully loaded page for external link testing: ${subject}`
+        );
+      });
 
       // Define allowed external domains to test
       const allowedExternalDomains = ['github.com', 'kapa.ai'];
 
       // Test external links
-      cy.get('article, .api-content')
-        .then(($article) => {
-          // Find links without failing the test if none are found
-          const $links = $article.find('a[href^="http"]');
-          if ($links.length === 0) {
-            cy.log('No external links found on this page');
-            return;
-          }
+      cy.get('article, .api-content').then(($article) => {
+        // Find links without failing the test if none are found
+        const $links = $article.find('a[href^="http"]');
+        if ($links.length === 0) {
+          cy.log('No external links found on this page');
+          return;
+        }
 
-          cy.log(
-            `🔍 Found ${$links.length} total external links on ${subject}`
-          );
+        cy.log(`🔍 Found ${$links.length} total external links on ${subject}`);
 
-          // Filter links to only include allowed domains
-          const $allowedLinks = $links.filter((_, el) => {
-            const href = el.getAttribute('href');
-            try {
-              const url = new URL(href);
-              return allowedExternalDomains.some(
-                (domain) =>
-                  url.hostname === domain || url.hostname.endsWith(`.${domain}`)
-              );
-            } catch (urlError) {
-              cy.log(`⚠️ Invalid URL found: ${href}`);
-              return false;
-            }
-          });
-
-          if ($allowedLinks.length === 0) {
-            cy.log('No links to allowed external domains found on this page');
-            cy.log(
-              `   • Allowed domains: ${allowedExternalDomains.join(', ')}`
+        // Filter links to only include allowed domains
+        const $allowedLinks = $links.filter((_, el) => {
+          const href = el.getAttribute('href');
+          try {
+            const url = new URL(href);
+            return allowedExternalDomains.some(
+              (domain) =>
+                url.hostname === domain || url.hostname.endsWith(`.${domain}`)
             );
-            return;
+          } catch (urlError) {
+            cy.log(`⚠️ Invalid URL found: ${href}`);
+            return false;
           }
-
-          cy.log(
-            `🌐 Testing ${$allowedLinks.length} links to allowed external domains`
-          );
-          cy.wrap($allowedLinks).each(($a) => {
-            const href = $a.attr('href');
-            const linkText = $a.text().trim();
-
-            try {
-              testLink(href, linkText, subject);
-            } catch (error) {
-              cy.log(
-                `❌ Error testing external link ${href}: ${error.message}`
-              );
-              throw error;
-            }
-          });
-        })
-        .catch((error) => {
-          cy.log(`❌ Error processing external links on ${subject}`);
-          cy.log(`   • Error: ${error.message}`);
-          throw error;
         });
+
+        if ($allowedLinks.length === 0) {
+          cy.log('No links to allowed external domains found on this page');
+          cy.log(`   • Allowed domains: ${allowedExternalDomains.join(', ')}`);
+          return;
+        }
+
+        cy.log(
+          `🌐 Testing ${$allowedLinks.length} links to allowed external domains`
+        );
+        cy.wrap($allowedLinks).each(($a) => {
+          const href = $a.attr('href');
+          const linkText = $a.text().trim();
+
+          try {
+            testLink(href, linkText, subject);
+          } catch (error) {
+            cy.log(`❌ Error testing external link ${href}: ${error.message}`);
+            throw error;
+          }
+        });
+      });
     });
   });
 });
