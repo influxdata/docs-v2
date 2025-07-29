@@ -8,6 +8,7 @@ import process from 'process';
 export const HUGO_ENVIRONMENT = 'testing';
 export const HUGO_PORT = 1315;
 export const HUGO_LOG_FILE = '/tmp/hugo_server.log';
+export const HUGO_SHUTDOWN_TIMEOUT = 5000; // 5 second timeout for graceful shutdown
 
 /**
  * Check if a port is already in use

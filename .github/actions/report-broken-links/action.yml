@@ -44,12 +44,18 @@ runs:
         
         # Check if comment file was created and has content
         if [[ -f comment.md && -s comment.md ]]; then
-          echo "has-broken-links=true" >> $GITHUB_OUTPUT
+          echo "comment-generated=true" >> $GITHUB_OUTPUT
           
           # Count broken links by parsing the comment
           broken_count=$(grep -o "Found [0-9]* broken link" comment.md | grep -o "[0-9]*" || echo "0")
           echo "broken-link-count=$broken_count" >> $GITHUB_OUTPUT
-          echo "comment-generated=true" >> $GITHUB_OUTPUT
+          
+          # Check if there are actually broken links (not just a success comment)
+          if [[ "$broken_count" -gt 0 ]]; then
+            echo "has-broken-links=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-broken-links=false" >> $GITHUB_OUTPUT
+          fi
         else
           echo "has-broken-links=false" >> $GITHUB_OUTPUT
           echo "broken-link-count=0" >> $GITHUB_OUTPUT
@@ -78,10 +84,20 @@ runs:
             }
           }
     
-    - name: Set workflow status
-      if: steps.generate-comment.outputs.has-broken-links == 'true'
+    - name: Report validation results
       run: |
+        has_broken_links="${{ steps.generate-comment.outputs.has-broken-links }}"
         broken_count="${{ steps.generate-comment.outputs.broken-link-count }}"
-        echo "::error::Found $broken_count broken link(s)"
-        exit 1
+        
+        if [ "$has_broken_links" = "true" ]; then
+          echo "::error::❌ Link validation failed: Found $broken_count broken link(s)"
+          echo "Check the PR comment for detailed broken link information"
+          exit 1
+        else
+          echo "::notice::✅ Link validation passed successfully"
+          echo "All links in the changed files are valid"
+          if [ "${{ steps.generate-comment.outputs.comment-generated }}" = "true" ]; then
+            echo "PR comment posted with validation summary and cache statistics"
+          fi
+        fi
       shell: bash

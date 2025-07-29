@@ -44,6 +44,7 @@ import {
   HUGO_ENVIRONMENT,
   HUGO_PORT,
   HUGO_LOG_FILE,
+  HUGO_SHUTDOWN_TIMEOUT,
   startHugoServer,
   waitForHugoReady,
 } from './hugo-server.js';
@@ -117,6 +118,8 @@ async function main() {
   let hugoProc = null;
   let exitCode = 0;
   let hugoStarted = false;
+
+// (Lines 124-126 removed; no replacement needed)
 
   // Add this signal handler to ensure cleanup on unexpected termination
   const cleanupAndExit = (code = 1) => {
@@ -366,10 +369,11 @@ async function main() {
     initializeReport();
 
     console.log(`Running Cypress tests for ${urlList.length} URLs...`);
-    
+
     // Add CI-specific configuration
-    const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
-    
+    const isCI =
+      process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+
     const cypressOptions = {
       reporter: 'junit',
       browser: 'chrome',
@@ -542,16 +546,20 @@ async function main() {
     // Handle EPIPE errors specifically
     if (err.code === 'EPIPE' || err.message.includes('EPIPE')) {
       console.error('🔧 EPIPE Error Detected:');
-      console.error('   • This usually indicates the Hugo server process was terminated unexpectedly');
+      console.error(
+        '   • This usually indicates the Hugo server process was terminated unexpectedly'
+      );
       console.error('   • Common causes in CI:');
       console.error('     - Memory constraints causing process termination');
       console.error('     - CI runner timeout or resource limits');
       console.error('     - Hugo server crash due to build errors');
       console.error(`   • Check Hugo logs: ${HUGO_LOG_FILE}`);
-      
+
       // Try to provide more context about Hugo server state
       if (hugoProc) {
-        console.error(`   • Hugo process state: killed=${hugoProc.killed}, exitCode=${hugoProc.exitCode}`);
+        console.error(
+          `   • Hugo process state: killed=${hugoProc.killed}, exitCode=${hugoProc.exitCode}`
+        );
       }
     }
 
@@ -648,7 +656,9 @@ async function main() {
           return;
         }
       } catch (shutdownErr) {
-        console.error(`Error during Hugo server shutdown: ${shutdownErr.message}`);
+        console.error(
+          `Error during Hugo server shutdown: ${shutdownErr.message}`
+        );
       }
     } else if (hugoStarted) {
       console.log('Hugo process was started but is not available for cleanup');

@@ -120,6 +120,7 @@ jobs:
           product-name: ${{ matrix.product }}
           cache-enabled: ${{ matrix.cacheEnabled || 'true' }}
           cache-key: link-validation-${{ hashFiles(matrix.files || needs.setup.outputs.all-files) }}
+          timeout: 900
 
   report:
     name: Report Results
