@@ -887,7 +887,7 @@ LIMIT 1
 
 Converts an integer to RFC3339 timestamp format (`YYYY-MM-DDT00:00:00.000000000Z`).
 Input is parsed as a [Unix nanosecond timestamp](/influxdb/version/reference/glossary/#unix-timestamp)
-and returns the corresponding RFC3339 timestamp.
+and returns the corresponding timestamp.
 
 ```sql
 from_unixtime(expression)
@@ -1454,7 +1454,7 @@ SELECT tz(time, 'Australia/Sydney') AS time_tz, time FROM home ORDER BY time LIM
 differ when the input timestamp **does not** have a timezone.
 
 - When using an input timestamp that does not have a timezone (the default behavior in InfluxDB) with the
-  `AT TIME ZONE` operator, the operator returns the the same timestamp, but with a timezone offset
+  `AT TIME ZONE` operator, the operator returns the same timestamp, but with a timezone offset
   (also known as the "wall clock" time)--for example:
 
   ```sql
