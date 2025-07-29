@@ -44,12 +44,18 @@ runs:
         
         # Check if comment file was created and has content
         if [[ -f comment.md && -s comment.md ]]; then
-          echo "has-broken-links=true" >> $GITHUB_OUTPUT
+          echo "comment-generated=true" >> $GITHUB_OUTPUT
           
           # Count broken links by parsing the comment
           broken_count=$(grep -o "Found [0-9]* broken link" comment.md | grep -o "[0-9]*" || echo "0")
           echo "broken-link-count=$broken_count" >> $GITHUB_OUTPUT
-          echo "comment-generated=true" >> $GITHUB_OUTPUT
+          
+          # Check if there are actually broken links (not just a success comment)
+          if [[ "$broken_count" -gt 0 ]]; then
+            echo "has-broken-links=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-broken-links=false" >> $GITHUB_OUTPUT
+          fi
         else
           echo "has-broken-links=false" >> $GITHUB_OUTPUT
           echo "broken-link-count=0" >> $GITHUB_OUTPUT
