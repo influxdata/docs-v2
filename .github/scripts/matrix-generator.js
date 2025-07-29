@@ -119,7 +119,7 @@ async function runIncrementalAnalysis(files) {
   return new Promise((resolve) => {
     const child = spawn(
       'node',
-      ['.github/scripts/incremental-validator.js', ...files],
+      ['.github/scripts/incremental-validator.cjs', ...files],
       {
         stdio: ['pipe', 'pipe', 'pipe'],
         env: process.env,
