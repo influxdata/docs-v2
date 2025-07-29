@@ -118,9 +118,7 @@ async function main() {
   let exitCode = 0;
   let hugoStarted = false;
 
-  // Configure shutdown timeout - use environment variable or default
-  const HUGO_SHUTDOWN_TIMEOUT =
-    parseInt(process.env.HUGO_SHUTDOWN_TIMEOUT) || 3000;
+// (Lines 124-126 removed; no replacement needed)
 
   // Add this signal handler to ensure cleanup on unexpected termination
   const cleanupAndExit = (code = 1) => {
