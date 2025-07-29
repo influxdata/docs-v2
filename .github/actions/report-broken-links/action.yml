@@ -84,10 +84,20 @@ runs:
             }
           }
     
-    - name: Set workflow status
-      if: steps.generate-comment.outputs.has-broken-links == 'true'
+    - name: Report validation results
       run: |
+        has_broken_links="${{ steps.generate-comment.outputs.has-broken-links }}"
         broken_count="${{ steps.generate-comment.outputs.broken-link-count }}"
-        echo "::error::Found $broken_count broken link(s)"
-        exit 1
+        
+        if [ "$has_broken_links" = "true" ]; then
+          echo "::error::❌ Link validation failed: Found $broken_count broken link(s)"
+          echo "Check the PR comment for detailed broken link information"
+          exit 1
+        else
+          echo "::notice::✅ Link validation passed successfully"
+          echo "All links in the changed files are valid"
+          if [ "${{ steps.generate-comment.outputs.comment-generated }}" = "true" ]; then
+            echo "PR comment posted with validation summary and cache statistics"
+          fi
+        fi
       shell: bash
