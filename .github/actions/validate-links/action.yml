@@ -17,6 +17,10 @@ inputs:
     description: 'Cache key prefix for this validation run'
     required: false
     default: 'link-validation'
+  timeout:
+    description: 'Test timeout in seconds'
+    required: false
+    default: '900'
 
 outputs:
   failed:
@@ -44,15 +48,31 @@ runs:
         export GITHUB_ACTIONS=true
         export NODE_OPTIONS="--max-old-space-size=4096"
         
-        # Add timeout to prevent hanging
-        timeout ${{ inputs.timeout }} node cypress/support/run-e2e-specs.js ${{ inputs.files }} \
+        # Set test runner timeout for Hugo shutdown
+        export HUGO_SHUTDOWN_TIMEOUT=5000
+        
+        # Add timeout to prevent hanging (timeout command syntax: timeout DURATION COMMAND)
+        timeout ${{ inputs.timeout }}s node cypress/support/run-e2e-specs.js ${{ inputs.files }} \
           --spec cypress/e2e/content/article-links.cy.js || {
           exit_code=$?
-          echo "::error::Link validation failed with exit code $exit_code"
           
-          # Check for specific error patterns
-          if [ -f hugo.log ]; then
+          # Handle timeout specifically
+          if [ $exit_code -eq 124 ]; then
+            echo "::error::Link validation timed out after ${{ inputs.timeout }} seconds"
+            echo "::notice::This may indicate Hugo server startup issues or very slow link validation"
+          else
+            echo "::error::Link validation failed with exit code $exit_code"
+          fi
+          
+          # Check for specific error patterns and logs
+          if [ -f /tmp/hugo_server.log ]; then
             echo "::group::Hugo Server Logs"
+            cat /tmp/hugo_server.log
+            echo "::endgroup::"
+          fi
+          
+          if [ -f hugo.log ]; then
+            echo "::group::Additional Hugo Logs"
             cat hugo.log
             echo "::endgroup::"
           fi
@@ -63,6 +83,13 @@ runs:
             echo "::endgroup::"
           fi
           
+          # Show Cypress artifacts if they exist
+          if [ -d cypress/screenshots ]; then
+            echo "::group::Available Screenshots"
+            find cypress/screenshots -name "*.png" -type f 2>/dev/null || echo "No screenshots found"
+            echo "::endgroup::"
+          fi
+          
           exit $exit_code
         }
         
@@ -70,13 +97,26 @@ runs:
       if: failure()
       uses: actions/upload-artifact@v4
       with:
-        name: validation-logs-${{ inputs.product-name }}
+        name: validation-logs-${{ inputs.product-name && inputs.product-name || 'default' }}
         path: |
           hugo.log
+          /tmp/hugo_server.log
+        if-no-files-found: ignore
+    
+    - name: Upload Cypress artifacts on failure
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: cypress-artifacts-${{ inputs.product-name && inputs.product-name || 'default' }}
+        path: |
+          cypress/screenshots
+          cypress/videos
+        if-no-files-found: ignore
     
     - name: Upload broken links report
-      if: failure()
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: broken-links-report${{ inputs.product-name && format('-{0}', inputs.product-name) || '' }}
         path: /tmp/broken_links_report.json
+        if-no-files-found: ignore
