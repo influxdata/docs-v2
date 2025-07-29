@@ -64,34 +64,27 @@ runs:
             echo "::error::Link validation failed with exit code $exit_code"
           fi
           
-          # Check for specific error patterns and logs
+          # Check for specific error patterns and logs (but don't dump full content)
           if [ -f /tmp/hugo_server.log ]; then
-            echo "::group::Hugo Server Logs"
-            cat /tmp/hugo_server.log
-            echo "::endgroup::"
+            echo "Hugo server log available for debugging"
           fi
           
           if [ -f hugo.log ]; then
-            echo "::group::Additional Hugo Logs"
-            cat hugo.log
-            echo "::endgroup::"
+            echo "Additional Hugo log available for debugging"
           fi
           
           if [ -f /tmp/broken_links_report.json ]; then
-            echo "::group::Broken Links Report"
-            cat /tmp/broken_links_report.json
-            echo "::endgroup::"
-          fi
-          
-          # Show Cypress artifacts if they exist
-          if [ -d cypress/screenshots ]; then
-            echo "::group::Available Screenshots"
-            find cypress/screenshots -name "*.png" -type f 2>/dev/null || echo "No screenshots found"
-            echo "::endgroup::"
+            # Only show summary, not full report (full report is uploaded as artifact)
+            broken_count=$(grep -o '"url":' /tmp/broken_links_report.json | wc -l || echo "0")
+            echo "Broken links report contains $broken_count entries"
           fi
           
           exit $exit_code
         }
+        
+        # Report success if we get here
+        echo "::notice::✅ Link validation completed successfully"
+        echo "No broken links detected in the tested files"
         
     - name: Upload logs on failure
       if: failure()
@@ -103,15 +96,6 @@ runs:
           /tmp/hugo_server.log
         if-no-files-found: ignore
     
-    - name: Upload Cypress artifacts on failure
-      if: failure()
-      uses: actions/upload-artifact@v4
-      with:
-        name: cypress-artifacts-${{ inputs.product-name && inputs.product-name || 'default' }}
-        path: |
-          cypress/screenshots
-          cypress/videos
-        if-no-files-found: ignore
     
     - name: Upload broken links report
       if: always()
