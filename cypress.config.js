@@ -204,15 +204,44 @@ export default defineConfig({
         runIncrementalValidation(filePaths) {
           return new Promise(async (resolve, reject) => {
             try {
-              const { IncrementalValidator } = await import(
-                './.github/scripts/incremental-validator.js'
-              );
+              console.log('Loading incremental validator module...');
+              
+              // Use CommonJS require for better compatibility
+              const { IncrementalValidator } = require('./.github/scripts/incremental-validator.cjs');
+              console.log('✅ Incremental validator loaded successfully');
+              
               const validator = new IncrementalValidator();
               const results = await validator.validateFiles(filePaths);
               resolve(results);
             } catch (error) {
               console.error(`Incremental validation error: ${error.message}`);
-              reject(error);
+              console.error(`Stack: ${error.stack}`);
+              
+              // Don't fail the entire test run due to cache issues
+              // Fall back to validating all files
+              console.warn('Falling back to validate all files without cache');
+              resolve({
+                validationStrategy: {
+                  unchanged: [],
+                  changed: filePaths.map(filePath => ({
+                    filePath,
+                    fileHash: 'unknown',
+                    links: []
+                  })),
+                  newLinks: [],
+                  total: filePaths.length
+                },
+                filesToValidate: filePaths.map(filePath => ({
+                  filePath,
+                  fileHash: 'unknown'
+                })),
+                cacheStats: {
+                  totalFiles: filePaths.length,
+                  cacheHits: 0,
+                  cacheMisses: filePaths.length,
+                  hitRate: 0
+                }
+              });
             }
           });
         },
@@ -220,9 +249,7 @@ export default defineConfig({
         cacheValidationResults(filePath, fileHash, results) {
           return new Promise(async (resolve, reject) => {
             try {
-              const { IncrementalValidator } = await import(
-                './.github/scripts/incremental-validator.js'
-              );
+              const { IncrementalValidator } = require('./.github/scripts/incremental-validator.cjs');
               const validator = new IncrementalValidator();
               const success = await validator.cacheResults(
                 filePath,
@@ -232,7 +259,8 @@ export default defineConfig({
               resolve(success);
             } catch (error) {
               console.error(`Cache validation results error: ${error.message}`);
-              reject(error);
+              // Don't fail if caching fails - just continue without cache
+              resolve(false);
             }
           });
         },
@@ -246,7 +274,9 @@ export default defineConfig({
               resolve(filePathToUrl(filePath));
             } catch (error) {
               console.error(`URL transformation error: ${error.message}`);
-              reject(error);
+              // Fallback: return the file path as-is if transformation fails
+              console.warn(`Using fallback URL transformation for: ${filePath}`);
+              resolve(filePath);
             }
           });
         },
