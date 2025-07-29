@@ -182,7 +182,8 @@ export class LinkCacheManager {
             fs.unlinkSync(filePath);
             cleaned++;
           }
-        } catch {
+        } catch (error) {
+          console.warn(`Failed to process cache file "${filePath}": ${error.message}`);
           // Remove corrupted files
           fs.unlinkSync(filePath);
           cleaned++;
