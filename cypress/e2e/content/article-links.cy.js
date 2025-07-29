@@ -6,8 +6,8 @@ describe('Article', () => {
         .split(',')
         .filter((s) => s.trim() !== '')
     : [];
-  let validationStrategy = null;
-  let shouldSkipAllTests = false; // Flag to skip tests when all files are cached
+  
+  // Cache will be checked during test execution at the URL level
 
   // Always use HEAD for downloads to avoid timeouts
   const useHeadForDownloads = true;
@@ -16,6 +16,42 @@ describe('Article', () => {
   before(() => {
     // Initialize the broken links report
     cy.task('initializeBrokenLinksReport');
+    
+    // Clean up expired cache entries
+    cy.task('cleanupCache').then((cleaned) => {
+      if (cleaned > 0) {
+        cy.log(`🧹 Cleaned up ${cleaned} expired cache entries`);
+      }
+    });
+  });
+
+  // Display cache statistics after all tests complete
+  after(() => {
+    cy.task('getCacheStats').then((stats) => {
+      cy.log('📊 Link Validation Cache Statistics:');
+      cy.log(`   • Cache hits: ${stats.hits}`);
+      cy.log(`   • Cache misses: ${stats.misses}`);
+      cy.log(`   • New entries stored: ${stats.stores}`);
+      cy.log(`   • Hit rate: ${stats.hitRate}`);
+      cy.log(`   • Total validations: ${stats.total}`);
+      
+      if (stats.total > 0) {
+        const message = stats.hits > 0 
+          ? `✨ Cache optimization saved ${stats.hits} link validations`
+          : '🔄 No cache hits - all links were validated fresh';
+        cy.log(message);
+      }
+
+      // Save cache statistics for the reporter to display
+      cy.task('saveCacheStatsForReporter', {
+        hitRate: parseFloat(stats.hitRate.replace('%', '')),
+        cacheHits: stats.hits,
+        cacheMisses: stats.misses,
+        totalValidations: stats.total,
+        newEntriesStored: stats.stores,
+        cleanups: stats.cleanups
+      });
+    });
   });
 
   // Helper function to identify download links
@@ -57,8 +93,45 @@ describe('Article', () => {
     return hasDownloadExtension || isFromDownloadDomain;
   }
 
-  // Helper function to make appropriate request based on link type
+  // Helper function for handling failed links
+  function handleFailedLink(url, status, type, redirectChain = '', linkText = '', pageUrl = '') {
+    // Report the broken link
+    cy.task('reportBrokenLink', {
+      url: url + redirectChain,
+      status,
+      type,
+      linkText,
+      page: pageUrl,
+    });
+
+    // Throw error for broken links
+    throw new Error(
+      `BROKEN ${type.toUpperCase()} LINK: ${url} (status: ${status})${redirectChain} on ${pageUrl}`
+    );
+  }
+
+  // Helper function to test a link with cache integration
   function testLink(href, linkText = '', pageUrl) {
+    // Check cache first
+    return cy.task('isLinkCached', href).then((isCached) => {
+      if (isCached) {
+        cy.log(`✅ Cache hit: ${href}`);
+        return cy.task('getLinkCache', href).then((cachedResult) => {
+          if (cachedResult && cachedResult.result && cachedResult.result.status >= 400) {
+            // Cached result shows this link is broken
+            handleFailedLink(href, cachedResult.result.status, cachedResult.result.type || 'cached', '', linkText, pageUrl);
+          }
+          // For successful cached results, just return - no further action needed
+        });
+      } else {
+        // Not cached, perform actual validation
+        return performLinkValidation(href, linkText, pageUrl);
+      }
+    });
+  }
+
+  // Helper function to perform actual link validation and cache the result
+  function performLinkValidation(href, linkText = '', pageUrl) {
     // Common request options for both methods
     const requestOptions = {
       failOnStatusCode: true,
@@ -68,196 +141,78 @@ describe('Article', () => {
       retryOnStatusCodeFailure: true, // Retry on 5xx errors
     };
 
-    function handleFailedLink(url, status, type, redirectChain = '') {
-      // Report the broken link
-      cy.task('reportBrokenLink', {
-        url: url + redirectChain,
-        status,
-        type,
-        linkText,
-        page: pageUrl,
-      });
-
-      // Throw error for broken links
-      throw new Error(
-        `BROKEN ${type.toUpperCase()} LINK: ${url} (status: ${status})${redirectChain} on ${pageUrl}`
-      );
-    }
 
     if (useHeadForDownloads && isDownloadLink(href)) {
       cy.log(`** Testing download link with HEAD: ${href} **`);
-      cy.request({
+      return cy.request({
         method: 'HEAD',
         url: href,
         ...requestOptions,
       }).then((response) => {
+        // Prepare result for caching
+        const result = {
+          status: response.status,
+          type: 'download',
+          timestamp: new Date().toISOString()
+        };
+
         // Check final status after following any redirects
         if (response.status >= 400) {
-          // Build redirect info string if available
           const redirectInfo =
             response.redirects && response.redirects.length > 0
               ? ` (redirected to: ${response.redirects.join(' -> ')})`
               : '';
-
-          handleFailedLink(href, response.status, 'download', redirectInfo);
+          
+          // Cache the failed result
+          cy.task('setLinkCache', { url: href, result });
+          handleFailedLink(href, response.status, 'download', redirectInfo, linkText, pageUrl);
+        } else {
+          // Cache the successful result
+          cy.task('setLinkCache', { url: href, result });
         }
       });
     } else {
       cy.log(`** Testing link: ${href} **`);
-      cy.log(JSON.stringify(requestOptions));
-      cy.request({
+      return cy.request({
         url: href,
         ...requestOptions,
       }).then((response) => {
-        // Check final status after following any redirects
+        // Prepare result for caching
+        const result = {
+          status: response.status,
+          type: 'regular',
+          timestamp: new Date().toISOString()
+        };
+
         if (response.status >= 400) {
-          // Build redirect info string if available
           const redirectInfo =
             response.redirects && response.redirects.length > 0
               ? ` (redirected to: ${response.redirects.join(' -> ')})`
               : '';
-
-          handleFailedLink(href, response.status, 'regular', redirectInfo);
+          
+          // Cache the failed result
+          cy.task('setLinkCache', { url: href, result });
+          handleFailedLink(href, response.status, 'regular', redirectInfo, linkText, pageUrl);
+        } else {
+          // Cache the successful result
+          cy.task('setLinkCache', { url: href, result });
         }
       });
     }
   }
 
-  // Test implementation for subjects
-  // Add debugging information about test subjects
+  // Test setup validation
   it('Test Setup Validation', function () {
-    cy.log(`📋 Initial Test Configuration:`);
-    cy.log(`   • Initial test subjects count: ${subjects.length}`);
-
-    // Get source file paths for incremental validation
-    const testSubjectsData = Cypress.env('test_subjects_data');
-    let sourceFilePaths = subjects; // fallback to subjects if no data available
-
-    if (testSubjectsData) {
-      try {
-        const urlToSourceData = JSON.parse(testSubjectsData);
-        // Extract source file paths from the structured data
-        sourceFilePaths = urlToSourceData.map((item) => item.source);
-        cy.log(`   • Source files to analyze: ${sourceFilePaths.length}`);
-      } catch (e) {
-        cy.log(
-          '⚠️ Could not parse test_subjects_data, using subjects as fallback'
-        );
-        sourceFilePaths = subjects;
-      }
-    }
-
-    // Only run incremental validation if we have source file paths
-    if (sourceFilePaths.length > 0) {
-      cy.log('🔄 Running incremental validation analysis...');
-      cy.log(
-        `   • Analyzing ${sourceFilePaths.length} files: ${sourceFilePaths.join(', ')}`
-      );
-
-      // Run incremental validation with proper error handling
-      cy.task('runIncrementalValidation', sourceFilePaths).then((results) => {
-        if (!results) {
-          cy.log('⚠️ No results returned from incremental validation');
-          cy.log(
-            '🔄 Falling back to test all provided subjects without cache optimization'
-          );
-          return;
-        }
-
-        // Check if results have expected structure
-        if (!results.validationStrategy || !results.cacheStats) {
-          cy.log('⚠️ Incremental validation results missing expected fields');
-          cy.log(`   • Results: ${JSON.stringify(results)}`);
-          cy.log(
-            '🔄 Falling back to test all provided subjects without cache optimization'
-          );
-          return;
-        }
-
-        validationStrategy = results.validationStrategy;
-
-        // Save cache statistics and validation strategy for reporting
-        cy.task('saveCacheStatistics', results.cacheStats);
-        cy.task('saveValidationStrategy', validationStrategy);
-
-        // Update subjects to only test files that need validation
-        if (results.filesToValidate && results.filesToValidate.length > 0) {
-          // Convert file paths to URLs using shared utility via Cypress task
-          const urlPromises = results.filesToValidate.map((file) =>
-            cy.task('filePathToUrl', file.filePath)
-          );
-
-          cy.wrap(Promise.all(urlPromises)).then((urls) => {
-            subjects = urls;
-
-            cy.log(
-              `📊 Cache Analysis: ${results.cacheStats.hitRate}% hit rate`
-            );
-            cy.log(
-              `🔄 Testing ${subjects.length} pages (${results.cacheStats.cacheHits} cached)`
-            );
-            cy.log('✅ Incremental validation completed - ready to test');
-          });
-        } else {
-          // All files are cached, no validation needed
-          shouldSkipAllTests = true; // Set flag to skip all tests
-          cy.log('✨ All files cached - will skip all validation tests');
-          cy.log(
-            `📊 Cache hit rate: ${results.cacheStats.hitRate}% (${results.cacheStats.cacheHits}/${results.cacheStats.totalFiles} files cached)`
-          );
-          cy.log('🎯 No new validation needed - this is the expected outcome');
-          cy.log('⏭️  All link validation tests will be skipped');
-        }
-      });
-    } else {
-      cy.log('⚠️ No source file paths available, using all provided subjects');
-
-      // Set a simple validation strategy when no source data is available
-      validationStrategy = {
-        noSourceData: true,
-        unchanged: [],
-        changed: [],
-        total: subjects.length,
-      };
-
-      cy.log(
-        `📋 Testing ${subjects.length} pages without incremental validation`
-      );
-    }
-
-    // Check for truly problematic scenarios
-    if (!validationStrategy && subjects.length === 0) {
-      const testSubjectsData = Cypress.env('test_subjects_data');
-      if (
-        !testSubjectsData ||
-        testSubjectsData === '' ||
-        testSubjectsData === '[]'
-      ) {
-        cy.log('❌ Critical setup issue detected:');
-        cy.log('   • No validation strategy');
-        cy.log('   • No test subjects');
-        cy.log('   • No test subjects data');
-        cy.log('   This indicates a fundamental configuration problem');
-
-        // Only fail in this truly problematic case
-        throw new Error(
-          'Critical test setup failure: No strategy, subjects, or data available'
-        );
-      }
-    }
-
-    // Always pass if we get to this point - the setup is valid
-    cy.log('✅ Test setup validation completed successfully');
+    cy.log(`📋 Test Configuration:`);
+    cy.log(`   • Test subjects: ${subjects.length}`);
+    cy.log(`   • Cache: URL-level caching with 30-day TTL`);
+    cy.log(`   • Link validation: Internal, anchor, and allowed external links`);
+    
+    cy.log('✅ Test setup validation completed');
   });
 
   subjects.forEach((subject) => {
     it(`${subject} has valid internal links`, function () {
-      // Skip test if all files are cached
-      if (shouldSkipAllTests) {
-        cy.log('✅ All files cached - skipping internal links test');
-        this.skip();
-        return;
-      }
 
       // Add error handling for page visit failures
       cy.visit(`${subject}`, { timeout: 20000 }).then(() => {
@@ -291,12 +246,6 @@ describe('Article', () => {
     });
 
     it(`${subject} has valid anchor links`, function () {
-      // Skip test if all files are cached
-      if (shouldSkipAllTests) {
-        cy.log('✅ All files cached - skipping anchor links test');
-        this.skip();
-        return;
-      }
 
       cy.visit(`${subject}`).then(() => {
         cy.log(`✅ Successfully loaded page for anchor testing: ${subject}`);
@@ -351,12 +300,6 @@ describe('Article', () => {
     });
 
     it(`${subject} has valid external links`, function () {
-      // Skip test if all files are cached
-      if (shouldSkipAllTests) {
-        cy.log('✅ All files cached - skipping external links test');
-        this.skip();
-        return;
-      }
 
       // Check if we should skip external links entirely
       if (Cypress.env('skipExternalLinks') === true) {

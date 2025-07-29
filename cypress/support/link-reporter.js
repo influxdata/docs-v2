@@ -147,18 +147,32 @@ export function displayBrokenLinksReport(brokenLinksReport = null) {
 
   // Display cache performance first
   if (cacheStats) {
-    console.log('\n📊 Cache Performance:');
-    console.log('=====================');
+    console.log('\n📊 Link Validation Cache Performance:');
+    console.log('=======================================');
     console.log(`Cache hit rate: ${cacheStats.hitRate}%`);
-    console.log(`Files cached: ${cacheStats.cacheHits}`);
-    console.log(`Files validated: ${cacheStats.cacheMisses}`);
+    console.log(`Cache hits: ${cacheStats.cacheHits}`);
+    console.log(`Cache misses: ${cacheStats.cacheMisses}`);
+    console.log(`Total validations: ${cacheStats.totalValidations || cacheStats.cacheHits + cacheStats.cacheMisses}`);
+    console.log(`New entries stored: ${cacheStats.newEntriesStored || 0}`);
+    
+    if (cacheStats.cleanups > 0) {
+      console.log(`Expired entries cleaned: ${cacheStats.cleanups}`);
+    }
+    
+    if (cacheStats.totalValidations > 0) {
+      const message = cacheStats.cacheHits > 0 
+        ? `✨ Cache optimization saved ${cacheStats.cacheHits} link validations`
+        : '🔄 No cache hits - all links were validated fresh';
+      console.log(message);
+    }
 
     if (validationStrategy) {
-      console.log(`Total files analyzed: ${validationStrategy.total}`);
+      console.log(`Files analyzed: ${validationStrategy.total}`);
       console.log(
         `Links needing validation: ${validationStrategy.newLinks.length}`
       );
     }
+    console.log(''); // Add spacing after cache stats
   }
 
   // Check both the report and first broken link file to determine if we have broken links
