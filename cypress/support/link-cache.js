@@ -17,20 +17,20 @@ const LOCAL_CACHE_DIR = path.join(process.cwd(), '.cache', 'link-validation');
 export class LinkCacheManager {
   constructor(options = {}) {
     this.localCacheDir = options.localCacheDir || LOCAL_CACHE_DIR;
-    
+
     // Configurable cache TTL - default 30 days
-    this.cacheTTLDays = 
+    this.cacheTTLDays =
       options.cacheTTLDays || parseInt(process.env.LINK_CACHE_TTL_DAYS) || 30;
     this.maxAge = this.cacheTTLDays * 24 * 60 * 60 * 1000;
-    
+
     this.ensureLocalCacheDir();
-    
+
     // Track cache statistics
     this.stats = {
       hits: 0,
       misses: 0,
       stores: 0,
-      cleanups: 0
+      cleanups: 0,
     };
   }
 
@@ -120,7 +120,7 @@ export class LinkCacheManager {
       url,
       result,
       cachedAt: new Date().toISOString(),
-      ttl: new Date(Date.now() + this.maxAge).toISOString()
+      ttl: new Date(Date.now() + this.maxAge).toISOString(),
     };
 
     try {
@@ -128,7 +128,9 @@ export class LinkCacheManager {
       this.stats.stores++;
       return true;
     } catch (error) {
-      console.warn(`Failed to cache validation result for ${url}: ${error.message}`);
+      console.warn(
+        `Failed to cache validation result for ${url}: ${error.message}`
+      );
       return false;
     }
   }
@@ -148,12 +150,13 @@ export class LinkCacheManager {
    */
   getStats() {
     const total = this.stats.hits + this.stats.misses;
-    const hitRate = total > 0 ? (this.stats.hits / total * 100).toFixed(1) : 0;
-    
+    const hitRate =
+      total > 0 ? ((this.stats.hits / total) * 100).toFixed(1) : 0;
+
     return {
       ...this.stats,
       total,
-      hitRate: `${hitRate}%`
+      hitRate: `${hitRate}%`,
     };
   }
 
@@ -163,22 +166,22 @@ export class LinkCacheManager {
    */
   cleanup() {
     let cleaned = 0;
-    
+
     try {
       const files = fs.readdirSync(this.localCacheDir);
-      const cacheFiles = files.filter(file => 
-        file.startsWith(CACHE_KEY_PREFIX) && file.endsWith('.json')
+      const cacheFiles = files.filter(
+        (file) => file.startsWith(CACHE_KEY_PREFIX) && file.endsWith('.json')
       );
 
       for (const file of cacheFiles) {
         const filePath = path.join(this.localCacheDir, file);
-        
+
         try {
           const content = fs.readFileSync(filePath, 'utf8');
           const cached = JSON.parse(content);
-          
+
           const age = Date.now() - new Date(cached.cachedAt).getTime();
-          
+
           if (age > this.maxAge) {
             fs.unlinkSync(filePath);
             cleaned++;
@@ -210,6 +213,6 @@ export const createCypressCacheTasks = (options = {}) => {
     setLinkCache: ({ url, result }) => cache.set(url, result),
     isLinkCached: (url) => cache.isCached(url),
     getCacheStats: () => cache.getStats(),
-    cleanupCache: () => cache.cleanup()
+    cleanupCache: () => cache.cleanup(),
   };
 };

@@ -5,7 +5,7 @@ weight: 1
 related:
   - /influxdb/v2/write-data/
   - /influxdb/v2/write-data/quick-start
-  - https://influxdata.com, This is an external link
+  - https://github.com/influxdata/docs-v2, This is an external link
 test_only: true  # Custom parameter to indicate test-only content
 ---
 

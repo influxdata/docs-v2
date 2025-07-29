@@ -119,7 +119,7 @@ jobs:
           files: ${{ matrix.files || needs.setup.outputs.all-files }}
           product-name: ${{ matrix.product }}
           cache-enabled: ${{ matrix.cacheEnabled || 'true' }}
-          cache-key: link-validation-${{ hashFiles(matrix.files || needs.setup.outputs.all-files) }}
+          cache-key: link-validation-${{ matrix.product }}
           timeout: 900
 
   report:

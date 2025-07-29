@@ -152,17 +152,20 @@ export function displayBrokenLinksReport(brokenLinksReport = null) {
     console.log(`Cache hit rate: ${cacheStats.hitRate}%`);
     console.log(`Cache hits: ${cacheStats.cacheHits}`);
     console.log(`Cache misses: ${cacheStats.cacheMisses}`);
-    console.log(`Total validations: ${cacheStats.totalValidations || cacheStats.cacheHits + cacheStats.cacheMisses}`);
+    console.log(
+      `Total validations: ${cacheStats.totalValidations || cacheStats.cacheHits + cacheStats.cacheMisses}`
+    );
     console.log(`New entries stored: ${cacheStats.newEntriesStored || 0}`);
-    
+
     if (cacheStats.cleanups > 0) {
       console.log(`Expired entries cleaned: ${cacheStats.cleanups}`);
     }
-    
+
     if (cacheStats.totalValidations > 0) {
-      const message = cacheStats.cacheHits > 0 
-        ? `✨ Cache optimization saved ${cacheStats.cacheHits} link validations`
-        : '🔄 No cache hits - all links were validated fresh';
+      const message =
+        cacheStats.cacheHits > 0
+          ? `✨ Cache optimization saved ${cacheStats.cacheHits} link validations`
+          : '🔄 No cache hits - all links were validated fresh';
       console.log(message);
     }
 
