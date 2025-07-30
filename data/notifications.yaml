@@ -40,23 +40,22 @@
   #   - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
   #   - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
-- id: influxdb3.2-explorer-ga
+- id: influxdb3.3-explorer-1.1
   level: note
   scope:
     - /
-  title: New in InfluxDB 3.2
+  title: New in InfluxDB 3.3
   slug: |
-    Key enhancements in InfluxDB 3.2 and the InfluxDB 3 Explorer UI is now generally available.
+    Key enhancements in InfluxDB 3.3 and the InfluxDB 3 Explorer 1.1.
 
-    <a class="btn" href="http://influxdata.com/blog/influxdb-3-2">See the Blog Post</a>
+    <a class="btn" href="https://www.influxdata.com/blog/influxdb-3-3/">See the Blog Post</a>
   message: |
-    InfluxDB 3.2 is now available for both Core and Enterprise, bringing the
-    general availability of InfluxDB 3 Explorer, a new UI that simplifies how
-    you query, explore, and visualize data. On top of that, InfluxDB 3.2 includes
-    a wide range of performance improvements, feature updates, and bug fixes
-    including automated data retention and more.
+    InfluxDB 3.3 is now available for both Core and Enterprise, which introduces new
+    managed plugins for the Processing Engine. This makes it easier to address common
+    time series tasks with just a plugin. InfluxDB 3 Explorer 1.1 is also available,
+    which includes InfluxDB plugin management and other new features.
 
     For more information, check out:
-    
-    - [InfluxDB 3.2 blog from Paul Dix](http://influxdata.com/blog/influxdb-3-2)
+
+    - [See the announcement blog post](https://www.influxdata.com/blog/influxdb-3-3/)
     - [Get Started with InfluxDB 3 Explorer](/influxdb3/explorer/get-started/)
