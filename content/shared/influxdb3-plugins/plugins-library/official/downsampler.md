@@ -47,7 +47,7 @@ Each downsampled record includes metadata about the original data points compres
 
 #### Example TOML configuration
 
-[downsampling_config_scheduler.toml](downsampling_config_scheduler.toml)
+[downsampling_config_scheduler.toml](https://github.com/influxdata/influxdb3-plugins/blob/main/content/shared/influxdb3-plugins/plugins-library/official/downsampling_config_scheduler.toml)
 
 For more information on using TOML configuration files, see the Using TOML Configuration Files section in the [influxdb3_plugins
 /README.md](/README.md).
