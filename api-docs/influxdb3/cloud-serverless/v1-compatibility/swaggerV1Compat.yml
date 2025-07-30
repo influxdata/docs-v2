@@ -282,6 +282,38 @@ paths:
           text/plain:
             schema:
               type: string
+          application/json:
+            schema:
+              type: object
+              properties:
+                db:
+                  type: string
+                  description: Bucket to query.
+                q:
+                  description: Defines the influxql query to run.
+                  type: string
+                chunked:
+                  description: |
+                    If true, the response is divided into chunks of size `chunk_size`.
+                  type: boolean
+                chunk_size:
+                  description: |
+                    The number of records that will go into a chunk.
+                    This parameter is only used if `chunked=true`.
+                  type: integer
+                  default: 10000
+                epoch:
+                  description: |
+                    A unix timestamp precision.
+                  type: string
+                  enum:
+                    - h
+                    - m
+                    - s
+                    - ms
+                    - u
+                    - µ
+                    - ns
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - $ref: '#/components/parameters/AuthUserV1'
