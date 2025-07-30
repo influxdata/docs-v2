@@ -7,7 +7,7 @@ including the following:
 > [!Tip]
 > #### Find support for {{% product-name %}}
 >
-> The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for {{% product-name %}}.
+> The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 > For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
 
 ## Data model

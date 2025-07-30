@@ -322,4 +322,4 @@ if not influxdb3_local.cache.get("lookup_table"):
 
 With an understanding of the InfluxDB 3 Shared Plugin API, you can start building data workflows that transform, analyze, and respond to your time series data.
 
-To find example plugins you can extend, visit the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins) on GitHub.
+For official plugins and examples that you can extend, see the [plugin library](/influxdb3/version/plugins/library/).

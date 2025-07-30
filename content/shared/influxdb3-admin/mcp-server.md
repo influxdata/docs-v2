@@ -44,19 +44,19 @@ Set the following environment variables when you start the MCP server:
   > ```txt
   > http://host.docker.internal:8181/
   > ```
-{{% show-in "core" %}}
-- **INFLUX_DB_TOKEN**: Your {{% product-name %}} {{< token-link "admin" >}}  
 {{% /show-in %}}
 
+{{% show-in "core" %}}
+- **INFLUX_DB_TOKEN**: Your {{% product-name %}} [admin token](/influxdb3/core/admin/tokens/admin/)
+{{% /show-in %}}
 {{% show-in "enterprise" %}}
-- **INFLUX_DB_TOKEN**: Your {{% product-name %}} {{< token-link "admin" >}} or {{< token-link "resource" >}}.
+- **INFLUX_DB_TOKEN**: Your {{% product-name %}} [admin token](/influxdb3/enterprise/admin/tokens/admin) or [resource token](/influxdb3/enterprise/admin/tokens/resource).
+
   
   > [!Note]
   > If using a resource token, your LLM agent can only perform the operations
   > allowed by the token permissions.
   
-{{% /show-in %}}
-
 {{% /show-in %}}
 
 {{% show-in "cloud-dedicated,clustered" %}}
