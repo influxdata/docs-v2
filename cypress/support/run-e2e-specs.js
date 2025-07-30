@@ -44,6 +44,7 @@ import {
   HUGO_ENVIRONMENT,
   HUGO_PORT,
   HUGO_LOG_FILE,
+  HUGO_SHUTDOWN_TIMEOUT,
   startHugoServer,
   waitForHugoReady,
 } from './hugo-server.js';
@@ -118,12 +119,22 @@ async function main() {
   let exitCode = 0;
   let hugoStarted = false;
 
+// (Lines 124-126 removed; no replacement needed)
+
   // Add this signal handler to ensure cleanup on unexpected termination
   const cleanupAndExit = (code = 1) => {
     console.log(`Performing cleanup before exit with code ${code}...`);
     if (hugoProc && hugoStarted) {
       try {
-        hugoProc.kill('SIGKILL'); // Use SIGKILL to ensure immediate termination
+        // Use SIGTERM first, then SIGKILL if needed
+        hugoProc.kill('SIGTERM');
+        const timeoutId = setTimeout(() => {
+          if (!hugoProc.killed) {
+            hugoProc.kill('SIGKILL');
+          }
+        }, 1000);
+        // Clear the timeout if the process exits cleanly
+        hugoProc.on('exit', () => clearTimeout(timeoutId));
       } catch (err) {
         console.error(`Error killing Hugo process: ${err.message}`);
       }
@@ -136,6 +147,10 @@ async function main() {
   process.on('SIGTERM', () => cleanupAndExit(1));
   process.on('uncaughtException', (err) => {
     console.error(`Uncaught exception: ${err.message}`);
+    cleanupAndExit(1);
+  });
+  process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
     cleanupAndExit(1);
   });
 
@@ -354,13 +369,25 @@ async function main() {
     initializeReport();
 
     console.log(`Running Cypress tests for ${urlList.length} URLs...`);
+
+    // Add CI-specific configuration
+    const isCI =
+      process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+
     const cypressOptions = {
       reporter: 'junit',
       browser: 'chrome',
       config: {
         baseUrl: `http://localhost:${HUGO_PORT}`,
-        video: true,
-        trashAssetsBeforeRuns: false, // Prevent trash errors
+        video: !isCI, // Disable video in CI to reduce resource usage
+        trashAssetsBeforeRuns: false,
+        // Add CI-specific timeouts
+        defaultCommandTimeout: isCI ? 15000 : 10000,
+        pageLoadTimeout: isCI ? 45000 : 30000,
+        responseTimeout: isCI ? 45000 : 30000,
+        // Reduce memory usage in CI
+        experimentalMemoryManagement: true,
+        numTestsKeptInMemory: isCI ? 1 : 5,
       },
       env: {
         // Pass URLs as a comma-separated string for backward compatibility
@@ -377,7 +404,27 @@ async function main() {
       cypressOptions.spec = specArgs.join(',');
     }
 
+    // Add error handling for Hugo process monitoring during Cypress execution
+    let hugoHealthCheckInterval;
+    if (hugoProc && hugoStarted) {
+      hugoHealthCheckInterval = setInterval(() => {
+        if (hugoProc.killed || hugoProc.exitCode !== null) {
+          console.error('❌ Hugo server died during Cypress execution');
+          if (hugoHealthCheckInterval) {
+            clearInterval(hugoHealthCheckInterval);
+          }
+          cypressFailed = true;
+          // Don't exit immediately, let Cypress finish gracefully
+        }
+      }, 5000);
+    }
+
     const results = await cypress.run(cypressOptions);
+
+    // Clear health check interval
+    if (hugoHealthCheckInterval) {
+      clearInterval(hugoHealthCheckInterval);
+    }
 
     // Process broken links report
     const brokenLinksCount = displayBrokenLinksReport();
@@ -392,6 +439,93 @@ async function main() {
       console.warn(
         '   This usually indicates test errors unrelated to link validation.'
       );
+
+      // Provide detailed failure analysis
+      if (results) {
+        console.warn('📊 Detailed Test Results:');
+        console.warn(`   • Total Tests: ${results.totalTests || 0}`);
+        console.warn(`   • Tests Passed: ${results.totalPassed || 0}`);
+        console.warn(`   • Tests Failed: ${results.totalFailed || 0}`);
+        console.warn(`   • Tests Pending: ${results.totalPending || 0}`);
+        console.warn(`   • Tests Skipped: ${results.totalSkipped || 0}`);
+        console.warn(`   • Duration: ${results.totalDuration || '0'}ms`);
+
+        // Show run-level information
+        if (results.runs && results.runs.length > 0) {
+          console.warn(`   • Spec Files: ${results.runs.length}`);
+
+          // Show failures by spec file
+          const failedRuns = results.runs.filter(
+            (run) => run.stats?.failures > 0
+          );
+          if (failedRuns.length > 0) {
+            console.warn('📋 Failed Spec Files:');
+            failedRuns.forEach((run) => {
+              console.warn(
+                `   • ${run.spec?.relative || run.spec?.name || 'Unknown spec'}`
+              );
+              if (run.stats) {
+                console.warn(`     - Failures: ${run.stats.failures}`);
+                console.warn(`     - Duration: ${run.stats.duration || 0}ms`);
+              }
+
+              // Show test-level failures if available
+              if (run.tests) {
+                const failedTests = run.tests.filter(
+                  (test) => test.state === 'failed'
+                );
+                if (failedTests.length > 0) {
+                  console.warn(`     - Failed Tests:`);
+                  failedTests.forEach((test, idx) => {
+                    if (idx < 3) {
+                      // Limit to first 3 failed tests per spec
+                      console.warn(`       * ${test.title || 'Unnamed test'}`);
+                      if (test.err?.message) {
+                        // Truncate very long error messages
+                        const errorMsg =
+                          test.err.message.length > 200
+                            ? test.err.message.substring(0, 200) + '...'
+                            : test.err.message;
+                        console.warn(`         Error: ${errorMsg}`);
+                      }
+                    }
+                  });
+                  if (failedTests.length > 3) {
+                    console.warn(
+                      `       ... and ${failedTests.length - 3} more failed tests`
+                    );
+                  }
+                }
+              }
+            });
+          }
+        }
+
+        // Check for browser/system level issues
+        if (results.browserName) {
+          console.warn(
+            `   • Browser: ${results.browserName} ${results.browserVersion || ''}`
+          );
+        }
+
+        // Suggest common solutions
+        console.warn('💡 Common Causes & Solutions:');
+        console.warn(
+          '   • Page load timeouts: Check if Hugo server is responding properly'
+        );
+        console.warn(
+          '   • Network timeouts: Verify external link connectivity'
+        );
+        console.warn(
+          '   • Browser crashes: Check for memory or resource issues'
+        );
+        console.warn(
+          '   • Test logic errors: Review test assertions and selectors'
+        );
+        console.warn(
+          `   • Hugo server logs: Check ${HUGO_LOG_FILE} for errors`
+        );
+      }
 
       // We should not consider special case domains (those with expected errors) as failures
       // but we'll still report other test failures
@@ -408,9 +542,72 @@ async function main() {
     }
   } catch (err) {
     console.error(`❌ Cypress execution error: ${err.message}`);
+
+    // Handle EPIPE errors specifically
+    if (err.code === 'EPIPE' || err.message.includes('EPIPE')) {
+      console.error('🔧 EPIPE Error Detected:');
+      console.error(
+        '   • This usually indicates the Hugo server process was terminated unexpectedly'
+      );
+      console.error('   • Common causes in CI:');
+      console.error('     - Memory constraints causing process termination');
+      console.error('     - CI runner timeout or resource limits');
+      console.error('     - Hugo server crash due to build errors');
+      console.error(`   • Check Hugo logs: ${HUGO_LOG_FILE}`);
+
+      // Try to provide more context about Hugo server state
+      if (hugoProc) {
+        console.error(
+          `   • Hugo process state: killed=${hugoProc.killed}, exitCode=${hugoProc.exitCode}`
+        );
+      }
+    }
+
+    // Provide more detailed error information
+    if (err.stack) {
+      console.error('📋 Error Stack Trace:');
+      // Only show the first few lines of the stack trace to avoid overwhelming output
+      const stackLines = err.stack.split('\n').slice(0, 5);
+      stackLines.forEach((line) => console.error(`   ${line}`));
+      if (err.stack.split('\n').length > 5) {
+        console.error('   ... (truncated)');
+      }
+    }
+
+    // Check if error is related to common issues
+    const errorMsg = err.message.toLowerCase();
+    if (errorMsg.includes('timeout') || errorMsg.includes('timed out')) {
+      console.error('🕐 Timeout detected - possible causes:');
+      console.error(
+        '   • Hugo server not responding (check if it started properly)'
+      );
+      console.error('   • Network connectivity issues');
+      console.error('   • External links taking too long to respond');
+      console.error('   • Page load timeouts (heavy pages or slow rendering)');
+    } else if (
+      errorMsg.includes('connection') ||
+      errorMsg.includes('econnrefused')
+    ) {
+      console.error('🔌 Connection issues detected:');
+      console.error('   • Hugo server may not be running or accessible');
+      console.error(`   • Check if port ${HUGO_PORT} is available`);
+      console.error('   • Firewall or network restrictions');
+    } else if (errorMsg.includes('browser') || errorMsg.includes('chrome')) {
+      console.error('🌐 Browser issues detected:');
+      console.error(
+        '   • Chrome/browser may not be available in CI environment'
+      );
+      console.error('   • Browser crashed or failed to start');
+      console.error('   • Insufficient memory or resources');
+    }
+
     console.error(
-      `Check Hugo server logs at ${HUGO_LOG_FILE} for any server issues`
+      `📝 Hugo server logs: Check ${HUGO_LOG_FILE} for server issues`
     );
+    console.error('💡 Additional debugging steps:');
+    console.error('   • Verify Hugo server started successfully');
+    console.error('   • Check if test URLs are accessible manually');
+    console.error('   • Review Cypress screenshots/videos if available');
 
     // Still try to display broken links report if available
     displayBrokenLinksReport();
@@ -422,28 +619,46 @@ async function main() {
     if (hugoProc && hugoStarted && typeof hugoProc.kill === 'function') {
       console.log(`Stopping Hugo server (fast shutdown: ${cypressFailed})...`);
 
-      if (cypressFailed) {
-        hugoProc.kill('SIGKILL');
-        console.log('Hugo server forcibly terminated');
-      } else {
-        const shutdownTimeout = setTimeout(() => {
-          console.error(
-            'Hugo server did not shut down gracefully, forcing termination'
-          );
+      try {
+        if (cypressFailed) {
+          // Fast shutdown for failed tests
           hugoProc.kill('SIGKILL');
-          process.exit(exitCode);
-        }, 2000);
+          console.log('Hugo server forcibly terminated');
+        } else {
+          // Graceful shutdown for successful tests
+          const shutdownTimeout = setTimeout(() => {
+            console.error(
+              'Hugo server did not shut down gracefully, forcing termination'
+            );
+            try {
+              hugoProc.kill('SIGKILL');
+            } catch (killErr) {
+              console.error(`Error force-killing Hugo: ${killErr.message}`);
+            }
+            process.exit(exitCode);
+          }, HUGO_SHUTDOWN_TIMEOUT); // Configurable timeout for CI
 
-        hugoProc.kill('SIGTERM');
+          hugoProc.kill('SIGTERM');
 
-        hugoProc.on('close', () => {
-          clearTimeout(shutdownTimeout);
-          console.log('Hugo server shut down successfully');
-          process.exit(exitCode);
-        });
+          hugoProc.on('close', () => {
+            clearTimeout(shutdownTimeout);
+            console.log('Hugo server shut down successfully');
+            process.exit(exitCode);
+          });
 
-        // Return to prevent immediate exit
-        return;
+          hugoProc.on('error', (err) => {
+            console.error(`Error during Hugo shutdown: ${err.message}`);
+            clearTimeout(shutdownTimeout);
+            process.exit(exitCode);
+          });
+
+          // Return to prevent immediate exit
+          return;
+        }
+      } catch (shutdownErr) {
+        console.error(
+          `Error during Hugo server shutdown: ${shutdownErr.message}`
+        );
       }
     } else if (hugoStarted) {
       console.log('Hugo process was started but is not available for cleanup');
@@ -454,6 +669,21 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error(`Fatal error: ${err}`);
+  console.error(`💥 Fatal error during test execution: ${err.message || err}`);
+
+  if (err.stack) {
+    console.error('📋 Fatal Error Stack Trace:');
+    console.error(err.stack);
+  }
+
+  console.error(
+    '🔍 This error occurred in the main test runner flow, not within Cypress tests.'
+  );
+  console.error('💡 Common causes:');
+  console.error('   • File system permissions issues');
+  console.error('   • Missing dependencies or modules');
+  console.error('   • Hugo server startup failures');
+  console.error('   • Process management errors');
+
   process.exit(1);
 });

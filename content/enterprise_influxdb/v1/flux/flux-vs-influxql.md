@@ -8,6 +8,7 @@ menu:
     weight: 5
 ---
 
+
 Flux is an alternative to [InfluxQL](/enterprise_influxdb/v1/query_language/) and other SQL-like query languages for querying and analyzing data.
 Flux uses functional language patterns making it incredibly powerful, flexible, and able to overcome many of the limitations of InfluxQL.
 This article outlines many of the tasks possible with Flux but not InfluxQL and provides information about Flux and InfluxQL parity.
@@ -278,12 +279,10 @@ from(bucket: "geo/autogen")
 
 
 ## InfluxQL and Flux parity
-Flux is working towards complete parity with InfluxQL and new functions are being added to that end.
+
 The table below shows InfluxQL statements, clauses, and functions along with their equivalent Flux functions.
 
 _For a complete list of Flux functions, [view all Flux functions](/flux/v0/stdlib/all-functions)._
-
-### InfluxQL and Flux parity
 
 | InfluxQL                                                                                                                                    | Flux Functions                                                                                                                                                     |
 | :------------------------------------------------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |

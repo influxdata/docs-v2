@@ -7,6 +7,8 @@ import {
   FIRST_BROKEN_LINK_FILE,
   initializeReport,
   readBrokenLinksReport,
+  saveCacheStats,
+  saveValidationStrategy,
 } from './cypress/support/link-reporter.js';
 
 export default defineConfig({
@@ -176,6 +178,113 @@ export default defineConfig({
             // Even if there's an error, we want to ensure the test knows there was a broken link
             return true;
           }
+        },
+
+        // Cache and incremental validation tasks
+        saveCacheStatistics(stats) {
+          try {
+            saveCacheStats(stats);
+            return true;
+          } catch (error) {
+            console.error(`Error saving cache stats: ${error.message}`);
+            return false;
+          }
+        },
+
+        saveValidationStrategy(strategy) {
+          try {
+            saveValidationStrategy(strategy);
+            return true;
+          } catch (error) {
+            console.error(`Error saving validation strategy: ${error.message}`);
+            return false;
+          }
+        },
+
+        runIncrementalValidation(filePaths) {
+          return new Promise(async (resolve, reject) => {
+            try {
+              console.log('Loading incremental validator module...');
+
+              // Use CommonJS require for better compatibility
+              const {
+                IncrementalValidator,
+              } = require('./.github/scripts/incremental-validator.cjs');
+              console.log('✅ Incremental validator loaded successfully');
+
+              const validator = new IncrementalValidator();
+              const results = await validator.validateFiles(filePaths);
+              resolve(results);
+            } catch (error) {
+              console.error(`Incremental validation error: ${error.message}`);
+              console.error(`Stack: ${error.stack}`);
+
+              // Don't fail the entire test run due to cache issues
+              // Fall back to validating all files
+              console.warn('Falling back to validate all files without cache');
+              resolve({
+                validationStrategy: {
+                  unchanged: [],
+                  changed: filePaths.map((filePath) => ({
+                    filePath,
+                    fileHash: 'unknown',
+                    links: [],
+                  })),
+                  newLinks: [],
+                  total: filePaths.length,
+                },
+                filesToValidate: filePaths.map((filePath) => ({
+                  filePath,
+                  fileHash: 'unknown',
+                })),
+                cacheStats: {
+                  totalFiles: filePaths.length,
+                  cacheHits: 0,
+                  cacheMisses: filePaths.length,
+                  hitRate: 0,
+                },
+              });
+            }
+          });
+        },
+
+        cacheValidationResults(filePath, fileHash, results) {
+          return new Promise(async (resolve, reject) => {
+            try {
+              const {
+                IncrementalValidator,
+              } = require('./.github/scripts/incremental-validator.cjs');
+              const validator = new IncrementalValidator();
+              const success = await validator.cacheResults(
+                filePath,
+                fileHash,
+                results
+              );
+              resolve(success);
+            } catch (error) {
+              console.error(`Cache validation results error: ${error.message}`);
+              // Don't fail if caching fails - just continue without cache
+              resolve(false);
+            }
+          });
+        },
+
+        filePathToUrl(filePath) {
+          return new Promise(async (resolve, reject) => {
+            try {
+              const { filePathToUrl } = await import(
+                './.github/scripts/utils/url-transformer.js'
+              );
+              resolve(filePathToUrl(filePath));
+            } catch (error) {
+              console.error(`URL transformation error: ${error.message}`);
+              // Fallback: return the file path as-is if transformation fails
+              console.warn(
+                `Using fallback URL transformation for: ${filePath}`
+              );
+              resolve(filePath);
+            }
+          });
         },
       });
 

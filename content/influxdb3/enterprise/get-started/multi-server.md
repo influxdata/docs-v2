@@ -19,9 +19,12 @@ Configure nodes with specific _modes_ (ingest, query, process, compact) to optim
 ## Prerequisites
 
 - Shared object store
-- Network connectivity between nodes
 
 ## Basic multi-node setup
+
+> [!Note]
+> The examples in this guide assume each node runs on a distinct host and uses the default port (8181).
+> If you run multiple nodes on the same host for testing or development, specify a different port for each node using the `--http-bind` option--for example, `--http-bind localhost:8282`.
 
 <!-- pytest.mark.skip -->
 ```bash
@@ -58,7 +61,6 @@ influxdb3 serve \
   --mode ingest,query \
   --object-store s3 \
   --bucket influxdb-3-enterprise-storage \
-  --http-bind localhost:8282 \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY
 ```
@@ -134,7 +136,7 @@ with your `influxdb3 serve` command:
 
 - `--object-store`: `azure`
 - `--bucket`: Your Azure Blob Storage container name
-- `--azure-storage-account`: Your Azure Blob Storage storage account name  
+- `--azure-storage-account`: Your Azure Blob Storage account name  
   _(can also be defined using the `AZURE_STORAGE_ACCOUNT` environment variable)_
 - `--aws-secret-access-key`: Your Azure Blob Storage access key  
   _(can also be defined using the `AZURE_STORAGE_ACCESS_KEY` environment variable)_
@@ -161,7 +163,7 @@ with your `influxdb3 serve` command:
 
 - `--object-store`: `google`
 - `--bucket`: Your Google Cloud Storage bucket name
-- `--google-service-account`: The path to to your Google credentials JSON file
+- `--google-service-account`: The path to your Google credentials JSON file
   _(can also be defined using the `GOOGLE_SERVICE_ACCOUNT` environment variable)_
 
 {{% code-placeholders "GOOGLE_(BUCKET_NAME|SERVICE_ACCOUNT)" %}}
@@ -287,7 +289,6 @@ influxdb3 serve \
   --mode ingest,query \
   --object-store s3 \
   --bucket influxdb-3-enterprise-storage \
-  --http-bind localhost:8282 \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY
 ```
@@ -344,7 +345,6 @@ The following examples sets up high availability with a dedicated Compactor node
       --mode ingest,query \
       --object-store s3 \
       --bucket influxdb-3-enterprise-storage \
-      --http-bind localhost:8282 \
       --aws-access-key-id <AWS_ACCESS_KEY_ID> \
       --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
     ```
@@ -416,7 +416,6 @@ ingest nodes alongside query nodes and a dedicated Compactor node.
       --mode ingest \
       --object-store s3 \
       --bucket influxdb-3-enterprise-storage \
-      --http-bind localhost:8282 \
       --aws-access-key-id <AWS_ACCESS_KEY_ID> \
       --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
     ```
@@ -460,7 +459,6 @@ ingest nodes alongside query nodes and a dedicated Compactor node.
       --mode query \
       --object-store s3 \
       --bucket influxdb-3-enterprise-storage \
-      --http-bind localhost:8383 \
       --aws-access-key-id <AWS_ACCESS_KEY_ID> \
       --aws-secret-access-key <AWS_SECRET_ACCESS_KEY>
     ```
@@ -479,7 +477,6 @@ ingest nodes alongside query nodes and a dedicated Compactor node.
       --mode query \
       --object-store s3 \
       --bucket influxdb-3-enterprise-storage \
-      --http-bind localhost:8484 \
       --aws-access-key-id <AWS_ACCESS_KEY_ID> \
       <AWS_SECRET_ACCESS_KEY>
     ```

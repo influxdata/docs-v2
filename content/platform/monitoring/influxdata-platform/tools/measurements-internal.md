@@ -541,6 +541,9 @@ The number of Flux query requests served.
 #### fluxQueryReqDurationNs
 The duration (wall-time), in nanoseconds, spent executing Flux query requests.
 
+#### fluxQueryRespBytes
+The sum of all bytes returned in Flux query responses.
+
 #### pingReq
 The number of times InfluxDB HTTP server served the `/ping` HTTP endpoint.
 
