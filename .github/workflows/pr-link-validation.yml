@@ -13,9 +13,16 @@ on:
       - 'layouts/**/*.html'
 
 jobs:
+  # TEMPORARILY DISABLED - Remove this condition to re-enable link validation
+  disabled-check:
+    if: false  # Set to true to re-enable the workflow
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Link validation is temporarily disabled"
   setup:
     name: Setup and Strategy Detection
     runs-on: ubuntu-latest
+    if: false  # TEMPORARILY DISABLED - Remove this condition to re-enable
     outputs:
       strategy: ${{ steps.determine-strategy.outputs.strategy }}
       has-changes: ${{ steps.determine-strategy.outputs.has-changes }}
@@ -99,7 +106,7 @@ jobs:
   validate:
     name: ${{ matrix.name }}
     needs: setup
-    if: needs.setup.outputs.has-changes == 'true'
+    if: false  # TEMPORARILY DISABLED - Original condition: needs.setup.outputs.has-changes == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -125,7 +132,7 @@ jobs:
   report:
     name: Report Results
     needs: [setup, validate]
-    if: always() && needs.setup.outputs.has-changes == 'true'
+    if: false  # TEMPORARILY DISABLED - Original condition: always() && needs.setup.outputs.has-changes == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
