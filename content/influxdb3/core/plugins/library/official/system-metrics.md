@@ -8,7 +8,7 @@ menu:
 weight: 100
 influxdb3/core/tags: [plugins, processing engine, python, monitoring, system-metrics, performance]
 related:
-  - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/system-metrics, System metrics plugin on GitHub
+  - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/system_metrics, System metrics plugin on GitHub
 source: /shared/influxdb3-plugins/plugins-library/official/system-metrics.md
 ---
 
