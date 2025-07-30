@@ -36,24 +36,32 @@ Each downsampled record includes metadata about the original data points compres
 | `target_database` | string | "default" | Database for storing downsampled data |
 | `max_retries` | integer | 5 | Maximum number of retries for write operations |
 | `batch_size` | string | "30d" | Time interval for batch processing (HTTP mode only) |
-| `config_file_path` | string | none | Path to TOML config file relative to PLUGIN_DIR |
 
-### Metadata columns
+### TOML configuration
+
+| Parameter          | Type   | Default | Description                                                                      |
+|--------------------|--------|---------|----------------------------------------------------------------------------------|
+| `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (required for TOML configuration) |
+
+*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting InfluxDB 3.
+
+#### Example TOML configuration
+
+[downsampling_config_scheduler.toml](downsampling_config_scheduler.toml)
+
+For more information on using TOML configuration files, see the Using TOML Configuration Files section in the [influxdb3_plugins
+/README.md](/README.md).
+
+## Schema management
 
 Each downsampled record includes three additional metadata columns:
 - `record_count`—the number of original points compressed into this single downsampled row
 - `time_from`—the minimum timestamp among the original points in the interval  
 - `time_to`—the maximum timestamp among the original points in the interval
 
-## Requirements
+## Installation steps
 
-### Software requirements
-- InfluxDB 3 Core or Enterprise with Processing Engine enabled
-- Python packages: No additional packages required
-
-### Installation steps
-
-1. Start InfluxDB 3 with plugin support:
+1. Start {{% product-name %}} with the Processing Engine enabled (`--plugin-dir /path/to/plugins`)
    ```bash
    influxdb3 serve \
      --node-id node0 \
@@ -179,46 +187,6 @@ curl -X POST http://localhost:8181/api/v3/engine/downsample \
     "backfill_end": "2024-01-31T00:00:00Z",
     "max_retries": 3
   }'
-```
-
-## Using TOML Configuration Files
-
-This plugin supports using TOML configuration files for complex configurations.
-
-### Important Requirements
-
-**To use TOML configuration files, you must set the `PLUGIN_DIR` environment variable in the InfluxDB 3 host environment:**
-
-```bash
-PLUGIN_DIR=~/.plugins influxdb3 serve --node-id node0 --object-store file --data-dir ~/.influxdb3 --plugin-dir ~/.plugins
-```
-
-### Example TOML Configuration
-
-```toml
-# downsampling_config_scheduler.toml
-source_measurement = "cpu"
-target_measurement = "cpu_hourly"
-target_database = "analytics"
-interval = "1h"
-window = "6h"
-calculations = "avg"
-specific_fields = "usage_user.usage_system.usage_idle"
-max_retries = 3
-
-[tag_values]
-host = ["server1", "server2", "server3"]
-```
-
-### Create trigger using TOML config
-
-```bash
-influxdb3 create trigger \
-  --database mydb \
-  --plugin-filename downsampler.py \
-  --trigger-spec "every:1h" \
-  --trigger-arguments config_file_path=downsampling_config_scheduler.toml \
-  downsample_trigger
 ```
 
 ## Code overview

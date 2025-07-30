@@ -44,15 +44,41 @@ Supports both scheduled batch monitoring and real-time data write monitoring wit
 
 Notification channels require additional parameters based on the sender type (same as the [Notifier Plugin](../notifier/README.md)).
 
+## Schema requirements
+
+The plugin assumes that the table schema is already defined in the database, as it relies on this schema to retrieve field and tag names required for processing.
+
+> [!WARNING]
+> #### Requires existing schema
+>
+> By design, the plugin returns an error if the schema doesn't exist or doesn't contain the expected columns.
+
+### TOML configuration
+
+| Parameter          | Type   | Default | Description                                                                      |
+|--------------------|--------|---------|----------------------------------------------------------------------------------|
+| `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (required for TOML configuration) |
+
+*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting InfluxDB 3.
+
+Example TOML configuration files provided:
+- [state_change_config_scheduler.toml](https://github.com/influxdata/influxdb3_plugins/blob/master/influxdata/state_change/state_change_config_scheduler.toml) - for scheduled triggers
+- [state_change_config_data_writes.toml](https://github.com/influxdata/influxdb3_plugins/blob/master/influxdata/state_change/state_change_config_data_writes.toml) - for data write triggers
+
+For more information on using TOML configuration files, see the Using TOML Configuration Files section in the [influxdb3_plugins
+/README.md](https://github.com/influxdata/influxdb3_plugins/blob/master/README.md).
+
 ## Installation
 
-### Install dependencies
+1. Start {{% product-name %}} with the Processing Engine enabled (`--plugin-dir /path/to/plugins`)
 
-Install required Python packages:
+2. Install required Python packages:
 
-```bash
-influxdb3 install package requests
-```
+   - `requests` (for HTTP requests)
+
+   ```bash
+   influxdb3 install package requests
+   ```
 
 ### Create scheduled trigger
 

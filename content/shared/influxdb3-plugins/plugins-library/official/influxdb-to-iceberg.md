@@ -53,27 +53,40 @@ The plugin supports both scheduled batch transfers of historical data and on-dem
 - The `time` column is converted to `datetime64[us]` for Iceberg compatibility
 - Tables are created in format: `<namespace>.<table_name>`
 
-## Requirements
+## Schema requirements
 
-### Software requirements
-- InfluxDB 3 Core or Enterprise with Processing Engine enabled
-- Python packages:
-  - `pandas` (for data manipulation)
-  - `pyarrow` (for Parquet support)
-  - `pyiceberg[catalog-options]` (for Iceberg integration)
+The plugin assumes that the Iceberg table schema is already defined in the database, as it relies on this schema to retrieve field and tag names required for processing.
 
-### Installation steps
+> [!WARNING]
+> #### Requires existing schema
+>
+> By design, the plugin returns an error if the schema doesn't exist or doesn't contain the expected columns. 
 
-1. Start InfluxDB 3 with plugin support:
-   ```bash
-   influxdb3 serve \
-     --node-id node0 \
-     --object-store file \
-     --data-dir ~/.influxdb3 \
-     --plugin-dir ~/.plugins
-   ```
+### TOML configuration
+
+| Parameter          | Type   | Default | Description                                                                      |
+|--------------------|--------|---------|----------------------------------------------------------------------------------|
+| `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (required for TOML configuration) |
+
+*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting InfluxDB 3.
+
+#### Example TOML configuration
+
+[influxdb_to_iceberg_config_scheduler.toml](https://github.com/influxdata/influxdb3_plugins/blob/master/influxdata/influxdb_to_iceberg/influxdb_to_iceberg_config_scheduler.toml)
+
+For more information on using TOML configuration files, see the Using TOML Configuration Files section in the [influxdb3_plugins
+/README.md](https://github.com/influxdata/influxdb3_plugins/blob/master/README.md).
+ 
+## Installation steps
+
+1. Start {{% product-name %}} with the Processing Engine enabled (`--plugin-dir /path/to/plugins`)
 
 2. Install required Python packages:
+
+   - `pandas` (for data manipulation)
+   - `pyarrow` (for Parquet support)
+   - `pyiceberg[catalog-options]` (for Iceberg integration)
+  
    ```bash
    influxdb3 install package pandas
    influxdb3 install package pyarrow

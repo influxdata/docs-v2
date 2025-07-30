@@ -51,16 +51,19 @@ The `senders_config` parameter accepts channel configurations where keys are sen
 
 ## Installation
 
-### Install dependencies
+1. Start {{% product-name %}} with the Processing Engine enabled (`--plugin-dir /path/to/plugins`)
 
-Install required Python packages:
+2. Install required Python packages:
 
-```bash
-influxdb3 install package httpx
-influxdb3 install package twilio
-```
+   - `httpx` (for HTTP requests)
+   - `twilio` (for SMS and WhatsApp notifications)
 
-### Create trigger
+   ```bash
+   influxdb3 install package httpx
+   influxdb3 install package twilio
+   ```
+
+## Create trigger
 
 Create an HTTP trigger to handle notification requests:
 
