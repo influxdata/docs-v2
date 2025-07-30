@@ -67,31 +67,43 @@ Default notification templates:
 | `twilio_from_number` | string | Yes | Sender phone number |
 | `twilio_to_number` | string | Yes | Recipient phone number |
 
-## Requirements
+## Schema requirements
 
-### Software requirements
-- InfluxDB 3 Core or Enterprise with Processing Engine enabled
-- Python packages:
-  - `requests` (for notification delivery)
-- Notification Sender Plugin (required for sending alerts)
+The plugin assumes that the table schema is already defined in the database, as it relies on this schema to retrieve field and tag names required for processing.
 
-### Installation steps
+> [!WARNING]
+> #### Requires existing schema
+>
+> By design, the plugin returns an error if the schema doesn't exist or doesn't contain the expected columns.
 
-1. Start InfluxDB 3 with plugin support:
-   ```bash
-   influxdb3 serve \
-     --node-id node0 \
-     --object-store file \
-     --data-dir ~/.influxdb3 \
-     --plugin-dir ~/.plugins
-   ```
+### TOML configuration
+
+| Parameter          | Type   | Default | Description                                                                      |
+|--------------------|--------|---------|----------------------------------------------------------------------------------|
+| `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (required for TOML configuration) |
+
+*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting InfluxDB 3.
+
+#### Example TOML configuration
+
+[mad_anomaly_config_data_writes.toml](https://github.com/influxdata/influxdb3_plugins/blob/master/influxdata/mad_check/mad_anomaly_config_data_writes.toml)
+
+For more information on using TOML configuration files, see the Using TOML Configuration Files section in the [influxdb3_plugins
+/README.md](https://github.com/influxdata/influxdb3_plugins/blob/master/README.md).
+
+## Installation
+
+1. Start {{% product-name %}} with the Processing Engine enabled (`--plugin-dir /path/to/plugins`)
 
 2. Install required Python packages:
+   
+   - `requests` (for notification delivery)
+
    ```bash
    influxdb3 install package requests
    ```
 
-3. Install and configure the [Notification Sender Plugin](https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/notifier)
+3. Install and configure the official [Notifier plugin](https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/notifier)
 
 ## Trigger setup
 

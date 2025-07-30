@@ -68,18 +68,24 @@ It includes debounce logic to suppress transient anomalies and supports multi-ch
 | `twilio_from_number` | string | required | Twilio sender number (for example, `"+1234567890"`) |
 | `twilio_to_number` | string | required | Recipient number (for example, `"+0987654321"`) |
 
-## Requirements
+### TOML configuration
 
-### Software requirements
-- InfluxDB 3 Core or Enterprise with Processing Engine enabled
-- Notification Sender Plugin for InfluxDB 3 (required for notifications)
-- Python packages:
-  - `pandas` (for data processing)
-  - `requests` (for HTTP notifications)
+| Parameter          | Type   | Default | Description                                                                      |
+|--------------------|--------|---------|----------------------------------------------------------------------------------|
+| `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (required for TOML configuration) |
 
-### Installation steps
+*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting InfluxDB 3.
 
-1. Start InfluxDB 3 with plugin support:
+#### Example TOML configuration
+
+[forecast_error_config_scheduler.toml](https://github.com/influxdata/influxdb3_plugins/blob/master/influxdata/forecast_error_evaluator/forecast_error_config_scheduler.toml)
+
+For more information on using TOML configuration files, see the Using TOML Configuration Files section in the [influxdb3_plugins
+/README.md](https://github.com/influxdata/influxdb3_plugins/blob/master/README.md).
+
+## Installation steps
+
+1. Start {{% product-name %}} with the Processing Engine enabled (`--plugin-dir /path/to/plugins`)
    ```bash
    influxdb3 serve \
      --node-id node0 \
@@ -89,12 +95,17 @@ It includes debounce logic to suppress transient anomalies and supports multi-ch
    ```
 
 2. Install required Python packages:
+
+  - `pandas` (for data processing)
+  - `requests` (for HTTP notifications)
+
    ```bash
    influxdb3 install package pandas
    influxdb3 install package requests
    ```
 
 3. Install the Notification Sender Plugin (required):
+
    ```bash
    # Ensure notifier plugin is available in ~/.plugins/
    ```

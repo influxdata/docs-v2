@@ -44,17 +44,36 @@ Features consensus-based detection requiring multiple detectors to agree before 
 | `PersistAD` | Detects persistent anomalous values | None |
 | `SeasonalAD` | Detects seasonal pattern deviations | None |
 
+### TOML configuration
+
+| Parameter          | Type   | Default | Description                                                                      |
+|--------------------|--------|---------|----------------------------------------------------------------------------------|
+| `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (required for TOML configuration) |
+
+*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting InfluxDB 3.
+
+#### Example TOML configuration
+
+[adtk_anomaly_config_scheduler.toml](https://github.com/influxdata/influxdb3_plugins/blob/master/influxdata/stateless_adtk_detector/adtk_anomaly_config_scheduler.toml)
+
+For more information on using TOML configuration files, see the Using TOML Configuration Files section in the [influxdb3_plugins
+/README.md](https://github.com/influxdata/influxdb3_plugins/blob/master/README.md).
+
 ## Installation
 
-### Install dependencies
+1. Start {{% product-name %}} with the Processing Engine enabled (`--plugin-dir /path/to/plugins`)
 
-Install required Python packages:
+2. Install required Python packages:
 
-```bash
-influxdb3 install package requests
-influxdb3 install package adtk
-influxdb3 install package pandas
-```
+   - `requests` (for HTTP requests)
+   - `adtk` (for anomaly detection)
+   - `pandas` (for data manipulation)
+
+   ```bash
+   influxdb3 install package requests
+   influxdb3 install package adtk
+   influxdb3 install package pandas
+   ```
 
 ### Create trigger
 

@@ -10,15 +10,9 @@ The plugin can optionally double-count rows for a specified table to demonstrate
 |-----------|------|---------|-------------|
 | `double_count_table` | string | none | Table name for which to double the row count in write reports (for testing/demonstration) |
 
-## Requirements
+## Installation steps
 
-### Software requirements
-- InfluxDB 3 Core or InfluxDB 3 Enterprise with Processing Engine enabled
-- No additional Python packages required (uses built-in libraries)
-
-### Installation steps
-
-1. Start InfluxDB 3 with plugin support:
+1. Start {{% product-name %}} with the Processing Engine enabled (`--plugin-dir /path/to/plugins`)
    ```bash
    influxdb3 serve \
      --node-id node0 \
