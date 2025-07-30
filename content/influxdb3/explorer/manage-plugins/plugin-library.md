@@ -25,11 +25,10 @@ To search for plugins in the Plugin library, submit a search term in the search 
 3.  To install a plugin from {{% product-name %}} select **Install Plugin**:
 4.  Provide the following:
 
-    - **Database**: The name of the InfluxDB 3 database to associate the
-      plugin with.
+    - **Database**: Select the InfluxDB 3 database to associate the plugin with.
     - **Trigger Name**: A unique name for the plugin and trigger combination.
-    - **Trigger Type**: The trigger type. What trigger types are available
-      depend on the plugin.
+    - **Trigger Type**: Select the trigger type. What trigger types are
+      available depend on the plugin.
       
       _For more information about InfluxDB 3 plugin triggers, see
       [Understand trigger types](/influxdb3/enterprise/plugins/#understand-trigger-types)._
