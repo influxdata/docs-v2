@@ -84,7 +84,7 @@ You can also use the **search bar** to filter by plugin name.
 3. Edit the plugins settings.
 4. Click **Save**.
 
-> ![Note]
+> [!Note]
 > #### Editing a plugin removes and recreates the plugin
 >
 > When editing an InfluxDB 3 plugin, InfluxDB 3 Explorer removes and recreates
