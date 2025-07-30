@@ -82,7 +82,7 @@ You can also use the **search bar** to filter by plugin name.
 1. In the plugin list, locate the desired plugin.
 2. Click **Edit**.
 3. Edit the plugins settings.
-4. Slick **Save**.
+4. Click **Save**.
 
 > ![Note]
 > #### Editing a plugin removes and recreates the plugin
