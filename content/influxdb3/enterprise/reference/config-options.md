@@ -62,6 +62,9 @@ influxdb3 serve
   - [tls-minimum-versions](#tls-minimum-version)
   - [without-auth](#without-auth)
   - [disable-authz](#disable-authz)
+  - [num-database-limit](#num-database-limit)
+  - [num-table-limit](#num-table-limit)
+  - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit)
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
   - [aws-secret-access-key](#aws-secret-access-key)
@@ -304,8 +307,8 @@ The minimum version for TLS.
 Valid values are `tls-1.2` or `tls-1.3`.
 Default is `tls-1.2`.
 
-| influxdb3 serve option  | Environment variable     |
-| :---------------------- | :----------------------- |
+| influxdb3 serve option  | Environment variable            |
+| :---------------------- | :------------------------------ |
 | `--tls-minimum-version` | `INFLUXDB3_TLS_MINIMUM_VERSION` |
 
 ---
@@ -315,12 +318,53 @@ Default is `tls-1.2`.
 Disables authentication for all server actions (CLI commands and API requests).
 The server processes all requests without requiring tokens or authentication.
 
+| influxdb3 serve option | Environment variable           |
+| :--------------------- | :----------------------------- |
+| `--without-auth`       | `INFLUXDB3_START_WITHOUT_AUTH` |
+
 ---
 
 #### disable-authz
 
 Optionally disable authz by passing in a comma separated list of resources. 
 Valid values are `health`, `ping`, and `metrics`.
+
+| influxdb3 serve option | Environment variable      |
+| :--------------------- | :------------------------ |
+| `--disable-authz`      | `INFLUXDB3_DISABLE_AUTHZ` |
+
+---
+
+#### num-database-limit
+
+Limits the total number of active databases.
+Default is {{% influxdb3/limit "database" %}}.
+
+| influxdb3 serve option | Environment variable                      |
+| :--------------------- | :---------------------------------------- |
+| `--num-database-limit` | `INFLUXDB3_ENTERPRISE_NUM_DATABASE_LIMIT` |
+
+---
+
+#### num-table-limit
+
+Limits the total number of active tables across all databases.
+Default is {{% influxdb3/limit "table" %}}.
+
+| influxdb3 serve option | Environment variable                   |
+| :--------------------- | :------------------------------------- |
+| `--num-table-limit`    | `INFLUXDB3_ENTERPRISE_NUM_TABLE_LIMIT` |
+
+---
+
+#### num-total-columns-per-table-limit
+
+Limits the total number of columns per table.
+Default is {{% influxdb3/limit "column" %}}.
+
+| influxdb3 serve option                | Environment variable                                     |
+| :------------------------------------ | :------------------------------------------------------- |
+| `--num-total-columns-per-table-limit` | `INFLUXDB3_ENTERPRISE_NUM_TOTAL_COLUMNS_PER_TABLE_LIMIT` |
 
 ---
 
@@ -826,7 +870,7 @@ Sets the thread priority for tokio DataFusion runtime workers.
 
 #### datafusion-max-parquet-fanout
 
-When multiple parquet files are required in a sorted way
+When multiple Parquet files are required in a sorted way
 (deduplication for example), specifies the maximum fanout.
 
 **Default:** `1000`
@@ -839,7 +883,7 @@ When multiple parquet files are required in a sorted way
 
 #### datafusion-use-cached-parquet-loader
 
-Uses a cached parquet loader when reading parquet files from the object store.
+Uses a cached Parquet loader when reading Parquet files from the object store.
 
 | influxdb3 serve option                   | Environment variable                             |
 | :--------------------------------------- | :----------------------------------------------- |
