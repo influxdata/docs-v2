@@ -16,7 +16,8 @@ To regenerate an operator token, you need the current token string.
 > Regenerating the operator token invalidates the previous token.
 > Make sure to update any applications or scripts that use the operator token.
 
-To regenerate the operator token, use the [`influxdb3 serve create token` command] with the `--admin` and `--regenerate` flags:
+To regenerate the operator token, use the [`influxdb3 serve create token` command](/influxdb3/version/reference/cli/influxdb3/create/token/) (CLI) or the
+[`/api/v3/configure/token/admin/regenerate` endpoint](/influxdb3/version/api/v3/configure/token/admin/regenerate) (HTTP API):
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -70,10 +71,30 @@ The response body contains the new operator token string in plain text, and Infl
 To use the token as the default for later commands, and to persist the token
 across sessions, assign the token string to the `INFLUXDB3_AUTH_TOKEN` environment variable.
 
+## Lost admin token recovery
+
+If you've lost your admin token and cannot regenerate it using the standard method, you can use the admin token recovery server:
+
+1. Start {{< product-name >}} with the `--admin-token-recovery-http-bind` option:
+   ```bash
+   influxdb3 serve --admin-token-recovery-http-bind
+   ```
+
+2. In a separate terminal, regenerate the admin token using the recovery endpoint:
+   
+   ```bash
+   influxdb3 create token --admin --regenerate --host http://127.0.0.1:8182
+   ```
+
+3. The recovery server automatically shuts down after successful token regeneration.
+
+> [!Warning]
+> The recovery server provides unauthenticated access to regenerate admin tokens. Only use this option when necessary and ensure the recovery endpoint (by default `127.0.0.1:8182`) is only accessible from trusted networks.
+
 ## Important considerations
 
 - Regenerating the operator token invalidates the previous token.
-- If you lose the operator token, there is no recovery mechanism.
+- If you lose the operator token, use the recovery server method described above.
 - `--regenerate` only works for the operator token. You can't use the `--regenerate` flag with the `influxdb3 create token --admin` command to regenerate a named admin token.
 - Ensure that you update any applications or scripts that use the operator token with the new token string.
 - Always store your operator token securely and consider implementing proper secret management practices.

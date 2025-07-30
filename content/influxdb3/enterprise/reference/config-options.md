@@ -113,8 +113,10 @@ influxdb3 serve
 - [HTTP](#http)
   - [max-http-request-size](#max-http-request-size)
   - [http-bind](#http-bind)
+  - [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
 - [Memory](#memory)
   - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
+  - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
   - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 - [Write-Ahead Log (WAL)](#write-ahead-log-wal)
   - [wal-flush-interval](#wal-flush-interval)
@@ -882,6 +884,31 @@ Defines the address on which InfluxDB serves HTTP API requests.
 | influxdb3 serve option | Environment variable       |
 | :--------------------- | :------------------------- |
 | `--http-bind`          | `INFLUXDB3_HTTP_BIND_ADDR` |
+
+---
+
+#### admin-token-recovery-http-bind
+
+Enables an admin token recovery HTTP server on a separate port. This server allows regenerating lost admin tokens without existing authentication. The server automatically shuts down after a successful token regeneration.
+
+> [!Warning]
+> This option creates an unauthenticated endpoint that can regenerate admin tokens. Only use this when you have lost access to your admin token and ensure the server is only accessible from trusted networks.
+
+**Default:** `127.0.0.1:8182` (when enabled)
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--admin-token-recovery-http-bind` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_HTTP_BIND` |
+
+##### Example usage
+
+```bash
+# Start server with recovery endpoint
+influxdb3 serve --admin-token-recovery-http-bind
+
+# In another terminal, regenerate the admin token
+influxdb3 create token --admin --regenerate --host http://127.0.0.1:8182
+```
 
 ---
 

@@ -37,6 +37,7 @@ influxdb3 serve [OPTIONS] \
 
 | Option           |                                                      | Description                                                                                                                     |
 | :--------------- | :--------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
+|                  | `--admin-token-recovery-http-bind`                   | _See [configuration options](/influxdb3/enterprise/reference/config-options/#admin-token-recovery-http-bind)_                   |
 |                  | `--aws-access-key-id`                                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#aws-access-key-id)_                                |
 |                  | `--aws-allow-http`                                   | _See [configuration options](/influxdb3/enterprise/reference/config-options/#aws-allow-http)_                                   |
 |                  | `--aws-default-region`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#aws-default-region)_                               |
