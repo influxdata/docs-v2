@@ -82,7 +82,7 @@ curl -X POST "https://localhost:8181/api/v3/query_sql" \
   -H "Content-Type: application/json" \
   -d '{
     "db": "DATABASE_NAME",
-    "q": "SELECT * FROM system.last_caches",
+    "q": "SELECT * FROM system.distinct_caches",
     "format": "json"
   }'
  ```
