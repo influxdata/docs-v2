@@ -67,3 +67,42 @@ In the examples above, replace the following:
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
   your {{< product-name >}} {{% show-in "enterprise" %}}admin {{% /show-in %}}
   authentication token
+
+## Use the HTTP API
+
+You can query cache information using the [InfluxDB v3 SQL query API](/influxdb3/version/api/v3/). Send a `POST` request to the `/api/v3/query_sql` endpoint.
+
+### Query all caches
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
+
+```bash
+curl -X POST "https://localhost:8181/api/v3/query_sql" \
+  -H "Authorization: Bearer AUTH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "db": "DATABASE_NAME",
+    "q": "SELECT * FROM system.last_caches",
+    "format": "json"
+  }'
+ ```
+
+{{% /code-placeholders %}}
+
+## Query specific cache details
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN|CACHE_NAME" %}}
+
+```bash
+curl -X POST "https://localhost:8181/api/v3/query_sql" \
+  -H "Authorization: Bearer AUTH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "db": "DATABASE_NAME",
+    "q": "SELECT * FROM system.last_caches WHERE name = '\''CACHE_NAME'\''",
+    "format": "json"
+  }'
+```
+
+{{% /code-placeholders %}}
+

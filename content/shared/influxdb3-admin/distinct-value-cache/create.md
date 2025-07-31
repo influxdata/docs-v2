@@ -69,6 +69,59 @@ influxdb3 create distinct_cache \
 <!--------------------------- END ENTERPRISE EXAMPLE -------------------------->
 {{% /show-in %}}
 
+## Use the HTTP API
+
+You can also create a Distinct Value Cache using the [InfluxDB v3 HTTP API](/influxdb3/version/api/v3/). Send a `POST` request to the `/api/v3/configure/distinct_cache` endpoint.
+
+{{% code-placeholders "(DATABASE|TABLE|DVC)_NAME|AUTH_TOKEN|COLUMNS|MAX_(CARDINALITY|AGE)" %}}
+
+```bash
+curl -X POST "https://localhost:8181/api/v3/configure/distinct_cache" \
+  -H "Authorization: Bearer AUTH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "db": "DATABASE_NAME",
+    "table": "TABLE_NAME",
+    "name": "DVC_NAME",
+    "columns": ["COLUMNS"],
+    "max_cardinality": MAX_CARDINALITY,
+    "max_age": MAX_AGE
+  }'
+```
+
+{{% /code-placeholders %}}
+
+### Example
+
+```bash
+curl -X POST "https://localhost:8181/api/v3/configure/distinct_cache" \
+  -H "Authorization: Bearer 00xoXX0xXXx0000XxxxXx0Xx0xx0" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "db": "example-db",
+    "table": "wind_data", 
+    "name": "windDistinctCache",
+    "columns": ["country", "county", "city"],
+    "max_cardinality": 10000,
+    "max_age": 86400
+  }'
+```
+  
+**Response codes:**
+
+- `201` : Success. The distinct cache has been created.
+- `204` : Not created. A distinct cache with this configuration already exists.
+- `400` : Bad request.
+
+
+> [!Note]
+> #### API parameter differences
+>
+> - **Columns format**: The API uses a JSON array (`["country", "county", "city"]`) 
+>   instead of the CLI's comma-delimited format (`country,county,city`).
+> - **Maximum age format**: The API uses seconds (`86400`) instead of the CLI's 
+>   [humantime format](https://docs.rs/humantime/latest/humantime/fn.parse_duration.html) (`24h`, `1 day`).
+
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
