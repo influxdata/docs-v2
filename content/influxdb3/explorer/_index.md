@@ -18,6 +18,7 @@ Explorer provides an intuitive interface for interacting with your time series d
 >
 > - [InfluxDB 3 Core v3.1.0 or later](/influxdb3/core/install/)
 > - [InfluxDB 3 Enterprise v3.1.0 or later](/influxdb3/enterprise/install/)
+> -  Note: For full functionality, InfluxDB 3 Explorer needs QUERY enabled on Core/Enterprise.
 
 ## Key features
 
