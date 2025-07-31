@@ -28,10 +28,11 @@ influxdb3 delete last_cache \
 You can also delete a Last Value Cache using the [InfluxDB v3 HTTP API](/influxdb3/version/api/v3/). Send a `DELETE` request to the `/api/v3/configure/last_cache` endpoint with query parameters.
 
 {{% code-placeholders "(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN" %}}
-
 ```bash
 curl -X DELETE "https://localhost:8181/api/v3/configure/last_cache?db=DATABASE_NAME&table=TABLE_NAME&name=LVC_NAME" \
   -H "Authorization: Bearer AUTH_TOKEN"
+```
+{{% /code-placeholders %}}
 
 ## Example
 

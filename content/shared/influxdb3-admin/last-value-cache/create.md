@@ -169,4 +169,4 @@ The cache imports the distinct values from the table and starts caching them.
 >
 > The LVC is stored in memory, so it's important to consider the size and persistence
 > of the cache. For more information, see
-> [Important things to know about the Last Value Cache](/influxdb3/version/admin/last-value-cache/#important-things-to-know-about-the-last-value-cache)
+> [Important things to know about the Last Value Cache.](/influxdb3/version/admin/last-value-cache/#important-things-to-know-about-the-last-value-cache)
