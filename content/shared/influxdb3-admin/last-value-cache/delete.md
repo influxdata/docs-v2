@@ -32,8 +32,6 @@ You can also delete a Last Value Cache using the [InfluxDB v3 HTTP API](/influxd
 ```bash
 curl -X DELETE "https://localhost:8181/api/v3/configure/last_cache?db=DATABASE_NAME&table=TABLE_NAME&name=LVC_NAME" \
   -H "Authorization: Bearer AUTH_TOKEN"
-{{% /code-placeholders %}}
-```
 
 ## Example
 
