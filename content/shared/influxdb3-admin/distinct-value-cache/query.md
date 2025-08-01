@@ -59,9 +59,8 @@ curl -X POST "https://localhost:8181/api/v3/query_sql" \
 
 ```bash
 curl -X POST "https://localhost:8181/api/v3/query_sql" \
-  -H "Authorization: Bearer 00xoXX0xXXx0000XxxxXx0Xx0xx0" \
-  -H "Content-Type: application/json" \
-  -d '{
+  --header "Authorization: Bearer 00xoXX0xXXx0000XxxxXx0Xx0xx0" \
+  --json '{
     "db": "example-db",
     "q": "SELECT room, temp FROM last_cache('\''home'\'', '\''homeCache'\'') WHERE room = '\''Kitchen'\''",
     "format": "json"
