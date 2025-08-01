@@ -77,9 +77,8 @@ You can also create a Distinct Value Cache using the [InfluxDB v3 HTTP API](/inf
 
 ```bash
 curl -X POST "https://localhost:8181/api/v3/configure/distinct_cache" \
-  -H "Authorization: Bearer AUTH_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --json '{
     "db": "DATABASE_NAME",
     "table": "TABLE_NAME",
     "name": "DVC_NAME",
