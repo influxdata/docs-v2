@@ -32,7 +32,7 @@ To use the HTTP API to delete a Last Value Cache, send a `DELETE` request to the
 {{% code-placeholders "(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN" %}}
 ```bash
 curl -X DELETE "https://localhost:8181/api/v3/configure/last_cache?db=DATABASE_NAME&table=TABLE_NAME&name=LVC_NAME" \
-  -H "Authorization: Bearer AUTH_TOKEN"
+  --header "Authorization: Bearer AUTH_TOKEN"
 ```
 {{% /code-placeholders %}}
 
