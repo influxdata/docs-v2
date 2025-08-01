@@ -90,9 +90,8 @@ To use the HTTP API to create a Last Value Cache, send a `POST` request to the `
 
 ```bash
 curl -X POST "https://localhost:8181/api/v3/configure/last_cache" \
-  -H "Authorization: Bearer AUTH_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --json '{
     "db": "DATABASE_NAME",
     "table": "TABLE_NAME",
     "name": "LVC_NAME",
