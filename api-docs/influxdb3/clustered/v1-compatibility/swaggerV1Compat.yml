@@ -196,7 +196,7 @@ paths:
             default: false
         - in: query
           name: q
-          description: Defines the influxql query to run.
+          description: Defines the InfluxQL query to run.
           required: true
           schema:
             type: string
