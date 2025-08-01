@@ -122,7 +122,7 @@ This query filters data to include only records from the previous calendar day:
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### Get data from the last 24 hour
+#### Get data from the last 24 hours
 
 ```sql
 SELECT *
