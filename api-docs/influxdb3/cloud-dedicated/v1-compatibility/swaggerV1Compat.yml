@@ -289,7 +289,7 @@ paths:
               properties:
                 db:
                   type: string
-                  description: Bucket to query.
+                  description: Database to query from.
                 q:
                   description: Defines the InfluxQL query to run.
                   type: string
