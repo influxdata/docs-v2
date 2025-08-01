@@ -77,9 +77,8 @@ You can query cache information using the [InfluxDB v3 SQL query API](/influxdb3
 
 ```bash
 curl -X POST "https://localhost:8181/api/v3/query_sql" \
-  -H "Authorization: Bearer AUTH_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --json '{
     "db": "DATABASE_NAME",
     "q": "SELECT * FROM system.last_caches",
     "format": "json"
