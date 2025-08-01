@@ -136,7 +136,7 @@ This query filters data to include only records from the previous calendar day:
 ```sql
 SELECT *
 FROM h2o_feet 
-WHERE time >= NOW() - INTERVAL '1 day'
+WHERE time >= NOW() - INTERVAL '1 day' AND location = 'santa_monica'
 ```
 
 {{< expand-wrapper >}}
