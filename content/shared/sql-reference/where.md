@@ -96,6 +96,64 @@ less than or equal to  `08-19-2019T13:00:00Z`.
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+### Filter data by dynamic date ranges
+
+Use date and time functions to filter data by relative time periods that automatically update.
+
+#### Get data from yesterday
+
+```sql
+SELECT *
+FROM h2o_feet 
+WHERE "location" = 'santa_monica'
+  AND time >= DATE_TRUNC('day', NOW() - INTERVAL '1 day') 
+  AND time < DATE_TRUNC('day', NOW())
+```
+
+{{< expand-wrapper >}}
+{{% expand "View query explanation" %}}
+
+This query filters data to include only records from the previous calendar day:
+
+- `NOW() - INTERVAL '1 day'` calculates yesterday's timestamp
+- `DATE_TRUNC('day', ...)` truncates to the start of that day (00:00:00)
+- The range spans from yesterday at 00:00:00 to today at 00:00:00
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Get data from the last 24 hour
+
+```sql
+SELECT *
+FROM h2o_feet 
+WHERE time >= NOW() - INTERVAL '1 day'
+```
+
+{{< expand-wrapper >}}
+{{% expand "View query explanation" %}}
+
+This query returns data from exactly 24 hours before the current time. Unlike the "yesterday" example, this creates a rolling 24-hour window that moves with the current time.
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Get data from the current week
+
+```sql
+SELECT *
+FROM h2o_feet 
+WHERE time >= DATE_TRUNC('week', NOW())
+```
+
+{{< expand-wrapper >}}
+{{% expand "View query explanation" %}}
+
+This query returns all data from the start of the current week (Monday at 00:00:00) to the current time. The DATE_TRUNC('week', NOW()) function truncates the current timestamp to the beginning of the week.
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### Filter data using the OR operator
 
 ```sql
