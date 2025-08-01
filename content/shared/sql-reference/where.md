@@ -169,7 +169,14 @@ WHERE time >= DATE_TRUNC('week', NOW())
 
 This query returns all data from the start of the current week (Monday at 00:00:00) to the current time. The DATE_TRUNC('week', NOW()) function truncates the current timestamp to the beginning of the week.
 
-level description location timew ater_levelbelow 3 feetsanta_monica2019-08-12T00:00:00.000Z2.064below 3 feetsanta_monica2019-08-14T09:30:00.000Z2.116below 3 feetsanta_monica2019-08-16T15:45:00.000Z1.952below 3 feetsanta_monica2019-08-18T12:00:00.000Z2.533below 3 feetsanta_monica2019-08-18T18:00:00.000Z2.385below 3 feetsanta_monica2019-08-19T10:30:00.000Z1.691
+| level description | location     | time                     | water_level |
+| :---------------- | :----------- | :----------------------- | :---------- |
+| below 3 feet      | santa_monica | 2019-08-12T00:00:00.000Z | 2.064       |
+| below 3 feet      | santa_monica | 2019-08-14T09:30:00.000Z | 2.116       |
+| below 3 feet      | santa_monica | 2019-08-16T15:45:00.000Z | 1.952       |
+| below 3 feet      | santa_monica | 2019-08-18T12:00:00.000Z | 2.533       |
+| below 3 feet      | santa_monica | 2019-08-18T18:00:00.000Z | 2.385       |
+| below 3 feet      | santa_monica | 2019-08-19T10:30:00.000Z | 1.691       |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
