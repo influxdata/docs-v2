@@ -161,7 +161,7 @@ This query returns data from exactly 24 hours before the current time. Unlike th
 ```sql
 SELECT *
 FROM h2o_feet 
-WHERE time >= DATE_TRUNC('week', NOW())
+WHERE time >= DATE_TRUNC('week', NOW()) AND location = 'santa_monica'
 ```
 
 {{< expand-wrapper >}}
