@@ -186,7 +186,7 @@ paths:
           schema:
             type: string
           required: true
-          description: Bucket to query.
+          description: The database to query from.
         - in: query
           name: pretty
           description: |
