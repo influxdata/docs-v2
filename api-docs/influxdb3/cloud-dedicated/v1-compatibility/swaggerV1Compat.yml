@@ -291,7 +291,7 @@ paths:
                   type: string
                   description: Bucket to query.
                 q:
-                  description: Defines the influxql query to run.
+                  description: Defines the InfluxQL query to run.
                   type: string
                 chunked:
                   description: |
