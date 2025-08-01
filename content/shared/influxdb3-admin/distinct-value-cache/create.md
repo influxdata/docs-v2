@@ -95,9 +95,8 @@ curl -X POST "https://localhost:8181/api/v3/configure/distinct_cache" \
 
 ```bash
 curl -X POST "https://localhost:8181/api/v3/configure/distinct_cache" \
-  -H "Authorization: Bearer 00xoXX0xXXx0000XxxxXx0Xx0xx0" \
-  -H "Content-Type: application/json" \
-  -d '{
+  --header "Authorization: Bearer 00xoXX0xXXx0000XxxxXx0Xx0xx0" \
+  --json '{
     "db": "example-db",
     "table": "wind_data", 
     "name": "windDistinctCache",
