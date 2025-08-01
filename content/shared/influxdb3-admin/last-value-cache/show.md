@@ -69,9 +69,13 @@ In the examples above, replace the following:
 
 ## Use the HTTP API
 
-You can query cache information using the [InfluxDB v3 SQL query API](/influxdb3/version/api/v3/). Send a `POST` request to the `/api/v3/query_sql` endpoint.
+To use the HTTP API to query and output cache information from the system table, send a `GET` or `POST` request to the `/api/v3/query_sql` endpoint.
 
-### Query all caches
+{{% api-endpoint method="GET" endpoint="/api/v3/query_sql" api-ref="/influxdb3/version/api/v3/#operation/GetExecuteQuerySQL" %}}
+
+{{% api-endpoint method="POST" endpoint="/api/v3/query_sql" api-ref="/influxdb3/version/api/v3/#operation/PostExecuteQuerySQL" %}}
+
+### Query all last value caches
 
 {{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 
