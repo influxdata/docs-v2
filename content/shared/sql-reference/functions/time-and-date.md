@@ -887,7 +887,7 @@ LIMIT 1
 
 Converts an integer (Unix timestamp in seconds) to a timestamp value.
 The underlying result is a timestamp (`Timestamp(TimeUnit::Second, None)`).
-In query results, JSON, CSV, and "pretty" formats render the timestamp as an ISO 8601 string (`YYYY-MM-DDTHH:MM:SS`, without a timezone indicator).
+If you output query results as JSON (default for the API), CSV, or pretty (default for the CLI), the timestamp is formatted as an ISO 8601 string (`YYYY-MM-DDTHH:MM:SS`, without a timezone indicator).
 When output to Parquet, the raw integer value (for example, `1641042000`) is preserved.
 
 ```sql
