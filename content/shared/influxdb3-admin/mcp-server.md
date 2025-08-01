@@ -76,11 +76,6 @@ Set the following environment variables when you start the MCP server:
 
 {{% /show-in %}}
 
-### Other MCP server configuration options
-
-- **MCP_SERVER_HOST**: Customize the host of the MCP server. The default is `127.0.0.1`.
-- **MCP_SERVER_PORT**: Customize the port the MCP server uses. The default is `8080`.
-
 ## Configure your LLM agent to run the MCP server
 
 To run the MCP, user either Node.js and `npm` or Docker to run the server.
