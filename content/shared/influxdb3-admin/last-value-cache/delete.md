@@ -40,7 +40,7 @@ curl -X DELETE "https://localhost:8181/api/v3/configure/last_cache?db=DATABASE_N
 
 ```bash
 curl -X DELETE "https://localhost:8181/api/v3/configure/last_cache?db=example-db&table=home&name=homeLastCache" \
-  -H "Authorization: Bearer 00xoXX0xXXx0000XxxxXx0Xx0xx0"
+  --header "Authorization: Bearer 00xoXX0xXXx0000XxxxXx0Xx0xx0"
 ```
 
 **Response codes:**
