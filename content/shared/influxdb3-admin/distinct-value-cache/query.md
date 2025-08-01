@@ -31,3 +31,37 @@ FROM
 WHERE
   country = 'Spain'
 ```
+
+## Use the HTTP API
+
+To use the HTTP API to query cached data, send a `GET` or `POST` request to the `/api/v3/query_sql` endpoint and include the [`distinct_cache()`](/influxdb3/version/reference/sql/functions/cache/#distinct_cache) function in your query.
+
+{{% api-endpoint method="GET" endpoint="/api/v3/query_sql" api-ref="/influxdb3/version/api/v3/#operation/GetExecuteQuerySQL" %}}
+
+{{% api-endpoint method="POST" endpoint="/api/v3/query_sql" api-ref="/influxdb3/version/api/v3/#operation/PostExecuteQuerySQL" %}}
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN|TABLE_NAME|CACHE_NAME" %}}
+
+```bash
+curl -X POST "https://localhost:8181/api/v3/query_sql" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --json '{
+    "db": "DATABASE_NAME",
+    "q": "SELECT * FROM distinct_cache('\''TABLE_NAME'\'', '\''CACHE_NAME'\'')",
+    "format": "json"
+  }'
+```
+
+{{% /code-placeholders %}}
+
+## Example with WHERE clause
+
+```bash
+curl -X POST "https://localhost:8181/api/v3/query_sql" \
+  --header "Authorization: Bearer 00xoXX0xXXx0000XxxxXx0Xx0xx0" \
+  --json '{
+    "db": "example-db",
+    "q": "SELECT room, temp FROM last_cache('\''home'\'', '\''homeCache'\'') WHERE room = '\''Kitchen'\''",
+    "format": "json"
+  }'
+```
