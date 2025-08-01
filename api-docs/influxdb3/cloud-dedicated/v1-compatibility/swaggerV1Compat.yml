@@ -138,7 +138,7 @@ paths:
                 $ref: '#/components/schemas/Error'
   /query:
     get:
-      operationId: GetV1ExecuteQuery
+      operationId: GetQueryV1
       tags:
         - Query
       summary: Query using the InfluxDB v1 HTTP API
