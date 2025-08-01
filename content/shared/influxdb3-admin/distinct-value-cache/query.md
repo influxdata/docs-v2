@@ -44,7 +44,7 @@ curl -X POST "https://localhost:8181/api/v3/query_sql" \
   -H "Content-Type: application/json" \
   -d '{
     "db": "DATABASE_NAME",
-    "q": "SELECT * FROM last_cache('\''TABLE_NAME'\'', '\''CACHE_NAME'\'')",
+    "q": "SELECT * FROM distinct_cache('\''TABLE_NAME'\'', '\''CACHE_NAME'\'')",
     "format": "json"
   }'
 ```
