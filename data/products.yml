@@ -143,7 +143,7 @@ telegraf:
   versions: [v1]
   latest: v1.35
   latest_patches:
-    v1: 1.35.0
+    v1: 1.35.3
   ai_sample_questions:
     - How do I install and configure Telegraf?
     - How do I write a custom Telegraf plugin?
