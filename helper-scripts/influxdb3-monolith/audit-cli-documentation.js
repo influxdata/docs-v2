@@ -51,39 +51,9 @@ class CLIDocAuditor {
       );
     }
 
-    // Commands to extract help for
-    this.mainCommands = [
-      'create',
-      'delete',
-      'disable',
-      'enable',
-      'query',
-      'show',
-      'test',
-      'update',
-      'write',
-    ];
-    this.subcommands = [
-      'create database',
-      'create token admin',
-      'create token',
-      'create trigger',
-      'create last_cache',
-      'create distinct_cache',
-      'create table',
-      'show databases',
-      'show tokens',
-      'show system',
-      'delete database',
-      'delete table',
-      'delete trigger',
-      'update database',
-      'test wal_plugin',
-      'test schedule_plugin',
-    ];
-
-    // Map for command tracking during option parsing
-    this.commandOptionsMap = {};
+    // Dynamic command discovery - populated by discoverCommands()
+    this.discoveredCommands = new Map(); // command -> { subcommands: [], options: [] }
+    this.commandOptionsMap = {}; // For backward compatibility
   }
 
   async fileExists(path) {
@@ -154,6 +124,238 @@ class CLIDocAuditor {
     });
   }
 
+  async ensureContainerRunning(product) {
+    const containerName = `influxdb3-${product}`;
+
+    // Check if container exists and is running
+    const { code, stdout } = await this.runCommand('docker', [
+      'compose',
+      'ps',
+      '--format',
+      'json',
+      containerName,
+    ]);
+
+    if (code !== 0) {
+      console.log(`❌ Failed to check container status for ${containerName}`);
+      return false;
+    }
+
+    const containers = stdout.trim().split('\n').filter((line) => line);
+    const isRunning = containers.some((line) => {
+      try {
+        const container = JSON.parse(line);
+        return container.Name === containerName && container.State === 'running';
+      } catch {
+        return false;
+      }
+    });
+
+    if (!isRunning) {
+      console.log(`🚀 Starting ${containerName}...`);
+      const startResult = await this.runCommand('docker', [
+        'compose',
+        'up',
+        '-d',
+        containerName,
+      ]);
+
+      if (startResult.code !== 0) {
+        console.log(`❌ Failed to start ${containerName}`);
+        console.log(startResult.stderr);
+        return false;
+      }
+
+      // Wait for container to be ready
+      console.log(`⏳ Waiting for ${containerName} to be ready...`);
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+    }
+
+    return true;
+  }
+
+  async discoverCommands(product) {
+    const containerName = `influxdb3-${product}`;
+
+    // Ensure container is running
+    if (!(await this.ensureContainerRunning(product))) {
+      throw new Error(`Failed to start container ${containerName}`);
+    }
+
+    // Get main help to discover top-level commands
+    const mainHelp = await this.runCommand('docker', [
+      'compose',
+      'exec',
+      '-T',
+      containerName,
+      'influxdb3',
+      '--help',
+    ]);
+
+    if (mainHelp.code !== 0) {
+      console.error(`Failed to get main help. Exit code: ${mainHelp.code}`);
+      console.error(`Stdout: ${mainHelp.stdout}`);
+      console.error(`Stderr: ${mainHelp.stderr}`);
+      throw new Error(`Failed to get main help: ${mainHelp.stderr}`);
+    }
+
+    // Parse main commands from help output
+    const mainCommands = this.parseCommandsFromHelp(mainHelp.stdout);
+
+    // Also add the root command first
+    this.discoveredCommands.set('influxdb3', {
+      subcommands: mainCommands,
+      options: this.parseOptionsFromHelp(mainHelp.stdout),
+      helpText: mainHelp.stdout,
+    });
+
+    // For backward compatibility
+    this.commandOptionsMap['influxdb3'] = this.parseOptionsFromHelp(mainHelp.stdout);
+
+    // Discover subcommands and options for each main command
+    for (const command of mainCommands) {
+      await this.discoverSubcommands(containerName, command, [command]);
+    }
+  }
+
+  parseCommandsFromHelp(helpText) {
+    const commands = [];
+    // Strip ANSI color codes first
+    // eslint-disable-next-line no-control-regex
+    const cleanHelpText = helpText.replace(/\x1b\[[0-9;]*m/g, '');
+    const lines = cleanHelpText.split('\n');
+    let inCommandsSection = false;
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+
+      // Look for any Commands section
+      if (trimmed.includes('Commands:') || trimmed === 'Resource Management:' || 
+          trimmed === 'System Management:') {
+        inCommandsSection = true;
+        continue;
+      }
+
+      // Stop at next section (but don't stop on management sections)
+      if (inCommandsSection && /^[A-Z][a-z]+:$/.test(trimmed) && 
+          !trimmed.includes('Commands:') && 
+          trimmed !== 'Resource Management:' && 
+          trimmed !== 'System Management:') {
+        break;
+      }
+
+      // Parse command lines (typically indented with command name)
+      if (inCommandsSection && /^\s+[a-z]/.test(line)) {
+        const match = line.match(/^\s+([a-z][a-z0-9_-]*)/);
+        if (match) {
+          commands.push(match[1]);
+        }
+      }
+    }
+
+    return commands;
+  }
+
+  parseOptionsFromHelp(helpText) {
+    const options = [];
+    const lines = helpText.split('\n');
+    let inOptionsSection = false;
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+
+      // Look for Options: section
+      if (trimmed === 'Options:') {
+        inOptionsSection = true;
+        continue;
+      }
+
+      // Stop at next section
+      if (inOptionsSection && /^[A-Z][a-z]+:$/.test(trimmed)) {
+        break;
+      }
+
+      // Parse option lines
+      if (inOptionsSection && /^\s*-/.test(line)) {
+        const optionMatch = line.match(/--([a-z][a-z0-9-]*)/);
+        if (optionMatch) {
+          options.push(`--${optionMatch[1]}`);
+        }
+      }
+    }
+
+    return options;
+  }
+
+  async discoverSubcommands(containerName, commandPath, commandParts) {
+    // Get help for this command
+    
+    // First try with --help
+    let helpResult = await this.runCommand('docker', [
+      'compose',
+      'exec',
+      '-T',
+      containerName,
+      'influxdb3',
+      ...commandParts,
+      '--help',
+    ]);
+
+    // If --help returns main help or fails, try without --help
+    if (helpResult.code !== 0 || helpResult.stdout.includes('InfluxDB 3 Core Server and Command Line Tools')) {
+      helpResult = await this.runCommand('docker', [
+        'compose',
+        'exec',
+        '-T',
+        containerName,
+        'influxdb3',
+        ...commandParts,
+      ]);
+    }
+
+    if (helpResult.code !== 0) {
+      // Check if stderr contains useful help information
+      if (helpResult.stderr && helpResult.stderr.includes('Usage:') && helpResult.stderr.includes('Commands:')) {
+        // Use stderr as the help text since it contains the command usage info
+        helpResult = { code: 0, stdout: helpResult.stderr, stderr: '' };
+      } else {
+        // Command might not exist or might not have subcommands
+        return;
+      }
+    }
+
+    // If the result is still the main help, skip this command
+    if (helpResult.stdout.includes('InfluxDB 3 Core Server and Command Line Tools')) {
+      return;
+    }
+
+    const helpText = helpResult.stdout;
+    const subcommands = this.parseCommandsFromHelp(helpText);
+    const options = this.parseOptionsFromHelp(helpText);
+
+    // Store the command info
+    const fullCommand = `influxdb3 ${commandParts.join(' ')}`;
+    this.discoveredCommands.set(fullCommand, {
+      subcommands,
+      options,
+      helpText,
+    });
+
+    // For backward compatibility
+    this.commandOptionsMap[fullCommand] = options;
+
+    // Recursively discover subcommands (but limit depth)
+    if (subcommands.length > 0 && commandParts.length < 3) {
+      for (const subcommand of subcommands) {
+        await this.discoverSubcommands(
+          containerName,
+          `${commandPath} ${subcommand}`,
+          [...commandParts, subcommand]
+        );
+      }
+    }
+  }
+
   async extractCurrentCLI(product, outputFile) {
     process.stdout.write(
       `Extracting current CLI help from influxdb3-${product}...`
@@ -164,57 +366,30 @@ class CLIDocAuditor {
     if (this.version === 'local') {
       const containerName = `influxdb3-${product}`;
 
-      // Check if container is running
-      const { code, stdout } = await this.runCommand('docker', [
-        'ps',
-        '--format',
-        '{{.Names}}',
-      ]);
-      if (code !== 0 || !stdout.includes(containerName)) {
+      // Ensure container is running and discover commands
+      if (!(await this.ensureContainerRunning(product))) {
         console.log(` ${Colors.RED}✗${Colors.NC}`);
-        console.log(`Error: Container ${containerName} is not running.`);
-        console.log(`Start it with: docker compose up -d influxdb3-${product}`);
         return false;
       }
 
-      // Extract comprehensive help
-      let fileContent = '';
+      // Discover all commands dynamically
+      await this.discoverCommands(product);
 
-      // Main help
-      const mainHelp = await this.runCommand('docker', [
-        'exec',
-        containerName,
-        'influxdb3',
-        '--help',
-      ]);
-      fileContent += mainHelp.code === 0 ? mainHelp.stdout : mainHelp.stderr;
-
-      // Extract all subcommand help
-      for (const cmd of this.mainCommands) {
-        fileContent += `\n\n===== influxdb3 ${cmd} --help =====\n`;
-        const cmdHelp = await this.runCommand('docker', [
-          'exec',
-          containerName,
-          'influxdb3',
-          cmd,
-          '--help',
-        ]);
-        fileContent += cmdHelp.code === 0 ? cmdHelp.stdout : cmdHelp.stderr;
+      // Generate comprehensive help output
+      let fileContent = `===== influxdb3 --help =====\n`;
+      
+      // Add root command help first
+      const rootCommand = this.discoveredCommands.get('influxdb3');
+      if (rootCommand) {
+        fileContent += rootCommand.helpText;
       }
 
-      // Extract detailed subcommand help
-      for (const subcmd of this.subcommands) {
-        fileContent += `\n\n===== influxdb3 ${subcmd} --help =====\n`;
-        const cmdParts = [
-          'exec',
-          containerName,
-          'influxdb3',
-          ...subcmd.split(' '),
-          '--help',
-        ];
-        const subcmdHelp = await this.runCommand('docker', cmdParts);
-        fileContent +=
-          subcmdHelp.code === 0 ? subcmdHelp.stdout : subcmdHelp.stderr;
+      // Add all other discovered command help
+      for (const [command, info] of this.discoveredCommands) {
+        if (command !== 'influxdb3') {
+          fileContent += `\n\n===== ${command} --help =====\n`;
+          fileContent += info.helpText;
+        }
       }
 
       await fs.writeFile(outputFile, fileContent);
@@ -233,7 +408,8 @@ class CLIDocAuditor {
         return false;
       }
 
-      // Extract help from specific version
+      // For version-specific images, we'll use a simpler approach
+      // since we can't easily discover commands without a running container
       let fileContent = '';
 
       // Main help
@@ -246,8 +422,12 @@ class CLIDocAuditor {
       ]);
       fileContent += mainHelp.code === 0 ? mainHelp.stdout : mainHelp.stderr;
 
-      // Extract subcommand help
-      for (const cmd of this.mainCommands) {
+      // Parse main commands and get their help
+      const mainCommands = this.parseCommandsFromHelp(
+        mainHelp.code === 0 ? mainHelp.stdout : mainHelp.stderr
+      );
+
+      for (const cmd of mainCommands) {
         fileContent += `\n\n===== influxdb3 ${cmd} --help =====\n`;
         const cmdHelp = await this.runCommand('docker', [
           'run',
@@ -258,6 +438,25 @@ class CLIDocAuditor {
           '--help',
         ]);
         fileContent += cmdHelp.code === 0 ? cmdHelp.stdout : cmdHelp.stderr;
+
+        // Try to get subcommands
+        const subcommands = this.parseCommandsFromHelp(
+          cmdHelp.code === 0 ? cmdHelp.stdout : cmdHelp.stderr
+        );
+
+        for (const subcmd of subcommands) {
+          fileContent += `\n\n===== influxdb3 ${cmd} ${subcmd} --help =====\n`;
+          const subcmdHelp = await this.runCommand('docker', [
+            'run',
+            '--rm',
+            image,
+            'influxdb3',
+            cmd,
+            subcmd,
+            '--help',
+          ]);
+          fileContent += subcmdHelp.code === 0 ? subcmdHelp.stdout : subcmdHelp.stderr;
+        }
       }
 
       await fs.writeFile(outputFile, fileContent);
@@ -284,8 +483,10 @@ class CLIDocAuditor {
           .trim();
         output += `## ${currentCommand}\n\n`;
         inOptions = false;
-        // Initialize options list for this command
-        this.commandOptionsMap[currentCommand] = [];
+        // Initialize options list for this command if not exists
+        if (!this.commandOptionsMap[currentCommand]) {
+          this.commandOptionsMap[currentCommand] = [];
+        }
       }
       // Detect options sections
       else if (line.trim() === 'Options:') {
@@ -343,7 +544,7 @@ class CLIDocAuditor {
     const lines = content.split('\n');
     let inCommand = false;
     let helpText = [];
-    const commandHeader = `===== influxdb3 ${command} --help =====`;
+    const commandHeader = `===== influxdb3 ${command} --help`;
 
     for (let i = 0; i < lines.length; i++) {
       if (lines[i] === commandHeader) {
@@ -361,7 +562,7 @@ class CLIDocAuditor {
     return helpText.join('\n').trim();
   }
 
-  async generateDocumentationTemplate(command, helpText) {
+  async generateDocumentationTemplate(command, helpText, product) {
     // Parse the help text to extract description and options
     const lines = helpText.split('\n');
     let description = '';
@@ -402,14 +603,18 @@ class CLIDocAuditor {
       }
     }
 
+    // Generate product-specific frontmatter
+    const productTag = product === 'enterprise' ? 'influxdb3/enterprise' : 'influxdb3/core';
+    const menuRef = product === 'enterprise' ? 'influxdb3_enterprise_reference' : 'influxdb3_core_reference';
+
     // Generate markdown template
     let template = `---
 title: influxdb3 ${command}
 description: >
   The \`influxdb3 ${command}\` command ${description.toLowerCase()}.
-influxdb3/core/tags: [cli]
+${productTag}/tags: [cli]
 menu:
-  influxdb3_core_reference:
+  ${menuRef}:
     parent: influxdb3 cli
 weight: 201
 ---
@@ -587,22 +792,8 @@ Replace the following:
     let missingCount = 0;
     const missingDocs = [];
 
-    // Map commands to expected documentation files
-    const commandToFile = {
-      'create database': 'create/database.md',
-      'create token': 'create/token/_index.md',
-      'create token admin': 'create/token/admin.md',
-      'create trigger': 'create/trigger.md',
-      'create table': 'create/table.md',
-      'create last_cache': 'create/last_cache.md',
-      'create distinct_cache': 'create/distinct_cache.md',
-      'show databases': 'show/databases.md',
-      'show tokens': 'show/tokens.md',
-      'delete database': 'delete/database.md',
-      'delete table': 'delete/table.md',
-      query: 'query.md',
-      write: 'write.md',
-    };
+    // Build command to file mapping dynamically from discovered commands
+    const commandToFile = this.buildCommandToFileMapping();
 
     // Extract commands from CLI help
     const content = await fs.readFile(cliFile, 'utf8');
@@ -666,7 +857,8 @@ Replace the following:
             const helpText = await this.extractCommandHelp(content, command);
             const docTemplate = await this.generateDocumentationTemplate(
               command,
-              helpText
+              helpText,
+              product
             );
 
             // Save patch file
@@ -845,6 +1037,54 @@ Replace the following:
         `📝 Generated ${missingCount} documentation templates in: ${patchDir}`
       );
     }
+  }
+
+  buildCommandToFileMapping() {
+    // Build a mapping from discovered commands to expected documentation files
+    const mapping = {};
+
+    // Common patterns for command to file mapping
+    const patterns = {
+      'create database': 'create/database.md',
+      'create token': 'create/token/_index.md',
+      'create token admin': 'create/token/admin.md',
+      'create trigger': 'create/trigger.md',
+      'create table': 'create/table.md',
+      'create last_cache': 'create/last_cache.md',
+      'create distinct_cache': 'create/distinct_cache.md',
+      'show databases': 'show/databases.md',
+      'show tokens': 'show/tokens.md',
+      'show system': 'show/system.md',
+      'delete database': 'delete/database.md',
+      'delete table': 'delete/table.md',
+      'delete trigger': 'delete/trigger.md',
+      'update database': 'update/database.md',
+      'test wal_plugin': 'test/wal_plugin.md',
+      'test schedule_plugin': 'test/schedule_plugin.md',
+      query: 'query.md',
+      write: 'write.md',
+    };
+
+    // Add discovered commands that match patterns
+    for (const [command, info] of this.discoveredCommands) {
+      const cleanCommand = command.replace('influxdb3 ', '');
+      if (patterns[cleanCommand]) {
+        mapping[cleanCommand] = patterns[cleanCommand];
+      } else if (cleanCommand !== '' && cleanCommand.includes(' ')) {
+        // Generate file path for subcommands
+        const parts = cleanCommand.split(' ');
+        if (parts.length === 2) {
+          mapping[cleanCommand] = `${parts[0]}/${parts[1]}.md`;
+        } else if (parts.length === 3) {
+          mapping[cleanCommand] = `${parts[0]}/${parts[1]}/${parts[2]}.md`;
+        }
+      } else if (cleanCommand !== '' && !cleanCommand.includes(' ')) {
+        // Single command
+        mapping[cleanCommand] = `${cleanCommand}.md`;
+      }
+    }
+
+    return mapping;
   }
 
   async run() {
