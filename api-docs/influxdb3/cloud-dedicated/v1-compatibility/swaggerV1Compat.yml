@@ -298,6 +298,10 @@ paths:
                   description: |
                     The retention policy to query data from. For more information, see [InfluxQL DBRP naming convention](/influxdb3/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention).
                   type: string
+                rp:
+                  description: |
+                    The retention policy to query data from. For more information, see [InfluxQL DBRP naming convention](/influxdb3/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention).
+                  type: string
                 q:
                   description: Defines the InfluxQL query to run.
                   type: string
