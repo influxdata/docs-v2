@@ -1,8 +1,8 @@
 {{ if and hugo.IsServer (not (eq .Site.Params.environment "staging")) }}
 <!-- Development: GA4 in debug mode -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3C2W1T8YS4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWQ54SDD8"></script>
 <script>
-  const gtagID = 'G-3C2W1T8YS4';
+  const gtagID = 'G-CNWQ54SDD8';
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -15,12 +15,12 @@
 </script>
 {{ else }}
 <!-- Production/Staging: Normal GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3C2W1T8YS4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWQ54SDD8"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-3C2W1T8YS4', {
+  gtag('config', 'G-CNWQ54SDD8', {
     'send_page_view': true,
     'transport_type': 'beacon'
   });

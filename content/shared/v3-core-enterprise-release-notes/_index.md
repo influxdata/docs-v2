@@ -5,6 +5,59 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.3.0 {date="2025-07-29"}
+
+### Core
+
+#### Features
+
+- **Database management**:
+  - Add `influxdb_schema` system table for database schema management ([#26640](https://github.com/influxdata/influxdb/pull/26640))
+  - Add `system.processing_engine_trigger_arguments` table for trigger configuration management ([#26604](https://github.com/influxdata/influxdb/pull/26604))
+  - Add write path logging to capture database name and client IP address for failed writes. The IP address is fetched from `x-forwarded-for` header if available, `x-real-ip` if available, or remote address as reported by TlsStream/AddrStream ([#26616](https://github.com/influxdata/influxdb/pull/26616))
+- **Storage engine**: Introduce `TableIndexCache` for efficient automatic cleanup of expired gen1 Parquet files based on retention policies and hard deletes. Includes new background loop for applying data retention policies with configurable intervals and comprehensive purge operations for tables and retention period expired data ([#26636](https://github.com/influxdata/influxdb/pull/26636))
+- **Authentication and security**: Add admin token recovery server that allows regenerating lost admin tokens without existing authentication. Includes new `--admin-token-recovery-http-bind` option for running recovery server on separate port, with automatic shutdown after successful token regeneration ([#26594](https://github.com/influxdata/influxdb/pull/26594))
+- **Build process**: Allow passing git hash via environment variable in build process ([#26618](https://github.com/influxdata/influxdb/pull/26618))
+
+#### Bug Fixes
+
+- **Database reliability**:
+  - Fix URL encoded table name handling failures ([#26586](https://github.com/influxdata/influxdb/pull/26586))
+  - Allow hard deletion of existing soft-deleted schema ([#26574](https://github.com/influxdata/influxdb/pull/26574))
+- **Authentication**: Fix AWS S3 API error handling when tokens are expired ([#1013](https://github.com/influxdata/influxdb/pull/1013))
+- **Query processing**: Set nanosecond precision as default for V1 query API CSV output ([#26577](https://github.com/influxdata/influxdb/pull/26577))
+- **CLI reliability**:
+  - Mark `--object-store` CLI argument as explicitly required ([#26575](https://github.com/influxdata/influxdb/pull/26575))
+  - Add help text for the new update subcommand ([#26569](https://github.com/influxdata/influxdb/pull/26569))
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Features
+
+- **License management**:
+  - Improve licensing suggestions for Core users
+  - Update license information handling
+- **Storage engine**: Add experimental PachaTree storage engine with core implementation and server integration
+- **Database management**:
+  - Enhance `TableIndexCache` with advanced features beyond Core's basic cleanup: persistent snapshots, object store integration, merge operations for distributed environments, and recovery capabilities for multi-node clusters
+  - Add `TableIndexSnapshot`, `TableIndex`, and `TableIndices` types for distributed table index management
+- **Support**: Include contact information in trial error messages
+- **Telemetry**: Send onboarding telemetry before licensing setup
+
+#### Bug Fixes
+
+- **Compaction stability**:
+  - Fix compactor re-compaction issues on max generation data overwrite
+  - Fix compactor to treat "all" mode as "ingest" mode
+- **Database reliability**:
+  - Add missing system tables to compact mode
+- **Storage integrity**: Update Parquet file paths to use 20 digits of 0-padding
+- **General fixes**:
+  - Only load processing engine in correct server modes
+  - Remove load generator alias clash
+
 ## v3.2.1 {date="2025-07-03"}
 
 ### Core
@@ -78,7 +131,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - **Compaction improvements**:
   - Address compactor restart issues for better reliability
   - Track compacted generation durations in catalog for monitoring
-  - Disable parquet cache for ingest mode to optimize memory usage
+  - Disable Parquet cache for ingest mode to optimize memory usage
 
 #### Bug Fixes
 
@@ -272,7 +325,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 **Enterprise**: revision e530fcd498c593cffec2b56d4f5194afc717d898
 
-This update brings several backend performance improvements to both Core and Enterprise in preparation for additional new features over the next several weeks! 
+This update brings several backend performance improvements to both Core and Enterprise in preparation for additional new features over the next several weeks. 
 
 
 ## v3.0.0-0.beta.1 {date="2025-03-17"}
