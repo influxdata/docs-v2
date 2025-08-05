@@ -31,7 +31,7 @@ LogicalPlan
 [Mm]onitor
 MBs?
 PBs?
-Parquet
+Parquet|\b\w*-*parquet-\w*\b|\b--\w*parquet\w*\b|`[^`]*parquet[^`]*`
 Redoc
 SQLAlchemy
 SQLAlchemy
