@@ -66,7 +66,7 @@ paths:
           schema:
             type: string
           required: true
-          description: Bucket to write to. If none exists, InfluxDB creates a bucket with a default 3-day retention policy.
+          description: Database to write to. If none exists, InfluxDB creates a database with a default 3-day retention policy.
         - in: query
           name: rp
           schema:
@@ -187,7 +187,7 @@ paths:
           schema:
             type: string
           required: true
-          description: Database to query from.
+          description: The database to query from.
         - in: query
           name: pretty
           description: |
@@ -294,14 +294,6 @@ paths:
                   description: |
                     The retention policy to query data from. For more information, see [InfluxQL DBRP naming convention](/influxdb3/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention).
                   type: string
-                rp:
-                  description: |
-                    The retention policy to query data from. For more information, see [InfluxQL DBRP naming convention](/influxdb3/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention).
-                  type: string
-                rp:
-                  description: |
-                    The retention policy to query data from. For more information, see [InfluxQL DBRP naming convention](/influxdb3/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention).
-                  type: string
                 q:
                   description: Defines the InfluxQL query to run.
                   type: string
@@ -363,7 +355,7 @@ paths:
           schema:
             type: string
           required: true
-          description: Bucket to query.
+          description: Database to query.
         - in: query
           name: rp
           schema:

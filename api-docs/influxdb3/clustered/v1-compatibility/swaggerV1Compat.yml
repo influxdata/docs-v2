@@ -65,7 +65,7 @@ paths:
           schema:
             type: string
           required: true
-          description: Bucket to write to. If none exists, InfluxDB creates a bucket with a default 3-day retention policy.
+          description: Database to write to. If none exists, InfluxDB creates a database with a default 3-day retention policy.
         - in: query
           name: rp
           schema:
@@ -137,7 +137,7 @@ paths:
                 $ref: '#/components/schemas/Error'
   /query:
     get:
-      operationId: GetV1ExecuteQuery
+      operationId: GetQueryV1
       tags:
         - Query
       summary: Query using the InfluxDB v1 HTTP API
@@ -289,6 +289,10 @@ paths:
                 db:
                   type: string
                   description: Bucket to query.
+                 rp:
+                  description: |  
+                    The retention policy to query data from. For more information, see [InfluxQL DBRP naming convention](/influxdb3/cloud-serverless/admin/databases/create/#influxql-dbrp-naming-convention).
+                  type: string  
                 q:
                   description: Defines the InfluxQL query to run.
                   type: string
