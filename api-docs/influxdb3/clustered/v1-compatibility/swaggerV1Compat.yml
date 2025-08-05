@@ -289,7 +289,7 @@ paths:
                 db:
                   type: string
                   description: Bucket to query.
-                 rp:
+                rp:
                   description: |  
                     The retention policy to query data from. For more information, see [InfluxQL DBRP naming convention](/influxdb3/cloud-serverless/admin/databases/create/#influxql-dbrp-naming-convention).
                   type: string  
