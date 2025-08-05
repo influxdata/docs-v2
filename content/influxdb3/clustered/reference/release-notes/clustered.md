@@ -79,7 +79,7 @@ spec:
 
 ### Highlights
 
-#### Integral support
+#### Support for InfluxQL INTEGRAL()
 
 InfluxQL `INTEGRAL()` function is now supported in the InfluxDB 3.0 database engine.
 
