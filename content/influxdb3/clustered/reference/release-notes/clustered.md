@@ -61,6 +61,34 @@ directory. This new directory contains artifacts associated with the specified r
 
 ---
 
+## 20250721-1796368 {date="2025-07-21"}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250721-1796368
+```
+
+#### Release artifacts
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250721-1796368/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20250721-1796368/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
+
+### Highlights
+
+#### Integral support
+
+InfluxQL `INTEGRAL()` function is now supported in the InfluxDB 3.0 database engine.
+
+### Bug Fixes
+
+- Fix `SHOW TABLES` timeout when a database has a large number of tables.
+
+---
+
 ## 20250707-1777929 {date="2025-07-07"}
 
 ### Quickstart
