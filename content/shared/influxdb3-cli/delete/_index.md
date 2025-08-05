@@ -1,5 +1,5 @@
 
-The `influxdb3 delete` command deletes a resource such as a database or a table.
+The `influxdb3 delete` command deletes a resource such as a cache, a database, or a table.
 
 ## Usage
 
@@ -19,6 +19,7 @@ influxdb3 delete <SUBCOMMAND>
 | [last_cache](/influxdb3/version/reference/cli/influxdb3/delete/last_cache/)         | Delete a last value cache                      |
 | [distinct_cache](/influxdb3/version/reference/cli/influxdb3/delete/distinct_cache/) | Delete a metadata cache                        |
 | [table](/influxdb3/version/reference/cli/influxdb3/delete/table/)                   | Delete a table from a database                 |
+| [token](/influxdb3/version/reference/cli/influxdb3/delete/token/)                   | Delete an authorization token from the server  |
 | [trigger](/influxdb3/version/reference/cli/influxdb3/delete/trigger/)               | Delete a trigger for the processing engine     |
 | help                                                                                | Print command help or the help of a subcommand |
 {{% /show-in %}}
@@ -30,6 +31,7 @@ influxdb3 delete <SUBCOMMAND>
 | [last_cache](/influxdb3/version/reference/cli/influxdb3/delete/last_cache/)         | Delete a last value cache                      |
 | [distinct_cache](/influxdb3/version/reference/cli/influxdb3/delete/distinct_cache/) | Delete a metadata cache                        |
 | [table](/influxdb3/version/reference/cli/influxdb3/delete/table/)                   | Delete a table from a database                 |
+| [token](/influxdb3/version/reference/cli/influxdb3/delete/token/)                   | Delete an authorization token from the server  |
 | [trigger](/influxdb3/version/reference/cli/influxdb3/delete/trigger/)               | Delete a trigger for the processing engine     |
 | help                                                                                | Print command help or the help of a subcommand |
 {{% /show-in %}}
