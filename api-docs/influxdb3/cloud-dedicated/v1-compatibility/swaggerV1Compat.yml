@@ -289,7 +289,7 @@ paths:
               properties:
                 db:
                   type: string
-                  description: Database to query from.
+                  description: The database to query from.
                 rp:
                   description: |
                     The retention policy to query data from. For more information, see [InfluxQL DBRP naming convention](/influxdb3/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention).
