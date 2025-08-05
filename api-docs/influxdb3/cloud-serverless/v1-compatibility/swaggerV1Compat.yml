@@ -288,7 +288,7 @@ paths:
               properties:
                 db:
                   type: string
-                  description: The database to query from.
+                  description: Database to query.
                 rp:
                   description: |  
                     The retention policy to query data from. 
