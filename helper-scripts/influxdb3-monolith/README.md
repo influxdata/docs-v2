@@ -41,40 +41,52 @@ Creates and configures authentication tokens for InfluxDB 3 containers.
 ./setup-auth-tokens.sh enterprise
 ```
 
-### 🔍 CLI Documentation Audit
+### 📘 CLI Documentation Audit
 
-#### `audit-cli-documentation.js`
-JavaScript ESM script that audits InfluxDB 3 CLI commands against existing documentation to identify missing or outdated content.
+#### `documentation-audit.js`
+JavaScript ESM script that parses InfluxDB 3 source code to extract CLI commands and audits them against existing documentation with enhanced accuracy and category filtering.
 
 **Usage:**
 ```bash
-node audit-cli-documentation.js [core|enterprise|both] [version|local]
+node documentation-audit.js [core|enterprise|both] [version/branch/tag] [--categories=CATEGORY1,CATEGORY2,...]
 ```
 
 **Features:**
-- Compares actual CLI help output with documented commands
-- Identifies missing documentation for new CLI options
-- Finds documented options that no longer exist in the CLI
-- Supports both released versions and local containers
-- Generates detailed audit reports with recommendations
-- Handles authentication automatically using Docker secrets
+- **Source code parsing**: Parses Rust CLI implementation directly from source code
+- **Accurate pattern matching**: Uses regex with word boundaries to reduce false positives
+- **Category-based filtering**: Focus audits on specific documentation areas
+- **Enterprise feature detection**: Identifies enterprise-specific commands and features
+- **Complete option extraction**: Extracts descriptions, defaults, environment variables, and requirements
+- **Template generation**: Creates documentation templates for missing commands
+
+**Available Categories:**
+- `CLI_REFERENCE` - CLI reference documentation
+- `API_REFERENCE` - API documentation
+- `GETTING_STARTED` - Getting started and tutorials
+- `ADMIN_GUIDES` - Administration and management
+- `WRITE_DATA` - Write and ingest data documentation
+- `QUERY_DATA` - Query and read data documentation
+- `PROCESS_DATA` - Process and transform data documentation
+- `GENERAL_REFERENCE` - General reference documentation
 
 **Examples:**
 ```bash
-# Audit Core documentation against local container
-node audit-cli-documentation.js core local
+# Audit Core documentation with all categories
+node documentation-audit.js core main
 
-# Audit Enterprise documentation against specific version
-node audit-cli-documentation.js enterprise v3.2.0
+# Audit Enterprise with only CLI and API reference categories
+node documentation-audit.js enterprise main --categories=CLI_REFERENCE,API_REFERENCE
 
-# Audit both products against local containers
-node audit-cli-documentation.js both local
+# Audit specific version with getting started docs only
+node documentation-audit.js both v3.3.0 --categories=GETTING_STARTED
+
+# Audit with multiple specific categories
+node documentation-audit.js core main --categories=CLI_REFERENCE,ADMIN_GUIDES,WRITE_DATA
 ```
 
 **Output:**
-- `../output/cli-audit/documentation-audit-{product}-{version}.md` - Detailed audit report
-- `../output/cli-audit/parsed-cli-{product}-{version}.md` - Parsed CLI structure
-- `../output/cli-audit/patches/{product}/` - Generated patches for missing documentation
+- `../output/cli-audit/documentation-audit-{product}-{version}.md` - Enhanced audit report with source code insights
+- `../output/cli-audit/patches/{product}/` - Generated documentation templates with complete option details
 
 ### 🛠️ CLI Documentation Updates
 
@@ -131,12 +143,12 @@ docker compose down && docker compose up -d influxdb3-core influxdb3-enterprise
 ### 2. CLI Documentation Audit
 
 ```bash
-# Start your containers
-docker compose up -d influxdb3-core influxdb3-enterprise
+# Audit CLI documentation from source code
+node documentation-audit.js core main
+node documentation-audit.js enterprise main
 
-# Audit CLI documentation
-node audit-cli-documentation.js core local
-node audit-cli-documentation.js enterprise local
+# Or audit with specific categories
+node documentation-audit.js both main --categories=CLI_REFERENCE
 
 # Review the output
 ls ../output/cli-audit/
@@ -145,12 +157,12 @@ ls ../output/cli-audit/
 ### 3. Development Workflow
 
 ```bash
-# Audit documentation for both products
-node audit-cli-documentation.js both local
+# Audit using source code parsing with category filtering
+node documentation-audit.js both main --categories=CLI_REFERENCE,API_REFERENCE
 
 # Check the audit results
-cat ../output/cli-audit/documentation-audit-core-local.md
-cat ../output/cli-audit/documentation-audit-enterprise-local.md
+cat ../output/cli-audit/documentation-audit-core-main.md
+cat ../output/cli-audit/documentation-audit-enterprise-main.md
 
 # Apply patches if needed (dry run first)
 node apply-cli-patches.js both --dry-run
@@ -162,7 +174,7 @@ For release documentation, use the audit and patch workflow:
 
 ```bash
 # Audit against released version
-node audit-cli-documentation.js enterprise v3.2.0
+node documentation-audit.js enterprise v3.2.0
 
 # Review missing documentation
 cat ../output/cli-audit/documentation-audit-enterprise-v3.2.0.md
@@ -176,11 +188,17 @@ git diff content/influxdb3/enterprise/reference/cli/
 
 ## Container Integration
 
-The scripts work with your Docker Compose setup:
+The scripts work with your Docker Compose setup and automatically manage container lifecycle:
 
 **Expected container names:**
 - `influxdb3-core` (port 8282)
 - `influxdb3-enterprise` (port 8181)
+
+**Container management:**
+- Scripts automatically start containers if they're not running
+- Uses `docker compose up -d {service}` to start services
+- Waits for containers to be ready before proceeding
+- Uses `docker compose exec -T` for non-interactive command execution
 
 **Docker Compose secrets:**
 - `influxdb3-core-admin-token` - Admin token for Core (stored in `~/.env.influxdb3-core-admin-token`)
@@ -193,7 +211,7 @@ The scripts work with your Docker Compose setup:
 
 1. **Pre-release audit:**
    ```bash
-   node audit-cli-documentation.js core v3.2.0
+   node documentation-audit.js core v3.2.0
    ```
 
 2. **Review audit results and update documentation**
@@ -202,9 +220,9 @@ The scripts work with your Docker Compose setup:
 
 ### 🔬 Development Testing
 
-1. **Audit local development:**
+1. **Audit development branch:**
    ```bash
-   node audit-cli-documentation.js enterprise local
+   node documentation-audit.js enterprise main
    ```
 
 2. **Verify new features are documented**
@@ -215,7 +233,7 @@ The scripts work with your Docker Compose setup:
 
 1. **Final audit before release:**
    ```bash
-   node audit-cli-documentation.js both local
+   node documentation-audit.js both v3.3.0
    ```
 
 2. **Apply all pending patches**
@@ -228,21 +246,20 @@ The scripts work with your Docker Compose setup:
 helper-scripts/
 ├── output/
 │   └── cli-audit/
-│       ├── documentation-audit-core-local.md          # CLI documentation audit report
-│       ├── documentation-audit-enterprise-v3.2.0.md  # CLI documentation audit report
-│       ├── parsed-cli-core-local.md                   # Parsed CLI structure
-│       ├── parsed-cli-enterprise-v3.2.0.md           # Parsed CLI structure  
+│       ├── documentation-audit-core-main.md           # CLI documentation audit report
+│       ├── documentation-audit-enterprise-v3.2.0.md   # CLI documentation audit report
+│       ├── influxdb-clone/                            # Working copy of source code
 │       └── patches/
 │           ├── core/                                  # Generated patches for Core
-│           │   ├── influxdb3-cli-patch-001.md
-│           │   └── influxdb3-cli-patch-002.md
+│           │   ├── query.md
+│           │   └── write.md
 │           └── enterprise/                            # Generated patches for Enterprise
-│               ├── influxdb3-cli-patch-001.md
-│               └── influxdb3-cli-patch-002.md
+│               ├── backup.md
+│               └── restore.md
 └── influxdb3-monolith/
     ├── README.md                            # This file
     ├── setup-auth-tokens.sh                 # Auth setup
-    ├── audit-cli-documentation.js           # CLI documentation audit
+    ├── documentation-audit.js               # CLI documentation audit (source code-based)
     └── apply-cli-patches.js                 # CLI documentation patches
 ```
 
@@ -252,11 +269,20 @@ helper-scripts/
 
 **Container not running:**
 ```bash
-# Check status
+# Scripts now handle this automatically, but you can manually check:
 docker compose ps
 
-# Start specific service
-docker compose up -d influxdb3-core
+# Or manually start
+docker compose up -d influxdb3-core influxdb3-enterprise
+```
+
+**Source code access issues:**
+```bash
+# Check if the source repository exists
+ls /Users/ja/Documents/github/influxdata/influxdb
+
+# Verify git access
+cd /Users/ja/Documents/github/influxdata/influxdb && git status
 ```
 
 **Authentication failures:**
@@ -290,7 +316,7 @@ DEBUG=1 node audit-cli-documentation.js core local
 - name: Audit CLI Documentation
   run: |
     cd helper-scripts/influxdb3-monolith
-    node audit-cli-documentation.js core ${{ env.VERSION }}
+    node documentation-audit.js core ${{ env.VERSION }}
     
 - name: Upload CLI Audit Results
   uses: actions/upload-artifact@v3
@@ -306,7 +332,7 @@ DEBUG=1 node audit-cli-documentation.js core local
     name: CLI Documentation Audit
     command: |
       cd helper-scripts/influxdb3-monolith
-      node audit-cli-documentation.js enterprise v3.2.0
+      node documentation-audit.js enterprise v3.2.0 --categories=CLI_REFERENCE
       
 - store_artifacts:
     path: helper-scripts/output/cli-audit/
