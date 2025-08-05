@@ -291,7 +291,7 @@ paths:
                   description: The database to query from.
                 rp:
                   description: |  
-                    The retention policy to query data from. For more information, see [InfluxQL DBRP naming convention](/influxdb3/cloud-serverless/admin/databases/create/#influxql-dbrp-naming-convention).
+                    The retention policy to query data from. 
                   type: string
                 q:
                   description: Defines the InfluxQL query to run.
