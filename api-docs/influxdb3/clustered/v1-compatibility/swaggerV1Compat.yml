@@ -291,7 +291,29 @@ paths:
                   description: Database to query.
                 rp:
                   description: |
-                    The retention policy to query data from. For more information, see [InfluxQL DBRP naming convention](/influxdb3/clustered/admin/databases/create/#influxql-dbrp-naming-convention).
+                    The retention policy name for InfluxQL compatibility
+
+                    Optional parameter that, when combined with the db parameter, forms the complete database name to query. In InfluxDB Clustered, databases can be named using the
+                    database_name/retention_policy_name convention for InfluxQL compatibility.
+
+                    When a request specifies both `db` and `rp`, InfluxDB Clustered combines them as `db/rp` to target the database--for example:
+
+                    - If `db=mydb` and `rp=autogen`, the query targets the database named `mydb/autogen`
+                    - If only `db=mydb` is provided (no `rp`), the query targets the database named `mydb`
+
+                    Unlike InfluxDB v1 and Cloud Serverless, InfluxDB Clustered does not use DBRP mappings or separate retention policy objects. This parameter exists solely for v1 API
+                    compatibility and database naming conventions.
+
+                    Note: The retention policy name does not control data retention in InfluxDB Clustered. Data retention is determined by the database's _retention period_ setting.
+
+                    ### Related
+
+                    - [Use the v1 query API and InfluxQL to query data in InfluxDB Clustered](/influxdb3/clustered/query-data/execute-queries/influxdb-v1-api/)
+                    - [Use the InfluxDB v1 API with InfluxDB Clustered](/influxdb3/clustered/guides/api-compatibility/v1/)
+                    - [Manage databases in InfluxDB Clustered](/influxdb3/clustered/admin/databases/)
+                    - [InfluxQL DBRP naming convention in InfluxDB Clustered](/influxdb3/clustered/admin/databases/create/#influxql-dbrp-naming-convention)
+                    - [Migrate data from InfluxDB v1 to InfluxDB Clustered](/influxdb3/clustered/guides/migrate-data/migrate-1x-to-clustered/)
+        ```
                   type: string  
                 q:
                   description: Defines the InfluxQL query to run.
