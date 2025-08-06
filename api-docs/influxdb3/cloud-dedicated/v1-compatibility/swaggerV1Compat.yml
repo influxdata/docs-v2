@@ -205,7 +205,26 @@ paths:
           name: rp
           schema:
             type: string
-          description: Retention policy name.
+          description: |
+            The retention policy name for InfluxQL compatibility
+
+            Optional parameter that, when combined with the db parameter, forms the complete database name to query. In InfluxDB Cloud Dedicated, databases can be named using the
+            database_name/retention_policy_name convention for InfluxQL compatibility.
+
+            When a request specifies both `db` and `rp`, Cloud Dedicated combines them as `db/rp` to target the database--for example:
+
+            - If `db=mydb` and `rp=autogen`, the query targets the database named `mydb/autogen`
+            - If only `db=mydb` is provided (no `rp`), the query targets the database named `mydb`
+
+            Unlike InfluxDB v1 and Cloud Serverless, Cloud Dedicated does not use DBRP mappings or separate retention policy objects. This parameter exists solely for v1 API
+            compatibility and database naming conventions.
+
+            _Note: The retention policy name does not control data retention in Cloud Dedicated. Data retention is determined by the database's **retention period** setting._
+            
+            ### Related
+
+            - [InfluxQL DBRP naming convention](/influxdb3/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention)
+            - [InfluxQL data retention policy mapping differences](/influxdb3/cloud-serverless/guides/prototype-evaluation/#influxql-data-retention-policy-mapping-differences)
         - name: epoch
           description: |
             Formats timestamps as unix (epoch) timestamps with the specified precision
