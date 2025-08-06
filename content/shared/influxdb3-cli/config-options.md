@@ -1515,6 +1515,7 @@ Specifies how long to wait for a running ingestor during startup.
 
 ### Resource Limits
 
+
 - [num-cores](#num-cores)
 - [num-database-limit](#num-database-limit)
 - [num-table-limit](#num-table-limit)
@@ -1522,7 +1523,18 @@ Specifies how long to wait for a running ingestor during startup.
 
 #### num-cores
 
-Limits the number of CPU cores that InfluxDB Enterprise can use.
+Limits the number of CPU cores that the InfluxDB 3 Enterprise process can use when running on systems where resources are shared.
+When specified, InfluxDB automatically assigns the number of DataFusion threads and IO threads based on the core count.
+
+**Thread assignment logic:**
+- **1-2 cores**: 1 IO thread, 1 DataFusion thread
+- **3 cores**: 1 IO thread, 2 DataFusion threads  
+- **4+ cores**: 2 IO threads, (n-2) DataFusion threads
+
+**Constraints:**
+- Must be at least 2
+- Cannot exceed the number of cores available on the system
+- Total thread count from other thread options cannot exceed the `num-cores` value
 
 | influxdb3 serve option | Environment variable              |
 | :--------------------- | :-------------------------------- |
