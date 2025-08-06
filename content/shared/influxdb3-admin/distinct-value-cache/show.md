@@ -67,3 +67,44 @@ In the examples above, replace the following:
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
   your {{< product-name >}} {{% show-in "enterprise" %}}admin {{% /show-in %}}
   authentication token
+
+## Use the HTTP API
+
+To use the HTTP API to query and output cache information from the system table, send a `GET` or `POST` request to the `/api/v3/query_sql` endpoint.
+
+{{% api-endpoint method="GET" endpoint="/api/v3/query_sql" api-ref="/influxdb3/version/api/v3/#operation/GetExecuteQuerySQL" %}}
+
+{{% api-endpoint method="POST" endpoint="/api/v3/query_sql" api-ref="/influxdb3/version/api/v3/#operation/PostExecuteQuerySQL" %}}
+
+### Query all caches
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
+
+```bash
+curl -X POST "https://localhost:8181/api/v3/query_sql" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --json '{
+    "db": "DATABASE_NAME",
+    "q": "SELECT * FROM system.distinct_caches",
+    "format": "json"
+  }'
+ ```
+
+{{% /code-placeholders %}}
+
+## Query specific cache details
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN|CACHE_NAME" %}}
+
+```bash
+curl -X POST "https://localhost:8181/api/v3/query_sql" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --json '{
+    "db": "DATABASE_NAME",
+    "q": "SELECT * FROM system.distinct_caches WHERE name = '\''CACHE_NAME'\''",
+    "format": "json"
+  }'
+```
+
+{{% /code-placeholders %}}
+
