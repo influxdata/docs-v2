@@ -27,9 +27,9 @@ influxdb3 serve \
 <!--pytest.mark.skip-->
 
 ```sh
-{{% show-in "enterprise" %}}export INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=example@email.com{{% /show-in %}}
-{{% show-in "enterprise" %}}export INFLUXDB3_ENTERPRISE_CLUSTER_ID=cluster0{{% /show-in %}}
-export INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node
+{{% show-in "enterprise" %}}export INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=example@email.com
+export INFLUXDB3_ENTERPRISE_CLUSTER_ID=cluster0
+{{% /show-in %}}export INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node
 export INFLUXDB3_OBJECT_STORE=file
 export INFLUXDB3_DB_DIR=~/.influxdb3
 export LOG_FILTER=info
