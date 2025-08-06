@@ -186,7 +186,32 @@ paths:
           schema:
             type: string
           required: true
-          description: The database to query from.
+          description: |
+              The database name for InfluxQL queries
+
+              Required parameter that specifies the database to query via DBRP (Database Retention Policy) mapping. In Cloud Serverless, this parameter is used together with DBRP
+              mappings to identify which bucket to query.
+
+              The `db` parameter (optionally combined with `rp`) must have an existing DBRP mapping that points to a bucket. Without a valid DBRP mapping, queries will fail with an
+              authorization error.
+
+              **DBRP mapping requirements:**
+              - A DBRP mapping must exist before querying
+              - Mappings can be created automatically when writing data with the v1 API (if your token has permissions)
+              - Mappings can be created manually using the InfluxDB CLI or API
+
+              ### Examples
+              - `db=mydb` - uses the default DBRP mapping for `mydb`
+              - `db=mydb` with `rp=weekly` - uses the DBRP mapping for `mydb/weekly`
+
+              _Note: Unlike the v1 `/write` endpoint which can auto-create buckets and mappings, the `/query` endpoint requires pre-existing DBRP mappings. The actual data is stored in and
+              queried from the bucket that the DBRP mapping points to._
+
+              ### Related
+
+              - [Use the InfluxDB v1 query API and InfluxQL in Cloud Serverless](/influxdb3/cloud-serverless/query-data/execute-queries/v1-http/)
+              - [Map v1 databases and retention policies to buckets in Cloud Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets)
+              - [Migrate from InfluxDB 1.x to Cloud Serverless](/influxdb3/cloud-serverless/guides/migrate-data/migrate-1x-to-serverless/)
         - in: query
           name: pretty
           description: |
