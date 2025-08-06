@@ -323,7 +323,29 @@ paths:
               properties:
                 db:
                   type: string
-                  description: The database to query from.
+                  description: |
+                    The database name for InfluxQL queries.
+
+                    Required parameter that specifies the database to query.
+                    In InfluxDB Cloud Dedicated, this can be either:
+                    - A simple database name (for example, `mydb`)
+                    - The database portion of a `database_name/retention_policy_name` naming convention (used together with the `rp` parameter)
+
+                    When used alone, `db` specifies the complete database name to query. When used with the `rp` parameter, they combine to form the full database name as `db/rp`--for example, if `db=mydb` and `rp=autogen`, the query targets the database named `mydb/autogen`.
+
+                    Unlike InfluxDB Cloud Serverless, Cloud Dedicated does not use DBRP mappings. The database name directly corresponds to an existing database in your Cloud Dedicated cluster.
+
+                    Examples:
+                    - `db=mydb` - queries the database named `mydb`
+                    - `db=mydb` with `rp=autogen` - queries the database named `mydb/autogen`
+
+                    _Note: The specified database must exist in your Cloud Dedicated cluster. Queries will fail if the database does not exist._
+
+                    ### Related
+
+                    - [InfluxQL DBRP naming convention](/influxdb3/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention)
+                    - [Migrate data from InfluxDB 1.x to Cloud Dedicated](/influxdb3/cloud-dedicated/guides/migrate-data/migrate-1x-to-cloud-dedicated/)
+                    - [InfluxQL data retention policy mapping differences between InfluxDB Cloud Dedicated and Cloud Serverless](/influxdb3/cloud-serverless/guides/prototype-evaluation/#influxql-data-retention-policy-mapping-differences)
                 rp:
                   description: |
                     The retention policy name for InfluxQL compatibility
