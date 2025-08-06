@@ -66,7 +66,22 @@ paths:
           schema:
             type: string
           required: true
-          description: Database to write to. If none exists, InfluxDB creates a database with a default 3-day retention policy.
+          description: |
+            The database to write to.
+
+            **Database targeting:** In Cloud Dedicated, databases can be named using the `database_name/retention_policy_name` convention for InfluxQL compatibility. Cloud Dedicated does not use DBRP mappings. The db and rp parameters are used to construct the target database name following this naming convention.
+
+            **Auto-creation behavior:** Cloud Dedicated requires databases to be created before writing data. The v1 `/write` API does not automatically create databases. If the specified
+            database does not exist, the write request will fail.
+
+            Authentication: Requires a valid API token with _write_ permissions for the target database.
+
+            ### Related
+
+            - [Write data to InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/write-data/)
+            - [Manage databases in InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/admin/databases/)
+            - [InfluxQL DBRP naming convention](/influxdb3/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention)
+            - [InfluxQL data retention policy mapping differences](/influxdb3/cloud-serverless/guides/prototype-evaluation/#influxql-data-retention-policy-mapping-differences)
         - in: query
           name: rp
           schema:
