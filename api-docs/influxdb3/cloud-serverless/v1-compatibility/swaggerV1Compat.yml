@@ -65,7 +65,7 @@ paths:
           schema:
             type: string
           required: true
-          description: Bucket to write to. If none exists, InfluxDB creates a bucket with a default 3-day retention policy.
+          description: Database to write to. If none exists, InfluxDB creates a database with a default 3-day retention policy.
         - in: query
           name: rp
           schema:
@@ -136,6 +136,188 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
   /query:
+    get:
+      operationId: GetQueryV1
+      tags:
+        - Query
+      summary: Query using the InfluxDB v1 HTTP API
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - $ref: '#/components/parameters/AuthUserV1'
+        - $ref: '#/components/parameters/AuthPassV1'
+        - in: header
+          name: Accept
+          schema:
+            type: string
+            description: Specifies how query results should be encoded in the response. **Note:** With `application/csv`, query results include epoch timestamps instead of RFC3339 timestamps.
+            default: application/json
+            enum:
+              - application/json
+              - application/csv
+              - text/csv
+              - application/x-msgpack
+        - in: header
+          name: Accept-Encoding
+          description: The Accept-Encoding request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand.
+          schema:
+            type: string
+            description: Specifies that the query response in the body should be encoded with gzip or not encoded with identity.
+            default: identity
+            enum:
+              - gzip
+              - identity
+        - in: query
+          name: chunked
+          description: |
+            If true, the response is divided into chunks of size `chunk_size`.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: chunk_size
+          description: |
+            The number of records that will go into a chunk.
+            This parameter is only used if `chunked=true`.
+          schema:
+            type: integer
+            default: 10000
+        - in: query
+          name: db
+          schema:
+            type: string
+          required: true
+          description: |
+              The database name for InfluxQL queries
+
+              Required parameter that specifies the database to query via DBRP (Database Retention Policy) mapping. In Cloud Serverless, this parameter is used together with DBRP
+              mappings to identify which bucket to query.
+
+              The `db` parameter (optionally combined with `rp`) must have an existing DBRP mapping that points to a bucket. Without a valid DBRP mapping, queries will fail with an
+              authorization error.
+
+              **DBRP mapping requirements:**
+              - A DBRP mapping must exist before querying
+              - Mappings can be created automatically when writing data with the v1 API (if your token has permissions)
+              - Mappings can be created manually using the InfluxDB CLI or API
+
+              ### Examples
+              - `db=mydb` - uses the default DBRP mapping for `mydb`
+              - `db=mydb` with `rp=weekly` - uses the DBRP mapping for `mydb/weekly`
+
+              _Note: Unlike the v1 `/write` endpoint which can auto-create buckets and mappings, the `/query` endpoint requires pre-existing DBRP mappings. The actual data is stored in and
+              queried from the bucket that the DBRP mapping points to._
+
+              ### Related
+
+              - [Use the InfluxDB v1 query API and InfluxQL in Cloud Serverless](/influxdb3/cloud-serverless/query-data/execute-queries/v1-http/)
+              - [Map v1 databases and retention policies to buckets in Cloud Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets)
+              - [Migrate from InfluxDB 1.x to Cloud Serverless](/influxdb3/cloud-serverless/guides/migrate-data/migrate-1x-to-serverless/)
+        - in: query
+          name: pretty
+          description: |
+            If true, the JSON response is formatted in a human-readable format.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: q
+          description: Defines the InfluxQL query to run.
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: rp
+          schema:
+            type: string
+          description: |
+              The retention policy name for InfluxQL queries
+
+              Optional parameter that specifies the retention policy to use when querying data with InfluxQL. In Cloud Serverless, this parameter works with DBRP (Database Retention
+              Policy) mappings to identify the target bucket.
+
+              When provided together with the `db` parameter, Cloud Serverless uses the DBRP mapping to determine which bucket to query. The combination of `db` and `rp` must have an
+              existing DBRP mapping that points to a bucket. If no `rp` is specified, Cloud Serverless uses the default retention policy mapping for the database.
+
+              Requirements: A DBRP mapping must exist for the db/rp combination before you can query data. DBRP mappings can be created:
+              - Automatically when writing data with the v1 API (if your token has sufficient permissions)
+              - Manually using the InfluxDB CLI or API
+
+              Example: If `db=mydb` and `rp=weekly`, the query uses the DBRP mapping for `mydb/weekly` to determine which bucket to query.
+
+              _Note: The retention policy name is used only for DBRP mapping. Actual data retention is controlled by the target bucket's retention period setting, not by the retention
+              policy name._
+
+              ### Related
+
+              - [Use the InfluxDB v1 query API and InfluxQL in Cloud Serverless](/influxdb3/cloud-serverless/query-data/execute-queries/v1-http/)
+              - [Map v1 databases and retention policies to buckets in Cloud Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets)
+              - [Migrate from InfluxDB 1.x to Cloud Serverless](/influxdb3/cloud-serverless/guides/migrate-data/migrate-1x-to-serverless/)
+        - name: epoch
+          description: |
+            Formats timestamps as unix (epoch) timestamps with the specified precision
+            instead of RFC3339 timestamps with nanosecond precision.
+          in: query
+          schema:
+            type: string
+            enum:
+              - h
+              - m
+              - s
+              - ms
+              - u
+              - µ
+              - ns
+      responses:
+        '200':
+          description: Query results
+          headers:
+            Content-Encoding:
+              description: The Content-Encoding entity header is used to compress the media-type.  When present, its value indicates which encodings were applied to the entity-body
+              schema:
+                type: string
+                description: Specifies that the response in the body is encoded with gzip or not encoded with identity.
+                default: identity
+                enum:
+                  - gzip
+                  - identity
+            Trace-Id:
+              description: The Trace-Id header reports the request's trace ID, if one was generated.
+              schema:
+                type: string
+                description: Specifies the request's trace ID.
+          content:
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/InfluxQLCSVResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/InfluxQLCSVResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfluxQLResponse'
+              examples:
+                influxql-chunk_size_2:
+                  value: |
+                    {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag"],"values":[["2016-05-19T18:37:55Z",90,"1"],["2016-05-19T18:37:56Z",90,"1"]],"partial":true}],"partial":true}]}
+                    {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag"],"values":[["2016-05-19T18:37:57Z",90,"1"],["2016-05-19T18:37:58Z",90,"1"]]}]}]}
+            application/x-msgpack:
+              schema:
+                type: string
+                format: binary
+        '429':
+          description: Token is temporarily over quota. The Retry-After header describes when to try the read again.
+          headers:
+            Retry-After:
+              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
+              schema:
+                type: integer
+                format: int32
+        default:
+          description: Error processing query
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       operationId: PostQueryV1
       tags:
@@ -147,6 +329,87 @@ paths:
           text/plain:
             schema:
               type: string
+          application/json:
+            schema:
+              type: object
+              properties:
+                db:
+                  type: string
+                  description: |
+                      The database name for InfluxQL queries
+
+                      Required parameter that specifies the database to query via DBRP (Database Retention Policy) mapping. In Cloud Serverless, this parameter is used together with DBRP
+                      mappings to identify which bucket to query.
+
+                      The `db` parameter (optionally combined with `rp`) must have an existing DBRP mapping that points to a bucket. Without a valid DBRP mapping, queries will fail with an
+                      authorization error.
+
+                      **DBRP mapping requirements:**
+                      - A DBRP mapping must exist before querying
+                      - Mappings can be created automatically when writing data with the v1 API (if your token has permissions)
+                      - Mappings can be created manually using the InfluxDB CLI or API
+
+                      ### Examples
+                      - `db=mydb` - uses the default DBRP mapping for `mydb`
+                      - `db=mydb` with `rp=weekly` - uses the DBRP mapping for `mydb/weekly`
+
+                      _Note: Unlike the v1 `/write` endpoint which can auto-create buckets and mappings, the `/query` endpoint requires pre-existing DBRP mappings. The actual data is stored in and
+                      queried from the bucket that the DBRP mapping points to._
+
+                      ### Related
+
+                      - [Execute InfluxQL queries using the v1 API](/influxdb3/cloud-serverless/query-data/execute-queries/influxql/api/v1-http/)
+                      - [Map v1 databases and retention policies to buckets in Cloud Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets)
+                      - [Manage DBRP mappings in Cloud Serverless](/influxdb3/cloud-serverless/admin/dbrp/)
+                rp:
+                  description: |
+                      The retention policy name for InfluxQL queries
+
+                      Optional parameter that specifies the retention policy to use when querying data with InfluxQL. In Cloud Serverless, this parameter works with DBRP (Database Retention  
+                      Policy) mappings to identify the target bucket.
+
+                      When provided together with the `db` parameter, Cloud Serverless uses the DBRP mapping to determine which bucket to query. The combination of `db` and `rp` must have an  
+                      existing DBRP mapping that points to a bucket. If no `rp` is specified, Cloud Serverless uses the default retention policy mapping for the database.
+
+                      Requirements: A DBRP mapping must exist for the db/rp combination before you can query data. DBRP mappings can be created:
+                      - Automatically when writing data with the v1 API (if your token has sufficient permissions)
+                      - Manually using the InfluxDB CLI or API
+
+                      Example: If `db=mydb` and `rp=weekly`, the query uses the DBRP mapping for `mydb/weekly` to determine which bucket to query.
+
+                      _Note: The retention policy name is used only for DBRP mapping. Actual data retention is controlled by the target bucket's retention period setting, not by the retention policy name._
+
+                      ### Related
+
+                       - [Execute InfluxQL queries using the v1 API](/influxdb3/cloud-serverless/query-data/execute-queries/influxql/api/v1-http/)
+                       - [Map v1 databases and retention policies to buckets in Cloud Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets)
+                       - [Manage DBRP mappings in Cloud Serverless](/influxdb3/cloud-serverless/admin/dbrp/)
+                  type: string
+                q:
+                  description: Defines the InfluxQL query to run.
+                  type: string
+                chunked:
+                  description: |
+                    If true, the response is divided into chunks of size `chunk_size`.
+                  type: boolean
+                chunk_size:
+                  description: |
+                    The number of records that will go into a chunk.
+                    This parameter is only used if `chunked=true`.
+                  type: integer
+                  default: 10000
+                epoch:
+                  description: |
+                    A unix timestamp precision.
+                  type: string
+                  enum:
+                    - h
+                    - m
+                    - s
+                    - ms
+                    - u
+                    - µ
+                    - ns
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - $ref: '#/components/parameters/AuthUserV1'
