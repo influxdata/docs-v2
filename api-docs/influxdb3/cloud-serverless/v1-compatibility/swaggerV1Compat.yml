@@ -229,7 +229,29 @@ paths:
           name: rp
           schema:
             type: string
-          description: Retention policy name.
+          description: |
+              The retention policy name for InfluxQL queries
+
+              Optional parameter that specifies the retention policy to use when querying data with InfluxQL. In Cloud Serverless, this parameter works with DBRP (Database Retention
+              Policy) mappings to identify the target bucket.
+
+              When provided together with the `db` parameter, Cloud Serverless uses the DBRP mapping to determine which bucket to query. The combination of `db` and `rp` must have an
+              existing DBRP mapping that points to a bucket. If no `rp` is specified, Cloud Serverless uses the default retention policy mapping for the database.
+
+              Requirements: A DBRP mapping must exist for the db/rp combination before you can query data. DBRP mappings can be created:
+              - Automatically when writing data with the v1 API (if your token has sufficient permissions)
+              - Manually using the InfluxDB CLI or API
+
+              Example: If `db=mydb` and `rp=weekly`, the query uses the DBRP mapping for `mydb/weekly` to determine which bucket to query.
+
+              _Note: The retention policy name is used only for DBRP mapping. Actual data retention is controlled by the target bucket's retention period setting, not by the retention
+              policy name._
+
+              ### Related
+
+              - [Use the InfluxDB v1 query API and InfluxQL in Cloud Serverless](/influxdb3/cloud-serverless/query-data/execute-queries/v1-http/)
+              - [Map v1 databases and retention policies to buckets in Cloud Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets)
+              - [Migrate from InfluxDB 1.x to Cloud Serverless](/influxdb3/cloud-serverless/guides/migrate-data/migrate-1x-to-serverless/)
         - name: epoch
           description: |
             Formats timestamps as unix (epoch) timestamps with the specified precision
