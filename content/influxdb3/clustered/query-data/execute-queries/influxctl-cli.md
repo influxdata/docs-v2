@@ -12,6 +12,7 @@ influxdb3/clustered/tags: [query, sql, influxql, influxctl, CLI]
 related:
   - /influxdb3/clustered/reference/cli/influxctl/query/
   - /influxdb3/clustered/get-started/query/#execute-an-sql-query, Get started querying data
+  - /influxdb3/clustered/query-data/troubleshoot-and-optimize/query-timeout-best-practices/, Query timeout best practices
   - /influxdb3/clustered/reference/sql/
   - /influxdb3/clustered/reference/influxql/
 list_code_example: |
@@ -141,6 +142,35 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Name of the database to query
 
+## Query timeouts
+
+The [`influxctl --timeout` global flag](/influxdb3/clustered/reference/cli/influxctl/) sets the maximum duration for API calls, including query requests.
+If a query takes longer than the specified timeout, the operation will be canceled.
+
+### Timeout examples
+
+Use different timeout values based on your query type:
+
+{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
+```sh
+# Shorter timeout for testing dashboard queries (10 seconds)
+influxctl query \
+  --timeout 10s \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  "SELECT * FROM sensors WHERE time >= now() - INTERVAL '1 hour' LIMIT 100"
+
+# Longer timeout for analytical queries (5 minutes)
+influxctl query \
+  --timeout 300s \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  "SELECT room, AVG(temperature) FROM sensors WHERE time >= now() - INTERVAL '30 days' GROUP BY room"
+```
+{{% /code-placeholders %}}
+
+For guidance on selecting appropriate timeout values, see [Query timeout best practices](/influxdb3/clustered/query-data/troubleshoot-and-optimize/query-timeout-best-practices/).
+
 ## Output format
 
 The `influxctl query` command supports the following output formats:
@@ -241,7 +271,7 @@ influxctl query \
 {{% /influxdb/custom-timestamps %}}
 
 {{< expand-wrapper >}}
-{{% expand "View example results with unix nanosecond timestamps" %}}
+{{% expand "View example results with Unix nanosecond timestamps" %}}
 {{% influxdb/custom-timestamps %}}
 ```
 +-------+--------+---------+------+---------------------+
