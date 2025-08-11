@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.anthropic.com/claude/mcp/config.json",
+  "description": "InfluxData documentation assistance via Kapa.ai MCP server - Project IDs loaded from config/projects.json",
+  "mcpServers": {
+    "docs": {
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "${DOCS_KAPA_MCP_SERVER_PATH}/docker-compose.yml",
+        "--profile",
+        "mcp",
+        "run",
+        "--rm",
+        "--service-ports",
+        "docs-kapa-mcp-server"
+      ],
+      "env": {
+        "KAPA_EXTERNAL_API_KEY_FILE": "${KAPA_EXTERNAL_API_KEY_FILE:-$HOME/.env.kapa-external-api-key}",
+        "KAPA_MODE": "external-only",
+        "MCP_LOG_LEVEL": "${MCP_LOG_LEVEL:-info}",
+        "NODE_ENV": "${NODE_ENV:-production}"
+      }
+    }
+  }
+}
