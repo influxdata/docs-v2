@@ -11,7 +11,7 @@ menu:
   influxdb3_clustered:
     name: Troubleshoot issues
     parent: Write data
-influxdb3/clustered/tags: [write, line protocol, errors]
+influxdb3/clustered/tags: [write, line protocol, errors, partial writes]
 related:
   - /influxdb3/clustered/get-started/write/
   - /influxdb3/clustered/reference/syntax/line-protocol/

@@ -10,7 +10,7 @@ menu:
   influxdb3_cloud_serverless:
     name: Troubleshoot issues
     parent: Write data
-influxdb3/cloud-serverless/tags: [write, line protocol, errors]
+influxdb3/cloud-serverless/tags: [write, line protocol, errors, partial writes]
 related:
   - /influxdb3/cloud-serverless/get-started/write/
   - /influxdb3/cloud-serverless/reference/syntax/line-protocol/
