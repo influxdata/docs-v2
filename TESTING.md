@@ -184,6 +184,31 @@ link-checker check public/path/to/file.html
 link-checker config
 ```
 
+### Link Resolution Behavior
+
+The link-checker automatically handles relative link resolution based on the input type:
+
+**Local Files → Local Resolution**
+```bash
+# When checking local files, relative links resolve to the local filesystem
+link-checker check public/influxdb3/core/admin/scale-cluster/index.html
+# Relative link /influxdb3/clustered/tags/kubernetes/ becomes:
+# → /path/to/public/influxdb3/clustered/tags/kubernetes/index.html
+```
+
+**URLs → Production Resolution**
+```bash
+# When checking URLs, relative links resolve to the production site
+link-checker check https://docs.influxdata.com/influxdb3/core/admin/scale-cluster/
+# Relative link /influxdb3/clustered/tags/kubernetes/ becomes:
+# → https://docs.influxdata.com/influxdb3/clustered/tags/kubernetes/
+```
+
+**Why This Matters**
+- **Testing new content**: Tag pages generated locally will be found when testing local files
+- **Production validation**: Production URLs validate against the live site
+- **No false positives**: New content won't appear broken when testing locally before deployment
+
 ### Content Mapping Workflows
 
 #### Scenario 1: Map and check InfluxDB 3 Core content
