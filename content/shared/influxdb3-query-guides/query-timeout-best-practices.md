@@ -33,6 +33,12 @@ Optimal timeouts are:
 InfluxDB 3 uses round-robin query routing to balance load across multiple queriers.
 This creates a "checkout line" effect that influences timeout strategy.
 
+> [!Note]
+> #### Concurrent query execution 
+>
+> InfluxDB 3 supports concurrent query execution, which helps minimize the impact of intensive or inefficient queries.
+> However, you should still use appropriate timeouts and optimize your queries for best performance.
+
 ### The checkout line analogy
 
 Consider a grocery store with multiple checkout lines:
