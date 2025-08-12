@@ -30,40 +30,45 @@ Optimal timeouts are:
 
 ## How query routing affects timeout strategy
 
-InfluxDB 3 uses round-robin or load-balanced query routing across multiple replicas or nodes.
+InfluxDB 3 uses round-robin query routing to balance load across multiple queriers.
 This creates a "checkout line" effect that influences timeout strategy.
 
 ### The checkout line analogy
 
 Consider a grocery store with multiple checkout lines:
-- Customers (queries) are distributed across lines (replicas/nodes)
+- Customers (queries) are distributed across lines (queriers)
 - A slow customer (long-running query) can block others in the same line
-- More checkout lines (replicas) provide more alternatives when retrying
+- More checkout lines (queriers) provide more alternatives when retrying
+
+If one querier is unhealthy or has been hijacked by a "noisy neighbor" query (excessively resource hungry), giving up sooner may save time--it's like jumping to a cashier with no customers in line. However, if all queriers are overloaded, then short retries may exacerbate the problem--you wouldn't jump to the end of another line if the cashier is already starting to scan your items.
 
 ### Noisy neighbor effects
 
 In distributed systems:
-- A single long-running query can impact other queries on the same node
-- Shorter timeouts with retries can help queries find less congested nodes
-- The effectiveness depends on the number of available replicas
+- A single long-running query can impact other queries on the same querier
+- Shorter timeouts with retries can help queries find less congested queriers
+- The effectiveness depends on the number of available queriers
 
 ### When shorter timeouts help
 
-- **Multiple replicas available**: Retries can find less congested nodes
-- **Uneven load distribution**: Some nodes may be significantly less busy
+- **Multiple queriers available**: Retries can find less congested queriers
+- **Uneven load distribution**: Some queriers may be significantly less busy
 - **Temporary congestion**: Brief spikes in query load or resource usage
 
 ### When shorter timeouts hurt
 
-- **Few replicas**: Limited alternatives for retries
-- **System-wide congestion**: All nodes are equally busy
+- **Few queriers**: Limited alternatives for retries
+- **System-wide congestion**: All queriers are equally busy
 - **Expensive query planning**: High overhead for query preparation
 
 ## Timeout configuration best practices
 
 ### Make timeouts adjustable
 
-Configure timeouts that can be modified without service restarts using environment variables, configuration files, runtime APIs, or per-query overrides.
+Configure timeouts that can be modified without service restarts using environment variables, configuration files, runtime APIs, or per-query overrides. Design your client applications to easily adjust timeouts on the fly, allowing you to respond quickly to performance changes and test different timeout strategies without code changes.
+
+See the [InfluxDB 3 client library examples](#influxdb-3-client-library-examples)
+for how to configure timeouts in Python.
 
 ### Use tiered timeout strategies
 
@@ -89,6 +94,11 @@ Implement different timeout classes based on query characteristics.
 | Analytical and background | 2 minutes | Reports, batch processing | Complex queries within serverless limits |
 {{% /show-in %}}
 
+{{% show-in "enterprise, core" %}}
+> [!Tip]
+> #### Use caching
+> Where immediate feedback is crucial, consider using [Last Value Cache](/influxdb3/version/admin/manage-last-value-caches/) to speed up queries for recent values and [Distinct Value Cache](/influxdb3/version/admin/manage-distinct-value-caches/) to speed up queries for distinct values.
+{{% /show-in %}}
 
 ### Implement progressive timeout and retry logic
 
@@ -114,6 +124,10 @@ Consider these indicators that timeouts may need adjustment:
 - **Production**: Use shorter timeouts with monitoring
 - **Cost-sensitive**: Use aggressive timeouts and [query optimization](/influxdb3/version/query-data/troubleshoot-and-optimize/optimize-queries/)
 
+### Experimental and ad-hoc queries
+
+When introducing a new query to your application or when issuing ad-hoc queries to a database with many users, your query might be the "noisy neighbor" (the shopping cart overloaded with groceries). By setting a tighter timeout on experimental queries you can reduce the impact on other users.
+
 
 ## InfluxDB 3 client library examples
 
@@ -121,8 +135,7 @@ Consider these indicators that timeouts may need adjustment:
 
 Configure timeouts in the InfluxDB 3 Python client:
 
-{{% code-placeholders "DATABASE_NAME|HOST_URL|AUTH_TOKEN" %}}
-```python
+```python { placeholders="DATABASE_NAME|HOST_URL|AUTH_TOKEN" }
 import influxdb_client_3 as InfluxDBClient3
 
 # Configure different timeout classes (in seconds)
@@ -174,7 +187,6 @@ def query_daily_averages():
         print(f"Analytical query failed: {e}")
         return None
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -240,7 +252,7 @@ result = query_with_retry(
 Track these essential timeout-related metrics:
 
 - **Query duration percentiles**: P50, P95, P99 execution times
-- **Timeout rate**: Percentage of queries that exceed timeout limits
+- **Timeout rate**: Percentage of queries that time out
 - **Error rates**: Timeout errors vs. other failure types
 - **Resource utilization**: CPU and memory usage during query execution
 
@@ -258,21 +270,26 @@ Track these essential timeout-related metrics:
 **Solutions**:
 1. Analyze query performance patterns
 2. [Optimize slow queries](/influxdb3/version/query-data/troubleshoot-and-optimize/optimize-queries/) or increase timeouts appropriately
-3. Scale system resources or add query result caching
+3. Scale system resources
 
 #### Inconsistent query performance
 
 **Symptoms**: Same queries sometimes fast, sometimes timeout
 
 **Common causes**:
-- Uneven load distribution across nodes
+
 - Resource contention from concurrent queries
-- Background maintenance operations
+- Data compaction state (queries may be faster after compaction completes)
 
 **Solutions**:
-1. Implement load balancing or query queuing
-2. Schedule maintenance during off-peak hours
-3. Add query result caching for frequently accessed data
+
+1. Analyze query patterns to identify and optimize slow queries
+2. Implement retry logic with exponential backoff in your client applications
+3. Adjust timeout values based on observed query performance patterns
+{{% show-in "enterprise,core" %}}
+4. Implement [Last Value Cache](/influxdb3/version/admin/manage-last-value-caches/) to speed up queries for recent values
+5. Implement [Distinct Value Cache](/influxdb3/version/admin/manage-distinct-value-caches/) to speed up queries for distinct values
+{{% /show-in %}}
 
 > [!Note]
 > Regular analysis of timeout patterns helps identify optimization opportunities and system scaling needs.
