@@ -127,8 +127,7 @@ When reporting write issues, provide the following information to help InfluxDat
 
 **Capture the complete error response:**
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME" }
 # Example: Capture both successful and failed write attempts
 curl --silent --show-error --write-out "\nHTTP Status: %{http_code}\nResponse Time: %{time_total}s\n" \
   --request POST \
@@ -138,13 +137,11 @@ curl --silent --show-error --write-out "\nHTTP Status: %{http_code}\nResponse Ti
   --data-binary @problematic-data.lp \
   > write-error-response.txt 2>&1
 ```
-{{% /code-placeholders %}}
 
 **Log client-side errors:**
 
 If using a client library, enable debug logging and capture the full exception details:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Python](#)
@@ -153,7 +150,7 @@ If using a client library, enable debug logging and capture the full exception d
 [JavaScript](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```python
+```python { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 import logging
 from influxdb_client_3 import InfluxDBClient3
 
@@ -172,7 +169,7 @@ except Exception as e:
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```go
+```go { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 package main
 
 import (
@@ -207,7 +204,7 @@ func main() {
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```java
+```java { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 import com.influxdb.v3.client.InfluxDBClient;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -232,7 +229,7 @@ public class WriteErrorExample {
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```javascript
+```javascript { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 import { InfluxDBClient } from '@influxdata/influxdb3-client'
 
 const client = new InfluxDBClient({
@@ -251,7 +248,6 @@ try {
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 Replace the following in your code:
 
