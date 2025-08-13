@@ -354,8 +354,8 @@ To install {{% product-name %}} on Linux, do one of the following:
    | grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
    && cat influxdata-archive.key \
    | gpg --dearmor \
-   | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive.gpg > /dev/null \
-   && echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' \
+   | sudo tee /etc/apt/keyrings/influxdata-archive.gpg > /dev/null \
+   && echo 'deb [signed-by=/etc/apt/keyrings/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' \
    | sudo tee /etc/apt/sources.list.d/influxdata.list
    # Install influxdb
    sudo apt-get update && sudo apt-get install influxdb2
