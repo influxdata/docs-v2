@@ -20,6 +20,7 @@ related:
     - /influxdb3/clustered/query-data/sql/
     - /influxdb3/clustered/reference/influxql/
     - /influxdb3/clustered/reference/sql/
+    - /influxdb3/clustered/query-data/troubleshoot-and-optimize/query-timeout-best-practices/
 
 list_code_example: |
     ```py
@@ -234,7 +235,8 @@ from influxdb_client_3 import InfluxDBClient3
 client = InfluxDBClient3(
     host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
-    database='DATABASE_NAME'
+    database='DATABASE_NAME',
+    timeout=60  # Set default timeout to 60 seconds
 )
 ```
 {{% /code-placeholders %}}
@@ -325,7 +327,8 @@ client = InfluxDBClient3(
 # Execute the query and return an Arrow table
 table = client.query(
     query="SELECT * FROM home",
-    language="sql"
+    language="sql",
+    timeout=30  # Override default timeout for simple queries (30 seconds)
 )
 
 print("\n#### View Schema information\n")
@@ -370,7 +373,8 @@ client = InfluxDBClient3(
 # Execute the query and return an Arrow table
 table = client.query(
     query="SELECT * FROM home",
-    language="influxql"
+    language="influxql",
+    timeout=30  # Override default timeout for simple queries (30 seconds)
 )
 
 print("\n#### View Schema information\n")
