@@ -147,7 +147,7 @@ improve query performance as your usage scales.
 
 ### Capture dashboard screenshots
 
-For query performance issues, always capture screenshots of the query dashboard as a first step.
+For query performance issues, always capture screenshots of the Querier Dashboard as a first step.
 
 If you have set up alerts and dashboards for monitoring your cluster, capture
 screenshots of dashboard events for Queriers, Compactors, and Ingesters.
