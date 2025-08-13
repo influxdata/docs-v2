@@ -152,7 +152,7 @@ For query performance issues, always capture screenshots of the Querier Dashboar
 If you have set up alerts and dashboards for monitoring your cluster, capture
 screenshots of dashboard events for Queriers, Compactors, and Ingesters.
 
-On the IOx Querier dashboard, capture screenshots showing:
+On the Querier dashboard, capture screenshots showing:
 
 - **CPU utilization**: Is it running high (close to the limits you set)?
 - **Object Store Traffic/Latency**: Often a major contributor to performance issues
