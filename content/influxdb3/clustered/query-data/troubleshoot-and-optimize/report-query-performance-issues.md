@@ -327,8 +327,10 @@ curl --get "https://{{< influxdb/host >}}/query" \
 
 {{% /code-placeholders %}}
 
-The `EXPLAIN ANALYZE` output can be dense and hard to read.
-Focus on the sections with the highest `elapsed_compute` times, as these indicate performance bottlenecks.
+ ```suggestion
+Include `EXPLAIN ANALYZE` output.
+
+When using the output for troubleshooting performance, focus on the sections with the highest `elapsed_compute` times, as these indicate performance bottlenecks.
 For example, here is extracted timing data from an ANALYZE output showing the most time-consuming operations:
 
 ```text
