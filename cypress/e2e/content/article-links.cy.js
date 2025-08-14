@@ -6,7 +6,7 @@ describe('Article', () => {
         .split(',')
         .filter((s) => s.trim() !== '')
     : [];
-  
+
   // Cache will be checked during test execution at the URL level
 
   // Always use HEAD for downloads to avoid timeouts
@@ -16,7 +16,7 @@ describe('Article', () => {
   before(() => {
     // Initialize the broken links report
     cy.task('initializeBrokenLinksReport');
-    
+
     // Clean up expired cache entries
     cy.task('cleanupCache').then((cleaned) => {
       if (cleaned > 0) {
@@ -34,11 +34,12 @@ describe('Article', () => {
       cy.log(`   • New entries stored: ${stats.stores}`);
       cy.log(`   • Hit rate: ${stats.hitRate}`);
       cy.log(`   • Total validations: ${stats.total}`);
-      
+
       if (stats.total > 0) {
-        const message = stats.hits > 0 
-          ? `✨ Cache optimization saved ${stats.hits} link validations`
-          : '🔄 No cache hits - all links were validated fresh';
+        const message =
+          stats.hits > 0
+            ? `✨ Cache optimization saved ${stats.hits} link validations`
+            : '🔄 No cache hits - all links were validated fresh';
         cy.log(message);
       }
 
@@ -49,7 +50,7 @@ describe('Article', () => {
         cacheMisses: stats.misses,
         totalValidations: stats.total,
         newEntriesStored: stats.stores,
-        cleanups: stats.cleanups
+        cleanups: stats.cleanups,
       });
     });
   });
@@ -94,7 +95,14 @@ describe('Article', () => {
   }
 
   // Helper function for handling failed links
-  function handleFailedLink(url, status, type, redirectChain = '', linkText = '', pageUrl = '') {
+  function handleFailedLink(
+    url,
+    status,
+    type,
+    redirectChain = '',
+    linkText = '',
+    pageUrl = ''
+  ) {
     // Report the broken link
     cy.task('reportBrokenLink', {
       url: url + redirectChain,
@@ -117,9 +125,20 @@ describe('Article', () => {
       if (isCached) {
         cy.log(`✅ Cache hit: ${href}`);
         return cy.task('getLinkCache', href).then((cachedResult) => {
-          if (cachedResult && cachedResult.result && cachedResult.result.status >= 400) {
+          if (
+            cachedResult &&
+            cachedResult.result &&
+            cachedResult.result.status >= 400
+          ) {
             // Cached result shows this link is broken
-            handleFailedLink(href, cachedResult.result.status, cachedResult.result.type || 'cached', '', linkText, pageUrl);
+            handleFailedLink(
+              href,
+              cachedResult.result.status,
+              cachedResult.result.type || 'cached',
+              '',
+              linkText,
+              pageUrl
+            );
           }
           // For successful cached results, just return - no further action needed
         });
@@ -141,63 +160,80 @@ describe('Article', () => {
       retryOnStatusCodeFailure: true, // Retry on 5xx errors
     };
 
-
     if (useHeadForDownloads && isDownloadLink(href)) {
       cy.log(`** Testing download link with HEAD: ${href} **`);
-      return cy.request({
-        method: 'HEAD',
-        url: href,
-        ...requestOptions,
-      }).then((response) => {
-        // Prepare result for caching
-        const result = {
-          status: response.status,
-          type: 'download',
-          timestamp: new Date().toISOString()
-        };
+      return cy
+        .request({
+          method: 'HEAD',
+          url: href,
+          ...requestOptions,
+        })
+        .then((response) => {
+          // Prepare result for caching
+          const result = {
+            status: response.status,
+            type: 'download',
+            timestamp: new Date().toISOString(),
+          };
 
-        // Check final status after following any redirects
-        if (response.status >= 400) {
-          const redirectInfo =
-            response.redirects && response.redirects.length > 0
-              ? ` (redirected to: ${response.redirects.join(' -> ')})`
-              : '';
-          
-          // Cache the failed result
-          cy.task('setLinkCache', { url: href, result });
-          handleFailedLink(href, response.status, 'download', redirectInfo, linkText, pageUrl);
-        } else {
-          // Cache the successful result
-          cy.task('setLinkCache', { url: href, result });
-        }
-      });
+          // Check final status after following any redirects
+          if (response.status >= 400) {
+            const redirectInfo =
+              response.redirects && response.redirects.length > 0
+                ? ` (redirected to: ${response.redirects.join(' -> ')})`
+                : '';
+
+            // Cache the failed result
+            cy.task('setLinkCache', { url: href, result });
+            handleFailedLink(
+              href,
+              response.status,
+              'download',
+              redirectInfo,
+              linkText,
+              pageUrl
+            );
+          } else {
+            // Cache the successful result
+            cy.task('setLinkCache', { url: href, result });
+          }
+        });
     } else {
       cy.log(`** Testing link: ${href} **`);
-      return cy.request({
-        url: href,
-        ...requestOptions,
-      }).then((response) => {
-        // Prepare result for caching
-        const result = {
-          status: response.status,
-          type: 'regular',
-          timestamp: new Date().toISOString()
-        };
+      return cy
+        .request({
+          url: href,
+          ...requestOptions,
+        })
+        .then((response) => {
+          // Prepare result for caching
+          const result = {
+            status: response.status,
+            type: 'regular',
+            timestamp: new Date().toISOString(),
+          };
 
-        if (response.status >= 400) {
-          const redirectInfo =
-            response.redirects && response.redirects.length > 0
-              ? ` (redirected to: ${response.redirects.join(' -> ')})`
-              : '';
-          
-          // Cache the failed result
-          cy.task('setLinkCache', { url: href, result });
-          handleFailedLink(href, response.status, 'regular', redirectInfo, linkText, pageUrl);
-        } else {
-          // Cache the successful result
-          cy.task('setLinkCache', { url: href, result });
-        }
-      });
+          if (response.status >= 400) {
+            const redirectInfo =
+              response.redirects && response.redirects.length > 0
+                ? ` (redirected to: ${response.redirects.join(' -> ')})`
+                : '';
+
+            // Cache the failed result
+            cy.task('setLinkCache', { url: href, result });
+            handleFailedLink(
+              href,
+              response.status,
+              'regular',
+              redirectInfo,
+              linkText,
+              pageUrl
+            );
+          } else {
+            // Cache the successful result
+            cy.task('setLinkCache', { url: href, result });
+          }
+        });
     }
   }
 
@@ -206,14 +242,15 @@ describe('Article', () => {
     cy.log(`📋 Test Configuration:`);
     cy.log(`   • Test subjects: ${subjects.length}`);
     cy.log(`   • Cache: URL-level caching with 30-day TTL`);
-    cy.log(`   • Link validation: Internal, anchor, and allowed external links`);
-    
+    cy.log(
+      `   • Link validation: Internal, anchor, and allowed external links`
+    );
+
     cy.log('✅ Test setup validation completed');
   });
 
   subjects.forEach((subject) => {
     it(`${subject} has valid internal links`, function () {
-
       // Add error handling for page visit failures
       cy.visit(`${subject}`, { timeout: 20000 }).then(() => {
         cy.log(`✅ Successfully loaded page: ${subject}`);
@@ -246,7 +283,6 @@ describe('Article', () => {
     });
 
     it(`${subject} has valid anchor links`, function () {
-
       cy.visit(`${subject}`).then(() => {
         cy.log(`✅ Successfully loaded page for anchor testing: ${subject}`);
       });
@@ -300,7 +336,6 @@ describe('Article', () => {
     });
 
     it(`${subject} has valid external links`, function () {
-
       // Check if we should skip external links entirely
       if (Cypress.env('skipExternalLinks') === true) {
         cy.log(

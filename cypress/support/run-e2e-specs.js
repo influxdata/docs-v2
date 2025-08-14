@@ -119,7 +119,7 @@ async function main() {
   let exitCode = 0;
   let hugoStarted = false;
 
-// (Lines 124-126 removed; no replacement needed)
+  // (Lines 124-126 removed; no replacement needed)
 
   // Add this signal handler to ensure cleanup on unexpected termination
   const cleanupAndExit = (code = 1) => {

@@ -30,12 +30,44 @@ outputs:
 runs:
   using: 'composite'
   steps:
+    - name: Generate file-specific cache key
+      if: inputs.cache-enabled == 'true'
+      id: cache-key
+      shell: bash
+      run: |
+        # Create a hash based only on the files being validated
+        files="${{ inputs.files }}"
+        if [ -n "$files" ]; then
+          # Convert space-separated file list to array and process each file
+          file_list=($files)
+          file_data=""
+          for file in "${file_list[@]}"; do
+            if [ -f "$file" ]; then
+              # Get file modification time and size for hashing
+              file_info=$(ls -l "$file" | awk '{print $5, $6, $7, $8}')
+              file_data="${file_data}${file}:${file_info}\n"
+            fi
+          done
+          
+          if [ -n "$file_data" ]; then
+            file_hash=$(echo -e "$file_data" | sha256sum | cut -d' ' -f1)
+          else
+            file_hash="no-files"
+          fi
+          
+          echo "file-hash=$file_hash" >> $GITHUB_OUTPUT
+          echo "Generated cache key for files: $files"
+          echo "File hash: $file_hash"
+        else
+          echo "file-hash=no-files" >> $GITHUB_OUTPUT
+        fi
+    
     - name: Restore link validation cache
       if: inputs.cache-enabled == 'true'
       uses: actions/cache@v4
       with:
         path: .cache/link-validation
-        key: ${{ inputs.cache-key }}-${{ runner.os }}-${{ hashFiles('content/**/*.md', 'content/**/*.html') }}
+        key: ${{ inputs.cache-key }}-${{ runner.os }}-${{ steps.cache-key.outputs.file-hash }}
         restore-keys: |
           ${{ inputs.cache-key }}-${{ runner.os }}-
           ${{ inputs.cache-key }}-
