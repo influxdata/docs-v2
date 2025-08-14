@@ -1,8 +1,8 @@
 ---
 title: Usage telemetry
-seotitle: InfluxDB Core usage telemetry
+seotitle: InfluxDB 3 Core usage telemetry
 description: >
-  InfluxDB Core can collect and send usage telemetry data to help improve the
+  InfluxDB 3 Core can collect and send usage telemetry data to help improve the
   product.
 menu:
   influxdb3_core:

@@ -1,8 +1,8 @@
 ---
 title: Usage telemetry
-seotitle: InfluxDB Enterprise usage telemetry
+seotitle: InfluxDB 3 Enterprise usage telemetry
 description: >
-  InfluxDB Enterprise can collect and send usage telemetry data to help improve the
+  InfluxDB 3 Enterprise can collect and send usage telemetry data to help improve the
   product.
 menu:
   influxdb3_enterprise:
