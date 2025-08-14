@@ -1,4 +1,6 @@
-InfluxDB 3 can collect and send usage telemetry data to help improve the product. This page describes what telemetry data is collected, when it's collected, how it's transmitted, and how to disable it.
+InfluxData collects information, or _telemetry data_, about the usage of {{% product-name %}} to help improve the product.
+Learn what data {{% product-name %}} collects and sends to InfluxData, how it's used, and
+how you can opt out.
 
 ## What data is collected
 
@@ -58,7 +60,9 @@ Telemetry data is transmitted once per hour.
 
 ## Disable telemetry
 
-Disables sending telemetry data to InfluxData.
+To "opt-out" of collecting and sending {{% product-name %}} telemetry data,
+include the `--disable-telemetry-upload` flag or set the `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` environment variable
+when starting {{% product-name %}}.
 
 **Default:** `false`
 
