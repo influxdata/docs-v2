@@ -53,6 +53,10 @@ influxdb3 serve
   - [tls-minimum-versions](#tls-minimum-version)
   - [without-auth](#without-auth)
   - [disable-authz](#disable-authz)
+{{% show-in "enterprise" %}}
+  - [num-database-limit](#num-database-limit)
+  - [num-table-limit](#num-table-limit)
+  - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit){{% /show-in %}}
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
   - [aws-secret-access-key](#aws-secret-access-key)
@@ -204,7 +208,7 @@ This value must be different than the [`--node-id`](#node-id) value.
 
 #### data-dir
 
-For the `file` object store, defines the location InfluxDB 3 uses to store files locally.
+For the `file` object store, defines the location {{< product-name >}} uses to store files locally.
 Required when using the `file` [object store](#object-store).
 
 | influxdb3 serve option | Environment variable |
@@ -216,7 +220,7 @@ Required when using the `file` [object store](#object-store).
 {{% show-in "enterprise" %}}
 #### license-email
 
-Specifies the email address to associate with your InfluxDB 3 Enterprise license
+Specifies the email address to associate with your {{< product-name >}} license
 and automatically responds to the interactive email prompt when the server starts.
 This option is mutually exclusive with [license-file](#license-file).
 
@@ -228,7 +232,7 @@ This option is mutually exclusive with [license-file](#license-file).
 
 #### license-file
 
-Specifies the path to a license file for InfluxDB 3 Enterprise. When provided, the license
+Specifies the path to a license file for {{< product-name >}}. When provided, the license
 file's contents are used instead of requesting a new license.
 This option is mutually exclusive with [license-email](#license-email).
 
@@ -361,10 +365,44 @@ The server processes all requests without requiring tokens or authentication.
 Optionally disable authz by passing in a comma separated list of resources. 
 Valid values are `health`, `ping`, and `metrics`.
 
-| influxdb3 serve option | Environment variable     |
-| :--------------------- | :----------------------- |
-| `--disable-authz`      | `INFLUXDB3_DISABLE_AUTHZ`|
+| influxdb3 serve option | Environment variable      |
+| :--------------------- | :------------------------ |
+| `--disable-authz`      | `INFLUXDB3_DISABLE_AUTHZ` |
 
+{{% show-in "enterprise" %}}
+---
+
+#### num-database-limit
+
+Limits the total number of active databases.
+Default is {{% influxdb3/limit "database" %}}.
+
+| influxdb3 serve option  | Environment variable                      |
+| :---------------------- | :---------------------------------------- |
+| `--num-database-limit` | `INFLUXDB3_ENTERPRISE_NUM_DATABASE_LIMIT` |
+
+---
+
+#### num-table-limit
+
+Limits the total number of active tables across all databases.
+Default is {{% influxdb3/limit "table" %}}.
+
+| influxdb3 serve option | Environment variable                   |
+| :--------------------- | :------------------------------------- |
+| `--num-table-limit`    | `INFLUXDB3_ENTERPRISE_NUM_TABLE_LIMIT` |
+
+---
+
+#### num-total-columns-per-table-limit
+
+Limits the total number of columns per table.
+Default is {{% influxdb3/limit "column" %}}.
+
+| influxdb3 serve option                | Environment variable                                     |
+| :------------------------------------ | :------------------------------------------------------- |
+| `--num-total-columns-per-table-limit` | `INFLUXDB3_ENTERPRISE_NUM_TOTAL_COLUMNS_PER_TABLE_LIMIT` |
+{{% /show-in %}}
 ---
 
 ### AWS

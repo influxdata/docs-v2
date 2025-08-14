@@ -130,7 +130,12 @@ database_name/retention_policy_name
 
 ## Database limit
 
+{{% show-in "enterprise" %}}
+**Default maximum number of databases**: {{% influxdb3/limit "database" %}}
+{{% /show-in %}}
+{{% show-in "core" %}}
 **Maximum number of databases**: {{% influxdb3/limit "database" %}}
+{{% /show-in %}}
 
 _For more information about {{< product-name >}} database, table, and column limits,
 see [Database, table, and column limits](/influxdb3/version/admin/databases/#database-table-and-column-limits)._
