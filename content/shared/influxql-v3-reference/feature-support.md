@@ -65,11 +65,11 @@ The following table provides information about what metaqueries are available in
 
 ### Aggregate functions
 
-| Function                                                                                  |        Supported         |
-| :---------------------------------------------------------------------------------------- | :----------------------: |
+| Function                                                                          |        Supported         |
+| :-------------------------------------------------------------------------------- | :----------------------: |
 | [COUNT()](/influxdb/version/reference/influxql/functions/aggregates/#count)       | **{{< icon "check" >}}** |
 | [DISTINCT()](/influxdb/version/reference/influxql/functions/aggregates/#distinct) | **{{< icon "check" >}}** |
-| <span style="opacity: .5;">INTEGRAL()</span>                                              |                          |
+| [INTEGRAL()](/influxdb/version/reference/influxql/functions/aggregates/#integral) | **{{< icon "check" >}}** |
 | [MEAN()](/influxdb/version/reference/influxql/functions/aggregates/#mean)         | **{{< icon "check" >}}** |
 | [MEDIAN()](/influxdb/version/reference/influxql/functions/aggregates/#median)     | **{{< icon "check" >}}** |
 | [MODE()](/influxdb/version/reference/influxql/functions/aggregates/#mode)         | **{{< icon "check" >}}** |
@@ -77,29 +77,25 @@ The following table provides information about what metaqueries are available in
 | [STDDEV()](/influxdb/version/reference/influxql/functions/aggregates/#stddev)     | **{{< icon "check" >}}** |
 | [SUM()](/influxdb/version/reference/influxql/functions/aggregates/#sum)           | **{{< icon "check" >}}** |
 
-<!--
-INTEGRAL [influxdb_iox#6937](https://github.com/influxdata/influxdb_iox/issues/6937)
--->
-
 ### Selector functions
 
-| Function                                                                                     |        Supported         |
-| :------------------------------------------------------------------------------------------- | :----------------------: |
+| Function                                                                             |        Supported         |
+| :----------------------------------------------------------------------------------- | :----------------------: |
 | [BOTTOM()](/influxdb/version/reference/influxql/functions/selectors/#bottom)         | **{{< icon "check" >}}** |
 | [FIRST()](/influxdb/version/reference/influxql/functions/selectors/#first)           | **{{< icon "check" >}}** |
 | [LAST()](/influxdb/version/reference/influxql/functions/selectors/#last)             | **{{< icon "check" >}}** |
 | [MAX()](/influxdb/version/reference/influxql/functions/selectors/#max)               | **{{< icon "check" >}}** |
 | [MIN()](/influxdb/version/reference/influxql/functions/selectors/#min)               | **{{< icon "check" >}}** |
 | [PERCENTILE()](/influxdb/version/reference/influxql/functions/selectors/#percentile) | **{{< icon "check" >}}** |
-| <span style="opacity: .5;">SAMPLE()</span>                                                   |                          |
+| <span style="opacity: .5;">SAMPLE()</span>                                           |                          |
 | [TOP()](/influxdb/version/reference/influxql/functions/selectors/#top)               | **{{< icon "check" >}}** |
 
 <!-- SAMPLE() [influxdb_iox#6935](https://github.com/influxdata/influxdb_iox/issues/6935) -->
 
 ### Transformations
 
-| Function                                                                                                                     |        Supported         |
-| :--------------------------------------------------------------------------------------------------------------------------- | :----------------------: |
+| Function                                                                                                             |        Supported         |
+| :------------------------------------------------------------------------------------------------------------------- | :----------------------: |
 | [ABS()](/influxdb/version/reference/influxql/functions/transformations/#abs)                                         | **{{< icon "check" >}}** |
 | [ACOS()](/influxdb/version/reference/influxql/functions/transformations/#acos)                                       | **{{< icon "check" >}}** |
 | [ASIN()](/influxdb/version/reference/influxql/functions/transformations/#asin)                                       | **{{< icon "check" >}}** |

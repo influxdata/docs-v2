@@ -1,3 +1,31 @@
+## 2.10.3 {date="2025-07-30"}
+
+### Features
+
+- Add `id` column to the output of the
+  [`influxctl database list` command](/influxdb3/version/reference/cli/influxctl/database/list/).
+- Add [`influxctl table rename` command](/influxdb3/version/reference/cli/influxctl/table/rename/).
+- Add user-agent to Granite gRPC requests.
+
+### Bug Fixes
+
+- Require the `--template-timeformat` option when the `--template-tags` option
+  is included when creating a database or table with custom partitions.
+- Fix table iceberg enable/disable description.
+
+### Dependency updates
+
+- Update `github.com/apache/arrow-go/v18` from 18.3.1 to 18.4.0.
+- Update `github.com/docker/docker` from 28.2.2+incompatible to 28.3.3+incompatible.
+- Update `github.com/golang-jwt/jwt/v5` from 5.2.2 to 5.2.3.
+- Update `github.com/jedib0t/go-pretty/v6` from 6.6.7 to 6.6.8.
+- Update `golang.org/x/mod` from 0.25.0 to 0.26.0.
+- Update `google.golang.org/grpc` from 1.73.0 to 1.74.2.
+- Update `helm.sh/helm/v3` from 3.17.3 to 3.18.4.
+- Update Go 1.24.5.
+
+---
+
 ## v2.10.2 {date="2025-06-30"}
 
 ### Features
