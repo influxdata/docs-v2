@@ -1,0 +1,97 @@
+InfluxDB 3 can collect and send usage telemetry data to help improve the product. This page describes what telemetry data is collected, when it's collected, how it's transmitted, and how to disable it.
+
+## What data is collected
+
+{{< product-name >}} collects the following telemetry data:
+
+### System metrics
+
+- **CPU utilization**: Process-specific CPU usage (min, max, average)
+- **Memory usage**: Process memory consumption in MB (min, max, average)
+- **Cores**: Number of CPU cores in use
+- **OS**: Operating system information
+- **Version**: {{< product-name >}} version
+- **Uptime**: Server uptime in seconds
+
+### Write metrics
+
+- **Write requests**: Number of write operations (min, max, average, hourly sum)
+- **Write lines**: Number of lines written (min, max, average, hourly sum)  
+- **Write bytes**: Amount of data written in MB (min, max, average, hourly sum)
+
+### Query metrics
+
+- **Query requests**: Number of query operations (min, max, average, hourly sum)
+
+### Storage metrics
+
+- **Parquet file count**: Number of Parquet files (when available)
+- **Parquet file size**: Total size of Parquet files in MB (when available)
+- **Parquet row count**: Total number of rows in Parquet files (when available)
+
+### Processing engine metrics
+
+- **WAL triggers**: Write-Ahead Log trigger counts (when available)
+- **Schedule triggers**: Scheduled processing trigger counts (when available)
+- **Request triggers**: Request-based processing trigger counts (when available)
+
+### Instance information
+
+- **Instance ID**: Unique identifier for the server instance
+- **Cluster UUID**: Unique identifier for the cluster (same as catalog UUID)
+- **Storage type**: Type of object storage being used
+{{% show-in "core" %}}
+- **Product type**: "Core"
+{{% /show-in %}}
+{{% show-in "enterprise" %}}
+- **Product type**: "Enterprise"
+{{% /show-in %}}
+
+## Collection frequency
+
+- **System metrics** (CPU, memory): Collected every 60 seconds
+- **Write and query metrics**: Collected per operation, rolled up every 60 seconds
+- **Storage and processing engine metrics**: Collected at snapshot time (when available)
+- **Instance information**: Static data collected once
+
+Telemetry data is transmitted once per hour.
+
+## Disable telemetry
+
+Disables sending telemetry data to InfluxData.
+
+**Default:** `false`
+
+| influxdb3 flag | Environment variable | 
+| :------------- | :------------------- | 
+| `--disable-telemetry-upload` | `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` |
+
+#### Command line flag
+```sh
+influxdb3 serve --disable-telemetry-upload
+```
+
+#### Environment variable
+```sh
+export INFLUXDB3_TELEMETRY_DISABLE_UPLOAD=true
+```
+
+When telemetry is disabled, no usage data is collected or transmitted.
+
+## Data handling
+
+The telemetry data is used by InfluxData to:
+
+- Understand product usage patterns
+- Improve product performance and reliability
+- Prioritize feature development
+- Identify and resolve issues
+
+No personally identifiable information (PII) is collected. 
+
+## Privacy and security
+
+- All telemetry data is transmitted securely via HTTPS
+- No database contents, queries, or user data is collected
+- Only operational metrics and system information is transmitted
+- Data collection follows InfluxData's privacy policy
