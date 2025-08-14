@@ -27,6 +27,7 @@ related:
     - /influxdb3/cloud-serverless/reference/influxql/
     - /influxdb3/cloud-serverless/reference/sql/
     - /influxdb3/cloud-serverless/query-data/execute-queries/troubleshoot/
+    - /influxdb3/cloud-serverless/query-data/troubleshoot-and-optimize/query-timeout-best-practices/
 
 list_code_example: |
     ```py
@@ -241,7 +242,8 @@ from influxdb_client_3 import InfluxDBClient3
 client = InfluxDBClient3(
     host='{{< influxdb/host >}}',
     token='API_TOKEN',
-    database='BUCKET_NAME'
+    database='BUCKET_NAME',
+    timeout=30  # Set default timeout to 30 seconds for serverless
 )
 ```
 {{% /code-placeholders %}}
@@ -332,7 +334,8 @@ client = InfluxDBClient3(
 # Execute the query and return an Arrow table
 table = client.query(
     query="SELECT * FROM home",
-    language="sql"
+    language="sql",
+    timeout=10  # Override default timeout for simple queries (10 seconds)
 )
 
 print("\n#### View Schema information\n")
@@ -377,7 +380,8 @@ client = InfluxDBClient3(
 # Execute the query and return an Arrow table
 table = client.query(
     query="SELECT * FROM home",
-    language="influxql"
+    language="influxql",
+    timeout=10  # Override default timeout for simple queries (10 seconds)
 )
 
 print("\n#### View Schema information\n")
