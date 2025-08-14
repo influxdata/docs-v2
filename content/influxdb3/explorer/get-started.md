@@ -86,7 +86,7 @@ To use {{% product-name %}} to query data from InfluxDB 3, navigate to
 The _Data Explorer_ lets you explore the
 schema of your database and automatically builds SQL queries by either
 selecting columns in the _Schema Browser_ or by using _Natural Language_ with
-the {{% product-name %}} OpenAI integration.
+the {{% product-name %}} AI integration.
 
 For this getting started guide, use the Schema Browser to build a SQL query
 that returns data from the newly written sample data set.
