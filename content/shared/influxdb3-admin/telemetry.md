@@ -6,8 +6,8 @@ InfluxDB 3 can collect and send usage telemetry data to help improve the product
 
 ### System metrics
 
-- **CPU utilization**: Process-specific CPU usage (min, max, average)
-- **Memory usage**: Process memory consumption in MB (min, max, average)
+- **CPU utilization**: Process-specific CPU usage
+- **Memory usage**: Process memory consumption in MB
 - **Cores**: Number of CPU cores in use
 - **OS**: Operating system information
 - **Version**: {{< product-name >}} version
@@ -15,30 +15,30 @@ InfluxDB 3 can collect and send usage telemetry data to help improve the product
 
 ### Write metrics
 
-- **Write requests**: Number of write operations (min, max, average, hourly sum)
-- **Write lines**: Number of lines written (min, max, average, hourly sum)  
-- **Write bytes**: Amount of data written in MB (min, max, average, hourly sum)
+- **Write requests**: Number of write operations 
+- **Write lines**: Number of lines written 
+- **Write bytes**: Amount of data written in MB
 
 ### Query metrics
 
-- **Query requests**: Number of query operations (min, max, average, hourly sum)
+- **Query requests**: Number of query operations
 
 ### Storage metrics
 
-- **Parquet file count**: Number of Parquet files (when available)
-- **Parquet file size**: Total size of Parquet files in MB (when available)
-- **Parquet row count**: Total number of rows in Parquet files (when available)
+- **Parquet file count**: Number of Parquet files
+- **Parquet file size**: Total size of Parquet files in MB 
+- **Parquet row count**: Total number of rows in Parquet files
 
 ### Processing engine metrics
 
-- **WAL triggers**: Write-Ahead Log trigger counts (when available)
-- **Schedule triggers**: Scheduled processing trigger counts (when available)
-- **Request triggers**: Request-based processing trigger counts (when available)
+- **WAL triggers**: Write-Ahead Log trigger counts
+- **Schedule triggers**: Scheduled processing trigger counts 
+- **Request triggers**: Request-based processing trigger counts 
 
 ### Instance information
 
 - **Instance ID**: Unique identifier for the server instance
-- **Cluster UUID**: Unique identifier for the cluster (same as catalog UUID)
+- **Cluster UUID**: Unique identifier for the cluster
 - **Storage type**: Type of object storage being used
 {{% show-in "core" %}}
 - **Product type**: "Core"
@@ -80,18 +80,10 @@ When telemetry is disabled, no usage data is collected or transmitted.
 
 ## Data handling
 
-The telemetry data is used by InfluxData to:
-
-- Understand product usage patterns
-- Improve product performance and reliability
-- Prioritize feature development
-- Identify and resolve issues
-
-No personally identifiable information (PII) is collected. 
+The telemetry data is used by InfluxData to understand product usage patterns, improve product performance and reliability, prioritize feature development, and identify/resolve issues. No personally identifiable information (PII) is collected. 
 
 ## Privacy and security
 
-- All telemetry data is transmitted securely via HTTPS
-- No database contents, queries, or user data is collected
-- Only operational metrics and system information is transmitted
-- Data collection follows InfluxData's privacy policy
+All telemetry data is transmitted securely via HTTPS. No database contents, queries, or user data is collected; only operational metrics and system information is transmitted.
+
+All data collection follows InfluxData's privacy policy.
