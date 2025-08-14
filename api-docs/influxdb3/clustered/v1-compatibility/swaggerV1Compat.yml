@@ -329,10 +329,10 @@ paths:
                     - [Manage databases in InfluxDB Clustered](/influxdb3/clustered/admin/databases/)
                     - [InfluxQL DBRP naming convention in InfluxDB Clustered](/influxdb3/clustered/admin/databases/create/#influxql-dbrp-naming-convention)
                     - [Migrate data from InfluxDB v1 to InfluxDB Clustered](/influxdb3/clustered/guides/migrate-data/migrate-1x-to-clustered/)
-        ```
                   type: string  
                 q:
-                  description: Defines the InfluxQL query to run.
+                  description: |
+                    Defines the InfluxQL query to run.
                   type: string
                 chunked:
                   description: |
