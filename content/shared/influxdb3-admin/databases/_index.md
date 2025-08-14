@@ -13,7 +13,7 @@ stored. Each database can contain multiple tables.
 > **If coming from InfluxDB v2, InfluxDB Cloud (TSM), or InfluxDB Cloud Serverless**,
 > _database_ and _bucket_ are synonymous.
 
-<!--
+{{% show-in "enterprise" %}}
 ## Retention periods
 
 A database **retention period** is the maximum age of data stored in the database.
@@ -22,10 +22,9 @@ When a point's timestamp is beyond the retention period (relative to now), the
 point is marked for deletion and is removed from the database the next time the
 retention enforcement service runs.
 
-The _minimum_ retention period for an InfluxDB database is 1 hour.
-The _maximum_ retention period is infinite meaning data does not expire and will
-never be removed by the retention enforcement service.
--->
+The _maximum_ retention period is infinite (`none`) meaning data does not expire
+and will never be removed by the retention enforcement service.
+{{% /show-in %}}
 
 ## Database, table, and column limits
 
@@ -40,9 +39,11 @@ never be removed by the retention enforcement service.
 **Maximum number of tables across all databases**: {{% influxdb3/limit "table" %}}
 
 {{< product-name >}} limits the number of tables you can have across _all_
-databases to {{% influxdb3/limit "table" %}}. There is no specific limit on how
-many tables you can have in an individual database, as long as the total across
-all databases is below the limit.
+databases to {{% influxdb3/limit "table" %}}{{% show-in "enterprise" %}} by default{{% /show-in %}}.
+{{% show-in "enterprise" %}}You can configure the table limit using the
+[`--num-table-limit` configuration option](/influxdb3/enterprise/reference/config-options/#num-table-limit).{{% /show-in %}}
+InfluxDB doesn't limit how many tables you can have in an individual database,
+as long as the total across all databases is below the limit.
 
 Having more tables affects your {{% product-name %}} installation in the
 following ways:
@@ -64,7 +65,8 @@ persists data to Parquet files. Each `PUT` request incurs a monetary cost and
 increases the operating cost of {{< product-name >}}.
 
 {{% /expand %}}
-{{% expand "**More work for the compactor** _(Enterprise only)_ <em style='opacity:.5;font-weight:normal;'>View more info</em>" %}}
+{{% show-in "enterprise" %}}
+{{% expand "**More work for the compactor** <em style='opacity:.5;font-weight:normal;'>View more info</em>" %}}
 
 To optimize storage over time, InfluxDB 3 Enterprise has a compactor that
 routinely compacts Parquet files.
@@ -72,6 +74,7 @@ With more tables and Parquet files to compact, the compactor may need to be scal
 to keep up with demand, adding to the operating cost of InfluxDB 3 Enterprise.
 
 {{% /expand %}}
+{{% /show-in %}}
 {{< /expand-wrapper >}}
 
 ### Column limit
@@ -80,10 +83,16 @@ to keep up with demand, adding to the operating cost of InfluxDB 3 Enterprise.
 
 Each row must include a time column, with the remaining columns representing
 tags and fields.
-As a result, a table can have one time column and up to {{% influxdb3/limit "column" -1 %}}
+As a result,{{% show-in "enterprise" %}} by default,{{% /show-in %}} a table can
+have one time column and up to {{% influxdb3/limit "column" -1 %}}
 _combined_ field and tag columns.
 If you attempt to write to a table and exceed the column limit, the write
 request fails and InfluxDB returns an error.
+
+{{% show-in "enterprise" %}}
+You can configure the maximum number of columns per
+table using the [`num-total-columns-per-table-limit` configuration option](/influxdb3/enterprise/reference/config-options/#num-total-columns-per-table-limit).
+{{% /show-in %}}
 
 Higher numbers of columns has the following side-effects:
 
