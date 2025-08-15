@@ -217,12 +217,14 @@ pkill hugo
 
 ## Key Projects in This Codebase
 
-1. **InfluxDB 3 Documentation** (Core, Enterprise, Cloud variants)
-2. **InfluxDB v2 Documentation** (OSS and Cloud)
-3. **Telegraf Documentation** (agent and plugins)
-4. **Supporting Tools Documentation** (Kapacitor, Chronograf, Flux)
-5. **API Reference Documentation** (`/api-docs/`)
-6. **Shared Documentation Components** (`/content/shared/`)
+1. **InfluxDB 3 Documentation** (Core, Enterprise, Clustered, Cloud Dedicated, Cloud Serverless, and InfluxDB 3 plugins for Core and Enterprise)
+2. **InfluxDB 3 Explorer** (UI)
+3. **InfluxDB v2 Documentation** (OSS and Cloud)
+3. **InfuxDB v1 Documentation** (OSS and Enterprise)
+4. **Telegraf Documentation** (agent and plugins)
+5. **Supporting Tools Documentation** (Kapacitor, Chronograf, Flux)
+6. **API Reference Documentation** (`/api-docs/`)
+7. **Shared Documentation Components** (`/content/shared/`)
 
 ## Important Locations for Frequent Tasks
 
@@ -233,7 +235,7 @@ pkill hugo
 - **Vale style rules**: `/.ci/vale/styles/`
 - **GitHub workflows**: `/.github/workflows/`
 - **Test scripts**: `/test/scripts/`
-- **Hugo layouts**: `/layouts/`
+- **Hugo layouts and shortcodes**: `/layouts/`
 - **CSS/JS assets**: `/assets/`
 
 ## Content Guidelines and Style
@@ -269,7 +271,7 @@ weight: # Page order (1-99, 101-199, etc.)
 
 Key shortcodes (see `/content/example.md` for full reference):
 
-- Notes/warnings: `{{% note %}}`, `{{% warn %}}`
+- Notes/warnings (GitHub syntax): `> [!Note]`, `> [!Warning]`
 - Tabbed content: `{{< tabs-wrapper >}}`, `{{% tabs %}}`, `{{% tab-content %}}`
 - Code examples: `{{< code-tabs-wrapper >}}`, `{{% code-tabs %}}`, `{{% code-tab-content %}}`
 - Required elements: `{{< req >}}`
