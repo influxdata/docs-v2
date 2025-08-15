@@ -44,6 +44,8 @@ ID  Database    Retention Policy  Desired Replicas  Shard Group  Start          
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+#### Show inconsistent shards {metadata="v1.12.0+"}
+
 You can also use the `-m` flag to output "inconsistent" shards which are shards
 that are either in metadata but not on disk or on disk but not in metadata.
 
@@ -52,10 +54,8 @@ that are either in metadata but not on disk or on disk but not in metadata.
 | Flag | Description                       |
 | :--- | :-------------------------------- |
 | `-v` | Return detailed shard information |
-| `-m` | Return inconsistent shards        |
+| `-m` | Return inconsistent shards |
 
 {{% caption %}}
 _Also see [`influxd-ctl` global flags](/enterprise_influxdb/v1/tools/influxd-ctl/#influxd-ctl-global-flags)._
 {{% /caption %}}
-
-## Examples
