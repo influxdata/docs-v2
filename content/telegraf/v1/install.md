@@ -180,8 +180,8 @@ gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
 | grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
 && cat influxdata-archive.key \
 | gpg --dearmor \
-| sudo tee /etc/apt/trusted.gpg.d/influxdata-archive.gpg > /dev/null \
-&& echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' \
+| sudo tee /etc/apt/keyrings/influxdata-archive.gpg > /dev/null \
+&& echo 'deb [signed-by=/etc/apt/keyrings/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' \
 | sudo tee /etc/apt/sources.list.d/influxdata.list
 sudo apt-get update && sudo apt-get install telegraf
 ```
@@ -198,8 +198,8 @@ gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive_compat.key
 | grep -q '^fpr:\+9D539D90D3328DC7D6C8D3B9D8FF8E1F7DF8B07E:$' \
 && cat influxdata-archive_compat.key \
 | gpg --dearmor \
-| sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
-echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' \
+| sudo tee /etc/apt/keyrings/influxdata-archive_compat.gpg > /dev/null
+echo 'deb [signed-by=/etc/apt/keyrings/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' \
 | sudo tee /etc/apt/sources.list.d/influxdata.list
 sudo apt-get update && sudo apt-get install telegraf
 ```
