@@ -129,12 +129,27 @@ Link validation uses the `link-checker` tool to validate internal and external l
 
 #### Installation
 
-**Option 1: Download from docs-v2 releases (recommended)**
+**Option 1: Build from source (macOS/local development)**
+
+For local development on macOS, build the link-checker from source:
+
+```bash
+# Clone and build link-checker
+git clone https://github.com/influxdata/docs-tooling.git
+cd docs-tooling/link-checker
+cargo build --release
+
+# Copy binary to your PATH or use directly
+cp target/release/link-checker /usr/local/bin/
+# OR use directly: ./target/release/link-checker
+```
+
+**Option 2: Download pre-built binary (GitHub Actions/Linux)**
 
 The link-checker binary is distributed via docs-v2 releases for reliable access from GitHub Actions workflows:
 
 ```bash
-# Download binary from docs-v2 releases
+# Download Linux binary from docs-v2 releases
 curl -L -o link-checker \
   https://github.com/influxdata/docs-v2/releases/download/link-checker-v1.0.0/link-checker-linux-x86_64
 chmod +x link-checker
@@ -143,7 +158,8 @@ chmod +x link-checker
 ./link-checker --version
 ```
 
-**Option 2: Build from source**
+> [!Note]
+> Pre-built binaries are currently Linux x86_64 only. For macOS development, use Option 1 to build from source.
 
 ```bash
 # Clone and build link-checker

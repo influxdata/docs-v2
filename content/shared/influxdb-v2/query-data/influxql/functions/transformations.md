@@ -704,7 +704,7 @@ name: data
 
 ## ATAN2()
 
-Returns the the arctangent of `y/x` in radians.
+Returns the arctangent of `y/x` in radians.
 
 ### Basic syntax
 
@@ -1609,7 +1609,7 @@ SELECT DERIVATIVE(<function> ([ * | <field_key> | /<regular_expression>/ ]) [ , 
 The advanced syntax requires a [`GROUP BY time()` clause](/influxdb/version/query-data/influxql/explore-data/group-by/#group-by-time-intervals) and a nested InfluxQL function.
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `DERIVATIVE()` function to those results.
 
-The `unit` argument is an integer followed by a [duration](//influxdb/version/reference/glossary/#duration) and it is optional.
+The `unit` argument is an integer followed by a [duration](///influxdb/version/reference/glossary/#duration) and it is optional.
 If the query does not specify the `unit` the `unit` defaults to the `GROUP BY time()` interval.
 Note that this behavior is different from the [basic syntax's](#basic-syntax-1) default behavior.
 
