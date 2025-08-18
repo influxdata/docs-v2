@@ -171,6 +171,47 @@ cargo build --release
 cp target/release/link-checker /usr/local/bin/
 ```
 
+#### Binary Release Process
+
+**For maintainers:** To create a new link-checker release in docs-v2:
+
+1. **Create release in docs-tooling** (builds and releases binary automatically):
+   ```bash
+   cd docs-tooling
+   git tag link-checker-v1.2.x
+   git push origin link-checker-v1.2.x
+   ```
+
+2. **Manually distribute to docs-v2** (required due to private repository access):
+   ```bash
+   # Download binary from docs-tooling release
+   curl -L -H "Authorization: Bearer $(gh auth token)" \
+     -o link-checker-linux-x86_64 \
+     "https://github.com/influxdata/docs-tooling/releases/download/link-checker-v1.2.x/link-checker-linux-x86_64"
+   
+   curl -L -H "Authorization: Bearer $(gh auth token)" \
+     -o checksums.txt \
+     "https://github.com/influxdata/docs-tooling/releases/download/link-checker-v1.2.x/checksums.txt"
+   
+   # Create docs-v2 release
+   gh release create \
+     --repo influxdata/docs-v2 \
+     --title "Link Checker Binary v1.2.x" \
+     --notes "Link validation tooling binary for docs-v2 GitHub Actions workflows." \
+     link-checker-v1.2.x \
+     link-checker-linux-x86_64 \
+     checksums.txt
+   ```
+
+3. **Update workflow reference** (if needed):
+   ```bash
+   # Update .github/workflows/pr-link-check.yml line 98 to use new version
+   sed -i 's/link-checker-v[0-9.]*/link-checker-v1.2.x/' .github/workflows/pr-link-check.yml
+   ```
+
+> [!Note]
+> The manual distribution is required because docs-tooling is a private repository and the default GitHub token doesn't have cross-repository access for private repos.
+
 #### Core Commands
 
 ```bash
@@ -183,6 +224,31 @@ link-checker check public/path/to/file.html
 # Generate configuration file
 link-checker config
 ```
+
+### Link Resolution Behavior
+
+The link-checker automatically handles relative link resolution based on the input type:
+
+**Local Files → Local Resolution**
+```bash
+# When checking local files, relative links resolve to the local filesystem
+link-checker check public/influxdb3/core/admin/scale-cluster/index.html
+# Relative link /influxdb3/clustered/tags/kubernetes/ becomes:
+# → /path/to/public/influxdb3/clustered/tags/kubernetes/index.html
+```
+
+**URLs → Production Resolution**
+```bash
+# When checking URLs, relative links resolve to the production site
+link-checker check https://docs.influxdata.com/influxdb3/core/admin/scale-cluster/
+# Relative link /influxdb3/clustered/tags/kubernetes/ becomes:
+# → https://docs.influxdata.com/influxdb3/clustered/tags/kubernetes/
+```
+
+**Why This Matters**
+- **Testing new content**: Tag pages generated locally will be found when testing local files
+- **Production validation**: Production URLs validate against the live site
+- **No false positives**: New content won't appear broken when testing locally before deployment
 
 ### Content Mapping Workflows
 
