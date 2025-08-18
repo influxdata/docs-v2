@@ -159,7 +159,7 @@ curl --request POST http://localhost:8086/api/v2/remotes \
   }'
 ```
 
-#### Use an existing remote connection
+#### Use an existing remote connection (API)
 
 Alternatively, you can use an
 existing connection that you have already configured.
