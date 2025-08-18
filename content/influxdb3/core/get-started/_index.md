@@ -18,6 +18,7 @@ prepend: |
   > [!Note] 
   > InfluxDB 3 Core is purpose-built for real-time data monitoring and recent data.
   > InfluxDB 3 Enterprise builds on top of Core with support for historical data
+  > analysis and extended features.
   > querying, high availability, read replicas, and more.
   > Enterprise will soon unlock
   > enhanced security, row-level deletions, an administration UI, and more.
