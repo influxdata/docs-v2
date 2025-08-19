@@ -55,12 +55,7 @@
     "test:codeblocks:v2": "docker compose run --rm --name v2-pytest v2-pytest",
     "test:codeblocks:stop-monitors": "./test/scripts/monitor-tests.sh stop cloud-dedicated-pytest && ./test/scripts/monitor-tests.sh stop clustered-pytest",
     "test:e2e": "node cypress/support/run-e2e-specs.js",
-    "test:shortcode-examples": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\" content/example.md",
-    "audit:cli": "node ./helper-scripts/influxdb3-monolith/audit-cli-documentation.js both local",
-    "audit:cli:3core": "node ./helper-scripts/influxdb3-monolith/audit-cli-documentation.js core local",
-    "audit:cli:3ent": "node ./helper-scripts/influxdb3-monolith/audit-cli-documentation.js enterprise local",
-    "audit:cli:apply": "node ./helper-scripts/influxdb3-monolith/apply-cli-patches.js both",
-    "audit:cli:apply:dry": "node ./helper-scripts/influxdb3-monolith/apply-cli-patches.js both --dry-run"
+    "test:shortcode-examples": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\" content/example.md"
   },
   "type": "module",
   "browserslist": [
