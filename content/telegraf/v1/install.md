@@ -627,7 +627,7 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
 ### Prerequisites
 
 -  Follow the instructions to install [Go](https://go.dev/) for your system.
--  [Create your Telegraf configuration file](#generate-a-custom-configuration-file) with the plugins you want to use.
+-  [Create your Telegraf configuration file](#generate-a-configuration-file) with the plugins you want to use.
 
 ### Build the custom builder tool
 
