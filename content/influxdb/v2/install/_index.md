@@ -675,7 +675,7 @@ data isn't deleted if you delete the container._
    flags for initial setup options and file system mounts.
 
 _If you don't specify InfluxDB initial setup options, you can
-[set up manually](#set-up-influxdb) later using the UI or CLI in a running
+[set up manually](/influxdb/v2/get-started/setup/) later using the UI or CLI in a running
 container._
 
 {{% code-placeholders "ADMIN_(USERNAME|PASSWORD)|ORG_NAME|BUCKET_NAME" %}}
