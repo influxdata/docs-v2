@@ -112,7 +112,7 @@ _If `gpg` isn't available on your system, see
 The following steps guide you through using GPG to verify InfluxDB
 binary releases:
 
-1. [Choose the InfluxData key-pair for your OS version](#choose-the-influxdata-key-pair-for-your-system).
+1. [Choose the InfluxData key-pair for your OS version](#choose-the-influxdata-key-pair-for-your-os-version).
 2. Download and import the InfluxData public key.
 
    `gpg --import` outputs to stderr.
