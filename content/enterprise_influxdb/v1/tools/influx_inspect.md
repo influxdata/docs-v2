@@ -453,7 +453,7 @@ Default value is `$HOME/.influxdb/wal`.
 See the [file system layout](/enterprise_influxdb/v1/concepts/file-system-layout/#file-system-layout)
 for InfluxDB on your system.
 
-##### [ `-tsmfile <tsm_file>` ]
+##### [ `-tsmfile <tsm_file>` ] {metadata="v1.12.0+"}
 
 Path to a single tsm file to export. This requires both `-database` and
 `-retention` to be specified.
@@ -472,7 +472,7 @@ influx_inspect export -compress
 influx_inspect export -database DATABASE_NAME -retention RETENTION_POLICY 
 ```
 
-##### Export data from a single TSM file
+##### Export data from a single TSM file {metadata="v1.12.0+"}
 
 ```bash
 influx_inspect export \

@@ -80,6 +80,59 @@ influxdb3 create last_cache \
 <!--------------------------- END ENTERPRISE EXAMPLE -------------------------->
 {{% /show-in %}}
 
+## Use the HTTP API
+
+To use the HTTP API to create a Last Value Cache, send a `POST` request to the `/api/v3/configure/last_cache` endpoint.
+
+{{% api-endpoint method="POST" endpoint="/api/v3/configure/last_cache" api-ref="/influxdb3/version/api/v3/#operation/PostConfigureLastCache" %}}
+
+{{% code-placeholders "(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN|(KEY|VALUE)_COLUMNS|COUNT|TTL" %}}
+
+```bash
+curl -X POST "https://localhost:8181/api/v3/configure/last_cache" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --json '{
+    "db": "DATABASE_NAME",
+    "table": "TABLE_NAME",
+    "name": "LVC_NAME",
+    "key_columns": ["KEY_COLUMNS"],
+    "value_columns": ["VALUE_COLUMNS"],
+    "count": COUNT,
+    "ttl": TTL
+  }'
+ ```
+
+ {{% /code-placeholders %}}
+
+ ### Example
+
+```bash
+ curl -X POST "https://localhost:8181/api/v3/configure/last_cache" \
+  --header "Authorization: Bearer 00xoXX0xXXx0000XxxxXx0Xx0xx0" \
+  --json '{
+    "db": "example-db",
+    "table": "home",
+    "name": "homeLastCache",
+    "key_columns": ["room", "wall"],
+    "value_columns": ["temp", "hum", "co"],
+    "count": 5,
+    "ttl": 14400
+  }'
+``` 
+
+**Response codes:**
+
+- `201` : Success. Last cache created.
+- `400` : Bad request.
+- `401` : Unauthorized.
+- `404` : Cache not found.
+- `409` : Cache already exists.
+
+> [!Note]
+> #### API parameter differences
+> Column format: The API uses JSON arrays (["room", "wall"]) instead of the CLI's comma-delimited format (room,wall).
+> TTL format: The API uses seconds (14400) instead of the CLI's humantime format (4h, 4 hours).
+
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
@@ -116,4 +169,4 @@ The cache imports the distinct values from the table and starts caching them.
 >
 > The LVC is stored in memory, so it's important to consider the size and persistence
 > of the cache. For more information, see
-> [Important things to know about the Last Value Cache](/influxdb3/version/admin/last-value-cache/#important-things-to-know-about-the-last-value-cache).
+> [Important things to know about the Last Value Cache.](/influxdb3/version/admin/last-value-cache/#important-things-to-know-about-the-last-value-cache)
