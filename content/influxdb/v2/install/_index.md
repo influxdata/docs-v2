@@ -112,7 +112,7 @@ _If `gpg` isn't available on your system, see
 The following steps guide you through using GPG to verify InfluxDB
 binary releases:
 
-1. [Choose the InfluxData key-pair for your OS version](#choose-the-influxdata-key-pair-for-your-system).
+1. [Choose the InfluxData key-pair for your OS version](#choose-the-influxdata-key-pair-for-your-os-version).
 2. Download and import the InfluxData public key.
 
    `gpg --import` outputs to stderr.
@@ -354,8 +354,8 @@ To install {{% product-name %}} on Linux, do one of the following:
    | grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
    && cat influxdata-archive.key \
    | gpg --dearmor \
-   | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive.gpg > /dev/null \
-   && echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' \
+   | sudo tee /etc/apt/keyrings/influxdata-archive.gpg > /dev/null \
+   && echo 'deb [signed-by=/etc/apt/keyrings/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' \
    | sudo tee /etc/apt/sources.list.d/influxdata.list
    # Install influxdb
    sudo apt-get update && sudo apt-get install influxdb2
@@ -473,7 +473,7 @@ _If necessary, adjust the example file paths and utilities for your system._
    https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz
    ```
 
-2. [Choose the InfluxData key-pair for your OS version](#choose-the-influxdata-key-pair-for-your-system).
+2. [Choose the InfluxData key-pair for your OS version](#choose-the-influxdata-key-pair-for-your-os-version).
 
 3. {{< req text="Recommended:" color="magenta" >}}: Verify the authenticity of the downloaded binary--for example,
    enter the following command in your terminal.
@@ -675,7 +675,7 @@ data isn't deleted if you delete the container._
    flags for initial setup options and file system mounts.
 
 _If you don't specify InfluxDB initial setup options, you can
-[set up manually](#set-up-influxdb) later using the UI or CLI in a running
+[set up manually](/influxdb/v2/get-started/setup/) later using the UI or CLI in a running
 container._
 
 {{% code-placeholders "ADMIN_(USERNAME|PASSWORD)|ORG_NAME|BUCKET_NAME" %}}
@@ -731,7 +731,8 @@ and _[Operator token](/influxdb/v2/admin/tokens/#operator-token)_, and logs to s
 
 You can view the Operator token in the `/etc/influxdb2/influx-configs` file and
 use it to authorize
-[creating an All Access token](#optional-create-all-access-tokens).
+[creating an All Access token](#examples).
+For more information, see [API token types](/influxdb/v2/admin/tokens/#api-token-types).
 
 _To run the InfluxDB container in
 [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground),
@@ -760,6 +761,13 @@ docker exec -it <CONTAINER_NAME> <CLI_NAME> <COMMAND>`
 #### Examples
 
 <!--pytest.mark.skip-->
+
+```bash
+# Create an All Access token
+docker exec -it influxdb2 influx auth create \
+  --all-access \
+  --token OPERATOR_TOKEN
+```
 
 ```bash
 # List CLI configurations
