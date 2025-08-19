@@ -121,7 +121,7 @@ InfluxData uses [GPG (GnuPG)](https://www.gnupg.org/software/) to sign released 
 public key and encrypted private key (`.key` file) pairs that you can use to
 verify the integrity of packages and binaries from the InfluxData repository.
 
-Before running the [install](#install) sample code, substitute the key-pair compatible with your OS version:
+Before running the [install](#download-and-install-instructions) sample code, substitute the key-pair compatible with your OS version:
 
 For newer OS releases (for example, Ubuntu 20.04 LTS and newer, Debian Buster
 and newer) that support subkey verification:
