@@ -731,7 +731,8 @@ and _[Operator token](/influxdb/v2/admin/tokens/#operator-token)_, and logs to s
 
 You can view the Operator token in the `/etc/influxdb2/influx-configs` file and
 use it to authorize
-[creating an All Access token](#optional-create-all-access-tokens).
+[creating an All Access token](#examples).
+For more information, see [API token types](/influxdb/v2/admin/tokens/#api-token-types).
 
 _To run the InfluxDB container in
 [detached mode](https://docs.docker.com/engine/reference/run/#detached-vs-foreground),
@@ -760,6 +761,13 @@ docker exec -it <CONTAINER_NAME> <CLI_NAME> <COMMAND>`
 #### Examples
 
 <!--pytest.mark.skip-->
+
+```bash
+# Create an All Access token
+docker exec -it influxdb2 influx auth create \
+  --all-access \
+  --token OPERATOR_TOKEN
+```
 
 ```bash
 # List CLI configurations
