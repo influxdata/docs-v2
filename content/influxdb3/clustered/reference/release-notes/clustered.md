@@ -61,6 +61,31 @@ directory. This new directory contains artifacts associated with the specified r
 
 ---
 
+## 20250814-1819052
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250814-1819052
+```
+
+### Bug Fixes
+
+- Fix incorrect service address for tokens in Clustered auth sidecar. If you were overriding the `AUTHZ_TOKEN_SVC_ADDRESS` environment variable in your `AppInstance`, you can now remove that override.
+- Remove default `fallbackScrapeProtocol` environment variable for prometheus-operator.
+- Update Grafana to `12.1.1` to address CVE-2025-6023 and CVE-2025-6197.
+
+### Changes
+
+#### Database Engine
+
+- Update DataFusion to `48`.
+- Tweak compaction to reduce write amplification and querier cache churn in some circumstances.
+
+---
+
 ## 20250721-1796368 {date="2025-07-21"}
 
 ### Quickstart
