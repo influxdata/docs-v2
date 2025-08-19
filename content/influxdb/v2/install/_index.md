@@ -473,7 +473,7 @@ _If necessary, adjust the example file paths and utilities for your system._
    https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz
    ```
 
-2. [Choose the InfluxData key-pair for your OS version](#choose-the-influxdata-key-pair-for-your-system).
+2. [Choose the InfluxData key-pair for your OS version](#choose-the-influxdata-key-pair-for-your-os-version).
 
 3. {{< req text="Recommended:" color="magenta" >}}: Verify the authenticity of the downloaded binary--for example,
    enter the following command in your terminal.
