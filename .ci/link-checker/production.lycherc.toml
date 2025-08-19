@@ -63,6 +63,9 @@ exclude = [
   "^https?://stackoverflow\\.com",
   "^https?://.*\\.stackoverflow\\.com",
 
+  # Docker Hub URLs (rate limiting and bot detection)
+  "^https?://hub\\.docker\\.com",
+
   # InfluxData support URLs (certificate/SSL issues in CI)
   "^https?://support\\.influxdata\\.com",
 

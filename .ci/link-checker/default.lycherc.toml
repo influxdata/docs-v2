@@ -55,6 +55,9 @@ exclude = [
   "^https?://stackoverflow\\.com",
   "^https?://.*\\.stackoverflow\\.com",
 
+  # Docker Hub URLs (rate limiting and bot detection)
+  "^https?://hub\\.docker\\.com",
+
   # Common documentation placeholders
   "YOUR_.*",
   "REPLACE_.*",
