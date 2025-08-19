@@ -3,11 +3,14 @@
 public
 .*.swp
 node_modules
+package-lock.json
 .config*
 **/.env*
 *.log
 /resources
 .hugo_build.lock
+
+# Content generation
 /content/influxdb*/**/api/**/*.html
 !api-docs/**/.config.yml
 /api-docs/redoc-static.html*
@@ -16,18 +19,22 @@ node_modules
 !telegraf-build/templates
 !telegraf-build/scripts
 !telegraf-build/README.md
+
+# CI/CD tool files
 /cypress/downloads/*
 /cypress/screenshots/*
 /cypress/videos/*
+.lycheecache
 test-results.xml
 /influxdb3cli-build-scripts/content
+tmp
+
+# IDE files
 .vscode/*
 !.vscode/launch.json
 .idea
 **/config.toml
-package-lock.json
-tmp
 
-# Context files for LLMs and AI tools 
+# User context files for AI assistant tools
 .context/*
 !.context/README.md

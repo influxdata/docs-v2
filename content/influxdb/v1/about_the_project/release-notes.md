@@ -10,27 +10,50 @@ aliases:
   - /influxdb/v1/about_the_project/releasenotes-changelog/
 alt_links:
   v2: /influxdb/v2/reference/release-notes/influxdb/
+  enterprise_v1: /enterprise_influxdb/v1/about-the-project/release-notes/
 ---
 
-## v1.12.1 {date="2025-06-26"}
+## v1.12.x {date="TBD"}
+
+> [!Important]
+> #### Pre-release documentation
+>
+> This release is not yet available. [**v{{% latest-patch %}}**](#v1118) is the latest InfluxDB v1 release.
 
 ## Features
 
 - Add additional log output when using
   [`influx_inspect buildtsi`](/influxdb/v1/tools/influx_inspect/#buildtsi) to
   rebuild the TSI index.
+<!-- TODO: Uncomment with 1.12.x release:
 - Use [`influx_inspect export`](/influxdb/v1/tools/influx_inspect/#export) with
   [`-tsmfile` option](/influxdb/v1/tools/influx_inspect/#--tsmfile-tsm_file-) to
   export a single TSM file.
+-->
+<!-- TODO: Remove with 1.12.x release: -->
+- Use [`influx_inspect export`](/influxdb/v1/tools/influx_inspect/#export) with
+  `-tsmfile` option to
+  export a single TSM file.
+
 - Add `fluxQueryRespBytes` metric to the `/debug/vars` metrics endpoint.
+<!-- TODO: Uncomment with 1.12.x release:
 - Add [`aggressive-points-per-block` configuration option](/influxdb/v1/administration/config/#aggressive-points-per-block)
+  to prevent TSM files from not getting fully compacted.
+-->
+<!-- TODO: Remove with 1.12.x release: -->
+- Add `aggressive-points-per-block` configuration option
   to prevent TSM files from not getting fully compacted.
 - Improve error handling.
 - InfluxQL updates:
   - Delete series by retention policy.
+  <!-- TODO: Uncomment with 1.12.x release:
   - Allow retention policies to discard writes that fall within their range, but
     outside of [`FUTURE LIMIT`](/influxdb/v1/query_language/manage-database/#future-limit)
     and [`PAST LIMIT`](/influxdb/v1/query_language/manage-database/#past-limit).
+  -->
+  <!-- TODO: Remove with 1.12.x release: -->
+  - Allow retention policies to discard writes that fall within their range, but
+    outside of `FUTURE LIMIT` and `PAST LIMIT`.
 
 ## Bug fixes
 
